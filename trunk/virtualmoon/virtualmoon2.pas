@@ -37,7 +37,7 @@ uses
   mlb2, Printers,
   Messages, SysUtils, Classes, Dialogs,  math,
   ComCtrls, Mask, Menus, jpeg, Buttons, ToolWin,
-  EnhEdits, IniFiles, Grids, BigIma, HTMLLite;
+  EnhEdits, IniFiles, Grids, BigIma, HTMLLite, passql, passqlite;
 
 type
   TForm1 = class(TForm)
@@ -169,7 +169,6 @@ type
     Label3: TLabel;
     Enregistredist: TButton;
     btnEffacer: TButton;
-    Button10: TButton;
     ToolButton3: TToolButton;
     BMP15001: TMenuItem;
     Eyepiece1: TMenuItem;
@@ -215,6 +214,18 @@ type
     CheckBox3: TCheckBox;
     CheckBox4: TCheckBox;
     CheckBox5: TCheckBox;
+    dbm: TLiteDB;
+    NM: TImage;
+    LabelNM: TLabel;
+    LabelFQ: TLabel;
+    LabelFM: TLabel;
+    LabelLQ: TLabel;
+    FQ: TImage;
+    FM: TImage;
+    LQ: TImage;
+    nextM: TImage;
+    prevM: TImage;
+    Encyclopedia1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -301,7 +312,6 @@ type
       const Value: String);
     procedure EnregistredistClick(Sender: TObject);
     procedure btnEffacerClick(Sender: TObject);
-    procedure Button10Click(Sender: TObject);
     procedure ToolButton3Click(Sender: TObject);
     procedure Button14Click(Sender: TObject);
     procedure BMP15001Click(Sender: TObject);
@@ -324,24 +334,39 @@ type
     procedure CheckBox4Click(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure CheckBox5Click(Sender: TObject);
+    procedure NMClick(Sender: TObject);
+    procedure FQClick(Sender: TObject);
+    procedure FMClick(Sender: TObject);
+    procedure LQClick(Sender: TObject);
+    procedure nextMClick(Sender: TObject);
+    procedure prevMClick(Sender: TObject);
+    procedure Encyclopedia1Click(Sender: TObject);
   private
     { Déclarations privées }
   public
     { Déclarations publiques }
+    Procedure LoadDB;
+    Procedure CreateDB;
+    Procedure ConvertDB(fn,side:string);
     procedure InitGraphic(Sender: TObject);
+    procedure LoadOverlay(fn:string; lum:integer);
+    Procedure SetLabel;
+    function SearchAtPos(l,b: double):boolean;
+    Procedure ListObject(delta: double);
+    procedure SetFullScreen;
+    procedure GetDBgrid;
   end;
 
 var
   Form1: TForm1;
-  db,dblox,dbnotes : TMlb2;
+  dblox,dbnotes : TMlb2;
 
-function InvProjMoon (xx,yy,lc,bc : Double ; VAR l,b : Double ):boolean;
+function InvProjMoon (x,y,lc,bc : Double ; VAR l,b : Double ):boolean;
 function ProjMoon(l,b,lc,bc : Double ; VAR X,Y : Double ):boolean;
 procedure World2Window(xx,yy : double; var x,y : integer);
 procedure Window2World(x,y : integer; var xx,yy : double);
-function SearchAtPos(l,b: double):boolean;
-Procedure GetDetail(memo:Tmemo);
-Procedure GetHTMLDetail(var txt:string);
+Procedure GetDetail(row:TResultRow; memo:Tmemo);
+Procedure GetHTMLDetail(row:TResultRow; var txt:string);
 Procedure RefreshMoonImage;
 Procedure ShowImg(desc,nom:string; forceinternal:boolean);
 function SearchName(n: string; center: boolean):boolean;
@@ -349,8 +374,8 @@ function SearchName(n: string; center: boolean):boolean;
 Procedure OpenHires(forcerebuild:boolean);
 {$ENDIF}
 
-const AVLversion = '2.0';
-      Splashversion ='Version 2.01  2003-11-25';
+const AVLversion = '2.1';
+      Splashversion ='Version 2.1  2004-10-31';
       d1 = '0.0';
       d2 = '0.00';
       Rmoon = 1737.103;  // moon radius Km
@@ -361,7 +386,7 @@ const AVLversion = '2.0';
       crRetic = 5;
       crPointing = 6;
       ox=36; oy=36; os=1500; px=0.95467; py=0.95467; //image 1500x1500, lune 1432x1432
-      nummessage = 72;
+      nummessage = 74;
       MaxLabel=200;
       Label3dSize=0.6;
       Label2dSize=-11;
@@ -384,25 +409,25 @@ const AVLversion = '2.0';
 var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     ReduceTexture,ReduceTextureFar,LastIma,maximgdir,maxima,startx,starty,saveimagesize,lastscrollx,lastscrolly : Integer;
     LeftMargin, PrintTextWidth,clickX,clickY : integer;
-    PrintEph, PrintDesc, MipMaps, GeologicalMap, externalimage, PrintChart,lopamdirect,doublebuf,stencilbuf,hiresok :Boolean;
+    PrintEph, PrintDesc, MipMaps, GeologicalMap, externalimage, PrintChart,lopamdirect,doublebuf,stencilbuf,hiresok,hires500ok :Boolean;
     PicZoom: array of double;
     PicTop,PicLeft: array of integer;
-    librl,librb,lrot,librlong,librlat,wheelstep,EphStep,fov,searchl,searchb,markx,marky,flipx,rotstep,dummy : double;
-    ra,dec,dist,dkm,diam,phase,illum,pa,sunincl,timezone,currentphase,tphase,LabelSize,bx,by,bxpos : double;
-    lunaison,editrow,notesrow,hi_w,hi_wd,hi_dl,rotdirection : integer;
+    librl,librb,lrot,inclination,librlong,librlat,wheelstep,EphStep,fov,searchl,searchb,markx,marky,flipx,rotstep,dummy,lunaison : double;
+    ra,dec,rad,ded,dist,dkm,diam,phase,illum,pa,sunincl,timezone,currentphase,tphase,LabelSize,bx,by,bxpos : double;
+    editrow,notesrow,hi_w,hi_wd,hi_dl,rotdirection,searchpos : integer;
     dbedited : Boolean = false;
     SkipIdent,Firstsearch,phaseeffect,librationeffect,geocentric,FollowNorth,notesok,notesedited,labelcenter,minilabel,SafeMode : boolean;
     useOpenGL,lockmove,lockrepeat,DDEreceiveok,showlabel,showautolabel,showmark,showlibrationmark,marked,saveimagewhite,skipresize : boolean;
     searchtext, imac1, imac2, imac3,lopamplateurl,lopamnameurl,lopamdirecturl,lopamlocalurl,lopamplatesuffix,lopamnamesuffix,lopamdirectsuffix,lopamlocalsuffix,olddatabase : string;
-    externalimagepath,helpprefix,AntiAlias,ruklprefix,ruklsuffix,hiresfile,exitpassword,password,transmsg : string;
+    externalimagepath,helpprefix,AntiAlias,ruklprefix,ruklsuffix,hiresfile,exitpassword,password,transmsg,scopeinterface,markname,sidelist,currentname,currentid : string;
     m : array[1..nummessage] of string;
     shapepositionX, shapepositionY, CameraOrientation, PoleOrientation,startl,startb,startxx,startyy : double;
-    maxfoc, LabelDensity : integer;
+    maxfoc, LabelDensity, overlaylum, phaseoffset : integer;
     minfoc : integer = 100;
     perfdeltay : double =0.00001;
     labelcolor,markcolor,autolabelcolor : Tcolor;
     Ima: array of TBigImaForm;
-    ddeparam,tmpmap,tmpdir,currenttexture,imgsuffix : string;
+    ddeparam,tmpmap,tmpdir,currenttexture,imgsuffix,overlayname : string;
     CielHnd : Thandle;
     lockchart : Boolean = false;
     StartedByDS : Boolean = false;
@@ -415,15 +440,16 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     imgdir : array of array[0..2] of string;
     lf : TLogFont;
     rotatefont : Tfont;
+    rotatefontresol : integer;
     LONGIN,LATIN,WIDEKM,WIDEMI,LENGHTKM,LENGHTMI,FNAME,INTERESTN,DIAMINST,wordformat : integer;
 //    LONGIN,LATIN,WIDEKM,WIDEMI,LENGTHKM,LENGTHMI,FNAME,INTERESTN,DIAMINST : integer;
     Image2D,Eyepiecemask : Tbitmap;
 //    trace : Boolean = false;
     locktrackbar : Boolean = false;
     lockscrollbar: Boolean = false;
-    hires: Tbitmap;
+    hires,hires500,overlayhi,overlayimg: Tbitmap;
     pal : Hpalette;
-    fh : file;                                   
+    fh,fh500 : file;                                   
     eyepiecename: array[1..10]of string;
     eyepiecefield,eyepiecemirror,eyepiecerotation: array[1..10]of integer;
     CurrentEyepiece : integer =0;
@@ -432,14 +458,18 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     phasehash : Boolean = false;
     phaseumbrachanging : Boolean = false;
     phaseumbra: Tcolor;
-    database : array[1..4] of string;
-    usedatabase :array[1..4] of boolean;
-    db_age : array[1..4] of integer;
+    database : array[1..5] of string;
+    usedatabase :array[1..5] of boolean;
+    db_age : array[1..5] of integer;
     farsidetexture : Boolean = true;
+    showoverlay : Boolean = true;
+    LastScopeTracking : double = 0;
+    nmjd,fqjd,fmjd,lqjd,currentl,currentb : double;
+    searchlist: Tstringlist;
 
 implementation
 
-uses config, skylib,planet1, splashunit,Sky_DDE_Util, imglistunit, glossary,
+uses telescope, config, skylib,planet1, splashunit,Sky_DDE_Util, imglistunit, glossary,
   fmsg;
 
 {$R *.DFM}
@@ -447,6 +477,7 @@ uses config, skylib,planet1, splashunit,Sky_DDE_Util, imglistunit, glossary,
 
 {$I vmoon.inc}
 
+//////////////////////////////////////////////
 begin
   ShowWindow(Application.Handle, SW_HIDE);
 end.

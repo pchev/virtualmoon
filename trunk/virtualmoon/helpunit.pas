@@ -49,6 +49,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    docdir:string;
   end;
 
   procedure HelpShow;
@@ -72,7 +73,8 @@ procedure HelpShow;
 begin
 with helpform do begin
 show;
-docpath:=lowercase(stringreplace(appdir,'\','/',[rfReplaceAll])+'/doc/');
+//docpath:=lowercase(stringreplace(appdir,'\','/',[rfReplaceAll])+'/doc/');
+docpath:=lowercase(stringreplace(appdir,'\','/',[rfReplaceAll])+'/'+docdir+'/');
 html1.base:=docpath;
 html1.loadfromfile(docpath+docfile);
 end;
@@ -140,3 +142,7 @@ helpform.Close;
 end;
 
 end.
+
+
+
+

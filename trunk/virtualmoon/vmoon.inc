@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
+
 Function Slash(nom : string) : string;
 begin
 result:=trim(nom);
@@ -210,6 +211,7 @@ msgform.show;
 msgform.Refresh;
 jm:=TJpegImage.Create;
 bm:=Tbitmap.Create;
+filemode:=2;
 assignfile(fh,Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat');
 rewrite(fh,1);
 try
@@ -223,7 +225,7 @@ try
  x:=bm.Width;
  y:=bm.Height;
 // if (x<>2*y)or((x mod 360)<>0)or((512 mod (x div 360))<>0) then raise exception.create('Invalid hires file size.');
- if (x<>11520)or(y<>5760) then raise exception.create('Invalid hires file size, must be 11520x5760');
+// if (x<>11520)or(y<>5760) then raise exception.create('Invalid hires file size, must be 11520x5760');
  for i:=0 to y-1 do begin
    p:=bm.ScanLine[i];
    blockwrite(fh,p[0],x,n);
@@ -252,6 +254,7 @@ begin
     CreateHires(Slash(appdir)+Slash('textures')+hiresfile);
     end;
   end;}
+  // create files if not exists
   if ((
      (not fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat'))or
      (not fileexists(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c1.jpg'))or
@@ -267,19 +270,19 @@ begin
       then begin
         try
          CreateHires(Slash(appdir)+Slash('textures')+hiresfile);
-         {$ifdef vmaexpert}
          CreateLowres(Slash(appdir)+Slash('textures')+hiresfile);
-         {$endif}
         except
          deletefile(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat');
         end;
       end;
+  // open 948m/pixel file
   if fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat') then begin
      hires.Width:=1024;
      hires.Height:=1024;
      hires.PixelFormat:=pf8bit;
      crepalette(pal);
      hires.Palette:=pal;
+     filemode:=0;
      assignfile(fh,Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat');
      reset(fh,1);
      if (hi_w*hi_w/2)=filesize(fh) then hiresok:=true
@@ -293,6 +296,27 @@ begin
      form1.HiresSphere.Start:=0;
      form1.HiresSphere.Stop:=1;
   end else hiresok:=false;
+  // open 474m/pixel file
+  if hiresok and fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.dat') then begin
+     hires500.Width:=1024;
+     hires500.Height:=1024;
+     hires500.PixelFormat:=pf8bit;
+     crepalette(pal);
+     hires500.Palette:=pal;
+     filemode:=0;
+     assignfile(fh500,Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.dat');
+     reset(fh500,1);
+     if (hi_w*hi_w*2)=filesize(fh500) then hires500ok:=true
+                                   else begin
+                                        hires500ok:=false;
+                                        closefile(fh500);
+                                   end;
+     form1.HiresSphere500.visible:=false;
+     form1.HiresSphere500.bottom:=-90;
+     form1.HiresSphere500.Top:=-89;
+     form1.HiresSphere500.Start:=0;
+     form1.HiresSphere500.Stop:=1;
+  end else hires500ok:=false;
 end;
 {$ENDIF}
 
@@ -454,9 +478,20 @@ with inifile do begin
     label1.caption:=ReadString(section,'t_153',label1.caption);
     label2.caption:=ReadString(section,'t_154',label2.caption);
     label21.caption:=ReadString(section,'t_155',label21.caption);
-    
+    Encyclopedia1.caption:=ReadString(section,'t_165',deftxt);
+
     {$ifdef vmalight}
        Toolbutton3.caption:=ReadString(section,'t_130',Toolbutton3.caption);
+    {$endif}
+    {$ifndef vmalight}
+       CheckBox6.caption:=(ReadString(section,'t_156',deftxt));
+       CheckBox7.caption:=(ReadString(section,'t_157',deftxt));
+       label28.caption:=(ReadString(section,'t_158',deftxt));
+       label26.caption:=(ReadString(section,'t_159',deftxt));
+       Groupbox4.caption:=(ReadString(section,'t_160',deftxt));
+       Button16.caption:=(ReadString(section,'t_161',deftxt));
+       Button17.caption:=(ReadString(section,'t_162',deftxt));
+       Button18.caption:=(ReadString(section,'t_163',deftxt));
     {$endif}
     {$ifdef vmaexpert}
        Toolbutton3.caption:=ReadString(section,'t_134',Toolbutton3.caption);
@@ -536,7 +571,6 @@ with inifile do begin
     Label6.caption:=ReadString(section,'t_103',deftxt);
     Label18.caption:=ReadString(section,'t_104',deftxt);
     Label19.caption:=ReadString(section,'t_105',deftxt);
-    button5.caption:=ReadString(section,'t_108',button5.caption);
     TabSheet5.caption:=ReadString(section,'t_109',TabSheet5.caption);
     label24.caption:=ReadString(section,'t_110',label24.caption);
     label25.caption:=ReadString(section,'t_111',label25.caption);
@@ -551,14 +585,14 @@ with inifile do begin
     Checkbox19.caption:=ReadString(section,'t_122',Checkbox19.caption);
     Checkbox20.caption:=ReadString(section,'t_123',Checkbox20.caption);
     Checkbox21.caption:=ReadString(section,'t_131',Checkbox21.caption);
+//    Checkbox22.caption:=ReadString(section,'',Checkbox22.caption);
+    Checkbox23.caption:=ReadString(section,'t_164',Checkbox23.caption);
     label28.caption:=ReadString(section,'t_124',label28.caption);
     GroupBox1.caption:=ReadString(section,'t_129',GroupBox1.caption);
     RadioGroup3.Caption:=ReadString(section,'t_143',deftxt);
     RadioGroup3.Items[0]:=RadioGroup1.Items[0];
     RadioGroup3.Items[1]:=RadioGroup1.Items[1];
     RadioGroup3.Items[2]:=RadioGroup1.Items[2];
-    RadioGroup2.Caption:=ReadString(section,'t_144',deftxt);
-    RadioGroup2.items.clear;
     label29.caption:=ReadString(section,'t_146',label29.caption);
     combobox1.items[0]:=ReadString(section,'t_147',combobox1.items[0]);
     combobox1.items[1]:=ReadString(section,'t_148',combobox1.items[1]);
@@ -567,6 +601,8 @@ with inifile do begin
     combobox2.items[1]:=ReadString(section,'t_150',combobox2.items[1]);
     combobox2.itemindex:=0;
     TabSheet4.caption:=ReadString(section,'t_152',TabSheet4.caption);
+    RadioGroup2.Caption:=ReadString(section,'t_144',deftxt);
+    RadioGroup2.items.clear;
     {$ifdef vmalight}
      RadioGroup2.items.add(ReadString(section,'t_132','Aerograph'));
      RadioGroup2.items.add(ReadString(section,'t_88','Geological Map'));
@@ -574,6 +610,7 @@ with inifile do begin
     {$ifdef vmaexpert}
      RadioGroup2.items.add(ReadString(section,'t_132','Aerograph'));
      RadioGroup2.items.add(ReadString(section,'t_133','Clementine'));
+     if fileexists('version.developpement') then RadioGroup2.items.add(ReadString(section,'t_xxx','Light, for better overlay display'));
     {$endif}
   end;
   imac1:=(ReadString(section,'t_30',deftxt));
@@ -603,7 +640,7 @@ Function GetTimeZone : double;
 var lt,st : TSystemTime;
 begin
  GetLocalTime(lt);GetSystemTime(st);
- result:=round(24000000*(SystemTimeToDateTime(lt)-SystemTimeToDateTime(st)))/1000000;
+ result:=round(240000*(SystemTimeToDateTime(lt)-SystemTimeToDateTime(st)))/10000;
 end;
 
 Function SetWhiteColor(x:integer):TColor;
@@ -628,7 +665,7 @@ end;
 
 Procedure InitDBKeys;
 begin
-LONGIN:=db.GetFieldIndex('LONGIN');
+{LONGIN:=db.GetFieldIndex('LONGIN');
 LATIN:=db.GetFieldIndex('LATIN');
 WIDEKM:=db.GetFieldIndex('WIDEKM');
 WIDEMI:=db.GetFieldIndex('WIDEMI');
@@ -638,7 +675,7 @@ LENGHTMI:=db.GetFieldIndex('LENGHTMI');
 //LENGTHMI:=db.GetFieldIndex('LENGTHMI');
 FNAME:=db.GetFieldIndex('NAME');
 INTERESTN:=db.GetFieldIndex('INTERESTN');
-DIAMINST:=db.GetFieldIndex('DIAMINST');
+DIAMINST:=db.GetFieldIndex('DIAMINST'); }
 end;
 
 Procedure AddImages(dir,nom,cpy:string);
@@ -675,6 +712,7 @@ end;
 addimages(slash(appdir)+'Clementine','Clementine','');
 addimages(slash(appdir)+'Probes','Probes','');
 addimages(slash(appdir)+'LunaStars','LunaStars','');
+addimages(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association');
 end;
 
 {$IFDEF opengl}
@@ -705,7 +743,7 @@ var ls:double;
 Function Shows(l:double; sphere:TSphere; n:boolean):boolean;
 var p:double;
 begin
-if (n and (librb>0.5))or(not n and (librb<-0.5)) then result:=true
+if (n and (librb>0.5))or(not n and (librb<-0.5))or(inclination<>0) then result:=true
 else begin
   with form1 do p:=angulardistance(l,0,(sphere.Start+sphere.Stop)/2,0);
   if p<135 then result:=true
@@ -752,9 +790,10 @@ begin
 SafeMode:=false;
 database[1]:='Nearside_Named_FR.csv';
 usedatabase[1]:=true;
-usedatabase[2]:=false;
+usedatabase[2]:=true;
 usedatabase[3]:=true;
-usedatabase[4]:=false;
+usedatabase[4]:=true;
+usedatabase[5]:=true;
 Obslatitude:=46;
 Obslongitude:=-6;
 timezone:=gettimezone;
@@ -762,6 +801,7 @@ Obsaltitude:=0;
 phaseeffect:=true;
 librationeffect:=true;
 geocentric:=false;
+showoverlay:=false;
 useOpenGL:=true;
 wheelstep:=1.05;
 labelcolor:=clYellow;
@@ -779,7 +819,7 @@ LabelSize:=1;
 saveimagesize:=0;
 saveimagewhite:=false;
 ReduceTexture:=1;
-ReduceTextureFar:=2;
+ReduceTextureFar:=1;
 lastima:=0;
 currentphase:=-999;
 fov:=45;
@@ -805,6 +845,7 @@ externalimagepath:='mspaint.exe';
 hiresfile:='hires.jpg';
 imgsuffix:='';
 hiresok:=false;
+hires500ok:=false;
 hi_w:=11520;
 hi_dl:=32;
 hi_wd:=16;
@@ -845,8 +886,8 @@ PrintChart:=ReadBool(section,'PrintChart',PrintChart);
 PrintEph:=ReadBool(section,'PrintEph',PrintEph);
 PrintDesc:=ReadBool(section,'PrintDesc',PrintDesc);
 section:='default';
-for i:=1 to 4 do usedatabase[i]:=ReadBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
-for i:=1 to 4 do db_age[i]:=ReadInteger(section,'DB_Age'+inttostr(i),0);
+for i:=1 to 5 do usedatabase[i]:=ReadBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
+for i:=1 to 5 do db_age[i]:=ReadInteger(section,'DB_Age'+inttostr(i),0);
 doublebuf:=ReadBool(section,'DoubleBuffer',doublebuf);
 stencilbuf:=ReadBool(section,'StencilBuffer',stencilbuf);
 farsidetexture:=ReadBool(section,'farsidetexture',farsidetexture);
@@ -854,7 +895,7 @@ antialias:=ReadString(section,'AntiAlias',antialias);
 appdir:=ReadString(section,'Install_Dir',appdir);
 Obslatitude:=ReadFloat(section,'Obslatitude',Obslatitude);
 Obslongitude:=ReadFloat(section,'Obslongitude',Obslongitude);
-timezone:=ReadFloat(section,'TimeZone',timezone);
+//timezone:=ReadFloat(section,'TimeZone',timezone);
 phaseeffect:=ReadBool(section,'PhaseEffect',phaseeffect);
 mipmaps:=ReadBool(section,'MipMaps',mipmaps);
 GeologicalMap:=ReadBool(section,'GeologicalMap',GeologicalMap);
@@ -898,6 +939,9 @@ for j:=1 to 10 do begin
   eyepiecerotation[j]:=ReadInteger(section,'eyepiecerotation'+inttostr(j),eyepiecerotation[j]);
 end;
 {$ifdef vmaexpert}
+ overlayname:=ReadString(section,'overlayname','Natural Color.jpg');
+ overlaylum:=ReadInteger(section,'overlaylum',0);
+ showoverlay:=ReadBool(section,'showoverlay',true);
  Geocentric:=ReadBool(section,'Geocentric',Geocentric);
  if copy(hiresfile,6,1)<>'.' then begin
    i:=pos('.',hiresfile);
@@ -909,11 +953,16 @@ end;
   Geocentric:=ReadBool(section,'Geocentric',Geocentric);
   usedatabase[3]:=false;
   usedatabase[4]:=false;
+  showoverlay:=false;
   ReduceTextureFar:=4;
   hiresfile:='hires.jpg';
   imgsuffix:='';
 {$endif}
+{$ifndef vmalight}
+  scopeinterface:=ReadString(section,'telescope','Ascom');
+{$endif}
 {$ifdef vmalight}
+  showoverlay:=false;
   usedatabase[2]:=false;
   usedatabase[4]:=false;
 {$endif}
@@ -971,6 +1020,7 @@ if useOpenGL then with form1 do begin
   180 : smooth:=64;
   end;
   hiressphere.Slices:=smooth ; hiressphere.Stacks:=smooth ;
+  hiressphere500.Slices:=smooth ; hiressphere500.Stacks:=smooth ;
   form1.glscene1.EndUpdate;
 end;
 {$ENDIF}
@@ -984,6 +1034,7 @@ var
 begin
 if safemode then exit;
 inif:=Tmeminifile.create(Slash(AppDir)+'virtualmoon.ini');
+try
 section:='default';
 with inif do begin
   if not(ValueExists(section,'Install_Dir')) then WriteString(section,'Install_Dir',appdir);
@@ -996,23 +1047,32 @@ with inif do begin
   WriteBool(section,'LibrationEffect',librationeffect);
   {$ENDIF}
 {$ifdef vmaexpert}
-  for i:=1 to 4 do WriteBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
-  for i:=1 to 4 do WriteInteger(section,'DB_Age'+inttostr(i),db_age[i]);
+  for i:=1 to 5 do WriteBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
+  for i:=1 to 5 do WriteInteger(section,'DB_Age'+inttostr(i),db_age[i]);
   WriteInteger(section,'ReduceTextureFar',ReduceTextureFar);
   WriteString(section,'hiresfile',hiresfile);
   WriteBool(section,'Geocentric',Geocentric);
+  WriteString(section,'overlayname',overlayname);
+  WriteInteger(section,'overlaylum',overlaylum);
+  WriteBool(section,'showoverlay',showoverlay);
+  WriteString(section,'telescope',form1.Combobox5.text);
 {$endif}
 {$ifdef vmabasic}
   WriteBool(section,'farsidetexture',farsidetexture);
   for i:=1 to 2 do WriteBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
   for i:=1 to 2 do WriteInteger(section,'DB_Age'+inttostr(i),db_age[i]);
+  WriteBool(section,'UseDatabase'+inttostr(5),usedatabase[5]);
+  WriteInteger(section,'DB_Age'+inttostr(5),db_age[5]);
   WriteBool(section,'Geocentric',Geocentric);
+  WriteString(section,'telescope',form1.Combobox5.text);
 {$endif}
 {$ifdef vmalight}
   WriteBool(section,'UseDatabase'+inttostr(1),usedatabase[1]);
   WriteBool(section,'UseDatabase'+inttostr(3),usedatabase[3]);
+  WriteBool(section,'UseDatabase'+inttostr(5),usedatabase[5]);
   WriteInteger(section,'DB_Age'+inttostr(1),db_age[1]);
   WriteInteger(section,'DB_Age'+inttostr(3),db_age[3]);
+  WriteInteger(section,'DB_Age'+inttostr(5),db_age[5]);
 {$endif}
   WriteFloat(section,'Obslatitude',Obslatitude);
   WriteFloat(section,'Obslongitude',Obslongitude);
@@ -1089,7 +1149,9 @@ with inif do begin
   WriteBool(section,'PrintDesc',PrintDesc);
   inif.UpdateFile
 end;
+finally
 inif.Free;
+end;
 end;
 
 
@@ -1102,42 +1164,35 @@ else
 end ;
 
 function ProjMoon(l,b,lc,bc : Double ; VAR X,Y : Double ):boolean;
-Var hh,s1,s2,c1,c2,c3 : Double ;
+Var hh,s1,s2,s3,c1,c2,c3 : extended ;
 BEGIN
+ if inclination=0 then begin
     hh := l-lc+lrot ;
     if hh>180 then hh:=hh-360;
     if hh<-180 then hh:=hh+360;
     if (abs(hh)>95) then begin result:=false; exit; end;   // tolerance sur le limbe.
-    hh := DegToRad(hh) ;
-    bc := DegToRad(bc) ;
-    b  := DegToRad(b) ;
-    s1:=sin(bc);
-    s2:=sin(b);
-    c1:=cos(bc);
-    c2:=cos(b);
-    c3:=cos(hh);
-    x:= -(c2*sin(hh));
+    sincos(Deg2Rad*bc,s1,c1);
+    sincos(Deg2Rad*b,s2,c2);
+    sincos(Deg2Rad*hh,s3,c3);
+    x:= -(c2*s3);
     y:= (s2*c1-c2*s1*c3);
     x:=sgn(x)*minvalue([abs(x),10000])/2;
     y:=sgn(y)*minvalue([abs(y),10000])/2;
     result:=true;
+ end else result:=false;   
 END ;
 
-function InvProjMoon (xx,yy,lc,bc : Double ; VAR l,b : Double ):boolean;
-Var r,s1,c1,x,y,s : Double ;
+function InvProjMoon (x,y,lc,bc : Double ; VAR l,b : Double ):boolean;
+Var r,s1,c1,s : extended ;
 Begin
-    x:=xx;
-    y:=yy;
-    bc:=degtorad(bc);
-    s1:=sin(bc);
-    c1:=cos(bc);
+    sincos(deg2rad*bc,s1,c1);
     s:=1-x*x-y*y;
-    if s>=0 then begin
+    if (inclination=0)and(s>=0) then begin
       r:=sqrt(s);
-      l:=lc-lrot-radtodeg(arctan2(x,(c1*r-y*s1)));
+      l:=lc-lrot-rad2deg*arctan2(x,(c1*r-y*s1));
       if l>180 then l:=l-360;
       if l<-180 then l:=360+l;
-      b:=radtodeg(arcsin(y*c1+s1*r));
+      b:=rad2deg*arcsin(y*c1+s1*r);
       result:=true;
     end else begin
       l:=nan;
@@ -1145,6 +1200,26 @@ Begin
       result:=false;
     end;
 end ;
+
+procedure Moon2RaDec(x,y: Double; var r,d: double);
+var spa,cpa,s :extended;
+begin
+sincos(deg2rad*pa,spa,cpa);
+s:=diam/3600;
+r:=rad+(cpa*x+spa*y)*s/15/cos(deg2rad*ded);
+d:=ded+(cpa*y-spa*x)*s;
+end;
+
+procedure RaDec2Moon(r,d: double; var x,y:double);
+var spa,cpa,s :extended;
+begin
+sincos(-deg2rad*pa,spa,cpa);
+s:=diam/3600;
+r:=(r-rad)*15*cos(deg2rad*ded)/s;
+d:=(d-ded)/s;
+x:=cpa*r+spa*d;
+y:=cpa*d-spa*r;
+end;
 
 procedure InitLabel;
 {$IFDEF opengl}
@@ -1178,19 +1253,16 @@ if s='' then result:=-1 else begin
 end;
 end;
 
-Procedure SetLabel;
+Procedure Tform1.SetLabel;
 var l,b,l1,b1,deltab,deltal,x,y,w,wmin,wfact: double;
-    rec,xx,yy : integer;
-    ok,miniok : boolean;
+    xx,yy,j : integer;
+    miniok : boolean;
     nom,let:string;
     ts: Tsize;
 {$IFDEF opengl}
     curlab,i : integer;
 {$ENDIF}
 begin
-rec:=db.GetPosition;
-db.gofirst;
-db.BeginSeek(MLB_FORWARD);
 {$IFDEF opengl}
 curlab:=0;
 if useOpenGL then begin
@@ -1221,20 +1293,25 @@ w:=maxfoc/minfoc;
 LabelDensity:=maxintvalue([100,LabelDensity]);
 if (zoom>3)and(zoom>=w) then wmin:=-1
            else wmin:=minvalue([650,1.5*LabelDensity/(zoom*zoom)]);
-repeat
-  ok:=db.SeekFloat('LONGIN','>',l-deltal);
-  l1:=db.GetFloatbyindex(LONGIN);
-  if l1>(l+deltal) then continue;
-  b1:=db.GetFloatbyindex(LATIN);
-  if b1<(b-deltab) then continue;
-  if b1>(b+deltab) then continue;
-  w:=testfloat(db.GetDatabyindex(WIDEKM));
-  if w<=0 then w:=1.67*testfloat(db.GetDatabyindex(WIDEMI));
-  if w<=0 then w:=testfloat(db.GetDatabyindex(LENGHTKM));
-  if w<=0 then w:=1.67*testfloat(db.GetDatabyindex(LENGHTMI));
+
+dbm.Query('select NAME,LONGIN,LATIN,WIDEKM,WIDEMI,LENGTHKM,LENGTHMI from moon'+
+            ' where SIDE in ('+sidelist+')'+
+            ' and LONGIN > '+formatfloat(d2,l-deltal)+
+            ' and LONGIN < '+formatfloat(d2,l+deltal)+
+            ' and LATIN > '+formatfloat(d2,b-deltab)+
+            ' and LATIN < '+formatfloat(d2,b+deltab)+
+            ' and (WIDEKM=0 or WIDEKM>='+formatfloat(d2,(wmin*wfact)/2.5)+')'+
+            ' ;');
+for j:=0 to dbm.RowCount-1 do begin
+  l1:=dbm.Results[j].Format[1].AsFloat;
+  b1:=dbm.Results[j].Format[2].AsFloat;
+  w:=dbm.Results[j].Format[3].AsFloat;
+  if w<=0 then w:=1.67*dbm.Results[j].Format[4].AsFloat;
+//  if w<=0 then w:=dbm.Results[j].Format[5].AsFloat;
+//  if w<=0 then w:=1.67*dbm.Results[j].Format[6].AsFloat;
   if (w>200)and(abs(l1)>90) then w:=2.5*w; // moins de grosse formation face cachee
   if w<(wmin*wfact) then continue;
-  nom:=db.GetDatabyindex(FNAME);
+  nom:=dbm.Results[j][0];
   {$IFDEF opengl}
   if useopengl and marked and (form1.hudtext1.Text=nom) then continue;
   {$ENDIF}
@@ -1297,12 +1374,11 @@ repeat
     end;
     end;
   end;  
-until db.EndOfFile or (not ok);
+end;
 {$IFDEF opengl}
 if useopengl then for i:=curlab to Maxlabel do
   with form1.DummyCube4.Children[i] as ThudText do visible:=false;
 {$ENDIF}
-db.go(rec);
 end;
 
 Procedure ClearLabel;
@@ -1344,6 +1420,7 @@ if useOpenGL then begin
   form1.glscene1.BeginUpdate;
   world2window(x,y,xx,yy);
   marked:=true;
+  markname:=txt;
   if showmark then begin
      hudsprite1.Visible:=true;
      hudsprite1.Material.FrontProperties.Emission.AsWinColor:=MarkColor;
@@ -1374,6 +1451,7 @@ end else
     label5.Visible:=false;
   end else begin
   marked:=true;
+  markname:=txt;
   world2window(x,y,xx,yy);
   if showmark then with image1.canvas do begin
      shape1.Visible:=true;
@@ -1902,6 +1980,7 @@ begin
     application.ProcessMessages;
     if ParamW > 0 then begin
        chdir(appdir);
+       filemode:=0;
        assignfile(f,'@@param@@');
        reset(f);
        param.Clear;
@@ -2060,6 +2139,86 @@ except
 end;
 end;
 
+procedure TForm1.LoadOverlay(fn:string; lum:integer);
+{$ifdef opengl}
+var i,n,ws,hs,x0,y0 : integer;
+    b : Tbitmap;
+    j : Tjpegimage;
+    p: Pbytearray;
+    src,dest: Trect;
+    max :double;
+const slice: array[1..8] of integer = (6,1,2,5,8,3,4,7);
+{$endif}
+begin
+{$ifdef opengl}
+if showoverlay and fileexists(Slash(appdir)+Slash('textures')+Slash('overlay')+fn) then begin
+   j:=TJpegImage.Create;
+   b:=Tbitmap.Create;
+   try
+   j.LoadFromFile(Slash(appdir)+Slash('textures')+Slash('overlay')+fn);
+   overlayimg.assign(j);
+   if (lum<>0) then begin
+    max:=(255-lum)/255;
+    for i:=0 to overlayimg.height-1 do begin
+     p:=overlayimg.scanline[i];
+     for n:=0 to overlayimg.width-1 do begin
+       case overlayimg.pixelformat of
+         pf8bit  : p[n]:=lum+trunc(p[n]*max);
+         pf24bit : begin
+                   p[3*n]:=lum+trunc(p[3*n]*max);
+                   p[3*n+1]:=lum+trunc(p[3*n+1]*max);
+                   p[3*n+2]:=lum+trunc(p[3*n+2]*max);
+                   end;
+       end;
+     end;
+    end;
+   end;
+   ws:=overlayimg.Width div 4;
+   hs:=overlayimg.Height div 2;
+   b.Width:=ws;
+   b.Height:=hs;
+   for i:=1 to 8 do begin
+     n:=slice[i]+8;
+     if i<=4 then begin
+        x0:=(i-1)*ws;
+        y0:=0;
+     end else begin
+        x0:=(i-5)*ws;
+        y0:=hs;
+     end;
+     dest:=rect(0,0,ws,hs);
+     src:=rect(x0,y0,x0+ws,y0+hs);
+     b.Canvas.CopyRect(dest,overlayimg.canvas,src);
+     GLmaterialLibrary1.Materials[n].Material.Texture.Disabled:=false;
+     GLmaterialLibrary1.Materials[n].Material.Texture.Image.Assign(b);
+     GLMaterialLibrary1.Materials[n].TextureScale.X:=0.999;
+     GLMaterialLibrary1.Materials[n].TextureScale.Y:=0.999;
+   end;
+   if fileexists(slash('Textures')+slash('overlay')+slash('caption')+overlayname) then begin
+      OverlayCaption1.Caption:=remext(overlayname)+' '+'Caption';
+      OverlayCaption2.Caption:=OverlayCaption1.Caption;
+      OverlayCaption1.visible:=true;
+      OverlayCaption2.visible:=true;
+   end else begin
+      OverlayCaption1.visible:=false;
+      OverlayCaption2.visible:=false;
+   end;
+   finally
+   j.free;
+   b.free;
+   end;
+end else begin
+   showoverlay:=false;
+   OverlayCaption1.visible:=false;
+   OverlayCaption2.visible:=false;
+   for i:=1 to 8 do begin
+     n:=slice[i]+8;
+     GLmaterialLibrary1.Materials[n].Material.Texture.Disabled:=true;
+   end;  
+end;
+{$endif}
+end;
+
 procedure TForm1.InitGraphic(Sender: TObject);
 var j : Tjpegimage;
     b : Tbitmap;
@@ -2068,6 +2227,8 @@ var j : Tjpegimage;
   Procedure LoadTexture(n,r:integer; img:string);
   begin
   GLmaterialLibrary1.Materials[n].Material.Texture.Disabled:=false;
+  GLMaterialLibrary1.Materials[n].TextureScale.X:=0.999;
+  GLMaterialLibrary1.Materials[n].TextureScale.Y:=0.999;
   j.LoadFromFile(Slash(appdir)+Slash('textures')+img);
   if r=1 then GLmaterialLibrary1.Materials[n].Material.Texture.Image.Assign(j)
   else begin
@@ -2159,6 +2320,7 @@ if useOpenGL then begin
   CheckBox5.Checked:=farsidetexture;
   SetMinFilter(MipMaps);
   SetMirror(checkbox2.checked);
+  LoadOverlay(overlayname,overlaylum);
 end else
 {$ENDIF}
 begin
@@ -2213,6 +2375,21 @@ j.free;
 b.Free;
 end;
 
+Procedure SetRotateFont(prtresol:integer);
+begin
+// prepare rotated font
+rotatefontresol:=prtresol;
+FillChar(lf, SizeOf(lf), Byte(0));
+lf.lfHeight := round(-75*prtresol/300);
+lf.lfEscapement := 10 * 90; // Nombre de degrés de rotation
+lf.lfOrientation := 10 * 90;
+lf.lfCharSet := DEFAULT_CHARSET;
+StrCopy(lf.lfFaceName, 'Arial');
+lf.lfWeight:=1000;
+rotatefont := TFont.Create;
+rotatefont.Handle := CreateFontIndirect(lf);
+end;
+
 Procedure TForm1.FormCreate(Sender: TObject);
 var tmpp : pchar;
     i : integer;
@@ -2232,6 +2409,7 @@ OldWindowProc := Pointer(SetWindowLong(Form1.Handle,
                                        GWL_WNDPROC,
                                        LongInt(@NewWindowProc)));
 decimalseparator:='.';
+searchlist:=Tstringlist.Create;
 param:=Tstringlist.Create;
 param.clear;
 getmem(tmpp,255);
@@ -2242,6 +2420,9 @@ tmpmap:=tmpdir+'$tmpmap.bmp';
 image2d:=Tbitmap.Create;
 eyepiecemask:=Tbitmap.Create;
 hires:=Tbitmap.create;
+hires500:=Tbitmap.create;
+overlayhi:=Tbitmap.Create;
+overlayimg:=Tbitmap.Create;
 // hide developpement tools or not finished function
 if not fileexists('version.developpement') then begin
   debuglabel.visible:=false;
@@ -2249,12 +2430,19 @@ if not fileexists('version.developpement') then begin
   Enregistredist.Visible:=false;
   BMP15001.Visible:=false;
   BMP30001.Visible:=false;
+  {$ifndef vmalight}
+   label27.visible:=false;
+   speedbutton7.visible:=false;
+   trackbar6.visible:=false;
+  {$endif}
 end;
 {$ifdef vmabasic}
   ToolButton3.Visible:=false;
+  GroupBox4.visible:=true;
 {$endif}
 {$ifdef vmaexpert}
   checkbox5.Visible:=false;
+  GroupBox4.visible:=true;
 {$endif}
 SetLang1;
 readdefault;
@@ -2263,23 +2451,14 @@ Screen.Cursors[crPointing] := LoadCursor(HInstance,'POINTING');
 librl:=0;
 librb:=0;
 lrot:=0;
+inclination:=0;
 zoom:=1;
 SkipIdent:=false;
-db := TMlb2.Create;
 dblox := TMlb2.Create;
 dbnotes := TMlb2.Create;
 GetSkyChartInfo;
 CartesduCiel1.Visible := cieldir>'';
-// prepare rotated font
-FillChar(lf, SizeOf(lf), Byte(0));
-lf.lfHeight := -28;
-lf.lfEscapement := 10 * 45; // Nombre de degrés de rotation
-lf.lfOrientation := 10 * 45;
-lf.lfCharSet := DEFAULT_CHARSET;
-StrCopy(lf.lfFaceName, 'Arial');
-lf.lfWeight:=1000;
-rotatefont := TFont.Create;
-rotatefont.Handle := CreateFontIndirect(lf);
+SetRotateFont(300);
 InitGraphic(sender);
 if paramcount>0 then begin
    for i:=1 to paramcount do begin
@@ -2290,8 +2469,7 @@ end;
 end;
 
 Procedure UpdTerminateur;
-var interest,diam : integer;
-    ok: boolean;
+var interest,diam,i : integer;
     l1,l2:double;
     buf:string;
 begin
@@ -2309,88 +2487,87 @@ diam:=strtointdef(combobox3.Text,5);
 interest:=combobox2.itemindex+1;
 try
 listbox1.Items.BeginUpdate;
-db.GoFirst;
-db.BeginSeek(MLB_FORWARD);
-ok:=db.SeekFloat('LONGIN','>',l1);
-while ok do begin
-  if ok and db.MatchFloat('LONGIN','<',l2) and db.MatchFloat('INTERESTN','>=',interest) and db.MatchFloat('DIAMINST','<=',diam) then begin
+dbm.Query('select NAME,LATIN,INTERESTN,DIAMINST from moon '+
+          ' where longin>'+formatfloat(d2,l1)+
+          ' and longin<'+formatfloat(d2,l2)+
+          ' and SIDE in ('+sidelist+')'+
+          ' and INTERESTN >='+inttostr(interest)+
+          ' and DIAMINST <='+inttostr(diam) );
+for i:=0 to dbm.rowcount-1 do begin
      case RadioGroup1.ItemIndex of
-     0 : listbox1.Items.Add(db.GetDatabyindex(FNAME));
-     1 : listbox1.Items.Add(inttostr(round(5-db.GetFloatbyindex(INTERESTN)))+' '+db.GetDatabyindex(FNAME));
-     2 : listbox1.Items.Add(formatfloat('000',db.GetFloatbyindex(DIAMINST))+' '+db.GetDatabyindex(FNAME));
+     0 : listbox1.Items.Add(dbm.Results[i][0]);
+     1 : listbox1.Items.Add(inttostr(5-dbm.Results[i].format[2].asinteger)+' '+dbm.Results[i][0]);
+     2 : listbox1.Items.Add(formatfloat('000',dbm.Results[i].format[3].asfloat)+' '+dbm.Results[i][0]);
      3 : begin
-         buf:=demtostr(db.GetFloatbyindex(LATIN))+' '+db.GetDatabyindex(FNAME);
-//         if db.GetFloatbyindex(LATIN)>=0 then buf:=' '+buf;
+         buf:=demtostr(dbm.Results[i].format[1].asfloat)+' '+dbm.Results[i][0];
          listbox1.Items.Add(buf);
          end;
      end;
-  end;
-  ok:=db.SeekFloat('LONGIN','>',l1) and (not db.EndOfFile);
 end;
 finally
 listbox1.Items.EndUpdate;
 if listbox1.Items.Count=0 then listbox1.Items.Add(m[27]);
-db.EndSeek;
 end;
 end;
 end;
 
-Procedure ListObject(delta: double);
-var l,b,l1,b1,deltal: double;
-    ok : boolean;
+Procedure Tform1.ListObject(delta: double);
+var l,b,deltal: double;
+    i : integer;
 begin
-l:=db.GetFloatbyindex(LONGIN);
-b:=db.GetFloatbyindex(LATIN);
+l:=currentl;
+b:=currentb;
 deltal:=delta/cos(deg2rad*b);
-db.gofirst;
-db.BeginSeek(MLB_FORWARD);
 with imglist do begin
 behavior:=formation;
 imglist.caption:=copy(form1.ToolButton10.Caption,2,99);
 imglst.Clear;
-repeat
-  ok:=db.SeekFloat('LONGIN','>',l-deltal);
-  if ok then begin
-    l1:=db.GetFloatbyindex(LONGIN);
-    if l1>(l+deltal) then continue;
-    b1:=db.GetFloatbyindex(LATIN);
-    if b1<(b-delta) then continue;
-    if b1>(b+delta) then continue;
-    imglst.items.add(db.GetDatabyindex(FNAME));
-  end;
-until db.EndOfFile or (not ok);// or (l1>l+10);
+dbm.query('select NAME from moon '+
+            ' where SIDE in ('+sidelist+')'+
+            ' and LONGIN > '+formatfloat(d2,l-deltal)+
+            ' and LONGIN < '+formatfloat(d2,l+deltal)+
+            ' and LATIN > '+formatfloat(d2,b-delta)+
+            ' and LATIN < '+formatfloat(d2,b+delta)+
+            ' ;');
+for i:=0 to dbm.RowCount-1 do begin
+   imglst.items.add(dbm.Results[i][0]);
+end;
 if not imglist.visible then FormPos(imglist,mouse.cursorpos.x,mouse.cursorpos.y);
 imglist.Show;
 end;
 end;
 
-function SearchAtPos(l,b: double):boolean;
+function Tform1.SearchAtPos(l,b: double):boolean;
 var mindist,d,l1,b1,deltab,deltal: double;
-    rec : integer;
-    ok : boolean;
+    rec,i : integer;
 begin
 mindist:=9999;
-rec:=db.GetPosition;
-db.gofirst;
-db.BeginSeek(MLB_FORWARD);
 result:=false;
+rec:=0;
 deltab:=5;
 deltal:=deltab/cos(deg2rad*b);
-repeat
-  ok:=db.SeekFloat('LONGIN','>',l-deltal);
-  l1:=db.GetFloatbyindex(LONGIN);
-  if l1>(l+deltal) then continue;
-  b1:=db.GetFloatbyindex(LATIN);
-  if b1<(b-deltab) then continue;
-  if b1>(b+deltab) then continue;
+dbm.query('select ID,LONGIN,LATIN from moon '+
+            ' where SIDE in ('+sidelist+')'+
+            ' and LONGIN > '+formatfloat(d2,l-deltal)+
+            ' and LONGIN < '+formatfloat(d2,l+deltal)+
+            ' and LATIN > '+formatfloat(d2,b-deltab)+
+            ' and LATIN < '+formatfloat(d2,b+deltab)+
+            ' ;');
+for i:=0 to dbm.RowCount-1 do begin
+  l1:=dbm.Results[i].format[1].AsFloat;
+  b1:=dbm.Results[i].format[2].AsFloat;
   d:=angulardistance(l,b,l1,b1);
   if d<mindist then begin
      result:=true;
      mindist:=d;
-     rec:=db.GetPosition;
+     rec:=dbm.Results[i].Format[0].AsInteger;
   end;
-until db.EndOfFile or (not ok);// or (l1>l+10);
-db.go(rec);
+end;
+if result then begin
+   currentid:=inttostr(rec);
+   dbm.query('select * from moon where ID='+currentid+';');
+   result:=dbm.RowCount>0;
+end;   
 end;
 
 Procedure AddToList(buf:string);
@@ -2405,23 +2582,21 @@ combobox1.ItemIndex:=0;
 end;
 end;
 
-Procedure GetDetail(memo:Tmemo);
+Procedure GetDetail(row:TResultRow; memo:Tmemo);
 const b=' ';
 var nom,carte,buf,buf2,txt : string;
     ok  : boolean;
     i:integer;
 begin
 with form1 do begin
-  nom:=db.GetData('NAME');
+  nom:=row.ByField['NAME'].AsString;
   memo.Lines.Add(nom);
-  memo.Lines.Add(m[56]+b+db.GetData('TYPE'));
-  memo.Lines.Add(m[49]+b+db.GetData('PERIOD'));
-//  memo.Lines.Add(b);
+  memo.Lines.Add(m[56]+b+row.ByField['TYPE'].AsString);
+  memo.Lines.Add(m[49]+b+row.ByField['PERIOD'].AsString);
   memo.Lines.Add(m[57]); //Taille
-//  memo.Lines.Add(m[17]+b+db.GetData('LENGHTKM')+'x'+db.GetData('WIDEKM')+m[18]+b+'/'+b+db.GetData('LENGHTMI')+'x'+db.GetData('WIDEMI')+m[19]);
-  memo.Lines.Add(m[17]+b+db.GetData('LENGTHKM')+'x'+db.GetData('WIDEKM')+m[18]+b+'/'+b+db.GetData('LENGTHMI')+'x'+db.GetData('WIDEMI')+m[19]);
-  buf:=db.GetData('HEIGHTM');
-  buf2:=db.GetData('HEIGHTFE');
+  memo.Lines.Add(m[17]+b+row.ByField['LENGTHKM'].AsString+'x'+row.ByField['WIDEKM'].AsString+m[18]+b+'/'+b+row.ByField['LENGTHMI'].AsString+'x'+row.ByField['WIDEMI'].AsString+m[19]);
+  buf:=row.ByField['HEIGHTM'].AsString;
+  buf2:=row.ByField['HEIGHTFE'].AsString;
   if buf=buf2 then txt:=m[20]+b+buf  // inconnue
   else begin
      txt:=m[20]+b;
@@ -2431,38 +2606,38 @@ with form1 do begin
      if i=0 then txt:=txt+buf2+m[22];
   end;
   memo.Lines.Add(txt);
-  memo.Lines.Add(m[23]+b+db.GetData('RAPPORT'));
+  memo.Lines.Add(m[23]+b+row.ByField['RAPPORT'].AsString);
 //  memo.Lines.Add(b);
   memo.Lines.Add(m[58]); //Description
-  if db.GetData('GENERAL')>'' then memo.Lines.Add(db.GetData('GENERAL'));
-  if db.GetData('SLOPES')>'' then memo.Lines.Add(db.GetData('SLOPES'));
-  if db.GetData('WALLS')>'' then memo.Lines.Add(db.GetData('WALLS'));
-  if db.GetData('FLOOR')>'' then memo.Lines.Add(db.GetData('FLOOR'));
+  if row.ByField['GENERAL'].AsString>'' then memo.Lines.Add(row.ByField['GENERAL'].AsString);
+  if row.ByField['SLOPES'].AsString>'' then memo.Lines.Add(row.ByField['SLOPES'].AsString);
+  if row.ByField['WALLS'].AsString>'' then memo.Lines.Add(row.ByField['WALLS'].AsString);
+  if row.ByField['FLOOR'].AsString>'' then memo.Lines.Add(row.ByField['FLOOR'].AsString);
 //  memo.Lines.Add(b);
   memo.Lines.Add(m[59]); //Observation
-  memo.Lines.Add(m[24]+b+db.GetData('INTERESTC'));
-  buf:=db.GetData('MOONDAYS');
-  buf2:=db.GetData('MOONDAYM');
+  memo.Lines.Add(m[24]+b+row.ByField['INTERESTC'].AsString);
+  buf:=row.ByField['MOONDAYS'].AsString;
+  buf2:=row.ByField['MOONDAYM'].AsString;
   if buf=buf2 then txt:=m[25]+b+buf
               else txt:=m[25]+b+buf+b+m[26]+b+buf2;
   memo.Lines.Add(txt);
-  memo.Lines.Add(m[28]+b+db.GetData('PRINSTRU'));
+  memo.Lines.Add(m[28]+b+row.ByField['PRINSTRU'].AsString);
 //  memo.Lines.Add(b);
   memo.Lines.Add(m[60]); //Position
-  memo.Lines.Add(m[10]+b+db.GetData('LONGIC'));
-  memo.Lines.Add(m[11]+b+db.GetData('LATIC'));
-  memo.Lines.Add(m[12]+b+db.GetData('QUADRANT'));
-  memo.Lines.Add(m[13]+b+db.GetData('AREA'));
+  memo.Lines.Add(m[10]+b+row.ByField['LONGIC'].AsString);
+  memo.Lines.Add(m[11]+b+row.ByField['LATIC'].AsString);
+  memo.Lines.Add(m[12]+b+row.ByField['QUADRANT'].AsString);
+  memo.Lines.Add(m[13]+b+row.ByField['AREA'].AsString);
 //  memo.Lines.Add(b);
   memo.Lines.Add(m[61]); //Atlas
-  memo.Lines.Add(m[14]+b+db.GetData('RUKL')+' '+db.GetData('RUKLC'));
-  buf:=db.GetData('VISCARDY');
+  memo.Lines.Add(m[14]+b+row.ByField['RUKL'].AsString+' '+row.ByField['RUKLC'].AsString);
+  buf:=row.ByField['VISCARDY'].AsString;
   if trim(buf)>'' then memo.Lines.Add(m[15]+b+buf);
-  buf:=db.GetData('HATFIELD') ;
+  buf:=row.ByField['HATFIELD'].AsString ;
   if trim(buf)>'' then memo.Lines.Add(m[16]+b+buf);
-  buf:=db.GetData('WESTFALL') ;
+  buf:=row.ByField['WESTFALL'].AsString ;
   if trim(buf)>'' then memo.Lines.Add(m[66]+b+buf);
-  buf:=db.GetData('WOOD') ;
+  buf:=row.ByField['WOOD'].AsString ;
   if trim(buf)>'' then memo.Lines.Add(m[72]+b+'S&T '+buf);
   dblox.Gofirst;
   ok:=dblox.MatchData('NAME', '=', nom);
@@ -2478,36 +2653,26 @@ with form1 do begin
   end;
 //  memo.Lines.Add(b);
   memo.Lines.Add(m[62]); //Origine
-  memo.Lines.Add(m[63]+b+db.GetData('NAMEDETAIL'));
-  if (trim(db.GetData('WORK')+db.GetData('NATIONLITY'))>'')and(trim(db.GetData('CENTURYC')+db.GetData('COUNTRY'))>'') then begin
+  memo.Lines.Add(m[63]+b+row.ByField['NAMEDETAIL'].AsString);
+  if (trim(row.ByField['WORK'].AsString+row.ByField['NATIONLITY'].AsString)>'')and(trim(row.ByField['CENTURYC'].AsString+row.ByField['COUNTRY'].AsString)>'') then begin
     case wordformat of
-    0 : memo.Lines.Add(db.GetData('CENTURYC')+b+db.GetData('NATIONLITY')+b+db.GetData('WORK')+b+m[2]+b+db.GetData('COUNTRY'));
-    1 : memo.Lines.Add(db.GetData('WORK')+b+db.GetData('NATIONLITY')+b+m[1]+b+db.GetData('CENTURYC')+b+m[2]+b+db.GetData('COUNTRY'));
-    2 : memo.Lines.Add(db.GetData('NATIONLITY')+b+db.GetData('WORK')+b+db.GetData('CENTURYC')+b+m[2]+b+db.GetData('COUNTRY'));
+    0 : memo.Lines.Add(row.ByField['CENTURYC'].AsString+b+row.ByField['NATIONLITY'].AsString+b+row.ByField['WORK'].AsString+b+m[2]+b+row.ByField['COUNTRY'].AsString);
+    1 : memo.Lines.Add(row.ByField['WORK'].AsString+b+row.ByField['NATIONLITY'].AsString+b+m[1]+b+row.ByField['CENTURYC'].AsString+b+m[2]+b+row.ByField['COUNTRY'].AsString);
+    2 : memo.Lines.Add(row.ByField['NATIONLITY'].AsString+b+row.ByField['WORK'].AsString+b+row.ByField['CENTURYC'].AsString+b+m[2]+b+row.ByField['COUNTRY'].AsString);
     end;
-    memo.Lines.Add(m[3]+b+db.GetData('BIRTHPLACE')+b+m[4]+b+db.GetData('BIRTHDATE'));
-    memo.Lines.Add(m[5]+b+db.GetData('DEATHPLACE')+b+m[4]+b+db.GetData('DEATHDATE'));
+    memo.Lines.Add(m[3]+b+row.ByField['BIRTHPLACE'].AsString+b+m[4]+b+row.ByField['BIRTHDATE'].AsString);
+    memo.Lines.Add(m[5]+b+row.ByField['DEATHPLACE'].AsString+b+m[4]+b+row.ByField['DEATHDATE'].AsString);
   end;
-  if (trim(db.GetData('FACTS'))<>'??')and(trim(db.GetData('FACTS'))<>'') then
-    memo.Lines.Add(m[64]+b+db.GetData('FACTS'));
-  memo.Lines.Add(m[6]+b+db.GetData('NAMEORIGIN'));
-  memo.Lines.Add(m[7]+b+db.GetData('LANGRENUS'));
-  memo.Lines.Add(m[8]+b+db.GetData('HEVELIUS'));
-  memo.Lines.Add(m[9]+b+db.GetData('RICCIOLI'));
-//  memo.Lines.Add(b);
-  Label7.caption:=db.GetData('PROFIL');
-  Label7.Font.Size:=8;
-  Label7.Left:=8; Label7.Top:=8;
-  while (Label7.Font.Size>3)and(Label7.Width>GroupBox1.ClientWidth) do Label7.Font.Size:=Label7.Font.Size-1;
-  Label7.Left:=(GroupBox1.ClientWidth-Label7.Width) div 2;
-  Label7.Top:=(GroupBox1.ClientHeight-Label7.Height+4) div 2;
-  statusbar1.Panels[0].Text:=m[10]+db.getdata('LONGIN');
-  statusbar1.Panels[1].Text:=m[11]+db.getdata('LATIN');
-  Addtolist(db.GetData('NAME'));
-end;
+  if (trim(row.ByField['FACTS'].AsString)<>'??')and(trim(row.ByField['FACTS'].AsString)<>'') then
+    memo.Lines.Add(m[64]+b+row.ByField['FACTS'].AsString);
+  memo.Lines.Add(m[6]+b+row.ByField['NAMEORIGIN'].AsString);
+  memo.Lines.Add(m[7]+b+row.ByField['LANGRENUS'].AsString);
+  memo.Lines.Add(m[8]+b+row.ByField['HEVELIUS'].AsString);
+  memo.Lines.Add(m[9]+b+row.ByField['RICCIOLI'].AsString);
+end;                                               
 end;
 
-Procedure GetHTMLDetail(var txt:string);
+Procedure GetHTMLDetail(row:TResultRow; var txt:string);
 const b='&nbsp;';
       t1='<center><font size=+1 color="#0000FF"><b>';  t1end='</b></font></center>';
       t2='<font size=+1><b>';  t2end='</b></font>';
@@ -2518,23 +2683,18 @@ var nom,carte,url,img,remoteurl,buf,buf2 : string;
 begin
 with form1 do begin
   txt:='<html> <body bgcolor="white">';
-  nom:=db.GetData('NAME');
+  nom:=row.ByField['NAME'].AsString;
   dblox.Gofirst;
   ok:=dblox.MatchData('NAME', '=', nom);
   if not ok then ok:=dblox.SeekData('NAME',  '=', nom);
-{  if ok then begin
-     url:=lopamnameurl+nom+lopamnamesuffix;
-     txt:=txt+' <A HREF="'+url+'">'+t1+nom+t1end+'</A>'+'<br>';
-  end;}
   txt:=txt+t1+nom+t1end+'<br>';
-  txt:=txt+t3+m[56]+t3end+b+db.GetData('TYPE')+'<br>';
-  txt:=txt+t3+m[49]+t3end+b+db.GetData('PERIOD')+'<br>';
+  txt:=txt+t3+m[56]+t3end+b+row.ByField['TYPE'].AsString+'<br>';
+  txt:=txt+t3+m[49]+t3end+b+row.ByField['PERIOD'].AsString+'<br>';
   txt:=txt+b+'<br>';
   txt:=txt+t2+m[57]+t2end+'<br>'; //Taille
-//  txt:=txt+t3+m[17]+t3end+b+db.GetData('LENGHTKM')+'x'+db.GetData('WIDEKM')+m[18]+b+'/'+b+db.GetData('LENGHTMI')+'x'+db.GetData('WIDEMI')+m[19]+'<br>';
-  txt:=txt+t3+m[17]+t3end+b+db.GetData('LENGTHKM')+'x'+db.GetData('WIDEKM')+m[18]+b+'/'+b+db.GetData('LENGTHMI')+'x'+db.GetData('WIDEMI')+m[19]+'<br>';
-  buf:=db.GetData('HEIGHTM');
-  buf2:=db.GetData('HEIGHTFE');
+  txt:=txt+t3+m[17]+t3end+b+row.ByField['LENGTHKM'].AsString+'x'+row.ByField['WIDEKM'].AsString+m[18]+b+'/'+b+row.ByField['LENGTHMI'].AsString+'x'+row.ByField['WIDEMI'].AsString+m[19]+'<br>';
+  buf:=row.ByField['HEIGHTM'].AsString;
+  buf2:=row.ByField['HEIGHTFE'].AsString;
   if buf=buf2 then txt:=txt+t3+m[20]+t3end+b+buf+'<br>'  // inconnue
   else begin
      txt:=txt+t3+m[20]+t3end+b;
@@ -2544,43 +2704,43 @@ with form1 do begin
      if i=0 then txt:=txt+buf2+m[22];
      txt:=txt+'<br>';
   end;
-  txt:=txt+t3+m[23]+t3end+b+db.GetData('RAPPORT')+'<br>';
+  txt:=txt+t3+m[23]+t3end+b+row.ByField['RAPPORT'].AsString+'<br>';
   txt:=txt+b+'<br>';
   txt:=txt+t2+m[58]+t2end+'<br>'; //Description
-  if db.GetData('GENERAL')>'' then txt:=txt+db.GetData('GENERAL')+'<br>';
-  if db.GetData('SLOPES')>'' then txt:=txt+db.GetData('SLOPES')+'<br>';
-  if db.GetData('WALLS')>'' then txt:=txt+db.GetData('WALLS')+'<br>';
-  if db.GetData('FLOOR')>'' then txt:=txt+db.GetData('FLOOR')+'<br>';
+  if row.ByField['GENERAL'].AsString>'' then txt:=txt+row.ByField['GENERAL'].AsString+'<br>';
+  if row.ByField['SLOPES'].AsString>'' then txt:=txt+row.ByField['SLOPES'].AsString+'<br>';
+  if row.ByField['WALLS'].AsString>'' then txt:=txt+row.ByField['WALLS'].AsString+'<br>';
+  if row.ByField['FLOOR'].AsString>'' then txt:=txt+row.ByField['FLOOR'].AsString+'<br>';
   txt:=txt+b+'<br>';
   txt:=txt+t2+m[59]+t2end+'<br>'; //Observation
-  txt:=txt+t3+m[24]+t3end+b+db.GetData('INTERESTC')+'<br>';
-  buf:=db.GetData('MOONDAYS');
-  buf2:=db.GetData('MOONDAYM');
+  txt:=txt+t3+m[24]+t3end+b+row.ByField['INTERESTC'].AsString+'<br>';
+  buf:=row.ByField['MOONDAYS'].AsString;
+  buf2:=row.ByField['MOONDAYM'].AsString;
   if buf=buf2 then txt:=txt+t3+m[25]+t3end+b+buf+'<br>'
               else txt:=txt+t3+m[25]+t3end+b+buf+b+m[26]+b+buf2+'<br>';
-  txt:=txt+t3+m[28]+t3end+b+db.GetData('PRINSTRU')+'<br>';
+  txt:=txt+t3+m[28]+t3end+b+row.ByField['PRINSTRU'].AsString+'<br>';
   txt:=txt+b+'<br>';
   txt:=txt+t2+m[60]+t2end+'<br>'; //Position
-  txt:=txt+t3+m[10]+t3end+b+db.GetData('LONGIC')+'<br>';
-  txt:=txt+t3+m[11]+t3end+b+db.GetData('LATIC')+'<br>';
-  txt:=txt+t3+m[12]+t3end+b+db.GetData('QUADRANT')+'<br>';
-  txt:=txt+t3+m[13]+t3end+b+db.GetData('AREA')+'<br>';
+  txt:=txt+t3+m[10]+t3end+b+row.ByField['LONGIC'].AsString+'<br>';
+  txt:=txt+t3+m[11]+t3end+b+row.ByField['LATIC'].AsString+'<br>';
+  txt:=txt+t3+m[12]+t3end+b+row.ByField['QUADRANT'].AsString+'<br>';
+  txt:=txt+t3+m[13]+t3end+b+row.ByField['AREA'].AsString+'<br>';
   txt:=txt+b+'<br>';
   txt:=txt+t2+m[61]+t2end+'<br>'; //Atlas
   // RUKL link
-  carte:=db.GetData('RUKL')+' '+db.GetData('RUKLC');
-  img:=padzeros(db.GetData('RUKL'),2);
+  carte:=row.ByField['RUKL'].AsString+' '+row.ByField['RUKLC'].AsString;
+  img:=padzeros(row.ByField['RUKL'].AsString,2);
   url:=ruklprefix+img+ruklsuffix;
   if fileexists(url) then url:=' <A HREF="file://'+url+'">'+carte+'</A>'
                      else url:=carte;
   txt:=txt+t3+m[14]+t3end+b+url+'<br>';
-  buf:=db.GetData('VISCARDY');
+  buf:=row.ByField['VISCARDY'].AsString;
   if trim(buf)>'' then txt:=txt+t3+m[15]+t3end+b+buf+'<br>';
-  buf:=db.GetData('HATFIELD') ;
+  buf:=row.ByField['HATFIELD'].AsString ;
   if trim(buf)>'' then txt:=txt+t3+m[16]+t3end+b+buf+'<br>';
-  buf:=db.GetData('WESTFALL') ;
+  buf:=row.ByField['WESTFALL'].AsString ;
   if trim(buf)>'' then txt:=txt+t3+m[66]+t3end+b+buf+'<br>';
-  buf:=db.GetData('WOOD') ;
+  buf:=row.ByField['WOOD'].AsString ;
   if trim(buf)>'' then txt:=txt+t3+m[72]+t3end+b+'S&T '+buf+'<br>';
   if ok then begin
     txt:=txt+t3+m[65]+t3end;
@@ -2620,87 +2780,72 @@ with form1 do begin
   end;
   txt:=txt+b+'<br>';
   txt:=txt+t2+m[62]+t2end+'<br>'; //Origine
-  txt:=txt+t3+m[63]+t3end+b+db.GetData('NAMEDETAIL')+'<br>';
-  if (trim(db.GetData('WORK')+db.GetData('NATIONLITY'))>'')and(trim(db.GetData('CENTURYC')+db.GetData('COUNTRY'))>'') then begin
+  txt:=txt+t3+m[63]+t3end+b+row.ByField['NAMEDETAIL'].AsString+'<br>';
+  if (trim(row.ByField['WORK'].AsString+row.ByField['NATIONLITY'].AsString)>'')and(trim(row.ByField['CENTURYC'].AsString+row.ByField['COUNTRY'].AsString)>'') then begin
     case wordformat of
-    0 : txt:=txt+db.GetData('CENTURYC')+b+db.GetData('NATIONLITY')+b+db.GetData('WORK')+b+m[2]+b+db.GetData('COUNTRY')+'<br>';        // english
-    1 : txt:=txt+db.GetData('WORK')+b+db.GetData('NATIONLITY')+b+m[1]+b+db.GetData('CENTURYC')+b+m[2]+b+db.GetData('COUNTRY')+'<br>'; // francais, italian
-    2 : txt:=txt+db.GetData('NATIONLITY')+b+db.GetData('WORK')+b+db.GetData('CENTURYC')+b+m[2]+b+db.GetData('COUNTRY')+'<br>';        // russian
+    0 : txt:=txt+row.ByField['CENTURYC'].AsString+b+row.ByField['NATIONLITY'].AsString+b+row.ByField['WORK'].AsString+b+m[2]+b+row.ByField['COUNTRY'].AsString+'<br>';        // english
+    1 : txt:=txt+row.ByField['WORK'].AsString+b+row.ByField['NATIONLITY'].AsString+b+m[1]+b+row.ByField['CENTURYC'].AsString+b+m[2]+b+row.ByField['COUNTRY'].AsString+'<br>'; // francais, italian
+    2 : txt:=txt+row.ByField['NATIONLITY'].AsString+b+row.ByField['WORK'].AsString+b+row.ByField['CENTURYC'].AsString+b+m[2]+b+row.ByField['COUNTRY'].AsString+'<br>';        // russian
     end;
-    txt:=txt+t3+m[3]+t3end+b+db.GetData('BIRTHPLACE')+b+m[4]+b+db.GetData('BIRTHDATE')+'<br>';
-    txt:=txt+t3+m[5]+t3end+b+db.GetData('DEATHPLACE')+b+m[4]+b+db.GetData('DEATHDATE')+'<br>';
+    txt:=txt+t3+m[3]+t3end+b+row.ByField['BIRTHPLACE'].AsString+b+m[4]+b+row.ByField['BIRTHDATE'].AsString+'<br>';
+    txt:=txt+t3+m[5]+t3end+b+row.ByField['DEATHPLACE'].AsString+b+m[4]+b+row.ByField['DEATHDATE'].AsString+'<br>';
   end;
-  if (trim(db.GetData('FACTS'))<>'??')and(trim(db.GetData('FACTS'))<>'') then
-    txt:=txt+t3+m[64]+t3end+b+db.GetData('FACTS')+'<br>';
-  txt:=txt+t3+m[6]+t3end+b+db.GetData('NAMEORIGIN')+'<br>';
-  txt:=txt+t3+m[7]+t3end+b+db.GetData('LANGRENUS')+'<br>';
-  txt:=txt+t3+m[8]+t3end+b+db.GetData('HEVELIUS')+'<br>';
-  txt:=txt+t3+m[9]+t3end+b+db.GetData('RICCIOLI')+'<br>';
+  if (trim(row.ByField['FACTS'].AsString)<>'??')and(trim(row.ByField['FACTS'].AsString)<>'') then
+     txt:=txt+t3+m[64]+t3end+b+row.ByField['FACTS'].AsString+'<br>';
+  txt:=txt+t3+m[6]+t3end+b+row.ByField['NAMEORIGIN'].AsString+'<br>';
+  txt:=txt+t3+m[7]+t3end+b+row.ByField['LANGRENUS'].AsString+'<br>';
+  txt:=txt+t3+m[8]+t3end+b+row.ByField['HEVELIUS'].AsString+'<br>';
+  txt:=txt+t3+m[9]+t3end+b+row.ByField['RICCIOLI'].AsString+'<br>';
   txt:=txt+b+'<br>';
   txt:=txt+'</body></html>';
-  Label7.caption:=db.GetData('PROFIL');
+  Label7.caption:=row.ByField['PROFIL'].AsString;
   Label7.Font.Size:=8;
   Label7.Left:=8; Label7.Top:=8;
   while (Label7.Font.Size>3)and(Label7.Width>GroupBox1.ClientWidth) do Label7.Font.Size:=Label7.Font.Size-1;
   Label7.Left:=(GroupBox1.ClientWidth-Label7.Width) div 2;
   Label7.Top:=(GroupBox1.ClientHeight-Label7.Height+4) div 2;
-  statusbar1.Panels[0].Text:=m[10]+db.getdata('LONGIN');
-  statusbar1.Panels[1].Text:=m[11]+db.getdata('LATIN');
-  Addtolist(db.GetData('NAME'));
+  statusbar1.Panels[0].Text:=m[10]+row.ByField['LONGIN'].AsString;
+  statusbar1.Panels[1].Text:=m[11]+row.ByField['LATIN'].AsString;
+  Addtolist(nom);
 end;
 end;
 
-procedure GetDBgrid;
+procedure Tform1.GetDBgrid;
 var dbcol:integer;
 begin
 if dbedited then
  if messagedlg('Attention les modifications de la base de donnée n''ont pas été enregistrée et seront perdue. Continuer quand même ?',mtConfirmation, [mbYes, mbNo], 0) <> mrYes then
    exit;
 dbedited:=false;
-editrow:=db.GetPosition;
-form1.stringgrid2.RowCount:=db.FieldCount;
-for dbcol:=1 to db.FieldCount do begin
- form1.stringgrid2.Cells[0,dbcol-1]:=db.GetFieldName(dbcol);
- form1.stringgrid2.Cells[1,dbcol-1]:=db.GetDataByIndex(dbcol);
+dbm.query('select * from moon where ID='+currentid+';');
+if dbm.RowCount=0 then exit;
+editrow:=dbm.Results[0].ByField['ID'].AsInteger;
+stringgrid2.RowCount:=dbm.ColCount-2;    // pas l'id ni side
+for dbcol:=1 to stringgrid2.RowCount do begin
+ stringgrid2.Cells[0,dbcol-1]:=dbm.GetField(dbcol+1);
+ stringgrid2.Cells[1,dbcol-1]:=dbm.Results[0][dbcol+1];
 end;
 end;
 
 procedure TForm1.Button9Click(Sender: TObject);
 var dbcol:integer;
+    txt,fn:string;
+    f : textfile;
 begin
 if editrow<0 then begin showmessage('Pas d''enregistrement sélectionné!');exit;end;
-db.Go(editrow);
-for dbcol:=1 to db.FieldCount do begin
-  db.SetDataByIndex(dbcol,stringgrid2.Cells[1,dbcol-1]);
+txt:='';
+for dbcol:=1 to stringgrid2.RowCount do begin
+  txt:=txt+'"'+stringgrid2.Cells[1,dbcol-1]+'";';
 end;
 screen.Cursor:=crHourglass;
 try
-db.SaveToCSVFile(Slash(appdir)+Slash('database\nouveau.csv'));
-finally
-screen.Cursor:=crDefault;
-dbedited:=false;
-editrow:=-1;
-end;
-end;
-
-procedure TForm1.Button10Click(Sender: TObject);
-var dbcol:integer;
-    nom:string;
-    ok:boolean;
-begin
-nom:=stringgrid2.Cells[1,0];
-db.Gofirst;
-ok:=db.MatchData('NAME','>=',nom);
-if not ok then ok:=db.SeekData('NAME','>=',nom);
-if not ok then db.golast;
-if db.GetData('NAME')=nom then begin showmessage('Ce nom existe déjà!');exit;end;
-db.InsertRow(not ok);
-for dbcol:=1 to db.FieldCount do begin
-  db.SetDataByIndex(dbcol,form1.stringgrid2.Cells[1,dbcol-1]);
-end;
-screen.Cursor:=crHourglass;
-try
-db.SaveToCSVFile(Slash(appdir)+Slash('database\nouveau.csv'));
+fn:=Slash(appdir)+Slash('database')+'nouveau_db.csv';
+filemode:=2;
+assignfile(f,fn);
+if fileexists(fn) then append(f)
+                  else rewrite(f);
+writeln(f,txt);
+closefile(f);
 finally
 screen.Cursor:=crDefault;
 dbedited:=false;
@@ -2715,12 +2860,10 @@ if dbedited then
  if messagedlg('Attention les modifications de la base de donnée n''ont pas été enregistrée et seront perdue. Continuer quand même ?',mtConfirmation, [mbYes, mbNo], 0) <> mrYes then
    exit;
 dbedited:=false;
-stringgrid2.RowCount:=db.FieldCount;
-for dbcol:=1 to db.FieldCount do begin
- stringgrid2.Cells[0,dbcol-1]:=db.GetFieldName(dbcol);
+for dbcol:=1 to stringgrid2.RowCount do begin
  stringgrid2.Cells[1,dbcol-1]:='';
 end;
-editrow:=-1;
+editrow:=0;
 end;
 
 procedure TForm1.StringGrid2SetEditText(Sender: TObject; ACol,
@@ -2730,11 +2873,13 @@ begin
 end;
 
 procedure TForm1.EnregistredistClick(Sender: TObject);
-var dbcol:integer;
+var dbcol,i:integer;
     l,b,w : double;
     ls,bs,ws,ls2,bs2,quadrant : string;
 begin
 ws:=words(edit1.text,'',1,1);
+i:=pos(m[18],ws);
+if i>0 then ws:=copy(ws,1,i-1);
 ls:=edit3.text;
 bs:=edit4.text;
 w:=strtofloat(ws);
@@ -2745,14 +2890,10 @@ if l>=0 then ls2:=formatfloat(d1,abs(l))+'° Est'
 if b>=0 then bs2:=formatfloat(d1,abs(b))+'° Nord'
         else bs2:=formatfloat(d1,abs(b))+'° Sud';
 quadrant:=words(bs2,'',2,1)+'-'+words(ls2,'',2,1);
-stringgrid2.RowCount:=db.FieldCount;
-for dbcol:=1 to db.FieldCount do begin
- stringgrid2.Cells[0,dbcol-1]:=db.GetFieldName(dbcol);
- if stringgrid2.Cells[0,dbcol-1]='LENGHTKM' then stringgrid2.Cells[1,dbcol-1]:=ws;
-// if stringgrid2.Cells[0,dbcol-1]='LENGTHKM' then stringgrid2.Cells[1,dbcol-1]:=ws;
+for dbcol:=1 to stringgrid2.RowCount do begin
+ if stringgrid2.Cells[0,dbcol-1]='LENGTHKM' then stringgrid2.Cells[1,dbcol-1]:=ws;
  if stringgrid2.Cells[0,dbcol-1]='WIDEKM' then stringgrid2.Cells[1,dbcol-1]:=ws;
- if stringgrid2.Cells[0,dbcol-1]='LENGHTMI' then stringgrid2.Cells[1,dbcol-1]:=formatfloat(d1,0.621*w);
-// if stringgrid2.Cells[0,dbcol-1]='LENGTHMI' then stringgrid2.Cells[1,dbcol-1]:=formatfloat(d1,0.621*w);
+ if stringgrid2.Cells[0,dbcol-1]='LENGTHMI' then stringgrid2.Cells[1,dbcol-1]:=formatfloat(d1,0.621*w);
  if stringgrid2.Cells[0,dbcol-1]='WIDEMI' then stringgrid2.Cells[1,dbcol-1]:=formatfloat(d1,0.621*w);
  if stringgrid2.Cells[0,dbcol-1]='LONGIN' then stringgrid2.Cells[1,dbcol-1]:=ls;
  if stringgrid2.Cells[0,dbcol-1]='LATIN' then stringgrid2.Cells[1,dbcol-1]:=bs;
@@ -2760,7 +2901,7 @@ for dbcol:=1 to db.FieldCount do begin
  if stringgrid2.Cells[0,dbcol-1]='LATIC' then stringgrid2.Cells[1,dbcol-1]:=bs2;
  if stringgrid2.Cells[0,dbcol-1]='QUADRANT' then stringgrid2.Cells[1,dbcol-1]:=quadrant;
 end;
-pagecontrol1.ActivePage:=dbtab;
+pagecontrol1.ActivePage:=dbtab;    
 end;
 
 procedure GetNotes(n: string);
@@ -2778,7 +2919,7 @@ dbnotes.GoFirst;
 notesok:=dbnotes.MatchData('NAME', '=', trim(uppercase(n)));
 if not notesok then notesok:=dbnotes.SeekData('NAME', '=', trim(uppercase(n)));
 if notesok then begin
-   notesrow:=db.GetPosition;
+   notesrow:=dbnotes.GetPosition;
    memo1.Text:=dbnotes.GetData('NOTES');
    notesedited:=false;
 end;
@@ -2914,18 +3055,29 @@ end;
 
 function SearchName(n: string; center: boolean):boolean;
 var l,b,x,y : double;
-    ok : boolean;
     txt:string;
+    i : integer;
 begin
 result:=false;
 with form1 do begin
-ok:=false;
-if Firstsearch then ok:=db.MatchData('NAME', 'LIKE', trim(uppercase(n))+'*');
+if Firstsearch then begin
+   dbm.Query('select id,name from moon '+
+             ' where SIDE in ('+sidelist+')'+
+             ' and NAME like "'+trim(uppercase(n))+'%"'+
+             ' order by NAME limit 100;');
+   searchlist.Clear;
+   for i:=0 to dbm.RowCount-1 do begin
+     searchlist.Add(dbm.Results[i].Format[0].asstring);
+   end;
+   searchpos:=-1;
+end;
 Firstsearch:=false;
-if not ok then ok:=db.SeekData('NAME', 'LIKE', trim(uppercase(n))+'*');
-if ok then begin
-   l:=db.GetFloatbyindex(LONGIN);
-   b:=db.GetFloatbyindex(LATIN);
+inc(searchpos);
+if searchpos<searchlist.Count then begin
+   dbm.Query('select * from moon where id='+searchlist[searchpos]);
+   if dbm.RowCount=0 then exit;
+   l:=dbm.Results[0].ByField['LONGIN'].AsFloat;
+   b:=dbm.Results[0].ByField['LATIN'].AsFloat;
    if (not projMoon(l,b,librl,librb,x,y)) then begin
      if (not toolbutton3.down)or(not useopengl) then begin
         SearchName(n,center);
@@ -2933,17 +3085,22 @@ if ok then begin
      end;
      {$IFDEF opengl}
      lrot:=-l;
+     inclination:=0;
      GLSceneViewer1MouseMove(nil,[ssLeft],lastx,lasty);
      projMoon(l,b,librl,librb,x,y);
      {$ENDIF}
    end;
+   currentl:=l;
+   currentb:=b;
+   currentid:=searchlist[searchpos];
+   currentname:=dbm.Results[0].ByField['NAME'].AsString;
    if center then MoveCamera(x,y);
-   mark(x,y,db.GetDatabyindex(FNAME));
-   GetHTMLDetail(txt);
+   mark(x,y,currentname);
+   GetHTMLDetail(dbm.Results[0],txt);
    Desc1.LoadFromString(txt);
    if dbtab.TabVisible then GetDBgrid;
    GetNotes(form1.Combobox1.text);
-   if ImgExists(db.GetDatabyindex(FNAME)) then begin
+   if ImgExists(currentname) then begin
       ToolButton7.enabled:=true;
       Image2.enabled:=true;
    end else begin
@@ -2964,7 +3121,6 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-db.Gofirst;
 Firstsearch:=true;
 SearchText:=Combobox1.Text;
 SearchName(SearchText,true);
@@ -2977,7 +3133,6 @@ end;
 
 procedure TForm1.ComboBox1Select(Sender: TObject);
 begin
-db.Gofirst;
 Firstsearch:=true;
 SearchName(Combobox1.Text,true);
 end;
@@ -2985,20 +3140,29 @@ end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
+try
 {$IFDEF opengl}
 if dummycube4<>nil then DummyCube4.DeleteChildren;
 {$ENDIF}
-db.free;
 dblox.free;
 dbnotes.free;
 rotatefont.Free;
 hires.Free;
+hires500.Free;
 if hiresok then begin
    closefile(fh);
 end;
+if hires500ok then begin
+   closefile(fh500);
+end;
 image2d.Free;
 eyepiecemask.free;
+overlayimg.free;
+overlayhi.free;
 deletefile(tmpmap);
+searchlist.Free;
+except
+end;
 end;
 
 procedure TForm1.Quitter1Click(Sender: TObject);
@@ -3045,7 +3209,7 @@ end;
 
 Procedure RefreshMoonImage;
 var moonrise,moonset,moontransit,azimuthrise,azimuthset : widestring;
-    jd0,st0,q,tz,cphase,colong,hh : double;
+    jd0,st0,q,tz,cphase,colong,hh,az,ah : double;
     aa,mm,dd,i,col : integer;
     ds1,ds2,n,ex1,ey1,xx,yy : integer;
     th,ex,ey,ci,si,sph : double;
@@ -3054,6 +3218,7 @@ var moonrise,moonset,moontransit,azimuthrise,azimuthset : widestring;
     ph:Tbitmap;
 const b=' ';
 begin
+  st0:=0;
   Lune(CurrentJD,ra,dec,dist,dkm,diam,phase,illum);
   if not geocentric then begin
      jd0:=jd(CurYear,CurrentMonth,CurrentDay,0.0);
@@ -3063,35 +3228,62 @@ begin
      dkm:=dkm*q;
      dist:=dist*q;
   end;
+  rad:=ra; ded:=dec;
+  precession(jd2000,CurrentJD,rad,ded);
   MoonOrientation(CurrentJD,ra,dec,dist,pa,librb,sunincl,librl);
   cphase:=phase+librl;
   tphase:=phase;
-  lunaison:=trunc(29.53*rmod(540-phase,360)/360);
+//  lunaison:=trunc(29.53*rmod(540-phase,360)/360);
   colong:=rmod(90-tphase-librl+360,360);
+  jd0:=jd(CurYear,1,1,0.0);
+  MoonPhases(CurYear+(CurrentJD-jd0)/365.25,nmjd,fqjd,fmjd,lqjd);
+  lunaison:=CurrentJD-nmjd;
+  if lunaison<0 then begin
+     lunaison:=CurrentJD-MoonPhase(floor(12.3685*(CurYear-2000-0.04+(CurrentJD-jd0)/365.25)));
+  end;
   {$IFDEF opengl}
   if FollowNorth then begin
-    CameraOrientation:=rmod(PA+PoleOrientation+360,360);
+    CameraOrientation:=rmod(-PA+PoleOrientation+360,360);
     SetCameraOrientation;
   end;
   {$ENDIF}
-  form1.StatusBar1.Panels[2].Text:=m[51]+': '+inttostr(curyear)+'-'+inttostr(currentmonth)+'-'+inttostr(currentday)+'   '+m[50]+': '+timtostr(currenttime);
-  djd(currentjd,aa,mm,dd,hh);
+  form1.StatusBar1.Panels[2].Text:=m[51]+': '+dattostr(curyear,currentmonth,currentday)+'   '+m[50]+': '+timtostr(currenttime);
 //  lunaison_app:=trunc(29.5*rmod(540-phase{+librl}+6.1,360)/360);
-  i:=0; form1.Stringgrid1.Cells[0,i]:=m[51]+':'; form1.Stringgrid1.Cells[1,i]:=inttostr(curyear)+'-'+inttostr(currentmonth)+'-'+inttostr(currentday)+' '+timtostr(currenttime);
-  inc(i); form1.Stringgrid1.Cells[0,i]:=m[51]+' (DT):'; form1.Stringgrid1.Cells[1,i]:=inttostr(aa)+'-'+inttostr(mm)+'-'+inttostr(dd)+' '+timtostr(hh);
-  inc(i); form1.Stringgrid1.Cells[0,i]:=m[29]; form1.Stringgrid1.Cells[1,i]:=artostr(ra);
-  inc(i); form1.Stringgrid1.Cells[0,i]:=m[30]; form1.Stringgrid1.Cells[1,i]:=detostr(dec);
+  phaseoffset:=0;
+  djd(nmjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+  form1.labelnm.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
+  djd(fqjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+  form1.labelfq.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
+  djd(fmjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+  form1.labelfm.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
+  djd(lqjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+  form1.labellq.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
+  form1.Stringgrid1.colwidths[1]:=150;
+  i:=0;
+  if geocentric then begin form1.Stringgrid1.Cells[0,i]:=form2.Label16.caption+':'; form1.Stringgrid1.Cells[1,i]:=form2.CheckBox3.caption; end
+                else begin form1.Stringgrid1.Cells[0,i]:=form2.Label16.caption+':'; form1.Stringgrid1.Cells[1,i]:=demtostr(ObsLatitude)+' '+demtostr(ObsLongitude)+' Tz:'+armtostr(timezone);end;
+  inc(i); form1.Stringgrid1.Cells[0,i]:=m[51]+':'; form1.Stringgrid1.Cells[1,i]:=dattostr(curyear,currentmonth,currentday)+' '+timtostr(currenttime);
+  djd(currentjd,aa,mm,dd,hh);
+  inc(i); form1.Stringgrid1.Cells[0,i]:=m[51]+' (DT):'; form1.Stringgrid1.Cells[1,i]:=dattostr(aa,mm,dd)+' '+timtostr(hh);
+  inc(i); form1.Stringgrid1.Cells[0,i]:='J2000 '+m[29]; form1.Stringgrid1.Cells[1,i]:=artostr(ra);
+  inc(i); form1.Stringgrid1.Cells[0,i]:='J2000 '+m[30]; form1.Stringgrid1.Cells[1,i]:=detostr(dec);
+  inc(i); form1.Stringgrid1.Cells[0,i]:=m[51]+b+m[29]; form1.Stringgrid1.Cells[1,i]:=artostr(rad);
+  inc(i); form1.Stringgrid1.Cells[0,i]:=m[51]+b+m[30]; form1.Stringgrid1.Cells[1,i]:=detostr(ded);
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[31]; form1.Stringgrid1.Cells[1,i]:=inttostr(round(dkm))+m[18];
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[36]; form1.Stringgrid1.Cells[1,i]:=formatfloat(d2,diam/60)+lmin;
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[48]; form1.Stringgrid1.Cells[1,i]:=formatfloat(d1,colong)+ldeg;
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[32]; form1.Stringgrid1.Cells[1,i]:=formatfloat(d1,phase)+ldeg;
-  inc(i); form1.Stringgrid1.Cells[0,i]:=m[46]; form1.Stringgrid1.Cells[1,i]:=inttostr(lunaison)+' '+m[47];
+  inc(i); form1.Stringgrid1.Cells[0,i]:=m[46]; form1.Stringgrid1.Cells[1,i]:=formatfloat(d2,lunaison)+' '+m[47];
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[35]; form1.Stringgrid1.Cells[1,i]:=formatfloat(d1,illum*100)+'%';
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[45]; form1.Stringgrid1.Cells[1,i]:=formatfloat(d1,sunincl)+ldeg;
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[33]; form1.Stringgrid1.Cells[1,i]:=demtostr(librb);
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[34]; form1.Stringgrid1.Cells[1,i]:=demtostr(librl);
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[37]; form1.Stringgrid1.Cells[1,i]:=formatfloat(d1,pa)+ldeg;
   if not geocentric then begin
+    eq2hz(15*(st0-rad),ded,az,ah);
+    az:=rmod(az+180,360);
+    inc(i); form1.Stringgrid1.Cells[0,i]:=m[73]; form1.Stringgrid1.Cells[1,i]:=demtostr(az);
+    inc(i); form1.Stringgrid1.Cells[0,i]:=m[74]; form1.Stringgrid1.Cells[1,i]:=demtostr(ah);
     TZ:=-timezone;
     CalcMoonRiseSet(ObsLatitude,ObsLongitude,Tz,CurYear,CurrentMonth,CurrentDay,moonrise,moonset,moontransit,azimuthrise,azimuthset);
     inc(i); form1.Stringgrid1.Cells[0,i]:=m[38]; form1.Stringgrid1.Cells[1,i]:=moonrise;
@@ -3102,6 +3294,8 @@ begin
                      else begin inc(i); form1.Stringgrid1.Cells[0,i]:=m[55]; form1.Stringgrid1.Cells[1,i]:=dedtostr(90+obslatitude-dec); end;
     inc(i); form1.Stringgrid1.Cells[0,i]:=m[42]; form1.Stringgrid1.Cells[1,i]:=azimuthset;
   end else begin
+    inc(i); form1.Stringgrid1.Cells[0,i]:=b; form1.Stringgrid1.Cells[1,i]:=b;
+    inc(i); form1.Stringgrid1.Cells[0,i]:=b; form1.Stringgrid1.Cells[1,i]:=b;
     inc(i); form1.Stringgrid1.Cells[0,i]:=b; form1.Stringgrid1.Cells[1,i]:=b;
     inc(i); form1.Stringgrid1.Cells[0,i]:=b; form1.Stringgrid1.Cells[1,i]:=b;
     inc(i); form1.Stringgrid1.Cells[0,i]:=b; form1.Stringgrid1.Cells[1,i]:=b;
@@ -3269,7 +3463,7 @@ end;
 end;
 
 Procedure ShowCoordinates(x,y:integer);
-var xx,yy,l,b : double;
+var xx,yy,l,b: double;
 begin
 with form1 do begin
  lastx:=x;
@@ -3347,9 +3541,9 @@ if shift=[ssLeft] then begin
   lasty:=y;
   form1.glscene1.BeginUpdate;
   resetorientation;
-  dummycube1.PitchAngle:=librb;
+  dummycube1.PitchAngle:=librb+inclination;
   dummycube1.TurnAngle:=-librl+lrot;
-  if not phaseeffect then orientlightsource(-lrot,0);
+  GLLightSource2.Shining:=not phaseeffect;
   if abs(yy)<0.5 then GLCamera1.Position.y:=yy;
   Annulus1.Position.x:=GLCamera1.Position.x;
   Annulus1.Position.y:=GLCamera1.Position.y;
@@ -3463,20 +3657,23 @@ with form1 do begin
     Window2World(x,y,xx,yy);
     if InvProjMoon(2*xx,2*yy,librl,librb,l,b) and
        SearchAtPos(l,b) then begin
-     l:=db.GetFloatbyindex(LONGIN);
-     b:=db.GetFloatbyindex(LATIN);
+     l:=dbm.Results[0].ByField['LONGIN'].AsFloat;
+     b:=dbm.Results[0].ByField['LATIN'].AsFloat;
      searchl:=l;
      searchb:=b;
+     currentl:=l;
+     currentb:=b;
+     currentname:=dbm.Results[0].ByField['NAME'].AsString;
      projMoon(l,b,librl,librb,xx,yy);
-     form1.Combobox1.text:=db.GetDatabyindex(FNAME);
+     form1.Combobox1.text:=currentname;
      if not useOpenGL then Refresh2DImage;
      mark(xx,yy,form1.Combobox1.text);
      RefreshLabel;
-     GetHTMLDetail(txt);
+     GetHTMLDetail(dbm.Results[0], txt);
      Desc1.LoadFromString(txt);
      if dbtab.TabVisible then GetDBgrid;
      GetNotes(form1.Combobox1.text);
-     if ImgExists(db.GetDatabyindex(FNAME)) then begin
+     if ImgExists(currentname) then begin
       ToolButton7.enabled:=true;
       Image2.enabled:=true;
      end else begin
@@ -3540,6 +3737,7 @@ Procedure InitLopamIdx;
 var f : textfile;
     i : integer;
 begin
+filemode:=0;
 assignfile(f,Slash(appdir)+Slash('database')+'lopamidx.txt');
 reset(f);
 readln(f);
@@ -3573,29 +3771,138 @@ lopamlocalsuffix:=trim(copy(lopamlocalurl,i+7,999));
 lopamlocalurl:=trim(copy(lopamlocalurl,1,i-1));
 end;
 
-Procedure ConvertDB(var mdb:Tmlb2; n1,n2:string);
+Procedure Tform1.CreateDB;
+var i: integer;
+    buf,cmd: string;
+begin
+buf:='';
+dbm.query('select name from sqlite_master where type="table";');
+for i:=0 to dbm.RowCount do buf:=buf+dbm.Results[i][0]+' ';
+if pos('moon',buf)=0 then begin
+ cmd:='create table moon ( '+
+    'ID INTEGER PRIMARY KEY,'+
+    'SIDE integer,'+
+    'NAME text,'+
+    'TYPE text,'+
+    'PERIOD text,'+
+    'NAMEDETAIL text,'+
+    'NAMEORIGIN text,'+
+    'LANGRENUS text,'+
+    'HEVELIUS text,'+
+    'RICCIOLI text,'+
+    'WORK text,'+
+    'COUNTRY text,'+
+    'NATIONLITY text,'+
+    'CENTURYN float,'+
+    'CENTURYC text,'+
+    'BIRTHPLACE text,'+
+    'BIRTHDATE text,'+
+    'DEATHPLACE text,'+
+    'DEATHDATE text,'+
+    'FACTS text,'+
+    'LONGIN float,'+
+    'LONGIC text,'+
+    'LATIN float,'+
+    'LATIC text,'+
+    'QUADRANT text,'+
+    'AREA text,'+
+    'RUKL text,'+
+    'RUKLC text,'+
+    'VISCARDY text,'+
+    'HATFIELD text,'+
+    'WESTFALL text,'+
+    'WOOD text,'+
+    'LOPAM text,'+
+    'LENGTHKM float,'+
+    'WIDEKM float,'+
+    'LENGTHMI float,'+
+    'WIDEMI float,'+
+    'HEIGHTM float,'+
+    'HEIGHTFE float,'+
+    'RAPPORT float,'+
+    'PROFIL text,'+
+    'GENERAL text,'+
+    'SLOPES text,'+
+    'WALLS text,'+
+    'FLOOR text,'+
+    'INTERESTN integer,'+
+    'INTERESTC text,'+
+    'LUNATION integer,'+
+    'MOONDAYS text,'+
+    'MOONDAYM text,'+
+    'DIAMINST integer,'+
+    'THINSTRU text,'+
+    'PRINSTRU text'+
+    ');';
+ dbm.Query(cmd);
+ dbm.Query('create index moon_pos on moon (longin,latin);');
+ dbm.Query('create index moon_name on moon (side,name);');
+end;
+if pos('file_date',buf)=0 then begin
+ cmd:='create table file_date ( '+
+    'SIDE integer,'+
+    'FDATE integer'+
+    ');';
+ dbm.Query(cmd);
+end;
+end;
+
+Procedure Tform1.ConvertDB(fn,side:string);
+var cmd,v: string;
+    i:integer;
+    db1:Tmlb2;
 begin
 MsgForm:=TMsgForm.create(application);
 MsgForm.Label1.caption:='Preparing Database. Please Wait ...';
 msgform.show;
 msgform.Refresh;
+db1:=Tmlb2.Create;
 try
-mdb.LoadFromFile(n1);
-mdb.savetomlbfile(n2);
+screen.Cursor:=crhourglass;
+db1.init;
+db1.LoadFromFile(fn);
+db1.GoFirst;
+dbm.StartTransaction;
+dbm.Query('delete from moon where SIDE='+side+';');
+dbm.Query('Vacuum;');
+repeat
+  cmd:='insert into moon values(NULL,'+side+',';
+  for i:=1 to db1.FieldCount do begin
+    v:=stringreplace(db1.GetDataByIndex(i),',','.',[rfreplaceall]);
+    v:=stringreplace(v,'""','''',[rfreplaceall]);
+    v:=stringreplace(v,'"','',[rfreplaceall]);
+    cmd:=cmd+'"'+v+'",';
+  end;
+  cmd:=copy(cmd,1,length(cmd)-1)+');';
+  dbm.Query(cmd);
+  db1.GoNext;
+until db1.EndOfFile;
+dbm.Query('update moon set widekm=0 where widekm="";');
+dbm.Query('update moon set widemi=0 where widemi="";');
+dbm.Query('update moon set lengthkm=0 where lengthkm="";');
+dbm.Query('update moon set lengthmi=0 where lengthmi="";');
+dbm.Query('delete from file_date where side='+side+';');
+dbm.Query('insert into file_date values ('+side+','+inttostr(fileage(fn))+');');
+dbm.Commit;
 finally
 msgform.close;
 msgform.free;
+screen.Cursor:=crdefault;
+db1.Free;
 end;
 end;
 
-Procedure LoadDB;
+Procedure Tform1.LoadDB;
 var savecursor:integer;
-    db1: Tmlb2;
-    i : integer;
+    i,db_age : integer;
     buf:string;
 begin
+buf:=Slash(appdir)+Slash('database')+'dbmoon_'+language+'.dbl';
+//if not fileexists(buf) then buf:=Slash(appdir)+Slash('database')+'dbmoon_UK.dbl';
+form1.dbm.Use(buf);
+sidelist:='1';
+for i:=2 to 5 do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
 savecursor:=screen.cursor;
-db1:=Tmlb2.create;
 try
 screen.cursor:=crHourGlass;
 buf:=Slash(appdir)+Slash('database')+'Nearside_Named_'+language+'.csv';
@@ -3603,7 +3910,7 @@ if fileexists(buf) then database[1]:=buf
    else begin
       buf:=Slash(appdir)+Slash('database')+'Nearside_Named_UK.csv';
       if fileexists(buf) then database[1]:=buf
-         else database[1]:=Slash(appdir)+Slash('database')+olddatabase;
+         else database[1]:=Slash(appdir)+Slash('database')+olddatabase; // v1.0 db
    end;
 buf:=Slash(appdir)+Slash('database')+'Nearside_satellite_'+language+'.csv';
 if fileexists(buf) then database[2]:=buf
@@ -3614,35 +3921,21 @@ if fileexists(buf) then database[3]:=buf
 buf:=Slash(appdir)+Slash('database')+'Farside_satellite_'+language+'.csv';
 if fileexists(buf) then database[4]:=buf
    else database[4]:=Slash(appdir)+Slash('database')+'Farside_Satellite_UK.csv';
-db.init;
-buf:=changefileext(database[1],'.mlb');
-if fileexists(buf) and (db_age[1]=fileage(database[1]))
-   then db.LoadFromFile(buf)
-   else
-     if fileexists(database[1]) then begin
-       convertDB(db,database[1],buf);
-       db_age[1]:=fileage(database[1]);
-end;
-for i:=2 to 4 do begin
+buf:=Slash(appdir)+Slash('database')+'Historical_'+language+'.csv';
+if fileexists(buf) then database[5]:=buf
+   else database[5]:=Slash(appdir)+Slash('database')+'Historical_UK.csv';
+CreateDB;
+for i:=1 to 5 do begin
   if usedatabase[i] then begin
-     db1.init;
-     buf:=changefileext(database[i],'.mlb');
-     if fileexists(buf) and (db_age[i]=fileage(database[i]))
-        then db1.LoadFromFile(buf)
-        else
-          if fileexists(database[i]) then begin
-            convertDB(db1,database[i],buf);
-            db_age[i]:=fileage(database[i]);
+     buf:=dbm.QueryOne('select fdate from file_date where side='+inttostr(i)+';');
+     if buf='' then db_age:=0 else db_age:=strtoint(buf);
+     if fileexists(database[i]) and (db_age<fileage(database[i])) then begin
+        convertDB(database[i],inttostr(i));
      end;
-     db.fusion(db,db1,'ALL;*');
   end;
 end;
-db.SortByData('NAME',true);
-db.GoFirst;
-InitDBKeys;
 finally
 screen.cursor:=savecursor;
-db1.free;
 end;
 end;
 
@@ -3651,6 +3944,9 @@ begin
 Setlang;
 LoadDB;
 InitLopamIdx;
+{$ifdef opengl}
+InitTelescope;
+{$endif}
 dblox.LoadFromFile(Slash(appdir)+Slash('database')+'lopamidx.csv');
 dblox.GoFirst;
 dbnotes.LoadFromFile(Slash(appdir)+Slash('database')+'notes.csv');
@@ -3677,7 +3973,6 @@ Combobox2.itemindex:=0;
 Combobox3.itemindex:=6;
 RadioGroup1.itemindex:=1;
 Updterminateur;
-db.Gofirst;
 Firstsearch:=true;
 SearchText:=trim(copy(ListBox1.Items[0],2,999));
 SearchName(SearchText,false);
@@ -3688,6 +3983,7 @@ end;
 procedure TForm1.Configuration1Click(Sender: TObject);
 var reboot,reloaddb: boolean;
     oldreduc,oldreducfar,i,j,oldmaxima,oldtexture: integer;
+    yy,x,y:double;
 begin
 try
 reboot:=false;
@@ -3703,6 +3999,7 @@ form2.checkbox19.checked:=usedatabase[1];
 form2.checkbox20.checked:=usedatabase[2];
 form2.checkbox21.checked:=usedatabase[3];
 form2.checkbox22.checked:=usedatabase[4];
+form2.checkbox23.checked:=usedatabase[5];
 form2.checkbox4.checked:=useOpenGL;
 form2.checkbox1.checked:=phaseeffect;
 form2.checkbox2.checked:=librationeffect;
@@ -3761,20 +4058,32 @@ if GeologicalMap then form2.radiogroup2.itemindex:=1
 {$ifdef vmaexpert}
 if hiresfile='hires.jpg' then form2.radiogroup2.itemindex:=0
  else if hiresfile='hires_clem.jpg' then form2.radiogroup2.itemindex:=1
+ else if hiresfile='hires_light.jpg' then form2.radiogroup2.itemindex:=2
  else form2.radiogroup2.itemindex:=-1;
 {$endif}
 oldtexture:=form2.radiogroup2.itemindex;
 form2.CheckBox15.Checked:=LopamDirect;
 form2.ruklprefix.text:=ruklprefix;
 form2.ruklsuffix.text:=ruklsuffix;
-form2.edit5.Text:=hiresfile;
+form2.hiresfn:=hiresfile;
+form2.combobox5.text:=remext(overlayname);
+form2.trackbar5.position:=overlaylum;
+form2.combobox5change(sender);
+form2.checkbox11.checked:=showoverlay;
 FormPos(Form2,mouse.cursorpos.x,mouse.cursorpos.y);
 Form2.showmodal;
 if form2.ModalResult=mrOK then begin
     screen.cursor:=crhourglass;
    {$ifdef vmaexpert}
-     if hiresfile<>form2.edit5.Text then begin
-        hiresfile:=form2.edit5.Text;
+     if (form2.combobox5.text<>remext(overlayname)) or
+        (form2.trackbar5.position<>overlaylum) or
+        (form2.checkbox11.checked<>showoverlay)
+        then reboot:=true;
+     overlayname:=form2.combobox5.text+'.jpg';
+     overlaylum:=form2.trackbar5.position;
+     showoverlay:=form2.checkbox11.checked;
+     if hiresfile<>form2.hiresfn then begin
+        hiresfile:=form2.hiresfn;
         if copy(hiresfile,6,1)<>'.' then begin
            i:=pos('.',hiresfile);
            if i>6 then imgsuffix:=copy(hiresfile,6,i-6);
@@ -3820,10 +4129,12 @@ if form2.ModalResult=mrOK then begin
    if usedatabase[2]<>form2.checkbox20.checked then reloaddb:=true;
    if usedatabase[3]<>form2.checkbox21.checked then reloaddb:=true;
    if usedatabase[4]<>form2.checkbox22.checked then reloaddb:=true;
+   if usedatabase[5]<>form2.checkbox23.checked then reloaddb:=true;
    usedatabase[1]:=form2.checkbox19.checked;
    usedatabase[2]:=form2.checkbox20.checked;
    usedatabase[3]:=form2.checkbox21.checked;
    usedatabase[4]:=form2.checkbox22.checked;
+   usedatabase[5]:=form2.checkbox23.checked;
    InitObservatoire;
    CurrentJD:=jd(CurYear,CurrentMonth,CurrentDay,Currenttime-timezone+DT_UT);
    case form2.RadioGroup1.ItemIndex of
@@ -3907,10 +4218,13 @@ if form2.ModalResult=mrOK then begin
          GLsceneViewer1.Buffer.BackgroundColor:=clBlack;
       end;
       {$ENDIF}
+      yy:=zoom*minfoc;
+      Window2World(lastx,lasty,x,y);
       InitGraphic(Sender);
       RefreshMoonImage;
-      setzoom(minfoc);
-      movecamera(0,0);
+      if yy<minfoc then yy:=minfoc;
+      SetZoom(yy);
+      if (not UseOpenGL)and(abs(x)<0.5)and(abs(y)<0.5) then MoveCamera(x,y);
       application.processmessages;
       Formresize(Sender);
    end
@@ -4077,10 +4391,15 @@ else begin
 end;
 end;
 
+procedure TForm1.SetFullScreen;
+begin
+end;
+
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var i : integer;
 begin
+if key=27 then SetFullScreen;
 if safemode then
 if (key=13) then begin
   if password=exitpassword then form1.close
@@ -4101,7 +4420,9 @@ end;
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 var cielhnd:thandle;
     OldVal : LongInt;
+    ok:boolean;
 begin
+try
 {Set form1's window proc back to it's original procedure}
  SetWindowLong(Form1.Handle,
                GWL_WNDPROC,
@@ -4114,6 +4435,13 @@ end;
 if skychartrunning and startedbyds then begin
   cielhnd:=findwindow(nil,Pchar(skychartcaption));
   if cielhnd>0 then PostMessage(cielhnd,WM_QUIT,0,0);   // close skychart (use WM_CLOSE for the close prompt)
+end;
+if scopelibok then
+  if ScopeConnected then begin
+     ScopeDisconnect(ok);
+  end;
+UnloadScopeLibrary;
+except
 end;
 end;
 
@@ -4293,6 +4621,7 @@ case sphere1.Slices of
 180 : i:=64;
 end;
 hiressphere.Slices:=i ; hiressphere.Stacks:=i ;
+hiressphere500.Slices:=i ; hiressphere500.Stacks:=i ;
 form1.glscene1.EndUpdate;
 {$ENDIF}
 end;
@@ -4402,7 +4731,19 @@ procedure TForm1.RotationCadencerProgress(Sender: TObject; const deltaTime,
   newTime: Double);
 begin
  lrot:=lrot+rotstep*rotdirection*deltatime;
+ inclination:=trackbar6.Position;
  GLSceneViewer1MouseMove(nil,[ssLeft],lastx,lasty);
+end;
+
+procedure TForm1.TrackBar6Change(Sender: TObject);
+begin
+ inclination:=trackbar6.Position;
+ GLSceneViewer1MouseMove(nil,[ssLeft],lastx,lasty);
+end;
+
+procedure TForm1.SpeedButton7Click(Sender: TObject);
+begin
+trackbar6.Position:=0;
 end;
 
 procedure TForm1.Stop1Click(Sender: TObject);
@@ -4530,7 +4871,6 @@ var i,p : integer;
 begin
 i:=listbox1.ItemIndex;
 if i>=0 then begin
-    db.Gofirst;
     Firstsearch:=true;
     SearchText:=listbox1.Items[i];
     p:=pos(' ',SearchText)+1;
@@ -4652,6 +4992,12 @@ internalbrowser:=true;
 showhelp(helpprefix+'_Index_Doc_'+versionname+'.html');
 end;
 
+procedure TForm1.Encyclopedia1Click(Sender: TObject);
+begin
+internalbrowser:=true;
+showhelp(helpprefix+'_Encyclopedia.html','encyclopedia');
+end;
+
 procedure TForm1.Position1Click(Sender: TObject);
 var ok : boolean;
 begin
@@ -4729,7 +5075,7 @@ case RadioGroup2.ItemIndex of
 end;
 {$IFDEF opengl}
 if useopengl then begin
-  if FollowNorth then CameraOrientation:=rmod(PA+PoleOrientation+360,360)
+  if FollowNorth then CameraOrientation:=rmod(-PA+PoleOrientation+360,360)
                  else CameraOrientation:=Poleorientation;
   SetCameraOrientation;
   Mark(shapePositionX,shapePositionY,hudtext1.Text);
@@ -4784,7 +5130,7 @@ procedure TForm1.CheckBox1Click(Sender: TObject);
 begin
 {$IFDEF opengl}
 FollowNorth:=CheckBox1.Checked;
-if FollowNorth then CameraOrientation:=rmod(PA+PoleOrientation+360,360)
+if FollowNorth then CameraOrientation:=rmod(-PA+PoleOrientation+360,360)
                else CameraOrientation:=Poleorientation;
 SetCameraOrientation;
 RefreshLabel;
@@ -4955,6 +5301,7 @@ end;
 
 procedure TForm1.Imprimer1Click(Sender: TObject);
 var i,w,ww,tl,hl,l,maxt : integer;
+    s : double;
     b: tbitmap;
     buf1 : string;
 //    buf:pchar;
@@ -4962,8 +5309,9 @@ var i,w,ww,tl,hl,l,maxt : integer;
 //    c:char;
 begin
 GetPrinterResolution(PrtName,PrinterResolution);
+s:= PrinterResolution/300;
 Printer.Orientation := poPortrait;
-Printer.Title:=form1.caption;
+Printer.Title:=currentname;
 Printer.BeginDoc;
 with Printer do begin
  xmin := Canvas.ClipRect.left+round(LeftMargin*PrinterResolution/25.4);
@@ -4996,22 +5344,25 @@ with Printer do begin
  if PrintDesc then begin
     ww:=w;
     if (ww=0) and PrintEph then ww:=(xmax-xmin) * 2 div 3;
-    b.Height:=500;
-    b.Width:=b.Height;
-    b.Canvas.Brush.Color:=clWhite;
-    b.Canvas.pen.Color:=clWhite;
-    b.Canvas.Rectangle(0,0,b.Width,b.Height);
-    b.Canvas.Brush.Style := bsClear;
-    b.Canvas.Font.Handle := rotatefont.Handle;
-    b.Canvas.Font.Color := $e7e7e7;  
-    b.Canvas.TextOut(5,b.Height-25, 'Lunar formations database V2.0 © Ch. Legrand');
-    l:=minintvalue([xmax-xmin-20,ymax-ymin-ww-4*hl]);
-    PrintBitMap(Canvas,rect(xmin+20,ymin+ww+2*hl,xmin+20+l,ymin+ww+2*hl+l),b);
+    if PrinterResolution<>rotatefontresol then begin
+      rotatefont.free;
+      SetRotateFont(PrinterResolution);
+    end;
+    Canvas.Brush.Color:=clWhite;
+    Canvas.pen.Color:=clWhite;
+    Canvas.Font.Handle := rotatefont.Handle;
+    Canvas.Font.Color := $e7e7e7;
+    Canvas.TextOut(round(s*50),maxt-round(s*50), 'Lunar formations database V2.1 © Ch. Legrand');
+    Canvas.Font.Name:=memo2.Font.Name;
+    Canvas.Font.Color := clBlack;
+    Canvas.Font.Size:=8;
+    Canvas.Font.Style:=[];
     Canvas.Brush.Style := bsClear;
     tl:=ymin+ww+round(1.5*hl);
-    l:=Xmin+10;
+    l:=Xmin+round(s*10);
     memo2.Clear;
-    GetDetail(memo2);
+    dbm.Query('select * from moon where id='+currentid);
+    if dbm.RowCount>0 then GetDetail(dbm.Results[0], memo2);
     for i:=1 to memo2.Lines.Count do begin
         if tl>=maxt then begin
           Canvas.TextOut(l,tl,'Truncated ...');
@@ -5027,7 +5378,7 @@ with Printer do begin
  end;
  if PrintEph then begin
     tl:=ymin+3*hl;
-    l:=30+ xmin+w;
+    l:=round(s*30)+ xmin+w;
     Canvas.Font.Style:=[fsBold];
     Canvas.TextOut(l,tl,Ephemerides.Caption);
     Canvas.Font.Style:=[];
@@ -5085,13 +5436,21 @@ end;
 
 procedure TForm1.ToolButton7Click(Sender: TObject);
 begin
-ListImg(db.GetDatabyindex(FNAME));
+ListImg(currentname);
 end;
 
 {$IFDEF opengl}
+procedure TForm1.OverlayCaption1Click(Sender: TObject);
+var dir : string;
+begin
+chdir(appdir);
+dir:=slash('Textures')+slash('overlay')+slash('caption');
+if fileexists(dir+overlayname) then showimg(dir,overlayname,true);
+end;
+
 function GetIntLB(x,y:integer; var l,b:integer):boolean;
-var xx,yy,lc,bc:double;
-    resol:integer;
+var xx,yy,lc,bc: double;
+    resol,wd: integer;
 begin
   Window2World(x,y,xx,yy);
   if InvProjMoon(2*xx,2*yy,librl,librb,lc,bc) then begin
@@ -5101,31 +5460,114 @@ begin
     90  : resol:=1;
     180 : resol:=1;
     end;
+    wd:=hi_wd div hi_mult;
     l:=round(rmod(lc+360+180,360));
     l:=(l div resol)*resol;
-    if l>(360-hi_wd) then l:=360-hi_wd;
-    if l<hi_wd then l:=hi_wd;
+    if l>(360-wd) then l:=360-wd;
+    if l<wd then l:=wd;
     b:=round(bc);
     b:=(b div resol)*resol;
-    if b>(90-hi_wd) then b:=90-hi_wd;
-    if b<(-90+hi_wd) then b:=-90+hi_wd;
+    if b>(90-wd) then b:=90-wd;
+    if b<(-90+wd) then b:=-90+wd;
     result:=true;
   end else result:=false;
 end;
 {$ENDIF}
 
 {$IFDEF opengl}
-Procedure SetHires;
-var x,y,l,b,l0,b0,i,n: integer;
+Procedure SetHires500;
+var x,y,l,b,l0,b0,i,n,wd,dl,w,smooth: integer;
     ll,lb : array [1..4]of integer;
     p:Pbytearray;
     ok:boolean;
+    dest,src: Trect;
 begin
-with form1 do
-if (zoom<4)or(not HiresOK)or(RotationCadencer.enabled) then hiressphere.visible:=false
-else begin
+with form1 do begin
 try
 ok:=true;
+hi_mult:=2;
+GetIntLB(0,0,ll[1],lb[1]);
+GetIntLB(GLSceneViewer1.Width,0,ll[2],lb[2]);
+GetIntLB(GLSceneViewer1.Width,GLSceneViewer1.Height,ll[3],lb[3]);
+GetIntLB(0,GLSceneViewer1.Height,ll[4],lb[4]);
+for i:=1 to 4 do begin
+  if (ll[i]>form1.HiresSphere500.Stop)or
+     (ll[i]<form1.HiresSphere500.Start)or
+     (lb[i]>form1.HiresSphere500.Top)or
+     (lb[i]<form1.HiresSphere500.Bottom) then begin
+        ok:=false;
+        break;
+  end;
+end;
+if ok then hiressphere500.visible:=true
+else begin
+  x:=GLSceneViewer1.Width div 2;
+  y:=GLSceneViewer1.Height div 2;
+  wd:=hi_wd div hi_mult;
+  dl:=hi_dl * hi_mult;
+  w:=hi_w * hi_mult;
+  if GetIntLB(x,y,l,b) then begin
+    l0:=((l-wd+360) mod 360)*dl;
+    b0:=(90-(b+wd))*dl;
+    for i:=0 to 1023 do begin
+       p:=hires500.scanline[i];
+       seek(fh500,(b0+i)*w+l0);
+       blockread(fh500,p[0],1024,n);
+    end;
+    HiresSphere500.BeginUpdate;
+    if showoverlay then begin
+       l0:=round(l0*overlayimg.width/w);
+       b0:=round(b0*overlayimg.width/w);
+       overlayhi.width:=round(1024*overlayimg.width/w);
+       overlayhi.height:=overlayhi.width;
+       dest:=rect(0,0,overlayhi.width,overlayhi.height);
+       src:=rect(l0,b0,l0+overlayhi.width,b0+overlayhi.height);
+       overlayhi.Canvas.CopyRect(dest,overlayimg.canvas,src);
+       GLmaterialLibrary1.Materials[19].Material.Texture.Image.Assign(overlayhi);
+       GLmaterialLibrary1.Materials[19].Material.Texture.disabled:=false;
+    end else begin
+       GLmaterialLibrary1.Materials[19].Material.Texture.disabled:=true;
+    end;
+    case sphere1.Slices of
+       45  : smooth:=16 div hi_mult;
+       90  : smooth:=32 div hi_mult;
+       180 : smooth:=64 div hi_mult;
+       else smooth:=16;
+    end;
+    hiressphere500.Slices:=smooth ;
+    hiressphere500.Stacks:=smooth ;
+    HiresSphere500.bottom:=-90;
+    HiresSphere500.Top:=b+wd;
+    HiresSphere500.bottom:=b-wd;
+    HiresSphere500.Start:=0;
+    HiresSphere500.Stop:=l+wd;
+    HiresSphere500.Start:=l-wd;
+    GLmaterialLibrary1.Materials[18].Material.Texture.Image.Assign(hires500);
+    hiressphere500.visible:=true;
+    HiresSphere500.EndUpdate;
+  end;
+end;
+except
+  hiressphere500.visible:=false;
+end;
+end;
+end;
+
+Procedure SetHires;
+var x,y,l,b,l0,b0,i,n,wd,dl,w,smooth: integer;
+    ll,lb : array [1..4]of integer;
+    p:Pbytearray;
+    ok:boolean;
+    dest,src: Trect;
+begin
+with form1 do
+if (zoom<4)or(not HiresOK)or(RotationCadencer.enabled) then begin
+   hiressphere.visible:=false;
+   hiressphere500.visible:=false;
+end else begin
+try
+ok:=true;
+hi_mult:=1;
 GetIntLB(0,0,ll[1],lb[1]);
 GetIntLB(GLSceneViewer1.Width,0,ll[2],lb[2]);
 GetIntLB(GLSceneViewer1.Width,GLSceneViewer1.Height,ll[3],lb[3]);
@@ -5143,26 +5585,52 @@ if ok then hiressphere.visible:=true
 else begin
   x:=GLSceneViewer1.Width div 2;
   y:=GLSceneViewer1.Height div 2;
+  wd:=hi_wd div hi_mult;
+  dl:=hi_dl * hi_mult;
+  w:=hi_w * hi_mult;
   if GetIntLB(x,y,l,b) then begin
-    l0:=((l-hi_wd+360) mod 360)*hi_dl;
-    b0:=(90-(b+hi_wd))*hi_dl;
+    l0:=((l-wd+360) mod 360)*dl;
+    b0:=(90-(b+wd))*dl;
     for i:=0 to 1023 do begin
       p:=hires.scanline[i];
-      seek(fh,(b0+i)*hi_w+l0);
+      seek(fh,(b0+i)*w+l0);
       blockread(fh,p[0],1024,n);
     end;
     HiresSphere.BeginUpdate;
+    if showoverlay then begin
+       l0:=round(l0*overlayimg.width/w);
+       b0:=round(b0*overlayimg.width/w);
+       overlayhi.width:=round(1024*overlayimg.width/w);
+       overlayhi.height:=overlayhi.width;
+       dest:=rect(0,0,overlayhi.width,overlayhi.height);
+       src:=rect(l0,b0,l0+overlayhi.width,b0+overlayhi.height);
+       overlayhi.Canvas.CopyRect(dest,overlayimg.canvas,src);
+       GLmaterialLibrary1.Materials[17].Material.Texture.Image.Assign(overlayhi);
+       GLmaterialLibrary1.Materials[17].Material.Texture.disabled:=false;
+    end else begin
+       GLmaterialLibrary1.Materials[17].Material.Texture.disabled:=true;
+    end;
+    case sphere1.Slices of
+       45  : smooth:=16 div hi_mult;
+       90  : smooth:=32 div hi_mult;
+       180 : smooth:=64 div hi_mult;
+       else smooth:=16;
+    end;
+    hiressphere.Slices:=smooth ;
+    hiressphere.Stacks:=smooth ;
     HiresSphere.bottom:=-90;
-    HiresSphere.Top:=b+16;
-    HiresSphere.bottom:=b-16;
+    HiresSphere.Top:=b+wd;
+    HiresSphere.bottom:=b-wd;
     HiresSphere.Start:=0;
-    HiresSphere.Stop:=l+16;
-    HiresSphere.Start:=l-16;
+    HiresSphere.Stop:=l+wd;
+    HiresSphere.Start:=l-wd;
     GLmaterialLibrary1.Materials[8].Material.Texture.Image.Assign(hires);
     hiressphere.visible:=true;
     HiresSphere.EndUpdate;
   end;
 end;
+if hires500ok and (zoom>=8) then SetHires500
+   else hiressphere500.visible:=false;
 except
   hiressphere.visible:=false;
 end;
@@ -5175,7 +5643,7 @@ begin
 LabelTimer.Enabled:=false;
 {$IFDEF opengl}
 if useopengl then SetHires;
-if showautoLabel and(zoom>=1)and(not RotationCadencer.enabled) then SetLabel;
+if showautoLabel and(zoom>=1)and(not RotationCadencer.enabled)and(not TelescopeTimer.enabled) then SetLabel;
 {$ELSE}
 if showautoLabel and(zoom>=1) then SetLabel;
 {$ENDIF}
@@ -5218,12 +5686,16 @@ begin
   if useopengl then begin      // full rotation
    librl:=0;
    librb:=0;
+   GroupBox4.visible:=false;
    ToolButton2.Enabled:=false;
    checkbox2.visible:=false;
    form1.Arrowline1.Visible:=false;
    SetMirror(false);
+   GroupBox4.visible:=false;
    GroupBox3.visible:=true;
    lrot:=0;
+   inclination:=0;
+   trackbar6.Position:=0;
    setzoom(minfoc);
    movecamera(0,0);
    GLSceneViewer1MouseMove(sender,[ssLeft],lastx,lasty);
@@ -5237,6 +5709,7 @@ begin
    checkbox2.checked:=false;
    checkbox2.visible:=false;
    lrot:=180;
+   inclination:=0;
    mark(0,0,'');
    if GeologicalMap and fileexists(Slash(appdir)+Slash('textures')+'moon_far_geology.jpg') then
            Load2DTexture('moon_far_geology.jpg')
@@ -5251,7 +5724,9 @@ begin
      RotationCadencer.enabled:=false;
      Rotation1.visible:=false;
      GroupBox3.visible:=false;
+     GroupBox4.visible:=true;
      lrot:=0;
+     inclination:=0;
      setzoom(minfoc);
      movecamera(0,0);
      case RadioGroup2.ItemIndex of
@@ -5265,6 +5740,7 @@ begin
    {$ENDIF}
    begin
      lrot:=0;
+     inclination:=0;
      mark(0,0,'');
      if GeologicalMap and fileexists(Slash(appdir)+Slash('textures')+'moon_full_geology.jpg') then
            Load2DTexture('moon_full_geology.jpg')
@@ -5354,5 +5830,192 @@ begin
 farsidetexture:=CheckBox5.checked;
 end;
 
+{$ifdef opengl}
+Procedure TForm1.InitTelescope;
+var fs : TSearchRec;
+    i,p : integer;
+    buf : string;
+begin
+i:=findfirst(slash(appdir)+'*.tid',0,fs);
+Combobox5.clear;
+while i=0 do begin
+  buf:=extractfilename(fs.name);
+  p:=pos('.tid',buf);
+  buf:=trim(copy(buf,1,p-1));
+  Combobox5.items.Add(buf);
+  i:=findnext(fs);
+end;
+findclose(fs);
+if Combobox5.items.count>0 then GroupBox4.visible:=true;
+if scopeinterface<>'' then Combobox5.text:=scopeinterface
+                      else Combobox5.text:=Combobox5.items[0];
+scopeinterface:=ComboBox5.text;
+end;
 
+procedure TForm1.ComboBox5Change(Sender: TObject);
+begin
+scopeinterface:=ComboBox5.text;
+end;
+
+// Scope menu
+procedure TForm1.Button16Click(Sender: TObject);
+begin
+if not scopelibok then InitScopeLibrary(slash(appdir)+scopeinterface+'.tid');
+if scopelibok then begin
+  ScopeSetObs(ObsLatitude,ObsLongitude);
+  ScopeShow;
+  geocentric:=false;
+  librationeffect:=true;
+end;
+end;
+
+// Goto button
+procedure TForm1.Button17Click(Sender: TObject);
+var ok1,ok2,ok3:boolean;
+    ii : integer;
+    buf:shortstring;
+    r,d: double;
+begin
+if scopelibok and
+   scopeconnected and
+   marked
+   then begin
+   ScopeGetInfo(buf,OK1,OK2,OK3,ii);
+   if not ok3 then exit;
+   Moon2RaDec(markx,marky,r,d);
+   ScopeGoto(r,d,ok1);
+end
+else showmessage('Please first connect the telescope and select a formation.');
+end;
+
+// Sync button
+procedure TForm1.Button18Click(Sender: TObject);
+var ok1,ok2,ok3:boolean;
+    ii : integer;
+    buf:shortstring;
+    r,d: double;
+begin
+if scopelibok and
+   scopeconnected and
+   marked
+   then begin
+   ScopeGetInfo(buf,OK1,OK2,OK3,ii);
+   if not ok2 then exit;
+   Moon2RaDec(markx,marky,r,d);
+   ScopeAlign('markname',r,d);
+end
+else showmessage('Please first connect the telescope and select a formation.');
+end;
+
+// track
+procedure TForm1.CheckBox6Click(Sender: TObject);
+var ok1,ok2,ok3:boolean;
+    ii : integer;
+    buf:shortstring;
+begin
+ok1:=false;
+if scopelibok and scopeconnected then ScopeGetInfo(buf,OK1,OK2,OK3,ii);
+if not ok1 then CheckBox6.checked:=false
+   else begin
+     TelescopeTimer.Interval:=max(250,ii);
+     TelescopeTimer.enabled:=CheckBox6.checked;
+     ToolButton3.enabled:= not TelescopeTimer.enabled;
+   end;
+if CheckBox6.checked then begin
+   CheckBox7.enabled:=true;
+   Edit5.enabled:=true;
+   Label26.enabled:=true;
+   Label28.enabled:=true;
+end else begin
+   CheckBox7.checked:=false;
+   CheckBox7.enabled:=false;
+   CheckBox7.checked:=false;
+   Edit5.enabled:=false;
+   Label26.enabled:=false;
+   Label28.enabled:=false;
+end;
+end;
+
+procedure TForm1.TelescopeTimerTimer(Sender: TObject);
+var r,d,x,y: double;
+    ok: boolean;
+    buf: string;
+begin
+ScopeGetRaDec(r,d,ok);
+if ok then begin
+ initdate;
+ ok:=marked;
+ x:=markx;
+ y:=marky;
+ buf:=markname;
+ RefreshMoonImage;
+ if ok then mark(x,y,buf);
+ RaDec2Moon(r,d,x,y);
+ if (abs(x)<0.5)and(abs(y)<0.5) then MoveCamera(x,y);
+ if CheckBox7.checked and marked and ((LastScopeTracking+trackdelay.position/86400)<=now) then begin
+    LastScopeTracking:=now;
+    Button17Click(Sender);
+ end;
+end else begin
+ TelescopeTimer.enabled:=false;
+ CheckBox6.checked:=false;
+end;
+end;
+{$endif}
+
+procedure TForm1.NMClick(Sender: TObject);
+begin
+CurrentJD:=nmjd;
+SetJDDate;
+RefreshMoonImage;
+end;
+
+procedure TForm1.FQClick(Sender: TObject);
+begin
+CurrentJD:=fqjd;
+SetJDDate;
+RefreshMoonImage;
+end;
+
+procedure TForm1.FMClick(Sender: TObject);
+begin
+CurrentJD:=fmjd;
+SetJDDate;
+RefreshMoonImage;
+end;
+
+procedure TForm1.LQClick(Sender: TObject);
+begin
+CurrentJD:=lqjd;
+SetJDDate;
+RefreshMoonImage;
+end;
+
+procedure RefreshPhase;
+var jd0,hh:double;
+    aa,mm,dd : integer;
+begin
+  jd0:=jd(CurYear,1,1,0.0);
+  MoonPhases((phaseoffset/12.3685)+CurYear+(CurrentJD-jd0)/365.25,nmjd,fqjd,fmjd,lqjd);
+  djd(nmjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+  form1.labelnm.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
+  djd(fqjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+  form1.labelfq.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
+  djd(fmjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+  form1.labelfm.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
+  djd(lqjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+  form1.labellq.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
+end;
+
+procedure TForm1.prevMClick(Sender: TObject);
+begin
+system.dec(phaseoffset);
+RefreshPhase;
+end;
+
+procedure TForm1.nextMClick(Sender: TObject);
+begin
+inc(phaseoffset);
+RefreshPhase;
+end;
 

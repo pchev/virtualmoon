@@ -1,6 +1,6 @@
 object splash: Tsplash
-  Left = 247
-  Top = 107
+  Left = 246
+  Top = 98
   BorderStyle = bsNone
   Caption = 'About'
   ClientHeight = 450
@@ -581,11 +581,12 @@ object splash: Tsplash
       Align = alBottom
       Alignment = taCenter
       Caption = 
-        'Copyright '#169' 2003  Christian Legrand, Patrick Chevalley Tous droi' +
-        'ts reserv'#233's'#13#10'This program is free software; you can redistribute' +
-        ' it and/or modify it under '#13#10'the terms of the GNU General Public' +
-        ' License.'#13#10'All database, pictures and documentation '#169' Ch. Legran' +
-        'd'#13#10'Pictures library are copyrighted by their respective owner.'
+        'Copyright '#169' 2001-2004  Christian Legrand, Patrick Chevalley, All' +
+        ' rights reserved'#13#10'This program is free software; you can redistr' +
+        'ibute it and/or modify it under '#13#10'the terms of the GNU General P' +
+        'ublic License.'#13#10'All database, pictures and documentation '#169' Ch. L' +
+        'egrand'#13#10'Pictures library are copyrighted by their respective own' +
+        'er.'
       Color = clBlack
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 57568

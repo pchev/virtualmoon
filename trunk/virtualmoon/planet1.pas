@@ -35,6 +35,8 @@ Procedure SatRing(jde : double; var P,a,b,be : double);
 Function MoonMag(phase:double):double;
 Procedure PlanetOrientation(jde:double; ipla:integer; var P,De,Ds,w1,w2,w3 : double);
 Procedure MoonOrientation(jde,ra,dec,d:double; var P,llat,lats,llong : double);
+Function MoonPhase(k: double):double;
+Procedure MoonPhases(year:double; var nm,fq,fm,lq : double);
 
 const
       nommarsat : array [1..2] of string[8] = ('Phobos  ','Deimos  ');
@@ -639,6 +641,155 @@ i:=p div 10;
 k:=p-10*i;
 j:=minintvalue([18,i+1]); 
 result:=mma[i]+((mma[j]-mma[i])*k/10);
+end;
+
+Function MoonPhase(k: double):double;
+var t,t2,t3,t4,cor,e,e2,M,Mm,f,ome,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,fr,w : double;
+begin
+t := k/1236.85;
+t2 := t*t;
+t3 := t2*t;
+t4 := t3*t;
+result:= 2451550.09766 + 29.530588861*k + 0.00015437*T2 - 0.000000150*T3 + 0.00000000073*T4;
+e := 1 - 0.002516*T - 0.0000074*T2;
+e2 := e*e;
+M := deg2rad*rmod(2.5534 + 29.10535670*k - 0.0000014*T2 - 0.00000011*T3 + 360000000000,360);
+Mm := deg2rad*rmod(201.5643 + 385.81693528*k + 0.0107582*T2 + 0.00001238*T3 - 0.000000058*T4 + 360000000000,360);
+F  := deg2rad*rmod(160.7108 + 390.67050284*k - 0.0016118*T2 - 0.00000227*T3 + 0.00000001*T4 + 360000000000,360);
+ome := deg2rad*rmod(124.7746 - 1.56375588*k + 0.0020672*T2 + 0.00000215*T3 + 360000000000,360);
+A1 := deg2rad*rmod(299.77 + 0.107408*k - 0.009173*T2 + 360000000000,360);
+A2 := deg2rad*rmod(251.88 + 0.016321*k + 360000000000,360);
+A3 := deg2rad*rmod(251.83 + 26.651886*k + 360000000000,360);
+A4 := deg2rad*rmod(349.42 + 36.412478*k + 360000000000,360);
+A5 := deg2rad*rmod(84.66 + 18.206239*k + 360000000000,360);
+A6 := deg2rad*rmod(141.74 + 53.303771*k + 360000000000,360);
+A7 := deg2rad*rmod(207.14 + 2.453732*k + 360000000000,360);
+A8 := deg2rad*rmod(154.84 + 7.306860*k + 360000000000,360);
+A9 := deg2rad*rmod(34.52 + 27.261239*k + 360000000000,360);
+A10 := deg2rad*rmod(207.19 + 0.121824*k + 360000000000,360);
+A11 := deg2rad*rmod(291.34 + 1.844379*k + 360000000000,360);
+A12 := deg2rad*rmod(161.72 + 24.198154*k + 360000000000,360);
+A13 := deg2rad*rmod(239.56 + 25.513099*k + 360000000000,360);
+A14 := deg2rad*rmod(331.55 + 3.592518*k + 360000000000,360);
+fr := k - floor(k);
+if (fr = 0) then begin //New Moon
+   cor := -0.40720*sin(Mm) +
+          0.17241*E*sin(M) +
+          0.01608*sin(2*Mm) +
+          0.01039*sin(2*F) +
+          0.00739*E*sin(Mm - M) +
+          -0.00514*E*sin(Mm + M) +
+          0.00208*E2*sin(2*M) +
+          -0.00111*sin(Mm - 2*F) +
+          -0.00057*sin(Mm + 2*F) +
+          0.00056*E*sin(2*Mm + M) +
+          -0.00042*sin(3*Mm) +
+          0.00042*E*sin(M + 2*F) +
+          0.00038*E*sin(M - 2*F) +
+          -0.00024*E*sin(2*Mm - M) +
+          -0.00017*sin(ome) +
+          -0.00007*sin(Mm + 2*M) +
+          0.00004*sin(2*Mm - 2*F) +
+          0.00004*sin(3*M) +
+          0.00003*sin(Mm + M - 2*F) +
+          0.00003*sin(2*Mm + 2*F) +
+          -0.00003*sin(Mm + M + 2*F) +
+          0.00003*sin(Mm - M + 2*F) +
+          -0.00002*sin(Mm - M - 2*F) +
+          -0.00002*sin(3*Mm + M) +
+          0.00002*sin(4*Mm);
+    result := result + cor;
+  end
+  else if ((fr = 0.25)or(fr = 0.75)) then begin //First and Last Quarter
+    cor := -0.62801*sin(Mm) +
+          0.17172*E*sin(M) +
+          -0.01183*E*sin(Mm + M) +
+          0.00862*sin(2*Mm) +
+          0.00804*sin(2*F) +
+          0.00454*E*sin(Mm - M) +
+          0.00204*E2*sin(2*M) +
+          -0.00180*sin(Mm - 2*F) +
+          -0.00070*sin(Mm + 2*F) +
+          -0.00040*sin(3*Mm) +
+          -0.00034*E*sin(2*Mm - M) +
+          0.00032*E*sin(M + 2*F) +
+          0.00032*E*sin(M - 2*F) +
+          -0.00028*E2*sin(Mm + 2*M) +
+          0.00027*E*sin(2*Mm + M) +
+          -0.00017*sin(ome) +
+          -0.00005*sin(Mm - M - 2*F) +
+          0.00004*sin(2*Mm + 2*F) +
+          -0.00004*sin(Mm + M + 2*F) +
+          0.00004*sin(Mm - 2*M) +
+          0.00003*sin(Mm + M - 2*F) +
+          0.00003*sin(3*M) +
+          0.00002*sin(2*Mm - 2*F) +
+          0.00002*sin(Mm - M + 2*F) +
+          -0.00002*sin(3*Mm + M);
+    result := result + cor;
+    W := 0.00306 - 0.00038*E*cos(M) + 0.00026*cos(Mm) - 0.00002*cos(Mm - M) + 0.00002*cos(Mm + M) + 0.00002*cos(2*F);
+    if (fr = 0.25) then //First quarter
+      result := result + W
+    else
+      result := result - W;
+  end
+  else if (fr = 0.5) then begin //Full Moon
+    cor := -0.40614*sin(Mm) +
+          0.17302*E*sin(M) +
+          0.01614*sin(2*Mm) +
+          0.01043*sin(2*F) +
+          0.00734*E*sin(Mm - M) +
+          -0.00514*E*sin(Mm + M) +
+          0.00209*E2*sin(2*M) +
+          -0.00111*sin(Mm - 2*F) +
+          -0.00057*sin(Mm + 2*F) +
+          0.00056*E*sin(2*Mm + M) +
+          -0.00042*sin(3*Mm) +
+          0.00042*E*sin(M + 2*F) +
+          0.00038*E*sin(M - 2*F) +
+          -0.00024*E*sin(2*Mm - M) +
+          -0.00017*sin(ome) +
+          -0.00007*sin(Mm + 2*M) +
+          0.00004*sin(2*Mm - 2*F) +
+          0.00004*sin(3*M) +
+          0.00003*sin(Mm + M - 2*F) +
+          0.00003*sin(2*Mm + 2*F) +
+          -0.00003*sin(Mm + M + 2*F) +
+          0.00003*sin(Mm - M + 2*F) +
+          -0.00002*sin(Mm - M - 2*F) +
+          -0.00002*sin(3*Mm + M) +
+          0.00002*sin(4*Mm);
+    result := result + cor;
+  end
+  else result:=0/0;
+
+  //Additional corrections
+  cor:= 0.000325*sin(A1) +
+        0.000165*sin(A2) +
+        0.000164*sin(A3) +
+        0.000126*sin(A4) +
+        0.000110*sin(A5) +
+        0.000062*sin(A6) +
+        0.000060*sin(A7) +
+        0.000056*sin(A8) +
+        0.000047*sin(A9) +
+        0.000042*sin(A10) +
+        0.000040*sin(A11) +
+        0.000037*sin(A12) +
+        0.000035*sin(A13) +
+        0.000023*sin(A14);
+  result := result + cor;
+end;
+
+Procedure MoonPhases(year:double; var nm,fq,fm,lq : double);
+var k : double;
+begin
+k := (year - 2000) * 12.3685;
+k := floor(k);
+nm := MoonPhase(k);
+fq := MoonPhase(k+0.25);
+fm := MoonPhase(k+0.50);
+lq := MoonPhase(k+0.75);
 end;
 
 end.

@@ -74,7 +74,6 @@ begin
              ShowImg(desc,nom,false);
              end;
      formation: begin
-             db.Gofirst;
              Firstsearch:=true;
              SearchName(buf,true);
              end;

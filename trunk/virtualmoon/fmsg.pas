@@ -27,8 +27,8 @@ uses
 
 type
   TMsgForm = class(TForm)
+    Panel1: TPanel;
     Label1: TLabel;
-    Bevel1: TBevel;
   private
     { Déclarations privées }
   public
