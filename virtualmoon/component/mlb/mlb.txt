@@ -1,0 +1,5 @@
+
+MyLittleBase component source code is available from 
+http://www.mylittlebase.org/
+
+
