@@ -343,6 +343,7 @@ end;
 
 procedure TForm2.RadioGroup2Click(Sender: TObject);
 begin
+{$ifdef vmaexpert}
 case RadioGroup2.itemindex of
 0 : edit5.Text:='hires.jpg';
 1 : edit5.Text:='hires_clem.jpg';
@@ -353,6 +354,7 @@ if not fileexists(Slash(appdir)+Slash('textures')+edit5.Text) then begin
    else if hiresfile='hires_clem.jpg' then form2.radiogroup2.itemindex:=1
    else form2.radiogroup2.itemindex:=-1;
 end;
+{$endif}
 end;
 
 procedure TForm2.StringGrid2DrawCell(Sender: TObject; ACol, ARow: Integer;

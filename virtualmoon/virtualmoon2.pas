@@ -350,7 +350,7 @@ Procedure OpenHires(forcerebuild:boolean);
 {$ENDIF}
 
 const AVLversion = '2.0';
-      Splashversion ='Version 2.0  2003-10-25';
+      Splashversion ='Version 2.01  2003-11-25';
       d1 = '0.0';
       d2 = '0.00';
       Rmoon = 1737.103;  // moon radius Km
