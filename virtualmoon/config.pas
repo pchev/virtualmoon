@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
 interface
 
-uses
+uses Math, jpeg,
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, Buttons, ExtCtrls, Inifiles, Grids, EnhEdits;
 
@@ -102,10 +102,6 @@ type
     Label22: TLabel;
     TabSheet4: TTabSheet;
     RadioGroup1: TRadioGroup;
-    Panel1: TPanel;
-    Label23: TLabel;
-    Edit5: TEdit;
-    Button5: TButton;
     TabSheet5: TTabSheet;
     StringGrid2: TStringGrid;
     Edit6: TEdit;
@@ -130,6 +126,14 @@ type
     CheckBox10: TCheckBox;
     RadioGroup3: TRadioGroup;
     Label29: TLabel;
+    TabSheet6: TTabSheet;
+    Label30: TLabel;
+    CheckBox11: TCheckBox;
+    ComboBox5: TComboBox;
+    Image1: TImage;
+    Label32: TLabel;
+    TrackBar5: TTrackBar;
+    CheckBox23: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
@@ -142,7 +146,6 @@ type
     procedure CheckBox12Click(Sender: TObject);
     procedure StringGrid1SelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
-    procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
     procedure CheckBox19Click(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
@@ -152,16 +155,23 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure StringGrid2SelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
+    procedure TrackBar5Change(Sender: TObject);
+    procedure ComboBox5Change(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Déclarations privées }
   public
     { Déclarations publiques }
+    hiresfn: string;
   end;
 
 var
   Form2: TForm2;
-  var newlang : string;
+  newlang : string;
   savegeol,savelibration,savemipmaps : boolean;
+  lockoverlay: boolean=false;
+  ov : Tbitmap;
+  graytexture:integer;
 
 implementation
 
@@ -187,15 +197,15 @@ var inifile : Tinifile;
     buf,code,ver : string;
     fs : TSearchRec;
 begin
+ov:=Tbitmap.Create;
 CheckBox4.Visible:=false;
 {$IFNDEF opengl}
 CheckBox2.Visible:=false;
 CheckBox10.Visible:=false;
-panel1.Visible:=false;
+//panel1.Visible:=false;
 {$ENDIF}
 // hide developpement tools or not finished function
 if not fileexists('version.developpement') then begin
-  Panel1.Visible:=false;
   CheckBox12.Visible:=false;
   Edit4.Visible:=false;
   Button3.Visible:=false;
@@ -205,20 +215,21 @@ if not fileexists('version.developpement') then begin
   label22.Visible:=false;
   ruklprefix.Visible:=false;
   ruklsuffix.Visible:=false;
+  Tabsheet6.TabVisible:=false;
   checkbox22.Visible:=false;
 end;
 {$ifdef vmalight}
   CheckBox3.Visible:=false;
   checkbox18.Visible:=false;
   checkbox20.Visible:=false;
-  checkbox22.Visible:=false;
   RadioGroup3.Visible:=false;
+  Tabsheet6.TabVisible:=false;
 {$endif}
 {$ifdef vmabasic}
   checkbox21.Visible:=false;
-  checkbox22.Visible:=false;
   radiogroup2.Visible:=false;
   RadioGroup3.Visible:=false;
+  Tabsheet6.TabVisible:=false;
 {$endif}
 i:=findfirst(appdir+'\'+'lang_*.ini',0,fs);
 while i=0 do begin
@@ -238,9 +249,22 @@ while i=0 do begin
 end;
 findclose(fs);
 for j:=0 to combobox3.Items.Count-1 do if GetLangCode(combobox3.Items[j])=language then combobox3.ItemIndex:=j;
+i:=findfirst(Slash(appdir)+Slash('textures')+Slash('overlay')+'*.jpg',0,fs);
+combobox5.clear;
+combobox5.Sorted:=true;
+while i=0 do begin
+  combobox5.Items.Add(remext(fs.name));
+  i:=findnext(fs);
+end;
+findclose(fs);
 savegeol:=GeologicalMap;
 savelibration:=librationeffect;
 savemipmaps:=MipMaps;
+end;
+
+procedure TForm2.FormDestroy(Sender: TObject);
+begin
+ov.Free;
 end;
 
 procedure TForm2.ComboBox3Change(Sender: TObject);
@@ -298,6 +322,8 @@ begin
 //  Panel1.Visible:=checkbox4.Checked;
   TrackBar2.Min:=-1000;
   TrackBar2.Max:=-100;
+  if hiresfile='hires_light.jpg' then graytexture:=0
+                               else graytexture:=80;
 end;
 
 procedure TForm2.Button3Click(Sender: TObject);
@@ -317,19 +343,6 @@ begin
 if (ACol=0)and(Arow<=2) then CanSelect:=False;
 end;
 
-procedure TForm2.Button5Click(Sender: TObject);
-begin
-{$IFDEF opengl}
-if fileexists(Slash(appdir)+Slash('textures')+form2.edit5.Text) then begin
- hiresfile:=form2.edit5.Text;
- OpenHires(true);
-end
-else begin
- showmessage('File not found!');
-end;
-{$ENDIF}
-end;
-
 procedure TForm2.Button6Click(Sender: TObject);
 begin
 edit10.Text:=inttostr(round((strtofloat(edit6.text)/strtofloat(edit7.text)) ));
@@ -345,15 +358,19 @@ procedure TForm2.RadioGroup2Click(Sender: TObject);
 begin
 {$ifdef vmaexpert}
 case RadioGroup2.itemindex of
-0 : edit5.Text:='hires.jpg';
-1 : edit5.Text:='hires_clem.jpg';
+0 : hiresfn:='hires.jpg';
+1 : hiresfn:='hires_clem.jpg';
+2 : hiresfn:='hires_light.jpg';
 end;
-if not fileexists(Slash(appdir)+Slash('textures')+edit5.Text) then begin
- edit5.Text:=hiresfile;
+if not fileexists(Slash(appdir)+Slash('textures')+hiresfn) then begin
+ hiresfn:=hiresfile;
  if hiresfile='hires.jpg' then form2.radiogroup2.itemindex:=0
    else if hiresfile='hires_clem.jpg' then form2.radiogroup2.itemindex:=1
+   else if hiresfile='hires_light.jpg' then form2.radiogroup2.itemindex:=2
    else form2.radiogroup2.itemindex:=-1;
 end;
+if hiresfn='hires_light.jpg' then graytexture:=0
+                               else graytexture:=80;
 {$endif}
 end;
 
@@ -394,6 +411,64 @@ procedure TForm2.StringGrid2SelectCell(Sender: TObject; ACol,
   ARow: Integer; var CanSelect: Boolean);
 begin
 if Acol>=2 then canselect:=false else canselect:=true;
+end;
+
+procedure TForm2.ComboBox5Change(Sender: TObject);
+var  j:tjpegimage;
+begin
+if fileexists(Slash(appdir)+Slash('textures')+Slash('overlay')+combobox5.text+'.jpg') then begin
+   j:=tjpegimage.create;
+   try
+   j.LoadFromFile(Slash(appdir)+Slash('textures')+Slash('overlay')+combobox5.text+'.jpg');
+   ov.Width:=image1.Width;
+   ov.Height:=image1.Height;
+   ov.pixelformat:=pf24bit;
+   ov.Canvas.StretchDraw(rect(0,0,ov.Width,ov.Height),j);
+   TrackBar5Change(Sender);
+   CheckBox11.Checked:=true;
+   finally
+    j.free;
+   end;
+end else begin
+   ov.Assign(nil);
+   image1.Picture.Assign(nil);
+end;
+
+end;
+
+procedure TForm2.TrackBar5Change(Sender: TObject);
+var ma:double;
+    i,n,l : integer;
+    p1,p2: pbytearray;
+begin
+if not ov.Empty then begin
+   if lockoverlay then exit;
+   lockoverlay:=true;
+   try
+    image1.Picture.bitmap.Width:=ov.Width;
+    image1.Picture.bitmap.Height:=ov.Height;
+    image1.Picture.bitmap.pixelformat:=ov.pixelformat;
+    l:=trackbar5.Position;
+    ma:=(255-l)/255;
+    for i:=0 to image1.Picture.bitmap.height-1 do begin
+     p1:=ov.scanline[i];
+     p2:=image1.Picture.bitmap.scanline[i];
+     for n:=0 to image1.Picture.bitmap.width-1 do begin
+       case ov.pixelformat of
+         pf8bit  : p2[n]:=max(0,l+trunc(p1[n]*ma)-graytexture);
+         pf24bit : begin
+                   p2[3*n]:=max(0,l+trunc(p1[3*n]*ma)-graytexture);
+                   p2[3*n+1]:=max(0,l+trunc(p1[3*n+1]*ma)-graytexture);
+                   p2[3*n+2]:=max(0,l+trunc(p1[3*n+2]*ma)-graytexture);
+                   end;
+       end;
+     end;
+    end;
+    image1.Refresh;
+   finally
+    lockoverlay:=false;
+   end;
+end;
 end;
 
 end.

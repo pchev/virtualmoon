@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 249
-  Top = 108
-  Width = 760
-  Height = 580
+  Left = 278
+  Top = 126
+  Width = 762
+  Height = 590
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
   Caption = 'Form1'
@@ -289,7 +289,7 @@ object Form1: TForm1
           Top = 4
           Width = 75
           Height = 25
-          Caption = 'Remplacer'
+          Caption = 'Enregistrer'
           TabOrder = 0
           OnClick = Button9Click
         end
@@ -301,15 +301,6 @@ object Form1: TForm1
           Caption = 'Nouveau'
           TabOrder = 1
           OnClick = btnEffacerClick
-        end
-        object Button10: TButton
-          Left = 164
-          Top = 4
-          Width = 75
-          Height = 25
-          Caption = 'Ins'#233'rer'
-          TabOrder = 2
-          OnClick = Button10Click
         end
       end
     end
@@ -325,33 +316,33 @@ object Form1: TForm1
         TabOrder = 0
         TabStop = True
         object Label6: TLabel
-          Left = 8
+          Left = 2
           Top = 38
-          Width = 37
-          Height = 16
+          Width = 29
+          Height = 13
           Caption = 'Heure'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
         end
         object Label9: TLabel
-          Left = 8
+          Left = 2
           Top = 6
-          Width = 29
-          Height = 16
+          Width = 23
+          Height = 13
           Caption = 'Date'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
         end
         object Button3: TSpeedButton
-          Left = 166
+          Left = 134
           Top = 96
           Width = 33
           Height = 22
@@ -362,7 +353,7 @@ object Form1: TForm1
           OnMouseUp = Button3MouseUp
         end
         object Button6: TSpeedButton
-          Left = 121
+          Left = 92
           Top = 96
           Width = 33
           Height = 22
@@ -373,7 +364,7 @@ object Form1: TForm1
           OnMouseUp = Button3MouseUp
         end
         object Button7: TSpeedButton
-          Left = 76
+          Left = 50
           Top = 96
           Width = 33
           Height = 22
@@ -384,7 +375,7 @@ object Form1: TForm1
           OnMouseUp = Button3MouseUp
         end
         object Button8: TSpeedButton
-          Left = 32
+          Left = 8
           Top = 96
           Width = 33
           Height = 22
@@ -394,10 +385,284 @@ object Form1: TForm1
           OnMouseDown = Button8MouseDown
           OnMouseUp = Button3MouseUp
         end
+        object NM: TImage
+          Left = 172
+          Top = 14
+          Width = 27
+          Height = 24
+          AutoSize = True
+          Picture.Data = {
+            0A544A504547496D61676518030000FFD8FFE000104A46494600010101004800
+            480000FFDB0043000302020302020303030304030304050805050404050A0707
+            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+            1414141414141414141414141414141414141414141414141414141414141414
+            14141414141414141414141414FFC00011080018001B03012200021101031101
+            FFC4001F0000010501010101010100000000000000000102030405060708090A
+            0BFFC400B5100002010303020403050504040000017D01020300041105122131
+            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+            191A25262728292A3435363738393A434445464748494A535455565758595A63
+            6465666768696A737475767778797A838485868788898A92939495969798999A
+            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+            01010101010101010000000000000102030405060708090A0BFFC400B5110002
+            0102040403040705040400010277000102031104052131061241510761711322
+            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+            292A35363738393A434445464748494A535455565758595A636465666768696A
+            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCB5
+            B0B29B509C4512E0FF007BFBB5D7DB782ECE2B656BB9A532B9DC360F96AA7829
+            5192ECB22976202FB5768FA1CB358B4B1CD97C0C0CE71401C2F88BC1736936AB
+            770BFDA2D0FDE23EF27D6B96AF58F2A41686DA7F9D2453F8715E5F25B12E483C
+            50069787F564B0BC1E692B6D27CAFB3EF0FF006ABD82DB5AD21ED61306A76C55
+            94643CAA847E068A280391F17F8A74E86DA6B7D3D8CF7137DE915BE44AF3476D
+            CE4D145007FFD9}
+          OnClick = NMClick
+        end
+        object LabelNM: TLabel
+          Left = 204
+          Top = 19
+          Width = 6
+          Height = 14
+          Caption = 'L'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+          OnClick = NMClick
+        end
+        object LabelFQ: TLabel
+          Left = 204
+          Top = 43
+          Width = 6
+          Height = 14
+          Caption = 'L'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+          OnClick = FQClick
+        end
+        object LabelFM: TLabel
+          Left = 204
+          Top = 67
+          Width = 6
+          Height = 14
+          Caption = 'L'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+          OnClick = FMClick
+        end
+        object LabelLQ: TLabel
+          Left = 204
+          Top = 92
+          Width = 6
+          Height = 14
+          Caption = 'L'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+          OnClick = LQClick
+        end
+        object FQ: TImage
+          Left = 172
+          Top = 37
+          Width = 27
+          Height = 24
+          AutoSize = True
+          Picture.Data = {
+            0A544A504547496D6167657D030000FFD8FFE000104A46494600010101004800
+            480000FFDB0043000302020302020303030304030304050805050404050A0707
+            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+            1414141414141414141414141414141414141414141414141414141414141414
+            14141414141414141414141414FFC00011080018001B03012200021101031101
+            FFC4001F0000010501010101010100000000000000000102030405060708090A
+            0BFFC400B5100002010303020403050504040000017D01020300041105122131
+            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+            191A25262728292A3435363738393A434445464748494A535455565758595A63
+            6465666768696A737475767778797A838485868788898A92939495969798999A
+            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+            01010101010101010000000000000102030405060708090A0BFFC400B5110002
+            0102040403040705040400010277000102031104052131061241510761711322
+            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+            292A35363738393A434445464748494A535455565758595A636465666768696A
+            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCB9
+            D334D9351B9544CA7F799ABD9FE0F780FC37A8F8B2D2CB5EB39750B796366654
+            765EDC735E75E079079575903712ABB9BB2D7D01FB3D7810F8A3C7B6F676F36C
+            B89A09392320951D00F7A00D8FDA17F630B2F0C78153C71E04BC373A5AC7E65D
+            E993C8649625FEF29EE318C8EA335F1F2C7BD430D801EC6BF5BB4DF0A2787BC1
+            97F61A862F74FBA8256B88E763B6DDD236CFD0818E0D7E4EEA2A23D42E96DA60
+            20133F978FEEEE38A007685AA0D32F95DC1780B7CE8BF2EE5AFAA3F665F8A9E0
+            BF0E7C48D3755D5B5B8F4AB28207F31EE030C36DE3EE83DE8A2803BCFDAABF6D
+            CF0C6B1E12D4BC25F0E6D8DD3EA44FDB75E92331A843F7D2207925B8CB1C1EB5
+            F0634E0B1F99A8A2803FFFD9}
+          OnClick = FQClick
+        end
+        object FM: TImage
+          Left = 172
+          Top = 60
+          Width = 27
+          Height = 24
+          AutoSize = True
+          Picture.Data = {
+            0A544A504547496D616765B1030000FFD8FFE000104A46494600010101004800
+            480000FFDB0043000302020302020303030304030304050805050404050A0707
+            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+            1414141414141414141414141414141414141414141414141414141414141414
+            14141414141414141414141414FFC00011080018001B03012200021101031101
+            FFC4001F0000010501010101010100000000000000000102030405060708090A
+            0BFFC400B5100002010303020403050504040000017D01020300041105122131
+            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+            191A25262728292A3435363738393A434445464748494A535455565758595A63
+            6465666768696A737475767778797A838485868788898A92939495969798999A
+            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+            01010101010101010000000000000102030405060708090A0BFFC400B5110002
+            0102040403040705040400010277000102031104052131061241510761711322
+            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+            292A35363738393A434445464748494A535455565758595A636465666768696A
+            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCFA
+            F82BF092EBE2C7885AD03345A7DB287BA9D067E5CFDD1EE6BEE8D37E0B7C39F0
+            47872DACBFE106B0D52E0A6E9AE6E51A475E3A313D0FE55E2FFB0CEAB05B689E
+            26B25904124D2A89A54C798AB83923DABF44345F84DA06B5E0DFB1346B15DDC2
+            605C84DAD211CA0C74E7FF00D7401F0AFED27FB21F8466F874DE39F87F22585C
+            C0A1AF3474CB4472377EEF2490E07F09273CE2BE14F29CF73F857EBA6B7E1587
+            C1DA1EA2639227D38C330D4967F9C44F1A1C81E9D473EF5F929A8B3CB7F72F6C
+            A3C832314C7A66803B1F843F15AFBE12F8CA0D6ED614D420C08EEB4FB862B1CF
+            1F7538E9EC7B57E9BF87BFE0A5FF00042FBC2D6325C58EAFE1EBF8234492D0DB
+            79E32A00C8901F98668A2803E5EFDAC3F6F91F16B41BAF09782B4C7D2741BA60
+            6F353B850B73743AEC007DC52464F3935F18ACEAA00DEDFF007D5145007FFFD9}
+          OnClick = FMClick
+        end
+        object LQ: TImage
+          Left = 172
+          Top = 84
+          Width = 27
+          Height = 24
+          AutoSize = True
+          Picture.Data = {
+            0A544A504547496D61676564030000FFD8FFE000104A46494600010101004800
+            480000FFDB0043000302020302020303030304030304050805050404050A0707
+            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+            1414141414141414141414141414141414141414141414141414141414141414
+            14141414141414141414141414FFC00011080018001B03012200021101031101
+            FFC4001F0000010501010101010100000000000000000102030405060708090A
+            0BFFC400B5100002010303020403050504040000017D01020300041105122131
+            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+            191A25262728292A3435363738393A434445464748494A535455565758595A63
+            6465666768696A737475767778797A838485868788898A92939495969798999A
+            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+            01010101010101010000000000000102030405060708090A0BFFC400B5110002
+            0102040403040705040400010277000102031104052131061241510761711322
+            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+            292A35363738393A434445464748494A535455565758595A636465666768696A
+            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCE5
+            F861F0CF50F89BE224D3EC898A28D5649EE0AF112F622BE84F8ADF007C0DF0E3
+            E19C52A5A5E5D6BB2491FF00A4C93965D87FD9038FD6B77F6065B083C37E2BF3
+            1605BC9E68E213C83718D768208AF57FDA93E1EDA5AFC1FB8B98A576BC79E157
+            61212A467AE0FAD007C01E22F04C7636497965279B081BA489BEF8AE2EBD65AD
+            9A181E193E78C824E7B5795CD1E656F997F3A00F52F809F178FC26F180BCBD86
+            4BED12E47937D670BEC6651D194F4DC3B57DC3FB487ED11F087E21FC0EB6FF00
+            8453C4C64BF6920F36C2F8325C2E0FCC4AE31C7B1A28A00F827C59E34B3BAB69
+            AD74C8F73C9C497078CFAED15E7B451401FFD9}
+          OnClick = LQClick
+        end
+        object nextM: TImage
+          Left = 172
+          Top = 108
+          Width = 27
+          Height = 14
+          AutoSize = True
+          Picture.Data = {
+            0A544A504547496D6167650D030000FFD8FFE000104A46494600010102001C00
+            1C0000FFDB0043000302020302020303030304030304050805050404050A0707
+            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+            1414141414141414141414141414141414141414141414141414141414141414
+            14141414141414141414141414FFC0001108000E001B03012200021101031101
+            FFC4001F0000010501010101010100000000000000000102030405060708090A
+            0BFFC400B5100002010303020403050504040000017D01020300041105122131
+            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+            191A25262728292A3435363738393A434445464748494A535455565758595A63
+            6465666768696A737475767778797A838485868788898A92939495969798999A
+            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+            01010101010101010000000000000102030405060708090A0BFFC400B5110002
+            0102040403040705040400010277000102031104052131061241510761711322
+            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+            292A35363738393A434445464748494A535455565758595A636465666768696A
+            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCAA
+            AFAFFE05FF00C1323E207ED17F0E34EF1AF82BC75F0FEFB4ABACC72C32EA17AB
+            71653800BDBCE82D0EC95770C8C90415652C8CAC7E40AEABC1FF00157C5FF0FF
+            0042F14E8BE1BF11EA1A2E95E28B21A7EB369673144BD8036E08E3FEFA5C8C12
+            924A99D923AB0055F1FF0084E1F02F8CB56F0FC1E20D1FC549A74C6DCEAFA04B
+            24D6370C00DC619248D0BA86CAEF0BB5B692A594AB1E7E8A2803FFD9}
+          OnClick = nextMClick
+        end
+        object prevM: TImage
+          Left = 172
+          Top = 0
+          Width = 27
+          Height = 14
+          AutoSize = True
+          Picture.Data = {
+            0A544A504547496D6167652E030000FFD8FFE000104A46494600010102001C00
+            1C0000FFDB0043000302020302020303030304030304050805050404050A0707
+            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+            1414141414141414141414141414141414141414141414141414141414141414
+            14141414141414141414141414FFC0001108000E001B03012200021101031101
+            FFC4001F0000010501010101010100000000000000000102030405060708090A
+            0BFFC400B5100002010303020403050504040000017D01020300041105122131
+            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+            191A25262728292A3435363738393A434445464748494A535455565758595A63
+            6465666768696A737475767778797A838485868788898A92939495969798999A
+            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+            01010101010101010000000000000102030405060708090A0BFFC400B5110002
+            0102040403040705040400010277000102031104052131061241510761711322
+            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+            292A35363738393A434445464748494A535455565758595A636465666768696A
+            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCAA
+            AFA8BF672FF827B7C50FDA57E187893C6FE1FB7B7D3B4EB285868A9A91F28EBD
+            728E0490C0C701555448BE73613CD0B1E7FD6BC3F2ED7A7695FB4C7C60D034BB
+            2D334CF8AFE37D374DB1812DEDACED3C47791430448A15234459005550000A00
+            0000050079FEAFA55EE81AA5E699A9D95C69DA9594CF6D75677713453412A315
+            78DD1802ACAC082A4020820D51AD9F13F8AF5BF1D6BB75ADF88F58D435FD6AE8
+            2FDA351D52E9EE6E25DA81577C8E4B361555464F0140E82B1A803FFFD9}
+          OnClick = prevMClick
+        end
         object jour: TLongEdit
-          Left = 160
+          Left = 130
           Top = 4
-          Width = 25
+          Width = 22
           Height = 21
           Hint = '0..31'
           ParentShowHint = False
@@ -407,9 +672,9 @@ object Form1: TForm1
           MaxValue = 31
         end
         object mois: TLongEdit
-          Left = 112
+          Left = 88
           Top = 4
-          Width = 25
+          Width = 22
           Height = 21
           Hint = '0..12'
           ParentShowHint = False
@@ -419,9 +684,9 @@ object Form1: TForm1
           MaxValue = 12
         end
         object annee: TLongEdit
-          Left = 48
+          Left = 32
           Top = 4
-          Width = 41
+          Width = 36
           Height = 21
           Hint = '-2999..2999'
           ParentShowHint = False
@@ -432,9 +697,9 @@ object Form1: TForm1
           MaxValue = 2999
         end
         object seconde: TLongEdit
-          Left = 160
+          Left = 130
           Top = 36
-          Width = 25
+          Width = 22
           Height = 21
           Hint = '0..59'
           ParentShowHint = False
@@ -444,9 +709,9 @@ object Form1: TForm1
           MaxValue = 59
         end
         object minute: TLongEdit
-          Left = 112
+          Left = 88
           Top = 36
-          Width = 25
+          Width = 22
           Height = 21
           Hint = '0..59'
           ParentShowHint = False
@@ -456,7 +721,7 @@ object Form1: TForm1
           MaxValue = 59
         end
         object heure: TLongEdit
-          Left = 64
+          Left = 43
           Top = 36
           Width = 25
           Height = 21
@@ -468,7 +733,7 @@ object Form1: TForm1
           MaxValue = 23
         end
         object Button4: TButton
-          Left = 124
+          Left = 92
           Top = 64
           Width = 75
           Height = 25
@@ -477,7 +742,7 @@ object Form1: TForm1
           OnClick = Button4Click
         end
         object Button5: TButton
-          Left = 32
+          Left = 8
           Top = 64
           Width = 75
           Height = 25
@@ -486,7 +751,7 @@ object Form1: TForm1
           OnClick = Button5Click
         end
         object UpDown1: TUpDown
-          Left = 89
+          Left = 68
           Top = 4
           Width = 16
           Height = 21
@@ -499,7 +764,7 @@ object Form1: TForm1
           Wrap = False
         end
         object UpDown2: TUpDown
-          Left = 137
+          Left = 110
           Top = 4
           Width = 16
           Height = 21
@@ -511,7 +776,7 @@ object Form1: TForm1
           Wrap = True
         end
         object UpDown3: TUpDown
-          Left = 185
+          Left = 152
           Top = 4
           Width = 16
           Height = 21
@@ -523,7 +788,7 @@ object Form1: TForm1
           Wrap = True
         end
         object UpDown4: TUpDown
-          Left = 89
+          Left = 68
           Top = 36
           Width = 16
           Height = 21
@@ -535,7 +800,7 @@ object Form1: TForm1
           Wrap = True
         end
         object UpDown5: TUpDown
-          Left = 137
+          Left = 110
           Top = 36
           Width = 16
           Height = 21
@@ -547,7 +812,7 @@ object Form1: TForm1
           Wrap = True
         end
         object UpDown6: TUpDown
-          Left = 185
+          Left = 152
           Top = 36
           Width = 16
           Height = 21
@@ -571,14 +836,14 @@ object Form1: TForm1
         DefaultColWidth = 122
         DefaultRowHeight = 18
         FixedCols = 0
-        RowCount = 20
+        RowCount = 25
         FixedRows = 0
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'MS Sans Serif'
+        Font.Name = 'Arial'
         Font.Style = []
-        Options = [goFixedVertLine, goFixedHorzLine, goRangeSelect]
+        Options = [goFixedVertLine, goFixedHorzLine, goRangeSelect, goThumbTracking]
         ParentFont = False
         TabOrder = 1
         OnMouseMove = StringGrid1MouseMove
@@ -744,6 +1009,216 @@ object Form1: TForm1
         Height = 13
         Caption = 'Centre'
       end
+      object GroupBox3: TGroupBox
+        Left = 8
+        Top = 300
+        Width = 233
+        Height = 149
+        Caption = 'Satellisation'
+        TabOrder = 11
+        Visible = False
+        object Label4: TLabel
+          Left = 16
+          Top = 20
+          Width = 87
+          Height = 13
+          Caption = 'Vitesse de rotation'
+        end
+        object SpeedButton1: TSpeedButton
+          Left = 32
+          Top = 44
+          Width = 49
+          Height = 22
+          Caption = '<'
+          OnClick = SpeedButton1Click
+        end
+        object SpeedButton2: TSpeedButton
+          Left = 92
+          Top = 44
+          Width = 49
+          Height = 22
+          Caption = '| |'
+          OnClick = SpeedButton2Click
+        end
+        object SpeedButton3: TSpeedButton
+          Left = 152
+          Top = 44
+          Width = 49
+          Height = 22
+          Caption = '>'
+          OnClick = SpeedButton3Click
+        end
+        object SpeedButton4: TSpeedButton
+          Left = 156
+          Top = 72
+          Width = 73
+          Height = 22
+          Caption = 'Vue Est'
+          OnClick = SpeedButton4Click
+        end
+        object SpeedButton5: TSpeedButton
+          Left = 4
+          Top = 72
+          Width = 73
+          Height = 22
+          Caption = 'Vue Ouest'
+          OnClick = SpeedButton5Click
+        end
+        object SpeedButton6: TSpeedButton
+          Left = 80
+          Top = 72
+          Width = 73
+          Height = 22
+          Caption = 'Centre'
+          OnClick = SpeedButton6Click
+        end
+        object Label27: TLabel
+          Left = 16
+          Top = 104
+          Width = 73
+          Height = 13
+          Caption = 'Orbit Inclination'
+        end
+        object SpeedButton7: TSpeedButton
+          Left = 156
+          Top = 100
+          Width = 73
+          Height = 22
+          Caption = 'Reset 0'#176
+          OnClick = SpeedButton7Click
+        end
+        object ComboBox4: TComboBox
+          Left = 120
+          Top = 16
+          Width = 97
+          Height = 21
+          ItemHeight = 0
+          TabOrder = 0
+          Text = '5 '#176'/seconde'
+          OnChange = ComboBox4Change
+        end
+        object TrackBar6: TTrackBar
+          Left = 8
+          Top = 120
+          Width = 221
+          Height = 22
+          Max = 90
+          Min = -90
+          Orientation = trHorizontal
+          PageSize = 15
+          Frequency = 15
+          Position = 0
+          SelEnd = 0
+          SelStart = 0
+          TabOrder = 1
+          ThumbLength = 12
+          TickMarks = tmBottomRight
+          TickStyle = tsAuto
+          OnChange = TrackBar6Change
+        end
+      end
+      object GroupBox4: TGroupBox
+        Left = 8
+        Top = 300
+        Width = 233
+        Height = 149
+        Caption = 'Telescope'
+        TabOrder = 12
+        Visible = False
+        object Label26: TLabel
+          Left = 136
+          Top = 126
+          Width = 40
+          Height = 13
+          Caption = 'seconds'
+          Enabled = False
+        end
+        object Label28: TLabel
+          Left = 32
+          Top = 126
+          Width = 26
+          Height = 13
+          Caption = 'every'
+          Enabled = False
+        end
+        object ComboBox5: TComboBox
+          Left = 8
+          Top = 16
+          Width = 105
+          Height = 21
+          ItemHeight = 0
+          Sorted = True
+          TabOrder = 0
+          Text = 'ComboBox5'
+          OnChange = ComboBox5Change
+        end
+        object Button16: TButton
+          Left = 136
+          Top = 14
+          Width = 75
+          Height = 25
+          Caption = 'Show Menu'
+          TabOrder = 1
+          OnClick = Button16Click
+        end
+        object CheckBox6: TCheckBox
+          Left = 8
+          Top = 80
+          Width = 217
+          Height = 17
+          Caption = 'Track position'
+          TabOrder = 2
+          OnClick = CheckBox6Click
+        end
+        object Button17: TButton
+          Left = 8
+          Top = 48
+          Width = 97
+          Height = 25
+          Caption = 'Goto selected'
+          TabOrder = 3
+          OnClick = Button17Click
+        end
+        object Button18: TButton
+          Left = 128
+          Top = 48
+          Width = 97
+          Height = 25
+          Caption = 'Sync selected'
+          TabOrder = 4
+          OnClick = Button18Click
+        end
+        object CheckBox7: TCheckBox
+          Left = 8
+          Top = 104
+          Width = 217
+          Height = 17
+          Caption = 'Correct'
+          Enabled = False
+          TabOrder = 5
+        end
+        object Edit5: TEdit
+          Left = 80
+          Top = 122
+          Width = 33
+          Height = 21
+          Enabled = False
+          TabOrder = 6
+          Text = '10'
+        end
+        object trackdelay: TUpDown
+          Left = 113
+          Top = 122
+          Width = 16
+          Height = 21
+          Associate = Edit5
+          Min = 0
+          Max = 60
+          Position = 10
+          TabOrder = 7
+          Wrap = False
+        end
+      end
       object Button12: TButton
         Left = 16
         Top = 168
@@ -847,80 +1322,6 @@ object Form1: TForm1
         Caption = 'Copier'
         TabOrder = 10
         OnClick = EnregistredistClick
-      end
-      object GroupBox3: TGroupBox
-        Left = 8
-        Top = 300
-        Width = 233
-        Height = 121
-        Caption = 'Satellisation'
-        TabOrder = 11
-        Visible = False
-        object Label4: TLabel
-          Left = 16
-          Top = 20
-          Width = 87
-          Height = 13
-          Caption = 'Vitesse de rotation'
-        end
-        object SpeedButton1: TSpeedButton
-          Left = 32
-          Top = 48
-          Width = 49
-          Height = 22
-          Caption = '<'
-          OnClick = SpeedButton1Click
-        end
-        object SpeedButton2: TSpeedButton
-          Left = 92
-          Top = 48
-          Width = 49
-          Height = 22
-          Caption = '| |'
-          OnClick = SpeedButton2Click
-        end
-        object SpeedButton3: TSpeedButton
-          Left = 152
-          Top = 48
-          Width = 49
-          Height = 22
-          Caption = '>'
-          OnClick = SpeedButton3Click
-        end
-        object SpeedButton4: TSpeedButton
-          Left = 156
-          Top = 80
-          Width = 73
-          Height = 22
-          Caption = 'Vue Est'
-          OnClick = SpeedButton4Click
-        end
-        object SpeedButton5: TSpeedButton
-          Left = 4
-          Top = 80
-          Width = 73
-          Height = 22
-          Caption = 'Vue Ouest'
-          OnClick = SpeedButton5Click
-        end
-        object SpeedButton6: TSpeedButton
-          Left = 80
-          Top = 80
-          Width = 73
-          Height = 22
-          Caption = 'Centre'
-          OnClick = SpeedButton6Click
-        end
-        object ComboBox4: TComboBox
-          Left = 120
-          Top = 16
-          Width = 97
-          Height = 21
-          ItemHeight = 0
-          TabOrder = 0
-          Text = '5 '#176'/seconde'
-          OnChange = ComboBox4Change
-        end
       end
     end
     object Reglage: TTabSheet
@@ -1131,7 +1532,7 @@ object Form1: TForm1
   object ControlBar1: TControlBar
     Left = 0
     Top = 0
-    Width = 752
+    Width = 754
     Height = 27
     Align = alTop
     AutoDrag = False
@@ -1446,8 +1847,17 @@ object Form1: TForm1
         OnClick = Aide2Click
       end
       object Glossaire1: TMenuItem
-        Caption = 'Glosaire'
+        Caption = 'Glossaire'
         OnClick = Glossaire1Click
+      end
+      object Encyclopedia1: TMenuItem
+        Caption = 'Encyclopedia'
+        OnClick = Encyclopedia1Click
+      end
+      object OverlayCaption2: TMenuItem
+        Caption = 'Overlay Caption'
+        Visible = False
+        OnClick = OverlayCaption1Click
       end
       object Apropos1: TMenuItem
         Caption = 'A propos'
@@ -1505,6 +1915,18 @@ object Form1: TForm1
           LightStyle = lsParallel
           Specular.Color = {CDCC4C3FCDCC4C3FCDCC4C3F0000803F}
           SpotCutOff = 180
+        end
+        object HiresSphere500: TSphere
+          TransformationMode = tmParentWithPos
+          Visible = False
+          Material.MaterialLibrary = GLMaterialLibrary1
+          Material.LibMaterialName = 'H500'
+          Bottom = 0
+          Radius = 0.5
+          Slices = 30
+          Stacks = 30
+          Stop = 1
+          Top = 1
         end
         object HiresSphere: TSphere
           TransformationMode = tmParentWithPos
@@ -1604,6 +2026,15 @@ object Form1: TForm1
           Top = 0
         end
       end
+      object GLLightSource2: TGLLightSource
+        Ambient.Color = {0000803F0000803F0000803F0000803F}
+        ConstAttenuation = 1
+        LightStyle = lsParallel
+        Shining = False
+        Specular.Color = {0000803F0000803F0000803F0000803F}
+        SpotCutOff = 180
+        SpotDirection.Coordinates = {00000000000000000000803F00000000}
+      end
     end
     object GLMirror1: TGLMirror
       Position.Coordinates = {00000000000000000000C8C20000803F}
@@ -1687,6 +2118,7 @@ object Form1: TForm1
         Material.Texture.Disabled = False
         Tag = 0
         TextureOffset.Coordinates = {52499DB952499D390000000000000000}
+        Texture2Name = 'O1'
       end
       item
         Name = 'Q2'
@@ -1701,6 +2133,7 @@ object Form1: TForm1
         Material.Texture.Disabled = False
         Tag = 0
         TextureOffset.Coordinates = {52499D3952499D390000000000000000}
+        Texture2Name = 'O2'
       end
       item
         Name = 'Q3'
@@ -1715,6 +2148,7 @@ object Form1: TForm1
         Material.Texture.Disabled = False
         Tag = 0
         TextureOffset.Coordinates = {52499DB952499DB90000000000000000}
+        Texture2Name = 'O3'
       end
       item
         Name = 'Q4'
@@ -1729,6 +2163,7 @@ object Form1: TForm1
         Material.Texture.Disabled = False
         Tag = 0
         TextureOffset.Coordinates = {52499D3952499DB90000000000000000}
+        Texture2Name = 'O4'
       end
       item
         Name = 'Q5'
@@ -1742,6 +2177,7 @@ object Form1: TForm1
         Material.Texture.Disabled = False
         Tag = 0
         TextureOffset.Coordinates = {52499DB952499D390000000000000000}
+        Texture2Name = 'O5'
       end
       item
         Name = 'Q6'
@@ -1755,6 +2191,7 @@ object Form1: TForm1
         Material.Texture.Disabled = False
         Tag = 0
         TextureOffset.Coordinates = {52499D3952499D390000000000000000}
+        Texture2Name = 'O6'
       end
       item
         Name = 'Q7'
@@ -1768,6 +2205,7 @@ object Form1: TForm1
         Material.Texture.Disabled = False
         Tag = 0
         TextureOffset.Coordinates = {52499DB952499DB90000000000000000}
+        Texture2Name = 'O7'
       end
       item
         Name = 'Q8'
@@ -1781,6 +2219,7 @@ object Form1: TForm1
         Material.Texture.Disabled = False
         Tag = 0
         TextureOffset.Coordinates = {52499D3952499DB90000000000000000}
+        Texture2Name = 'O8'
       end
       item
         Name = 'H1'
@@ -1793,6 +2232,122 @@ object Form1: TForm1
         Material.Texture.TextureMode = tmModulate
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
+        Tag = 0
+        Texture2Name = 'OH'
+      end
+      item
+        Name = 'O1'
+        Material.BackProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.BackProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.BackProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.TextureWrap = twNone
+        Material.Texture.FilteringQuality = tfAnisotropic
+        Tag = 0
+      end
+      item
+        Name = 'O2'
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.TextureWrap = twNone
+        Material.Texture.FilteringQuality = tfAnisotropic
+        Tag = 0
+      end
+      item
+        Name = 'O3'
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.TextureWrap = twNone
+        Material.Texture.FilteringQuality = tfAnisotropic
+        Tag = 0
+      end
+      item
+        Name = 'O4'
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.TextureWrap = twNone
+        Material.Texture.FilteringQuality = tfAnisotropic
+        Tag = 0
+      end
+      item
+        Name = 'O5'
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.TextureWrap = twNone
+        Material.Texture.FilteringQuality = tfAnisotropic
+        Tag = 0
+      end
+      item
+        Name = 'O6'
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.TextureWrap = twNone
+        Material.Texture.FilteringQuality = tfAnisotropic
+        Tag = 0
+      end
+      item
+        Name = 'O7'
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.TextureWrap = twNone
+        Material.Texture.FilteringQuality = tfAnisotropic
+        Tag = 0
+      end
+      item
+        Name = 'O8'
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.TextureWrap = twNone
+        Material.Texture.FilteringQuality = tfAnisotropic
+        Tag = 0
+      end
+      item
+        Name = 'OH'
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.TextureWrap = twNone
+        Material.Texture.FilteringQuality = tfAnisotropic
+        Tag = 0
+      end
+      item
+        Name = 'H500'
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.ImageAlpha = tiaOpaque
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.FilteringQuality = tfAnisotropic
+        Material.Texture.Disabled = False
+        Tag = 0
+        Texture2Name = 'O500'
+      end
+      item
+        Name = 'O500'
+        Material.FrontProperties.Ambient.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Diffuse.Color = {0000803F0000803F0000803F0000803F}
+        Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
+        Material.Texture.TextureMode = tmModulate
+        Material.Texture.TextureWrap = twNone
+        Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end>
     Left = 16
@@ -1969,6 +2524,11 @@ object Form1: TForm1
       Visible = False
       OnClick = LgendeGologique1Click
     end
+    object OverlayCaption1: TMenuItem
+      Caption = 'Overlay Caption'
+      Visible = False
+      OnClick = OverlayCaption1Click
+    end
     object Rotation1: TMenuItem
       Caption = 'Satellisation'
       Visible = False
@@ -2025,7 +2585,7 @@ object Form1: TForm1
   end
   object LabelTimer: TTimer
     Enabled = False
-    Interval = 200
+    Interval = 100
     OnTimer = LabelTimerTimer
     Left = 24
     Top = 112
@@ -2044,5 +2604,19 @@ object Form1: TForm1
     OnProgress = RotationCadencerProgress
     Left = 104
     Top = 464
+  end
+  object TelescopeTimer: TTimer
+    Enabled = False
+    OnTimer = TelescopeTimerTimer
+    Left = 24
+    Top = 184
+  end
+  object dbm: TLiteDB
+    Active = False
+    DllLoaded = False
+    CallBackOnly = False
+    FetchMemoryLimit = 16777216
+    Left = 24
+    Top = 224
   end
 end

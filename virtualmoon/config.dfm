@@ -1,6 +1,6 @@
 object Form2: TForm2
-  Left = 454
-  Top = 104
+  Left = 450
+  Top = 108
   Width = 385
   Height = 455
   Caption = 'Configuration'
@@ -13,6 +13,7 @@ object Form2: TForm2
   OldCreateOrder = False
   Scaled = False
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -27,9 +28,9 @@ object Form2: TForm2
   end
   object PageControl1: TPageControl
     Left = 8
-    Top = 8
+    Top = 0
     Width = 345
-    Height = 369
+    Height = 377
     ActivePage = TabSheet1
     MultiLine = True
     TabIndex = 0
@@ -154,14 +155,14 @@ object Form2: TForm2
       end
       object GroupBox1: TGroupBox
         Left = 16
-        Top = 200
+        Top = 192
         Width = 305
-        Height = 129
+        Height = 137
         Caption = 'Database'
         TabOrder = 7
         object CheckBox19: TCheckBox
           Left = 24
-          Top = 24
+          Top = 20
           Width = 257
           Height = 17
           Caption = 'Named Formation'
@@ -172,7 +173,7 @@ object Form2: TForm2
         end
         object CheckBox20: TCheckBox
           Left = 24
-          Top = 48
+          Top = 43
           Width = 257
           Height = 17
           Caption = 'Satellites Formation'
@@ -180,7 +181,7 @@ object Form2: TForm2
         end
         object CheckBox21: TCheckBox
           Left = 24
-          Top = 72
+          Top = 66
           Width = 257
           Height = 17
           Caption = 'Far Side Named Formation'
@@ -188,11 +189,19 @@ object Form2: TForm2
         end
         object CheckBox22: TCheckBox
           Left = 24
-          Top = 96
+          Top = 112
           Width = 257
           Height = 17
           Caption = 'Far Side Satellites Formation'
           TabOrder = 3
+        end
+        object CheckBox23: TCheckBox
+          Left = 24
+          Top = 89
+          Width = 257
+          Height = 17
+          Caption = 'Landing Site'
+          TabOrder = 4
         end
       end
     end
@@ -408,39 +417,6 @@ object Form2: TForm2
         ShowHint = True
         TabOrder = 0
       end
-      object Panel1: TPanel
-        Left = 16
-        Top = 280
-        Width = 305
-        Height = 57
-        TabOrder = 1
-        object Label23: TLabel
-          Left = 16
-          Top = 8
-          Width = 281
-          Height = 17
-          AutoSize = False
-          Caption = 'High Resolution Texture file, must be 11520x5760 pixels'
-          WordWrap = True
-        end
-        object Edit5: TEdit
-          Left = 16
-          Top = 28
-          Width = 137
-          Height = 21
-          TabOrder = 0
-          Text = 'hires.jpg'
-        end
-        object Button5: TButton
-          Left = 184
-          Top = 26
-          Width = 75
-          Height = 25
-          Caption = 'Generate'
-          TabOrder = 1
-          OnClick = Button5Click
-        end
-      end
       object RadioGroup2: TRadioGroup
         Left = 16
         Top = 176
@@ -450,8 +426,9 @@ object Form2: TForm2
         ItemIndex = 0
         Items.Strings = (
           'A'#233'rographe'
-          'G'#233'ologique')
-        TabOrder = 2
+          'G'#233'ologique'
+          'Light ')
+        TabOrder = 1
         OnClick = RadioGroup2Click
       end
       object CheckBox10: TCheckBox
@@ -460,7 +437,7 @@ object Form2: TForm2
         Width = 145
         Height = 17
         Caption = 'Interpolation des textures'
-        TabOrder = 3
+        TabOrder = 2
       end
       object RadioGroup3: TRadioGroup
         Left = 16
@@ -476,7 +453,68 @@ object Form2: TForm2
           'Quart')
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 4
+        TabOrder = 3
+      end
+    end
+    object TabSheet6: TTabSheet
+      Caption = 'Overlay'
+      ImageIndex = 6
+      object Label30: TLabel
+        Left = 32
+        Top = 44
+        Width = 42
+        Height = 13
+        Caption = 'Overlay :'
+      end
+      object Image1: TImage
+        Left = 34
+        Top = 97
+        Width = 280
+        Height = 140
+        Stretch = True
+      end
+      object Label32: TLabel
+        Left = 32
+        Top = 264
+        Width = 68
+        Height = 13
+        Caption = 'Transparency:'
+      end
+      object CheckBox11: TCheckBox
+        Left = 32
+        Top = 8
+        Width = 97
+        Height = 17
+        Caption = 'Show overlay'
+        TabOrder = 0
+      end
+      object ComboBox5: TComboBox
+        Left = 32
+        Top = 64
+        Width = 145
+        Height = 21
+        ItemHeight = 13
+        Sorted = True
+        TabOrder = 1
+        OnChange = ComboBox5Change
+      end
+      object TrackBar5: TTrackBar
+        Left = 104
+        Top = 256
+        Width = 161
+        Height = 33
+        LineSize = 5
+        Max = 200
+        Orientation = trHorizontal
+        PageSize = 10
+        Frequency = 20
+        Position = 0
+        SelEnd = 0
+        SelStart = 0
+        TabOrder = 2
+        TickMarks = tmBottomRight
+        TickStyle = tsAuto
+        OnChange = TrackBar5Change
       end
     end
     object TabSheet2: TTabSheet

@@ -49,6 +49,8 @@ Function ARmtoStr(ar: Double) : string;
 Function DEpToStr(de: Double) : string;
 Function ARptoStr(ar: Double) : string;
 Function TimToStr(de: Double) : string;
+Function TimmToStr(de: Double) : string;
+Function DatToStr(y,m,d: integer) : string;
 Function ARToStr2(ar: Double; var d,m,s : string) : string;
 Function DEToStr2(de: Double; var d,m,s : string) : string;
 Function DEToStr3(de: Double) : string;
@@ -108,7 +110,7 @@ Function ExecNoWait(cmd: string; hide: boolean): boolean;
 Procedure InitDebug;
 Procedure WriteDebug( buf : string);
 Procedure MemoryDebug;
-Procedure ShowHelp(helpfile : string);
+Procedure ShowHelp(helpfile : string; directory: string='doc');
 procedure RiseSetInt(typobj:integer; jd0,ar1,de1,ar2,de2,ar3,de3:double; var hr,ht,hs,azr,azs:double;var irc:integer);
 Procedure GetPrinterResolution(var name : string; var resol : integer);
 Function mm2pi(l : single): integer;
@@ -119,6 +121,7 @@ function IsNumber(n : string) : boolean;
 function AddColor(c1,c2 : Tcolor):Tcolor;
 function SubColor(c1,c2 : Tcolor):Tcolor;
 function roundF(x:double;n:integer):double;
+function remext(fn:string):string;
 
 //  gzip zlib.dll
 type
@@ -450,7 +453,7 @@ else
    sgn:=  1 ;
 end ;
 
-Procedure GetPrinterResolution(var name : string; var resol : integer);
+{Procedure GetPrinterResolution(var name : string; var resol : integer);
 var
   FDevice: PChar;
   FDriver: PChar;
@@ -474,6 +477,27 @@ begin
   if resol=0 then resol:=DefaultPrtRes;
 //  ShowMessage(Format('dmYResolution: %d', [resol]));
   GlobalUnlock(DeviceMode);
+  FreeMem(FDevice, 128);
+  FreeMem(FDriver, 128);
+  FreeMem(FPort, 128);
+end;  }
+
+Procedure GetPrinterResolution(var name : string; var resol : integer);
+var
+  FDevice: PChar;
+  FDriver: PChar;
+  FPort: PChar;
+  DeviceMode: THandle;
+begin
+  GetMem(FDevice, 128);
+  GetMem(FDriver, 128);
+  GetMem(FPort, 128);
+  Printer().GetPrinter(FDevice, FDriver, FPort, DeviceMode);
+  name:=FDevice;
+  resol := GetDeviceCaps(Printer.Handle, LOGPIXELSY);
+  if resol=0 then resol := GetDeviceCaps(Printer.Handle, LOGPIXELSX);
+  if debugon then WriteDebug(Format('Printer %s  Resolution: %d', [name ,resol]));
+  if resol=0 then resol:=DefaultPrtRes;
   FreeMem(FDevice, 128);
   FreeMem(FDriver, 128);
   FreeMem(FPort, 128);
@@ -910,6 +934,36 @@ begin
     str(sec:2:0,s);
     if abs(sec)<9.5 then s:='0'+trim(s);
     result := d+':'+m+':'+s;
+end;
+
+Function TimmToStr(de: Double) : string;
+var dd,min: Double;
+    d,m : string;
+begin
+    dd:=Int(de);
+    min:=abs(de-dd)*60;
+    if min>=59.5 then begin
+       dd:=dd+sgn(de);
+       min:=0.0;
+    end;
+    min:=Round(min);
+    str(abs(dd):2:0,d);
+    if abs(dd)<10 then d:='0'+trim(d);
+    str(min:2:0,m);
+    if abs(min)<10 then m:='0'+trim(m);
+    result := d+':'+m;
+end;
+
+Function DatToStr(y,m,d: integer) : string;
+var buf:string;
+begin
+result:=inttostr(y)+'-';
+buf:=inttostr(m);
+if m<10 then buf:='0'+buf;
+result:=result+buf+'-';
+buf:=inttostr(d);
+if d<10 then buf:='0'+buf;
+result:=result+buf;
 end;
 
 Function ARToStr(ar: Double) : string;
@@ -1717,7 +1771,7 @@ begin
                          StrPCopy(zParams, Params), StrPCopy(zDir, DefaultDir), ShowCmd);
 end;
 
-Procedure ShowHelp(helpfile : string);
+Procedure ShowHelp(helpfile : string; directory: string='doc');
 var p: integer;
 begin
 if InternalBrowser then begin
@@ -1728,6 +1782,7 @@ if InternalBrowser then begin
   end;
   helpform.caption:=Application.title;
   helpunit.docfile:=hp+helpfile;
+  helpform.docdir:=directory;
   helpshow;
 end
 else begin
@@ -1735,8 +1790,8 @@ else begin
  if p>0 then begin
     helpfile:=copy(helpfile,1,p-1);
  end;
-// HlinkNavigateString(Nil,pwidechar('file://'+appdir+'\doc\'+hp+helpfile));
- ExecuteFile(hp+helpfile,'',appdir+'\doc',SW_SHOWNORMAL);
+//HlinkNavigateString(nil,pwidechar('file://'+appdir+'\doc\'+hp+helpfile));
+ ExecuteFile(hp+helpfile,'',appdir+'\'+directory,SW_SHOWNORMAL);
 end;
 end;
 
@@ -1747,6 +1802,14 @@ if year>0 then begin
 end else begin
    result:=inttostr(-year+1)+'BC' ;
 end;
+end;
+
+function remext(fn:string):string;
+var i : integer;
+begin
+i:=LastDelimiter('.',fn);
+if i>0 then result:=copy(fn,1,i-1)
+       else result:=fn;
 end;
 
 end.
