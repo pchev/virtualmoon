@@ -1,0 +1,5 @@
+
+Enhedits source code is available from the project Skychart 
+at http://sourceforge.net/projects/skychart
+
+

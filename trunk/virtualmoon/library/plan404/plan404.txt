@@ -1,0 +1,8 @@
+   Plan404 by Steve Moshier
+   steve@moshier.net
+   http://www.moshier.net/index.html
+
+plan404.dll source code is available from the project Skychart 
+at http://sourceforge.net/projects/skychart
+
+
