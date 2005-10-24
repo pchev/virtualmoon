@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 278
-  Top = 126
-  Width = 762
-  Height = 590
+  Left = 243
+  Top = 104
+  Width = 837
+  Height = 600
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
   Caption = 'Form1'
@@ -82,6 +82,7 @@ object Form1: TForm1
       VSync = vsmSync
       Buffer.BackgroundColor = clBlack
       Buffer.ShadeModel = smSmooth
+      FieldOfView = 134.418823242188
       PopupMenu = PopupMenu1
       OnMouseDown = GLSceneViewer1MouseDown
       OnMouseMove = GLSceneViewer1MouseMove
@@ -118,7 +119,7 @@ object Form1: TForm1
   object PageControl1: TPageControl
     Left = 495
     Top = 25
-    Width = 254
+    Width = 290
     Height = 495
     ActivePage = Position
     HotTrack = True
@@ -132,7 +133,7 @@ object Form1: TForm1
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 246
+        Width = 282
         Height = 97
         Align = alTop
         TabOrder = 0
@@ -157,7 +158,7 @@ object Form1: TForm1
         object GroupBox1: TGroupBox
           Left = 1
           Top = 62
-          Width = 244
+          Width = 280
           Height = 34
           Align = alBottom
           Caption = 'Profile'
@@ -192,7 +193,7 @@ object Form1: TForm1
       object Desc1: ThtmlLite
         Left = 0
         Top = 97
-        Width = 246
+        Width = 282
         Height = 352
         OnHotSpotClick = Desc1HotSpotClick
         ViewImages = False
@@ -222,7 +223,7 @@ object Form1: TForm1
       object Memo1: TMemo
         Left = 0
         Top = 58
-        Width = 246
+        Width = 282
         Height = 391
         Align = alClient
         Lines.Strings = (
@@ -235,7 +236,7 @@ object Form1: TForm1
       object Panel7: TPanel
         Left = 0
         Top = 0
-        Width = 246
+        Width = 282
         Height = 58
         Align = alTop
         TabOrder = 1
@@ -263,7 +264,7 @@ object Form1: TForm1
       object StringGrid2: TStringGrid
         Left = 0
         Top = 0
-        Width = 246
+        Width = 282
         Height = 416
         Align = alClient
         ColCount = 2
@@ -280,7 +281,7 @@ object Form1: TForm1
       object Panel6: TPanel
         Left = 0
         Top = 416
-        Width = 246
+        Width = 282
         Height = 33
         Align = alBottom
         TabOrder = 1
@@ -302,6 +303,24 @@ object Form1: TForm1
           TabOrder = 1
           OnClick = btnEffacerClick
         end
+        object Button19: TButton
+          Left = 164
+          Top = 4
+          Width = 73
+          Height = 25
+          Caption = 'Coord.'
+          TabOrder = 2
+          OnClick = EnregistredistClick
+        end
+        object Button20: TButton
+          Left = 240
+          Top = 4
+          Width = 65
+          Height = 25
+          Caption = 'Delete'
+          TabOrder = 3
+          OnClick = Button20Click
+        end
       end
     end
     object Ephemerides: TTabSheet
@@ -310,7 +329,7 @@ object Form1: TForm1
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 246
+        Width = 282
         Height = 121
         Align = alTop
         TabOrder = 0
@@ -733,18 +752,18 @@ object Form1: TForm1
           MaxValue = 23
         end
         object Button4: TButton
-          Left = 92
+          Left = 100
           Top = 64
-          Width = 75
+          Width = 70
           Height = 25
           Caption = 'Compute'
           TabOrder = 7
           OnClick = Button4Click
         end
         object Button5: TButton
-          Left = 8
+          Left = 2
           Top = 64
-          Width = 75
+          Width = 70
           Height = 25
           Caption = 'Maintenant'
           TabOrder = 6
@@ -823,11 +842,20 @@ object Form1: TForm1
           TabOrder = 13
           Wrap = True
         end
+        object Button10: TButton
+          Left = 75
+          Top = 64
+          Width = 22
+          Height = 25
+          Caption = '0h'
+          TabOrder = 14
+          OnClick = Button10Click
+        end
       end
       object StringGrid1: TStringGrid
         Left = 0
         Top = 121
-        Width = 246
+        Width = 282
         Height = 328
         TabStop = False
         Align = alClient
@@ -855,7 +883,7 @@ object Form1: TForm1
       object Panel5: TPanel
         Left = 0
         Top = 0
-        Width = 246
+        Width = 282
         Height = 121
         Align = alTop
         TabOrder = 0
@@ -933,7 +961,7 @@ object Form1: TForm1
       object ListBox1: TListBox
         Left = 0
         Top = 121
-        Width = 246
+        Width = 282
         Height = 328
         Align = alClient
         ItemHeight = 13
@@ -1315,9 +1343,9 @@ object Form1: TForm1
         TabOrder = 9
       end
       object Enregistredist: TButton
-        Left = 200
-        Top = 112
-        Width = 35
+        Left = 198
+        Top = 110
+        Width = 40
         Height = 25
         Caption = 'Copier'
         TabOrder = 10
@@ -1532,7 +1560,7 @@ object Form1: TForm1
   object ControlBar1: TControlBar
     Left = 0
     Top = 0
-    Width = 754
+    Width = 829
     Height = 27
     Align = alTop
     AutoDrag = False
@@ -1585,22 +1613,86 @@ object Form1: TForm1
     object ToolBar1: TToolBar
       Left = 231
       Top = 2
-      Width = 456
+      Width = 815
       Height = 23
       Align = alNone
       AutoSize = True
       ButtonHeight = 21
-      ButtonWidth = 53
+      ButtonWidth = 55
       Caption = 'ToolBar'
+      Color = clBtnFace
       DragMode = dmAutomatic
       EdgeBorders = []
       EdgeInner = esNone
       EdgeOuter = esNone
+      ParentColor = False
       ShowCaptions = True
       TabOrder = 1
       Wrapable = False
-      object Label10: TLabel
+      object SpeedButton8: TSpeedButton
         Left = 0
+        Top = 2
+        Width = 23
+        Height = 21
+        Glyph.Data = {
+          9E050000424D9E05000000000000360400002800000012000000120000000100
+          08000000000068010000232E0000232E00000001000000000000000000003300
+          00006600000099000000CC000000FF0000000033000033330000663300009933
+          0000CC330000FF33000000660000336600006666000099660000CC660000FF66
+          000000990000339900006699000099990000CC990000FF99000000CC000033CC
+          000066CC000099CC0000CCCC0000FFCC000000FF000033FF000066FF000099FF
+          0000CCFF0000FFFF000000003300330033006600330099003300CC003300FF00
+          330000333300333333006633330099333300CC333300FF333300006633003366
+          33006666330099663300CC663300FF6633000099330033993300669933009999
+          3300CC993300FF99330000CC330033CC330066CC330099CC3300CCCC3300FFCC
+          330000FF330033FF330066FF330099FF3300CCFF3300FFFF3300000066003300
+          66006600660099006600CC006600FF0066000033660033336600663366009933
+          6600CC336600FF33660000666600336666006666660099666600CC666600FF66
+          660000996600339966006699660099996600CC996600FF99660000CC660033CC
+          660066CC660099CC6600CCCC6600FFCC660000FF660033FF660066FF660099FF
+          6600CCFF6600FFFF660000009900330099006600990099009900CC009900FF00
+          990000339900333399006633990099339900CC339900FF339900006699003366
+          99006666990099669900CC669900FF6699000099990033999900669999009999
+          9900CC999900FF99990000CC990033CC990066CC990099CC9900CCCC9900FFCC
+          990000FF990033FF990066FF990099FF9900CCFF9900FFFF99000000CC003300
+          CC006600CC009900CC00CC00CC00FF00CC000033CC003333CC006633CC009933
+          CC00CC33CC00FF33CC000066CC003366CC006666CC009966CC00CC66CC00FF66
+          CC000099CC003399CC006699CC009999CC00CC99CC00FF99CC0000CCCC0033CC
+          CC0066CCCC0099CCCC00CCCCCC00FFCCCC0000FFCC0033FFCC0066FFCC0099FF
+          CC00CCFFCC00FFFFCC000000FF003300FF006600FF009900FF00CC00FF00FF00
+          FF000033FF003333FF006633FF009933FF00CC33FF00FF33FF000066FF003366
+          FF006666FF009966FF00CC66FF00FF66FF000099FF003399FF006699FF009999
+          FF00CC99FF00FF99FF0000CCFF0033CCFF0066CCFF0099CCFF00CCCCFF00FFCC
+          FF0000FFFF0033FFFF0066FFFF0099FFFF00CCFFFF00FFFFFF00000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000D7D7D7D7D7D7
+          D7D7D7D7D7D7D7D7D7D7D7D70000D71E1E1ED2D2D2B4B4B4B9B9B9050505D7D7
+          0000D71E1E1ED2D2D2B4B4B4B9B9B9050505D7D70000D71E1E1ED2D2D2B4B4B4
+          B9B9B9050505D7D70000D71E1E1ED2D2D2B4B4B4B9B9B9050505D7D70000D7D7
+          D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D70000D7D700000000D7D7D7D700000000
+          D7D7D7D70000D7D7D70000D7D7D7D7D7D7000081D7D7D7D70000D7D7D7810081
+          D7D7D7D7810000D7D7D7D7D70000D7D7D7D7000000000000000081D7D7D7D7D7
+          0000D7D7D7D7810081D7D7810000D7D7D7D7D7D70000D7D7D7D7D70000D7D700
+          0081D7D7D7D7D7D70000D7D7D7D7D7810081810000D7D7D7D7D7D7D70000D7D7
+          D7D7D7D70000000081D7D7D7D7D7D7D70000D7D7D7D7D7D781000000D7D7D7D7
+          D7D7D7D70000D7D7D7D7D7D7D7000081D7D7D7D7D7D7D7D70000D7D7D7D7D7D7
+          D78100D7D7D7D7D7D7D7D7D70000D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7
+          0000}
+        OnClick = SpeedButton8Click
+      end
+      object ToolButton11: TToolButton
+        Left = 23
+        Top = 2
+        Width = 4
+        Caption = 'ToolButton11'
+        ImageIndex = 0
+        Style = tbsSeparator
+      end
+      object Label10: TLabel
+        Left = 27
         Top = 2
         Width = 30
         Height = 21
@@ -1608,7 +1700,7 @@ object Form1: TForm1
         Layout = tlCenter
       end
       object TrackBar1: TTrackBar
-        Left = 30
+        Left = 57
         Top = 2
         Width = 150
         Height = 21
@@ -1627,48 +1719,84 @@ object Form1: TForm1
         OnChange = TrackBar1Change
       end
       object ToolButton9: TToolButton
-        Left = 180
+        Left = 207
         Top = 2
         AutoSize = True
         Caption = '1:1'
-        ImageIndex = 4
         OnClick = ToolButton9Click
       end
       object ToolButton5: TToolButton
-        Left = 206
+        Left = 233
         Top = 2
         AutoSize = True
         Caption = 'Centre'
-        ImageIndex = 1
         OnClick = ToolButton5Click
       end
+      object ToolButton4: TToolButton
+        Left = 275
+        Top = 2
+        AutoSize = True
+        Caption = 'N-S'
+        ImageIndex = 0
+        OnClick = ToolButton4Click
+      end
+      object ToolButton6: TToolButton
+        Left = 304
+        Top = 2
+        AutoSize = True
+        Caption = 'E-W'
+        ImageIndex = 0
+        OnClick = ToolButton6Click
+      end
+      object ToolButton3: TToolButton
+        Left = 336
+        Top = 2
+        AutoSize = True
+        Caption = 'Rotation'
+        Style = tbsCheck
+        OnClick = ToolButton3Click
+      end
+      object LibrationButton: TToolButton
+        Left = 387
+        Top = 2
+        AutoSize = True
+        Caption = 'Libration'
+        Style = tbsCheck
+        OnClick = LibrationButtonClick
+      end
+      object PhaseButton: TToolButton
+        Left = 438
+        Top = 2
+        AutoSize = True
+        Caption = 'Phase'
+        Style = tbsCheck
+        OnClick = PhaseButtonClick
+      end
+      object ToolButton10: TToolButton
+        Left = 479
+        Top = 2
+        AutoSize = True
+        Caption = 'Voisinage'
+        OnClick = ToolButton10Click
+      end
       object ToolButton7: TToolButton
-        Left = 248
+        Left = 536
         Top = 2
         AutoSize = True
         Caption = 'Image'
         Enabled = False
-        ImageIndex = 3
         OnClick = ToolButton7Click
       end
-      object ToolButton10: TToolButton
-        Left = 288
+      object NewWindowButton: TToolButton
+        Left = 576
         Top = 2
         AutoSize = True
-        Caption = 'Voisinage'
-        ImageIndex = 4
-        OnClick = ToolButton10Click
-      end
-      object ToolButton3: TToolButton
-        Left = 345
-        Top = 2
-        Caption = 'Rotation'
-        ImageIndex = 5
-        Style = tbsCheck
-        OnClick = ToolButton3Click
+        Caption = 'Window 2'
+        Visible = False
+        OnClick = NewWindowButtonClick
       end
       object DebugLabel: TLabel
-        Left = 398
+        Left = 635
         Top = 2
         Width = 58
         Height = 21
@@ -1791,6 +1919,17 @@ object Form1: TForm1
     object Fichier1: TMenuItem
       AutoHotkeys = maAutomatic
       Caption = 'Fichier'
+      object DataBase1: TMenuItem
+        Caption = 'DataBase'
+        OnClick = DataBase1Click
+      end
+      object N4: TMenuItem
+        Caption = '-'
+      end
+      object Snapshot1: TMenuItem
+        Caption = 'Snapshot'
+        OnClick = Snapshot1Click
+      end
       object Enregistrersous1: TMenuItem
         Caption = 'Enregistrer sous'
         object BMP1: TMenuItem
@@ -1866,18 +2005,19 @@ object Form1: TForm1
     end
   end
   object GLScene1: TGLScene
-    VisibilityCulling = vcHierarchical
+    VisibilityCulling = vcObjectBased
     Left = 16
     Top = 400
-    object DummyCube2: TDummyCube
+    object DummyCube2: TGLDummyCube
+      VisibilityCulling = vcNone
       CubeSize = 0.100000001490116
-      object Annulus1: TAnnulus
+      object Annulus1: TGLAnnulus
+        Material.FrontProperties.Ambient.Color = {0000000000000000000000000000803F}
+        Material.FrontProperties.Diffuse.Color = {0000000000000000000000000000803F}
         Direction.Coordinates = {DBB1493FC8A71D3F0000000000000000}
         Position.Coordinates = {000000000000000000007A440000803F}
         Up.Coordinates = {4E9EDEADF8660E2E0000803F00000000}
         Visible = False
-        Material.FrontProperties.Ambient.Color = {0000000000000000000000000000803F}
-        Material.FrontProperties.Diffuse.Color = {0000000000000000000000000000803F}
         BottomRadius = 3
         Height = 0.300000011920929
         Slices = 64
@@ -1886,14 +2026,14 @@ object Form1: TForm1
         TopRadius = 3
         Parts = [anBottom]
       end
-      object ArrowLine1: TArrowLine
+      object ArrowLine1: TGLArrowLine
+        Material.FrontProperties.Ambient.Color = {0000000000000000000000000000803F}
+        Material.FrontProperties.Diffuse.Color = {0000000000000000000000000000803F}
+        Material.FrontProperties.Specular.Color = {9A99993E9A99993E9A99993E0000803F}
         Direction.Coordinates = {000080BF000000000000000000000000}
         Position.Coordinates = {00000000000000000080ED440000803F}
         Up.Coordinates = {0000000000000000000080BF00000000}
         Visible = False
-        Material.FrontProperties.Ambient.Color = {0000000000000000000000000000803F}
-        Material.FrontProperties.Diffuse.Color = {0000000000000000000000000000803F}
-        Material.FrontProperties.Specular.Color = {9A99993E9A99993E9A99993E0000803F}
         BottomRadius = 0.00999999977648258
         Height = 0.0799999982118607
         TopRadius = 0.00999999977648258
@@ -1903,10 +2043,9 @@ object Form1: TForm1
         BottomArrowHeadHeight = 0.5
         BottomArrowHeadRadius = 0.200000002980232
       end
-      object DummyCube1: TDummyCube
+      object DummyCube1: TGLDummyCube
+        VisibilityCulling = vcNone
         Position.Coordinates = {00000000000000000000FA440000803F}
-        TransformationMode = tmParentNoPos
-        Up.Coordinates = {000000000000803F0000008000000000}
         CubeSize = 1
         object GLLightSource1: TGLLightSource
           Ambient.Color = {9A99993E9A99993E9A99993E0000803F}
@@ -1916,11 +2055,11 @@ object Form1: TForm1
           Specular.Color = {CDCC4C3FCDCC4C3FCDCC4C3F0000803F}
           SpotCutOff = 180
         end
-        object HiresSphere500: TSphere
-          TransformationMode = tmParentWithPos
-          Visible = False
+        object HiresSphere500: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'H500'
+          VisibilityCulling = vcObjectBased
+          Visible = False
           Bottom = 0
           Radius = 0.5
           Slices = 30
@@ -1928,11 +2067,11 @@ object Form1: TForm1
           Stop = 1
           Top = 1
         end
-        object HiresSphere: TSphere
-          TransformationMode = tmParentWithPos
-          Visible = False
+        object HiresSphere: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'H1'
+          VisibilityCulling = vcObjectBased
+          Visible = False
           Bottom = 0
           Radius = 0.5
           Slices = 30
@@ -1940,8 +2079,7 @@ object Form1: TForm1
           Stop = 1
           Top = 1
         end
-        object Sphere1: TSphere
-          TransformationMode = tmParentWithPos
+        object Sphere1: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q1'
           Bottom = 0
@@ -1951,11 +2089,10 @@ object Form1: TForm1
           Start = 90
           Stop = 180
         end
-        object Sphere2: TSphere
-          Direction.Coordinates = {00000000000000800000803F00000000}
-          TransformationMode = tmParentWithPos
+        object Sphere2: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q2'
+          Direction.Coordinates = {00000000000000800000803F00000000}
           Bottom = 0
           Radius = 0.5
           Slices = 90
@@ -1963,8 +2100,7 @@ object Form1: TForm1
           Start = 180
           Stop = 270
         end
-        object Sphere3: TSphere
-          TransformationMode = tmParentWithPos
+        object Sphere3: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q3'
           Radius = 0.5
@@ -1974,8 +2110,7 @@ object Form1: TForm1
           Stop = 180
           Top = 0
         end
-        object Sphere4: TSphere
-          TransformationMode = tmParentWithPos
+        object Sphere4: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q4'
           Radius = 0.5
@@ -1985,8 +2120,7 @@ object Form1: TForm1
           Stop = 270
           Top = 0
         end
-        object Sphere5: TSphere
-          TransformationMode = tmParentWithPos
+        object Sphere5: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q5'
           Bottom = 0
@@ -1995,8 +2129,7 @@ object Form1: TForm1
           Stacks = 90
           Start = 270
         end
-        object Sphere6: TSphere
-          TransformationMode = tmParentWithPos
+        object Sphere6: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q6'
           Bottom = 0
@@ -2005,8 +2138,7 @@ object Form1: TForm1
           Stacks = 90
           Stop = 90
         end
-        object Sphere7: TSphere
-          TransformationMode = tmParentWithPos
+        object Sphere7: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q7'
           Radius = 0.5
@@ -2015,8 +2147,7 @@ object Form1: TForm1
           Start = 270
           Top = 0
         end
-        object Sphere8: TSphere
-          TransformationMode = tmParentWithPos
+        object Sphere8: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q8'
           Radius = 0.5
@@ -2029,16 +2160,14 @@ object Form1: TForm1
       object GLLightSource2: TGLLightSource
         Ambient.Color = {0000803F0000803F0000803F0000803F}
         ConstAttenuation = 1
+        Diffuse.Color = {0000000000000000000000000000803F}
         LightStyle = lsParallel
         Shining = False
-        Specular.Color = {0000803F0000803F0000803F0000803F}
         SpotCutOff = 180
         SpotDirection.Coordinates = {00000000000000000000803F00000000}
       end
     end
     object GLMirror1: TGLMirror
-      Position.Coordinates = {00000000000000000000C8C20000803F}
-      Visible = False
       Material.BackProperties.Ambient.Color = {00000000000000000000000000000000}
       Material.BackProperties.Diffuse.Color = {00000000000000000000000000000000}
       Material.BackProperties.Emission.Color = {00000000000000000000000000000000}
@@ -2047,15 +2176,17 @@ object Form1: TForm1
       Material.FrontProperties.Diffuse.Color = {00000000000000000000000000000000}
       Material.FrontProperties.Emission.Color = {00000000000000000000000000000000}
       Material.BlendingMode = bmTransparency
+      Position.Coordinates = {00000000000000000000C8C20000803F}
+      Visible = False
       MirrorOptions = []
       Height = 1
       Width = 1
+      Radius = 1
     end
-    object DummyCube3: TDummyCube
+    object DummyCube3: TGLDummyCube
+      VisibilityCulling = vcObjectBased
       CubeSize = 1
-      object HUDSprite2: THUDSprite
-        Position.Coordinates = {0000C8420000C842000000000000803F}
-        Visible = False
+      object HUDSprite2: TGLHUDSprite
         Material.BackProperties.Ambient.Color = {0000000000000000000000000000803F}
         Material.BackProperties.Diffuse.Color = {0000000000000000000000000000803F}
         Material.BackProperties.PolygonMode = pmLines
@@ -2064,23 +2195,29 @@ object Form1: TForm1
         Material.FrontProperties.Emission.Color = {000000000000803FF8FEFE3E0000803F}
         Material.FrontProperties.PolygonMode = pmLines
         Material.Texture.FilteringQuality = tfAnisotropic
+        Position.Coordinates = {0000C8420000C842000000000000803F}
+        Visible = False
         Width = 30
         Height = 1
         Rotation = 70
         NoZWrite = False
+        MirrorU = False
+        MirrorV = False
       end
-      object HUDSprite1: THUDSprite
-        Position.Coordinates = {0000C8420000C842000000000000803F}
-        Up.Coordinates = {000000000000803F0000008000000000}
+      object HUDSprite1: TGLHUDSprite
         Material.FrontProperties.Ambient.Color = {0000000000000000000000000000803F}
         Material.FrontProperties.Diffuse.Color = {0000000000000000000000000000803F}
         Material.FrontProperties.Emission.Color = {0000803F0000003F000000000000803F}
         Material.Texture.FilteringQuality = tfAnisotropic
+        Position.Coordinates = {0000C8420000C842000000000000803F}
+        Up.Coordinates = {000000000000803F0000008000000000}
         Width = 5
         Height = 5
         NoZWrite = False
+        MirrorU = False
+        MirrorV = False
       end
-      object HUDText1: THUDText
+      object HUDText1: TGLHUDText
         Position.Coordinates = {0000C8420000C842000000000000803F}
         Scale.Coordinates = {CDCCCC3ECDCCCC3E0000803F00000000}
         BitmapFont = BitmapFont1
@@ -2089,7 +2226,12 @@ object Form1: TForm1
         Layout = tlCenter
       end
     end
-    object DummyCube4: TDummyCube
+    object DummyCube4: TGLDummyCube
+      VisibilityCulling = vcObjectBased
+      CubeSize = 1
+    end
+    object DummyCube5: TGLDummyCube
+      VisibilityCulling = vcObjectBased
       CubeSize = 1
     end
     object GLCamera1: TGLCamera
@@ -2356,7 +2498,7 @@ object Form1: TForm1
   object Timer1: TAsyncTimer
     Interval = 2000
     OnTimer = Timer1Timer
-    ThreadPriority = tpTimeCritical
+    ThreadPriority = tpNormal
     Left = 64
     Top = 464
   end
@@ -2374,9 +2516,9 @@ object Form1: TForm1
     Left = 424
     Top = 464
   end
-  object BitmapFont1: TBitmapFont
+  object BitmapFont1: TGLBitmapFont
     GlyphsIntervalX = 0
-    GlyphsIntervalY = 8
+    GlyphsIntervalY = 5
     Ranges = <
       item
         StartASCII = 'A'
@@ -2397,9 +2539,48 @@ object Form1: TForm1
         StartASCII = '-'
         StopASCII = '.'
         StartGlyphIdx = 62
+      end
+      item
+        StartASCII = #39
+        StopASCII = #39
+        StartGlyphIdx = 64
+      end
+      item
+        StartASCII = #224
+        StopASCII = #226
+        StartGlyphIdx = 65
+      end
+      item
+        StartASCII = #228
+        StopASCII = #228
+        StartGlyphIdx = 68
+      end
+      item
+        StartASCII = #232
+        StopASCII = #235
+        StartGlyphIdx = 69
+      end
+      item
+        StartASCII = #238
+        StopASCII = #238
+        StartGlyphIdx = 73
+      end
+      item
+        StartASCII = #244
+        StopASCII = #244
+        StartGlyphIdx = 74
+      end
+      item
+        StartASCII = #251
+        StopASCII = #251
+        StartGlyphIdx = 75
       end>
-    CharWidth = 13
+    CharWidth = 8
+    CharHeight = 10
     VSpace = 2
+    MagFilter = maNearest
+    MinFilter = miLinearMipmapLinear
+    GlyphsAlpha = tiaSuperBlackTransparent
     Left = 64
     Top = 432
   end
@@ -2420,6 +2601,7 @@ object Form1: TForm1
     Top = 72
   end
   object PopupMenu1: TPopupMenu
+    OnPopup = PopupMenu1Popup
     Left = 424
     Top = 96
     object Position1: TMenuItem
@@ -2561,6 +2743,10 @@ object Form1: TForm1
         OnClick = N02seconde1Click
       end
     end
+    object RemoveMark1: TMenuItem
+      Caption = 'Remove Mark'
+      OnClick = RemoveMark1Click
+    end
   end
   object SaveDialog1: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofPathMustExist, ofNoReadOnlyReturn, ofEnableSizing]
@@ -2614,8 +2800,12 @@ object Form1: TForm1
   object dbm: TLiteDB
     Active = False
     DllLoaded = False
+    UniCode = False
     CallBackOnly = False
     FetchMemoryLimit = 16777216
+    ResultSet = 'default'
+    ThreadSafe = True
+    SQLiteVersion = svAuto
     Left = 24
     Top = 224
   end

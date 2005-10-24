@@ -1,4 +1,4 @@
-program vmaexpert;
+program vmapro;
 {
 Copyright (C) 2003 Patrick Chevalley
 
@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
 uses
   Forms,
+  dialogs,
   Registry,
   SysUtils,
   Windows,
@@ -33,13 +34,14 @@ uses
   glossary in 'glossary.pas' {Gloss},
   fmsg in 'fmsg.pas' {MsgForm},
   telescope in 'telescope.pas',
-  helpUnit in 'helpunit.pas' {helpForm};
+  helpUnit in 'helpunit.pas' {helpForm},
+  dbutil in 'dbutil.pas';
 
 {$R *.RES}
 
-const //IdMsg='Virtual_Moon_Atlas_Expert_message';
-      IdMutex='Virtual_Moon_Atlas_Expert_mutex';
-      exeName='vmaexpert.exe';
+const //IdMsg='Virtual_Moon_Atlas_Pro_message';
+      IdMutex='Virtual_Moon_Atlas_Pro_mutex';
+      exeName='vmapro.exe';
 
 var Registry1: TRegistry;
     buf: shortstring;
@@ -83,6 +85,8 @@ begin
    end;
   end;
 
+  // Let our window return to foreground when calling SetForegroundWindow.
+  SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0, nil, SPIF_SENDWININICHANGE or SPIF_UPDATEINIFILE);
   ok:=CreateMyMutex;
   ok:=ok or multi_instance;
   if not ok then begin

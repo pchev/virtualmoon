@@ -23,7 +23,8 @@ interface
 
 uses Math, jpeg,
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ComCtrls, Buttons, ExtCtrls, Inifiles, Grids, EnhEdits;
+  StdCtrls, ComCtrls, Buttons, ExtCtrls, Inifiles, Grids, EnhEdits,
+  CheckLst;
 
 type
   TForm2 = class(TForm)
@@ -115,11 +116,6 @@ type
     Label27: TLabel;
     CheckBox17: TCheckBox;
     CheckBox18: TCheckBox;
-    GroupBox1: TGroupBox;
-    CheckBox19: TCheckBox;
-    CheckBox20: TCheckBox;
-    CheckBox21: TCheckBox;
-    CheckBox22: TCheckBox;
     Label28: TLabel;
     Edit10: TEdit;
     RadioGroup2: TRadioGroup;
@@ -133,7 +129,18 @@ type
     Image1: TImage;
     Label32: TLabel;
     TrackBar5: TTrackBar;
+    TabSheet7: TTabSheet;
+    GroupBox1: TGroupBox;
+    CheckBox19: TCheckBox;
+    CheckBox20: TCheckBox;
+    CheckBox21: TCheckBox;
+    CheckBox22: TCheckBox;
     CheckBox23: TCheckBox;
+    Bevel8: TBevel;
+    Label23: TLabel;
+    CheckBox16: TCheckBox;
+    CheckListBox1: TCheckListBox;
+    Label31: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
@@ -158,6 +165,7 @@ type
     procedure TrackBar5Change(Sender: TObject);
     procedure ComboBox5Change(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure CheckBox16Click(Sender: TObject);
   private
     { Déclarations privées }
   public
@@ -206,30 +214,37 @@ CheckBox10.Visible:=false;
 {$ENDIF}
 // hide developpement tools or not finished function
 if not fileexists('version.developpement') then begin
-  CheckBox12.Visible:=false;
-  Edit4.Visible:=false;
-  Button3.Visible:=false;
-  checkbox15.Visible:=false;
-  label20.Visible:=false;
-  label21.Visible:=false;
-  label22.Visible:=false;
-  ruklprefix.Visible:=false;
-  ruklsuffix.Visible:=false;
-  Tabsheet6.TabVisible:=false;
-  checkbox22.Visible:=false;
+  CheckBox12.Visible:=false;   // external image display
+  Edit4.Visible:=false;        // external image display
+  Button3.Visible:=false;      // external image display
+  checkbox15.Visible:=false;   // direct LOPAM image link
+  label20.Visible:=false;      // Rükl chart
+  label21.Visible:=false;      // Rükl chart
+  label22.Visible:=false;      // Rükl chart
+  ruklprefix.Visible:=false;   // Rükl chart
+  ruklsuffix.Visible:=false;   // Rükl chart 
+  label31.Visible:=false;  // not finished database
+  CheckListBox1.Visible:=false;  // not finished database
 end;
 {$ifdef vmalight}
   CheckBox3.Visible:=false;
   checkbox18.Visible:=false;
   checkbox20.Visible:=false;
+  checkbox22.Visible:=false;
   RadioGroup3.Visible:=false;
   Tabsheet6.TabVisible:=false;
 {$endif}
 {$ifdef vmabasic}
   checkbox21.Visible:=false;
+  CheckBox22.Visible:=false;
   radiogroup2.Visible:=false;
   RadioGroup3.Visible:=false;
   Tabsheet6.TabVisible:=false;
+{$endif}
+{$ifndef vmapro}
+  TabSheet6.TabVisible:=false;
+  Label31.Visible:=false;
+  CheckListBox1.Visible:=false;
 {$endif}
 i:=findfirst(appdir+'\'+'lang_*.ini',0,fs);
 while i=0 do begin
@@ -263,8 +278,10 @@ savemipmaps:=MipMaps;
 end;
 
 procedure TForm2.FormDestroy(Sender: TObject);
+var i: integer;
 begin
 ov.Free;
+for i:=0 to Checklistbox1.Count-1 do (Checklistbox1.Items.Objects[i] as TDBinfo).Free;
 end;
 
 procedure TForm2.ComboBox3Change(Sender: TObject);
@@ -274,6 +291,8 @@ end;
 
 procedure TForm2.CheckBox3Click(Sender: TObject);
 begin
+label1.Enabled:=not checkbox3.checked;
+label2.Enabled:=not checkbox3.checked;
 edit1.Enabled:=not checkbox3.checked;
 edit2.Enabled:=not checkbox3.checked;
 combobox1.Enabled:=not checkbox3.checked;
@@ -360,13 +379,13 @@ begin
 case RadioGroup2.itemindex of
 0 : hiresfn:='hires.jpg';
 1 : hiresfn:='hires_clem.jpg';
-2 : hiresfn:='hires_light.jpg';
+//2 : hiresfn:='hires_light.jpg';
 end;
 if not fileexists(Slash(appdir)+Slash('textures')+hiresfn) then begin
  hiresfn:=hiresfile;
  if hiresfile='hires.jpg' then form2.radiogroup2.itemindex:=0
    else if hiresfile='hires_clem.jpg' then form2.radiogroup2.itemindex:=1
-   else if hiresfile='hires_light.jpg' then form2.radiogroup2.itemindex:=2
+//   else if hiresfile='hires_light.jpg' then form2.radiogroup2.itemindex:=2
    else form2.radiogroup2.itemindex:=-1;
 end;
 if hiresfn='hires_light.jpg' then graytexture:=0
@@ -469,6 +488,13 @@ if not ov.Empty then begin
     lockoverlay:=false;
    end;
 end;
+end;
+
+procedure TForm2.CheckBox16Click(Sender: TObject);
+begin
+Label3.Enabled:=not CheckBox16.Checked;
+Label29.Enabled:=not CheckBox16.Checked;
+Edit3.Enabled:=not CheckBox16.Checked;
 end;
 
 end.

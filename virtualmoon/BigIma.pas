@@ -65,6 +65,8 @@ var
 
 implementation
 
+uses skylib;
+
 {$R *.DFM}
 
 Procedure TbigImaform.LoadImage(f : string);
@@ -89,8 +91,9 @@ begin
    image1.Width:=round(x*imageWidth);
    image1.Height:=round(x*imageHeight);
    Caption:=titre+' x'+formatfloat('0.#',Power(2,zoom));
-   ClientWidth:=trunc(minvalue([Screen.Width,image1.Width]));
-   ClientHeight:=trunc(minvalue([Screen.Height,image1.Height+toolbar1.height]));
+   ClientWidth:=trunc(minvalue([0.8*Screen.Width,image1.Width]));
+   ClientHeight:=trunc(minvalue([0.8*Screen.Height,image1.Height+toolbar1.height]));
+   formpos(self,self.Left,self.Top);
 end;
 
 Procedure TbigImaform.Zoomplus;

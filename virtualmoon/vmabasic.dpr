@@ -100,6 +100,9 @@ begin
   ShowWindow(Application.Handle, SW_RESTORE);
   Application.CreateForm(TForm1, Form1);
   splash := Tsplash.create(application);
+  splash.VersionName:=VersionName;
+  splash.Splashversion:=Splashversion;
+  splash.transmsg:=transmsg;
   splash.show;
   splash.refresh;
   Application.CreateForm(TImglist, Imglist);

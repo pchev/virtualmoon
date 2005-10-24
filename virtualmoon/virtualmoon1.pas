@@ -26,18 +26,19 @@ uses
   QTypes, QForms, QControls, QExtCtrls, QStdCtrls, QGraphics,
 {$ENDIF}
 {$IFDEF MSWINDOWS}
-  Windows, Forms, Controls, StdCtrls, ExtCtrls, Graphics,
+  Windows, Forms,  StdCtrls, ExtCtrls, Graphics,
    DdeMan,
 {$ENDIF}
 {$IFDEF opengl}
   GLScene, GLObjects, GLMisc, GLWin32Viewer, GLTexture, Info,
   GLcontext, GLCadencer, GLBitmapFont, GLHUDObjects, GLGraphics,
-  GLGraph, geometry, GLMirror, AsyncTimer, 
+  GLGraph, GLMirror, AsyncTimer, GLUtils, GLCrossPlatForm,
 {$ENDIF}
-  mlb2, Printers,
+  mlb2, Printers,  Controls,
   Messages, SysUtils, Classes, Dialogs,  math,
   ComCtrls, Mask, Menus, jpeg, Buttons, ToolWin,
-  EnhEdits, IniFiles, Grids, BigIma, HTMLLite, passql, passqlite;
+  EnhEdits, IniFiles, Grids, BigIma, HTMLLite, passql, passqlite,
+  GLGeomObjects;
 
 
 type
@@ -197,29 +198,29 @@ type
     Notes1: TMenuItem;
     GLScene1: TGLScene;
     GLLightSource1: TGLLightSource;
-    Sphere4: TSphere;
-    Sphere3: TSphere;
-    Sphere2: TSphere;
-    Sphere1: TSphere;
-    Sphere5: TSphere;
-    Sphere6: TSphere;
-    HiresSphere: TSphere;
+    Sphere4: TGLSphere;
+    Sphere3: TGLSphere;
+    Sphere2: TGLSphere;
+    Sphere1: TGLSphere;
+    Sphere5: TGLSphere;
+    Sphere6: TGLSphere;
+    HiresSphere: TGLSphere;
     GLMaterialLibrary1: TGLMaterialLibrary;
     GLCamera1: TGLCamera;
     GLSceneViewer1: TGLSceneViewer;
     GLCadencer1: TGLCadencer;
-    HUDText1: THUDText;
-    HUDSprite1: THUDSprite;
-    DummyCube2: TDummyCube;
-    HUDSprite2: THUDSprite;
+    HUDText1: TGLHUDText;
+    HUDSprite1: TGLHUDSprite;
+    DummyCube2: TGLDummyCube;
+    HUDSprite2: TGLHUDSprite;
     GLMirror1: TGLMirror;
-    DummyCube3: TDummyCube;
-    DummyCube4: TDummyCube;
-    ArrowLine1: TArrowLine;
-    BitmapFont1: TBitmapFont;
-    Sphere7: TSphere;
-    Sphere8: TSphere;
-    Annulus1: TAnnulus;
+    DummyCube3: TGLDummyCube;
+    DummyCube4: TGLDummyCube;
+    ArrowLine1: TGLArrowLine;
+    BitmapFont1: TGLBitmapFont;
+    Sphere7: TGLSphere;
+    Sphere8: TGLSphere;
+    Annulus1: TGLAnnulus;
     Panel2D: TPanel;
     HorzScrollBar: TScrollBar;
     VertScrollBar: TScrollBar;
@@ -243,7 +244,7 @@ type
     CheckBox4: TCheckBox;
     CheckBox19: TCheckBox;
     CheckBox5: TCheckBox;
-    DummyCube1: TDummyCube;
+    DummyCube1: TGLDummyCube;
     RotationCadencer: TGLCadencer;
     Rotation1: TMenuItem;
     N5seconde1: TMenuItem;
@@ -262,7 +263,7 @@ type
     SpeedButton4: TSpeedButton;
     SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
-    HiresSphere500: TSphere;
+    HiresSphere500: TGLSphere;
     OverlayCaption1: TMenuItem;
     OverlayCaption2: TMenuItem;
     GroupBox4: TGroupBox;
@@ -293,6 +294,21 @@ type
     SpeedButton7: TSpeedButton;
     Label28: TLabel;
     Encyclopedia1: TMenuItem;
+    NewWindowButton: TToolButton;
+    Snapshot1: TMenuItem;
+    LibrationButton: TToolButton;
+    PhaseButton: TToolButton;
+    Button10: TButton;
+    DataBase1: TMenuItem;
+    N4: TMenuItem;
+    ToolButton4: TToolButton;
+    ToolButton6: TToolButton;
+    Button19: TButton;
+    Button20: TButton;
+    SpeedButton8: TSpeedButton;
+    ToolButton11: TToolButton;
+    DummyCube5: TGLDummyCube;
+    RemoveMark1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -441,13 +457,22 @@ type
     procedure TrackBar6Change(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure Encyclopedia1Click(Sender: TObject);
+    procedure NewWindowButtonClick(Sender: TObject);
+    procedure Snapshot1Click(Sender: TObject);
+    procedure LibrationButtonClick(Sender: TObject);
+    procedure PhaseButtonClick(Sender: TObject);
+    procedure Button10Click(Sender: TObject);
+    procedure DataBase1Click(Sender: TObject);
+    procedure ToolButton4Click(Sender: TObject);
+    procedure ToolButton6Click(Sender: TObject);
+    procedure Button20Click(Sender: TObject);
+    procedure SpeedButton8Click(Sender: TObject);
+    procedure RemoveMark1Click(Sender: TObject);
+    procedure PopupMenu1Popup(Sender: TObject);
   private
     { Déclarations privées }
   public
     { Déclarations publiques }
-    Procedure LoadDB;
-    Procedure CreateDB;
-    Procedure ConvertDB(fn,side:string);
     procedure InitGraphic(Sender: TObject);
     procedure LoadOverlay(fn:string; lum:integer);
     Procedure SetLabel;
@@ -462,6 +487,10 @@ var
   Form1: TForm1;
   dblox,dbnotes : TMlb2;
 
+type TDBInfo = class(TObject)
+     dbnum: integer;
+     end;
+
 function InvProjMoon (x,y,lc,bc : Double ; VAR l,b : Double ):boolean;
 function ProjMoon(l,b,lc,bc : Double ; VAR X,Y : Double ):boolean;
 procedure World2Window(xx,yy : double; var x,y : integer);
@@ -473,10 +502,12 @@ Procedure ShowImg(desc,nom:string; forceinternal:boolean);
 function SearchName(n: string; center: boolean):boolean;
 Procedure OpenHires(forcerebuild:boolean);
 
-const AVLversion = '2.1';
-      Splashversion ='Version 2.1  2004-10-31';
+const AVLversion = '3.0';
+      Splashversion ='Version 3.0  2005-09-28';
       d1 = '0.0';
       d2 = '0.00';
+      d3 = '0.000';
+      d4 = '0.0000';
       Rmoon = 1737.103;  // moon radius Km
       crlf = chr(10)+chr(13);
       tab  = chr(9);
@@ -485,26 +516,41 @@ const AVLversion = '2.1';
       crRetic = 5;
       crPointing = 6;
       ox=36; oy=36; os=1500; px=0.95467; py=0.95467; //image 1500x1500, lune 1432x1432
-      nummessage = 74;
+      nummessage = 75;
       MaxLabel=500;
-      Label3dSize=0.6;
+      InitialSprite=1000;
+      AbsoluteMaxSprite=5000;
+      Label3dSize=1;
       Label2dSize=-11;
 {$ifdef vmalight}
       maxfocbase=1200;
       IdMsg='Virtual_Moon_Atlas_Light_message';
+      ExitMsg='Virtual_Moon_Atlas_Light_exit';
       versionname='Light';
 {$endif}
 {$ifdef vmabasic}
       maxfocbase=1200;
       IdMsg='Virtual_Moon_Atlas_Basic_message';
+      ExitMsg='Virtual_Moon_Atlas_Basic_exit';
       versionname='Basic';
 {$endif}
 {$ifdef vmaexpert}
+   {$ifndef vmapro}
       maxfocbase=1900;
       IdMsg='Virtual_Moon_Atlas_Expert_message';
+      ExitMsg='Virtual_Moon_Atlas_Expert_exit';
       versionname='Expert';
+   {$endif}
 {$endif}
-var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
+{$ifdef vmapro}
+      maxfocbase=1900;
+      IdMsg='Virtual_Moon_Atlas_Pro_message';
+      ExitMsg='Virtual_Moon_Atlas_Pro_exit';
+      versionname='Pro';
+{$endif}
+    VMAbrowser='VMA Browser';
+    
+var lastx,lasty,lastyzoom,posmin,posmax,ax,ay,MaxSprite : integer;
     ReduceTexture,ReduceTextureFar,LastIma,maximgdir,maxima,startx,starty,saveimagesize,lastscrollx,lastscrolly : Integer;
     LeftMargin, PrintTextWidth,clickX,clickY : integer;
     PrintEph, PrintDesc, MipMaps, GeologicalMap, externalimage, PrintChart,lopamdirect,doublebuf,stencilbuf,hiresok,hires500ok :Boolean;
@@ -516,16 +562,19 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     dbedited : Boolean = false;
     SkipIdent,Firstsearch,phaseeffect,librationeffect,geocentric,FollowNorth,notesok,notesedited,labelcenter,minilabel,SafeMode : boolean;
     useOpenGL,lockmove,lockrepeat,DDEreceiveok,showlabel,showautolabel,showmark,showlibrationmark,marked,saveimagewhite,skipresize : boolean;
-    searchtext, imac1, imac2, imac3,lopamplateurl,lopamnameurl,lopamdirecturl,lopamlocalurl,lopamplatesuffix,lopamnamesuffix,lopamdirectsuffix,lopamlocalsuffix,olddatabase : string;
-    externalimagepath,helpprefix,AntiAlias,ruklprefix,ruklsuffix,hiresfile,exitpassword,password,transmsg,scopeinterface,markname,sidelist,currentname,currentid : string;
+    searchtext, imac1, imac2, imac3,lopamplateurl,lopamnameurl,lopamdirecturl,lopamlocalurl,lopamplatesuffix,lopamnamesuffix,lopamdirectsuffix,lopamlocalsuffix : string;
+    externalimagepath,helpprefix,AntiAlias,ruklprefix,ruklsuffix,hiresfile,exitpassword,password,transmsg,scopeinterface,markname,currentname,currentid : string;
+    appname : string;
+    multi_instance, CloseVMAbrowser : boolean;
     m : array[1..nummessage] of string;
     shapepositionX, shapepositionY, CameraOrientation, PoleOrientation,startl,startb,startxx,startyy : double;
+    curfoc, curx, cury : double;
     maxfoc, LabelDensity, overlaylum, phaseoffset : integer;
     minfoc : integer = 100;
     perfdeltay : double =0.00001;
     labelcolor,markcolor,autolabelcolor : Tcolor;
     Ima: array of TBigImaForm;
-    ddeparam,tmpmap,tmpdir,currenttexture,imgsuffix,overlayname : string;
+    ddeparam,tmpmap,tmpdir,currenttexture,imgsuffix,overlayname,currentselection : string;
     CielHnd : Thandle;
     lockchart : Boolean = false;
     StartedByDS : Boolean = false;
@@ -533,7 +582,7 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     distancestart : Boolean = false;
     SkyChartStarting : boolean = false;
     OldWindowProc : Pointer; {Variable for the old windows proc}
-    MyMsg : DWord; {custom systemwide message}
+    MyMsg,ExitRequest : DWord; {custom systemwide message}
     param : Tstringlist;
     imgdir : array of array[0..2] of string;
     lf : TLogFont;
@@ -556,19 +605,19 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     phasehash : Boolean = false;
     phaseumbrachanging : Boolean = false;
     phaseumbra: Tcolor;
-    database : array[1..5] of string;
-    usedatabase :array[1..5] of boolean;
+    useDBN: integer = 5;
     db_age : array[1..5] of integer;
     farsidetexture : Boolean = true;
     showoverlay : Boolean = true;
     LastScopeTracking : double = 0;
     nmjd,fqjd,fmjd,lqjd,currentl,currentb : double;
     searchlist: Tstringlist;
+    UseComputerTime : Boolean = true;
 
 implementation
 
-uses telescope, config, skylib,planet1, splashunit,Sky_DDE_Util, imglistunit, glossary,
-  fmsg;
+uses telescope, config, skylib,planet1, splashunit,Sky_DDE_Util, imglistunit,
+     glossary, fmsg, dbutil;
 
 {$R *.DFM}
 {$R curretic.res}

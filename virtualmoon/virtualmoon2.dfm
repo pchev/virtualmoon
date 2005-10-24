@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 219
-  Top = 109
-  Width = 760
+  Left = 269
+  Top = 163
+  Width = 811
   Height = 580
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
@@ -69,7 +69,7 @@ object Form1: TForm1
   object PageControl1: TPageControl
     Left = 495
     Top = 25
-    Width = 254
+    Width = 282
     Height = 495
     ActivePage = Position
     HotTrack = True
@@ -83,7 +83,7 @@ object Form1: TForm1
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 246
+        Width = 274
         Height = 97
         Align = alTop
         TabOrder = 0
@@ -108,7 +108,7 @@ object Form1: TForm1
         object GroupBox1: TGroupBox
           Left = 1
           Top = 62
-          Width = 244
+          Width = 272
           Height = 34
           Align = alBottom
           Caption = 'Profile'
@@ -143,7 +143,7 @@ object Form1: TForm1
       object Desc1: ThtmlLite
         Left = 0
         Top = 97
-        Width = 246
+        Width = 274
         Height = 352
         OnHotSpotClick = Desc1HotSpotClick
         ViewImages = False
@@ -173,7 +173,7 @@ object Form1: TForm1
       object Memo1: TMemo
         Left = 0
         Top = 58
-        Width = 246
+        Width = 274
         Height = 391
         Align = alClient
         Lines.Strings = (
@@ -186,7 +186,7 @@ object Form1: TForm1
       object Panel7: TPanel
         Left = 0
         Top = 0
-        Width = 246
+        Width = 274
         Height = 58
         Align = alTop
         TabOrder = 1
@@ -214,7 +214,7 @@ object Form1: TForm1
       object StringGrid2: TStringGrid
         Left = 0
         Top = 0
-        Width = 246
+        Width = 274
         Height = 416
         Align = alClient
         ColCount = 2
@@ -231,7 +231,7 @@ object Form1: TForm1
       object Panel6: TPanel
         Left = 0
         Top = 416
-        Width = 246
+        Width = 274
         Height = 33
         Align = alBottom
         TabOrder = 1
@@ -253,6 +253,24 @@ object Form1: TForm1
           TabOrder = 1
           OnClick = btnEffacerClick
         end
+        object Button19: TButton
+          Left = 164
+          Top = 4
+          Width = 73
+          Height = 25
+          Caption = 'Coord.'
+          TabOrder = 2
+          OnClick = EnregistredistClick
+        end
+        object Button20: TButton
+          Left = 237
+          Top = 4
+          Width = 65
+          Height = 25
+          Caption = 'Delete'
+          TabOrder = 3
+          OnClick = Button20Click
+        end
       end
     end
     object Ephemerides: TTabSheet
@@ -261,7 +279,7 @@ object Form1: TForm1
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 246
+        Width = 274
         Height = 121
         Align = alTop
         TabOrder = 0
@@ -684,9 +702,9 @@ object Form1: TForm1
           MaxValue = 23
         end
         object Button4: TButton
-          Left = 92
+          Left = 104
           Top = 64
-          Width = 75
+          Width = 63
           Height = 25
           Caption = 'Compute'
           TabOrder = 7
@@ -695,7 +713,7 @@ object Form1: TForm1
         object Button5: TButton
           Left = 8
           Top = 64
-          Width = 75
+          Width = 65
           Height = 25
           Caption = 'Maintenant'
           TabOrder = 6
@@ -774,11 +792,20 @@ object Form1: TForm1
           TabOrder = 13
           Wrap = True
         end
+        object Button10: TButton
+          Left = 76
+          Top = 64
+          Width = 25
+          Height = 25
+          Caption = '0h'
+          TabOrder = 14
+          OnClick = Button10Click
+        end
       end
       object StringGrid1: TStringGrid
         Left = 0
         Top = 121
-        Width = 246
+        Width = 274
         Height = 328
         TabStop = False
         Align = alClient
@@ -806,7 +833,7 @@ object Form1: TForm1
       object Panel5: TPanel
         Left = 0
         Top = 0
-        Width = 246
+        Width = 274
         Height = 121
         Align = alTop
         TabOrder = 0
@@ -884,7 +911,7 @@ object Form1: TForm1
       object ListBox1: TListBox
         Left = 0
         Top = 121
-        Width = 246
+        Width = 274
         Height = 328
         Align = alClient
         ItemHeight = 13
@@ -1273,7 +1300,7 @@ object Form1: TForm1
   object ControlBar1: TControlBar
     Left = 0
     Top = 0
-    Width = 752
+    Width = 803
     Height = 27
     Align = alTop
     AutoDrag = False
@@ -1326,12 +1353,12 @@ object Form1: TForm1
     object ToolBar1: TToolBar
       Left = 231
       Top = 2
-      Width = 456
+      Width = 815
       Height = 23
       Align = alNone
       AutoSize = True
       ButtonHeight = 21
-      ButtonWidth = 53
+      ButtonWidth = 55
       Caption = 'ToolBar'
       DragMode = dmAutomatic
       EdgeBorders = []
@@ -1340,8 +1367,70 @@ object Form1: TForm1
       ShowCaptions = True
       TabOrder = 1
       Wrapable = False
-      object Label10: TLabel
+      object SpeedButton8: TSpeedButton
         Left = 0
+        Top = 2
+        Width = 23
+        Height = 21
+        Glyph.Data = {
+          9E050000424D9E05000000000000360400002800000012000000120000000100
+          08000000000068010000232E0000232E00000001000000000000000000003300
+          00006600000099000000CC000000FF0000000033000033330000663300009933
+          0000CC330000FF33000000660000336600006666000099660000CC660000FF66
+          000000990000339900006699000099990000CC990000FF99000000CC000033CC
+          000066CC000099CC0000CCCC0000FFCC000000FF000033FF000066FF000099FF
+          0000CCFF0000FFFF000000003300330033006600330099003300CC003300FF00
+          330000333300333333006633330099333300CC333300FF333300006633003366
+          33006666330099663300CC663300FF6633000099330033993300669933009999
+          3300CC993300FF99330000CC330033CC330066CC330099CC3300CCCC3300FFCC
+          330000FF330033FF330066FF330099FF3300CCFF3300FFFF3300000066003300
+          66006600660099006600CC006600FF0066000033660033336600663366009933
+          6600CC336600FF33660000666600336666006666660099666600CC666600FF66
+          660000996600339966006699660099996600CC996600FF99660000CC660033CC
+          660066CC660099CC6600CCCC6600FFCC660000FF660033FF660066FF660099FF
+          6600CCFF6600FFFF660000009900330099006600990099009900CC009900FF00
+          990000339900333399006633990099339900CC339900FF339900006699003366
+          99006666990099669900CC669900FF6699000099990033999900669999009999
+          9900CC999900FF99990000CC990033CC990066CC990099CC9900CCCC9900FFCC
+          990000FF990033FF990066FF990099FF9900CCFF9900FFFF99000000CC003300
+          CC006600CC009900CC00CC00CC00FF00CC000033CC003333CC006633CC009933
+          CC00CC33CC00FF33CC000066CC003366CC006666CC009966CC00CC66CC00FF66
+          CC000099CC003399CC006699CC009999CC00CC99CC00FF99CC0000CCCC0033CC
+          CC0066CCCC0099CCCC00CCCCCC00FFCCCC0000FFCC0033FFCC0066FFCC0099FF
+          CC00CCFFCC00FFFFCC000000FF003300FF006600FF009900FF00CC00FF00FF00
+          FF000033FF003333FF006633FF009933FF00CC33FF00FF33FF000066FF003366
+          FF006666FF009966FF00CC66FF00FF66FF000099FF003399FF006699FF009999
+          FF00CC99FF00FF99FF0000CCFF0033CCFF0066CCFF0099CCFF00CCCCFF00FFCC
+          FF0000FFFF0033FFFF0066FFFF0099FFFF00CCFFFF00FFFFFF00000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000D7D7D7D7D7D7
+          D7D7D7D7D7D7D7D7D7D7D7D70000D71E1E1ED2D2D2B4B4B4B9B9B9050505D7D7
+          0000D71E1E1ED2D2D2B4B4B4B9B9B9050505D7D70000D71E1E1ED2D2D2B4B4B4
+          B9B9B9050505D7D70000D71E1E1ED2D2D2B4B4B4B9B9B9050505D7D70000D7D7
+          D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D70000D7D700000000D7D7D7D700000000
+          D7D7D7D70000D7D7D70000D7D7D7D7D7D7000081D7D7D7D70000D7D7D7810081
+          D7D7D7D7810000D7D7D7D7D70000D7D7D7D7000000000000000081D7D7D7D7D7
+          0000D7D7D7D7810081D7D7810000D7D7D7D7D7D70000D7D7D7D7D70000D7D700
+          0081D7D7D7D7D7D70000D7D7D7D7D7810081810000D7D7D7D7D7D7D70000D7D7
+          D7D7D7D70000000081D7D7D7D7D7D7D70000D7D7D7D7D7D781000000D7D7D7D7
+          D7D7D7D70000D7D7D7D7D7D7D7000081D7D7D7D7D7D7D7D70000D7D7D7D7D7D7
+          D78100D7D7D7D7D7D7D7D7D70000D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7
+          0000}
+        OnClick = SpeedButton8Click
+      end
+      object ToolButton11: TToolButton
+        Left = 23
+        Top = 2
+        Width = 4
+        Caption = 'ToolButton11'
+        ImageIndex = 6
+        Style = tbsSeparator
+      end
+      object Label10: TLabel
+        Left = 27
         Top = 2
         Width = 30
         Height = 21
@@ -1349,7 +1438,7 @@ object Form1: TForm1
         Layout = tlCenter
       end
       object TrackBar1: TTrackBar
-        Left = 30
+        Left = 57
         Top = 2
         Width = 150
         Height = 21
@@ -1368,7 +1457,7 @@ object Form1: TForm1
         OnChange = TrackBar1Change
       end
       object ToolButton9: TToolButton
-        Left = 180
+        Left = 207
         Top = 2
         AutoSize = True
         Caption = '1:1'
@@ -1376,15 +1465,66 @@ object Form1: TForm1
         OnClick = ToolButton9Click
       end
       object ToolButton5: TToolButton
-        Left = 206
+        Left = 233
         Top = 2
         AutoSize = True
         Caption = 'Centre'
         ImageIndex = 1
         OnClick = ToolButton5Click
       end
+      object ToolButton4: TToolButton
+        Left = 275
+        Top = 2
+        AutoSize = True
+        Caption = 'N-S'
+        ImageIndex = 7
+        OnClick = ToolButton4Click
+      end
+      object ToolButton6: TToolButton
+        Left = 304
+        Top = 2
+        AutoSize = True
+        Caption = 'E-W'
+        ImageIndex = 6
+        OnClick = ToolButton6Click
+      end
+      object ToolButton3: TToolButton
+        Left = 336
+        Top = 2
+        AutoSize = True
+        Caption = 'Rotation'
+        ImageIndex = 5
+        Style = tbsCheck
+        OnClick = ToolButton3Click
+      end
+      object LibrationButton: TToolButton
+        Left = 387
+        Top = 2
+        AutoSize = True
+        Caption = 'Libration'
+        ImageIndex = 6
+        Style = tbsCheck
+        OnClick = LibrationButtonClick
+      end
+      object PhaseButton: TToolButton
+        Left = 438
+        Top = 2
+        AutoSize = True
+        Caption = 'Phase'
+        ImageIndex = 7
+        Style = tbsCheck
+        OnClick = PhaseButtonClick
+      end
+      object ToolButton10: TToolButton
+        Left = 479
+        Top = 2
+        AutoSize = True
+        Caption = 'Voisinage'
+        ImageIndex = 4
+        OnClick = ToolButton10Click
+      end
       object ToolButton7: TToolButton
-        Left = 248
+        Left = 536
         Top = 2
         AutoSize = True
         Caption = 'Image'
@@ -1392,24 +1532,16 @@ object Form1: TForm1
         ImageIndex = 3
         OnClick = ToolButton7Click
       end
-      object ToolButton10: TToolButton
-        Left = 288
+      object NewWindowButton: TToolButton
+        Left = 576
         Top = 2
         AutoSize = True
-        Caption = 'Voisinage'
+        Caption = 'Window 2'
         ImageIndex = 4
-        OnClick = ToolButton10Click
-      end
-      object ToolButton3: TToolButton
-        Left = 345
-        Top = 2
-        Caption = 'Rotation'
-        ImageIndex = 5
-        Style = tbsCheck
-        OnClick = ToolButton3Click
+        OnClick = NewWindowButtonClick
       end
       object DebugLabel: TLabel
-        Left = 398
+        Left = 635
         Top = 2
         Width = 58
         Height = 21
@@ -1541,6 +1673,17 @@ object Form1: TForm1
     object Fichier1: TMenuItem
       AutoHotkeys = maAutomatic
       Caption = 'Fichier'
+      object Database1: TMenuItem
+        Caption = 'Database'
+        OnClick = Database1Click
+      end
+      object N4: TMenuItem
+        Caption = '-'
+      end
+      object SnapShot1: TMenuItem
+        Caption = 'SnapShot'
+        OnClick = SnapShot1Click
+      end
       object Enregistrersous1: TMenuItem
         Caption = 'Enregistrer sous'
         object BMP1: TMenuItem
@@ -1608,6 +1751,10 @@ object Form1: TForm1
         Caption = 'A propos'
         OnClick = Apropos1Click
       end
+      object OverlayCaption1: TMenuItem
+        Caption = 'Overlay Caption'
+        OnClick = OverlayCaption1Click
+      end
     end
   end
   object EphTimer1: TTimer
@@ -1634,6 +1781,7 @@ object Form1: TForm1
     Top = 72
   end
   object PopupMenu1: TPopupMenu
+    OnPopup = PopupMenu1Popup
     Left = 424
     Top = 96
     object Position1: TMenuItem
@@ -1738,6 +1886,14 @@ object Form1: TForm1
       Visible = False
       OnClick = LgendeGologique1Click
     end
+    object OverlayCaption2: TMenuItem
+      Caption = 'Overlay Caption'
+      OnClick = OverlayCaption1Click
+    end
+    object RemoveMark1: TMenuItem
+      Caption = 'RemoveMark'
+      OnClick = RemoveMark1Click
+    end
   end
   object SaveDialog1: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofPathMustExist, ofNoReadOnlyReturn, ofEnableSizing]
@@ -1777,8 +1933,12 @@ object Form1: TForm1
   object dbm: TLiteDB
     Active = False
     DllLoaded = False
+    UniCode = False
     CallBackOnly = False
     FetchMemoryLimit = 16777216
+    ResultSet = 'default'
+    ThreadSafe = True
+    SQLiteVersion = svAuto
     Left = 80
     Top = 112
   end

@@ -37,6 +37,13 @@ object Form2: TForm2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'General'
+      object Bevel8: TBevel
+        Left = 16
+        Top = 160
+        Width = 305
+        Height = 97
+        Shape = bsFrame
+      end
       object Bevel7: TBevel
         Left = 16
         Top = 16
@@ -46,28 +53,28 @@ object Form2: TForm2
       end
       object Label4: TLabel
         Left = 24
-        Top = 168
+        Top = 280
         Width = 42
         Height = 13
         Caption = 'Langue :'
       end
       object Label1: TLabel
         Left = 32
-        Top = 56
+        Top = 72
         Width = 38
         Height = 13
         Caption = 'Latitude'
       end
       object Label2: TLabel
         Left = 144
-        Top = 56
+        Top = 72
         Width = 47
         Height = 13
         Caption = 'Longitude'
       end
       object Label3: TLabel
         Left = 32
-        Top = 116
+        Top = 220
         Width = 60
         Height = 13
         Caption = 'Zone horaire'
@@ -81,14 +88,21 @@ object Form2: TForm2
       end
       object Label29: TLabel
         Left = 192
-        Top = 116
+        Top = 220
         Width = 64
         Height = 13
         Caption = 'Positive East '
       end
+      object Label23: TLabel
+        Left = 32
+        Top = 156
+        Width = 63
+        Height = 13
+        Caption = 'Date / Heure'
+      end
       object ComboBox3: TComboBox
         Left = 80
-        Top = 164
+        Top = 276
         Width = 233
         Height = 21
         ItemHeight = 13
@@ -98,7 +112,7 @@ object Form2: TForm2
       end
       object CheckBox3: TCheckBox
         Left = 32
-        Top = 32
+        Top = 40
         Width = 225
         Height = 17
         Caption = 'Geocentrique'
@@ -107,7 +121,7 @@ object Form2: TForm2
       end
       object Edit1: TEdit
         Left = 32
-        Top = 72
+        Top = 88
         Width = 49
         Height = 21
         TabOrder = 1
@@ -115,7 +129,7 @@ object Form2: TForm2
       end
       object Edit2: TEdit
         Left = 144
-        Top = 72
+        Top = 88
         Width = 49
         Height = 21
         TabOrder = 3
@@ -123,7 +137,7 @@ object Form2: TForm2
       end
       object ComboBox1: TComboBox
         Left = 88
-        Top = 72
+        Top = 88
         Width = 49
         Height = 21
         ItemHeight = 13
@@ -135,7 +149,7 @@ object Form2: TForm2
       end
       object ComboBox2: TComboBox
         Left = 200
-        Top = 72
+        Top = 88
         Width = 49
         Height = 21
         ItemHeight = 13
@@ -147,19 +161,39 @@ object Form2: TForm2
       end
       object Edit3: TEdit
         Left = 136
-        Top = 112
+        Top = 216
         Width = 41
         Height = 21
         TabOrder = 5
         Text = 'Edit3'
       end
+      object CheckBox16: TCheckBox
+        Left = 32
+        Top = 184
+        Width = 281
+        Height = 17
+        Caption = 'Use Computer Date and Time Zone'
+        TabOrder = 7
+        OnClick = CheckBox16Click
+      end
+    end
+    object TabSheet7: TTabSheet
+      Caption = 'Database'
+      ImageIndex = 7
+      object Label31: TLabel
+        Left = 16
+        Top = 232
+        Width = 74
+        Height = 13
+        Caption = 'User Database '
+      end
       object GroupBox1: TGroupBox
         Left = 16
-        Top = 192
+        Top = 18
         Width = 305
-        Height = 137
+        Height = 199
         Caption = 'Database'
-        TabOrder = 7
+        TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
           Top = 20
@@ -173,7 +207,7 @@ object Form2: TForm2
         end
         object CheckBox20: TCheckBox
           Left = 24
-          Top = 43
+          Top = 55
           Width = 257
           Height = 17
           Caption = 'Satellites Formation'
@@ -181,7 +215,7 @@ object Form2: TForm2
         end
         object CheckBox21: TCheckBox
           Left = 24
-          Top = 66
+          Top = 90
           Width = 257
           Height = 17
           Caption = 'Far Side Named Formation'
@@ -189,7 +223,7 @@ object Form2: TForm2
         end
         object CheckBox22: TCheckBox
           Left = 24
-          Top = 112
+          Top = 125
           Width = 257
           Height = 17
           Caption = 'Far Side Satellites Formation'
@@ -197,12 +231,24 @@ object Form2: TForm2
         end
         object CheckBox23: TCheckBox
           Left = 24
-          Top = 89
+          Top = 161
           Width = 257
           Height = 17
           Caption = 'Landing Site'
           TabOrder = 4
         end
+      end
+      object CheckListBox1: TCheckListBox
+        Left = 16
+        Top = 256
+        Width = 305
+        Height = 65
+        BevelInner = bvSpace
+        BevelOuter = bvNone
+        BevelKind = bkFlat
+        BevelWidth = 4
+        ItemHeight = 13
+        TabOrder = 1
       end
     end
     object TabSheet3: TTabSheet
@@ -368,7 +414,7 @@ object Form2: TForm2
         Width = 150
         Height = 17
         LineSize = 5
-        Max = 250
+        Max = 200
         Min = 50
         Orientation = trHorizontal
         PageSize = 25
@@ -426,8 +472,7 @@ object Form2: TForm2
         ItemIndex = 0
         Items.Strings = (
           'A'#233'rographe'
-          'G'#233'ologique'
-          'Light ')
+          'G'#233'ologique')
         TabOrder = 1
         OnClick = RadioGroup2Click
       end
