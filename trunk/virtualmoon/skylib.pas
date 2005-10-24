@@ -110,7 +110,7 @@ Function ExecNoWait(cmd: string; hide: boolean): boolean;
 Procedure InitDebug;
 Procedure WriteDebug( buf : string);
 Procedure MemoryDebug;
-Procedure ShowHelp(helpfile : string; directory: string='doc');
+Procedure ShowHelp(helpfile : string; suffix:string; directory: string);
 procedure RiseSetInt(typobj:integer; jd0,ar1,de1,ar2,de2,ar3,de3:double; var hr,ht,hs,azr,azs:double;var irc:integer);
 Procedure GetPrinterResolution(var name : string; var resol : integer);
 Function mm2pi(l : single): integer;
@@ -1156,7 +1156,7 @@ end;
 end;
 
 PROCEDURE Djd(jd:Double;VAR annee,mois,jour:INTEGER; VAR Heure:double);
-var u0,u1,u2,u3,u4 : double;
+var u0,u1,u2,u3,u4 : extended;
 	gregorian : boolean;
 begin
 u0:=jd+0.5;
@@ -1223,7 +1223,7 @@ PROCEDURE Djd(jd:Double;VAR annee,mois,jour:INTEGER; VAR Heure:double);
     END;
     Heure:=24.0*f ;
 //    if jd<0 then annee:=annee-n;
- END ;}
+ END ; }
 
  function SidTim(jd0,ut,long : double): double;
  VAR t,te: double;
@@ -1765,15 +1765,41 @@ end;
 
 Function ExecuteFile(const FileName, Params, DefaultDir: string; ShowCmd: Integer): THandle;
 var
-  zFileName, zParams, zDir: array[0..79] of Char;
+  zFileName, zParams, zDir: array[0..255] of Char;
 begin
   Result := ShellExecute(Application.MainForm.Handle, nil, StrPCopy(zFileName, FileName),
                          StrPCopy(zParams, Params), StrPCopy(zDir, DefaultDir), ShowCmd);
 end;
 
-Procedure ShowHelp(helpfile : string; directory: string='doc');
+Procedure ShowHelp(helpfile : string; suffix:string; directory: string);
 var p: integer;
+    fn,dir,a:string;
 begin
+dir := appdir+'\'+directory;
+p:=pos('#',helpfile);
+ if p>0 then begin
+    a:=copy(helpfile,p,999);
+    helpfile:=copy(helpfile,1,p-1);
+ end
+ else a:='';
+
+// try nls PDF, no suffix for pdf
+fn:=hp+helpfile+'.pdf';
+if not fileexists(dir+'\'+fn) then begin
+   // try nls html
+   fn:=hp+helpfile+suffix+'.html';
+   if not fileexists(dir+'\'+fn) then begin
+      // try UK PDF
+      fn:='UK_'+helpfile+'.pdf';
+      if not fileexists(dir+'\'+fn) then begin
+         // try UK html
+         fn:='UK_'+helpfile+suffix+'.html';
+      end;
+   end;
+end;
+if extractfileext(fn)='.pdf' then begin
+   ExecuteFile(fn,'',dir,SW_SHOWNORMAL);
+end else
 if InternalBrowser then begin
   if not helpcreated then begin
     if debugon then writedebug('Create ThelpForm');
@@ -1781,17 +1807,13 @@ if InternalBrowser then begin
     helpcreated:=true;
   end;
   helpform.caption:=Application.title;
-  helpunit.docfile:=hp+helpfile;
+  helpunit.docfile:=fn+a;
   helpform.docdir:=directory;
   helpshow;
 end
 else begin
- p:=pos('#',helpfile);
- if p>0 then begin
-    helpfile:=copy(helpfile,1,p-1);
- end;
 //HlinkNavigateString(nil,pwidechar('file://'+appdir+'\doc\'+hp+helpfile));
- ExecuteFile(hp+helpfile,'',appdir+'\'+directory,SW_SHOWNORMAL);
+ ExecuteFile(fn,'',dir,SW_SHOWNORMAL);
 end;
 end;
 

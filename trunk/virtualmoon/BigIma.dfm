@@ -16,7 +16,6 @@ object BigImaForm: TBigImaForm
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  FormStyle = fsStayOnTop
   OldCreateOrder = False
   Scaled = False
   OnClose = FormClose
@@ -83,7 +82,7 @@ object BigImaForm: TBigImaForm
     Left = 0
     Top = 25
     Width = 607
-    Height = 355
+    Height = 348
     HorzScrollBar.Tracking = True
     VertScrollBar.Tracking = True
     Align = alClient

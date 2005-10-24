@@ -94,7 +94,7 @@ Hpal := CreatePalette(PLogPalette(@pal)^);
 end;
 
 procedure CreateLowres(fn:string);
-var pal : Hpalette;
+var //pal : Hpalette;
     p1,p2:Pbytearray;
     img:Tbitmap;
     bm:Tbitmap;
@@ -113,9 +113,9 @@ jm.Grayscale:=true;
 jm.Scale:=jsHalf;
 jm.LoadFromFile(fn);
 //crepalette(pal);
-pal:=jm.palette;
+//pal:=jm.palette;
 bm.PixelFormat:=pf8bit;
-bm.Palette:=pal;
+//bm.Palette:=pal;
 bm.height:=2048;
 bm.width:=4096;
 dest:=rect(0,0,4096,2048);
@@ -123,7 +123,7 @@ bm.canvas.stretchdraw(dest,jm);
 img.Width:=1024;
 img.Height:=1024;
 img.PixelFormat:=pf8bit;
-img.Palette:=pal;
+//img.Palette:=pal;
 dest:=rect(0,0,1024,1024);
 src:=rect(0,0,1024,1024);
 img.Canvas.CopyRect(dest,bm.canvas,src);
@@ -242,6 +242,46 @@ finally
 end;
 end;
 
+Procedure CreateHires500(fn:string);
+var p : Pbytearray;
+    jm : Tjpegimage;
+    bm: Tbitmap;
+    i,x,y,n:integer;
+begin
+if fileexists(fn) then begin
+MsgForm:=TMsgForm.create(application);
+MsgForm.Label1.caption:='Generating 500m/pixel Texture. Please Wait ...';
+msgform.show;
+msgform.Refresh;
+jm:=TJpegImage.Create;
+bm:=Tbitmap.Create;
+filemode:=2;
+assignfile(fh,Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.dat');
+rewrite(fh,1);
+try
+ try
+ jm.LoadFromFile(fn);
+ bm.Assign(jm);
+ jm.free;
+ except
+  raise exception.create('Out of memory!');
+ end;
+ x:=bm.Width;
+ y:=bm.Height;
+ for i:=0 to y-1 do begin
+   p:=bm.ScanLine[i];
+   blockwrite(fh,p[0],x,n);
+   if n<>x then raise exception.create('Cannot create hires file.');
+ end;
+finally
+ msgform.close;
+ closefile(fh);
+ bm.free;
+ msgform.free;
+end;
+end;
+end;
+
 {$IFDEF opengl}
 Procedure OpenHires(forcerebuild:boolean);
 begin
@@ -255,8 +295,28 @@ begin
     end;
   end;}
   // create files if not exists
+
+  if ((not fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat'))and
+     (fileexists(Slash(appdir)+Slash('textures')+hiresfile)))
+      then begin
+        try
+         CreateHires(Slash(appdir)+Slash('textures')+hiresfile);
+        except
+         deletefile(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat');
+        end;
+      end;
+
+  if ((not fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.dat'))and
+     (fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.jpg')))
+      then begin
+        try
+         CreateHires500(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.jpg');
+        except
+         deletefile(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.dat');
+        end;
+      end;
+
   if ((
-     (not fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat'))or
      (not fileexists(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c1.jpg'))or
      (not fileexists(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c2.jpg'))or
      (not fileexists(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c3.jpg'))or
@@ -264,17 +324,16 @@ begin
      (not fileexists(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c5.jpg'))or
      (not fileexists(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c6.jpg'))or
      (not fileexists(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c7.jpg'))or
-     (not fileexists(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c8.jpg'))
-      )and
-      fileexists(Slash(appdir)+Slash('textures')+hiresfile))
+     (not fileexists(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c8.jpg')))and
+     (fileexists(Slash(appdir)+Slash('textures')+hiresfile)))
       then begin
         try
-         CreateHires(Slash(appdir)+Slash('textures')+hiresfile);
          CreateLowres(Slash(appdir)+Slash('textures')+hiresfile);
         except
-         deletefile(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat');
+         deletefile(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c8.jpg');
         end;
       end;
+
   // open 948m/pixel file
   if fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat') then begin
      hires.Width:=1024;
@@ -353,7 +412,7 @@ const deftxt = '?';
       blank = '        ';
       b=' ';
 begin
-language:='FR';
+language:='UK';
 inifile:=Tmeminifile.create(Slash(AppDir)+'virtualmoon.ini');
 with inifile do begin
 section:='default';
@@ -389,9 +448,10 @@ inifile:=Tmeminifile.create(Slash(AppDir)+'lang_'+language+'.ini');
 section:='default';
 with inifile do begin
   with Form1 do begin
-    olddatabase:=(ReadString(section,'database','DBLMW_FR.csv'));
+    //olddatabase:=(ReadString(section,'database','DBLMW_FR.csv'));
     wordformat:=ReadInteger(section,'format',wordformat);
-    helpprefix:=ReadString(section,'help_prefix','FR');
+    helpprefix:=ReadString(section,'help_prefix','UK');
+    skylib.hp:=helpprefix+'_';
     fichier1.caption:=ReadString(section,'t_1',deftxt);
     ToolButton1.Caption:='&'+fichier1.caption;
     quitter1.caption:=(ReadString(section,'t_2',deftxt));
@@ -473,12 +533,19 @@ with inifile do begin
     CheckBox3.caption:=ReadString(section,'t_126',CheckBox3.caption);
     CheckBox4.caption:=ReadString(section,'t_127',CheckBox4.caption);
     CheckBox5.caption:=ReadString(section,'t_128',CheckBox5.caption);
+    Database1.caption:=ReadString(section,'t_129',Database1.caption);
     Button14.caption:=ReadString(section,'t_145',Button14.caption);
     Checkbox19.caption:=ReadString(section,'t_151',Checkbox19.caption);
     label1.caption:=ReadString(section,'t_153',label1.caption);
     label2.caption:=ReadString(section,'t_154',label2.caption);
     label21.caption:=ReadString(section,'t_155',label21.caption);
     Encyclopedia1.caption:=ReadString(section,'t_165',deftxt);
+    Snapshot1.caption:=ReadString(section,'t_167',Snapshot1.caption);
+    LibrationButton.caption:=(ReadString(section,'t_175',LibrationButton.caption));
+    PhaseButton.caption:=(ReadString(section,'t_176',PhaseButton.caption));
+    ToolButton4.caption:=(ReadString(section,'t_177',ToolButton4.caption));
+    ToolButton6.caption:=(ReadString(section,'t_178',ToolButton6.caption));
+    RemoveMark1.caption:=(ReadString(section,'t_180',RemoveMark1.caption));
 
     {$ifdef vmalight}
        Toolbutton3.caption:=ReadString(section,'t_130',Toolbutton3.caption);
@@ -516,10 +583,12 @@ with inifile do begin
        SpeedButton5.caption:=ReadString(section,'t_140',SpeedButton5.caption);
        SpeedButton6.caption:=ReadString(section,'t_141',SpeedButton6.caption);
        SpeedButton4.caption:=ReadString(section,'t_142',SpeedButton4.caption);
+       NewWindowButton.caption:=ReadString(section,'t_166',NewWindowButton.caption);
     {$endif}
   end;
   with Form2 do begin
     caption:=form1.configuration1.caption;
+    if multi_instance then caption:='Temporary change only!';
     label1.caption:=(ReadString(section,'t_19',deftxt));
     label2.caption:=(ReadString(section,'t_20',deftxt));
     label3.caption:=(ReadString(section,'t_21',deftxt));
@@ -585,10 +654,11 @@ with inifile do begin
     Checkbox19.caption:=ReadString(section,'t_122',Checkbox19.caption);
     Checkbox20.caption:=ReadString(section,'t_123',Checkbox20.caption);
     Checkbox21.caption:=ReadString(section,'t_131',Checkbox21.caption);
-//    Checkbox22.caption:=ReadString(section,'',Checkbox22.caption);
+    Checkbox22.caption:=ReadString(section,'t_168',Checkbox22.caption);
     Checkbox23.caption:=ReadString(section,'t_164',Checkbox23.caption);
     label28.caption:=ReadString(section,'t_124',label28.caption);
     GroupBox1.caption:=ReadString(section,'t_129',GroupBox1.caption);
+    TabSheet7.caption:=GroupBox1.caption;
     RadioGroup3.Caption:=ReadString(section,'t_143',deftxt);
     RadioGroup3.Items[0]:=RadioGroup1.Items[0];
     RadioGroup3.Items[1]:=RadioGroup1.Items[1];
@@ -602,6 +672,14 @@ with inifile do begin
     combobox2.itemindex:=0;
     TabSheet4.caption:=ReadString(section,'t_152',TabSheet4.caption);
     RadioGroup2.Caption:=ReadString(section,'t_144',deftxt);
+    TabSheet6.caption:=ReadString(section,'t_169',TabSheet6.caption);
+    CheckBox11.caption:=ReadString(section,'t_170',CheckBox11.caption);
+    label30.caption:=ReadString(section,'t_171',label30.caption);
+    label32.caption:=ReadString(section,'t_172',label32.caption);
+    Label23.caption:=ReadString(section,'t_173',label23.caption);
+    CheckBox16.caption:=ReadString(section,'t_174',CheckBox16.caption);
+    label31.caption:=ReadString(section,'t_179',label31.caption);
+
     RadioGroup2.items.clear;
     {$ifdef vmalight}
      RadioGroup2.items.add(ReadString(section,'t_132','Aerograph'));
@@ -610,7 +688,6 @@ with inifile do begin
     {$ifdef vmaexpert}
      RadioGroup2.items.add(ReadString(section,'t_132','Aerograph'));
      RadioGroup2.items.add(ReadString(section,'t_133','Clementine'));
-     if fileexists('version.developpement') then RadioGroup2.items.add(ReadString(section,'t_xxx','Light, for better overlay display'));
     {$endif}
   end;
   imac1:=(ReadString(section,'t_30',deftxt));
@@ -713,6 +790,7 @@ addimages(slash(appdir)+'Clementine','Clementine','');
 addimages(slash(appdir)+'Probes','Probes','');
 addimages(slash(appdir)+'LunaStars','LunaStars','');
 addimages(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association');
+addimages(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005');
 end;
 
 {$IFDEF opengl}
@@ -740,7 +818,7 @@ Procedure ShowSphere;
 // hide non visible sphere to improve performance
 var ls:double;
     m:string;
-Function Shows(l:double; sphere:TSphere; n:boolean):boolean;
+Function Shows(l:double; sphere:TGLSphere; n:boolean):boolean;
 var p:double;
 begin
 if (n and (librb>0.5))or(not n and (librb<-0.5))or(inclination<>0) then result:=true
@@ -785,7 +863,7 @@ var inif: TMemIniFile;
     i,j : integer;
 {$IFDEF opengl}
     smooth : integer;
-{$ENDIF}    
+{$ENDIF}
 begin
 SafeMode:=false;
 database[1]:='Nearside_Named_FR.csv';
@@ -794,6 +872,7 @@ usedatabase[2]:=true;
 usedatabase[3]:=true;
 usedatabase[4]:=true;
 usedatabase[5]:=true;
+for i:=6 to maxdbn do usedatabase[i]:=false;
 Obslatitude:=46;
 Obslongitude:=-6;
 timezone:=gettimezone;
@@ -811,6 +890,7 @@ labelcenter:=true;
 minilabel:=true;
 showlabel:=true;
 showmark:=true;
+currentselection:='';
 showlibrationmark:=false;
 lockmove:=false;
 maxima := 2;
@@ -854,6 +934,7 @@ eyepiecename[1]:='SCT 8" + Plossl 10mm';
 eyepiecefield[1]:=15;
 rotdirection:=1;
 rotstep:=5;
+CloseVMAbrowser:=false;
 {$IFDEF opengl}
 smooth:=90;
 {$ENDIF}
@@ -886,6 +967,7 @@ PrintChart:=ReadBool(section,'PrintChart',PrintChart);
 PrintEph:=ReadBool(section,'PrintEph',PrintEph);
 PrintDesc:=ReadBool(section,'PrintDesc',PrintDesc);
 section:='default';
+UseComputerTime:=ReadBool(section,'UseComputerTime',UseComputerTime);
 for i:=1 to 5 do usedatabase[i]:=ReadBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
 for i:=1 to 5 do db_age[i]:=ReadInteger(section,'DB_Age'+inttostr(i),0);
 doublebuf:=ReadBool(section,'DoubleBuffer',doublebuf);
@@ -895,7 +977,11 @@ antialias:=ReadString(section,'AntiAlias',antialias);
 appdir:=ReadString(section,'Install_Dir',appdir);
 Obslatitude:=ReadFloat(section,'Obslatitude',Obslatitude);
 Obslongitude:=ReadFloat(section,'Obslongitude',Obslongitude);
-//timezone:=ReadFloat(section,'TimeZone',timezone);
+if not UseComputerTime then begin
+   timezone:=ReadFloat(section,'TimeZone',timezone);
+   CurrentJD:=ReadFloat(section,'CurrentJD',CurrentJD);
+   dt_ut:=ReadFloat(section,'dt_ut',dt_ut);
+end;
 phaseeffect:=ReadBool(section,'PhaseEffect',phaseeffect);
 mipmaps:=ReadBool(section,'MipMaps',mipmaps);
 GeologicalMap:=ReadBool(section,'GeologicalMap',GeologicalMap);
@@ -916,16 +1002,35 @@ minilabel:=ReadBool(section,'MiniLabel',minilabel);
 FollowNorth:=ReadBool(section,'FollowNorth',FollowNorth);
 form1.CheckBox2.Checked:=ReadBool(section,'Mirror',false);
 PoleOrientation:=ReadFloat(section,'PoleOrientation',PoleOrientation);
-i:=ReadInteger(section,'Top',0);if (i>=-10)and(i<screen.Height-20) then form1.Top:=i else form1.Top:=0;
-i:=ReadInteger(section,'Left',0);if (i>=-10)and(i<screen.width-20) then form1.Left:=i else form1.Left:=0;
-i:=minintvalue([screen.height,ReadInteger(section,'Height',screen.Height)]);if (i>=20) then form1.Height:=i;
-i:=minintvalue([screen.width,ReadInteger(section,'Width',screen.Width)]);if (i>=20) then form1.Width:=i;
-if ReadBool(section,'Maximized',false) then form1.windowstate:=wsMaximized;
+
+i:=ReadInteger(section,'Top',0);
+if multi_instance then i:=i+25;
+if (i>=-10)and(i<screen.Height-20) then form1.Top:=i else form1.Top:=0;
+
+i:=ReadInteger(section,'Left',0);
+if multi_instance then i:=i+25;
+if (i>=-10)and(i<screen.width-20) then form1.Left:=i else form1.Left:=0;
+
+i:=screen.height-50;
+if multi_instance then i:=round(0.8*i);
+i:=minintvalue([i,ReadInteger(section,'Height',i)]);
+if (i>=20) then form1.Height:=i;
+if multi_instance then
+   form1.ClientWidth:=form1.ClientHeight-form1.controlbar1.height-form1.statusbar1.height
+else begin
+  i:=screen.width-5;
+  i:=minintvalue([i,ReadInteger(section,'Width',i)]);
+  if (i>=20) then form1.Width:=i;
+end;
+
+if (not multi_instance) and ReadBool(section,'Maximized',true) then form1.windowstate:=wsMaximized;
+
 for j:=1 to maxima do begin
   i:=ReadInteger(section,'PicTop_'+inttostr(j),-99);if (i>=-10)and(i<screen.Height-20) then PicTop[j-1]:=i else PicTop[j-1]:=20*(j-1);
   i:=ReadInteger(section,'PicLeft_'+inttostr(j),-99);if (i>=-10)and(i<screen.width-20) then PicLeft[j-1]:=i else PicLeft[j-1]:=20*(j-1);
   PicZoom[j-1]:=ReadFloat(section,'PicZoom_'+inttostr(j),0);
 end;
+
 ReduceTexture:=ReadInteger(section,'ReduceTexture',ReduceTexture);
 ReduceTextureFar:=ReadInteger(section,'ReduceTextureFar',ReduceTextureFar);
 hi_w:=ReadInteger(section,'hi_w',hi_w);
@@ -938,10 +1043,15 @@ for j:=1 to 10 do begin
   eyepiecemirror[j]:=ReadInteger(section,'eyepiecemirror'+inttostr(j),eyepiecemirror[j]);
   eyepiecerotation[j]:=ReadInteger(section,'eyepiecerotation'+inttostr(j),eyepiecerotation[j]);
 end;
-{$ifdef vmaexpert}
- overlayname:=ReadString(section,'overlayname','Natural Color.jpg');
+{$ifdef vmapro}
+ useDBN:=ReadInteger(section,'useDBN',useDBN);
+ for i:=1 to useDBN do usedatabase[i]:=ReadBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
+ for i:=1 to useDBN do db_age[i]:=ReadInteger(section,'DB_Age'+inttostr(i),0);
+ overlayname:=ReadString(section,'overlayname','Colors natural.jpg');
  overlaylum:=ReadInteger(section,'overlaylum',0);
- showoverlay:=ReadBool(section,'showoverlay',true);
+ showoverlay:=ReadBool(section,'showoverlay',showoverlay);
+{$endif}
+{$ifdef vmaexpert}
  Geocentric:=ReadBool(section,'Geocentric',Geocentric);
  if copy(hiresfile,6,1)<>'.' then begin
    i:=pos('.',hiresfile);
@@ -1046,15 +1156,20 @@ with inif do begin
   WriteBool(section,'MipMaps',mipmaps);
   WriteBool(section,'LibrationEffect',librationeffect);
   {$ENDIF}
+{$ifdef vmapro}
+  WriteInteger(section,'useDBN',useDBN);
+  for i:=1 to useDBN do WriteBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
+  for i:=1 to useDBN do WriteInteger(section,'DB_Age'+inttostr(i),db_age[i]);
+  WriteString(section,'overlayname',overlayname);
+  WriteInteger(section,'overlaylum',overlaylum);
+  WriteBool(section,'showoverlay',showoverlay);
+{$endif}
 {$ifdef vmaexpert}
   for i:=1 to 5 do WriteBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
   for i:=1 to 5 do WriteInteger(section,'DB_Age'+inttostr(i),db_age[i]);
   WriteInteger(section,'ReduceTextureFar',ReduceTextureFar);
   WriteString(section,'hiresfile',hiresfile);
   WriteBool(section,'Geocentric',Geocentric);
-  WriteString(section,'overlayname',overlayname);
-  WriteInteger(section,'overlaylum',overlaylum);
-  WriteBool(section,'showoverlay',showoverlay);
   WriteString(section,'telescope',form1.Combobox5.text);
 {$endif}
 {$ifdef vmabasic}
@@ -1076,7 +1191,10 @@ with inif do begin
 {$endif}
   WriteFloat(section,'Obslatitude',Obslatitude);
   WriteFloat(section,'Obslongitude',Obslongitude);
+  WriteBool(section,'UseComputerTime',UseComputerTime);
   WriteFloat(section,'TimeZone',timezone);
+  WriteFloat(section,'CurrentJD',CurrentJD);
+  WriteFloat(section,'dt_ut',dt_ut);
   WriteBool(section,'PhaseEffect',phaseeffect);
   WriteBool(section,'GeologicalMap',GeologicalMap);
   WriteBool(section,'PhaseHash',PhaseHash);
@@ -1224,15 +1342,15 @@ end;
 procedure InitLabel;
 {$IFDEF opengl}
 var 	i : Integer;
-	newlabel : THudText;
+	newlabel : TGLHUDText;
 {$ENDIF}
 begin
 {$IFDEF opengl}
 if useOpenGL then begin
 form1.DummyCube4.DeleteChildren;
 for i:=0 to Maxlabel do begin
-    newlabel:=THudText(form1.DummyCube4.AddNewChild(THudText));
-    newlabel.Name:='Label'+inttostr(i);
+    newlabel:=TGLHUDText(form1.DummyCube4.AddNewChild(TGLHUDText));
+    newlabel.Name:='MoonLabel'+inttostr(i);
     newlabel.Visible:=false;
     newlabel.BitmapFont:=form1.Bitmapfont1;
     newlabel.Layout:=tlCenter;
@@ -1240,6 +1358,43 @@ for i:=0 to Maxlabel do begin
     newlabel.Scale.SetVector(Label3dSize*LabelSize,Label3dSize*LabelSize,1);
     newlabel.ModulateColor.AsWinColor:=autolabelcolor;
 end;
+end;
+{$ENDIF}
+end;
+
+Procedure MoreSprite;
+{$IFDEF vmapro}
+var 	i : Integer;
+	newSprite : TGLHUDSprite;
+{$ENDIF}
+begin
+{$IFDEF vmapro}
+if useOpenGL then begin
+for i:=0 to InitialSprite-1 do begin
+    newSprite:=TGLHUDSprite(form1.DummyCube5.AddNewChild(TGLHUDSprite));
+    newSprite.Name:='MoonSprite'+inttostr(maxsprite+i);
+    newSprite.Visible:=false;
+    newSprite.Material.FrontProperties.Emission.AsWinColor:=MarkColor;
+    newSprite.Material.FrontProperties.Ambient.Color:=clrBlack;
+    newSprite.Material.FrontProperties.Diffuse.Color:=clrBlack;
+    newSprite.Material.FrontProperties.Specular.Color:=clrBlack;
+    newSprite.Up.SetVector(0,1,0);
+    newSprite.Scale.SetVector(1,1,1);
+    newSprite.Width:=3;
+    newSprite.Height:=3;
+end;
+maxsprite:=maxsprite+InitialSprite;
+end;
+{$ENDIF}
+end;
+
+procedure InitSprite;
+begin
+{$IFDEF opengl}
+maxsprite:=0;
+if useOpenGL then begin
+form1.DummyCube5.DeleteChildren;
+MoreSprite;
 end;
 {$ENDIF}
 end;
@@ -1260,7 +1415,7 @@ var l,b,l1,b1,deltab,deltal,x,y,w,wmin,wfact: double;
     nom,let:string;
     ts: Tsize;
 {$IFDEF opengl}
-    curlab,i : integer;
+    curlab,cursprite,i : integer;
 {$ENDIF}
 begin
 {$IFDEF opengl}
@@ -1293,9 +1448,9 @@ w:=maxfoc/minfoc;
 LabelDensity:=maxintvalue([100,LabelDensity]);
 if (zoom>3)and(zoom>=w) then wmin:=-1
            else wmin:=minvalue([650,1.5*LabelDensity/(zoom*zoom)]);
-
+if showlabel then begin
 dbm.Query('select NAME,LONGIN,LATIN,WIDEKM,WIDEMI,LENGTHKM,LENGTHMI from moon'+
-            ' where SIDE in ('+sidelist+')'+
+            ' where DBN in ('+sidelist+')'+
             ' and LONGIN > '+formatfloat(d2,l-deltal)+
             ' and LONGIN < '+formatfloat(d2,l+deltal)+
             ' and LATIN > '+formatfloat(d2,b-deltab)+
@@ -1336,7 +1491,7 @@ for j:=0 to dbm.RowCount-1 do begin
     if useOpenGL then begin
     if (xx>0)and(yy>0)and(xx<form1.GLSceneViewer1.Width)and(yy<form1.GLSceneViewer1.Height)
      and((currenteyepiece=0)or( sqrt(Intpower(form1.GLSceneViewer1.Width/2-xx,2)+Intpower(form1.GLSceneViewer1.Height/2-yy,2))<0.475*form1.GLSceneViewer1.Width ))then begin
-      with form1.DummyCube4.Children[curlab] as ThudText do begin
+      with form1.DummyCube4.Children[curlab] as TGLHUDText do begin
        Visible:=true;
        Position.Y:=yy;
        Position.X:=xx;
@@ -1373,11 +1528,46 @@ for j:=0 to dbm.RowCount-1 do begin
       textout(xx,yy,nom);
     end;
     end;
-  end;  
+  end;
+end;
 end;
 {$IFDEF opengl}
+// Mark selection
+cursprite:=0;
+if currentselection<>'' then begin
+dbm.Query('select LONGIN,LATIN from moon where '+
+            currentselection+
+            ' and LONGIN > '+formatfloat(d2,l-deltal)+
+            ' and LONGIN < '+formatfloat(d2,l+deltal)+
+            ' and LATIN > '+formatfloat(d2,b-deltab)+
+            ' and LATIN < '+formatfloat(d2,b+deltab)+
+            ' ORDER BY WIDEKM DESC '+
+            ' ;');
+for j:=0 to dbm.RowCount-1 do begin
+  l1:=dbm.Results[j].Format[0].AsFloat;
+  b1:=dbm.Results[j].Format[1].AsFloat;
+  if projMoon(l1,b1,librl,librb,x,y) then begin
+    world2window(x,y,xx,yy);
+    if (xx>0)and(yy>0)and(xx<form1.GLSceneViewer1.Width)and(yy<form1.GLSceneViewer1.Height)
+     and((currenteyepiece=0)or( sqrt(Intpower(form1.GLSceneViewer1.Width/2-xx,2)+Intpower(form1.GLSceneViewer1.Height/2-yy,2))<0.475*form1.GLSceneViewer1.Width ))then begin
+      with form1.DummyCube5.Children[cursprite] as TGLHUDSprite do begin
+       Visible:=true;
+       Position.Y:=yy;
+       Position.X:=xx;
+      end;
+      inc(cursprite);
+      if cursprite>=MaxSprite then
+           if cursprite<AbsoluteMaxSprite then MoreSprite
+               else break;
+    end;  
+  end;
+end;
+end;
+//
 if useopengl then for i:=curlab to Maxlabel do
-  with form1.DummyCube4.Children[i] as ThudText do visible:=false;
+  with form1.DummyCube4.Children[i] as TGLHUDText do visible:=false;
+if useopengl then for i:=cursprite to MaxSprite-1 do
+  with form1.DummyCube5.Children[i] as TGLHUDSprite do visible:=false;
 {$ENDIF}
 end;
 
@@ -1390,7 +1580,10 @@ begin
 if useopengl then begin
 if (form1.DummyCube4.Count>0) and form1.DummyCube4.Children[0].visible then
    for i:=0 to Maxlabel do
-      with form1.DummyCube4.Children[i] as ThudText do visible:=false;
+      with form1.DummyCube4.Children[i] as TGLHUDText do visible:=false;
+if (form1.DummyCube5.Count>0) and form1.DummyCube5.Children[0].visible then
+   for i:=0 to MaxSprite-1 do
+      with form1.DummyCube5.Children[i] as TGLHUDSprite do visible:=false;
 end;
 {$ENDIF}
 end;
@@ -1559,6 +1752,8 @@ end;
 procedure MoveCamera(x,y :double);
 var xx,yy : integer;
 begin
+curx:=x;
+cury:=y;
 with form1 do
 {$IFDEF opengl}
 if useOpenGL then begin
@@ -1597,35 +1792,26 @@ end;
 
 {$IFDEF opengl}
 Procedure SetMinFilter(onoff:boolean);
+var mi: TGLMinFilter;
 begin
-if UseOpenGL then
- with form1 do if onoff then begin
+if UseOpenGL then begin
+ if onoff then mi:=miNearestMipmapNearest
+          else mi:=miLinear;
+ with form1 do begin
    GLScene1.BeginUpdate;
-   GLMaterialLibrary1.Materials[0].Material.Texture.MinFilter:=miLinearMipmapLinear;
-   GLMaterialLibrary1.Materials[1].Material.Texture.MinFilter:=miLinearMipmapLinear;
-   GLMaterialLibrary1.Materials[2].Material.Texture.MinFilter:=miLinearMipmapLinear;
-   GLMaterialLibrary1.Materials[3].Material.Texture.MinFilter:=miLinearMipmapLinear;
-   GLMaterialLibrary1.Materials[4].Material.Texture.MinFilter:=miLinearMipmapLinear;
-   GLMaterialLibrary1.Materials[5].Material.Texture.MinFilter:=miLinearMipmapLinear;
-   GLMaterialLibrary1.Materials[6].Material.Texture.MinFilter:=miLinearMipmapLinear;
-   GLMaterialLibrary1.Materials[7].Material.Texture.MinFilter:=miLinearMipmapLinear;
-   GLMaterialLibrary1.Materials[8].Material.Texture.MinFilter:=miLinearMipmapLinear;
-   GLScene1.EndUpdate;
-   GLSceneViewer1.Update;
- end else begin
-   GLScene1.BeginUpdate;
-   GLMaterialLibrary1.Materials[0].Material.Texture.MinFilter:=miLinear;
-   GLMaterialLibrary1.Materials[1].Material.Texture.MinFilter:=miLinear;
-   GLMaterialLibrary1.Materials[2].Material.Texture.MinFilter:=miLinear;
-   GLMaterialLibrary1.Materials[3].Material.Texture.MinFilter:=miLinear;
-   GLMaterialLibrary1.Materials[4].Material.Texture.MinFilter:=miLinear;
-   GLMaterialLibrary1.Materials[5].Material.Texture.MinFilter:=miLinear;
-   GLMaterialLibrary1.Materials[6].Material.Texture.MinFilter:=miLinear;
-   GLMaterialLibrary1.Materials[7].Material.Texture.MinFilter:=miLinear;
-   GLMaterialLibrary1.Materials[8].Material.Texture.MinFilter:=miLinear;
+   GLMaterialLibrary1.Materials[0].Material.Texture.MinFilter:=mi;
+   GLMaterialLibrary1.Materials[1].Material.Texture.MinFilter:=mi;
+   GLMaterialLibrary1.Materials[2].Material.Texture.MinFilter:=mi;
+   GLMaterialLibrary1.Materials[3].Material.Texture.MinFilter:=mi;
+   GLMaterialLibrary1.Materials[4].Material.Texture.MinFilter:=mi;
+   GLMaterialLibrary1.Materials[5].Material.Texture.MinFilter:=mi;
+   GLMaterialLibrary1.Materials[6].Material.Texture.MinFilter:=mi;
+   GLMaterialLibrary1.Materials[7].Material.Texture.MinFilter:=mi;
+   GLMaterialLibrary1.Materials[8].Material.Texture.MinFilter:=mi;
    GLScene1.EndUpdate;
    GLSceneViewer1.Update;
  end;
+end;
 end;
 {$ENDIF}
 
@@ -1676,6 +1862,7 @@ if useOpenGL then begin
  if yy>maxfoc then yy:=maxfoc;
  t:=yy/t;
  EyepieceRatio:=t;
+ curfoc:=yy;
  GLCamera1.FocalLength:=yy;
  zoom:=GLCamera1.FocalLength/minfoc;
  if currenteyepiece>0 then begin
@@ -1699,6 +1886,7 @@ begin
  if yy>maxfoc then yy:=maxfoc;
  t:=yy/t;
  EyepieceRatio:=t;
+ curfoc:=yy;
  zoom:=yy/minfoc;
  dx:=round(image2d.width/zoom/2);
  posmin:=dx;
@@ -1742,11 +1930,11 @@ end else
 begin
   x:=ax+round(bx*x);
   y:=ay+round(by*y);
-  if flipx<0 then x:=image2d.Width-x;
   if poleorientation>0 then begin
-     y:=image1.Height-y;
-     x:=image1.Width-x;
+     y:=image2d.Height-y;
+     x:=image2d.Width-x;
   end;
+  if flipx<0 then x:=image2d.Width-x;
   xx:=-((x-ox*image2d.Width/os)/(px*image2d.Width)-0.5);
   yy:=-((y-oy*image2d.height/os)/(py*image2d.height)-0.5);
 end;
@@ -1819,7 +2007,7 @@ Procedure SetJDDate;
 var y,m,d : integer; h,n,s,ms : word;
     hh : double;
 begin
-djd(CurrentJD+(timezone/24)-(DT_UT/24),y,m,d,hh);
+djd(CurrentJD+(timezone/24)-(DT_UT/24)+1e-8,y,m,d,hh);
 decodetime(hh/24,h,n,s,ms);
 form1.annee.Value:=y;
 form1.mois.Value:=m;
@@ -1929,38 +2117,98 @@ Panel7.Visible:=false;
 Notes.TabVisible:=false;
 Notes1.visible:=false;
 Reglage.TabVisible:=false;
+{$ifdef opengl}
+DataBase1.visible:=false;
+NewWindowButton.visible:=false;
+GroupBox4.visible:=false;
+{$endif}
 windowstate:=wsNormal;
 top:=0;
 left:=0;
 width:=screen.width;
 height:=screen.height;
 end;
-SystemParametersInfo (SPI_SCREENSAVERRUNNING, Word (True), @OldVal, 0); // turn off alt-tab and ctrl+esc
+SystemParametersInfo (SPI_SCREENSAVERRUNNING, Word (True), @OldVal, 0); // turn off alt-tab and ctrl+esc with win98 
 end;
 
 Procedure ReadParam;
 var i : integer;
     buf : string;
+    x,y : double;
 begin
+try
 i:=0;
 while i <= param.count-1 do begin
-if param[i]='-o' then begin
+if param[i]='-o' then begin    // observatory
      inc(i);
      buf:=trim(StringReplace(param[i],'"','',[rfReplaceAll]));
      setobs(buf);
 end
-else if param[i]='-d' then begin
+else if param[i]='-d' then begin    // date
      inc(i);
      buf:=trim(StringReplace(param[i],'"','',[rfReplaceAll]));
      setdate(buf);
 end
-else if param[i]='-safe' then begin
+else if param[i]='-c' then begin   // center coordinates
+     inc(i);
+     buf:=trim(StringReplace(param[i],'"','',[rfReplaceAll]));
+     x:=strtofloat(buf);
+     inc(i);
+     buf:=trim(StringReplace(param[i],'"','',[rfReplaceAll]));
+     y:=strtofloat(buf);
+     MoveCamera(x,y);
+end
+else if param[i]='-f' then begin   // focal
+     inc(i);
+     buf:=trim(StringReplace(param[i],'"','',[rfReplaceAll]));
+     x:=strtofloat(buf);
+     setzoom(x);
+end
+else if param[i]='-n' then begin  // center object
+     inc(i);
+     buf:=trim(StringReplace(param[i],'"','',[rfReplaceAll]));
+     Firstsearch:=true;
+     SearchName(buf,true);
+end
+else if param[i]='-s' then begin   // mark selection
+     inc(i);
+     {$ifdef vmapro}
+     currentselection:=trim(StringReplace(param[i],'"','',[rfReplaceAll]));
+     if currentselection='*' then currentselection:='';
+     {$endif}
+end
+else if param[i]='-3d' then begin     // full globe
+        form1.ToolButton3.Down:=true;
+        form1.ToolButton3Click(form1);
+        lrot:=0;
+        inclination:=0;
+end
+{$ifdef opengl}
+else if param[i]='-r' then begin   // full globe at give rotation
+     inc(i);
+     buf:=trim(StringReplace(param[i],'"','',[rfReplaceAll]));
+     x:=strtofloat(buf);
+     if x<>0 then begin
+        form1.ToolButton3.Down:=true;
+        form1.ToolButton3Click(form1);
+        lrot:=x;
+        inclination:=0;
+        form1.GLSceneViewer1MouseMove(nil,[ssLeft],lastx,lasty);
+     end;
+end
+{$endif}
+else if param[i]='-safe' then begin  // safe mode
      inc(i);
      if (i<=param.count-1) then buf:=trim(StringReplace(param[i],'"','',[rfReplaceAll]))
                            else buf:='';
      SetSafeMode(buf);
+end
+else if param[i]='--' then begin   // last parameter
+     break;
 end;
 inc(i);
+end;
+except
 end;
 end;
 
@@ -1978,7 +2226,7 @@ begin
     SendMessage(Application.handle, WM_SYSCOMMAND, SC_RESTORE, 0);
     SetForegroundWindow(Application.Handle);
     application.ProcessMessages;
-    if ParamW > 0 then begin
+    if (ParamW > 0)and(not multi_instance) then begin
        chdir(appdir);
        filemode:=0;
        assignfile(f,'@@param@@');
@@ -1992,12 +2240,19 @@ begin
        deletefile('@@param@@');
        ReadParam;
        RefreshMoonImage;
+       if currentname<>'' then begin
+          firstsearch:=true;
+          searchname(currentname,false);
+       end;
     end;
     finally
    {We handled the message - we are done}
     Result := 0;
     end;
     exit;
+  end;
+  if TheMessage = ExitRequest  then begin
+     Form1.Close;
   end;
  {Call the original winproc}
   Result := CallWindowProc(OldWindowProc,
@@ -2263,6 +2518,7 @@ if useOpenGL then begin
   panel2d.Visible:=false;
   image1.Picture.Bitmap.assign(nil);
   InitLabel;
+  InitSprite;
   GLSceneViewer1.Cursor:=crRetic;
   try
   OpenHires(false);
@@ -2305,7 +2561,7 @@ if useOpenGL then begin
   checkbox1.visible:=true;
   Distance1.Visible:=true;
   Enregistrersous1.Visible:=true;
-  bitmapfont1.Glyphs.LoadFromFile(Slash(appdir)+Slash('textures')+'font_label.bmp');
+  bitmapfont1.Glyphs.LoadFromFile(Slash(appdir)+Slash('textures')+'font_label_bold.bmp');
   HUDText1.ModulateColor.AsWinColor:=labelcolor;
   HUDText1.Scale.SetVector(Label3dSize*LabelSize,Label3dSize*LabelSize,1);
   Trackbar2.position:=GLlightSource1.ambient.AsWinColor and $FF;
@@ -2404,6 +2660,7 @@ application.processmessages;
 skipresize:=false;
 {Register a custom windows message}
 MyMsg := RegisterWindowMessage(IdMsg);
+ExitRequest := RegisterWindowMessage(ExitMsg);
 {Set form1's windows proc to ours and remember the old window proc}
 OldWindowProc := Pointer(SetWindowLong(Form1.Handle,
                                        GWL_WNDPROC,
@@ -2425,17 +2682,23 @@ overlayhi:=Tbitmap.Create;
 overlayimg:=Tbitmap.Create;
 // hide developpement tools or not finished function
 if not fileexists('version.developpement') then begin
-  debuglabel.visible:=false;
-  dbtab.TabVisible:=false;
-  Enregistredist.Visible:=false;
-  BMP15001.Visible:=false;
-  BMP30001.Visible:=false;
+  debuglabel.visible:=false;  // memory used
+  dbtab.TabVisible:=false;    // edit database
+  Enregistredist.Visible:=false; // record new object
+  BMP15001.Visible:=false;   // save bmp for light version
+  BMP30001.Visible:=false;   // save bmp for light version
   {$ifndef vmalight}
-   label27.visible:=false;
-   speedbutton7.visible:=false;
-   trackbar6.visible:=false;
+   label27.visible:=false;       //not finished  globe inclination
+   speedbutton7.visible:=false;  //not finished
+   trackbar6.visible:=false;     //not finished
+   database1.visible:=false;     //not finished database
+   N4.visible:=false;            //not finished
   {$endif}
 end;
+// hide version specific function
+{$ifdef vmalight}
+  LibrationButton.Visible:=false;
+{$endif}
 {$ifdef vmabasic}
   ToolButton3.Visible:=false;
   GroupBox4.visible:=true;
@@ -2443,16 +2706,26 @@ end;
 {$ifdef vmaexpert}
   checkbox5.Visible:=false;
   GroupBox4.visible:=true;
+  NewWindowButton.visible:=true;
+{$endif}
+{$ifndef vmapro}
+  DataBase1.visible:=false;
+  OverlayCaption1.visible:=false;
+  OverlayCaption2.visible:=false;
+  NewWindowButton.visible:=false;
 {$endif}
 SetLang1;
 readdefault;
 Screen.Cursors[crRetic] := LoadCursor(HInstance,'RETIC');
 Screen.Cursors[crPointing] := LoadCursor(HInstance,'POINTING');
+currentid:='';
 librl:=0;
 librb:=0;
 lrot:=0;
 inclination:=0;
 zoom:=1;
+lastx:=0;
+lasty:=0;
 SkipIdent:=false;
 dblox := TMlb2.Create;
 dbnotes := TMlb2.Create;
@@ -2460,12 +2733,20 @@ GetSkyChartInfo;
 CartesduCiel1.Visible := cieldir>'';
 SetRotateFont(300);
 InitGraphic(sender);
+appname:=paramstr(0);
 if paramcount>0 then begin
    for i:=1 to paramcount do begin
       param.Add(paramstr(i));
       if paramstr(i)='-safe' then borderstyle:=bsNone; // canot set this later in formshow
    end;
 end;
+{$ifdef opengl}
+if multi_instance then begin
+  NewWindowButton.visible:=false;
+  Button15.visible:=false;
+  Caption:=caption+'<2>';
+end;
+{$endif}
 end;
 
 Procedure UpdTerminateur;
@@ -2490,7 +2771,7 @@ listbox1.Items.BeginUpdate;
 dbm.Query('select NAME,LATIN,INTERESTN,DIAMINST from moon '+
           ' where longin>'+formatfloat(d2,l1)+
           ' and longin<'+formatfloat(d2,l2)+
-          ' and SIDE in ('+sidelist+')'+
+          ' and DBN in ('+sidelist+')'+
           ' and INTERESTN >='+inttostr(interest)+
           ' and DIAMINST <='+inttostr(diam) );
 for i:=0 to dbm.rowcount-1 do begin
@@ -2523,7 +2804,7 @@ behavior:=formation;
 imglist.caption:=copy(form1.ToolButton10.Caption,2,99);
 imglst.Clear;
 dbm.query('select NAME from moon '+
-            ' where SIDE in ('+sidelist+')'+
+            ' where DBN in ('+sidelist+')'+
             ' and LONGIN > '+formatfloat(d2,l-deltal)+
             ' and LONGIN < '+formatfloat(d2,l+deltal)+
             ' and LATIN > '+formatfloat(d2,b-delta)+
@@ -2532,7 +2813,8 @@ dbm.query('select NAME from moon '+
 for i:=0 to dbm.RowCount-1 do begin
    imglst.items.add(dbm.Results[i][0]);
 end;
-if not imglist.visible then FormPos(imglist,mouse.cursorpos.x,mouse.cursorpos.y);
+//if not imglist.visible then FormPos(imglist,mouse.cursorpos.x,mouse.cursorpos.y);
+if not imglist.visible then FormPos(imglist,PageControl1.Clienttoscreen(point(0,0)).x ,PageControl1.Clienttoscreen(point(0,0)).y);
 imglist.Show;
 end;
 end;
@@ -2547,7 +2829,7 @@ rec:=0;
 deltab:=5;
 deltal:=deltab/cos(deg2rad*b);
 dbm.query('select ID,LONGIN,LATIN from moon '+
-            ' where SIDE in ('+sidelist+')'+
+            ' where DBN in ('+sidelist+')'+
             ' and LONGIN > '+formatfloat(d2,l-deltal)+
             ' and LONGIN < '+formatfloat(d2,l+deltal)+
             ' and LATIN > '+formatfloat(d2,b-deltab)+
@@ -2586,11 +2868,19 @@ Procedure GetDetail(row:TResultRow; memo:Tmemo);
 const b=' ';
 var nom,carte,buf,buf2,txt : string;
     ok  : boolean;
-    i:integer;
+    i,j:integer;
 begin
 with form1 do begin
   nom:=row.ByField['NAME'].AsString;
   memo.Lines.Add(nom);
+  i:=row.ByField['DBN'].asInteger;
+  if i>9 then begin
+    buf:=m[75]+b+inttostr(i)+b;
+    for j:=0 to form2.CheckListBox1.count-1 do
+       if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum=i then
+          buf:=buf+form2.CheckListBox1.Items[j];
+    memo.Lines.Add(buf);
+  end;
   memo.Lines.Add(m[56]+b+row.ByField['TYPE'].AsString);
   memo.Lines.Add(m[49]+b+row.ByField['PERIOD'].AsString);
   memo.Lines.Add(m[57]); //Taille
@@ -2638,7 +2928,7 @@ with form1 do begin
   buf:=row.ByField['WESTFALL'].AsString ;
   if trim(buf)>'' then memo.Lines.Add(m[66]+b+buf);
   buf:=row.ByField['WOOD'].AsString ;
-  if trim(buf)>'' then memo.Lines.Add(m[72]+b+'S&T '+buf);
+  if trim(buf)>'' then memo.Lines.Add(m[72]+b+buf);
   dblox.Gofirst;
   ok:=dblox.MatchData('NAME', '=', nom);
   if not ok then ok:=dblox.SeekData('NAME',  '=', nom);
@@ -2679,7 +2969,7 @@ const b='&nbsp;';
       t3='<b>' ; t3end='</b>';
 var nom,carte,url,img,remoteurl,buf,buf2 : string;
     ok  : boolean;
-    i:integer;
+    i,j:integer;
 begin
 with form1 do begin
   txt:='<html> <body bgcolor="white">';
@@ -2688,6 +2978,13 @@ with form1 do begin
   ok:=dblox.MatchData('NAME', '=', nom);
   if not ok then ok:=dblox.SeekData('NAME',  '=', nom);
   txt:=txt+t1+nom+t1end+'<br>';
+  i:=row.ByField['DBN'].asInteger;
+  if i>9 then begin
+    txt:=txt+t3+'From Database:'+t3end+b+inttostr(i)+b;
+    for j:=0 to form2.CheckListBox1.count-1 do
+       if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum=i then
+          txt:=txt+form2.CheckListBox1.Items[j]+'<br>';
+  end;
   txt:=txt+t3+m[56]+t3end+b+row.ByField['TYPE'].AsString+'<br>';
   txt:=txt+t3+m[49]+t3end+b+row.ByField['PERIOD'].AsString+'<br>';
   txt:=txt+b+'<br>';
@@ -2741,7 +3038,7 @@ with form1 do begin
   buf:=row.ByField['WESTFALL'].AsString ;
   if trim(buf)>'' then txt:=txt+t3+m[66]+t3end+b+buf+'<br>';
   buf:=row.ByField['WOOD'].AsString ;
-  if trim(buf)>'' then txt:=txt+t3+m[72]+t3end+b+'S&T '+buf+'<br>';
+  if trim(buf)>'' then txt:=txt+t3+m[72]+t3end+b+buf+'<br>';
   if ok then begin
     txt:=txt+t3+m[65]+t3end;
     while ok do begin
@@ -2820,40 +3117,68 @@ dbedited:=false;
 dbm.query('select * from moon where ID='+currentid+';');
 if dbm.RowCount=0 then exit;
 editrow:=dbm.Results[0].ByField['ID'].AsInteger;
-stringgrid2.RowCount:=dbm.ColCount-2;    // pas l'id ni side
+stringgrid2.RowCount:=dbm.ColCount-1;    // pas l'id.
 for dbcol:=1 to stringgrid2.RowCount do begin
- stringgrid2.Cells[0,dbcol-1]:=dbm.GetField(dbcol+1);
- stringgrid2.Cells[1,dbcol-1]:=dbm.Results[0][dbcol+1];
+ stringgrid2.Cells[0,dbcol-1]:=dbm.GetField(dbcol);
+ stringgrid2.Cells[1,dbcol-1]:=dbm.Results[0][dbcol];
 end;
 end;
 
 procedure TForm1.Button9Click(Sender: TObject);
 var dbcol:integer;
-    txt,fn:string;
-    f : textfile;
+    cmd,v:string;
 begin
 if editrow<0 then begin showmessage('Pas d''enregistrement sélectionné!');exit;end;
-txt:='';
-for dbcol:=1 to stringgrid2.RowCount do begin
-  txt:=txt+'"'+stringgrid2.Cells[1,dbcol-1]+'";';
+if (stringgrid2.Cells[1,0]='') or (stringgrid2.Cells[1,1]='') or (stringgrid2.Cells[1,19]='') or (stringgrid2.Cells[1,21]='') then begin showmessage('DBN, NAME, LONGIN et LATIN obligatoire!');exit;end;
+if editrow=0 then begin  // insert new record.
+  cmd:='insert into moon values(NULL,';
+  for dbcol:=1 to stringgrid2.RowCount do begin
+    v:=stringgrid2.Cells[1,dbcol-1];
+    v:=stringreplace(v,',','.',[rfreplaceall]);
+    v:=stringreplace(v,'""','''',[rfreplaceall]);
+    v:=stringreplace(v,'"','',[rfreplaceall]);
+    cmd:=cmd+'"'+v+'",';
+  end;
+  cmd:=copy(cmd,1,length(cmd)-1)+');';
+  dbm.Query(cmd);
+  editrow:=dbm.GetLastInsertID;
+  dbjournal(dbm,'INSERT DBN='+stringgrid2.Cells[1,0]+' NAME='+stringgrid2.Cells[1,1]+' ID='+inttostr(editrow));
+end
+else begin   // update existing record.
+  cmd:='update moon set ';
+  for dbcol:=1 to stringgrid2.RowCount do begin
+    v:=stringgrid2.Cells[1,dbcol-1];
+    v:=stringreplace(v,',','.',[rfreplaceall]);
+    v:=stringreplace(v,'""','''',[rfreplaceall]);
+    v:=stringreplace(v,'"','',[rfreplaceall]);
+    cmd:=cmd+stringgrid2.Cells[0,dbcol-1]+'="'+v+'",';
+  end;
+  cmd:=copy(cmd,1,length(cmd)-1)+' where ID='+inttostr(editrow)+';';
+  dbm.Query(cmd);
+  dbjournal(dbm,'UPDATE DBN='+stringgrid2.Cells[1,0]+' NAME='+stringgrid2.Cells[1,1]+' ID='+inttostr(editrow));
 end;
-screen.Cursor:=crHourglass;
-try
-fn:=Slash(appdir)+Slash('database')+'nouveau_db.csv';
-filemode:=2;
-assignfile(f,fn);
-if fileexists(fn) then append(f)
-                  else rewrite(f);
-writeln(f,txt);
-closefile(f);
-finally
-screen.Cursor:=crDefault;
+mark(0,0,'');
+RefreshLabel;
 dbedited:=false;
-editrow:=-1;
+end;
+
+procedure TForm1.Button20Click(Sender: TObject);  // delete dans la db!
+var cmd: string;
+begin
+if editrow<=0 then begin showmessage('Pas d''enregistrement sélectionné en base de donnée!');exit;end;
+if messagedlg('Vraiment supprimer '+stringgrid2.Cells[1,1]+' de la base de donnée ?',mtConfirmation, [mbYes, mbNo], 0)=mrYes then begin
+  cmd:='delete from moon where ID='+inttostr(editrow)+';';
+  dbm.Query(cmd);
+  dbjournal(dbm,'DELETE DBN='+stringgrid2.Cells[1,0]+' NAME='+stringgrid2.Cells[1,1]+' ID='+inttostr(editrow));
+  dbedited:=false;
+  editrow:=-1;
+  btnEffacer.Click;
+  mark(0,0,'');
+  RefreshLabel;
 end;
 end;
 
-procedure TForm1.btnEffacerClick(Sender: TObject);
+procedure TForm1.btnEffacerClick(Sender: TObject);   // remise a blanc de toute les champs, on fait rien dans la db.
 var dbcol:integer;
 begin
 if dbedited then
@@ -2869,14 +3194,16 @@ end;
 procedure TForm1.StringGrid2SetEditText(Sender: TObject; ACol,
   ARow: Integer; const Value: String);
 begin
- dbedited:=true;
+ if editrow>=0 then dbedited:=true;
 end;
 
 procedure TForm1.EnregistredistClick(Sender: TObject);
 var dbcol,i:integer;
     l,b,w : double;
-    ls,bs,ws,ls2,bs2,quadrant : string;
+    ls,bs,ws,ls2,bs2,quadrant,dbn,defaultname : string;
+    sel: TGridRect;
 begin
+if trim(edit1.text)='' then exit;
 ws:=words(edit1.text,'',1,1);
 i:=pos(m[18],ws);
 if i>0 then ws:=copy(ws,1,i-1);
@@ -2890,7 +3217,12 @@ if l>=0 then ls2:=formatfloat(d1,abs(l))+'° Est'
 if b>=0 then bs2:=formatfloat(d1,abs(b))+'° Nord'
         else bs2:=formatfloat(d1,abs(b))+'° Sud';
 quadrant:=words(bs2,'',2,1)+'-'+words(ls2,'',2,1);
+if abs(l)<=90 then dbn:='2' // indicé face visible
+              else dbn:='4'; // indicé face cachée
+defaultname:=formatfloat('"+"0000;"-"0000;"+"0000',l*10)+formatfloat('"+"000;"-"000;"+"000',b*10);
 for dbcol:=1 to stringgrid2.RowCount do begin
+ if stringgrid2.Cells[0,dbcol-1]='DBN' then stringgrid2.Cells[1,dbcol-1]:=dbn;
+ if (stringgrid2.Cells[0,dbcol-1]='NAME')and(stringgrid2.Cells[1,dbcol-1]='') then stringgrid2.Cells[1,dbcol-1]:=defaultname;
  if stringgrid2.Cells[0,dbcol-1]='LENGTHKM' then stringgrid2.Cells[1,dbcol-1]:=ws;
  if stringgrid2.Cells[0,dbcol-1]='WIDEKM' then stringgrid2.Cells[1,dbcol-1]:=ws;
  if stringgrid2.Cells[0,dbcol-1]='LENGTHMI' then stringgrid2.Cells[1,dbcol-1]:=formatfloat(d1,0.621*w);
@@ -2901,7 +3233,10 @@ for dbcol:=1 to stringgrid2.RowCount do begin
  if stringgrid2.Cells[0,dbcol-1]='LATIC' then stringgrid2.Cells[1,dbcol-1]:=bs2;
  if stringgrid2.Cells[0,dbcol-1]='QUADRANT' then stringgrid2.Cells[1,dbcol-1]:=quadrant;
 end;
-pagecontrol1.ActivePage:=dbtab;    
+pagecontrol1.ActivePage:=dbtab;
+sel.left:=1; sel.top:=1; sel.right:=1; sel.bottom:=1;
+stringgrid2.Selection:=sel;
+stringgrid2.Setfocus;
 end;
 
 procedure GetNotes(n: string);
@@ -3034,7 +3369,8 @@ if (imglst.Count=0)and(nom2>'') then begin
   nom:=nom2;
   SearchImages;
 end;
-if not imglist.visible then FormPos(imglist,mouse.cursorpos.x,mouse.cursorpos.y);
+//if not imglist.visible then FormPos(imglist,mouse.cursorpos.x,mouse.cursorpos.y);
+if not imglist.visible then FormPos(imglist,form1.PageControl1.Clienttoscreen(point(0,0)).x ,form1.PageControl1.Clienttoscreen(point(0,0)).y);
 case imglst.Count of
 0 : imglist.hide;
 1 : begin
@@ -3062,7 +3398,7 @@ result:=false;
 with form1 do begin
 if Firstsearch then begin
    dbm.Query('select id,name from moon '+
-             ' where SIDE in ('+sidelist+')'+
+             ' where DBN in ('+sidelist+')'+
              ' and NAME like "'+trim(uppercase(n))+'%"'+
              ' order by NAME limit 100;');
    searchlist.Clear;
@@ -3078,17 +3414,18 @@ if searchpos<searchlist.Count then begin
    if dbm.RowCount=0 then exit;
    l:=dbm.Results[0].ByField['LONGIN'].AsFloat;
    b:=dbm.Results[0].ByField['LATIN'].AsFloat;
-   if (not projMoon(l,b,librl,librb,x,y)) then begin
-     if (not toolbutton3.down)or(not useopengl) then begin
-        SearchName(n,center);
-        exit;
-     end;
-     {$IFDEF opengl}
+   {$IFDEF opengl}
+   if toolbutton3.down then begin
+     // if full globe always center the formation
      lrot:=-l;
      inclination:=0;
      GLSceneViewer1MouseMove(nil,[ssLeft],lastx,lasty);
-     projMoon(l,b,librl,librb,x,y);
-     {$ENDIF}
+   end;  
+   {$ENDIF}
+   if (not projMoon(l,b,librl,librb,x,y)) then begin
+      // not on our current side, search next object
+      SearchName(n,center);
+      exit;
    end;
    currentl:=l;
    currentb:=b;
@@ -3097,7 +3434,7 @@ if searchpos<searchlist.Count then begin
    if center then MoveCamera(x,y);
    mark(x,y,currentname);
    GetHTMLDetail(dbm.Results[0],txt);
-   Desc1.LoadFromString(txt);
+   Desc1.LoadFromString(txt,'');
    if dbtab.TabVisible then GetDBgrid;
    GetNotes(form1.Combobox1.text);
    if ImgExists(currentname) then begin
@@ -3143,6 +3480,7 @@ begin
 try
 {$IFDEF opengl}
 if dummycube4<>nil then DummyCube4.DeleteChildren;
+if dummycube5<>nil then DummyCube5.DeleteChildren;
 {$ENDIF}
 dblox.free;
 dbnotes.free;
@@ -3265,10 +3603,10 @@ begin
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[51]+':'; form1.Stringgrid1.Cells[1,i]:=dattostr(curyear,currentmonth,currentday)+' '+timtostr(currenttime);
   djd(currentjd,aa,mm,dd,hh);
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[51]+' (DT):'; form1.Stringgrid1.Cells[1,i]:=dattostr(aa,mm,dd)+' '+timtostr(hh);
-  inc(i); form1.Stringgrid1.Cells[0,i]:='J2000 '+m[29]; form1.Stringgrid1.Cells[1,i]:=artostr(ra);
-  inc(i); form1.Stringgrid1.Cells[0,i]:='J2000 '+m[30]; form1.Stringgrid1.Cells[1,i]:=detostr(dec);
-  inc(i); form1.Stringgrid1.Cells[0,i]:=m[51]+b+m[29]; form1.Stringgrid1.Cells[1,i]:=artostr(rad);
-  inc(i); form1.Stringgrid1.Cells[0,i]:=m[51]+b+m[30]; form1.Stringgrid1.Cells[1,i]:=detostr(ded);
+  inc(i); form1.Stringgrid1.Cells[0,i]:='(J2000) '+m[29]; form1.Stringgrid1.Cells[1,i]:=artostr(ra);
+  inc(i); form1.Stringgrid1.Cells[0,i]:='(J2000) '+m[30]; form1.Stringgrid1.Cells[1,i]:=detostr(dec);
+  inc(i); form1.Stringgrid1.Cells[0,i]:='('+m[51]+')'+b+m[29]; form1.Stringgrid1.Cells[1,i]:=artostr(rad);
+  inc(i); form1.Stringgrid1.Cells[0,i]:='('+m[51]+')'+b+m[30]; form1.Stringgrid1.Cells[1,i]:=detostr(ded);
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[31]; form1.Stringgrid1.Cells[1,i]:=inttostr(round(dkm))+m[18];
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[36]; form1.Stringgrid1.Cells[1,i]:=formatfloat(d2,diam/60)+lmin;
   inc(i); form1.Stringgrid1.Cells[0,i]:=m[48]; form1.Stringgrid1.Cells[1,i]:=formatfloat(d1,colong)+ldeg;
@@ -3325,6 +3663,7 @@ if not form1.ToolButton3.Down then begin
   form1.dummycube1.up.x:=0;
 end;
 OrientLightSource(cphase,sunincl);
+form1.GLLightSource2.Shining:=not phaseeffect;
 LibrationMark(librlong,librlat);
 form1.dummycube1.EndUpdate;
 mark(0,0,'');
@@ -3643,6 +3982,8 @@ begin
  GLCamera1.Position.y:=yy;
  Annulus1.Position.x:=GLCamera1.Position.x;
  Annulus1.Position.y:=GLCamera1.Position.y;
+ curx:=xx;
+ cury:=yy;
  Mark(shapePositionX,shapePositionY,hudtext1.Text);
  RefreshLabel;
  form1.glscene1.EndUpdate;
@@ -3670,7 +4011,7 @@ with form1 do begin
      mark(xx,yy,form1.Combobox1.text);
      RefreshLabel;
      GetHTMLDetail(dbm.Results[0], txt);
-     Desc1.LoadFromString(txt);
+     Desc1.LoadFromString(txt,'');
      if dbtab.TabVisible then GetDBgrid;
      GetNotes(form1.Combobox1.text);
      if ImgExists(currentname) then begin
@@ -3771,187 +4112,42 @@ lopamlocalsuffix:=trim(copy(lopamlocalurl,i+7,999));
 lopamlocalurl:=trim(copy(lopamlocalurl,1,i-1));
 end;
 
-Procedure Tform1.CreateDB;
-var i: integer;
-    buf,cmd: string;
-begin
-buf:='';
-dbm.query('select name from sqlite_master where type="table";');
-for i:=0 to dbm.RowCount do buf:=buf+dbm.Results[i][0]+' ';
-if pos('moon',buf)=0 then begin
- cmd:='create table moon ( '+
-    'ID INTEGER PRIMARY KEY,'+
-    'SIDE integer,'+
-    'NAME text,'+
-    'TYPE text,'+
-    'PERIOD text,'+
-    'NAMEDETAIL text,'+
-    'NAMEORIGIN text,'+
-    'LANGRENUS text,'+
-    'HEVELIUS text,'+
-    'RICCIOLI text,'+
-    'WORK text,'+
-    'COUNTRY text,'+
-    'NATIONLITY text,'+
-    'CENTURYN float,'+
-    'CENTURYC text,'+
-    'BIRTHPLACE text,'+
-    'BIRTHDATE text,'+
-    'DEATHPLACE text,'+
-    'DEATHDATE text,'+
-    'FACTS text,'+
-    'LONGIN float,'+
-    'LONGIC text,'+
-    'LATIN float,'+
-    'LATIC text,'+
-    'QUADRANT text,'+
-    'AREA text,'+
-    'RUKL text,'+
-    'RUKLC text,'+
-    'VISCARDY text,'+
-    'HATFIELD text,'+
-    'WESTFALL text,'+
-    'WOOD text,'+
-    'LOPAM text,'+
-    'LENGTHKM float,'+
-    'WIDEKM float,'+
-    'LENGTHMI float,'+
-    'WIDEMI float,'+
-    'HEIGHTM float,'+
-    'HEIGHTFE float,'+
-    'RAPPORT float,'+
-    'PROFIL text,'+
-    'GENERAL text,'+
-    'SLOPES text,'+
-    'WALLS text,'+
-    'FLOOR text,'+
-    'INTERESTN integer,'+
-    'INTERESTC text,'+
-    'LUNATION integer,'+
-    'MOONDAYS text,'+
-    'MOONDAYM text,'+
-    'DIAMINST integer,'+
-    'THINSTRU text,'+
-    'PRINSTRU text'+
-    ');';
- dbm.Query(cmd);
- dbm.Query('create index moon_pos on moon (longin,latin);');
- dbm.Query('create index moon_name on moon (side,name);');
-end;
-if pos('file_date',buf)=0 then begin
- cmd:='create table file_date ( '+
-    'SIDE integer,'+
-    'FDATE integer'+
-    ');';
- dbm.Query(cmd);
-end;
-end;
 
-Procedure Tform1.ConvertDB(fn,side:string);
-var cmd,v: string;
-    i:integer;
-    db1:Tmlb2;
-begin
-MsgForm:=TMsgForm.create(application);
-MsgForm.Label1.caption:='Preparing Database. Please Wait ...';
-msgform.show;
-msgform.Refresh;
-db1:=Tmlb2.Create;
-try
-screen.Cursor:=crhourglass;
-db1.init;
-db1.LoadFromFile(fn);
-db1.GoFirst;
-dbm.StartTransaction;
-dbm.Query('delete from moon where SIDE='+side+';');
-dbm.Query('Vacuum;');
-repeat
-  cmd:='insert into moon values(NULL,'+side+',';
-  for i:=1 to db1.FieldCount do begin
-    v:=stringreplace(db1.GetDataByIndex(i),',','.',[rfreplaceall]);
-    v:=stringreplace(v,'""','''',[rfreplaceall]);
-    v:=stringreplace(v,'"','',[rfreplaceall]);
-    cmd:=cmd+'"'+v+'",';
-  end;
-  cmd:=copy(cmd,1,length(cmd)-1)+');';
-  dbm.Query(cmd);
-  db1.GoNext;
-until db1.EndOfFile;
-dbm.Query('update moon set widekm=0 where widekm="";');
-dbm.Query('update moon set widemi=0 where widemi="";');
-dbm.Query('update moon set lengthkm=0 where lengthkm="";');
-dbm.Query('update moon set lengthmi=0 where lengthmi="";');
-dbm.Query('delete from file_date where side='+side+';');
-dbm.Query('insert into file_date values ('+side+','+inttostr(fileage(fn))+');');
-dbm.Commit;
-finally
-msgform.close;
-msgform.free;
-screen.Cursor:=crdefault;
-db1.Free;
-end;
-end;
 
-Procedure Tform1.LoadDB;
-var savecursor:integer;
-    i,db_age : integer;
-    buf:string;
+Procedure ListUserDB;
+var i,j,k : integer;
 begin
-buf:=Slash(appdir)+Slash('database')+'dbmoon_'+language+'.dbl';
-//if not fileexists(buf) then buf:=Slash(appdir)+Slash('database')+'dbmoon_UK.dbl';
-form1.dbm.Use(buf);
-sidelist:='1';
-for i:=2 to 5 do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
-savecursor:=screen.cursor;
-try
-screen.cursor:=crHourGlass;
-buf:=Slash(appdir)+Slash('database')+'Nearside_Named_'+language+'.csv';
-if fileexists(buf) then database[1]:=buf
-   else begin
-      buf:=Slash(appdir)+Slash('database')+'Nearside_Named_UK.csv';
-      if fileexists(buf) then database[1]:=buf
-         else database[1]:=Slash(appdir)+Slash('database')+olddatabase; // v1.0 db
-   end;
-buf:=Slash(appdir)+Slash('database')+'Nearside_satellite_'+language+'.csv';
-if fileexists(buf) then database[2]:=buf
-   else database[2]:=Slash(appdir)+Slash('database')+'Nearside_Satellite_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Farside_named_'+language+'.csv';
-if fileexists(buf) then database[3]:=buf
-   else database[3]:=Slash(appdir)+Slash('database')+'Farside_Named_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Farside_satellite_'+language+'.csv';
-if fileexists(buf) then database[4]:=buf
-   else database[4]:=Slash(appdir)+Slash('database')+'Farside_Satellite_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Historical_'+language+'.csv';
-if fileexists(buf) then database[5]:=buf
-   else database[5]:=Slash(appdir)+Slash('database')+'Historical_UK.csv';
-CreateDB;
-for i:=1 to 5 do begin
-  if usedatabase[i] then begin
-     buf:=dbm.QueryOne('select fdate from file_date where side='+inttostr(i)+';');
-     if buf='' then db_age:=0 else db_age:=strtoint(buf);
-     if fileexists(database[i]) and (db_age<fileage(database[i])) then begin
-        convertDB(database[i],inttostr(i));
-     end;
-  end;
-end;
-finally
-screen.cursor:=savecursor;
+for i:=0 to form2.Checklistbox1.Count-1 do (form2.Checklistbox1.Items.Objects[i] as TDBinfo).Free;
+form2.CheckListBox1.Clear;
+form1.dbm.query('select * from user_database where DBN>9');
+for i:=0 to form1.dbm.RowCount-1 do begin
+  j:=form1.dbm.Results[i].format[0].asinteger;
+  k:=form2.CheckListBox1.Items.Add(form1.dbm.Results[i][1]);
+  form2.Checklistbox1.Items.Objects[k]:=TDBinfo.Create;
+  (form2.Checklistbox1.Items.Objects[k] as TDBinfo).dbnum:=j;
+  form2.CheckListBox1.Checked[k]:=usedatabase[j];
 end;
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
 begin
 Setlang;
-LoadDB;
+screen.cursor:=crHourGlass;
+LoadDB(dbm);
+screen.cursor:=crDefault;
+ListUserDB;
 InitLopamIdx;
 {$ifdef opengl}
 InitTelescope;
+LibrationButton.Down:=librationeffect;
 {$endif}
+PhaseButton.Down:=phaseeffect;
 dblox.LoadFromFile(Slash(appdir)+Slash('database')+'lopamidx.csv');
 dblox.GoFirst;
 dbnotes.LoadFromFile(Slash(appdir)+Slash('database')+'notes.csv');
 dbnotes.GoFirst;
-InitDate;
+if UseComputerTime then InitDate
+                   else SetJDDate;
 if screen.width<750 then begin
   form1.Top:=0;
   form1.Left:=0;
@@ -3960,24 +4156,30 @@ if screen.width<750 then begin
 end;
 mark(0,0,'');
 MoveCamera(0,0);
+setzoom(minfoc);
 ReadParam;
 memo2.Width:=PrintTextWidth;
 toolbar1.Left:=toolbar2.width+1;
-setzoom(minfoc);
 RefreshMoonImage;
-setzoom(minfoc);
+if currentname<>'' then begin
+  firstsearch:=true;
+  searchname(currentname,false);
+end;
+setzoom(curfoc);
 btnEffacerClick(Sender);
 SetEyepieceMenu;
-// show an interesting object
-Combobox2.itemindex:=0;
-Combobox3.itemindex:=6;
-RadioGroup1.itemindex:=1;
-Updterminateur;
-Firstsearch:=true;
-SearchText:=trim(copy(ListBox1.Items[0],2,999));
-SearchName(SearchText,false);
-Combobox3.itemindex:=0;
-currentphase:=-999;
+if (not multi_instance) and (currentid='') then begin
+  // show an interesting object
+  Combobox2.itemindex:=0;
+  Combobox3.itemindex:=6;
+  RadioGroup1.itemindex:=1;
+  Updterminateur;
+  Firstsearch:=true;
+  SearchText:=trim(copy(ListBox1.Items[0],2,999));
+  SearchName(SearchText,false);
+  Combobox3.itemindex:=0;
+  currentphase:=-999;
+end;  
 end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);
@@ -4000,6 +4202,7 @@ form2.checkbox20.checked:=usedatabase[2];
 form2.checkbox21.checked:=usedatabase[3];
 form2.checkbox22.checked:=usedatabase[4];
 form2.checkbox23.checked:=usedatabase[5];
+ListUserDB;
 form2.checkbox4.checked:=useOpenGL;
 form2.checkbox1.checked:=phaseeffect;
 form2.checkbox2.checked:=librationeffect;
@@ -4058,7 +4261,7 @@ if GeologicalMap then form2.radiogroup2.itemindex:=1
 {$ifdef vmaexpert}
 if hiresfile='hires.jpg' then form2.radiogroup2.itemindex:=0
  else if hiresfile='hires_clem.jpg' then form2.radiogroup2.itemindex:=1
- else if hiresfile='hires_light.jpg' then form2.radiogroup2.itemindex:=2
+ //else if hiresfile='hires_light.jpg' then form2.radiogroup2.itemindex:=2
  else form2.radiogroup2.itemindex:=-1;
 {$endif}
 oldtexture:=form2.radiogroup2.itemindex;
@@ -4070,6 +4273,7 @@ form2.combobox5.text:=remext(overlayname);
 form2.trackbar5.position:=overlaylum;
 form2.combobox5change(sender);
 form2.checkbox11.checked:=showoverlay;
+form2.checkbox16.checked:=UseComputerTime;
 FormPos(Form2,mouse.cursorpos.x,mouse.cursorpos.y);
 Form2.showmodal;
 if form2.ModalResult=mrOK then begin
@@ -4110,6 +4314,7 @@ if form2.ModalResult=mrOK then begin
       HUDText1.ModulateColor.AsWinColor:=labelcolor;
       HUDText1.Scale.SetVector(Label3dSize*LabelSize,Label3dSize*LabelSize,1);
       InitLabel;
+      InitSprite;
    end else
    {$ENDIF}
    begin
@@ -4122,6 +4327,12 @@ if form2.ModalResult=mrOK then begin
    Obslongitude:=strtofloat(form2.Edit2.text);
    if form2.ComboBox2.ItemIndex=0 then Obslongitude:=-Obslongitude;
    timezone:=strtofloat(form2.Edit3.text);
+   if (not UseComputerTime) and form2.checkbox16.checked then begin
+      timezone:=gettimezone;
+      InitDate;
+      reboot:=true;
+   end;
+   UseComputerTime:=form2.checkbox16.checked;
    phaseeffect:=form2.checkbox1.checked;
    librationeffect:=form2.checkbox2.checked;
    Geocentric:=form2.checkbox3.checked;
@@ -4135,6 +4346,11 @@ if form2.ModalResult=mrOK then begin
    usedatabase[3]:=form2.checkbox21.checked;
    usedatabase[4]:=form2.checkbox22.checked;
    usedatabase[5]:=form2.checkbox23.checked;
+   for i:=0 to form2.Checklistbox1.Count-1 do begin
+      j:=(form2.Checklistbox1.Items.Objects[i] as TDBinfo).dbnum;
+      if usedatabase[j]<>form2.Checklistbox1.Checked[i] then reloaddb:=true;
+      usedatabase[j]:=form2.Checklistbox1.Checked[i];
+   end;
    InitObservatoire;
    CurrentJD:=jd(CurYear,CurrentMonth,CurrentDay,Currenttime-timezone+DT_UT);
    case form2.RadioGroup1.ItemIndex of
@@ -4154,13 +4370,15 @@ if form2.ModalResult=mrOK then begin
      setlang;
      reloaddb:=true;
    end;
-   if reloaddb then LoadDB;
+   if reloaddb then LoadDB(dbm);
    {$IFDEF opengl}
    MipMaps:=form2.CheckBox10.Checked;
    SetMinFilter(MipMaps);
    if useOpenGL<>form2.checkbox4.checked then reboot:=true;
    useOpenGL:=form2.checkbox4.checked;
+   LibrationButton.Down:=librationeffect;
    {$ENDIF}
+   PhaseButton.Down:=phaseeffect;
    if oldtexture<>form2.radiogroup2.itemindex then reboot:=true;
    GeologicalMap:=false;
    {$ifdef vmalight}
@@ -4293,6 +4511,17 @@ initdate;
 RefreshMoonImage;
 end;
 
+procedure TForm1.Button10Click(Sender: TObject);
+begin
+form1.heure.Value:=0;
+form1.minute.Value:=0;
+form1.seconde.Value:=0;
+form1.updown4.position:=0;
+form1.updown5.position:=0;
+form1.updown6.position:=0;
+Button4Click(Sender);
+end;
+
 procedure TForm1.TrackBar1Change(Sender: TObject);
 var p : integer;
 begin
@@ -4418,7 +4647,7 @@ begin
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
-var cielhnd:thandle;
+var hnd:thandle;
     OldVal : LongInt;
     ok:boolean;
 begin
@@ -4427,14 +4656,22 @@ try
  SetWindowLong(Form1.Handle,
                GWL_WNDPROC,
                LongInt(OldWindowProc));
-SaveDefault;
+               
+if not multi_instance then begin
+  SaveDefault;
+  SendMessage(HWND_BROADCAST,RegisterWindowMessage(ExitMsg),0,0);
+end;
 param.Free;
 if safemode then begin
    SystemParametersInfo (SPI_SCREENSAVERRUNNING, Word (False), @OldVal, 0); // restore system keys
 end;
 if skychartrunning and startedbyds then begin
-  cielhnd:=findwindow(nil,Pchar(skychartcaption));
-  if cielhnd>0 then PostMessage(cielhnd,WM_QUIT,0,0);   // close skychart (use WM_CLOSE for the close prompt)
+  hnd:=findwindow(nil,Pchar(skychartcaption));
+  if hnd>0 then PostMessage(hnd,WM_QUIT,0,0);   // close skychart (use WM_CLOSE for the close prompt)
+end;
+if CloseVMAbrowser then begin
+  hnd:=findwindow(nil,Pchar(VMAbrowser));
+  if hnd>0 then PostMessage(hnd,WM_QUIT,0,0);   // close VMA Browser (use WM_CLOSE for the close prompt)
 end;
 if scopelibok then
   if ScopeConnected then begin
@@ -4475,8 +4712,11 @@ if fileexists(buf) then begin
     try
     i:=pos('.',nom);
     if i>0 then nom:=copy(nom,1,i-1);
-    jpg.LoadFromFile(buf);
-    bmp.Assign(jpg);
+    if uppercase(extractfileext(buf))='.JPG' then begin
+      jpg.LoadFromFile(buf);
+      bmp.Assign(jpg);
+    end
+      else bmp.LoadFromFile(buf);
     bmp.Canvas.Font.Name:='Arial';
     bmp.canvas.Font.Height:=-9;
     bmp.Canvas.TextOut(0,0,nom+' '+buf1);
@@ -4525,6 +4765,10 @@ begin
   splash := Tsplash.create(application);
   splashunit.SplashTimer:=false;
   splash.BorderStyle:=bsToolWindow;
+  splash.caption:=stringreplace(Apropos1.caption,'&','',[]);;
+  splash.VersionName:=VersionName;
+  splash.Splashversion:=Splashversion;
+  splash.transmsg:=transmsg;
   splash.show;
   splash.refresh;
 end;
@@ -4989,18 +5233,20 @@ end;
 procedure TForm1.Aide2Click(Sender: TObject);
 begin
 internalbrowser:=true;
-showhelp(helpprefix+'_Index_Doc_'+versionname+'.html');
+//showhelp('Index_Doc','_'+versionname,'doc');
+showhelp('Index_Doc','','doc');
 end;
 
 procedure TForm1.Encyclopedia1Click(Sender: TObject);
 begin
 internalbrowser:=true;
-showhelp(helpprefix+'_Encyclopedia.html','encyclopedia');
+showhelp('Encyclopedia','','encyclopedia');
 end;
 
 procedure TForm1.Position1Click(Sender: TObject);
 var ok : boolean;
 begin
+if multi_instance and (clientwidth=ClientHeight-controlbar1.height-statusbar1.height) then clientwidth:=round(1.333*clientwidth);
 PageControl1Changing(Sender,ok);
 Pagecontrol1.ActivePage:=Position;
 PageControl1Change(Sender);
@@ -5010,6 +5256,7 @@ end;
 procedure TForm1.Notes1Click(Sender: TObject);
 var ok : boolean;
 begin
+if multi_instance and (clientwidth=ClientHeight-controlbar1.height-statusbar1.height) then clientwidth:=round(1.333*clientwidth);
 PageControl1Changing(Sender,ok);
 Pagecontrol1.ActivePage:=Notes;
 PageControl1Change(Sender);
@@ -5073,6 +5320,7 @@ case RadioGroup2.ItemIndex of
 0 : PoleOrientation:=0;
 1 : PoleOrientation:=180;
 end;
+ToolButton4.Down:=(RadioGroup2.ItemIndex=1);
 {$IFDEF opengl}
 if useopengl then begin
   if FollowNorth then CameraOrientation:=rmod(-PA+PoleOrientation+360,360)
@@ -5083,10 +5331,26 @@ if useopengl then begin
 end else
 {$ENDIF}
   if currenttexture<>'' then begin
+  lockscrollbar:=true;
+  HorzScrollBar.Position:=HorzScrollBar.max - HorzScrollBar.Position;
+  lockscrollbar:=true;
+  VertScrollBar.Position:=VertScrollBar.max - VertScrollBar.Position;
   Load2DTexture(currenttexture);
   RefreshMoonImage;
   Mark(shapePositionX,shapePositionY,label5.Caption);
 end;
+end;
+
+procedure TForm1.ToolButton4Click(Sender: TObject);
+begin
+RadioGroup2.ItemIndex:=abs(RadioGroup2.ItemIndex-1);
+ToolButton4.Down:=(RadioGroup2.ItemIndex=1);
+end;
+
+procedure TForm1.ToolButton6Click(Sender: TObject);
+begin
+CheckBox2.Checked:=not CheckBox2.Checked;
+ToolButton6.Down:=CheckBox2.Checked;
 end;
 
 procedure TForm1.Button11Click(Sender: TObject);
@@ -5119,6 +5383,7 @@ end;
 
 procedure TForm1.Distance1Click(Sender: TObject);
 begin
+if multi_instance and (clientwidth=ClientHeight-controlbar1.height-statusbar1.height) then clientwidth:=round(1.333*clientwidth);
 Pagecontrol1.ActivePage:=Outils;
 PageControl1Change(Sender);
 Button11.Caption:=m[53];
@@ -5140,6 +5405,7 @@ end;
 procedure TForm1.CheckBox2Click(Sender: TObject);
 begin
 {$IFDEF opengl}
+ToolButton6.Down:=checkbox2.checked;
 if useOpenGL then begin
   SetMirror(checkbox2.checked);
   Mark(shapePositionX,shapePositionY,hudtext1.Text);
@@ -5147,9 +5413,11 @@ if useOpenGL then begin
 end else
 {$ENDIF}
 begin
+  if checkbox2.checked then flipx:=-1
+                       else flipx:=1;
   if currenttexture<>'' then begin
-    if checkbox2.checked then flipx:=-1
-                         else flipx:=1;
+    lockscrollbar:=true;
+    HorzScrollBar.Position:=HorzScrollBar.max - HorzScrollBar.Position;
     Load2DTexture(currenttexture);
     RefreshMoonImage;
     Mark(shapePositionX,shapePositionY,label5.Caption);
@@ -5166,7 +5434,7 @@ procedure TForm1.SnapShot(var bmp : TBitmap; white:boolean);
 {$IFDEF opengl}
 var
    bmp32 : TGLBitmap32;
-{$ENDIF}   
+{$ENDIF}
 begin
 {$IFDEF opengl}
    if useopengl then begin
@@ -5195,7 +5463,6 @@ begin
    end;
 end;
 end;
-
 
 {$IFDEF opengl}
 procedure TForm1.RenderToBitmap(var bmp : TBitmap; size : integer; white:boolean);
@@ -5291,6 +5558,40 @@ if savedialog1.Execute then begin
   j.Free;
   end;
 end;
+end;
+
+{procedure TForm1.Snapshot1Click(Sender: TObject);
+var b: Tbitmap;
+    j: Tjpegimage;
+    fn: string;
+begin
+  fn:='snapshot.jpg';
+  b:=Tbitmap.Create;
+  j:=Tjpegimage.Create;
+  try
+  SnapShot(b,false);
+  j.Assign(b);
+  j.SaveToFile(slash(appdir)+fn);
+  ShowImg(appdir,fn,false);
+  finally
+  b.Free;
+  j.Free;
+  end;
+end;}
+
+procedure TForm1.Snapshot1Click(Sender: TObject);
+var b: Tbitmap;
+    fn: string;
+begin
+  fn:='snapshot.bmp';
+  b:=Tbitmap.Create;
+  try
+  SnapShot(b,false);
+  b.SaveToFile(slash(appdir)+fn);
+  ShowImg(appdir,fn,false);
+  finally
+  b.Free;
+  end;
 end;
 
 procedure TForm1.Selectiondimprimante1Click(Sender: TObject);
@@ -5439,7 +5740,6 @@ begin
 ListImg(currentname);
 end;
 
-{$IFDEF opengl}
 procedure TForm1.OverlayCaption1Click(Sender: TObject);
 var dir : string;
 begin
@@ -5448,6 +5748,7 @@ dir:=slash('Textures')+slash('overlay')+slash('caption');
 if fileexists(dir+overlayname) then showimg(dir,overlayname,true);
 end;
 
+{$IFDEF opengl}
 function GetIntLB(x,y:integer; var l,b:integer):boolean;
 var xx,yy,lc,bc: double;
     resol,wd: integer;
@@ -5643,7 +5944,7 @@ begin
 LabelTimer.Enabled:=false;
 {$IFDEF opengl}
 if useopengl then SetHires;
-if showautoLabel and(zoom>=1)and(not RotationCadencer.enabled)and(not TelescopeTimer.enabled) then SetLabel;
+if (showautoLabel or (CurrentSelection<>''))and(zoom>=1)and(not RotationCadencer.enabled)and(not TelescopeTimer.enabled) then SetLabel;
 {$ELSE}
 if showautoLabel and(zoom>=1) then SetLabel;
 {$ENDIF}
@@ -5689,10 +5990,12 @@ begin
    GroupBox4.visible:=false;
    ToolButton2.Enabled:=false;
    checkbox2.visible:=false;
+   ToolButton6.enabled:=false;
    form1.Arrowline1.Visible:=false;
    SetMirror(false);
    GroupBox4.visible:=false;
    GroupBox3.visible:=true;
+   LibrationButton.Enabled:=false;
    lrot:=0;
    inclination:=0;
    trackbar6.Position:=0;
@@ -5700,8 +6003,8 @@ begin
    movecamera(0,0);
    GLSceneViewer1MouseMove(sender,[ssLeft],lastx,lasty);
    Rotation1.visible:=true;
-   Pagecontrol1.activepage:=Outils;
-   PageControl1Change(Sender);
+//   Pagecontrol1.activepage:=Outils;
+//   PageControl1Change(Sender);
   end else
   {$ENDIF}
   begin                           // far side
@@ -5718,13 +6021,15 @@ begin
   end;
  end else begin
    checkbox2.visible:=true;
+   ToolButton6.enabled:=true;
    ToolButton2.Enabled:=true;
    {$IFDEF opengl}
    if useopengl then begin
      RotationCadencer.enabled:=false;
      Rotation1.visible:=false;
      GroupBox3.visible:=false;
-     GroupBox4.visible:=true;
+     LibrationButton.Enabled:=true;
+     if not safemode then GroupBox4.visible:=true;
      lrot:=0;
      inclination:=0;
      setzoom(minfoc);
@@ -5885,7 +6190,7 @@ if scopelibok and
    Moon2RaDec(markx,marky,r,d);
    ScopeGoto(r,d,ok1);
 end
-else showmessage('Please first connect the telescope and select a formation.');
+else showmessage('Please first connect the telescope and select a formation.');   // add to translation!
 end;
 
 // Sync button
@@ -6017,5 +6322,76 @@ procedure TForm1.nextMClick(Sender: TObject);
 begin
 inc(phaseoffset);
 RefreshPhase;
+end;
+
+
+procedure TForm1.NewWindowButtonClick(Sender: TObject);
+var param:string;
+    i : integer;
+begin
+// limit to two window to save resources
+ if multi_instance then exit;
+ i:=findwindow(nil,pchar(form1.caption+'<2>'));
+ if i=0 then begin
+    SaveDefault;
+    param:= '-multi_instance';
+    param:=param+' -d '+DatToStr(curyear,currentmonth,currentday)+'T'+Timtostr(CurrentTime);
+    param:=param+' -r '+formatfloat(d4,lrot);
+    param:=param+' -c '+formatfloat(d4,curx)+' '+formatfloat(d4,cury);
+    param:=param+' -f '+formatfloat(d4,curfoc);
+    if currentselection<>'' then param:=param+' -s "'+currentselection+'"';
+    param:=param+' -- ';
+    ExecuteFile(appname,param, appdir, SW_SHOWNOACTIVATE);
+ end
+ else SendMessage(i,RegisterWindowMessage(IdMsg),0,0);
+
+end;
+
+procedure TForm1.LibrationButtonClick(Sender: TObject);
+begin
+librationeffect:=LibrationButton.Down;
+RefreshMoonImage;
+end;
+
+procedure TForm1.PhaseButtonClick(Sender: TObject);
+begin
+phaseeffect:=PhaseButton.Down;
+RefreshMoonImage;
+{$IFDEF opengl}
+//if ToolButton3.down then
+//   GLLightSource2.Shining:=not phaseeffect
+//else GLLightSource2.Shining:=false;
+{$endif}
+end;
+
+procedure TForm1.DataBase1Click(Sender: TObject);
+var param: string;
+    i:integer;
+begin
+ i:=findwindow(nil,pchar(VMAbrowser));
+ if i=0 then CloseVMAbrowser:=true;
+ param:=' -nx ';
+ ExecuteFile('vmabrowser.exe',param, appdir, SW_SHOWNOACTIVATE);
+end;
+
+procedure TForm1.SpeedButton8Click(Sender: TObject);
+begin
+form2.colordialog1.color:=autolabelcolor;
+if form2.colordialog1.execute then begin
+  autolabelcolor:=form2.colordialog1.color;
+  InitLabel;
+  RefreshLabel;
+end;
+end;
+
+procedure TForm1.PopupMenu1Popup(Sender: TObject);
+begin
+ RemoveMark1.visible:=( CurrentSelection<>'');
+end;
+
+procedure TForm1.RemoveMark1Click(Sender: TObject);
+begin
+CurrentSelection:='';
+RefreshLabel;
 end;
 

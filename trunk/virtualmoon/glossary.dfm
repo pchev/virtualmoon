@@ -30,7 +30,7 @@ object Gloss: TGloss
     Top = 24
     Width = 33
     Height = 25
-    Caption = '>>'
+    Caption = '>'
     TabOrder = 1
     OnClick = Button1Click
   end

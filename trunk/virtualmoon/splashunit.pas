@@ -43,10 +43,13 @@ type
     procedure Image1DblClick(Sender: TObject);
     procedure Timer2Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Déclarations privées }
+    Procedure Animate;
   public
     { Déclarations publiques }
+    VersionName,Splashversion,transmsg: string;
   end;
 
 var
@@ -56,9 +59,9 @@ var
 
 implementation
 {$IFDEF opengl}
-uses virtualmoon1;
+//uses virtualmoon1;
 {$ELSE}
-uses virtualmoon2;
+//uses virtualmoon2;
 {$ENDIF}
 
 {$R *.DFM}
@@ -149,7 +152,7 @@ cpylst: array[1..2,1..nlin]of string=((
 procedure Tsplash.Timer1Timer(Sender: TObject);
 begin
   Timer1.enabled:=false;
-  splash.release;
+  release;
 end;
 
 procedure Tsplash.FormCreate(Sender: TObject);
@@ -157,17 +160,8 @@ var //ok: boolean;
 //    Registry1: TRegistry;
     inifile : Tmeminifile;
     txt : string;
-begin            
+begin
 closing:=false;
-{$ifdef vmalight}
- label2.Caption:='Light '+Splashversion;
-{$endif}
-{$ifdef vmabasic}
- label2.Caption:='Basic '+Splashversion;
-{$endif}
-{$ifdef vmaexpert}
- label2.Caption:='Expert '+Splashversion;
-{$endif}
 if language<>'UK' then begin
 inifile:=Tmeminifile.create(AppDir+'\lang_'+language+'.ini');
 with inifile do begin
@@ -184,7 +178,7 @@ begin
 closing:=true;
 end;
 
-Procedure Animate;
+Procedure Tsplash.Animate;
 var i,l,p :integer;
     buf : string;
 begin
@@ -193,7 +187,7 @@ buf:='';
 for i:=1 to 6 do begin
   buf:=buf+' '+crlf;
 end;
-splash.label5.Caption:=buf;
+label5.Caption:=buf;
 cpylst[l,9]:=transmsg;
 application.ProcessMessages;
 i:=0;
@@ -203,26 +197,26 @@ repeat
   p:=pos(crlf,buf);
   if p>0 then buf:=copy(buf,p+2,9999);
   buf:=buf+cpylst[l,i]+crlf;
-  splash.label5.Caption:=buf;
+  label5.Caption:=buf;
   application.ProcessMessages;
   sleep(800);
 until closing;
-splash.release;
+Close;
 end;
 
 procedure Tsplash.FormShow(Sender: TObject);
 begin
-  caption:=stringreplace(form1.Apropos1.caption,'&','',[]);;
+label2.Caption:=VersionName+' '+Splashversion;
   if SplashTimer then begin
 //     panel2.Visible:=false;
      panel2.Height:=20;
-     splash.ClientHeight:=panel1.Height+panel2.Height;
+     ClientHeight:=panel1.Height+panel2.Height;
      label5.top:=0;
      label5.Alignment:=taCenter;
      label5.Caption:=transmsg;
      Timer1.enabled:=true
   end else begin
-     splash.ClientHeight:=panel1.Height+panel2.Height;
+     ClientHeight:=panel1.Height+panel2.Height;
      Timer2.enabled:=true;
   end;
 end;
@@ -235,8 +229,16 @@ end;
 
 procedure Tsplash.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-closing:=true;
-canclose:=false;
+if closing then canclose:=true
+else begin
+  closing:=true;
+  canclose:=false;
+end;  
+end;
+
+procedure Tsplash.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+action:=caFree;
 end;
 
 end.

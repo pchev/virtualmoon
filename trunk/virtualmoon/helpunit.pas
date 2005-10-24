@@ -131,8 +131,8 @@ end;
 
 procedure ThelpForm.BitBtn4Click(Sender: TObject);
 begin
-docfile:=hp+'index.html';
-if not fileexists(docpath+docfile) then docfile:=language+'_indexdoc.html';
+//docfile:=hp+'index.html';
+//if not fileexists(docpath+docfile) then docfile:=language+'_indexdoc.html';
 if fileexists(docpath+docfile) then HelpShow;
 end;
 

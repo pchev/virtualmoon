@@ -206,7 +206,7 @@ if panel1.visible and (length(txt)>0) then begin
   buf:=buf+'</body></html>';
 end else buf:='<html> <body>'+txt+'</body></html>';
 Gloss1.Clear;
-Gloss1.LoadFromString(buf);
+Gloss1.LoadFromString(buf,'');
 end;
 
 Function TGloss.SearchGloss(w:string):boolean;
@@ -256,7 +256,7 @@ ShowGloss(dbgloss.GetData('GLO_TEXT'));
 treeviewinitializing:=true;
 fn:=dbgloss.GetData('GLO_WORD');
 c:=copy(fn,1,1);
-if (not isupper(c)) then panel1.Visible:=false;
+panel1.Visible:=isupper(c);
 Treeview1.Items.BeginUpdate;
 Treeview1.Items.Clear;
 a:='  '; node:=nil;
