@@ -1,0 +1,5 @@
+
+GLScene source code is available from the project GLScene 
+at http://glscene.org or http://sourceforge.net/projects/glscene
+
+
