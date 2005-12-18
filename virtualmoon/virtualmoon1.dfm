@@ -324,7 +324,7 @@ object Form1: TForm1
       end
     end
     object Ephemerides: TTabSheet
-      Caption = 'Eph'#233'm'#233'rides'
+      Caption = 'Ephémérides'
       ImageIndex = 1
       object Panel4: TPanel
         Left = 0
@@ -892,7 +892,7 @@ object Form1: TForm1
           Top = 12
           Width = 33
           Height = 13
-          Caption = 'Int'#233'r'#234't '
+          Caption = 'Intérêt '
         end
         object Label20: TLabel
           Left = 8
@@ -951,7 +951,7 @@ object Form1: TForm1
           Columns = 2
           Items.Strings = (
             'Nom'
-            'Int'#233'r'#234't'
+            'Intérêt'
             'Instrument'
             'Latitude')
           TabOrder = 2
@@ -1007,7 +1007,7 @@ object Form1: TForm1
         Top = 28
         Width = 70
         Height = 13
-        Caption = 'Distance r'#233'elle'
+        Caption = 'Distance réelle'
       end
       object Label25: TLabel
         Left = 24
@@ -1112,7 +1112,7 @@ object Form1: TForm1
           Top = 100
           Width = 73
           Height = 22
-          Caption = 'Reset 0'#176
+          Caption = 'Reset 0°'
           OnClick = SpeedButton7Click
         end
         object ComboBox4: TComboBox
@@ -1122,7 +1122,7 @@ object Form1: TForm1
           Height = 21
           ItemHeight = 0
           TabOrder = 0
-          Text = '5 '#176'/seconde'
+          Text = '5 °/seconde'
           OnChange = ComboBox4Change
         end
         object TrackBar6: TTrackBar
@@ -1297,7 +1297,7 @@ object Form1: TForm1
         Top = 272
         Width = 201
         Height = 17
-        Caption = 'Pole c'#233'leste toujours en haut.'
+        Caption = 'Pole céleste toujours en haut.'
         TabOrder = 5
         OnClick = CheckBox1Click
       end
@@ -1306,7 +1306,7 @@ object Form1: TForm1
         Top = 200
         Width = 209
         Height = 41
-        Caption = 'Orientation par d'#233'faut'
+        Caption = 'Orientation par défaut'
         Columns = 2
         ItemIndex = 0
         Items.Strings = (
@@ -1353,7 +1353,7 @@ object Form1: TForm1
       end
     end
     object Reglage: TTabSheet
-      Caption = 'R'#233'glage'
+      Caption = 'Réglage'
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
@@ -1367,7 +1367,7 @@ object Form1: TForm1
         Top = 24
         Width = 48
         Height = 13
-        Caption = 'P'#233'nombre'
+        Caption = 'Pénombre'
       end
       object Label12: TLabel
         Left = 32
@@ -1395,7 +1395,7 @@ object Form1: TForm1
         Top = 80
         Width = 145
         Height = 17
-        Caption = 'Hachure de l'#39'ombre'
+        Caption = 'Hachure de l''ombre'
         TabOrder = 5
         Visible = False
         OnClick = CheckBox19Click
@@ -1462,7 +1462,7 @@ object Form1: TForm1
           Top = 24
           Width = 50
           Height = 13
-          Caption = 'R'#233'solution'
+          Caption = 'Résolution'
         end
         object Label15: TLabel
           Left = 16
@@ -1953,7 +1953,7 @@ object Form1: TForm1
         Caption = '-'
       end
       object Selectiondimprimante1: TMenuItem
-        Caption = 'Selection d'#39'imprimante...'
+        Caption = 'Selection d''imprimante...'
         OnClick = Selectiondimprimante1Click
       end
       object Imprimer1: TMenuItem
@@ -2256,6 +2256,7 @@ object Form1: TForm1
         Material.Texture.ImageAlpha = tiaOpaque
         Material.Texture.MinFilter = miLinear
         Material.Texture.TextureMode = tmModulate
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
         Tag = 0
@@ -2271,6 +2272,7 @@ object Form1: TForm1
         Material.Texture.ImageAlpha = tiaOpaque
         Material.Texture.MinFilter = miLinear
         Material.Texture.TextureMode = tmModulate
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
         Tag = 0
@@ -2286,6 +2288,7 @@ object Form1: TForm1
         Material.Texture.ImageAlpha = tiaOpaque
         Material.Texture.MinFilter = miLinear
         Material.Texture.TextureMode = tmModulate
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
         Tag = 0
@@ -2301,6 +2304,7 @@ object Form1: TForm1
         Material.Texture.ImageAlpha = tiaOpaque
         Material.Texture.MinFilter = miLinear
         Material.Texture.TextureMode = tmModulate
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
         Tag = 0
@@ -2315,6 +2319,7 @@ object Form1: TForm1
         Material.Texture.ImageAlpha = tiaOpaque
         Material.Texture.MinFilter = miLinear
         Material.Texture.TextureMode = tmModulate
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
         Tag = 0
@@ -2329,6 +2334,7 @@ object Form1: TForm1
         Material.Texture.ImageAlpha = tiaOpaque
         Material.Texture.MinFilter = miLinear
         Material.Texture.TextureMode = tmModulate
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
         Tag = 0
@@ -2343,6 +2349,7 @@ object Form1: TForm1
         Material.Texture.ImageAlpha = tiaOpaque
         Material.Texture.MinFilter = miLinear
         Material.Texture.TextureMode = tmModulate
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
         Tag = 0
@@ -2357,6 +2364,7 @@ object Form1: TForm1
         Material.Texture.ImageAlpha = tiaOpaque
         Material.Texture.MinFilter = miLinear
         Material.Texture.TextureMode = tmModulate
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
         Tag = 0
@@ -2372,6 +2380,7 @@ object Form1: TForm1
         Material.Texture.ImageAlpha = tiaOpaque
         Material.Texture.MinFilter = miLinear
         Material.Texture.TextureMode = tmModulate
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
         Tag = 0
@@ -2387,6 +2396,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.TextureMode = tmModulate
         Material.Texture.TextureWrap = twNone
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end
@@ -2397,6 +2407,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.TextureMode = tmModulate
         Material.Texture.TextureWrap = twNone
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end
@@ -2407,6 +2418,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.TextureMode = tmModulate
         Material.Texture.TextureWrap = twNone
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end
@@ -2417,6 +2429,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.TextureMode = tmModulate
         Material.Texture.TextureWrap = twNone
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end
@@ -2427,6 +2440,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.TextureMode = tmModulate
         Material.Texture.TextureWrap = twNone
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end
@@ -2437,6 +2451,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.TextureMode = tmModulate
         Material.Texture.TextureWrap = twNone
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end
@@ -2447,6 +2462,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.TextureMode = tmModulate
         Material.Texture.TextureWrap = twNone
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end
@@ -2457,6 +2473,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.TextureMode = tmModulate
         Material.Texture.TextureWrap = twNone
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end
@@ -2467,6 +2484,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.TextureMode = tmModulate
         Material.Texture.TextureWrap = twNone
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end
@@ -2477,6 +2495,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.ImageAlpha = tiaOpaque
         Material.Texture.TextureMode = tmModulate
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Material.Texture.Disabled = False
         Tag = 0
@@ -2489,6 +2508,7 @@ object Form1: TForm1
         Material.FrontProperties.Specular.Color = {0000803F0000803F0000803F0000803F}
         Material.Texture.TextureMode = tmModulate
         Material.Texture.TextureWrap = twNone
+        Material.Texture.Compression = tcStandard
         Material.Texture.FilteringQuality = tfAnisotropic
         Tag = 0
       end>
@@ -2541,39 +2561,9 @@ object Form1: TForm1
         StartGlyphIdx = 62
       end
       item
-        StartASCII = #39
-        StopASCII = #39
+        StartASCII = ''''
+        StopASCII = ''''
         StartGlyphIdx = 64
-      end
-      item
-        StartASCII = #224
-        StopASCII = #226
-        StartGlyphIdx = 65
-      end
-      item
-        StartASCII = #228
-        StopASCII = #228
-        StartGlyphIdx = 68
-      end
-      item
-        StartASCII = #232
-        StopASCII = #235
-        StartGlyphIdx = 69
-      end
-      item
-        StartASCII = #238
-        StopASCII = #238
-        StartGlyphIdx = 73
-      end
-      item
-        StartASCII = #244
-        StopASCII = #244
-        StartGlyphIdx = 74
-      end
-      item
-        StartASCII = #251
-        StopASCII = #251
-        StartGlyphIdx = 75
       end>
     CharWidth = 8
     CharHeight = 10
@@ -2702,7 +2692,7 @@ object Form1: TForm1
       OnClick = Distance1Click
     end
     object LgendeGologique1: TMenuItem
-      Caption = 'L'#233'gende G'#233'ologique'
+      Caption = 'Légende Géologique'
       Visible = False
       OnClick = LgendeGologique1Click
     end
@@ -2723,23 +2713,23 @@ object Form1: TForm1
         OnClick = EastWest1Click
       end
       object N10seconde1: TMenuItem
-        Caption = '10'#176'/seconde'
+        Caption = '10°/seconde'
         OnClick = N10seconde1Click
       end
       object N5seconde1: TMenuItem
-        Caption = '5'#176'/seconde'
+        Caption = '5°/seconde'
         OnClick = N5seconde1Click
       end
       object N1seconde1: TMenuItem
-        Caption = '1'#176'/seconde'
+        Caption = '1°/seconde'
         OnClick = N1seconde1Click
       end
       object N05seconde1: TMenuItem
-        Caption = '0.5'#176'/seconde'
+        Caption = '0.5°/seconde'
         OnClick = N05seconde1Click
       end
       object N02seconde1: TMenuItem
-        Caption = '0.2'#176'/seconde'
+        Caption = '0.2°/seconde'
         OnClick = N02seconde1Click
       end
     end
