@@ -479,7 +479,7 @@ object Form2: TForm2
       object CheckBox10: TCheckBox
         Left = 16
         Top = 8
-        Width = 145
+        Width = 297
         Height = 17
         Caption = 'Interpolation des textures'
         TabOrder = 2
@@ -528,7 +528,7 @@ object Form2: TForm2
       object CheckBox11: TCheckBox
         Left = 32
         Top = 8
-        Width = 97
+        Width = 273
         Height = 17
         Caption = 'Show overlay'
         TabOrder = 0
