@@ -86,12 +86,13 @@ begin
   end;
 
   // Let our window return to foreground when calling SetForegroundWindow.
-  SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0, nil, SPIF_SENDWININICHANGE or SPIF_UPDATEINIFILE);
+//  SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0 , nil, SPIF_SENDWININICHANGE or SPIF_UPDATEINIFILE);
   ok:=CreateMyMutex;
   ok:=ok or multi_instance;
   if not ok then begin
    //Send all windows our custom message - only our other
    //instance will recognise it, and restore itself
+   {$I-}
     if paramcount>0 then begin
        assignfile(f,'@@param@@');
        rewrite(f);
@@ -100,6 +101,7 @@ begin
        Closefile(f);
        sleep(100);
     end;
+   {$I+}
     SendMessage(HWND_BROADCAST,
                 RegisterWindowMessage(IdMsg),
                 paramcount,
@@ -108,6 +110,8 @@ begin
     Halt(0);
   end;
   Application.Initialize;
+  Application.UpdateFormatSettings:=false;
+  decimalseparator:='.';
  {Tell Delphi to un-hide it's hidden application window}
  {This allows our instance to have a icon on the task bar}
   Application.ShowMainForm := true;
@@ -121,8 +125,8 @@ begin
   if not multi_instance then begin
      splash.show;
      splash.refresh;
-  end;   
-  Application.CreateForm(TImglist, Imglist);
+  end;
+  Application.CreateForm(TImglist, Imglist1);
   Application.CreateForm(TForm2, Form2);
   Application.Run;
 end.

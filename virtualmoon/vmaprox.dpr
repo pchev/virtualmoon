@@ -1,4 +1,4 @@
-program vmabasic;
+program vmaprox;
 {
 Copyright (C) 2003 Patrick Chevalley
 
@@ -21,23 +21,28 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
 uses
   Forms,
+  dialogs,
   Registry,
   SysUtils,
   Windows,
   skylib,
-  virtualmoon1 in 'virtualmoon1.pas' {Form1},
+  virtualmoonx in 'virtualmoonx.pas' {Form1},
   config in 'config.pas' {Form2},
   BigIma in 'BigIma.pas' {BigImaForm},
   splashunit in 'splashunit.pas' {splash},
   imglistunit in 'imglistunit.pas' {Imglist},
   glossary in 'glossary.pas' {Gloss},
-  fmsg in 'fmsg.pas' {MsgForm};
+  fmsg in 'fmsg.pas' {MsgForm},
+  telescope in 'telescope.pas',
+  helpUnit in 'helpunit.pas' {helpForm},
+  dbutil in 'dbutil.pas',
+  vmaglx in 'vmaglx.pas' {formglx};
 
 {$R *.RES}
 
-const IdMsg='Virtual_Moon_Atlas_Basic_message';
-      IdMutex='Virtual_Moon_Atlas_Basic_mutex';
-      exeName='vmabasic.exe';
+const //IdMsg='Virtual_Moon_Atlas_Pro_message';
+      IdMutex='Virtual_Moon_Atlas_Pro_mutex';
+      exeName='vmapro.exe';
 
 var Registry1: TRegistry;
     buf: shortstring;
@@ -74,10 +79,21 @@ begin
   end;
   Registry1.free;
 
+  multi_instance:=false;
+  if paramcount>0 then begin
+   for i:=1 to paramcount do begin
+      if paramstr(i)='-multi_instance' then multi_instance:=true;
+   end;
+  end;
+
+  // Let our window return to foreground when calling SetForegroundWindow.
+//  SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0 , nil, SPIF_SENDWININICHANGE or SPIF_UPDATEINIFILE);
   ok:=CreateMyMutex;
+  ok:=ok or multi_instance;
   if not ok then begin
    //Send all windows our custom message - only our other
    //instance will recognise it, and restore itself
+   {$I-}
     if paramcount>0 then begin
        assignfile(f,'@@param@@');
        rewrite(f);
@@ -86,6 +102,7 @@ begin
        Closefile(f);
        sleep(100);
     end;
+   {$I+}
     SendMessage(HWND_BROADCAST,
                 RegisterWindowMessage(IdMsg),
                 paramcount,
@@ -96,18 +113,25 @@ begin
   Application.Initialize;
   Application.UpdateFormatSettings:=false;
   decimalseparator:='.';
-{Tell Delphi to un-hide it's hidden application window}
+ {Tell Delphi to un-hide it's hidden application window}
  {This allows our instance to have a icon on the task bar}
   Application.ShowMainForm := true;
   ShowWindow(Application.Handle, SW_RESTORE);
   Application.CreateForm(TForm1, Form1);
+ // Application.CreateForm(ThelpForm, helpForm);
+  Application.CreateForm(Tformglx, formglx);
   splash := Tsplash.create(application);
   splash.VersionName:=VersionName;
   splash.Splashversion:=Splashversion;
   splash.transmsg:=transmsg;
-  splash.show;
-  splash.refresh;
+  if not multi_instance then begin
+     splash.show;
+     splash.refresh;
+  end;
   Application.CreateForm(TImglist, Imglist1);
   Application.CreateForm(TForm2, Form2);
+  {$ifdef openglx}
+     Form2.formstyle:=fsStayonTop;
+  {$endif}
   Application.Run;
 end.

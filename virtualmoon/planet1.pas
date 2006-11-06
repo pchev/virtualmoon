@@ -178,7 +178,7 @@ end else begin               // use Plan404
      delta:=arcsin(sin(b)*ce+cos(b)*se*sin(l) );
 end;
 {
-  calcul de la fraction illuminée
+  calcul de la fraction illuminï¿½
 }
 //         illum:=(power(dp+distance,2)-dt*dt)/(4*dp*distance);
 //         phase:=rmod(radtodeg(arccos(2*illum-1))+360,360);
@@ -186,7 +186,7 @@ end;
            illum:=(1+phase)/2;
            phase:=radtodeg(arccos(phase));
 {
-  calcul du diamètre
+  calcul du diamï¿½re
 }
          diameter:=2*s0[ipla]/distance;
 {
@@ -539,6 +539,11 @@ begin
 T := (jde-2451545)/36525;
 e:=23.4392911;
 eq2ecl(ra,dec,e,lp,b);
+lp:=deg2rad*lp;
+b:=deg2rad*b;
+PrecessionEcl(jd2000,jde,lp,b);
+lp:=rad2deg*lp;
+b:=rad2deg*b;
 F:=93.2720993+483202.0175273*t-0.0034029*t*t-t*t*t/3526000+t*t*t*t/863310000;
 om:=125.0445550-1934.1361849*t+0.0020762*t*t+t*t*t/467410-t*t*t*t/60616000;
 w:=degtorad(lp-om);

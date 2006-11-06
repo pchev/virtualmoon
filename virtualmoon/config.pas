@@ -123,12 +123,6 @@ type
     RadioGroup3: TRadioGroup;
     Label29: TLabel;
     TabSheet6: TTabSheet;
-    Label30: TLabel;
-    CheckBox11: TCheckBox;
-    ComboBox5: TComboBox;
-    Image1: TImage;
-    Label32: TLabel;
-    TrackBar5: TTrackBar;
     TabSheet7: TTabSheet;
     GroupBox1: TGroupBox;
     CheckBox19: TCheckBox;
@@ -141,6 +135,18 @@ type
     CheckBox16: TCheckBox;
     CheckListBox1: TCheckListBox;
     Label31: TLabel;
+    TrackBar4: TTrackBar;
+    Label33: TLabel;
+    Bevel9: TBevel;
+    OverlayPanel: TPanel;
+    CheckBox11: TCheckBox;
+    ComboBox5: TComboBox;
+    Image1: TImage;
+    Label30: TLabel;
+    Label32: TLabel;
+    TrackBar5: TTrackBar;
+    nooverlay: TLabel;
+    Label34: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
@@ -166,10 +172,11 @@ type
     procedure ComboBox5Change(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure CheckBox16Click(Sender: TObject);
+    procedure Label34Click(Sender: TObject);
   private
-    { Déclarations privées }
+    { Dï¿½larations privï¿½s }
   public
-    { Déclarations publiques }
+    { Dï¿½larations publiques }
     hiresfn: string;
   end;
 
@@ -185,7 +192,11 @@ implementation
 
 uses skylib,
 {$IFDEF opengl}
-virtualmoon1;
+   {$IFDEF openglx}
+      virtualmoonx;
+   {$ELSE}
+     virtualmoon1;
+   {$ENDIF}
 {$ELSE}
 virtualmoon2;
 {$ENDIF}
@@ -218,13 +229,11 @@ if not fileexists('version.developpement') then begin
   Edit4.Visible:=false;        // external image display
   Button3.Visible:=false;      // external image display
   checkbox15.Visible:=false;   // direct LOPAM image link
-  label20.Visible:=false;      // Rükl chart
-  label21.Visible:=false;      // Rükl chart
-  label22.Visible:=false;      // Rükl chart
-  ruklprefix.Visible:=false;   // Rükl chart
-  ruklsuffix.Visible:=false;   // Rükl chart 
-  label31.Visible:=false;  // not finished database
-  CheckListBox1.Visible:=false;  // not finished database
+  label20.Visible:=false;      // Rkl chart
+  label21.Visible:=false;      // Rkl chart
+  label22.Visible:=false;      // Rkl chart
+  ruklprefix.Visible:=false;   // Rkl chart
+  ruklsuffix.Visible:=false;   // Rkl chart 
 end;
 {$ifdef vmalight}
   CheckBox3.Visible:=false;
@@ -245,6 +254,9 @@ end;
   TabSheet6.TabVisible:=false;
   Label31.Visible:=false;
   CheckListBox1.Visible:=false;
+{$endif}
+{$ifdef opengl}
+  OverlayPanel.visible:=AsMultiTexture;
 {$endif}
 i:=findfirst(appdir+'\'+'lang_*.ini',0,fs);
 while i=0 do begin
@@ -495,6 +507,11 @@ begin
 Label3.Enabled:=not CheckBox16.Checked;
 Label29.Enabled:=not CheckBox16.Checked;
 Edit3.Enabled:=not CheckBox16.Checked;
+end;
+
+procedure TForm2.Label34Click(Sender: TObject);
+begin
+executefile('http://www.delphi3d.net/hardware/extsupport.php?extension=GL_ARB_multitexture','', '', SW_SHOWNOACTIVATE);
 end;
 
 end.

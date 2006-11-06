@@ -35,7 +35,7 @@ uses
   GLGraph, geometry, GLMirror, AsyncTimer,
 {$ENDIF}
   mlb2, Printers,
-  Messages, SysUtils, Classes, Dialogs,  math,
+  Messages, SysUtils, Classes, Dialogs,  math, DateUtils,
   ComCtrls, Mask, Menus, jpeg, Buttons, ToolWin,
   EnhEdits, IniFiles, Grids, BigIma, HTMLLite, passql, passqlite;
 
@@ -242,6 +242,7 @@ type
     Button19: TButton;
     Button20: TButton;
     RemoveMark1: TMenuItem;
+    ButtonDatabase: TToolButton;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -371,9 +372,9 @@ type
     procedure RemoveMark1Click(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
   private
-    { Déclarations privées }
+    { Dï¿½larations privï¿½s }
   public
-    { Déclarations publiques }
+    { Dï¿½larations publiques }
     procedure InitGraphic(Sender: TObject);
     procedure LoadOverlay(fn:string; lum:integer);
     Procedure SetLabel;
@@ -404,8 +405,8 @@ function SearchName(n: string; center: boolean):boolean;
 Procedure OpenHires(forcerebuild:boolean);
 {$ENDIF}
 
-const AVLversion = '3.0';
-      Splashversion ='Version 3.0  2005-09-28';
+const AVLversion = '3.5';
+      Splashversion ='Version 3.5  2006-11-4';
       d1 = '0.0';
       d2 = '0.00';
       d3 = '0.000';
@@ -447,7 +448,7 @@ const AVLversion = '3.0';
       ExitMsg='Virtual_Moon_Atlas_Pro_exit';
       versionname='Pro';
 {$endif}
-    VMAbrowser='VMA Browser';
+    VMAbrowser='DATLUN';
 
 var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     ReduceTexture,ReduceTextureFar,LastIma,maximgdir,maxima,startx,starty,saveimagesize,lastscrollx,lastscrolly : Integer;
@@ -457,10 +458,10 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     PicTop,PicLeft: array of integer;
     librl,librb,lrot,inclination,librlong,librlat,wheelstep,EphStep,fov,searchl,searchb,markx,marky,flipx,rotstep,dummy,lunaison : double;
     ra,dec,rad,ded,dist,dkm,diam,phase,illum,pa,sunincl,timezone,currentphase,tphase,LabelSize,bx,by,bxpos : double;
-    editrow,notesrow,hi_w,hi_wd,hi_dl,rotdirection,searchpos : integer;
+    editrow,notesrow,hi_w,hi_wd,hi_dl,rotdirection,searchpos,marksize : integer;
     dbedited : Boolean = false;
     SkipIdent,Firstsearch,phaseeffect,librationeffect,geocentric,FollowNorth,notesok,notesedited,labelcenter,minilabel,SafeMode : boolean;
-    useOpenGL,lockmove,lockrepeat,DDEreceiveok,showlabel,showautolabel,showmark,showlibrationmark,marked,saveimagewhite,skipresize : boolean;
+    useOpenGL,lockmove,lockrot,lockrepeat,DDEreceiveok,showlabel,showautolabel,showmark,showlibrationmark,marked,saveimagewhite,skipresize : boolean;
     searchtext, imac1, imac2, imac3,lopamplateurl,lopamnameurl,lopamdirecturl,lopamlocalurl,lopamplatesuffix,lopamnamesuffix,lopamdirectsuffix,lopamlocalsuffix,olddatabase : string;
     externalimagepath,helpprefix,AntiAlias,ruklprefix,ruklsuffix,hiresfile,exitpassword,password,transmsg,scopeinterface,markname,currentname,currentid : string;
     m : array[1..nummessage] of string;
@@ -492,7 +493,7 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     lockscrollbar: Boolean = false;
     hires,hires500,overlayhi,overlayimg: Tbitmap;
     pal : Hpalette;
-    fh,fh500 : file;                                   
+    fh,fh500 : file;
     eyepiecename: array[1..10]of string;
     eyepiecefield,eyepiecemirror,eyepiecerotation: array[1..10]of integer;
     CurrentEyepiece : integer =0;
@@ -510,7 +511,14 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     multi_instance,CloseVMAbrowser : boolean;
     curx,cury,curfoc:double;
     appname : string;
+    compresstexture : Boolean = false;
     UseComputerTime : Boolean = true;
+
+type
+ TSwitchToThisWindow = procedure (h1: hWnd; restore: bool); stdcall;
+var
+ SwitchToThisWindow: TSwitchToThisWindow;
+ user32dll: Dword;
 
 implementation
 

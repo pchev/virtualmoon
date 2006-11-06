@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
+
 interface
 uses ShellAPI,Inifiles,Math, Printers, Winspool,UrlMon,
      Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs;
@@ -343,12 +344,12 @@ end;
 
 Procedure InitString;
 begin
-commsg[1]:='Erreur de définition des fichier temporaires';
+commsg[1]:='Erreur de dï¿½inition des fichier temporaires';
 commsg[2]:='Projection invalide';
 commsg[3]:='Indiquer le chemin correct pour';
 commsg[4]:='Monter le disque pour';
 commsg[5]:='Erreur de configuration pour';
-commsg[6]:='Erreur de capacité';
+commsg[6]:='Erreur de capacitï¿½;
 end;
 
 Procedure SetLang;
@@ -569,7 +570,7 @@ case projtype of              // AIPS memo 27
     sincos(de,s2,c2);
     sincos(hh,s3,c3);
     r:=s1*s2+c2*c1*c3;  // cos the
-    if r<=0 then begin  // > 90°
+    if r<=0 then begin  // > 90
       xx:=9999;
       yy:=9999;
     end else begin
@@ -589,7 +590,7 @@ case projtype of              // AIPS memo 27
     sincos(de,s2,c2);
     sincos(hh,s3,c3);
     r:=s1*s2+c2*c1*c3;     // cos the
-    if r<=0 then begin  // > 90°
+    if r<=0 then begin  // > 90
       xx:=9999;
       yy:=9999;
     end else begin
@@ -908,7 +909,7 @@ begin
     if abs(min)<10 then m:='0'+trim(m);
     str(sec:2:0,s);
     if abs(sec)<9.5 then s:='0'+trim(s);
-    result := d+'°'+m+''''+s+'"';
+    result := d+''+m+''''+s+'"';
 end;
 
 Function TimToStr(de: Double) : string;
@@ -1261,8 +1262,6 @@ end;
 function DTminusUT(annee : integer) : double;
 var t : double;
 begin
-if Force_DT_UT then result:=DT_UT_val
-else begin
 case annee of
 { Atlas of Historical Eclipse Maps East Asia 1500 BC - AD 1900, Stephenson and Houlden (1986)
      (1) prior to 948 AD
@@ -1276,8 +1275,6 @@ case annee of
 -99999..948 : begin
               t:=(annee-2000)/100;
               result:=(2715.6 + 573.36 * t + 46.5 * t*t) / 3600;
-//              t:=(annee-948)/100;
-//              result:=(1830-405*t+46.5*t*t)/3600;
               end;
   949..1619 : begin
               t:=(annee-1850)/100;
@@ -1325,12 +1322,11 @@ case annee of
               end;
        1997 : result:=62/3600;
        1998 : result:=63/3600;
-       1999 : result:=63/3600;
-       2000 : result:=64/3600;
-       2001 : result:=64/3600;
- 2002..2020 : begin
-              t:=(annee-2000)/100;
-              result:=(63+123.5*t+32.5*t*t)/3600;
+ 1999..2005 : result:=64/3600;
+       2006 : result:=65/3600;
+ 2007..2020 : begin
+              t:=(annee-2006)/100;
+              result:=(65+123.5*t+32.5*t*t)/3600;
               end;
  2021..99999 : begin
               t:=(annee-1875.1)/100;
@@ -1338,7 +1334,6 @@ case annee of
               end;
  else result:=0;
  end;
-end;
 end;
 
 PROCEDURE PrecessionFK4(ti,tf : double; VAR ari,dei : double);
@@ -1804,7 +1799,10 @@ if InternalBrowser then begin
   if not helpcreated then begin
     if debugon then writedebug('Create ThelpForm');
     Application.CreateForm(ThelpForm, helpForm);
-    helpcreated:=true;
+    {$ifdef openglx}
+     helpForm.formstyle:=fsStayonTop;
+    {$endif}
+     helpcreated:=true;
   end;
   helpform.caption:=Application.title;
   helpunit.docfile:=fn+a;

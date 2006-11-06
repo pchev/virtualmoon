@@ -2,7 +2,7 @@ object Form2: TForm2
   Left = 450
   Top = 108
   Width = 385
-  Height = 455
+  Height = 497
   Caption = 'Configuration'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object Form2: TForm2
   TextHeight = 13
   object Button1: TButton
     Left = 138
-    Top = 384
+    Top = 424
     Width = 75
     Height = 25
     Caption = 'OK'
@@ -30,7 +30,7 @@ object Form2: TForm2
     Left = 8
     Top = 0
     Width = 345
-    Height = 377
+    Height = 417
     ActivePage = TabSheet1
     MultiLine = True
     TabIndex = 0
@@ -242,7 +242,7 @@ object Form2: TForm2
         Left = 16
         Top = 256
         Width = 305
-        Height = 65
+        Height = 97
         BevelInner = bvSpace
         BevelOuter = bvNone
         BevelKind = bkFlat
@@ -254,16 +254,23 @@ object Form2: TForm2
     object TabSheet3: TTabSheet
       Caption = 'Affichage'
       ImageIndex = 3
+      object Bevel9: TBevel
+        Left = 16
+        Top = 144
+        Width = 305
+        Height = 81
+        Shape = bsFrame
+      end
       object Bevel3: TBevel
         Left = 16
-        Top = 168
+        Top = 232
         Width = 305
-        Height = 145
+        Height = 132
         Shape = bsFrame
       end
       object Bevel2: TBevel
         Left = 16
-        Top = 102
+        Top = 78
         Width = 305
         Height = 59
         Shape = bsFrame
@@ -272,71 +279,78 @@ object Form2: TForm2
         Left = 16
         Top = 16
         Width = 305
-        Height = 73
+        Height = 57
         Shape = bsFrame
       end
       object Shape1: TShape
         Left = 24
-        Top = 124
+        Top = 108
         Width = 20
         Height = 20
         OnMouseUp = Shape1MouseUp
       end
       object Label6: TLabel
         Left = 51
-        Top = 128
+        Top = 112
         Width = 60
         Height = 13
         Caption = 'Identification'
       end
       object Shape2: TShape
         Left = 128
-        Top = 124
+        Top = 108
         Width = 20
         Height = 20
         OnMouseUp = Shape1MouseUp
       end
       object Label7: TLabel
         Left = 155
-        Top = 128
+        Top = 112
         Width = 36
         Height = 13
         Caption = 'Marque'
       end
       object Label5: TLabel
         Left = 32
-        Top = 96
+        Top = 80
         Width = 36
         Height = 13
         Caption = 'Couleur'
       end
       object Shape3: TShape
         Left = 224
-        Top = 124
+        Top = 108
         Width = 20
         Height = 20
         OnMouseUp = Shape1MouseUp
       end
       object Label17: TLabel
         Left = 251
-        Top = 128
+        Top = 112
         Width = 26
         Height = 13
         Caption = 'Label'
       end
       object Label18: TLabel
         Left = 24
-        Top = 290
+        Top = 338
         Width = 81
         Height = 13
         Caption = 'Densit'#233' de labels'
       end
       object Label19: TLabel
         Left = 24
-        Top = 266
+        Top = 314
         Width = 75
         Height = 13
         Caption = 'Taille des labels'
+      end
+      object Label33: TLabel
+        Left = 24
+        Top = 200
+        Width = 88
+        Height = 13
+        Caption = 'Taille des marques'
       end
       object CheckBox4: TCheckBox
         Left = 24
@@ -368,8 +382,8 @@ object Form2: TForm2
         TabOrder = 1
       end
       object CheckBox6: TCheckBox
-        Left = 168
-        Top = 197
+        Left = 24
+        Top = 173
         Width = 129
         Height = 17
         Caption = 'Affiche la marque'
@@ -377,7 +391,7 @@ object Form2: TForm2
       end
       object CheckBox5: TCheckBox
         Left = 24
-        Top = 197
+        Top = 245
         Width = 129
         Height = 17
         Caption = 'Affiche les labels'
@@ -385,7 +399,7 @@ object Form2: TForm2
       end
       object CheckBox14: TCheckBox
         Left = 24
-        Top = 176
+        Top = 152
         Width = 289
         Height = 17
         Caption = 'Marque la libration maximum'
@@ -393,7 +407,7 @@ object Form2: TForm2
       end
       object TrackBar2: TTrackBar
         Left = 160
-        Top = 288
+        Top = 336
         Width = 150
         Height = 17
         Min = -1000
@@ -410,7 +424,7 @@ object Form2: TForm2
       end
       object TrackBar3: TTrackBar
         Left = 160
-        Top = 264
+        Top = 312
         Width = 150
         Height = 17
         LineSize = 5
@@ -429,7 +443,7 @@ object Form2: TForm2
       end
       object CheckBox17: TCheckBox
         Left = 24
-        Top = 218
+        Top = 266
         Width = 249
         Height = 17
         Caption = 'Label centr'#233' sur la formation'
@@ -437,11 +451,30 @@ object Form2: TForm2
       end
       object CheckBox18: TCheckBox
         Left = 24
-        Top = 240
+        Top = 288
         Width = 209
         Height = 17
         Caption = 'Label minimum'
         TabOrder = 9
+      end
+      object TrackBar4: TTrackBar
+        Left = 160
+        Top = 198
+        Width = 150
+        Height = 17
+        LineSize = 5
+        Max = 8
+        Min = 1
+        Orientation = trHorizontal
+        PageSize = 25
+        Frequency = 1
+        Position = 5
+        SelEnd = 0
+        SelStart = 0
+        TabOrder = 10
+        ThumbLength = 12
+        TickMarks = tmBottomRight
+        TickStyle = tsAuto
       end
     end
     object TabSheet4: TTabSheet
@@ -449,7 +482,7 @@ object Form2: TForm2
       ImageIndex = 4
       object RadioGroup1: TRadioGroup
         Left = 16
-        Top = 40
+        Top = 48
         Width = 305
         Height = 57
         Caption = 'R'#233'solution des textures'
@@ -465,7 +498,7 @@ object Form2: TForm2
       end
       object RadioGroup2: TRadioGroup
         Left = 16
-        Top = 176
+        Top = 192
         Width = 305
         Height = 105
         Caption = 'Choix de la texture'
@@ -478,7 +511,7 @@ object Form2: TForm2
       end
       object CheckBox10: TCheckBox
         Left = 16
-        Top = 8
+        Top = 16
         Width = 297
         Height = 17
         Caption = 'Interpolation des textures'
@@ -486,7 +519,7 @@ object Form2: TForm2
       end
       object RadioGroup3: TRadioGroup
         Left = 16
-        Top = 104
+        Top = 120
         Width = 305
         Height = 57
         Caption = 'R'#233'solution des textures face cach'#233'e'
@@ -504,62 +537,99 @@ object Form2: TForm2
     object TabSheet6: TTabSheet
       Caption = 'Overlay'
       ImageIndex = 6
-      object Label30: TLabel
-        Left = 32
-        Top = 44
-        Width = 42
+      object nooverlay: TLabel
+        Left = 40
+        Top = 24
+        Width = 257
+        Height = 105
+        AutoSize = False
+        Caption = 
+          'Your graphic card do not support to display more than one textur' +
+          'e for the same object. Thus it is not possible to use this funct' +
+          'ion on this computer. Be sure that hardware acceleration is acti' +
+          'vated or change the graphic card. The require function is GL_ARB' +
+          '_MULTITEXTURE '
+        WordWrap = True
+      end
+      object Label34: TLabel
+        Left = 40
+        Top = 152
+        Width = 211
         Height = 13
-        Caption = 'Overlay :'
+        Cursor = crHandPoint
+        Caption = 'Look here for a list of supported graphic card'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlue
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        OnClick = Label34Click
       end
-      object Image1: TImage
-        Left = 34
-        Top = 97
-        Width = 280
-        Height = 140
-        Stretch = True
-      end
-      object Label32: TLabel
-        Left = 32
-        Top = 264
-        Width = 68
-        Height = 13
-        Caption = 'Transparency:'
-      end
-      object CheckBox11: TCheckBox
-        Left = 32
+      object OverlayPanel: TPanel
+        Left = 8
         Top = 8
-        Width = 273
-        Height = 17
-        Caption = 'Show overlay'
+        Width = 313
+        Height = 337
+        BevelOuter = bvNone
         TabOrder = 0
-      end
-      object ComboBox5: TComboBox
-        Left = 32
-        Top = 64
-        Width = 145
-        Height = 21
-        ItemHeight = 13
-        Sorted = True
-        TabOrder = 1
-        OnChange = ComboBox5Change
-      end
-      object TrackBar5: TTrackBar
-        Left = 104
-        Top = 256
-        Width = 161
-        Height = 33
-        LineSize = 5
-        Max = 200
-        Orientation = trHorizontal
-        PageSize = 10
-        Frequency = 20
-        Position = 0
-        SelEnd = 0
-        SelStart = 0
-        TabOrder = 2
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
-        OnChange = TrackBar5Change
+        object Image1: TImage
+          Left = 33
+          Top = 93
+          Width = 280
+          Height = 140
+          Stretch = True
+        end
+        object Label30: TLabel
+          Left = 32
+          Top = 44
+          Width = 42
+          Height = 13
+          Caption = 'Overlay :'
+        end
+        object Label32: TLabel
+          Left = 32
+          Top = 268
+          Width = 68
+          Height = 13
+          Caption = 'Transparency:'
+        end
+        object CheckBox11: TCheckBox
+          Left = 32
+          Top = 8
+          Width = 273
+          Height = 17
+          Caption = 'Show overlay'
+          TabOrder = 0
+        end
+        object ComboBox5: TComboBox
+          Left = 32
+          Top = 64
+          Width = 145
+          Height = 21
+          ItemHeight = 0
+          Sorted = True
+          TabOrder = 1
+          OnChange = ComboBox5Change
+        end
+        object TrackBar5: TTrackBar
+          Left = 112
+          Top = 264
+          Width = 161
+          Height = 33
+          LineSize = 5
+          Max = 200
+          Orientation = trHorizontal
+          PageSize = 10
+          Frequency = 20
+          Position = 0
+          SelEnd = 0
+          SelStart = 0
+          TabOrder = 2
+          TickMarks = tmBottomRight
+          TickStyle = tsAuto
+          OnChange = TrackBar5Change
+        end
       end
     end
     object TabSheet2: TTabSheet
@@ -963,7 +1033,7 @@ object Form2: TForm2
   end
   object Button4: TButton
     Left = 266
-    Top = 384
+    Top = 424
     Width = 75
     Height = 25
     Cancel = True
@@ -973,13 +1043,13 @@ object Form2: TForm2
   end
   object ColorDialog1: TColorDialog
     Ctl3D = True
-    Left = 8
-    Top = 384
+    Left = 16
+    Top = 424
   end
   object OpenDialog1: TOpenDialog
     DefaultExt = '.exe'
     Filter = 'Image software|*.exe'
-    Left = 48
-    Top = 384
+    Left = 56
+    Top = 424
   end
 end

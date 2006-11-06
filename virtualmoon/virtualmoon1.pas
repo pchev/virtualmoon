@@ -34,11 +34,11 @@ uses
   GLcontext, GLCadencer, GLBitmapFont, GLHUDObjects, GLGraphics,
   GLGraph, GLMirror, AsyncTimer, GLUtils, GLCrossPlatForm,
 {$ENDIF}
-  mlb2, Printers,  Controls,
+  mlb2, Printers,  Controls, DateUtils,
   Messages, SysUtils, Classes, Dialogs,  math,
   ComCtrls, Mask, Menus, jpeg, Buttons, ToolWin,
   EnhEdits, IniFiles, Grids, BigIma, HTMLLite, passql, passqlite,
-  GLGeomObjects;
+  GLGeomObjects, ImgList;
 
 
 type
@@ -305,10 +305,13 @@ type
     ToolButton6: TToolButton;
     Button19: TButton;
     Button20: TButton;
-    SpeedButton8: TSpeedButton;
     ToolButton11: TToolButton;
     DummyCube5: TGLDummyCube;
     RemoveMark1: TMenuItem;
+    ButtonDatabase: TToolButton;
+    CheckBox8: TCheckBox;
+    ImageList1: TImageList;
+    ToolButton12: TToolButton;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -469,10 +472,11 @@ type
     procedure SpeedButton8Click(Sender: TObject);
     procedure RemoveMark1Click(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
+    procedure CheckBox8Click(Sender: TObject);
   private
-    { Déclarations privées }
+    { Dï¿½larations privï¿½s }
   public
-    { Déclarations publiques }
+    { Dï¿½larations publiques }
     procedure InitGraphic(Sender: TObject);
     procedure LoadOverlay(fn:string; lum:integer);
     Procedure SetLabel;
@@ -502,8 +506,8 @@ Procedure ShowImg(desc,nom:string; forceinternal:boolean);
 function SearchName(n: string; center: boolean):boolean;
 Procedure OpenHires(forcerebuild:boolean);
 
-const AVLversion = '3.0';
-      Splashversion ='Version 3.0a  2005-10-29';
+const AVLversion = '3.5';
+      Splashversion ='Version 3.5 2006-11-4';
       d1 = '0.0';
       d2 = '0.00';
       d3 = '0.000';
@@ -548,7 +552,7 @@ const AVLversion = '3.0';
       ExitMsg='Virtual_Moon_Atlas_Pro_exit';
       versionname='Pro';
 {$endif}
-    VMAbrowser='VMA Browser';
+    VMAbrowser='DATLUN';
     
 var lastx,lasty,lastyzoom,posmin,posmax,ax,ay,MaxSprite : integer;
     ReduceTexture,ReduceTextureFar,LastIma,maximgdir,maxima,startx,starty,saveimagesize,lastscrollx,lastscrolly : Integer;
@@ -558,10 +562,10 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay,MaxSprite : integer;
     PicTop,PicLeft: array of integer;
     librl,librb,lrot,inclination,librlong,librlat,wheelstep,EphStep,fov,searchl,searchb,markx,marky,flipx,rotstep,lunaison : double;
     ra,dec,rad,ded,dist,dkm,diam,phase,illum,pa,sunincl,timezone,currentphase,tphase,LabelSize,bx,by,bxpos,dummy : double;
-    editrow,notesrow,hi_w,hi_wd,hi_dl,hi_mult,rotdirection,searchpos : integer;
+    editrow,notesrow,hi_w,hi_wd,hi_dl,hi_mult,rotdirection,searchpos,marksize : integer;
     dbedited : Boolean = false;
     SkipIdent,Firstsearch,phaseeffect,librationeffect,geocentric,FollowNorth,notesok,notesedited,labelcenter,minilabel,SafeMode : boolean;
-    useOpenGL,lockmove,lockrepeat,DDEreceiveok,showlabel,showautolabel,showmark,showlibrationmark,marked,saveimagewhite,skipresize : boolean;
+    useOpenGL,lockmove,lockrepeat,lockrot,DDEreceiveok,showlabel,showautolabel,showmark,showlibrationmark,marked,saveimagewhite,skipresize : boolean;
     searchtext, imac1, imac2, imac3,lopamplateurl,lopamnameurl,lopamdirecturl,lopamlocalurl,lopamplatesuffix,lopamnamesuffix,lopamdirectsuffix,lopamlocalsuffix : string;
     externalimagepath,helpprefix,AntiAlias,ruklprefix,ruklsuffix,hiresfile,exitpassword,password,transmsg,scopeinterface,markname,currentname,currentid : string;
     appname : string;
@@ -608,11 +612,19 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay,MaxSprite : integer;
     useDBN: integer = 5;
     db_age : array[1..5] of integer;
     farsidetexture : Boolean = true;
+    compresstexture : Boolean = false;
     showoverlay : Boolean = true;
     LastScopeTracking : double = 0;
     nmjd,fqjd,fmjd,lqjd,currentl,currentb : double;
     searchlist: Tstringlist;
     UseComputerTime : Boolean = true;
+    AsMultiTexture : Boolean = false;
+
+type
+ TSwitchToThisWindow = procedure (h1: hWnd; restore: bool); stdcall;
+var
+ SwitchToThisWindow: TSwitchToThisWindow;
+ user32dll: Dword;
 
 implementation
 
@@ -624,7 +636,6 @@ uses telescope, config, skylib,planet1, splashunit,Sky_DDE_Util, imglistunit,
 
 {$I vmoon.inc}
 
-//////////////////////////////////////////////////////////////////
 begin
   ShowWindow(Application.Handle, SW_HIDE);
 end.

@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 269
-  Top = 163
-  Width = 811
-  Height = 580
+  Left = 243
+  Top = 148
+  Width = 913
+  Height = 613
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
   Caption = 'Form1'
@@ -1300,7 +1300,7 @@ object Form1: TForm1
   object ControlBar1: TControlBar
     Left = 0
     Top = 0
-    Width = 803
+    Width = 905
     Height = 27
     Align = alTop
     AutoDrag = False
@@ -1353,12 +1353,12 @@ object Form1: TForm1
     object ToolBar1: TToolBar
       Left = 231
       Top = 2
-      Width = 815
+      Width = 1189
       Height = 23
       Align = alNone
       AutoSize = True
       ButtonHeight = 21
-      ButtonWidth = 55
+      ButtonWidth = 84
       Caption = 'ToolBar'
       DragMode = dmAutomatic
       EdgeBorders = []
@@ -1540,8 +1540,14 @@ object Form1: TForm1
         ImageIndex = 4
         OnClick = NewWindowButtonClick
       end
-      object DebugLabel: TLabel
+      object ButtonDatabase: TToolButton
         Left = 635
+        Top = 2
+        Caption = 'ButtonDatabase'
+        ImageIndex = 5
+      end
+      object DebugLabel: TLabel
+        Left = 719
         Top = 2
         Width = 58
         Height = 21
@@ -1939,6 +1945,12 @@ object Form1: TForm1
     ResultSet = 'default'
     ThreadSafe = True
     SQLiteVersion = svAuto
+    PragmasBoolean = []
+    PragmaCacheSize = 0
+    PragmaDefaultCacheSize = 0
+    PragmaPagesize = 0
+    PragmaSynchronous = spOff
+    PragmaTempStore = tpDefault
     Left = 80
     Top = 112
   end

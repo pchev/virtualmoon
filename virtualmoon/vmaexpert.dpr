@@ -104,7 +104,9 @@ begin
     Halt(0);
   end;
   Application.Initialize;
- {Tell Delphi to un-hide it's hidden application window}
+  Application.UpdateFormatSettings:=false;
+  decimalseparator:='.';
+{Tell Delphi to un-hide it's hidden application window}
  {This allows our instance to have a icon on the task bar}
   Application.ShowMainForm := true;
   ShowWindow(Application.Handle, SW_RESTORE);
@@ -118,7 +120,7 @@ begin
      splash.show;
      splash.refresh;
   end;   
-  Application.CreateForm(TImglist, Imglist);
+  Application.CreateForm(TImglist, Imglist1);
   Application.CreateForm(TForm2, Form2);
   Application.Run;
 end.
