@@ -81,22 +81,17 @@ OriginalFilename=
 ProductName=
 ProductVersion=1.0.0.0
 Comments=
+[Excluded Packages]
+D:\source\PascalScript\Dcu\D6\PascalScript_Core_D6.bpl=RemObjects Pascal Script - Core Package
 [HistoryLists\hlConditionals]
-Count=2
+Count=1
 Item0=opengl;vmaexpert;vmapro
-Item1=opengl;vmaexpert;vmaexpert
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlUnitOutputDirectory]
-Count=5
+Count=1
 Item0=D:\source\vma\dev\dcu_pro
-Item1=E:\vma\dev\dcu_pro
-Item2=E:\vma\dev\dcu_expert
-Item3=d:\vma\dev\dcu_expert
-Item4=E:\vma\dev\dcu
 [HistoryLists\hlOutputDirectorry]
-Count=3
+Count=1
 Item0=D:\VirtualMoon
-Item1=e:\VirtualMoon
-Item2=E:\vma

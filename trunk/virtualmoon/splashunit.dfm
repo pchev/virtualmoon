@@ -582,7 +582,7 @@ object splash: Tsplash
       Align = alBottom
       Alignment = taCenter
       Caption = 
-        'Copyright '#169' 2001-2005  Christian Legrand, Patrick Chevalley, All' +
+        'Copyright '#169' 2001-2006  Christian Legrand, Patrick Chevalley, All' +
         ' rights reserved'#13#10'This program is free software; you can redistr' +
         'ibute it and/or modify it under '#13#10'the terms of the GNU General P' +
         'ublic License.'#13#10'All database, pictures and documentation '#169' Ch. L' +

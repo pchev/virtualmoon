@@ -1,6 +1,6 @@
-program vmabasic;
+program datlun;
 {
-Copyright (C) 2003 Patrick Chevalley
+Copyright (C) 2006 Patrick Chevalley
 
 http://www.astrosurf.com/avl
 pch@freesurf.ch
@@ -19,31 +19,23 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
+
 uses
   Forms,
-  Registry,
   SysUtils,
   Windows,
-  skylib,
-  virtualmoon1 in 'virtualmoon1.pas' {Form1},
-  config in 'config.pas' {Form2},
-  BigIma in 'BigIma.pas' {BigImaForm},
-  splashunit in 'splashunit.pas' {splash},
-  imglistunit in 'imglistunit.pas' {Imglist},
-  glossary in 'glossary.pas' {Gloss},
-  fmsg in 'fmsg.pas' {MsgForm};
+  vmabrowser1 in 'vmabrowser1.pas' {Form1},
+  vmabrowser2 in 'vmabrowser2.pas' {Selection},
+  vmabrowser3 in 'vmabrowser3.pas' {Columns},
+  vmabrowser4 in 'vmabrowser4.pas' {LoadCSV},
+  vmabrowser5 in 'vmabrowser5.pas' {SelectDB};
 
-{$R *.RES}
+{$R *.res}
 
-const IdMsg='Virtual_Moon_Atlas_Basic_message';
-      IdMutex='Virtual_Moon_Atlas_Basic_mutex';
-      exeName='vmabasic.exe';
-
-var Registry1: TRegistry;
-    buf: shortstring;
-    ok : boolean;
-    f : textfile;                          
-    i : integer;
+const IdMutex='Virtual_Moon_Atlas_Browser_mutex';
+var ok : boolean;
+    f : textfile;
+    i : integer;                                        
 
 Function CreateMyMutex:boolean;
 begin
@@ -54,26 +46,8 @@ begin
 end;
 
 begin
-  Registry1 := TRegistry.Create;       // get install directory
-  with Registry1 do begin
-    ok:=Openkey('Software\Astro_PC\VirtualMoon',true);
-    if ok then begin
-      if ValueExists('Install_Dir') then begin
-         buf:=ReadString('Install_Dir');
-         if DirectoryExists(buf) and Fileexists(buf+'\'+exename) then chdir(buf)
-         else begin
-              buf:=getcurrentdir;
-              if Fileexists(buf+'\'+exename) then WriteString('Install_Dir',buf);  // sinon on l'initialise
-         end;
-      end else begin
-         buf:=getcurrentdir;
-         if Fileexists(buf+'\'+exename) then WriteString('Install_Dir',buf);  // sinon on l'initialise
-      end;
-      CloseKey;
-    end;
-  end;
-  Registry1.free;
-
+  // Let our window return to foreground when calling SetForegroundWindow.
+//  SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0, nil, SPIF_SENDWININICHANGE or SPIF_UPDATEINIFILE);
   ok:=CreateMyMutex;
   if not ok then begin
    //Send all windows our custom message - only our other
@@ -96,18 +70,14 @@ begin
   Application.Initialize;
   Application.UpdateFormatSettings:=false;
   decimalseparator:='.';
-{Tell Delphi to un-hide it's hidden application window}
+ {Tell Delphi to un-hide it's hidden application window}
  {This allows our instance to have a icon on the task bar}
   Application.ShowMainForm := true;
   ShowWindow(Application.Handle, SW_RESTORE);
   Application.CreateForm(TForm1, Form1);
-  splash := Tsplash.create(application);
-  splash.VersionName:=VersionName;
-  splash.Splashversion:=Splashversion;
-  splash.transmsg:=transmsg;
-  splash.show;
-  splash.refresh;
-  Application.CreateForm(TImglist, Imglist1);
-  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TSelection, Selection);
+  Application.CreateForm(TColumns, Columns);
+  Application.CreateForm(TLoadCSV, LoadCSV);
+  Application.CreateForm(TSelectDB, SelectDB);
   Application.Run;
 end.

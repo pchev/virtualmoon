@@ -41,13 +41,17 @@ type
   end;
 
 var
-  Imglist: TImglist;
+  Imglist1: TImglist;
 
 implementation
 
 uses
 {$IFDEF opengl}
-virtualmoon1;
+   {$IFDEF openglx}
+      virtualmoonx;
+   {$ELSE}
+     virtualmoon1;
+   {$ENDIF}
 {$ELSE}
 virtualmoon2;
 {$ENDIF}

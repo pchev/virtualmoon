@@ -45,10 +45,10 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
-    { Déclarations privées }
+    { Dï¿½larations privï¿½s }
     Procedure Animate;
   public
-    { Déclarations publiques }
+    { Dï¿½larations publiques }
     VersionName,Splashversion,transmsg: string;
   end;
 
@@ -58,11 +58,6 @@ var
   closing : boolean;
 
 implementation
-{$IFDEF opengl}
-//uses virtualmoon1;
-{$ELSE}
-//uses virtualmoon2;
-{$ENDIF}
 
 {$R *.DFM}
 
@@ -80,12 +75,12 @@ cpylst: array[1..2,1..nlin]of string=((
 '',
 '',
 'CARTOGRAPHIE :',
-'RECHERCHE DES CARTES / OBTENTION DES DROITS : Christian LEGRAND',
+'RECHERCHE DES CARTES / OBTENTION DES DROITS: Christian LEGRAND',
 'REALISATION CARTE 2D TOPOGRAPHIQUE : Patrick  CHEVALLEY',
 'REALISATION CARTES 3D TOPOGRAPHIQUES : Patrick  CHEVALLEY',
 'REALISATION CARTE 2D GEOLOGIQUE : Christian LEGRAND',
 'REALISATION CARTE 3D GEOLOGIQUE : Patrick  CHEVALLEY',
-'REALISATION CARTES 3D SCIENTIFIQUES : Christian LEGRAND',
+'REALISATION CARTES 3D SCIENTIFIQUES: Christian LEGRAND',
 '',
 'BASE DE DONNEES :',
 'ORGANISATION DE LA BASE : Christian LEGRAND',
@@ -94,14 +89,14 @@ cpylst: array[1..2,1..nlin]of string=((
 '',
 'BIBLIOTHEQUE D''IMAGES :',
 'RECHERCHE DES IMAGES : Christian LEGRAND',
-'OBTENTION DES DROITS DE REPRODUCTION : Christian LEGRAND',
+'OBTENTION DES DROITS DE REPRODUCTION: Christian LEGRAND',
 'MISE EN FORME ET TRAITEMENT DES IMAGES : Christian LEGRAND',
 '',
 'DOCUMENTATION :',
 'REDACTION : Christian LEGRAND & Patrick  CHEVALLEY',
 'MISE EN FORME : Patrick  CHEVALLEY',
 'GLOSSAIRE : Christian LEGRAND',
-'ENCYCLOPEDIE : Christian LEGRAND',
+'ENCYCLOPEDIE: Christian LEGRAND',
 '',
 'SITE INTERNET :',
 'REDACTION : Christian LEGRAND & Patrick  CHEVALLEY',
@@ -140,7 +135,7 @@ cpylst: array[1..2,1..nlin]of string=((
 'EDITION : Christian LEGRAND',
 'DOCUMENTATION FORMATING : Patrick  CHEVALLEY',
 'GLOSSARY : Christian LEGRAND',
-'ENCYCLOPEDIA : Christian LEGRAND',
+'ENCYCLOPEDIA: Christian LEGRAND',
 '',
 'INTERNET SITE :',
 'EDITION : Christian LEGRAND & Patrick  CHEVALLEY',

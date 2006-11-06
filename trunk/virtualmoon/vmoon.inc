@@ -459,9 +459,9 @@ with inifile do begin
     ToolButton2.Caption:='&'+configuration1.caption;
     label10.caption:=(ReadString(section,'t_4',deftxt));
     zoom1.Caption:=label10.caption;
-    toolbutton5.caption:=ReadString(section,'t_5',deftxt);
-    toolbutton5.Caption:=copy(toolbutton5.Caption,1,2)+'&'+copy(toolbutton5.Caption,3,99);
-    centre1.Caption:=toolbutton5.caption;
+    toolbutton5.hint:=ReadString(section,'t_5',deftxt);
+    //toolbutton5.Caption:=copy(toolbutton5.Caption,1,2)+'&'+copy(toolbutton5.Caption,3,99);
+    centre1.Caption:=toolbutton5.hint;
     Position.caption:=(ReadString(section,'t_6',deftxt));
     Position1.Caption:=Position.caption;
     Ephemerides.caption:=(ReadString(section,'t_7',deftxt));
@@ -476,8 +476,8 @@ with inifile do begin
     Apropos1.caption:=(ReadString(section,'t_16',deftxt));
     Button5.caption:=(ReadString(section,'t_17',deftxt));
     Button4.caption:=(ReadString(section,'t_113',Button4.caption));
-    ToolButton7.caption:='&'+ReadString(section,'t_25',deftxt);
-    Image2.Caption:=ToolButton7.caption;
+    ToolButton7.hint:=ReadString(section,'t_25',deftxt);
+    Image2.Caption:=ToolButton7.hint;
     Label14.caption:=(ReadString(section,'t_32',deftxt));
     Label8.caption:=(ReadString(section,'t_33',deftxt));
     Label11.caption:=(ReadString(section,'t_34',deftxt));
@@ -516,8 +516,8 @@ with inifile do begin
     CheckBox2.caption:=ReadString(section,'t_74',deftxt);
     Enregistrersous1.caption:=ReadString(section,'t_78',deftxt);
     Imprimer1.caption:=ReadString(section,'t_79',deftxt);
-    ToolButton10.caption:='&'+ReadString(section,'t_81',deftxt);
-    Voisinage1.Caption:=ToolButton10.caption;
+    ToolButton10.hint:=ReadString(section,'t_81',deftxt);
+    Voisinage1.Caption:=ToolButton10.hint;
     Selectiondimprimante1.Caption:=ReadString(section,'t_82',deftxt);
     LgendeGologique1.Caption:=ReadString(section,'t_83',deftxt);
     selectall1.Caption:=ReadString(section,'t_84',deftxt);
@@ -541,16 +541,19 @@ with inifile do begin
     label21.caption:=ReadString(section,'t_155',label21.caption);
     Encyclopedia1.caption:=ReadString(section,'t_165',deftxt);
     Snapshot1.caption:=ReadString(section,'t_167',Snapshot1.caption);
-    LibrationButton.caption:=(ReadString(section,'t_175',LibrationButton.caption));
-    PhaseButton.caption:=(ReadString(section,'t_176',PhaseButton.caption));
-    ToolButton4.caption:=(ReadString(section,'t_177',ToolButton4.caption));
-    ToolButton6.caption:=(ReadString(section,'t_178',ToolButton6.caption));
+    LibrationButton.hint:=(ReadString(section,'t_175',LibrationButton.caption));
+    PhaseButton.hint:=(ReadString(section,'t_176',PhaseButton.caption));
+    ToolButton4.hint:=(ReadString(section,'t_177',ToolButton4.caption));
+    ToolButton6.hint:=(ReadString(section,'t_178',ToolButton6.caption));
     RemoveMark1.caption:=(ReadString(section,'t_180',RemoveMark1.caption));
 
     {$ifdef vmalight}
-       Toolbutton3.caption:=ReadString(section,'t_130',Toolbutton3.caption);
+       Toolbutton3.hint:=ReadString(section,'t_130',Toolbutton3.caption);
     {$endif}
     {$ifndef vmalight}
+       ButtonDatabase.hint:=Database1.caption;
+       CheckBox8.caption:=ReadString(section,'t_182',CheckBox5.caption);
+       Toolbutton12.hint:=ReadString(section,'t_183',deftxt);
        CheckBox6.caption:=(ReadString(section,'t_156',deftxt));
        CheckBox7.caption:=(ReadString(section,'t_157',deftxt));
        label28.caption:=(ReadString(section,'t_158',deftxt));
@@ -561,7 +564,7 @@ with inifile do begin
        Button18.caption:=(ReadString(section,'t_163',deftxt));
     {$endif}
     {$ifdef vmaexpert}
-       Toolbutton3.caption:=ReadString(section,'t_134',Toolbutton3.caption);
+       Toolbutton3.hint:=ReadString(section,'t_134',Toolbutton3.caption);
        Rotation1.caption:=ReadString(section,'t_135',Rotation1.caption);
        GroupBox3.caption:=Rotation1.caption;
        Stop1.caption:=ReadString(section,'t_136',Stop1.caption);
@@ -583,7 +586,7 @@ with inifile do begin
        SpeedButton5.caption:=ReadString(section,'t_140',SpeedButton5.caption);
        SpeedButton6.caption:=ReadString(section,'t_141',SpeedButton6.caption);
        SpeedButton4.caption:=ReadString(section,'t_142',SpeedButton4.caption);
-       NewWindowButton.caption:=ReadString(section,'t_166',NewWindowButton.caption);
+       NewWindowButton.hint:=ReadString(section,'t_166',NewWindowButton.caption);
     {$endif}
   end;
   with Form2 do begin
@@ -679,6 +682,9 @@ with inifile do begin
     Label23.caption:=ReadString(section,'t_173',label23.caption);
     CheckBox16.caption:=ReadString(section,'t_174',CheckBox16.caption);
     label31.caption:=ReadString(section,'t_179',label31.caption);
+    label33.caption:=ReadString(section,'t_181',label33.caption);
+    nooverlay.caption:=ReadString(section,'t_184',label33.caption);
+    label34.caption:=ReadString(section,'t_185',label33.caption);
 
     RadioGroup2.items.clear;
     {$ifdef vmalight}
@@ -713,11 +719,23 @@ begin
    ObsRefractionCor:=1;
 end;
 
-Function GetTimeZone : double;
+{Function GetTimeZone : double;
 var lt,st : TSystemTime;
 begin
  GetLocalTime(lt);GetSystemTime(st);
  result:=round(240000*(SystemTimeToDateTime(lt)-SystemTimeToDateTime(st)))/10000;
+end;}
+Function GetTimeZone(sdt:Tdatetime) : double;
+var lt,st : TSystemTime;
+begin
+if UseComputerTime then begin
+ DateTimeToSystemTime(sdt,st);
+ if not SystemTimeToTzSpecificLocalTime(nil,st,lt) then begin
+    GetLocalTime(lt);GetSystemTime(st);
+ end;
+ result:=round(240000*(SystemTimeToDateTime(lt)-SystemTimeToDateTime(st)))/10000;
+end
+else result:=timezone; 
 end;
 
 Function SetWhiteColor(x:integer):TColor;
@@ -791,6 +809,8 @@ addimages(slash(appdir)+'Probes','Probes','');
 addimages(slash(appdir)+'LunaStars','LunaStars','');
 addimages(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association');
 addimages(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005');
+addimages(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov');
+addimages(slash(appdir)+'BestOfAmateurs','Best of Amateurs','');
 end;
 
 {$IFDEF opengl}
@@ -855,6 +875,26 @@ with form1 do begin
 //  showmessage(m);
 end;
 end;
+
+Procedure SetCompression(onoff:boolean);
+var
+    cmp:TGLTextureCompression;
+    i: integer;
+begin
+if UseOpenGL then begin
+ if onoff then begin
+     cmp:=tcStandard;
+ end else begin
+     cmp:=tcDefault;
+ end;
+ with form1 do begin
+   for i:=0 to 19 do begin
+     GLMaterialLibrary1.Materials[i].Material.Texture.Compression:=cmp;
+   end;
+ end;
+end;
+end;
+
 {$ENDIF}
 
 Procedure Readdefault;
@@ -873,9 +913,9 @@ usedatabase[3]:=true;
 usedatabase[4]:=true;
 usedatabase[5]:=true;
 for i:=6 to maxdbn do usedatabase[i]:=false;
+timezone:=0;
 Obslatitude:=46;
 Obslongitude:=-6;
-timezone:=gettimezone;
 Obsaltitude:=0;
 phaseeffect:=true;
 librationeffect:=true;
@@ -896,6 +936,7 @@ lockmove:=false;
 maxima := 2;
 LabelDensity:=600;
 LabelSize:=1;
+marksize:=5;
 saveimagesize:=0;
 saveimagewhite:=false;
 ReduceTexture:=1;
@@ -912,7 +953,7 @@ PrintTextWidth:=700;
 PrintChart:=true;
 PrintEph:=true;
 PrintDesc:=true;
-MipMaps:=true;
+MipMaps:=false;
 doublebuf:=true;
 stencilbuf:=false;
 antialias:='Default';
@@ -936,7 +977,11 @@ rotdirection:=1;
 rotstep:=5;
 CloseVMAbrowser:=false;
 {$IFDEF opengl}
-smooth:=90;
+{$IFDEF vmapro}
+  smooth:=180;
+{$ELSE}
+  smooth:=90;
+{$ENDIF}
 {$ENDIF}
 inif:=Tmeminifile.create(Slash(AppDir)+'virtualmoon.ini');
 with inif do begin
@@ -973,15 +1018,19 @@ for i:=1 to 5 do db_age[i]:=ReadInteger(section,'DB_Age'+inttostr(i),0);
 doublebuf:=ReadBool(section,'DoubleBuffer',doublebuf);
 stencilbuf:=ReadBool(section,'StencilBuffer',stencilbuf);
 farsidetexture:=ReadBool(section,'farsidetexture',farsidetexture);
+compresstexture:=ReadBool(section,'compresstexture',compresstexture);
 antialias:=ReadString(section,'AntiAlias',antialias);
 appdir:=ReadString(section,'Install_Dir',appdir);
 Obslatitude:=ReadFloat(section,'Obslatitude',Obslatitude);
 Obslongitude:=ReadFloat(section,'Obslongitude',Obslongitude);
-if not UseComputerTime then begin
+if UseComputerTime then
+   timezone:=gettimezone(now)
+else begin
    timezone:=ReadFloat(section,'TimeZone',timezone);
    CurrentJD:=ReadFloat(section,'CurrentJD',CurrentJD);
    dt_ut:=ReadFloat(section,'dt_ut',dt_ut);
 end;
+cameraorientation:=ReadFloat(section,'CameraOrientation',CameraOrientation);
 phaseeffect:=ReadBool(section,'PhaseEffect',phaseeffect);
 mipmaps:=ReadBool(section,'MipMaps',mipmaps);
 GeologicalMap:=ReadBool(section,'GeologicalMap',GeologicalMap);
@@ -996,6 +1045,7 @@ LabelColor:=ReadInteger(section,'LabelColor',LabelColor);
 MarkColor:=ReadInteger(section,'MarkColor',MarkColor);
 AutolabelColor:=ReadInteger(section,'AutolabelColor',AutolabelColor);
 LabelDensity:=ReadInteger(section,'LabelDensity',LabelDensity);
+marksize:=ReadInteger(section,'MarkSize',marksize);
 LabelSize:=ReadFloat(section,'LabelSize',LabelSize);
 labelcenter:=ReadBool(section,'LabelCenter',labelcenter);
 minilabel:=ReadBool(section,'MiniLabel',minilabel);
@@ -1080,6 +1130,7 @@ end;
 useOpenGL:=true;
 if useOpenGL then begin
    form1.glscene1.BeginUpdate;
+   SetCompression(compresstexture);
    if not doublebuf then form1.GLSceneViewer1.Buffer.ContextOptions:=form1.GLSceneViewer1.Buffer.ContextOptions-[roDoubleBuffer];
    if stencilbuf then form1.GLSceneViewer1.Buffer.ContextOptions:=form1.GLSceneViewer1.Buffer.ContextOptions+[roStencilBuffer];
    if antialias='2x' then form1.GLSceneViewer1.Buffer.AntiAliasing:=aa2x
@@ -1155,6 +1206,8 @@ with inif do begin
   WriteString(section,'AntiAlias',antialias);
   WriteBool(section,'MipMaps',mipmaps);
   WriteBool(section,'LibrationEffect',librationeffect);
+  WriteBool(section,'compresstexture',compresstexture);
+  WriteFloat(section,'CameraOrientation',CameraOrientation);
   {$ENDIF}
 {$ifdef vmapro}
   WriteInteger(section,'useDBN',useDBN);
@@ -1207,6 +1260,7 @@ with inif do begin
   WriteInteger(section,'AutolabelColor',AutolabelColor);
   WriteInteger(section,'LabelDensity',LabelDensity);
   WriteFloat(section,'LabelSize',LabelSize);
+  WriteInteger(section,'MarkSize',marksize);
   WriteBool(section,'LabelCenter',labelcenter);
   WriteBool(section,'MiniLabel',minilabel);
   WriteBool(section,'FollowNorth',FollowNorth);
@@ -1380,8 +1434,8 @@ for i:=0 to InitialSprite-1 do begin
     newSprite.Material.FrontProperties.Specular.Color:=clrBlack;
     newSprite.Up.SetVector(0,1,0);
     newSprite.Scale.SetVector(1,1,1);
-    newSprite.Width:=3;
-    newSprite.Height:=3;
+    newSprite.Width:=marksize;
+    newSprite.Height:=marksize;
 end;
 maxsprite:=maxsprite+InitialSprite;
 end;
@@ -1551,6 +1605,8 @@ for j:=0 to dbm.RowCount-1 do begin
     if (xx>0)and(yy>0)and(xx<form1.GLSceneViewer1.Width)and(yy<form1.GLSceneViewer1.Height)
      and((currenteyepiece=0)or( sqrt(Intpower(form1.GLSceneViewer1.Width/2-xx,2)+Intpower(form1.GLSceneViewer1.Height/2-yy,2))<0.475*form1.GLSceneViewer1.Width ))then begin
       with form1.DummyCube5.Children[cursprite] as TGLHUDSprite do begin
+       Width:=marksize;
+       Height:=marksize;
        Visible:=true;
        Position.Y:=yy;
        Position.X:=xx;
@@ -1606,6 +1662,8 @@ marky:=y;
 if useOpenGL then begin
   shapepositionX:=x;
   shapepositionY:=y;
+  hudsprite1.Width:=marksize;
+  hudsprite1.Height:=marksize;
   if (x=0)and(y=0) then begin
      hudsprite1.Visible:=false;
      hudtext1.Visible:=false;
@@ -1793,26 +1851,25 @@ end;
 {$IFDEF opengl}
 Procedure SetMinFilter(onoff:boolean);
 var mi: TGLMinFilter;
+    i: integer;
 begin
 if UseOpenGL then begin
- if onoff then mi:=miNearestMipmapNearest
-          else mi:=miLinear;
+ if onoff then begin
+     mi:=miNearestMipmapNearest;
+ end else begin
+     mi:=miLinear;
+ end;
  with form1 do begin
    GLScene1.BeginUpdate;
-   GLMaterialLibrary1.Materials[0].Material.Texture.MinFilter:=mi;
-   GLMaterialLibrary1.Materials[1].Material.Texture.MinFilter:=mi;
-   GLMaterialLibrary1.Materials[2].Material.Texture.MinFilter:=mi;
-   GLMaterialLibrary1.Materials[3].Material.Texture.MinFilter:=mi;
-   GLMaterialLibrary1.Materials[4].Material.Texture.MinFilter:=mi;
-   GLMaterialLibrary1.Materials[5].Material.Texture.MinFilter:=mi;
-   GLMaterialLibrary1.Materials[6].Material.Texture.MinFilter:=mi;
-   GLMaterialLibrary1.Materials[7].Material.Texture.MinFilter:=mi;
-   GLMaterialLibrary1.Materials[8].Material.Texture.MinFilter:=mi;
+   for i:=0 to 8 do begin
+     GLMaterialLibrary1.Materials[i].Material.Texture.MinFilter:=mi;
+   end;
    GLScene1.EndUpdate;
    GLSceneViewer1.Update;
  end;
 end;
 end;
+
 {$ENDIF}
 
 Procedure DrawEyepiece;
@@ -1983,6 +2040,7 @@ var y,m,d,h,n,s,ms : word;
 begin
 decodedate(now,y,m,d);
 decodetime(now,h,n,s,ms);
+timezone:=gettimezone(now);
 form1.annee.Value:=y;
 form1.mois.Value:=m;
 form1.jour.Value:=d;
@@ -2007,6 +2065,9 @@ Procedure SetJDDate;
 var y,m,d : integer; h,n,s,ms : word;
     hh : double;
 begin
+djd(CurrentJD-(DT_UT/24)+1e-8,y,m,d,hh);
+decodetime(hh/24,h,n,s,ms);
+timezone:=gettimezone(encodedatetime(y,m,d,h,n,s,ms));
 djd(CurrentJD+(timezone/24)-(DT_UT/24)+1e-8,y,m,d,hh);
 decodetime(hh/24,h,n,s,ms);
 form1.annee.Value:=y;
@@ -2212,6 +2273,15 @@ except
 end;
 end;
 
+procedure LoadSwitchToThisWindow;
+begin
+ SwitchToThisWindow:=nil;
+ user32dll:=LoadLibrary(Pchar('user32.dll'));
+ if user32dll<>0 then begin
+    SwitchToThisWindow := TSwitchToThisWindow(GetProcAddress(user32dll, 'SwitchToThisWindow'));
+ end;
+end;
+
 function NewWindowProc(WindowHandle : hWnd;
                        TheMessage   : Dword;
                        ParamW       : LongInt;
@@ -2224,7 +2294,10 @@ begin
     try
    {Tell the application to restore, let it restore the form}
     SendMessage(Application.handle, WM_SYSCOMMAND, SC_RESTORE, 0);
-    SetForegroundWindow(Application.Handle);
+    if @SwitchToThisWindow=nil then
+       SetForegroundWindow(Application.Handle)
+    else
+       SwitchToThisWindow(Application.Handle,true);
     application.ProcessMessages;
     if (ParamW > 0)and(not multi_instance) then begin
        chdir(appdir);
@@ -2511,7 +2584,9 @@ panel2d.Height:=form1.ClientHeight-form1.ToolBar1.Height;
 panel2d.width:=panel2d.height;
 panel3.Width:=panel2d.Width-vertscrollbar.width;
 panel3.height:=panel2d.Height-horzscrollbar.height;
+lockrot:=true;
 if PoleOrientation=0 then RadioGroup2.ItemIndex:=0 else RadioGroup2.ItemIndex:=1;
+lockrot:=false;
 {$IFDEF opengl}
 if useOpenGL then begin
   panel2.Visible:=true;
@@ -2541,7 +2616,7 @@ if useOpenGL then begin
   trackbar1.Min:=round(100*log10(minfoc));
   trackbar1.Max:=round(100*log10(maxfoc));
   trackbar1.position:=round(100*log10(minfoc));
-  CameraOrientation:=PoleOrientation;
+//  CameraOrientation:=PoleOrientation;
   checkbox1.Checked:=FollowNorth;
   SetCameraOrientation;
 
@@ -2574,6 +2649,7 @@ if useOpenGL then begin
   CheckBox3.checked:=doublebuf;
   CheckBox4.checked:=stencilbuf;
   CheckBox5.Checked:=farsidetexture;
+  CheckBox8.Checked:=compresstexture;
   SetMinFilter(MipMaps);
   SetMirror(checkbox2.checked);
   LoadOverlay(overlayname,overlaylum);
@@ -2665,7 +2741,6 @@ ExitRequest := RegisterWindowMessage(ExitMsg);
 OldWindowProc := Pointer(SetWindowLong(Form1.Handle,
                                        GWL_WNDPROC,
                                        LongInt(@NewWindowProc)));
-decimalseparator:='.';
 searchlist:=Tstringlist.Create;
 param:=Tstringlist.Create;
 param.clear;
@@ -2689,10 +2764,8 @@ if not fileexists('version.developpement') then begin
   BMP30001.Visible:=false;   // save bmp for light version
   {$ifndef vmalight}
    label27.visible:=false;       //not finished  globe inclination
-   speedbutton7.visible:=false;  //not finished
-   trackbar6.visible:=false;     //not finished
-   database1.visible:=false;     //not finished database
-   N4.visible:=false;            //not finished
+   speedbutton7.visible:=false;  //not finished  globe inclination
+   trackbar6.visible:=false;     //not finished  globe inclination
   {$endif}
 end;
 // hide version specific function
@@ -2710,6 +2783,7 @@ end;
 {$endif}
 {$ifndef vmapro}
   DataBase1.visible:=false;
+  ButtonDatabase.visible:=false;
   OverlayCaption1.visible:=false;
   OverlayCaption2.visible:=false;
   NewWindowButton.visible:=false;
@@ -2746,7 +2820,9 @@ if multi_instance then begin
   Button15.visible:=false;
   Caption:=caption+'<2>';
 end;
+AsMultiTexture:=(GLSceneViewer1.Buffer.LimitOf[limNbTextureUnits]>1);
 {$endif}
+LoadSwitchToThisWindow;
 end;
 
 Procedure UpdTerminateur;
@@ -2799,9 +2875,9 @@ begin
 l:=currentl;
 b:=currentb;
 deltal:=delta/cos(deg2rad*b);
-with imglist do begin
+with imglist1 do begin
 behavior:=formation;
-imglist.caption:=copy(form1.ToolButton10.Caption,2,99);
+imglist1.caption:=form1.ToolButton10.hint;
 imglst.Clear;
 dbm.query('select NAME from moon '+
             ' where DBN in ('+sidelist+')'+
@@ -2814,8 +2890,8 @@ for i:=0 to dbm.RowCount-1 do begin
    imglst.items.add(dbm.Results[i][0]);
 end;
 //if not imglist.visible then FormPos(imglist,mouse.cursorpos.x,mouse.cursorpos.y);
-if not imglist.visible then FormPos(imglist,PageControl1.Clienttoscreen(point(0,0)).x ,PageControl1.Clienttoscreen(point(0,0)).y);
-imglist.Show;
+if not imglist1.visible then FormPos(imglist1,PageControl1.Clienttoscreen(point(0,0)).x ,PageControl1.Clienttoscreen(point(0,0)).y);
+imglist1.Show;
 end;
 end;
 
@@ -3333,7 +3409,7 @@ Procedure SearchImages;
 var i : integer;
 begin
 chdir(appdir);
-with imglist do begin
+with imglist1 do begin
 imglst.clear;
 for i:=0 to maximgdir-1 do begin
 //  dir:=appdir+PathDelim+imgdir[i,0]+PathDelim;
@@ -3361,8 +3437,8 @@ if copy(nom,r,1)=' ' then begin
   buf:=copy(nom,r+1,1);
   if ((buf>='a')and(buf<='z'))or((buf>='A')and(buf<='Z')) then nom2:=copy(nom,1,r-1);
 end else nom2:='';
-with imglist do begin
-imglist.caption:=m[54];
+with imglist1 do begin
+imglist1.caption:=m[54];
 behavior:=image;
 SearchImages;
 if (imglst.Count=0)and(nom2>'') then begin
@@ -3370,13 +3446,13 @@ if (imglst.Count=0)and(nom2>'') then begin
   SearchImages;
 end;
 //if not imglist.visible then FormPos(imglist,mouse.cursorpos.x,mouse.cursorpos.y);
-if not imglist.visible then FormPos(imglist,form1.PageControl1.Clienttoscreen(point(0,0)).x ,form1.PageControl1.Clienttoscreen(point(0,0)).y);
+if not imglist1.visible then FormPos(imglist1,form1.PageControl1.Clienttoscreen(point(0,0)).x ,form1.PageControl1.Clienttoscreen(point(0,0)).y);
 case imglst.Count of
-0 : imglist.hide;
+0 : imglist1.hide;
 1 : begin
-    if nom2>'' then imglist.Show
+    if nom2>'' then imglist1.Show
     else begin
-     imglist.hide;
+     imglist1.hide;
      buf:=ImgLst.Items[0];
      r:=pos(':',buf);
      desc:=trim(copy(buf,1,r-1));
@@ -3384,7 +3460,7 @@ case imglst.Count of
      ShowImg(desc,nom,false);
     end;
     end;
-else imglist.Show;
+else imglist1.Show;
 end;
 end;
 end;
@@ -3444,11 +3520,11 @@ if searchpos<searchlist.Count then begin
       ToolButton7.enabled:=false;
       Image2.enabled:=false;
    end;
-   if Imglist.visible then begin
-     if ImgList.behavior=formation then ToolButton10Click(nil);
-     if ImgList.behavior=image then begin
+   if Imglist1.visible then begin
+     if ImgList1.behavior=formation then ToolButton10Click(nil);
+     if ImgList1.behavior=image then begin
         if ToolButton7.enabled then ToolButton7Click(nil)
-                               else Imglist.Close;
+                               else Imglist1.Close;
      end;
    end;
    result:=true;
@@ -3548,7 +3624,9 @@ end;
 Procedure RefreshMoonImage;
 var moonrise,moonset,moontransit,azimuthrise,azimuthset : widestring;
     jd0,st0,q,tz,cphase,colong,hh,az,ah : double;
+    gpa,glibrb,gsunincl,glibrl: double;
     aa,mm,dd,i,col : integer;
+    h,mn,s,ms: word;
     ds1,ds2,n,ex1,ey1,xx,yy : integer;
     th,ex,ey,ci,si,sph : double;
     rvx,rvy:boolean;
@@ -3558,6 +3636,7 @@ const b=' ';
 begin
   st0:=0;
   Lune(CurrentJD,ra,dec,dist,dkm,diam,phase,illum);
+  MoonOrientation(CurrentJD,ra,dec,dist,gpa,glibrb,gsunincl,glibrl);
   if not geocentric then begin
      jd0:=jd(CurYear,CurrentMonth,CurrentDay,0.0);
      st0:=SidTim(jd0,CurrentTime-Timezone,ObsLongitude);
@@ -3569,10 +3648,9 @@ begin
   rad:=ra; ded:=dec;
   precession(jd2000,CurrentJD,rad,ded);
   MoonOrientation(CurrentJD,ra,dec,dist,pa,librb,sunincl,librl);
-  cphase:=phase+librl;
+  cphase:=phase+glibrl;
   tphase:=phase;
-//  lunaison:=trunc(29.53*rmod(540-phase,360)/360);
-  colong:=rmod(90-tphase-librl+360,360);
+  colong:=rmod(90-tphase-glibrl+360,360);
   jd0:=jd(CurYear,1,1,0.0);
   MoonPhases(CurYear+(CurrentJD-jd0)/365.25,nmjd,fqjd,fmjd,lqjd);
   lunaison:=CurrentJD-nmjd;
@@ -3588,14 +3666,31 @@ begin
   form1.StatusBar1.Panels[2].Text:=m[51]+': '+dattostr(curyear,currentmonth,currentday)+'   '+m[50]+': '+timtostr(currenttime);
 //  lunaison_app:=trunc(29.5*rmod(540-phase{+librl}+6.1,360)/360);
   phaseoffset:=0;
-  djd(nmjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+
+  djd(nmjd-(DT_UT)/24,aa,mm,dd,hh);
+  decodetime(hh/24,h,mn,s,ms);
+  tz:=gettimezone(encodedatetime(aa,mm,dd,h,mn,s,ms));
+  djd(nmjd+(tz-DT_UT)/24,aa,mm,dd,hh);
   form1.labelnm.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
-  djd(fqjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+
+  djd(fqjd-(DT_UT)/24,aa,mm,dd,hh);
+  decodetime(hh/24,h,mn,s,ms);
+  tz:=gettimezone(encodedatetime(aa,mm,dd,h,mn,s,ms));
+  djd(fqjd+(tz-DT_UT)/24,aa,mm,dd,hh);
   form1.labelfq.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
-  djd(fmjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+
+  djd(fmjd-(DT_UT)/24,aa,mm,dd,hh);
+  decodetime(hh/24,h,mn,s,ms);
+  tz:=gettimezone(encodedatetime(aa,mm,dd,h,mn,s,ms));
+  djd(fmjd+(tz-DT_UT)/24,aa,mm,dd,hh);
   form1.labelfm.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
-  djd(lqjd+(timezone-DT_UT)/24,aa,mm,dd,hh);
+
+  djd(lqjd-(DT_UT)/24,aa,mm,dd,hh);
+  decodetime(hh/24,h,mn,s,ms);
+  tz:=gettimezone(encodedatetime(aa,mm,dd,h,mn,s,ms));
+  djd(lqjd+(tz-DT_UT)/24,aa,mm,dd,hh);
   form1.labellq.caption:=dattostr(aa,mm,dd)+' '+timmtostr(hh);
+
   form1.Stringgrid1.colwidths[1]:=150;
   i:=0;
   if geocentric then begin form1.Stringgrid1.Cells[0,i]:=form2.Label16.caption+':'; form1.Stringgrid1.Cells[1,i]:=form2.CheckBox3.caption; end
@@ -3859,8 +3954,10 @@ procedure TForm1.GLSceneViewer1MouseMove(Sender: TObject;
 var xx,yy,l,b : double;
 begin
 //if lockmove then exit;
+{$ifndef openglx}
 if useopengl and (not GLSceneViewer1.Focused) then
    form1.ActiveControl:=GLSceneViewer1;
+{$endif}
 try
 lockmove:=true;
 if shift=[ssLeft] then begin
@@ -4021,11 +4118,11 @@ with form1 do begin
       ToolButton7.enabled:=false;
       Image2.enabled:=false;
      end;
-     if Imglist.visible then begin
-       if ImgList.behavior=formation then ToolButton10Click(nil);
-       if ImgList.behavior=image then begin
+     if Imglist1.visible then begin
+       if ImgList1.behavior=formation then ToolButton10Click(nil);
+       if ImgList1.behavior=image then begin
           if ToolButton7.enabled then ToolButton7Click(nil)
-                                 else Imglist.Close;
+                                 else Imglist1.Close;
        end;
      end;
     end else mark(0,0,'');
@@ -4179,14 +4276,26 @@ if (not multi_instance) and (currentid='') then begin
   SearchName(SearchText,false);
   Combobox3.itemindex:=0;
   currentphase:=-999;
-end;  
+end;
+{$ifdef openglx}
+// show viewer to another form to avoid Wine bug 2398
+glsceneviewer1.parent:=formglx;
+formglx.clientwidth:=glsceneviewer1.width;
+formglx.clientheight:=glsceneviewer1.height;
+formglx.left:=panel2.clientorigin.x;
+formglx.top:=panel2.clientorigin.y;
+formglx.show;
+{$endif}
 end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);
-var reboot,reloaddb: boolean;
+var reboot,reloaddb,systemtimechange: boolean;
     oldreduc,oldreducfar,i,j,oldmaxima,oldtexture: integer;
     yy,x,y:double;
 begin
+{$ifdef openglx}
+formglx.hide;
+{$endif}
 try
 reboot:=false;
 reloaddb:=false;
@@ -4217,6 +4326,7 @@ form2.Shape2.Brush.Color:=markcolor;
 form2.Shape3.Brush.Color:=autolabelcolor;
 form2.TrackBar2.Position:=-LabelDensity;
 form2.TrackBar3.Position:=round(LabelSize*100);
+form2.TrackBar4.Position:=marksize;
 config.newlang:=language;
 oldreduc:=reducetexture;
 case reducetexture of
@@ -4303,6 +4413,7 @@ if form2.ModalResult=mrOK then begin
    autolabelcolor:=form2.Shape3.Brush.Color;
    LabelDensity:=abs(form2.TrackBar2.Position);
    LabelSize:=form2.TrackBar3.Position/100;
+   marksize:=form2.TrackBar4.Position;
    showlabel:=form2.checkbox5.checked;
    showmark:=form2.checkbox6.checked;
    showlibrationmark:=form2.checkbox14.checked;
@@ -4326,13 +4437,14 @@ if form2.ModalResult=mrOK then begin
    if form2.ComboBox1.ItemIndex=1 then Obslatitude:=-Obslatitude;
    Obslongitude:=strtofloat(form2.Edit2.text);
    if form2.ComboBox2.ItemIndex=0 then Obslongitude:=-Obslongitude;
+   systemtimechange:=UseComputerTime<>form2.checkbox16.checked;
    timezone:=strtofloat(form2.Edit3.text);
-   if (not UseComputerTime) and form2.checkbox16.checked then begin
-      timezone:=gettimezone;
+   UseComputerTime:=form2.checkbox16.checked;
+   timezone:=gettimezone(now);
+   if systemtimechange then begin
       InitDate;
       reboot:=true;
    end;
-   UseComputerTime:=form2.checkbox16.checked;
    phaseeffect:=form2.checkbox1.checked;
    librationeffect:=form2.checkbox2.checked;
    Geocentric:=form2.checkbox3.checked;
@@ -4447,9 +4559,13 @@ if form2.ModalResult=mrOK then begin
       Formresize(Sender);
    end
    else RefreshMoonImage;
+   SaveDefault;
 end;
 finally
   screen.cursor:=crdefault;
+  {$ifdef openglx}
+  formglx.show;
+  {$endif}
 end;
 end;
 
@@ -4476,6 +4592,15 @@ if useOpenGL then begin
   Mark(shapePositionX,shapePositionY,hudtext1.Text);
   RefreshLabel;
   form1.glscene1.EndUpdate;
+  {$ifdef openglx}
+  if formglx<>nil then begin
+    formglx.clientwidth:=glsceneviewer1.width;
+    formglx.clientheight:=glsceneviewer1.height;
+    formglx.left:=panel2.clientorigin.x;
+    formglx.top:=panel2.clientorigin.y;
+  end;
+  {$endif}
+
 end else
 {$ENDIF}
 begin
@@ -4522,6 +4647,26 @@ form1.updown6.position:=0;
 Button4Click(Sender);
 end;
 
+procedure TForm1.Button4Click(Sender: TObject);
+var y,m,d : integer;
+    h,n,s : word;
+begin
+y:=form1.annee.Value;
+m:=form1.mois.Value;
+d:=form1.jour.Value;
+h:=form1.heure.Value;
+n:=form1.minute.Value;
+s:=form1.seconde.Value;
+timezone:=gettimezone(encodedatetime(y,m,d,h,n,s,0));
+dt_ut:=dtminusut(y);
+CurYear:=y;
+CurrentMonth:=m;
+CurrentDay:=d;
+Currenttime:=h+n/60+s/3600;
+CurrentJD:=jd(y,m,d,Currenttime-timezone+DT_UT);
+RefreshMoonImage;
+end;
+
 procedure TForm1.TrackBar1Change(Sender: TObject);
 var p : integer;
 begin
@@ -4532,24 +4677,6 @@ end;
 p:=round(power(10,trackbar1.position/100));
 if not useOpenGL and (abs(p-zoom*minfoc)<25)then exit;
  SetZoom(p);
-end;
-
-procedure TForm1.Button4Click(Sender: TObject);
-var y,m,d : integer; h,n,s : word;
-begin
-y:=form1.annee.Value;
-m:=form1.mois.Value;
-d:=form1.jour.Value;
-h:=form1.heure.Value;
-n:=form1.minute.Value;
-s:=form1.seconde.Value;
-dt_ut:=dtminusut(y);
-CurYear:=y;
-CurrentMonth:=m;
-CurrentDay:=d;
-Currenttime:=h+n/60+s/3600;
-CurrentJD:=jd(y,m,d,Currenttime-timezone+DT_UT);
-RefreshMoonImage;
 end;
 
 procedure TForm1.EphTimer1Timer(Sender: TObject);
@@ -4671,7 +4798,7 @@ if skychartrunning and startedbyds then begin
 end;
 if CloseVMAbrowser then begin
   hnd:=findwindow(nil,Pchar(VMAbrowser));
-  if hnd>0 then PostMessage(hnd,WM_QUIT,0,0);   // close VMA Browser (use WM_CLOSE for the close prompt)
+  if hnd>0 then PostMessage(hnd,WM_CLOSE,0,0);   // close VMA Browser (use WM_CLOSE to save the config)
 end;
 if scopelibok then
   if ScopeConnected then begin
@@ -4732,6 +4859,9 @@ if fileexists(buf) then begin
  if lastima >= maxima then lastima:=0;
  if ima[lastima]=nil then begin
     ima[lastima]:=Tbigimaform.Create(application);
+    {$ifdef openglx}
+     ima[lastima].formstyle:=fsStayonTop;
+    {$endif}
     ima[lastima].toolbutton1.caption:=imac1;
     ima[lastima].toolbutton2.caption:=imac2;
     ima[lastima].toolbutton3.caption:=imac3;
@@ -4846,7 +4976,9 @@ var i : integer;
 begin
 {$IFDEF opengl}
 i:=Trackbar5.position;
-if i=3 then i:=180
+if i=5 then i:=720
+else if i=4 then i:=360
+else if i=3 then i:=180
 else if i=2 then i:=90
 else if i=1 then i:=45
 else i:=90;
@@ -4863,6 +4995,8 @@ case sphere1.Slices of
 45  : i:=16;
 90  : i:=32;
 180 : i:=64;
+360 : i:=128;
+720 : i:=256;
 end;
 hiressphere.Slices:=i ; hiressphere.Stacks:=i ;
 hiressphere500.Slices:=i ; hiressphere500.Stacks:=i ;
@@ -5195,7 +5329,10 @@ InitSkychart;
 if skychartok then begin
   CielHnd:=findwindow(nil,Pchar(skychartcaption));
   SendMessage(CielHnd, WM_SYSCOMMAND, SC_RESTORE, 0);
-  SetForegroundWindow(CielHnd);
+  if @SwitchToThisWindow=nil then
+     SetForegroundWindow(CielHnd)
+  else
+     SwitchToThisWindow(CielHnd,true);
   if not SendDDEcmd('DATE '+cmd3) then raise exception.create('CDC timeout');
   if not SendDDEcmd('OBSL '+cmd2) then raise exception.create('CDC timeout');
   if not SendDDEcmd('RFSH 1') then raise exception.create('CDC timeout');
@@ -5316,6 +5453,7 @@ end;
 
 procedure TForm1.RadioGroup2Click(Sender: TObject);
 begin
+if lockrot then exit;
 case RadioGroup2.ItemIndex of
 0 : PoleOrientation:=0;
 1 : PoleOrientation:=180;
@@ -5953,6 +6091,9 @@ end;
 procedure TForm1.Glossaire1Click(Sender: TObject);
 begin
 if gloss=nil then gloss:=TGloss.Create(application);
+{$ifdef openglx}
+  gloss.formstyle:=fsStayonTop;
+{$endif}
 gloss.button2.Caption:=imac1;
 gloss.Caption:=stringreplace(Glossaire1.Caption,'&','',[]);
 gloss.show;
@@ -6136,6 +6277,11 @@ farsidetexture:=CheckBox5.checked;
 end;
 
 {$ifdef opengl}
+procedure TForm1.CheckBox8Click(Sender: TObject);
+begin
+compresstexture:=CheckBox8.checked;
+end;
+
 Procedure TForm1.InitTelescope;
 var fs : TSearchRec;
     i,p : integer;
@@ -6344,7 +6490,6 @@ begin
     ExecuteFile(appname,param, appdir, SW_SHOWNOACTIVATE);
  end
  else SendMessage(i,RegisterWindowMessage(IdMsg),0,0);
-
 end;
 
 procedure TForm1.LibrationButtonClick(Sender: TObject);
@@ -6371,7 +6516,7 @@ begin
  i:=findwindow(nil,pchar(VMAbrowser));
  if i=0 then CloseVMAbrowser:=true;
  param:=' -nx ';
- ExecuteFile('vmabrowser.exe',param, appdir, SW_SHOWNOACTIVATE);
+ ExecuteFile('datlun.exe',param, appdir, SW_SHOWNOACTIVATE);
 end;
 
 procedure TForm1.SpeedButton8Click(Sender: TObject);
@@ -6395,3 +6540,4 @@ CurrentSelection:='';
 RefreshLabel;
 end;
 
+//////////////////////////////////////////////////////////////////
