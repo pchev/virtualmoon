@@ -507,7 +507,7 @@ function SearchName(n: string; center: boolean):boolean;
 Procedure OpenHires(forcerebuild:boolean);
 
 const AVLversion = '3.5';
-      Splashversion ='Version 3.5 2006-11-4';
+      Splashversion ='Version 3.5 2007-10-10';
       d1 = '0.0';
       d2 = '0.00';
       d3 = '0.000';
