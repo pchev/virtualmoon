@@ -3557,6 +3557,7 @@ try
 {$IFDEF opengl}
 if dummycube4<>nil then DummyCube4.DeleteChildren;
 if dummycube5<>nil then DummyCube5.DeleteChildren;
+GLSceneViewer1.Buffer.DestroyRC;
 {$ENDIF}
 dblox.free;
 dbnotes.free;
