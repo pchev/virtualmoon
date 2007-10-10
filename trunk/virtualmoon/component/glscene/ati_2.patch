@@ -1,0 +1,34 @@
+Index: Source/GLContext.pas
+===================================================================
+--- Source/GLContext.pas
++++ Source/GLContext.pas
+@@ -594,6 +594,9 @@
+ var
+    GLContextManager : TGLContextManager;
+    vIgnoreOpenGLErrors : Boolean = False;
++   // IGM START
++   vIgnoreContextActivationFailures : Boolean = False;
++   // IGM END
+ 
+ // ------------------------------------------------------------------
+ // ------------------------------------------------------------------
+@@ -613,7 +616,7 @@
+ 
+ var
+    vContextClasses : TList = nil;
+-   vIgnoreContextActivationFailures : Boolean = False;
++  //IGM COMMENT OUT vIgnoreContextActivationFailures : Boolean = False;
+ 
+ var
+    vCurrentGLContext : TGLContext;
+@@ -873,6 +876,10 @@
+    oldContext, compatContext : TGLContext;
+    contextHandle : TGLContextHandle;
+ begin
++  // IGM START
++  vIgnoreContextActivationFailures := True;
++  // IGM END
++
+    if vCurrentGLContext<>Self then begin
+       oldContext:=vCurrentGLContext;
+       if Assigned(oldContext) then
