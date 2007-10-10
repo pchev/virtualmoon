@@ -344,12 +344,12 @@ end;
 
 Procedure InitString;
 begin
-commsg[1]:='Erreur de dï¿½inition des fichier temporaires';
+commsg[1]:='Erreur de définition des fichier temporaires';
 commsg[2]:='Projection invalide';
 commsg[3]:='Indiquer le chemin correct pour';
 commsg[4]:='Monter le disque pour';
 commsg[5]:='Erreur de configuration pour';
-commsg[6]:='Erreur de capacitï¿½;
+commsg[6]:='Erreur de capacité';
 end;
 
 Procedure SetLang;
@@ -570,7 +570,7 @@ case projtype of              // AIPS memo 27
     sincos(de,s2,c2);
     sincos(hh,s3,c3);
     r:=s1*s2+c2*c1*c3;  // cos the
-    if r<=0 then begin  // > 90
+    if r<=0 then begin  // > 90°
       xx:=9999;
       yy:=9999;
     end else begin
@@ -590,7 +590,7 @@ case projtype of              // AIPS memo 27
     sincos(de,s2,c2);
     sincos(hh,s3,c3);
     r:=s1*s2+c2*c1*c3;     // cos the
-    if r<=0 then begin  // > 90
+    if r<=0 then begin  // > 90°
       xx:=9999;
       yy:=9999;
     end else begin
@@ -909,7 +909,7 @@ begin
     if abs(min)<10 then m:='0'+trim(m);
     str(sec:2:0,s);
     if abs(sec)<9.5 then s:='0'+trim(s);
-    result := d+''+m+''''+s+'"';
+    result := d+'°'+m+''''+s+'"';
 end;
 
 Function TimToStr(de: Double) : string;
