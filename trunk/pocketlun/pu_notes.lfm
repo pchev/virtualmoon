@@ -1,0 +1,105 @@
+object f_notes: Tf_notes
+  Left = 508
+  Height = 240
+  Top = 100
+  Width = 240
+  HorzScrollBar.Page = 239
+  VertScrollBar.Page = 219
+  ActiveControl = Button1
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'f_notes'
+  ClientHeight = 220
+  ClientWidth = 240
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  object Title: TPanel
+    Height = 26
+    Width = 240
+    Align = alTop
+    Caption = 'Notes'
+    ClientHeight = 26
+    ClientWidth = 240
+    Font.Height = 14
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    TabOrder = 0
+    object Button1: TButton
+      Height = 25
+      Width = 75
+      BorderSpacing.InnerBorder = 4
+      Caption = 'OK'
+      Default = True
+      OnClick = Button1Click
+      TabOrder = 0
+      Visible = False
+    end
+  end
+  object Memo1: TMemo
+    Height = 170
+    Top = 26
+    Width = 240
+    Align = alClient
+    OnChange = Memo1Change
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+  object Panel1: TPanel
+    Height = 24
+    Top = 196
+    Width = 240
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 2
+  end
+  object MainMenu1: TMainMenu
+    left = 112
+    top = 193
+    object MenuItem11: TMenuItem
+      Caption = '  '
+      Enabled = False
+    end
+    object MenuItem1: TMenuItem
+      Caption = 'Menu'
+      object MenuItem10: TMenuItem
+        Caption = 'Carte'
+        OnClick = MenuItem10Click
+      end
+      object MenuItem2: TMenuItem
+        Caption = 'Configuration'
+        OnClick = MenuItem2Click
+      end
+      object MenuItem3: TMenuItem
+        Caption = 'Affichage'
+        OnClick = MenuItem3Click
+      end
+      object MenuItem4: TMenuItem
+        Caption = 'Outils'
+        Visible = False
+        OnClick = MenuItem4Click
+      end
+      object MenuItem5: TMenuItem
+        Caption = 'Ephémérides'
+        OnClick = MenuItem5Click
+      end
+      object MenuItem6: TMenuItem
+        Caption = 'Calendrier'
+        OnClick = MenuItem6Click
+      end
+      object MenuItem7: TMenuItem
+        Caption = 'Recherche'
+        OnClick = MenuItem7Click
+      end
+      object MenuItem8: TMenuItem
+        Caption = 'Aide'
+        OnClick = MenuItem8Click
+      end
+      object MenuItem9: TMenuItem
+        Caption = 'A propos'
+        OnClick = MenuItem9Click
+      end
+    end
+  end
+end
