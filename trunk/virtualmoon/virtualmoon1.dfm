@@ -1,11 +1,11 @@
 object Form1: TForm1
   Left = 222
   Top = 112
-  Width = 810
-  Height = 589
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
   Caption = 'Form1'
+  ClientHeight = 553
+  ClientWidth = 794
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -39,7 +39,6 @@ object Form1: TForm1
     000000000000000000000000000000000000000000000000000000000000}
   KeyPreview = True
   OldCreateOrder = False
-  Position = poDefaultPosOnly
   Scaled = False
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
@@ -81,7 +80,7 @@ object Form1: TForm1
       Camera = GLCamera1
       Buffer.BackgroundColor = clBlack
       Buffer.ShadeModel = smSmooth
-      FieldOfView = 134.418823242188
+      FieldOfView = 134.418823242187500000
       PopupMenu = PopupMenu1
       OnMouseDown = GLSceneViewer1MouseDown
       OnMouseMove = GLSceneViewer1MouseMove
@@ -123,7 +122,6 @@ object Form1: TForm1
     ActivePage = Position
     HotTrack = True
     MultiLine = True
-    TabIndex = 0
     TabOrder = 0
     OnChange = PageControl1Change
     OnChanging = PageControl1Changing
@@ -219,6 +217,10 @@ object Form1: TForm1
     object Notes: TTabSheet
       Caption = 'Notes'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Memo1: TMemo
         Left = 0
         Top = 58
@@ -260,6 +262,10 @@ object Form1: TForm1
     object dbtab: TTabSheet
       Caption = 'Database'
       ImageIndex = 5
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object StringGrid2: TStringGrid
         Left = 0
         Top = 0
@@ -325,6 +331,10 @@ object Form1: TForm1
     object Ephemerides: TTabSheet
       Caption = 'Eph'#233'm'#233'rides'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel4: TPanel
         Left = 0
         Top = 0
@@ -779,7 +789,6 @@ object Form1: TForm1
           Position = 2002
           TabOrder = 8
           Thousands = False
-          Wrap = False
         end
         object UpDown2: TUpDown
           Left = 110
@@ -811,9 +820,7 @@ object Form1: TForm1
           Width = 16
           Height = 21
           Associate = heure
-          Min = 0
           Max = 23
-          Position = 0
           TabOrder = 11
           Wrap = True
         end
@@ -823,9 +830,7 @@ object Form1: TForm1
           Width = 16
           Height = 21
           Associate = minute
-          Min = 0
           Max = 59
-          Position = 0
           TabOrder = 12
           Wrap = True
         end
@@ -835,9 +840,7 @@ object Form1: TForm1
           Width = 16
           Height = 21
           Associate = seconde
-          Min = 0
           Max = 59
-          Position = 0
           TabOrder = 13
           Wrap = True
         end
@@ -879,6 +882,10 @@ object Form1: TForm1
     object Terminateur: TTabSheet
       Caption = 'Terminateur'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel5: TPanel
         Left = 0
         Top = 0
@@ -912,7 +919,7 @@ object Form1: TForm1
           Top = 8
           Width = 121
           Height = 21
-          ItemHeight = 13
+          ItemHeight = 0
           ItemIndex = 0
           TabOrder = 0
           Text = '1'
@@ -928,7 +935,7 @@ object Form1: TForm1
           Top = 32
           Width = 57
           Height = 21
-          ItemHeight = 13
+          ItemHeight = 0
           TabOrder = 1
           Text = '999'
           OnChange = ComboBox2Change
@@ -973,6 +980,10 @@ object Form1: TForm1
     object Outils: TTabSheet
       Caption = 'Outils'
       ImageIndex = 4
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel4: TBevel
         Left = 8
         Top = 8
@@ -1131,16 +1142,10 @@ object Form1: TForm1
           Height = 22
           Max = 90
           Min = -90
-          Orientation = trHorizontal
           PageSize = 15
           Frequency = 15
-          Position = 0
-          SelEnd = 0
-          SelStart = 0
           TabOrder = 1
           ThumbLength = 12
-          TickMarks = tmBottomRight
-          TickStyle = tsAuto
           OnChange = TrackBar6Change
         end
       end
@@ -1239,11 +1244,9 @@ object Form1: TForm1
           Width = 16
           Height = 21
           Associate = Edit5
-          Min = 0
           Max = 60
           Position = 10
           TabOrder = 7
-          Wrap = False
         end
       end
       object Button12: TButton
@@ -1354,6 +1357,10 @@ object Form1: TForm1
     object Reglage: TTabSheet
       Caption = 'R'#233'glage'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel1: TBevel
         Left = 16
         Top = 8
@@ -1405,15 +1412,9 @@ object Form1: TForm1
         Width = 177
         Height = 33
         Max = 255
-        Orientation = trHorizontal
         PageSize = 5
         Frequency = 43
-        Position = 0
-        SelEnd = 0
-        SelStart = 0
         TabOrder = 0
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
         OnChange = TrackBar2Change
       end
       object TrackBar3: TTrackBar
@@ -1422,15 +1423,9 @@ object Form1: TForm1
         Width = 177
         Height = 33
         Max = 255
-        Orientation = trHorizontal
         PageSize = 5
         Frequency = 43
-        Position = 0
-        SelEnd = 0
-        SelStart = 0
         TabOrder = 1
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
         OnChange = TrackBar3Change
       end
       object TrackBar4: TTrackBar
@@ -1439,15 +1434,9 @@ object Form1: TForm1
         Width = 177
         Height = 33
         Max = 255
-        Orientation = trHorizontal
         PageSize = 5
         Frequency = 43
-        Position = 0
-        SelEnd = 0
-        SelStart = 0
         TabOrder = 2
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
         OnChange = TrackBar4Change
       end
       object Panel8: TPanel
@@ -1498,15 +1487,9 @@ object Form1: TForm1
           Height = 33
           Max = 3
           Min = 1
-          Orientation = trHorizontal
           PageSize = 1
-          Frequency = 1
           Position = 1
-          SelEnd = 0
-          SelStart = 0
           TabOrder = 0
-          TickMarks = tmBottomRight
-          TickStyle = tsAuto
           OnChange = TrackBar5Change
         end
         object Button14: TButton
@@ -1568,7 +1551,7 @@ object Form1: TForm1
   object ControlBar1: TControlBar
     Left = 0
     Top = 0
-    Width = 802
+    Width = 794
     Height = 26
     Align = alTop
     AutoDrag = False
@@ -1581,7 +1564,7 @@ object Form1: TForm1
     object ToolBar2: TToolBar
       Left = 11
       Top = 2
-      Width = 207
+      Width = 147
       Height = 22
       Align = alLeft
       AutoSize = True
@@ -1589,10 +1572,8 @@ object Form1: TForm1
       ButtonWidth = 69
       Caption = 'ToolBar2'
       DragMode = dmAutomatic
-      EdgeBorders = []
       EdgeInner = esNone
       EdgeOuter = esNone
-      Flat = True
       ShowCaptions = True
       TabOrder = 0
       Wrapable = False
@@ -1630,7 +1611,6 @@ object Form1: TForm1
       Caption = 'ToolBar'
       Color = clBtnFace
       DragMode = dmAutomatic
-      EdgeBorders = []
       EdgeInner = esNone
       EdgeOuter = esNone
       Images = ImageList1
@@ -1641,7 +1621,7 @@ object Form1: TForm1
       Wrapable = False
       object Label10: TLabel
         Left = 0
-        Top = 2
+        Top = 0
         Width = 30
         Height = 22
         Caption = 'Zoom:'
@@ -1649,26 +1629,21 @@ object Form1: TForm1
       end
       object TrackBar1: TTrackBar
         Left = 30
-        Top = 2
+        Top = 0
         Width = 112
         Height = 22
         Max = 308
         Min = 200
-        Orientation = trHorizontal
         PageSize = 10
         Frequency = 10
         Position = 200
-        SelEnd = 0
-        SelStart = 0
         TabOrder = 0
         ThumbLength = 12
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
         OnChange = TrackBar1Change
       end
       object ToolButton9: TToolButton
         Left = 142
-        Top = 2
+        Top = 0
         Hint = '1:1'
         AutoSize = True
         Caption = '1:1'
@@ -1677,7 +1652,7 @@ object Form1: TForm1
       end
       object ToolButton11: TToolButton
         Left = 165
-        Top = 2
+        Top = 0
         Width = 4
         Caption = 'ToolButton11'
         ImageIndex = 0
@@ -1685,13 +1660,13 @@ object Form1: TForm1
       end
       object ToolButton12: TToolButton
         Left = 169
-        Top = 2
+        Top = 0
         ImageIndex = 9
         OnClick = SpeedButton8Click
       end
       object ToolButton5: TToolButton
         Left = 192
-        Top = 2
+        Top = 0
         AutoSize = True
         Caption = 'Centre'
         ImageIndex = 4
@@ -1699,7 +1674,7 @@ object Form1: TForm1
       end
       object ToolButton4: TToolButton
         Left = 215
-        Top = 2
+        Top = 0
         AutoSize = True
         Caption = 'N-S'
         ImageIndex = 3
@@ -1707,7 +1682,7 @@ object Form1: TForm1
       end
       object ToolButton6: TToolButton
         Left = 238
-        Top = 2
+        Top = 0
         AutoSize = True
         Caption = 'E-W'
         ImageIndex = 2
@@ -1715,7 +1690,7 @@ object Form1: TForm1
       end
       object ToolButton3: TToolButton
         Left = 261
-        Top = 2
+        Top = 0
         AutoSize = True
         Caption = 'Rotation'
         ImageIndex = 8
@@ -1724,7 +1699,7 @@ object Form1: TForm1
       end
       object PhaseButton: TToolButton
         Left = 284
-        Top = 2
+        Top = 0
         AutoSize = True
         Caption = 'Phase'
         ImageIndex = 7
@@ -1733,7 +1708,7 @@ object Form1: TForm1
       end
       object LibrationButton: TToolButton
         Left = 307
-        Top = 2
+        Top = 0
         AutoSize = True
         Caption = 'Libration'
         ImageIndex = 11
@@ -1742,7 +1717,7 @@ object Form1: TForm1
       end
       object ToolButton10: TToolButton
         Left = 330
-        Top = 2
+        Top = 0
         AutoSize = True
         Caption = 'Voisinage'
         ImageIndex = 12
@@ -1750,7 +1725,7 @@ object Form1: TForm1
       end
       object ToolButton7: TToolButton
         Left = 353
-        Top = 2
+        Top = 0
         AutoSize = True
         Caption = 'Image'
         Enabled = False
@@ -1759,14 +1734,14 @@ object Form1: TForm1
       end
       object ButtonDatabase: TToolButton
         Left = 376
-        Top = 2
+        Top = 0
         Caption = 'Database'
         ImageIndex = 6
         OnClick = DataBase1Click
       end
       object NewWindowButton: TToolButton
         Left = 399
-        Top = 2
+        Top = 0
         AutoSize = True
         Caption = 'Window 2'
         ImageIndex = 0
@@ -1775,7 +1750,7 @@ object Form1: TForm1
       end
       object DebugLabel: TLabel
         Left = 422
-        Top = 2
+        Top = 0
         Width = 3
         Height = 22
         Layout = tlCenter
@@ -1801,7 +1776,6 @@ object Form1: TForm1
       item
         Width = 100
       end>
-    SimplePanel = False
   end
   object Panel2D: TPanel
     Left = 16
@@ -1987,7 +1961,7 @@ object Form1: TForm1
     Top = 400
     object DummyCube2: TGLDummyCube
       VisibilityCulling = vcNone
-      CubeSize = 0.100000001490116
+      CubeSize = 0.100000001490116100
       object Annulus1: TGLAnnulus
         Material.FrontProperties.Ambient.Color = {0000000000000000000000000000803F}
         Material.FrontProperties.Diffuse.Color = {0000000000000000000000000000803F}
@@ -1995,12 +1969,12 @@ object Form1: TForm1
         Position.Coordinates = {000000000000000000007A440000803F}
         Up.Coordinates = {4E9EDEADF8660E2E0000803F00000000}
         Visible = False
-        BottomRadius = 3
-        Height = 0.300000011920929
+        BottomRadius = 3.000000000000000000
+        Height = 0.300000011920929000
         Slices = 64
-        BottomInnerRadius = 0.449999988079071
-        TopInnerRadius = 1
-        TopRadius = 3
+        BottomInnerRadius = 0.449999988079071000
+        TopInnerRadius = 1.000000000000000000
+        TopRadius = 3.000000000000000000
         Parts = [anBottom]
       end
       object ArrowLine1: TGLArrowLine
@@ -2011,26 +1985,26 @@ object Form1: TForm1
         Position.Coordinates = {00000000000000000080ED440000803F}
         Up.Coordinates = {0000000000000000000080BF00000000}
         Visible = False
-        BottomRadius = 0.00999999977648258
-        Height = 0.0799999982118607
-        TopRadius = 0.00999999977648258
+        BottomRadius = 0.009999999776482582
+        Height = 0.079999998211860660
+        TopRadius = 0.009999999776482582
         HeadStackingStyle = ahssIncluded
-        TopArrowHeadHeight = 0.0500000007450581
-        TopArrowHeadRadius = 0.0199999995529652
-        BottomArrowHeadHeight = 0.5
-        BottomArrowHeadRadius = 0.200000002980232
+        TopArrowHeadHeight = 0.050000000745058060
+        TopArrowHeadRadius = 0.019999999552965160
+        BottomArrowHeadHeight = 0.500000000000000000
+        BottomArrowHeadRadius = 0.200000002980232200
       end
       object DummyCube1: TGLDummyCube
         VisibilityCulling = vcNone
         Position.Coordinates = {00000000000000000000FA440000803F}
-        CubeSize = 1
+        CubeSize = 1.000000000000000000
         object GLLightSource1: TGLLightSource
           Ambient.Color = {9A99993E9A99993E9A99993E0000803F}
-          ConstAttenuation = 1
+          ConstAttenuation = 1.000000000000000000
           Position.Coordinates = {00000000000000000000A0410000803F}
           LightStyle = lsParallel
           Specular.Color = {CDCC4C3FCDCC4C3FCDCC4C3F0000803F}
-          SpotCutOff = 180
+          SpotCutOff = 180.000000000000000000
         end
         object HiresSphere500: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
@@ -2038,7 +2012,7 @@ object Form1: TForm1
           VisibilityCulling = vcObjectBased
           Visible = False
           Bottom = 0
-          Radius = 0.5
+          Radius = 0.500000000000000000
           Slices = 30
           Stacks = 30
           Stop = 1
@@ -2050,7 +2024,7 @@ object Form1: TForm1
           VisibilityCulling = vcObjectBased
           Visible = False
           Bottom = 0
-          Radius = 0.5
+          Radius = 0.500000000000000000
           Slices = 30
           Stacks = 30
           Stop = 1
@@ -2060,7 +2034,7 @@ object Form1: TForm1
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q1'
           Bottom = 0
-          Radius = 0.5
+          Radius = 0.500000000000000000
           Slices = 90
           Stacks = 90
           Start = 90
@@ -2071,7 +2045,7 @@ object Form1: TForm1
           Material.LibMaterialName = 'Q2'
           Direction.Coordinates = {00000000000000800000803F00000000}
           Bottom = 0
-          Radius = 0.5
+          Radius = 0.500000000000000000
           Slices = 90
           Stacks = 90
           Start = 180
@@ -2080,7 +2054,7 @@ object Form1: TForm1
         object Sphere3: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q3'
-          Radius = 0.5
+          Radius = 0.500000000000000000
           Slices = 90
           Stacks = 90
           Start = 90
@@ -2090,7 +2064,7 @@ object Form1: TForm1
         object Sphere4: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q4'
-          Radius = 0.5
+          Radius = 0.500000000000000000
           Slices = 90
           Stacks = 90
           Start = 180
@@ -2101,7 +2075,7 @@ object Form1: TForm1
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q5'
           Bottom = 0
-          Radius = 0.5
+          Radius = 0.500000000000000000
           Slices = 90
           Stacks = 90
           Start = 270
@@ -2110,7 +2084,7 @@ object Form1: TForm1
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q6'
           Bottom = 0
-          Radius = 0.5
+          Radius = 0.500000000000000000
           Slices = 90
           Stacks = 90
           Stop = 90
@@ -2118,7 +2092,7 @@ object Form1: TForm1
         object Sphere7: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q7'
-          Radius = 0.5
+          Radius = 0.500000000000000000
           Slices = 90
           Stacks = 90
           Start = 270
@@ -2127,7 +2101,7 @@ object Form1: TForm1
         object Sphere8: TGLSphere
           Material.MaterialLibrary = GLMaterialLibrary1
           Material.LibMaterialName = 'Q8'
-          Radius = 0.5
+          Radius = 0.500000000000000000
           Slices = 90
           Stacks = 90
           Stop = 90
@@ -2136,11 +2110,11 @@ object Form1: TForm1
       end
       object GLLightSource2: TGLLightSource
         Ambient.Color = {0000803F0000803F0000803F0000803F}
-        ConstAttenuation = 1
+        ConstAttenuation = 1.000000000000000000
         Diffuse.Color = {0000000000000000000000000000803F}
         LightStyle = lsParallel
         Shining = False
-        SpotCutOff = 180
+        SpotCutOff = 180.000000000000000000
         SpotDirection.Coordinates = {00000000000000000000803F00000000}
       end
     end
@@ -2156,13 +2130,13 @@ object Form1: TForm1
       Position.Coordinates = {00000000000000000000C8C20000803F}
       Visible = False
       MirrorOptions = []
-      Height = 1
-      Width = 1
-      Radius = 1
+      Height = 1.000000000000000000
+      Width = 1.000000000000000000
+      Radius = 1.000000000000000000
     end
     object DummyCube3: TGLDummyCube
       VisibilityCulling = vcObjectBased
-      CubeSize = 1
+      CubeSize = 1.000000000000000000
       object HUDSprite2: TGLHUDSprite
         Material.BackProperties.Ambient.Color = {0000000000000000000000000000803F}
         Material.BackProperties.Diffuse.Color = {0000000000000000000000000000803F}
@@ -2174,12 +2148,9 @@ object Form1: TForm1
         Material.Texture.FilteringQuality = tfAnisotropic
         Position.Coordinates = {0000C8420000C842000000000000803F}
         Visible = False
-        Width = 30
-        Height = 1
-        Rotation = 70
-        NoZWrite = False
-        MirrorU = False
-        MirrorV = False
+        Width = 30.000000000000000000
+        Height = 1.000000000000000000
+        Rotation = 70.000000000000000000
       end
       object HUDSprite1: TGLHUDSprite
         Material.FrontProperties.Ambient.Color = {0000000000000000000000000000803F}
@@ -2188,32 +2159,28 @@ object Form1: TForm1
         Material.Texture.FilteringQuality = tfAnisotropic
         Position.Coordinates = {0000C8420000C842000000000000803F}
         Up.Coordinates = {000000000000803F0000008000000000}
-        Width = 5
-        Height = 5
-        NoZWrite = False
-        MirrorU = False
-        MirrorV = False
+        Width = 5.000000000000000000
+        Height = 5.000000000000000000
       end
       object HUDText1: TGLHUDText
         Position.Coordinates = {0000C8420000C842000000000000803F}
         Scale.Coordinates = {CDCCCC3ECDCCCC3E0000803F00000000}
         BitmapFont = BitmapFont1
         Text = 'Az'
-        Alignment = taLeftJustify
         Layout = tlCenter
       end
     end
     object DummyCube4: TGLDummyCube
       VisibilityCulling = vcObjectBased
-      CubeSize = 1
+      CubeSize = 1.000000000000000000
     end
     object DummyCube5: TGLDummyCube
       VisibilityCulling = vcObjectBased
-      CubeSize = 1
+      CubeSize = 1.000000000000000000
     end
     object GLCamera1: TGLCamera
-      DepthOfView = 100000
-      FocalLength = 100
+      DepthOfView = 100000.000000000000000000
+      FocalLength = 100.000000000000000000
       CameraStyle = csOrthogonal
       Position.Coordinates = {6F12833A6F12833A000000000000803F}
       Direction.Coordinates = {00000000000000000000803F00000000}

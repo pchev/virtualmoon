@@ -26,7 +26,7 @@ uses
   QTypes, QForms, QControls, QExtCtrls, QStdCtrls, QGraphics,
 {$ENDIF}
 {$IFDEF MSWINDOWS}
-  Windows, Forms, Controls, StdCtrls, ExtCtrls, Graphics,
+  Windows, ShlObj, Forms, Controls, StdCtrls, ExtCtrls, Graphics,
    DdeMan,
 {$ENDIF}
 {$IFDEF opengl}
@@ -372,9 +372,10 @@ type
     procedure RemoveMark1Click(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
   private
-    { D�larations priv�s }
+    { D�clarations priv�es }
+    procedure SetPath;
   public
-    { D�larations publiques }
+    { D�clarations publiques }
     procedure InitGraphic(Sender: TObject);
     procedure LoadOverlay(fn:string; lum:integer);
     Procedure SetLabel;
@@ -405,8 +406,8 @@ function SearchName(n: string; center: boolean):boolean;
 Procedure OpenHires(forcerebuild:boolean);
 {$ENDIF}
 
-const AVLversion = '3.5';
-      Splashversion ='Version 3.5  2006-11-4';
+const AVLversion = '3.5b';
+      Splashversion ='Version 3.5b 2008-02-23';
       d1 = '0.0';
       d2 = '0.00';
       d3 = '0.000';
@@ -508,9 +509,9 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay : integer;
     LastScopeTracking : double = 0;
     nmjd,fqjd,fmjd,lqjd,currentl,currentb : double;
     searchlist: Tstringlist;
-    multi_instance,CloseVMAbrowser : boolean;
+    multi_instance,CloseVMAbrowser, ClosePhotlun : boolean;
     curx,cury,curfoc:double;
-    appname : string;
+    appname, pofile : string;
     compresstexture : Boolean = false;
     UseComputerTime : Boolean = true;
 

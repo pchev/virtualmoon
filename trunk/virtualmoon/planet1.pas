@@ -178,7 +178,7 @@ end else begin               // use Plan404
      delta:=arcsin(sin(b)*ce+cos(b)*se*sin(l) );
 end;
 {
-  calcul de la fraction illumin�
+  calcul de la fraction illumin�e
 }
 //         illum:=(power(dp+distance,2)-dt*dt)/(4*dp*distance);
 //         phase:=rmod(radtodeg(arccos(2*illum-1))+360,360);
@@ -186,7 +186,7 @@ end;
            illum:=(1+phase)/2;
            phase:=radtodeg(arccos(phase));
 {
-  calcul du diam�re
+  calcul du diam�tre
 }
          diameter:=2*s0[ipla]/distance;
 {

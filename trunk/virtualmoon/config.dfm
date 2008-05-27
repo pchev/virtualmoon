@@ -1,9 +1,9 @@
 object Form2: TForm2
   Left = 450
   Top = 108
-  Width = 385
-  Height = 497
   Caption = 'Configuration'
+  ClientHeight = 461
+  ClientWidth = 369
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -33,7 +33,6 @@ object Form2: TForm2
     Height = 417
     ActivePage = TabSheet1
     MultiLine = True
-    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'General'
@@ -180,6 +179,10 @@ object Form2: TForm2
     object TabSheet7: TTabSheet
       Caption = 'Database'
       ImageIndex = 7
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label31: TLabel
         Left = 16
         Top = 232
@@ -207,7 +210,7 @@ object Form2: TForm2
         end
         object CheckBox20: TCheckBox
           Left = 24
-          Top = 55
+          Top = 49
           Width = 257
           Height = 17
           Caption = 'Satellites Formation'
@@ -215,7 +218,7 @@ object Form2: TForm2
         end
         object CheckBox21: TCheckBox
           Left = 24
-          Top = 90
+          Top = 78
           Width = 257
           Height = 17
           Caption = 'Far Side Named Formation'
@@ -223,7 +226,7 @@ object Form2: TForm2
         end
         object CheckBox22: TCheckBox
           Left = 24
-          Top = 125
+          Top = 107
           Width = 257
           Height = 17
           Caption = 'Far Side Satellites Formation'
@@ -231,11 +234,19 @@ object Form2: TForm2
         end
         object CheckBox23: TCheckBox
           Left = 24
-          Top = 161
+          Top = 136
           Width = 257
           Height = 17
           Caption = 'Landing Site'
           TabOrder = 4
+        end
+        object CheckBox24: TCheckBox
+          Left = 24
+          Top = 166
+          Width = 257
+          Height = 17
+          Caption = 'Pyroclastic deposits'
+          TabOrder = 5
         end
       end
       object CheckListBox1: TCheckListBox
@@ -254,6 +265,10 @@ object Form2: TForm2
     object TabSheet3: TTabSheet
       Caption = 'Affichage'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel9: TBevel
         Left = 16
         Top = 144
@@ -411,16 +426,11 @@ object Form2: TForm2
         Width = 150
         Height = 17
         Min = -1000
-        Orientation = trHorizontal
         PageSize = 100
         Frequency = 100
         Position = -100
-        SelEnd = 0
-        SelStart = 0
         TabOrder = 7
         ThumbLength = 12
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
       end
       object TrackBar3: TTrackBar
         Left = 160
@@ -430,16 +440,11 @@ object Form2: TForm2
         LineSize = 5
         Max = 200
         Min = 50
-        Orientation = trHorizontal
         PageSize = 25
         Frequency = 25
         Position = 100
-        SelEnd = 0
-        SelStart = 0
         TabOrder = 6
         ThumbLength = 12
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
       end
       object CheckBox17: TCheckBox
         Left = 24
@@ -465,21 +470,19 @@ object Form2: TForm2
         LineSize = 5
         Max = 8
         Min = 1
-        Orientation = trHorizontal
         PageSize = 25
-        Frequency = 1
         Position = 5
-        SelEnd = 0
-        SelStart = 0
         TabOrder = 10
         ThumbLength = 12
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
       end
     end
     object TabSheet4: TTabSheet
       Caption = 'Textures'
       ImageIndex = 4
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object RadioGroup1: TRadioGroup
         Left = 16
         Top = 48
@@ -505,7 +508,8 @@ object Form2: TForm2
         ItemIndex = 0
         Items.Strings = (
           'A'#233'rographe'
-          'G'#233'ologique')
+          'G'#233'ologique'
+          'Lopam')
         TabOrder = 1
         OnClick = RadioGroup2Click
       end
@@ -537,6 +541,10 @@ object Form2: TForm2
     object TabSheet6: TTabSheet
       Caption = 'Overlay'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object nooverlay: TLabel
         Left = 40
         Top = 24
@@ -619,15 +627,9 @@ object Form2: TForm2
           Height = 33
           LineSize = 5
           Max = 200
-          Orientation = trHorizontal
           PageSize = 10
           Frequency = 20
-          Position = 0
-          SelEnd = 0
-          SelStart = 0
           TabOrder = 2
-          TickMarks = tmBottomRight
-          TickStyle = tsAuto
           OnChange = TrackBar5Change
         end
       end
@@ -767,6 +769,10 @@ object Form2: TForm2
     object TabSheet5: TTabSheet
       Caption = 'Eyepieces'
       ImageIndex = 5
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label24: TLabel
         Left = 8
         Top = 8
@@ -879,6 +885,10 @@ object Form2: TForm2
     object Impression: TTabSheet
       Caption = 'Impression'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel6: TBevel
         Left = 8
         Top = 48
@@ -978,14 +988,9 @@ object Form2: TForm2
         Height = 30
         Max = 1200
         Min = 200
-        Orientation = trHorizontal
         Frequency = 125
         Position = 700
-        SelEnd = 0
-        SelStart = 0
         TabOrder = 2
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
       end
       object Button2: TButton
         Left = 112
@@ -1017,7 +1022,7 @@ object Form2: TForm2
         Top = 280
         Width = 113
         Height = 21
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 7
         Text = 'Comme '#224' l'#39#233'cran'
@@ -1042,7 +1047,6 @@ object Form2: TForm2
     TabOrder = 2
   end
   object ColorDialog1: TColorDialog
-    Ctl3D = True
     Left = 16
     Top = 424
   end

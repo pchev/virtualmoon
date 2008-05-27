@@ -147,6 +147,7 @@ type
     TrackBar5: TTrackBar;
     nooverlay: TLabel;
     Label34: TLabel;
+    CheckBox24: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
@@ -174,9 +175,9 @@ type
     procedure CheckBox16Click(Sender: TObject);
     procedure Label34Click(Sender: TObject);
   private
-    { D�larations priv�s }
+    { D�clarations priv�es }
   public
-    { D�larations publiques }
+    { D�clarations publiques }
     hiresfn: string;
   end;
 
@@ -229,11 +230,11 @@ if not fileexists('version.developpement') then begin
   Edit4.Visible:=false;        // external image display
   Button3.Visible:=false;      // external image display
   checkbox15.Visible:=false;   // direct LOPAM image link
-  label20.Visible:=false;      // Rkl chart
-  label21.Visible:=false;      // Rkl chart
-  label22.Visible:=false;      // Rkl chart
-  ruklprefix.Visible:=false;   // Rkl chart
-  ruklsuffix.Visible:=false;   // Rkl chart 
+  label20.Visible:=false;      // R�kl chart
+  label21.Visible:=false;      // R�kl chart
+  label22.Visible:=false;      // R�kl chart
+  ruklprefix.Visible:=false;   // R�kl chart
+  ruklsuffix.Visible:=false;   // R�kl chart
 end;
 {$ifdef vmalight}
   CheckBox3.Visible:=false;
@@ -251,6 +252,7 @@ end;
   Tabsheet6.TabVisible:=false;
 {$endif}
 {$ifndef vmapro}
+  checkbox24.Visible:=false;
   TabSheet6.TabVisible:=false;
   Label31.Visible:=false;
   CheckListBox1.Visible:=false;
@@ -258,9 +260,9 @@ end;
 {$ifdef opengl}
   OverlayPanel.visible:=AsMultiTexture;
 {$endif}
-i:=findfirst(appdir+'\'+'lang_*.ini',0,fs);
+i:=findfirst(slash(appdir)+slash('language')+'lang_*.ini',0,fs);
 while i=0 do begin
-  inifile:=Tinifile.create(appdir+'\'+fs.name);
+  inifile:=Tinifile.create(slash(appdir)+slash('language')+fs.name);
   buf:=inifile.ReadString('default','language','Invalid File '+fs.name);
   ver:=inifile.ReadString('default','version','1.0');
   if ver>=AVLversion then ver:=''
@@ -391,13 +393,13 @@ begin
 case RadioGroup2.itemindex of
 0 : hiresfn:='hires.jpg';
 1 : hiresfn:='hires_clem.jpg';
-//2 : hiresfn:='hires_light.jpg';
+2 : hiresfn:='hires_lopam.jpg';
 end;
 if not fileexists(Slash(appdir)+Slash('textures')+hiresfn) then begin
  hiresfn:=hiresfile;
  if hiresfile='hires.jpg' then form2.radiogroup2.itemindex:=0
    else if hiresfile='hires_clem.jpg' then form2.radiogroup2.itemindex:=1
-//   else if hiresfile='hires_light.jpg' then form2.radiogroup2.itemindex:=2
+   else if hiresfile='hires_lopam.jpg' then form2.radiogroup2.itemindex:=2
    else form2.radiogroup2.itemindex:=-1;
 end;
 if hiresfn='hires_light.jpg' then graytexture:=0

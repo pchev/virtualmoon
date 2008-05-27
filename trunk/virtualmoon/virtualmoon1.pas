@@ -26,13 +26,13 @@ uses
   QTypes, QForms, QControls, QExtCtrls, QStdCtrls, QGraphics,
 {$ENDIF}
 {$IFDEF MSWINDOWS}
-  Windows, Forms,  StdCtrls, ExtCtrls, Graphics,
+  Windows, ShlObj, Forms,  StdCtrls, ExtCtrls, Graphics,
    DdeMan,
 {$ENDIF}
 {$IFDEF opengl}
   GLScene, GLObjects, GLMisc, GLWin32Viewer, GLTexture, Info,
   GLcontext, GLCadencer, GLBitmapFont, GLHUDObjects, GLGraphics,
-  GLGraph, GLMirror, AsyncTimer, GLUtils, GLCrossPlatForm,
+  GLColor, GLGraph, GLMirror, AsyncTimer, GLUtils, GLCrossPlatForm,
 {$ENDIF}
   mlb2, Printers,  Controls, DateUtils,
   Messages, SysUtils, Classes, Dialogs,  math,
@@ -474,9 +474,10 @@ type
     procedure PopupMenu1Popup(Sender: TObject);
     procedure CheckBox8Click(Sender: TObject);
   private
-    { D�larations priv�s }
+    { D�clarations priv�es }
+    procedure SetPath;
   public
-    { D�larations publiques }
+    { D�clarations publiques }
     procedure InitGraphic(Sender: TObject);
     procedure LoadOverlay(fn:string; lum:integer);
     Procedure SetLabel;
@@ -506,8 +507,13 @@ Procedure ShowImg(desc,nom:string; forceinternal:boolean);
 function SearchName(n: string; center: boolean):boolean;
 Procedure OpenHires(forcerebuild:boolean);
 
-const AVLversion = '3.5';
-      Splashversion ='Version 3.5 2007-10-10';
+const
+{$ifdef vmapro}
+      AVLversion = '4.0';
+{$else}
+      AVLversion = '3.5b';
+{$endif}
+      Splashversion ='Version '+AVLversion+' 2008-03-02';
       d1 = '0.0';
       d2 = '0.00';
       d3 = '0.000';
@@ -553,7 +559,7 @@ const AVLversion = '3.5';
       versionname='Pro';
 {$endif}
     VMAbrowser='DATLUN';
-    
+
 var lastx,lasty,lastyzoom,posmin,posmax,ax,ay,MaxSprite : integer;
     ReduceTexture,ReduceTextureFar,LastIma,maximgdir,maxima,startx,starty,saveimagesize,lastscrollx,lastscrolly : Integer;
     LeftMargin, PrintTextWidth,clickX,clickY : integer;
@@ -568,8 +574,8 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay,MaxSprite : integer;
     useOpenGL,lockmove,lockrepeat,lockrot,DDEreceiveok,showlabel,showautolabel,showmark,showlibrationmark,marked,saveimagewhite,skipresize : boolean;
     searchtext, imac1, imac2, imac3,lopamplateurl,lopamnameurl,lopamdirecturl,lopamlocalurl,lopamplatesuffix,lopamnamesuffix,lopamdirectsuffix,lopamlocalsuffix : string;
     externalimagepath,helpprefix,AntiAlias,ruklprefix,ruklsuffix,hiresfile,exitpassword,password,transmsg,scopeinterface,markname,currentname,currentid : string;
-    appname : string;
-    multi_instance, CloseVMAbrowser : boolean;
+    appname, pofile : string;
+    multi_instance, CloseVMAbrowser, ClosePhotlun : boolean;
     m : array[1..nummessage] of string;
     shapepositionX, shapepositionY, CameraOrientation, PoleOrientation,startl,startb,startxx,startyy : double;
     curfoc, curx, cury : double;
@@ -609,8 +615,8 @@ var lastx,lasty,lastyzoom,posmin,posmax,ax,ay,MaxSprite : integer;
     phasehash : Boolean = false;
     phaseumbrachanging : Boolean = false;
     phaseumbra: Tcolor;
-    useDBN: integer = 5;
-    db_age : array[1..5] of integer;
+    useDBN: integer = 6;
+    db_age : array[1..6] of integer;
     farsidetexture : Boolean = true;
     compresstexture : Boolean = false;
     showoverlay : Boolean = true;
