@@ -105,6 +105,7 @@ Procedure HeurePo(jd,ar,de,h :Double; VAR hp1,hp2 :Double );
              hp2      :  heure soir
            *)
 Function GetTempFile(i : integer) : String;
+Function ExecuteAdmin(const FileName, Params, DefaultDir: string): THandle;
 Function ExecuteFile(const FileName, Params, DefaultDir: string; ShowCmd: Integer): THandle;
 Function Exec(cmd: string; hide: boolean): cardinal;
 Function ExecNoWait(cmd: string; hide: boolean): boolean;
@@ -203,7 +204,7 @@ var
   Language : shortstring;
   commsg : array [1..10] of string;
   DebugOn,ShowConstl,ShowConstB,NetworkOn,ByPassNetworkCheck,zlibok,PlanetParalaxe,satxyok,AzNorth : boolean;
-  AppDir,hp,ObsNom,SaveObsNom : string;
+  AppDir,privatedir, ConfigFile, hp,ObsNom,SaveObsNom : string;
   debugfile : string;
   FlipX, FlipY, ProjPole,ReqProj,lastprojpole : integer;
   PrinterResolution, DefaultPrtRes : Integer;
@@ -225,10 +226,7 @@ const crlf=chr(10)+chr(13);
 
 implementation
 
-uses helpunit, catalogues
-{$IFDEF VER140}
-, variants
-{$ENDIF}
+uses helpunit, catalogues, variants
 ;
 
 var fdebug : textfile;
@@ -344,12 +342,12 @@ end;
 
 Procedure InitString;
 begin
-commsg[1]:='Erreur de définition des fichier temporaires';
+commsg[1]:='Erreur de dï¿½finition des fichier temporaires';
 commsg[2]:='Projection invalide';
 commsg[3]:='Indiquer le chemin correct pour';
 commsg[4]:='Monter le disque pour';
 commsg[5]:='Erreur de configuration pour';
-commsg[6]:='Erreur de capacité';
+commsg[6]:='Erreur de capacitï¿½';
 end;
 
 Procedure SetLang;
@@ -570,7 +568,7 @@ case projtype of              // AIPS memo 27
     sincos(de,s2,c2);
     sincos(hh,s3,c3);
     r:=s1*s2+c2*c1*c3;  // cos the
-    if r<=0 then begin  // > 90°
+    if r<=0 then begin  // > 90ï¿½
       xx:=9999;
       yy:=9999;
     end else begin
@@ -590,7 +588,7 @@ case projtype of              // AIPS memo 27
     sincos(de,s2,c2);
     sincos(hh,s3,c3);
     r:=s1*s2+c2*c1*c3;     // cos the
-    if r<=0 then begin  // > 90°
+    if r<=0 then begin  // > 90ï¿½
       xx:=9999;
       yy:=9999;
     end else begin
@@ -909,7 +907,7 @@ begin
     if abs(min)<10 then m:='0'+trim(m);
     str(sec:2:0,s);
     if abs(sec)<9.5 then s:='0'+trim(s);
-    result := d+'°'+m+''''+s+'"';
+    result := d+'ï¿½'+m+''''+s+'"';
 end;
 
 Function TimToStr(de: Double) : string;
@@ -1758,11 +1756,19 @@ begin
     end;
 end;
 
+Function ExecuteAdmin(const FileName, Params, DefaultDir: string): THandle;
+var
+  zFileName, zParams, zDir: array[0..255] of Char;
+begin
+  Result := ShellExecute(0, 'runas', StrPCopy(zFileName, FileName),
+                         StrPCopy(zParams, Params), StrPCopy(zDir, DefaultDir), SW_SHOWNORMAL);
+end;
+
 Function ExecuteFile(const FileName, Params, DefaultDir: string; ShowCmd: Integer): THandle;
 var
   zFileName, zParams, zDir: array[0..255] of Char;
 begin
-  Result := ShellExecute(Application.MainForm.Handle, nil, StrPCopy(zFileName, FileName),
+  Result := ShellExecute(0, nil, StrPCopy(zFileName, FileName),
                          StrPCopy(zParams, Params), StrPCopy(zDir, DefaultDir), ShowCmd);
 end;
 

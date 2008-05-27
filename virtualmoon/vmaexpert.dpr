@@ -33,7 +33,7 @@ uses
   glossary in 'glossary.pas' {Gloss},
   fmsg in 'fmsg.pas' {MsgForm},
   telescope in 'telescope.pas',
-  helpUnit in 'helpunit.pas' {helpForm};
+  helpunit in 'helpunit.pas' {helpForm};
 
 {$R *.RES}
 
@@ -102,7 +102,7 @@ begin
                 0);
    //Lets quit
     Halt(0);
-  end;
+  end; 
   Application.Initialize;
   Application.UpdateFormatSettings:=false;
   decimalseparator:='.';

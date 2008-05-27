@@ -39,6 +39,17 @@ form1.debuglabel.caption:=Inttostr((HeapStatus.TotalAllocated div 1024))+'kb';
 end;
 end;
 
+function OsVersion: word ;
+var lpversioninfo: TOSVERSIONINFO;
+begin
+lpversioninfo.dwOSVersionInfoSize:=sizeof(TOSVERSIONINFO);
+if GetVersionEx(lpversioninfo) then begin
+   result:=lpversioninfo.dwMajorVersion;
+end
+else
+ result:=4;
+end;
+
 PROCEDURE PrintBitmap(Canvas:  TCanvas; DestRect:  TRect;  Bitmap:  TBitmap);
 // Based on posting to borland.public.delphi.winapi by Rodney E Geraghty, 8/8/97.
 // Used to print bitmap on any Windows printer.
@@ -93,227 +104,24 @@ end;
 Hpal := CreatePalette(PLogPalette(@pal)^);
 end;
 
-procedure CreateLowres(fn:string);
-var //pal : Hpalette;
-    p1,p2:Pbytearray;
-    img:Tbitmap;
-    bm:Tbitmap;
-    jm:tjpegimage;
-    src,dest:Trect;
-begin
-MsgForm:=TMsgForm.create(application);
-MsgForm.Label1.caption:='Generating Lowres Texture. Please Wait ...';
-msgform.show;
-msgform.Refresh;
-img:=Tbitmap.Create;
-bm:=Tbitmap.create;
-jm:=TJpegImage.Create;
-try
-jm.Grayscale:=true;
-jm.Scale:=jsHalf;
-jm.LoadFromFile(fn);
-//crepalette(pal);
-//pal:=jm.palette;
-bm.PixelFormat:=pf8bit;
-//bm.Palette:=pal;
-bm.height:=2048;
-bm.width:=4096;
-dest:=rect(0,0,4096,2048);
-bm.canvas.stretchdraw(dest,jm);
-img.Width:=1024;
-img.Height:=1024;
-img.PixelFormat:=pf8bit;
-//img.Palette:=pal;
-dest:=rect(0,0,1024,1024);
-src:=rect(0,0,1024,1024);
-img.Canvas.CopyRect(dest,bm.canvas,src);
-p1:=img.ScanLine[0];
-p2:=img.ScanLine[1023];
-move(p2[0],p1[0],1024);
-jm.assign(img);
-jm.CompressionQuality:=80;
-jm.savetofile(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c6.jpg');
-src:=rect(1024,0,2048,1024);
-img.Canvas.CopyRect(dest,bm.canvas,src);
-p1:=img.ScanLine[0];
-p2:=img.ScanLine[1023];
-move(p2[0],p1[0],1024);
-jm.assign(img);                     
-jm.CompressionQuality:=80;
-jm.savetofile(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c1.jpg');
-src:=rect(2048,0,3072,1024);
-img.Canvas.CopyRect(dest,bm.canvas,src);
-p1:=img.ScanLine[0];
-p2:=img.ScanLine[1023];
-move(p2[0],p1[0],1024);
-jm.assign(img);
-jm.CompressionQuality:=80;
-jm.savetofile(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c2.jpg');
-src:=rect(3072,0,4096,1024);
-img.Canvas.CopyRect(dest,bm.canvas,src);
-p1:=img.ScanLine[0];
-p2:=img.ScanLine[1023];
-move(p2[0],p1[0],1024);
-jm.assign(img);
-jm.CompressionQuality:=80;
-jm.savetofile(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c5.jpg');
-src:=rect(0,1024,1024,2048);
-img.Canvas.CopyRect(dest,bm.canvas,src);
-p1:=img.ScanLine[0];
-p2:=img.ScanLine[1023];
-move(p1[0],p2[0],1024);
-jm.assign(img);
-jm.CompressionQuality:=80;
-jm.savetofile(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c8.jpg');
-src:=rect(1024,1024,2048,2048);
-img.Canvas.CopyRect(dest,bm.canvas,src);
-p1:=img.ScanLine[0];
-p2:=img.ScanLine[1023];
-move(p1[0],p2[0],1024);
-jm.assign(img);
-jm.CompressionQuality:=80;
-jm.savetofile(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c3.jpg');
-src:=rect(2048,1024,3072,2048);
-img.Canvas.CopyRect(dest,bm.canvas,src);
-p1:=img.ScanLine[0];
-p2:=img.ScanLine[1023];
-move(p1[0],p2[0],1024);
-jm.assign(img);
-jm.CompressionQuality:=80;
-jm.savetofile(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c4.jpg');
-src:=rect(3072,1024,4096,2048);
-img.Canvas.CopyRect(dest,bm.canvas,src);
-p1:=img.ScanLine[0];
-p2:=img.ScanLine[1023];
-move(p1[0],p2[0],1024);
-jm.assign(img);
-jm.CompressionQuality:=80;
-jm.savetofile(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c7.jpg');
-finally
-msgform.close;
-bm.free;
-img.free;
-jm.free;
-msgform.free;
-end;
-end;
-
-Procedure CreateHires(fn:string);
-var p : Pbytearray;
-    jm : Tjpegimage;
-    bm: Tbitmap;
-    i,x,y,n:integer;
-begin
-if not fileexists(fn) then raise exception.create('File not found '+fn);
-MsgForm:=TMsgForm.create(application);
-MsgForm.Label1.caption:='Generating Hires Texture. Please Wait ...';
-msgform.show;
-msgform.Refresh;
-jm:=TJpegImage.Create;
-bm:=Tbitmap.Create;
-filemode:=2;
-assignfile(fh,Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat');
-rewrite(fh,1);
-try
- try
- jm.LoadFromFile(fn);
- bm.Assign(jm);
- jm.free;
- except
-  raise exception.create('Out of memory!');
- end;
- x:=bm.Width;
- y:=bm.Height;
-// if (x<>2*y)or((x mod 360)<>0)or((512 mod (x div 360))<>0) then raise exception.create('Invalid hires file size.');
-// if (x<>11520)or(y<>5760) then raise exception.create('Invalid hires file size, must be 11520x5760');
- for i:=0 to y-1 do begin
-   p:=bm.ScanLine[i];
-   blockwrite(fh,p[0],x,n);
-   if n<>x then raise exception.create('Cannot create hires file.');
- end;
- hi_w:=x;
- hi_dl:=x div 360;
- hi_wd:=512 div hi_dl;
-finally
- msgform.close;
- closefile(fh);
- bm.free;
- msgform.free;
-end;
-end;
-
-Procedure CreateHires500(fn:string);
-var p : Pbytearray;
-    jm : Tjpegimage;
-    bm: Tbitmap;
-    i,x,y,n:integer;
-begin
-if fileexists(fn) then begin
-MsgForm:=TMsgForm.create(application);
-MsgForm.Label1.caption:='Generating 500m/pixel Texture. Please Wait ...';
-msgform.show;
-msgform.Refresh;
-jm:=TJpegImage.Create;
-bm:=Tbitmap.Create;
-filemode:=2;
-assignfile(fh,Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.dat');
-rewrite(fh,1);
-try
- try
- jm.LoadFromFile(fn);
- bm.Assign(jm);
- jm.free;
- except
-  raise exception.create('Out of memory!');
- end;
- x:=bm.Width;
- y:=bm.Height;
- for i:=0 to y-1 do begin
-   p:=bm.ScanLine[i];
-   blockwrite(fh,p[0],x,n);
-   if n<>x then raise exception.create('Cannot create hires file.');
- end;
-finally
- msgform.close;
- closefile(fh);
- bm.free;
- msgform.free;
-end;
-end;
-end;
-
 {$IFDEF opengl}
 Procedure OpenHires(forcerebuild:boolean);
+var rebuild: boolean;
+    hnd: THandle;
 begin
-{  if forcerebuild then begin
-    try
-    rewrite(fh);
-    closefile(fh);
-    finally
-    deletefile(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat');
-    CreateHires(Slash(appdir)+Slash('textures')+hiresfile);
-    end;
-  end;}
   // create files if not exists
+  rebuild:=false;
 
   if ((not fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat'))and
      (fileexists(Slash(appdir)+Slash('textures')+hiresfile)))
       then begin
-        try
-         CreateHires(Slash(appdir)+Slash('textures')+hiresfile);
-        except
-         deletefile(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat');
-        end;
+        rebuild:=true;
       end;
 
   if ((not fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.dat'))and
      (fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.jpg')))
       then begin
-        try
-         CreateHires500(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.jpg');
-        except
-         deletefile(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'_500.dat');
-        end;
+        rebuild:=true;
       end;
 
   if ((
@@ -327,12 +135,36 @@ begin
      (not fileexists(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c8.jpg')))and
      (fileexists(Slash(appdir)+Slash('textures')+hiresfile)))
       then begin
-        try
-         CreateLowres(Slash(appdir)+Slash('textures')+hiresfile);
-        except
-         deletefile(Slash(appdir)+Slash('textures')+'moon'+imgsuffix+'_c8.jpg');
-        end;
+        rebuild:=true;
       end;
+
+  if rebuild then begin
+     case OsVersion of
+     // win 95/98
+     4 : ExecuteFile(slash(appdir)+'createtexture.exe','',appdir,SW_SHOWNORMAL);
+     // win 2000/xp
+     5 : begin
+         MessageDlg('Some texture files are missing and must be rebuild.'+crlf+
+                    'Please select a user with administrative right on the next selection box, usually it is called "administrator".',
+                    mtInformation,[mbOK],0);
+         ExecuteAdmin(slash(appdir)+'createtexture.exe','',appdir);
+         end;
+     // vista    
+     6..99: begin
+         MessageDlg('Some texture files are missing and must be rebuild.'+crlf+
+                    'In the next screen please allow the program to access the computer and give an administator password if required.',
+                    mtInformation,[mbOK],0);
+         ExecuteAdmin(slash(appdir)+'createtexture.exe','',appdir);
+         end;
+     end;
+     application.ProcessMessages;
+     Sleep(2000);
+     repeat
+       Sleep(100);
+       application.ProcessMessages;
+       hnd:=findwindow(nil,pchar('createtexture'));
+     until hnd=0;
+  end;
 
   // open 948m/pixel file
   if fileexists(Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat') then begin
@@ -413,15 +245,18 @@ const deftxt = '?';
       b=' ';
 begin
 language:='UK';
-inifile:=Tmeminifile.create(Slash(AppDir)+'virtualmoon.ini');
+if fileexists(ConfigFile) then
+   inifile:=Tmeminifile.create(ConfigFile)
+else
+   inifile:=Tmeminifile.create(slash(AppDir)+'virtualmoon.ini');
 with inifile do begin
 section:='default';
 buf:=ReadString(section,'Language',language);
 end;
 inifile.Free;
 chdir(appdir);
-if fileexists(Slash(AppDir)+'lang_'+buf+'.ini') then language:=buf;
-inifile:=Tmeminifile.create(Slash(AppDir)+'lang_'+language+'.ini');
+if fileexists(Slash(AppDir)+slash('language')+'lang_'+buf+'.ini') then language:=buf;
+inifile:=Tmeminifile.create(Slash(AppDir)+slash('language')+'lang_'+language+'.ini');
 section:='default';
 with inifile do begin
   with Form1 do begin
@@ -444,13 +279,14 @@ const deftxt = '?';
       b=' ';
 begin
 wordformat:=0;
-inifile:=Tmeminifile.create(Slash(AppDir)+'lang_'+language+'.ini');
+inifile:=Tmeminifile.create(Slash(AppDir)+slash('language')+'lang_'+language+'.ini');
 section:='default';
 with inifile do begin
   with Form1 do begin
     //olddatabase:=(ReadString(section,'database','DBLMW_FR.csv'));
     wordformat:=ReadInteger(section,'format',wordformat);
     helpprefix:=ReadString(section,'help_prefix','UK');
+    pofile:=ReadString(section,'lang_po_file','');
     skylib.hp:=helpprefix+'_';
     fichier1.caption:=ReadString(section,'t_1',deftxt);
     ToolButton1.Caption:='&'+fichier1.caption;
@@ -659,6 +495,7 @@ with inifile do begin
     Checkbox21.caption:=ReadString(section,'t_131',Checkbox21.caption);
     Checkbox22.caption:=ReadString(section,'t_168',Checkbox22.caption);
     Checkbox23.caption:=ReadString(section,'t_164',Checkbox23.caption);
+    Checkbox24.caption:=ReadString(section,'t_187',Checkbox24.caption);
     label28.caption:=ReadString(section,'t_124',label28.caption);
     GroupBox1.caption:=ReadString(section,'t_129',GroupBox1.caption);
     TabSheet7.caption:=GroupBox1.caption;
@@ -694,6 +531,7 @@ with inifile do begin
     {$ifdef vmaexpert}
      RadioGroup2.items.add(ReadString(section,'t_132','Aerograph'));
      RadioGroup2.items.add(ReadString(section,'t_133','Clementine'));
+     RadioGroup2.items.add(ReadString(section,'t_186','Lopam'));
     {$endif}
   end;
   imac1:=(ReadString(section,'t_30',deftxt));
@@ -811,6 +649,8 @@ addimages(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lun
 addimages(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005');
 addimages(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov');
 addimages(slash(appdir)+'BestOfAmateurs','Best of Amateurs','');
+addimages(slash(appdir)+'BestOfHiggins','Best of Higgins','');
+addimages(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','');
 end;
 
 {$IFDEF opengl}
@@ -912,7 +752,8 @@ usedatabase[2]:=true;
 usedatabase[3]:=true;
 usedatabase[4]:=true;
 usedatabase[5]:=true;
-for i:=6 to maxdbn do usedatabase[i]:=false;
+usedatabase[6]:=true;
+for i:=7 to maxdbn do usedatabase[i]:=false;
 timezone:=0;
 Obslatitude:=46;
 Obslongitude:=-6;
@@ -976,6 +817,7 @@ eyepiecefield[1]:=15;
 rotdirection:=1;
 rotstep:=5;
 CloseVMAbrowser:=false;
+ClosePhotlun:=false;
 {$IFDEF opengl}
 {$IFDEF vmapro}
   smooth:=180;
@@ -983,7 +825,10 @@ CloseVMAbrowser:=false;
   smooth:=90;
 {$ENDIF}
 {$ENDIF}
-inif:=Tmeminifile.create(Slash(AppDir)+'virtualmoon.ini');
+if fileexists(ConfigFile) then
+   inif:=Tmeminifile.create(ConfigFile)
+else
+   inif:=Tmeminifile.create(slash(AppDir)+'virtualmoon.ini');
 with inif do begin
 section:='images';
 LopamDirect:=ReadBool(section,'LopamDirect',LopamDirect);
@@ -1012,15 +857,16 @@ PrintChart:=ReadBool(section,'PrintChart',PrintChart);
 PrintEph:=ReadBool(section,'PrintEph',PrintEph);
 PrintDesc:=ReadBool(section,'PrintDesc',PrintDesc);
 section:='default';
+pofile:=ReadString(section,'lang_po_file','');
 UseComputerTime:=ReadBool(section,'UseComputerTime',UseComputerTime);
-for i:=1 to 5 do usedatabase[i]:=ReadBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
-for i:=1 to 5 do db_age[i]:=ReadInteger(section,'DB_Age'+inttostr(i),0);
+for i:=1 to 6 do usedatabase[i]:=ReadBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
+for i:=1 to 6 do db_age[i]:=ReadInteger(section,'DB_Age'+inttostr(i),0);
 doublebuf:=ReadBool(section,'DoubleBuffer',doublebuf);
 stencilbuf:=ReadBool(section,'StencilBuffer',stencilbuf);
 farsidetexture:=ReadBool(section,'farsidetexture',farsidetexture);
 compresstexture:=ReadBool(section,'compresstexture',compresstexture);
 antialias:=ReadString(section,'AntiAlias',antialias);
-appdir:=ReadString(section,'Install_Dir',appdir);
+//appdir:=ReadString(section,'Install_Dir',appdir);
 Obslatitude:=ReadFloat(section,'Obslatitude',Obslatitude);
 Obslongitude:=ReadFloat(section,'Obslongitude',Obslongitude);
 if UseComputerTime then
@@ -1083,9 +929,9 @@ end;
 
 ReduceTexture:=ReadInteger(section,'ReduceTexture',ReduceTexture);
 ReduceTextureFar:=ReadInteger(section,'ReduceTextureFar',ReduceTextureFar);
-hi_w:=ReadInteger(section,'hi_w',hi_w);
+{hi_w:=ReadInteger(section,'hi_w',hi_w);
 hi_dl:=ReadInteger(section,'hi_dl',hi_dl);
-hi_wd:=ReadInteger(section,'hi_wd',hi_wd);
+hi_wd:=ReadInteger(section,'hi_wd',hi_wd);}
 hiresfile:=ReadString(section,'hiresfile',hiresfile);
 for j:=1 to 10 do begin
   eyepiecename[j]:=ReadString(section,'eyepiecename'+inttostr(j),eyepiecename[j]);
@@ -1113,6 +959,7 @@ end;
   Geocentric:=ReadBool(section,'Geocentric',Geocentric);
   usedatabase[3]:=false;
   usedatabase[4]:=false;
+  usedatabase[6]:=false;
   showoverlay:=false;
   ReduceTextureFar:=4;
   hiresfile:='hires.jpg';
@@ -1125,6 +972,7 @@ end;
   showoverlay:=false;
   usedatabase[2]:=false;
   usedatabase[4]:=false;
+  usedatabase[6]:=false;
 {$endif}
 {$IFDEF opengl}
 useOpenGL:=true;
@@ -1194,7 +1042,7 @@ var
     section: string;
 begin
 if safemode then exit;
-inif:=Tmeminifile.create(Slash(AppDir)+'virtualmoon.ini');
+inif:=Tmeminifile.create(ConfigFile);
 try
 section:='default';
 with inif do begin
@@ -1218,8 +1066,8 @@ with inif do begin
   WriteBool(section,'showoverlay',showoverlay);
 {$endif}
 {$ifdef vmaexpert}
-  for i:=1 to 5 do WriteBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
-  for i:=1 to 5 do WriteInteger(section,'DB_Age'+inttostr(i),db_age[i]);
+  for i:=1 to 6 do WriteBool(section,'UseDatabase'+inttostr(i),usedatabase[i]);
+  for i:=1 to 6 do WriteInteger(section,'DB_Age'+inttostr(i),db_age[i]);
   WriteInteger(section,'ReduceTextureFar',ReduceTextureFar);
   WriteString(section,'hiresfile',hiresfile);
   WriteBool(section,'Geocentric',Geocentric);
@@ -1244,6 +1092,7 @@ with inif do begin
 {$endif}
   WriteFloat(section,'Obslatitude',Obslatitude);
   WriteFloat(section,'Obslongitude',Obslongitude);
+  WriteString(section,'lang_po_file',pofile);
   WriteBool(section,'UseComputerTime',UseComputerTime);
   WriteFloat(section,'TimeZone',timezone);
   WriteFloat(section,'CurrentJD',CurrentJD);
@@ -1278,9 +1127,9 @@ with inif do begin
     WriteFloat(section,'PicZoom_'+inttostr(i),ima[i-1].zoom);
    end;
   WriteInteger(section,'ReduceTexture',ReduceTexture);
-  WriteInteger(section,'hi_w',hi_w);
+{  WriteInteger(section,'hi_w',hi_w);
   WriteInteger(section,'hi_dl',hi_dl);
-  WriteInteger(section,'hi_wd',hi_wd);
+  WriteInteger(section,'hi_wd',hi_wd);}
   for i:=1 to 10 do begin
     WriteString(section,'eyepiecename'+inttostr(i),eyepiecename[i]);
     WriteInteger(section,'eyepiecefield'+inttostr(i),eyepiecefield[i]);
@@ -2189,7 +2038,7 @@ left:=0;
 width:=screen.width;
 height:=screen.height;
 end;
-SystemParametersInfo (SPI_SCREENSAVERRUNNING, Word (True), @OldVal, 0); // turn off alt-tab and ctrl+esc with win98 
+(* SystemParametersInfo (SPI_SCREENSAVERRUNNING, Word (True), @OldVal, 0); // turn off alt-tab and ctrl+esc with win98 *)
 end;
 
 Procedure ReadParam;
@@ -2722,11 +2571,32 @@ rotatefont := TFont.Create;
 rotatefont.Handle := CreateFontIndirect(lf);
 end;
 
+procedure TForm1.SetPath;
+{$ifdef mswindows}
+var PIDL : PItemIDList;
+    Folder : array[0..MAX_PATH] of Char;
+const CSIDL_APPDATA = $001A;
+{$endif}
+begin
+  appdir:=getcurrentdir;
+{$ifdef mswindows}
+  SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);
+  SHGetPathFromIDList(PIDL, Folder);
+  privatedir:=slash(Folder)+'virtualmoon';
+{$endif}
+{$ifdef unix}
+  privatedir:=slash(ExpandFileName('~/.virtualmoon'));
+{$endif}
+  if not DirectoryExists(privatedir) then ForceDirectories(privatedir);
+  ConfigFile:=slash(privatedir)+'virtualmoon.ini';
+  if not DirectoryExists(Slash(privatedir)+'database') then ForceDirectories(Slash(privatedir)+'database');
+end;
+
 Procedure TForm1.FormCreate(Sender: TObject);
 var tmpp : pchar;
     i : integer;
 begin
-appdir:=getcurrentdir;
+SetPath;
 skipresize:=true;
 top:=0;
 left:=0;
@@ -2741,6 +2611,7 @@ ExitRequest := RegisterWindowMessage(ExitMsg);
 OldWindowProc := Pointer(SetWindowLong(Form1.Handle,
                                        GWL_WNDPROC,
                                        LongInt(@NewWindowProc)));
+
 searchlist:=Tstringlist.Create;
 param:=Tstringlist.Create;
 param.clear;
@@ -3218,7 +3089,7 @@ if editrow=0 then begin  // insert new record.
   cmd:=copy(cmd,1,length(cmd)-1)+');';
   dbm.Query(cmd);
   editrow:=dbm.GetLastInsertID;
-  dbjournal(dbm,'INSERT DBN='+stringgrid2.Cells[1,0]+' NAME='+stringgrid2.Cells[1,1]+' ID='+inttostr(editrow));
+  dbjournal(extractfilename(dbm.database),'INSERT DBN='+stringgrid2.Cells[1,0]+' NAME='+stringgrid2.Cells[1,1]+' ID='+inttostr(editrow));
 end
 else begin   // update existing record.
   cmd:='update moon set ';
@@ -3231,7 +3102,7 @@ else begin   // update existing record.
   end;
   cmd:=copy(cmd,1,length(cmd)-1)+' where ID='+inttostr(editrow)+';';
   dbm.Query(cmd);
-  dbjournal(dbm,'UPDATE DBN='+stringgrid2.Cells[1,0]+' NAME='+stringgrid2.Cells[1,1]+' ID='+inttostr(editrow));
+  dbjournal(extractfilename(dbm.database),'UPDATE DBN='+stringgrid2.Cells[1,0]+' NAME='+stringgrid2.Cells[1,1]+' ID='+inttostr(editrow));
 end;
 mark(0,0,'');
 RefreshLabel;
@@ -3245,7 +3116,7 @@ if editrow<=0 then begin showmessage('Pas d''enregistrement sélectionné en base 
 if messagedlg('Vraiment supprimer '+stringgrid2.Cells[1,1]+' de la base de donnée ?',mtConfirmation, [mbYes, mbNo], 0)=mrYes then begin
   cmd:='delete from moon where ID='+inttostr(editrow)+';';
   dbm.Query(cmd);
-  dbjournal(dbm,'DELETE DBN='+stringgrid2.Cells[1,0]+' NAME='+stringgrid2.Cells[1,1]+' ID='+inttostr(editrow));
+  dbjournal(extractfilename(dbm.database),'DELETE DBN='+stringgrid2.Cells[1,0]+' NAME='+stringgrid2.Cells[1,1]+' ID='+inttostr(editrow));
   dbedited:=false;
   editrow:=-1;
   btnEffacer.Click;
@@ -3364,7 +3235,7 @@ end else begin
 end;
 screen.Cursor:=crHourGlass;
 try
-  dbnotes.SaveToCSVFile(Slash(appdir)+Slash('database')+'notes.csv');
+  dbnotes.SaveToCSVFile(Slash(privatedir)+Slash('database')+'notes.csv');
 finally
 screen.Cursor:=crDefault;
 end;
@@ -3396,7 +3267,7 @@ for i:=0 to maximgdir-1 do begin
     r:=findfirst(dir+nom2+'_*.jpg',0,f);
     findclose(f);
     if r=0 then break;
-  end;  
+  end;
 end;
 result:=(r=0);
 end;
@@ -3549,7 +3420,6 @@ begin
 Firstsearch:=true;
 SearchName(Combobox1.Text,true);
 end;
-
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
@@ -3959,6 +3829,7 @@ begin
 if useopengl and (not GLSceneViewer1.Focused) then
    form1.ActiveControl:=GLSceneViewer1;
 {$endif}
+if (abs(clickX-X)>3)or(abs(clickY-Y)>3) then begin
 try
 lockmove:=true;
 if shift=[ssLeft] then begin
@@ -4021,6 +3892,7 @@ else begin
 end;
 finally
 lockmove:=false;
+end;
 end;
 end;
 {$ENDIF}
@@ -4242,7 +4114,16 @@ LibrationButton.Down:=librationeffect;
 PhaseButton.Down:=phaseeffect;
 dblox.LoadFromFile(Slash(appdir)+Slash('database')+'lopamidx.csv');
 dblox.GoFirst;
-dbnotes.LoadFromFile(Slash(appdir)+Slash('database')+'notes.csv');
+if fileexists(Slash(privatedir)+Slash('database')+'notes.csv') then
+   dbnotes.LoadFromFile(Slash(privatedir)+Slash('database')+'notes.csv')
+else begin
+   if fileexists(Slash(appdir)+Slash('database')+'notes.csv') then
+     dbnotes.LoadFromFile(Slash(appdir)+Slash('database')+'notes.csv')
+   else begin
+     dbnotes.AddField('NAME');
+     dbnotes.AddField('NOTES');
+   end;
+end;
 dbnotes.GoFirst;
 if UseComputerTime then InitDate
                    else SetJDDate;
@@ -4312,6 +4193,7 @@ form2.checkbox20.checked:=usedatabase[2];
 form2.checkbox21.checked:=usedatabase[3];
 form2.checkbox22.checked:=usedatabase[4];
 form2.checkbox23.checked:=usedatabase[5];
+form2.checkbox24.checked:=usedatabase[6];
 ListUserDB;
 form2.checkbox4.checked:=useOpenGL;
 form2.checkbox1.checked:=phaseeffect;
@@ -4372,7 +4254,7 @@ if GeologicalMap then form2.radiogroup2.itemindex:=1
 {$ifdef vmaexpert}
 if hiresfile='hires.jpg' then form2.radiogroup2.itemindex:=0
  else if hiresfile='hires_clem.jpg' then form2.radiogroup2.itemindex:=1
- //else if hiresfile='hires_light.jpg' then form2.radiogroup2.itemindex:=2
+ else if hiresfile='hires_lopam.jpg' then form2.radiogroup2.itemindex:=2
  else form2.radiogroup2.itemindex:=-1;
 {$endif}
 oldtexture:=form2.radiogroup2.itemindex;
@@ -4454,11 +4336,13 @@ if form2.ModalResult=mrOK then begin
    if usedatabase[3]<>form2.checkbox21.checked then reloaddb:=true;
    if usedatabase[4]<>form2.checkbox22.checked then reloaddb:=true;
    if usedatabase[5]<>form2.checkbox23.checked then reloaddb:=true;
+   if usedatabase[6]<>form2.checkbox24.checked then reloaddb:=true;
    usedatabase[1]:=form2.checkbox19.checked;
    usedatabase[2]:=form2.checkbox20.checked;
    usedatabase[3]:=form2.checkbox21.checked;
    usedatabase[4]:=form2.checkbox22.checked;
    usedatabase[5]:=form2.checkbox23.checked;
+   usedatabase[6]:=form2.checkbox24.checked;
    for i:=0 to form2.Checklistbox1.Count-1 do begin
       j:=(form2.Checklistbox1.Items.Objects[i] as TDBinfo).dbnum;
       if usedatabase[j]<>form2.Checklistbox1.Checked[i] then reloaddb:=true;
@@ -4781,16 +4665,16 @@ var hnd:thandle;
 begin
 try
 {Set form1's window proc back to it's original procedure}
- SetWindowLong(Form1.Handle,
+  SetWindowLong(Form1.Handle,
                GWL_WNDPROC,
                LongInt(OldWindowProc));
-               
+
 if not multi_instance then begin
   SaveDefault;
   SendMessage(HWND_BROADCAST,RegisterWindowMessage(ExitMsg),0,0);
 end;
 param.Free;
-if safemode then begin
+ if safemode then begin
    SystemParametersInfo (SPI_SCREENSAVERRUNNING, Word (False), @OldVal, 0); // restore system keys
 end;
 if skychartrunning and startedbyds then begin
@@ -4801,11 +4685,12 @@ if CloseVMAbrowser then begin
   hnd:=findwindow(nil,Pchar(VMAbrowser));
   if hnd>0 then PostMessage(hnd,WM_CLOSE,0,0);   // close VMA Browser (use WM_CLOSE to save the config)
 end;
+if ClosePhotlun then ExecuteFile('photlun.exe','-quit', appdir, SW_SHOWNOACTIVATE);
 if scopelibok then
   if ScopeConnected then begin
      ScopeDisconnect(ok);
   end;
-UnloadScopeLibrary;
+(* UnloadScopeLibrary; *)
 except
 end;
 end;
@@ -5875,8 +5760,20 @@ showimg('Textures',fn,true);
 end;
 
 procedure TForm1.ToolButton7Click(Sender: TObject);
+var param,fx,fy: string;
+    i: integer;
 begin
-ListImg(currentname);
+{$ifdef vmapro}
+ i:=findwindow(nil,pchar('PHOTLUN'));
+ if i=0 then ClosePhotlun:=true;
+ if flipx<0 then fx:='1' else fx:='0';
+ if poleorientation>0 then fy:='1' else fy:='0';
+ param:='-fx '+fx+' -fy '+fy;
+ param:=param+' -nx -n "'+currentname+'"';
+ ExecuteFile('photlun.exe',param, appdir, SW_SHOWNOACTIVATE);
+{$else}
+ ListImg(currentname);
+{$endif} 
 end;
 
 procedure TForm1.OverlayCaption1Click(Sender: TObject);
@@ -6000,7 +5897,7 @@ var x,y,l,b,l0,b0,i,n,wd,dl,w,smooth: integer;
     ok:boolean;
     dest,src: Trect;
 begin
-with form1 do
+with form1 do begin
 if (zoom<4)or(not HiresOK)or(RotationCadencer.enabled) then begin
    hiressphere.visible:=false;
    hiressphere500.visible:=false;
@@ -6021,21 +5918,30 @@ for i:=1 to 4 do begin
         break;
   end;
 end;
+//if ok then debuglabel.caption:='ok ';
 if ok then hiressphere.visible:=true
 else begin
+//  debuglabel.caption:='ini ';
   x:=GLSceneViewer1.Width div 2;
   y:=GLSceneViewer1.Height div 2;
   wd:=hi_wd div hi_mult;
   dl:=hi_dl * hi_mult;
   w:=hi_w * hi_mult;
+//  debuglabel.caption:=debuglabel.caption+'1 ';
   if GetIntLB(x,y,l,b) then begin
+//    debuglabel.caption:=debuglabel.caption+'2 ';
     l0:=((l-wd+360) mod 360)*dl;
     b0:=(90-(b+wd))*dl;
+    filemode:=0;
+//    assignfile(fh,Slash(appdir)+Slash('textures')+'hires'+imgsuffix+'.dat');
+//    reset(fh,1);
     for i:=0 to 1023 do begin
       p:=hires.scanline[i];
       seek(fh,(b0+i)*w+l0);
       blockread(fh,p[0],1024,n);
     end;
+//    closefile(fh);
+//    debuglabel.caption:=debuglabel.caption+'3 ';
     HiresSphere.BeginUpdate;
     if showoverlay then begin
        l0:=round(l0*overlayimg.width/w);
@@ -6056,6 +5962,7 @@ else begin
        180 : smooth:=64 div hi_mult;
        else smooth:=16;
     end;
+//    debuglabel.caption:=debuglabel.caption+'4 ';
     hiressphere.Slices:=smooth ;
     hiressphere.Stacks:=smooth ;
     HiresSphere.bottom:=-90;
@@ -6067,12 +5974,14 @@ else begin
     GLmaterialLibrary1.Materials[8].Material.Texture.Image.Assign(hires);
     hiressphere.visible:=true;
     HiresSphere.EndUpdate;
+//    debuglabel.caption:=debuglabel.caption+'end ';
   end;
 end;
 if hires500ok and (zoom>=8) then SetHires500
    else hiressphere500.visible:=false;
 except
   hiressphere.visible:=false;
+end;
 end;
 end;
 end;
