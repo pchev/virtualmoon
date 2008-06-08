@@ -30,16 +30,16 @@
     </RunParams>
     <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="uniqueinstance_package"/>
+        <PackageName Value="JPEGForLazarus"/>
       </Item1>
       <Item2>
-        <PackageName Value="libsql"/>
+        <PackageName Value="LCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="libsql"/>
       </Item3>
       <Item4>
-        <PackageName Value="JPEGForLazarus"/>
+        <PackageName Value="uniqueinstance_package"/>
       </Item4>
     </RequiredPackages>
     <Units Count="9">

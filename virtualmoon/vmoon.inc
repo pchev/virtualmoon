@@ -385,7 +385,15 @@ with inifile do begin
 
     {$ifdef vmalight}
        Toolbutton3.hint:=ReadString(section,'t_130',Toolbutton3.caption);
-    {$endif}
+       Toolbutton3.caption:=ReadString(section,'t_130',Toolbutton3.caption);
+       ToolButton10.caption:=ReadString(section,'t_81',deftxt);
+       toolbutton5.caption:=ReadString(section,'t_5',deftxt);
+       ToolButton4.caption:=(ReadString(section,'t_177',ToolButton4.caption));
+       ToolButton6.caption:=(ReadString(section,'t_178',ToolButton6.caption));
+       LibrationButton.caption:=(ReadString(section,'t_175',LibrationButton.caption));
+       PhaseButton.caption:=(ReadString(section,'t_176',PhaseButton.caption));
+       ToolButton7.caption:=ReadString(section,'t_25',deftxt);
+ {$endif}
     {$ifndef vmalight}
        ButtonDatabase.hint:=Database1.caption;
        CheckBox8.caption:=ReadString(section,'t_182',CheckBox5.caption);

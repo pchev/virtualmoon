@@ -474,10 +474,10 @@ type
     procedure PopupMenu1Popup(Sender: TObject);
     procedure CheckBox8Click(Sender: TObject);
   private
-    { Dï¿½clarations privï¿½es }
+    { Déclarations privées }
     procedure SetPath;
   public
-    { Dï¿½clarations publiques }
+    { Déclarations publiques }
     procedure InitGraphic(Sender: TObject);
     procedure LoadOverlay(fn:string; lum:integer);
     Procedure SetLabel;
@@ -509,11 +509,11 @@ Procedure OpenHires(forcerebuild:boolean);
 
 const
 {$ifdef vmapro}
-      AVLversion = '4.0';
+      AVLversion = '4.0b';
 {$else}
-      AVLversion = '3.5b';
+      AVLversion = '3.5c';
 {$endif}
-      Splashversion ='Version '+AVLversion+' 2008-03-02';
+      Splashversion = AVLversion+' 2008-05-27';
       d1 = '0.0';
       d2 = '0.00';
       d3 = '0.000';

@@ -3,7 +3,7 @@ object f_photlun: Tf_photlun
   Width = 810
   HorzScrollBar.Page = 809
   VertScrollBar.Page = 176
-  ActiveControl = ScrollBar1
+  ActiveControl = PanelTop
   Caption = 'Photlun 1.0'
   ClientHeight = 177
   ClientWidth = 810

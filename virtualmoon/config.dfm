@@ -179,10 +179,6 @@ object Form2: TForm2
     object TabSheet7: TTabSheet
       Caption = 'Database'
       ImageIndex = 7
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label31: TLabel
         Left = 16
         Top = 232
@@ -265,10 +261,6 @@ object Form2: TForm2
     object TabSheet3: TTabSheet
       Caption = 'Affichage'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel9: TBevel
         Left = 16
         Top = 144
@@ -479,10 +471,6 @@ object Form2: TForm2
     object TabSheet4: TTabSheet
       Caption = 'Textures'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object RadioGroup1: TRadioGroup
         Left = 16
         Top = 48
@@ -541,10 +529,6 @@ object Form2: TForm2
     object TabSheet6: TTabSheet
       Caption = 'Overlay'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object nooverlay: TLabel
         Left = 40
         Top = 24
@@ -615,7 +599,7 @@ object Form2: TForm2
           Top = 64
           Width = 145
           Height = 21
-          ItemHeight = 0
+          ItemHeight = 13
           Sorted = True
           TabOrder = 1
           OnChange = ComboBox5Change
@@ -769,10 +753,6 @@ object Form2: TForm2
     object TabSheet5: TTabSheet
       Caption = 'Eyepieces'
       ImageIndex = 5
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label24: TLabel
         Left = 8
         Top = 8
@@ -885,10 +865,6 @@ object Form2: TForm2
     object Impression: TTabSheet
       Caption = 'Impression'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel6: TBevel
         Left = 8
         Top = 48
@@ -1022,7 +998,7 @@ object Form2: TForm2
         Top = 280
         Width = 113
         Height = 21
-        ItemHeight = 0
+        ItemHeight = 13
         ItemIndex = 0
         TabOrder = 7
         Text = 'Comme '#224' l'#39#233'cran'

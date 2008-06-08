@@ -59,6 +59,7 @@ resourcestring
   rsFullSize = 'Full size';
   rsResetDefault = 'Reset default setting';
   rsSaveSetting = 'Save setting';
+  rsTranslatedBy = 'Translated by :';
 
 implementation
 

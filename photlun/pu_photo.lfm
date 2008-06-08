@@ -5,7 +5,7 @@ object f_photo: Tf_photo
   Width = 400
   HorzScrollBar.Page = 399
   VertScrollBar.Page = 448
-  ActiveControl = HScrollBar
+  ActiveControl = ToolBar1
   BorderStyle = bsSizeToolWin
   Caption = 'Photlun'
   ClientHeight = 449
@@ -16,7 +16,7 @@ object f_photo: Tf_photo
   OnResize = FormResize
   OnShow = FormShow
   object Image1: TImage
-    Height = 383
+    Height = 386
     Top = 26
     Width = 383
     Align = alClient
@@ -144,8 +144,8 @@ object f_photo: Tf_photo
     end
   end
   object StatusBar1: TStatusBar
-    Height = 23
-    Top = 426
+    Height = 20
+    Top = 429
     Width = 400
     Panels = <    
       item
@@ -158,7 +158,7 @@ object f_photo: Tf_photo
   end
   object HScrollBar: TScrollBar
     Height = 17
-    Top = 409
+    Top = 412
     Width = 400
     Align = alBottom
     TabOrder = 1
@@ -166,7 +166,7 @@ object f_photo: Tf_photo
   end
   object VScrollBar: TScrollBar
     Left = 383
-    Height = 383
+    Height = 386
     Top = 26
     Width = 17
     Align = alRight

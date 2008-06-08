@@ -698,6 +698,8 @@ procedure Tf_photlun.FormCreate(Sender: TObject);
 var i: integer;
 begin
   SetPath;
+  ReadConfig;
+  language:=u_translation.translate(pofile,'en');
   vmaexe:='vmapro.exe';
   datlunexe:='datlun.exe';
   SelectedObject:='';
@@ -748,8 +750,6 @@ end;
 
 procedure Tf_photlun.FormShow(Sender: TObject);
 begin
-  ReadConfig;
-  language:=u_translation.translate(pofile,'en');
   SetLang;
   ReadParam;
   SetBiblioMenu;
@@ -1006,7 +1006,8 @@ begin
               'http://astrosurf.com/avl'+crlf+
               'Copyright (C) 2008 Christian Legrand, Patrick Chevalley'+crlf+crlf+
               'Conception : Christian Legrand'+crlf+
-              'Programming : Patrick Chevalley'+crlf+crlf+
+              'Programming : Patrick Chevalley'+crlf+
+              rsTranslatedBy+crlf+crlf+
               'This program is free software; you can redistribute it and/or '+crlf+
               'modify it under the terms of the GNU General Public License '+crlf+
               'as published by the Free Software Foundation.'
