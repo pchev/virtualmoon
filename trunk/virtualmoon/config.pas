@@ -175,9 +175,9 @@ type
     procedure CheckBox16Click(Sender: TObject);
     procedure Label34Click(Sender: TObject);
   private
-    { Dï¿½clarations privï¿½es }
+    { Déclarations privées }
   public
-    { Dï¿½clarations publiques }
+    { Déclarations publiques }
     hiresfn: string;
   end;
 
@@ -214,7 +214,7 @@ end;
 procedure TForm2.FormCreate(Sender: TObject);
 var inifile : Tinifile;
     i,j,p : integer;
-    buf,code,ver : string;
+    buf,code,ver,AVLver : string;
     fs : TSearchRec;
 begin
 ov:=Tbitmap.Create;
@@ -230,11 +230,11 @@ if not fileexists('version.developpement') then begin
   Edit4.Visible:=false;        // external image display
   Button3.Visible:=false;      // external image display
   checkbox15.Visible:=false;   // direct LOPAM image link
-  label20.Visible:=false;      // Rï¿½kl chart
-  label21.Visible:=false;      // Rï¿½kl chart
-  label22.Visible:=false;      // Rï¿½kl chart
-  ruklprefix.Visible:=false;   // Rï¿½kl chart
-  ruklsuffix.Visible:=false;   // Rï¿½kl chart
+  label20.Visible:=false;      // Rükl chart
+  label21.Visible:=false;      // Rükl chart
+  label22.Visible:=false;      // Rükl chart
+  ruklprefix.Visible:=false;   // Rükl chart
+  ruklsuffix.Visible:=false;   // Rükl chart
 end;
 {$ifdef vmalight}
   CheckBox3.Visible:=false;
@@ -260,12 +260,13 @@ end;
 {$ifdef opengl}
   OverlayPanel.visible:=AsMultiTexture;
 {$endif}
+AVLver:=copy(AVLversion,1,3);
 i:=findfirst(slash(appdir)+slash('language')+'lang_*.ini',0,fs);
 while i=0 do begin
   inifile:=Tinifile.create(slash(appdir)+slash('language')+fs.name);
   buf:=inifile.ReadString('default','language','Invalid File '+fs.name);
   ver:=inifile.ReadString('default','version','1.0');
-  if ver>=AVLversion then ver:=''
+  if ver>=AVLver then ver:=''
      else ver:=' Wrong version '+ver+' !';
   inifile.free;
   code:=extractfilename(fs.name);

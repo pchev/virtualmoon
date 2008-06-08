@@ -184,7 +184,7 @@ var i,db_age : integer;
     buf:string;
 begin
 buf:=Slash(privatedir)+Slash('database')+'dbmoon3_'+language+'.dbl';
-dbm.Use(buf);
+dbm.Use(utf8encode(buf));
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
 try

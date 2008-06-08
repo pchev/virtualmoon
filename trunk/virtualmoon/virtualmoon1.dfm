@@ -5,7 +5,7 @@ object Form1: TForm1
   VertScrollBar.Visible = False
   Caption = 'Form1'
   ClientHeight = 553
-  ClientWidth = 794
+  ClientWidth = 806
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -217,10 +217,6 @@ object Form1: TForm1
     object Notes: TTabSheet
       Caption = 'Notes'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Memo1: TMemo
         Left = 0
         Top = 58
@@ -262,10 +258,6 @@ object Form1: TForm1
     object dbtab: TTabSheet
       Caption = 'Database'
       ImageIndex = 5
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object StringGrid2: TStringGrid
         Left = 0
         Top = 0
@@ -331,10 +323,6 @@ object Form1: TForm1
     object Ephemerides: TTabSheet
       Caption = 'Eph'#233'm'#233'rides'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel4: TPanel
         Left = 0
         Top = 0
@@ -863,7 +851,7 @@ object Form1: TForm1
         Align = alClient
         BorderStyle = bsNone
         ColCount = 2
-        DefaultColWidth = 122
+        DefaultColWidth = 160
         DefaultRowHeight = 18
         FixedCols = 0
         RowCount = 25
@@ -882,10 +870,6 @@ object Form1: TForm1
     object Terminateur: TTabSheet
       Caption = 'Terminateur'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel5: TPanel
         Left = 0
         Top = 0
@@ -980,10 +964,6 @@ object Form1: TForm1
     object Outils: TTabSheet
       Caption = 'Outils'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel4: TBevel
         Left = 8
         Top = 8
@@ -1130,7 +1110,7 @@ object Form1: TForm1
           Top = 16
           Width = 97
           Height = 21
-          ItemHeight = 0
+          ItemHeight = 13
           TabOrder = 0
           Text = '5 '#176'/seconde'
           OnChange = ComboBox4Change
@@ -1178,7 +1158,7 @@ object Form1: TForm1
           Top = 16
           Width = 105
           Height = 21
-          ItemHeight = 0
+          ItemHeight = 13
           Sorted = True
           TabOrder = 0
           Text = 'ComboBox5'
@@ -1212,9 +1192,9 @@ object Form1: TForm1
           OnClick = Button17Click
         end
         object Button18: TButton
-          Left = 128
+          Left = 111
           Top = 48
-          Width = 97
+          Width = 114
           Height = 25
           Caption = 'Sync selected'
           TabOrder = 4
@@ -1357,10 +1337,6 @@ object Form1: TForm1
     object Reglage: TTabSheet
       Caption = 'R'#233'glage'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel1: TBevel
         Left = 16
         Top = 8
@@ -1551,7 +1527,7 @@ object Form1: TForm1
   object ControlBar1: TControlBar
     Left = 0
     Top = 0
-    Width = 794
+    Width = 806
     Height = 26
     Align = alTop
     AutoDrag = False

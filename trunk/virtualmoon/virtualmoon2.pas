@@ -372,10 +372,10 @@ type
     procedure RemoveMark1Click(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
   private
-    { Dï¿½clarations privï¿½es }
+    { Déclarations privées }
     procedure SetPath;
   public
-    { Dï¿½clarations publiques }
+    { Déclarations publiques }
     procedure InitGraphic(Sender: TObject);
     procedure LoadOverlay(fn:string; lum:integer);
     Procedure SetLabel;
@@ -406,8 +406,8 @@ function SearchName(n: string; center: boolean):boolean;
 Procedure OpenHires(forcerebuild:boolean);
 {$ENDIF}
 
-const AVLversion = '3.5b';
-      Splashversion ='Version 3.5b 2008-02-23';
+const AVLversion = '3.5c';
+      Splashversion ='3.5c 2008-05-27';
       d1 = '0.0';
       d2 = '0.00';
       d3 = '0.000';
