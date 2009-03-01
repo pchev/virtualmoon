@@ -30,15 +30,16 @@ uses
    DdeMan,
 {$ENDIF}
 {$IFDEF opengl}
-  GLScene, GLObjects, GLMisc, GLWin32Viewer, GLTexture, Info,
+  GLScene, GLObjects, GLWin32Viewer, GLTexture, Info,
   GLcontext, GLCadencer, GLBitmapFont, GLHUDObjects, GLGraphics,
   GLColor, GLGraph, GLMirror, AsyncTimer, GLUtils, GLCrossPlatForm,
+  GLGeomObjects, GLMaterial, GLCoordinates, BaseClasses,
 {$ENDIF}
   mlb2, Printers,  Controls, DateUtils,
   Messages, SysUtils, Classes, Dialogs,  math,
   ComCtrls, Mask, Menus, jpeg, Buttons, ToolWin,
   EnhEdits, IniFiles, Grids, BigIma, HTMLLite, passql, passqlite,
-  GLGeomObjects, ImgList;
+  ImgList;
 
 
 type
