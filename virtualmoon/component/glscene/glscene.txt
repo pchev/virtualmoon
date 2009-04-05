@@ -1,7 +1,0 @@
-
-GLScene source code is available from the project GLScene 
-at http://glscene.org or http://sourceforge.net/projects/glscene
-
-As with all rapidly moving project it is best to get the last version from the CVS.
-
-ati_*.patch are to ignore Context Activation Failures with bugy ATI drivers.
