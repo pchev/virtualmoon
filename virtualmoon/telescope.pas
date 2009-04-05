@@ -1,8 +1,11 @@
 unit telescope;
 
+{$MODE Delphi}
+{$H+}
 interface
 
-Uses Types,Windows,Dialogs,ActiveX;
+Uses
+   dynlibs,Types,LCLIntf,Dialogs;
 
 Procedure InitScopeLibrary(fn:string);
 Procedure UnloadScopeLibrary;
@@ -54,7 +57,7 @@ if scopelib<>0 then begin
    ScopeDisconnect(ok);
    ScopeClose;
    scopelib:=0;
-   CoUnInitialize
+//   CoUnInitialize
 end;
 end;
 
@@ -79,7 +82,7 @@ if scopelib<>0 then begin
     ScopeSetObs := TScopeSetObs(GetProcAddress(scopelib, 'ScopeSetObs'));
     ScopeGoto := TScopeGoto(GetProcAddress(scopelib, 'ScopeGoto'));
     scopelibok:=true;
-    CoInitialize(nil);
+//    CoInitialize(nil);
 end else begin
     scopelibok:=false;
     Showmessage('Error opening '+fn);

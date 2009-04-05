@@ -1,0 +1,38 @@
+object MsgForm: TMsgForm
+  Left = 227
+  Height = 65
+  Top = 106
+  Width = 281
+  ActiveControl = Panel1
+  BorderIcons = []
+  BorderStyle = bsNone
+  Caption = 'MsgForm'
+  ClientHeight = 65
+  ClientWidth = 281
+  Color = clRed
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  FormStyle = fsStayOnTop
+  Position = poScreenCenter
+  LCLVersion = '0.9.27'
+  object Panel1: TPanel
+    Left = 8
+    Height = 49
+    Top = 8
+    Width = 265
+    ClientHeight = 49
+    ClientWidth = 265
+    ParentColor = False
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 4
+      Height = 35
+      Top = 8
+      Width = 257
+      AutoSize = False
+      Caption = 'Label1'
+      ParentColor = False
+      WordWrap = True
+    end
+  end
+end

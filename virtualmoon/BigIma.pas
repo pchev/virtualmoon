@@ -19,11 +19,15 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
+
+{$MODE Delphi}
+{$H+}
+
 interface
 
 uses Math,
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ExtCtrls, StdCtrls, Buttons, ComCtrls, ToolWin;
+  LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls, StdCtrls, Buttons, ComCtrls, ToolWin, LResources;
 
 type
   TBigImaForm = class(TForm)
@@ -65,9 +69,8 @@ var
 
 implementation
 
-uses skylib;
+uses u_util;
 
-{$R *.DFM}
 
 Procedure TbigImaform.LoadImage(f : string);
 begin
@@ -182,5 +185,8 @@ zoom:=0;
 titre:='';
 labeltext:='';
 end;
+
+initialization
+  {$i BigIma.lrs}
 
 end.

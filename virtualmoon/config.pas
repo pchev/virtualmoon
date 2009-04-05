@@ -1,4 +1,7 @@
 unit config;
+
+{$MODE Delphi}
+{$H+}
 {
 Copyright (C) 2003 Patrick Chevalley
 
@@ -21,17 +24,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
 interface
 
-uses Math, jpeg,
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+uses
+{$ifdef mswindows}
+  LCLIntf,
+{$endif}
+  Math, u_constant,
+  Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, Buttons, ExtCtrls, Inifiles, Grids, EnhEdits,
-  CheckLst;
+  CheckLst, LResources;
 
 type
+
+  { TForm2 }
+
   TForm2 = class(TForm)
     Button1: TButton;
     ColorDialog1: TColorDialog;
-    PageControl1: TPageControl;
-    TabSheet1: TTabSheet;
+    PageControl1: TNotebook;
+    TabSheet1: TPage;
     Label4: TLabel;
     Label1: TLabel;
     Label2: TLabel;
@@ -43,13 +53,13 @@ type
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
     Edit3: TEdit;
-    TabSheet2: TTabSheet;
+    TabSheet2: TPage;
     UpDown1: TUpDown;
     numwin: TLongEdit;
     Label8: TLabel;
     StringGrid1: TStringGrid;
     Label9: TLabel;
-    Impression: TTabSheet;
+    Impression: TPage;
     Label12: TLabel;
     LongEdit1: TLongEdit;
     Label13: TLabel;
@@ -72,7 +82,7 @@ type
     Label10: TLabel;
     ComboBox4: TComboBox;
     Button4: TButton;
-    TabSheet3: TTabSheet;
+    TabSheet3: TPage;
     CheckBox4: TCheckBox;
     Bevel1: TBevel;
     CheckBox2: TCheckBox;
@@ -101,9 +111,9 @@ type
     Label20: TLabel;
     Label21: TLabel;
     Label22: TLabel;
-    TabSheet4: TTabSheet;
+    TabSheet4: TPage;
     RadioGroup1: TRadioGroup;
-    TabSheet5: TTabSheet;
+    TabSheet5: TPage;
     StringGrid2: TStringGrid;
     Edit6: TEdit;
     Edit7: TEdit;
@@ -122,8 +132,8 @@ type
     CheckBox10: TCheckBox;
     RadioGroup3: TRadioGroup;
     Label29: TLabel;
-    TabSheet6: TTabSheet;
-    TabSheet7: TTabSheet;
+    TabSheet6: TPage;
+    TabSheet7: TPage;
     GroupBox1: TGroupBox;
     CheckBox19: TCheckBox;
     CheckBox20: TCheckBox;
@@ -191,18 +201,9 @@ var
 
 implementation
 
-uses skylib,
-{$IFDEF opengl}
-   {$IFDEF openglx}
-      virtualmoonx;
-   {$ELSE}
+uses u_util,
      virtualmoon1;
-   {$ENDIF}
-{$ELSE}
-virtualmoon2;
-{$ENDIF}
 
-{$R *.DFM}
 
 Function GetLangCode(buf:string):string;
 var p : integer;
@@ -219,11 +220,6 @@ var inifile : Tinifile;
 begin
 ov:=Tbitmap.Create;
 CheckBox4.Visible:=false;
-{$IFNDEF opengl}
-CheckBox2.Visible:=false;
-CheckBox10.Visible:=false;
-//panel1.Visible:=false;
-{$ENDIF}
 // hide developpement tools or not finished function
 if not fileexists('version.developpement') then begin
   CheckBox12.Visible:=false;   // external image display
@@ -236,30 +232,7 @@ if not fileexists('version.developpement') then begin
   ruklprefix.Visible:=false;   // Rükl chart
   ruklsuffix.Visible:=false;   // Rükl chart
 end;
-{$ifdef vmalight}
-  CheckBox3.Visible:=false;
-  checkbox18.Visible:=false;
-  checkbox20.Visible:=false;
-  checkbox22.Visible:=false;
-  RadioGroup3.Visible:=false;
-  Tabsheet6.TabVisible:=false;
-{$endif}
-{$ifdef vmabasic}
-  checkbox21.Visible:=false;
-  CheckBox22.Visible:=false;
-  radiogroup2.Visible:=false;
-  RadioGroup3.Visible:=false;
-  Tabsheet6.TabVisible:=false;
-{$endif}
-{$ifndef vmapro}
-  checkbox24.Visible:=false;
-  TabSheet6.TabVisible:=false;
-  Label31.Visible:=false;
-  CheckListBox1.Visible:=false;
-{$endif}
-{$ifdef opengl}
-  OverlayPanel.visible:=AsMultiTexture;
-{$endif}
+OverlayPanel.visible:=AsMultiTexture;
 AVLver:=copy(AVLversion,1,3);
 i:=findfirst(slash(appdir)+slash('language')+'lang_*.ini',0,fs);
 while i=0 do begin
@@ -342,7 +315,7 @@ end;
 procedure TForm2.Button2Click(Sender: TObject);
 begin
 form1.PrinterSetupDialog1.Execute;
-GetPrinterResolution(PrtName,PrinterResolution);
+//GetPrinterResolution(PrtName,PrinterResolution);
 end;
 
 procedure TForm2.FormShow(Sender: TObject);
@@ -390,7 +363,6 @@ end;
 
 procedure TForm2.RadioGroup2Click(Sender: TObject);
 begin
-{$ifdef vmaexpert}
 case RadioGroup2.itemindex of
 0 : hiresfn:='hires.jpg';
 1 : hiresfn:='hires_clem.jpg';
@@ -405,7 +377,6 @@ if not fileexists(Slash(appdir)+Slash('textures')+hiresfn) then begin
 end;
 if hiresfn='hires_light.jpg' then graytexture:=0
                                else graytexture:=80;
-{$endif}
 end;
 
 procedure TForm2.StringGrid2DrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -484,7 +455,7 @@ if not ov.Empty then begin
     image1.Picture.bitmap.pixelformat:=ov.pixelformat;
     l:=trackbar5.Position;
     ma:=(255-l)/255;
-    for i:=0 to image1.Picture.bitmap.height-1 do begin
+{    for i:=0 to image1.Picture.bitmap.height-1 do begin
      p1:=ov.scanline[i];
      p2:=image1.Picture.bitmap.scanline[i];
      for n:=0 to image1.Picture.bitmap.width-1 do begin
@@ -497,7 +468,7 @@ if not ov.Empty then begin
                    end;
        end;
      end;
-    end;
+    end; }
     image1.Refresh;
    finally
     lockoverlay:=false;
@@ -514,8 +485,11 @@ end;
 
 procedure TForm2.Label34Click(Sender: TObject);
 begin
-executefile('http://www.delphi3d.net/hardware/extsupport.php?extension=GL_ARB_multitexture','', '', SW_SHOWNOACTIVATE);
+//executefile('http://www.delphi3d.net/hardware/extsupport.php?extension=GL_ARB_multitexture','', '', SW_SHOWNOACTIVATE);
 end;
+
+initialization
+  {$i config.lrs}
 
 end.
 
