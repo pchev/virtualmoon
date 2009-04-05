@@ -37,7 +37,7 @@ uses
   GLGeomObjects,
   mlb2, PrintersDlgs, Printers, Controls, DateUtils,
   Messages, SysUtils, Classes, Dialogs,
-  ComCtrls, Menus, Buttons, dynlibs, Bigima,
+  ComCtrls, Menus, Buttons, dynlibs, BigIma,
   EnhEdits, IniFiles, passql, passqlite,
   Math, CraterList, LResources, IpHtml;
 
