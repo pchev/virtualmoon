@@ -2,6 +2,11 @@
 GLScene source code is available from the project GLScene 
 at http://glscene.org or http://sourceforge.net/projects/glscene
 
-As with all rapidly moving project it is best to get the last version from the CVS.
+For Lazarus specific information look at 
+http://wiki.lazarus.freepascal.org/GLScene
 
-ati_*.patch are to ignore Context Activation Failures with bugy ATI drivers.
+As with all rapidly moving project it is best to get the last version from the SVN: 
+
+For the Lazarus version :
+svn co http://svn.freepascal.org/svn/fpcprojects/glscene/trunk glscene
+
