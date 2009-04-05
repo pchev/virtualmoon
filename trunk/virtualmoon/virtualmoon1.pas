@@ -3205,6 +3205,9 @@ begin
     librl := 0;
     librb := 0;
   end;
+
+  moon1.Phase:=deg2rad*cphase;
+
   glscene1.BeginUpdate;
   dummycube1.BeginUpdate;
   if not ToolButton3.Down then
