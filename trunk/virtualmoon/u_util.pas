@@ -1262,10 +1262,8 @@ begin
     if p4='' then parg[5]:=nil else parg[5] := PChar(p4);
     if p5='' then parg[6]:=nil else parg[6] := PChar(p5);
     parg[7] := nil;
-    writetrace('Try to launch '+cmd+blank+p1+blank+p2+blank+p3+blank+p4+blank+p5);
     if fpExecVP(cmd,PPChar(@parg[1])) = -1 then
     begin
-      writetrace('Could not launch '+cmd);
     end;
   end;
 end;
