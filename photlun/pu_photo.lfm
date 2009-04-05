@@ -3,9 +3,6 @@ object f_photo: Tf_photo
   Height = 449
   Top = 66
   Width = 400
-  HorzScrollBar.Page = 399
-  VertScrollBar.Page = 448
-  ActiveControl = ToolBar1
   BorderStyle = bsSizeToolWin
   Caption = 'Photlun'
   ClientHeight = 449
@@ -15,18 +12,21 @@ object f_photo: Tf_photo
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
+  LCLVersion = '0.9.27'
   object Image1: TImage
-    Height = 386
+    Left = 0
+    Height = 383
     Top = 26
     Width = 383
     Align = alClient
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
     OnMouseUp = Image1MouseUp
-    Transparent = False
   end
   object ToolBar1: TToolBar
+    Left = 0
     Height = 26
+    Top = 0
     Width = 400
     Caption = 'ToolBar1'
     Color = clBtnFace
@@ -144,8 +144,9 @@ object f_photo: Tf_photo
     end
   end
   object StatusBar1: TStatusBar
-    Height = 20
-    Top = 429
+    Left = 0
+    Height = 23
+    Top = 426
     Width = 400
     Panels = <    
       item
@@ -157,20 +158,23 @@ object f_photo: Tf_photo
     SimplePanel = False
   end
   object HScrollBar: TScrollBar
+    Left = 0
     Height = 17
-    Top = 412
+    Top = 409
     Width = 400
     Align = alBottom
+    PageSize = 0
     TabOrder = 1
     OnChange = HScrollBarChange
   end
   object VScrollBar: TScrollBar
     Left = 383
-    Height = 386
+    Height = 383
     Top = 26
     Width = 17
     Align = alRight
     Kind = sbVertical
+    PageSize = 0
     TabOrder = 2
     OnChange = VScrollBarChange
   end

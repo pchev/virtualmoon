@@ -36,7 +36,7 @@ uses
 {$endif}
   u_translation,
   pu_photo, pu_config, u_bitmap, u_util,
-  lazjpeg, FPReadJPEG, Math, Inifiles,
+  FPReadJPEG, Math, Inifiles,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, StdCtrls, ComCtrls, Spin, UniqueInstance;
 
