@@ -29,7 +29,7 @@ uses
 {$ifdef mswindows}
   Windows, ShlObj, Registry,
 {$endif}
-  u_constant, u_util, cu_planet, u_projection, cu_tz,
+  u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   GLScene, GLObjects, GLViewer, GLTexture, Info,
   GLcontext, GLCadencer, GLBitmapFont, GLHUDObjects, GLGraphics,
@@ -49,6 +49,7 @@ type
     Desc1:   TIpHtmlPanel;
     FilePopup: TPopupMenu;
     HelpPopup: TPopupMenu;
+    PanelMoon: TPanel;
     Quitter1: TMenuItem;
     Panel2:  TPanel;
     PageControl1: TNoteBook;
@@ -436,6 +437,7 @@ type
     procedure CheckBox8Click(Sender: TObject);
   private
     { Déclarations privées }
+    moon1 : TF_moon;
     CursorImage1: TCursorImage;
     tz: TCdCTimeZone;
     ima: TBigImaForm;
@@ -462,8 +464,10 @@ type
     function ImgExists(nom: string): boolean;
     procedure InitDate;
     procedure SetJDDate;
+    procedure GetMsg(Sender: TObject; value: String);
     procedure ShowCoordinates(x, y: integer);
     procedure MeasureDistance(x, y: integer);
+    procedure IdentLB(l, b: single);
     procedure IdentXY(x, y: integer);
     procedure InitLopamIdx;
     procedure ListUserDB;
@@ -492,7 +496,9 @@ type
     procedure OrientLightSource(phase, sunincl: double);
     procedure resetorientation;
     procedure GetSkychartInfo;
-  public
+    procedure MoonClickEvent(Sender: TObject; Button: TMouseButton;
+                     Shift: TShiftState; X, Y: Integer;
+                     OnMoon: boolean; Lon, Lat: Single);   public
     { Déclarations publiques }
     lastx, lasty, lastyzoom, posmin, posmax, ax, ay, MaxSprite: integer;
     ReduceTexture, ReduceTextureFar, LastIma, maximgdir, maxima, startx,
@@ -560,6 +566,7 @@ type
     procedure Init;
     procedure InitGraphic(Sender: TObject);
     procedure LoadOverlay(fn: string; lum: integer);
+    procedure GetLabel(Sender: TObject);
     procedure SetLabel;
     function SearchAtPos(l, b: double): boolean;
     procedure ListObject(delta: double);
@@ -1444,6 +1451,18 @@ begin
   y := cpa * d - spa * r;
 end;
 
+procedure TForm1.GetLabel(Sender: TObject);
+begin
+//  database select +
+moon1.AddLabel(degtorad(-20),degtorad(9.7),'Copernicus');
+moon1.AddLabel(degtorad(-11.2),degtorad(-43.3),'Tycho');
+moon1.AddLabel(degtorad(-39.9),degtorad(-17.5),'Gassendi');
+moon1.AddLabel(degtorad(-47.4),degtorad(23.7),'Aristarchus');
+moon1.AddLabel(degtorad(-9.3),degtorad(51.6),'Plato');
+moon1.AddLabel(degtorad(29.9),degtorad(31.8),'Posidonius');
+moon1.AddLabel(degtorad(26.4),degtorad(-11.4),'Theophilus');
+end;
+
 procedure Tform1.SetLabel;
 var
   l, b, l1, b1, deltab, deltal, x, y, w, wmin, wfact: double;
@@ -2064,6 +2083,13 @@ begin
     Caption := Caption + '<2>';
   end;
   AsMultiTexture := (GLSceneViewer1.Buffer.LimitOf[limNbTextureUnits] > 1);
+ moon1:=Tf_moon.Create(PanelMoon);
+ moon1.Moon.Align:=alClient;
+ moon1.onMoonClick:=MoonClickEvent;
+ moon1.onGetMsg:=GetMsg;
+ moon1.onGetLabel:=GetLabel;
+ moon1.TexturePath:=slash(appdir)+slash('Textures');
+ moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
 end;
 
 procedure TForm1.UpdTerminateur;
@@ -3211,6 +3237,11 @@ begin
   statusbar1.Panels[1].Text := m[11] + stringreplace(formatfloat(f1, b), 'Nan', '   ', []);
 end;
 
+procedure  TForm1.GetMsg(Sender: TObject; value: String);
+begin
+statusbar1.Panels[3].Text := value;
+end;
+
 procedure TForm1.MeasureDistance(x, y: integer);
 var
   xx, yy, l, b, d: double;
@@ -3280,6 +3311,42 @@ begin
     mark(0, 0, '');
 end;
 
+procedure TForm1.IdentLB(l, b: single);
+var
+  txt: string;
+begin
+  if SearchAtPos(l, b) then
+  begin
+    l := dbm.Results[0].ByField['LONGIN'].AsFloat;
+    b := dbm.Results[0].ByField['LATIN'].AsFloat;
+    searchl := l;
+    searchb := b;
+    currentl := l;
+    currentb := b;
+    currentname := dbm.Results[0].ByField['NAME'].AsString;
+    Combobox1.Text := currentname;
+    GetHTMLDetail(dbm.Results[0], txt);
+    SetDescText(txt);
+    if dbtab.TabVisible then
+      GetDBgrid;
+    GetNotes(Combobox1.Text);
+    if ImgExists(currentname) then
+    begin
+      ToolButton7.Enabled := True;
+      Image2.Enabled      := True;
+    end
+    else
+    begin
+      ToolButton7.Enabled := False;
+      Image2.Enabled      := False;
+    end;
+    if f_craterlist.Visible then
+    begin
+      ToolButton10Click(nil);
+    end;
+  end
+end;
+
 procedure TForm1.InitLopamIdx;
 var
   f: textfile;
@@ -3339,6 +3406,15 @@ end;
 
 procedure TForm1.FormShow(Sender: TObject);
 begin
+ moon1.Init;
+ moon1.texture:='Clementine';
+ if moon1.CanBump then begin
+   moon1.BumpPath:=slash(appdir)+slash('Textures')+slash('Bumpmap');
+   moon1.Bumpmap:=true;
+ end else begin
+ end;
+ moon1.ShowPhase:=true;
+ moon1.VisibleSideLock:=true;
 end;
 
 procedure TForm1.Init;
@@ -3708,6 +3784,10 @@ begin
     exit;
   form1.glscene1.BeginUpdate;
   HUDSprite2.Visible := False;
+  PanelMoon.left   := 0;
+  PanelMoon.top    := ControlBar1.Height;
+  PanelMoon.Height := ClientHeight - ControlBar1.Height - StatusBar1.Height;
+  PanelMoon.Width  := PanelMoon.Height;
   panel2.left   := 0;
   panel2.top    := form1.ControlBar1.Height;
   panel2.Height := form1.ClientHeight - form1.ControlBar1.Height - form1.StatusBar1.Height;
@@ -5751,7 +5831,8 @@ begin
   else
     RadioGroup2.ItemIndex := 1;
   lockrot := False;
-  panel2.Visible := True;
+//  panel2.Visible := True;
+  PanelMoon.Visible := True;
   InitLabel;
   InitSprite;
   GLSceneViewer1.Cursor := crRetic;
@@ -5981,6 +6062,20 @@ begin
   Mark(shapePositionX, shapePositionY, hudtext1.Text);
   RefreshLabel;
   glscene1.EndUpdate;
+end;
+
+procedure TForm1.MoonClickEvent(Sender: TObject; Button: TMouseButton;
+                     Shift: TShiftState; X, Y: Integer;
+                     OnMoon: boolean; Lon, Lat: Single);
+begin
+if ssLeft in Shift then begin
+  if OnMoon then begin
+     identLB(RadToDeg(Lon),RadToDeg(Lat));
+     moon1.SetMark(x,y,currentname);
+  end else begin
+     moon1.SetMark(0,0,'');
+  end;
+end;
 end;
 
 procedure TForm1.GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
