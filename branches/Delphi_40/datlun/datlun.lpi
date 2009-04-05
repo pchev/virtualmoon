@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="\"/>
+    <Version Value="6"/>
+    <General>
+      <Flags>
+        <AlwaysBuild Value="False"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <IconPath Value=".\"/>
+      <TargetFileExt Value=".exe"/>
+      <Title Value="DatLun"/>
+    </General>
+    <VersionInfo>
+      <ProjectVersion Value=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+        <WorkingDirectory Value="D:\VirtualMoon"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="4">
+      <Item1>
+        <PackageName Value="JPEGForLazarus"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="libsql"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="uniqueinstance_package"/>
+      </Item4>
+    </RequiredPackages>
+    <Units Count="9">
+      <Unit0>
+        <Filename Value="datlun.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="datlun"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="u_util.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_util"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="fmsg.pas"/>
+        <ComponentName Value="MsgForm"/>
+        <HasResources Value="True"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="fmsg.lrs"/>
+        <UnitName Value="fmsg"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="mlb2.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="mlb2"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="vmabrowser5.pas"/>
+        <ComponentName Value="SelectDB"/>
+        <HasResources Value="True"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="vmabrowser5.lrs"/>
+        <UnitName Value="vmabrowser5"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="vmabrowser4.pas"/>
+        <ComponentName Value="LoadCSV"/>
+        <HasResources Value="True"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="vmabrowser4.lrs"/>
+        <UnitName Value="vmabrowser4"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="vmabrowser3.pas"/>
+        <ComponentName Value="Columns"/>
+        <HasResources Value="True"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="vmabrowser3.lrs"/>
+        <UnitName Value="vmabrowser3"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="vmabrowser2.pas"/>
+        <ComponentName Value="Selection"/>
+        <HasResources Value="True"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="vmabrowser2.lrs"/>
+        <UnitName Value="vmabrowser2"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="vmabrowser1.pas"/>
+        <ComponentName Value="f_main"/>
+        <HasResources Value="True"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="vmabrowser1.lrs"/>
+        <UnitName Value="vmabrowser1"/>
+      </Unit8>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="5"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+    </SearchPaths>
+    <CodeGeneration>
+      <Generate Value="Faster"/>
+    </CodeGeneration>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+</CONFIG>

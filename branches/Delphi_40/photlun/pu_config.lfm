@@ -1,0 +1,73 @@
+object f_config: Tf_config
+  Left = 290
+  Height = 317
+  Top = 149
+  Width = 444
+  HorzScrollBar.Page = 443
+  VertScrollBar.Page = 316
+  Caption = 'f_config'
+  ClientHeight = 317
+  ClientWidth = 444
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object StringGrid1: TStringGrid
+    Height = 243
+    Top = 40
+    Width = 444
+    Align = alClient
+    ColCount = 3
+    FixedColor = clBtnFace
+    FixedCols = 0
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor, goSmoothScroll]
+    RowCount = 11
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+    TabStop = True
+    OnSelectCell = StringGrid1SelectCell
+  end
+  object PanelBottom: TPanel
+    Height = 34
+    Top = 283
+    Width = 444
+    Align = alBottom
+    ClientHeight = 34
+    ClientWidth = 444
+    TabOrder = 1
+    object Button1: TButton
+      Left = 256
+      Height = 25
+      Top = 4
+      Width = 75
+      Caption = 'OK'
+      Default = True
+      ModalResult = 1
+      TabOrder = 0
+    end
+    object Button2: TButton
+      Left = 352
+      Height = 25
+      Top = 4
+      Width = 75
+      Cancel = True
+      Caption = 'Cancel'
+      ModalResult = 2
+      TabOrder = 1
+    end
+  end
+  object PanelTop: TPanel
+    Height = 40
+    Width = 444
+    Align = alTop
+    ClientHeight = 40
+    ClientWidth = 444
+    TabOrder = 2
+    object Label1: TLabel
+      Left = 13
+      Height = 14
+      Top = 12
+      Width = 71
+      Caption = 'Image folders:'
+      ParentColor = False
+    end
+  end
+end

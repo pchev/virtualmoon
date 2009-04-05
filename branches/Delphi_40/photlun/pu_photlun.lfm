@@ -1,0 +1,227 @@
+object f_photlun: Tf_photlun
+  Height = 197
+  Width = 810
+  HorzScrollBar.Page = 809
+  VertScrollBar.Page = 176
+  ActiveControl = PanelTop
+  Caption = 'Photlun 1.0'
+  ClientHeight = 177
+  ClientWidth = 810
+  Icon.Data = {
+    000500002F2A2058504D202A2F0A7374617469632063686172202A2070686F74
+    6C756E5F78706D5B5D203D207B0A22333220333220352031222C0A2220096320
+    4E6F6E65222C0A222E09632023383038303830222C0A222B0963202330303030
+    3030222C0A224009632023433043304330222C0A222309632023464646464646
+    222C0A222E2E2E2E2E2E2E2E2E2E2E2E2E2E2E2E2B2B2E2E2E2E2E2E402E2E40
+    402E2E2E222C0A222B2E2E2E2E2E2B2B2E2E2E2E2E2E2E2E2B2E2E402E2E2E2E
+    40402E40402E2E2E222C0A222E2E2E2E2E2E2B2E2B2B2E2E2B2E2E2E2E2E2E2E
+    2E2E2E2E40402E2E402E2E2E222C0A222E2B2B2E2E2E2E2E2B2B2B2B2E2E2E2E
+    402E2E2E2E2B2E2E2E402E40402E2E2E222C0A222E2B2B2E2E2E2E2E2B2B2B2B
+    2E2E2E2E40402E2E2E2B2E402E2E2E4023402E2E222C0A222E2E2B2E2E2E2B2B
+    2B2B2B2E2E2E2E2E2E40402E2E2E2E402E2E2E404023402E222C0A222E2E2B2E
+    2E2B2B2B2B2B2E2E4040402E404040402B2E2E2E2B2E2E402E2E402E222C0A22
+    2E2E2B2B2B2B2B2B2B2E232340404040402E2E2B2B2B2E2E2E2E2E402E2E2E2E
+    222C0A222B402E2E2B2B2B2B2E23232E2E404040402E2B2B2B2B2B2E2E2E2E40
+    2E2E2E2E222C0A222B40232E2B2B2B2B4023402E2E402340402E2B2B2B2B2B2B
+    2E2E2E402E2E2E2E222C0A222B2E402B2B2B2B2B402340404040402E2E2B2B2B
+    2B2B2B2B2B402E2E2E402E2E222C0A222E2E2B2B2B2B2B2E232323404040402E
+    2B2B2B2B2B2B2B2B2B402E2E2E402E2E222C0A22402B2B2B2B2B2B2E23232340
+    232E2E2E2B2B2B2B2B2B2B2B2B2E2E2E402E402E222C0A222E2E2B2B2B2B2B2E
+    2323232340402E2B2E2E2B2B2B2B2B2B2B2E2E2E402E402E222C0A222E2E2B2B
+    2B2B2B2E23232340402E2B2B2E402E2B2B2B2B2B2B2E402E2E40402E222C0A22
+    2E2E2B2B2B2B2B2E23232323402B2B2B2E402B2B2B2B2B2B2B2B40402E402E2E
+    222C0A222E2B2B2B2B2B2B2E23232340402E2B2B402E2B2B2B2B2B2B2B2B4023
+    2E2E2E2E222C0A222E2B2B2B2B2B2E2E40232323402E2E2E2E2B2B2B2B2B2B2B
+    2B2B40402E40402E222C0A222E2E2B2B2B2B2B2E4023232340402E2E2E2B2B2B
+    2B2B2B2B2B2E40402E40402E222C0A222E2E2E2B2B2B2B2B2E40232323402E2E
+    2E2B2B2B2B2B2B2B2B2E40402E2E402E222C0A222E2B2E2E2B2B2B2B2B2B4023
+    2340232E2E2B2B2B2B2B2B2B2E404040402E402E222C0A222B2B402E2B2E2B2B
+    2E2B2E232323402E2E2B2B2B2B2B2B2B4023404040402E2E222C0A222B2B402E
+    2B2E2E2B2E2B2B40232340402E2B2B2B2B2B2B2E2340404040402E2E222C0A22
+    2B2E402E2B2E2E2B2E2E2B2B402340402E2B2B2B2B2B2E23232E2E4040402E2E
+    222C0A222B2E2E2E2E2E2E2B2B2E402E2B4023402E2B2B2B2B2E2323402E2B2E
+    40402E2E222C0A222E402E2E402E2E2E2B2B2E402E2B2E402E2E2E4040404040
+    402E2E2B2E23402E222C0A222E402E2E402E2B2E2E2B2E402E2B2B2E2B402323
+    40404040402E2E2B2B40402E222C0A222E402E2E2E402E2E2E2B2E2E2E2B2B2B
+    2B40234040404040402E2E2E2B2E4040222C0A222E2E2E402E2E2E2E2E2B2E2E
+    2E2B2B2E2E402340404040402E2E2E2E2E2E2E2E222C0A222E2E2E2E2E2E2E2E
+    2E2E2E2E2E2E2E40402E4040402E2E402E2E2E2E2E2E2E2B222C0A222E2E2E2E
+    2B2E40402E402E2E2E2E2E40402E2E402E402E2E2E2E2E2E2E2E2B2B222C0A22
+    2B2E2E2B2B2B402340402E2E2E2E2E4040402E402E2E2E2E2E2E2E2E2E402E2B
+    227D3B0A
+  }
+  Menu = MainMenu1
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnResize = FormResize
+  OnShow = FormShow
+  object PanelTop: TPanel
+    Height = 154
+    Width = 810
+    Align = alClient
+    ClientHeight = 154
+    ClientWidth = 810
+    TabOrder = 0
+    object ScrollBar1: TScrollBar
+      Left = 1
+      Height = 15
+      Top = 138
+      Width = 808
+      Align = alBottom
+      TabOrder = 0
+      OnChange = ScrollBar1Change
+    end
+    object PanelVignette: TPanel
+      Left = 1
+      Height = 120
+      Top = 1
+      Width = 808
+      Align = alTop
+      Color = clBlack
+      ParentColor = False
+      TabOrder = 1
+      OnResize = PanelVignetteResize
+    end
+  end
+  object StatusBar1: TStatusBar
+    Height = 23
+    Top = 154
+    Width = 810
+    Panels = <    
+      item
+        Width = 200
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
+  end
+  object MainMenu1: TMainMenu
+    left = 96
+    top = 67
+    object File1: TMenuItem
+      Caption = 'File'
+      object Biblio1: TMenuItem
+        Caption = 'Library'
+      end
+      object MenuItem1: TMenuItem
+        Caption = 'Search'
+        OnClick = MenuItem1Click
+      end
+      object MenuConfig: TMenuItem
+        Caption = 'Library setting'
+        OnClick = MenuConfigClick
+      end
+      object MenuClose: TMenuItem
+        Caption = 'Quit'
+        OnClick = MenuCloseClick
+      end
+    end
+    object MenuItem2: TMenuItem
+      Caption = 'Vignettes'
+      object MenuItem3: TMenuItem
+        Caption = 'Size'
+        object MenuItem4: TMenuItem
+          AutoCheck = True
+          Caption = 'Small'
+          GroupIndex = 11
+          RadioItem = True
+          OnClick = MenuItem4Click
+        end
+        object MenuItem5: TMenuItem
+          AutoCheck = True
+          Caption = 'Medium'
+          GroupIndex = 11
+          RadioItem = True
+          OnClick = MenuItem5Click
+        end
+        object MenuItem6: TMenuItem
+          AutoCheck = True
+          Caption = 'Large'
+          GroupIndex = 11
+          RadioItem = True
+          OnClick = MenuItem6Click
+        end
+      end
+      object MenuItem10: TMenuItem
+        Caption = 'Sort'
+        object MenuItem11: TMenuItem
+          AutoCheck = True
+          Caption = 'by name'
+          Checked = True
+          GroupIndex = 12
+          RadioItem = True
+          OnClick = MenuItem11Click
+        end
+        object MenuItem12: TMenuItem
+          AutoCheck = True
+          Caption = 'by library'
+          GroupIndex = 12
+          RadioItem = True
+          OnClick = MenuItem11Click
+        end
+      end
+    end
+    object MenuItem7: TMenuItem
+      Caption = 'Images'
+      object MenuItem16: TMenuItem
+        Caption = 'Default mirror'
+        object MenuItem20: TMenuItem
+          Caption = 'None'
+          OnClick = MenuItem20Click
+        end
+        object MenuItem18: TMenuItem
+          Caption = 'East<->West'
+          OnClick = MenuItem18Click
+        end
+        object MenuItem19: TMenuItem
+          Caption = 'North<->South'
+          OnClick = MenuItem19Click
+        end
+      end
+      object MenuItem8: TMenuItem
+        Caption = 'Number of window'
+        OnClick = MenuItem8Click
+      end
+      object MenuItem9: TMenuItem
+        Caption = 'Close all window'
+        OnClick = MenuItem9Click
+      end
+    end
+    object Database: TMenuItem
+      Caption = 'Database'
+      OnClick = DatabaseClick
+    end
+    object Carte: TMenuItem
+      Caption = 'Show on map'
+      OnClick = CarteClick
+    end
+    object MenuItem13: TMenuItem
+      Caption = 'Help'
+      object MenuItem14: TMenuItem
+        Caption = 'Help menu'
+        OnClick = MenuItem14Click
+      end
+      object MenuItem15: TMenuItem
+        Caption = 'About ...'
+        OnClick = MenuItem15Click
+      end
+    end
+  end
+  object UniqueInstance1: TUniqueInstance
+    Enabled = True
+    Identifier = 'Virtual_Moon_Atlas_PhottLun'
+    UpdateInterval = 1000
+    OnOtherInstance = UniqueInstance1OtherInstance
+    left = 144
+    top = 67
+  end
+  object SetSizeTimer1: TTimer
+    Enabled = False
+    Interval = 50
+    OnTimer = SetSizeTimer1Timer
+    left = 200
+    top = 67
+  end
+end
