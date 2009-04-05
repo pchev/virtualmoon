@@ -3,8 +3,11 @@
 
 --------------------------------------------------------------
 
-Change by P. Chevalley November 25 2002 :
+Change by P. Chevalley
 
+December 2005 : Lazarus port, right alignement and focus not supported
+
+November 25 2002 :
 Linux port
    Remove D16 support TRealEdit
    change CMexit message to OnExit event
@@ -58,38 +61,27 @@ e-mail me a copy. Enjoy.
 
 ********************************************************}
 
+{$mode objfpc}{$H+}
+
 unit enhedits;
 
 interface
 
 uses
-{$ifdef linux}
-  SysUtils, Classes,  QControls, QStdCtrls ;
-{$endif}
-{$ifdef mswindows}
-  SysUtils, Classes,  Controls, StdCtrls ;
-{$endif}
+  SysUtils, Classes, LResources, Controls, StdCtrls ;
 
 type
-{$ifdef mswindows}
-  TRightEdit = class(TCustomMemo)
-{$endif}
-{$ifdef linux}
   TRightEdit = class(TCustomEdit)
-{$endif}
   private
     { Private declarations }
   protected
     { Protected declarations }
-    property OnExit;
   public
     { Public declarations }
     constructor Create(AOwner: TComponent); override;
     procedure SetBounds(ALeft, ATop, AWidth, AHeight: Integer); override;
   published
     { Published declarations }
-   {property AutoSelect;}
-  { property AutoSize; }
     property BorderStyle;
     property Color;
     property Cursor;
@@ -105,16 +97,15 @@ type
     property ParentColor;
     property ParentFont;
     property ParentShowHint;
-  { property PasswordChar; }
     property PopupMenu;
     property ReadOnly;
     property ShowHint;
     property TabOrder;
     property Tag;
-  { property Text; }
     property Top;
     property Visible;
     property Width;
+    property OnExit;
     property OnChange;
     property OnClick;
     property OnDblClick;
@@ -128,23 +119,18 @@ type
     property OnMouseDown;
     property OnMouseMove;
     property OnMouseUp;
-{$ifdef mswindows}
     property CharCase;
-    property Ctl3D;
     property DragCursor;
-    property HideSelection;
-    property OEMConvert;
-    property ParentCtl3D;
-{$endif}    
   end;
 
   TLongEdit = class(TRightEdit)
   private
     { Private declarations }
+    FOnExit : TNotifyEvent;
     FValue: LongInt;
     FMinValue: LongInt;
     FMaxValue: LongInt;
-    procedure SetValue(Value: LongInt);
+    procedure SetValue(Val: LongInt);
     function GetValue: Longint;
     function CheckValue(NewValue: LongInt): LongInt;
     procedure SetMaxValue(NewValue: LongInt);
@@ -158,7 +144,6 @@ type
     procedure SetAsByte(NewValue: byte);
     function GetAsByte: byte;
     procedure FormatText;
-//    procedure CMExit(var Message: TCMExit); message CM_EXIT;
     procedure CMExit(Sender: TObject);
   protected
     { Protected declarations }
@@ -175,6 +160,7 @@ type
     property Value: LongInt read GetValue write SetValue;
     property MinValue: LongInt read FMinValue write SetMinValue default 0;
     property MaxValue: LongInt read FMaxValue write SetMaxValue default 0;
+    property OnExit: TNotifyEvent read FOnExit write FOnExit;
   end;
 
   TNumericType = (ntGeneral, ntExponent, ntFixed);
@@ -182,20 +168,21 @@ type
   TFloatEdit = class(TRightEdit)
   private
     { Private declarations }
+    FOnExit : TNotifyEvent;
     FValue: Extended;
     FDecimals: word;
     FMinValue: Extended;
     FMaxValue: Extended;
     FDigits: word;
     FNumericType: TNumericType;
-    procedure SetValue(Value: Extended);
+    procedure SetValue(Val: Extended);
     function GetValue: Extended;
     procedure SetMaxValue(NewValue: Extended);
     procedure SetMinValue(NewValue: Extended);
     function CheckValue(NewValue: Extended): Extended;
     procedure SetDecimals(NewValue: word);
     procedure SetDigits(NewValue: word);
-    procedure SetNumericType(Value: TNumericType);
+    procedure SetNumericType(Val: TNumericType);
     procedure SetAsString(NewValue: string);
     function GetAsString: string;
     procedure SetAsDouble(NewValue: Double);
@@ -224,30 +211,23 @@ type
     property MaxValue: Extended read FMaxValue write SetMaxValue;
     property Digits: word read FDigits write SetDigits default 12;
     property NumericType: TNumericType read FNumericType write SetNumericType default ntGeneral;
+    property OnExit: TNotifyEvent read FOnExit write FOnExit;
   end;
 
 procedure Register;
 
 implementation
 
- {$R enhedits.res}
-
 constructor TRightEdit.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   Align := alNone;
-  Alignment := taRightJustify;
-{$ifdef mswindows}
-  ScrollBars := ssNone;
-  WantReturns := False;
-  WantTabs := False;
-  WordWrap := False;
-{$endif}
+//  Alignment := taRightJustify;
 end;
 
 procedure TRightEdit.SetBounds(ALeft, ATop, AWidth, AHeight: Integer);
 begin
-  if AHeight > (2 * abs(Font.Height)) then AHeight := 2 * abs(Font.Height);
+//  if AHeight > (2 * abs(Font.Height)) then AHeight := 2 * abs(Font.Height);
   inherited SetBounds(ALeft, ATop, AWidth, AHeight);
 end;
 
@@ -259,14 +239,15 @@ begin
   FMaxValue := 0;
   FValue := 0;
   Text := '0';
-  onExit:=CMExit;
+  FOnExit:=nil;
+  Inherited onExit:=@CMExit;
 end;
 
 { Set the unpublished Text property to its string
   representation. Check the value is in range. }
-procedure TLongEdit.SetValue(Value: LongInt);
+procedure TLongEdit.SetValue(Val: LongInt);
 begin
-  FValue := Value;
+  FValue := Val;
   FormatText;
 end;
 
@@ -285,7 +266,7 @@ begin
   if FMinValue <> NewValue then
   begin
     FMinValue := NewValue;
-    if FMinValue > FMaxValue then FMinValue := FMaxValue;
+//    if FMinValue > FMaxValue then FMinValue := FMaxValue;
     if FValue < FMinValue then
       FValue := FMinValue;
     FormatText;
@@ -306,7 +287,7 @@ begin
   if FMaxValue <> NewValue then
   begin
     FMaxValue := NewValue;
-    if FMaxValue < FMinValue then FMaxValue := FMinValue;
+//    if FMaxValue < FMinValue then FMaxValue := FMinValue;
     if FValue > FMaxValue then
       FValue := FMaxValue;
     FormatText;
@@ -386,7 +367,7 @@ begin
   if (Text <> '') and not (Text = '-') then
     FValue := StrToInt(Text);
   if (FValue <= MaxWord) and (FValue >= MinWord) then
-     Result := FValue;
+     Result := word(FValue);
 end;
 
 { Method to Set Value as a word }
@@ -406,7 +387,7 @@ begin
   if (Text <> '') and not (Text = '-') then
     FValue := StrToInt(Text);
   if (FValue <= MaxByte) and (FValue >= MinByte) then
-     Result := FValue;
+     Result := byte(FValue);
 end;
 
 { Method to Set Value as a byte }
@@ -433,13 +414,14 @@ begin
   begin
     FValue := L;
 //    inherited;
+    if Assigned(FOnExit) then  FOnExit(Sender);
   end;
 end;
 
 { Don't accept invalid characters }
 procedure TLongEdit.KeyPress(var Key: Char);
 begin
-  if Key in ['0'..'9', '-', #8] then
+  if Key in ['0'..'9', '-', #0 .. #20] then
     inherited KeyPress(Key)
   else begin
     Key := #0;
@@ -457,7 +439,8 @@ begin
   FMinValue := 0;
   FMaxValue := 0;
   Text := '0.0';
-  onExit:=CMExit;
+  FOnExit:=nil;
+  Inherited onExit:=@CMExit;
 end;
 
 { Check the Value property is in range before allowing
@@ -476,14 +459,15 @@ begin
   begin
     FValue := L;
     inherited;
+    if Assigned(FOnExit) then  FOnExit(Sender);
   end;
 end;
 
 { Set the unpublished Text property to its string
   representation. Check the value is in range. }
-procedure TFloatEdit.SetValue(Value: Extended);
+procedure TFloatEdit.SetValue(Val: Extended);
 begin
-  FValue := Value;
+  FValue := Val;
   FormatText;
 end;
 
@@ -508,7 +492,7 @@ begin
   if FMinValue <> NewValue then
   begin
     FMinValue := NewValue;
-    if FMinValue > FMaxValue then FMinValue := FMaxValue;
+//    if FMinValue > FMaxValue then FMinValue := FMaxValue;
     if FValue < FMinValue then
       FValue := FMinValue;
     FormatText;
@@ -529,7 +513,7 @@ begin
   if FMaxValue <> NewValue then
   begin
     FMaxValue := NewValue;
-    if FMaxValue < FMinValue then FMaxValue := FMinValue;
+//    if FMaxValue < FMinValue then FMaxValue := FMinValue;
     if FValue > FMaxValue then
       FValue := FMaxValue;
     FormatText;
@@ -579,11 +563,11 @@ begin
   end;
 end;
 
-procedure TFloatEdit.SetNumericType(Value: TNumericType);
+procedure TFloatEdit.SetNumericType(Val: TNumericType);
 begin
-  if FNumericType <> Value then
+  if FNumericType <> Val then
   begin
-    FNumericType := Value;
+    FNumericType := Val;
     FormatText;
   end;
 end;
@@ -611,7 +595,7 @@ begin
   if (Text <> '') and not (Text = '-') then
     FValue := StrToFloat(Text);
   if (FValue <= MaxDouble) and (FValue >= MinDouble) then
-     Result := FValue;
+     Result := Double(FValue);
 end;
 
 { Method to Set Value as a double }
@@ -631,7 +615,7 @@ begin
   if (Text <> '') and not (Text = '-') then
     FValue := StrToFloat(Text);
   if (FValue <= MaxSingle) and (FValue >= MinSingle) then
-     Result := FValue;
+     Result := Single(FValue);
 end;
 
 { Method to Set Value as a single }
@@ -651,7 +635,7 @@ begin
   if (Text <> '') and not (Text = '-') then
     FValue := StrToFloat(Text);
   if (FValue <= MaxReal) and (FValue >= MinReal) then
-     Result := FValue;
+     Result := Real(FValue);
 end;
 
 { Method to Set Value as a real }
@@ -676,7 +660,7 @@ end;
 { Don't accept invalid characters }
 procedure TFloatEdit.KeyPress(var Key: Char);
 begin
-  if Key in ['0'..'9', '-', '+', 'e', 'E', DecimalSeparator, #8] then
+  if Key in ['0'..'9', '-', '+', 'e', 'E', DecimalSeparator, #0 .. #20] then
     inherited KeyPress(Key)
   else begin
     Key := #0;
@@ -693,7 +677,10 @@ procedure Register;
 begin
   RegisterComponents('CDC', [TLongEdit]);
   RegisterComponents('CDC', [TFloatEdit]);
-  RegisterComponents('CDC', [TRightEdit]);
+//  RegisterComponents('CDC', [TRightEdit]);
 end;
+
+initialization
+  {$I enhedit.lrs}
 
 end.
