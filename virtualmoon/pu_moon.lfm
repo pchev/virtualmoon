@@ -1,0 +1,199 @@
+object f_moon: Tf_moon
+  Left = 605
+  Height = 560
+  Top = 257
+  Width = 787
+  Caption = 'f_moon'
+  ClientHeight = 560
+  ClientWidth = 787
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poDefaultSizeOnly
+  LCLVersion = '0.9.27'
+  object Moon: TPanel
+    Left = 128
+    Height = 506
+    Top = 24
+    Width = 560
+    ClientHeight = 506
+    ClientWidth = 560
+    TabOrder = 0
+    object GLSceneViewer1: TGLSceneViewer
+      Left = 1
+      Height = 504
+      Top = 1
+      Width = 558
+      Camera = GLCamera1
+      Buffer.BackgroundColor = clBlack
+      Buffer.AmbientColor.Color = {
+        0000000000000000000000000000803F
+      }
+      FieldOfView = 4.44040298461914
+      Align = alClient
+      OnMouseDown = GLSceneViewer1MouseDown
+      OnMouseMove = GLSceneViewer1MouseMove
+      OnMouseWheelDown = GLSceneViewer1MouseWheelDown
+      OnMouseWheelUp = GLSceneViewer1MouseWheelUp
+    end
+  end
+  object GLScene1: TGLScene
+    ObjectsSorting = osNone
+    left = 48
+    top = 16
+    object GLSphere1: TGLSphere
+      TagFloat = 0
+      Material.MaterialLibrary = GLMultiMaterialLibrary
+      Material.LibMaterialName = 'MultiMaterial'
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      Radius = 0.5
+      Slices = 360
+      Stacks = 360
+    end
+    object GLDummyCubeLight: TGLDummyCube
+      TagFloat = 0
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      CubeSize = 1
+      object GLLightSource1: TGLLightSource
+        TagFloat = 0
+        ConstAttenuation = 0.5
+        LinearAttenuation = 0
+        QuadraticAttenuation = 0
+        Position.Coordinates = {
+          00000000000000000000C8C20000803F
+        }
+        Specular.Color = {
+          0000803F0000803F0000803F0000803F
+        }
+        SpotCutOff = 10
+        SpotDirection.Coordinates = {
+          00000000000000000000803F00000000
+        }
+        SpotExponent = 0
+      end
+    end
+    object GLDummyCubeLabels: TGLDummyCube
+      TagFloat = 0
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      CubeSize = 1
+    end
+    object GLHUDText2: TGLHUDText
+      TagFloat = 0
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      BitmapFont = GLBitmapFont1
+      Rotation = 0
+      Layout = tlCenter
+      ModulateColor.Color = {
+        0000000000000000000000000000803F
+      }
+    end
+    object GLHUDText1: TGLHUDText
+      TagFloat = 0
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      Visible = False
+      BitmapFont = GLBitmapFont1
+      Rotation = 0
+      Layout = tlCenter
+      ModulateColor.Color = {
+        0000803F00000000000000000000803F
+      }
+    end
+    object GLCamera1: TGLCamera
+      TagFloat = 0
+      DepthOfView = 1000
+      FocalLength = 6500
+      TargetObject = GLSphere1
+      Position.Coordinates = {
+        00000000000000000000C8C20000803F
+      }
+    end
+  end
+  object GLMaterialLibrary1: TGLMaterialLibrary
+    left = 48
+    top = 76
+  end
+  object GLMultiMaterialLibrary: TGLMaterialLibrary
+    Materials = <    
+      item
+        Name = 'MultiMaterial'
+        Tag = 0
+        Shader = GLMultiMaterialShader
+      end>
+    left = 48
+    top = 136
+  end
+  object GLMultiMaterialShader: TGLMultiMaterialShader
+    MaterialLibrary = GLMaterialLibrary1
+    VisibleAtDesignTime = False
+    left = 48
+    top = 201
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 200
+    OnTimer = Timer1Timer
+    left = 48
+    top = 267
+  end
+  object Timer2: TTimer
+    Enabled = False
+    Interval = 2000
+    OnTimer = Timer2Timer
+    left = 48
+    top = 333
+  end
+  object GLCadencer1: TGLCadencer
+    Scene = GLScene1
+    Enabled = False
+    MaxDeltaTime = 0
+    MinDeltaTime = 0
+    FixedDeltaTime = 0
+    OnProgress = GLCadencer1Progress
+    left = 48
+    top = 392
+  end
+  object GLBumpShader1: TGLBumpShader
+    BumpMethod = bmDot3TexCombiner
+    BumpSpace = bsTangentQuaternion
+    BumpOptions = [boDiffuseTexture2, boLightAttenuation]
+    SpecularMode = smOff
+    DesignTimeEnabled = False
+    ParallaxOffset = 0.03999999910593
+    left = 48
+    top = 445
+  end
+  object BumpMaterialLibrary: TGLMaterialLibrary
+    Materials = <    
+      item
+        Name = 'Bump'
+        Material.Texture.Disabled = False
+        Tag = 0
+        Texture2Name = 'Diffuse'
+        Shader = GLBumpShader1
+      end    
+      item
+        Name = 'Diffuse'
+        Material.Texture.Disabled = False
+        Tag = 0
+      end>
+    left = 50
+    top = 499
+  end
+  object GLBitmapFont1: TGLWindowsBitmapFont
+    Font.Color = clWhite
+    Font.Name = 'Default'
+    left = 719
+    top = 26
+  end
+end
