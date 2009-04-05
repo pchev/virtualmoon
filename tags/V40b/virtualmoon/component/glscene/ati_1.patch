@@ -1,0 +1,16 @@
+Index: Source/Platform/GLWin32Context.pas
+===================================================================
+--- Source/Platform/GLWin32Context.pas
++++ Source/Platform/GLWin32Context.pas
+@@ -740,6 +740,11 @@
+    pixelFormat : Integer;
+ begin
+    if not wglMakeCurrent(Cardinal(FDC), Cardinal(FRC)) then
++
++    // IGM START
++    if not GLContext.vIgnoreContextActivationFailures then
++    // IGM END
++
+       raise EGLContext.Create(Format(cContextActivationFailed,
+                                      [GetLastError, SysErrorMessage(GetLastError)]));
+

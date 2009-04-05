@@ -1,0 +1,73 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('Tf_photlun','FORMDATA',[
+  'TPF0'#10'Tf_photlun'#9'f_photlun'#6'Height'#3#197#0#5'Width'#3'*'#3#18'HorzS'
+  +'crollBar.Page'#3')'#3#18'VertScrollBar.Page'#3#176#0#13'ActiveControl'#7#8
+  +'PanelTop'#7'Caption'#6#11'Photlun 1.0'#12'ClientHeight'#3#177#0#11'ClientWi'
+  +'dth'#3'*'#3#9'Icon.Data'#10#4#5#0#0#0#5#0#0'/* XPM */'#10'static char * pho'
+  +'tlun_xpm[] = {'#10'"32 32 5 1",'#10'" '#9'c None",'#10'".'#9'c #808080",'#10
+  +'"+'#9'c #000000",'#10'"@'#9'c #C0C0C0",'#10'"#'#9'c #FFFFFF",'#10'"........'
+  +'........++......@..@@...",'#10'"+.....++........+..@....@@.@@...",'#10'"...'
+  +'...+.++..+...........@@..@...",'#10'".++.....++++....@....+...@.@@...",'#10
+  +'".++.....++++....@@...+.@...@#@..",'#10'"..+...+++++......@@....@...@@#@.",'
+  +#10'"..+..+++++..@@@.@@@@+...+..@..@.",'#10'"..+++++++.##@@@@@..+++.....@...'
+  +'.",'#10'"+@..++++.##..@@@@.+++++....@....",'#10'"+@#.++++@#@..@#@@.++++++..'
+  +'.@....",'#10'"+.@+++++@#@@@@@..++++++++@...@..",'#10'"..+++++.###@@@@.+++++'
+  +'++++@...@..",'#10'"@++++++.###@#...+++++++++...@.@.",'#10'"..+++++.####@@.+'
+  +'..+++++++...@.@.",'#10'"..+++++.###@@.++.@.++++++.@..@@.",'#10'"..+++++.###'
+  +'#@+++.@++++++++@@.@..",'#10'".++++++.###@@.++@.++++++++@#....",'#10'".+++++'
+  +'..@###@....+++++++++@@.@@.",'#10'"..+++++.@###@@...++++++++.@@.@@.",'#10'".'
+  +'..+++++.@###@...++++++++.@@..@.",'#10'".+..++++++@##@#..+++++++.@@@@.@.",'
+  +#10'"++@.+.++.+.###@..+++++++@#@@@@..",'#10'"++@.+..+.++@##@@.++++++.#@@@@@.'
+  +'.",'#10'"+.@.+..+..++@#@@.+++++.##..@@@..",'#10'"+......++.@.+@#@.++++.##@.'
+  +'+.@@..",'#10'".@..@...++.@.+.@...@@@@@@..+.#@.",'#10'".@..@.+..+.@.++.+@##@'
+  +'@@@@..++@@.",'#10'".@...@...+...++++@#@@@@@@...+.@@",'#10'"...@.....+...++.'
+  +'.@#@@@@@........",'#10'"...............@@.@@@..@.......+",'#10'"....+.@@.@.'
+  +'....@@..@.@........++",'#10'"+..+++@#@@.....@@@.@.........@.+"};'#10#4'Menu'
+  +#7#9'MainMenu1'#7'OnClose'#7#9'FormClose'#8'OnCreate'#7#10'FormCreate'#9'OnD'
+  +'estroy'#7#11'FormDestroy'#8'OnResize'#7#10'FormResize'#6'OnShow'#7#8'FormSh'
+  +'ow'#0#6'TPanel'#8'PanelTop'#6'Height'#3#154#0#5'Width'#3'*'#3#5'Align'#7#8
+  +'alClient'#12'ClientHeight'#3#154#0#11'ClientWidth'#3'*'#3#8'TabOrder'#2#0#0
+  +#10'TScrollBar'#10'ScrollBar1'#4'Left'#2#1#6'Height'#2#15#3'Top'#3#138#0#5'W'
+  +'idth'#3'('#3#5'Align'#7#8'alBottom'#8'TabOrder'#2#0#8'OnChange'#7#16'Scroll'
+  +'Bar1Change'#0#0#6'TPanel'#13'PanelVignette'#4'Left'#2#1#6'Height'#2'x'#3'To'
+  +'p'#2#1#5'Width'#3'('#3#5'Align'#7#5'alTop'#5'Color'#7#7'clBlack'#11'ParentC'
+  +'olor'#8#8'TabOrder'#2#1#8'OnResize'#7#19'PanelVignetteResize'#0#0#0#10'TSta'
+  +'tusBar'#10'StatusBar1'#6'Height'#2#23#3'Top'#3#154#0#5'Width'#3'*'#3#6'Pane'
+  +'ls'#14#1#5'Width'#3#200#0#0#1#5'Width'#2'2'#0#0#11'SimplePanel'#8#0#0#9'TMa'
+  +'inMenu'#9'MainMenu1'#4'left'#2'`'#3'top'#2'C'#0#9'TMenuItem'#5'File1'#7'Cap'
+  +'tion'#6#4'File'#0#9'TMenuItem'#7'Biblio1'#7'Caption'#6#7'Library'#0#0#9'TMe'
+  +'nuItem'#9'MenuItem1'#7'Caption'#6#6'Search'#7'OnClick'#7#14'MenuItem1Click'
+  +#0#0#9'TMenuItem'#10'MenuConfig'#7'Caption'#6#15'Library setting'#7'OnClick'
+  +#7#15'MenuConfigClick'#0#0#9'TMenuItem'#9'MenuClose'#7'Caption'#6#4'Quit'#7
+  +'OnClick'#7#14'MenuCloseClick'#0#0#0#9'TMenuItem'#9'MenuItem2'#7'Caption'#6#9
+  +'Vignettes'#0#9'TMenuItem'#9'MenuItem3'#7'Caption'#6#4'Size'#0#9'TMenuItem'#9
+  +'MenuItem4'#9'AutoCheck'#9#7'Caption'#6#5'Small'#10'GroupIndex'#2#11#9'Radio'
+  +'Item'#9#7'OnClick'#7#14'MenuItem4Click'#0#0#9'TMenuItem'#9'MenuItem5'#9'Aut'
+  +'oCheck'#9#7'Caption'#6#6'Medium'#10'GroupIndex'#2#11#9'RadioItem'#9#7'OnCli'
+  +'ck'#7#14'MenuItem5Click'#0#0#9'TMenuItem'#9'MenuItem6'#9'AutoCheck'#9#7'Cap'
+  +'tion'#6#5'Large'#10'GroupIndex'#2#11#9'RadioItem'#9#7'OnClick'#7#14'MenuIte'
+  +'m6Click'#0#0#0#9'TMenuItem'#10'MenuItem10'#7'Caption'#6#4'Sort'#0#9'TMenuIt'
+  +'em'#10'MenuItem11'#9'AutoCheck'#9#7'Caption'#6#7'by name'#7'Checked'#9#10'G'
+  +'roupIndex'#2#12#9'RadioItem'#9#7'OnClick'#7#15'MenuItem11Click'#0#0#9'TMenu'
+  +'Item'#10'MenuItem12'#9'AutoCheck'#9#7'Caption'#6#10'by library'#10'GroupInd'
+  +'ex'#2#12#9'RadioItem'#9#7'OnClick'#7#15'MenuItem11Click'#0#0#0#0#9'TMenuIte'
+  +'m'#9'MenuItem7'#7'Caption'#6#6'Images'#0#9'TMenuItem'#10'MenuItem16'#7'Capt'
+  +'ion'#6#14'Default mirror'#0#9'TMenuItem'#10'MenuItem20'#7'Caption'#6#4'None'
+  +#7'OnClick'#7#15'MenuItem20Click'#0#0#9'TMenuItem'#10'MenuItem18'#7'Caption'
+  +#6#11'East<->West'#7'OnClick'#7#15'MenuItem18Click'#0#0#9'TMenuItem'#10'Menu'
+  +'Item19'#7'Caption'#6#13'North<->South'#7'OnClick'#7#15'MenuItem19Click'#0#0
+  +#0#9'TMenuItem'#9'MenuItem8'#7'Caption'#6#16'Number of window'#7'OnClick'#7
+  +#14'MenuItem8Click'#0#0#9'TMenuItem'#9'MenuItem9'#7'Caption'#6#16'Close all '
+  +'window'#7'OnClick'#7#14'MenuItem9Click'#0#0#0#9'TMenuItem'#8'Database'#7'Ca'
+  +'ption'#6#8'Database'#7'OnClick'#7#13'DatabaseClick'#0#0#9'TMenuItem'#5'Cart'
+  +'e'#7'Caption'#6#11'Show on map'#7'OnClick'#7#10'CarteClick'#0#0#9'TMenuItem'
+  +#10'MenuItem13'#7'Caption'#6#4'Help'#0#9'TMenuItem'#10'MenuItem14'#7'Caption'
+  +#6#9'Help menu'#7'OnClick'#7#15'MenuItem14Click'#0#0#9'TMenuItem'#10'MenuIte'
+  +'m15'#7'Caption'#6#9'About ...'#7'OnClick'#7#15'MenuItem15Click'#0#0#0#0#15
+  ,'TUniqueInstance'#15'UniqueInstance1'#7'Enabled'#9#10'Identifier'#6#27'Virtu'
+  +'al_Moon_Atlas_PhottLun'#14'UpdateInterval'#3#232#3#15'OnOtherInstance'#7#28
+  +'UniqueInstance1OtherInstance'#4'left'#3#144#0#3'top'#2'C'#0#0#6'TTimer'#13
+  +'SetSizeTimer1'#7'Enabled'#8#8'Interval'#2'2'#7'OnTimer'#7#18'SetSizeTimer1T'
+  +'imer'#4'left'#3#200#0#3'top'#2'C'#0#0#0
+]);

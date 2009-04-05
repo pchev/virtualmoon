@@ -1,0 +1,202 @@
+object f_ephemeris: Tf_ephemeris
+  Left = 651
+  Height = 260
+  Top = 177
+  Width = 240
+  HorzScrollBar.Page = 239
+  VertScrollBar.Page = 239
+  ActiveControl = StringGrid1
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'f_ephemeris'
+  ClientHeight = 240
+  ClientWidth = 240
+  Font.Height = -12
+  Font.Name = 'Tahoma'
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object Title: TPanel
+    Height = 26
+    Width = 240
+    Align = alTop
+    Caption = 'Ephémérides'
+    ClientHeight = 26
+    ClientWidth = 240
+    Font.Height = 14
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    TabOrder = 0
+    object Button1: TButton
+      Left = 4
+      Height = 25
+      Width = 75
+      BorderSpacing.InnerBorder = 4
+      Caption = 'OK'
+      Default = True
+      ModalResult = 1
+      TabOrder = 0
+      Visible = False
+    end
+  end
+  object StringGrid1: TStringGrid
+    Height = 140
+    Top = 76
+    Width = 240
+    Align = alClient
+    AutoAdvance = aaNone
+    ColCount = 2
+    DefaultColWidth = 108
+    DefaultRowHeight = 16
+    FixedColor = clBtnFace
+    FixedCols = 0
+    FixedRows = 0
+    Font.Height = -10
+    Font.Name = 'Tahoma'
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goSmoothScroll]
+    RowCount = 25
+    ScrollBars = ssVertical
+    TabOrder = 1
+    TabStop = True
+    TitleFont.Height = -10
+    TitleFont.Name = 'Tahoma'
+  end
+  object Panel1: TPanel
+    Height = 50
+    Top = 26
+    Width = 240
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 50
+    ClientWidth = 240
+    ParentFont = True
+    TabOrder = 2
+    object LabelDate: TLabel
+      Left = 8
+      Height = 15
+      Top = 2
+      Width = 55
+      Caption = 'LabelDate'
+      ParentColor = False
+      ParentFont = True
+    end
+    object BtnCalendar: TButton
+      Left = 209
+      Height = 18
+      Top = 2
+      Width = 22
+      BorderSpacing.InnerBorder = 4
+      Caption = '...'
+      OnClick = BtnCalendarClick
+      ParentFont = True
+      TabOrder = 0
+    end
+    object BtnFor2: TButton
+      Left = 209
+      Height = 18
+      Top = 22
+      Width = 22
+      BorderSpacing.InnerBorder = 4
+      Caption = '>>'
+      OnClick = BtnFor2Click
+      ParentFont = True
+      TabOrder = 1
+    end
+    object BtnFor1: TButton
+      Left = 182
+      Height = 18
+      Top = 22
+      Width = 22
+      BorderSpacing.InnerBorder = 4
+      Caption = '>'
+      OnClick = BtnFor1Click
+      ParentFont = True
+      TabOrder = 2
+    end
+    object BtnBack1: TButton
+      Left = 155
+      Height = 18
+      Top = 22
+      Width = 22
+      BorderSpacing.InnerBorder = 4
+      Caption = '<'
+      OnClick = BtnBack1Click
+      ParentFont = True
+      TabOrder = 3
+    end
+    object BtnBack2: TButton
+      Left = 128
+      Height = 18
+      Top = 22
+      Width = 22
+      BorderSpacing.InnerBorder = 4
+      Caption = '<<'
+      OnClick = BtnBack2Click
+      ParentFont = True
+      TabOrder = 4
+    end
+    object btnNow: TButton
+      Left = 4
+      Height = 18
+      Top = 22
+      Width = 86
+      BorderSpacing.InnerBorder = 4
+      Caption = 'Maintenant'
+      OnClick = btnNowClick
+      ParentFont = True
+      TabOrder = 5
+    end
+  end
+  object Panel2: TPanel
+    Height = 24
+    Top = 216
+    Width = 240
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 3
+  end
+  object MainMenu1: TMainMenu
+    left = 112
+    top = 173
+    object MenuItem5: TMenuItem
+      Caption = '  '
+      Enabled = False
+    end
+    object MenuItem1: TMenuItem
+      Caption = 'Menu'
+      object MenuItem10: TMenuItem
+        Caption = 'Carte'
+        OnClick = MenuItem10Click
+      end
+      object MenuItem2: TMenuItem
+        Caption = 'Configuration'
+        OnClick = MenuItem2Click
+      end
+      object MenuItem3: TMenuItem
+        Caption = 'Affichage'
+        OnClick = MenuItem3Click
+      end
+      object MenuItem4: TMenuItem
+        Caption = 'Outils'
+        Visible = False
+        OnClick = MenuItem4Click
+      end
+      object MenuItem6: TMenuItem
+        Caption = 'Calendrier'
+        OnClick = MenuItem6Click
+      end
+      object MenuItem7: TMenuItem
+        Caption = 'Recherche'
+        OnClick = MenuItem7Click
+      end
+      object MenuItem8: TMenuItem
+        Caption = 'Aide'
+        OnClick = MenuItem8Click
+      end
+      object MenuItem9: TMenuItem
+        Caption = 'A propos'
+        OnClick = MenuItem9Click
+      end
+    end
+  end
+end
