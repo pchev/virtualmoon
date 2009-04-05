@@ -366,9 +366,6 @@ type
     procedure LabelTimerTimer(Sender: TObject);
     procedure Glossaire1Click(Sender: TObject);
     procedure x81Click(Sender: TObject);
-    procedure StringGrid1MouseMove(Sender: TObject; Shift: TShiftState;
-      X, Y: integer);
-    procedure ListBox1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: integer);
     procedure Button9Click(Sender: TObject);
     procedure StringGrid2SetEditText(Sender: TObject; ACol, ARow: integer;
       const Value: string);
@@ -4814,19 +4811,6 @@ begin
   gloss.button2.Caption := imac1;
   gloss.Caption := stringreplace(Glossaire1.Caption, '&', '', []);
   gloss.Show;
-end;
-
-procedure TForm1.StringGrid1MouseMove(Sender: TObject; Shift: TShiftState;
-  X, Y: integer);
-begin
-  if not StringGrid1.Focused then
-    form1.ActiveControl := StringGrid1;
-end;
-
-procedure TForm1.ListBox1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: integer);
-begin
-  if not ListBox1.Focused then
-    form1.ActiveControl := ListBox1;
 end;
 
 procedure TForm1.ToolButton3Click(Sender: TObject);
