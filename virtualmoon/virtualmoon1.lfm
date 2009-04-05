@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = Memo2
+  ActiveControl = Panel4
   AutoScroll = False
   Caption = 'Form1'
   ClientHeight = 600
@@ -124,7 +124,7 @@ object Form1: TForm1
     OnChanging = PageControl1Changing
     OnPageChanged = PageControl1Change
     Options = [nboMultiLine]
-    PageIndex = 0
+    PageIndex = 3
     TabOrder = 0
     object Position: TPage
       Caption = 'Information'
@@ -169,9 +169,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 2
-            Height = 16
+            Height = 17
             Top = 8
-            Width = 2
+            Width = 3
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -347,9 +347,9 @@ object Form1: TForm1
         TabStop = True
         object Label6: TLabel
           Left = 2
-          Height = 14
+          Height = 15
           Top = 38
-          Width = 30
+          Width = 35
           Caption = 'Heure'
           Font.Color = clBlack
           Font.Height = -11
@@ -359,9 +359,9 @@ object Form1: TForm1
         end
         object Label9: TLabel
           Left = 2
-          Height = 14
+          Height = 15
           Top = 6
-          Width = 24
+          Width = 27
           Caption = 'Date'
           Font.Color = clBlack
           Font.Height = -11
@@ -459,7 +459,7 @@ object Form1: TForm1
         end
         object LabelNM: TLabel
           Left = 204
-          Height = 15
+          Height = 14
           Top = 19
           Width = 7
           Caption = 'L'
@@ -471,7 +471,7 @@ object Form1: TForm1
         end
         object LabelFQ: TLabel
           Left = 204
-          Height = 15
+          Height = 14
           Top = 43
           Width = 7
           Caption = 'L'
@@ -483,7 +483,7 @@ object Form1: TForm1
         end
         object LabelFM: TLabel
           Left = 204
-          Height = 15
+          Height = 14
           Top = 67
           Width = 7
           Caption = 'L'
@@ -495,7 +495,7 @@ object Form1: TForm1
         end
         object LabelLQ: TLabel
           Left = 204
-          Height = 15
+          Height = 14
           Top = 92
           Width = 7
           Caption = 'L'
@@ -887,7 +887,6 @@ object Form1: TForm1
         TabStop = False
         TitleFont.Height = -11
         TitleFont.Name = 'Arial'
-        OnMouseMove = StringGrid1MouseMove
       end
     end
     object Terminateur: TPage
@@ -984,8 +983,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 50
-          ClientWidth = 236
+          ClientHeight = 61
+          ClientWidth = 234
           Columns = 2
           Items.Strings = (
             'Nom'
@@ -1005,7 +1004,6 @@ object Form1: TForm1
         Align = alClient
         ItemHeight = 0
         OnClick = ListBox1Click
-        OnMouseMove = ListBox1MouseMove
         Sorted = True
         TabOrder = 1
         TopIndex = -1
