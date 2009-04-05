@@ -1,4 +1,7 @@
 unit glossary;
+
+{$MODE Delphi}
+{$H+}
 {
 Copyright (C) 2003 Patrick Chevalley
 
@@ -22,16 +25,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, HTMLLite;
+{$ifdef mswindows}
+  Windows,
+{$endif}
+  LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, LResources, IpHtml;
 
 type
+
+  { TGloss }
+
   TGloss = class(TForm)
     Edit1: TEdit;
     Button1: TButton;
+    Gloss1: TIpHtmlPanel;
     TreeView1: TTreeView;
     Button2: TButton;
-    Gloss1: ThtmlLite;
     Panel1: TPanel;
     Label1: TLabel;
     Label2: TLabel;
@@ -60,6 +69,7 @@ type
     Label25: TLabel;
     Label26: TLabel;
     Button3: TButton;
+    procedure Gloss1HotClick(Sender: TObject);
     procedure Label1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -70,8 +80,6 @@ type
     procedure TreeView1Change(Sender: TObject; Node: TTreeNode);
     procedure TreeView1Changing(Sender: TObject; Node: TTreeNode;
       var AllowChange: Boolean);
-    procedure Gloss1HotSpotClick(Sender: TObject; const SRC: String;
-      var Handled: Boolean);
     procedure Button3Click(Sender: TObject);
   private
     { Déclarations privées }
@@ -90,9 +98,8 @@ var
 
 implementation
 
-uses skylib,mlb2;
+uses u_constant, u_util, mlb2;
 
-{$R *.dfm}
 
 var dbgloss : TMlb2;
     lastpos : integer;
@@ -101,11 +108,12 @@ var dbgloss : TMlb2;
 function dcopy(s:string; f,l:integer):string;
 var bf,bl: integer;
 begin
-bf:=CharToByteIndex(s,f);
+{bf:=CharToByteIndex(s,f);
 if bf=0 then begin result:=''; exit; end;
 result:=copy(s,bf,maxint);
 bl:=CharToByteLen(result,l);
-result:=copy(result,1,bl);
+result:=copy(resut,1,bl);}
+result:=copy(s,f,l);
 end;
 
 procedure TGloss.SelectTree(nom:string);
@@ -121,15 +129,15 @@ for i:=0 to Treeview1.Items.Count-1 do begin
   end;
 end;
 if n>=0 then for j:=0 to Treeview1.Items[n].Count-1 do begin
-  if Treeview1.Items[n].Item[j].Text=nom then begin
+  if Treeview1.Items[n].Items[j].Text=nom then begin
      m:=j;
      break;
   end;
 end;
 if m>=0 then begin
    Treeview1.Items[n].Expand(false);
-   Treeview1.Items[n].Item[j].Selected:=true;
-   Treeview1.TopItem:=Treeview1.Items[n].Item[j];
+   Treeview1.Items[n].Items[j].Selected:=true;
+   Treeview1.TopItem:=Treeview1.Items[n].Items[j];
 end;
 end;
 
@@ -164,7 +172,10 @@ Procedure TGloss.ShowGloss(txt:string);
 var i,p:integer;
     c,buf,lien,lientxt:string;
     stop:boolean;
+    NewHTML: TIpHtml;
+    s: TStringStream;
 begin
+txt:=UTF8Encode(txt);
 if panel1.visible and (length(txt)>0) then begin
   txt:=txt+'  ';
   buf:='<html> <body>';
@@ -205,8 +216,17 @@ if panel1.visible and (length(txt)>0) then begin
   until i>p;
   buf:=buf+'</body></html>';
 end else buf:='<html> <body>'+txt+'</body></html>';
-Gloss1.Clear;
-Gloss1.LoadFromString(buf,'');
+try
+  s:=TStringStream.Create(buf);
+  try
+    NewHTML:=TIpHtml.Create; // Beware: Will be freed automatically by IpHtmlPanel1
+    NewHTML.LoadFromStream(s);
+  finally
+    s.Free;
+  end;
+  Gloss1.SetHtml(NewHTML);
+except
+end;
 end;
 
 Function TGloss.SearchGloss(w:string):boolean;
@@ -233,9 +253,9 @@ for i:=0 to Treeview1.Items.Count-1 do begin
 end;
 if n>=0 then begin
  Treeview1.Items[n].Expand(false);
- Treeview1.Items[n].Item[0].Selected:=true;
+ Treeview1.Items[n].Items[0].Selected:=true;
  Treeview1.TopItem:=Treeview1.Items[n];
- SearchGloss(Treeview1.Items[n].Item[0].Text);
+ SearchGloss(Treeview1.Items[n].Items[0].Text);
 end;
 lastpos:=dbgloss.GetPosition;
 lastnode:=Treeview1.Selected;
@@ -247,7 +267,7 @@ var ok:boolean;
     a,c:string;
     node: TTreeNode;
 begin
-fn:=Slash(appdir)+Slash('database')+'glossary_'+language+'.csv';
+fn:=Slash(appdir)+Slash('Database')+'glossary_'+language+'.csv';
 if not fileexists(fn) then fn:=Slash(appdir)+Slash('database')+'glossary_UK.csv';
 dbgloss.LoadFromCSVFile(fn);
 ok:=dbgloss.GoFirst;
@@ -273,7 +293,7 @@ end;
 Treeview1.Items.EndUpdate;
 treeviewinitializing:=false;
 Treeview1.Items[0].Expand(false);
-Treeview1.Items[0].Item[0].Selected:=true;
+Treeview1.Items[0].Items[0].Selected:=true;
 Treeview1.TopItem:=Treeview1.Items[0];
 lastnode:=Treeview1.Selected;
 end;
@@ -306,8 +326,6 @@ until (p>0) or (dbgloss.GetPosition=first);
 i:=dbgloss.GetPosition;
 SelectNode(i);
 ShowGloss(dbgloss.GetData('GLO_TEXT'));
-Gloss1.SelStart:=p-1;
-Gloss1.SelLength:=length(buf1);
 end;
 
 procedure TGloss.Button2Click(Sender: TObject);
@@ -333,41 +351,43 @@ begin
 if treeviewinitializing then begin
    allowchange:=true;
 end else begin
- if length(node.Text)=1 then begin
+ if (node<>nil)and(length(node.Text)=1) then begin
    allowchange:=false;
    node.Expand(false);
-   if Node.Item[0]<>nil then begin
-     Node.Item[0].Selected:=true;
+   if Node.Items[0]<>nil then begin
+     Node.Items[0].Selected:=true;
      Treeview1.TopItem:=Node;
    end;
 end;
 end;
 end;
 
-procedure TGloss.Gloss1HotSpotClick(Sender: TObject; const SRC: String;
-  var Handled: Boolean);
+procedure TGloss.Gloss1HotClick(Sender: TObject);
 var p : integer;
     buf:string;
     ok:boolean;
 begin
-p:=pos('#',src);
+p:=pos('#',gloss1.HotURL);
 if p=1 then begin
   lastpos:=dbgloss.GetPosition;
   lastnode:=Treeview1.Selected;
-  buf:=trim(copy(src,2,999));
+  buf:=trim(copy(gloss1.HotURL,2,999));
   ok:=SearchGloss(buf);
   if ok then begin
     SelectTree(buf);
   end;
-end else Handled := False;
-end;                                 
+end;
+end;
 
 procedure TGloss.Button3Click(Sender: TObject);
 begin
 dbgloss.Go(lastpos);
-Treeview1.Select(lastnode);
+Treeview1.Selected:=lastnode;
 Treeview1.TopItem:=lastnode;
 ShowGloss(dbgloss.GetData('GLO_TEXT'));
 end;
+
+initialization
+  {$i glossary.lrs}
 
 end.

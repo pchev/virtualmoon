@@ -19,6 +19,8 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
+{$MODE objfpc}
+{$H+}
 
 interface
 
@@ -39,7 +41,7 @@ procedure DBjournal(dbname,txt:string);
 
 implementation
 
-Uses  skylib, fmsg;
+Uses  u_constant, u_util, fmsg;
 
 Procedure CreateDB(dbm: TLiteDB);
 var i: integer;
@@ -133,7 +135,7 @@ var cmd,v: string;
     db1:Tmlb2;
 begin
 MsgForm:=TMsgForm.create(nil);
-MsgForm.Label1.caption:='Preparing Database. Please Wait ...';
+MsgForm.Label1.caption:=ExtractFileName(fn)+crlf+'Preparing Database. Please Wait ...';
 msgform.show;
 msgform.Refresh;
 db1:=Tmlb2.Create;
@@ -150,7 +152,9 @@ dbm.StartTransaction;
 repeat
   cmd:='insert into moon values(NULL,'+side+',';
   for i:=1 to db1.FieldCount do begin
-    v:=stringreplace(db1.GetDataByIndex(i),',','.',[rfreplaceall]); // look why we need that ???
+    v:=db1.GetDataByIndex(i);
+    v:=utf8encode(v);
+    v:=stringreplace(v,',','.',[rfreplaceall]); // look why we need that ???
     v:=stringreplace(v,'""','''',[rfreplaceall]);
     v:=stringreplace(v,'"','',[rfreplaceall]);
     cmd:=cmd+'"'+v+'",';
@@ -181,29 +185,29 @@ Procedure LoadDB(dbm: TLiteDB);
 var i,db_age : integer;
     buf:string;
 begin
-buf:=Slash(privatedir)+Slash('database')+'dbmoon3_'+language+'.dbl';
+buf:=Slash(DBdir)+'dbmoon3_'+language+'.dbl';
 dbm.Use(utf8encode(buf));
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
 try
-buf:=Slash(appdir)+Slash('database')+'Nearside_Named_'+language+'.csv';
+buf:=Slash(appdir)+Slash('Database')+'Nearside_Named_'+language+'.csv';
 if fileexists(buf) then database[1]:=buf
-   else database[1]:=Slash(appdir)+Slash('database')+'Nearside_Named_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Nearside_satellite_'+language+'.csv';
+   else database[1]:=Slash(appdir)+Slash('Database')+'Nearside_Named_UK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Nearside_satellite_'+language+'.csv';
 if fileexists(buf) then database[2]:=buf
-   else database[2]:=Slash(appdir)+Slash('database')+'Nearside_Satellite_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Farside_named_'+language+'.csv';
+   else database[2]:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_UK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_named_'+language+'.csv';
 if fileexists(buf) then database[3]:=buf
-   else database[3]:=Slash(appdir)+Slash('database')+'Farside_Named_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Farside_satellite_'+language+'.csv';
+   else database[3]:=Slash(appdir)+Slash('Database')+'Farside_Named_UK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_satellite_'+language+'.csv';
 if fileexists(buf) then database[4]:=buf
-   else database[4]:=Slash(appdir)+Slash('database')+'Farside_Satellite_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Historical_'+language+'.csv';
+   else database[4]:=Slash(appdir)+Slash('Database')+'Farside_Satellite_UK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Historical_'+language+'.csv';
 if fileexists(buf) then database[5]:=buf
-   else database[5]:=Slash(appdir)+Slash('database')+'Historical_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Pyroclastic_'+language+'.csv';
+   else database[5]:=Slash(appdir)+Slash('Database')+'Historical_UK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Pyroclastic_'+language+'.csv';
 if fileexists(buf) then database[6]:=buf
-   else database[6]:=Slash(appdir)+Slash('database')+'Pyroclastic_UK.csv';
+   else database[6]:=Slash(appdir)+Slash('Database')+'Pyroclastic_UK.csv';
 CreateDB(dbm);
 for i:=1 to 6 do begin
   if usedatabase[i] then begin
@@ -214,7 +218,7 @@ for i:=1 to 6 do begin
         convertDB(dbm,database[i],inttostr(i));
      end;
   end;
-end;
+end;               
 finally
 end;
 end;
@@ -224,7 +228,7 @@ var f : textfile;
     fn: string;
 const dbj='database_journal.txt';
 begin
-fn:=Slash(privatedir)+Slash('database')+dbj;
+fn:=Slash(DBdir)+dbj;
 if fileexists(fn) then begin
   assignfile(f,fn);
   append(f);

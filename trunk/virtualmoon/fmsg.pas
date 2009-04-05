@@ -1,4 +1,7 @@
 unit fmsg;
+
+{$MODE Delphi}
+{$H+}
 {
 Copyright (C) 2003 Patrick Chevalley
 
@@ -22,8 +25,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls;
+  Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, LResources;
 
 type
   TMsgForm = class(TForm)
@@ -40,6 +43,8 @@ var
 
 implementation
 
-{$R *.dfm}
+
+initialization
+  {$i fmsg.lrs}
 
 end.

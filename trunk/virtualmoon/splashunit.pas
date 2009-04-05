@@ -1,4 +1,7 @@
 unit splashunit;
+
+{$MODE Delphi}
+{$H+}
 {
 Copyright (C) 2003 Patrick Chevalley
 
@@ -21,9 +24,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
 interface
 
-uses IniFiles, Registry,Skylib,
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, Buttons, jpeg;
+uses IniFiles, Registry, u_constant, u_util,
+  Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, ExtCtrls, Buttons, LResources;
 
 type
   Tsplash = class(TForm)
@@ -59,7 +62,6 @@ var
 
 implementation
 
-{$R *.DFM}
 
 const nlin=39;
 var
@@ -151,8 +153,7 @@ begin
 end;
 
 procedure Tsplash.FormCreate(Sender: TObject);
-var //ok: boolean;
-//    Registry1: TRegistry;
+var
     inifile : Tmeminifile;
     txt : string;
 begin
@@ -169,7 +170,6 @@ end;
 
 procedure Tsplash.Image1DblClick(Sender: TObject);
 begin
-//if not timer1.Enabled then splash.release;
 closing:=true;
 end;
 
@@ -194,7 +194,7 @@ repeat
   buf:=buf+cpylst[l,i]+crlf;
   label5.Caption:=buf;
   application.ProcessMessages;
-  sleep(800);
+  sleep(500);
 until closing;
 Close;
 end;
@@ -203,7 +203,6 @@ procedure Tsplash.FormShow(Sender: TObject);
 begin
 label2.Caption:=VersionName+' '+Splashversion;
   if SplashTimer then begin
-//     panel2.Visible:=false;
      panel2.Height:=20;
      ClientHeight:=panel1.Height+panel2.Height;
      label5.top:=0;
@@ -235,5 +234,8 @@ procedure Tsplash.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 action:=caFree;
 end;
+
+initialization
+  {$i splashunit.lrs}
 
 end.
