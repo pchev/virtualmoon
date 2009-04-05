@@ -8,8 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms
-  { add your units here }, pu_photlun,
-  JPEGForLazarus, zoomimage, pu_photo, u_translation, uniqueinstance_package,
+  { add your units here }, pu_photlun, zoomimage, pu_photo, u_translation, uniqueinstance_package,
   pu_config;
 
 

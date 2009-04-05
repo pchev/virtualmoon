@@ -2,14 +2,14 @@
 <CONFIG>
   <ProjectOptions>
     <PathDelim Value="\"/>
-    <Version Value="6"/>
+    <Version Value="7"/>
     <General>
       <Flags>
         <AlwaysBuild Value="False"/>
+        <LRSInOutputDirectory Value="False"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <IconPath Value=".\"/>
       <TargetFileExt Value=".exe"/>
       <Title Value="DatLun"/>
     </General>
@@ -28,21 +28,18 @@
         <WorkingDirectory Value="D:\VirtualMoon"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="JPEGForLazarus"/>
+        <PackageName Value="LCL"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="libsql"/>
       </Item2>
       <Item3>
-        <PackageName Value="libsql"/>
-      </Item3>
-      <Item4>
         <PackageName Value="uniqueinstance_package"/>
-      </Item4>
+      </Item3>
     </RequiredPackages>
-    <Units Count="9">
+    <Units Count="10">
       <Unit0>
         <Filename Value="datlun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -58,7 +55,6 @@
         <ComponentName Value="MsgForm"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="fmsg.lrs"/>
         <UnitName Value="fmsg"/>
       </Unit2>
       <Unit3>
@@ -71,7 +67,6 @@
         <ComponentName Value="SelectDB"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="vmabrowser5.lrs"/>
         <UnitName Value="vmabrowser5"/>
       </Unit4>
       <Unit5>
@@ -79,7 +74,6 @@
         <ComponentName Value="LoadCSV"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="vmabrowser4.lrs"/>
         <UnitName Value="vmabrowser4"/>
       </Unit5>
       <Unit6>
@@ -87,7 +81,6 @@
         <ComponentName Value="Columns"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="vmabrowser3.lrs"/>
         <UnitName Value="vmabrowser3"/>
       </Unit6>
       <Unit7>
@@ -95,7 +88,6 @@
         <ComponentName Value="Selection"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="vmabrowser2.lrs"/>
         <UnitName Value="vmabrowser2"/>
       </Unit7>
       <Unit8>
@@ -103,20 +95,24 @@
         <ComponentName Value="f_main"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="vmabrowser1.lrs"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
       </Unit8>
+      <Unit9>
+        <Filename Value="splashunit.pas"/>
+        <ComponentName Value="splash"/>
+        <HasResources Value="True"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="splashunit"/>
+      </Unit9>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="5"/>
+    <Version Value="8"/>
     <PathDelim Value="\"/>
     <SearchPaths>
       <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <Generate Value="Faster"/>
-    </CodeGeneration>
     <Linking>
       <Options>
         <Win32>

@@ -10,8 +10,7 @@ uses
   Forms
   { add your units here },
   u_util, fmsg, libsql, mlb2,
-  vmabrowser1, vmabrowser2, vmabrowser3, vmabrowser4, vmabrowser5,
-  JPEGForLazarus, uniqueinstance_package;
+  vmabrowser1, vmabrowser2, vmabrowser3, vmabrowser4, vmabrowser5, uniqueinstance_package;
 
 const IdMutex='Virtual_Moon_Atlas_Browser_mutex';
 var ok : boolean;

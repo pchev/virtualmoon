@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <CONFIG>
   <ProjectSession>
-    <PathDelim Value="/"/>
-    <Version Value="5"/>
+    <Version Value="7"/>
     <Units Count="27">
       <Unit0>
         <Filename Value="datlun.lpr"/>
@@ -25,7 +24,6 @@
         <ComponentName Value="MsgForm"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="fmsg.lrs"/>
         <UnitName Value="fmsg"/>
         <CursorPos X="28" Y="10"/>
         <TopLine Value="1"/>
@@ -42,7 +40,6 @@
         <ComponentName Value="SelectDB"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="vmabrowser5.lrs"/>
         <UnitName Value="vmabrowser5"/>
         <UsageCount Value="25"/>
       </Unit4>
@@ -51,7 +48,6 @@
         <ComponentName Value="LoadCSV"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="vmabrowser4.lrs"/>
         <UnitName Value="vmabrowser4"/>
         <UsageCount Value="25"/>
       </Unit5>
@@ -60,7 +56,6 @@
         <ComponentName Value="Columns"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="vmabrowser3.lrs"/>
         <UnitName Value="vmabrowser3"/>
         <UsageCount Value="25"/>
       </Unit6>
@@ -69,7 +64,6 @@
         <ComponentName Value="Selection"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="vmabrowser2.lrs"/>
         <UnitName Value="vmabrowser2"/>
         <CursorPos X="28" Y="289"/>
         <TopLine Value="260"/>
@@ -80,7 +74,7 @@
         <ComponentName Value="f_main"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="vmabrowser1.lrs"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
         <CursorPos X="46" Y="7"/>
         <TopLine Value="1"/>
@@ -93,40 +87,39 @@
         <ComponentName Value="splash"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="splashunit.lrs"/>
         <UnitName Value="splashunit"/>
         <CursorPos X="47" Y="34"/>
         <TopLine Value="1"/>
         <UsageCount Value="25"/>
       </Unit9>
       <Unit10>
-        <Filename Value="../../../../pch/lazarus/lcl/interfaces/gtk/interfaces.pp"/>
+        <Filename Value="../../../pch/lazarus/lcl/interfaces/gtk/interfaces.pp"/>
         <UnitName Value="Interfaces"/>
         <CursorPos X="37" Y="13"/>
         <TopLine Value="1"/>
         <UsageCount Value="10"/>
       </Unit10>
       <Unit11>
-        <Filename Value="../../../../pch/lazarus/lcl/grids.pas"/>
+        <Filename Value="../../../pch/lazarus/lcl/grids.pas"/>
         <UnitName Value="Grids"/>
         <CursorPos X="1" Y="4178"/>
         <TopLine Value="4155"/>
         <UsageCount Value="10"/>
       </Unit11>
       <Unit12>
-        <Filename Value="../../../../pch/lazarus/lcl/interfaces/gtk/gtklclintf.inc"/>
+        <Filename Value="../../../pch/lazarus/lcl/interfaces/gtk/gtklclintf.inc"/>
         <CursorPos X="1" Y="311"/>
         <TopLine Value="288"/>
         <UsageCount Value="10"/>
       </Unit12>
       <Unit13>
-        <Filename Value="../../../../pch/lazarus/lcl/include/application.inc"/>
+        <Filename Value="../../../pch/lazarus/lcl/include/application.inc"/>
         <CursorPos X="1" Y="1621"/>
         <TopLine Value="1598"/>
         <UsageCount Value="10"/>
       </Unit13>
       <Unit14>
-        <Filename Value="../../../../pch/lazarus/lcl/include/customform.inc"/>
+        <Filename Value="../../../pch/lazarus/lcl/include/customform.inc"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
         <UsageCount Value="10"/>
@@ -139,14 +132,14 @@
         <UsageCount Value="10"/>
       </Unit15>
       <Unit16>
-        <Filename Value="../../../../pch/lazarus/lcl/lclproc.pas"/>
+        <Filename Value="../../../pch/lazarus/lcl/lclproc.pas"/>
         <UnitName Value="LCLProc"/>
         <CursorPos X="1" Y="774"/>
         <TopLine Value="751"/>
         <UsageCount Value="10"/>
       </Unit16>
       <Unit17>
-        <Filename Value="../../../../cdc/src/skychart/component/uniqueinstance/uniqueinstance.pas"/>
+        <Filename Value="../../../cdc/src/skychart/component/uniqueinstance/uniqueinstance.pas"/>
         <UnitName Value="uniqueinstance"/>
         <CursorPos X="52" Y="16"/>
         <TopLine Value="1"/>
@@ -160,55 +153,55 @@
         <UsageCount Value="10"/>
       </Unit18>
       <Unit19>
-        <Filename Value="../../../../pch/lazarus/lcl/include/customlistbox.inc"/>
+        <Filename Value="../../../pch/lazarus/lcl/include/customlistbox.inc"/>
         <CursorPos X="44" Y="537"/>
         <TopLine Value="506"/>
         <UsageCount Value="10"/>
       </Unit19>
       <Unit20>
-        <Filename Value="../../../../pch/lazarus/lcl/comctrls.pp"/>
+        <Filename Value="../../../pch/lazarus/lcl/comctrls.pp"/>
         <UnitName Value="ComCtrls"/>
         <CursorPos X="14" Y="240"/>
         <TopLine Value="353"/>
         <UsageCount Value="10"/>
       </Unit20>
       <Unit21>
-        <Filename Value="../../../../pch/lazarus/components/images/lazjpg.pas"/>
+        <Filename Value="../../../pch/lazarus/components/images/lazjpg.pas"/>
         <UnitName Value="LazJPG"/>
         <CursorPos X="15" Y="38"/>
         <TopLine Value="13"/>
         <UsageCount Value="10"/>
       </Unit21>
       <Unit22>
-        <Filename Value="../../../../pch/lazarus/lcl/graphics.pp"/>
+        <Filename Value="../../../pch/lazarus/lcl/graphics.pp"/>
         <UnitName Value="Graphics"/>
         <CursorPos X="3" Y="1118"/>
         <TopLine Value="1131"/>
         <UsageCount Value="10"/>
       </Unit22>
       <Unit23>
-        <Filename Value="../../../../cdc/src/skychart/component/zoomimage/u_bitmap.pas"/>
+        <Filename Value="../../../cdc/src/skychart/component/zoomimage/u_bitmap.pas"/>
         <UnitName Value="u_bitmap"/>
         <CursorPos X="22" Y="403"/>
         <TopLine Value="366"/>
         <UsageCount Value="10"/>
       </Unit23>
       <Unit24>
-        <Filename Value="../../../../pch/lazarus/lcl/intfgraphics.pas"/>
+        <Filename Value="../../../pch/lazarus/lcl/intfgraphics.pas"/>
         <UnitName Value="IntfGraphics"/>
         <CursorPos X="15" Y="247"/>
         <TopLine Value="224"/>
         <UsageCount Value="10"/>
       </Unit24>
       <Unit25>
-        <Filename Value="../../../../pch/lazarus/ide/lazarus.pp"/>
+        <Filename Value="../../../pch/lazarus/ide/lazarus.pp"/>
         <UnitName Value="Lazarus"/>
         <CursorPos X="12" Y="92"/>
         <TopLine Value="70"/>
         <UsageCount Value="10"/>
       </Unit25>
       <Unit26>
-        <Filename Value="../../../../pch/lazarus/lcl/interfaces/gtk/gtkproc.inc"/>
+        <Filename Value="../../../pch/lazarus/lcl/interfaces/gtk/gtkproc.inc"/>
         <CursorPos X="26" Y="4682"/>
         <TopLine Value="4647"/>
         <UsageCount Value="10"/>
