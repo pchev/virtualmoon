@@ -8,7 +8,7 @@
       <TargetFileExt Value=".exe"/>
       <Title Value="vmapro"/>
       <Icon Value="0"/>
-      <ActiveEditorIndexAtStart Value="0"/>
+      <ActiveEditorIndexAtStart Value="1"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -60,14 +60,14 @@
         <PackageName Value="LCL"/>
       </Item9>
     </RequiredPackages>
-    <Units Count="41">
+    <Units Count="43">
       <Unit0>
         <Filename Value="vmapro.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="vmapro"/>
         <CursorPos X="16" Y="24"/>
         <TopLine Value="1"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="69"/>
       </Unit0>
       <Unit1>
         <Filename Value="imglistunit.pas"/>
@@ -76,7 +76,7 @@
         <UnitName Value="imglistunit"/>
         <CursorPos X="57" Y="22"/>
         <TopLine Value="1"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
       </Unit1>
       <Unit2>
         <Filename Value="virtualmoon1.pas"/>
@@ -85,10 +85,10 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="30" Y="3209"/>
-        <TopLine Value="3188"/>
-        <EditorIndex Value="0"/>
-        <UsageCount Value="59"/>
+        <CursorPos X="33" Y="4948"/>
+        <TopLine Value="4919"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="69"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -96,7 +96,7 @@
         <UnitName Value="ImgList"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit3>
       <Unit4>
         <Filename Value="CraterList.pas"/>
@@ -107,7 +107,7 @@
         <UnitName Value="craterlist"/>
         <CursorPos X="49" Y="46"/>
         <TopLine Value="41"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="68"/>
       </Unit4>
       <Unit5>
         <Filename Value="config.pas"/>
@@ -118,19 +118,19 @@
         <UnitName Value="config"/>
         <CursorPos X="15" Y="332"/>
         <TopLine Value="311"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="69"/>
       </Unit5>
       <Unit6>
         <Filename Value="virtualmoon1.lrs"/>
         <CursorPos X="17" Y="3"/>
         <TopLine Value="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\..\lazarus\lcl\include\control.inc"/>
         <CursorPos X="67" Y="2523"/>
         <TopLine Value="2499"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit7>
       <Unit8>
         <Filename Value="dbutil.pas"/>
@@ -138,7 +138,7 @@
         <UnitName Value="dbutil"/>
         <CursorPos X="85" Y="209"/>
         <TopLine Value="187"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="68"/>
       </Unit8>
       <Unit9>
         <Filename Value="fmsg.pas"/>
@@ -149,7 +149,7 @@
         <UnitName Value="fmsg"/>
         <CursorPos X="47" Y="34"/>
         <TopLine Value="9"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="68"/>
       </Unit9>
       <Unit10>
         <Filename Value="glossary.pas"/>
@@ -160,7 +160,7 @@
         <UnitName Value="glossary"/>
         <CursorPos X="51" Y="386"/>
         <TopLine Value="352"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="68"/>
       </Unit10>
       <Unit11>
         <Filename Value="helpunit.pas"/>
@@ -170,7 +170,7 @@
         <UnitName Value="helpUnit"/>
         <CursorPos X="34" Y="9"/>
         <TopLine Value="1"/>
-        <UsageCount Value="51"/>
+        <UsageCount Value="50"/>
       </Unit11>
       <Unit12>
         <Filename Value="splashunit.pas"/>
@@ -181,7 +181,7 @@
         <UnitName Value="splashunit"/>
         <CursorPos X="30" Y="5"/>
         <TopLine Value="1"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="68"/>
       </Unit12>
       <Unit13>
         <Filename Value="telescope.pas"/>
@@ -189,7 +189,7 @@
         <UnitName Value="telescope"/>
         <CursorPos X="6" Y="4"/>
         <TopLine Value="1"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="68"/>
       </Unit13>
       <Unit14>
         <Filename Value="u_util.pas"/>
@@ -197,14 +197,14 @@
         <UnitName Value="u_util"/>
         <CursorPos X="1" Y="1267"/>
         <TopLine Value="1243"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="52"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\..\lazarus\components\glscene\Source\platform\glcrossplatform.pas"/>
         <UnitName Value="GLCrossPlatform"/>
         <CursorPos X="70" Y="1553"/>
         <TopLine Value="1528"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <SyntaxHighlighter Value="Delphi"/>
       </Unit15>
       <Unit16>
@@ -212,29 +212,29 @@
         <UnitName Value="SkyLib"/>
         <CursorPos X="22" Y="4"/>
         <TopLine Value="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit16>
       <Unit17>
         <Filename Value="planet1.pas"/>
         <UnitName Value="Planet1"/>
         <CursorPos X="34" Y="5"/>
         <TopLine Value="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit17>
       <Unit18>
         <Filename Value="catalogues.pas"/>
         <UnitName Value="Catalogues"/>
         <CursorPos X="1" Y="8"/>
         <TopLine Value="722"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit18>
       <Unit19>
         <Filename Value="u_constant.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_constant"/>
-        <CursorPos X="46" Y="178"/>
-        <TopLine Value="150"/>
-        <UsageCount Value="42"/>
+        <CursorPos X="20" Y="58"/>
+        <TopLine Value="37"/>
+        <UsageCount Value="52"/>
       </Unit19>
       <Unit20>
         <Filename Value="cu_planet.pas"/>
@@ -242,7 +242,7 @@
         <UnitName Value="cu_planet"/>
         <CursorPos X="33" Y="32"/>
         <TopLine Value="1"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="52"/>
       </Unit20>
       <Unit21>
         <Filename Value="u_projection.pas"/>
@@ -250,54 +250,54 @@
         <UnitName Value="u_projection"/>
         <CursorPos X="10" Y="591"/>
         <TopLine Value="570"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="52"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\pch\lazarus\lcl\include\customform.inc"/>
         <CursorPos X="57" Y="1361"/>
         <TopLine Value="1340"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\pch\fpc\rtl\objpas\math.pp"/>
         <UnitName Value="math"/>
         <CursorPos X="16" Y="24"/>
         <TopLine Value="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\..\cdc\src\skychart\component\libsql\passqlite.pas"/>
         <UnitName Value="passqlite"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\pch\lazarus\lcl\lclproc.pas"/>
         <UnitName Value="LCLProc"/>
         <CursorPos X="51" Y="1504"/>
         <TopLine Value="1477"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\pch\fpc\rtl\objpas\classes\classesh.inc"/>
         <CursorPos X="15" Y="558"/>
         <TopLine Value="537"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\..\lazarus\components\glscene\Source\base\asynctimer.pas"/>
         <UnitName Value="AsyncTimer"/>
         <CursorPos X="1" Y="210"/>
         <TopLine Value="189"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <SyntaxHighlighter Value="Delphi"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\..\lazarus\fpc\2.2.5\source\rtl\win\wininc\ascdef.inc"/>
         <CursorPos X="10" Y="273"/>
         <TopLine Value="252"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit28>
       <Unit29>
         <Filename Value="cu_tz.pas"/>
@@ -305,20 +305,20 @@
         <UnitName Value="cu_tz"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="13"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="52"/>
       </Unit29>
       <Unit30>
         <Filename Value="config.lfm"/>
         <CursorPos X="41" Y="20"/>
         <TopLine Value="10"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <SyntaxHighlighter Value="LFM"/>
       </Unit30>
       <Unit31>
         <Filename Value="virtualmoon1.lfm"/>
         <CursorPos X="1" Y="1957"/>
         <TopLine Value="1922"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <SyntaxHighlighter Value="LFM"/>
       </Unit31>
       <Unit32>
@@ -326,47 +326,47 @@
         <UnitName Value="ExtCtrls"/>
         <CursorPos X="15" Y="173"/>
         <TopLine Value="152"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\..\lazarus\lcl\include\customnotebook.inc"/>
         <CursorPos X="3" Y="391"/>
         <TopLine Value="384"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\..\..\lazarus\lcl\include\font.inc"/>
         <CursorPos X="1" Y="1041"/>
         <TopLine Value="1015"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit34>
       <Unit35>
         <Filename Value="mlb2.pas"/>
         <UnitName Value="mlb2"/>
         <CursorPos X="15" Y="1245"/>
         <TopLine Value="1235"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\cdc\skychart\component\libsql\passql.pas"/>
         <UnitName Value="passql"/>
         <CursorPos X="25" Y="835"/>
         <TopLine Value="825"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit36>
       <Unit37>
         <Filename Value="..\..\cdc\skychart\component\libsql\utf8util.pas"/>
         <UnitName Value="utf8util"/>
         <CursorPos X="3" Y="99"/>
         <TopLine Value="87"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit37>
       <Unit38>
         <Filename Value="..\..\..\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <CursorPos X="15" Y="515"/>
         <TopLine Value="494"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit38>
       <Unit39>
         <Filename Value="BigIma.pas"/>
@@ -376,7 +376,7 @@
         <UnitName Value="BigIma"/>
         <CursorPos X="32" Y="26"/>
         <TopLine Value="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit39>
       <Unit40>
         <Filename Value="pu_moon.pas"/>
@@ -385,130 +385,150 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="26" Y="7"/>
-        <TopLine Value="1"/>
-        <EditorIndex Value="1"/>
-        <UsageCount Value="21"/>
+        <CursorPos X="1" Y="573"/>
+        <TopLine Value="571"/>
+        <EditorIndex Value="0"/>
+        <UsageCount Value="31"/>
+        <Bookmarks Count="1">
+          <Item0 X="1" Y="940" ID="1"/>
+        </Bookmarks>
         <Loaded Value="True"/>
       </Unit40>
+      <Unit41>
+        <Filename Value="pu_moon.lfm"/>
+        <CursorPos X="1" Y="222"/>
+        <TopLine Value="188"/>
+        <UsageCount Value="9"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="..\..\..\pch\lazarus\lcl\include\customform.inc"/>
+        <CursorPos X="29" Y="1345"/>
+        <TopLine Value="1340"/>
+        <UsageCount Value="10"/>
+      </Unit42>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3734" Column="9" TopLine="3708"/>
+        <Caret Line="4919" Column="1" TopLine="4898"/>
       </Position1>
       <Position2>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3735" Column="9" TopLine="3708"/>
+        <Caret Line="4920" Column="1" TopLine="4899"/>
       </Position2>
       <Position3>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3736" Column="26" TopLine="3708"/>
+        <Caret Line="4921" Column="1" TopLine="4900"/>
       </Position3>
       <Position4>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3737" Column="33" TopLine="3708"/>
+        <Caret Line="4922" Column="1" TopLine="4901"/>
       </Position4>
       <Position5>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3738" Column="34" TopLine="3708"/>
+        <Caret Line="4923" Column="1" TopLine="4902"/>
       </Position5>
       <Position6>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3739" Column="44" TopLine="3708"/>
+        <Caret Line="4924" Column="1" TopLine="4903"/>
       </Position6>
       <Position7>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3741" Column="51" TopLine="3708"/>
+        <Caret Line="4925" Column="1" TopLine="4904"/>
       </Position7>
       <Position8>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="5783" Column="25" TopLine="5755"/>
+        <Caret Line="4926" Column="1" TopLine="4905"/>
       </Position8>
       <Position9>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="4907" Column="17" TopLine="4889"/>
       </Position9>
       <Position10>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="445" Column="20" TopLine="424"/>
+        <Caret Line="4904" Column="16" TopLine="4889"/>
       </Position10>
       <Position11>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="446" Column="20" TopLine="424"/>
+        <Caret Line="4912" Column="1" TopLine="4891"/>
       </Position11>
       <Position12>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="1465" Column="23" TopLine="1450"/>
+        <Caret Line="4913" Column="1" TopLine="4892"/>
       </Position12>
       <Position13>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="4914" Column="1" TopLine="4893"/>
       </Position13>
       <Position14>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="148" Column="27" TopLine="127"/>
+        <Caret Line="4915" Column="1" TopLine="4894"/>
       </Position14>
       <Position15>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="1188" Column="69" TopLine="1167"/>
+        <Caret Line="4916" Column="1" TopLine="4895"/>
       </Position15>
       <Position16>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="2538" Column="12" TopLine="2517"/>
+        <Caret Line="4917" Column="1" TopLine="4896"/>
       </Position16>
       <Position17>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="2539" Column="12" TopLine="2517"/>
+        <Caret Line="4918" Column="1" TopLine="4897"/>
       </Position17>
       <Position18>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3033" Column="12" TopLine="3012"/>
+        <Caret Line="4919" Column="1" TopLine="4898"/>
       </Position18>
       <Position19>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3239" Column="1" TopLine="3237"/>
+        <Caret Line="4920" Column="1" TopLine="4899"/>
       </Position19>
       <Position20>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="498" Column="15" TopLine="471"/>
+        <Caret Line="4921" Column="1" TopLine="4900"/>
       </Position20>
       <Position21>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="2087" Column="33" TopLine="2066"/>
+        <Caret Line="4922" Column="1" TopLine="4901"/>
       </Position21>
       <Position22>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="6060" Column="13" TopLine="6030"/>
+        <Caret Line="4923" Column="1" TopLine="4902"/>
       </Position22>
       <Position23>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="6074" Column="10" TopLine="6059"/>
+        <Caret Line="4924" Column="1" TopLine="4903"/>
       </Position23>
       <Position24>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="470" Column="15" TopLine="449"/>
+        <Caret Line="4925" Column="1" TopLine="4904"/>
       </Position24>
       <Position25>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3351" Column="5" TopLine="3314"/>
+        <Caret Line="4926" Column="1" TopLine="4905"/>
       </Position25>
       <Position26>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3314" Column="20" TopLine="3314"/>
+        <Caret Line="5972" Column="1" TopLine="5951"/>
       </Position26>
       <Position27>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="6079" Column="19" TopLine="6052"/>
+        <Caret Line="5973" Column="1" TopLine="5952"/>
       </Position27>
       <Position28>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="5963" Column="39" TopLine="5952"/>
       </Position28>
       <Position29>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3208" Column="3" TopLine="3193"/>
+        <Caret Line="4924" Column="21" TopLine="4895"/>
       </Position29>
+      <Position30>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="142" Column="78" TopLine="121"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

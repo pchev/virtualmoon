@@ -1,11 +1,11 @@
 object f_moon: Tf_moon
-  Left = 605
-  Height = 560
-  Top = 257
-  Width = 787
+  Left = 559
+  Height = 558
+  Top = 195
+  Width = 791
   Caption = 'f_moon'
-  ClientHeight = 560
-  ClientWidth = 787
+  ClientHeight = 558
+  ClientWidth = 791
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
@@ -13,24 +13,24 @@ object f_moon: Tf_moon
   Position = poDefaultSizeOnly
   LCLVersion = '0.9.27'
   object Moon: TPanel
-    Left = 128
-    Height = 506
-    Top = 24
-    Width = 560
-    ClientHeight = 506
-    ClientWidth = 560
+    Left = 200
+    Height = 500
+    Top = 0
+    Width = 500
+    ClientHeight = 500
+    ClientWidth = 500
     TabOrder = 0
     object GLSceneViewer1: TGLSceneViewer
       Left = 1
-      Height = 504
+      Height = 498
       Top = 1
-      Width = 558
+      Width = 498
       Camera = GLCamera1
       Buffer.BackgroundColor = clBlack
       Buffer.AmbientColor.Color = {
         0000000000000000000000000000803F
       }
-      FieldOfView = 4.44040298461914
+      FieldOfView = 4.7528223991394
       Align = alClient
       OnMouseDown = GLSceneViewer1MouseDown
       OnMouseMove = GLSceneViewer1MouseMove
@@ -42,7 +42,83 @@ object f_moon: Tf_moon
     ObjectsSorting = osNone
     left = 48
     top = 16
-    object GLSphere1: TGLSphere
+    object GLLightSource1: TGLLightSource
+      TagFloat = 0
+      ConstAttenuation = 0.5
+      LinearAttenuation = 0
+      QuadraticAttenuation = 0
+      Position.Coordinates = {
+        00000000000000000000C8C20000803F
+      }
+      Specular.Color = {
+        0000803F0000803F0000803F0000803F
+      }
+      SpotCutOff = 10
+      SpotDirection.Coordinates = {
+        00000000000000000000803F00000000
+      }
+      SpotExponent = 0
+    end
+    object GLAnnulus1: TGLAnnulus
+      TagFloat = 0
+      Material.FrontProperties.Ambient.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.FrontProperties.Diffuse.Color = {
+        0000000000000000000000000000803F
+      }
+      Direction.Coordinates = {
+        F304353FF304353F0000000000000000
+      }
+      PitchAngle = 0
+      Position.Coordinates = {
+        0000000000000000000048C20000803F
+      }
+      RollAngle = 0
+      TurnAngle = 0
+      Up.Coordinates = {
+        00000000000000800000803F00000000
+      }
+      Visible = False
+      BottomRadius = 3
+      Height = 0.30000001192092
+      Slices = 64
+      BottomInnerRadius = 0.44999998807907
+      TopInnerRadius = 1
+      TopRadius = 3
+      Parts = [anBottom]
+    end
+    object GLArrowLine1: TGLArrowLine
+      TagFloat = 0
+      Material.FrontProperties.Ambient.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.FrontProperties.Diffuse.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.FrontProperties.Specular.Color = {
+        9A99993E9A99993E9A99993E0000803F
+      }
+      Direction.Coordinates = {
+        000080BF000000000000000000000000
+      }
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      Up.Coordinates = {
+        0000000000000000000080BF00000000
+      }
+      Visible = False
+      BottomRadius = 0.00999999977648
+      Height = 0.07999999821186
+      TopRadius = 0.00999999977648
+      HeadStackingStyle = ahssIncluded
+      TopArrowHeadHeight = 0.05000000074505
+      TopArrowHeadRadius = 0.01999999955296
+      BottomArrowHeadHeight = 0.5
+      BottomArrowHeadRadius = 0.20000000298023
+    end
+    object GLSphereMoon: TGLSphere
       TagFloat = 0
       Material.MaterialLibrary = GLMultiMaterialLibrary
       Material.LibMaterialName = 'MultiMaterial'
@@ -53,38 +129,97 @@ object f_moon: Tf_moon
       Slices = 360
       Stacks = 360
     end
-    object GLDummyCubeLight: TGLDummyCube
+    object GLMirror1: TGLMirror
       TagFloat = 0
+      Material.BackProperties.Ambient.Color = {
+        00000000000000000000000000000000
+      }
+      Material.BackProperties.Diffuse.Color = {
+        00000000000000000000000000000000
+      }
+      Material.BackProperties.Emission.Color = {
+        00000000000000000000000000000000
+      }
+      Material.BackProperties.Specular.Color = {
+        00000000000000000000000000000000
+      }
+      Material.FrontProperties.Ambient.Color = {
+        00000000000000000000000000000000
+      }
+      Material.FrontProperties.Diffuse.Color = {
+        00000000000000000000000000000000
+      }
+      Material.FrontProperties.Emission.Color = {
+        00000000000000000000000000000000
+      }
+      Material.BlendingMode = bmTransparency
       PitchAngle = 0
+      Position.Coordinates = {
+        00000000000000001F05C8C20000803F
+      }
       RollAngle = 0
       TurnAngle = 0
-      CubeSize = 1
-      object GLLightSource1: TGLLightSource
-        TagFloat = 0
-        ConstAttenuation = 0.5
-        LinearAttenuation = 0
-        QuadraticAttenuation = 0
-        Position.Coordinates = {
-          00000000000000000000C8C20000803F
-        }
-        Specular.Color = {
-          0000803F0000803F0000803F0000803F
-        }
-        SpotCutOff = 10
-        SpotDirection.Coordinates = {
-          00000000000000000000803F00000000
-        }
-        SpotExponent = 0
-      end
+      Visible = False
+      MirrorOptions = []
+      Height = 1
+      Width = 1
+      Radius = 1
     end
-    object GLDummyCubeLabels: TGLDummyCube
+    object GLHUDSpriteDistance: TGLHUDSprite
       TagFloat = 0
+      Material.BackProperties.Ambient.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.BackProperties.Diffuse.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.BackProperties.PolygonMode = pmLines
+      Material.FrontProperties.Ambient.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.FrontProperties.Diffuse.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.FrontProperties.Emission.Color = {
+        000000000000803FF8FEFE3E0000803F
+      }
+      Material.FrontProperties.PolygonMode = pmLines
+      Material.Texture.FilteringQuality = tfAnisotropic
       PitchAngle = 0
+      Position.Coordinates = {
+        0000C8420000C842000000000000803F
+      }
       RollAngle = 0
       TurnAngle = 0
-      CubeSize = 1
+      Visible = False
+      Width = 30
+      Height = 1
+      Rotation = 70
     end
-    object GLHUDText2: TGLHUDText
+    object GLHUDSpriteMark: TGLHUDSprite
+      TagFloat = 0
+      Material.FrontProperties.Ambient.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.FrontProperties.Diffuse.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.FrontProperties.Emission.Color = {
+        0000803F0000003F000000000000803F
+      }
+      Material.Texture.FilteringQuality = tfAnisotropic
+      PitchAngle = 0
+      Position.Coordinates = {
+        0000C8420000C842000000000000803F
+      }
+      RollAngle = 0
+      TurnAngle = 0
+      Visible = False
+      Width = 5
+      Height = 5
+      Rotation = 0
+    end
+    object GLHUDTextMarkShadow: TGLHUDText
       TagFloat = 0
       PitchAngle = 0
       RollAngle = 0
@@ -96,12 +231,11 @@ object f_moon: Tf_moon
         0000000000000000000000000000803F
       }
     end
-    object GLHUDText1: TGLHUDText
+    object GLHUDTextMark: TGLHUDText
       TagFloat = 0
       PitchAngle = 0
       RollAngle = 0
       TurnAngle = 0
-      Visible = False
       BitmapFont = GLBitmapFont1
       Rotation = 0
       Layout = tlCenter
@@ -109,11 +243,25 @@ object f_moon: Tf_moon
         0000803F00000000000000000000803F
       }
     end
+    object GLDummyCubeLabels: TGLDummyCube
+      TagFloat = 0
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      CubeSize = 1
+    end
+    object GLDummyCubeMarks: TGLDummyCube
+      TagFloat = 0
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      CubeSize = 1
+    end
     object GLCamera1: TGLCamera
       TagFloat = 0
       DepthOfView = 1000
-      FocalLength = 6500
-      TargetObject = GLSphere1
+      FocalLength = 6000
+      TargetObject = GLSphereMoon
       Position.Coordinates = {
         00000000000000000000C8C20000803F
       }
@@ -193,7 +341,7 @@ object f_moon: Tf_moon
   object GLBitmapFont1: TGLWindowsBitmapFont
     Font.Color = clWhite
     Font.Name = 'Default'
-    left = 719
-    top = 26
+    left = 128
+    top = 16
   end
 end

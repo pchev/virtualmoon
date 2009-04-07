@@ -55,7 +55,7 @@ const crlf = chr(10)+chr(13);
       secarc = deg2rad/3600;
       musec  = deg2rad/3600/1000000; // 1 microarcsec for rounding test
       DefaultPrtRes = 300;
-      LightDist=20;
+      LightDist=100;
       cameradist=2000;
       crRetic = 5;
       ox=36; oy=36; os=1500; px=0.95467; py=0.95467; //image 1500x1500, lune 1432x1432

@@ -475,7 +475,7 @@ type
     procedure RefreshPhase;
     procedure SetDate(param: string);
     procedure SetDescText(const Value: string);
-    procedure SetMirror(onoff: boolean);
+//    procedure SetMirror(onoff: boolean);
     procedure ShowSphere;
     procedure SetCompression(onoff: boolean);
     function ProjMoon(l, b, lc, bc: double; var X, Y: double): boolean;
@@ -2051,6 +2051,13 @@ begin
     BMP15001.Visible := False;       // save bmp for light version
     BMP30001.Visible := False;       // save bmp for light version
   end;
+ moon1:=Tf_moon.Create(PanelMoon);
+ moon1.Moon.Align:=alClient;
+ moon1.onMoonClick:=MoonClickEvent;
+ moon1.onGetMsg:=GetMsg;
+ moon1.onGetLabel:=GetLabel;
+ moon1.TexturePath:=slash(appdir)+slash('Textures');
+ moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
   SetLang1;
   readdefault;
   currentid := '';
@@ -2083,13 +2090,6 @@ begin
     Caption := Caption + '<2>';
   end;
   AsMultiTexture := (GLSceneViewer1.Buffer.LimitOf[limNbTextureUnits] > 1);
- moon1:=Tf_moon.Create(PanelMoon);
- moon1.Moon.Align:=alClient;
- moon1.onMoonClick:=MoonClickEvent;
- moon1.onGetMsg:=GetMsg;
- moon1.onGetLabel:=GetLabel;
- moon1.TexturePath:=slash(appdir)+slash('Textures');
- moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
 end;
 
 procedure TForm1.UpdTerminateur;
@@ -3206,9 +3206,16 @@ begin
     librb := 0;
   end;
 
+  if not ToolButton3.Down then
+  begin
+    moon1.LibrLat := librb;
+    moon1.LibrLon := -librl;
+  end;
   moon1.Phase:=deg2rad*cphase;
+  moon1.SunIncl:=deg2rad*sunincl;
+  moon1.ShowPhase:=phaseeffect;
 
-  glscene1.BeginUpdate;
+ { glscene1.BeginUpdate;
   dummycube1.BeginUpdate;
   if not ToolButton3.Down then
   begin
@@ -3218,13 +3225,13 @@ begin
     dummycube1.up.x := 0;
   end;
   OrientLightSource(cphase, sunincl);
-  GLLightSource2.Shining := not phaseeffect;
+  GLLightSource2.Shining := not phaseeffect; }
   LibrationMark(librlong, librlat);
   dummycube1.EndUpdate;
   mark(0, 0, '');
-  ShowSphere;
+{  ShowSphere;
   RefreshLabel;
-  glscene1.EndUpdate;
+  glscene1.EndUpdate;}
 end;
 
 procedure TForm1.ShowCoordinates(x, y: integer);
@@ -3494,6 +3501,7 @@ begin
     Combobox3.ItemIndex := 0;
     currentphase := -999;
   end;
+  moon1.Mirror:=checkbox2.Checked;
 end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);
@@ -4587,9 +4595,9 @@ end;
 procedure TForm1.CheckBox2Click(Sender: TObject);
 begin
   ToolButton6.Down := checkbox2.Checked;
-  SetMirror(checkbox2.Checked);
+  moon1.Mirror:=checkbox2.Checked;
   Mark(shapePositionX, shapePositionY, hudtext1.Text);
-  RefreshLabel;
+//  RefreshLabel;
 end;
 
 procedure TForm1.ToolButton10Click(Sender: TObject);
@@ -4908,14 +4916,15 @@ begin
     checkbox2.Visible := False;
     ToolButton6.Enabled := False;
     form1.Arrowline1.Visible := False;
-    SetMirror(False);
+    moon1.Mirror:=False;
     GroupBox4.Visible := False;
     GroupBox3.Visible := True;
     LibrationButton.Enabled := False;
     lrot := 0;
-    setzoom(minfoc);
+    moon1.VisibleSideLock:=false;
+{    setzoom(minfoc);
     movecamera(0, 0);
-    GLSceneViewer1MouseMove(Sender, [ssLeft], lastx, lasty);
+    GLSceneViewer1MouseMove(Sender, [ssLeft], lastx, lasty);   }
     Rotation1.Visible := True;
   end
   else
@@ -4929,14 +4938,15 @@ begin
     LibrationButton.Enabled := True;
     GroupBox4.Visible := True;
     lrot := 0;
-    setzoom(minfoc);
+{    setzoom(minfoc);
     movecamera(0, 0);
     case RadioGroup2.ItemIndex of
       0: CameraOrientation := 0;
       1: CameraOrientation := 180;
     end;
-    SetCameraOrientation;
-    SetMirror(checkbox2.Checked);
+    SetCameraOrientation;  }
+    moon1.VisibleSideLock:=true;
+    moon1.Mirror:=checkbox2.Checked;
     RefreshMoonImage;
   end;
 end;
@@ -5299,7 +5309,7 @@ begin
   GLlightSource1.specular.AsWinColor := SetWhitecolor(Trackbar4.position);
 end;
 
-procedure TForm1.SetMirror(onoff: boolean);
+{procedure TForm1.SetMirror(onoff: boolean);
 begin
   with form1 do
   begin
@@ -5319,7 +5329,7 @@ begin
     end;
     flipx := sgn(GLCamera1.Direction.z);
   end;
-end;
+end;    }
 
 procedure TForm1.ShowSphere;
 // hide non visible sphere to improve performance
@@ -5327,7 +5337,7 @@ var
   ls: double;
   m:  string;
 
-  function Shows(l: double; sphere: TGLSphere; n: boolean): boolean;
+{  function Shows(l: double; sphere: TGLSphere; n: boolean): boolean;
   var
     p: double;
   begin
@@ -5342,10 +5352,10 @@ var
         Result := False;
     end;
     sphere.Visible := Result;
-  end;
+  end;}
 
 begin
-  GLSceneViewer1.Buffer.BeginUpdate;
+{  GLSceneViewer1.Buffer.BeginUpdate;
   sphere1.Visible := False;
   sphere2.Visible := False;
   sphere3.Visible := False;
@@ -5373,7 +5383,7 @@ begin
   if Shows(ls, sphere8, False) then
     m := m + ' 8';
   GLSceneViewer1.Buffer.EndUpdate;
-  //  showmessage(m);
+  //  showmessage(m);      }
 end;
 
 procedure TForm1.SetCompression(onoff: boolean);
@@ -5893,7 +5903,6 @@ begin
   CheckBox4.Checked := stencilbuf;
   CheckBox8.Checked := compresstexture;
   SetMinFilter(MipMaps);
-  SetMirror(checkbox2.Checked);
   LoadOverlay(overlayname, overlaylum);
   j.Free;
   b.Free;
@@ -5962,8 +5971,8 @@ procedure TForm1.GLSceneViewer1MouseMove(Sender: TObject; Shift: TShiftState;
 var
   xx, yy, l, b: double;
 begin
-  if (not GLSceneViewer1.Focused) then
-    ActiveControl := GLSceneViewer1;
+{  if (not GLSceneViewer1.Focused) then
+    ActiveControl := GLSceneViewer1; }
   if (abs(clickX - X) > 3) or (abs(clickY - Y) > 3) then
   begin
     try
