@@ -594,9 +594,11 @@ function Tf_moon.Moon2Screen(lon,lat: single; var x,y:integer): boolean;
 var qr,l,b,xx,yy,zz: single;
     v : TAffineVector;
 begin
-if FMirror then GLCamera1.Direction.SetVector(0,0,1);
-GLSceneViewer1.Buffer.ContextOptions:=[roNoSwapBuffers];
-GLSceneViewer1.Update;
+if FMirror then begin
+  GLCamera1.Direction.SetVector(0,0,1);
+  GLSceneViewer1.Buffer.ContextOptions:=[roNoSwapBuffers];
+  GLSceneViewer1.Update;
+end;
   qr:=0.5;
   l:=-lon-pi/2;
   b:=lat;
@@ -615,9 +617,11 @@ GLSceneViewer1.Update;
     Screen2Moon(x,y,xx,yy);
     result:=(abs(lon-xx)<0.1)and(abs(lat-yy)<0.1);
   end else result:=false;
-if FMirror then GLCamera1.Direction.SetVector(0,0,-1);
-GLSceneViewer1.Buffer.ContextOptions:=[roDoubleBuffer,roRenderToWindow];
-GLSceneViewer1.Update;
+if FMirror then begin
+  GLCamera1.Direction.SetVector(0,0,-1);
+  GLSceneViewer1.Buffer.ContextOptions:=[roDoubleBuffer,roRenderToWindow];
+  GLSceneViewer1.Update;
+end;
 end;
 
 function Tf_moon.Screen2Moon(x,y:integer; var lon,lat: single): boolean;
@@ -626,9 +630,11 @@ var
   v : TAffineVector;
   qr,xx,yy,zz: single;
 begin
-if FMirror then GLCamera1.Direction.SetVector(0,0,1);
-GLSceneViewer1.Buffer.ContextOptions:=[roNoSwapBuffers];
-GLSceneViewer1.Update;
+if FMirror then begin
+  GLCamera1.Direction.SetVector(0,0,1);
+  GLSceneViewer1.Buffer.ContextOptions:=[roNoSwapBuffers];
+  GLSceneViewer1.Update;
+end;
  if FMirror then x:=GLSceneViewer1.Width-x;
  pick:=(GLSceneViewer1.Buffer.GetPickedObject(x, y) as TGLCustomSceneObject);
  if assigned(pick) then begin
@@ -649,9 +655,11 @@ GLSceneViewer1.Update;
    end;
  end
  else result:=false;
-if FMirror then GLCamera1.Direction.SetVector(0,0,-1);
-GLSceneViewer1.Buffer.ContextOptions:=[roDoubleBuffer,roRenderToWindow];
-GLSceneViewer1.Update;
+if FMirror then begin
+  GLCamera1.Direction.SetVector(0,0,-1);
+  GLSceneViewer1.Buffer.ContextOptions:=[roDoubleBuffer,roRenderToWindow];
+  GLSceneViewer1.Update;
+end;
 end;
 
 Procedure Tf_moon.SetZoomLevel(zoom:single);
