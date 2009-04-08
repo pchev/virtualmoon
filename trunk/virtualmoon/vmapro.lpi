@@ -8,7 +8,7 @@
       <TargetFileExt Value=".exe"/>
       <Title Value="vmapro"/>
       <Icon Value="0"/>
-      <ActiveEditorIndexAtStart Value="1"/>
+      <ActiveEditorIndexAtStart Value="0"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -85,7 +85,7 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="52" Y="5031"/>
+        <CursorPos X="47" Y="5037"/>
         <TopLine Value="5016"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="69"/>
@@ -385,12 +385,12 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="46" Y="630"/>
-        <TopLine Value="616"/>
+        <CursorPos X="50" Y="669"/>
+        <TopLine Value="592"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="31"/>
         <Bookmarks Count="1">
-          <Item0 X="1" Y="940" ID="1"/>
+          <Item0 X="1" Y="948" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit40>
@@ -427,12 +427,10 @@
         <UnitName Value="LCLProc"/>
         <CursorPos X="15" Y="1501"/>
         <TopLine Value="1477"/>
-        <EditorIndex Value="2"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit45>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="virtualmoon1.pas"/>
         <Caret Line="4924" Column="1" TopLine="4903"/>
@@ -549,10 +547,6 @@
         <Filename Value="virtualmoon1.pas"/>
         <Caret Line="4923" Column="45" TopLine="4923"/>
       </Position29>
-      <Position30>
-        <Filename Value="..\..\..\pch\lazarus\lcl\lclproc.pas"/>
-        <Caret Line="1501" Column="15" TopLine="1477"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
