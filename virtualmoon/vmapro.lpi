@@ -23,7 +23,7 @@
       <local>
         <FormatVersion Value="1"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\mnt\win_d\VirtualMoon\"/>
+        <WorkingDirectory Value="\home\pch\vma\bin"/>
       </local>
     </RunParams>
     <RequiredPackages Count="9">
@@ -60,7 +60,7 @@
         <PackageName Value="LCL"/>
       </Item9>
     </RequiredPackages>
-    <Units Count="43">
+    <Units Count="46">
       <Unit0>
         <Filename Value="vmapro.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -85,8 +85,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="33" Y="4948"/>
-        <TopLine Value="4919"/>
+        <CursorPos X="52" Y="5031"/>
+        <TopLine Value="5016"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="69"/>
         <Loaded Value="True"/>
@@ -385,8 +385,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="1" Y="573"/>
-        <TopLine Value="571"/>
+        <CursorPos X="46" Y="630"/>
+        <TopLine Value="616"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="31"/>
         <Bookmarks Count="1">
@@ -407,127 +407,151 @@
         <TopLine Value="1340"/>
         <UsageCount Value="10"/>
       </Unit42>
+      <Unit43>
+        <Filename Value="..\..\..\pch\lazarus\lcl\controls.pp"/>
+        <UnitName Value="Controls"/>
+        <CursorPos X="15" Y="1257"/>
+        <TopLine Value="1236"/>
+        <UsageCount Value="10"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="..\..\..\pch\lazarus\components\glscene\Source\glscene.pas"/>
+        <UnitName Value="GLScene"/>
+        <CursorPos X="21" Y="428"/>
+        <TopLine Value="407"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="Delphi"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="..\..\..\pch\lazarus\lcl\lclproc.pas"/>
+        <UnitName Value="LCLProc"/>
+        <CursorPos X="15" Y="1501"/>
+        <TopLine Value="1477"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit45>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4919" Column="1" TopLine="4898"/>
+        <Caret Line="4924" Column="1" TopLine="4903"/>
       </Position1>
       <Position2>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4920" Column="1" TopLine="4899"/>
+        <Caret Line="4925" Column="1" TopLine="4904"/>
       </Position2>
       <Position3>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4921" Column="1" TopLine="4900"/>
+        <Caret Line="4926" Column="1" TopLine="4905"/>
       </Position3>
       <Position4>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4922" Column="1" TopLine="4901"/>
+        <Caret Line="4907" Column="17" TopLine="4889"/>
       </Position4>
       <Position5>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4923" Column="1" TopLine="4902"/>
+        <Caret Line="4904" Column="16" TopLine="4889"/>
       </Position5>
       <Position6>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4924" Column="1" TopLine="4903"/>
+        <Caret Line="4912" Column="1" TopLine="4891"/>
       </Position6>
       <Position7>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4925" Column="1" TopLine="4904"/>
+        <Caret Line="4913" Column="1" TopLine="4892"/>
       </Position7>
       <Position8>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4926" Column="1" TopLine="4905"/>
+        <Caret Line="4914" Column="1" TopLine="4893"/>
       </Position8>
       <Position9>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4907" Column="17" TopLine="4889"/>
+        <Caret Line="4915" Column="1" TopLine="4894"/>
       </Position9>
       <Position10>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4904" Column="16" TopLine="4889"/>
+        <Caret Line="4916" Column="1" TopLine="4895"/>
       </Position10>
       <Position11>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4912" Column="1" TopLine="4891"/>
+        <Caret Line="4917" Column="1" TopLine="4896"/>
       </Position11>
       <Position12>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4913" Column="1" TopLine="4892"/>
+        <Caret Line="4918" Column="1" TopLine="4897"/>
       </Position12>
       <Position13>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4914" Column="1" TopLine="4893"/>
+        <Caret Line="4919" Column="1" TopLine="4898"/>
       </Position13>
       <Position14>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4915" Column="1" TopLine="4894"/>
+        <Caret Line="4920" Column="1" TopLine="4899"/>
       </Position14>
       <Position15>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4916" Column="1" TopLine="4895"/>
+        <Caret Line="4921" Column="1" TopLine="4900"/>
       </Position15>
       <Position16>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4917" Column="1" TopLine="4896"/>
+        <Caret Line="4922" Column="1" TopLine="4901"/>
       </Position16>
       <Position17>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4918" Column="1" TopLine="4897"/>
+        <Caret Line="4923" Column="1" TopLine="4902"/>
       </Position17>
       <Position18>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4919" Column="1" TopLine="4898"/>
+        <Caret Line="4924" Column="1" TopLine="4903"/>
       </Position18>
       <Position19>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4920" Column="1" TopLine="4899"/>
+        <Caret Line="4925" Column="1" TopLine="4904"/>
       </Position19>
       <Position20>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4921" Column="1" TopLine="4900"/>
+        <Caret Line="4926" Column="1" TopLine="4905"/>
       </Position20>
       <Position21>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4922" Column="1" TopLine="4901"/>
+        <Caret Line="5972" Column="1" TopLine="5951"/>
       </Position21>
       <Position22>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4923" Column="1" TopLine="4902"/>
+        <Caret Line="5973" Column="1" TopLine="5952"/>
       </Position22>
       <Position23>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4924" Column="1" TopLine="4903"/>
+        <Caret Line="5963" Column="39" TopLine="5952"/>
       </Position23>
       <Position24>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4925" Column="1" TopLine="4904"/>
+        <Caret Line="4924" Column="21" TopLine="4895"/>
       </Position24>
       <Position25>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4926" Column="1" TopLine="4905"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="142" Column="78" TopLine="121"/>
       </Position25>
       <Position26>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="5972" Column="1" TopLine="5951"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="589" Column="23" TopLine="571"/>
       </Position26>
       <Position27>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="5973" Column="1" TopLine="5952"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="577" Column="23" TopLine="547"/>
       </Position27>
       <Position28>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="5963" Column="39" TopLine="5952"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="630" Column="46" TopLine="616"/>
       </Position28>
       <Position29>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4924" Column="21" TopLine="4895"/>
+        <Caret Line="4923" Column="45" TopLine="4923"/>
       </Position29>
       <Position30>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="142" Column="78" TopLine="121"/>
+        <Filename Value="..\..\..\pch\lazarus\lcl\lclproc.pas"/>
+        <Caret Line="1501" Column="15" TopLine="1477"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

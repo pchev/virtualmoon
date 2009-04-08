@@ -5029,13 +5029,14 @@ begin
     i := findnext(fs);
   end;
   findclose(fs);
-  if Combobox5.items.Count > 0 then
+  if Combobox5.items.Count > 0 then begin
     GroupBox4.Visible := True;
-  if scopeinterface <> '' then
-    Combobox5.Text := scopeinterface
-  else
-    Combobox5.Text := Combobox5.items[0];
-  scopeinterface := ComboBox5.Text;
+    if scopeinterface <> '' then
+      Combobox5.Text := scopeinterface
+    else
+      Combobox5.Text := Combobox5.items[0];
+    scopeinterface := ComboBox5.Text;
+  end;
 end;
 
 procedure TForm1.ComboBox5Change(Sender: TObject);
