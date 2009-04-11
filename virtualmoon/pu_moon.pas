@@ -65,6 +65,9 @@ type
      procedure Timer2Timer(Sender: TObject);
   private
     { Déclarations privées }
+    marked: boolean;
+    marktext: string;
+    markl,markb: single;
     MaxTextureSize: integer;
     MaxZoom: single;
     mx,my, zone, maxzone,curlabel : integer;
@@ -91,6 +94,8 @@ type
     FSunIncl: single;
     FLibrLon: single;
     FLibrLat: single;
+    FOrientation: single;
+    Fzoom : single;
     Flabelcolor: TColor;
     procedure SetTexture(fn:string);
     procedure SetOverlay(fn:string);
@@ -98,6 +103,7 @@ type
     procedure SetBumpmap(value:boolean);
     procedure SetShowPhase(value:boolean);
     procedure SetMirror(value:boolean);
+    procedure SetOrientation(value: single);
     procedure SetVisibleSideLock(value:boolean);
     procedure SetRotation(value:single);
     procedure SetPhase(value:single);
@@ -115,16 +121,22 @@ type
     Procedure SetZoomLevel(zoom:single);
     function  Screen2Moon(x,y:integer; var lon,lat: single): boolean;
     function  Moon2Screen(lon,lat: single; var x,y:integer): boolean;
+    function  Moon2ScreenNoClip(lon,lat: single; var x,y:integer): boolean;
+    function  Moon2World(lon,lat: single; var x,y:single): boolean;
     procedure InitLabel;
     procedure ClearLabel;
     procedure OrientLightSource;
     procedure OrientMoon;
     procedure ResetMoon;
+
   public
     { Declarations publiques }
     procedure Init;
-    procedure SetMark(x,y:integer; txt:string);
+    procedure SetMark(lon,lat:single; txt:string);
+    procedure CenterAt(lon,lat:single);
+    procedure CenterMark;
     function AddLabel(lon,lat:single; txt:string):boolean;
+    procedure RefreshLabel;
     property TexturePath : String read FtexturePath write FTexturePath;
     property Texture : String read Ftexture write SetTexture;
     property OverlayPath : String read FOverlayPath write FOverlayPath;
@@ -137,7 +149,10 @@ type
     property SunIncl : single read FSunIncl write SetSunIncl;
     property LibrLon : single read FLibrLon write SetLibrLon;
     property LibrLat : single read FLibrLat write SetLibrLat;
+    property Zoom : single read Fzoom write SetZoomLevel;
+    property ZoomMax: single read MaxZoom;
     property Mirror : Boolean read FMirror write SetMirror;
+    property Orientation:single read FOrientation write SetOrientation;
     property ShowPhase : Boolean read FShowPhase write SetShowPhase;
     property VisibleSideLock : Boolean read FVisibleSideLock write SetVisibleSideLock;
     property LabelFont : TFont read GetLabelFont write SetLabelFont;
@@ -149,6 +164,9 @@ type
 
 var
   f_moon: Tf_moon;
+
+const
+  ZoomByZone: array[1..4] of integer=(3,8,14,20);
 
 implementation
 
@@ -542,7 +560,7 @@ if FBumpOk and (value<>FBumpmap) then begin
     BumpMaterialLibrary.Materials[0].Material.Texture.Image.Assign(blankbmp);
     BumpMaterialLibrary.Materials[1].Material.Texture.Image.Assign(blankbmp);
     GLLightSource1.ConstAttenuation:=0.5;
-    MaxZoom:=20;
+    maxzoom:=ZoomByZone[maxzone];
   end;
   GLSceneViewer1.Refresh;
 end;
@@ -662,6 +680,65 @@ if FMirror then begin
 end;
 end;
 
+function Tf_moon.Moon2ScreenNoClip(lon,lat: single; var x,y:integer): boolean;
+var qr,l,b,xx,yy,zz: single;
+    v : TAffineVector;
+begin
+if FMirror then begin
+  GLCamera1.Direction.SetVector(0,0,1);
+  GLSceneViewer1.Buffer.ContextOptions:=[roNoSwapBuffers];
+  GLSceneViewer1.Update;
+end;
+  qr:=0.5;
+  l:=-lon-pi/2;
+  b:=lat;
+  xx:=qr*cos(b)*cos(l);
+  yy:=qr*cos(b)*sin(l);
+  zz:=qr*sin(b);
+  v[0]:=xx;
+  v[1]:=zz;
+  v[2]:=yy;
+  v:=GLSphereMoon.LocalToAbsolute(v);
+  v:=GLSceneViewer1.Buffer.WorldToScreen(v);
+  x:=round(v[0]);
+  y:=GLSceneViewer1.Height-round(v[1]);
+  result:=true;
+if FMirror then begin
+  GLCamera1.Direction.SetVector(0,0,-1);
+  GLSceneViewer1.Buffer.ContextOptions:=[roDoubleBuffer,roRenderToWindow];
+  GLSceneViewer1.Update;
+end;
+end;
+
+function Tf_moon.Moon2World(lon,lat: single; var x,y:single): boolean;
+var qr,l,b,xx,yy,zz: single;
+    v : TAffineVector;
+begin
+if FMirror then begin
+  GLCamera1.Direction.SetVector(0,0,1);
+  GLSceneViewer1.Buffer.ContextOptions:=[roNoSwapBuffers];
+  GLSceneViewer1.Update;
+end;
+  qr:=0.5;
+  l:=-lon-pi/2;
+  b:=lat;
+  xx:=qr*cos(b)*cos(l);
+  yy:=qr*cos(b)*sin(l);
+  zz:=qr*sin(b);
+  v[0]:=xx;
+  v[1]:=zz;
+  v[2]:=yy;
+  v:=GLSphereMoon.LocalToAbsolute(v);
+  x:=v[0];
+  y:=v[1];
+  result:=true;
+if FMirror then begin
+  GLCamera1.Direction.SetVector(0,0,-1);
+  GLSceneViewer1.Buffer.ContextOptions:=[roDoubleBuffer,roRenderToWindow];
+  GLSceneViewer1.Update;
+end;
+end;
+
 Procedure Tf_moon.SetZoomLevel(zoom:single);
 var newzone: integer;
 begin
@@ -670,20 +747,21 @@ try
   lock_Zoom:=true;
   if zoom<1 then zoom:=1;
   if zoom>MaxZoom then zoom:=MaxZoom;
-  GLCamera1.SceneScale:=zoom;
   newzone:=1;
-  if zoom>3 then begin
+  if zoom>ZoomByZone[1] then begin
      if maxzone>=2 then newzone:=2
-                   else zoom:=3;
-     if zoom>8 then begin
+                   else zoom:=ZoomByZone[1];
+     if zoom>ZoomByZone[2] then begin
        if maxzone>=3 then newzone:=3
-                     else zoom:=8;
-       if zoom>14 then begin
+                     else zoom:=ZoomByZone[2];
+       if zoom>ZoomByZone[3] then begin
          if maxzone>=4 then newzone:=4
-                       else zoom:=14;
+                       else zoom:=ZoomByZone[3];
        end;
      end;
   end;
+  Fzoom:=zoom;
+  GLCamera1.SceneScale:=Fzoom;
   if (not FBumpmap)and(newzone<>zone) then begin
     if zone=1 then
        LoadSlice(newzone)
@@ -696,12 +774,17 @@ try
   end;
   zone:=newzone;
   if assigned(FOnGetMsg) then FOnGetMsg(self,'Zoom:'+formatfloat('0.0',zoom)+'  Level:'+inttostr(zone));
-  ClearLabel;
-  timer1.Enabled:=false;
-  timer1.Enabled:=true;
+  RefreshLabel;
 finally
   lock_Zoom:=false;
 end;
+end;
+
+procedure Tf_moon.RefreshLabel;
+begin
+  ClearLabel;
+  timer1.Enabled:=false;
+  timer1.Enabled:=true;
 end;
 
 procedure Tf_moon.SetTexture(fn:string);
@@ -714,9 +797,12 @@ begin
     maxzone:=2;
     if DirectoryExists(slash(FTexturePath)+slash(Ftexture)+'L3') then begin
        maxzone:=3;
-       if DirectoryExists(slash(FTexturePath)+slash(Ftexture)+'L4') then maxzone:=4;
+       if DirectoryExists(slash(FTexturePath)+slash(Ftexture)+'L4') then begin
+          maxzone:=4;
+       end;
     end;
  end;
+ maxzoom:=ZoomByZone[maxzone];
  for i:=1 to zone do ClearSlice(i);
  LoadSlice(1);
  if zone<>1 then LoadSlice(zone);
@@ -763,7 +849,7 @@ begin
  FOverlay:='';
  FRotation:=0;
  FBumpOk:=false;
- MaxZoom:=20;
+ MaxZoom:=3;
  MaxTextureSize:=1024;
  Flabelcolor:=clWhite;
 end;
@@ -840,9 +926,7 @@ begin
        GLLightSource1.Position:=GLCamera1.Position;
        GLLightSource1.SpotDirection.SetVector(-GLLightSource1.Position.X,-GLLightSource1.Position.Y,-GLLightSource1.Position.Z);
     end;
-    ClearLabel;
-    Timer1.Enabled:=false;
-    Timer1.Enabled:=true;
+    RefreshLabel;
   end;
   mx:=x;
   my:=y;
@@ -865,15 +949,14 @@ begin
   Timer1.Enabled:=false;
   if zone>1 then LoadSlice(zone);
   if assigned(FOnGetLabel) then FOnGetLabel(self);
+  if marked then SetMark(markl,markb,marktext);
 end;
 
 procedure Tf_moon.GLCadencer1Progress(Sender: TObject; const deltaTime,
   newTime: Double);
 begin
 GLSphereMoon.TurnAngle:=FRotation*newTime; // rotation ° per second
-ClearLabel;
-Timer1.Enabled:=false;
-Timer1.Enabled:=true;
+RefreshLabel;
 end;
 
 procedure Tf_moon.Timer2Timer(Sender: TObject);
@@ -1000,6 +1083,7 @@ curlabel:=0;
 if (GLDummyCubeLabels.Count>0) and GLDummyCubeLabels.Children[0].visible then
    for i:=0 to 2*Maxlabel do
       with GLDummyCubeLabels.Children[i] as TGLHUDText do visible:=false;
+GLHUDSpriteMark.Visible:=false;
 GLHUDTextMark.Visible:=false;
 GLHUDTextMarkShadow.Visible:=false;
 end;
@@ -1009,30 +1093,90 @@ var x,y: integer;
 begin
 result:=false;
 if curlabel>MaxLabel then exit;
+if marked and (marktext=txt) then exit;
 if not Moon2Screen(lon,lat,x,y) then exit;
-with GLDummyCubeLabels.Children[2*curlabel] as TGLHUDText do begin
-  Position.SetVector(x+1,y+1);
-  Text:=txt;
-  Visible:=true;
+if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
+  (y < GLSceneViewer1.Height) and ((currenteyepiece = 0) or
+  (sqrt(Intpower(GLSceneViewer1.Width / 2 - x, 2) + Intpower(
+  GLSceneViewer1.Height / 2 - y, 2)) < 0.475 * GLSceneViewer1.Width))
+  then begin
+    with GLDummyCubeLabels.Children[2*curlabel] as TGLHUDText do begin
+      Position.SetVector(x+1,y+1);
+      if labelcenter then
+        begin
+          Text      := txt;
+          Alignment := taCenter;
+        end
+        else
+        begin
+          Text      := '.' + txt;
+          Alignment := taLeftJustify;
+      end;
+      Visible:=true;
+    end;
+    with GLDummyCubeLabels.Children[2*curlabel+1] as TGLHUDText do begin
+      Position.SetVector(x,y);
+      if labelcenter then
+        begin
+          Text      := txt;
+          Alignment := taCenter;
+        end
+        else
+        begin
+          Text      := '.' + txt;
+          Alignment := taLeftJustify;
+      end;
+      Visible:=true;
+    end;
+    inc(curlabel);
 end;
-with GLDummyCubeLabels.Children[2*curlabel+1] as TGLHUDText do begin
-  Position.SetVector(x,y);
-  Text:=txt;
-  Visible:=true;
-end;
-inc(curlabel);
 end;
 
-procedure Tf_moon.SetMark(x,y:integer; txt:string);
+procedure Tf_moon.SetMark(lon,lat:single; txt:string);
+var x,y: integer;
 begin
-if txt>'' then begin
-  GLHUDTextMarkShadow.Position.SetVector(x+1,y+1);
-  GLHUDTextMarkShadow.Text:=txt;
-  GLHUDTextMark.Position.SetVector(x,y);
-  GLHUDTextMark.Text:=txt;
-  GLHUDTextMarkShadow.Visible:=true;
-  GLHUDTextMark.Visible:=true;
+if (txt>'')and Moon2Screen(lon,lat,x,y) then begin
+  marked:=true;
+  marktext:=txt;
+  markl:=lon;
+  markb:=lat;
+  if showmark then
+    begin
+      GLHUDSpriteMark.Position.SetVector(x,y);
+      GLHUDSpriteMark.Width:=marksize;
+      GLHUDSpriteMark.Height:=marksize;
+      GLHUDSpriteMark.Material.FrontProperties.Emission.AsWinColor := MarkColor;
+      GLHUDSpriteMark.Visible:=true;
+    end else
+      GLHUDSpriteMark.Visible:=false;
+  if showlabel then
+    begin
+      if x < (glsceneviewer1.Width div 2) then
+      begin
+        x:=x + 4 ;
+        GLHUDTextMarkShadow.Position.SetVector(x+1,y+1);
+        GLHUDTextMark.Position.SetVector(x,y);
+        GLHUDTextMarkShadow.Alignment  := taLeftJustify;
+        GLHUDTextMark.Alignment  := taLeftJustify;
+      end else begin
+        x:=x - 4 ;
+        GLHUDTextMarkShadow.Position.SetVector(x+1,y+1);
+        GLHUDTextMark.Position.SetVector(x,y);
+        GLHUDTextMarkShadow.Alignment  := taRightJustify;
+        GLHUDTextMark.Alignment  := taRightJustify;
+      end;
+      GLHUDTextMarkShadow.Text:=txt;
+      GLHUDTextMark.Text:=txt;
+      GLHUDTextMark.ModulateColor.AsWinColor := marklabelcolor;
+      GLHUDTextMarkShadow.Visible:=true;
+      GLHUDTextMark.Visible:=true;
+    end else begin
+      GLHUDTextMarkShadow.Visible:=false;
+      GLHUDTextMark.Visible:=false;
+    end;
 end else begin
+  marked:=false;
+  GLHUDSpriteMark.Visible:=false;
   GLHUDTextMark.Visible:=false;
   GLHUDTextMarkShadow.Visible:=false;
 end;
@@ -1052,10 +1196,62 @@ if FMirror<>value then begin
       GLMirror1.Visible     := False;
       GLCamera1.Direction.SetVector(0,0,1);
     end;
-    ClearLabel;
-    Timer1.Enabled:=false;
-    Timer1.Enabled:=true;
+    RefreshLabel;
 end;
+end;
+
+procedure Tf_moon.SetOrientation(value: single);
+var
+  c1, s1: single;
+begin
+if value<>FOrientation then begin
+  FOrientation:=value;
+  sincos(deg2rad * FOrientation, s1, c1);
+  GLHUDSpriteDistance.Visible := False;
+  GLCamera1.BeginUpdate;
+  GLCamera1.Up.X := s1;
+  GLCamera1.Up.Y := c1;
+  GLCamera1.Up.X := s1;
+  GLCamera1.Up.Y := c1;
+  GLCamera1.Up.X := s1;
+  GLCamera1.Up.Y := c1;
+  GLCamera1.EndUpdate;
+//  SetScrollBar(GLCamera1.Position.x, GLCamera1.Position.y);
+//  Mark(shapePositionX, shapePositionY, hudtext1.Text);
+end;
+end;
+
+procedure Tf_moon.CenterAt(lon,lat:single);
+var x,y: single;
+    sl,cl,sb,cb: single;
+begin
+if VisibleSideLock then begin
+  if Moon2World(lon,lat,x,y) then begin
+     GLCamera1.Position.X:=x;
+     GLCamera1.Position.Y:=y;
+  end;
+end else begin
+  sincos(lon+deg2rad*FLibrLon,sl,cl);
+  sincos(lat-deg2rad*FLibrLat,sb,cb);
+  GLScene1.BeginUpdate;
+  GLCamera1.BeginUpdate;
+  GLCamera1.Position.x := -100*cb * sl;
+  GLCamera1.Position.y := 100 * sb;
+  GLCamera1.Position.z := -100*cb * cl;
+  GLCamera1.EndUpdate;
+  if not FShowPhase then begin
+     GLLightSource1.Position:=GLCamera1.Position;
+     GLLightSource1.SpotDirection.SetVector(-GLLightSource1.Position.X,-GLLightSource1.Position.Y,-GLLightSource1.Position.Z);
+  end;
+  GLScene1.EndUpdate;
+end;
+RefreshLabel;
+end;
+
+procedure Tf_moon.CenterMark;
+var x,y: integer;
+begin
+CenterAt(markl,markb);
 end;
 
 initialization

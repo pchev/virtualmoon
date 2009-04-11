@@ -116,6 +116,7 @@ function ScreenBPP: integer;
 {$endif}
 function remext(fn:string):string;
 Function testfloat(s:string):double;
+function capitalize(txt:string):string;
 
 var traceon : boolean;
 
@@ -1730,8 +1731,21 @@ if s='' then result:=-1 else begin
 end;
 end;
 
-
-
+function capitalize(txt:string):string;
+var i: integer;
+    up: boolean;
+    c: string;
+begin
+result:='';
+up:=true;
+for i:=1 to length(txt) do begin
+  c:=copy(txt,i,1);
+  if up then c:=UpperCase(c)
+        else c:=LowerCase(c);
+  result:=result+c;
+  up:=(c=' ');
+end;
+end;
 
 end.
 

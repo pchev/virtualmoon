@@ -199,6 +199,10 @@ Var  Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : st
 {$else}
      OpenFileCMD:string = 'xdg-open';   // default FreeDesktop.org
 {$endif}
+     // to move to pu_moon properties:
+     labelcenter,showlabel,showmark: boolean;
+     currenteyepiece,marksize: integer;
+     marklabelcolor, markcolor: Tcolor;
 
 // Text formating constant
 const
