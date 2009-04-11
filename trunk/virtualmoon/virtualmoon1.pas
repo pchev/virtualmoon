@@ -39,7 +39,7 @@ uses
   Messages, SysUtils, Classes, Dialogs,
   ComCtrls, Menus, Buttons, dynlibs, BigIma,
   EnhEdits, IniFiles, passql, passqlite,
-  Math, CraterList, LResources, IpHtml;
+  Math, CraterList, LResources, IpHtml, PairSplitter;
 
 type
 
@@ -49,7 +49,11 @@ type
     Desc1:   TIpHtmlPanel;
     FilePopup: TPopupMenu;
     HelpPopup: TPopupMenu;
+    PairSplitter1: TPairSplitter;
+    PairSplitterSide1: TPairSplitterSide;
+    PairSplitterSide2: TPairSplitterSide;
     PanelMoon: TPanel;
+    PerfTimer: TTimer;
     Quitter1: TMenuItem;
     Panel2:  TPanel;
     PageControl1: TNoteBook;
@@ -72,7 +76,7 @@ type
     Button4: TButton;
     Button5: TButton;
     Apropos1: TMenuItem;
-    Timer1:  TTimer;
+    ZoomTimer: TTimer;
     UpDown1: TUpDown;
     UpDown2: TUpDown;
     UpDown3: TUpDown;
@@ -302,6 +306,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure PairSplitterSide2Resize(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
     procedure FormMouseWheel(Sender: TObject; Shift: TShiftState;
@@ -322,7 +327,7 @@ type
     procedure TrackBar3Change(Sender: TObject);
     procedure TrackBar4Change(Sender: TObject);
     procedure TrackBar5Change(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
+    procedure PerfTimerTimer(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
     procedure ComboBox1Select(Sender: TObject);
     procedure Button3MouseDown(Sender: TObject; Button: TMouseButton;
@@ -435,12 +440,14 @@ type
     procedure RemoveMark1Click(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
     procedure CheckBox8Click(Sender: TObject);
+    procedure ZoomTimerTimer(Sender: TObject);
   private
     { Déclarations privées }
     moon1 : TF_moon;
     CursorImage1: TCursorImage;
     tz: TCdCTimeZone;
     ima: TBigImaForm;
+    ToolsWidth: integer;
     procedure SetEyepieceMenu;
     procedure SetLang1;
     procedure SetLang;
@@ -490,6 +497,7 @@ type
     procedure MoveCamera(x, y: double);
     procedure SetMinFilter(onoff: boolean);
     procedure SetZoom(yy: double);
+    procedure SetZoomBar;
     procedure Window2World(x, y: integer; var xx, yy: double);
     procedure World2Window(xx, yy: double; var x, y: integer);
     procedure SetCameraOrientation;
@@ -500,6 +508,7 @@ type
                      Shift: TShiftState; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);   public
     { Déclarations publiques }
+    autolabelcolor: Tcolor;
     lastx, lasty, lastyzoom, posmin, posmax, ax, ay, MaxSprite: integer;
     ReduceTexture, ReduceTextureFar, LastIma, maximgdir, maxima, startx,
     starty, saveimagesize, lastscrollx, lastscrolly: integer;
@@ -512,12 +521,12 @@ type
     searchb, markx, marky, flipx, rotstep, lunaison: double;
     ra, Dec, rad, ded, dist, dkm, diam, phase, illum, pa, sunincl, currentphase,
     tphase, LabelSize, bx, by, bxpos, dummy: double;
-    editrow, notesrow, hi_w, hi_wd, hi_dl, hi_mult, rotdirection, searchpos, marksize: integer;
+    editrow, notesrow, hi_w, hi_wd, hi_dl, hi_mult, rotdirection, searchpos: integer;
     dbedited: boolean;
     SkipIdent, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
-    labelcenter, minilabel: boolean;
-    lockmove, lockrepeat, lockrot, DDEreceiveok, showlabel, showautolabel,
-    showmark, showlibrationmark, marked, saveimagewhite, skipresize: boolean;
+    minilabel: boolean;
+    lockmove, lockrepeat, lockrot, DDEreceiveok, showautolabel,
+    showlibrationmark, marked, saveimagewhite, skippanelresize, skipresize: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
     lopamdirectsuffix, lopamlocalsuffix: string;
@@ -532,7 +541,6 @@ type
     maxfoc, LabelDensity, overlaylum, phaseoffset: integer;
     minfoc: integer;
     perfdeltay: double;
-    labelcolor, markcolor, autolabelcolor: Tcolor;
     ddeparam, currenttexture, imgsuffix, overlayname, currentselection: string;
     CielHnd: Thandle;
     lockchart: boolean;
@@ -549,7 +557,6 @@ type
     fh, fh500: file;
     eyepiecename: array[1..10] of string;
     eyepiecefield, eyepiecemirror, eyepiecerotation: array[1..10] of integer;
-    CurrentEyepiece: integer;
     EyepieceRatio: double;
     zoom:   double;
     phasehash: boolean;
@@ -1025,12 +1032,13 @@ begin
   Obslongitude := -6;
   ObsTZ    := 'Europe/Zurich';
   Obsaltitude := 0;
+  ToolsWidth:=400;
   phaseeffect := True;
   librationeffect := True;
   geocentric := False;
   showoverlay := False;
   wheelstep := 1.05;
-  labelcolor := clYellow;
+  marklabelcolor := clYellow;
   markcolor := clRed;
   autolabelcolor := clLime;
   labelcenter := True;
@@ -1149,7 +1157,7 @@ begin
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
     ShowMark     := ReadBool(section, 'ShowMark', ShowMark);
     ShowLibrationMark := ReadBool(section, 'ShowLibrationMark', ShowLibrationMark);
-    LabelColor   := ReadInteger(section, 'LabelColor', LabelColor);
+    MarkLabelColor   := ReadInteger(section, 'LabelColor', MarkLabelColor);
     MarkColor    := ReadInteger(section, 'MarkColor', MarkColor);
     AutolabelColor := ReadInteger(section, 'AutolabelColor', AutolabelColor);
     LabelDensity := ReadInteger(section, 'LabelDensity', LabelDensity);
@@ -1160,6 +1168,10 @@ begin
     FollowNorth  := ReadBool(section, 'FollowNorth', FollowNorth);
     CheckBox2.Checked := ReadBool(section, 'Mirror', False);
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
+    ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
+    PairSplitter1.Align:=alClient;
+    PairSplitter1.Position:=ClientWidth-ToolsWidth;
+    PageControl1.Width:=ToolsWidth;
 
     i := ReadInteger(section, 'Top', -1);
     if i > 0 then
@@ -1368,7 +1380,7 @@ begin
       WriteBool(section, 'ShowLabel', ShowLabel);
       WriteBool(section, 'ShowMark', ShowMark);
       WriteBool(section, 'ShowLibrationMark', ShowLibrationMark);
-      WriteInteger(section, 'LabelColor', LabelColor);
+      WriteInteger(section, 'LabelColor', MarkLabelColor);
       WriteInteger(section, 'MarkColor', MarkColor);
       WriteInteger(section, 'AutolabelColor', AutolabelColor);
       WriteInteger(section, 'LabelDensity', LabelDensity);
@@ -1379,6 +1391,7 @@ begin
       WriteBool(section, 'FollowNorth', FollowNorth);
       WriteBool(section, 'Mirror', CheckBox2.Checked);
       WriteFloat(section, 'PoleOrientation', PoleOrientation);
+      WriteInteger(section, 'ToolsWidth', ToolsWidth);
       WriteInteger(section, 'Top', Top);
       WriteInteger(section, 'Left', Left);
       WriteInteger(section, 'Height', Height);
@@ -2615,7 +2628,7 @@ begin
     dbjournal(extractfilename(dbm.database), 'UPDATE DBN=' + stringgrid2.Cells[1, 0] +
       ' NAME=' + stringgrid2.Cells[1, 1] + ' ID=' + IntToStr(editrow));
   end;
-  mark(0, 0, '');
+  moon1.setmark(0, 0, '');
   RefreshLabel;
   dbedited := False;
 end;
@@ -2639,7 +2652,7 @@ begin
     dbedited := False;
     editrow  := -1;
     btnEffacer.Click;
-    mark(0, 0, '');
+    moon1.setmark(0, 0, '');
     RefreshLabel;
   end;
 end;
@@ -2885,9 +2898,10 @@ begin
     currentb    := b;
     currentid   := searchlist[searchpos];
     currentname := dbm.Results[0].ByField['NAME'].AsString;
-    if center then
-      MoveCamera(x, y);
-    mark(x, y, currentname);
+    if center then begin
+      moon1.CenterAt(deg2rad*currentl, deg2rad*currentb);
+      moon1.SetMark(deg2rad*currentl, deg2rad*currentb, capitalize(currentname));
+    end;
     GetHTMLDetail(dbm.Results[0], txt);
     SetDescText(txt);
     if dbtab.TabVisible then
@@ -3032,7 +3046,7 @@ begin
   if FollowNorth then
   begin
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360);
-    SetCameraOrientation;
+    moon1.Orientation:=CameraOrientation;
   end;
   StatusBar1.Panels[2].Text := m[51] + ': ' + date2str(curyear, currentmonth, currentday) +
     '   ' + m[50] + ': ' + timtostr(currenttime);
@@ -3214,7 +3228,7 @@ begin
   moon1.Phase:=deg2rad*cphase;
   moon1.SunIncl:=deg2rad*sunincl;
   moon1.ShowPhase:=phaseeffect;
-
+  moon1.RefreshLabel;
  { glscene1.BeginUpdate;
   dummycube1.BeginUpdate;
   if not ToolButton3.Down then
@@ -3228,7 +3242,7 @@ begin
   GLLightSource2.Shining := not phaseeffect; }
   LibrationMark(librlong, librlat);
   dummycube1.EndUpdate;
-  mark(0, 0, '');
+  //moon1.SetMark(0, 0, '');
 {  ShowSphere;
   RefreshLabel;
   glscene1.EndUpdate;}
@@ -3247,9 +3261,18 @@ begin
   statusbar1.Panels[1].Text := m[11] + stringreplace(formatfloat(f1, b), 'Nan', '   ', []);
 end;
 
+procedure  TForm1.SetZoomBar;
+begin
+locktrackbar := True;
+trackbar1.max := round(10 * log10(moon1.ZoomMax));
+locktrackbar := True;
+trackbar1.position := round(10 * log10(moon1.Zoom));
+end;
+
 procedure  TForm1.GetMsg(Sender: TObject; value: String);
 begin
 statusbar1.Panels[3].Text := value;
+SetZoomBar;
 end;
 
 procedure TForm1.MeasureDistance(x, y: integer);
@@ -3295,7 +3318,7 @@ begin
     currentname := dbm.Results[0].ByField['NAME'].AsString;
     projMoon(l, b, librl, librb, xx, yy);
     Combobox1.Text := currentname;
-    mark(xx, yy, Combobox1.Text);
+    moon1.SetMark(deg2rad*currentl, deg2rad*currentb, Combobox1.Text);
     RefreshLabel;
     GetHTMLDetail(dbm.Results[0], txt);
     SetDescText(txt);
@@ -3318,7 +3341,7 @@ begin
     end;
   end
   else
-    mark(0, 0, '');
+    moon1.SetMark(0, 0, '');
 end;
 
 procedure TForm1.IdentLB(l, b: single);
@@ -3420,11 +3443,12 @@ begin
  moon1.texture:='Clementine';
  if moon1.CanBump then begin
    moon1.BumpPath:=slash(appdir)+slash('Textures')+slash('Bumpmap');
-   moon1.Bumpmap:=true;
+   moon1.Bumpmap:=false;
  end else begin
  end;
- moon1.ShowPhase:=true;
+ moon1.ShowPhase:=false;
  moon1.VisibleSideLock:=true;
+ moon1.Labelcolor:=autolabelcolor;
 end;
 
 procedure TForm1.Init;
@@ -3471,7 +3495,7 @@ begin
     form1.Width  := screen.Width;
     form1.Height := screen.Height;
   end;
-  mark(0, 0, '');
+  moon1.SetMark(0, 0, '');
   MoveCamera(0, 0);
   setzoom(minfoc);
   ReadParam;
@@ -3502,6 +3526,8 @@ begin
     currentphase := -999;
   end;
   moon1.Mirror:=checkbox2.Checked;
+  SetZoomBar;
+  moon1.RefreshLabel;
 end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);
@@ -3540,7 +3566,7 @@ begin
     form2.checkbox14.Checked := showlibrationmark;
     form2.checkbox17.Checked := labelcenter;
     form2.checkbox18.Checked := minilabel;
-    form2.Shape1.Brush.Color := labelcolor;
+    form2.Shape1.Brush.Color := marklabelcolor;
     form2.Shape2.Brush.Color := markcolor;
     form2.Shape3.Brush.Color := autolabelcolor;
     form2.TrackBar2.Position := -LabelDensity;
@@ -3634,7 +3660,7 @@ begin
       ruklprefix    := form2.ruklprefix.Text;
       ruklsuffix    := form2.ruklsuffix.Text;
       markcolor     := form2.Shape2.Brush.Color;
-      labelcolor    := form2.Shape1.Brush.Color;
+      marklabelcolor    := form2.Shape1.Brush.Color;
       autolabelcolor := form2.Shape3.Brush.Color;
       LabelDensity  := abs(form2.TrackBar2.Position);
       LabelSize     := form2.TrackBar3.Position / 100;
@@ -3645,8 +3671,9 @@ begin
       labelcenter   := form2.checkbox17.Checked;
       minilabel     := form2.checkbox18.Checked;
       Showautolabel := showlabel and (Labeldensity < 1000);
-      HUDText1.ModulateColor.AsWinColor := labelcolor;
+      HUDText1.ModulateColor.AsWinColor := marklabelcolor;
       HUDText1.Scale.SetVector(Label3dSize * LabelSize, Label3dSize * LabelSize, 1);
+      moon1.Labelcolor:=autolabelcolor;
       InitLabel;
       InitSprite;
       Obslatitude := strtofloat(form2.Edit1.Text);
@@ -3783,6 +3810,13 @@ begin
   end;
 end;
 
+procedure TForm1.PairSplitterSide2Resize(Sender: TObject);
+begin
+ if not skippanelresize then
+    ToolsWidth:=ClientWidth-PairSplitter1.Position;
+ skippanelresize:=false;
+end;
+
 procedure TForm1.FormResize(Sender: TObject);
 var
   dx: integer;
@@ -3793,7 +3827,11 @@ begin
     exit;
   if csLoading in form1.ComponentState then
     exit;
-  form1.glscene1.BeginUpdate;
+  skippanelresize:=true;
+  PageControl1.width:=ToolsWidth;
+  PairSplitter1.Position:=ClientWidth-ToolsWidth;
+  RefreshLabel;
+{  form1.glscene1.BeginUpdate;
   HUDSprite2.Visible := False;
   PanelMoon.left   := 0;
   PanelMoon.top    := ControlBar1.Height;
@@ -3814,7 +3852,7 @@ begin
   form1.glscene1.EndUpdate;
   statusbar1.left  := 0;
   statusbar1.top   := form1.ClientHeight - form1.StatusBar1.Height;
-  statusbar1.Width := form1.ClientWidth;
+  statusbar1.Width := form1.ClientWidth; }
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
@@ -3856,16 +3894,21 @@ begin
 end;
 
 procedure TForm1.TrackBar1Change(Sender: TObject);
-var
-  p: integer;
+
 begin
   if locktrackbar then
   begin
     locktrackbar := False;
     exit;
   end;
-  p := round(power(10, trackbar1.position / 100));
-  SetZoom(p);
+ZoomTimer.Enabled:=false;
+ZoomTimer.Enabled:=true;
+end;
+
+procedure TForm1.ZoomTimerTimer(Sender: TObject);
+begin
+ZoomTimer.Enabled:=false;
+moon1.Zoom := round(power(10, trackbar1.position / 10));
 end;
 
 procedure TForm1.EphTimer1Timer(Sender: TObject);
@@ -3930,16 +3973,11 @@ procedure TForm1.ToolButton5Click(Sender: TObject);
 var
   xx, yy: double;
 begin
-  if zoom = 1 then
-    Movecamera(0, 0)
-  else if marked then
-    MoveCamera(markx, marky)
+  if moon1.zoom = 1 then
+    moon1.CenterAt(0, 0)
   else
-  begin
-    Window2World(lastx, lasty, xx, yy);
-    if (abs(xx) < 0.5) and (abs(yy) < 0.5) then
-      MoveCamera(xx, yy);
-  end;
+    moon1.CenterMark;
+  RefreshLabel;
 end;
 
 procedure TForm1.SetFullScreen;
@@ -4097,7 +4135,7 @@ end;
 
 procedure TForm1.ToolButton9Click(Sender: TObject);
 begin
-  setzoom(minfoc);
+  moon1.Zoom:=1;
 end;
 
 procedure TForm1.Edit1KeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
@@ -4155,7 +4193,7 @@ begin
   form1.glscene1.EndUpdate;
 end;
 
-procedure TForm1.Timer1Timer(Sender: TObject);
+procedure TForm1.PerfTimerTimer(Sender: TObject);
 begin
   Label15.Caption := Format(m[44] + ' %.2f FPS', [GLSceneViewer1.FramesPerSecond]);
   GLSceneViewer1.ResetPerformanceMonitor;
@@ -4165,7 +4203,7 @@ procedure TForm1.PageControl1Changing(Sender: TObject; var AllowChange: boolean)
 begin
   if pagecontrol1.ActivePage = Outils.Caption then
   begin
-    mark(0, 0, '');
+    moon1.SetMark(0, 0, '');
     GLSceneViewer1.Cursor := crRetic;
     HUDSprite2.Visible    := False;
   end;
@@ -4175,7 +4213,7 @@ procedure TForm1.PageControl1Change(Sender: TObject);
 begin
   if (pagecontrol1.ActivePage = Reglage.Caption) then
   begin
-    timer1.Enabled      := True;
+    PerfTimer.Enabled      := True;
     GLCadencer1.Enabled := True;
     Label15.Caption     := m[44] + ' 0 FPS';
     case GLsceneviewer1.Buffer.Acceleration of
@@ -4189,7 +4227,7 @@ begin
   end
   else
   begin
-    timer1.Enabled      := False;
+    PerfTimer.Enabled      := False;
     GLCadencer1.Enabled := False;
   end;
 
@@ -4310,7 +4348,7 @@ begin
   setzoom(4 * minfoc);
   movecamera(0.45, 0);
   CameraOrientation := 90;
-  SetCameraOrientation;
+  moon1.Orientation:=CameraOrientation;
 end;
 
 procedure TForm1.SpeedButton4Click(Sender: TObject);
@@ -4319,7 +4357,7 @@ begin
   setzoom(4 * minfoc);
   movecamera(-0.45, 0);
   CameraOrientation := -90;
-  SetCameraOrientation;
+  moon1.Orientation:=CameraOrientation;
 end;
 
 procedure TForm1.SpeedButton6Click(Sender: TObject);
@@ -4330,7 +4368,7 @@ begin
     0: CameraOrientation := 0;
     1: CameraOrientation := 180;
   end;
-  SetCameraOrientation;
+  moon1.Orientation:=CameraOrientation;
 end;
 
 procedure TForm1.ComboBox2Change(Sender: TObject);
@@ -4503,7 +4541,7 @@ begin
   else
     CameraOrientation := CameraOrientation - 15;
   CameraOrientation := rmod(CameraOrientation + 360, 360);
-  SetCameraOrientation;
+  moon1.Orientation:=CameraOrientation;
   Mark(shapePositionX, shapePositionY, hudtext1.Text);
   RefreshLabel;
 end;
@@ -4518,7 +4556,7 @@ begin
   else
     CameraOrientation := CameraOrientation + 15;
   CameraOrientation := rmod(CameraOrientation, 360);
-  SetCameraOrientation;
+  moon1.Orientation:=CameraOrientation;
   Mark(shapePositionX, shapePositionY, hudtext1.Text);
   RefreshLabel;
 end;
@@ -4536,7 +4574,7 @@ begin
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360)
   else
     CameraOrientation := Poleorientation;
-  SetCameraOrientation;
+  moon1.Orientation:=CameraOrientation;
   Mark(shapePositionX, shapePositionY, hudtext1.Text);
   RefreshLabel;
 end;
@@ -4588,7 +4626,7 @@ begin
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360)
   else
     CameraOrientation := Poleorientation;
-  SetCameraOrientation;
+  moon1.Orientation:=CameraOrientation;
   RefreshLabel;
 end;
 
@@ -4922,6 +4960,7 @@ begin
     LibrationButton.Enabled := False;
     lrot := 0;
     moon1.VisibleSideLock:=false;
+    moon1.Zoom:=1;
 {    setzoom(minfoc);
     movecamera(0, 0);
     GLSceneViewer1MouseMove(Sender, [ssLeft], lastx, lasty);   }
@@ -4938,13 +4977,14 @@ begin
     LibrationButton.Enabled := True;
     GroupBox4.Visible := True;
     lrot := 0;
+    moon1.Zoom:=1;
 {    setzoom(minfoc);
-    movecamera(0, 0);
+    movecamera(0, 0); }
     case RadioGroup2.ItemIndex of
       0: CameraOrientation := 0;
       1: CameraOrientation := 180;
     end;
-    SetCameraOrientation;  }
+    moon1.Orientation:=CameraOrientation;
     moon1.VisibleSideLock:=true;
     moon1.Mirror:=checkbox2.Checked;
     RefreshMoonImage;
@@ -5269,6 +5309,7 @@ begin
   if form2.colordialog1.Execute then
   begin
     autolabelcolor := form2.colordialog1.color;
+    moon1.Labelcolor:=autolabelcolor;
     InitLabel;
     RefreshLabel;
   end;
@@ -5819,7 +5860,7 @@ var
   b:  Tbitmap;
   fn: string;
 
-  procedure LoadTexture(n, r: integer; img: string);
+{  procedure LoadTexture(n, r: integer; img: string);
   begin
     GLmaterialLibrary1.Materials[n].Material.Texture.Disabled := False;
     GLMaterialLibrary1.Materials[n].TextureScale.X := 0.999;
@@ -5834,10 +5875,14 @@ var
       b.Canvas.StretchDraw(rect(0, 0, b.Width, b.Height), j);
       GLmaterialLibrary1.Materials[n].Material.Texture.Image.Assign(b);
     end;
-  end;
+  end; }
 
 begin
-  j := TJpegImage.Create;
+  PanelMoon.Visible := True;
+  InitLabel;
+  InitSprite;
+
+{  j := TJpegImage.Create;
   b := Tbitmap.Create;
   lockrot := True;
   if PoleOrientation = 0 then
@@ -5846,9 +5891,6 @@ begin
     RadioGroup2.ItemIndex := 1;
   lockrot := False;
 //  panel2.Visible := True;
-  PanelMoon.Visible := True;
-  InitLabel;
-  InitSprite;
   GLSceneViewer1.Cursor := crRetic;
   try
     OpenHires(False);
@@ -5865,9 +5907,9 @@ begin
   minfoc := 95;
   maxfoc := round(maxfocbase * GLmaterialLibrary1.Materials[
     0].Material.Texture.Image.Height / 1024);
-  trackbar1.Min := round(100 * log10(minfoc));
-  trackbar1.Max := round(100 * log10(maxfoc));
-  trackbar1.position := round(100 * log10(minfoc));
+//  trackbar1.Min := round(100 * log10(minfoc));
+//  trackbar1.Max := round(100 * log10(maxfoc));
+//  trackbar1.position := round(100 * log10(minfoc));
   checkbox1.Checked := FollowNorth;
   SetCameraOrientation;
 
@@ -5906,7 +5948,7 @@ begin
   SetMinFilter(MipMaps);
   LoadOverlay(overlayname, overlaylum);
   j.Free;
-  b.Free;
+  b.Free;  }
 end;
 
 procedure TForm1.OrientLightSource(phase, sunincl: double);
@@ -6083,8 +6125,8 @@ procedure TForm1.MoonClickEvent(Sender: TObject; Button: TMouseButton;
 begin
 if ssLeft in Shift then begin
   if OnMoon then begin
-     identLB(RadToDeg(Lon),RadToDeg(Lat));
-     moon1.SetMark(x,y,currentname);
+     identLB(Rad2Deg*Lon,Rad2Deg*Lat);
+     moon1.SetMark(deg2rad*currentl,deg2rad*currentb,capitalize(currentname));
   end else begin
      moon1.SetMark(0,0,'');
   end;
