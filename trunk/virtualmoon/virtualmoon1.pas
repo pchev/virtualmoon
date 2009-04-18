@@ -35,7 +35,8 @@ uses
   Messages, SysUtils, Classes, Dialogs,
   ComCtrls, Menus, Buttons, dynlibs, BigIma,
   EnhEdits, IniFiles, passql, passqlite,
-  Math, CraterList, LResources, IpHtml, PairSplitter, UniqueInstance;
+  Math, CraterList, LResources, IpHtml, PairSplitter, UniqueInstance, GLScene,
+  GLViewer;
 
 type
 
@@ -49,6 +50,7 @@ type
   TForm1 = class(TForm)
     Desc1:   TIpHtmlPanel;
     FilePopup: TPopupMenu;
+    GLSceneViewer1: TGLSceneViewer;
     HelpPopup: TPopupMenu;
     PairSplitter1: TPairSplitter;
     PairSplitterSide1: TPairSplitterSide;
