@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 305
+  Left = 412
   Height = 545
-  Top = 158
+  Top = 123
   Width = 762
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
@@ -359,8 +359,8 @@ object Form1: TForm1
               Width = 336
               Align = alBottom
               Caption = 'Profile'
-              ClientHeight = 19
-              ClientWidth = 334
+              ClientHeight = 30
+              ClientWidth = 332
               TabOrder = 3
               object Label7: TLabel
                 Left = 2
@@ -410,14 +410,14 @@ object Form1: TForm1
         end
         object Notes: TPage
           Caption = 'Notes'
-          ClientWidth = 339
+          ClientWidth = 338
           ClientHeight = 458
           ImageIndex = 6
           object Memo1: TMemo
             Left = 0
             Height = 400
             Top = 58
-            Width = 339
+            Width = 338
             Align = alClient
             Lines.Strings = (
               ''
@@ -431,10 +431,10 @@ object Form1: TForm1
             Left = 0
             Height = 58
             Top = 0
-            Width = 339
+            Width = 338
             Align = alTop
             ClientHeight = 58
-            ClientWidth = 339
+            ClientWidth = 338
             TabOrder = 1
             object notes_name: TLabel
               Left = 8
@@ -457,14 +457,14 @@ object Form1: TForm1
         end
         object dbtab: TPage
           Caption = 'Database'
-          ClientWidth = 339
+          ClientWidth = 338
           ClientHeight = 458
           ImageIndex = 5
           object StringGrid2: TStringGrid
             Left = 0
             Height = 425
             Top = 0
-            Width = 339
+            Width = 338
             Align = alClient
             ColCount = 2
             DefaultColWidth = 74
@@ -483,10 +483,10 @@ object Form1: TForm1
             Left = 0
             Height = 33
             Top = 425
-            Width = 339
+            Width = 338
             Align = alBottom
             ClientHeight = 33
-            ClientWidth = 339
+            ClientWidth = 338
             TabOrder = 1
             object Button9: TButton
               Left = 86
@@ -528,17 +528,17 @@ object Form1: TForm1
         end
         object Ephemerides: TPage
           Caption = 'Ephémérides'
-          ClientWidth = 339
+          ClientWidth = 338
           ClientHeight = 458
           ImageIndex = 1
           object Panel4: TPanel
             Left = 0
             Height = 121
             Top = 0
-            Width = 339
+            Width = 338
             Align = alTop
             ClientHeight = 121
-            ClientWidth = 339
+            ClientWidth = 338
             TabOrder = 0
             TabStop = True
             object Label6: TLabel
@@ -1067,7 +1067,7 @@ object Form1: TForm1
             Left = 0
             Height = 337
             Top = 121
-            Width = 339
+            Width = 338
             Align = alClient
             BorderStyle = bsNone
             Color = clBtnFace
@@ -1090,17 +1090,17 @@ object Form1: TForm1
         end
         object Terminateur: TPage
           Caption = 'Terminateur'
-          ClientWidth = 339
+          ClientWidth = 338
           ClientHeight = 458
           ImageIndex = 2
           object Panel5: TPanel
             Left = 0
             Height = 121
             Top = 0
-            Width = 339
+            Width = 338
             Align = alTop
             ClientHeight = 121
-            ClientWidth = 339
+            ClientWidth = 338
             TabOrder = 0
             object Label19: TLabel
               Left = 8
@@ -1199,7 +1199,7 @@ object Form1: TForm1
             Left = 0
             Height = 337
             Top = 121
-            Width = 339
+            Width = 338
             Align = alClient
             ItemHeight = 0
             OnClick = ListBox1Click
@@ -1210,7 +1210,7 @@ object Form1: TForm1
         end
         object Outils: TPage
           Caption = 'Outils'
-          ClientWidth = 339
+          ClientWidth = 338
           ClientHeight = 458
           ImageIndex = 4
           object Bevel4: TBevel
@@ -1604,7 +1604,7 @@ object Form1: TForm1
         end
         object Reglage: TPage
           Caption = 'Réglage'
-          ClientWidth = 339
+          ClientWidth = 338
           ClientHeight = 458
           ImageIndex = 3
           object Bevel1: TBevel
@@ -1769,6 +1769,14 @@ object Form1: TForm1
         end
       end
     end
+  end
+  object GLSceneViewer1: TGLSceneViewer
+    Left = 34
+    Height = 100
+    Top = 281
+    Width = 100
+    FieldOfView = 0
+    Visible = False
   end
   object FilePopup: TPopupMenu
     left = 16
