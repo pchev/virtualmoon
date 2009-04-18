@@ -74,11 +74,12 @@ uses u_util;
 
 Procedure TbigImaform.LoadImage(f : string);
 begin
- image1.autosize:=true;
+ image1.autosize:=false;
  image1.stretch:=false;
+ image1.Proportional:=true;
  image1.picture.LoadFromFile(f);
- imagewidth:=image1.Width;
- imageheight:=image1.Height;
+ imagewidth:=image1.picture.Width;
+ imageheight:=image1.picture.Height;
  zoomN(zoom);
 end;
 

@@ -1,16 +1,15 @@
 object f_moon: Tf_moon
-  Left = 192
-  Height = 558
-  Top = 12
-  Width = 791
+  Left = 508
+  Height = 520
+  Top = 37
+  Width = 748
   Caption = 'f_moon'
-  ClientHeight = 558
-  ClientWidth = 791
+  ClientHeight = 520
+  ClientWidth = 748
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  Position = poDefaultSizeOnly
   LCLVersion = '0.9.27'
   object Moon: TPanel
     Left = 200
@@ -30,10 +29,12 @@ object f_moon: Tf_moon
       Buffer.AmbientColor.Color = {
         0000000000000000000000000000803F
       }
+      Buffer.ContextOptions = [roDoubleBuffer, roStencilBuffer, roRenderToWindow]
       FieldOfView = 4.7528223991394
       Align = alClient
       OnMouseDown = GLSceneViewer1MouseDown
       OnMouseMove = GLSceneViewer1MouseMove
+      OnMouseUp = GLSceneViewer1MouseUp
       OnMouseWheelDown = GLSceneViewer1MouseWheelDown
       OnMouseWheelUp = GLSceneViewer1MouseWheelUp
     end
@@ -44,19 +45,20 @@ object f_moon: Tf_moon
     top = 16
     object GLLightSource1: TGLLightSource
       TagFloat = 0
+      Ambient.Color = {
+        0000803F0000803F0000803F0000803F
+      }
       ConstAttenuation = 0.5
       LinearAttenuation = 0
       QuadraticAttenuation = 0
       Position.Coordinates = {
         00000000000000000000C8C20000803F
       }
+      LightStyle = lsParallel
       Specular.Color = {
         0000803F0000803F0000803F0000803F
       }
       SpotCutOff = 10
-      SpotDirection.Coordinates = {
-        00000000000000000000803F00000000
-      }
       SpotExponent = 0
     end
     object GLAnnulus1: TGLAnnulus
@@ -67,25 +69,29 @@ object f_moon: Tf_moon
       Material.FrontProperties.Diffuse.Color = {
         0000000000000000000000000000803F
       }
+      Material.FrontProperties.Emission.Color = {
+        CDCCCC3DCDCCCC3DCDCCCC3D0000803F
+      }
       Direction.Coordinates = {
-        000080BF000000000000000000000000
+        0000803F000000000000000000000000
       }
       PitchAngle = 0
       Position.Coordinates = {
-        00000000000000000000A0400000803F
+        0000000000000000000080BF0000803F
       }
       RollAngle = 0
       TurnAngle = 0
       Up.Coordinates = {
-        00000000000000000000803F00000000
+        00000080000000000000803F00000000
       }
       Visible = False
-      BottomRadius = 0.20000000298023
-      Height = 0.30000001192092
+      BottomRadius = 5
+      Height = 0.10000000149011
       Slices = 64
-      BottomInnerRadius = 0.10000000149011
-      TopInnerRadius = 0.10000000149011
-      TopRadius = 0.20000000298023
+      Stacks = 1
+      BottomInnerRadius = 0.60000002384185
+      TopInnerRadius = 2
+      TopRadius = 5
       Parts = [anBottom]
     end
     object GLArrowLine1: TGLArrowLine
@@ -125,9 +131,10 @@ object f_moon: Tf_moon
       PitchAngle = 0
       RollAngle = 0
       TurnAngle = 0
+      Normals = nsFlat
       Radius = 0.5
-      Slices = 360
-      Stacks = 360
+      Slices = 36
+      Stacks = 18
     end
     object GLMirror1: TGLMirror
       TagFloat = 0
@@ -289,29 +296,22 @@ object f_moon: Tf_moon
     left = 48
     top = 201
   end
-  object Timer1: TTimer
+  object RefreshTimer: TTimer
     Enabled = False
     Interval = 200
-    OnTimer = Timer1Timer
+    OnTimer = RefreshTimerTimer
     left = 48
     top = 267
   end
-  object Timer2: TTimer
-    Enabled = False
-    Interval = 2000
-    OnTimer = Timer2Timer
-    left = 48
-    top = 333
-  end
-  object GLCadencer1: TGLCadencer
+  object RotationCadencer: TGLCadencer
     Scene = GLScene1
     Enabled = False
     MaxDeltaTime = 0
     MinDeltaTime = 0
     FixedDeltaTime = 0
-    OnProgress = GLCadencer1Progress
-    left = 112
-    top = 400
+    OnProgress = RotationCadencerProgress
+    left = 128
+    top = 88
   end
   object GLBumpShader1: TGLBumpShader
     BumpMethod = bmDot3TexCombiner
@@ -320,8 +320,8 @@ object f_moon: Tf_moon
     SpecularMode = smOff
     DesignTimeEnabled = False
     ParallaxOffset = 0.03999999910593
-    left = 48
-    top = 445
+    left = 40
+    top = 392
   end
   object BumpMaterialLibrary: TGLMaterialLibrary
     Materials = <    
@@ -337,13 +337,24 @@ object f_moon: Tf_moon
         Material.Texture.Disabled = False
         Tag = 0
       end>
-    left = 50
-    top = 499
+    left = 40
+    top = 456
   end
   object GLBitmapFont1: TGLWindowsBitmapFont
     Font.Color = clWhite
+    Font.Height = -11
     Font.Name = 'Default'
     left = 128
     top = 16
+  end
+  object PerfCadencer: TGLCadencer
+    Scene = GLScene1
+    Enabled = False
+    MaxDeltaTime = 0
+    MinDeltaTime = 0
+    FixedDeltaTime = 0
+    OnProgress = PerfCadencerProgress
+    left = 128
+    top = 144
   end
 end
