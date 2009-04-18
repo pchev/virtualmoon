@@ -1743,7 +1743,7 @@ for i:=1 to length(txt) do begin
   if up then c:=UpperCase(c)
         else c:=LowerCase(c);
   result:=result+c;
-  up:=(c=' ');
+  up:=(c=' ')or(c='-');
 end;
 end;
 

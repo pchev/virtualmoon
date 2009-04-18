@@ -180,14 +180,14 @@ Var  Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : st
      ObsTemperature,ObsPressure,ObsRefractionCor,ObsHorizonDepression : Double;
      TimeZone,DT_UT,ObsRoCosPhi,ObsRoSinPhi,CurrentJD : double;
      CurYear,CurrentMonth,CurrentDay : integer;
-     CurrentTime,TimeBias,CurrentST,DT_UT_val,CurrentSunH,CurrentMoonH,CurrentMoonIllum : Double;
+     CurrentTime,TimeBias,CurrentST,DT_UT_val,CurrentSunH,CurrentMoonH,CurrentMoonIllum,diam : Double;
      PlanetParalaxe: boolean;
      ForceConfig, Configfile, CdCconfig, Lang, language : string;
      compile_time,compile_version:string;
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;
      isWin98: Boolean;
-     GeologicalMap, MipMaps, librationeffect, AsMultiTexture : Boolean;
+     GeologicalMap, librationeffect, AsMultiTexture : Boolean;
      hiresfile: string;
      Firstsearch: boolean;
      DisplayIs32bpp: Boolean;

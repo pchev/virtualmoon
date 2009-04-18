@@ -39,6 +39,7 @@ type
 
   TForm2 = class(TForm)
     Button1: TButton;
+    BumpCheckBox: TCheckBox;
     ColorDialog1: TColorDialog;
     PageControl1: TNotebook;
     TabSheet1: TPage;
@@ -112,7 +113,6 @@ type
     Label21: TLabel;
     Label22: TLabel;
     TabSheet4: TPage;
-    RadioGroup1: TRadioGroup;
     TabSheet5: TPage;
     StringGrid2: TStringGrid;
     Edit6: TEdit;
@@ -129,8 +129,6 @@ type
     Label28: TLabel;
     Edit10: TEdit;
     RadioGroup2: TRadioGroup;
-    CheckBox10: TCheckBox;
-    RadioGroup3: TRadioGroup;
     Label29: TLabel;
     TabSheet6: TPage;
     TabSheet7: TPage;
@@ -194,7 +192,7 @@ type
 var
   Form2: TForm2;
   newlang : string;
-  savegeol,savelibration,savemipmaps : boolean;
+  savegeol,savelibration : boolean;
   lockoverlay: boolean=false;
   ov : Tbitmap;
   graytexture:integer;
@@ -204,6 +202,7 @@ implementation
 uses u_util,
      virtualmoon1;
 
+ { TODO : Label font selection instead of label size }
 
 Function GetLangCode(buf:string):string;
 var p : integer;
@@ -232,7 +231,6 @@ if not fileexists('version.developpement') then begin
   ruklprefix.Visible:=false;   // Rükl chart
   ruklsuffix.Visible:=false;   // Rükl chart
 end;
-OverlayPanel.visible:=AsMultiTexture;
 AVLver:=copy(AVLversion,1,3);
 i:=findfirst(slash(appdir)+slash('language')+'lang_*.ini',0,fs);
 while i=0 do begin
@@ -262,7 +260,6 @@ end;
 findclose(fs);
 savegeol:=GeologicalMap;
 savelibration:=librationeffect;
-savemipmaps:=MipMaps;
 end;
 
 procedure TForm2.FormDestroy(Sender: TObject);
@@ -293,14 +290,10 @@ if CheckBox4.checked then begin
   CheckBox1.enabled:=true;
   CheckBox2.enabled:=true;
   CheckBox2.checked:=savelibration;
-  CheckBox10.enabled:=true;
-  CheckBox10.checked:=savemipmaps;
 end else begin
   CheckBox1.enabled:=true;
   CheckBox2.checked:=false;
   CheckBox2.enabled:=false;
-  CheckBox10.checked:=false;
-  CheckBox10.enabled:=false;
 end;
 end;
 
@@ -321,6 +314,7 @@ end;
 procedure TForm2.FormShow(Sender: TObject);
 var myRect: TGridRect;
 begin
+  OverlayPanel.visible:=AsMultiTexture;
   myRect.Left := 0;
   myRect.Top := 3;
   myRect.Right := 0;

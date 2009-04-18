@@ -31,17 +31,18 @@ uses
 {$endif}
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
-  GLScene, GLObjects, GLViewer, GLTexture, Info,
-  GLcontext, GLCadencer, GLBitmapFont, GLHUDObjects, GLGraphics,
-  GLColor, GLGraph, GLMirror, GLCrossPlatForm,
-  GLGeomObjects,
   mlb2, PrintersDlgs, Printers, Controls, DateUtils,
   Messages, SysUtils, Classes, Dialogs,
   ComCtrls, Menus, Buttons, dynlibs, BigIma,
   EnhEdits, IniFiles, passql, passqlite,
-  Math, CraterList, LResources, IpHtml, PairSplitter;
+  Math, CraterList, LResources, IpHtml, PairSplitter, UniqueInstance;
 
 type
+
+  TCdCUniqueInstance = class(TUniqueInstance)
+  public
+    procedure Loaded; override;
+  end;
 
   { TForm1 }
 
@@ -53,9 +54,7 @@ type
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
     PanelMoon: TPanel;
-    PerfTimer: TTimer;
     Quitter1: TMenuItem;
-    Panel2:  TPanel;
     PageControl1: TNoteBook;
     Position: TPage;
     Panel1:  TPanel;
@@ -65,8 +64,6 @@ type
     Panel4:  TPanel;
     Label6:  TLabel;
     Label9:  TLabel;
-    ScrollBar1: TScrollBar;
-    ScrollBar2: TScrollBar;
     jour:    TLongEdit;
     mois:    TLongEdit;
     annee:   TLongEdit;
@@ -150,7 +147,6 @@ type
     SelectAll1: TMenuItem;
     LgendeGologique1: TMenuItem;
     StatusBar1: TStatusBar;
-    LabelTimer: TTimer;
     N1:      TMenuItem;
     N2:      TMenuItem;
     N3:      TMenuItem;
@@ -199,44 +195,14 @@ type
     notes_name: TLabel;
     Button15: TButton;
     Notes1:  TMenuItem;
-    GLScene1: TGLScene;
-    GLLightSource1: TGLLightSource;
-    Sphere4: TGLSphere;
-    Sphere3: TGLSphere;
-    Sphere2: TGLSphere;
-    Sphere1: TGLSphere;
-    Sphere5: TGLSphere;
-    Sphere6: TGLSphere;
-    HiresSphere: TGLSphere;
-    GLMaterialLibrary1: TGLMaterialLibrary;
-    GLCamera1: TGLCamera;
-    GLSceneViewer1: TGLSceneViewer;
-    GLCadencer1: TGLCadencer;
-    HUDText1: TGLHUDText;
-    HUDSprite1: TGLHUDSprite;
-    DummyCube2: TGLDummyCube;
-    HUDSprite2: TGLHUDSprite;
-    GLMirror1: TGLMirror;
-    DummyCube3: TGLDummyCube;
-    DummyCube4: TGLDummyCube;
-    ArrowLine1: TGLArrowLine;
-    BitmapFont1: TGLBitmapFont;
-    Sphere7: TGLSphere;
-    Sphere8: TGLSphere;
-    Annulus1: TGLAnnulus;
     Panel8:  TPanel;
     Label13: TLabel;
     Label15: TLabel;
     Label16: TLabel;
     Label17: TLabel;
-    Label18: TLabel;
     TrackBar5: TTrackBar;
     Button14: TButton;
     GroupBox2: TGroupBox;
-    CheckBox3: TCheckBox;
-    CheckBox4: TCheckBox;
-    DummyCube1: TGLDummyCube;
-    RotationCadencer: TGLCadencer;
     Rotation1: TMenuItem;
     N5seconde1: TMenuItem;
     Stop1:   TMenuItem;
@@ -254,7 +220,6 @@ type
     SpeedButton4: TSpeedButton;
     SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
-    HiresSphere500: TGLSphere;
     OverlayCaption1: TMenuItem;
     OverlayCaption2: TMenuItem;
     GroupBox4: TGroupBox;
@@ -279,7 +244,6 @@ type
     nextM:   TImage;
     prevM:   TImage;
     dbm:     TLiteDB;
-    GLLightSource2: TGLLightSource;
     Label28: TLabel;
     Encyclopedia1: TMenuItem;
     NewWindowButton: TToolButton;
@@ -294,12 +258,12 @@ type
     Button19: TButton;
     Button20: TButton;
     ToolButton11: TToolButton;
-    DummyCube5: TGLDummyCube;
     RemoveMark1: TMenuItem;
     ButtonDatabase: TToolButton;
     CheckBox8: TCheckBox;
     ImageList1: TImageList;
     ToolButton12: TToolButton;
+    procedure CheckBox8Change(Sender: TObject);
     procedure Desc1HotClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -309,11 +273,8 @@ type
     procedure PairSplitterSide2Resize(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
-    procedure FormMouseWheel(Sender: TObject; Shift: TShiftState;
-      WheelDelta: integer; MousePos: TPoint; var Handled: boolean);
     procedure FormResize(Sender: TObject);
     procedure Button5Click(Sender: TObject);
-    procedure ScrollBar1Change(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure ToolButton5Click(Sender: TObject);
@@ -327,7 +288,6 @@ type
     procedure TrackBar3Change(Sender: TObject);
     procedure TrackBar4Change(Sender: TObject);
     procedure TrackBar5Change(Sender: TObject);
-    procedure PerfTimerTimer(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
     procedure ComboBox1Select(Sender: TObject);
     procedure Button3MouseDown(Sender: TObject; Button: TMouseButton;
@@ -353,15 +313,12 @@ type
       Shift: TShiftState; X, Y: integer);
     procedure Button11Click(Sender: TObject);
     procedure Distance1Click(Sender: TObject);
-    procedure PageControl1Changing(Sender: TObject; var AllowChange: boolean);
     procedure CheckBox1Click(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
     procedure CheckBox2Click(Sender: TObject);
     procedure CartesduCiel1Click(Sender: TObject);
     procedure ToolButton10Click(Sender: TObject);
     procedure BMP1Click(Sender: TObject);
-    procedure SnapShot(var bmp: TBitmap; white: boolean);
-    procedure RenderToBitmap(var bmp: TBitmap; size: integer; white: boolean);
     procedure JPG1Click(Sender: TObject);
     procedure Selectiondimprimante1Click(Sender: TObject);
     procedure Imprimer1Click(Sender: TObject);
@@ -369,7 +326,6 @@ type
     procedure SelectAll1Click(Sender: TObject);
     procedure LgendeGologique1Click(Sender: TObject);
     procedure ToolButton7Click(Sender: TObject);
-    procedure LabelTimerTimer(Sender: TObject);
     procedure Glossaire1Click(Sender: TObject);
     procedure x81Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
@@ -386,19 +342,7 @@ type
     procedure Memo1Change(Sender: TObject);
     procedure Notes1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
-    procedure GLSceneViewer1MouseMove(Sender: TObject; Shift: TShiftState;
-      X, Y: integer);
-    procedure GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: integer);
-    procedure GLCadencer1Progress(Sender: TObject;
-      const deltaTime, newTime: double);
-    procedure GLSceneViewer1MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: integer);
-    procedure CheckBox3Click(Sender: TObject);
-    procedure CheckBox4Click(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
-    procedure RotationCadencerProgress(Sender: TObject;
-      const deltaTime, newTime: double);
     procedure Stop1Click(Sender: TObject);
     procedure N5seconde1Click(Sender: TObject);
     procedure N10seconde1Click(Sender: TObject);
@@ -443,11 +387,16 @@ type
     procedure ZoomTimerTimer(Sender: TObject);
   private
     { Déclarations privées }
+    UniqueInstance1: TCdCUniqueInstance;
     moon1 : TF_moon;
     CursorImage1: TCursorImage;
     tz: TCdCTimeZone;
     ima: TBigImaForm;
     ToolsWidth: integer;
+    FullScreen: boolean;
+    savetop,saveleft,savewidth,saveheight:integer;
+    procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
+    procedure InstanceRunning(Sender : TObject);
     procedure SetEyepieceMenu;
     procedure SetLang1;
     procedure SetLang;
@@ -458,7 +407,6 @@ type
     procedure AddImages(dir, nom, cpy: string);
     procedure Moon2RaDec(x, y: double; var r, d: double);
     procedure RaDec2Moon(r, d: double; var x, y: double);
-    procedure RefreshLabel;
     procedure ReadParam;
     procedure SetObs(param: string);
     procedure Readdefault;
@@ -471,81 +419,60 @@ type
     function ImgExists(nom: string): boolean;
     procedure InitDate;
     procedure SetJDDate;
-    procedure GetMsg(Sender: TObject; value: String);
-    procedure ShowCoordinates(x, y: integer);
-    procedure MeasureDistance(x, y: integer);
+    procedure GetMsg(Sender: TObject; msgclass:Tmsgclass; value: String);
     procedure IdentLB(l, b: single);
-    procedure IdentXY(x, y: integer);
     procedure InitLopamIdx;
     procedure ListUserDB;
     procedure ShowImg(desc, nom: string; forceinternal: boolean);
     procedure RefreshPhase;
     procedure SetDate(param: string);
     procedure SetDescText(const Value: string);
-//    procedure SetMirror(onoff: boolean);
-    procedure ShowSphere;
-    procedure SetCompression(onoff: boolean);
-    function ProjMoon(l, b, lc, bc: double; var X, Y: double): boolean;
-    function InvProjMoon(x, y, lc, bc: double; var l, b: double): boolean;
-    procedure InitLabel;
-    procedure MoreSprite;
-    procedure InitSprite;
-    procedure ClearLabel;
-    procedure Mark(x, y: double; txt: string);
-    procedure LibrationMark(librl, librb: double);
-    procedure SetScrollBar(xx, yy: extended);
-    procedure MoveCamera(x, y: double);
-    procedure SetMinFilter(onoff: boolean);
-    procedure SetZoom(yy: double);
     procedure SetZoomBar;
-    procedure Window2World(x, y: integer; var xx, yy: double);
-    procedure World2Window(xx, yy: double; var x, y: integer);
-    procedure SetCameraOrientation;
-    procedure OrientLightSource(phase, sunincl: double);
-    procedure resetorientation;
     procedure GetSkychartInfo;
     procedure MoonClickEvent(Sender: TObject; Button: TMouseButton;
                      Shift: TShiftState; X, Y: Integer;
-                     OnMoon: boolean; Lon, Lat: Single);   public
+                     OnMoon: boolean; Lon, Lat: Single);
+    procedure MoonMoveEvent(Sender: TObject; X, Y: Integer;
+                     OnMoon: boolean; Lon, Lat: Single);
+    procedure MoonMeasureEvent(Sender: TObject; m1,m2,m3,m4: string);
+    public
     { Déclarations publiques }
     autolabelcolor: Tcolor;
     lastx, lasty, lastyzoom, posmin, posmax, ax, ay, MaxSprite: integer;
-    ReduceTexture, ReduceTextureFar, LastIma, maximgdir, maxima, startx,
+    LastIma, maximgdir, maxima, startx,
     starty, saveimagesize, lastscrollx, lastscrolly: integer;
     LeftMargin, PrintTextWidth, clickX, clickY: integer;
-    PrintEph, PrintDesc, externalimage, PrintChart, lopamdirect, doublebuf,
-    stencilbuf, hiresok, hires500ok: boolean;
+    PrintEph, PrintDesc, externalimage, PrintChart, lopamdirect,
+    hiresok, hires500ok: boolean;
     PicZoom: array of double;
     PicTop, PicLeft: array of integer;
-    librl, librb, lrot, librlong, librlat, wheelstep, EphStep, fov, searchl,
+    librl, librb, wheelstep, EphStep, fov, searchl,
     searchb, markx, marky, flipx, rotstep, lunaison: double;
-    ra, Dec, rad, ded, dist, dkm, diam, phase, illum, pa, sunincl, currentphase,
+    ra, Dec, rad, ded, dist, dkm, phase, illum, pa, sunincl, currentphase,
     tphase, LabelSize, bx, by, bxpos, dummy: double;
     editrow, notesrow, hi_w, hi_wd, hi_dl, hi_mult, rotdirection, searchpos: integer;
     dbedited: boolean;
-    SkipIdent, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
+    SkipIdent, wantbump, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
     minilabel: boolean;
     lockmove, lockrepeat, lockrot, DDEreceiveok, showautolabel,
     showlibrationmark, marked, saveimagewhite, skippanelresize, skipresize: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
     lopamdirectsuffix, lopamlocalsuffix: string;
-    externalimagepath, helpprefix, AntiAlias, ruklprefix, ruklsuffix,
+    externalimagepath, helpprefix, ruklprefix, ruklsuffix,
     exitpassword, password, scopeinterface, markname, currentname, currentid: string;
     appname, pofile: string;
     multi_instance, CloseVMAbrowser, ClosePhotlun, CloseCdC: boolean;
     m:      array[1..nummessage] of string;
     shapepositionX, shapepositionY, CameraOrientation,
     PoleOrientation, startl, startb, startxx, startyy: double;
-    curfoc, curx, cury: double;
-    maxfoc, LabelDensity, overlaylum, phaseoffset: integer;
-    minfoc: integer;
+    curx, cury: double;
+    LabelDensity, overlaylum, phaseoffset: integer;
     perfdeltay: double;
     ddeparam, currenttexture, imgsuffix, overlayname, currentselection: string;
     CielHnd: Thandle;
     lockchart: boolean;
     StartedByDS: boolean;
-    MeasuringDistance: boolean;
     distancestart: boolean;
     param:  TStringList;
     imgdir: array of array[0..2] of string;
@@ -574,7 +501,7 @@ type
     procedure InitGraphic(Sender: TObject);
     procedure LoadOverlay(fn: string; lum: integer);
     procedure GetLabel(Sender: TObject);
-    procedure SetLabel;
+    procedure GetSprite(Sender: TObject);
     function SearchAtPos(l, b: double): boolean;
     procedure ListObject(delta: double);
     procedure InitTelescope;
@@ -598,6 +525,11 @@ implementation
 
 uses telescope, config, splashunit,
   glossary, fmsg, dbutil;
+
+procedure  TCdCUniqueInstance.Loaded;
+begin
+  inherited;
+end;
 
 procedure OpenHires(forcerebuild: boolean);
 begin
@@ -769,8 +701,8 @@ begin
     Eyepiece1.Caption := ReadStr(section, 't_109', Eyepiece1.Caption);
     e01.Caption      := ReadStr(section, 't_117', e01.Caption);
     groupbox2.Caption := ReadStr(section, 't_125', groupbox2.Caption);
-    CheckBox3.Caption := ReadStr(section, 't_126', CheckBox3.Caption);
-    CheckBox4.Caption := ReadStr(section, 't_127', CheckBox4.Caption);
+//    CheckBox3.Caption := ReadStr(section, 't_126', CheckBox3.Caption);
+//    CheckBox4.Caption := ReadStr(section, 't_127', CheckBox4.Caption);
     Database1.Caption := ReadStr(section, 't_129', Database1.Caption);
     Button14.Caption := ReadStr(section, 't_145', Button14.Caption);
     label1.Caption   := ReadStr(section, 't_153', label1.Caption);
@@ -835,14 +767,6 @@ begin
       CheckBox4.Caption := (ReadStr(section, 't_27', deftxt));
       Label5.Caption := (ReadStr(section, 't_28', deftxt));
       Label17.Caption := (ReadStr(section, 't_29', deftxt));
-      RadioGroup1.Caption := (ReadStr(section, 't_38', deftxt));
-      RadioGroup1.Items[0] := (ReadStr(section, 't_39', deftxt));
-      RadioGroup1.Items[1] := (ReadStr(section, 't_40', deftxt));
-      RadioGroup1.Items[2] := (ReadStr(section, 't_41', deftxt));
-      RadioGroup3.Caption := ReadStr(section, 't_143', deftxt);
-      RadioGroup3.Items[0] := RadioGroup1.Items[0];
-      RadioGroup3.Items[1] := RadioGroup1.Items[1];
-      RadioGroup3.Items[2] := RadioGroup1.Items[2];
       Label7.Caption := (ReadStr(section, 't_52', deftxt));
       CheckBox5.Caption := (ReadStr(section, 't_53', deftxt));
       CheckBox6.Caption := (ReadStr(section, 't_54', deftxt));
@@ -856,7 +780,6 @@ begin
       Label10.Caption := (ReadStr(section, 't_76', deftxt));
       Combobox4.Items[0] := (ReadStr(section, 't_77', deftxt));
       Combobox4.Text := Combobox4.Items[0];
-      CheckBox10.Caption := ReadStr(section, 't_87', deftxt);
       CheckBox12.Caption := ReadStr(section, 't_89', deftxt);
       CheckBox7.Caption := ReadStr(section, 't_80', deftxt);
       Impression.Caption := ReadStr(section, 't_90', deftxt);
@@ -895,10 +818,6 @@ begin
       label28.Caption := ReadStr(section, 't_124', label28.Caption);
       GroupBox1.Caption := ReadStr(section, 't_129', GroupBox1.Caption);
       TabSheet7.Caption := GroupBox1.Caption;
-      RadioGroup3.Caption := ReadStr(section, 't_143', deftxt);
-      RadioGroup3.Items[0] := RadioGroup1.Items[0];
-      RadioGroup3.Items[1] := RadioGroup1.Items[1];
-      RadioGroup3.Items[2] := RadioGroup1.Items[2];
       label29.Caption := ReadStr(section, 't_146', label29.Caption);
       combobox1.items[0] := ReadStr(section, 't_147', combobox1.items[0]);
       combobox1.items[1] := ReadStr(section, 't_148', combobox1.items[1]);
@@ -1054,8 +973,6 @@ begin
   marksize := 5;
   saveimagesize := 0;
   saveimagewhite := False;
-  ReduceTexture := 1;
-  ReduceTextureFar := 1;
   lastima  := 0;
   currentphase := -999;
   fov      := 45;
@@ -1068,10 +985,6 @@ begin
   PrintChart := True;
   PrintEph := True;
   PrintDesc := True;
-  MipMaps  := False;
-  doublebuf := True;
-  stencilbuf := False;
-  antialias := 'Default';
   LopamDirect := False;
   ruklprefix := 'C:\rukl\';
   ruklsuffix := '_large.jpg';
@@ -1133,10 +1046,7 @@ begin
       usedatabase[i] := ReadBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
     for i := 1 to 6 do
       db_age[i]  := ReadInteger(section, 'DB_Age' + IntToStr(i), 0);
-    doublebuf    := ReadBool(section, 'DoubleBuffer', doublebuf);
-    stencilbuf   := ReadBool(section, 'StencilBuffer', stencilbuf);
     compresstexture := ReadBool(section, 'compresstexture', compresstexture);
-    antialias    := ReadString(section, 'AntiAlias', antialias);
     Obslatitude  := ReadFloat(section, 'Obslatitude', Obslatitude);
     Obslongitude := ReadFloat(section, 'Obslongitude', Obslongitude);
     if UseComputerTime then
@@ -1149,7 +1059,6 @@ begin
     end;
     cameraorientation := ReadFloat(section, 'CameraOrientation', CameraOrientation);
     phaseeffect  := ReadBool(section, 'PhaseEffect', phaseeffect);
-    mipmaps      := ReadBool(section, 'MipMaps', mipmaps);
     GeologicalMap := ReadBool(section, 'GeologicalMap', GeologicalMap);
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
     phasehash    := ReadBool(section, 'PhaseHash', PhaseHash);
@@ -1169,6 +1078,7 @@ begin
     CheckBox2.Checked := ReadBool(section, 'Mirror', False);
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
+    if ToolsWidth<100 then ToolsWidth:=100;
     PairSplitter1.Align:=alClient;
     PairSplitter1.Position:=ClientWidth-ToolsWidth;
     PageControl1.Width:=ToolsWidth;
@@ -1228,8 +1138,6 @@ begin
       PicZoom[j - 1] := ReadFloat(section, 'PicZoom_' + IntToStr(j), 0);
     end;
 
-    ReduceTexture := ReadInteger(section, 'ReduceTexture', ReduceTexture);
-    ReduceTextureFar := ReadInteger(section, 'ReduceTextureFar', ReduceTextureFar);
     hiresfile := ReadString(section, 'hiresfile', hiresfile);
     for j := 1 to 10 do
     begin
@@ -1256,32 +1164,13 @@ begin
     end
     else
       imgsuffix := '';
-    glscene1.BeginUpdate;
-    SetCompression(compresstexture);
-    if not doublebuf then
-      GLSceneViewer1.Buffer.ContextOptions :=
-        GLSceneViewer1.Buffer.ContextOptions - [roDoubleBuffer];
-    if stencilbuf then
-      GLSceneViewer1.Buffer.ContextOptions :=
-        GLSceneViewer1.Buffer.ContextOptions + [roStencilBuffer];
-    if antialias = '2x' then
-      GLSceneViewer1.Buffer.AntiAliasing := aa2x
-    else if antialias = '2xHQ' then
-      GLSceneViewer1.Buffer.AntiAliasing := aa2xHQ
-    else if antialias = '4x' then
-      GLSceneViewer1.Buffer.AntiAliasing := aa4x
-    else if antialias = '4xHQ' then
-      GLSceneViewer1.Buffer.AntiAliasing := aa4xHQ
-    else if antialias = 'None' then
-      GLSceneViewer1.Buffer.AntiAliasing := aaNone;
-    GLLightSource1.Ambient.AsWinColor :=
-      ReadInteger(section, 'AmbientLight', GLLightSource1.Ambient.AsWinColor);
-    GLLightSource1.Diffuse.AsWinColor :=
-      ReadInteger(section, 'DiffuseLight', GLLightSource1.Diffuse.AsWinColor);
-    GLLightSource1.Specular.AsWinColor :=
-      ReadInteger(section, 'SpecularLight', GLLightSource1.Specular.AsWinColor);
+    moon1.GLLightSource1.Ambient.AsWinColor :=
+      ReadInteger(section, 'AmbientLight', moon1.GLLightSource1.Ambient.AsWinColor);
+    moon1.GLLightSource1.Diffuse.AsWinColor :=
+      ReadInteger(section, 'DiffuseLight', moon1.GLLightSource1.Diffuse.AsWinColor);
+    moon1.GLLightSource1.Specular.AsWinColor :=
+      ReadInteger(section, 'SpecularLight', moon1.GLLightSource1.Specular.AsWinColor);
     smooth := ReadInteger(section, 'Smooth', smooth);
-    glscene1.EndUpdate;
     i := ReadInteger(section, 'ListCount', 0);
     if i > 0 then
       for j := 0 to i do
@@ -1294,39 +1183,8 @@ begin
   InitObservatoire;
   InitImages;
   Showautolabel := showlabel and (Labeldensity < 1000);
-  glscene1.BeginUpdate;
-  if smooth > 120 then
-    smooth := 180
-  else if smooth > 60 then
-    smooth := 90
-  else
-    smooth := 45;
-  sphere1.Slices := smooth;
-  sphere1.Stacks := sphere1.Slices;
-  sphere2.Slices := sphere1.Slices;
-  sphere2.Stacks := sphere1.Slices;
-  sphere3.Slices := sphere1.Slices;
-  sphere3.Stacks := sphere1.Slices;
-  sphere4.Slices := sphere1.Slices;
-  sphere4.Stacks := sphere1.Slices;
-  sphere5.Slices := sphere1.Slices;
-  sphere5.Stacks := sphere1.Slices;
-  sphere6.Slices := sphere1.Slices;
-  sphere6.Stacks := sphere1.Slices;
-  sphere7.Slices := sphere1.Slices;
-  sphere7.Stacks := sphere1.Slices;
-  sphere8.Slices := sphere1.Slices;
-  sphere8.Stacks := sphere1.Slices;
-  case sphere1.Slices of
-    45: smooth  := 16;
-    90: smooth  := 32;
-    180: smooth := 64;
-  end;
-  hiressphere.Slices    := smooth;
-  hiressphere.Stacks    := smooth;
-  hiressphere500.Slices := smooth;
-  hiressphere500.Stacks := smooth;
-  glscene1.EndUpdate;
+  moon1.GLSphereMoon.Slices := smooth;
+  moon1.GLSphereMoon.Stacks := smooth;
 end;
 
 procedure TForm1.SaveDefault;
@@ -1343,10 +1201,6 @@ begin
       if not (ValueExists(section, 'Install_Dir')) then
         WriteString(section, 'Install_Dir', appdir);
       WriteString(section, 'Language', Language);
-      WriteBool(section, 'DoubleBuffer', doublebuf);
-      WriteBool(section, 'StencilBuffer', stencilbuf);
-      WriteString(section, 'AntiAlias', antialias);
-      WriteBool(section, 'MipMaps', mipmaps);
       WriteBool(section, 'LibrationEffect', librationeffect);
       WriteBool(section, 'compresstexture', compresstexture);
       WriteFloat(section, 'CameraOrientation', CameraOrientation);
@@ -1362,7 +1216,6 @@ begin
         WriteBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
       for i := 1 to 6 do
         WriteInteger(section, 'DB_Age' + IntToStr(i), db_age[i]);
-      WriteInteger(section, 'ReduceTextureFar', ReduceTextureFar);
       WriteString(section, 'hiresfile', hiresfile);
       WriteBool(section, 'Geocentric', Geocentric);
       WriteString(section, 'telescope', Combobox5.Text);
@@ -1397,7 +1250,6 @@ begin
       WriteInteger(section, 'Height', Height);
       WriteInteger(section, 'Width', Width);
       WriteBool(section, 'Maximized', (windowstate = wsMaximized));
-      WriteInteger(section, 'ReduceTexture', ReduceTexture);
       for i := 1 to 10 do
       begin
         WriteString(section, 'eyepiecename' + IntToStr(i), eyepiecename[i]);
@@ -1405,10 +1257,10 @@ begin
         WriteInteger(section, 'eyepiecemirror' + IntToStr(i), eyepiecemirror[i]);
         WriteInteger(section, 'eyepiecerotation' + IntToStr(i), eyepiecerotation[i]);
       end;
-      WriteInteger(section, 'AmbientLight', GLLightSource1.Ambient.AsWinColor);
-      WriteInteger(section, 'DiffuseLight', GLLightSource1.Diffuse.AsWinColor);
-      WriteInteger(section, 'SpecularLight', GLLightSource1.Specular.AsWinColor);
-      WriteInteger(section, 'Smooth', sphere1.Slices);
+      WriteInteger(section, 'AmbientLight', moon1.GLLightSource1.Ambient.AsWinColor);
+      WriteInteger(section, 'DiffuseLight', moon1.GLLightSource1.Diffuse.AsWinColor);
+      WriteInteger(section, 'SpecularLight', moon1.GLLightSource1.Specular.AsWinColor);
+      WriteInteger(section, 'Smooth',   moon1.GLSphereMoon.Slices);
       WriteInteger(section, 'ListCount', combobox1.Items.Count - 1);
       for i := 0 to combobox1.Items.Count - 1 do
       begin
@@ -1456,6 +1308,7 @@ procedure TForm1.RaDec2Moon(r, d: double; var x, y: double);
 var
   spa, cpa, s: extended;
 begin
+     { TODO : RaDec2Moon adjust fo new viewer }
   sincos(-deg2rad * pa, spa, cpa);
   s := diam / 3600;
   r := (r - rad) * 15 * cos(deg2rad * ded) / s;
@@ -1465,63 +1318,33 @@ begin
 end;
 
 procedure TForm1.GetLabel(Sender: TObject);
+var lmin,lmax,bmin,bmax: single;
+    w, wmin, wfact, l1, b1: single;
+    miniok:    boolean;
+    nom, let:  string;
+    j: integer;
 begin
-//  database select +
-moon1.AddLabel(degtorad(-20),degtorad(9.7),'Copernicus');
-moon1.AddLabel(degtorad(-11.2),degtorad(-43.3),'Tycho');
-moon1.AddLabel(degtorad(-39.9),degtorad(-17.5),'Gassendi');
-moon1.AddLabel(degtorad(-47.4),degtorad(23.7),'Aristarchus');
-moon1.AddLabel(degtorad(-9.3),degtorad(51.6),'Plato');
-moon1.AddLabel(degtorad(29.9),degtorad(31.8),'Posidonius');
-moon1.AddLabel(degtorad(26.4),degtorad(-11.4),'Theophilus');
-end;
-
-procedure Tform1.SetLabel;
-var
-  l, b, l1, b1, deltab, deltal, x, y, w, wmin, wfact: double;
-  xx, yy, j: integer;
-  miniok:    boolean;
-  nom, let:  string;
-  curlab, cursprite, i: integer;
-begin
-  curlab := 0;
-  xx     := form1.GLSceneViewer1.Width div 2;
-  yy     := form1.GLSceneViewer1.Height div 2;
-  Window2World(xx, yy, x, y);
-  if not InvProjMoon(2 * x, 2 * y, librl, librb, l, b) then
-  begin
-    l      := librl;
-    b      := librb;
-    deltab := 90;
-    deltal := 90;
-  end
-  else
-  begin
-    deltab := 90 / zoom;
-    deltal := deltab / cos(deg2rad * b);
-  end;
-  if abs(l) > 90 then
-  begin // face cachee
-    l      := 0;
-    deltal := 180;
-  end;
+// get search boundaries
+  moon1.GetBounds(lmin,lmax,bmin,bmax);
+// minimal feature size
   if minilabel then
     wfact := 0.5
   else
     wfact := 1;
-  w := maxfoc / minfoc;
   LabelDensity := maxintvalue([100, LabelDensity]);
-  if (zoom > 3) and (zoom >= w) then
+  if (moon1.Zoom >= 8) and (moon1.Zoom >= (moon1.ZoomMax-5)) then
     wmin := -1
   else
-    wmin := MinValue([650.0, 1.5 * LabelDensity / (zoom * zoom)]);
+    wmin := MinValue([650.0, 1.5 * LabelDensity / (moon1.Zoom * moon1.Zoom)]);
+  { TODO : Review label density in function of zoom }
+// Labels
   if showlabel then
   begin
     dbm.Query('select NAME,LONGIN,LATIN,WIDEKM,WIDEMI,LENGTHKM,LENGTHMI from moon' +
       ' where DBN in (' + sidelist + ')' + ' and LONGIN > ' +
-      formatfloat(f2, l - deltal) + ' and LONGIN < ' + formatfloat(f2, l + deltal) +
-      ' and LATIN > ' + formatfloat(f2, b - deltab) +
-      ' and LATIN < ' + formatfloat(f2, b + deltab) +
+      formatfloat(f2, rad2deg*lmin) + ' and LONGIN < ' + formatfloat(f2, rad2deg*lmax) +
+      ' and LATIN > ' + formatfloat(f2, rad2deg*bmin) +
+      ' and LATIN < ' + formatfloat(f2, rad2deg*bmax) +
       ' and (WIDEKM=0 or WIDEKM>=' + formatfloat(f2, (wmin * wfact) / 2.5) + ')' +
       ' ;');
     for j := 0 to dbm.RowCount - 1 do
@@ -1535,117 +1358,59 @@ begin
         w := 2.5 * w; // moins de grosse formation face cachee
       if w < (wmin * wfact) then
         continue;
-      nom := dbm.Results[j][0];
-      if marked and (form1.hudtext1.Text = nom) then
-        continue;
-      if projMoon(l1, b1, librl, librb, x, y) then
+      nom := trim(dbm.Results[j][0]);
+      if minilabel then
       begin
-        nom := trim(nom);
-        if minilabel then
+        miniok := True;
+        if copy(nom, 1, 6) = 'DOMES ' then
+          miniok := False;
+        if copy(nom, 1, 5) = 'DOME ' then
+          miniok := False;
+        if copy(nom, 1, 6) = 'DORSA ' then
+          miniok := False;
+        if copy(nom, 1, 5) = 'RIMA ' then
+          miniok := False;
+        let      := trim(copy(nom, length(nom) - 1, 2));
+        if miniok and (length(let) = 1) and (let >= 'A') and (let <= 'Z') then
         begin
-          miniok := True;
-          if copy(nom, 1, 6) = 'DOMES ' then
-            miniok := False;
-          if copy(nom, 1, 5) = 'DOME ' then
-            miniok := False;
-          if copy(nom, 1, 6) = 'DORSA ' then
-            miniok := False;
-          if copy(nom, 1, 5) = 'RIMA ' then
-            miniok := False;
-          let      := trim(copy(nom, length(nom) - 1, 2));
-          if miniok and (length(let) = 1) and (let >= 'A') and (let <= 'Z') then
-          begin
-            nom := let;
-          end
-          else
-          begin
-            if w < (wmin) then
-              continue;
-          end;
-        end;
-        world2window(x, y, xx, yy);
-        if (xx > 0) and (yy > 0) and (xx < form1.GLSceneViewer1.Width) and
-          (yy < form1.GLSceneViewer1.Height) and ((currenteyepiece = 0) or
-          (sqrt(Intpower(form1.GLSceneViewer1.Width / 2 - xx, 2) + Intpower(
-          form1.GLSceneViewer1.Height / 2 - yy, 2)) < 0.475 * form1.GLSceneViewer1.Width)) then
+          nom := let;
+        end
+        else
         begin
-          with form1.DummyCube4.Children[curlab] as TGLHUDText do
-          begin
-            Visible    := True;
-            Position.Y := yy;
-            Position.X := xx;
-            if labelcenter then
-            begin
-              Text      := nom;
-              Alignment := taCenter;
-            end
-            else
-            begin
-              Text      := '.' + nom;
-              Alignment := taLeftJustify;
-            end;
-          end;
-          Inc(curlab);
-          if curlab > Maxlabel then
-            break;
+          if w < (wmin) then
+            continue;
         end;
       end;
-    end;
+      moon1.AddLabel(deg2rad*l1,deg2rad*b1,capitalize(nom));
+     end;
   end;
-  // Mark selection
-  cursprite := 0;
+end;
+
+procedure TForm1.GetSprite(Sender: TObject);
+var lmin,lmax,bmin,bmax: single;
+    w, wmin, wfact, l1, b1: single;
+    miniok:    boolean;
+    nom, let:  string;
+    j: integer;
+begin
+// get search boundaries
+  moon1.GetBounds(lmin,lmax,bmin,bmax);
+// Mark selection
   if currentselection <> '' then
   begin
     dbm.Query('select LONGIN,LATIN from moon where ' + currentselection +
-      ' and LONGIN > ' + formatfloat(f2, l - deltal) +
-      ' and LONGIN < ' + formatfloat(f2, l + deltal) +
-      ' and LATIN > ' + formatfloat(f2, b - deltab) +
-      ' and LATIN < ' + formatfloat(f2, b + deltab) +
+      ' and LONGIN > ' + formatfloat(f2, rad2deg*lmin) +
+      ' and LONGIN < ' + formatfloat(f2, rad2deg*lmax) +
+      ' and LATIN > ' + formatfloat(f2, rad2deg*bmin) +
+      ' and LATIN < ' + formatfloat(f2, rad2deg*lmax) +
       ' ORDER BY WIDEKM DESC ' + ' ;');
     for j := 0 to dbm.RowCount - 1 do
     begin
       l1 := dbm.Results[j].Format[0].AsFloat;
       b1 := dbm.Results[j].Format[1].AsFloat;
-      if projMoon(l1, b1, librl, librb, x, y) then
-      begin
-        world2window(x, y, xx, yy);
-        if (xx > 0) and (yy > 0) and (xx < form1.GLSceneViewer1.Width) and
-          (yy < form1.GLSceneViewer1.Height) and ((currenteyepiece = 0) or
-          (sqrt(Intpower(form1.GLSceneViewer1.Width / 2 - xx, 2) + Intpower(
-          form1.GLSceneViewer1.Height / 2 - yy, 2)) < 0.475 * form1.GLSceneViewer1.Width)) then
-        begin
-          with form1.DummyCube5.Children[cursprite] as TGLHUDSprite do
-          begin
-            Width      := marksize;
-            Height     := marksize;
-            Visible    := True;
-            Position.Y := yy;
-            Position.X := xx;
-          end;
-          Inc(cursprite);
-          if cursprite >= MaxSprite then
-            if cursprite < AbsoluteMaxSprite then
-              MoreSprite
-            else
-              break;
-        end;
-      end;
+      moon1.AddSprite(deg2rad*l1,deg2rad*b1);
     end;
   end;
-
-  for i := curlab to Maxlabel do
-    with DummyCube4.Children[i] as TGLHUDText do
-      Visible := False;
-  for i := cursprite to MaxSprite - 1 do
-    with DummyCube5.Children[i] as TGLHUDSprite do
-      Visible := False;
-end;
-
-procedure TForm1.RefreshLabel;
-begin
-  ClearLabel;
-  LabelTimer.Enabled := False;
-  LabelTimer.Enabled := True;
 end;
 
 procedure TForm1.InitDate;
@@ -1682,6 +1447,7 @@ var
   hh: double;
 begin
   djd(CurrentJD - (DT_UT / 24) + 1e-8, y, m, d, hh);
+  if hh>23.9999 then hh:=24.0;
   decodetime(hh / 24, h, n, s, ms);
   timezone := gettimezone(encodedatetime(y, m, d, h, n, s, ms));
   djd(CurrentJD + (timezone / 24) - (DT_UT / 24) + 1e-8, y, m, d, hh);
@@ -1823,14 +1589,14 @@ begin
         Inc(i);
         buf := trim(StringReplace(param[i], '"', '', [rfReplaceAll]));
         y   := strtofloat(buf);
-        MoveCamera(x, y);
+        moon1.CenterAt(deg2rad*x, deg2rad*y);
       end
-      else if param[i] = '-f' then
-      begin   // focal
+      else if param[i] = '-z' then
+      begin   // zoom , to use instead of obsolete -f
         Inc(i);
         buf := trim(StringReplace(param[i], '"', '', [rfReplaceAll]));
         x   := strtofloat(buf);
-        setzoom(x);
+        moon1.zoom:=x;
       end
       else if param[i] = '-n' then
       begin  // center object
@@ -1850,7 +1616,6 @@ begin
       begin     // full globe
         ToolButton3.Down := True;
         ToolButton3Click(form1);
-        lrot := 0;
       end
       else if param[i] = '-r' then
       begin   // full globe at give rotation
@@ -1861,8 +1626,8 @@ begin
         begin
           ToolButton3.Down := True;
           ToolButton3Click(form1);
-          lrot := x;
-          GLSceneViewer1MouseMove(nil, [ssLeft], lastx, lasty);
+          { TODO : set moon rotation position
+          moon1.rotpos:=x; }
         end;
       end
       else if param[i] = '--' then
@@ -2010,99 +1775,6 @@ begin
       end;
     end;
   end;
-end;
-
-procedure TForm1.FormCreate(Sender: TObject);
-var
-  i: integer;
-begin
-  decimalseparator := '.';
-  dbedited  := False;
-  minfoc    := 100;
-  perfdeltay := 0.00001;
-  lockchart := False;
-  StartedByDS := False;
-  MeasuringDistance := False;
-  distancestart := False;
-  locktrackbar := False;
-  lockscrollbar := False;
-  CurrentEyepiece := 0;
-  EyepieceRatio := 1;
-  zoom      := 1;
-  phasehash := False;
-  phaseumbrachanging := False;
-  useDBN    := 6;
-  compresstexture := False;
-  showoverlay := True;
-  LastScopeTracking := 0;
-  UseComputerTime := True;
-  AsMultiTexture := False;
-  GetAppDir;
-  skipresize := True;
-  skipresize := False;
-  Fplanet    := TPlanet.Create(self);
-  searchlist := TStringList.Create;
-  param      := TStringList.Create;
-  param.Clear;
-  Plan404    := nil;
-  Plan404lib := LoadLibrary(lib404);
-  if Plan404lib <> 0 then
-  begin
-    Plan404 := TPlan404(GetProcAddress(Plan404lib, 'Plan404'));
-  end;
-  tz    := TCdCTimeZone.Create;
-  CursorImage1 := TCursorImage.Create;
-  hires := Tbitmap.Create;
-  hires500 := Tbitmap.Create;
-  overlayhi := Tbitmap.Create;
-  overlayimg := Tbitmap.Create;
-  // hide developpement tools or not finished function
-  if not fileexists('version.developpement') then
-  begin
-    dbtab.TabVisible := False;       // edit database
-    Enregistredist.Visible := False; // record new object
-    BMP15001.Visible := False;       // save bmp for light version
-    BMP30001.Visible := False;       // save bmp for light version
-  end;
- moon1:=Tf_moon.Create(PanelMoon);
- moon1.Moon.Align:=alClient;
- moon1.onMoonClick:=MoonClickEvent;
- moon1.onGetMsg:=GetMsg;
- moon1.onGetLabel:=GetLabel;
- moon1.TexturePath:=slash(appdir)+slash('Textures');
- moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
-  SetLang1;
-  readdefault;
-  currentid := '';
-  librl     := 0;
-  librb     := 0;
-  lrot      := 0;
-  zoom      := 1;
-  lastx     := 0;
-  lasty     := 0;
-  SkipIdent := False;
-  dblox     := TMlb2.Create;
-  dbnotes   := TMlb2.Create;
-  GetSkyChartInfo;
-  CartesduCiel1.Visible := CdCdir > '';
-  InitGraphic(Sender);
-  appname := ParamStr(0);
-  if paramcount > 0 then
-  begin
-    for i := 1 to paramcount do
-    begin
-      param.Add(ParamStr(i));
-      if ParamStr(i) = '-safe' then
-        borderstyle := bsNone; // canot set this later in formshow
-    end;
-  end;
-  if multi_instance then
-  begin
-    NewWindowButton.Visible := False;
-    Button15.Visible := False;
-    Caption := Caption + '<2>';
-  end;
-  AsMultiTexture := (GLSceneViewer1.Buffer.LimitOf[limNbTextureUnits] > 1);
 end;
 
 procedure TForm1.UpdTerminateur;
@@ -2629,7 +2301,7 @@ begin
       ' NAME=' + stringgrid2.Cells[1, 1] + ' ID=' + IntToStr(editrow));
   end;
   moon1.setmark(0, 0, '');
-  RefreshLabel;
+  moon1.RefreshAll;
   dbedited := False;
 end;
 
@@ -2653,7 +2325,7 @@ begin
     editrow  := -1;
     btnEffacer.Click;
     moon1.setmark(0, 0, '');
-    RefreshLabel;
+    moon1.RefreshAll;
   end;
 end;
 
@@ -2882,18 +2554,6 @@ begin
       exit;
     l := dbm.Results[0].ByField['LONGIN'].AsFloat;
     b := dbm.Results[0].ByField['LATIN'].AsFloat;
-    if toolbutton3.down then
-    begin
-      // if full globe always center the formation
-      lrot := -l;
-      GLSceneViewer1MouseMove(nil, [ssLeft], lastx, lasty);
-    end;
-    if (not projMoon(l, b, librl, librb, x, y)) then
-    begin
-      // not on our current side, search next object
-      SearchName(n, center);
-      exit;
-    end;
     currentl    := l;
     currentb    := b;
     currentid   := searchlist[searchpos];
@@ -2959,40 +2619,6 @@ procedure TForm1.ComboBox1Select(Sender: TObject);
 begin
   Firstsearch := True;
   SearchName(Combobox1.Text, True);
-end;
-
-procedure TForm1.FormDestroy(Sender: TObject);
-begin
-  try
-    if dummycube4 <> nil then
-      DummyCube4.DeleteChildren;
-    if dummycube5 <> nil then
-      DummyCube5.DeleteChildren;
-    GLSceneViewer1.Buffer.DestroyRC;
-    dblox.Free;
-    dbnotes.Free;
-    hires.Free;
-    hires500.Free;
-    if hiresok then
-    begin
-      closefile(fh);
-    end;
-    if hires500ok then
-    begin
-      closefile(fh500);
-    end;
-    tz.Free;
-    Fplanet.Free;
-    overlayimg.Free;
-    overlayhi.Free;
-    searchlist.Free;
-    if CursorImage1 <> nil then
-    begin
-      CursorImage1.FreeImage;
-      CursorImage1.Free;
-    end;
-  except
-  end;
 end;
 
 procedure TForm1.Quitter1Click(Sender: TObject);
@@ -3206,59 +2832,20 @@ begin
     Stringgrid1.Cells[0, i] := b;
     Stringgrid1.Cells[1, i] := b;
   end;
-  if not phaseeffect then
-  begin
-    phase   := 1;
-    cphase  := 1;
-    sunincl := 0;
-  end;
-  librlong := librl;
-  librlat  := librb;
-  if (not librationeffect) or ToolButton3.Down then
-  begin
-    librl := 0;
-    librb := 0;
-  end;
-
-  if not ToolButton3.Down then
+  if librationeffect and moon1.VisibleSideLock then
   begin
     moon1.LibrLat := librb;
     moon1.LibrLon := -librl;
+  end
+  else  begin
+    moon1.LibrLat := 0;
+    moon1.LibrLon := 0;
   end;
+  moon1.ShowPhase:=phaseeffect;
   moon1.Phase:=deg2rad*cphase;
   moon1.SunIncl:=deg2rad*sunincl;
-  moon1.ShowPhase:=phaseeffect;
-  moon1.RefreshLabel;
- { glscene1.BeginUpdate;
-  dummycube1.BeginUpdate;
-  if not ToolButton3.Down then
-  begin
-    resetorientation;
-    dummycube1.PitchAngle := librb;
-    dummycube1.TurnAngle := -librl;
-    dummycube1.up.x := 0;
-  end;
-  OrientLightSource(cphase, sunincl);
-  GLLightSource2.Shining := not phaseeffect; }
-  LibrationMark(librlong, librlat);
-  dummycube1.EndUpdate;
-  //moon1.SetMark(0, 0, '');
-{  ShowSphere;
-  RefreshLabel;
-  glscene1.EndUpdate;}
-end;
-
-procedure TForm1.ShowCoordinates(x, y: integer);
-var
-  xx, yy, l, b: double;
-begin
-  lastx     := x;
-  lasty     := y;
-  lastyzoom := y;
-  Window2World(x, y, xx, yy);
-  InvProjMoon(2 * xx, 2 * yy, librl, librb, l, b);
-  statusbar1.Panels[0].Text := m[10] + stringreplace(formatfloat(f1, l), 'Nan', '   ', []);
-  statusbar1.Panels[1].Text := m[11] + stringreplace(formatfloat(f1, b), 'Nan', '   ', []);
+  moon1.LibrationMark:=ShowLibrationMark;
+  moon1.RefreshAll;
 end;
 
 procedure  TForm1.SetZoomBar;
@@ -3269,80 +2856,19 @@ locktrackbar := True;
 trackbar1.position := round(10 * log10(moon1.Zoom));
 end;
 
-procedure  TForm1.GetMsg(Sender: TObject; value: String);
+procedure  TForm1.GetMsg(Sender: TObject; msgclass:Tmsgclass; value: String);
 begin
-statusbar1.Panels[3].Text := value;
-SetZoomBar;
+case msgclass of
+MsgZoom: begin
+          statusbar1.Panels[3].Text := value;
+          SetZoomBar;
+         end;
+MsgPerf: begin
+          Label15.Caption := m[44] + blank + value;
+         end;
+end;
 end;
 
-procedure TForm1.MeasureDistance(x, y: integer);
-var
-  xx, yy, l, b, d: double;
-begin
-  window2world(x, y, xx, yy);
-  InvProjMoon(2 * xx, 2 * yy, librl, librb, l, b);
-  d  := rad2deg*angulardistance(deg2rad*l, deg2rad*b, deg2rad*startl, deg2rad*startb);
-  edit1.Text := formatfloat(f1, deg2rad * d * Rmoon) + m[18];
-  xx := startxx - xx;
-  yy := startyy - yy;
-  d  := sqrt(xx * xx + yy * yy) * diam / 3600;
-  edit2.Text := copy(Deptostr(d), 5, 99);
-  xx := startxx - xx / 2;
-  yy := startyy - yy / 2;
-  InvProjMoon(2 * xx, 2 * yy, librl, librb, l, b);
-  edit3.Text := formatfloat(f1, l);
-  edit4.Text := formatfloat(f1, b);
-  x := x - startx;
-  y := y - starty;
-  d := sqrt(x * x + y * y);
-  HUDSprite2.Width := d;
-  HUDSprite2.Position.X := startx + x / 2;
-  HUDSprite2.Position.Y := starty + y / 2;
-  HUDSprite2.Rotation := -rad2deg * (arctan2(y, x));
-end;
-
-procedure TForm1.IdentXY(x, y: integer);
-var
-  xx, yy, l, b: double;
-  txt: string;
-begin
-  Window2World(x, y, xx, yy);
-  if InvProjMoon(2 * xx, 2 * yy, librl, librb, l, b) and SearchAtPos(l, b) then
-  begin
-    l := dbm.Results[0].ByField['LONGIN'].AsFloat;
-    b := dbm.Results[0].ByField['LATIN'].AsFloat;
-    searchl := l;
-    searchb := b;
-    currentl := l;
-    currentb := b;
-    currentname := dbm.Results[0].ByField['NAME'].AsString;
-    projMoon(l, b, librl, librb, xx, yy);
-    Combobox1.Text := currentname;
-    moon1.SetMark(deg2rad*currentl, deg2rad*currentb, Combobox1.Text);
-    RefreshLabel;
-    GetHTMLDetail(dbm.Results[0], txt);
-    SetDescText(txt);
-    if dbtab.TabVisible then
-      GetDBgrid;
-    GetNotes(Combobox1.Text);
-    if ImgExists(currentname) then
-    begin
-      ToolButton7.Enabled := True;
-      Image2.Enabled      := True;
-    end
-    else
-    begin
-      ToolButton7.Enabled := False;
-      Image2.Enabled      := False;
-    end;
-    if f_craterlist.Visible then
-    begin
-      ToolButton10Click(nil);
-    end;
-  end
-  else
-    moon1.SetMark(0, 0, '');
-end;
 
 procedure TForm1.IdentLB(l, b: single);
 var
@@ -3437,18 +2963,116 @@ begin
   end;
 end;
 
+procedure TForm1.FormCreate(Sender: TObject);
+var
+  i: integer;
+begin
+{$ifndef darwin}
+UniqueInstance1:=TCdCUniqueInstance.Create(self);
+UniqueInstance1.Identifier:='Virtual_Moon_Atlas_MapLun';
+UniqueInstance1.OnOtherInstance:=OtherInstance;
+UniqueInstance1.OnInstanceRunning:=InstanceRunning;
+UniqueInstance1.Enabled:=true;
+UniqueInstance1.Loaded;
+{$endif}
+  decimalseparator := '.';
+  dbedited  := False;
+  perfdeltay := 0.00001;
+  lockchart := False;
+  StartedByDS := False;
+  distancestart := False;
+  locktrackbar := False;
+  lockscrollbar := False;
+  CurrentEyepiece := 0;
+  EyepieceRatio := 1;
+  zoom      := 1;
+  phasehash := False;
+  phaseumbrachanging := False;
+  useDBN    := 6;
+  compresstexture := true;
+  showoverlay := True;
+  LastScopeTracking := 0;
+  UseComputerTime := True;
+  GetAppDir;
+  skipresize := True;
+  skipresize := False;
+  Fplanet    := TPlanet.Create(self);
+  searchlist := TStringList.Create;
+  param      := TStringList.Create;
+  param.Clear;
+  Plan404    := nil;
+  Plan404lib := LoadLibrary(lib404);
+  if Plan404lib <> 0 then
+  begin
+    Plan404 := TPlan404(GetProcAddress(Plan404lib, 'Plan404'));
+  end;
+  tz    := TCdCTimeZone.Create;
+  CursorImage1 := TCursorImage.Create;
+  hires := Tbitmap.Create;
+  hires500 := Tbitmap.Create;
+  overlayhi := Tbitmap.Create;
+  overlayimg := Tbitmap.Create;
+  // hide developpement tools or not finished function
+  if not fileexists('version.developpement') then
+  begin
+    dbtab.TabVisible := False;       // edit database
+    Enregistredist.Visible := False; // record new object
+    BMP15001.Visible := False;       // save bmp for light version
+    BMP30001.Visible := False;       // save bmp for light version
+  end;
+ moon1:=Tf_moon.Create(PanelMoon);
+ moon1.Moon.Align:=alClient;
+ moon1.onMoonClick:=MoonClickEvent;
+ moon1.onMoonMove:=MoonMoveEvent;
+ moon1.onMoonMeasure:=MoonMeasureEvent;
+ moon1.onGetMsg:=GetMsg;
+ moon1.onGetLabel:=GetLabel;
+ moon1.onGetSprite:=GetSprite;
+ moon1.PopUp:=PopupMenu1;
+ moon1.TexturePath:=slash(appdir)+slash('Textures');
+ moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
+  SetLang1;
+  readdefault;
+  currentid := '';
+  librl     := 0;
+  librb     := 0;
+  zoom      := 1;
+  lastx     := 0;
+  lasty     := 0;
+  SkipIdent := False;
+  dblox     := TMlb2.Create;
+  dbnotes   := TMlb2.Create;
+  GetSkyChartInfo;
+  CartesduCiel1.Visible := CdCdir > '';
+  InitGraphic(Sender);
+  appname := ParamStr(0);
+  if paramcount > 0 then
+  begin
+    for i := 1 to paramcount do
+    begin
+      param.Add(ParamStr(i));
+      if ParamStr(i) = '-safe' then
+        borderstyle := bsNone; // canot set this later in formshow
+    end;
+  end;
+  if multi_instance then
+  begin
+    NewWindowButton.Visible := False;
+    Button15.Visible := False;
+    Caption := Caption + '<2>';
+  end;
+end;
+
 procedure TForm1.FormShow(Sender: TObject);
 begin
  moon1.Init;
+ moon1.TextureCompression:=compresstexture;
  moon1.texture:='Clementine';
- if moon1.CanBump then begin
-   moon1.BumpPath:=slash(appdir)+slash('Textures')+slash('Bumpmap');
-   moon1.Bumpmap:=false;
- end else begin
- end;
- moon1.ShowPhase:=false;
+ if moon1.CanBump then
+    moon1.BumpPath:=slash(appdir)+slash('Textures')+slash('Bumpmap');
  moon1.VisibleSideLock:=true;
  moon1.Labelcolor:=autolabelcolor;
+ AsMultiTexture:=moon1.AsMultiTexture;
 end;
 
 procedure TForm1.Init;
@@ -3468,6 +3092,7 @@ begin
   begin
     CursorImage1.LoadFromFile(slash(appdir) + slash('data') + 'retic.cur');
     Screen.Cursors[crRetic] := CursorImage1.Handle;
+    moon1.GLSceneViewer1.Cursor := crRetic;
   end;
   dblox.LoadFromFile(Slash(appdir) + Slash('Database') + 'lopamidx.csv');
   dblox.GoFirst;
@@ -3496,20 +3121,33 @@ begin
     form1.Height := screen.Height;
   end;
   moon1.SetMark(0, 0, '');
-  MoveCamera(0, 0);
-  setzoom(minfoc);
+  moon1.zoom:=1;
   ReadParam;
   memo2.Width    := PrintTextWidth;
   label10.Left   := toolbar2.left + toolbar2.Width + 2;
   trackbar1.Left := label10.Left + label10.Width + 2;
   toolbar1.Left  := trackbar1.Left + trackbar1.Width + 1;
+  Trackbar2.position := moon1.GLlightSource1.ambient.AsWinColor and $FF;
+  Trackbar3.position := moon1.GLlightSource1.diffuse.AsWinColor and $FF;
+  Trackbar4.position := moon1.GLlightSource1.specular.AsWinColor and $FF;
+  if moon1.GLSphereMoon.Slices = 720 then
+    Trackbar5.position := 5
+  else if moon1.GLSphereMoon.Slices = 360 then
+    Trackbar5.position := 4
+  else if moon1.GLSphereMoon.Slices = 180 then
+    Trackbar5.position := 3
+  else if moon1.GLSphereMoon.Slices = 90 then
+    Trackbar5.position := 2
+  else if moon1.GLSphereMoon.Slices = 45 then
+    Trackbar5.position := 1
+  else
+    Trackbar5.position := 1;
   RefreshMoonImage;
   if currentname <> '' then
   begin
     firstsearch := True;
     searchname(currentname, False);
   end;
-  setzoom(curfoc);
   btnEffacerClick(nil);
   SetEyepieceMenu;
   if (not multi_instance) and (currentid = '') then
@@ -3527,13 +3165,43 @@ begin
   end;
   moon1.Mirror:=checkbox2.Checked;
   SetZoomBar;
-  moon1.RefreshLabel;
+  moon1.RefreshAll;
+end;
+
+{ TODO : Review what in FormCreate, FormShow, Init and Initgraphic }
+procedure TForm1.InitGraphic(Sender: TObject);
+begin
+  PanelMoon.Visible := True;
+  lockrot := True;
+  if PoleOrientation = 0 then
+    RadioGroup2.ItemIndex := 0
+  else
+    RadioGroup2.ItemIndex := 1;
+  lockrot := False;
+  checkbox1.Checked := FollowNorth;
+  Reglage.TabVisible := True;
+  label11.Visible    := True;
+  trackbar3.Visible  := True;
+  label12.Visible    := True;
+  trackbar4.Visible  := True;
+  panel8.Visible     := True;
+  button14.Visible   := True;
+  groupbox2.Visible  := True;
+
+  Outils.TabVisible := True;
+  Button12.Visible  := True;
+  Button13.Visible  := True;
+  checkbox1.Visible := True;
+  Distance1.Visible := True;
+  Enregistrersous1.Visible := True;
+  CheckBox8.Checked := compresstexture;
+  LoadOverlay(overlayname, overlaylum);
 end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);
 var
   reboot, reloaddb, systemtimechange: boolean;
-  oldreduc, oldreducfar, i, j, oldmaxima, oldtexture: integer;
+  i, j, oldmaxima, oldtexture: integer;
   yy, x, y: double;
 begin
   try
@@ -3573,18 +3241,7 @@ begin
     form2.TrackBar3.Position := round(LabelSize * 100);
     form2.TrackBar4.Position := marksize;
     config.newlang := language;
-    oldreduc := reducetexture;
-    case reducetexture of
-      1: form2.RadioGroup1.ItemIndex := 0;
-      2: form2.RadioGroup1.ItemIndex := 1;
-      4: form2.RadioGroup1.ItemIndex := 2;
-    end;
-    oldreducfar := reducetexturefar;
-    case reducetexturefar of
-      1: form2.RadioGroup3.ItemIndex := 0;
-      2: form2.RadioGroup3.ItemIndex := 1;
-      4: form2.RadioGroup3.ItemIndex := 2;
-    end;
+    form2.BumpCheckBox.Checked:=wantbump;
     form2.updown1.Position := maxima;
     oldmaxima := maxima;
     form2.StringGrid1.RowCount := maximgdir + 10;
@@ -3612,7 +3269,6 @@ begin
     form2.CheckBox13.Checked := PrintChart;
     form2.CheckBox8.Checked  := PrintEph;
     form2.CheckBox9.Checked  := PrintDesc;
-    form2.CheckBox10.Checked := MipMaps;
     if hiresfile = 'hires.jpg' then
       form2.radiogroup2.ItemIndex := 0
     else if hiresfile = 'hires_clem.jpg' then
@@ -3657,6 +3313,7 @@ begin
         OpenHires(True);
         reboot := True;
       end;
+      wantbump := form2.BumpCheckBox.Checked;
       ruklprefix    := form2.ruklprefix.Text;
       ruklsuffix    := form2.ruklsuffix.Text;
       markcolor     := form2.Shape2.Brush.Color;
@@ -3671,11 +3328,7 @@ begin
       labelcenter   := form2.checkbox17.Checked;
       minilabel     := form2.checkbox18.Checked;
       Showautolabel := showlabel and (Labeldensity < 1000);
-      HUDText1.ModulateColor.AsWinColor := marklabelcolor;
-      HUDText1.Scale.SetVector(Label3dSize * LabelSize, Label3dSize * LabelSize, 1);
       moon1.Labelcolor:=autolabelcolor;
-      InitLabel;
-      InitSprite;
       Obslatitude := strtofloat(form2.Edit1.Text);
       if form2.ComboBox1.ItemIndex = 1 then
         Obslatitude := -Obslatitude;
@@ -3721,20 +3374,6 @@ begin
       end;
       InitObservatoire;
       CurrentJD := jd(CurYear, CurrentMonth, CurrentDay, Currenttime - timezone + DT_UT);
-      case form2.RadioGroup1.ItemIndex of
-        0: reducetexture := 1;
-        1: reducetexture := 2;
-        2: reducetexture := 4;
-      end;
-      case form2.RadioGroup3.ItemIndex of
-        0: reducetexturefar := 1;
-        1: reducetexturefar := 2;
-        2: reducetexturefar := 4;
-      end;
-      if reducetexture <> oldreduc then
-        reboot := True;
-      if reducetexturefar <> oldreducfar then
-        reboot := True;
       if config.newlang <> language then
       begin
         language := newlang;
@@ -3743,8 +3382,6 @@ begin
       end;
       if reloaddb then
         LoadDB(dbm);
-      MipMaps := form2.CheckBox10.Checked;
-      SetMinFilter(MipMaps);
       LibrationButton.Down := librationeffect;
       PhaseButton.Down     := phaseeffect;
       if oldtexture <> form2.radiogroup2.ItemIndex then
@@ -3788,17 +3425,9 @@ begin
       if reboot then
       begin
         application.ProcessMessages;
-        currenteyepiece := 0;
-        annulus1.Visible := False;
-        GLsceneViewer1.Buffer.BackgroundColor := clBlack;
-        yy := zoom * minfoc;
-        Window2World(lastx, lasty, x, y);
+        moon1.Eyepiece := 0;
         InitGraphic(Sender);
         RefreshMoonImage;
-        if yy < minfoc then
-          yy := minfoc;
-        SetZoom(yy);
-        application.ProcessMessages;
         Formresize(Sender);
       end
       else
@@ -3814,6 +3443,7 @@ procedure TForm1.PairSplitterSide2Resize(Sender: TObject);
 begin
  if not skippanelresize then
     ToolsWidth:=ClientWidth-PairSplitter1.Position;
+ if ToolsWidth<100 then ToolsWidth:=100;
  skippanelresize:=false;
 end;
 
@@ -3828,31 +3458,11 @@ begin
   if csLoading in form1.ComponentState then
     exit;
   skippanelresize:=true;
+{ TODO : Fix toolbox resize }
+  if ToolsWidth<100 then ToolsWidth:=100;
   PageControl1.width:=ToolsWidth;
   PairSplitter1.Position:=ClientWidth-ToolsWidth;
-  RefreshLabel;
-{  form1.glscene1.BeginUpdate;
-  HUDSprite2.Visible := False;
-  PanelMoon.left   := 0;
-  PanelMoon.top    := ControlBar1.Height;
-  PanelMoon.Height := ClientHeight - ControlBar1.Height - StatusBar1.Height;
-  PanelMoon.Width  := PanelMoon.Height;
-  panel2.left   := 0;
-  panel2.top    := form1.ControlBar1.Height;
-  panel2.Height := form1.ClientHeight - form1.ControlBar1.Height - form1.StatusBar1.Height;
-  panel2.Width  := panel2.Height;
-  glsceneviewer1.Width := panel2.clientwidth - scrollbar2.Width;
-  glsceneviewer1.Height := panel2.clientHeight - scrollbar1.Height;
-  pagecontrol1.left := panel2.left + panel2.Width;
-  pagecontrol1.top := ControlBar1.Height;
-  pagecontrol1.Width := form1.ClientWidth - panel2.Width;
-  pagecontrol1.Height := form1.ClientHeight - ControlBar1.Height - form1.StatusBar1.Height;
-  Mark(shapePositionX, shapePositionY, hudtext1.Text);
-  RefreshLabel;
-  form1.glscene1.EndUpdate;
-  statusbar1.left  := 0;
-  statusbar1.top   := form1.ClientHeight - form1.StatusBar1.Height;
-  statusbar1.Width := form1.ClientWidth; }
+  moon1.RefreshAll;
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
@@ -3977,12 +3587,62 @@ begin
     moon1.CenterAt(0, 0)
   else
     moon1.CenterMark;
-  RefreshLabel;
 end;
 
+
+{$ifdef windows}
+procedure TForm1.SetFullScreen;
+var lPrevStyle: LongInt;
+begin
+FullScreen:=not FullScreen;
+if FullScreen then begin
+   savetop:=top;
+   saveleft:=left;
+   savewidth:=width;
+   saveheight:=height;
+   lPrevStyle := GetWindowLong(handle, GWL_STYLE);
+   SetWindowLong(handle, GWL_STYLE, (lPrevStyle And (Not WS_THICKFRAME) And (Not WS_BORDER) And (Not WS_CAPTION) And (Not WS_MINIMIZEBOX) And (Not WS_MAXIMIZEBOX)));
+   SetWindowPos(handle, 0, 0, 0, 0, 0, SWP_FRAMECHANGED Or SWP_NOMOVE Or SWP_NOSIZE Or SWP_NOZORDER);
+   PageControl1.Visible:=false;
+   ControlBar1.Visible:=false;
+   StatusBar1.Visible:=false;
+   top:=0;
+   left:=0;
+   skipresize:=true;
+   width:=screen.Width;
+   skipresize:=true;
+   height:=screen.Height;
+   skippanelresize:=true;
+   PairSplitter1.Position:=Width;
+   skipresize:=false;
+end else begin
+   lPrevStyle := GetWindowLong(handle, GWL_STYLE);
+   SetWindowLong(handle, GWL_STYLE, (lPrevStyle Or WS_THICKFRAME Or WS_BORDER Or WS_CAPTION Or WS_MINIMIZEBOX Or WS_MAXIMIZEBOX));
+   SetWindowPos(handle, 0, 0, 0, 0, 0, SWP_FRAMECHANGED Or SWP_NOMOVE Or SWP_NOSIZE Or SWP_NOZORDER);
+   PageControl1.Visible:=true;
+   ControlBar1.Visible:=true;
+   StatusBar1.Visible:=true;
+   top:=savetop;
+   left:=saveleft;
+   width:=savewidth;
+   height:=saveheight;
+end;
+end;
+{$endif}
+
+{$ifdef unix}
 procedure TForm1.SetFullScreen;
 begin
+FullScreen:=not FullScreen;
+{$IF DEFINED(LCLgtk) or DEFINED(LCLgtk2)}
+{ TODO : Linux fullscreen }
+//  SetWindowFullScreen(Form1,FullScreen);
+  PageControl1.Visible:=not FullScreen;
+  ControlBar1.Visible:=not FullScreen;
+  StatusBar1.Visible:=not FullScreen;
+{$endif}
 end;
+{$endif}
 
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 var
@@ -4008,7 +3668,6 @@ begin
     begin
       SaveDefault;
     end;
-    param.Free;
 {$ifdef mswindows}
     if CloseCdC then
     begin
@@ -4030,6 +3689,36 @@ begin
       begin
         ScopeDisconnect(ok);
       end;
+  except
+  end;
+end;
+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  try
+    dblox.Free;
+    dbnotes.Free;
+    hires.Free;
+    hires500.Free;
+    if hiresok then
+    begin
+      closefile(fh);
+    end;
+    if hires500ok then
+    begin
+      closefile(fh500);
+    end;
+    tz.Free;
+    Fplanet.Free;
+    overlayimg.Free;
+    overlayhi.Free;
+    searchlist.Free;
+    param.Free;
+    if CursorImage1 <> nil then
+    begin
+      CursorImage1.FreeImage;
+      CursorImage1.Free;
+    end;
   except
   end;
 end;
@@ -4162,73 +3851,26 @@ begin
     i := 45
   else
     i := 90;
-  form1.glscene1.BeginUpdate;
-  sphere1.Slices := i;
-  sphere1.Stacks := i;
-  sphere2.Slices := i;
-  sphere2.Stacks := i;
-  sphere3.Slices := i;
-  sphere3.Stacks := i;
-  sphere4.Slices := i;
-  sphere4.Stacks := i;
-  sphere5.Slices := i;
-  sphere5.Stacks := i;
-  sphere6.Slices := i;
-  sphere6.Stacks := i;
-  sphere7.Slices := i;
-  sphere7.Stacks := i;
-  sphere8.Slices := i;
-  sphere8.Stacks := i;
-  case sphere1.Slices of
-    45: i  := 16;
-    90: i  := 32;
-    180: i := 64;
-    360: i := 128;
-    720: i := 256;
-  end;
-  hiressphere.Slices    := i;
-  hiressphere.Stacks    := i;
-  hiressphere500.Slices := i;
-  hiressphere500.Stacks := i;
-  form1.glscene1.EndUpdate;
-end;
-
-procedure TForm1.PerfTimerTimer(Sender: TObject);
-begin
-  Label15.Caption := Format(m[44] + ' %.2f FPS', [GLSceneViewer1.FramesPerSecond]);
-  GLSceneViewer1.ResetPerformanceMonitor;
-end;
-
-procedure TForm1.PageControl1Changing(Sender: TObject; var AllowChange: boolean);
-begin
-  if pagecontrol1.ActivePage = Outils.Caption then
-  begin
-    moon1.SetMark(0, 0, '');
-    GLSceneViewer1.Cursor := crRetic;
-    HUDSprite2.Visible    := False;
-  end;
+  moon1.GLSphereMoon.Slices:=i;
+  moon1.GLSphereMoon.Stacks:=i;
 end;
 
 procedure TForm1.PageControl1Change(Sender: TObject);
 begin
+  if moon1=nil then exit;
   if (pagecontrol1.ActivePage = Reglage.Caption) then
   begin
-    PerfTimer.Enabled      := True;
-    GLCadencer1.Enabled := True;
+    moon1.ShowFPS:=true;
     Label15.Caption     := m[44] + ' 0 FPS';
-    case GLsceneviewer1.Buffer.Acceleration of
-      chaUnknown: label17.Caption  := m[68];
-      chaHardware: label17.Caption := m[69];
-      chaSoftware: label17.Caption := m[70];
+    case moon1.Acceleration of
+      0: label17.Caption := m[68];
+      1: label17.Caption := m[69];
+      2: label17.Caption := m[70];
     end;
-    label18.Caption := m[71] + ' : ' + IntToStr(
-      GLmaterialLibrary1.Materials[0].Material.Texture.Image.Width) + 'x' +
-      IntToStr(GLmaterialLibrary1.Materials[0].Material.Texture.Image.Height);
   end
   else
   begin
-    PerfTimer.Enabled      := False;
-    GLCadencer1.Enabled := False;
+    moon1.ShowFPS:=false;
   end;
 
   if pagecontrol1.ActivePage = Terminateur.Caption then
@@ -4236,77 +3878,64 @@ begin
     if currentphase <> tphase then
       UpdTerminateur;
   end;
+
   if pagecontrol1.ActivePage = Outils.Caption then
   begin
-    if measuringdistance then
-    begin
-      GLSceneViewer1.Cursor := crCross;
-      Button11.Caption      := m[53];
-    end
+    if moon1.MeasuringDistance then
+      Button11.Caption      := m[53]
     else
-    begin
-      GLSceneViewer1.Cursor := crRetic;
       Button11.Caption      := m[52];
-    end;
   end
   else
   begin
-    measuringdistance     := False;
-    GLSceneViewer1.Cursor := crRetic;
-    HUDSprite2.Visible    := False;
+    moon1.MeasuringDistance := False;
   end;
 end;
 
-
-
 procedure TForm1.Stop1Click(Sender: TObject);
 begin
-  RotationCadencer.Enabled := False;
+  moon1.Rotation:=0;
 end;
 
 procedure TForm1.EastWest1Click(Sender: TObject);
 begin
   rotdirection := -rotdirection;
+  moon1.Rotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N10seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 0;
   rotstep := 10;
-  RotationCadencer.Enabled := False;
-  RotationCadencer.Enabled := True;
+  moon1.Rotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N5seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 1;
   rotstep := 5;
-  RotationCadencer.Enabled := False;
-  RotationCadencer.Enabled := True;
+  moon1.Rotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N1seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 2;
   rotstep := 1;
-  RotationCadencer.Enabled := False;
-  RotationCadencer.Enabled := True;
+  moon1.Rotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N05seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 3;
   rotstep := 0.5;
-  RotationCadencer.Enabled := False;
-  RotationCadencer.Enabled := True;
+  moon1.Rotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N02seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 4;
   rotstep := 0.2;
-  RotationCadencer.Enabled := False;
-  RotationCadencer.Enabled := True;
+  moon1.Rotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.ComboBox4Change(Sender: TObject);
@@ -4318,35 +3947,32 @@ begin
     3: rotstep := 0.5;
     4: rotstep := 0.2;
   end;
+  moon1.Rotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.SpeedButton1Click(Sender: TObject);
 begin
-  RotationCadencer.Enabled := False;
-  sleep(50);
   rotdirection := 1;
-  RotationCadencer.Enabled := True;
+  moon1.Rotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.SpeedButton2Click(Sender: TObject);
-
 begin
-  RotationCadencer.Enabled := False;
+  moon1.Rotation:=0;
 end;
 
 procedure TForm1.SpeedButton3Click(Sender: TObject);
 
 begin
-  RotationCadencer.Enabled := False;
-  sleep(50);
   rotdirection := -1;
-  RotationCadencer.Enabled := True;
+  moon1.Rotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.SpeedButton5Click(Sender: TObject);
 begin
-  setzoom(4 * minfoc);
-  movecamera(0.45, 0);
+  moon1.zoom:=4;
+  //movecamera(0.45, 0);
+{ TODO : add a way to put the camera to the limb }
   CameraOrientation := 90;
   moon1.Orientation:=CameraOrientation;
 end;
@@ -4354,16 +3980,17 @@ end;
 procedure TForm1.SpeedButton4Click(Sender: TObject);
 
 begin
-  setzoom(4 * minfoc);
-  movecamera(-0.45, 0);
+  moon1.zoom:=4;
+  //movecamera(-0.45, 0);
   CameraOrientation := -90;
   moon1.Orientation:=CameraOrientation;
 end;
 
 procedure TForm1.SpeedButton6Click(Sender: TObject);
 begin
-  setzoom(2 * minfoc);
-  movecamera(0, 0);
+  moon1.zoom:=2;
+  //movecamera(0, 0);
+{ TODO : add a way to center the camera  }
   case RadioGroup2.ItemIndex of
     0: CameraOrientation := 0;
     1: CameraOrientation := 180;
@@ -4498,10 +4125,30 @@ begin
   if multi_instance and (clientwidth = ClientHeight - controlbar1.Height -
     statusbar1.Height) then
     clientwidth := round(1.333 * clientwidth);
-  PageControl1Changing(Sender, ok);
   Pagecontrol1.ActivePage := Position.Caption;
   PageControl1Change(Sender);
   combobox1.SetFocus;
+end;
+
+procedure TForm1.OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
+var i: integer;
+begin
+  application.Restore;
+  application.BringToFront;
+  if ParamCount > 0 then begin
+     param.Clear;
+     for i:=0 to ParamCount-1 do begin
+        param.add(Parameters[i]);
+     end;
+     ReadParam;
+  end;
+end;
+
+procedure TForm1.InstanceRunning(Sender : TObject);
+var i : integer;
+begin
+//if Params.Find('--unique',i) then
+   halt(1);
 end;
 
 procedure TForm1.Notes1Click(Sender: TObject);
@@ -4511,24 +4158,23 @@ begin
   if multi_instance and (clientwidth = ClientHeight - controlbar1.Height -
     statusbar1.Height) then
     clientwidth := round(1.333 * clientwidth);
-  PageControl1Changing(Sender, ok);
   Pagecontrol1.ActivePage := Notes.Caption;
   PageControl1Change(Sender);
 end;
 
 procedure TForm1.x21Click(Sender: TObject);
 begin
-  setzoom(2 * minfoc);
+  moon1.zoom:=2;
 end;
 
 procedure TForm1.x41Click(Sender: TObject);
 begin
-  setzoom(4 * minfoc);
+  moon1.zoom:=4;
 end;
 
 procedure TForm1.x81Click(Sender: TObject);
 begin
-  setzoom(8 * minfoc);
+  moon1.zoom:=8;
 end;
 
 procedure TForm1.Button12MouseUp(Sender: TObject; Button: TMouseButton;
@@ -4542,8 +4188,7 @@ begin
     CameraOrientation := CameraOrientation - 15;
   CameraOrientation := rmod(CameraOrientation + 360, 360);
   moon1.Orientation:=CameraOrientation;
-  Mark(shapePositionX, shapePositionY, hudtext1.Text);
-  RefreshLabel;
+  moon1.RefreshAll;
 end;
 
 procedure TForm1.Button13MouseUp(Sender: TObject; Button: TMouseButton;
@@ -4557,8 +4202,7 @@ begin
     CameraOrientation := CameraOrientation + 15;
   CameraOrientation := rmod(CameraOrientation, 360);
   moon1.Orientation:=CameraOrientation;
-  Mark(shapePositionX, shapePositionY, hudtext1.Text);
-  RefreshLabel;
+  moon1.RefreshAll;
 end;
 
 procedure TForm1.RadioGroup2Click(Sender: TObject);
@@ -4575,8 +4219,7 @@ begin
   else
     CameraOrientation := Poleorientation;
   moon1.Orientation:=CameraOrientation;
-  Mark(shapePositionX, shapePositionY, hudtext1.Text);
-  RefreshLabel;
+  moon1.RefreshAll;
 end;
 
 procedure TForm1.ToolButton4Click(Sender: TObject);
@@ -4593,17 +4236,14 @@ end;
 
 procedure TForm1.Button11Click(Sender: TObject);
 begin
-  MeasuringDistance := not MeasuringDistance;
-  if measuringdistance then
+  moon1.MeasuringDistance := not moon1.MeasuringDistance;
+  if moon1.MeasuringDistance then
   begin
     Button11.Caption      := m[53];
-    GLSceneViewer1.Cursor := crCross;
   end
   else
   begin
     Button11.Caption      := m[52];
-    GLSceneViewer1.Cursor := crRetic;
-    HUDSprite2.Visible    := False;
   end;
 end;
 
@@ -4615,8 +4255,7 @@ begin
   Pagecontrol1.ActivePage := Outils.Caption;
   PageControl1Change(Sender);
   Button11.Caption  := m[53];
-  MeasuringDistance := False;
-  Button11Click(Sender);
+  moon1.MeasuringDistance := true;
 end;
 
 procedure TForm1.CheckBox1Click(Sender: TObject);
@@ -4627,15 +4266,13 @@ begin
   else
     CameraOrientation := Poleorientation;
   moon1.Orientation:=CameraOrientation;
-  RefreshLabel;
+  moon1.RefreshAll;
 end;
 
 procedure TForm1.CheckBox2Click(Sender: TObject);
 begin
   ToolButton6.Down := checkbox2.Checked;
   moon1.Mirror:=checkbox2.Checked;
-  Mark(shapePositionX, shapePositionY, hudtext1.Text);
-//  RefreshLabel;
 end;
 
 procedure TForm1.ToolButton10Click(Sender: TObject);
@@ -4654,7 +4291,7 @@ begin
   begin
     b := Tbitmap.Create;
     try
-      SnapShot(b, saveimagewhite);
+      moon1.SnapShot(b, saveimagewhite);
       b.SaveToFile(ChangeFileExt(savedialog1.FileName, '.bmp'));
     finally
       b.Free;
@@ -4663,10 +4300,9 @@ begin
 end;
 
 procedure TForm1.BMP15001Click(Sender: TObject);
-// pour faire les images 2D
+// pour faire les images 2D.  Enlever les labels avant!
 var
   b:  tbitmap;
-  sl: boolean;
 begin
   savedialog1.DefaultExt := '.bmp';
   savedialog1.Filter     := 'bmp image|*.bmp';
@@ -4675,13 +4311,9 @@ begin
   begin
     b := Tbitmap.Create;
     try
-      sl := showautoLabel;
-      showautoLabel := False;
-      RefreshLabel;
-      Rendertobitmap(b, 1500, False);
+      moon1.Rendertobitmap(b, 1500, False);
       b.SaveToFile(ChangeFileExt(savedialog1.FileName, '.bmp'));
     finally
-      showautoLabel := sl;
       b.Free;
     end;
   end;
@@ -4690,7 +4322,6 @@ end;
 procedure TForm1.BMP30001Click(Sender: TObject);
 var
   b:  tbitmap;
-  sl: boolean;
 begin
   savedialog1.DefaultExt := '.bmp';
   savedialog1.Filter     := 'bmp image|*.bmp';
@@ -4699,13 +4330,9 @@ begin
   begin
     b := Tbitmap.Create;
     try
-      sl := showautoLabel;
-      showautoLabel := False;
-      RefreshLabel;
-      Rendertobitmap(b, 3000, False);
+      moon1.Rendertobitmap(b, 3000, False);
       b.SaveToFile(ChangeFileExt(savedialog1.FileName, '.bmp'));
     finally
-      showautoLabel := sl;
       b.Free;
     end;
   end;
@@ -4724,8 +4351,9 @@ begin
     b := Tbitmap.Create;
     j := Tjpegimage.Create;
     try
-      SnapShot(b, saveimagewhite);
+      moon1.SnapShot(b, saveimagewhite);
       j.Assign(b);
+      j.CompressionQuality:=100;
       j.SaveToFile(ChangeFileExt(savedialog1.FileName, '.jpg'));
     finally
       b.Free;
@@ -4742,7 +4370,7 @@ begin
   fn := 'snapshot.bmp';
   b  := Tbitmap.Create;
   try
-    SnapShot(b, False);
+    moon1.SnapShot(b, False);
     b.SaveToFile(slash(tempdir) + fn);
     ShowImg(tempdir, fn, False);
   finally
@@ -4798,7 +4426,7 @@ begin
       if PrintChart then
         // carte
         w := (xmax - xmin) * 2 div 3;
-      snapshot(b, True);
+      moon1.snapshot(b, True);
       canvas.StretchDraw(rect(xmin, ymin + hl, xmin + w, ymin + w + hl), b);
       if PrintDesc then
       begin
@@ -4860,14 +4488,24 @@ begin
   ExecuteFile(desc1.HotURL);
 end;
 
+procedure TForm1.CheckBox8Change(Sender: TObject);
+begin
+
+end;
+
 procedure TForm1.Copy1Click(Sender: TObject);
 begin
-  Desc1.CopyToClipboard;
+case PageControl1.PageIndex of
+0:  Desc1.CopyToClipboard;
+3:  StringGrid1.CopyToClipboard;
+end;
 end;
 
 procedure TForm1.SelectAll1Click(Sender: TObject);
 begin
-  Desc1.SelectAll;
+case PageControl1.PageIndex of
+0:  Desc1.SelectAll;
+end;
 end;
 
 procedure TForm1.LgendeGologique1Click(Sender: TObject);
@@ -4924,15 +4562,6 @@ begin
   // no more used
 end;
 
-procedure TForm1.LabelTimerTimer(Sender: TObject);
-begin
-  LabelTimer.Enabled := False;
-  SetHires;
-  if (showautoLabel or (CurrentSelection <> '')) and (zoom >= 1) and
-    (not RotationCadencer.Enabled) and (not TelescopeTimer.Enabled) then
-    SetLabel;
-end;
-
 procedure TForm1.Glossaire1Click(Sender: TObject);
 begin
   if gloss = nil then
@@ -4953,17 +4582,13 @@ begin
     ToolButton2.Enabled := False;
     checkbox2.Visible := False;
     ToolButton6.Enabled := False;
-    form1.Arrowline1.Visible := False;
+    moon1.LibrationMark:=False;
     moon1.Mirror:=False;
     GroupBox4.Visible := False;
     GroupBox3.Visible := True;
     LibrationButton.Enabled := False;
-    lrot := 0;
     moon1.VisibleSideLock:=false;
     moon1.Zoom:=1;
-{    setzoom(minfoc);
-    movecamera(0, 0);
-    GLSceneViewer1MouseMove(Sender, [ssLeft], lastx, lasty);   }
     Rotation1.Visible := True;
   end
   else
@@ -4971,15 +4596,12 @@ begin
     checkbox2.Visible := True;
     ToolButton6.Enabled := True;
     ToolButton2.Enabled := True;
-    RotationCadencer.Enabled := False;
+    moon1.Rotation:=0;
     Rotation1.Visible := False;
     GroupBox3.Visible := False;
     LibrationButton.Enabled := True;
     GroupBox4.Visible := True;
-    lrot := 0;
     moon1.Zoom:=1;
-{    setzoom(minfoc);
-    movecamera(0, 0); }
     case RadioGroup2.ItemIndex of
       0: CameraOrientation := 0;
       1: CameraOrientation := 180;
@@ -4987,13 +4609,15 @@ begin
     moon1.Orientation:=CameraOrientation;
     moon1.VisibleSideLock:=true;
     moon1.Mirror:=checkbox2.Checked;
+    moon1.LibrationMark:=ShowLibrationMark;
     RefreshMoonImage;
   end;
 end;
 
 procedure TForm1.Button14Click(Sender: TObject);
 begin
-  Glsceneviewer1.Buffer.ShowInfo;
+{ TODO : implement showinfo }
+  moon1.Glsceneviewer1.Buffer.ShowInfo;
 end;
 
 procedure TForm1.ZoomEyepieceClick(Sender: TObject);
@@ -5002,12 +4626,11 @@ begin
     CurrentEyepiece := tag;
   if CurrentEyepiece = 0 then
   begin
-    annulus1.Visible := False;
-    GLsceneViewer1.Buffer.BackgroundColor := clBlack;
+    moon1.Eyepiece:=0;
   end
   else
   begin
-    SetZoom(minfoc * (diam / 60) / eyepiecefield[CurrentEyepiece]);
+    moon1.Eyepiece:=eyepiecefield[CurrentEyepiece]/(diam/60);
     case eyepiecerotation[CurrentEyepiece] of
       1:
       begin
@@ -5032,19 +4655,7 @@ begin
         Checkbox2click(self);
       end;
     end;
-    GLsceneViewer1.Buffer.BackgroundColor := $00202020;
-    annulus1.Visible := True;
   end;
-end;
-
-procedure TForm1.CheckBox3Click(Sender: TObject);
-begin
-  doublebuf := CheckBox3.Checked;
-end;
-
-procedure TForm1.CheckBox4Click(Sender: TObject);
-begin
-  stencilbuf := CheckBox4.Checked;
 end;
 
 procedure TForm1.CheckBox8Click(Sender: TObject);
@@ -5181,7 +4792,8 @@ var
   ok:  boolean;
   buf: string;
 begin
-  ScopeGetRaDec(r, d, ok);
+{ TODO : show telescope position }
+{  ScopeGetRaDec(r, d, ok);
   if ok then
   begin
     initdate;
@@ -5206,7 +4818,7 @@ begin
   begin
     TelescopeTimer.Enabled := False;
     CheckBox6.Checked      := False;
-  end;
+  end;    }
 end;
 
 procedure TForm1.NMClick(Sender: TObject);
@@ -5286,6 +4898,10 @@ end;
 procedure TForm1.PhaseButtonClick(Sender: TObject);
 begin
   phaseeffect := PhaseButton.Down;
+  if phaseeffect and wantbump and moon1.CanBump then
+     moon1.Bumpmap:=true
+  else
+     moon1.Bumpmap:=false;
   RefreshMoonImage;
 end;
 
@@ -5310,8 +4926,7 @@ begin
   begin
     autolabelcolor := form2.colordialog1.color;
     moon1.Labelcolor:=autolabelcolor;
-    InitLabel;
-    RefreshLabel;
+    moon1.RefreshAll;
   end;
 end;
 
@@ -5323,800 +4938,15 @@ end;
 procedure TForm1.RemoveMark1Click(Sender: TObject);
 begin
   CurrentSelection := '';
-  RefreshLabel;
+  moon1.RefreshAll;
 end;
 
-
- ///////////////////////////////////////////////////////////////////
- //  To be moved to pu_moon
- ///////////////////////////////////////////////////////////////////
-
-function SetWhiteColor(x: integer): TColor;
+procedure TForm1.MoonMeasureEvent(Sender: TObject; m1,m2,m3,m4: string);
 begin
-  Result := x + (x shl 8) + (x shl 16);
-end;
-
-procedure TForm1.TrackBar2Change(Sender: TObject);
-begin
-  GLlightSource1.Ambient.AsWinColor := SetWhitecolor(Trackbar2.position);
-end;
-
-procedure TForm1.TrackBar3Change(Sender: TObject);
-begin
-  GLlightSource1.diffuse.AsWinColor := SetWhitecolor(Trackbar3.position);
-end;
-
-procedure TForm1.TrackBar4Change(Sender: TObject);
-begin
-  GLlightSource1.specular.AsWinColor := SetWhitecolor(Trackbar4.position);
-end;
-
-{procedure TForm1.SetMirror(onoff: boolean);
-begin
-  with form1 do
-  begin
-    if onoff then
-    begin
-      GLMirror1.Visible     := True;
-      glcamera1.Direction.Z := -1;
-      glcamera1.Direction.X := 0;
-      glcamera1.Direction.Y := 0;
-    end
-    else
-    begin
-      GLMirror1.Visible     := False;
-      glcamera1.Direction.Z := 1;
-      glcamera1.Direction.X := 0;
-      glcamera1.Direction.Y := 0;
-    end;
-    flipx := sgn(GLCamera1.Direction.z);
-  end;
-end;    }
-
-procedure TForm1.ShowSphere;
-// hide non visible sphere to improve performance
-var
-  ls: double;
-  m:  string;
-
-{  function Shows(l: double; sphere: TGLSphere; n: boolean): boolean;
-  var
-    p: double;
-  begin
-    if (n and (librb > 0.5)) or (not n and (librb < -0.5)) then
-      Result := True
-    else
-    begin
-      p := rad2deg*angulardistance(deg2rad*l, 0, deg2rad*(sphere.Start + sphere.Stop) / 2, 0);
-      if p < 135 then
-        Result := True
-      else
-        Result := False;
-    end;
-    sphere.Visible := Result;
-  end;}
-
-begin
-{  GLSceneViewer1.Buffer.BeginUpdate;
-  sphere1.Visible := False;
-  sphere2.Visible := False;
-  sphere3.Visible := False;
-  sphere4.Visible := False;
-  sphere5.Visible := False;
-  sphere6.Visible := False;
-  sphere7.Visible := False;
-  sphere8.Visible := False;
-  ls := round(rmod(180 - dummycube1.TurnAngle + 360, 360));
-  m  := '';
-  if Shows(ls, sphere1, True) then
-    m := m + ' 1';
-  if Shows(ls, sphere2, True) then
-    m := m + ' 2';
-  if Shows(ls, sphere3, False) then
-    m := m + ' 3';
-  if Shows(ls, sphere4, False) then
-    m := m + ' 4';
-  if Shows(ls, sphere5, True) then
-    m := m + ' 5';
-  if Shows(ls, sphere6, True) then
-    m := m + ' 6';
-  if Shows(ls, sphere7, False) then
-    m := m + ' 7';
-  if Shows(ls, sphere8, False) then
-    m := m + ' 8';
-  GLSceneViewer1.Buffer.EndUpdate;
-  //  showmessage(m);      }
-end;
-
-procedure TForm1.SetCompression(onoff: boolean);
-var
-  cmp: TGLTextureCompression;
-  i:   integer;
-begin
-  if onoff then
-  begin
-    cmp := tcStandard;
-  end
-  else
-  begin
-    cmp := tcDefault;
-  end;
-  for i := 0 to 19 do
-  begin
-    GLMaterialLibrary1.Materials[i].Material.Texture.Compression := cmp;
-  end;
-end;
-
-function TForm1.ProjMoon(l, b, lc, bc: double; var X, Y: double): boolean;
-var
-  hh, s1, s2, s3, c1, c2, c3: extended;
-begin
-  hh := l - lc + lrot;
-  if hh > 180 then
-    hh := hh - 360;
-  if hh < -180 then
-    hh := hh + 360;
-  if (abs(hh) > 95) then
-  begin
-    Result := False;
-    exit;
-  end;   // tolerance sur le limbe.
-  sincos(Deg2Rad * bc, s1, c1);
-  sincos(Deg2Rad * b, s2, c2);
-  sincos(Deg2Rad * hh, s3, c3);
-  x      := -(c2 * s3);
-  y      := (s2 * c1 - c2 * s1 * c3);
-  x      := sgn(x) * MinValue([abs(x), 10000]) / 2;
-  y      := sgn(y) * MinValue([abs(y), 10000]) / 2;
-  Result := True;
-end;
-
-function TForm1.InvProjMoon(x, y, lc, bc: double; var l, b: double): boolean;
-var
-  r, s1, c1, s: extended;
-begin
-  sincos(deg2rad * bc, s1, c1);
-  s := 1 - x * x - y * y;
-  if (s >= 0) then
-  begin
-    r := sqrt(s);
-    l := lc - lrot - rad2deg * arctan2(x, (c1 * r - y * s1));
-    if l > 180 then
-      l := l - 360;
-    if l < -180 then
-      l    := 360 + l;
-    b      := rad2deg * arcsin(y * c1 + s1 * r);
-    Result := True;
-  end
-  else
-  begin
-    l      := nan;
-    b      := nan;
-    Result := False;
-  end;
-end;
-
-procedure TForm1.InitLabel;
-var
-  i: integer;
-  newlabel: TGLHUDText;
-begin
-  form1.DummyCube4.DeleteChildren;
-  for i := 0 to Maxlabel do
-  begin
-    newlabel      := TGLHUDText(form1.DummyCube4.AddNewChild(TGLHUDText));
-    newlabel.Name := 'MoonLabel' + IntToStr(i);
-    newlabel.Visible := False;
-    newlabel.BitmapFont := form1.Bitmapfont1;
-    newlabel.Layout := tlCenter;
-    newlabel.Up.SetVector(0, 1, 0);
-    newlabel.Scale.SetVector(Label3dSize * LabelSize, Label3dSize * LabelSize, 1);
-    newlabel.ModulateColor.AsWinColor := autolabelcolor;
-  end;
-end;
-
-procedure TForm1.MoreSprite;
-var
-  i: integer;
-  newSprite: TGLHUDSprite;
-begin
-  for i := 0 to InitialSprite - 1 do
-  begin
-    newSprite      := TGLHUDSprite(form1.DummyCube5.AddNewChild(TGLHUDSprite));
-    newSprite.Name := 'MoonSprite' + IntToStr(maxsprite + i);
-    newSprite.Visible := False;
-    newSprite.Material.FrontProperties.Emission.AsWinColor := MarkColor;
-    newSprite.Material.FrontProperties.Ambient.Color := clrBlack;
-    newSprite.Material.FrontProperties.Diffuse.Color := clrBlack;
-    newSprite.Material.FrontProperties.Specular.Color := clrBlack;
-    newSprite.Up.SetVector(0, 1, 0);
-    newSprite.Scale.SetVector(1, 1, 1);
-    newSprite.Width  := marksize;
-    newSprite.Height := marksize;
-  end;
-  maxsprite := maxsprite + InitialSprite;
-end;
-
-procedure TForm1.InitSprite;
-begin
-  maxsprite := 0;
-  DummyCube5.DeleteChildren;
-  MoreSprite;
-end;
-
-procedure TForm1.ClearLabel;
-var
-  i: integer;
-begin
-  if (DummyCube4.Count > 0) and DummyCube4.Children[0].Visible then
-    for i := 0 to Maxlabel do
-      with DummyCube4.Children[i] as TGLHUDText do
-        Visible := False;
-  if (DummyCube5.Count > 0) and DummyCube5.Children[0].Visible then
-    for i := 0 to MaxSprite - 1 do
-      with DummyCube5.Children[i] as TGLHUDSprite do
-        Visible := False;
-end;
-
-procedure TForm1.Mark(x, y: double; txt: string);
-var
-  xx, yy: integer;
-begin
-  marked := False;
-  markx  := x;
-  marky  := y;
-  shapepositionX := x;
-  shapepositionY := y;
-  hudsprite1.Width := marksize;
-  hudsprite1.Height := marksize;
-  if (x = 0) and (y = 0) then
-  begin
-    hudsprite1.Visible := False;
-    hudtext1.Visible   := False;
-  end
-  else
-  begin
-    glscene1.BeginUpdate;
-    world2window(x, y, xx, yy);
-    marked   := True;
-    markname := txt;
-    if showmark then
-    begin
-      hudsprite1.Visible    := True;
-      hudsprite1.Material.FrontProperties.Emission.AsWinColor := MarkColor;
-      hudsprite1.Position.X := xx;
-      hudsprite1.Position.Y := yy;
-    end
-    else
-      hudsprite1.Visible := False;
-    if showlabel then
-    begin
-      hudtext1.Visible := True;
-      hudtext1.Position.Y := yy;
-      hudtext1.Text := txt;
-      if xx < (glsceneviewer1.Width / 2) then
-      begin
-        hudtext1.Position.X := xx + 4 * BitmapFont1.HSpace;
-        hudtext1.Alignment  := taLeftJustify;
-      end
-      else
-      begin
-        hudtext1.Position.X := xx - 4 * BitmapFont1.HSpace;
-        hudtext1.Alignment  := taRightJustify;
-      end;
-    end
-    else
-      hudtext1.Visible := False;
-    glscene1.EndUpdate;
-  end;
-end;
-
-
-procedure TForm1.LibrationMark(librl, librb: double);
-var
-  a, x, y: double;
-  xx, yy:  integer;
-begin
-  with Arrowline1 do
-    if ShowLibrationMark and (not ToolButton3.Down) then
-    begin
-      Visible := True;
-      a      := arctan2(librb, -librl);
-      x      := sqrt(librb * librb + librl * librl);
-      Height := x * 0.004 / zoom;
-      position.X := (0.5 + Height / 1.5) * cos(a);
-      position.Y := (0.5 + Height / 1.5) * sin(a);
-      TopRadius := Height / 10;
-      BottomRadius := TopRadius;
-      TopArrowHeadRadius := 3 * TopRadius;
-      TopArrowHeadHeight := 6 * TopRadius;
-      Turnangle := -rad2deg * a;
-      Material.FrontProperties.Emission.AsWinColor := MarkColor;
-    end
-    else
-    begin
-      Visible := False;
-    end;
-end;
-
-procedure TForm1.SetScrollBar(xx, yy: extended);
-var
-  x1, y1, s1, c1: extended;
-begin
-  sincos(deg2rad * CameraOrientation, s1, c1);
-  x1 := (xx * c1 - yy * s1);
-  y1 := (xx * s1 + yy * c1);
-  form1.scrollbar1.Position := -round(x1 * 1000);
-  form1.scrollbar2.Position := -round(y1 * 1000);
-end;
-
-procedure TForm1.MoveCamera(x, y: double);
-var
-  xx, yy: integer;
-begin
-  curx := x;
-  cury := y;
-  with form1 do
-  begin
-    glscene1.BeginUpdate;
-    HUDSprite2.Visible    := False;
-    GLSceneViewer1.Cursor := crRetic;
-    GLCamera1.Position.y  := y;
-    GLCamera1.Position.x  := x;
-    Annulus1.Position.x   := GLCamera1.Position.x;
-    Annulus1.Position.y   := GLCamera1.Position.y;
-    SetScrollBar(x, y);
-    Mark(shapePositionX, shapePositionY, hudtext1.Text);
-    RefreshLabel;
-    glscene1.EndUpdate;
-  end;
-end;
-
-
-procedure TForm1.SetMinFilter(onoff: boolean);
-var
-  mi: TGLMinFilter;
-  i:  integer;
-begin
-  if onoff then
-  begin
-    mi := miNearestMipmapNearest;
-  end
-  else
-  begin
-    mi := miLinear;
-  end;
-  GLScene1.BeginUpdate;
-  for i := 0 to 8 do
-  begin
-    GLMaterialLibrary1.Materials[i].Material.Texture.MinFilter := mi;
-  end;
-  GLScene1.EndUpdate;
-  GLSceneViewer1.Update;
-end;
-
-procedure TForm1.SetZoom(yy: double);
-var
-  t:  double;
-  dx: integer;
-begin
-  if maxfoc > 0 then
-  begin
-    glscene1.BeginUpdate;
-    HUDSprite2.Visible := False;
-    t := yy;
-    if yy < 25 then
-      yy := 25;
-    if yy > maxfoc then
-      yy   := maxfoc;
-    t      := yy / t;
-    EyepieceRatio := t;
-    curfoc := yy;
-    GLCamera1.FocalLength := yy;
-    zoom   := GLCamera1.FocalLength / minfoc;
-    if currenteyepiece > 0 then
-    begin
-      annulus1.BottomInnerRadius := t * 0.5 / zoom;
-      statusbar1.Panels[3].Text  := m[43] + ' ' + formatfloat(f1, t * minfoc * (diam / 60) / yy) + lmin;
-    end
-    else
-      statusbar1.Panels[3].Text := m[43] + ' ' + formatfloat(f1, 100 * (diam / 60) / yy) + lmin;
-    locktrackbar := True;
-    trackbar1.position := round(100 * log10(GLCamera1.FocalLength));
-    Mark(shapePositionX, shapePositionY, hudtext1.Text);
-    LibrationMark(librlong, librlat);
-    RefreshLabel;
-    glscene1.EndUpdate;
-  end;
-end;
-
-procedure TForm1.Window2World(x, y: integer; var xx, yy: double);
-var
-  k, s1, c1, x1, y1: extended;
-begin
-  k := (zoom * (minfoc / 100) * GLSceneViewer1.Width);
-  sincos(deg2rad * CameraOrientation, s1, c1);
-  x1 := flipx * (x - GLSceneViewer1.Width / 2);
-  y1 := (y - GLSceneViewer1.Height / 2);
-  xx := (x1 * c1 + y1 * s1);
-  yy := (-x1 * s1 + y1 * c1);
-  xx := GLCamera1.Position.x - xx / k;
-  yy := GLCamera1.Position.y - yy / k;
-end;
-
-procedure TForm1.World2Window(xx, yy: double; var x, y: integer);
-var
-  k, s1, c1, x1, y1: extended;
-begin
-  k := (zoom * (minfoc / 100) * GLSceneViewer1.Width);
-  sincos(deg2rad * CameraOrientation, s1, c1);
-  xx := k * (GLCamera1.Position.x - xx);
-  yy := k * (GLCamera1.Position.y - yy);
-  x1 := (xx * c1 - yy * s1);
-  y1 := (xx * s1 + yy * c1);
-  x  := round(flipx * x1 + GLSceneViewer1.Width / 2);
-  y  := round(y1 + GLSceneViewer1.Height / 2);
-end;
-
-procedure TForm1.SetCameraOrientation;
-var
-  c1, s1: extended;
-begin
-  sincos(deg2rad * CameraOrientation, s1, c1);
-  HUDSprite2.Visible := False;
-  GLCamera1.BeginUpdate;
-  GLCamera1.Up.X := s1;
-  GLCamera1.Up.Y := c1;
-  GLCamera1.Up.X := s1;
-  GLCamera1.Up.Y := c1;
-  GLCamera1.Up.X := s1;
-  GLCamera1.Up.Y := c1;
-  GLCamera1.EndUpdate;
-  SetScrollBar(GLCamera1.Position.x, GLCamera1.Position.y);
-  Mark(shapePositionX, shapePositionY, hudtext1.Text);
-end;
-
-
-procedure TForm1.LoadOverlay(fn: string; lum: integer);
-var
-  i, n, ws, hs, x0, y0: integer;
-  b:   Tbitmap;
-  j:   Tjpegimage;
-  p:   Pbytearray;
-  src, dest: Trect;
-  max: double;
-const
-  slice: array[1..8] of integer = (6, 1, 2, 5, 8, 3, 4, 7);
-begin
-  if showoverlay and fileexists(Slash(appdir) + Slash('Textures') + Slash('overlay') + fn) then
-  begin
-    j := TJpegImage.Create;
-    b := Tbitmap.Create;
-    try
-      j.LoadFromFile(Slash(appdir) + Slash('Textures') + Slash('overlay') + fn);
-      overlayimg.Assign(j);
-      { TODO : adjust new overlay alpha chanel }
-{   if (lum<>0) then begin
-   end;}
-      ws      := overlayimg.Width div 4;
-      hs      := overlayimg.Height div 2;
-      b.Width := ws;
-      b.Height := hs;
-      for i := 1 to 8 do
-      begin
-        n := slice[i] + 8;
-        if i <= 4 then
-        begin
-          x0 := (i - 1) * ws;
-          y0 := 0;
-        end
-        else
-        begin
-          x0 := (i - 5) * ws;
-          y0 := hs;
-        end;
-        dest := rect(0, 0, ws, hs);
-        src  := rect(x0, y0, x0 + ws, y0 + hs);
-        b.Canvas.CopyRect(dest, overlayimg.canvas, src);
-        GLmaterialLibrary1.Materials[n].Material.Texture.Disabled := False;
-        GLmaterialLibrary1.Materials[n].Material.Texture.Image.Assign(b);
-        GLMaterialLibrary1.Materials[n].TextureScale.X := 0.999;
-        GLMaterialLibrary1.Materials[n].TextureScale.Y := 0.999;
-      end;
-      if fileexists(slash('Textures') + slash('overlay') + slash('caption') + overlayname) then
-      begin
-        OverlayCaption1.Caption := remext(overlayname) + ' ' + 'Caption';
-        OverlayCaption2.Caption := OverlayCaption1.Caption;
-        OverlayCaption1.Visible := True;
-        OverlayCaption2.Visible := True;
-      end
-      else
-      begin
-        OverlayCaption1.Visible := False;
-        OverlayCaption2.Visible := False;
-      end;
-    finally
-      j.Free;
-      b.Free;
-    end;
-  end
-  else
-  begin
-    showoverlay := False;
-    OverlayCaption1.Visible := False;
-    OverlayCaption2.Visible := False;
-    for i := 1 to 8 do
-    begin
-      n := slice[i] + 8;
-      GLmaterialLibrary1.Materials[n].Material.Texture.Disabled := True;
-    end;
-  end;
-end;
-
-
-procedure TForm1.InitGraphic(Sender: TObject);
-var
-  j:  Tjpegimage;
-  b:  Tbitmap;
-  fn: string;
-
-{  procedure LoadTexture(n, r: integer; img: string);
-  begin
-    GLmaterialLibrary1.Materials[n].Material.Texture.Disabled := False;
-    GLMaterialLibrary1.Materials[n].TextureScale.X := 0.999;
-    GLMaterialLibrary1.Materials[n].TextureScale.Y := 0.999;
-    j.LoadFromFile(Slash(appdir) + Slash('Textures') + img);
-    if r = 1 then
-      GLmaterialLibrary1.Materials[n].Material.Texture.Image.Assign(j)
-    else
-    begin
-      b.Width  := j.Width div r;
-      b.Height := j.Height div r;
-      b.Canvas.StretchDraw(rect(0, 0, b.Width, b.Height), j);
-      GLmaterialLibrary1.Materials[n].Material.Texture.Image.Assign(b);
-    end;
-  end; }
-
-begin
-  PanelMoon.Visible := True;
-  InitLabel;
-  InitSprite;
-
-{  j := TJpegImage.Create;
-  b := Tbitmap.Create;
-  lockrot := True;
-  if PoleOrientation = 0 then
-    RadioGroup2.ItemIndex := 0
-  else
-    RadioGroup2.ItemIndex := 1;
-  lockrot := False;
-//  panel2.Visible := True;
-  GLSceneViewer1.Cursor := crRetic;
-  try
-    OpenHires(False);
-  except
-  end;
-  LoadTexture(0, reducetexture, 'moon' + imgsuffix + '_c1.jpg');
-  LoadTexture(1, reducetexture, 'moon' + imgsuffix + '_c2.jpg');
-  LoadTexture(2, reducetexture, 'moon' + imgsuffix + '_c3.jpg');
-  LoadTexture(3, reducetexture, 'moon' + imgsuffix + '_c4.jpg');
-  LoadTexture(4, reducetexturefar, 'moon' + imgsuffix + '_c5.jpg');
-  LoadTexture(5, reducetexturefar, 'moon' + imgsuffix + '_c6.jpg');
-  LoadTexture(6, reducetexturefar, 'moon' + imgsuffix + '_c7.jpg');
-  LoadTexture(7, reducetexturefar, 'moon' + imgsuffix + '_c8.jpg');
-  minfoc := 95;
-  maxfoc := round(maxfocbase * GLmaterialLibrary1.Materials[
-    0].Material.Texture.Image.Height / 1024);
-//  trackbar1.Min := round(100 * log10(minfoc));
-//  trackbar1.Max := round(100 * log10(maxfoc));
-//  trackbar1.position := round(100 * log10(minfoc));
-  checkbox1.Checked := FollowNorth;
-  SetCameraOrientation;
-
-  Reglage.TabVisible := True;
-  label11.Visible    := True;
-  trackbar3.Visible  := True;
-  label12.Visible    := True;
-  trackbar4.Visible  := True;
-  panel8.Visible     := True;
-  button14.Visible   := True;
-  groupbox2.Visible  := True;
-
-  Outils.TabVisible := True;
-  Button12.Visible  := True;
-  Button13.Visible  := True;
-  checkbox1.Visible := True;
-  Distance1.Visible := True;
-  Enregistrersous1.Visible := True;
-  bitmapfont1.Glyphs.LoadFromFile(Slash(appdir) + Slash('Textures') + 'font_label_bold.bmp');
-  HUDText1.ModulateColor.AsWinColor := labelcolor;
-  HUDText1.Scale.SetVector(Label3dSize * LabelSize, Label3dSize * LabelSize, 1);
-  Trackbar2.position := GLlightSource1.ambient.AsWinColor and $FF;
-  Trackbar3.position := GLlightSource1.diffuse.AsWinColor and $FF;
-  Trackbar4.position := GLlightSource1.specular.AsWinColor and $FF;
-  if sphere1.Slices = 180 then
-    Trackbar5.position := 3
-  else if sphere1.Slices = 90 then
-    Trackbar5.position := 2
-  else if sphere1.Slices = 45 then
-    Trackbar5.position := 1
-  else
-    Trackbar5.position := 1;
-  CheckBox3.Checked := doublebuf;
-  CheckBox4.Checked := stencilbuf;
-  CheckBox8.Checked := compresstexture;
-  SetMinFilter(MipMaps);
-  LoadOverlay(overlayname, overlaylum);
-  j.Free;
-  b.Free;  }
-end;
-
-procedure TForm1.OrientLightSource(phase, sunincl: double);
-begin
-  glscene1.BeginUpdate;
-  GLLightSource1.BeginUpdate;
-  GLLightSource1.Position.z := -LightDist * cos(degtorad(phase));
-  GLLightSource1.Position.x := -LightDist * sin(degtorad(phase));
-  if abs(sunincl) > 89.9 then
-    sunincl := sgn(sunincl) * 89.9;
-  GLLightSource1.Position.y := -LightDist * tan(degtorad(-sunincl));
-  GLLightSource1.SpotDirection.x := GLLightSource1.Position.x;
-  GLLightSource1.SpotDirection.y := GLLightSource1.Position.y;
-  GLLightSource1.SpotDirection.z := GLLightSource1.Position.z;
-  GLLightSource1.EndUpdate;
-  glscene1.EndUpdate;
-end;
-
-procedure TForm1.resetorientation;
-begin
-  with DummyCube1 do
-  begin
-    RollAngle := 0;
-    TurnAngle := 0;
-    PitchAngle := 0;
-    direction.X := 0;
-    direction.Y := 0;
-    direction.Z := 1;
-    Up.X := 0;
-    Up.Y := 1;
-    Up.Z := 0;
-  end;
-end;
-
-procedure TForm1.GLSceneViewer1MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: integer);
-var
-  xx, yy: double;
-begin
-  clickX := X;
-  clickY := Y;
-  if measuringdistance and (button = mbLeft) then
-  begin
-    window2world(x, y, xx, yy);
-    startx  := x;
-    starty  := y;
-    startxx := xx;
-    startyy := yy;
-    InvProjMoon(2 * xx, 2 * yy, librl, librb, startl, startb);
-    distancestart := True;
-    mark(0, 0, '');
-    HUDSprite2.Visible    := True;
-    HUDSprite2.Material.FrontProperties.Emission.AsWinColor := MarkColor;
-    HUDSprite2.Width      := 1;
-    HUDSprite2.Position.X := startx;
-    HUDSprite2.Position.Y := starty;
-    HUDSprite2.Rotation   := 0;
-  end;
-end;
-
-procedure TForm1.GLSceneViewer1MouseMove(Sender: TObject; Shift: TShiftState;
-  X, Y: integer);
-var
-  xx, yy, l, b: double;
-begin
-{  if (not GLSceneViewer1.Focused) then
-    ActiveControl := GLSceneViewer1; }
-  if (abs(clickX - X) > 3) or (abs(clickY - Y) > 3) then
-  begin
-    try
-      lockmove := True;
-      if shift = [ssLeft] then
-      begin
-        if measuringdistance and distancestart then
-        begin
-          // distance
-          MeasureDistance(x, y);
-          ShowCoordinates(x, y);
-        end
-        else if ToolButton3.down then
-        begin
-          // rotation
-          SkipIdent := True;
-          window2world(x, y, xx, yy);
-          window2world(lastx, lasty, l, b);
-          lrot := rmod(100 * (l - xx) + lrot + 360, 360);
-          if lrot > 180 then
-            lrot := lrot - 360;
-          yy     := b - yy + GLCamera1.Position.y;
-          lastx  := x;
-          lasty  := y;
-          glscene1.BeginUpdate;
-          resetorientation;
-          dummycube1.PitchAngle  := librb;
-          dummycube1.TurnAngle   := -librl + lrot;
-          GLLightSource2.Shining := not phaseeffect;
-          if abs(yy) < 0.5 then
-            GLCamera1.Position.y := yy;
-          Annulus1.Position.x    := GLCamera1.Position.x;
-          Annulus1.Position.y    := GLCamera1.Position.y;
-          SetScrollBar(GLCamera1.Position.x, GLCamera1.Position.y);
-          mark(0, 0, '');
-          ShowSphere;
-          RefreshLabel;
-          glscene1.EndUpdate;
-        end
-        else
-        begin
-          // deplacement
-          SkipIdent := True;
-          window2world(x, y, xx, yy);
-          window2world(lastx, lasty, l, b);
-          xx    := l - xx + GLCamera1.Position.x;
-          yy    := b - yy + GLCamera1.Position.y;
-          lastx := x;
-          lasty := y;
-          glscene1.BeginUpdate;
-          if abs(xx) < 0.5 then
-            GLCamera1.Position.x := xx;
-          if abs(yy) < 0.5 then
-            GLCamera1.Position.y := yy;
-          Annulus1.Position.x    := GLCamera1.Position.x;
-          Annulus1.Position.y    := GLCamera1.Position.y;
-          SetScrollBar(xx, yy);
-          Mark(shapePositionX, shapePositionY, hudtext1.Text);
-          RefreshLabel;
-          glscene1.EndUpdate;
-        end;
-      end
-      else if shift = [ssmiddle] then
-      begin
-        // zoom
-        yy := GLCamera1.FocalLength * (1 - (y - lastyzoom) / 100);
-        lastyzoom := y;
-        if yy < minfoc then
-          yy := minfoc;
-        SetZoom(yy);
-      end
-      else
-      begin
-        ShowCoordinates(x, y);
-      end;
-    finally
-      lockmove := False;
-    end;
-  end;
-end;
-
-procedure TForm1.ScrollBar1Change(Sender: TObject);
-var
-  xx, yy, x1, y1, s1, c1: extended;
-begin
-  HUDSprite2.Visible := False;
-  sincos(deg2rad * CameraOrientation, s1, c1);
-  x1 := -scrollbar1.Position / 1000;
-  y1 := -scrollbar2.Position / 1000;
-  xx := (x1 * c1 + y1 * s1);
-  yy := (-x1 * s1 + y1 * c1);
-  glscene1.BeginUpdate;
-  GLCamera1.Position.x := xx;
-  GLCamera1.Position.y := yy;
-  Annulus1.Position.x := GLCamera1.Position.x;
-  Annulus1.Position.y := GLCamera1.Position.y;
-  curx := xx;
-  cury := yy;
-  Mark(shapePositionX, shapePositionY, hudtext1.Text);
-  RefreshLabel;
-  glscene1.EndUpdate;
+  edit1.Text := m1 + m[18];
+  edit2.Text := m2;
+  edit3.Text := m3;
+  edit4.Text := m4;
 end;
 
 procedure TForm1.MoonClickEvent(Sender: TObject; Button: TMouseButton;
@@ -6133,86 +4963,73 @@ if ssLeft in Shift then begin
 end;
 end;
 
-procedure TForm1.GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: integer);
+procedure TForm1.MoonMoveEvent(Sender: TObject; X, Y: Integer;
+                     OnMoon: boolean; Lon, Lat: Single);
 begin
-  if measuringdistance and distancestart then
+if OnMoon then begin
+  statusbar1.Panels[0].Text := m[10] + formatfloat(f1, Rad2Deg*Lon);
+  statusbar1.Panels[1].Text := m[11] + formatfloat(f1, Rad2Deg*Lat);
+end else begin
+  statusbar1.Panels[0].Text := m[10];
+  statusbar1.Panels[1].Text := m[11];
+end;
+end;
+
+function SetWhiteColor(x: integer): TColor;
+begin
+  Result := x + (x shl 8) + (x shl 16);
+end;
+
+procedure TForm1.TrackBar2Change(Sender: TObject);
+begin
+{ TODO : add light setting }
+  moon1.GLLightSource1.Ambient.AsWinColor := SetWhitecolor(Trackbar2.position);
+end;
+
+procedure TForm1.TrackBar3Change(Sender: TObject);
+begin
+  moon1.GLlightSource1.diffuse.AsWinColor := SetWhitecolor(Trackbar3.position);
+end;
+
+procedure TForm1.TrackBar4Change(Sender: TObject);
+begin
+  moon1.GLlightSource1.specular.AsWinColor := SetWhitecolor(Trackbar4.position);
+end;
+
+procedure TForm1.LoadOverlay(fn: string; lum: integer);
+var
+  i, n, ws, hs, x0, y0: integer;
+  b:   Tbitmap;
+  j:   Tjpegimage;
+  p:   Pbytearray;
+  src, dest: Trect;
+  max: double;
+const
+  slice: array[1..8] of integer = (6, 1, 2, 5, 8, 3, 4, 7);
+begin
+  if showoverlay and fileexists(Slash(moon1.OverlayPath) + fn) then
   begin
-    // distance
-    MeasureDistance(x, y);
-    ShowCoordinates(x, y);
-    distancestart := False;
+      moon1.Overlay:=fn;
+      if fileexists(Slash(moon1.OverlayPath) + slash('caption') + fn) then
+      begin
+        OverlayCaption1.Caption := remext(fn) + ' ' + 'Caption';
+        OverlayCaption2.Caption := OverlayCaption1.Caption;
+        OverlayCaption1.Visible := True;
+        OverlayCaption2.Visible := True;
+      end
+      else
+      begin
+        OverlayCaption1.Visible := False;
+        OverlayCaption2.Visible := False;
+      end;
   end
-  else if button = mbLeft then
+  else
   begin
-    if not SkipIdent then
-    begin
-      // identification
-      IdentXY(x, y);
-    end
-    else
-      SkipIdent := False;
+    showoverlay := False;
+    OverlayCaption1.Visible := False;
+    OverlayCaption2.Visible := False;
+    moon1.Overlay:='';
   end;
-end;
-
-procedure TForm1.FormMouseWheel(Sender: TObject; Shift: TShiftState;
-  WheelDelta: integer; MousePos: TPoint; var Handled: boolean);
-var
-  x:      double;
-  hd, bg: Tpoint;
-begin
-  hd := glsceneviewer1.ClientToScreen(point(0, 0));
-  bg := glsceneviewer1.ClientToScreen(point(glsceneviewer1.Width, glsceneviewer1.Height));
-  if (mousepos.X > hd.x) and (mousepos.X < bg.x) and (mousepos.Y > hd.y) and (mousepos.Y < bg.y) then
-  begin
-    handled := True;
-    if wheeldelta > 0 then
-      x := wheelstep * zoom * minfoc
-    else
-      x := minfoc * zoom / wheelstep;
-    if x < minfoc then
-      x := minfoc;
-    Setzoom(x);
-  end;
-end;
-
-procedure TForm1.GLCadencer1Progress(Sender: TObject; const deltaTime, newTime: double);
-begin
-  perfdeltay := -perfdeltay;
-  GLCamera1.Position.y := GLCamera1.Position.y + perfdeltay;
-end;
-
-procedure TForm1.RotationCadencerProgress(Sender: TObject;
-  const deltaTime, newTime: double);
-begin
-  lrot := lrot + rotstep * rotdirection * deltatime;
-  GLSceneViewer1MouseMove(nil, [ssLeft], lastx, lasty);
-end;
-
-procedure TForm1.SnapShot(var bmp: TBitmap; white: boolean);
-var
-  bmp32: TGLBitmap32;
-begin
-  if white then
-  begin
-    GLSceneViewer1.Buffer.BackgroundColor := clWhite;
-    GLSceneViewer1.Update;
-  end;
-  bmp32 := GLSceneViewer1.Buffer.CreateSnapShot;
-  bmp   := bmp32.Create32BitsBitmap;
-  GLSceneViewer1.Buffer.BackgroundColor := clBlack;
-  bmp32.Free;
-end;
-
-procedure TForm1.RenderToBitmap(var bmp: TBitmap; size: integer; white: boolean);
-begin
-  bmp.PixelFormat := pf24bit;
-  bmp.Width  := size;
-  bmp.Height := size;
-  if white then
-    GLSceneViewer1.Buffer.BackgroundColor := clWhite;
-  GLSceneViewer1.Buffer.RenderToBitmap(bmp, 96);
-  GLSceneViewer1.Buffer.BackgroundColor := clBlack;
 end;
 
 
