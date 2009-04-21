@@ -247,13 +247,14 @@ object Form1: TForm1
     end
     object TrackBar1: TTrackBar
       Left = 304
-      Height = 49
+      Height = 35
       Top = -4
       Width = 112
       Frequency = 2
       Max = 5
       OnChange = TrackBar1Change
       Position = 0
+      ScalePos = trBottom
       TickMarks = tmTopLeft
       TickStyle = tsNone
       TabOrder = 2
@@ -1182,8 +1183,8 @@ object Form1: TForm1
               ChildSizing.ShrinkVertical = crsScaleChilds
               ChildSizing.Layout = cclLeftToRightThenTopToBottom
               ChildSizing.ControlsPerLine = 2
-              ClientHeight = 50
-              ClientWidth = 236
+              ClientHeight = 61
+              ClientWidth = 234
               Columns = 2
               Items.Strings = (
                 'Nom'
@@ -1293,8 +1294,8 @@ object Form1: TForm1
             Top = 300
             Width = 233
             Caption = 'Telescope'
-            ClientHeight = 166
-            ClientWidth = 231
+            ClientHeight = 177
+            ClientWidth = 229
             TabOrder = 12
             object Label26: TLabel
               Left = 136
@@ -1400,8 +1401,8 @@ object Form1: TForm1
             Top = 300
             Width = 233
             Caption = 'Satellisation'
-            ClientHeight = 166
-            ClientWidth = 231
+            ClientHeight = 177
+            ClientWidth = 229
             TabOrder = 11
             Visible = False
             object Label4: TLabel
@@ -1554,8 +1555,8 @@ object Form1: TForm1
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 26
-            ClientWidth = 207
+            ClientHeight = 37
+            ClientWidth = 205
             Columns = 2
             ItemIndex = 0
             Items.Strings = (
@@ -1752,8 +1753,8 @@ object Form1: TForm1
             Top = 370
             Width = 193
             Caption = 'Options valid at next startup'
-            ClientHeight = 43
-            ClientWidth = 191
+            ClientHeight = 54
+            ClientWidth = 189
             TabOrder = 4
             object CheckBox8: TCheckBox
               Left = 6
@@ -1770,7 +1771,7 @@ object Form1: TForm1
       end
     end
   end
-  object GLSceneViewer1: TGLSceneViewer
+  object DoNotRemove: TGLSceneViewer
     Left = 34
     Height = 100
     Top = 281

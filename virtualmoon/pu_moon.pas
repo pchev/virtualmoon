@@ -154,8 +154,8 @@ type
     Procedure SetZoomLevel(zoom:single);
     function  Screen2Moon(x,y:integer; var lon,lat: single): boolean;
     function  Moon2Screen(lon,lat: single; var x,y:integer): boolean;
-    function  Moon2ScreenNoClip(lon,lat: single; var x,y:integer): boolean;
-    function  Moon2World(lon,lat: single; var x,y:single): boolean;
+    function  Moon2World(lon,lat: single; var x,y,z:single): boolean;
+    function  World2Moon(x,y,z:single; var lon,lat: single): boolean;
     procedure InitLabel;
     procedure ClearLabel;
     procedure InitSprite;
@@ -684,116 +684,58 @@ end;
 end;
 
 function Tf_moon.Moon2Screen(lon,lat: single; var x,y:integer): boolean;
-var qr,l,b,xx,yy,zz: single;
+var xx,yy,zz: single;
     v : TAffineVector;
 begin
-if FMirror then begin
-  GLCamera1.Direction.SetVector(0,0,1);
-  GLSceneViewer1.Buffer.ContextOptions:=[roNoSwapBuffers];
-  GLSceneViewer1.Update;
-end;
-  qr:=0.5;
-  l:=-lon-pi/2;
-  b:=lat;
-  xx:=qr*cos(b)*cos(l);
-  yy:=qr*cos(b)*sin(l);
-  zz:=qr*sin(b);
-  v[0]:=xx;
-  v[1]:=zz;
-  v[2]:=yy;
-  v:=GLSphereMoon.LocalToAbsolute(v);
-  v:=GLSceneViewer1.Buffer.WorldToScreen(v);
-  if (v[0]>=0)and(v[0]<=GLSceneViewer1.Width)and(v[1]>=0)and(v[1]<=GLSceneViewer1.Height) then begin
+Moon2World(lon,lat,xx,yy,zz);
+v[0]:=xx;
+v[1]:=yy;
+v[2]:=zz;
+v:=GLSceneViewer1.Buffer.WorldToScreen(v);
+if (v[0]>=0)and(v[0]<=GLSceneViewer1.Width)and(v[1]>=0)and(v[1]<=GLSceneViewer1.Height) then begin
+  if FMirror then begin
+     x:=GLSceneViewer1.Width-round(v[0]);
+     y:=round(v[1]);
+  end
+  else begin
     x:=round(v[0]);
     y:=GLSceneViewer1.Height-round(v[1]);
-    if FMirror then x:=GLSceneViewer1.Width-x;
-    Screen2Moon(x,y,xx,yy);
-    result:=(abs(lon-xx)<0.1)and(abs(lat-yy)<0.1);
-  end else result:=false;
-if FMirror then begin
-  GLCamera1.Direction.SetVector(0,0,-1);
-  GLSceneViewer1.Buffer.ContextOptions:=[roDoubleBuffer,roRenderToWindow];
-  GLSceneViewer1.Update;
-end;
+  end;
+  Screen2Moon(x,y,xx,yy);
+  result:=(abs(lon-xx)<0.1)and(abs(lat-yy)<0.1);
+result:=true;
+end
+else
+  result:=false;
 end;
 
 function Tf_moon.Screen2Moon(x,y:integer; var lon,lat: single): boolean;
 var
-  pick : TGLCustomSceneObject;
-  v : TAffineVector;
-  qr,xx,yy,zz: single;
+  farp : integer;
+  p0,p1,raystart,rayvector,ipoint:TVector;
 begin
 if FMirror then begin
-  GLCamera1.Direction.SetVector(0,0,1);
-  GLSceneViewer1.Buffer.ContextOptions:=[roNoSwapBuffers];
-  GLSceneViewer1.Update;
+   x:=GLSceneViewer1.Width-x;
+   farp:=-1;
+end else begin
+   y:=GLSceneViewer1.height-y;
+   farp:=1;
 end;
- if FMirror then x:=GLSceneViewer1.Width-x;
- pick:=(GLSceneViewer1.Buffer.GetPickedObject(x, y) as TGLCustomSceneObject);
- if assigned(pick) then begin
-   v:=GLSceneViewer1.Buffer.PixelRayToWorld(x, y);
-   v:=pick.AbsoluteToLocal(v);
-   xx:=v[0];
-   yy:=v[2];
-   zz:=v[1];
-   lon:=-arctan2(yy,xx)-pi/2;
-   if (lon<-pi) then lon:=lon+2*pi;
-   qr:=sqrt(xx*xx+yy*yy);
-   if qr<>0 then begin
-      lat:=arctan(zz/qr);
-      result:=true;
-   end else begin
-      lat:=0;
-      result:=false;
-   end;
- end
- else result:=false;
-if FMirror then begin
-  GLCamera1.Direction.SetVector(0,0,-1);
-  GLSceneViewer1.Buffer.ContextOptions:=[roDoubleBuffer,roRenderToWindow];
-  GLSceneViewer1.Update;
+p0:=GLSceneViewer1.Buffer.ScreenToWorld(vectormake(x,y,0));
+p1:=GLSceneViewer1.Buffer.ScreenToWorld(vectormake(x,y,farp));
+raystart:=p0;
+rayvector:=vectornormalize(vectorsubtract(p1,p0));
+if GLSphereMoon.RayCastIntersect(raystart, rayvector, @ipoint) then  begin
+   result:=World2Moon(ipoint[0],ipoint[2],ipoint[1],lon,lat);
+end else begin
+  result:=false;
 end;
 end;
 
-function Tf_moon.Moon2ScreenNoClip(lon,lat: single; var x,y:integer): boolean;
+function Tf_moon.Moon2World(lon,lat: single; var x,y,z:single): boolean;
 var qr,l,b,xx,yy,zz: single;
     v : TAffineVector;
 begin
-if FMirror then begin
-  GLCamera1.Direction.SetVector(0,0,1);
-  GLSceneViewer1.Buffer.ContextOptions:=[roNoSwapBuffers];
-  GLSceneViewer1.Update;
-end;
-  qr:=0.5;
-  l:=-lon-pi/2;
-  b:=lat;
-  xx:=qr*cos(b)*cos(l);
-  yy:=qr*cos(b)*sin(l);
-  zz:=qr*sin(b);
-  v[0]:=xx;
-  v[1]:=zz;
-  v[2]:=yy;
-  v:=GLSphereMoon.LocalToAbsolute(v);
-  v:=GLSceneViewer1.Buffer.WorldToScreen(v);
-  x:=round(v[0]);
-  y:=GLSceneViewer1.Height-round(v[1]);
-  result:=true;
-if FMirror then begin
-  GLCamera1.Direction.SetVector(0,0,-1);
-  GLSceneViewer1.Buffer.ContextOptions:=[roDoubleBuffer,roRenderToWindow];
-  GLSceneViewer1.Update;
-end;
-end;
-
-function Tf_moon.Moon2World(lon,lat: single; var x,y:single): boolean;
-var qr,l,b,xx,yy,zz: single;
-    v : TAffineVector;
-begin
-if FMirror then begin
-  GLCamera1.Direction.SetVector(0,0,1);
-  GLSceneViewer1.Buffer.ContextOptions:=[roNoSwapBuffers];
-  GLSceneViewer1.Update;
-end;
   qr:=0.5;
   l:=-lon-pi/2;
   b:=lat;
@@ -806,12 +748,25 @@ end;
   v:=GLSphereMoon.LocalToAbsolute(v);
   x:=v[0];
   y:=v[1];
+  z:=v[2];
   result:=true;
-if FMirror then begin
-  GLCamera1.Direction.SetVector(0,0,-1);
-  GLSceneViewer1.Buffer.ContextOptions:=[roDoubleBuffer,roRenderToWindow];
-  GLSceneViewer1.Update;
 end;
+
+function Tf_moon.World2Moon(x,y,z:single; var lon,lat: single): boolean;
+var lo,la,qr: single;
+begin
+   lo:=-arctan2(y,x)-pi/2;
+   if (lo<-pi) then lo:=lo+2*pi;
+   qr:=sqrt(x*x+y*y);
+   if qr<>0 then begin
+      la:=arctan(z/qr);
+      lat:=la+deg2rad*LibrLat*cos(lo);
+      lon:=lo-deg2rad*LibrLon+deg2rad*LibrLat*tan(lat)*sin(lo);
+      result:=true;
+   end else begin
+      lat:=0;
+      result:=false;
+   end;
 end;
 
 Procedure Tf_moon.SetZoomLevel(zoom:single);
@@ -945,7 +900,7 @@ try
     GLBumpShader1.BumpMethod:=bmBasicARBFP;
     FBumpOk:=true;
   end;
-if GLsceneviewer1.Buffer.Acceleration=chaSoftware then begin
+if GLSceneViewer1.Buffer.Acceleration=chaSoftware then begin
    raise exception.Create('This program only run with a graphic card that support OpenGL hardware acceleration.');
    halt;
 end;
@@ -985,7 +940,7 @@ end;
 
 procedure Tf_moon.GLSceneViewer1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
-var lat,lon: single;
+var lat,lon,z: single;
     OnMoon: boolean;
 begin
   mx:=x;
@@ -1001,7 +956,7 @@ begin
     if Screen2Moon(x,y,startl,startb) then begin
       startx  := x;
       starty  := y;
-      Moon2World(startl,startb,startxx,startyy);
+      Moon2World(startl,startb,startxx,startyy,z);
       distancestart := True;
       SetMark(0, 0, '');
       GLHUDSpriteDistance.Visible    := True;
@@ -1420,11 +1375,11 @@ end;
 end;
 
 procedure Tf_moon.CenterAt(lon,lat:single);
-var x,y: single;
+var x,y,z: single;
     sl,cl,sb,cb: single;
 begin
 if VisibleSideLock then begin
-  if Moon2World(lon,lat,x,y) then begin
+  if Moon2World(lon,lat,x,y,z) then begin
      GLCamera1.Position.X:=x;
      GLCamera1.Position.Y:=y;
      GLAnnulus1.Position.x := GLCamera1.Position.x;
@@ -1547,13 +1502,13 @@ end;
 procedure Tf_moon.MeasureDistance(x, y: integer);
 var
   i: integer;
-  xx, yy, l, b, d: single;
+  xx, yy, zz, l, b, d: single;
   m1,m2,m3,m4: string;
 begin
  if Screen2Moon(x,y,l,b) then begin
   d  := angulardistance(l, b, startl, startb);
   m1 := formatfloat(f1, d * Rmoon);
-  Moon2World(l,b,xx,yy);
+  Moon2World(l,b,xx,yy,zz);
   xx := startxx - xx;
   yy := startyy - yy;
   d  := sqrt(xx * xx + yy * yy) * diam / 3600;

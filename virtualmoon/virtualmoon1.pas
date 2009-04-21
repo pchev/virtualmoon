@@ -50,7 +50,7 @@ type
   TForm1 = class(TForm)
     Desc1:   TIpHtmlPanel;
     FilePopup: TPopupMenu;
-    GLSceneViewer1: TGLSceneViewer;
+    DoNotRemove: TGLSceneViewer;
     HelpPopup: TPopupMenu;
     PairSplitter1: TPairSplitter;
     PairSplitterSide1: TPairSplitterSide;
@@ -4619,7 +4619,7 @@ end;
 procedure TForm1.Button14Click(Sender: TObject);
 begin
 { TODO : implement showinfo }
-  moon1.Glsceneviewer1.Buffer.ShowInfo;
+  moon1.GLSceneViewer1.Buffer.ShowInfo;
 end;
 
 procedure TForm1.ZoomEyepieceClick(Sender: TObject);
