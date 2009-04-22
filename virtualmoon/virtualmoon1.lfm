@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = ControlBar1
+  ActiveControl = PageControl1
   AutoScroll = False
   Caption = 'Form1'
   ClientHeight = 545
@@ -439,9 +439,9 @@ object Form1: TForm1
             TabOrder = 1
             object notes_name: TLabel
               Left = 8
-              Height = 14
+              Height = 15
               Top = 8
-              Width = 13
+              Width = 17
               Caption = '    '
               ParentColor = False
             end
@@ -453,77 +453,6 @@ object Form1: TForm1
               Caption = 'Update'
               OnClick = UpdNotesClick
               TabOrder = 0
-            end
-          end
-        end
-        object dbtab: TPage
-          Caption = 'Database'
-          ClientWidth = 338
-          ClientHeight = 458
-          ImageIndex = 5
-          object StringGrid2: TStringGrid
-            Left = 0
-            Height = 425
-            Top = 0
-            Width = 338
-            Align = alClient
-            ColCount = 2
-            DefaultColWidth = 74
-            FixedRows = 0
-            Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor]
-            TabOrder = 0
-            TitleFont.Height = -11
-            TitleFont.Name = 'MS Sans Serif'
-            OnSetEditText = StringGrid2SetEditText
-            ColWidths = (
-              74
-              963
-            )
-          end
-          object Panel6: TPanel
-            Left = 0
-            Height = 33
-            Top = 425
-            Width = 338
-            Align = alBottom
-            ClientHeight = 33
-            ClientWidth = 338
-            TabOrder = 1
-            object Button9: TButton
-              Left = 86
-              Height = 25
-              Top = 4
-              Width = 75
-              Caption = 'Enregistrer'
-              OnClick = Button9Click
-              TabOrder = 0
-            end
-            object btnEffacer: TButton
-              Left = 8
-              Height = 25
-              Top = 4
-              Width = 75
-              Caption = 'Nouveau'
-              OnClick = btnEffacerClick
-              TabOrder = 1
-            end
-            object Button19: TButton
-              Left = 164
-              Height = 25
-              Top = 4
-              Width = 73
-              Caption = 'Coord.'
-              OnClick = EnregistredistClick
-              TabOrder = 2
-            end
-            object Button20: TButton
-              Left = 240
-              Height = 25
-              Top = 4
-              Width = 65
-              Caption = 'Delete'
-              OnClick = Button20Click
-              TabOrder = 3
             end
           end
         end
@@ -544,9 +473,9 @@ object Form1: TForm1
             TabStop = True
             object Label6: TLabel
               Left = 2
-              Height = 14
+              Height = 15
               Top = 38
-              Width = 30
+              Width = 35
               Caption = 'Heure'
               Font.Color = clBlack
               Font.Height = -11
@@ -556,9 +485,9 @@ object Form1: TForm1
             end
             object Label9: TLabel
               Left = 2
-              Height = 14
+              Height = 15
               Top = 6
-              Width = 24
+              Width = 27
               Caption = 'Date'
               Font.Color = clBlack
               Font.Height = -11
@@ -656,7 +585,7 @@ object Form1: TForm1
             end
             object LabelNM: TLabel
               Left = 204
-              Height = 15
+              Height = 14
               Top = 19
               Width = 7
               Caption = 'L'
@@ -668,7 +597,7 @@ object Form1: TForm1
             end
             object LabelFQ: TLabel
               Left = 204
-              Height = 15
+              Height = 14
               Top = 43
               Width = 7
               Caption = 'L'
@@ -680,7 +609,7 @@ object Form1: TForm1
             end
             object LabelFM: TLabel
               Left = 204
-              Height = 15
+              Height = 14
               Top = 67
               Width = 7
               Caption = 'L'
@@ -692,7 +621,7 @@ object Form1: TForm1
             end
             object LabelLQ: TLabel
               Left = 204
-              Height = 15
+              Height = 14
               Top = 92
               Width = 7
               Caption = 'L'
@@ -1105,31 +1034,31 @@ object Form1: TForm1
             TabOrder = 0
             object Label19: TLabel
               Left = 8
-              Height = 14
+              Height = 15
               Top = 12
-              Width = 34
+              Width = 42
               Caption = 'Intérêt '
               ParentColor = False
             end
             object Label20: TLabel
               Left = 8
-              Height = 14
+              Height = 15
               Top = 36
-              Width = 50
+              Width = 63
               Caption = 'Instrument'
               ParentColor = False
             end
             object Label21: TLabel
               Left = 152
-              Height = 14
+              Height = 15
               Top = 36
-              Width = 20
+              Width = 27
               Caption = 'mm.'
               ParentColor = False
             end
             object ComboBox2: TComboBox
               Left = 80
-              Height = 21
+              Height = 27
               Top = 8
               Width = 121
               AutoComplete = False
@@ -1148,7 +1077,7 @@ object Form1: TForm1
             end
             object ComboBox3: TComboBox
               Left = 80
-              Height = 21
+              Height = 27
               Top = 32
               Width = 57
               AutoComplete = False
@@ -1765,6 +1694,77 @@ object Form1: TForm1
               OnChange = CheckBox8Change
               OnClick = CheckBox8Click
               TabOrder = 0
+            end
+          end
+        end
+        object dbtab: TPage
+          Caption = 'Database'
+          ClientWidth = 338
+          ClientHeight = 458
+          ImageIndex = 5
+          object StringGrid2: TStringGrid
+            Left = 0
+            Height = 425
+            Top = 0
+            Width = 338
+            Align = alClient
+            ColCount = 2
+            DefaultColWidth = 74
+            FixedRows = 0
+            Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor]
+            TabOrder = 0
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            OnSetEditText = StringGrid2SetEditText
+            ColWidths = (
+              74
+              963
+            )
+          end
+          object Panel6: TPanel
+            Left = 0
+            Height = 33
+            Top = 425
+            Width = 338
+            Align = alBottom
+            ClientHeight = 33
+            ClientWidth = 338
+            TabOrder = 1
+            object Button9: TButton
+              Left = 86
+              Height = 25
+              Top = 4
+              Width = 75
+              Caption = 'Enregistrer'
+              OnClick = Button9Click
+              TabOrder = 0
+            end
+            object btnEffacer: TButton
+              Left = 8
+              Height = 25
+              Top = 4
+              Width = 75
+              Caption = 'Nouveau'
+              OnClick = btnEffacerClick
+              TabOrder = 1
+            end
+            object Button19: TButton
+              Left = 164
+              Height = 25
+              Top = 4
+              Width = 73
+              Caption = 'Coord.'
+              OnClick = EnregistredistClick
+              TabOrder = 2
+            end
+            object Button20: TButton
+              Left = 240
+              Height = 25
+              Top = 4
+              Width = 65
+              Caption = 'Delete'
+              OnClick = Button20Click
+              TabOrder = 3
             end
           end
         end
