@@ -40,7 +40,10 @@ type
   TForm2 = class(TForm)
     Button1: TButton;
     BumpCheckBox: TCheckBox;
+    Button5: TButton;
     ColorDialog1: TColorDialog;
+    FontDialog1: TFontDialog;
+    LabelFont: TLabel;
     PageControl1: TNotebook;
     TabSheet1: TPage;
     Label4: TLabel;
@@ -104,8 +107,6 @@ type
     Label17: TLabel;
     TrackBar2: TTrackBar;
     Label18: TLabel;
-    Label19: TLabel;
-    TrackBar3: TTrackBar;
     CheckBox15: TCheckBox;
     ruklprefix: TEdit;
     ruklsuffix: TEdit;
@@ -156,6 +157,7 @@ type
     nooverlay: TLabel;
     Label34: TLabel;
     CheckBox24: TCheckBox;
+    procedure Button5Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
@@ -260,6 +262,15 @@ end;
 findclose(fs);
 savegeol:=GeologicalMap;
 savelibration:=librationeffect;
+end;
+
+procedure TForm2.Button5Click(Sender: TObject);
+begin
+if FontDialog1.Execute then begin
+   LabelFont.Caption:=FontDialog1.Font.Name;
+   LabelFont.Font:=FontDialog1.Font;
+   LabelFont.Font.Color:=clWindowText;
+end;
 end;
 
 procedure TForm2.FormDestroy(Sender: TObject);

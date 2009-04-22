@@ -440,34 +440,31 @@ type
     public
     { Déclarations publiques }
     autolabelcolor: Tcolor;
-    lastx, lasty, lastyzoom, posmin, posmax, ax, ay, MaxSprite: integer;
-    LastIma, maximgdir, maxima, startx,
-    starty, saveimagesize, lastscrollx, lastscrolly: integer;
+    lastx, lasty, lastyzoom, MaxSprite: integer;
+    LastIma, maximgdir, maxima, startx, starty, saveimagesize: integer;
     LeftMargin, PrintTextWidth, clickX, clickY: integer;
-    PrintEph, PrintDesc, externalimage, PrintChart, lopamdirect,
-    hiresok, hires500ok: boolean;
+    PrintEph, PrintDesc, externalimage, PrintChart, lopamdirect: boolean;
     PicZoom: array of double;
     PicTop, PicLeft: array of integer;
     librl, librb, wheelstep, EphStep, fov, searchl,
     searchb, markx, marky, flipx, rotstep, lunaison: double;
     ra, Dec, rad, ded, dist, dkm, phase, illum, pa, sunincl, currentphase,
-    tphase, LabelSize, bx, by, bxpos, dummy: double;
-    editrow, notesrow, hi_w, hi_wd, hi_dl, hi_mult, rotdirection, searchpos: integer;
+    tphase, by, bxpos, dummy: double;
+    editrow, notesrow, rotdirection, searchpos: integer;
     dbedited: boolean;
     SkipIdent, wantbump, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
     minilabel: boolean;
-    lockmove, lockrepeat, lockrot, DDEreceiveok, showautolabel,
+    lockmove, lockrepeat, lockrot, showautolabel,
     showlibrationmark, marked, saveimagewhite, skippanelresize, skipresize: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
     lopamdirectsuffix, lopamlocalsuffix: string;
     externalimagepath, helpprefix, ruklprefix, ruklsuffix,
-    exitpassword, password, scopeinterface, markname, currentname, currentid: string;
+    scopeinterface, markname, currentname, currentid: string;
     appname, pofile: string;
     multi_instance, CloseVMAbrowser, ClosePhotlun, CloseCdC: boolean;
-    m:      array[1..nummessage] of string;
-    shapepositionX, shapepositionY, CameraOrientation,
-    PoleOrientation, startl, startb, startxx, startyy: double;
+    m: array[1..nummessage] of string;
+    CameraOrientation, PoleOrientation, startl, startb, startxx, startyy: double;
     curx, cury: double;
     LabelDensity, overlaylum, phaseoffset: integer;
     perfdeltay: double;
@@ -482,15 +479,11 @@ type
     DIAMINST, wordformat: integer;
     locktrackbar: boolean;
     lockscrollbar: boolean;
-    hires, hires500, overlayhi, overlayimg: Tbitmap;
-    fh, fh500: file;
+    overlayhi, overlayimg: Tbitmap;
     eyepiecename: array[1..10] of string;
     eyepiecefield, eyepiecemirror, eyepiecerotation: array[1..10] of integer;
     EyepieceRatio: double;
     zoom:   double;
-    phasehash: boolean;
-    phaseumbrachanging: boolean;
-    phaseumbra: Tcolor;
     useDBN: integer;
     db_age: array[1..6] of integer;
     nmjd, fqjd, fmjd, lqjd, currentl, currentb: double;
@@ -970,8 +963,7 @@ begin
   showlibrationmark := False;
   lockmove := False;
   maxima   := 2;
-  LabelDensity := 600;
-  LabelSize := 1;
+  LabelDensity := 400;
   marksize := 5;
   saveimagesize := 0;
   saveimagewhite := False;
@@ -995,12 +987,6 @@ begin
   externalimagepath := 'mspaint.exe';
   hiresfile := 'hires.jpg';
   imgsuffix := '';
-  hiresok  := False;
-  hires500ok := False;
-  hi_w     := 11520;
-  hi_dl    := 32;
-  hi_wd    := 16;
-  phaseumbra := $00484848;
   eyepiecename[1] := 'SCT 8" + Plossl 10mm';
   eyepiecefield[1] := 15;
   rotdirection := 1;
@@ -1064,8 +1050,6 @@ begin
     wantbump  := ReadBool(section, 'BumpMap', wantbump);
     GeologicalMap := ReadBool(section, 'GeologicalMap', GeologicalMap);
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
-    phasehash    := ReadBool(section, 'PhaseHash', PhaseHash);
-    phaseumbra   := ReadInteger(section, 'PhaseUmbra', PhaseUmbra);
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
     ShowMark     := ReadBool(section, 'ShowMark', ShowMark);
     ShowLibrationMark := ReadBool(section, 'ShowLibrationMark', ShowLibrationMark);
@@ -1074,7 +1058,6 @@ begin
     AutolabelColor := ReadInteger(section, 'AutolabelColor', AutolabelColor);
     LabelDensity := ReadInteger(section, 'LabelDensity', LabelDensity);
     marksize     := ReadInteger(section, 'MarkSize', marksize);
-    LabelSize    := ReadFloat(section, 'LabelSize', LabelSize);
     labelcenter  := ReadBool(section, 'LabelCenter', labelcenter);
     minilabel    := ReadBool(section, 'MiniLabel', minilabel);
     FollowNorth  := ReadBool(section, 'FollowNorth', FollowNorth);
@@ -1232,8 +1215,6 @@ begin
       WriteBool(section, 'PhaseEffect', phaseeffect);
       WriteBool(section, 'BumpMap', wantbump);
       WriteBool(section, 'GeologicalMap', GeologicalMap);
-      WriteBool(section, 'PhaseHash', PhaseHash);
-      WriteInteger(section, 'PhaseUmbra', PhaseUmbra);
       WriteBool(section, 'ShowLabel', ShowLabel);
       WriteBool(section, 'ShowMark', ShowMark);
       WriteBool(section, 'ShowLibrationMark', ShowLibrationMark);
@@ -1241,7 +1222,6 @@ begin
       WriteInteger(section, 'MarkColor', MarkColor);
       WriteInteger(section, 'AutolabelColor', AutolabelColor);
       WriteInteger(section, 'LabelDensity', LabelDensity);
-      WriteFloat(section, 'LabelSize', LabelSize);
       WriteInteger(section, 'MarkSize', marksize);
       WriteBool(section, 'LabelCenter', labelcenter);
       WriteBool(section, 'MiniLabel', minilabel);
@@ -1339,7 +1319,7 @@ begin
   if (moon1.Zoom >= 8) and (moon1.Zoom >= (moon1.ZoomMax-5)) then
     wmin := -1
   else
-    wmin := MinValue([650.0, 1.5 * LabelDensity / (moon1.Zoom * moon1.Zoom)]);
+    wmin := MinValue([650.0, 3 * LabelDensity / (moon1.Zoom * moon1.Zoom)]);
   { TODO : Review label density in function of zoom }
 // Labels
   if showlabel then
@@ -2990,8 +2970,6 @@ UniqueInstance1.Loaded;
   CurrentEyepiece := 0;
   EyepieceRatio := 1;
   zoom      := 1;
-  phasehash := False;
-  phaseumbrachanging := False;
   useDBN    := 6;
   compresstexture := true;
   showoverlay := True;
@@ -3012,8 +2990,6 @@ UniqueInstance1.Loaded;
   end;
   tz    := TCdCTimeZone.Create;
   CursorImage1 := TCursorImage.Create;
-  hires := Tbitmap.Create;
-  hires500 := Tbitmap.Create;
   overlayhi := Tbitmap.Create;
   overlayimg := Tbitmap.Create;
   // hide developpement tools or not finished function
@@ -3243,7 +3219,6 @@ begin
     form2.Shape2.Brush.Color := markcolor;
     form2.Shape3.Brush.Color := autolabelcolor;
     form2.TrackBar2.Position := -LabelDensity;
-    form2.TrackBar3.Position := round(LabelSize * 100);
     form2.TrackBar4.Position := marksize;
     config.newlang := language;
     form2.BumpCheckBox.Checked:=wantbump;
@@ -3292,6 +3267,10 @@ begin
     form2.combobox5change(Sender);
     form2.checkbox11.Checked := showoverlay;
     form2.checkbox16.Checked := UseComputerTime;
+    form2.FontDialog1.Font:=moon1.LabelFont;
+    form2.LabelFont.Caption:=moon1.LabelFont.Name;
+    form2.LabelFont.Font:=moon1.LabelFont;
+    form2.LabelFont.Font.Color:=clWindowText;
     FormPos(Form2, mouse.cursorpos.x, mouse.cursorpos.y);
     Form2.showmodal;
     if form2.ModalResult = mrOk then
@@ -3325,7 +3304,6 @@ begin
       marklabelcolor    := form2.Shape1.Brush.Color;
       autolabelcolor := form2.Shape3.Brush.Color;
       LabelDensity  := abs(form2.TrackBar2.Position);
-      LabelSize     := form2.TrackBar3.Position / 100;
       marksize      := form2.TrackBar4.Position;
       showlabel     := form2.checkbox5.Checked;
       showmark      := form2.checkbox6.Checked;
@@ -3333,6 +3311,7 @@ begin
       labelcenter   := form2.checkbox17.Checked;
       minilabel     := form2.checkbox18.Checked;
       Showautolabel := showlabel and (Labeldensity < 1000);
+      moon1.LabelFont:=form2.FontDialog1.Font;
       moon1.Labelcolor:=autolabelcolor;
       Obslatitude := strtofloat(form2.Edit1.Text);
       if form2.ComboBox1.ItemIndex = 1 then
@@ -3704,16 +3683,6 @@ begin
   try
     dblox.Free;
     dbnotes.Free;
-    hires.Free;
-    hires500.Free;
-    if hiresok then
-    begin
-      closefile(fh);
-    end;
-    if hires500ok then
-    begin
-      closefile(fh500);
-    end;
     tz.Free;
     Fplanet.Free;
     overlayimg.Free;
