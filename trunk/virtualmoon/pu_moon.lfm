@@ -43,24 +43,6 @@ object f_moon: Tf_moon
     ObjectsSorting = osNone
     left = 48
     top = 16
-    object GLLightSource1: TGLLightSource
-      TagFloat = 0
-      Ambient.Color = {
-        0000803F0000803F0000803F0000803F
-      }
-      ConstAttenuation = 0.5
-      LinearAttenuation = 0
-      QuadraticAttenuation = 0
-      Position.Coordinates = {
-        00000000000000000000C8C20000803F
-      }
-      LightStyle = lsParallel
-      Specular.Color = {
-        0000803F0000803F0000803F0000803F
-      }
-      SpotCutOff = 10
-      SpotExponent = 0
-    end
     object GLAnnulus1: TGLAnnulus
       TagFloat = 0
       Material.FrontProperties.Ambient.Color = {
@@ -124,17 +106,42 @@ object f_moon: Tf_moon
       BottomArrowHeadHeight = 0.5
       BottomArrowHeadRadius = 0.20000000298023
     end
-    object GLSphereMoon: TGLSphere
+    object LibrationDummyCube: TGLDummyCube
       TagFloat = 0
-      Material.MaterialLibrary = GLMultiMaterialLibrary
-      Material.LibMaterialName = 'MultiMaterial'
       PitchAngle = 0
       RollAngle = 0
       TurnAngle = 0
-      Normals = nsFlat
-      Radius = 0.5
-      Slices = 36
-      Stacks = 18
+      CubeSize = 1
+      object GLSphereMoon: TGLSphere
+        TagFloat = 0
+        Material.MaterialLibrary = GLMultiMaterialLibrary
+        Material.LibMaterialName = 'MultiMaterial'
+        PitchAngle = 0
+        RollAngle = 0
+        TurnAngle = 0
+        Normals = nsFlat
+        Radius = 0.5
+        Slices = 36
+        Stacks = 18
+      end
+      object GLLightSource1: TGLLightSource
+        TagFloat = 0
+        Ambient.Color = {
+          0000803F0000803F0000803F0000803F
+        }
+        ConstAttenuation = 0.5
+        LinearAttenuation = 0
+        QuadraticAttenuation = 0
+        Position.Coordinates = {
+          00000000000000000000C8C20000803F
+        }
+        LightStyle = lsParallel
+        Specular.Color = {
+          0000803F0000803F0000803F0000803F
+        }
+        SpotCutOff = 10
+        SpotExponent = 0
+      end
     end
     object GLMirror1: TGLMirror
       TagFloat = 0
