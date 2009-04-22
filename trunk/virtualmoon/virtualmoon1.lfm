@@ -88,11 +88,11 @@ object Form1: TForm1
       Left = 0
       Height = 25
       Top = 0
-      Width = 226
+      Width = 241
       Align = alLeft
       AutoSize = True
       ButtonHeight = 21
-      ButtonWidth = 75
+      ButtonWidth = 80
       Caption = 'ToolBar2'
       DragMode = dmAutomatic
       EdgeInner = esNone
@@ -103,21 +103,18 @@ object Form1: TForm1
       object ToolButton1: TToolButton
         Left = 1
         Top = 0
-        AutoSize = True
         Caption = 'Fichier'
         OnClick = ToolButton1Click
       end
       object ToolButton2: TToolButton
-        Left = 76
+        Left = 81
         Top = 0
-        AutoSize = True
         Caption = 'Configuration'
         OnClick = Configuration1Click
       end
       object ToolButton8: TToolButton
-        Left = 151
+        Left = 165
         Top = 0
-        AutoSize = True
         Caption = 'Aide'
         OnClick = ToolButton8Click
       end

@@ -5,7 +5,7 @@ unit pu_moon;
 interface
 
 uses u_util, u_constant, u_projection, Graphics, GLGraphics, GLContext,
-  GLColor, GLObjects, GLMisc, ExtCtrls, GLTexture, GLCadencer,
+  GLColor, GLObjects, GLMisc, ExtCtrls, GLTexture, GLCadencer, Info,
   GLViewer, GLCrossPlatform, LResources, GLScene, GLMultiMaterialShader,
   StdCtrls, GLBumpShader, GLHUDObjects, GLWindowsFont, GLGeomObjects, GLMirror,
   Messages, SysUtils, Classes, Controls, Forms, AsyncTimer, Menus ;
@@ -88,7 +88,7 @@ type
     lock_Zoom : boolean;
     distancestart: boolean;
     startl,startb,startxx,startyy : single;
-    startx, starty : integer;
+    startx, starty, ShadowOffset : integer;
     blankbmp: Tbitmap;
     MaxSprite: integer;
     FOnMoonClick: TMoonClickEvent;
@@ -872,6 +872,7 @@ begin
  perfdeltay := 0.0000001;
  cap2:=-1;
  zone:=1;
+ ShadowOffset:=1;
  FTexture:='';
  FOverlay:='';
  FRotation:=0;
@@ -1144,6 +1145,10 @@ procedure Tf_moon.SetLabelFont(f:Tfont);
 begin
   if f.Size>20 then f.size:=20;
   GLBitmapFont1.Font:=f;
+  case f.size of
+  0..12 : ShadowOffset:=1;
+  else    ShadowOffset:=2;
+  end;
 end;
 
 function  Tf_moon.GetLabelFont : Tfont;
@@ -1263,7 +1268,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
   GLSceneViewer1.Height / 2 - y, 2)) < 0.475 * GLSceneViewer1.Width))
   then begin
     with GLDummyCubeLabels.Children[2*curlabel] as TGLHUDText do begin
-      Position.SetVector(x+1,y+1);
+      Position.SetVector(x+ShadowOffset,y+ShadowOffset);
       if labelcenter then
         begin
           Text      := txt;

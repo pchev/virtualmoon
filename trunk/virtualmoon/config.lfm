@@ -28,7 +28,7 @@ object Form2: TForm2
     Top = 0
     Width = 345
     Options = [nboMultiLine]
-    PageIndex = 0
+    PageIndex = 2
     TabOrder = 0
     object TabSheet1: TPage
       Caption = 'General'
@@ -300,7 +300,7 @@ object Form2: TForm2
       end
       object Bevel3: TBevel
         Left = 16
-        Height = 132
+        Height = 147
         Top = 232
         Width = 305
         Shape = bsFrame
@@ -321,9 +321,9 @@ object Form2: TForm2
       end
       object Label6: TLabel
         Left = 51
-        Height = 14
+        Height = 15
         Top = 112
-        Width = 61
+        Width = 73
         Caption = 'Identification'
         ParentColor = False
       end
@@ -336,17 +336,17 @@ object Form2: TForm2
       end
       object Label7: TLabel
         Left = 155
-        Height = 14
+        Height = 15
         Top = 112
-        Width = 37
+        Width = 43
         Caption = 'Marque'
         ParentColor = False
       end
       object Label5: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 80
-        Width = 37
+        Width = 45
         Caption = 'Couleur'
         ParentColor = False
       end
@@ -359,119 +359,107 @@ object Form2: TForm2
       end
       object Label17: TLabel
         Left = 251
-        Height = 14
+        Height = 15
         Top = 112
-        Width = 27
+        Width = 31
         Caption = 'Label'
         ParentColor = False
       end
       object Label18: TLabel
         Left = 24
-        Height = 14
-        Top = 338
-        Width = 82
+        Height = 15
+        Top = 355
+        Width = 100
         Caption = 'Densité de labels'
-        ParentColor = False
-      end
-      object Label19: TLabel
-        Left = 24
-        Height = 14
-        Top = 314
-        Width = 76
-        Caption = 'Taille des labels'
         ParentColor = False
       end
       object Label33: TLabel
         Left = 24
-        Height = 14
+        Height = 15
         Top = 200
-        Width = 89
+        Width = 109
         Caption = 'Taille des marques'
+        ParentColor = False
+      end
+      object LabelFont: TLabel
+        Left = 141
+        Height = 15
+        Top = 326
+        Width = 55
+        Anchors = [akLeft, akBottom]
+        Caption = 'LabelFont'
         ParentColor = False
       end
       object CheckBox2: TCheckBox
         Left = 168
-        Height = 17
+        Height = 22
         Top = 40
-        Width = 103
+        Width = 126
         Caption = 'Affiche la libration'
         TabOrder = 2
       end
       object CheckBox1: TCheckBox
         Left = 24
-        Height = 17
+        Height = 22
         Top = 40
-        Width = 99
+        Width = 120
         Caption = 'Afficher la phase'
         TabOrder = 1
       end
       object CheckBox6: TCheckBox
         Left = 24
-        Height = 17
+        Height = 22
         Top = 173
-        Width = 102
+        Width = 124
         Caption = 'Affiche la marque'
         TabOrder = 5
       end
       object CheckBox5: TCheckBox
         Left = 24
-        Height = 17
+        Height = 22
         Top = 245
-        Width = 99
+        Width = 121
         Caption = 'Affiche les labels'
         TabOrder = 4
       end
       object CheckBox14: TCheckBox
         Left = 24
-        Height = 17
+        Height = 22
         Top = 152
-        Width = 152
+        Width = 190
         Caption = 'Marque la libration maximum'
         TabOrder = 3
       end
       object TrackBar2: TTrackBar
         Left = 160
-        Height = 17
-        Top = 336
+        Height = 35
+        Top = 339
         Width = 150
         Frequency = 100
-        Min = -1000
+        Min = -600
         PageSize = 100
         Position = -100
-        TabOrder = 7
-      end
-      object TrackBar3: TTrackBar
-        Left = 160
-        Height = 17
-        Top = 312
-        Width = 150
-        Frequency = 25
-        LineSize = 5
-        Max = 200
-        Min = 50
-        PageSize = 25
-        Position = 100
         TabOrder = 6
       end
       object CheckBox17: TCheckBox
         Left = 24
-        Height = 17
+        Height = 22
         Top = 266
-        Width = 153
+        Width = 190
         Caption = 'Label centré sur la formation'
-        TabOrder = 8
+        TabOrder = 7
       end
       object CheckBox18: TCheckBox
         Left = 24
-        Height = 17
+        Height = 22
         Top = 288
-        Width = 89
+        Width = 111
         Caption = 'Label minimum'
-        TabOrder = 9
+        TabOrder = 8
       end
       object TrackBar4: TTrackBar
         Left = 160
-        Height = 17
+        Height = 35
         Top = 198
         Width = 150
         LineSize = 5
@@ -479,13 +467,13 @@ object Form2: TForm2
         Min = 1
         PageSize = 25
         Position = 5
-        TabOrder = 10
+        TabOrder = 9
       end
       object CheckBox4: TCheckBox
         Left = 24
-        Height = 17
+        Height = 22
         Top = 8
-        Width = 108
+        Width = 125
         Caption = 'Affichage OpenGL'
         Color = clBtnFace
         OnClick = CheckBox4Click
@@ -493,6 +481,15 @@ object Form2: TForm2
         ParentShowHint = False
         ShowHint = True
         TabOrder = 0
+      end
+      object Button5: TButton
+        Left = 24
+        Height = 25
+        Top = 319
+        Width = 104
+        Caption = 'Labels font'
+        OnClick = Button5Click
+        TabOrder = 10
       end
     end
     object TabSheet4: TPage
@@ -515,8 +512,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 210
-        ClientWidth = 303
+        ClientHeight = 221
+        ClientWidth = 301
         ItemIndex = 0
         Items.Strings = (
           'Aérographe'
@@ -1097,12 +1094,18 @@ object Form2: TForm2
       'ColorT=A4A0A0'
     )
     left = 16
-    top = 424
+    top = 416
   end
   object OpenDialog1: TOpenDialog
     DefaultExt = '.exe'
     Filter = 'Image software|*.exe'
-    left = 56
-    top = 424
+    left = 80
+    top = 416
+  end
+  object FontDialog1: TFontDialog
+    MinFontSize = 0
+    MaxFontSize = 0
+    left = 48
+    top = 416
   end
 end
