@@ -1061,6 +1061,7 @@ begin
     end;
     cameraorientation := ReadFloat(section, 'CameraOrientation', CameraOrientation);
     phaseeffect  := ReadBool(section, 'PhaseEffect', phaseeffect);
+    wantbump  := ReadBool(section, 'BumpMap', wantbump);
     GeologicalMap := ReadBool(section, 'GeologicalMap', GeologicalMap);
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
     phasehash    := ReadBool(section, 'PhaseHash', PhaseHash);
@@ -1229,6 +1230,7 @@ begin
       WriteFloat(section, 'CurrentJD', CurrentJD);
       WriteFloat(section, 'dt_ut', dt_ut);
       WriteBool(section, 'PhaseEffect', phaseeffect);
+      WriteBool(section, 'BumpMap', wantbump);
       WriteBool(section, 'GeologicalMap', GeologicalMap);
       WriteBool(section, 'PhaseHash', PhaseHash);
       WriteInteger(section, 'PhaseUmbra', PhaseUmbra);
@@ -3088,8 +3090,6 @@ begin
   InitTelescope;
   tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
   timezone := tz.SecondsOffset / 3600;
-  LibrationButton.Down := librationeffect;
-  PhaseButton.Down := phaseeffect;
   if fileexists(slash(appdir) + slash('data') + 'retic.cur') then
   begin
     CursorImage1.LoadFromFile(slash(appdir) + slash('data') + 'retic.cur');
@@ -3144,6 +3144,9 @@ begin
     Trackbar5.position := 1
   else
     Trackbar5.position := 1;
+  LibrationButton.Down := librationeffect;
+  PhaseButton.Down := phaseeffect;
+  PhaseButtonClick(nil);
   RefreshMoonImage;
   if currentname <> '' then
   begin
@@ -3424,6 +3427,7 @@ begin
       PrintChart := form2.CheckBox13.Checked;
       PrintEph  := form2.CheckBox8.Checked;
       PrintDesc := form2.CheckBox9.Checked;
+      PhaseButtonClick(nil);
       if reboot then
       begin
         application.ProcessMessages;
