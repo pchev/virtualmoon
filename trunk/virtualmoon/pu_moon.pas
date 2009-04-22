@@ -613,7 +613,7 @@ if FBumpOk and (value<>FBumpmap) then begin
     GLSphereMoon.Material.MaterialLibrary:=BumpMaterialLibrary;
     GLSphereMoon.Material.LibMaterialName:='Bump';
     if GLBumpShader1.BumpMethod=bmBasicARBFP then
-       GLLightSource1.ConstAttenuation:=0.6
+       GLLightSource1.ConstAttenuation:=0.65
     else
        GLLightSource1.ConstAttenuation:=0.3;
     GLLightSource1.LightStyle:=lsSpot;
