@@ -33,6 +33,7 @@ type
     GLAnnulus1: TGLAnnulus;
     GLArrowLine1: TGLArrowLine;
     GLBumpShader1: TGLBumpShader;
+    LibrationDummyCube: TGLDummyCube;
     PerfCadencer: TGLCadencer;
      RotationCadencer: TGLCadencer;
      GLDummyCubeMarks: TGLDummyCube;
@@ -604,7 +605,7 @@ if FBumpOk and (value<>FBumpmap) then begin
   FBumpmap:=value;
   if FBumpmap then begin
     i:=MaxTextureSize div 1024;
-    if i>=8 then i:=4  // 8 eat 800MB of memory!
+    if i>=8 then i:=8
     else if i>=4 then i:=4
     else if i>=2 then i:=2
     else i:=1;
@@ -1049,8 +1050,9 @@ end;
 procedure Tf_moon.RotationCadencerProgress(Sender: TObject; const deltaTime,
   newTime: Double);
 begin
-GLSphereMoon.TurnAngle:=FRotation*newTime; // rotation ° per second
+GLCamera1.MoveAroundTarget(0,FRotation*deltaTime);
 RefreshAll;
+if zone>1 then LoadSlice(zone);
 end;
 
 procedure Tf_moon.PerfCadencerProgress(Sender: TObject; const deltaTime,
@@ -1100,7 +1102,7 @@ end;
 
 procedure Tf_moon.ResetMoon;
 begin
-  with GLSphereMoon do
+  with LibrationDummyCube do
   begin
     RollAngle := 0;
     TurnAngle := 0;
@@ -1117,13 +1119,13 @@ end;
 procedure Tf_moon.OrientMoon;
 begin
   GLScene1.BeginUpdate;
-  GLSphereMoon.BeginUpdate;
+  LibrationDummyCube.BeginUpdate;
     ResetMoon;
-    GLSphereMoon.PitchAngle := FLibrLat;
-    GLSphereMoon.TurnAngle := FLibrLon;
-    GLSphereMoon.up.x := 0;
+    LibrationDummyCube.PitchAngle := FLibrLat;
+    LibrationDummyCube.TurnAngle := FLibrLon;
+    LibrationDummyCube.up.x := 0;
+  LibrationDummyCube.EndUpdate;
   GLScene1.EndUpdate;
-  GLSphereMoon.EndUpdate;
 end;
 
 procedure Tf_moon.SetLibrLon(value:single);
@@ -1252,7 +1254,7 @@ function Tf_moon.AddLabel(lon,lat:single; txt:string):boolean;
 var x,y: integer;
 begin
 result:=false;
-if curlabel>MaxLabel then exit;
+if curlabel>=MaxLabel then exit;
 if marked and (marktext=txt) then exit;
 if not Moon2Screen(lon,lat,x,y) then exit;
 if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
@@ -1422,8 +1424,8 @@ var
   a, x, y: double;
   xx, yy:  integer;
 begin
-  if FLibrationMark and VisibleSideLock then
   with GLArrowline1 do
+  if FLibrationMark and VisibleSideLock then
     begin
       Visible := True;
       a      := arctan2(FLibrLat, FLibrLon);

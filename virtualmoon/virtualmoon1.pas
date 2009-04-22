@@ -4589,6 +4589,8 @@ begin
     checkbox2.Visible := False;
     ToolButton6.Enabled := False;
     moon1.LibrationMark:=False;
+    moon1.LibrLat:=0;
+    moon1.LibrLon:=0;
     moon1.Mirror:=False;
     GroupBox4.Visible := False;
     GroupBox3.Visible := True;
@@ -4596,6 +4598,7 @@ begin
     moon1.VisibleSideLock:=false;
     moon1.Zoom:=1;
     Rotation1.Visible := True;
+    moon1.RefreshAll;
   end
   else
   begin
