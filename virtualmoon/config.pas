@@ -204,8 +204,6 @@ implementation
 uses u_util,
      virtualmoon1;
 
- { TODO : Label font selection instead of label size }
-
 Function GetLangCode(buf:string):string;
 var p : integer;
 begin

@@ -28,7 +28,7 @@ object Form2: TForm2
     Top = 0
     Width = 345
     Options = [nboMultiLine]
-    PageIndex = 2
+    PageIndex = 0
     TabOrder = 0
     object TabSheet1: TPage
       Caption = 'General'
@@ -202,9 +202,9 @@ object Form2: TForm2
       ImageIndex = 7
       object Label31: TLabel
         Left = 16
-        Height = 14
+        Height = 15
         Top = 232
-        Width = 75
+        Width = 90
         Caption = 'User Database '
         ParentColor = False
       end
@@ -214,14 +214,14 @@ object Form2: TForm2
         Top = 18
         Width = 305
         Caption = 'Database'
-        ClientHeight = 203
-        ClientWidth = 301
+        ClientHeight = 192
+        ClientWidth = 303
         TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 20
-          Width = 103
+          Width = 125
           Caption = 'Named Formation'
           Checked = True
           OnClick = CheckBox19Click
@@ -230,41 +230,41 @@ object Form2: TForm2
         end
         object CheckBox20: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 49
-          Width = 111
+          Width = 138
           Caption = 'Satellites Formation'
           TabOrder = 1
         end
         object CheckBox21: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 78
-          Width = 145
+          Width = 175
           Caption = 'Far Side Named Formation'
           TabOrder = 2
         end
         object CheckBox22: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 107
-          Width = 153
+          Width = 188
           Caption = 'Far Side Satellites Formation'
           TabOrder = 3
         end
         object CheckBox23: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 136
-          Width = 79
+          Width = 94
           Caption = 'Landing Site'
           TabOrder = 4
         end
         object CheckBox24: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 166
-          Width = 113
+          Width = 138
           Caption = 'Pyroclastic deposits'
           TabOrder = 5
         end
@@ -431,14 +431,15 @@ object Form2: TForm2
         TabOrder = 3
       end
       object TrackBar2: TTrackBar
-        Left = 160
+        Left = 155
         Height = 35
-        Top = 339
+        Top = 344
         Width = 150
         Frequency = 100
         Min = -600
         PageSize = 100
         Position = -100
+        TickStyle = tsNone
         TabOrder = 6
       end
       object CheckBox17: TCheckBox
@@ -458,15 +459,16 @@ object Form2: TForm2
         TabOrder = 8
       end
       object TrackBar4: TTrackBar
-        Left = 160
+        Left = 155
         Height = 35
-        Top = 198
+        Top = 190
         Width = 150
         LineSize = 5
         Max = 8
         Min = 1
         PageSize = 25
         Position = 5
+        TickStyle = tsNone
         TabOrder = 9
       end
       object CheckBox4: TCheckBox
@@ -551,9 +553,9 @@ object Form2: TForm2
       object Label34: TLabel
         Cursor = crHandPoint
         Left = 40
-        Height = 14
+        Height = 15
         Top = 152
-        Width = 212
+        Width = 261
         Caption = 'Look here for a list of supported graphic card'
         Font.Color = clBlue
         Font.Height = -11
@@ -581,32 +583,32 @@ object Form2: TForm2
         end
         object Label30: TLabel
           Left = 32
-          Height = 14
+          Height = 15
           Top = 44
-          Width = 43
+          Width = 52
           Caption = 'Overlay :'
           ParentColor = False
         end
         object Label32: TLabel
           Left = 32
-          Height = 14
+          Height = 15
           Top = 268
-          Width = 69
+          Width = 80
           Caption = 'Transparency:'
           ParentColor = False
           Visible = False
         end
         object CheckBox11: TCheckBox
           Left = 32
-          Height = 17
+          Height = 22
           Top = 8
-          Width = 84
+          Width = 100
           Caption = 'Show overlay'
           TabOrder = 0
         end
         object ComboBox5: TComboBox
           Left = 32
-          Height = 21
+          Height = 27
           Top = 64
           Width = 145
           AutoComplete = False
