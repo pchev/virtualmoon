@@ -478,8 +478,6 @@ type
     imgdir: array of array[0..2] of string;
     LONGIN, LATIN, WIDEKM, WIDEMI, LENGHTKM, LENGHTMI, FNAME, INTERESTN,
     DIAMINST, wordformat: integer;
-    locktrackbar: boolean;
-    lockscrollbar: boolean;
     overlayhi, overlayimg: Tbitmap;
     eyepiecename: array[1..10] of string;
     eyepiecefield, eyepiecemirror, eyepiecerotation: array[1..10] of integer;
@@ -1319,7 +1317,6 @@ begin
     wmin := -1
   else
     wmin := MinValue([650.0, 3 * LabelDensity / (moon1.Zoom * moon1.Zoom)]);
-  { TODO : Review label density in function of zoom }
 // Labels
   if showlabel then
   begin
@@ -2833,10 +2830,9 @@ end;
 
 procedure  TForm1.SetZoomBar;
 begin
-locktrackbar := True;
-trackbar1.max := round(10 * log10(moon1.ZoomMax));
-locktrackbar := True;
-trackbar1.position := round(10 * log10(moon1.Zoom));
+trackbar1.min := 1;
+trackbar1.max := round(10 * moon1.ZoomMax);
+trackbar1.position := round(10 * moon1.Zoom);
 end;
 
 procedure  TForm1.GetMsg(Sender: TObject; msgclass:Tmsgclass; value: String);
@@ -2967,8 +2963,6 @@ begin
   lockchart := False;
   StartedByDS := False;
   distancestart := False;
-  locktrackbar := False;
-  lockscrollbar := False;
   CurrentEyepiece := 0;
   EyepieceRatio := 1;
   zoom      := 1;
@@ -3488,11 +3482,6 @@ end;
 procedure TForm1.TrackBar1Change(Sender: TObject);
 
 begin
-  if locktrackbar then
-  begin
-    locktrackbar := False;
-    exit;
-  end;
 ZoomTimer.Enabled:=false;
 ZoomTimer.Enabled:=true;
 end;
@@ -3500,7 +3489,7 @@ end;
 procedure TForm1.ZoomTimerTimer(Sender: TObject);
 begin
 ZoomTimer.Enabled:=false;
-moon1.Zoom := round(power(10, trackbar1.position / 10));
+moon1.Zoom := trackbar1.position / 10;
 end;
 
 procedure TForm1.EphTimer1Timer(Sender: TObject);
