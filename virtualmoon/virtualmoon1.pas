@@ -29,13 +29,16 @@ uses
 {$ifdef mswindows}
   Windows, ShlObj, Registry,
 {$endif}
+{$IF DEFINED(LCLgtk) or DEFINED(LCLgtk2)}
+  GtkProc,
+{$endif}
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   mlb2, PrintersDlgs, Printers, Controls, DateUtils,
   Messages, SysUtils, Classes, Dialogs,
   ComCtrls, Menus, Buttons, dynlibs, BigIma,
   EnhEdits, IniFiles, passql, passqlite,
-  Math, CraterList, LResources, IpHtml, PairSplitter, UniqueInstance, GLScene,
+  Math, CraterList, LResources, IpHtml, UniqueInstance, GLScene,
   GLViewer;
 
 type
@@ -52,9 +55,6 @@ type
     FilePopup: TPopupMenu;
     DoNotRemove: TGLSceneViewer;
     HelpPopup: TPopupMenu;
-    PairSplitter1: TPairSplitter;
-    PairSplitterSide1: TPairSplitterSide;
-    PairSplitterSide2: TPairSplitterSide;
     PanelMoon: TPanel;
     Quitter1: TMenuItem;
     PageControl1: TNoteBook;
@@ -75,6 +75,7 @@ type
     Button4: TButton;
     Button5: TButton;
     Apropos1: TMenuItem;
+    Splitter1: TSplitter;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
     UpDown2: TUpDown;
@@ -272,11 +273,11 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Button2Click(Sender: TObject);
-    procedure PairSplitterSide2Resize(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure Button5Click(Sender: TObject);
+    procedure Splitter1Moved(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure ToolButton5Click(Sender: TObject);
@@ -455,7 +456,7 @@ type
     SkipIdent, wantbump, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
     minilabel: boolean;
     lockmove, lockrepeat, lockrot, showautolabel,
-    showlibrationmark, marked, saveimagewhite, skippanelresize, skipresize: boolean;
+    showlibrationmark, marked, saveimagewhite, skipresize: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
     lopamdirectsuffix, lopamlocalsuffix: string;
@@ -1065,8 +1066,6 @@ begin
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
     if ToolsWidth<100 then ToolsWidth:=100;
-    PairSplitter1.Align:=alClient;
-    PairSplitter1.Position:=ClientWidth-ToolsWidth;
     PageControl1.Width:=ToolsWidth;
 
     i := ReadInteger(section, 'Top', -1);
@@ -2951,15 +2950,18 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   i: integer;
 begin
-{$ifndef darwin}
-UniqueInstance1:=TCdCUniqueInstance.Create(self);
-UniqueInstance1.Identifier:='Virtual_Moon_Atlas_MapLun';
-UniqueInstance1.OnOtherInstance:=OtherInstance;
-UniqueInstance1.OnInstanceRunning:=InstanceRunning;
-UniqueInstance1.Enabled:=true;
-UniqueInstance1.Loaded;
-{$endif}
   decimalseparator := '.';
+{$ifndef darwin}
+  UniqueInstance1:=TCdCUniqueInstance.Create(self);
+  UniqueInstance1.Identifier:='Virtual_Moon_Atlas_MapLun';
+  UniqueInstance1.OnOtherInstance:=OtherInstance;
+  UniqueInstance1.OnInstanceRunning:=InstanceRunning;
+  UniqueInstance1.Enabled:=true;
+  UniqueInstance1.Loaded;
+{$endif}
+  PageControl1.Align:=alRight;
+  Splitter1.Align:=alRight;
+  PanelMoon.Align:=alClient;
   dbedited  := False;
   perfdeltay := 0.00001;
   lockchart := False;
@@ -3424,12 +3426,10 @@ begin
   end;
 end;
 
-procedure TForm1.PairSplitterSide2Resize(Sender: TObject);
+procedure TForm1.Splitter1Moved(Sender: TObject);
 begin
- if not skippanelresize then
-    ToolsWidth:=ClientWidth-PairSplitter1.Position;
+ ToolsWidth:=PageControl1.Width;
  if ToolsWidth<100 then ToolsWidth:=100;
- skippanelresize:=false;
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
@@ -3442,11 +3442,8 @@ begin
     exit;
   if csLoading in form1.ComponentState then
     exit;
-  skippanelresize:=true;
-{ TODO : Fix toolbox resize }
   if ToolsWidth<100 then ToolsWidth:=100;
   PageControl1.width:=ToolsWidth;
-  PairSplitter1.Position:=ClientWidth-ToolsWidth;
   moon1.RefreshAll;
 end;
 
@@ -3589,6 +3586,7 @@ if FullScreen then begin
    SetWindowLong(handle, GWL_STYLE, (lPrevStyle And (Not WS_THICKFRAME) And (Not WS_BORDER) And (Not WS_CAPTION) And (Not WS_MINIMIZEBOX) And (Not WS_MAXIMIZEBOX)));
    SetWindowPos(handle, 0, 0, 0, 0, 0, SWP_FRAMECHANGED Or SWP_NOMOVE Or SWP_NOSIZE Or SWP_NOZORDER);
    PageControl1.Visible:=false;
+   Splitter1.Visible:=false;
    ControlBar1.Visible:=false;
    StatusBar1.Visible:=false;
    top:=0;
@@ -3597,16 +3595,15 @@ if FullScreen then begin
    width:=screen.Width;
    skipresize:=true;
    height:=screen.Height;
-   skippanelresize:=true;
-   PairSplitter1.Position:=Width;
    skipresize:=false;
 end else begin
    lPrevStyle := GetWindowLong(handle, GWL_STYLE);
    SetWindowLong(handle, GWL_STYLE, (lPrevStyle Or WS_THICKFRAME Or WS_BORDER Or WS_CAPTION Or WS_MINIMIZEBOX Or WS_MAXIMIZEBOX));
    SetWindowPos(handle, 0, 0, 0, 0, 0, SWP_FRAMECHANGED Or SWP_NOMOVE Or SWP_NOSIZE Or SWP_NOZORDER);
-   PageControl1.Visible:=true;
    ControlBar1.Visible:=true;
    StatusBar1.Visible:=true;
+   PageControl1.Visible:=true;
+   Splitter1.Visible:=true;
    top:=savetop;
    left:=saveleft;
    width:=savewidth;
@@ -3620,11 +3617,21 @@ procedure TForm1.SetFullScreen;
 begin
 FullScreen:=not FullScreen;
 {$IF DEFINED(LCLgtk) or DEFINED(LCLgtk2)}
-{ TODO : Linux fullscreen }
-//  SetWindowFullScreen(Form1,FullScreen);
-  PageControl1.Visible:=not FullScreen;
-  ControlBar1.Visible:=not FullScreen;
-  StatusBar1.Visible:=not FullScreen;
+  skipresize:=true;
+  SetWindowFullScreen(Form1,FullScreen);
+  if FullScreen then begin
+    PageControl1.Visible:=false;
+    Splitter1.Visible:=false;
+    ControlBar1.Visible:=false;
+    StatusBar1.Visible:=false;
+  end
+  else begin
+    ControlBar1.Visible:=true;
+    StatusBar1.Visible:=true;
+    PageControl1.Visible:=true;
+    Splitter1.Visible:=true;
+  end;
+  skipresize:=false;
 {$endif}
 end;
 {$endif}
@@ -4594,8 +4601,7 @@ end;
 
 procedure TForm1.Button14Click(Sender: TObject);
 begin
-{ TODO : implement showinfo }
-  moon1.GLSceneViewer1.Buffer.ShowInfo;
+  moon1.ShowInfo;
 end;
 
 procedure TForm1.ZoomEyepieceClick(Sender: TObject);
@@ -4960,18 +4966,17 @@ end;
 
 procedure TForm1.TrackBar2Change(Sender: TObject);
 begin
-{ TODO : add light setting }
-  moon1.GLLightSource1.Ambient.AsWinColor := SetWhitecolor(Trackbar2.position);
+  moon1.AmbientColor := SetWhitecolor(Trackbar2.position);
 end;
 
 procedure TForm1.TrackBar3Change(Sender: TObject);
 begin
-  moon1.GLlightSource1.diffuse.AsWinColor := SetWhitecolor(Trackbar3.position);
+  moon1.DiffuseColor := SetWhitecolor(Trackbar3.position);
 end;
 
 procedure TForm1.TrackBar4Change(Sender: TObject);
 begin
-  moon1.GLlightSource1.specular.AsWinColor := SetWhitecolor(Trackbar4.position);
+  moon1.SpecularColor := SetWhitecolor(Trackbar4.position);
 end;
 
 procedure TForm1.LoadOverlay(fn: string; lum: integer);

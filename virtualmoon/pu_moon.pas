@@ -145,7 +145,13 @@ type
     procedure SetTextureCompression(value:boolean);
     procedure SetMeasuringDistance(value:boolean);
     procedure MeasureDistance(x, y: integer);
-    function GetAcceleration: integer;
+    function  GetAcceleration: integer;
+    procedure SetAmbientColor(value:TColor);
+    function  GetAmbientColor:TColor;
+    procedure SetDiffuseColor(value:TColor);
+    function  GetDiffuseColor:TColor;
+    procedure SetSpecularColor(value:TColor);
+    function  GetSpecularColor:TColor;
     procedure DisableSlice2;
     procedure SetLabelColor(c:TColor);
     procedure CreateMaterial(level:integer);
@@ -167,6 +173,7 @@ type
     procedure ShowLibrationMark;
   public
     { Declarations publiques }
+    procedure ShowInfo;
     procedure Init;
     procedure GetBounds(var lmin,lmax,bmin,bmax: single);
     procedure SetMark(lon,lat:single; txt:string);
@@ -206,6 +213,9 @@ type
     property TextureCompression: Boolean read FTextureCompression write SetTextureCompression;
     property MeasuringDistance: Boolean read FMeasuringDistance write SetMeasuringDistance;
     property Acceleration: integer read GetAcceleration;
+    property AmbientColor: TColor read GetAmbientColor Write SetAmbientColor;
+    property DiffuseColor: TColor read GetDiffuseColor Write SetDiffuseColor;
+    property SpecularColor: TColor read GetSpecularColor Write SetSpecularColor;
     property onMoonClick : TMoonClickEvent read FOnMoonClick write FOnMoonClick;
     property onMoonMove : TMoonMoveEvent read FOnMoonMove write FOnMoonMove;
     property onMoonMeasure: TMoonMeasureEvent read FonMoonMeasure write FonMoonMeasure;
@@ -1600,6 +1610,41 @@ begin
     chaHardware: result:=1;
     chaSoftware: result:=2;
   end;
+end;
+
+procedure Tf_moon.SetAmbientColor(value:TColor);
+begin
+GLLightSource1.Ambient.AsWinColor := value;
+end;
+
+function  Tf_moon.GetAmbientColor:TColor;
+begin
+result:=GLLightSource1.Ambient.AsWinColor;
+end;
+
+procedure Tf_moon.SetDiffuseColor(value:TColor);
+begin
+GLlightSource1.diffuse.AsWinColor := value;
+end;
+
+function  Tf_moon.GetDiffuseColor:TColor;
+begin
+result:=GLlightSource1.diffuse.AsWinColor;
+end;
+
+procedure Tf_moon.SetSpecularColor(value:TColor);
+begin
+GLlightSource1.specular.AsWinColor := value;
+end;
+
+function  Tf_moon.GetSpecularColor:TColor;
+begin
+result:=GLlightSource1.specular.AsWinColor;
+end;
+
+procedure Tf_moon.ShowInfo;
+begin
+GLSceneViewer1.Buffer.ShowInfo;
 end;
 
 initialization
