@@ -704,7 +704,6 @@ if (v[0]>=0)and(v[0]<=GLSceneViewer1.Width)and(v[1]>=0)and(v[1]<=GLSceneViewer1.
   end;
   Screen2Moon(x,y,xx,yy);
   result:=(abs(lon-xx)<0.1)and(abs(lat-yy)<0.1);
-result:=true;
 end
 else
   result:=false;

@@ -193,13 +193,13 @@ try
 buf:=Slash(appdir)+Slash('Database')+'Nearside_Named_'+language+'.csv';
 if fileexists(buf) then database[1]:=buf
    else database[1]:=Slash(appdir)+Slash('Database')+'Nearside_Named_UK.csv';
-buf:=Slash(appdir)+Slash('Database')+'Nearside_satellite_'+language+'.csv';
+buf:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_'+language+'.csv';
 if fileexists(buf) then database[2]:=buf
    else database[2]:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_UK.csv';
-buf:=Slash(appdir)+Slash('Database')+'Farside_named_'+language+'.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_Named_'+language+'.csv';
 if fileexists(buf) then database[3]:=buf
    else database[3]:=Slash(appdir)+Slash('Database')+'Farside_Named_UK.csv';
-buf:=Slash(appdir)+Slash('Database')+'Farside_satellite_'+language+'.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_Satellite_'+language+'.csv';
 if fileexists(buf) then database[4]:=buf
    else database[4]:=Slash(appdir)+Slash('Database')+'Farside_Satellite_UK.csv';
 buf:=Slash(appdir)+Slash('Database')+'Historical_'+language+'.csv';
