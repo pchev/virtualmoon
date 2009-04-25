@@ -246,7 +246,7 @@ while i=0 do begin
 end;
 findclose(fs);
 for j:=0 to combobox3.Items.Count-1 do if GetLangCode(combobox3.Items[j])=language then combobox3.ItemIndex:=j;
-i:=findfirst(Slash(appdir)+Slash('textures')+Slash('overlay')+'*.jpg',0,fs);
+i:=findfirst(Slash(appdir)+Slash('Textures')+Slash('Overlay')+'*.jpg',0,fs);
 combobox5.clear;
 combobox5.Sorted:=true;
 while i=0 do begin
@@ -403,10 +403,10 @@ end;
 procedure TForm2.ComboBox5Change(Sender: TObject);
 var  j:tjpegimage;
 begin
-if fileexists(Slash(appdir)+Slash('textures')+Slash('overlay')+combobox5.text+'.jpg') then begin
+if fileexists(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg') then begin
    j:=tjpegimage.create;
    try
-   j.LoadFromFile(Slash(appdir)+Slash('textures')+Slash('overlay')+combobox5.text+'.jpg');
+   j.LoadFromFile(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg');
    ov.Width:=image1.Width;
    ov.Height:=image1.Height;
    ov.pixelformat:=pf24bit;
@@ -451,6 +451,7 @@ if not ov.Empty then begin
        end;
      end;
     end; }
+    image1.Picture.Assign(ov);
     image1.Refresh;
    finally
     lockoverlay:=false;
