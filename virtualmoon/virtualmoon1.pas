@@ -455,7 +455,7 @@ type
     dbedited: boolean;
     SkipIdent, wantbump, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
     minilabel: boolean;
-    lockmove, lockrepeat, lockrot, showautolabel,
+    lockmove, lockrepeat, showautolabel,
     showlibrationmark, marked, saveimagewhite, skipresize: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
@@ -469,7 +469,7 @@ type
     curx, cury: double;
     LabelDensity, overlaylum, phaseoffset: integer;
     perfdeltay: double;
-    ddeparam, currenttexture, imgsuffix, overlayname, currentselection: string;
+    ddeparam, currenttexture, overlayname, currentselection: string;
     CielHnd: Thandle;
     lockchart: boolean;
     StartedByDS: boolean;
@@ -523,11 +523,6 @@ uses telescope, config, splashunit,
 procedure  TCdCUniqueInstance.Loaded;
 begin
   inherited;
-end;
-
-procedure OpenHires(forcerebuild: boolean);
-begin
-  // no more used
 end;
 
 procedure TForm1.SetEyepieceMenu;
@@ -758,7 +753,6 @@ begin
       label4.Caption := (ReadStr(section, 't_24', deftxt));
       Button1.Caption := ReadStr(section, 't_18', deftxt);
       CheckBox3.Caption := (ReadStr(section, 't_26', deftxt));
-      CheckBox4.Caption := (ReadStr(section, 't_27', deftxt));
       Label5.Caption := (ReadStr(section, 't_28', deftxt));
       Label17.Caption := (ReadStr(section, 't_29', deftxt));
       Label7.Caption := (ReadStr(section, 't_52', deftxt));
@@ -945,7 +939,7 @@ begin
   Obslongitude := -6;
   ObsTZ    := 'Europe/Zurich';
   Obsaltitude := 0;
-  ToolsWidth:=400;
+  ToolsWidth:=300;
   phaseeffect := True;
   librationeffect := True;
   geocentric := False;
@@ -953,7 +947,7 @@ begin
   wheelstep := 1.05;
   marklabelcolor := clYellow;
   markcolor := clRed;
-  autolabelcolor := clLime;
+  autolabelcolor := clWhite;
   labelcenter := True;
   minilabel := True;
   showlabel := True;
@@ -984,8 +978,8 @@ begin
   GeologicalMap := False;
   externalimage := False;
   externalimagepath := 'mspaint.exe';
-  hiresfile := 'hires.jpg';
-  imgsuffix := '';
+  texturefile := 'Clementine';
+  wantbump := true;
   eyepiecename[1] := 'SCT 8" + Plossl 10mm';
   eyepiecefield[1] := 15;
   rotdirection := 1;
@@ -1121,7 +1115,7 @@ begin
       PicZoom[j - 1] := ReadFloat(section, 'PicZoom_' + IntToStr(j), 0);
     end;
 
-    hiresfile := ReadString(section, 'hiresfile', hiresfile);
+    texturefile := ReadString(section, 'texturefile', texturefile);
     for j := 1 to 10 do
     begin
       eyepiecename[j]     := ReadString(section, 'eyepiecename' + IntToStr(j), eyepiecename[j]);
@@ -1139,20 +1133,9 @@ begin
     overlaylum  := ReadInteger(section, 'overlaylum', 0);
     showoverlay := ReadBool(section, 'showoverlay', showoverlay);
     Geocentric  := ReadBool(section, 'Geocentric', Geocentric);
-    if copy(hiresfile, 6, 1) <> '.' then
-    begin
-      i := pos('.', hiresfile);
-      if i > 6 then
-        imgsuffix := copy(hiresfile, 6, i - 6);
-    end
-    else
-      imgsuffix := '';
-    moon1.GLLightSource1.Ambient.AsWinColor :=
-      ReadInteger(section, 'AmbientLight', moon1.GLLightSource1.Ambient.AsWinColor);
-    moon1.GLLightSource1.Diffuse.AsWinColor :=
-      ReadInteger(section, 'DiffuseLight', moon1.GLLightSource1.Diffuse.AsWinColor);
-    moon1.GLLightSource1.Specular.AsWinColor :=
-      ReadInteger(section, 'SpecularLight', moon1.GLLightSource1.Specular.AsWinColor);
+    moon1.AmbientColor := ReadInteger(section, 'AmbientLight', moon1.AmbientColor);
+    moon1.DiffuseColor := ReadInteger(section, 'DiffuseLight', moon1.DiffuseColor);
+    moon1.SpecularColor :=ReadInteger(section, 'SpecularLight', moon1.SpecularColor);
     smooth := ReadInteger(section, 'Smooth', smooth);
     i := ReadInteger(section, 'ListCount', 0);
     if i > 0 then
@@ -1199,7 +1182,7 @@ begin
         WriteBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
       for i := 1 to 6 do
         WriteInteger(section, 'DB_Age' + IntToStr(i), db_age[i]);
-      WriteString(section, 'hiresfile', hiresfile);
+      WriteString(section, 'texturefile', texturefile);
       WriteBool(section, 'Geocentric', Geocentric);
       WriteString(section, 'telescope', Combobox5.Text);
       WriteFloat(section, 'Obslatitude', Obslatitude);
@@ -1238,9 +1221,9 @@ begin
         WriteInteger(section, 'eyepiecemirror' + IntToStr(i), eyepiecemirror[i]);
         WriteInteger(section, 'eyepiecerotation' + IntToStr(i), eyepiecerotation[i]);
       end;
-      WriteInteger(section, 'AmbientLight', moon1.GLLightSource1.Ambient.AsWinColor);
-      WriteInteger(section, 'DiffuseLight', moon1.GLLightSource1.Diffuse.AsWinColor);
-      WriteInteger(section, 'SpecularLight', moon1.GLLightSource1.Specular.AsWinColor);
+      WriteInteger(section, 'AmbientLight', moon1.AmbientColor);
+      WriteInteger(section, 'DiffuseLight', moon1.DiffuseColor);
+      WriteInteger(section, 'SpecularLight', moon1.SpecularColor);
       WriteInteger(section, 'Smooth',   moon1.GLSphereMoon.Slices);
       WriteInteger(section, 'ListCount', combobox1.Items.Count - 1);
       for i := 0 to combobox1.Items.Count - 1 do
@@ -2649,11 +2632,6 @@ begin
     lunaison := CurrentJD - Fplanet.MoonPhase(floor(12.3685 *
       (CurYear - 2000 - 0.04 + (CurrentJD - jd0) / 365.25)));
   end;
-  if FollowNorth then
-  begin
-    CameraOrientation := rmod(-PA + PoleOrientation + 360, 360);
-    moon1.Orientation:=CameraOrientation;
-  end;
   StatusBar1.Panels[2].Text := m[51] + ': ' + date2str(curyear, currentmonth, currentday) +
     '   ' + m[50] + ': ' + timtostr(currenttime);
   phaseoffset := 0;
@@ -2820,6 +2798,11 @@ begin
   else  begin
     moon1.LibrLat := 0;
     moon1.LibrLon := 0;
+  end;
+  if FollowNorth then
+  begin
+    CameraOrientation := rmod(-PA + PoleOrientation + 360, 360);
+    moon1.Orientation:=CameraOrientation;
   end;
   moon1.ShowPhase:=phaseeffect;
   moon1.Phase:=deg2rad*cphase;
@@ -3020,7 +3003,12 @@ begin
   dbnotes   := TMlb2.Create;
   GetSkyChartInfo;
   CartesduCiel1.Visible := CdCdir > '';
-  InitGraphic(Sender);
+  CheckBox8.Checked := compresstexture;
+  if PoleOrientation = 0 then
+    RadioGroup2.ItemIndex := 0
+  else
+    RadioGroup2.ItemIndex := 1;
+  checkbox1.Checked := FollowNorth;
   appname := ParamStr(0);
   if paramcount > 0 then
   begin
@@ -3041,22 +3029,17 @@ end;
 
 procedure TForm1.FormShow(Sender: TObject);
 begin
- moon1.Init;
- moon1.TextureCompression:=compresstexture;
- moon1.texture:='Clementine';
- if moon1.CanBump then
-    moon1.BumpPath:=slash(appdir)+slash('Textures')+slash('Bumpmap');
- moon1.VisibleSideLock:=true;
- moon1.Labelcolor:=autolabelcolor;
- AsMultiTexture:=moon1.AsMultiTexture;
 end;
 
 procedure TForm1.Init;
 begin
+try
   Setlang;
   screen.cursor := crHourGlass;
+  moon1.GLSceneViewer1.Visible:=false;
+  application.ProcessMessages;
   LoadDB(dbm);
-  screen.cursor := crDefault;
+  application.ProcessMessages;
   ListUserDB;
   InitLopamIdx;
   InitTelescope;
@@ -3094,6 +3077,14 @@ begin
     form1.Width  := screen.Width;
     form1.Height := screen.Height;
   end;
+  moon1.Init;
+  moon1.TextureCompression:=compresstexture;
+  moon1.texture:=texturefile;
+  if moon1.CanBump then
+     moon1.BumpPath:=slash(appdir)+slash('Textures')+slash('Bumpmap');
+  moon1.VisibleSideLock:=true;
+  moon1.Labelcolor:=autolabelcolor;
+  AsMultiTexture:=moon1.AsMultiTexture;
   moon1.SetMark(0, 0, '');
   moon1.zoom:=1;
   ReadParam;
@@ -3101,9 +3092,9 @@ begin
   label10.Left   := toolbar2.left + toolbar2.Width + 2;
   trackbar1.Left := label10.Left + label10.Width + 2;
   toolbar1.Left  := trackbar1.Left + trackbar1.Width + 1;
-  Trackbar2.position := moon1.GLlightSource1.ambient.AsWinColor and $FF;
-  Trackbar3.position := moon1.GLlightSource1.diffuse.AsWinColor and $FF;
-  Trackbar4.position := moon1.GLlightSource1.specular.AsWinColor and $FF;
+  Trackbar2.position := moon1.ambientColor and $FF;
+  Trackbar3.position := moon1.diffuseColor and $FF;
+  Trackbar4.position := moon1.specularColor and $FF;
   if moon1.GLSphereMoon.Slices = 720 then
     Trackbar5.position := 5
   else if moon1.GLSphereMoon.Slices = 360 then
@@ -3118,8 +3109,8 @@ begin
     Trackbar5.position := 1;
   LibrationButton.Down := librationeffect;
   PhaseButton.Down := phaseeffect;
-  PhaseButtonClick(nil);
   RefreshMoonImage;
+  PhaseButtonClick(nil);
   if currentname <> '' then
   begin
     firstsearch := True;
@@ -3143,46 +3134,27 @@ begin
   moon1.Mirror:=checkbox2.Checked;
   SetZoomBar;
   moon1.RefreshAll;
+finally
+  screen.cursor := crDefault;
+  moon1.GLSceneViewer1.Visible:=true;
+end;
 end;
 
 { TODO : Review what in FormCreate, FormShow, Init and Initgraphic }
 procedure TForm1.InitGraphic(Sender: TObject);
 begin
-  PanelMoon.Visible := True;
-  lockrot := True;
-  if PoleOrientation = 0 then
-    RadioGroup2.ItemIndex := 0
-  else
-    RadioGroup2.ItemIndex := 1;
-  lockrot := False;
-  checkbox1.Checked := FollowNorth;
-  Reglage.TabVisible := True;
-  label11.Visible    := True;
-  trackbar3.Visible  := True;
-  label12.Visible    := True;
-  trackbar4.Visible  := True;
-  panel8.Visible     := True;
-  button14.Visible   := True;
-  groupbox2.Visible  := True;
 
-  Outils.TabVisible := True;
-  Button12.Visible  := True;
-  Button13.Visible  := True;
-  checkbox1.Visible := True;
-  Distance1.Visible := True;
-  Enregistrersous1.Visible := True;
-  CheckBox8.Checked := compresstexture;
   LoadOverlay(overlayname, overlaylum);
 end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);
 var
-  reboot, reloaddb, systemtimechange: boolean;
+  reload, reloaddb, systemtimechange: boolean;
   i, j, oldmaxima, oldtexture: integer;
   yy, x, y: double;
 begin
   try
-    reboot   := False;
+    reload   := False;
     reloaddb := False;
     form2.Edit1.Text := formatfloat(f2, abs(ObsLatitude));
     form2.Edit2.Text := formatfloat(f2, abs(ObsLongitude));
@@ -3202,7 +3174,6 @@ begin
     form2.checkbox23.Checked := usedatabase[5];
     form2.checkbox24.Checked := usedatabase[6];
     ListUserDB;
-    form2.checkbox4.Checked := True;
     form2.checkbox1.Checked := phaseeffect;
     form2.checkbox2.Checked := librationeffect;
     form2.checkbox3.Checked := Geocentric;
@@ -3245,19 +3216,15 @@ begin
     form2.CheckBox13.Checked := PrintChart;
     form2.CheckBox8.Checked  := PrintEph;
     form2.CheckBox9.Checked  := PrintDesc;
-    if hiresfile = 'hires.jpg' then
-      form2.radiogroup2.ItemIndex := 0
-    else if hiresfile = 'hires_clem.jpg' then
-      form2.radiogroup2.ItemIndex := 1
-    else if hiresfile = 'hires_lopam.jpg' then
-      form2.radiogroup2.ItemIndex := 2
-    else
-      form2.radiogroup2.ItemIndex := -1;
+    if texturefile='Aerograph2' then form2.radiogroup2.itemindex:=0
+       else if texturefile='Clementine' then form2.radiogroup2.itemindex:=1
+       else if texturefile='Lopam' then form2.radiogroup2.itemindex:=2
+       else form2.radiogroup2.itemindex:=-1;
     oldtexture := form2.radiogroup2.ItemIndex;
     form2.CheckBox15.Checked := LopamDirect;
     form2.ruklprefix.Text := ruklprefix;
     form2.ruklsuffix.Text := ruklsuffix;
-    form2.hiresfn := hiresfile;
+    form2.texturefn := texturefile;
     form2.combobox5.Text := remext(overlayname);
     form2.trackbar5.position := overlaylum;
     form2.combobox5change(Sender);
@@ -3275,23 +3242,14 @@ begin
       if (form2.combobox5.Text <> remext(overlayname)) or
         (form2.trackbar5.position <> overlaylum) or
         (form2.checkbox11.Checked <> showoverlay) then
-        reboot    := True;
+        reload    := True;
       overlayname := form2.combobox5.Text + '.jpg';
       overlaylum  := form2.trackbar5.position;
       showoverlay := form2.checkbox11.Checked;
-      if hiresfile <> form2.hiresfn then
+      if texturefile <> form2.texturefn then
       begin
-        hiresfile := form2.hiresfn;
-        if copy(hiresfile, 6, 1) <> '.' then
-        begin
-          i := pos('.', hiresfile);
-          if i > 6 then
-            imgsuffix := copy(hiresfile, 6, i - 6);
-        end
-        else
-          imgsuffix := '';
-        OpenHires(True);
-        reboot := True;
+        texturefile := form2.texturefn;
+        reload := True;
       end;
       wantbump := form2.BumpCheckBox.Checked;
       ruklprefix    := form2.ruklprefix.Text;
@@ -3322,7 +3280,7 @@ begin
       if systemtimechange then
       begin
         InitDate;
-        reboot := True;
+        reload := True;
       end;
       phaseeffect     := form2.checkbox1.Checked;
       librationeffect := form2.checkbox2.Checked;
@@ -3365,7 +3323,7 @@ begin
       LibrationButton.Down := librationeffect;
       PhaseButton.Down     := phaseeffect;
       if oldtexture <> form2.radiogroup2.ItemIndex then
-        reboot      := True;
+        reload      := True;
       GeologicalMap := False;
       externalimage := form2.CheckBox12.Checked;
       LopamDirect   := form2.CheckBox15.Checked;
@@ -3403,13 +3361,13 @@ begin
       PrintEph  := form2.CheckBox8.Checked;
       PrintDesc := form2.CheckBox9.Checked;
       PhaseButtonClick(nil);
-      if reboot then
+      if reload then
       begin
         application.ProcessMessages;
         moon1.Eyepiece := 0;
         InitGraphic(Sender);
+        moon1.Texture:=texturefile;
         RefreshMoonImage;
-        Formresize(Sender);
       end
       else
         RefreshMoonImage;
@@ -3629,7 +3587,7 @@ procedure TForm1.FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState)
 var
   i: integer;
 begin
-  if key = 27 then
+  if key = VK_F11 then
     SetFullScreen;
 end;
 
@@ -4178,8 +4136,6 @@ end;
 
 procedure TForm1.RadioGroup2Click(Sender: TObject);
 begin
-  if lockrot then
-    exit;
   case RadioGroup2.ItemIndex of
     0: PoleOrientation := 0;
     1: PoleOrientation := 180;
@@ -4521,16 +4477,6 @@ begin
   dir := slash('Textures') + slash('overlay') + slash('caption');
   if fileexists(dir + overlayname) then
     showimg(dir, overlayname, True);
-end;
-
-procedure SetHires500;
-begin
-  // no more used
-end;
-
-procedure SetHires;
-begin
-  // no more used
 end;
 
 procedure TForm1.Glossaire1Click(Sender: TObject);
@@ -4969,15 +4915,6 @@ begin
 end;
 
 procedure TForm1.LoadOverlay(fn: string; lum: integer);
-var
-  i, n, ws, hs, x0, y0: integer;
-  b:   Tbitmap;
-  j:   Tjpegimage;
-  p:   Pbytearray;
-  src, dest: Trect;
-  max: double;
-const
-  slice: array[1..8] of integer = (6, 1, 2, 5, 8, 3, 4, 7);
 begin
   if showoverlay and fileexists(Slash(moon1.OverlayPath) + fn) then
   begin

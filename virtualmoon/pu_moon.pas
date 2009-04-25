@@ -615,7 +615,7 @@ if FBumpOk and (value<>FBumpmap) then begin
   FBumpmap:=value;
   if FBumpmap then begin
     i:=MaxTextureSize div 1024;
-    if i>=8 then i:=8
+    if i>=8 then i:=4
     else if i>=4 then i:=4
     else if i>=2 then i:=2
     else i:=1;
@@ -624,7 +624,7 @@ if FBumpOk and (value<>FBumpmap) then begin
     GLSphereMoon.Material.MaterialLibrary:=BumpMaterialLibrary;
     GLSphereMoon.Material.LibMaterialName:='Bump';
     if GLBumpShader1.BumpMethod=bmBasicARBFP then
-       GLLightSource1.ConstAttenuation:=0.65
+       GLLightSource1.ConstAttenuation:=0.8
     else
        GLLightSource1.ConstAttenuation:=0.3;
     GLLightSource1.LightStyle:=lsSpot;
@@ -667,6 +667,7 @@ if value<>FShowPhase then begin
      GLLightSource1.Position:=GLCamera1.Position;
      GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
   end;
+  OrientMoon;
   GLSceneViewer1.Refresh;
 end;
 end;
@@ -712,8 +713,7 @@ if (v[0]>=0)and(v[0]<=GLSceneViewer1.Width)and(v[1]>=0)and(v[1]<=GLSceneViewer1.
     x:=round(v[0]);
     y:=GLSceneViewer1.Height-round(v[1]);
   end;
-  Screen2Moon(x,y,xx,yy);
-  result:=(abs(lon-xx)<0.1)and(abs(lat-yy)<0.1);
+  result:=Screen2Moon(x,y,xx,yy) and (abs(lon-xx)<0.1)and(abs(lat-yy)<0.1);
 end
 else
   result:=false;
@@ -723,6 +723,7 @@ function Tf_moon.Screen2Moon(x,y:integer; var lon,lat: single): boolean;
 var
   farp : integer;
   p0,p1,raystart,rayvector,ipoint:TVector;
+  xx,yy: single;
 begin
 if FMirror then begin
    x:=GLSceneViewer1.Width-x;
@@ -735,8 +736,15 @@ p0:=GLSceneViewer1.Buffer.ScreenToWorld(vectormake(x,y,0));
 p1:=GLSceneViewer1.Buffer.ScreenToWorld(vectormake(x,y,farp));
 raystart:=p0;
 rayvector:=vectornormalize(vectorsubtract(p1,p0));
-if GLSphereMoon.RayCastIntersect(raystart, rayvector, @ipoint) then  begin
+if GLSphereMoon.RayCastIntersect(raystart, rayvector, @ipoint)
+then  begin
    result:=World2Moon(ipoint[0],ipoint[2],ipoint[1],lon,lat);
+   if GLAnnulus1.Visible then begin
+      xx:=ipoint[0]-GLCamera1.Position.X;
+      yy:=ipoint[1]-GLCamera1.Position.Y;
+      if sqrt(xx*xx+yy*yy)>(GLAnnulus1.BottomInnerRadius)
+      then result:=false;
+   end;
 end else begin
   result:=false;
 end;
@@ -891,26 +899,25 @@ begin
  MaxTextureSize:=1024;
  Flabelcolor:=clWhite;
  FMeasuringDistance := False;
- GLLightSource1.Ambient.AsWinColor :=$0F0F0F;
+ GLLightSource1.Ambient.AsWinColor :=$4B4B4B;
  GLLightSource1.Diffuse.AsWinColor :=$FFFFFF;
- GLLightSource1.Specular.AsWinColor:=$0C0C0C;
+ GLLightSource1.Specular.AsWinColor:=$474747;
 end;
 
 procedure Tf_moon.Init;
 begin
 try
   if  GL_ARB_multitexture
-  and GL_ARB_vertex_program
-  and GL_ARB_texture_env_dot3 then begin
-    GLBumpShader1.BumpMethod:=bmDot3TexCombiner;
-    FBumpOk:=true;
-  end;
-  if  GL_ARB_multitexture
-  and GL_ARB_vertex_program
-  and GL_ARB_fragment_program then begin
-    GLBumpShader1.BumpMethod:=bmBasicARBFP;
-    FBumpOk:=true;
-  end;
+  and GL_ARB_vertex_program then begin
+    if GL_ARB_fragment_program then begin
+       GLBumpShader1.BumpMethod:=bmBasicARBFP;
+       FBumpOk:=true;
+    end
+    else if GL_ARB_texture_env_dot3 then begin
+       GLBumpShader1.BumpMethod:=bmDot3TexCombiner;
+       FBumpOk:=true;
+    end;
+end;
 if GLSceneViewer1.Buffer.Acceleration=chaSoftware then begin
    raise exception.Create('This program only run with a graphic card that support OpenGL hardware acceleration.');
    halt;
@@ -951,15 +958,19 @@ end;
 
 procedure Tf_moon.GLSceneViewer1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
-var lat,lon,z: single;
+var lat,lon,z,s1,c1: single;
     OnMoon: boolean;
+    xx:integer;
 begin
-  mx:=x;
-  my:=y;
-  if FMirror then mx:=GLSceneViewer1.Width-mx;
-  if abs(FOrientation)>50 then begin
-     mx:=GLSceneViewer1.Width-mx;
-     my:=GLSceneViewer1.Height-my;
+  if FMirror then xx:=GLSceneViewer1.Width-x
+             else xx:=x;
+  if FVisibleSideLock then begin
+      sincos(deg2rad * FOrientation, s1, c1);
+      mx:=round(xx*c1+y*s1);
+      my:=round(y*c1-xx*s1);
+  end else begin
+    mx:=xx;
+    my:=y;
   end;
   OnMoon:=false;
   if FMeasuringDistance and (Button = mbLeft) then
@@ -987,7 +998,8 @@ end;
 
 procedure Tf_moon.GLSceneViewer1MouseMove(Sender: TObject; Shift: TShiftState;
   X, Y: Integer);
-var movespeed: single;
+var movespeed,s1,c1: single;
+    xx,yy:integer;
     lat,lon: single;
     OnMoon: boolean;
 begin
@@ -1011,19 +1023,26 @@ begin
      ((ssLeft in shift)and(ssCtrl in shift))
    then begin
     if FMirror then x:=GLSceneViewer1.Width-x;
-    if abs(FOrientation)>50 then begin
+{    if abs(FOrientation)>50 then begin
        x:=GLSceneViewer1.Width-x;
        y:=GLSceneViewer1.Height-y;
-    end;
+    end; }
     if FVisibleSideLock then begin
+      sincos(deg2rad * FOrientation, s1, c1);
+      xx:=round(x*c1+y*s1);
+      yy:=round(y*c1-x*s1);
       movespeed:=0.002/GLCamera1.SceneScale;
-      GLCamera1.Position.X:=GLCamera1.Position.X-(mx-x)*movespeed;
-      GLCamera1.Position.Y:=GLCamera1.Position.Y-(my-y)*movespeed;
+      GLCamera1.Position.X:=GLCamera1.Position.X-(mx-xx)*movespeed;
+      GLCamera1.Position.Y:=GLCamera1.Position.Y-(my-yy)*movespeed;
       GLAnnulus1.Position.x := GLCamera1.Position.x;
       GLAnnulus1.Position.y := GLCamera1.Position.y;
+      mx:=xx;
+      my:=yy;
     end else begin
       movespeed:=0.3/GLCamera1.SceneScale;
       GLCamera1.MoveAroundTarget((my-y)*movespeed,(mx-x)*movespeed);
+      mx:=x;
+      my:=y;
     end;
     if not FShowPhase then begin
        GLLightSource1.Position:=GLCamera1.Position;
@@ -1031,8 +1050,6 @@ begin
     end;
     RefreshAll;
   end;
-  mx:=x;
-  my:=y;
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseWheelDown(Sender: TObject;
@@ -1117,24 +1134,32 @@ begin
     RollAngle := 0;
     TurnAngle := 0;
     PitchAngle := 0;
-    direction.X := 0;
-    direction.Y := 0;
-    direction.Z := 1;
-    Up.X := 0;
-    Up.Y := 1;
-    Up.Z := 0;
+    direction.SetVector(0,0,1);
+    Up.SetVector(0,1,0);
+  end;
+  with GLSphereMoon do
+  begin
+    RollAngle := 0;
+    TurnAngle := 0;
+    PitchAngle := 0;
+    direction.SetVector(0,0,1);
+    Up.SetVector(0,1,0);
   end;
 end;
 
 procedure Tf_moon.OrientMoon;
 begin
   GLScene1.BeginUpdate;
-  LibrationDummyCube.BeginUpdate;
-    ResetMoon;
+  ResetMoon;
+  if FShowPhase then begin
     LibrationDummyCube.PitchAngle := FLibrLat;
     LibrationDummyCube.TurnAngle := FLibrLon;
     LibrationDummyCube.up.x := 0;
-  LibrationDummyCube.EndUpdate;
+  end else begin
+    GLSphereMoon.PitchAngle := FLibrLat;
+    GLSphereMoon.TurnAngle := FLibrLon;
+    GLSphereMoon.up.x := 0;
+  end;
   GLScene1.EndUpdate;
 end;
 
@@ -1360,7 +1385,6 @@ end;
 
 procedure Tf_moon.SetMirror(value:boolean);
 begin
-if FMirror<>value then begin
     FMirror:=value;
     if FMirror then
     begin
@@ -1373,7 +1397,6 @@ if FMirror<>value then begin
       GLCamera1.Direction.SetVector(0,0,1);
     end;
     RefreshAll;
-end;
 end;
 
 procedure Tf_moon.SetOrientation(value: single);
@@ -1551,13 +1574,14 @@ procedure Tf_moon.GetBounds(var lmin,lmax,bmin,bmax: single);
 var
   l, b, deltab, deltal: single;
   xx, yy: integer;
+  ok: boolean;
 begin
-  xx     := GLSceneViewer1.Width div 2;
-  yy     := GLSceneViewer1.Height div 2;
+  xx := GLSceneViewer1.Width div 2;
+  yy := GLSceneViewer1.Height div 2;
   if Screen2Moon(xx,yy,l,b) then
   begin
-    deltab := 1.5* pid2 / zoom;
-    deltal := deltab / cos(b);
+    deltab := (2+sin(b))* pid2 / zoom;
+    deltal := 2* deltab / cos(b);
   end
   else
   begin
