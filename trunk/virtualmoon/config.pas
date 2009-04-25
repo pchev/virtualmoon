@@ -87,7 +87,6 @@ type
     ComboBox4: TComboBox;
     Button4: TButton;
     TabSheet3: TPage;
-    CheckBox4: TCheckBox;
     Bevel1: TBevel;
     CheckBox2: TCheckBox;
     CheckBox1: TCheckBox;
@@ -161,7 +160,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
-    procedure CheckBox4Click(Sender: TObject);
     procedure Shape1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Button2Click(Sender: TObject);
@@ -188,7 +186,7 @@ type
     { Déclarations privées }
   public
     { Déclarations publiques }
-    hiresfn: string;
+    texturefn: string;
   end;
 
 var
@@ -197,7 +195,6 @@ var
   savegeol,savelibration : boolean;
   lockoverlay: boolean=false;
   ov : Tbitmap;
-  graytexture:integer;
 
 implementation
 
@@ -218,7 +215,6 @@ var inifile : Tinifile;
     fs : TSearchRec;
 begin
 ov:=Tbitmap.Create;
-CheckBox4.Visible:=false;
 // hide developpement tools or not finished function
 if not fileexists('version.developpement') then begin
   CheckBox12.Visible:=false;   // external image display
@@ -293,19 +289,6 @@ combobox1.Enabled:=not checkbox3.checked;
 combobox2.Enabled:=not checkbox3.checked;
 end;
 
-procedure TForm2.CheckBox4Click(Sender: TObject);
-begin
-if CheckBox4.checked then begin
-  CheckBox1.enabled:=true;
-  CheckBox2.enabled:=true;
-  CheckBox2.checked:=savelibration;
-end else begin
-  CheckBox1.enabled:=true;
-  CheckBox2.checked:=false;
-  CheckBox2.enabled:=false;
-end;
-end;
-
 procedure TForm2.Shape1MouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
@@ -332,8 +315,6 @@ begin
 //  Panel1.Visible:=checkbox4.Checked;
   TrackBar2.Min:=-1000;
   TrackBar2.Max:=-100;
-  if hiresfile='hires_light.jpg' then graytexture:=0
-                               else graytexture:=80;
 end;
 
 procedure TForm2.Button3Click(Sender: TObject);
@@ -367,19 +348,17 @@ end;
 procedure TForm2.RadioGroup2Click(Sender: TObject);
 begin
 case RadioGroup2.itemindex of
-0 : hiresfn:='hires.jpg';
-1 : hiresfn:='hires_clem.jpg';
-2 : hiresfn:='hires_lopam.jpg';
+0 : texturefn:='Aerograph2';
+1 : texturefn:='Clementine';
+2 : texturefn:='Lopam';
 end;
-if not fileexists(Slash(appdir)+Slash('textures')+hiresfn) then begin
- hiresfn:=hiresfile;
- if hiresfile='hires.jpg' then form2.radiogroup2.itemindex:=0
-   else if hiresfile='hires_clem.jpg' then form2.radiogroup2.itemindex:=1
-   else if hiresfile='hires_lopam.jpg' then form2.radiogroup2.itemindex:=2
+if not DirectoryExists(Slash(appdir)+Slash('Textures')+texturefn) then begin
+ texturefn:=texturefile;
+ if texturefile='Aerograph2' then form2.radiogroup2.itemindex:=0
+   else if texturefile='Clementine' then form2.radiogroup2.itemindex:=1
+   else if texturefile='Lopam' then form2.radiogroup2.itemindex:=2
    else form2.radiogroup2.itemindex:=-1;
 end;
-if hiresfn='hires_light.jpg' then graytexture:=0
-                               else graytexture:=80;
 end;
 
 procedure TForm2.StringGrid2DrawCell(Sender: TObject; ACol, ARow: Integer;

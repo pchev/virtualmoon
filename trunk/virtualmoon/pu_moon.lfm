@@ -1,7 +1,7 @@
 object f_moon: Tf_moon
-  Left = 471
+  Left = 251
   Height = 520
-  Top = 68
+  Top = 67
   Width = 748
   Caption = 'f_moon'
   ClientHeight = 520
@@ -359,7 +359,6 @@ object f_moon: Tf_moon
         Material.FrontProperties.Specular.Color = {
           0000803F0000803F0000803F0000803F
         }
-        Material.Texture.ImageBrightness = 1.10000002384185
         Material.Texture.Disabled = False
         Tag = 0
       end>

@@ -188,7 +188,7 @@ Var  Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : st
      PrinterResolution: integer;
      isWin98: Boolean;
      GeologicalMap, librationeffect, AsMultiTexture : Boolean;
-     hiresfile: string;
+     texturefile: string;
      Firstsearch: boolean;
      DisplayIs32bpp: Boolean;
      ThemePath:string ='data/Themes';
