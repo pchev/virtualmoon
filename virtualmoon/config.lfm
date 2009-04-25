@@ -32,8 +32,8 @@ object Form2: TForm2
     TabOrder = 0
     object TabSheet1: TPage
       Caption = 'General'
-      ClientWidth = 337
-      ClientHeight = 373
+      ClientWidth = 339
+      ClientHeight = 385
       object Bevel8: TBevel
         Left = 16
         Height = 97
@@ -50,41 +50,41 @@ object Form2: TForm2
       end
       object Label4: TLabel
         Left = 24
-        Height = 14
+        Height = 15
         Top = 280
-        Width = 43
+        Width = 50
         Caption = 'Langue :'
         ParentColor = False
       end
       object Label1: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 72
-        Width = 39
+        Width = 46
         Caption = 'Latitude'
         ParentColor = False
       end
       object Label2: TLabel
         Left = 144
-        Height = 14
+        Height = 15
         Top = 72
-        Width = 48
+        Width = 56
         Caption = 'Longitude'
         ParentColor = False
       end
       object Label3: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 220
-        Width = 61
+        Width = 76
         Caption = 'Zone horaire'
         ParentColor = False
       end
       object Label16: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 12
-        Width = 61
+        Width = 75
         Caption = 'Observatoire'
         Color = clBtnFace
         ParentColor = False
@@ -92,17 +92,17 @@ object Form2: TForm2
       end
       object Label29: TLabel
         Left = 192
-        Height = 14
+        Height = 15
         Top = 220
-        Width = 65
+        Width = 78
         Caption = 'Positive East '
         ParentColor = False
       end
       object Label23: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 156
-        Width = 64
+        Width = 73
         Caption = 'Date / Heure'
         Color = clBtnFace
         ParentColor = False
@@ -110,11 +110,11 @@ object Form2: TForm2
       end
       object ComboBox3: TComboBox
         Left = 80
-        Height = 21
+        Height = 27
         Top = 276
         Width = 233
         AutoComplete = False
-        ItemHeight = 13
+        ItemHeight = 0
         ItemWidth = 0
         OnChange = ComboBox3Change
         TabOrder = 6
@@ -122,9 +122,9 @@ object Form2: TForm2
       end
       object CheckBox3: TCheckBox
         Left = 32
-        Height = 17
+        Height = 22
         Top = 40
-        Width = 82
+        Width = 100
         Caption = 'Geocentrique'
         OnClick = CheckBox3Click
         TabOrder = 0
@@ -147,11 +147,11 @@ object Form2: TForm2
       end
       object ComboBox1: TComboBox
         Left = 88
-        Height = 21
+        Height = 27
         Top = 88
         Width = 49
         AutoComplete = False
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           'N'
@@ -163,11 +163,11 @@ object Form2: TForm2
       end
       object ComboBox2: TComboBox
         Left = 200
-        Height = 21
+        Height = 27
         Top = 88
         Width = 49
         AutoComplete = False
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           'E'
@@ -187,9 +187,9 @@ object Form2: TForm2
       end
       object CheckBox16: TCheckBox
         Left = 32
-        Height = 17
+        Height = 22
         Top = 184
-        Width = 186
+        Width = 227
         Caption = 'Use Computer Date and Time Zone'
         OnClick = CheckBox16Click
         TabOrder = 7
@@ -197,8 +197,8 @@ object Form2: TForm2
     end
     object TabSheet7: TPage
       Caption = 'Database'
-      ClientWidth = 337
-      ClientHeight = 373
+      ClientWidth = 339
+      ClientHeight = 385
       ImageIndex = 7
       object Label31: TLabel
         Left = 16
@@ -214,8 +214,8 @@ object Form2: TForm2
         Top = 18
         Width = 305
         Caption = 'Database'
-        ClientHeight = 189
-        ClientWidth = 301
+        ClientHeight = 192
+        ClientWidth = 303
         TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
@@ -276,12 +276,13 @@ object Form2: TForm2
         Width = 305
         ItemHeight = 0
         TabOrder = 1
+        TopIndex = -1
       end
     end
     object TabSheet3: TPage
       Caption = 'Affichage'
-      ClientWidth = 337
-      ClientHeight = 373
+      ClientWidth = 339
+      ClientHeight = 385
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
@@ -383,7 +384,7 @@ object Form2: TForm2
       object LabelFont: TLabel
         Left = 141
         Height = 14
-        Top = 315
+        Top = 327
         Width = 48
         Anchors = [akLeft, akBottom]
         Caption = 'LabelFont'
@@ -482,8 +483,8 @@ object Form2: TForm2
     end
     object TabSheet4: TPage
       Caption = 'Textures'
-      ClientWidth = 337
-      ClientHeight = 373
+      ClientWidth = 339
+      ClientHeight = 385
       ImageIndex = 4
       object RadioGroup2: TRadioGroup
         Left = 12
@@ -500,8 +501,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 207
-        ClientWidth = 301
+        ClientHeight = 210
+        ClientWidth = 303
         ItemIndex = 0
         Items.Strings = (
           'Aérographe'
@@ -523,8 +524,8 @@ object Form2: TForm2
     end
     object TabSheet6: TPage
       Caption = 'Overlay'
-      ClientWidth = 337
-      ClientHeight = 373
+      ClientWidth = 339
+      ClientHeight = 385
       ImageIndex = 6
       object nooverlay: TLabel
         Left = 40
@@ -598,7 +599,7 @@ object Form2: TForm2
           Top = 64
           Width = 145
           AutoComplete = False
-          ItemHeight = 13
+          ItemHeight = 0
           ItemWidth = 0
           OnChange = ComboBox5Change
           Sorted = True
@@ -622,8 +623,8 @@ object Form2: TForm2
     end
     object TabSheet2: TPage
       Caption = 'Images'
-      ClientWidth = 337
-      ClientHeight = 373
+      ClientWidth = 339
+      ClientHeight = 385
       ImageIndex = 1
       object Label8: TLabel
         Left = 8
@@ -764,8 +765,8 @@ object Form2: TForm2
     end
     object TabSheet5: TPage
       Caption = 'Eyepieces'
-      ClientWidth = 337
-      ClientHeight = 373
+      ClientWidth = 339
+      ClientHeight = 385
       ImageIndex = 5
       object Label24: TLabel
         Left = 8
@@ -886,8 +887,8 @@ object Form2: TForm2
     end
     object Impression: TPage
       Caption = 'Impression'
-      ClientWidth = 337
-      ClientHeight = 373
+      ClientWidth = 339
+      ClientHeight = 385
       ImageIndex = 2
       object Bevel6: TBevel
         Left = 8
@@ -1031,7 +1032,7 @@ object Form2: TForm2
         Top = 280
         Width = 113
         AutoComplete = False
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           'Comme ? l''?cran'

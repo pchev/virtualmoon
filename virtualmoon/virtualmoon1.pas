@@ -3587,7 +3587,7 @@ procedure TForm1.FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState)
 var
   i: integer;
 begin
-  if key = VK_F11 then
+  if key = 122 then   // F11
     SetFullScreen;
 end;
 
