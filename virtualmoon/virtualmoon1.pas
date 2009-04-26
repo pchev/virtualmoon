@@ -76,6 +76,7 @@ type
     Button5: TButton;
     Apropos1: TMenuItem;
     Splitter1: TSplitter;
+    ToolButton13: TToolButton;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
     UpDown2: TUpDown;
@@ -270,6 +271,7 @@ type
     procedure Desc1HotClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -278,6 +280,8 @@ type
     procedure FormResize(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
+    procedure ToolButton12Click(Sender: TObject);
+    procedure ToolButton13Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure ToolButton5Click(Sender: TObject);
@@ -383,7 +387,6 @@ type
     procedure ToolButton4Click(Sender: TObject);
     procedure ToolButton6Click(Sender: TObject);
     procedure Button20Click(Sender: TObject);
-    procedure SpeedButton8Click(Sender: TObject);
     procedure RemoveMark1Click(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
     procedure CheckBox8Click(Sender: TObject);
@@ -397,6 +400,7 @@ type
     ima: TBigImaForm;
     ToolsWidth: integer;
     FullScreen: boolean;
+    lockzoombar: boolean;
     savetop,saveleft,savewidth,saveheight:integer;
     procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
     procedure InstanceRunning(Sender : TObject);
@@ -422,7 +426,7 @@ type
     function ImgExists(nom: string): boolean;
     procedure InitDate;
     procedure SetJDDate;
-    procedure GetMsg(Sender: TObject; msgclass:Tmsgclass; value: String);
+    procedure GetMsg(Sender: TObject; msgclass:TMoonMsgClass; value: String);
     procedure IdentLB(l, b: single);
     procedure InitLopamIdx;
     procedure ListUserDB;
@@ -455,8 +459,7 @@ type
     dbedited: boolean;
     SkipIdent, wantbump, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
     minilabel: boolean;
-    lockmove, lockrepeat, showautolabel,
-    showlibrationmark, marked, saveimagewhite, skipresize: boolean;
+    lockmove, lockrepeat, showlibrationmark, marked, saveimagewhite, skipresize: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
     lopamdirectsuffix, lopamlocalsuffix: string;
@@ -492,7 +495,6 @@ type
     LastScopeTracking: double;
     UseComputerTime: boolean;
     procedure Init;
-    procedure InitGraphic(Sender: TObject);
     procedure LoadOverlay(fn: string; lum: integer);
     procedure GetLabel(Sender: TObject);
     procedure GetSprite(Sender: TObject);
@@ -1044,6 +1046,7 @@ begin
     GeologicalMap := ReadBool(section, 'GeologicalMap', GeologicalMap);
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
+    moon1.MoveCursor:= ReadBool(section, 'MoveCursor', false);
     ShowMark     := ReadBool(section, 'ShowMark', ShowMark);
     ShowLibrationMark := ReadBool(section, 'ShowLibrationMark', ShowLibrationMark);
     MarkLabelColor   := ReadInteger(section, 'LabelColor', MarkLabelColor);
@@ -1148,7 +1151,6 @@ begin
   chdir(appdir);
   InitObservatoire;
   InitImages;
-  Showautolabel := showlabel and (Labeldensity < 1000);
   moon1.GLSphereMoon.Slices := smooth;
   moon1.GLSphereMoon.Stacks := smooth;
 end;
@@ -1195,6 +1197,7 @@ begin
       WriteBool(section, 'PhaseEffect', phaseeffect);
       WriteBool(section, 'BumpMap', wantbump);
       WriteBool(section, 'GeologicalMap', GeologicalMap);
+      WriteBool(section, 'MoveCursor', moon1.MoveCursor);
       WriteBool(section, 'ShowLabel', ShowLabel);
       WriteBool(section, 'ShowMark', ShowMark);
       WriteBool(section, 'ShowLibrationMark', ShowLibrationMark);
@@ -2813,12 +2816,13 @@ end;
 
 procedure  TForm1.SetZoomBar;
 begin
-trackbar1.min := 1;
-trackbar1.max := round(10 * moon1.ZoomMax);
-trackbar1.position := round(10 * moon1.Zoom);
+lockzoombar:=true;
+trackbar1.min := 100;
+trackbar1.max := round(100 * moon1.ZoomMax);
+trackbar1.position := round(100 * moon1.Zoom);
 end;
 
-procedure  TForm1.GetMsg(Sender: TObject; msgclass:Tmsgclass; value: String);
+procedure  TForm1.GetMsg(Sender: TObject; msgclass:TMoonMsgClass; value: String);
 begin
 case msgclass of
 MsgZoom: begin
@@ -2828,6 +2832,7 @@ MsgZoom: begin
 MsgPerf: begin
           Label15.Caption := m[44] + blank + value;
          end;
+   else  statusbar1.Panels[3].Text := value;
 end;
 end;
 
@@ -2990,6 +2995,12 @@ begin
  moon1.PopUp:=PopupMenu1;
  moon1.TexturePath:=slash(appdir)+slash('Textures');
  moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
+  if fileexists(slash(appdir) + slash('data') + 'retic.cur') then
+  begin
+    CursorImage1.LoadFromFile(slash(appdir) + slash('data') + 'retic.cur');
+    Screen.Cursors[crRetic] := CursorImage1.Handle;
+    moon1.GLSceneViewer1.Cursor := crRetic;
+  end;
   SetLang1;
   readdefault;
   currentid := '';
@@ -3009,6 +3020,8 @@ begin
   else
     RadioGroup2.ItemIndex := 1;
   checkbox1.Checked := FollowNorth;
+  ToolButton12.Down := showlabel;
+  ToolButton13.Down := moon1.MoveCursor;
   appname := ParamStr(0);
   if paramcount > 0 then
   begin
@@ -3045,12 +3058,6 @@ try
   InitTelescope;
   tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
   timezone := tz.SecondsOffset / 3600;
-  if fileexists(slash(appdir) + slash('data') + 'retic.cur') then
-  begin
-    CursorImage1.LoadFromFile(slash(appdir) + slash('data') + 'retic.cur');
-    Screen.Cursors[crRetic] := CursorImage1.Handle;
-    moon1.GLSceneViewer1.Cursor := crRetic;
-  end;
   dblox.LoadFromFile(Slash(appdir) + Slash('Database') + 'lopamidx.csv');
   dblox.GoFirst;
   if fileexists(Slash(DBdir) + 'notes.csv') then
@@ -3109,6 +3116,7 @@ try
     Trackbar5.position := 1;
   LibrationButton.Down := librationeffect;
   PhaseButton.Down := phaseeffect;
+  LoadOverlay(overlayname, overlaylum);
   RefreshMoonImage;
   PhaseButtonClick(nil);
   if currentname <> '' then
@@ -3138,13 +3146,6 @@ finally
   screen.cursor := crDefault;
   moon1.GLSceneViewer1.Visible:=true;
 end;
-end;
-
-{ TODO : Review what in FormCreate, FormShow, Init and Initgraphic }
-procedure TForm1.InitGraphic(Sender: TObject);
-begin
-
-  LoadOverlay(overlayname, overlaylum);
 end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);
@@ -3264,7 +3265,6 @@ begin
       showlibrationmark := form2.checkbox14.Checked;
       labelcenter   := form2.checkbox17.Checked;
       minilabel     := form2.checkbox18.Checked;
-      Showautolabel := showlabel and (Labeldensity < 1000);
       moon1.LabelFont:=form2.FontDialog1.Font;
       moon1.Labelcolor:=autolabelcolor;
       Obslatitude := strtofloat(form2.Edit1.Text);
@@ -3365,7 +3365,7 @@ begin
       begin
         application.ProcessMessages;
         moon1.Eyepiece := 0;
-        InitGraphic(Sender);
+        LoadOverlay(overlayname, overlaylum);
         moon1.Texture:=texturefile;
         RefreshMoonImage;
       end
@@ -3382,6 +3382,19 @@ procedure TForm1.Splitter1Moved(Sender: TObject);
 begin
  ToolsWidth:=PageControl1.Width;
  if ToolsWidth<100 then ToolsWidth:=100;
+end;
+
+procedure TForm1.ToolButton12Click(Sender: TObject);
+begin
+ showlabel:=not showlabel;
+ ToolButton12.Down := showlabel;
+ moon1.RefreshAll;
+end;
+
+procedure TForm1.ToolButton13Click(Sender: TObject);
+begin
+ moon1.MoveCursor:=not moon1.MoveCursor;
+ ToolButton13.Down:=moon1.MoveCursor;
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
@@ -3441,13 +3454,15 @@ procedure TForm1.TrackBar1Change(Sender: TObject);
 
 begin
 ZoomTimer.Enabled:=false;
-ZoomTimer.Enabled:=true;
+if not lockzoombar then
+   ZoomTimer.Enabled:=true;
+lockzoombar:=false;
 end;
 
 procedure TForm1.ZoomTimerTimer(Sender: TObject);
 begin
 ZoomTimer.Enabled:=false;
-moon1.Zoom := trackbar1.position / 10;
+moon1.Zoom := trackbar1.position / 100;
 end;
 
 procedure TForm1.EphTimer1Timer(Sender: TObject);
@@ -3587,8 +3602,19 @@ procedure TForm1.FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState)
 var
   i: integer;
 begin
-  if key = 122 then   // F11
-    SetFullScreen;
+case key of
+  16  :  moon1.KeyEvent(mkDown,key); // Shift
+  17  :  moon1.KeyEvent(mkDown,key); // Ctrl
+  122 :  SetFullScreen; // F11
+end;
+end;
+
+procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+case key of
+  16  :  moon1.KeyEvent(mkUp,key); // Shift
+  17  :  moon1.KeyEvent(mkUp,key); // Ctrl
+end;
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -4836,17 +4862,6 @@ begin
 {$endif}
   param := ' -nx ';
   ExecNoWait(Datlun + param);
-end;
-
-procedure TForm1.SpeedButton8Click(Sender: TObject);
-begin
-  form2.colordialog1.color := autolabelcolor;
-  if form2.colordialog1.Execute then
-  begin
-    autolabelcolor := form2.colordialog1.color;
-    moon1.Labelcolor:=autolabelcolor;
-    moon1.RefreshAll;
-  end;
 end;
 
 procedure TForm1.PopupMenu1Popup(Sender: TObject);
