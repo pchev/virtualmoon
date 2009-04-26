@@ -2807,6 +2807,7 @@ begin
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360);
     moon1.Orientation:=CameraOrientation;
   end;
+  moon1.EarthDistance:=dkm;
   moon1.ShowPhase:=phaseeffect;
   moon1.Phase:=deg2rad*cphase;
   moon1.SunIncl:=deg2rad*sunincl;
@@ -2826,6 +2827,7 @@ procedure  TForm1.GetMsg(Sender: TObject; msgclass:TMoonMsgClass; value: String)
 begin
 case msgclass of
 MsgZoom: begin
+          value:=StringReplace(value,'FOV',m[43],[]);
           statusbar1.Panels[3].Text := value;
           SetZoomBar;
          end;
@@ -3410,6 +3412,7 @@ begin
   if ToolsWidth<100 then ToolsWidth:=100;
   PageControl1.width:=ToolsWidth;
   moon1.RefreshAll;
+  moon1.GetZoomInfo;
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);

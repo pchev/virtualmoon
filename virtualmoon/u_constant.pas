@@ -42,6 +42,7 @@ const crlf = chr(10)+chr(13);
       clight = 299792.458 ;
       tlight = km_au/clight/3600/24;
       Rmoon = 1737.103;  // moon radius Km
+      MeanEarthDistance=384401;
       footpermeter = 0.3048;
       kmperdegree=111.1111;
       secday=3600*24;
