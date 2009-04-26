@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = Panel1
+  ActiveControl = ControlBar1
   AutoScroll = False
   Caption = 'Form1'
   ClientHeight = 600
@@ -253,7 +253,7 @@ object Form1: TForm1
     end
     object TrackBar1: TTrackBar
       Left = 304
-      Height = 35
+      Height = 39
       Top = -4
       Width = 112
       Max = 100
@@ -269,8 +269,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 16
-    Top = 584
+    Height = 17
+    Top = 583
     Width = 1024
     Panels = <    
       item
@@ -280,7 +280,7 @@ object Form1: TForm1
         Width = 100
       end    
       item
-        Width = 200
+        Width = 250
       end    
       item
         Width = 100
@@ -308,7 +308,7 @@ object Form1: TForm1
     object Position: TPage
       Caption = 'Information'
       ClientWidth = 376
-      ClientHeight = 475
+      ClientHeight = 474
       object Panel1: TPanel
         Left = 0
         Height = 97
@@ -360,7 +360,7 @@ object Form1: TForm1
         end
         object ComboBox1: TComboBox
           Left = 16
-          Height = 27
+          Height = 24
           Top = 8
           Width = 161
           AutoComplete = False
@@ -374,7 +374,7 @@ object Form1: TForm1
       end
       object Desc1: TIpHtmlPanel
         Left = 0
-        Height = 378
+        Height = 377
         Top = 97
         Width = 376
         Align = alClient
@@ -395,11 +395,11 @@ object Form1: TForm1
     object Notes: TPage
       Caption = 'Notes'
       ClientWidth = 376
-      ClientHeight = 475
+      ClientHeight = 474
       ImageIndex = 6
       object Memo1: TMemo
         Left = 0
-        Height = 417
+        Height = 416
         Top = 58
         Width = 376
         Align = alClient
@@ -442,7 +442,7 @@ object Form1: TForm1
     object Ephemerides: TPage
       Caption = 'Ephémérides'
       ClientWidth = 376
-      ClientHeight = 475
+      ClientHeight = 474
       ImageIndex = 1
       object Panel4: TPanel
         Left = 0
@@ -978,7 +978,7 @@ object Form1: TForm1
       end
       object StringGrid1: TStringGrid
         Left = 0
-        Height = 354
+        Height = 353
         Top = 121
         Width = 376
         Align = alClient
@@ -1004,7 +1004,7 @@ object Form1: TForm1
     object Terminateur: TPage
       Caption = 'Terminateur'
       ClientWidth = 376
-      ClientHeight = 475
+      ClientHeight = 474
       ImageIndex = 2
       object Panel5: TPanel
         Left = 0
@@ -1110,7 +1110,7 @@ object Form1: TForm1
       end
       object ListBox1: TListBox
         Left = 0
-        Height = 354
+        Height = 353
         Top = 121
         Width = 376
         Align = alClient
@@ -1124,7 +1124,7 @@ object Form1: TForm1
     object Outils: TPage
       Caption = 'Outils'
       ClientWidth = 376
-      ClientHeight = 475
+      ClientHeight = 474
       ImageIndex = 4
       object Bevel4: TBevel
         Left = 8
@@ -1518,7 +1518,7 @@ object Form1: TForm1
     object Reglage: TPage
       Caption = 'Réglage'
       ClientWidth = 376
-      ClientHeight = 475
+      ClientHeight = 474
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
@@ -1687,11 +1687,11 @@ object Form1: TForm1
     object dbtab: TPage
       Caption = 'Database'
       ClientWidth = 376
-      ClientHeight = 475
+      ClientHeight = 474
       ImageIndex = 5
       object StringGrid2: TStringGrid
         Left = 0
-        Height = 442
+        Height = 441
         Top = 0
         Width = 376
         Align = alClient
@@ -1711,7 +1711,7 @@ object Form1: TForm1
       object Panel6: TPanel
         Left = 0
         Height = 33
-        Top = 442
+        Top = 441
         Width = 376
         Align = alBottom
         ClientHeight = 33

@@ -114,6 +114,7 @@ type
     FSunIncl: single;
     FLibrLon: single;
     FLibrLat: single;
+    FEarthDistance: single;
     FOrientation: single;
     Fzoom : single;
     Flabelcolor: TColor;
@@ -138,6 +139,7 @@ type
     procedure SetSunIncl(value:single);
     procedure SetLibrLon(value:single);
     procedure SetLibrLat(value:single);
+    procedure SetEarthDistance(value:single);
     procedure SetLabelFont(f:Tfont);
     function  GetLabelFont : Tfont;
     procedure SetShowFPS(value:boolean);
@@ -178,6 +180,7 @@ type
     { Declarations publiques }
     procedure ShowInfo;
     procedure Init;
+    Procedure GetZoomInfo;
     procedure GetBounds(var lmin,lmax,bmin,bmax: single);
     procedure SetMark(lon,lat:single; txt:string);
     procedure CenterAt(lon,lat:single);
@@ -201,6 +204,7 @@ type
     property SunIncl : single read FSunIncl write SetSunIncl;
     property LibrLon : single read FLibrLon write SetLibrLon;
     property LibrLat : single read FLibrLat write SetLibrLat;
+    property EarthDistance: single read FEarthDistance write SetEarthDistance;
     property Zoom : single read Fzoom write SetZoomLevel;
     property ZoomMax: single read MaxZoom;
     property Mirror : Boolean read FMirror write SetMirror;
@@ -605,8 +609,7 @@ end else begin
   with GLMaterialLibrary1 do begin
       with LibMaterialByName('O1') do begin
         Material.Texture.ImageBrightness:=1;
-{ TODO : Alpha = toplefttransparent
-set top left to trans, color }
+{ TODO : Alpha transparent}
         Material.Texture.ImageAlpha:=tiaAlphaFromIntensity;
         Material.Texture.Image.LoadFromFile(slash(FOverlayPath)+fn);
       end;
@@ -686,11 +689,16 @@ if value<>FVisibleSideLock then begin
    if FVisibleSideLock then begin
       GLSphereMoon.TurnAngle:=0;
       GLCamera1.TargetObject:=nil;
-      GLCamera1.Position.SetVector(0,0,-100);
+      GLCamera1.Position.SetVector(0,0,-100*FEarthDistance/MeanEarthDistance);
+      GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
+      GLMirror1.Position.SetVector(0,0,-100.01*FEarthDistance/MeanEarthDistance);
       GLCamera1.Direction.SetVector(0,0,1);
       SetZoomLevel(1);
    end else begin
       Eyepiece:=0;
+      GLCamera1.Position.SetVector(0,0,-100);
+      GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
+      GLMirror1.Position.SetVector(0,0,-100.01);
       GLCamera1.TargetObject:=GLSphereMoon;
       SetZoomLevel(1);
    end;
@@ -749,7 +757,7 @@ then  begin
    if GLAnnulus1.Visible then begin
       xx:=ipoint[0]-GLCamera1.Position.X;
       yy:=ipoint[1]-GLCamera1.Position.Y;
-      if sqrt(xx*xx+yy*yy)>(GLAnnulus1.BottomInnerRadius)
+      if sqrt(xx*xx+yy*yy)>(GLAnnulus1.BottomInnerRadius/abs(90/GLCamera1.Position.Z))
       then result:=false;
    end;
 end else begin
@@ -794,6 +802,11 @@ begin
    end;
 end;
 
+Procedure Tf_moon.GetZoomInfo;
+begin
+  if assigned(FOnGetMsg) then FOnGetMsg(self,MsgZoom,'FOV:'+inttostr(round(60*0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+lmin+' Zoom:'+formatfloat('0.0',Fzoom)+'  Level:'+inttostr(zone));
+end;
+
 Procedure Tf_moon.SetZoomLevel(zoom:single);
 var newzone: integer;
 begin
@@ -824,7 +837,7 @@ try
        DisableSlice2;
   end;
   zone:=newzone;
-  if assigned(FOnGetMsg) then FOnGetMsg(self,MsgZoom,'Zoom:'+formatfloat('0.0',zoom)+'  Level:'+inttostr(zone));
+  GetZoomInfo;
   RefreshAll;
 finally
   lock_Zoom:=false;
@@ -900,6 +913,7 @@ begin
  FTexture:='';
  FOverlay:='';
  FRotation:=0;
+ FEarthDistance:=MeanEarthDistance;
  FBumpOk:=false;
  FMoveCursor:=false;
  TextureCompression:=true;
@@ -1196,6 +1210,16 @@ procedure Tf_moon.SetLibrLat(value:single);
 begin
 FLibrLat:=value;
 if FVisibleSideLock then OrientMoon;
+end;
+
+procedure Tf_moon.SetEarthDistance(value:single);
+begin
+FEarthDistance:=value;
+if VisibleSideLock then begin
+  GLCamera1.Position.Z:=-100*FEarthDistance/MeanEarthDistance;
+  GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
+  GLMirror1.Position.SetVector(0,0,-100.01*FEarthDistance/MeanEarthDistance);
+end;
 end;
 
 procedure Tf_moon.SetLabelFont(f:Tfont);
@@ -1526,7 +1550,7 @@ if FEyepiece<>value then begin
    end else begin
      GLAnnulus1.Position.x := GLCamera1.Position.x;
      GLAnnulus1.Position.y := GLCamera1.Position.y;
-     GLAnnulus1.BottomInnerRadius:=GLSphereMoon.Radius*FEyepiece;
+     GLAnnulus1.BottomInnerRadius:=GLSphereMoon.Radius*FEyepiece*abs(90/GLCamera1.Position.Z);
      GLAnnulus1.Visible:=true;
      SetZoomLevel(1/FEyepiece);
    end;
