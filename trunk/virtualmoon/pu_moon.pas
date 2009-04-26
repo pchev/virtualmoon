@@ -17,7 +17,8 @@ type
 
   { Tf_moon }
 
-  Tmsgclass = (MsgZoom, MsgPerf);
+  TMoonMsgClass = (MsgZoom, MsgPerf, MsgOther);
+  TMoonKeyClass = (mkUp, mkDown);
 
   TMoonClickEvent = procedure(Sender: TObject; Button: TMouseButton;
                      Shift: TShiftState; X, Y: Integer;
@@ -26,7 +27,7 @@ type
                      OnMoon: boolean; Lon, Lat: Single) of object;
   TGetSingleEvent = procedure(Sender: TObject; value: single) of object;
   TGetStringEvent = procedure(Sender: TObject; value: string) of object;
-  TGetMsgEvent = procedure(Sender: TObject; msgclass:Tmsgclass; value: string) of object;
+  TGetMsgEvent = procedure(Sender: TObject; msgclass:TMoonMsgClass; value: string) of object;
   TMoonMeasureEvent = procedure(Sender: TObject; m1,m2,m3,m4: string) of object;
 
   Tf_moon = class(TForm)
@@ -118,6 +119,7 @@ type
     Flabelcolor: TColor;
     perfdeltay: double;
     FShowFPS: Boolean;
+    FMoveCursor: boolean;
     FLibrationMark: Boolean;
     FEyepiece: single;
     FTextureCompression: Boolean;
@@ -159,6 +161,7 @@ type
     Procedure ClearSlice(level:integer);
     procedure ClearOverlay;
     Procedure SetZoomLevel(zoom:single);
+    procedure SetMoveCursor(value:boolean);
     function  Screen2Moon(x,y:integer; var lon,lat: single): boolean;
     function  Moon2Screen(lon,lat: single; var x,y:integer): boolean;
     function  Moon2World(lon,lat: single; var x,y,z:single): boolean;
@@ -179,6 +182,7 @@ type
     procedure SetMark(lon,lat:single; txt:string);
     procedure CenterAt(lon,lat:single);
     procedure CenterMark;
+    procedure KeyEvent(event: TMoonKeyClass; key: word);
     function AddLabel(lon,lat:single; txt:string):boolean;
     function AddSprite(lon,lat:single):boolean;
     procedure RefreshAll;
@@ -208,7 +212,7 @@ type
     property ShowFPS: Boolean read FShowFPS write SetShowFPS;
     property LibrationMark: Boolean read FLibrationMark write FLibrationMark;
     property PopUp: TPopupMenu read GetPopUp write SetPopUp;
-// Eyepiece field of vision in Moon apparent diameter unit.
+    // Eyepiece field of vision in Moon apparent diameter unit.
     property Eyepiece : single read FEyepiece write SetEyepiece;
     property TextureCompression: Boolean read FTextureCompression write SetTextureCompression;
     property MeasuringDistance: Boolean read FMeasuringDistance write SetMeasuringDistance;
@@ -216,6 +220,7 @@ type
     property AmbientColor: TColor read GetAmbientColor Write SetAmbientColor;
     property DiffuseColor: TColor read GetDiffuseColor Write SetDiffuseColor;
     property SpecularColor: TColor read GetSpecularColor Write SetSpecularColor;
+    property MoveCursor: Boolean read FMoveCursor Write SetMoveCursor;
     property onMoonClick : TMoonClickEvent read FOnMoonClick write FOnMoonClick;
     property onMoonMove : TMoonMoveEvent read FOnMoonMove write FOnMoonMove;
     property onMoonMeasure: TMoonMeasureEvent read FonMoonMeasure write FonMoonMeasure;
@@ -600,6 +605,8 @@ end else begin
   with GLMaterialLibrary1 do begin
       with LibMaterialByName('O1') do begin
         Material.Texture.ImageBrightness:=1;
+{ TODO : Alpha = toplefttransparent
+set top left to trans, color }
         Material.Texture.ImageAlpha:=tiaAlphaFromIntensity;
         Material.Texture.Image.LoadFromFile(slash(FOverlayPath)+fn);
       end;
@@ -894,6 +901,7 @@ begin
  FOverlay:='';
  FRotation:=0;
  FBumpOk:=false;
+ FMoveCursor:=false;
  TextureCompression:=true;
  MaxZoom:=3;
  MaxTextureSize:=1024;
@@ -954,6 +962,15 @@ begin
 //    ShowCoordinates(x, y);
     distancestart := False;
   end
+  else begin
+    if (ssMiddle in shift) or
+       (FMoveCursor and (ssLeft in shift)) or
+       ((ssLeft in shift)and(ssCtrl in shift))
+     then begin
+        if FMoveCursor then GLSceneViewer1.Cursor:=crHandPoint
+               else GLSceneViewer1.Cursor:=crRetic;
+     end;
+  end;
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -989,11 +1006,20 @@ begin
       GLHUDSpriteDistance.Rotation   := 0;
     end;
   end
-  else
-    if ssLeft in shift then begin
-     OnMoon:=Screen2Moon(x,y,lon,lat);
-     if Assigned(onMoonClick) then onMoonClick(Self,Button,Shift,X,Y,OnMoon,lon,lat);
+  else begin
+    if ((not FMoveCursor)and(ssLeft in shift)) or
+       ((ssLeft in shift)and(ssShift in shift))
+     then begin
+       OnMoon:=Screen2Moon(x,y,lon,lat);
+       if Assigned(onMoonClick) then onMoonClick(Self,Button,Shift,X,Y,OnMoon,lon,lat);
     end;
+    if (ssMiddle in shift) or
+       (FMoveCursor and (ssLeft in shift)) or
+       ((ssLeft in shift)and(ssCtrl in shift))
+     then begin
+        GLSceneViewer1.Cursor:=crHandPoint;
+     end;
+  end;
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseMove(Sender: TObject; Shift: TShiftState;
@@ -1020,13 +1046,10 @@ begin
   else
   // Move map
   if (ssMiddle in shift) or
+     (FMoveCursor and (ssLeft in shift)) or
      ((ssLeft in shift)and(ssCtrl in shift))
    then begin
     if FMirror then x:=GLSceneViewer1.Width-x;
-{    if abs(FOrientation)>50 then begin
-       x:=GLSceneViewer1.Width-x;
-       y:=GLSceneViewer1.Height-y;
-    end; }
     if FVisibleSideLock then begin
       sincos(deg2rad * FOrientation, s1, c1);
       xx:=round(x*c1+y*s1);
@@ -1055,13 +1078,13 @@ end;
 procedure Tf_moon.GLSceneViewer1MouseWheelDown(Sender: TObject;
   Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 begin
-  SetZoomLevel(GLCamera1.SceneScale/1.5);
+  SetZoomLevel(GLCamera1.SceneScale/1.1);
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseWheelUp(Sender: TObject;
   Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 begin
-  SetZoomLevel(GLCamera1.SceneScale*1.5);
+  SetZoomLevel(GLCamera1.SceneScale*1.1);
 end;
 
 procedure Tf_moon.RefreshTimerTimer(Sender: TObject);
@@ -1533,7 +1556,8 @@ begin
   end
   else
   begin
-    GLSceneViewer1.Cursor := crRetic;
+    if FMoveCursor then GLSceneViewer1.Cursor:=crHandPoint
+               else GLSceneViewer1.Cursor:=crRetic;
     GLHUDSpriteDistance.Visible    := False;
   end;
 end;
@@ -1669,6 +1693,31 @@ end;
 procedure Tf_moon.ShowInfo;
 begin
 GLSceneViewer1.Buffer.ShowInfo;
+end;
+
+procedure Tf_moon.SetMoveCursor(value:boolean);
+begin
+FMoveCursor:=value;
+if FMoveCursor then GLSceneViewer1.Cursor:=crHandPoint
+               else GLSceneViewer1.Cursor:=crRetic;
+end;
+
+procedure Tf_moon.KeyEvent(event: TMoonKeyClass; key: word);
+begin
+case key of
+  16  : begin   // Shift
+           if FMoveCursor then begin
+              if event=mkDown then GLSceneViewer1.Cursor:=crRetic
+                              else GLSceneViewer1.Cursor:=crHandPoint;
+           end;
+        end;
+  17  : begin  // Ctrl
+           if not FMoveCursor then begin
+              if event=mkDown then GLSceneViewer1.Cursor:=crHandPoint
+                              else GLSceneViewer1.Cursor:=crRetic;
+           end;
+        end;
+end;
 end;
 
 initialization
