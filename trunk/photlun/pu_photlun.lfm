@@ -1,11 +1,11 @@
 object f_photlun: Tf_photlun
-  Left = 0
+  Left = 71
   Height = 197
   Top = 0
   Width = 810
   ActiveControl = PanelTop
   Caption = 'Photlun 1.0'
-  ClientHeight = 177
+  ClientHeight = 176
   ClientWidth = 810
   Icon.Data = {
     BE1000000000010001002020000001002000A810000016000000280000002000
@@ -153,17 +153,17 @@ object f_photlun: Tf_photlun
   LCLVersion = '0.9.27'
   object PanelTop: TPanel
     Left = 0
-    Height = 154
+    Height = 159
     Top = 0
     Width = 810
     Align = alClient
-    ClientHeight = 154
+    ClientHeight = 159
     ClientWidth = 810
     TabOrder = 0
     object ScrollBar1: TScrollBar
       Left = 1
       Height = 15
-      Top = 138
+      Top = 143
       Width = 808
       Align = alBottom
       PageSize = 0
@@ -184,8 +184,8 @@ object f_photlun: Tf_photlun
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 154
+    Height = 17
+    Top = 159
     Width = 810
     Panels = <    
       item

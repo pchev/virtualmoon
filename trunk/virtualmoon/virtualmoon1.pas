@@ -1639,6 +1639,7 @@ begin
   privatedir := DefaultPrivateDir;
 {$ifdef unix}
   appdir     := expandfilename(appdir);
+  bindir     := slash(appdir);
   privatedir := expandfilename(PrivateDir);
   configfile := expandfilename(Defaultconfigfile);
   CdCconfig  := ExpandFileName(DefaultCdCconfig);
@@ -1712,12 +1713,17 @@ begin
       end;
     end;
   end;
-  Photlun := slash(appdir) + DefaultPhotlun;     // Photlun normally at same location as vma
-  if not FileExists(Photlun) then
-    Photlun := DefaultPhotlun; // if not try in $PATH
-  Datlun    := slash(appdir) + DefaultDatlun;
-  if not FileExists(Datlun) then
-    Datlun := DefaultDatlun;
+  if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+     bindir := slash(ExtractFilePath(ParamStr(0)));
+     if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+        bindir := slash(ExpandFileName(slash(appdir) + slash('..')+slash('..')+'bin'));
+        if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+           bindir:='';
+        end;
+     end;
+  end;
+  Photlun := bindir + DefaultPhotlun;     // Photlun normally at same location as vma
+  Datlun  := bindir + DefaultDatlun;
   helpdir  := slash(appdir) + slash('doc');
   // Be sure zoneinfo exists in standard location or in vma directory
   ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');
@@ -2526,8 +2532,8 @@ begin
     currentname := dbm.Results[0].ByField['NAME'].AsString;
     if center then begin
       moon1.CenterAt(deg2rad*currentl, deg2rad*currentb);
-      moon1.SetMark(deg2rad*currentl, deg2rad*currentb, capitalize(currentname));
     end;
+    moon1.SetMark(deg2rad*currentl, deg2rad*currentb, capitalize(currentname));
     GetHTMLDetail(dbm.Results[0], txt);
     SetDescText(txt);
     if dbtab.TabVisible then
@@ -3128,6 +3134,9 @@ try
   end;
   btnEffacerClick(nil);
   SetEyepieceMenu;
+  moon1.Mirror:=checkbox2.Checked;
+  moon1.GLSceneViewer1.Visible:=true;
+  Application.ProcessMessages;
   if (not multi_instance) and (currentid = '') then
   begin
     // show an interesting object
@@ -3137,11 +3146,10 @@ try
     Updterminateur;
     Firstsearch := True;
     SearchText  := trim(copy(ListBox1.Items[0], 2, 999));
-    SearchName(SearchText, False);
+    SearchName(SearchText, false);
     Combobox3.ItemIndex := 0;
     currentphase := -999;
   end;
-  moon1.Mirror:=checkbox2.Checked;
   SetZoomBar;
   moon1.RefreshAll;
 finally

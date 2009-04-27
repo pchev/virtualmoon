@@ -175,7 +175,7 @@ var gzopen : Tgzopen;
     zlib: longword;
 
 // pseudo-constant only here
-Var  Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : string;
+Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : string;
      Photlun,DatLun,CdC,PrtName, CdCcaption, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double; ObsTZ: string;
      ObsTemperature,ObsPressure,ObsRefractionCor,ObsHorizonDepression : Double;
