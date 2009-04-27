@@ -422,8 +422,10 @@ var inif: TMemIniFile;
     section : string;
     i: integer;
 begin
+{$ifdef mswindows}   // migrate old config in app directory
 if not fileexists(ConfigFile) then
    CopyFile(pchar(slash(AppDir)+'virtualmoon.ini'),pchar(ConfigFile),true);
+{$endif}
 inif:=Tmeminifile.create(configfile);
 section:='DatLun';
 with inif do begin
