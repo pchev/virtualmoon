@@ -282,11 +282,14 @@ type
     procedure Splitter1Moved(Sender: TObject);
     procedure ToolButton12Click(Sender: TObject);
     procedure ToolButton13Click(Sender: TObject);
+    procedure ToolButton1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure ToolButton8MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure ToolButton5Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure ToolButton1Click(Sender: TObject);
     procedure ToolButton8Click(Sender: TObject);
     procedure Apropos1Click(Sender: TObject);
     procedure ToolButton9Click(Sender: TObject);
@@ -618,9 +621,9 @@ begin
     wordformat := ReadInteger(section, 'format', wordformat);
     helpprefix := ReadStr(section, 'help_prefix', 'UK');
     pofile     := ReadStr(section, 'lang_po_file', '');
-    ToolButton1.Caption := '&' + ReadStr(section, 't_1', deftxt);
+    ToolButton1.Caption := ReadStr(section, 't_1', deftxt);
     quitter1.Caption := (ReadStr(section, 't_2', deftxt));
-    ToolButton2.Caption := '&' + ReadStr(section, 't_3', deftxt);
+    ToolButton2.Caption := ReadStr(section, 't_3', deftxt);
     label10.Caption := (ReadStr(section, 't_4', deftxt));
     zoom1.Caption := label10.Caption;
     toolbutton5.hint := ReadStr(section, 't_5', deftxt);
@@ -633,7 +636,7 @@ begin
     Label9.Caption := (ReadStr(section, 't_12', deftxt));
     Label6.Caption := (ReadStr(section, 't_13', deftxt));
     Groupbox1.Caption := (ReadStr(section, 't_14', deftxt));
-    toolbutton8.Caption := '&' + ReadStr(section, 't_15', deftxt);
+    toolbutton8.Caption := ReadStr(section, 't_15', deftxt);
     aide2.Caption := toolbutton8.Caption;
     Apropos1.Caption := (ReadStr(section, 't_16', deftxt));
     Button5.Caption := (ReadStr(section, 't_17', deftxt));
@@ -3106,7 +3109,7 @@ try
   memo2.Width    := PrintTextWidth;
   label10.Left   := toolbar2.left + toolbar2.Width + 2;
   trackbar1.Left := label10.Left + label10.Width + 2;
-  toolbar1.Left  := trackbar1.Left + trackbar1.Width + 1;
+  toolbar1.Left  := trackbar1.Left + trackbar1.Width + 2;
   Trackbar2.position := moon1.ambientColor and $FF;
   Trackbar3.position := moon1.diffuseColor and $FF;
   Trackbar4.position := moon1.specularColor and $FF;
@@ -3407,6 +3410,24 @@ begin
  ToolButton13.Down:=moon1.MoveCursor;
 end;
 
+procedure TForm1.ToolButton1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var p: TPoint;
+begin
+  p:=Point(ToolButton1.Left,ToolButton1.Top+ToolButton1.Height);
+  p:=ToolBar2.ClientToScreen(p);
+  FilePopup.PopUp(p.x,p.y);
+end;
+
+procedure TForm1.ToolButton8MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var p: TPoint;
+begin
+  p:=Point(ToolButton8.Left,ToolButton8.Top+ToolButton8.Height);
+  p:=ToolBar2.ClientToScreen(p);
+  HelpPopup.PopUp(p.x,p.y);
+end;
+
 procedure TForm1.FormResize(Sender: TObject);
 var
   dx: integer;
@@ -3669,6 +3690,11 @@ begin
   end;
 end;
 
+procedure TForm1.ToolButton8Click(Sender: TObject);
+begin
+
+end;
+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   try
@@ -3689,10 +3715,6 @@ begin
   end;
 end;
 
-procedure TForm1.ToolButton1Click(Sender: TObject);
-begin
-  FilePopup.PopUp();
-end;
 
 procedure TForm1.ShowImg(desc, nom: string; forceinternal: boolean);
 var
@@ -3766,11 +3788,6 @@ begin
        ima.Show;
     end;
   end;
-end;
-
-procedure TForm1.ToolButton8Click(Sender: TObject);
-begin
-  HelpPopup.PopUp();
 end;
 
 procedure TForm1.Apropos1Click(Sender: TObject);

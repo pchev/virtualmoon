@@ -79,9 +79,9 @@ object Form1: TForm1
     TabOrder = 2
     object Label10: TLabel
       Left = 264
-      Height = 14
-      Top = 4
-      Width = 31
+      Height = 15
+      Top = 3
+      Width = 39
       Caption = 'Zoom:'
       Layout = tlCenter
       ParentColor = False
@@ -90,11 +90,10 @@ object Form1: TForm1
       Left = 0
       Height = 25
       Top = 0
-      Width = 241
+      Width = 240
       Align = alLeft
-      AutoSize = True
       ButtonHeight = 21
-      ButtonWidth = 80
+      ButtonWidth = 70
       Caption = 'ToolBar2'
       DragMode = dmAutomatic
       EdgeInner = esNone
@@ -106,19 +105,19 @@ object Form1: TForm1
         Left = 1
         Top = 0
         Caption = 'Fichier'
-        OnClick = ToolButton1Click
+        OnMouseDown = ToolButton1MouseDown
       end
       object ToolButton2: TToolButton
-        Left = 81
+        Left = 71
         Top = 0
         Caption = 'Configuration'
         OnClick = Configuration1Click
       end
       object ToolButton8: TToolButton
-        Left = 165
+        Left = 155
         Top = 0
         Caption = 'Aide'
-        OnClick = ToolButton8Click
+        OnMouseDown = ToolButton8MouseDown
       end
     end
     object ToolBar1: TToolBar
@@ -254,7 +253,7 @@ object Form1: TForm1
     object TrackBar1: TTrackBar
       Left = 304
       Height = 39
-      Top = -4
+      Top = -6
       Width = 112
       Max = 100
       Min = 1
