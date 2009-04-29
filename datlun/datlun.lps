@@ -76,7 +76,7 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
-        <CursorPos X="56" Y="429"/>
+        <CursorPos X="42" Y="429"/>
         <TopLine Value="404"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="25"/>
