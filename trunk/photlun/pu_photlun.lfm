@@ -308,14 +308,6 @@ object f_photlun: Tf_photlun
       end
     end
   end
-  object UniqueInstance1: TUniqueInstance
-    Enabled = True
-    Identifier = 'Virtual_Moon_Atlas_PhottLun'
-    UpdateInterval = 1000
-    OnOtherInstance = UniqueInstance1OtherInstance
-    left = 144
-    top = 67
-  end
   object SetSizeTimer1: TTimer
     Enabled = False
     Interval = 50

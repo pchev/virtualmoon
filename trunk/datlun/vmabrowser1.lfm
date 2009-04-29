@@ -334,12 +334,4 @@ object f_main: Tf_main
       0000000000000000000000000000
     }
   end
-  object UniqueInstance1: TUniqueInstance
-    Enabled = True
-    Identifier = 'Virtual_Moon_Atlas_DatLun'
-    UpdateInterval = 1000
-    OnOtherInstance = UniqueInstance1OtherInstance
-    left = 544
-    top = 279
-  end
 end

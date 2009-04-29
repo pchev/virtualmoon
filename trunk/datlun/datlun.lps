@@ -76,8 +76,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
-        <CursorPos X="42" Y="429"/>
-        <TopLine Value="404"/>
+        <CursorPos X="18" Y="306"/>
+        <TopLine Value="270"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>
@@ -210,7 +210,7 @@
     <General>
       <ActiveEditorIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="3" HistoryIndex="2">
+    <JumpHistory Count="12" HistoryIndex="11">
       <Position1>
         <Filename Value="vmabrowser1.pas"/>
         <Caret Line="25" Column="19" TopLine="1"/>
@@ -223,6 +223,42 @@
         <Filename Value="vmabrowser1.pas"/>
         <Caret Line="188" Column="39" TopLine="153"/>
       </Position3>
+      <Position4>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="421" Column="28" TopLine="404"/>
+      </Position4>
+      <Position5>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position5>
+      <Position6>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="311" Column="1" TopLine="306"/>
+      </Position6>
+      <Position7>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="93" Column="27" TopLine="77"/>
+      </Position7>
+      <Position8>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="319" Column="1" TopLine="308"/>
+      </Position8>
+      <Position9>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position9>
+      <Position10>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="34" Column="48" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="109" Column="1" TopLine="88"/>
+      </Position11>
+      <Position12>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="111" Column="30" TopLine="88"/>
+      </Position12>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

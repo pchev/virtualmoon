@@ -23,7 +23,7 @@
       <local>
         <FormatVersion Value="1"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\home\pch\appli\vma\bin"/>
+        <WorkingDirectory Value="\home\pch\vma\bin"/>
       </local>
     </RunParams>
     <RequiredPackages Count="11">
@@ -93,8 +93,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="11" Y="42"/>
-        <TopLine Value="25"/>
+        <CursorPos X="61" Y="43"/>
+        <TopLine Value="121"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="184"/>
         <Bookmarks Count="3">
@@ -710,9 +710,7 @@
         <UnitName Value="UniqueInstance"/>
         <CursorPos X="45" Y="64"/>
         <TopLine Value="58"/>
-        <EditorIndex Value="2"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit81>
       <Unit82>
         <Filename Value="..\..\..\fpc\packages\fcl-process\src\simpleipc.pp"/>
@@ -746,7 +744,7 @@
         <UsageCount Value="10"/>
       </Unit86>
     </Units>
-    <JumpHistory Count="25" HistoryIndex="24">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
         <Filename Value="virtualmoon1.pas"/>
         <Caret Line="4176" Column="36" TopLine="4156"/>
@@ -784,69 +782,49 @@
         <Caret Line="4179" Column="28" TopLine="4147"/>
       </Position9>
       <Position10>
-        <Filename Value="..\..\skychart\skychart\component\uniqueinstance\uniqueinstance.pas"/>
-        <Caret Line="180" Column="72" TopLine="152"/>
+        <Filename Value="virtualmoon1.pas"/>
+        <Caret Line="52" Column="18" TopLine="37"/>
       </Position10>
       <Position11>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="52" Column="18" TopLine="37"/>
+        <Caret Line="564" Column="39" TopLine="535"/>
       </Position11>
       <Position12>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="564" Column="39" TopLine="535"/>
+        <Caret Line="537" Column="31" TopLine="518"/>
       </Position12>
       <Position13>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="537" Column="31" TopLine="518"/>
+        <Caret Line="53" Column="15" TopLine="36"/>
       </Position13>
       <Position14>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="53" Column="15" TopLine="36"/>
+        <Caret Line="558" Column="15" TopLine="540"/>
       </Position14>
       <Position15>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="558" Column="15" TopLine="540"/>
+        <Caret Line="52" Column="1" TopLine="34"/>
       </Position15>
       <Position16>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="52" Column="1" TopLine="34"/>
+        <Caret Line="4220" Column="65" TopLine="4194"/>
       </Position16>
       <Position17>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4220" Column="65" TopLine="4194"/>
+        <Caret Line="582" Column="16" TopLine="553"/>
       </Position17>
       <Position18>
-        <Filename Value="..\..\skychart\skychart\component\uniqueinstance\uniqueinstance.pas"/>
-        <Caret Line="84" Column="25" TopLine="76"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\..\skychart\skychart\component\uniqueinstance\uniqueinstance.pas"/>
-        <Caret Line="288" Column="23" TopLine="255"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\..\skychart\skychart\component\uniqueinstance\uniqueinstance.pas"/>
-        <Caret Line="287" Column="43" TopLine="256"/>
-      </Position20>
-      <Position21>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="582" Column="16" TopLine="553"/>
-      </Position21>
-      <Position22>
         <Filename Value="virtualmoon1.pas"/>
         <Caret Line="525" Column="23" TopLine="494"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\..\skychart\skychart\component\uniqueinstance\uniqueinstance.pas"/>
-        <Caret Line="261" Column="11" TopLine="233"/>
-      </Position23>
-      <Position24>
+      </Position18>
+      <Position19>
         <Filename Value="virtualmoon1.pas"/>
         <Caret Line="499" Column="62" TopLine="415"/>
-      </Position24>
-      <Position25>
+      </Position19>
+      <Position20>
         <Filename Value="virtualmoon1.pas"/>
         <Caret Line="2945" Column="48" TopLine="2926"/>
-      </Position25>
+      </Position20>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
