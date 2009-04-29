@@ -86,7 +86,6 @@ type
     ScrollBar1: TScrollBar;
     StatusBar1: TStatusBar;
     SetSizeTimer1: TTimer;
-    UniqueInstance1: TUniqueInstance;
     procedure FormResize(Sender: TObject);
     procedure MenuConfigClick(Sender: TObject);
     procedure MenuItem11Click(Sender: TObject);
@@ -113,11 +112,10 @@ type
     procedure PanelVignetteResize(Sender: TObject);
     procedure ScrollBar1Change(Sender: TObject);
     procedure SetSizeTimer1Timer(Sender: TObject);
-    procedure UniqueInstance1OtherInstance(Sender: TObject;
-      ParamCount: Integer; Parameters: array of String);
     procedure VignetteClick(Sender: TObject);
   private
     { private declarations }
+    UniqueInstance1: TCdCUniqueInstance;
     param : Tstringlist;
     privatedir,vignettedir, SelectedObject,ConfigFile, pofile : string;
     maxphoto,curphoto,photow,photoh,maxheight: integer;
@@ -133,6 +131,8 @@ type
     FileAgeLimit : Longint;
     vmaexe, datlunexe: string;
     StartVMA,CanCloseVMA, StartDatlun, CanCloseDatlun, lockresize: boolean;
+    procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
+    procedure InstanceRunning(Sender : TObject);
     procedure SetLang;
     Procedure ReadParam;
     procedure ReadConfig;
@@ -697,6 +697,14 @@ end;
 procedure Tf_photlun.FormCreate(Sender: TObject);
 var i: integer;
 begin
+{$ifndef darwin}
+  UniqueInstance1:=TCdCUniqueInstance.Create(self);
+  UniqueInstance1.Identifier:='Virtual_Moon_Atlas_PhotLun';
+  UniqueInstance1.OnOtherInstance:=@OtherInstance;
+  UniqueInstance1.OnInstanceRunning:=@InstanceRunning;
+  UniqueInstance1.Enabled:=true;
+  UniqueInstance1.Loaded;
+{$endif}
   SetPath;
   ReadConfig;
   language:=u_translation.translate(pofile,'en');
@@ -844,7 +852,7 @@ begin
   RefreshVignettes(ScrollBar1.Position);
 end;
 
-procedure Tf_photlun.UniqueInstance1OtherInstance(Sender: TObject;
+procedure Tf_photlun.OtherInstance(Sender: TObject;
   ParamCount: Integer; Parameters: array of String);
 var i: integer;
 begin
@@ -857,6 +865,12 @@ begin
      end;
      ReadParam;
   end;
+end;
+
+procedure Tf_photlun.InstanceRunning(Sender : TObject);
+var i : integer;
+begin
+  UniqueInstance1.RetryOrHalt;
 end;
 
 procedure Tf_photlun.BtnLeftClick(Sender: TObject);

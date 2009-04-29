@@ -17,8 +17,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photlun"/>
-        <CursorPos X="11" Y="1043"/>
-        <TopLine Value="1040"/>
+        <CursorPos X="55" Y="702"/>
+        <TopLine Value="682"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="60"/>
         <Loaded Value="True"/>
@@ -30,7 +30,7 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photo"/>
-        <CursorPos X="30" Y="30"/>
+        <CursorPos X="41" Y="24"/>
         <TopLine Value="9"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="36"/>
@@ -373,8 +373,8 @@
       </Unit53>
       <Unit54>
         <Filename Value="../../../pch/lazarus/lcl/interfaces/gtk/gtklclintf.inc"/>
-        <CursorPos X="1" Y="308"/>
-        <TopLine Value="285"/>
+        <CursorPos X="40" Y="747"/>
+        <TopLine Value="733"/>
         <UsageCount Value="10"/>
       </Unit54>
       <Unit55>
@@ -387,7 +387,7 @@
     <General>
       <ActiveEditorIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="19" HistoryIndex="18">
       <Position1>
         <Filename Value="pu_photo.pas"/>
         <Caret Line="387" Column="1" TopLine="385"/>
@@ -412,6 +412,58 @@
         <Filename Value="pu_photlun.pas"/>
         <Caret Line="30" Column="44" TopLine="4"/>
       </Position6>
+      <Position7>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="1091" Column="54" TopLine="1077"/>
+      </Position7>
+      <Position8>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="1092" Column="50" TopLine="1077"/>
+      </Position8>
+      <Position9>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position9>
+      <Position10>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="41" Column="43" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="89" Column="27" TopLine="68"/>
+      </Position11>
+      <Position12>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="116" Column="19" TopLine="95"/>
+      </Position12>
+      <Position13>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="847" Column="26" TopLine="826"/>
+      </Position13>
+      <Position14>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position14>
+      <Position15>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="707" Column="60" TopLine="697"/>
+      </Position15>
+      <Position16>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="112" Column="74" TopLine="88"/>
+      </Position16>
+      <Position17>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="136" Column="23" TopLine="109"/>
+      </Position17>
+      <Position18>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="708" Column="25" TopLine="676"/>
+      </Position18>
+      <Position19>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="872" Column="55" TopLine="834"/>
+      </Position19>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

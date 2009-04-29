@@ -244,10 +244,7 @@ LazarusResources.Add('Tf_photlun','FORMDATA',[
   +'n'#6#11'Show on map'#7'OnClick'#7#10'CarteClick'#0#0#9'TMenuItem'#10'MenuIt'
   +'em13'#7'Caption'#6#4'Help'#0#9'TMenuItem'#10'MenuItem14'#7'Caption'#6#9'Hel'
   +'p menu'#7'OnClick'#7#15'MenuItem14Click'#0#0#9'TMenuItem'#10'MenuItem15'#7
-  +'Caption'#6#9'About ...'#7'OnClick'#7#15'MenuItem15Click'#0#0#0#0#15'TUnique'
-  +'Instance'#15'UniqueInstance1'#7'Enabled'#9#10'Identifier'#6#27'Virtual_Moon'
-  +'_Atlas_PhottLun'#14'UpdateInterval'#3#232#3#15'OnOtherInstance'#7#28'Unique'
-  +'Instance1OtherInstance'#4'left'#3#144#0#3'top'#2'C'#0#0#6'TTimer'#13'SetSiz'
-  +'eTimer1'#7'Enabled'#8#8'Interval'#2'2'#7'OnTimer'#7#18'SetSizeTimer1Timer'#4
-  +'left'#3#200#0#3'top'#2'C'#0#0#0
+  +'Caption'#6#9'About ...'#7'OnClick'#7#15'MenuItem15Click'#0#0#0#0#6'TTimer'
+  +#13'SetSizeTimer1'#7'Enabled'#8#8'Interval'#2'2'#7'OnTimer'#7#18'SetSizeTime'
+  +'r1Timer'#4'left'#3#200#0#3'top'#2'C'#0#0#0
 ]);

@@ -75,7 +75,6 @@ type
     Databasemaintenance1: TMenuItem;
     Default1: TMenuItem;
     N4: TMenuItem;
-    UniqueInstance1: TUniqueInstance;
     procedure OpenPhotlun1Click(Sender: TObject);
     procedure Quit1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -107,10 +106,9 @@ type
       Rect: TRect; State: TGridDrawState);
     procedure MoonGridDblClick(Sender: TObject);
     procedure Default1Click(Sender: TObject);
-    procedure UniqueInstance1OtherInstance(Sender: TObject;
-      ParamCount: Integer; Parameters: array of String);
   private
     { Private declarations }
+    UniqueInstance1: TCdCUniqueInstance;
     vmaexe, photlunexe: string;
     currentrow,FindFrom,FindCol, sortorder: integer;
     currentselection, currentsort, transmsg, SelectedObject: string;
@@ -119,6 +117,8 @@ type
     StartVMA,CanCloseVMA, StartPhotlun, CanClosePhotlun, ExpertMode: boolean;
     IDlist: array of integer;
     param : Tstringlist;
+    procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
+    procedure InstanceRunning(Sender : TObject);
     Procedure SetLang;
     Procedure SetPath;
     procedure SaveDefault;
@@ -288,7 +288,7 @@ end;
 
 end;
 
-procedure Tf_main.UniqueInstance1OtherInstance(Sender: TObject;
+procedure Tf_main.OtherInstance(Sender: TObject;
   ParamCount: Integer; Parameters: array of String);
 var i: integer;
 begin
@@ -303,9 +303,23 @@ begin
   end;
 end;
 
+procedure Tf_main.InstanceRunning(Sender : TObject);
+var i : integer;
+begin
+  UniqueInstance1.RetryOrHalt;
+end;
+
 procedure Tf_main.FormCreate(Sender: TObject);
 var i: integer;
 begin
+{$ifndef darwin}
+  UniqueInstance1:=TCdCUniqueInstance.Create(self);
+  UniqueInstance1.Identifier:='Virtual_Moon_Atlas_DatLun';
+  UniqueInstance1.OnOtherInstance:=OtherInstance;
+  UniqueInstance1.OnInstanceRunning:=InstanceRunning;
+  UniqueInstance1.Enabled:=true;
+  UniqueInstance1.Loaded;
+{$endif}
 dbm:=TLiteDB.Create(self);
 SetPath;
 param:=Tstringlist.Create;
