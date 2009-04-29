@@ -17,7 +17,7 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photlun"/>
-        <CursorPos X="61" Y="1060"/>
+        <CursorPos X="11" Y="1043"/>
         <TopLine Value="1040"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="60"/>

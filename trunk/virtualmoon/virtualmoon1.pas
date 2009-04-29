@@ -43,11 +43,6 @@ uses
 
 type
 
-  TCdCUniqueInstance = class(TUniqueInstance)
-  public
-    procedure Loaded; override;
-  end;
-
   { TForm1 }
 
   TForm1 = class(TForm)
@@ -525,10 +520,7 @@ implementation
 uses telescope, config, splashunit,
   glossary, fmsg, dbutil;
 
-procedure  TCdCUniqueInstance.Loaded;
-begin
-  inherited;
-end;
+
 
 procedure TForm1.SetEyepieceMenu;
 var
@@ -4131,7 +4123,7 @@ procedure TForm1.InstanceRunning(Sender : TObject);
 var i : integer;
 begin
 //if Params.Find('--unique',i) then
-   halt(1);
+  UniqueInstance1.RetryOrHalt;
 end;
 
 procedure TForm1.Notes1Click(Sender: TObject);
