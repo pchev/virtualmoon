@@ -178,6 +178,7 @@ type
     procedure ShowLibrationMark;
   public
     { Declarations publiques }
+    procedure Assign(Source: TF_moon);
     procedure ShowInfo;
     procedure Init;
     Procedure GetZoomInfo;
@@ -1742,6 +1743,61 @@ case key of
            end;
         end;
 end;
+end;
+
+procedure Tf_moon.Assign(Source: TF_moon);
+begin
+ TexturePath:=Source.TexturePath;
+ OverlayPath:=Source.OverlayPath;
+ BumpPath:=Source.BumpPath;
+ TextureCompression:=Source.TextureCompression;
+ if Texture<>Source.Texture then
+    Texture :=Source.Texture;
+ if Overlay<>Source.Overlay then
+    Overlay :=Source.Overlay;
+ Bumpmap :=Source.Bumpmap;
+ ShowPhase :=Source.ShowPhase;
+ VisibleSideLock :=Source.VisibleSideLock;
+ Mirror :=Source.Mirror;
+ Orientation:=Source.Orientation;
+ LabelFont :=Source.LabelFont;
+ LabelColor :=Source.LabelColor;
+ LibrationMark:=Source.LibrationMark;
+ Rotation :=Source.Rotation;
+ Phase :=Source.Phase;
+ SunIncl :=Source.SunIncl;
+ LibrLon :=Source.LibrLon;
+ LibrLat :=Source.LibrLat;
+ EarthDistance:=Source.EarthDistance;
+ Zoom :=Source.Zoom;
+ Eyepiece :=Source.Eyepiece;
+ AmbientColor:=Source.AmbientColor;
+ DiffuseColor:=Source.DiffuseColor;
+ SpecularColor:=Source.SpecularColor;
+ MoveCursor:=Source.MoveCursor;
+ GLSceneViewer1.Cursor := Source.GLSceneViewer1.Cursor;
+ GLSphereMoon.Slices := Source.GLSphereMoon.Slices;
+ GLSphereMoon.Stacks := Source.GLSphereMoon.Stacks;
+ LibrationDummyCube.PitchAngle  := Source.LibrationDummyCube.PitchAngle;
+ LibrationDummyCube.TurnAngle  := Source.LibrationDummyCube.TurnAngle;
+ LibrationDummyCube.up  := Source.LibrationDummyCube.Up;
+ GLMirror1.Position   := Source.GLMirror1.Position;
+ GLMirror1.Visible  := Source.GLMirror1.Visible;
+ GLCamera1.TargetObject  := Source.GLCamera1.TargetObject;
+ GLCamera1.Position  := Source.GLCamera1.Position;
+ GLCamera1.Direction  := Source.GLCamera1.Direction;
+ GLCamera1.SceneScale  := Source.GLCamera1.SceneScale;
+ GLCamera1.Up  := Source.GLCamera1.Up;
+ GLLightSource1.ConstAttenuation  := Source.GLLightSource1.ConstAttenuation;
+ GLLightSource1.LightStyle  := Source.GLLightSource1.LightStyle;
+ GLLightSource1.Position  := Source.GLLightSource1.Position;
+ GLLightSource1.SpotDirection  := Source.GLLightSource1.SpotDirection;
+ GLSphereMoon.PitchAngle  := Source.GLSphereMoon.PitchAngle;
+ GLSphereMoon.TurnAngle   := Source.GLSphereMoon.TurnAngle;
+ GLSphereMoon.up  := Source.GLSphereMoon.Up;
+ GLAnnulus1.Visible  := Source.GLAnnulus1.Visible;
+ GLAnnulus1.Position  := Source.GLAnnulus1.Position;
+ GLAnnulus1.BottomInnerRadius   := Source.GLAnnulus1.BottomInnerRadius;
 end;
 
 initialization
