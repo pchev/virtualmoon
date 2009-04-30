@@ -389,7 +389,7 @@ type
   private
     { Déclarations privées }
     UniqueInstance1: TCdCUniqueInstance;
-    moon1 : TF_moon;
+    moon1, moon2 : TF_moon;
     CursorImage1: TCursorImage;
     tz: TCdCTimeZone;
     ima: TBigImaForm;
@@ -1284,17 +1284,17 @@ var lmin,lmax,bmin,bmax: single;
     j: integer;
 begin
 // get search boundaries
-  moon1.GetBounds(lmin,lmax,bmin,bmax);
+  Tf_moon(Sender).GetBounds(lmin,lmax,bmin,bmax);
 // minimal feature size
   if minilabel then
     wfact := 0.5
   else
     wfact := 1;
   LabelDensity := maxintvalue([100, LabelDensity]);
-  if (moon1.Zoom >= 8) and (moon1.Zoom >= (moon1.ZoomMax-5)) then
+  if (Tf_moon(Sender).Zoom >= 8) and (Tf_moon(Sender).Zoom >= (Tf_moon(Sender).ZoomMax-5)) then
     wmin := -1
   else
-    wmin := MinValue([650.0, 3 * LabelDensity / (moon1.Zoom * moon1.Zoom)]);
+    wmin := MinValue([650.0, 3 * LabelDensity / (Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)]);
 // Labels
   if showlabel then
   begin
@@ -1339,7 +1339,7 @@ begin
             continue;
         end;
       end;
-      moon1.AddLabel(deg2rad*l1,deg2rad*b1,capitalize(nom));
+      Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,capitalize(nom));
      end;
   end;
 end;
@@ -1352,7 +1352,7 @@ var lmin,lmax,bmin,bmax: single;
     j: integer;
 begin
 // get search boundaries
-  moon1.GetBounds(lmin,lmax,bmin,bmax);
+  Tf_moon(Sender).GetBounds(lmin,lmax,bmin,bmax);
 // Mark selection
   if currentselection <> '' then
   begin
@@ -1366,7 +1366,7 @@ begin
     begin
       l1 := dbm.Results[j].Format[0].AsFloat;
       b1 := dbm.Results[j].Format[1].AsFloat;
-      moon1.AddSprite(deg2rad*l1,deg2rad*b1);
+      Tf_moon(Sender).AddSprite(deg2rad*l1,deg2rad*b1);
     end;
   end;
 end;
@@ -3680,6 +3680,10 @@ end;
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   try
+    if moon2<>nil then begin
+       moon2.close;
+       moon2.Free;
+    end;
     dblox.Free;
     dbnotes.Free;
     tz.Free;
@@ -4840,8 +4844,19 @@ var
   param: string;
   i:     integer;
 begin
-  { TODO : new window }
-  // desactivated until new Moon object is implemented
+if moon2=nil then begin
+ moon2:=Tf_moon.Create(nil);
+ moon2.Caption:=Caption;
+ moon2.Moon.Align:=alClient;
+ moon2.onMoonClick:=MoonClickEvent;
+ moon2.onGetLabel:=GetLabel;
+ moon2.onGetSprite:=GetSprite;
+ moon2.Init;
+ moon2.Visible:=true;
+end;
+moon2.Assign(moon1);
+moon2.Show;
+moon2.RefreshAll;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 moon2.Show;
 end;
 
 procedure TForm1.LibrationButtonClick(Sender: TObject);
@@ -4900,9 +4915,9 @@ begin
 if ssLeft in Shift then begin
   if OnMoon then begin
      identLB(Rad2Deg*Lon,Rad2Deg*Lat);
-     moon1.SetMark(deg2rad*currentl,deg2rad*currentb,capitalize(currentname));
+     Tf_moon(Sender).SetMark(deg2rad*currentl,deg2rad*currentb,capitalize(currentname));
   end else begin
-     moon1.SetMark(0,0,'');
+     Tf_moon(Sender).SetMark(0,0,'');
   end;
 end;
 end;
