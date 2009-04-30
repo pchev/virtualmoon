@@ -18,6 +18,8 @@ object f_moon: Tf_moon
     Width = 500
     ClientHeight = 500
     ClientWidth = 500
+    Color = clBlack
+    ParentColor = False
     TabOrder = 0
     object GLSceneViewer1: TGLSceneViewer
       Left = 1

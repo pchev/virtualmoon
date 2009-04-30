@@ -978,13 +978,8 @@ begin
     distancestart := False;
   end
   else begin
-    if (ssMiddle in shift) or
-       (FMoveCursor and (ssLeft in shift)) or
-       ((ssLeft in shift)and(ssCtrl in shift))
-     then begin
-        if FMoveCursor then GLSceneViewer1.Cursor:=crHandPoint
-               else GLSceneViewer1.Cursor:=crRetic;
-     end;
+    if FMoveCursor then GLSceneViewer1.Cursor:=crHandPoint
+           else GLSceneViewer1.Cursor:=crRetic;
   end;
 end;
 
