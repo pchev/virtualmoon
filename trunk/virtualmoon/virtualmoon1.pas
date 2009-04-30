@@ -277,10 +277,7 @@ type
     procedure Splitter1Moved(Sender: TObject);
     procedure ToolButton12Click(Sender: TObject);
     procedure ToolButton13Click(Sender: TObject);
-    procedure ToolButton1MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure ToolButton8MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+    procedure ToolButton1Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure ToolButton5Click(Sender: TObject);
@@ -1576,7 +1573,7 @@ begin
       else if param[i] = '-3d' then
       begin     // full globe
         ToolButton3.Down := True;
-        ToolButton3Click(form1);
+        ToolButton3Click(nil);
       end
       else if param[i] = '-r' then
       begin   // full globe at give rotation
@@ -1586,7 +1583,7 @@ begin
         if x <> 0 then
         begin
           ToolButton3.Down := True;
-          ToolButton3Click(form1);
+          ToolButton3Click(nil);
           { TODO : set moon rotation position
           moon1.rotpos:=x; }
         end;
@@ -1793,7 +1790,7 @@ begin
   end;
 end;
 
-procedure Tform1.ListObject(delta: double);
+procedure TForm1.ListObject(delta: double);
 var
   l, b, deltal: double;
   i: integer;
@@ -2533,7 +2530,7 @@ begin
     SetDescText(txt);
     if dbtab.TabVisible then
       GetDBgrid;
-    GetNotes(form1.Combobox1.Text);
+    GetNotes(Combobox1.Text);
     if ImgExists(currentname) then
     begin
       ToolButton7.Enabled := True;
@@ -3082,10 +3079,10 @@ try
     SetJDDate;
   if screen.Width < 750 then
   begin
-    form1.Top    := 0;
-    form1.Left   := 0;
-    form1.Width  := screen.Width;
-    form1.Height := screen.Height;
+   Top    := 0;
+   Left   := 0;
+   Width  := screen.Width;
+   Height := screen.Height;
   end;
   moon1.Init;
   moon1.TextureCompression:=compresstexture;
@@ -3402,8 +3399,7 @@ begin
  ToolButton13.Down:=moon1.MoveCursor;
 end;
 
-procedure TForm1.ToolButton1MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
+procedure TForm1.ToolButton1Click(Sender: TObject);
 var p: TPoint;
 begin
   p:=Point(ToolButton1.Left,ToolButton1.Top+ToolButton1.Height);
@@ -3411,8 +3407,7 @@ begin
   FilePopup.PopUp(p.x,p.y);
 end;
 
-procedure TForm1.ToolButton8MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
+procedure TForm1.ToolButton8Click(Sender: TObject);
 var p: TPoint;
 begin
   p:=Point(ToolButton8.Left,ToolButton8.Top+ToolButton8.Height);
@@ -3426,9 +3421,9 @@ var
 begin
   if skipresize then
     exit;
-  if csDestroying in form1.ComponentState then
+  if csDestroying in ComponentState then
     exit;
-  if csLoading in form1.ComponentState then
+  if csLoading in ComponentState then
     exit;
   if ToolsWidth<100 then ToolsWidth:=100;
   PageControl1.width:=ToolsWidth;
@@ -3444,12 +3439,12 @@ end;
 
 procedure TForm1.Button10Click(Sender: TObject);
 begin
-  form1.heure.Value      := 0;
-  form1.minute.Value     := 0;
-  form1.seconde.Value    := 0;
-  form1.updown4.position := 0;
-  form1.updown5.position := 0;
-  form1.updown6.position := 0;
+  heure.Value      := 0;
+  minute.Value     := 0;
+  seconde.Value    := 0;
+  updown4.position := 0;
+  updown5.position := 0;
+  updown6.position := 0;
   Button4Click(Sender);
 end;
 
@@ -3458,12 +3453,12 @@ var
   y, m, d: integer;
   h, n, s: word;
 begin
-  y     := form1.annee.Value;
-  m     := form1.mois.Value;
-  d     := form1.jour.Value;
-  h     := form1.heure.Value;
-  n     := form1.minute.Value;
-  s     := form1.seconde.Value;
+  y     :=annee.Value;
+  m     :=mois.Value;
+  d     :=jour.Value;
+  h     :=heure.Value;
+  n     :=minute.Value;
+  s     :=seconde.Value;
   timezone := gettimezone(encodedatetime(y, m, d, h, n, s, 0));
   dt_ut := dtminusut(y);
   CurYear := y;
@@ -3680,11 +3675,6 @@ begin
       end;
   except
   end;
-end;
-
-procedure TForm1.ToolButton8Click(Sender: TObject);
-begin
-
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -4381,7 +4371,7 @@ begin
     Canvas.Font.Size := 8;
     hl   := round(Canvas.TextHeight('H') * 1.1);
     Canvas.Font.Style := [fsBold];
-    buf1 := UTF8Encode(form1.Caption)+':  '+vmaurl;
+    buf1 := UTF8Encode(Caption)+':  '+vmaurl;
     Canvas.TextOut(Xmin + 10, ymin, buf1);
     Canvas.Font.Style := [];
     if language = 'FR' then
@@ -4823,13 +4813,13 @@ begin
   Fplanet.MoonPhases((phaseoffset / 12.3685) + CurYear +
     (CurrentJD - jd0) / 365.25, nmjd, fqjd, fmjd, lqjd);
   djd(nmjd + (timezone - DT_UT) / 24, aa, mm, dd, hh);
-  form1.labelnm.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
+  labelnm.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
   djd(fqjd + (timezone - DT_UT) / 24, aa, mm, dd, hh);
-  form1.labelfq.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
+  labelfq.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
   djd(fmjd + (timezone - DT_UT) / 24, aa, mm, dd, hh);
-  form1.labelfm.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
+  labelfm.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
   djd(lqjd + (timezone - DT_UT) / 24, aa, mm, dd, hh);
-  form1.labellq.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
+  labellq.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
 end;
 
 procedure TForm1.prevMClick(Sender: TObject);
