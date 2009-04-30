@@ -23,7 +23,7 @@
       <local>
         <FormatVersion Value="1"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\home\pch\appli\vma\bin"/>
+        <WorkingDirectory Value="\home\pch\vma\bin"/>
       </local>
     </RunParams>
     <RequiredPackages Count="11">
@@ -75,7 +75,7 @@
         <UnitName Value="vmapro"/>
         <CursorPos X="1" Y="31"/>
         <TopLine Value="1"/>
-        <UsageCount Value="188"/>
+        <UsageCount Value="189"/>
       </Unit0>
       <Unit1>
         <Filename Value="imglistunit.pas"/>
@@ -93,12 +93,12 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="34" Y="4858"/>
+        <CursorPos X="67" Y="4851"/>
         <TopLine Value="4838"/>
         <EditorIndex Value="1"/>
-        <UsageCount Value="188"/>
+        <UsageCount Value="189"/>
         <Bookmarks Count="4">
-          <Item0 X="1" Y="4859" ID="1"/>
+          <Item0 X="1" Y="4862" ID="1"/>
           <Item1 X="7" Y="2812" ID="5"/>
           <Item2 X="5" Y="3123" ID="6"/>
           <Item3 X="7" Y="3900" ID="7"/>
@@ -114,7 +114,7 @@
         <UnitName Value="craterlist"/>
         <CursorPos X="31" Y="54"/>
         <TopLine Value="41"/>
-        <UsageCount Value="187"/>
+        <UsageCount Value="188"/>
       </Unit3>
       <Unit4>
         <Filename Value="config.pas"/>
@@ -125,7 +125,7 @@
         <UnitName Value="config"/>
         <CursorPos X="78" Y="448"/>
         <TopLine Value="424"/>
-        <UsageCount Value="188"/>
+        <UsageCount Value="189"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\..\lazarus\lcl\include\control.inc"/>
@@ -139,7 +139,7 @@
         <UnitName Value="dbutil"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
-        <UsageCount Value="187"/>
+        <UsageCount Value="188"/>
       </Unit6>
       <Unit7>
         <Filename Value="fmsg.pas"/>
@@ -150,7 +150,7 @@
         <UnitName Value="fmsg"/>
         <CursorPos X="47" Y="34"/>
         <TopLine Value="9"/>
-        <UsageCount Value="187"/>
+        <UsageCount Value="188"/>
       </Unit7>
       <Unit8>
         <Filename Value="glossary.pas"/>
@@ -161,7 +161,7 @@
         <UnitName Value="glossary"/>
         <CursorPos X="40" Y="246"/>
         <TopLine Value="231"/>
-        <UsageCount Value="187"/>
+        <UsageCount Value="188"/>
       </Unit8>
       <Unit9>
         <Filename Value="helpunit.pas"/>
@@ -182,7 +182,7 @@
         <UnitName Value="splashunit"/>
         <CursorPos X="30" Y="5"/>
         <TopLine Value="1"/>
-        <UsageCount Value="187"/>
+        <UsageCount Value="188"/>
       </Unit10>
       <Unit11>
         <Filename Value="telescope.pas"/>
@@ -190,7 +190,7 @@
         <UnitName Value="telescope"/>
         <CursorPos X="6" Y="4"/>
         <TopLine Value="1"/>
-        <UsageCount Value="187"/>
+        <UsageCount Value="188"/>
       </Unit11>
       <Unit12>
         <Filename Value="u_util.pas"/>
@@ -198,7 +198,7 @@
         <UnitName Value="u_util"/>
         <CursorPos X="1" Y="1748"/>
         <TopLine Value="1707"/>
-        <UsageCount Value="171"/>
+        <UsageCount Value="172"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\..\lazarus\components\glscene\Source\platform\glcrossplatform.pas"/>
@@ -214,7 +214,7 @@
         <UnitName Value="u_constant"/>
         <CursorPos X="7" Y="100"/>
         <TopLine Value="79"/>
-        <UsageCount Value="171"/>
+        <UsageCount Value="172"/>
       </Unit14>
       <Unit15>
         <Filename Value="cu_planet.pas"/>
@@ -222,7 +222,7 @@
         <UnitName Value="cu_planet"/>
         <CursorPos X="1" Y="169"/>
         <TopLine Value="162"/>
-        <UsageCount Value="171"/>
+        <UsageCount Value="172"/>
       </Unit15>
       <Unit16>
         <Filename Value="u_projection.pas"/>
@@ -230,7 +230,7 @@
         <UnitName Value="u_projection"/>
         <CursorPos X="10" Y="50"/>
         <TopLine Value="29"/>
-        <UsageCount Value="171"/>
+        <UsageCount Value="172"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\..\pch\fpc\rtl\objpas\math.pp"/>
@@ -279,7 +279,7 @@
         <UnitName Value="cu_tz"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="13"/>
-        <UsageCount Value="171"/>
+        <UsageCount Value="172"/>
       </Unit23>
       <Unit24>
         <Filename Value="config.lfm"/>
@@ -359,13 +359,13 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="2" Y="1750"/>
-        <TopLine Value="1768"/>
+        <CursorPos X="1" Y="982"/>
+        <TopLine Value="968"/>
         <EditorIndex Value="0"/>
-        <UsageCount Value="150"/>
+        <UsageCount Value="151"/>
         <Bookmarks Count="2">
-          <Item0 X="16" Y="1554" ID="2"/>
-          <Item1 X="13" Y="1223" ID="3"/>
+          <Item0 X="16" Y="1549" ID="2"/>
+          <Item1 X="13" Y="1218" ID="3"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit34>
@@ -750,123 +750,127 @@
         <UsageCount Value="10"/>
       </Unit87>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="27">
       <Position1>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1488" Column="30" TopLine="1466"/>
+        <Caret Line="34" Column="15" TopLine="1"/>
       </Position1>
       <Position2>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1690" Column="16" TopLine="1671"/>
+        <Caret Line="695" Column="26" TopLine="675"/>
       </Position2>
       <Position3>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1695" Column="24" TopLine="1671"/>
+        <Caret Line="701" Column="18" TopLine="675"/>
       </Position3>
       <Position4>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1700" Column="16" TopLine="1671"/>
+        <Caret Line="758" Column="18" TopLine="739"/>
       </Position4>
       <Position5>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1705" Column="24" TopLine="1671"/>
+        <Caret Line="761" Column="40" TopLine="739"/>
       </Position5>
       <Position6>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1710" Column="16" TopLine="1691"/>
+        <Caret Line="1075" Column="18" TopLine="1056"/>
       </Position6>
       <Position7>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1715" Column="56" TopLine="1691"/>
+        <Caret Line="1076" Column="18" TopLine="1056"/>
       </Position7>
       <Position8>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="34" Column="15" TopLine="1"/>
+        <Caret Line="1221" Column="14" TopLine="1202"/>
       </Position8>
       <Position9>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="695" Column="26" TopLine="675"/>
+        <Caret Line="1472" Column="17" TopLine="1453"/>
       </Position9>
       <Position10>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="701" Column="18" TopLine="675"/>
+        <Caret Line="1473" Column="17" TopLine="1453"/>
       </Position10>
       <Position11>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="758" Column="18" TopLine="739"/>
+        <Caret Line="1567" Column="19" TopLine="1531"/>
       </Position11>
       <Position12>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="761" Column="40" TopLine="739"/>
+        <Caret Line="1758" Column="6" TopLine="1740"/>
       </Position12>
       <Position13>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1075" Column="18" TopLine="1056"/>
+        <Caret Line="200" Column="56" TopLine="181"/>
       </Position13>
       <Position14>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1076" Column="18" TopLine="1056"/>
+        <Caret Line="625" Column="1" TopLine="622"/>
       </Position14>
       <Position15>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1221" Column="14" TopLine="1202"/>
+        <Caret Line="1754" Column="10" TopLine="1744"/>
       </Position15>
       <Position16>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1472" Column="17" TopLine="1453"/>
+        <Caret Line="196" Column="55" TopLine="177"/>
       </Position16>
       <Position17>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="1473" Column="17" TopLine="1453"/>
+        <Caret Line="858" Column="2" TopLine="855"/>
       </Position17>
       <Position18>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="1567" Column="19" TopLine="1531"/>
+        <Filename Value="virtualmoon1.pas"/>
+        <Caret Line="4847" Column="5" TopLine="4836"/>
       </Position18>
       <Position19>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="1758" Column="6" TopLine="1740"/>
+        <Filename Value="virtualmoon1.pas"/>
+        <Caret Line="4857" Column="8" TopLine="4836"/>
       </Position19>
       <Position20>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="200" Column="56" TopLine="181"/>
+        <Caret Line="181" Column="22" TopLine="162"/>
       </Position20>
       <Position21>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="625" Column="1" TopLine="622"/>
+        <Caret Line="181" Column="1" TopLine="162"/>
       </Position21>
       <Position22>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="1754" Column="10" TopLine="1744"/>
+        <Filename Value="virtualmoon1.pas"/>
+        <Caret Line="4857" Column="20" TopLine="4836"/>
       </Position22>
       <Position23>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="196" Column="55" TopLine="177"/>
+        <Caret Line="1762" Column="31" TopLine="1750"/>
       </Position23>
       <Position24>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="858" Column="2" TopLine="855"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position24>
       <Position25>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4847" Column="5" TopLine="4836"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="981" Column="1" TopLine="958"/>
       </Position25>
       <Position26>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4857" Column="8" TopLine="4836"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="987" Column="7" TopLine="964"/>
       </Position26>
       <Position27>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="181" Column="22" TopLine="162"/>
+        <Caret Line="986" Column="1" TopLine="965"/>
       </Position27>
       <Position28>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="181" Column="1" TopLine="162"/>
+        <Filename Value="virtualmoon1.pas"/>
+        <Caret Line="4854" Column="48" TopLine="4838"/>
       </Position28>
       <Position29>
         <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4857" Column="20" TopLine="4836"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position29>
+      <Position30>
+        <Filename Value="virtualmoon1.pas"/>
+        <Caret Line="3072" Column="52" TopLine="3047"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

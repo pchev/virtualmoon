@@ -4846,6 +4846,7 @@ var
 begin
 if moon2=nil then begin
  moon2:=Tf_moon.Create(nil);
+ moon2.GLSceneViewer1.Visible:=false;
  moon2.Caption:=Caption;
  moon2.Moon.Align:=alClient;
  moon2.onMoonClick:=MoonClickEvent;
@@ -4853,8 +4854,10 @@ if moon2=nil then begin
  moon2.onGetSprite:=GetSprite;
  moon2.Init;
  moon2.Visible:=true;
+ Application.ProcessMessages;
 end;
 moon2.Assign(moon1);
+moon2.GLSceneViewer1.Visible:=true;
 moon2.Show;
 moon2.RefreshAll;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 moon2.Show;
 end;
