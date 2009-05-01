@@ -262,6 +262,7 @@ type
     CheckBox8: TCheckBox;
     ImageList1: TImageList;
     ToolButton12: TToolButton;
+    procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox8Change(Sender: TObject);
     procedure Desc1HotClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -3512,6 +3513,11 @@ begin
   EphTimer1.Enabled := False;
 end;
 
+procedure TForm1.Button3MouseLeave(Sender: TObject);
+begin
+  EphTimer1.Enabled := False;
+end;
+
 procedure TForm1.Button6MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: integer);
 begin
@@ -4535,41 +4541,36 @@ begin
   begin
     librl := 0;
     librb := 0;
-    GroupBox4.Visible := False;
-    ToolButton2.Enabled := False;
-    checkbox2.Visible := False;
-    ToolButton6.Enabled := False;
+    checkbox2.Visible := False;   //mirror
+    ToolButton6.Enabled := False; //mirror
+    GroupBox4.Visible := False;   // telescope
+    GroupBox3.Visible := True;    // rotation
+    Rotation1.Visible := True;
+    LibrationButton.Enabled := False;
     moon1.LibrationMark:=False;
+    moon1.Mirror:=False;
+    moon1.VisibleSideLock:=false;
     moon1.LibrLat:=0;
     moon1.LibrLon:=0;
-    moon1.Mirror:=False;
-    GroupBox4.Visible := False;
-    GroupBox3.Visible := True;
-    LibrationButton.Enabled := False;
-    moon1.VisibleSideLock:=false;
-    moon1.Zoom:=1;
-    Rotation1.Visible := True;
     moon1.RefreshAll;
   end
   else
   begin
     checkbox2.Visible := True;
     ToolButton6.Enabled := True;
-    ToolButton2.Enabled := True;
-    moon1.Rotation:=0;
-    Rotation1.Visible := False;
-    GroupBox3.Visible := False;
-    LibrationButton.Enabled := True;
     GroupBox4.Visible := True;
-    moon1.Zoom:=1;
     case RadioGroup2.ItemIndex of
       0: CameraOrientation := 0;
       1: CameraOrientation := 180;
     end;
-    moon1.Orientation:=CameraOrientation;
+    GroupBox3.Visible := False;
+    Rotation1.Visible := False;
+    LibrationButton.Enabled := True;
     moon1.VisibleSideLock:=true;
-    moon1.Mirror:=checkbox2.Checked;
     moon1.LibrationMark:=ShowLibrationMark;
+    moon1.Rotation:=0;
+    moon1.Orientation:=CameraOrientation;
+    moon1.Mirror:=checkbox2.Checked;
     RefreshMoonImage;
   end;
 end;

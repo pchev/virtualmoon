@@ -685,8 +685,10 @@ end;
 end;
 
 procedure Tf_moon.SetVisibleSideLock(value:boolean);
+var cl,cb: single;
 begin
 if value<>FVisibleSideLock then begin
+   Screen2Moon(GLSceneViewer1.Width div 2,GLSceneViewer1.Height div 2,cl,cb);
    FVisibleSideLock:=value;
    if FVisibleSideLock then begin
       GLSphereMoon.TurnAngle:=0;
@@ -695,14 +697,14 @@ if value<>FVisibleSideLock then begin
       GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
       GLMirror1.Position.SetVector(0,0,-100.01*FEarthDistance/MeanEarthDistance);
       GLCamera1.Direction.SetVector(0,0,1);
-      SetZoomLevel(1);
+      CenterAt(cl,cb);
    end else begin
       Eyepiece:=0;
       GLCamera1.Position.SetVector(0,0,-100);
       GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
       GLMirror1.Position.SetVector(0,0,-100.01);
       GLCamera1.TargetObject:=GLSphereMoon;
-      SetZoomLevel(1);
+      CenterAt(cl,cb);
    end;
    if not FShowPhase then begin
       GLLightSource1.Position:=GLCamera1.Position;
@@ -1205,13 +1207,13 @@ end;
 procedure Tf_moon.SetLibrLon(value:single);
 begin
 FLibrLon:=value;
-if FVisibleSideLock then OrientMoon;
+OrientMoon;
 end;
 
 procedure Tf_moon.SetLibrLat(value:single);
 begin
 FLibrLat:=value;
-if FVisibleSideLock then OrientMoon;
+OrientMoon;
 end;
 
 procedure Tf_moon.SetEarthDistance(value:single);

@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = ControlBar1
+  ActiveControl = PageControl1
   AutoScroll = False
   Caption = 'Form1'
   ClientHeight = 600
@@ -488,6 +488,7 @@ object Form1: TForm1
           NumGlyphs = 0
           Transparent = False
           OnMouseDown = Button3MouseDown
+          OnMouseLeave = Button3MouseLeave
           OnMouseUp = Button3MouseUp
         end
         object Button6: TSpeedButton
@@ -501,6 +502,7 @@ object Form1: TForm1
           NumGlyphs = 0
           Transparent = False
           OnMouseDown = Button6MouseDown
+          OnMouseLeave = Button3MouseLeave
           OnMouseUp = Button3MouseUp
         end
         object Button7: TSpeedButton
@@ -514,6 +516,7 @@ object Form1: TForm1
           NumGlyphs = 0
           Transparent = False
           OnMouseDown = Button7MouseDown
+          OnMouseLeave = Button3MouseLeave
           OnMouseUp = Button3MouseUp
         end
         object Button8: TSpeedButton
@@ -527,6 +530,7 @@ object Form1: TForm1
           NumGlyphs = 0
           Transparent = False
           OnMouseDown = Button8MouseDown
+          OnMouseLeave = Button3MouseLeave
           OnMouseUp = Button3MouseUp
         end
         object NM: TImage
@@ -1016,31 +1020,31 @@ object Form1: TForm1
         TabOrder = 0
         object Label19: TLabel
           Left = 8
-          Height = 14
+          Height = 15
           Top = 12
-          Width = 34
+          Width = 42
           Caption = 'Intérêt '
           ParentColor = False
         end
         object Label20: TLabel
           Left = 8
-          Height = 14
+          Height = 15
           Top = 36
-          Width = 50
+          Width = 63
           Caption = 'Instrument'
           ParentColor = False
         end
         object Label21: TLabel
           Left = 152
-          Height = 14
+          Height = 15
           Top = 36
-          Width = 20
+          Width = 27
           Caption = 'mm.'
           ParentColor = False
         end
         object ComboBox2: TComboBox
           Left = 80
-          Height = 21
+          Height = 24
           Top = 8
           Width = 121
           AutoComplete = False
@@ -1059,7 +1063,7 @@ object Form1: TForm1
         end
         object ComboBox3: TComboBox
           Left = 80
-          Height = 21
+          Height = 24
           Top = 32
           Width = 57
           AutoComplete = False
@@ -1279,7 +1283,7 @@ object Form1: TForm1
         end
         object ComboBox4: TComboBox
           Left = 120
-          Height = 27
+          Height = 24
           Top = 16
           Width = 97
           AutoComplete = False
@@ -1435,7 +1439,7 @@ object Form1: TForm1
         end
         object ComboBox5: TComboBox
           Left = 8
-          Height = 27
+          Height = 24
           Top = 16
           Width = 105
           AutoComplete = False
@@ -1528,33 +1532,33 @@ object Form1: TForm1
       end
       object Label8: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 24
-        Width = 49
+        Width = 59
         Caption = 'Pénombre'
         ParentColor = False
       end
       object Label12: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 136
-        Width = 29
+        Width = 34
         Caption = 'Direct'
         ParentColor = False
       end
       object Label11: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 80
-        Width = 28
+        Width = 34
         Caption = 'Diffus'
         ParentColor = False
       end
       object Label14: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 2
-        Width = 48
+        Width = 57
         Caption = 'Eclairage '
         Color = clBtnFace
         ParentColor = False
@@ -1609,33 +1613,33 @@ object Form1: TForm1
         TabOrder = 3
         object Label13: TLabel
           Left = 16
-          Height = 14
+          Height = 15
           Top = 80
-          Width = 51
+          Width = 60
           Caption = 'Résolution'
           ParentColor = False
         end
         object Label15: TLabel
           Left = 16
-          Height = 14
+          Height = 15
           Top = 136
-          Width = 30
+          Width = 33
           Caption = '0 FPS'
           ParentColor = False
         end
         object Label16: TLabel
           Left = 16
-          Height = 14
+          Height = 15
           Top = 4
-          Width = 61
+          Width = 74
           Caption = 'Performance'
           ParentColor = False
         end
         object Label17: TLabel
           Left = 16
-          Height = 14
+          Height = 15
           Top = 26
-          Width = 19
+          Width = 20
           Caption = 'acc'
           ParentColor = False
         end
@@ -1673,9 +1677,9 @@ object Form1: TForm1
         TabOrder = 4
         object CheckBox8: TCheckBox
           Left = 6
-          Height = 17
+          Height = 22
           Top = 10
-          Width = 142
+          Width = 177
           Caption = 'Force texture compression'
           OnChange = CheckBox8Change
           OnClick = CheckBox8Click
