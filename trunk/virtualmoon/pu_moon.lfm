@@ -21,6 +21,7 @@ object f_moon: Tf_moon
     Color = clBlack
     ParentColor = False
     TabOrder = 0
+    OnResize = MoonResize
     object GLSceneViewer1: TGLSceneViewer
       Left = 1
       Height = 498

@@ -153,7 +153,6 @@ repeat
   cmd:='insert into moon values(NULL,'+side+',';
   for i:=1 to db1.FieldCount do begin
     v:=db1.GetDataByIndex(i);
-    v:=utf8encode(v);
     v:=stringreplace(v,',','.',[rfreplaceall]); // look why we need that ???
     v:=stringreplace(v,'""','''',[rfreplaceall]);
     v:=stringreplace(v,'"','',[rfreplaceall]);

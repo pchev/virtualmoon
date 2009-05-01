@@ -61,6 +61,7 @@ type
      procedure FormDestroy(Sender: TObject);
      procedure GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
        Shift: TShiftState; X, Y: Integer);
+     procedure MoonResize(Sender: TObject);
      procedure PerfCadencerProgress(Sender: TObject; const deltaTime,
        newTime: Double);
      procedure RotationCadencerProgress(Sender: TObject; const deltaTime,
@@ -981,6 +982,11 @@ begin
     if FMoveCursor then GLSceneViewer1.Cursor:=crHandPoint
            else GLSceneViewer1.Cursor:=crRetic;
   end;
+end;
+
+procedure Tf_moon.MoonResize(Sender: TObject);
+begin
+  RefreshAll;
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseDown(Sender: TObject; Button: TMouseButton;
