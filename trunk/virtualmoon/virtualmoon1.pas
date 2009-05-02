@@ -464,7 +464,7 @@ type
     m: array[1..nummessage] of string;
     CameraOrientation, PoleOrientation, startl, startb, startxx, startyy: double;
     curx, cury: double;
-    LabelDensity, overlaylum, phaseoffset: integer;
+    LabelDensity, overlaytr, phaseoffset: integer;
     perfdeltay: double;
     ddeparam, currenttexture, overlayname, currentselection: string;
     CielHnd: Thandle;
@@ -489,7 +489,7 @@ type
     LastScopeTracking: double;
     UseComputerTime: boolean;
     procedure Init;
-    procedure LoadOverlay(fn: string; lum: integer);
+    procedure LoadOverlay(fn: string; transparent: integer);
     procedure GetLabel(Sender: TObject);
     procedure GetSprite(Sender: TObject);
     function SearchAtPos(l, b: double): boolean;
@@ -1124,7 +1124,7 @@ begin
     for i := 1 to useDBN do
       db_age[i] := ReadInteger(section, 'DB_Age' + IntToStr(i), 0);
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
-    overlaylum  := ReadInteger(section, 'overlaylum', 0);
+    overlaytr  := ReadInteger(section, 'overlaytr', 1);
     showoverlay := ReadBool(section, 'showoverlay', showoverlay);
     Geocentric  := ReadBool(section, 'Geocentric', Geocentric);
     moon1.AmbientColor := ReadInteger(section, 'AmbientLight', moon1.AmbientColor);
@@ -1169,7 +1169,7 @@ begin
       for i := 1 to useDBN do
         WriteInteger(section, 'DB_Age' + IntToStr(i), db_age[i]);
       WriteString(section, 'overlayname', overlayname);
-      WriteInteger(section, 'overlaylum', overlaylum);
+      WriteInteger(section, 'overlaytr', overlaytr);
       WriteBool(section, 'showoverlay', showoverlay);
       for i := 1 to 6 do
         WriteBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
@@ -3095,7 +3095,7 @@ try
     Trackbar5.position := 1;
   LibrationButton.Down := librationeffect;
   PhaseButton.Down := phaseeffect;
-  LoadOverlay(overlayname, overlaylum);
+  LoadOverlay(overlayname, overlaytr);
   RefreshMoonImage;
   PhaseButtonClick(nil);
   if currentname <> '' then
@@ -3208,7 +3208,7 @@ begin
     form2.ruklsuffix.Text := ruklsuffix;
     form2.texturefn := texturefile;
     form2.combobox5.Text := remext(overlayname);
-    form2.trackbar5.position := overlaylum;
+    form2.trackbar5.position := overlaytr;
     form2.combobox5change(Sender);
     form2.checkbox11.Checked := showoverlay;
     form2.checkbox16.Checked := UseComputerTime;
@@ -3222,11 +3222,11 @@ begin
     begin
       screen.cursor := crhourglass;
       if (form2.combobox5.Text <> remext(overlayname)) or
-        (form2.trackbar5.position <> overlaylum) or
+        (form2.trackbar5.position <> overlaytr) or
         (form2.checkbox11.Checked <> showoverlay) then
         reload    := True;
       overlayname := form2.combobox5.Text + '.jpg';
-      overlaylum  := form2.trackbar5.position;
+      overlaytr  := form2.trackbar5.position;
       showoverlay := form2.checkbox11.Checked;
       if texturefile <> form2.texturefn then
       begin
@@ -3346,7 +3346,7 @@ begin
       begin
         application.ProcessMessages;
         moon1.Eyepiece := 0;
-        LoadOverlay(overlayname, overlaylum);
+        LoadOverlay(overlayname, overlaytr);
         moon1.Texture:=texturefile;
         RefreshMoonImage;
       end
@@ -4910,10 +4910,11 @@ begin
   moon1.SpecularColor := SetWhitecolor(Trackbar4.position);
 end;
 
-procedure TForm1.LoadOverlay(fn: string; lum: integer);
+procedure TForm1.LoadOverlay(fn: string; transparent: integer);
 begin
   if showoverlay and fileexists(Slash(moon1.OverlayPath) + fn) then
   begin
+      moon1.OverlayTransparency:=transparent;
       moon1.Overlay:=fn;
       if fileexists(Slash(moon1.OverlayPath) + slash('caption') + fn) then
       begin

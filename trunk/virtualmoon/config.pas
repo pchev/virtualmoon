@@ -177,7 +177,6 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure StringGrid2SelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
-    procedure TrackBar5Change(Sender: TObject);
     procedure ComboBox5Change(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure CheckBox16Click(Sender: TObject);
@@ -193,8 +192,6 @@ var
   Form2: TForm2;
   newlang : string;
   savegeol,savelibration : boolean;
-  lockoverlay: boolean=false;
-  ov : Tbitmap;
 
 implementation
 
@@ -214,7 +211,6 @@ var inifile : Tinifile;
     buf,code,ver,AVLver : string;
     fs : TSearchRec;
 begin
-ov:=Tbitmap.Create;
 // hide developpement tools or not finished function
 if not fileexists('version.developpement') then begin
   CheckBox12.Visible:=false;   // external image display
@@ -270,7 +266,6 @@ end;
 procedure TForm2.FormDestroy(Sender: TObject);
 var i: integer;
 begin
-ov.Free;
 for i:=0 to Checklistbox1.Count-1 do (Checklistbox1.Items.Objects[i] as TDBinfo).Free;
 end;
 
@@ -401,61 +396,12 @@ if Acol>=2 then canselect:=false else canselect:=true;
 end;
 
 procedure TForm2.ComboBox5Change(Sender: TObject);
-var  j:tjpegimage;
 begin
 if fileexists(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg') then begin
-   j:=tjpegimage.create;
-   try
-   j.LoadFromFile(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg');
-   ov.Width:=image1.Width;
-   ov.Height:=image1.Height;
-   ov.pixelformat:=pf24bit;
-   ov.Canvas.StretchDraw(rect(0,0,ov.Width,ov.Height),j);
-   TrackBar5Change(Sender);
+   image1.Picture.LoadFromFile(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg');
    CheckBox11.Checked:=true;
-   finally
-    j.free;
-   end;
 end else begin
-   ov.Assign(nil);
    image1.Picture.Assign(nil);
-end;
-
-end;
-
-procedure TForm2.TrackBar5Change(Sender: TObject);
-var ma:double;
-    i,n,l : integer;
-    p1,p2: pbytearray;
-begin
-if not ov.Empty then begin
-   if lockoverlay then exit;
-   lockoverlay:=true;
-   try
-    image1.Picture.bitmap.Width:=ov.Width;
-    image1.Picture.bitmap.Height:=ov.Height;
-    image1.Picture.bitmap.pixelformat:=ov.pixelformat;
-    l:=trackbar5.Position;
-    ma:=(255-l)/255;
-{    for i:=0 to image1.Picture.bitmap.height-1 do begin
-     p1:=ov.scanline[i];
-     p2:=image1.Picture.bitmap.scanline[i];
-     for n:=0 to image1.Picture.bitmap.width-1 do begin
-       case ov.pixelformat of
-         pf8bit  : p2[n]:=max(0,l+trunc(p1[n]*ma)-graytexture);
-         pf24bit : begin
-                   p2[3*n]:=max(0,l+trunc(p1[3*n]*ma)-graytexture);
-                   p2[3*n+1]:=max(0,l+trunc(p1[3*n+1]*ma)-graytexture);
-                   p2[3*n+2]:=max(0,l+trunc(p1[3*n+2]*ma)-graytexture);
-                   end;
-       end;
-     end;
-    end; }
-    image1.Picture.Assign(ov);
-    image1.Refresh;
-   finally
-    lockoverlay:=false;
-   end;
 end;
 end;
 

@@ -202,9 +202,9 @@ object Form2: TForm2
       ImageIndex = 7
       object Label31: TLabel
         Left = 16
-        Height = 14
+        Height = 15
         Top = 232
-        Width = 75
+        Width = 90
         Caption = 'User Database '
         ParentColor = False
       end
@@ -219,9 +219,9 @@ object Form2: TForm2
         TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 20
-          Width = 101
+          Width = 125
           Caption = 'Named Formation'
           Checked = True
           OnClick = CheckBox19Click
@@ -230,41 +230,41 @@ object Form2: TForm2
         end
         object CheckBox20: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 49
-          Width = 109
+          Width = 138
           Caption = 'Satellites Formation'
           TabOrder = 1
         end
         object CheckBox21: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 78
-          Width = 143
+          Width = 175
           Caption = 'Far Side Named Formation'
           TabOrder = 2
         end
         object CheckBox22: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 107
-          Width = 151
+          Width = 188
           Caption = 'Far Side Satellites Formation'
           TabOrder = 3
         end
         object CheckBox23: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 136
-          Width = 77
+          Width = 94
           Caption = 'Landing Site'
           TabOrder = 4
         end
         object CheckBox24: TCheckBox
           Left = 24
-          Height = 17
+          Height = 22
           Top = 166
-          Width = 111
+          Width = 138
           Caption = 'Pyroclastic deposits'
           TabOrder = 5
         end
@@ -501,8 +501,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 210
-        ClientWidth = 303
+        ClientHeight = 221
+        ClientWidth = 301
         ItemIndex = 0
         Items.Strings = (
           'Aérographe'
@@ -514,9 +514,9 @@ object Form2: TForm2
       end
       object BumpCheckBox: TCheckBox
         Left = 20
-        Height = 17
+        Height = 22
         Top = 272
-        Width = 124
+        Width = 159
         Caption = 'Ombres du terminateur'
         ParentBidiMode = False
         TabOrder = 1
@@ -566,6 +566,7 @@ object Form2: TForm2
           Height = 140
           Top = 93
           Width = 280
+          Proportional = True
           Stretch = True
         end
         object Label30: TLabel
@@ -583,7 +584,6 @@ object Form2: TForm2
           Width = 80
           Caption = 'Transparency:'
           ParentColor = False
-          Visible = False
         end
         object CheckBox11: TCheckBox
           Left = 32
@@ -595,7 +595,7 @@ object Form2: TForm2
         end
         object ComboBox5: TComboBox
           Left = 32
-          Height = 21
+          Height = 24
           Top = 64
           Width = 145
           AutoComplete = False
@@ -606,18 +606,16 @@ object Form2: TForm2
           TabOrder = 1
         end
         object TrackBar5: TTrackBar
-          Left = 112
-          Height = 33
-          Top = 264
+          Left = 125
+          Height = 39
+          Top = 258
           Width = 161
           Frequency = 20
-          LineSize = 5
-          Max = 200
-          OnChange = TrackBar5Change
-          PageSize = 10
+          Max = 3
+          PageSize = 1
           Position = 0
+          TickStyle = tsNone
           TabOrder = 2
-          Visible = False
         end
       end
     end

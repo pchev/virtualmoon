@@ -129,6 +129,7 @@ type
     TextureCmp: TGLTextureCompression;
     FMeasuringDistance: Boolean;
     FRaCentre, FDeCentre, FDiameter, FPositionAngle: single;
+    FOverlayTransparency: integer;
     procedure SetTexture(fn:string);
     procedure SetOverlay(fn:string);
     procedure SetBumpPath(fn:string);
@@ -202,6 +203,7 @@ type
     property TexturePath : String read FtexturePath write FTexturePath;
     property Texture : String read Ftexture write SetTexture;
     property OverlayPath : String read FOverlayPath write FOverlayPath;
+    property OverlayTransparency : integer read FOverlayTransparency write FOverlayTransparency;
     property Overlay : String read FOverlay write SetOverlay;
     property BumpPath : String read FBumpPath write SetBumpPath;
     property Bumpmap : Boolean read FBumpmap write SetBumpmap;
@@ -609,32 +611,7 @@ if GLMaterialLibrary1.LibMaterialByName('O1')<>nil then begin
 end;
 end;
 
-Procedure SetBitmapAlpha(var img: TBitmap; Alpha: integer);
-var ImgHandle,ImgMaskHandle: HBitmap;
-    OriginalIntfImg, IntfImg : TLazIntfImage;
-    i,j:integer;
-    col: TFPColor;
-begin
-OriginalIntfImg:=img.CreateIntfImage;
-IntfImg:=img.CreateIntfImage;
-IntfImg.SetSize(OriginalIntfImg.Width,OriginalIntfImg.Height);
-for i:=0 to OriginalIntfImg.Height-1 do begin
-  for j:=0 to OriginalIntfImg.Width-1 do begin
-     col:=OriginalIntfImg.Colors[j,i];
-     col.alpha:=255*alpha;
-     IntfImg.Colors[j,i]:=col;
-  end;
-end;
-img.FreeImage;
-IntfImg.CreateBitmaps(ImgHandle,ImgMaskHandle);
-img.SetHandles(ImgHandle,ImgMaskHandle);
-OriginalIntfImg.Free;
-IntfImg.Free;
-end;
-
 procedure Tf_moon.SetOverlay(fn:string);
-var j: TJPEGImage;
-    b: TBitmap;
 begin
 if fn='' then begin
   ClearOverlay;
@@ -642,23 +619,20 @@ if fn='' then begin
 end else begin
   if not FileExists(slash(FOverlayPath)+fn) then raise Exception.Create('Overlay not found '+slash(FOverlayPath)+fn);
   FOverlay:=fn;
-  j:=TJPEGImage.Create;
-  b:=TBitmap.Create;
-  j.LoadFromFile(slash(FOverlayPath)+fn);
-  b.Assign(j);
-  SetBitmapAlpha(b,128);
   if GLMaterialLibrary1.LibMaterialByName('O1')=nil then CreateMaterial(99);
   with GLMaterialLibrary1 do begin
       with LibMaterialByName('O1') do begin
         Material.Texture.ImageBrightness:=1;
-        //Material.Texture.ImageAlpha:=tiaAlphaFromIntensity;
-        //Material.Texture.Image.LoadFromFile(slash(FOverlayPath)+fn);
-        Material.Texture.ImageAlpha:=tiaDefault;
-        Material.Texture.Image.Assign(b);
+        case FOverlayTransparency of
+         0 : Material.Texture.ImageAlpha:=tiaLuminanceSqrt;
+         1 : Material.Texture.ImageAlpha:=tiaLuminance;
+         2 : Material.Texture.ImageAlpha:=tiaInverseLuminance;
+         3 : Material.Texture.ImageAlpha:=tiaInverseLuminanceSqrt;
+         else Material.Texture.ImageAlpha:=tiaLuminance;
+        end;
+        Material.Texture.Image.LoadFromFile(slash(FOverlayPath)+fn);
       end;
    end;
-   j.Free;
-   b.Free;
 end;
 GLSceneViewer1.Refresh;
 end;
