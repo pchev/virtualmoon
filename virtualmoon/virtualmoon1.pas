@@ -408,8 +408,6 @@ type
     function GetTimeZone(sdt: Tdatetime): double;
     procedure InitImages;
     procedure AddImages(dir, nom, cpy: string);
-    procedure Moon2RaDec(x, y: double; var r, d: double);
-    procedure RaDec2Moon(r, d: double; var x, y: double);
     procedure ReadParam;
     procedure SetObs(param: string);
     procedure Readdefault;
@@ -455,7 +453,7 @@ type
     dbedited: boolean;
     SkipIdent, wantbump, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
     minilabel: boolean;
-    lockmove, lockrepeat, showlibrationmark, marked, saveimagewhite, skipresize: boolean;
+    lockmove, lockrepeat, showlibrationmark, saveimagewhite, skipresize: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
     lopamdirectsuffix, lopamlocalsuffix: string;
@@ -1254,29 +1252,6 @@ begin
   end;
 end;
 
-procedure TForm1.Moon2RaDec(x, y: double; var r, d: double);
-var
-  spa, cpa, s: extended;
-begin
-  sincos(deg2rad * pa, spa, cpa);
-  s := diam / 3600;
-  r := rad + (cpa * x + spa * y) * s / 15 / cos(deg2rad * ded);
-  d := ded + (cpa * y - spa * x) * s;
-end;
-
-procedure TForm1.RaDec2Moon(r, d: double; var x, y: double);
-var
-  spa, cpa, s: extended;
-begin
-     { TODO : RaDec2Moon adjust fo new viewer }
-  sincos(-deg2rad * pa, spa, cpa);
-  s := diam / 3600;
-  r := (r - rad) * 15 * cos(deg2rad * ded) / s;
-  d := (d - ded) / s;
-  x := cpa * r + spa * d;
-  y := cpa * d - spa * r;
-end;
-
 procedure TForm1.GetLabel(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
     w, wmin, wfact, l1, b1: single;
@@ -1284,21 +1259,21 @@ var lmin,lmax,bmin,bmax: single;
     nom, let:  string;
     j: integer;
 begin
-// get search boundaries
-  Tf_moon(Sender).GetBounds(lmin,lmax,bmin,bmax);
-// minimal feature size
-  if minilabel then
-    wfact := 0.5
-  else
-    wfact := 1;
-  LabelDensity := maxintvalue([100, LabelDensity]);
-  if (Tf_moon(Sender).Zoom >= 8) and (Tf_moon(Sender).Zoom >= (Tf_moon(Sender).ZoomMax-5)) then
-    wmin := -1
-  else
-    wmin := MinValue([650.0, 3 * LabelDensity / (Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)]);
 // Labels
-  if showlabel then
+  if showlabel and (not TelescopeTimer.Enabled) then
   begin
+  // get search boundaries
+    Tf_moon(Sender).GetBounds(lmin,lmax,bmin,bmax);
+  // minimal feature size
+    if minilabel then
+      wfact := 0.5
+    else
+      wfact := 1;
+    LabelDensity := maxintvalue([100, LabelDensity]);
+    if (Tf_moon(Sender).Zoom >= 8) and (Tf_moon(Sender).Zoom >= (Tf_moon(Sender).ZoomMax-5)) then
+      wmin := -1
+    else
+      wmin := MinValue([650.0, 3 * LabelDensity / (Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)]);
     dbm.Query('select NAME,LONGIN,LATIN,WIDEKM,WIDEMI,LENGTHKM,LENGTHMI from moon' +
       ' where DBN in (' + sidelist + ')' + ' and LONGIN > ' +
       formatfloat(f2, rad2deg*lmin) + ' and LONGIN < ' + formatfloat(f2, rad2deg*lmax) +
@@ -1352,11 +1327,11 @@ var lmin,lmax,bmin,bmax: single;
     nom, let:  string;
     j: integer;
 begin
-// get search boundaries
-  Tf_moon(Sender).GetBounds(lmin,lmax,bmin,bmax);
 // Mark selection
-  if currentselection <> '' then
+  if (currentselection<>'') and (not TelescopeTimer.Enabled) then
   begin
+    // get search boundaries
+    Tf_moon(Sender).GetBounds(lmin,lmax,bmin,bmax);
     dbm.Query('select LONGIN,LATIN from moon where ' + currentselection +
       ' and LONGIN > ' + formatfloat(f2, rad2deg*lmin) +
       ' and LONGIN < ' + formatfloat(f2, rad2deg*lmax) +
@@ -1585,8 +1560,7 @@ begin
         begin
           ToolButton3.Down := True;
           ToolButton3Click(nil);
-          { TODO : set moon rotation position
-          moon1.rotpos:=x; }
+          moon1.CenterAt(deg2rad*x, 0);
         end;
       end
       else if param[i] = '--' then
@@ -2806,6 +2780,10 @@ begin
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360);
     moon1.Orientation:=CameraOrientation;
   end;
+  moon1.PositionAngle:=deg2rad*PA;
+  moon1.RaCentre:=rad;
+  moon1.DeCentre:=ded;
+  moon1.Diameter:=deg2rad*diam/3600;
   moon1.EarthDistance:=dkm;
   moon1.ShowPhase:=phaseeffect;
   moon1.Phase:=deg2rad*cphase;
@@ -3947,7 +3925,7 @@ procedure TForm1.SpeedButton5Click(Sender: TObject);
 begin
   moon1.zoom:=4;
   //movecamera(0.45, 0);
-{ TODO : add a way to put the camera to the limb }
+  { TODO : add a way to orient the camera independently of the target }
   CameraOrientation := 90;
   moon1.Orientation:=CameraOrientation;
 end;
@@ -3965,7 +3943,6 @@ procedure TForm1.SpeedButton6Click(Sender: TObject);
 begin
   moon1.zoom:=2;
   //movecamera(0, 0);
-{ TODO : add a way to center the camera  }
   case RadioGroup2.ItemIndex of
     0: CameraOrientation := 0;
     1: CameraOrientation := 180;
@@ -4675,15 +4652,11 @@ var
   ok1, ok2, ok3: boolean;
   ii:   integer;
   buf:  shortstring;
-  r, d: double;
+  r, d: single;
 begin
-  if scopelibok and scopeconnected and marked then
+  if scopelibok and scopeconnected and moon1.GetMarkRaDec(r,d)  then
   begin
-    ScopeGetInfo(buf, OK1, OK2, OK3, ii);
-    if not ok3 then
-      exit;
-    Moon2RaDec(markx, marky, r, d);
-    ScopeGoto(r, d, ok1);
+    ScopeGoto(rad2deg*r/15, rad2deg*d, ok1);
   end
   else
     ShowMessage('Please first connect the telescope and select a formation.');
@@ -4696,15 +4669,11 @@ var
   ok1, ok2, ok3: boolean;
   ii:   integer;
   buf:  shortstring;
-  r, d: double;
+  r, d: single;
 begin
-  if scopelibok and scopeconnected and marked then
+  if scopelibok and scopeconnected and moon1.GetMarkRaDec(r,d) then
   begin
-    ScopeGetInfo(buf, OK1, OK2, OK3, ii);
-    if not ok2 then
-      exit;
-    Moon2RaDec(markx, marky, r, d);
-    ScopeAlign('markname', r, d);
+    ScopeAlign('markname', rad2deg*r/15, rad2deg*d);
   end
   else
     ShowMessage('Please first connect the telescope and select a formation.');
@@ -4712,19 +4681,11 @@ end;
 
 // track
 procedure TForm1.CheckBox6Click(Sender: TObject);
-var
-  ok1, ok2, ok3: boolean;
-  ii:  integer;
-  buf: shortstring;
 begin
-  ok1 := False;
-  if scopelibok and scopeconnected then
-    ScopeGetInfo(buf, OK1, OK2, OK3, ii);
-  if not ok1 then
+  if not (scopelibok and scopeconnected) then
     CheckBox6.Checked := False
   else
   begin
-    TelescopeTimer.Interval := max(250, ii);
     TelescopeTimer.Enabled  := CheckBox6.Checked;
     ToolButton3.Enabled     := not TelescopeTimer.Enabled;
   end;
@@ -4752,22 +4713,13 @@ var
   ok:  boolean;
   buf: string;
 begin
-{ TODO : show telescope position }
-{  ScopeGetRaDec(r, d, ok);
+  ScopeGetRaDec(r, d, ok);
   if ok then
   begin
     initdate;
-    ok  := marked;
-    x   := markx;
-    y   := marky;
-    buf := markname;
     RefreshMoonImage;
-    if ok then
-      mark(x, y, buf);
-    RaDec2Moon(r, d, x, y);
-    if (abs(x) < 0.5) and (abs(y) < 0.5) then
-      MoveCamera(x, y);
-    if CheckBox7.Checked and marked and
+    moon1.CenterAtRaDec(deg2rad*r*15,deg2rad*d);
+    if CheckBox7.Checked and
       ((LastScopeTracking + trackdelay.position / 86400) <= now) then
     begin
       LastScopeTracking := now;
@@ -4778,7 +4730,7 @@ begin
   begin
     TelescopeTimer.Enabled := False;
     CheckBox6.Checked      := False;
-  end;    }
+  end;
 end;
 
 procedure TForm1.NMClick(Sender: TObject);
