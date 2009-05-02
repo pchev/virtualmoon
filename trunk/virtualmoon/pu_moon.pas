@@ -8,6 +8,7 @@ uses u_util, u_constant, u_projection, Graphics, GLGraphics, GLContext,
   GLColor, GLObjects, GLMisc, ExtCtrls, GLTexture, GLCadencer, Info,
   GLViewer, GLCrossPlatform, LResources, GLScene, GLMultiMaterialShader,
   StdCtrls, GLBumpShader, GLHUDObjects, GLWindowsFont, GLGeomObjects, GLMirror,
+  FPImage, LCLType,IntfGraphics,
   Messages, SysUtils, Classes, Controls, Forms, AsyncTimer, Menus ;
 
 const
@@ -127,6 +128,7 @@ type
     FTextureCompression: Boolean;
     TextureCmp: TGLTextureCompression;
     FMeasuringDistance: Boolean;
+    FRaCentre, FDeCentre, FDiameter, FPositionAngle: single;
     procedure SetTexture(fn:string);
     procedure SetOverlay(fn:string);
     procedure SetBumpPath(fn:string);
@@ -169,6 +171,8 @@ type
     function  Moon2Screen(lon,lat: single; var x,y:integer): boolean;
     function  Moon2World(lon,lat: single; var x,y,z:single): boolean;
     function  World2Moon(x,y,z:single; var lon,lat: single): boolean;
+    procedure World2RaDec(x, y: single; var r, d: single);
+    procedure RaDec2World(r, d: single; var x, y: single);
     procedure InitLabel;
     procedure ClearLabel;
     procedure InitSprite;
@@ -184,6 +188,8 @@ type
     procedure Init;
     Procedure GetZoomInfo;
     procedure GetBounds(var lmin,lmax,bmin,bmax: single);
+    function  GetMarkRaDec(var ra,de: single): boolean;
+    procedure CenterAtRaDec(r,d: double);
     procedure SetMark(lon,lat:single; txt:string);
     procedure CenterAt(lon,lat:single);
     procedure CenterMark;
@@ -207,6 +213,10 @@ type
     property LibrLon : single read FLibrLon write SetLibrLon;
     property LibrLat : single read FLibrLat write SetLibrLat;
     property EarthDistance: single read FEarthDistance write SetEarthDistance;
+    property RaCentre: single read FRaCentre write FRaCentre;
+    property DeCentre: single read FDeCentre write FDeCentre;
+    property Diameter: single read FDiameter write FDiameter;
+    property PositionAngle: single read FPositionAngle write FPositionAngle;
     property Zoom : single read Fzoom write SetZoomLevel;
     property ZoomMax: single read MaxZoom;
     property Mirror : Boolean read FMirror write SetMirror;
@@ -599,7 +609,32 @@ if GLMaterialLibrary1.LibMaterialByName('O1')<>nil then begin
 end;
 end;
 
+Procedure SetBitmapAlpha(var img: TBitmap; Alpha: integer);
+var ImgHandle,ImgMaskHandle: HBitmap;
+    OriginalIntfImg, IntfImg : TLazIntfImage;
+    i,j:integer;
+    col: TFPColor;
+begin
+OriginalIntfImg:=img.CreateIntfImage;
+IntfImg:=img.CreateIntfImage;
+IntfImg.SetSize(OriginalIntfImg.Width,OriginalIntfImg.Height);
+for i:=0 to OriginalIntfImg.Height-1 do begin
+  for j:=0 to OriginalIntfImg.Width-1 do begin
+     col:=OriginalIntfImg.Colors[j,i];
+     col.alpha:=255*alpha;
+     IntfImg.Colors[j,i]:=col;
+  end;
+end;
+img.FreeImage;
+IntfImg.CreateBitmaps(ImgHandle,ImgMaskHandle);
+img.SetHandles(ImgHandle,ImgMaskHandle);
+OriginalIntfImg.Free;
+IntfImg.Free;
+end;
+
 procedure Tf_moon.SetOverlay(fn:string);
+var j: TJPEGImage;
+    b: TBitmap;
 begin
 if fn='' then begin
   ClearOverlay;
@@ -607,15 +642,23 @@ if fn='' then begin
 end else begin
   if not FileExists(slash(FOverlayPath)+fn) then raise Exception.Create('Overlay not found '+slash(FOverlayPath)+fn);
   FOverlay:=fn;
+  j:=TJPEGImage.Create;
+  b:=TBitmap.Create;
+  j.LoadFromFile(slash(FOverlayPath)+fn);
+  b.Assign(j);
+  SetBitmapAlpha(b,128);
   if GLMaterialLibrary1.LibMaterialByName('O1')=nil then CreateMaterial(99);
   with GLMaterialLibrary1 do begin
       with LibMaterialByName('O1') do begin
         Material.Texture.ImageBrightness:=1;
-{ TODO : Alpha transparent}
-        Material.Texture.ImageAlpha:=tiaAlphaFromIntensity;
-        Material.Texture.Image.LoadFromFile(slash(FOverlayPath)+fn);
+        //Material.Texture.ImageAlpha:=tiaAlphaFromIntensity;
+        //Material.Texture.Image.LoadFromFile(slash(FOverlayPath)+fn);
+        Material.Texture.ImageAlpha:=tiaDefault;
+        Material.Texture.Image.Assign(b);
       end;
    end;
+   j.Free;
+   b.Free;
 end;
 GLSceneViewer1.Refresh;
 end;
@@ -703,7 +746,7 @@ if value<>FVisibleSideLock then begin
       GLCamera1.Position.SetVector(0,0,-100);
       GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
       GLMirror1.Position.SetVector(0,0,-100.01);
-      GLCamera1.TargetObject:=GLSphereMoon;
+      GLCamera1.TargetObject:=LibrationDummyCube;
       CenterAt(cl,cb);
    end;
    if not FShowPhase then begin
@@ -851,6 +894,7 @@ end;
 procedure Tf_moon.RefreshAll;
 begin
   ClearLabel;
+  if marked then SetMark(markl,markb,marktext);
   RefreshTimer.Enabled:=false;
   RefreshTimer.Enabled:=true;
 end;
@@ -968,6 +1012,61 @@ begin
  if GLDummyCubeMarks<>nil then GLDummyCubeMarks.DeleteChildren;
  blankbmp.Free;
  GLSceneViewer1.Buffer.DestroyRC;
+end;
+
+procedure Tf_moon.Assign(Source: TF_moon);
+begin
+ TexturePath:=Source.TexturePath;
+ OverlayPath:=Source.OverlayPath;
+ BumpPath:=Source.BumpPath;
+ TextureCompression:=Source.TextureCompression;
+ if Texture<>Source.Texture then
+    Texture :=Source.Texture;
+ if Overlay<>Source.Overlay then
+    Overlay :=Source.Overlay;
+ Bumpmap :=Source.Bumpmap;
+ ShowPhase :=Source.ShowPhase;
+ VisibleSideLock :=Source.VisibleSideLock;
+ Mirror :=Source.Mirror;
+ Orientation:=Source.Orientation;
+ LabelFont :=Source.LabelFont;
+ LabelColor :=Source.LabelColor;
+ LibrationMark:=Source.LibrationMark;
+ Rotation :=Source.Rotation;
+ Phase :=Source.Phase;
+ SunIncl :=Source.SunIncl;
+ LibrLon :=Source.LibrLon;
+ LibrLat :=Source.LibrLat;
+ EarthDistance:=Source.EarthDistance;
+ Zoom :=Source.Zoom;
+ Eyepiece :=Source.Eyepiece;
+ AmbientColor:=Source.AmbientColor;
+ DiffuseColor:=Source.DiffuseColor;
+ SpecularColor:=Source.SpecularColor;
+ MoveCursor:=Source.MoveCursor;
+ GLSceneViewer1.Cursor := Source.GLSceneViewer1.Cursor;
+ GLSphereMoon.Slices := Source.GLSphereMoon.Slices;
+ GLSphereMoon.Stacks := Source.GLSphereMoon.Stacks;
+ LibrationDummyCube.PitchAngle  := Source.LibrationDummyCube.PitchAngle;
+ LibrationDummyCube.TurnAngle  := Source.LibrationDummyCube.TurnAngle;
+ LibrationDummyCube.up  := Source.LibrationDummyCube.Up;
+ GLMirror1.Position   := Source.GLMirror1.Position;
+ GLMirror1.Visible  := Source.GLMirror1.Visible;
+ GLCamera1.TargetObject  := Source.GLCamera1.TargetObject;
+ GLCamera1.Position  := Source.GLCamera1.Position;
+ GLCamera1.Direction  := Source.GLCamera1.Direction;
+ GLCamera1.SceneScale  := Source.GLCamera1.SceneScale;
+ GLCamera1.Up  := Source.GLCamera1.Up;
+ GLLightSource1.ConstAttenuation  := Source.GLLightSource1.ConstAttenuation;
+ GLLightSource1.LightStyle  := Source.GLLightSource1.LightStyle;
+ GLLightSource1.Position  := Source.GLLightSource1.Position;
+ GLLightSource1.SpotDirection  := Source.GLLightSource1.SpotDirection;
+ GLSphereMoon.PitchAngle  := Source.GLSphereMoon.PitchAngle;
+ GLSphereMoon.TurnAngle   := Source.GLSphereMoon.TurnAngle;
+ GLSphereMoon.up  := Source.GLSphereMoon.Up;
+ GLAnnulus1.Visible  := Source.GLAnnulus1.Visible;
+ GLAnnulus1.Position  := Source.GLAnnulus1.Position;
+ GLAnnulus1.BottomInnerRadius   := Source.GLAnnulus1.BottomInnerRadius;
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
@@ -1602,7 +1701,7 @@ begin
   Moon2World(l,b,xx,yy,zz);
   xx := startxx - xx;
   yy := startyy - yy;
-  d  := sqrt(xx * xx + yy * yy) * diam / 3600;
+  d  := sqrt(xx * xx + yy * yy) * rad2deg*FDiameter;
   m2 := Deptostr(d);
   i:=pos(ldeg,m2)+length(ldeg);
   m2 := copy(Deptostr(d), i, 99);
@@ -1748,60 +1847,53 @@ case key of
 end;
 end;
 
-procedure Tf_moon.Assign(Source: TF_moon);
+procedure Tf_moon.World2RaDec(x, y: single; var r, d: single);
+var
+  spa, cpa, s: extended;
 begin
- TexturePath:=Source.TexturePath;
- OverlayPath:=Source.OverlayPath;
- BumpPath:=Source.BumpPath;
- TextureCompression:=Source.TextureCompression;
- if Texture<>Source.Texture then
-    Texture :=Source.Texture;
- if Overlay<>Source.Overlay then
-    Overlay :=Source.Overlay;
- Bumpmap :=Source.Bumpmap;
- ShowPhase :=Source.ShowPhase;
- VisibleSideLock :=Source.VisibleSideLock;
- Mirror :=Source.Mirror;
- Orientation:=Source.Orientation;
- LabelFont :=Source.LabelFont;
- LabelColor :=Source.LabelColor;
- LibrationMark:=Source.LibrationMark;
- Rotation :=Source.Rotation;
- Phase :=Source.Phase;
- SunIncl :=Source.SunIncl;
- LibrLon :=Source.LibrLon;
- LibrLat :=Source.LibrLat;
- EarthDistance:=Source.EarthDistance;
- Zoom :=Source.Zoom;
- Eyepiece :=Source.Eyepiece;
- AmbientColor:=Source.AmbientColor;
- DiffuseColor:=Source.DiffuseColor;
- SpecularColor:=Source.SpecularColor;
- MoveCursor:=Source.MoveCursor;
- GLSceneViewer1.Cursor := Source.GLSceneViewer1.Cursor;
- GLSphereMoon.Slices := Source.GLSphereMoon.Slices;
- GLSphereMoon.Stacks := Source.GLSphereMoon.Stacks;
- LibrationDummyCube.PitchAngle  := Source.LibrationDummyCube.PitchAngle;
- LibrationDummyCube.TurnAngle  := Source.LibrationDummyCube.TurnAngle;
- LibrationDummyCube.up  := Source.LibrationDummyCube.Up;
- GLMirror1.Position   := Source.GLMirror1.Position;
- GLMirror1.Visible  := Source.GLMirror1.Visible;
- GLCamera1.TargetObject  := Source.GLCamera1.TargetObject;
- GLCamera1.Position  := Source.GLCamera1.Position;
- GLCamera1.Direction  := Source.GLCamera1.Direction;
- GLCamera1.SceneScale  := Source.GLCamera1.SceneScale;
- GLCamera1.Up  := Source.GLCamera1.Up;
- GLLightSource1.ConstAttenuation  := Source.GLLightSource1.ConstAttenuation;
- GLLightSource1.LightStyle  := Source.GLLightSource1.LightStyle;
- GLLightSource1.Position  := Source.GLLightSource1.Position;
- GLLightSource1.SpotDirection  := Source.GLLightSource1.SpotDirection;
- GLSphereMoon.PitchAngle  := Source.GLSphereMoon.PitchAngle;
- GLSphereMoon.TurnAngle   := Source.GLSphereMoon.TurnAngle;
- GLSphereMoon.up  := Source.GLSphereMoon.Up;
- GLAnnulus1.Visible  := Source.GLAnnulus1.Visible;
- GLAnnulus1.Position  := Source.GLAnnulus1.Position;
- GLAnnulus1.BottomInnerRadius   := Source.GLAnnulus1.BottomInnerRadius;
+  sincos(FPositionAngle, spa, cpa);
+  s := FDiameter;
+  r := FRaCentre + (cpa * x + spa * y) * s  / cos(FDeCentre);
+  d := FDeCentre + (cpa * y - spa * x) * s;
 end;
+
+procedure Tf_moon.RaDec2World(r, d: single; var x, y: single);
+var
+  spa, cpa, s: extended;
+begin
+  sincos(-FPositionAngle, spa, cpa);
+  s := FDiameter;
+  r := (r - FRaCentre) * cos(FDeCentre) / s;
+  d := (d - FDeCentre) / s;
+  x := cpa * r + spa * d;
+  y := cpa * d - spa * r;
+end;
+
+function Tf_moon.GetMarkRaDec(var ra,de: single): boolean;
+var x,y,z: single;
+begin
+if VisibleSideLock and marked and Moon2World(markl,markb,x,y,z) then begin
+  World2RaDec(x,y,ra,de);
+  result:=true;
+end
+else
+  result:=false;
+end;
+
+procedure Tf_moon.CenterAtRaDec(r,d: double);
+var x,y: single;
+begin
+if VisibleSideLock then begin
+   RaDec2World(r, d, x, y);
+   if (abs(x)<1) and (abs(y)<1) then begin
+     GLCamera1.Position.X:=x;
+     GLCamera1.Position.Y:=y;
+     GLAnnulus1.Position.x := GLCamera1.Position.x;
+     GLAnnulus1.Position.y := GLCamera1.Position.y;
+   end;
+end;
+end;
+
 
 initialization
   {$i pu_moon.lrs}

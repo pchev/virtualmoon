@@ -122,6 +122,9 @@ object f_moon: Tf_moon
         PitchAngle = 0
         RollAngle = 0
         TurnAngle = 0
+        Up.Coordinates = {
+          59F88EB00000803F0000000000000000
+        }
         Normals = nsFlat
         Radius = 0.5
         Slices = 36
@@ -282,7 +285,7 @@ object f_moon: Tf_moon
         00000000000000000000C8C20000803F
       }
       Direction.Coordinates = {
-        00000000000000000000803F00000000
+        00000000000000800000803F00000000
       }
     end
   end
