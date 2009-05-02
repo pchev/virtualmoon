@@ -537,14 +537,14 @@ object splash: Tsplash
     end
     object Label1: TLabel
       Left = 0
-      Height = 43
+      Height = 39
       Top = 0
       Width = 400
       Align = alTop
       Alignment = taCenter
       Caption = 'Virtual Moon Atlas'
       Font.Color = 49344
-      Font.Height = -37
+      Font.Height = -32
       Font.Name = 'Times New Roman'
       Font.Style = [fsBold]
       ParentColor = False
@@ -555,7 +555,7 @@ object splash: Tsplash
     object Label2: TLabel
       Left = 0
       Height = 17
-      Top = 84
+      Top = 88
       Width = 400
       Alignment = taCenter
       Anchors = [akTop, akLeft, akRight]
@@ -570,8 +570,8 @@ object splash: Tsplash
     end
     object Label3: TLabel
       Left = 0
-      Height = 71
-      Top = 279
+      Height = 78
+      Top = 272
       Width = 400
       Align = alBottom
       Alignment = taCenter
@@ -589,7 +589,7 @@ object splash: Tsplash
     object Label4: TLabel
       Left = 0
       Height = 14
-      Top = 265
+      Top = 258
       Width = 400
       Align = alBottom
       Alignment = taCenter
