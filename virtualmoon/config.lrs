@@ -48,24 +48,26 @@ LazarusResources.Add('TForm2','FORMDATA',[
   +'Sheet7'#7'Caption'#6#8'Database'#11'ClientWidth'#3'S'#1#12'ClientHeight'#3
   +#128#1#10'ImageIndex'#2#7#0#6'TLabel'#7'Label31'#4'Left'#2#16#6'Height'#2#15
   +#3'Top'#3#232#0#5'Width'#2'Z'#7'Caption'#6#14'User Database '#11'ParentColor'
-  +#8#0#0#9'TGroupBox'#9'GroupBox1'#4'Left'#2#16#6'Height'#3#207#0#3'Top'#2#18#5
-  +'Width'#3'1'#1#7'Caption'#6#8'Database'#12'ClientHeight'#3#192#0#11'ClientWi'
+  +#8#0#0#9'TGroupBox'#9'GroupBox1'#4'Left'#2#16#6'Height'#3#176#0#3'Top'#2#10#5
+  +'Width'#3'1'#1#7'Caption'#6#8'Database'#12'ClientHeight'#3#161#0#11'ClientWi'
   +'dth'#3'/'#1#8'TabOrder'#2#0#0#9'TCheckBox'#10'CheckBox19'#4'Left'#2#24#6'He'
-  +'ight'#2#22#3'Top'#2#20#5'Width'#2'}'#7'Caption'#6#15'Named Formation'#7'Che'
+  +'ight'#2#22#3'Top'#2#10#5'Width'#2'}'#7'Caption'#6#15'Named Formation'#7'Che'
   +'cked'#9#7'OnClick'#7#15'CheckBox19Click'#5'State'#7#9'cbChecked'#8'TabOrder'
-  +#2#0#0#0#9'TCheckBox'#10'CheckBox20'#4'Left'#2#24#6'Height'#2#22#3'Top'#2'1'
+  +#2#0#0#0#9'TCheckBox'#10'CheckBox20'#4'Left'#2#24#6'Height'#2#22#3'Top'#2'"'
   +#5'Width'#3#138#0#7'Caption'#6#20'Satellites Formation'#8'TabOrder'#2#1#0#0#9
-  +'TCheckBox'#10'CheckBox21'#4'Left'#2#24#6'Height'#2#22#3'Top'#2'N'#5'Width'#3
+  +'TCheckBox'#10'CheckBox21'#4'Left'#2#24#6'Height'#2#22#3'Top'#2':'#5'Width'#3
   +#175#0#7'Caption'#6#24'Far Side Named Formation'#8'TabOrder'#2#2#0#0#9'TChec'
-  +'kBox'#10'CheckBox22'#4'Left'#2#24#6'Height'#2#22#3'Top'#2'k'#5'Width'#3#188
+  +'kBox'#10'CheckBox22'#4'Left'#2#24#6'Height'#2#22#3'Top'#2'R'#5'Width'#3#188
   +#0#7'Caption'#6#29'Far Side Satellites Formation'#8'TabOrder'#2#3#0#0#9'TChe'
-  +'ckBox'#10'CheckBox23'#4'Left'#2#24#6'Height'#2#22#3'Top'#3#136#0#5'Width'#2
-  +'^'#7'Caption'#6#12'Landing Site'#8'TabOrder'#2#4#0#0#9'TCheckBox'#10'CheckB'
-  +'ox24'#4'Left'#2#24#6'Height'#2#22#3'Top'#3#166#0#5'Width'#3#138#0#7'Caption'
-  +#6#20'Pyroclastic deposits'#8'TabOrder'#2#5#0#0#0#13'TCheckListBox'#13'Check'
-  +'ListBox1'#4'Left'#2#16#6'Height'#2'a'#3'Top'#3#0#1#5'Width'#3'1'#1#10'ItemH'
-  +'eight'#2#0#8'TabOrder'#2#1#8'TopIndex'#2#255#0#0#0#5'TPage'#9'TabSheet3'#7
-  ,'Caption'#6#9'Affichage'#11'ClientWidth'#3'S'#1#12'ClientHeight'#3#128#1#10
+  +'ckBox'#10'CheckBox23'#4'Left'#2#24#6'Height'#2#22#3'Top'#2'j'#5'Width'#2'^'
+  +#7'Caption'#6#12'Landing Site'#8'TabOrder'#2#4#0#0#9'TCheckBox'#10'CheckBox2'
+  +'4'#4'Left'#2#24#6'Height'#2#22#3'Top'#3#130#0#5'Width'#3#138#0#7'Caption'#6
+  +#20'Pyroclastic deposits'#8'TabOrder'#2#5#0#0#0#13'TCheckListBox'#13'CheckLi'
+  +'stBox1'#4'Left'#2#16#6'Height'#2'r'#3'Top'#3#0#1#5'Width'#3'1'#1#10'ItemHei'
+  +'ght'#2#0#8'TabOrder'#2#1#8'TopIndex'#2#255#0#0#9'TCheckBox'#9'CheckBox4'#4
+  ,'Left'#2#16#6'Height'#2#22#3'Top'#3#194#0#5'Width'#3#238#0#7'Caption'#6'"Rem'
+  +'ove unknow values from reports '#8'TabOrder'#2#2#0#0#0#5'TPage'#9'TabSheet3'
+  +#7'Caption'#6#9'Affichage'#11'ClientWidth'#3'S'#1#12'ClientHeight'#3#128#1#10
   +'ImageIndex'#2#3#0#6'TBevel'#6'Bevel1'#4'Left'#2#16#6'Height'#2'9'#3'Top'#2#0
   +#5'Width'#3'1'#1#5'Shape'#7#7'bsFrame'#0#0#6'TBevel'#6'Bevel9'#4'Left'#2#16#6
   +'Height'#2'a'#3'Top'#3#128#0#5'Width'#3'1'#1#5'Shape'#7#7'bsFrame'#0#0#6'TBe'
@@ -127,9 +129,9 @@ LazarusResources.Add('TForm2','FORMDATA',[
   +#12'ClientHeight'#3#128#1#10'ImageIndex'#2#6#0#6'TLabel'#9'nooverlay'#4'Left'
   +#2'('#6'Height'#2'i'#3'Top'#2#24#5'Width'#3#1#1#8'AutoSize'#8#7'Caption'#12
   +#14#1#0#0'Your graphic card do not support to display more than one texture '
-  +'for the same object. Thus it is not possible to use this function on this c'
+  ,'for the same object. Thus it is not possible to use this function on this c'
   +'omputer. Be sure that hardware acceleration is activated or change the grap'
-  ,'hic card. The require function is GL_ARB_MULTITEXTURE '#11'ParentColor'#8#8
+  +'hic card. The require function is GL_ARB_MULTITEXTURE '#11'ParentColor'#8#8
   +'WordWrap'#9#0#0#6'TLabel'#7'Label34'#6'Cursor'#7#11'crHandPoint'#4'Left'#2
   +'('#6'Height'#2#15#3'Top'#3#152#0#5'Width'#3#5#1#7'Caption'#6'.Look here for'
   +' a list of supported graphic card'#10'Font.Color'#7#6'clBlue'#11'Font.Heigh'
@@ -191,9 +193,9 @@ LazarusResources.Add('TForm2','FORMDATA',[
   +'26'#4'Left'#2#8#6'Height'#2#14#3'Top'#2'T'#5'Width'#3#154#0#7'Caption'#6'!E'
   +'yepiece apparent field of vision'#11'ParentColor'#8#0#0#6'TLabel'#7'Label27'
   +#4'Left'#3#220#0#6'Height'#2#14#3'Top'#2'T'#5'Width'#2#13#7'Caption'#6#2'=>'
-  +#11'ParentColor'#8#0#0#6'TLabel'#7'Label28'#4'Left'#2#8#6'Height'#2#14#3'Top'
+  ,#11'ParentColor'#8#0#0#6'TLabel'#7'Label28'#4'Left'#2#8#6'Height'#2#14#3'Top'
   +#2':'#5'Width'#2#31#7'Caption'#6#5'Power'#11'ParentColor'#8#0#0#11'TStringGr'
-  ,'id'#11'StringGrid2'#4'Left'#2#8#6'Height'#3#217#0#3'Top'#2'p'#5'Width'#3';'
+  +'id'#11'StringGrid2'#4'Left'#2#8#6'Height'#3#217#0#3'Top'#2'p'#5'Width'#3';'
   +#1#8'ColCount'#2#4#15'DefaultColWidth'#2#30#16'DefaultRowHeight'#2#18#9'Fixe'
   +'dCols'#2#0#7'Options'#11#15'goFixedVertLine'#15'goFixedHorzLine'#10'goVertL'
   +'ine'#10'goHorzLine'#9'goEditing'#18'goAlwaysShowEditor'#0#8'RowCount'#2#11
@@ -255,8 +257,8 @@ LazarusResources.Add('TForm2','FORMDATA',[
   +#13'ColorI=C0C0C0'#6#13'ColorJ=0000FF'#6#13'ColorK=00FF00'#6#13'ColorL=00FFF'
   +'F'#6#13'ColorM=FF0000'#6#13'ColorN=FF00FF'#6#13'ColorO=FFFF00'#6#13'ColorP='
   +'FFFFFF'#6#13'ColorQ=C0DCC0'#6#13'ColorR=F0CAA6'#6#13'ColorS=F0FBFF'#6#13'Co'
-  +'lorT=A4A0A0'#0#4'left'#2#16#3'top'#3#160#1#0#0#11'TOpenDialog'#11'OpenDialo'
+  ,'lorT=A4A0A0'#0#4'left'#2#16#3'top'#3#160#1#0#0#11'TOpenDialog'#11'OpenDialo'
   +'g1'#10'DefaultExt'#6#4'.exe'#6'Filter'#6#20'Image software|*.exe'#4'left'#2
-  ,'P'#3'top'#3#160#1#0#0#11'TFontDialog'#11'FontDialog1'#11'MinFontSize'#2#0#11
+  +'P'#3'top'#3#160#1#0#0#11'TFontDialog'#11'FontDialog1'#11'MinFontSize'#2#0#11
   +'MaxFontSize'#2#0#4'left'#2'0'#3'top'#3#160#1#0#0#0
 ]);

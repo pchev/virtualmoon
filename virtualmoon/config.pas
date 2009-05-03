@@ -41,6 +41,7 @@ type
     Button1: TButton;
     BumpCheckBox: TCheckBox;
     Button5: TButton;
+    CheckBox4: TCheckBox;
     ColorDialog1: TColorDialog;
     FontDialog1: TFontDialog;
     LabelFont: TLabel;
