@@ -1,6 +1,6 @@
 unit vmabrowser5;
 
-{$MODE Delphi}
+{$MODE Delphi}{$H+}
 
 {
 Copyright (C) 2006 Patrick Chevalley

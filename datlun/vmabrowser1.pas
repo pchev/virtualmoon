@@ -1,6 +1,6 @@
 unit vmabrowser1;
 
-{$MODE Delphi}
+{$MODE Delphi}{$H+}
 
 {
 Copyright (C) 2006 Patrick Chevalley
@@ -38,7 +38,7 @@ const
   nummessage = 30;
   numdb=6;
   numdbtype = 25;
-  Splashversion ='Version 4 2008-03-02';
+  Splashversion ='Version 5 beta 2009-05-03';
   versionname='DATLUN';
 
 type

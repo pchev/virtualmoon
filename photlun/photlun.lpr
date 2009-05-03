@@ -11,10 +11,6 @@ uses
   { add your units here }, pu_photlun, zoomimage, pu_photo, u_translation, uniqueinstance_package,
   pu_config;
 
-
-
-
-
 begin
   Application.Initialize;
   Application.CreateForm(Tf_photlun, f_photlun);

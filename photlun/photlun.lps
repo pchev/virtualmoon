@@ -7,9 +7,11 @@
         <Filename Value="photlun.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="photlun"/>
-        <CursorPos X="41" Y="21"/>
+        <CursorPos X="1" Y="13"/>
         <TopLine Value="1"/>
+        <EditorIndex Value="2"/>
         <UsageCount Value="60"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="pu_photlun.pas"/>
@@ -17,8 +19,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photlun"/>
-        <CursorPos X="55" Y="702"/>
-        <TopLine Value="682"/>
+        <CursorPos X="38" Y="1019"/>
+        <TopLine Value="1008"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="60"/>
         <Loaded Value="True"/>
@@ -31,7 +33,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photo"/>
         <CursorPos X="41" Y="24"/>
-        <TopLine Value="9"/>
+        <TopLine Value="1"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="36"/>
         <Loaded Value="True"/>
@@ -40,14 +42,23 @@
         <Filename Value="u_translation.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_translation"/>
+        <CursorPos X="31" Y="6"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="4"/>
         <UsageCount Value="20"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="pu_config.pas"/>
         <ComponentName Value="f_config"/>
         <IsPartOfProject Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_config"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="3"/>
         <UsageCount Value="20"/>
+        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="pu_vignette.pas"/>
@@ -387,7 +398,7 @@
     <General>
       <ActiveEditorIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="19" HistoryIndex="18">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
         <Filename Value="pu_photo.pas"/>
         <Caret Line="387" Column="1" TopLine="385"/>
@@ -464,6 +475,10 @@
         <Filename Value="pu_photlun.pas"/>
         <Caret Line="872" Column="55" TopLine="834"/>
       </Position19>
+      <Position20>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="26" Column="33" TopLine="19"/>
+      </Position20>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

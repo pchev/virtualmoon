@@ -599,7 +599,8 @@ const
 
   function ReadStr(s, k, def: string): string;  // utf-8 translation
   begin
-    Result := UTF8Encode(inifile.ReadString(s, k, def));
+//    Result := UTF8Encode(inifile.ReadString(s, k, def));
+    Result := inifile.ReadString(s, k, def);
   end;
 
 begin

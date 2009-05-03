@@ -3,20 +3,19 @@ object Columns: TColumns
   Height = 416
   Top = 211
   Width = 319
-  HorzScrollBar.Page = 318
-  VertScrollBar.Page = 415
   ActiveControl = CheckListBox1
   Caption = 'Columns'
   ClientHeight = 416
   ClientWidth = 319
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
+  LCLVersion = '0.9.27'
   object CheckListBox1: TCheckListBox
     Left = 8
     Height = 360
     Top = 8
     Width = 152
-    ItemHeight = 13
+    ItemHeight = 0
     OnItemClick = CheckListBox1ItemClick
     TabOrder = 0
   end
@@ -56,7 +55,7 @@ object Columns: TColumns
     Height = 360
     Top = 8
     Width = 152
-    ItemHeight = 13
+    ItemHeight = 0
     TabOrder = 4
   end
 end
