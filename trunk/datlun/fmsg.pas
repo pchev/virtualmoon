@@ -1,6 +1,6 @@
 unit fmsg;
 
-{$MODE Delphi}
+{$MODE Delphi}{$H+}
 
 {
 Copyright (C) 2003 Patrick Chevalley

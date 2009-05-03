@@ -1016,7 +1016,7 @@ end;
 
 procedure Tf_photlun.MenuItem15Click(Sender: TObject);
 begin
-  Showmessage('Photlun version 1.0'+crlf+
+  Showmessage('Photlun version 5 beta'+crlf+
               'http://astrosurf.com/avl'+crlf+
               'Copyright (C) 2008 Christian Legrand, Patrick Chevalley'+crlf+crlf+
               'Conception : Christian Legrand'+crlf+

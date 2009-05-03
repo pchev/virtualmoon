@@ -25,7 +25,7 @@
       <local>
         <FormatVersion Value="1"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\home\pch\vma\bin"/>
+        <WorkingDirectory Value="C:\appli\virtualmoon"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -55,6 +55,7 @@
         <ComponentName Value="MsgForm"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="fmsg"/>
       </Unit2>
       <Unit3>
@@ -67,6 +68,7 @@
         <ComponentName Value="SelectDB"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser5"/>
       </Unit4>
       <Unit5>
@@ -74,6 +76,7 @@
         <ComponentName Value="LoadCSV"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser4"/>
       </Unit5>
       <Unit6>
@@ -81,6 +84,7 @@
         <ComponentName Value="Columns"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser3"/>
       </Unit6>
       <Unit7>
@@ -88,6 +92,7 @@
         <ComponentName Value="Selection"/>
         <HasResources Value="True"/>
         <IsPartOfProject Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser2"/>
       </Unit7>
       <Unit8>

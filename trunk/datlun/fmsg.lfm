@@ -1,10 +1,8 @@
 object MsgForm: TMsgForm
   Left = 227
-  Height = 49
+  Height = 66
   Top = 106
-  Width = 265
-  HorzScrollBar.Page = 264
-  VertScrollBar.Page = 48
+  Width = 282
   AutoSize = True
   BorderIcons = []
   BorderStyle = bsNone
@@ -16,8 +14,11 @@ object MsgForm: TMsgForm
   Font.Name = 'MS Sans Serif'
   FormStyle = fsStayOnTop
   Position = poScreenCenter
+  LCLVersion = '0.9.27'
   object Panel1: TPanel
+    Left = 0
     Height = 49
+    Top = 0
     Width = 265
     ClientHeight = 49
     ClientWidth = 265

@@ -3,9 +3,6 @@ object LoadCSV: TLoadCSV
   Height = 540
   Top = 125
   Width = 696
-  HorzScrollBar.Page = 695
-  VertScrollBar.Page = 539
-  ActiveControl = StringGrid1
   Caption = 'LoadCSV'
   ClientHeight = 540
   ClientWidth = 696
@@ -14,8 +11,11 @@ object LoadCSV: TLoadCSV
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
+  LCLVersion = '0.9.27'
   object PageControl1: TPageControl
+    Left = 0
     Height = 540
+    Top = 0
     Width = 696
     ActivePage = TabSheet1
     Align = alClient
@@ -110,14 +110,14 @@ object LoadCSV: TLoadCSV
         Height = 21
         Top = 48
         Width = 65
-        AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+        AutoComplete = False
         ItemHeight = 13
         ItemIndex = 0
         Items.Strings = (
           ';'
           'TAB'
         )
-        MaxLength = 0
+        ItemWidth = 0
         OnChange = Edit1Change
         TabOrder = 0
         Text = ';'
@@ -127,20 +127,21 @@ object LoadCSV: TLoadCSV
         Height = 21
         Top = 96
         Width = 65
-        AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+        AutoComplete = False
         ItemHeight = 13
         ItemIndex = 0
         Items.Strings = (
           ''
           '"'
         )
-        MaxLength = 0
+        ItemWidth = 0
         OnChange = Edit1Change
         TabOrder = 1
       end
       object memo2: TMemo
         Left = 280
         Height = 481
+        Top = 0
         Width = 401
         Color = clBtnFace
         ReadOnly = True
@@ -167,6 +168,7 @@ object LoadCSV: TLoadCSV
       object Bevel6: TBevel
         Left = 352
         Height = 481
+        Top = 0
         Width = 17
         Shape = bsLeftLine
       end
@@ -215,19 +217,19 @@ object LoadCSV: TLoadCSV
         Width = 320
         ColCount = 2
         DefaultColWidth = 157
-        FixedColor = clBtnFace
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected]
         RowCount = 2
         ScrollBars = ssVertical
         TabOrder = 0
-        TabStop = True
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
       end
       object CheckListBox1: TCheckListBox
         Left = 384
         Height = 369
         Top = 60
         Width = 289
-        ItemHeight = 13
+        ItemHeight = 0
         OnClick = CheckListBox1Click
         TabOrder = 1
       end
@@ -344,9 +346,20 @@ object LoadCSV: TLoadCSV
     end
   end
   object dbu: TLiteDB
+    Active = False
+    DllLoaded = False
+    UniCode = False
+    CallBackOnly = False
     FetchMemoryLimit = 33554432
     ResultSet = 'default'
     ThreadSafe = True
+    SQLiteVersion = svAuto
+    PragmasBoolean = []
+    PragmaCacheSize = 0
+    PragmaDefaultCacheSize = 0
+    PragmaPagesize = 0
+    PragmaSynchronous = spOff
+    PragmaTempStore = tpDefault
     left = 640
     top = 32
   end

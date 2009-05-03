@@ -24,7 +24,7 @@
       <local>
         <FormatVersion Value="1"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\home\pch\vma\bin"/>
+        <WorkingDirectory Value="C:\appli\virtualmoon"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -68,6 +68,7 @@
         <Filename Value="pu_config.pas"/>
         <ComponentName Value="f_config"/>
         <IsPartOfProject Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_config"/>
       </Unit4>
     </Units>
