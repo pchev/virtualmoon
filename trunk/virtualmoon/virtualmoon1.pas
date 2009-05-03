@@ -452,7 +452,7 @@ type
     editrow, notesrow, rotdirection, searchpos: integer;
     dbedited: boolean;
     SkipIdent, wantbump, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
-    minilabel: boolean;
+    minilabel, shortdesc: boolean;
     lockmove, lockrepeat, showlibrationmark, saveimagewhite, skipresize: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
@@ -462,6 +462,8 @@ type
     appname, pofile: string;
     multi_instance, CloseVMAbrowser, ClosePhotlun, CloseCdC: boolean;
     m: array[1..nummessage] of string;
+    num_bl: integer;
+    bldb: array[1..20] of string;
     CameraOrientation, PoleOrientation, startl, startb, startxx, startyy: double;
     curx, cury: double;
     LabelDensity, overlaytr, phaseoffset: integer;
@@ -831,6 +833,11 @@ begin
     begin
       m[i] := ReadStr(section, 'm_' + trim(IntToStr(i)), deftxt);
     end;
+    num_bl:=ReadInteger(section, 'b_0', 0);
+    for i := 1 to num_bl do
+    begin
+      bldb[i] := ReadStr(section, 'b_' + trim(IntToStr(i)), deftxt);
+    end;
   end;
   inifile.Free;
   if gloss <> nil then
@@ -942,6 +949,7 @@ begin
   markcolor := clRed;
   autolabelcolor := clWhite;
   labelcenter := True;
+  shortdesc:=false;
   minilabel := True;
   showlabel := True;
   showmark := True;
@@ -1048,6 +1056,7 @@ begin
     labelcenter  := ReadBool(section, 'LabelCenter', labelcenter);
     minilabel    := ReadBool(section, 'MiniLabel', minilabel);
     FollowNorth  := ReadBool(section, 'FollowNorth', FollowNorth);
+    shortdesc  := ReadBool(section, 'shortdesc', shortdesc);
     CheckBox2.Checked := ReadBool(section, 'Mirror', False);
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
@@ -1199,6 +1208,7 @@ begin
       WriteInteger(section, 'MarkSize', marksize);
       WriteBool(section, 'LabelCenter', labelcenter);
       WriteBool(section, 'MiniLabel', minilabel);
+      WriteBool(section, 'shortdesc', shortdesc);
       WriteBool(section, 'FollowNorth', FollowNorth);
       WriteBool(section, 'Mirror', CheckBox2.Checked);
       WriteFloat(section, 'PoleOrientation', PoleOrientation);
@@ -1849,9 +1859,20 @@ var
   ok:   boolean;
   i, j: integer;
   function GetField(fn:string):string;
+  var k: integer;
   begin
-    result:=row.ByField[fn].AsString;
-//    result:=UTF8Encode(row.ByField[fn].AsString);
+    result:=trim(row.ByField[fn].AsString);
+    if shortdesc then begin
+      if result='?' then result:='';
+      if result='??' then result:='';
+      if result>'' then
+        for k := 1 to num_bl do
+        begin
+          if result=bldb[k] then result:='';
+        end;
+    end
+    else
+      result:=result+' ';
   end;
 begin
   nom := GetField('NAME');
@@ -1866,16 +1887,19 @@ begin
     memo.Lines.Add(buf);
   end;
   memo.Lines.Add(m[56] + b + GetField('TYPE'));
-  memo.Lines.Add(m[49] + b + GetField('PERIOD'));
-  memo.Lines.Add(m[57]); //Taille
-  memo.Lines.Add(m[17] + b + GetField('LENGTHKM') + 'x' +
-    GetField('WIDEKM') + m[18] + b + '/' + b + GetField('LENGTHMI') +
-    'x' + GetField('WIDEMI') + m[19]);
+  if (GetField('PERIOD'))>'' then
+     memo.Lines.Add(m[49] + b + GetField('PERIOD'));
+
+  //Taille
+  if (GetField('LENGTHKM')>'')or(GetField('WIDEKM')>'')or(GetField('LENGTHMI')>'')or(GetField('WIDEMI')>'') then
+     memo.Lines.Add(m[57]); //Taille
+  if (GetField('LENGTHKM')>'')or(GetField('WIDEKM')>'')or(GetField('LENGTHMI')>'')or(GetField('WIDEMI')>'') then
+     memo.Lines.Add(m[17] + b + GetField('LENGTHKM') + 'x' +
+                    GetField('WIDEKM') + m[18] + b + '/' + b + GetField('LENGTHMI') +
+                    'x' + GetField('WIDEMI') + m[19]);
   buf  := GetField('HEIGHTM');
   buf2 := GetField('HEIGHTFE');
-  if buf = buf2 then
-    txt := m[20] + b + buf  // inconnue
-  else
+  if buf<>buf2 then
   begin
     txt := m[20] + b;
     val(buf, dummy, i);
@@ -1884,10 +1908,14 @@ begin
     val(buf2, dummy, i);
     if i = 0 then
       txt := txt + buf2 + m[22];
+    memo.Lines.Add(txt);
   end;
-  memo.Lines.Add(txt);
-  memo.Lines.Add(m[23] + b + GetField('RAPPORT'));
-  memo.Lines.Add(m[58]); //Description
+  if (GetField('RAPPORT'))>'' then
+     memo.Lines.Add(m[23] + b + GetField('RAPPORT'));
+
+  //Description
+  if (GetField('GENERAL')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
+     memo.Lines.Add(m[58]); //Description
   if GetField('GENERAL') > '' then
     memo.Lines.Add(GetField('GENERAL'));
   if GetField('SLOPES') > '' then
@@ -1896,23 +1924,44 @@ begin
     memo.Lines.Add(GetField('WALLS'));
   if GetField('FLOOR') > '' then
     memo.Lines.Add(GetField('FLOOR'));
-  memo.Lines.Add(m[59]); //Observation
-  memo.Lines.Add(m[24] + b + GetField('INTERESTC'));
+
+  //Observation
+  if (GetField('INTERESTC')>'')or(GetField('MOONDAYS')>'')or(GetField('MOONDAYM')>'')or(GetField('PRINSTRU')>'') then
+     memo.Lines.Add(m[59]); //Observation
+  if GetField('INTERESTC') > '' then
+     memo.Lines.Add(m[24] + b + GetField('INTERESTC'));
   buf  := GetField('MOONDAYS');
   buf2 := GetField('MOONDAYM');
-  if buf = buf2 then
-    txt := m[25] + b + buf
-  else
-    txt := m[25] + b + buf + b + m[26] + b + buf2;
-  memo.Lines.Add(txt);
-  memo.Lines.Add(m[28] + b + GetField('PRINSTRU'));
-  memo.Lines.Add(m[60]); //Position
-  memo.Lines.Add(m[10] + b + GetField('LONGIC'));
-  memo.Lines.Add(m[11] + b + GetField('LATIC'));
-  memo.Lines.Add(m[12] + b + GetField('QUADRANT'));
-  memo.Lines.Add(m[13] + b + GetField('AREA'));
-  memo.Lines.Add(m[61]); //Atlas
-  memo.Lines.Add(m[14] + b + GetField('RUKL') + ' ' + GetField('RUKLC'));
+  if (buf+buf2)>'' then begin
+    if buf = buf2 then
+      txt := m[25] + b + buf
+    else
+      txt := m[25] + b + buf + b + m[26] + b + buf2;
+    memo.Lines.Add(txt);
+  end;
+  if GetField('PRINSTRU') > '' then
+     memo.Lines.Add(m[28] + b + GetField('PRINSTRU'));
+
+  if (GetField('LONGIC')>'')or(GetField('LATIC')>'')or(GetField('QUADRANT')>'')or(GetField('AREA')>'') then
+     memo.Lines.Add(m[60]); //Position
+  if GetField('LONGIC') > '' then
+     memo.Lines.Add(m[10] + b + GetField('LONGIC'));
+  if GetField('LATIC') > '' then
+     memo.Lines.Add(m[11] + b + GetField('LATIC'));
+  if GetField('QUADRANT') > '' then
+     memo.Lines.Add(m[12] + b + GetField('QUADRANT'));
+  if GetField('AREA') > '' then
+     memo.Lines.Add(m[13] + b + GetField('AREA'));
+
+  //Atlas
+  dblox.Gofirst;
+  ok := dblox.MatchData('NAME', '=', nom);
+  if not ok then
+    ok := dblox.SeekData('NAME', '=', nom);
+  if ok or (GetField('RUKL')>'')or(GetField('RUKLC')>'')or(GetField('VISCARDY')>'')or(GetField('HATFIELD')>'')or(GetField('WESTFALL')>'')or(GetField('WOOD')>'') then
+     memo.Lines.Add(m[61]); //Atlas
+if (GetField('RUKL')>'')or(GetField('RUKLC')>'') then
+     memo.Lines.Add(m[14] + b + GetField('RUKL') + ' ' + GetField('RUKLC'));
   buf := GetField('VISCARDY');
   if trim(buf) > '' then
     memo.Lines.Add(m[15] + b + buf);
@@ -1925,10 +1974,6 @@ begin
   buf := GetField('WOOD');
   if trim(buf) > '' then
     memo.Lines.Add(m[72] + b + buf);
-  dblox.Gofirst;
-  ok := dblox.MatchData('NAME', '=', nom);
-  if not ok then
-    ok := dblox.SeekData('NAME', '=', nom);
   if ok then
   begin
     buf := m[65];
@@ -1940,8 +1985,11 @@ begin
     end;
     memo.Lines.Add(buf);
   end;
+
+  //Origine
   memo.Lines.Add(m[62]); //Origine
-  memo.Lines.Add(m[63] + b + GetField('NAMEDETAIL'));
+  if GetField('NAMEDETAIL') > '' then
+     memo.Lines.Add(m[63] + b + GetField('NAMEDETAIL'));
   if (trim(GetField('WORK') + GetField('NATIONLITY')) > '') and
     (trim(GetField('CENTURYC') + GetField('COUNTRY')) > '') then
   begin
@@ -1961,13 +2009,16 @@ begin
     memo.Lines.Add(m[5] + b + GetField('DEATHPLACE') + b + m[4] +
       b + GetField('DEATHDATE'));
   end;
-  if (trim(GetField('FACTS')) <> '??') and
-    (trim(GetField('FACTS')) <> '') then
+  if GetField('FACTS')>'' then
     memo.Lines.Add(m[64] + b + GetField('FACTS'));
-  memo.Lines.Add(m[6] + b + GetField('NAMEORIGIN'));
-  memo.Lines.Add(m[7] + b + GetField('LANGRENUS'));
-  memo.Lines.Add(m[8] + b + GetField('HEVELIUS'));
-  memo.Lines.Add(m[9] + b + GetField('RICCIOLI'));
+  if GetField('NAMEORIGIN')>'' then
+     memo.Lines.Add(m[6] + b + GetField('NAMEORIGIN'));
+  if GetField('LANGRENUS')>'' then
+     memo.Lines.Add(m[7] + b + GetField('LANGRENUS'));
+  if GetField('HEVELIUS')>'' then
+     memo.Lines.Add(m[8] + b + GetField('HEVELIUS'));
+  if GetField('RICCIOLI')>'' then
+     memo.Lines.Add(m[9] + b + GetField('RICCIOLI'));
 end;
 
 procedure TForm1.GetHTMLDetail(row: TResultRow; var txt: string);
@@ -1980,13 +2031,24 @@ const
   t3    = '<b>';
   t3end = '</b>';
 var
-  nom, carte, url, img, remoteurl, buf, buf2: string;
+  nom, carte, url, img, remoteurl, txtbuf, buf, buf2: string;
   ok:   boolean;
   i, j: integer;
   function GetField(fn:string):string;
+  var k: integer;
   begin
-    result:=row.ByField[fn].AsString;
-//    result:=UTF8Encode(row.ByField[fn].AsString);
+    result:=trim(row.ByField[fn].AsString);
+    if shortdesc then begin
+      if result='?' then result:='';
+      if result='??' then result:='';
+      if result>'' then
+        for k := 1 to num_bl do
+        begin
+          if result=bldb[k] then result:='';
+        end;
+    end
+    else
+      result:=result+' ';
   end;
 begin
   txt := '<html> <body bgcolor="white">';
@@ -2005,56 +2067,77 @@ begin
         txt := txt + form2.CheckListBox1.Items[j] + '<br>';
   end;
   txt  := txt + t3 + m[56] + t3end + b + GetField('TYPE') + '<br>';
-  txt  := txt + t3 + m[49] + t3end + b + GetField('PERIOD') + '<br>';
+  if (GetField('PERIOD'))>'' then
+     txt  := txt + t3 + m[49] + t3end + b + GetField('PERIOD') + '<br>';
   txt  := txt + b + '<br>';
-  txt  := txt + t2 + m[57] + t2end + '<br>'; //Taille
-  txt  := txt + t3 + m[17] + t3end + b + GetField('LENGTHKM') + 'x' +
-    GetField('WIDEKM') + m[18] + b + '/' + b + GetField('LENGTHMI') +
-    'x' + GetField('WIDEMI') + m[19] + '<br>';
+
+  //Taille
+  txtbuf:='';
+  if (GetField('LENGTHKM')>'')or(GetField('WIDEKM')>'')or(GetField('LENGTHMI')>'')or(GetField('WIDEMI')>'') then
+     txtbuf  := txtbuf + t3 + m[17] + t3end + b + GetField('LENGTHKM') + 'x' +
+             GetField('WIDEKM') + m[18] + b + '/' + b + GetField('LENGTHMI') +
+             'x' + GetField('WIDEMI') + m[19] + '<br>';
   buf  := GetField('HEIGHTM');
   buf2 := GetField('HEIGHTFE');
-  if buf = buf2 then
-    txt := txt + t3 + m[20] + t3end + b + buf + '<br>'  // inconnue
-  else
-  begin
-    txt := txt + t3 + m[20] + t3end + b;
+  if buf <> buf2 then begin
+    txtbuf := txtbuf + t3 + m[20] + t3end + b;
     val(buf, dummy, i);
     if i = 0 then
-      txt := txt + buf + m[21] + b + '/' + b;
+      txtbuf := txtbuf + buf + m[21] + b + '/' + b;
     val(buf2, dummy, i);
     if i = 0 then
-      txt := txt + buf2 + m[22];
-    txt   := txt + '<br>';
+      txtbuf := txtbuf + buf2 + m[22];
+    txtbuf   := txtbuf + '<br>';
+    if (GetField('RAPPORT'))>'' then
+       txtbuf := txtbuf + t3 + m[23] + t3end + b + GetField('RAPPORT') + '<br>';
   end;
-  txt := txt + t3 + m[23] + t3end + b + GetField('RAPPORT') + '<br>';
-  txt := txt + b + '<br>';
-  txt := txt + t2 + m[58] + t2end + '<br>'; //Description
+  if txtbuf>'' then
+     txt  := txt + t2 + m[57] + t2end + '<br>'+txtbuf+ b + '<br>'; //Taille
+
+  //Description
+  txtbuf:='';
   if GetField('GENERAL') > '' then
-    txt := txt + GetField('GENERAL') + '<br>';
+    txtbuf := txtbuf + GetField('GENERAL') + '<br>';
   if GetField('SLOPES') > '' then
-    txt := txt + GetField('SLOPES') + '<br>';
+    txtbuf := txtbuf + GetField('SLOPES') + '<br>';
   if GetField('WALLS') > '' then
-    txt := txt + GetField('WALLS') + '<br>';
+    txtbuf:= txtbuf + GetField('WALLS') + '<br>';
   if GetField('FLOOR') > '' then
-    txt := txt + GetField('FLOOR') + '<br>';
-  txt   := txt + b + '<br>';
-  txt   := txt + t2 + m[59] + t2end + '<br>'; //Observation
-  txt   := txt + t3 + m[24] + t3end + b + GetField('INTERESTC') + '<br>';
+    txtbuf := txtbuf + GetField('FLOOR') + '<br>';
+  if txtbuf>'' then
+    txt := txt + t2 + m[58] + t2end + '<br>'+txtbuf+b + '<br>'; //Description
+
+  //Observation
+  txtbuf:='';
+  if GetField('INTERESTC') > '' then
+     txtbuf   := txtbuf + t3 + m[24] + t3end + b + GetField('INTERESTC') + '<br>';
   buf   := GetField('MOONDAYS');
   buf2  := GetField('MOONDAYM');
-  if buf = buf2 then
-    txt := txt + t3 + m[25] + t3end + b + buf + '<br>'
-  else
-    txt := txt + t3 + m[25] + t3end + b + buf + b + m[26] + b + buf2 + '<br>';
-  txt := txt + t3 + m[28] + t3end + b + GetField('PRINSTRU') + '<br>';
-  txt   := txt + b + '<br>';
-  txt   := txt + t2 + m[60] + t2end + '<br>'; //Position
-  txt   := txt + t3 + m[10] + t3end + b + GetField('LONGIC') + '<br>';
-  txt   := txt + t3 + m[11] + t3end + b + GetField('LATIC') + '<br>';
-  txt   := txt + t3 + m[12] + t3end + b + GetField('QUADRANT') + '<br>';
-  txt   := txt + t3 + m[13] + t3end + b + GetField('AREA') + '<br>';
-  txt   := txt + b + '<br>';
-  txt   := txt + t2 + m[61] + t2end + '<br>'; //Atlas
+  if (buf+buf2)>'' then
+    if buf = buf2 then
+      txtbuf := txtbuf + t3 + m[25] + t3end + b + buf + '<br>'
+    else
+      txtbuf := txtbuf + t3 + m[25] + t3end + b + buf + b + m[26] + b + buf2 + '<br>';
+  if GetField('PRINSTRU') > '' then
+     txtbuf := txtbuf + t3 + m[28] + t3end + b + GetField('PRINSTRU') + '<br>';
+  if txtbuf>'' then
+     txt   := txt + t2 + m[59] + t2end + '<br>'+txtbuf+b + '<br>'; //Observation
+
+  //Position
+  txtbuf:='';
+  if GetField('LONGIC') > '' then
+     txtbuf   := txtbuf + t3 + m[10] + t3end + b + GetField('LONGIC') + '<br>';
+  if GetField('LATIC') > '' then
+     txtbuf   := txtbuf + t3 + m[11] + t3end + b + GetField('LATIC') + '<br>';
+  if GetField('QUADRANT') > '' then
+     txtbuf   := txtbuf + t3 + m[12] + t3end + b + GetField('QUADRANT') + '<br>';
+  if GetField('AREA') > '' then
+     txtbuf   := txtbuf + t3 + m[13] + t3end + b + GetField('AREA') + '<br>';
+  if txtbuf>'' then
+     txt   := txt + t2 + m[60] + t2end + '<br>'+txtbuf+b + '<br>'; //Position
+
+  //Atlas
+  txtbuf:='';
   // RUKL link
   carte := GetField('RUKL') + ' ' + GetField('RUKLC');
   img   := padzeros(GetField('RUKL'), 2);
@@ -2063,22 +2146,23 @@ begin
     url := ' <A HREF="file://' + url + '">' + carte + '</A>'
   else
     url := carte;
-  txt := txt + t3 + m[14] + t3end + b + url + '<br>';
+  if trim(url)>'' then
+     txtbuf := txtbuf + t3 + m[14] + t3end + b + url + '<br>';
   buf := GetField('VISCARDY');
   if trim(buf) > '' then
-    txt := txt + t3 + m[15] + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + m[15] + t3end + b + buf + '<br>';
   buf   := GetField('HATFIELD');
   if trim(buf) > '' then
-    txt := txt + t3 + m[16] + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + m[16] + t3end + b + buf + '<br>';
   buf   := GetField('WESTFALL');
   if trim(buf) > '' then
-    txt := txt + t3 + m[66] + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + m[66] + t3end + b + buf + '<br>';
   buf   := GetField('WOOD');
   if trim(buf) > '' then
-    txt := txt + t3 + m[72] + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + m[72] + t3end + b + buf + '<br>';
   if ok then
   begin
-    txt := txt + t3 + m[65] + t3end;
+    txtbuf := txtbuf + t3 + m[65] + t3end;
     while ok do
     begin
       carte := dblox.GetDATA('PLATE');
@@ -2118,51 +2202,66 @@ begin
       begin
         url := lopamplateurl + carte + lopamplatesuffix;
       end;
-      txt := txt + b + ' <A HREF="' + url + '">' + carte + '</A>';
+      txtbuf := txtbuf + b + ' <A HREF="' + url + '">' + carte + '</A>';
       ok  := dblox.SeekData('NAME', '=', nom);
     end;
-    txt := txt + '<br>';
+    txtbuf := txtbuf + '<br>';
   end;
-  txt := txt + b + '<br>';
-  txt := txt + t2 + m[62] + t2end + '<br>'; //Origine
-  txt := txt + t3 + m[63] + t3end + b + GetField('NAMEDETAIL') + '<br>';
+  if txtbuf>'' then
+     txt   := txt + t2 + m[61] + t2end + '<br>'+txtbuf+b + '<br>'; //Atlas
+
+  //Origine
+  txtbuf:='';
+  if GetField('NAMEDETAIL') > '' then
+     txtbuf := txtbuf + t3 + m[63] + t3end + b + GetField('NAMEDETAIL') + '<br>';
   if (trim(GetField('WORK') + GetField('NATIONLITY')) > '') and
     (trim(GetField('CENTURYC') + GetField('COUNTRY')) > '') then
   begin
     case wordformat of
-      0: txt := txt + GetField('CENTURYC') + b + GetField('NATIONLITY') +
+      0: txtbuf := txtbuf + GetField('CENTURYC') + b + GetField('NATIONLITY') +
           b + GetField('WORK') + b + m[2] + b + GetField('COUNTRY') + '<br>';
       // english
-      1: txt := txt + GetField('WORK') + b + GetField('NATIONLITY') +
+      1: txtbuf := txtbuf + GetField('WORK') + b + GetField('NATIONLITY') +
           b + m[1] + b + GetField('CENTURYC') + b + m[2] + b +
           GetField('COUNTRY') + '<br>';
       // francais, italian
-      2: txt := txt + GetField('NATIONLITY') + b + GetField('WORK') +
+      2: txtbuf := txtbuf + GetField('NATIONLITY') + b + GetField('WORK') +
           b + GetField('CENTURYC') + b + m[2] + b + GetField('COUNTRY') + '<br>';
       // russian
     end;
-    txt := txt + t3 + m[3] + t3end + b + GetField('BIRTHPLACE') + b +
-      m[4] + b + GetField('BIRTHDATE') + '<br>';
-    txt := txt + t3 + m[5] + t3end + b + GetField('DEATHPLACE') + b +
-      m[4] + b + GetField('DEATHDATE') + '<br>';
+    if (GetField('BIRTHPLACE')>'')or((GetField('BIRTHDATE')>'')) then
+       txtbuf := txtbuf + t3 + m[3] + t3end + b + GetField('BIRTHPLACE') + b +
+                 m[4] + b + GetField('BIRTHDATE') + '<br>';
+    if (GetField('DEATHPLACE')>'')or((GetField('DEATHDATE')>'')) then
+       txtbuf := txtbuf + t3 + m[5] + t3end + b + GetField('DEATHPLACE') + b +
+                 m[4] + b + GetField('DEATHDATE') + '<br>';
   end;
-  if (trim(GetField('FACTS')) <> '??') and
-    (trim(GetField('FACTS')) <> '') then
-    txt := txt + t3 + m[64] + t3end + b + GetField('FACTS') + '<br>';
-  txt   := txt + t3 + m[6] + t3end + b + GetField('NAMEORIGIN') + '<br>';
-  txt   := txt + t3 + m[7] + t3end + b + GetField('LANGRENUS') + '<br>';
-  txt   := txt + t3 + m[8] + t3end + b + GetField('HEVELIUS') + '<br>';
-  txt   := txt + t3 + m[9] + t3end + b + GetField('RICCIOLI') + '<br>';
-  txt   := txt + b + '<br>';
+  if GetField('FACTS')<>'' then
+     txtbuf := txtbuf + t3 + m[64] + t3end + b + GetField('FACTS') + '<br>';
+  if GetField('NAMEORIGIN')<>'' then
+     txtbuf   := txtbuf + t3 + m[6] + t3end + b + GetField('NAMEORIGIN') + '<br>';
+  if GetField('LANGRENUS')<>'' then
+     txtbuf   := txtbuf + t3 + m[7] + t3end + b + GetField('LANGRENUS') + '<br>';
+  if GetField('HEVELIUS')<>'' then
+     txtbuf   := txtbuf + t3 + m[8] + t3end + b + GetField('HEVELIUS') + '<br>';
+  if GetField('RICCIOLI')<>'' then
+     txtbuf   := txtbuf + t3 + m[9] + t3end + b + GetField('RICCIOLI') + '<br>';
+  if txtbuf>'' then
+     txt := txt + t2 + m[62] + t2end + '<br>'+txtbuf+ b + '<br>'; //Origine
+
   txt   := txt + '</body></html>';
-  Label7.Caption := GetField('PROFIL');
-  Label7.Font.Size := 8;
-  Label7.Left := 8;
-  Label7.Top := 8;
-  while (Label7.Font.Size > 3) and (Label7.Width > GroupBox1.ClientWidth) do
-    Label7.Font.Size := Label7.Font.Size - 1;
-  Label7.Left := (GroupBox1.ClientWidth - Label7.Width) div 2;
-  Label7.Top  := (GroupBox1.ClientHeight - Label7.Height + 4) div 2;
+  if copy(GetField('PROFIL'),1,2)='A_' then begin
+    Label7.Caption := GetField('PROFIL');
+    Label7.Font.Size := 8;
+    Label7.Left := 8;
+    Label7.Top := 8;
+    while (Label7.Font.Size > 3) and (Label7.Width > GroupBox1.ClientWidth) do
+      Label7.Font.Size := Label7.Font.Size - 1;
+    Label7.Left := (GroupBox1.ClientWidth - Label7.Width) div 2;
+    Label7.Top  := (GroupBox1.ClientHeight - Label7.Height + 4) div 2;
+  end
+  else
+    Label7.Caption := '';
   statusbar1.Panels[0].Text := m[10] + GetField('LONGIN');
   statusbar1.Panels[1].Text := m[11] + GetField('LATIN');
   Addtolist(nom);
@@ -3164,6 +3263,7 @@ begin
     form2.checkbox14.Checked := showlibrationmark;
     form2.checkbox17.Checked := labelcenter;
     form2.checkbox18.Checked := minilabel;
+    form2.CheckBox4.Checked := shortdesc;
     form2.Shape1.Brush.Color := marklabelcolor;
     form2.Shape2.Brush.Color := markcolor;
     form2.Shape3.Brush.Color := autolabelcolor;
@@ -3246,6 +3346,7 @@ begin
       showlibrationmark := form2.checkbox14.Checked;
       labelcenter   := form2.checkbox17.Checked;
       minilabel     := form2.checkbox18.Checked;
+      shortdesc := form2.CheckBox4.Checked;
       moon1.LabelFont:=form2.FontDialog1.Font;
       moon1.Labelcolor:=autolabelcolor;
       Obslatitude := strtofloat(form2.Edit1.Text);
