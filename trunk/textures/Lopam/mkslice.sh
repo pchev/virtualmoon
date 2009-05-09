@@ -26,8 +26,6 @@ convert RS0.jpg +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quali
 convert RS9.jpg +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L3/2000%d.jpg
 rm R[0-9].png RS[0-9].jpg
 
-exit
-
 echo L4
 mkdir L4
 # 40000x20000

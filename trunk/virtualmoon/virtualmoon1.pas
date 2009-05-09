@@ -2860,8 +2860,8 @@ begin
   end;
   if librationeffect and moon1.VisibleSideLock then
   begin
-    moon1.LibrLat := librb;
-    moon1.LibrLon := -librl;
+    moon1.LibrLat := deg2rad*librb;
+    moon1.LibrLon := -deg2rad*librl;
   end
   else  begin
     moon1.LibrLat := 0;
@@ -3337,6 +3337,7 @@ begin
         texturefile := form2.texturefn;
         reload := True;
       end;
+      if wantbump<>form2.BumpCheckBox.Checked then reload:=true;
       wantbump := form2.BumpCheckBox.Checked;
       ruklprefix    := form2.ruklprefix.Text;
       ruklsuffix    := form2.ruklsuffix.Text;

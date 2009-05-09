@@ -645,7 +645,7 @@ if FBumpOk and (value<>FBumpmap) then begin
   FBumpmap:=value;
   if FBumpmap then begin
     i:=MaxTextureSize div 1024;
-    if i>=8 then i:=4
+    if i>=8 then i:=8
     else if i>=4 then i:=4
     else if i>=2 then i:=2
     else i:=1;
@@ -654,7 +654,7 @@ if FBumpOk and (value<>FBumpmap) then begin
     GLSphereMoon.Material.MaterialLibrary:=BumpMaterialLibrary;
     GLSphereMoon.Material.LibMaterialName:='Bump';
     if GLBumpShader1.BumpMethod=bmBasicARBFP then
-       GLLightSource1.ConstAttenuation:=0.8
+       GLLightSource1.ConstAttenuation:=0.75
     else
        GLLightSource1.ConstAttenuation:=0.3;
     GLLightSource1.LightStyle:=lsSpot;
@@ -669,7 +669,6 @@ if FBumpOk and (value<>FBumpmap) then begin
     BumpMaterialLibrary.Materials[1].Material.Texture.Image.Assign(blankbmp);
     GLLightSource1.ConstAttenuation:=0.5;
     GLLightSource1.LightStyle:=lsParallel;
-    GLLightSource1.LightStyle:=lsSpot;
     maxzoom:=ZoomByZone[maxzone]*1.4;
   end;
   GLSceneViewer1.Refresh;
@@ -815,8 +814,8 @@ begin
    qr:=sqrt(x*x+y*y);
    if qr<>0 then begin
       la:=arctan(z/qr);
-      lat:=la+deg2rad*LibrLat*cos(lo);
-      lon:=lo-deg2rad*LibrLon+deg2rad*LibrLat*tan(lat)*sin(lo);
+      lat:=la+LibrLat*cos(lo);
+      lon:=lo-LibrLon+LibrLat*tan(lat)*sin(lo);
       result:=true;
    end else begin
       lat:=0;
@@ -861,14 +860,6 @@ try
 finally
   lock_Zoom:=false;
 end;
-end;
-
-procedure Tf_moon.RefreshAll;
-begin
-  ClearLabel;
-  if marked then SetMark(markl,markb,marktext);
-  RefreshTimer.Enabled:=false;
-  RefreshTimer.Enabled:=true;
 end;
 
 procedure Tf_moon.SetTexture(fn:string);
@@ -1176,6 +1167,15 @@ begin
   SetZoomLevel(GLCamera1.SceneScale*1.1);
 end;
 
+procedure Tf_moon.RefreshAll;
+begin
+  ClearLabel;
+  if marked then SetMark(markl,markb,marktext);
+  ShowLibrationMark;
+  RefreshTimer.Enabled:=false;
+  RefreshTimer.Enabled:=true;
+end;
+
 procedure Tf_moon.RefreshTimerTimer(Sender: TObject);
 begin
   RefreshTimer.Enabled:=false;
@@ -1264,12 +1264,12 @@ begin
   GLScene1.BeginUpdate;
   ResetMoon;
   if FShowPhase then begin
-    LibrationDummyCube.PitchAngle := FLibrLat;
-    LibrationDummyCube.TurnAngle := FLibrLon;
+    LibrationDummyCube.PitchAngle := rad2deg*FLibrLat;
+    LibrationDummyCube.TurnAngle := rad2deg*FLibrLon;
     LibrationDummyCube.up.x := 0;
   end else begin
-    GLSphereMoon.PitchAngle := FLibrLat;
-    GLSphereMoon.TurnAngle := FLibrLon;
+    GLSphereMoon.PitchAngle := rad2deg*FLibrLat;
+    GLSphereMoon.TurnAngle := rad2deg*FLibrLon;
     GLSphereMoon.up.x := 0;
   end;
   GLScene1.EndUpdate;
@@ -1547,8 +1547,8 @@ if VisibleSideLock then begin
      GLAnnulus1.Position.y := GLCamera1.Position.y;
   end;
 end else begin
-  sincos(lon+deg2rad*FLibrLon,sl,cl);
-  sincos(lat-deg2rad*FLibrLat,sb,cb);
+  sincos(lon+FLibrLon,sl,cl);
+  sincos(lat-FLibrLat,sb,cb);
   GLScene1.BeginUpdate;
   GLCamera1.BeginUpdate;
   GLCamera1.Position.x := -100*cb * sl;
@@ -1589,7 +1589,7 @@ begin
       Visible := True;
       a      := arctan2(FLibrLat, FLibrLon);
       x      := sqrt(FLibrLat * FLibrLat + FLibrLon * FLibrLon);
-      Height := x * 0.005 / zoom;
+      Height := x * 0.3 / zoom;
       position.X := (0.5 + Height / 1.5) * cos(a);
       position.Y := (0.5 + Height / 1.5) * sin(a);
       TopRadius := Height / 10;
@@ -1708,8 +1708,8 @@ begin
   end
   else
   begin
-    l      := deg2rad*LibrLon;
-    b      := deg2rad*LibrLat;
+    l      := LibrLon;
+    b      := LibrLat;
     deltab := pid2;
     deltal := pid2;
   end;
@@ -1770,6 +1770,9 @@ end;
 procedure Tf_moon.SetAmbientColor(value:TColor);
 begin
 GLLightSource1.Ambient.AsWinColor := value;
+GLSceneViewer1.Buffer.AmbientColor.Red := GLLightSource1.Ambient.Red / 10;
+GLSceneViewer1.Buffer.AmbientColor.Green := GLLightSource1.Ambient.Green / 10;
+GLSceneViewer1.Buffer.AmbientColor.Blue := GLLightSource1.Ambient.Blue / 10;
 end;
 
 function  Tf_moon.GetAmbientColor:TColor;
