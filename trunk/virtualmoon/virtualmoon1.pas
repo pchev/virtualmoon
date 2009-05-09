@@ -810,7 +810,7 @@ begin
       combobox2.items[1] := ReadStr(section, 't_150', combobox2.items[1]);
       combobox2.ItemIndex := 0;
       TabSheet4.Caption := ReadStr(section, 't_152', TabSheet4.Caption);
-      RadioGroup2.Caption := ReadStr(section, 't_144', deftxt);
+      Label19.Caption := ReadStr(section, 't_144', deftxt);
       TabSheet6.Caption := ReadStr(section, 't_169', TabSheet6.Caption);
       CheckBox11.Caption := ReadStr(section, 't_170', CheckBox11.Caption);
       label30.Caption := ReadStr(section, 't_171', label30.Caption);
@@ -821,11 +821,6 @@ begin
       label33.Caption := ReadStr(section, 't_181', label33.Caption);
       nooverlay.Caption := ReadStr(section, 't_184', label33.Caption);
       label34.Caption := ReadStr(section, 't_185', label33.Caption);
-
-      RadioGroup2.items.Clear;
-      RadioGroup2.items.add(ReadStr(section, 't_132', 'Aerograph'));
-      RadioGroup2.items.add(ReadStr(section, 't_133', 'Clementine'));
-      RadioGroup2.items.add(ReadStr(section, 't_186', 'Lopam'));
     end;
     imac1 := (ReadStr(section, 't_30', deftxt));
     imac2 := (ReadStr(section, 't_8', deftxt));
@@ -977,7 +972,6 @@ begin
   LopamDirect := False;
   ruklprefix := 'C:\rukl\';
   ruklsuffix := '_large.jpg';
-  GeologicalMap := False;
   externalimage := False;
   externalimagepath := 'mspaint.exe';
   texturefile := 'Clementine';
@@ -1043,7 +1037,6 @@ begin
     cameraorientation := ReadFloat(section, 'CameraOrientation', CameraOrientation);
     phaseeffect  := ReadBool(section, 'PhaseEffect', phaseeffect);
     wantbump  := ReadBool(section, 'BumpMap', wantbump);
-    GeologicalMap := ReadBool(section, 'GeologicalMap', GeologicalMap);
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
     moon1.MoveCursor:= ReadBool(section, 'MoveCursor', false);
@@ -1197,7 +1190,6 @@ begin
       WriteFloat(section, 'dt_ut', dt_ut);
       WriteBool(section, 'PhaseEffect', phaseeffect);
       WriteBool(section, 'BumpMap', wantbump);
-      WriteBool(section, 'GeologicalMap', GeologicalMap);
       WriteBool(section, 'MoveCursor', moon1.MoveCursor);
       WriteBool(section, 'ShowLabel', ShowLabel);
       WriteBool(section, 'ShowMark', ShowMark);
@@ -3242,7 +3234,7 @@ end;
 procedure TForm1.Configuration1Click(Sender: TObject);
 var
   reload, reloaddb, systemtimechange: boolean;
-  i, j, oldmaxima, oldtexture: integer;
+  i, j, oldmaxima: integer;
   yy, x, y: double;
 begin
   try
@@ -3309,15 +3301,16 @@ begin
     form2.CheckBox13.Checked := PrintChart;
     form2.CheckBox8.Checked  := PrintEph;
     form2.CheckBox9.Checked  := PrintDesc;
-    if texturefile='Aerograph2' then form2.radiogroup2.itemindex:=0
-       else if texturefile='Clementine' then form2.radiogroup2.itemindex:=1
-       else if texturefile='Lopam' then form2.radiogroup2.itemindex:=2
-       else form2.radiogroup2.itemindex:=-1;
-    oldtexture := form2.radiogroup2.ItemIndex;
+    for i:=0 to Form2.CheckListBox2.Count-1 do begin
+       if Form2.CheckListBox2.Items[i]=texturefile then
+         Form2.CheckListBox2.checked[i]:=true
+       else
+         Form2.CheckListBox2.checked[i]:=false;
+    end;
+    form2.texturefn := texturefile;
     form2.CheckBox15.Checked := LopamDirect;
     form2.ruklprefix.Text := ruklprefix;
     form2.ruklsuffix.Text := ruklsuffix;
-    form2.texturefn := texturefile;
     form2.combobox5.Text := remext(overlayname);
     form2.trackbar5.position := overlaytr;
     form2.combobox5change(Sender);
@@ -3415,9 +3408,6 @@ begin
         LoadDB(dbm);
       LibrationButton.Down := librationeffect;
       PhaseButton.Down     := phaseeffect;
-      if oldtexture <> form2.radiogroup2.ItemIndex then
-        reload      := True;
-      GeologicalMap := False;
       externalimage := form2.CheckBox12.Checked;
       LopamDirect   := form2.CheckBox15.Checked;
       externalimagepath := form2.edit4.Text;
@@ -3461,6 +3451,7 @@ begin
         LoadOverlay(overlayname, overlaytr);
         moon1.Texture:=texturefile;
         RefreshMoonImage;
+        moon1.Zoom:=moon1.Zoom;
       end
       else
         RefreshMoonImage;
@@ -4625,7 +4616,10 @@ end;
 
 procedure TForm1.ToolButton3Click(Sender: TObject);
 // rotation
+var l,b: single;
+    recenter:boolean;
 begin
+recenter:=moon1.getcenter(l,b);
   if ToolButton3.Down then
   begin
     librl := 0;
@@ -4662,6 +4656,7 @@ begin
     moon1.Mirror:=checkbox2.Checked;
     RefreshMoonImage;
   end;
+if recenter then moon1.CenterAt(l,b);
 end;
 
 procedure TForm1.Button14Click(Sender: TObject);

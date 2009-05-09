@@ -189,6 +189,7 @@ type
     procedure Init;
     Procedure GetZoomInfo;
     procedure GetBounds(var lmin,lmax,bmin,bmax: single);
+    function  GetCenter(var lon,lat:single):boolean;
     function  GetMarkRaDec(var ra,de: single): boolean;
     procedure CenterAtRaDec(r,d: double);
     procedure SetMark(lon,lat:single; txt:string);
@@ -251,7 +252,7 @@ var
   f_moon: Tf_moon;
 
 const
-  ZoomByZone: array[1..4] of integer=(3,8,14,20);
+  ZoomByZone: array[1..4] of integer=(3,8,16,25);
 
 implementation
 
@@ -669,7 +670,7 @@ if FBumpOk and (value<>FBumpmap) then begin
     GLLightSource1.ConstAttenuation:=0.5;
     GLLightSource1.LightStyle:=lsParallel;
     GLLightSource1.LightStyle:=lsSpot;
-    maxzoom:=ZoomByZone[maxzone];
+    maxzoom:=ZoomByZone[maxzone]*1.4;
   end;
   GLSceneViewer1.Refresh;
 end;
@@ -838,14 +839,11 @@ try
   if zoom>MaxZoom then zoom:=MaxZoom;
   newzone:=1;
   if zoom>ZoomByZone[1] then begin
-     if maxzone>=2 then newzone:=2
-                   else zoom:=ZoomByZone[1];
+     if maxzone>=2 then newzone:=2;
      if zoom>ZoomByZone[2] then begin
-       if maxzone>=3 then newzone:=3
-                     else zoom:=ZoomByZone[2];
+       if maxzone>=3 then newzone:=3;
        if zoom>ZoomByZone[3] then begin
-         if maxzone>=4 then newzone:=4
-                       else zoom:=ZoomByZone[3];
+         if maxzone>=4 then newzone:=4;
        end;
      end;
   end;
@@ -888,7 +886,7 @@ begin
        end;
     end;
  end;
- maxzoom:=ZoomByZone[maxzone];
+ maxzoom:=ZoomByZone[maxzone]*1.4;
  ClearSlice(2);
  LoadSlice(1);
  if zone<>1 then LoadSlice(zone);
@@ -1724,6 +1722,14 @@ begin
   lmax:=l+deltal;
   bmin:=b-deltab;
   bmax:=b+deltab;
+end;
+
+function Tf_moon.GetCenter(var lon,lat:single):boolean;
+var xx, yy: integer;
+begin
+  xx := GLSceneViewer1.Width div 2;
+  yy := GLSceneViewer1.Height div 2;
+  result:=Screen2Moon(xx,yy,lon,lat);
 end;
 
 procedure Tf_moon.SnapShot(var bmp: TBitmap; white: boolean);

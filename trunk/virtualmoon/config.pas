@@ -42,8 +42,10 @@ type
     BumpCheckBox: TCheckBox;
     Button5: TButton;
     CheckBox4: TCheckBox;
+    CheckListBox2: TCheckListBox;
     ColorDialog1: TColorDialog;
     FontDialog1: TFontDialog;
+    Label19: TLabel;
     LabelFont: TLabel;
     PageControl1: TNotebook;
     TabSheet1: TPage;
@@ -129,7 +131,6 @@ type
     CheckBox18: TCheckBox;
     Label28: TLabel;
     Edit10: TEdit;
-    RadioGroup2: TRadioGroup;
     Label29: TLabel;
     TabSheet6: TPage;
     TabSheet7: TPage;
@@ -158,6 +159,7 @@ type
     Label34: TLabel;
     CheckBox24: TCheckBox;
     procedure Button5Click(Sender: TObject);
+    procedure CheckListBox2ItemClick(Sender: TObject; Index: integer);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
@@ -171,7 +173,6 @@ type
       var CanSelect: Boolean);
     procedure Button6Click(Sender: TObject);
     procedure CheckBox19Click(Sender: TObject);
-    procedure RadioGroup2Click(Sender: TObject);
     procedure StringGrid2DrawCell(Sender: TObject; ACol, ARow: Integer;
       Rect: TRect; State: TGridDrawState);
     procedure StringGrid2MouseUp(Sender: TObject; Button: TMouseButton;
@@ -192,7 +193,7 @@ type
 var
   Form2: TForm2;
   newlang : string;
-  savegeol,savelibration : boolean;
+  savelibration : boolean;
 
 implementation
 
@@ -251,7 +252,15 @@ while i=0 do begin
   i:=findnext(fs);
 end;
 findclose(fs);
-savegeol:=GeologicalMap;
+i:=findfirst(Slash(appdir)+Slash('Textures')+'*',faDirectory,fs);
+CheckListBox2.clear;
+CheckListBox2.Sorted:=true;
+while i=0 do begin
+  if (fs.Name<>'.')and(fs.Name<>'..')and(fs.Name<>'Bumpmap')and(fs.Name<>'Overlay') then
+    CheckListBox2.Items.Add(fs.name);
+  i:=findnext(fs);
+end;
+findclose(fs);
 savelibration:=librationeffect;
 end;
 
@@ -341,20 +350,17 @@ begin
  CheckBox19.Checked:=true;
 end;
 
-procedure TForm2.RadioGroup2Click(Sender: TObject);
+procedure TForm2.CheckListBox2ItemClick(Sender: TObject; Index: integer);
+var i: integer;
 begin
-case RadioGroup2.itemindex of
-0 : texturefn:='Aerograph2';
-1 : texturefn:='Clementine';
-2 : texturefn:='Lopam';
-end;
-if not DirectoryExists(Slash(appdir)+Slash('Textures')+texturefn) then begin
- texturefn:=texturefile;
- if texturefile='Aerograph2' then form2.radiogroup2.itemindex:=0
-   else if texturefile='Clementine' then form2.radiogroup2.itemindex:=1
-   else if texturefile='Lopam' then form2.radiogroup2.itemindex:=2
-   else form2.radiogroup2.itemindex:=-1;
-end;
+    for i:=0 to CheckListBox2.Count-1 do begin
+       if i=Index then
+       begin
+         CheckListBox2.checked[i]:=true;
+         texturefn:=CheckListBox2.Items[i];
+       end else
+         CheckListBox2.checked[i]:=false;
+    end;
 end;
 
 procedure TForm2.StringGrid2DrawCell(Sender: TObject; ACol, ARow: Integer;
