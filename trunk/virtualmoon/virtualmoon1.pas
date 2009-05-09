@@ -3029,7 +3029,7 @@ begin
   TrackBar1.Top:=2;
 {$endif}
 {$ifdef linux}
-  TrackBar1.Top:=-6;
+  TrackBar1.Top:=-8;
 {$endif}
 {$ifdef mswindows}
   TrackBar1.Top:=-2;
