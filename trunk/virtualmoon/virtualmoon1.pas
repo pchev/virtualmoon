@@ -3025,6 +3025,15 @@ begin
   PageControl1.Align:=alRight;
   Splitter1.Align:=alRight;
   PanelMoon.Align:=alClient;
+{$ifdef darwin}
+  TrackBar1.Top:=2;
+{$endif}
+{$ifdef linux}
+  TrackBar1.Top:=-6;
+{$endif}
+{$ifdef mswindows}
+  TrackBar1.Top:=-2;
+{$endif}
   dbedited  := False;
   perfdeltay := 0.00001;
   lockchart := False;
@@ -3039,6 +3048,7 @@ begin
   LastScopeTracking := 0;
   UseComputerTime := True;
   GetAppDir;
+  chdir(appdir);
   skipresize := True;
   skipresize := False;
   Fplanet    := TPlanet.Create(self);
