@@ -272,7 +272,7 @@ with GLMaterialLibrary1 do begin
               Material.FrontProperties.Diffuse.AsWinColor:=clWhite;
               Material.FrontProperties.Specular.AsWinColor:=clWhite;
               Material.Texture.Compression:=TextureCmp;
-              Material.Texture.ImageAlpha:=tiaBottomRightPointColorTransparent;
+              Material.Texture.ImageAlpha:=tiaTopLeftPointColorTransparent;
               Material.Texture.TextureMode:=tmModulate;
               Material.Texture.TextureWrap:=twNone;
               Material.Texture.MagFilter:=maNearest;
@@ -289,7 +289,7 @@ with GLMaterialLibrary1 do begin
               Material.FrontProperties.Diffuse.AsWinColor:=clWhite;
               Material.FrontProperties.Specular.AsWinColor:=clWhite;
               Material.Texture.Compression:=TextureCmp;
-              Material.Texture.ImageAlpha:=tiaBottomRightPointColorTransparent;
+              Material.Texture.ImageAlpha:=tiaTopLeftPointColorTransparent;
               Material.Texture.TextureWrap:=twNone;
               Material.Texture.TextureMode:=tmModulate;
               Material.Texture.MagFilter:=maNearest;
@@ -303,7 +303,7 @@ with GLMaterialLibrary1 do begin
               Material.FrontProperties.Diffuse.AsWinColor:=clWhite;
               Material.FrontProperties.Specular.AsWinColor:=clWhite;
               Material.Texture.Compression:=TextureCmp;
-              Material.Texture.ImageAlpha:=tiaBottomRightPointColorTransparent;
+              Material.Texture.ImageAlpha:=tiaTopLeftPointColorTransparent;
               Material.Texture.TextureWrap:=twNone;
               Material.Texture.TextureMode:=tmModulate;
               Material.Texture.MagFilter:=maNearest;
@@ -320,7 +320,7 @@ with GLMaterialLibrary1 do begin
         Material.FrontProperties.Diffuse.AsWinColor:=clWhite;
         Material.FrontProperties.Specular.AsWinColor:=clWhite;
         Material.Texture.Compression:=TextureCmp;
-        Material.Texture.ImageAlpha:=tiaBottomRightPointColorTransparent;
+        Material.Texture.ImageAlpha:=tiaTopLeftPointColorTransparent;
         Material.Texture.TextureWrap:=twNone;
         Material.Texture.TextureMode:=tmModulate;
        end;
@@ -427,10 +427,10 @@ begin
             with jp.Canvas do begin
               brush.Color:=clWhite;   // replace white border because of jpeg compression
               pen.Color:=clWhite;
-              rectangle(0,0,jp.Width,12);
-              rectangle(0,0,12,jp.Height);
-              rectangle(jp.width-12,0,jp.width,jp.Height);
-              rectangle(0,jp.Height-12,jp.width,jp.Height);
+              FillRect(0,0,jp.Width,12);
+              FillRect(0,0,12,jp.Height);
+              FillRect(jp.width-12,0,jp.width,jp.Height);
+              FillRect(0,jp.Height-12,jp.width,jp.Height);
             end;
             with LibMaterialByName('L2_'+inttostr(k)) do begin
               Material.Texture.ImageBrightness:=1;
@@ -463,10 +463,10 @@ begin
             with jp.Canvas do begin
               brush.Color:=clWhite;
               pen.Color:=clWhite;
-              rectangle(0,0,jp.Width,12);
-              rectangle(0,0,12,jp.Height);
-              rectangle(jp.width-12,0,jp.width,jp.Height);
-              rectangle(0,jp.Height-12,jp.width,jp.Height);
+              FillRect(0,0,jp.Width,12);
+              FillRect(0,0,12,jp.Height);
+              FillRect(jp.width-12,0,jp.width,jp.Height);
+              FillRect(0,jp.Height-12,jp.width,jp.Height);
             end;
             with LibMaterialByName('P2_'+inttostr(i)) do begin
               Material.Texture.ImageBrightness:=1;
@@ -515,10 +515,10 @@ case level of
           with jp.Canvas do begin
             brush.Color:=clWhite;    // replace white border because of jpeg compression
             pen.Color:=clWhite;
-            rectangle(0,0,jp.Width,12);
-            rectangle(0,0,12,jp.Height);
-            rectangle(jp.width-12,0,jp.width,jp.Height);
-            rectangle(0,jp.Height-12,jp.width,jp.Height);
+            FillRect(0,0,jp.Width,12);
+            FillRect(0,0,12,jp.Height);
+            FillRect(jp.width-12,0,jp.width,jp.Height);
+            FillRect(0,jp.Height-12,jp.width,jp.Height);
           end;
           with LibMaterialByName('L1_'+nn) do begin
             Material.Texture.ImageBrightness:=1;
@@ -917,7 +917,7 @@ begin
  blankbmp.Height:=4;
  blankbmp.Canvas.brush.Color:=clWhite;
  blankbmp.Canvas.pen.Color:=clWhite;
- blankbmp.Canvas.rectangle(0,0,4,4);
+ blankbmp.Canvas.FillRect(0,0,4,4);
  ldeg:='d';
  lmin:='m';
  lsec:='s';
