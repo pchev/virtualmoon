@@ -187,8 +187,7 @@ Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdC
      compile_time,compile_version:string;
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;
-     isWin98: Boolean;
-     GeologicalMap, librationeffect, AsMultiTexture : Boolean;
+     librationeffect, AsMultiTexture : Boolean;
      texturefile: string;
      Firstsearch: boolean;
      DisplayIs32bpp: Boolean;

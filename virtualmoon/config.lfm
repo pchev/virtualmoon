@@ -28,7 +28,7 @@ object Form2: TForm2
     Top = 0
     Width = 345
     Options = [nboMultiLine]
-    PageIndex = 0
+    PageIndex = 3
     TabOrder = 0
     object TabSheet1: TPage
       Caption = 'General'
@@ -214,8 +214,8 @@ object Form2: TForm2
         Top = 10
         Width = 305
         Caption = 'Database'
-        ClientHeight = 161
-        ClientWidth = 303
+        ClientHeight = 172
+        ClientWidth = 301
         TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
@@ -494,40 +494,33 @@ object Form2: TForm2
       ClientWidth = 339
       ClientHeight = 384
       ImageIndex = 4
-      object RadioGroup2: TRadioGroup
-        Left = 12
-        Height = 225
-        Top = 24
-        Width = 305
-        AutoFill = True
-        Caption = 'Choix de la texture'
-        ChildSizing.LeftRightSpacing = 6
-        ChildSizing.TopBottomSpacing = 6
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsHomogenousChildResize
-        ChildSizing.ShrinkHorizontal = crsScaleChilds
-        ChildSizing.ShrinkVertical = crsScaleChilds
-        ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ChildSizing.ControlsPerLine = 1
-        ClientHeight = 221
-        ClientWidth = 301
-        ItemIndex = 0
-        Items.Strings = (
-          'Aérographe'
-          'Photographique'
-          'Lopam'
-        )
-        OnClick = RadioGroup2Click
-        TabOrder = 0
+      object Label19: TLabel
+        Left = 21
+        Height = 15
+        Top = 32
+        Width = 45
+        Caption = 'Label19'
+        ParentColor = False
       end
       object BumpCheckBox: TCheckBox
-        Left = 20
+        Left = 21
         Height = 22
-        Top = 272
+        Top = 274
         Width = 159
         Caption = 'Ombres du terminateur'
         ParentBidiMode = False
+        TabOrder = 0
+      end
+      object CheckListBox2: TCheckListBox
+        Left = 21
+        Height = 200
+        Top = 58
+        Width = 300
+        ExtendedSelect = False
+        ItemHeight = 0
+        OnItemClick = CheckListBox2ItemClick
         TabOrder = 1
+        TopIndex = -1
       end
     end
     object TabSheet6: TPage
