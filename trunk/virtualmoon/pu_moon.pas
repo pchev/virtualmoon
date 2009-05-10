@@ -825,7 +825,7 @@ end;
 
 Procedure Tf_moon.GetZoomInfo;
 begin
-  if assigned(FOnGetMsg) then FOnGetMsg(self,MsgZoom,'FOV:'+inttostr(round(60*0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+lmin+' Zoom:'+formatfloat('0.0',Fzoom)+'  Level:'+inttostr(zone));
+  if assigned(FOnGetMsg)and(FRaCentre>-9999) then FOnGetMsg(self,MsgZoom,'FOV:'+inttostr(round(60*0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+lmin+' Zoom:'+formatfloat('0.0',Fzoom)+'  Level:'+inttostr(zone));
 end;
 
 Procedure Tf_moon.SetZoomLevel(zoom:single);
@@ -924,6 +924,7 @@ begin
  FTexture:='';
  FOverlay:='';
  FRotation:=0;
+ FRaCentre:=-9999;
  FEarthDistance:=MeanEarthDistance;
  FBumpOk:=false;
  FMoveCursor:=false;
@@ -1184,6 +1185,7 @@ begin
   if assigned(FOnGetSprite) then FOnGetSprite(self);
   if assigned(FOnGetLabel) then FOnGetLabel(self);
   if zone>1 then LoadSlice(zone);
+  GetZoomInfo;
 end;
 
 procedure Tf_moon.RotationCadencerProgress(Sender: TObject; const deltaTime,

@@ -575,11 +575,11 @@ begin
   section    := 'default';
   with inifile do
   begin
-    ldeg     := UTF8Encode(ReadString(section, 'degree', '°'));
-    lmin     := UTF8Encode(ReadString(section, 'minute', ''''));
-    lsec     := UTF8Encode(ReadString(section, 'second', '"'));
-    transmsg := UTF8Encode(ReadString(section, 'translator', ''));
-    Caption  := UTF8Encode(ReadString(section, 'title', 'Virtual Moon Atlas'));
+    ldeg     := ReadString(section, 'degree', '°');
+    lmin     := ReadString(section, 'minute', '''');
+    lsec     := ReadString(section, 'second', '"');
+    transmsg := ReadString(section, 'translator', '');
+    Caption  := ReadString(section, 'title', 'Virtual Moon Atlas');
   end;
   inifile.Free;
 end;
@@ -596,7 +596,6 @@ const
 
   function ReadStr(s, k, def: string): string;  // utf-8 translation
   begin
-//    Result := UTF8Encode(inifile.ReadString(s, k, def));
     Result := inifile.ReadString(s, k, def);
   end;
 
@@ -2889,7 +2888,7 @@ procedure  TForm1.GetMsg(Sender: TObject; msgclass:TMoonMsgClass; value: String)
 begin
 case msgclass of
 MsgZoom: begin
-          value:=StringReplace(value,'FOV',m[43],[]);
+          value:=StringReplace(value,'FOV:',m[43],[]);
           statusbar1.Panels[3].Text := value;
           SetZoomBar;
          end;
@@ -4455,13 +4454,13 @@ begin
     Canvas.Font.Size := 8;
     hl   := round(Canvas.TextHeight('H') * 1.1);
     Canvas.Font.Style := [fsBold];
-    buf1 := UTF8Encode(Caption)+':  '+vmaurl;
+    buf1 := Caption+':  '+vmaurl;
     Canvas.TextOut(Xmin + 10, ymin, buf1);
     Canvas.Font.Style := [];
     if language = 'FR' then
-      buf1 := UTF8Encode('Lunar formations database V2.1 © Ch. Legrand,  Reproduction interdite / Pour usage personnel uniquement')
+      buf1 := 'Lunar formations database V2.1 '+cpyr+' Ch. Legrand,  Reproduction interdite / Pour usage personnel uniquement'
     else
-      buf1 := UTF8Encode('Lunar formations database V2.1 © Ch. Legrand,  Forbidden copy / For personal use only');
+      buf1 := 'Lunar formations database V2.1 '+cpyr+' Ch. Legrand,  Forbidden copy / For personal use only';
     i := (xmax - xmin - Canvas.TextWidth(buf1)) div 2;
     w := Canvas.TextHeight(buf1);
     maxt := ymax - 3 * w;

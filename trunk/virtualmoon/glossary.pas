@@ -175,7 +175,6 @@ var i,p:integer;
     NewHTML: TIpHtml;
     s: TStringStream;
 begin
-txt:=UTF8Encode(txt);
 if panel1.visible and (length(txt)>0) then begin
   txt:=txt+'  ';
   buf:='<html> <body>';

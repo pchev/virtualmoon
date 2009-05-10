@@ -36,7 +36,7 @@ object Gloss: TGloss
     Top = 64
     Width = 209
     AutoExpand = True
-    DefaultItemHeight = 15
+    DefaultItemHeight = 16
     HideSelection = False
     ReadOnly = True
     TabOrder = 2
