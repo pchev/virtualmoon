@@ -29,7 +29,7 @@ uses
 {$ifdef mswindows}
 Windows,
 {$endif}
-  LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  u_constant, LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, Grids, Math, passql, passqlite, u_util, dbutil, StdCtrls,
   ExtCtrls, IniFiles, ImgList, LResources, uniqueinstance;
 
@@ -109,7 +109,6 @@ type
   private
     { Private declarations }
     UniqueInstance1: TCdCUniqueInstance;
-    vmaexe, photlunexe: string;
     currentrow,FindFrom,FindCol, sortorder: integer;
     currentselection, currentsort, transmsg, SelectedObject: string;
     FindCaption, ShowCaption, SortCaption: string;
@@ -120,7 +119,7 @@ type
     procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
     procedure InstanceRunning(Sender : TObject);
     Procedure SetLang;
-    Procedure SetPath;
+    procedure GetAppDir;
     procedure SaveDefault;
     Procedure ReadParam;
     Procedure Readdefault;
@@ -158,24 +157,146 @@ begin
 close;
 end;
 
-procedure Tf_main.SetPath;
+procedure Tf_main.GetAppDir;
+var
+  buf, buf1: string;
+{$ifdef darwin}
+  i:      integer;
+{$endif}
 {$ifdef mswindows}
-var PIDL : PItemIDList;
-    Folder : array[0..MAX_PATH] of Char;
-const CSIDL_APPDATA = $001A;
+  PIDL:   PItemIDList;
+  Folder: array[0..MAX_PATH] of char;
+const
+  CSIDL_PERSONAL = $0005;   // My Documents
+  CSIDL_APPDATA  = $001a;   // <user name>\Application Data
+  CSIDL_LOCAL_APPDATA = $001c;
+  // <user name>\Local Settings\Applicaiton Data (non roaming)
 {$endif}
 begin
-  appdir:=getcurrentdir;
-{$ifdef mswindows}
-  SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);
-  SHGetPathFromIDList(PIDL, Folder);
-  privatedir:=slash(Folder)+'virtualmoon';
+{$ifdef darwin}
+  appdir := getcurrentdir;
+  if not DirectoryExists(slash(appdir) + slash('data') + slash('planet')) then
+  begin
+    appdir := ExtractFilePath(ParamStr(0));
+    i      := pos('.app/', appdir);
+    if i > 0 then
+    begin
+      appdir := ExtractFilePath(copy(appdir, 1, i));
+    end;
+  end;
+{$else}
+  appdir     := getcurrentdir;
 {$endif}
+  privatedir := DefaultPrivateDir;
 {$ifdef unix}
-  privatedir:=slash(ExpandFileName('~/.virtualmoon'));
+  appdir     := expandfilename(appdir);
+  bindir     := slash(appdir);
+  privatedir := expandfilename(PrivateDir);
+  configfile := expandfilename(Defaultconfigfile);
+  CdCconfig  := ExpandFileName(DefaultCdCconfig);
 {$endif}
-  if not DirectoryExists(privatedir) then ForceDirectories(privatedir);
-  ConfigFile:=slash(privatedir)+'virtualmoon.ini';
+{$ifdef win32}
+  SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);  // cdc in local appdata
+  SHGetPathFromIDList(PIDL, Folder);
+  buf1 := trim(Folder);
+  SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);        // vma in appdata
+  SHGetPathFromIDList(PIDL, Folder);
+  buf := trim(Folder);
+  if buf1 = '' then
+    buf1     := buf;  // old windows version
+  privatedir := slash(buf) + privatedir;
+  configfile := slash(privatedir) + Defaultconfigfile;
+  CdCconfig  := slash(buf1) + DefaultCdCconfig;
+{$endif}
+
+  if not directoryexists(privatedir) then
+    CreateDir(privatedir);
+  if not directoryexists(privatedir) then
+    forcedirectories(privatedir);
+  if not directoryexists(privatedir) then
+  begin
+    privatedir := appdir;
+  end;
+  Tempdir := slash(privatedir) + DefaultTmpDir;
+  if not directoryexists(TempDir) then
+    CreateDir(TempDir);
+  if not directoryexists(TempDir) then
+    forcedirectories(TempDir);
+  DBdir := Slash(privatedir) + 'database';
+  if not directoryexists(DBdir) then
+    CreateDir(DBdir);
+  if not directoryexists(DBdir) then
+    forcedirectories(DBdir);
+  // Be sur the Database directory exists
+  if (not directoryexists(slash(appdir) + slash('Database'))) then
+  begin
+    // try under the current directory
+    buf := GetCurrentDir;
+    if (directoryexists(slash(buf) + slash('Database'))) then
+      appdir := buf
+    else
+    begin
+      // try under the program directory
+      buf := ExtractFilePath(ParamStr(0));
+      if (directoryexists(slash(buf) + slash('Database'))) then
+        appdir := buf
+      else
+      begin
+        // try share directory under current location
+        buf := ExpandFileName(slash(GetCurrentDir) + SharedDir);
+        if (directoryexists(slash(buf) + slash('Database'))) then
+          appdir := buf
+        else
+        begin
+          // try share directory at the same location as the program
+          buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0))) + SharedDir);
+          if (directoryexists(slash(buf) + slash('Database'))) then
+            appdir := buf
+          else
+          begin
+            MessageDlg('Could not found the application Database directory.' +
+              crlf + 'Please try to reinstall the program at a standard location.',
+              mtError, [mbAbort], 0);
+            Halt;
+          end;
+        end;
+      end;
+    end;
+  end;
+  if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+     bindir := slash(ExtractFilePath(ParamStr(0)));
+     if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+        bindir := slash(ExpandFileName(slash(appdir) + slash('..')+slash('..')+'bin'));
+        if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+           bindir:='';
+        end;
+     end;
+  end;
+  Photlun := bindir + DefaultPhotlun;     // Photlun normally at same location as vma
+  Maplun  := bindir + DefaultMaplun;
+  helpdir  := slash(appdir) + slash('doc');
+  // Be sure zoneinfo exists in standard location or in vma directory
+{  ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');
+  buf      := slash('') + slash('usr') + slash('share') + slash('zoneinfo');
+  if (FileExists(slash(buf) + 'zone.tab')) then
+    ZoneDir := slash(buf)
+  else
+  begin
+    buf := slash('') + slash('usr') + slash('lib') + slash('zoneinfo');
+    if (FileExists(slash(buf) + 'zone.tab')) then
+      ZoneDir := slash(buf)
+    else
+    begin
+      if (not FileExists(slash(ZoneDir) + 'zone.tab')) then
+      begin
+        MessageDlg('zoneinfo directory not found!' + crlf +
+          'Please install the tzdata package.' + crlf +
+          'If it is not installed at a standard location create a logical link zoneinfo in skychart data directory.',
+          mtError, [mbAbort], 0);
+        Halt;
+      end;
+    end;
+  end;   }
 end;
 
 Procedure Tf_main.SetLang;
@@ -192,8 +313,8 @@ buf:=ReadString(section,'Language',language);
 end;
 inifile.Free;
 chdir(appdir);
-if fileexists(Slash(AppDir)+slash('language')+'lang_'+buf+'.ini') then language:=buf;
-inifile:=Tmeminifile.create(Slash(AppDir)+slash('language')+'lang_'+language+'.ini');
+if fileexists(Slash(AppDir)+slash('language')+'lang_u'+buf+'.ini') then language:=buf;
+inifile:=Tmeminifile.create(Slash(AppDir)+slash('language')+'lang_u'+language+'.ini');
 with inifile do begin
   section:='default';
   transmsg:=ReadString(section,'translator','');
@@ -321,7 +442,8 @@ begin
   UniqueInstance1.Loaded;
 {$endif}
 dbm:=TLiteDB.Create(self);
-SetPath;
+GetAppDir;
+chdir(appdir);
 param:=Tstringlist.Create;
 param.clear;
 if paramcount>0 then begin
@@ -337,8 +459,6 @@ SelectedObject:='';
 dbselection:='DBN in (1,2,3,4,5,6)';
 currentselection:=dbselection;
 ExpertMode:=false;
-vmaexe:='vmapro.exe';
-photlunexe:='photlun.exe';
 Application.HintHidePause:=10000;
 end;
 
@@ -436,10 +556,6 @@ var inif: TMemIniFile;
     section : string;
     i: integer;
 begin
-{$ifdef mswindows}   // migrate old config in app directory
-if not fileexists(ConfigFile) then
-   CopyFile(pchar(slash(AppDir)+'virtualmoon.ini'),pchar(ConfigFile),true);
-{$endif}
 inif:=Tmeminifile.create(configfile);
 section:='DatLun';
 with inif do begin
@@ -745,7 +861,7 @@ begin
     if objname<>'' then param:=param+' -n "'+objname+'" ';
     param:=param+otherparam;
     chdir(appdir);
-    Execnowait(vmaexe+' '+param);
+    Execnowait(maplun+' '+param);
     StartVMA:=true;
 end;
 
@@ -756,7 +872,7 @@ begin
     if objname<>'' then param:=param+' -n "'+objname+'" ';
     param:=param+otherparam;
     chdir(appdir);
-    Execnowait(photlunexe+' '+param);
+    Execnowait(photlun+' '+param);
     StartPhotlun:=true;
 end;
 
@@ -913,7 +1029,7 @@ procedure Tf_main.Delete1Click(Sender: TObject);
 begin
 if currentselection='' then begin showmessage(m[6]);exit;end;
 if messagedlg(m[7],mtConfirmation,[mbYes,mbNo],0)=mrYes then begin
-   dbjournal(dbm,'DELETE WHERE '+currentselection);
+   dbjournal(extractfilename(dbm.DataBase),'DELETE WHERE '+currentselection);
    if dbm.query('delete from moon where '+currentselection+';') then begin
       dbselection:='DBN in (1,2,3,4,5,6)';
       currentselection:=dbselection;

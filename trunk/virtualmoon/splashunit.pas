@@ -159,7 +159,7 @@ var
 begin
 closing:=false;
 if language<>'UK' then begin
-inifile:=Tmeminifile.create(slash(AppDir)+slash('language')+'lang_'+language+'.ini');
+inifile:=Tmeminifile.create(slash(AppDir)+slash('language')+'lang_u'+language+'.ini');
 with inifile do begin
     txt:=(ReadString('default','title',''));
 end;

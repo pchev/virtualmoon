@@ -3,6 +3,7 @@ object LoadCSV: TLoadCSV
   Height = 540
   Top = 125
   Width = 696
+  ActiveControl = PageControl1
   Caption = 'LoadCSV'
   ClientHeight = 540
   ClientWidth = 696
@@ -23,8 +24,8 @@ object LoadCSV: TLoadCSV
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Select File'
-      ClientHeight = 514
-      ClientWidth = 688
+      ClientHeight = 507
+      ClientWidth = 690
       object Bevel3: TBevel
         Left = 16
         Height = 97
@@ -48,33 +49,33 @@ object LoadCSV: TLoadCSV
       end
       object Label1: TLabel
         Left = 32
-        Height = 16
+        Height = 15
         Top = 52
-        Width = 81
+        Width = 90
         Caption = 'Field separator:'
         ParentColor = False
       end
       object Label2: TLabel
         Left = 32
-        Height = 16
+        Height = 15
         Top = 100
-        Width = 78
+        Width = 87
         Caption = 'Text separator:'
         ParentColor = False
       end
       object Label4: TLabel
         Left = 32
-        Height = 16
+        Height = 15
         Top = 176
-        Width = 100
+        Width = 109
         Caption = 'CSV file to import :'
         ParentColor = False
       end
       object Label5: TLabel
         Left = 32
-        Height = 17
+        Height = 18
         Top = 236
-        Width = 7
+        Width = 8
         ParentColor = False
       end
       object Label7: TLabel
@@ -107,11 +108,11 @@ object LoadCSV: TLoadCSV
       end
       object SepBox: TComboBox
         Left = 176
-        Height = 21
+        Height = 24
         Top = 48
         Width = 65
         AutoComplete = False
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           ';'
@@ -124,11 +125,11 @@ object LoadCSV: TLoadCSV
       end
       object QuoteBox: TComboBox
         Left = 176
-        Height = 21
+        Height = 24
         Top = 96
         Width = 65
         AutoComplete = False
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           ''
@@ -162,8 +163,8 @@ object LoadCSV: TLoadCSV
     end
     object TabSheet2: TTabSheet
       Caption = 'Select Data Field'
-      ClientHeight = 514
-      ClientWidth = 688
+      ClientHeight = 507
+      ClientWidth = 690
       ImageIndex = 1
       object Bevel6: TBevel
         Left = 352
@@ -232,6 +233,7 @@ object LoadCSV: TLoadCSV
         ItemHeight = 0
         OnClick = CheckListBox1Click
         TabOrder = 1
+        TopIndex = -1
       end
       object ConstantText: TEdit
         Left = 384
@@ -274,8 +276,8 @@ object LoadCSV: TLoadCSV
     end
     object TabSheet3: TTabSheet
       Caption = 'Load Database'
-      ClientHeight = 514
-      ClientWidth = 688
+      ClientHeight = 507
+      ClientWidth = 690
       ImageIndex = 2
       object Bevel4: TBevel
         Left = 16

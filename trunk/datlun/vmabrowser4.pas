@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses
-  LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  u_constant, LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, mlb2, Grids, {ValEdit,} CheckLst, Math,
   passql, passqlite,u_util, dbutil, ComCtrls, ExtCtrls, IniFiles, LResources;
 
@@ -292,7 +292,7 @@ memo1.Lines.Add(f_main.m[20]);
 // insert to database
 mlb.GoFirst;
 memo1.Lines.Add(f_main.m[21]+' '+dbname);
-dbjournal(dbu,'LOAD DATABASE DBN='+fieldconst[1]+' FROM FILE: '+mlb.Name);
+dbjournal(extractfilename(dbu.DataBase),'LOAD DATABASE DBN='+fieldconst[1]+' FROM FILE: '+mlb.Name);
 dbu.DataBase:=dbname;
 dbu.StartTransaction;
 try
@@ -322,7 +322,7 @@ repeat
   if not dbu.Query(cmd) then raise exception.Create(f_main.m[24]+crlf+dbu.GetErrorMessage+crlf+cmd);
   mlb.GoNext;
 until mlb.EndOfFile;
-dbjournal(dbu,'INSERT DBN='+fieldconst[1]+' MAX ID='+inttostr(dbu.GetLastInsertID));
+dbjournal(extractfilename(dbu.DataBase),'INSERT DBN='+fieldconst[1]+' MAX ID='+inttostr(dbu.GetLastInsertID));
 cmd:='delete from user_database where DBN='+dbn+');';
 dbu.Query(cmd);
 cmd:='insert into user_database values('+dbn+',"'+extractfilename(mlb.Name)+'");';

@@ -35,7 +35,7 @@ uses
     unix,
 {$endif}
   u_translation,
-  pu_photo, pu_config, u_bitmap, u_util,
+  pu_photo, pu_config, u_bitmap, u_util, u_constant,
   FPReadJPEG, Math, Inifiles,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, StdCtrls, ComCtrls, Spin, UniqueInstance;
@@ -117,7 +117,7 @@ type
     { private declarations }
     UniqueInstance1: TCdCUniqueInstance;
     param : Tstringlist;
-    privatedir,vignettedir, SelectedObject,ConfigFile, pofile : string;
+    SelectedObject, pofile : string;
     maxphoto,curphoto,photow,photoh,maxheight: integer;
     vignettenum, currentvignette, vignetteleft, vignetteright,maximgdir: integer;
     VignetteHeight, Nhphoto: integer;
@@ -129,7 +129,6 @@ type
     photo : array [0..maxphotowindow] of TF_photo;
     imgdir : array of array[0..3] of string;
     FileAgeLimit : Longint;
-    vmaexe, datlunexe: string;
     StartVMA,CanCloseVMA, StartDatlun, CanCloseDatlun, lockresize: boolean;
     procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
     procedure InstanceRunning(Sender : TObject);
@@ -154,7 +153,7 @@ type
     procedure doCreateVignette(bmp:TBitmap; vign: string);
     procedure loadvignette(num:integer; fn:string);
     Procedure SetVignetteSize(h:integer);
-    procedure SetPath;
+    procedure GetAppDir;
     procedure SelectObject(nom: string);
     procedure OpenVMA(objname,otherparam:string);
     procedure OpenDatlun(objname,otherparam:string);
@@ -672,26 +671,151 @@ begin
  f.Free;
 end;
 
-procedure Tf_photlun.SetPath;
+procedure Tf_photlun.GetAppDir;
+var
+  buf, buf1: string;
+{$ifdef darwin}
+  i:      integer;
+{$endif}
 {$ifdef mswindows}
-var PIDL : PItemIDList;
-    Folder : array[0..MAX_PATH] of Char;
-const CSIDL_APPDATA = $001A;
+  PIDL:   PItemIDList;
+  Folder: array[0..MAX_PATH] of char;
+const
+  CSIDL_PERSONAL = $0005;   // My Documents
+  CSIDL_APPDATA  = $001a;   // <user name>\Application Data
+  CSIDL_LOCAL_APPDATA = $001c;
+  // <user name>\Local Settings\Applicaiton Data (non roaming)
 {$endif}
 begin
-  appdir:=getcurrentdir;
-{$ifdef mswindows}
-  SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);
-  SHGetPathFromIDList(PIDL, Folder);
-  privatedir:=slash(Folder)+'virtualmoon';
+{$ifdef darwin}
+  appdir := getcurrentdir;
+  if not DirectoryExists(slash(appdir) + slash('data') + slash('planet')) then
+  begin
+    appdir := ExtractFilePath(ParamStr(0));
+    i      := pos('.app/', appdir);
+    if i > 0 then
+    begin
+      appdir := ExtractFilePath(copy(appdir, 1, i));
+    end;
+  end;
+{$else}
+  appdir     := getcurrentdir;
 {$endif}
+  privatedir := DefaultPrivateDir;
 {$ifdef unix}
-  privatedir:=slash(ExpandFileName('~/.virtualmoon'));
+  appdir     := expandfilename(appdir);
+  bindir     := slash(appdir);
+  privatedir := expandfilename(PrivateDir);
+  configfile := expandfilename(Defaultconfigfile);
+  CdCconfig  := ExpandFileName(DefaultCdCconfig);
 {$endif}
-  if not DirectoryExists(privatedir) then ForceDirectories(privatedir);
-  vignettedir:=slash(privatedir)+slash('vignette');
-  if not DirectoryExists(vignettedir) then ForceDirectories(vignettedir);
-  ConfigFile:=slash(privatedir)+'virtualmoon.ini';
+{$ifdef win32}
+  SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);  // cdc in local appdata
+  SHGetPathFromIDList(PIDL, Folder);
+  buf1 := trim(Folder);
+  SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);        // vma in appdata
+  SHGetPathFromIDList(PIDL, Folder);
+  buf := trim(Folder);
+  if buf1 = '' then
+    buf1     := buf;  // old windows version
+  privatedir := slash(buf) + privatedir;
+  configfile := slash(privatedir) + Defaultconfigfile;
+  CdCconfig  := slash(buf1) + DefaultCdCconfig;
+{$endif}
+
+  if not directoryexists(privatedir) then
+    CreateDir(privatedir);
+  if not directoryexists(privatedir) then
+    forcedirectories(privatedir);
+  if not directoryexists(privatedir) then
+  begin
+    privatedir := appdir;
+  end;
+  Tempdir := slash(privatedir) + DefaultTmpDir;
+  if not directoryexists(TempDir) then
+    CreateDir(TempDir);
+  if not directoryexists(TempDir) then
+    forcedirectories(TempDir);
+  vignettedir:=slash(privatedir)+slash(DefaultVignetteDir);
+  if not DirectoryExists(vignettedir) then
+    CreateDir(vignettedir);
+  if not DirectoryExists(vignettedir) then
+    ForceDirectories(vignettedir);
+  DBdir := Slash(privatedir) + 'database';
+  if not directoryexists(DBdir) then
+    CreateDir(DBdir);
+  if not directoryexists(DBdir) then
+    forcedirectories(DBdir);
+  // Be sur the Database directory exists
+  if (not directoryexists(slash(appdir) + slash('Database'))) then
+  begin
+    // try under the current directory
+    buf := GetCurrentDir;
+    if (directoryexists(slash(buf) + slash('Database'))) then
+      appdir := buf
+    else
+    begin
+      // try under the program directory
+      buf := ExtractFilePath(ParamStr(0));
+      if (directoryexists(slash(buf) + slash('Database'))) then
+        appdir := buf
+      else
+      begin
+        // try share directory under current location
+        buf := ExpandFileName(slash(GetCurrentDir) + SharedDir);
+        if (directoryexists(slash(buf) + slash('Database'))) then
+          appdir := buf
+        else
+        begin
+          // try share directory at the same location as the program
+          buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0))) + SharedDir);
+          if (directoryexists(slash(buf) + slash('Database'))) then
+            appdir := buf
+          else
+          begin
+            MessageDlg('Could not found the application Database directory.' +
+              crlf + 'Please try to reinstall the program at a standard location.',
+              mtError, [mbAbort], 0);
+            Halt;
+          end;
+        end;
+      end;
+    end;
+  end;
+  if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+     bindir := slash(ExtractFilePath(ParamStr(0)));
+     if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+        bindir := slash(ExpandFileName(slash(appdir) + slash('..')+slash('..')+'bin'));
+        if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+           bindir:='';
+        end;
+     end;
+  end;
+  Datlun := bindir + DefaultDatlun;     // Photlun normally at same location as vma
+  Maplun  := bindir + DefaultMaplun;
+  helpdir  := slash(appdir) + slash('doc');
+  // Be sure zoneinfo exists in standard location or in vma directory
+{  ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');
+  buf      := slash('') + slash('usr') + slash('share') + slash('zoneinfo');
+  if (FileExists(slash(buf) + 'zone.tab')) then
+    ZoneDir := slash(buf)
+  else
+  begin
+    buf := slash('') + slash('usr') + slash('lib') + slash('zoneinfo');
+    if (FileExists(slash(buf) + 'zone.tab')) then
+      ZoneDir := slash(buf)
+    else
+    begin
+      if (not FileExists(slash(ZoneDir) + 'zone.tab')) then
+      begin
+        MessageDlg('zoneinfo directory not found!' + crlf +
+          'Please install the tzdata package.' + crlf +
+          'If it is not installed at a standard location create a logical link zoneinfo in skychart data directory.',
+          mtError, [mbAbort], 0);
+        Halt;
+      end;
+    end;
+  end;   }
 end;
 
 procedure Tf_photlun.FormCreate(Sender: TObject);
@@ -705,11 +829,10 @@ begin
   UniqueInstance1.Enabled:=true;
   UniqueInstance1.Loaded;
 {$endif}
-  SetPath;
+  GetAppDir;
+  chdir(appdir);
   ReadConfig;
   language:=u_translation.translate(pofile,'en');
-  vmaexe:='vmapro.exe';
-  datlunexe:='datlun.exe';
   SelectedObject:='';
   SortByName:=true;
   param:=Tstringlist.Create;
@@ -950,7 +1073,7 @@ begin
     if objname<>'' then parm:=parm+' -n "'+objname+'" ';
     parm:=parm+otherparam;
     chdir(appdir);
-    Execnowait(vmaexe+' '+parm);
+    Execnowait(maplun+' '+parm);
     StartVMA:=true;
 end;
 
@@ -961,7 +1084,7 @@ begin
     if objname<>'' then parm:=parm+' -n "'+objname+'" ';
     parm:=parm+otherparam;
     chdir(appdir);
-    Execnowait(datlunexe+' '+parm);
+    Execnowait(datlun+' '+parm);
     StartDatlun:=true;
 end;
 
