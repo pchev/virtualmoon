@@ -3,8 +3,8 @@
 LazarusResources.Add('TForm1','FORMDATA',[
   'TPF0'#6'TForm1'#5'Form1'#4'Left'#2'G'#6'Height'#3'X'#2#3'Top'#2#23#5'Width'#3
   +#0#4#18'HorzScrollBar.Page'#3'-'#3#19'HorzScrollBar.Range'#3#17#3#18'VertScr'
-  +'ollBar.Page'#3'J'#2#19'VertScrollBar.Range'#3#29#2#13'ActiveControl'#7#12'P'
-  +'ageControl1'#10'AutoScroll'#8#7'Caption'#6#5'Form1'#12'ClientHeight'#3'X'#2
+  +'ollBar.Page'#3'J'#2#19'VertScrollBar.Range'#3#29#2#13'ActiveControl'#7#11'C'
+  +'ontrolBar1'#10'AutoScroll'#8#7'Caption'#6#5'Form1'#12'ClientHeight'#3'X'#2
   +#11'ClientWidth'#3#0#4#21'Constraints.MinHeight'#3#244#1#20'Constraints.MinW'
   +'idth'#3#244#1#11'Font.Height'#2#245#9'Font.Name'#6#13'MS Sans Serif'#9'Icon'
   +'.Data'#10#2#3#0#0#254#2#0#0#0#0#1#0#1#0'  '#16#0#0#0#0#0#232#2#0#0#22#0#0#0

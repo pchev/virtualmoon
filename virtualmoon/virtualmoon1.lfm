@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = PageControl1
+  ActiveControl = ControlBar1
   AutoScroll = False
   Caption = 'Form1'
   ClientHeight = 600
