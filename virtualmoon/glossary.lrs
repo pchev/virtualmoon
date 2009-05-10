@@ -1,5 +1,3 @@
-{ This is an automatically generated lazarus resource file }
-
 LazarusResources.Add('TGloss','FORMDATA',[
   'TPF0'#6'TGloss'#5'Gloss'#4'Left'#3'-'#1#6'Height'#3#10#1#3'Top'#3#130#0#5'Wi'
   +'dth'#3#237#1#13'ActiveControl'#7#6'Panel1'#7'Caption'#6#8'Glossary'#12'Clie'
