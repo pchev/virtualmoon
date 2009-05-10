@@ -32,7 +32,7 @@ Windows, ShellAPI,
 {$ifdef unix}
 unix,baseunix,unixutil,
 {$endif}
-Math, Printers,
+Math, Printers, u_constant,
 LCLIntf, SysUtils, Classes, Graphics, Controls, Forms, Dialogs;
 
 Function DEToStr(de: Double) : string;
@@ -61,13 +61,14 @@ Function Slash(nom : string) : string;
 Function NoSlash(nom : string) : string;
 Procedure ShowHelpDoc(helpfile : string; suffix:string; directory: string);
 
-const crlf=chr(10)+chr(13);
+{const crlf=chr(10)+chr(13);
       blank=' ';
-      OpenFileCMD='mozilla';
+      OpenFileCMD='mozilla';   }
 var
-  AppDir,privatedir,configfile,language : string;
-  ldeg,lmin,lsec : string;
   hp: string;
+{  AppDir,privatedir,configfile,language : string;
+  ldeg,lmin,lsec : string;
+}
 
 implementation
 

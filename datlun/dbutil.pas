@@ -1,7 +1,4 @@
 unit dbutil;
-
-{$MODE Delphi}{$H+}
-
 {
 Copyright (C) 2006 Patrick Chevalley
 
@@ -22,10 +19,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
+{$MODE objfpc}
+{$H+}
 
 interface
 
-Uses SysUtils, mlb2, passql, passqlite;
+Uses Dialogs, SysUtils, mlb2, passql, passqlite;
 
 const
     MaxDBN=100;
@@ -38,11 +37,11 @@ var
 Procedure LoadDB(dbm: TLiteDB);
 Procedure CreateDB(dbm: TLiteDB);
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
-procedure DBjournal(dbm: TLiteDB; txt:string);
+procedure DBjournal(dbname,txt:string);
 
 implementation
 
-Uses  u_util, fmsg;
+Uses  u_constant, u_util, fmsg;
 
 Procedure CreateDB(dbm: TLiteDB);
 var i: integer;
@@ -110,7 +109,7 @@ if pos('moon',buf)=0 then begin
  dbm.Query(cmd);
  dbm.Query('create index moon_pos on moon (longin,latin);');
  dbm.Query('create index moon_name on moon (dbn,name);');
- dbjournal(dbm,'CREATE TABLE MOON');
+ dbjournal(extractfilename(dbm.database),'CREATE TABLE MOON');
 end;
 if pos('file_date',buf)=0 then begin
  cmd:='create table file_date ( '+
@@ -118,7 +117,7 @@ if pos('file_date',buf)=0 then begin
     'FDATE integer'+
     ');';
  dbm.Query(cmd);
- dbjournal(dbm,'CREATE TABLE FILE_DATE');
+ dbjournal(extractfilename(dbm.database),'CREATE TABLE FILE_DATE');
 end;
 if pos('user_database',buf)=0 then begin
  cmd:='create table user_database ( '+
@@ -126,7 +125,7 @@ if pos('user_database',buf)=0 then begin
     'NAME text'+
     ');';
  dbm.Query(cmd);
- dbjournal(dbm,'CREATE TABLE USER_DATABASE');
+ dbjournal(extractfilename(dbm.database),'CREATE TABLE USER_DATABASE');
 end;
 end;
 
@@ -136,30 +135,32 @@ var cmd,v: string;
     db1:Tmlb2;
 begin
 MsgForm:=TMsgForm.create(nil);
-MsgForm.Label1.caption:='Preparing Database. Please Wait ...';
+MsgForm.Label1.caption:=ExtractFileName(fn)+crlf+'Preparing Database. Please Wait ...';
 msgform.show;
 msgform.Refresh;
 db1:=Tmlb2.Create;
 try
 db1.init;
-db1.LoadFromFile(fn);       
+db1.LoadFromFile(fn);
 db1.GoFirst;
 dbm.StartTransaction;
 dbm.Query('delete from moon where DBN='+side+';');
 dbm.Commit;
 dbm.Query('Vacuum;');
-dbjournal(dbm,'DELETE ALL DBN='+side);
+dbjournal(extractfilename(dbm.database),'DELETE ALL DBN='+side);
 dbm.StartTransaction;
 repeat
   cmd:='insert into moon values(NULL,'+side+',';
   for i:=1 to db1.FieldCount do begin
-    v:=stringreplace(db1.GetDataByIndex(i),',','.',[rfreplaceall]); // look why we need that ???
+    v:=db1.GetDataByIndex(i);
+    v:=stringreplace(v,',','.',[rfreplaceall]); // look why we need that ???
     v:=stringreplace(v,'""','''',[rfreplaceall]);
     v:=stringreplace(v,'"','',[rfreplaceall]);
     cmd:=cmd+'"'+v+'",';
   end;
   cmd:=copy(cmd,1,length(cmd)-1)+');';
   dbm.Query(cmd);
+//  showmessage(dbm.ErrorMessage);
   db1.GoNext;
 until db1.EndOfFile;
 imax:=dbm.GetLastInsertID;
@@ -170,11 +171,11 @@ dbm.Query('update moon set lengthmi=0 where lengthmi="";');
 dbm.Query('delete from file_date where dbn='+side+';');
 dbm.Query('insert into file_date values ('+side+','+inttostr(fileage(fn))+');');
 dbm.Commit;
-dbjournal(dbm,'INSERT DBN='+side+' MAX ID='+inttostr(imax));
+dbjournal(extractfilename(dbm.database),'INSERT DBN='+side+' MAX ID='+inttostr(imax));
 finally
 msgform.close;
 msgform.free;
-db1.clear;
+db1.Clear;
 db1.Free;
 end;
 end;
@@ -183,50 +184,50 @@ Procedure LoadDB(dbm: TLiteDB);
 var i,db_age : integer;
     buf:string;
 begin
-buf:=Slash(privatedir)+Slash('database')+'dbmoon3_'+language+'.dbl';
+buf:=Slash(DBdir)+'dbmoon3_u'+language+'.dbl';
 dbm.Use(utf8encode(buf));
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
 try
-buf:=Slash(appdir)+Slash('database')+'Nearside_Named_'+language+'.csv';
+buf:=Slash(appdir)+Slash('Database')+'Nearside_Named_u'+language+'.csv';
 if fileexists(buf) then database[1]:=buf
-   else database[1]:=Slash(appdir)+Slash('database')+'Nearside_Named_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Nearside_satellite_'+language+'.csv';
+   else database[1]:=Slash(appdir)+Slash('Database')+'Nearside_Named_uUK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_u'+language+'.csv';
 if fileexists(buf) then database[2]:=buf
-   else database[2]:=Slash(appdir)+Slash('database')+'Nearside_Satellite_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Farside_named_'+language+'.csv';
+   else database[2]:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_uUK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_Named_u'+language+'.csv';
 if fileexists(buf) then database[3]:=buf
-   else database[3]:=Slash(appdir)+Slash('database')+'Farside_Named_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Farside_satellite_'+language+'.csv';
+   else database[3]:=Slash(appdir)+Slash('Database')+'Farside_Named_uUK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_Satellite_u'+language+'.csv';
 if fileexists(buf) then database[4]:=buf
-   else database[4]:=Slash(appdir)+Slash('database')+'Farside_Satellite_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Historical_'+language+'.csv';
+   else database[4]:=Slash(appdir)+Slash('Database')+'Farside_Satellite_uUK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Historical_u'+language+'.csv';
 if fileexists(buf) then database[5]:=buf
-   else database[5]:=Slash(appdir)+Slash('database')+'Historical_UK.csv';
-buf:=Slash(appdir)+Slash('database')+'Pyroclastic_'+language+'.csv';
+   else database[5]:=Slash(appdir)+Slash('Database')+'Historical_uUK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Pyroclastic_u'+language+'.csv';
 if fileexists(buf) then database[6]:=buf
-   else database[6]:=Slash(appdir)+Slash('database')+'Pyroclastic_UK.csv';
+   else database[6]:=Slash(appdir)+Slash('Database')+'Pyroclastic_uUK.csv';
 CreateDB(dbm);
 for i:=1 to 6 do begin
   if usedatabase[i] then begin
      buf:=dbm.QueryOne('select fdate from file_date where dbn='+inttostr(i)+';');
      if buf='' then db_age:=0 else db_age:=strtoint(buf);
      if fileexists(database[i]) and (db_age<fileage(database[i])) then begin
-        dbjournal(dbm,'LOAD DATABASE DBN='+inttostr(i)+' FROM FILE: '+database[i]+' FILE DATE: '+ DateTimeToStr(FileDateToDateTime(fileage(database[i]))) );
+        dbjournal(extractfilename(dbm.database),'LOAD DATABASE DBN='+inttostr(i)+' FROM FILE: '+database[i]+' FILE DATE: '+ DateTimeToStr(FileDateToDateTime(fileage(database[i]))) );
         convertDB(dbm,database[i],inttostr(i));
      end;
   end;
-end;
+end;               
 finally
 end;
 end;
 
-procedure DBjournal(dbm: TLiteDB; txt:string);
+procedure DBjournal(dbname,txt:string);
 var f : textfile;
     fn: string;
 const dbj='database_journal.txt';
 begin
-fn:=Slash(privatedir)+Slash('database')+dbj;
+fn:=Slash(DBdir)+dbj;
 if fileexists(fn) then begin
   assignfile(f,fn);
   append(f);
@@ -234,7 +235,7 @@ end else begin
   assignfile(f,fn);
   rewrite(f);
 end;
-writeln(f,FormatDateTime('yyyy"-"mm"-"dd" "hh":"nn":"ss',Now),' DB=',extractfilename(dbm.database),' ',txt);
+writeln(f,FormatDateTime('yyyy"-"mm"-"dd" "hh":"nn":"ss',Now),' DB=',dbname,' ',txt);
 closefile(f);
 end;
 

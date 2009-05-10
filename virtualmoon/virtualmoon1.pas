@@ -561,10 +561,7 @@ const
   b      = ' ';
 begin
   language := 'UK';
-  if fileexists(ConfigFile) then
-    inifile := Tmeminifile.Create(ConfigFile)
-  else
-    inifile := Tmeminifile.Create(slash(AppDir) + 'virtualmoon.ini');
+  inifile := Tmeminifile.Create(ConfigFile);
   with inifile do
   begin
     section := 'default';
@@ -572,9 +569,9 @@ begin
   end;
   inifile.Free;
   chdir(appdir);
-  if fileexists(Slash(AppDir) + slash('language') + 'lang_' + buf + '.ini') then
+  if fileexists(Slash(AppDir) + slash('language') + 'lang_u' + buf + '.ini') then
     language := buf;
-  inifile    := Tmeminifile.Create(Slash(AppDir) + slash('language') + 'lang_' + language + '.ini');
+  inifile    := Tmeminifile.Create(Slash(AppDir) + slash('language') + 'lang_u' + language + '.ini');
   section    := 'default';
   with inifile do
   begin
@@ -605,7 +602,7 @@ const
 
 begin
   wordformat := 0;
-  inifile    := Tmeminifile.Create(Slash(AppDir) + slash('language') + 'lang_' + language + '.ini');
+  inifile    := Tmeminifile.Create(Slash(AppDir) + slash('language') + 'lang_u' + language + '.ini');
   section    := 'default';
   with inifile do
   begin
@@ -921,7 +918,7 @@ var
   i, j:    integer;
   smooth:  integer;
 begin
-  database[1]    := 'Nearside_Named_FR.csv';
+  database[1]    := 'Nearside_Named_uFR.csv';
   usedatabase[1] := True;
   usedatabase[2] := True;
   usedatabase[3] := True;
@@ -984,10 +981,7 @@ begin
   ClosePhotlun := False;
   CloseCdC := False;
   smooth   := 180;
-  if fileexists(ConfigFile) then
-    inif := Tmeminifile.Create(ConfigFile)
-  else
-    inif := Tmeminifile.Create(slash(AppDir) + 'virtualmoon.ini');
+  inif := Tmeminifile.Create(ConfigFile);
   with inif do
   begin
     section     := 'images';
@@ -1624,8 +1618,7 @@ begin
   if buf1 = '' then
     buf1     := buf;  // old windows version
   privatedir := slash(buf) + privatedir;
-  configfile := Defaultconfigfile;
-  configfile := slash(privatedir) + configfile;
+  configfile := slash(privatedir) + Defaultconfigfile;
   CdCconfig  := slash(buf1) + DefaultCdCconfig;
 {$endif}
 

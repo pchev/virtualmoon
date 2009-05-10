@@ -7,7 +7,6 @@ object f_photo: Tf_photo
   Caption = 'Photlun'
   ClientHeight = 449
   ClientWidth = 400
-  Color = clBlack
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
@@ -15,9 +14,9 @@ object f_photo: Tf_photo
   LCLVersion = '0.9.27'
   object Image1: TImage
     Left = 0
-    Height = 383
+    Height = 391
     Top = 26
-    Width = 383
+    Width = 385
     Align = alClient
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
@@ -145,8 +144,8 @@ object f_photo: Tf_photo
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 426
+    Height = 17
+    Top = 432
     Width = 400
     Panels = <    
       item
@@ -159,8 +158,8 @@ object f_photo: Tf_photo
   end
   object HScrollBar: TScrollBar
     Left = 0
-    Height = 17
-    Top = 409
+    Height = 15
+    Top = 417
     Width = 400
     Align = alBottom
     PageSize = 0
@@ -168,10 +167,10 @@ object f_photo: Tf_photo
     OnChange = HScrollBarChange
   end
   object VScrollBar: TScrollBar
-    Left = 383
-    Height = 383
+    Left = 385
+    Height = 391
     Top = 26
-    Width = 17
+    Width = 15
     Align = alRight
     Kind = sbVertical
     PageSize = 0

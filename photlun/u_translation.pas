@@ -4,7 +4,7 @@ unit u_translation;
 
 interface
 
-uses gettext, translations, u_util,
+uses gettext, translations, u_util, u_constant,
   Classes, SysUtils;
 
 function GetDefaultLanguage:string;

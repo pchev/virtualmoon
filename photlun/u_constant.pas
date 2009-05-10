@@ -27,9 +27,6 @@ interface
 
 uses
      dynlibs, Classes, Controls, Graphics;
-{
-     cu_tz, dynlibs,
-     Classes, Controls, FPCanvas, Graphics;}
 
 const crlf = chr(10)+chr(13);
       AVLversion = '5.0 beta';
@@ -101,8 +98,9 @@ const crlf = chr(10)+chr(13);
       Defaultconfigfile='~/.virtualmoon/virtualmoon5.ini';
       SharedDir='../share/virtualmoon';
       DefaultTmpDir='tmp';
-      DefaultPhotlun='photlun';
+      DefaultVignetteDir='vignette';
       DefaultDatlun='datlun';
+      DefaultMaplun='vmapro';
       DefaultCdC='skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
@@ -111,8 +109,9 @@ const crlf = chr(10)+chr(13);
       Defaultconfigfile='~/.virtualmoon/virtualmoon5.ini';
       SharedDir='/usr/share/virtualmoon';
       DefaultTmpDir='tmp';
-      DefaultPhotlun='photlun';
+      DefaultVignetteDir='vignette';
       DefaultDatlun='datlun';
+      DefaultMaplun='vmapro';
       DefaultCdC='skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
@@ -121,8 +120,9 @@ const crlf = chr(10)+chr(13);
       Defaultconfigfile='virtualmoon5.ini';
       SharedDir='.\';
       DefaultTmpDir='tmp';
-      DefaultPhotlun='photlun.exe';
+      DefaultVignetteDir='vignette';
       DefaultDatlun='datlun.exe';
+      DefaultMaplun='vmapro.exe';
       DefaultCdC='skychart.exe';
       DefaultCdCconfig='Skychart\skychart.ini';
 {$endif}
@@ -177,8 +177,8 @@ var gzopen : Tgzopen;
     zlib: longword;
 
 // pseudo-constant only here
-Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : string;
-     Photlun,DatLun,CdC,PrtName, CdCcaption, transmsg : String;
+Var  BinDir, Appdir, vignettedir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : string;
+     Datlun,MapLun,CdC,PrtName, CdCcaption, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double; ObsTZ: string;
      ObsTemperature,ObsPressure,ObsRefractionCor,ObsHorizonDepression : Double;
      TimeZone,DT_UT,ObsRoCosPhi,ObsRoSinPhi,CurrentJD : double;

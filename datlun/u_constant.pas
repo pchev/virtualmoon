@@ -27,9 +27,6 @@ interface
 
 uses
      dynlibs, Classes, Controls, Graphics;
-{
-     cu_tz, dynlibs,
-     Classes, Controls, FPCanvas, Graphics;}
 
 const crlf = chr(10)+chr(13);
       AVLversion = '5.0 beta';
@@ -102,7 +99,7 @@ const crlf = chr(10)+chr(13);
       SharedDir='../share/virtualmoon';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun';
-      DefaultDatlun='datlun';
+      DefaultMaplun='vmapro';
       DefaultCdC='skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
@@ -112,7 +109,7 @@ const crlf = chr(10)+chr(13);
       SharedDir='/usr/share/virtualmoon';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun';
-      DefaultDatlun='datlun';
+      DefaultMaplun='vmapro';
       DefaultCdC='skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
@@ -122,7 +119,7 @@ const crlf = chr(10)+chr(13);
       SharedDir='.\';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun.exe';
-      DefaultDatlun='datlun.exe';
+      DefaultMaplun='vmapro.exe';
       DefaultCdC='skychart.exe';
       DefaultCdCconfig='Skychart\skychart.ini';
 {$endif}
@@ -178,7 +175,7 @@ var gzopen : Tgzopen;
 
 // pseudo-constant only here
 Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : string;
-     Photlun,DatLun,CdC,PrtName, CdCcaption, transmsg : String;
+     Photlun,MapLun,CdC,PrtName, CdCcaption, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double; ObsTZ: string;
      ObsTemperature,ObsPressure,ObsRefractionCor,ObsHorizonDepression : Double;
      TimeZone,DT_UT,ObsRoCosPhi,ObsRoSinPhi,CurrentJD : double;

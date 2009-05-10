@@ -184,29 +184,29 @@ Procedure LoadDB(dbm: TLiteDB);
 var i,db_age : integer;
     buf:string;
 begin
-buf:=Slash(DBdir)+'dbmoon3_'+language+'.dbl';
+buf:=Slash(DBdir)+'dbmoon3_u'+language+'.dbl';
 dbm.Use(utf8encode(buf));
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
 try
-buf:=Slash(appdir)+Slash('Database')+'Nearside_Named_'+language+'.csv';
+buf:=Slash(appdir)+Slash('Database')+'Nearside_Named_u'+language+'.csv';
 if fileexists(buf) then database[1]:=buf
-   else database[1]:=Slash(appdir)+Slash('Database')+'Nearside_Named_UK.csv';
-buf:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_'+language+'.csv';
+   else database[1]:=Slash(appdir)+Slash('Database')+'Nearside_Named_uUK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_u'+language+'.csv';
 if fileexists(buf) then database[2]:=buf
-   else database[2]:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_UK.csv';
-buf:=Slash(appdir)+Slash('Database')+'Farside_Named_'+language+'.csv';
+   else database[2]:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_uUK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_Named_u'+language+'.csv';
 if fileexists(buf) then database[3]:=buf
-   else database[3]:=Slash(appdir)+Slash('Database')+'Farside_Named_UK.csv';
-buf:=Slash(appdir)+Slash('Database')+'Farside_Satellite_'+language+'.csv';
+   else database[3]:=Slash(appdir)+Slash('Database')+'Farside_Named_uUK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_Satellite_u'+language+'.csv';
 if fileexists(buf) then database[4]:=buf
-   else database[4]:=Slash(appdir)+Slash('Database')+'Farside_Satellite_UK.csv';
-buf:=Slash(appdir)+Slash('Database')+'Historical_'+language+'.csv';
+   else database[4]:=Slash(appdir)+Slash('Database')+'Farside_Satellite_uUK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Historical_u'+language+'.csv';
 if fileexists(buf) then database[5]:=buf
-   else database[5]:=Slash(appdir)+Slash('Database')+'Historical_UK.csv';
-buf:=Slash(appdir)+Slash('Database')+'Pyroclastic_'+language+'.csv';
+   else database[5]:=Slash(appdir)+Slash('Database')+'Historical_uUK.csv';
+buf:=Slash(appdir)+Slash('Database')+'Pyroclastic_u'+language+'.csv';
 if fileexists(buf) then database[6]:=buf
-   else database[6]:=Slash(appdir)+Slash('Database')+'Pyroclastic_UK.csv';
+   else database[6]:=Slash(appdir)+Slash('Database')+'Pyroclastic_uUK.csv';
 CreateDB(dbm);
 for i:=1 to 6 do begin
   if usedatabase[i] then begin

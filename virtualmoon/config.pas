@@ -226,7 +226,7 @@ if not fileexists('version.developpement') then begin
   ruklsuffix.Visible:=false;   // Rükl chart
 end;
 AVLver:=copy(AVLversion,1,3);
-i:=findfirst(slash(appdir)+slash('language')+'lang_*.ini',0,fs);
+i:=findfirst(slash(appdir)+slash('language')+'lang_u*.ini',0,fs);
 while i=0 do begin
   inifile:=Tinifile.create(slash(appdir)+slash('language')+fs.name);
   buf:=inifile.ReadString('default','language','Invalid File '+fs.name);
@@ -237,7 +237,7 @@ while i=0 do begin
   code:=extractfilename(fs.name);
   p:=pos('.',code);
   if p=0 then p:=9999;
-  code:=copy(code,6,p-6);
+  code:=copy(code,7,p-7);
   buf:=code+' '+buf+ver;
   combobox3.Items.Add(buf);
   i:=findnext(fs);
