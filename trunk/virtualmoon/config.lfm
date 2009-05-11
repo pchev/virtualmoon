@@ -214,8 +214,8 @@ object Form2: TForm2
         Top = 10
         Width = 305
         Caption = 'Database'
-        ClientHeight = 172
-        ClientWidth = 301
+        ClientHeight = 161
+        ClientWidth = 303
         TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
@@ -612,9 +612,10 @@ object Form2: TForm2
           Top = 258
           Width = 161
           Frequency = 20
-          Max = 3
-          PageSize = 1
-          Position = 0
+          Max = 100
+          Min = 1
+          PageSize = 10
+          Position = 1
           TickStyle = tsNone
           TabOrder = 2
         end

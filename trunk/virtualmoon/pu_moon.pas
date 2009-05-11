@@ -129,7 +129,7 @@ type
     TextureCmp: TGLTextureCompression;
     FMeasuringDistance: Boolean;
     FRaCentre, FDeCentre, FDiameter, FPositionAngle: single;
-    FOverlayTransparency: integer;
+    FOverlayTransparency: single;
     procedure SetTexture(fn:string);
     procedure SetOverlay(fn:string);
     procedure SetBumpPath(fn:string);
@@ -138,6 +138,7 @@ type
     procedure SetMirror(value:boolean);
     procedure SetOrientation(value: single);
     procedure SetVisibleSideLock(value:boolean);
+    procedure SetOverlayTransparency(value:single);
     procedure SetRotation(value:single);
     procedure SetPhase(value:single);
     procedure SetSunIncl(value:single);
@@ -204,7 +205,7 @@ type
     property TexturePath : String read FtexturePath write FTexturePath;
     property Texture : String read Ftexture write SetTexture;
     property OverlayPath : String read FOverlayPath write FOverlayPath;
-    property OverlayTransparency : integer read FOverlayTransparency write FOverlayTransparency;
+    property OverlayTransparency : single read FOverlayTransparency write SetOverlayTransparency;
     property Overlay : String read FOverlay write SetOverlay;
     property BumpPath : String read FBumpPath write SetBumpPath;
     property Bumpmap : Boolean read FBumpmap write SetBumpmap;
@@ -319,9 +320,10 @@ with GLMaterialLibrary1 do begin
         Material.BlendingMode:=bmTransparency;
         Material.FrontProperties.Ambient.AsWinColor:=clWhite;
         Material.FrontProperties.Diffuse.AsWinColor:=clWhite;
+        Material.FrontProperties.Diffuse.Alpha:=0;
         Material.FrontProperties.Specular.AsWinColor:=clWhite;
         Material.Texture.Compression:=TextureCmp;
-        Material.Texture.ImageAlpha:=tiaTopLeftPointColorTransparent;
+        Material.Texture.ImageAlpha:=tiaOpaque;
         Material.Texture.TextureWrap:=twNone;
         Material.Texture.TextureMode:=tmModulate;
        end;
@@ -607,7 +609,7 @@ procedure Tf_moon.ClearOverlay;
 begin
 if GLMaterialLibrary1.LibMaterialByName('O1')<>nil then begin
   GLMaterialLibrary1.LibMaterialByName('O1').Material.Texture.Image.Assign(blankbmp);
-  GLMaterialLibrary1.LibMaterialByName('O1').Material.Texture.ImageAlpha:=tiaBottomRightPointColorTransparent;
+  GLMaterialLibrary1.LibMaterialByName('O1').Material.FrontProperties.Diffuse.Alpha:=0;
   GLSceneViewer1.Refresh;
 end;
 end;
@@ -624,18 +626,18 @@ end else begin
   with GLMaterialLibrary1 do begin
       with LibMaterialByName('O1') do begin
         Material.Texture.ImageBrightness:=1;
-        case FOverlayTransparency of
-         0 : Material.Texture.ImageAlpha:=tiaLuminanceSqrt;
-         1 : Material.Texture.ImageAlpha:=tiaLuminance;
-         2 : Material.Texture.ImageAlpha:=tiaInverseLuminance;
-         3 : Material.Texture.ImageAlpha:=tiaInverseLuminanceSqrt;
-         else Material.Texture.ImageAlpha:=tiaLuminance;
-        end;
+        Material.FrontProperties.Diffuse.Alpha:=FOverlayTransparency;
         Material.Texture.Image.LoadFromFile(slash(FOverlayPath)+fn);
       end;
    end;
 end;
 GLSceneViewer1.Refresh;
+end;
+
+procedure Tf_moon.SetOverlayTransparency(value:single);
+begin
+FOverlayTransparency:=value;
+//GLMaterialLibrary1.LibMaterialByName('O1').Material.FrontProperties.Diffuse.Alpha:=FOverlayTransparency;
 end;
 
 procedure Tf_moon.SetBumpmap(value: boolean);
@@ -933,6 +935,7 @@ begin
  MaxTextureSize:=1024;
  Flabelcolor:=clWhite;
  FMeasuringDistance := False;
+// GLSceneViewer1.Buffer.AntiAliasing:=aa4x;
  GLLightSource1.Ambient.AsWinColor :=$4B4B4B;
  GLLightSource1.Diffuse.AsWinColor :=$FFFFFF;
  GLLightSource1.Specular.AsWinColor:=$474747;
