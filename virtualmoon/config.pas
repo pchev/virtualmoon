@@ -256,7 +256,7 @@ i:=findfirst(Slash(appdir)+Slash('Textures')+'*',faDirectory,fs);
 CheckListBox2.clear;
 CheckListBox2.Sorted:=true;
 while i=0 do begin
-  if (fs.Name<>'.')and(fs.Name<>'..')and(fs.Name<>'Bumpmap')and(fs.Name<>'Overlay') then
+  if ((fs.Attr and faDirectory)= faDirectory)and(fs.Name<>'.')and(fs.Name<>'..')and(fs.Name<>'Bumpmap')and(fs.Name<>'Overlay') then
     CheckListBox2.Items.Add(fs.name);
   i:=findnext(fs);
 end;
