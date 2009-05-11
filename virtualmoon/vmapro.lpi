@@ -8,7 +8,7 @@
       <TargetFileExt Value=".exe"/>
       <Title Value="vmapro"/>
       <Icon Value="0"/>
-      <ActiveEditorIndexAtStart Value="0"/>
+      <ActiveEditorIndexAtStart Value="2"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -68,7 +68,7 @@
         <PackageName Value="LCL"/>
       </Item11>
     </RequiredPackages>
-    <Units Count="99">
+    <Units Count="101">
       <Unit0>
         <Filename Value="vmapro.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -93,14 +93,14 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="34" Y="4600"/>
-        <TopLine Value="4590"/>
+        <CursorPos X="66" Y="3132"/>
+        <TopLine Value="3116"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="3">
-          <Item0 X="7" Y="2897" ID="5"/>
-          <Item1 X="5" Y="3208" ID="6"/>
-          <Item2 X="7" Y="3992" ID="7"/>
+          <Item0 X="7" Y="2898" ID="5"/>
+          <Item1 X="5" Y="3210" ID="6"/>
+          <Item2 X="7" Y="3994" ID="7"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit2>
@@ -124,7 +124,9 @@
         <UnitName Value="config"/>
         <CursorPos X="12" Y="273"/>
         <TopLine Value="267"/>
+        <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\..\lazarus\lcl\include\control.inc"/>
@@ -197,7 +199,7 @@
         <UnitName Value="u_util"/>
         <CursorPos X="9" Y="159"/>
         <TopLine Value="142"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="192"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\..\lazarus\components\glscene\Source\platform\glcrossplatform.pas"/>
@@ -212,7 +214,7 @@
         <UnitName Value="u_constant"/>
         <CursorPos X="52" Y="180"/>
         <TopLine Value="164"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="192"/>
       </Unit14>
       <Unit15>
         <Filename Value="cu_planet.pas"/>
@@ -220,7 +222,7 @@
         <UnitName Value="cu_planet"/>
         <CursorPos X="1" Y="169"/>
         <TopLine Value="162"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="192"/>
       </Unit15>
       <Unit16>
         <Filename Value="u_projection.pas"/>
@@ -228,7 +230,7 @@
         <UnitName Value="u_projection"/>
         <CursorPos X="10" Y="50"/>
         <TopLine Value="29"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="192"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\..\pch\fpc\rtl\objpas\math.pp"/>
@@ -276,7 +278,7 @@
         <UnitName Value="cu_tz"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="13"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="192"/>
       </Unit23>
       <Unit24>
         <Filename Value="config.lfm"/>
@@ -356,13 +358,16 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="8" Y="829"/>
-        <TopLine Value="826"/>
-        <UsageCount Value="169"/>
-        <Bookmarks Count="2">
-          <Item0 X="16" Y="1531" ID="2"/>
-          <Item1 X="13" Y="1200" ID="3"/>
+        <CursorPos X="58" Y="929"/>
+        <TopLine Value="913"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="171"/>
+        <Bookmarks Count="3">
+          <Item0 X="65" Y="323" ID="1"/>
+          <Item1 X="19" Y="630" ID="2"/>
+          <Item2 X="13" Y="1203" ID="3"/>
         </Bookmarks>
+        <Loaded Value="True"/>
       </Unit34>
       <Unit35>
         <Filename Value="pu_moon.lfm"/>
@@ -387,8 +392,8 @@
       <Unit38>
         <Filename Value="..\..\..\pch\lazarus\components\glscene\Source\glscene.pas"/>
         <UnitName Value="GLScene"/>
-        <CursorPos X="28" Y="5849"/>
-        <TopLine Value="5834"/>
+        <CursorPos X="1" Y="7408"/>
+        <TopLine Value="7391"/>
         <UsageCount Value="12"/>
         <SyntaxHighlighter Value="Delphi"/>
       </Unit38>
@@ -569,25 +574,25 @@
       <Unit64>
         <Filename Value="..\..\..\pch\lazarus\components\glscene\Source\platform\gllclviewer.pas"/>
         <UnitName Value="GLLCLViewer"/>
-        <CursorPos X="43" Y="585"/>
-        <TopLine Value="560"/>
+        <CursorPos X="14" Y="224"/>
+        <TopLine Value="202"/>
         <UsageCount Value="10"/>
         <SyntaxHighlighter Value="Delphi"/>
       </Unit64>
       <Unit65>
         <Filename Value="..\..\..\pch\lazarus\components\glscene\Source\platform\glviewer.pas"/>
         <UnitName Value="GLViewer"/>
-        <CursorPos X="38" Y="35"/>
-        <TopLine Value="1"/>
-        <UsageCount Value="8"/>
+        <CursorPos X="39" Y="40"/>
+        <TopLine Value="33"/>
+        <UsageCount Value="10"/>
         <SyntaxHighlighter Value="Delphi"/>
       </Unit65>
       <Unit66>
         <Filename Value="..\..\..\pch\lazarus\components\glscene\Source\platform\gllingtkcontext.pas"/>
         <UnitName Value="GLLinGTKContext"/>
-        <CursorPos X="1" Y="1"/>
-        <TopLine Value="1"/>
-        <UsageCount Value="8"/>
+        <CursorPos X="19" Y="219"/>
+        <TopLine Value="187"/>
+        <UsageCount Value="10"/>
         <SyntaxHighlighter Value="Delphi"/>
       </Unit66>
       <Unit67>
@@ -673,8 +678,8 @@
       <Unit79>
         <Filename Value="..\..\..\pch\lazarus\components\glscene\Source\gltexture.pas"/>
         <UnitName Value="GLTexture"/>
-        <CursorPos X="72" Y="326"/>
-        <TopLine Value="303"/>
+        <CursorPos X="49" Y="324"/>
+        <TopLine Value="305"/>
         <UsageCount Value="10"/>
         <SyntaxHighlighter Value="Delphi"/>
       </Unit79>
@@ -799,52 +804,28 @@
         <TopLine Value="52"/>
         <UsageCount Value="10"/>
       </Unit98>
+      <Unit99>
+        <Filename Value="..\..\..\pch\lazarus\components\glscene\Source\platform\glwin32context.pas"/>
+        <UnitName Value="GLWin32Context"/>
+        <CursorPos X="1" Y="406"/>
+        <TopLine Value="386"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="Delphi"/>
+      </Unit99>
+      <Unit100>
+        <Filename Value="..\..\..\pch\lazarus\components\glscene\Source\glcontext.pas"/>
+        <UnitName Value="GLContext"/>
+        <CursorPos X="1" Y="893"/>
+        <TopLine Value="876"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="Delphi"/>
+      </Unit100>
     </Units>
-    <JumpHistory Count="11" HistoryIndex="10">
+    <JumpHistory Count="1" HistoryIndex="0">
       <Position1>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="148" Column="15" TopLine="131"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="938" Column="3" TopLine="913"/>
       </Position1>
-      <Position2>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="1081" Column="70" TopLine="1064"/>
-      </Position2>
-      <Position3>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="2252" Column="48" TopLine="2222"/>
-      </Position3>
-      <Position4>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="2695" Column="13" TopLine="2678"/>
-      </Position4>
-      <Position5>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="2891" Column="43" TopLine="2875"/>
-      </Position5>
-      <Position6>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position6>
-      <Position7>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="3502" Column="59" TopLine="3489"/>
-      </Position7>
-      <Position8>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position8>
-      <Position9>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="2876" Column="14" TopLine="2850"/>
-      </Position9>
-      <Position10>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="2858" Column="33" TopLine="2850"/>
-      </Position10>
-      <Position11>
-        <Filename Value="virtualmoon1.pas"/>
-        <Caret Line="4604" Column="18" TopLine="4590"/>
-      </Position11>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -853,6 +834,7 @@
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)\"/>
       <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      <LCLWidgetType Value="gtk2"/>
     </SearchPaths>
     <Linking>
       <Options>

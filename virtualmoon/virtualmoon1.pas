@@ -466,7 +466,8 @@ type
     bldb: array[1..20] of string;
     CameraOrientation, PoleOrientation, startl, startb, startxx, startyy: double;
     curx, cury: double;
-    LabelDensity, overlaytr, phaseoffset: integer;
+    LabelDensity, phaseoffset: integer;
+    overlaytr: single;
     perfdeltay: double;
     ddeparam, currenttexture, overlayname, currentselection: string;
     CielHnd: Thandle;
@@ -491,7 +492,7 @@ type
     LastScopeTracking: double;
     UseComputerTime: boolean;
     procedure Init;
-    procedure LoadOverlay(fn: string; transparent: integer);
+    procedure LoadOverlay(fn: string; transparent: single);
     procedure GetLabel(Sender: TObject);
     procedure GetSprite(Sender: TObject);
     function SearchAtPos(l, b: double): boolean;
@@ -1120,7 +1121,7 @@ begin
     for i := 1 to useDBN do
       db_age[i] := ReadInteger(section, 'DB_Age' + IntToStr(i), 0);
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
-    overlaytr  := ReadInteger(section, 'overlaytr', 1);
+    overlaytr  := ReadFloat(section, 'overlaytr', 0.5);
     showoverlay := ReadBool(section, 'showoverlay', showoverlay);
     Geocentric  := ReadBool(section, 'Geocentric', Geocentric);
     moon1.AmbientColor := ReadInteger(section, 'AmbientLight', moon1.AmbientColor);
@@ -1165,7 +1166,7 @@ begin
       for i := 1 to useDBN do
         WriteInteger(section, 'DB_Age' + IntToStr(i), db_age[i]);
       WriteString(section, 'overlayname', overlayname);
-      WriteInteger(section, 'overlaytr', overlaytr);
+      WriteFloat(section, 'overlaytr', overlaytr);
       WriteBool(section, 'showoverlay', showoverlay);
       for i := 1 to 6 do
         WriteBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
@@ -3129,6 +3130,7 @@ try
   ListUserDB;
   InitLopamIdx;
   InitTelescope;
+  { TODO : Add timezone setting }
   tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
   timezone := tz.SecondsOffset / 3600;
   dblox.LoadFromFile(Slash(appdir) + Slash('Database') + 'lopamidx.csv');
@@ -3304,7 +3306,7 @@ begin
     form2.ruklprefix.Text := ruklprefix;
     form2.ruklsuffix.Text := ruklsuffix;
     form2.combobox5.Text := remext(overlayname);
-    form2.trackbar5.position := overlaytr;
+    form2.trackbar5.position := round(overlaytr*100);
     form2.combobox5change(Sender);
     form2.checkbox11.Checked := showoverlay;
     form2.checkbox16.Checked := UseComputerTime;
@@ -3318,11 +3320,11 @@ begin
     begin
       screen.cursor := crhourglass;
       if (form2.combobox5.Text <> remext(overlayname)) or
-        (form2.trackbar5.position <> overlaytr) or
+        (form2.trackbar5.position <> round(overlaytr*100)) or
         (form2.checkbox11.Checked <> showoverlay) then
         reload    := True;
       overlayname := form2.combobox5.Text + '.jpg';
-      overlaytr  := form2.trackbar5.position;
+      overlaytr  := form2.trackbar5.position/100;
       showoverlay := form2.checkbox11.Checked;
       if texturefile <> form2.texturefn then
       begin
@@ -5010,7 +5012,7 @@ begin
   moon1.SpecularColor := SetWhitecolor(Trackbar4.position);
 end;
 
-procedure TForm1.LoadOverlay(fn: string; transparent: integer);
+procedure TForm1.LoadOverlay(fn: string; transparent: single);
 begin
   if showoverlay and fileexists(Slash(moon1.OverlayPath) + fn) then
   begin

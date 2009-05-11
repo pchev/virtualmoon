@@ -297,6 +297,15 @@ object f_moon: Tf_moon
     Materials = <    
       item
         Name = 'MultiMaterial'
+        Material.FrontProperties.Ambient.Color = {
+          0000803F0000803F0000803F0000803F
+        }
+        Material.FrontProperties.Diffuse.Color = {
+          0000803F0000803F0000803F0000803F
+        }
+        Material.FrontProperties.Specular.Color = {
+          0000803F0000803F0000803F0000803F
+        }
         Tag = 0
         Shader = GLMultiMaterialShader
       end>
