@@ -971,7 +971,7 @@ begin
   externalimage := False;
   externalimagepath := 'mspaint.exe';
   texturefile := 'Clementine';
-  wantbump := true;
+  wantbump := false;
   eyepiecename[1] := 'SCT 8" + Plossl 10mm';
   eyepiecefield[1] := 15;
   rotdirection := 1;
