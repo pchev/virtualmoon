@@ -8,7 +8,7 @@
       <TargetFileExt Value=".exe"/>
       <Title Value="vmapro"/>
       <Icon Value="0"/>
-      <ActiveEditorIndexAtStart Value="2"/>
+      <ActiveEditorIndexAtStart Value="1"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -122,8 +122,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="config"/>
-        <CursorPos X="12" Y="273"/>
-        <TopLine Value="267"/>
+        <CursorPos X="3" Y="300"/>
+        <TopLine Value="298"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -821,11 +821,15 @@
         <SyntaxHighlighter Value="Delphi"/>
       </Unit100>
     </Units>
-    <JumpHistory Count="1" HistoryIndex="0">
+    <JumpHistory Count="2" HistoryIndex="1">
       <Position1>
         <Filename Value="pu_moon.pas"/>
         <Caret Line="938" Column="3" TopLine="913"/>
       </Position1>
+      <Position2>
+        <Filename Value="config.pas"/>
+        <Caret Line="166" Column="57" TopLine="166"/>
+      </Position2>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

@@ -163,6 +163,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
+    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure Shape1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Button2Click(Sender: TObject);
@@ -292,6 +293,11 @@ edit1.Enabled:=not checkbox3.checked;
 edit2.Enabled:=not checkbox3.checked;
 combobox1.Enabled:=not checkbox3.checked;
 combobox2.Enabled:=not checkbox3.checked;
+end;
+
+procedure TForm2.PageControl1ChangeBounds(Sender: TObject);
+begin
+
 end;
 
 procedure TForm2.Shape1MouseUp(Sender: TObject; Button: TMouseButton;
