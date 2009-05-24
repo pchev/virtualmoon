@@ -1,7 +1,7 @@
 object Form2: TForm2
-  Left = 517
+  Left = 475
   Height = 462
-  Top = 107
+  Top = 87
   Width = 361
   ActiveControl = PageControl1
   Caption = 'Configuration'
@@ -113,9 +113,7 @@ object Form2: TForm2
         Height = 24
         Top = 316
         Width = 219
-        AutoComplete = False
         ItemHeight = 0
-        ItemWidth = 0
         OnChange = ComboBox3Change
         TabOrder = 5
         Text = 'ComboBox3'
@@ -150,14 +148,12 @@ object Form2: TForm2
         Height = 24
         Top = 88
         Width = 49
-        AutoComplete = False
         ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           'N'
           'S'
         )
-        ItemWidth = 0
         TabOrder = 2
         Text = 'N'
       end
@@ -166,14 +162,12 @@ object Form2: TForm2
         Height = 24
         Top = 88
         Width = 49
-        AutoComplete = False
         ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           'E'
           'W'
         )
-        ItemWidth = 0
         TabOrder = 4
         Text = 'E'
       end
@@ -191,9 +185,7 @@ object Form2: TForm2
         Height = 34
         Top = 220
         Width = 182
-        AutoComplete = False
         ItemHeight = 0
-        ItemWidth = 0
         OnChange = ComboBoxCountryChange
         Style = csDropDownList
         TabOrder = 7
@@ -203,9 +195,7 @@ object Form2: TForm2
         Height = 34
         Top = 252
         Width = 181
-        AutoComplete = False
         ItemHeight = 0
-        ItemWidth = 0
         OnChange = ComboBoxTZChange
         Style = csDropDownList
         TabOrder = 8
@@ -218,7 +208,7 @@ object Form2: TForm2
       ImageIndex = 7
       object Label31: TLabel
         Left = 16
-        Height = 14
+        Height = 15
         Top = 232
         Width = 90
         Caption = 'User Database '
@@ -298,7 +288,7 @@ object Form2: TForm2
         Left = 16
         Height = 21
         Top = 194
-        Width = 237
+        Width = 236
         Caption = 'Remove unknow values from reports '
         TabOrder = 2
       end
@@ -345,7 +335,7 @@ object Form2: TForm2
       end
       object Label6: TLabel
         Left = 51
-        Height = 14
+        Height = 15
         Top = 96
         Width = 73
         Caption = 'Identification'
@@ -360,7 +350,7 @@ object Form2: TForm2
       end
       object Label7: TLabel
         Left = 155
-        Height = 14
+        Height = 15
         Top = 96
         Width = 43
         Caption = 'Marque'
@@ -368,7 +358,7 @@ object Form2: TForm2
       end
       object Label5: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 64
         Width = 45
         Caption = 'Couleur'
@@ -383,7 +373,7 @@ object Form2: TForm2
       end
       object Label17: TLabel
         Left = 251
-        Height = 14
+        Height = 15
         Top = 96
         Width = 31
         Caption = 'Label'
@@ -391,15 +381,15 @@ object Form2: TForm2
       end
       object Label18: TLabel
         Left = 24
-        Height = 14
+        Height = 15
         Top = 355
         Width = 100
-        Caption = 'Densit� de labels'
+        Caption = 'Densite de labels'
         ParentColor = False
       end
       object Label33: TLabel
         Left = 24
-        Height = 14
+        Height = 15
         Top = 184
         Width = 109
         Caption = 'Taille des marques'
@@ -407,8 +397,8 @@ object Form2: TForm2
       end
       object LabelFont: TLabel
         Left = 141
-        Height = 14
-        Top = 325
+        Height = 15
+        Top = 324
         Width = 55
         Anchors = [akLeft, akBottom]
         Caption = 'LabelFont'
@@ -471,7 +461,7 @@ object Form2: TForm2
         Height = 21
         Top = 266
         Width = 189
-        Caption = 'Label centr� sur la formation'
+        Caption = 'Label centre sur la formation'
         TabOrder = 6
       end
       object CheckBox18: TCheckBox
@@ -512,17 +502,17 @@ object Form2: TForm2
       ImageIndex = 4
       object Label19: TLabel
         Left = 21
-        Height = 14
+        Height = 15
         Top = 32
-        Width = 39
+        Width = 45
         Caption = 'Label19'
         ParentColor = False
       end
       object BumpCheckBox: TCheckBox
         Left = 21
-        Height = 17
+        Height = 21
         Top = 274
-        Width = 126
+        Width = 158
         Caption = 'Ombres du terminateur'
         ParentBidiMode = False
         TabOrder = 0
@@ -544,7 +534,7 @@ object Form2: TForm2
         Top = 296
         Width = 302
         AutoFill = True
-        Caption = 'M�thode d''affichage des ombres'
+        Caption = 'Methode d''affichage des ombres'
         ChildSizing.LeftRightSpacing = 6
         ChildSizing.TopBottomSpacing = 6
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -553,12 +543,12 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 46
+        ClientHeight = 58
         ClientWidth = 298
         Columns = 2
         Items.Strings = (
           'Simple'
-          'Avanc�e'
+          'Avancee'
         )
         TabOrder = 2
       end
@@ -587,36 +577,34 @@ object Form2: TForm2
         end
         object Label30: TLabel
           Left = 32
-          Height = 14
+          Height = 15
           Top = 44
-          Width = 43
+          Width = 52
           Caption = 'Overlay :'
           ParentColor = False
         end
         object Label32: TLabel
           Left = 32
-          Height = 14
+          Height = 15
           Top = 254
-          Width = 69
+          Width = 80
           Caption = 'Transparency:'
           ParentColor = False
         end
         object CheckBox11: TCheckBox
           Left = 32
-          Height = 17
+          Height = 21
           Top = 8
-          Width = 84
+          Width = 99
           Caption = 'Show overlay'
           TabOrder = 0
         end
         object ComboBox5: TComboBox
           Left = 32
-          Height = 21
+          Height = 24
           Top = 64
           Width = 145
-          AutoComplete = False
           ItemHeight = 0
-          ItemWidth = 0
           OnChange = ComboBox5Change
           Sorted = True
           TabOrder = 1
@@ -645,9 +633,9 @@ object Form2: TForm2
           TabOrder = 3
           object CheckBox10: TCheckBox
             Left = 7
-            Height = 17
+            Height = 21
             Top = 19
-            Width = 69
+            Width = 82
             Caption = 'Show Grid'
             TabOrder = 0
           end
@@ -675,31 +663,31 @@ object Form2: TForm2
       ImageIndex = 1
       object Label8: TLabel
         Left = 8
-        Height = 14
+        Height = 15
         Top = 24
         Width = 177
-        Caption = 'Nombre de fen�tre d''images : '
+        Caption = 'Nombre de fenetre d''images : '
         ParentColor = False
       end
       object Label9: TLabel
         Left = 8
-        Height = 14
+        Height = 15
         Top = 72
-        Width = 131
-        Caption = 'R�pertoires d''images :'
+        Width = 130
+        Caption = 'Repertoires d''images :'
         ParentColor = False
       end
       object Label20: TLabel
         Left = 48
-        Height = 14
+        Height = 15
         Top = 280
         Width = 40
-        Caption = 'Pr�fixe'
+        Caption = 'Prefixe'
         ParentColor = False
       end
       object Label21: TLabel
         Left = 184
-        Height = 14
+        Height = 15
         Top = 280
         Width = 33
         Caption = 'Suffix'
@@ -707,14 +695,14 @@ object Form2: TForm2
       end
       object Label22: TLabel
         Left = 8
-        Height = 14
+        Height = 15
         Top = 300
-        Width = 24
-        Caption = 'R�kl'
+        Width = 23
+        Caption = 'Rukl'
         ParentColor = False
       end
       object UpDown1: TUpDown
-        Left = 185
+        Left = 238
         Height = 24
         Top = 20
         Width = 15
@@ -722,20 +710,8 @@ object Form2: TForm2
         Min = 1
         Max = 10
         Position = 2
-        TabOrder = 4
-        Wrap = True
-      end
-      object numwin: TLongEdit
-        Left = 160
-        Height = 24
-        Hint = '0..10'
-        Top = 20
-        Width = 25
-        ParentShowHint = False
-        ShowHint = True
         TabOrder = 3
-        Value = 2
-        MaxValue = 10
+        Wrap = True
       end
       object StringGrid1: TStringGrid
         Left = 8
@@ -748,7 +724,7 @@ object Form2: TForm2
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
         RowCount = 11
         ScrollBars = ssVertical
-        TabOrder = 5
+        TabOrder = 4
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'
         OnSelectCell = StringGrid1SelectCell
@@ -791,14 +767,14 @@ object Form2: TForm2
         Top = 48
         Width = 298
         Caption = 'Lien direct sur l''image pour l''atlas Lunar Orbiter'
-        TabOrder = 6
+        TabOrder = 5
       end
       object ruklprefix: TEdit
         Left = 48
         Height = 24
         Top = 296
         Width = 121
-        TabOrder = 7
+        TabOrder = 6
         Text = 'D:\rukl\mo'
       end
       object ruklsuffix: TEdit
@@ -806,8 +782,15 @@ object Form2: TForm2
         Height = 24
         Top = 296
         Width = 121
-        TabOrder = 8
+        TabOrder = 7
         Text = '.jpg'
+      end
+      object numwin: TEdit
+        Left = 206
+        Height = 24
+        Top = 20
+        Width = 32
+        TabOrder = 8
       end
     end
     object TabSheet5: TPage
@@ -964,7 +947,7 @@ object Form2: TForm2
         Height = 15
         Top = 64
         Width = 65
-        Caption = 'millim�tres'
+        Caption = 'millimetres'
         ParentColor = False
       end
       object Label14: TLabel
@@ -995,7 +978,7 @@ object Form2: TForm2
         Height = 15
         Top = 284
         Width = 177
-        Caption = 'Taille des images enregistr�es'
+        Caption = 'Taille des images enregistrees'
         ParentColor = False
         Visible = False
       end
@@ -1026,7 +1009,7 @@ object Form2: TForm2
         Height = 22
         Top = 174
         Width = 171
-        Caption = 'Imprime les �ph�m�rides'
+        Caption = 'Imprime les ephemerides'
         TabOrder = 4
       end
       object CheckBox9: TCheckBox
@@ -1078,7 +1061,6 @@ object Form2: TForm2
         Height = 21
         Top = 280
         Width = 113
-        AutoComplete = False
         ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
@@ -1088,7 +1070,6 @@ object Form2: TForm2
           '1024'
           '2048'
         )
-        ItemWidth = 0
         TabOrder = 7
         Text = 'Comme ? l''?cran'
         Visible = False

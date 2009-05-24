@@ -47,6 +47,7 @@ type
     ColorDialog1: TColorDialog;
     ComboBoxCountry: TComboBox;
     ComboBoxTZ: TComboBox;
+    numwin: TEdit;
     FontDialog1: TFontDialog;
     GroupBox2: TGroupBox;
     Label19: TLabel;
@@ -68,7 +69,6 @@ type
     TabSheet2: TPage;
     TrackBar3: TTrackBar;
     UpDown1: TUpDown;
-    numwin: TLongEdit;
     Label8: TLabel;
     StringGrid1: TStringGrid;
     Label9: TLabel;
