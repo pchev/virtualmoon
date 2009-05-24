@@ -1127,7 +1127,7 @@ begin
     for i := 1 to useDBN do
       db_age[i] := ReadInteger(section, 'DB_Age' + IntToStr(i), 0);
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
-    overlaytr  := ReadFloat(section, 'overlaytr', 0.5);
+    overlaytr  := ReadFloat(section, 'overlaytr', 0.75);
     showoverlay := ReadBool(section, 'showoverlay', showoverlay);
     Geocentric  := ReadBool(section, 'Geocentric', Geocentric);
     moon1.AmbientColor := ReadInteger(section, 'AmbientLight', moon1.AmbientColor);
@@ -3727,6 +3727,7 @@ begin
 case key of
   16  :  moon1.KeyEvent(mkDown,key); // Shift
   17  :  moon1.KeyEvent(mkDown,key); // Ctrl
+  27  :  SetFullScreen; // Esc
   122 :  SetFullScreen; // F11
 end;
 end;
