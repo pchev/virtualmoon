@@ -16,7 +16,6 @@ uses
 {$IFDEF WINDOWS}{$R vmapro.rc}{$ENDIF}
 
 begin
-  {$I vmapro.lrs}
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
   splash := Tsplash.create(application);
