@@ -3724,6 +3724,7 @@ procedure TForm1.FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState)
 var
   i: integer;
 begin
+statusbar1.Panels[3].Text :='Down: '+inttostr(key);
 case key of
   16  :  moon1.KeyEvent(mkDown,key); // Shift
   17  :  moon1.KeyEvent(mkDown,key); // Ctrl
@@ -3734,6 +3735,7 @@ end;
 
 procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
+statusbar1.Panels[3].Text :='Up: '+inttostr(key);
 case key of
   16  :  moon1.KeyEvent(mkUp,key); // Shift
   17  :  moon1.KeyEvent(mkUp,key); // Ctrl
