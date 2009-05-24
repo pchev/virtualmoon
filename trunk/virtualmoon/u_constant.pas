@@ -34,7 +34,7 @@ uses
 const crlf = chr(10)+chr(13);
       cpyr = chr($a9)+chr($c2);  // ©
       AVLversion = '5.0 beta';
-      Splashversion = AVLversion+' 2009-05-10';
+      Splashversion = AVLversion+' 2009-05-20';
       VersionName = 'Pro';
       avlcpy = 'Copyright '+cpyr+' 2002-2009 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
@@ -180,7 +180,8 @@ var gzopen : Tgzopen;
 // pseudo-constant only here
 Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : string;
      Photlun,DatLun,CdC,PrtName, CdCcaption, transmsg : String;
-     ObsLatitude,ObsLongitude,ObsAltitude : double; ObsTZ: string;
+     ObsLatitude,ObsLongitude,ObsAltitude : double;
+     ObsTZ,ObsCountry: string;
      ObsTemperature,ObsPressure,ObsRefractionCor,ObsHorizonDepression : Double;
      TimeZone,DT_UT,ObsRoCosPhi,ObsRoSinPhi,CurrentJD : double;
      CurYear,CurrentMonth,CurrentDay : integer;

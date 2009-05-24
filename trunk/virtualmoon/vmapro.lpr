@@ -10,7 +10,7 @@ uses
   Forms
   { you can add units after this }, LResources, virtualmoon1, config,
   CraterList, dbutil, fmsg, glossary, splashunit, telescope,  SysUtils,
-  ImagesForLazarus, elp82, series96, TurboPowerIPro, u_constant, cu_tz,
+  ImagesForLazarus, elp82, TurboPowerIPro, u_constant, cu_tz,
   cu_planet, u_projection, u_util, pu_moon, uniqueinstance_package;
 
 {$IFDEF WINDOWS}{$R vmapro.rc}{$ENDIF}

@@ -28,7 +28,7 @@ uses
 {$ifdef mswindows}
   LCLIntf,
 {$endif}
-  Math, u_constant,
+  Math, u_constant, cu_tz,
   Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, Buttons, ExtCtrls, Inifiles, Grids, EnhEdits,
   CheckLst, LResources;
@@ -41,26 +41,32 @@ type
     Button1: TButton;
     BumpCheckBox: TCheckBox;
     Button5: TButton;
+    CheckBox10: TCheckBox;
     CheckBox4: TCheckBox;
     CheckListBox2: TCheckListBox;
     ColorDialog1: TColorDialog;
+    ComboBoxCountry: TComboBox;
+    ComboBoxTZ: TComboBox;
     FontDialog1: TFontDialog;
+    GroupBox2: TGroupBox;
     Label19: TLabel;
+    Label34: TLabel;
+    Label35: TLabel;
     LabelFont: TLabel;
     PageControl1: TNotebook;
+    RadioGroup1: TRadioGroup;
     TabSheet1: TPage;
     Label4: TLabel;
     Label1: TLabel;
     Label2: TLabel;
-    Label3: TLabel;
     ComboBox3: TComboBox;
     CheckBox3: TCheckBox;
     Edit1: TEdit;
     Edit2: TEdit;
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
-    Edit3: TEdit;
     TabSheet2: TPage;
+    TrackBar3: TTrackBar;
     UpDown1: TUpDown;
     numwin: TLongEdit;
     Label8: TLabel;
@@ -131,7 +137,6 @@ type
     CheckBox18: TCheckBox;
     Label28: TLabel;
     Edit10: TEdit;
-    Label29: TLabel;
     TabSheet6: TPage;
     TabSheet7: TPage;
     GroupBox1: TGroupBox;
@@ -155,15 +160,14 @@ type
     Label30: TLabel;
     Label32: TLabel;
     TrackBar5: TTrackBar;
-    nooverlay: TLabel;
-    Label34: TLabel;
     CheckBox24: TCheckBox;
     procedure Button5Click(Sender: TObject);
     procedure CheckListBox2ItemClick(Sender: TObject; Index: integer);
+    procedure ComboBoxCountryChange(Sender: TObject);
+    procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
-    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure Shape1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Button2Click(Sender: TObject);
@@ -183,12 +187,17 @@ type
     procedure ComboBox5Change(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure CheckBox16Click(Sender: TObject);
-    procedure Label34Click(Sender: TObject);
+    procedure TrackBar3Change(Sender: TObject);
   private
-    { Déclarations privées }
+    countrycode: TStringList;
+    procedure UpdateTzList;
+
   public
-    { Déclarations publiques }
+    tzinfo: TCdCTimeZone;
+    obscountry,obstz : string;
     texturefn: string;
+    procedure SetObsCountry(value:string);
+    procedure LoadCountry(fn:string);
   end;
 
 var
@@ -220,11 +229,11 @@ if not fileexists('version.developpement') then begin
   Edit4.Visible:=false;        // external image display
   Button3.Visible:=false;      // external image display
   checkbox15.Visible:=false;   // direct LOPAM image link
-  label20.Visible:=false;      // Rükl chart
-  label21.Visible:=false;      // Rükl chart
-  label22.Visible:=false;      // Rükl chart
-  ruklprefix.Visible:=false;   // Rükl chart
-  ruklsuffix.Visible:=false;   // Rükl chart
+  label20.Visible:=false;      // Rukl chart
+  label21.Visible:=false;      // Rukl chart
+  label22.Visible:=false;      // Rukl chart
+  ruklprefix.Visible:=false;   // Rukl chart
+  ruklsuffix.Visible:=false;   // Rukl chart
 end;
 AVLver:=copy(AVLversion,1,3);
 i:=findfirst(slash(appdir)+slash('language')+'lang_u*.ini',0,fs);
@@ -263,6 +272,7 @@ while i=0 do begin
 end;
 findclose(fs);
 savelibration:=librationeffect;
+countrycode:=TStringList.Create;
 end;
 
 procedure TForm2.Button5Click(Sender: TObject);
@@ -278,6 +288,7 @@ procedure TForm2.FormDestroy(Sender: TObject);
 var i: integer;
 begin
 for i:=0 to Checklistbox1.Count-1 do (Checklistbox1.Items.Objects[i] as TDBinfo).Free;
+countrycode.Free;
 end;
 
 procedure TForm2.ComboBox3Change(Sender: TObject);
@@ -293,11 +304,6 @@ edit1.Enabled:=not checkbox3.checked;
 edit2.Enabled:=not checkbox3.checked;
 combobox1.Enabled:=not checkbox3.checked;
 combobox2.Enabled:=not checkbox3.checked;
-end;
-
-procedure TForm2.PageControl1ChangeBounds(Sender: TObject);
-begin
-
 end;
 
 procedure TForm2.Shape1MouseUp(Sender: TObject; Button: TMouseButton;
@@ -420,14 +426,101 @@ end;
 
 procedure TForm2.CheckBox16Click(Sender: TObject);
 begin
-Label3.Enabled:=not CheckBox16.Checked;
-Label29.Enabled:=not CheckBox16.Checked;
-Edit3.Enabled:=not CheckBox16.Checked;
 end;
 
-procedure TForm2.Label34Click(Sender: TObject);
+procedure TForm2.TrackBar3Change(Sender: TObject);
 begin
-//executefile('http://www.delphi3d.net/hardware/extsupport.php?extension=GL_ARB_multitexture','', '', SW_SHOWNOACTIVATE);
+  if TrackBar3.Position>=25 then TrackBar3.Position:=30
+  else if TrackBar3.Position>=20 then TrackBar3.Position:=20
+  else if TrackBar3.Position>=15 then TrackBar3.Position:=15
+  else if TrackBar3.Position>=10 then TrackBar3.Position:=10
+  else if TrackBar3.Position>=5 then TrackBar3.Position:=5;
+end;
+
+procedure TForm2.LoadCountry(fn:string);
+var f: textfile;
+    buf: string;
+    i: integer;
+    rec: TStringList;
+procedure SplitRec(buf,sep:string; var arg: TStringList);
+var i,l:integer;
+begin
+arg.clear;
+l:=length(sep);
+while pos(sep,buf)<>0 do begin
+ for i:=1 to length(buf) do begin
+  if copy(buf,i,l) = sep then begin
+      arg.add(copy(buf,1,i-1));
+      delete(buf,1,i-1+l);
+      break;
+  end;
+ end;
+end;
+arg.add(buf);
+end;
+begin
+if fileexists(fn) then begin
+  rec:=TStringList.create;
+  ComboBoxCountry.Clear;
+  countrycode.Clear;
+  Filemode:=0;
+  system.assign(f,fn);
+  reset(f);
+  repeat
+    readln(f,buf);
+    buf:=trim(buf);
+    if buf='' then continue;
+    if buf[1]='#' then continue;
+    SplitRec(buf,tab,rec);
+    if rec.Count<3 then continue;
+    countrycode.Add(rec[1]);
+    ComboBoxCountry.Items.Add(rec[2]);
+  until eof(f);
+  CloseFile(f);
+  rec.Free;
+end;
+end;
+
+procedure TForm2.SetObsCountry(value:string);
+var i: integer;
+begin
+obscountry:=value;
+for i:=0 to countrycode.Count-1 do begin
+   if obscountry=countrycode[i] then begin
+      ComboBoxCountry.ItemIndex:=i;
+      break;
+   end;
+end;
+UpdateTzList;
+end;
+
+procedure TForm2.UpdateTzList;
+var
+  i,j: Integer;
+  buf: string;
+begin
+ComboBoxTZ.clear;
+j:=0;
+for i:=0 to tzinfo.ZoneTabCnty.Count-1 do begin
+  if tzinfo.ZoneTabCnty[i]=obscountry then begin
+     buf:=tzinfo.ZoneTabZone[i];
+     ComboBoxTZ.Items.Add(buf);
+     if (j=0)or(tzinfo.ZoneTabZone[i]=obstz) then ComboBoxTZ.ItemIndex:=j;
+     inc(j);
+  end;
+end;
+ObsTZ:=ComboBoxTZ.Text;
+end;
+
+procedure TForm2.ComboBoxCountryChange(Sender: TObject);
+begin
+obscountry:=countrycode[ComboBoxCountry.ItemIndex];
+UpdateTzList;
+end;
+
+procedure TForm2.ComboBoxTZChange(Sender: TObject);
+begin
+ obstz:=ComboBoxTZ.Text;
 end;
 
 initialization
