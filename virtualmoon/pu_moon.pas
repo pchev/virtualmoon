@@ -30,11 +30,16 @@ type
   TGetStringEvent = procedure(Sender: TObject; value: string) of object;
   TGetMsgEvent = procedure(Sender: TObject; msgclass:TMoonMsgClass; value: string) of object;
   TMoonMeasureEvent = procedure(Sender: TObject; m1,m2,m3,m4: string) of object;
+  TBumpMapCapability = (bcDot3TexCombiner,bcBasicARBFP);
+  TBumpMapCapabilities = set of TBumpMapCapability;
 
   Tf_moon = class(TForm)
     GLAnnulus1: TGLAnnulus;
     GLArrowLine1: TGLArrowLine;
     GLBumpShader1: TGLBumpShader;
+    GLCameraSatellite: TGLCamera;
+    GLDummyCubeSatellite: TGLDummyCube;
+    GLDummyCubeCoord: TGLDummyCube;
     LibrationDummyCube: TGLDummyCube;
     PerfCadencer: TGLCadencer;
      RotationCadencer: TGLCadencer;
@@ -52,7 +57,6 @@ type
      GLSceneViewer1: TGLSceneViewer;
      GLScene1: TGLScene;
      GLCamera1: TGLCamera;
-//     DummyCube1: TGLDummyCube;
      GLLightSource1: TGLLightSource;
      GLSphereMoon: TGLSphere;
      GLBitmapFont1: TGLWindowsBitmapFont;
@@ -89,9 +93,10 @@ type
     cap2,newcap: integer;
     perftime: double;
     lock_Zoom : boolean;
-    distancestart: boolean;
+    distancestart,BumpMapLimit1K: boolean;
     startl,startb,startxx,startyy : single;
     startx, starty, ShadowOffset : integer;
+    satl,satb,satr,satalt: single;
     blankbmp: Tbitmap;
     MaxSprite: integer;
     FOnMoonClick: TMoonClickEvent;
@@ -107,8 +112,11 @@ type
     FBumpPath: String;
     FBumpmap: Boolean;
     FBumpOk : boolean;
+    FBumpMapCapabilities: TBumpMapCapabilities;
     FAsMultiTexture: boolean;
     FShowPhase: Boolean;
+    FGridSpacing: integer;
+    FShowGrid: Boolean;
     FMirror: Boolean;
     FVisibleSideLock: Boolean;
     FRotation: single;
@@ -169,6 +177,12 @@ type
     procedure ClearOverlay;
     Procedure SetZoomLevel(zoom:single);
     procedure SetMoveCursor(value:boolean);
+    procedure SetShowGrid(value:boolean);
+    procedure SetGridSpacing(value:integer);
+    function  GetBumpMethod:TBumpMapCapability;
+    procedure SetBumpMethod(bm:TBumpMapCapability);
+    function  GetAntialiasing: boolean;
+    procedure SetAntialiasing(value:boolean);
     function  Screen2Moon(x,y:integer; var lon,lat: single): boolean;
     function  Moon2Screen(lon,lat: single; var x,y:integer): boolean;
     function  Moon2World(lon,lat: single; var x,y,z:single): boolean;
@@ -202,6 +216,9 @@ type
     procedure RefreshAll;
     procedure RenderToBitmap(var bmp: TBitmap; size: integer; white: boolean);
     procedure SnapShot(var bmp: TBitmap; white: boolean);
+    procedure SatCenter;
+    procedure SatEast;
+    procedure SatWest;
     property TexturePath : String read FtexturePath write FTexturePath;
     property Texture : String read Ftexture write SetTexture;
     property OverlayPath : String read FOverlayPath write FOverlayPath;
@@ -209,6 +226,8 @@ type
     property Overlay : String read FOverlay write SetOverlay;
     property BumpPath : String read FBumpPath write SetBumpPath;
     property Bumpmap : Boolean read FBumpmap write SetBumpmap;
+    property BumpMapCapabilities: TBumpMapCapabilities read FBumpMapCapabilities;
+    property BumpMethod : TBumpMapCapability read GetBumpMethod write SetBumpMethod;
     property CanBump : Boolean read FBumpOk;
     property AsMultiTexture : boolean read FAsMultiTexture;
     property Rotation : single read FRotation write SetRotation;
@@ -226,6 +245,8 @@ type
     property Mirror : Boolean read FMirror write SetMirror;
     property Orientation:single read FOrientation write SetOrientation;
     property ShowPhase : Boolean read FShowPhase write SetShowPhase;
+    property GridSpacing: integer read FGridSpacing write SetGridSpacing;
+    property ShowGrid : Boolean read FShowGrid write SetShowGrid;
     property VisibleSideLock : Boolean read FVisibleSideLock write SetVisibleSideLock;
     property LabelFont : TFont read GetLabelFont write SetLabelFont;
     property LabelColor : TColor read FLabelColor write SetLabelColor;
@@ -240,6 +261,7 @@ type
     property AmbientColor: TColor read GetAmbientColor Write SetAmbientColor;
     property DiffuseColor: TColor read GetDiffuseColor Write SetDiffuseColor;
     property SpecularColor: TColor read GetSpecularColor Write SetSpecularColor;
+    property Antialiasing: boolean read GetAntialiasing write SetAntialiasing;
     property MoveCursor: Boolean read FMoveCursor Write SetMoveCursor;
     property onMoonClick : TMoonClickEvent read FOnMoonClick write FOnMoonClick;
     property onMoonMove : TMoonMoveEvent read FOnMoonMove write FOnMoonMove;
@@ -640,23 +662,51 @@ FOverlayTransparency:=value;
 //GLMaterialLibrary1.LibMaterialByName('O1').Material.FrontProperties.Diffuse.Alpha:=FOverlayTransparency;
 end;
 
+function Tf_moon.GetBumpMethod:TBumpMapCapability;
+begin
+  case GLBumpShader1.BumpMethod of
+    bmDot3TexCombiner : result:=bcDot3TexCombiner;
+    bmBasicARBFP : result:=bcBasicARBFP;
+  end;
+end;
+
+procedure Tf_moon.SetBumpMethod(bm:TBumpMapCapability);
+begin
+  if bm in FBumpMapCapabilities then begin
+    case bm of
+      bcDot3TexCombiner : begin
+          GLBumpShader1.BumpMethod:=bmDot3TexCombiner;
+          if FBumpmap then GLLightSource1.ConstAttenuation:=0.3;
+          end;
+      bcBasicARBFP : begin
+          GLBumpShader1.BumpMethod:=bmBasicARBFP;
+          if FBumpmap then GLLightSource1.ConstAttenuation:=0.8;
+          end;
+    end;
+  end;
+end;
+
 procedure Tf_moon.SetBumpmap(value: boolean);
 var i: integer;
 begin
 if FBumpOk and (value<>FBumpmap) then begin
   FBumpmap:=value;
   if FBumpmap then begin
-    i:=MaxTextureSize div 1024;
-    if i>=8 then i:=8
-    else if i>=4 then i:=4
-    else if i>=2 then i:=2
-    else i:=1;
+    if BumpMapLimit1K then
+      i:=1
+    else begin
+      i:=MaxTextureSize div 1024;
+      if i>=8 then i:=8
+      else if i>=4 then i:=4
+      else if i>=2 then i:=2
+      else i:=1;
+    end;
     BumpMaterialLibrary.Materials[0].Material.Texture.Image.LoadFromFile(slash(FBumpPath)+'normal'+inttostr(i)+'k.jpg');
     BumpMaterialLibrary.Materials[1].Material.Texture.Image.LoadFromFile(slash(FBumpPath)+'map'+inttostr(i)+'k.jpg');
     GLSphereMoon.Material.MaterialLibrary:=BumpMaterialLibrary;
     GLSphereMoon.Material.LibMaterialName:='Bump';
     if GLBumpShader1.BumpMethod=bmBasicARBFP then
-       GLLightSource1.ConstAttenuation:=0.75
+       GLLightSource1.ConstAttenuation:=0.8
     else
        GLLightSource1.ConstAttenuation:=0.3;
     GLLightSource1.LightStyle:=lsSpot;
@@ -827,7 +877,12 @@ end;
 
 Procedure Tf_moon.GetZoomInfo;
 begin
-  if assigned(FOnGetMsg)and(FRaCentre>-9999) then FOnGetMsg(self,MsgZoom,'FOV:'+inttostr(round(60*0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+lmin+' Zoom:'+formatfloat('0.0',Fzoom)+'  Level:'+inttostr(zone));
+  if assigned(FOnGetMsg)and(FRaCentre>-9999) then begin
+    if RotationCadencer.Enabled then
+       FOnGetMsg(self,MsgZoom,'FOV:'+inttostr(round(GLCameraSatellite.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+ldeg+' Zoom:'+formatfloat('0.0',Fzoom)+'  Level:'+inttostr(zone))
+    else
+       FOnGetMsg(self,MsgZoom,'FOV:'+inttostr(round(60*0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+lmin+' Zoom:'+formatfloat('0.0',Fzoom)+'  Level:'+inttostr(zone));
+  end;
 end;
 
 Procedure Tf_moon.SetZoomLevel(zoom:single);
@@ -850,6 +905,8 @@ try
   end;
   Fzoom:=zoom;
   GLCamera1.SceneScale:=Fzoom;
+  if RotationCadencer.Enabled then
+     GLCameraSatellite.SceneScale:=Fzoom;
   if (not FBumpmap)and(newzone<>zone)and(zone>1) then begin
      if newzone=1 then
        ClearSlice(2)
@@ -879,11 +936,13 @@ begin
        end;
     end;
  end;
- maxzoom:=ZoomByZone[maxzone]*1.4;
- ClearSlice(2);
- LoadSlice(1);
- if zone<>1 then LoadSlice(zone);
- GLSceneViewer1.Refresh;
+ if not FBumpmap then begin
+   maxzoom:=ZoomByZone[maxzone]*1.4;
+   ClearSlice(2);
+   LoadSlice(1);
+   if zone<>1 then LoadSlice(zone);
+   GLSceneViewer1.Refresh;
+ end;
 end;
 
 procedure Tf_moon.SetBumpPath(fn:string);
@@ -897,6 +956,20 @@ procedure Tf_moon.SetRotation(value:single);
 begin
  FRotation:=value;
  RotationCadencer.Enabled:=(FRotation<>0);
+ if RotationCadencer.Enabled then begin
+   GetCenter(satl,satb);
+   satalt:=800;
+   satr:=0.5*(Rmoon+SatAlt)/Rmoon;
+   GLCameraSatellite.SceneScale:=Fzoom;
+   GLSceneViewer1.Camera:=GLCameraSatellite;
+   zone:=1;
+ end else begin
+   GLSceneViewer1.Camera:=GLCamera1;
+   if (not FShowPhase) then begin
+     GLLightSource1.Position:=GLCamera1.Position;
+     GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
+   end;
+ end;
 end;
 
 procedure Tf_moon.FormCreate(Sender: TObject);
@@ -929,14 +1002,14 @@ begin
  FRaCentre:=-9999;
  FEarthDistance:=MeanEarthDistance;
  FBumpOk:=false;
+ BumpMapLimit1K:=false;
  FMoveCursor:=false;
  TextureCompression:=true;
  MaxZoom:=3;
  MaxTextureSize:=1024;
  Flabelcolor:=clWhite;
  FMeasuringDistance := False;
-// GLSceneViewer1.Buffer.AntiAliasing:=aa4x;
- GLLightSource1.Ambient.AsWinColor :=$4B4B4B;
+ GLLightSource1.Ambient.AsWinColor :=$303030;
  GLLightSource1.Diffuse.AsWinColor :=$FFFFFF;
  GLLightSource1.Specular.AsWinColor:=$474747;
 end;
@@ -944,26 +1017,46 @@ end;
 procedure Tf_moon.Init;
 begin
 try
-  if  GL_ARB_multitexture
-  and GL_ARB_vertex_program then begin
-    if GL_ARB_fragment_program then begin
-       GLBumpShader1.BumpMethod:=bmBasicARBFP;
-       FBumpOk:=true;
-    end
-    else if GL_ARB_texture_env_dot3 then begin
-       GLBumpShader1.BumpMethod:=bmDot3TexCombiner;
-       FBumpOk:=true;
-    end;
-end;
+// Check Acceleration
 if GLSceneViewer1.Buffer.Acceleration=chaSoftware then begin
    raise exception.Create('This program only run with a graphic card that support OpenGL hardware acceleration.');
    halt;
 end;
+// Check texture size
 MaxTextureSize:=Glsceneviewer1.Buffer.LimitOf[limTextureSize];
 if MaxTextureSize<1024 then begin
    raise exception.Create('Graphic card not supported! Texture max size:'+inttostr(MaxTextureSize)+'. Must be at least 1024.');
    halt;
 end;
+// Check Bumpmap
+FBumpMapCapabilities:=[];
+if (pos('INTEL',uppercase(trim(StrPas(PChar(glGetString(GL_VENDOR))))))>0) or
+   (pos('INTEL',uppercase(trim(StrPas(PChar(glGetString(GL_RENDERER))))))>0)
+  then begin
+    BumpMapLimit1K:=true;
+    if  GL_ARB_multitexture
+    and GL_ARB_texture_env_dot3 then begin
+         FBumpMapCapabilities:=[bcDot3TexCombiner];
+         FBumpOk:=true;
+    end;
+end else begin
+    if  GL_ARB_multitexture
+    and GL_ARB_vertex_program then begin
+      if GL_ARB_texture_env_dot3 then begin
+         FBumpMapCapabilities:=FBumpMapCapabilities+[bcDot3TexCombiner];
+         FBumpOk:=true;
+      end;
+      if GL_ARB_fragment_program then begin
+         FBumpMapCapabilities:=FBumpMapCapabilities+[bcBasicARBFP];
+         FBumpOk:=true;
+      end;
+    end;
+end;
+if bcDot3TexCombiner in FBumpMapCapabilities then
+   SetBumpMethod(bcDot3TexCombiner)
+else if bcBasicARBFP in FBumpMapCapabilities then
+   SetBumpMethod(bcBasicARBFP);
+// Initialisation
 FAsMultiTexture := GL_ARB_multitexture and (GLSceneViewer1.Buffer.LimitOf[limNbTextureUnits] > 1);
 InitLabel;
 InitSprite;
@@ -977,6 +1070,7 @@ procedure Tf_moon.FormDestroy(Sender: TObject);
 begin
  if GLDummyCubeLabels<>nil then GLDummyCubeLabels.DeleteChildren;
  if GLDummyCubeMarks<>nil then GLDummyCubeMarks.DeleteChildren;
+ if GLDummyCubeCoord<>nil then GLDummyCubeCoord.DeleteChildren;
  blankbmp.Free;
  GLSceneViewer1.Buffer.DestroyRC;
 end;
@@ -1146,12 +1240,17 @@ begin
       mx:=xx;
       my:=yy;
     end else begin
-      movespeed:=0.3/GLCamera1.SceneScale;
-      GLCamera1.MoveAroundTarget((my-y)*movespeed,(mx-x)*movespeed);
+      if RotationCadencer.Enabled then begin
+        movespeed:=0.3/GLCamera1.SceneScale;
+        GLCameraSatellite.MoveAroundTarget((y-my)*movespeed,(x-mx)*movespeed);
+      end else begin
+        movespeed:=0.3/GLCamera1.SceneScale;
+        GLCamera1.MoveAroundTarget((my-y)*movespeed,(mx-x)*movespeed);
+      end;
       mx:=x;
       my:=y;
     end;
-    if not FShowPhase then begin
+    if (not FShowPhase)and(not RotationCadencer.Enabled) then begin
        GLLightSource1.Position:=GLCamera1.Position;
        GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
     end;
@@ -1193,10 +1292,64 @@ end;
 
 procedure Tf_moon.RotationCadencerProgress(Sender: TObject; const deltaTime,
   newTime: Double);
+var cl,sl,cb,sb,x,y,z: single;
+    v,dv: TVector;
 begin
-GLCamera1.MoveAroundTarget(0,FRotation*deltaTime);
+  satl:=satl+deg2rad*FRotation*deltaTime;
+  sincos(-satl-pi/2,sl,cl);
+  sincos(satb,sb,cb);
+  x:=satr*cb*cl;
+  y:=satr*cb*sl;
+  z:=satr*sb;
+  v:=VectorMake(x,z,y);
+  dv:=VectorSubtract(v,GLDummyCubeSatellite.AbsolutePosition);
+  GLDummyCubeSatellite.Position.Translate(dv);
+  NegateVector(v);
+  NormalizeVector(v);
+  GLDummyCubeSatellite.Direction.SetVector(v);
+  if not FShowPhase then begin
+    GLLightSource1.Position:=GLDummyCubeSatellite.Position;
+    GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
+  end;
+//  GLCameraSatellite.TransformationChanged;
+//GLCamera1.MoveAroundTarget(0,FRotation*deltaTime);
 RefreshAll;
 if zone>1 then LoadSlice(zone);
+end;
+
+procedure Tf_moon.SatCenter;
+var v: Tvector;
+begin
+  GLCameraSatellite.ResetRotations;
+  GLCameraSatellite.Up.SetVector(0,1,0);
+  GLCameraSatellite.Position.x:=0;
+  GLCameraSatellite.Position.y:=0;
+  GLCameraSatellite.Position.z:=-0.01;
+  SetZoomLevel(2);
+end;
+
+procedure Tf_moon.SatEast;
+var v: Tvector;
+begin
+  GLCameraSatellite.ResetRotations;
+  GLCameraSatellite.Up.SetVector(-1,0,0);
+  GLCameraSatellite.Position.x:=0;
+  GLCameraSatellite.Position.y:=0;
+  GLCameraSatellite.Position.z:=-0.01;
+  GLCameraSatellite.MoveAroundTarget(35,0);
+  SetZoomLevel(4);
+end;
+
+procedure Tf_moon.SatWest;
+var v: Tvector;
+begin
+  GLCameraSatellite.ResetRotations;
+  GLCameraSatellite.Up.SetVector(1,0,0);
+  GLCameraSatellite.Position.x:=0;
+  GLCameraSatellite.Position.y:=0;
+  GLCameraSatellite.Position.z:=-0.01;
+  GLCameraSatellite.MoveAroundTarget(35,0);
+  SetZoomLevel(4);
 end;
 
 procedure Tf_moon.PerfCadencerProgress(Sender: TObject; const deltaTime,
@@ -1459,6 +1612,79 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
     inc(curlabel);
 end;
 end;
+
+procedure Tf_moon.SetShowGrid(value:boolean);
+begin
+FShowGrid:=value;
+GLDummyCubeCoord.Visible:=FShowGrid;
+end;
+
+procedure Tf_moon.SetGridSpacing(value:integer);
+const   qr=0.5005;
+var 	i,j,k,nl,nb,nk : Integer;
+        l,b,x,y,z,space: single;
+	newline : TGLLines;
+procedure coords;
+var cl,sl,cb,sb: single;
+begin
+  sincos(-l-pi/2,sl,cl);
+  sincos(b,sb,cb);
+  x:=qr*cb*cl;
+  y:=qr*cb*sl;
+  z:=qr*sb;
+end;
+begin
+if value>30 then value:=30;
+if value<1 then value:=1;
+FGridSpacing:=value;
+if FGridSpacing<=5 then
+   nk:=1
+else  if FGridSpacing<=15 then
+   nk:=3
+else
+   nk:=6;
+space:=FGridSpacing/nk;
+GLDummyCubeCoord.DeleteChildren;
+nl:=360 div FGridSpacing;
+nb:=(180 div FGridSpacing);
+for i:=0 to nl do begin
+    newline:=TGLLines(GLDummyCubeCoord.AddNewChild(TGLLines));
+    newline.SplineMode:=lsmCubicSpline;
+    newline.ShowAxes:=false;
+    newline.AntiAliased:=true;
+    newline.LineColor.AsWinColor:=clWhite;
+    newline.NodesAspect:=lnaInvisible;
+    newline.Visible:=true;
+    l:=deg2rad*i*FGridSpacing;
+    for j:=0 to nb do begin
+       for k:=1 to nk do begin
+         b:=deg2rad* ((j-1)*nk+k)*space  -pi/2;
+         if (pi/2-abs(b))>0.05 then begin
+           coords;
+           newline.Nodes.AddNode(x,z,y);
+         end;
+       end;
+    end;
+end;
+for i:=1 to nb do begin
+    newline:=TGLLines(GLDummyCubeCoord.AddNewChild(TGLLines));
+    newline.SplineMode:=lsmCubicSpline;
+    newline.ShowAxes:=false;
+    newline.AntiAliased:=true;
+    newline.LineColor.AsWinColor:=clWhite;
+    newline.NodesAspect:=lnaInvisible;
+    newline.Visible:=true;
+    b:=deg2rad*i*FGridSpacing-pi/2;
+    for j:=0 to nl do begin
+       for k:=1 to nk do begin
+         l:=deg2rad* ((j-1)*nk+k)*space;
+         coords;
+         newline.Nodes.AddNode(x,z,y);
+       end;
+    end;
+end;
+end;
+
 
 procedure Tf_moon.SetMark(lon,lat:single; txt:string);
 var x,y: integer;
@@ -1882,6 +2108,16 @@ if VisibleSideLock then begin
 end;
 end;
 
+function  Tf_moon.GetAntialiasing: boolean;
+begin
+result:=(GLSceneViewer1.Buffer.AntiAliasing=aa4x);
+end;
+
+procedure Tf_moon.SetAntialiasing(value:boolean);
+begin
+if value then GLSceneViewer1.Buffer.AntiAliasing:=aa4x
+         else GLSceneViewer1.Buffer.AntiAliasing:=aaDefault;
+end;
 
 initialization
   {$i pu_moon.lrs}

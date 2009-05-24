@@ -26,8 +26,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses
-//  dynlibs,
-  series96main, // series 96 statically linked
   elp82main,    // elp82 statically linked
   u_constant, u_util, u_projection,
   Classes, Sysutils, Math;

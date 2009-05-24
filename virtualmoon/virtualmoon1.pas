@@ -38,14 +38,14 @@ uses
   Messages, SysUtils, Classes, Dialogs,
   ComCtrls, Menus, Buttons, dynlibs, BigIma,
   EnhEdits, IniFiles, passql, passqlite,
-  Math, CraterList, LResources, IpHtml, UniqueInstance, GLScene,
-  GLViewer;
+  Math, CraterList, LResources, IpHtml, UniqueInstance, GLViewer;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    CheckBox3: TCheckBox;
     Desc1:   TIpHtmlPanel;
     FilePopup: TPopupMenu;
     DoNotRemove: TGLSceneViewer;
@@ -72,6 +72,7 @@ type
     Apropos1: TMenuItem;
     Splitter1: TSplitter;
     ToolButton13: TToolButton;
+    GridButton: TToolButton;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
     UpDown2: TUpDown;
@@ -198,7 +199,6 @@ type
     Label13: TLabel;
     Label15: TLabel;
     Label16: TLabel;
-    Label17: TLabel;
     TrackBar5: TTrackBar;
     Button14: TButton;
     GroupBox2: TGroupBox;
@@ -263,7 +263,8 @@ type
     ImageList1: TImageList;
     ToolButton12: TToolButton;
     procedure Button3MouseLeave(Sender: TObject);
-    procedure CheckBox8Change(Sender: TObject);
+    procedure CheckBox3Click(Sender: TObject);
+    procedure GridButtonClick(Sender: TObject);
     procedure Desc1HotClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -308,6 +309,7 @@ type
     procedure ListBox1Click(Sender: TObject);
     procedure Aide2Click(Sender: TObject);
     procedure Position1Click(Sender: TObject);
+    procedure TrackBar6Change(Sender: TObject);
     procedure x21Click(Sender: TObject);
     procedure x41Click(Sender: TObject);
     procedure Button12MouseUp(Sender: TObject; Button: TMouseButton;
@@ -388,7 +390,6 @@ type
     procedure CheckBox8Click(Sender: TObject);
     procedure ZoomTimerTimer(Sender: TObject);
   private
-    { Déclarations privées }
     UniqueInstance1: TCdCUniqueInstance;
     moon1, moon2 : TF_moon;
     CursorImage1: TCursorImage;
@@ -406,6 +407,7 @@ type
     procedure InitObservatoire;
     procedure GetAppDir;
     function GetTimeZone(sdt: Tdatetime): double;
+    function GetJDTimeZone(jdt: double): double;
     procedure InitImages;
     procedure AddImages(dir, nom, cpy: string);
     procedure ReadParam;
@@ -437,7 +439,6 @@ type
                      OnMoon: boolean; Lon, Lat: Single);
     procedure MoonMeasureEvent(Sender: TObject; m1,m2,m3,m4: string);
     public
-    { Déclarations publiques }
     autolabelcolor: Tcolor;
     lastx, lasty, lastyzoom, MaxSprite: integer;
     LastIma, maximgdir, maxima, startx, starty, saveimagesize: integer;
@@ -449,7 +450,7 @@ type
     searchb, markx, marky, flipx, rotstep, lunaison: double;
     ra, Dec, rad, ded, dist, dkm, phase, illum, pa, sunincl, currentphase,
     tphase, by, bxpos, dummy: double;
-    editrow, notesrow, rotdirection, searchpos: integer;
+    editrow, notesrow, rotdirection, searchpos,BumpMethod: integer;
     dbedited: boolean;
     SkipIdent, wantbump, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
     minilabel, shortdesc: boolean;
@@ -466,7 +467,7 @@ type
     bldb: array[1..20] of string;
     CameraOrientation, PoleOrientation, startl, startb, startxx, startyy: double;
     curx, cury: double;
-    LabelDensity, phaseoffset: integer;
+    LabelDensity, phaseoffset, gridspacing: integer;
     overlaytr: single;
     perfdeltay: double;
     ddeparam, currenttexture, overlayname, currentselection: string;
@@ -487,7 +488,7 @@ type
     db_age: array[1..6] of integer;
     nmjd, fqjd, fmjd, lqjd, currentl, currentb: double;
     searchlist: TStringList;
-    compresstexture: boolean;
+    compresstexture,antialias : boolean;
     showoverlay: boolean;
     LastScopeTracking: double;
     UseComputerTime: boolean;
@@ -576,7 +577,7 @@ begin
   section    := 'default';
   with inifile do
   begin
-    ldeg     := ReadString(section, 'degree', '°');
+    ldeg     := ReadString(section, 'degree', 'Â°');
     lmin     := ReadString(section, 'minute', '''');
     lsec     := ReadString(section, 'second', '"');
     transmsg := ReadString(section, 'translator', '');
@@ -799,7 +800,6 @@ begin
       label28.Caption := ReadStr(section, 't_124', label28.Caption);
       GroupBox1.Caption := ReadStr(section, 't_129', GroupBox1.Caption);
       TabSheet7.Caption := GroupBox1.Caption;
-      label29.Caption := ReadStr(section, 't_146', label29.Caption);
       combobox1.items[0] := ReadStr(section, 't_147', combobox1.items[0]);
       combobox1.items[1] := ReadStr(section, 't_148', combobox1.items[1]);
       combobox1.ItemIndex := 0;
@@ -816,8 +816,6 @@ begin
       CheckBox16.Caption := ReadStr(section, 't_174', CheckBox16.Caption);
       label31.Caption := ReadStr(section, 't_179', label31.Caption);
       label33.Caption := ReadStr(section, 't_181', label33.Caption);
-      nooverlay.Caption := ReadStr(section, 't_184', label33.Caption);
-      label34.Caption := ReadStr(section, 't_185', label33.Caption);
     end;
     imac1 := (ReadStr(section, 't_30', deftxt));
     imac2 := (ReadStr(section, 't_8', deftxt));
@@ -852,16 +850,15 @@ begin
 end;
 
 function TForm1.GetTimeZone(sdt: Tdatetime): double;
-var
-  lt, st: TSystemTime;
 begin
-  if UseComputerTime then
-  begin
     tz.Date := sdt;
     Result  := tz.SecondsOffset / 3600;
-  end
-  else
-    Result := timezone;
+end;
+
+function  TForm1.GetJDTimeZone(jdt: double): double;
+begin
+    tz.JD := jdt;
+    Result  := tz.SecondsOffset / 3600;
 end;
 
 // image are now processed by Photlun but we keep the configuration also here for convenience
@@ -928,9 +925,10 @@ begin
   for i := 7 to maxdbn do
     usedatabase[i] := False;
   timezone := 0;
-  Obslatitude := 46;
-  Obslongitude := -6;
-  ObsTZ    := 'Europe/Zurich';
+  Obslatitude := 48.86;
+  Obslongitude := -2.33;
+  ObsCountry:='FR';
+  ObsTZ    := 'Europe/Paris';
   Obsaltitude := 0;
   ToolsWidth:=300;
   phaseeffect := True;
@@ -951,6 +949,7 @@ begin
   lockmove := False;
   maxima   := 2;
   LabelDensity := 400;
+  gridspacing:=15;
   marksize := 5;
   saveimagesize := 0;
   saveimagewhite := False;
@@ -1018,19 +1017,24 @@ begin
     for i := 1 to 6 do
       db_age[i]  := ReadInteger(section, 'DB_Age' + IntToStr(i), 0);
     compresstexture := ReadBool(section, 'compresstexture', compresstexture);
+    antialias := ReadBool(section, 'antialias', antialias);
     Obslatitude  := ReadFloat(section, 'Obslatitude', Obslatitude);
     Obslongitude := ReadFloat(section, 'Obslongitude', Obslongitude);
+    ObsCountry  := ReadString(section, 'ObsCountry', ObsCountry);
+    ObsTZ := ReadString(section, 'ObsTZ', ObsTZ);
+    tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
     if UseComputerTime then
       timezone := gettimezone(now)
     else
     begin
-      timezone  := ReadFloat(section, 'TimeZone', timezone);
       CurrentJD := ReadFloat(section, 'CurrentJD', CurrentJD);
       dt_ut     := ReadFloat(section, 'dt_ut', dt_ut);
+      timezone := GetJDTimeZone(CurrentJD);
     end;
     cameraorientation := ReadFloat(section, 'CameraOrientation', CameraOrientation);
     phaseeffect  := ReadBool(section, 'PhaseEffect', phaseeffect);
     wantbump  := ReadBool(section, 'BumpMap', wantbump);
+    BumpMethod:= Readinteger(section,'BumpMethod',0);
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
     moon1.MoveCursor:= ReadBool(section, 'MoveCursor', false);
@@ -1039,6 +1043,7 @@ begin
     MarkLabelColor   := ReadInteger(section, 'LabelColor', MarkLabelColor);
     MarkColor    := ReadInteger(section, 'MarkColor', MarkColor);
     AutolabelColor := ReadInteger(section, 'AutolabelColor', AutolabelColor);
+    gridspacing := ReadInteger(section, 'GridSpacing', gridspacing);
     LabelDensity := ReadInteger(section, 'LabelDensity', LabelDensity);
     marksize     := ReadInteger(section, 'MarkSize', marksize);
     labelcenter  := ReadBool(section, 'LabelCenter', labelcenter);
@@ -1046,6 +1051,7 @@ begin
     FollowNorth  := ReadBool(section, 'FollowNorth', FollowNorth);
     shortdesc  := ReadBool(section, 'shortdesc', shortdesc);
     CheckBox2.Checked := ReadBool(section, 'Mirror', False);
+    GridButton.Down:= ReadBool(section, 'Grid', False);
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
     if ToolsWidth<100 then ToolsWidth:=100;
@@ -1159,6 +1165,7 @@ begin
       WriteString(section, 'Language', Language);
       WriteBool(section, 'LibrationEffect', librationeffect);
       WriteBool(section, 'compresstexture', compresstexture);
+      WriteBool(section, 'antialias', antialias);
       WriteFloat(section, 'CameraOrientation', CameraOrientation);
       WriteInteger(section, 'useDBN', useDBN);
       for i := 1 to useDBN do
@@ -1177,13 +1184,15 @@ begin
       WriteString(section, 'telescope', Combobox5.Text);
       WriteFloat(section, 'Obslatitude', Obslatitude);
       WriteFloat(section, 'Obslongitude', Obslongitude);
+      WriteString(section, 'ObsCountry', ObsCountry);
+      WriteString(section, 'ObsTZ', ObsTZ);
       WriteString(section, 'lang_po_file', pofile);
       WriteBool(section, 'UseComputerTime', UseComputerTime);
-      WriteFloat(section, 'TimeZone', timezone);
       WriteFloat(section, 'CurrentJD', CurrentJD);
       WriteFloat(section, 'dt_ut', dt_ut);
       WriteBool(section, 'PhaseEffect', phaseeffect);
       WriteBool(section, 'BumpMap', wantbump);
+      WriteInteger(section,'BumpMethod',ord(moon1.BumpMethod));
       WriteBool(section, 'MoveCursor', moon1.MoveCursor);
       WriteBool(section, 'ShowLabel', ShowLabel);
       WriteBool(section, 'ShowMark', ShowMark);
@@ -1192,12 +1201,14 @@ begin
       WriteInteger(section, 'MarkColor', MarkColor);
       WriteInteger(section, 'AutolabelColor', AutolabelColor);
       WriteInteger(section, 'LabelDensity', LabelDensity);
+      WriteInteger(section, 'GridSpacing', gridspacing);
       WriteInteger(section, 'MarkSize', marksize);
       WriteBool(section, 'LabelCenter', labelcenter);
       WriteBool(section, 'MiniLabel', minilabel);
       WriteBool(section, 'shortdesc', shortdesc);
       WriteBool(section, 'FollowNorth', FollowNorth);
       WriteBool(section, 'Mirror', CheckBox2.Checked);
+      WriteBool(section, 'Grid', GridButton.Down);
       WriteFloat(section, 'PoleOrientation', PoleOrientation);
       WriteInteger(section, 'ToolsWidth', ToolsWidth);
       WriteInteger(section, 'Top', Top);
@@ -1582,13 +1593,12 @@ var
 const
   CSIDL_PERSONAL = $0005;   // My Documents
   CSIDL_APPDATA  = $001a;   // <user name>\Application Data
-  CSIDL_LOCAL_APPDATA = $001c;
-  // <user name>\Local Settings\Applicaiton Data (non roaming)
+  CSIDL_LOCAL_APPDATA = $001c; // <user name>\Local Settings\Applicaiton Data (non roaming)
 {$endif}
 begin
 {$ifdef darwin}
   appdir := getcurrentdir;
-  if not DirectoryExists(slash(appdir) + slash('data') + slash('planet')) then
+  if (not directoryexists(slash(appdir) + slash('Textures'))) then
   begin
     appdir := ExtractFilePath(ParamStr(0));
     i      := pos('.app/', appdir);
@@ -1858,7 +1868,7 @@ var
         end;
     end
     else
-      result:=result+' ';
+      if result='' then result:=' ';
   end;
 begin
   nom := GetField('NAME');
@@ -2034,7 +2044,7 @@ var
         end;
     end
     else
-      result:=result+' ';
+      if result='' then result:=' ';
   end;
 begin
   txt := '<html> <body bgcolor="white">';
@@ -2259,7 +2269,7 @@ var
 begin
   if dbedited then
     if messagedlg(
-      'Attention les modifications de la base de donnée n''ont pas été enregistrée et seront perdue. Continuer quand même ?',
+      'Attention les modifications de la base de donnee n''ont pas ete enregistree et seront perdue. Continuer quand meme ?',
       mtConfirmation, [mbYes, mbNo], 0) <> mrYes then
       exit;
   dbedited := False;
@@ -2282,7 +2292,7 @@ var
 begin
   if editrow < 0 then
   begin
-    ShowMessage('Pas d''enregistrement sélectionné!');
+    ShowMessage('Pas d''enregistrement selectionne!');
     exit;
   end;
   if (stringgrid2.Cells[1, 0] = '') or (stringgrid2.Cells[1, 1] = '') or
@@ -2335,11 +2345,11 @@ var
 begin
   if editrow <= 0 then
   begin
-    ShowMessage('Pas d''enregistrement sélectionné en base de donnée!');
+    ShowMessage('Pas d''enregistrement selectionne en base de donnee!');
     exit;
   end;
   if messagedlg('Vraiment supprimer ' + stringgrid2.Cells[1, 1] +
-    ' de la base de donnée ?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    ' de la base de donnee ?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
   begin
     cmd := 'delete from moon where ID=' + IntToStr(editrow) + ';';
     dbm.Query(cmd);
@@ -2360,7 +2370,7 @@ var
 begin
   if dbedited then
     if messagedlg(
-      'Attention les modifications de la base de donnée n''ont pas été enregistrée et seront perdue. Continuer quand même ?',
+      'Attention les modifications de la base de donnee n''ont pas ete enregistree et seront perdue. Continuer quand meme ?',
       mtConfirmation, [mbYes, mbNo], 0) <> mrYes then
       exit;
   dbedited := False;
@@ -2397,18 +2407,18 @@ begin
   l    := strtofloat(ls);
   b    := strtofloat(bs);
   if l >= 0 then
-    ls2 := formatfloat(f1, abs(l)) + '° Est'
+    ls2 := formatfloat(f1, abs(l)) + 'Â° Est'
   else
-    ls2 := formatfloat(f1, abs(l)) + '° Ouest';
+    ls2 := formatfloat(f1, abs(l)) + 'Â° Ouest';
   if b >= 0 then
-    bs2 := formatfloat(f1, abs(b)) + '° Nord'
+    bs2 := formatfloat(f1, abs(b)) + 'Â° Nord'
   else
-    bs2 := formatfloat(f1, abs(b)) + '° Sud';
+    bs2 := formatfloat(f1, abs(b)) + 'Â° Sud';
   quadrant := words(bs2, '', 2, 1) + '-' + words(ls2, '', 2, 1);
   if abs(l) <= 90 then
-    dbn := '2' // indicé face visible
+    dbn := '2' // indice face visible
   else
-    dbn := '4'; // indicé face cachée
+    dbn := '4'; // indice face cachee
   defaultname := formatfloat('"+"0000;"-"0000;"+"0000', l * 10) + formatfloat(
     '"+"000;"-"000;"+"000', b * 10);
   for dbcol := 1 to stringgrid2.RowCount do
@@ -2697,28 +2707,13 @@ begin
     '   ' + m[50] + ': ' + timtostr(currenttime);
   phaseoffset := 0;
 
-  djd(nmjd - (DT_UT) / 24, aa, mm, dd, hh);
-  decodetime(hh / 24, h, mn, s, ms);
-  tz1 := gettimezone(encodedatetime(aa, mm, dd, h, mn, s, ms));
-  djd(nmjd + (tz1 - DT_UT) / 24, aa, mm, dd, hh);
+  djd(nmjd + (GetJDTimeZone(nmjd) - DT_UT) / 24, aa, mm, dd, hh);
   labelnm.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
-
-  djd(fqjd - (DT_UT) / 24, aa, mm, dd, hh);
-  decodetime(hh / 24, h, mn, s, ms);
-  tz1 := gettimezone(encodedatetime(aa, mm, dd, h, mn, s, ms));
-  djd(fqjd + (tz1 - DT_UT) / 24, aa, mm, dd, hh);
+  djd(fqjd + (GetJDTimeZone(fqjd) - DT_UT) / 24, aa, mm, dd, hh);
   labelfq.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
-
-  djd(fmjd - (DT_UT) / 24, aa, mm, dd, hh);
-  decodetime(hh / 24, h, mn, s, ms);
-  tz1 := gettimezone(encodedatetime(aa, mm, dd, h, mn, s, ms));
-  djd(fmjd + (tz1 - DT_UT) / 24, aa, mm, dd, hh);
+  djd(fmjd + (GetJDTimeZone(fmjd) - DT_UT) / 24, aa, mm, dd, hh);
   labelfm.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
-
-  djd(lqjd - (DT_UT) / 24, aa, mm, dd, hh);
-  decodetime(hh / 24, h, mn, s, ms);
-  tz1 := gettimezone(encodedatetime(aa, mm, dd, h, mn, s, ms));
-  djd(lqjd + (tz1 - DT_UT) / 24, aa, mm, dd, hh);
+  djd(lqjd + (GetJDTimeZone(lqjd) - DT_UT) / 24, aa, mm, dd, hh);
   labellq.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
 
   Stringgrid1.colwidths[1] := 150;
@@ -3018,6 +3013,7 @@ begin
 {$endif}
 {$ifdef mswindows}
   TrackBar1.Top:=-2;
+  CheckBox3.Visible:=true;  // antialias
 {$endif}
   dbedited  := False;
   perfdeltay := 0.00001;
@@ -3029,6 +3025,7 @@ begin
   zoom      := 1;
   useDBN    := 6;
   compresstexture := true;
+  antialias := false;
   showoverlay := True;
   LastScopeTracking := 0;
   UseComputerTime := True;
@@ -3046,7 +3043,8 @@ begin
   begin
     Plan404 := TPlan404(GetProcAddress(Plan404lib, 'Plan404'));
   end;
-  tz    := TCdCTimeZone.Create;
+  tz := TCdCTimeZone.Create;
+  tz.LoadZoneTab(ZoneDir+'zone.tab');
   CursorImage1 := TCursorImage.Create;
   overlayhi := Tbitmap.Create;
   overlayimg := Tbitmap.Create;
@@ -3069,7 +3067,7 @@ begin
  moon1.PopUp:=PopupMenu1;
  moon1.TexturePath:=slash(appdir)+slash('Textures');
  moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
-  if fileexists(slash(appdir) + slash('data') + 'retic.cur') then
+ if fileexists(slash(appdir) + slash('data') + 'retic.cur') then
   begin
     CursorImage1.LoadFromFile(slash(appdir) + slash('data') + 'retic.cur');
     Screen.Cursors[crRetic] := CursorImage1.Handle;
@@ -3077,6 +3075,7 @@ begin
   end;
   SetLang1;
   readdefault;
+  moon1.AntiAliasing:=antialias;
   currentid := '';
   librl     := 0;
   librb     := 0;
@@ -3089,6 +3088,7 @@ begin
   GetSkyChartInfo;
   CartesduCiel1.Visible := CdCdir > '';
   CheckBox8.Checked := compresstexture;
+  CheckBox3.Checked := antialias;
   if PoleOrientation = 0 then
     RadioGroup2.ItemIndex := 0
   else
@@ -3130,9 +3130,6 @@ try
   ListUserDB;
   InitLopamIdx;
   InitTelescope;
-  { TODO : Add timezone setting }
-  tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
-  timezone := tz.SecondsOffset / 3600;
   dblox.LoadFromFile(Slash(appdir) + Slash('Database') + 'lopamidx.csv');
   dblox.GoFirst;
   if fileexists(Slash(DBdir) + 'notes.csv') then
@@ -3159,7 +3156,10 @@ try
    Width  := screen.Width;
    Height := screen.Height;
   end;
+  form2.tzinfo:=tz;
+  form2.LoadCountry(slash(Appdir)+slash('data')+'country.tab');
   moon1.Init;
+  moon1.BumpMethod:=TBumpMapCapability(BumpMethod);
   moon1.TextureCompression:=compresstexture;
   moon1.texture:=texturefile;
   if moon1.CanBump then
@@ -3169,6 +3169,7 @@ try
   AsMultiTexture:=moon1.AsMultiTexture;
   moon1.SetMark(0, 0, '');
   moon1.zoom:=1;
+  moon1.GridSpacing:=gridspacing;
   ReadParam;
   memo2.Width    := PrintTextWidth;
   label10.Left   := toolbar2.left + toolbar2.Width + 2;
@@ -3194,6 +3195,7 @@ try
   LoadOverlay(overlayname, overlaytr);
   RefreshMoonImage;
   PhaseButtonClick(nil);
+  GridButtonClick(nil);
   if currentname <> '' then
   begin
     firstsearch := True;
@@ -3236,7 +3238,6 @@ begin
     reloaddb := False;
     form2.Edit1.Text := formatfloat(f2, abs(ObsLatitude));
     form2.Edit2.Text := formatfloat(f2, abs(ObsLongitude));
-    form2.Edit3.Text := formatfloat(f1, timezone);
     if Obslatitude >= 0 then
       form2.ComboBox1.ItemIndex := 0
     else
@@ -3268,6 +3269,9 @@ begin
     form2.TrackBar4.Position := marksize;
     config.newlang := language;
     form2.BumpCheckBox.Checked:=wantbump;
+    form2.BumpCheckBox.Visible:=(moon1.BumpMapCapabilities<>[]);
+    form2.RadioGroup1.ItemIndex:=ord(moon1.BumpMethod);
+    form2.RadioGroup1.Visible:=((bcDot3TexCombiner in moon1.BumpMapCapabilities)and(bcBasicARBFP in moon1.BumpMapCapabilities));
     form2.updown1.Position := maxima;
     oldmaxima := maxima;
     form2.StringGrid1.RowCount := maximgdir + 10;
@@ -3309,11 +3313,15 @@ begin
     form2.trackbar5.position := round(overlaytr*100);
     form2.combobox5change(Sender);
     form2.checkbox11.Checked := showoverlay;
+    form2.checkbox10.Checked := GridButton.Down;
+    form2.TrackBar3.Position:=gridspacing;
     form2.checkbox16.Checked := UseComputerTime;
     form2.FontDialog1.Font:=moon1.LabelFont;
     form2.LabelFont.Caption:=moon1.LabelFont.Name;
     form2.LabelFont.Font:=moon1.LabelFont;
     form2.LabelFont.Font.Color:=clWindowText;
+    form2.obstz:=ObsTZ;
+    form2.SetObsCountry(ObsCountry);
     FormPos(Form2, mouse.cursorpos.x, mouse.cursorpos.y);
     Form2.showmodal;
     if form2.ModalResult = mrOk then
@@ -3321,11 +3329,14 @@ begin
       screen.cursor := crhourglass;
       if (form2.combobox5.Text <> remext(overlayname)) or
         (form2.trackbar5.position <> round(overlaytr*100)) or
+        (form2.TrackBar3.Position<>gridspacing) or
         (form2.checkbox11.Checked <> showoverlay) then
         reload    := True;
       overlayname := form2.combobox5.Text + '.jpg';
       overlaytr  := form2.trackbar5.position/100;
       showoverlay := form2.checkbox11.Checked;
+      GridButton.Down:=form2.checkbox10.Checked;
+      gridspacing:=form2.TrackBar3.Position;
       if texturefile <> form2.texturefn then
       begin
         texturefile := form2.texturefn;
@@ -3333,6 +3344,7 @@ begin
       end;
       if wantbump<>form2.BumpCheckBox.Checked then reload:=true;
       wantbump := form2.BumpCheckBox.Checked;
+      moon1.BumpMethod:=TBumpMapCapability(form2.RadioGroup1.ItemIndex);
       ruklprefix    := form2.ruklprefix.Text;
       ruklsuffix    := form2.ruklsuffix.Text;
       markcolor     := form2.Shape2.Brush.Color;
@@ -3355,7 +3367,9 @@ begin
       if form2.ComboBox2.ItemIndex = 0 then
         Obslongitude := -Obslongitude;
       systemtimechange := UseComputerTime <> form2.checkbox16.Checked;
-      timezone := strtofloat(form2.Edit3.Text);
+      ObsCountry:=form2.ObsCountry;
+      ObsTZ := form2.obstz;
+      tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
       UseComputerTime := form2.checkbox16.Checked;
       timezone := gettimezone(now);
       if systemtimechange then
@@ -3439,12 +3453,14 @@ begin
       PrintEph  := form2.CheckBox8.Checked;
       PrintDesc := form2.CheckBox9.Checked;
       PhaseButtonClick(nil);
+      GridButtonClick(nil);
       if reload then
       begin
         application.ProcessMessages;
         moon1.Eyepiece := 0;
         LoadOverlay(overlayname, overlaytr);
         moon1.Texture:=texturefile;
+        moon1.GridSpacing:=gridspacing;
         RefreshMoonImage;
         moon1.Zoom:=moon1.Zoom;
       end
@@ -3592,6 +3608,11 @@ end;
 procedure TForm1.Button3MouseLeave(Sender: TObject);
 begin
   EphTimer1.Enabled := False;
+end;
+
+procedure TForm1.CheckBox3Click(Sender: TObject);
+begin
+  AntiAlias:=CheckBox3.Checked;
 end;
 
 procedure TForm1.Button6MouseDown(Sender: TObject; Button: TMouseButton;
@@ -3913,11 +3934,6 @@ begin
   begin
     moon1.ShowFPS:=true;
     Label15.Caption     := m[44] + ' 0 FPS';
-    case moon1.Acceleration of
-      0: label17.Caption := m[68];
-      1: label17.Caption := m[69];
-      2: label17.Caption := m[70];
-    end;
   end
   else
   begin
@@ -4021,31 +4037,18 @@ end;
 
 procedure TForm1.SpeedButton5Click(Sender: TObject);
 begin
-  moon1.zoom:=4;
-  //movecamera(0.45, 0);
-  { TODO : add a way to orient the camera independently of the target }
-  CameraOrientation := 90;
-  moon1.Orientation:=CameraOrientation;
+moon1.SatWest;
 end;
 
 procedure TForm1.SpeedButton4Click(Sender: TObject);
 
 begin
-  moon1.zoom:=4;
-  //movecamera(-0.45, 0);
-  CameraOrientation := -90;
-  moon1.Orientation:=CameraOrientation;
+moon1.SatEast;
 end;
 
 procedure TForm1.SpeedButton6Click(Sender: TObject);
 begin
-  moon1.zoom:=2;
-  //movecamera(0, 0);
-  case RadioGroup2.ItemIndex of
-    0: CameraOrientation := 0;
-    1: CameraOrientation := 180;
-  end;
-  moon1.Orientation:=CameraOrientation;
+  moon1.SatCenter;
 end;
 
 procedure TForm1.ComboBox2Change(Sender: TObject);
@@ -4178,6 +4181,11 @@ begin
   Pagecontrol1.ActivePage := Position.Caption;
   PageControl1Change(Sender);
   combobox1.SetFocus;
+end;
+
+procedure TForm1.TrackBar6Change(Sender: TObject);
+begin
+
 end;
 
 procedure TForm1.OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
@@ -4536,9 +4544,9 @@ begin
   ExecuteFile(desc1.HotURL);
 end;
 
-procedure TForm1.CheckBox8Change(Sender: TObject);
+procedure TForm1.GridButtonClick(Sender: TObject);
 begin
-
+  moon1.ShowGrid:=GridButton.Down;
 end;
 
 procedure TForm1.Copy1Click(Sender: TObject);
@@ -4595,7 +4603,7 @@ var
   dir: string;
 begin
   chdir(appdir);
-  dir := slash('Textures') + slash('overlay') + slash('caption');
+  dir := slash('Textures') + slash('Overlay') + slash('caption');
   if fileexists(dir + overlayname) then
     showimg(dir, overlayname, True);
 end;
@@ -4871,13 +4879,13 @@ begin
   jd0 := jd(CurYear, 1, 1, 0.0);
   Fplanet.MoonPhases((phaseoffset / 12.3685) + CurYear +
     (CurrentJD - jd0) / 365.25, nmjd, fqjd, fmjd, lqjd);
-  djd(nmjd + (timezone - DT_UT) / 24, aa, mm, dd, hh);
+  djd(nmjd + (GetJDTimeZone(nmjd) - DT_UT) / 24, aa, mm, dd, hh);
   labelnm.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
-  djd(fqjd + (timezone - DT_UT) / 24, aa, mm, dd, hh);
+  djd(fqjd + (GetJDTimeZone(fqjd) - DT_UT) / 24, aa, mm, dd, hh);
   labelfq.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
-  djd(fmjd + (timezone - DT_UT) / 24, aa, mm, dd, hh);
+  djd(fmjd + (GetJDTimeZone(fmjd) - DT_UT) / 24, aa, mm, dd, hh);
   labelfm.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
-  djd(lqjd + (timezone - DT_UT) / 24, aa, mm, dd, hh);
+  djd(lqjd + (GetJDTimeZone(lqjd) - DT_UT) / 24, aa, mm, dd, hh);
   labellq.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
 end;
 

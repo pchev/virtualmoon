@@ -1,7 +1,7 @@
 object f_moon: Tf_moon
-  Left = 412
+  Left = 265
   Height = 520
-  Top = 123
+  Top = 49
   Width = 748
   Caption = 'f_moon'
   ClientHeight = 520
@@ -129,6 +129,13 @@ object f_moon: Tf_moon
         Radius = 0.5
         Slices = 36
         Stacks = 18
+        object GLDummyCubeCoord: TGLDummyCube
+          TagFloat = 0
+          PitchAngle = 0
+          RollAngle = 0
+          TurnAngle = 0
+          CubeSize = 1
+        end
       end
       object GLLightSource1: TGLLightSource
         TagFloat = 0
@@ -277,6 +284,29 @@ object f_moon: Tf_moon
       TurnAngle = 0
       CubeSize = 1
     end
+    object GLDummyCubeSatellite: TGLDummyCube
+      TagFloat = 0
+      PitchAngle = 0
+      Position.Coordinates = {
+        0000000000000000333333BF0000803F
+      }
+      RollAngle = 0
+      TurnAngle = 0
+      CubeSize = 1
+      object GLCameraSatellite: TGLCamera
+        TagFloat = 0
+        DepthOfView = 10
+        FocalLength = 33
+        NearPlaneBias = 0.10000000149011
+        TargetObject = GLDummyCubeSatellite
+        Position.Coordinates = {
+          00000000000000000AD723BC0000803F
+        }
+        Direction.Coordinates = {
+          00000000000000000000803F00000000
+        }
+      end
+    end
     object GLCamera1: TGLCamera
       TagFloat = 0
       DepthOfView = 1000
@@ -285,7 +315,7 @@ object f_moon: Tf_moon
         00000000000000000000C8C20000803F
       }
       Direction.Coordinates = {
-        00000000000000800000803F00000000
+        00000000000000000000803F00000000
       }
     end
   end
