@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 122
-  Height = 500
-  Top = 32
-  Width = 879
+  Left = 121
+  Height = 538
+  Top = 0
+  Width = 878
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
@@ -10,8 +10,8 @@ object Form1: TForm1
   ActiveControl = ControlBar1
   AutoScroll = False
   Caption = 'Form1'
-  ClientHeight = 500
-  ClientWidth = 879
+  ClientHeight = 538
+  ClientWidth = 878
   Constraints.MinHeight = 500
   Constraints.MinWidth = 500
   Font.Height = -11
@@ -181,11 +181,11 @@ object Form1: TForm1
     Left = 0
     Height = 25
     Top = 0
-    Width = 879
+    Width = 878
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 25
-    ClientWidth = 879
+    ClientWidth = 878
     TabOrder = 2
     object Label10: TLabel
       Left = 240
@@ -388,7 +388,7 @@ object Form1: TForm1
     Left = 0
     Height = 24
     Top = 517
-    Width = 879
+    Width = 878
     Panels = <    
       item
         Width = 100
