@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 223
+  Left = 520
   Height = 538
-  Top = 43
+  Top = 83
   Width = 878
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
@@ -236,6 +236,7 @@ object Form1: TForm1
       Top = 0
       Width = 328
       Align = alNone
+      ButtonHeight = 23
       Caption = 'ToolBar'
       Color = clBtnFace
       DragMode = dmAutomatic
@@ -251,7 +252,6 @@ object Form1: TForm1
         Left = 1
         Hint = '1:1'
         Top = 0
-        AutoSize = True
         Caption = '1:1'
         ImageIndex = 10
         OnClick = ToolButton9Click
@@ -273,7 +273,6 @@ object Form1: TForm1
       object ToolButton5: TToolButton
         Left = 51
         Top = 0
-        AutoSize = True
         Caption = 'Centre'
         ImageIndex = 4
         OnClick = ToolButton5Click
@@ -281,7 +280,6 @@ object Form1: TForm1
       object ToolButton4: TToolButton
         Left = 74
         Top = 0
-        AutoSize = True
         Caption = 'N-S'
         ImageIndex = 3
         OnClick = ToolButton4Click
@@ -289,7 +287,6 @@ object Form1: TForm1
       object ToolButton6: TToolButton
         Left = 97
         Top = 0
-        AutoSize = True
         Caption = 'E-W'
         ImageIndex = 2
         OnClick = ToolButton6Click
@@ -297,7 +294,6 @@ object Form1: TForm1
       object ToolButton3: TToolButton
         Left = 120
         Top = 0
-        AutoSize = True
         Caption = 'Rotation'
         ImageIndex = 8
         Style = tbsCheck
@@ -306,7 +302,6 @@ object Form1: TForm1
       object PhaseButton: TToolButton
         Left = 143
         Top = 0
-        AutoSize = True
         Caption = 'Phase'
         ImageIndex = 7
         Style = tbsCheck
@@ -315,7 +310,6 @@ object Form1: TForm1
       object LibrationButton: TToolButton
         Left = 166
         Top = 0
-        AutoSize = True
         Caption = 'Libration'
         ImageIndex = 11
         Style = tbsCheck
@@ -324,7 +318,6 @@ object Form1: TForm1
       object ToolButton10: TToolButton
         Left = 212
         Top = 0
-        AutoSize = True
         Caption = 'Voisinage'
         ImageIndex = 12
         OnClick = ToolButton10Click
@@ -332,7 +325,6 @@ object Form1: TForm1
       object ToolButton7: TToolButton
         Left = 235
         Top = 0
-        AutoSize = True
         Caption = 'Image'
         ImageIndex = 5
         OnClick = ToolButton7Click
@@ -347,7 +339,6 @@ object Form1: TForm1
       object NewWindowButton: TToolButton
         Left = 281
         Top = 0
-        AutoSize = True
         Caption = 'Window 2'
         ImageIndex = 0
         OnClick = NewWindowButtonClick

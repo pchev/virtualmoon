@@ -87,7 +87,7 @@ type
     markl,markb: single;
     MaxTextureSize: integer;
     MaxZoom: single;
-    mx,my, zone, maxzone,curlabel,cursprite : integer;
+    mx,my, zone, maxzone,curlabel,cursprite, lastyzoom : integer;
     maps2, newmaps: array[0..8] of integer;
     pmaps2 : array[0..2] of integer;
     cap2,newcap: integer;
@@ -1125,29 +1125,6 @@ begin
  GLAnnulus1.BottomInnerRadius   := Source.GLAnnulus1.BottomInnerRadius;
 end;
 
-procedure Tf_moon.GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-var lat,lon,z,s1,c1: single;
-    OnMoon: boolean;
-    xx:integer;
-begin
-  // Distance
-  if measuringdistance and distancestart then
-  begin
-    MeasureDistance(x, y);
-    distancestart := False;
-  end
-  else begin
-    // Identification
-    if (ssLeft in shift) and (not SkipIdent)
-    then begin
-       OnMoon:=Screen2Moon(x,y,lon,lat);
-       if Assigned(onMoonClick) then onMoonClick(Self,Button,Shift,X,Y,OnMoon,lon,lat);
-    end;
-    GLSceneViewer1.Cursor:=crRetic;
-  end;
-end;
-
 procedure Tf_moon.MoonResize(Sender: TObject);
 begin
   RefreshAll;
@@ -1169,6 +1146,7 @@ begin
     mx:=xx;
     my:=y;
   end;
+  lastyzoom:=y;
   OnMoon:=false;
   if FMeasuringDistance and (Button = mbLeft) then
   begin
@@ -1196,7 +1174,7 @@ end;
 
 procedure Tf_moon.GLSceneViewer1MouseMove(Sender: TObject; Shift: TShiftState;
   X, Y: Integer);
-var movespeed,s1,c1: single;
+var movespeed,s1,c1,zm: single;
     xx,yy:integer;
     lat,lon: single;
     OnMoon: boolean;
@@ -1255,6 +1233,37 @@ begin
        GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
     end;
     RefreshAll;
+  end
+  else
+  // Zoom
+  if (ssMiddle in shift)
+   then begin
+     zm:=FZoom*(1-(y-lastyzoom)/200);
+     lastyzoom:=y;
+     SetZoomLevel(zm);
+  end;
+end;
+
+procedure Tf_moon.GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var lat,lon,z,s1,c1: single;
+    OnMoon: boolean;
+    xx:integer;
+begin
+  // Distance
+  if measuringdistance and distancestart then
+  begin
+    MeasureDistance(x, y);
+    distancestart := False;
+  end
+  else begin
+    // Identification
+    if (ssLeft in shift) and (not SkipIdent)
+    then begin
+       OnMoon:=Screen2Moon(x,y,lon,lat);
+       if Assigned(onMoonClick) then onMoonClick(Self,Button,Shift,X,Y,OnMoon,lon,lat);
+    end;
+    GLSceneViewer1.Cursor:=crRetic;
   end;
 end;
 
