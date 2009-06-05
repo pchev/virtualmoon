@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 121
+  Left = 223
   Height = 538
-  Top = 0
+  Top = 43
   Width = 878
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
@@ -271,7 +271,7 @@ object Form1: TForm1
         OnClick = ToolButton12Click
       end
       object ToolButton5: TToolButton
-        Left = 74
+        Left = 51
         Top = 0
         AutoSize = True
         Caption = 'Centre'
@@ -279,7 +279,7 @@ object Form1: TForm1
         OnClick = ToolButton5Click
       end
       object ToolButton4: TToolButton
-        Left = 97
+        Left = 74
         Top = 0
         AutoSize = True
         Caption = 'N-S'
@@ -287,7 +287,7 @@ object Form1: TForm1
         OnClick = ToolButton4Click
       end
       object ToolButton6: TToolButton
-        Left = 120
+        Left = 97
         Top = 0
         AutoSize = True
         Caption = 'E-W'
@@ -295,7 +295,7 @@ object Form1: TForm1
         OnClick = ToolButton6Click
       end
       object ToolButton3: TToolButton
-        Left = 143
+        Left = 120
         Top = 0
         AutoSize = True
         Caption = 'Rotation'
@@ -304,7 +304,7 @@ object Form1: TForm1
         OnClick = ToolButton3Click
       end
       object PhaseButton: TToolButton
-        Left = 166
+        Left = 143
         Top = 0
         AutoSize = True
         Caption = 'Phase'
@@ -313,7 +313,7 @@ object Form1: TForm1
         OnClick = PhaseButtonClick
       end
       object LibrationButton: TToolButton
-        Left = 189
+        Left = 166
         Top = 0
         AutoSize = True
         Caption = 'Libration'
@@ -322,7 +322,7 @@ object Form1: TForm1
         OnClick = LibrationButtonClick
       end
       object ToolButton10: TToolButton
-        Left = 235
+        Left = 212
         Top = 0
         AutoSize = True
         Caption = 'Voisinage'
@@ -330,7 +330,7 @@ object Form1: TForm1
         OnClick = ToolButton10Click
       end
       object ToolButton7: TToolButton
-        Left = 258
+        Left = 235
         Top = 0
         AutoSize = True
         Caption = 'Image'
@@ -338,29 +338,22 @@ object Form1: TForm1
         OnClick = ToolButton7Click
       end
       object ButtonDatabase: TToolButton
-        Left = 281
+        Left = 258
         Top = 0
         Caption = 'Database'
         ImageIndex = 6
         OnClick = DataBase1Click
       end
       object NewWindowButton: TToolButton
-        Left = 304
+        Left = 281
         Top = 0
         AutoSize = True
         Caption = 'Window 2'
         ImageIndex = 0
         OnClick = NewWindowButtonClick
       end
-      object ToolButton13: TToolButton
-        Left = 51
-        Top = 0
-        Caption = 'ToolButton13'
-        ImageIndex = 13
-        OnClick = ToolButton13Click
-      end
       object GridButton: TToolButton
-        Left = 212
+        Left = 189
         Top = 0
         Caption = 'GridButton'
         ImageIndex = 14
@@ -386,8 +379,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 24
-    Top = 517
+    Height = 17
+    Top = 524
     Width = 878
     Panels = <    
       item
@@ -424,16 +417,16 @@ object Form1: TForm1
     TabOrder = 0
     object Position: TPage
       Caption = 'Information'
-      ClientWidth = 378
-      ClientHeight = 473
+      ClientWidth = 376
+      ClientHeight = 474
       object Panel1: TPanel
         Left = 0
         Height = 97
         Top = 0
-        Width = 378
+        Width = 376
         Align = alTop
         ClientHeight = 97
-        ClientWidth = 378
+        ClientWidth = 376
         TabOrder = 0
         object Button1: TButton
           Left = 16
@@ -457,17 +450,17 @@ object Form1: TForm1
           Left = 1
           Height = 34
           Top = 62
-          Width = 376
+          Width = 374
           Align = alBottom
           Caption = 'Profile'
-          ClientHeight = 18
+          ClientHeight = 19
           ClientWidth = 372
           TabOrder = 3
           object Label7: TLabel
             Left = 2
-            Height = 23
+            Height = 24
             Top = 8
-            Width = 9
+            Width = 10
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -489,9 +482,9 @@ object Form1: TForm1
       end
       object Desc1: TIpHtmlPanel
         Left = 0
-        Height = 376
+        Height = 377
         Top = 97
-        Width = 378
+        Width = 376
         Align = alClient
         FixedTypeface = 'Courier New'
         DefaultTypeFace = 'Sans'
@@ -509,14 +502,14 @@ object Form1: TForm1
     end
     object Notes: TPage
       Caption = 'Notes'
-      ClientWidth = 378
-      ClientHeight = 473
+      ClientWidth = 376
+      ClientHeight = 474
       ImageIndex = 6
       object Memo1: TMemo
         Left = 0
-        Height = 415
+        Height = 416
         Top = 58
-        Width = 378
+        Width = 376
         Align = alClient
         Lines.Strings = (
           ''
@@ -530,10 +523,10 @@ object Form1: TForm1
         Left = 0
         Height = 58
         Top = 0
-        Width = 378
+        Width = 376
         Align = alTop
         ClientHeight = 58
-        ClientWidth = 378
+        ClientWidth = 376
         TabOrder = 1
         object notes_name: TLabel
           Left = 8
@@ -556,17 +549,17 @@ object Form1: TForm1
     end
     object Ephemerides: TPage
       Caption = 'Ephemerides'
-      ClientWidth = 378
-      ClientHeight = 473
+      ClientWidth = 376
+      ClientHeight = 474
       ImageIndex = 1
       object Panel4: TPanel
         Left = 0
         Height = 121
         Top = 0
-        Width = 378
+        Width = 376
         Align = alTop
         ClientHeight = 121
-        ClientWidth = 378
+        ClientWidth = 376
         TabOrder = 0
         TabStop = True
         object Label6: TLabel
@@ -1097,9 +1090,9 @@ object Form1: TForm1
       end
       object StringGrid1: TStringGrid
         Left = 0
-        Height = 352
+        Height = 353
         Top = 121
-        Width = 378
+        Width = 376
         Align = alClient
         BorderStyle = bsNone
         Color = clBtnFace
@@ -1122,17 +1115,17 @@ object Form1: TForm1
     end
     object Terminateur: TPage
       Caption = 'Terminateur'
-      ClientWidth = 378
-      ClientHeight = 473
+      ClientWidth = 376
+      ClientHeight = 474
       ImageIndex = 2
       object Panel5: TPanel
         Left = 0
         Height = 130
         Top = 0
-        Width = 378
+        Width = 376
         Align = alTop
         ClientHeight = 130
-        ClientWidth = 378
+        ClientWidth = 376
         TabOrder = 0
         object Label19: TLabel
           Left = 8
@@ -1210,8 +1203,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 52
-          ClientWidth = 234
+          ClientHeight = 53
+          ClientWidth = 236
           Columns = 2
           Items.Strings = (
             'Nom'
@@ -1225,9 +1218,9 @@ object Form1: TForm1
       end
       object ListBox1: TListBox
         Left = 0
-        Height = 343
+        Height = 344
         Top = 130
-        Width = 378
+        Width = 376
         Align = alClient
         ItemHeight = 0
         OnClick = ListBox1Click
@@ -1238,8 +1231,8 @@ object Form1: TForm1
     end
     object Outils: TPage
       Caption = 'Outils'
-      ClientWidth = 378
-      ClientHeight = 473
+      ClientWidth = 376
+      ClientHeight = 474
       ImageIndex = 4
       object Bevel4: TBevel
         Left = 8
@@ -1321,8 +1314,8 @@ object Form1: TForm1
         Top = 300
         Width = 256
         Caption = 'Telescope'
-        ClientHeight = 165
-        ClientWidth = 252
+        ClientHeight = 166
+        ClientWidth = 254
         TabOrder = 12
         object Label26: TLabel
           Left = 136
@@ -1426,8 +1419,8 @@ object Form1: TForm1
         Top = 300
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 165
-        ClientWidth = 249
+        ClientHeight = 166
+        ClientWidth = 251
         TabOrder = 11
         Visible = False
         object Label4: TLabel
@@ -1578,8 +1571,8 @@ object Form1: TForm1
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 25
-        ClientWidth = 205
+        ClientHeight = 26
+        ClientWidth = 207
         Columns = 2
         ItemIndex = 0
         Items.Strings = (
@@ -1628,8 +1621,8 @@ object Form1: TForm1
     end
     object Reglage: TPage
       Caption = 'Reglage'
-      ClientWidth = 378
-      ClientHeight = 473
+      ClientWidth = 376
+      ClientHeight = 474
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
@@ -1772,8 +1765,8 @@ object Form1: TForm1
         Top = 344
         Width = 193
         Caption = 'Options valid at next startup'
-        ClientHeight = 56
-        ClientWidth = 189
+        ClientHeight = 57
+        ClientWidth = 191
         TabOrder = 4
         object CheckBox8: TCheckBox
           Left = 6
@@ -1798,14 +1791,14 @@ object Form1: TForm1
     end
     object dbtab: TPage
       Caption = 'Database'
-      ClientWidth = 378
-      ClientHeight = 473
+      ClientWidth = 376
+      ClientHeight = 474
       ImageIndex = 5
       object StringGrid2: TStringGrid
         Left = 0
-        Height = 440
+        Height = 441
         Top = 0
-        Width = 378
+        Width = 376
         Align = alClient
         ColCount = 2
         DefaultColWidth = 74
@@ -1823,11 +1816,11 @@ object Form1: TForm1
       object Panel6: TPanel
         Left = 0
         Height = 33
-        Top = 440
-        Width = 378
+        Top = 441
+        Width = 376
         Align = alBottom
         ClientHeight = 33
-        ClientWidth = 378
+        ClientWidth = 376
         TabOrder = 1
         object Button9: TButton
           Left = 86

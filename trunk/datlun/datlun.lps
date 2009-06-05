@@ -94,7 +94,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
         <CursorPos X="33" Y="1032"/>
-        <TopLine Value="993"/>
+        <TopLine Value="995"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>

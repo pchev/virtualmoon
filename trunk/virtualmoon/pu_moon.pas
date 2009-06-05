@@ -92,7 +92,7 @@ type
     pmaps2 : array[0..2] of integer;
     cap2,newcap: integer;
     perftime: double;
-    lock_Zoom : boolean;
+    lock_Zoom,SkipIdent : boolean;
     distancestart,BumpMapLimit1K: boolean;
     startl,startb,startxx,startyy : single;
     startx, starty, ShadowOffset : integer;
@@ -130,7 +130,6 @@ type
     Flabelcolor: TColor;
     perfdeltay: double;
     FShowFPS: Boolean;
-    FMoveCursor: boolean;
     FLibrationMark: Boolean;
     FEyepiece: single;
     FTextureCompression: Boolean;
@@ -176,7 +175,6 @@ type
     Procedure ClearSlice(level:integer);
     procedure ClearOverlay;
     Procedure SetZoomLevel(zoom:single);
-    procedure SetMoveCursor(value:boolean);
     procedure SetShowGrid(value:boolean);
     procedure SetGridSpacing(value:integer);
     function  GetBumpMethod:TBumpMapCapability;
@@ -262,7 +260,6 @@ type
     property DiffuseColor: TColor read GetDiffuseColor Write SetDiffuseColor;
     property SpecularColor: TColor read GetSpecularColor Write SetSpecularColor;
     property Antialiasing: boolean read GetAntialiasing write SetAntialiasing;
-    property MoveCursor: Boolean read FMoveCursor Write SetMoveCursor;
     property onMoonClick : TMoonClickEvent read FOnMoonClick write FOnMoonClick;
     property onMoonMove : TMoonMoveEvent read FOnMoonMove write FOnMoonMove;
     property onMoonMeasure: TMoonMeasureEvent read FonMoonMeasure write FonMoonMeasure;
@@ -1003,7 +1000,6 @@ begin
  FEarthDistance:=MeanEarthDistance;
  FBumpOk:=false;
  BumpMapLimit1K:=false;
- FMoveCursor:=false;
  TextureCompression:=true;
  MaxZoom:=3;
  MaxTextureSize:=1024;
@@ -1104,7 +1100,6 @@ begin
  AmbientColor:=Source.AmbientColor;
  DiffuseColor:=Source.DiffuseColor;
  SpecularColor:=Source.SpecularColor;
- MoveCursor:=Source.MoveCursor;
  GLSceneViewer1.Cursor := Source.GLSceneViewer1.Cursor;
  GLSphereMoon.Slices := Source.GLSphereMoon.Slices;
  GLSphereMoon.Stacks := Source.GLSphereMoon.Stacks;
@@ -1132,17 +1127,24 @@ end;
 
 procedure Tf_moon.GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
+var lat,lon,z,s1,c1: single;
+    OnMoon: boolean;
+    xx:integer;
 begin
   // Distance
   if measuringdistance and distancestart then
   begin
     MeasureDistance(x, y);
-//    ShowCoordinates(x, y);
     distancestart := False;
   end
   else begin
-    if FMoveCursor then GLSceneViewer1.Cursor:=crHandPoint
-           else GLSceneViewer1.Cursor:=crRetic;
+    // Identification
+    if (ssLeft in shift) and (not SkipIdent)
+    then begin
+       OnMoon:=Screen2Moon(x,y,lon,lat);
+       if Assigned(onMoonClick) then onMoonClick(Self,Button,Shift,X,Y,OnMoon,lon,lat);
+    end;
+    GLSceneViewer1.Cursor:=crRetic;
   end;
 end;
 
@@ -1185,17 +1187,9 @@ begin
     end;
   end
   else begin
-    if ((not FMoveCursor)and(ssLeft in shift)) or
-       ((ssLeft in shift)and(ssShift in shift))
+    if (ssLeft in shift)
      then begin
-       OnMoon:=Screen2Moon(x,y,lon,lat);
-       if Assigned(onMoonClick) then onMoonClick(Self,Button,Shift,X,Y,OnMoon,lon,lat);
-    end;
-    if (ssMiddle in shift) or
-       (FMoveCursor and (ssLeft in shift)) or
-       ((ssLeft in shift)and(ssCtrl in shift))
-     then begin
-        GLSceneViewer1.Cursor:=crHandPoint;
+        SkipIdent:=false;
      end;
   end;
 end;
@@ -1223,32 +1217,38 @@ begin
   end
   else
   // Move map
-  if (ssMiddle in shift) or
-     (FMoveCursor and (ssLeft in shift)) or
-     ((ssLeft in shift)and(ssCtrl in shift))
+  if (ssLeft in shift)
    then begin
     if FMirror then x:=GLSceneViewer1.Width-x;
     if FVisibleSideLock then begin
       sincos(deg2rad * FOrientation, s1, c1);
       xx:=round(x*c1+y*s1);
       yy:=round(y*c1-x*s1);
-      movespeed:=0.002/GLCamera1.SceneScale;
-      GLCamera1.Position.X:=GLCamera1.Position.X-(mx-xx)*movespeed;
-      GLCamera1.Position.Y:=GLCamera1.Position.Y-(my-yy)*movespeed;
-      GLAnnulus1.Position.x := GLCamera1.Position.x;
-      GLAnnulus1.Position.y := GLCamera1.Position.y;
-      mx:=xx;
-      my:=yy;
-    end else begin
-      if RotationCadencer.Enabled then begin
-        movespeed:=0.3/GLCamera1.SceneScale;
-        GLCameraSatellite.MoveAroundTarget((y-my)*movespeed,(x-mx)*movespeed);
-      end else begin
-        movespeed:=0.3/GLCamera1.SceneScale;
-        GLCamera1.MoveAroundTarget((my-y)*movespeed,(mx-x)*movespeed);
+      if SkipIdent or (abs(mx-xx)>2) or (abs(my-yy)>2) then begin
+        movespeed:=0.002/GLCamera1.SceneScale;
+        GLCamera1.Position.X:=GLCamera1.Position.X-(mx-xx)*movespeed;
+        GLCamera1.Position.Y:=GLCamera1.Position.Y-(my-yy)*movespeed;
+        GLAnnulus1.Position.x := GLCamera1.Position.x;
+        GLAnnulus1.Position.y := GLCamera1.Position.y;
+        mx:=xx;
+        my:=yy;
+        SkipIdent:=true;
+        GLSceneViewer1.Cursor:=crHandPoint;
       end;
-      mx:=x;
-      my:=y;
+    end else begin
+      if SkipIdent or (abs(mx-x)>2) or (abs(my-y)>2) then begin
+        if RotationCadencer.Enabled then begin
+          movespeed:=0.3/GLCamera1.SceneScale;
+          GLCameraSatellite.MoveAroundTarget((y-my)*movespeed,(x-mx)*movespeed);
+        end else begin
+          movespeed:=0.3/GLCamera1.SceneScale;
+          GLCamera1.MoveAroundTarget((my-y)*movespeed,(mx-x)*movespeed);
+        end;
+        mx:=x;
+        my:=y;
+        SkipIdent:=true;
+        GLSceneViewer1.Cursor:=crHandPoint;
+      end;
     end;
     if (not FShowPhase)and(not RotationCadencer.Enabled) then begin
        GLLightSource1.Position:=GLCamera1.Position;
@@ -1696,15 +1696,19 @@ if (txt>'')and Moon2Screen(lon,lat,x,y) then begin
   markb:=lat;
   if showmark then
     begin
+      GLHUDSpriteMark.BeginUpdate;
       GLHUDSpriteMark.Position.SetVector(x,y);
       GLHUDSpriteMark.Width:=marksize;
       GLHUDSpriteMark.Height:=marksize;
       GLHUDSpriteMark.Material.FrontProperties.Emission.AsWinColor := MarkColor;
       GLHUDSpriteMark.Visible:=true;
+      GLHUDSpriteMark.EndUpdate;
     end else
       GLHUDSpriteMark.Visible:=false;
   if showlabel then
     begin
+      GLHUDTextMark.BeginUpdate;
+      GLHUDTextMarkShadow.BeginUpdate;
       if x < (glsceneviewer1.Width div 2) then
       begin
         x:=x + 4 ;
@@ -1724,6 +1728,8 @@ if (txt>'')and Moon2Screen(lon,lat,x,y) then begin
       GLHUDTextMark.ModulateColor.AsWinColor := marklabelcolor;
       GLHUDTextMarkShadow.Visible:=true;
       GLHUDTextMark.Visible:=true;
+      GLHUDTextMark.EndUpdate;
+      GLHUDTextMarkShadow.EndUpdate;
     end else begin
       GLHUDTextMarkShadow.Visible:=false;
       GLHUDTextMark.Visible:=false;
@@ -1886,8 +1892,7 @@ begin
   end
   else
   begin
-    if FMoveCursor then GLSceneViewer1.Cursor:=crHandPoint
-               else GLSceneViewer1.Cursor:=crRetic;
+    GLSceneViewer1.Cursor:=crRetic;
     GLHUDSpriteDistance.Visible    := False;
   end;
 end;
@@ -2036,28 +2041,10 @@ begin
 GLSceneViewer1.Buffer.ShowInfo;
 end;
 
-procedure Tf_moon.SetMoveCursor(value:boolean);
-begin
-FMoveCursor:=value;
-if FMoveCursor then GLSceneViewer1.Cursor:=crHandPoint
-               else GLSceneViewer1.Cursor:=crRetic;
-end;
-
 procedure Tf_moon.KeyEvent(event: TMoonKeyClass; key: word);
 begin
 case key of
-  16  : begin   // Shift
-           if FMoveCursor then begin
-              if event=mkDown then GLSceneViewer1.Cursor:=crRetic
-                              else GLSceneViewer1.Cursor:=crHandPoint;
-           end;
-        end;
-  17  : begin  // Ctrl
-           if not FMoveCursor then begin
-              if event=mkDown then GLSceneViewer1.Cursor:=crHandPoint
-                              else GLSceneViewer1.Cursor:=crRetic;
-           end;
-        end;
+  16  : ;
 end;
 end;
 

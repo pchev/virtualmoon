@@ -71,7 +71,6 @@ type
     Button5: TButton;
     Apropos1: TMenuItem;
     Splitter1: TSplitter;
-    ToolButton13: TToolButton;
     GridButton: TToolButton;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
@@ -278,7 +277,6 @@ type
     procedure Button5Click(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
     procedure ToolButton12Click(Sender: TObject);
-    procedure ToolButton13Click(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
@@ -1037,7 +1035,6 @@ begin
     BumpMethod:= Readinteger(section,'BumpMethod',0);
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
-    moon1.MoveCursor:= ReadBool(section, 'MoveCursor', false);
     ShowMark     := ReadBool(section, 'ShowMark', ShowMark);
     ShowLibrationMark := ReadBool(section, 'ShowLibrationMark', ShowLibrationMark);
     MarkLabelColor   := ReadInteger(section, 'LabelColor', MarkLabelColor);
@@ -1193,7 +1190,6 @@ begin
       WriteBool(section, 'PhaseEffect', phaseeffect);
       WriteBool(section, 'BumpMap', wantbump);
       WriteInteger(section,'BumpMethod',ord(moon1.BumpMethod));
-      WriteBool(section, 'MoveCursor', moon1.MoveCursor);
       WriteBool(section, 'ShowLabel', ShowLabel);
       WriteBool(section, 'ShowMark', ShowMark);
       WriteBool(section, 'ShowLibrationMark', ShowLibrationMark);
@@ -3095,7 +3091,6 @@ begin
     RadioGroup2.ItemIndex := 1;
   checkbox1.Checked := FollowNorth;
   ToolButton12.Down := showlabel;
-  ToolButton13.Down := moon1.MoveCursor;
   appname := ParamStr(0);
   if paramcount > 0 then
   begin
@@ -3484,12 +3479,6 @@ begin
  showlabel:=not showlabel;
  ToolButton12.Down := showlabel;
  moon1.RefreshAll;
-end;
-
-procedure TForm1.ToolButton13Click(Sender: TObject);
-begin
- moon1.MoveCursor:=not moon1.MoveCursor;
- ToolButton13.Down:=moon1.MoveCursor;
 end;
 
 procedure TForm1.ToolButton1Click(Sender: TObject);
