@@ -291,7 +291,6 @@ object f_moon: Tf_moon
         0000000000000000333333BF0000803F
       }
       RollAngle = 0
-      ShowAxes = True
       TurnAngle = 0
       CubeSize = 1
       object GLCameraSatellite: TGLCamera
