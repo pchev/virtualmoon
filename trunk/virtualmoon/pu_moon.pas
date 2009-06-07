@@ -96,10 +96,10 @@ type
     distancestart,BumpMapLimit1K: boolean;
     startl,startb,startxx,startyy : single;
     startx, starty, ShadowOffset : integer;
-    satl,satb,satr: single;
+    satl,satb,satr,satli,satlc: single;
     blankbmp: Tbitmap;
     MaxSprite: integer;
-    FSatAltitude: single;
+    FSatAltitude,FSatInclination : single;
     FOnMoonClick: TMoonClickEvent;
     FOnMoonMove: TMoonMoveEvent;
     FonMoonMeasure: TMoonMeasureEvent;
@@ -183,6 +183,7 @@ type
     function  GetAntialiasing: boolean;
     procedure SetAntialiasing(value:boolean);
     procedure SetSatAltitude(value:single);
+    procedure SetSatInclination(value:single);
     function  Screen2Moon(x,y:integer; var lon,lat: single): boolean;
     function  Moon2Screen(lon,lat: single; var x,y:integer): boolean;
     function  Moon2World(lon,lat: single; var x,y,z:single): boolean;
@@ -231,6 +232,7 @@ type
     property CanBump : Boolean read FBumpOk;
     property AsMultiTexture : boolean read FAsMultiTexture;
     property SatelliteAltitude : single read FSatAltitude write SetSatAltitude;
+    property SatInclination : single read FSatInclination write SetSatInclination;
     property SatelliteRotation : single read FRotation write SetRotation;
     property Phase : single read FPhase write SetPhase;
     property SunIncl : single read FSunIncl write SetSunIncl;
@@ -1291,8 +1293,11 @@ end;
 
 procedure Tf_moon.SetRotation(value:single);
 begin
- if FRotation=0 then GetCenter(satl,satb);
- satb:=0; // incl=0
+ if FRotation=0 then begin
+   GetCenter(satl,satb);
+   satli:=satl;
+   satlc:=0;
+ end;
  FRotation:=value;
  RotationCadencer.Enabled:=(FRotation<>0);
  if RotationCadencer.Enabled then begin
@@ -1314,26 +1319,40 @@ begin
   SetZoomLevel(Fzoom);
 end;
 
+procedure Tf_moon.SetSatInclination(value:single);
+begin
+  FSatInclination:=deg2rad*value;
+end;
+
 procedure Tf_moon.RotationCadencerProgress(Sender: TObject; const deltaTime,
   newTime: Double);
-var cl,sl,cb,sb,x,y,z: single;
+var cl,sl,cb,sb,ci,si,cc,sc,x,y,z: single;
     v,dv,nv: TVector;
 begin
-  satl:=satl+deg2rad*FRotation*deltaTime;
-  satb:=satb;
+  // new position after deltatime
+  satlc:=satlc+deg2rad*FRotation*deltaTime;
   satr:=0.5*(Rmoon+FSatAltitude)/Rmoon;
+  // convert to long, lat
+  sincos(FSatInclination,si,ci);
+  sincos(satlc,sc,cc);
+  satl:=arctan2(sc*ci,cc)+satli;
+  satb:=arcsin(si*sc);
+  // convert to cartesian
   sincos(-satl-pi/2,sl,cl);
   sincos(satb,sb,cb);
   x:=satr*cb*cl;
   y:=satr*cb*sl;
   z:=satr*sb;
   v:=VectorMake(x,z,y);
+  // move satellite
   dv:=VectorSubtract(v,GLDummyCubeSatellite.AbsolutePosition);
   GLDummyCubeSatellite.Position.Translate(dv);
+  // orient satellite
   NormalizeVector(v);
   nv:=VectorNegate(v);
   GLDummyCubeSatellite.ResetRotations;
   GLDummyCubeSatellite.Direction.SetVector(nv);
+  // orient camera
   if (abs(GLCameraSatellite.Position.X)>0.001)or(abs(GLCameraSatellite.Position.Y)>0.001) then
      GLCameraSatellite.Up.SetVector(v);
   if not FShowPhase then begin

@@ -50,6 +50,7 @@ type
     FilePopup: TPopupMenu;
     DoNotRemove: TGLSceneViewer;
     HelpPopup: TPopupMenu;
+    Label17: TLabel;
     Label5: TLabel;
     PanelMoon: TPanel;
     Quitter1: TMenuItem;
@@ -74,6 +75,7 @@ type
     Splitter1: TSplitter;
     GridButton: TToolButton;
     TrackBar6: TTrackBar;
+    TrackBar7: TTrackBar;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
     UpDown2: TUpDown;
@@ -310,6 +312,7 @@ type
     procedure Aide2Click(Sender: TObject);
     procedure Position1Click(Sender: TObject);
     procedure TrackBar6Change(Sender: TObject);
+    procedure TrackBar7Change(Sender: TObject);
     procedure x21Click(Sender: TObject);
     procedure x41Click(Sender: TObject);
     procedure Button12MouseUp(Sender: TObject; Button: TMouseButton;
@@ -4048,6 +4051,11 @@ end;
 procedure TForm1.TrackBar6Change(Sender: TObject);
 begin
   moon1.SatelliteAltitude:=TrackBar6.Position;
+end;
+
+procedure TForm1.TrackBar7Change(Sender: TObject);
+begin
+  moon1.SatInclination:=TrackBar7.Position;
 end;
 
 procedure TForm1.ComboBox2Change(Sender: TObject);
