@@ -96,9 +96,10 @@ type
     distancestart,BumpMapLimit1K: boolean;
     startl,startb,startxx,startyy : single;
     startx, starty, ShadowOffset : integer;
-    satl,satb,satr,satalt: single;
+    satl,satb,satr: single;
     blankbmp: Tbitmap;
     MaxSprite: integer;
+    FSatAltitude: single;
     FOnMoonClick: TMoonClickEvent;
     FOnMoonMove: TMoonMoveEvent;
     FonMoonMeasure: TMoonMeasureEvent;
@@ -181,6 +182,7 @@ type
     procedure SetBumpMethod(bm:TBumpMapCapability);
     function  GetAntialiasing: boolean;
     procedure SetAntialiasing(value:boolean);
+    procedure SetSatAltitude(value:single);
     function  Screen2Moon(x,y:integer; var lon,lat: single): boolean;
     function  Moon2Screen(lon,lat: single; var x,y:integer): boolean;
     function  Moon2World(lon,lat: single; var x,y,z:single): boolean;
@@ -228,7 +230,8 @@ type
     property BumpMethod : TBumpMapCapability read GetBumpMethod write SetBumpMethod;
     property CanBump : Boolean read FBumpOk;
     property AsMultiTexture : boolean read FAsMultiTexture;
-    property Rotation : single read FRotation write SetRotation;
+    property SatelliteAltitude : single read FSatAltitude write SetSatAltitude;
+    property SatelliteRotation : single read FRotation write SetRotation;
     property Phase : single read FPhase write SetPhase;
     property SunIncl : single read FSunIncl write SetSunIncl;
     property LibrLon : single read FLibrLon write SetLibrLon;
@@ -884,6 +887,7 @@ end;
 
 Procedure Tf_moon.SetZoomLevel(zoom:single);
 var newzone: integer;
+    satzone: single;
 begin
 if lock_Zoom then exit;
 try
@@ -891,11 +895,13 @@ try
   if zoom<1 then zoom:=1;
   if zoom>MaxZoom then zoom:=MaxZoom;
   newzone:=1;
-  if zoom>ZoomByZone[1] then begin
+  if RotationCadencer.Enabled then satzone:=1000/FSatAltitude
+     else satzone:=1;
+  if (zoom*satzone)>ZoomByZone[1] then begin
      if maxzone>=2 then newzone:=2;
-     if zoom>ZoomByZone[2] then begin
+     if (zoom*satzone)>ZoomByZone[2] then begin
        if maxzone>=3 then newzone:=3;
-       if zoom>ZoomByZone[3] then begin
+       if (zoom*satzone)>ZoomByZone[3] then begin
          if maxzone>=4 then newzone:=4;
        end;
      end;
@@ -949,26 +955,6 @@ if not FileExists(slash(fn)+'normal2k.jpg') then raise Exception.Create('No bump
 FBumpPath:=fn;
 end;
 
-procedure Tf_moon.SetRotation(value:single);
-begin
- FRotation:=value;
- RotationCadencer.Enabled:=(FRotation<>0);
- if RotationCadencer.Enabled then begin
-   GetCenter(satl,satb);
-   satalt:=800;
-   satr:=0.5*(Rmoon+SatAlt)/Rmoon;
-   GLCameraSatellite.SceneScale:=Fzoom;
-   GLSceneViewer1.Camera:=GLCameraSatellite;
-   zone:=1;
- end else begin
-   GLSceneViewer1.Camera:=GLCamera1;
-   if (not FShowPhase) then begin
-     GLLightSource1.Position:=GLCamera1.Position;
-     GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
-   end;
- end;
-end;
-
 procedure Tf_moon.FormCreate(Sender: TObject);
 var i: integer;
 begin
@@ -998,6 +984,7 @@ begin
  FRotation:=0;
  FRaCentre:=-9999;
  FEarthDistance:=MeanEarthDistance;
+ FSatAltitude:=800;
  FBumpOk:=false;
  BumpMapLimit1K:=false;
  TextureCompression:=true;
@@ -1089,7 +1076,8 @@ begin
  LabelFont :=Source.LabelFont;
  LabelColor :=Source.LabelColor;
  LibrationMark:=Source.LibrationMark;
- Rotation :=Source.Rotation;
+ SatelliteRotation :=Source.SatelliteRotation;
+ SatelliteAltitude:= Source.SatelliteAltitude;
  Phase :=Source.Phase;
  SunIncl :=Source.SunIncl;
  LibrLon :=Source.LibrLon;
@@ -1292,19 +1280,48 @@ procedure Tf_moon.RefreshTimerTimer(Sender: TObject);
 begin
   RefreshTimer.Enabled:=false;
   if marked then SetMark(markl,markb,marktext);
-  ShowLibrationMark;
-  if assigned(FOnGetSprite) then FOnGetSprite(self);
-  if assigned(FOnGetLabel) then FOnGetLabel(self);
-  if zone>1 then LoadSlice(zone);
-  GetZoomInfo;
+  if not RotationCadencer.Enabled then begin
+    ShowLibrationMark;
+    if assigned(FOnGetSprite) then FOnGetSprite(self);
+    if assigned(FOnGetLabel) then FOnGetLabel(self);
+    if zone>1 then LoadSlice(zone);
+    GetZoomInfo;
+  end;
+end;
+
+procedure Tf_moon.SetRotation(value:single);
+begin
+ if FRotation=0 then GetCenter(satl,satb);
+ satb:=0; // incl=0
+ FRotation:=value;
+ RotationCadencer.Enabled:=(FRotation<>0);
+ if RotationCadencer.Enabled then begin
+   GLSceneViewer1.Camera:=GLCameraSatellite;
+   SetZoomLevel(Fzoom);
+ end else begin
+   GLSceneViewer1.Camera:=GLCamera1;
+   if (not FShowPhase) then begin
+     GLLightSource1.Position:=GLCamera1.Position;
+     GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
+   end;
+   SetZoomLevel(Fzoom);
+ end;
+end;
+
+procedure Tf_moon.SetSatAltitude(value:single);
+begin
+  FSatAltitude:=value;
+  SetZoomLevel(Fzoom);
 end;
 
 procedure Tf_moon.RotationCadencerProgress(Sender: TObject; const deltaTime,
   newTime: Double);
 var cl,sl,cb,sb,x,y,z: single;
-    v,dv: TVector;
+    v,dv,nv: TVector;
 begin
   satl:=satl+deg2rad*FRotation*deltaTime;
+  satb:=satb;
+  satr:=0.5*(Rmoon+FSatAltitude)/Rmoon;
   sincos(-satl-pi/2,sl,cl);
   sincos(satb,sb,cb);
   x:=satr*cb*cl;
@@ -1313,15 +1330,17 @@ begin
   v:=VectorMake(x,z,y);
   dv:=VectorSubtract(v,GLDummyCubeSatellite.AbsolutePosition);
   GLDummyCubeSatellite.Position.Translate(dv);
-  NegateVector(v);
   NormalizeVector(v);
-  GLDummyCubeSatellite.Direction.SetVector(v);
+  nv:=VectorNegate(v);
+  GLDummyCubeSatellite.ResetRotations;
+  GLDummyCubeSatellite.Direction.SetVector(nv);
+  if (abs(GLCameraSatellite.Position.X)>0.001)or(abs(GLCameraSatellite.Position.Y)>0.001) then
+     GLCameraSatellite.Up.SetVector(v);
   if not FShowPhase then begin
     GLLightSource1.Position:=GLDummyCubeSatellite.Position;
     GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
   end;
-//  GLCameraSatellite.TransformationChanged;
-//GLCamera1.MoveAroundTarget(0,FRotation*deltaTime);
+  SetMark(satl,satb,' ');
 RefreshAll;
 if zone>1 then LoadSlice(zone);
 end;
@@ -1329,35 +1348,33 @@ end;
 procedure Tf_moon.SatCenter;
 var v: Tvector;
 begin
-  GLCameraSatellite.ResetRotations;
-  GLCameraSatellite.Up.SetVector(0,1,0);
   GLCameraSatellite.Position.x:=0;
   GLCameraSatellite.Position.y:=0;
   GLCameraSatellite.Position.z:=-0.01;
+  GLCameraSatellite.ResetRotations;
+  GLCameraSatellite.Up.SetVector(0,1,0);
   SetZoomLevel(2);
 end;
 
 procedure Tf_moon.SatEast;
 var v: Tvector;
 begin
-  GLCameraSatellite.ResetRotations;
-  GLCameraSatellite.Up.SetVector(-1,0,0);
   GLCameraSatellite.Position.x:=0;
   GLCameraSatellite.Position.y:=0;
   GLCameraSatellite.Position.z:=-0.01;
-  GLCameraSatellite.MoveAroundTarget(35,0);
+  GLCameraSatellite.ResetRotations;
+  GLCameraSatellite.MoveAroundTarget(0,-(35+(800-FSatAltitude)/40));
   SetZoomLevel(4);
 end;
 
 procedure Tf_moon.SatWest;
 var v: Tvector;
 begin
-  GLCameraSatellite.ResetRotations;
-  GLCameraSatellite.Up.SetVector(1,0,0);
   GLCameraSatellite.Position.x:=0;
   GLCameraSatellite.Position.y:=0;
   GLCameraSatellite.Position.z:=-0.01;
-  GLCameraSatellite.MoveAroundTarget(35,0);
+  GLCameraSatellite.ResetRotations;
+  GLCameraSatellite.MoveAroundTarget(0,(35+(800-FSatAltitude)/40));
   SetZoomLevel(4);
 end;
 
