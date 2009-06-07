@@ -291,19 +291,20 @@ object f_moon: Tf_moon
         0000000000000000333333BF0000803F
       }
       RollAngle = 0
+      ShowAxes = True
       TurnAngle = 0
       CubeSize = 1
       object GLCameraSatellite: TGLCamera
         TagFloat = 0
         DepthOfView = 10
         FocalLength = 33
-        NearPlaneBias = 0.10000000149011
+        NearPlaneBias = 0.00999999977648
         TargetObject = GLDummyCubeSatellite
         Position.Coordinates = {
           00000000000000000AD723BC0000803F
         }
         Direction.Coordinates = {
-          00000000000000000000803F00000000
+          00000000000000800000803F00000000
         }
       end
     end

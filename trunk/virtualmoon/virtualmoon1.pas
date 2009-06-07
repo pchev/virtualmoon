@@ -50,6 +50,7 @@ type
     FilePopup: TPopupMenu;
     DoNotRemove: TGLSceneViewer;
     HelpPopup: TPopupMenu;
+    Label5: TLabel;
     PanelMoon: TPanel;
     Quitter1: TMenuItem;
     PageControl1: TNoteBook;
@@ -72,6 +73,7 @@ type
     Apropos1: TMenuItem;
     Splitter1: TSplitter;
     GridButton: TToolButton;
+    TrackBar6: TTrackBar;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
     UpDown2: TUpDown;
@@ -3953,48 +3955,48 @@ end;
 
 procedure TForm1.Stop1Click(Sender: TObject);
 begin
-  moon1.Rotation:=0;
+  moon1.SatelliteRotation:=0;
 end;
 
 procedure TForm1.EastWest1Click(Sender: TObject);
 begin
   rotdirection := -rotdirection;
-  moon1.Rotation:=rotdirection*rotstep;
+  moon1.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N10seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 0;
   rotstep := 10;
-  moon1.Rotation:=rotdirection*rotstep;
+  moon1.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N5seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 1;
   rotstep := 5;
-  moon1.Rotation:=rotdirection*rotstep;
+  moon1.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N1seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 2;
   rotstep := 1;
-  moon1.Rotation:=rotdirection*rotstep;
+  moon1.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N05seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 3;
   rotstep := 0.5;
-  moon1.Rotation:=rotdirection*rotstep;
+  moon1.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N02seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 4;
   rotstep := 0.2;
-  moon1.Rotation:=rotdirection*rotstep;
+  moon1.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.ComboBox4Change(Sender: TObject);
@@ -4006,25 +4008,25 @@ begin
     3: rotstep := 0.5;
     4: rotstep := 0.2;
   end;
-  moon1.Rotation:=rotdirection*rotstep;
+  moon1.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.SpeedButton1Click(Sender: TObject);
 begin
   rotdirection := 1;
-  moon1.Rotation:=rotdirection*rotstep;
+  moon1.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.SpeedButton2Click(Sender: TObject);
 begin
-  moon1.Rotation:=0;
+  moon1.SatelliteRotation:=0;
 end;
 
 procedure TForm1.SpeedButton3Click(Sender: TObject);
 
 begin
   rotdirection := -1;
-  moon1.Rotation:=rotdirection*rotstep;
+  moon1.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.SpeedButton5Click(Sender: TObject);
@@ -4041,6 +4043,11 @@ end;
 procedure TForm1.SpeedButton6Click(Sender: TObject);
 begin
   moon1.SatCenter;
+end;
+
+procedure TForm1.TrackBar6Change(Sender: TObject);
+begin
+  moon1.SatelliteAltitude:=TrackBar6.Position;
 end;
 
 procedure TForm1.ComboBox2Change(Sender: TObject);
@@ -4173,11 +4180,6 @@ begin
   Pagecontrol1.ActivePage := Position.Caption;
   PageControl1Change(Sender);
   combobox1.SetFocus;
-end;
-
-procedure TForm1.TrackBar6Change(Sender: TObject);
-begin
-
 end;
 
 procedure TForm1.OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
@@ -4646,7 +4648,7 @@ recenter:=moon1.getcenter(l,b);
     LibrationButton.Enabled := True;
     moon1.VisibleSideLock:=true;
     moon1.LibrationMark:=ShowLibrationMark;
-    moon1.Rotation:=0;
+    moon1.SatelliteRotation:=0;
     moon1.Orientation:=CameraOrientation;
     moon1.Mirror:=checkbox2.Checked;
     RefreshMoonImage;
