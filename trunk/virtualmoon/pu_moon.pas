@@ -92,6 +92,7 @@ type
     pmaps2 : array[0..2] of integer;
     cap2,newcap: integer;
     perftime: double;
+    DownShift: TShiftState;
     lock_Zoom,SkipIdent : boolean;
     distancestart,BumpMapLimit1K: boolean;
     startl,startb,startxx,startyy : single;
@@ -1126,6 +1127,7 @@ var lat,lon,z,s1,c1: single;
     OnMoon: boolean;
     xx:integer;
 begin
+  DownShift:=Shift;
   if FMirror then xx:=GLSceneViewer1.Width-x
              else xx:=x;
   if FVisibleSideLock then begin
@@ -1201,7 +1203,11 @@ begin
         mx:=xx;
         my:=yy;
         SkipIdent:=true;
+        {$ifdef mswindows}
+        Screen.Cursor:=crHandPoint;
+        {$else}
         GLSceneViewer1.Cursor:=crHandPoint;
+        {$endif}
       end;
     end else begin
       if SkipIdent or (abs(mx-x)>2) or (abs(my-y)>2) then begin
@@ -1215,7 +1221,11 @@ begin
         mx:=x;
         my:=y;
         SkipIdent:=true;
+        {$ifdef mswindows}
+        Screen.Cursor:=crHandPoint;
+        {$else}
         GLSceneViewer1.Cursor:=crHandPoint;
+        {$endif}
       end;
     end;
     if (not FShowPhase)and(not RotationCadencer.Enabled) then begin
@@ -1248,12 +1258,16 @@ begin
   end
   else begin
     // Identification
-    if (ssLeft in shift) and (not SkipIdent)
+    if (ssLeft in DownShift) and (not SkipIdent)  //Shift not set on Windows
     then begin
        OnMoon:=Screen2Moon(x,y,lon,lat);
-       if Assigned(onMoonClick) then onMoonClick(Self,Button,Shift,X,Y,OnMoon,lon,lat);
+       if Assigned(onMoonClick) then onMoonClick(Self,Button,DownShift,X,Y,OnMoon,lon,lat);
     end;
+    {$ifdef mswindows}
+    Screen.Cursor:=crRetic;
+    {$else}
     GLSceneViewer1.Cursor:=crRetic;
+    {$endif}
   end;
 end;
 
