@@ -1203,11 +1203,7 @@ begin
         mx:=xx;
         my:=yy;
         SkipIdent:=true;
-        {$ifdef mswindows}
-        Screen.Cursor:=crHandPoint;
-        {$else}
-        GLSceneViewer1.Cursor:=crHandPoint;
-        {$endif}
+        GLSceneViewer1.Cursor:=crCross;
       end;
     end else begin
       if SkipIdent or (abs(mx-x)>2) or (abs(my-y)>2) then begin
@@ -1221,11 +1217,7 @@ begin
         mx:=x;
         my:=y;
         SkipIdent:=true;
-        {$ifdef mswindows}
-        Screen.Cursor:=crHandPoint;
-        {$else}
         GLSceneViewer1.Cursor:=crHandPoint;
-        {$endif}
       end;
     end;
     if (not FShowPhase)and(not RotationCadencer.Enabled) then begin
@@ -1263,11 +1255,7 @@ begin
        OnMoon:=Screen2Moon(x,y,lon,lat);
        if Assigned(onMoonClick) then onMoonClick(Self,Button,DownShift,X,Y,OnMoon,lon,lat);
     end;
-    {$ifdef mswindows}
-    Screen.Cursor:=crRetic;
-    {$else}
     GLSceneViewer1.Cursor:=crRetic;
-    {$endif}
   end;
 end;
 
