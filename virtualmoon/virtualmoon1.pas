@@ -3723,7 +3723,7 @@ case key of
   16  :  moon1.KeyEvent(mkDown,key); // Shift
   17  :  moon1.KeyEvent(mkDown,key); // Ctrl
   27  :  SetFullScreen; // Esc
-  122 :  SetFullScreen; // F11
+//  122 :  SetFullScreen; // F11
 end;
 end;
 
