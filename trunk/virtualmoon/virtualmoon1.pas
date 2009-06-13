@@ -45,12 +45,20 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    Button12: TButton;
+    Button13: TButton;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
+    ComboBox6: TComboBox;
     Desc1:   TIpHtmlPanel;
     FilePopup: TPopupMenu;
     DoNotRemove: TGLSceneViewer;
+    GroupBox5: TGroupBox;
     HelpPopup: TPopupMenu;
     Label17: TLabel;
+    Label18: TLabel;
+    Label27: TLabel;
     Label5: TLabel;
     PanelMoon: TPanel;
     Quitter1: TMenuItem;
@@ -66,6 +74,7 @@ type
     jour:    TLongEdit;
     mois:    TLongEdit;
     annee:   TLongEdit;
+    RadioGroup2: TRadioGroup;
     seconde: TLongEdit;
     minute:  TLongEdit;
     heure:   TLongEdit;
@@ -76,6 +85,7 @@ type
     GridButton: TToolButton;
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
+    TrackBar8: TTrackBar;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
     UpDown2: TUpDown;
@@ -120,10 +130,6 @@ type
     x21:     TMenuItem;
     x41:     TMenuItem;
     Outils:  TPage;
-    Bevel3:  TBevel;
-    Button12: TButton;
-    Label22: TLabel;
-    Button13: TButton;
     Bevel4:  TBevel;
     Label23: TLabel;
     Button11: TButton;
@@ -132,9 +138,6 @@ type
     Label24: TLabel;
     Label25: TLabel;
     Distance1: TMenuItem;
-    CheckBox1: TCheckBox;
-    RadioGroup2: TRadioGroup;
-    CheckBox2: TCheckBox;
     CartesduCiel1: TMenuItem;
     Imprimer1: TMenuItem;
     Enregistrersous1: TMenuItem;
@@ -267,6 +270,7 @@ type
     ToolButton12: TToolButton;
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
+    procedure ComboBox6Change(Sender: TObject);
     procedure GridButtonClick(Sender: TObject);
     procedure Desc1HotClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -313,6 +317,7 @@ type
     procedure Position1Click(Sender: TObject);
     procedure TrackBar6Change(Sender: TObject);
     procedure TrackBar7Change(Sender: TObject);
+    procedure TrackBar8Change(Sender: TObject);
     procedure x21Click(Sender: TObject);
     procedure x41Click(Sender: TObject);
     procedure Button12MouseUp(Sender: TObject; Button: TMouseButton;
@@ -659,7 +664,7 @@ begin
     Label20.Caption  := RadioGroup1.Items[2];
     CartesduCiel1.Caption := (ReadStr(section, 't_56', deftxt));
     Outils.Caption   := (ReadStr(section, 't_63', deftxt));
-    label22.Caption  := b + (ReadStr(section, 't_64', deftxt)) + b;
+    GroupBox5.Caption  := b + (ReadStr(section, 't_64', deftxt)) + b;
     Button12.Caption := (ReadStr(section, 't_65', deftxt));
     Button13.Caption := (ReadStr(section, 't_66', deftxt));
     RadioGroup2.Caption := (ReadStr(section, 't_67', deftxt));
@@ -3609,6 +3614,14 @@ begin
   AntiAlias:=CheckBox3.Checked;
 end;
 
+procedure TForm1.ComboBox6Change(Sender: TObject);
+begin
+  case ComboBox6.ItemIndex of
+  0 : moon1.SatelliteModel:='';
+  1 : moon1.SatelliteModel:=slash(Appdir)+slash('Models')+slash('LEM')+'lem.3ds';
+  end;
+end;
+
 procedure TForm1.Button6MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: integer);
 begin
@@ -4056,6 +4069,11 @@ end;
 procedure TForm1.TrackBar7Change(Sender: TObject);
 begin
   moon1.SatInclination:=TrackBar7.Position;
+end;
+
+procedure TForm1.TrackBar8Change(Sender: TObject);
+begin
+  moon1.SatViewDistance:=TrackBar8.Position/4;
 end;
 
 procedure TForm1.ComboBox2Change(Sender: TObject);
@@ -4632,7 +4650,8 @@ recenter:=moon1.getcenter(l,b);
     checkbox2.Visible := False;   //mirror
     ToolButton6.Enabled := False; //mirror
     GroupBox4.Visible := False;   // telescope
-    GroupBox3.Visible := True;    // rotation
+    GroupBox5.Visible := False;   // rotation
+    GroupBox3.Visible := True;    // satellite
     Rotation1.Visible := True;
     LibrationButton.Enabled := False;
     moon1.LibrationMark:=False;
@@ -4646,6 +4665,7 @@ recenter:=moon1.getcenter(l,b);
   begin
     checkbox2.Visible := True;
     ToolButton6.Enabled := True;
+    GroupBox5.Visible := True;
     GroupBox4.Visible := True;
     case RadioGroup2.ItemIndex of
       0: CameraOrientation := 0;
