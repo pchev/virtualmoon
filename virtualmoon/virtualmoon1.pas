@@ -749,7 +749,6 @@ begin
         Caption      := 'Temporary change only!';
       label1.Caption := (ReadStr(section, 't_19', deftxt));
       label2.Caption := (ReadStr(section, 't_20', deftxt));
-      label3.Caption := (ReadStr(section, 't_21', deftxt));
       CheckBox1.Caption := (ReadStr(section, 't_22', deftxt));
       CheckBox2.Caption := (ReadStr(section, 't_23', deftxt));
       label4.Caption := (ReadStr(section, 't_24', deftxt));
