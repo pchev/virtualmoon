@@ -735,7 +735,7 @@ begin
     ComboBox4.items.add(N1seconde1.Caption);
     ComboBox4.items.add(N05seconde1.Caption);
     ComboBox4.items.add(N02seconde1.Caption);
-    Combobox4.ItemIndex := 1;
+    Combobox4.ItemIndex := 2;
     Label4.Caption      := ReadStr(section, 't_139', Label4.Caption);
     SpeedButton5.Caption := ReadStr(section, 't_140', SpeedButton5.Caption);
     SpeedButton6.Caption := ReadStr(section, 't_141', SpeedButton6.Caption);
@@ -983,7 +983,7 @@ begin
   eyepiecename[1] := 'SCT 8" + Plossl 10mm';
   eyepiecefield[1] := 15;
   rotdirection := -1;
-  rotstep  := 5;
+  rotstep  := 1;
   CloseVMAbrowser := False;
   ClosePhotlun := False;
   CloseCdC := False;
