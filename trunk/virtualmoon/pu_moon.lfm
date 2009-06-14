@@ -308,13 +308,10 @@ object f_moon: Tf_moon
       end
       object GLFreeFormSatelite: TGLFreeForm
         TagFloat = 0
-        Direction.Coordinates = {
-          0000000000000000000080BF00000000
-        }
         PitchAngle = 0
         RollAngle = 0
         Scale.Coordinates = {
-          6F12833A6F12833A6F12833A00000000
+          ACC52737ACC52737ACC5273700000000
         }
         TurnAngle = 0
         Up.Coordinates = {

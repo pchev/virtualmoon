@@ -982,7 +982,7 @@ begin
   wantbump := false;
   eyepiecename[1] := 'SCT 8" + Plossl 10mm';
   eyepiecefield[1] := 15;
-  rotdirection := 1;
+  rotdirection := -1;
   rotstep  := 5;
   CloseVMAbrowser := False;
   ClosePhotlun := False;
@@ -3618,7 +3618,20 @@ procedure TForm1.ComboBox6Change(Sender: TObject);
 begin
   case ComboBox6.ItemIndex of
   0 : moon1.SatelliteModel:='';
-  1 : moon1.SatelliteModel:=slash(Appdir)+slash('Models')+slash('LEM')+'lem.3ds';
+  1 : begin
+      moon1.SatelliteModel:=slash(Appdir)+slash('Models')+'lem.3ds';
+      moon1.SatelliteModelScale:=0.0006;
+      moon1.SatDirection(0,0,-1);
+      moon1.SatUp(-1,0,0);
+      moon1.SatPos(0,0,0);
+      end;
+  2 : begin
+      moon1.SatelliteModel:=slash(Appdir)+slash('Models')+'apollo.3ds';
+      moon1.SatelliteModelScale:=0.0000007;
+      moon1.SatDirection(1,0,0);
+//      moon1.SatUp(0,0,1);
+      moon1.SatPos(0.003,0,0.005);
+      end;
   end;
 end;
 
