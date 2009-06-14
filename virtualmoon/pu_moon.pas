@@ -101,7 +101,8 @@ type
     satl,satb,satr,satli,satlc: single;
     blankbmp: Tbitmap;
     MaxSprite: integer;
-    FSatAltitude,FSatInclination,FSatViewDistance : single;
+    FSatAltitude,FSatInclination,FSatModelScale,FSatViewDistance : single;
+    FSatPosX,FSatPosY,FSatPosZ : single;
     FSatModel : string;
     FOnMoonClick: TMoonClickEvent;
     FOnMoonMove: TMoonMoveEvent;
@@ -152,6 +153,7 @@ type
     procedure SetOverlayTransparency(value:single);
     procedure SetRotation(value:single);
     procedure SetSatModel(value:string);
+    procedure SetSatModelScale(value:single);
     procedure SetPhase(value:single);
     procedure SetSunIncl(value:single);
     procedure SetLibrLon(value:single);
@@ -225,6 +227,9 @@ type
     procedure SatCenter;
     procedure SatEast;
     procedure SatWest;
+    procedure SatDirection(x,y,z:single);
+    procedure SatUp(x,y,z:single);
+    procedure SatPos(x,y,z:single);
     property TexturePath : String read FtexturePath write FTexturePath;
     property Texture : String read Ftexture write SetTexture;
     property OverlayPath : String read FOverlayPath write FOverlayPath;
@@ -240,6 +245,7 @@ type
     property SatInclination : single read FSatInclination write SetSatInclination;
     property SatelliteRotation : single read FRotation write SetRotation;
     property SatelliteModel : string read FSatModel write SetSatModel;
+    property SatelliteModelScale : single read FSatModelScale write SetSatModelScale;
     property SatViewDistance : single read FSatViewDistance write SetSatViewDistance;
     property Phase : single read FPhase write SetPhase;
     property SunIncl : single read FSunIncl write SetSunIncl;
@@ -995,6 +1001,7 @@ begin
  FEarthDistance:=MeanEarthDistance;
  FSatAltitude:=800;
  FSatViewDistance:=1;
+ FSatViewDistance:=2;
  FSatModel:='';
  FBumpOk:=false;
  BumpMapLimit1K:=false;
@@ -1340,14 +1347,46 @@ procedure Tf_moon.SetSatViewDistance(value:single);
 var s:single;
 begin
   FSatViewDistance:=value;
-  s:=0.001/FSatViewDistance;
+  s:=FSatModelScale/FSatViewDistance;
   GLFreeFormSatelite.Scale.SetVector(s,s,s);
+  GLFreeFormSatelite.Position.X:=FSatPosX/FSatViewDistance;
+  GLFreeFormSatelite.Position.Y:=FSatPosY/FSatViewDistance;
+  GLFreeFormSatelite.Position.Z:=FSatPosZ/FSatViewDistance;
+end;
+
+procedure Tf_moon.SetSatModelScale(value:single);
+begin
+  FSatModelScale:=value;
+  SetSatViewDistance(FSatViewDistance);
+end;
+
+procedure Tf_moon.SatDirection(x,y,z:single);
+begin
+  GLFreeFormSatelite.Direction.X:=x;
+  GLFreeFormSatelite.Direction.Y:=Y;
+  GLFreeFormSatelite.Direction.Z:=z;
+end;
+
+procedure Tf_moon.SatUp(x,y,z:single);
+begin
+  GLFreeFormSatelite.Up.X:=x;
+  GLFreeFormSatelite.Up.Y:=Y;
+  GLFreeFormSatelite.Up.Z:=z;
+end;
+
+procedure Tf_moon.SatPos(x,y,z:single);
+begin
+FSatPosX:=x;
+FSatPosY:=y;
+FSatPosZ:=z;
+SetSatViewDistance(FSatViewDistance);
 end;
 
 procedure Tf_moon.SetSatModel(value:string);
 begin
 if value<>FSatModel then begin
    FSatModel:=value;
+   GLFreeFormSatelite.ResetRotations;
    if FSatModel<>'' then
       GLFreeFormSatelite.LoadFromFile(FSatModel);
    if RotationCadencer.Enabled then begin

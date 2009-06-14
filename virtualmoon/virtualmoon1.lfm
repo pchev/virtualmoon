@@ -1668,6 +1668,7 @@ object Form1: TForm1
           Items.Strings = (
             'None'
             'L.E.M.'
+            'Apollo'
           )
           OnChange = ComboBox6Change
           TabOrder = 3
@@ -1676,13 +1677,14 @@ object Form1: TForm1
         object TrackBar8: TTrackBar
           Left = 120
           Height = 39
-          Top = 208
+          Top = 215
           Width = 105
           Frequency = 5
           Max = 30
           Min = 4
           OnChange = TrackBar8Change
-          Position = 4
+          Position = 8
+          TickStyle = tsNone
           TabOrder = 4
         end
       end
