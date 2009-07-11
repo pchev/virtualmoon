@@ -406,6 +406,7 @@ type
     ToolsWidth: integer;
     FullScreen: boolean;
     lockzoombar: boolean;
+    texturefiles: TStringList;
     savetop,saveleft,savewidth,saveheight:integer;
     procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
     procedure InstanceRunning(Sender : TObject);
@@ -977,7 +978,6 @@ begin
   ruklsuffix := '_large.jpg';
   externalimage := False;
   externalimagepath := 'mspaint.exe';
-  texturefile := 'Clementine';
   wantbump := false;
   eyepiecename[1] := 'SCT 8" + Plossl 10mm';
   eyepiecefield[1] := 15;
@@ -1118,7 +1118,9 @@ begin
       PicZoom[j - 1] := ReadFloat(section, 'PicZoom_' + IntToStr(j), 0);
     end;
 
-    texturefile := ReadString(section, 'texturefile', texturefile);
+    for j:=0 to 3 do
+      texturefiles[j] := ReadString(section, 'texturefile' + IntToStr(j), texturefiles[j]);
+
     for j := 1 to 10 do
     begin
       eyepiecename[j]     := ReadString(section, 'eyepiecename' + IntToStr(j), eyepiecename[j]);
@@ -1185,7 +1187,8 @@ begin
         WriteBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
       for i := 1 to 6 do
         WriteInteger(section, 'DB_Age' + IntToStr(i), db_age[i]);
-      WriteString(section, 'texturefile', texturefile);
+      for i := 0 to 3 do
+        WriteString(section, 'texturefile' + IntToStr(i), texturefiles[i]);
       WriteBool(section, 'Geocentric', Geocentric);
       WriteString(section, 'telescope', Combobox5.Text);
       WriteFloat(section, 'Obslatitude', Obslatitude);
@@ -3020,6 +3023,10 @@ begin
   TrackBar1.Top:=-2;
   CheckBox3.Visible:=true;  // antialias
 {$endif}
+  texturefiles:=TStringList.Create;
+  for i:=0 to 3 do texturefiles.Add('Clementine');
+  texturefiles[2]:='Lopam';
+  texturefiles[3]:='Lopam';
   dbedited  := False;
   perfdeltay := 0.00001;
   lockchart := False;
@@ -3165,7 +3172,7 @@ try
   moon1.Init;
   moon1.BumpMethod:=TBumpMapCapability(BumpMethod);
   moon1.TextureCompression:=compresstexture;
-  moon1.texture:=texturefile;
+  moon1.texture:=texturefiles;
   if moon1.CanBump then
      moon1.BumpPath:=slash(appdir)+slash('Textures')+slash('Bumpmap');
   moon1.VisibleSideLock:=true;
@@ -3272,8 +3279,11 @@ begin
     form2.TrackBar2.Position := -LabelDensity;
     form2.TrackBar4.Position := marksize;
     config.newlang := language;
-    form2.BumpCheckBox.Checked:=wantbump;
-    form2.BumpCheckBox.Visible:=(moon1.BumpMapCapabilities<>[]);
+    if wantbump then
+       form2.BumpRadioGroup.ItemIndex:=0
+    else
+       form2.BumpRadioGroup.ItemIndex:=1;
+    form2.BumpRadioGroup.Visible:=(moon1.BumpMapCapabilities<>[]);
     form2.RadioGroup1.ItemIndex:=ord(moon1.BumpMethod);
     form2.RadioGroup1.Visible:=((bcDot3TexCombiner in moon1.BumpMapCapabilities)and(bcBasicARBFP in moon1.BumpMapCapabilities));
     form2.updown1.Position := maxima;
@@ -3303,13 +3313,8 @@ begin
     form2.CheckBox13.Checked := PrintChart;
     form2.CheckBox8.Checked  := PrintEph;
     form2.CheckBox9.Checked  := PrintDesc;
-    for i:=0 to Form2.CheckListBox2.Count-1 do begin
-       if Form2.CheckListBox2.Items[i]=texturefile then
-         Form2.CheckListBox2.checked[i]:=true
-       else
-         Form2.CheckListBox2.checked[i]:=false;
-    end;
-    form2.texturefn := texturefile;
+    form2.TexturePath := moon1.TexturePath;
+    form2.texturefn.Assign(texturefiles);
     form2.CheckBox15.Checked := LopamDirect;
     form2.ruklprefix.Text := ruklprefix;
     form2.ruklsuffix.Text := ruklsuffix;
@@ -3341,13 +3346,14 @@ begin
       showoverlay := form2.checkbox11.Checked;
       GridButton.Down:=form2.checkbox10.Checked;
       gridspacing:=form2.TrackBar3.Position;
-      if texturefile <> form2.texturefn then
+      if form2.TextureChanged then
       begin
-        texturefile := form2.texturefn;
+        texturefiles.Assign(form2.texturefn);
         reload := True;
       end;
-      if wantbump<>form2.BumpCheckBox.Checked then reload:=true;
-      wantbump := form2.BumpCheckBox.Checked;
+
+      if wantbump<>(form2.BumpRadioGroup.ItemIndex=0) then reload:=true;
+      wantbump := (form2.BumpRadioGroup.ItemIndex=0);
       moon1.BumpMethod:=TBumpMapCapability(form2.RadioGroup1.ItemIndex);
       ruklprefix    := form2.ruklprefix.Text;
       ruklsuffix    := form2.ruklsuffix.Text;
@@ -3463,7 +3469,7 @@ begin
         application.ProcessMessages;
         moon1.Eyepiece := 0;
         LoadOverlay(overlayname, overlaytr);
-        moon1.Texture:=texturefile;
+        moon1.Texture:=texturefiles;
         moon1.GridSpacing:=gridspacing;
         RefreshMoonImage;
         moon1.Zoom:=moon1.Zoom;
@@ -3817,6 +3823,7 @@ begin
     overlayhi.Free;
     searchlist.Free;
     param.Free;
+    texturefiles.Free;
     if CursorImage1 <> nil then
     begin
       CursorImage1.FreeImage;

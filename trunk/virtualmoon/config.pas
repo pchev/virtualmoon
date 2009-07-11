@@ -39,14 +39,17 @@ type
 
   TForm2 = class(TForm)
     Button1: TButton;
-    BumpCheckBox: TCheckBox;
     Button5: TButton;
     CheckBox10: TCheckBox;
     CheckBox4: TCheckBox;
-    CheckListBox2: TCheckListBox;
     ColorDialog1: TColorDialog;
     ComboBoxCountry: TComboBox;
     ComboBoxTZ: TComboBox;
+    Label29: TLabel;
+    Label3: TLabel;
+    Label36: TLabel;
+    Label37: TLabel;
+    Label38: TLabel;
     numwin: TEdit;
     FontDialog1: TFontDialog;
     GroupBox2: TGroupBox;
@@ -56,6 +59,12 @@ type
     LabelFont: TLabel;
     PageControl1: TNotebook;
     RadioGroup1: TRadioGroup;
+    RadioGroup2: TRadioGroup;
+    RadioGroup3: TRadioGroup;
+    RadioGroup4: TRadioGroup;
+    RadioGroup5: TRadioGroup;
+    RadioGroup6: TRadioGroup;
+    BumpRadioGroup: TRadioGroup;
     TabSheet1: TPage;
     Label4: TLabel;
     Label1: TLabel;
@@ -162,12 +171,13 @@ type
     TrackBar5: TTrackBar;
     CheckBox24: TCheckBox;
     procedure Button5Click(Sender: TObject);
-    procedure CheckListBox2ItemClick(Sender: TObject; Index: integer);
     procedure ComboBoxCountryChange(Sender: TObject);
     procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
+    procedure RadioGroup2Click(Sender: TObject);
+    procedure RadioGroupTextureClick(Sender: TObject);
     procedure Shape1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Button2Click(Sender: TObject);
@@ -191,11 +201,14 @@ type
   private
     countrycode: TStringList;
     procedure UpdateTzList;
-
+    procedure showtexture;
   public
     tzinfo: TCdCTimeZone;
     obscountry,obstz : string;
-    texturefn: string;
+    TexturePath: string;
+    texturefn: TStringList;
+    TextureList: TStringList;
+    TextureChanged: boolean;
     procedure SetObsCountry(value:string);
     procedure LoadCountry(fn:string);
   end;
@@ -262,15 +275,30 @@ while i=0 do begin
   i:=findnext(fs);
 end;
 findclose(fs);
+Texturefn:=TStringList.Create;
+TextureList:=TStringList.Create;
 i:=findfirst(Slash(appdir)+Slash('Textures')+'*',faDirectory,fs);
-CheckListBox2.clear;
-CheckListBox2.Sorted:=true;
 while i=0 do begin
-  if ((fs.Attr and faDirectory)= faDirectory)and(fs.Name<>'.')and(fs.Name<>'..')and(fs.Name<>'Bumpmap')and(fs.Name<>'Overlay') then
-    CheckListBox2.Items.Add(fs.name);
+  if ((fs.Attr and faDirectory)= faDirectory)and(fs.Name<>'.')and(fs.Name<>'..')and(fs.Name<>'Bumpmap')and(fs.Name<>'Overlay') then begin
+    TextureList.Add(fs.name);
+  end;
   i:=findnext(fs);
 end;
 findclose(fs);
+TextureList.Sort;
+RadioGroup2.Items.clear;
+RadioGroup3.Items.clear;
+RadioGroup4.Items.clear;
+RadioGroup5.Items.clear;
+RadioGroup6.Items.clear;
+for i:=0 to TextureList.Count-1 do begin
+{ TODO : Translation }
+    RadioGroup2.Items.Add(TextureList[i]);
+    RadioGroup3.Items.Add('');
+    RadioGroup4.Items.Add('');
+    RadioGroup5.Items.Add('');
+    RadioGroup6.Items.Add('');
+end;
 savelibration:=librationeffect;
 countrycode:=TStringList.Create;
 end;
@@ -289,6 +317,8 @@ var i: integer;
 begin
 for i:=0 to Checklistbox1.Count-1 do (Checklistbox1.Items.Objects[i] as TDBinfo).Free;
 countrycode.Free;
+TextureList.Free;
+Texturefn.Free;
 end;
 
 procedure TForm2.ComboBox3Change(Sender: TObject);
@@ -320,6 +350,22 @@ form1.PrinterSetupDialog1.Execute;
 //GetPrinterResolution(PrtName,PrinterResolution);
 end;
 
+procedure TForm2.showtexture;
+var i,j: integer;
+begin
+    for j:=0 to 3 do begin
+      for i:=0 to TextureList.Count-1 do begin
+         if TextureList[i]=texturefn[j] then
+           case j of
+             0: RadioGroup3.ItemIndex:=i;
+             1: RadioGroup4.ItemIndex:=i;
+             2: RadioGroup5.ItemIndex:=i;
+             3: RadioGroup6.ItemIndex:=i;
+           end;
+      end;
+    end;
+end;
+
 procedure TForm2.FormShow(Sender: TObject);
 var myRect: TGridRect;
 begin
@@ -332,6 +378,8 @@ begin
 //  Panel1.Visible:=checkbox4.Checked;
   TrackBar2.Min:=-1000;
   TrackBar2.Max:=-100;
+  TextureChanged:=false;
+  showtexture;
 end;
 
 procedure TForm2.Button3Click(Sender: TObject);
@@ -362,17 +410,29 @@ begin
  CheckBox19.Checked:=true;
 end;
 
-procedure TForm2.CheckListBox2ItemClick(Sender: TObject; Index: integer);
+procedure TForm2.RadioGroup2Click(Sender: TObject);
 var i: integer;
 begin
-    for i:=0 to CheckListBox2.Count-1 do begin
-       if i=Index then
-       begin
-         CheckListBox2.checked[i]:=true;
-         texturefn:=CheckListBox2.Items[i];
-       end else
-         CheckListBox2.checked[i]:=false;
-    end;
+i:=RadioGroup2.ItemIndex;
+RadioGroup3.ItemIndex:=i;
+RadioGroup4.ItemIndex:=i;
+RadioGroup5.ItemIndex:=i;
+RadioGroup6.ItemIndex:=i;
+end;
+
+procedure TForm2.RadioGroupTextureClick(Sender: TObject);
+var i,j: integer;
+    tex: string;
+begin
+i:=(sender as TRadioGroup).ItemIndex;
+j:=(sender as TRadioGroup).Tag;
+tex:=RadioGroup2.Items[i];
+if DirectoryExists(slash(TexturePath)+slash(tex)+'L'+inttostr(j+1)) then
+begin
+  texturefn[j]:=tex;
+  TextureChanged:=true;
+end
+  else showtexture;
 end;
 
 procedure TForm2.StringGrid2DrawCell(Sender: TObject; ACol, ARow: Integer;
