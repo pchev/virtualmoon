@@ -2085,6 +2085,30 @@ begin
   result:=Screen2Moon(xx,yy,lon,lat);
 end;
 
+Procedure BitmapBGR(img:Tbitmap);
+{ TODO : Remove after Glscene bug 14123 is fixed
+http://bugs.freepascal.org/view.php?id=14123 }
+var ImgHandle,ImgMaskHandle: HBitmap;
+    IntfImg : TLazIntfImage;
+    i,j:integer;
+    col: TFPColor;
+begin
+IntfImg:=img.CreateIntfImage;
+  for i:=0 to IntfImg.Height-1 do begin
+    for j:=0 to IntfImg.Width-1 do begin
+       col.red:=IntfImg.Colors[j,i].blue;
+       col.blue:=IntfImg.Colors[j,i].red;
+       col.green:=IntfImg.Colors[j,i].green;
+       col.alpha:=IntfImg.Colors[j,i].alpha;
+       IntfImg.Colors[j,i]:=col;
+    end;
+  end;
+img.FreeImage;
+IntfImg.CreateBitmaps(ImgHandle,ImgMaskHandle,false);
+img.SetHandles(ImgHandle, ImgMaskHandle);
+IntfImg.Free;
+end;
+
 procedure Tf_moon.SnapShot(var bmp: TBitmap; white: boolean);
 var
   bmp32: TGLBitmap32;
@@ -2098,6 +2122,7 @@ begin
   bmp   := bmp32.Create32BitsBitmap;
   GLSceneViewer1.Buffer.BackgroundColor := clBlack;
   bmp32.Free;
+  BitmapBGR(bmp);
 end;
 
 procedure Tf_moon.RenderToBitmap(var bmp: TBitmap; size: integer; white: boolean);
@@ -2109,6 +2134,7 @@ begin
     GLSceneViewer1.Buffer.BackgroundColor := clWhite;
   GLSceneViewer1.Buffer.RenderToBitmap(bmp, 96);
   GLSceneViewer1.Buffer.BackgroundColor := clBlack;
+  BitmapBGR(bmp);
 end;
 
 function Tf_moon.GetAcceleration: integer;
