@@ -111,7 +111,7 @@ type
     FOnGetLabel: TNotifyEvent;
     FOnGetSprite: TNotifyEvent;
     FTexturePath: String;
-    FTexture: String;
+    FTexture: TStringList;
     FOverlayPath: String;
     FOverlay: String;
     FBumpPath: String;
@@ -142,7 +142,7 @@ type
     FMeasuringDistance: Boolean;
     FRaCentre, FDeCentre, FDiameter, FPositionAngle: single;
     FOverlayTransparency: single;
-    procedure SetTexture(fn:string);
+    procedure SetTexture(lfn:TStringList);
     procedure SetOverlay(fn:string);
     procedure SetBumpPath(fn:string);
     procedure SetBumpmap(value:boolean);
@@ -231,7 +231,7 @@ type
     procedure SatUp(x,y,z:single);
     procedure SatPos(x,y,z:single);
     property TexturePath : String read FtexturePath write FTexturePath;
-    property Texture : String read Ftexture write SetTexture;
+    property Texture : TStringList read Ftexture write SetTexture;
     property OverlayPath : String read FOverlayPath write FOverlayPath;
     property OverlayTransparency : single read FOverlayTransparency write SetOverlayTransparency;
     property Overlay : String read FOverlay write SetOverlay;
@@ -383,7 +383,7 @@ begin
  try
      toffset:=12/1024;
      tscale:=1000/1024;
-     tpath:=slash(FTexturePath)+slash(Ftexture)+slash('L'+inttostr(level));
+     tpath:=slash(FTexturePath)+slash(Ftexture[level-1])+slash('L'+inttostr(level));
      if GLMaterialLibrary1.LibMaterialByName('L2_0')=nil then CreateMaterial(2);
      // search slices
      Screen2Moon(GLSceneViewer1.Width div 2, GLSceneViewer1.Height div 2, lc, bc);
@@ -544,7 +544,7 @@ case level of
      }
      toffset:=12/1024;
      tscale:=1000/1024;
-     tpath:=slash(FTexturePath)+slash(Ftexture)+slash('L'+inttostr(level));
+     tpath:=slash(FTexturePath)+slash(Ftexture[level-1])+slash('L'+inttostr(level));
      if GLMaterialLibrary1.LibMaterialByName('L1_0')=nil then CreateMaterial(1);
      for i:=0 to 7 do begin
        row:=i div 4;
@@ -939,17 +939,17 @@ finally
 end;
 end;
 
-procedure Tf_moon.SetTexture(fn:string);
+procedure Tf_moon.SetTexture(lfn:TStringList);
 var i: integer;
 begin
- if not DirectoryExists(slash(FTexturePath)+slash(fn)+'L1') then raise Exception.Create('Missing L1 slices for '+slash(FTexturePath)+fn);
- Ftexture:=fn;
+ if not DirectoryExists(slash(FTexturePath)+slash(lfn[0])+'L1') then raise Exception.Create('Missing L1 slices for '+slash(FTexturePath)+lfn[0]);
+ Ftexture:=lfn;
  maxzone:=1;
- if DirectoryExists(slash(FTexturePath)+slash(Ftexture)+'L2') then begin
+ if DirectoryExists(slash(FTexturePath)+slash(Ftexture[1])+'L2') then begin
     maxzone:=2;
-    if DirectoryExists(slash(FTexturePath)+slash(Ftexture)+'L3') then begin
+    if DirectoryExists(slash(FTexturePath)+slash(Ftexture[2])+'L3') then begin
        maxzone:=3;
-       if DirectoryExists(slash(FTexturePath)+slash(Ftexture)+'L4') then begin
+       if DirectoryExists(slash(FTexturePath)+slash(Ftexture[3])+'L4') then begin
           maxzone:=4;
        end;
     end;
@@ -994,7 +994,6 @@ begin
  cap2:=-1;
  zone:=1;
  ShadowOffset:=1;
- FTexture:='';
  FOverlay:='';
  FRotation:=0;
  FRaCentre:=-9999;

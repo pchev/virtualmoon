@@ -192,7 +192,6 @@ Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdC
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;
      librationeffect, AsMultiTexture : Boolean;
-     texturefile: string;
      Firstsearch: boolean;
      DisplayIs32bpp: Boolean;
      ThemePath:string ='data/Themes';

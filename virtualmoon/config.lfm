@@ -1,7 +1,7 @@
 object Form2: TForm2
-  Left = 475
+  Left = 481
   Height = 462
-  Top = 87
+  Top = 125
   Width = 361
   ActiveControl = PageControl1
   Caption = 'Configuration'
@@ -32,8 +32,8 @@ object Form2: TForm2
     TabOrder = 0
     object TabSheet1: TPage
       Caption = 'General'
-      ClientWidth = 341
-      ClientHeight = 383
+      ClientWidth = 339
+      ClientHeight = 384
       object Bevel8: TBevel
         Left = 16
         Height = 140
@@ -104,7 +104,7 @@ object Form2: TForm2
         Left = 32
         Height = 15
         Top = 223
-        Width = 27
+        Width = 28
         Caption = 'Pays'
         ParentColor = False
       end
@@ -120,9 +120,9 @@ object Form2: TForm2
       end
       object CheckBox3: TCheckBox
         Left = 32
-        Height = 21
+        Height = 22
         Top = 40
-        Width = 99
+        Width = 100
         Caption = 'Geocentrique'
         OnClick = CheckBox3Click
         TabOrder = 0
@@ -173,16 +173,16 @@ object Form2: TForm2
       end
       object CheckBox16: TCheckBox
         Left = 32
-        Height = 21
+        Height = 22
         Top = 184
-        Width = 226
+        Width = 227
         Caption = 'Use Computer Date and Time Zone'
         OnClick = CheckBox16Click
         TabOrder = 6
       end
       object ComboBoxCountry: TComboBox
         Left = 125
-        Height = 34
+        Height = 29
         Top = 220
         Width = 182
         ItemHeight = 0
@@ -192,7 +192,7 @@ object Form2: TForm2
       end
       object ComboBoxTZ: TComboBox
         Left = 125
-        Height = 34
+        Height = 29
         Top = 252
         Width = 181
         ItemHeight = 0
@@ -203,8 +203,8 @@ object Form2: TForm2
     end
     object TabSheet7: TPage
       Caption = 'Database'
-      ClientWidth = 341
-      ClientHeight = 383
+      ClientWidth = 339
+      ClientHeight = 384
       ImageIndex = 7
       object Label31: TLabel
         Left = 16
@@ -220,7 +220,7 @@ object Form2: TForm2
         Top = 10
         Width = 305
         Caption = 'Database'
-        ClientHeight = 160
+        ClientHeight = 172
         ClientWidth = 301
         TabOrder = 0
         object CheckBox19: TCheckBox
@@ -295,8 +295,8 @@ object Form2: TForm2
     end
     object TabSheet3: TPage
       Caption = 'Affichage'
-      ClientWidth = 341
-      ClientHeight = 383
+      ClientWidth = 339
+      ClientHeight = 384
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
@@ -398,7 +398,7 @@ object Form2: TForm2
       object LabelFont: TLabel
         Left = 141
         Height = 15
-        Top = 324
+        Top = 325
         Width = 55
         Anchors = [akLeft, akBottom]
         Caption = 'LabelFont'
@@ -406,41 +406,41 @@ object Form2: TForm2
       end
       object CheckBox2: TCheckBox
         Left = 168
-        Height = 21
+        Height = 22
         Top = 24
-        Width = 125
+        Width = 126
         Caption = 'Affiche la libration'
         TabOrder = 1
       end
       object CheckBox1: TCheckBox
         Left = 24
-        Height = 21
+        Height = 22
         Top = 24
-        Width = 119
+        Width = 120
         Caption = 'Afficher la phase'
         TabOrder = 0
       end
       object CheckBox6: TCheckBox
         Left = 24
-        Height = 21
+        Height = 22
         Top = 157
-        Width = 123
+        Width = 124
         Caption = 'Affiche la marque'
         TabOrder = 4
       end
       object CheckBox5: TCheckBox
         Left = 24
-        Height = 21
+        Height = 22
         Top = 245
-        Width = 120
+        Width = 121
         Caption = 'Affiche les labels'
         TabOrder = 3
       end
       object CheckBox14: TCheckBox
         Left = 24
-        Height = 21
+        Height = 22
         Top = 136
-        Width = 189
+        Width = 190
         Caption = 'Marque la libration maximum'
         TabOrder = 2
       end
@@ -458,17 +458,17 @@ object Form2: TForm2
       end
       object CheckBox17: TCheckBox
         Left = 24
-        Height = 21
+        Height = 22
         Top = 266
-        Width = 189
+        Width = 190
         Caption = 'Label centre sur la formation'
         TabOrder = 6
       end
       object CheckBox18: TCheckBox
         Left = 24
-        Height = 21
+        Height = 22
         Top = 288
-        Width = 110
+        Width = 111
         Caption = 'Label minimum'
         TabOrder = 7
       end
@@ -497,41 +497,79 @@ object Form2: TForm2
     end
     object TabSheet4: TPage
       Caption = 'Textures'
-      ClientWidth = 341
-      ClientHeight = 383
+      ClientWidth = 339
+      ClientHeight = 384
       ImageIndex = 4
       object Label19: TLabel
-        Left = 21
+        Left = 45
         Height = 15
-        Top = 32
+        Top = 26
         Width = 45
         Caption = 'Label19'
         ParentColor = False
       end
-      object BumpCheckBox: TCheckBox
-        Left = 21
-        Height = 21
-        Top = 274
-        Width = 158
-        Caption = 'Ombres du terminateur'
-        ParentBidiMode = False
-        TabOrder = 0
+      object Label3: TLabel
+        Left = 237
+        Height = 15
+        Top = 26
+        Width = 65
+        Caption = 'Zoom level'
+        ParentColor = False
       end
-      object CheckListBox2: TCheckListBox
-        Left = 21
-        Height = 200
+      object Label29: TLabel
+        Left = 220
+        Height = 15
+        Top = 42
+        Width = 8
+        Caption = '1'
+        ParentColor = False
+      end
+      object Label36: TLabel
+        Left = 248
+        Height = 15
+        Top = 42
+        Width = 8
+        Caption = '2'
+        ParentColor = False
+      end
+      object Label37: TLabel
+        Left = 277
+        Height = 15
+        Top = 42
+        Width = 8
+        Caption = '3'
+        ParentColor = False
+      end
+      object Label38: TLabel
+        Left = 309
+        Height = 15
+        Top = 42
+        Width = 8
+        Caption = '4'
+        ParentColor = False
+      end
+      object RadioGroup4: TRadioGroup
+        Tag = 1
+        Left = 237
+        Height = 185
         Top = 58
-        Width = 300
-        ExtendedSelect = False
-        ItemHeight = 0
-        OnItemClick = CheckListBox2ItemClick
-        TabOrder = 1
-        TopIndex = -1
+        Width = 33
+        AutoFill = True
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        OnClick = RadioGroupTextureClick
+        TabOrder = 3
       end
       object RadioGroup1: TRadioGroup
         Left = 21
         Height = 62
-        Top = 296
+        Top = 306
         Width = 302
         AutoFill = True
         Caption = 'Methode d''affichage des ombres'
@@ -543,20 +581,112 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 58
-        ClientWidth = 298
+        ClientHeight = 47
+        ClientWidth = 300
         Columns = 2
         Items.Strings = (
           'Simple'
           'Avancee'
         )
+        TabOrder = 0
+      end
+      object RadioGroup2: TRadioGroup
+        Left = 21
+        Height = 185
+        Top = 58
+        Width = 185
+        AutoFill = True
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        OnClick = RadioGroup2Click
+        TabOrder = 1
+      end
+      object RadioGroup3: TRadioGroup
+        Left = 205
+        Height = 185
+        Top = 58
+        Width = 33
+        AutoFill = True
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        OnClick = RadioGroupTextureClick
         TabOrder = 2
+      end
+      object RadioGroup5: TRadioGroup
+        Tag = 2
+        Left = 269
+        Height = 185
+        Top = 58
+        Width = 33
+        AutoFill = True
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        OnClick = RadioGroupTextureClick
+        TabOrder = 4
+      end
+      object RadioGroup6: TRadioGroup
+        Tag = 3
+        Left = 301
+        Height = 185
+        Top = 58
+        Width = 33
+        AutoFill = True
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        OnClick = RadioGroupTextureClick
+        TabOrder = 5
+      end
+      object BumpRadioGroup: TRadioGroup
+        Left = 21
+        Height = 57
+        Top = 242
+        Width = 249
+        AutoFill = True
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 55
+        ClientWidth = 247
+        Items.Strings = (
+          'Phase avec relief du terminateur'
+          'Phase sans relief'
+        )
+        TabOrder = 6
       end
     end
     object TabSheet6: TPage
       Caption = 'Overlay'
-      ClientWidth = 341
-      ClientHeight = 383
+      ClientWidth = 339
+      ClientHeight = 384
       ImageIndex = 6
       object OverlayPanel: TPanel
         Left = 8
@@ -593,9 +723,9 @@ object Form2: TForm2
         end
         object CheckBox11: TCheckBox
           Left = 32
-          Height = 21
+          Height = 22
           Top = 8
-          Width = 99
+          Width = 100
           Caption = 'Show overlay'
           TabOrder = 0
         end
@@ -628,14 +758,14 @@ object Form2: TForm2
           Top = 284
           Width = 294
           Caption = 'Grid'
-          ClientHeight = 57
+          ClientHeight = 69
           ClientWidth = 290
           TabOrder = 3
           object CheckBox10: TCheckBox
             Left = 7
-            Height = 21
+            Height = 22
             Top = 19
-            Width = 82
+            Width = 83
             Caption = 'Show Grid'
             TabOrder = 0
           end
@@ -658,8 +788,8 @@ object Form2: TForm2
     end
     object TabSheet2: TPage
       Caption = 'Images'
-      ClientWidth = 341
-      ClientHeight = 383
+      ClientWidth = 339
+      ClientHeight = 384
       ImageIndex = 1
       object Label8: TLabel
         Left = 8
@@ -795,8 +925,8 @@ object Form2: TForm2
     end
     object TabSheet5: TPage
       Caption = 'Eyepieces'
-      ClientWidth = 341
-      ClientHeight = 383
+      ClientWidth = 339
+      ClientHeight = 384
       ImageIndex = 5
       object Label24: TLabel
         Left = 8
@@ -917,8 +1047,8 @@ object Form2: TForm2
     end
     object Impression: TPage
       Caption = 'Impression'
-      ClientWidth = 341
-      ClientHeight = 383
+      ClientWidth = 339
+      ClientHeight = 384
       ImageIndex = 2
       object Bevel6: TBevel
         Left = 8
