@@ -1137,7 +1137,7 @@ begin
     for i := 1 to useDBN do
       db_age[i] := ReadInteger(section, 'DB_Age' + IntToStr(i), 0);
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
-    overlaytr  := ReadFloat(section, 'overlaytr', 0.75);
+    overlaytr  := ReadFloat(section, 'overlaytr', 0);
     showoverlay := ReadBool(section, 'showoverlay', showoverlay);
     Geocentric  := ReadBool(section, 'Geocentric', Geocentric);
     moon1.AmbientColor := ReadInteger(section, 'AmbientLight', moon1.AmbientColor);
