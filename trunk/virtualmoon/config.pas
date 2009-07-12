@@ -176,6 +176,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
+    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
     procedure RadioGroupTextureClick(Sender: TObject);
     procedure Shape1MouseUp(Sender: TObject; Button: TMouseButton;
@@ -196,13 +197,17 @@ type
       var CanSelect: Boolean);
     procedure ComboBox5Change(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure CheckBox16Click(Sender: TObject);
     procedure TrackBar3Change(Sender: TObject);
+    procedure TrackBar5Change(Sender: TObject);
   private
     countrycode: TStringList;
+    ov: TBitmap;
+    lockoverlay: boolean;
+    savelibration : boolean;
     procedure UpdateTzList;
     procedure showtexture;
   public
+    newlang: string;
     tzinfo: TCdCTimeZone;
     obscountry,obstz : string;
     TexturePath: string;
@@ -215,8 +220,6 @@ type
 
 var
   Form2: TForm2;
-  newlang : string;
-  savelibration : boolean;
 
 implementation
 
@@ -236,6 +239,8 @@ var inifile : Tinifile;
     buf,code,ver,AVLver : string;
     fs : TSearchRec;
 begin
+ov:=Tbitmap.Create;
+lockoverlay:=false;
 // hide developpement tools or not finished function
 if not fileexists('version.developpement') then begin
   CheckBox12.Visible:=false;   // external image display
@@ -319,6 +324,7 @@ for i:=0 to Checklistbox1.Count-1 do (Checklistbox1.Items.Objects[i] as TDBinfo)
 countrycode.Free;
 TextureList.Free;
 Texturefn.Free;
+ov.Free;
 end;
 
 procedure TForm2.ComboBox3Change(Sender: TObject);
@@ -334,6 +340,11 @@ edit1.Enabled:=not checkbox3.checked;
 edit2.Enabled:=not checkbox3.checked;
 combobox1.Enabled:=not checkbox3.checked;
 combobox2.Enabled:=not checkbox3.checked;
+end;
+
+procedure TForm2.PageControl1ChangeBounds(Sender: TObject);
+begin
+
 end;
 
 procedure TForm2.Shape1MouseUp(Sender: TObject; Button: TMouseButton;
@@ -474,20 +485,6 @@ begin
 if Acol>=2 then canselect:=false else canselect:=true;
 end;
 
-procedure TForm2.ComboBox5Change(Sender: TObject);
-begin
-if fileexists(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg') then begin
-   image1.Picture.LoadFromFile(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg');
-   CheckBox11.Checked:=true;
-end else begin
-   image1.Picture.Assign(nil);
-end;
-end;
-
-procedure TForm2.CheckBox16Click(Sender: TObject);
-begin
-end;
-
 procedure TForm2.TrackBar3Change(Sender: TObject);
 begin
   if TrackBar3.Position>=25 then TrackBar3.Position:=30
@@ -495,6 +492,56 @@ begin
   else if TrackBar3.Position>=15 then TrackBar3.Position:=15
   else if TrackBar3.Position>=10 then TrackBar3.Position:=10
   else if TrackBar3.Position>=5 then TrackBar3.Position:=5;
+end;
+
+{procedure TForm2.ComboBox5Change(Sender: TObject);
+begin
+if fileexists(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg') then begin
+   image1.Picture.LoadFromFile(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg');
+   CheckBox11.Checked:=true;
+end else begin
+   image1.Picture.Assign(nil);
+end;
+end; }
+procedure TForm2.ComboBox5Change(Sender: TObject);
+var  j:tjpegimage;
+begin
+if fileexists(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg') then begin
+   j:=tjpegimage.create;
+   try
+   j.LoadFromFile(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg');
+   ov.Width:=image1.Width;
+   ov.Height:=image1.Height;
+   ov.pixelformat:=pf24bit;
+   ov.Canvas.StretchDraw(rect(0,0,ov.Width,ov.Height),j);
+   TrackBar5Change(Sender);
+   CheckBox11.Checked:=true;
+   finally
+    j.free;
+   end;
+end else begin
+   ov.Assign(nil);
+   image1.Picture.Assign(nil);
+end;
+end;
+
+procedure TForm2.TrackBar5Change(Sender: TObject);
+var ma:double;
+    i,n,l : integer;
+    p1,p2: pbytearray;
+begin
+if not ov.Empty then begin
+   if lockoverlay then exit;
+   lockoverlay:=true;
+   try
+    image1.Picture.bitmap.Assign(ov);
+    l:=2*trackbar5.position;
+    SetImgLum(image1.Picture.bitmap,l);
+    image1.Refresh;
+   finally
+    lockoverlay:=false;
+   end;
+end;
 end;
 
 procedure TForm2.LoadCountry(fn:string);
