@@ -94,7 +94,7 @@ type
     cap2,newcap: integer;
     perftime: double;
     DownShift: TShiftState;
-    lock_Zoom,SkipIdent : boolean;
+    lock_Zoom,SkipIdent,SliceLoading,AbortSliceLoading : boolean;
     distancestart,BumpMapLimit1K: boolean;
     startl,startb,startxx,startyy : single;
     startx, starty, ShadowOffset : integer;
@@ -445,6 +445,7 @@ begin
      end;
      // add new slices
      for i:=0 to 8 do begin
+       if AbortSliceLoading then break;
        if newmaps[i]<0 then continue;
        ok:=false;
        for j:=0 to 8 do begin
@@ -489,6 +490,7 @@ begin
       if (pmaps2[0]>0) then begin
         cap2:=newcap;
         for i:=0 to 2 do begin
+         if AbortSliceLoading then break;
          if pmaps2[i]>=20000 then begin
            row:=maxrow-1;
            col:=pmaps2[i] mod 20000;
@@ -532,6 +534,8 @@ end;
 // LoadSlice
 begin
 try
+AbortSliceLoading:=false;
+SliceLoading:=true;
 level:=lv;
 jp:=TJPEGImage.Create;
 case level of
@@ -609,12 +613,15 @@ case level of
 end; //case level
 finally
 jp.Free;
+SliceLoading:=false;
 end;
 end;
 
 procedure Tf_moon.ClearSlice(level:integer);
 var j: integer;
 begin
+AbortSliceLoading:=true;
+while SliceLoading do Application.ProcessMessages;
 if level>1 then begin
     if GLMaterialLibrary1.LibMaterialByName('L2_0')<>nil then begin
     for j:=0 to 8 do begin
