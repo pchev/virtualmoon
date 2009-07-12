@@ -142,6 +142,7 @@ type
     FMeasuringDistance: Boolean;
     FRaCentre, FDeCentre, FDiameter, FPositionAngle: single;
     FOverlayTransparency: single;
+    FOverlayTransparencyMethode: integer;
     procedure SetTexture(lfn:TStringList);
     procedure SetOverlay(fn:string);
     procedure SetBumpPath(fn:string);
@@ -150,7 +151,6 @@ type
     procedure SetMirror(value:boolean);
     procedure SetOrientation(value: single);
     procedure SetVisibleSideLock(value:boolean);
-    procedure SetOverlayTransparency(value:single);
     procedure SetRotation(value:single);
     procedure SetSatModel(value:string);
     procedure SetSatModelScale(value:single);
@@ -233,7 +233,8 @@ type
     property TexturePath : String read FtexturePath write FTexturePath;
     property Texture : TStringList read Ftexture write SetTexture;
     property OverlayPath : String read FOverlayPath write FOverlayPath;
-    property OverlayTransparency : single read FOverlayTransparency write SetOverlayTransparency;
+    property OverlayTransparency : single read FOverlayTransparency write FOverlayTransparency;
+    property OverlayTransparencyMethode : integer read FOverlayTransparencyMethode write FOverlayTransparencyMethode;
     property Overlay : String read FOverlay write SetOverlay;
     property BumpPath : String read FBumpPath write SetBumpPath;
     property Bumpmap : Boolean read FBumpmap write SetBumpmap;
@@ -354,7 +355,7 @@ with GLMaterialLibrary1 do begin
        if LibMaterialByName('L1_0')=nil then CreateMaterial(1);
        if LibMaterialByName('L2_0')=nil then CreateMaterial(2);
        with AddTextureMaterial('O1',blankbmp) do begin
-        Material.BlendingMode:=bmTransparency;
+        Material.BlendingMode:=bmModulate;
         Material.FrontProperties.Ambient.AsWinColor:=clWhite;
         Material.FrontProperties.Diffuse.AsWinColor:=clWhite;
         Material.FrontProperties.Diffuse.Alpha:=0;
@@ -652,6 +653,8 @@ end;
 end;
 
 procedure Tf_moon.SetOverlay(fn:string);
+var b : Tbitmap;
+    j : Tjpegimage;
 begin
 if fn='' then begin
   ClearOverlay;
@@ -660,21 +663,40 @@ end else begin
   if not FileExists(slash(FOverlayPath)+fn) then raise Exception.Create('Overlay not found '+slash(FOverlayPath)+fn);
   FOverlay:=fn;
   if GLMaterialLibrary1.LibMaterialByName('O1')=nil then CreateMaterial(99);
+  j:=TJpegImage.Create;
+  b:=Tbitmap.Create;
+  try
+  j.LoadFromFile(slash(FOverlayPath)+fn);
+  b.Assign(j);
   with GLMaterialLibrary1 do begin
       with LibMaterialByName('O1') do begin
-        Material.Texture.ImageBrightness:=1;
-        Material.FrontProperties.Diffuse.Alpha:=FOverlayTransparency;
-        Material.Texture.Image.LoadFromFile(slash(FOverlayPath)+fn);
+        case FOverlayTransparencyMethode of
+         0 : begin
+             Material.BlendingMode:=bmModulate;
+             Material.Texture.ImageAlpha:=tiaDefault;
+             Material.FrontProperties.Diffuse.Alpha:=1;
+             SetImgLum(b,trunc(200*FOverlayTransparency));
+             end;
+         1 : begin
+             Material.BlendingMode:=bmTransparency;
+             Material.Texture.ImageAlpha:=tiaOpaque;
+             Material.FrontProperties.Diffuse.Alpha:=FOverlayTransparency;
+             end;
+         2 : begin
+             Material.BlendingMode:=bmTransparency;
+             Material.Texture.ImageAlpha:=tiaLuminanceSqrt;
+             Material.FrontProperties.Diffuse.Alpha:=FOverlayTransparency;
+             end;
+        end;
+        Material.Texture.Image.Assign(b);
       end;
    end;
+   GLSceneViewer1.Refresh;
+finally
+ j.free;
+ b.free;
 end;
-GLSceneViewer1.Refresh;
 end;
-
-procedure Tf_moon.SetOverlayTransparency(value:single);
-begin
-FOverlayTransparency:=value;
-//GLMaterialLibrary1.LibMaterialByName('O1').Material.FrontProperties.Diffuse.Alpha:=FOverlayTransparency;
 end;
 
 function Tf_moon.GetBumpMethod:TBumpMapCapability;

@@ -32,7 +32,7 @@ uses Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
   {$ifdef unix}
     unix,baseunix,unixutil,
   {$endif}
-    Controls, Process,
+    Controls, Process, IntfGraphics,FPImage,
     MaskEdit,enhedits,Menus,Spin,CheckLst,Buttons, ExtCtrls,
     Forms,Graphics,StdCtrls,ComCtrls,Dialogs,Grids,PrintersDlgs,Printers;
 
@@ -117,6 +117,7 @@ function ScreenBPP: integer;
 function remext(fn:string):string;
 Function testfloat(s:string):double;
 function capitalize(txt:string):string;
+Procedure SetImgLum(img:Tbitmap; lum:integer);
 
 var traceon : boolean;
 
@@ -1746,6 +1747,34 @@ for i:=1 to length(txt) do begin
   up:=(c=' ')or(c='-');
 end;
 end;
+
+Procedure SetImgLum(img:Tbitmap; lum:integer);
+var ImgHandle,ImgMaskHandle: HBitmap;
+    IntfImg : TLazIntfImage;
+    i,j:integer;
+    max: single;
+    col: TFPColor;
+begin
+if (lum<>0) then begin
+  lum:=255*lum;
+  max:=(65535-lum)/65535;
+  IntfImg:=img.CreateIntfImage;
+    for i:=0 to IntfImg.Height-1 do begin
+      for j:=0 to IntfImg.Width-1 do begin
+         col.red:=lum+trunc(IntfImg.Colors[j,i].red*max);
+         col.blue:=lum+trunc(IntfImg.Colors[j,i].blue*max);
+         col.green:=lum+trunc(IntfImg.Colors[j,i].green*max);
+         col.alpha:=IntfImg.Colors[j,i].alpha;
+         IntfImg.Colors[j,i]:=col;
+      end;
+    end;
+  img.FreeImage;
+  IntfImg.CreateBitmaps(ImgHandle,ImgMaskHandle,false);
+  img.SetHandles(ImgHandle, ImgMaskHandle);
+  IntfImg.Free;
+end;
+end;
+
 
 end.
 

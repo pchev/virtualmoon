@@ -3278,7 +3278,7 @@ begin
     form2.Shape3.Brush.Color := autolabelcolor;
     form2.TrackBar2.Position := -LabelDensity;
     form2.TrackBar4.Position := marksize;
-    config.newlang := language;
+    form2.newlang := language;
     if wantbump then
        form2.BumpRadioGroup.ItemIndex:=0
     else
@@ -3417,9 +3417,9 @@ begin
       end;
       InitObservatoire;
       CurrentJD := jd(CurYear, CurrentMonth, CurrentDay, Currenttime - timezone + DT_UT);
-      if config.newlang <> language then
+      if form2.newlang <> language then
       begin
-        language := newlang;
+        language := form2.newlang;
         setlang;
         reloaddb := True;
       end;
@@ -5066,6 +5066,7 @@ begin
   if showoverlay and fileexists(Slash(moon1.OverlayPath) + fn) then
   begin
       moon1.OverlayTransparency:=transparent;
+      moon1.OverlayTransparencyMethode:=0;
       moon1.Overlay:=fn;
       if fileexists(Slash(moon1.OverlayPath) + slash('caption') + fn) then
       begin
