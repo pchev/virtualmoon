@@ -429,6 +429,8 @@ RadioGroup3.ItemIndex:=i;
 RadioGroup4.ItemIndex:=i;
 RadioGroup5.ItemIndex:=i;
 RadioGroup6.ItemIndex:=i;
+Application.ProcessMessages;
+showtexture;
 end;
 
 procedure TForm2.RadioGroupTextureClick(Sender: TObject);
@@ -437,13 +439,15 @@ var i,j: integer;
 begin
 i:=(sender as TRadioGroup).ItemIndex;
 j:=(sender as TRadioGroup).Tag;
-tex:=RadioGroup2.Items[i];
-if DirectoryExists(slash(TexturePath)+slash(tex)+'L'+inttostr(j+1)) then
-begin
-  texturefn[j]:=tex;
-  TextureChanged:=true;
-end
-  else showtexture;
+if (i>=0)and(j>=0) then begin
+  tex:=RadioGroup2.Items[i];
+  if DirectoryExists(slash(TexturePath)+slash(tex)+'L'+inttostr(j+1)) then
+  begin
+    texturefn[j]:=tex;
+    TextureChanged:=true;
+  end
+    else showtexture;
+  end;
 end;
 
 procedure TForm2.StringGrid2DrawCell(Sender: TObject; ACol, ARow: Integer;
