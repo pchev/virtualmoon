@@ -657,6 +657,20 @@ if GLMaterialLibrary1.LibMaterialByName('O1')<>nil then begin
 end;
 end;
 
+procedure FixImgSize(b:TBitmap);
+var x,y: integer;
+begin
+{ TODO : Dirty hack to make the image to load on my XP machine. Work without that on Vista and Linux. }
+{$ifdef mswindows}
+  x:=b.height;
+  if (x=8192)or(x=4096)or(x=2048)or(x=1024)or(x=512)or(x=256)or(x=128)or(x=64)or(x=32) then
+  begin
+     b.Width:=b.Width-2;
+     b.Height:=b.Height-1;
+  end;
+{$endif}
+end;
+
 procedure Tf_moon.SetOverlay(fn:string);
 var b : Tbitmap;
     j : Tjpegimage;
@@ -693,6 +707,7 @@ end else begin
              Material.FrontProperties.Diffuse.Alpha:=FOverlayTransparency;
              end;
         end;
+        FixImgSize(b);
         Material.Texture.Image.Assign(b);
       end;
    end;
