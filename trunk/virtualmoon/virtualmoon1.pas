@@ -60,6 +60,7 @@ type
     Label18: TLabel;
     Label27: TLabel;
     Label5: TLabel;
+    FullScreen1: TMenuItem;
     PanelMoon: TPanel;
     Quitter1: TMenuItem;
     PageControl1: TNoteBook;
@@ -271,6 +272,7 @@ type
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
     procedure ComboBox6Change(Sender: TObject);
+    procedure FullScreen1Click(Sender: TObject);
     procedure GridButtonClick(Sender: TObject);
     procedure Desc1HotClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -3638,6 +3640,11 @@ begin
       moon1.SatPos(0.003,0,0.005);
       end;
   end;
+end;
+
+procedure TForm1.FullScreen1Click(Sender: TObject);
+begin
+  SetFullScreen;
 end;
 
 procedure TForm1.Button6MouseDown(Sender: TObject; Button: TMouseButton;

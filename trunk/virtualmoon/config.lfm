@@ -29,7 +29,7 @@ object Form2: TForm2
     Width = 345
     OnChangeBounds = PageControl1ChangeBounds
     Options = [nboMultiLine]
-    PageIndex = 0
+    PageIndex = 3
     TabOrder = 0
     object TabSheet1: TPage
       Caption = 'General'
@@ -220,8 +220,8 @@ object Form2: TForm2
         Top = 10
         Width = 305
         Caption = 'Database'
-        ClientHeight = 161
-        ClientWidth = 303
+        ClientHeight = 172
+        ClientWidth = 301
         TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
@@ -674,10 +674,10 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 53
-        ClientWidth = 245
+        ClientHeight = 55
+        ClientWidth = 247
         Items.Strings = (
-          'Phase avec relief du terminateur'
+          'Phase avec relief dynamique'
           'Phase sans relief'
         )
         TabOrder = 6
@@ -758,8 +758,8 @@ object Form2: TForm2
           Top = 284
           Width = 294
           Caption = 'Grid'
-          ClientHeight = 58
-          ClientWidth = 292
+          ClientHeight = 69
+          ClientWidth = 290
           TabOrder = 3
           object CheckBox10: TCheckBox
             Left = 7
