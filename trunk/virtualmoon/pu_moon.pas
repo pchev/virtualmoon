@@ -94,7 +94,7 @@ type
     cap2,newcap: integer;
     perftime: double;
     DownShift: TShiftState;
-    lock_Zoom,SkipIdent,SliceLoading,AbortSliceLoading : boolean;
+    lock_Zoom,SkipIdent,AbortSliceLoading : boolean;
     distancestart,BumpMapLimit1K: boolean;
     startl,startb,startxx,startyy : single;
     startx, starty, ShadowOffset : integer;
@@ -535,7 +535,6 @@ end;
 begin
 try
 AbortSliceLoading:=false;
-SliceLoading:=true;
 level:=lv;
 jp:=TJPEGImage.Create;
 case level of
@@ -613,7 +612,6 @@ case level of
 end; //case level
 finally
 jp.Free;
-SliceLoading:=false;
 end;
 end;
 
@@ -621,7 +619,6 @@ procedure Tf_moon.ClearSlice(level:integer);
 var j: integer;
 begin
 AbortSliceLoading:=true;
-while SliceLoading do Application.ProcessMessages;
 if level>1 then begin
     if GLMaterialLibrary1.LibMaterialByName('L2_0')<>nil then begin
     for j:=0 to 8 do begin
@@ -641,6 +638,7 @@ end;
 procedure Tf_moon.DisableSlice2;
 var j: integer;
 begin
+AbortSliceLoading:=true;
     for j:=0 to 8 do begin
        maps2[j]:=-1;
     end;
