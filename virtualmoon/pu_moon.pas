@@ -387,9 +387,14 @@ begin
      tpath:=slash(FTexturePath)+slash(Ftexture[level-1])+slash('L'+inttostr(level));
      if GLMaterialLibrary1.LibMaterialByName('L2_0')=nil then CreateMaterial(2);
      // search slices
-     Screen2Moon(GLSceneViewer1.Width div 2, GLSceneViewer1.Height div 2, lc, bc);
-     lc:=lc+pi;
-     bc:=pi/2-bc;
+     if RotationCadencer.Enabled then begin
+       lc:=satl+pi;
+       bc:=pi/2-satb;
+     end else begin
+       Screen2Moon(GLSceneViewer1.Width div 2, GLSceneViewer1.Height div 2, lc, bc);
+       lc:=lc+pi;
+       bc:=pi/2-bc;
+     end;
      col:=trunc(maxcol*lc/(2*pi));
      row:=trunc(maxrow*bc/pi);
      pmaps2[0]:=-1;
