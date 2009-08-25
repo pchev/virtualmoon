@@ -10,7 +10,7 @@ object f_moon: Tf_moon
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object Moon: TPanel
     Left = 200
     Height = 500
