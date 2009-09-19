@@ -143,6 +143,7 @@ type
     FRaCentre, FDeCentre, FDiameter, FPositionAngle: single;
     FOverlayTransparency: single;
     FOverlayTransparencyMethode: integer;
+    Fjd: double;
     procedure SetTexture(lfn:TStringList);
     procedure SetOverlay(fn:string);
     procedure SetBumpPath(fn:string);
@@ -249,6 +250,7 @@ type
     property SatelliteModelScale : single read FSatModelScale write SetSatModelScale;
     property SatViewDistance : single read FSatViewDistance write SetSatViewDistance;
     property Phase : single read FPhase write SetPhase;
+    property JD: double read Fjd write Fjd;
     property SunIncl : single read FSunIncl write SetSunIncl;
     property LibrLon : single read FLibrLon write SetLibrLon;
     property LibrLat : single read FLibrLat write SetLibrLat;
@@ -1152,6 +1154,11 @@ begin
  AmbientColor:=Source.AmbientColor;
  DiffuseColor:=Source.DiffuseColor;
  SpecularColor:=Source.SpecularColor;
+ ShowGrid := Source.ShowGrid;
+ GridSpacing := Source.GridSpacing;
+ RaCentre:=Source.RaCentre;
+ DeCentre:=Source.DeCentre;
+ JD:=Source.JD;
  GLSceneViewer1.Cursor := Source.GLSceneViewer1.Cursor;
  GLSphereMoon.Slices := Source.GLSphereMoon.Slices;
  GLSphereMoon.Stacks := Source.GLSphereMoon.Stacks;
