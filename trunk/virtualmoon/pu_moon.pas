@@ -1126,13 +1126,13 @@ procedure Tf_moon.Assign(Source: TF_moon);
 begin
  TexturePath:=Source.TexturePath;
  OverlayPath:=Source.OverlayPath;
- BumpPath:=Source.BumpPath;
+ if CanBump then BumpPath:=Source.BumpPath;
  TextureCompression:=Source.TextureCompression;
  if Texture<>Source.Texture then
     Texture :=Source.Texture;
  if Overlay<>Source.Overlay then
     Overlay :=Source.Overlay;
- Bumpmap :=Source.Bumpmap;
+ if CanBump then Bumpmap :=Source.Bumpmap;
  ShowPhase :=Source.ShowPhase;
  VisibleSideLock :=Source.VisibleSideLock;
  Mirror :=Source.Mirror;
