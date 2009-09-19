@@ -1,13 +1,13 @@
 object Form1: TForm1
   Left = 620
   Height = 564
-  Top = 82
+  Top = 83
   Width = 878
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = ControlBar1
+  ActiveControl = DoNotRemove
   Caption = 'Form1'
   ClientHeight = 564
   ClientWidth = 878
@@ -176,6 +176,14 @@ object Form1: TForm1
     TabOrder = 1
     Visible = False
   end
+  object DoNotRemove: TGLSceneViewer
+    Left = 64
+    Height = 100
+    Top = 264
+    Width = 100
+    FieldOfView = 0
+    Visible = False
+  end
   object ControlBar1: TPanel
     Left = 0
     Height = 25
@@ -223,7 +231,7 @@ object Form1: TForm1
         OnClick = Configuration1Click
       end
       object ToolButton8: TToolButton
-        Left = 155
+        Left = 163
         Top = 0
         Caption = 'Aide'
         OnClick = ToolButton8Click
@@ -340,6 +348,7 @@ object Form1: TForm1
         Top = 0
         Caption = 'Window 2'
         ImageIndex = 0
+        Style = tbsCheck
         OnClick = NewWindowButtonClick
       end
       object GridButton: TToolButton
@@ -386,15 +395,6 @@ object Form1: TForm1
         Width = 100
       end>
     SimplePanel = False
-  end
-  object PanelMoon: TPanel
-    Left = 272
-    Height = 200
-    Top = 264
-    Width = 200
-    Color = clBlack
-    ParentColor = False
-    TabOrder = 4
   end
   object PageControl1: TNotebook
     Left = 496
@@ -448,9 +448,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 2
-            Height = 31
+            Height = 33
             Top = 8
-            Width = 17
+            Width = 19
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -1193,8 +1193,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 53
-          ClientWidth = 236
+          ClientHeight = 64
+          ClientWidth = 234
           Columns = 2
           Items.Strings = (
             'Nom'
@@ -1287,7 +1287,7 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Rotation'
-        ClientHeight = 138
+        ClientHeight = 137
         ClientWidth = 251
         TabOrder = 8
         object Button12: TButton
@@ -1332,7 +1332,7 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 26
+          ClientHeight = 25
           ClientWidth = 207
           Columns = 2
           ItemIndex = 0
@@ -1359,7 +1359,7 @@ object Form1: TForm1
         Top = 300
         Width = 253
         Caption = 'Telescope'
-        ClientHeight = 159
+        ClientHeight = 158
         ClientWidth = 251
         TabOrder = 7
         object Label26: TLabel
@@ -1518,7 +1518,7 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 311
+        ClientHeight = 310
         ClientWidth = 251
         TabOrder = 6
         Visible = False
@@ -1834,7 +1834,7 @@ object Form1: TForm1
         Top = 344
         Width = 193
         Caption = 'Options valid at next startup'
-        ClientHeight = 57
+        ClientHeight = 56
         ClientWidth = 191
         TabOrder = 4
         object CheckBox8: TCheckBox
@@ -1930,14 +1930,6 @@ object Form1: TForm1
       end
     end
   end
-  object DoNotRemove: TGLSceneViewer
-    Left = 64
-    Height = 100
-    Top = 264
-    Width = 100
-    FieldOfView = 0
-    Visible = False
-  end
   object Splitter1: TSplitter
     Left = 488
     Height = 371
@@ -1945,6 +1937,32 @@ object Form1: TForm1
     Width = 5
     Align = alNone
     OnMoved = Splitter1Moved
+  end
+  object PanelMoon: TPanel
+    Left = 280
+    Height = 200
+    Top = 248
+    Width = 200
+    Color = clBlack
+    ParentColor = False
+    TabOrder = 4
+  end
+  object PanelMoon2: TPanel
+    Left = 40
+    Height = 200
+    Top = 248
+    Width = 200
+    Color = clBlack
+    ParentColor = False
+    TabOrder = 7
+  end
+  object Splitter2: TSplitter
+    Left = 269
+    Height = 522
+    Top = 32
+    Width = 5
+    Align = alNone
+    OnMoved = Splitter2Moved
   end
   object FilePopup: TPopupMenu
     left = 16

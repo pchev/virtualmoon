@@ -62,6 +62,7 @@ type
     Label5: TLabel;
     FullScreen1: TMenuItem;
     PanelMoon: TPanel;
+    PanelMoon2: TPanel;
     Quitter1: TMenuItem;
     PageControl1: TNoteBook;
     Position: TPage;
@@ -84,6 +85,7 @@ type
     Apropos1: TMenuItem;
     Splitter1: TSplitter;
     GridButton: TToolButton;
+    Splitter2: TSplitter;
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
@@ -286,6 +288,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
+    procedure Splitter2Moved(Sender: TObject);
     procedure ToolButton12Click(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
@@ -401,7 +404,7 @@ type
     procedure ZoomTimerTimer(Sender: TObject);
   private
     UniqueInstance1: TCdCUniqueInstance;
-    moon1, moon2 : TF_moon;
+    moon1, moon2, activemoon : TF_moon;
     CursorImage1: TCursorImage;
     tz: TCdCTimeZone;
     ima: TBigImaForm;
@@ -410,6 +413,7 @@ type
     lockzoombar: boolean;
     texturefiles: TStringList;
     savetop,saveleft,savewidth,saveheight:integer;
+    SplitSize: single;
     procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
     procedure InstanceRunning(Sender : TObject);
     procedure SetEyepieceMenu;
@@ -443,6 +447,7 @@ type
     procedure SetDescText(const Value: string);
     procedure SetZoomBar;
     procedure GetSkychartInfo;
+    procedure SetActiveMoon(m: Tf_moon);
     procedure MoonClickEvent(Sender: TObject; Button: TMouseButton;
                      Shift: TShiftState; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
@@ -454,7 +459,7 @@ type
     lastx, lasty, lastyzoom, MaxSprite: integer;
     LastIma, maximgdir, maxima, startx, starty, saveimagesize: integer;
     LeftMargin, PrintTextWidth, clickX, clickY: integer;
-    PrintEph, PrintDesc, externalimage, PrintChart, lopamdirect: boolean;
+    PrintEph, PrintDesc, phaseeffect, externalimage, PrintChart, lopamdirect: boolean;
     PicZoom: array of double;
     PicTop, PicLeft: array of integer;
     librl, librb, wheelstep, EphStep, fov, searchl,
@@ -463,7 +468,7 @@ type
     tphase, by, bxpos, dummy: double;
     editrow, notesrow, rotdirection, searchpos,BumpMethod: integer;
     dbedited: boolean;
-    SkipIdent, wantbump, phaseeffect, geocentric, FollowNorth, notesok, notesedited,
+    SkipIdent, wantbump, geocentric, FollowNorth, notesok, notesedited,
     minilabel, shortdesc: boolean;
     lockmove, lockrepeat, showlibrationmark, saveimagewhite, skipresize: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
@@ -2603,9 +2608,9 @@ begin
     currentid   := searchlist[searchpos];
     currentname := dbm.Results[0].ByField['NAME'].AsString;
     if center then begin
-      moon1.CenterAt(deg2rad*currentl, deg2rad*currentb);
+      activemoon.CenterAt(deg2rad*currentl, deg2rad*currentb);
     end;
-    moon1.SetMark(deg2rad*currentl, deg2rad*currentb, capitalize(currentname));
+    activemoon.SetMark(deg2rad*currentl, deg2rad*currentb, capitalize(currentname));
     GetHTMLDetail(dbm.Results[0], txt);
     SetDescText(txt);
     if dbtab.TabVisible then
@@ -2856,42 +2861,44 @@ begin
     Stringgrid1.Cells[0, i] := b;
     Stringgrid1.Cells[1, i] := b;
   end;
-  if librationeffect and moon1.VisibleSideLock then
+  if librationeffect and activemoon.VisibleSideLock then
   begin
-    moon1.LibrLat := deg2rad*librb;
-    moon1.LibrLon := -deg2rad*librl;
+    activemoon.LibrLat := deg2rad*librb;
+    activemoon.LibrLon := -deg2rad*librl;
   end
   else  begin
-    moon1.LibrLat := 0;
-    moon1.LibrLon := 0;
+    activemoon.LibrLat := 0;
+    activemoon.LibrLon := 0;
   end;
   if FollowNorth then
   begin
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360);
-    moon1.Orientation:=CameraOrientation;
+    activemoon.Orientation:=CameraOrientation;
   end;
-  moon1.PositionAngle:=deg2rad*PA;
-  moon1.RaCentre:=rad;
-  moon1.DeCentre:=ded;
-  moon1.Diameter:=deg2rad*diam/3600;
-  moon1.EarthDistance:=dkm;
-  moon1.ShowPhase:=phaseeffect;
-  moon1.Phase:=deg2rad*cphase;
-  moon1.SunIncl:=deg2rad*sunincl;
-  moon1.LibrationMark:=ShowLibrationMark;
-  moon1.RefreshAll;
+  activemoon.JD:=CurrentJD;
+  activemoon.PositionAngle:=deg2rad*PA;
+  activemoon.RaCentre:=rad;
+  activemoon.DeCentre:=ded;
+  activemoon.Diameter:=deg2rad*diam/3600;
+  activemoon.EarthDistance:=dkm;
+  activemoon.ShowPhase:=phaseeffect;
+  activemoon.Phase:=deg2rad*cphase;
+  activemoon.SunIncl:=deg2rad*sunincl;
+  activemoon.LibrationMark:=ShowLibrationMark;
+  activemoon.RefreshAll;
 end;
 
 procedure  TForm1.SetZoomBar;
 begin
 lockzoombar:=true;
 trackbar1.min := 100;
-trackbar1.max := round(100 * moon1.ZoomMax);
-trackbar1.position := round(100 * moon1.Zoom);
+trackbar1.max := round(100 * activemoon.ZoomMax);
+trackbar1.position := round(100 * activemoon.Zoom);
 end;
 
 procedure  TForm1.GetMsg(Sender: TObject; msgclass:TMoonMsgClass; value: String);
 begin
+if sender is Tf_moon then SetActiveMoon(Tf_moon(sender));
 case msgclass of
 MsgZoom: begin
           value:=StringReplace(value,'FOV:',m[43],[]);
@@ -3014,7 +3021,11 @@ begin
 {$endif}
   PageControl1.Align:=alRight;
   Splitter1.Align:=alRight;
+  PanelMoon2.Align:=alLeft;
+  Splitter2.Align:=alLeft;
   PanelMoon.Align:=alClient;
+  Splitter2.Visible:=false;
+  PanelMoon2.Visible:=false;
 {$ifdef darwin}
   TrackBar1.Top:=2;
 {$endif}
@@ -3071,6 +3082,7 @@ begin
     BMP30001.Visible := False;       // save bmp for light version
   end;
  moon1:=Tf_moon.Create(PanelMoon);
+ activemoon:=moon1;
  moon1.Moon.Align:=alClient;
  moon1.onMoonClick:=MoonClickEvent;
  moon1.onMoonMove:=MoonMoveEvent;
@@ -3285,9 +3297,9 @@ begin
        form2.BumpRadioGroup.ItemIndex:=0
     else
        form2.BumpRadioGroup.ItemIndex:=1;
-    form2.BumpRadioGroup.Visible:=(moon1.BumpMapCapabilities<>[]);
-    form2.RadioGroup1.ItemIndex:=ord(moon1.BumpMethod);
-    form2.RadioGroup1.Visible:=((bcDot3TexCombiner in moon1.BumpMapCapabilities)and(bcBasicARBFP in moon1.BumpMapCapabilities));
+    form2.BumpRadioGroup.Visible:=(activemoon.BumpMapCapabilities<>[]);
+    form2.RadioGroup1.ItemIndex:=ord(activemoon.BumpMethod);
+    form2.RadioGroup1.Visible:=((bcDot3TexCombiner in activemoon.BumpMapCapabilities)and(bcBasicARBFP in moon1.BumpMapCapabilities));
     form2.updown1.Position := maxima;
     oldmaxima := maxima;
     form2.StringGrid1.RowCount := maximgdir + 10;
@@ -3315,7 +3327,7 @@ begin
     form2.CheckBox13.Checked := PrintChart;
     form2.CheckBox8.Checked  := PrintEph;
     form2.CheckBox9.Checked  := PrintDesc;
-    form2.TexturePath := moon1.TexturePath;
+    form2.TexturePath := activemoon.TexturePath;
     form2.texturefn.Assign(texturefiles);
     form2.CheckBox15.Checked := LopamDirect;
     form2.ruklprefix.Text := ruklprefix;
@@ -3327,9 +3339,9 @@ begin
     form2.checkbox10.Checked := GridButton.Down;
     form2.TrackBar3.Position:=gridspacing;
     form2.checkbox16.Checked := UseComputerTime;
-    form2.FontDialog1.Font:=moon1.LabelFont;
-    form2.LabelFont.Caption:=moon1.LabelFont.Name;
-    form2.LabelFont.Font:=moon1.LabelFont;
+    form2.FontDialog1.Font:=activemoon.LabelFont;
+    form2.LabelFont.Caption:=activemoon.LabelFont.Name;
+    form2.LabelFont.Font:=activemoon.LabelFont;
     form2.LabelFont.Font.Color:=clWindowText;
     form2.obstz:=ObsTZ;
     form2.SetObsCountry(ObsCountry);
@@ -3356,7 +3368,7 @@ begin
 
       if wantbump<>(form2.BumpRadioGroup.ItemIndex=0) then reload:=true;
       wantbump := (form2.BumpRadioGroup.ItemIndex=0);
-      moon1.BumpMethod:=TBumpMapCapability(form2.RadioGroup1.ItemIndex);
+      activemoon.BumpMethod:=TBumpMapCapability(form2.RadioGroup1.ItemIndex);
       ruklprefix    := form2.ruklprefix.Text;
       ruklsuffix    := form2.ruklsuffix.Text;
       markcolor     := form2.Shape2.Brush.Color;
@@ -3370,8 +3382,8 @@ begin
       labelcenter   := form2.checkbox17.Checked;
       minilabel     := form2.checkbox18.Checked;
       shortdesc := form2.CheckBox4.Checked;
-      moon1.LabelFont:=form2.FontDialog1.Font;
-      moon1.Labelcolor:=autolabelcolor;
+      activemoon.LabelFont:=form2.FontDialog1.Font;
+      activemoon.Labelcolor:=autolabelcolor;
       Obslatitude := strtofloat(form2.Edit1.Text);
       if form2.ComboBox1.ItemIndex = 1 then
         Obslatitude := -Obslatitude;
@@ -3469,12 +3481,12 @@ begin
       if reload then
       begin
         application.ProcessMessages;
-        moon1.Eyepiece := 0;
+        activemoon.Eyepiece := 0;
         LoadOverlay(overlayname, overlaytr);
-        moon1.Texture:=texturefiles;
-        moon1.GridSpacing:=gridspacing;
+        activemoon.Texture:=texturefiles;
+        activemoon.GridSpacing:=gridspacing;
         RefreshMoonImage;
-        moon1.Zoom:=moon1.Zoom;
+        activemoon.Zoom:=activemoon.Zoom;
       end
       else
         RefreshMoonImage;
@@ -3491,11 +3503,17 @@ begin
  if ToolsWidth<100 then ToolsWidth:=100;
 end;
 
+procedure TForm1.Splitter2Moved(Sender: TObject);
+begin
+if PanelMoon.Width>0 then
+  SplitSize:=PanelMoon.Width/(PanelMoon.Width+PanelMoon2.Width);
+end;
+
 procedure TForm1.ToolButton12Click(Sender: TObject);
 begin
  showlabel:=not showlabel;
  ToolButton12.Down := showlabel;
- moon1.RefreshAll;
+ activemoon.RefreshAll;
 end;
 
 procedure TForm1.ToolButton1Click(Sender: TObject);
@@ -3516,7 +3534,7 @@ end;
 
 procedure TForm1.FormResize(Sender: TObject);
 var
-  dx: integer;
+  dx,w1,w2: integer;
 begin
   if skipresize then
     exit;
@@ -3526,8 +3544,16 @@ begin
     exit;
   if ToolsWidth<100 then ToolsWidth:=100;
   PageControl1.width:=ToolsWidth;
+  if PanelMoon2.Visible then begin
+    dx:=ClientWidth-Splitter2.Width;
+    if not FullScreen then dx:=dx-ToolsWidth-Splitter1.Width;
+    w1:=round(SplitSize*dx);
+    w2:=dx-w1;
+    PanelMoon.Width:=w1;
+    PanelMoon2.Width:=w2;
+  end;
   moon1.RefreshAll;
-  moon1.GetZoomInfo;
+  activemoon.GetZoomInfo;
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
@@ -3580,7 +3606,7 @@ end;
 procedure TForm1.ZoomTimerTimer(Sender: TObject);
 begin
 ZoomTimer.Enabled:=false;
-moon1.Zoom := trackbar1.position / 100;
+activemoon.Zoom := trackbar1.position / 100;
 end;
 
 procedure TForm1.EphTimer1Timer(Sender: TObject);
@@ -3624,20 +3650,19 @@ end;
 procedure TForm1.ComboBox6Change(Sender: TObject);
 begin
   case ComboBox6.ItemIndex of
-  0 : moon1.SatelliteModel:='';
+  0 : activemoon.SatelliteModel:='';
   1 : begin
-      moon1.SatelliteModel:=slash(Appdir)+slash('Models')+'lem.3ds';
-      moon1.SatelliteModelScale:=0.0006;
-      moon1.SatDirection(0,0,-1);
-      moon1.SatUp(-1,0,0);
-      moon1.SatPos(0,0,0);
+      activemoon.SatelliteModel:=slash(Appdir)+slash('Models')+'lem.3ds';
+      activemoon.SatelliteModelScale:=0.0006;
+      activemoon.SatDirection(0,0,-1);
+      activemoon.SatUp(-1,0,0);
+      activemoon.SatPos(0,0,0);
       end;
   2 : begin
-      moon1.SatelliteModel:=slash(Appdir)+slash('Models')+'apollo.3ds';
-      moon1.SatelliteModelScale:=0.0000007;
-      moon1.SatDirection(1,0,0);
-//      moon1.SatUp(0,0,1);
-      moon1.SatPos(0.003,0,0.005);
+      activemoon.SatelliteModel:=slash(Appdir)+slash('Models')+'apollo.3ds';
+      activemoon.SatelliteModelScale:=0.0000007;
+      activemoon.SatDirection(1,0,0);
+      activemoon.SatPos(0.003,0,0.005);
       end;
   end;
 end;
@@ -3681,10 +3706,10 @@ procedure TForm1.ToolButton5Click(Sender: TObject);
 var
   xx, yy: double;
 begin
-  if moon1.zoom = 1 then
-    moon1.CenterAt(0, 0)
+  if activemoon.zoom = 1 then
+    activemoon.CenterAt(0, 0)
   else
-    moon1.CenterMark;
+    activemoon.CenterMark;
 end;
 
 
@@ -3758,8 +3783,8 @@ var
 begin
 statusbar1.Panels[3].Text :='Down: '+inttostr(key);
 case key of
-  16  :  moon1.KeyEvent(mkDown,key); // Shift
-  17  :  moon1.KeyEvent(mkDown,key); // Ctrl
+  16  :  activemoon.KeyEvent(mkDown,key); // Shift
+  17  :  activemoon.KeyEvent(mkDown,key); // Ctrl
   27  :  SetFullScreen; // Esc
 //  122 :  SetFullScreen; // F11
 end;
@@ -3769,8 +3794,8 @@ procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 statusbar1.Panels[3].Text :='Up: '+inttostr(key);
 case key of
-  16  :  moon1.KeyEvent(mkUp,key); // Shift
-  17  :  moon1.KeyEvent(mkUp,key); // Ctrl
+  16  :  activemoon.KeyEvent(mkUp,key); // Shift
+  17  :  activemoon.KeyEvent(mkUp,key); // Ctrl
 end;
 end;
 
@@ -3932,7 +3957,7 @@ end;
 
 procedure TForm1.ToolButton9Click(Sender: TObject);
 begin
-  moon1.Zoom:=1;
+  activemoon.Zoom:=1;
 end;
 
 procedure TForm1.Edit1KeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
@@ -3959,8 +3984,8 @@ begin
     i := 45
   else
     i := 90;
-  moon1.GLSphereMoon.Slices:=i;
-  moon1.GLSphereMoon.Stacks:=i;
+  activemoon.GLSphereMoon.Slices:=i;
+  activemoon.GLSphereMoon.Stacks:=i;
 end;
 
 procedure TForm1.PageControl1Change(Sender: TObject);
@@ -3984,61 +4009,61 @@ begin
 
   if pagecontrol1.ActivePage = Outils.Caption then
   begin
-    if moon1.MeasuringDistance then
+    if activemoon.MeasuringDistance then
       Button11.Caption      := m[53]
     else
       Button11.Caption      := m[52];
   end
   else
   begin
-    moon1.MeasuringDistance := False;
+    activemoon.MeasuringDistance := False;
   end;
 end;
 
 procedure TForm1.Stop1Click(Sender: TObject);
 begin
-  moon1.SatelliteRotation:=0;
+  activemoon.SatelliteRotation:=0;
 end;
 
 procedure TForm1.EastWest1Click(Sender: TObject);
 begin
   rotdirection := -rotdirection;
-  moon1.SatelliteRotation:=rotdirection*rotstep;
+  activemoon.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N10seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 0;
   rotstep := 10;
-  moon1.SatelliteRotation:=rotdirection*rotstep;
+  activemoon.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N5seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 1;
   rotstep := 5;
-  moon1.SatelliteRotation:=rotdirection*rotstep;
+  activemoon.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N1seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 2;
   rotstep := 1;
-  moon1.SatelliteRotation:=rotdirection*rotstep;
+  activemoon.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N05seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 3;
   rotstep := 0.5;
-  moon1.SatelliteRotation:=rotdirection*rotstep;
+  activemoon.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N02seconde1Click(Sender: TObject);
 begin
   combobox4.ItemIndex := 4;
   rotstep := 0.2;
-  moon1.SatelliteRotation:=rotdirection*rotstep;
+  activemoon.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.ComboBox4Change(Sender: TObject);
@@ -4050,56 +4075,54 @@ begin
     3: rotstep := 0.5;
     4: rotstep := 0.2;
   end;
-  moon1.SatelliteRotation:=rotdirection*rotstep;
+  activemoon.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.SpeedButton1Click(Sender: TObject);
 begin
   rotdirection := 1;
-  moon1.SatelliteRotation:=rotdirection*rotstep;
+  activemoon.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.SpeedButton2Click(Sender: TObject);
 begin
-  moon1.SatelliteRotation:=0;
+  activemoon.SatelliteRotation:=0;
 end;
 
 procedure TForm1.SpeedButton3Click(Sender: TObject);
-
 begin
   rotdirection := -1;
-  moon1.SatelliteRotation:=rotdirection*rotstep;
+  activemoon.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.SpeedButton5Click(Sender: TObject);
 begin
-moon1.SatWest;
+activemoon.SatWest;
 end;
 
 procedure TForm1.SpeedButton4Click(Sender: TObject);
-
 begin
-moon1.SatEast;
+activemoon.SatEast;
 end;
 
 procedure TForm1.SpeedButton6Click(Sender: TObject);
 begin
-  moon1.SatCenter;
+  activemoon.SatCenter;
 end;
 
 procedure TForm1.TrackBar6Change(Sender: TObject);
 begin
-  moon1.SatelliteAltitude:=TrackBar6.Position;
+  activemoon.SatelliteAltitude:=TrackBar6.Position;
 end;
 
 procedure TForm1.TrackBar7Change(Sender: TObject);
 begin
-  moon1.SatInclination:=TrackBar7.Position;
+  activemoon.SatInclination:=TrackBar7.Position;
 end;
 
 procedure TForm1.TrackBar8Change(Sender: TObject);
 begin
-  moon1.SatViewDistance:=TrackBar8.Position/4;
+  activemoon.SatViewDistance:=TrackBar8.Position/4;
 end;
 
 procedure TForm1.ComboBox2Change(Sender: TObject);
@@ -4268,17 +4291,17 @@ end;
 
 procedure TForm1.x21Click(Sender: TObject);
 begin
-  moon1.zoom:=2;
+  activemoon.zoom:=2;
 end;
 
 procedure TForm1.x41Click(Sender: TObject);
 begin
-  moon1.zoom:=4;
+  activemoon.zoom:=4;
 end;
 
 procedure TForm1.x81Click(Sender: TObject);
 begin
-  moon1.zoom:=8;
+  activemoon.zoom:=8;
 end;
 
 procedure TForm1.Button12MouseUp(Sender: TObject; Button: TMouseButton;
@@ -4291,8 +4314,8 @@ begin
   else
     CameraOrientation := CameraOrientation - 15;
   CameraOrientation := rmod(CameraOrientation + 360, 360);
-  moon1.Orientation:=CameraOrientation;
-  moon1.RefreshAll;
+  activemoon.Orientation:=CameraOrientation;
+  activemoon.RefreshAll;
 end;
 
 procedure TForm1.Button13MouseUp(Sender: TObject; Button: TMouseButton;
@@ -4305,8 +4328,8 @@ begin
   else
     CameraOrientation := CameraOrientation + 15;
   CameraOrientation := rmod(CameraOrientation, 360);
-  moon1.Orientation:=CameraOrientation;
-  moon1.RefreshAll;
+  activemoon.Orientation:=CameraOrientation;
+  activemoon.RefreshAll;
 end;
 
 procedure TForm1.RadioGroup2Click(Sender: TObject);
@@ -4320,8 +4343,8 @@ begin
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360)
   else
     CameraOrientation := Poleorientation;
-  moon1.Orientation:=CameraOrientation;
-  moon1.RefreshAll;
+  activemoon.Orientation:=CameraOrientation;
+  activemoon.RefreshAll;
 end;
 
 procedure TForm1.ToolButton4Click(Sender: TObject);
@@ -4338,8 +4361,8 @@ end;
 
 procedure TForm1.Button11Click(Sender: TObject);
 begin
-  moon1.MeasuringDistance := not moon1.MeasuringDistance;
-  if moon1.MeasuringDistance then
+  activemoon.MeasuringDistance := not activemoon.MeasuringDistance;
+  if activemoon.MeasuringDistance then
   begin
     Button11.Caption      := m[53];
   end
@@ -4357,7 +4380,7 @@ begin
   Pagecontrol1.ActivePage := Outils.Caption;
   PageControl1Change(Sender);
   Button11.Caption  := m[53];
-  moon1.MeasuringDistance := true;
+  activemoon.MeasuringDistance := true;
 end;
 
 procedure TForm1.CheckBox1Click(Sender: TObject);
@@ -4367,14 +4390,14 @@ begin
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360)
   else
     CameraOrientation := Poleorientation;
-  moon1.Orientation:=CameraOrientation;
-  moon1.RefreshAll;
+  activemoon.Orientation:=CameraOrientation;
+  activemoon.RefreshAll;
 end;
 
 procedure TForm1.CheckBox2Click(Sender: TObject);
 begin
   ToolButton6.Down := checkbox2.Checked;
-  moon1.Mirror:=checkbox2.Checked;
+  activemoon.Mirror:=checkbox2.Checked;
 end;
 
 procedure TForm1.ToolButton10Click(Sender: TObject);
@@ -4393,7 +4416,7 @@ begin
   begin
     b := Tbitmap.Create;
     try
-      moon1.SnapShot(b, saveimagewhite);
+      activemoon.SnapShot(b, saveimagewhite);
       b.SaveToFile(ChangeFileExt(savedialog1.FileName, '.bmp'));
     finally
       b.Free;
@@ -4413,7 +4436,7 @@ begin
   begin
     b := Tbitmap.Create;
     try
-      moon1.Rendertobitmap(b, 1500, False);
+      activemoon.Rendertobitmap(b, 1500, False);
       b.SaveToFile(ChangeFileExt(savedialog1.FileName, '.bmp'));
     finally
       b.Free;
@@ -4432,7 +4455,7 @@ begin
   begin
     b := Tbitmap.Create;
     try
-      moon1.Rendertobitmap(b, 3000, False);
+      activemoon.Rendertobitmap(b, 3000, False);
       b.SaveToFile(ChangeFileExt(savedialog1.FileName, '.bmp'));
     finally
       b.Free;
@@ -4453,7 +4476,7 @@ begin
     b := Tbitmap.Create;
     j := Tjpegimage.Create;
     try
-      moon1.SnapShot(b, saveimagewhite);
+      activemoon.SnapShot(b, saveimagewhite);
       j.Assign(b);
       j.CompressionQuality:=100;
       j.SaveToFile(ChangeFileExt(savedialog1.FileName, '.jpg'));
@@ -4472,7 +4495,7 @@ begin
   fn := 'snapshot.bmp';
   b  := Tbitmap.Create;
   try
-    moon1.SnapShot(b, False);
+    activemoon.SnapShot(b, False);
     b.SaveToFile(slash(tempdir) + fn);
     ShowImg(tempdir, fn, False);
   finally
@@ -4528,7 +4551,7 @@ begin
       if PrintChart then
         // carte
         w := (xmax - xmin) * 2 div 3;
-      moon1.snapshot(b, True);
+      activemoon.snapshot(b, True);
       canvas.StretchDraw(rect(xmin, ymin + hl, xmin + w, ymin + w + hl), b);
       if PrintDesc then
       begin
@@ -4592,7 +4615,7 @@ end;
 
 procedure TForm1.GridButtonClick(Sender: TObject);
 begin
-  moon1.ShowGrid:=GridButton.Down;
+  activemoon.ShowGrid:=GridButton.Down;
 end;
 
 procedure TForm1.Copy1Click(Sender: TObject);
@@ -4668,7 +4691,7 @@ procedure TForm1.ToolButton3Click(Sender: TObject);
 var l,b: single;
     recenter:boolean;
 begin
-recenter:=moon1.getcenter(l,b);
+recenter:=activemoon.getcenter(l,b);
   if ToolButton3.Down then
   begin
     librl := 0;
@@ -4680,12 +4703,12 @@ recenter:=moon1.getcenter(l,b);
     GroupBox3.Visible := True;    // satellite
     Rotation1.Visible := True;
     LibrationButton.Enabled := False;
-    moon1.LibrationMark:=False;
-    moon1.Mirror:=False;
-    moon1.VisibleSideLock:=false;
-    moon1.LibrLat:=0;
-    moon1.LibrLon:=0;
-    moon1.RefreshAll;
+    activemoon.LibrationMark:=False;
+    activemoon.Mirror:=False;
+    activemoon.VisibleSideLock:=false;
+    activemoon.LibrLat:=0;
+    activemoon.LibrLon:=0;
+    activemoon.RefreshAll;
   end
   else
   begin
@@ -4700,14 +4723,14 @@ recenter:=moon1.getcenter(l,b);
     GroupBox3.Visible := False;
     Rotation1.Visible := False;
     LibrationButton.Enabled := True;
-    moon1.VisibleSideLock:=true;
-    moon1.LibrationMark:=ShowLibrationMark;
-    moon1.SatelliteRotation:=0;
-    moon1.Orientation:=CameraOrientation;
-    moon1.Mirror:=checkbox2.Checked;
+    activemoon.VisibleSideLock:=true;
+    activemoon.LibrationMark:=ShowLibrationMark;
+    activemoon.SatelliteRotation:=0;
+    activemoon.Orientation:=CameraOrientation;
+    activemoon.Mirror:=checkbox2.Checked;
     RefreshMoonImage;
   end;
-if recenter then moon1.CenterAt(l,b);
+if recenter then activemoon.CenterAt(l,b);
 end;
 
 procedure TForm1.Button14Click(Sender: TObject);
@@ -4721,11 +4744,11 @@ begin
     CurrentEyepiece := tag;
   if CurrentEyepiece = 0 then
   begin
-    moon1.Eyepiece:=0;
+    activemoon.Eyepiece:=0;
   end
   else
   begin
-    moon1.Eyepiece:=eyepiecefield[CurrentEyepiece]/(diam/60);
+    activemoon.Eyepiece:=eyepiecefield[CurrentEyepiece]/(diam/60);
     case eyepiecerotation[CurrentEyepiece] of
       1:
       begin
@@ -4812,7 +4835,7 @@ var
   buf:  shortstring;
   r, d: single;
 begin
-  if scopelibok and scopeconnected and moon1.GetMarkRaDec(r,d)  then
+  if scopelibok and scopeconnected and activemoon.GetMarkRaDec(r,d)  then
   begin
     ScopeGoto(rad2deg*r/15, rad2deg*d, ok1);
   end
@@ -4829,7 +4852,7 @@ var
   buf:  shortstring;
   r, d: single;
 begin
-  if scopelibok and scopeconnected and moon1.GetMarkRaDec(r,d) then
+  if scopelibok and scopeconnected and activemoon.GetMarkRaDec(r,d) then
   begin
     ScopeAlign('markname', rad2deg*r/15, rad2deg*d);
   end
@@ -4876,7 +4899,7 @@ begin
   begin
     initdate;
     RefreshMoonImage;
-    moon1.CenterAtRaDec(deg2rad*r*15,deg2rad*d);
+    activemoon.CenterAtRaDec(deg2rad*r*15,deg2rad*d);
     if CheckBox7.Checked and
       ((LastScopeTracking + trackdelay.position / 86400) <= now) then
     begin
@@ -4956,21 +4979,31 @@ var
   i:     integer;
 begin
 if moon2=nil then begin
- moon2:=Tf_moon.Create(nil);
- moon2.Init;
+ moon2:=Tf_moon.Create(PanelMoon2);
  moon2.GLSceneViewer1.Visible:=false;
  moon2.Caption:=Caption;
  moon2.Moon.Align:=alClient;
  moon2.onMoonClick:=MoonClickEvent;
  moon2.onGetLabel:=GetLabel;
  moon2.onGetSprite:=GetSprite;
- moon2.Visible:=true;
- Application.ProcessMessages;
+ moon2.onMoonMove:=MoonMoveEvent;
+ moon2.onMoonMeasure:=MoonMeasureEvent;
+ moon2.onGetMsg:=GetMsg;
+ moon2.PopUp:=PopupMenu1;
+ moon2.Visible:=false;
+ moon2.Init;
 end;
-moon2.Assign(moon1);
-moon2.GLSceneViewer1.Visible:=true;
-moon2.Show;
-moon2.RefreshAll;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 moon2.Show;
+if NewWindowButton.Down then begin
+  SplitSize:=0.5;
+  PanelMoon2.Width:=PanelMoon.Width div 2;
+  Splitter2.Visible:=true;
+  PanelMoon2.Visible:=true;
+  moon2.Assign(moon1);
+  moon2.GLSceneViewer1.Visible:=true;
+end else begin
+  Splitter2.Visible:=false;
+  PanelMoon2.Visible:=false;
+end;
 end;
 
 procedure TForm1.LibrationButtonClick(Sender: TObject);
@@ -4982,10 +5015,10 @@ end;
 procedure TForm1.PhaseButtonClick(Sender: TObject);
 begin
   phaseeffect := PhaseButton.Down;
-  if phaseeffect and wantbump and moon1.CanBump then
-     moon1.Bumpmap:=true
+  if phaseeffect and wantbump and activemoon.CanBump then
+     activemoon.Bumpmap:=true
   else
-     moon1.Bumpmap:=false;
+     activemoon.Bumpmap:=false;
   RefreshMoonImage;
 end;
 
@@ -5011,7 +5044,7 @@ end;
 procedure TForm1.RemoveMark1Click(Sender: TObject);
 begin
   CurrentSelection := '';
-  moon1.RefreshAll;
+  activemoon.RefreshAll;
 end;
 
 procedure TForm1.MoonMeasureEvent(Sender: TObject; m1,m2,m3,m4: string);
@@ -5022,10 +5055,56 @@ begin
   edit4.Text := m4;
 end;
 
+procedure TForm1.SetActiveMoon(m: Tf_moon);
+begin
+if m<>activemoon then begin
+  activemoon:=Tf_moon(m);
+  checkbox2.Checked:=activemoon.Mirror;
+  ToolButton3.Down:=not activemoon.VisibleSideLock;
+  if ToolButton3.Down then
+  begin
+    checkbox2.Visible := False;   //mirror
+    ToolButton6.Enabled := False; //mirror
+    GroupBox4.Visible := False;   // telescope
+    GroupBox5.Visible := False;   // rotation
+    GroupBox3.Visible := True;    // satellite
+    Rotation1.Visible := True;
+    LibrationButton.Enabled := False;
+  end
+  else
+  begin
+    checkbox2.Visible := True;
+    ToolButton6.Enabled := True;
+    GroupBox5.Visible := True;
+    GroupBox4.Visible := True;
+    GroupBox3.Visible := False;
+    Rotation1.Visible := False;
+    LibrationButton.Enabled := True;
+  end;
+  phaseeffect:=activemoon.ShowPhase;
+  PhaseButton.Down:=phaseeffect;
+  librationeffect:=not((activemoon.LibrLat=0) and (activemoon.LibrLon=0));
+  LibrationButton.Down:=librationeffect;
+  GridButton.Down := activemoon.ShowGrid;
+  showoverlay:=not (activemoon.Overlay='');
+  overlayname:=activemoon.Overlay;
+  overlaytr:=activemoon.OverlayTransparency;
+  CurrentJD:=activemoon.JD;
+  SetJDDate;
+  RefreshMoonImage;
+  if pagecontrol1.ActivePage = Terminateur.Caption then
+  begin
+    if currentphase <> tphase then
+      UpdTerminateur;
+  end;
+end;
+end;
+
 procedure TForm1.MoonClickEvent(Sender: TObject; Button: TMouseButton;
                      Shift: TShiftState; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
 begin
+if sender is Tf_moon then SetActiveMoon(Tf_moon(sender));
 if ssLeft in Shift then begin
   if OnMoon then begin
      identLB(Rad2Deg*Lon,Rad2Deg*Lat);
@@ -5055,27 +5134,27 @@ end;
 
 procedure TForm1.TrackBar2Change(Sender: TObject);
 begin
-  moon1.AmbientColor := SetWhitecolor(Trackbar2.position);
+  activemoon.AmbientColor := SetWhitecolor(Trackbar2.position);
 end;
 
 procedure TForm1.TrackBar3Change(Sender: TObject);
 begin
-  moon1.DiffuseColor := SetWhitecolor(Trackbar3.position);
+  activemoon.DiffuseColor := SetWhitecolor(Trackbar3.position);
 end;
 
 procedure TForm1.TrackBar4Change(Sender: TObject);
 begin
-  moon1.SpecularColor := SetWhitecolor(Trackbar4.position);
+  activemoon.SpecularColor := SetWhitecolor(Trackbar4.position);
 end;
 
 procedure TForm1.LoadOverlay(fn: string; transparent: single);
 begin
   if showoverlay and fileexists(Slash(moon1.OverlayPath) + fn) then
   begin
-      moon1.OverlayTransparency:=transparent;
-      moon1.OverlayTransparencyMethode:=0;
-      moon1.Overlay:=fn;
-      if fileexists(Slash(moon1.OverlayPath) + slash('caption') + fn) then
+      activemoon.OverlayTransparency:=transparent;
+      activemoon.OverlayTransparencyMethode:=0;
+      activemoon.Overlay:=fn;
+      if fileexists(Slash(activemoon.OverlayPath) + slash('caption') + fn) then
       begin
         OverlayCaption1.Caption := remext(fn) + ' ' + 'Caption';
         OverlayCaption2.Caption := OverlayCaption1.Caption;
@@ -5093,7 +5172,7 @@ begin
     showoverlay := False;
     OverlayCaption1.Visible := False;
     OverlayCaption2.Visible := False;
-    moon1.Overlay:='';
+    activemoon.Overlay:='';
   end;
 end;
 
