@@ -1,13 +1,13 @@
 object Form1: TForm1
-  Left = 620
+  Left = 675
   Height = 564
-  Top = 83
+  Top = 61
   Width = 878
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = DoNotRemove
+  ActiveControl = PageControl1
   Caption = 'Form1'
   ClientHeight = 564
   ClientWidth = 878
@@ -448,9 +448,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 2
-            Height = 33
+            Height = 39
             Top = 8
-            Width = 19
+            Width = 25
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -1287,7 +1287,7 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Rotation'
-        ClientHeight = 137
+        ClientHeight = 138
         ClientWidth = 251
         TabOrder = 8
         object Button12: TButton
@@ -1332,7 +1332,7 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 25
+          ClientHeight = 26
           ClientWidth = 207
           Columns = 2
           ItemIndex = 0
@@ -1359,7 +1359,7 @@ object Form1: TForm1
         Top = 300
         Width = 253
         Caption = 'Telescope'
-        ClientHeight = 158
+        ClientHeight = 159
         ClientWidth = 251
         TabOrder = 7
         object Label26: TLabel
@@ -1518,7 +1518,7 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 310
+        ClientHeight = 311
         ClientWidth = 251
         TabOrder = 6
         Visible = False
@@ -1531,9 +1531,9 @@ object Form1: TForm1
           ParentColor = False
         end
         object SpeedButton1: TSpeedButton
-          Left = 32
+          Left = 7
           Height = 22
-          Top = 44
+          Top = 58
           Width = 49
           Caption = '<'
           Color = clBtnFace
@@ -1541,19 +1541,19 @@ object Form1: TForm1
           OnClick = SpeedButton1Click
         end
         object SpeedButton2: TSpeedButton
-          Left = 92
+          Left = 124
           Height = 22
-          Top = 44
+          Top = 58
           Width = 49
-          Caption = '| |'
+          Caption = 'O'
           Color = clBtnFace
           NumGlyphs = 0
           OnClick = SpeedButton2Click
         end
         object SpeedButton3: TSpeedButton
-          Left = 152
+          Left = 183
           Height = 22
-          Top = 44
+          Top = 58
           Width = 49
           Caption = '>'
           Color = clBtnFace
@@ -1561,9 +1561,9 @@ object Form1: TForm1
           OnClick = SpeedButton3Click
         end
         object SpeedButton4: TSpeedButton
-          Left = 156
+          Left = 159
           Height = 22
-          Top = 72
+          Top = 98
           Width = 73
           Caption = 'Vue Est'
           Color = clBtnFace
@@ -1571,9 +1571,9 @@ object Form1: TForm1
           OnClick = SpeedButton4Click
         end
         object SpeedButton5: TSpeedButton
-          Left = 4
+          Left = 7
           Height = 22
-          Top = 72
+          Top = 98
           Width = 73
           Caption = 'Vue Ouest'
           Color = clBtnFace
@@ -1581,9 +1581,9 @@ object Form1: TForm1
           OnClick = SpeedButton5Click
         end
         object SpeedButton6: TSpeedButton
-          Left = 80
+          Left = 83
           Height = 22
-          Top = 72
+          Top = 98
           Width = 73
           Caption = 'Centre'
           Color = clBtnFace
@@ -1591,39 +1591,41 @@ object Form1: TForm1
           OnClick = SpeedButton6Click
         end
         object Label5: TLabel
-          Left = 8
+          Left = 10
           Height = 15
-          Top = 112
+          Top = 162
           Width = 75
           Caption = 'Orbit altitude'
           ParentColor = False
         end
         object Label17: TLabel
-          Left = 8
+          Left = 10
           Height = 15
-          Top = 160
+          Top = 210
           Width = 90
           Caption = 'Orbit inclination'
           ParentColor = False
         end
         object Label18: TLabel
-          Left = 8
+          Left = 10
           Height = 15
-          Top = 193
+          Top = 243
           Width = 86
           Caption = 'Satellite model'
           ParentColor = False
+          Visible = False
         end
         object Label27: TLabel
-          Left = 8
+          Left = 10
           Height = 15
-          Top = 225
+          Top = 275
           Width = 79
           Caption = 'View distance'
           ParentColor = False
+          Visible = False
         end
         object ComboBox4: TComboBox
-          Left = 120
+          Left = 122
           Height = 24
           Top = 16
           Width = 97
@@ -1633,22 +1635,22 @@ object Form1: TForm1
           Text = '5 ?/seconde'
         end
         object TrackBar6: TTrackBar
-          Left = 116
+          Left = 118
           Height = 39
-          Top = 96
+          Top = 146
           Width = 113
           Frequency = 500
           Max = 2000
-          Min = 10
+          Min = 100
           OnChange = TrackBar6Change
           PageSize = 100
           Position = 800
           TabOrder = 1
         end
         object TrackBar7: TTrackBar
-          Left = 120
+          Left = 122
           Height = 39
-          Top = 136
+          Top = 186
           Width = 105
           Frequency = 15
           Max = 90
@@ -1658,9 +1660,9 @@ object Form1: TForm1
           TabOrder = 2
         end
         object ComboBox6: TComboBox
-          Left = 120
+          Left = 124
           Height = 24
-          Top = 184
+          Top = 234
           Width = 105
           ItemHeight = 0
           ItemIndex = 0
@@ -1672,11 +1674,12 @@ object Form1: TForm1
           OnChange = ComboBox6Change
           TabOrder = 3
           Text = 'None'
+          Visible = False
         end
         object TrackBar8: TTrackBar
-          Left = 120
+          Left = 122
           Height = 39
-          Top = 215
+          Top = 265
           Width = 105
           Frequency = 5
           Max = 30
@@ -1685,6 +1688,17 @@ object Form1: TForm1
           Position = 8
           TickStyle = tsNone
           TabOrder = 4
+          Visible = False
+        end
+        object SpeedButton7: TSpeedButton
+          Left = 68
+          Height = 22
+          Top = 58
+          Width = 49
+          Caption = '| |'
+          Color = clBtnFace
+          NumGlyphs = 0
+          OnClick = SpeedButton7Click
         end
       end
     end
@@ -1702,15 +1716,15 @@ object Form1: TForm1
       end
       object Label8: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 24
-        Width = 63
+        Width = 59
         Caption = 'Penombre'
         ParentColor = False
       end
       object Label12: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 136
         Width = 34
         Caption = 'Direct'
@@ -1718,7 +1732,7 @@ object Form1: TForm1
       end
       object Label11: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 80
         Width = 34
         Caption = 'Diffus'
@@ -1726,7 +1740,7 @@ object Form1: TForm1
       end
       object Label14: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 2
         Width = 57
         Caption = 'Eclairage '
@@ -1735,8 +1749,8 @@ object Form1: TForm1
         Transparent = False
       end
       object TrackBar2: TTrackBar
-        Left = 24
-        Height = 33
+        Left = 22
+        Height = 39
         Top = 40
         Width = 177
         Frequency = 20
@@ -1783,15 +1797,15 @@ object Form1: TForm1
         TabOrder = 3
         object Label13: TLabel
           Left = 13
-          Height = 14
+          Height = 15
           Top = 40
-          Width = 64
+          Width = 60
           Caption = 'Resolution'
           ParentColor = False
         end
         object Label15: TLabel
           Left = 13
-          Height = 14
+          Height = 15
           Top = 112
           Width = 33
           Caption = '0 FPS'
@@ -1799,7 +1813,7 @@ object Form1: TForm1
         end
         object Label16: TLabel
           Left = 13
-          Height = 14
+          Height = 15
           Top = 4
           Width = 74
           Caption = 'Performance'
@@ -1834,23 +1848,23 @@ object Form1: TForm1
         Top = 344
         Width = 193
         Caption = 'Options valid at next startup'
-        ClientHeight = 56
+        ClientHeight = 57
         ClientWidth = 191
         TabOrder = 4
         object CheckBox8: TCheckBox
           Left = 6
-          Height = 21
+          Height = 22
           Top = 10
-          Width = 176
+          Width = 177
           Caption = 'Force texture compression'
           OnClick = CheckBox8Click
           TabOrder = 0
         end
         object CheckBox3: TCheckBox
           Left = 6
-          Height = 21
+          Height = 22
           Top = 32
-          Width = 75
+          Width = 76
           Caption = 'Anti-Alias'
           OnClick = CheckBox3Click
           TabOrder = 1
@@ -2056,6 +2070,7 @@ object Form1: TForm1
     top = 192
   end
   object PopupMenu1: TPopupMenu
+    AutoPopup = False
     OnPopup = PopupMenu1Popup
     left = 96
     top = 64

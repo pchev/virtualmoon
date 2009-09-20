@@ -131,6 +131,8 @@ type
     FLibrLat: single;
     FEarthDistance: single;
     FOrientation: single;
+    FPoleorientation: single;
+    FFollowNorth: boolean;
     Fzoom : single;
     Flabelcolor: TColor;
     perfdeltay: double;
@@ -191,6 +193,7 @@ type
     procedure SetAntialiasing(value:boolean);
     procedure SetSatAltitude(value:single);
     procedure SetSatInclination(value:single);
+    function  GetSatInclination:single;
     procedure SetSatViewDistance(value:single);
     function  Screen2Moon(x,y:integer; var lon,lat: single): boolean;
     function  Moon2Screen(lon,lat: single; var x,y:integer): boolean;
@@ -206,6 +209,7 @@ type
     procedure OrientMoon;
     procedure ResetMoon;
     procedure ShowLibrationMark;
+    function GetCurrentName : string;
   public
     { Declarations publiques }
     procedure Assign(Source: TF_moon);
@@ -244,13 +248,16 @@ type
     property CanBump : Boolean read FBumpOk;
     property AsMultiTexture : boolean read FAsMultiTexture;
     property SatelliteAltitude : single read FSatAltitude write SetSatAltitude;
-    property SatInclination : single read FSatInclination write SetSatInclination;
+    property SatInclination : single read GetSatInclination write SetSatInclination;
     property SatelliteRotation : single read FRotation write SetRotation;
     property SatelliteModel : string read FSatModel write SetSatModel;
     property SatelliteModelScale : single read FSatModelScale write SetSatModelScale;
     property SatViewDistance : single read FSatViewDistance write SetSatViewDistance;
     property Phase : single read FPhase write SetPhase;
     property JD: double read Fjd write Fjd;
+    property CurrentName : string read GetCurrentName;
+    property CurrentL : single read MarkL;
+    property CurrentB : single read MarkB;
     property SunIncl : single read FSunIncl write SetSunIncl;
     property LibrLon : single read FLibrLon write SetLibrLon;
     property LibrLat : single read FLibrLat write SetLibrLat;
@@ -263,6 +270,8 @@ type
     property ZoomMax: single read MaxZoom;
     property Mirror : Boolean read FMirror write SetMirror;
     property Orientation:single read FOrientation write SetOrientation;
+    property Poleorientation: single read FPoleorientation write FPoleorientation;
+    property FollowNorth: boolean read FFollowNorth write FFollowNorth;
     property ShowPhase : Boolean read FShowPhase write SetShowPhase;
     property GridSpacing: integer read FGridSpacing write SetGridSpacing;
     property ShowGrid : Boolean read FShowGrid write SetShowGrid;
@@ -956,8 +965,13 @@ begin
 if lock_Zoom then exit;
 try
   lock_Zoom:=true;
-  if zoom<1 then zoom:=1;
-  if zoom>MaxZoom then zoom:=MaxZoom;
+  if RotationCadencer.Enabled then begin
+    if zoom<2 then zoom:=2;
+    if zoom>6 then zoom:=6;
+  end else begin
+    if zoom<1 then zoom:=1;
+    if zoom>MaxZoom then zoom:=MaxZoom;
+  end;
   newzone:=1;
   if RotationCadencer.Enabled then satzone:=1000/FSatAltitude
      else satzone:=1;
@@ -1139,6 +1153,8 @@ begin
  VisibleSideLock :=Source.VisibleSideLock;
  Mirror :=Source.Mirror;
  Orientation:=Source.Orientation;
+ Poleorientation   := Source.Poleorientation;
+ FollowNorth:=Source.FollowNorth;
  LabelFont :=Source.LabelFont;
  LabelColor :=Source.LabelColor;
  LibrationMark:=Source.LibrationMark;
@@ -1194,6 +1210,7 @@ procedure Tf_moon.GLSceneViewer1MouseDown(Sender: TObject; Button: TMouseButton;
 var lat,lon,z,s1,c1: single;
     OnMoon: boolean;
     xx:integer;
+    Pt: TPoint;
 begin
   DownShift:=Shift;
   if FMirror then xx:=GLSceneViewer1.Width-x
@@ -1228,6 +1245,13 @@ begin
     if (ssLeft in shift)
      then begin
         SkipIdent:=false;
+     end;
+    // Popup
+    if (ssRight in shift)
+     then begin
+        GLSceneViewer1.PopupMenu.Tag:=longint(self);
+        Pt:=GLSceneViewer1.ClientToScreen(point(x,y));
+        GLSceneViewer1.PopupMenu.PopUp(Pt.X+1,Pt.Y+1);
      end;
   end;
 end;
@@ -1309,6 +1333,7 @@ procedure Tf_moon.GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
 var lat,lon,z,s1,c1: single;
     OnMoon: boolean;
     xx:integer;
+    Pt: TPoint;
 begin
   // Distance
   if measuringdistance and distancestart then
@@ -1323,6 +1348,13 @@ begin
        OnMoon:=Screen2Moon(x,y,lon,lat);
        if Assigned(onMoonClick) then onMoonClick(Self,Button,DownShift,X,Y,OnMoon,lon,lat);
     end;
+    // Popup
+    if (ssRight in DownShift)
+     then begin
+        GLSceneViewer1.PopupMenu.Tag:=longint(self);
+        Pt:=GLSceneViewer1.ClientToScreen(point(x,y));
+        GLSceneViewer1.PopupMenu.PopUp(Pt.X+1,Pt.Y+1);
+     end;
     GLSceneViewer1.Cursor:=crRetic;
   end;
 end;
@@ -1394,6 +1426,11 @@ end;
 procedure Tf_moon.SetSatInclination(value:single);
 begin
   FSatInclination:=deg2rad*value;
+end;
+
+function Tf_moon.GetSatInclination:single;
+begin
+  result:=rad2deg*FSatInclination;
 end;
 
 procedure Tf_moon.SetSatViewDistance(value:single);
@@ -1855,6 +1892,11 @@ for i:=1 to nb do begin
 end;
 end;
 
+function Tf_moon.GetCurrentName : string;
+begin
+if marked then result:=marktext
+          else result:='';
+end;
 
 procedure Tf_moon.SetMark(lon,lat:single; txt:string);
 var x,y: integer;
