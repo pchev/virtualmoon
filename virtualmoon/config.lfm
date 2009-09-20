@@ -1,7 +1,7 @@
 object Form2: TForm2
-  Left = 481
+  Left = 972
   Height = 462
-  Top = 125
+  Top = 264
   Width = 361
   ActiveControl = PageControl1
   Caption = 'Configuration'
@@ -12,7 +12,7 @@ object Form2: TForm2
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object Button1: TButton
     Left = 138
     Height = 25
@@ -27,7 +27,6 @@ object Form2: TForm2
     Height = 417
     Top = 0
     Width = 345
-    OnChangeBounds = PageControl1ChangeBounds
     Options = [nboMultiLine]
     PageIndex = 0
     TabOrder = 0
@@ -220,8 +219,8 @@ object Form2: TForm2
         Top = 10
         Width = 305
         Caption = 'Database'
-        ClientHeight = 172
-        ClientWidth = 301
+        ClientHeight = 161
+        ClientWidth = 303
         TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
@@ -382,7 +381,7 @@ object Form2: TForm2
       object Label18: TLabel
         Left = 24
         Height = 15
-        Top = 355
+        Top = 359
         Width = 100
         Caption = 'Densite de labels'
         ParentColor = False
@@ -390,13 +389,13 @@ object Form2: TForm2
       object Label33: TLabel
         Left = 24
         Height = 15
-        Top = 184
+        Top = 193
         Width = 109
         Caption = 'Taille des marques'
         ParentColor = False
       end
       object LabelFont: TLabel
-        Left = 141
+        Left = 155
         Height = 15
         Top = 325
         Width = 55
@@ -473,9 +472,9 @@ object Form2: TForm2
         TabOrder = 7
       end
       object TrackBar4: TTrackBar
-        Left = 155
+        Left = 157
         Height = 44
-        Top = 176
+        Top = 178
         Width = 150
         LineSize = 5
         Max = 8
@@ -493,6 +492,38 @@ object Form2: TForm2
         Caption = 'Labels font'
         OnClick = Button5Click
         TabOrder = 9
+      end
+      object Label39: TLabel
+        Left = 146
+        Height = 15
+        Top = 193
+        Width = 5
+        Caption = '-'
+        ParentColor = False
+      end
+      object Label40: TLabel
+        Left = 146
+        Height = 15
+        Top = 359
+        Width = 5
+        Caption = '-'
+        ParentColor = False
+      end
+      object Label41: TLabel
+        Left = 307
+        Height = 15
+        Top = 193
+        Width = 10
+        Caption = '+'
+        ParentColor = False
+      end
+      object Label42: TLabel
+        Left = 305
+        Height = 15
+        Top = 359
+        Width = 10
+        Caption = '+'
+        ParentColor = False
       end
     end
     object TabSheet4: TPage
@@ -581,8 +612,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 47
-        ClientWidth = 300
+        ClientHeight = 58
+        ClientWidth = 298
         Columns = 2
         Items.Strings = (
           'Simple'
@@ -674,8 +705,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 55
-        ClientWidth = 247
+        ClientHeight = 53
+        ClientWidth = 245
         Items.Strings = (
           'Phase avec relief dynamique'
           'Phase sans relief'
@@ -742,8 +773,8 @@ object Form2: TForm2
         object TrackBar5: TTrackBar
           Left = 138
           Height = 39
-          Top = 244
-          Width = 161
+          Top = 242
+          Width = 160
           Frequency = 20
           Max = 100
           OnChange = TrackBar5Change
@@ -753,27 +784,27 @@ object Form2: TForm2
           TabOrder = 2
         end
         object GroupBox2: TGroupBox
-          Left = 19
+          Left = 21
           Height = 73
           Top = 284
           Width = 294
           Caption = 'Grid'
-          ClientHeight = 69
-          ClientWidth = 290
+          ClientHeight = 58
+          ClientWidth = 292
           TabOrder = 3
           object CheckBox10: TCheckBox
             Left = 7
             Height = 22
-            Top = 19
+            Top = 23
             Width = 83
             Caption = 'Show Grid'
             TabOrder = 0
           end
           object TrackBar3: TTrackBar
-            Left = 135
-            Height = 35
-            Top = 11
-            Width = 120
+            Left = 119
+            Height = 39
+            Top = 15
+            Width = 160
             Frequency = 5
             LineSize = 6
             Max = 30
@@ -781,8 +812,51 @@ object Form2: TForm2
             OnChange = TrackBar3Change
             PageSize = 5
             Position = 5
+            TickStyle = tsNone
             TabOrder = 1
           end
+          object Label45: TLabel
+            Left = 111
+            Height = 15
+            Top = 27
+            Width = 5
+            Caption = '-'
+            ParentColor = False
+          end
+          object Label46: TLabel
+            Left = 282
+            Height = 15
+            Top = 27
+            Width = 10
+            Caption = '+'
+            ParentColor = False
+          end
+          object LabelGrid: TLabel
+            Left = 119
+            Height = 15
+            Top = 2
+            Width = 152
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'LabelGrid'
+            ParentColor = False
+          end
+        end
+        object Label43: TLabel
+          Left = 130
+          Height = 15
+          Top = 254
+          Width = 5
+          Caption = '-'
+          ParentColor = False
+        end
+        object Label44: TLabel
+          Left = 300
+          Height = 15
+          Top = 254
+          Width = 10
+          Caption = '+'
+          ParentColor = False
         end
       end
     end
@@ -803,7 +877,7 @@ object Form2: TForm2
         Left = 8
         Height = 15
         Top = 72
-        Width = 130
+        Width = 131
         Caption = 'Repertoires d''images :'
         ParentColor = False
       end
@@ -827,7 +901,7 @@ object Form2: TForm2
         Left = 8
         Height = 15
         Top = 300
-        Width = 23
+        Width = 24
         Caption = 'Rukl'
         ParentColor = False
       end
@@ -865,9 +939,9 @@ object Form2: TForm2
       end
       object CheckBox12: TCheckBox
         Left = 8
-        Height = 21
+        Height = 22
         Top = 0
-        Width = 120
+        Width = 121
         Caption = 'Afficheur externe'
         OnClick = CheckBox12Click
         TabOrder = 0
@@ -893,9 +967,9 @@ object Form2: TForm2
       end
       object CheckBox15: TCheckBox
         Left = 8
-        Height = 21
+        Height = 22
         Top = 48
-        Width = 298
+        Width = 299
         Caption = 'Lien direct sur l''image pour l''atlas Lunar Orbiter'
         TabOrder = 5
       end
@@ -1073,7 +1147,7 @@ object Form2: TForm2
         ParentColor = False
       end
       object Label13: TLabel
-        Left = 248
+        Left = 181
         Height = 15
         Top = 64
         Width = 65
@@ -1083,7 +1157,7 @@ object Form2: TForm2
       object Label14: TLabel
         Left = 16
         Height = 15
-        Top = 100
+        Top = 103
         Width = 180
         Caption = 'Largeur du texte de description'
         ParentColor = False
@@ -1123,10 +1197,10 @@ object Form2: TForm2
         Transparent = False
       end
       object LongEdit1: TLongEdit
-        Left = 192
+        Left = 109
         Height = 24
         Hint = '0..50'
-        Top = 59
+        Top = 58
         Width = 49
         ParentShowHint = False
         ShowHint = True
@@ -1151,14 +1225,16 @@ object Form2: TForm2
         TabOrder = 5
       end
       object TrackBar1: TTrackBar
-        Left = 184
-        Height = 30
-        Top = 95
-        Width = 127
+        Left = 213
+        Height = 39
+        Top = 90
+        Width = 98
         Frequency = 125
         Max = 1200
         Min = 200
+        OnChange = TrackBar1Change
         Position = 700
+        TickStyle = tsNone
         TabOrder = 2
       end
       object Button2: TButton
@@ -1188,7 +1264,7 @@ object Form2: TForm2
       end
       object ComboBox4: TComboBox
         Left = 192
-        Height = 21
+        Height = 24
         Top = 280
         Width = 113
         ItemHeight = 0
@@ -1203,6 +1279,16 @@ object Form2: TForm2
         TabOrder = 7
         Text = 'Comme ? l''?cran'
         Visible = False
+      end
+      object LabelImp: TLabel
+        Left = 213
+        Height = 15
+        Top = 86
+        Width = 92
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'LabelImp'
+        ParentColor = False
       end
     end
   end

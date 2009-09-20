@@ -50,6 +50,16 @@ type
     Label36: TLabel;
     Label37: TLabel;
     Label38: TLabel;
+    Label39: TLabel;
+    Label40: TLabel;
+    Label41: TLabel;
+    Label42: TLabel;
+    Label43: TLabel;
+    Label44: TLabel;
+    Label45: TLabel;
+    Label46: TLabel;
+    LabelImp: TLabel;
+    LabelGrid: TLabel;
     numwin: TEdit;
     FontDialog1: TFontDialog;
     GroupBox2: TGroupBox;
@@ -176,7 +186,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
-    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
     procedure RadioGroupTextureClick(Sender: TObject);
     procedure Shape1MouseUp(Sender: TObject; Button: TMouseButton;
@@ -197,6 +206,7 @@ type
       var CanSelect: Boolean);
     procedure ComboBox5Change(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure TrackBar1Change(Sender: TObject);
     procedure TrackBar3Change(Sender: TObject);
     procedure TrackBar5Change(Sender: TObject);
   private
@@ -327,6 +337,11 @@ Texturefn.Free;
 ov.Free;
 end;
 
+procedure TForm2.TrackBar1Change(Sender: TObject);
+begin
+  LabelImp.Caption:=inttostr(trackbar1.Position);
+end;
+
 procedure TForm2.ComboBox3Change(Sender: TObject);
 begin
 newlang:=GetLangCode(combobox3.text);
@@ -342,10 +357,6 @@ combobox1.Enabled:=not checkbox3.checked;
 combobox2.Enabled:=not checkbox3.checked;
 end;
 
-procedure TForm2.PageControl1ChangeBounds(Sender: TObject);
-begin
-
-end;
 
 procedure TForm2.Shape1MouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
@@ -391,6 +402,8 @@ begin
   TrackBar2.Max:=-100;
   TextureChanged:=false;
   showtexture;
+  LabelGrid.Caption:=inttostr(TrackBar3.Position)+ldeg;
+  LabelImp.Caption:=inttostr(trackbar1.Position);
 end;
 
 procedure TForm2.Button3Click(Sender: TObject);
@@ -496,6 +509,7 @@ begin
   else if TrackBar3.Position>=15 then TrackBar3.Position:=15
   else if TrackBar3.Position>=10 then TrackBar3.Position:=10
   else if TrackBar3.Position>=5 then TrackBar3.Position:=5;
+LabelGrid.Caption:=inttostr(TrackBar3.Position)+ldeg;
 end;
 
 {procedure TForm2.ComboBox5Change(Sender: TObject);

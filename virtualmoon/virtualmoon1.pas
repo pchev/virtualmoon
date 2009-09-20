@@ -58,7 +58,21 @@ type
     HelpPopup: TPopupMenu;
     Label17: TLabel;
     Label18: TLabel;
+    Label22: TLabel;
     Label27: TLabel;
+    Label29: TLabel;
+    Label30: TLabel;
+    Label31: TLabel;
+    Label32: TLabel;
+    Label33: TLabel;
+    Label34: TLabel;
+    Label35: TLabel;
+    Label36: TLabel;
+    Label37: TLabel;
+    Label38: TLabel;
+    Label39: TLabel;
+    LabelIncl: TLabel;
+    LabelAltitude: TLabel;
     Label5: TLabel;
     FullScreen1: TMenuItem;
     PanelMoon: TPanel;
@@ -3219,6 +3233,8 @@ try
     Trackbar5.position := 1
   else
     Trackbar5.position := 1;
+  LabelAltitude.Caption:=inttostr(TrackBar6.Position) + blank + m[18];
+  LabelIncl.Caption:=inttostr(TrackBar7.Position)+ ldeg;
   LibrationButton.Down := librationeffect;
   PhaseButton.Down := phaseeffect;
   LoadOverlay(overlayname, overlaytr);
@@ -4129,12 +4145,14 @@ procedure TForm1.TrackBar6Change(Sender: TObject);
 begin
 if skiprot then exit;
   activemoon.SatelliteAltitude:=TrackBar6.Position;
+  LabelAltitude.Caption:=inttostr(TrackBar6.Position) + blank + m[18];
 end;
 
 procedure TForm1.TrackBar7Change(Sender: TObject);
 begin
 if skiprot then exit;
   activemoon.SatInclination:=TrackBar7.Position;
+  LabelIncl.Caption:=inttostr(TrackBar7.Position)+ ldeg;
 end;
 
 procedure TForm1.TrackBar8Change(Sender: TObject);
