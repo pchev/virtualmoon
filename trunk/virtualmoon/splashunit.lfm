@@ -5,10 +5,11 @@ object splash: Tsplash
   Width = 400
   HorzScrollBar.Page = 399
   HorzScrollBar.Range = 400
+  HorzScrollBar.Visible = False
   VertScrollBar.Page = 449
   VertScrollBar.Range = 350
+  VertScrollBar.Visible = False
   ActiveControl = Panel1
-  AutoScroll = False
   BorderStyle = bsNone
   Caption = 'About'
   ClientHeight = 450
@@ -22,7 +23,7 @@ object splash: Tsplash
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object Panel1: TPanel
     Left = 0
     Height = 350
