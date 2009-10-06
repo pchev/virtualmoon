@@ -40,7 +40,11 @@ PROCEDURE Eq2Hz(HH,DE : double ; VAR A,h : double);
 Procedure Ecl2Eq(l,b,e: double; var ar,de : double);
 Procedure Eq2Ecl(ar,de,e: double; var l,b: double);
 Procedure int4(y1,y2,y3:double; var n: integer; var x1,x2,xmax,ymax: double);
-
+function ecliptic(j:double):double;
+procedure nutation(j:double; var nutl,nuto:double);
+procedure aberration(j:double; var abe,abp:double);
+procedure apparent_equatorial(var ra,de:double; ecl,sunl,abp,abe,nutl,nuto: double; aberration:boolean=true);
+procedure mean_equatorial(var ra,de:double; ecl,sunl,abp,abe,nutl,nuto: double);
 
 implementation
 
@@ -241,6 +245,218 @@ if (d>0) then begin
    if (abs(x2)<=1) then inc(n);
    if (x1<-1) then x1:=x2;
 end;
+end;
+
+function ecliptic(j:double):double;
+var u : double;
+begin
+{meeus91 21.3}
+u:=(j-jd2000)/3652500;
+result:=eps2000 +(
+        -4680.93*u
+        -1.55*u*u
+        +1999.25*intpower(u,3)
+        -51.38*intpower(u,4)
+        -249.67*intpower(u,5)
+        -39.05*intpower(u,6)
+        +7.12*intpower(u,7)
+        +27.87*intpower(u,8)
+        +5.79*intpower(u,9)
+        +2.45*intpower(u,10)
+        )/3600;
+result:=deg2rad*result;
+end;
+
+procedure nutation(j:double; var nutl,nuto:double);
+var t,om,me,mas,mam,al : double;
+begin
+t:=(j-jd2000)/36525;
+// high precision. using meeus91 table 21.A
+//longitude of the asc.node of the Moon's mean orbit on the ecliptic
+om:=deg2rad*(125.04452-1934.136261*t+0.0020708*t*t+t*t*t/4.5e+5);
+//mean elongation of the Moon from Sun
+me:=deg2rad*(297.85036+445267.11148*t-0.0019142*t*t+t*t*t/189474);
+//mean anomaly of the Sun (Earth)
+mas:=deg2rad*(357.52772+35999.05034*t-1.603e-4*t*t-t*t*t/3e+5);
+//mean anomaly of the Moon
+mam:=deg2rad*(134.96298+477198.867398*t+0.0086972*t*t+t*t*t/56250);
+//Moon's argument of latitude
+al:=deg2rad*(93.27191+483202.017538*t- 0.0036825*t*t+t*t*t/327270);
+//periodic terms for the nutation in longitude.The unit is 0".0001.
+nutl:=secarc*((-171996-174.2*t)*sin(1*om)
+                +(-13187-1.6*t)*sin(-2*me+2*al+2*om)
+                +(-2274-0.2*t)*sin(2*al+2*om)
+                +(2062+0.2*t)*sin(2*om)
+                +(1426-3.4*t)*sin(1*mas)
+                +(712+0.1*t)*sin(1*mam)
+                +(-517+1.2*t)*sin(-2*me+1*mas+2*al+2*om)
+                +(-386-0.4*t)*sin(2*al+1*om)
+                -301*sin(1*mam+2*al+2*om)
+                +(217-0.5*t)*sin(-2*me-1*mas+2*al+2*om)
+                -158*sin(-2*me+1*mam)
+                +(129+0.1*t)*sin(-2*me+2*al+1*om)
+                +123*sin(-1*mam+2*al+2*om)
+                +63*sin(2*me)
+                +(63+0.1*t)*sin(1*mam+1*om)
+                -59*sin(2*me-1*mam+2*al+2*om)
+                +(-58-0.1*t)*sin(-1*mam+1*om)
+                -51*sin(1*mam+2*al+1*om)
+                +48*sin(-2*me+2*mam)
+                +46*sin(-2*mam+2*al+1*om)
+                -38*sin(2*me+2*al+2*om)
+                -31*sin(2*mam+2*al+2*om)
+                +29*sin(2*mam)
+                +29*sin(-2*me+1*mam+2*al+2*om)
+                +26*sin(2*al)
+                -22*sin(-2*me+2*al)
+                +21*sin(-1*mam+2*al+1*om)
+                +(17-0.1*t)*sin(2*mas)
+                +16*sin(2*me-1*mam+1*om)
+                -16*sin(-2*me+2*mas+2*al+2*om)
+                -15*sin(1*mas+1*om)
+                -13*sin(-2*me+1*mam+1*om)
+                -12*sin(-1*mas+1*om)
+                +11*sin(2*mam-2*al)
+                -10*sin(2*me-1*mam+2*al+1*om)
+                -8*sin(2*me+1*mam+2*al+2*om)
+                +7*sin(1*mas+2*al+2*om)
+                -7*sin(-2*me+1*mas+1*mam)
+                -7*sin(-1*mas+2*al+2*om)
+                -7*sin(2*me+2*al+1*om)
+                +6*sin(2*me+1*mam)
+                +6*sin(-2*me+2*mam+2*al+2*om)
+                +6*sin(-2*me+1*mam+2*al+1*om)
+                -6*sin(2*me-2*mam+1*om)
+                -6*sin(2*me+1*om)
+                +5*sin(-1*mas+1*mam)
+                -5*sin(-2*me-1*mas+2*al+1*om)
+                -5*sin(-2*me+1*om)
+                -5*sin(2*mam+2*al+1*om)
+                +4*sin(-2*me+2*mam+1*om)
+                +4*sin(-2*me+1*mas+2*al+1*om)
+                +4*sin(1*mam-2*al)
+                -4*sin(-1*me+1*mam)
+                -4*sin(-2*me+1*mas)
+                -4*sin(1*me)
+                +3*sin(1*mam+2*al)
+                -3*sin(-2*mam+2*al+2*om)
+                -3*sin(-1*me-1*mas+1*mam)
+                -3*sin(1*mas+1*mam)
+                -3*sin(-1*mas+1*mam+2*al+2*om)
+                -3*sin(2*me-1*mas-1*mam+2*al+2*om)
+                -3*sin(3*mam+2*al+2*om)
+                -3*sin(2*me-1*mas+2*al+2*om));
+nutl:=nutl*0.0001;
+// periodic terms for the nutation in obliquity
+nuto:=secarc*((92025+8.9*t)*cos(1*om)
+                +(5736-3.1*t)*cos(-2*me+2*al+2*om)
+                +(977-0.5*t)*cos(2*al+2*om)
+                +(-895+0.5*t)*cos(2*om)
+                +(54-0.1*t)*cos(1*mas)
+                -7*cos(1*mam)
+                +(224-0.6*t)*cos(-2*me+1*mas+2*al+2*om)
+                +200*cos(2*al+1*om)
+                +(129-0.1*t)*cos(1*mam+2*al+2*om)
+                +(-95+0.3*t)*cos(-2*me+-1*mas+2*al+2*om)
+                -70*cos(-2*me+2*al+1*om)
+                -53*cos(-1*mam+2*al+2*om)
+                -33*cos(1*mam+1*om)
+                +26*cos(2*me+-1*mam+2*al+2*om)
+                +32*cos(-1*mam+1*om)
+                +27*cos(1*mam+2*al+1*om)
+                -24*cos(-2*mam+2*al+1*om)
+                +16*cos(2*me+2*al+2*om)
+                +13*cos(2*mam+2*al+2*om)
+                -12*cos(-2*me+1*mam+2*al+2*om)
+                -10*cos(-1*mam+2*al+1*om)
+                 -8*cos(2*me-1*mam+1*om)
+                 +7*cos(-2*me+2*mas+2*al+2*om)
+                 +9*cos(1*mas+1*om)
+                 +7*cos(-2*me+1*mam+1*om)
+                 +6*cos(-1*mas+1*om)
+                 +5*cos(2*me-1*mam+2*al+1*om)
+                 +3*cos(2*me+1*mam+2*al+2*om)
+                 -3*cos(1*mas+2*al+2*om)
+                 +3*cos(-1*mas+2*al+2*om)
+                 +3*cos(2*me+2*al+1*om)
+                 -3*cos(-2*me+2*mam+2*al+2*om)
+                 -3*cos(-2*me+1*mam+2*al+1*om)
+                 +3*cos(2*me-2*mam+1*om)
+                 +3*cos(2*me+1*om)
+                 +3*cos(-2*me-1*mas+2*al+1*om)
+                 +3*cos(-2*me+1*om)
+                 +3*cos(2*mam+2*al+1*om));
+nuto:=nuto*0.0001;
+end;
+
+procedure aberration(j:double; var abe,abp:double);
+var t : double;
+begin
+t:=(j-jd2000)/36525;
+abe:=0.016708617-4.2037e-5*t-1.236e-7*t*t;
+abp:=deg2rad*(102.93735+1.71953*t+4.6e-4*t*t);
+end;
+
+procedure apparent_equatorial(var ra,de:double; ecl,sunl,abp,abe,nutl,nuto: double; aberration:boolean=true);
+var da,dd,l,b: double;
+    cra,sra,cde,sde,ce,se,cp,sp,cls,sls: extended;
+begin
+cra:=0;sra:=0;cde:=0;sde:=0;ce:=0;se:=0;cp:=0;sp:=0;cls:=0;sls:=0;l:=0;b:=0;
+sincos(ra,sra,cra);
+sincos(de,sde,cde);
+sincos(ecl,se,ce);
+sincos(sunl,sls,cls);
+sincos(abp,sp,cp);
+// nutation
+if abs(de)<(89.99*deg2rad) then begin    // meeus91 22.1
+   da:=nutl*(ce+se*sra*(sde/cde))-nuto*(cra*(sde/cde));
+   dd:=nutl*se*cra+nuto*sra;
+   ra:=ra+da;
+   de:=de+dd;
+end else begin
+   Eq2Ecl(ra,de,ecl,l,b);
+   l:=l+nutl;
+   b:=b+nuto;
+   Ecl2Eq(l,b,ecl,ra,de);
+end;
+if aberration then begin
+//aberration
+//meeus91 22.3
+da:=-abek*(cra*cls*ce+sra*sls)/cde + abe*abek*(cra*cp*ce+sra*sp)/cde;
+dd:=-abek*(cls*ce*((se/ce)*cde-sra*sde)+cra*sde*sls) + abe*abek*(cp*ce*((se/ce)*cde-sra*sde)+cra*sde*sp);
+ra:=ra+da;
+de:=de+dd;
+end;
+end;
+
+procedure mean_equatorial(var ra,de:double; ecl,sunl,abp,abe,nutl,nuto: double);
+var da,dd,l,b: double;
+    cra,sra,cde,sde,ce,se,cp,sp,cls,sls: extended;
+begin
+cra:=0;sra:=0;cde:=0;sde:=0;ce:=0;se:=0;cp:=0;sp:=0;cls:=0;sls:=0;l:=0;b:=0;
+sincos(ra,sra,cra);
+sincos(de,sde,cde);
+sincos(ecl,se,ce);
+sincos(sunl,sls,cls);
+sincos(abp,sp,cp);
+// nutation
+if abs(de)<(89.99*deg2rad) then begin    // meeus91 22.1
+   da:=nutl*(ce+se*sra*(sde/cde))-nuto*(cra*(sde/cde));
+   dd:=nutl*se*cra+nuto*sra;
+   ra:=ra-da;
+   de:=de-dd;
+end else begin
+   Eq2Ecl(ra,de,ecl,l,b);
+   l:=l-nutl;
+   b:=b-nuto;
+   Ecl2Eq(l,b,ecl,ra,de);
+end;
+//aberration
+//meeus91 22.3
+da:=-abek*(cra*cls*ce+sra*sls)/cde + abe*abek*(cra*cp*ce+sra*sp)/cde;
+dd:=-abek*(cls*ce*(tan(ecl)*cde-sra*sde)+cra*sde*sls) + abe*abek*(cp*ce*(tan(ecl)*cde-sra*sde)+cra*sde*sp);
+ra:=ra-da;
+de:=de-dd;
 end;
 
 end.

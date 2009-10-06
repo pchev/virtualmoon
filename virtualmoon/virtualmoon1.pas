@@ -430,6 +430,7 @@ type
     texturefiles: TStringList;
     savetop,saveleft,savewidth,saveheight:integer;
     SplitSize: single;
+    nutl,nuto,abe,abp,sunl,sunb,ecl:double;
     procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
     procedure InstanceRunning(Sender : TObject);
     procedure SetEyepieceMenu;
@@ -1422,7 +1423,7 @@ begin
   djd(CurrentJD - (DT_UT / 24) + 1e-8, y, m, d, hh);
   if hh>23.9999 then hh:=24.0;
   decodetime(hh / 24, h, n, s, ms);
-  timezone := gettimezone(encodedatetime(y, m, d, h, n, s, ms));
+  timezone := GetJDTimeZone(CurrentJD);
   djd(CurrentJD + (timezone / 24) - (DT_UT / 24) + 1e-8, y, m, d, hh);
   decodetime(hh / 24, h, n, s, ms);
   annee.Value  := y;
@@ -1728,7 +1729,8 @@ begin
   end;
   Photlun := bindir + DefaultPhotlun;     // Photlun normally at same location as vma
   Datlun  := bindir + DefaultDatlun;
-  helpdir  := slash(appdir) + slash('doc');
+  helpdir := slash(appdir) + slash('doc');
+  jpldir  := slash(appdir)+slash('data')+'jpleph';
   // Be sure zoneinfo exists in standard location or in vma directory
   ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');
   buf      := slash('') + slash('usr') + slash('share') + slash('zoneinfo');
@@ -2693,7 +2695,7 @@ end;
 
 procedure TForm1.RefreshMoonImage;
 var
-  moonrise, moonset, moontransit, azimuthrise, azimuthset: string;
+  moonrise, moonset, moontransit, azimuthrise, azimuthset, eph: string;
   jd0, st0, q, tz1, cphase, colong, hh, az, ah: double;
   v1, v2, v3, v4, v5, v6, v7, v8, v9: double;
   gpa, glibrb, gsunincl, glibrl: double;
@@ -2708,7 +2710,13 @@ const
   b = ' ';
 begin
   st0 := 0;
-  Fplanet.Moon(CurrentJD, ra, Dec, dist, dkm, diam, phase, illum);
+  ecl:=ecliptic(CurrentJD);
+  nutation(CurrentJD,nutl,nuto);
+  Fplanet.sunecl(CurrentJD,sunl,sunb);
+  PrecessionEcl(jd2000,CurrentJD,sunl,sunb);
+  aberration(CurrentJD,abe,abp);
+  Fplanet.SetDE(jpldir);
+  eph:=Fplanet.Moon(CurrentJD, ra, Dec, dist, dkm, diam, phase, illum);
   Fplanet.MoonOrientation(CurrentJD, ra, Dec, dist, gpa, glibrb, gsunincl, glibrl);
   if not geocentric then
   begin
@@ -2719,8 +2727,10 @@ begin
     dkm  := dkm * q;
     dist := dist * q;
   end;
+  apparent_equatorial(ra,Dec,ecl,sunl,abp,abe,nutl,nuto,false);
   rad := ra;
   ded := Dec;
+  mean_equatorial(ra,Dec,ecl,sunl,abp,abe,nutl,nuto);
   precession(jd2000, CurrentJD, rad, ded);
   Fplanet.MoonOrientation(CurrentJD, ra, Dec, dist, pa, librb, sunincl, librl);
   cphase := phase + glibrl;
@@ -2749,6 +2759,9 @@ begin
 
   Stringgrid1.colwidths[1] := 150;
   i := 0;
+  Stringgrid1.Cells[0, i] := 'Ephemeris:';
+  Stringgrid1.Cells[1, i] := eph;
+  Inc(i);
   if geocentric then
   begin
     Stringgrid1.Cells[0, i] := form2.Label16.Caption + ':';
@@ -2770,16 +2783,16 @@ begin
   Stringgrid1.Cells[1, i] := date2str(aa, mm, dd) + ' ' + timtostr(hh);
   Inc(i);
   Stringgrid1.Cells[0, i] := '(J2000) ' + m[29];
-  Stringgrid1.Cells[1, i] := artostr(rad2deg * ra / 15);
+  Stringgrid1.Cells[1, i] := arptostr(rad2deg * ra / 15,1);
   Inc(i);
   Stringgrid1.Cells[0, i] := '(J2000) ' + m[30];
-  Stringgrid1.Cells[1, i] := detostr(rad2deg * Dec);
+  Stringgrid1.Cells[1, i] := deptostr(rad2deg * Dec,1);
   Inc(i);
   Stringgrid1.Cells[0, i] := '(' + m[51] + ')' + b + m[29];
-  Stringgrid1.Cells[1, i] := artostr(rad2deg * rad / 15);
+  Stringgrid1.Cells[1, i] := arptostr(rad2deg * rad / 15,1);
   Inc(i);
   Stringgrid1.Cells[0, i] := '(' + m[51] + ')' + b + m[30];
-  Stringgrid1.Cells[1, i] := detostr(rad2deg * ded);
+  Stringgrid1.Cells[1, i] := deptostr(rad2deg * ded,1);
   Inc(i);
   Stringgrid1.Cells[0, i] := m[31];
   Stringgrid1.Cells[1, i] := IntToStr(round(dkm)) + m[18];
@@ -3604,7 +3617,7 @@ begin
   h     :=heure.Value;
   n     :=minute.Value;
   s     :=seconde.Value;
-  timezone := gettimezone(encodedatetime(y, m, d, h, n, s, 0));
+  timezone := GetJDTimeZone(jd(y, m, d, h+n/60+s/3600));
   dt_ut := dtminusut(y);
   CurYear := y;
   CurrentMonth := m;

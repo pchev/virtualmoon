@@ -27,6 +27,7 @@ interface
 
 uses
   elp82main,    // elp82 statically linked
+  uDE,          // JPL ephemeris
   u_constant, u_util, u_projection,
   Classes, Sysutils, Math;
 
@@ -40,13 +41,16 @@ type
     ast_daypos,com_daypos: string;
     smsg:Tstrings;
     SolAstrometric : boolean;
+    de_folder: PChar;
+    de_type:integer;
   protected
     { Protected declarations }
   public
     { Public declarations }
      constructor Create(AOwner:TComponent); override;
      destructor  Destroy; override;
-     Procedure Moon(t0 : double; var alpha,delta,dist,dkm,diam,phase,illum : double; highprec:boolean=true);
+     Procedure SunEcl(t0 : double ; var l,b : double);
+     function Moon(t0 : double; var alpha,delta,dist,dkm,diam,phase,illum : double; highprec:boolean=true):string;
      Procedure MoonIncl(Lar,Lde,Sar,Sde : double; var incl : double);
      Function MoonMag(phase:double):double;
      Procedure MoonOrientation(jde,ra,dec,d:double; var P,llat,lats,llong : double);
@@ -54,6 +58,8 @@ type
      Procedure MoonPhases(year:double; var nm,fq,fm,lq : double);
      procedure PlanetRiseSet(pla:integer; jd0:double; AzNorth:boolean; var thr,tht,ths,tazr,tazs: string; var jdr,jdt,jds,rar,der,rat,det,ras,des:double ; var i: integer);
      procedure PlanetAltitude(pla: integer; jd0,hh:double; var har,sina: double);
+     procedure SetDE(folder:string);
+     function load_de(t: double): boolean;
   end;
 
 implementation
@@ -70,6 +76,7 @@ constructor TPlanet.Create(AOwner:TComponent);
 begin
  inherited Create(AOwner);
  lockpla:=false;
+ de_folder:='';
 end;
 
 destructor TPlanet.Destroy;
@@ -145,7 +152,7 @@ j:=minintvalue([18,i+1]);
 result:=mma[i]+((mma[j]-mma[i])*k/10);
 end;
 
-Procedure TPlanet.Moon(t0 : double; var alpha,delta,dist,dkm,diam,phase,illum : double; highprec:boolean=true);
+function TPlanet.Moon(t0 : double; var alpha,delta,dist,dkm,diam,phase,illum : double; highprec:boolean=true):string;
 {
 	t0      :  julian date DT
 	alpha   :  Moon RA J2000
@@ -161,12 +168,27 @@ var
    q : double;
    t,sm,mm,md : double;
    w : array[1..3] of double;
-   ierr : integer;
+   planet_arr: Array_5D;
+   i : integer;
    prec,pp : double;
 begin
-if highprec and (t0>elp82t1) and (t0<elp82t2) then begin   // use ELP82
-   prec:=0;
-   ELP82B(t0,prec,w,ierr);
+result:='';
+t0:=t0-(1.27/3600/24); // mean lighttime
+if highprec then begin
+   if (de_folder>'')and load_de(t0) then begin
+     Calc_Planet_de(t0, 10, planet_arr,false,3,false);
+     for i:=0 to 2 do w[i+1]:=planet_arr[i];
+     result:='DE'+inttostr(de_type);
+   end
+   else if (t0>elp82t1) and (t0<elp82t2) then begin   // use ELP82
+     prec:=0;
+     ELP82B(t0,prec,w,i);
+     result:='ELP82';
+   end
+   else begin
+      result:=Moon(t0,alpha,delta,dist,dkm,diam,phase,illum,false);
+      exit;
+   end;
    dkm:=sqrt(w[1]*w[1]+w[2]*w[2]+w[3]*w[3]);
    alpha:=arctan2(w[2],w[1]);
    if (alpha<0) then alpha:=alpha+2*pi;
@@ -185,6 +207,7 @@ end else begin  // use plan404
    // plan404 give equinox of the date for the moon.
    precession(t0,jd2000,alpha,delta);
    dkm:=dist*km_au;
+   result:='plan404';
 end;
 diam:=2*358482800/dkm;
 t:=(t0-2415020)/36525;  { meeus 15.1 }
@@ -532,6 +555,38 @@ fm := MoonPhase(k+0.50);
 lq := MoonPhase(k+0.75);
 end;
 
+procedure TPlanet.SetDE(folder:string);
+begin
+   de_folder:=pchar(folder);
+end;
+
+function TPlanet.load_de(t: double): boolean;
+const
+  ndet=3;
+var
+  det:array [1..ndet] of integer = (421,405,406);
+  i,k: integer;
+begin
+result:=false;
+de_type:=0;
+for i:=1 to ndet do begin
+   if load_de_file(t,de_folder,det[i]) then begin
+     result:=true;
+     de_type:=det[i];
+     break;
+   end;
+end;
+end;
+
+Procedure TPlanet.SunEcl(t0 : double ; var l,b : double);
+var p :TPlanetData;
+begin
+p.ipla:=3;
+p.JD:=t0;
+Plan404(addr(p));
+l:=rmod(pi+p.l,pi2);
+b:=-p.b;
+end;
 
 end.
 

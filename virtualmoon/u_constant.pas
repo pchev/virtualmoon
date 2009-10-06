@@ -44,7 +44,7 @@ const crlf = chr(10)+chr(13);
       km_au = 149597870.691 ;
       clight = 299792.458 ;
       tlight = km_au/clight/3600/24;
-      Rmoon = 1737.103;  // moon radius Km
+      Rmoon = 1737.53;  // moon radius Km
       MeanEarthDistance=384401;
       footpermeter = 0.3048;
       kmperdegree=111.1111;
@@ -69,6 +69,7 @@ const crlf = chr(10)+chr(13);
       AbsoluteMaxSprite=5000;
       Label3dSize=1;
       maxfocbase=1900;
+      abek = secarc*20.49552;  // aberration constant
 
       // Paper size
       PaperNumber=9;
@@ -178,7 +179,7 @@ var gzopen : Tgzopen;
     zlib: longword;
 
 // pseudo-constant only here
-Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : string;
+Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir : string;
      Photlun,DatLun,CdC,PrtName, CdCcaption, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double;
      ObsTZ,ObsCountry: string;
