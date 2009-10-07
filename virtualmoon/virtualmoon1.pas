@@ -2711,11 +2711,11 @@ const
 begin
   st0 := 0;
   ecl:=ecliptic(CurrentJD);
-  nutation(CurrentJD,nutl,nuto);
+  Fplanet.SetDE(jpldir);
+  Fplanet.nutation(CurrentJD,nutl,nuto);
   Fplanet.sunecl(CurrentJD,sunl,sunb);
   PrecessionEcl(jd2000,CurrentJD,sunl,sunb);
   aberration(CurrentJD,abe,abp);
-  Fplanet.SetDE(jpldir);
   eph:=Fplanet.Moon(CurrentJD, ra, Dec, dist, dkm, diam, phase, illum);
   Fplanet.MoonOrientation(CurrentJD, ra, Dec, dist, gpa, glibrb, gsunincl, glibrl);
   if not geocentric then

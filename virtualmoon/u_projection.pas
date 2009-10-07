@@ -41,7 +41,7 @@ Procedure Ecl2Eq(l,b,e: double; var ar,de : double);
 Procedure Eq2Ecl(ar,de,e: double; var l,b: double);
 Procedure int4(y1,y2,y3:double; var n: integer; var x1,x2,xmax,ymax: double);
 function ecliptic(j:double):double;
-procedure nutation(j:double; var nutl,nuto:double);
+procedure nutationMe(j:double; var nutl,nuto:double);
 procedure aberration(j:double; var abe,abp:double);
 procedure apparent_equatorial(var ra,de:double; ecl,sunl,abp,abe,nutl,nuto: double; aberration:boolean=true);
 procedure mean_equatorial(var ra,de:double; ecl,sunl,abp,abe,nutl,nuto: double);
@@ -267,7 +267,7 @@ result:=eps2000 +(
 result:=deg2rad*result;
 end;
 
-procedure nutation(j:double; var nutl,nuto:double);
+procedure nutationMe(j:double; var nutl,nuto:double);
 var t,om,me,mas,mam,al : double;
 begin
 t:=(j-jd2000)/36525;

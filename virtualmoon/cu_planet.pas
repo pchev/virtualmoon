@@ -60,6 +60,7 @@ type
      procedure PlanetAltitude(pla: integer; jd0,hh:double; var har,sina: double);
      procedure SetDE(folder:string);
      function load_de(t: double): boolean;
+     procedure nutation(j:double; var nutl,nuto:double);
   end;
 
 implementation
@@ -125,8 +126,6 @@ w:=arctan2(x,y);
 P:=rad2deg*(arcsin(sqrt(x*x+y*y)*cos(ra-w)/cos(llat)));
 llat:=rad2deg*(llat);
 end;
-
-
 
 Function TPlanet.MoonMag(phase:double):double;
 // The following table of lunar magnitudes is derived from relative
@@ -576,6 +575,22 @@ for i:=1 to ndet do begin
      break;
    end;
 end;
+end;
+
+procedure TPlanet.nutation(j:double; var nutl,nuto:double);
+var planet_arr: Array_5D;
+    ok:boolean;
+begin
+ok:=false;
+if (de_folder>'')and load_de(j) then begin
+  ok:=Calc_Planet_de(j, 14, planet_arr,false,3,false);
+  if ok then begin
+    nutl:=planet_arr[0];
+    nuto:=planet_arr[1];
+  end;
+end;
+if not ok then
+  nutationMe(j,nutl,nuto);
 end;
 
 Procedure TPlanet.SunEcl(t0 : double ; var l,b : double);
