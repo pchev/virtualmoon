@@ -32,6 +32,7 @@ uses
 {$IF DEFINED(LCLgtk) or DEFINED(LCLgtk2)}
   GtkProc,
 {$endif}
+  u_translation, u_translation_database,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   mlb2, PrintersDlgs, Printers, Controls, DateUtils,
@@ -169,7 +170,6 @@ type
     PopupMenu2: TPopupMenu;
     Copy1:   TMenuItem;
     SelectAll1: TMenuItem;
-    LgendeGologique1: TMenuItem;
     StatusBar1: TStatusBar;
     N1:      TMenuItem;
     N2:      TMenuItem;
@@ -298,6 +298,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -358,7 +359,6 @@ type
     procedure Imprimer1Click(Sender: TObject);
     procedure Copy1Click(Sender: TObject);
     procedure SelectAll1Click(Sender: TObject);
-    procedure LgendeGologique1Click(Sender: TObject);
     procedure ToolButton7Click(Sender: TObject);
     procedure Glossaire1Click(Sender: TObject);
     procedure x81Click(Sender: TObject);
@@ -494,8 +494,8 @@ type
     externalimagepath, helpprefix, ruklprefix, ruklsuffix,
     scopeinterface, markname, currentname, currentid: string;
     appname, pofile: string;
-    multi_instance, CloseVMAbrowser, ClosePhotlun, CloseCdC: boolean;
-    m: array[1..nummessage] of string;
+    CloseVMAbrowser, ClosePhotlun, CloseCdC: boolean;
+    //m: array[1..nummessage] of string;
     num_bl: integer;
     bldb: array[1..20] of string;
     CameraOrientation, PoleOrientation, startl, startb, startxx, startyy: double;
@@ -542,11 +542,6 @@ var
   Form1:   TForm1;
   dblox, dbnotes: TMlb2;
   Fplanet: TPlanet;
-
-type
-  TDBInfo = class(TObject)
-    dbnum: integer;
-  end;
 
 implementation
 
@@ -595,160 +590,139 @@ const
   blank  = '        ';
   b      = ' ';
 begin
-  language := 'UK';
+  language := '';
   inifile := Tmeminifile.Create(ConfigFile);
   with inifile do
   begin
     section := 'default';
-    buf     := ReadString(section, 'Language', language);
+    language     := ReadString(section, 'lang_po_file', language);
   end;
   inifile.Free;
   chdir(appdir);
-  if fileexists(Slash(AppDir) + slash('language') + 'lang_u' + buf + '.ini') then
-    language := buf;
-  inifile    := Tmeminifile.Create(Slash(AppDir) + slash('language') + 'lang_u' + language + '.ini');
-  section    := 'default';
-  with inifile do
-  begin
-    ldeg     := ReadString(section, 'degree', '°');
-    lmin     := ReadString(section, 'minute', '''');
-    lsec     := ReadString(section, 'second', '"');
-    transmsg := ReadString(section, 'translator', '');
-    Caption  := ReadString(section, 'title', 'Virtual Moon Atlas');
-  end;
-  inifile.Free;
+  language:=u_translation.translate(language,'en');
+  u_translation_database.translate(language,'en');
+  ldeg     := rsdegree;
+  lmin     := rsminute;
+  lsec     := rssecond;
+  transmsg := rstranslator;
+  Caption  := rstitle;
 end;
 
 procedure TForm1.SetLang;
 var
   section, buf: string;
-  inifile: Tmeminifile;
   i: integer;
 const
   deftxt = '?';
   blank  = '        ';
   b      = ' ';
-
-  function ReadStr(s, k, def: string): string;  // utf-8 translation
-  begin
-    Result := inifile.ReadString(s, k, def);
-  end;
-
 begin
   wordformat := 0;
-  inifile    := Tmeminifile.Create(Slash(AppDir) + slash('language') + 'lang_u' + language + '.ini');
-  section    := 'default';
-  with inifile do
-  begin
-    wordformat := ReadInteger(section, 'format', wordformat);
-    helpprefix := ReadStr(section, 'help_prefix', 'UK');
-    pofile     := ReadStr(section, 'lang_po_file', '');
-    ToolButton1.Caption := ReadStr(section, 't_1', deftxt);
-    quitter1.Caption := (ReadStr(section, 't_2', deftxt));
-    ToolButton2.Caption := ReadStr(section, 't_3', deftxt);
-    label10.Caption := (ReadStr(section, 't_4', deftxt));
+    wordformat := strtointdef(rsformat, wordformat);
+    helpprefix := rshelp_prefix;
+    ToolButton1.Caption := rst_1;
+    quitter1.Caption := rst_2;
+    ToolButton2.Caption := rst_3;
+    label10.Caption := rst_4;
     zoom1.Caption := label10.Caption;
-    toolbutton5.hint := ReadStr(section, 't_5', deftxt);
+    toolbutton5.hint := rst_5;
     centre1.Caption := toolbutton5.hint;
-    Position.Caption := (ReadStr(section, 't_6', deftxt));
+    Position.Caption := rst_6;
     Position1.Caption := Position.Caption;
-    Ephemerides.Caption := (ReadStr(section, 't_7', deftxt));
-    Button1.Caption := (ReadStr(section, 't_10', deftxt));
-    Button2.Caption := (ReadStr(section, 't_11', deftxt));
-    Label9.Caption := (ReadStr(section, 't_12', deftxt));
-    Label6.Caption := (ReadStr(section, 't_13', deftxt));
-    Groupbox1.Caption := (ReadStr(section, 't_14', deftxt));
-    toolbutton8.Caption := ReadStr(section, 't_15', deftxt);
+    Ephemerides.Caption := rst_7;
+    Button1.Caption := rst_10;
+    Button2.Caption := rst_11;
+    Label9.Caption := rsm_51;
+    Label6.Caption := rsm_50;
+    Groupbox1.Caption := rst_14;
+    toolbutton8.Caption := rst_15;
     aide2.Caption := toolbutton8.Caption;
-    Apropos1.Caption := (ReadStr(section, 't_16', deftxt));
-    Button5.Caption := (ReadStr(section, 't_17', deftxt));
-    Button4.Caption := (ReadStr(section, 't_113', Button4.Caption));
-    ToolButton7.hint := ReadStr(section, 't_25', deftxt);
+    Apropos1.Caption := rst_16;
+    Button5.Caption := rst_17;
+    Button4.Caption := rst_113;
+    ToolButton7.hint := rst_25;
     Image2.Caption := ToolButton7.hint;
-    Label14.Caption := (ReadStr(section, 't_32', deftxt));
-    Label8.Caption := (ReadStr(section, 't_33', deftxt));
-    Label11.Caption := (ReadStr(section, 't_34', deftxt));
-    Label12.Caption := (ReadStr(section, 't_35', deftxt));
-    Label16.Caption := (ReadStr(section, 't_36', deftxt));
-    Label13.Caption := (ReadStr(section, 't_37', deftxt));
+    Label14.Caption := rst_32;
+    Label8.Caption := rst_33;
+    Label11.Caption := rst_34;
+    Label12.Caption := rst_35;
+    Label16.Caption := rst_36;
+    Label13.Caption := rst_37;
     Combobox2.Items.Clear;
-    Combobox2.Items.Add(ReadStr(section, 't_42', deftxt));
-    Combobox2.Items.Add(ReadStr(section, 't_43', deftxt));
-    Combobox2.Items.Add(ReadStr(section, 't_44', deftxt));
-    Combobox2.Items.Add(ReadStr(section, 't_45', deftxt));
+    Combobox2.Items.Add(rst_42);
+    Combobox2.Items.Add(rst_43);
+    Combobox2.Items.Add(rst_44);
+    Combobox2.Items.Add(rst_45);
     Combobox2.ItemIndex := 0;
-    Terminateur.Caption := ReadStr(section, 't_51', deftxt);
-    RadioGroup1.Caption := ReadStr(section, 't_46', deftxt);
-    RadioGroup1.Items[0] := ReadStr(section, 't_47', deftxt);
-    RadioGroup1.Items[1] := ReadStr(section, 't_48', deftxt);
-    RadioGroup1.Items[2] := ReadStr(section, 't_49', deftxt);
-    RadioGroup1.Items[3] := ReadStr(section, 't_50', deftxt);
-    Reglage.Caption  := ReadStr(section, 't_55', deftxt);
+    Terminateur.Caption := rst_51;
+    RadioGroup1.Caption := rst_46;
+    RadioGroup1.Items[0] := rst_47;
+    RadioGroup1.Items[1] := rst_48;
+    RadioGroup1.Items[2] := rst_49;
+    RadioGroup1.Items[3] := rst_19;
+    Reglage.Caption  := rst_55;
     RadioGroup1.ItemIndex := 0;
     Label19.Caption  := RadioGroup1.Items[1];
     Label20.Caption  := RadioGroup1.Items[2];
-    CartesduCiel1.Caption := (ReadStr(section, 't_56', deftxt));
-    Outils.Caption   := (ReadStr(section, 't_63', deftxt));
-    GroupBox5.Caption  := b + (ReadStr(section, 't_64', deftxt)) + b;
-    Button12.Caption := (ReadStr(section, 't_65', deftxt));
-    Button13.Caption := (ReadStr(section, 't_66', deftxt));
-    RadioGroup2.Caption := (ReadStr(section, 't_67', deftxt));
-    CheckBox1.Caption := (ReadStr(section, 't_68', deftxt));
-    distance1.Caption := ReadStr(section, 't_69', deftxt);
+    CartesduCiel1.Caption := rst_56;
+    Outils.Caption   := rst_63;
+    GroupBox5.Caption  := b + rst_64 + b;
+    Button12.Caption := rst_65;
+    Button13.Caption := rst_66;
+    RadioGroup2.Caption := rst_67;
+    CheckBox1.Caption := rst_68;
+    distance1.Caption := rst_69;
     label23.Caption  := b + distance1.Caption + b;
-    label24.Caption  := ReadStr(section, 't_70', deftxt);
-    label25.Caption  := ReadStr(section, 't_71', deftxt);
-    RadioGroup2.Items[0] := ReadStr(section, 't_72', deftxt);
-    RadioGroup2.Items[1] := ReadStr(section, 't_73', deftxt);
-    CheckBox2.Caption := ReadStr(section, 't_74', deftxt);
-    Enregistrersous1.Caption := ReadStr(section, 't_78', deftxt);
-    Imprimer1.Caption := ReadStr(section, 't_79', deftxt);
-    ToolButton10.hint := ReadStr(section, 't_81', deftxt);
+    label24.Caption  := rst_70;
+    label25.Caption  := rst_71;
+    RadioGroup2.Items[0] := rst_72;
+    RadioGroup2.Items[1] := rst_73;
+    CheckBox2.Caption := rst_74;
+    Enregistrersous1.Caption := rst_78;
+    Imprimer1.Caption := rst_79;
+    ToolButton10.hint := rst_81;
     Voisinage1.Caption := ToolButton10.hint;
-    Selectiondimprimante1.Caption := ReadStr(section, 't_82', deftxt);
-    LgendeGologique1.Caption := ReadStr(section, 't_83', deftxt);
-    selectall1.Caption := ReadStr(section, 't_84', deftxt);
-    copy1.Caption    := ReadStr(section, 't_85', deftxt);
-    glossaire1.Caption := ReadStr(section, 't_98', deftxt);
-    button15.Caption := ReadStr(section, 't_114', button15.Caption);
-    Notes.Caption    := ReadStr(section, 't_115', notes.Caption);
+    Selectiondimprimante1.Caption := rst_82;
+    selectall1.Caption := rst_84;
+    copy1.Caption    := rst_85;
+    glossaire1.Caption := rst_98;
+    button15.Caption := rst_114;
+    Notes.Caption    := rst_115;
     Notes1.Caption   := Notes.Caption;
-    label3.Caption   := ReadStr(section, 't_116', label3.Caption);
-    Eyepiece1.Caption := ReadStr(section, 't_109', Eyepiece1.Caption);
-    e01.Caption      := ReadStr(section, 't_117', e01.Caption);
-    groupbox2.Caption := ReadStr(section, 't_125', groupbox2.Caption);
-//    CheckBox3.Caption := ReadStr(section, 't_126', CheckBox3.Caption);
-//    CheckBox4.Caption := ReadStr(section, 't_127', CheckBox4.Caption);
-    Database1.Caption := ReadStr(section, 't_129', Database1.Caption);
-    Button14.Caption := ReadStr(section, 't_145', Button14.Caption);
-    label1.Caption   := ReadStr(section, 't_153', label1.Caption);
-    label2.Caption   := ReadStr(section, 't_154', label2.Caption);
-    label21.Caption  := ReadStr(section, 't_155', label21.Caption);
-    Encyclopedia1.Caption := ReadStr(section, 't_165', deftxt);
-    Snapshot1.Caption := ReadStr(section, 't_167', Snapshot1.Caption);
-    LibrationButton.hint := (ReadStr(section, 't_175', LibrationButton.Caption));
-    PhaseButton.hint := (ReadStr(section, 't_176', PhaseButton.Caption));
-    ToolButton4.hint := (ReadStr(section, 't_177', ToolButton4.Caption));
-    ToolButton6.hint := (ReadStr(section, 't_178', ToolButton6.Caption));
-    RemoveMark1.Caption := (ReadStr(section, 't_180', RemoveMark1.Caption));
+    label3.Caption   := rst_116;
+    Eyepiece1.Caption := rst_109;
+    e01.Caption      := rst_117;
+    groupbox2.Caption := rst_125;
+    Database1.Caption := rst_129;
+    Button14.Caption := rst_145;
+    label1.Caption   := rst_153;
+    label2.Caption   := rst_154;
+    label21.Caption  := rst_155;
+    Encyclopedia1.Caption := rst_165;
+    Snapshot1.Caption := rst_167;
+    LibrationButton.hint := rst_175;
+    PhaseButton.hint := rst_176;
+    ToolButton4.hint := rst_177;
+    ToolButton6.hint := rst_178;
+    RemoveMark1.Caption := rst_180;
 
     ButtonDatabase.hint := Database1.Caption;
-    CheckBox8.Caption := ReadStr(section, 't_182', CheckBox8.Caption);
-    Toolbutton12.hint := ReadStr(section, 't_183', deftxt);
-    CheckBox6.Caption := (ReadStr(section, 't_156', deftxt));
-    CheckBox7.Caption := (ReadStr(section, 't_157', deftxt));
-    label28.Caption := (ReadStr(section, 't_158', deftxt));
-    label26.Caption := (ReadStr(section, 't_159', deftxt));
-    Groupbox4.Caption := (ReadStr(section, 't_160', deftxt));
-    Button16.Caption := (ReadStr(section, 't_161', deftxt));
-    Button17.Caption := (ReadStr(section, 't_162', deftxt));
-    Button18.Caption := (ReadStr(section, 't_163', deftxt));
-    Toolbutton3.hint := ReadStr(section, 't_134', Toolbutton3.Caption);
-    Rotation1.Caption := ReadStr(section, 't_135', Rotation1.Caption);
+    CheckBox8.Caption := rst_182;
+    Toolbutton12.hint := rst_183;
+    CheckBox6.Caption := rst_156;
+    CheckBox7.Caption := rst_157;
+    label28.Caption := rst_158;
+    label26.Caption := rst_159;
+    Groupbox4.Caption := rst_160;
+    Button16.Caption := rst_161;
+    Button17.Caption := rst_162;
+    Button18.Caption := rst_163;
+    Toolbutton3.hint := rst_134;
+    Rotation1.Caption := rst_135;
     GroupBox3.Caption := Rotation1.Caption;
-    Stop1.Caption := ReadStr(section, 't_136', Stop1.Caption);
-    EastWest1.Caption := ReadStr(section, 't_137', EastWest1.Caption);
-    buf := ReadStr(section, 't_138', 'd/second');
+    Stop1.Caption := rst_136;
+    EastWest1.Caption := rst_137;
+    buf := rst_138;
     N10seconde1.Caption := '10' + buf;
     N5seconde1.Caption := '5' + buf;
     N1seconde1.Caption := '1' + buf;
@@ -761,108 +735,26 @@ begin
     ComboBox4.items.add(N05seconde1.Caption);
     ComboBox4.items.add(N02seconde1.Caption);
     Combobox4.ItemIndex := 2;
-    Label4.Caption      := ReadStr(section, 't_139', Label4.Caption);
-    SpeedButton5.Caption := ReadStr(section, 't_140', SpeedButton5.Caption);
-    SpeedButton6.Caption := ReadStr(section, 't_141', SpeedButton6.Caption);
-    SpeedButton4.Caption := ReadStr(section, 't_142', SpeedButton4.Caption);
-    NewWindowButton.hint := ReadStr(section, 't_166', NewWindowButton.Caption);
+    Label4.Caption      := rst_139;
+    SpeedButton5.Caption := rst_140;
+    SpeedButton6.Caption := rst_5;
+    SpeedButton4.Caption := rst_142;
+    NewWindowButton.hint := rst_166;
+    imac1 := rst_30;
+    imac2 := rst_8;
+    imac3 := rst_9;
+    num_bl:=nrsb;
+    bldb[1] := rsb_1;
+    bldb[2] := rsb_2;
+    bldb[3] := rsb_3;
+    bldb[4] := rsb_4;
+    bldb[5] := rsb_5;
+    bldb[6] := rsb_6;
+    bldb[7] := rsb_7;
+    bldb[8] := rsb_8;
+    bldb[9] := rsb_9;
     // Config
-    with Form2 do
-    begin
-      Caption := form1.ToolButton2.Caption;
-      if multi_instance then
-        Caption      := 'Temporary change only!';
-      label1.Caption := (ReadStr(section, 't_19', deftxt));
-      label2.Caption := (ReadStr(section, 't_20', deftxt));
-      CheckBox1.Caption := (ReadStr(section, 't_22', deftxt));
-      CheckBox2.Caption := (ReadStr(section, 't_23', deftxt));
-      label4.Caption := (ReadStr(section, 't_24', deftxt));
-      Button1.Caption := ReadStr(section, 't_18', deftxt);
-      CheckBox3.Caption := (ReadStr(section, 't_26', deftxt));
-      Label5.Caption := (ReadStr(section, 't_28', deftxt));
-      Label17.Caption := (ReadStr(section, 't_29', deftxt));
-      Label7.Caption := (ReadStr(section, 't_52', deftxt));
-      CheckBox5.Caption := (ReadStr(section, 't_53', deftxt));
-      CheckBox6.Caption := (ReadStr(section, 't_54', deftxt));
-      TabSheet1.Caption := (ReadStr(section, 't_57', deftxt));
-      TabSheet2.Caption := (ReadStr(section, 't_58', deftxt));
-      label8.Caption := (ReadStr(section, 't_59', deftxt));
-      label9.Caption := (ReadStr(section, 't_60', deftxt));
-      stringgrid1.Cells[0, 0] := (ReadStr(section, 't_61', deftxt));
-      stringgrid1.Cells[1, 0] := (ReadStr(section, 't_62', deftxt));
-      Label11.Caption := (ReadStr(section, 't_75', deftxt));
-      Label10.Caption := (ReadStr(section, 't_76', deftxt));
-      Combobox4.Items[0] := (ReadStr(section, 't_77', deftxt));
-      Combobox4.Text := Combobox4.Items[0];
-      CheckBox12.Caption := ReadStr(section, 't_89', deftxt);
-      CheckBox7.Caption := ReadStr(section, 't_80', deftxt);
-      Impression.Caption := ReadStr(section, 't_90', deftxt);
-      Label15.Caption := ReadStr(section, 't_91', deftxt);
-      Button2.Caption := form1.Reglage.Caption;
-      Label12.Caption := ReadStr(section, 't_92', deftxt);
-      Label13.Caption := ReadStr(section, 't_93', deftxt);
-      Checkbox8.Caption := ReadStr(section, 't_94', deftxt);
-      Checkbox9.Caption := ReadStr(section, 't_95', deftxt);
-      Checkbox13.Caption := ReadStr(section, 't_96', deftxt);
-      Label14.Caption := ReadStr(section, 't_97', deftxt);
-      Button4.Caption := ReadStr(section, 't_99', deftxt);
-      Label16.Caption := ReadStr(section, 't_100', deftxt);
-      Tabsheet3.Caption := ReadStr(section, 't_101', deftxt);
-      Checkbox14.Caption := ReadStr(section, 't_102', deftxt);
-      Label6.Caption := ReadStr(section, 't_103', deftxt);
-      Label18.Caption := ReadStr(section, 't_104', deftxt);
-      Label19.Caption := ReadStr(section, 't_105', deftxt);
-      TabSheet5.Caption := ReadStr(section, 't_109', TabSheet5.Caption);
-      label24.Caption := ReadStr(section, 't_110', label24.Caption);
-      label25.Caption := ReadStr(section, 't_111', label25.Caption);
-      label26.Caption := ReadStr(section, 't_112', label26.Caption);
-      button6.Caption := ReadStr(section, 't_113', button6.Caption);
-      stringgrid2.Cells[0, 0] := ReadStr(section, 't_118', 'Eyepiece Name');
-      stringgrid2.Cells[1, 0] := ReadStr(section, 't_119', 'Field in minutes');
-      stringgrid2.Cells[2, 0] := '<->';
-      stringgrid2.Cells[3, 0] := 'N/S';
-      Checkbox17.Caption := ReadStr(section, 't_120', Checkbox17.Caption);
-      Checkbox18.Caption := ReadStr(section, 't_121', Checkbox18.Caption);
-      Checkbox19.Caption := ReadStr(section, 't_122', Checkbox19.Caption);
-      Checkbox20.Caption := ReadStr(section, 't_123', Checkbox20.Caption);
-      Checkbox21.Caption := ReadStr(section, 't_131', Checkbox21.Caption);
-      Checkbox22.Caption := ReadStr(section, 't_168', Checkbox22.Caption);
-      Checkbox23.Caption := ReadStr(section, 't_164', Checkbox23.Caption);
-      Checkbox24.Caption := ReadStr(section, 't_187', Checkbox24.Caption);
-      label28.Caption := ReadStr(section, 't_124', label28.Caption);
-      GroupBox1.Caption := ReadStr(section, 't_129', GroupBox1.Caption);
-      TabSheet7.Caption := GroupBox1.Caption;
-      combobox1.items[0] := ReadStr(section, 't_147', combobox1.items[0]);
-      combobox1.items[1] := ReadStr(section, 't_148', combobox1.items[1]);
-      combobox1.ItemIndex := 0;
-      combobox2.items[0] := ReadStr(section, 't_149', combobox2.items[0]);
-      combobox2.items[1] := ReadStr(section, 't_150', combobox2.items[1]);
-      combobox2.ItemIndex := 0;
-      TabSheet4.Caption := ReadStr(section, 't_152', TabSheet4.Caption);
-      Label19.Caption := ReadStr(section, 't_144', deftxt);
-      TabSheet6.Caption := ReadStr(section, 't_169', TabSheet6.Caption);
-      CheckBox11.Caption := ReadStr(section, 't_170', CheckBox11.Caption);
-      label30.Caption := ReadStr(section, 't_171', label30.Caption);
-      label32.Caption := ReadStr(section, 't_172', label32.Caption);
-      Label23.Caption := ReadStr(section, 't_173', label23.Caption);
-      CheckBox16.Caption := ReadStr(section, 't_174', CheckBox16.Caption);
-      label31.Caption := ReadStr(section, 't_179', label31.Caption);
-      label33.Caption := ReadStr(section, 't_181', label33.Caption);
-    end;
-    imac1 := (ReadStr(section, 't_30', deftxt));
-    imac2 := (ReadStr(section, 't_8', deftxt));
-    imac3 := (ReadStr(section, 't_9', deftxt));
-    for i := 1 to nummessage do
-    begin
-      m[i] := ReadStr(section, 'm_' + trim(IntToStr(i)), deftxt);
-    end;
-    num_bl:=ReadInteger(section, 'b_0', 0);
-    for i := 1 to num_bl do
-    begin
-      bldb[i] := ReadStr(section, 'b_' + trim(IntToStr(i)), deftxt);
-    end;
-  end;
-  inifile.Free;
+    Form2.Setlang;
   if gloss <> nil then
     gloss.InitGlossary;
 end;
@@ -1194,7 +1086,7 @@ begin
     begin
       if not (ValueExists(section, 'Install_Dir')) then
         WriteString(section, 'Install_Dir', appdir);
-      WriteString(section, 'Language', Language);
+      WriteString(section, 'lang_po_file', Language);
       WriteBool(section, 'LibrationEffect', librationeffect);
       WriteBool(section, 'compresstexture', compresstexture);
       WriteBool(section, 'antialias', antialias);
@@ -1800,7 +1692,7 @@ begin
   finally
     listbox1.Items.EndUpdate;
     if listbox1.Items.Count = 0 then
-      listbox1.Items.Add(m[27]);
+      listbox1.Items.Add(rsm_27);
   end;
 end;
 
@@ -1909,42 +1801,42 @@ begin
   i := row.ByField['DBN'].AsInteger;
   if i > 9 then
   begin
-    buf := m[75] + b + IntToStr(i) + b;
+    buf := rsm_75 + b + IntToStr(i) + b;
     for j := 0 to form2.CheckListBox1.Count - 1 do
       if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum = i then
         buf := buf + form2.CheckListBox1.Items[j];
     memo.Lines.Add(buf);
   end;
-  memo.Lines.Add(m[56] + b + GetField('TYPE'));
+  memo.Lines.Add(rsm_56 + b + GetField('TYPE'));
   if (GetField('PERIOD'))>'' then
-     memo.Lines.Add(m[49] + b + GetField('PERIOD'));
+     memo.Lines.Add(rsm_49 + b + GetField('PERIOD'));
 
   //Taille
   if (GetField('LENGTHKM')>'')or(GetField('WIDEKM')>'')or(GetField('LENGTHMI')>'')or(GetField('WIDEMI')>'') then
-     memo.Lines.Add(m[57]); //Taille
+     memo.Lines.Add(rsm_57); //Taille
   if (GetField('LENGTHKM')>'')or(GetField('WIDEKM')>'')or(GetField('LENGTHMI')>'')or(GetField('WIDEMI')>'') then
-     memo.Lines.Add(m[17] + b + GetField('LENGTHKM') + 'x' +
-                    GetField('WIDEKM') + m[18] + b + '/' + b + GetField('LENGTHMI') +
-                    'x' + GetField('WIDEMI') + m[19]);
+     memo.Lines.Add(rsm_17 + b + GetField('LENGTHKM') + 'x' +
+                    GetField('WIDEKM') + rsm_18 + b + '/' + b + GetField('LENGTHMI') +
+                    'x' + GetField('WIDEMI') + rsm_19);
   buf  := GetField('HEIGHTM');
   buf2 := GetField('HEIGHTFE');
   if buf<>buf2 then
   begin
-    txt := m[20] + b;
+    txt := rsm_20 + b;
     val(buf, dummy, i);
     if i = 0 then
-      txt := txt + buf + m[21] + b + '/' + b;
+      txt := txt + buf + rsm_21 + b + '/' + b;
     val(buf2, dummy, i);
     if i = 0 then
-      txt := txt + buf2 + m[22];
+      txt := txt + buf2 + rsm_22;
     memo.Lines.Add(txt);
   end;
   if (GetField('RAPPORT'))>'' then
-     memo.Lines.Add(m[23] + b + GetField('RAPPORT'));
+     memo.Lines.Add(rsm_23 + b + GetField('RAPPORT'));
 
   //Description
   if (GetField('GENERAL')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
-     memo.Lines.Add(m[58]); //Description
+     memo.Lines.Add(rsm_58); //Description
   if GetField('GENERAL') > '' then
     memo.Lines.Add(GetField('GENERAL'));
   if GetField('SLOPES') > '' then
@@ -1956,31 +1848,31 @@ begin
 
   //Observation
   if (GetField('INTERESTC')>'')or(GetField('MOONDAYS')>'')or(GetField('MOONDAYM')>'')or(GetField('PRINSTRU')>'') then
-     memo.Lines.Add(m[59]); //Observation
+     memo.Lines.Add(rsm_59); //Observation
   if GetField('INTERESTC') > '' then
-     memo.Lines.Add(m[24] + b + GetField('INTERESTC'));
+     memo.Lines.Add(rsm_24 + b + GetField('INTERESTC'));
   buf  := GetField('MOONDAYS');
   buf2 := GetField('MOONDAYM');
   if (buf+buf2)>'' then begin
     if buf = buf2 then
-      txt := m[25] + b + buf
+      txt := rsm_25 + b + buf
     else
-      txt := m[25] + b + buf + b + m[26] + b + buf2;
+      txt := rsm_25 + b + buf + b + rsm_26 + b + buf2;
     memo.Lines.Add(txt);
   end;
   if GetField('PRINSTRU') > '' then
-     memo.Lines.Add(m[28] + b + GetField('PRINSTRU'));
+     memo.Lines.Add(rsm_28 + b + GetField('PRINSTRU'));
 
   if (GetField('LONGIC')>'')or(GetField('LATIC')>'')or(GetField('QUADRANT')>'')or(GetField('AREA')>'') then
-     memo.Lines.Add(m[60]); //Position
+     memo.Lines.Add(rsm_60); //Position
   if GetField('LONGIC') > '' then
-     memo.Lines.Add(m[10] + b + GetField('LONGIC'));
+     memo.Lines.Add(rsm_10 + b + GetField('LONGIC'));
   if GetField('LATIC') > '' then
-     memo.Lines.Add(m[11] + b + GetField('LATIC'));
+     memo.Lines.Add(rsm_11 + b + GetField('LATIC'));
   if GetField('QUADRANT') > '' then
-     memo.Lines.Add(m[12] + b + GetField('QUADRANT'));
+     memo.Lines.Add(rsm_12 + b + GetField('QUADRANT'));
   if GetField('AREA') > '' then
-     memo.Lines.Add(m[13] + b + GetField('AREA'));
+     memo.Lines.Add(rsm_13 + b + GetField('AREA'));
 
   //Atlas
   dblox.Gofirst;
@@ -1988,24 +1880,24 @@ begin
   if not ok then
     ok := dblox.SeekData('NAME', '=', nom);
   if ok or (GetField('RUKL')>'')or(GetField('RUKLC')>'')or(GetField('VISCARDY')>'')or(GetField('HATFIELD')>'')or(GetField('WESTFALL')>'')or(GetField('WOOD')>'') then
-     memo.Lines.Add(m[61]); //Atlas
+     memo.Lines.Add(rsm_61); //Atlas
 if (GetField('RUKL')>'')or(GetField('RUKLC')>'') then
-     memo.Lines.Add(m[14] + b + GetField('RUKL') + ' ' + GetField('RUKLC'));
+     memo.Lines.Add(rsm_14 + b + GetField('RUKL') + ' ' + GetField('RUKLC'));
   buf := GetField('VISCARDY');
   if trim(buf) > '' then
-    memo.Lines.Add(m[15] + b + buf);
+    memo.Lines.Add(rsm_15 + b + buf);
   buf := GetField('HATFIELD');
   if trim(buf) > '' then
-    memo.Lines.Add(m[16] + b + buf);
+    memo.Lines.Add(rsm_16 + b + buf);
   buf := GetField('WESTFALL');
   if trim(buf) > '' then
-    memo.Lines.Add(m[66] + b + buf);
+    memo.Lines.Add(rsm_66 + b + buf);
   buf := GetField('WOOD');
   if trim(buf) > '' then
-    memo.Lines.Add(m[72] + b + buf);
+    memo.Lines.Add(rsm_72 + b + buf);
   if ok then
   begin
-    buf := m[65];
+    buf := rsm_65;
     while ok do
     begin
       carte := dblox.GetDATA('PLATE');
@@ -2016,38 +1908,38 @@ if (GetField('RUKL')>'')or(GetField('RUKLC')>'') then
   end;
 
   //Origine
-  memo.Lines.Add(m[62]); //Origine
+  memo.Lines.Add(rsm_62); //Origine
   if GetField('NAMEDETAIL') > '' then
-     memo.Lines.Add(m[63] + b + GetField('NAMEDETAIL'));
+     memo.Lines.Add(rsm_63 + b + GetField('NAMEDETAIL'));
   if (trim(GetField('WORK') + GetField('NATIONLITY')) > '') and
     (trim(GetField('CENTURYC') + GetField('COUNTRY')) > '') then
   begin
     case wordformat of
       0: memo.Lines.Add(GetField('CENTURYC') + b +
           GetField('NATIONLITY') + b + GetField('WORK') + b +
-          m[2] + b + GetField('COUNTRY'));
+          rsm_2 + b + GetField('COUNTRY'));
       1: memo.Lines.Add(GetField('WORK') + b +
-          GetField('NATIONLITY') + b + m[1] + b + GetField('CENTURYC') +
-          b + m[2] + b + GetField('COUNTRY'));
+          GetField('NATIONLITY') + b + rsm_1 + b + GetField('CENTURYC') +
+          b + rsm_2 + b + GetField('COUNTRY'));
       2: memo.Lines.Add(GetField('NATIONLITY') + b +
           GetField('WORK') + b + GetField('CENTURYC') + b +
-          m[2] + b + GetField('COUNTRY'));
+          rsm_2 + b + GetField('COUNTRY'));
     end;
-    memo.Lines.Add(m[3] + b + GetField('BIRTHPLACE') + b + m[4] +
+    memo.Lines.Add(rsm_3 + b + GetField('BIRTHPLACE') + b + rsm_4 +
       b + GetField('BIRTHDATE'));
-    memo.Lines.Add(m[5] + b + GetField('DEATHPLACE') + b + m[4] +
+    memo.Lines.Add(rsm_5 + b + GetField('DEATHPLACE') + b + rsm_4 +
       b + GetField('DEATHDATE'));
   end;
   if GetField('FACTS')>'' then
-    memo.Lines.Add(m[64] + b + GetField('FACTS'));
+    memo.Lines.Add(rsm_64 + b + GetField('FACTS'));
   if GetField('NAMEORIGIN')>'' then
-     memo.Lines.Add(m[6] + b + GetField('NAMEORIGIN'));
+     memo.Lines.Add(rsm_6 + b + GetField('NAMEORIGIN'));
   if GetField('LANGRENUS')>'' then
-     memo.Lines.Add(m[7] + b + GetField('LANGRENUS'));
+     memo.Lines.Add(rsm_7 + b + GetField('LANGRENUS'));
   if GetField('HEVELIUS')>'' then
-     memo.Lines.Add(m[8] + b + GetField('HEVELIUS'));
+     memo.Lines.Add(rsm_8 + b + GetField('HEVELIUS'));
   if GetField('RICCIOLI')>'' then
-     memo.Lines.Add(m[9] + b + GetField('RICCIOLI'));
+     memo.Lines.Add(rsm_9 + b + GetField('RICCIOLI'));
 end;
 
 procedure TForm1.GetHTMLDetail(row: TResultRow; var txt: string);
@@ -2095,33 +1987,33 @@ begin
       if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum = i then
         txt := txt + form2.CheckListBox1.Items[j] + '<br>';
   end;
-  txt  := txt + t3 + m[56] + t3end + b + GetField('TYPE') + '<br>';
+  txt  := txt + t3 + rsm_56 + t3end + b + GetField('TYPE') + '<br>';
   if (GetField('PERIOD'))>'' then
-     txt  := txt + t3 + m[49] + t3end + b + GetField('PERIOD') + '<br>';
+     txt  := txt + t3 + rsm_49 + t3end + b + GetField('PERIOD') + '<br>';
   txt  := txt + b + '<br>';
 
   //Taille
   txtbuf:='';
   if (GetField('LENGTHKM')>'')or(GetField('WIDEKM')>'')or(GetField('LENGTHMI')>'')or(GetField('WIDEMI')>'') then
-     txtbuf  := txtbuf + t3 + m[17] + t3end + b + GetField('LENGTHKM') + 'x' +
-             GetField('WIDEKM') + m[18] + b + '/' + b + GetField('LENGTHMI') +
-             'x' + GetField('WIDEMI') + m[19] + '<br>';
+     txtbuf  := txtbuf + t3 + rsm_17 + t3end + b + GetField('LENGTHKM') + 'x' +
+             GetField('WIDEKM') + rsm_18 + b + '/' + b + GetField('LENGTHMI') +
+             'x' + GetField('WIDEMI') + rsm_19 + '<br>';
   buf  := GetField('HEIGHTM');
   buf2 := GetField('HEIGHTFE');
   if buf <> buf2 then begin
-    txtbuf := txtbuf + t3 + m[20] + t3end + b;
+    txtbuf := txtbuf + t3 + rsm_20 + t3end + b;
     val(buf, dummy, i);
     if i = 0 then
-      txtbuf := txtbuf + buf + m[21] + b + '/' + b;
+      txtbuf := txtbuf + buf + rsm_21 + b + '/' + b;
     val(buf2, dummy, i);
     if i = 0 then
-      txtbuf := txtbuf + buf2 + m[22];
+      txtbuf := txtbuf + buf2 + rsm_22;
     txtbuf   := txtbuf + '<br>';
     if (GetField('RAPPORT'))>'' then
-       txtbuf := txtbuf + t3 + m[23] + t3end + b + GetField('RAPPORT') + '<br>';
+       txtbuf := txtbuf + t3 + rsm_23 + t3end + b + GetField('RAPPORT') + '<br>';
   end;
   if txtbuf>'' then
-     txt  := txt + t2 + m[57] + t2end + '<br>'+txtbuf+ b + '<br>'; //Taille
+     txt  := txt + t2 + rsm_57 + t2end + '<br>'+txtbuf+ b + '<br>'; //Taille
 
   //Description
   txtbuf:='';
@@ -2134,36 +2026,36 @@ begin
   if GetField('FLOOR') > '' then
     txtbuf := txtbuf + GetField('FLOOR') + '<br>';
   if txtbuf>'' then
-    txt := txt + t2 + m[58] + t2end + '<br>'+txtbuf+b + '<br>'; //Description
+    txt := txt + t2 + rsm_58 + t2end + '<br>'+txtbuf+b + '<br>'; //Description
 
   //Observation
   txtbuf:='';
   if GetField('INTERESTC') > '' then
-     txtbuf   := txtbuf + t3 + m[24] + t3end + b + GetField('INTERESTC') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_24 + t3end + b + GetField('INTERESTC') + '<br>';
   buf   := GetField('MOONDAYS');
   buf2  := GetField('MOONDAYM');
   if (buf+buf2)>'' then
     if buf = buf2 then
-      txtbuf := txtbuf + t3 + m[25] + t3end + b + buf + '<br>'
+      txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + '<br>'
     else
-      txtbuf := txtbuf + t3 + m[25] + t3end + b + buf + b + m[26] + b + buf2 + '<br>';
+      txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + b + rsm_26 + b + buf2 + '<br>';
   if GetField('PRINSTRU') > '' then
-     txtbuf := txtbuf + t3 + m[28] + t3end + b + GetField('PRINSTRU') + '<br>';
+     txtbuf := txtbuf + t3 + rsm_28 + t3end + b + GetField('PRINSTRU') + '<br>';
   if txtbuf>'' then
-     txt   := txt + t2 + m[59] + t2end + '<br>'+txtbuf+b + '<br>'; //Observation
+     txt   := txt + t2 + rsm_59 + t2end + '<br>'+txtbuf+b + '<br>'; //Observation
 
   //Position
   txtbuf:='';
   if GetField('LONGIC') > '' then
-     txtbuf   := txtbuf + t3 + m[10] + t3end + b + GetField('LONGIC') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_10 + t3end + b + GetField('LONGIC') + '<br>';
   if GetField('LATIC') > '' then
-     txtbuf   := txtbuf + t3 + m[11] + t3end + b + GetField('LATIC') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_11 + t3end + b + GetField('LATIC') + '<br>';
   if GetField('QUADRANT') > '' then
-     txtbuf   := txtbuf + t3 + m[12] + t3end + b + GetField('QUADRANT') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_12 + t3end + b + GetField('QUADRANT') + '<br>';
   if GetField('AREA') > '' then
-     txtbuf   := txtbuf + t3 + m[13] + t3end + b + GetField('AREA') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_13 + t3end + b + GetField('AREA') + '<br>';
   if txtbuf>'' then
-     txt   := txt + t2 + m[60] + t2end + '<br>'+txtbuf+b + '<br>'; //Position
+     txt   := txt + t2 + rsm_60 + t2end + '<br>'+txtbuf+b + '<br>'; //Position
 
   //Atlas
   txtbuf:='';
@@ -2176,22 +2068,22 @@ begin
   else
     url := carte;
   if trim(url)>'' then
-     txtbuf := txtbuf + t3 + m[14] + t3end + b + url + '<br>';
+     txtbuf := txtbuf + t3 + rsm_14 + t3end + b + url + '<br>';
   buf := GetField('VISCARDY');
   if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + m[15] + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + rsm_15 + t3end + b + buf + '<br>';
   buf   := GetField('HATFIELD');
   if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + m[16] + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + rsm_16 + t3end + b + buf + '<br>';
   buf   := GetField('WESTFALL');
   if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + m[66] + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + rsm_66 + t3end + b + buf + '<br>';
   buf   := GetField('WOOD');
   if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + m[72] + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + rsm_72 + t3end + b + buf + '<br>';
   if ok then
   begin
-    txtbuf := txtbuf + t3 + m[65] + t3end;
+    txtbuf := txtbuf + t3 + rsm_65 + t3end;
     while ok do
     begin
       carte := dblox.GetDATA('PLATE');
@@ -2237,46 +2129,46 @@ begin
     txtbuf := txtbuf + '<br>';
   end;
   if txtbuf>'' then
-     txt   := txt + t2 + m[61] + t2end + '<br>'+txtbuf+b + '<br>'; //Atlas
+     txt   := txt + t2 + rsm_61 + t2end + '<br>'+txtbuf+b + '<br>'; //Atlas
 
   //Origine
   txtbuf:='';
   if GetField('NAMEDETAIL') > '' then
-     txtbuf := txtbuf + t3 + m[63] + t3end + b + GetField('NAMEDETAIL') + '<br>';
+     txtbuf := txtbuf + t3 + rsm_63 + t3end + b + GetField('NAMEDETAIL') + '<br>';
   if (trim(GetField('WORK') + GetField('NATIONLITY')) > '') and
     (trim(GetField('CENTURYC') + GetField('COUNTRY')) > '') then
   begin
     case wordformat of
       0: txtbuf := txtbuf + GetField('CENTURYC') + b + GetField('NATIONLITY') +
-          b + GetField('WORK') + b + m[2] + b + GetField('COUNTRY') + '<br>';
+          b + GetField('WORK') + b + rsm_2 + b + GetField('COUNTRY') + '<br>';
       // english
       1: txtbuf := txtbuf + GetField('WORK') + b + GetField('NATIONLITY') +
-          b + m[1] + b + GetField('CENTURYC') + b + m[2] + b +
+          b + rsm_1 + b + GetField('CENTURYC') + b + rsm_2 + b +
           GetField('COUNTRY') + '<br>';
       // francais, italian
       2: txtbuf := txtbuf + GetField('NATIONLITY') + b + GetField('WORK') +
-          b + GetField('CENTURYC') + b + m[2] + b + GetField('COUNTRY') + '<br>';
+          b + GetField('CENTURYC') + b + rsm_2 + b + GetField('COUNTRY') + '<br>';
       // russian
     end;
     if (GetField('BIRTHPLACE')>'')or((GetField('BIRTHDATE')>'')) then
-       txtbuf := txtbuf + t3 + m[3] + t3end + b + GetField('BIRTHPLACE') + b +
-                 m[4] + b + GetField('BIRTHDATE') + '<br>';
+       txtbuf := txtbuf + t3 + rsm_3 + t3end + b + GetField('BIRTHPLACE') + b +
+                 rsm_4 + b + GetField('BIRTHDATE') + '<br>';
     if (GetField('DEATHPLACE')>'')or((GetField('DEATHDATE')>'')) then
-       txtbuf := txtbuf + t3 + m[5] + t3end + b + GetField('DEATHPLACE') + b +
-                 m[4] + b + GetField('DEATHDATE') + '<br>';
+       txtbuf := txtbuf + t3 + rsm_5 + t3end + b + GetField('DEATHPLACE') + b +
+                 rsm_4 + b + GetField('DEATHDATE') + '<br>';
   end;
   if GetField('FACTS')<>'' then
-     txtbuf := txtbuf + t3 + m[64] + t3end + b + GetField('FACTS') + '<br>';
+     txtbuf := txtbuf + t3 + rsm_64 + t3end + b + GetField('FACTS') + '<br>';
   if GetField('NAMEORIGIN')<>'' then
-     txtbuf   := txtbuf + t3 + m[6] + t3end + b + GetField('NAMEORIGIN') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_6 + t3end + b + GetField('NAMEORIGIN') + '<br>';
   if GetField('LANGRENUS')<>'' then
-     txtbuf   := txtbuf + t3 + m[7] + t3end + b + GetField('LANGRENUS') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_7 + t3end + b + GetField('LANGRENUS') + '<br>';
   if GetField('HEVELIUS')<>'' then
-     txtbuf   := txtbuf + t3 + m[8] + t3end + b + GetField('HEVELIUS') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_8 + t3end + b + GetField('HEVELIUS') + '<br>';
   if GetField('RICCIOLI')<>'' then
-     txtbuf   := txtbuf + t3 + m[9] + t3end + b + GetField('RICCIOLI') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_9 + t3end + b + GetField('RICCIOLI') + '<br>';
   if txtbuf>'' then
-     txt := txt + t2 + m[62] + t2end + '<br>'+txtbuf+ b + '<br>'; //Origine
+     txt := txt + t2 + rsm_62 + t2end + '<br>'+txtbuf+ b + '<br>'; //Origine
 
   txt   := txt + '</body></html>';
   if copy(GetField('PROFIL'),1,2)='A_' then begin
@@ -2291,8 +2183,8 @@ begin
   end
   else
     Label7.Caption := '';
-  statusbar1.Panels[0].Text := m[10] + GetField('LONGIN');
-  statusbar1.Panels[1].Text := m[11] + GetField('LATIN');
+  statusbar1.Panels[0].Text := rsm_10 + GetField('LONGIN');
+  statusbar1.Panels[1].Text := rsm_11 + GetField('LATIN');
   Addtolist(nom);
 end;
 
@@ -2431,7 +2323,7 @@ begin
   if trim(edit1.Text) = '' then
     exit;
   ws := words(edit1.Text, '', 1, 1);
-  i  := pos(m[18], ws);
+  i  := pos(rsm_18, ws);
   if i > 0 then
     ws := copy(ws, 1, i - 1);
   ls   := edit3.Text;
@@ -2491,7 +2383,7 @@ end;
 procedure TForm1.GetNotes(n: string);
 begin
   if notesedited then
-    if messagedlg(m[67], mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    if messagedlg(rsm_67, mtConfirmation, [mbYes, mbNo], 0) = mrYes then
       UpdNotesClick(nil);
   notes_name.Caption := n;
   memo1.Clear;
@@ -2682,6 +2574,11 @@ begin
   SearchName(SearchText, True);
 end;
 
+procedure TForm1.PageControl1ChangeBounds(Sender: TObject);
+begin
+
+end;
+
 procedure TForm1.ComboBox1Select(Sender: TObject);
 begin
   Firstsearch := True;
@@ -2744,8 +2641,8 @@ begin
     lunaison := CurrentJD - Fplanet.MoonPhase(floor(12.3685 *
       (CurYear - 2000 - 0.04 + (CurrentJD - jd0) / 365.25)));
   end;
-  StatusBar1.Panels[2].Text := m[51] + ': ' + date2str(curyear, currentmonth, currentday) +
-    '   ' + m[50] + ': ' + timtostr(currenttime);
+  StatusBar1.Panels[2].Text := rsm_51 + ': ' + date2str(curyear, currentmonth, currentday) +
+    '   ' + rsm_50 + ': ' + timtostr(currenttime);
   phaseoffset := 0;
 
   djd(nmjd + (GetJDTimeZone(nmjd) - DT_UT) / 24, aa, mm, dd, hh);
@@ -2774,93 +2671,93 @@ begin
       ' Tz:' + armtostr(timezone);
   end;
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[51] + ':';
+  Stringgrid1.Cells[0, i] := rsm_51 + ':';
   Stringgrid1.Cells[1, i] := date2str(curyear, currentmonth, currentday) +
     ' ' + timtostr(currenttime);
   djd(currentjd, aa, mm, dd, hh);
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[51] + ' (DT):';
+  Stringgrid1.Cells[0, i] := rsm_51 + ' (DT):';
   Stringgrid1.Cells[1, i] := date2str(aa, mm, dd) + ' ' + timtostr(hh);
   Inc(i);
-  Stringgrid1.Cells[0, i] := '(J2000) ' + m[29];
+  Stringgrid1.Cells[0, i] := '(J2000) ' + rsm_29;
   Stringgrid1.Cells[1, i] := arptostr(rad2deg * ra / 15,1);
   Inc(i);
-  Stringgrid1.Cells[0, i] := '(J2000) ' + m[30];
+  Stringgrid1.Cells[0, i] := '(J2000) ' + rsm_30;
   Stringgrid1.Cells[1, i] := deptostr(rad2deg * Dec,1);
   Inc(i);
-  Stringgrid1.Cells[0, i] := '(' + m[51] + ')' + b + m[29];
+  Stringgrid1.Cells[0, i] := '(' + rsm_51 + ')' + b + rsm_29;
   Stringgrid1.Cells[1, i] := arptostr(rad2deg * rad / 15,1);
   Inc(i);
-  Stringgrid1.Cells[0, i] := '(' + m[51] + ')' + b + m[30];
+  Stringgrid1.Cells[0, i] := '(' + rsm_51 + ')' + b + rsm_30;
   Stringgrid1.Cells[1, i] := deptostr(rad2deg * ded,1);
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[31];
-  Stringgrid1.Cells[1, i] := IntToStr(round(dkm)) + m[18];
+  Stringgrid1.Cells[0, i] := rsm_31;
+  Stringgrid1.Cells[1, i] := IntToStr(round(dkm)) + rsm_18;
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[36];
+  Stringgrid1.Cells[0, i] := rsm_36;
   Stringgrid1.Cells[1, i] := formatfloat(f2, diam / 60) + lmin;
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[48];
+  Stringgrid1.Cells[0, i] := rsm_48;
   Stringgrid1.Cells[1, i] := formatfloat(f1, colong) + ldeg;
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[32];
+  Stringgrid1.Cells[0, i] := rsm_32;
   Stringgrid1.Cells[1, i] := formatfloat(f1, phase) + ldeg;
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[46];
-  Stringgrid1.Cells[1, i] := formatfloat(f2, lunaison) + ' ' + m[47];
+  Stringgrid1.Cells[0, i] := rsm_46;
+  Stringgrid1.Cells[1, i] := formatfloat(f2, lunaison) + ' ' + rsm_47;
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[35];
+  Stringgrid1.Cells[0, i] := rsm_35;
   Stringgrid1.Cells[1, i] := formatfloat(f1, illum * 100) + '%';
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[45];
+  Stringgrid1.Cells[0, i] := rsm_45;
   Stringgrid1.Cells[1, i] := formatfloat(f1, sunincl) + ldeg;
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[33];
+  Stringgrid1.Cells[0, i] := rsm_33;
   Stringgrid1.Cells[1, i] := demtostr(librb);
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[34];
+  Stringgrid1.Cells[0, i] := rsm_34;
   Stringgrid1.Cells[1, i] := demtostr(librl);
   Inc(i);
-  Stringgrid1.Cells[0, i] := m[37];
+  Stringgrid1.Cells[0, i] := rsm_37;
   Stringgrid1.Cells[1, i] := formatfloat(f1, pa) + ldeg;
   if not geocentric then
   begin
     eq2hz(st0 - rad, ded, az, ah);
     az := rmod(rad2deg * az + 180, 360);
     Inc(i);
-    Stringgrid1.Cells[0, i] := m[73];
+    Stringgrid1.Cells[0, i] := rsm_73;
     Stringgrid1.Cells[1, i] := demtostr(az);
     Inc(i);
-    Stringgrid1.Cells[0, i] := m[74];
+    Stringgrid1.Cells[0, i] := rsm_74;
     Stringgrid1.Cells[1, i] := demtostr(rad2deg * ah);
     Fplanet.PlanetRiseSet(11, jd(CurYear, CurrentMonth, CurrentDay, 0),
       True, moonrise, moontransit, moonset, azimuthrise, azimuthset, v1, v2, v3, v4, v5, v6, v7, v8, v9, j);
     Inc(i);
-    Stringgrid1.Cells[0, i] := m[38];
+    Stringgrid1.Cells[0, i] := rsm_38;
     Stringgrid1.Cells[1, i] := moonrise;
     Inc(i);
-    Stringgrid1.Cells[0, i] := m[39];
+    Stringgrid1.Cells[0, i] := rsm_39;
     Stringgrid1.Cells[1, i] := moontransit;
     Inc(i);
-    Stringgrid1.Cells[0, i] := m[40];
+    Stringgrid1.Cells[0, i] := rsm_40;
     Stringgrid1.Cells[1, i] := moonset;
     Inc(i);
-    Stringgrid1.Cells[0, i] := m[41];
+    Stringgrid1.Cells[0, i] := rsm_41;
     Stringgrid1.Cells[1, i] := azimuthrise;
     if obslatitude > 0 then
     begin
       Inc(i);
-      Stringgrid1.Cells[0, i] := m[55];
+      Stringgrid1.Cells[0, i] := rsm_55;
       Stringgrid1.Cells[1, i] := dedtostr(90 - obslatitude + rad2deg * Dec);
     end
     else
     begin
       Inc(i);
-      Stringgrid1.Cells[0, i] := m[55];
+      Stringgrid1.Cells[0, i] := rsm_55;
       Stringgrid1.Cells[1, i] := dedtostr(90 + obslatitude - rad2deg * Dec);
     end;
     Inc(i);
-    Stringgrid1.Cells[0, i] := m[42];
+    Stringgrid1.Cells[0, i] := rsm_42;
     Stringgrid1.Cells[1, i] := azimuthset;
   end
   else
@@ -2930,12 +2827,12 @@ begin
 if sender is Tf_moon then SetActiveMoon(Tf_moon(sender));
 case msgclass of
 MsgZoom: begin
-          value:=StringReplace(value,'FOV:',m[43],[]);
+          value:=StringReplace(value,'FOV:',rsm_43,[]);
           statusbar1.Panels[3].Text := value;
           SetZoomBar;
          end;
 MsgPerf: begin
-          Label15.Caption := m[44] + blank + value;
+          Label15.Caption := rsm_44 + blank + value;
          end;
    else  statusbar1.Panels[3].Text := value;
 end;
@@ -3178,6 +3075,7 @@ procedure TForm1.Init;
 begin
 try
   Setlang;
+  form2.onPrinterDialog:=Selectiondimprimante1Click;
   screen.cursor := crHourGlass;
   moon1.GLSceneViewer1.Visible:=false;
   application.ProcessMessages;
@@ -3246,7 +3144,7 @@ try
     Trackbar5.position := 1
   else
     Trackbar5.position := 1;
-  LabelAltitude.Caption:=inttostr(TrackBar6.Position) + blank + m[18];
+  LabelAltitude.Caption:=inttostr(TrackBar6.Position) + blank + rsm_18;
   LabelIncl.Caption:=inttostr(TrackBar7.Position)+ ldeg;
   LibrationButton.Down := librationeffect;
   PhaseButton.Down := phaseeffect;
@@ -4032,7 +3930,7 @@ begin
   if (pagecontrol1.ActivePage = Reglage.Caption) then
   begin
     moon1.ShowFPS:=true;
-    Label15.Caption     := m[44] + ' 0 FPS';
+    Label15.Caption     := rsm_44 + ' 0 FPS';
   end
   else
   begin
@@ -4048,9 +3946,9 @@ begin
   if pagecontrol1.ActivePage = Outils.Caption then
   begin
     if activemoon.MeasuringDistance then
-      Button11.Caption      := m[53]
+      Button11.Caption      := rsm_53
     else
-      Button11.Caption      := m[52];
+      Button11.Caption      := rsm_52;
   end
   else
   begin
@@ -4158,7 +4056,7 @@ procedure TForm1.TrackBar6Change(Sender: TObject);
 begin
 if skiprot then exit;
   activemoon.SatelliteAltitude:=TrackBar6.Position;
-  LabelAltitude.Caption:=inttostr(TrackBar6.Position) + blank + m[18];
+  LabelAltitude.Caption:=inttostr(TrackBar6.Position) + blank + rsm_18;
 end;
 
 procedure TForm1.TrackBar7Change(Sender: TObject);
@@ -4414,11 +4312,11 @@ begin
   activemoon.MeasuringDistance := not activemoon.MeasuringDistance;
   if activemoon.MeasuringDistance then
   begin
-    Button11.Caption      := m[53];
+    Button11.Caption      := rsm_53;
   end
   else
   begin
-    Button11.Caption      := m[52];
+    Button11.Caption      := rsm_52;
   end;
 end;
 
@@ -4429,7 +4327,7 @@ begin
     clientwidth := round(1.333 * clientwidth);
   Pagecontrol1.ActivePage := Outils.Caption;
   PageControl1Change(Sender);
-  Button11.Caption  := m[53];
+  Button11.Caption  := rsm_53;
   activemoon.MeasuringDistance := true;
 end;
 
@@ -4683,17 +4581,6 @@ begin
 case PageControl1.PageIndex of
 0:  Desc1.SelectAll;
 end;
-end;
-
-procedure TForm1.LgendeGologique1Click(Sender: TObject);
-var
-  fn: string;
-begin
-  chdir(appdir);
-  fn := 'LegendGeo_' + language + '.jpg';
-  if not fileexists(slash('Textures') + fn) then
-    fn := 'LegendGeo_UK.jpg';
-  showimg('Textures', fn, True);
 end;
 
 procedure TForm1.ToolButton7Click(Sender: TObject);
@@ -5102,7 +4989,7 @@ end;
 
 procedure TForm1.MoonMeasureEvent(Sender: TObject; m1,m2,m3,m4: string);
 begin
-  edit1.Text := m1 + m[18];
+  edit1.Text := m1 + rsm_18;
   edit2.Text := m2;
   edit3.Text := m3;
   edit4.Text := m4;
@@ -5136,11 +5023,11 @@ if mf<>activemoon then begin
   end;
   if activemoon.MeasuringDistance then
   begin
-    Button11.Caption:= m[53];
+    Button11.Caption:= rsm_53;
   end
   else
   begin
-    Button11.Caption:= m[52];
+    Button11.Caption:= rsm_52;
   end;
   Poleorientation   := activemoon.Poleorientation;
   CameraOrientation := activemoon.Orientation;
@@ -5207,11 +5094,11 @@ procedure TForm1.MoonMoveEvent(Sender: TObject; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
 begin
 if OnMoon then begin
-  statusbar1.Panels[0].Text := m[10] + formatfloat(f1, Rad2Deg*Lon);
-  statusbar1.Panels[1].Text := m[11] + formatfloat(f1, Rad2Deg*Lat);
+  statusbar1.Panels[0].Text := rsm_10 + formatfloat(f1, Rad2Deg*Lon);
+  statusbar1.Panels[1].Text := rsm_11 + formatfloat(f1, Rad2Deg*Lat);
 end else begin
-  statusbar1.Panels[0].Text := m[10];
-  statusbar1.Panels[1].Text := m[11];
+  statusbar1.Panels[0].Text := rsm_10;
+  statusbar1.Panels[1].Text := rsm_11;
 end;
 end;
 

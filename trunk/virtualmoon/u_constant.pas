@@ -133,6 +133,11 @@ type
      double6 = array[1..6] of double;
      Pdouble6 = ^double6;
 
+type
+  TDBInfo = class(TObject)
+    dbnum: integer;
+  end;
+
 // external library
 const
 {$ifdef linux}
@@ -192,7 +197,7 @@ Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdC
      compile_time,compile_version:string;
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;
-     librationeffect, AsMultiTexture : Boolean;
+     multi_instance, librationeffect, AsMultiTexture : Boolean;
      Firstsearch: boolean;
      DisplayIs32bpp: Boolean;
      ThemePath:string ='data/Themes';
