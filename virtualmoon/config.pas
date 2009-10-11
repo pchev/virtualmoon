@@ -28,6 +28,7 @@ uses
 {$ifdef mswindows}
   LCLIntf,
 {$endif}
+  u_translation,
   Math, u_constant, cu_tz,
   Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, Buttons, ExtCtrls, Inifiles, Grids, EnhEdits,
@@ -214,6 +215,7 @@ type
     ov: TBitmap;
     lockoverlay: boolean;
     savelibration : boolean;
+    FPrinterDialog : TNotifyEvent;
     procedure UpdateTzList;
     procedure showtexture;
   public
@@ -226,6 +228,8 @@ type
     TextureChanged: boolean;
     procedure SetObsCountry(value:string);
     procedure LoadCountry(fn:string);
+    procedure Setlang;
+  property onPrinterDialog : TNotifyEvent read FPrinterDialog write FPrinterDialog;
   end;
 
 var
@@ -233,8 +237,89 @@ var
 
 implementation
 
-uses u_util,
-     virtualmoon1;
+uses u_util;
+
+procedure TForm2.Setlang;
+begin
+      Caption := rst_3;
+      if multi_instance then
+        Caption      := 'Temporary change only!';
+      label1.Caption := rst_19;
+      label2.Caption := rsm_10;
+      CheckBox1.Caption := rst_22;
+      CheckBox2.Caption := rst_23;
+      label4.Caption := rst_24;
+      Button1.Caption := rst_18;
+      CheckBox3.Caption := rst_26;
+      Label5.Caption := rst_28;
+      Label17.Caption := rst_29;
+      Label7.Caption := rst_52;
+      CheckBox5.Caption := rst_53;
+      CheckBox6.Caption := rst_54;
+      TabSheet1.Caption := rst_57;
+      TabSheet2.Caption := rst_58;
+      label8.Caption := rst_59;
+      label9.Caption := rst_60;
+      stringgrid1.Cells[0, 0] := rst_47;
+      stringgrid1.Cells[1, 0] := rst_62;
+      Label11.Caption := rst_75;
+      Label10.Caption := rst_76;
+      Combobox4.Items[0] := rst_77;
+      Combobox4.Text := Combobox4.Items[0];
+      CheckBox12.Caption := rst_89;
+      CheckBox7.Caption := rst_80;
+      Impression.Caption := rst_90;
+      Label15.Caption := rst_91;
+      Button2.Caption := rst_55;
+      Label12.Caption := rst_92;
+      Label13.Caption := rst_93;
+      Checkbox8.Caption := rst_94;
+      Checkbox9.Caption := rst_95;
+      Checkbox13.Caption := rst_96;
+      Label14.Caption := rst_97;
+      Button4.Caption := rst_99;
+      Label16.Caption := rst_100;
+      Tabsheet3.Caption := rst_101;
+      Checkbox14.Caption := rst_102;
+      Label6.Caption := rst_103;
+      Label18.Caption := rst_104;
+      TabSheet5.Caption := rst_109;
+      label24.Caption := rst_110;
+      label25.Caption := rst_111;
+      label26.Caption := rst_112;
+      button6.Caption := rst_113;
+      stringgrid2.Cells[0, 0] := rst_118;
+      stringgrid2.Cells[1, 0] := rst_119;
+      stringgrid2.Cells[2, 0] := '<->';
+      stringgrid2.Cells[3, 0] := 'N/S';
+      Checkbox17.Caption := rst_120;
+      Checkbox18.Caption := rst_121;
+      Checkbox19.Caption := rst_122;
+      Checkbox20.Caption := rst_123;
+      Checkbox21.Caption := rst_131;
+      Checkbox22.Caption := rst_168;
+      Checkbox23.Caption := rst_164;
+      Checkbox24.Caption := rst_187;
+      label28.Caption := rst_124;
+      GroupBox1.Caption := rst_129;
+      TabSheet7.Caption := GroupBox1.Caption;
+      combobox1.items[0] := rst_147;
+      combobox1.items[1] := rst_148;
+      combobox1.ItemIndex := 0;
+      combobox2.items[0] := rst_149;
+      combobox2.items[1] := rst_150;
+      combobox2.ItemIndex := 0;
+      TabSheet4.Caption := rst_152;
+      Label19.Caption := rst_144;
+      TabSheet6.Caption := rst_169;
+      CheckBox11.Caption := rst_170;
+      label30.Caption := rst_171;
+      label32.Caption := rst_172;
+      Label23.Caption := rst_173;
+      CheckBox16.Caption := rst_174;
+      label31.Caption := rst_179;
+      label33.Caption := rst_181;
+end;
 
 Function GetLangCode(buf:string):string;
 var p : integer;
@@ -368,7 +453,8 @@ end;
 
 procedure TForm2.Button2Click(Sender: TObject);
 begin
-form1.PrinterSetupDialog1.Execute;
+if Assigned(FPrinterDialog) then FPrinterDialog(self);
+//form1.PrinterSetupDialog1.Execute;
 //GetPrinterResolution(PrtName,PrinterResolution);
 end;
 
