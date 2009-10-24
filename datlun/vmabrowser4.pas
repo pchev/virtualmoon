@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses
+uses  u_translation,
   u_constant, LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, mlb2, Grids, {ValEdit,} CheckLst, Math,
   passql, passqlite,u_util, dbutil, ComCtrls, ExtCtrls, IniFiles, LResources;
@@ -103,6 +103,7 @@ type
   public
     { Public declarations }
     dbname:string;
+    procedure SetLang;
   end;
 
 var
@@ -110,8 +111,47 @@ var
 
 implementation
 
-
-uses vmabrowser1;
+procedure TLoadCSV.SetLang;
+begin
+  label9.Caption:=rst_17;
+  TabSheet1.Caption:=rst_23;
+  TabSheet2.Caption:=rst_24;
+  TabSheet3.Caption:=rst_25;
+  label1.Caption:=rst_26;
+  label2.Caption:=rst_27;
+  label4.Caption:=rst_28;
+  label3.Caption:=rst_29;
+  label6.Caption:=rst_30;
+  AssignConstant.Caption:=rst_31;
+  AssignField.Hint:=rst_47;
+  Button3.Caption:=rst_32;
+  caption:=rst_33;
+  label7.Caption:=rst_37;
+  Button1.Caption:=rst_38;
+  label8.Caption:=rst_39;
+  Button2.Caption:=rst_40;
+  memo2.Lines.Clear;
+  memo2.Lines.Add(rsloadcsv01);
+  memo2.Lines.Add(rsloadcsv02);
+  memo2.Lines.Add('');
+  memo2.Lines.Add(rsloadcsv03);
+  memo2.Lines.Add(rsloadcsv04);
+  memo2.Lines.Add(rsloadcsv05);
+  memo2.Lines.Add('');
+  memo2.Lines.Add(rsloadcsv06);
+  memo2.Lines.Add('');
+  memo2.Lines.Add(rsloadcsv07);
+  memo2.Lines.Add(rsloadcsv08);
+  memo2.Lines.Add('');
+  memo2.Lines.Add(rsloadcsv09);
+  memo2.Lines.Add(rsloadcsv10);
+  memo2.Lines.Add('');
+  memo2.Lines.Add(rsloadcsv11);
+  memo2.Lines.Add(rsloadcsv12);
+  memo2.Lines.Add('');
+  memo2.Lines.Add(rsloadcsv13);
+  memo2.Lines.Add(rsloadcsv14);
+end;
 
 procedure TLoadCSV.FileSelectClick(Sender: TObject);
 begin
@@ -135,7 +175,7 @@ if Mlb.LoadFromFile(edit1.text) then begin
     StringGrid1.Cells[0,i]:=Mlb.GetFieldName(i);
     StringGrid1.Cells[1,i]:=Mlb.GetDataByIndex(i);
   end;
-  Label5.Caption:=inttostr(Mlb.RowCount)+' '+f_main.m[8];
+  Label5.Caption:=inttostr(Mlb.RowCount)+' '+rsm_8;
   Checklistbox1.Checked[0]:=true;
   fieldmode[1]:=1;
   fieldconst[1]:=inttostr(min(99,max(10,1+strtointdef(dbu.queryone('select max(DBN) from moon'),10))));
@@ -205,8 +245,8 @@ end;
 
 procedure TLoadCSV.FormShow(Sender: TObject);
 begin
-StringGrid1.Cells[0,0]:=f_main.m[9];
-StringGrid1.Cells[1,0]:=f_main.m[10];
+StringGrid1.Cells[0,0]:=rsm_9;
+StringGrid1.Cells[1,0]:=rsm_10;
 dbu.DataBase:=dbname;
 edit1.Text:='';
 end;
@@ -220,7 +260,7 @@ procedure TLoadCSV.AssignConstantClick(Sender: TObject);
 var i: integer;
 begin
 i:=Checklistbox1.ItemIndex+1;
-if (i<1) or (not Checklistbox1.Checked[i-1]) then begin showmessage(f_main.m[11]);exit; end;
+if (i<1) or (not Checklistbox1.Checked[i-1]) then begin showmessage(rsm_11);exit; end;
 fieldmode[i]:=1;
 fieldconst[i]:=ConstantText.Text;
 CheckListBox1ItemClick(Sender,i-1);
@@ -230,9 +270,9 @@ procedure TLoadCSV.AssignFieldClick(Sender: TObject);
 var i,j: integer;
 begin
 i:=Checklistbox1.ItemIndex+1;
-if i<1 then begin showmessage(f_main.m[11]);exit; end;
+if i<1 then begin showmessage(rsm_11);exit; end;
 j:=StringGrid1.Selection.Top;
-if j<1 then begin showmessage(f_main.m[12]);exit; end;
+if j<1 then begin showmessage(rsm_12);exit; end;
 fieldmode[i]:=2;
 fieldlist[i]:=j;
 CheckListBox1ItemClick(Sender,i-1);
@@ -244,15 +284,15 @@ begin
 i:=Index+1;
 case fieldmode[i] of
  0: begin
-    msg.Text:=f_main.m[13];
+    msg.Text:=rsm_13;
     ConstantText.Text:='';
     end;
  1: begin
-    msg.Text:=f_main.m[14]+': '+fieldconst[i];
+    msg.Text:=rsm_14+': '+fieldconst[i];
     ConstantText.Text:=fieldconst[i];
     end;
  2: begin
-    msg.Text:=f_main.m[15]+': '+StringGrid1.Cells[0,fieldlist[i]];
+    msg.Text:=rsm_15+': '+StringGrid1.Cells[0,fieldlist[i]];
     ConstantText.Text:='';
     end;
 end;
@@ -277,21 +317,21 @@ begin
 end;
 begin
 memo1.Clear;
-memo1.Lines.Add(f_main.m[16]);
+memo1.Lines.Add(rsm_16);
 for i:=1 to maxcol do begin
-   if checklistbox1.Checked[i-1] and (fieldmode[i]=0) then errormsg(checklistbox1.Items[i-1]+' '+f_main.m[17]);
+   if checklistbox1.Checked[i-1] and (fieldmode[i]=0) then errormsg(checklistbox1.Items[i-1]+' '+rsm_17);
    if not checklistbox1.Checked[i-1] then fieldmode[i]:=0;
 end;
-memo1.Lines.Add(f_main.m[18]);
-if fieldmode[1]=0 then errormsg(f_main.m[19]+' '+checklistbox1.Items[0]);
-if fieldmode[1]<>1 then errormsg(f_main.m[1]);
-if fieldmode[2]=0 then errormsg(f_main.m[19]+' '+checklistbox1.Items[1]);
-if fieldmode[20]=0 then errormsg(f_main.m[19]+' '+checklistbox1.Items[19]);
-if fieldmode[22]=0 then errormsg(f_main.m[19]+' '+checklistbox1.Items[21]);
-memo1.Lines.Add(f_main.m[20]);
+memo1.Lines.Add(rsm_18);
+if fieldmode[1]=0 then errormsg(rsm_19+' '+checklistbox1.Items[0]);
+if fieldmode[1]<>1 then errormsg(rsm_1);
+if fieldmode[2]=0 then errormsg(rsm_19+' '+checklistbox1.Items[1]);
+if fieldmode[20]=0 then errormsg(rsm_19+' '+checklistbox1.Items[19]);
+if fieldmode[22]=0 then errormsg(rsm_19+' '+checklistbox1.Items[21]);
+memo1.Lines.Add(rsm_20);
 // insert to database
 mlb.GoFirst;
-memo1.Lines.Add(f_main.m[21]+' '+dbname);
+memo1.Lines.Add(rsm_21+' '+dbname);
 dbjournal(extractfilename(dbu.DataBase),'LOAD DATABASE DBN='+fieldconst[1]+' FROM FILE: '+mlb.Name);
 dbu.DataBase:=dbname;
 dbu.StartTransaction;
@@ -319,7 +359,7 @@ repeat
     cmd:=cmd+'"'+v+'",';
   end;
   cmd:=copy(cmd,1,length(cmd)-1)+');';
-  if not dbu.Query(cmd) then raise exception.Create(f_main.m[24]+crlf+dbu.GetErrorMessage+crlf+cmd);
+  if not dbu.Query(cmd) then raise exception.Create(rsm_24+crlf+dbu.GetErrorMessage+crlf+cmd);
   mlb.GoNext;
 until mlb.EndOfFile;
 dbjournal(extractfilename(dbu.DataBase),'INSERT DBN='+fieldconst[1]+' MAX ID='+inttostr(dbu.GetLastInsertID));
@@ -328,13 +368,13 @@ dbu.Query(cmd);
 cmd:='insert into user_database values('+dbn+',"'+extractfilename(mlb.Name)+'");';
 dbu.Query(cmd);
 dbu.Commit;
-memo1.Lines.Add(f_main.m[22]);
-memo1.Lines.Add(f_main.m[23]);
-f_main.dbselection:='DBN in ('+dbn+')';
+memo1.Lines.Add(rsm_22);
+memo1.Lines.Add(rsm_23);
+dbselection:='DBN in ('+dbn+')';
 except
   dbu.Rollback;
-  memo1.Lines.Add(f_main.m[24]);
-  memo1.Lines.Add(f_main.m[25]+' '+f_main.m[26]);
+  memo1.Lines.Add(rsm_24);
+  memo1.Lines.Add(rsm_25+' '+rsm_26);
   raise
 end;
 end;

@@ -26,11 +26,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses
-     dynlibs, Classes, Controls, Graphics;
+     dynlibs, Classes, Controls, Graphics,passql, passqlite;
 
 const crlf = chr(10)+chr(13);
       AVLversion = '5.0 beta';
-      Splashversion = AVLversion+' 2009-04-04';
+      Splashversion = AVLversion+' 2009-10-21';
       VersionName = 'Pro';
       avlcpy = 'Copyright (C) 2002-2009 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
@@ -65,6 +65,8 @@ const crlf = chr(10)+chr(13);
       AbsoluteMaxSprite=5000;
       Label3dSize=1;
       maxfocbase=1900;
+      numdb=7;
+      numdbtype = 25;
 
       // Paper size
       PaperNumber=9;
@@ -95,7 +97,7 @@ const crlf = chr(10)+chr(13);
 
 {$ifdef linux}
       DefaultPrivateDir='~/.virtualmoon';
-      Defaultconfigfile='~/.virtualmoon/virtualmoon5.ini';
+      Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='../share/virtualmoon';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun';
@@ -105,7 +107,7 @@ const crlf = chr(10)+chr(13);
 {$endif}
 {$ifdef darwin}
       DefaultPrivateDir='~/.virtualmoon';
-      Defaultconfigfile='~/.virtualmoon/virtualmoon5.ini';
+      Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='/usr/share/virtualmoon';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun';
@@ -115,7 +117,7 @@ const crlf = chr(10)+chr(13);
 {$endif}
 {$ifdef win32}
       DefaultPrivateDir='virtualmoon';
-      Defaultconfigfile='virtualmoon5.ini';
+      Defaultconfigfile='vma.rc';
       SharedDir='.\';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun.exe';
@@ -132,15 +134,12 @@ type
 const
 {$ifdef linux}
       lib404   = 'libplan404.so';
-      libz = 'libz.so';
 {$endif}
 {$ifdef darwin}
       lib404   = 'libplan404.dylib';
-      libz = 'libz.dylib';
 {$endif}
 {$ifdef win32}
       lib404 = 'libplan404.dll';
-      libz = 'zlib1.dll';
 {$endif}
 
 // libplan404
@@ -159,19 +158,6 @@ type
      TPlan404=Function( pla : PPlanetData):integer; cdecl;
 var Plan404 : TPlan404;
     Plan404lib: TLibHandle;
-
-//  zlib
-type
- Tgzopen =Function(path,mode :pchar): pointer ; cdecl;
- Tgzread =Function(gzFile: pointer; buf : pointer; len:cardinal): longint; cdecl;
- Tgzeof =Function(gzFile: pointer): longbool; cdecl;
- Tgzclose =Function(gzFile: pointer): longint; cdecl;
-var gzopen : Tgzopen;
-    gzread : Tgzread;
-    gzeof : Tgzeof;
-    gzclose : Tgzclose;
-    zlibok: boolean;
-    zlib: longword;
 
 // pseudo-constant only here
 Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir : string;
@@ -193,6 +179,10 @@ Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdC
      ThemePath:string ='data/Themes';
      LinuxDesktop: integer = 0;  // FreeDesktop=0, KDE=1, GNOME=2, Other=3
      Params : TStringList;
+     dbtype : array[1..numdbtype] of string;
+     dbshortname : array[1..numdb] of string;
+     dbselection: string;
+     dbm: TLiteDB;
 {$ifdef darwin}
      OpenFileCMD:string = 'open';   //
 {$else}

@@ -9,26 +9,23 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms
   { add your units here },
-  u_util, fmsg, libsql, mlb2,
-  vmabrowser1, vmabrowser2, vmabrowser3, vmabrowser4, vmabrowser5, uniqueinstance_package;
+  u_util, fmsg, libsql, mlb2, vmabrowser1, vmabrowser2, vmabrowser3,
+  vmabrowser4, vmabrowser5, dbutil, uniqueinstance_package;
 
-const IdMutex='Virtual_Moon_Atlas_Browser_mutex';
-var ok : boolean;
-    f : textfile;
-    i : integer;
+var i : integer;
 
 
 begin
-  Application.Title:='DatLun';
   Application.Initialize;
-  Application.ShowMainForm := true;
   Application.CreateForm(Tf_main, f_main);
-  Application.CreateForm(TColumns, Columns);
-  Application.CreateForm(TLoadCSV, LoadCSV);
-  Application.CreateForm(TMsgForm, MsgForm);
-  Application.CreateForm(TSelectDB, SelectDB);
-  Application.CreateForm(TSelection, Selection);
-  f_main.InitApp;
-  Application.Run;
+  if not f_main.param.Find('-quit',i) then begin
+      Application.CreateForm(TColumns, Columns);
+      Application.CreateForm(TLoadCSV, LoadCSV);
+      Application.CreateForm(TSelectDB, SelectDB);
+      Application.CreateForm(TSelection, Selection);
+      f_main.InitApp;
+      Application.Run;
+  end
+  else Application.Terminate;
 end.
 

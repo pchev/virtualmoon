@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses
+uses u_translation,
   LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, CheckLst, LResources;
 
@@ -46,7 +46,8 @@ type
   public
     { Public declarations }
     dblist: TStringList;
-    dbn1,dbn2,dbn3,dbn4,dbn5,dbn6: string;
+    dbn1,dbn2,dbn3,dbn4,dbn5,dbn6,dbn7: string;
+    procedure SetLang;
   end;
 
 var
@@ -55,16 +56,31 @@ var
 implementation
 
 
-uses vmabrowser1;
+uses u_constant;
+
+procedure TSelectDB.SetLang;
+begin
+  dbn1:=rst_15;
+  dbn2:=rst_16;
+  dbn3:=rst_18;
+  dbn4:=rst_19;
+  dbn5:=rst_20;
+  dbn6:=rst_51;
+  dbn7:=rst_54;
+  Button1.Caption:=rst_8;
+  Button2.Caption:=rst_9;
+  Button3.Caption:=rst_5;
+  Button4.Caption:=rst_6;
+end;
 
 procedure TSelectDB.FormShow(Sender: TObject);
 var i,n: integer;
     lst,buf: string;
 begin
 lst:='';
-i:=pos('(',f_main.dbselection);
+i:=pos('(',dbselection);
 if i>0 then begin
-   lst:=copy(f_main.dbselection,i,9999);
+   lst:=copy(dbselection,i,9999);
    lst:=stringreplace(lst,'(',' ',[rfReplaceAll]);
    lst:=stringreplace(lst,')',' ',[rfReplaceAll]);
    lst:=stringreplace(lst,',',' ',[rfReplaceAll]);
@@ -96,11 +112,15 @@ CheckListBox1.Items.Add(dbn6);
 dblist.Add('6');
 inc(n);
 if pos(' 6 ',lst)>0 then CheckListBox1.Checked[n]:=true;
-if f_main.dbm.Query('select DBN,NAME from user_database') then begin
-  for i:=0 to f_main.dbm.RowCount-1 do begin
-    buf:=f_main.dbm.Results[i][0];
+CheckListBox1.Items.Add(dbn7);
+dblist.Add('7');
+inc(n);
+if pos(' 7 ',lst)>0 then CheckListBox1.Checked[n]:=true;
+if dbm.Query('select DBN,NAME from user_database') then begin
+  for i:=0 to dbm.RowCount-1 do begin
+    buf:=dbm.Results[i][0];
     dblist.Add(buf);
-    CheckListBox1.Items.Add(f_main.dbm.Results[i][1]);
+    CheckListBox1.Items.Add(dbm.Results[i][1]);
     inc(n);
     if pos(' '+buf+' ',lst)>0 then CheckListBox1.Checked[n]:=true;
   end;

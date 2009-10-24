@@ -1,38 +1,36 @@
 object MsgForm: TMsgForm
   Left = 227
-  Height = 66
+  Height = 65
   Top = 106
-  Width = 282
-  AutoSize = True
+  Width = 281
+  ActiveControl = Panel1
   BorderIcons = []
   BorderStyle = bsNone
   Caption = 'MsgForm'
-  ClientHeight = 49
-  ClientWidth = 265
+  ClientHeight = 65
+  ClientWidth = 281
   Color = clRed
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   FormStyle = fsStayOnTop
   Position = poScreenCenter
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object Panel1: TPanel
-    Left = 0
+    Left = 8
     Height = 49
-    Top = 0
+    Top = 8
     Width = 265
     ClientHeight = 49
     ClientWidth = 265
+    ParentColor = False
     TabOrder = 0
     object Label1: TLabel
-      Left = 4
+      Left = 0
       Height = 35
       Top = 8
       Width = 257
       AutoSize = False
-      Caption = 'Label1'
-      Color = clWhite
       ParentColor = False
-      Transparent = False
       WordWrap = True
     end
   end

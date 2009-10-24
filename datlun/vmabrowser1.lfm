@@ -1,11 +1,11 @@
 object f_main: Tf_main
-  Left = 523
+  Left = 553
   Height = 467
-  Top = 121
+  Top = 128
   Width = 720
   ActiveControl = MoonGrid
   Caption = 'DATLUN'
-  ClientHeight = 446
+  ClientHeight = 448
   ClientWidth = 720
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
@@ -119,12 +119,12 @@ object f_main: Tf_main
   OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object MoonGrid: TStringGrid
     Left = 0
-    Height = 442
+    Height = 423
     Top = 0
-    Width = 705
+    Width = 704
     Align = alClient
     DefaultColWidth = 100
     FixedCols = 2
@@ -142,10 +142,10 @@ object f_main: Tf_main
     OnMouseUp = MoonGridMouseUp
   end
   object ScrollBar1: TScrollBar
-    Left = 705
-    Height = 442
+    Left = 704
+    Height = 423
     Top = 0
-    Width = 15
+    Width = 16
     Align = alRight
     Kind = sbVertical
     PageSize = 0
@@ -155,7 +155,7 @@ object f_main: Tf_main
   object Panel1: TPanel
     Left = 0
     Height = 25
-    Top = 442
+    Top = 423
     Width = 720
     Align = alBottom
     Alignment = taLeftJustify
@@ -229,7 +229,7 @@ object f_main: Tf_main
   object FindDialog1: TFindDialog
     OnFind = FindDialog1Find
     left = 544
-    top = 96
+    top = 80
   end
   object SaveDialog1: TSaveDialog
     Title = 'Enregistrer le fichier sous'

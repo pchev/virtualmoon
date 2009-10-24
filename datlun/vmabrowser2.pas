@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses
+uses u_translation,
   LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, ComCtrls, CheckLst, LResources;
 
@@ -94,6 +94,7 @@ type
   public
     { Public declarations }
     lastselection: string;
+    Procedure SetLang;
   end;
 
 var
@@ -102,7 +103,34 @@ var
 implementation
 
 
-uses vmabrowser1, vmabrowser5, u_util;
+uses vmabrowser5, u_util, u_constant;
+
+Procedure TSelection.SetLang;
+var i:integer;
+begin
+  caption:=rst_3;
+  ButtonAll.caption:=rst_5;
+  ButtonNone.caption:=rst_6;
+  Button11.caption:=rst_9;
+  Button9.caption:=rst_10;
+  Button13.caption:=rst_11;
+  label1.caption:=rst_12;
+  Button10.caption:=rst_8;
+  TabSheet1.Caption:=rst_21;
+  TabSheet3.Caption:=rst_22;
+  TabSheet2.Caption:=rst_44;
+  RadioGroup2.items[3]:=rst_45;
+  StaticText1.Caption:=rst_46;
+  button19.Caption:=rst_48;
+  ExpertMode.Caption:=rst_49;
+  Checklistbox1.Items.Clear;
+  for i:=1 to 13 do
+      Checklistbox1.Items.Add(dbtype[i]);
+  Checklistbox2.Items.Clear;
+  for i:=14 to 25 do
+      Checklistbox2.Items.Add(dbtype[i]);
+
+end;
 
 procedure TSelection.PageControl1Change(Sender: TObject);
 begin
@@ -168,10 +196,10 @@ if not allchecked then begin
  for i:=0 to CheckListBox1.Count-1 do begin
   if CheckListBox1.Checked[i] then begin
      if first then begin
-        buf:=' and ( (TYPE LIKE "'+f_main.dbtype[i+1]+wildcard+'")';
+        buf:=' and ( (TYPE LIKE "'+dbtype[i+1]+wildcard+'")';
         first:=false;
      end else begin
-        buf:=buf+ ' or (TYPE LIKE "'+f_main.dbtype[i+1]+wildcard+'")';
+        buf:=buf+ ' or (TYPE LIKE "'+dbtype[i+1]+wildcard+'")';
      end;
   end;
  end; // for
@@ -179,17 +207,17 @@ if not allchecked then begin
   if CheckListBox2.Checked[i] then begin
      if i>=8 then wildcard:='%';
      if first then begin
-        buf:=' and ( (TYPE LIKE "'+f_main.dbtype[i+14]+wildcard+'")';
+        buf:=' and ( (TYPE LIKE "'+dbtype[i+14]+wildcard+'")';
         first:=false;
      end else begin
-        buf:=buf+ ' or (TYPE LIKE "'+f_main.dbtype[i+14]+wildcard+'")';
+        buf:=buf+ ' or (TYPE LIKE "'+dbtype[i+14]+wildcard+'")';
      end;
   end;
  end; // for
  if buf='' then buf:=' and ( (TYPE LIKE "")';
 end;
 if buf>'' then buf:=buf+' ) ORDER BY NAME';
-sel.Text:=f_main.dbselection+buf;
+sel.Text:=dbselection+buf;
 end;
 
 procedure TSelection.ButtonAllClick(Sender: TObject);
@@ -223,7 +251,7 @@ case RadioGroup2.ItemIndex of
         colbetween1.Color:=clBtnFace;
         colbetween2.Color:=clBtnFace;
         if trim(coleq.Text)<>'' then
-           sel.Text:=f_main.dbselection+' and ('+fieldlist2.Text+' LIKE "'+coleq.Text+'")';
+           sel.Text:=dbselection+' and ('+fieldlist2.Text+' LIKE "'+coleq.Text+'")';
       end;
   1 : begin
         coleq.Enabled:=false;
@@ -237,7 +265,7 @@ case RadioGroup2.ItemIndex of
         colbetween1.Color:=clBtnFace;
         colbetween2.Color:=clBtnFace;
         if trim(colgt.Text)<>'' then
-           sel.Text:=f_main.dbselection+' and ('+fieldlist2.Text+' >= "'+colgt.Text+'") ORDER BY '+fieldlist2.Text+' ASC';
+           sel.Text:=dbselection+' and ('+fieldlist2.Text+' >= "'+colgt.Text+'") ORDER BY '+fieldlist2.Text+' ASC';
       end;
   2 : begin
         coleq.Enabled:=false;
@@ -251,7 +279,7 @@ case RadioGroup2.ItemIndex of
         colbetween1.Color:=clBtnFace;
         colbetween2.Color:=clBtnFace;
         if trim(collt.Text)<>'' then
-           sel.Text:=f_main.dbselection+' and ('+fieldlist2.Text+' <= "'+collt.Text+'") ORDER BY '+fieldlist2.Text+' DESC';
+           sel.Text:=dbselection+' and ('+fieldlist2.Text+' <= "'+collt.Text+'") ORDER BY '+fieldlist2.Text+' DESC';
       end;
   3 : begin
         coleq.Enabled:=false;
@@ -265,7 +293,7 @@ case RadioGroup2.ItemIndex of
         colbetween1.Color:=clWindow;
         colbetween2.Color:=clWindow;
         if (trim(colbetween1.Text)<>'')and(trim(colbetween2.Text)<>'') then
-           sel.Text:=f_main.dbselection+' and ('+fieldlist2.Text+' BETWEEN "'+colbetween1.Text+'" AND "'+colbetween2.Text+'") ORDER BY '+fieldlist2.Text+' ASC';
+           sel.Text:=dbselection+' and ('+fieldlist2.Text+' BETWEEN "'+colbetween1.Text+'" AND "'+colbetween2.Text+'") ORDER BY '+fieldlist2.Text+' ASC';
       end;
 end;
 Viewsel.Caption:=sel.Text;
@@ -293,16 +321,16 @@ begin
 formpos(SelectDB,mouse.CursorPos.X-SelectDB.Width,mouse.CursorPos.Y-SelectDB.Height);
 SelectDB.showmodal;
 if SelectDB.modalresult=mrOk then begin
-   f_main.dbselection:='DBN in (';
+   dbselection:='DBN in (';
    n:=0;
    for i:=0 to SelectDB.CheckListBox1.Count-1 do begin
      if SelectDB.CheckListBox1.Checked[i] then begin
-        if n>0 then f_main.dbselection:=f_main.dbselection+',';
-        f_main.dbselection:=f_main.dbselection+SelectDB.dblist[i];
+        if n>0 then dbselection:=dbselection+',';
+        dbselection:=dbselection+SelectDB.dblist[i];
         inc(n);
      end;
    end;
-   f_main.dbselection:=f_main.dbselection+')';
+   dbselection:=dbselection+')';
    CheckListBox1ClickCheck(Sender);
 end;
 end;

@@ -39,7 +39,7 @@
         <PackageName Value="uniqueinstance_package"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="10">
+    <Units Count="11">
       <Unit0>
         <Filename Value="datlun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -52,9 +52,9 @@
       </Unit1>
       <Unit2>
         <Filename Value="fmsg.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="MsgForm"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fmsg"/>
       </Unit2>
@@ -65,51 +65,56 @@
       </Unit3>
       <Unit4>
         <Filename Value="vmabrowser5.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="SelectDB"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser5"/>
       </Unit4>
       <Unit5>
         <Filename Value="vmabrowser4.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="LoadCSV"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser4"/>
       </Unit5>
       <Unit6>
         <Filename Value="vmabrowser3.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="Columns"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser3"/>
       </Unit6>
       <Unit7>
         <Filename Value="vmabrowser2.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="Selection"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser2"/>
       </Unit7>
       <Unit8>
         <Filename Value="vmabrowser1.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_main"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
       </Unit8>
       <Unit9>
         <Filename Value="splashunit.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="splash"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
         <UnitName Value="splashunit"/>
       </Unit9>
+      <Unit10>
+        <Filename Value="dbutil.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="dbutil"/>
+      </Unit10>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

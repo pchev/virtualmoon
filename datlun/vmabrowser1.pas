@@ -29,16 +29,14 @@ uses
 {$ifdef mswindows}
 Windows,
 {$endif}
+  u_translation, u_translation_database,
   u_constant, LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, Grids, Math, passql, passqlite, u_util, dbutil, StdCtrls,
   ExtCtrls, IniFiles, ImgList, LResources, uniqueinstance;
 
 const
   ExitProMsg='Virtual_Moon_Atlas_Pro_exit';
-  nummessage = 30;
-  numdb=6;
-  numdbtype = 25;
-  Splashversion ='Version 5 beta 2009-05-03';
+  Splashversion ='Version 5 beta 2009-10-19';
   versionname='DATLUN';
 
 type
@@ -115,13 +113,12 @@ type
     MouseX, MouseY, HintX, HintY: integer;
     StartVMA,CanCloseVMA, StartPhotlun, CanClosePhotlun, ExpertMode: boolean;
     IDlist: array of integer;
-    param : Tstringlist;
     procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
     procedure InstanceRunning(Sender : TObject);
     Procedure SetLang;
     procedure GetAppDir;
     procedure SaveDefault;
-    Procedure ReadParam;
+    Procedure ReadParam(first:boolean=true);
     Procedure Readdefault;
     procedure RefreshGrid;
     procedure Select;
@@ -132,11 +129,7 @@ type
     procedure SortByCol(col:integer);
   public
     { Public declarations }
-    dbm: TLiteDB;
-    dbselection: string;
-    m : array[1..nummessage] of string;
-    dbtype : array[1..numdbtype] of string;
-    dbshortname : array[1..numdb] of string;
+    param : Tstringlist;
     procedure InitApp;
   end;
 
@@ -303,110 +296,72 @@ Procedure Tf_main.SetLang;
 var section,buf : string;
     inifile : Tmeminifile;
     i : integer;
-const deftxt='?';
 begin
-language:='UK';
-inifile:=Tmeminifile.create(ConfigFile);
-with inifile do begin
-section:='default';
-buf:=ReadString(section,'Language',language);
+language := '';
+inifile := Tmeminifile.Create(ConfigFile);
+with inifile do
+begin
+  section := 'default';
+  language     := ReadString(section, 'lang_po_file', language);
 end;
 inifile.Free;
 chdir(appdir);
-if fileexists(Slash(AppDir)+slash('language')+'lang_u'+buf+'.ini') then language:=buf;
-inifile:=Tmeminifile.create(Slash(AppDir)+slash('language')+'lang_u'+language+'.ini');
-with inifile do begin
-  section:='default';
-  transmsg:=ReadString(section,'translator','');
-  u_util.hp:=ReadString(section,'help_prefix','UK')+'_';
-  Help1.caption:=ReadString(section,'t_15',Help1.caption);
+language:=u_translation.translate(language,'en');
+u_translation_database.translate(language,'en');
+  transmsg:=rstranslator;
+  u_util.hp:=rshelp_prefix+'_';
+  Help1.caption:=rst_52;
   Help2.caption:=Help1.caption;
-  APropos1.caption:=ReadString(section,'t_16',APropos1.caption);
-  section:='datlun';
-  file1.caption:=ReadString(section,'t_1',file1.caption);
-  quit1.caption:=ReadString(section,'t_2',quit1.caption);
-  vmabrowser2.Selection.caption:=ReadString(section,'t_3',vmabrowser2.Selection.caption);
-  Selection1.caption:=vmabrowser2.Selection.caption;
-  vmabrowser3.Columns.caption:=ReadString(section,'t_4',vmabrowser3.Columns.caption);
-  Columns1.caption:=vmabrowser3.Columns.caption;
-  vmabrowser3.Columns.ButtonAll.caption:=ReadString(section,'t_5',vmabrowser3.Columns.ButtonAll.caption);
-  vmabrowser2.Selection.ButtonAll.caption:=vmabrowser3.Columns.ButtonAll.caption;
-  vmabrowser3.Columns.ButtonNone.caption:=ReadString(section,'t_6',vmabrowser3.Columns.ButtonNone.caption);
-  vmabrowser2.Selection.ButtonNone.caption:=vmabrowser3.Columns.ButtonNone.caption;
-  vmabrowser3.Columns.ButtonClose.caption:=ReadString(section,'t_7',vmabrowser3.Columns.ButtonClose.caption);
-  vmabrowser2.Selection.Button10.caption:=ReadString(section,'t_8',vmabrowser2.Selection.Button10.caption);
-  vmabrowser2.Selection.Button11.caption:=ReadString(section,'t_9',vmabrowser2.Selection.Button11.caption);
-  vmabrowser2.Selection.Button9.caption:=ReadString(section,'t_10',vmabrowser2.Selection.Button9.caption);
-  vmabrowser2.Selection.Button13.caption:=ReadString(section,'t_11',vmabrowser2.Selection.Button13.caption);
-  vmabrowser2.Selection.label1.caption:=ReadString(section,'t_12',vmabrowser2.Selection.label1.caption);
-  for i:=1 to nummessage do begin
-    m[i]:=ReadString(section,'m_'+trim(inttostr(i)),deftxt);
-  end;
-  vmabrowser5.SelectDB.dbn1:=ReadString(section,'t_15','Near Side Named Formation');
-  vmabrowser5.SelectDB.dbn2:=ReadString(section,'t_16','Near Side Indexed Craters');
-  vmabrowser5.SelectDB.dbn3:=ReadString(section,'t_18','Far Side Named Formation');
-  vmabrowser5.SelectDB.dbn4:=ReadString(section,'t_19','Far Side Indexed Craters');
-  vmabrowser5.SelectDB.dbn5:=ReadString(section,'t_20','Historical Sites');
-  vmabrowser5.SelectDB.dbn6:=ReadString(section,'t_51','Pyroclastic deposits');
-  vmabrowser5.SelectDB.Button1.Caption:=ReadString(section,'t_8',vmabrowser5.SelectDB.Button1.caption);
-  vmabrowser5.SelectDB.Button2.Caption:=ReadString(section,'t_9',vmabrowser5.SelectDB.Button2.caption);
-  vmabrowser5.SelectDB.Button3.Caption:=ReadString(section,'t_5',vmabrowser5.SelectDB.Button3.caption);
-  vmabrowser5.SelectDB.Button4.Caption:=ReadString(section,'t_6',vmabrowser5.SelectDB.Button4.caption);
-  vmabrowser2.Selection.TabSheet1.Caption:=ReadString(section,'t_21',vmabrowser2.Selection.TabSheet1.Caption);
-  vmabrowser2.Selection.TabSheet3.Caption:=ReadString(section,'t_22',vmabrowser2.Selection.TabSheet2.Caption);
-  vmabrowser4.LoadCSV.label9.Caption:=ReadString(section,'t_17',vmabrowser4.LoadCSV.label9.Caption);
-  vmabrowser4.LoadCSV.TabSheet1.Caption:=ReadString(section,'t_23',vmabrowser4.LoadCSV.TabSheet1.Caption);
-  vmabrowser4.LoadCSV.TabSheet2.Caption:=ReadString(section,'t_24',vmabrowser4.LoadCSV.TabSheet2.Caption);
-  vmabrowser4.LoadCSV.TabSheet3.Caption:=ReadString(section,'t_25',vmabrowser4.LoadCSV.TabSheet3.Caption);
-  vmabrowser4.LoadCSV.label1.Caption:=ReadString(section,'t_26',vmabrowser4.LoadCSV.label1.Caption);
-  vmabrowser4.LoadCSV.label2.Caption:=ReadString(section,'t_27',vmabrowser4.LoadCSV.label2.Caption);
-  vmabrowser4.LoadCSV.label4.Caption:=ReadString(section,'t_28',vmabrowser4.LoadCSV.label4.Caption);
-  vmabrowser4.LoadCSV.label3.Caption:=ReadString(section,'t_29',vmabrowser4.LoadCSV.label3.Caption);
-  vmabrowser4.LoadCSV.label6.Caption:=ReadString(section,'t_30',vmabrowser4.LoadCSV.label6.Caption);
-  vmabrowser4.LoadCSV.AssignConstant.Caption:=ReadString(section,'t_31',vmabrowser4.LoadCSV.AssignConstant.Caption);
-  vmabrowser4.LoadCSV.AssignField.Hint:=ReadString(section,'t_47',vmabrowser4.LoadCSV.AssignField.Hint);
-  vmabrowser4.LoadCSV.Button3.Caption:=ReadString(section,'t_32',vmabrowser4.LoadCSV.Button3.Caption);
-  Databasemaintenance1.Caption:=ReadString(section,'t_14',Databasemaintenance1.Caption);
-  Export1.Caption:=ReadString(section,'t_33',Export1.Caption);
-  Import1.Caption:=ReadString(section,'t_34',Import1.Caption);
-  Delete1.Caption:=ReadString(section,'t_35',Delete1.Caption);
-  ShowSelection1.Caption:=ReadString(section,'t_36',ShowSelection1.Caption);
-  vmabrowser4.LoadCSV.caption:=Import1.Caption;
-  vmabrowser4.LoadCSV.label7.Caption:=ReadString(section,'t_37',vmabrowser4.LoadCSV.label7.Caption);
-  vmabrowser4.LoadCSV.Button1.Caption:=ReadString(section,'t_38',vmabrowser4.LoadCSV.Button1.Caption);
-  vmabrowser4.LoadCSV.label8.Caption:=ReadString(section,'t_39',vmabrowser4.LoadCSV.label8.Caption);
-  vmabrowser4.LoadCSV.Button2.Caption:=ReadString(section,'t_40',vmabrowser4.LoadCSV.Button2.Caption);
-  FindCaption:=ReadString(section,'t_41',Find1.Caption);
-  ShowCaption:=ReadString(section,'t_42',OpeninVMA1.Caption);
-  SortCaption:=ReadString(section,'t_43',SortBy1.Caption);
-  vmabrowser2.Selection.TabSheet2.Caption:=ReadString(section,'t_44',vmabrowser2.Selection.TabSheet2.Caption);
-  vmabrowser2.Selection.RadioGroup2.items[3]:=ReadString(section,'t_45',vmabrowser2.Selection.RadioGroup2.items[3]);
-  vmabrowser2.Selection.StaticText1.Caption:=ReadString(section,'t_46',vmabrowser2.Selection.StaticText1.Caption);
-  vmabrowser2.Selection.button19.Caption:=ReadString(section,'t_48',vmabrowser2.Selection.button19.Caption);
-  vmabrowser2.Selection.ExpertMode.Caption:=ReadString(section,'t_49',vmabrowser2.Selection.ExpertMode.Caption);
-  Default1.Caption:=ReadString(section,'t_50',Default1.Caption);
-  section:='database';
-  vmabrowser2.Selection.Checklistbox1.Items.Clear;
-  for i:=1 to numdbtype do begin
-    dbtype[i]:=ReadString(section,'t_'+trim(inttostr(i)),deftxt);
-    if i<=13 then
-       vmabrowser2.Selection.Checklistbox1.Items.Add(dbtype[i])
-    else
-       vmabrowser2.Selection.Checklistbox2.Items.Add(dbtype[i]);
-  end;
-  section:='db_shortname';
-  for i:=1 to numdb do begin
-    dbshortname[i]:=ReadString(section,'t_'+trim(inttostr(i)),'db'+trim(inttostr(i)));
-  end;
-end;
-inifile.free;
-buf:=slash(appdir)+slash('doc')+'loadcsv_'+language+'.txt';
-if not fileexists(buf) then buf:=slash(appdir)+slash('doc')+'loadcsv_UK.txt';
-try
-if fileexists(buf) then  vmabrowser4.LoadCSV.memo2.Lines.LoadFromFile(BUF);
-except
-end;
-
+  APropos1.caption:=rst_53;
+  file1.caption:=rst_1;
+  quit1.caption:=rst_2;
+  Selection1.caption:=rst_3;
+  Columns1.caption:=rst_4;
+  Databasemaintenance1.Caption:=rst_14;
+  Export1.Caption:=rst_33;
+  Import1.Caption:=rst_34;
+  Delete1.Caption:=rst_35;
+  ShowSelection1.Caption:=rst_36;
+  FindCaption:=rst_41;
+  ShowCaption:=rst_42;
+  SortCaption:=rst_43;
+  Default1.Caption:=rst_50;
+  dbtype[1]:=rscol_1;
+  dbtype[2]:=rscol_2;
+  dbtype[3]:=rscol_3;
+  dbtype[4]:=rscol_4;
+  dbtype[5]:=rscol_5;
+  dbtype[6]:=rscol_6;
+  dbtype[7]:=rscol_7;
+  dbtype[8]:=rscol_8;
+  dbtype[9]:=rscol_9;
+  dbtype[10]:=rscol_10;
+  dbtype[11]:=rscol_11;
+  dbtype[12]:=rscol_12;
+  dbtype[13]:=rscol_13;
+  dbtype[14]:=rscol_14;
+  dbtype[15]:=rscol_15;
+  dbtype[16]:=rscol_16;
+  dbtype[17]:=rscol_17;
+  dbtype[18]:=rscol_18;
+  dbtype[19]:=rscol_19;
+  dbtype[20]:=rscol_20;
+  dbtype[21]:=rscol_21;
+  dbtype[22]:=rscol_22;
+  dbtype[23]:=rscol_23;
+  dbtype[24]:=rscol_24;
+  dbtype[25]:=rscol_25;
+  dbshortname[1]:=rsdb_1;
+  dbshortname[2]:=rsdb_2;
+  dbshortname[3]:=rsdb_3;
+  dbshortname[4]:=rsdb_4;
+  dbshortname[5]:=rsdb_5;
+  dbshortname[6]:=rsdb_6;
+  dbshortname[7]:=rsdb_7;
+  Selection.SetLang;
+  LoadCSV.SetLang;
+  SelectDB.SetLang;
+  Columns.SetLang;
 end;
 
 procedure Tf_main.OtherInstance(Sender: TObject;
@@ -420,7 +375,7 @@ begin
      for i:=0 to ParamCount-1 do begin
         param.add(Parameters[i]);
      end;
-     ReadParam;
+     ReadParam(false);
   end;
 end;
 
@@ -456,21 +411,21 @@ StartPhotlun:=false;
 CanCloseVMA:=true;
 CanClosePhotlun:=true;
 SelectedObject:='';
-dbselection:='DBN in (1,2,3,4,5,6)';
+dbselection:='DBN in (1,2,3,4,5,6,7)';
 currentselection:=dbselection;
 ExpertMode:=false;
 Application.HintHidePause:=10000;
 end;
 
-Procedure Tf_main.ReadParam;
+Procedure Tf_main.ReadParam(first:boolean=true);
 var i : integer;
 begin
 i:=0;
 while i <= param.count-1 do begin
-if param[i]='-nx' then begin       // when started by vma do not close vma on exit!
+if (param[i]='-nx')and first then begin       // when started by vma do not close vma on exit!
    CanCloseVMA:=false;
 end
-else if param[i]='-np' then begin  // when started by photlun do not close photlun on exit!
+else if (param[i]='-np')and first then begin  // when started by photlun do not close photlun on exit!
    CanClosePhotlun:=false;
 end
 else if param[i]='-n' then begin
@@ -510,8 +465,8 @@ var dbcol,i:integer;
 begin
 SetLang;
 ReadDefault;
-for i:=1 to 6 do usedatabase[i]:=true;
-for i:=7 to maxdbn do usedatabase[i]:=false;
+for i:=1 to 7 do usedatabase[i]:=true;
+for i:=8 to maxdbn do usedatabase[i]:=false;
 LoadDB(dbm);
 Loadcsv.dbname:=dbm.DataBase;
 Selection.lastselection:=CurrentSelection;
@@ -657,7 +612,7 @@ if ok then begin
  if dbm.RowCount>0 then begin
     ScrollBar1.Max:=max(dbm.RowCount,MoonGrid.RowCount);
  end
- else Showmessage(m[2]);
+ else Showmessage(rsm_2);
 end
 else Showmessage(dbm.GetErrorMessage);
 currentrow:=0;
@@ -702,7 +657,7 @@ begin
  end;
  if currentselection='' then buf:='*'
     else buf:=currentselection;
- panel1.Caption:=m[4]+' '+inttostr(currentrow+1)+'/'+inttostr(dbm.RowCount)+'   '+m[3]+' '+buf;
+ panel1.Caption:=rsm_4+' '+inttostr(currentrow+1)+'/'+inttostr(dbm.RowCount)+'   '+rsm_3+' '+buf;
 end;
 
 procedure Tf_main.ScrollBar1Change(Sender: TObject);
@@ -854,7 +809,7 @@ end;
 procedure Tf_main.OpenVMA(objname,otherparam:string);
 var param:string;
 begin
-    param:='';
+    param:='-nd ';
     if CanCloseVMA and (not StartVMA) then begin
       param:=param+' -3d ';
     end;
@@ -915,9 +870,7 @@ end;
 procedure Tf_main.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 SaveDefault;
-{$ifdef mswindows}
-if CanCloseVMA and StartVMA then SendMessage(HWND_BROADCAST,RegisterWindowMessage(ExitProMsg),0,0);
-{$endif}
+if CanCloseVMA and StartVMA then OpenVMA('','-quit');
 if CanClosePhotLun and StartPhotlun then OpenPhotLun('','-quit');
 end;
 
@@ -961,7 +914,7 @@ else
       break;
    end;
  end;
-if not findok then showmessage(FindDialog1.FindText+' '+m[5]+' '+Moongrid.Cells[Findcol,0]);
+if not findok then showmessage(FindDialog1.FindText+' '+rsm_5+' '+Moongrid.Cells[Findcol,0]);
 end;
 
 procedure Tf_main.Export1Click(Sender: TObject);
@@ -1027,11 +980,11 @@ end;
 
 procedure Tf_main.Delete1Click(Sender: TObject);
 begin
-if currentselection='' then begin showmessage(m[6]);exit;end;
-if messagedlg(m[7],mtConfirmation,[mbYes,mbNo],0)=mrYes then begin
+if currentselection='' then begin showmessage(rsm_6);exit;end;
+if messagedlg(rsm_7,mtConfirmation,[mbYes,mbNo],0)=mrYes then begin
    dbjournal(extractfilename(dbm.DataBase),'DELETE WHERE '+currentselection);
    if dbm.query('delete from moon where '+currentselection+';') then begin
-      dbselection:='DBN in (1,2,3,4,5,6)';
+      dbselection:='DBN in (1,2,3,4,5,6,7)';
       currentselection:=dbselection;
       RemoveUnusedDBN;
       Select;
@@ -1063,7 +1016,7 @@ end;
 
 procedure Tf_main.Help2Click(Sender: TObject);
 begin
-showhelpdoc('Doc','_DATLUN','doc');
+showhelpdoc('Doc','_DatLun','doc');
 end;
 
 procedure Tf_main.MoonGridDrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -1075,7 +1028,7 @@ end;
 
 procedure Tf_main.Default1Click(Sender: TObject);
 begin
-dbselection:='DBN in (1,2,3,4,5,6)';
+dbselection:='DBN in (1,2,3,4,5,6,7)';
 Columns.ButtonAllClick(Self);
 Selection.ButtonAllClick(Self);
 currentselection:=trim(selection.sel.Text);
