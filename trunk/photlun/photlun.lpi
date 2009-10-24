@@ -46,16 +46,16 @@
       </Unit0>
       <Unit1>
         <Filename Value="pu_photlun.pas"/>
-        <ComponentName Value="f_photlun"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_photlun"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photlun"/>
       </Unit1>
       <Unit2>
         <Filename Value="pu_photo.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_photo"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photo"/>
       </Unit2>
@@ -66,8 +66,8 @@
       </Unit3>
       <Unit4>
         <Filename Value="pu_config.pas"/>
-        <ComponentName Value="f_config"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_config"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_config"/>
       </Unit4>
