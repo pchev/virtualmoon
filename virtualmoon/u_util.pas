@@ -30,7 +30,7 @@ uses Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
     Windows, ShlObj,
   {$endif}
   {$ifdef unix}
-    unix,baseunix,unixutil,
+    unix,baseunix,
   {$endif}
     Controls, Process, IntfGraphics,FPImage,
     MaskEdit,enhedits,Menus,Spin,CheckLst,Buttons, ExtCtrls,
@@ -127,7 +127,6 @@ uses u_projection;
 
 var
   dummy_ext : extended;
-  ftrace : textfile;
 
 function remext(fn:string):string;
 var i : integer;

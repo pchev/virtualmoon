@@ -1,5 +1,10 @@
 unit u_translation_database;
 
+{
+  This file is to be maintened in datlun
+  and copied to virtualmoon if changed
+}
+
 {$mode objfpc}{$H+}
 
 interface
@@ -23,6 +28,7 @@ rsdb_3='FSN';
 rsdb_4='FSI';
 rsdb_5='HIS';
 rsdb_6='PYR';
+rsdb_7='DOM';
 rscol_1='Crater';
 rscol_2='Craterlet';
 rscol_3='Crater chain';

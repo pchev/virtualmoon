@@ -142,13 +142,15 @@ begin
      Maintain result using barycenter
      }
     if rval = 1 then begin
+        result:=true;
         if planet_id = 3 then de_rot_obliq(planet_arr);
         if planet_id = 11 then begin
             planet_arr[0] := planet_arr[0] * -1;
   	        planet_arr[1] := planet_arr[1] * -1;
   	        planet_arr[2] := planet_arr[2] * -1;
         end;
-    end;
+    end
+    else result:=false;
 end;
 
 procedure de_rot_obliq(var Src_arr: Array_5D);

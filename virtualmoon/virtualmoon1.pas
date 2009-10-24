@@ -32,7 +32,7 @@ uses
 {$IF DEFINED(LCLgtk) or DEFINED(LCLgtk2)}
   GtkProc,
 {$endif}
-  u_translation, u_translation_database,
+  u_translation_database, u_translation,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   mlb2, PrintersDlgs, Printers, Controls, DateUtils,
@@ -78,6 +78,7 @@ type
     FullScreen1: TMenuItem;
     PanelMoon: TPanel;
     PanelMoon2: TPanel;
+    PrintDialog1: TPrintDialog;
     Quitter1: TMenuItem;
     PageControl1: TNoteBook;
     Position: TPage;
@@ -102,6 +103,8 @@ type
     Splitter1: TSplitter;
     GridButton: TToolButton;
     Splitter2: TSplitter;
+    ToolButton13: TToolButton;
+    ToolButton14: TToolButton;
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
@@ -298,7 +301,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Button2Click(Sender: TObject);
-    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -307,6 +309,7 @@ type
     procedure Splitter1Moved(Sender: TObject);
     procedure Splitter2Moved(Sender: TObject);
     procedure ToolButton12Click(Sender: TObject);
+    procedure ToolButton14Click(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
@@ -428,9 +431,12 @@ type
     FullScreen: boolean;
     lockzoombar: boolean;
     texturefiles: TStringList;
-    savetop,saveleft,savewidth,saveheight:integer;
     SplitSize: single;
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
+    firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseCDC,StartDatlun,StartPhotlun,StartCDC: boolean;
+    procedure OpenDatlun(objname,otherparam:string);
+    procedure OpenPhotlun(objname,otherparam:string);
+    procedure OpenCDC(objname,otherparam:string);
     procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
     procedure InstanceRunning(Sender : TObject);
     procedure SetEyepieceMenu;
@@ -442,11 +448,11 @@ type
     function GetJDTimeZone(jdt: double): double;
     procedure InitImages;
     procedure AddImages(dir, nom, cpy: string);
-    procedure ReadParam;
+    procedure ReadParam(first:boolean=true);
     procedure SetObs(param: string);
     procedure Readdefault;
     procedure SaveDefault;
-    procedure UpdTerminateur;
+    procedure UpdTerminateur(range:double=12);
     procedure AddToList(buf: string);
     procedure GetDetail(row: TResultRow; memo: Tmemo);
     procedure GetHTMLDetail(row: TResultRow; var txt: string);
@@ -494,7 +500,6 @@ type
     externalimagepath, helpprefix, ruklprefix, ruklsuffix,
     scopeinterface, markname, currentname, currentid: string;
     appname, pofile: string;
-    CloseVMAbrowser, ClosePhotlun, CloseCdC: boolean;
     //m: array[1..nummessage] of string;
     num_bl: integer;
     bldb: array[1..20] of string;
@@ -518,7 +523,6 @@ type
     EyepieceRatio: double;
     zoom:   double;
     useDBN: integer;
-    db_age: array[1..6] of integer;
     nmjd, fqjd, fmjd, lqjd, currentl, currentb: double;
     searchlist: TStringList;
     compresstexture,antialias : boolean;
@@ -583,7 +587,7 @@ end;
 
 procedure TForm1.SetLang1;
 var
-  section, buf: string;
+  section: string;
   inifile:      Tmeminifile;
 const
   deftxt = '?';
@@ -610,8 +614,7 @@ end;
 
 procedure TForm1.SetLang;
 var
-  section, buf: string;
-  i: integer;
+  buf: string;
 const
   deftxt = '?';
   blank  = '        ';
@@ -619,12 +622,18 @@ const
 begin
   wordformat := 0;
     wordformat := strtointdef(rsformat, wordformat);
+    ldeg     := rsdegree;
+    lmin     := rsminute;
+    lsec     := rssecond;
+    transmsg := rstranslator;
+    Caption  := rstitle;
     helpprefix := rshelp_prefix;
     ToolButton1.Caption := rst_1;
     quitter1.Caption := rst_2;
     ToolButton2.Caption := rst_3;
     label10.Caption := rst_4;
     zoom1.Caption := label10.Caption;
+    ToolButton9.Hint:=rst_31+' 1:1';
     toolbutton5.hint := rst_5;
     centre1.Caption := toolbutton5.hint;
     Position.Caption := rst_6;
@@ -672,6 +681,8 @@ begin
     RadioGroup2.Caption := rst_67;
     CheckBox1.Caption := rst_68;
     distance1.Caption := rst_69;
+    FullScreen1.Caption:=rsFullScreen;
+    ToolButton13.Hint:=rsFullScreen;
     label23.Caption  := b + distance1.Caption + b;
     label24.Caption  := rst_70;
     label25.Caption  := rst_71;
@@ -705,10 +716,14 @@ begin
     ToolButton4.hint := rst_177;
     ToolButton6.hint := rst_178;
     RemoveMark1.Caption := rst_180;
+    Label5.Caption:=rsOrbitAltitud;
+    Label17.Caption:=rsOrbitInclina;
 
     ButtonDatabase.hint := Database1.Caption;
     CheckBox8.Caption := rst_182;
-    Toolbutton12.hint := rst_183;
+    Toolbutton12.hint := rsShowLabels;
+    GridButton.Hint:=rsShowGrid;
+    ToolButton14.Hint:=rsShowScale;
     CheckBox6.Caption := rst_156;
     CheckBox7.Caption := rst_157;
     label28.Caption := rst_158;
@@ -839,14 +854,15 @@ var
   i, j:    integer;
   smooth:  integer;
 begin
-  database[1]    := 'Nearside_Named_uFR.csv';
+  database[1]    := 'Nearside_Named_ufr.csv';
   usedatabase[1] := True;
   usedatabase[2] := True;
   usedatabase[3] := True;
   usedatabase[4] := True;
   usedatabase[5] := True;
   usedatabase[6] := True;
-  for i := 7 to maxdbn do
+  usedatabase[7] := True;
+  for i := 8 to maxdbn do
     usedatabase[i] := False;
   timezone := 0;
   Obslatitude := 48.86;
@@ -899,11 +915,9 @@ begin
   eyepiecefield[1] := 15;
   rotdirection := -1;
   rotstep  := 1;
-  CloseVMAbrowser := False;
-  ClosePhotlun := False;
-  CloseCdC := False;
   smooth   := 180;
   inif := Tmeminifile.Create(ConfigFile);
+  firstuse := (not inif.SectionExists('default'));
   with inif do
   begin
     section     := 'images';
@@ -935,10 +949,6 @@ begin
     section    := 'default';
     pofile     := ReadString(section, 'lang_po_file', '');
     UseComputerTime := ReadBool(section, 'UseComputerTime', UseComputerTime);
-    for i := 1 to 6 do
-      usedatabase[i] := ReadBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
-    for i := 1 to 6 do
-      db_age[i]  := ReadInteger(section, 'DB_Age' + IntToStr(i), 0);
     compresstexture := ReadBool(section, 'compresstexture', compresstexture);
     antialias := ReadBool(section, 'antialias', antialias);
     Obslatitude  := ReadFloat(section, 'Obslatitude', Obslatitude);
@@ -978,47 +988,32 @@ begin
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
     if ToolsWidth<100 then ToolsWidth:=100;
     PageControl1.Width:=ToolsWidth;
-
     i := ReadInteger(section, 'Top', -1);
     if i > 0 then
     begin
-      if multi_instance then
-        i := i + 25;
       if (i >= -10) and (i < screen.Height - 20) then
         Top := i
       else
         Top := 0;
     end;
-
     i := ReadInteger(section, 'Left', -1);
     if i > 0 then
     begin
-      if multi_instance then
-        i := i + 25;
       if (i >= -10) and (i < screen.Width - 20) then
         Left := i
       else
         Left := 0;
-
       i := screen.Height - 50;
-      if multi_instance then
-        i := round(0.8 * i);
       i   := minintvalue([i, ReadInteger(section, 'Height', i)]);
       if (i >= 20) then
         Height := i;
-      if multi_instance then
-        ClientWidth := ClientHeight - controlbar1.Height - statusbar1.Height
-      else
-      begin
-        i := screen.Width - 5;
-        i := minintvalue([i, ReadInteger(section, 'Width', i)]);
-        if (i >= 20) then
-          Width := i;
-      end;
+      i := screen.Width - 5;
+      i := minintvalue([i, ReadInteger(section, 'Width', i)]);
+      if (i >= 20) then
+        Width := i;
     end;
-    if (not multi_instance) and ReadBool(section, 'Maximized', False) then
+    if ReadBool(section, 'Maximized', False) then
       windowstate := wsMaximized;
-
     for j := 1 to maxima do
     begin
       i := ReadInteger(section, 'PicTop_' + IntToStr(j), -99);
@@ -1033,7 +1028,6 @@ begin
         PicLeft[j - 1] := 20 * (j - 1);
       PicZoom[j - 1] := ReadFloat(section, 'PicZoom_' + IntToStr(j), 0);
     end;
-
     for j:=0 to 3 do
       texturefiles[j] := ReadString(section, 'texturefile' + IntToStr(j), texturefiles[j]);
 
@@ -1042,14 +1036,11 @@ begin
       eyepiecename[j]     := ReadString(section, 'eyepiecename' + IntToStr(j), eyepiecename[j]);
       eyepiecefield[j]    := ReadInteger(section, 'eyepiecefield' + IntToStr(j), eyepiecefield[j]);
       eyepiecemirror[j]   := ReadInteger(section, 'eyepiecemirror' + IntToStr(j), eyepiecemirror[j]);
-      eyepiecerotation[j] := ReadInteger(section, 'eyepiecerotation' + IntToStr(
-        j), eyepiecerotation[j]);
+      eyepiecerotation[j] := ReadInteger(section, 'eyepiecerotation' + IntToStr(j), eyepiecerotation[j]);
     end;
     useDBN := ReadInteger(section, 'useDBN', useDBN);
     for i := 1 to useDBN do
       usedatabase[i] := ReadBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
-    for i := 1 to useDBN do
-      db_age[i] := ReadInteger(section, 'DB_Age' + IntToStr(i), 0);
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
     overlaytr  := ReadFloat(section, 'overlaytr', 0);
     showoverlay := ReadBool(section, 'showoverlay', showoverlay);
@@ -1094,15 +1085,9 @@ begin
       WriteInteger(section, 'useDBN', useDBN);
       for i := 1 to useDBN do
         WriteBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
-      for i := 1 to useDBN do
-        WriteInteger(section, 'DB_Age' + IntToStr(i), db_age[i]);
       WriteString(section, 'overlayname', overlayname);
       WriteFloat(section, 'overlaytr', overlaytr);
       WriteBool(section, 'showoverlay', showoverlay);
-      for i := 1 to 6 do
-        WriteBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
-      for i := 1 to 6 do
-        WriteInteger(section, 'DB_Age' + IntToStr(i), db_age[i]);
       for i := 0 to 3 do
         WriteString(section, 'texturefile' + IntToStr(i), texturefiles[i]);
       WriteBool(section, 'Geocentric', Geocentric);
@@ -1111,7 +1096,6 @@ begin
       WriteFloat(section, 'Obslongitude', Obslongitude);
       WriteString(section, 'ObsCountry', ObsCountry);
       WriteString(section, 'ObsTZ', ObsTZ);
-      WriteString(section, 'lang_po_file', pofile);
       WriteBool(section, 'UseComputerTime', UseComputerTime);
       WriteFloat(section, 'CurrentJD', CurrentJD);
       WriteFloat(section, 'dt_ut', dt_ut);
@@ -1157,9 +1141,6 @@ begin
         WriteString(section, 'List_' + IntToStr(i), combobox1.Items.Strings[i]);
       end;
       section := 'images';
-      WriteBool(section, 'LopamDirect', LopamDirect);
-      WriteBool(section, 'ExternalSoftware', externalimage);
-      WriteString(section, 'ExternalSoftwarePath', externalimagepath);
       WriteInteger(section, 'NumWindow', maxima);
       WriteInteger(section, 'NumDir', maximgdir);
       WriteInteger(section, 'SaveImageSize', saveimagesize);
@@ -1169,8 +1150,6 @@ begin
         WriteString(section, 'dir' + IntToStr(i), imgdir[i - 1, 0]);
         WriteString(section, 'name' + IntToStr(i), imgdir[i - 1, 2]);
       end;
-      WriteString(section, 'ruklprefix', ruklprefix);
-      WriteString(section, 'ruklsuffix', ruklsuffix);
       section := 'Print';
       WriteInteger(section, 'LeftMargin', LeftMargin);
       WriteInteger(section, 'PrintTextWidth', PrintTextWidth);
@@ -1254,9 +1233,7 @@ end;
 
 procedure TForm1.GetSprite(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
-    w, wmin, wfact, l1, b1: single;
-    miniok:    boolean;
-    nom, let:  string;
+    l1, b1: single;
     j: integer;
 begin
 // Mark selection
@@ -1425,7 +1402,7 @@ begin
   CurrentJD := jd(CurYear, CurrentMonth, CurrentDay, Currenttime - timezone + DT_UT);
 end;
 
-procedure TForm1.ReadParam;
+procedure TForm1.ReadParam(first:boolean=true);
 var
   i:    integer;
   buf:  string;
@@ -1495,6 +1472,22 @@ begin
           moon1.CenterAt(deg2rad*x, 0);
         end;
       end
+      else if (param[i]='-nd')and first then
+      begin
+        CanCloseDatlun:=false;  // when started by datlun do not close datlun on exit!
+      end
+      else if (param[i]='-np')and first then
+      begin
+        CanClosePhotlun:=false;  // when started by photlun do not close photlun on exit!
+      end
+      else if (param[i]='-ns')and first then
+      begin
+        CanCloseCDC:=false;  // when started by skychart do not close skychart on exit!
+      end
+      else if param[i]='-quit' then
+      begin
+        Close;  // close current instance
+      end
       else if param[i] = '--' then
       begin   // last parameter
         break;
@@ -1507,7 +1500,7 @@ end;
 
 procedure TForm1.GetAppDir;
 var
-  buf, buf1: string;
+  buf: string;
 {$ifdef darwin}
   i:      integer;
 {$endif}
@@ -1647,7 +1640,7 @@ begin
   end;
 end;
 
-procedure TForm1.UpdTerminateur;
+procedure TForm1.UpdTerminateur(range:double=12);
 var
   interest, diam, i: integer;
   l1, l2: double;
@@ -1657,12 +1650,12 @@ begin
   if tphase < 180 then
   begin
     l1 := tphase - 90 + librl;
-    l2 := l1 + 12;
+    l2 := l1 + range;
   end
   else
   begin
     l2 := tphase - 90 + librl - 180;
-    l1 := l2 - 12;
+    l1 := l2 - range;
   end;
   currentphase := tphase;
   diam     := strtointdef(combobox3.Text, 5);
@@ -1925,10 +1918,12 @@ if (GetField('RUKL')>'')or(GetField('RUKLC')>'') then
           GetField('WORK') + b + GetField('CENTURYC') + b +
           rsm_2 + b + GetField('COUNTRY'));
     end;
-    memo.Lines.Add(rsm_3 + b + GetField('BIRTHPLACE') + b + rsm_4 +
-      b + GetField('BIRTHDATE'));
-    memo.Lines.Add(rsm_5 + b + GetField('DEATHPLACE') + b + rsm_4 +
-      b + GetField('DEATHDATE'));
+    if (GetField('BIRTHPLACE')>'')or((GetField('BIRTHDATE')>'')) then
+       memo.Lines.Add(rsm_3 + b + GetField('BIRTHPLACE') + b + rsm_4 +
+            b + GetField('BIRTHDATE'));
+    if (GetField('DEATHPLACE')>'')or((GetField('DEATHDATE')>'')) then
+       memo.Lines.Add(rsm_5 + b + GetField('DEATHPLACE') + b + rsm_4 +
+            b + GetField('DEATHDATE'));
   end;
   if GetField('FACTS')>'' then
     memo.Lines.Add(rsm_64 + b + GetField('FACTS'));
@@ -2487,7 +2482,7 @@ end;
 
 function TForm1.SearchName(n: string; center: boolean): boolean;
 var
-  l, b, x, y: double;
+  l, b: double;
   txt: string;
   i:   integer;
 begin
@@ -2517,10 +2512,11 @@ begin
     currentb    := b;
     currentid   := searchlist[searchpos];
     currentname := dbm.Results[0].ByField['NAME'].AsString;
+    activemoon.SetMark(deg2rad*currentl, deg2rad*currentb, capitalize(currentname));
     if center then begin
       activemoon.CenterAt(deg2rad*currentl, deg2rad*currentb);
     end;
-    activemoon.SetMark(deg2rad*currentl, deg2rad*currentb, capitalize(currentname));
+    //if center then activemoon.CenterMark;
     GetHTMLDetail(dbm.Results[0], txt);
     SetDescText(txt);
     if dbtab.TabVisible then
@@ -2574,11 +2570,6 @@ begin
   SearchName(SearchText, True);
 end;
 
-procedure TForm1.PageControl1ChangeBounds(Sender: TObject);
-begin
-
-end;
-
 procedure TForm1.ComboBox1Select(Sender: TObject);
 begin
   Firstsearch := True;
@@ -2593,16 +2584,10 @@ end;
 procedure TForm1.RefreshMoonImage;
 var
   moonrise, moonset, moontransit, azimuthrise, azimuthset, eph: string;
-  jd0, st0, q, tz1, cphase, colong, hh, az, ah: double;
+  jd0, st0, q, cphase, colong, hh, az, ah: double;
   v1, v2, v3, v4, v5, v6, v7, v8, v9: double;
   gpa, glibrb, gsunincl, glibrl: double;
-  aa, mm, dd, i, col, j: integer;
-  h, mn, s, ms: word;
-  ds1, ds2, n, ex1, ey1, xx, yy: integer;
-  th, ex, ey, ci, si, sph: double;
-  rvx, rvy: boolean;
-  p:  array[0..23] of Tpoint;
-  ph: Tbitmap;
+  aa, mm, dd, i, j: integer;
 const
   b = ' ';
 begin
@@ -2656,13 +2641,13 @@ begin
 
   Stringgrid1.colwidths[1] := 150;
   i := 0;
-  Stringgrid1.Cells[0, i] := 'Ephemeris:';
+  Stringgrid1.Cells[0, i] := rsEphemeris;
   Stringgrid1.Cells[1, i] := eph;
   Inc(i);
   if geocentric then
   begin
     Stringgrid1.Cells[0, i] := form2.Label16.Caption + ':';
-    Stringgrid1.Cells[1, i] := form2.CheckBox3.Caption;
+    Stringgrid1.Cells[1, i] := rst_26;
   end
   else
   begin
@@ -2676,7 +2661,7 @@ begin
     ' ' + timtostr(currenttime);
   djd(currentjd, aa, mm, dd, hh);
   Inc(i);
-  Stringgrid1.Cells[0, i] := rsm_51 + ' (DT):';
+  Stringgrid1.Cells[0, i] := rsm_51 + ' (TT):';
   Stringgrid1.Cells[1, i] := date2str(aa, mm, dd) + ' ' + timtostr(hh);
   Inc(i);
   Stringgrid1.Cells[0, i] := '(J2000) ' + rsm_29;
@@ -2961,11 +2946,14 @@ begin
 {$ifdef mswindows}
   TrackBar1.Top:=-2;
   CheckBox3.Visible:=true;  // antialias
+  GroupBox4.Visible:=true;  // telescope
 {$endif}
-  texturefiles:=TStringList.Create;
-  for i:=0 to 3 do texturefiles.Add('Clementine');
-  texturefiles[2]:='Lopam';
-  texturefiles[3]:='Lopam';
+  StartDatlun:=false;
+  StartPhotlun:=false;
+  StartCDC:=false;
+  CanCloseDatlun:=true;
+  CanClosePhotlun:=true;
+  CanCloseCDC:=true;
   dbedited  := False;
   perfdeltay := 0.00001;
   lockchart := False;
@@ -2974,7 +2962,7 @@ begin
   CurrentEyepiece := 0;
   EyepieceRatio := 1;
   zoom      := 1;
-  useDBN    := 6;
+  useDBN    := 7;
   compresstexture := true;
   antialias := false;
   showoverlay := True;
@@ -2998,6 +2986,14 @@ begin
   end;
   tz := TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');
+  texturefiles:=TStringList.Create;
+  for i:=0 to 3 do texturefiles.Add('');
+  texturefiles[0]:='Airbrush';
+  texturefiles[1]:='Airbrush';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L3') then
+     texturefiles[2]:='Lopam';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L4') then
+     texturefiles[3]:='Lopam';
   CursorImage1 := TCursorImage.Create;
   overlayhi := Tbitmap.Create;
   overlayimg := Tbitmap.Create;
@@ -3040,7 +3036,6 @@ begin
   dblox     := TMlb2.Create;
   dbnotes   := TMlb2.Create;
   GetSkyChartInfo;
-  CartesduCiel1.Visible := CdCdir > '';
   CheckBox8.Checked := compresstexture;
   CheckBox3.Checked := antialias;
   if PoleOrientation = 0 then
@@ -3059,12 +3054,6 @@ begin
         borderstyle := bsNone; // canot set this later in formshow
     end;
   end;
-  if multi_instance then
-  begin
-    NewWindowButton.Visible := False;
-    Button15.Visible := False;
-    Caption := Caption + '<2>';
-  end;
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
@@ -3072,6 +3061,8 @@ begin
 end;
 
 procedure TForm1.Init;
+var i:integer;
+    savecaption: string;
 begin
 try
   Setlang;
@@ -3149,6 +3140,7 @@ try
   LibrationButton.Down := librationeffect;
   PhaseButton.Down := phaseeffect;
   LoadOverlay(overlayname, overlaytr);
+  Visible:=true;
   RefreshMoonImage;
   PhaseButtonClick(nil);
   GridButtonClick(nil);
@@ -3162,13 +3154,13 @@ try
   moon1.Mirror:=checkbox2.Checked;
   moon1.GLSceneViewer1.Visible:=true;
   Application.ProcessMessages;
-  if (not multi_instance) and (currentid = '') then
+  if (currentid = '') then
   begin
     // show an interesting object
     Combobox2.ItemIndex   := 0;
-    Combobox3.ItemIndex   := 6;
+    Combobox3.ItemIndex   := 5;
     RadioGroup1.ItemIndex := 1;
-    Updterminateur;
+    Updterminateur(5);
     Firstsearch := True;
     SearchText  := trim(copy(ListBox1.Items[0], 2, 999));
     SearchName(SearchText, false);
@@ -3181,14 +3173,25 @@ finally
   screen.cursor := crDefault;
   moon1.GLSceneViewer1.Visible:=true;
 end;
+if firstuse then begin
+    savecaption:=form2.Caption;
+    form2.Caption:=rsFirstUseSett;
+    form2.PageControl1.Page[0].TabVisible:=true;
+    for i:=1 to 7 do form2.PageControl1.Page[i].TabVisible:=false;
+    Configuration1Click(nil);
+    for i:=0 to 7 do form2.PageControl1.Page[i].TabVisible:=true;
+    form2.Caption := savecaption;
+end;
 end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);
 var
   reload, reloaddb, systemtimechange: boolean;
-  i, j, oldmaxima: integer;
-  yy, x, y: double;
+  i, j: integer;
+  p: TPoint;
 begin
+  p:=Point(ToolButton2.Left,ToolButton2.Top+ToolButton2.Height);
+  p:=ToolBar2.ClientToScreen(p);
   try
     reload   := False;
     reloaddb := False;
@@ -3208,10 +3211,14 @@ begin
     form2.checkbox22.Checked := usedatabase[4];
     form2.checkbox23.Checked := usedatabase[5];
     form2.checkbox24.Checked := usedatabase[6];
+    form2.checkbox25.Checked := usedatabase[7];
     ListUserDB;
     form2.checkbox1.Checked := phaseeffect;
     form2.checkbox2.Checked := librationeffect;
-    form2.checkbox3.Checked := Geocentric;
+    if geocentric then
+       form2.radiogroup7.ItemIndex:=1
+    else
+       form2.radiogroup7.ItemIndex:=0;
     form2.checkbox5.Checked := showlabel;
     form2.checkbox6.Checked := showmark;
     form2.checkbox14.Checked := showlibrationmark;
@@ -3232,7 +3239,6 @@ begin
     form2.RadioGroup1.ItemIndex:=ord(activemoon.BumpMethod);
     form2.RadioGroup1.Visible:=((bcDot3TexCombiner in activemoon.BumpMapCapabilities)and(bcBasicARBFP in moon1.BumpMapCapabilities));
     form2.updown1.Position := maxima;
-    oldmaxima := maxima;
     form2.StringGrid1.RowCount := maximgdir + 10;
     if saveimagesize = 0 then
       form2.ComboBox4.ItemIndex := 0
@@ -3276,7 +3282,7 @@ begin
     form2.LabelFont.Font.Color:=clWindowText;
     form2.obstz:=ObsTZ;
     form2.SetObsCountry(ObsCountry);
-    FormPos(Form2, mouse.cursorpos.x, mouse.cursorpos.y);
+    FormPos(form2,p.x,p.y);
     Form2.showmodal;
     if form2.ModalResult = mrOk then
     begin
@@ -3334,7 +3340,7 @@ begin
       end;
       phaseeffect     := form2.checkbox1.Checked;
       librationeffect := form2.checkbox2.Checked;
-      Geocentric      := form2.checkbox3.Checked;
+      Geocentric      := (form2.RadioGroup7.ItemIndex=1);
       if usedatabase[1] <> form2.checkbox19.Checked then
         reloaddb := True;
       if usedatabase[2] <> form2.checkbox20.Checked then
@@ -3347,12 +3353,15 @@ begin
         reloaddb := True;
       if usedatabase[6] <> form2.checkbox24.Checked then
         reloaddb     := True;
+      if usedatabase[7] <> form2.checkbox25.Checked then
+        reloaddb     := True;
       usedatabase[1] := form2.checkbox19.Checked;
       usedatabase[2] := form2.checkbox20.Checked;
       usedatabase[3] := form2.checkbox21.Checked;
       usedatabase[4] := form2.checkbox22.Checked;
       usedatabase[5] := form2.checkbox23.Checked;
       usedatabase[6] := form2.checkbox24.Checked;
+      usedatabase[7] := form2.checkbox25.Checked;
       for i := 0 to form2.Checklistbox1.Count - 1 do
       begin
         j := (form2.Checklistbox1.Items.Objects[i] as TDBinfo).dbnum;
@@ -3364,12 +3373,16 @@ begin
       CurrentJD := jd(CurYear, CurrentMonth, CurrentDay, Currenttime - timezone + DT_UT);
       if form2.newlang <> language then
       begin
-        language := form2.newlang;
-        setlang;
+        language:=u_translation.translate(form2.newlang,'en');
+        u_translation_database.translate(language,'en');
+        SetLang;
         reloaddb := True;
       end;
-      if reloaddb then
+      if reloaddb then begin
         LoadDB(dbm);
+        firstsearch := True;
+        SearchName(currentname, False);
+      end;
       LibrationButton.Down := librationeffect;
       PhaseButton.Down     := phaseeffect;
       externalimage := form2.CheckBox12.Checked;
@@ -3445,6 +3458,16 @@ begin
  showlabel:=not showlabel;
  ToolButton12.Down := showlabel;
  activemoon.RefreshAll;
+end;
+
+procedure TForm1.GridButtonClick(Sender: TObject);
+begin
+  activemoon.ShowGrid:=GridButton.Down;
+end;
+
+procedure TForm1.ToolButton14Click(Sender: TObject);
+begin
+  activemoon.ShowScale:=ToolButton14.Down;
 end;
 
 procedure TForm1.ToolButton1Click(Sender: TObject);
@@ -3635,8 +3658,6 @@ begin
 end;
 
 procedure TForm1.ToolButton5Click(Sender: TObject);
-var
-  xx, yy: double;
 begin
   if activemoon.zoom = 1 then
     activemoon.CenterAt(0, 0)
@@ -3662,6 +3683,10 @@ if FullScreen then begin
    Splitter1.Visible:=false;
    ControlBar1.Visible:=false;
    StatusBar1.Visible:=false;
+   Position1.Visible:=false;
+   Notes1.Visible:=false;
+   Distance1.Visible:=false;
+   FullScreen1.Caption:=rsQuitfull;
    top:=0;
    left:=0;
    skipresize:=true;
@@ -3677,6 +3702,10 @@ end else begin
    StatusBar1.Visible:=true;
    PageControl1.Visible:=true;
    Splitter1.Visible:=true;
+   Position1.Visible:=true;
+   Notes1.Visible:=true;
+   Distance1.Visible:=true;
+   FullScreen1.Caption:=rsFullScreen;
    top:=savetop;
    left:=saveleft;
    width:=savewidth;
@@ -3697,12 +3726,20 @@ FullScreen:=not FullScreen;
     Splitter1.Visible:=false;
     ControlBar1.Visible:=false;
     StatusBar1.Visible:=false;
+    Position1.Visible:=false;
+    Notes1.Visible:=false;
+    Distance1.Visible:=false;
+    FullScreen1.Caption:=rsQuitfull;
   end
   else begin
     ControlBar1.Visible:=true;
     StatusBar1.Visible:=true;
     PageControl1.Visible:=true;
     Splitter1.Visible:=true;
+    Position1.Visible:=true;
+    Notes1.Visible:=true;
+    Distance1.Visible:=true;
+    FullScreen1.Caption:=rsFullScreen;
   end;
   skipresize:=false;
 {$endif}
@@ -3710,8 +3747,6 @@ end;
 {$endif}
 
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
-var
-  i: integer;
 begin
 statusbar1.Panels[3].Text :='Down: '+inttostr(key);
 case key of
@@ -3738,31 +3773,13 @@ end;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 var
-  hnd:    thandle;
-  OldVal: longint;
   ok:     boolean;
 begin
   try
-    if not multi_instance then
-    begin
-      SaveDefault;
-    end;
-{$ifdef mswindows}
-    if CloseCdC then
-    begin
-      hnd := findwindow(nil, PChar(CdCcaption));
-      if hnd > 0 then
-        PostMessage(hnd, WM_CLOSE, 0, 0);   // close skychart (use WM_CLOSE for the close prompt)
-    end;
-    if CloseVMAbrowser then
-    begin
-      hnd := findwindow(nil, PChar(VMAbrowser));
-      if hnd > 0 then
-        PostMessage(hnd, WM_CLOSE, 0, 0);   // close VMA Browser (use WM_CLOSE to save the config)
-    end;
-    if ClosePhotlun then
-      ExecNoWait(Photlun + ' -quit');
-{$endif}
+    SaveDefault;
+    if CanCloseCDC and StartCDC then OpenCDC('','--quit');
+    if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
+    if CanClosePhotLun and StartPhotlun then OpenPhotLun('','-quit');
     if scopelibok then
       if ScopeConnected then
       begin
@@ -4099,9 +4116,6 @@ procedure TForm1.GetSkychartInfo;
 var
   inif: TMemIniFile;
   buf:  string;
-{$ifdef mswindows}
-  Registry1: TRegistry;
-{$endif}
 begin
   CdCdir := '';
   // Try CdC V3
@@ -4116,57 +4130,27 @@ begin
       inif.Free;
     end;
     CdC := slash(CdCdir) + DefaultCdC;
-    if not FileExists(CdC) then
-      CdC      := DefaultCdC;
-    CdCcaption := 'Cartes du Ciel';
-  end;
-  // Try CdC V2
-{$ifdef mswindows}
-  if CdCdir = '' then
-  begin
-    Registry1 := TRegistry.Create;
-    with Registry1 do
-    begin
-      if Openkey('Software\Astro_PC\Ciel\Config', False) then
-      begin
-        if ValueExists('AppDir') then
-          CdCdir := ReadString('Appdir');
-        CloseKey;
-        CdC := slash(CdCdir) + 'ciel.exe';
-        CdCcaption := 'Cartes du Ciel';
-      end;
+    if not FileExists(CdC) then begin
+       CdC :=ExpandFileName(slash(CdCdir)+slash('..')+slash('..')+slash('bin') + DefaultCdC);
+       if not FileExists(CdC) then
+          CartesduCiel1.Visible:=false;
     end;
   end;
-{$endif}
 end;
 
 procedure TForm1.CartesduCiel1Click(Sender: TObject);
-var
-  cmd1, cmd2, cmd3: string;
-  i: integer;
 begin
-{$ifdef mswindows}
-  i := findwindow(nil, PChar(CdCcaption));
-  if i = 0 then
-    CloseCdC := True
-  else
-  begin
-    SendMessage(i, WM_SYSCOMMAND, SC_RESTORE, 0);
-    SetForegroundWindow(i);
-    exit;
-  end;
-{$endif}
-  ExecNoWait(CdC + ' --unique --nosplash');
+  OpenCdC('','');
 end;
 
 procedure TForm1.Aide2Click(Sender: TObject);
 var
   fn: string;
 begin
-  fn := slash(HelpDir) + language + '_Index_Doc.pdf';
+  fn := slash(HelpDir) + helpprefix + '_Index_Doc.pdf';
   if not FileExists(fn) then
   begin
-    fn := slash(HelpDir) + language + '_Index_Doc.html';
+    fn := slash(HelpDir) + helpprefix + '_Index_Doc.html';
     if not FileExists(fn) then
     begin
       fn := slash(HelpDir) + 'UK_Index_Doc.pdf';
@@ -4186,18 +4170,13 @@ begin
   fn := slash(AppDir) + slash('Encyclopedia') + language + 'Encyclopedia.html';
   if not FileExists(fn) then
   begin
-    fn := slash(AppDir) + slash('Encyclopedia') + 'UK_Encyclopedia.html';
+    fn := slash(AppDir) + slash('Encyclopedia') + 'en_Encyclopedia.html';
   end;
   ExecuteFile(fn);
 end;
 
 procedure TForm1.Position1Click(Sender: TObject);
-var
-  ok: boolean;
 begin
-  if multi_instance and (clientwidth = ClientHeight - controlbar1.Height -
-    statusbar1.Height) then
-    clientwidth := round(1.333 * clientwidth);
   Pagecontrol1.ActivePage := Position.Caption;
   PageControl1Change(Sender);
   combobox1.SetFocus;
@@ -4213,24 +4192,17 @@ begin
      for i:=0 to ParamCount-1 do begin
         param.add(Parameters[i]);
      end;
-     ReadParam;
+     ReadParam(false);
   end;
 end;
 
 procedure TForm1.InstanceRunning(Sender : TObject);
-var i : integer;
 begin
-//if Params.Find('--unique',i) then
   UniqueInstance1.RetryOrHalt;
 end;
 
 procedure TForm1.Notes1Click(Sender: TObject);
-var
-  ok: boolean;
 begin
-  if multi_instance and (clientwidth = ClientHeight - controlbar1.Height -
-    statusbar1.Height) then
-    clientwidth := round(1.333 * clientwidth);
   Pagecontrol1.ActivePage := Notes.Caption;
   PageControl1Change(Sender);
 end;
@@ -4322,9 +4294,6 @@ end;
 
 procedure TForm1.Distance1Click(Sender: TObject);
 begin
-  if multi_instance and (clientwidth = ClientHeight - controlbar1.Height -
-    statusbar1.Height) then
-    clientwidth := round(1.333 * clientwidth);
   Pagecontrol1.ActivePage := Outils.Caption;
   PageControl1Change(Sender);
   Button11.Caption  := rsm_53;
@@ -4396,7 +4365,7 @@ end;
 
 procedure TForm1.BMP30001Click(Sender: TObject);
 var
-  b:  tbitmap;
+ b:  tbitmap;
 begin
   savedialog1.DefaultExt := '.bmp';
   savedialog1.Filter     := 'bmp image|*.bmp';
@@ -4455,7 +4424,12 @@ end;
 
 procedure TForm1.Selectiondimprimante1Click(Sender: TObject);
 begin
-  PrinterSetupDialog1.Execute;
+{$ifdef win32}
+  PrinterSetupDialog1.execute;
+{$endif}
+{$ifdef unix}
+  PrintDialog1.execute;
+{$endif}
   GetPrinterResolution(PrtName, PrinterResolution);
 end;
 
@@ -4474,10 +4448,10 @@ begin
   Printer.BeginDoc;
   with Printer do
   begin
-    xmin := Canvas.ClipRect.left + round(LeftMargin * PrinterResolution / 25.4);
-    xmax := Canvas.ClipRect.right;
-    ymin := Canvas.ClipRect.top;
-    ymax := Canvas.ClipRect.bottom;
+    xmin := round(LeftMargin * PrinterResolution / 25.4);
+    xmax := PageWidth;
+    ymin := 0;
+    ymax := PageHeight;
     Canvas.Font.Name := memo2.Font.Name;
     Canvas.Font.Color := clBlack;
     Canvas.Font.Size := 8;
@@ -4486,7 +4460,7 @@ begin
     buf1 := Caption+':  '+vmaurl;
     Canvas.TextOut(Xmin + 10, ymin, buf1);
     Canvas.Font.Style := [];
-    if language = 'FR' then
+    if language = 'fr' then
       buf1 := 'Lunar formations database V2.1 '+cpyr+' Ch. Legrand,  Reproduction interdite / Pour usage personnel uniquement'
     else
       buf1 := 'Lunar formations database V2.1 '+cpyr+' Ch. Legrand,  Forbidden copy / For personal use only';
@@ -4563,16 +4537,12 @@ begin
   ExecuteFile(desc1.HotURL);
 end;
 
-procedure TForm1.GridButtonClick(Sender: TObject);
-begin
-  activemoon.ShowGrid:=GridButton.Down;
-end;
-
 procedure TForm1.Copy1Click(Sender: TObject);
 begin
 case PageControl1.PageIndex of
 0:  Desc1.CopyToClipboard;
-3:  StringGrid1.CopyToClipboard;
+1:  Memo1.CopyToClipboard;
+2:  StringGrid1.CopyToClipboard;
 end;
 end;
 
@@ -4580,19 +4550,14 @@ procedure TForm1.SelectAll1Click(Sender: TObject);
 begin
 case PageControl1.PageIndex of
 0:  Desc1.SelectAll;
+1:  Memo1.SelectAll;
 end;
 end;
 
 procedure TForm1.ToolButton7Click(Sender: TObject);
 var
   param, fx, fy: string;
-  i: integer;
 begin
-{$ifdef mswindows}
-  i := findwindow(nil, PChar('PHOTLUN'));
-  if i = 0 then
-    ClosePhotlun := True;
-{$endif}
   if flipx < 0 then
     fx := '1'
   else
@@ -4602,8 +4567,7 @@ begin
   else
     fy := '0';
   param := ' -fx ' + fx + ' -fy ' + fy;
-  param := param + ' -nx -n "' + currentname + '"';
-  ExecNoWait(Photlun + param);
+  OpenPhotlun(currentname,param);
 end;
 
 procedure TForm1.OverlayCaption1Click(Sender: TObject);
@@ -4654,7 +4618,9 @@ recenter:=activemoon.getcenter(l,b);
     checkbox2.Visible := True;
     ToolButton6.Enabled := True;
     GroupBox5.Visible := True;
-    GroupBox4.Visible := True;
+{$ifdef mswindows}
+    GroupBox4.Visible := True;  // telescope
+{$endif}
     case RadioGroup2.ItemIndex of
       0: CameraOrientation := 0;
       1: CameraOrientation := 180;
@@ -4721,11 +4687,14 @@ begin
 end;
 
 procedure TForm1.InitTelescope;
+{$ifdef mswindows}
 var
   fs:   TSearchRec;
   i, p: integer;
   buf:  string;
+{$endif}
 begin
+{$ifdef mswindows}
   i := findfirst(slash(appdir) + '*.tid', 0, fs);
   Combobox5.Clear;
   while i = 0 do
@@ -4745,6 +4714,7 @@ begin
       Combobox5.Text := Combobox5.items[0];
     scopeinterface := ComboBox5.Text;
   end;
+{$endif}
 end;
 
 procedure TForm1.ComboBox5Change(Sender: TObject);
@@ -4769,9 +4739,7 @@ end;
 // Goto button
 procedure TForm1.Button17Click(Sender: TObject);
 var
-  ok1, ok2, ok3: boolean;
-  ii:   integer;
-  buf:  shortstring;
+  ok1: boolean;
   r, d: single;
 begin
   if scopelibok and scopeconnected and activemoon.GetMarkRaDec(r,d)  then
@@ -4786,9 +4754,6 @@ end;
 // Sync button
 procedure TForm1.Button18Click(Sender: TObject);
 var
-  ok1, ok2, ok3: boolean;
-  ii:   integer;
-  buf:  shortstring;
   r, d: single;
 begin
   if scopelibok and scopeconnected and activemoon.GetMarkRaDec(r,d) then
@@ -4829,9 +4794,8 @@ end;
 
 procedure TForm1.TelescopeTimerTimer(Sender: TObject);
 var
-  r, d, x, y: double;
+  r, d: double;
   ok:  boolean;
-  buf: string;
 begin
   ScopeGetRaDec(r, d, ok);
   if ok then
@@ -4913,9 +4877,6 @@ end;
 
 
 procedure TForm1.NewWindowButtonClick(Sender: TObject);
-var
-  param: string;
-  i:     integer;
 begin
 if moon2=nil then begin
  moon2:=Tf_moon.Create(PanelMoon2);
@@ -4930,14 +4891,14 @@ if moon2=nil then begin
  moon2.onGetMsg:=GetMsg;
  moon2.PopUp:=PopupMenu1;
  moon2.Visible:=false;
- moon2.Init;
+ moon2.Init(false);
 end;
 if NewWindowButton.Down then begin
   SplitSize:=0.5;
   PanelMoon2.Width:=PanelMoon.Width div 2;
   Splitter2.Visible:=true;
   PanelMoon2.Visible:=true;
-  moon2.Assign(moon1);
+  moon2.AssignMoon(moon1);
   moon2.GLSceneViewer1.Visible:=true;
 end else begin
   Splitter2.Visible:=false;
@@ -4961,18 +4922,42 @@ begin
   RefreshMoonImage;
 end;
 
-procedure TForm1.DataBase1Click(Sender: TObject);
-var
-  param: string;
-  i:     integer;
+procedure TForm1.OpenDatlun(objname,otherparam:string);
+var parm:string;
 begin
-{$ifdef mswindows}
-  i := findwindow(nil, PChar(VMAbrowser));
-  if i = 0 then
-    CloseVMAbrowser := True;
-{$endif}
-  param := ' -nx ';
-  ExecNoWait(Datlun + param);
+    parm:='-nx ';
+    if objname<>'' then parm:=parm+' -n "'+objname+'" ';
+    parm:=parm+otherparam;
+    chdir(appdir);
+    Execnowait(datlun+' '+parm);
+    StartDatlun:=true;
+end;
+
+procedure TForm1.OpenPhotlun(objname,otherparam:string);
+var param:string;
+begin
+    param:='-nx ';
+    if objname<>'' then param:=param+' -n "'+objname+'" ';
+    param:=param+otherparam;
+    chdir(appdir);
+    Execnowait(photlun+' '+param);
+    StartPhotlun:=true;
+end;
+
+procedure TForm1.OpenCDC(objname,otherparam:string);
+var param:string;
+begin
+    param:='-nx --unique --nosplash ';
+//    if objname<>'' then param:=param+' -n "'+objname+'" ';
+    param:=param+otherparam;
+    chdir(appdir);
+    Execnowait(CdC+' '+param);
+    StartCDC:=true;
+end;
+
+procedure TForm1.DataBase1Click(Sender: TObject);
+begin
+OpenDatlun('','');
 end;
 
 procedure TForm1.PopupMenu1Popup(Sender: TObject);
@@ -5016,7 +5001,9 @@ if mf<>activemoon then begin
     checkbox2.Visible := True;
     ToolButton6.Enabled := True;
     GroupBox5.Visible := True;
+{$ifdef mswindows}
     GroupBox4.Visible := True;
+{$endif}
     GroupBox3.Visible := False;
     Rotation1.Visible := False;
     LibrationButton.Enabled := True;
@@ -5045,6 +5032,7 @@ if mf<>activemoon then begin
   librationeffect:=not((activemoon.LibrLat=0) and (activemoon.LibrLon=0));
   LibrationButton.Down:=librationeffect;
   GridButton.Down := activemoon.ShowGrid;
+  ToolButton14.Down:= activemoon.ShowScale;
   if activemoon.CurrentName<>'' then begin
      CurrentName:=activemoon.CurrentName;
      Currentl:=rad2deg*activemoon.CurrentL;

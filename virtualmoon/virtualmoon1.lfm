@@ -1,13 +1,13 @@
 object Form1: TForm1
-  Left = 200
+  Left = 260
   Height = 564
-  Top = 41
+  Top = 77
   Width = 879
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = PageControl1
+  ActiveControl = Panel1
   Caption = 'Form1'
   ClientHeight = 564
   ClientWidth = 879
@@ -163,11 +163,10 @@ object Form1: TForm1
   OnShow = FormShow
   Position = poDefaultPosOnly
   LCLVersion = '0.9.29'
-  Visible = True
   object Memo2: TMemo
     Left = 64
     Height = 41
-    Top = 423
+    Top = 456
     Width = 100
     Font.Height = -11
     Font.Name = 'Arial'
@@ -196,7 +195,7 @@ object Form1: TForm1
     TabOrder = 2
     object Label10: TLabel
       Left = 240
-      Height = 15
+      Height = 14
       Top = 3
       Width = 39
       Caption = 'Zoom:'
@@ -231,17 +230,17 @@ object Form1: TForm1
         OnClick = Configuration1Click
       end
       object ToolButton8: TToolButton
-        Left = 163
+        Left = 155
         Top = 0
         Caption = 'Aide'
         OnClick = ToolButton8Click
       end
     end
     object ToolBar1: TToolBar
-      Left = 424
+      Left = 400
       Height = 25
       Top = 0
-      Width = 328
+      Width = 352
       Align = alNone
       ButtonHeight = 23
       Caption = 'ToolBar'
@@ -272,34 +271,34 @@ object Form1: TForm1
         Style = tbsSeparator
       end
       object ToolButton12: TToolButton
-        Left = 28
+        Left = 212
         Top = 0
         ImageIndex = 9
         OnClick = ToolButton12Click
       end
       object ToolButton5: TToolButton
-        Left = 51
+        Left = 28
         Top = 0
         Caption = 'Centre'
         ImageIndex = 4
         OnClick = ToolButton5Click
       end
       object ToolButton4: TToolButton
-        Left = 74
+        Left = 51
         Top = 0
         Caption = 'N-S'
         ImageIndex = 3
         OnClick = ToolButton4Click
       end
       object ToolButton6: TToolButton
-        Left = 97
+        Left = 74
         Top = 0
         Caption = 'E-W'
         ImageIndex = 2
         OnClick = ToolButton6Click
       end
       object ToolButton3: TToolButton
-        Left = 120
+        Left = 97
         Top = 0
         Caption = 'Rotation'
         ImageIndex = 8
@@ -307,7 +306,7 @@ object Form1: TForm1
         OnClick = ToolButton3Click
       end
       object PhaseButton: TToolButton
-        Left = 143
+        Left = 120
         Top = 0
         Caption = 'Phase'
         ImageIndex = 7
@@ -315,7 +314,7 @@ object Form1: TForm1
         OnClick = PhaseButtonClick
       end
       object LibrationButton: TToolButton
-        Left = 166
+        Left = 143
         Top = 0
         Caption = 'Libration'
         ImageIndex = 11
@@ -323,28 +322,28 @@ object Form1: TForm1
         OnClick = LibrationButtonClick
       end
       object ToolButton10: TToolButton
-        Left = 212
+        Left = 235
         Top = 0
         Caption = 'Voisinage'
         ImageIndex = 12
         OnClick = ToolButton10Click
       end
       object ToolButton7: TToolButton
-        Left = 235
+        Left = 258
         Top = 0
         Caption = 'Image'
         ImageIndex = 5
         OnClick = ToolButton7Click
       end
       object ButtonDatabase: TToolButton
-        Left = 258
+        Left = 281
         Top = 0
         Caption = 'Database'
         ImageIndex = 6
         OnClick = DataBase1Click
       end
       object NewWindowButton: TToolButton
-        Left = 281
+        Left = 304
         Top = 0
         Caption = 'Window 2'
         ImageIndex = 0
@@ -352,12 +351,27 @@ object Form1: TForm1
         OnClick = NewWindowButtonClick
       end
       object GridButton: TToolButton
-        Left = 189
+        Left = 166
         Top = 0
         Caption = 'GridButton'
         ImageIndex = 14
         Style = tbsCheck
         OnClick = GridButtonClick
+      end
+      object ToolButton13: TToolButton
+        Left = 327
+        Top = 0
+        Caption = 'ToolButton13'
+        ImageIndex = 15
+        OnClick = FullScreen1Click
+      end
+      object ToolButton14: TToolButton
+        Left = 189
+        Top = 0
+        Caption = 'ToolButton14'
+        ImageIndex = 16
+        Style = tbsCheck
+        OnClick = ToolButton14Click
       end
     end
     object TrackBar1: TTrackBar
@@ -378,8 +392,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 17
-    Top = 547
+    Height = 15
+    Top = 549
     Width = 879
     Panels = <    
       item
@@ -401,7 +415,6 @@ object Form1: TForm1
     Height = 512
     Top = 32
     Width = 382
-    OnChangeBounds = PageControl1ChangeBounds
     OnPageChanged = PageControl1Change
     Options = [nboMultiLine]
     PageIndex = 0
@@ -409,7 +422,7 @@ object Form1: TForm1
     object Position: TPage
       Caption = 'Information'
       ClientWidth = 376
-      ClientHeight = 479
+      ClientHeight = 481
       object Panel1: TPanel
         Left = 0
         Height = 97
@@ -444,14 +457,14 @@ object Form1: TForm1
           Width = 374
           Align = alBottom
           Caption = 'Profile'
-          ClientHeight = 19
-          ClientWidth = 372
+          ClientHeight = 20
+          ClientWidth = 368
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 31
+            Height = 79
             Top = 0
-            Width = 17
+            Width = 65
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -461,8 +474,8 @@ object Form1: TForm1
         end
         object ComboBox1: TComboBox
           Left = 16
-          Height = 24
-          Top = 8
+          Height = 23
+          Top = 4
           Width = 161
           DropDownCount = 15
           ItemHeight = 0
@@ -473,7 +486,7 @@ object Form1: TForm1
       end
       object Desc1: TIpHtmlPanel
         Left = 0
-        Height = 382
+        Height = 384
         Top = 97
         Width = 376
         Align = alClient
@@ -494,11 +507,11 @@ object Form1: TForm1
     object Notes: TPage
       Caption = 'Notes'
       ClientWidth = 376
-      ClientHeight = 479
+      ClientHeight = 481
       ImageIndex = 6
       object Memo1: TMemo
         Left = 0
-        Height = 421
+        Height = 423
         Top = 58
         Width = 376
         Align = alClient
@@ -506,6 +519,7 @@ object Form1: TForm1
           ''
         )
         OnChange = Memo1Change
+        PopupMenu = PopupMenu2
         ScrollBars = ssVertical
         TabOrder = 0
         WantTabs = True
@@ -521,7 +535,7 @@ object Form1: TForm1
         TabOrder = 1
         object notes_name: TLabel
           Left = 8
-          Height = 15
+          Height = 14
           Top = 8
           Width = 17
           Caption = '    '
@@ -541,7 +555,7 @@ object Form1: TForm1
     object Ephemerides: TPage
       Caption = 'Ephemerides'
       ClientWidth = 376
-      ClientHeight = 479
+      ClientHeight = 481
       ImageIndex = 1
       object Panel4: TPanel
         Left = 0
@@ -555,7 +569,7 @@ object Form1: TForm1
         TabStop = True
         object Label6: TLabel
           Left = 2
-          Height = 15
+          Height = 14
           Top = 38
           Width = 35
           Caption = 'Heure'
@@ -567,7 +581,7 @@ object Form1: TForm1
         end
         object Label9: TLabel
           Left = 2
-          Height = 15
+          Height = 14
           Top = 6
           Width = 27
           Caption = 'Date'
@@ -907,7 +921,7 @@ object Form1: TForm1
         end
         object jour: TLongEdit
           Left = 130
-          Height = 24
+          Height = 19
           Hint = '0..31'
           Top = 4
           Width = 22
@@ -919,7 +933,7 @@ object Form1: TForm1
         end
         object mois: TLongEdit
           Left = 88
-          Height = 24
+          Height = 19
           Hint = '0..12'
           Top = 4
           Width = 22
@@ -931,7 +945,7 @@ object Form1: TForm1
         end
         object annee: TLongEdit
           Left = 32
-          Height = 24
+          Height = 19
           Hint = '-2999..2999'
           Top = 4
           Width = 36
@@ -944,7 +958,7 @@ object Form1: TForm1
         end
         object seconde: TLongEdit
           Left = 130
-          Height = 24
+          Height = 19
           Hint = '0..59'
           Top = 36
           Width = 22
@@ -956,7 +970,7 @@ object Form1: TForm1
         end
         object minute: TLongEdit
           Left = 88
-          Height = 24
+          Height = 19
           Hint = '0..59'
           Top = 36
           Width = 22
@@ -968,7 +982,7 @@ object Form1: TForm1
         end
         object heure: TLongEdit
           Left = 43
-          Height = 24
+          Height = 19
           Hint = '0..23'
           Top = 36
           Width = 25
@@ -998,7 +1012,7 @@ object Form1: TForm1
         end
         object UpDown1: TUpDown
           Left = 68
-          Height = 24
+          Height = 19
           Top = 4
           Width = 16
           Associate = annee
@@ -1011,7 +1025,7 @@ object Form1: TForm1
         end
         object UpDown2: TUpDown
           Left = 110
-          Height = 24
+          Height = 19
           Top = 4
           Width = 16
           Associate = mois
@@ -1023,7 +1037,7 @@ object Form1: TForm1
         end
         object UpDown3: TUpDown
           Left = 152
-          Height = 24
+          Height = 19
           Top = 4
           Width = 16
           Associate = jour
@@ -1035,7 +1049,7 @@ object Form1: TForm1
         end
         object UpDown4: TUpDown
           Left = 68
-          Height = 24
+          Height = 19
           Top = 36
           Width = 16
           Associate = heure
@@ -1047,7 +1061,7 @@ object Form1: TForm1
         end
         object UpDown5: TUpDown
           Left = 110
-          Height = 24
+          Height = 19
           Top = 36
           Width = 16
           Associate = minute
@@ -1059,7 +1073,7 @@ object Form1: TForm1
         end
         object UpDown6: TUpDown
           Left = 152
-          Height = 24
+          Height = 19
           Top = 36
           Width = 16
           Associate = seconde
@@ -1081,7 +1095,7 @@ object Form1: TForm1
       end
       object StringGrid1: TStringGrid
         Left = 0
-        Height = 358
+        Height = 360
         Top = 121
         Width = 376
         Align = alClient
@@ -1107,7 +1121,7 @@ object Form1: TForm1
     object Terminateur: TPage
       Caption = 'Terminateur'
       ClientWidth = 376
-      ClientHeight = 479
+      ClientHeight = 481
       ImageIndex = 2
       object Panel5: TPanel
         Left = 0
@@ -1120,7 +1134,7 @@ object Form1: TForm1
         TabOrder = 0
         object Label19: TLabel
           Left = 8
-          Height = 15
+          Height = 14
           Top = 12
           Width = 42
           Caption = 'Interet '
@@ -1128,7 +1142,7 @@ object Form1: TForm1
         end
         object Label20: TLabel
           Left = 8
-          Height = 15
+          Height = 14
           Top = 36
           Width = 63
           Caption = 'Instrument'
@@ -1136,7 +1150,7 @@ object Form1: TForm1
         end
         object Label21: TLabel
           Left = 152
-          Height = 15
+          Height = 14
           Top = 36
           Width = 27
           Caption = 'mm.'
@@ -1144,7 +1158,7 @@ object Form1: TForm1
         end
         object ComboBox2: TComboBox
           Left = 80
-          Height = 24
+          Height = 23
           Top = 8
           Width = 121
           ItemHeight = 0
@@ -1161,7 +1175,7 @@ object Form1: TForm1
         end
         object ComboBox3: TComboBox
           Left = 80
-          Height = 24
+          Height = 23
           Top = 32
           Width = 57
           ItemHeight = 0
@@ -1209,7 +1223,7 @@ object Form1: TForm1
       end
       object ListBox1: TListBox
         Left = 0
-        Height = 349
+        Height = 351
         Top = 130
         Width = 376
         Align = alClient
@@ -1223,7 +1237,7 @@ object Form1: TForm1
     object Outils: TPage
       Caption = 'Outils'
       ClientWidth = 376
-      ClientHeight = 479
+      ClientHeight = 481
       ImageIndex = 4
       object Bevel4: TBevel
         Left = 8
@@ -1234,7 +1248,7 @@ object Form1: TForm1
       end
       object Label24: TLabel
         Left = 24
-        Height = 15
+        Height = 14
         Top = 28
         Width = 86
         Caption = 'Distance reelle'
@@ -1242,7 +1256,7 @@ object Form1: TForm1
       end
       object Label25: TLabel
         Left = 24
-        Height = 15
+        Height = 14
         Top = 52
         Width = 112
         Caption = 'Distance apparente'
@@ -1250,7 +1264,7 @@ object Form1: TForm1
       end
       object Label1: TLabel
         Left = 72
-        Height = 15
+        Height = 14
         Top = 116
         Width = 7
         Caption = 'L'
@@ -1258,7 +1272,7 @@ object Form1: TForm1
       end
       object Label2: TLabel
         Left = 136
-        Height = 15
+        Height = 14
         Top = 116
         Width = 9
         Caption = 'B'
@@ -1266,7 +1280,7 @@ object Form1: TForm1
       end
       object Label3: TLabel
         Left = 24
-        Height = 15
+        Height = 14
         Top = 116
         Width = 39
         Caption = 'Centre'
@@ -1274,7 +1288,7 @@ object Form1: TForm1
       end
       object Label23: TLabel
         Left = 16
-        Height = 15
+        Height = 14
         Top = 4
         Width = 58
         Caption = ' Distance '
@@ -1288,8 +1302,8 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Rotation'
-        ClientHeight = 138
-        ClientWidth = 251
+        ClientHeight = 139
+        ClientWidth = 247
         TabOrder = 8
         object Button12: TButton
           Left = 9
@@ -1311,9 +1325,9 @@ object Form1: TForm1
         end
         object CheckBox1: TCheckBox
           Left = 17
-          Height = 22
+          Height = 21
           Top = 106
-          Width = 195
+          Width = 194
           Caption = 'Pole celeste toujours en haut.'
           OnClick = CheckBox1Click
           TabOrder = 2
@@ -1333,8 +1347,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 26
-          ClientWidth = 207
+          ClientHeight = 27
+          ClientWidth = 203
           Columns = 2
           ItemIndex = 0
           Items.Strings = (
@@ -1346,9 +1360,9 @@ object Form1: TForm1
         end
         object CheckBox2: TCheckBox
           Left = 17
-          Height = 22
+          Height = 21
           Top = 82
-          Width = 56
+          Width = 55
           Caption = 'Miroir'
           OnClick = CheckBox2Click
           TabOrder = 4
@@ -1360,12 +1374,13 @@ object Form1: TForm1
         Top = 300
         Width = 253
         Caption = 'Telescope'
-        ClientHeight = 159
-        ClientWidth = 251
+        ClientHeight = 160
+        ClientWidth = 247
         TabOrder = 7
+        Visible = False
         object Label26: TLabel
           Left = 136
-          Height = 15
+          Height = 14
           Top = 126
           Width = 49
           Caption = 'seconds'
@@ -1374,7 +1389,7 @@ object Form1: TForm1
         end
         object Label28: TLabel
           Left = 32
-          Height = 15
+          Height = 14
           Top = 126
           Width = 32
           Caption = 'every'
@@ -1383,14 +1398,13 @@ object Form1: TForm1
         end
         object ComboBox5: TComboBox
           Left = 8
-          Height = 24
+          Height = 23
           Top = 16
           Width = 105
           ItemHeight = 0
           OnChange = ComboBox5Change
           Sorted = True
           TabOrder = 0
-          Text = 'ComboBox5'
         end
         object Button16: TButton
           Left = 136
@@ -1403,9 +1417,9 @@ object Form1: TForm1
         end
         object CheckBox6: TCheckBox
           Left = 8
-          Height = 22
+          Height = 21
           Top = 80
-          Width = 102
+          Width = 101
           Caption = 'Track position'
           OnClick = CheckBox6Click
           TabOrder = 2
@@ -1430,16 +1444,16 @@ object Form1: TForm1
         end
         object CheckBox7: TCheckBox
           Left = 8
-          Height = 22
+          Height = 21
           Top = 104
-          Width = 66
+          Width = 65
           Caption = 'Correct'
           Enabled = False
           TabOrder = 5
         end
         object Edit5: TEdit
           Left = 80
-          Height = 24
+          Height = 19
           Top = 122
           Width = 33
           Enabled = False
@@ -1448,7 +1462,7 @@ object Form1: TForm1
         end
         object trackdelay: TUpDown
           Left = 113
-          Height = 24
+          Height = 19
           Top = 122
           Width = 16
           Associate = Edit5
@@ -1470,7 +1484,7 @@ object Form1: TForm1
       end
       object Edit1: TEdit
         Left = 136
-        Height = 24
+        Height = 19
         Top = 24
         Width = 73
         Color = clBtnFace
@@ -1479,7 +1493,7 @@ object Form1: TForm1
       end
       object Edit2: TEdit
         Left = 136
-        Height = 24
+        Height = 19
         Top = 48
         Width = 73
         Color = clBtnFace
@@ -1488,7 +1502,7 @@ object Form1: TForm1
       end
       object Edit3: TEdit
         Left = 88
-        Height = 24
+        Height = 19
         Top = 112
         Width = 41
         Color = clBtnFace
@@ -1497,7 +1511,7 @@ object Form1: TForm1
       end
       object Edit4: TEdit
         Left = 152
-        Height = 24
+        Height = 19
         Top = 112
         Width = 41
         Color = clBtnFace
@@ -1519,13 +1533,13 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 311
-        ClientWidth = 251
+        ClientHeight = 312
+        ClientWidth = 247
         TabOrder = 6
         Visible = False
         object Label4: TLabel
           Left = 16
-          Height = 15
+          Height = 14
           Top = 20
           Width = 109
           Caption = 'Vitesse de rotation'
@@ -1592,8 +1606,8 @@ object Form1: TForm1
           OnClick = SpeedButton6Click
         end
         object Label17: TLabel
-          Left = 9
-          Height = 15
+          Left = 7
+          Height = 14
           Top = 212
           Width = 90
           Caption = 'Orbit inclination'
@@ -1601,7 +1615,7 @@ object Form1: TForm1
         end
         object Label18: TLabel
           Left = 10
-          Height = 15
+          Height = 14
           Top = 243
           Width = 86
           Caption = 'Satellite model'
@@ -1610,7 +1624,7 @@ object Form1: TForm1
         end
         object Label27: TLabel
           Left = 10
-          Height = 15
+          Height = 14
           Top = 275
           Width = 79
           Caption = 'View distance'
@@ -1619,7 +1633,7 @@ object Form1: TForm1
         end
         object ComboBox4: TComboBox
           Left = 122
-          Height = 24
+          Height = 23
           Top = 16
           Width = 97
           ItemHeight = 0
@@ -1656,7 +1670,7 @@ object Form1: TForm1
         end
         object ComboBox6: TComboBox
           Left = 124
-          Height = 24
+          Height = 23
           Top = 234
           Width = 105
           ItemHeight = 0
@@ -1696,8 +1710,8 @@ object Form1: TForm1
           OnClick = SpeedButton7Click
         end
         object Label5: TLabel
-          Left = 10
-          Height = 15
+          Left = 7
+          Height = 14
           Top = 158
           Width = 75
           Caption = 'Orbit altitude'
@@ -1705,7 +1719,7 @@ object Form1: TForm1
         end
         object Label36: TLabel
           Left = 115
-          Height = 15
+          Height = 14
           Top = 152
           Width = 5
           Caption = '-'
@@ -1713,7 +1727,7 @@ object Form1: TForm1
         end
         object Label37: TLabel
           Left = 114
-          Height = 15
+          Height = 14
           Top = 208
           Width = 5
           Caption = '-'
@@ -1721,7 +1735,7 @@ object Form1: TForm1
         end
         object Label38: TLabel
           Left = 236
-          Height = 15
+          Height = 14
           Top = 152
           Width = 10
           Caption = '+'
@@ -1729,7 +1743,7 @@ object Form1: TForm1
         end
         object Label39: TLabel
           Left = 235
-          Height = 15
+          Height = 14
           Top = 208
           Width = 10
           Caption = '+'
@@ -1760,7 +1774,7 @@ object Form1: TForm1
     object Reglage: TPage
       Caption = 'Reglage'
       ClientWidth = 376
-      ClientHeight = 479
+      ClientHeight = 481
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
@@ -1771,7 +1785,7 @@ object Form1: TForm1
       end
       object Label8: TLabel
         Left = 32
-        Height = 15
+        Height = 14
         Top = 24
         Width = 59
         Caption = 'Penombre'
@@ -1779,7 +1793,7 @@ object Form1: TForm1
       end
       object Label12: TLabel
         Left = 32
-        Height = 15
+        Height = 14
         Top = 136
         Width = 34
         Caption = 'Direct'
@@ -1787,7 +1801,7 @@ object Form1: TForm1
       end
       object Label11: TLabel
         Left = 32
-        Height = 15
+        Height = 14
         Top = 80
         Width = 34
         Caption = 'Diffus'
@@ -1795,7 +1809,7 @@ object Form1: TForm1
       end
       object Label14: TLabel
         Left = 32
-        Height = 15
+        Height = 14
         Top = 2
         Width = 57
         Caption = 'Eclairage '
@@ -1852,7 +1866,7 @@ object Form1: TForm1
         TabOrder = 3
         object Label13: TLabel
           Left = 13
-          Height = 15
+          Height = 14
           Top = 40
           Width = 60
           Caption = 'Resolution'
@@ -1860,7 +1874,7 @@ object Form1: TForm1
         end
         object Label15: TLabel
           Left = 13
-          Height = 15
+          Height = 14
           Top = 112
           Width = 33
           Caption = '0 FPS'
@@ -1868,7 +1882,7 @@ object Form1: TForm1
         end
         object Label16: TLabel
           Left = 13
-          Height = 15
+          Height = 14
           Top = 4
           Width = 74
           Caption = 'Performance'
@@ -1898,7 +1912,7 @@ object Form1: TForm1
         end
         object Label31: TLabel
           Left = 1
-          Height = 15
+          Height = 14
           Top = 63
           Width = 5
           Caption = '-'
@@ -1906,7 +1920,7 @@ object Form1: TForm1
         end
         object Label35: TLabel
           Left = 181
-          Height = 15
+          Height = 14
           Top = 63
           Width = 10
           Caption = '+'
@@ -1919,23 +1933,23 @@ object Form1: TForm1
         Top = 344
         Width = 193
         Caption = 'Options valid at next startup'
-        ClientHeight = 57
-        ClientWidth = 191
+        ClientHeight = 58
+        ClientWidth = 187
         TabOrder = 4
         object CheckBox8: TCheckBox
           Left = 6
-          Height = 22
+          Height = 21
           Top = 10
-          Width = 177
+          Width = 176
           Caption = 'Force texture compression'
           OnClick = CheckBox8Click
           TabOrder = 0
         end
         object CheckBox3: TCheckBox
           Left = 6
-          Height = 22
+          Height = 21
           Top = 32
-          Width = 76
+          Width = 75
           Caption = 'Anti-Alias'
           OnClick = CheckBox3Click
           TabOrder = 1
@@ -1944,7 +1958,7 @@ object Form1: TForm1
       end
       object Label22: TLabel
         Left = 16
-        Height = 15
+        Height = 14
         Top = 48
         Width = 5
         Caption = '-'
@@ -1952,7 +1966,7 @@ object Form1: TForm1
       end
       object Label29: TLabel
         Left = 16
-        Height = 15
+        Height = 14
         Top = 104
         Width = 5
         Caption = '-'
@@ -1960,7 +1974,7 @@ object Form1: TForm1
       end
       object Label30: TLabel
         Left = 16
-        Height = 15
+        Height = 14
         Top = 157
         Width = 5
         Caption = '-'
@@ -1968,7 +1982,7 @@ object Form1: TForm1
       end
       object Label32: TLabel
         Left = 197
-        Height = 15
+        Height = 14
         Top = 48
         Width = 10
         Caption = '+'
@@ -1976,7 +1990,7 @@ object Form1: TForm1
       end
       object Label33: TLabel
         Left = 197
-        Height = 15
+        Height = 14
         Top = 104
         Width = 10
         Caption = '+'
@@ -1984,7 +1998,7 @@ object Form1: TForm1
       end
       object Label34: TLabel
         Left = 197
-        Height = 15
+        Height = 14
         Top = 157
         Width = 10
         Caption = '+'
@@ -1994,11 +2008,11 @@ object Form1: TForm1
     object dbtab: TPage
       Caption = 'Database'
       ClientWidth = 376
-      ClientHeight = 479
+      ClientHeight = 481
       ImageIndex = 5
       object StringGrid2: TStringGrid
         Left = 0
-        Height = 446
+        Height = 448
         Top = 0
         Width = 376
         Align = alClient
@@ -2018,7 +2032,7 @@ object Form1: TForm1
       object Panel6: TPanel
         Left = 0
         Height = 33
-        Top = 446
+        Top = 448
         Width = 376
         Align = alBottom
         ClientHeight = 33
@@ -2063,14 +2077,6 @@ object Form1: TForm1
       end
     end
   end
-  object Splitter1: TSplitter
-    Left = 488
-    Height = 371
-    Top = 104
-    Width = 5
-    Align = alNone
-    OnMoved = Splitter1Moved
-  end
   object PanelMoon: TPanel
     Left = 280
     Height = 200
@@ -2096,6 +2102,14 @@ object Form1: TForm1
     Width = 5
     Align = alNone
     OnMoved = Splitter2Moved
+  end
+  object Splitter1: TSplitter
+    Left = 488
+    Height = 371
+    Top = 104
+    Width = 5
+    Align = alNone
+    OnMoved = Splitter1Moved
   end
   object FilePopup: TPopupMenu
     left = 16
@@ -2290,15 +2304,6 @@ object Form1: TForm1
       Caption = 'Distance'
       OnClick = Distance1Click
     end
-    object FullScreen1: TMenuItem
-      Caption = 'Full screen'
-      OnClick = FullScreen1Click
-    end
-    object OverlayCaption1: TMenuItem
-      Caption = 'Overlay Caption'
-      Visible = False
-      OnClick = OverlayCaption1Click
-    end
     object Rotation1: TMenuItem
       Caption = 'Satellisation'
       Visible = False
@@ -2331,18 +2336,27 @@ object Form1: TForm1
         OnClick = N02seconde1Click
       end
     end
+    object OverlayCaption1: TMenuItem
+      Caption = 'Overlay Caption'
+      Visible = False
+      OnClick = OverlayCaption1Click
+    end
     object RemoveMark1: TMenuItem
       Caption = 'Remove Mark'
       OnClick = RemoveMark1Click
     end
+    object FullScreen1: TMenuItem
+      Caption = 'Full screen'
+      OnClick = FullScreen1Click
+    end
   end
   object SaveDialog1: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofPathMustExist, ofNoReadOnlyReturn, ofEnableSizing]
-    left = 184
+    left = 208
     top = 64
   end
   object PrinterSetupDialog1: TPrinterSetupDialog
-    left = 184
+    left = 208
     top = 120
   end
   object PopupMenu2: TPopupMenu
@@ -2378,15 +2392,15 @@ object Form1: TForm1
     PragmaPagesize = 0
     PragmaSynchronous = spOff
     PragmaTempStore = tpDefault
-    left = 272
-    top = 120
+    left = 384
+    top = 64
   end
   object ImageList1: TImageList
     BkColor = clForeground
-    left = 272
+    left = 296
     top = 64
     Bitmap = {
-      4C690F0000001000000010000000FF00FF00FF00FF00EF94B5FF9C6B6BFFEF94
+      4C69110000001000000010000000FF00FF00FF00FF00EF94B5FF9C6B6BFFEF94
       B5FF9C6B6BFFEF94B5FF9C6B6BFFE78CB5FFA56B6BFFE78CB5FF945A63FFFF00
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF009C6B6BFFFF00FF00FF00
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF009C6B6BFFFF00FF00945A
@@ -2514,39 +2528,39 @@ object Form1: TForm1
       FF00FF00FF00FF00FF00CE7342FFFFCEADFFC67342FFFF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00FF00FF00A53900FFFF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FCB5
+      FF00FF00FF00FF00FF00FF00FF0000000000000000000000000000000000FCB5
       9BFF662105FFAD3309FF000000FF3D1703FFAD3309FFAD3309FF5D1F05FFFDCF
-      BEFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00B93609FFFDCF
-      BEFFFF00FF00FF00FF00FF00FF00662105FFFF00FF00FF00FF00FF00FF00AD33
-      09FFF65321FFFF00FF00FF00FF00FF00FF00FF00FF00AD3309FFFF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF004B1B04FFFF00FF00FF00FF00FF00FF00FF00
-      FF00FEDFD3FFF76030FFFF00FF00FF00FF00AD3309FFFED7C8FFFF00FF00FF00
-      FF00FF00FF00742506FFF86636FFF98E69FFF64D19FF992D08FFFF00FF00FF00
-      FF00FF00FF00AD3309FFFEDFD3FFFF00FF00772506FFFF00FF00FF00FF00FF00
-      FF00E4400CFFFF00FF00FF00FF00882A07FFFF00FF00FF00FF00882A07FFFF00
-      FF00FF00FF00FF00FF00712406FFAD3309FFFCBFA9FFFF00FF00FF00FF005A1E
-      05FFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00992D
-      08FFFF00FF00FF00FF00F8794EFFAD3309FFFF00FF00FF00FF00FF00FF00FA9B
-      79FFFF00FF00FF00FF00378DFFFF0029E7FF6FBDE7FFFF00FF00FF00FF00F548
-      13FFFF00FF00FF00FF00AD3309FFAD3309FF6B2306FF852907FF451904FF2D11
-      02FF962D08FFFF00FF000053E7FF007BE7FF0067E7FFFF00FF00882A07FFF98E
-      69FF4B1B04FF662105FFAD3309FFAD3309FFFF00FF00FF00FF00FF00FF00FBA6
-      88FFFF00FF00FF00FF001B95E7FF0046E7FF2597E7FFFF00FF00FF00FF00F764
-      34FFFF00FF00FF00FF00AD3309FFAD3309FFFCBFA9FFFF00FF00FF00FF006320
-      05FFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF007425
-      06FFFF00FF00FF00FF00F8794EFFFF00FF00772506FFFF00FF00FF00FF00FED8
-      CAFFF87548FFFF00FF00FF00FF00882A07FFFF00FF00FF00FF00E4400CFFFF00
-      FF00FF00FF00FF00FF00712406FFFF00FF00AD3309FFFED7C8FFFF00FF00FF00
-      FF00FED8CAFF632005FFFBA688FF170901FFFA936FFF571E05FFFF00FF00FF00
-      FF00FF00FF00FBA688FFAD3309FFFF00FF00FF00FF00B33409FFFF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF002D1102FFFF00FF00FF00FF00FF00FF00FF00
-      FF00FEDCCFFFF76030FFFF00FF00FF00FF00FF00FF00FF00FF00C1380AFFFDD0
-      BFFFFF00FF00FF00FF00FF00FF00662105FFFF00FF00FF00FF00FF00FF00AD33
-      09FFF75B29FFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00AD33
+      BEFF0000000000000000000000000000000000000000FCB59BFFB93609FFFDCF
+      BEFF000000000000000000000000662105FF000000000000000000000000AD33
+      09FFF65321FF00000000000000000000000000000000AD3309FF000000000000
+      00000000000000000000000000004B1B04FF0000000000000000000000000000
+      0000FEDFD3FFF76030FF0000000000000000AD3309FFFED7C8FF000000000000
+      0000FCB59BFF742506FFF86636FFF98E69FFF64D19FF992D08FFFCB59BFF0000
+      000000000000AD3309FFFEDFD3FF00000000772506FF0000000000000000FCB5
+      9BFFE4400CFF0000000000000000882A07FF0000000000000000882A07FFFCB5
+      9BFF0000000000000000712406FFAD3309FFFCBFA9FF00000000000000005A1E
+      05FF00000000000000000000000000000000000000000000000000000000992D
+      08FF0000000000000000F8794EFFAD3309FF000000000000000000000000FA9B
+      79FF0000000000000000378DFFFF0029E7FF6FBDE7FF0000000000000000F548
+      13FF0000000000000000AD3309FFAD3309FF6B2306FF852907FF451904FF2D11
+      02FF962D08FF000000000053E7FF007BE7FF0067E7FF00000000882A07FFF98E
+      69FF4B1B04FF662105FFAD3309FFAD3309FF000000000000000000000000FBA6
+      88FF00000000000000001B95E7FF0046E7FF2597E7FF0000000000000000F764
+      34FF0000000000000000AD3309FFAD3309FFFCBFA9FF00000000000000006320
+      05FF000000000000000000000000000000000000000000000000000000007425
+      06FF0000000000000000F8794EFF00000000772506FF0000000000000000FED8
+      CAFFF87548FF0000000000000000882A07FF0000000000000000E4400CFFFCB5
+      9BFF0000000000000000712406FF00000000AD3309FFFED7C8FF000000000000
+      0000FED8CAFF632005FFFBA688FF170901FFFA936FFF571E05FFFCB59BFF0000
+      000000000000FBA688FFAD3309FF0000000000000000B33409FF000000000000
+      00000000000000000000000000002D1102FF0000000000000000000000000000
+      0000FEDCCFFFF76030FF000000000000000000000000FCB59BFFC1380AFFFDD0
+      BFFF000000000000000000000000662105FF000000000000000000000000AD33
+      09FFF75B29FF000000000000000000000000000000000000000000000000AD33
       09FF682206FFFBA485FFFEE5DCFF3D1703FFFEE5DCFFFA9470FF662105FFFED6
-      C7FFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00AD3309FFAD3309FFAD3309FFAD3309FFAD3309FFFF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+      C7FF000000000000000000000000000000000000000000000000000000000000
+      000000000000AD3309FFAD3309FFAD3309FFAD3309FFAD3309FF000000000000
+      0000000000000000000000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00000000FF000000FF000000FFFF00FF00FF00FF00FF00
@@ -2738,39 +2752,39 @@ object Form1: TForm1
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00F6521FFF000000FF0000
-      00FF000000FF000000FFF3440FFFFF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00D83D0BFF000000FF6E2306FFFF00FF00FF00
-      FF00FF00FF00F9845CFF000000FFFF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00BF370AFFA53008FFFF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00F9845CFF000000FFFF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00882A07FF000000FFBF370AFFFF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00F9845CFF000000FFFF00FF00FF00FF00FF00FF00FF00FF006E23
-      06FFF3440FFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00F9845CFF000000FFFF00FF00FF00FF00FF00FF00511C04FFF652
-      1FFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00F8784DFF0A0400FFFF00FF00FF00FF00FF00FF00FF00FF00511C04FFF652
-      1FFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00F8784DFF0A0400FFFF00FF00FF00FF00FF00FF00371502FFF76030FFFF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00F86E
-      3FFF1E0C01FFFF00FF00FF00FF00FF00FF001E0C01FFF86E3FFFFF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00F76030FF3715
-      02FFFF00FF00FF00FF00FF00FF00FF00FF001E0C01FFF86E3FFFFF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00F76030FF3715
-      02FFFF00FF00FF00FF00FF00FF000A0400FFF8784DFFFF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00F6521FFF511C04FFFF00
-      FF00FF00FF00FF00FF00FF00FF000A0400FFF8784DFFFF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00D83D0BFF000000FF6E2306FFFF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF000A0400FFF8784DFFFF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00BF370AFFA53008FFFF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF000A0400FFF8784DFFFF00FF00FF00FF00FF00
-      FF00882A07FF000000FFBF370AFFFF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00F3440FFF000000FF000000FF000000FF0000
-      00FFF3440FFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+      FF00FF00FF00FF00FF00FF00FF00000000000000000000000000000000000000
+      000000000000000000000000000000000000F9845CFFF6521FFF000000FF0000
+      00FF000000FF000000FFF3440FFF000000000000000000000000000000000000
+      00000000000000000000F9845CFFD83D0BFF000000FF6E2306FFF9845CFF0000
+      000000000000F9845CFF000000FF000000000000000000000000000000000000
+      000000000000F9845CFFBF370AFFA53008FF0000000000000000000000000000
+      000000000000F9845CFF000000FF000000000000000000000000000000000000
+      0000882A07FF000000FFBF370AFF000000000000000000000000000000000000
+      000000000000F9845CFF000000FF000000000000000000000000000000006E23
+      06FFF3440FFF0000000000000000000000000000000000000000000000000000
+      000000000000F9845CFF000000FF000000000000000000000000511C04FFF652
+      1FFF000000000000000000000000000000000000000000000000000000000000
+      0000F8784DFF0A0400FFF9845CFF0000000000000000F9845CFF511C04FFF652
+      1FFF000000000000000000000000000000000000000000000000000000000000
+      0000F8784DFF0A0400FF0000000000000000F9845CFF371502FFF76030FF0000
+      000000000000000000000000000000000000000000000000000000000000F86E
+      3FFF1E0C01FFF9845CFF00000000000000001E0C01FFF86E3FFF000000000000
+      0000000000000000000000000000000000000000000000000000F76030FF3715
+      02FFF9845CFF0000000000000000F9845CFF1E0C01FFF86E3FFF000000000000
+      0000000000000000000000000000000000000000000000000000F76030FF3715
+      02FF0000000000000000000000000A0400FFF8784DFF00000000000000000000
+      00000000000000000000000000000000000000000000F6521FFF511C04FF0000
+      00000000000000000000000000000A0400FFF8784DFF00000000000000000000
+      0000000000000000000000000000D83D0BFF000000FF6E2306FF000000000000
+      00000000000000000000000000000A0400FFF8784DFF00000000000000000000
+      00000000000000000000BF370AFFA53008FFF9845CFF00000000000000000000
+      00000000000000000000000000000A0400FFF8784DFF00000000000000000000
+      0000882A07FF000000FFBF370AFFF9845CFF0000000000000000000000000000
+      0000000000000000000000000000F3440FFF000000FF000000FF000000FF0000
+      00FFF3440FFFF9845CFF00000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00F9835AFFF86737FFF86A3AFFF98860FFFF00FF00FF00FF00FF00
@@ -2866,7 +2880,71 @@ object Form1: TForm1
       10FF361E1EFF8C7E7EFFFF00FF00FF00FF00A59A9AFF473131FF200D0DFF554A
       4AFFA4A3A3FFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00CECCCCFF5347
       47FF200707FF392121FF6E5C5CFF756464FF473030FF210707FF3D2D2DFFBCB8
-      B8FFFF00FF00FF00FF00FF00FF00
+      B8FFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+      FF00FF00FF00FF00FF00FF00FF00EED3C2FFF4DACAFFF3D9CBFFF1D5C8FFF0D2
+      C5FFEFCDC1FFEDCABFFFECC6BCFFEAC1B7FFE9BDB4FFE7B8B0FFE6B3ABFFE4AF
+      A7FFE3AAA2FFDE9F98FFD2908CFFF8D5BEFFFEF7F2FFF6DBD3FFEFCBC2FFF0CE
+      C4FFF1CFC7FFF2D1CAFFF2D3CBFFF2D4CEFFF3D6D0FFF4D8D1FFF5DAD2FFF5DB
+      D3FFF7DFD4FFFAE2D5FFD88176FFF6D3BFFFFAEEEBFFD5B4ADFFBDB3B1FFA299
+      97FF8F8684FF8C8482FF877F7DFF7D7674FF766F6EFF6E6867FF655F5EFF5E58
+      57FF817C7BFFEEE3DAFFDB887CFFF5CEBBFFFAEDE9FFD4B6AFFFDCDCDCFFCBCB
+      CBFF858585FF7E7E7EFF777777FF6B6B6BFF636363FF595959FF4E4E4EFF4646
+      46FF656564FFE8DED5FFDB887BFFF3CAB7FFFAEDEAFFD0B4ADFFDFDFDFFFD8D8
+      D8FF898989FF7D7D7DFF767676FF6B6B6BFF626262FF595959FF4E4E4EFF4545
+      45FF626262FFE8DDD3FFDB8779FFF1C5B4FFFAEEEBFFC6ACA7FFB3B3B3FF8A8A
+      8AFF7F7F7FFF7C7C7CFF747474FF696969FF606060FF565656FF4C4C4CFF3F3F
+      3FFF5E5E5DFFE8DCD0FFDB8678FFEFBFAFFFF8EFEDFFB3A39FFF7B7B7BFF7A7A
+      7AFF7E7E7EFF787878FF6F6F6FFF646464FF5A5A5AFF505050FF434343FF3939
+      39FF5C5C5CFFE7DACFFFDB8576FFEEBAACFFF8F0EEFFAFA09DFF808080FF7F7F
+      7FFF767676FF6A6A6AFF616161FF575757FF4F4F4FFF464646FF3D3D3DFF3536
+      35FF5B5B5BFFE7D9CDFFDB8475FFECB5A9FFF9F0EEFFAFA19EFF7D7D7DFF7373
+      73FF656565FF5E5E5EFF575757FF4F4F4FFF494949FF414141FF393939FF3333
+      33FF5A5A59FFE7D8CBFFDB8373FFEAB0A4FFFAF0EEFFAF9E9AFF6E6E6EFF6363
+      63FF5C5C5CFF575757FF525252FF4A4A4AFF444444FF3D3D3DFF353635FF3030
+      30FF585857FFE7D7CAFFDB8271FFE8ABA0FFFBF0EDFFA99793FF606060FF5B5B
+      5BFF565656FF515151FF4D4D4DFF464646FF404040FF393939FF323232FF2D2D
+      2DFF585857FFE8D6C8FFDB8170FFE6A69CFFFBF0EDFFA79691FF5E5E5EFF5B5B
+      5BFF575656FF525252FF4E4E4EFF484848FF424242FF3D3D3CFF373737FF3333
+      32FF60605FFFE9D8C9FFDB816FFFE39B91FFFCEDEAFFEEDFDAFFE8E0DCFFE7DF
+      DBFFE7DFD9FFE6DED8FFE5DDD7FFE5DCD5FFE4DBD3FFE3DAD2FFE2D9D0FFE2D8
+      CFFFE9DDD3FFFADFCCFFD97C6BFFD78F88FFE4A59EFFE5A69FFFE3A39AFFE3A2
+      99FFE3A297FFE3A195FFE3A194FFE3A092FFE39F91FFE39E8FFFE39D8DFFE39C
+      8CFFE39B8AFFE19280FFD17C73FFFF00FF00FF00FF00FF00FF00FF00FF00FF00
+      FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+      FF00FF00FF00FF00FF00FF00FF00808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000000000FF000000FF000000FF000000FF0000
+      00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+      00FF000000FF000000FF000000FF000000FF808080FF767676BB777777B50000
+      00FF797979B37A7A7AB2000000FF7E7E7EAF7E7E7EAE000000FF818181AD8383
+      83AE000000FF868686AF000000FF000000FF868686FF636363C3878787B00000
+      00FF8A8A8AB18B8B8BB2000000FF8E8E8EB3909090B4000000FF939393B59494
+      94B6000000FF979797B7000000FF000000FF969696C1979797B7999999B80000
+      00FF9C9C9CBA9D9D9DBA9E9E9EBBA0A0A0BCA1A1A1BC000000FFA4A4A4BEA6A6
+      A6BFA7A7A7C0A8A8A8C0000000FF000000FFA7A7A7C0A8A8A8C0AAAAAAC1ABAB
+      ABC2ADADADC3AEAEAEC3AFAFAFC4B1B1B1C5B3B3B3C6B3B3B3C6B5B5B5C7B7B7
+      B7C8B8B8B8C9B9B9B9CA000000FF000000FFB8B8B8C9B9B9B9CABABABACABCBC
+      BCCBBDBDBDCCBFBFBFCDC0C0C0CEC1C1C1CEC2C2C2CFC4C4C4D0C5C5C5D1C6C6
+      C6D2C7C7C7D2C9C9C9D3000000FF000000FF000000FF000000FF000000FF0000
+      00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+      00FF000000FF000000FF000000FF808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000808080008080800080808000808080008080
+      8000808080008080800080808000
     }
   end
   object ZoomTimer: TTimer
@@ -2875,5 +2953,9 @@ object Form1: TForm1
     OnTimer = ZoomTimerTimer
     left = 96
     top = 192
+  end
+  object PrintDialog1: TPrintDialog
+    left = 320
+    top = 120
   end
 end

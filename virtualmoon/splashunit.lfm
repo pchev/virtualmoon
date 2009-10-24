@@ -538,7 +538,7 @@ object splash: Tsplash
     end
     object Label1: TLabel
       Left = 0
-      Height = 39
+      Height = 40
       Top = 0
       Width = 400
       Align = alTop
@@ -571,16 +571,16 @@ object splash: Tsplash
     end
     object Label3: TLabel
       Left = 0
-      Height = 78
-      Top = 272
+      Height = 94
+      Top = 256
       Width = 400
       Align = alBottom
       Alignment = taCenter
-      Caption = 'Copyright © 2001-2009  Christian Legrand, Patrick Chevalley, All rights reserved'#13#10'This program is free software; you can redistribute it and/or modify it under '#13#10'the terms of the GNU General Public License.'#13#10'All database, pictures and documentation © Ch. Legrand'#13#10'Pictures library are copyrighted by their respective owner.'
+      Caption = 'Copyright © 2001-2009  Christian Legrand, Patrick Chevalley, '#10'All rights reserved'#13#10'This program is free software; you can redistribute it and/or'#10'modify it under the terms of the GNU General Public License.'#13#10'All database, pictures and documentation © Ch. Legrand'#13#10'Pictures library are copyrighted by their respective owner.'
       Color = clBlack
       Font.Color = 57568
       Font.Height = -11
-      Font.Name = 'Arial'
+      Font.Pitch = fpVariable
       Font.Style = [fsItalic]
       ParentColor = False
       ParentFont = False
@@ -590,7 +590,7 @@ object splash: Tsplash
     object Label4: TLabel
       Left = 0
       Height = 14
-      Top = 258
+      Top = 242
       Width = 400
       Align = alBottom
       Alignment = taCenter
@@ -599,7 +599,6 @@ object splash: Tsplash
       Color = clBlack
       Font.Color = 57568
       Font.Height = -11
-      Font.Name = 'Arial'
       Font.Style = [fsItalic]
       ParentColor = False
       ParentFont = False

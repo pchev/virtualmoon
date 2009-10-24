@@ -3,6 +3,4 @@
 # Update first the path to your Lazarus installation and run "make" in lazarus/tools
 
 rstconv -i units/i386-linux-gtk2/u_translation.rst -o language/maplun.po
-rstconv -i units/i386-linux-gtk2/u_translation_database.rst -o language/vmadatabase.po
 ~/lazarus/tools/updatepofiles language/maplun.po
-~/lazarus/tools/updatepofiles language/vmadatabase.po

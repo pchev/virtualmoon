@@ -36,11 +36,6 @@ type
   private
     { Private declarations }
     LockPla : boolean;
-    SolT0,XSol,YSol,ZSol : double;
-    jdnew,jdchart,com_limitmag:double;
-    ast_daypos,com_daypos: string;
-    smsg:Tstrings;
-    SolAstrometric : boolean;
     de_folder: PChar;
     de_type:integer;
   protected
@@ -66,9 +61,6 @@ type
 implementation
 
 const
-//    Dates limits series96
-      series96t1 = 2415020.5;    // From : JD2415020.5d0 (1 Jan 1900 0h)
-      series96t2 = 2487980.5;    // To   : JD2487980.5d0 (4 Oct 2099 0h)
 //    Dates limits elp82
       elp82t1 = 2415020.5;       // From : JD2415020.5d0 (1 Jan 1900 0h)
       elp82t2 = 2487980.5;       // To   : JD2487980.5d0 (4 Oct 2099 0h)
@@ -234,7 +226,7 @@ incl:=arctan2(cos(Sde)*sin(Sar-Lar),cos(Lde)*sin(Sde)-sin(Lde)*cos(Sde)*cos(Sar-
 end;
 
 Procedure TPlanet.PlanetAltitude(pla: integer; jd0,hh: double;  var har,sina: double);
-var jdt,ra,de,dm4,dm5,dm6,dm7,dm8,dm9: double;
+var jdt,ra,de,dm4,dm5,dm6,dm7,dm8: double;
 begin
 jdt:=jd0+(hh-TimeZone-DT_UT)/24;
 case pla of
@@ -247,7 +239,7 @@ end;
 
 procedure TPlanet.PlanetRiseSet(pla:integer; jd0:double; AzNorth:boolean; var thr,tht,ths,tazr,tazs: string; var jdr,jdt,jds,rar,der,rat,det,ras,des:double ;var i: integer);
 var hr,ht,hs,h1,h2,azr,azs,dist,q,diam : double;
-    ho,sinho,dt,hh,y1,y2,y3,x1,x2,x3,xmax,ymax,xmax2,ymax2,ymax0,ra,de,dm5,dm6,dm7,dm8,dm9: double;
+    ho,sinho,dt,hh,y1,y2,y3,x1,x2,x3,xmax,ymax,xmax2,ymax2,ymax0,ra,de,dm5,dm6,dm7,dm8: double;
     frise,fset,ftransit: boolean;
     n: integer;
 const  na='      ';
@@ -564,7 +556,7 @@ const
   ndet=3;
 var
   det:array [1..ndet] of integer = (421,405,406);
-  i,k: integer;
+  i: integer;
 begin
 result:=false;
 de_type:=0;

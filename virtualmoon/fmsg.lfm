@@ -14,7 +14,7 @@ object MsgForm: TMsgForm
   Font.Name = 'MS Sans Serif'
   FormStyle = fsStayOnTop
   Position = poScreenCenter
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object Panel1: TPanel
     Left = 8
     Height = 49
@@ -25,12 +25,11 @@ object MsgForm: TMsgForm
     ParentColor = False
     TabOrder = 0
     object Label1: TLabel
-      Left = 4
+      Left = 0
       Height = 35
       Top = 8
       Width = 257
       AutoSize = False
-      Caption = 'Label1'
       ParentColor = False
       WordWrap = True
     end

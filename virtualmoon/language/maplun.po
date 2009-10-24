@@ -119,7 +119,7 @@ msgid "Picture"
 msgstr ""
 
 #: u_translation:rst_26
-msgid "Geocentric position"
+msgid "Geocentric"
 msgstr ""
 
 #: u_translation:rst_28
@@ -627,7 +627,7 @@ msgid "Date / Time"
 msgstr ""
 
 #: u_translation:rst_174
-msgid "Use Computer Date and Time Zone"
+msgid "Use Computer Date and Time"
 msgstr ""
 
 #: u_translation:rst_175
@@ -647,7 +647,7 @@ msgid "Flip E-W"
 msgstr ""
 
 #: u_translation:rst_179
-msgid "User Database"
+msgid "User Database loaded from DATLUN"
 msgstr ""
 
 #: u_translation:rst_180
@@ -676,6 +676,10 @@ msgstr ""
 
 #: u_translation:rst_187
 msgid "Pyroclastic deposits"
+msgstr ""
+
+#: u_translation:rst_188
+msgid "Lunar Domes"
 msgstr ""
 
 #: u_translation:rsm_1
@@ -960,5 +964,105 @@ msgstr ""
 
 #: u_translation:rsm_75
 msgid "From Database:"
+msgstr ""
+
+#: u_translation:rsshowlabels
+msgid "Show labels"
+msgstr ""
+
+#: u_translation:rsshowgrid
+msgid "Show grid"
+msgstr ""
+
+#: u_translation:rsremoveunknow
+msgid "Remove unknow field values from reports"
+msgstr ""
+
+#: u_translation:rsgrid
+msgid "Grid"
+msgstr ""
+
+#: u_translation:rsorbitaltitud
+msgid "Orbit altitude"
+msgstr ""
+
+#: u_translation:rsorbitinclina
+msgid "Orbit inclination"
+msgstr ""
+
+#: u_translation:rslevel
+msgid "Level:"
+msgstr ""
+
+#: u_translation:rszoomlevel
+msgid "Zoom level"
+msgstr ""
+
+#: u_translation:rsfullscreen
+msgid "Full screen (Esc)"
+msgstr ""
+
+#: u_translation:rsquitfull
+msgid "Quit full screen (Esc)"
+msgstr ""
+
+#: u_translation:rslabelsfont
+msgid "Labels font"
+msgstr ""
+
+#: u_translation:rsairburshreli
+msgid "Airbursh relief with albedo"
+msgstr ""
+
+#: u_translation:rsairburshreli2
+msgid "Airbursh relief without albedo"
+msgstr ""
+
+#: u_translation:rsclementineph
+msgid "Clementine photographic"
+msgstr ""
+
+#: u_translation:rslopamphotogr
+msgid "LOPAM photographic"
+msgstr ""
+
+#: u_translation:rsephemeris
+msgid "Ephemeris:"
+msgstr ""
+
+#: u_translation:rscountry
+msgid "Country"
+msgstr ""
+
+#: u_translation:rsphasewithdyn
+msgid "Phase with dynamic relief"
+msgstr ""
+
+#: u_translation:rsphasewithout
+msgid "Phase without relief"
+msgstr ""
+
+#: u_translation:rssimple
+msgid "Simple"
+msgstr ""
+
+#: u_translation:rsadvanced
+msgid "Advanced"
+msgstr ""
+
+#: u_translation:rsdynamicrelie
+msgid "Dynamic relief display method"
+msgstr ""
+
+#: u_translation:rsfirstusesett
+msgid "First use setting"
+msgstr ""
+
+#: u_translation:rstopocentric
+msgid "Topocentric"
+msgstr ""
+
+#: u_translation:rsshowscale
+msgid "Show scale"
 msgstr ""
 
