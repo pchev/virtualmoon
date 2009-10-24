@@ -109,6 +109,7 @@ type
     procedure MenuItem5Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
     procedure MenuItem8Click(Sender: TObject);
+    procedure PanelVignetteClick(Sender: TObject);
     procedure PanelVignetteResize(Sender: TObject);
     procedure ScrollBar1Change(Sender: TObject);
     procedure SetSizeTimer1Timer(Sender: TObject);
@@ -116,7 +117,7 @@ type
   private
     { private declarations }
     UniqueInstance1: TCdCUniqueInstance;
-    param : Tstringlist;
+
     SelectedObject, pofile : string;
     maxphoto,curphoto,photow,photoh,maxheight: integer;
     vignettenum, currentvignette, vignetteleft, vignetteright,maximgdir: integer;
@@ -133,7 +134,7 @@ type
     procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
     procedure InstanceRunning(Sender : TObject);
     procedure SetLang;
-    Procedure ReadParam;
+    Procedure ReadParam(first:boolean=true);
     procedure ReadConfig;
     procedure SaveConfig;
     procedure PhotoSaveParam(Sender: TObject);
@@ -159,6 +160,7 @@ type
     procedure OpenDatlun(objname,otherparam:string);
   public
     { public declarations }
+    param : Tstringlist;
   end; 
 
 var
@@ -671,6 +673,11 @@ begin
  f.Free;
 end;
 
+procedure Tf_photlun.PanelVignetteClick(Sender: TObject);
+begin
+
+end;
+
 procedure Tf_photlun.GetAppDir;
 var
   buf, buf1: string;
@@ -899,15 +906,15 @@ begin
   for i:=0 to maxphotowindow do photo[i].Free;
 end;
 
-Procedure Tf_photlun.ReadParam;
+Procedure Tf_photlun.ReadParam(first:boolean=true);
 var i : integer;
 begin
 i:=0;
 while i <= param.count-1 do begin
-  if param[i]='-nx' then begin       // when started by vma do not close vma on exit!
+  if (param[i]='-nx')and first then begin       // when started by vma do not close vma on exit!
      CanCloseVMA:=false;
   end
-  else if param[i]='-nd' then begin  // when started by datlun do not close datlun on exit!
+  else if (param[i]='-nd')and first then begin  // when started by datlun do not close datlun on exit!
      CanCloseDatlun:=false;
   end
   else if param[i]='-n' then begin
@@ -986,7 +993,7 @@ begin
      for i:=0 to ParamCount-1 do begin
         param.add(Parameters[i]);
      end;
-     ReadParam;
+     ReadParam(false);
   end;
 end;
 
@@ -1019,9 +1026,7 @@ end;
 procedure Tf_photlun.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   SaveConfig;
-  {$ifdef mswindows}
-  if CanCloseVMA and StartVMA then SendMessage(HWND_BROADCAST,RegisterWindowMessage(ExitProMsg),0,0);
-  {$endif}
+  if CanCloseVMA and StartVMA then OpenVMA('','-quit');
   if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
 end;
 
@@ -1066,7 +1071,7 @@ end;
 procedure Tf_photlun.OpenVMA(objname,otherparam:string);
 var parm:string;
 begin
-    parm:='';
+    parm:='-np ';
     if CanCloseVMA and (not StartVMA) then begin
       parm:=parm+' -3d ';
     end;
@@ -1080,7 +1085,7 @@ end;
 procedure Tf_photlun.OpenDatlun(objname,otherparam:string);
 var parm:string;
 begin
-    parm:='';
+    parm:='-np ';
     if objname<>'' then parm:=parm+' -n "'+objname+'" ';
     parm:=parm+otherparam;
     chdir(appdir);
@@ -1139,7 +1144,7 @@ end;
 
 procedure Tf_photlun.MenuItem15Click(Sender: TObject);
 begin
-  Showmessage('Photlun version 5 beta'+crlf+
+  Showmessage('Photlun '+Splashversion+crlf+
               'http://astrosurf.com/avl'+crlf+
               'Copyright (C) 2008 Christian Legrand, Patrick Chevalley'+crlf+crlf+
               'Conception : Christian Legrand'+crlf+
