@@ -2723,7 +2723,6 @@ begin
 end;
 
 function TKStringList.IndexOf(s: string): LongInt;
-var k: integer;
 begin
      Result := list.IndexOfString(s)-1;
 end;

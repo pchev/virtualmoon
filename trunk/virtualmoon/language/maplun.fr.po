@@ -1,31 +1,86 @@
+# translation of maplun.fr.po
 # Patrick Chevalley <pch@ap-i.net>, 2009.
+# Patrick Chevalley <pch@freesurf.ch>, 2009.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2009-10-11 15:14+0200\n"
-"Project-Id-Version: \n"
-"Language-Team: Français <kde-i18n-doc@kde.org>\n"
+"Last-Translator: Patrick Chevalley <pch@freesurf.ch>\n"
+"PO-Revision-Date: 2009-10-23 21:35+0200\n"
+"Project-Id-Version: maplun.fr\n"
+"Language-Team:  <translation@ap-i.net>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: KBabel 1.11.4\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: u_translation.rsadvanced
+msgid "Advanced"
+msgstr "Avancé"
+
+#: u_translation.rsairburshreli
+msgid "Airbursh relief with albedo"
+msgstr "Relief aérographe avec albédo"
+
+#: u_translation.rsairburshreli2
+msgid "Airbursh relief without albedo"
+msgstr "Relief aérographe sans albedo"
+
+#: u_translation.rsclementineph
+msgid "Clementine photographic"
+msgstr "Photographique Clementine"
+
+#: u_translation.rscountry
+msgid "Country"
+msgstr "Pays"
 
 #: u_translation.rsdegree
 msgid "d"
 msgstr "°"
 
+#: u_translation.rsdynamicrelie
+msgid "Dynamic relief display method"
+msgstr "Méthode d'affichage du relief dynamique"
+
+#: u_translation.rsephemeris
+msgid "Ephemeris:"
+msgstr "Ephéméride:"
+
+#: u_translation.rsfirstusesett
+msgid "First use setting"
+msgstr "Configuration initiale"
+
 #: u_translation.rsformat
 msgid "0"
 msgstr "1"
+
+#: u_translation.rsfullscreen
+#| msgid "Full screen"
+msgid "Full screen (Esc)"
+msgstr "Plein écran (Esc)"
+
+#: u_translation.rsgrid
+msgid "Grid"
+msgstr "Grilles"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "FR"
 
+#: u_translation.rslabelsfont
+msgid "Labels font"
+msgstr "Police des labels"
+
 #: u_translation.rslanguage
 msgid "English"
 msgstr "Français"
+
+#: u_translation.rslevel
+msgid "Level:"
+msgstr "Niveau:"
+
+#: u_translation.rslopamphotogr
+msgid "LOPAM photographic"
+msgstr "Photographique LOPAM"
 
 #: u_translation.rsminute
 #| msgid "m"
@@ -321,14 +376,59 @@ msgstr "Nom donné par Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Nom donné par Riccioli:"
 
+#: u_translation.rsorbitaltitud
+msgid "Orbit altitude"
+msgstr "Altitude de l'orbite"
+
+#: u_translation.rsorbitinclina
+msgid "Orbit inclination"
+msgstr "Inclinaison de l'orbite"
+
+#: u_translation.rsphasewithdyn
+msgid "Phase with dynamic relief"
+msgstr "Phase avec relief dynamique"
+
+#: u_translation.rsphasewithout
+msgid "Phase without relief"
+msgstr "Phase sans relief"
+
+#: u_translation.rsquitfull
+msgid "Quit full screen (Esc)"
+msgstr "Retour fenêtre (Esc)"
+
+#: u_translation.rsremoveunknow
+#| msgid "Remove unknow values from reports"
+msgid "Remove unknow field values from reports"
+msgstr "N'affiche pas les champs avec une valeur inconnue"
+
 #: u_translation.rssecond
 #| msgid "s"
 msgid "\""
 msgstr "\""
 
+#: u_translation.rsshowgrid
+msgid "Show grid"
+msgstr "Afficher les grilles"
+
+#: u_translation.rsshowlabels
+msgid "Show labels"
+msgstr "Afficher les labels"
+
+#: u_translation.rsshowscale
+msgid "Show scale"
+msgstr "Afficher l'échelle"
+
+#: u_translation.rssimple
+msgid "Simple"
+msgstr "Simple"
+
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
 msgstr "Atlas Virtuel de la Lune"
+
+#: u_translation.rstopocentric
+msgid "Topocentric"
+msgstr "Topocentrique"
 
 #: u_translation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
@@ -556,7 +656,7 @@ msgstr "Télescope"
 
 #: u_translation.rst_161
 msgid "Show Menu"
-msgstr "Voir le menu"
+msgstr "Afficher le menu"
 
 #: u_translation.rst_162
 msgid "Goto selected"
@@ -596,7 +696,7 @@ msgstr "Maintenant"
 
 #: u_translation.rst_170
 msgid "Show overlay"
-msgstr "Voir la couche"
+msgstr "Afficher la couche"
 
 #: u_translation.rst_171
 msgid "Overlay :"
@@ -611,8 +711,9 @@ msgid "Date / Time"
 msgstr "Date / Heure"
 
 #: u_translation.rst_174
-msgid "Use Computer Date and Time Zone"
-msgstr "Utilise l'heure et la zone horaire de l'ordinateur"
+#| msgid "Use Computer Date and Time Zone"
+msgid "Use Computer Date and Time"
+msgstr "Utiliser la date et l'heure de l'ordinateur"
 
 #: u_translation.rst_175
 msgid "Show Libration"
@@ -631,8 +732,9 @@ msgid "Flip E-W"
 msgstr "Inversion E-W"
 
 #: u_translation.rst_179
-msgid "User Database"
-msgstr "Bases de données personnelles"
+#| msgid "User Database"
+msgid "User Database loaded from DATLUN"
+msgstr "Bases de données personnelles de DATLUN"
 
 #: u_translation.rst_18
 msgid "OK"
@@ -666,6 +768,10 @@ msgstr "Voir ici une liste de cartes supportées"
 msgid "Pyroclastic deposits"
 msgstr "Dépôts pyroclastiques"
 
+#: u_translation.rst_188
+msgid "Lunar Domes"
+msgstr "Dômes lunaires"
+
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"
 msgid "Latitude"
@@ -696,8 +802,9 @@ msgid "Picture"
 msgstr "Image"
 
 #: u_translation.rst_26
-msgid "Geocentric position"
-msgstr "Position Geocentrique"
+#| msgid "Geocentric position"
+msgid "Geocentric"
+msgstr "Geocentrique"
 
 #: u_translation.rst_28
 msgid "Color"
@@ -984,4 +1091,8 @@ msgstr "Glossaire"
 #: u_translation.rst_99
 msgid "Cancel"
 msgstr "Abandon"
+
+#: u_translation.rszoomlevel
+msgid "Zoom level"
+msgstr "Niveau de zoom"
 

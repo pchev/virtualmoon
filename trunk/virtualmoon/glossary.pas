@@ -106,13 +106,7 @@ var dbgloss : TMlb2;
     lastnode : TTreenode;
 
 function dcopy(s:string; f,l:integer):string;
-var bf,bl: integer;
 begin
-{bf:=CharToByteIndex(s,f);
-if bf=0 then begin result:=''; exit; end;
-result:=copy(s,bf,maxint);
-bl:=CharToByteLen(result,l);
-result:=copy(resut,1,bl);}
 result:=copy(s,f,l);
 end;
 
@@ -267,7 +261,7 @@ var ok:boolean;
     node: TTreeNode;
 begin
 fn:=Slash(appdir)+Slash('Database')+'glossary_u'+language+'.csv';
-if not fileexists(fn) then fn:=Slash(appdir)+Slash('database')+'glossary_uUK.csv';
+if not fileexists(fn) then fn:=Slash(appdir)+Slash('Database')+'glossary_uen.csv';
 dbgloss.LoadFromCSVFile(fn);
 ok:=dbgloss.GoFirst;
 lastpos:=dbgloss.GetPosition;

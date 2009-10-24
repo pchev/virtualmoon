@@ -42,6 +42,7 @@ type
     Button1: TButton;
     Button5: TButton;
     CheckBox10: TCheckBox;
+    CheckBox25: TCheckBox;
     CheckBox4: TCheckBox;
     ColorDialog1: TColorDialog;
     ComboBoxCountry: TComboBox;
@@ -76,12 +77,12 @@ type
     RadioGroup5: TRadioGroup;
     RadioGroup6: TRadioGroup;
     BumpRadioGroup: TRadioGroup;
+    RadioGroup7: TRadioGroup;
     TabSheet1: TPage;
     Label4: TLabel;
     Label1: TLabel;
     Label2: TLabel;
     ComboBox3: TComboBox;
-    CheckBox3: TCheckBox;
     Edit1: TEdit;
     Edit2: TEdit;
     ComboBox1: TComboBox;
@@ -186,8 +187,9 @@ type
     procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
-    procedure CheckBox3Click(Sender: TObject);
+    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
+    procedure RadioGroup7Click(Sender: TObject);
     procedure RadioGroupTextureClick(Sender: TObject);
     procedure Shape1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -242,15 +244,14 @@ uses u_util;
 procedure TForm2.Setlang;
 begin
       Caption := rst_3;
-      if multi_instance then
-        Caption      := 'Temporary change only!';
       label1.Caption := rst_19;
       label2.Caption := rsm_10;
       CheckBox1.Caption := rst_22;
       CheckBox2.Caption := rst_23;
       label4.Caption := rst_24;
       Button1.Caption := rst_18;
-      CheckBox3.Caption := rst_26;
+      Radiogroup7.Items[0] := rsTopocentric;
+      Radiogroup7.Items[1] := rst_26;
       Label5.Caption := rst_28;
       Label17.Caption := rst_29;
       Label7.Caption := rst_52;
@@ -300,6 +301,7 @@ begin
       Checkbox22.Caption := rst_168;
       Checkbox23.Caption := rst_164;
       Checkbox24.Caption := rst_187;
+      Checkbox25.Caption := rst_188;
       label28.Caption := rst_124;
       GroupBox1.Caption := rst_129;
       TabSheet7.Caption := GroupBox1.Caption;
@@ -319,6 +321,18 @@ begin
       CheckBox16.Caption := rst_174;
       label31.Caption := rst_179;
       label33.Caption := rst_181;
+      CheckBox4.Caption:= rsRemoveUnknow;
+      GroupBox2.Caption:=rsGrid;
+      CheckBox10.Caption:=rsShowGrid;
+      label3.Caption:= rsZoomLevel;
+      Button5.Caption:=rsLabelsFont;
+      Label35.Caption:=rsCountry;
+      Label34.Caption:=rst_21;
+      BumpRadioGroup.Items[0]:=rsPhaseWithDyn;
+      BumpRadioGroup.Items[1]:=rsPhaseWithout;
+      RadioGroup1.Caption:=rsDynamicRelie;
+      RadioGroup1.Items[0]:=rsSimple;
+      RadioGroup1.Items[1]:=rsAdvanced;
 end;
 
 Function GetLangCode(buf:string):string;
@@ -329,10 +343,10 @@ result:=trim(copy(buf,1,p-1));
 end;
 
 procedure TForm2.FormCreate(Sender: TObject);
-var inifile : Tinifile;
-    i,j,p : integer;
-    buf,code,ver,AVLver : string;
+var i,j,p : integer;
+    buf,code,AVLlang : string;
     fs : TSearchRec;
+    ft : TextFile;
 begin
 ov:=Tbitmap.Create;
 lockoverlay:=false;
@@ -348,20 +362,31 @@ if not fileexists('version.developpement') then begin
   ruklprefix.Visible:=false;   // Rukl chart
   ruklsuffix.Visible:=false;   // Rukl chart
 end;
-AVLver:=copy(AVLversion,1,3);
-i:=findfirst(slash(appdir)+slash('language')+'lang_u*.ini',0,fs);
+i:=findfirst(slash(appdir)+slash('language')+'maplun.*.po',0,fs);
 while i=0 do begin
-  inifile:=Tinifile.create(slash(appdir)+slash('language')+fs.name);
-  buf:=inifile.ReadString('default','language','Invalid File '+fs.name);
-  ver:=inifile.ReadString('default','version','1.0');
-  if ver>=AVLver then ver:=''
-     else ver:=' Wrong version '+ver+' !';
-  inifile.free;
+  AssignFile(ft,slash(appdir)+slash('language')+fs.name);
+  reset(ft);
+  AVLlang:='';
+  while not eof(ft) do begin
+    readln(ft,buf);
+    if buf='msgid "English"' then begin
+       readln(ft,buf);
+       p:=pos('"',buf);
+       Delete(buf,1,p);
+       p:=pos('"',buf);
+       AVLlang:=copy(buf,1,p-1);
+       break;
+    end;
+  end;
+  CloseFile(ft);
   code:=extractfilename(fs.name);
   p:=pos('.',code);
+  Delete(code,1,p);
   if p=0 then p:=9999;
-  code:=copy(code,7,p-7);
-  buf:=code+' '+buf+ver;
+  p:=pos('.',code);
+  code:=copy(code,1,p-1);
+  if code='en' then AVLlang:='English';
+  buf:=code+' '+AVLlang;
   combobox3.Items.Add(buf);
   i:=findnext(fs);
 end;
@@ -392,8 +417,12 @@ RadioGroup4.Items.clear;
 RadioGroup5.Items.clear;
 RadioGroup6.Items.clear;
 for i:=0 to TextureList.Count-1 do begin
-{ TODO : Translation }
-    RadioGroup2.Items.Add(TextureList[i]);
+    if TextureList[i]='Airbrush' then buf:=rsAirburshReli
+    else if TextureList[i]='Airbrush_no_albedo' then buf:=rsAirburshReli2
+    else if TextureList[i]='Clementine' then buf:=rsClementinePh
+    else if TextureList[i]='Lopam' then buf:=rsLOPAMPhotogr
+    else buf:=TextureList[i];
+    RadioGroup2.Items.Add(buf);
     RadioGroup3.Items.Add('');
     RadioGroup4.Items.Add('');
     RadioGroup5.Items.Add('');
@@ -432,16 +461,23 @@ begin
 newlang:=GetLangCode(combobox3.text);
 end;
 
-procedure TForm2.CheckBox3Click(Sender: TObject);
+procedure TForm2.PageControl1ChangeBounds(Sender: TObject);
 begin
-label1.Enabled:=not checkbox3.checked;
-label2.Enabled:=not checkbox3.checked;
-edit1.Enabled:=not checkbox3.checked;
-edit2.Enabled:=not checkbox3.checked;
-combobox1.Enabled:=not checkbox3.checked;
-combobox2.Enabled:=not checkbox3.checked;
+
 end;
 
+
+procedure TForm2.RadioGroup7Click(Sender: TObject);
+var topo:boolean;
+begin
+topo:=(RadioGroup7.ItemIndex=0);
+label1.Enabled:= topo;
+label2.Enabled:= topo;
+edit1.Enabled:= topo;
+edit2.Enabled:= topo;
+combobox1.Enabled:= topo;
+combobox2.Enabled:= topo;
+end;
 
 procedure TForm2.Shape1MouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
@@ -454,8 +490,6 @@ end;
 procedure TForm2.Button2Click(Sender: TObject);
 begin
 if Assigned(FPrinterDialog) then FPrinterDialog(self);
-//form1.PrinterSetupDialog1.Execute;
-//GetPrinterResolution(PrtName,PrinterResolution);
 end;
 
 procedure TForm2.showtexture;
@@ -483,13 +517,14 @@ begin
   myRect.Right := 0;
   myRect.Bottom := 3;
   StringGrid1.Selection := myRect;
-//  Panel1.Visible:=checkbox4.Checked;
   TrackBar2.Min:=-1000;
   TrackBar2.Max:=-100;
   TextureChanged:=false;
   showtexture;
   LabelGrid.Caption:=inttostr(TrackBar3.Position)+ldeg;
   LabelImp.Caption:=inttostr(trackbar1.Position);
+  RadioGroup7Click(nil);
+  BringToFront;
 end;
 
 procedure TForm2.Button3Click(Sender: TObject);
@@ -539,13 +574,16 @@ begin
 i:=(sender as TRadioGroup).ItemIndex;
 j:=(sender as TRadioGroup).Tag;
 if (i>=0)and(j>=0) then begin
-  tex:=RadioGroup2.Items[i];
+  tex:=TextureList[i];
   if DirectoryExists(slash(TexturePath)+slash(tex)+'L'+inttostr(j+1)) then
   begin
     texturefn[j]:=tex;
     TextureChanged:=true;
   end
-    else showtexture;
+    else begin
+      (sender as TRadioGroup).ItemIndex:=-1;
+      showtexture;
+    end;
   end;
 end;
 
@@ -590,12 +628,16 @@ end;
 
 procedure TForm2.TrackBar3Change(Sender: TObject);
 begin
-  if TrackBar3.Position>=25 then TrackBar3.Position:=30
-  else if TrackBar3.Position>=20 then TrackBar3.Position:=20
-  else if TrackBar3.Position>=15 then TrackBar3.Position:=15
-  else if TrackBar3.Position>=10 then TrackBar3.Position:=10
-  else if TrackBar3.Position>=5 then TrackBar3.Position:=5;
+  if TrackBar3.Position>24 then TrackBar3.Position:=30
+  else if TrackBar3.Position>=19 then TrackBar3.Position:=20
+  else if TrackBar3.Position>=14 then TrackBar3.Position:=15
+  else if TrackBar3.Position>=9 then TrackBar3.Position:=10
+  else if TrackBar3.Position>=4 then TrackBar3.Position:=5
+  else TrackBar3.Position:=1;
 LabelGrid.Caption:=inttostr(TrackBar3.Position)+ldeg;
+if TrackBar3.Position=30 then TrackBar3.PageSize:=6
+   else TrackBar3.PageSize:=5;
+TrackBar3.LineSize:=TrackBar3.PageSize;
 end;
 
 {procedure TForm2.ComboBox5Change(Sender: TObject);
@@ -630,9 +672,7 @@ end;
 end;
 
 procedure TForm2.TrackBar5Change(Sender: TObject);
-var ma:double;
-    i,n,l : integer;
-    p1,p2: pbytearray;
+var l : integer;
 begin
 if not ov.Empty then begin
    if lockoverlay then exit;
@@ -651,7 +691,6 @@ end;
 procedure TForm2.LoadCountry(fn:string);
 var f: textfile;
     buf: string;
-    i: integer;
     rec: TStringList;
 procedure SplitRec(buf,sep:string; var arg: TStringList);
 var i,l:integer;

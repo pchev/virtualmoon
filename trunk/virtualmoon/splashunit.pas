@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
 interface
 
-uses IniFiles, Registry, u_constant, u_util,
+uses u_translation, IniFiles, Registry, u_constant, u_util,
   Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Buttons, LResources;
 
@@ -61,7 +61,7 @@ var
 implementation
 
 
-const nlin=39;
+const nlin=40;
 var
 cpylst: array[1..2,1..nlin]of string=((
 'IDEE ORIGINALE: Christian LEGRAND',
@@ -69,6 +69,7 @@ cpylst: array[1..2,1..nlin]of string=((
 '',
 'LOGICIEL:',
 'PROGRAMMATION: Patrick  CHEVALLEY',
+'EPHEMERIDES JPL: Denis BOUCHER',
 'DESIGN DE L''INTERFACE: Patrick  CHEVALLEY',
 '',
 'TRADUCTION:',
@@ -108,6 +109,7 @@ cpylst: array[1..2,1..nlin]of string=((
 '',
 'SOFTWARE:',
 'PROGRAMING: Patrick  CHEVALLEY',
+'JPL EPHEMERIS: Denis BOUCHER',
 'INTERFACE: Patrick  CHEVALLEY',
 '',
 'TRANSLATION:',
@@ -151,19 +153,9 @@ begin
 end;
 
 procedure Tsplash.FormCreate(Sender: TObject);
-var
-    inifile : Tmeminifile;
-    txt : string;
 begin
 closing:=false;
-if language<>'UK' then begin
-inifile:=Tmeminifile.create(slash(AppDir)+slash('language')+'lang_u'+language+'.ini');
-with inifile do begin
-    txt:=(ReadString('default','title',''));
-end;
-inifile.free;
-if trim(txt)>'' then label1.caption:=txt;
-end;
+label1.caption:=rstitle;
 end;
 
 procedure Tsplash.Image1DblClick(Sender: TObject);
@@ -175,7 +167,7 @@ Procedure Tsplash.Animate;
 var i,l,p :integer;
     buf : string;
 begin
-if language='FR' then l:=1 else l:=2;
+if uppercase(language)='FR' then l:=1 else l:=2;
 buf:='';
 for i:=1 to 6 do begin
   buf:=buf+' '+crlf;

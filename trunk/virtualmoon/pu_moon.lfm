@@ -1,7 +1,7 @@
 object f_moon: Tf_moon
-  Left = 265
+  Left = 323
   Height = 520
-  Top = 49
+  Top = 52
   Width = 748
   Caption = 'f_moon'
   ClientHeight = 520
@@ -268,6 +268,77 @@ object f_moon: Tf_moon
       Layout = tlCenter
       ModulateColor.Color = {
         0000803F00000000000000000000803F
+      }
+    end
+    object GLHUDSpriteScale: TGLHUDSprite
+      TagFloat = 0
+      Material.FrontProperties.Emission.Color = {
+        0000803F0000803F000000000000803F
+      }
+      PitchAngle = 0
+      Position.Coordinates = {
+        0000524300002041000000000000803F
+      }
+      RollAngle = 0
+      TurnAngle = 0
+      Width = 400
+      Height = 2
+      Rotation = 0
+    end
+    object GLHUDTextScaleShadow: TGLHUDText
+      TagFloat = 0
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      BitmapFont = GLBitmapFont1
+      Rotation = 0
+      Layout = tlCenter
+      ModulateColor.Color = {
+        0000000000000000000000000000803F
+      }
+    end
+    object GLHUDTextScale: TGLHUDText
+      TagFloat = 0
+      PitchAngle = 0
+      Position.Coordinates = {
+        000048420000A040000000000000803F
+      }
+      RollAngle = 0
+      TurnAngle = 0
+      BitmapFont = GLBitmapFont1
+      Text = '10'
+      Rotation = 0
+      Layout = tlCenter
+      ModulateColor.Color = {
+        0000803F0000803F000000000000803F
+      }
+    end
+    object GLHUDTextScalekmShadow: TGLHUDText
+      TagFloat = 0
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      BitmapFont = GLBitmapFont1
+      Rotation = 0
+      Layout = tlCenter
+      ModulateColor.Color = {
+        0000000000000000000000000000803F
+      }
+    end
+    object GLHUDTextScalekm: TGLHUDText
+      TagFloat = 0
+      PitchAngle = 0
+      Position.Coordinates = {
+        0000484200007041000000000000803F
+      }
+      RollAngle = 0
+      TurnAngle = 0
+      BitmapFont = GLBitmapFont1
+      Text = '500'
+      Rotation = 0
+      Layout = tlCenter
+      ModulateColor.Color = {
+        0000803F0000803F000000000000803F
       }
     end
     object GLDummyCubeLabels: TGLDummyCube

@@ -57,8 +57,8 @@ uses
 procedure Tf_craterlist.CraterLstMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var Apoint : Tpoint;
-    i,p : integer;
-    buf,desc,nom : string;
+    i : integer;
+    buf : string;
 begin
   APoint.X := X;
   APoint.Y := Y;
