@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses
+uses  u_translation,
   LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, CheckLst, LResources;
 
@@ -47,6 +47,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure SetLang;
   end;
 
 var
@@ -56,6 +57,14 @@ implementation
 
 
 uses vmabrowser1;
+
+procedure TColumns.SetLang;
+begin
+  caption:=rst_4;
+  ButtonAll.caption:=rst_5;
+  ButtonNone.caption:=rst_6;
+  ButtonClose.caption:=rst_7;
+end;
 
 procedure TColumns.ButtonAllClick(Sender: TObject);
 var i: integer;

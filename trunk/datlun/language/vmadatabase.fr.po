@@ -1,0 +1,189 @@
+# translation of vmadatabase.fr.po
+# Patrick Chevalley <pch@freesurf.ch>, 2009.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: Patrick Chevalley <pch@freesurf.ch>\n"
+"PO-Revision-Date: 2009-10-19 15:56+0200\n"
+"Project-Id-Version: vmadatabase.fr\n"
+"Language-Team:  <translation@ap-i.net>\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"MIME-Version: 1.0\n"
+
+#: u_translation_database.rsb_1
+msgid "Not named"
+msgstr "Non nommé"
+
+#: u_translation_database.rsb_2
+msgid "Not indicated"
+msgstr "Non indiqué"
+
+#: u_translation_database.rsb_3
+msgid "Not evaluated"
+msgstr "Non côté"
+
+#: u_translation_database.rsb_4
+msgid "Not observable"
+msgstr "Non observable"
+
+#: u_translation_database.rsb_5
+msgid "No map"
+msgstr "Pas de carte"
+
+#: u_translation_database.rsb_6
+msgid "No map or picture"
+msgstr "Pas de carte ou d'image"
+
+#: u_translation_database.rsb_7
+msgid "No article"
+msgstr "Pas d'article"
+
+#: u_translation_database.rsb_8
+msgid "Not defined"
+msgstr "Non définie"
+
+#: u_translation_database.rsb_9
+msgid "Unknown in this period"
+msgstr "Inconnu à cette époque"
+
+#: u_translation_database.rscol_1
+msgid "Crater"
+msgstr "Cratère"
+
+#: u_translation_database.rscol_10
+msgid "Wrinkle ridge"
+msgstr "Dorsale"
+
+#: u_translation_database.rscol_11
+msgid "Wrinkle ridges network"
+msgstr "Système de dorsales"
+
+#: u_translation_database.rscol_12
+msgid "Scarp"
+msgstr "Escarpement"
+
+#: u_translation_database.rscol_13
+msgid "Rille"
+msgstr "Rainure"
+
+#: u_translation_database.rscol_14
+msgid "Rilles network"
+msgstr "Système de rainures"
+
+#: u_translation_database.rscol_15
+msgid "Valley"
+msgstr "Vallée"
+
+#: u_translation_database.rscol_16
+msgid "Marsh"
+msgstr "Marais"
+
+#: u_translation_database.rscol_17
+msgid "Lake"
+msgstr "Lac"
+
+#: u_translation_database.rscol_18
+msgid "Sea"
+msgstr "Mer"
+
+#: u_translation_database.rscol_19
+msgid "Cape"
+msgstr "Cap"
+
+#: u_translation_database.rscol_2
+msgid "Craterlet"
+msgstr "Craterlet"
+
+#: u_translation_database.rscol_20
+msgid "Bay"
+msgstr "Golfe"
+
+#: u_translation_database.rscol_21
+msgid "Ejecta"
+msgstr "Ejecta"
+
+#: u_translation_database.rscol_22
+msgid "Probe "
+msgstr "Sonde"
+
+#: u_translation_database.rscol_23
+msgid "Human mission"
+msgstr "Mission humaine"
+
+#: u_translation_database.rscol_24
+msgid "Inert equipment"
+msgstr "Matériel inerte"
+
+#: u_translation_database.rscol_25
+msgid "Pyroclastic area"
+msgstr "Région à caractère pyroclastique"
+
+#: u_translation_database.rscol_3
+msgid "Crater chain"
+msgstr "Chaîne de cratères"
+
+#: u_translation_database.rscol_4
+msgid "Walled plain"
+msgstr "Plaine murée"
+
+#: u_translation_database.rscol_5
+msgid "Plain"
+msgstr "Plaine"
+
+#: u_translation_database.rscol_6
+msgid "Mountain"
+msgstr "Montagne"
+
+#: u_translation_database.rscol_7
+msgid "Mountain range"
+msgstr "Chaîne de montagnes"
+
+#: u_translation_database.rscol_8
+msgid "Dome"
+msgstr "Dôme"
+
+#: u_translation_database.rscol_9
+msgid "Dome system"
+msgstr "Système de dômes"
+
+#: u_translation_database.rsdb_1
+msgid "NSN"
+msgstr "FVN"
+
+#: u_translation_database.rsdb_2
+msgid "NSI"
+msgstr "FVI"
+
+#: u_translation_database.rsdb_3
+msgid "FSN"
+msgstr "FCN"
+
+#: u_translation_database.rsdb_4
+msgid "FSI"
+msgstr "FCI"
+
+#: u_translation_database.rsdb_5
+msgid "HIS"
+msgstr "HIS"
+
+#: u_translation_database.rsdb_6
+msgid "PYR"
+msgstr "PYR"
+
+#: u_translation_database.rsdb_7
+msgid "DOM"
+msgstr "DOM"
+
+#: u_translation_database.warning1
+msgid " Note to translator:"
+msgstr " Note to translator:"
+
+#: u_translation_database.warning2
+msgid " The following text must be the same as the content of the TYPE column in the database you use for your language."
+msgstr " The following text must be the same as the content of the TYPE column in the database you use for your language."
+
+#: u_translation_database.warning3
+msgid " If you not translate the database keep the English text here!"
+msgstr " If you not translate the database keep the English text here!"
+
