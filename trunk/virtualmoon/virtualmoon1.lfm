@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = Panel1
+  ActiveControl = DoNotRemove
   Caption = 'Form1'
   ClientHeight = 564
   ClientWidth = 879
@@ -462,9 +462,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 19
+            Height = 21
             Top = 0
-            Width = 5
+            Width = 7
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -1208,8 +1208,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 53
-          ClientWidth = 236
+          ClientHeight = 64
+          ClientWidth = 234
           Columns = 2
           Items.Strings = (
             'Nom'
@@ -2396,7 +2396,6 @@ object Form1: TForm1
     top = 64
   end
   object ImageList1: TImageList
-    BkColor = clForeground
     left = 296
     top = 64
     Bitmap = {
