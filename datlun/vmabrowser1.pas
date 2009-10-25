@@ -307,6 +307,7 @@ end;
 inifile.Free;
 chdir(appdir);
 language:=u_translation.translate(language,'en');
+uplanguage:=UpperCase(language);
 u_translation_database.translate(language,'en');
   transmsg:=rstranslator;
   u_util.hp:=rshelp_prefix+'_';
