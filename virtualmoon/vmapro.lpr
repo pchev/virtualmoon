@@ -19,6 +19,7 @@ var i:integer;
 {$IFDEF WINDOWS}{$R vmapro.rc}{$ENDIF}
 
 begin
+  {$I vmapro.lrs}
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
   if not Form1.param.Find('-quit',i) then begin

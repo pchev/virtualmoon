@@ -7,10 +7,10 @@
         <Filename Value="datlun.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="datlun"/>
-        <CursorPos X="1" Y="30"/>
+        <CursorPos X="1" Y="34"/>
         <TopLine Value="1"/>
-        <EditorIndex Value="3"/>
-        <UsageCount Value="37"/>
+        <EditorIndex Value="5"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -19,8 +19,8 @@
         <UnitName Value="u_util"/>
         <CursorPos X="1" Y="64"/>
         <TopLine Value="51"/>
-        <EditorIndex Value="2"/>
-        <UsageCount Value="37"/>
+        <EditorIndex Value="4"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -32,7 +32,7 @@
         <UnitName Value="fmsg"/>
         <CursorPos X="49" Y="34"/>
         <TopLine Value="17"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
       </Unit2>
       <Unit3>
         <Filename Value="mlb2.pas"/>
@@ -40,7 +40,7 @@
         <UnitName Value="mlb2"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
       </Unit3>
       <Unit4>
         <Filename Value="vmabrowser5.pas"/>
@@ -51,7 +51,7 @@
         <UnitName Value="vmabrowser5"/>
         <CursorPos X="58" Y="132"/>
         <TopLine Value="104"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
       </Unit4>
       <Unit5>
         <Filename Value="vmabrowser4.pas"/>
@@ -62,7 +62,7 @@
         <UnitName Value="vmabrowser4"/>
         <CursorPos X="18" Y="128"/>
         <TopLine Value="112"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
       </Unit5>
       <Unit6>
         <Filename Value="vmabrowser3.pas"/>
@@ -72,8 +72,10 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser3"/>
         <CursorPos X="58" Y="29"/>
-        <TopLine Value="57"/>
-        <UsageCount Value="37"/>
+        <TopLine Value="29"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="38"/>
+        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="vmabrowser2.pas"/>
@@ -84,7 +86,9 @@
         <UnitName Value="vmabrowser2"/>
         <CursorPos X="44" Y="311"/>
         <TopLine Value="299"/>
-        <UsageCount Value="37"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="38"/>
+        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="vmabrowser1.pas"/>
@@ -93,10 +97,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
-        <CursorPos X="23" Y="313"/>
-        <TopLine Value="296"/>
+        <CursorPos X="20" Y="115"/>
+        <TopLine Value="112"/>
         <EditorIndex Value="0"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -107,7 +111,7 @@
         <UnitName Value="splashunit"/>
         <CursorPos X="47" Y="34"/>
         <TopLine Value="1"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
       </Unit9>
       <Unit10>
         <Filename Value="dbutil.pas"/>
@@ -115,8 +119,8 @@
         <UnitName Value="dbutil"/>
         <CursorPos X="55" Y="252"/>
         <TopLine Value="217"/>
-        <EditorIndex Value="4"/>
-        <UsageCount Value="23"/>
+        <EditorIndex Value="6"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -238,8 +242,8 @@
         <UnitName Value="u_constant"/>
         <CursorPos X="62" Y="171"/>
         <TopLine Value="154"/>
-        <EditorIndex Value="5"/>
-        <UsageCount Value="12"/>
+        <EditorIndex Value="7"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit28>
       <Unit29>
@@ -247,8 +251,8 @@
         <UnitName Value="u_translation"/>
         <CursorPos X="63" Y="15"/>
         <TopLine Value="1"/>
-        <EditorIndex Value="1"/>
-        <UsageCount Value="12"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit29>
       <Unit30>
@@ -304,7 +308,7 @@
       </Unit37>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="0"/>
+      <ActiveEditorIndexAtStart Value="2"/>
     </General>
     <JumpHistory Count="28" HistoryIndex="27">
       <Position1>

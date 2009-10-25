@@ -171,10 +171,6 @@ implementation
 const
   ExitProMsg='Virtual_Moon_Atlas_Pro_exit';
 
-{$ifdef windows}
-   {$R photlun.res}
-{$endif}
-
 { Tf_photlun }
 
 Function Slash(nom : string) : string;

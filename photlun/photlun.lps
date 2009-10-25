@@ -19,12 +19,12 @@
         <ComponentName Value="f_photlun"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photlun"/>
-        <CursorPos X="48" Y="883"/>
-        <TopLine Value="848"/>
+        <CursorPos X="1" Y="174"/>
+        <TopLine Value="163"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="62"/>
         <Bookmarks Count="1">
-          <Item0 X="30" Y="1029" ID="1"/>
+          <Item0 X="30" Y="1025" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit1>

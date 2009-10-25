@@ -138,9 +138,6 @@ var
 
 implementation
 
-{$ifdef windows}
-   {$R datlun.res}
-{$endif}
 
 uses vmabrowser2, vmabrowser3, vmabrowser4, vmabrowser5;
 
