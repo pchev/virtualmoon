@@ -114,7 +114,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="dbutil"/>
         <CursorPos X="55" Y="252"/>
-        <TopLine Value="1"/>
+        <TopLine Value="217"/>
         <EditorIndex Value="4"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
@@ -238,7 +238,7 @@
         <UnitName Value="u_constant"/>
         <CursorPos X="62" Y="171"/>
         <TopLine Value="154"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit28>
@@ -300,15 +300,13 @@
         <UnitName Value="Dialogs"/>
         <CursorPos X="54" Y="489"/>
         <TopLine Value="478"/>
-        <EditorIndex Value="5"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit37>
     </Units>
     <General>
       <ActiveEditorIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="dbutil.pas"/>
         <Caret Line="203" Column="1" TopLine="186"/>
@@ -418,13 +416,9 @@
         <Caret Line="241" Column="10" TopLine="224"/>
       </Position27>
       <Position28>
-        <Filename Value="../../../pch/lazarus/lcl/dialogs.pp"/>
-        <Caret Line="489" Column="54" TopLine="478"/>
-      </Position28>
-      <Position29>
         <Filename Value="dbutil.pas"/>
         <Caret Line="241" Column="117" TopLine="224"/>
-      </Position29>
+      </Position28>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
