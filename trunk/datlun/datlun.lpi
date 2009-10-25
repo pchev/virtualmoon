@@ -27,7 +27,7 @@
       <local>
         <FormatVersion Value="1"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="C:\appli\virtualmoon"/>
+        <WorkingDirectory Value="\home\pch\vma\bin"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">

@@ -13,7 +13,7 @@ object Selection: TSelection
   LCLVersion = '0.9.29'
   object PageControl1: TPageControl
     Left = 16
-    Height = 329
+    Height = 336
     Top = 0
     Width = 545
     ActivePage = TabSheet1
@@ -24,17 +24,18 @@ object Selection: TSelection
     object TabSheet1: TTabSheet
       Caption = 'Predefined Selections'
       ClientHeight = 303
-      ClientWidth = 537
+      ClientWidth = 539
       object CheckListBox1: TCheckListBox
         Tag = 1
         Left = 8
-        Height = 258
-        Top = 8
+        Height = 266
+        Top = 4
         Width = 252
         ExtendedSelect = False
         ItemHeight = 0
         OnClickCheck = CheckListBox1ClickCheck
         TabOrder = 0
+        TopIndex = -1
       end
       object ButtonAll: TButton
         Left = 164
@@ -59,19 +60,20 @@ object Selection: TSelection
       object CheckListBox2: TCheckListBox
         Tag = 2
         Left = 260
-        Height = 258
-        Top = 8
+        Height = 266
+        Top = 4
         Width = 252
         ExtendedSelect = False
         ItemHeight = 0
         OnClickCheck = CheckListBox1ClickCheck
         TabOrder = 3
+        TopIndex = -1
       end
     end
     object TabSheet2: TTabSheet
       Caption = 'Column Value'
-      ClientHeight = 303
-      ClientWidth = 537
+      ClientHeight = 296
+      ClientWidth = 539
       ImageIndex = 2
       TabVisible = False
       object ViewSel: TLabel
@@ -95,8 +97,8 @@ object Selection: TSelection
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 192
-        ClientWidth = 421
+        ClientHeight = 208
+        ClientWidth = 423
         ItemIndex = 0
         Items.Strings = (
           '='
@@ -112,7 +114,7 @@ object Selection: TSelection
         Height = 21
         Top = 8
         Width = 129
-        ItemHeight = 13
+        ItemHeight = 0
         OnChange = RadioGroup2Click
         TabOrder = 1
         TabStop = False
@@ -175,8 +177,8 @@ object Selection: TSelection
     end
     object TabSheet3: TTabSheet
       Caption = 'SQL Request'
-      ClientHeight = 303
-      ClientWidth = 537
+      ClientHeight = 296
+      ClientWidth = 539
       ImageIndex = 1
       TabVisible = False
       object Label1: TLabel
@@ -396,7 +398,7 @@ object Selection: TSelection
         Height = 21
         Top = 178
         Width = 129
-        ItemHeight = 13
+        ItemHeight = 0
         OnSelect = fieldlistSelect
         TabOrder = 17
         TabStop = False
@@ -426,9 +428,9 @@ object Selection: TSelection
   end
   object ExpertMode: TCheckBox
     Left = 44
-    Height = 19
+    Height = 22
     Top = 350
-    Width = 79
+    Width = 96
     Caption = 'Expert mode'
     OnClick = ExpertModeClick
     TabOrder = 3
