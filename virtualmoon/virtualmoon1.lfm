@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = Panel5
+  ActiveControl = Panel1
   Caption = 'Form1'
   ClientHeight = 564
   ClientWidth = 879
@@ -417,7 +417,7 @@ object Form1: TForm1
     Width = 382
     OnPageChanged = PageControl1Change
     Options = [nboMultiLine]
-    PageIndex = 3
+    PageIndex = 0
     TabOrder = 0
     object Position: TPage
       Caption = 'Information'
@@ -462,9 +462,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 17
+            Height = 19
             Top = 0
-            Width = 3
+            Width = 5
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -1302,7 +1302,7 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Rotation'
-        ClientHeight = 138
+        ClientHeight = 137
         ClientWidth = 251
         TabOrder = 8
         object Button12: TButton
@@ -1347,7 +1347,7 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 26
+          ClientHeight = 25
           ClientWidth = 207
           Columns = 2
           ItemIndex = 0
@@ -1374,7 +1374,7 @@ object Form1: TForm1
         Top = 300
         Width = 253
         Caption = 'Telescope'
-        ClientHeight = 159
+        ClientHeight = 158
         ClientWidth = 251
         TabOrder = 7
         Visible = False
@@ -1533,7 +1533,7 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 311
+        ClientHeight = 310
         ClientWidth = 251
         TabOrder = 6
         Visible = False
@@ -1933,7 +1933,7 @@ object Form1: TForm1
         Top = 344
         Width = 193
         Caption = 'Options valid at next startup'
-        ClientHeight = 57
+        ClientHeight = 56
         ClientWidth = 191
         TabOrder = 4
         object CheckBox8: TCheckBox
