@@ -177,7 +177,7 @@ Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdC
      CurYear,CurrentMonth,CurrentDay : integer;
      CurrentTime,TimeBias,CurrentST,DT_UT_val,CurrentSunH,CurrentMoonH,CurrentMoonIllum,diam : Double;
      PlanetParalaxe: boolean;
-     ForceConfig, Configfile, CdCconfig, Lang, language : string;
+     ForceConfig, Configfile, CdCconfig, language, uplanguage : string;
      compile_time,compile_version:string;
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;

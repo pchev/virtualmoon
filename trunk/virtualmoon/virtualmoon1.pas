@@ -604,6 +604,7 @@ begin
   inifile.Free;
   chdir(appdir);
   language:=u_translation.translate(language,'en');
+  uplanguage:=UpperCase(language);
   u_translation_database.translate(language,'en');
   ldeg     := rsdegree;
   lmin     := rsminute;
@@ -3748,18 +3749,18 @@ end;
 
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
-statusbar1.Panels[3].Text :='Down: '+inttostr(key);
+//statusbar1.Panels[3].Text :='Down: '+inttostr(key);
 case key of
   16  :  activemoon.KeyEvent(mkDown,key); // Shift
   17  :  activemoon.KeyEvent(mkDown,key); // Ctrl
   27  :  SetFullScreen; // Esc
-//  122 :  SetFullScreen; // F11
+  122 :  SetFullScreen; // F11
 end;
 end;
 
 procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-statusbar1.Panels[3].Text :='Up: '+inttostr(key);
+//statusbar1.Panels[3].Text :='Up: '+inttostr(key);
 case key of
   16  :  activemoon.KeyEvent(mkUp,key); // Shift
   17  :  activemoon.KeyEvent(mkUp,key); // Ctrl

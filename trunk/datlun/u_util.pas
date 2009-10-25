@@ -61,14 +61,7 @@ Function Slash(nom : string) : string;
 Function NoSlash(nom : string) : string;
 Procedure ShowHelpDoc(helpfile : string; suffix:string; directory: string);
 
-{const crlf=chr(10)+chr(13);
-      blank=' ';
-      OpenFileCMD='mozilla';   }
-var
-  hp: string;
-{  AppDir,privatedir,configfile,language : string;
-  ldeg,lmin,lsec : string;
-}
+var  hp: string;
 
 implementation
 

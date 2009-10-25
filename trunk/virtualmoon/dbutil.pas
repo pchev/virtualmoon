@@ -192,47 +192,53 @@ end;
 
 Procedure LoadDB(dbm: TLiteDB);
 var i,db_age : integer;
-    buf:string;
+    buf,missingf:string;
 begin
-buf:=Slash(DBdir)+'dbmoon3_u'+language+'.dbl';
+missingf:='';
+buf:=Slash(DBdir)+'dbmoon3_u'+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
 try
-buf:=Slash(appdir)+Slash('Database')+'Nearside_Named_u'+language+'.csv';
+buf:=Slash(appdir)+Slash('Database')+'Nearside_Named_u'+uplanguage+'.csv';
 if fileexists(buf) then database[1]:=buf
-   else database[1]:=Slash(appdir)+Slash('Database')+'Nearside_Named_uen.csv';
-buf:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_u'+language+'.csv';
+   else database[1]:=Slash(appdir)+Slash('Database')+'Nearside_Named_uEN.csv';
+buf:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_u'+uplanguage+'.csv';
 if fileexists(buf) then database[2]:=buf
-   else database[2]:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_uen.csv';
-buf:=Slash(appdir)+Slash('Database')+'Farside_Named_u'+language+'.csv';
+   else database[2]:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_uEN.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_Named_u'+uplanguage+'.csv';
 if fileexists(buf) then database[3]:=buf
-   else database[3]:=Slash(appdir)+Slash('Database')+'Farside_Named_uen.csv';
-buf:=Slash(appdir)+Slash('Database')+'Farside_Satellite_u'+language+'.csv';
+   else database[3]:=Slash(appdir)+Slash('Database')+'Farside_Named_uEN.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_Satellite_u'+uplanguage+'.csv';
 if fileexists(buf) then database[4]:=buf
-   else database[4]:=Slash(appdir)+Slash('Database')+'Farside_Satellite_uen.csv';
-buf:=Slash(appdir)+Slash('Database')+'Historical_u'+language+'.csv';
+   else database[4]:=Slash(appdir)+Slash('Database')+'Farside_Satellite_uEN.csv';
+buf:=Slash(appdir)+Slash('Database')+'Historical_u'+uplanguage+'.csv';
 if fileexists(buf) then database[5]:=buf
-   else database[5]:=Slash(appdir)+Slash('Database')+'Historical_uen.csv';
-buf:=Slash(appdir)+Slash('Database')+'Pyroclastic_u'+language+'.csv';
+   else database[5]:=Slash(appdir)+Slash('Database')+'Historical_uEN.csv';
+buf:=Slash(appdir)+Slash('Database')+'Pyroclastic_u'+uplanguage+'.csv';
 if fileexists(buf) then database[6]:=buf
-   else database[6]:=Slash(appdir)+Slash('Database')+'Pyroclastic_uen.csv';
-buf:=Slash(appdir)+Slash('Database')+'Domes_u'+language+'.csv';
+   else database[6]:=Slash(appdir)+Slash('Database')+'Pyroclastic_uEN.csv';
+buf:=Slash(appdir)+Slash('Database')+'Domes_u'+uplanguage+'.csv';
 if fileexists(buf) then database[7]:=buf
-   else database[7]:=Slash(appdir)+Slash('Database')+'Domes_uen.csv';
+   else database[7]:=Slash(appdir)+Slash('Database')+'Domes_uEN.csv';
 CreateDB(dbm);
 for i:=1 to 7 do begin
   if usedatabase[i] then begin
      buf:=dbm.QueryOne('select fdate from file_date where dbn='+inttostr(i)+';');
      if buf='' then db_age:=0 else db_age:=strtoint(buf);
-     if fileexists(database[i]) and (db_age<fileage(database[i])) then begin
+     if fileexists(database[i]) then begin
+     if (db_age<fileage(database[i])) then begin
         dbjournal(extractfilename(dbm.database),'LOAD DATABASE DBN='+inttostr(i)+' FROM FILE: '+database[i]+' FILE DATE: '+ DateTimeToStr(FileDateToDateTime(fileage(database[i]))) );
         convertDB(dbm,database[i],inttostr(i));
      end;
+     end
+     else missingf:=missingf+database[i]+blank;
   end;
 end;               
 finally
 if MsgForm<>nil then MsgForm.Close;
+if missingf>'' then
+   MessageDlg('Some database files are missing, the program may not work correctly.'+crlf+missingf,mtError,[mbClose],0);
 end;
 end;
 
