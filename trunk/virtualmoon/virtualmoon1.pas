@@ -2555,6 +2555,7 @@ begin
   SearchName(SearchText, True);
 end;
 
+
 procedure TForm1.ComboBox1Select(Sender: TObject);
 begin
   Firstsearch := True;
