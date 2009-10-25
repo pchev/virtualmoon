@@ -3067,7 +3067,7 @@ end;
 
 procedure TForm1.Init;
 var i:integer;
-    savecaption: string;
+    savecaption,savesidelist: string;
 begin
 try
   Setlang;
@@ -3165,10 +3165,13 @@ try
     Combobox2.ItemIndex   := 0;
     Combobox3.ItemIndex   := 5;
     RadioGroup1.ItemIndex := 1;
+    savesidelist:=sidelist;
+    sidelist:='1';
     Updterminateur(5);
     Firstsearch := True;
     SearchText  := trim(copy(ListBox1.Items[0], 2, 999));
     SearchName(SearchText, false);
+    sidelist := savesidelist;
     Combobox3.ItemIndex := 0;
     currentphase := -999;
   end;
