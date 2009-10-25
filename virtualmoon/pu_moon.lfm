@@ -276,12 +276,9 @@ object f_moon: Tf_moon
         0000803F0000803F000000000000803F
       }
       PitchAngle = 0
-      Position.Coordinates = {
-        0000524300002041000000000000803F
-      }
       RollAngle = 0
       TurnAngle = 0
-      Width = 400
+      Width = 1
       Height = 2
       Rotation = 0
     end
@@ -306,7 +303,6 @@ object f_moon: Tf_moon
       RollAngle = 0
       TurnAngle = 0
       BitmapFont = GLBitmapFont1
-      Text = '10'
       Rotation = 0
       Layout = tlCenter
       ModulateColor.Color = {
@@ -334,7 +330,6 @@ object f_moon: Tf_moon
       RollAngle = 0
       TurnAngle = 0
       BitmapFont = GLBitmapFont1
-      Text = '500'
       Rotation = 0
       Layout = tlCenter
       ModulateColor.Color = {
