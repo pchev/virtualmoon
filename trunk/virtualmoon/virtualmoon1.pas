@@ -48,19 +48,27 @@ type
   TForm1 = class(TForm)
     Button12: TButton;
     Button13: TButton;
+    Button16: TButton;
+    Button17: TButton;
+    Button18: TButton;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
+    CheckBox6: TCheckBox;
+    CheckBox7: TCheckBox;
+    ComboBox5: TComboBox;
     ComboBox6: TComboBox;
     Desc1:   TIpHtmlPanel;
+    Edit5: TEdit;
     FilePopup: TPopupMenu;
     DoNotRemove: TGLSceneViewer;
-    GroupBox5: TGroupBox;
     HelpPopup: TPopupMenu;
     Label17: TLabel;
     Label18: TLabel;
     Label22: TLabel;
+    Label26: TLabel;
     Label27: TLabel;
+    Label28: TLabel;
     Label29: TLabel;
     Label30: TLabel;
     Label31: TLabel;
@@ -72,10 +80,14 @@ type
     Label37: TLabel;
     Label38: TLabel;
     Label39: TLabel;
+    Label40: TLabel;
+    Label41: TLabel;
     LabelIncl: TLabel;
     LabelAltitude: TLabel;
     Label5: TLabel;
     FullScreen1: TMenuItem;
+    PanelTel: TPanel;
+    PanelRot: TPanel;
     PanelMoon: TPanel;
     PanelMoon2: TPanel;
     PrintDialog1: TPrintDialog;
@@ -108,6 +120,7 @@ type
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
+    trackdelay: TUpDown;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
     UpDown2: TUpDown;
@@ -248,17 +261,7 @@ type
     SpeedButton6: TSpeedButton;
     OverlayCaption1: TMenuItem;
     OverlayCaption2: TMenuItem;
-    GroupBox4: TGroupBox;
-    ComboBox5: TComboBox;
-    Button16: TButton;
-    CheckBox6: TCheckBox;
-    Button17: TButton;
-    Button18: TButton;
     TelescopeTimer: TTimer;
-    CheckBox7: TCheckBox;
-    Label26: TLabel;
-    Edit5:   TEdit;
-    trackdelay: TUpDown;
     NM:      TImage;
     LabelNM: TLabel;
     LabelFQ: TLabel;
@@ -270,7 +273,6 @@ type
     nextM:   TImage;
     prevM:   TImage;
     dbm:     TLiteDB;
-    Label28: TLabel;
     Encyclopedia1: TMenuItem;
     NewWindowButton: TToolButton;
     Snapshot1: TMenuItem;
@@ -677,10 +679,12 @@ begin
     Label20.Caption  := RadioGroup1.Items[2];
     CartesduCiel1.Caption := rst_56;
     Outils.Caption   := rst_63;
-    GroupBox5.Caption  := b + rst_64 + b;
+    label40.Caption  := b + rst_64 + b;
     Button12.Caption := rst_65;
     Button13.Caption := rst_66;
     RadioGroup2.Caption := rst_67;
+    RadioGroup2.Items[0]:=rst_72;
+    RadioGroup2.Items[1]:=rst_73;
     CheckBox1.Caption := rst_68;
     distance1.Caption := rst_69;
     FullScreen1.Caption:=rsFullScreen;
@@ -688,8 +692,6 @@ begin
     label23.Caption  := b + distance1.Caption + b;
     label24.Caption  := rst_70;
     label25.Caption  := rst_71;
-    RadioGroup2.Items[0] := rst_72;
-    RadioGroup2.Items[1] := rst_73;
     CheckBox2.Caption := rst_74;
     Enregistrersous1.Caption := rst_78;
     Imprimer1.Caption := rst_79;
@@ -730,7 +732,7 @@ begin
     CheckBox7.Caption := rst_157;
     label28.Caption := rst_158;
     label26.Caption := rst_159;
-    Groupbox4.Caption := rst_160;
+    label41.Caption := rst_160;
     Button16.Caption := rst_161;
     Button17.Caption := rst_162;
     Button18.Caption := rst_163;
@@ -2929,7 +2931,7 @@ begin
 {$ifdef mswindows}
   TrackBar1.Top:=-2;
   CheckBox3.Visible:=true;  // antialias
-  GroupBox4.Visible:=true;  // telescope
+  paneltel.Visible:=true;  // telescope
 {$endif}
   StartDatlun:=false;
   StartPhotlun:=false;
@@ -3048,6 +3050,7 @@ UpDown3.Width:=14;
 UpDown4.Width:=14;
 UpDown5.Width:=14;
 UpDown6.Width:=14;
+trackdelay.Width:=14;
 end;
 
 procedure TForm1.Init;
@@ -3910,6 +3913,7 @@ begin
 
   if pagecontrol1.ActivePage = Outils.Caption then
   begin
+    RadioGroup2.Invalidate;
     if activemoon.MeasuringDistance then
       Button11.Caption      := rsm_53
     else
@@ -4549,8 +4553,8 @@ recenter:=activemoon.getcenter(l,b);
     librb := 0;
     checkbox2.Visible := False;   //mirror
     ToolButton6.Enabled := False; //mirror
-    GroupBox4.Visible := False;   // telescope
-    GroupBox5.Visible := False;   // rotation
+    paneltel.Visible := False;   // telescope
+    PanelRot.Visible := False;   // rotation
     GroupBox3.Visible := True;    // satellite
     Rotation1.Visible := True;
     LibrationButton.Enabled := False;
@@ -4565,9 +4569,9 @@ recenter:=activemoon.getcenter(l,b);
   begin
     checkbox2.Visible := True;
     ToolButton6.Enabled := True;
-    GroupBox5.Visible := True;
+    PanelRot.Visible := True;
 {$ifdef mswindows}
-    GroupBox4.Visible := True;  // telescope
+    paneltel.Visible := True;  // telescope
 {$endif}
     case RadioGroup2.ItemIndex of
       0: CameraOrientation := 0;
@@ -4655,7 +4659,7 @@ begin
   end;
   findclose(fs);
   if Combobox5.items.Count > 0 then begin
-    GroupBox4.Visible := True;
+    paneltel.Visible := True;
     if scopeinterface <> '' then
       Combobox5.Text := scopeinterface
     else
@@ -4938,8 +4942,8 @@ if mf<>activemoon then begin
   begin
     checkbox2.Visible := False;   //mirror
     ToolButton6.Enabled := False; //mirror
-    GroupBox4.Visible := False;   // telescope
-    GroupBox5.Visible := False;   // rotation
+    paneltel.Visible := False;   // telescope
+    PanelRot.Visible := False;   // rotation
     GroupBox3.Visible := True;    // satellite
     Rotation1.Visible := True;
     LibrationButton.Enabled := False;
@@ -4948,9 +4952,9 @@ if mf<>activemoon then begin
   begin
     checkbox2.Visible := True;
     ToolButton6.Enabled := True;
-    GroupBox5.Visible := True;
+    PanelRot.Visible := True;
 {$ifdef mswindows}
-    GroupBox4.Visible := True;
+    paneltel.Visible := True;
 {$endif}
     GroupBox3.Visible := False;
     Rotation1.Visible := False;

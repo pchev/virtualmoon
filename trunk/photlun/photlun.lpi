@@ -11,6 +11,8 @@
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
       <TargetFileExt Value=".exe"/>
+      <Icon Value="0"/>
+      <UseXPManifest Value="True"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -24,7 +26,7 @@
       <local>
         <FormatVersion Value="1"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\home\pch\vma\bin"/>
+        <WorkingDirectory Value="C:\appli\virtualmoon"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
