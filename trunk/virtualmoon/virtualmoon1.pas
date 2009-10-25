@@ -483,11 +483,9 @@ type
     public
     autolabelcolor: Tcolor;
     lastx, lasty, lastyzoom, MaxSprite: integer;
-    LastIma, maximgdir, maxima, startx, starty, saveimagesize: integer;
+    LastIma, maximgdir, startx, starty, saveimagesize: integer;
     LeftMargin, PrintTextWidth, clickX, clickY: integer;
     PrintEph, PrintDesc, phaseeffect, externalimage, PrintChart, lopamdirect: boolean;
-    PicZoom: array of double;
-    PicTop, PicLeft: array of integer;
     librl, librb, wheelstep, EphStep, fov, searchl,
     searchb, markx, marky, flipx, rotstep, lunaison: double;
     ra, Dec, rad, ded, dist, dkm, phase, illum, pa, sunincl, currentphase,
@@ -891,7 +889,6 @@ begin
   currentselection := '';
   showlibrationmark := False;
   lockmove := False;
-  maxima   := 2;
   LabelDensity := 400;
   gridspacing:=15;
   marksize := 5;
@@ -929,13 +926,9 @@ begin
     externalimage := ReadBool(section, 'ExternalSoftware', externalimage);
     externalimagepath := ReadString(section, 'ExternalSoftwarePath', externalimagepath);
     maximgdir   := ReadInteger(section, 'NumDir', 0);
-    maxima      := ReadInteger(section, 'NumWindow', 2);
     saveimagesize := ReadInteger(section, 'SaveImageSize', saveimagesize);
     saveimagewhite := ReadBool(section, 'SaveImageWhite', saveimagewhite);
     setlength(imgdir, maximgdir);
-    setlength(piczoom, maxima);
-    setlength(pictop, maxima);
-    setlength(picleft, maxima);
     for i := 1 to maximgdir do
     begin
       imgdir[i - 1, 0] := ReadString(section, 'dir' + IntToStr(i), '');
@@ -1018,20 +1011,6 @@ begin
     end;
     if ReadBool(section, 'Maximized', False) then
       windowstate := wsMaximized;
-    for j := 1 to maxima do
-    begin
-      i := ReadInteger(section, 'PicTop_' + IntToStr(j), -99);
-      if (i >= -10) and (i < screen.Height - 20) then
-        PicTop[j - 1] := i
-      else
-        PicTop[j - 1] := 20 * (j - 1);
-      i := ReadInteger(section, 'PicLeft_' + IntToStr(j), -99);
-      if (i >= -10) and (i < screen.Width - 20) then
-        PicLeft[j - 1] := i
-      else
-        PicLeft[j - 1] := 20 * (j - 1);
-      PicZoom[j - 1] := ReadFloat(section, 'PicZoom_' + IntToStr(j), 0);
-    end;
     for j:=0 to 3 do
       texturefiles[j] := ReadString(section, 'texturefile' + IntToStr(j), texturefiles[j]);
 
@@ -1145,7 +1124,6 @@ begin
         WriteString(section, 'List_' + IntToStr(i), combobox1.Items.Strings[i]);
       end;
       section := 'images';
-      WriteInteger(section, 'NumWindow', maxima);
       WriteInteger(section, 'NumDir', maximgdir);
       WriteInteger(section, 'SaveImageSize', saveimagesize);
       WriteBool(section, 'SaveImageWhite', saveimagewhite);
@@ -3063,6 +3041,13 @@ end;
 
 procedure TForm1.FormShow(Sender: TObject);
 begin
+// bug with tupdown size. width must be 13 on form designer
+UpDown1.Width:=14;
+UpDown2.Width:=14;
+UpDown3.Width:=14;
+UpDown4.Width:=14;
+UpDown5.Width:=14;
+UpDown6.Width:=14;
 end;
 
 procedure TForm1.Init;
@@ -3246,7 +3231,6 @@ begin
     form2.BumpRadioGroup.Visible:=(activemoon.BumpMapCapabilities<>[]);
     form2.RadioGroup1.ItemIndex:=ord(activemoon.BumpMethod);
     form2.RadioGroup1.Visible:=((bcDot3TexCombiner in activemoon.BumpMapCapabilities)and(bcBasicARBFP in moon1.BumpMapCapabilities));
-    form2.updown1.Position := maxima;
     form2.StringGrid1.RowCount := maximgdir + 10;
     if saveimagesize = 0 then
       form2.ComboBox4.ItemIndex := 0
@@ -3831,53 +3815,10 @@ var
   bmp: Tbitmap;
 begin
   chdir(appdir);
-  i := -1;
-  for j := 0 to maximgdir - 1 do
-    if uppercase(trim(desc)) = uppercase(trim(imgdir[j, 2])) then
-      i := j;
-  if i >= 0 then
-  begin
-    buf  := Slash(imgdir[i, 0]) + trim(nom);
-    buf1 := imgdir[i, 1];
-  end
-  else
-  begin
-    buf  := slash(desc) + trim(nom);
-    buf1 := '';
-  end;
+  buf  := slash(desc) + trim(nom);
+  buf1 := '';
   if fileexists(buf) then
   begin
-    if externalimage and (not forceinternal) then
-    begin
-      Inc(lastima);
-      if lastima >= maxima then
-        lastima := 0;
-      jpg := Tjpegimage.Create;
-      bmp := Tbitmap.Create;
-      try
-        i := pos('.', nom);
-        if i > 0 then
-          nom := copy(nom, 1, i - 1);
-        if uppercase(extractfileext(buf)) = '.JPG' then
-        begin
-          jpg.LoadFromFile(buf);
-          bmp.Assign(jpg);
-        end
-        else
-          bmp.LoadFromFile(buf);
-        bmp.Canvas.Font.Name   := 'Arial';
-        bmp.canvas.Font.Height := -9;
-        bmp.Canvas.TextOut(0, 0, nom + ' ' + buf1);
-        buf := tempdir + '$temp' + IntToStr(lastima) + '.bmp';
-        bmp.SaveToFile(buf);
-      finally
-        bmp.Free;
-        jpg.Free;
-      end;
-      ExecNoWait(externalimagepath + ' "' + buf + '"');
-    end
-    else
-    begin
        if ima=nil then begin
           ima:=Tbigimaform.Create(application);
           ima.toolbutton1.caption:=imac1;
@@ -3894,7 +3835,6 @@ begin
        ima.Init;
        ima.Show;
     end;
-  end;
 end;
 
 procedure TForm1.Apropos1Click(Sender: TObject);

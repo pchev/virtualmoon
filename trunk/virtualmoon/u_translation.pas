@@ -68,7 +68,6 @@ rst_55='Setup';
 rst_56='Sky Chart';
 rst_57='General';
 rst_58='Images';
-rst_59='Number of image windows:';
 rst_60='Image folders:';
 rst_62='Folder';
 rst_63='Tools';

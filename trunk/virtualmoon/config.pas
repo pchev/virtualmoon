@@ -62,7 +62,6 @@ type
     Label46: TLabel;
     LabelImp: TLabel;
     LabelGrid: TLabel;
-    numwin: TEdit;
     FontDialog1: TFontDialog;
     GroupBox2: TGroupBox;
     Label19: TLabel;
@@ -89,8 +88,6 @@ type
     ComboBox2: TComboBox;
     TabSheet2: TPage;
     TrackBar3: TTrackBar;
-    UpDown1: TUpDown;
-    Label8: TLabel;
     StringGrid1: TStringGrid;
     Label9: TLabel;
     Impression: TPage;
@@ -187,7 +184,6 @@ type
     procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
-    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
     procedure RadioGroup7Click(Sender: TObject);
     procedure RadioGroupTextureClick(Sender: TObject);
@@ -259,7 +255,6 @@ begin
       CheckBox6.Caption := rst_54;
       TabSheet1.Caption := rst_57;
       TabSheet2.Caption := rst_58;
-      label8.Caption := rst_59;
       label9.Caption := rst_60;
       stringgrid1.Cells[0, 0] := rst_47;
       stringgrid1.Cells[1, 0] := rst_62;
@@ -459,11 +454,6 @@ end;
 procedure TForm2.ComboBox3Change(Sender: TObject);
 begin
 newlang:=GetLangCode(combobox3.text);
-end;
-
-procedure TForm2.PageControl1ChangeBounds(Sender: TObject);
-begin
-
 end;
 
 
