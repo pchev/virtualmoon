@@ -8,7 +8,6 @@
       <TargetFileExt Value=".exe"/>
       <Title Value="vmapro"/>
       <Icon Value="0"/>
-      <UseXPManifest Value="True"/>
       <ActiveEditorIndexAtStart Value="0"/>
     </General>
     <VersionInfo>
@@ -91,7 +90,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="1" Y="306"/>
+        <CursorPos X="70" Y="292"/>
         <TopLine Value="289"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
