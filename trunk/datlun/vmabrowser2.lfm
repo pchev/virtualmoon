@@ -23,8 +23,8 @@ object Selection: TSelection
     OnPageChanged = PageControl1Change
     object TabSheet1: TTabSheet
       Caption = 'Predefined Selections'
-      ClientHeight = 303
-      ClientWidth = 539
+      ClientHeight = 310
+      ClientWidth = 537
       object CheckListBox1: TCheckListBox
         Tag = 1
         Left = 8
@@ -35,7 +35,6 @@ object Selection: TSelection
         ItemHeight = 0
         OnClickCheck = CheckListBox1ClickCheck
         TabOrder = 0
-        TopIndex = -1
       end
       object ButtonAll: TButton
         Left = 164
@@ -67,26 +66,18 @@ object Selection: TSelection
         ItemHeight = 0
         OnClickCheck = CheckListBox1ClickCheck
         TabOrder = 3
-        TopIndex = -1
       end
     end
     object TabSheet2: TTabSheet
       Caption = 'Column Value'
-      ClientHeight = 296
-      ClientWidth = 539
+      ClientHeight = 310
+      ClientWidth = 537
       ImageIndex = 2
       TabVisible = False
-      object ViewSel: TLabel
-        Left = 40
-        Height = 14
-        Top = 204
-        Width = 1
-        ParentColor = False
-      end
       object RadioGroup2: TRadioGroup
         Left = 40
         Height = 210
-        Top = 32
+        Top = 34
         Width = 425
         AutoFill = True
         ChildSizing.LeftRightSpacing = 6
@@ -97,8 +88,8 @@ object Selection: TSelection
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 208
-        ClientWidth = 423
+        ClientHeight = 192
+        ClientWidth = 421
         ItemIndex = 0
         Items.Strings = (
           '='
@@ -109,12 +100,20 @@ object Selection: TSelection
         OnClick = RadioGroup2Click
         TabOrder = 0
       end
+      object ViewSel: TLabel
+        Left = 52
+        Height = 14
+        Top = 266
+        Width = 31
+        Caption = 'aaaaa'
+        ParentColor = False
+      end
       object fieldlist2: TComboBox
         Left = 40
         Height = 21
         Top = 8
         Width = 129
-        ItemHeight = 0
+        ItemHeight = 13
         OnChange = RadioGroup2Click
         TabOrder = 1
         TabStop = False
@@ -177,8 +176,8 @@ object Selection: TSelection
     end
     object TabSheet3: TTabSheet
       Caption = 'SQL Request'
-      ClientHeight = 296
-      ClientWidth = 539
+      ClientHeight = 310
+      ClientWidth = 537
       ImageIndex = 1
       TabVisible = False
       object Label1: TLabel
@@ -398,7 +397,7 @@ object Selection: TSelection
         Height = 21
         Top = 178
         Width = 129
-        ItemHeight = 0
+        ItemHeight = 13
         OnSelect = fieldlistSelect
         TabOrder = 17
         TabStop = False
@@ -428,9 +427,9 @@ object Selection: TSelection
   end
   object ExpertMode: TCheckBox
     Left = 44
-    Height = 22
+    Height = 19
     Top = 350
-    Width = 96
+    Width = 79
     Caption = 'Expert mode'
     OnClick = ExpertModeClick
     TabOrder = 3
