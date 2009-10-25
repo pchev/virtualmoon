@@ -434,6 +434,9 @@ type
     SplitSize: single;
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
     firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseCDC,StartDatlun,StartPhotlun,StartCDC: boolean;
+    {$ifdef windows}
+    savetop,saveleft,savewidth,saveheight: integer;
+    {$endif}
     procedure OpenDatlun(objname,otherparam:string);
     procedure OpenPhotlun(objname,otherparam:string);
     procedure OpenCDC(objname,otherparam:string);
@@ -1506,6 +1509,7 @@ var
   i:      integer;
 {$endif}
 {$ifdef win32}
+  buf1: string;
   PIDL:   PItemIDList;
   Folder: array[0..MAX_PATH] of char;
 const
