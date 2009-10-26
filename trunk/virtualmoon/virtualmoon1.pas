@@ -303,6 +303,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -2553,6 +2554,11 @@ end;
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   SearchName(SearchText, True);
+end;
+
+procedure TForm1.PageControl1ChangeBounds(Sender: TObject);
+begin
+
 end;
 
 
@@ -4935,6 +4941,7 @@ end;
 
 procedure TForm1.SetActiveMoon(mf: Tf_moon);
 begin
+ToolButton14.Enabled:=mf.SatelliteRotation=0;
 if mf<>activemoon then begin
   activemoon:=Tf_moon(mf);
   checkbox2.Checked:=activemoon.Mirror;

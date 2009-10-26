@@ -120,7 +120,7 @@ type
     cap2,newcap: integer;
     perftime: double;
     DownShift: TShiftState;
-    lock_Zoom,SkipIdent,AbortSliceLoading : boolean;
+    lock_Zoom,SkipIdent,AbortSliceLoading,SaveShowScale : boolean;
     distancestart,BumpMapLimit1K: boolean;
     startl,startb,startxx,startyy : single;
     startx, starty, ShadowOffset : integer;
@@ -1432,6 +1432,7 @@ begin
 end;
 
 procedure Tf_moon.SetRotation(value:single);
+var changestate:boolean;
 begin
  if FRotation=0 then begin
    GetCenter(satl,satb);
@@ -1439,8 +1440,14 @@ begin
    satlc:=0;
  end;
  FRotation:=value;
+ changestate:=RotationCadencer.Enabled<>(FRotation<>0);
  RotationCadencer.Enabled:=(FRotation<>0);
  if RotationCadencer.Enabled then begin
+   if changestate then begin
+     SaveShowScale:=FShowScale;
+     FShowScale:=false;
+     SetScale;
+   end;
    GLSceneViewer1.Camera:=GLCameraSatellite;
    if FSatModel<>'' then GLFreeFormSatelite.Visible:=true;
    SetZoomLevel(Fzoom);
@@ -1452,6 +1459,8 @@ begin
      GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
    end;
    SetZoomLevel(Fzoom);
+   FShowScale := SaveShowScale;
+   SetScale;
  end;
 end;
 
@@ -2159,6 +2168,8 @@ begin
   xx := startxx - xx;
   yy := startyy - yy;
   d  := sqrt(xx * xx + yy * yy) * rad2deg*FDiameter;
+  if not VisibleSideLock then
+     d:=d*FEarthDistance/MeanEarthDistance;
   m2 := Deptostr(d);
   i:=pos(ldeg,m2)+length(ldeg);
   m2 := copy(Deptostr(d), i, 99);
@@ -2174,7 +2185,7 @@ begin
   GLHUDSpriteDistance.Position.X := startx + x / 2;
   GLHUDSpriteDistance.Position.Y := starty + y / 2;
   GLHUDSpriteDistance.Rotation := -rad2deg * (fastarctan2(y, x));
-  if assigned(onMoonMeasure) then onMoonMeasure(self,m1,m2,m3,m4);
+  if assigned(FonMoonMeasure) then FonMoonMeasure(self,m1,m2,m3,m4);
 end;
 end;
 
@@ -2356,7 +2367,7 @@ end;
 
 procedure Tf_moon.SetShowScale(value:boolean);
 begin
-FShowScale:=value;
+FShowScale:=value and (not RotationCadencer.Enabled);
 SetScale;
 end;
 
@@ -2405,7 +2416,10 @@ if FShowScale then begin
   GLHUDTextScaleShadow.EndUpdate;
   GLHUDTextScale.Visible:=true;
   GLHUDTextScaleShadow.Visible:=true;
-  valkm:=tan(n*s*u*deg2rad)*(FEarthDistance-Rmoon);
+  if VisibleSideLock then
+     valkm:=tan(n*s*u*deg2rad)*(FEarthDistance-Rmoon)
+  else
+     valkm:=tan(n*s*u*deg2rad)*(MeanEarthDistance-Rmoon);
   y:=yp+8;
   GLHUDTextScalekm.BeginUpdate;
   GLHUDTextScalekmShadow.BeginUpdate;
