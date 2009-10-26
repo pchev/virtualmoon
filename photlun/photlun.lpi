@@ -11,6 +11,7 @@
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
       <TargetFileExt Value=".exe"/>
+      <Icon Value="0"/>
       <UseXPManifest Value="True"/>
     </General>
     <VersionInfo>

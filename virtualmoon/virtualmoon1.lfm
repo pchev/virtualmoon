@@ -415,9 +415,10 @@ object Form1: TForm1
     Height = 512
     Top = 32
     Width = 382
+    OnChangeBounds = PageControl1ChangeBounds
     OnPageChanged = PageControl1Change
     Options = [nboMultiLine]
-    PageIndex = 0
+    PageIndex = 4
     TabOrder = 0
     object Position: TPage
       Caption = 'Information'
@@ -462,9 +463,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 17
+            Height = 19
             Top = 0
-            Width = 3
+            Width = 5
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -1208,8 +1209,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 53
-          ClientWidth = 236
+          ClientHeight = 64
+          ClientWidth = 234
           Columns = 2
           Items.Strings = (
             'Nom'
@@ -1239,6 +1240,119 @@ object Form1: TForm1
       ClientWidth = 376
       ClientHeight = 479
       ImageIndex = 4
+      object PanelTel: TPanel
+        Left = 8
+        Height = 162
+        Top = 304
+        Width = 253
+        BevelInner = bvLowered
+        ClientHeight = 162
+        ClientWidth = 253
+        TabOrder = 8
+        Visible = False
+        object ComboBox5: TComboBox
+          Left = 8
+          Height = 24
+          Top = 26
+          Width = 105
+          ItemHeight = 0
+          OnChange = ComboBox5Change
+          Sorted = True
+          TabOrder = 0
+        end
+        object Button16: TButton
+          Left = 124
+          Height = 25
+          Top = 24
+          Width = 114
+          Caption = 'Show Menu'
+          OnClick = Button16Click
+          TabOrder = 1
+        end
+        object Button17: TButton
+          Left = 8
+          Height = 25
+          Top = 58
+          Width = 100
+          Caption = 'Goto selected'
+          OnClick = Button17Click
+          TabOrder = 2
+        end
+        object Button18: TButton
+          Left = 124
+          Height = 25
+          Top = 58
+          Width = 114
+          Caption = 'Sync selected'
+          OnClick = Button18Click
+          TabOrder = 3
+        end
+        object CheckBox6: TCheckBox
+          Left = 8
+          Height = 22
+          Top = 90
+          Width = 102
+          Caption = 'Track position'
+          OnClick = CheckBox6Click
+          TabOrder = 4
+        end
+        object CheckBox7: TCheckBox
+          Left = 8
+          Height = 22
+          Top = 114
+          Width = 66
+          Caption = 'Correct'
+          Enabled = False
+          TabOrder = 5
+        end
+        object Label28: TLabel
+          Left = 32
+          Height = 15
+          Top = 136
+          Width = 32
+          Caption = 'every'
+          Enabled = False
+          ParentColor = False
+        end
+        object Edit5: TEdit
+          Left = 80
+          Height = 24
+          Top = 132
+          Width = 33
+          Enabled = False
+          TabOrder = 6
+          Text = '10'
+        end
+        object Label26: TLabel
+          Left = 129
+          Height = 15
+          Top = 136
+          Width = 49
+          Caption = 'seconds'
+          Enabled = False
+          ParentColor = False
+        end
+        object trackdelay: TUpDown
+          Left = 113
+          Height = 24
+          Top = 132
+          Width = 13
+          Associate = Edit5
+          Min = 0
+          Max = 60
+          Position = 10
+          TabOrder = 7
+          Wrap = False
+        end
+        object Label41: TLabel
+          Left = 7
+          Height = 15
+          Top = 4
+          Width = 57
+          Caption = 'Telescope'
+          ParentColor = False
+        end
+      end
       object GroupBox3: TGroupBox
         Left = 8
         Height = 326
@@ -1550,8 +1664,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 27
-          ClientWidth = 224
+          ClientHeight = 38
+          ClientWidth = 222
           Columns = 2
           Items.Strings = (
             'nnnnnnnnnnn'
@@ -1671,119 +1785,6 @@ object Form1: TForm1
         Caption = 'Copier'
         OnClick = EnregistredistClick
         TabOrder = 5
-      end
-      object PanelTel: TPanel
-        Left = 8
-        Height = 162
-        Top = 304
-        Width = 253
-        BevelInner = bvLowered
-        ClientHeight = 162
-        ClientWidth = 253
-        TabOrder = 8
-        Visible = False
-        object ComboBox5: TComboBox
-          Left = 8
-          Height = 24
-          Top = 26
-          Width = 105
-          ItemHeight = 0
-          OnChange = ComboBox5Change
-          Sorted = True
-          TabOrder = 0
-        end
-        object Button16: TButton
-          Left = 124
-          Height = 25
-          Top = 24
-          Width = 114
-          Caption = 'Show Menu'
-          OnClick = Button16Click
-          TabOrder = 1
-        end
-        object Button17: TButton
-          Left = 8
-          Height = 25
-          Top = 58
-          Width = 100
-          Caption = 'Goto selected'
-          OnClick = Button17Click
-          TabOrder = 2
-        end
-        object Button18: TButton
-          Left = 124
-          Height = 25
-          Top = 58
-          Width = 114
-          Caption = 'Sync selected'
-          OnClick = Button18Click
-          TabOrder = 3
-        end
-        object CheckBox6: TCheckBox
-          Left = 8
-          Height = 22
-          Top = 90
-          Width = 102
-          Caption = 'Track position'
-          OnClick = CheckBox6Click
-          TabOrder = 4
-        end
-        object CheckBox7: TCheckBox
-          Left = 8
-          Height = 22
-          Top = 114
-          Width = 66
-          Caption = 'Correct'
-          Enabled = False
-          TabOrder = 5
-        end
-        object Label28: TLabel
-          Left = 32
-          Height = 15
-          Top = 136
-          Width = 32
-          Caption = 'every'
-          Enabled = False
-          ParentColor = False
-        end
-        object Edit5: TEdit
-          Left = 80
-          Height = 24
-          Top = 132
-          Width = 33
-          Enabled = False
-          TabOrder = 6
-          Text = '10'
-        end
-        object Label26: TLabel
-          Left = 129
-          Height = 15
-          Top = 136
-          Width = 49
-          Caption = 'seconds'
-          Enabled = False
-          ParentColor = False
-        end
-        object trackdelay: TUpDown
-          Left = 113
-          Height = 24
-          Top = 132
-          Width = 13
-          Associate = Edit5
-          Min = 0
-          Max = 60
-          Position = 10
-          TabOrder = 7
-          Wrap = False
-        end
-        object Label41: TLabel
-          Left = 7
-          Height = 15
-          Top = 4
-          Width = 57
-          Caption = 'Telescope'
-          ParentColor = False
-        end
       end
     end
     object Reglage: TPage
@@ -1948,7 +1949,7 @@ object Form1: TForm1
         Top = 344
         Width = 193
         Caption = 'Options valid at next startup'
-        ClientHeight = 57
+        ClientHeight = 56
         ClientWidth = 191
         TabOrder = 4
         object CheckBox8: TCheckBox
