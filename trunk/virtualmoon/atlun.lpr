@@ -1,4 +1,4 @@
-program vmapro;
+program atlun;
 
 {$mode objfpc}{$H+}
 
@@ -16,10 +16,10 @@ uses
 
 var i:integer;
 
-{$IFDEF WINDOWS}{$R vmapro.rc}{$ENDIF}
+{$IFDEF WINDOWS}{$R atlun.rc}{$ENDIF}
 
 begin
-  {$I vmapro.lrs}
+  {$I atlun.lrs}
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
   if not Form1.param.Find('-quit',i) then begin
@@ -31,7 +31,7 @@ begin
       splash.refresh;
       Application.CreateForm(TForm2, Form2);
       Application.CreateForm(Tf_craterlist, f_craterlist);
-      Form1.Init;
+ //     Form1.Init;
       Application.Run;
   end
   else Application.Terminate;

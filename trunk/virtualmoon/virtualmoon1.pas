@@ -3058,6 +3058,7 @@ UpDown4.Width:=14;
 UpDown5.Width:=14;
 UpDown6.Width:=14;
 trackdelay.Width:=14;
+init;
 end;
 
 procedure TForm1.Init;

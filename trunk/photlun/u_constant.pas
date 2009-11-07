@@ -30,7 +30,7 @@ uses
 
 const crlf = chr(10)+chr(13);
       AVLversion = '5.0 beta';
-      Splashversion = AVLversion+' 2009-10-21';
+      Splashversion = AVLversion+' 2009-11-07';
       VersionName = 'Pro';
       avlcpy = 'Copyright (C) 2002-2009 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
@@ -100,7 +100,7 @@ const crlf = chr(10)+chr(13);
       DefaultTmpDir='tmp';
       DefaultVignetteDir='vignette';
       DefaultDatlun='datlun';
-      DefaultMaplun='vmapro';
+      DefaultMaplun='atlun';
       DefaultCdC='skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
@@ -111,7 +111,7 @@ const crlf = chr(10)+chr(13);
       DefaultTmpDir='tmp';
       DefaultVignetteDir='vignette';
       DefaultDatlun='datlun';
-      DefaultMaplun='vmapro';
+      DefaultMaplun='atlun';
       DefaultCdC='skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
@@ -122,7 +122,7 @@ const crlf = chr(10)+chr(13);
       DefaultTmpDir='tmp';
       DefaultVignetteDir='vignette';
       DefaultDatlun='datlun.exe';
-      DefaultMaplun='vmapro.exe';
+      DefaultMaplun='atlun.exe';
       DefaultCdC='skychart.exe';
       DefaultCdCconfig='Skychart\skychart.ini';
 {$endif}
