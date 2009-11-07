@@ -1,0 +1,14 @@
+Dr. Fridger Schrempp <fridger.schrempp@desy.de>
+Dr. Robert Skuridin  <skuridin1@mail.ru>
+
+The code of 'nms' evolved from the 
+normalmap tool 'nm16' by
+
+Chris Laurel <claurel@www.shatters.net>
+
+and is therefore co-authored by him. Like 
+all previously published normalmap programs, 
+nm16 was incorrect for ~spherical bodies north 
+and south of the equator.
+
+
