@@ -816,7 +816,10 @@ if FBumpOk and (value<>FBumpmap) then begin
        GLLightSource1.ConstAttenuation:=0.3;
     GLLightSource1.LightStyle:=lsSpot;
     ClearSlice(2);
-    MaxZoom:=6;
+    if i>7 then MaxZoom:=10
+    else if i>3 then MaxZoom:=6
+    else if i>1 then MaxZoom:=4
+    else MaxZoom:=2;
     if GLCamera1.SceneScale>MaxZoom then SetZoomLevel(MaxZoom);
   end else begin
     LoadSlice(zone);
@@ -2372,10 +2375,10 @@ SetScale;
 end;
 
 Procedure Tf_moon.SetScale;
-var fv,bx,u,val,valkm:double;
+var fv,bx,u,val:double;
     x,y,xp,yp: single;
     n,s:integer;
-    scal:string;
+    scal,valkm:string;
 begin
 if FShowScale then begin
   fv:=0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom;
@@ -2417,16 +2420,16 @@ if FShowScale then begin
   GLHUDTextScale.Visible:=true;
   GLHUDTextScaleShadow.Visible:=true;
   if VisibleSideLock then
-     valkm:=tan(n*s*u*deg2rad)*(FEarthDistance-Rmoon)
+     valkm:=''
   else
-     valkm:=tan(n*s*u*deg2rad)*(MeanEarthDistance-Rmoon);
+     valkm:=formatfloat('0',tan(n*s*u*deg2rad)*(MeanEarthDistance-Rmoon))+rsm_18;
   y:=yp+8;
   GLHUDTextScalekm.BeginUpdate;
   GLHUDTextScalekmShadow.BeginUpdate;
   GLHUDTextScalekm.Position.SetVector(x,y);
   GLHUDTextScalekmShadow.Position.SetVector(x+1,y+1);
-  GLHUDTextScalekm.Text:=formatfloat('0',valkm)+rsm_18;
-  GLHUDTextScalekmShadow.Text:=formatfloat('0',valkm)+rsm_18;
+  GLHUDTextScalekm.Text:=valkm;
+  GLHUDTextScalekmShadow.Text:=valkm;
   GLHUDTextScalekm.ModulateColor.AsWinColor := marklabelcolor;
   GLHUDTextScalekm.EndUpdate;
   GLHUDTextScalekmShadow.EndUpdate;
