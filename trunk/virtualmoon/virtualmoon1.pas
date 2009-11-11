@@ -115,6 +115,7 @@ type
     Splitter1: TSplitter;
     GridButton: TToolButton;
     Splitter2: TSplitter;
+    StartTimer: TTimer;
     ToolButton13: TToolButton;
     ToolButton14: TToolButton;
     TrackBar6: TTrackBar;
@@ -311,6 +312,7 @@ type
     procedure SpeedButton7Click(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
     procedure Splitter2Moved(Sender: TObject);
+    procedure StartTimerTimer(Sender: TObject);
     procedure ToolButton12Click(Sender: TObject);
     procedure ToolButton14Click(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
@@ -3142,8 +3144,6 @@ try
   PhaseButton.Down := phaseeffect;
   LoadOverlay(overlayname, overlaytr);
   Visible:=true;
-  RefreshMoonImage;
-  PhaseButtonClick(nil);
   GridButtonClick(nil);
   if currentname <> '' then
   begin
@@ -3153,11 +3153,22 @@ try
   btnEffacerClick(nil);
   SetEyepieceMenu;
   moon1.Mirror:=checkbox2.Checked;
-  moon1.GLSceneViewer1.Visible:=true;
-  Application.ProcessMessages;
+finally
+  screen.cursor := crDefault;
+  StartTimer.Enabled:=true;
+end;
+
+end;
+
+procedure TForm1.StartTimerTimer(Sender: TObject);
+var savecaption,savesidelist: string;
+    i: integer;
+begin
+StartTimer.Enabled:=false;
   if (currentid = '') then
   begin
     // show an interesting object
+    RefreshMoonImage;
     Combobox2.ItemIndex   := 0;
     Combobox3.ItemIndex   := 5;
     RadioGroup1.ItemIndex := 1;
@@ -3171,12 +3182,11 @@ try
     Combobox3.ItemIndex := 0;
     currentphase := -999;
   end;
+  moon1.GLSceneViewer1.Visible:=true;
+  Application.ProcessMessages;
+  PhaseButtonClick(nil);
   SetZoomBar;
   moon1.RefreshAll;
-finally
-  screen.cursor := crDefault;
-  moon1.GLSceneViewer1.Visible:=true;
-end;
 if firstuse then begin
     savecaption:=form2.Caption;
     form2.Caption:=rsFirstUseSett;
@@ -3455,6 +3465,7 @@ begin
 if PanelMoon.Width>0 then
   SplitSize:=PanelMoon.Width/(PanelMoon.Width+PanelMoon2.Width);
 end;
+
 
 procedure TForm1.ToolButton12Click(Sender: TObject);
 begin

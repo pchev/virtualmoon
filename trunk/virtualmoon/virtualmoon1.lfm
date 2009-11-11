@@ -463,9 +463,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 21
+            Height = 23
             Top = 0
-            Width = 7
+            Width = 9
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -2215,7 +2215,7 @@ object Form1: TForm1
     Enabled = False
     Interval = 250
     OnTimer = EphTimer1Timer
-    left = 184
+    left = 160
     top = 192
   end
   object PopupMenu1: TPopupMenu
@@ -2972,5 +2972,12 @@ object Form1: TForm1
   object PrintDialog1: TPrintDialog
     left = 320
     top = 120
+  end
+  object StartTimer: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = StartTimerTimer
+    left = 224
+    top = 192
   end
 end
