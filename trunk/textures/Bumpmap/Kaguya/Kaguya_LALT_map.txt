@@ -10,6 +10,8 @@ iris: (http://astrosurf.com/buil)
 >scale 3 1.42223 1.42223
 >visu 10700 -9100
 >save LALT_GGT_MAP
+optional morphing to match Clementine position using QR3 and DEDISTOR, using the include polynomial polx and poly:
+>dedistor pol
 >export LALT_GGT_MAP_8k.data 0 2 0
 >scale 2 0.5 0.5
 >export LALT_GGT_MAP_4k.data 0 2 0
