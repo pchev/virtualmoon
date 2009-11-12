@@ -277,6 +277,7 @@ rsDynamicRelie = 'Dynamic relief display method';
 rsFirstUseSett = 'First use setting';
 rsTopocentric = 'Topocentric';
 rsShowScale = 'Show scale';
+rsDefault = 'Default';
 
 implementation
 

@@ -65,6 +65,7 @@ type
     GLHUDTextScaleShadow: TGLHUDText;
     GLHUDTextScalekmShadow: TGLHUDText;
     GLHUDTextScalekm: TGLHUDText;
+    GLLightSource2: TGLLightSource;
     LibrationDummyCube: TGLDummyCube;
     PerfCadencer: TGLCadencer;
      RotationCadencer: TGLCadencer;
@@ -811,7 +812,7 @@ if FBumpOk and (value<>FBumpmap) then begin
     GLSphereMoon.Material.MaterialLibrary:=BumpMaterialLibrary;
     GLSphereMoon.Material.LibMaterialName:='Bump';
     if GLBumpShader1.BumpMethod=bmBasicARBFP then
-       GLLightSource1.ConstAttenuation:=0.75
+       GLLightSource1.ConstAttenuation:=0.8
     else
        GLLightSource1.ConstAttenuation:=0.3;
     GLLightSource1.LightStyle:=lsSpot;
@@ -1105,9 +1106,10 @@ begin
  MaxTextureSize:=1024;
  Flabelcolor:=clWhite;
  FMeasuringDistance := False;
- GLLightSource1.Ambient.AsWinColor :=$303030;
+ GLLightSource2.Diffuse.AsWinColor :=$1A1A1A;
+ GLLightSource1.Ambient.AsWinColor :=0;
  GLLightSource1.Diffuse.AsWinColor :=$FFFFFF;
- GLLightSource1.Specular.AsWinColor:=$474747;
+ GLLightSource1.Specular.AsWinColor:=$808080;
  FShowScale:=false;
  FShowGrid:=false;
 end;
@@ -2277,15 +2279,16 @@ end;
 
 procedure Tf_moon.SetAmbientColor(value:TColor);
 begin
-GLLightSource1.Ambient.AsWinColor := value;
+GLLightSource2.Diffuse.AsWinColor := value;
+{GLLightSource1.Ambient.AsWinColor := value;
 GLSceneViewer1.Buffer.AmbientColor.Red := GLLightSource1.Ambient.Red / 10;
 GLSceneViewer1.Buffer.AmbientColor.Green := GLLightSource1.Ambient.Green / 10;
-GLSceneViewer1.Buffer.AmbientColor.Blue := GLLightSource1.Ambient.Blue / 10;
+GLSceneViewer1.Buffer.AmbientColor.Blue := GLLightSource1.Ambient.Blue / 10;}
 end;
 
 function  Tf_moon.GetAmbientColor:TColor;
 begin
-result:=GLLightSource1.Ambient.AsWinColor;
+result:=GLLightSource2.Diffuse.AsWinColor;//GLLightSource1.Ambient.AsWinColor;
 end;
 
 procedure Tf_moon.SetDiffuseColor(value:TColor);

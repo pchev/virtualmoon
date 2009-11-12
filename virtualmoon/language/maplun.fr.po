@@ -4,12 +4,12 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Patrick Chevalley <pch@freesurf.ch>\n"
-"PO-Revision-Date: 2009-10-23 21:35+0200\n"
+"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
+"PO-Revision-Date: 2009-11-12 23:44+0100\n"
 "Project-Id-Version: maplun.fr\n"
-"Language-Team:  <translation@ap-i.net>\n"
+"Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -32,6 +32,10 @@ msgstr "Photographique Clementine"
 #: u_translation.rscountry
 msgid "Country"
 msgstr "Pays"
+
+#: u_translation.rsdefault
+msgid "Default"
+msgstr "par défaut"
 
 #: u_translation.rsdegree
 msgid "d"
@@ -924,10 +928,6 @@ msgstr "Général"
 msgid "Images"
 msgstr "Images"
 
-#: u_translation.rst_59
-msgid "Number of image windows:"
-msgstr "Nombre de fenêtre d'images:"
-
 #: u_translation.rst_6
 msgid "Information"
 msgstr "Information"
@@ -1095,4 +1095,5 @@ msgstr "Abandon"
 #: u_translation.rszoomlevel
 msgid "Zoom level"
 msgstr "Niveau de zoom"
+
 

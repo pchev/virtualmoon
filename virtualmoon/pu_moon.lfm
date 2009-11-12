@@ -396,6 +396,20 @@ object f_moon: Tf_moon
       Direction.Coordinates = {
         00000000000000000000803F00000000
       }
+      object GLLightSource2: TGLLightSource
+        TagFloat = 0
+        ConstAttenuation = 1
+        Diffuse.Color = {
+          0000803E0000803E0000803E0000803F
+        }
+        LinearAttenuation = 0
+        QuadraticAttenuation = 0
+        SpotCutOff = 180
+        SpotDirection.Coordinates = {
+          00000000000000000000803F00000000
+        }
+        SpotExponent = 0
+      end
     end
   end
   object GLMaterialLibrary1: TGLMaterialLibrary

@@ -51,6 +51,7 @@ type
     Button16: TButton;
     Button17: TButton;
     Button18: TButton;
+    Button21: TButton;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
@@ -292,6 +293,7 @@ type
     CheckBox8: TCheckBox;
     ImageList1: TImageList;
     ToolButton12: TToolButton;
+    procedure Button21Click(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
     procedure ComboBox6Change(Sender: TObject);
@@ -762,6 +764,7 @@ begin
     SpeedButton6.Caption := rst_5;
     SpeedButton4.Caption := rst_142;
     NewWindowButton.hint := rst_166;
+    Button21.Caption:=rsDefault;
     imac1 := rst_30;
     imac2 := rst_8;
     imac3 := rst_9;
@@ -5087,6 +5090,13 @@ procedure TForm1.TrackBar4Change(Sender: TObject);
 begin
   moon1.SpecularColor := SetWhitecolor(Trackbar4.position);
   if moon2<>nil then moon2.SpecularColor := SetWhitecolor(Trackbar4.position);
+end;
+
+procedure TForm1.Button21Click(Sender: TObject);
+begin
+  TrackBar2.Position:=20;
+  TrackBar3.Position:=255;
+  TrackBar4.Position:=128;
 end;
 
 procedure TForm1.LoadOverlay(fn: string; transparent: single);

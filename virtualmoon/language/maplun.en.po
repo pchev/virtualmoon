@@ -31,6 +31,10 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
+#: u_translation.rsdefault
+msgid "Default"
+msgstr ""
+
 #: u_translation.rsdegree
 msgid "d"
 msgstr "°"
@@ -916,10 +920,6 @@ msgstr ""
 
 #: u_translation.rst_58
 msgid "Images"
-msgstr ""
-
-#: u_translation.rst_59
-msgid "Number of image windows:"
 msgstr ""
 
 #: u_translation.rst_6
