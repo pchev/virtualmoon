@@ -1113,6 +1113,11 @@ begin
 end;
 
 procedure Tf_moon.Init(check:boolean=true);
+const nRestricted=2;
+      RestrictedDrivers: array[1..nRestricted] of string =('INTEL','CHROMIUM');
+var   CurentDriver:string;
+      Restricted: boolean;
+      i: integer;
 begin
 try
 if check then begin
@@ -1129,8 +1134,13 @@ if MaxTextureSize<1024 then begin
 end;
 // Check Bumpmap
 FBumpMapCapabilities:=[];
-if (pos('INTEL',uppercase(trim(StrPas(PChar(glGetString(GL_VENDOR))))))>0) or
-   (pos('INTEL',uppercase(trim(StrPas(PChar(glGetString(GL_RENDERER))))))>0)
+CurentDriver:=uppercase(trim(StrPas(PChar(glGetString(GL_VENDOR)))+' '+StrPas(PChar(glGetString(GL_RENDERER))) ));
+Restricted:=false;
+for i:=1 to nRestricted do begin
+  if pos(RestrictedDrivers[i],CurentDriver)>0 then
+     Restricted:=true;
+end;
+if Restricted
   then begin
     BumpMapLimit1K:=true;
     if  GL_ARB_multitexture
