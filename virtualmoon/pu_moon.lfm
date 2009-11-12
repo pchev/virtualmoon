@@ -450,7 +450,7 @@ object f_moon: Tf_moon
     BumpOptions = [boDiffuseTexture2, boLightAttenuation]
     SpecularMode = smOff
     DesignTimeEnabled = False
-    ParallaxOffset = 0
+    ParallaxOffset = 0.03999999910593
     left = 40
     top = 392
   end
