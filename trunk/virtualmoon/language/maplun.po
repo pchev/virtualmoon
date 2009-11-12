@@ -226,10 +226,6 @@ msgstr ""
 msgid "Images"
 msgstr ""
 
-#: u_translation:rst_59
-msgid "Number of image windows:"
-msgstr ""
-
 #: u_translation:rst_60
 msgid "Image folders:"
 msgstr ""
@@ -1064,5 +1060,9 @@ msgstr ""
 
 #: u_translation:rsshowscale
 msgid "Show scale"
+msgstr ""
+
+#: u_translation:rsdefault
+msgid "Default"
 msgstr ""
 

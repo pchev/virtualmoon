@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = DoNotRemove
+  ActiveControl = Panel1
   Caption = 'Form1'
   ClientHeight = 584
   ClientWidth = 895
@@ -463,9 +463,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 24
+            Height = 25
             Top = 0
-            Width = 10
+            Width = 11
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -1794,40 +1794,40 @@ object Form1: TForm1
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
-        Height = 185
+        Height = 220
         Top = 8
-        Width = 193
+        Width = 204
         Style = bsRaised
       end
       object Label8: TLabel
         Left = 32
-        Height = 15
+        Height = 19
         Top = 24
-        Width = 59
+        Width = 51
         Caption = 'Penombre'
         ParentColor = False
       end
       object Label12: TLabel
         Left = 32
-        Height = 15
+        Height = 19
         Top = 136
-        Width = 34
+        Width = 30
         Caption = 'Direct'
         ParentColor = False
       end
       object Label11: TLabel
         Left = 32
-        Height = 15
+        Height = 19
         Top = 80
-        Width = 34
+        Width = 28
         Caption = 'Diffus'
         ParentColor = False
       end
       object Label14: TLabel
         Left = 32
-        Height = 15
+        Height = 19
         Top = 2
-        Width = 57
+        Width = 52
         Caption = 'Eclairage '
         Color = clBtnFace
         ParentColor = False
@@ -1835,7 +1835,7 @@ object Form1: TForm1
       end
       object Label22: TLabel
         Left = 16
-        Height = 15
+        Height = 19
         Top = 48
         Width = 5
         Caption = '-'
@@ -1843,7 +1843,7 @@ object Form1: TForm1
       end
       object Label29: TLabel
         Left = 16
-        Height = 15
+        Height = 19
         Top = 104
         Width = 5
         Caption = '-'
@@ -1851,7 +1851,7 @@ object Form1: TForm1
       end
       object Label30: TLabel
         Left = 16
-        Height = 15
+        Height = 19
         Top = 157
         Width = 5
         Caption = '-'
@@ -1859,25 +1859,25 @@ object Form1: TForm1
       end
       object Label32: TLabel
         Left = 197
-        Height = 15
+        Height = 19
         Top = 48
-        Width = 10
+        Width = 7
         Caption = '+'
         ParentColor = False
       end
       object Label33: TLabel
         Left = 197
-        Height = 15
+        Height = 19
         Top = 104
-        Width = 10
+        Width = 7
         Caption = '+'
         ParentColor = False
       end
       object Label34: TLabel
         Left = 197
-        Height = 15
+        Height = 19
         Top = 157
-        Width = 10
+        Width = 7
         Caption = '+'
         ParentColor = False
       end
@@ -1887,7 +1887,7 @@ object Form1: TForm1
         Top = 42
         Width = 175
         Frequency = 20
-        Max = 127
+        Max = 96
         OnChange = TrackBar2Change
         PageSize = 5
         Position = 0
@@ -1923,38 +1923,38 @@ object Form1: TForm1
       object Panel8: TPanel
         Left = 16
         Height = 130
-        Top = 200
-        Width = 193
+        Top = 236
+        Width = 204
         ClientHeight = 130
-        ClientWidth = 193
+        ClientWidth = 204
         TabOrder = 3
         object Label13: TLabel
           Left = 13
-          Height = 15
+          Height = 19
           Top = 40
-          Width = 60
+          Width = 51
           Caption = 'Resolution'
           ParentColor = False
         end
         object Label15: TLabel
           Left = 13
-          Height = 15
+          Height = 19
           Top = 112
-          Width = 33
+          Width = 34
           Caption = '0 FPS'
           ParentColor = False
         end
         object Label16: TLabel
           Left = 13
-          Height = 15
+          Height = 19
           Top = 4
-          Width = 74
+          Width = 64
           Caption = 'Performance'
           ParentColor = False
         end
         object Label31: TLabel
           Left = 1
-          Height = 15
+          Height = 19
           Top = 63
           Width = 5
           Caption = '-'
@@ -1962,9 +1962,9 @@ object Form1: TForm1
         end
         object Label35: TLabel
           Left = 181
-          Height = 15
+          Height = 19
           Top = 63
-          Width = 10
+          Width = 7
           Caption = '+'
           ParentColor = False
         end
@@ -1994,17 +1994,17 @@ object Form1: TForm1
       object GroupBox2: TGroupBox
         Left = 16
         Height = 72
-        Top = 344
-        Width = 193
+        Top = 372
+        Width = 204
         Caption = 'Options valid at next startup'
-        ClientHeight = 58
-        ClientWidth = 191
+        ClientHeight = 53
+        ClientWidth = 202
         TabOrder = 4
         object CheckBox8: TCheckBox
           Left = 6
           Height = 22
           Top = 10
-          Width = 177
+          Width = 159
           Caption = 'Force texture compression'
           OnClick = CheckBox8Click
           TabOrder = 0
@@ -2013,12 +2013,21 @@ object Form1: TForm1
           Left = 6
           Height = 22
           Top = 32
-          Width = 76
+          Width = 68
           Caption = 'Anti-Alias'
           OnClick = CheckBox3Click
           TabOrder = 1
           Visible = False
         end
+      end
+      object Button21: TButton
+        Left = 112
+        Height = 25
+        Top = 188
+        Width = 87
+        Caption = 'Button21'
+        OnClick = Button21Click
+        TabOrder = 5
       end
     end
     object dbtab: TPage
