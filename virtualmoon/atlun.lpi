@@ -8,7 +8,7 @@
       <TargetFileExt Value=".exe"/>
       <Title Value="atlun"/>
       <Icon Value="0"/>
-      <ActiveEditorIndexAtStart Value="1"/>
+      <ActiveEditorIndexAtStart Value="0"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -90,14 +90,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="65" Y="3094"/>
-        <TopLine Value="3076"/>
+        <CursorPos X="29" Y="3201"/>
+        <TopLine Value="3175"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="3">
-          <Item0 X="40" Y="4957" ID="2"/>
+          <Item0 X="40" Y="4961" ID="2"/>
           <Item1 X="5" Y="3149" ID="6"/>
-          <Item2 X="3" Y="3974" ID="7"/>
+          <Item2 X="3" Y="3978" ID="7"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit2>
@@ -311,8 +311,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="68" Y="813"/>
-        <TopLine Value="802"/>
+        <CursorPos X="38" Y="824"/>
+        <TopLine Value="835"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="4">

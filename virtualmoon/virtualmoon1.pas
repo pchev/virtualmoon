@@ -3157,7 +3157,6 @@ finally
   screen.cursor := crDefault;
   StartTimer.Enabled:=true;
 end;
-
 end;
 
 procedure TForm1.StartTimerTimer(Sender: TObject);
@@ -3165,6 +3164,8 @@ var savecaption,savesidelist: string;
     i: integer;
 begin
 StartTimer.Enabled:=false;
+screen.cursor := crHourGlass;
+try
   if (currentid = '') then
   begin
     // show an interesting object
@@ -3195,6 +3196,9 @@ if firstuse then begin
     Configuration1Click(nil);
     for i:=0 to 7 do form2.PageControl1.Page[i].TabVisible:=true;
     form2.Caption := savecaption;
+end;
+finally
+ screen.cursor := crDefault;
 end;
 end;
 
