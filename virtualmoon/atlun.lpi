@@ -90,7 +90,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="6" Y="747"/>
+        <CursorPos X="48" Y="762"/>
         <TopLine Value="745"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
@@ -311,8 +311,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="1" Y="1166"/>
-        <TopLine Value="1116"/>
+        <CursorPos X="34" Y="1126"/>
+        <TopLine Value="1095"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="4">

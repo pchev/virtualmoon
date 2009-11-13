@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = Panel1
+  ActiveControl = DoNotRemove
   Caption = 'Form1'
   ClientHeight = 584
   ClientWidth = 895
@@ -463,9 +463,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 25
+            Height = 26
             Top = 0
-            Width = 11
+            Width = 12
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -1887,7 +1887,7 @@ object Form1: TForm1
         Top = 42
         Width = 175
         Frequency = 20
-        Max = 96
+        Max = 128
         OnChange = TrackBar2Change
         PageSize = 5
         Position = 0
@@ -1997,7 +1997,7 @@ object Form1: TForm1
         Top = 372
         Width = 204
         Caption = 'Options valid at next startup'
-        ClientHeight = 53
+        ClientHeight = 58
         ClientWidth = 202
         TabOrder = 4
         object CheckBox8: TCheckBox
