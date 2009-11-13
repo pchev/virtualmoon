@@ -5095,8 +5095,11 @@ end;
 procedure TForm1.Button21Click(Sender: TObject);
 begin
   TrackBar2.Position:=20;
+  TrackBar2Change(Sender);
   TrackBar3.Position:=255;
+  TrackBar3Change(Sender);
   TrackBar4.Position:=128;
+  TrackBar4Change(Sender);
 end;
 
 procedure TForm1.LoadOverlay(fn: string; transparent: single);
