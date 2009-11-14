@@ -511,10 +511,11 @@ begin
 inif:=Tmeminifile.create(configfile);
 section:='DatLun';
 with inif do begin
-i:=ReadInteger(section,'Top',0);
-if (i>=-10)and(i<screen.Height-20) then f_main.Top:=i else f_main.Top:=0;
-i:=ReadInteger(section,'Left',0);
-if (i>=-10)and(i<screen.width-20) then f_main.Left:=i else f_main.Left:=0;
+{$ifndef darwin}
+i:=ReadInteger(section,'Top',1);
+if (i>=-10)and(i<screen.Height-20) then f_main.Top:=i else f_main.Top:=1;
+i:=ReadInteger(section,'Left',1);
+if (i>=-10)and(i<screen.width-20) then f_main.Left:=i else f_main.Left:=1;
 i:=screen.height-50;
 i:=minintvalue([i,ReadInteger(section,'Height',f_main.height)]);
 if (i>=20) then f_main.Height:=i;
@@ -522,6 +523,7 @@ i:=screen.width-5;
 i:=minintvalue([i,ReadInteger(section,'Width',f_main.width)]);
 if (i>=20) then f_main.Width:=i;
 if ReadBool(section,'Maximized',false) then f_main.windowstate:=wsMaximized;
+{$endif}
 dbselection:=ReadString(section,'DBselection',dbselection);
 CurrentSelection:=ReadString(section,'CurrentSelection',CurrentSelection);
 ExpertMode:=ReadBool(section,'ExpertMode',ExpertMode);
