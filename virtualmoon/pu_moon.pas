@@ -1115,8 +1115,8 @@ begin
 end;
 
 procedure Tf_moon.Init(check:boolean=true);
-const nRestricted=2;
-      RestrictedDrivers: array[1..nRestricted] of string =('INTEL','CHROMIUM');
+const nRestricted=1;
+      RestrictedDrivers: array[1..nRestricted] of string =('INTEL');
 var   CurentDriver:string;
       Restricted: boolean;
       i: integer;
