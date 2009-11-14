@@ -35,7 +35,6 @@ type
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
-    ScrollBox1: TScrollBox;
     Image1: TImage;
     Label1: TLabel;
     Timer1: TTimer;
