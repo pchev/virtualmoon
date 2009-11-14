@@ -1594,6 +1594,7 @@ begin
       end;
     end;
   end;
+ {$ifndef darwin}
   if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
      bindir := slash(ExtractFilePath(ParamStr(0)));
      if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
@@ -1603,8 +1604,9 @@ begin
         end;
      end;
   end;
-  Photlun := bindir + DefaultPhotlun;     // Photlun normally at same location as vma
-  Datlun  := bindir + DefaultDatlun;
+ {$endif}
+  Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma
+  Datlun  := '"'+bindir + DefaultDatlun+'"';
   helpdir := slash(appdir) + slash('doc');
   jpldir  := slash(appdir)+slash('data')+'jpleph';
   // Be sure zoneinfo exists in standard location or in vma directory
@@ -4113,6 +4115,7 @@ begin
        if not FileExists(CdC) then
           CartesduCiel1.Visible:=false;
     end;
+    CdC:='"'+CdC+'"';
   end;
 end;
 
