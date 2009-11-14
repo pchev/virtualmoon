@@ -159,8 +159,7 @@ var
 const
   CSIDL_PERSONAL = $0005;   // My Documents
   CSIDL_APPDATA  = $001a;   // <user name>\Application Data
-  CSIDL_LOCAL_APPDATA = $001c;
-  // <user name>\Local Settings\Applicaiton Data (non roaming)
+  CSIDL_LOCAL_APPDATA = $001c; // <user name>\Local Settings\Application Data (non roaming)
 {$endif}
 begin
 {$ifdef darwin}
@@ -194,7 +193,7 @@ begin
   buf := trim(Folder);
   if buf1 = '' then
     buf1     := buf;  // old windows version
-  privatedir := slash(buf) + privatedir;
+  privatedir := slash(buf1) + privatedir;
   configfile := slash(privatedir) + Defaultconfigfile;
   CdCconfig  := slash(buf1) + DefaultCdCconfig;
 {$endif}
