@@ -110,9 +110,9 @@ const crlf = chr(10)+chr(13);
       SharedDir='/usr/share/virtualmoon';
       DefaultTmpDir='tmp';
       DefaultVignetteDir='vignette';
-      DefaultDatlun='datlun';
-      DefaultMaplun='atlun';
-      DefaultCdC='skychart';
+      DefaultDatlun='datlun.app/Contents/MacOS/datlun';
+      DefaultMaplun='atlun.app/Contents/MacOS/atlun';
+      DefaultCdC='skychart.app/Contents/MacOS/skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
 {$ifdef win32}

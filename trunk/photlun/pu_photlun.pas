@@ -691,7 +691,7 @@ const
 begin
 {$ifdef darwin}
   appdir := getcurrentdir;
-  if not DirectoryExists(slash(appdir) + slash('data') + slash('planet')) then
+  if not DirectoryExists(slash(appdir) + slash('Textures')) then
   begin
     appdir := ExtractFilePath(ParamStr(0));
     i      := pos('.app/', appdir);
@@ -784,6 +784,7 @@ begin
       end;
     end;
   end;
+{$ifndef darwin}
   if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
      bindir := slash(ExtractFilePath(ParamStr(0)));
      if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
@@ -793,8 +794,9 @@ begin
         end;
      end;
   end;
-  Datlun := bindir + DefaultDatlun;     // Photlun normally at same location as vma
-  Maplun  := bindir + DefaultMaplun;
+ {$endif}
+  Datlun  := '"'+bindir + DefaultDatlun+'"';
+  Maplun  := '"'+bindir + DefaultMaplun+'"';
   helpdir  := slash(appdir) + slash('doc');
   // Be sure zoneinfo exists in standard location or in vma directory
 {  ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');

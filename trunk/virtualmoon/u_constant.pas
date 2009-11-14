@@ -113,9 +113,9 @@ const crlf = chr(10)+chr(13);
       Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='/usr/share/virtualmoon';
       DefaultTmpDir='tmp';
-      DefaultPhotlun='photlun';
-      DefaultDatlun='datlun';
-      DefaultCdC='skychart';
+      DefaultPhotlun='photlun/Contents/MacOS/photlun';
+      DefaultDatlun='datlun.app/Contents/MacOS/datlun';
+      DefaultCdC='skychart.app/Contents/MacOS/skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
 {$ifdef win32}
