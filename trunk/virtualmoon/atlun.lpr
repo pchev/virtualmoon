@@ -12,7 +12,7 @@ uses
   CraterList, dbutil, fmsg, glossary, splashunit, telescope, SysUtils,
   ImagesForLazarus, elp82, TurboPowerIPro, u_constant, cu_tz, cu_planet,
   u_projection, u_util, pu_moon, u_translation_database, u_translation,
-  uniqueinstance_package;
+  uniqueinstance_package, pu_features;
 
 var i:integer;
 
@@ -31,6 +31,7 @@ begin
       splash.refresh;
       Application.CreateForm(TForm2, Form2);
       Application.CreateForm(Tf_craterlist, f_craterlist);
+      Application.CreateForm(Tf_features, f_features);
  //     Form1.Init;
       Application.Run;
   end

@@ -41,6 +41,8 @@ type
   TForm2 = class(TForm)
     Button1: TButton;
     Button5: TButton;
+    Button7: TButton;
+    Button8: TButton;
     CheckBox10: TCheckBox;
     CheckBox25: TCheckBox;
     CheckBox4: TCheckBox;
@@ -136,8 +138,6 @@ type
     CheckBox15: TCheckBox;
     ruklprefix: TEdit;
     ruklsuffix: TEdit;
-    Label20: TLabel;
-    Label21: TLabel;
     Label22: TLabel;
     TabSheet4: TPage;
     TabSheet5: TPage;
@@ -180,6 +180,7 @@ type
     TrackBar5: TTrackBar;
     CheckBox24: TCheckBox;
     procedure Button5Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
     procedure ComboBoxCountryChange(Sender: TObject);
     procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -235,7 +236,7 @@ var
 
 implementation
 
-uses u_util;
+uses u_util, pu_features;
 
 procedure TForm2.Setlang;
 begin
@@ -328,6 +329,8 @@ begin
       RadioGroup1.Caption:=rsDynamicRelie;
       RadioGroup1.Items[0]:=rsSimple;
       RadioGroup1.Items[1]:=rsAdvanced;
+      Button7.Caption:=rsCheckForOpti;
+      Button8.Caption:=rsCheckForOpti;
 end;
 
 Function GetLangCode(buf:string):string;
@@ -351,8 +354,6 @@ if not fileexists('version.developpement') then begin
   Edit4.Visible:=false;        // external image display
   Button3.Visible:=false;      // external image display
   checkbox15.Visible:=false;   // direct LOPAM image link
-  label20.Visible:=false;      // Rukl chart
-  label21.Visible:=false;      // Rukl chart
   label22.Visible:=false;      // Rukl chart
   ruklprefix.Visible:=false;   // Rukl chart
   ruklsuffix.Visible:=false;   // Rukl chart
@@ -434,6 +435,11 @@ if FontDialog1.Execute then begin
    LabelFont.Font:=FontDialog1.Font;
    LabelFont.Font.Color:=clWindowText;
 end;
+end;
+
+procedure TForm2.Button7Click(Sender: TObject);
+begin
+  f_features.showmodal;
 end;
 
 procedure TForm2.FormDestroy(Sender: TObject);

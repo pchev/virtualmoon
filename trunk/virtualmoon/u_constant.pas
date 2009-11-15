@@ -95,8 +95,22 @@ const crlf = chr(10)+chr(13);
       f5='0.00000';
       f6='0.000000';
       dateiso='yyyy"-"mm"-"dd"T"hh":"nn":"ss.zzz';
+      nOptionalFeature= 13;
+      OptionalFeatureCheck: array[1..nOptionalFeature]of string=(
+                      'Apollo/ACOSTA_A15.jpg',
+                      'ApolloMapping/ABBOT_A17.jpg',
+                      'BestOfAmateurs/AGRIPPA_WIRTHS.jpg',
+                      'Clementine/ABBOT_CLEM.jpg',
+                      'Kaguya/ABBOT.jpg',  { TODO : Kaguya pictures }
+                      'CLA/ABBOT_D2.jpg',
+                      'LAC_LM/ABENEZRA_LAC96.jpg',
+                      'Lopam/ABBOT.jpg',
+                      'Probes/ALPETRAGIUS_R9.jpg',
+                      'Textures/Airbrush_no_albedo/L1/0.jpg',
+                      'Textures/Clementine/L3/0.jpg',
+                      'Textures/Lopam/L1/0.jpg',
+                      'Textures/Bumpmap/kaguya.txt');
 
-      VMAbrowser='DATLUN';
 
 {$ifdef linux}
       DefaultPrivateDir='~/.virtualmoon';
@@ -187,6 +201,7 @@ Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdC
      ThemePath:string ='data/Themes';
      LinuxDesktop: integer = 0;  // FreeDesktop=0, KDE=1, GNOME=2, Other=3
      Params : TStringList;
+     OptionalFeatureName: array[1..nOptionalFeature]of string;
 {$ifdef darwin}
      OpenFileCMD:string = 'open';   //
 {$else}
