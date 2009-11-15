@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2009-11-12 23:44+0100\n"
+"PO-Revision-Date: 2009-11-15 12:12+0100\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,6 +25,10 @@ msgstr "Relief aérographe avec albédo"
 msgid "Airbursh relief without albedo"
 msgstr "Relief aérographe sans albedo"
 
+#: u_translation.rscheckforopti
+msgid "Check for optional features"
+msgstr "Composants en option"
+
 #: u_translation.rsclementineph
 msgid "Clementine photographic"
 msgstr "Photographique Clementine"
@@ -40,6 +44,14 @@ msgstr "par défaut"
 #: u_translation.rsdegree
 msgid "d"
 msgstr "°"
+
+#: u_translation.rsdownload
+msgid "Download"
+msgstr "Téléchargement"
+
+#: u_translation.rsdownloadurl
+msgid "http://ap-i.net/avl/en/download"
+msgstr "http://ap-i.net/avl/fr/download"
 
 #: u_translation.rsdynamicrelie
 msgid "Dynamic relief display method"
@@ -396,6 +408,42 @@ msgstr "Phase avec relief dynamique"
 msgid "Phase without relief"
 msgstr "Phase sans relief"
 
+#: u_translation.rspicturelibra
+msgid "Picture Library Apollo Missions"
+msgstr "Bibliothèque d'images Missions Apollo"
+
+#: u_translation.rspicturelibra2
+msgid "Picture Library Apollo Mapping Camera"
+msgstr "Bibliothèque d'images Apollo Mapping Camera"
+
+#: u_translation.rspicturelibra3
+msgid "Picture Library Best Of Amateurs"
+msgstr "Bibliothèque d'images Best of Amateurs"
+
+#: u_translation.rspicturelibra4
+msgid "Picture Library Clementine Probe"
+msgstr "Bibliothèque d'images Sonde Clementine"
+
+#: u_translation.rspicturelibra5
+msgid "Picture Library Kaguya Probe"
+msgstr "Bibliothèque d'images Sonde Kaguya"
+
+#: u_translation.rspicturelibra6
+msgid "Picture Library Consolidated Lunar Atlas"
+msgstr "Bibliothèque d'images Consolidated Lunar Atlas"
+
+#: u_translation.rspicturelibra7
+msgid "Picture Library Lunar Astronautical Charts & Lunar Maps"
+msgstr "Bibliothèque d'images Lunar Astronautical Charts & Lunar Maps"
+
+#: u_translation.rspicturelibra8
+msgid "Picture Library Lunar Orbiter Photographic Atlas Of The Moon "
+msgstr "Bibliothèque d'images Lunar Orbiter Photographic Atlas Of The Moon "
+
+#: u_translation.rspicturelibra9
+msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
+msgstr "Bibliothèque d'images Sondes Luna, Ranger, Lunar Orbiter et Surveyor"
+
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Retour fenêtre (Esc)"
@@ -425,6 +473,22 @@ msgstr "Afficher l'échelle"
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Simple"
+
+#: u_translation.rstexturesairb
+msgid "Textures Airbursh relief without albedo"
+msgstr "Texture Relief aérographe sans albedo"
+
+#: u_translation.rstexturesclem
+msgid "Textures Clementine photographic High Resolution"
+msgstr "Texture Photographique Clementine Haute Résolution"
+
+#: u_translation.rstextureslopa
+msgid "Textures LOPAM photographic High Resolution"
+msgstr "Texture Photographique LOPAM Haute Résolution"
+
+#: u_translation.rstexturesphas
+msgid "Textures Phase with dynamic relief using Kaguya data"
+msgstr "Texture Phase avec relief dynamique utilisant les données de Kaguya"
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
@@ -1091,6 +1155,14 @@ msgstr "Glossaire"
 #: u_translation.rst_99
 msgid "Cancel"
 msgstr "Abandon"
+
+#: u_translation.rsyoucandownlo
+msgid "You can download and install the following optional features:"
+msgstr "Vous pouvez télécharger les options suivantes:"
+
+#: u_translation.rsyourinstalla
+msgid "Your installation is already complete with all the features installed."
+msgstr "Votre installation est déjà complète avec toutes les options installées."
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"

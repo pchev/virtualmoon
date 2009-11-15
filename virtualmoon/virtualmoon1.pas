@@ -87,6 +87,7 @@ type
     LabelAltitude: TLabel;
     Label5: TLabel;
     FullScreen1: TMenuItem;
+    OptFeatures1: TMenuItem;
     PanelTel: TPanel;
     PanelRot: TPanel;
     PanelMoon: TPanel;
@@ -306,6 +307,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure OptFeatures1Click(Sender: TObject);
     procedure PageControl1ChangeBounds(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
@@ -557,10 +559,8 @@ var
 
 implementation
 
-uses telescope, config, splashunit,
+uses telescope, config, splashunit, pu_features,
   glossary, fmsg, dbutil;
-
-
 
 procedure TForm1.SetEyepieceMenu;
 var
@@ -655,6 +655,7 @@ begin
     Groupbox1.Caption := rst_14;
     toolbutton8.Caption := rst_15;
     aide2.Caption := toolbutton8.Caption;
+    OptFeatures1.Caption:=rsCheckForOpti;
     Apropos1.Caption := rst_16;
     Button5.Caption := rst_17;
     Button4.Caption := rst_113;
@@ -780,6 +781,7 @@ begin
     bldb[9] := rsb_9;
     // Config
     Form2.Setlang;
+    f_features.SetLang;
   if gloss <> nil then
     gloss.InitGlossary;
 end;
@@ -2561,6 +2563,11 @@ end;
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   SearchName(SearchText, True);
+end;
+
+procedure TForm1.OptFeatures1Click(Sender: TObject);
+begin
+  f_features.showmodal;
 end;
 
 procedure TForm1.PageControl1ChangeBounds(Sender: TObject);
@@ -5133,7 +5140,6 @@ begin
     activemoon.Overlay:='';
   end;
 end;
-
 
 initialization
 {$I virtualmoon1.lrs}

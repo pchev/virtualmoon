@@ -1066,3 +1066,75 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
+#: u_translation:rsyourinstalla
+msgid "Your installation is already complete with all the features installed."
+msgstr ""
+
+#: u_translation:rsyoucandownlo
+msgid "You can download and install the following optional features:"
+msgstr ""
+
+#: u_translation:rsdownload
+msgid "Download"
+msgstr ""
+
+#: u_translation:rscheckforopti
+msgid "Check for optional features"
+msgstr ""
+
+#: u_translation:rspicturelibra
+msgid "Picture Library Apollo Missions"
+msgstr ""
+
+#: u_translation:rspicturelibra2
+msgid "Picture Library Apollo Mapping Camera"
+msgstr ""
+
+#: u_translation:rspicturelibra3
+msgid "Picture Library Best Of Amateurs"
+msgstr ""
+
+#: u_translation:rspicturelibra4
+msgid "Picture Library Clementine Probe"
+msgstr ""
+
+#: u_translation:rspicturelibra5
+msgid "Picture Library Kaguya Probe"
+msgstr ""
+
+#: u_translation:rspicturelibra6
+msgid "Picture Library Consolidated Lunar Atlas"
+msgstr ""
+
+#: u_translation:rspicturelibra7
+msgid "Picture Library Lunar Astronautical Charts & Lunar Maps"
+msgstr ""
+
+#: u_translation:rspicturelibra8
+msgid "Picture Library Lunar Orbiter Photographic Atlas Of The Moon "
+msgstr ""
+
+#: u_translation:rspicturelibra9
+msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
+msgstr ""
+
+#: u_translation:rstexturesairb
+msgid "Textures Airbursh relief without albedo"
+msgstr ""
+
+#: u_translation:rstexturesclem
+msgid "Textures Clementine photographic High Resolution"
+msgstr ""
+
+#: u_translation:rstextureslopa
+msgid "Textures LOPAM photographic High Resolution"
+msgstr ""
+
+#: u_translation:rstexturesphas
+msgid "Textures Phase with dynamic relief using Kaguya data"
+msgstr ""
+
+#: u_translation:rsdownloadurl
+msgid "http://ap-i.net/avl/en/download"
+msgstr ""
+

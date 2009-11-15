@@ -278,6 +278,28 @@ rsFirstUseSett = 'First use setting';
 rsTopocentric = 'Topocentric';
 rsShowScale = 'Show scale';
 rsDefault = 'Default';
+rsYourInstalla = 'Your installation is already complete with all the features '
+  +'installed.';
+rsYouCanDownlo =
+  'You can download and install the following optional features:';
+rsDownload = 'Download';
+rsCheckForOpti = 'Check for optional features';
+rsPictureLibra = 'Picture Library Apollo Missions';
+rsPictureLibra2 = 'Picture Library Apollo Mapping Camera';
+rsPictureLibra3 = 'Picture Library Best Of Amateurs';
+rsPictureLibra4 = 'Picture Library Clementine Probe';
+rsPictureLibra5 = 'Picture Library Kaguya Probe';
+rsPictureLibra6 = 'Picture Library Consolidated Lunar Atlas';
+rsPictureLibra7 = 'Picture Library Lunar Astronautical Charts & Lunar Maps';
+rsPictureLibra8 = 'Picture Library Lunar Orbiter Photographic Atlas Of The '
+  +'Moon ';
+rsPictureLibra9 = 'Picture Library Probes Luna, Ranger, Lunar Orbiter and '
+  +'Surveyor';
+rsTexturesAirb = 'Textures Airbursh relief without albedo';
+rsTexturesClem = 'Textures Clementine photographic High Resolution';
+rsTexturesLOPA = 'Textures LOPAM photographic High Resolution';
+rsTexturesPhas = 'Textures Phase with dynamic relief using Kaguya data';
+rsDownloadURL='http://ap-i.net/avl/en/download';
 
 implementation
 

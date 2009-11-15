@@ -463,9 +463,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 28
+            Height = 30
             Top = 0
-            Width = 14
+            Width = 16
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -2214,6 +2214,10 @@ object Form1: TForm1
       Caption = 'Overlay Caption'
       Visible = False
       OnClick = OverlayCaption1Click
+    end
+    object OptFeatures1: TMenuItem
+      Caption = 'Check for optional features'
+      OnClick = OptFeatures1Click
     end
     object Apropos1: TMenuItem
       Caption = 'A propos'
