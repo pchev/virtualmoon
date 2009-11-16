@@ -536,6 +536,7 @@ type
     nmjd, fqjd, fmjd, lqjd, currentl, currentb: double;
     searchlist: TStringList;
     compresstexture,antialias : boolean;
+    ForceBumpMapSize: integer;
     showoverlay: boolean;
     LastScopeTracking: double;
     UseComputerTime: boolean;
@@ -958,6 +959,7 @@ begin
     UseComputerTime := ReadBool(section, 'UseComputerTime', UseComputerTime);
     compresstexture := ReadBool(section, 'compresstexture', compresstexture);
     antialias := ReadBool(section, 'antialias', antialias);
+    ForceBumpMapSize := ReadInteger(section, 'ForceBumpMapSize', ForceBumpMapSize);
     Obslatitude  := ReadFloat(section, 'Obslatitude', Obslatitude);
     Obslongitude := ReadFloat(section, 'Obslongitude', Obslongitude);
     ObsCountry  := ReadString(section, 'ObsCountry', ObsCountry);
@@ -1074,6 +1076,7 @@ begin
       WriteBool(section, 'LibrationEffect', librationeffect);
       WriteBool(section, 'compresstexture', compresstexture);
       WriteBool(section, 'antialias', antialias);
+      WriteInteger(section, 'ForceBumpMapSize', ForceBumpMapSize);
       WriteFloat(section, 'CameraOrientation', CameraOrientation);
       WriteInteger(section, 'useDBN', useDBN);
       for i := 1 to useDBN do
@@ -2971,6 +2974,7 @@ begin
   useDBN    := 7;
   compresstexture := true;
   antialias := false;
+  ForceBumpMapSize:=0;
   showoverlay := True;
   LastScopeTracking := 0;
   UseComputerTime := True;
@@ -3032,6 +3036,7 @@ begin
   SetLang1;
   readdefault;
   moon1.AntiAliasing:=antialias;
+  moon1.ForceBumpMapSize:=ForceBumpMapSize;
   currentid := '';
   librl     := 0;
   librb     := 0;
