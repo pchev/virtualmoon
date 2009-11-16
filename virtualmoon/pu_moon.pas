@@ -128,6 +128,7 @@ type
     satl,satb,satr,satli,satlc: single;
     blankbmp: Tbitmap;
     MaxSprite: integer;
+    FForceBumpMapSize:integer;
     FSatAltitude,FSatInclination,FSatModelScale,FSatViewDistance : single;
     FSatPosX,FSatPosY,FSatPosZ : single;
     FSatModel : string;
@@ -276,6 +277,7 @@ type
     property BumpMapCapabilities: TBumpMapCapabilities read FBumpMapCapabilities;
     property BumpMethod : TBumpMapCapability read GetBumpMethod write SetBumpMethod;
     property CanBump : Boolean read FBumpOk;
+    property ForceBumpMapSize: integer read FForceBumpMapSize write FForceBumpMapSize;
     property AsMultiTexture : boolean read FAsMultiTexture;
     property SatelliteAltitude : single read FSatAltitude write SetSatAltitude;
     property SatInclination : single read GetSatInclination write SetSatInclination;
@@ -801,7 +803,10 @@ if FBumpOk and (value<>FBumpmap) then begin
     if BumpMapLimit1K then
       i:=1
     else begin
-      i:=MaxTextureSize div 1024;
+      if ForceBumpMapSize=0 then
+        i:=MaxTextureSize div 1024
+      else
+        i:=ForceBumpMapSize;
       if i>=8 then i:=8
       else if i>=4 then i:=4
       else if i>=2 then i:=2
@@ -1101,6 +1106,7 @@ begin
  FSatModel:='';
  FBumpOk:=false;
  BumpMapLimit1K:=false;
+ ForceBumpMapSize:=0;
  TextureCompression:=true;
  MaxZoom:=3;
  MaxTextureSize:=1024;
@@ -1142,7 +1148,7 @@ for i:=1 to nRestricted do begin
   if pos(RestrictedDrivers[i],CurentDriver)>0 then
      Restricted:=true;
 end;
-if Restricted
+if Restricted and (ForceBumpMapSize=0)
   then begin
     BumpMapLimit1K:=true;
     if  GL_ARB_multitexture
