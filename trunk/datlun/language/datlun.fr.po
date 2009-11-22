@@ -1,15 +1,21 @@
 # translation of datlun.fr.po
 # Patrick Chevalley <pch@freesurf.ch>, 2009.
+# Patrick Chevalley <pch@ap-i.net>, 2009.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Patrick Chevalley <pch@freesurf.ch>\n"
-"PO-Revision-Date: 2009-10-19 18:49+0200\n"
+"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
+"PO-Revision-Date: 2009-11-22 16:00+0100\n"
 "Project-Id-Version: datlun.fr\n"
-"Language-Team:  <translation@ap-i.net>\n"
+"Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: u_translation.rsedit
+msgid "Edit"
+msgstr "Edition"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
@@ -403,4 +409,5 @@ msgstr "Ok"
 #: u_translation.rst_9
 msgid "Cancel"
 msgstr "Abandon"
+
 

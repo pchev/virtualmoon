@@ -67,6 +67,7 @@ rst_51='Pyroclastic deposits';
 rst_52='Help';
 rst_53='About';
 rst_54='Lunar Domes';
+rsEdit = 'Edit';
 
 rsm_1='DBN must be a constant value!';
 rsm_2='No row selected!';

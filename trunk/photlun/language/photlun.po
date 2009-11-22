@@ -194,3 +194,7 @@ msgstr ""
 msgid "Translated by :"
 msgstr ""
 
+#: u_translation:rsview
+msgid "View"
+msgstr ""
+

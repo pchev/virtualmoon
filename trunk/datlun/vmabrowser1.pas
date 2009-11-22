@@ -29,7 +29,7 @@ uses
 {$ifdef mswindows}
 Windows,
 {$endif}
-  u_translation, u_translation_database,
+  u_translation_database, u_translation,
   u_constant, LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, Grids, Math, passql, passqlite, u_util, dbutil, StdCtrls,
   ExtCtrls, IniFiles, ImgList, LResources, uniqueinstance;
@@ -315,6 +315,7 @@ u_translation_database.translate(language,'en');
   APropos1.caption:=rst_53;
   file1.caption:=rst_1;
   quit1.caption:=rst_2;
+  edit1.Caption:=rsEdit;
   Selection1.caption:=rst_3;
   Columns1.caption:=rst_4;
   Databasemaintenance1.Caption:=rst_14;

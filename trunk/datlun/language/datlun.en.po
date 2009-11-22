@@ -1,6 +1,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: u_translation.rsedit
+msgid "Edit"
+msgstr ""
+
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr ""
