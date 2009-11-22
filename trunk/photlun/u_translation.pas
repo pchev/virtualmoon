@@ -60,6 +60,7 @@ resourcestring
   rsResetDefault = 'Reset default setting';
   rsSaveSetting = 'Save setting';
   rsTranslatedBy = 'Translated by :';
+  rsView = 'View';
 
 implementation
 

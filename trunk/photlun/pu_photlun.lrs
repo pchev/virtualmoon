@@ -240,11 +240,12 @@ LazarusResources.Add('Tf_photlun','FORMDATA',[
   +'nuItem19Click'#0#0#0#9'TMenuItem'#9'MenuItem8'#7'Caption'#6#16'Number of wi'
   +'ndow'#7'OnClick'#7#14'MenuItem8Click'#0#0#9'TMenuItem'#9'MenuItem9'#7'Capti'
   +'on'#6#16'Close all window'#7'OnClick'#7#14'MenuItem9Click'#0#0#0#9'TMenuIte'
-  +'m'#8'Database'#7'Caption'#6#8'Database'#7'OnClick'#7#13'DatabaseClick'#0#0#9
-  +'TMenuItem'#5'Carte'#7'Caption'#6#11'Show on map'#7'OnClick'#7#10'CarteClick'
-  +#0#0#9'TMenuItem'#10'MenuItem13'#7'Caption'#6#4'Help'#0#9'TMenuItem'#10'Menu'
-  +'Item14'#7'Caption'#6#9'Help menu'#7'OnClick'#7#15'MenuItem14Click'#0#0#9'TM'
-  +'enuItem'#10'MenuItem15'#7'Caption'#6#9'About ...'#7'OnClick'#7#15'MenuItem1'
-  +'5Click'#0#0#0#0#6'TTimer'#13'SetSizeTimer1'#7'Enabled'#8#8'Interval'#2'2'#7
-  +'OnTimer'#7#18'SetSizeTimer1Timer'#4'left'#3#200#0#3'top'#2'C'#0#0#0
+  +'m'#5'View1'#7'Caption'#6#4'View'#0#9'TMenuItem'#8'Database'#7'Caption'#6#10
+  +'New Item27'#7'OnClick'#7#13'DatabaseClick'#0#0#9'TMenuItem'#5'Carte'#7'Capt'
+  +'ion'#6#10'New Item28'#7'OnClick'#7#10'CarteClick'#0#0#0#9'TMenuItem'#5'help'
+  +'1'#7'Caption'#6#4'Help'#0#9'TMenuItem'#10'MenuItem14'#7'Caption'#6#9'Help m'
+  +'enu'#7'OnClick'#7#15'MenuItem14Click'#0#0#9'TMenuItem'#10'MenuItem15'#7'Cap'
+  +'tion'#6#9'About ...'#7'OnClick'#7#15'MenuItem15Click'#0#0#0#0#6'TTimer'#13
+  +'SetSizeTimer1'#7'Enabled'#8#8'Interval'#2'2'#7'OnTimer'#7#18'SetSizeTimer1T'
+  +'imer'#4'left'#3#200#0#3'top'#2'C'#0#0#0
 ]);
