@@ -44,6 +44,10 @@ type
   { Tf_main }
 
   Tf_main = class(TForm)
+    Edit1: TMenuItem;
+    Columns1: TMenuItem;
+    ShowSelection1: TMenuItem;
+    Selection1: TMenuItem;
     OpenPhotlun1: TMenuItem;
     MoonGrid: TStringGrid;
     MainMenu1: TMainMenu;
@@ -51,8 +55,6 @@ type
     Quit1: TMenuItem;
     ScrollBar1: TScrollBar;
     Panel1: TPanel;
-    Selection1: TMenuItem;
-    Columns1: TMenuItem;
     FindDialog1: TFindDialog;
     Export1: TMenuItem;
     SaveDialog1: TSaveDialog;
@@ -63,7 +65,6 @@ type
     N1: TMenuItem;
     Delete1: TMenuItem;
     N2: TMenuItem;
-    ShowSelection1: TMenuItem;
     Help1: TMenuItem;
     Help2: TMenuItem;
     APropos1: TMenuItem;

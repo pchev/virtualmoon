@@ -234,17 +234,20 @@ object f_main: Tf_main
         OnClick = Quit1Click
       end
     end
-    object Selection1: TMenuItem
-      Caption = 'Selection...'
-      OnClick = Selection1Click
-    end
-    object Columns1: TMenuItem
-      Caption = 'Columns...'
-      OnClick = Columns1Click
-    end
-    object ShowSelection1: TMenuItem
-      Caption = 'Show Selection'
-      OnClick = ShowSelection1Click
+    object Edit1: TMenuItem
+      Caption = 'Edit'
+      object Selection1: TMenuItem
+        Caption = 'selection'
+        OnClick = Selectfrom1Click
+      end
+      object Columns1: TMenuItem
+        Caption = 'columns'
+        OnClick = Columns1Click
+      end
+      object ShowSelection1: TMenuItem
+        Caption = 'show selection'
+        OnClick = ShowSelection1Click
+      end
     end
     object Help1: TMenuItem
       Caption = 'Help'

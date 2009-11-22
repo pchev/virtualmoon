@@ -289,15 +289,18 @@ object f_photlun: Tf_photlun
         OnClick = MenuItem9Click
       end
     end
-    object Database: TMenuItem
-      Caption = 'Database'
-      OnClick = DatabaseClick
+    object View1: TMenuItem
+      Caption = 'View'
+      object Database: TMenuItem
+        Caption = 'New Item27'
+        OnClick = DatabaseClick
+      end
+      object Carte: TMenuItem
+        Caption = 'New Item28'
+        OnClick = CarteClick
+      end
     end
-    object Carte: TMenuItem
-      Caption = 'Show on map'
-      OnClick = CarteClick
-    end
-    object MenuItem13: TMenuItem
+    object help1: TMenuItem
       Caption = 'Help'
       object MenuItem14: TMenuItem
         Caption = 'Help menu'
