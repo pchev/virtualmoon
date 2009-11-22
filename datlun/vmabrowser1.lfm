@@ -151,7 +151,7 @@ object f_main: Tf_main
   OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.29'
+  LCLVersion = '0.9.28.3'
   object MoonGrid: TStringGrid
     Left = 0
     Height = 442
