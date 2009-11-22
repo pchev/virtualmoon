@@ -197,6 +197,10 @@ msgstr "Translated by : Patrick Chevalley"
 msgid "Vertical Mirror"
 msgstr ""
 
+#: u_translation.rsview
+msgid "View"
+msgstr ""
+
 #: u_translation.rsvignettes
 msgid "Vignettes"
 msgstr ""

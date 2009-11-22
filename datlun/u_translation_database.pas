@@ -64,6 +64,7 @@ rsb_7='No article';
 rsb_8='Not defined';
 rsb_9='Unknown in this period';
 
+
 implementation
 
 function GetDefaultLanguage:string;
