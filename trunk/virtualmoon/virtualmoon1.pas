@@ -2931,14 +2931,14 @@ var
   i: integer;
 begin
   decimalseparator := '.';
-{$ifndef darwin}
+//{$ifndef darwin}
   UniqueInstance1:=TCdCUniqueInstance.Create(self);
   UniqueInstance1.Identifier:='Virtual_Moon_Atlas_MapLun';
   UniqueInstance1.OnOtherInstance:=OtherInstance;
   UniqueInstance1.OnInstanceRunning:=InstanceRunning;
   UniqueInstance1.Enabled:=true;
   UniqueInstance1.Loaded;
-{$endif}
+//{$endif}
   PageControl1.Align:=alRight;
   Splitter1.Align:=alRight;
   PanelMoon2.Align:=alLeft;

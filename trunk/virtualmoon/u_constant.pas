@@ -34,7 +34,7 @@ uses
 const crlf = chr(10)+chr(13);
       cpyr = chr($a9)+chr($c2);  // ©
       AVLversion = '5.0 beta';
-      Splashversion = AVLversion+' 2009-11-14';
+      Splashversion = AVLversion+' 2009-11-22';
       VersionName = 'AtLun';
       avlcpy = 'Copyright '+cpyr+' 2002-2009 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
@@ -127,7 +127,7 @@ const crlf = chr(10)+chr(13);
       Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='/usr/share/virtualmoon';
       DefaultTmpDir='tmp';
-      DefaultPhotlun='photlun/Contents/MacOS/photlun';
+      DefaultPhotlun='photlun.app/Contents/MacOS/photlun';
       DefaultDatlun='datlun.app/Contents/MacOS/datlun';
       DefaultCdC='skychart.app/Contents/MacOS/skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';

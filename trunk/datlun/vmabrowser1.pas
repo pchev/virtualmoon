@@ -387,14 +387,14 @@ end;
 procedure Tf_main.FormCreate(Sender: TObject);
 var i: integer;
 begin
-{$ifndef darwin}
+//{$ifndef darwin}
   UniqueInstance1:=TCdCUniqueInstance.Create(self);
   UniqueInstance1.Identifier:='Virtual_Moon_Atlas_DatLun';
   UniqueInstance1.OnOtherInstance:=OtherInstance;
   UniqueInstance1.OnInstanceRunning:=InstanceRunning;
   UniqueInstance1.Enabled:=true;
   UniqueInstance1.Loaded;
-{$endif}
+//{$endif}
 dbm:=TLiteDB.Create(self);
 GetAppDir;
 chdir(appdir);

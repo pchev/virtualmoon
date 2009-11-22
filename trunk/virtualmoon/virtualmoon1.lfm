@@ -195,9 +195,9 @@ object Form1: TForm1
     TabOrder = 2
     object Label10: TLabel
       Left = 240
-      Height = 15
+      Height = 16
       Top = 3
-      Width = 39
+      Width = 34
       Caption = 'Zoom:'
       Layout = tlCenter
       ParentColor = False
@@ -230,7 +230,7 @@ object Form1: TForm1
         OnClick = Configuration1Click
       end
       object ToolButton8: TToolButton
-        Left = 144
+        Left = 163
         Top = 0
         Caption = 'Aide'
         OnClick = ToolButton8Click
@@ -392,8 +392,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 15
-    Top = 569
+    Height = 20
+    Top = 564
     Width = 895
     Panels = <    
       item
@@ -423,7 +423,7 @@ object Form1: TForm1
     object Position: TPage
       Caption = 'Information'
       ClientWidth = 376
-      ClientHeight = 481
+      ClientHeight = 473
       object Panel1: TPanel
         Left = 0
         Height = 97
@@ -458,14 +458,14 @@ object Form1: TForm1
           Width = 374
           Align = alBottom
           Caption = 'Profile'
-          ClientHeight = 15
-          ClientWidth = 372
+          ClientHeight = 14
+          ClientWidth = 366
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 31
+            Height = 14
             Top = 0
-            Width = 17
+            Width = 1
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -475,7 +475,7 @@ object Form1: TForm1
         end
         object ComboBox1: TComboBox
           Left = 16
-          Height = 30
+          Height = 21
           Top = 4
           Width = 161
           DropDownCount = 15
@@ -487,7 +487,7 @@ object Form1: TForm1
       end
       object Desc1: TIpHtmlPanel
         Left = 0
-        Height = 384
+        Height = 376
         Top = 97
         Width = 376
         Align = alClient
@@ -502,6 +502,7 @@ object Form1: TForm1
         PrintSettings.MarginTop = 0.5
         PrintSettings.MarginRight = 0.5
         PrintSettings.MarginBottom = 0.5
+        TabOrder = 1
         OnHotClick = Desc1HotClick
       end
     end
@@ -516,9 +517,6 @@ object Form1: TForm1
         Top = 58
         Width = 376
         Align = alClient
-        Lines.Strings = (
-          ''
-        )
         OnChange = Memo1Change
         PopupMenu = PopupMenu2
         ScrollBars = ssVertical
@@ -1159,7 +1157,7 @@ object Form1: TForm1
         end
         object ComboBox2: TComboBox
           Left = 80
-          Height = 24
+          Height = 21
           Top = 8
           Width = 121
           ItemHeight = 0
@@ -1176,7 +1174,7 @@ object Form1: TForm1
         end
         object ComboBox3: TComboBox
           Left = 80
-          Height = 24
+          Height = 21
           Top = 32
           Width = 57
           ItemHeight = 0
@@ -1209,8 +1207,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 64
-          ClientWidth = 234
+          ClientHeight = 48
+          ClientWidth = 230
           Columns = 2
           Items.Strings = (
             'Nom'
@@ -1232,7 +1230,6 @@ object Form1: TForm1
         OnClick = ListBox1Click
         Sorted = True
         TabOrder = 1
-        TopIndex = -1
       end
     end
     object Outils: TPage
@@ -1335,7 +1332,7 @@ object Form1: TForm1
         end
         object ComboBox5: TComboBox
           Left = 8
-          Height = 30
+          Height = 21
           Top = 26
           Width = 105
           ItemHeight = 0
@@ -1416,8 +1413,8 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 312
-        ClientWidth = 251
+        ClientHeight = 306
+        ClientWidth = 245
         TabOrder = 6
         Visible = False
         object Label4: TLabel
@@ -1586,7 +1583,7 @@ object Form1: TForm1
         end
         object ComboBox4: TComboBox
           Left = 122
-          Height = 30
+          Height = 21
           Top = 16
           Width = 97
           ItemHeight = 0
@@ -1623,7 +1620,7 @@ object Form1: TForm1
         end
         object ComboBox6: TComboBox
           Left = 124
-          Height = 30
+          Height = 21
           Top = 234
           Width = 105
           ItemHeight = 0
@@ -1721,8 +1718,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 38
-          ClientWidth = 222
+          ClientHeight = 22
+          ClientWidth = 218
           Columns = 2
           Items.Strings = (
             'nnnnnnnnnnn'
@@ -1997,8 +1994,8 @@ object Form1: TForm1
         Top = 372
         Width = 204
         Caption = 'Options valid at next startup'
-        ClientHeight = 58
-        ClientWidth = 202
+        ClientHeight = 52
+        ClientWidth = 196
         TabOrder = 4
         object CheckBox8: TCheckBox
           Left = 6

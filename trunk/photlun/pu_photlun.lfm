@@ -150,7 +150,7 @@ object f_photlun: Tf_photlun
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.29'
+  LCLVersion = '0.9.28.3'
   object PanelTop: TPanel
     Left = 0
     Height = 177
