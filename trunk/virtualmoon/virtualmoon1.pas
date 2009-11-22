@@ -3205,6 +3205,7 @@ try
   PhaseButtonClick(nil);
   SetZoomBar;
   moon1.RefreshAll;
+  screen.cursor := crDefault;
 if firstuse then begin
     savecaption:=form2.Caption;
     form2.Caption:=rsFirstUseSett;
