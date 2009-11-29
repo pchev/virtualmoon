@@ -68,9 +68,11 @@ Name: {userappdata}\Virtualmoon\virtualmoon.ini; Type: files
 Name: {group}\Virtual Moon Atlas Pro.lnk; Type: files; Components: ; Tasks: ; Languages: 
 Name: {group}\Virtual Moon Atlas Expert.lnk; Type: files; Components: ; Tasks: ; Languages: 
 Name: {group}\Virtual Moon Atlas Light.lnk; Type: files; Components: ; Tasks: ; Languages: 
+Name: {group}\Virtual Moon Atlas Basic.lnk; Type: files; Components: ; Tasks: ; Languages: 
 Name: {group}\Atlas Virtuel de la Lune Pro.lnk; Type: files; Components: ; Tasks: ; Languages: 
 Name: {group}\Atlas Virtuel de la Lune Expert.lnk; Type: files; Components: ; Tasks: ; Languages: 
 Name: {group}\Atlas Virtuel de la Lune Light.lnk; Type: files; Components: ; Tasks: ; Languages: 
+Name: {group}\Atlas Virtuel de la Lune Basic.lnk; Type: files; Components: ; Tasks: ; Languages: 
 
 
 [Files]
