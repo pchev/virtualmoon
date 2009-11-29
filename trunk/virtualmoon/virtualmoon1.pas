@@ -2946,6 +2946,8 @@ begin
   PanelMoon2.Visible:=false;
 {$ifdef darwin}
   TrackBar1.Top:=2;
+  ToolButton13.Visible:=false; // fullscreen
+  FullScreen1.Visible:=false;
 {$endif}
 {$ifdef linux}
   TrackBar1.Top:=-8;
