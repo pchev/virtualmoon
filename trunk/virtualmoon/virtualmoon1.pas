@@ -2931,14 +2931,12 @@ var
   i: integer;
 begin
   decimalseparator := '.';
-//{$ifndef darwin}
   UniqueInstance1:=TCdCUniqueInstance.Create(self);
   UniqueInstance1.Identifier:='Virtual_Moon_Atlas_MapLun';
   UniqueInstance1.OnOtherInstance:=OtherInstance;
   UniqueInstance1.OnInstanceRunning:=InstanceRunning;
   UniqueInstance1.Enabled:=true;
   UniqueInstance1.Loaded;
-//{$endif}
   PageControl1.Align:=alRight;
   Splitter1.Align:=alRight;
   PanelMoon2.Align:=alLeft;
@@ -3199,6 +3197,7 @@ try
     sidelist := savesidelist;
     Combobox3.ItemIndex := 0;
     currentphase := -999;
+    moon1.CenterAt(0,0);
   end;
   moon1.GLSceneViewer1.Visible:=true;
   Application.ProcessMessages;
