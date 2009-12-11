@@ -456,7 +456,8 @@ AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NAS
 AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','','0');
 AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','','0');
 AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','','0');
-
+AddImagesDir(slash(appdir) + 'CLA HR', 'CLA HR', '','1');
+AddImagesDir(slash(appdir) + 'Kaguya', 'Kaguya', '','0');
 end;
 
 procedure Tf_photlun.MenuConfigClick(Sender: TObject);
@@ -960,7 +961,7 @@ if newcount<>vignettenum then begin
      vignette[i].Width:=vw;
      vignette[i].Stretch:=true;
      vignette[i].Proportional:=true;
-     vignette[i].transparent:=true;
+     vignette[i].transparent:=false;
      vignette[i].AutoSize:=false;
      imglabel[i].Visible:=true;
      imglabel[i].Top:=vignette[i].Top+vignette[i].Height+4;

@@ -7,7 +7,7 @@
         <Filename Value="datlun.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="datlun"/>
-        <CursorPos X="1" Y="34"/>
+        <CursorPos X="31" Y="31"/>
         <TopLine Value="1"/>
         <EditorIndex Value="5"/>
         <UsageCount Value="38"/>
@@ -95,8 +95,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
-        <CursorPos X="41" Y="32"/>
-        <TopLine Value="23"/>
+        <CursorPos X="26" Y="460"/>
+        <TopLine Value="448"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="38"/>
         <Loaded Value="True"/>
@@ -238,7 +238,7 @@
       <Unit28>
         <Filename Value="u_constant.pas"/>
         <UnitName Value="u_constant"/>
-        <CursorPos X="46" Y="33"/>
+        <CursorPos X="34" Y="26"/>
         <TopLine Value="23"/>
         <EditorIndex Value="7"/>
         <UsageCount Value="13"/>
@@ -308,7 +308,7 @@
       </Unit37>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="7"/>
+      <ActiveEditorIndexAtStart Value="5"/>
     </General>
     <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
