@@ -890,6 +890,7 @@ begin
   ReadParam;
   SetBiblioMenu;
   if imglist.Count=0 then AllBiblioClick(Sender);
+  Application.BringToFront;
 end;
 
 procedure Tf_photlun.FormDestroy(Sender: TObject);
