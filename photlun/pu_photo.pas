@@ -302,6 +302,8 @@ end else begin
   fbh:=round(abs(yd2-yd1)/z);
   FB.Width:=fbw;
   FB.Height:=fbh;
+  FB.canvas.brush.color:=clBlack;
+  FB.canvas.fillrect(rect(0,0,fbw,fbh));
   FB.Canvas.CopyRect(Rect(0, 0, fbw, fbh ),imgbmp.Canvas,rect(x1,y1,x2,y2));
   BitmapResize(FB,FB,z,true);
   Image1.picture.bitmap.Assign(FB);

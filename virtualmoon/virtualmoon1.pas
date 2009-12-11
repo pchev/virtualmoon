@@ -858,6 +858,8 @@ begin
   addimages(slash(appdir) + 'BestOfAmateurs', 'Best of Amateurs', '');
   addimages(slash(appdir) + 'BestOfHiggins', 'Best of Higgins', '');
   addimages(slash(appdir) + 'BestOfLazzarotti', 'Best of Lazzarotti', '');
+  addimages(slash(appdir) + 'CLA HR', 'CLA HR', '');
+  addimages(slash(appdir) + 'Kaguya', 'Kaguya', '');
 end;
 
 procedure TForm1.Readdefault;
