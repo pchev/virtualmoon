@@ -459,6 +459,7 @@ end;
 procedure Tf_main.FormShow(Sender: TObject);
 begin
 FormResize(sender);
+Application.BringToFront;
 end;
 
 procedure Tf_main.InitApp;
