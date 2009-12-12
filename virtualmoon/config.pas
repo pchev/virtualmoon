@@ -185,6 +185,7 @@ type
     procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
+    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
     procedure RadioGroup7Click(Sender: TObject);
     procedure RadioGroupTextureClick(Sender: TObject);
@@ -460,6 +461,11 @@ end;
 procedure TForm2.ComboBox3Change(Sender: TObject);
 begin
 newlang:=GetLangCode(combobox3.text);
+end;
+
+procedure TForm2.PageControl1ChangeBounds(Sender: TObject);
+begin
+
 end;
 
 

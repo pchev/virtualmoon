@@ -4,7 +4,7 @@ http://www.astrosurf.com/avl
 
 L' "Atlas Virtuel de la Lune" est un logiciel libre comme décrit par la
 Licence Publique Générale GNU ci-dessous.
-Le code source est disponible par CVS à http://sourceforge.net/projects/virtualmoon
+Le code source est disponible par SVN à http://sourceforge.net/projects/virtualmoon
 
 Les informations de la base de données et les images sont soumises à copyright 
 et ne peuvent être utilisées en dehors du logiciel.
