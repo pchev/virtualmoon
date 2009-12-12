@@ -238,7 +238,7 @@
       <Unit28>
         <Filename Value="u_constant.pas"/>
         <UnitName Value="u_constant"/>
-        <CursorPos X="34" Y="26"/>
+        <CursorPos X="24" Y="32"/>
         <TopLine Value="23"/>
         <EditorIndex Value="7"/>
         <UsageCount Value="13"/>
@@ -308,7 +308,7 @@
       </Unit37>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="5"/>
+      <ActiveEditorIndexAtStart Value="7"/>
     </General>
     <JumpHistory Count="29" HistoryIndex="28">
       <Position1>

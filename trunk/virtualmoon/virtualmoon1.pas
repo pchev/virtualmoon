@@ -459,7 +459,7 @@ type
     function GetTimeZone(sdt: Tdatetime): double;
     function GetJDTimeZone(jdt: double): double;
     procedure InitImages;
-    procedure AddImages(dir, nom, cpy: string);
+    procedure AddImagesDir(dir, nom, cpy, rot: string);
     procedure ReadParam(first:boolean=true);
     procedure SetObs(param: string);
     procedure Readdefault;
@@ -814,7 +814,7 @@ begin
 end;
 
 // image are now processed by Photlun but we keep the configuration also here for convenience
-procedure TForm1.AddImages(dir, nom, cpy: string);
+procedure TForm1.AddImagesDir(dir, nom, cpy, rot: string);
 var
   i:  integer;
   ok: boolean;
@@ -849,17 +849,16 @@ begin
     imgdir[2, 2] := 'My Images';
     imgdir[2, 1] := '';
   end;
-  addimages(slash(appdir) + 'Clementine', 'Clementine', '');
-  addimages(slash(appdir) + 'Probes', 'Probes', '');
-  addimages(slash(appdir) + 'LunaStars', 'LunaStars', '');
-  addimages(slash(appdir) + 'CLA', 'CLA', '');
-  addimages(slash(appdir) + 'LAC_LM', 'LAC_LM', '');
-  addimages(slash(appdir) + 'ApolloMapping', 'Apollo Mapping Camera', '');
-  addimages(slash(appdir) + 'BestOfAmateurs', 'Best of Amateurs', '');
-  addimages(slash(appdir) + 'BestOfHiggins', 'Best of Higgins', '');
-  addimages(slash(appdir) + 'BestOfLazzarotti', 'Best of Lazzarotti', '');
-  addimages(slash(appdir) + 'CLA HR', 'CLA HR', '');
-  addimages(slash(appdir) + 'Kaguya', 'Kaguya', '');
+AddImagesDir(slash(appdir)+'Clementine','Clementine','','1');
+AddImagesDir(slash(appdir)+'Probes','Probes','','0');
+AddImagesDir(slash(appdir)+'LunaStars','LunaStars','','1');
+AddImagesDir(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association','1');
+AddImagesDir(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005','1');
+AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov','0');
+AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','','0');
+AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','','0');
+AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','','0');
+AddImagesDir(slash(appdir) + 'Kaguya', 'Kaguya', 'provided by JAXA/SELENE','0');
 end;
 
 procedure TForm1.Readdefault;
@@ -2995,6 +2994,12 @@ begin
   if Plan404lib <> 0 then
   begin
     Plan404 := TPlan404(GetProcAddress(Plan404lib, 'Plan404'));
+  end;
+  if @Plan404=nil then begin
+     MessageDlg('Could not load library '+lib404+crlf
+               +'Please try to reinstall the program.',
+               mtError, [mbAbort], 0);
+     Halt;
   end;
   tz := TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');

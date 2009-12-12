@@ -4,7 +4,7 @@ http://www.astrosurf.com/avl
 
 The "Virtual Moon Atlas" is free software as described by the 
 GNU General Public License undermentioned.
-Source code is available from CVS at http://sourceforge.net/projects/virtualmoon
+Source code is available from SVN at http://sourceforge.net/projects/virtualmoon
 
 The Database information and picture are copyrighted and cannot be used 
 outside of the software without permission. 

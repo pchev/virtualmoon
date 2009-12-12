@@ -33,8 +33,8 @@ uses
 
 const crlf = chr(10)+chr(13);
       cpyr = chr($a9)+chr($c2);  // ©
-      AVLversion = '5.0 beta';
-      Splashversion = AVLversion+' 2009-11-29';
+      AVLversion = '5.0';
+      Splashversion = AVLversion+' 2009-12-12';
       VersionName = 'AtLun';
       avlcpy = 'Copyright '+cpyr+' 2002-2009 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
@@ -101,7 +101,7 @@ const crlf = chr(10)+chr(13);
                       'ApolloMapping/ABBOT_A17.jpg',
                       'BestOfAmateurs/AGRIPPA_WIRTHS.jpg',
                       'Clementine/ABBOT_CLEM.jpg',
-                      'Kaguya/ABBOT.jpg',  { TODO : Kaguya pictures }
+                      'Kaguya/ALPETRAGIUS_KAGUYA.jpg',
                       'CLA/ABBOT_D2.jpg',
                       'LAC_LM/ABENEZRA_LAC96.jpg',
                       'Lopam/ABBOT.jpg',

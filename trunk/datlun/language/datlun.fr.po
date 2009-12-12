@@ -410,4 +410,3 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Abandon"
 
-

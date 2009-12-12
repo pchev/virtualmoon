@@ -318,7 +318,7 @@ begin
      end;
   end;
   nom:=ChangeFileExt(ExtractFileName(fn),'');
-  vignette[num].Hint:=libr+'  '+nom;
+  vignette[num].Hint:=libr+'  '+nom+'  '+imgdir[i,1];
   vignette_info[num].autorot:=(autor='1');
   vignette_info[num].imgfile:=fn;
   vignette_info[num].vignettefile:=vfn;
@@ -456,8 +456,7 @@ AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NAS
 AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','','0');
 AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','','0');
 AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','','0');
-AddImagesDir(slash(appdir) + 'CLA HR', 'CLA HR', '','1');
-AddImagesDir(slash(appdir) + 'Kaguya', 'Kaguya', '','0');
+AddImagesDir(slash(appdir) + 'Kaguya', 'Kaguya', 'provided by JAXA/SELENE','0');
 end;
 
 procedure Tf_photlun.MenuConfigClick(Sender: TObject);
