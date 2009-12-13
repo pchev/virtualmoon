@@ -248,14 +248,7 @@ try
  try
    if FileAge(orig)<FileAgeLimit then raise exception.Create('too old file');
    jpeg.LoadFromFile(orig);
- {$ifdef mswindows}
- //  if odd(jpeg.Width) then raise exception.Create('invalid odd size');
- //  if odd(jpeg.Height) then raise exception.Create('invalid odd size');
- {$endif}
  except
- {$ifdef unix}
-   exec('./fiximg.sh "'+orig+'"');
- {$endif}
  {$ifdef mswindows}
    exec('fiximg "'+orig+'"');
  {$endif}
@@ -521,7 +514,7 @@ begin
   if SortByName then imglist.CustomSort(@ComparePhotoName)
      else imglist.Sort;
   ScrollBar1.min:=0;
-  ScrollBar1.max:=max(0,imglist.count-vignettenum);
+  ScrollBar1.max:=max(0,imglist.count);
   ClearVignettes;
   vignetteleft:=-1;
   RefreshVignettes(0);
@@ -538,7 +531,7 @@ begin
   if SortByName then imglist.CustomSort(@ComparePhotoName)
      else imglist.Sort;
   ScrollBar1.min:=0;
-  ScrollBar1.max:=max(0,imglist.count-vignettenum);
+  ScrollBar1.max:=max(0,imglist.count);
   vignetteleft:=-1;
   RefreshVignettes(0);
 end;
@@ -576,7 +569,7 @@ end;
   if SortByName then imglist.CustomSort(@ComparePhotoName)
      else imglist.Sort;
   ScrollBar1.min:=0;
-  ScrollBar1.max:=max(0,imglist.count-vignettenum);
+  ScrollBar1.max:=max(0,imglist.count);
   ClearVignettes;
   vignetteleft:=-1;
   RefreshVignettes(0);
@@ -969,7 +962,7 @@ if newcount<>vignettenum then begin
      p:=p+vw+1;
   end;
   for i:=vignettenum to maxvignette do vignette[i].Visible:=false;
-  ScrollBar1.max:=max(0,imglist.count-vignettenum);
+  ScrollBar1.max:=max(0,imglist.count);
   ScrollBar1.PageSize:=vignettenum;
   ScrollBar1.LargeChange:=vignettenum;
   ReloadVignettes;
@@ -1130,7 +1123,7 @@ begin
   if SortByName then imglist.CustomSort(@ComparePhotoName)
      else imglist.Sort;
   ScrollBar1.min:=0;
-  ScrollBar1.max:=max(0,imglist.count-vignettenum);
+  ScrollBar1.max:=max(0,imglist.count);
   ClearVignettes;
   vignetteleft:=-1;
   RefreshVignettes(0);
