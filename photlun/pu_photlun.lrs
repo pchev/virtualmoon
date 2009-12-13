@@ -1,3 +1,5 @@
+{ This is an automatically generated lazarus resource file }
+
 LazarusResources.Add('Tf_photlun','FORMDATA',[
   'TPF0'#10'Tf_photlun'#9'f_photlun'#4'Left'#2'G'#6'Height'#3#197#0#3'Top'#2#20
   +#5'Width'#3'*'#3#13'ActiveControl'#7#8'PanelTop'#7'Caption'#6#7'Photlun'#12
