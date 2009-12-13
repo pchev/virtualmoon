@@ -249,8 +249,8 @@ try
    if FileAge(orig)<FileAgeLimit then raise exception.Create('too old file');
    jpeg.LoadFromFile(orig);
  {$ifdef mswindows}
-   if odd(jpeg.Width) then raise exception.Create('invalid odd size');
-   if odd(jpeg.Height) then raise exception.Create('invalid odd size');
+ //  if odd(jpeg.Width) then raise exception.Create('invalid odd size');
+ //  if odd(jpeg.Height) then raise exception.Create('invalid odd size');
  {$endif}
  except
  {$ifdef unix}
