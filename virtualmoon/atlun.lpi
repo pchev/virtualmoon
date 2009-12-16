@@ -91,7 +91,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="103" Y="1634"/>
+        <CursorPos X="73" Y="1642"/>
         <TopLine Value="1613"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
@@ -1366,7 +1366,9 @@
       <Verbosity>
         <ShowHints Value="False"/>
       </Verbosity>
-      <CustomOptions Value="-dUseCThreads"/>
+      <CustomOptions Value="-dUseCThreads
+-k-macosx_version_min -k10.4
+-XR\Developer\SDKs\MacOSX10.4u.sdk\"/>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
