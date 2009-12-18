@@ -3419,6 +3419,7 @@ begin
       begin
         language:=u_translation.translate(form2.newlang,'en');
         u_translation_database.translate(language,'en');
+        uplanguage:=uppercase(language);
         SetLang;
         reloaddb := True;
       end;
@@ -4170,10 +4171,10 @@ procedure TForm1.Encyclopedia1Click(Sender: TObject);
 var
   fn: string;
 begin
-  fn := slash(AppDir) + slash('Encyclopedia') + language + 'Encyclopedia.html';
+  fn := slash(AppDir) + slash('Encyclopedia') + uplanguage + '_Encyclopedia.html';
   if not FileExists(fn) then
   begin
-    fn := slash(AppDir) + slash('Encyclopedia') + 'en_Encyclopedia.html';
+    fn := slash(AppDir) + slash('Encyclopedia') + 'EN_Encyclopedia.html';
   end;
   ExecuteFile(fn);
 end;
