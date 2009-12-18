@@ -237,6 +237,7 @@ begin
 end;
 {$endif}
 
+
 procedure Tf_photlun.CreateVignette(orig,vign: string);
 var vbmp1:Tbitmap;
     jpeg:TJPEGImage;
@@ -248,8 +249,6 @@ try
  try
    jpeg.LoadFromFile(orig);
  except
-   jpeg.Free;
-   vbmp1.Free;
    exit;
  end;
  vbmp1.Assign(jpeg);
@@ -297,27 +296,32 @@ begin
   if not DirectoryExists(vfp) then ForceDirectories(vfp);
   vfn:=slash(vfp)+ExtractFileName(fn);
   jpeg:=TJPEGImage.Create;
+  try
   if (not FileExists(vfn)) or (FileAge(vfn)<FileAge(fn)) then CreateVignette(fn,vfn);
-  jpeg.LoadFromFile(vfn);
-  vignette[num].Picture.Bitmap.Assign(jpeg);
-  libr:=noslash(ExtractFilePath(fn));
-  for i:=0 to maximgdir-1 do begin
-     if noslash(imgdir[i,0])=libr then begin
-        libr:=imgdir[i,2];
-        autor:=imgdir[i,3];
-        break;
-     end;
+  if (FileExists(vfn)) then begin
+    jpeg.LoadFromFile(vfn);
+    vignette[num].Picture.Bitmap.Assign(jpeg);
+    libr:=noslash(ExtractFilePath(fn));
+    for i:=0 to maximgdir-1 do begin
+       if noslash(imgdir[i,0])=libr then begin
+          libr:=imgdir[i,2];
+          autor:=imgdir[i,3];
+          break;
+       end;
+    end;
+    nom:=ChangeFileExt(ExtractFileName(fn),'');
+    vignette[num].Hint:=libr+'  '+nom+'  '+imgdir[i,1];
+    vignette_info[num].autorot:=(autor='1');
+    vignette_info[num].imgfile:=fn;
+    vignette_info[num].vignettefile:=vfn;
+    if PanelVignette.Height>100 then begin
+       imglabel[num].Caption:=nom;
+       imglabel[num].Hint:=vignette[num].Hint;
+    end;
   end;
-  nom:=ChangeFileExt(ExtractFileName(fn),'');
-  vignette[num].Hint:=libr+'  '+nom+'  '+imgdir[i,1];
-  vignette_info[num].autorot:=(autor='1');
-  vignette_info[num].imgfile:=fn;
-  vignette_info[num].vignettefile:=vfn;
-  if PanelVignette.Height>100 then begin
-     imglabel[num].Caption:=nom;
-     imglabel[num].Hint:=vignette[num].Hint;
-  end;
+  finally
   jpeg.Free;
+  end;
 end;
 
 procedure Tf_photlun.ListImgDir(dir: string; filter:string='*');
