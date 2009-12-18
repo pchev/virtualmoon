@@ -260,8 +260,9 @@ var ok:boolean;
     a,c:string;
     node: TTreeNode;
 begin
-fn:=Slash(appdir)+Slash('Database')+'glossary_u'+language+'.csv';
-if not fileexists(fn) then fn:=Slash(appdir)+Slash('Database')+'glossary_uen.csv';
+fn:=Slash(appdir)+Slash('Database')+'glossary_u'+uplanguage+'.csv';
+if not fileexists(fn) then fn:=Slash(appdir)+Slash('Database')+'glossary_uEN.csv';
+if not fileexists(fn) then exit;
 dbgloss.LoadFromCSVFile(fn);
 ok:=dbgloss.GoFirst;
 lastpos:=dbgloss.GetPosition;

@@ -21,6 +21,7 @@ object f_photo: Tf_photo
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
     OnMouseUp = Image1MouseUp
+    Proportional = True
   end
   object ToolBar1: TToolBar
     Left = 0

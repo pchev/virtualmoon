@@ -246,13 +246,11 @@ try
  vbmp1:=TBitmap.Create;
  jpeg.Performance:=jpBestSpeed;
  try
-   if FileAge(orig)<FileAgeLimit then raise exception.Create('too old file');
    jpeg.LoadFromFile(orig);
  except
- {$ifdef mswindows}
-   exec('fiximg "'+orig+'"');
- {$endif}
-   jpeg.LoadFromFile(orig);
+   jpeg.Free;
+   vbmp1.Free;
+   exit;
  end;
  vbmp1.Assign(jpeg);
  doCreateVignette(vbmp1,vign);
