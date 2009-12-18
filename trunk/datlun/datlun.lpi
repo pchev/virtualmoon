@@ -13,7 +13,6 @@
       <TargetFileExt Value=".exe"/>
       <Title Value="DatLun"/>
       <Icon Value="0"/>
-      <UseXPManifest Value="True"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
