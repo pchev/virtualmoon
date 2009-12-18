@@ -35,8 +35,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photo"/>
-        <CursorPos X="9" Y="118"/>
-        <TopLine Value="314"/>
+        <CursorPos X="48" Y="124"/>
+        <TopLine Value="118"/>
         <EditorIndex Value="2"/>
         <UsageCount Value="41"/>
         <Loaded Value="True"/>
