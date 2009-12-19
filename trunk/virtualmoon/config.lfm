@@ -209,8 +209,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 40
-        ClientWidth = 294
+        ClientHeight = 38
+        ClientWidth = 292
         Columns = 2
         Items.Strings = (
           'Topocentricccccccccccc'
@@ -842,8 +842,8 @@ object Form2: TForm2
           Top = 284
           Width = 294
           Caption = 'Grid'
-          ClientHeight = 54
-          ClientWidth = 292
+          ClientHeight = 69
+          ClientWidth = 290
           TabOrder = 3
           object Label45: TLabel
             Left = 134
@@ -1054,7 +1054,7 @@ object Form2: TForm2
         DefaultColWidth = 30
         DefaultRowHeight = 18
         FixedCols = 0
-        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goEditing, goAlwaysShowEditor]
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor]
         RowCount = 11
         ScrollBars = ssVertical
         TabOrder = 0
@@ -1064,8 +1064,8 @@ object Form2: TForm2
         OnMouseUp = StringGrid2MouseUp
         OnSelectCell = StringGrid2SelectCell
         ColWidths = (
-          179
-          64
+          149
+          94
           30
           30
         )
