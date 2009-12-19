@@ -342,7 +342,9 @@ end;
 procedure TGloss.TreeView1Changing(Sender: TObject; Node: TTreeNode;
   var AllowChange: Boolean);
 begin
-if treeviewinitializing then begin
+// this code lock the cursor on the first letter
+// not remember why it is there. maybe old delphi bug ????
+{if treeviewinitializing then begin
    allowchange:=true;
 end else begin
  if (node<>nil)and(length(node.Text)=1) then begin
@@ -353,7 +355,7 @@ end else begin
      Treeview1.TopItem:=Node;
    end;
 end;
-end;
+end; }
 end;
 
 procedure TGloss.Gloss1HotClick(Sender: TObject);
