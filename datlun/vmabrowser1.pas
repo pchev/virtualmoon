@@ -36,7 +36,6 @@ Windows,
 
 const
   ExitProMsg='Virtual_Moon_Atlas_Pro_exit';
-  Splashversion ='Version 5 beta 2009-10-19';
   versionname='DATLUN';
 
 type
