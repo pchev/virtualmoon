@@ -388,6 +388,8 @@ end;
 procedure Tf_main.FormCreate(Sender: TObject);
 var i: integer;
 begin
+DecimalSeparator := '.';
+ThousandSeparator:=' ';
 //{$ifndef darwin}
   UniqueInstance1:=TCdCUniqueInstance.Create(self);
   UniqueInstance1.Identifier:='Virtual_Moon_Atlas_DatLun';

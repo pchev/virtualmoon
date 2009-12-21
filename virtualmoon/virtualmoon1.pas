@@ -2931,7 +2931,8 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   i: integer;
 begin
-  decimalseparator := '.';
+  DecimalSeparator := '.';
+  ThousandSeparator:=' ';
   UniqueInstance1:=TCdCUniqueInstance.Create(self);
   UniqueInstance1.Identifier:='Virtual_Moon_Atlas_MapLun';
   UniqueInstance1.OnOtherInstance:=OtherInstance;

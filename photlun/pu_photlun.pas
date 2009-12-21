@@ -821,6 +821,8 @@ end;
 procedure Tf_photlun.FormCreate(Sender: TObject);
 var i: integer;
 begin
+DecimalSeparator := '.';
+ThousandSeparator:=' ';
 //{$ifndef darwin}
   UniqueInstance1:=TCdCUniqueInstance.Create(self);
   UniqueInstance1.Identifier:='Virtual_Moon_Atlas_PhotLun';
