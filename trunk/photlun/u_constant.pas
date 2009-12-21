@@ -30,7 +30,7 @@ uses
 
 const crlf = chr(10)+chr(13);
       AVLversion = '5.0';
-      Splashversion = AVLversion+' 2009-12-16';
+      Splashversion = AVLversion+' 2009-12-21';
       VersionName = 'Pro';
       avlcpy = 'Copyright (C) 2002-2009 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
