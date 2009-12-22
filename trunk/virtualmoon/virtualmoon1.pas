@@ -3280,7 +3280,7 @@ begin
     form2.TrackBar2.Position := -LabelDensity;
     form2.TrackBar4.Position := marksize;
     form2.newlang := language;
-    if wantbump then
+    if wantbump or activemoon.Bumpmap then
        form2.BumpRadioGroup.ItemIndex:=0
     else
        form2.BumpRadioGroup.ItemIndex:=1;
@@ -3351,9 +3351,11 @@ begin
         texturefiles.Assign(form2.texturefn);
         reload := True;
       end;
-
-      if wantbump<>(form2.BumpRadioGroup.ItemIndex=0) then reload:=true;
-      wantbump := (form2.BumpRadioGroup.ItemIndex=0);
+      if activemoon=moon1 then begin
+        if wantbump<>(form2.BumpRadioGroup.ItemIndex=0) then reload:=true;
+        wantbump := (form2.BumpRadioGroup.ItemIndex=0);
+      end else
+        wantbump:=false;
       activemoon.BumpMethod:=TBumpMapCapability(form2.RadioGroup1.ItemIndex);
       activemoon.BumpMipmap := form2.CheckBox3.Checked;
       ruklprefix    := form2.ruklprefix.Text;
