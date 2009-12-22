@@ -45,6 +45,7 @@ type
     Button8: TButton;
     CheckBox10: TCheckBox;
     CheckBox25: TCheckBox;
+    CheckBox3: TCheckBox;
     CheckBox4: TCheckBox;
     ColorDialog1: TColorDialog;
     ComboBoxCountry: TComboBox;
@@ -332,6 +333,7 @@ begin
       RadioGroup1.Items[1]:=rsAdvanced;
       Button7.Caption:=rsCheckForOpti;
       Button8.Caption:=rsCheckForOpti;
+      checkbox3.Caption:=rst_87;
 end;
 
 Function GetLangCode(buf:string):string;
