@@ -9,19 +9,20 @@ AppSupportURL={cm:MyAppUrl}
 AppUpdatesURL={cm:MyAppUrl}
 DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{pf}\VirtualMoon}
 DefaultGroupName={cm:MyAppName}
-LicenseFile=vmapro\Data\licence.txt
-InfoBeforeFile=vmapro\Data\readme.txt
-OutputDir=setup
-OutputBaseFilename=vmapro5
+LicenseFile=CD\Data1\licence.txt
+InfoBeforeFile=CD\Data1\readme.txt
+OutputDir=setup\CDpro
+OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=true
-UseSetupLdr=true
+UseSetupLdr=false
 ShowLanguageDialog=yes
 UsePreviousAppDir=false
 WizardImageFile=setup_pict\WizMoonImage.bmp
 WizardSmallImageFile=setup_pict\WizMoonSmallImage.bmp
 UninstallLogMode=append
 AppID={{3EB7A19B-690F-49BA-B494-CADA547D0DB9}
+VersionInfoDescription={cm:MyAppName}
 
 [CustomMessages]
 eng.MyAppName=Virtual Moon Atlas
@@ -44,8 +45,8 @@ eng.UninstalledAll=%1 was successfully removed from your computer.
 fre.UninstalledAll=%1 a été correctement désinstallé de cet ordinateur.
 
 [Languages]
-Name: eng; MessagesFile: compiler:Default.isl; InfoBeforeFile: vmapro\Data\readme.txt; LicenseFile: vmapro\Data\licence.txt
-Name: fre; MessagesFile: compiler:Languages\French.isl; InfoBeforeFile: vmapro\Data\lisezmoi.txt; LicenseFile: vmapro\Data\licence_fr.txt
+Name: eng; MessagesFile: compiler:Default.isl; InfoBeforeFile: CD\Data1\readme.txt; LicenseFile: CD\Data1\licence.txt
+Name: fre; MessagesFile: compiler:Languages\French.isl; InfoBeforeFile: CD\Data1\lisezmoi.txt; LicenseFile: CD\Data1\licence_fr.txt
 
 [InstallDelete]
 Name: {app}\vmapro.exe; Type: files; Components: ; Tasks: ; Languages: 
@@ -74,11 +75,18 @@ Name: {group}\Atlas Virtuel de la Lune Expert.lnk; Type: files; Components: ; Ta
 Name: {group}\Atlas Virtuel de la Lune Light.lnk; Type: files; Components: ; Tasks: ; Languages: 
 Name: {group}\Atlas Virtuel de la Lune Basic.lnk; Type: files; Components: ; Tasks: ; Languages: 
 
-
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: vmapro\data\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: {userappdata}\virtualmoon\database\notes.csv; DestDir: {localappdata}\virtualmoon\database\; Flags: uninsneveruninstall external skipifsourcedoesntexist onlyifdoesntexist
+Source: CD\Data1\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Main
+Source: CD\Data2\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion; Components: Pictures; Tasks: ; Languages: 
+
+[Components]
+Name: Main; Description: Required program files; Types: custom full compact; Languages: eng; Flags: fixed
+Name: Main; Description: Fichiers nécessaires pour le programme; Types: custom full compact; Languages: fre; Flags: fixed
+Name: Pictures; Description: Lunar formation pictures; Types: full; Languages: eng; Flags: exclusive
+Name: Pictures; Description: Images des formations lunaires; Types: full; Languages: fre; Flags: exclusive
+Name: FixOldPict; Description: No pictures; Flags: exclusive disablenouninstallwarning; Types: custom compact; Languages: eng
+Name: FixOldPict; Description: Sans images; Flags: exclusive disablenouninstallwarning; Types: custom compact; Languages: fre
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}
@@ -98,17 +106,17 @@ Name: {userdesktop}\{cm:MyAppName}; Filename: {app}\atlun.exe; Tasks: desktopico
 Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\{cm:MyAppName}; Filename: {app}\atlun.exe; Tasks: quicklaunchicon; WorkingDir: {app}; IconIndex: 0
 
 [Run]
-Filename: {app}\fiximg.exe; Parameters: Apollo; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
-Filename: {app}\fiximg.exe; Parameters: ApolloMapping; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
-Filename: {app}\fiximg.exe; Parameters: CLA; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
-Filename: {app}\fiximg.exe; Parameters: Clementine; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
-Filename: {app}\fiximg.exe; Parameters: LAC_LM; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
-Filename: {app}\fiximg.exe; Parameters: Lopam; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
-Filename: {app}\fiximg.exe; Parameters: Probes; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
-Filename: {app}\fiximg.exe; Parameters: BestOfAmateurs; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
-Filename: {app}\fiximg.exe; Parameters: BestOfHiggins; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
-Filename: {app}\fiximg.exe; Parameters: BestOfLazzarotti; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
-Filename: {app}\fiximg.exe; Parameters: LunaStars; WorkingDir: {app}; StatusMsg: Fix old pictures format ...
+Filename: {app}\fiximg.exe; Parameters: Apollo; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
+Filename: {app}\fiximg.exe; Parameters: ApolloMapping; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
+Filename: {app}\fiximg.exe; Parameters: CLA; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
+Filename: {app}\fiximg.exe; Parameters: Clementine; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
+Filename: {app}\fiximg.exe; Parameters: LAC_LM; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
+Filename: {app}\fiximg.exe; Parameters: Lopam; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
+Filename: {app}\fiximg.exe; Parameters: Probes; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
+Filename: {app}\fiximg.exe; Parameters: BestOfAmateurs; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
+Filename: {app}\fiximg.exe; Parameters: BestOfHiggins; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
+Filename: {app}\fiximg.exe; Parameters: BestOfLazzarotti; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
+Filename: {app}\fiximg.exe; Parameters: LunaStars; WorkingDir: {app}; StatusMsg: Fix old pictures format ...; Components: FixOldPict
 Filename: {app}\{cm:MyTutorial}; Flags: postinstall shellexec nowait skipifsilent; Description: {cm:MyTutorialMsg}
 
 [UninstallDelete]
