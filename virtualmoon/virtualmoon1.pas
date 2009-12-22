@@ -1098,7 +1098,7 @@ begin
       WriteFloat(section, 'CurrentJD', CurrentJD);
       WriteFloat(section, 'dt_ut', dt_ut);
       WriteBool(section, 'PhaseEffect', phaseeffect);
-      WriteBool(section, 'BumpMap', wantbump);
+      WriteBool(section, 'BumpMap', wantbump or moon1.Bumpmap);
       WriteInteger(section,'BumpMethod',ord(moon1.BumpMethod));
       WriteBool(section,'BumpMipmap',moon1.BumpMipmap);
       WriteBool(section, 'ShowLabel', ShowLabel);
@@ -4914,6 +4914,7 @@ if NewWindowButton.Down then begin
   moon2.AssignMoon(moon1);
   moon2.GLSceneViewer1.Visible:=true;
 end else begin
+  wantbump:=moon1.Bumpmap;
   PanelMoon2.Width:=0;
   Splitter2.Visible:=false;
   PanelMoon2.Visible:=false;
