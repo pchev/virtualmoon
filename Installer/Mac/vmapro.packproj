@@ -28,9 +28,9 @@
 						<key>Mode</key>
 						<integer>1</integer>
 						<key>Path</key>
-						<string>/Users/pch/sources/install_dmg/vma/Virtual_Moon_Atlas/licence.txt</string>
+						<string>Virtual_Moon_Atlas/licence.txt</string>
 						<key>Path Type</key>
-						<integer>1</integer>
+						<integer>2</integer>
 					</dict>
 				</dict>
 				<key>ReadMe</key>
@@ -40,9 +40,9 @@
 						<key>Mode</key>
 						<integer>1</integer>
 						<key>Path</key>
-						<string>/Users/pch/sources/install_dmg/vma/Virtual_Moon_Atlas/readme.txt</string>
+						<string>Virtual_Moon_Atlas/readme.txt</string>
 						<key>Path Type</key>
-						<integer>1</integer>
+						<integer>2</integer>
 					</dict>
 				</dict>
 				<key>Welcome</key>
@@ -91,11 +91,11 @@
 									<key>GID</key>
 									<integer>80</integer>
 									<key>Path</key>
-									<string>/Users/pch/sources/install_dmg/vma/Virtual_Moon_Atlas</string>
+									<string>Virtual_Moon_Atlas</string>
 									<key>Path Type</key>
-									<integer>1</integer>
+									<integer>2</integer>
 									<key>Privileges</key>
-									<integer>509</integer>
+									<integer>493</integer>
 									<key>Type</key>
 									<integer>3</integer>
 									<key>UID</key>
@@ -534,9 +534,9 @@
 						<key>IFPkgDescriptionDeleteWarning</key>
 						<string></string>
 						<key>IFPkgDescriptionDescription</key>
-						<string>Atlas Virtuel de la Lune Pro version 5.0</string>
+						<string>Virtual Moon Atlas Pro version 5.0</string>
 						<key>IFPkgDescriptionTitle</key>
-						<string>vmapro</string>
+						<string>vmapro5</string>
 						<key>IFPkgDescriptionVersion</key>
 						<string>5.0</string>
 					</dict>
@@ -589,7 +589,7 @@
 		<key>IFPkgFlagPackageSelection</key>
 		<integer>0</integer>
 		<key>Name</key>
-		<string>vmapro</string>
+		<string>vmapro5</string>
 		<key>Status</key>
 		<integer>1</integer>
 		<key>Type</key>
@@ -602,7 +602,7 @@
 		<key>10.1 Compatibility</key>
 		<true/>
 		<key>Build Path</key>
-		<string>./</string>
+		<string>build</string>
 		<key>Build Path Type</key>
 		<integer>2</integer>
 		<key>Comment</key>
