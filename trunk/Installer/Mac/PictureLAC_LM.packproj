@@ -479,7 +479,7 @@
 						<key>IFPkgDescriptionDescription</key>
 						<string></string>
 						<key>IFPkgDescriptionTitle</key>
-						<string>PictureApollo</string>
+						<string>PictureLAC_LM</string>
 						<key>IFPkgDescriptionVersion</key>
 						<string>5.0</string>
 					</dict>
@@ -493,9 +493,9 @@
 					<key>CFBundleIconFile Path Type</key>
 					<integer>1</integer>
 					<key>CFBundleIdentifier</key>
-					<string>net.ap-i.pkg.PictureApollo</string>
+					<string>net.ap-i.pkg.PictureLAC_LM</string>
 					<key>CFBundleName</key>
-					<string>PictureApollo</string>
+					<string>PictureLAC_LM</string>
 					<key>CFBundleShortVersionString</key>
 					<string>5.0</string>
 				</dict>
@@ -532,7 +532,7 @@
 		<key>IFPkgFlagPackageSelection</key>
 		<integer>0</integer>
 		<key>Name</key>
-		<string>PictureApollo</string>
+		<string>PictureLAC_LM</string>
 		<key>Status</key>
 		<integer>1</integer>
 		<key>Type</key>
