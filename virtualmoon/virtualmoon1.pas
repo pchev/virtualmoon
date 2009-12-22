@@ -502,7 +502,7 @@ type
     editrow, notesrow, rotdirection, searchpos,BumpMethod: integer;
     dbedited: boolean;
     SkipIdent, wantbump, geocentric, FollowNorth, notesok, notesedited,
-    minilabel, shortdesc: boolean;
+    minilabel, shortdesc, BumpMipmap: boolean;
     lockmove, lockrepeat, showlibrationmark, saveimagewhite, skipresize,skiporient, skiprot: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
@@ -978,6 +978,7 @@ begin
     phaseeffect  := ReadBool(section, 'PhaseEffect', phaseeffect);
     wantbump  := ReadBool(section, 'BumpMap', wantbump);
     BumpMethod:= Readinteger(section,'BumpMethod',0);
+    BumpMipmap:= ReadBool(section,'BumpMipmap',true);
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
     ShowMark     := ReadBool(section, 'ShowMark', ShowMark);
@@ -1099,6 +1100,7 @@ begin
       WriteBool(section, 'PhaseEffect', phaseeffect);
       WriteBool(section, 'BumpMap', wantbump);
       WriteInteger(section,'BumpMethod',ord(moon1.BumpMethod));
+      WriteBool(section,'BumpMipmap',moon1.BumpMipmap);
       WriteBool(section, 'ShowLabel', ShowLabel);
       WriteBool(section, 'ShowMark', ShowMark);
       WriteBool(section, 'ShowLibrationMark', ShowLibrationMark);
@@ -3134,6 +3136,7 @@ try
   form2.LoadCountry(slash(Appdir)+slash('data')+'country.tab');
   moon1.Init;
   moon1.BumpMethod:=TBumpMapCapability(BumpMethod);
+  moon1.BumpMipmap:=BumpMipmap;
   moon1.TextureCompression:=compresstexture;
   moon1.texture:=texturefiles;
   if moon1.CanBump then
@@ -3284,6 +3287,7 @@ begin
     form2.BumpRadioGroup.Visible:=(activemoon.BumpMapCapabilities<>[]);
     form2.RadioGroup1.ItemIndex:=ord(activemoon.BumpMethod);
     form2.RadioGroup1.Visible:=((bcDot3TexCombiner in activemoon.BumpMapCapabilities)and(bcBasicARBFP in moon1.BumpMapCapabilities));
+    form2.CheckBox3.Checked:=activemoon.BumpMipmap;
     form2.StringGrid1.RowCount := maximgdir + 10;
     if saveimagesize = 0 then
       form2.ComboBox4.ItemIndex := 0
@@ -3351,6 +3355,7 @@ begin
       if wantbump<>(form2.BumpRadioGroup.ItemIndex=0) then reload:=true;
       wantbump := (form2.BumpRadioGroup.ItemIndex=0);
       activemoon.BumpMethod:=TBumpMapCapability(form2.RadioGroup1.ItemIndex);
+      activemoon.BumpMipmap := form2.CheckBox3.Checked;
       ruklprefix    := form2.ruklprefix.Text;
       ruklsuffix    := form2.ruklsuffix.Text;
       markcolor     := form2.Shape2.Brush.Color;

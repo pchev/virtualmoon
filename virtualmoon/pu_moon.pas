@@ -146,6 +146,7 @@ type
     FBumpmap: Boolean;
     FBumpOk : boolean;
     FBumpMapCapabilities: TBumpMapCapabilities;
+    FBumpMipmap: Boolean;
     FAsMultiTexture: boolean;
     FShowPhase: Boolean;
     FGridSpacing: integer;
@@ -219,6 +220,7 @@ type
     procedure SetGridSpacing(value:integer);
     function  GetBumpMethod:TBumpMapCapability;
     procedure SetBumpMethod(bm:TBumpMapCapability);
+    procedure SetBumpMipmap(value: boolean);
     function  GetAntialiasing: boolean;
     procedure SetAntialiasing(value:boolean);
     procedure SetSatAltitude(value:single);
@@ -276,6 +278,7 @@ type
     property Bumpmap : Boolean read FBumpmap write SetBumpmap;
     property BumpMapCapabilities: TBumpMapCapabilities read FBumpMapCapabilities;
     property BumpMethod : TBumpMapCapability read GetBumpMethod write SetBumpMethod;
+    property BumpMipmap : Boolean read FBumpMipmap write SetBumpMipmap;
     property CanBump : Boolean read FBumpOk;
     property ForceBumpMapSize: integer read FForceBumpMapSize write FForceBumpMapSize;
     property AsMultiTexture : boolean read FAsMultiTexture;
@@ -794,6 +797,22 @@ begin
   end;
 end;
 
+procedure Tf_moon.SetBumpMipmap(value: boolean);
+begin
+FBumpMipmap:=value;
+if FBumpMipmap then begin
+    BumpMaterialLibrary.Materials[0].Material.Texture.MagFilter:=maLinear;
+    BumpMaterialLibrary.Materials[0].Material.Texture.MinFilter:=miLinearMipmapLinear;
+    BumpMaterialLibrary.Materials[1].Material.Texture.MagFilter:=maLinear;
+    BumpMaterialLibrary.Materials[1].Material.Texture.MinFilter:=miLinearMipmapLinear;
+end else begin
+    BumpMaterialLibrary.Materials[0].Material.Texture.MagFilter:=maNearest;
+    BumpMaterialLibrary.Materials[0].Material.Texture.MinFilter:=miNearest;
+    BumpMaterialLibrary.Materials[1].Material.Texture.MagFilter:=maNearest;
+    BumpMaterialLibrary.Materials[1].Material.Texture.MinFilter:=miNearest;
+end;
+end;
+
 procedure Tf_moon.SetBumpmap(value: boolean);
 var i: integer;
 begin
@@ -1193,11 +1212,14 @@ begin
  GLSceneViewer1.Buffer.DestroyRC;
 end;
 
+
 procedure Tf_moon.AssignMoon(Source: TF_moon);
 begin
  MaxTextureSize:=Source.MaxTextureSize;
  BumpMapLimit1K:=Source.BumpMapLimit1K;
  FBumpMapCapabilities:=Source.FBumpMapCapabilities;
+ BumpMipmap:=Source.BumpMipmap;
+// FBumpOk:=false;
  FBumpOk:=Source.FBumpOk;
  FAsMultiTexture:=Source.FAsMultiTexture;
  TexturePath:=Source.TexturePath;
@@ -1208,7 +1230,8 @@ begin
     Texture :=Source.Texture;
  if Overlay<>Source.Overlay then
     Overlay :=Source.Overlay;
- if CanBump then Bumpmap :=Source.Bumpmap;
+// if CanBump then Bumpmap :=Source.Bumpmap;
+ Bumpmap := false;   // no bumpmap by default on second copy
  ShowPhase :=Source.ShowPhase;
  VisibleSideLock :=Source.VisibleSideLock;
  Mirror :=Source.Mirror;
@@ -1259,6 +1282,16 @@ begin
  GLAnnulus1.Visible  := Source.GLAnnulus1.Visible;
  GLAnnulus1.Position  := Source.GLAnnulus1.Position;
  GLAnnulus1.BottomInnerRadius   := Source.GLAnnulus1.BottomInnerRadius;
+ if Source.Bumpmap then begin   // no bumpmap by default on second copy
+    LoadSlice(zone);
+    GLSphereMoon.Material.MaterialLibrary:=GLMultiMaterialLibrary;
+    GLSphereMoon.Material.LibMaterialName:='MultiMaterial';
+    BumpMaterialLibrary.Materials[0].Material.Texture.Image.Assign(blankbmp);
+    BumpMaterialLibrary.Materials[1].Material.Texture.Image.Assign(blankbmp);
+    GLLightSource1.ConstAttenuation:=0.5;
+    GLLightSource1.LightStyle:=lsParallel;
+    maxzoom:=ZoomByZone[maxzone]*1.4;
+  end;
 end;
 
 procedure Tf_moon.MoonResize(Sender: TObject);
