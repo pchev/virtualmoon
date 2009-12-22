@@ -4908,6 +4908,7 @@ if NewWindowButton.Down then begin
   PanelMoon2.Width:=PanelMoon.Width div 2;
   Splitter2.Visible:=true;
   PanelMoon2.Visible:=true;
+  wantbump:=false;
   moon2.AssignMoon(moon1);
   moon2.GLSceneViewer1.Visible:=true;
 end else begin

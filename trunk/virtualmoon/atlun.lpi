@@ -8,7 +8,7 @@
       <TargetFileExt Value=".exe"/>
       <Title Value="atlun"/>
       <Icon Value="0"/>
-      <ActiveEditorIndexAtStart Value="3"/>
+      <ActiveEditorIndexAtStart Value="0"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -91,13 +91,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="50" Y="4903"/>
+        <CursorPos X="19" Y="4911"/>
         <TopLine Value="4887"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="4">
-          <Item0 X="38" Y="4912" ID="1"/>
-          <Item1 X="3" Y="4928" ID="2"/>
+          <Item0 X="38" Y="4913" ID="1"/>
+          <Item1 X="3" Y="4929" ID="2"/>
           <Item2 X="5" Y="3172" ID="6"/>
           <Item3 X="3" Y="4006" ID="7"/>
         </Bookmarks>
@@ -121,7 +121,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="config"/>
-        <CursorPos X="35" Y="335"/>
+        <CursorPos X="53" Y="327"/>
         <TopLine Value="313"/>
         <EditorIndex Value="3"/>
         <UsageCount Value="200"/>
@@ -315,7 +315,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
         <CursorPos X="66" Y="1223"/>
-        <TopLine Value="1269"/>
+        <TopLine Value="1223"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
