@@ -1,0 +1,81 @@
+object BigImaForm: TBigImaForm
+  Left = 393
+  Height = 407
+  Top = 125
+  Width = 615
+  Caption = 'Taille réelle'
+  ClientHeight = 407
+  ClientWidth = 615
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
+  OnMouseWheel = FormMouseWheel
+  OnShow = FormShow
+  LCLVersion = '0.9.28.3'
+  object Image1: TImage
+    Left = 0
+    Height = 348
+    Top = 16
+    Width = 601
+    AutoSize = True
+  end
+  object ToolBar1: TToolBar
+    Left = 0
+    Height = 23
+    Top = 0
+    Width = 615
+    AutoSize = True
+    ButtonHeight = 21
+    ButtonWidth = 61
+    ParentShowHint = False
+    ShowCaptions = True
+    ShowHint = True
+    TabOrder = 0
+    Visible = False
+    Wrapable = False
+    OnResize = ToolBar1Resize
+    object ToolButton1: TToolButton
+      Left = 1
+      Top = 2
+      Caption = 'Close'
+      ImageIndex = 0
+      OnClick = ToolButton1Click
+    end
+    object ToolButton2: TToolButton
+      Left = 62
+      Top = 2
+      Caption = 'Zoom +'
+      ImageIndex = 1
+      OnClick = ToolButton2Click
+    end
+    object ToolButton3: TToolButton
+      Left = 123
+      Top = 2
+      Caption = '   Zoom -    '
+      ImageIndex = 2
+      OnClick = ToolButton3Click
+    end
+    object Label1: TLabel
+      Left = 211
+      Height = 21
+      Top = 2
+      Width = 27
+      AutoSize = False
+      Caption = 'Label1'
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+    end
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 200
+    OnTimer = Timer1Timer
+    left = 40
+    top = 48
+  end
+end

@@ -1,0 +1,179 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: u_translation_database.rsb_1
+msgid "Not named"
+msgstr ""
+
+#: u_translation_database.rsb_2
+msgid "Not indicated"
+msgstr ""
+
+#: u_translation_database.rsb_3
+msgid "Not evaluated"
+msgstr ""
+
+#: u_translation_database.rsb_4
+msgid "Not observable"
+msgstr ""
+
+#: u_translation_database.rsb_5
+msgid "No map"
+msgstr ""
+
+#: u_translation_database.rsb_6
+msgid "No map or picture"
+msgstr ""
+
+#: u_translation_database.rsb_7
+msgid "No article"
+msgstr ""
+
+#: u_translation_database.rsb_8
+msgid "Not defined"
+msgstr ""
+
+#: u_translation_database.rsb_9
+msgid "Unknown in this period"
+msgstr ""
+
+#: u_translation_database.rscol_1
+msgid "Crater"
+msgstr ""
+
+#: u_translation_database.rscol_10
+msgid "Wrinkle ridge"
+msgstr ""
+
+#: u_translation_database.rscol_11
+msgid "Wrinkle ridges network"
+msgstr ""
+
+#: u_translation_database.rscol_12
+msgid "Scarp"
+msgstr ""
+
+#: u_translation_database.rscol_13
+msgid "Rille"
+msgstr ""
+
+#: u_translation_database.rscol_14
+msgid "Rilles network"
+msgstr ""
+
+#: u_translation_database.rscol_15
+msgid "Valley"
+msgstr ""
+
+#: u_translation_database.rscol_16
+msgid "Marsh"
+msgstr ""
+
+#: u_translation_database.rscol_17
+msgid "Lake"
+msgstr ""
+
+#: u_translation_database.rscol_18
+msgid "Sea"
+msgstr ""
+
+#: u_translation_database.rscol_19
+msgid "Cape"
+msgstr ""
+
+#: u_translation_database.rscol_2
+msgid "Craterlet"
+msgstr ""
+
+#: u_translation_database.rscol_20
+msgid "Bay"
+msgstr ""
+
+#: u_translation_database.rscol_21
+msgid "Ejecta"
+msgstr ""
+
+#: u_translation_database.rscol_22
+msgid "Probe "
+msgstr ""
+
+#: u_translation_database.rscol_23
+msgid "Human mission"
+msgstr ""
+
+#: u_translation_database.rscol_24
+msgid "Inert equipment"
+msgstr ""
+
+#: u_translation_database.rscol_25
+msgid "Pyroclastic area"
+msgstr ""
+
+#: u_translation_database.rscol_3
+msgid "Crater chain"
+msgstr ""
+
+#: u_translation_database.rscol_4
+msgid "Walled plain"
+msgstr ""
+
+#: u_translation_database.rscol_5
+msgid "Plain"
+msgstr ""
+
+#: u_translation_database.rscol_6
+msgid "Mountain"
+msgstr ""
+
+#: u_translation_database.rscol_7
+msgid "Mountain range"
+msgstr ""
+
+#: u_translation_database.rscol_8
+msgid "Dome"
+msgstr ""
+
+#: u_translation_database.rscol_9
+msgid "Dome system"
+msgstr ""
+
+#: u_translation_database.rsdb_1
+msgid "NSN"
+msgstr ""
+
+#: u_translation_database.rsdb_2
+msgid "NSI"
+msgstr ""
+
+#: u_translation_database.rsdb_3
+msgid "FSN"
+msgstr ""
+
+#: u_translation_database.rsdb_4
+msgid "FSI"
+msgstr ""
+
+#: u_translation_database.rsdb_5
+msgid "HIS"
+msgstr ""
+
+#: u_translation_database.rsdb_6
+msgid "PYR"
+msgstr ""
+
+#: u_translation_database.rsdb_7
+msgid "DOM"
+msgstr ""
+
+#: u_translation_database.warning1
+msgid " Note to translator:"
+msgstr ""
+
+#: u_translation_database.warning2
+msgid " The following text must be the same as the content of the TYPE column in the database you use for your language."
+msgstr ""
+
+#: u_translation_database.warning3
+msgid " If you not translate the database keep the English text here!"
+msgstr ""
+

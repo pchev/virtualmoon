@@ -1,0 +1,29 @@
+object f_craterlist: Tf_craterlist
+  Left = 46
+  Height = 299
+  Top = 29
+  Width = 235
+  ActiveControl = CraterLst
+  BorderStyle = bsSizeToolWin
+  Caption = 'f_craterlist'
+  ClientHeight = 299
+  ClientWidth = 235
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  FormStyle = fsStayOnTop
+  KeyPreview = True
+  OnKeyUp = FormKeyUp
+  Position = poDefaultPosOnly
+  LCLVersion = '0.9.29'
+  object CraterLst: TListBox
+    Left = 0
+    Height = 299
+    Top = 0
+    Width = 235
+    Align = alClient
+    ItemHeight = 0
+    OnMouseUp = CraterLstMouseUp
+    TabOrder = 0
+    TopIndex = -1
+  end
+end

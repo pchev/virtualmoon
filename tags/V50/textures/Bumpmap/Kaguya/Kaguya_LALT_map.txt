@@ -1,0 +1,29 @@
+download Kaguya LALT global map from:
+https://www.soac.selene.isas.jaxa.jp/archive/
+
+tar xvf LALT_GGT_MAP.sl2
+
+./pds4tobin LALT_GGT_MAP.IMG
+
+iris: (http://astrosurf.com/buil)
+>import LALT_GGT_MAP.bin 5760 2880 5760 2 0
+>scale 3 1.42223 1.42223
+>visu 10700 -9100
+>save LALT_GGT_MAP
+>export LALT_GGT_MAP_8k.data 0 2 0
+>scale 2 0.5 0.5
+>export LALT_GGT_MAP_4k.data 0 2 0
+>scale 2 0.5 0.5
+>export LALT_GGT_MAP_2k.data 0 2 0
+>scale 2 0.5 0.5
+>export LALT_GGT_MAP_1k.data 0 2 0
+
+nms 1737.53 8192 < lalt_ggt_map_8k.data > normal8k.ppm
+nms 1737.53 4096 < lalt_ggt_map_4k.data > normal4k.ppm
+nms 1737.53 2048 < lalt_ggt_map_2k.data > normal2k.ppm
+nms 1737.53 1024 < lalt_ggt_map_1k.data > normal1k.ppm
+
+convert normal8k.ppm -quality 90 -sampling-factor 1x1 normal8k.jpg
+convert normal4k.ppm -quality 90 -sampling-factor 1x1 normal4k.jpg
+convert normal2k.ppm -quality 90 -sampling-factor 1x1 normal2k.jpg
+convert normal1k.ppm -quality 90 -sampling-factor 1x1 normal1k.jpg
