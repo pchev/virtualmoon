@@ -1,0 +1,80 @@
+#
+#   Makefile.fpc for Skychart
+#
+
+[package]
+name=virtualmoon
+version=5
+
+[target]
+dirs=virtualmoon datlun photlun
+
+[require]
+libc=y
+packages=rtl
+
+[prerules]
+PREFIX=%PREFIX%
+
+[rules]
+.PHONY: all
+
+all: virtualmoon_all datlun_all photlun_all
+
+ifeq ($(OS_TARGET),win32)
+install: 
+	.\install.cmd $(PREFIX)
+uninstall: 
+	.\uninstall.cmd $(PREFIX)
+data:
+	$(MAKE) -C tools all
+install_data:
+	$(MAKE) -C tools install 
+uninstall_data:
+	$(MAKE) -C tools uninstall
+else
+ifeq ($(OS_TARGET),win64)
+install: 
+	.\install.cmd $(PREFIX)
+uninstall: 
+	.\uninstall.cmd $(PREFIX)
+data:
+	$(MAKE) -C tools all
+install_data:
+	$(MAKE) -C tools install 
+uninstall_data:
+	$(MAKE) -C tools uninstall
+else
+ifeq ($(OS_TARGET),darwin)
+install: 
+	./install_darwin.sh $(PREFIX)
+uninstall: 
+	./uninstall_darwin.sh $(PREFIX)
+data:
+	\$(MAKE) -C tools all
+install_data:
+	\$(MAKE) -C tools install 
+uninstall_data:
+	\$(MAKE) -C tools uninstall
+else
+install: 
+	./install.sh $(PREFIX)
+uninstall: 
+	./uninstall.sh $(PREFIX)
+install_win: 
+	./install_win.sh $(PREFIX)
+uninstall_win: 
+	./uninstall_win.sh $(PREFIX)
+install_win_data:
+	\$(MAKE) -C tools install_win 
+uninstall_win_data:
+	\$(MAKE) -C tools uninstall_win
+data:
+	\$(MAKE) -C tools all
+install_data:
+	\$(MAKE) -C tools install 
+uninstall_data:
+	\$(MAKE) -C tools uninstall
+endif
+endif
+endif

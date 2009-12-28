@@ -33,7 +33,7 @@ uses Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
     unix,baseunix,
   {$endif}
     Controls, Process, IntfGraphics,FPImage,
-    MaskEdit,enhedits,Menus,Spin,CheckLst,Buttons, ExtCtrls,
+    MaskEdit,Menus,Spin,CheckLst,Buttons, ExtCtrls,
     Forms,Graphics,StdCtrls,ComCtrls,Dialogs,Grids,PrintersDlgs,Printers;
 
 function rmod(x,y:Double):Double;
