@@ -867,6 +867,7 @@ var
   section: string;
   i, j:    integer;
   smooth:  integer;
+  labf: TFont;
 begin
   database[1]    := 'Nearside_Named_ufr.csv';
   usedatabase[1] := True;
@@ -1028,6 +1029,16 @@ begin
     for j:=0 to 3 do
       texturefiles[j] := ReadString(section, 'texturefile' + IntToStr(j), texturefiles[j]);
 
+    labf:=TFont.Create;
+    labf.Assign(moon1.LabelFont);
+    labf.Name := ReadString(section, 'LabelFontName', labf.Name);
+    labf.Size := ReadInteger(section, 'LabelFontSize', labf.Size);
+    labf.Style:=[];
+    if ReadBool(section, 'LabelFontBold', false) then labf.Style:=labf.Style+[fsBold];
+    if ReadBool(section, 'LabelFontItalic', false) then labf.Style:=labf.Style+[fsItalic];
+    moon1.LabelFont:=labf;
+    labf.Free;
+
     for j := 1 to 10 do
     begin
       eyepiecename[j]     := ReadString(section, 'eyepiecename' + IntToStr(j), eyepiecename[j]);
@@ -1123,6 +1134,10 @@ begin
       WriteInteger(section, 'Height', Height);
       WriteInteger(section, 'Width', Width);
       WriteBool(section, 'Maximized', (windowstate = wsMaximized));
+      WriteString(section, 'LabelFontName', moon1.LabelFont.Name);
+      WriteInteger(section, 'LabelFontSize', moon1.LabelFont.Size);
+      WriteBool(section, 'LabelFontBold', fsBold in moon1.LabelFont.Style);
+      WriteBool(section, 'LabelFontItalic', fsItalic in moon1.LabelFont.Style);
       for i := 1 to 10 do
       begin
         WriteString(section, 'eyepiecename' + IntToStr(i), eyepiecename[i]);
