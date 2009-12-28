@@ -18,7 +18,7 @@ packages=rtl
 unittargetdir=units/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
 includedir=./
 options= -dUseCThreads -dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi -Ch100000 -O1 -g -gl -WG -vewni -l 
-unitdir=$(LAZDIR)/components/glscene/Lazarus/lib/$(CPU_TARGET)-$(OS_TARGET)/ component/uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)/ component/libsql/lib/$(CPU_TARGET)-$(OS_TARGET)/ component/enhedits/lib/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/turbopower_ipro/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/printers/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/components/images/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ ./
+unitdir=$(LAZDIR)/components/glscene/Lazarus/lib/$(CPU_TARGET)-$(OS_TARGET)/ component/uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)/ component/libsql/lib/$(CPU_TARGET)-$(OS_TARGET)/ component/enhedits/lib/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/turbopower_ipro/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/printers/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ ./
 
 [clean]
 files=$(wildcard $(COMPILER_UNITTARGETDIR)/*$(OEXT)) \
