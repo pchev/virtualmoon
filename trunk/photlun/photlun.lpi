@@ -29,16 +29,13 @@
         <WorkingDirectory Value="\usr\local\bin"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="uniqueinstance_package"/>
       </Item1>
       <Item2>
-        <PackageName Value="zoomimage"/>
-      </Item2>
-      <Item3>
         <PackageName Value="LCL"/>
-      </Item3>
+      </Item2>
     </RequiredPackages>
     <Units Count="7">
       <Unit0>

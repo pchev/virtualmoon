@@ -26,7 +26,7 @@
         <WorkingDirectory Value="\usr\local\bin"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="9">
+    <RequiredPackages Count="8">
       <Item1>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
@@ -40,34 +40,31 @@
         <MinVersion Major="1" Valid="True"/>
       </Item3>
       <Item4>
-        <PackageName Value="ImagesForLazarus"/>
-      </Item4>
-      <Item5>
         <PackageName Value="Printer4Lazarus"/>
         <MinVersion Minor="5" Valid="True"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <PackageName Value="glscenelazarus"/>
         <MinVersion Major="1" Build="3" Valid="True"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="enhedit"/>
+        <MinVersion Valid="True"/>
       </Item6>
       <Item7>
-        <PackageName Value="enhedit"/>
+        <PackageName Value="libsql"/>
         <MinVersion Valid="True"/>
       </Item7>
       <Item8>
-        <PackageName Value="libsql"/>
-        <MinVersion Valid="True"/>
-      </Item8>
-      <Item9>
         <PackageName Value="LCL"/>
-      </Item9>
+      </Item8>
     </RequiredPackages>
     <Units Count="159">
       <Unit0>
         <Filename Value="atlun.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="atlun"/>
-        <CursorPos X="52" Y="16"/>
+        <CursorPos X="52" Y="15"/>
         <TopLine Value="1"/>
         <EditorIndex Value="2"/>
         <UsageCount Value="200"/>
@@ -225,7 +222,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="cu_planet"/>
         <CursorPos X="21" Y="197"/>
-        <TopLine Value="6"/>
+        <TopLine Value="171"/>
         <EditorIndex Value="3"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
