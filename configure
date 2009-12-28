@@ -1,6 +1,6 @@
 #!/bin/bash 
 #
-# create freepascal Makefile to build skychart
+# create freepascal Makefile to build virtualmoon
 #
 # syntaxe :
 #    ./configure [fpcbin=path_to_fpc_binaries] [fpc=path_to_fpc_units]  [lazarus=path_to_lazarus] [prefix=install_path] [target=fpcmake_target]
