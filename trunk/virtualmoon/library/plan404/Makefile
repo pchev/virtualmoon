@@ -1,7 +1,7 @@
 # Common flags
 CC            = gcc
 #CFLAGS        = -O3 -ffast-math (fast-math removed for better compatibility )
-CFLAGS        = -O3
+CFLAGS        = -O3 -fPIC
 OSTYPE = $(shell uname)
 ifneq ($(findstring Darwin,$(OSTYPE)),)
 SO_Name       = libplan404.dylib
@@ -11,6 +11,10 @@ SO_Name       = libplan404.so
 LIBFLAGS      = -shared -WL,-soname,$(SO_Name) -lc -lm
 endif
 ifneq ($(findstring W32,$(OSTYPE)),)
+SO_Name       = libplan404.dll
+LIBFLAGS      = -shared -WL,-soname,$(SO_Name)  -lm
+endif
+ifneq ($(findstring MINGW,$(OSTYPE)),)
 SO_Name       = libplan404.dll
 LIBFLAGS      = -shared -WL,-soname,$(SO_Name)  -lm
 endif
