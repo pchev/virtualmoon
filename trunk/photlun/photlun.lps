@@ -2,12 +2,12 @@
 <CONFIG>
   <ProjectSession>
     <Version Value="7"/>
-    <Units Count="58">
+    <Units Count="59">
       <Unit0>
         <Filename Value="photlun.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="photlun"/>
-        <CursorPos X="57" Y="28"/>
+        <CursorPos X="39" Y="11"/>
         <TopLine Value="1"/>
         <EditorIndex Value="5"/>
         <UsageCount Value="65"/>
@@ -19,8 +19,8 @@
         <ComponentName Value="f_photlun"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photlun"/>
-        <CursorPos X="54" Y="954"/>
-        <TopLine Value="946"/>
+        <CursorPos X="26" Y="38"/>
+        <TopLine Value="28"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="65"/>
         <Bookmarks Count="1">
@@ -35,8 +35,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photo"/>
-        <CursorPos X="48" Y="124"/>
-        <TopLine Value="118"/>
+        <CursorPos X="29" Y="125"/>
+        <TopLine Value="14"/>
         <EditorIndex Value="2"/>
         <UsageCount Value="41"/>
         <Loaded Value="True"/>
@@ -409,13 +409,21 @@
         <Filename Value="../../../pch/lazarus/lcl/include/scrollbar.inc"/>
         <CursorPos X="1" Y="164"/>
         <TopLine Value="147"/>
-        <EditorIndex Value="1"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit57>
+      <Unit58>
+        <Filename Value="u_bitmap.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_bitmap"/>
+        <CursorPos X="26" Y="32"/>
+        <TopLine Value="17"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit58>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="0"/>
+      <ActiveEditorIndexAtStart Value="5"/>
     </General>
     <JumpHistory Count="29" HistoryIndex="28">
       <Position1>

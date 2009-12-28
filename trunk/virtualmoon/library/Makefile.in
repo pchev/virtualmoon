@@ -1,0 +1,22 @@
+#
+#   Makefile.fpc for CDClibrary 0.0
+#
+
+[package]
+name=vmalibrary
+version=0.0
+
+[rules]
+.PHONY: all
+
+all: 
+ifeq ($(OS_TARGET),win32)
+else
+	$(MAKE) -C plan404 all
+endif
+
+clean:
+ifeq ($(OS_TARGET),win32)
+else
+	$(MAKE) -C plan404 clean
+endif
