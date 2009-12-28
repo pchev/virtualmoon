@@ -617,7 +617,7 @@ end;
 
 (*
 -- $Source: /cvsroot/libsql/libsql/libodbc32.pas,v $ 
--- $Revision: 474 $ $Date: 2006-05-21 21:14:11 +0200 (dim., 21 mai 2006) $ $Author: pchev $ 
+-- $Revision: 474 $ $Date: 2006-05-21 21:14:11 +0200 (dim 21 mai 2006) $ $Author: pchev $ 
 -- See end of file for Copyright (c) information.
 
 with Win32.Sql;
