@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses
-  elp82main,    // elp82 statically linked
   uDE,          // JPL ephemeris
   u_constant, u_util, u_projection,
   Classes, Sysutils, Math;
@@ -59,11 +58,6 @@ type
   end;
 
 implementation
-
-const
-//    Dates limits elp82
-      elp82t1 = 2415020.5;       // From : JD2415020.5d0 (1 Jan 1900 0h)
-      elp82t2 = 2487980.5;       // To   : JD2487980.5d0 (4 Oct 2099 0h)
 
 constructor TPlanet.Create(AOwner:TComponent);
 begin
@@ -170,11 +164,6 @@ if highprec then begin
      Calc_Planet_de(t0, 10, planet_arr,false,3,false);
      for i:=0 to 2 do w[i+1]:=planet_arr[i];
      result:='DE'+inttostr(de_type);
-   end
-   else if (t0>elp82t1) and (t0<elp82t2) then begin   // use ELP82
-     prec:=0;
-     ELP82B(t0,prec,w,i);
-     result:='ELP82';
    end
    else begin
       result:=Moon(t0,alpha,delta,dist,dkm,diam,phase,illum,false);
