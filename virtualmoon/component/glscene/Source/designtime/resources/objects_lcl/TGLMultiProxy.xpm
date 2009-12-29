@@ -1,0 +1,38 @@
+/* XPM */
+static char *TGLMultiProxy[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 16 1",
+"  c #040204",
+". c #848284",
+"X c #04FEFC",
+"o c #0402FC",
+"O c #C4C2C4",
+"+ c #990B00",
+"@ c #833E00",
+"# c #7C7700",
+"$ c #186968",
+"% c #9F0EF1",
+"& c #803E17",
+"* c #7C7700",
+"= c #FF004A",
+"- c #FF0002",
+"; c #FF002D",
+": c red",
+/* pixels */
+"OOOoOOOOOOOOOOOO",
+"OOoooOOOOOOOOOOO",
+"OooXooOOOOOOOOOO",
+"ooXXXooOOOOOOOOO",
+"oooXoooOOOOOOOOO",
+"OOOOOOOOOOOOoOOO",
+"OOO OOOOOOOoooOO",
+"OOO OO OOOooXooO",
+"OOO     OooXXXoo",
+"OOO OO OOoooXooo",
+"OOO OOOOOOOOOOOO",
+"OOO OOOOOOO.o.OO",
+"OOO OO OOO.ooo.O",
+"OOO     O.ooXoo.",
+"OOOOOO OOooXoXoo",
+"OOOOOOOOOoooXooo"
+};
