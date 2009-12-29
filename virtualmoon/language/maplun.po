@@ -1138,3 +1138,7 @@ msgstr ""
 msgid "http://ap-i.net/avl/en/download"
 msgstr ""
 
+#: u_translation:rscaption
+msgid "Caption"
+msgstr ""
+

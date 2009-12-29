@@ -23,6 +23,10 @@ msgstr "Realce de aerógrafo con albedo"
 msgid "Airbursh relief without albedo"
 msgstr "Realce de aerógrafo sin albedo"
 
+#: u_translation.rscaption
+msgid "Caption"
+msgstr ""
+
 #: u_translation.rscheckforopti
 msgid "Check for optional features"
 msgstr "Comprobar características opcionales"
@@ -41,7 +45,7 @@ msgstr "Por defecto"
 
 #: u_translation.rsdegree
 msgid "d"
-msgstr"°"
+msgstr ""
 
 #: u_translation.rsdownload
 msgid "Download"

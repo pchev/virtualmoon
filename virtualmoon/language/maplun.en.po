@@ -23,6 +23,10 @@ msgstr ""
 msgid "Airbursh relief without albedo"
 msgstr ""
 
+#: u_translation.rscaption
+msgid "Caption"
+msgstr ""
+
 #: u_translation.rscheckforopti
 msgid "Check for optional features"
 msgstr ""

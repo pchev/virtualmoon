@@ -463,9 +463,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 39
+            Height = 40
             Top = 0
-            Width = 26
+            Width = 27
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -1206,7 +1206,7 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 46
+          ClientHeight = 64
           ClientWidth = 234
           Columns = 2
           Items.Strings = (
@@ -1413,7 +1413,7 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 304
+        ClientHeight = 307
         ClientWidth = 249
         TabOrder = 6
         Visible = False
@@ -1718,7 +1718,7 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 20
+          ClientHeight = 38
           ClientWidth = 222
           Columns = 2
           Items.Strings = (
@@ -1994,7 +1994,7 @@ object Form1: TForm1
         Top = 372
         Width = 204
         Caption = 'Options valid at next startup'
-        ClientHeight = 50
+        ClientHeight = 53
         ClientWidth = 200
         TabOrder = 4
         object CheckBox8: TCheckBox
