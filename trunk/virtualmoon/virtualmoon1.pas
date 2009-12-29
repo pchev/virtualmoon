@@ -3226,7 +3226,7 @@ try
     sidelist := savesidelist;
     Combobox3.ItemIndex := 0;
     currentphase := -999;
-    moon1.CenterAt(0,0);
+    moon1.CenterAt(99999, 99999);
   end;
   moon1.GLSceneViewer1.Visible:=true;
   Application.ProcessMessages;
@@ -3729,7 +3729,7 @@ end;
 procedure TForm1.ToolButton5Click(Sender: TObject);
 begin
   if activemoon.zoom = 1 then
-    activemoon.CenterAt(0, 0)
+    activemoon.CenterAt(99999, 99999)
   else
     activemoon.CenterMark;
 end;
@@ -5083,6 +5083,15 @@ if mf<>activemoon then begin
   showoverlay:=not (activemoon.Overlay='');
   overlayname:=activemoon.Overlay;
   overlaytr:=activemoon.OverlayTransparency;
+  if showoverlay and (overlayname<>'') and fileexists(Slash(activemoon.OverlayPath) + slash('caption') + overlayname) then begin
+     OverlayCaption1.Caption := remext(overlayname) + ' ' + rsCaption;
+     OverlayCaption2.Caption := OverlayCaption1.Caption;
+     OverlayCaption1.Visible := True;
+     OverlayCaption2.Visible := True;
+  end else begin
+     OverlayCaption1.Visible := False;
+     OverlayCaption2.Visible := False;
+  end;
   CurrentJD:=activemoon.JD;
   SetJDDate;
   RefreshMoonImage;
@@ -5156,14 +5165,14 @@ end;
 
 procedure TForm1.LoadOverlay(fn: string; transparent: single);
 begin
-  if showoverlay and fileexists(Slash(moon1.OverlayPath) + fn) then
+  if showoverlay and (fn<>'') and fileexists(Slash(moon1.OverlayPath) + fn) then
   begin
       activemoon.OverlayTransparency:=transparent;
       activemoon.OverlayTransparencyMethode:=0;
       activemoon.Overlay:=fn;
       if fileexists(Slash(activemoon.OverlayPath) + slash('caption') + fn) then
       begin
-        OverlayCaption1.Caption := remext(fn) + ' ' + 'Caption';
+        OverlayCaption1.Caption := remext(fn) + ' ' + rsCaption;
         OverlayCaption2.Caption := OverlayCaption1.Caption;
         OverlayCaption1.Visible := True;
         OverlayCaption2.Visible := True;

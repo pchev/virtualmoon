@@ -411,6 +411,7 @@ with GLMaterialLibrary1 do begin
         Material.Texture.ImageAlpha:=tiaOpaque;
         Material.Texture.TextureWrap:=twNone;
         Material.Texture.TextureMode:=tmModulate;
+        Material.Texture.MinFilter:=miNearest;
        end;
     end;
 end;
@@ -2090,6 +2091,8 @@ procedure Tf_moon.CenterAt(lon,lat:single);
 var x,y,z: single;
     sl,cl,sb,cb: single;
 begin
+if lon>10000 then lon:=-FLibrLon;
+if lat>10000 then lat:=FLibrLat;
 if VisibleSideLock then begin
   if Moon2World(lon,lat,x,y,z) then begin
      GLCamera1.Position.X:=x;
