@@ -11,7 +11,8 @@ version=0.0
 [target]
 dirs=libsql \
      uniqueinstance \
-     enhedits
+     enhedits \
+     glscene/Lazarus
 units=vmacomponents.pas
 
 [compiler]
@@ -50,5 +51,5 @@ export LCL_PLATFORM
 [rules]
 .PHONY: all
 
-all: libsql_all uniqueinstance_all enhedits_all vmacomponents$(PPUEXT)
+all: libsql_all uniqueinstance_all enhedits_all glscene/Lazarus_all vmacomponents$(PPUEXT)
 

@@ -16,7 +16,7 @@
     </CompilerOptions>
     <Description Value="Requires packages for Virtual Moon Atlas"/>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="4">
+    <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="libsql"/>
         <DefaultFilename Value="libsql/libsql.lpk"/>
@@ -33,6 +33,10 @@
         <PackageName Value="uniqueinstance_package"/>
         <DefaultFilename Value="uniqueinstance/uniqueinstance_package.lpk"/>
       </Item4>
+      <Item5>
+        <PackageName Value="glscenelazarus"/>
+        <DefaultFilename Value="glscene/Lazarus/glscenelazarus.lpk"/>
+      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)/"/>

@@ -1,0 +1,38 @@
+/* XPM */
+static char *TGLProxyObject[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 16 1",
+"  c #040204",
+". c #04FEFC",
+"X c #0402FC",
+"o c #C4C2C4",
+"O c #F3471E",
+"+ c #990B00",
+"@ c #833E00",
+"# c #7C7700",
+"$ c #186968",
+"% c #9F0EF1",
+"& c #803E17",
+"* c #7C7700",
+"= c #FF004A",
+"- c #FF0002",
+"; c #FF002D",
+": c red",
+/* pixels */
+"oooooooooooooooo",
+"oooXoooooooooooo",
+"ooXXXooooooooooo",
+"oXX.XXoooooooooo",
+"XX...XXooooooooo",
+"XXX.XXXooooooooo",
+"oooooooooooooooo",
+"oo ooooooooooooo",
+"o   oooooooooooo",
+"oo oooooooooXooo",
+"oo ooooooooXXXoo",
+"oo ooo oooXX.XXo",
+"oo      oXX...XX",
+"oooooo ooXXX.XXX",
+"oooooooooooooooo",
+"oooooooooooooooo"
+};
