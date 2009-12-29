@@ -134,11 +134,9 @@ done
 echo
 echo You can now run make 
 echo then make install 
-echo and make install_data
 echo
 echo To crosscompile from Linux to Windows: 
 echo make OS_TARGET=win32 CPU_TARGET=i386
 echo make install_win
-echo make install_win_data
 echo
 
