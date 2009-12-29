@@ -40,7 +40,7 @@
         <PackageName Value="uniqueinstance_package"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="11">
+    <Units Count="12">
       <Unit0>
         <Filename Value="datlun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -116,6 +116,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="dbutil"/>
       </Unit10>
+      <Unit11>
+        <Filename Value="u_constant.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_constant"/>
+      </Unit11>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

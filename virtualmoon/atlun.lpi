@@ -8,7 +8,7 @@
       <TargetFileExt Value=".exe"/>
       <Title Value="atlun"/>
       <Icon Value="0"/>
-      <ActiveEditorIndexAtStart Value="5"/>
+      <ActiveEditorIndexAtStart Value="4"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -210,7 +210,7 @@
         <Filename Value="u_constant.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_constant"/>
-        <CursorPos X="31" Y="42"/>
+        <CursorPos X="56" Y="27"/>
         <TopLine Value="20"/>
         <EditorIndex Value="4"/>
         <UsageCount Value="200"/>
@@ -314,7 +314,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="25" Y="2094"/>
+        <CursorPos X="48" Y="2091"/>
         <TopLine Value="2084"/>
         <EditorIndex Value="5"/>
         <UsageCount Value="200"/>
