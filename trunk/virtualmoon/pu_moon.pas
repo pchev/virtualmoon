@@ -847,7 +847,6 @@ if FBumpOk and (value<>FBumpmap) then begin
           exit;
         end;
         i:=i div 2;
-        if i>2 then i:=2;
         retry:=true;
         if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'Bumpmap size reduced to '+inttostr(i)+'k');
       end;

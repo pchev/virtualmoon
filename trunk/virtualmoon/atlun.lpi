@@ -314,12 +314,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="58" Y="867"/>
-        <TopLine Value="861"/>
+        <CursorPos X="1" Y="850"/>
+        <TopLine Value="828"/>
         <EditorIndex Value="5"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="2">
-          <Item0 X="1" Y="2097" ID="1"/>
+          <Item0 X="1" Y="2096" ID="1"/>
           <Item1 X="1" Y="408" ID="3"/>
         </Bookmarks>
         <Loaded Value="True"/>
@@ -990,7 +990,7 @@
         <CursorPos X="1" Y="303"/>
         <TopLine Value="291"/>
         <EditorIndex Value="6"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="96"/>
         <Loaded Value="True"/>
       </Unit123>
       <Unit124>
@@ -1006,7 +1006,7 @@
         <UnitName Value="u_translation_database"/>
         <CursorPos X="12" Y="14"/>
         <TopLine Value="1"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="96"/>
       </Unit125>
       <Unit126>
         <Filename Value="..\..\skychart\skychart\component\uniqueinstance\registeruniqueinstance.pas"/>
@@ -1160,7 +1160,7 @@
         <UnitName Value="pu_features"/>
         <CursorPos X="55" Y="74"/>
         <TopLine Value="49"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
       </Unit147>
       <Unit148>
         <Filename Value="..\..\cdc\skychart\component\uniqueinstance\uniqueinstance.pas"/>
