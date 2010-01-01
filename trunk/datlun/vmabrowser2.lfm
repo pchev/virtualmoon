@@ -9,8 +9,9 @@ object Selection: TSelection
   ClientWidth = 582
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
+  OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '0.9.29'
+  LCLVersion = '0.9.28.3'
   object PageControl1: TPageControl
     Left = 16
     Height = 336

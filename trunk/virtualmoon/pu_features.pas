@@ -17,6 +17,7 @@ type
     Label1: TLabel;
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -63,6 +64,13 @@ end;
 procedure Tf_features.Button1Click(Sender: TObject);
 begin
   ExecuteFile(rsDownloadURL);
+end;
+
+procedure Tf_features.FormCreate(Sender: TObject);
+begin
+{$ifdef mswindows}
+ ScaleForm(self,Screen.PixelsPerInch/96);
+{$endif}
 end;
 
 function Tf_features.CheckOptionalFeature(optlist:Tstrings): boolean;

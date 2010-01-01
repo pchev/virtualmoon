@@ -237,6 +237,9 @@ end;
 procedure TLoadCSV.FormCreate(Sender: TObject);
 var i: integer;
 begin
+{$ifdef mswindows}
+ScaleForm(self,Screen.PixelsPerInch/96);
+{$endif}
 Mlb:=TMlb2.Create;
 for i:= 1 to maxcol do fieldmode[i]:=0;
 Tabsheet2.TabVisible:=false;

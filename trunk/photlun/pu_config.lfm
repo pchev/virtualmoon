@@ -10,22 +10,22 @@ object f_config: Tf_config
   ClientWidth = 444
   OnCreate = FormCreate
   OnShow = FormShow
+  LCLVersion = '0.9.28.3'
   object StringGrid1: TStringGrid
+    Left = 0
     Height = 243
     Top = 40
     Width = 444
     Align = alClient
     ColCount = 3
-    FixedColor = clBtnFace
     FixedCols = 0
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor, goSmoothScroll]
     RowCount = 11
-    ScrollBars = ssAutoBoth
     TabOrder = 0
-    TabStop = True
     OnSelectCell = StringGrid1SelectCell
   end
   object PanelBottom: TPanel
+    Left = 0
     Height = 34
     Top = 283
     Width = 444
@@ -55,7 +55,9 @@ object f_config: Tf_config
     end
   end
   object PanelTop: TPanel
+    Left = 0
     Height = 40
+    Top = 0
     Width = 444
     Align = alTop
     ClientHeight = 40
@@ -63,9 +65,9 @@ object f_config: Tf_config
     TabOrder = 2
     object Label1: TLabel
       Left = 13
-      Height = 14
+      Height = 16
       Top = 12
-      Width = 71
+      Width = 76
       Caption = 'Image folders:'
       ParentColor = False
     end

@@ -81,6 +81,7 @@ type
     procedure Button11Click(Sender: TObject);
     procedure Button13Click(Sender: TObject);
     procedure fieldlistSelect(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
     procedure ExpertModeClick(Sender: TObject);
@@ -177,6 +178,13 @@ begin
   sel.SetFocus;
   sel.SelStart:=length(sel.Text);
   sel.SelLength:=sel.SelStart;
+end;
+
+procedure TSelection.FormCreate(Sender: TObject);
+begin
+  {$ifdef mswindows}
+  ScaleForm(self,Screen.PixelsPerInch/96);
+  {$endif}
 end;
 
 procedure TSelection.CheckListBox1ClickCheck(Sender: TObject);

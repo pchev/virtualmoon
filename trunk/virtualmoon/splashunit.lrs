@@ -8,10 +8,10 @@ LazarusResources.Add('Tsplash','FORMDATA',[
   +#9'FormStyle'#7#11'fsStayOnTop'#7'OnClick'#7#14'Image1DblClick'#7'OnClose'#7
   +#9'FormClose'#12'OnCloseQuery'#7#14'FormCloseQuery'#8'OnCreate'#7#10'FormCre'
   +'ate'#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenCenter'#10'LCLVersion'
-  +#6#6'0.9.29'#0#6'TPanel'#6'Panel1'#4'Left'#2#0#6'Height'#3'^'#1#3'Top'#2#0#5
-  +'Width'#3#144#1#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3'^'#1#11'Client'
-  +'Width'#3#144#1#8'TabOrder'#2#0#0#6'TImage'#6'Image1'#4'Left'#2#0#6'Height'#3
-  +','#1#3'Top'#2#0#5'Width'#3#144#1#8'AutoSize'#9#6'Center'#9#7'OnClick'#7#14
+  +#6#8'0.9.28.3'#0#6'TPanel'#6'Panel1'#4'Left'#2#0#6'Height'#3'^'#1#3'Top'#2#0
+  +#5'Width'#3#144#1#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3'^'#1#11'Clie'
+  +'ntWidth'#3#144#1#8'TabOrder'#2#0#0#6'TImage'#6'Image1'#4'Left'#2#0#6'Height'
+  +#3','#1#3'Top'#2#0#5'Width'#3#144#1#8'AutoSize'#9#6'Center'#9#7'OnClick'#7#14
   +'Image1DblClick'#12'Picture.Data'#10'R='#0#0#10'TJpegImageC='#0#0#255#216#255
   +#224#0#16'JFIF'#0#1#1#0#1','#1','#0#0#255#219#0'C'#0#8#6#6#7#6#5#8#7#7#7#9#9
   +#8#10#12#20#13#12#11#11#12#25#18#19#15#20#29#26#31#30#29#26#28#28' $.'' ",#'
@@ -666,7 +666,7 @@ LazarusResources.Add('Tsplash','FORMDATA',[
   +#159'oav'#248#146'b'#160'~'#145'Qt'#214'%'#193#192#207#158'9'#171#134#157#209
   +'2'#15#222#130';'#166#223'Wh'#3#203#206#137#166#218'M'#151'd'#27#188#186'Q'
   +#165'b'#187#206#11#19#214#177#154'gH'#134#220#12#154#15#255#217#7'Stretch'#9
-  +#0#0#6'TLabel'#6'Label1'#4'Left'#2#0#6'Height'#2'('#3'Top'#2#0#5'Width'#3#144
+  +#0#0#6'TLabel'#6'Label1'#4'Left'#2#0#6'Height'#2'%'#3'Top'#2#0#5'Width'#3#144
   +#1#5'Align'#7#5'alTop'#9'Alignment'#7#8'taCenter'#7'Caption'#6#18'Virtual Mo'
   +'on Atlas'#10'Font.Color'#4#192#192#0#0#11'Font.Height'#2#224#9'Font.Name'#6
   +#15'Times New Roman'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'Pare'
@@ -675,8 +675,8 @@ LazarusResources.Add('Tsplash','FORMDATA',[
   +#8'taCenter'#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#8'AutoSize'#8#7'C'
   +'aption'#6#14'Version - Date'#10'Font.Color'#4#192#192#0#0#11'Font.Height'#2
   +#243#9'Font.Name'#6#5'Arial'#11'ParentColor'#8#10'ParentFont'#8#7'OnClick'#7
-  +#14'Image1DblClick'#0#0#6'TLabel'#6'Label3'#4'Left'#2#0#6'Height'#2'^'#3'Top'
-  +#3#0#1#5'Width'#3#144#1#5'Align'#7#8'alBottom'#9'Alignment'#7#8'taCenter'#7
+  +#14'Image1DblClick'#0#0#6'TLabel'#6'Label3'#4'Left'#2#0#6'Height'#2'O'#3'Top'
+  +#3#15#1#5'Width'#3#144#1#5'Align'#7#8'alBottom'#9'Alignment'#7#8'taCenter'#7
   +'Caption'#12'D'#1#0#0'Copyright '#194#169' 2001-2009  Christian Legrand, Pat'
   +'rick Chevalley, '#10'All rights reserved'#13#10'This program is free softwa'
   +'re; you can redistribute it and/or'#10'modify it under the terms of the GNU'
@@ -685,20 +685,20 @@ LazarusResources.Add('Tsplash','FORMDATA',[
   +'ctive owner.'#5'Color'#7#7'clBlack'#10'Font.Color'#4#224#224#0#0#11'Font.He'
   +'ight'#2#245#10'Font.Pitch'#7#10'fpVariable'#10'Font.Style'#11#8'fsItalic'#0
   +#11'ParentColor'#8#10'ParentFont'#8#11'Transparent'#8#7'OnClick'#7#14'Image1'
-  +'DblClick'#0#0#6'TLabel'#6'Label4'#4'Left'#2#0#6'Height'#2#14#3'Top'#3#242#0
-  +#5'Width'#3#144#1#5'Align'#7#8'alBottom'#9'Alignment'#7#8'taCenter'#8'AutoSi'
-  +'ze'#8#7'Caption'#6'0Virtual Moon Atlas  http://www.astrosurf.com/avl'#5'Col'
-  +'or'#7#7'clBlack'#10'Font.Color'#4#224#224#0#0#11'Font.Height'#2#245#10'Font'
-  +'.Style'#11#8'fsItalic'#0#11'ParentColor'#8#10'ParentFont'#8#11'Transparent'
-  +#8#7'OnClick'#7#14'Image1DblClick'#0#0#0#6'TPanel'#6'Panel2'#4'Left'#2#0#6'H'
-  +'eight'#2'd'#3'Top'#3'^'#1#5'Width'#3#144#1#5'Align'#7#8'alBottom'#10'BevelO'
-  +'uter'#7#6'bvNone'#12'ClientHeight'#2'd'#11'ClientWidth'#3#144#1#5'Color'#7#7
-  +'clBlack'#11'ParentColor'#8#8'TabOrder'#2#1#7'OnClick'#7#14'Image1DblClick'#0
-  +#6'TLabel'#6'Label5'#4'Left'#2#8#6'Height'#2'`'#3'Top'#2#0#5'Width'#3#128#1#8
-  +'AutoSize'#8#5'Color'#7#7'clBlack'#10'Font.Color'#4#224#224#0#0#11'Font.Heig'
-  +'ht'#2#245#9'Font.Name'#6#5'Arial'#11'ParentColor'#8#10'ParentFont'#8#13'Sho'
-  +'wAccelChar'#8#11'Transparent'#8#7'OnClick'#7#14'Image1DblClick'#0#0#0#6'TTi'
-  +'mer'#6'Timer1'#7'Enabled'#8#8'Interval'#3#208#7#7'OnTimer'#7#11'Timer1Timer'
-  +#4'left'#2#8#3'top'#2'H'#0#0#6'TTimer'#6'Timer2'#7'Enabled'#8#8'Interval'#2
-  +'P'#7'OnTimer'#7#11'Timer2Timer'#4'left'#2#8#3'top'#3#136#0#0#0#0
+  +'DblClick'#0#0#6'TLabel'#6'Label4'#4'Left'#2#0#6'Height'#2#14#3'Top'#3#1#1#5
+  +'Width'#3#144#1#5'Align'#7#8'alBottom'#9'Alignment'#7#8'taCenter'#8'AutoSize'
+  +#8#7'Caption'#6'0Virtual Moon Atlas  http://www.astrosurf.com/avl'#5'Color'#7
+  +#7'clBlack'#10'Font.Color'#4#224#224#0#0#11'Font.Height'#2#245#10'Font.Style'
+  +#11#8'fsItalic'#0#11'ParentColor'#8#10'ParentFont'#8#11'Transparent'#8#7'OnC'
+  +'lick'#7#14'Image1DblClick'#0#0#0#6'TPanel'#6'Panel2'#4'Left'#2#0#6'Height'#2
+  +'d'#3'Top'#3'^'#1#5'Width'#3#144#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6
+  +'bvNone'#12'ClientHeight'#2'd'#11'ClientWidth'#3#144#1#5'Color'#7#7'clBlack'
+  +#11'ParentColor'#8#8'TabOrder'#2#1#7'OnClick'#7#14'Image1DblClick'#0#6'TLabe'
+  +'l'#6'Label5'#4'Left'#2#8#6'Height'#2'`'#3'Top'#2#0#5'Width'#3#128#1#8'AutoS'
+  +'ize'#8#5'Color'#7#7'clBlack'#10'Font.Color'#4#224#224#0#0#11'Font.Height'#2
+  +#245#9'Font.Name'#6#5'Arial'#11'ParentColor'#8#10'ParentFont'#8#13'ShowAccel'
+  +'Char'#8#11'Transparent'#8#7'OnClick'#7#14'Image1DblClick'#0#0#0#6'TTimer'#6
+  +'Timer1'#7'Enabled'#8#8'Interval'#3#208#7#7'OnTimer'#7#11'Timer1Timer'#4'lef'
+  +'t'#2#8#3'top'#2'H'#0#0#6'TTimer'#6'Timer2'#7'Enabled'#8#8'Interval'#2'P'#7
+  +'OnTimer'#7#11'Timer2Timer'#4'left'#2#8#3'top'#3#136#0#0#0#0
 ]);
