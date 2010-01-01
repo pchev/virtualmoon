@@ -2846,7 +2846,7 @@ MsgZoom: begin
 MsgPerf: begin
           Label15.Caption := rsm_44 + blank + value;
          end;
-   else  statusbar1.Panels[3].Text := value;
+   else  statusbar1.Panels[4].Text := value;
 end;
 end;
 

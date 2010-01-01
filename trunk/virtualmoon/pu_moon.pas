@@ -816,6 +816,7 @@ end;
 
 procedure Tf_moon.SetBumpmap(value: boolean);
 var i: integer;
+    retry:boolean;
 begin
 if FBumpOk and (value<>FBumpmap) then begin
   FBumpmap:=value;
@@ -832,10 +833,22 @@ if FBumpOk and (value<>FBumpmap) then begin
       else if i>=2 then i:=2
       else i:=1;
     end;
-    BumpMaterialLibrary.Materials[0].Material.Texture.Image.LoadFromFile(slash(FBumpPath)+'normal'+inttostr(i)+'k.jpg');
-    BumpMaterialLibrary.Materials[1].Material.Texture.Image.LoadFromFile(slash(FBumpPath)+'map'+inttostr(i)+'k.jpg');
-    GLSphereMoon.Material.MaterialLibrary:=BumpMaterialLibrary;
-    GLSphereMoon.Material.LibMaterialName:='Bump';
+    if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'Using bumpmap size '+inttostr(i)+'k');
+    repeat
+      retry:=false;
+      try
+      BumpMaterialLibrary.Materials[0].Material.Texture.Image.LoadFromFile(slash(FBumpPath)+'normal'+inttostr(i)+'k.jpg');
+      BumpMaterialLibrary.Materials[1].Material.Texture.Image.LoadFromFile(slash(FBumpPath)+'map'+inttostr(i)+'k.jpg');
+      GLSphereMoon.Material.MaterialLibrary:=BumpMaterialLibrary;
+      GLSphereMoon.Material.LibMaterialName:='Bump';
+      except
+        if i=1 then exit;
+        i:=i div 2;
+        if i>2 then i:=2;
+        retry:=true;
+        if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'Bumpmap size reduced to '+inttostr(i)+'k');
+      end;
+    until not retry;
     if GLBumpShader1.BumpMethod=bmBasicARBFP then
        GLLightSource1.ConstAttenuation:=0.8
     else
