@@ -864,6 +864,7 @@ if FBumpOk and (value<>FBumpmap) then begin
     else MaxZoom:=2;
     if GLCamera1.SceneScale>MaxZoom then SetZoomLevel(MaxZoom);
   end else begin
+    if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'');
     LoadSlice(zone);
     GLSphereMoon.Material.MaterialLibrary:=GLMultiMaterialLibrary;
     GLSphereMoon.Material.LibMaterialName:='MultiMaterial';
