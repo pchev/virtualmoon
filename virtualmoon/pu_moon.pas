@@ -833,7 +833,7 @@ if FBumpOk and (value<>FBumpmap) then begin
       else if i>=2 then i:=2
       else i:=1;
     end;
-    if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'Using bumpmap size '+inttostr(i)+'k');
+    if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,rsPhaseWithDyn+', '+rsm_57+blank+inttostr(i)+'k');
     repeat
       retry:=false;
       try
@@ -842,7 +842,10 @@ if FBumpOk and (value<>FBumpmap) then begin
       GLSphereMoon.Material.MaterialLibrary:=BumpMaterialLibrary;
       GLSphereMoon.Material.LibMaterialName:='Bump';
       except
-        if i=1 then exit;
+        if i=1 then begin
+          if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'Cannot load bumpmap');
+          exit;
+        end;
         i:=i div 2;
         if i>2 then i:=2;
         retry:=true;
