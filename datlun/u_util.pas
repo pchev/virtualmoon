@@ -32,7 +32,7 @@ Windows, ShellAPI,
 {$ifdef unix}
 unix,baseunix,unixutil,
 {$endif}
-Math, Printers, u_constant,
+Math, Printers, u_constant, Grids,
 LCLIntf, SysUtils, Classes, Graphics, Controls, Forms, Dialogs;
 
 Function DEToStr(de: Double) : string;
@@ -60,6 +60,11 @@ procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=true);
 Function Slash(nom : string) : string;
 Function NoSlash(nom : string) : string;
 Procedure ShowHelpDoc(helpfile : string; suffix:string; directory: string);
+{$ifdef win32}
+procedure ScaleForm(form: TForm; scale: single);
+function FindWin98: boolean;
+function ScreenBPP: integer;
+{$endif}
 
 var  hp: string;
 
@@ -592,6 +597,54 @@ if not fileexists(fn) then begin
 end;
 ExecuteFile(fn);
 end;
+
+{$ifdef win32}
+function FindWin98: boolean;
+var lpversioninfo: TOSVERSIONINFO;
+begin
+lpversioninfo.dwOSVersionInfoSize:=sizeof(TOSVERSIONINFO);
+if GetVersionEx(lpversioninfo) then begin
+   result:=lpversioninfo.dwMajorVersion<=4;
+end
+else
+ result:=false;
+end;
+
+function ScreenBPP: integer;
+var screendc: HDC;
+begin
+screendc:=GetDC(0);
+result:=GetDeviceCaps(screendc,BITSPIXEL);
+ReleaseDC(0,screendc);
+end;
+
+procedure ScaleForm(form: TForm; scale: single);
+var i,j: integer;
+begin
+if scale<=0 then exit; // must not arise but we don't know what a strange screen can do
+if scale>3 then exit; // >288 dpi! sure?
+if abs(1-scale)<=0.1 then exit; // do not scale for 10%
+with form do begin
+   width := round( width * scale );
+   height := round( height * scale );
+   for i := 0 to ComponentCount-1 do begin
+      if ( Components[i] is TControl ) then with (Components[i] as TControl) do begin
+         width := round( width * scale );
+         height := round( height * scale );
+         top := round( top * scale );
+         left := round( left * scale );
+      end;
+      if ( Components[i] is TStringGrid ) then with (Components[i] as TStringGrid) do begin
+        DefaultColWidth:=round( DefaultColWidth*scale );
+        DefaultRowHeight:=round( DefaultRowHeight*scale );
+        for j:=0 to ColCount-1 do begin
+          ColWidths[j]:=round( ColWidths[j]*scale );
+        end;
+      end;
+   end;
+end;
+end;
+{$endif}
 
 end.
 

@@ -885,7 +885,6 @@ begin
   ObsCountry:='FR';
   ObsTZ    := 'Europe/Paris';
   Obsaltitude := 0;
-  ToolsWidth:=300;
   phaseeffect := True;
   librationeffect := True;
   geocentric := False;
@@ -2666,7 +2665,7 @@ begin
   djd(lqjd + (GetJDTimeZone(lqjd) - DT_UT) / 24, aa, mm, dd, hh);
   labellq.Caption := date2str(aa, mm, dd) + ' ' + timmtostr(hh);
 
-  Stringgrid1.colwidths[1] := 150;
+ // Stringgrid1.colwidths[1] := 150;
   i := 0;
   Stringgrid1.Cells[0, i] := rsEphemeris;
   Stringgrid1.Cells[1, i] := eph;
@@ -2956,6 +2955,11 @@ begin
   UniqueInstance1.OnInstanceRunning:=InstanceRunning;
   UniqueInstance1.Enabled:=true;
   UniqueInstance1.Loaded;
+  ToolsWidth:=300;
+  {$ifdef mswindows}
+  ScaleForm(self,Screen.PixelsPerInch/96);
+  ToolsWidth:=round(ToolsWidth*Screen.PixelsPerInch/96);
+  {$endif}
   PageControl1.Align:=alRight;
   Splitter1.Align:=alRight;
   PanelMoon2.Align:=alLeft;

@@ -398,6 +398,9 @@ ThousandSeparator:=' ';
   UniqueInstance1.Enabled:=true;
   UniqueInstance1.Loaded;
 //{$endif}
+{$ifdef mswindows}
+ScaleForm(self,Screen.PixelsPerInch/96);
+{$endif}
 dbm:=TLiteDB.Create(self);
 GetAppDir;
 chdir(appdir);
@@ -487,8 +490,8 @@ Selection.fieldlist2.Items.Clear;
 if dbm.RowCount>0 then begin
   MoonGrid.ColCount:=dbm.ColCount-1;    // pas l'id
   MoonGrid.FixedCols:=2;
-  MoonGrid.ColWidths[0]:=30;
-  MoonGrid.ColWidths[1]:=150;
+  MoonGrid.ColWidths[0]:=round(0.3*MoonGrid.DefaultColWidth);
+  MoonGrid.ColWidths[1]:=round(1.5*MoonGrid.DefaultColWidth);
   for dbcol:=1 to MoonGrid.ColCount do begin
     MoonGrid.Cells[dbcol-1,0]:=dbm.GetField(dbcol);
     if dbcol<=26 then begin

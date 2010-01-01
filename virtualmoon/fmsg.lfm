@@ -13,8 +13,9 @@ object MsgForm: TMsgForm
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   FormStyle = fsStayOnTop
+  OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '0.9.28.2'
+  LCLVersion = '0.9.28.3'
   object Panel1: TPanel
     Left = 8
     Height = 59

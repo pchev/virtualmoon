@@ -5,7 +5,7 @@ unit pu_config;
 interface
 
 uses
-  u_translation,
+  u_translation, u_util,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Grids,
   StdCtrls, ExtCtrls;
 
@@ -51,14 +51,17 @@ end;
 
 procedure Tf_config.FormShow(Sender: TObject);
 begin
-  StringGrid1.ColWidths[0]:=64;
-  StringGrid1.ColWidths[1]:=64;
+  StringGrid1.ColWidths[0]:=StringGrid1.DefaultColWidth;
+  StringGrid1.ColWidths[1]:=StringGrid1.DefaultColWidth;
   StringGrid1.ColWidths[2]:=StringGrid1.ClientWidth-StringGrid1.ColWidths[0]-StringGrid1.ColWidths[1];
   StringGrid1.Selection := Rect(0,3,0,3);
 end;
 
 procedure Tf_config.FormCreate(Sender: TObject);
 begin
+  {$ifdef mswindows}
+  ScaleForm(self,Screen.PixelsPerInch/96);
+  {$endif}
   SetLang;
 end;
 

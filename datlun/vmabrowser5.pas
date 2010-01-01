@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses u_translation,
+uses u_translation, u_util,
   LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, CheckLst, LResources;
 
@@ -129,6 +129,9 @@ end;
 
 procedure TSelectDB.FormCreate(Sender: TObject);
 begin
+{$ifdef mswindows}
+ScaleForm(self,Screen.PixelsPerInch/96);
+{$endif}
 dblist:=TStringList.Create;
 end;
 

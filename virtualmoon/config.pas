@@ -349,6 +349,9 @@ var i,j,p : integer;
     fs : TSearchRec;
     ft : TextFile;
 begin
+{$ifdef mswindows}
+ ScaleForm(self,Screen.PixelsPerInch/96);
+{$endif}
 ov:=Tbitmap.Create;
 lockoverlay:=false;
 // hide developpement tools or not finished function

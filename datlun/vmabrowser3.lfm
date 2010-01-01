@@ -9,7 +9,8 @@ object Columns: TColumns
   ClientWidth = 319
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
-  LCLVersion = '0.9.29'
+  OnCreate = FormCreate
+  LCLVersion = '0.9.28.3'
   object CheckListBox1: TCheckListBox
     Left = 8
     Height = 448

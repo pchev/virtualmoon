@@ -16,7 +16,7 @@ object Gloss: TGloss
   LCLVersion = '0.9.28.3'
   object Edit1: TEdit
     Left = 280
-    Height = 24
+    Height = 21
     Top = 26
     Width = 153
     OnKeyDown = Edit1KeyDown
@@ -37,6 +37,7 @@ object Gloss: TGloss
     Top = 64
     Width = 209
     AutoExpand = True
+    DefaultItemHeight = 15
     HideSelection = False
     ReadOnly = True
     TabOrder = 2
@@ -64,9 +65,9 @@ object Gloss: TGloss
     TabOrder = 4
     object Label1: TLabel
       Left = 8
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 8
+      Width = 10
       Caption = 'A'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -77,9 +78,9 @@ object Gloss: TGloss
     end
     object Label2: TLabel
       Left = 19
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 8
+      Width = 10
       Caption = 'B'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -90,9 +91,9 @@ object Gloss: TGloss
     end
     object Label3: TLabel
       Left = 30
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 9
+      Width = 10
       Caption = 'C'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -103,9 +104,9 @@ object Gloss: TGloss
     end
     object Label5: TLabel
       Left = 53
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 8
+      Width = 10
       Caption = 'E'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -116,9 +117,9 @@ object Gloss: TGloss
     end
     object Label6: TLabel
       Left = 64
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 8
+      Width = 9
       Caption = 'F'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -129,9 +130,9 @@ object Gloss: TGloss
     end
     object Label4: TLabel
       Left = 42
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 9
+      Width = 11
       Caption = 'D'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -142,9 +143,9 @@ object Gloss: TGloss
     end
     object Label7: TLabel
       Left = 76
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 9
+      Width = 11
       Caption = 'G'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -155,9 +156,9 @@ object Gloss: TGloss
     end
     object Label8: TLabel
       Left = 87
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 9
+      Width = 11
       Caption = 'H'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -168,9 +169,9 @@ object Gloss: TGloss
     end
     object Label9: TLabel
       Left = 98
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 4
+      Width = 6
       Caption = 'I'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -181,9 +182,9 @@ object Gloss: TGloss
     end
     object Label10: TLabel
       Left = 110
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 7
+      Width = 8
       Caption = 'J'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -194,9 +195,9 @@ object Gloss: TGloss
     end
     object Label11: TLabel
       Left = 121
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 8
+      Width = 10
       Caption = 'K'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -207,9 +208,9 @@ object Gloss: TGloss
     end
     object Label12: TLabel
       Left = 132
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 7
+      Width = 9
       Caption = 'L'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -220,9 +221,9 @@ object Gloss: TGloss
     end
     object Label13: TLabel
       Left = 144
-      Height = 19
+      Height = 14
       Top = 8
-      Width = 10
+      Width = 12
       Caption = 'M'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -233,9 +234,9 @@ object Gloss: TGloss
     end
     object Label14: TLabel
       Left = 8
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 9
+      Width = 11
       Caption = 'N'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -246,9 +247,9 @@ object Gloss: TGloss
     end
     object Label15: TLabel
       Left = 19
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 10
+      Width = 11
       Caption = 'O'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -259,9 +260,9 @@ object Gloss: TGloss
     end
     object Label16: TLabel
       Left = 30
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 8
+      Width = 10
       Caption = 'P'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -272,9 +273,9 @@ object Gloss: TGloss
     end
     object Label17: TLabel
       Left = 42
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 10
+      Width = 11
       Caption = 'Q'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -285,9 +286,9 @@ object Gloss: TGloss
     end
     object Label18: TLabel
       Left = 53
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 9
+      Width = 11
       Caption = 'R'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -298,9 +299,9 @@ object Gloss: TGloss
     end
     object Label19: TLabel
       Left = 64
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 8
+      Width = 10
       Caption = 'S'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -311,9 +312,9 @@ object Gloss: TGloss
     end
     object Label20: TLabel
       Left = 76
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 8
+      Width = 10
       Caption = 'T'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -324,9 +325,9 @@ object Gloss: TGloss
     end
     object Label21: TLabel
       Left = 87
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 9
+      Width = 11
       Caption = 'U'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -337,9 +338,9 @@ object Gloss: TGloss
     end
     object Label22: TLabel
       Left = 98
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 8
+      Width = 10
       Caption = 'V'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -350,9 +351,9 @@ object Gloss: TGloss
     end
     object Label23: TLabel
       Left = 110
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 11
+      Width = 14
       Caption = 'W'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -363,9 +364,9 @@ object Gloss: TGloss
     end
     object Label24: TLabel
       Left = 121
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 8
+      Width = 10
       Caption = 'X'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -376,9 +377,9 @@ object Gloss: TGloss
     end
     object Label25: TLabel
       Left = 132
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 8
+      Width = 10
       Caption = 'Y'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -389,9 +390,9 @@ object Gloss: TGloss
     end
     object Label26: TLabel
       Left = 144
-      Height = 19
+      Height = 14
       Top = 24
-      Width = 8
+      Width = 10
       Caption = 'Z'
       Font.Height = -11
       Font.Name = 'MS Sans Serif'

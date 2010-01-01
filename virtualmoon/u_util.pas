@@ -1550,7 +1550,8 @@ ReleaseDC(0,screendc);
 end;
 
 procedure ScaleForm(form: TForm; scale: single);
-var i: integer;
+var i,j: integer;
+    w: array of integer;
 begin
 if scale<=0 then exit; // must not arise but we don't know what a strange screen can do
 if scale>3 then exit; // >288 dpi! sure?
@@ -1564,6 +1565,15 @@ with form do begin
          height := round( height * scale );
          top := round( top * scale );
          left := round( left * scale );
+      end;
+      if ( Components[i] is TStringGrid ) then with (Components[i] as TStringGrid) do begin
+        SetLength(w,ColCount);
+        for j:=0 to ColCount-1 do w[j]:=round( ColWidths[j]*scale );
+        DefaultColWidth:=round( DefaultColWidth*scale );
+        DefaultRowHeight:=round( DefaultRowHeight*scale );
+        for j:=0 to ColCount-1 do begin
+          ColWidths[j]:=w[j];
+        end;
       end;
    end;
 end;

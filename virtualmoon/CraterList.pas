@@ -28,14 +28,18 @@ uses
 {$ifdef mswindows}
   LCLIntf,
 {$endif}
-  Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  u_util, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, LResources;
 
 type
+
+  { Tf_craterlist }
+
   Tf_craterlist = class(TForm)
     CraterLst: TListBox;
     procedure CraterLstMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure FormCreate(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
   private
@@ -68,6 +72,13 @@ begin
      Firstsearch:=true;
      form1.SearchName(buf,true);
   end;
+end;
+
+procedure Tf_craterlist.FormCreate(Sender: TObject);
+begin
+{$ifdef mswindows}
+ ScaleForm(self,Screen.PixelsPerInch/96);
+{$endif}
 end;
 
 procedure Tf_craterlist.FormKeyUp(Sender: TObject; var Key: Word;

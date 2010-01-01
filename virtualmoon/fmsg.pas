@@ -24,14 +24,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
 interface
 
-uses
+uses u_util,
   Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, LResources;
 
 type
+
+  { TMsgForm }
+
   TMsgForm = class(TForm)
     Panel1: TPanel;
     Label1: TLabel;
+    procedure FormCreate(Sender: TObject);
   private
     { Déclarations privées }
   public
@@ -43,6 +47,15 @@ var
 
 implementation
 
+
+{ TMsgForm }
+
+procedure TMsgForm.FormCreate(Sender: TObject);
+begin
+{$ifdef mswindows}
+ ScaleForm(self,Screen.PixelsPerInch/96);
+{$endif}
+end;
 
 initialization
   {$i fmsg.lrs}
