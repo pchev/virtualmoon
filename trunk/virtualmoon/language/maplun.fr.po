@@ -1172,4 +1172,3 @@ msgstr "Votre installation est déjà complète avec toutes les options install�
 msgid "Zoom level"
 msgstr "Niveau de zoom"
 
-
