@@ -1,5 +1,5 @@
 object Form1: TForm1
-  Left = 406
+  Left = 412
   Height = 570
   Top = 135
   Width = 885
@@ -162,7 +162,7 @@ object Form1: TForm1
   OnResize = FormResize
   OnShow = FormShow
   Position = poDefaultPosOnly
-  LCLVersion = '0.9.28.3'
+  LCLVersion = '0.9.28.2'
   object Memo2: TMemo
     Left = 64
     Height = 41
@@ -392,8 +392,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 15
-    Top = 555
+    Height = 17
+    Top = 553
     Width = 885
     Panels = <    
       item
@@ -461,14 +461,14 @@ object Form1: TForm1
           Width = 374
           Align = alBottom
           Caption = 'Profile'
-          ClientHeight = 15
-          ClientWidth = 372
+          ClientHeight = 14
+          ClientWidth = 370
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 17
+            Height = 18
             Top = 0
-            Width = 3
+            Width = 4
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -505,7 +505,6 @@ object Form1: TForm1
         PrintSettings.MarginTop = 0.5
         PrintSettings.MarginRight = 0.5
         PrintSettings.MarginBottom = 0.5
-        TabOrder = 1
         OnHotClick = Desc1HotClick
       end
     end
@@ -1210,8 +1209,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 49
-          ClientWidth = 236
+          ClientHeight = 64
+          ClientWidth = 234
           Columns = 2
           Items.Strings = (
             'Nom'
@@ -1417,8 +1416,8 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 307
-        ClientWidth = 251
+        ClientHeight = 311
+        ClientWidth = 249
         TabOrder = 6
         Visible = False
         object Label4: TLabel
@@ -1722,8 +1721,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 23
-          ClientWidth = 224
+          ClientHeight = 38
+          ClientWidth = 222
           Columns = 2
           Items.Strings = (
             'nnnnnnnnnnn'
@@ -1998,8 +1997,8 @@ object Form1: TForm1
         Top = 372
         Width = 204
         Caption = 'Options valid at next startup'
-        ClientHeight = 53
-        ClientWidth = 202
+        ClientHeight = 57
+        ClientWidth = 200
         TabOrder = 4
         object CheckBox8: TCheckBox
           Left = 6

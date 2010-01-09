@@ -1,7 +1,7 @@
 object Gloss: TGloss
-  Left = 301
+  Left = 323
   Height = 266
-  Top = 130
+  Top = 124
   Width = 493
   ActiveControl = Panel1
   BorderStyle = bsSizeToolWin
@@ -13,10 +13,10 @@ object Gloss: TGloss
   KeyPreview = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '0.9.28.3'
+  LCLVersion = '0.9.28.2'
   object Edit1: TEdit
     Left = 280
-    Height = 21
+    Height = 28
     Top = 26
     Width = 153
     OnKeyDown = Edit1KeyDown
@@ -37,7 +37,6 @@ object Gloss: TGloss
     Top = 64
     Width = 209
     AutoExpand = True
-    DefaultItemHeight = 15
     HideSelection = False
     ReadOnly = True
     TabOrder = 2
@@ -424,7 +423,6 @@ object Gloss: TGloss
     PrintSettings.MarginTop = 0.5
     PrintSettings.MarginRight = 0.5
     PrintSettings.MarginBottom = 0.5
-    TabOrder = 6
     OnHotClick = Gloss1HotClick
   end
 end

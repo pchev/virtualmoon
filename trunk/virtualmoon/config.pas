@@ -214,7 +214,7 @@ type
   private
     countrycode: TStringList;
     ov: TBitmap;
-    lockoverlay: boolean;
+    lockoverlay,locktexture: boolean;
     savelibration : boolean;
     FPrinterDialog : TNotifyEvent;
     procedure UpdateTzList;
@@ -354,6 +354,7 @@ begin
 {$endif}
 ov:=Tbitmap.Create;
 lockoverlay:=false;
+locktexture:=false;
 // hide developpement tools or not finished function
 if not fileexists('version.developpement') then begin
   CheckBox12.Visible:=false;   // external image display
@@ -500,19 +501,22 @@ if Assigned(FPrinterDialog) then FPrinterDialog(self);
 end;
 
 procedure TForm2.showtexture;
-var i,j: integer;
+var i,j: smallint;
 begin
+locktexture:=true;
     for j:=0 to 3 do begin
       for i:=0 to TextureList.Count-1 do begin
-         if TextureList[i]=texturefn[j] then
+         if TextureList[i]=texturefn[j] then begin
            case j of
              0: RadioGroup3.ItemIndex:=i;
              1: RadioGroup4.ItemIndex:=i;
              2: RadioGroup5.ItemIndex:=i;
              3: RadioGroup6.ItemIndex:=i;
            end;
+         end;
       end;
     end;
+locktexture:=false;
 end;
 
 procedure TForm2.FormShow(Sender: TObject);
@@ -578,6 +582,7 @@ procedure TForm2.RadioGroupTextureClick(Sender: TObject);
 var i,j: integer;
     tex: string;
 begin
+if locktexture then exit;
 i:=(sender as TRadioGroup).ItemIndex;
 j:=(sender as TRadioGroup).Tag;
 if (i>=0)and(j>=0) then begin
