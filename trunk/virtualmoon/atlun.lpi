@@ -59,14 +59,16 @@
         <PackageName Value="LCL"/>
       </Item8>
     </RequiredPackages>
-    <Units Count="161">
+    <Units Count="162">
       <Unit0>
         <Filename Value="atlun.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="atlun"/>
-        <CursorPos X="52" Y="15"/>
+        <CursorPos X="55" Y="31"/>
         <TopLine Value="1"/>
+        <EditorIndex Value="2"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="imglistunit.pas"/>
@@ -85,7 +87,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
         <CursorPos X="40" Y="3336"/>
-        <TopLine Value="3314"/>
+        <TopLine Value="3289"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="3">
@@ -115,12 +117,10 @@
         <UnitName Value="config"/>
         <CursorPos X="26" Y="499"/>
         <TopLine Value="491"/>
-        <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
           <Item0 X="3" Y="522" ID="9"/>
         </Bookmarks>
-        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\..\lazarus\lcl\include\control.inc"/>
@@ -156,9 +156,7 @@
         <UnitName Value="glossary"/>
         <CursorPos X="60" Y="32"/>
         <TopLine Value="6"/>
-        <EditorIndex Value="2"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="helpunit.pas"/>
@@ -308,9 +306,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="53" Y="1349"/>
-        <TopLine Value="1339"/>
-        <EditorIndex Value="5"/>
+        <CursorPos X="42" Y="1217"/>
+        <TopLine Value="1183"/>
+        <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="2">
           <Item0 X="1" Y="2096" ID="1"/>
@@ -950,9 +948,7 @@
         <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
         <CursorPos X="1" Y="358"/>
         <TopLine Value="336"/>
-        <EditorIndex Value="3"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit118>
       <Unit119>
         <Filename Value="uDE.pas"/>
@@ -1242,132 +1238,29 @@
         <Filename Value="..\..\..\pch\lazarus\lcl\include\wincontrol.inc"/>
         <CursorPos X="1" Y="7037"/>
         <TopLine Value="7015"/>
-        <EditorIndex Value="4"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit160>
+      <Unit161>
+        <Filename Value="..\..\..\pch\lazarus\lcl\interfaces\win32\win32int.pp"/>
+        <UnitName Value="Win32Int"/>
+        <CursorPos X="23" Y="78"/>
+        <TopLine Value="56"/>
+        <UsageCount Value="10"/>
+      </Unit161>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="26">
+    <JumpHistory Count="3" HistoryIndex="2">
       <Position1>
-        <Filename Value="config.pas"/>
-        <Caret Line="505" Column="1" TopLine="483"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="1357" Column="43" TopLine="1339"/>
       </Position1>
       <Position2>
-        <Filename Value="config.pas"/>
-        <Caret Line="506" Column="1" TopLine="484"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position2>
       <Position3>
-        <Filename Value="config.pas"/>
-        <Caret Line="507" Column="1" TopLine="485"/>
+        <Filename Value="atlun.lpr"/>
+        <Caret Line="15" Column="52" TopLine="1"/>
       </Position3>
-      <Position4>
-        <Filename Value="config.pas"/>
-        <Caret Line="508" Column="1" TopLine="486"/>
-      </Position4>
-      <Position5>
-        <Filename Value="config.pas"/>
-        <Caret Line="509" Column="1" TopLine="487"/>
-      </Position5>
-      <Position6>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="340" Column="1" TopLine="318"/>
-      </Position6>
-      <Position7>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="341" Column="1" TopLine="319"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="344" Column="1" TopLine="322"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="347" Column="1" TopLine="325"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="352" Column="1" TopLine="330"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="353" Column="1" TopLine="331"/>
-      </Position11>
-      <Position12>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="354" Column="1" TopLine="332"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="355" Column="1" TopLine="333"/>
-      </Position13>
-      <Position14>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="356" Column="1" TopLine="334"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="357" Column="1" TopLine="335"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\..\..\pch\lazarus\lcl\include\radiogroup.inc"/>
-        <Caret Line="358" Column="1" TopLine="336"/>
-      </Position16>
-      <Position17>
-        <Filename Value="config.pas"/>
-        <Caret Line="503" Column="59" TopLine="483"/>
-      </Position17>
-      <Position18>
-        <Filename Value="config.pas"/>
-        <Caret Line="587" Column="1" TopLine="492"/>
-      </Position18>
-      <Position19>
-        <Filename Value="config.pas"/>
-        <Caret Line="500" Column="30" TopLine="483"/>
-      </Position19>
-      <Position20>
-        <Filename Value="config.pas"/>
-        <Caret Line="506" Column="1" TopLine="484"/>
-      </Position20>
-      <Position21>
-        <Filename Value="config.pas"/>
-        <Caret Line="507" Column="1" TopLine="485"/>
-      </Position21>
-      <Position22>
-        <Filename Value="config.pas"/>
-        <Caret Line="508" Column="1" TopLine="486"/>
-      </Position22>
-      <Position23>
-        <Filename Value="config.pas"/>
-        <Caret Line="587" Column="1" TopLine="565"/>
-      </Position23>
-      <Position24>
-        <Filename Value="config.pas"/>
-        <Caret Line="588" Column="1" TopLine="566"/>
-      </Position24>
-      <Position25>
-        <Filename Value="config.pas"/>
-        <Caret Line="589" Column="1" TopLine="567"/>
-      </Position25>
-      <Position26>
-        <Filename Value="config.pas"/>
-        <Caret Line="590" Column="1" TopLine="568"/>
-      </Position26>
-      <Position27>
-        <Filename Value="config.pas"/>
-        <Caret Line="523" Column="20" TopLine="491"/>
-      </Position27>
-      <Position28>
-        <Filename Value="config.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position28>
-      <Position29>
-        <Filename Value="config.pas"/>
-        <Caret Line="356" Column="8" TopLine="346"/>
-      </Position29>
-      <Position30>
-        <Filename Value="config.pas"/>
-        <Caret Line="217" Column="28" TopLine="195"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1377,11 +1270,6 @@
       <IncludeFiles Value="$(ProjOutDir)\"/>
       <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <Optimizations>
-        <OptimizationLevel Value="0"/>
-      </Optimizations>
-    </CodeGeneration>
     <Linking>
       <Options>
         <Win32>
