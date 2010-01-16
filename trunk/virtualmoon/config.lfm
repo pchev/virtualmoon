@@ -1,5 +1,5 @@
 object Form2: TForm2
-  Left = 836
+  Left = 839
   Height = 469
   Top = 80
   Width = 373
@@ -36,7 +36,7 @@ object Form2: TForm2
     object TabSheet1: TPage
       Caption = 'General'
       ClientWidth = 354
-      ClientHeight = 386
+      ClientHeight = 385
       object Bevel8: TBevel
         Left = 16
         Height = 140
@@ -177,7 +177,7 @@ object Form2: TForm2
       end
       object ComboBoxCountry: TComboBox
         Left = 125
-        Height = 27
+        Height = 28
         Top = 220
         Width = 182
         ItemHeight = 0
@@ -187,7 +187,7 @@ object Form2: TForm2
       end
       object ComboBoxTZ: TComboBox
         Left = 125
-        Height = 27
+        Height = 28
         Top = 252
         Width = 181
         ItemHeight = 0
@@ -209,8 +209,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 38
-        ClientWidth = 292
+        ClientHeight = 40
+        ClientWidth = 294
         Columns = 2
         Items.Strings = (
           'Topocentricccccccccccc'
@@ -223,7 +223,7 @@ object Form2: TForm2
     object TabSheet7: TPage
       Caption = 'Database'
       ClientWidth = 354
-      ClientHeight = 386
+      ClientHeight = 385
       ImageIndex = 7
       object Label31: TLabel
         Left = 16
@@ -239,8 +239,8 @@ object Form2: TForm2
         Top = 10
         Width = 305
         Caption = 'Database'
-        ClientHeight = 164
-        ClientWidth = 301
+        ClientHeight = 165
+        ClientWidth = 303
         TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
@@ -323,7 +323,7 @@ object Form2: TForm2
     object TabSheet3: TPage
       Caption = 'Affichage'
       ClientWidth = 354
-      ClientHeight = 386
+      ClientHeight = 385
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
@@ -418,7 +418,7 @@ object Form2: TForm2
       object LabelFont: TLabel
         Left = 155
         Height = 14
-        Top = 328
+        Top = 327
         Width = 48
         Anchors = [akLeft, akBottom]
         Caption = 'LabelFont'
@@ -557,7 +557,7 @@ object Form2: TForm2
     object TabSheet4: TPage
       Caption = 'Textures'
       ClientWidth = 354
-      ClientHeight = 386
+      ClientHeight = 385
       ImageIndex = 4
       object Label19: TLabel
         Left = 45
@@ -640,8 +640,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 36
-        ClientWidth = 337
+        ClientHeight = 37
+        ClientWidth = 339
         Columns = 2
         Items.Strings = (
           'Simpleeeeeeeeeeeee'
@@ -669,7 +669,7 @@ object Form2: TForm2
       object RadioGroup3: TRadioGroup
         Left = 221
         Height = 156
-        Top = 44
+        Top = 42
         Width = 33
         AutoFill = True
         ChildSizing.LeftRightSpacing = 6
@@ -733,8 +733,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 58
-        ClientWidth = 270
+        ClientHeight = 60
+        ClientWidth = 272
         Items.Strings = (
           'Phase avec relief dynamiqueeeeeeeeeeeeeeeee'
           'Phase sans reliefeeeeeeeeeeeeeeeeeeeeeeeeeee'
@@ -762,7 +762,7 @@ object Form2: TForm2
     object TabSheet6: TPage
       Caption = 'Overlay'
       ClientWidth = 354
-      ClientHeight = 386
+      ClientHeight = 385
       ImageIndex = 6
       object OverlayPanel: TPanel
         Left = 8
@@ -850,8 +850,8 @@ object Form2: TForm2
           Top = 284
           Width = 294
           Caption = 'Grid'
-          ClientHeight = 53
-          ClientWidth = 290
+          ClientHeight = 54
+          ClientWidth = 292
           TabOrder = 3
           object Label45: TLabel
             Left = 134
@@ -908,7 +908,7 @@ object Form2: TForm2
     object TabSheet2: TPage
       Caption = 'Images'
       ClientWidth = 354
-      ClientHeight = 386
+      ClientHeight = 385
       ImageIndex = 1
       object Label9: TLabel
         Left = 9
@@ -1011,7 +1011,7 @@ object Form2: TForm2
     object TabSheet5: TPage
       Caption = 'Eyepieces'
       ClientWidth = 354
-      ClientHeight = 386
+      ClientHeight = 385
       ImageIndex = 5
       object Label24: TLabel
         Left = 8
@@ -1133,7 +1133,7 @@ object Form2: TForm2
     object Impression: TPage
       Caption = 'Impression'
       ClientWidth = 354
-      ClientHeight = 386
+      ClientHeight = 385
       ImageIndex = 2
       object Bevel4: TBevel
         Left = 8
