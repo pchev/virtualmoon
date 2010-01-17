@@ -13,13 +13,13 @@ i386-win32-strip -v -o $destdir/atlun.exe virtualmoon/atlun.exe
 i386-win32-strip -v -o $destdir/datlun.exe datlun/datlun.exe
 i386-win32-strip -v -o $destdir/photlun.exe photlun/photlun.exe
 install -v -m 644 virtualmoon/library/plan404/libplan404.dll  $destdir/
-install -v -m 644 Installer/Windows/vmapro/Data/readme.txt $destdir/
-install -v -m 644 Installer/Windows/vmapro/Data/lisezmoi.txt $destdir/
-install -v -m 644 Installer/Windows/vmapro/Data/licence.txt $destdir/
-install -v -m 644 Installer/Windows/vmapro/Data/licence_fr.txt $destdir/
-unzip -d $destdir Installer/Windows/vmapro/Data/sqlite3.zip
-unzip -d $destdir Installer/Windows/vmapro/Data/fiximg.zip
-unzip -d $destdir Installer/Windows/vmapro/Data/plugins.zip
+install -v -m 644 Installer/Windows/Data/readme.txt $destdir/
+install -v -m 644 Installer/Windows/Data/lisezmoi.txt $destdir/
+install -v -m 644 Installer/Windows/Data/licence.txt $destdir/
+install -v -m 644 Installer/Windows/Data/licence_fr.txt $destdir/
+unzip -d $destdir Installer/Windows/Data/sqlite3.zip
+unzip -d $destdir Installer/Windows/Data/fiximg.zip
+unzip -d $destdir Installer/Windows/Data/plugins.zip
 
 install -m 755 -d $destdir/data
 install -m 755 -d $destdir/data/jpleph
