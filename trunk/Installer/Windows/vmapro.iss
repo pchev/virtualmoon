@@ -2,8 +2,8 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 [Setup]
-AppName={cm:MyAppName}
-AppVerName={cm:MyAppName} Pro 5.0
+AppName=Virtual Moon Atlas
+AppVerName=Virtual Moon Atlas V5
 AppPublisherURL={cm:MyAppUrl}
 AppSupportURL={cm:MyAppUrl}
 AppUpdatesURL={cm:MyAppUrl}
@@ -11,8 +11,8 @@ DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{pf}\VirtualM
 DefaultGroupName={cm:MyAppName}
 LicenseFile=vmapro\Data\licence.txt
 InfoBeforeFile=vmapro\Data\readme.txt
-OutputDir=setup
-OutputBaseFilename=vmapro5
+OutputDir=.\
+OutputBaseFilename=virtualmoon-windows
 Compression=lzma
 SolidCompression=true
 UseSetupLdr=true
@@ -38,10 +38,6 @@ fre.MyDocumentation=Documentation
 fre.MyDocFile=doc\FR_Index_Doc.html
 fre.MyTutorial=doc\FR_tutorial.html
 fre.MyTutorialMsg=Voir les instructions
-
-[Messages]
-eng.UninstalledAll=%1 was successfully removed from your computer.
-fre.UninstalledAll=%1 a été correctement désinstallé de cet ordinateur.
 
 [Languages]
 Name: eng; MessagesFile: compiler:Default.isl; InfoBeforeFile: vmapro\Data\readme.txt; LicenseFile: vmapro\Data\licence.txt

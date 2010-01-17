@@ -37,7 +37,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="7">
+    <Units Count="8">
       <Unit0>
         <Filename Value="photlun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -80,6 +80,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_bitmap"/>
       </Unit6>
+      <Unit7>
+        <Filename Value="u_util.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_util"/>
+      </Unit7>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

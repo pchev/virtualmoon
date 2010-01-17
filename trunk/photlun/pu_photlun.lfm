@@ -5,7 +5,7 @@ object f_photlun: Tf_photlun
   Width = 810
   ActiveControl = PanelTop
   Caption = 'Photlun'
-  ClientHeight = 176
+  ClientHeight = 175
   ClientWidth = 810
   Icon.Data = {
     BE1000000000010001002020000001002000A810000016000000280000002000
@@ -150,20 +150,20 @@ object f_photlun: Tf_photlun
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.28.3'
+  LCLVersion = '0.9.28.2'
   object PanelTop: TPanel
     Left = 0
-    Height = 161
+    Height = 181
     Top = 0
     Width = 810
     Align = alClient
-    ClientHeight = 161
+    ClientHeight = 181
     ClientWidth = 810
     TabOrder = 0
     object ScrollBar1: TScrollBar
       Left = 1
       Height = 15
-      Top = 145
+      Top = 165
       Width = 808
       Align = alBottom
       PageSize = 0
@@ -185,8 +185,8 @@ object f_photlun: Tf_photlun
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 15
-    Top = 161
+    Height = 16
+    Top = 181
     Width = 810
     Panels = <    
       item

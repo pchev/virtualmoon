@@ -184,7 +184,7 @@ begin
   configfile := expandfilename(Defaultconfigfile);
   CdCconfig  := ExpandFileName(DefaultCdCconfig);
 {$endif}
-{$ifdef win32}
+{$ifdef mswindows}
   SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);  // cdc in local appdata
   SHGetPathFromIDList(PIDL, Folder);
   buf1 := trim(Folder);

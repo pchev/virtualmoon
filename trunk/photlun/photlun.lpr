@@ -9,7 +9,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, LResources
   { add your units here }, pu_photlun, pu_photo, u_translation, uniqueinstance_package,
-  pu_config, u_constant, u_bitmap;
+  pu_config, u_constant, u_bitmap, u_util;
 
  var i:integer;
 

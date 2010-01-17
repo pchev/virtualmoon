@@ -1516,7 +1516,7 @@ var
 {$ifdef darwin}
   i:      integer;
 {$endif}
-{$ifdef win32}
+{$ifdef mswindows}
   buf1: string;
   PIDL:   PItemIDList;
   Folder: array[0..MAX_PATH] of char;
@@ -1548,7 +1548,7 @@ begin
   configfile := expandfilename(Defaultconfigfile);
   CdCconfig  := ExpandFileName(DefaultCdCconfig);
 {$endif}
-{$ifdef win32}
+{$ifdef mswindows}
   SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);  // local appdata
   SHGetPathFromIDList(PIDL, Folder);
   buf1 := trim(Folder);
@@ -4455,7 +4455,7 @@ end;
 
 procedure TForm1.Selectiondimprimante1Click(Sender: TObject);
 begin
-{$ifdef win32}
+{$ifdef mswindows}
   PrinterSetupDialog1.execute;
 {$endif}
 {$ifdef unix}
