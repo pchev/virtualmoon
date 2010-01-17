@@ -39,7 +39,7 @@ if [[ $lastrev -ne $currentrev ]]; then
   rm bin-*.bz2
   rm -rf $builddir
 
- make Linux i386 version
+# make Linux i386 version
   ./configure $configopt prefix=$builddir target=i386-linux,x86_64-linux
   if [[ $? -ne 0 ]]; then exit 1;fi
   make CPU_TARGET=i386 OS_TARGET=linux clean
