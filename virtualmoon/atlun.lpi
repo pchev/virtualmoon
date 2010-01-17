@@ -86,7 +86,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="33" Y="3321"/>
+        <CursorPos X="72" Y="3338"/>
         <TopLine Value="3301"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
