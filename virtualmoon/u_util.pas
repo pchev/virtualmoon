@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
-  {$ifdef win32}
+  {$ifdef mswindows}
     Windows, ShlObj,
   {$endif}
   {$ifdef unix}
@@ -109,7 +109,7 @@ function SafeUTF8ToSys(v:string):string;
 function ExecFork(cmd:string;p1:string='';p2:string='';p3:string='';p4:string='';p5:string=''):integer;
 function CdcSigAction(const action: pointer):boolean;
 {$endif}
-{$ifdef win32}
+{$ifdef mswindows}
 procedure ScaleForm(form: TForm; scale: single);
 function FindWin98: boolean;
 function ScreenBPP: integer;
@@ -1164,7 +1164,7 @@ begin
  result:=fpSystem(cmd);
 end;
 {$endif}
-{$ifdef win32}
+{$ifdef mswindows}
 var
    bchExec: array[0..1024] of char;
    pchEXEC: Pchar;
@@ -1202,7 +1202,7 @@ begin
  fpSystem(cmd+' &');
 end;
 {$endif}
-{$ifdef win32}
+{$ifdef mswindows}
 var
    bchExec: array[0..1024] of char;
    pchEXEC: Pchar;
@@ -1226,7 +1226,7 @@ end;
 {$endif}
 
 Function ExecuteFile(const FileName: string): integer;
-{$ifdef win32}
+{$ifdef mswindows}
 var
   zFileName, zParams, zDir: array[0..255] of Char;
 begin
@@ -1391,7 +1391,7 @@ begin
    Orientation:=orient;
    if Orientation=poLandscape then marg:=50
       else marg:=25;
-   {$ifdef win32}
+   {$ifdef mswindows}
    pw:=XDPI*PageWidth div 254;
    ph:=YDPI*PageHeight div 254;
    {$endif}
@@ -1488,7 +1488,7 @@ Procedure PrtGrid(Grid:TStringGrid; PrtTitle, PrtText, PrtTextDate:string; orien
    Orientation:=orient;
    if Orientation=poLandscape then marg:=50
       else marg:=25;
-   {$ifdef win32}
+   {$ifdef mswindows}
    pw:=XDPI*PageWidth div 254;
    ph:=YDPI*PageHeight div 254;
    {$endif}
@@ -1529,7 +1529,7 @@ Procedure PrtGrid(Grid:TStringGrid; PrtTitle, PrtText, PrtTextDate:string; orien
   FreeMem(Cols,Grid.ColCount*SizeOf(Integer));
  end;
 
-{$ifdef win32}
+{$ifdef mswindows}
 function FindWin98: boolean;
 var lpversioninfo: TOSVERSIONINFO;
 begin

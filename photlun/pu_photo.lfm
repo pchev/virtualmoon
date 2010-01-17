@@ -11,10 +11,10 @@ object f_photo: Tf_photo
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.28.3'
+  LCLVersion = '0.9.28.2'
   object Image1: TImage
     Left = 0
-    Height = 393
+    Height = 392
     Top = 26
     Width = 385
     Align = alClient
@@ -145,8 +145,8 @@ object f_photo: Tf_photo
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 15
-    Top = 434
+    Height = 16
+    Top = 433
     Width = 400
     Panels = <    
       item
@@ -160,7 +160,7 @@ object f_photo: Tf_photo
   object HScrollBar: TScrollBar
     Left = 0
     Height = 15
-    Top = 419
+    Top = 418
     Width = 400
     Align = alBottom
     PageSize = 0
@@ -169,7 +169,7 @@ object f_photo: Tf_photo
   end
   object VScrollBar: TScrollBar
     Left = 385
-    Height = 393
+    Height = 392
     Top = 26
     Width = 15
     Align = alRight

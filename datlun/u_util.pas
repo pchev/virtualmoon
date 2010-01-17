@@ -60,7 +60,7 @@ procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=true);
 Function Slash(nom : string) : string;
 Function NoSlash(nom : string) : string;
 Procedure ShowHelpDoc(helpfile : string; suffix:string; directory: string);
-{$ifdef win32}
+{$ifdef mswindows}
 procedure ScaleForm(form: TForm; scale: single);
 function FindWin98: boolean;
 function ScreenBPP: integer;
@@ -461,7 +461,7 @@ begin
  result:=fpSystem(cmd);
 end;
 {$endif}
-{$ifdef win32}
+{$ifdef mswindows}
 var
    bchExec: array[0..1024] of char;
    pchEXEC: Pchar;
@@ -499,7 +499,7 @@ begin
  fpSystem(cmd+' &');
 end;
 {$endif}
-{$ifdef win32}
+{$ifdef mswindows}
 var
    bchExec: array[0..1024] of char;
    pchEXEC: Pchar;
@@ -546,7 +546,7 @@ end;
 {$endif}
 
 Function ExecuteFile(const FileName: string): integer;
-{$ifdef win32}
+{$ifdef mswindows}
 var
   zFileName, zParams, zDir: array[0..255] of Char;
 begin
@@ -598,7 +598,7 @@ end;
 ExecuteFile(fn);
 end;
 
-{$ifdef win32}
+{$ifdef mswindows}
 function FindWin98: boolean;
 var lpversioninfo: TOSVERSIONINFO;
 begin

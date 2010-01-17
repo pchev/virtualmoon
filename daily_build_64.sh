@@ -17,8 +17,8 @@ wd=`pwd`
 
 # update to last revision
 #svn up --force --non-interactive --accept theirs-full    # svn 1.5 only
-#svn -R revert .
-#svn up --non-interactive
+svn -R revert .
+svn up --non-interactive
 
 # check if new revision since last run
 read lastrev <last.build
@@ -39,8 +39,7 @@ if [[ $lastrev -ne $currentrev ]]; then
   rm bin-*.bz2
   rm -rf $builddir
 
-if [ 1 == 2 ]; then
-# make Linux i386 version
+ make Linux i386 version
   ./configure $configopt prefix=$builddir target=i386-linux,x86_64-linux
   if [[ $? -ne 0 ]]; then exit 1;fi
   make CPU_TARGET=i386 OS_TARGET=linux clean
@@ -95,7 +94,6 @@ if [ 1 == 2 ]; then
 
   cd $wd
   rm -rf $builddir
-fi
 
 # make Linux x86_64 version
   ./configure $configopt prefix=$builddir target=x86_64-linux
@@ -154,89 +152,84 @@ fi
   if [[ $? -ne 0 ]]; then exit 1;fi
 
   cd $wd
-#  rm -rf $builddir
-exit
+  rm -rf $builddir
 
 # make Windows i386 version
-  rsync -a --exclude=.svn system_integration/Windows/installer/skychart/* $builddir
-  ./configure $configopt prefix=$builddir/Data target=i386-win32,x86_64-linux
+  rsync -a --exclude=.svn Installer/Windows/* $builddir
+  ./configure $configopt prefix=$builddir/vmapro/Data target=i386-win32,x86_64-linux
   if [[ $? -ne 0 ]]; then exit 1;fi
   make OS_TARGET=win32 CPU_TARGET=i386 clean
   make OS_TARGET=win32 CPU_TARGET=i386
   if [[ $? -ne 0 ]]; then exit 1;fi
   make install_win
   if [[ $? -ne 0 ]]; then exit 1;fi
-  make install_win_data
-  if [[ $? -ne 0 ]]; then exit 1;fi
+#  make install_win_data
+#  if [[ $? -ne 0 ]]; then exit 1;fi
   # zip
-  cd $builddir/Data
-  zip -r  skychart-$version-$currentrev-windows.zip *
+  cd $builddir/vmapro/Data
+  zip -r  virtualmoon-$version-$currentrev-windows.zip *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv skychart*.zip $wd
+  mv virtualmoon*.zip $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
   # exe
   cd $builddir
-  sed -i "/AppVerName/ s/V3/V$version/" cdcv3.iss
-  sed -i "/OutputBaseFilename/ s/windows/$version-$currentrev-windows/" cdcv3.iss
-  wine "$innosetup" "$wine_build\cdcv3.iss"
+  sed -i "/AppVerName/ s/V5/V$version/" vmapro.iss
+  sed -i "/OutputBaseFilename/ s/windows/$version-$currentrev-windows/" vmapro.iss
+  wine "$innosetup" "$wine_build\vmapro.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv $builddir/skychart*.exe $wd
+  mv $builddir/virtualmoon*.exe $wd
   #debug
   cd $wd
   mkdir $builddir/debug
-  cp skychart/cdc.exe $builddir/debug/skychart.exe
-  cp skychart/cdcicon.exe $builddir/debug/
-  cp varobs/varobs.exe $builddir/debug/
-  cp varobs/varobs_lpv_bulletin.exe $builddir/debug/
+  cp virtualmoon/atlun.exe $builddir/debug/
+  cp photlun/photlun.exe $builddir/debug/
+  cp datlun/datlun.exe $builddir/debug/
   cd $builddir/debug/
-  zip bin-windows_i386-debug-$currentrev.zip *
+  zip virtualmoon-bin-windows_i386-debug-$currentrev.zip *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv bin-*.zip $wd
+  mv virtualmoon-bin-*.zip $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
-
   cd $wd
   rm -rf $builddir
 
 # make Windows x86_64 version
-  rsync -a --exclude=.svn system_integration/Windows/installer/skychart/* $builddir
-  ./configure $configopt prefix=$builddir/Data target=x86_64-win64,x86_64-linux
+  rsync -a --exclude=.svn Installer/Windows/* $builddir
+  ./configure $configopt prefix=$builddir/vmapro/Data target=x86_64-win64,x86_64-linux
   if [[ $? -ne 0 ]]; then exit 1;fi
   make OS_TARGET=win64 CPU_TARGET=x86_64 clean
   make OS_TARGET=win64 CPU_TARGET=x86_64
   if [[ $? -ne 0 ]]; then exit 1;fi
   make install_win64
   if [[ $? -ne 0 ]]; then exit 1;fi
-  make install_win_data
-  if [[ $? -ne 0 ]]; then exit 1;fi
+#  make install_win_data
+#  if [[ $? -ne 0 ]]; then exit 1;fi
   # zip
-  cd $builddir/Data
-  zip -r  skychart-$version-$currentrev-windows-x64.zip *
+  cd $builddir/vmapro/Data
+  zip -r  virtualmoon-$version-$currentrev-windows-x64.zip *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv skychart*.zip $wd
+  mv virtualmoon*.zip $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
   # exe
   cd $builddir
-  sed -i "/AppVerName/ s/V3/V$version/" cdcv3_64.iss
-  sed -i "/OutputBaseFilename/ s/windows-x64/$version-$currentrev-windows-x64/" cdcv3_64.iss
-  wine "$innosetup" "$wine_build\cdcv3_64.iss"
+  sed -i "/AppVerName/ s/V5/V$version/" vmapro_64.iss
+  sed -i "/OutputBaseFilename/ s/windows-x64/$version-$currentrev-windows-x64/" vmapro_64.iss
+  wine "$innosetup" "$wine_build\vmapro_64.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv $builddir/skychart*.exe $wd
+  mv $builddir/virtualmoon*.exe $wd
   #debug
   cd $wd
   mkdir $builddir/debug
-  cp skychart/cdc.exe $builddir/debug/skychart.exe
-  cp skychart/cdcicon.exe $builddir/debug/
-  cp varobs/varobs.exe $builddir/debug/
-  cp varobs/varobs_lpv_bulletin.exe $builddir/debug/
+  cp virtualmoon/atlun.exe $builddir/debug/
+  cp photlun/photlun.exe $builddir/debug/
+  cp datlun/datlun.exe $builddir/debug/
   cd $builddir/debug/
-  zip bin-windows-x64-debug-$currentrev.zip *
+  zip virtualmoon-bin-windows-x64-debug-$currentrev.zip *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv bin-*.zip $wd
+  mv virtualmoon-bin-*.zip $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
 
   cd $wd
   rm -rf $builddir
-
 
 # store revision 
   echo $currentrev > last.build

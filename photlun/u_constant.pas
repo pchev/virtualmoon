@@ -115,7 +115,7 @@ const crlf = chr(10)+chr(13);
       DefaultCdC='skychart.app/Contents/MacOS/skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
-{$ifdef win32}
+{$ifdef mswindows}
       DefaultPrivateDir='virtualmoon';
       Defaultconfigfile='vma.rc';
       SharedDir='.\';
@@ -139,7 +139,7 @@ const
 {$ifdef darwin}
       lib404   = 'libplan404.dylib';
 {$endif}
-{$ifdef win32}
+{$ifdef mswindows}
       lib404 = 'libplan404.dll';
 {$endif}
 
