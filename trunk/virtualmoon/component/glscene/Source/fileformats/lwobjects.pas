@@ -826,7 +826,7 @@ begin
     result:=TLWChunk
   else
     result:=ADefault;
-
+{ this not work on win64 
   for i:=0 to ChunkClasses.Count-1 do
   begin
 
@@ -838,7 +838,7 @@ begin
 
     end;
 
-  end;
+  end;}
 
 end;
 
