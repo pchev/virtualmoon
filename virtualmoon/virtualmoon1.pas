@@ -3106,8 +3106,10 @@ UpDown4.Width:=14;
 UpDown5.Width:=14;
 UpDown6.Width:=14;
 trackdelay.Width:=14;
-init;
 Application.BringToFront;
+//moon1.GLSceneViewer1.Visible:=false;
+moon1.GLSceneViewer1.Camera:=nil;
+StartTimer.Enabled:=true;
 end;
 
 procedure TForm1.Init;
@@ -3118,7 +3120,7 @@ try
   Setlang;
   form2.onPrinterDialog:=Selectiondimprimante1Click;
   screen.cursor := crHourGlass;
-  moon1.GLSceneViewer1.Visible:=false;
+ // moon1.GLSceneViewer1.Visible:=false;
   application.ProcessMessages;
   LoadDB(dbm);
   application.ProcessMessages;
@@ -3203,7 +3205,7 @@ try
   moon1.Mirror:=checkbox2.Checked;
 finally
   screen.cursor := crDefault;
-  StartTimer.Enabled:=true;
+//  StartTimer.Enabled:=true;
 end;
 end;
 
@@ -3213,6 +3215,7 @@ var savecaption,savesidelist: string;
 begin
 StartTimer.Enabled:=false;
 screen.cursor := crHourGlass;
+init;
 try
   if (currentid = '') then
   begin
@@ -3233,6 +3236,7 @@ try
     moon1.CenterAt(99999, 99999);
   end;
   moon1.GLSceneViewer1.Visible:=true;
+  moon1.GLSceneViewer1.Camera:=moon1.GLCamera1;
   Application.ProcessMessages;
   PhaseButtonClick(nil);
   SetZoomBar;
