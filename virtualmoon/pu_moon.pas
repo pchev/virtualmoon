@@ -2,6 +2,8 @@ unit pu_moon;
 {$MODE Objfpc}
 {$H+}
 
+{$DEFINE trace_debug}
+
 {
 Copyright (C) 2009 Patrick Chevalley
 
@@ -30,7 +32,7 @@ uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics, GLCo
   GLCrossPlatform, LResources, GLScene, GLMultiMaterialShader,
   GLBumpShader, GLHUDObjects, GLWindowsFont, GLGeomObjects, GLMirror, GLMesh,
   GLVectorFileObjects, FPImage, LCLType, IntfGraphics, SysUtils,
-  Classes, Controls, Forms, Menus ;
+  Classes, Controls, Forms, Menus, Dialogs ;
 
 const
    MaxLabel=500;
@@ -342,7 +344,7 @@ const
 
 implementation
 
-uses VectorGeometry, OpenGL1x, GLFile3DS;
+uses LCLProc, VectorGeometry, OpenGL1x, GLFile3DS;
 
 { Tf_moon }
 
@@ -1163,22 +1165,40 @@ var   CurentDriver:string;
       Restricted: boolean;
       i: integer;
 begin
+{$ifdef trace_debug}
+ debugln('Init OpenGL');
+{$endif}
 try
 if check then begin
 // Check Acceleration
+{$ifdef trace_debug}
+ debugln('Check Acceleration');
+{$endif}
 if GLSceneViewer1.Buffer.Acceleration=chaSoftware then begin
    raise exception.Create('This program only run with a graphic card that support OpenGL hardware acceleration.');
    halt;
 end;
 // Check texture size
+{$ifdef trace_debug}
+ debugln('Check texture size');
+{$endif}
 MaxTextureSize:=Glsceneviewer1.Buffer.LimitOf[limTextureSize];
+{$ifdef trace_debug}
+ debugln('Texture max: '+inttostr(MaxTextureSize));
+{$endif}
 if MaxTextureSize<1024 then begin
    raise exception.Create('Graphic card not supported! Texture max size:'+inttostr(MaxTextureSize)+'. Must be at least 1024.');
    halt;
 end;
 // Check Bumpmap
+{$ifdef trace_debug}
+ debugln('Check Bumpmap');
+{$endif}
 FBumpMapCapabilities:=[];
 CurentDriver:=uppercase(trim(StrPas(PChar(glGetString(GL_VENDOR)))+' '+StrPas(PChar(glGetString(GL_RENDERER))) ));
+{$ifdef trace_debug}
+ debugln('Driver: '+CurentDriver);
+{$endif}
 Restricted:=false;
 for i:=1 to nRestricted do begin
   if pos(RestrictedDrivers[i],CurentDriver)>0 then
@@ -1186,9 +1206,15 @@ for i:=1 to nRestricted do begin
 end;
 if Restricted and (ForceBumpMapSize=0)
   then begin
+   {$ifdef trace_debug}
+     debugln('Restricted driver found!');
+   {$endif}
     BumpMapLimit1K:=true;
     if  GL_ARB_multitexture
     and GL_ARB_texture_env_dot3 then begin
+        {$ifdef trace_debug}
+         debugln('GL_ARB_texture_env_dot3 OK');
+        {$endif}
          FBumpMapCapabilities:=[bcDot3TexCombiner];
          FBumpOk:=true;
     end;
@@ -1196,28 +1222,54 @@ end else begin
     if  GL_ARB_multitexture
     and GL_ARB_vertex_program then begin
       if GL_ARB_texture_env_dot3 then begin
+        {$ifdef trace_debug}
+         debugln('GL_ARB_texture_env_dot3 OK');
+        {$endif}
          FBumpMapCapabilities:=FBumpMapCapabilities+[bcDot3TexCombiner];
          FBumpOk:=true;
       end;
       if GL_ARB_fragment_program then begin
+        {$ifdef trace_debug}
+         debugln('GL_ARB_fragment_program OK');
+        {$endif}
          FBumpMapCapabilities:=FBumpMapCapabilities+[bcBasicARBFP];
          FBumpOk:=true;
       end;
     end;
 end;
+{$ifdef trace_debug}
+ debugln('SetBumpMethod');
+{$endif}
 if bcDot3TexCombiner in FBumpMapCapabilities then
    SetBumpMethod(bcDot3TexCombiner)
 else if bcBasicARBFP in FBumpMapCapabilities then
    SetBumpMethod(bcBasicARBFP);
 // Initialisation
+{$ifdef trace_debug}
+ debugln('Check MultiTexture');
+{$endif}
 FAsMultiTexture := GL_ARB_multitexture and (GLSceneViewer1.Buffer.LimitOf[limNbTextureUnits] > 1);
 end;
+{$ifdef trace_debug}
+ debugln('InitLabel');
+{$endif}
 InitLabel;
+{$ifdef trace_debug}
+ debugln('InitSprite');
+{$endif}
 InitSprite;
 except
-  raise exception.Create('Could not initialize OpenGL.');
-  halt;
+  on E: Exception do begin
+  {$ifdef trace_debug}
+   debugln('Could not initialize OpenGL: '+E.Message);
+  {$endif}
+   MessageDlg('Could not initialize OpenGL: '+E.Message, mtError, [mbClose], 0);
+   halt;
+  end;
 end;
+{$ifdef trace_debug}
+ debugln('Init OpenGL OK');
+{$endif}
 end;
 
 procedure Tf_moon.FormDestroy(Sender: TObject);
