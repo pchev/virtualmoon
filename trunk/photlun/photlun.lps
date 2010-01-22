@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectSession>
     <Version Value="7"/>
-    <Units Count="59">
+    <Units Count="60">
       <Unit0>
         <Filename Value="photlun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -82,321 +82,6 @@
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
-        <Filename Value="pu_vignette.pas"/>
-        <ComponentName Value="f_vignette"/>
-        <UnitName Value="pu_vignette"/>
-        <CursorPos X="28" Y="6"/>
-        <TopLine Value="1"/>
-        <UsageCount Value="20"/>
-      </Unit7>
-      <Unit8>
-        <Filename Value="pu_photlun.lfm"/>
-        <CursorPos X="14" Y="58"/>
-        <TopLine Value="25"/>
-        <UsageCount Value="9"/>
-        <SyntaxHighlighter Value="LFM"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="../../../cdc/src/skychart/component/multidoc/multidoc.pas"/>
-        <UnitName Value="MultiDoc"/>
-        <CursorPos X="17" Y="125"/>
-        <TopLine Value="118"/>
-        <UsageCount Value="7"/>
-      </Unit9>
-      <Unit10>
-        <Filename Value="../../../cdc/src/skychart/component/multidoc/multidocpackage.pas"/>
-        <UnitName Value="MultiDocPackage"/>
-        <CursorPos X="47" Y="11"/>
-        <TopLine Value="1"/>
-        <UsageCount Value="7"/>
-      </Unit10>
-      <Unit11>
-        <Filename Value="C:/appli/lazarus/lcl/include/picture.inc"/>
-        <CursorPos X="44" Y="547"/>
-        <TopLine Value="533"/>
-        <UsageCount Value="8"/>
-      </Unit11>
-      <Unit12>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/fcl-image/src/fpreadjpeg.pas"/>
-        <UnitName Value="FPReadJPEG"/>
-        <CursorPos X="1" Y="108"/>
-        <TopLine Value="87"/>
-        <UsageCount Value="10"/>
-      </Unit12>
-      <Unit13>
-        <Filename Value="C:/appli/lazarus/lcl/forms.pp"/>
-        <UnitName Value="Forms"/>
-        <CursorPos X="24" Y="585"/>
-        <TopLine Value="564"/>
-        <UsageCount Value="8"/>
-      </Unit13>
-      <Unit14>
-        <Filename Value="C:/appli/lazarus/lcl/controls.pp"/>
-        <UnitName Value="Controls"/>
-        <CursorPos X="18" Y="497"/>
-        <TopLine Value="476"/>
-        <UsageCount Value="10"/>
-      </Unit14>
-      <Unit15>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jpeglib.pas"/>
-        <UnitName Value="JPEGLib"/>
-        <CursorPos X="60" Y="170"/>
-        <TopLine Value="153"/>
-        <UsageCount Value="8"/>
-      </Unit15>
-      <Unit16>
-        <Filename Value="C:/appli/lazarus/lcl/include/graphic.inc"/>
-        <CursorPos X="1" Y="190"/>
-        <TopLine Value="169"/>
-        <UsageCount Value="8"/>
-      </Unit16>
-      <Unit17>
-        <Filename Value="C:/appli/lazarus/lcl/include/bitmap.inc"/>
-        <CursorPos X="1" Y="774"/>
-        <TopLine Value="753"/>
-        <UsageCount Value="8"/>
-      </Unit17>
-      <Unit18>
-        <Filename Value="C:/appli/lazarus/lcl/graphics.pp"/>
-        <UnitName Value="Graphics"/>
-        <CursorPos X="15" Y="959"/>
-        <TopLine Value="938"/>
-        <UsageCount Value="10"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/classes/streams.inc"/>
-        <CursorPos X="1" Y="21"/>
-        <TopLine Value="1"/>
-        <UsageCount Value="8"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="C:/appli/lazarus/components/jpeg/lazjpeg.pas"/>
-        <UnitName Value="LazJPEG"/>
-        <CursorPos X="36" Y="29"/>
-        <TopLine Value="8"/>
-        <UsageCount Value="9"/>
-      </Unit20>
-      <Unit21>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/fcl-image/src/fpimage.inc"/>
-        <CursorPos X="1" Y="37"/>
-        <TopLine Value="16"/>
-        <UsageCount Value="8"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/fcl-image/src/fphandler.inc"/>
-        <CursorPos X="1" Y="230"/>
-        <TopLine Value="209"/>
-        <UsageCount Value="8"/>
-      </Unit22>
-      <Unit23>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdapistd.pas"/>
-        <UnitName Value="JdAPIstd"/>
-        <CursorPos X="1" Y="161"/>
-        <TopLine Value="140"/>
-        <UsageCount Value="8"/>
-      </Unit23>
-      <Unit24>
-        <Filename Value="C:/appli/lazarus/lcl/intfgraphics.pas"/>
-        <UnitName Value="IntfGraphics"/>
-        <CursorPos X="1" Y="1688"/>
-        <TopLine Value="1667"/>
-        <UsageCount Value="7"/>
-      </Unit24>
-      <Unit25>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdmaster.pas"/>
-        <UnitName Value="JdMaster"/>
-        <CursorPos X="1" Y="676"/>
-        <TopLine Value="637"/>
-        <UsageCount Value="7"/>
-      </Unit25>
-      <Unit26>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jmemmgr.pas"/>
-        <UnitName Value="JMemMgr"/>
-        <CursorPos X="1" Y="346"/>
-        <TopLine Value="325"/>
-        <UsageCount Value="7"/>
-      </Unit26>
-      <Unit27>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdcolor.pas"/>
-        <UnitName Value="JdColor"/>
-        <CursorPos X="1" Y="499"/>
-        <TopLine Value="460"/>
-        <UsageCount Value="7"/>
-      </Unit27>
-      <Unit28>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdsample.pas"/>
-        <UnitName Value="JdSample"/>
-        <CursorPos X="1" Y="590"/>
-        <TopLine Value="551"/>
-        <UsageCount Value="7"/>
-      </Unit28>
-      <Unit29>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdphuff.pas"/>
-        <UnitName Value="JdpHuff"/>
-        <CursorPos X="55" Y="1034"/>
-        <TopLine Value="1017"/>
-        <UsageCount Value="7"/>
-      </Unit29>
-      <Unit30>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdmainct.pas"/>
-        <UnitName Value="JdMainCt"/>
-        <CursorPos X="1" Y="608"/>
-        <TopLine Value="569"/>
-        <UsageCount Value="7"/>
-      </Unit30>
-      <Unit31>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/sysutils/filutilh.inc"/>
-        <CursorPos X="10" Y="83"/>
-        <TopLine Value="60"/>
-        <UsageCount Value="7"/>
-      </Unit31>
-      <Unit32>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/win/sysutils.pp"/>
-        <UnitName Value="sysutils"/>
-        <CursorPos X="3" Y="956"/>
-        <TopLine Value="935"/>
-        <UsageCount Value="9"/>
-      </Unit32>
-      <Unit33>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/win/wininc/func.inc"/>
-        <CursorPos X="63" Y="1043"/>
-        <TopLine Value="1021"/>
-        <UsageCount Value="9"/>
-      </Unit33>
-      <Unit34>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/classes/classesh.inc"/>
-        <CursorPos X="4" Y="26"/>
-        <TopLine Value="5"/>
-        <UsageCount Value="7"/>
-      </Unit34>
-      <Unit35>
-        <Filename Value="C:/appli/lazarus/lcl/include/customform.inc"/>
-        <CursorPos X="1" Y="621"/>
-        <TopLine Value="600"/>
-        <UsageCount Value="8"/>
-      </Unit35>
-      <Unit36>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/sysutils/finah.inc"/>
-        <CursorPos X="36" Y="16"/>
-        <TopLine Value="4"/>
-        <UsageCount Value="7"/>
-      </Unit36>
-      <Unit37>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/sysutils/datih.inc"/>
-        <CursorPos X="10" Y="126"/>
-        <TopLine Value="1"/>
-        <UsageCount Value="7"/>
-      </Unit37>
-      <Unit38>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/sysutils/dati.inc"/>
-        <CursorPos X="3" Y="746"/>
-        <TopLine Value="746"/>
-        <UsageCount Value="7"/>
-      </Unit38>
-      <Unit39>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/win/wininc/struct.inc"/>
-        <CursorPos X="6" Y="6500"/>
-        <TopLine Value="6484"/>
-        <UsageCount Value="7"/>
-      </Unit39>
-      <Unit40>
-        <Filename Value="../../../cdc/src/skychart/component/zoomimage/u_bitmap.pas"/>
-        <UnitName Value="u_bitmap"/>
-        <CursorPos X="35" Y="233"/>
-        <TopLine Value="215"/>
-        <UsageCount Value="10"/>
-      </Unit40>
-      <Unit41>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/fcl-image/src/fpwritejpeg.pas"/>
-        <UnitName Value="FPWriteJPEG"/>
-        <CursorPos X="3" Y="30"/>
-        <TopLine Value="9"/>
-        <UsageCount Value="8"/>
-      </Unit41>
-      <Unit42>
-        <Filename Value="pu_img.pas"/>
-        <ComponentName Value="f_img"/>
-        <UnitName Value="pu_img"/>
-        <CursorPos X="19" Y="167"/>
-        <TopLine Value="140"/>
-        <UsageCount Value="32"/>
-      </Unit42>
-      <Unit43>
-        <Filename Value="../../../cdc/src/skychart/component/zoomimage/cu_zoomimage.pas"/>
-        <UnitName Value="cu_zoomimage"/>
-        <CursorPos X="50" Y="156"/>
-        <TopLine Value="144"/>
-        <UsageCount Value="10"/>
-      </Unit43>
-      <Unit44>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/inc/mathh.inc"/>
-        <CursorPos X="38" Y="47"/>
-        <TopLine Value="38"/>
-        <UsageCount Value="8"/>
-      </Unit44>
-      <Unit45>
-        <Filename Value="C:/appli/lazarus/fpc/source/rtl/inc/systemh.inc"/>
-        <CursorPos X="49" Y="99"/>
-        <TopLine Value="87"/>
-        <UsageCount Value="8"/>
-      </Unit45>
-      <Unit46>
-        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/winunits/shfolder.pp"/>
-        <UnitName Value="shfolder"/>
-        <CursorPos X="41" Y="58"/>
-        <TopLine Value="43"/>
-        <UsageCount Value="9"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="pu_photlun.lrs"/>
-        <CursorPos X="41" Y="19"/>
-        <TopLine Value="1"/>
-        <UsageCount Value="8"/>
-      </Unit47>
-      <Unit48>
-        <Filename Value="C:/appli/lazarus/lcl/menus.pp"/>
-        <UnitName Value="Menus"/>
-        <CursorPos X="14" Y="227"/>
-        <TopLine Value="206"/>
-        <UsageCount Value="9"/>
-      </Unit48>
-      <Unit49>
-        <Filename Value="C:/appli/lazarus/lcl/include/scrollbar.inc"/>
-        <CursorPos X="1" Y="106"/>
-        <TopLine Value="85"/>
-        <UsageCount Value="9"/>
-      </Unit49>
-      <Unit50>
-        <Filename Value="C:/appli/lazarus/lcl/include/sizeconstraints.inc"/>
-        <CursorPos X="20" Y="61"/>
-        <TopLine Value="52"/>
-        <UsageCount Value="10"/>
-      </Unit50>
-      <Unit51>
-        <Filename Value="C:/appli/lazarus/lcl/include/canvas.inc"/>
-        <CursorPos X="10" Y="92"/>
-        <TopLine Value="68"/>
-        <UsageCount Value="10"/>
-      </Unit51>
-      <Unit52>
-        <Filename Value="C:/appli/lazarus/lcl/include/winapih.inc"/>
-        <CursorPos X="10" Y="232"/>
-        <TopLine Value="211"/>
-        <UsageCount Value="10"/>
-      </Unit52>
-      <Unit53>
-        <Filename Value="C:/appli/lazarus/lcl/include/winapi.inc"/>
-        <CursorPos X="27" Y="836"/>
-        <TopLine Value="833"/>
-        <UsageCount Value="10"/>
-      </Unit53>
-      <Unit54>
-        <Filename Value="../../../pch/lazarus/lcl/include/bitmap.inc"/>
-        <CursorPos X="48" Y="783"/>
-        <TopLine Value="772"/>
-        <UsageCount Value="10"/>
-      </Unit54>
-      <Unit55>
         <Filename Value="u_util.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_util"/>
@@ -405,6 +90,321 @@
         <EditorIndex Value="1"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="pu_vignette.pas"/>
+        <ComponentName Value="f_vignette"/>
+        <UnitName Value="pu_vignette"/>
+        <CursorPos X="28" Y="6"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="20"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="pu_photlun.lfm"/>
+        <CursorPos X="14" Y="58"/>
+        <TopLine Value="25"/>
+        <UsageCount Value="9"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="../../../cdc/src/skychart/component/multidoc/multidoc.pas"/>
+        <UnitName Value="MultiDoc"/>
+        <CursorPos X="17" Y="125"/>
+        <TopLine Value="118"/>
+        <UsageCount Value="7"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="../../../cdc/src/skychart/component/multidoc/multidocpackage.pas"/>
+        <UnitName Value="MultiDocPackage"/>
+        <CursorPos X="47" Y="11"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="7"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="C:/appli/lazarus/lcl/include/picture.inc"/>
+        <CursorPos X="44" Y="547"/>
+        <TopLine Value="533"/>
+        <UsageCount Value="8"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/fcl-image/src/fpreadjpeg.pas"/>
+        <UnitName Value="FPReadJPEG"/>
+        <CursorPos X="1" Y="108"/>
+        <TopLine Value="87"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="C:/appli/lazarus/lcl/forms.pp"/>
+        <UnitName Value="Forms"/>
+        <CursorPos X="24" Y="585"/>
+        <TopLine Value="564"/>
+        <UsageCount Value="8"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="C:/appli/lazarus/lcl/controls.pp"/>
+        <UnitName Value="Controls"/>
+        <CursorPos X="18" Y="497"/>
+        <TopLine Value="476"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jpeglib.pas"/>
+        <UnitName Value="JPEGLib"/>
+        <CursorPos X="60" Y="170"/>
+        <TopLine Value="153"/>
+        <UsageCount Value="8"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="C:/appli/lazarus/lcl/include/graphic.inc"/>
+        <CursorPos X="1" Y="190"/>
+        <TopLine Value="169"/>
+        <UsageCount Value="8"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="C:/appli/lazarus/lcl/include/bitmap.inc"/>
+        <CursorPos X="1" Y="774"/>
+        <TopLine Value="753"/>
+        <UsageCount Value="8"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="C:/appli/lazarus/lcl/graphics.pp"/>
+        <UnitName Value="Graphics"/>
+        <CursorPos X="15" Y="959"/>
+        <TopLine Value="938"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/classes/streams.inc"/>
+        <CursorPos X="1" Y="21"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="8"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="C:/appli/lazarus/components/jpeg/lazjpeg.pas"/>
+        <UnitName Value="LazJPEG"/>
+        <CursorPos X="36" Y="29"/>
+        <TopLine Value="8"/>
+        <UsageCount Value="9"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/fcl-image/src/fpimage.inc"/>
+        <CursorPos X="1" Y="37"/>
+        <TopLine Value="16"/>
+        <UsageCount Value="8"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/fcl-image/src/fphandler.inc"/>
+        <CursorPos X="1" Y="230"/>
+        <TopLine Value="209"/>
+        <UsageCount Value="8"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdapistd.pas"/>
+        <UnitName Value="JdAPIstd"/>
+        <CursorPos X="1" Y="161"/>
+        <TopLine Value="140"/>
+        <UsageCount Value="8"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="C:/appli/lazarus/lcl/intfgraphics.pas"/>
+        <UnitName Value="IntfGraphics"/>
+        <CursorPos X="1" Y="1688"/>
+        <TopLine Value="1667"/>
+        <UsageCount Value="7"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdmaster.pas"/>
+        <UnitName Value="JdMaster"/>
+        <CursorPos X="1" Y="676"/>
+        <TopLine Value="637"/>
+        <UsageCount Value="7"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jmemmgr.pas"/>
+        <UnitName Value="JMemMgr"/>
+        <CursorPos X="1" Y="346"/>
+        <TopLine Value="325"/>
+        <UsageCount Value="7"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdcolor.pas"/>
+        <UnitName Value="JdColor"/>
+        <CursorPos X="1" Y="499"/>
+        <TopLine Value="460"/>
+        <UsageCount Value="7"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdsample.pas"/>
+        <UnitName Value="JdSample"/>
+        <CursorPos X="1" Y="590"/>
+        <TopLine Value="551"/>
+        <UsageCount Value="7"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdphuff.pas"/>
+        <UnitName Value="JdpHuff"/>
+        <CursorPos X="55" Y="1034"/>
+        <TopLine Value="1017"/>
+        <UsageCount Value="7"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/pasjpeg/jdmainct.pas"/>
+        <UnitName Value="JdMainCt"/>
+        <CursorPos X="1" Y="608"/>
+        <TopLine Value="569"/>
+        <UsageCount Value="7"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/sysutils/filutilh.inc"/>
+        <CursorPos X="10" Y="83"/>
+        <TopLine Value="60"/>
+        <UsageCount Value="7"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/win/sysutils.pp"/>
+        <UnitName Value="sysutils"/>
+        <CursorPos X="3" Y="956"/>
+        <TopLine Value="935"/>
+        <UsageCount Value="9"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/win/wininc/func.inc"/>
+        <CursorPos X="63" Y="1043"/>
+        <TopLine Value="1021"/>
+        <UsageCount Value="9"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/classes/classesh.inc"/>
+        <CursorPos X="4" Y="26"/>
+        <TopLine Value="5"/>
+        <UsageCount Value="7"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="C:/appli/lazarus/lcl/include/customform.inc"/>
+        <CursorPos X="1" Y="621"/>
+        <TopLine Value="600"/>
+        <UsageCount Value="8"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/sysutils/finah.inc"/>
+        <CursorPos X="36" Y="16"/>
+        <TopLine Value="4"/>
+        <UsageCount Value="7"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/sysutils/datih.inc"/>
+        <CursorPos X="10" Y="126"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="7"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/objpas/sysutils/dati.inc"/>
+        <CursorPos X="3" Y="746"/>
+        <TopLine Value="746"/>
+        <UsageCount Value="7"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/win/wininc/struct.inc"/>
+        <CursorPos X="6" Y="6500"/>
+        <TopLine Value="6484"/>
+        <UsageCount Value="7"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="../../../cdc/src/skychart/component/zoomimage/u_bitmap.pas"/>
+        <UnitName Value="u_bitmap"/>
+        <CursorPos X="35" Y="233"/>
+        <TopLine Value="215"/>
+        <UsageCount Value="10"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/fcl-image/src/fpwritejpeg.pas"/>
+        <UnitName Value="FPWriteJPEG"/>
+        <CursorPos X="3" Y="30"/>
+        <TopLine Value="9"/>
+        <UsageCount Value="8"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="pu_img.pas"/>
+        <ComponentName Value="f_img"/>
+        <UnitName Value="pu_img"/>
+        <CursorPos X="19" Y="167"/>
+        <TopLine Value="140"/>
+        <UsageCount Value="32"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="../../../cdc/src/skychart/component/zoomimage/cu_zoomimage.pas"/>
+        <UnitName Value="cu_zoomimage"/>
+        <CursorPos X="50" Y="156"/>
+        <TopLine Value="144"/>
+        <UsageCount Value="10"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/inc/mathh.inc"/>
+        <CursorPos X="38" Y="47"/>
+        <TopLine Value="38"/>
+        <UsageCount Value="8"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="C:/appli/lazarus/fpc/source/rtl/inc/systemh.inc"/>
+        <CursorPos X="49" Y="99"/>
+        <TopLine Value="87"/>
+        <UsageCount Value="8"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="C:/appli/lazarus/fpc/source/packages/base/winunits/shfolder.pp"/>
+        <UnitName Value="shfolder"/>
+        <CursorPos X="41" Y="58"/>
+        <TopLine Value="43"/>
+        <UsageCount Value="9"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="pu_photlun.lrs"/>
+        <CursorPos X="41" Y="19"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="8"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="C:/appli/lazarus/lcl/menus.pp"/>
+        <UnitName Value="Menus"/>
+        <CursorPos X="14" Y="227"/>
+        <TopLine Value="206"/>
+        <UsageCount Value="9"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="C:/appli/lazarus/lcl/include/scrollbar.inc"/>
+        <CursorPos X="1" Y="106"/>
+        <TopLine Value="85"/>
+        <UsageCount Value="9"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="C:/appli/lazarus/lcl/include/sizeconstraints.inc"/>
+        <CursorPos X="20" Y="61"/>
+        <TopLine Value="52"/>
+        <UsageCount Value="10"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="C:/appli/lazarus/lcl/include/canvas.inc"/>
+        <CursorPos X="10" Y="92"/>
+        <TopLine Value="68"/>
+        <UsageCount Value="10"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="C:/appli/lazarus/lcl/include/winapih.inc"/>
+        <CursorPos X="10" Y="232"/>
+        <TopLine Value="211"/>
+        <UsageCount Value="10"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="C:/appli/lazarus/lcl/include/winapi.inc"/>
+        <CursorPos X="27" Y="836"/>
+        <TopLine Value="833"/>
+        <UsageCount Value="10"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="../../../pch/lazarus/lcl/include/bitmap.inc"/>
+        <CursorPos X="48" Y="783"/>
+        <TopLine Value="772"/>
+        <UsageCount Value="10"/>
       </Unit55>
       <Unit56>
         <Filename Value="../../../pch/lazarus/lcl/interfaces/gtk/gtklclintf.inc"/>
@@ -424,131 +424,130 @@
         <TopLine Value="147"/>
         <UsageCount Value="10"/>
       </Unit58>
+      <Unit59>
+        <Filename Value="../../../pch/lazarus/lcl/interfaces/fpgui/fpguiint.pp"/>
+        <UnitName Value="fpguiint"/>
+        <CursorPos X="21" Y="44"/>
+        <TopLine Value="23"/>
+        <UsageCount Value="10"/>
+      </Unit59>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="0"/>
+      <ActiveEditorIndexAtStart Value="1"/>
     </General>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
-        <Filename Value="photlun.lpr"/>
-        <Caret Line="15" Column="9" TopLine="1"/>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="1118" Column="55" TopLine="1109"/>
       </Position1>
       <Position2>
-        <Filename Value="photlun.lpr"/>
-        <Caret Line="28" Column="70" TopLine="1"/>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position2>
       <Position3>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="1118" Column="55" TopLine="1109"/>
+        <Caret Line="373" Column="14" TopLine="369"/>
       </Position3>
       <Position4>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="374" Column="14" TopLine="369"/>
       </Position4>
       <Position5>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="373" Column="14" TopLine="369"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position5>
       <Position6>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="374" Column="14" TopLine="369"/>
+        <Caret Line="302" Column="12" TopLine="285"/>
       </Position6>
       <Position7>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="312" Column="12" TopLine="285"/>
       </Position7>
       <Position8>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="302" Column="12" TopLine="285"/>
+        <Caret Line="318" Column="35" TopLine="285"/>
       </Position8>
       <Position9>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="312" Column="12" TopLine="285"/>
+        <Caret Line="373" Column="14" TopLine="356"/>
       </Position9>
       <Position10>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="318" Column="35" TopLine="285"/>
+        <Caret Line="374" Column="14" TopLine="356"/>
       </Position10>
       <Position11>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="373" Column="14" TopLine="356"/>
+        <Caret Line="853" Column="37" TopLine="833"/>
       </Position11>
       <Position12>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="374" Column="14" TopLine="356"/>
+        <Caret Line="854" Column="14" TopLine="833"/>
       </Position12>
       <Position13>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="853" Column="37" TopLine="833"/>
+        <Caret Line="855" Column="14" TopLine="833"/>
       </Position13>
       <Position14>
         <Filename Value="pu_photlun.pas"/>
-        <Caret Line="854" Column="14" TopLine="833"/>
+        <Caret Line="893" Column="15" TopLine="876"/>
       </Position14>
       <Position15>
-        <Filename Value="pu_photlun.pas"/>
-        <Caret Line="855" Column="14" TopLine="833"/>
+        <Filename Value="pu_photo.pas"/>
+        <Caret Line="294" Column="46" TopLine="281"/>
       </Position15>
       <Position16>
-        <Filename Value="pu_photlun.pas"/>
-        <Caret Line="893" Column="15" TopLine="876"/>
+        <Filename Value="pu_photo.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position16>
       <Position17>
         <Filename Value="pu_photo.pas"/>
-        <Caret Line="294" Column="46" TopLine="281"/>
+        <Caret Line="115" Column="9" TopLine="98"/>
       </Position17>
       <Position18>
         <Filename Value="pu_photo.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="116" Column="9" TopLine="98"/>
       </Position18>
       <Position19>
         <Filename Value="pu_photo.pas"/>
-        <Caret Line="115" Column="9" TopLine="98"/>
+        <Caret Line="117" Column="9" TopLine="98"/>
       </Position19>
       <Position20>
-        <Filename Value="pu_photo.pas"/>
-        <Caret Line="116" Column="9" TopLine="98"/>
-      </Position20>
-      <Position21>
-        <Filename Value="pu_photo.pas"/>
-        <Caret Line="117" Column="9" TopLine="98"/>
-      </Position21>
-      <Position22>
         <Filename Value="pu_photlun.pas"/>
         <Caret Line="38" Column="47" TopLine="28"/>
+      </Position20>
+      <Position21>
+        <Filename Value="u_util.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position21>
+      <Position22>
+        <Filename Value="u_util.pas"/>
+        <Caret Line="63" Column="18" TopLine="42"/>
       </Position22>
       <Position23>
         <Filename Value="u_util.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="464" Column="18" TopLine="443"/>
       </Position23>
       <Position24>
         <Filename Value="u_util.pas"/>
-        <Caret Line="63" Column="18" TopLine="42"/>
+        <Caret Line="502" Column="18" TopLine="481"/>
       </Position24>
       <Position25>
         <Filename Value="u_util.pas"/>
-        <Caret Line="464" Column="18" TopLine="443"/>
+        <Caret Line="549" Column="18" TopLine="528"/>
       </Position25>
       <Position26>
-        <Filename Value="u_util.pas"/>
-        <Caret Line="502" Column="18" TopLine="481"/>
-      </Position26>
-      <Position27>
-        <Filename Value="u_util.pas"/>
-        <Caret Line="549" Column="18" TopLine="528"/>
-      </Position27>
-      <Position28>
         <Filename Value="u_constant.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
-      </Position28>
-      <Position29>
+      </Position26>
+      <Position27>
         <Filename Value="u_constant.pas"/>
         <Caret Line="118" Column="18" TopLine="97"/>
-      </Position29>
-      <Position30>
+      </Position27>
+      <Position28>
         <Filename Value="pu_photlun.pas"/>
         <Caret Line="38" Column="47" TopLine="28"/>
-      </Position30>
+      </Position28>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
