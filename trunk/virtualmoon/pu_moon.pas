@@ -1182,10 +1182,18 @@ end;
 {$ifdef trace_debug}
  debugln('Check texture size');
 {$endif}
-MaxTextureSize:=Glsceneviewer1.Buffer.LimitOf[limTextureSize];
-{$ifdef trace_debug}
- debugln('Texture max: '+inttostr(MaxTextureSize));
-{$endif}
+try
+  MaxTextureSize:=Glsceneviewer1.Buffer.LimitOf[limTextureSize];
+  {$ifdef trace_debug}
+   debugln('Texture max: '+inttostr(MaxTextureSize));
+  {$endif}
+except
+  MaxTextureSize:=1024;
+  {$ifdef trace_debug}
+   debugln('Failed to get texture max. size from driver.');
+   debugln('Using default value: '+inttostr(MaxTextureSize));
+  {$endif}
+end;
 if MaxTextureSize<1024 then begin
    raise exception.Create('Graphic card not supported! Texture max size:'+inttostr(MaxTextureSize)+'. Must be at least 1024.');
    halt;
@@ -1195,6 +1203,7 @@ end;
  debugln('Check Bumpmap');
 {$endif}
 FBumpMapCapabilities:=[];
+try
 CurentDriver:=uppercase(trim(StrPas(PChar(glGetString(GL_VENDOR)))+' '+StrPas(PChar(glGetString(GL_RENDERER))) ));
 {$ifdef trace_debug}
  debugln('Driver: '+CurentDriver);
@@ -1244,11 +1253,25 @@ if bcDot3TexCombiner in FBumpMapCapabilities then
    SetBumpMethod(bcDot3TexCombiner)
 else if bcBasicARBFP in FBumpMapCapabilities then
    SetBumpMethod(bcBasicARBFP);
+except
+  FBumpOk:=false;
+  {$ifdef trace_debug}
+   debugln('Failed to initialize bumpmap shader');
+  {$endif}
+end;
 // Initialisation
 {$ifdef trace_debug}
  debugln('Check MultiTexture');
 {$endif}
-FAsMultiTexture := GL_ARB_multitexture and (GLSceneViewer1.Buffer.LimitOf[limNbTextureUnits] > 1);
+try
+ FAsMultiTexture := GL_ARB_multitexture and (GLSceneViewer1.Buffer.LimitOf[limNbTextureUnits] > 1);
+except
+ FAsMultiTexture := false;
+ {$ifdef trace_debug}
+  debugln('Failed to get multitexture capability');
+  debugln('Overlay function is disabled');
+ {$endif}
+end;
 end;
 {$ifdef trace_debug}
  debugln('InitLabel');

@@ -40,6 +40,7 @@ type
 
   TForm2 = class(TForm)
     Button1: TButton;
+    Button4: TButton;
     Button5: TButton;
     Button7: TButton;
     Button8: TButton;
@@ -72,6 +73,7 @@ type
     Label35: TLabel;
     LabelFont: TLabel;
     PageControl1: TNotebook;
+    Panel1: TPanel;
     RadioGroup1: TRadioGroup;
     RadioGroup2: TRadioGroup;
     RadioGroup3: TRadioGroup;
@@ -115,7 +117,6 @@ type
     Bevel4: TBevel;
     Label10: TLabel;
     ComboBox4: TComboBox;
-    Button4: TButton;
     TabSheet3: TPage;
     Bevel1: TBevel;
     CheckBox2: TCheckBox;
