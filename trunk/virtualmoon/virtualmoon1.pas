@@ -112,6 +112,7 @@ type
     GridButton: TToolButton;
     Splitter2: TSplitter;
     StartTimer: TTimer;
+    ResizeTimer: TTimer;
     ToolButton13: TToolButton;
     ToolButton14: TToolButton;
     TrackBar6: TTrackBar;
@@ -307,6 +308,7 @@ type
     procedure Configuration1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure Button5Click(Sender: TObject);
+    procedure ResizeTimerTimer(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
     procedure Splitter2Moved(Sender: TObject);
@@ -562,7 +564,7 @@ uses
   GtkProc,
 {$endif}
   telescope, config, splashunit, pu_features,
-  glossary, fmsg, dbutil;
+  glossary, fmsg, dbutil, LCLProc;
 
 procedure TForm1.SetEyepieceMenu;
 var
@@ -3583,15 +3585,28 @@ begin
     w2:=dx-w1;
     PanelMoon.Width:=w1;
     PanelMoon2.Width:=w2;
+    moon2.GLSceneViewer1.Align:=alNone;
+    moon2.GLSceneViewer1.Top:=0;
+    moon2.GLSceneViewer1.Align:=alClient;
   end;
+  moon1.GLSceneViewer1.Align:=alNone;
+  moon1.GLSceneViewer1.Top:=0;
+  moon1.GLSceneViewer1.Align:=alClient;
   moon1.RefreshAll;
   activemoon.GetZoomInfo;
+  if sender<>nil then ResizeTimer.Enabled:=true;
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
 begin
   initdate;
   RefreshMoonImage;
+end;
+
+procedure TForm1.ResizeTimerTimer(Sender: TObject);
+begin
+ResizeTimer.Enabled:=false;
+FormResize(nil);
 end;
 
 procedure TForm1.Button10Click(Sender: TObject);
@@ -3698,7 +3713,6 @@ begin
       end;
   end;
 end;
-
 
 procedure TForm1.FullScreen1Click(Sender: TObject);
 begin
