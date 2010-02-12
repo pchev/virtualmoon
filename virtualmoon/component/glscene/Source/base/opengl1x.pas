@@ -6704,6 +6704,12 @@ begin
    {$ELSE}
    GLHandle:=Pointer(LoadLibrary(PChar(GLName)));
    GLUHandle:=Pointer(LoadLibrary(PChar(GLUName)));
+    {$IFDEF UNIX}   // make it work when only libGL.so.1 is installed
+       if (GLHandle=INVALID_MODULEHANDLE) then
+         GLHandle:=Pointer(LoadLibrary(PChar(GLName+'.1')));
+       if (GLUHandle=INVALID_MODULEHANDLE) then
+         GLUHandle:=Pointer(LoadLibrary(PChar(GLUName+'.1')));
+    {$ENDIF}
    {$ENDIF};
 
    if (GLHandle<>INVALID_MODULEHANDLE) and (GLUHandle<>INVALID_MODULEHANDLE) then
