@@ -1,4 +1,5 @@
 # Extract part of tzdata package for use on Windows systems.
+rm -rf zoneinfo
 mkdir zoneinfo
 cd zoneinfo
 cp -a /usr/share/zoneinfo/America .
