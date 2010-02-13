@@ -14,6 +14,18 @@ fi
 if [[ -n $2 ]]; then
   configopt=$configopt" lazarus=$2"
 fi
+unset upd
+if [[ -n $3 ]]; then
+  if [[ $3 == update ]]; then upd=1; fi
+fi
+
+if [[ $upd ]]; then
+  echo make update
+  updname=_update
+else 
+  echo make full
+  updname=
+fi
 
 wd=`pwd`
 
@@ -47,16 +59,21 @@ if [[ $lastrev -ne $currentrev ]]; then
   make CPU_TARGET=i386 OS_TARGET=linux clean
   make CPU_TARGET=i386 OS_TARGET=linux
   if [[ $? -ne 0 ]]; then exit 1;fi
-  make install
+  if [[ $upd ]]; then
+    make install_update
+  else 
+    make install
+  fi 
   if [[ $? -ne 0 ]]; then exit 1;fi
 #  make install_data
 #  if [[ $? -ne 0 ]]; then exit 1;fi
   # tar
   cd $builddir
-  tar cvjf virtualmoon-$version-$currentrev-linux_i386.tar.bz2 *
+  tar cvjf virtualmoon$updname-$version-$currentrev-linux_i386.tar.bz2 *
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon*.tar.bz2 $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
+  if [[ ! $upd ]]; then
   # deb
   cd $wd
   rsync -a --exclude=.svn Installer/Linux/debian $builddir
@@ -82,6 +99,7 @@ if [[ $lastrev -ne $currentrev ]]; then
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv RPMS/i386/virtualmoon*.rpm $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
+  fi # if [[ ! $upd ]]
   #debug
   cd $wd
   mkdir $builddir/debug
@@ -89,9 +107,9 @@ if [[ $lastrev -ne $currentrev ]]; then
   cp photlun/photlun $builddir/debug/
   cp datlun/datlun $builddir/debug/
   cd $builddir/debug/
-  tar cvjf virtualmoon-bin-linux_i386-debug-$currentrev.tar.bz2 *
+  tar cvjf virtualmoon$updname-bin-linux_i386-debug-$currentrev.tar.bz2 *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon-bin-*.tar.bz2 $wd
+  mv virtualmoon$updname-bin-*.tar.bz2 $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
 
   cd $wd
@@ -103,16 +121,21 @@ if [[ $lastrev -ne $currentrev ]]; then
   make CPU_TARGET=x86_64 OS_TARGET=linux clean
   make CPU_TARGET=x86_64 OS_TARGET=linux
   if [[ $? -ne 0 ]]; then exit 1;fi
-  make install
+  if [[ $upd ]]; then
+    make install_update
+  else 
+    make install
+  fi 
   if [[ $? -ne 0 ]]; then exit 1;fi
 #  make install_data
 #  if [[ $? -ne 0 ]]; then exit 1;fi
   # tar
   cd $builddir
-  tar cvjf virtualmoon-$version-$currentrev-linux_x86_64.tar.bz2 *
+  tar cvjf virtualmoon$updname-$version-$currentrev-linux_x86_64.tar.bz2 *
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon*.tar.bz2 $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
+  if [[ ! $upd ]]; then
   # deb
   cd $wd
   rsync -a --exclude=.svn Installer/Linux/debian $builddir
@@ -141,6 +164,7 @@ if [[ $lastrev -ne $currentrev ]]; then
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv RPMS/x86_64/virtualmoon*.rpm $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
+  fi # if [[ ! $upd ]]
   #debug
   cd $wd
   mkdir $builddir/debug
@@ -148,35 +172,41 @@ if [[ $lastrev -ne $currentrev ]]; then
   cp photlun/photlun $builddir/debug/
   cp datlun/datlun $builddir/debug/
   cd $builddir/debug/
-  tar cvjf virtualmoon-bin-linux_x86_64-debug-$currentrev.tar.bz2 *
+  tar cvjf virtualmoon$updname-bin-linux_x86_64-debug-$currentrev.tar.bz2 *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon-bin-*.tar.bz2 $wd
+  mv virtualmoon$updname-bin-*.tar.bz2 $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
 
   cd $wd
   rm -rf $builddir
 
 # make Windows i386 version
+  cd $wd/data
+  ./mkzoneinfo.sh
   rsync -a --exclude=.svn Installer/Windows/* $builddir
   ./configure $configopt prefix=$builddir/vmapro/Data target=i386-win32,x86_64-linux
   if [[ $? -ne 0 ]]; then exit 1;fi
   make OS_TARGET=win32 CPU_TARGET=i386 clean
   make OS_TARGET=win32 CPU_TARGET=i386
   if [[ $? -ne 0 ]]; then exit 1;fi
-  make install_win
+  if [[ $upd ]]; then
+    make install_win_update
+  else 
+    make install_win
+  fi 
   if [[ $? -ne 0 ]]; then exit 1;fi
 #  make install_win_data
 #  if [[ $? -ne 0 ]]; then exit 1;fi
   # zip
   cd $builddir/vmapro/Data
-  zip -r  virtualmoon-$version-$currentrev-windows.zip *
+  zip -r  virtualmoon$updname-$version-$currentrev-windows.zip *
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon*.zip $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
   # exe
   cd $builddir
   sed -i "/AppVerName/ s/V5/V$version/" vmapro.iss
-  sed -i "/OutputBaseFilename/ s/windows/$version-$currentrev-windows/" vmapro.iss
+  sed -i "/OutputBaseFilename/ s/-windows/$updname-$version-$currentrev-windows/" vmapro.iss
   wine "$innosetup" "$wine_build\vmapro.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/virtualmoon*.exe $wd
@@ -187,9 +217,9 @@ if [[ $lastrev -ne $currentrev ]]; then
   cp photlun/photlun.exe $builddir/debug/
   cp datlun/datlun.exe $builddir/debug/
   cd $builddir/debug/
-  zip virtualmoon-bin-windows_i386-debug-$currentrev.zip *
+  zip virtualmoon$updname-bin-windows_i386-debug-$currentrev.zip *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon-bin-*.zip $wd
+  mv virtualmoon$updname-bin-*.zip $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
   cd $wd
   rm -rf $builddir
@@ -201,20 +231,24 @@ if [[ $lastrev -ne $currentrev ]]; then
   make OS_TARGET=win64 CPU_TARGET=x86_64 clean
   make OS_TARGET=win64 CPU_TARGET=x86_64
   if [[ $? -ne 0 ]]; then exit 1;fi
-  make install_win64
+   if [[ $upd ]]; then
+    make install_win64_update
+  else 
+    make install_win64
+  fi 
   if [[ $? -ne 0 ]]; then exit 1;fi
 #  make install_win_data
 #  if [[ $? -ne 0 ]]; then exit 1;fi
   # zip
   cd $builddir/vmapro/Data
-  zip -r  virtualmoon-$version-$currentrev-windows-x64.zip *
+  zip -r  virtualmoon$updname-$version-$currentrev-windows-x64.zip *
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon*.zip $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
   # exe
   cd $builddir
   sed -i "/AppVerName/ s/V5/V$version/" vmapro_64.iss
-  sed -i "/OutputBaseFilename/ s/windows-x64/$version-$currentrev-windows-x64/" vmapro_64.iss
+  sed -i "/OutputBaseFilename/ s/-windows-x64/$updname-$version-$currentrev-windows-x64/" vmapro_64.iss
   wine "$innosetup" "$wine_build\vmapro_64.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/virtualmoon*.exe $wd
@@ -225,9 +259,9 @@ if [[ $lastrev -ne $currentrev ]]; then
   cp photlun/photlun.exe $builddir/debug/
   cp datlun/datlun.exe $builddir/debug/
   cd $builddir/debug/
-  zip virtualmoon-bin-windows-x64-debug-$currentrev.zip *
+  zip virtualmoon$updname-bin-windows-x64-debug-$currentrev.zip *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon-bin-*.zip $wd
+  mv virtualmoon$updname-bin-*.zip $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
 
   cd $wd

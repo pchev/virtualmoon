@@ -26,6 +26,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses
+{$ifdef mswindows}
+  Windows, Registry,
+{$endif}
+{$IF DEFINED(LCLgtk) or DEFINED(LCLgtk2)}
+  GtkProc,
+{$endif}
   u_translation_database, u_translation,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
@@ -557,12 +563,6 @@ var
 implementation
 
 uses
-{$ifdef mswindows}
-  Windows, ShlObj, Registry,
-{$endif}
-{$IF DEFINED(LCLgtk) or DEFINED(LCLgtk2)}
-  GtkProc,
-{$endif}
   telescope, config, splashunit, pu_features,
   glossary, fmsg, dbutil, LCLProc;
 
