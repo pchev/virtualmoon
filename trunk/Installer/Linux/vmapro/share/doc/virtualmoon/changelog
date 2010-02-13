@@ -1,3 +1,11 @@
+virtualmoon (5.1 beta) experimental; urgency=low
+
+  * bug fix version
+    For the full change log, see :
+    http://virtualmoon.svn.sourceforge.net/viewvc/virtualmoon/trunk/?view=log
+    
+ -- Patrick Chevalley <pch@freesurf.ch>  13 feb 2010
+
 virtualmoon (5.0) experimental; urgency=low
 
   * First Linux version

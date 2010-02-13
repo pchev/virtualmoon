@@ -1,5 +1,5 @@
 Atlas Virtuel de la Lune
-version 5.0
+version 5.1 beta
 Programme gratuit d'étude et d'observation de la Lune.
 Pour Windows 2000/XP/Vista/7
 

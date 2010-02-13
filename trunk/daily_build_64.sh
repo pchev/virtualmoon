@@ -44,7 +44,7 @@ echo $lastrev ' - ' $currentrev
 if [[ $lastrev -ne $currentrev ]]; then
 
 # delete old files
-  rm virtualmoon*.bz2
+  rm virtualmoon*.tgz
   rm virtualmoon*.deb
   rm virtualmoon*.rpm
   rm virtualmoon*.zip
@@ -69,9 +69,9 @@ if [[ $lastrev -ne $currentrev ]]; then
 #  if [[ $? -ne 0 ]]; then exit 1;fi
   # tar
   cd $builddir
-  tar cvjf virtualmoon$updname-$version-$currentrev-linux_i386.tar.bz2 *
+  tar cvzf virtualmoon$updname-$version-$currentrev-linux_i386.tgz *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon*.tar.bz2 $wd
+  mv virtualmoon*.tgz $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ ! $upd ]]; then
   # deb
@@ -107,9 +107,9 @@ if [[ $lastrev -ne $currentrev ]]; then
   cp photlun/photlun $builddir/debug/
   cp datlun/datlun $builddir/debug/
   cd $builddir/debug/
-  tar cvjf virtualmoon$updname-bin-linux_i386-debug-$currentrev.tar.bz2 *
+  tar cvzf virtualmoon$updname-bin-linux_i386-debug-$currentrev.tgz *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon$updname-bin-*.tar.bz2 $wd
+  mv virtualmoon$updname-bin-*.tgz $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
 
   cd $wd
@@ -131,9 +131,9 @@ if [[ $lastrev -ne $currentrev ]]; then
 #  if [[ $? -ne 0 ]]; then exit 1;fi
   # tar
   cd $builddir
-  tar cvjf virtualmoon$updname-$version-$currentrev-linux_x86_64.tar.bz2 *
+  tar cvzf virtualmoon$updname-$version-$currentrev-linux_x86_64.tgz *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon*.tar.bz2 $wd
+  mv virtualmoon*.tgz $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ ! $upd ]]; then
   # deb
@@ -172,9 +172,9 @@ if [[ $lastrev -ne $currentrev ]]; then
   cp photlun/photlun $builddir/debug/
   cp datlun/datlun $builddir/debug/
   cd $builddir/debug/
-  tar cvjf virtualmoon$updname-bin-linux_x86_64-debug-$currentrev.tar.bz2 *
+  tar cvzf virtualmoon$updname-bin-linux_x86_64-debug-$currentrev.tgz *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon$updname-bin-*.tar.bz2 $wd
+  mv virtualmoon$updname-bin-*.tgz $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
 
   cd $wd
