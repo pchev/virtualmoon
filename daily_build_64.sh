@@ -183,6 +183,7 @@ if [[ $lastrev -ne $currentrev ]]; then
 # make Windows i386 version
   cd $wd/data
   ./mkzoneinfo.sh
+  cd $wd
   rsync -a --exclude=.svn Installer/Windows/* $builddir
   ./configure $configopt prefix=$builddir/vmapro/Data target=i386-win32,x86_64-linux
   if [[ $? -ne 0 ]]; then exit 1;fi
