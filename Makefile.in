@@ -48,6 +48,8 @@ else
 ifeq ($(OS_TARGET),darwin)
 install: 
 	./install_darwin.sh $(PREFIX)
+install_update:
+        ./install_darwin_update.sh $(PREFIX)
 uninstall: 
 	./uninstall_darwin.sh $(PREFIX)
 data:
