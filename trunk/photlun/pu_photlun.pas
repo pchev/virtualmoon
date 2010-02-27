@@ -29,14 +29,14 @@ interface
 
 uses
 {$ifdef mswindows}
-  Windows,
+  Windows, ShlObj,
 {$endif}
 {$ifdef unix}
     unix,
 {$endif}
   u_translation,
   pu_photo, pu_config, u_bitmap, u_util, u_constant,
-  FPReadJPEG, Math, Inifiles,
+  FPReadJPEG, Math, Inifiles, FileUtil,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, StdCtrls, ComCtrls, Spin, UniqueInstance;
 
@@ -672,7 +672,7 @@ end;
 
 procedure Tf_photlun.GetAppDir;
 var
-  buf, buf1: string;
+  buf: string;
 {$ifdef darwin}
   i:      integer;
 {$endif}
@@ -708,17 +708,25 @@ begin
   CdCconfig  := ExpandFileName(DefaultCdCconfig);
 {$endif}
 {$ifdef mswindows}
-  SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);  // local appdata
+  buf:='';
+  SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);
   SHGetPathFromIDList(PIDL, Folder);
-  buf1 := trim(Folder);
-  SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);        // appdata
-  SHGetPathFromIDList(PIDL, Folder);
-  buf := trim(Folder);
-  if buf1 = '' then
-    buf1     := buf;  // old windows version
-  privatedir := slash(buf1) + privatedir;
+  buf:=systoutf8(Folder);
+  buf:=trim(buf);
+  buf:=SafeUTF8ToSys(buf);
+  if buf='' then begin  // old windows version
+     SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);
+     SHGetPathFromIDList(PIDL, Folder);
+     buf:=trim(Folder);
+  end;
+  if buf='' then begin
+     MessageDlg('Unable to create '+privatedir,
+               mtError, [mbAbort], 0);
+     Halt;
+  end;
+  privatedir := slash(buf) + privatedir;
   configfile := slash(privatedir) + Defaultconfigfile;
-  CdCconfig  := slash(buf1) + DefaultCdCconfig;
+  CdCconfig  := slash(buf) + DefaultCdCconfig;
 {$endif}
 
   if not directoryexists(privatedir) then

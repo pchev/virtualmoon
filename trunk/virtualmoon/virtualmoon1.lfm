@@ -466,9 +466,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 15
+            Height = 16
             Top = 0
-            Width = 2
+            Width = 3
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'

@@ -32,7 +32,7 @@ Windows, ShellAPI,
 {$ifdef unix}
 unix,baseunix,unixutil,
 {$endif}
-Math, Printers, u_constant, Grids,
+Math, Printers, u_constant, Grids, FileUtil,
 LCLIntf, SysUtils, Classes, Graphics, Controls, Forms, Dialogs;
 
 Function DEToStr(de: Double) : string;
@@ -52,6 +52,7 @@ Function DEToStr4(de: Double) : string;
 function  Rmod(x,y:Double):Double;
 Function sgn(x:Double):Double ;
 Function PadZeros(x : string ; l :integer) : string;
+function SafeUTF8ToSys(v:string):string;
 function words(str,sep : string; p,n : integer) : string;
 Procedure FormPos(form : Tform; x,y : integer);
 Function ExecuteFile(const FileName: string): integer;
@@ -105,6 +106,12 @@ begin
 x:=trim(x);
 p:=l-length(x);
 result:=copy(zero,1,p)+x;
+end;
+
+function SafeUTF8ToSys(v:string):string;
+begin
+result:=UTF8ToSys(v);
+if result='' then result:=v;
 end;
 
 function  Rmod(x,y:Double):Double;

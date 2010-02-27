@@ -27,9 +27,9 @@ interface
 
 uses
 {$ifdef mswindows}
-Windows,
+Windows, ShlObj,
 {$endif}
-  u_translation_database, u_translation,
+  u_translation_database, u_translation, FileUtil,
   u_constant, LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, Grids, Math, passql, passqlite, u_util, dbutil, StdCtrls,
   ExtCtrls, IniFiles, ImgList, LResources, uniqueinstance;
@@ -149,17 +149,13 @@ end;
 
 procedure Tf_main.GetAppDir;
 var
-  buf, buf1: string;
+  buf: string;
 {$ifdef darwin}
   i:      integer;
 {$endif}
 {$ifdef mswindows}
   PIDL:   PItemIDList;
   Folder: array[0..MAX_PATH] of char;
-const
-  CSIDL_PERSONAL = $0005;   // My Documents
-  CSIDL_APPDATA  = $001a;   // <user name>\Application Data
-  CSIDL_LOCAL_APPDATA = $001c; // <user name>\Local Settings\Application Data (non roaming)
 {$endif}
 begin
 {$ifdef darwin}
@@ -185,17 +181,25 @@ begin
   CdCconfig  := ExpandFileName(DefaultCdCconfig);
 {$endif}
 {$ifdef mswindows}
-  SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);  // cdc in local appdata
+  buf:='';
+  SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);
   SHGetPathFromIDList(PIDL, Folder);
-  buf1 := trim(Folder);
-  SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);        // vma in appdata
-  SHGetPathFromIDList(PIDL, Folder);
-  buf := trim(Folder);
-  if buf1 = '' then
-    buf1     := buf;  // old windows version
-  privatedir := slash(buf1) + privatedir;
+  buf:=systoutf8(Folder);
+  buf:=trim(buf);
+  buf:=SafeUTF8ToSys(buf);
+  if buf='' then begin  // old windows version
+     SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);
+     SHGetPathFromIDList(PIDL, Folder);
+     buf:=trim(Folder);
+  end;
+  if buf='' then begin
+     MessageDlg('Unable to create '+privatedir,
+               mtError, [mbAbort], 0);
+     Halt;
+  end;
+  privatedir := slash(buf) + privatedir;
   configfile := slash(privatedir) + Defaultconfigfile;
-  CdCconfig  := slash(buf1) + DefaultCdCconfig;
+  CdCconfig  := slash(buf) + DefaultCdCconfig;
 {$endif}
 
   if not directoryexists(privatedir) then
