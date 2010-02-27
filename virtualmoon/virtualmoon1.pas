@@ -27,7 +27,7 @@ interface
 
 uses
 {$ifdef mswindows}
-  Windows, Registry,
+  Windows, Registry, ShlObj,
 {$endif}
 {$IF DEFINED(LCLgtk) or DEFINED(LCLgtk2)}
   GtkProc,
@@ -36,7 +36,7 @@ uses
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   mlb2, PrintersDlgs, Printers, Controls, DateUtils,
-  Messages, SysUtils, Classes, Dialogs,
+  Messages, SysUtils, Classes, Dialogs, FileUtil,
   ComCtrls, Menus, Buttons, dynlibs, BigIma,
   EnhEdits, IniFiles, passql, passqlite,
   Math, CraterList, LResources, IpHtml, UniqueInstance, GLViewer;
@@ -1520,13 +1520,8 @@ var
   i:      integer;
 {$endif}
 {$ifdef mswindows}
-  buf1: string;
   PIDL:   PItemIDList;
   Folder: array[0..MAX_PATH] of char;
-const
-  CSIDL_PERSONAL = $0005;   // My Documents
-  CSIDL_APPDATA  = $001a;   // <user name>\Application Data
-  CSIDL_LOCAL_APPDATA = $001c; // <user name>\Local Settings\Applicaiton Data (non roaming)
 {$endif}
 begin
 {$ifdef darwin}
@@ -1552,17 +1547,25 @@ begin
   CdCconfig  := ExpandFileName(DefaultCdCconfig);
 {$endif}
 {$ifdef mswindows}
-  SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);  // local appdata
+  buf:='';
+  SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);
   SHGetPathFromIDList(PIDL, Folder);
-  buf1 := trim(Folder);
-  SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);        // appdata
-  SHGetPathFromIDList(PIDL, Folder);
-  buf := trim(Folder);
-  if buf1 = '' then
-    buf1     := buf;  // old windows version do not have local appdata
-  privatedir := slash(buf1) + privatedir;
+  buf:=systoutf8(Folder);
+  buf:=trim(buf);
+  buf:=SafeUTF8ToSys(buf);
+  if buf='' then begin  // old windows version
+     SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);
+     SHGetPathFromIDList(PIDL, Folder);
+     buf:=trim(Folder);
+  end;
+  if buf='' then begin
+     MessageDlg('Unable to create '+privatedir,
+               mtError, [mbAbort], 0);
+     Halt;
+  end;
+  privatedir := slash(buf) + privatedir;
   configfile := slash(privatedir) + Defaultconfigfile;
-  CdCconfig  := slash(buf1) + DefaultCdCconfig;
+  CdCconfig  := slash(buf) + DefaultCdCconfig;
 {$endif}
 
   if not directoryexists(privatedir) then

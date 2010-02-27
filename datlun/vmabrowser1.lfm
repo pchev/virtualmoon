@@ -154,7 +154,7 @@ object f_main: Tf_main
   LCLVersion = '0.9.28.2'
   object MoonGrid: TStringGrid
     Left = 0
-    Height = 442
+    Height = 420
     Top = 0
     Width = 705
     Align = alClient
@@ -175,7 +175,7 @@ object f_main: Tf_main
   end
   object ScrollBar1: TScrollBar
     Left = 705
-    Height = 442
+    Height = 420
     Top = 0
     Width = 15
     Align = alRight
@@ -187,7 +187,7 @@ object f_main: Tf_main
   object Panel1: TPanel
     Left = 0
     Height = 25
-    Top = 442
+    Top = 420
     Width = 720
     Align = alBottom
     Alignment = taLeftJustify
