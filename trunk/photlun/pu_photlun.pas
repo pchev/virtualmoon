@@ -247,7 +247,7 @@ try
  vbmp1:=TBitmap.Create;
  jpeg.Performance:=jpBestSpeed;
  try
-   jpeg.LoadFromFile(orig);
+   jpeg.LoadFromFile(systoutf8(orig));
  except
    exit;
  end;
@@ -278,7 +278,7 @@ try
  BitmapResize(bmp,vbmp2,zoom);
  jpeg.Assign(vbmp2);
  jpeg.CompressionQuality:=50;
- jpeg.SaveToFile(vign);
+ jpeg.SaveToFile(systoutf8(vign));
 finally
  jpeg.Free;
  vbmp2.Free;
@@ -299,7 +299,7 @@ begin
   try
   if (not FileExists(vfn)) or (FileAge(vfn)<FileAge(fn)) then CreateVignette(fn,vfn);
   if (FileExists(vfn)) then begin
-    jpeg.LoadFromFile(vfn);
+    jpeg.LoadFromFile(systoutf8(vfn));
     vignette[num].Picture.Bitmap.Assign(jpeg);
     libr:=noslash(ExtractFilePath(fn));
     for i:=0 to maximgdir-1 do begin

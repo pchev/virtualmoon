@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses Math,
+uses Math, FileUtil,
   LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   ExtCtrls, StdCtrls, Buttons, ComCtrls, ToolWin, LResources;
 
@@ -76,7 +76,7 @@ begin
  image1.autosize:=false;
  image1.stretch:=false;
  image1.Proportional:=true;
- image1.picture.LoadFromFile(f);
+ image1.picture.LoadFromFile(systoutf8(f));
  imagewidth:=image1.picture.Width;
  imageheight:=image1.picture.Height;
  zoomN(zoom);

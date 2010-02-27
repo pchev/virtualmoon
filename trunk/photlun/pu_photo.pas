@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses u_translation, u_bitmap, math, IniFiles,
+uses u_translation, u_bitmap, math, IniFiles, FileUtil,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, Buttons, StdCtrls, ComCtrls, ExtDlgs, uniqueinstance;
 
@@ -196,7 +196,7 @@ begin
       flipy:=false;
    end;
    jpg:=TJpegImage.Create;
-   if fileexists(imgfile) then jpg.LoadFromFile(imgfile)
+   if fileexists(imgfile) then jpg.LoadFromFile(systoutf8(imgfile))
       else raise Exception.Create('File error: '+imgfile);
    imgbmp.Assign(jpg);
    oribmp.Assign(imgbmp);
@@ -479,18 +479,7 @@ else begin
 end;
 if assigned(FonSaveParam) then FonSaveParam(self);
 end;
-{
-var  jpg: TJpegImage;
-begin
- SavePictureDialog1.FileName:=ExtractFileName(Fimage);
- if SavePictureDialog1.Execute then begin
-   jpg:=TJpegImage.Create;
-   jpg.Assign(imgbmp);
-   jpg.SaveToFile(SavePictureDialog1.FileName);
-   jpg.Free;
- end;
-end;
-}
+
 
 procedure Tf_photo.ToolButton3Click(Sender: TObject);
 begin
