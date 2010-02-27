@@ -1,12 +1,10 @@
-{ This is an automatically generated lazarus resource file }
-
 LazarusResources.Add('TBigImaForm','FORMDATA',[
   'TPF0'#11'TBigImaForm'#10'BigImaForm'#4'Left'#3#137#1#6'Height'#3#151#1#3'Top'
   +#2'}'#5'Width'#3'g'#2#7'Caption'#6#14'Taille r'#195#169'elle'#12'ClientHeigh'
   +'t'#3#151#1#11'ClientWidth'#3'g'#2#11'Font.Height'#2#245#9'Font.Name'#6#13'M'
   +'S Sans Serif'#7'OnClose'#7#9'FormClose'#8'OnCreate'#7#10'FormCreate'#10'OnK'
   +'eyPress'#7#12'FormKeyPress'#12'OnMouseWheel'#7#14'FormMouseWheel'#6'OnShow'
-  +#7#8'FormShow'#10'LCLVersion'#6#8'0.9.28.3'#0#6'TImage'#6'Image1'#4'Left'#2#0
+  +#7#8'FormShow'#10'LCLVersion'#6#8'0.9.28.2'#0#6'TImage'#6'Image1'#4'Left'#2#0
   +#6'Height'#3'\'#1#3'Top'#2#16#5'Width'#3'Y'#2#8'AutoSize'#9#0#0#8'TToolBar'#8
   +'ToolBar1'#4'Left'#2#0#6'Height'#2#23#3'Top'#2#0#5'Width'#3'g'#2#8'AutoSize'
   +#9#12'ButtonHeight'#2#21#11'ButtonWidth'#2'='#14'ParentShowHint'#8#12'ShowCa'

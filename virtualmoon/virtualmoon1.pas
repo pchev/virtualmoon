@@ -4468,7 +4468,7 @@ begin
   b  := Tbitmap.Create;
   try
     activemoon.SnapShot(b, False);
-    b.SaveToFile(slash(tempdir) + fn);
+    b.SaveToFile(systoutf8(slash(tempdir) + fn));
     ShowImg(tempdir, fn, False);
   finally
     b.Free;
