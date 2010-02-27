@@ -44,7 +44,8 @@ if [[ $lastrev -ne $currentrev ]]; then
 
 # delete old files
   rm virtualmoon*.dmg
-  rm bin-*.tgz
+  rm virtualmoon-bin*.tgz
+  rm virtualmoon_update-bin*.tgz
   rm -rf $basedir
 
 # make i386 Mac version
