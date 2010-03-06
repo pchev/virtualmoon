@@ -26,6 +26,7 @@ TScopeGetInfo    = Procedure (var Name : shortstring; var QueryOK,SyncOK,GotoOK 
 TScopeInitialized = Function   : boolean ; stdcall;
 TScopeSetObs     = Procedure (latitude,longitude : double); stdcall;
 TScopeGoto       = Procedure (ar,de : double; var ok : boolean); stdcall;
+TScopeReadConfig = Procedure (ConfigPath : shortstring; var ok : boolean); stdcall;
 
 var
     ScopeConnect : TScopeConnect;
@@ -43,6 +44,7 @@ var
     ScopeGetInfo : TScopeGetInfo;
     ScopeSetObs : TScopeSetObs;
     ScopeGoto : TScopeGoto;
+    ScopeReadConfig : TScopeReadConfig;
     scopelib : Dword = 0;
     scopelibok : boolean = false;
     scopeinitok : boolean = false;
@@ -81,6 +83,8 @@ if scopelib<>0 then begin
     ScopeGetInfo := TScopeGetInfo(GetProcAddress(scopelib, 'ScopeGetInfo'));
     ScopeSetObs := TScopeSetObs(GetProcAddress(scopelib, 'ScopeSetObs'));
     ScopeGoto := TScopeGoto(GetProcAddress(scopelib, 'ScopeGoto'));
+    ScopeReadConfig := TScopeReadConfig(GetProcAddress(scopelib, 'ScopeReadConfig'));
+
     scopelibok:=true;
 //    CoInitialize(nil);
 end else begin
