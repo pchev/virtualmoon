@@ -4777,9 +4777,15 @@ end;
 
 // Scope menu
 procedure TForm1.Button16Click(Sender: TObject);
+var ok: boolean;
 begin
-  if not scopelibok then
+  if not scopelibok then  begin  // initialistaion
     InitScopeLibrary(slash(appdir) + scopeinterface + '.tid');
+    if scopelibok then
+    begin
+      ScopeReadConfig(ExtractFilePath(Configfile),ok);
+    end;
+  end;
   if scopelibok then
   begin
     ScopeSetObs(ObsLatitude, ObsLongitude);
