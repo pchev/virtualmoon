@@ -859,8 +859,8 @@ if FBumpOk and (value<>FBumpmap) then begin
        GLLightSource1.ConstAttenuation:=0.3;
     GLLightSource1.LightStyle:=lsSpot;
     ClearSlice(2);
-    if i>7 then MaxZoom:=12
-    else if i>3 then MaxZoom:=6
+    if i>7 then MaxZoom:=16
+    else if i>3 then MaxZoom:=8
     else if i>1 then MaxZoom:=4
     else MaxZoom:=2;
     if GLCamera1.SceneScale>MaxZoom then SetZoomLevel(MaxZoom);
