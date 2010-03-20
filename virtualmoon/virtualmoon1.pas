@@ -3527,12 +3527,15 @@ procedure TForm1.Splitter1Moved(Sender: TObject);
 begin
  ToolsWidth:=PageControl1.Width;
  if ToolsWidth<100 then ToolsWidth:=100;
+ FormResize(Sender);
 end;
 
 procedure TForm1.Splitter2Moved(Sender: TObject);
 begin
-if PanelMoon.Width>0 then
+if PanelMoon.Width>0 then begin
   SplitSize:=PanelMoon.Width/(PanelMoon.Width+PanelMoon2.Width);
+  FormResize(Sender);
+end;
 end;
 
 
