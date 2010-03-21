@@ -23,7 +23,7 @@ object splash: Tsplash
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '0.9.28.3'
+  LCLVersion = '0.9.28.2'
   object Panel1: TPanel
     Left = 0
     Height = 350
@@ -538,7 +538,7 @@ object splash: Tsplash
     end
     object Label1: TLabel
       Left = 0
-      Height = 37
+      Height = 40
       Top = 0
       Width = 400
       Align = alTop
@@ -571,8 +571,8 @@ object splash: Tsplash
     end
     object Label3: TLabel
       Left = 0
-      Height = 79
-      Top = 271
+      Height = 100
+      Top = 250
       Width = 400
       Align = alBottom
       Alignment = taCenter
@@ -590,7 +590,7 @@ object splash: Tsplash
     object Label4: TLabel
       Left = 0
       Height = 14
-      Top = 257
+      Top = 236
       Width = 400
       Align = alBottom
       Alignment = taCenter
@@ -603,6 +603,22 @@ object splash: Tsplash
       ParentColor = False
       ParentFont = False
       Transparent = False
+      OnClick = Image1DblClick
+    end
+    object Label6: TLabel
+      Left = 0
+      Height = 17
+      Top = 104
+      Width = 400
+      Alignment = taCenter
+      Anchors = [akTop, akLeft, akRight]
+      AutoSize = False
+      Caption = 'Version - Date'
+      Font.Color = 49344
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentColor = False
+      ParentFont = False
       OnClick = Image1DblClick
     end
   end

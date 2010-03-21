@@ -29,7 +29,11 @@ uses u_translation, IniFiles, Registry, u_constant, u_util,
   StdCtrls, ExtCtrls, Buttons, LResources;
 
 type
+
+  { Tsplash }
+
   Tsplash = class(TForm)
+    Label6: TLabel;
     Timer1: TTimer;
     Panel1: TPanel;
     Image1: TImage;
@@ -192,15 +196,18 @@ end;
 procedure Tsplash.FormShow(Sender: TObject);
 begin
 label2.Caption:=VersionName+' '+Splashversion;
+label6.Caption:=compile_version;
   if SplashTimer then begin
      panel2.Height:=20;
      ClientHeight:=panel1.Height+panel2.Height;
      label5.top:=0;
      label5.Alignment:=taCenter;
      label5.Caption:=transmsg;
+     label6.visible:=false;
      Timer1.enabled:=true
   end else begin
      ClientHeight:=panel1.Height+panel2.Height;
+     label6.visible:=true;
      Timer2.enabled:=true;
   end;
 end;

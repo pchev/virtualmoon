@@ -30,7 +30,6 @@ uses
 
 const crlf = chr(10)+chr(13);
       AVLversion = '5.1 beta';
-      Splashversion = AVLversion+' 2010-02-27';
       VersionName = 'Pro';
       avlcpy = 'Copyright (C) 2002-2009 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
@@ -170,7 +169,7 @@ Var  BinDir, Appdir, vignettedir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir
      CurrentTime,TimeBias,CurrentST,DT_UT_val,CurrentSunH,CurrentMoonH,CurrentMoonIllum,diam : Double;
      PlanetParalaxe: boolean;
      ForceConfig, Configfile, CdCconfig, Lang, language : string;
-     compile_time,compile_version:string;
+     Splashversion, compile_time,compile_version:string;
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;
      librationeffect, AsMultiTexture : Boolean;
