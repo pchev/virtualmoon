@@ -5027,7 +5027,7 @@ end;
 
 procedure TForm1.PopupMenu1Popup(Sender: TObject);
 begin
-  if TObject(TPopupMenu(sender).tag) is Tf_moon then SetActiveMoon(Tf_moon(TPopupMenu(sender).tag));
+  if TObject(TPopupMenu(sender).parent) is Tf_moon then SetActiveMoon(Tf_moon(TPopupMenu(sender).parent));
   RemoveMark1.Visible := (CurrentSelection <> '');
 end;
 
