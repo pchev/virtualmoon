@@ -1433,7 +1433,7 @@ begin
     // Popup
     if (ssRight in shift)
      then begin
-        GLSceneViewer1.PopupMenu.Tag:=integer(@self);
+        GLSceneViewer1.PopupMenu.Parent:=self;
         Pt:=GLSceneViewer1.ClientToScreen(point(x,y));
         GLSceneViewer1.PopupMenu.PopUp(Pt.X+1,Pt.Y+1);
      end;
@@ -1534,7 +1534,7 @@ begin
     // Popup
     if (ssRight in DownShift)
      then begin
-        GLSceneViewer1.PopupMenu.Tag:=longint(@self);
+        GLSceneViewer1.PopupMenu.parent:=self;
         Pt:=GLSceneViewer1.ClientToScreen(point(x,y));
         GLSceneViewer1.PopupMenu.PopUp(Pt.X+1,Pt.Y+1);
      end;
