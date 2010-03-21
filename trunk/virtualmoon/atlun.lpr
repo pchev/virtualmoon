@@ -7,8 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms
-  { you can add units after this }, LResources, virtualmoon1, config,
+  InterfaceBase, LCLVersion, // version number
+  Forms, LResources, virtualmoon1, config,
   CraterList, dbutil, fmsg, glossary, splashunit, telescope, SysUtils, TurboPowerIPro, u_constant, cu_tz, cu_planet,
   u_projection, u_util, pu_moon, u_translation_database, u_translation,
   uniqueinstance_package, pu_features, BigIma, uDE, mlb2;
@@ -20,6 +20,9 @@ var i:integer;
 begin
   {$I atlun.lrs}
   Application.Initialize;
+  compile_time:={$I %DATE%}+' '+{$I %TIME%};
+  compile_version:='Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+LCLPlatformDirNames[WidgetSet.LCLPlatform];
+  Splashversion := AVLversion+blank+compile_time;
   Application.CreateForm(TForm1, Form1);
   if not Form1.param.Find('-quit',i) then begin
       splash := Tsplash.create(application);

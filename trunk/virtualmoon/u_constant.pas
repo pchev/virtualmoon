@@ -34,7 +34,6 @@ uses
 const crlf = chr(10)+chr(13);
       cpyr = chr($a9)+chr($c2);  // ©
       AVLversion = '5.1 beta';
-      Splashversion = AVLversion+' 2010-02-27';
       VersionName = 'AtLun';
       avlcpy = 'Copyright '+cpyr+' 2002-2009 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
@@ -182,7 +181,8 @@ var Plan404 : TPlan404;
     Plan404lib: TLibHandle;
 
 // pseudo-constant only here
-Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir : string;
+Var  Splashversion, compile_time, compile_version: string;
+     BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir : string;
      Photlun,DatLun,CdC,PrtName, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double;
      ObsTZ,ObsCountry: string;
@@ -192,7 +192,6 @@ Var  BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdC
      CurrentTime,TimeBias,CurrentST,DT_UT_val,CurrentSunH,CurrentMoonH,CurrentMoonIllum,diam : Double;
      PlanetParalaxe: boolean;
      ForceConfig, Configfile, CdCconfig, language, uplanguage : string;
-     compile_time,compile_version:string;
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;
      librationeffect, AsMultiTexture : Boolean;
