@@ -1175,8 +1175,7 @@ if check then begin
  debugln('Check Acceleration');
 {$endif}
 if GLSceneViewer1.Buffer.Acceleration=chaSoftware then begin
-   raise exception.Create('This program only run with a graphic card that support OpenGL hardware acceleration.');
-   halt;
+   ShowMessage('Warning! OpenGL hardware acceleration not detected, program performance can be very poor or the program may crash. Please install a graphic card and driver that support OpenGL acceleration.');
 end;
 // Check texture size
 {$ifdef trace_debug}
