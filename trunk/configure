@@ -4,7 +4,7 @@
 #
 # syntaxe :
 #    ./configure [fpcbin=path_to_fpc_binaries] [fpc=path_to_fpc_units]  [lazarus=path_to_lazarus] [prefix=install_path] [target=fpcmake_target]
-#
+# 
 
 # set parameters
 if [ $# -gt 0 ]; then
@@ -139,4 +139,3 @@ echo To crosscompile from Linux to Windows:
 echo make OS_TARGET=win32 CPU_TARGET=i386
 echo make install_win
 echo
-
