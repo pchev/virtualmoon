@@ -309,7 +309,6 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure OptFeatures1Click(Sender: TObject);
-    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -2594,11 +2593,6 @@ end;
 procedure TForm1.OptFeatures1Click(Sender: TObject);
 begin
   f_features.showmodal;
-end;
-
-procedure TForm1.PageControl1ChangeBounds(Sender: TObject);
-begin
-
 end;
 
 
@@ -5194,7 +5188,7 @@ begin
   TrackBar2Change(Sender);
   TrackBar3.Position:=255;
   TrackBar3Change(Sender);
-  TrackBar4.Position:=128;
+  TrackBar4.Position:=18;
   TrackBar4Change(Sender);
 end;
 

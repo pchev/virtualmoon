@@ -1150,10 +1150,10 @@ begin
  MaxTextureSize:=1024;
  Flabelcolor:=clWhite;
  FMeasuringDistance := False;
- GLLightSource2.Diffuse.AsWinColor :=$1A1A1A;
+ GLLightSource2.Diffuse.AsWinColor :=$141414;
  GLLightSource1.Ambient.AsWinColor :=0;
  GLLightSource1.Diffuse.AsWinColor :=$FFFFFF;
- GLLightSource1.Specular.AsWinColor:=$808080;
+ GLLightSource1.Specular.AsWinColor:=$121212;
  FShowScale:=false;
  FShowGrid:=false;
 end;
