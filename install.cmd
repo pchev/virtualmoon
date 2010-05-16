@@ -1,3 +1,6 @@
+echo This script is incomplete!
+echo Please look at install_win.sh 
+
 @echo off
 
 set destdir=%1%
