@@ -26,67 +26,51 @@ install:
 	.\install.cmd $(PREFIX)
 uninstall: 
 	.\uninstall.cmd $(PREFIX)
-data:
-	$(MAKE) -C tools all
-install_data:
-	$(MAKE) -C tools install 
-uninstall_data:
-	$(MAKE) -C tools uninstall
 else
 ifeq ($(OS_TARGET),win64)
 install: 
 	.\install.cmd $(PREFIX)
 uninstall: 
 	.\uninstall.cmd $(PREFIX)
-data:
-	$(MAKE) -C tools all
-install_data:
-	$(MAKE) -C tools install 
-uninstall_data:
-	$(MAKE) -C tools uninstall
 else
 ifeq ($(OS_TARGET),darwin)
 install: 
 	./install_darwin.sh $(PREFIX)
 install_update:
         ./install_darwin_update.sh $(PREFIX)
+install_data:
+	./install_darwin_data.sh $(PREFIX) 
+install_data2:
+	./install_darwin_data2.sh $(PREFIX) 
 uninstall: 
 	./uninstall_darwin.sh $(PREFIX)
-data:
-	\$(MAKE) -C tools all
-install_data:
-	\$(MAKE) -C tools install 
-uninstall_data:
-	\$(MAKE) -C tools uninstall
 else
 install: 
 	./install.sh $(PREFIX)
-uninstall: 
-	./uninstall.sh $(PREFIX)
 install_update: 
 	./install_update.sh $(PREFIX)
+install_data:
+	./install_data.sh $(PREFIX) 
+install_data2:
+	./install_data2.sh $(PREFIX) 
 install_win: 
 	./install_win.sh win32 $(PREFIX)
-uninstall_win: 
-	./uninstall_win.sh $(PREFIX)
 install_win_update: 
 	./install_win_update.sh win32 $(PREFIX)
 install_win64: 
 	./install_win.sh win64 $(PREFIX)
-uninstall_win64: 
-	./uninstall_win.sh $(PREFIX)
 install_win64_update: 
 	./install_win_update.sh win64 $(PREFIX)
 install_win_data:
-	\$(MAKE) -C tools install_win 
-uninstall_win_data:
-	\$(MAKE) -C tools uninstall_win
-data:
-	\$(MAKE) -C tools all
-install_data:
-	\$(MAKE) -C tools install 
-uninstall_data:
-	\$(MAKE) -C tools uninstall
+	./install_win_data.sh $(PREFIX)
+install_win_data2:
+	./install_win_data2.sh $(PREFIX)
+uninstall: 
+	./uninstall.sh $(PREFIX)
+uninstall_win: 
+	./uninstall_win.sh $(PREFIX)
+uninstall_win64: 
+	./uninstall_win.sh $(PREFIX)
 endif
 endif
 endif
