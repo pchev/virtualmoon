@@ -19,18 +19,13 @@ function InstData {
   rmdir $tmpdir
 }
 
-OS_TARGET=$1
-destdir=$2
-
-if [ -z "$OS_TARGET=" ]; then
-   export OS_TARGET==win32
-fi
+destdir=$1
 
 if [ -z "$destdir" ]; then
    export destdir=/tmp/virtualmoon
 fi
 
-echo Install virtualmoon $OS_TARGET to $destdir
+echo Install virtualmoon data to $destdir
 
 install -m 755 -d $destdir
 install -m 755 -d $destdir/Database
