@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# put here only the files that need to be changed since last release
+
 OS_TARGET=$1
 destdir=$2
 

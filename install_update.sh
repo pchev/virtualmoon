@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# put here only the files that need to be changed since last release
+
 destdir=$1
 
 if [ -z "$destdir" ]; then
