@@ -53,7 +53,7 @@ if [[ $lastrev -ne $currentrev ]]; then
 #  if [[ $? -ne 0 ]]; then exit 1;fi
   # tar
   cd $builddir
-  tar cvjf virtualmoon-$version-$currentrev-linux_i386.tar.bz2 *
+  tar cvjf virtualmoon-$version-$currentrev-linux_i386.tar.bz2 --owner=root --group=root *
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon*.tar.bz2 $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
@@ -89,7 +89,7 @@ if [[ $lastrev -ne $currentrev ]]; then
   cp photlun/photlun $builddir/debug/
   cp datlun/datlun $builddir/debug/
   cd $builddir/debug/
-  tar cvjf virtualmoon-bin-linux_i386-debug-$currentrev.tar.bz2 *
+  tar cvjf virtualmoon-bin-linux_i386-debug-$currentrev.tar.bz2 --owner=root --group=root *
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon-bin-*.tar.bz2 $wd
   if [[ $? -ne 0 ]]; then exit 1;fi

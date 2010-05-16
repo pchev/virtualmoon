@@ -69,7 +69,7 @@ if [[ $lastrev -ne $currentrev ]]; then
 #  if [[ $? -ne 0 ]]; then exit 1;fi
   # tar
   cd $builddir
-  tar cvzf virtualmoon$updname-$version-$currentrev-linux_i386.tgz *
+  tar cvzf virtualmoon$updname-$version-$currentrev-linux_i386.tgz --owner=root --group=root *
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon*.tgz $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
@@ -107,7 +107,7 @@ if [[ $lastrev -ne $currentrev ]]; then
   cp photlun/photlun $builddir/debug/
   cp datlun/datlun $builddir/debug/
   cd $builddir/debug/
-  tar cvzf virtualmoon$updname-bin-linux_i386-debug-$currentrev.tgz *
+  tar cvzf virtualmoon$updname-bin-linux_i386-debug-$currentrev.tgz --owner=root --group=root *
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon$updname-bin-*.tgz $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
@@ -131,7 +131,7 @@ if [[ $lastrev -ne $currentrev ]]; then
 #  if [[ $? -ne 0 ]]; then exit 1;fi
   # tar
   cd $builddir
-  tar cvzf virtualmoon$updname-$version-$currentrev-linux_x86_64.tgz *
+  tar cvzf virtualmoon$updname-$version-$currentrev-linux_x86_64.tgz --owner=root --group=root *
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon*.tgz $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
@@ -172,7 +172,7 @@ if [[ $lastrev -ne $currentrev ]]; then
   cp photlun/photlun $builddir/debug/
   cp datlun/datlun $builddir/debug/
   cd $builddir/debug/
-  tar cvzf virtualmoon$updname-bin-linux_x86_64-debug-$currentrev.tgz *
+  tar cvzf virtualmoon$updname-bin-linux_x86_64-debug-$currentrev.tgz --owner=root --group=root *
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon$updname-bin-*.tgz $wd
   if [[ $? -ne 0 ]]; then exit 1;fi
