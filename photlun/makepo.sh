@@ -3,4 +3,4 @@
 # Update first the path to your Lazarus installation and run "make" in lazarus/tools
 
 rstconv -i units/i386-linux-gtk2/u_translation.rst -o language/photlun.po
-~/lazarus/tools/updatepofiles language/photlun.po
+/home/compiler/lazarus/tools/updatepofiles language/photlun.po

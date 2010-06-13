@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2008-06-03 10:23+0200\n"
-"Last-Translator: Juan Carlos Garrido <neuma@arrakis.es>\n"
+"PO-Revision-Date: 2007-08-14 21:48+0100\n"
+"Last-Translator: Antonis Gitsas\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -11,201 +11,201 @@ msgstr ""
 
 #: u_translation.rsabout
 msgid "About ..."
-msgstr "Acerca de"
+msgstr "Σχετικά..."
 
 #: u_translation.rsadjusttowind
 msgid "Adjust to window"
-msgstr "Ajustar a la ventana"
+msgstr "Προσαρμογή στο παράθυρο"
 
 #: u_translation.rsall
 msgid "All"
-msgstr "Todo"
+msgstr "Όλα"
 
 #: u_translation.rsalllibraries
 msgid "All libraries"
-msgstr "Todas las librerías"
+msgstr "Όλες οι βιβλιοθήκες"
 
 #: u_translation.rsbrighter
 msgid "Brighter"
-msgstr "Más brillante"
+msgstr "Λαμπρότερο"
 
 #: u_translation.rsbylibrary
 msgid "by library"
-msgstr "por librería"
+msgstr "κατά βιβλιοθήκη"
 
 #: u_translation.rsbyname
 msgid "by name"
-msgstr "por nombre"
+msgstr "κατα όνομα"
 
 #: u_translation.rscancel
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Άκυρο"
 
 #: u_translation.rscloseallwind
 msgid "Close all window"
-msgstr "Cerrar todas las ventanas"
+msgstr "Κλείσιμο όλων των παραθύρων"
 
 #: u_translation.rsdarker
 msgid "Darker"
-msgstr "Más oscuro"
+msgstr "Σκοτεινότερο"
 
 #: u_translation.rsdatabase
 msgid "Database"
-msgstr "Base de datos"
+msgstr "Βάση δεδομένων"
 
 #: u_translation.rseastwest
 msgid "East<->West"
-msgstr "Este<->Oeste"
+msgstr "Ανατολή<->Δύση"
 
 #: u_translation.rsfile
 msgid "File"
-msgstr "Archivo"
+msgstr "Αρχείο"
 
 #: u_translation.rsfolder
 msgid "Folder"
-msgstr "Carpeta"
+msgstr "Φάκελος"
 
 #: u_translation.rsformationnam
 msgid "Formation name"
-msgstr "Nombre de la formación"
+msgstr "Όνομα σχηματισμού"
 
 #: u_translation.rsfullsize
 msgid "Full size"
-msgstr "Tamaño completo"
+msgstr "Πλήρες μέγεθος"
 
 #: u_translation.rshelp
 msgid "Help"
-msgstr "Ayuda"
+msgstr "Βοήθεια"
 
 #: u_translation.rshelpprefix
 msgid "HelpPrefix"
-msgstr "ES_"
+msgstr "EL_"
 
 #: u_translation.rshorizontalmi
 msgid "Horizontal Mirror"
-msgstr "Reflejo horizontal"
+msgstr "Οριζόντιος κατοπτρισμός"
 
 #: u_translation.rsimagefolders
 msgid "Image folders:"
-msgstr "Carpetas de imágenes"
+msgstr "Φάκελοι εικόνων"
 
 #: u_translation.rsimagemirror
 msgid "Image mirror"
-msgstr "Imagen de espejo"
+msgstr "Κατοπτρισμός εικόνας"
 
 #: u_translation.rsimages
 msgid "Images"
-msgstr "Imágenes"
+msgstr "Εικόνες"
 
 #: u_translation.rsincreasecont
 msgid "Increase Contrast"
-msgstr "Aumentar contraste"
+msgstr "Αύξηση αντίθεσης"
 
 #: u_translation.rslarge
 msgid "Large"
-msgstr "Grande"
+msgstr "Μεγάλο"
 
 #: u_translation.rslibrary
 msgid "Library"
-msgstr "Librería"
+msgstr "Βιβλιοθήκη"
 
 #: u_translation.rslibrarysetti
 msgid "Library Setting"
-msgstr "Configuración de librería"
+msgstr "Ορισμός βιβλιοθήκης"
 
 #: u_translation.rsmedium
 msgid "Medium"
-msgstr "Medio"
+msgstr "Μεσαίο"
 
 #: u_translation.rsname
 msgid "Name"
-msgstr "Nombre"
+msgstr "Όνομα"
 
 #: u_translation.rsnone1
 msgid "None"
-msgstr "Ninguno"
+msgstr "Κανένα"
 
 #: u_translation.rsnorthsouth
 msgid "North<->South"
-msgstr "Norte<->Sur"
+msgstr "Βορράς<->Νότος"
 
 #: u_translation.rsnumberofwind
 msgid "Number of window"
-msgstr "Número de ventana"
+msgstr "Αριθμός παραθύρου"
 
 #: u_translation.rsok
 msgid "OK"
-msgstr "Aceptar"
+msgstr "OK"
 
 #: u_translation.rsquit
 msgid "Quit"
-msgstr "Abandonar"
+msgstr "Έξοδος"
 
 #: u_translation.rsreducecontra
 msgid "Reduce Contrast"
-msgstr "Reducir contraste"
+msgstr "Ελάττωση αντίθεσης"
 
 #: u_translation.rsresetdefault
 msgid "Reset default setting"
-msgstr "Restablecer parámetros originales"
+msgstr "Επαναφορά προεπιλεγμένης ρύθμισης"
 
 #: u_translation.rsrotateclockw
 msgid "Rotate clockwise"
-msgstr "Girar a la derecha"
+msgstr "Περιστροφή κατά την ανάστροφη φορά"
 
 #: u_translation.rsrotatecounte
 msgid "Rotate counterclockwise"
-msgstr "Girar a la izquierda"
+msgstr "Περιστροφή κατά την ορθή φορά"
 
 #: u_translation.rsrotation
 msgid "Rotation"
-msgstr "Rotación"
+msgstr "Περιστροφή"
 
 #: u_translation.rssavesetting
 msgid "Save setting"
-msgstr "Guardar configuración"
+msgstr "Αποθήκευση ρύθμισης"
 
 #: u_translation.rssearch
 msgid "Search"
-msgstr "Buscar"
+msgstr "Αναθήτηση"
 
 #: u_translation.rsselection
 msgid "Selection"
-msgstr "Selección"
+msgstr "Επιλογή"
 
 #: u_translation.rsshowonmap
 msgid "Show on map"
-msgstr "Mostrar en el mapa"
+msgstr "Εμφάνιση στο χάρτη"
 
 #: u_translation.rssize
 msgid "Size"
-msgstr "Tamaño"
+msgstr "Μέγεθος"
 
 #: u_translation.rssmall
 msgid "Small"
-msgstr "Pequeño"
+msgstr "Μικρό"
 
 #: u_translation.rssort
 msgid "Sort"
-msgstr "Ordenar"
+msgstr "Ταξινόμηση"
 
 #: u_translation.rstranslatedby
 msgid "Translated by :"
-msgstr ""
+msgstr "Translated by : Antonis Gitsas"
 
 #: u_translation.rsverticalmirr
 msgid "Vertical Mirror"
-msgstr "Reflejo vertical"
+msgstr "Κατακόρυφος κατοπτρισμός"
 
 #: u_translation.rsview
 msgid "View"
-msgstr "Ver"
+msgstr "Όψη"
 
 #: u_translation.rsvignettes
 msgid "Vignettes"
-msgstr "Viñetas"
+msgstr "Βινιέτες"
 
 #: u_translation.rszoom
 msgid "Zoom"
-msgstr ""
+msgstr "Εστίαση"
 

@@ -4,5 +4,5 @@
 
 rstconv -i units/i386-linux-gtk2/u_translation.rst -o language/datlun.po
 rstconv -i units/i386-linux-gtk2/u_translation_database.rst -o language/vmadatabase.po
-~/lazarus/tools/updatepofiles language/datlun.po
-~/lazarus/tools/updatepofiles language/vmadatabase.po
+/home/compiler/lazarus/tools/updatepofiles language/datlun.po
+/home/compiler/lazarus/tools/updatepofiles language/vmadatabase.po

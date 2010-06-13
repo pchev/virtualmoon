@@ -2,27 +2,26 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Huub Scheenen <info@kuuke.nl>\n"
-"PO-Revision-Date: 2010-06-06 18:13+0100\n"
+"Last-Translator: Antonis Gitsas \n"
+"PO-Revision-Date: 2009-10-11 14:59+0200\n"
 "Project-Id-Version: \n"
-"Language-Team: Français <kde-i18n-doc@kde.org>\n"
+"Language-Team: Greek http://users.uoi.gr/agitsas\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"POT-Creation-Date: \n"
 
 #: u_translation.rsadvanced
 msgid "Advanced"
-msgstr "Geavanceerd"
+msgstr "Για προχωρημένους"
 
 #: u_translation.rsairburshreli
 msgid "Airbursh relief with albedo"
-msgstr "Airbursh verlichting met albedo"
+msgstr "Ανάγλυφο αερογράφου με λευκαύγεια"
 
 #: u_translation.rsairburshreli2
 msgid "Airbursh relief without albedo"
-msgstr "Airbursch relief zonder albedo"
+msgstr "Ανάγλυφο αερογράφου χωρίς λευκαύγεια"
 
 #: u_translation.rscaption
 msgid "Caption"
@@ -30,19 +29,19 @@ msgstr ""
 
 #: u_translation.rscheckforopti
 msgid "Check for optional features"
-msgstr "Controleer op optionele functies"
+msgstr "Έλεγχος για προαιρετικά χαρακτηριστικά"
 
 #: u_translation.rsclementineph
 msgid "Clementine photographic"
-msgstr "Clementine fotografisch"
+msgstr "Φωτογραφική Κλημεντίνης"
 
 #: u_translation.rscountry
 msgid "Country"
-msgstr "Land"
+msgstr "Χώρα"
 
 #: u_translation.rsdefault
 msgid "Default"
-msgstr "Standaard"
+msgstr "Προεπιλογή"
 
 #: u_translation.rsdegree
 msgid "d"
@@ -50,7 +49,7 @@ msgstr "°"
 
 #: u_translation.rsdownload
 msgid "Download"
-msgstr "Download"
+msgstr "Κατέβασμα"
 
 #: u_translation.rsdownloadurl
 msgid "http://ap-i.net/avl/en/download"
@@ -58,15 +57,15 @@ msgstr "http://ap-i.net/avl/en/download"
 
 #: u_translation.rsdynamicrelie
 msgid "Dynamic relief display method"
-msgstr "Weergave methode dynamsiche verlichting"
+msgstr "Μέθοδος δυναμικής εμφάνισης αναγλύφου"
 
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
-msgstr "efemeride:"
+msgstr "Εφημερίδα:"
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
-msgstr "Instelling eerste gebruik"
+msgstr "Ρυθμίσεις πρώτης χρήσης"
 
 #: u_translation.rsformat
 msgid "0"
@@ -74,31 +73,31 @@ msgstr "0"
 
 #: u_translation.rsfullscreen
 msgid "Full screen (Esc)"
-msgstr "Volledig scherm (Esc)"
+msgstr "Πλήρης οθόνη (Esc)"
 
 #: u_translation.rsgrid
 msgid "Grid"
-msgstr "Raster"
+msgstr "Πλέγμα"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
-msgstr "NL"
+msgstr "EL"
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
-msgstr "Lettertype labels"
+msgstr "Γραμματοσ. επιγραφών"
 
 #: u_translation.rslanguage
 msgid "English"
-msgstr "Nederlands"
+msgstr "Ελληνικά (Greek)"
 
 #: u_translation.rslevel
 msgid "Level:"
-msgstr "Niveau:"
+msgstr "Επίπεδο:"
 
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
-msgstr "LOPAM fotografisch"
+msgstr "Φωτογραφική LOPAM"
 
 #: u_translation.rsminute
 #, fuzzy
@@ -109,39 +108,39 @@ msgstr "'"
 
 #: u_translation.rsm_1
 msgid "from"
-msgstr "van"
+msgstr "από"
 
 #: u_translation.rsm_10
 msgid "Longitude:"
-msgstr "Lengte:"
+msgstr "Μήκος:"
 
 #: u_translation.rsm_11
 msgid "Latitude:"
-msgstr "Breedte:"
+msgstr "Πλάτος:"
 
 #: u_translation.rsm_12
 msgid "Quadrant:"
-msgstr "Kwadrant:"
+msgstr "Τεταρτημόριο:"
 
 #: u_translation.rsm_13
 msgid "Area:"
-msgstr "Gebied:"
+msgstr "Εμβαδό:"
 
 #: u_translation.rsm_14
 msgid "Rukl map:"
-msgstr "Rukl kaart:"
+msgstr "Χάρτης Rukl:"
 
 #: u_translation.rsm_15
 msgid "Viscardy page: "
-msgstr "Viscardy bladzijde:"
+msgstr "Σελίδα Viscardy:"
 
 #: u_translation.rsm_16
 msgid "Hatfield map:"
-msgstr "Hatfield kaart:"
+msgstr "Χάρτης Hatfield:"
 
 #: u_translation.rsm_17
 msgid "Dimension:"
-msgstr "Dimensie:"
+msgstr "Διαστάσεις:"
 
 #: u_translation.rsm_18
 msgid "Km"
@@ -153,11 +152,11 @@ msgstr "Mi"
 
 #: u_translation.rsm_2
 msgid "born in"
-msgstr "geboren in:"
+msgstr "τόπος γέννησης"
 
 #: u_translation.rsm_20
 msgid "Height:"
-msgstr "Hoogte:"
+msgstr "Ύψος:"
 
 #: u_translation.rsm_21
 msgctxt "u_translation.rsm_21"
@@ -170,189 +169,189 @@ msgstr "ft"
 
 #: u_translation.rsm_23
 msgid "Height/Wide ratio:"
-msgstr "Verhouding hoogte/breedte:"
+msgstr "Λόγος ύψους/πλάτους:"
 
 #: u_translation.rsm_24
 msgid "Interest :"
-msgstr "Interesse"
+msgstr "Ενδιαφέρον:"
 
 #: u_translation.rsm_25
 msgid "Observation period:"
-msgstr "Waarnemingsperiode"
+msgstr "Περίοδος παρατήρησης:"
 
 #: u_translation.rsm_26
 msgid "or"
-msgstr "of"
+msgstr "ή"
 
 #: u_translation.rsm_27
 msgid "No formation actually near the terminator"
-msgstr "Geen formatie daadwerkelijk in de buurt van de terminator"
+msgstr "Δεν υπάρχει σχηματισμός κοντά στη Διαχωρίζουσα"
 
 #: u_translation.rsm_28
 msgid "Minimal Instrument:"
-msgstr "Minimaal instrument:"
+msgstr "Ελάχιστο μέγεθος τηλεσκοπίου:"
 
 #: u_translation.rsm_29
 msgid "Right Ascension:"
-msgstr "Rechte klimming:"
+msgstr "Ορθή αναφορά:"
 
 #: u_translation.rsm_3
 msgid "Born at:"
-msgstr "Geboren op:"
+msgstr "Γέννηση:"
 
 #: u_translation.rsm_30
 msgid "Declination:"
-msgstr "Declinatie:"
+msgstr "Απόκλιση:"
 
 #: u_translation.rsm_31
 msgid "Distance:"
-msgstr "Afstand:"
+msgstr "Απόσταση:"
 
 #: u_translation.rsm_32
 msgid "Phase:"
-msgstr "Fase:"
+msgstr "Φάση:"
 
 #: u_translation.rsm_33
 msgid "Libration in Latitude:"
-msgstr "Libratie in de lengte:"
+msgstr "Λίκνηση του σεληνογρ. πλάτους:"
 
 #: u_translation.rsm_34
 msgid "Libration in Longitude:"
-msgstr "Libratie in de breedte:"
+msgstr "Λίκνηση του σεληνογρ. μήκους:"
 
 #: u_translation.rsm_35
 msgid "Illumination:"
-msgstr "Verlichting:"
+msgstr "Φωτισμός:"
 
 #: u_translation.rsm_36
 msgid "Apparent diameter:"
-msgstr "Schijbare diameter:"
+msgstr "Φαινόμενη διάμετρος:"
 
 #: u_translation.rsm_37
 msgid "Position angle:"
-msgstr "Positiehoek:"
+msgstr "Γωνία θέσης:"
 
 #: u_translation.rsm_38
 msgid "Rise:"
-msgstr "Opkomst:"
+msgstr "Ανατολή:"
 
 #: u_translation.rsm_39
 msgid "Transit:"
-msgstr "Doorgang:"
+msgstr "Μεσουράνηση:"
 
 #: u_translation.rsm_4
 msgid "in"
-msgstr "in"
+msgstr "σε"
 
 #: u_translation.rsm_40
 msgid "Set:"
-msgstr "Ondergang:"
+msgstr "Δύση:"
 
 #: u_translation.rsm_41
 msgid "Rise azimuth:"
-msgstr "Azimuth opkomst:"
+msgstr "Αζιμούθιο ανατολής:"
 
 #: u_translation.rsm_42
 msgid "Set azimuth:"
-msgstr "Azimuth ondergang:"
+msgstr "Αζιμούθιο δύσης:"
 
 #: u_translation.rsm_43
 msgid "Field:"
-msgstr "Veld:"
+msgstr "Πεδίο:"
 
 #: u_translation.rsm_44
 msgid "Refresh rate"
-msgstr "Verversingsgraad"
+msgstr "Ρυθμός ανανέωσης"
 
 #: u_translation.rsm_45
 msgid "Sub-solar latitude:"
-msgstr "Sub-solar breedte:"
+msgstr "Υποηλιακό πλάτος:"
 
 #: u_translation.rsm_46
 msgid "Lunation:"
-msgstr "Lunatie:"
+msgstr "Συνοδικός μήνας:"
 
 #: u_translation.rsm_47
 msgid "days"
-msgstr "dagen"
+msgstr "ημέρες"
 
 #: u_translation.rsm_48
 msgid "Colongitude:"
-msgstr ""
+msgstr "Colongitude:"
 
 #: u_translation.rsm_49
 msgid "Geological period:"
-msgstr "Geologische periode:"
+msgstr "Γεωλογική περίοδος:"
 
 #: u_translation.rsm_5
 msgid "Dead at:"
-msgstr "Gestorven op:"
+msgstr "Θάνατος:"
 
 #: u_translation.rsm_50
 msgctxt "u_translation.rsm_50"
 msgid "Time"
-msgstr "Tijd"
+msgstr "Ώρα"
 
 #: u_translation.rsm_51
 msgctxt "u_translation.rsm_51"
 msgid "Date"
-msgstr "Datum:"
+msgstr "Ημερομηνία"
 
 #: u_translation.rsm_52
 msgid "Measure the distance"
-msgstr "Bepaal de afstand:"
+msgstr "Μέτρηση απόστασης"
 
 #: u_translation.rsm_53
 msgid "Standard cursor mode"
-msgstr "Standaard cursor mode"
+msgstr "Κανονικός δείκτης ποντικιού"
 
 #: u_translation.rsm_54
 msgid "Image list"
-msgstr "Afbeeldingenlijst"
+msgstr "Λίστα εικόνων"
 
 #: u_translation.rsm_55
 msgid "Transit Altitude:"
-msgstr "Hoogte doorgang:"
+msgstr "Ύψος μεσουράνησης:"
 
 #: u_translation.rsm_56
 msgid "Type:"
-msgstr "Type:"
+msgstr "Είδος:"
 
 #: u_translation.rsm_57
 msgid "Size:"
-msgstr "Grootte:"
+msgstr "Μέγεθος:"
 
 #: u_translation.rsm_58
 msgid "Description:"
-msgstr "Beschrijving:"
+msgstr "Περιγραφή:"
 
 #: u_translation.rsm_59
 msgid "Observation:"
-msgstr "Waarneming:"
+msgstr "Παρατήρηση:"
 
 #: u_translation.rsm_6
 msgid "Name Author:"
-msgstr "Naam auteur:"
+msgstr "Ονοματοδότης:"
 
 #: u_translation.rsm_60
 msgid "Position:"
-msgstr "Positie:"
+msgstr "Θέση:"
 
 #: u_translation.rsm_61
 msgid "Atlas:"
-msgstr "Atlas:"
+msgstr "Άτλας:"
 
 #: u_translation.rsm_62
 msgid "Name Origine:"
-msgstr "Naam van orgine:"
+msgstr "Προέλευση ονόματος:"
 
 #: u_translation.rsm_63
 msgid "Detailed Name:"
-msgstr "Gedetailleerde naam:"
+msgstr "Ακριβές όνομα:"
 
 #: u_translation.rsm_64
 msgid "Important Facts:"
-msgstr "belangrijke feiten:"
+msgstr "Σημαντικά στοιχεία:"
 
 #: u_translation.rsm_65
 msgid "Lunar Orbiter:"
@@ -360,99 +359,99 @@ msgstr "Lunar Orbiter:"
 
 #: u_translation.rsm_66
 msgid "Westfall Atlas:"
-msgstr "Westfall atlas:"
+msgstr "Άτλας Westfall:"
 
 #: u_translation.rsm_67
 msgid "Warning! The personal notes have changed. Do you want to save the change?"
-msgstr "Waarschuwing! de persoonlijke aantekeningen zijn veranderd. Wil je de veranderingen opslaan?"
+msgstr "Προσοχή! Οι προσωπικές σημειώσεις έχουν αλλάξει. Θέλετε να αποθηκεύσετε τις αλλαγές;"
 
 #: u_translation.rsm_7
 msgid "Name by Langrenus:"
-msgstr "Naam door Langrenus:"
+msgstr "Όνομα κατά Langrenus:"
 
 #: u_translation.rsm_72
 msgid "Charles Wood article:"
-msgstr "Charles Wood artikel:"
+msgstr "Άρθρο Charles Wood:"
 
 #: u_translation.rsm_73
 msgid "Azimuth"
-msgstr "Azimuth"
+msgstr "Αζιμούθιο:"
 
 #: u_translation.rsm_74
 msgid "Altitude"
-msgstr "Hoogte"
+msgstr "Ύψος:"
 
 #: u_translation.rsm_75
 msgid "From Database:"
-msgstr "Uit database:"
+msgstr "Από τη βάση δεδομένων:"
 
 #: u_translation.rsm_8
 msgid "Name by Hevelius:"
-msgstr "Naam door Hevelius:"
+msgstr "Όνομα κατά Hevelius:"
 
 #: u_translation.rsm_9
 msgid "Name by Riccioli:"
-msgstr "Naam door Riccoli:"
+msgstr "Όνομα κατά Riccioli:"
 
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
-msgstr "Baan hoogte"
+msgstr "Τροχιακό ύψος"
 
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
-msgstr "Baan inclinatie"
+msgstr "Τροχιακή έγκλιση:"
 
 #: u_translation.rsphasewithdyn
 msgid "Phase with dynamic relief"
-msgstr "Fase met dynamisch reliëf"
+msgstr "Φάση με δυναμικό ανάγλυφο"
 
 #: u_translation.rsphasewithout
 msgid "Phase without relief"
-msgstr "Fase zonder reliëf"
+msgstr "Φάση χωρίς δυναμικό ανάγλυφο"
 
 #: u_translation.rspicturelibra
 msgid "Picture Library Apollo Missions"
-msgstr "Afbeeldingenbibliotheek Apollo Missies"
+msgstr "Εικόνα βιβλιοθήκης αποστολών Apollo"
 
 #: u_translation.rspicturelibra2
 msgid "Picture Library Apollo Mapping Camera"
-msgstr "Afbeeldingenbibliotheek Apollo Mapping Camera"
+msgstr "Εικόνα βιβλιοθήκης Apollo Mapping Camera"
 
 #: u_translation.rspicturelibra3
 msgid "Picture Library Best Of Amateurs"
-msgstr "Afbeeldingenbibliotheek Best of Amateurs"
+msgstr "Εικόνα βιβλιοθήκης Best Of Amateurs"
 
 #: u_translation.rspicturelibra4
 msgid "Picture Library Clementine Probe"
-msgstr "Afbeeldingenbibliotheek Clementine Sonde"
+msgstr "Εικόνα βιβλιοθήκης Κλημεντίνης"
 
 #: u_translation.rspicturelibra5
 msgid "Picture Library Kaguya Probe"
-msgstr "Afbeeldingenbibliotheek Kaguya Sonde"
+msgstr "Εικόνα βιβλιοθήκης Kaguya"
 
 #: u_translation.rspicturelibra6
 msgid "Picture Library Consolidated Lunar Atlas"
-msgstr "Afbeeldingenbibliotheek Consolidated Lunar Atlas"
+msgstr "Εικόνα βιβλιοθήκης Consolidated Lunar Atlas"
 
 #: u_translation.rspicturelibra7
 msgid "Picture Library Lunar Astronautical Charts & Lunar Maps"
-msgstr "Afbeeldingenbibliotheek Lunar Austronautical Atlas & Lunar Maps"
+msgstr "Εικόνα βιβλιοθήκης Lunar Astronautical Charts & Lunar Maps"
 
 #: u_translation.rspicturelibra8
 msgid "Picture Library Lunar Orbiter Photographic Atlas Of The Moon "
-msgstr "Afbeeldingenbibliotheek Lunar Orbiter Fotografische Atlas van de Maan"
+msgstr "Εικόνα βιβλιοθήκης Lunar Orbiter Photographic Atlas Of The Moon"
 
 #: u_translation.rspicturelibra9
 msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
-msgstr "Afbeeldingenbibliotheek Luna, Ranger, Lunar Orbiter & Surveyor sondes"
+msgstr "Εικόνα βιβλιοθήκης Luna, Ranger, Lunar Orbiter και Surveyor"
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
-msgstr "Volldig scherm afsluiten (Esc)"
+msgstr "Έξοδος από την πλήρη οθόνη (Esc)"
 
 #: u_translation.rsremoveunknow
 msgid "Remove unknow field values from reports"
-msgstr "Verwijder onbekende veldwaardes van rapporten"
+msgstr "Αφαίρεση άγνωστων τιμών πεδίων από τις αναφορές"
 
 #: u_translation.rssecond
 #, fuzzy
@@ -462,175 +461,175 @@ msgstr "\""
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
-msgstr "Raster tonen"
+msgstr "Εμφάνιση πλέγματος"
 
 #: u_translation.rsshowlabels
 msgid "Show labels"
-msgstr "Toon labels"
+msgstr "Εμφάνιση επιγραφών"
 
 #: u_translation.rsshowscale
 msgid "Show scale"
-msgstr "Toon schaal"
+msgstr "Εμφάνιση κλίμακας"
 
 #: u_translation.rssimple
 msgid "Simple"
-msgstr "Eenvoudig"
+msgstr "Απλό"
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
-msgstr "Texturen Airbursh verlichting zonder albedo"
+msgstr "Yφή αναγλύφου αερογράφου χωρίς λευκαύγεια"
 
 #: u_translation.rstexturesclem
 msgid "Textures Clementine photographic High Resolution"
-msgstr "Fotografische hoge resolutietexturen  Clementine"
+msgstr "Υφή υψηλής ποιότητας φωτογραφικής Κλημεντίνης"
 
 #: u_translation.rstextureslopa
 msgid "Textures LOPAM photographic High Resolution"
-msgstr "Fotografische hoge resolutietexturen LOPAM"
+msgstr "Υφή υψηλής ποιότητας φωτογραφικής LOPAM"
 
 #: u_translation.rstexturesphas
 msgid "Textures Phase with dynamic relief using Kaguya data"
-msgstr "Texturen fase met dynamishe verlichting Kaguya data"
+msgstr "Υφή φάσης με δυναμικό ανάγλυφο χρησιμοποιώντας δεδομένα του Kaguya"
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
-msgstr "Virtuele Atlas van de Maan"
+msgstr "Virtual Moon Atlas"
 
 #: u_translation.rstopocentric
 msgid "Topocentric"
-msgstr "Topocentrisch"
+msgstr "Τοποκεντρικά"
 
 #: u_translation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
-msgstr "Vertaling: H. Scheenen"
+msgstr "Translation: Antonis Gitsas"
 
 #: u_translation.rst_1
 msgid "File"
-msgstr "Bestand"
+msgstr "Αρχείο"
 
 #: u_translation.rst_10
 msgid "Find"
-msgstr "Zoek"
+msgstr "Εύρεση"
 
 #: u_translation.rst_100
 msgid "Observatory"
-msgstr "Obervatorium"
+msgstr "Παρατηρητήριο"
 
 #: u_translation.rst_101
 msgid "Display"
-msgstr "Weergave"
+msgstr "Εμφάνιση"
 
 #: u_translation.rst_102
 msgid "Mark the point of maximum libration"
-msgstr "Markeer het punt van de maximale libratie"
+msgstr "Σημείωση της θέσης μέγιστης λίκνισης"
 
 #: u_translation.rst_103
 msgid "Identification"
-msgstr "Identificatie"
+msgstr "Αναγνώριση"
 
 #: u_translation.rst_104
 msgid "Label density"
-msgstr "Dichtheid labels"
+msgstr "Πυκνότητα επιγραφών"
 
 #: u_translation.rst_109
 msgid "Eyepieces"
-msgstr "Oculairen"
+msgstr "Προσοφθάλμια"
 
 #: u_translation.rst_11
 msgid "Find Next"
-msgstr "Zoek volgende"
+msgstr "Εύρ. επομένου"
 
 #: u_translation.rst_110
 msgid "Telescope focal length"
-msgstr "Brandpuntsafstand telescoop"
+msgstr "Εστ. απόσταση αντικειμενικού"
 
 #: u_translation.rst_111
 msgid "Eyepiece focal length"
-msgstr "Brandpuntsafstand oculair"
+msgstr "Εστ. απόσταση προσοφθαλμίου"
 
 #: u_translation.rst_112
 msgid "Eyepiece apparent field of vision"
-msgstr "Schijnbaar beeldveld oulair"
+msgstr "Φαινόμενο οπτ. πεδίο προσοφθ."
 
 #: u_translation.rst_113
 msgid "Compute"
-msgstr "Bereken"
+msgstr "Υπολογισμός"
 
 #: u_translation.rst_114
 msgid "Update"
-msgstr "Bijwerken"
+msgstr "Ενημέρωση"
 
 #: u_translation.rst_115
 msgid "Notes"
-msgstr "Aantekeningen"
+msgstr "Σημειώσεις"
 
 #: u_translation.rst_116
 msgid "Centre"
-msgstr "Middelpunt"
+msgstr "Κέντρο"
 
 #: u_translation.rst_117
 msgid "none"
-msgstr "geen"
+msgstr "κενό"
 
 #: u_translation.rst_118
 msgid "Eyepiece Name"
-msgstr "Naam oculair"
+msgstr "Όνομα προσοφθαλμίου"
 
 #: u_translation.rst_119
 msgid "Field in minutes"
-msgstr "Beeldveld in minuten"
+msgstr "Πεδίο (λεπτά)"
 
 #: u_translation.rst_120
 msgid "Center label on the formation"
-msgstr "Centreer label op de formatie"
+msgstr "Κεντράρισμα επιγραφής στο σχηματισμό"
 
 #: u_translation.rst_121
 msgid "Short Label"
-msgstr "Label kort"
+msgstr "Σύντομη επιγραφή"
 
 #: u_translation.rst_122
 msgid "Near Side Named Formation"
-msgstr "Voorkant benoemde formatie"
+msgstr "Επώνυμοι σχηματισμοί ορατής πλευράς"
 
 #: u_translation.rst_123
 msgid "Near Side Indexed Craters"
-msgstr "Voorkant geïndexeerde kraters"
+msgstr "Καταχωρημένοι κρατήρες ορατής πλευράς"
 
 #: u_translation.rst_124
 msgid "Power"
-msgstr "Vergroting"
+msgstr "Ισχύς"
 
 #: u_translation.rst_125
 msgid "Options valid at next startup"
-msgstr "Optis beschikbaar bij de volgende opstart"
+msgstr "Επιλογές επόμενης εκκίνησης"
 
 #: u_translation.rst_129
 msgid "Database"
-msgstr "Database"
+msgstr "Βάση δεδομένων"
 
 #: u_translation.rst_130
 msgid "Far Side"
-msgstr "Achterkant"
+msgstr "Αόρατη πλευρά"
 
 #: u_translation.rst_131
 msgid "Far Side Named Formation"
-msgstr "Achterkant benoemde formatie"
+msgstr "Επώνυμοι σχηματισμοί αόρατης πλευράς"
 
 #: u_translation.rst_134
 msgid "Full Globe"
-msgstr "Volledige globe"
+msgstr "Πλήρης σφαίρα"
 
 #: u_translation.rst_135
 msgid "Orbit the Moon"
-msgstr "baan om de Maan"
+msgstr "Πετάξτε γύρω από τη Σελήνη"
 
 #: u_translation.rst_136
 msgid "Stop"
-msgstr "Stop"
+msgstr "Διακοπή"
 
 #: u_translation.rst_137
 msgid "Direction"
-msgstr "Richting"
+msgstr "Κατεύθυνση"
 
 #: u_translation.rst_138
 msgid "d/second"
@@ -638,55 +637,55 @@ msgstr "°/second"
 
 #: u_translation.rst_139
 msgid "Rotation speed"
-msgstr "Rotatiesnelheid"
+msgstr "Ταχύτητα περιστροφής"
 
 #: u_translation.rst_14
 msgid "Outline"
-msgstr "Schets"
+msgstr "Περίγραμμα"
 
 #: u_translation.rst_140
 msgid "West View"
-msgstr "Zicht westen"
+msgstr "Δυτική όψη"
 
 #: u_translation.rst_142
 msgid "East View"
-msgstr "Zicht oosten"
+msgstr "Ανατολική όψη"
 
 #: u_translation.rst_144
 msgid "Select Texture"
-msgstr "Selecteer textuur"
+msgstr "Επιλογή υφής"
 
 #: u_translation.rst_145
 msgid "OpenGL Info"
-msgstr "OpenGL info"
+msgstr "Πληροφ. OpenGL"
 
 #: u_translation.rst_146
 msgid "Positive East"
-msgstr "Oosten positief"
+msgstr "Ανατολικά: >0"
 
 #: u_translation.rst_147
 msgid "N"
-msgstr "N"
+msgstr "Β"
 
 #: u_translation.rst_148
 msgid "S"
-msgstr "Z"
+msgstr "Ν"
 
 #: u_translation.rst_149
 msgid "E"
-msgstr "O"
+msgstr "Α"
 
 #: u_translation.rst_15
 msgid "Help"
-msgstr "Help"
+msgstr "Βοήθεια"
 
 #: u_translation.rst_150
 msgid "W"
-msgstr "W"
+msgstr "Δ"
 
 #: u_translation.rst_152
 msgid "Texture"
-msgstr "Textuur"
+msgstr "Υφή"
 
 #: u_translation.rst_153
 msgid "L"
@@ -702,107 +701,107 @@ msgstr "mm."
 
 #: u_translation.rst_156
 msgid "Track position"
-msgstr "Volg positie"
+msgstr "Παρακολούθηση θέσης"
 
 #: u_translation.rst_157
 msgid "Correct the Moon motion"
-msgstr "Corrigeer de beweging van de Maan"
+msgstr "Διόρθωση της Σεληνιακής κίνησης"
 
 #: u_translation.rst_158
 msgid "every"
-msgstr "iedere"
+msgstr "ανά"
 
 #: u_translation.rst_159
 msgid "seconds"
-msgstr "seconden"
+msgstr "δευτερόλεπτα"
 
 #: u_translation.rst_16
 msgid "About"
-msgstr "Over"
+msgstr "Σχετικά"
 
 #: u_translation.rst_160
 msgid "Telescope"
-msgstr "Telescoop"
+msgstr "Τηλεσκόπιο"
 
 #: u_translation.rst_161
 msgid "Show Menu"
-msgstr "Laat menu zien"
+msgstr "Εμφάνιση μενού"
 
 #: u_translation.rst_162
 msgid "Goto selected"
-msgstr "Goto geselecteerd"
+msgstr "Μετάβ. στην επιλογή"
 
 #: u_translation.rst_163
 msgid "Sync selected"
-msgstr "Sync geselecteerd"
+msgstr "Συγχρονισμός επιλογής"
 
 #: u_translation.rst_164
 msgid "Historical Sites"
-msgstr "Historische locaties"
+msgstr "Ιστορικές τοποθεσίες"
 
 #: u_translation.rst_165
 msgid "Encyclopedia"
-msgstr "Encyclopedie"
+msgstr "Εγκυκλοπαίδεια"
 
 #: u_translation.rst_166
 msgid "2nd Window"
-msgstr "2-de scherm"
+msgstr "2ο παράθυρο"
 
 #: u_translation.rst_167
 msgid "Snapshot"
-msgstr "Momentopname"
+msgstr "Στιγμιότυπο"
 
 #: u_translation.rst_168
 msgid "Far Side Indexed Craters"
-msgstr "Achterkant geïndexeerde kraters"
+msgstr "Καταχωρημένοι κρατήρες αόρατης πλευράς"
 
 #: u_translation.rst_169
 msgid "Overlay"
-msgstr "Overlay"
+msgstr "Επικάλυψη"
 
 #: u_translation.rst_17
 msgid "Now"
-msgstr "Nu"
+msgstr "Τώρα"
 
 #: u_translation.rst_170
 msgid "Show overlay"
-msgstr "Laat overlay zien"
+msgstr "Εμφάνιση επικάλυψης"
 
 #: u_translation.rst_171
 msgid "Overlay :"
-msgstr "Overlay:"
+msgstr "Επικάλυψη:"
 
 #: u_translation.rst_172
 msgid "Transparency:"
-msgstr "Transparantie:"
+msgstr "Διαφάνεια:"
 
 #: u_translation.rst_173
 msgid "Date / Time"
-msgstr "Datum/Tijd"
+msgstr "Ημερομηνία/Ώρα"
 
 #: u_translation.rst_174
 msgid "Use Computer Date and Time"
-msgstr "Gebruik datum & tijd van de computer"
+msgstr "Χρήση ημερομηνίας και ζώνης ώρας του υπολογιστή"
 
 #: u_translation.rst_175
 msgid "Show Libration"
-msgstr "Laat libratie zien"
+msgstr "Εμφάνιση λίκνισης"
 
 #: u_translation.rst_176
 msgid "Show Phase"
-msgstr "Laat fase zien"
+msgstr "Εμφάνιση φάσης"
 
 #: u_translation.rst_177
 msgid "Flip N-S"
-msgstr "Verwissel N-Z"
+msgstr "Αναστροφή Β-Ν"
 
 #: u_translation.rst_178
 msgid "Flip E-W"
-msgstr "Verwissel O-W"
+msgstr "Αναστροφή Α-Δ"
 
 #: u_translation.rst_179
 msgid "User Database loaded from DATLUN"
-msgstr "Gebruikersdatabase geladen van DATLUN"
+msgstr "Βάση δεδομένων χρήστη"
 
 #: u_translation.rst_18
 msgid "OK"
@@ -810,360 +809,360 @@ msgstr "OK"
 
 #: u_translation.rst_180
 msgid "Remove Selection Mark"
-msgstr "Verwijder selectie markering"
+msgstr "Αφαίρεση σημαδιού επιλογής"
 
 #: u_translation.rst_181
 msgid "Mark size"
-msgstr "Markeer grootte"
+msgstr "Μέγεθος σημαδιού"
 
 #: u_translation.rst_182
 msgid "Force texture compression"
-msgstr "Forceer textuurcompressie"
+msgstr "Επιβολή συμπίεσης υφής"
 
 #: u_translation.rst_183
 msgid "Label Color"
-msgstr "Kleur labels"
+msgstr "Χρώμα επιφραφής"
 
 #: u_translation.rst_184
 msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr "Uw grafische kaart ondersteunt geen weergave voor meer dan één textuur voor hetzelfde object. Zorg ervoor dat hardware-acceleratie is geactiveerd of wijzig de grafische kaart. De vereiste functie is  GL_ARB_MULTITEXTURE"
+msgstr "Η κάρτα γραφικών σας δεν υποστηρίζει την εμφάνιση περισσότερο από μίας υφής για το ίδιο αντικείμενο. Γι' αυτό δεν είναι δυνατή η χρήση αυτής της λειτουργίας σε αυτόν τον υπολογιστή. Βεβαιωθείτε ότι η επιτάχυνση υλικού είναι ενεργοποιημένη ή αλλάξτε κάρτα γραφικών. Η απαιτούμενη λειτουργία είναι η GL_ARB_MULTITEXTURE"
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
-msgstr "Kijk hier voor een overzicht met ondersteunde grafische kaarten"
+msgstr "Δείτε εδώ μια λίστα με τις κάρτες γραφικών που υποστηρίζονται"
 
 #: u_translation.rst_187
 msgid "Pyroclastic deposits"
-msgstr "Pyroclastische afzettingen"
+msgstr "Πυροκλαστικές αποθέσεις"
 
 #: u_translation.rst_188
 msgid "Lunar Domes"
-msgstr "Maankoepels"
+msgstr "Σεληνιακοί θόλοι"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"
 msgid "Latitude"
-msgstr "Breedte"
+msgstr "Γεωγραφικό... Πλάτος:"
 
 #: u_translation.rst_2
 msgid "Quit"
-msgstr "Afsluiten"
+msgstr "Έξοδος"
 
 #: u_translation.rst_21
 msgid "Time Zone"
-msgstr "Tijdzone"
+msgstr "Ζώνη ώρας"
 
 #: u_translation.rst_22
 msgid "Show the phase"
-msgstr "Laat de fase zien"
+msgstr "Εμφάνιση φάσης"
 
 #: u_translation.rst_23
 msgid "Show the libration"
-msgstr "Laat de libratie zien"
+msgstr "Εμφάνιση λίκνισης"
 
 #: u_translation.rst_24
 msgid "Language"
-msgstr "Taal"
+msgstr "Γλώσσα"
 
 #: u_translation.rst_25
 msgid "Picture"
-msgstr "Afbeelding"
+msgstr "Φωτογραφία"
 
 #: u_translation.rst_26
 msgid "Geocentric"
-msgstr "Geocentrisch"
+msgstr "Γεωκεντρική θέση"
 
 #: u_translation.rst_28
 msgid "Color"
-msgstr "Kleur"
+msgstr "Χρώμα"
 
 #: u_translation.rst_29
 msgid "Label"
-msgstr "Label"
+msgstr "Επιγραφή"
 
 #: u_translation.rst_3
 msgid "Configuration"
-msgstr "Configuratie"
+msgstr "Ρυθμίσεις"
 
 #: u_translation.rst_30
 msgid "Close"
-msgstr "Sluiten"
+msgstr "Κλείσιμο"
 
 #: u_translation.rst_31
 msgid "Zoom"
-msgstr "Zoom"
+msgstr "Εστίαση"
 
 #: u_translation.rst_32
 msgid "Lighting"
-msgstr "Verlichting"
+msgstr "Φωτισμός"
 
 #: u_translation.rst_33
 msgid "Penumbra"
-msgstr "Penumbra"
+msgstr "Παρασκιά"
 
 #: u_translation.rst_34
 msgid "Diffuse"
-msgstr "Diffuus"
+msgstr "Διάχυτη"
 
 #: u_translation.rst_35
 msgid "Specular"
-msgstr "Reflectie"
+msgstr "Κατοπτρική"
 
 #: u_translation.rst_36
 msgid "Performance"
-msgstr "Prestatie"
+msgstr "Απόδοση"
 
 #: u_translation.rst_37
 msgid "Smoothness"
-msgstr "Gladheid"
+msgstr "Ομαλότητα"
 
 #: u_translation.rst_4
 msgid "Zoom:"
-msgstr "Zoom:"
+msgstr "Κέντρο"
 
 #: u_translation.rst_42
 msgid "All the formation"
-msgstr "De gehele formatie"
+msgstr "Όλες οι πληροφορίες"
 
 #: u_translation.rst_43
 msgid "Pretty interesting"
-msgstr "vrij interessant"
+msgstr "Μέτριο"
 
 #: u_translation.rst_44
 msgid "Very interesting"
-msgstr "erg interessant"
+msgstr "Μεγάλο"
 
 #: u_translation.rst_45
 msgid "Exceptional"
-msgstr "Exceptioneel"
+msgstr "Εξαιρετικό"
 
 #: u_translation.rst_46
 msgid "Sort"
-msgstr "Sorteer"
+msgstr "Ταξινόμηση"
 
 #: u_translation.rst_47
 msgctxt "u_translation.rst_47"
 msgid "Name"
-msgstr "Naam"
+msgstr "Όνομα"
 
 #: u_translation.rst_48
 msgid "Interest"
-msgstr "Interesse"
+msgstr "Ενδιαφέρον"
 
 #: u_translation.rst_49
 msgid "Instrument"
-msgstr "Instrument"
+msgstr "Όργανο"
 
 #: u_translation.rst_5
 msgctxt "u_translation.rst_5"
 msgid "Center"
-msgstr "Centreer"
+msgstr "Κέντρο"
 
 #: u_translation.rst_51
 msgid "Terminator"
-msgstr "Terminator"
+msgstr "Διαχωρίζουσα"
 
 #: u_translation.rst_52
 msgid "Mark"
-msgstr "Markeer"
+msgstr "Σημάδι"
 
 #: u_translation.rst_53
 msgid "Show label"
-msgstr "Laat label zien"
+msgstr "Εμφάνιση επιγραφής"
 
 #: u_translation.rst_54
 msgid "Show mark"
-msgstr "Laat markering zien"
+msgstr "Εμφάνιση σημαδιού"
 
 #: u_translation.rst_55
 msgid "Setup"
-msgstr "Installatie"
+msgstr "Ρυθμίσεις"
 
 #: u_translation.rst_56
 msgid "Sky Chart"
-msgstr "Hemelkaart"
+msgstr "Χάρτης του ουρανού"
 
 #: u_translation.rst_57
 msgid "General"
-msgstr "Algemeen"
+msgstr "Γενικά"
 
 #: u_translation.rst_58
 msgid "Images"
-msgstr "Afbeeldingen"
+msgstr "Εικόνες"
 
 #: u_translation.rst_6
 msgid "Information"
-msgstr "Informatie"
+msgstr "Πληροφορίες"
 
 #: u_translation.rst_60
 msgid "Image folders:"
-msgstr "Afbeeldingsmappen:"
+msgstr "Φάκελος εικόνων:"
 
 #: u_translation.rst_62
 msgid "Folder"
-msgstr "Map"
+msgstr "Φάκελος"
 
 #: u_translation.rst_63
 msgid "Tools"
-msgstr "Gereedschap"
+msgstr "Εργαλεία"
 
 #: u_translation.rst_64
 msgid "Rotation"
-msgstr "Rotatie"
+msgstr "Περιστροφή"
 
 #: u_translation.rst_65
 msgid "West"
-msgstr "Westen"
+msgstr "Δυτικά"
 
 #: u_translation.rst_66
 msgid "East"
-msgstr "Oosten"
+msgstr "Ανατολικά"
 
 #: u_translation.rst_67
 msgid "Default Orientation"
-msgstr "Standaard orientatie"
+msgstr "Προεπιλεγμένος προσανατολισμός"
 
 #: u_translation.rst_68
 msgid "Celestial Pole on top"
-msgstr "Hemelpool boven"
+msgstr "Ουράνιος Πόλος επάνω"
 
 #: u_translation.rst_69
 msgid "Distance"
-msgstr "Afstand"
+msgstr "Απόσταση"
 
 #: u_translation.rst_7
 msgid "Ephemeris"
-msgstr "Efemeride"
+msgstr "Εφημερίδα"
 
 #: u_translation.rst_70
 msgid "Real Distance"
-msgstr "Ware afstand"
+msgstr "Πραγματική απόσταση"
 
 #: u_translation.rst_71
 msgid "Apparent Distance"
-msgstr "Schijnbare afstand"
+msgstr "Φαινόμενη απόσταση"
 
 #: u_translation.rst_72
 msgid "North"
-msgstr "Noord"
+msgstr "Βόρεια"
 
 #: u_translation.rst_73
 msgid "South"
-msgstr "Zuid"
+msgstr "Νότια"
 
 #: u_translation.rst_74
 msgid "Mirror"
-msgstr "Spiegel"
+msgstr "Κατοπτρισμός"
 
 #: u_translation.rst_75
 msgid "Save Map"
-msgstr "Bewaar kaart"
+msgstr "Αποθήκευση χάρτη"
 
 #: u_translation.rst_76
 msgid "Saved Map size"
-msgstr "Opgeslagen kaartgrootte"
+msgstr "Αποθηκευμένο μέγεθος χάρτη"
 
 #: u_translation.rst_77
 msgid "As on screen"
-msgstr "Als op het scherm"
+msgstr "Όπως στην οθόνη"
 
 #: u_translation.rst_78
 msgid "Save As"
-msgstr "Opslaan als"
+msgstr "Αποθήκευση ως"
 
 #: u_translation.rst_79
 msgid "Print"
-msgstr "Afdrukken"
+msgstr "Εκτύπωση"
 
 #: u_translation.rst_8
 msgid "Zoom+"
-msgstr "Zoom+"
+msgstr "Μεγέθυνση+"
 
 #: u_translation.rst_80
 msgid "White background"
-msgstr "Witte achtergrond"
+msgstr "Λευκό φόντο"
 
 #: u_translation.rst_81
 msgid "Neighbor"
-msgstr "Buur"
+msgstr "Γείτονες"
 
 #: u_translation.rst_82
 msgid "Print Setup..."
-msgstr "Printerinstelling..."
+msgstr "Διαμόρφωση εκτύπωσης..."
 
 #: u_translation.rst_84
 msgid "Select All"
-msgstr "Selecteer alles"
+msgstr "Επιλογή όλων"
 
 #: u_translation.rst_85
 msgid "Copy"
-msgstr "Kopieer"
+msgstr "Αντιγραφή"
 
 #: u_translation.rst_86
 msgid "Measure"
-msgstr "Meten"
+msgstr "Μέτρηση"
 
 #: u_translation.rst_87
 msgid "Texture interpolation"
-msgstr "Textuur interpolatie"
+msgstr "Υπολογισμός υφής με παρεμβολή"
 
 #: u_translation.rst_89
 msgid "External display software"
-msgstr "Extern beeldschermprogramma"
+msgstr "Εξωτερικό λογισμικό εμφάνισης"
 
 #: u_translation.rst_9
 msgid "Zoom-"
-msgstr "Zoom-"
+msgstr "Σμίκρυνση-"
 
 #: u_translation.rst_90
 msgid "Printing"
-msgstr "Afdrukken"
+msgstr "Εκτύπωση"
 
 #: u_translation.rst_91
 msgid "Printer"
-msgstr "Printer"
+msgstr "Εκτυπωτής"
 
 #: u_translation.rst_92
 msgid "Left Margin"
-msgstr "Linkermarge"
+msgstr "Αριστερό περιθώριο"
 
 #: u_translation.rst_93
 msgid "Millimeters"
-msgstr "Millimeters"
+msgstr "Χιλιοστά"
 
 #: u_translation.rst_94
 msgid "Print the ephemeris"
-msgstr "efemeride afdrukken"
+msgstr "Εκτύπωση της εφημερίδας"
 
 #: u_translation.rst_95
 msgid "Print the information"
-msgstr "Informatie afdrukken"
+msgstr "Εκτύπωση των πληροφοριών"
 
 #: u_translation.rst_96
 msgid "Print the map"
-msgstr "Kaart afdrukken"
+msgstr "Εκτύπωση του χάρτη"
 
 #: u_translation.rst_97
 msgid "Information text width"
-msgstr "Informatie tekstbreedte"
+msgstr "Πλάτος κειμένου πληροφοριών"
 
 #: u_translation.rst_98
 msgid "Glossary"
-msgstr "Woordenlijst"
+msgstr "Γλωσσάριο"
 
 #: u_translation.rst_99
 msgid "Cancel"
-msgstr "Annuleer"
+msgstr "Άκυρο"
 
 #: u_translation.rsyoucandownlo
 msgid "You can download and install the following optional features:"
-msgstr "U kunt de volgende opties downloaden en installeren:"
+msgstr "Μπορείτε να κατεβάσετε και να εγκαταστήσετε τα εξής προαιρετικά χαρακτηριστικά:"
 
 #: u_translation.rsyourinstalla
 msgid "Your installation is already complete with all the features installed."
-msgstr "je installatie is al compleet met alle opties geïnstalleerd."
+msgstr "Η εγκατάστασή σας είναι ήδη πλήρης, με όλα τα χαρακτηριστικά εγκατεστημένα"
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"
-msgstr "Zoom niveau"
+msgstr "Επίπεδο εστίασης"
 

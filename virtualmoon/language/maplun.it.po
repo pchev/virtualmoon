@@ -1,10 +1,12 @@
+# translation of maplun.fr.po
 # Patrick Chevalley <pch@ap-i.net>, 2009.
+# Patrick Chevalley <pch@freesurf.ch>, 2009.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Huub Scheenen <info@kuuke.nl>\n"
-"PO-Revision-Date: 2010-06-06 18:13+0100\n"
-"Project-Id-Version: \n"
+"Last-Translator: Giuliano Pinto <giuliano.pinto@tiscalinet.it>\n"
+"PO-Revision-Date: 2009-12-28 14:29+0100\n"
+"Project-Id-Version: maplun.fr\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
@@ -14,15 +16,15 @@ msgstr ""
 
 #: u_translation.rsadvanced
 msgid "Advanced"
-msgstr "Geavanceerd"
+msgstr "Avanzata"
 
 #: u_translation.rsairburshreli
 msgid "Airbursh relief with albedo"
-msgstr "Airbursh verlichting met albedo"
+msgstr "Rilievo aerografico con albedo"
 
 #: u_translation.rsairburshreli2
 msgid "Airbursh relief without albedo"
-msgstr "Airbursch relief zonder albedo"
+msgstr "Rilievo aerografico senza albedo"
 
 #: u_translation.rscaption
 msgid "Caption"
@@ -30,19 +32,19 @@ msgstr ""
 
 #: u_translation.rscheckforopti
 msgid "Check for optional features"
-msgstr "Controleer op optionele functies"
+msgstr "Componenti opzionali"
 
 #: u_translation.rsclementineph
 msgid "Clementine photographic"
-msgstr "Clementine fotografisch"
+msgstr "Fotografie Clementine"
 
 #: u_translation.rscountry
 msgid "Country"
-msgstr "Land"
+msgstr "Nazione"
 
 #: u_translation.rsdefault
 msgid "Default"
-msgstr "Standaard"
+msgstr "Imp. predefinite"
 
 #: u_translation.rsdegree
 msgid "d"
@@ -50,58 +52,58 @@ msgstr "°"
 
 #: u_translation.rsdownload
 msgid "Download"
-msgstr "Download"
+msgstr "Scarica dal Web"
 
 #: u_translation.rsdownloadurl
 msgid "http://ap-i.net/avl/en/download"
-msgstr "http://ap-i.net/avl/en/download"
+msgstr "http://ap-i.net/avl/it/download"
 
 #: u_translation.rsdynamicrelie
 msgid "Dynamic relief display method"
-msgstr "Weergave methode dynamsiche verlichting"
+msgstr "Visualizzazione del rilievo dinamico"
 
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
-msgstr "efemeride:"
+msgstr "Effemeridi:"
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
-msgstr "Instelling eerste gebruik"
+msgstr "Configurazione iniziale"
 
 #: u_translation.rsformat
 msgid "0"
-msgstr "0"
+msgstr "1"
 
 #: u_translation.rsfullscreen
+#| msgid "Full screen"
 msgid "Full screen (Esc)"
-msgstr "Volledig scherm (Esc)"
+msgstr "A tutto schermo (Esc)"
 
 #: u_translation.rsgrid
 msgid "Grid"
-msgstr "Raster"
+msgstr "Griglia"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
-msgstr "NL"
+msgstr "IT"
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
-msgstr "Lettertype labels"
+msgstr "Caratteri delle etichette"
 
 #: u_translation.rslanguage
 msgid "English"
-msgstr "Nederlands"
+msgstr "Italiano"
 
 #: u_translation.rslevel
 msgid "Level:"
-msgstr "Niveau:"
+msgstr "Livello:"
 
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
-msgstr "LOPAM fotografisch"
+msgstr "Rappresentaz. fotografica LOPAM"
 
 #: u_translation.rsminute
-#, fuzzy
 #| msgid "m"
 msgctxt "u_translation.rsminute"
 msgid "'"
@@ -109,39 +111,39 @@ msgstr "'"
 
 #: u_translation.rsm_1
 msgid "from"
-msgstr "van"
+msgstr "del"
 
 #: u_translation.rsm_10
 msgid "Longitude:"
-msgstr "Lengte:"
+msgstr "Longitudine:"
 
 #: u_translation.rsm_11
 msgid "Latitude:"
-msgstr "Breedte:"
+msgstr "Latitudine:"
 
 #: u_translation.rsm_12
 msgid "Quadrant:"
-msgstr "Kwadrant:"
+msgstr "Quadrante:"
 
 #: u_translation.rsm_13
 msgid "Area:"
-msgstr "Gebied:"
+msgstr "Area:"
 
 #: u_translation.rsm_14
 msgid "Rukl map:"
-msgstr "Rukl kaart:"
+msgstr "Carta lunare di Rukl:"
 
 #: u_translation.rsm_15
 msgid "Viscardy page: "
-msgstr "Viscardy bladzijde:"
+msgstr "Atlante Viscardy:"
 
 #: u_translation.rsm_16
 msgid "Hatfield map:"
-msgstr "Hatfield kaart:"
+msgstr "Atlante Hatfield:"
 
 #: u_translation.rsm_17
 msgid "Dimension:"
-msgstr "Dimensie:"
+msgstr "Dimensione:"
 
 #: u_translation.rsm_18
 msgid "Km"
@@ -153,60 +155,60 @@ msgstr "Mi"
 
 #: u_translation.rsm_2
 msgid "born in"
-msgstr "geboren in:"
+msgstr "nato in"
 
 #: u_translation.rsm_20
 msgid "Height:"
-msgstr "Hoogte:"
+msgstr "Altezza:"
 
 #: u_translation.rsm_21
 msgctxt "u_translation.rsm_21"
 msgid "m"
-msgstr "'"
+msgstr "m"
 
 #: u_translation.rsm_22
 msgid "ft"
-msgstr "ft"
+msgstr "piedi"
 
 #: u_translation.rsm_23
 msgid "Height/Wide ratio:"
-msgstr "Verhouding hoogte/breedte:"
+msgstr "Rapporto Altezza/Larghezza:"
 
 #: u_translation.rsm_24
 msgid "Interest :"
-msgstr "Interesse"
+msgstr "Interesse:"
 
 #: u_translation.rsm_25
 msgid "Observation period:"
-msgstr "Waarnemingsperiode"
+msgstr "Periodo migliore per l'osservazione:"
 
 #: u_translation.rsm_26
 msgid "or"
-msgstr "of"
+msgstr "oppure"
 
 #: u_translation.rsm_27
 msgid "No formation actually near the terminator"
-msgstr "Geen formatie daadwerkelijk in de buurt van de terminator"
+msgstr "Nessuna formazione attualmente vicina al terminatore"
 
 #: u_translation.rsm_28
 msgid "Minimal Instrument:"
-msgstr "Minimaal instrument:"
+msgstr "Minimo strumento ottico:"
 
 #: u_translation.rsm_29
 msgid "Right Ascension:"
-msgstr "Rechte klimming:"
+msgstr "Ascensione Retta:"
 
 #: u_translation.rsm_3
 msgid "Born at:"
-msgstr "Geboren op:"
+msgstr "Nato a:"
 
 #: u_translation.rsm_30
 msgid "Declination:"
-msgstr "Declinatie:"
+msgstr "Declinazione:"
 
 #: u_translation.rsm_31
 msgid "Distance:"
-msgstr "Afstand:"
+msgstr "Distanza:"
 
 #: u_translation.rsm_32
 msgid "Phase:"
@@ -214,145 +216,146 @@ msgstr "Fase:"
 
 #: u_translation.rsm_33
 msgid "Libration in Latitude:"
-msgstr "Libratie in de lengte:"
+msgstr "Librazione in Latitudine:"
 
 #: u_translation.rsm_34
 msgid "Libration in Longitude:"
-msgstr "Libratie in de breedte:"
+msgstr "Librazione in Longitudine:"
 
 #: u_translation.rsm_35
 msgid "Illumination:"
-msgstr "Verlichting:"
+msgstr "Illuminazione:"
 
 #: u_translation.rsm_36
 msgid "Apparent diameter:"
-msgstr "Schijbare diameter:"
+msgstr "Diametro apparente:"
 
 #: u_translation.rsm_37
 msgid "Position angle:"
-msgstr "Positiehoek:"
+msgstr "Angolo di posizione:"
 
 #: u_translation.rsm_38
 msgid "Rise:"
-msgstr "Opkomst:"
+msgstr "Sorge:"
 
 #: u_translation.rsm_39
 msgid "Transit:"
-msgstr "Doorgang:"
+msgstr "Culmina:"
 
 #: u_translation.rsm_4
 msgid "in"
-msgstr "in"
+msgstr "nel"
 
 #: u_translation.rsm_40
 msgid "Set:"
-msgstr "Ondergang:"
+msgstr "Tramonta:"
 
 #: u_translation.rsm_41
 msgid "Rise azimuth:"
-msgstr "Azimuth opkomst:"
+msgstr "Sorge (Azimuth):"
 
 #: u_translation.rsm_42
 msgid "Set azimuth:"
-msgstr "Azimuth ondergang:"
+msgstr "Tramonta (Azimuth):"
 
 #: u_translation.rsm_43
 msgid "Field:"
-msgstr "Veld:"
+msgstr "Campo:"
 
 #: u_translation.rsm_44
 msgid "Refresh rate"
-msgstr "Verversingsgraad"
+msgstr "Freq.za di aggiornamento"
 
 #: u_translation.rsm_45
+#| msgid "Solar inclination:"
 msgid "Sub-solar latitude:"
-msgstr "Sub-solar breedte:"
+msgstr "Latitudine sub-solare:"
 
 #: u_translation.rsm_46
 msgid "Lunation:"
-msgstr "Lunatie:"
+msgstr "Età:"
 
 #: u_translation.rsm_47
 msgid "days"
-msgstr "dagen"
+msgstr "giorni"
 
 #: u_translation.rsm_48
 msgid "Colongitude:"
-msgstr ""
+msgstr "Colongitudine:"
 
 #: u_translation.rsm_49
 msgid "Geological period:"
-msgstr "Geologische periode:"
+msgstr "Periodo di formazione:"
 
 #: u_translation.rsm_5
 msgid "Dead at:"
-msgstr "Gestorven op:"
+msgstr "Morto a:"
 
 #: u_translation.rsm_50
 msgctxt "u_translation.rsm_50"
 msgid "Time"
-msgstr "Tijd"
+msgstr "Ora"
 
 #: u_translation.rsm_51
 msgctxt "u_translation.rsm_51"
 msgid "Date"
-msgstr "Datum:"
+msgstr "Data"
 
 #: u_translation.rsm_52
 msgid "Measure the distance"
-msgstr "Bepaal de afstand:"
+msgstr "Misura la distanza"
 
 #: u_translation.rsm_53
 msgid "Standard cursor mode"
-msgstr "Standaard cursor mode"
+msgstr "Cursore in modalità normale"
 
 #: u_translation.rsm_54
 msgid "Image list"
-msgstr "Afbeeldingenlijst"
+msgstr "Lista delle immagini"
 
 #: u_translation.rsm_55
 msgid "Transit Altitude:"
-msgstr "Hoogte doorgang:"
+msgstr "Culmina (Altezza):"
 
 #: u_translation.rsm_56
 msgid "Type:"
-msgstr "Type:"
+msgstr "Tipo:"
 
 #: u_translation.rsm_57
 msgid "Size:"
-msgstr "Grootte:"
+msgstr "Dimensioni:"
 
 #: u_translation.rsm_58
 msgid "Description:"
-msgstr "Beschrijving:"
+msgstr "Descrizione:"
 
 #: u_translation.rsm_59
 msgid "Observation:"
-msgstr "Waarneming:"
+msgstr "Osservazione:"
 
 #: u_translation.rsm_6
 msgid "Name Author:"
-msgstr "Naam auteur:"
+msgstr "Autore del nome:"
 
 #: u_translation.rsm_60
 msgid "Position:"
-msgstr "Positie:"
+msgstr "Posizione:"
 
 #: u_translation.rsm_61
 msgid "Atlas:"
-msgstr "Atlas:"
+msgstr "Atlanti:"
 
 #: u_translation.rsm_62
 msgid "Name Origine:"
-msgstr "Naam van orgine:"
+msgstr "Origine del nome:"
 
 #: u_translation.rsm_63
 msgid "Detailed Name:"
-msgstr "Gedetailleerde naam:"
+msgstr "Dettagli:"
 
 #: u_translation.rsm_64
 msgid "Important Facts:"
-msgstr "belangrijke feiten:"
+msgstr "Fatti notevoli:"
 
 #: u_translation.rsm_65
 msgid "Lunar Orbiter:"
@@ -360,19 +363,19 @@ msgstr "Lunar Orbiter:"
 
 #: u_translation.rsm_66
 msgid "Westfall Atlas:"
-msgstr "Westfall atlas:"
+msgstr "Atlante Westfall:"
 
 #: u_translation.rsm_67
 msgid "Warning! The personal notes have changed. Do you want to save the change?"
-msgstr "Waarschuwing! de persoonlijke aantekeningen zijn veranderd. Wil je de veranderingen opslaan?"
+msgstr "ATTENZIONE! Le note personali sono cambiate. Le si vuole salvare adesso?"
 
 #: u_translation.rsm_7
 msgid "Name by Langrenus:"
-msgstr "Naam door Langrenus:"
+msgstr "Nome dato da Langrenus:"
 
 #: u_translation.rsm_72
 msgid "Charles Wood article:"
-msgstr "Charles Wood artikel:"
+msgstr "Articoli di Charles Wood:"
 
 #: u_translation.rsm_73
 msgid "Azimuth"
@@ -380,289 +383,289 @@ msgstr "Azimuth"
 
 #: u_translation.rsm_74
 msgid "Altitude"
-msgstr "Hoogte"
+msgstr "Altezza"
 
 #: u_translation.rsm_75
 msgid "From Database:"
-msgstr "Uit database:"
+msgstr "Dalla base di dati:"
 
 #: u_translation.rsm_8
 msgid "Name by Hevelius:"
-msgstr "Naam door Hevelius:"
+msgstr "Nome dato da Hevelius:"
 
 #: u_translation.rsm_9
 msgid "Name by Riccioli:"
-msgstr "Naam door Riccoli:"
+msgstr "Nome dato da Riccioli:"
 
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
-msgstr "Baan hoogte"
+msgstr "Altezza dell'orbita"
 
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
-msgstr "Baan inclinatie"
+msgstr "Inclinaz. dell'orbita"
 
 #: u_translation.rsphasewithdyn
 msgid "Phase with dynamic relief"
-msgstr "Fase met dynamisch reliëf"
+msgstr "Fase con rilievo dinamico"
 
 #: u_translation.rsphasewithout
 msgid "Phase without relief"
-msgstr "Fase zonder reliëf"
+msgstr "Fase senza rilievo"
 
 #: u_translation.rspicturelibra
 msgid "Picture Library Apollo Missions"
-msgstr "Afbeeldingenbibliotheek Apollo Missies"
+msgstr "Raccolta di immagini delle Missioni Apollo"
 
 #: u_translation.rspicturelibra2
 msgid "Picture Library Apollo Mapping Camera"
-msgstr "Afbeeldingenbibliotheek Apollo Mapping Camera"
+msgstr "Raccolta di immagini 'Apollo Mapping Camera'"
 
 #: u_translation.rspicturelibra3
 msgid "Picture Library Best Of Amateurs"
-msgstr "Afbeeldingenbibliotheek Best of Amateurs"
+msgstr "Raccolta di immagini 'Best of Amateurs'"
 
 #: u_translation.rspicturelibra4
 msgid "Picture Library Clementine Probe"
-msgstr "Afbeeldingenbibliotheek Clementine Sonde"
+msgstr "Raccolta di immagini della sonda Clementine"
 
 #: u_translation.rspicturelibra5
 msgid "Picture Library Kaguya Probe"
-msgstr "Afbeeldingenbibliotheek Kaguya Sonde"
+msgstr "Raccolta di immagini della sonda Kaguya"
 
 #: u_translation.rspicturelibra6
 msgid "Picture Library Consolidated Lunar Atlas"
-msgstr "Afbeeldingenbibliotheek Consolidated Lunar Atlas"
+msgstr "Raccolta di immagini 'Consolidated Lunar Atlas'"
 
 #: u_translation.rspicturelibra7
 msgid "Picture Library Lunar Astronautical Charts & Lunar Maps"
-msgstr "Afbeeldingenbibliotheek Lunar Austronautical Atlas & Lunar Maps"
+msgstr "Raccolta di immagini 'Lunar Astronautical Charts & Lunar Maps'"
 
 #: u_translation.rspicturelibra8
 msgid "Picture Library Lunar Orbiter Photographic Atlas Of The Moon "
-msgstr "Afbeeldingenbibliotheek Lunar Orbiter Fotografische Atlas van de Maan"
+msgstr "Raccolta di immagini 'Lunar Orbiter Photographic Atlas Of The Moon'"
 
 #: u_translation.rspicturelibra9
 msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
-msgstr "Afbeeldingenbibliotheek Luna, Ranger, Lunar Orbiter & Surveyor sondes"
+msgstr "Raccolta di immagini delle sonde Luna, Ranger, Lunar Orbiter e Surveyor"
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
-msgstr "Volldig scherm afsluiten (Esc)"
+msgstr "Riduci alla finestra (Esc)"
 
 #: u_translation.rsremoveunknow
+#| msgid "Remove unknow values from reports"
 msgid "Remove unknow field values from reports"
-msgstr "Verwijder onbekende veldwaardes van rapporten"
+msgstr "Mostra solo i campi con una descrizione completa"
 
 #: u_translation.rssecond
-#, fuzzy
 #| msgid "s"
 msgid "\""
 msgstr "\""
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
-msgstr "Raster tonen"
+msgstr "Mostra la griglia"
 
 #: u_translation.rsshowlabels
 msgid "Show labels"
-msgstr "Toon labels"
+msgstr "Mostra le etichette"
 
 #: u_translation.rsshowscale
 msgid "Show scale"
-msgstr "Toon schaal"
+msgstr "Mostra la scala"
 
 #: u_translation.rssimple
 msgid "Simple"
-msgstr "Eenvoudig"
+msgstr "Semplice"
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
-msgstr "Texturen Airbursh verlichting zonder albedo"
+msgstr "Rappresentazione aerografica con albedo"
 
 #: u_translation.rstexturesclem
 msgid "Textures Clementine photographic High Resolution"
-msgstr "Fotografische hoge resolutietexturen  Clementine"
+msgstr "Rappresentaz. fotografica Clementine ad alta risoluzione"
 
 #: u_translation.rstextureslopa
 msgid "Textures LOPAM photographic High Resolution"
-msgstr "Fotografische hoge resolutietexturen LOPAM"
+msgstr "Rappresentaz. fotografica LOPAM ad alta risoluzione"
 
 #: u_translation.rstexturesphas
 msgid "Textures Phase with dynamic relief using Kaguya data"
-msgstr "Texturen fase met dynamishe verlichting Kaguya data"
+msgstr "Rappres. della fase con rilievo dinamico usando i dati del Kaguya"
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
-msgstr "Virtuele Atlas van de Maan"
+msgstr "Atlante Lunare Virtuale"
 
 #: u_translation.rstopocentric
 msgid "Topocentric"
-msgstr "Topocentrisch"
+msgstr "Pos. topocentrica"
 
 #: u_translation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
-msgstr "Vertaling: H. Scheenen"
+msgstr "Traduzione: Giuliano Pinto"
 
 #: u_translation.rst_1
 msgid "File"
-msgstr "Bestand"
+msgstr "File"
 
 #: u_translation.rst_10
 msgid "Find"
-msgstr "Zoek"
+msgstr "Cerca"
 
 #: u_translation.rst_100
 msgid "Observatory"
-msgstr "Obervatorium"
+msgstr "Osservatorio"
 
 #: u_translation.rst_101
 msgid "Display"
-msgstr "Weergave"
+msgstr "Visualizzazione"
 
 #: u_translation.rst_102
 msgid "Mark the point of maximum libration"
-msgstr "Markeer het punt van de maximale libratie"
+msgstr "Evidenzia il punto di librazione massima"
 
 #: u_translation.rst_103
 msgid "Identification"
-msgstr "Identificatie"
+msgstr "Identificazione"
 
 #: u_translation.rst_104
 msgid "Label density"
-msgstr "Dichtheid labels"
+msgstr "Densità delle etichette"
 
 #: u_translation.rst_109
 msgid "Eyepieces"
-msgstr "Oculairen"
+msgstr "Oculari"
 
 #: u_translation.rst_11
 msgid "Find Next"
-msgstr "Zoek volgende"
+msgstr "Successivo"
 
 #: u_translation.rst_110
 msgid "Telescope focal length"
-msgstr "Brandpuntsafstand telescoop"
+msgstr "Lunghezza focale del telescopio"
 
 #: u_translation.rst_111
 msgid "Eyepiece focal length"
-msgstr "Brandpuntsafstand oculair"
+msgstr "Lunghezza focale dell'oculare"
 
 #: u_translation.rst_112
 msgid "Eyepiece apparent field of vision"
-msgstr "Schijnbaar beeldveld oulair"
+msgstr "Campo apparente dell'oculare"
 
 #: u_translation.rst_113
 msgid "Compute"
-msgstr "Bereken"
+msgstr "Calcola"
 
 #: u_translation.rst_114
 msgid "Update"
-msgstr "Bijwerken"
+msgstr "Aggiorna"
 
 #: u_translation.rst_115
 msgid "Notes"
-msgstr "Aantekeningen"
+msgstr "Note"
 
 #: u_translation.rst_116
 msgid "Centre"
-msgstr "Middelpunt"
+msgstr "Centro"
 
 #: u_translation.rst_117
 msgid "none"
-msgstr "geen"
+msgstr "nessuno"
 
 #: u_translation.rst_118
 msgid "Eyepiece Name"
-msgstr "Naam oculair"
+msgstr "Nome dell'oculare"
 
 #: u_translation.rst_119
 msgid "Field in minutes"
-msgstr "Beeldveld in minuten"
+msgstr "Campo in minuti"
 
 #: u_translation.rst_120
 msgid "Center label on the formation"
-msgstr "Centreer label op de formatie"
+msgstr "Centra l'etichetta sulla formazione"
 
 #: u_translation.rst_121
 msgid "Short Label"
-msgstr "Label kort"
+msgstr "Etichette corte"
 
 #: u_translation.rst_122
 msgid "Near Side Named Formation"
-msgstr "Voorkant benoemde formatie"
+msgstr "Formazioni con un nome sulla faccia visibile"
 
 #: u_translation.rst_123
 msgid "Near Side Indexed Craters"
-msgstr "Voorkant geïndexeerde kraters"
+msgstr "Crateri indicizzati sulla faccia visibile"
 
 #: u_translation.rst_124
 msgid "Power"
-msgstr "Vergroting"
+msgstr "Ingrandimento"
 
 #: u_translation.rst_125
 msgid "Options valid at next startup"
-msgstr "Optis beschikbaar bij de volgende opstart"
+msgstr "Opzioni valide al prossimo avvio"
 
 #: u_translation.rst_129
 msgid "Database"
-msgstr "Database"
+msgstr "Basi di dati"
 
 #: u_translation.rst_130
 msgid "Far Side"
-msgstr "Achterkant"
+msgstr "Faccia nascosta"
 
 #: u_translation.rst_131
 msgid "Far Side Named Formation"
-msgstr "Achterkant benoemde formatie"
+msgstr "Formazioni con un nome sulla faccia nascosta"
 
 #: u_translation.rst_134
 msgid "Full Globe"
-msgstr "Volledige globe"
+msgstr "Globo completo"
 
 #: u_translation.rst_135
 msgid "Orbit the Moon"
-msgstr "baan om de Maan"
+msgstr "In orbita attorno alla Luna"
 
 #: u_translation.rst_136
 msgid "Stop"
-msgstr "Stop"
+msgstr "Interrompi"
 
 #: u_translation.rst_137
 msgid "Direction"
-msgstr "Richting"
+msgstr "Direzione"
 
 #: u_translation.rst_138
 msgid "d/second"
-msgstr "°/second"
+msgstr "°/secondo"
 
 #: u_translation.rst_139
 msgid "Rotation speed"
-msgstr "Rotatiesnelheid"
+msgstr "Veloc. di rotazione"
 
 #: u_translation.rst_14
 msgid "Outline"
-msgstr "Schets"
+msgstr "Profilo"
 
 #: u_translation.rst_140
 msgid "West View"
-msgstr "Zicht westen"
+msgstr "Vista Ovest"
 
 #: u_translation.rst_142
 msgid "East View"
-msgstr "Zicht oosten"
+msgstr "Vista Est"
 
 #: u_translation.rst_144
 msgid "Select Texture"
-msgstr "Selecteer textuur"
+msgstr "Scelta della definizione"
 
 #: u_translation.rst_145
 msgid "OpenGL Info"
-msgstr "OpenGL info"
+msgstr "Inf. su OpenGL"
 
 #: u_translation.rst_146
 msgid "Positive East"
-msgstr "Oosten positief"
+msgstr "Positivo verso Est"
 
 #: u_translation.rst_147
 msgid "N"
@@ -670,23 +673,23 @@ msgstr "N"
 
 #: u_translation.rst_148
 msgid "S"
-msgstr "Z"
+msgstr "S"
 
 #: u_translation.rst_149
 msgid "E"
-msgstr "O"
+msgstr "E"
 
 #: u_translation.rst_15
 msgid "Help"
-msgstr "Help"
+msgstr "Aiuto"
 
 #: u_translation.rst_150
 msgid "W"
-msgstr "W"
+msgstr "O"
 
 #: u_translation.rst_152
 msgid "Texture"
-msgstr "Textuur"
+msgstr "Definizione"
 
 #: u_translation.rst_153
 msgid "L"
@@ -702,107 +705,109 @@ msgstr "mm."
 
 #: u_translation.rst_156
 msgid "Track position"
-msgstr "Volg positie"
+msgstr "Segui la posizione"
 
 #: u_translation.rst_157
 msgid "Correct the Moon motion"
-msgstr "Corrigeer de beweging van de Maan"
+msgstr "Compensa il movimento della Luna"
 
 #: u_translation.rst_158
 msgid "every"
-msgstr "iedere"
+msgstr "ogni"
 
 #: u_translation.rst_159
 msgid "seconds"
-msgstr "seconden"
+msgstr "secondi"
 
 #: u_translation.rst_16
 msgid "About"
-msgstr "Over"
+msgstr "Informazioni"
 
 #: u_translation.rst_160
 msgid "Telescope"
-msgstr "Telescoop"
+msgstr "Telescopio"
 
 #: u_translation.rst_161
 msgid "Show Menu"
-msgstr "Laat menu zien"
+msgstr "Mostra il menù"
 
 #: u_translation.rst_162
 msgid "Goto selected"
-msgstr "Goto geselecteerd"
+msgstr "Vai alla formazione"
 
 #: u_translation.rst_163
 msgid "Sync selected"
-msgstr "Sync geselecteerd"
+msgstr "Inizializza formaz."
 
 #: u_translation.rst_164
 msgid "Historical Sites"
-msgstr "Historische locaties"
+msgstr "Siti storici"
 
 #: u_translation.rst_165
 msgid "Encyclopedia"
-msgstr "Encyclopedie"
+msgstr "Enciclopedia"
 
 #: u_translation.rst_166
 msgid "2nd Window"
-msgstr "2-de scherm"
+msgstr "2a finestra"
 
 #: u_translation.rst_167
 msgid "Snapshot"
-msgstr "Momentopname"
+msgstr "Copia della mappa"
 
 #: u_translation.rst_168
 msgid "Far Side Indexed Craters"
-msgstr "Achterkant geïndexeerde kraters"
+msgstr "Crateri indicizzati sulla faccia nascosta"
 
 #: u_translation.rst_169
 msgid "Overlay"
-msgstr "Overlay"
+msgstr "Sovraimpressioni"
 
 #: u_translation.rst_17
 msgid "Now"
-msgstr "Nu"
+msgstr "Adesso"
 
 #: u_translation.rst_170
 msgid "Show overlay"
-msgstr "Laat overlay zien"
+msgstr "Mostra sovr."
 
 #: u_translation.rst_171
 msgid "Overlay :"
-msgstr "Overlay:"
+msgstr "Sovraimpressione:"
 
 #: u_translation.rst_172
 msgid "Transparency:"
-msgstr "Transparantie:"
+msgstr "Trasparenza:"
 
 #: u_translation.rst_173
 msgid "Date / Time"
-msgstr "Datum/Tijd"
+msgstr "Data / Ora"
 
 #: u_translation.rst_174
+#| msgid "Use Computer Date and Time Zone"
 msgid "Use Computer Date and Time"
-msgstr "Gebruik datum & tijd van de computer"
+msgstr "Usa data e fuso orario del calcolatore"
 
 #: u_translation.rst_175
 msgid "Show Libration"
-msgstr "Laat libratie zien"
+msgstr "Mostra la librazione"
 
 #: u_translation.rst_176
 msgid "Show Phase"
-msgstr "Laat fase zien"
+msgstr "Mostra la fase"
 
 #: u_translation.rst_177
 msgid "Flip N-S"
-msgstr "Verwissel N-Z"
+msgstr "Inversione N-S"
 
 #: u_translation.rst_178
 msgid "Flip E-W"
-msgstr "Verwissel O-W"
+msgstr "Inversione E-O"
 
 #: u_translation.rst_179
+#| msgid "User Database"
 msgid "User Database loaded from DATLUN"
-msgstr "Gebruikersdatabase geladen van DATLUN"
+msgstr "Basi di dati personali da DATLUN"
 
 #: u_translation.rst_18
 msgid "OK"
@@ -810,84 +815,85 @@ msgstr "OK"
 
 #: u_translation.rst_180
 msgid "Remove Selection Mark"
-msgstr "Verwijder selectie markering"
+msgstr "Cancella i segni di selezione"
 
 #: u_translation.rst_181
 msgid "Mark size"
-msgstr "Markeer grootte"
+msgstr "Dim. segni di selezione"
 
 #: u_translation.rst_182
 msgid "Force texture compression"
-msgstr "Forceer textuurcompressie"
+msgstr "Rappresent. superf. compressa"
 
 #: u_translation.rst_183
 msgid "Label Color"
-msgstr "Kleur labels"
+msgstr "Colore delle etichette"
 
 #: u_translation.rst_184
 msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr "Uw grafische kaart ondersteunt geen weergave voor meer dan één textuur voor hetzelfde object. Zorg ervoor dat hardware-acceleratie is geactiveerd of wijzig de grafische kaart. De vereiste functie is  GL_ARB_MULTITEXTURE"
+msgstr "La scheda grafica non è in grado di mostrare più di una rappresentazione superficiale dello stesso oggetto. Non è quindi possibile usare questa funzione su questo calcolatore. Controllate che sia attivata l'accelerazione hardware oppure cambiate la scheda grafica. La funzione richiesta è GL_ARB_MULTITEXTURE"
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
-msgstr "Kijk hier voor een overzicht met ondersteunde grafische kaarten"
+msgstr "Vedere qui un elenco di schede grafiche compatibili"
 
 #: u_translation.rst_187
 msgid "Pyroclastic deposits"
-msgstr "Pyroclastische afzettingen"
+msgstr "Depositi piroclastici"
 
 #: u_translation.rst_188
 msgid "Lunar Domes"
-msgstr "Maankoepels"
+msgstr "Domi lunari"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"
 msgid "Latitude"
-msgstr "Breedte"
+msgstr "Latitudine"
 
 #: u_translation.rst_2
 msgid "Quit"
-msgstr "Afsluiten"
+msgstr "Esci"
 
 #: u_translation.rst_21
 msgid "Time Zone"
-msgstr "Tijdzone"
+msgstr "Fuso orario"
 
 #: u_translation.rst_22
 msgid "Show the phase"
-msgstr "Laat de fase zien"
+msgstr "Mostra la fase"
 
 #: u_translation.rst_23
 msgid "Show the libration"
-msgstr "Laat de libratie zien"
+msgstr "Mostra la librazione"
 
 #: u_translation.rst_24
 msgid "Language"
-msgstr "Taal"
+msgstr "Lingua"
 
 #: u_translation.rst_25
 msgid "Picture"
-msgstr "Afbeelding"
+msgstr "Fotografie"
 
 #: u_translation.rst_26
+#| msgid "Geocentric position"
 msgid "Geocentric"
-msgstr "Geocentrisch"
+msgstr "Posiz. geocentrica"
 
 #: u_translation.rst_28
 msgid "Color"
-msgstr "Kleur"
+msgstr "Colori"
 
 #: u_translation.rst_29
 msgid "Label"
-msgstr "Label"
+msgstr "Nome"
 
 #: u_translation.rst_3
 msgid "Configuration"
-msgstr "Configuratie"
+msgstr "Configurazione"
 
 #: u_translation.rst_30
 msgid "Close"
-msgstr "Sluiten"
+msgstr "Chiudi"
 
 #: u_translation.rst_31
 msgid "Zoom"
@@ -895,27 +901,27 @@ msgstr "Zoom"
 
 #: u_translation.rst_32
 msgid "Lighting"
-msgstr "Verlichting"
+msgstr "Luminosità"
 
 #: u_translation.rst_33
 msgid "Penumbra"
-msgstr "Penumbra"
+msgstr "Penombra"
 
 #: u_translation.rst_34
 msgid "Diffuse"
-msgstr "Diffuus"
+msgstr "Diffusione"
 
 #: u_translation.rst_35
 msgid "Specular"
-msgstr "Reflectie"
+msgstr "Illuminazione solare"
 
 #: u_translation.rst_36
 msgid "Performance"
-msgstr "Prestatie"
+msgstr "Prestazioni"
 
 #: u_translation.rst_37
 msgid "Smoothness"
-msgstr "Gladheid"
+msgstr "Risoluzione"
 
 #: u_translation.rst_4
 msgid "Zoom:"
@@ -923,28 +929,28 @@ msgstr "Zoom:"
 
 #: u_translation.rst_42
 msgid "All the formation"
-msgstr "De gehele formatie"
+msgstr "Tutte le formazioni"
 
 #: u_translation.rst_43
 msgid "Pretty interesting"
-msgstr "vrij interessant"
+msgstr "Discrete"
 
 #: u_translation.rst_44
 msgid "Very interesting"
-msgstr "erg interessant"
+msgstr "Molto interessanti"
 
 #: u_translation.rst_45
 msgid "Exceptional"
-msgstr "Exceptioneel"
+msgstr "Eccezionali"
 
 #: u_translation.rst_46
 msgid "Sort"
-msgstr "Sorteer"
+msgstr "Ordina per:"
 
 #: u_translation.rst_47
 msgctxt "u_translation.rst_47"
 msgid "Name"
-msgstr "Naam"
+msgstr "Nome"
 
 #: u_translation.rst_48
 msgid "Interest"
@@ -952,128 +958,128 @@ msgstr "Interesse"
 
 #: u_translation.rst_49
 msgid "Instrument"
-msgstr "Instrument"
+msgstr "Strumento"
 
 #: u_translation.rst_5
 msgctxt "u_translation.rst_5"
 msgid "Center"
-msgstr "Centreer"
+msgstr "Centra"
 
 #: u_translation.rst_51
 msgid "Terminator"
-msgstr "Terminator"
+msgstr "Terminatore"
 
 #: u_translation.rst_52
 msgid "Mark"
-msgstr "Markeer"
+msgstr "Centro"
 
 #: u_translation.rst_53
 msgid "Show label"
-msgstr "Laat label zien"
+msgstr "Nomi formazioni"
 
 #: u_translation.rst_54
 msgid "Show mark"
-msgstr "Laat markering zien"
+msgstr "Centro formazione"
 
 #: u_translation.rst_55
 msgid "Setup"
-msgstr "Installatie"
+msgstr "Impostazioni"
 
 #: u_translation.rst_56
 msgid "Sky Chart"
-msgstr "Hemelkaart"
+msgstr "Atlante stellare"
 
 #: u_translation.rst_57
 msgid "General"
-msgstr "Algemeen"
+msgstr "Generale"
 
 #: u_translation.rst_58
 msgid "Images"
-msgstr "Afbeeldingen"
+msgstr "Immagini"
 
 #: u_translation.rst_6
 msgid "Information"
-msgstr "Informatie"
+msgstr "Informazioni"
 
 #: u_translation.rst_60
 msgid "Image folders:"
-msgstr "Afbeeldingsmappen:"
+msgstr "Cartelle delle immagini:"
 
 #: u_translation.rst_62
 msgid "Folder"
-msgstr "Map"
+msgstr "Cartella"
 
 #: u_translation.rst_63
 msgid "Tools"
-msgstr "Gereedschap"
+msgstr "Funzioni"
 
 #: u_translation.rst_64
 msgid "Rotation"
-msgstr "Rotatie"
+msgstr "Rotazione"
 
 #: u_translation.rst_65
 msgid "West"
-msgstr "Westen"
+msgstr "Ovest"
 
 #: u_translation.rst_66
 msgid "East"
-msgstr "Oosten"
+msgstr "Est"
 
 #: u_translation.rst_67
 msgid "Default Orientation"
-msgstr "Standaard orientatie"
+msgstr "Orientamento predefinito"
 
 #: u_translation.rst_68
 msgid "Celestial Pole on top"
-msgstr "Hemelpool boven"
+msgstr "Polo Celeste in alto"
 
 #: u_translation.rst_69
 msgid "Distance"
-msgstr "Afstand"
+msgstr "Distanza"
 
 #: u_translation.rst_7
 msgid "Ephemeris"
-msgstr "Efemeride"
+msgstr "Effemeridi"
 
 #: u_translation.rst_70
 msgid "Real Distance"
-msgstr "Ware afstand"
+msgstr "Distanza reale"
 
 #: u_translation.rst_71
 msgid "Apparent Distance"
-msgstr "Schijnbare afstand"
+msgstr "Distanza apparente"
 
 #: u_translation.rst_72
 msgid "North"
-msgstr "Noord"
+msgstr "Nord"
 
 #: u_translation.rst_73
 msgid "South"
-msgstr "Zuid"
+msgstr "Sud"
 
 #: u_translation.rst_74
 msgid "Mirror"
-msgstr "Spiegel"
+msgstr "Speculare"
 
 #: u_translation.rst_75
 msgid "Save Map"
-msgstr "Bewaar kaart"
+msgstr "Salva la mappa"
 
 #: u_translation.rst_76
 msgid "Saved Map size"
-msgstr "Opgeslagen kaartgrootte"
+msgstr "Dimensione della mappa salvata"
 
 #: u_translation.rst_77
 msgid "As on screen"
-msgstr "Als op het scherm"
+msgstr "Come sullo schermo"
 
 #: u_translation.rst_78
 msgid "Save As"
-msgstr "Opslaan als"
+msgstr "Salva come"
 
 #: u_translation.rst_79
 msgid "Print"
-msgstr "Afdrukken"
+msgstr "Stampa"
 
 #: u_translation.rst_8
 msgid "Zoom+"
@@ -1081,35 +1087,35 @@ msgstr "Zoom+"
 
 #: u_translation.rst_80
 msgid "White background"
-msgstr "Witte achtergrond"
+msgstr "Sfondo bianco"
 
 #: u_translation.rst_81
 msgid "Neighbor"
-msgstr "Buur"
+msgstr "Formazioni vicine"
 
 #: u_translation.rst_82
 msgid "Print Setup..."
-msgstr "Printerinstelling..."
+msgstr "Configura la stampante..."
 
 #: u_translation.rst_84
 msgid "Select All"
-msgstr "Selecteer alles"
+msgstr "Seleziona tutto"
 
 #: u_translation.rst_85
 msgid "Copy"
-msgstr "Kopieer"
+msgstr "Copia"
 
 #: u_translation.rst_86
 msgid "Measure"
-msgstr "Meten"
+msgstr "Misura"
 
 #: u_translation.rst_87
 msgid "Texture interpolation"
-msgstr "Textuur interpolatie"
+msgstr "Interpolazione grafica"
 
 #: u_translation.rst_89
 msgid "External display software"
-msgstr "Extern beeldschermprogramma"
+msgstr "Visualizzazione esterna"
 
 #: u_translation.rst_9
 msgid "Zoom-"
@@ -1117,53 +1123,53 @@ msgstr "Zoom-"
 
 #: u_translation.rst_90
 msgid "Printing"
-msgstr "Afdrukken"
+msgstr "Stampante"
 
 #: u_translation.rst_91
 msgid "Printer"
-msgstr "Printer"
+msgstr "Stampante"
 
 #: u_translation.rst_92
 msgid "Left Margin"
-msgstr "Linkermarge"
+msgstr "Margine sinistro"
 
 #: u_translation.rst_93
 msgid "Millimeters"
-msgstr "Millimeters"
+msgstr "Millimetri"
 
 #: u_translation.rst_94
 msgid "Print the ephemeris"
-msgstr "efemeride afdrukken"
+msgstr "Stampa le effemeridi"
 
 #: u_translation.rst_95
 msgid "Print the information"
-msgstr "Informatie afdrukken"
+msgstr "Stampa la descrizione"
 
 #: u_translation.rst_96
 msgid "Print the map"
-msgstr "Kaart afdrukken"
+msgstr "Stampa la mappa"
 
 #: u_translation.rst_97
 msgid "Information text width"
-msgstr "Informatie tekstbreedte"
+msgstr "Dimensione del testo descrittivo"
 
 #: u_translation.rst_98
 msgid "Glossary"
-msgstr "Woordenlijst"
+msgstr "Glossario"
 
 #: u_translation.rst_99
 msgid "Cancel"
-msgstr "Annuleer"
+msgstr "Annulla"
 
 #: u_translation.rsyoucandownlo
 msgid "You can download and install the following optional features:"
-msgstr "U kunt de volgende opties downloaden en installeren:"
+msgstr "Si possono scaricare ed installare i seguenti componenti opzionali:"
 
 #: u_translation.rsyourinstalla
 msgid "Your installation is already complete with all the features installed."
-msgstr "je installatie is al compleet met alle opties geïnstalleerd."
+msgstr "La vostra installazione è già completa con tutte le opzioni installate."
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"
-msgstr "Zoom niveau"
+msgstr "Livello di zoom"
 
