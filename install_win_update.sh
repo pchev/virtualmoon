@@ -48,5 +48,8 @@ install -v -m 644 datlun/language/vmadatabase.en.po $destdir/language/
 install -v -m 644 datlun/language/vmadatabase.fr.po $destdir/language/
 install -v -m 644 photlun/language/photlun.en.po $destdir/language/
 install -v -m 644 photlun/language/photlun.fr.po $destdir/language/
-install -v -m 644 Database/* $destdir/Database/
+
+install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/Database/
+install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/Database/
+
 install -v -m 644 doc/* $destdir/doc/
