@@ -1,400 +1,410 @@
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Ing. Maroš Horňák <maros.hornak@post.sk>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
 
 #: u_translation.rsedit
 msgid "Edit"
-msgstr "Editar"
+msgstr "Editovať"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
-msgstr "ES"
+msgstr "UK"
 
 #: u_translation.rsloadcsv01
 msgctxt "u_translation.rsloadcsv01"
 msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."
-msgstr "Este programa le permite importar objetos nuevos a la base de datos Del Atlas Virtual de la Luna desde un archivo CSV. No hay ninguna disposici�n para combinar los datos de campo o para hacer cualquier c�lculo"
+msgstr ""
 
 #: u_translation.rsloadcsv02
 msgctxt "u_translation.rsloadcsv02"
 msgid "If you need that use first a software like OpenOffice.org Calc or Excel to format your data and save them to a CSV file."
-msgstr "Si usted lo necesita use primero un software como OpenOffice.org Calc o Excel para dar formato a los datos y guardarlos en un archivo CSV"
+msgstr ""
 
 #: u_translation.rsloadcsv03
 msgctxt "u_translation.rsloadcsv03"
 msgid "From this page indicate first the character your file use to separate the different columns ( ; or TAB ) and if a \" surround the text. Then open you CSV data file."
-msgstr "Desde esta p�gina indique en primer lugar el car�cter de su archivo que utilizar� para separar las distintas columnas (o TAB) y si un s�mbolo \" rodear� el texto. A continuaci�n, abra su archivo de datos CSV"
+msgstr ""
 
 #: u_translation.rsloadcsv04
 msgctxt "u_translation.rsloadcsv04"
 msgid "If the format is recognised a new tab appear at the top of the page, click this tab to continue."
-msgstr "Si el formato es reconocido una nueva pesta�a aparecer� en la parte superior de la p�gina, haga clic en esta pesta�a para continuar"
+msgstr ""
 
 #: u_translation.rsloadcsv05
 msgctxt "u_translation.rsloadcsv05"
 msgid "If you already record this file setting you can use the \"Load Setting\" button to retrieve them."
-msgstr "Si ya grab� este archivo de configuraci�n, puede utilizar el bot�n \"Cargar configuraci�n\" para recuperarlo"
+msgstr ""
 
 #: u_translation.rsloadcsv06
 msgctxt "u_translation.rsloadcsv06"
 msgid "The next step is to give a relation between your file columns and the different database fields. Refer to the main help file for explanation about each database field."
-msgstr "El siguiente paso es dar una relaci�n entre las columnas de su archivo y los diferentes campos de la base de datos. Consulte el archivo de ayuda principal para la explicaci�n de cada campo de la base de datos"
+msgstr ""
 
 #: u_translation.rsloadcsv07
 msgctxt "u_translation.rsloadcsv07"
 msgid "Click one of the value of your file and check the corresponding database field. When ready press the \"<-->\" button."
-msgstr "Haga clic en uno de el valor de su archivo y compruebe el campo correspondiente de la base de datos. Cuando est� listo, puse el bot�n \"<-->\"."
+msgstr ""
 
 #: u_translation.rsloadcsv08
 msgctxt "u_translation.rsloadcsv08"
 msgid "It is also possible to give a constant value to a database field. Enter the value at the bottom of the page and press the \"Constant Value\" button."
-msgstr "Tambi�n es posible dar un valor constante a un campo de la base de datos. Introduzca el valor en la parte inferior de la p�gina y pulse el bot�n \"Valor Constante\"."
+msgstr ""
 
 #: u_translation.rsloadcsv09
 msgctxt "u_translation.rsloadcsv09"
 msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
-msgstr "DBN es un identificador para su archivo. Va desde 10 a 99 y permite identificar sus datos en la base de datos. Se usa desde el programa principal para mostrar o no la etiqueta de los objetos."
+msgstr ""
 
 #: u_translation.rsloadcsv10
 msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
-msgstr "Tambi�n puede seleccionar r�pidamente todos los objetos mediante el uso de DBN = 10 en la ventana de selecci�n de SQL, y eliminar los datos utilizando el men� Archivo - Eliminar"
+msgstr ""
 
 #: u_translation.rsloadcsv11
 msgid "It is mandatory to give a value for the field: DBN, NAME, LONGIN and LATIN."
-msgstr "Es obligatorio proporcionar un valor para los campos: DBN, NAME, LONGIN y LATIN."
+msgstr ""
 
 #: u_translation.rsloadcsv12
 msgid "When all the required field are defined the next tab appear at the top of the page."
-msgstr "Cuando todos los campos necesarios est�n definidos, la pesta�a siguiente aparece en la parte superior de la p�gina"
+msgstr ""
 
 #: u_translation.rsloadcsv13
 msgid "Press \"Load Database\" button to load your data to the database."
-msgstr "Pulse el bot�n \"Cargar base de datos\" para cargar sus dados en la base de datos."
+msgstr ""
 
 #: u_translation.rsloadcsv14
 msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
-msgstr "El bot�n  \"Guardar configuraci�n \" le permite guardar la configuraci�n para una posterior recuperaci�n"
+msgstr ""
 
 #: u_translation.rsm_1
 msgid "DBN must be a constant value!"
-msgstr "DBN debe ser un valor constante!"
+msgstr "DBN musí mať pevnú hodnotu!"
 
 #: u_translation.rsm_10
 msgid "Value"
-msgstr "Valor"
+msgstr "Hodnota"
 
 #: u_translation.rsm_11
 msgid "Select a database field first!"
-msgstr "Seleccione primero un campo de la base de datos!"
+msgstr "Vyberte najprv databázové pole!"
 
 #: u_translation.rsm_12
 msgid "Select an input file field first!"
-msgstr "Seleccione un archivo de entrada primero!"
+msgstr "Vyberte najprv pole vstupného súboru!"
 
 #: u_translation.rsm_13
 msgid "Uninitialised"
-msgstr "No inicializado"
+msgstr "Neinicializovaný"
 
 #: u_translation.rsm_14
 msgid "Constant value"
-msgstr "Valor constante"
+msgstr "Rovnaká hodnota"
 
 #: u_translation.rsm_15
 msgid "Input file field"
-msgstr "Campo del fichero de entrada"
+msgstr "Vstupný súbor poľa"
 
 #: u_translation.rsm_16
 msgid "Do some validation:"
-msgstr "Haga alguna validaci�n!"
+msgstr "Urob nejaké kontroly:"
 
 #: u_translation.rsm_17
 msgid "is checked but no value is defined!"
-msgstr "est� activado pero no hay ning�n valor definido!"
+msgstr "je označený ale žiadna hodnota je definovaná!"
 
 #: u_translation.rsm_18
 msgid "All checked field are defined."
-msgstr "Todos los campos activados est�n definidos."
+msgstr "Všetky označené polia sú definované."
 
 #: u_translation.rsm_19
 msgid "Missing required field"
-msgstr "Falta el campo obligatorio"
+msgstr "Chýba požadované pole"
 
 #: u_translation.rsm_2
 msgid "No row selected!"
-msgstr "No hay filas seleccionadas!"
+msgstr "Nevybraný žiadny riadok!"
 
 #: u_translation.rsm_20
 msgid "All requiered field are present."
-msgstr "Todos los campos requeridos est�n presentes"
+msgstr "Všetky požadované polia sú dostupné."
 
 #: u_translation.rsm_21
 msgid "Start insert process to database"
-msgstr "Empieza el proceso de inserci�n a la base de datos"
+msgstr "Štart proces vkladania do databázy"
 
 #: u_translation.rsm_22
 msgid "Database update successfully terminated!"
-msgstr "La actualizaci�n de la base de datos ha terminado con �xito!"
+msgstr "Aktualizácia databázy úspešne ukončená!"
 
 #: u_translation.rsm_23
 msgid "You can now close this window."
-msgstr "Puede cerrar esta ventana ahora"
+msgstr "Môzete zavrieť okno."
 
 #: u_translation.rsm_24
 msgid "Database insert failed!"
-msgstr "La inserci�n en la base de datos ha fallado!"
+msgstr "Vloženie databázy zlyhalo!"
 
 #: u_translation.rsm_25
 msgid "Rollback completed."
-msgstr "Restauraci�n completada."
+msgstr "Návrat ukončený."
 
 #: u_translation.rsm_26
 msgid "Database not modified."
-msgstr "Base de datos no modificada."
+msgstr "Databáza nebola modifikovaná."
 
 #: u_translation.rsm_3
 msgid "Selection:"
-msgstr "Selecci�n"
+msgstr "Výber:"
 
 #: u_translation.rsm_4
 msgid "Row:"
-msgstr "Fila"
+msgstr "Riadok:"
 
 #: u_translation.rsm_5
 msgid "not found in"
-msgstr "no se ha encontrado en"
+msgstr "nenajdený v"
 
 #: u_translation.rsm_6
 msgid "No current selection, cannot delete all!"
-msgstr ""
+msgstr "Žiadny aktuálny výber, nemôžem všetko vymazať!"
 
 #: u_translation.rsm_7
 msgid "Are you sure you want to delete all the data corresponding to the current selection from the database?"
-msgstr "Est� seguro de que quiere borrar todos los datos correspondientes a la selecci�n actual desde la base de datos?"
+msgstr "Ste si istý, že chcete vymazať všetky príslušne dáta v aktuálnom výbere z databázy?"
 
 #: u_translation.rsm_8
 msgid "Records found"
-msgstr "Coincidencias encontradas"
+msgstr "Nájdene záznamy"
 
 #: u_translation.rsm_9
 msgid "Key"
-msgstr "Clave"
+msgstr "Kľúč"
 
 #: u_translation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
-msgstr "Traducci�n: Juan Carlos Garrido"
+msgstr "Preklad: Maroš Horňák"
 
 #: u_translation.rst_1
 msgid "File"
-msgstr "Archivo"
+msgstr "Súbor"
 
 #: u_translation.rst_10
 msgid "Clear"
-msgstr "Limpiar"
+msgstr "Vymazať"
 
 #: u_translation.rst_11
 msgid "Last"
-msgstr "�ltimo"
+msgstr "Posledný"
 
 #: u_translation.rst_12
 msgid "Enter selection and order criteria using SQL syntax."
-msgstr "Introduzca los criterios de selecci�n y orden usando la sintaxis SQL."
+msgstr "Vložiť výber a kritéria poradia použitím SQL syntaxu."
 
 #: u_translation.rst_13
 msgid "All (Default)"
-msgstr "Todo (por defecto)"
+msgstr "Všetko (Default)"
 
 #: u_translation.rst_14
 msgid "Database maintenance"
-msgstr "Mantenimiento de bases de datos"
+msgstr "Obsluha databázy"
 
 #: u_translation.rst_15
 msgid "Near Side Named Formation"
-msgstr "Formaci�n nombrada en la Cara Visible"
+msgstr "Pomenované útvary na privrátenej strane"
 
 #: u_translation.rst_16
 msgid "Near Side Indexed Craters"
-msgstr "Cr�teres indexados en la Cara Visible"
+msgstr "Indexované krátery na privrátenej strane"
 
 #: u_translation.rst_17
 msgid "Input File"
-msgstr "Archivo de entrada"
+msgstr "Vstupný súbor"
 
 #: u_translation.rst_18
 msgid "Far Side Named Formation"
-msgstr "Formaci�n nombrada en la Cara Oculta"
+msgstr "Pomenované útvary na odvrátenej strane"
 
 #: u_translation.rst_19
 msgid "Far Side Indexed Craters"
-msgstr "Cr�teres indexados en la Cara Oculta"
+msgstr "Indexované krátery na odvrátenej strane"
 
 #: u_translation.rst_2
 msgid "Quit"
-msgstr "Abandonar"
+msgstr "Ukončiť"
 
 #: u_translation.rst_20
 msgid "Historical Sites"
-msgstr "Sitios hist�ricos"
+msgstr "Historické miesta"
 
 #: u_translation.rst_21
 msgid "Predefined Selections"
-msgstr "Selecciones predefinidas"
+msgstr "Predefinovaný výber"
 
 #: u_translation.rst_22
 msgid "SQL Request"
-msgstr "Consulta SQL"
+msgstr "SQL požiadavka"
 
 #: u_translation.rst_23
 msgid "Select File"
-msgstr "Seleccionar archivo"
+msgstr "Vybrať súbor"
 
 #: u_translation.rst_24
 msgid "Select Data Field"
-msgstr "Seleccionar campo de datos"
+msgstr "Vybrať dátové pole"
 
 #: u_translation.rst_25
 msgid "Load to Database"
-msgstr "Cargar a la base de datos"
+msgstr "Načítať do databázy"
 
 #: u_translation.rst_26
 msgid "Field separator:"
-msgstr "Campo separador."
+msgstr "Oddeľovač poľa:"
 
 #: u_translation.rst_27
 msgid "Text separator:"
-msgstr "Texto separador."
+msgstr "Textový oddeľovač:"
 
 #: u_translation.rst_28
 msgid "CSV file to import:"
-msgstr "Archivo CSV a importar"
+msgstr "CSV súbor na import:"
 
 #: u_translation.rst_29
 msgid "Database Fields Map"
-msgstr "Mapa de campos de la base de datos"
+msgstr "Databázova mapa poľa"
 
 #: u_translation.rst_3
 msgid "Selection"
-msgstr "Selecci�n"
+msgstr "Výber"
 
 #: u_translation.rst_30
 msgid "You are now ready to load the database"
-msgstr "Ahora est� listo para cargar la base de datos"
+msgstr "Ste pripravený načítať databázu"
 
 #: u_translation.rst_31
 msgid "Constant Value"
-msgstr "Valor constante"
+msgstr "Rovnaká hodnota"
 
 #: u_translation.rst_32
 msgid "Load Database"
-msgstr "Cargar base de datos"
+msgstr "Načítať databázu"
 
 #: u_translation.rst_33
 msgid "Export Selection to CSV"
-msgstr "Exportar la selecci�n a CSV"
+msgstr "Exportovať výber do CSV"
 
 #: u_translation.rst_34
 msgid "Import from CSV"
-msgstr "Importar desde CSV"
+msgstr "Import z CSV"
 
 #: u_translation.rst_35
 msgid "Delete Selection from Database"
-msgstr "Eliminar la selecci�n de la base de datos"
+msgstr "Vymazať výber z databázy"
 
 #: u_translation.rst_36
 msgid "Mark Selection on Map"
-msgstr "Marcar la selecci�n en el mapa"
+msgstr "Označiť výber na mape"
 
 #: u_translation.rst_37
 msgid "Reload a previously saved setting"
-msgstr "Recargar una configuraci�n previamente guardada"
+msgstr "Opäť načítať predtým uložené nastavenie"
 
 #: u_translation.rst_38
 msgid "Load Setting"
-msgstr "Cargar configuraci�n"
+msgstr "Načítať nastavenie"
 
 #: u_translation.rst_39
 msgid "Save all the definition for later retrival"
-msgstr "Guardar todos las definiciones para su posterior recuperaci�n"
+msgstr "Uložiť všetky popisy pre neskoršie použitie"
 
 #: u_translation.rst_4
 msgid "Columns"
-msgstr "Columnas"
+msgstr "Stĺpce"
 
 #: u_translation.rst_40
 msgid "Save Setting"
-msgstr "Guardar configuraci�n"
+msgstr "Uložiť nastavenie"
 
 #: u_translation.rst_41
 msgid "Find in"
-msgstr "Encontrar en"
+msgstr "Hľadať v"
 
 #: u_translation.rst_42
 msgid "Display on Map"
-msgstr ""
+msgstr "Zobraziť na mape"
 
 #: u_translation.rst_43
 msgid "Sort by"
-msgstr "Ordenar por"
+msgstr "Triediť podľa"
 
 #: u_translation.rst_44
 msgid "Column Value"
-msgstr "Valor de columna"
+msgstr "Hodnota stĺpca"
 
 #: u_translation.rst_45
 msgid "Between"
-msgstr "Entre"
+msgstr "Medzi"
 
 #: u_translation.rst_46
 msgid "and"
-msgstr "y"
+msgstr "a"
 
 #: u_translation.rst_47
 msgid "Assign input field value"
-msgstr "Asignar un valor de entrada de campo"
+msgstr "Priradiť vstupnú hodnotu poľa"
 
 #: u_translation.rst_48
 msgid "Select Database"
-msgstr "Seleccionar base de datos"
+msgstr "Vybrať databázu"
 
 #: u_translation.rst_49
 msgid "Expert Mode"
-msgstr "Modo experto"
+msgstr "Expertný režim"
 
 #: u_translation.rst_5
 msgid "All"
-msgstr "Todo"
+msgstr "Všetky"
 
 #: u_translation.rst_50
 msgid "Default Selection"
-msgstr "Selecci�n por defecto"
+msgstr "Predvolený výber"
 
 #: u_translation.rst_51
 msgid "Pyroclastic deposits"
-msgstr "Dep�sitos pirocl�sticos"
+msgstr "Pyroklastické usadeniny"
 
 #: u_translation.rst_52
 msgid "Help"
-msgstr "Ayuda"
+msgstr "Pomoc"
 
 #: u_translation.rst_53
 msgid "About"
-msgstr "Acerca de"
+msgstr "O"
 
 #: u_translation.rst_54
 msgid "Lunar Domes"
-msgstr "Domos lunares"
+msgstr "Lunárne dómy"
 
 #: u_translation.rst_6
 msgid "None"
-msgstr "Ninguno"
+msgstr "Žiadny"
 
 #: u_translation.rst_7
 msgid "Close"
-msgstr "Cerrar"
+msgstr "Zavrieť"
 
 #: u_translation.rst_8
 msgid "Ok"
-msgstr "OK"
+msgstr "Ok"
 
 #: u_translation.rst_9
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Zrušiť"
 

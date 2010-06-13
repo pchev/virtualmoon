@@ -2,210 +2,212 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2008-06-03 10:23+0200\n"
-"Last-Translator: Juan Carlos Garrido <neuma@arrakis.es>\n"
+"PO-Revision-Date: 2009-12-24 00:19+0100\n"
+"Last-Translator: Ing. Maroš Horňák <maros.hornak@post.sk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
 
 #: u_translation.rsabout
 msgid "About ..."
-msgstr "Acerca de"
+msgstr "O ..."
 
 #: u_translation.rsadjusttowind
 msgid "Adjust to window"
-msgstr "Ajustar a la ventana"
+msgstr "Prispôsobiť oknu"
 
 #: u_translation.rsall
 msgid "All"
-msgstr "Todo"
+msgstr "Všetko"
 
 #: u_translation.rsalllibraries
 msgid "All libraries"
-msgstr "Todas las librerías"
+msgstr "Všetky knižnice"
 
 #: u_translation.rsbrighter
 msgid "Brighter"
-msgstr "Más brillante"
+msgstr "Svetlejšie"
 
 #: u_translation.rsbylibrary
 msgid "by library"
-msgstr "por librería"
+msgstr "podľa knižnice"
 
 #: u_translation.rsbyname
 msgid "by name"
-msgstr "por nombre"
+msgstr "podľa mena"
 
 #: u_translation.rscancel
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Zrušiť"
 
 #: u_translation.rscloseallwind
 msgid "Close all window"
-msgstr "Cerrar todas las ventanas"
+msgstr "Zavrieť všetky okna"
 
 #: u_translation.rsdarker
 msgid "Darker"
-msgstr "Más oscuro"
+msgstr "Tmavšie"
 
 #: u_translation.rsdatabase
 msgid "Database"
-msgstr "Base de datos"
+msgstr "Databáza"
 
 #: u_translation.rseastwest
 msgid "East<->West"
-msgstr "Este<->Oeste"
+msgstr "Východ<->Západ"
 
 #: u_translation.rsfile
 msgid "File"
-msgstr "Archivo"
+msgstr "Súbor"
 
 #: u_translation.rsfolder
 msgid "Folder"
-msgstr "Carpeta"
+msgstr "Adresár"
 
 #: u_translation.rsformationnam
 msgid "Formation name"
-msgstr "Nombre de la formación"
+msgstr "Meno útvaru"
 
 #: u_translation.rsfullsize
 msgid "Full size"
-msgstr "Tamaño completo"
+msgstr "Plná veľkosť"
 
 #: u_translation.rshelp
 msgid "Help"
-msgstr "Ayuda"
+msgstr "Pomoc"
 
 #: u_translation.rshelpprefix
 msgid "HelpPrefix"
-msgstr "ES_"
+msgstr "UK_"
 
 #: u_translation.rshorizontalmi
 msgid "Horizontal Mirror"
-msgstr "Reflejo horizontal"
+msgstr "Horizontálne zrkadliť"
 
 #: u_translation.rsimagefolders
 msgid "Image folders:"
-msgstr "Carpetas de imágenes"
+msgstr "Adresár obrázkov:"
 
 #: u_translation.rsimagemirror
 msgid "Image mirror"
-msgstr "Imagen de espejo"
+msgstr "Zrkadliť obrázok"
 
 #: u_translation.rsimages
 msgid "Images"
-msgstr "Imágenes"
+msgstr "Obrázky"
 
 #: u_translation.rsincreasecont
 msgid "Increase Contrast"
-msgstr "Aumentar contraste"
+msgstr "Zvýšiť kontrast"
 
 #: u_translation.rslarge
 msgid "Large"
-msgstr "Grande"
+msgstr "Veľká"
 
 #: u_translation.rslibrary
 msgid "Library"
-msgstr "Librería"
+msgstr "Knižnica"
 
 #: u_translation.rslibrarysetti
 msgid "Library Setting"
-msgstr "Configuración de librería"
+msgstr "Nastavenie knižnice"
 
 #: u_translation.rsmedium
 msgid "Medium"
-msgstr "Medio"
+msgstr "Stredná"
 
 #: u_translation.rsname
 msgid "Name"
-msgstr "Nombre"
+msgstr "Meno"
 
 #: u_translation.rsnone1
 msgid "None"
-msgstr "Ninguno"
+msgstr "Žiadne"
 
 #: u_translation.rsnorthsouth
 msgid "North<->South"
-msgstr "Norte<->Sur"
+msgstr "Sever<->Juh"
 
 #: u_translation.rsnumberofwind
 msgid "Number of window"
-msgstr "Número de ventana"
+msgstr "Počet okien"
 
 #: u_translation.rsok
 msgid "OK"
-msgstr "Aceptar"
+msgstr "OK"
 
 #: u_translation.rsquit
 msgid "Quit"
-msgstr "Abandonar"
+msgstr "Skončiť"
 
 #: u_translation.rsreducecontra
 msgid "Reduce Contrast"
-msgstr "Reducir contraste"
+msgstr "Znížiť kontrast"
 
 #: u_translation.rsresetdefault
 msgid "Reset default setting"
-msgstr "Restablecer parámetros originales"
+msgstr "Obnoviť pôvodné nastavenie"
 
 #: u_translation.rsrotateclockw
 msgid "Rotate clockwise"
-msgstr "Girar a la derecha"
+msgstr "Rotovať v smere hod. ručičiek"
 
 #: u_translation.rsrotatecounte
 msgid "Rotate counterclockwise"
-msgstr "Girar a la izquierda"
+msgstr "Rotovať v protismere hod. ručičiek"
 
 #: u_translation.rsrotation
 msgid "Rotation"
-msgstr "Rotación"
+msgstr "Rotácia"
 
 #: u_translation.rssavesetting
 msgid "Save setting"
-msgstr "Guardar configuración"
+msgstr "Uložiť nastavenia"
 
 #: u_translation.rssearch
 msgid "Search"
-msgstr "Buscar"
+msgstr "Hľadať"
 
 #: u_translation.rsselection
 msgid "Selection"
-msgstr "Selección"
+msgstr "Výber"
 
 #: u_translation.rsshowonmap
 msgid "Show on map"
-msgstr "Mostrar en el mapa"
+msgstr "Ukázať na mape"
 
 #: u_translation.rssize
 msgid "Size"
-msgstr "Tamaño"
+msgstr "Veľkosť"
 
 #: u_translation.rssmall
 msgid "Small"
-msgstr "Pequeño"
+msgstr "Malá"
 
 #: u_translation.rssort
 msgid "Sort"
-msgstr "Ordenar"
+msgstr "Triediť"
 
 #: u_translation.rstranslatedby
 msgid "Translated by :"
-msgstr ""
+msgstr "Preložil : Maroš Horňák"
 
 #: u_translation.rsverticalmirr
 msgid "Vertical Mirror"
-msgstr "Reflejo vertical"
+msgstr "Vertikálne zrkadliť"
 
 #: u_translation.rsview
 msgid "View"
-msgstr "Ver"
+msgstr "Pohľad"
 
 #: u_translation.rsvignettes
 msgid "Vignettes"
-msgstr "Viñetas"
+msgstr "Miniatúry"
 
 #: u_translation.rszoom
 msgid "Zoom"
-msgstr ""
+msgstr "Priblížiť"
 
