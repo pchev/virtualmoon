@@ -1,0 +1,107 @@
+GLO_WORD;GLO_TEXT
+ALBEDO;Relación entre la luz recibida por un cuerpo y la reflejada por éste. Un cuerpo totalmente reflectante presenta un albedo de 1 mientras que un cuerpo totalmente absorvente presentaría valores de 0.
+ALTITUD ABSOLUTA;La Luna es casi una esfera de 1747 km de radio, ello explica que las altitudes absolutas de diversos mapas tengan en cuenta el citado radio. Así mismo esto explica por qué las formaciones pueden por tanto presentar altitudes de valores negativos.
+ALTITUD RELATIVA;En DBMOON, la altura relativa (también llamada ALTURA) hace referencia a la altura de la formación respecto a los alrededores de la misma.
+ALTURA;En DBMOON, la altura hace referencia a la ALTITUD RELATIVA respecto a los alrededores de la formación.
+ANGULO DE FASE;Angulo entre el Sol y la Tierra visto desde el centro de un planeta. Está relacionado con la fase de un planeta o porción del disco iluminado tal como se ve desde la Tierra. Para un planeta interior como Mercurio y Venus el ángulo de fase adquiere cualquier valor, siendo 0 en la conjunción superior, 180 en la conjunción inferior.
+APOGEO;Punto álgido, más distante respecto al centro de giro, de una órbita elíptica
+APOLLO (o Apolo);Misión tripulada de los EE.UU. cuyo objetivo y logro fue posar hombres sobre la Luna
+ARROYO (o Rima);Lineas sinuosas encontradas en los MARes formado por viejos flujos de LAVA o viejos túneles de LAVA que han colapsado. También se conoce como RIMA.
+BASALTO;Roca ígnea (surgida de materiales fundidos y no de sedimentos ni de transformaciones de otras rocas/minerales por acción del medio) que es encontrada como LAVA solidificada y está presente en el magma. Diversos tipos se han encontrado en las muestras lunares traídas por las misiones APOLLO.
+CALDERA;Cráter volcánico de gran tamaño.
+CARA OCULTA;Parte de la superficie lunar que debido a la correlación entre los movimientos de traslación y rotación (ROTACIÓN SINCRÓNICA) queda oculta al observador. Parte de esta área se hace visible cuando se dan LIBRACIONes favorables.
+CARA VISIBLE;Hemisferio que la Luna siempre presenta de cara a la Tierra (el que es totalmente visible en LUNA LLENA)
+CATENA;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a una serie de cráteres encadenados.
+COLONGUITUD;Dato matemático obtenido de tablas precalculadas que permite conocer la LONGUITUD SELENOGRAFICA del TERMINADOR DEL AMANECER o del TERMINADOR DEL ATARDECER.
+CONTINENTE;Gran extensión de terreno lunar con abundante montañismo o grandes elementos orográficos.
+COORDENADAS SELENOGRAFICAS;Conjunto de datos compuesto por la LONGUITUD SELENOGRAFICA y la LATITUD SELENOGRAFICA que se usa para localizar cualquier punto sobre la superficie lunar.
+CORDILLERA ESCARPADA;Estructura formada por picos conectados entre sí, con pendientes moderadas y altura reducidas de origen probablemente volcánico.
+CRATER;En la luna, estructuras circulares formadas por el impacto de meteoritos. En DBMOON la expresión FORMACION CON FORMA DE CRATER es usada para aquellos cráteres cuyo diámetro es de más de 8 km. Generalmente el LARGO y el ANCHO son iguales salvo excepciones (Schiller).
+CRATERLET;FORMACION CON FORMA DE CRATER de pequeño diametro, de SUELO redondeado y forma cóncava.
+CUARTO CRECIENTE;Aspecto del disco lunar que se manifiesta tras 7 días de la LUNA NUEVA. Esta fase puede ser observada a primeras horas de la tarde o de la noche. El Sol y la Luna están formando un ángulo de 90º respecto al observador.
+CUARTO MENGUANTE;Aspecto del disco lunar que se manifiesta a falta de 7 días para el fin del MES LUNAR. Esta fase puede ser observada a altas horas de la madrugada, al amanecer o por las mañanas. El Sol y la Luna están formando un ángulo de 90º respecto al observador.
+DBMOON;La base de datos usada por Virtual Moon, creada por Christian Legrand.
+DOMO;Formación de origen volcánico y con forma de colina. Algunos de ellos presentan una CALDERA en su cima. El diametros de los domos ronda entre las 8 y 16 km y su altura es ALTURA es inferior a unos pocos cientos de metros.
+DORSA;Palabra del latín cuyo singular es DORSUM que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a una RED DE CORDILLERAS ESCARPADAS.
+DORSUM;Palabra del latín cuyo plural es DORSA que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a una CORDILLERA ESCARPADA.
+ECLIPSE ANULAR;En algunas ocasiones, se produce que en los ECLIPSES TOTALES y con motivo del la gran distancia de luna, la sombra del disco lunar no cubre el disco solar y por ello queda un anillo visible de luz.
+ECLIPSE LUNAR;Desaparición del disco lunar cuando la Luna atraviesa el cono de sombra de la Tierra. Este hecho solo ocurre en LUNA LLENA, cuando la alineación Sol-Tierra-Luna hace posible el citado tránsito.
+ECLIPSE PARCIAL;Eclipse en el cual la ocultación del cuerpo celeste (Sol o Luna) no es completa.
+ECLIPSE SOLAR;Ocultación del disco solar por interposición de la LUNA NUEVA entre el Sol y la Tierra, tal que los tres presentan sus centros (de sus respectivos discos) alineados.
+ECLIPSE TOTAL;Un eclipse total, de Sol o Luna, acontece cuando el cuerpo que ejecuta la ocultación cubre completamente el disco del cuerpo sometido al eclipse.
+ECLIPTICA;Es la linea aparente que describe el Sol en el cielo.
+EDAD DE LA LUNA;Periodo de tiempo transcurrido desde la LUNA NUEVA
+ESCARPA;Pendiente que separa dos areas vecinas con diferente ALTITUD RELATIVA.
+FASE;Evolución del aspecto lunar debido al cambio progresivo tanto de la iluminación  de su superficie como de la posición del TERMINADOR. 4 fases principales han sido definidas: LUNA NUEVA, CUARTO CRECIENTE, LUNA LLENA y CUARTO MENGUANTE.
+FORMACION CON FORMA DE CRATER;Las formaciones con forma de cráter tienen un origen meteorítico (Como son los CRATERES, CRATERLET y PLANICIES AMURALLADAS). Están compuestas de PENDIENTES que se alzan sobre las áreas circundantes, MURALLAs que descienden al interior y el SUELO en el interno.
+GOLFO;Area al estilo de un MAR, que presenta una SUPERFICIE plana y oscura, incluida en un CONTINENTE o MAR de manera parcial.
+IAU;Unión Astronómica Internacional (en inglés International Astronomical Union.)
+LACUS;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a un LAGO.
+LAGO;Area al estilo de un MAR, que presenta una SUPERFICIE plana y oscura, incluida completamente en un CONTINENTE.
+LATITUD SELENOGRAFICA;Este dato que forma parte del par de COORDENADAS SELENOGRAFICAS es aportado en grados de tal forma que el Sur se encuentra abajo y el Norte arriba para un observador a ojo desnudo. Los valores toman signos negativos si hacen referencia a posiciones al sur del ecuador.
+LAVA;Roca fundida a altas temperaturas que fluye de manera más o menos viscosa. Es el constituyente fundamental de los MARes.
+LIBRACION;Oscilación aparente de la Luna. Debido a ello parte de la cara oculta es visible. Existen 3 diferente libraciones: LIBRACION EN LONGITUD, LIBRACION EN LATITUD y LIBRACION DIURNA
+LIBRACION DIURNA;La libración diurna o paraláctica depende del lugar de observación en la superficie de la Tierra: dos observadores que se encuentran en dos puntos diferentes de la superficie terrestre ven en un mismo momento regiones algo diferentes de la superficie lunar.
+LIBRACION EN LATITUD;Dada la naturaleza de la orbita lunar es posible que se manifieste este fenómeno por el que se pueden apreciar formaciones de las zonas Norte o Sur de la CARA OCULTA de la luna.
+LIBRACION EN LONGITUD;Fenómeno que acontence por la suma de los factores de velocidad de rotación constante y velocidad de revolución variable y que provoca la visibilidad de áreas del Este o el Oeste de la CARA OCULTA de la Luna.
+LINEA DE NODOS;Línea que junta e interseca puntos de la órbita de la Luna y la ECLIPTICA. Hay un NODO ASCENDENTE y un NODO DESCENDENTE. La línea de nodos da una vuelta completa cada 18.61 años.
+LONGUITUD SELENOGRAFICA;Este dato que forma parte del par de COORDENADAS SELENOGRAFICAS es aportado en grados tal que el Este se encuentra a la derecha y el Oeste a la izquierda para un observador a ojo desnudo. Los valores toman signo negativo si hacen referencia a posiciones al Oeste del meridiano central.
+LUNA;"Satélite natural de la Tierra con una distancia media de 384.400 km, lo que equivale a 30 radios terrestres. Su distancia mínima es de 356.370 km y la máxima 406.710 km. Su periodo de REVOLUCION SIDEREA es de 27d 7h 43m 11s o 27,32166 días y su periodo de revolución sinódica es de 29d 12h 44m 2s o 29,53058 días. Velocidad orbital media: 3.681 km/h. Desplazamiento aparente en el cielo: 33' h. Desplazamiento diario en relación con las estrellas: 13,176°/d. Diámetro medio aparente: 31' 05,2"""". Diámetro máximo aparente:33' 28,8"""". Diámetro mínimo aparente: 29' 23,2"""". Diámetro real: 3 476 km. Inclinación del ecuador respecto a la órbita: 6 41°. Longitud del ecuador: 10.920 km. Nombre dado a las sondas lunares Soviéticas."
+LUNA CRECIENTE;Termino popular que hace referencia al periodo entre LUNA NUEVA y LUNA LLENA, incluyendo el CUARTO CRECIENTE.
+LUNA GIBOSA;Expresión popular que hace referencia a la fase entre el CUARTO CRECIENTE y la LUNA LLENA y entre la LUNA LLENA y el CUARTO MENGUANTE.
+LUNA LLENA;Aspecto del disco lunar cuando el Sol lo ilumina por completo. En esta fase el Sol, la Tierra y la Luna se encuentra alineados.
+LUNA MENGUANTE;Termino popular que hace referencia al periodo entre LUNA LLENA y LUNA NUEVA, incluyendo el CUARTO MENGUANTE.
+LUNA NUEVA;FASE lunar en la que la Luna muestra su superficie totalmente en sombra. Acontece en el paso de la Luna entre el Sol y la Tierra y marca el inicio del MES LUNAR. En esta fase es cuando se pueden dar los eclipses solares.
+LUNAKHOD;Vehículos móviles dispuestos sobre la Luna por dos sondas LUNA soviéticas.
+LUNAR ORBITER;Sondas lunares orbitales de los EE.UU.
+LUZ CENICIENTA;Entre la LUNA NUEVA y el primer o último cuarto, las áreas en sombras de la Luna son ligeramente visibles debido a la luz que la Tierra refleja (ALBEDO), lo que es conocido como brillo terrestre.
+MAR;Area de grán tamaño, llana y oscura con ausencia de CORDILLERA ESCARPADAs, ARROYOs y CRATERes aislados. Su origen está en flujos de LAVA basáltica de origen téctonico.
+MARE;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a un MAR.
+MASCON;"De  MASs CONcentration"". (Concentración de masa) Masa concentrada bajo los MARes lunares cuya densidad es más alta de lo normal. Se especula sobre si son restos de los meteoritos que originaron los mares."""
+MERIDIANO;Linea imaginaria que une los dos polos lunares y que se usa para determinar  la LONGUTUD SELENOGRAFICA de una formación.
+MES ANOMALÍSTICO;Periodo de tiempo que transcurre ente dos lunas localizadas en el PERIGEO de la órbita lunar. Su naturaleza variable (en cuanto a duración) le aporta el nombre de anomalístico (anómalo).
+MES LUNAR;También llamado MES SINODICO o REVOLUCION SINODICA. Hace referencia al periodo de tiempo que transcurre entre 2 lunas nuevas (LUNA NUEVA).
+MES SIDEREO;También denominado  REVOLUCION SIDEREA.
+MES SINODICO;También llamado MES LUNAR o  REVOLUCION SINODICA. Tiempo que transcurre entre dos lunas nuevas (LUNA NUEVA) sucesivas.
+MONS;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a una MONTAÑA aislada.
+MONTAÑA;Las montañas lunares generalmente se crearon junto a los MAREs. Su altura puede alcanzar los 7800 m. Algunas aparecen aisladas (MONS) y otras encadenadas en cadenas montañosas (MONTES).
+MONTES;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a una cadena montañosa.
+MURALLA;Parte de una FORMACION CON FORMA DE CRATER localizada entre las las cimas de las PENDIENTES y el SUELO. Su altura varia entre altas (<1000 m) y muy altas (>4000 m).
+NODO ASCENDENTE;Punto en el cual el satélite cruza el plano ecuatorial desde el hemisferio Sur al hemisferio Norte.
+NODO DESCENDENTE;Punto en el cual el satélite cruza el plano ecuatorial desde el hemisferio Norte al hemisferio Sur.
+NOMENCLATURA LUNAR;Compendio de formaciones lunares oficialmente aceptadas por la Unión Astronómica Internacional.
+OCEANO;Nombre dado por Riccioli a un MAR lunar en particular: Océano Tormentoso o de las Tormentas (Storm Ocean).
+OCEANUS;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a un OCEANO.
+PALUS;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a un pantano.
+PARALELO;Linea imaginaria paralela al ecuador lunar y que permiten determinar la LATITUD SELENOGRAFICA de una formación lunar.
+PENDIENTE;Parte de las FORMACION CON FORMA DE CRATER que parte de la periferia y alcanza los bordes de las MURALLAs. Su aspectos varia desde llanas a muy abruptas en el caso de presentar VALLEs radiales.
+PERIGEO;Punto mínimo, más cercano respecto al centro de giro, de una órbita elíptica
+PLANICIE AMURALLADA;Large diameter FORMACION CON FORMA DE CRATER (de más de 80 km) un aplio y llano SUELO.
+PRIMER CUARTO;Aspecto del disco lunar que se manifiesta a los 7 días del comienzo del MES LUNAR, tal que la Luna empieza a mostrar su orografía debido a la iluminación solar. Esta fase puede ser observada por las tardes. El Sol y la Luna están formando un ángulo de 90º respecto al observador.
+PROMONTORIUM;Punto de máxima elevación.;
+RANGER;Sondas lunares enviadas por los EE.UU.;
+RED DE ARROYOS;Conjunto de ARROYOs conectados y con origen común.;
+RED DE CORDILLERAS ESCARPADAS;Múltiples cordilleras escarpadas (CORDILLERA ESCARPADA) localizadas en la superficies de un mismo MAR.;
+RED DE DOMOS;Una gran acumulación de DOMOs en un área localizada de la Luna.;
+REGOLITH;Cubierta de polvo de la superficie lunar creada por la ruptura de las capas superficiales debido al impacto continuado de meteoros.;
+REVOLUCION;Tiempo que un cuerpo celeste toma para completar su órbita en torno a un objeto padre. Existe aspectos tales como la REVOLUCION SIDEREA y la REVOLUCION SINODICA.;
+REVOLUCION SIDEREA;Tiempo necesario para que un cuerpo dado complete un circulo en el cielo, tal que retorne a la posición de partida, y siempre teniendo en cuenta que el punto de referencia será el fondo de estrellas visto por un observador terrestre.;
+REVOLUCION SINODICA;La Luna tarda en dar una vuelta alrededor de la Tierra 27d 7h 43m si consideramos el giro respecto al fondo estelar (REVOLUCION SIDEREA), pero 29d 12h 44m si la consideramos respecto al Sol (revolución sinódica) y esto es porque en este lapso la Tierra ha girado alrededor del Sol. La revolución sinódica rige las fases de la Luna, eclipses y mareas lunisolares. También llamado lunación o MES LUNAR. Tiempo que transcurre entre dos FASEs lunares idénticas.;
+RIMA;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a un ARROYO.;
+RIMAE;Palabra del latín plural de RIMA que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a una RED DE ARROYOS.; hace referencia al tiempo transcurrido para que la Luna ocupe la misma región del espacio.
+ROTACION;Tiempo que un cuerpo celeste toma para completar un giro sobre su propio eje de giro.;
+ROTACION SINCRONICA;Cuando la ROTACION y la REVOLUCION de un cuerpo duran lo mismo, este siempre muestra el mismo hemisferio a un hipotético observador situado en el segundo cuerpo;
+RUPES;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a ESCARPA.;
+SELENODESIA;En Astronomía, rama que estudia la forma, tamaño e influencia gravitacional de la Luna.;
+SELENOGRAFÍA;Rama de la astronomía dedicada a crear mapas de la luna y estudiar las formaciones presentes. Así mismo desarrolla la NOMENCLATURA asociada a la Luna.;
+SINUS;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a un GOLFO de un MAR lunar; así en el caso de la Luna esta siempre muestra la misma cara (la CARA VISIBLE) a los observadores terrestres.
+SUELO;Parte interna de FORMACION CON FORMA DE CRATER rodeada por MURALLAS.;
+SURVEYOR;Sondas lunares enviadas por los EE.UU.;
+TERMINADOR;Zona del disco lunar que constituye la frontera entre la parte iluminada y la parte no iluminada. El TERMINADOR VESPERTINO puede ser observado entre la LUNA LLENA y la LUNA NUEVA...por las mañanas y el TERMINADOR MATUTINO puede ser observado entre la LUNA NUEVA y la LUNA LLENA por las tardes.;
+TERMINADOR MATUTINO;Zona de la luna donde el Sol surge. Para un observador terrestre, puede ser observado entre la LUNA NUEVA y la LUNA LLENA por las tardes.;
+TERMINADOR VESPERTINO;Zona de la luna donde el Sol se pone. Para un observador terrestre, puede ser observado entre la LUNA LLENA y la LUNA NUEVA por las mañanas.;
+TOPONIMO LUNAR;Nombres propios de formaciones lunares.;
+VALLE;Formación rectilínea provocada por el colapso del suelo o por un fuerte impacto meteorítico que generó grandes desprendimientos.;
+VALLIS;Palabra del latín que se usa por la Unión Astronómica Internacional (IAU en sus siglas en inglés) y que hace referencia a un VALLE.;
+VELOCIDAD DE ESCAPE;Velocidad mínima necesaria para que un cuerpo despegue y escape de la atracción gravitatoria de un cuerpo celeste.;
+ZONA DE LIBRACION;Limite entre la CARA VISIBLE y la CARA OCULTA que se localiza en torno a los 90º oeste y 90º este de manera alternativa debido a la LIBRACION lunar.;
