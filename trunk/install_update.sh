@@ -39,5 +39,8 @@ install -v -m 644 datlun/language/vmadatabase.en.po $destdir/share/virtualmoon/l
 install -v -m 644 datlun/language/vmadatabase.fr.po $destdir/share/virtualmoon/language/
 install -v -m 644 photlun/language/photlun.en.po $destdir/share/virtualmoon/language/
 install -v -m 644 photlun/language/photlun.fr.po $destdir/share/virtualmoon/language/
-install -v -m 644 Database/* $destdir/share/virtualmoon/Database/
+
+install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/share/virtualmoon/Database/
+
 install -v -m 644 doc/* $destdir/share/virtualmoon/doc/

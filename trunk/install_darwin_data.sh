@@ -28,7 +28,25 @@ fi
 echo Install virtualmoon data to $destdir
 
 install -m 755 -d $destdir/Database
-install -v -m 644 Database/* $destdir/Database/
+install -v -m 644 Database/Domes_uEN.csv $destdir/Database/
+install -v -m 644 Database/Domes_uFR.csv $destdir/Database/
+install -v -m 644 Database/Farside_Named_uEN.csv $destdir/Database/
+install -v -m 644 Database/Farside_Named_uFR.csv $destdir/Database/
+install -v -m 644 Database/Farside_Satellite_uEN.csv $destdir/Database/
+install -v -m 644 Database/Farside_Satellite_uFR.csv $destdir/Database/
+install -v -m 644 Database/glossary_uEN.csv $destdir/Database/
+install -v -m 644 Database/glossary_uFR.csv $destdir/Database/
+install -v -m 644 Database/Historical_uEN.csv $destdir/Database/
+install -v -m 644 Database/Historical_uFR.csv $destdir/Database/
+install -v -m 644 Database/licence.txt $destdir/Database/
+install -v -m 644 Database/lopamidx.csv $destdir/Database/
+install -v -m 644 Database/lopamidx.txt $destdir/Database/
+install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/Database/
+install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/Database/
+install -v -m 644 Database/Nearside_Satellite_uEN.csv $destdir/Database/
+install -v -m 644 Database/Nearside_Satellite_uFR.csv $destdir/Database/
+install -v -m 644 Database/Pyroclastic_uEN.csv $destdir/Database/
+install -v -m 644 Database/Pyroclastic_uFR.csv $destdir/Database/
 
 InstData Base_JPLeph $destdir
 InstData Base_Airbrush $destdir
