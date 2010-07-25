@@ -1070,7 +1070,7 @@ begin
   InitObservatoire;
   InitImages;
   moon1.GLSphereMoon.Slices := smooth;
-  moon1.GLSphereMoon.Stacks := smooth;
+  moon1.GLSphereMoon.Stacks := smooth div 2;
 end;
 
 procedure TForm1.SaveDefault;
@@ -3982,10 +3982,10 @@ begin
   else
     i := 90;
   moon1.GLSphereMoon.Slices:=i;
-  moon1.GLSphereMoon.Stacks:=i;
+  moon1.GLSphereMoon.Stacks:=i div 2;
   if moon2<>nil then begin
     moon2.GLSphereMoon.Slices:=i;
-    moon2.GLSphereMoon.Stacks:=i;
+    moon2.GLSphereMoon.Stacks:=i div 2;
   end;
 end;
 
