@@ -44,9 +44,3 @@ install -m 755 -d $destdir/share/virtualmoon/data
 install -v -m 644 data/country.tab $destdir/share/virtualmoon/data/
 install -v -m 644 data/retic.cur $destdir/share/virtualmoon/data/
 
-# documentation
-install -m 755 -d "$destdir/share/virtualmoon/My Images"
-install -m 755 -d $destdir/share/virtualmoon/doc
-install -m 755 -d $destdir/share/virtualmoon/Encyclopedia
-install -v -m 644 doc/* $destdir/share/virtualmoon/doc/
-install -v -m 644 Encyclopedia/* $destdir/share/virtualmoon/Encyclopedia/

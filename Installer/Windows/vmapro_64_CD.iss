@@ -2,12 +2,14 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 [Setup]
+ArchitecturesInstallIn64BitMode=x64
+ArchitecturesAllowed=x64
 AppName=Virtual Moon Atlas
 AppVerName=Virtual Moon Atlas V5
 AppPublisherURL={cm:MyAppUrl}
 AppSupportURL={cm:MyAppUrl}
 AppUpdatesURL={cm:MyAppUrl}
-DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{pf}\VirtualMoon}
+DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{pf64}\VirtualMoon}
 DefaultGroupName={cm:MyAppName}
 LicenseFile=vmapro\Data1\licence.txt
 InfoBeforeFile=vmapro\Data1\readme.txt
