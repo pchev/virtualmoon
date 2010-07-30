@@ -110,7 +110,7 @@ if [[ $make_linux32 ]]; then
     tar cvzf virtualmoon$updname-$version-$currentrev-linux_i386.tgz --owner=root --group=root *
     if [[ $? -ne 0 ]]; then exit 1;fi
   else
-    tar cvzf virtualmoon-$version-$currentrev-linux_i386.tgz --owner=root --group=root *
+    tar cvzf virtualmoon-$version-linux_i386.tgz --owner=root --group=root *
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   if [[ $cdrom ]]; then
@@ -130,7 +130,7 @@ if [[ $make_linux32 ]]; then
   mv lib debian/virtualmoon/usr/
   mv share debian/virtualmoon/usr/
   cd debian
-  sed -i "/Version:/ s/5/$version-$currentrev/" virtualmoon/DEBIAN/control
+  sed -i "/Version:/ s/5/$version/" virtualmoon/DEBIAN/control
   fakeroot dpkg-deb --build virtualmoon .
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ $cdrom ]]; then
@@ -148,7 +148,7 @@ if [[ $make_linux32 ]]; then
   mv debian/virtualmoon/usr/* rpm/virtualmoon/usr/
   cd rpm
   sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon.spec
-  sed -i "/Release:/ s/1/$currentrev/" SPECS/virtualmoon.spec
+  sed -i "/Release:/ s/1/1/" SPECS/virtualmoon.spec
   setarch i386 fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon.spec
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ $cdrom ]]; then
@@ -196,7 +196,7 @@ if [[ $make_linux64 ]]; then
     tar cvzf virtualmoon$updname-$version-$currentrev-linux_x86_64.tgz --owner=root --group=root *
     if [[ $? -ne 0 ]]; then exit 1;fi
   else
-    tar cvzf virtualmoon-$version-$currentrev-linux_x86_64.tgz --owner=root --group=root *
+    tar cvzf virtualmoon-$version-linux_x86_64.tgz --owner=root --group=root *
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   if [[ $cdrom ]]; then
@@ -216,7 +216,7 @@ if [[ $make_linux64 ]]; then
   mv lib debian/virtualmoon64/usr/
   mv share debian/virtualmoon64/usr/
   cd debian
-  sed -i "/Version:/ s/5/$version-$currentrev/" virtualmoon64/DEBIAN/control
+  sed -i "/Version:/ s/5/$version/" virtualmoon64/DEBIAN/control
   fakeroot dpkg-deb --build virtualmoon64 .
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ $cdrom ]]; then
@@ -236,7 +236,7 @@ if [[ $make_linux64 ]]; then
   mv rpm/virtualmoon/usr/lib rpm/virtualmoon/usr/lib64
   cd rpm
   sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon64.spec
-  sed -i "/Release:/ s/1/$currentrev/" SPECS/virtualmoon64.spec
+  sed -i "/Release:/ s/1/1/" SPECS/virtualmoon64.spec
 # rpm 4.7
   fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon64.spec
   if [[ $? -ne 0 ]]; then exit 1;fi
@@ -279,7 +279,7 @@ if [[ ! $upd ]]; then
   # tar
   cd $builddir
   if [[ $cdrom ]]; then
-    tar cvzf virtualmoon-fulldata-$version-$currentrev-linux_all.tgz --owner=root --group=root *
+    tar cvzf virtualmoon-fulldata-$version-linux_all.tgz --owner=root --group=root *
     if [[ $? -ne 0 ]]; then exit 1;fi
     mkdir $wd/CD_Linux
     mv virtualmoon*.tgz $wd/CD_Linux/
@@ -289,7 +289,7 @@ if [[ ! $upd ]]; then
     cp Installer/Linux/readme_CD $wd/CD_Linux/readme
     cp Installer/Linux/install_CD.sh $wd/CD_Linux/install.sh
   else
-    tar cvzf virtualmoon-data-$version-$currentrev-linux_all.tgz --owner=root --group=root *
+    tar cvzf virtualmoon-data-$version-linux_all.tgz --owner=root --group=root *
     if [[ $? -ne 0 ]]; then exit 1;fi
     mv virtualmoon*.tgz $wd
     if [[ $? -ne 0 ]]; then exit 1;fi
@@ -300,7 +300,7 @@ if [[ ! $upd ]]; then
   cd $builddir
   mv share debian/virtualmoon-data/usr/
   cd debian
-  sed -i "/Version:/ s/5/$version-$currentrev/" virtualmoon-data/DEBIAN/control
+  sed -i "/Version:/ s/5/$version/" virtualmoon-data/DEBIAN/control
   if [[ $cdrom ]]; then
     sed -i "/Package:/ s/virtualmoon-data/virtualmoon-fulldata/" virtualmoon-data/DEBIAN/control
     echo "Replaces: virtualmoon-data" >> virtualmoon-data/DEBIAN/control
@@ -325,7 +325,7 @@ if [[ ! $upd ]]; then
   mv debian/virtualmoon-data/usr/* rpm/virtualmoon-data/usr/
   cd rpm
   sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon-data.spec
-  sed -i "/Release:/ s/1/$currentrev/" SPECS/virtualmoon-data.spec
+  sed -i "/Release:/ s/1/1/" SPECS/virtualmoon-data.spec
   fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon-data" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon-data.spec
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ $cdrom ]]; then
@@ -397,7 +397,11 @@ if [[ $make_win32 ]]; then
     cp $builddir/Data/vma.ico  $wd/CD_Win32/
   else
     sed -i "/AppVerName/ s/V5/V$version/" vmapro.iss
-    sed -i "/OutputBaseFilename/ s/-windows/$updname-$version-$currentrev-windows/" vmapro.iss
+    if [[ $upd ]]; then
+      sed -i "/OutputBaseFilename/ s/-windows/$updname-$version-$currentrev-windows/" vmapro.iss
+    else
+      sed -i "/OutputBaseFilename/ s/-windows/-$version-windows/" vmapro.iss
+    fi
     wine "$innosetup" "$wine_build\vmapro.iss"
     if [[ $? -ne 0 ]]; then exit 1;fi
     mv $builddir/virtualmoon*.exe $wd
@@ -466,7 +470,11 @@ if [[ $make_win64 ]]; then
     cp $builddir/Data/vma.ico  $wd/CD_Win64/
   else
     sed -i "/AppVerName/ s/V5/V$version/" vmapro_64.iss
-    sed -i "/OutputBaseFilename/ s/-windows-x64/$updname-$version-$currentrev-windows-x64/" vmapro_64.iss
+    if [[ $upd ]]; then
+      sed -i "/OutputBaseFilename/ s/-windows-x64/$updname-$version-$currentrev-windows-x64/" vmapro_64.iss
+    else
+      sed -i "/OutputBaseFilename/ s/-windows-x64/$version-windows-x64/" vmapro_64.iss
+    fi
     wine "$innosetup" "$wine_build\vmapro_64.iss"
     if [[ $? -ne 0 ]]; then exit 1;fi
     mv $builddir/virtualmoon*.exe $wd

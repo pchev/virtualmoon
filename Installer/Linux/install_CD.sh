@@ -7,7 +7,7 @@ if [ $my_id != 0 ] ; then
   echo "For example: sudo ./install.sh"
   echo ""
   echo "You can also install the program at any other location you want as root or as normal user."
-  echo "For example: cd ~; mkdir vma5; cd vma5; tar xzf /media/cdrom/virtualmoon-5.1-308-linux_i386.tgz"
+  echo "For example: cd ~; mkdir vma5; cd vma5; tar xzf /media/cdrom/virtualmoon-5.1-linux_i386.tgz"
   echo "But in this case you must ensure the files in lib folder can be loaded."
   echo "See man ldconfig for more information."
   echo ""
@@ -26,8 +26,8 @@ echo ""
 
 current_dir=$(pwd)
 
-tarfile1="$current_dir"/virtualmoon-5.1-308-linux_$ARCH.tgz
-tarfile2="$current_dir"/virtualmoon-fulldata-5.1-308-linux_all.tgz
+tarfile1="$current_dir"/virtualmoon-5.1-linux_$ARCH.tgz
+tarfile2="$current_dir"/virtualmoon-fulldata-5.1-linux_all.tgz
 
 #check file exist
 if [ ! -e $tarfile1 ]; then

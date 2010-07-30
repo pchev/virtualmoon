@@ -7,7 +7,7 @@ if [ $my_id != 0 ] ; then
   echo "For example: sudo ./vmapro_install.sh"
   echo ""
   echo "You can also install the program at any other location you want as root or as normal user."
-  echo "For example: cd ~; mkdir vma5; cd vma5; tar xzf ~/Download/virtualmoon-5.1-308-linux_i386.tgz"
+  echo "For example: cd ~; mkdir vma5; cd vma5; tar xzf ~/Download/virtualmoon-5.1-linux_i386.tgz"
   echo "But in this case you must ensure the files in lib folder can be loaded."
   echo "See man ldconfig for more information."
   echo ""
@@ -21,6 +21,7 @@ echo "Virtual Moon Atlas"
 echo ""
 echo "You can use this script without parameter for the initial installation of virtualmoon-5.1"
 echo "or give the name of the additional file to install: sudo ./vmapro_install.sh PictureApollo.tgz"
+echo "It is require to also install virtualmoon-data before to run the program!"
 echo ""
 
 ARCH=$(uname -m)
@@ -28,7 +29,7 @@ if [ $ARCH != x86_64 ] ; then ARCH=i386; fi   # handle i686, i586, ...
 
 # read options 
 current_dir=$(pwd)
-defaultfile=virtualmoon-5.1-308-linux_$ARCH.tgz
+defaultfile=virtualmoon-5.1-linux_$ARCH.tgz
 tarfile=$defaultfile;
 if [ "$1" ] ; then 
   tarfile="$1"
@@ -106,11 +107,13 @@ ldconfig -p | grep libplan404
 rc=$?
 if [ $rc = 0 ] ; then 
   echo "Installation successful" 
-  echo "You can now run Virtual Moon Atlas with the following command:"
+  echo "It is require to also install virtualmoon-data before to run the program!"
+  echo "Then run Virtual Moon Atlas with the following command:"
   echo "$install_dir/bin/atlun"
 else 
   echo "Installation successful" 
-  echo "You can now run Virtual Moon Atlas with the following command:"
+  echo "It is require to also install virtualmoon-data before to run the program!"
+  echo "Then run Virtual Moon Atlas with the following command:"
   echo "export LD_LIBRARY_PATH=$install_dir/lib && $install_dir/bin/atlun"
 fi
 echo ""
