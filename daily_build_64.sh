@@ -42,14 +42,17 @@ fi
 if [[ $upd ]]; then
   echo make update
   updname=_update
+  outdir='UPD';
 fi
 if [[ $cdrom ]]; then
   echo make cdrom
   updname=_cdrom
+  unset outdir;
 fi
 if [[ $pro ]]; then
-    echo make pro
-    updname=_pro
+  echo make pro
+  updname=_pro
+  outdir='PRO';
 fi
 if [[ -z $updname ]]; then
   echo "Syntaxe : daily_build.sh freepascal_path lazarus_path [update|pro|cdrom]"
@@ -57,6 +60,7 @@ if [[ -z $updname ]]; then
 fi
 
 wd=`pwd`
+mkdir $wd/$outdir
 
 #if [[ $upd ]]; then
   # revert local changes
@@ -81,13 +85,18 @@ if [[ $upd ]]; then
 fi
 
 # delete old files
-  rm virtualmoon*.tgz
-  rm virtualmoon*.deb
-  rm virtualmoon*.rpm
-  rm virtualmoon*.zip
-  rm virtualmoon*.exe
-  rm bin-*.zip
-  rm bin-*.bz2
+  if [[ -z $outdir ]] ; then 
+    deldir="CD_*";
+  else
+    deldir=$outdir; 
+  fi 
+  rm $deldir/virtualmoon*.tgz
+  rm $deldir/virtualmoon*.deb
+  rm $deldir/virtualmoon*.rpm
+  rm $deldir/virtualmoon*.zip
+  rm $deldir/virtualmoon*.exe
+  rm $deldir/bin-*.zip
+  rm $deldir/bin-*.bz2
   rm -rf $builddir
 
 # make Linux i386 version
@@ -118,7 +127,7 @@ if [[ $make_linux32 ]]; then
     mv virtualmoon*.tgz $wd/CD_Linux/
     if [[ $? -ne 0 ]]; then exit 1;fi
   else
-    mv virtualmoon*.tgz $wd
+    mv virtualmoon*.tgz $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   if [[ ! $upd ]]; then
@@ -138,7 +147,7 @@ if [[ $make_linux32 ]]; then
     mv virtualmoon*.deb $wd/CD_Linux_deb/
     if [[ $? -ne 0 ]]; then exit 1;fi
   else
-    mv virtualmoon*.deb $wd
+    mv virtualmoon*.deb $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   # rpm
@@ -156,7 +165,7 @@ if [[ $make_linux32 ]]; then
     mv RPMS/i386/virtualmoon*.rpm $wd/CD_Linux_rpm/
     if [[ $? -ne 0 ]]; then exit 1;fi
   else
-    mv RPMS/i386/virtualmoon*.rpm $wd
+    mv RPMS/i386/virtualmoon*.rpm $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   fi # if [[ ! $upd ]]
@@ -169,7 +178,7 @@ if [[ $make_linux32 ]]; then
   cd $builddir/debug/
   tar cvzf virtualmoon$updname-bin-linux_i386-debug-$currentrev.tgz --owner=root --group=root *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon$updname-bin-*.tgz $wd
+  mv virtualmoon$updname-bin-*.tgz $wd/$outdir/
   if [[ $? -ne 0 ]]; then exit 1;fi
 
   cd $wd
@@ -204,7 +213,7 @@ if [[ $make_linux64 ]]; then
     mv virtualmoon*.tgz $wd/CD_Linux/
     if [[ $? -ne 0 ]]; then exit 1;fi
   else
-    mv virtualmoon*.tgz $wd
+    mv virtualmoon*.tgz $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   if [[ ! $upd ]]; then
@@ -224,7 +233,7 @@ if [[ $make_linux64 ]]; then
     mv virtualmoon*.deb $wd/CD_Linux_deb/
     if [[ $? -ne 0 ]]; then exit 1;fi
   else
-    mv virtualmoon*.deb $wd
+    mv virtualmoon*.deb $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   # rpm
@@ -245,7 +254,7 @@ if [[ $make_linux64 ]]; then
     mv RPMS/x86_64/virtualmoon*.rpm $wd/CD_Linux_rpm/
     if [[ $? -ne 0 ]]; then exit 1;fi
   else
-    mv RPMS/x86_64/virtualmoon*.rpm $wd
+    mv RPMS/x86_64/virtualmoon*.rpm $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   fi # if [[ ! $upd ]]
@@ -258,7 +267,7 @@ if [[ $make_linux64 ]]; then
   cd $builddir/debug/
   tar cvzf virtualmoon$updname-bin-linux_x86_64-debug-$currentrev.tgz --owner=root --group=root *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon$updname-bin-*.tgz $wd
+  mv virtualmoon$updname-bin-*.tgz $wd/$outdir/
   if [[ $? -ne 0 ]]; then exit 1;fi
 
   cd $wd
@@ -291,7 +300,7 @@ if [[ ! $upd ]]; then
   else
     tar cvzf virtualmoon-data-$version-linux_all.tgz --owner=root --group=root *
     if [[ $? -ne 0 ]]; then exit 1;fi
-    mv virtualmoon*.tgz $wd
+    mv virtualmoon*.tgz $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   # deb
@@ -315,7 +324,7 @@ if [[ ! $upd ]]; then
     cp Installer/Linux/licence $wd/CD_Linux_deb/
     cp Installer/Linux/readme_CD_package $wd/CD_Linux_deb/readme
   else
-    mv virtualmoon-data*.deb $wd
+    mv virtualmoon-data*.deb $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   # rpm
@@ -336,7 +345,7 @@ if [[ ! $upd ]]; then
     cp Installer/Linux/licence $wd/CD_Linux_rpm/
     cp Installer/Linux/readme_CD_package $wd/CD_Linux_rpm/readme
   else
-    mv RPMS/noarch/virtualmoon*.rpm $wd
+    mv RPMS/noarch/virtualmoon*.rpm $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
 
@@ -376,7 +385,7 @@ if [[ $make_win32 ]]; then
     cd $builddir/vmapro/Data
     zip -r  virtualmoon$updname-$version-$currentrev-windows.zip *
     if [[ $? -ne 0 ]]; then exit 1;fi
-    mv virtualmoon*.zip $wd
+    mv virtualmoon*.zip $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   # exe
@@ -404,7 +413,7 @@ if [[ $make_win32 ]]; then
     fi
     wine "$innosetup" "$wine_build\vmapro.iss"
     if [[ $? -ne 0 ]]; then exit 1;fi
-    mv $builddir/virtualmoon*.exe $wd
+    mv $builddir/virtualmoon*.exe $wd/$outdir/
   fi
   #debug
   cd $wd
@@ -415,7 +424,7 @@ if [[ $make_win32 ]]; then
   cd $builddir/debug/
   zip virtualmoon$updname-bin-windows_i386-debug-$currentrev.zip *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon$updname-bin-*.zip $wd
+  mv virtualmoon$updname-bin-*.zip $wd/$outdir/
   if [[ $? -ne 0 ]]; then exit 1;fi
   cd $wd
   rm -rf $builddir
@@ -449,7 +458,7 @@ if [[ $make_win64 ]]; then
     cd $builddir/vmapro/Data
     zip -r  virtualmoon$updname-$version-$currentrev-windows-x64.zip *
     if [[ $? -ne 0 ]]; then exit 1;fi
-    mv virtualmoon*.zip $wd
+    mv virtualmoon*.zip $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   # exe
@@ -477,7 +486,7 @@ if [[ $make_win64 ]]; then
     fi
     wine "$innosetup" "$wine_build\vmapro_64.iss"
     if [[ $? -ne 0 ]]; then exit 1;fi
-    mv $builddir/virtualmoon*.exe $wd
+    mv $builddir/virtualmoon*.exe $wd/$outdir/
   fi
   #debug
   cd $wd
@@ -488,7 +497,7 @@ if [[ $make_win64 ]]; then
   cd $builddir/debug/
   zip virtualmoon$updname-bin-windows-x64-debug-$currentrev.zip *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon$updname-bin-*.zip $wd
+  mv virtualmoon$updname-bin-*.zip $wd/$outdir/
   if [[ $? -ne 0 ]]; then exit 1;fi
 fi
 
