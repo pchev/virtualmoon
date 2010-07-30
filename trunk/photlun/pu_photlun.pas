@@ -1152,7 +1152,7 @@ begin
   Showmessage('Photlun '+Splashversion+crlf+
               compile_version+crlf+
               'http://astrosurf.com/avl'+crlf+
-              'Copyright (C) 2008 Christian Legrand, Patrick Chevalley'+crlf+crlf+
+              avlcpy+crlf+crlf+
               'Conception : Christian Legrand'+crlf+
               'Programming : Patrick Chevalley'+crlf+
               rsTranslatedBy+crlf+crlf+

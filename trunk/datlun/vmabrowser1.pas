@@ -1018,7 +1018,7 @@ procedure Tf_main.APropos1Click(Sender: TObject);
 begin
   Showmessage('Datlun '+Splashversion+crlf+
               compile_version+crlf+
-              'Copyright (C) 2008 Christian Legrand, Patrick Chevalley'+crlf+crlf+
+              avlcpy+crlf+crlf+
               'Conception : Christian Legrand'+crlf+
               'Programming : Patrick Chevalley'+crlf+crlf+
               'This program is free software; you can redistribute it and/or '+crlf+

@@ -153,17 +153,17 @@ object f_photlun: Tf_photlun
   LCLVersion = '0.9.28.2'
   object PanelTop: TPanel
     Left = 0
-    Height = 159
+    Height = 157
     Top = 0
     Width = 810
     Align = alClient
-    ClientHeight = 159
+    ClientHeight = 157
     ClientWidth = 810
     TabOrder = 0
     object ScrollBar1: TScrollBar
       Left = 1
       Height = 15
-      Top = 143
+      Top = 141
       Width = 808
       Align = alBottom
       PageSize = 0
@@ -185,8 +185,8 @@ object f_photlun: Tf_photlun
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 16
-    Top = 159
+    Height = 18
+    Top = 157
     Width = 810
     Panels = <    
       item

@@ -19,7 +19,7 @@
         <ComponentName Value="f_photlun"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photlun"/>
-        <CursorPos X="36" Y="1153"/>
+        <CursorPos X="21" Y="1155"/>
         <TopLine Value="1138"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="66"/>
@@ -63,8 +63,8 @@
         <Filename Value="u_constant.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_constant"/>
-        <CursorPos X="21" Y="172"/>
-        <TopLine Value="142"/>
+        <CursorPos X="13" Y="34"/>
+        <TopLine Value="21"/>
         <EditorIndex Value="4"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
@@ -431,7 +431,7 @@
       </Unit59>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="4"/>
+      <ActiveEditorIndexAtStart Value="0"/>
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
