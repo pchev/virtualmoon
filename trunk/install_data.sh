@@ -25,6 +25,14 @@ install -m 755 -d $destdir
 install -m 755 -d $destdir/share
 install -m 755 -d $destdir/share/virtualmoon
 
+# documentation
+install -m 755 -d "$destdir/share/virtualmoon/My Images"
+install -m 755 -d $destdir/share/virtualmoon/doc
+install -m 755 -d $destdir/share/virtualmoon/Encyclopedia
+install -v -m 644 doc/* $destdir/share/virtualmoon/doc/
+install -v -m 644 Encyclopedia/* $destdir/share/virtualmoon/Encyclopedia/
+
+# database
 install -m 755 -d $destdir/share/virtualmoon/Database
 install -v -m 644 Database/Domes_uEN.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/Domes_uFR.csv $destdir/share/virtualmoon/Database/
@@ -46,6 +54,7 @@ install -v -m 644 Database/Nearside_Satellite_uFR.csv $destdir/share/virtualmoon
 install -v -m 644 Database/Pyroclastic_uEN.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/Pyroclastic_uFR.csv $destdir/share/virtualmoon/Database/
 
+# big data
 InstData Base_JPLeph $destdir
 InstData Base_Airbrush $destdir
 InstData Base_Bumpmap $destdir

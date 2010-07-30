@@ -16,14 +16,12 @@ Prerequesite:
 - sqlite3
 
 Installation instruction:
-- run: sudo ./install.sh
-- accept the default location
-- accept to continue
-- take a note of the command given to run the program
+- install with your package manager the file corresponding to your computer architecture
+- then install the data package the same way. 
 
 Run the software :
-- run the command displayed at the end of the installation or just atlun
-- look at your desktop menu if an icon is present under Education/Sciences
+- just type atlun in a terminal
+- or look at your desktop menu if an icon is present under Education/Sciences
 
 Troubleshooting :
 - if the program do not start, try from a console to look at the error messages 
@@ -34,14 +32,4 @@ Troubleshooting :
 - other missing prerequesite, run ldd /usr/local/bin/atlun to get a full list of prerequesite for your system.
 
 Uninstall:
-- open a root shell
-- cd to the installation directory ( cd /usr/local )
-- remove the following files:
-  - bin/atlun
-  - bin/datlun
-  - bin/photlun
-  - lib/libplan404.so
-  - share/applications/virtualmoon.desktop
-  - share/doc/virtualmoon/*
-  - share/pixmaps/virtualmoon.xpm
-  - share/virtualmoon/*
+- remove the software using your package manager
