@@ -93,7 +93,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
-        <CursorPos X="36" Y="1020"/>
+        <CursorPos X="21" Y="1021"/>
         <TopLine Value="1015"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="38"/>
@@ -124,7 +124,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_constant"/>
         <CursorPos X="21" Y="171"/>
-        <TopLine Value="146"/>
+        <TopLine Value="133"/>
         <EditorIndex Value="3"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -303,7 +303,7 @@
       </Unit37>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="0"/>
+      <ActiveEditorIndexAtStart Value="3"/>
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>

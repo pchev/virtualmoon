@@ -29,9 +29,9 @@ uses
      dynlibs, Classes, Controls, Graphics,passql, passqlite;
 
 const crlf = chr(10)+chr(13);
-      AVLversion = '5.1 beta';
+      AVLversion = '5.1';
       VersionName = 'Pro';
-      avlcpy = 'Copyright (C) 2002-2009 Christian Legrand, Patrick Chevalley';
+      avlcpy = 'Copyright (C) 2002-2010 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
       jd2000 =2451545.0 ;
       jd1950 =2433282.4235;
