@@ -1,0 +1,103 @@
+GLO_WORD;GLO_TEXT
+ABSOLUTE ALTITUDE;Moon is a 1086 miles radius mean sphere. Absolute altitudes given on different maps refer to this radius. Formation absolute altitude can be negative.
+AGE OF MOON;Time period in days elapsed since last NEW MOON.
+ALBEDO;Ratio between light quantity received by a celestial body and reflected quantity. A totally reflecting body has an albedo equal to 1 and a totally absorbing body has an albedo equal to 0.
+ANNULAR ECLIPSE;On some TOTAL ECLIPSEs and when Moon distance is the greatest, the lunar disk can't completely hide the sun disk and a luminous ring remains visible.
+ANOMALISTIC MONTH;Time period separating two Moons located on the LUNAR ORBIT PERIGEE.
+APOGEE;Furthest point of the elliptical orbit of an Earth orbiting celestial body.
+APOLLO;American human missions program to land on the Moon.
+ASCENDING MOON;Popular expression describing the period between the NEW MOON and the FULL MOON and including the FIRST QUARTER.
+ASH LIGHT;Lunar phenomenon between NEW MOON and FIRST or LAST QUARTERs, when Moon has a crescent shape. The non-lit part of the lunar disk is slightly visible because it receives light reflected by Earth also called EARTH SHINE.
+BASALT;Igneous rock which can be found as solidified LAVAs and present in the magma. Several kinds have been found in lunar rocks brought back to Earth by Apollo missions.
+CALDERA;Large sized VOLCANO CRATER.
+CATENA;Latin word used by International Astronomical Union (IAU) to name officially a craters chain.
+COLONGITUDE;Mathematical data obtained from existing tables used to know SELENOGRAPHIC LONGITUDE of MORNING TERMINATOR or EVENING TERMINATOR.
+CONTINENT;Large mountainous or tormented lunar surface area.
+CRATER;On the Moon, generally circular formation coming from meteoritic impacts. CRATER SHAPED FORMATIONs are called craters in DBMOON if their diameter is more than 5 miles. LENGTH is equal to WIDTH but exceptions (Schiller).
+CRATER SHAPED FORMATION;Crater shaped formation are created by meteoritic impacts (CRATER, CRATERLET and WALLED PLAIN). They are composed with SLOPES rising above surrounding areas, WALLS descending in the formation and an internal FLOOR.
+CRATERLET;Small diameter CRATER SHAPED FORMATION with bowl shape and rounded FLOOR.
+DBMOON;The database of the Virtual Moon Atlas, written by Christian Legrand.
+DESCENDING MOON;Popular expression about the period separating the FULL MOON from the NEW MOON and including LAST QUARTER.
+DOME;Lunar hill shaped and certainly volcanic formation. Some of them have a CALDERA on their summit. Domes diameter are comprised between 5 and 10 miles and their HEIGHT is less than few hundred meters.
+DOMES NETWORK;A great DOMEs complex all located on a same lunar area.
+DORSA;Latin term used by International Astronomical Union (IAU) to officially name a WRINKLE RIDGEs network.
+DORSUM;Latin term used by International Astronomical Union (IAU) to officially name a WRINKLE RIDGE.
+EARTHSHINE;Corresponding to the MOONSHINE for an hypothetic Moon inhabitant.
+ESCAPE VELOCITY;Minimum speed to attain to escpe from the gravitational attraction of a celestial body.
+EVENING TERMINATOR;The evening terminator is the lunar area where the Sun sets. For a terrestrial observer, it can be observed between the FULL MOON and the NEW MOON... on the morning.
+FAR SIDE;Part of the lunar surface located on the other side of the globe and never visible from Earth. A small part of the Far Side of the Moon can become visible when favorable LIBRATIONs occur.
+FIRST QUARTER;Lunar disk aspect when it's half lit by the Sun about 7 days after the NEW MOON. First Quarter can be observed on the evening. Moon and Sun are then separated with 90 degrees for a terrestriel observer.
+FLOOR;Internal part of a CRATER SHAPED FORMATION included in WALLS basis.
+FULL MOON;Lunar disk aspect when it's completely lit by the Sun. This PHASE occurs when the Sun, the Earth and the Moon are on the same line.
+GIBBOUS MOON;Popular expression describing the not completely round Moon between FIRST QUARTER and FULL MOON, and between FULL MOON and LAST QUARTER.
+GULF;SEA type and little extended area with flat and dark FLOOR included in CONTINENTs or on SEA side.
+HEIGHT;In DBMOON, a formation height is, in fact, its RELATIVE ALTITUDE refering to surrounding areas.
+IAU;International Astronomical Union.
+LACUS;Latin term used by International Astronomical Union (IAU) to officially name a LAKE.
+LAKE;SEA type and little extended area with flat and dark FLOOR completely included in CONTINENTs.
+LAST QUARTER;Lunar disk aspect when half lit by sun about 7 days after NEW MOON. Last Quarter can be observed on the morning. Moon and Sun are separated with 90° for an Earth observer.
+LATITUDE LIBRATION;Because of LUNAR ORBIT inclination compared to Earth orbit around the Sun, it's possible to see North and South limit parts of FAR SIDE of the Moon.
+LAVA;High temperature liquid flooding rocks expanding from volcanic formations. Lava are the essential components of lunar SEAs.
+LIBRATION;Apparent oscillation of the Moon for a terrestrial observer. With its effect, it's possible to observe a small part of FAR SIDE. It exists 3 different librations : LONGITUDE LIBRATION, LATITUDE LIBRATION and DIURNAL LIBRATION.
+LIBRATIONS ZONE;Limits of VISIBLE FACE and FAR SIDE located about the 90° West and 90° East alternately hidden by lunar LIBRATIONs.
+LONGITUDE LIBRATION;According to constant ROTATION SPEED and to variable REVOLUTION speed of the Moon, longitude libration allows a terrestrial observer to see East and West limits of FAR SIDE of the Moon.
+LUNA;Soviet lunar probes series
+LUNAKHOD;Soviet mobile vehicles put on the surface by two LUNA probes.
+LUNAR MONTH;Also called SYNODIC MONTH or SYNODIC REVOLUTION. Time period separating to following NEW MOONs.
+LUNAR NOMENCLATURE;Directory of lunar formations names officially accepted by International Astronomical Union (IAU).
+LUNAR ORBITER;American lunar probes orbiting the Moon.
+LUNAR TOPONIMY;Origin of unar formations names.
+MARE;Latin term used by International Astronomical Union (IAU) to officially name a SEA.
+MASCON;"From ""MASs CONcentration"". Mass concentration located under lunar SEAs surface in which material density is higher than mean. It could be remains of the SEA origin METEORITES."
+MERIDIAN;Imaginary line joining the Moon poles and used to determine the SELENOGRAPHIC LONGITUDE of a lunar formation.
+MONS;Latin term used by International Astronomical Union (IAU) to officially name an isolated MOUNTAIN.
+MONTES;Latin term used by International Astronomical Union (IAU) to officially name a MOUNTAIN RANGE.
+MOON ECLIPSE;Disappearance of lunar disk when passing in the Earth shadow. This phenomena only occured on FULL MOONs when Sun, Earth and Moon are on the same line.
+MORNING TERMINATOR;The morning terminator is the lunar area where the Sun is rising. For a terrestrial observer, it can be observed between the NEW MOON and the FULL MOON... on the evening
+MOUNTAIN;Lunar mountains have generally been created when SEAs were created. Their HEIGHT can reach 20,000 feet. They are sometimes isolated (MONS) or linked in MOUNTAINS RANGEs (MONTES).
+NEW MOON;Lunar PHASE when the Moon presents to the Earth its non-sunlit and invisible disk, when passing between the Sun and the Earth. Starting point of a new LUNAR MONTH and moement of some SUN ECLIPSEs.
+NODES LINE;Line joining intersecting points of Moon orbit and the ECLIPTIC. There is the ASCENDING NODE and the DESCENDING NODE. The nodes line makes a complete tour every 18.61 years.
+OCEAN;"Name given by Riccioli to a single lunar SEA : ""Storm Ocean""."
+OCEANUS;Latin term used by International Astronomical Union (IAU) to officially name an OCEAN.
+PALUS;Latin term used by International Astronomical Union (IAU) to officially name a lunar MARSH.
+PARALLEL;Imaginary line parallel to the lunar Equator and used to determine the SELENOGRAPHIC LATITUDE of a lunar formation.
+PARTIAL ECLIPSE;A partial eclipse of Sun or Moon occurs when the occulting body doesn't completely occults the other celestial body.
+PERIGEE;Nearest point of the elliptical orbit of a celestial body orbiting the Earth.
+PHASE;Moon aspect changes created by lit surface variations and TERMINATOR position on the lunar globe. Four main phases have been defined : NEW MOON, FIRST QUARTER, FULL MOON, LAST QUARTER.
+PHASE ANGLE;Angle between Earth / Sun and Earth / Moon axis. Used to know lit fraction of Moon VISIBLE FACE.
+PROMONTORIUM;Latin term used by International Astronomical Union (IAU) to officially name a CAPE.
+RANGER;American lunar probes fallen on the Moon.
+REGOLITH;Moon surface dust layer created by superficial rock layers break under permanent meteoritic bombing.
+RELATIVE ALTITUDE;Altitudes given in DBMOON are relative altitudes also called HEIGHT. They indicate formation height compared to surrounding areas.
+REVOLUTION;"Time necessary, for a given celestial body, to make a round around its ""father"" body. It exists the SIDEREAL REVOLUTION et the SYNODIC REVOLUTION."
+RILL;Linear and sinuous formation generally found in SEAs. They are certainly old LAVA flows or old LAVA tunnels whose roof has collapsed.
+RILLS NETWORK;Several connected lunar RILLS with a commun  origin.
+RIMA;Latin term used by International Astronomical Union (IAU) to officially name a RILL.
+RIMAE;Latin term used by International Astronomical Union (IAU) to officially name a RILLS NETWORK.
+ROTATION;Time taken by a celestial body to rotate completely around its axis for an external observer.
+RUPES;Latin term used by International Astronomical Union (IAU) to officially name a SCARP.
+SCARP;Slope separating two neighbouring areas with different RELATIVE ALTITUDEs.
+SEA;Wide, flat and dark areas presenting WRINKLE RIDGEs, RILLs and isolated CRATERs. They have been produced by BASALTic LAVA flows from internal origin.
+SELENODESY;In Astronomy, branch that surveys shape, size and gravitational influence of the Moon.
+SELENOGRAPHIC COORDINATES;Set of data composed with SELENOGRAPHIC LONGITUDE and SELENOGRAPHIC LATITUDE used to locate a formation on lunar globe.
+SELENOGRAPHIC LATITUDE;Lunar formations latitude is given in arc degrees. North is up, South is down for the Moon when observed with naked eye. Latitude of formations located under the lunar Equator are negative.
+SELENOGRAPHIC LONGITUDE;Lunar formations longitude is given in arc degrees. East is right, West is left for the Moon when observed with naked eye. Longitude of formations located to the West of central meridian are negative.
+SELENOGRAPHY;Branch of Astronomy that map the surface of the Moon. It also comprises lunar formations description and lunar NOMENCLATURE development.
+SIDEREAL MONTH;Also named SIDEREAL REVOLUTION. Time period separating the same position of the Moon on the starry sky.
+SIDEREAL REVOLUTION;Time necessary, for a given celestial body, to make a complete circle around the Sky, according to the stars positions  and for a terrestriel observer.
+SINUS;Latin term used by International Astronomical Union (IAU) to officially name a GULF of a lunar SEA.
+SLOPES;"Part of a CRATER SHAPED FORMATION starting on surrounding area and rising until the rim of the WALLS. Their aspect goes from ""flat"" to ""very tormented"" if they present radial VALLEYs."
+SUN ECLIPSE;Disappearance of Sun disk behind the Lunar disk during some rare NEW MOONs when Sun, Moon and Earth centers are strictly on the same line.
+SURVEYOR;American probes series having landed on the Moon.
+SYNCHRONOUS ROTATION;When a celestial body have its ROTATION equal to its REVOLUTION around another celestial body, it always shows a same hemisphere to an hypothetical observer located on the second body. It's the case for the Moon that always shows its VISIBLE FACE to the Earth.
+SYNODIC MONTH;Also called LUNAR MONTH or SYNODIC REVOLUTION. Time period separating two following NEW MOONs.
+SYNODIC REVOLUTION;Also named LUNATION or LUNAR MONTH. Time period separating two identical lunar PHASEs.
+TERMINATOR;Zone of the lunar disk which is the boundary between the lit part and the dark part. The MORNING TERMINATOR can be observed on the evening between the NEW MOON and the FULL MOON and the MORNING TERMINATOR on the morning between the FULL MOON and the NEW MOON
+TOTAL ECLIPSE;A total eclipse of Sun or Moon occurs when the occulting body completely occults the other celestial body.
+VALLEY;Rectilinear formation caused by ground collapsing or generated by an important meteoritic impact rocks fall.
+VALLIS;Latin term used by International Astronomical Union (IAU) to officially name a VALLEY.
+VISIBLE SIDE;Lunar globe side always visible from the Earth.
+WALLED PLAIN;Large diameter CRATER SHAPED FORMATION (more than 50 miles) and presenting a flat and widened FLOOR.
+WALLS;"Part of a CRATER SHAPED FORMATION located between SLOPES summit and FLOOR. Its HEIGHT varies from ""little high"" ( <1.000 m ) to ""very high"" ( >4.000 m )."
+WRINKLE RIDGES;Mountainous and linear crest with soft slopes and small HEIGHT. Their origin is probably volcanic.
+WRINKLE RIDGES NETWORK;Several WRINKLE RIDGES located on the surface of the same lunar SEA.

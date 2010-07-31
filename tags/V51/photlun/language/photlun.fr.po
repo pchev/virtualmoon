@@ -1,0 +1,214 @@
+# Patrick Chevalley <pch@ap-i.net>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2009-11-22 15:53+0100\n"
+"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
+"Language-Team: Français <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: u_translation.rsabout
+msgid "About ..."
+msgstr "A propos ..."
+
+#: u_translation.rsadjusttowind
+msgid "Adjust to window"
+msgstr "Ajuste à la taille de la fenêtre"
+
+#: u_translation.rsall
+msgid "All"
+msgstr "Tout"
+
+#: u_translation.rsalllibraries
+msgid "All libraries"
+msgstr "Toutes les bibliothèques"
+
+#: u_translation.rsbrighter
+msgid "Brighter"
+msgstr "Plus lumineux"
+
+#: u_translation.rsbylibrary
+msgid "by library"
+msgstr "par bibliothèque"
+
+#: u_translation.rsbyname
+msgid "by name"
+msgstr "par nom"
+
+#: u_translation.rscancel
+msgid "Cancel"
+msgstr "Abandon"
+
+#: u_translation.rscloseallwind
+msgid "Close all window"
+msgstr "Fremer toutes les fenêtres"
+
+#: u_translation.rsdarker
+msgid "Darker"
+msgstr "Plus sombre"
+
+#: u_translation.rsdatabase
+msgid "Database"
+msgstr "Base de donnée"
+
+#: u_translation.rseastwest
+msgid "East<->West"
+msgstr "Est<->Ouest"
+
+#: u_translation.rsfile
+msgid "File"
+msgstr "Fichier"
+
+#: u_translation.rsfolder
+msgid "Folder"
+msgstr "Répertoire"
+
+#: u_translation.rsformationnam
+msgid "Formation name"
+msgstr "Nom de la formation"
+
+#: u_translation.rsfullsize
+msgid "Full size"
+msgstr "Taille maximum"
+
+#: u_translation.rshelp
+msgid "Help"
+msgstr "Aide"
+
+#: u_translation.rshelpprefix
+msgid "HelpPrefix"
+msgstr "FR_"
+
+#: u_translation.rshorizontalmi
+msgid "Horizontal Mirror"
+msgstr "Miroir horizontal"
+
+#: u_translation.rsimagefolders
+msgid "Image folders:"
+msgstr "Répertoire des images:"
+
+#: u_translation.rsimagemirror
+msgid "Image mirror"
+msgstr "Miroir de l'image"
+
+#: u_translation.rsimages
+msgid "Images"
+msgstr "Images"
+
+#: u_translation.rsincreasecont
+msgid "Increase Contrast"
+msgstr "Augmente le contraste"
+
+#: u_translation.rslarge
+msgid "Large"
+msgstr "Grand"
+
+#: u_translation.rslibrary
+msgid "Library"
+msgstr "Bibliothèque"
+
+#: u_translation.rslibrarysetti
+msgid "Library Setting"
+msgstr "Configuration des bibliothèques"
+
+#: u_translation.rsmedium
+msgid "Medium"
+msgstr "Moyen"
+
+#: u_translation.rsname
+msgid "Name"
+msgstr "Nom"
+
+#: u_translation.rsnone1
+msgid "None"
+msgstr "Aucun"
+
+#: u_translation.rsnorthsouth
+msgid "North<->South"
+msgstr "Nord-<>Sud"
+
+#: u_translation.rsnumberofwind
+msgid "Number of window"
+msgstr "Nombre de fenêtres"
+
+#: u_translation.rsok
+msgid "OK"
+msgstr "OK"
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr "Quitter"
+
+#: u_translation.rsreducecontra
+msgid "Reduce Contrast"
+msgstr "Réduit le contraste"
+
+#: u_translation.rsresetdefault
+msgid "Reset default setting"
+msgstr "Réglage par défaut"
+
+#: u_translation.rsrotateclockw
+msgid "Rotate clockwise"
+msgstr "Rotation à droite"
+
+#: u_translation.rsrotatecounte
+msgid "Rotate counterclockwise"
+msgstr "Rotation à gauche"
+
+#: u_translation.rsrotation
+msgid "Rotation"
+msgstr "Rotation"
+
+#: u_translation.rssavesetting
+msgid "Save setting"
+msgstr "Enregistre le réglage"
+
+#: u_translation.rssearch
+msgid "Search"
+msgstr "Recherche"
+
+#: u_translation.rsselection
+msgid "Selection"
+msgstr "Sélection"
+
+#: u_translation.rsshowonmap
+msgid "Show on map"
+msgstr "Voir sur la carte"
+
+#: u_translation.rssize
+msgid "Size"
+msgstr "Taille"
+
+#: u_translation.rssmall
+msgid "Small"
+msgstr "Petit"
+
+#: u_translation.rssort
+msgid "Sort"
+msgstr "Trier"
+
+#: u_translation.rstranslatedby
+msgid "Translated by :"
+msgstr "Traduit par : Patrick Chevalley"
+
+#: u_translation.rsverticalmirr
+msgid "Vertical Mirror"
+msgstr "Miroir vertical"
+
+#: u_translation.rsview
+msgid "View"
+msgstr "Voir"
+
+#: u_translation.rsvignettes
+msgid "Vignettes"
+msgstr "Vignettes"
+
+#: u_translation.rszoom
+msgid "Zoom"
+msgstr "Zoom"
+

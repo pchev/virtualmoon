@@ -1,0 +1,38 @@
+/* XPM */
+static char *TGLSkyBox[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 16 1",
+"  c #040284",
+". c #048204",
+"X c #848284",
+"o c #04FEFC",
+"O c #C4C2C4",
+"+ c #0402FC",
+"@ c #848204",
+"# c #FCFEFC",
+"$ c #186968",
+"% c #9F0EF1",
+"& c #803E17",
+"* c #7C7700",
+"= c #FF004A",
+"- c #FF0002",
+"; c #FF002D",
+": c red",
+/* pixels */
+"################",
+"################",
+"####OXXXXXXXXX##",
+"###OXO       X##",
+"##OX O O## + X##",
+"##X  O++OO+++X##",
+"##X +O+++++++X##",
+"##X++OoooooooX##",
+"##X+oOooo@@@@X##",
+"##XooO@@@@@@.X##",
+"##Xo@O@@.@...X##",
+"##X@@OOOOOOOOX##",
+"##X@O@.@.@@.XO##",
+"##XO@.@@@.@XO###",
+"##XXXXXXXXXO####",
+"################"
+};

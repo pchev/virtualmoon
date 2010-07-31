@@ -1,0 +1,213 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2009-12-24 00:19+0100\n"
+"Last-Translator: Ing. Maroš Horňák <maros.hornak@post.sk>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+
+#: u_translation.rsabout
+msgid "About ..."
+msgstr "O ..."
+
+#: u_translation.rsadjusttowind
+msgid "Adjust to window"
+msgstr "Prispôsobiť oknu"
+
+#: u_translation.rsall
+msgid "All"
+msgstr "Všetko"
+
+#: u_translation.rsalllibraries
+msgid "All libraries"
+msgstr "Všetky knižnice"
+
+#: u_translation.rsbrighter
+msgid "Brighter"
+msgstr "Svetlejšie"
+
+#: u_translation.rsbylibrary
+msgid "by library"
+msgstr "podľa knižnice"
+
+#: u_translation.rsbyname
+msgid "by name"
+msgstr "podľa mena"
+
+#: u_translation.rscancel
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: u_translation.rscloseallwind
+msgid "Close all window"
+msgstr "Zavrieť všetky okna"
+
+#: u_translation.rsdarker
+msgid "Darker"
+msgstr "Tmavšie"
+
+#: u_translation.rsdatabase
+msgid "Database"
+msgstr "Databáza"
+
+#: u_translation.rseastwest
+msgid "East<->West"
+msgstr "Východ<->Západ"
+
+#: u_translation.rsfile
+msgid "File"
+msgstr "Súbor"
+
+#: u_translation.rsfolder
+msgid "Folder"
+msgstr "Adresár"
+
+#: u_translation.rsformationnam
+msgid "Formation name"
+msgstr "Meno útvaru"
+
+#: u_translation.rsfullsize
+msgid "Full size"
+msgstr "Plná veľkosť"
+
+#: u_translation.rshelp
+msgid "Help"
+msgstr "Pomoc"
+
+#: u_translation.rshelpprefix
+msgid "HelpPrefix"
+msgstr "UK_"
+
+#: u_translation.rshorizontalmi
+msgid "Horizontal Mirror"
+msgstr "Horizontálne zrkadliť"
+
+#: u_translation.rsimagefolders
+msgid "Image folders:"
+msgstr "Adresár obrázkov:"
+
+#: u_translation.rsimagemirror
+msgid "Image mirror"
+msgstr "Zrkadliť obrázok"
+
+#: u_translation.rsimages
+msgid "Images"
+msgstr "Obrázky"
+
+#: u_translation.rsincreasecont
+msgid "Increase Contrast"
+msgstr "Zvýšiť kontrast"
+
+#: u_translation.rslarge
+msgid "Large"
+msgstr "Veľká"
+
+#: u_translation.rslibrary
+msgid "Library"
+msgstr "Knižnica"
+
+#: u_translation.rslibrarysetti
+msgid "Library Setting"
+msgstr "Nastavenie knižnice"
+
+#: u_translation.rsmedium
+msgid "Medium"
+msgstr "Stredná"
+
+#: u_translation.rsname
+msgid "Name"
+msgstr "Meno"
+
+#: u_translation.rsnone1
+msgid "None"
+msgstr "Žiadne"
+
+#: u_translation.rsnorthsouth
+msgid "North<->South"
+msgstr "Sever<->Juh"
+
+#: u_translation.rsnumberofwind
+msgid "Number of window"
+msgstr "Počet okien"
+
+#: u_translation.rsok
+msgid "OK"
+msgstr "OK"
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr "Skončiť"
+
+#: u_translation.rsreducecontra
+msgid "Reduce Contrast"
+msgstr "Znížiť kontrast"
+
+#: u_translation.rsresetdefault
+msgid "Reset default setting"
+msgstr "Obnoviť pôvodné nastavenie"
+
+#: u_translation.rsrotateclockw
+msgid "Rotate clockwise"
+msgstr "Rotovať v smere hod. ručičiek"
+
+#: u_translation.rsrotatecounte
+msgid "Rotate counterclockwise"
+msgstr "Rotovať v protismere hod. ručičiek"
+
+#: u_translation.rsrotation
+msgid "Rotation"
+msgstr "Rotácia"
+
+#: u_translation.rssavesetting
+msgid "Save setting"
+msgstr "Uložiť nastavenia"
+
+#: u_translation.rssearch
+msgid "Search"
+msgstr "Hľadať"
+
+#: u_translation.rsselection
+msgid "Selection"
+msgstr "Výber"
+
+#: u_translation.rsshowonmap
+msgid "Show on map"
+msgstr "Ukázať na mape"
+
+#: u_translation.rssize
+msgid "Size"
+msgstr "Veľkosť"
+
+#: u_translation.rssmall
+msgid "Small"
+msgstr "Malá"
+
+#: u_translation.rssort
+msgid "Sort"
+msgstr "Triediť"
+
+#: u_translation.rstranslatedby
+msgid "Translated by :"
+msgstr "Preložil : Maroš Horňák"
+
+#: u_translation.rsverticalmirr
+msgid "Vertical Mirror"
+msgstr "Vertikálne zrkadliť"
+
+#: u_translation.rsview
+msgid "View"
+msgstr "Pohľad"
+
+#: u_translation.rsvignettes
+msgid "Vignettes"
+msgstr "Miniatúry"
+
+#: u_translation.rszoom
+msgid "Zoom"
+msgstr "Priblížiť"
+

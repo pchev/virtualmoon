@@ -1,0 +1,77 @@
+This distribution contains a set of custom command-line tools for generating huge normalmap textures or texture tiles of highest quality for the space simulation Celestia, http://www.shatters.net/celestia/. No image manipulation  expertise or additional libraries are required.
+
+Special attention has been paid to allow for very big textures (>= 64k x 32k)  to be handled even by average sized home computers. The tools work directly with the original published 16bit integer elevation maps for Earth, Mars etc. Therefore, the resulting normalmaps have a very low noise level. The execution speed is very high due to optimized custom algorithms.
+ 
+Highlights are
+ 
+-- sources compile cleanly for Windows and Linux PC's, 
+   as well as both PPC and Intel MACs; 
+
+-- both little-endian and big-endian 16bit elevation maps can be used;
+
+-- executables are included for Win32, Linux, OSX-universal;
+
+-- throughout, the tools work between STDIN and STDOUT, 
+   and therefore may be piped together in a module fashion as needed;
+   
+-- a brief help text is printed, if the tools are executed without any
+   parameters;
+      
+-- a detailed tutorial about how to use these tools may be found on
+   http://www.celestialmatters.org
+         
+Specifically:
+   
+1) resc2pow2   
+-------------
+The program reads samples with signed 16-bit integers from STDIN
+and outputs to STDOUT a signed 16-bit integer sample 
+of width reduced to the nearest power of 2.
+
+Specify byteswap = 1 if the byte ordering 
+of input file and computer differ
+
+   
+2) halfsize
+------------
+The program reads textures of even height in signed 16-bit integer raw 
+format from STDIN. It outputs to STDOUT a texture of size reduced by 
+a factor of two in the same 16 bit raw format.
+
+Specify byteswap = 1 if the byte ordering 
+of input file and computer differ   
+    
+  
+3) nms
+-------
+The program reads an elevation map in signed 16-bit raw format 
+from STDIN. It outputs to STDOUT a normalmap (PPM format), for bodies of ~spherical geometry. All previously published normalmap programs (including nm16)  are incorrect for ~spherical bodies north and south of the equator.
+ 
+4) nmstiles
+------------
+The program reads an elevation map in signed 16-bit raw format  
+from STDIN. It directly outputs normalmap tiles (PPM format), corrected for
+spherical geometry and including many optimizations. These optimizations include: the appropriate reduction of resolution for polar latitudes, correct texel normalization (r*r +g*g + b*b = 1) and the replacement of monochromatic normalmap tiles by the smallest possible 4x4 pixel tiles! The latter saves a large amount of disc space without any loss of quality.  
+
+It is assumed that the input raw file is of power-of-two size
+
+
+
+We cordially thank 
+
+Da Woon Jung <dirkpitt2050@users.sf.net> 
+
+for his active help to make the code run on MACS. He compiled the tools as "OSX-universal", meaning they contain both PPC and Intel code and run natively on both PPC and Intel MACs.   
+
+We are also grateful to 
+
+Chris Laurel <claurel@www.shatters.net>
+
+for code allowing redirection of STDIN and STDOUT for Windows in case of binary file input/output. 
+
+
+Copyright Fridger Schrempp & Robert Skuridin
+
+
+<fridger.schrempp@desy.de>
+<skuridin1@mail.ru>

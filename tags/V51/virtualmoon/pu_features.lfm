@@ -1,0 +1,49 @@
+object f_features: Tf_features
+  Left = 499
+  Height = 309
+  Top = 125
+  Width = 410
+  ActiveControl = Memo1
+  BorderStyle = bsSizeToolWin
+  Caption = 'f_features'
+  ClientHeight = 309
+  ClientWidth = 410
+  FormStyle = fsStayOnTop
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '0.9.28.3'
+  object Label1: TLabel
+    Left = 17
+    Height = 16
+    Top = 8
+    Width = 1
+    ParentColor = False
+  end
+  object Memo1: TMemo
+    Left = 16
+    Height = 226
+    Top = 32
+    Width = 376
+    ReadOnly = True
+    ScrollBars = ssAutoVertical
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 80
+    Height = 25
+    Top = 272
+    Width = 105
+    Caption = 'Button1'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 224
+    Height = 25
+    Top = 272
+    Width = 105
+    Caption = 'Button2'
+    ModalResult = 1
+    TabOrder = 2
+  end
+end
