@@ -72,8 +72,10 @@ type
     Label34: TLabel;
     Label35: TLabel;
     LabelFont: TLabel;
+    Memo1: TMemo;
     PageControl1: TNotebook;
     Panel1: TPanel;
+    Panel2: TPanel;
     RadioGroup1: TRadioGroup;
     RadioGroup2: TRadioGroup;
     RadioGroup3: TRadioGroup;
@@ -523,6 +525,7 @@ end;
 procedure TForm2.FormShow(Sender: TObject);
 var myRect: TGridRect;
 begin
+  memo1.Text:=rst_184;
   OverlayPanel.visible:=AsMultiTexture;
   myRect.Left := 0;
   myRect.Top := 3;
