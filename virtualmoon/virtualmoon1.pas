@@ -3203,6 +3203,7 @@ try
   btnEffacerClick(nil);
   SetEyepieceMenu;
   moon1.Mirror:=checkbox2.Checked;
+  GridButton.Visible:=AsMultiTexture;
 finally
   screen.cursor := crDefault;
 //  StartTimer.Enabled:=true;
