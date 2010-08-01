@@ -1,5 +1,5 @@
 Virtual Moon Atlas
-version 5.1 beta
+version 5.1
 Free software for Moon observation or survey
 For Mac OS X
 
