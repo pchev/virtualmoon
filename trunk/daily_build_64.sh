@@ -70,12 +70,12 @@ mkdir $wd/$outdir
   #svn up --non-interactive
 #fi
 
-  # check if new revision since last run
-  read lastrev <last.build
-  lang=LANG
-  LANG=C
-  currentrev=`svn info . | grep Revision: | sed 's/Revision: //'`
-  LANG=$lang
+# check if new revision since last run
+read lastrev <last.build
+lang=LANG
+LANG=C
+currentrev=`svn info . | grep Revision: | sed 's/Revision: //'`
+LANG=$lang
 if [[ $upd ]]; then
   echo $lastrev ' - ' $currentrev
   if [[ $lastrev -eq $currentrev ]]; then
