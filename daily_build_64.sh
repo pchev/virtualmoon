@@ -61,6 +61,8 @@ fi
 
 wd=`pwd`
 mkdir $wd/$outdir
+release=RELEASE
+mkdir $wd/$release
 
 #if [[ $upd ]]; then
   # revert local changes
@@ -297,6 +299,7 @@ if [[ ! $upd ]]; then
     cp Installer/Linux/licence $wd/CD_Linux/
     cp Installer/Linux/readme_CD $wd/CD_Linux/readme
     cp Installer/Linux/install_CD.sh $wd/CD_Linux/install.sh
+    mkisofs -R -r -l -J -quiet -Vvirtualmoon -o$release/virtualmoon-$version-linux.iso CD_Linux
   else
     tar cvzf virtualmoon-data-$version-linux_all.tgz --owner=root --group=root *
     if [[ $? -ne 0 ]]; then exit 1;fi
@@ -307,7 +310,7 @@ if [[ ! $upd ]]; then
     cp Installer/Linux/licence $wd/$outdir/
     if [[ $pro ]]; then
        cd $wd/$outdir/
-       tar cf virtualmoon-pro-$version-linux.tar vmapro_install.sh licence virtualmoon-data-$version-linux_all.tgz virtualmoon-$version-linux_x86_64.tgz virtualmoon-$version-linux_i386.tgz
+       tar cf $wd/$release/virtualmoon-pro-$version-linux.tar vmapro_install.sh licence virtualmoon-data-$version-linux_all.tgz virtualmoon-$version-linux_x86_64.tgz virtualmoon-$version-linux_i386.tgz
     fi
   fi
   # deb
@@ -411,6 +414,8 @@ if [[ $make_win32 ]]; then
     cp $builddir/Data/lisezmoi.txt  $wd/CD_Win32/
     cp $builddir/Data/autorun.inf  $wd/CD_Win32/
     cp $builddir/Data/vma.ico  $wd/CD_Win32/
+    cd $wd 
+    mkisofs -R -r -l -J -quiet -Vvirtualmoon -o$release/virtualmoon-$version-windows.iso CD_Win32
   else
     sed -i "/AppVerName/ s/V5/V$version/" vmapro.iss
     if [[ $upd ]]; then
@@ -420,7 +425,11 @@ if [[ $make_win32 ]]; then
     fi
     wine "$innosetup" "$wine_build\vmapro.iss"
     if [[ $? -ne 0 ]]; then exit 1;fi
-    mv $builddir/virtualmoon*.exe $wd/$outdir/
+    if [[ $pro ]]; then
+      mv $builddir/virtualmoon*.exe $wd/$release
+    else
+      mv $builddir/virtualmoon*.exe $wd/$outdir/
+    fi
   fi
   #debug
   cd $wd
