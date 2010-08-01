@@ -21,7 +21,6 @@ echo "Virtual Moon Atlas"
 echo ""
 echo "You can use this script without parameter for the initial installation of virtualmoon-5.1"
 echo "or give the name of the additional file to install: sudo ./vmapro_install.sh PictureApollo.tgz"
-echo "It is require to also install virtualmoon-data before to run the program!"
 echo ""
 
 ARCH=$(uname -m)
@@ -30,22 +29,25 @@ if [ $ARCH != x86_64 ] ; then ARCH=i386; fi   # handle i686, i586, ...
 # read options 
 current_dir=$(pwd)
 defaultfile=virtualmoon-5.1-linux_$ARCH.tgz
-tarfile=$defaultfile;
+tarfile2="$current_dir"/virtualmoon-data-5.1-linux_all.tgz
+
+tarfile1=$defaultfile;
 if [ "$1" ] ; then 
-  tarfile="$1"
+  tarfile1="$1"
+  unset tarfile2;
 fi
 
 # check if file install need ldconfig
-if [[ $tarfile == $defaultfile ]]; then 
+if [[ $tarfile1 == $defaultfile ]]; then 
   initial_install=1
 fi
-if [[ $tarfile == virtualmoon_update-* ]]; then 
+if [[ $tarfile1 == virtualmoon_update-* ]]; then 
   initial_install=1
 fi
 
 # check architecture
 if [ "$initial_install" ]; then 
-filearch=$(echo $tarfile |sed "s/\(.*\)linux_//"|sed "s/.tgz//")
+filearch=$(echo $tarfile1 |sed "s/\(.*\)linux_//"|sed "s/.tgz//")
 if [ $filearch == vmapro5 ]; then filearch=i386; fi
 if [ $filearch != $ARCH ]; then
   echo "Your system is running with $ARCH architecture,"
@@ -55,16 +57,16 @@ if [ $filearch != $ARCH ]; then
 fi
 fi
 
-tarfile="$current_dir"/$tarfile
+tarfile1="$current_dir"/$tarfile1
 
 #check file exist
-if [ ! -e $tarfile ]; then
-  echo "File not found: "$tarfile
+if [ ! -e $tarfile1 ]; then
+  echo "File not found: "$tarfile1
   echo "Installation aborted" 
   exit 1  
 fi
 
-echo "Installing "$tarfile
+echo "Installing "$tarfile1
 echo ""
 
 # get install dir
@@ -82,13 +84,26 @@ if [ "$REPLY" != "y" ]; then echo "Installation aborted"; exit 1; fi
 mkdir -p "$install_dir"
 # extract tar
 cd "$install_dir"
-tar xzf "$tarfile" 
+tar xzf "$tarfile1" 
 rc=$?
 # try to move lib to lib64 for redhat 64
 if [ "$initial_install" ]; then 
   if [ $filearch = x86_64 ]; then
     mv lib/libplan404.so lib64/ 2>/dev/null
   fi
+fi
+
+if [[ -n $tarfile2 ]] ; then
+  if [ ! -e $tarfile2 ]; then
+    echo "File not found: "$tarfile2
+    echo "Installation aborted" 
+    exit 1  
+  fi
+  echo "Installing "$tarfile2
+  echo ""
+  tar xzf "$tarfile2" 
+  rc1=$?
+  ((rc=rc+rc1))
 fi
 
 # check result
@@ -107,12 +122,10 @@ ldconfig -p | grep libplan404
 rc=$?
 if [ $rc = 0 ] ; then 
   echo "Installation successful" 
-  echo "It is require to also install virtualmoon-data before to run the program!"
   echo "Then run Virtual Moon Atlas with the following command:"
   echo "$install_dir/bin/atlun"
 else 
   echo "Installation successful" 
-  echo "It is require to also install virtualmoon-data before to run the program!"
   echo "Then run Virtual Moon Atlas with the following command:"
   echo "export LD_LIBRARY_PATH=$install_dir/lib && $install_dir/bin/atlun"
 fi

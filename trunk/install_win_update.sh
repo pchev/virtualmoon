@@ -2,6 +2,22 @@
 
 # put here only the files that need to be changed since last release
 
+function InstData {
+  pkg=$1.tgz
+  ddir=$2
+  tmpdir=$(mktemp -d)
+  pkgz=BaseData/$pkg
+  if [ ! -e $pkgz ]; then
+     wget http://sourceforge.net/projects/virtualmoon/files/6-Source_Data/$pkg/download -O $pkgz
+  fi
+  tar xvzf $pkgz -C $tmpdir
+  cp -a $tmpdir/share/virtualmoon/* $ddir/
+  rm -rf $tmpdir/share/virtualmoon/*
+  rmdir $tmpdir/share/virtualmoon
+  rmdir $tmpdir/share
+  rmdir $tmpdir
+}
+
 OS_TARGET=$1
 destdir=$2
 
@@ -53,3 +69,5 @@ install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/Database/
 install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/Database/
 
 install -v -m 644 doc/* $destdir/doc/
+
+InstData Base_Bumpmap $destdir
