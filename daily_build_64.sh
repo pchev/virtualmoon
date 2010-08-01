@@ -302,6 +302,8 @@ if [[ ! $upd ]]; then
     if [[ $? -ne 0 ]]; then exit 1;fi
     mv virtualmoon*.tgz $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
+    cp Installer/Linux/vmapro_install.sh $wd/$outdir/
+    cp Installer/Linux/licence $wd/$outdir/
   fi
   # deb
   cd $wd
