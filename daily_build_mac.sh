@@ -126,12 +126,15 @@ if [[ $make_darwin_i386 ]]; then
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
   if [[ $cdrom ]]; then
+    mkdir $wd/CD_Mac
     cp Installer/Mac/CDvmapro.packproj $basedir
     cd $basedir
     freeze -v CDvmapro.packproj
     if [[ $? -ne 0 ]]; then exit 1;fi
+    cp Virtual_Moon_Atlas/licence.txt vmapro5/
+    cp Virtual_Moon_Atlas/readme.txt vmapro5/
     rm *.cdr *.iso
-    hdiutil create -anyowners -volname virtualmoon-$version-macosx-i386 -format UDTO -srcfolder ./build virtualmoon-cdrom-$version-macosx-i386.cdr
+    hdiutil create -anyowners -volname virtualmoon-$version-macosx-i386 -format UDTO -srcfolder ./vmapro5 virtualmoon-cdrom-$version-macosx-i386.cdr
     hdiutil makehybrid -o virtualmoon-cdrom-$version-macosx-i386.iso virtualmoon-cdrom-$version-macosx-i386.cdr -iso -joliet   
     if [[ $? -ne 0 ]]; then exit 1;fi
     mv virtualmoon*.iso $wd/CD_Mac/
