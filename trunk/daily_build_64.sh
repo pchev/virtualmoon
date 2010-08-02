@@ -310,7 +310,7 @@ if [[ ! $upd ]]; then
     cp Installer/Linux/licence $wd/$outdir/
     if [[ $pro ]]; then
        cd $wd/$outdir/
-       tar cf $wd/$release/virtualmoon-pro-$version-linux.tar vmapro_install.sh licence virtualmoon-data-$version-linux_all.tgz virtualmoon-$version-linux_x86_64.tgz virtualmoon-$version-linux_i386.tgz
+       tar cf $wd/$release/virtualmoon-$version-linux.tar vmapro_install.sh licence virtualmoon-data-$version-linux_all.tgz virtualmoon-$version-linux_x86_64.tgz virtualmoon-$version-linux_i386.tgz
     fi
   fi
   # deb

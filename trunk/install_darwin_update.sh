@@ -1,5 +1,21 @@
 #!/bin/bash
 
+function InstData {
+  pkg=$1.tgz
+  ddir=$2
+  tmpdir=$(mktemp -d -t tmp)
+  pkgz=BaseData/$pkg
+  if [ ! -e $pkgz ]; then
+     curl -L -o $pkgz http://sourceforge.net/projects/virtualmoon/files/6-Source_Data/$pkg/download
+  fi
+  tar xvzf $pkgz -C $tmpdir
+  cp -R -p $tmpdir/share/virtualmoon/* $ddir/
+  rm -rf $tmpdir/share/virtualmoon/*
+  rmdir $tmpdir/share/virtualmoon
+  rmdir $tmpdir/share
+  rmdir $tmpdir
+}
+
 destdir=$1
 
 if [ -z "$destdir" ]; then
@@ -55,3 +71,6 @@ install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/Database/
 install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/Database/
 
 install -v -m 644 doc/* $destdir/doc/
+
+InstData Base_Bumpmap $destdir
+
