@@ -134,8 +134,8 @@ if [[ $make_darwin_i386 ]]; then
     cp Virtual_Moon_Atlas/licence.txt vmapro5/
     cp Virtual_Moon_Atlas/readme.txt vmapro5/
     rm *.cdr *.iso
-    hdiutil create -anyowners -volname virtualmoon-$version-macosx-i386 -format UDTO -srcfolder ./vmapro5 virtualmoon-cdrom-$version-macosx-i386.cdr
-    hdiutil makehybrid -o virtualmoon-cdrom-$version-macosx-i386.iso virtualmoon-cdrom-$version-macosx-i386.cdr -iso -joliet   
+    hdiutil create -anyowners -volname virtualmoon-$version-macosx-i386 -format UDTO -srcfolder ./vmapro5 virtualmoon-$version-macosx.cdr
+    hdiutil makehybrid -o virtualmoon-$version-macosx.iso virtualmoon-$version-macosx.cdr -iso -joliet   
     if [[ $? -ne 0 ]]; then exit 1;fi
     mv virtualmoon*.iso $wd/CD_Mac/
     if [[ $? -ne 0 ]]; then exit 1;fi

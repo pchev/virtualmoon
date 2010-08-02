@@ -27,6 +27,7 @@ fi
 
 echo Install virtualmoon data to $destdir
 
+# database
 install -m 755 -d $destdir/Database
 install -v -m 644 Database/Domes_uEN.csv $destdir/Database/
 install -v -m 644 Database/Domes_uFR.csv $destdir/Database/
@@ -47,6 +48,14 @@ install -v -m 644 Database/Nearside_Satellite_uEN.csv $destdir/Database/
 install -v -m 644 Database/Nearside_Satellite_uFR.csv $destdir/Database/
 install -v -m 644 Database/Pyroclastic_uEN.csv $destdir/Database/
 install -v -m 644 Database/Pyroclastic_uFR.csv $destdir/Database/
+
+# documentation
+install -m 755 -d "$destdir/My Images"
+install -m 755 -d $destdir/doc
+install -m 755 -d $destdir/Encyclopedia
+install -v -m 644 doc/* $destdir/doc/
+install -v -m 644 Encyclopedia/* $destdir/Encyclopedia/
+
 
 InstData Base_JPLeph $destdir
 InstData Base_Airbrush $destdir

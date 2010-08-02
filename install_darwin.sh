@@ -56,10 +56,4 @@ install -m 755 -d $destdir/data
 install -v -m 644 data/country.tab $destdir/data/
 install -v -m 644 data/retic.cur $destdir/data/
 
-# documentation
-install -m 755 -d "$destdir/My Images"
-install -m 755 -d $destdir/doc
-install -m 755 -d $destdir/Encyclopedia
-install -v -m 644 doc/* $destdir/doc/
-install -v -m 644 Encyclopedia/* $destdir/Encyclopedia/
 
