@@ -55,9 +55,6 @@ install -v -m 644 Installer/Mac/vmapro/licence.txt $destdir/
 install -v -m 644 Installer/Mac/vmapro/readme.txt $destdir/
 
 install -m 755 -d $destdir/language
-install -m 755 -d $destdir/Database
-install -m 755 -d $destdir/doc
-
 install -v -m 644 virtualmoon/language/maplun.en.po $destdir/language/
 install -v -m 644 virtualmoon/language/maplun.fr.po $destdir/language/
 install -v -m 644 datlun/language/datlun.en.po $destdir/language/
@@ -67,9 +64,28 @@ install -v -m 644 datlun/language/vmadatabase.fr.po $destdir/language/
 install -v -m 644 photlun/language/photlun.en.po $destdir/language/
 install -v -m 644 photlun/language/photlun.fr.po $destdir/language/
 
+install -m 755 -d $destdir/Database
+install -v -m 644 Database/Domes_uEN.csv $destdir/Database/
+install -v -m 644 Database/Domes_uFR.csv $destdir/Database/
+install -v -m 644 Database/Farside_Named_uEN.csv $destdir/Database/
+install -v -m 644 Database/Farside_Named_uFR.csv $destdir/Database/
+install -v -m 644 Database/Farside_Satellite_uEN.csv $destdir/Database/
+install -v -m 644 Database/Farside_Satellite_uFR.csv $destdir/Database/
+install -v -m 644 Database/glossary_uEN.csv $destdir/Database/
+install -v -m 644 Database/glossary_uFR.csv $destdir/Database/
+install -v -m 644 Database/Historical_uEN.csv $destdir/Database/
+install -v -m 644 Database/Historical_uFR.csv $destdir/Database/
+install -v -m 644 Database/licence.txt $destdir/Database/
+install -v -m 644 Database/lopamidx.csv $destdir/Database/
+install -v -m 644 Database/lopamidx.txt $destdir/Database/
 install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/Database/
 install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/Database/
+install -v -m 644 Database/Nearside_Satellite_uEN.csv $destdir/Database/
+install -v -m 644 Database/Nearside_Satellite_uFR.csv $destdir/Database/
+install -v -m 644 Database/Pyroclastic_uEN.csv $destdir/Database/
+install -v -m 644 Database/Pyroclastic_uFR.csv $destdir/Database/
 
+install -m 755 -d $destdir/doc
 install -v -m 644 doc/* $destdir/doc/
 
 InstData Base_Bumpmap $destdir
