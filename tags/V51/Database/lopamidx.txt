@@ -1,6 +1,0 @@
-; if you change this file, please respect the row number and order.
-By Plate: URL=http://www.lpi.usra.edu/research/lunar_orbiter/bin/rslt_phn.html?  SUFFIX=%7C0
-By Name:  URL=http://www.lpi.usra.edu/research/lunar_orbiter/bin/rslt_nam.html?  SUFFIX=%7C0
-Direct:   URL=http://www.lpi.usra.edu/research/lunar_orbiter/images/img/  SUFFIX=.jpg
-Local:    URL=c:\lunar_orbiter\ SUFFIX=.jpg
-
