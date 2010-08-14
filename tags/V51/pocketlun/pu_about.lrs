@@ -1,0 +1,31 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('Tf_about','FORMDATA',[
+  'TPF0'#8'Tf_about'#7'f_about'#4'Left'#3#252#1#6'Height'#3#220#0#3'Top'#2'd'#5
+  +'Width'#3#240#0#18'HorzScrollBar.Page'#3#239#0#18'VertScrollBar.Page'#3#199#0
+  +#13'ActiveControl'#7#8'ListBox1'#11'BorderIcons'#11#12'biSystemMenu'#0#11'Bo'
+  +'rderStyle'#7#8'bsDialog'#7'Caption'#6#7'f_about'#12'ClientHeight'#3#200#0#11
+  +'ClientWidth'#3#240#0#4'Menu'#7#9'MainMenu1'#8'OnCreate'#7#10'FormCreate'#6
+  +'OnShow'#7#8'FormShow'#0#8'TListBox'#8'ListBox1'#6'Height'#3#150#0#3'Top'#2
+  +#26#5'Width'#3#240#0#5'Align'#7#8'alClient'#14'ExtendedSelect'#8#10'ParentFo'
+  +'nt'#9#8'TabOrder'#2#1#0#0#6'TPanel'#6'Panel1'#6'Height'#2#24#3'Top'#3#176#0
+  +#5'Width'#3#240#0#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#8'TabOrd'
+  +'er'#2#2#0#0#6'TPanel'#5'Title'#6'Height'#2#26#5'Width'#3#240#0#5'Align'#7#5
+  +'alTop'#7'Caption'#6#9'PocketLun'#12'ClientHeight'#2#26#11'ClientWidth'#3#240
+  +#0#11'Font.Height'#2#14#9'Font.Name'#6#6'Tahoma'#10'Font.Style'#11#6'fsBold'
+  +#0#8'TabOrder'#2#0#0#7'TButton'#7'Button1'#4'Left'#2#8#6'Height'#2#25#5'Widt'
+  +'h'#2'K'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#2'OK'#7'Default'#9#11
+  +'ModalResult'#2#1#8'TabOrder'#2#0#7'Visible'#8#0#0#0#9'TMainMenu'#9'MainMenu'
+  +'1'#4'left'#2'p'#3'top'#3#173#0#0#9'TMenuItem'#9'MenuItem9'#7'Caption'#6#2' '
+  +' '#7'Enabled'#8#0#0#9'TMenuItem'#9'MenuItem1'#7'Caption'#6#4'Menu'#0#9'TMen'
+  +'uItem'#10'MenuItem10'#7'Caption'#6#5'Carte'#7'OnClick'#7#15'MenuItem10Click'
+  +#0#0#9'TMenuItem'#9'MenuItem2'#7'Caption'#6#13'Configuration'#7'OnClick'#7#14
+  +'MenuItem2Click'#0#0#9'TMenuItem'#9'MenuItem3'#7'Caption'#6#9'Affichage'#7'O'
+  +'nClick'#7#14'MenuItem3Click'#0#0#9'TMenuItem'#9'MenuItem4'#7'Caption'#6#6'O'
+  +'utils'#7'Visible'#8#7'OnClick'#7#14'MenuItem4Click'#0#0#9'TMenuItem'#9'Menu'
+  +'Item5'#7'Caption'#6#11'Eph'#233'm'#233'rides'#7'OnClick'#7#14'MenuItem5Clic'
+  +'k'#0#0#9'TMenuItem'#9'MenuItem6'#7'Caption'#6#10'Calendrier'#7'OnClick'#7#14
+  +'MenuItem6Click'#0#0#9'TMenuItem'#9'MenuItem7'#7'Caption'#6#9'Recherche'#7'O'
+  +'nClick'#7#14'MenuItem7Click'#0#0#9'TMenuItem'#9'MenuItem8'#7'Caption'#6#4'A'
+  +'ide'#7'OnClick'#7#14'MenuItem8Click'#0#0#0#0#0
+]);

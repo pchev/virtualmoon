@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="7"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <TargetFileExt Value=""/>
+      <UseAppBundle Value="False"/>
+      <ActiveEditorIndexAtStart Value="0"/>
+    </General>
+    <VersionInfo>
+      <ProjectVersion Value=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <Units Count="4">
+      <Unit0>
+        <Filename Value="pds4tobin.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="pds4tobin"/>
+        <CursorPos X="9" Y="54"/>
+        <TopLine Value="23"/>
+        <EditorIndex Value="0"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="../../../../../../pch/fpc/rtl/objpas/math.pp"/>
+        <UnitName Value="math"/>
+        <CursorPos X="22" Y="86"/>
+        <TopLine Value="64"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="../../../../../../pch/fpc/rtl/inc/systemh.inc"/>
+        <CursorPos X="11" Y="632"/>
+        <TopLine Value="615"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="../../../../../../pch/fpc/rtl/inc/file.inc"/>
+        <CursorPos X="28" Y="271"/>
+        <TopLine Value="268"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit3>
+    </Units>
+    <JumpHistory Count="15" HistoryIndex="14">
+      <Position1>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="12" Column="18" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="9" Column="21" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="14" Column="10" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="9" Column="21" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="14" Column="13" TopLine="1"/>
+      </Position5>
+      <Position6>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="15" Column="20" TopLine="1"/>
+      </Position6>
+      <Position7>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="36" Column="21" TopLine="4"/>
+      </Position7>
+      <Position8>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="14" Column="34" TopLine="7"/>
+      </Position8>
+      <Position9>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="16" Column="12" TopLine="7"/>
+      </Position9>
+      <Position10>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="36" Column="14" TopLine="7"/>
+      </Position10>
+      <Position11>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="16" Column="12" TopLine="7"/>
+      </Position11>
+      <Position12>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="34" Column="11" TopLine="7"/>
+      </Position12>
+      <Position13>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="36" Column="18" TopLine="7"/>
+      </Position13>
+      <Position14>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="44" Column="26" TopLine="15"/>
+      </Position14>
+      <Position15>
+        <Filename Value="pds4tobin.pas"/>
+        <Caret Line="37" Column="8" TopLine="15"/>
+      </Position15>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="8"/>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)/"/>
+    </SearchPaths>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>
