@@ -3228,8 +3228,13 @@ try
     savesidelist:=sidelist;
     sidelist:='1';
     Updterminateur(5);
-    Firstsearch := True;
     SearchText  := trim(copy(ListBox1.Items[0], 2, 999));
+    if searchtext=trim(copy(rsm_27, 2, 999)) then begin
+      Combobox3.ItemIndex := 0;
+      Updterminateur(12);
+      SearchText  := trim(copy(ListBox1.Items[0], 2, 999));
+    end;
+    Firstsearch := True;
     SearchName(SearchText, false);
     sidelist := savesidelist;
     Combobox3.ItemIndex := 0;
@@ -5189,7 +5194,7 @@ begin
   TrackBar2Change(Sender);
   TrackBar3.Position:=255;
   TrackBar3Change(Sender);
-  TrackBar4.Position:=18;
+  TrackBar4.Position:=50;
   TrackBar4Change(Sender);
 end;
 

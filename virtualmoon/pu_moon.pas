@@ -1153,7 +1153,7 @@ begin
  GLLightSource2.Diffuse.AsWinColor :=$141414;
  GLLightSource1.Ambient.AsWinColor :=0;
  GLLightSource1.Diffuse.AsWinColor :=$FFFFFF;
- GLLightSource1.Specular.AsWinColor:=$121212;
+ GLLightSource1.Specular.AsWinColor:=$323232;
  FShowScale:=false;
  FShowGrid:=false;
 end;

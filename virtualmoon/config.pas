@@ -527,6 +527,7 @@ var myRect: TGridRect;
 begin
   memo1.Text:=rst_184;
   OverlayPanel.visible:=AsMultiTexture;
+  panel2.Visible:=not AsMultiTexture;
   myRect.Left := 0;
   myRect.Top := 3;
   myRect.Right := 0;
