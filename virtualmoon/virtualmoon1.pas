@@ -2840,9 +2840,9 @@ end;
 procedure  TForm1.SetZoomBar;
 begin
 lockzoombar:=true;
-trackbar1.min := 100;
-trackbar1.max := round(100 * activemoon.ZoomMax);
-trackbar1.position := round(100 * activemoon.Zoom);
+trackbar1.min := 0;
+trackbar1.max := round(100 * ln(activemoon.ZoomMax));
+trackbar1.position := round(100 * ln(activemoon.Zoom));
 end;
 
 procedure  TForm1.GetMsg(Sender: TObject; msgclass:TMoonMsgClass; value: String);
@@ -3665,7 +3665,6 @@ begin
 end;
 
 procedure TForm1.TrackBar1Change(Sender: TObject);
-
 begin
 ZoomTimer.Enabled:=false;
 if not lockzoombar then
@@ -3676,7 +3675,7 @@ end;
 procedure TForm1.ZoomTimerTimer(Sender: TObject);
 begin
 ZoomTimer.Enabled:=false;
-activemoon.Zoom := trackbar1.position / 100;
+activemoon.Zoom := exp(trackbar1.position/100);
 end;
 
 procedure TForm1.EphTimer1Timer(Sender: TObject);
