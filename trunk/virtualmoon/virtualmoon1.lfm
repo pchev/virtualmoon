@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = PageControl1
+  ActiveControl = DoNotRemove
   Caption = 'Form1'
   ClientHeight = 570
   ClientWidth = 885
@@ -465,9 +465,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 25
+            Height = 26
             Top = 0
-            Width = 12
+            Width = 13
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -1415,7 +1415,7 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 306
+        ClientHeight = 310
         ClientWidth = 249
         TabOrder = 6
         Visible = False
@@ -1996,7 +1996,7 @@ object Form1: TForm1
         Top = 372
         Width = 204
         Caption = 'Options valid at next startup'
-        ClientHeight = 52
+        ClientHeight = 56
         ClientWidth = 200
         TabOrder = 4
         object CheckBox8: TCheckBox

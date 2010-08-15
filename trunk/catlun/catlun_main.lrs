@@ -1,7 +1,7 @@
 { This is an automatically generated lazarus resource file }
 
 LazarusResources.Add('Tf_catlun','FORMDATA',[
-  'TPF0'#9'Tf_catlun'#8'f_catlun'#4'Left'#3'2'#1#6'Height'#3#15#3#3'Top'#2'z'#5
+  'TPF0'#9'Tf_catlun'#8'f_catlun'#4'Left'#3'>'#1#6'Height'#3#15#3#3'Top'#2'z'#5
   +'Width'#3'k'#4#13'ActiveControl'#7#9'PanelMoon'#7'Caption'#6#8'f_catlun'#12
   +'ClientHeight'#3#249#2#11'ClientWidth'#3'k'#4#4'Menu'#7#9'MainMenu1'#7'OnClo'
   +'se'#7#9'FormClose'#8'OnCreate'#7#10'FormCreate'#8'OnResize'#7#10'FormResize'
