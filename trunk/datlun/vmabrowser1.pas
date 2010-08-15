@@ -498,6 +498,7 @@ if dbm.RowCount>0 then begin
   MoonGrid.ColWidths[1]:=round(1.5*MoonGrid.DefaultColWidth);
   for dbcol:=1 to MoonGrid.ColCount do begin
     MoonGrid.Cells[dbcol-1,0]:=dbm.GetField(dbcol);
+    if dbcol in hidenfields then MoonGrid.ColWidths[dbcol-1]:=0;
     if dbcol<=26 then begin
       Columns.CheckListBox1.Items.Add(MoonGrid.Cells[dbcol-1,0]);
       Columns.CheckListBox1.Checked[dbcol-1]:=(MoonGrid.ColWidths[dbcol-1]>0);

@@ -472,6 +472,10 @@ msgstr "Rodyti žymes"
 msgid "Show scale"
 msgstr "Rodyti skalę"
 
+#: u_translation.rsside
+msgid "Side:"
+msgstr ""
+
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Paprastas"

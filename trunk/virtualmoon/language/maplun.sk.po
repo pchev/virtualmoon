@@ -473,6 +473,10 @@ msgstr "Ukázať menovky"
 msgid "Show scale"
 msgstr "Ukázať mierku"
 
+#: u_translation.rsside
+msgid "Side:"
+msgstr ""
+
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Jednoduchá"
