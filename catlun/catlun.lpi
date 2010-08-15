@@ -1,0 +1,274 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="7"/>
+    <General>
+      <MainUnit Value="0"/>
+      <TargetFileExt Value=""/>
+      <Icon Value="0"/>
+      <UseXPManifest Value="True"/>
+      <ActiveEditorIndexAtStart Value="0"/>
+    </General>
+    <VersionInfo>
+      <ProjectVersion Value=""/>
+      <Language Value=""/>
+      <CharSet Value=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+        <WorkingDirectory Value="/usr/local/bin"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="5">
+      <Item1>
+        <PackageName Value="TurboPowerIPro"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="libsql"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="glscenelazarus"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="Printer4Lazarus"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="LCL"/>
+      </Item5>
+    </RequiredPackages>
+    <Units Count="16">
+      <Unit0>
+        <Filename Value="catlun.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="catlun"/>
+        <CursorPos X="55" Y="12"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="56"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="catlun_main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_catlun"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="catlun_main"/>
+        <CursorPos X="85" Y="392"/>
+        <TopLine Value="375"/>
+        <EditorIndex Value="0"/>
+        <UsageCount Value="56"/>
+        <Bookmarks Count="2">
+          <Item0 X="1" Y="1229" ID="1"/>
+          <Item1 X="68" Y="927" ID="2"/>
+        </Bookmarks>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="pu_moon.pas"/>
+        <ComponentName Value="f_moon"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_moon"/>
+        <CursorPos X="1" Y="1030"/>
+        <TopLine Value="1011"/>
+        <UsageCount Value="18"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="u_constant.pas"/>
+        <UnitName Value="u_constant"/>
+        <CursorPos X="7" Y="139"/>
+        <TopLine Value="120"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="19"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="../../../../appli/lazarus/lcl/include/menu.inc"/>
+        <CursorPos X="1" Y="118"/>
+        <TopLine Value="99"/>
+        <UsageCount Value="9"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="u_util.pas"/>
+        <UnitName Value="u_util"/>
+        <CursorPos X="20" Y="30"/>
+        <TopLine Value="11"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="../virtualmoon/virtualmoon1.pas"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="virtualmoon1"/>
+        <CursorPos X="52" Y="617"/>
+        <TopLine Value="589"/>
+        <UsageCount Value="14"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="dbutil.pas"/>
+        <UnitName Value="dbutil"/>
+        <CursorPos X="4" Y="158"/>
+        <TopLine Value="143"/>
+        <UsageCount Value="21"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="../../cdc/skychart/component/libsql/passql.pas"/>
+        <UnitName Value="passql"/>
+        <CursorPos X="3" Y="1376"/>
+        <TopLine Value="1374"/>
+        <UsageCount Value="11"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="../../../../appli/fpc/rtl/objpas/sysutils/datih.inc"/>
+        <CursorPos X="10" Y="130"/>
+        <TopLine Value="111"/>
+        <UsageCount Value="10"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="../../../../appli/fpc/rtl/objpas/sysutils/dati.inc"/>
+        <CursorPos X="56" Y="723"/>
+        <TopLine Value="702"/>
+        <UsageCount Value="10"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="catlun_main.lfm"/>
+        <CursorPos X="36" Y="26"/>
+        <TopLine Value="14"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="u_translation.pas"/>
+        <UnitName Value="u_translation"/>
+        <CursorPos X="30" Y="315"/>
+        <TopLine Value="289"/>
+        <UsageCount Value="10"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="../../cdc/skychart/component/libsql/passqlite.pas"/>
+        <UnitName Value="passqlite"/>
+        <CursorPos X="1" Y="418"/>
+        <TopLine Value="399"/>
+        <UsageCount Value="11"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="fmsg.pas"/>
+        <ComponentName Value="MsgForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fmsg"/>
+        <CursorPos X="3" Y="46"/>
+        <TopLine Value="24"/>
+        <UsageCount Value="10"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="../../../../appli/lazarus/components/glscene/Source/glscene.pas"/>
+        <UnitName Value="GLScene"/>
+        <CursorPos X="39" Y="3104"/>
+        <TopLine Value="3081"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+    </Units>
+    <JumpHistory Count="15" HistoryIndex="14">
+      <Position1>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1409" Column="1" TopLine="1390"/>
+      </Position1>
+      <Position2>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1410" Column="1" TopLine="1391"/>
+      </Position2>
+      <Position3>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1411" Column="1" TopLine="1392"/>
+      </Position3>
+      <Position4>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1412" Column="1" TopLine="1393"/>
+      </Position4>
+      <Position5>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1413" Column="1" TopLine="1394"/>
+      </Position5>
+      <Position6>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1414" Column="1" TopLine="1395"/>
+      </Position6>
+      <Position7>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1416" Column="1" TopLine="1397"/>
+      </Position7>
+      <Position8>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1227" Column="1" TopLine="1208"/>
+      </Position8>
+      <Position9>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1226" Column="1" TopLine="1207"/>
+      </Position9>
+      <Position10>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1227" Column="1" TopLine="1208"/>
+      </Position10>
+      <Position11>
+        <Filename Value="u_util.pas"/>
+        <Caret Line="245" Column="47" TopLine="235"/>
+      </Position11>
+      <Position12>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1210" Column="30" TopLine="1206"/>
+      </Position12>
+      <Position13>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="302" Column="22" TopLine="283"/>
+      </Position13>
+      <Position14>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="331" Column="21" TopLine="312"/>
+      </Position14>
+      <Position15>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="395" Column="59" TopLine="375"/>
+      </Position15>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="8"/>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)/"/>
+    </SearchPaths>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>
