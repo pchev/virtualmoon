@@ -472,6 +472,10 @@ msgstr "Toon labels"
 msgid "Show scale"
 msgstr "Toon schaal"
 
+#: u_translation.rsside
+msgid "Side:"
+msgstr ""
+
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Eenvoudig"

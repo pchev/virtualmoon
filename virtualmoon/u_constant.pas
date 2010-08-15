@@ -33,7 +33,7 @@ uses
 
 const crlf = chr(10)+chr(13);
       cpyr = chr($a9)+chr($c2);  // ©
-      AVLversion = '5.1';
+      AVLversion = '5.5 beta';
       VersionName = 'AtLun';
       avlcpy = 'Copyright '+cpyr+' 2002-2010 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
@@ -112,6 +112,7 @@ const crlf = chr(10)+chr(13);
 
 
 {$ifdef linux}
+      DefaultHome='~/';
       DefaultPrivateDir='~/.virtualmoon';
       Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='../share/virtualmoon';
@@ -122,6 +123,7 @@ const crlf = chr(10)+chr(13);
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
 {$ifdef darwin}
+      DefaultHome='~/';
       DefaultPrivateDir='~/.virtualmoon';
       Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='/usr/share/virtualmoon';
@@ -182,7 +184,7 @@ var Plan404 : TPlan404;
 
 // pseudo-constant only here
 Var  Splashversion, compile_time, compile_version: string;
-     BinDir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir : string;
+     BinDir, Homedir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir : string;
      Photlun,DatLun,CdC,PrtName, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double;
      ObsTZ,ObsCountry: string;
@@ -209,7 +211,7 @@ Var  Splashversion, compile_time, compile_version: string;
      // to move to pu_moon properties:
      labelcenter,showlabel,showmark: boolean;
      currenteyepiece,marksize: integer;
-     marklabelcolor, markcolor: Tcolor;
+     marklabelcolor, markcolor, SpriteColor: Tcolor;
 
 // Text formating constant
 const

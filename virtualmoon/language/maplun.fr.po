@@ -1,11 +1,12 @@
 # translation of maplun.fr.po
 # Patrick Chevalley <pch@ap-i.net>, 2009.
 # Patrick Chevalley <pch@freesurf.ch>, 2009.
+# pch <pch@ap-i.net>, 2010.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: \n"
-"PO-Revision-Date: 2009-12-29 15:35+0100\n"
+"Last-Translator: pch <pch@ap-i.net>\n"
+"PO-Revision-Date: 2010-08-15 13:33+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -473,6 +474,10 @@ msgstr "Afficher les labels"
 #: u_translation.rsshowscale
 msgid "Show scale"
 msgstr "Afficher l'échelle"
+
+#: u_translation.rsside
+msgid "Side:"
+msgstr "Face:"
 
 #: u_translation.rssimple
 msgid "Simple"
@@ -1171,4 +1176,5 @@ msgstr "Votre installation est déjà complète avec toutes les options install�
 #: u_translation.rszoomlevel
 msgid "Zoom level"
 msgstr "Niveau de zoom"
+
 

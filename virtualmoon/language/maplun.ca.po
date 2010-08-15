@@ -469,6 +469,10 @@ msgstr "Mostra etiquetes"
 msgid "Show scale"
 msgstr "Mostra escala"
 
+#: u_translation.rsside
+msgid "Side:"
+msgstr ""
+
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Simple"

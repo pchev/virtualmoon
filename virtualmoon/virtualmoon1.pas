@@ -894,6 +894,7 @@ begin
   wheelstep := 1.05;
   marklabelcolor := clYellow;
   markcolor := clRed;
+  spritecolor:=clRed;
   autolabelcolor := clWhite;
   labelcenter := True;
   shortdesc:=false;
@@ -987,6 +988,7 @@ begin
     ShowLibrationMark := ReadBool(section, 'ShowLibrationMark', ShowLibrationMark);
     MarkLabelColor   := ReadInteger(section, 'LabelColor', MarkLabelColor);
     MarkColor    := ReadInteger(section, 'MarkColor', MarkColor);
+    spritecolor:=markcolor;
     AutolabelColor := ReadInteger(section, 'AutolabelColor', AutolabelColor);
     gridspacing := ReadInteger(section, 'GridSpacing', gridspacing);
     LabelDensity := ReadInteger(section, 'LabelDensity', LabelDensity);
@@ -1027,7 +1029,7 @@ begin
     end;
     if ReadBool(section, 'Maximized', False) then
       windowstate := wsMaximized;
-    for j:=0 to 3 do
+    for j:=0 to 5 do
       texturefiles[j] := ReadString(section, 'texturefile' + IntToStr(j), texturefiles[j]);
 
     labf:=TFont.Create;
@@ -1098,7 +1100,7 @@ begin
       WriteString(section, 'overlayname', overlayname);
       WriteFloat(section, 'overlaytr', overlaytr);
       WriteBool(section, 'showoverlay', showoverlay);
-      for i := 0 to 3 do
+      for i := 0 to 5 do
         WriteString(section, 'texturefile' + IntToStr(i), texturefiles[i]);
       WriteBool(section, 'Geocentric', Geocentric);
       WriteString(section, 'telescope', Combobox5.Text);
@@ -1181,7 +1183,7 @@ procedure TForm1.GetLabel(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
     w, wmin, wfact, l1, b1: single;
     miniok:    boolean;
-    nom, let:  string;
+    nom, lun, let:  string;
     j: integer;
 begin
 // Labels
@@ -1199,7 +1201,7 @@ begin
       wmin := -1
     else
       wmin := MinValue([650.0, 3 * LabelDensity / (Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)]);
-    dbm.Query('select NAME,LONGIN,LATIN,WIDEKM,WIDEMI,LENGTHKM,LENGTHMI from moon' +
+      dbm.Query('select NAME,LONGIN,LATIN,WIDEKM,WIDEMI,LENGTHKM,LENGTHMI,LUN from moon' +
       ' where DBN in (' + sidelist + ')' + ' and LONGIN > ' +
       formatfloat(f2, rad2deg*lmin) + ' and LONGIN < ' + formatfloat(f2, rad2deg*lmax) +
       ' and LATIN > ' + formatfloat(f2, rad2deg*bmin) +
@@ -1218,6 +1220,7 @@ begin
       if w < (wmin * wfact) then
         continue;
       nom := trim(dbm.Results[j][0]);
+      lun := trim(dbm.Results[j][7]);
       if minilabel then
       begin
         miniok := True;
@@ -1240,7 +1243,8 @@ begin
             continue;
         end;
       end;
-      Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,capitalize(nom));
+      if lun<>nom then nom:=capitalize(nom);
+      Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom);
      end;
   end;
 end;
@@ -1820,6 +1824,8 @@ begin
         buf := buf + form2.CheckListBox1.Items[j];
     memo.Lines.Add(buf);
   end;
+  if (GetField('LUN'))>'' then
+     memo.Lines.Add('L.U.N.:' + b + GetField('LUN'));
   memo.Lines.Add(rsm_56 + b + GetField('TYPE'));
   if (GetField('PERIOD'))>'' then
      memo.Lines.Add(rsm_49 + b + GetField('PERIOD'));
@@ -1882,6 +1888,8 @@ begin
      memo.Lines.Add(rsm_10 + b + GetField('LONGIC'));
   if GetField('LATIC') > '' then
      memo.Lines.Add(rsm_11 + b + GetField('LATIC'));
+  if trim(GetField('FACE')) > '' then
+     memo.Lines.Add(rsSide + b + GetField('FACE'));
   if GetField('QUADRANT') > '' then
      memo.Lines.Add(rsm_12 + b + GetField('QUADRANT'));
   if GetField('AREA') > '' then
@@ -2002,6 +2010,8 @@ begin
       if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum = i then
         txt := txt + form2.CheckListBox1.Items[j] + '<br>';
   end;
+  if (GetField('LUN'))>'' then
+     txt  := txt + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + '<br>';
   txt  := txt + t3 + rsm_56 + t3end + b + GetField('TYPE') + '<br>';
   if (GetField('PERIOD'))>'' then
      txt  := txt + t3 + rsm_49 + t3end + b + GetField('PERIOD') + '<br>';
@@ -2065,6 +2075,8 @@ begin
      txtbuf   := txtbuf + t3 + rsm_10 + t3end + b + GetField('LONGIC') + '<br>';
   if GetField('LATIC') > '' then
      txtbuf   := txtbuf + t3 + rsm_11 + t3end + b + GetField('LATIC') + '<br>';
+  if trim(GetField('FACE')) > '' then
+     txtbuf   := txtbuf + t3 + rsSide + t3end + b + GetField('FACE') + '<br>';
   if GetField('QUADRANT') > '' then
      txtbuf   := txtbuf + t3 + rsm_12 + t3end + b + GetField('QUADRANT') + '<br>';
   if GetField('AREA') > '' then
@@ -3026,13 +3038,17 @@ begin
   tz := TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');
   texturefiles:=TStringList.Create;
-  for i:=0 to 3 do texturefiles.Add('');
+  for i:=0 to 5 do texturefiles.Add('');
   texturefiles[0]:='Airbrush';
   texturefiles[1]:='Airbrush';
   if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L3') then
      texturefiles[2]:='Lopam';
   if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L4') then
      texturefiles[3]:='Lopam';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L5') then
+     texturefiles[4]:='Lopam';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L6') then
+     texturefiles[5]:='Lopam';
   CursorImage1 := TCursorImage.Create;
   overlayhi := Tbitmap.Create;
   overlayimg := Tbitmap.Create;
@@ -3390,6 +3406,7 @@ begin
       ruklprefix    := form2.ruklprefix.Text;
       ruklsuffix    := form2.ruklsuffix.Text;
       markcolor     := form2.Shape2.Brush.Color;
+      spritecolor:=markcolor;
       marklabelcolor    := form2.Shape1.Brush.Color;
       autolabelcolor := form2.Shape3.Brush.Color;
       LabelDensity  := abs(form2.TrackBar2.Position);

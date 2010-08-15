@@ -1,16 +1,16 @@
 object Columns: TColumns
-  Left = 287
-  Height = 495
-  Top = 211
-  Width = 319
+  Left = 418
+  Height = 493
+  Top = 192
+  Width = 314
   ActiveControl = CheckListBox1
   Caption = 'Columns'
-  ClientHeight = 495
-  ClientWidth = 319
+  ClientHeight = 493
+  ClientWidth = 314
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
-  LCLVersion = '0.9.28.3'
+  LCLVersion = '0.9.28.2'
   object CheckListBox1: TCheckListBox
     Left = 8
     Height = 448
@@ -19,6 +19,7 @@ object Columns: TColumns
     ItemHeight = 0
     OnItemClick = CheckListBox1ItemClick
     TabOrder = 0
+    TopIndex = -1
   end
   object ButtonAll: TButton
     Left = 24
@@ -58,5 +59,6 @@ object Columns: TColumns
     Width = 152
     ItemHeight = 0
     TabOrder = 4
+    TopIndex = -1
   end
 end

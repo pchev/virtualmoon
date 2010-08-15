@@ -472,6 +472,10 @@ msgstr "Cimkék mutatása"
 msgid "Show scale"
 msgstr "Skála mutatása"
 
+#: u_translation.rsside
+msgid "Side:"
+msgstr ""
+
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Egyszerü"

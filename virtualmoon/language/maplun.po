@@ -1142,3 +1142,7 @@ msgstr ""
 msgid "Caption"
 msgstr ""
 
+#: u_translation:rsside
+msgid "Side:"
+msgstr ""
+
