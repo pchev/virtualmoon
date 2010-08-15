@@ -1,0 +1,36 @@
+CXX_i386 = g++
+CXX_ppc = g++-3.3
+CXXFLAGS = -O3 -Wall
+LIPO = lipo
+# Using a different gcc version and  sysroot for the ppc binary ensures
+# backward compatibility with OS X versions prior to 10.3.9
+# However, if you only need to target 10.3.9+, the 10.4u sdk and
+# gcc 4.0+ may be used for both.
+SYSROOT_UNIVERSAL = /Developer/SDKs/MacOSX10.4u.sdk
+SYSROOT_PPC = /Developer/SDKs/MacOSX10.2.8.sdk
+CXXFLAGS_i386 = $(CXXFLAGS) -isysroot $(SYSROOT_UNIVERSAL) -arch i386
+CXXFLAGS_ppc = $(CXXFLAGS) -isystem $(SYSROOT_PPC) -arch ppc
+OBJPATH = .
+VPATH = ../OSX_universal_MAC.bin
+INSTALL = /usr/bin/install
+
+# tools will be installed into
+prefix = /usr/local
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+
+programs = resc2pow2 halfsize nms nmstiles
+
+all:	$(programs)
+
+$(programs):	%: %.cpp
+	$(CXX_i386) $(CXXFLAGS_i386) $< -o $(OBJPATH)/$@-i386.o
+	$(CXX_ppc) $(CXXFLAGS_ppc) $< -o $(OBJPATH)/$@-ppc.o
+	$(LIPO) -create $(OBJPATH)/$@-i386.o $(OBJPATH)/$@-ppc.o -output $(VPATH)/$@
+
+clean:	
+	rm -f   $(VPATH)/* $(OBJPATH)/*.o
+install:
+	$(INSTALL) $(VPATH)/* $(bindir)
+uninstall:
+	rm -f $(bindir)/resc2pow2 $(bindir)/halfsize $(bindir)/nms $(bindir)/nmstiles	 
