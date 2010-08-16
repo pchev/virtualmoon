@@ -29,8 +29,11 @@ uses
 {$ifdef mswindows}
   Windows, Registry, ShlObj,
 {$endif}
-{$IF DEFINED(LCLgtk) or DEFINED(LCLgtk2)}
+{$IFDEF LCLgtk}
   GtkProc,
+{$endif}
+{$IFDEF LCLgtk2}
+  Gtk2Proc,
 {$endif}
   u_translation_database, u_translation,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
