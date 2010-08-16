@@ -1,0 +1,32 @@
+Index: Source/platform/gllclviewer.pas
+===================================================================
+--- Source/platform/gllclviewer.pas	(révision 2446)
++++ Source/platform/gllclviewer.pas	(copie de travail)
+@@ -485,7 +485,7 @@
+ begin
+    inherited Loaded;
+    // initiate window creation
+-   HandleNeeded;
++   // HandleNeeded;
+ end;
+ 
+ // DoBeforeRender
+Index: Source/platform/gllingtkcontext.pas
+===================================================================
+--- Source/platform/gllingtkcontext.pas	(révision 2446)
++++ Source/platform/gllingtkcontext.pas	(copie de travail)
+@@ -14,11 +14,11 @@
+ 
+ uses
+   xlib, Classes, sysutils, GLCrossPlatform, GLContext, LCLProc, Forms, Controls, OpenGL1x,
+-  x, xutil, GTKProc,
++  x, xutil,
+ {$ifdef LCLGTK2}
+-  gtk2, gdk2, gdk2x, gtkdef;
++  GTK2Proc, gtk2, gdk2, gdk2x, gtk2def;
+ {$else}
+-  gtk, gtkdef, gdk;
++  GTKProc, gtk, gtkdef, gdk;
+ {$endif}
+ 
+ type

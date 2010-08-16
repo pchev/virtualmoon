@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="2">
+    <Name Value="glsceneode"/>
+    <CompilerOptions>
+      <Version Value="5"/>
+      <SearchPaths>
+        <IncludeFiles Value="../Source/"/>
+        <OtherUnitFiles Value="../Source/physicsapis/;../Source/;../Source/base/;../Source/designtime/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Parsing>
+        <SyntaxOptions>
+          <DelphiCompat Value="True"/>
+        </SyntaxOptions>
+      </Parsing>
+      <CodeGeneration>
+        <SmartLinkUnit Value="True"/>
+        <Generate Value="Faster"/>
+      </CodeGeneration>
+      <Linking>
+        <Debugging>
+          <GenerateDebugInfo Value="True"/>
+          <UseHeaptrc Value="True"/>
+        </Debugging>
+      </Linking>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Description Value="GLScene ODE support"/>
+    <Version Major="1" Build="3"/>
+    <Files Count="6">
+      <Item1>
+        <Filename Value="../Source/designtime/gloderegister.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="gloderegister"/>
+      </Item1>
+      <Item2>
+        <Filename Value="../Source/glodecustomcolliders.pas"/>
+        <UnitName Value="glodecustomcolliders"/>
+      </Item2>
+      <Item3>
+        <Filename Value="../Source/glodemanager.pas"/>
+        <UnitName Value="glodemanager"/>
+      </Item3>
+      <Item4>
+        <Filename Value="../Source/glodeskeletoncolliders.pas"/>
+        <UnitName Value="glodeskeletoncolliders"/>
+      </Item4>
+      <Item5>
+        <Filename Value="../Source/physicsapis/gloxode.pas"/>
+        <UnitName Value="gloxode"/>
+      </Item5>
+      <Item6>
+        <Filename Value="../Source/physicsapis/odegl.pas"/>
+        <UnitName Value="odegl"/>
+      </Item6>
+    </Files>
+    <Type Value="DesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="glscenelazarus"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <CustomOptions Value="-dUseCThreads
+"/>
+      <UnitPath Value="$(PkgOutDir)/"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>
