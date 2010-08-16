@@ -1675,7 +1675,7 @@ var
   NewHTML: TIpHtml;
 begin
   try
-    s := TStringStream.Create(Value);
+    s := TStringStream.Create(UTF8FileHeader+Value);
     try
       NewHTML := TIpHtml.Create; // Beware: Will be freed automatically by Desc1
       NewHTML.LoadFromStream(s);
@@ -1701,7 +1701,7 @@ procedure Tf_catlun.MoonClickEvent(Sender: TObject; Button: TMouseButton;
                      Shift: TShiftState; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
 begin
-if ssLeft in Shift then begin
+if Button=mbLeft then begin
   if OnMoon then begin
    if modesaisie then begin
      curlat:=rad2deg*Lat;
@@ -1717,6 +1717,11 @@ if ssLeft in Shift then begin
   end else begin
      Tf_moon(Sender).SetMark(0,0,'');
   end;
+end;
+if Button=mbRight then begin
+ if modesaisie then begin
+    Button4Click(nil); // mesure distance
+ end;
 end;
 end;
 

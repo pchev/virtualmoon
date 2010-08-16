@@ -30,3 +30,15 @@ Index: Source/platform/gllingtkcontext.pas
  {$endif}
  
  type
+Index: Source/glbitmapfont.pas
+===================================================================
+--- Source/glbitmapfont.pas	(révision 2446)
++++ Source/glbitmapfont.pas	(copie de travail)
+@@ -741,6 +741,7 @@
+    bitmap:=TGLBitmap.Create;
+    with bitmap do begin
+       PixelFormat:=glpf24bit;
++      Assign(Glyphs.bitmap);
+       Width:=RoundUpToPowerOf2(Glyphs.Width);
+       Height:=RoundUpToPowerOf2(Glyphs.Height);
+       Canvas.Draw(0, 0, Glyphs.Graphic);
