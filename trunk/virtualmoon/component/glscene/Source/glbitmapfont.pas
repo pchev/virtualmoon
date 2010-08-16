@@ -741,6 +741,7 @@ begin
    bitmap:=TGLBitmap.Create;
    with bitmap do begin
       PixelFormat:=glpf24bit;
+      Assign(Glyphs.bitmap);
       Width:=RoundUpToPowerOf2(Glyphs.Width);
       Height:=RoundUpToPowerOf2(Glyphs.Height);
       Canvas.Draw(0, 0, Glyphs.Graphic);

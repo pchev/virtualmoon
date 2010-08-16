@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics, GLContext, GLColor,
-  GLObjects, GLMisc, ExtCtrls, GLTexture, GLCadencer, Info, GLViewer,
+  GLObjects, GLMaterial, GLTextureFormat, ExtCtrls, GLTexture, GLCadencer, Info, GLViewer,
   GLCrossPlatform, LResources, GLScene, GLMultiMaterialShader,
   GLBumpShader, GLHUDObjects, GLWindowsFont, GLGeomObjects, GLMirror, GLMesh,
   GLVectorFileObjects, FPImage, LCLType, IntfGraphics, SysUtils,
@@ -1189,7 +1189,7 @@ begin
  GLLightSource2.Diffuse.AsWinColor :=$141414;
  GLLightSource1.Ambient.AsWinColor :=0;
  GLLightSource1.Diffuse.AsWinColor :=$FFFFFF;
- GLLightSource1.Specular.AsWinColor:=$121212;
+ GLLightSource1.Specular.AsWinColor:=$323232;
  FShowScale:=false;
  FShowGrid:=false;
 end;
@@ -1218,6 +1218,7 @@ end;
  debugln('Check texture size');
 {$endif}
 try
+  GLSceneViewer1.Buffer.RenderingContext.Activate;
   MaxTextureSize:=Glsceneviewer1.Buffer.LimitOf[limTextureSize];
   {$ifdef trace_debug}
    debugln('Texture max: '+inttostr(MaxTextureSize));
@@ -1229,6 +1230,7 @@ except
    debugln('Using default value: '+inttostr(MaxTextureSize));
   {$endif}
 end;
+if MaxTextureSize=0 then MaxTextureSize:=1024;
 if MaxTextureSize<1024 then begin
    raise exception.Create('Graphic card not supported! Texture max size:'+inttostr(MaxTextureSize)+'. Must be at least 1024.');
    halt;
@@ -1569,6 +1571,7 @@ begin
     // Popup
     if (ssRight in DownShift)
      then begin
+        if Assigned(onMoonClick) then onMoonClick(Self,Button,DownShift,X,Y,OnMoon,lon,lat);
         GLSceneViewer1.PopupMenu.parent:=self;
         Pt:=GLSceneViewer1.ClientToScreen(point(x,y));
         GLSceneViewer1.PopupMenu.PopUp(Pt.X+1,Pt.Y+1);

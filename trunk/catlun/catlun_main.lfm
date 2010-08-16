@@ -1,7 +1,7 @@
 object f_catlun: Tf_catlun
-  Left = 318
+  Left = 327
   Height = 783
-  Top = 122
+  Top = 110
   Width = 1131
   ActiveControl = PanelMoon
   Caption = 'f_catlun'
@@ -12,7 +12,7 @@ object f_catlun: Tf_catlun
   OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.28.2'
+  LCLVersion = '0.9.29'
   object PanelMoon: TPanel
     Left = 0
     Height = 743
@@ -549,6 +549,7 @@ object f_catlun: Tf_catlun
         PrintSettings.MarginTop = 0.5
         PrintSettings.MarginRight = 0.5
         PrintSettings.MarginBottom = 0.5
+        TabOrder = 0
       end
       object Button7: TButton
         Left = 43

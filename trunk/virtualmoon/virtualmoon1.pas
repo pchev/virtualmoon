@@ -34,7 +34,7 @@ uses
 {$endif}
 {$IFDEF LCLgtk2}
   Gtk2Proc,
-{$endif}
+{$endif}    glscene,
   u_translation_database, u_translation,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
@@ -2581,7 +2581,7 @@ var
   NewHTML: TIpHtml;
 begin
   try
-    s := TStringStream.Create(Value);
+    s := TStringStream.Create(UTF8FileHeader+Value);
     try
       NewHTML := TIpHtml.Create; // Beware: Will be freed automatically by IpHtmlPanel1
       NewHTML.LoadFromStream(s);
@@ -3924,7 +3924,6 @@ begin
     texturefiles.Free;
     if CursorImage1 <> nil then
     begin
-      CursorImage1.FreeImage;
       CursorImage1.Free;
     end;
   except
@@ -5162,7 +5161,7 @@ procedure TForm1.MoonClickEvent(Sender: TObject; Button: TMouseButton;
                      OnMoon: boolean; Lon, Lat: Single);
 begin
 if sender is Tf_moon then SetActiveMoon(Tf_moon(sender));
-if ssLeft in Shift then begin
+if button=mbLeft then begin
   if OnMoon then begin
      identLB(Rad2Deg*Lon,Rad2Deg*Lat);
      Tf_moon(Sender).SetMark(deg2rad*currentl,deg2rad*currentb,capitalize(currentname));

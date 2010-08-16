@@ -1218,6 +1218,7 @@ end;
  debugln('Check texture size');
 {$endif}
 try
+  GLSceneViewer1.Buffer.RenderingContext.Activate;
   MaxTextureSize:=Glsceneviewer1.Buffer.LimitOf[limTextureSize];
   {$ifdef trace_debug}
    debugln('Texture max: '+inttostr(MaxTextureSize));
@@ -1229,6 +1230,7 @@ except
    debugln('Using default value: '+inttostr(MaxTextureSize));
   {$endif}
 end;
+if MaxTextureSize=0 then MaxTextureSize:=1024;
 if MaxTextureSize<1024 then begin
    raise exception.Create('Graphic card not supported! Texture max size:'+inttostr(MaxTextureSize)+'. Must be at least 1024.');
    halt;
@@ -1569,6 +1571,7 @@ begin
     // Popup
     if (ssRight in DownShift)
      then begin
+        if Assigned(onMoonClick) then onMoonClick(Self,Button,DownShift,X,Y,OnMoon,lon,lat);
         GLSceneViewer1.PopupMenu.parent:=self;
         Pt:=GLSceneViewer1.ClientToScreen(point(x,y));
         GLSceneViewer1.PopupMenu.PopUp(Pt.X+1,Pt.Y+1);
