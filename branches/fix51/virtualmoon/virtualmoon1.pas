@@ -90,6 +90,8 @@ type
     LabelAltitude: TLabel;
     Label5: TLabel;
     FullScreen1: TMenuItem;
+    DecreaseFont1: TMenuItem;
+    IncreaseFont1: TMenuItem;
     OptFeatures1: TMenuItem;
     PanelTel: TPanel;
     PanelRot: TPanel;
@@ -302,6 +304,7 @@ type
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
     procedure ComboBox6Change(Sender: TObject);
+    procedure DecreaseFont1Click(Sender: TObject);
     procedure FullScreen1Click(Sender: TObject);
     procedure GridButtonClick(Sender: TObject);
     procedure Desc1HotClick(Sender: TObject);
@@ -311,6 +314,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure IncreaseFont1Click(Sender: TObject);
     procedure OptFeatures1Click(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
@@ -447,6 +451,7 @@ type
     SplitSize: single;
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
     firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseCDC,StartDatlun,StartPhotlun,StartCDC: boolean;
+    Desctxt: string;
     {$ifdef windows}
     savetop,saveleft,savewidth,saveheight: integer;
     {$endif}
@@ -712,6 +717,8 @@ begin
     Selectiondimprimante1.Caption := rst_82;
     selectall1.Caption := rst_84;
     copy1.Caption    := rst_85;
+    DecreaseFont1.Caption:=rsDecreaseFont+' Ctrl+-';
+    IncreaseFont1.Caption:=rsIncreaseFont+' Ctrl++';
     glossaire1.Caption := rst_98;
     button15.Caption := rst_114;
     Notes.Caption    := rst_115;
@@ -1042,7 +1049,7 @@ begin
     if ReadBool(section, 'LabelFontItalic', false) then labf.Style:=labf.Style+[fsItalic];
     moon1.LabelFont:=labf;
     labf.Free;
-
+    Desc1.DefaultFontSize:=ReadInteger(section, 'DescFontSize', Desc1.DefaultFontSize);
     for j := 1 to 10 do
     begin
       eyepiecename[j]     := ReadString(section, 'eyepiecename' + IntToStr(j), eyepiecename[j]);
@@ -1142,6 +1149,7 @@ begin
       WriteInteger(section, 'LabelFontSize', moon1.LabelFont.Size);
       WriteBool(section, 'LabelFontBold', fsBold in moon1.LabelFont.Style);
       WriteBool(section, 'LabelFontItalic', fsItalic in moon1.LabelFont.Style);
+      WriteInteger(section, 'DescFontSize', Desc1.DefaultFontSize);
       for i := 1 to 10 do
       begin
         WriteString(section, 'eyepiecename' + IntToStr(i), eyepiecename[i]);
@@ -2506,7 +2514,6 @@ end;
 function TForm1.SearchName(n: string; center: boolean): boolean;
 var
   l, b: double;
-  txt: string;
   i:   integer;
 begin
   Result := False;
@@ -2540,8 +2547,8 @@ begin
       activemoon.CenterAt(deg2rad*currentl, deg2rad*currentb);
     end;
     //if center then activemoon.CenterMark;
-    GetHTMLDetail(dbm.Results[0], txt);
-    SetDescText(txt);
+    GetHTMLDetail(dbm.Results[0], Desctxt);
+    SetDescText(Desctxt);
     if dbtab.TabVisible then
       GetDBgrid;
     GetNotes(Combobox1.Text);
@@ -2591,6 +2598,28 @@ end;
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   SearchName(SearchText, True);
+end;
+
+procedure TForm1.DecreaseFont1Click(Sender: TObject);
+var i: integer;
+begin
+try
+  i:=Desc1.DefaultFontSize-1;
+  if i>4 then Desc1.DefaultFontSize:=i;
+  SetDescText(Desctxt);
+except
+end;
+end;
+
+procedure TForm1.IncreaseFont1Click(Sender: TObject);
+var i:integer;
+begin
+try
+  i:=Desc1.DefaultFontSize+1;
+  if i<20 then Desc1.DefaultFontSize:=i;
+  SetDescText(Desctxt);
+except
+end;
 end;
 
 procedure TForm1.OptFeatures1Click(Sender: TObject);
@@ -2854,8 +2883,6 @@ end;
 
 
 procedure TForm1.IdentLB(l, b: single);
-var
-  txt: string;
 begin
   if SearchAtPos(l, b) then
   begin
@@ -2867,8 +2894,8 @@ begin
     currentb := b;
     currentname := dbm.Results[0].ByField['NAME'].AsString;
     Combobox1.Text := currentname;
-    GetHTMLDetail(dbm.Results[0], txt);
-    SetDescText(txt);
+    GetHTMLDetail(dbm.Results[0], Desctxt);
+    SetDescText(Desctxt);
     if dbtab.TabVisible then
       GetDBgrid;
     GetNotes(Combobox1.Text);
@@ -3861,9 +3888,14 @@ end;
 procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 //statusbar1.Panels[3].Text :='Up: '+inttostr(key);
+try
 case key of
   16  :  activemoon.KeyEvent(mkUp,key); // Shift
   17  :  activemoon.KeyEvent(mkUp,key); // Ctrl
+  107 :  if Shift=[ssCtrl] then IncreaseFont1Click(Sender);   //ctrl+
+  109 :  if Shift=[ssCtrl] then DecreaseFont1Click(Sender);   //ctrl-
+end;
+except
 end;
 end;
 
