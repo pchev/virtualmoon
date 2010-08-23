@@ -1,0 +1,38 @@
+/* XPM */
+static char *TGLSprite[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 16 1",
+"  c #0402FC",
+". c #848204",
+"X c #04FEFC",
+"o c #FCFE04",
+"O c #C4C2C4",
+"+ c #990B00",
+"@ c #833E00",
+"# c #7C7700",
+"$ c #186968",
+"% c #9F0EF1",
+"& c #803E17",
+"* c #7C7700",
+"= c #FF004A",
+"- c #FF0002",
+"; c #FF002D",
+": c red",
+/* pixels */
+"OOOOOOOOOOOOOOOO",
+"OXXXXXXXXXXXXXXO",
+"OXXooXXXXXXXXXXO",
+"OXooooXXXXXXXXXO",
+"OXooooXXXXXXXX.O",
+"OXXooXXXXXXX...O",
+"OXXXXXXXXX.....O",
+"OXXXXXXXX......O",
+"O       .......O",
+"O      X ......O",
+"O       X X X .O",
+"O            X O",
+"O              O",
+"O              O",
+"O              O",
+"OOOOOOOOOOOOOOOO"
+};
