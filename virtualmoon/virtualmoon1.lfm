@@ -7,7 +7,7 @@ object Form1: TForm1
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
   VertScrollBar.Range = 541
-  ActiveControl = PageControl1
+  ActiveControl = ControlBar1
   Caption = 'Form1'
   ClientHeight = 570
   ClientWidth = 885
@@ -162,7 +162,7 @@ object Form1: TForm1
   OnResize = FormResize
   OnShow = FormShow
   Position = poDefaultPosOnly
-  LCLVersion = '0.9.28.2'
+  LCLVersion = '0.9.29'
   object Memo2: TMemo
     Left = 64
     Height = 41
@@ -182,6 +182,7 @@ object Form1: TForm1
     Width = 100
     FieldOfView = 0
     Visible = False
+    TabOrder = 3
   end
   object ControlBar1: TPanel
     Left = 0
@@ -230,7 +231,7 @@ object Form1: TForm1
         OnClick = Configuration1Click
       end
       object ToolButton8: TToolButton
-        Left = 153
+        Left = 143
         Top = 0
         Caption = 'Aide'
         OnClick = ToolButton8Click
@@ -265,113 +266,113 @@ object Form1: TForm1
       object ToolButton11: TToolButton
         Left = 24
         Top = 0
-        Width = 4
+        Width = 8
         Caption = 'ToolButton11'
         ImageIndex = 0
         Style = tbsSeparator
       end
       object ToolButton12: TToolButton
-        Left = 212
+        Left = 216
         Top = 0
         ImageIndex = 9
         OnClick = ToolButton12Click
       end
       object ToolButton5: TToolButton
-        Left = 28
+        Left = 32
         Top = 0
         Caption = 'Centre'
         ImageIndex = 4
         OnClick = ToolButton5Click
       end
       object ToolButton4: TToolButton
-        Left = 51
+        Left = 55
         Top = 0
         Caption = 'N-S'
         ImageIndex = 3
         OnClick = ToolButton4Click
       end
       object ToolButton6: TToolButton
-        Left = 74
+        Left = 78
         Top = 0
         Caption = 'E-W'
         ImageIndex = 2
         OnClick = ToolButton6Click
       end
       object ToolButton3: TToolButton
-        Left = 97
+        Left = 101
         Top = 0
         Caption = 'Rotation'
         ImageIndex = 8
-        Style = tbsCheck
         OnClick = ToolButton3Click
+        Style = tbsCheck
       end
       object PhaseButton: TToolButton
-        Left = 120
+        Left = 124
         Top = 0
         Caption = 'Phase'
         ImageIndex = 7
-        Style = tbsCheck
         OnClick = PhaseButtonClick
+        Style = tbsCheck
       end
       object LibrationButton: TToolButton
-        Left = 143
+        Left = 147
         Top = 0
         Caption = 'Libration'
         ImageIndex = 11
-        Style = tbsCheck
         OnClick = LibrationButtonClick
+        Style = tbsCheck
       end
       object ToolButton10: TToolButton
-        Left = 235
+        Left = 239
         Top = 0
         Caption = 'Voisinage'
         ImageIndex = 12
         OnClick = ToolButton10Click
       end
       object ToolButton7: TToolButton
-        Left = 258
+        Left = 262
         Top = 0
         Caption = 'Image'
         ImageIndex = 5
         OnClick = ToolButton7Click
       end
       object ButtonDatabase: TToolButton
-        Left = 281
+        Left = 285
         Top = 0
         Caption = 'Database'
         ImageIndex = 6
         OnClick = DataBase1Click
       end
       object NewWindowButton: TToolButton
-        Left = 304
+        Left = 308
         Top = 0
         Caption = 'Window 2'
         ImageIndex = 0
-        Style = tbsCheck
         OnClick = NewWindowButtonClick
+        Style = tbsCheck
       end
       object GridButton: TToolButton
-        Left = 166
+        Left = 170
         Top = 0
         Caption = 'GridButton'
         ImageIndex = 14
-        Style = tbsCheck
         OnClick = GridButtonClick
+        Style = tbsCheck
       end
       object ToolButton13: TToolButton
-        Left = 327
+        Left = 331
         Top = 0
         Caption = 'ToolButton13'
         ImageIndex = 15
         OnClick = FullScreen1Click
       end
       object ToolButton14: TToolButton
-        Left = 189
+        Left = 193
         Top = 0
         Caption = 'ToolButton14'
         ImageIndex = 16
-        Style = tbsCheck
         OnClick = ToolButton14Click
+        Style = tbsCheck
       end
     end
     object TrackBar1: TTrackBar
@@ -465,9 +466,9 @@ object Form1: TForm1
           TabOrder = 3
           object Label7: TLabel
             Left = 0
-            Height = 25
+            Height = 1
             Top = 0
-            Width = 12
+            Width = 1
             Alignment = taCenter
             Font.Height = -11
             Font.Name = 'Times New Roman'
@@ -504,6 +505,7 @@ object Form1: TForm1
         PrintSettings.MarginTop = 0.5
         PrintSettings.MarginRight = 0.5
         PrintSettings.MarginBottom = 0.5
+        TabOrder = 1
         OnHotClick = Desc1HotClick
       end
     end
@@ -1208,7 +1210,7 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 64
+          ClientHeight = 52
           ClientWidth = 234
           Columns = 2
           Items.Strings = (
@@ -1720,7 +1722,7 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 38
+          ClientHeight = 26
           ClientWidth = 222
           Columns = 2
           Items.Strings = (
