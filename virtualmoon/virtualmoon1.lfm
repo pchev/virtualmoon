@@ -2400,6 +2400,14 @@ object Form1: TForm1
       Caption = 'Copy'
       OnClick = Copy1Click
     end
+    object DecreaseFont1: TMenuItem
+      Caption = 'DecreaseFont1'
+      OnClick = DecreaseFont1Click
+    end
+    object IncreaseFont1: TMenuItem
+      Caption = 'IncreaseFont1'
+      OnClick = IncreaseFont1Click
+    end
   end
   object TelescopeTimer: TTimer
     Enabled = False
