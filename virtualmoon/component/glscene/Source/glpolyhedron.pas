@@ -10,8 +10,7 @@ unit GLPolyhedron;
 
 interface
 
-uses Classes, GLScene, VectorGeometry, OpenGL1x,
-     GLRenderContextInfo;
+uses Classes, GLScene, GLTexture, VectorGeometry, OpenGL1x, GLMisc;
 
 type
 

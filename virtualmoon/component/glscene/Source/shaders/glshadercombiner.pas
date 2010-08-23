@@ -29,7 +29,7 @@ uses
   Classes,
 
   //GLScene
-  GLMaterial, GLScene, VectorGeometry, GLStrings, GLRenderContextInfo;
+  GLTexture, GLScene, VectorGeometry, OpenGL1x, GLStrings;
 
 type
   {: MP - multipass, SP-singlepass, AP - anypass (single or multi)
@@ -133,7 +133,7 @@ begin
         FShaderTwo.Apply(rci, Self);
       end;
   else
-    Assert(False, glsErrorEx + glsUnknownType);
+    Assert(False, glsUnknownType);
   end;
 end;
 
@@ -183,7 +183,7 @@ begin
   else
     begin
       Result := False;
-      Assert(False, glsErrorEx + glsUnknownType);
+      Assert(False, glsUnknownType);
     end;
   end;
   Inc(FCurrentPass);

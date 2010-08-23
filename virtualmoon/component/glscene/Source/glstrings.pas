@@ -5,8 +5,23 @@
 
 	String constants that are used in many GLScene units<p>
 
+      $Log: glstrings.pas,v $
+      Revision 1.1  2006/01/10 20:50:46  z0m3ie
+      recheckin to make shure that all is lowercase
+
+      Revision 1.3  2006/01/09 20:45:50  z0m3ie
+      *** empty log message ***
+
+      Revision 1.2  2005/12/04 16:53:06  z0m3ie
+      renamed everything to lowercase to get better codetools support and avoid unit finding bugs
+
+      Revision 1.1  2005/12/01 21:24:11  z0m3ie
+      *** empty log message ***
+
+      Revision 1.2  2005/08/03 00:41:39  z0m3ie
+      - added automatical generated History from CVS
+
 	<b>History :</b><font size=-1><ul>
-      22/01/10 - Yar - Added glsFailedApplyWrap
       23/02/07 - DaStr - Added glsDot, glsUnsupportedType, glsUncompatibleTypes,
                          glsUnknownType, glsShaderNeedsAtLeastOneLightSource(Ex),
                          glsCadencerNotDefined(Ex), glsSceneViewerNotDefined
@@ -19,12 +34,13 @@ unit GLStrings;
 
 interface
 
-resourcestring
+const
   // General
   glsDot = '.';
   glsError   = 'Error!';
   glsErrorEx = 'Error: ';
 
+resourcestring
   // SceneViewer
   glsNoRenderingContext = 'Could not create a rendering context';
   glsWrongVersion       = 'Need at least OpenGL version 1.1';
@@ -33,15 +49,15 @@ resourcestring
   glsWrongBitmapCanvas  = 'Couldn''t create a rendering context for the given bitmap';
   glsWrongPrinter       = 'Couldn''t render to printer';
   glsAlreadyRendering   = 'Already rendering';
-  glsSceneViewerNotDefined = 'SceneViewer not defined!';
+  glsSceneViewerNotDefined = {glsErrorEx +} 'SceneViewer not defined!';
 
   // GLCadencer
-  glsCadencerNotDefined   = 'Cadencer not defined!';
-  glsCadencerNotDefinedEx = 'Cadencer not defined for  the ''%s'' component';
+  glsCadencerNotDefined   = {glsErrorEx +} 'Cadencer not defined!';
+  glsCadencerNotDefinedEx = {glsErrorEx +} 'Cadencer not defined for  the ''%s'' component';
 
   // Shaders
-  glsShaderNeedsAtLeastOneLightSource   = 'This shader needs at least one LightSource!';
-  glsShaderNeedsAtLeastOneLightSourceEx = 'Shader ''%s'' needs at least one LightSource!';
+  glsShaderNeedsAtLeastOneLightSource   = {glsErrorEx +} 'This shader needs at least one LightSource!';
+  glsShaderNeedsAtLeastOneLightSourceEx = {glsErrorEx +} 'Shader ''%s'' needs at least one LightSource!';
 
   // GLTree
   glsSceneRoot  = 'Scene root';
@@ -54,9 +70,9 @@ resourcestring
   glsNoNewTexture = 'Could not get new texture name';
 
   // GLMaterials
-  glsMatLibNotDefined = 'Material Library not defined!';
-  glsMaterialNotFoundInMatlib = 'Material not found in current Material Library!';
-  glsMaterialNotFoundInMatlibEx = 'Material "%s" not found in current Material Library!';
+  glsMatLibNotDefined = {glsErrorEx +} 'Material Library not defined!';
+  glsMaterialNotFoundInMatlib = {glsErrorEx +} 'Material not found in current Material Library!';
+  glsMaterialNotFoundInMatlibEx = {glsErrorEx +} 'Material "%s" not found in current Material Library!';
 
   // GLObjects
   glsSphereTopBottom = 'The top angle must be higher than the bottom angle';
@@ -72,9 +88,9 @@ resourcestring
   glsUnknownExtension = 'Unknown file extension (%s), maybe you forgot to add the support '
                        +'unit to your uses? (%s?)' ;
 
-  glsIncompatibleTypes = 'Incompatible types!';
-  glsUnknownType       = 'Unknown type!';
-  glsUnsupportedType   = 'Unsupported type!';
+  glsUncompatibleTypes = {glsErrorEx +} 'uncompatible types!';
+  glsUnknownType       = {glsErrorEx +} 'unknown type!';
+  glsUnsupportedType   = {glsErrorEx +} 'unsupported type!';
 
   // object categories
   glsOCBasicGeometry = 'Basic geometry';
@@ -88,7 +104,6 @@ resourcestring
   glsOCHUDObjects = 'HUD objects';
   glsOCGuiObjects = 'GUI objects';
   glsOCProxyObjects = 'Proxy objects';
-  glsFailedApplyWrap = 'Unsupported texture wrapping mode.';
 
 implementation
 

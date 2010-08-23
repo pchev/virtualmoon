@@ -9,7 +9,6 @@
     to enable support for OBJ & OBJF at run-time.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>20/05/08 - mrqzzz - Added RegisterClass(TOBJFGVertexNormalTexIndexList)
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
       <li>30/03/07 - DaStr - Added $I GLScene.inc
@@ -35,8 +34,8 @@
                            renamed TMBAGLOBJVectorFile to TGLOBJVectorFile
    </ul><p>
 
-   (c) 2000 Marian Aldenhï¿½vel<br>
-       Hainstraï¿½e 8<br>
+   (c) 2000 Marian Aldenhövel<br>
+       Hainstraße 8<br>
        53121 Bonn<br>
        info@MBA-Software.de<p>
 
@@ -69,8 +68,8 @@ unit GLFileObj;
 interface
 
 uses GLCrossPlatform, Classes, SysUtils, GLScene, ApplicationFileIO,
-     VectorGeometry, GLVectorFileObjects, VectorLists, GLTexture,
-     GLColor, GLRenderContextInfo, GLMaterial;
+     VectorGeometry, GLMisc, GLVectorFileObjects, VectorLists, GLTexture,
+     GLColor;
 
 const
    BufSize = 10240; { Load input data in chunks of BufSize Bytes. }
@@ -84,8 +83,7 @@ type
    TGLOBJVectorFile = class (TVectorFile)
       private
          FSourceStream : TStream;     { Load from this stream }
-         FBuffer: AnsiString;         { Buffer }
-         FLine : String;              { current line }
+         FBuffer, FLine : String;     { Buffer and current line }
          FLineNo : Integer;           { current Line number - for error messages }
          FEof : Boolean;              { Stream done? }
          FBufPos : Integer;           { Position in the buffer }
@@ -515,8 +513,7 @@ begin
                SetLength(FLine, Length(FLine)+LineLen);
             if FBuffer[FBufPos]=#9 then
                FLine[j]:=#32
-            else
-              FLine[j]:= Char(FBuffer[FBufPos]);
+            else FLine[j]:=FBuffer[FBufPos];
             Inc(FBufPos);
             Inc(j);
          end;
@@ -692,10 +689,11 @@ var
    end;
 
    procedure AddFaceVertex(faceVertices : String);
+   var
+      s : String;
+      vIdx, tIdx, nIdx : Integer;
 
       function GetIndex(Count : Integer) : Integer;
-      var
-        s : String;
       begin
          s:=NextToken(FaceVertices, '/');
          Result:=StrToIntDef(s, 0);
@@ -710,8 +708,6 @@ var
          end;
       end;
 
-   var
-      vIdx, tIdx, nIdx : Integer;
    begin
       vIdx:=GetIndex(mesh.Vertices.Count);
       tIdx:=GetIndex(mesh.TexCoords.Count);
@@ -791,7 +787,7 @@ var
                      with libMat.Material.FrontProperties do begin
                         Ambient.Color:=objMtl.MaterialVectorProperty(matName, 'Ka', clrGray20);
                         Diffuse.Color:=objMtl.MaterialVectorProperty(matName, 'Kd', clrGray80);
-                        Diffuse.Alpha:=GLUtils.StrToFloatDef(objMtl.MaterialStringProperty(matName, 'd'), 1);
+                        Diffuse.Alpha:=StrToFloatDef(objMtl.MaterialStringProperty(matName, 'd'), 1);
                         if Diffuse.Alpha<1 then
                            libMat.Material.BlendingMode:=bmTransparency;
                         case StrToIntDef(objMtl.MaterialStringProperty(matName, 'illum'), 1) of
@@ -937,13 +933,13 @@ end;
 
 procedure TGLOBJVectorFile.SaveToStream(aStream:TStream);
 var OldDecimalSeparator:char;
-
-  procedure Write(const s:AnsiString);
+    
+  procedure Write(s:string);
   begin
     if s<>'' then aStream.Write(s[1],Length(s));
   end;
 
-  procedure WriteLn(const s:String);
+  procedure WriteLn(s:string);
   begin
     Write(s);
     Write(#13#10);
@@ -1192,7 +1188,7 @@ begin
          Result:=NullHmgVector;
          for i:=0 to 3 do
             if sl.Count>i then
-               Result[i]:=GLUtils.StrToFloatDef(sl[i], 0)
+               Result[i]:=GLUtils.StrToFloatDef(sl[i])
             else Break;
       end else Result:=defaultValue;
    finally

@@ -3,7 +3,7 @@
 //
 {: GLSceneEdit<p>
 
-   Scene Editor, for adding + removing scene objects within the Delphi IDE.<p>
+   Handles all the color and texture stuff.<p>
 
 	<b>History : </b><font size=-1><ul>
   <li>03/07/04 - LR - Make change for Linux
@@ -56,6 +56,7 @@ const
   BEHAVIOURS_SELECTED=1;
   EFFECTS_SELECTED=2;
 type
+
   TSetSubItemsEvent = procedure(Sender:TObject) of object;
 
   { TGLSceneEditorForm }
@@ -167,7 +168,7 @@ type
     FSelectedItems:Integer; //
 
     FScene: TGLScene;
-    FObjectNode: TTreeNode;
+    FObjectNode, FCameraNode: TTreeNode;
     FCurrentDesigner: TGLDesigner;
     FLastMouseDownPos : TPoint;
 
@@ -239,9 +240,16 @@ implementation
 
 uses
   {$IFDEF FPC}
-  glsceneregister, glstrings, info, opengl1x, clipbrd, GLViewer;
+  gllazarusregister, glstrings, info, opengl1x, clipbrd, GLViewer;
   {$ENDIF}
-
+(*
+{$IFDEF MSWINDOWS}
+  gllazarusregister, glstrings, info, opengl1x, clipbrd, gllclviewer;
+{$ENDIF}
+{$IFDEF UNIX}
+  glsceneregister, glstrings, info, opengl1x, qclipbrd, gllinuxviewer; 
+{$ENDIF}
+*)
 
 resourcestring
    cGLSceneEditor = 'GLScene Editor';
@@ -390,6 +398,12 @@ begin
          ImageIndex:=ObjectManager.SceneRootIndex;
          SelectedIndex:=ImageIndex;
       end;
+      // next the root for all cameras
+      FCameraNode:=AddChild(CurrentNode, glsCameraRoot);
+      with FCameraNode do begin
+         ImageIndex:=ObjectManager.CameraRootIndex;
+         SelectedIndex:=ObjectManager.CameraRootIndex;
+      end;
       // and the root for all objects
       FObjectNode:=AddChild(CurrentNode, glsObjectRoot);
       with FObjectNode do begin
@@ -496,6 +510,13 @@ begin
   Tree.Items.BeginUpdate;
   with FScene do
   begin
+    if Assigned(Cameras) then
+    begin
+      FCameraNode.Data:=Cameras;
+      for I:=0 to Cameras.Count - 1 do AddNodes(FCameraNode, Cameras[I]);
+      FCameraNode.Expand(False);
+    end;
+
     if Assigned(Objects) then
 	 begin
       FObjectNode.Data:=Objects;
@@ -514,6 +535,8 @@ begin
    // delete all subtrees (empty tree)
    Tree.Items.BeginUpdate;
    try
+      FCameraNode.DeleteChildren;
+      FCameraNode.Data:=nil;
       with FObjectNode do begin
          DeleteChildren;
 			Data:=nil;
@@ -535,14 +558,12 @@ var
   I: Integer;
   CurrentNode: TTreeNode;
 
-  begin
-    Result := Tree.Items.AddChildObject(ANode, AObject.Name, AObject);
-    Result.ImageIndex := ObjectManager.GetImageIndex(TGLSceneObjectClass(AObject.ClassType));
-    Result.SelectedIndex := Result.ImageIndex;
-    CurrentNode := Result;
-    for I := 0 to AObject.Count - 1 do
-      Result := AddNodes(CurrentNode, AObject[I]);
-
+begin
+  Result:=Tree.Items.AddChildObject(ANode, AObject.Name, AObject);
+  Result.ImageIndex:=ObjectManager.GetImageIndex(TGLSceneObjectClass(AObject.ClassType));
+  Result.SelectedIndex:=Result.ImageIndex;
+  CurrentNode:=Result;
+  for I:=0 to AObject.Count - 1 do Result:=AddNodes(CurrentNode, AObject[I]);
 end;
 
 procedure TGLSceneEditorForm.SetObjectsSubItems(parent : TMenuItem);
@@ -631,10 +652,38 @@ begin
 end;
 
 
+(*procedure TComponentPalette.ComponentBtnDblClick(Sender: TObject);
+var
+  TypeClass: TComponentClass;
+  ParentCI: TIComponentInterface;
+  X, Y: integer;
+  CompIntf: TIComponentInterface;
+begin
+  //debugln('TComponentPalette.ComponentBtnDblClick ',TComponent(Sender).Name);
+  if SelectButton(TComponent(Sender)) and (FSelected<>nil) then begin
+    if FormEditingHook<>nil then begin
+      TypeClass:=FSelected.ComponentClass;
+      ParentCI:=FormEditingHook.GetDefaultComponentParent(TypeClass);
+      if ParentCI=nil then exit;
+      if not FormEditingHook.GetDefaultComponentPosition(TypeClass,ParentCI,X,Y)
+      then exit;
+      //debugln('TComponentPalette.ComponentBtnDblClick ',dbgsName(Sender),' ',dbgs(X),',',dbgs(Y));
+      CompIntf:=FormEditingHook.CreateComponent(ParentCI,TypeClass,'',X,Y,0,0);
+      if CompIntf<>nil then begin
+        GlobalDesignHook.PersistentAdded(CompIntf.Component,true);
+      end;
+    end;
+  end;
+  Selected:=nil;
+end;
+*)
+
 procedure TGLSceneEditorForm.AddObjectClick(Sender: TObject);
 var
    AParent, AObject: TGLBaseSceneObject;
    Node: TTreeNode;
+  ParentCI: TIComponentInterface;
+  CompIntf: TIComponentInterface;
   TypeClass: TComponentClass;
   X, Y: integer;
 begin
@@ -907,13 +956,13 @@ var
 begin
    if Assigned(FCurrentDesigner) then begin
       {$ifndef FPC}
-      AObject:=TGLBaseSceneObject(FCurrentDesigner.CreateComponent(TGLCamera, FScene.Objects, 0, 0, 0, 0));
+      AObject:=TGLBaseSceneObject(FCurrentDesigner.CreateComponent(TGLCamera, FScene.Cameras, 0, 0, 0, 0));
       {$else}
-      AObject:=TGLBaseSceneObject(TGLCamera.Create(FCurrentDesigner.Form ));
+      AObject:=TGLBaseSceneObject(TGLCamera.Create(FCurrentDesigner.Form));
       AObject.Name:=FCurrentDesigner.CreateUniqueComponentName(AObject.ClassName);
       {$endif}
-      FScene.Objects.AddChild(AObject);
-      Node:=AddNodes(FObjectNode, AObject);
+      FScene.Cameras.AddChild(AObject);
+      Node:=AddNodes(FCameraNode, AObject);
       Node.Selected:=True;
       FCurrentDesigner.PropertyEditorHook.PersistentAdded(AObject,True);
       FCurrentDesigner.Modified;
@@ -1230,7 +1279,8 @@ end;
 {$IFDEF GLS_DELPHI_6_UP}
 function TGLSceneEditorForm.CanPaste(obj, destination : TGLBaseSceneObject) : Boolean;
 begin
-   Result:= Assigned(obj) and Assigned(destination);
+   Result:=((obj is TGLCamera) or (destination<>FScene.Cameras))
+           and (obj is TGLBaseSceneObject);
 end;
 {$ENDIF}
 
@@ -1498,7 +1548,7 @@ begin
          else FCurrentDesigner.SelectOnlyThisComponent(FScene);
          {$endif}
          // enablings
-         ACAddCamera.Enabled:=((selNode=FObjectNode) or selNode.HasAsParent(FObjectNode));
+         ACAddCamera.Enabled:=(selNode=FCameraNode);
          ACAddObject.Enabled:=((selNode=FObjectNode) or selNode.HasAsParent(FObjectNode));
          ACAddBehaviour.Enabled:=(selNode.HasAsParent(FObjectNode));
          ACAddEffect.Enabled:=(selNode.HasAsParent(FObjectNode));

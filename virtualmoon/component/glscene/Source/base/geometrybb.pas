@@ -33,7 +33,7 @@ interface
 {$i GLScene.inc}
 
 uses
-  VectorGeometry;
+  SysUtils, VectorGeometry;
 
 type
 
@@ -216,7 +216,7 @@ implementation
 //--------------------------------------------------------------
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-uses SysUtils;
+
 //------------------------------------------------------------------------------
 //----------------- BB functions -------------------------------------------
 //------------------------------------------------------------------------------
@@ -810,7 +810,7 @@ end;
 //
 function TriangleIntersectAABB(const aabb: TAABB;
   const v1, v2, v3: TAffineVector): boolean;
-// Original source code by Tomas Akenine-Mï¿½ller
+// Original source code by Tomas Akenine-Möller
 // Based on the paper "Fast 3D Triangle-Box Overlap Testing"
 // http://www.cs.lth.se/home/Tomas_Akenine_Moller/pubs/tribox.pdf
 // http://jgt.akpeters.com/papers/AkenineMoller01/ (code)

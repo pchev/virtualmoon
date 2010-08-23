@@ -30,8 +30,8 @@ unit GLExplosionFx;
 interface
 
 uses
-  OpenGL1x, VectorGeometry, GLScene, GLVectorFileObjects,
-  VectorLists, XCollection, GLCoordinates, GLRenderContextInfo;
+  OpenGL1x, VectorGeometry, GLMisc, GLScene, GLVectorFileObjects,
+  GLTexture, VectorLists, XCollection;
 
 type
   TGLBExplosionFX = class(TGLObjectPreEffect)
@@ -64,7 +64,7 @@ type
     property Step: integer read FStep;
     constructor Create(aOwner : TXCollection); override;
     destructor Destroy; override;
-    procedure Render(var rci : TRenderContextInfo); override;
+    procedure Render(sceneBuffer : TGLSceneBuffer; var rci : TRenderContextInfo); override;
     { resets the behaviour, so the information can be re-cached and
       the mesh can be exploded again }
     procedure Reset;
@@ -233,7 +233,7 @@ end;
 
 // Render
 //
-procedure TGLBExplosionFX.Render(var rci : TRenderContextInfo);
+procedure TGLBExplosionFX.Render(sceneBuffer : TGLSceneBuffer; var rci : TRenderContextInfo);
 var
   Face: integer;
   dir, p1, p2, p3: TAffineVector;

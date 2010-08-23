@@ -105,6 +105,7 @@ type
     property Top;
     property Visible;
     property Width;
+    property OnExit;
     property OnChange;
     property OnClick;
     property OnDblClick;
@@ -143,7 +144,7 @@ type
     procedure SetAsByte(NewValue: byte);
     function GetAsByte: byte;
     procedure FormatText;
-    procedure CMonExit(Sender: TObject);
+    procedure CMExit(Sender: TObject);
   protected
     { Protected declarations }
     procedure KeyPress(var Key: Char); override;
@@ -191,7 +192,7 @@ type
     procedure SetAsReal(NewValue: real);
     function GetAsReal: real;
     procedure FormatText;
-    procedure CMonExit(Sender: TObject);
+    procedure CMExit(Sender: TObject);
   protected
     { Protected declarations }
     procedure KeyPress(var Key: Char); override;
@@ -239,7 +240,7 @@ begin
   FValue := 0;
   Text := '0';
   FOnExit:=nil;
-  Inherited onExit:=@CMonExit;
+  Inherited onExit:=@CMExit;
 end;
 
 { Set the unpublished Text property to its string
@@ -399,7 +400,7 @@ end;
 { Check the Value property is in range before allowing
   user to exit the edit.  }
 //procedure TLongEdit.CMExit(var Message: TCMExit);
-procedure TLongEdit.CMonExit(Sender: TObject);
+procedure TLongEdit.CMExit(Sender: TObject);
 var
   L: LongInt;
 begin
@@ -439,12 +440,12 @@ begin
   FMaxValue := 0;
   Text := '0.0';
   FOnExit:=nil;
-  Inherited onExit:=@CMonExit;
+  Inherited onExit:=@CMExit;
 end;
 
 { Check the Value property is in range before allowing
   user to exit the edit.  }
-procedure TFloatEdit.CMonExit(Sender: TObject);
+procedure TFloatEdit.CMExit(Sender: TObject);
 var
   L: double;
 begin

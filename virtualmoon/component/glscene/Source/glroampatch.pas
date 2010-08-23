@@ -6,7 +6,6 @@
    Class for managing a ROAM (square) patch.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>19/10/06 - LC - Added code to gracefully handle the case when MaxCLODTriangles is reached.
                           It will now increase the buffer instead of not splitting. Bugtracker ID=1574111
@@ -676,7 +675,7 @@ var
    n, nb, nvi : Integer;
 begin
    // CLOD tiles are rendered via ROAM
-   if (FOcclusionSkip>0) and FOcclusionQuery.IsSupported then begin
+   if (FOcclusionSkip>0) and GL_NV_occlusion_query then begin
       if FOcclusionQuery.Handle=0 then begin
          FOcclusionQuery.AllocateHandle;
          FOcclusionCounter:=-(ID mod (FOcclusionSkip));
@@ -686,7 +685,7 @@ begin
       if occlusionPassed then begin
          if FOcclusionCounter<=0 then
             Inc(FOcclusionCounter, FOcclusionSkip);
-         FOcclusionQuery.BeginQuery;
+         FOcclusionQuery.BeginOcclusionQuery;
       end;
    end else occlusionPassed:=True;
    FLastOcclusionTestPassed:=occlusionPassed;
@@ -703,7 +702,7 @@ begin
 
       if FOcclusionQuery.Active then begin
          FlushAccum(vertices, vertexIndices, texCoords);
-         FOcclusionQuery.EndQuery;
+         FOcclusionQuery.EndOcclusionQuery;
       end else if vertexIndices.Count>autoFlushVertexCount then
          FlushAccum(vertices, vertexIndices, texCoords);
    end else FTriangleCount:=0;

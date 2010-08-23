@@ -6,9 +6,6 @@
   OpenGL windows management classes and structures<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
-      <li>17/10/08 - DanB - reversed order of vertices in TGLCustomControl.InternalRender,
-                            which fixes the GUIPaint demo
       <li>27/04/08 - DaStr - Fixed bug in TGLButton.InternalRender()
                              (thanks Nicoara Adrian) (BugtrackerID = 1952711)
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
@@ -46,9 +43,9 @@ interface
 {$I GLScene.inc}
 
 uses
-   SysUtils, Classes, GLScene, GLHUDObjects,
-   GLMaterial, OpenGL1x, GLBitmapFont, GLWindowsFont, VectorGeometry,
-   GLGui, GLCrossPlatform, GLColor, GLRenderContextInfo, BaseClasses;
+   SysUtils, Classes, GLMisc, GLScene, GLHUDObjects,
+   GLTexture, OpenGL1x, GLBitmapFont, GLWindowsFont, VectorGeometry,
+   GLGui, GLCrossPlatform, GLColor;
 
 type
 
@@ -686,7 +683,7 @@ Begin
    // Prepare matrices
    glMatrixMode(GL_MODELVIEW);
    glPushMatrix;
-   glLoadMatrixf(@TGLSceneBuffer(rci.buffer).BaseProjectionMatrix);
+   glLoadMatrixf(@Scene.CurrentBuffer.BaseProjectionMatrix);
    if rci.renderDPI=96 then
       f:=1
    else f:=rci.renderDPI/96;
@@ -698,16 +695,16 @@ Begin
    glMatrixMode(GL_PROJECTION);
    glPushMatrix;
    glLoadIdentity;
-   rci.GLStates.PushAttrib([sttEnable]);
-   rci.GLStates.Disable(stDepthTest);
-   rci.GLStates.DepthWriteMask := False;
+   glPushAttrib(GL_ENABLE_BIT);
+   glDisable(GL_DEPTH_TEST);
+   glDepthMask(False);
 End;
 
 Procedure TGLBaseComponent.RenderFooter(var rci : TRenderContextInfo; renderSelf, renderChildren : Boolean);
 
 Begin
-   rci.GLStates.DepthWriteMask := True;
-   rci.GLStates.PopAttrib;
+   glDepthMask(True);
+   glPopAttrib;
    glPopMatrix;
    glMatrixMode(GL_MODELVIEW);
    glPopMatrix;
@@ -1725,19 +1722,17 @@ Begin
   GuiLayout.Material.UnApply(rci);
   Material.Apply(rci);
   glBegin(GL_QUADS);
-
-    glTexCoord2f( FXTexCoord, -FYTexCoord);
-    glVertex2f(X2,Y2);
-
-    glTexCoord2f( FXTexCoord, 0);
-    glVertex2f(X2,Y1);
-
     glTexCoord2f( 0, 0);
-    glVertex2f(X1,Y1);
-
-    glTexCoord2f( 0, -FYTexCoord);
     glVertex2f(X1,Y2);
 
+    glTexCoord2f( 0, -FYTexCoord);
+    glVertex2f(X1,Y1);
+
+    glTexCoord2f( FXTexCoord, -FYTexCoord);
+    glVertex2f(X2,Y1);
+
+    glTexCoord2f( FXTexCoord, 0);
+    glVertex2f(X2,Y2);
   glEnd();
 
   Material.UnApply(rci);

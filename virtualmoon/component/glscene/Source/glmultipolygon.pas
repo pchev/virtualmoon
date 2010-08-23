@@ -6,8 +6,6 @@
    Object with support for complex polygons.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>22/11/09 - DaStr - Improved Unix compatibility
-                             (thanks Predator) (BugtrackerID = 2893580)  
       <li>31/07/07 - DanB - Implemented AxisAlignedDimensionsUnscaled for
                             TMultiPolygonBase
       <li>30/03/07 - DaStr - Added $I GLScene.inc
@@ -49,8 +47,7 @@ interface
 
 uses
    Classes, OpenGL1x, Spline, VectorGeometry, VectorLists, PersistentClasses,
-   GLScene, GLObjects, GLGeomObjects, GLNodes, BaseClasses,
-   GLCoordinates, GLRenderContextInfo;
+   GLScene, GLObjects, GLMisc, GLTexture, GLGeomObjects;
 
 type
 
@@ -542,30 +539,30 @@ end;
 var
    vVertexPool : TVectorPool;
 
-procedure tessError(errno : TGLEnum); {$IFDEF Win32} stdcall; {$ENDIF} {$ifdef unix} cdecl; {$ENDIF}
+procedure tessError(errno : TGLEnum); stdcall;
 begin
    Assert(False, IntToStr(errno)+' : '+gluErrorString(errno));
 end;
 
-procedure tessIssueVertex(vertexData : Pointer); {$IFDEF Win32} stdcall; {$ENDIF} {$ifdef unix} cdecl; {$ENDIF}
+procedure tessIssueVertex(vertexData : Pointer); stdcall;
 begin
    xglTexCoord2fv(vertexData);
    glVertex3fv(vertexData);
 end;
 
 procedure tessCombine(coords : PDoubleVector; vertex_data : Pointer;
-                      weight : PGLFloat; var outData : Pointer); {$IFDEF Win32} stdcall; {$ENDIF} {$ifdef unix} cdecl; {$ENDIF}
+                      weight : PGLFloat; var outData : Pointer); stdcall;
 begin
    vVertexPool.GetNewVector(outData);
    SetVector(PAffineVector(outData)^, coords^[0], coords^[1], coords^[2]);
 end;
 
-procedure tessBeginList(typ : TGLEnum; polygonData : Pointer); {$IFDEF Win32} stdcall; {$ENDIF} {$ifdef unix} cdecl; {$ENDIF}
+procedure tessBeginList(typ : TGLEnum; polygonData : Pointer); stdcall;
 begin
    TPolygonList(polygonData).Add;
 end;
 
-procedure tessIssueVertexList(vertexData : Pointer; polygonData : Pointer); {$IFDEF Win32} stdcall; {$ENDIF} {$ifdef unix} cdecl; {$ENDIF}
+procedure tessIssueVertexList(vertexData : Pointer; polygonData : Pointer); stdcall;
 begin
    TPolygonList(polygonData).AktList.Add(PAffineVector(vertexData)^);
 end;

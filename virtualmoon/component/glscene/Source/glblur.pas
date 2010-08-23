@@ -6,7 +6,6 @@
 	Applies a blur effect over the viewport.<p>
 
 	<b>History : </b><font size=-1><ul>
-        <li>05/03/10 - DanB - More state added to TGLStateCache
         <li>30/01/08 - Mrqzzz - Several changes to GLBlur. Added Advenced Blur. Looks good now :)
         <li>06/06/07 - DaStr  - Added GLColor to uses (BugtrackerID = 1732211)
         <li>06/04/07 - DaStr  - Fixed TGLMotionBlur.InitializeObject -
@@ -35,9 +34,8 @@ uses
   Classes, SysUtils,Graphics,
 
   // GLScene
-  GLScene, VectorGeometry, GLObjects, GLBitmapFont, GLTexture, GLMaterial,
-  GLHudObjects, GLStrings, GLColor, GLGraphics, OpenGL1x, BaseClasses,
-  GLRenderContextInfo;
+  GLScene, VectorGeometry, GLMisc, GLObjects, GLBitmapFont, GLTexture,
+  GLHudObjects, GLStrings, GLColor,GLGraphics,OpenGL1x;
 
 type
 
@@ -462,7 +460,7 @@ begin
       // Prepare matrices
       glMatrixMode(GL_MODELVIEW);
       glPushMatrix;
-      glLoadMatrixf(@TGLSceneBuffer(ARci.buffer).BaseProjectionMatrix);
+      glLoadMatrixf(@Scene.CurrentBuffer.BaseProjectionMatrix);
       if ARci.renderDPI=96 then
          f:=1
       else f:=ARci.renderDPI/96;
@@ -476,9 +474,9 @@ begin
       glMatrixMode(GL_PROJECTION);
       glPushMatrix;
       glLoadIdentity;
-      ARci.GLStates.PushAttrib([sttEnable]);
-      ARci.GLStates.Disable(stDepthTest);
-      ARci.GLStates.DepthWriteMask := False;
+      glPushAttrib(GL_ENABLE_BIT);
+      glDisable(GL_DEPTH_TEST);
+      glDepthMask(False);
 
 
      // calculate offsets in order to keep the quad a square centered in the view
@@ -520,8 +518,8 @@ begin
          xglTexCoord2f(0, YTiles);      glVertex2f( vx,  vy);
       glEnd;
       // restore state
-      ARci.GLStates.DepthWriteMask := True;
-      ARci.GLstates.PopAttrib;
+      glDepthMask(True);
+      glPopAttrib;
       glPopMatrix;
       glMatrixMode(GL_MODELVIEW);
       glPopMatrix;
@@ -776,8 +774,8 @@ begin
       glMatrixMode(GL_MODELVIEW);
       glPushMatrix;
       glLoadIdentity;
-      ARci.GLStates.Disable(stDepthTest);
-      ARci.GLStates.DepthWriteMask := False;
+      glDisable(GL_DEPTH_TEST);
+      glDepthMask( FALSE );
       glBegin( GL_QUADS );
         glTexCoord2f( 0.0, ARci.viewPortSize.cy );                  glVertex2f( 0, 0 );
         glTexCoord2f( 0.0, 0.0);                                    glVertex2f( 0, ARci.viewPortSize.cy );
@@ -785,8 +783,8 @@ begin
         glTexCoord2f( ARci.viewPortSize.cx, ARci.viewPortSize.cy ); glVertex2f( ARci.viewPortSize.cx, 0 );
       glEnd;
       glPopMatrix;
-      ARci.GLStates.DepthWriteMask := True;
-      ARci.GLStates.Enable(stDepthTest);
+      glDepthMask( TRUE );
+      glEnable(GL_DEPTH_TEST);
       glMatrixMode( GL_PROJECTION );
     glPopMatrix;
     glMatrixMode( GL_MODELVIEW );

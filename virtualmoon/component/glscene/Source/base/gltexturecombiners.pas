@@ -62,7 +62,7 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses Classes, OpenGL1x;
+uses Classes, GLContext, OpenGL1x;
 
 // TCAssertCheck
 //

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <CONFIG>
-  <Package Version="3">
+  <Package Version="2">
     <Name Value="gls_winonly"/>
     <CompilerOptions>
-      <Version Value="8"/>
+      <Version Value="5"/>
       <SearchPaths>
         <IncludeFiles Value="../Source/"/>
         <OtherUnitFiles Value="../Source/;../Source/platform/;../Source/soundapis/;../Source/base/"/>
@@ -11,9 +11,12 @@
       </SearchPaths>
       <Parsing>
         <SyntaxOptions>
-          <SyntaxMode Value="Delphi"/>
+          <DelphiCompat Value="True"/>
         </SyntaxOptions>
       </Parsing>
+      <CodeGeneration>
+        <Generate Value="Faster"/>
+      </CodeGeneration>
       <Other>
         <CompilerPath Value="$(CompPath)"/>
       </Other>
@@ -32,10 +35,12 @@
       </Item2>
       <Item3>
         <Filename Value="../Source/glsmwaveout.pas"/>
+        <HasRegisterProc Value="True"/>
         <UnitName Value="GLSMWaveOut"/>
       </Item3>
       <Item4>
         <Filename Value="../Source/base/screensaver.pas"/>
+        <HasRegisterProc Value="True"/>
         <UnitName Value="ScreenSaver"/>
       </Item4>
     </Files>

@@ -10,7 +10,6 @@
      <li> 3. Doesn't Works with visible backfaces.<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>06/06/07 - DaStr - Added $I GLScene.inc
                              Added GLColor to uses (BugtrackerID = 1732211)
       <li>25/02/07 - DaStr - Moved registration to GLSceneRegister.pas
@@ -29,7 +28,7 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, GLMaterial, GLCrossPlatform, GLColor, GLRenderContextInfo;
+  Classes, GLTexture, GLCrossPlatform, GLColor;
 
 type
 
@@ -117,35 +116,35 @@ begin
    case FPassCount of
       1 : begin
          // Now set up to draw the outline in the second pass
-         rci.GLStates.PushAttrib([sttEnable, sttCurrent, sttPolygon, sttHint,
-                                  sttDepthBuffer, sttLine]);
+         glPushAttrib(GL_ENABLE_BIT or GL_CURRENT_BIT or GL_POLYGON_BIT or
+                      GL_HINT_BIT or GL_DEPTH_BUFFER_BIT or GL_LINE_BIT);
 
-         rci.GLStates.Disable(stLighting);
+         glDisable(GL_LIGHTING);
 
          if FOutlineSmooth then begin
-            rci.GLStates.LineSmoothHint := hintNicest;
-            rci.GLStates.Enable(stLineSmooth);
+            glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+            glEnable(GL_LINE_SMOOTH);
          end else begin
-            rci.GLStates.Disable(stLineSmooth);
+            glDisable(GL_LINE_SMOOTH);
          end;
 
          if FOutlineSmooth or (FlineColor.Alpha<1) then begin
-            rci.GLStates.Enable(stBlend);
-            rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOneMinusSrcAlpha);
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
          end else begin
-            rci.GLStates.Disable(stBlend);
+            glDisable(GL_BLEND);
          end;
 
          glColor4fv(FlineColor.AsAddress);
 
-         rci.GLStates.LineWidth := FOutlineWidth;
-         rci.GLStates.PolygonMode := pmLines;
-         rci.GLStates.CullFaceMode := cmFront;
-         rci.GLStates.DepthFunc := cfLEqual;
+         glLineWidth(FOutLineWidth);
+         glPolygonMode(GL_BACK, GL_LINE);
+         glCullFace(GL_FRONT);
+         glDepthFunc(GL_LEQUAL);
 
          with rci.GLStates do begin
-           Disable(stTexture2D);
-           Disable(stTextureCubeMap);
+           UnSetGLState(stTexture2D);
+           UnSetGLState(stTextureCubeMap);
          end;
 
          FPassCount:=2;
@@ -153,7 +152,7 @@ begin
       end;
       2 : begin
          // Restore settings
-         rci.GLStates.PopAttrib;
+         glPopAttrib;
          Result:=False; // we're done
       end;
    else

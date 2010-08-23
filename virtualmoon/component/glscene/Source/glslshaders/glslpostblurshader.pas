@@ -27,8 +27,8 @@ uses
   Classes,
 
   // GLScene
-  GLTexture, GLScene, VectorGeometry, GLContext,
-  GLSLShader, GLCustomShader, GLRenderContextInfo;
+  GLTexture, GLScene, VectorGeometry, OpenGL1x, GLMisc, GLContext,
+  GLSLShader, GLCustomShader;
 
 type
   TGLCustomGLSLPostBlurShader = class(TGLCustomGLSLShader, IGLPostShader)
@@ -135,7 +135,7 @@ end;
 function TGLCustomGLSLPostBlurShader.DoUnApply(
   var rci: TRenderContextInfo): Boolean;
 begin
-  rci.GLStates.ActiveTexture := 0;
+  glActiveTextureARB(GL_TEXTURE0_ARB);
   GetGLSLProg.EndUseProgramObject;
   Result := False;
 end;

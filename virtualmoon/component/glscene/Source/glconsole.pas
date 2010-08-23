@@ -77,12 +77,12 @@ interface
 
 uses
   // VCL
-  Classes, SysUtils, Graphics, TypInfo,
+  Classes, SysUtils, TypInfo,
 
   // GLScene
   GLScene, GLObjects, GLHUDObjects, GLViewer, GLBitmapFont, GLKeyboard,
   VectorTypes, PersistentClasses, GLContext, GLTexture, GLUtils, GLStrings,
-  GLCrossPlatform, GLMaterial;
+  GLCrossPlatform;
 
 const
   CONSOLE_MAX_COMMANDS = 120;
@@ -556,7 +556,7 @@ begin
     if Console.FSceneViewer <> nil then
       AddLine(' - Current SceneViewer has ' + Console.FSceneViewer.FramesPerSecondText)
     else
-      AddLine(' - ' + glsErrorEx + glsSceneViewerNotDefined);
+      AddLine(' - ' + glsSceneViewerNotDefined);
   end
   else
     ConsoleCommand.ShowInvalidNumberOfArgumentsError;
@@ -572,7 +572,7 @@ begin
       AddLine(' - ResetPerformanceMonitor for Current SceneViewer completed');
     end
     else
-      AddLine(' - ' + glsErrorEx + glsSceneViewerNotDefined);
+      AddLine(' - ' + glsSceneViewerNotDefined);
   end
   else
     ConsoleCommand.ShowInvalidNumberOfArgumentsError;
@@ -607,7 +607,7 @@ begin
       HandleUnknownCommand(Command.Strings[1]);
   end
   else
-    AddLine(' - ' + glsErrorEx + glsSceneViewerNotDefined);
+    AddLine(' - ' + glsSceneViewerNotDefined);
 end;
 
 procedure TGLCustomConsole.ProcessInternalCommandViewerAntiAliasing(
@@ -637,7 +637,7 @@ begin
       ConsoleCommand.ShowInvalidNumberOfArgumentsError;
   end
   else
-    AddLine(' - ' + glsErrorEx + glsSceneViewerNotDefined);
+    AddLine(' - ' + glsSceneViewerNotDefined);
 end;
 
 function TGLCustomConsole.ParseString(str, caract: string): TGLUserInputCommand;

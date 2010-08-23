@@ -6,11 +6,6 @@
   A FPC specific Scene viewer.
 
 	<b>History : </b><font size=-1><ul>
-      <li>22/12/09 - DaStr - Published TabStop, TabOrder, OnEnter, OnExit
-                              properties (thanks Yury Plashenkov)  
-      <li>07/11/09 - DaStr - Improved FPC compatibility (BugtrackerID = 2893580)
-                             (thanks Predator)
-      <li>13/07/09 - DanB - added the FieldOfView property + reduced OpenGL dependencies
       <li>10/04/08 - DaStr - Bugfixed TGLSceneViewer.Notification()
                               (thanks z80maniac) (Bugtracker ID = 1936108)
       <li>12/09/07 - DaStr - Removed old IFDEFs. Moved SetupVSync()
@@ -39,11 +34,14 @@ interface
 {$i GLScene.inc}
 
 uses
-  {$IFDEF MSWINDOWS}Windows,{$ENDIF}
-  Messages, Graphics, Forms, Classes, Controls, Menus, LMessages, LCLType,
+  LCLType,
+  {$IFDEF MSWINDOWS} Windows, {$ENDIF}
+  Messages, Graphics, Forms, Classes, Controls, Menus,
+  LMessages,
 
   // GLScene
   GLScene, GLContext;
+
 
 type
    // TVSyncMode
@@ -69,6 +67,7 @@ type
          FOwnDC : HDC;
          FOnMouseEnter, FOnMouseLeave : TNotifyEvent;
          FMouseInControl : Boolean;
+         FIsOpenGLAvailable : Boolean;
          FLastScreenPos : TPoint;
 
          {$IFDEF MSWINDOWS}
@@ -81,9 +80,9 @@ type
 
          procedure CMMouseEnter(var msg: TMessage); message CM_MOUSEENTER;
          procedure CMMouseLeave(var msg: TMessage); message CM_MOUSELEAVE;
-        function GetFieldOfView: single;
-        procedure SetFieldOfView(const Value: single);
-        function GetIsRenderingContextAvailable: Boolean;
+
+         function GetFieldOfView: single;
+         procedure SetFieldOfView(const Value: single);
 
       protected
          { Protected Declarations }
@@ -97,7 +96,7 @@ type
          function GetCamera : TGLCamera;
          procedure SetBuffer(const val : TGLSceneBuffer);
 
-         {$IFDEF MSWINDOWS}
+         {$IFDEF WINDOWS}
          procedure CreateParams(var Params: TCreateParams); override;
          {$ENDIF}
          procedure CreateWnd; override;
@@ -119,7 +118,7 @@ type
             between RCs that already have display lists. }
          procedure RecreateWnd;
 
-         property IsRenderingContextAvailable : Boolean read GetIsRenderingContextAvailable;
+         property IsOpenGLAvailable : Boolean read FIsOpenGLAvailable;
 
          function LastFrameTime : Single;
          function FramesPerSecond : Single;
@@ -164,7 +163,7 @@ type
 
          property OnMouseLeave : TNotifyEvent read FOnMouseLeave write FOnMouseLeave;
          property OnMouseEnter : TNotifyEvent read FOnMouseEnter write FOnMouseEnter;
-
+         
          property Align;
          property Anchors;
          property DragCursor;
@@ -188,12 +187,9 @@ type
          property OnMouseWheel;
          property OnMouseWheelDown;
          property OnMouseWheelUp;
-
+{$ifdef GLS_COMPILER_5_UP}
          property OnContextPopup;
-         property TabStop;
-         property TabOrder;
-         property OnEnter;
-         property OnExit;         
+{$endif}
    end;
 
 // ------------------------------------------------------------------
@@ -204,21 +200,25 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils ,LCLIntf
+uses OpenGL1x, sysutils, GLViewer
+     {$ifndef fpc} // delphi
+     ,GLWin32Context
+     {$else}
+     ,LCLIntf
        {$ifdef LCLWIN32}
          {$ifndef CONTEXT_INCLUDED}
      ,GLWin32Context
          {$define CONTEXT_INCLUDED}
          {$endif}
        {$endif}
-
+       
        {$ifdef LCLGTK}
          {$ifndef CONTEXT_INCLUDED}
      ,GLLinGTKContext
          {$define CONTEXT_INCLUDED}
          {$endif}
        {$endif}
-
+       
        {$ifdef LCLGTK2}
          {$ifndef CONTEXT_INCLUDED}
      ,GLLinGTKContext
@@ -229,12 +229,13 @@ uses SysUtils ,LCLIntf
        {$ifdef LCLCARBON}
      ,GLCarbonContext
        {$endif}
-
+       
        {$ifdef LCLQT}
          {$error unimplemented QT context}
        {$endif}
-
-   ,GLViewer;
+       
+     {$endif}
+     ;
 
 // ------------------
 // ------------------ TGLSceneViewer ------------------
@@ -244,6 +245,7 @@ uses SysUtils ,LCLIntf
 //
 constructor TGLSceneViewerLCL.Create(AOwner: TComponent);
 begin
+   FIsOpenGLAvailable:=InitOpenGL;
    inherited Create(AOwner);
    ControlStyle:=[csClickEvents, csDoubleClicks, csOpaque, csCaptureMouse];
    if csDesigning in ComponentState then
@@ -373,11 +375,15 @@ end;
 procedure TGLSceneViewerLCL.CreateWnd;
 begin
    inherited CreateWnd;
-   if assigned(FBuffer) then begin
+   if ((IsOpenGLAvailable) and (assigned(FBuffer))) then begin
       // initialize and activate the OpenGL rendering context
       // need to do this only once per window creation as we have a private DC
       FBuffer.Resize(Self.Width, Self.Height);
+      {.$ifdef MSWINDOWS}
       FOwnDC:=GetDC(Handle);
+      {.$ELSE}
+      //FOwnDC := self;
+      {.$ENDIF}
       FBuffer.CreateRC(FOwnDC, False);
    end;
 end;
@@ -389,7 +395,11 @@ begin
    if assigned(FBuffer) then
      FBuffer.DestroyRC;
    if FOwnDC<>0 then begin
+      {.$IFDEF MSWINDIOWS}
       ReleaseDC(Handle, FOwnDC);
+      {.$ELSE}
+      //FOwnDC := 0;
+      {.$ENDIF}
       FOwnDC:=0;
    end;
    inherited;
@@ -399,7 +409,7 @@ end;
 //
 procedure TGLSceneViewerLCL.WMEraseBkgnd(var Message: TLMEraseBkgnd);
 begin
-   if IsRenderingContextAvailable then
+   if IsOpenGLAvailable then
       Message.Result:=1
    else inherited;
 end;
@@ -420,7 +430,7 @@ procedure TGLSceneViewerLCL.WMPaint(var Message: TLMPaint);
   begin
     Include(FControlState,csCustomPaint);
     inherited WMPaint(Message);
-    if ((IsRenderingContextAvailable) and (assigned(FBuffer))) then
+    if ((IsOpenGLAvailable) and (assigned(FBuffer))) then
       FBuffer.Render;
     Exclude(FControlState,csCustomPaint);
   end;
@@ -439,7 +449,7 @@ begin
    end;
    BeginPaint(Handle, PS);
    try
-      if assigned(FBuffer) and IsRenderingContextAvailable and (Width>0) and (Height>0) then
+      if assigned(FBuffer) and IsOpenGLAvailable and (Width>0) and (Height>0) then
          FBuffer.Render;
    finally
       EndPaint(Handle, PS);
@@ -455,7 +465,11 @@ begin
    if assigned(FBuffer) then
      FBuffer.DestroyRC;
    if FOwnDC<>0 then begin
+     {.$ifdef MSWINDOWS}
       ReleaseDC(Handle, FOwnDC);
+      {.$else}
+      //FOwnDC := 0;
+      {.$endif}
       FOwnDC:=0;
    end;
    inherited;
@@ -485,7 +499,7 @@ procedure TGLSceneViewerLCL.Loaded;
 begin
    inherited Loaded;
    // initiate window creation
-   // HandleNeeded;
+   HandleNeeded;
 end;
 
 // DoBeforeRender
@@ -555,7 +569,6 @@ begin
    Result.PixelFormat:=pf24bit;
    Result.Width:=Width;
    Result.Height:=Height;
-
    BitBlt(Result.Canvas.Handle, 0, 0, Width, Height,
           RenderDC, 0, 0, SRCCOPY);
 {$endif}
@@ -573,11 +586,6 @@ begin
 
   else
     result := Camera.GetFieldOfView(Height);
-end;
-
-function TGLSceneViewerLCL.GetIsRenderingContextAvailable: Boolean;
-begin
-  Result := FBuffer.RCInstantiated and FBuffer.RenderingContext.IsValid;
 end;
 
 procedure TGLSceneViewerLCL.SetFieldOfView(const Value: single);

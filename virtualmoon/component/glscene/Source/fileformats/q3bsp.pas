@@ -6,7 +6,6 @@
 	Simple Quake III BSP file loader.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
 	   <li>30/01/03 - Egg - Creation, based on Philip Stefou's document and
                            bits from Jan Horn's loader 
 	</ul></font>
@@ -23,7 +22,7 @@ const MAX_TEXTURES = 1000;
 type
 
    TBSPHeader = record
-      StrID : array [0..3] of AnsiChar;    // This should always be 'IBSP'
+      StrID : array [0..3] of Char;    // This should always be 'IBSP'
       Version : Integer;               // This should be 0x2e for Quake 3 files
    end;
 
@@ -82,7 +81,7 @@ type
    PBSPFace = ^TBSPFace;
 
    TBSPTexture = record
-      TextureName : array [0..63] of AnsiChar;   // The name of the texture w/o the extension
+      TextureName : array [0..63] of Char;   // The name of the texture w/o the extension
       flags    : Integer;                    // The surface flags (unknown)
       contents : Integer;                    // The content flags (unknown)
    end;

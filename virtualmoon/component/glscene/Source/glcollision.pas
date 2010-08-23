@@ -25,7 +25,7 @@ interface
 {$I GLScene.inc}
 
 uses Classes, GLScene, XCollection, VectorGeometry, VectorLists, GLVectorFileObjects,
-   GeometryBB, GLCrossPlatform, GLManager;
+   GeometryBB, GLCrossPlatform;
 
 type
 
@@ -158,7 +158,7 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils, Octree;
+uses SysUtils, GLMisc, Octree;
 
 const
    cEpsilon : Single = 1e-6;
@@ -612,6 +612,62 @@ begin
 	inherited Create(AOwner);
    FClients:=TList.Create;
    RegisterManager(Self);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end;
 
 // Destroy
@@ -622,7 +678,119 @@ begin
    DeRegisterManager(Self);
    FClients.Free;
 	inherited Destroy;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // RegisterClient
 //
@@ -633,6 +801,94 @@ begin
          FClients.Add(aClient);
          aClient.FManager:=Self;
       end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end;
 
 // DeRegisterClient
@@ -643,6 +899,9 @@ begin
       aClient.FManager:=nil;
       FClients.Remove(aClient);
    end;
+
+
+
 end;
 
 // DeRegisterAllClients
@@ -833,6 +1092,27 @@ destructor TGLBCollision.Destroy;
 begin
    Manager:=nil;
    inherited Destroy;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end;
 
 // FriendlyName
@@ -840,6 +1120,10 @@ end;
 class function TGLBCollision.FriendlyName : String;
 begin
    Result:='Collision';
+
+
+
+
 end;
 
 // FriendlyDescription
@@ -847,6 +1131,7 @@ end;
 class function TGLBCollision.FriendlyDescription : String;
 begin
    Result:='Collision-detection registration';
+
 end;
 
 // WriteToFiler
@@ -923,6 +1208,9 @@ begin
          FManager.DeRegisterClient(Self);
       if Assigned(val) then
          val.RegisterClient(Self);
+
+
+
    end;
 end;
 
@@ -931,7 +1219,17 @@ end;
 procedure TGLBCollision.SetGroupIndex(const value : Integer);
 begin
    FGroupIndex:=value;
+
+
+
+
 end;
+
+
+
+
+
+
 
 // GetOrCreateCollision (TGLBehaviours)
 //
@@ -951,6 +1249,18 @@ function GetOrCreateCollision(obj : TGLBaseSceneObject) : TGLBCollision;
 begin
 	Result:=GetOrCreateCollision(obj.Behaviours);
 end;
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------

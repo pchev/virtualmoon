@@ -29,8 +29,8 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  GLScene, GLBitmapFont, GLMaterial, GLCrossPlatform,
-  OpenGL1x, PersistentClasses, VectorGeometry, GLCoordinates, BaseClasses;
+  GLScene, GLMisc, GLBitmapFont, GLTexture, GLCrossPlatform,
+  OpenGL1x, PersistentClasses, VectorGeometry;
 
 Type
 

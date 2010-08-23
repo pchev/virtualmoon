@@ -1,0 +1,38 @@
+/* XPM */
+static char *TGLParticles[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 16 1",
+"  c #040204",
+". c #848204",
+"X c #848284",
+"o c #0402FC",
+"O c #C4C2C4",
+"+ c #FC0204",
+"@ c #FCFE04",
+"# c #FCFEFC",
+"$ c #186968",
+"% c #9F0EF1",
+"& c #803E17",
+"* c #7C7700",
+"= c #FF004A",
+"- c #FF0002",
+"; c #FF002D",
+": c red",
+/* pixels */
+"OOOOOOOOOOOOOOOO",
+"OO############OO",
+"O#+###o#.##@###O",
+"O##@#########o#O",
+"O#####    X####O",
+"O#o##X XXX #.##O",
+"O####X ##X ####O",
+"O##+#X ##X ##+#O",
+"O####X    X####O",
+"O#@##X XXX#####O",
+"O####X ####+#@#O",
+"O##o#X ###@####O",
+"O####XX#+###o##O",
+"O##+###########O",
+"OO#######@####OO",
+"OOOOOOOOOOOOOOOO"
+};

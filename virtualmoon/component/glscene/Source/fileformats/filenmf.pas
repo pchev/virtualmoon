@@ -8,7 +8,6 @@
     NormalMapper can be found at http://www.ati.com/developer/tools.html
     
   History:
-    16/10/08 - UweR - Compatibility fix for Delphi 2009
     14/05/2003 - SG - Creation
 }
 unit FileNMF;
@@ -24,7 +23,7 @@ const
 
 type
   TNmHeader = record
-    hdr  : array[0..3] of AnsiChar;
+    hdr  : array[0..3] of char;
     size : cardinal;
   end;
   

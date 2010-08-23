@@ -20,7 +20,7 @@ unit GLMeshBuilder;
 interface
 
 Uses
-  SysUtils, Classes, GLScene, GLVectorFileObjects, VectorGeometry, VectorLists;
+  Windows, SysUtils, Classes, GLMisc, GLScene, GLVectorFileObjects, VectorGeometry, VectorLists;
 
 Procedure BuildCube(Mesh : TMeshObject; Position, Scale : TAffineVector);
 Procedure BuildCylinder(Mesh : TMeshObject; Position, Scale : TAffineVector; Slices : Integer);

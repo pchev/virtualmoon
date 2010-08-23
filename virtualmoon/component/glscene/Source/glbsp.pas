@@ -7,6 +7,25 @@
 
    The classes of this unit are designed to operate within a TGLBaseMesh.<p>
 
+      $Log: glbsp.pas,v $
+      Revision 1.2  2006/05/12 14:51:18  z0m3ie
+      *** empty log message ***
+
+      Revision 1.1  2006/01/10 20:50:45  z0m3ie
+      recheckin to make shure that all is lowercase
+
+      Revision 1.3  2006/01/09 20:45:49  z0m3ie
+      *** empty log message ***
+
+      Revision 1.2  2005/12/04 16:53:05  z0m3ie
+      renamed everything to lowercase to get better codetools support and avoid unit finding bugs
+
+      Revision 1.1  2005/12/01 21:24:10  z0m3ie
+      *** empty log message ***
+
+      Revision 1.3  2005/08/03 00:41:38  z0m3ie
+      - added automatical generated History from CVS
+
 	<b>Historique : </b><font size=-1><ul>
       <li>22/06/08 - DaStr - Fixups after converting TMeshObject.LightMapTexCoords
                              to TAffineVectorList (thanks Ast) (Bugtracker ID = 2000089)
@@ -27,8 +46,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLVectorFileObjects, GLMaterial, VectorGeometry,
-   VectorLists, GLColor, GLRenderContextInfo;
+uses Classes, GLVectorFileObjects, GLTexture, GLMisc, VectorGeometry,
+   VectorLists, GLColor;
 
 type
 

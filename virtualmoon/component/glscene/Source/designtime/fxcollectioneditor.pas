@@ -4,7 +4,6 @@
 	Edits a TXCollection<p>
 
 	<b>Historique : </b><font size=-1><ul>
-      <li>05/10/08 - DanB - removed Kylix support + some other old ifdefs
       <li>29/03/07 - DaStr - Renamed LINUX to KYLIX (BugTrackerID=1681585)
       <li>03/07/04 - LR - Make change for Linux
       <li>12/07/03 - DanB - Fixed crash when owner deleted        
@@ -94,7 +93,7 @@ implementation
 // ------------------------------------------------------------------
 
 uses
-  SysUtils, GLBehaviours, GLScene, Dialogs;
+  GLMisc, SysUtils, GLBehaviours, GLScene, Dialogs; 
 
 resourcestring
    cXCollectionEditor = 'XCollection editor';
@@ -219,7 +218,11 @@ begin
          else
            GlobalDesignHook.SelectOnlyThis(nil);*)
 //            Designer.SelectComponent(TXCollectionItem(ListView.Selected.Data))
+//{$ifndef GLS_DELPHI_4}
+//         else Designer.NoSelection;
+//{$else}
 //         else Designer.SelectComponent(nil);
+//{$endif}
 //	end;
 end;
 
@@ -337,9 +340,11 @@ begin
 	if ListView.Selected<>nil then begin
       GlobalDesignHook.Modified(Sender);
       GlobalDesignHook.SelectOnlyThis(nil);
-(*
+(*{$ifndef GLS_DELPHI_4}
+      Designer.NoSelection;
+{$else}
       Designer.SelectComponent(nil);
-*)
+{$endif}*)
 		TXCollectionItem(ListView.Selected.Data).Free;
       ListView.Selected.Free;
       ListViewChange(Self, nil, ctState);

@@ -7,8 +7,6 @@
    and shade definition texture.<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
-      <li>22/01/10 - Yar   - Added bmp32.Blank:=false for memory allocation
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
       <li>31/03/07 - DaStr - Added $I GLScene.inc
       <li>21/03/07 - DaStr - Added explicit pointer dereferencing
@@ -27,8 +25,7 @@ interface
 
 uses
    Classes, SysUtils, GLTexture, GLContext, GLGraphics, GLUtils,
-   VectorGeometry, OpenGL1x, ARBProgram, GLColor, GLRenderContextInfo,
-   GLMaterial, GLState;
+   VectorGeometry, OpenGL1x, ARBProgram, GLColor;
 
 type
    // TGLCelShaderOption
@@ -156,7 +153,6 @@ begin
    end;
 
    bmp32:=FShadeTexture.Image.GetBitmap32(GL_TEXTURE_2D);
-   bmp32.Blank := false;
    for i:=0 to bmp32.Width-1 do begin
       intensity:=i*(256 div bmp32.Width);
 
@@ -247,10 +243,10 @@ begin
       end;
    end;
 
-   rci.GLStates.PushAttrib([sttEnable, sttCurrent, sttColorBuffer, sttHint,
-                            sttLine, sttPolygon, sttDepthBuffer]);
+   glPushAttrib(GL_ENABLE_BIT or GL_CURRENT_BIT or GL_COLOR_BUFFER_BIT
+      or GL_HINT_BIT or GL_LINE_BIT or GL_POLYGON_BIT or GL_DEPTH_BUFFER_BIT);
 
-   rci.GLStates.Disable(stLighting);
+   glDisable(GL_LIGHTING);
    glEnable(GL_VERTEX_PROGRAM_ARB);
    glGetLightfv(GL_LIGHT0, GL_POSITION, @light[0]);
    glProgramLocalParameter4fvARB(GL_VERTEX_PROGRAM_ARB, 0, @light[0]);
@@ -277,7 +273,7 @@ begin
 
    if FUnApplyShadeTexture then begin
       if (csoTextured in FCelShaderOptions) then
-         FShadeTexture.UnApplyAsTexture2(rci, false)
+         FShadeTexture.UnApplyAsTexture2(rci, nil)
       else
          FShadeTexture.UnApply(rci);
       FUnApplyShadeTexture:=False;
@@ -286,24 +282,24 @@ begin
    if FOutlinePass then begin
       glDisable(GL_TEXTURE_2D);
 
-      rci.GLStates.Enable(stBlend);
-      rci.GLStates.Enable(stLineSmooth);
-      rci.GLStates.Enable(stCullFace);
+      glEnable(GL_BLEND);
+      glEnable(GL_LINE_SMOOTH);
+      glEnable(GL_CULL_FACE);
 
-      rci.GLStates.PolygonMode := pmLines;
-      rci.GLStates.CullFaceMode := cmFront;
-      rci.GLStates.LineSmoothHint := hintNicest;
-      rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOneMinusSrcAlpha);
-      rci.GLStates.DepthFunc := cfLEqual;
+      glPolygonMode(GL_BACK, GL_LINE);
+      glCullFace(GL_FRONT);
+      glHint(GL_LINE_SMOOTH_HINT,GL_NICEST);
+      glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+      glDepthFunc(GL_LEQUAL);
       glColor4fv(FOutlineColor.AsAddress);
-      rci.GLStates.LineWidth := FOutlineWidth;
+      glLineWidth(FOutlineWidth);
 
       Result:=True;
       FOutlinePass:=False;
       Exit;
    end;
 
-   rci.GLStates.PopAttrib;
+   glPopAttrib;
 end;
 
 // SetCelShaderOptions

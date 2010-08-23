@@ -6,7 +6,6 @@
 	GTS (GNU Triangulated Surface) vector file format implementation.<p>
 
 	<b>History :</b><font size=-1><ul>
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>31/03/07 - DaStr - Added $I GLScene.inc
       <li>05/06/03 - SG - Separated from GLVectorFileObjects.pas
 	</ul></font>
@@ -18,7 +17,7 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, GLVectorFileObjects, ApplicationFileIO;
+  Classes, GLVectorFileObjects, ApplicationFileIO, GLMisc;
 
 type
    // TGLGTSVectorFile
@@ -45,11 +44,7 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses
-{$IFDEF Unicode}
-  Sysutils,
-{$ENDIF}
-  GLUtils;
+uses GLUtils;
 
 // ------------------
 // ------------------ TGLGTSVectorFile ------------------
@@ -70,12 +65,13 @@ var
    sl : TStringList;
    mesh : TMeshObject;
    fg : TFGVertexIndexList;
+   buf : String;
    vertIndices : array [0..5] of Integer;
    pEdge, pTri, p : PChar;
 begin
    sl:=TStringList.Create;
    try
-      sl.LoadFromStream(aStream{$IFDEF Unicode}, TEncoding.ASCII{$ENDIF});
+      sl.LoadFromStream(aStream);
       mesh:=TMeshObject.CreateOwned(Owner.MeshObjects);
       mesh.Mode:=momFaceGroups;
       if sl.Count>0 then begin
@@ -93,6 +89,7 @@ begin
             pTri:=PChar(sl[i]);
             for k:=0 to 2 do begin
                ei:=ParseInteger(pTri);
+               buf:=sl[nv+ei];
                pEdge:=PChar(sl[nv+ei]);
                vertIndices[k*2+0]:=ParseInteger(pEdge);
                vertIndices[k*2+1]:=ParseInteger(pEdge);

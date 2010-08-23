@@ -6,7 +6,6 @@
    Imposter building and rendering implementation for GLScene.<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>28/03/07 - DaStr - Renamed parameters in some methods
@@ -27,9 +26,8 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, GLScene, GLContext, VectorTypes, VectorGeometry,
-  GeometryBB, PersistentClasses, GLCrossPlatform, GLGraphics, GLColor,
-  GLRenderContextInfo, GLCoordinates, BaseClasses, GLState;
+  Classes, GLScene, GLContext, GLTexture, VectorTypes, VectorGeometry,
+  GeometryBB, GLMisc, PersistentClasses, GLCrossPlatform, GLGraphics, GLColor;
 
 type
    // TImposterOptions
@@ -499,23 +497,22 @@ var
    filter : TGLEnum;
    fx, fy, yOffset, cosAlpha, dynScale : Single;
 begin
-   rci.GLStates.PushAttrib([sttEnable]);
-   rci.GLStates.Disable(stLighting);
-   rci.GLStates.Disable(stCullFace);
+   glPushAttrib(GL_ENABLE_BIT);
+   glDisable(GL_LIGHTING);
+   glDisable(GL_CULL_FACE);
    glEnable(GL_TEXTURE_2D);
 
    if impoAlphaTest in Builder.ImposterOptions then begin
-      rci.GLStates.Enable(stAlphaTest);
-      rci.GLStates.SetGLAlphaFunction(cfGEqual, Builder.AlphaTreshold);
-   end else rci.GLStates.Disable(stAlphaTest);
+      glEnable(GL_ALPHA_TEST);
+      glAlphaFunc(GL_GEQUAL, Builder.AlphaTreshold);
+   end else glDisable(GL_ALPHA_TEST);
 
    if impoBlended in Builder.ImposterOptions then begin
-      rci.GLStates.Enable(stBlend);
-      rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOneMinusSrcAlpha);
-   end else rci.GLStates.Disable(stBlend);
+      glEnable(GL_BLEND);
+      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+   end else glDisable(GL_BLEND);
 
    rci.GLStates.SetGLCurrentTexture(0, GL_TEXTURE_2D, Texture.Handle);
-   //rci.GLStates.TextureBinding[0, ttTexture2D] := Texture.Handle;
 
    if impoNearestFiltering in Builder.ImposterOptions then
       filter:=GL_NEAREST
@@ -590,7 +587,7 @@ end;
 procedure TImposter.EndRender(var rci : TRenderContextInfo);
 begin
    glEnd;
-   rci.GLStates.PopAttrib;
+   glPopAttrib;
 end;
 
 // RenderOnce
@@ -857,7 +854,7 @@ end;
 //
 function TGLStaticImposterBuilderCorona.GetDisplayName : String;
 begin
-   Result:=Format('%.1fï¿½ / %d samples', [Elevation, Samples]);
+   Result:=Format('%.1f° / %d samples', [Elevation, Samples]);
 end;
 
 // SetSamples
@@ -1260,11 +1257,11 @@ begin
           'ViewPort too small to render imposter samples!');
 
    // Setup the buffer in a suitable fashion for our needs
-   rci.GLStates.PushAttrib([sttEnable, sttColorBuffer]);
+   glPushAttrib(GL_ENABLE_BIT+GL_COLOR_BUFFER_BIT);
    with FBackColor do
-      rci.GLStates.ColorClearValue := Color;
+      glClearColor(Red, Green, Blue, Alpha);
    if Lighting=siblNoLighting then
-      rci.GLStates.Disable(stLighting);
+      glDisable(GL_LIGHTING);
 
    glMatrixMode(GL_PROJECTION);
    glPushMatrix;
@@ -1323,7 +1320,7 @@ begin
 
    // Restore buffer stuff
    glPixelTransferf(GL_ALPHA_SCALE, 1);
-   rci.GLStates.PopAttrib;
+   glPopAttrib;
    glPopMatrix;
    glMatrixMode(GL_PROJECTION);
    glPopMatrix;

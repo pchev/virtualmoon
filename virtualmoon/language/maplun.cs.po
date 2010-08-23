@@ -471,10 +471,6 @@ msgstr "Ukázat popisky"
 msgid "Show scale"
 msgstr "Ukázat měřítko"
 
-#: u_translation.rsside
-msgid "Side:"
-msgstr ""
-
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Jednoduchá"

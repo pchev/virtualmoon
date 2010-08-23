@@ -26,7 +26,6 @@
    other patches.<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>31/03/07 - DaStr - Added $I GLScene.inc
       <li>11/05/04 - SG - Mesh building and texture coord fixes.
       <li>05/02/04 - SG - Added FGBezierSurface facegroup descendant.
@@ -42,7 +41,7 @@ interface
 
 uses
   GLVectorFileObjects, CurvesAndSurfaces, VectorGeometry, VectorLists,
-  PersistentClasses, GLTexture, OpenGL1x, GLState, GLRenderContextInfo;
+  PersistentClasses, GLTexture, OpenGL1x, GLState;
 
 type
 
@@ -272,7 +271,7 @@ begin
   case FRenderer of
     psrGLScene : inherited;
     psrOpenGL : begin
-      mrci.GLStates.PushAttrib([sttEnable, sttEval]);
+      glPushAttrib(GL_ENABLE_BIT or GL_EVAL_BIT);
       //glEnable(GL_MAP2_TEXTURE_COORD_3);
       glEnable(GL_MAP2_VERTEX_3);
       glEnable(GL_AUTO_NORMAL);
@@ -317,7 +316,7 @@ begin
         end;
 
       end;
-      mrci.GLStates.PopAttrib;
+      glPopAttrib;
     end;
   end;
 end;
@@ -538,9 +537,9 @@ begin
 
   AttachOrDetachLightmap(mrci);
 
-  mrci.GLStates.PushAttrib([sttEnable, sttEval]);
-  mrci.GLStates.Enable(stAutoNormal);
-  mrci.GLStates.Enable(stNormalize);
+  glPushAttrib(GL_ENABLE_BIT or GL_EVAL_BIT);
+  glEnable(GL_AUTO_NORMAL);
+  glEnable(GL_NORMALIZE);
 
   glMapGrid2f(FResolution,MaxU,MinU,FResolution,MinV,MaxV);
 
@@ -560,7 +559,7 @@ begin
 
   glEvalMesh2(GL_FILL,0,FResolution,0,FResolution);
 
-  mrci.GLStates.PopAttrib;
+  glPopAttrib;
 end;
 
 // SetControlPointIndices

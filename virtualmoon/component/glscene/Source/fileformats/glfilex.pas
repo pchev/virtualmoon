@@ -1,23 +1,7 @@
-//
-// This unit is part of the GLScene Project, http://glscene.org
-//
-{: GlFileX<p>
+unit glfilex;
 
-   Simple X format support for Delphi (Microsoft's favorite format)<p>
-   
-   <b>History : </b><font size=-1><ul>
-      <li>07/11/09 - DaStr - Initial version (Added from the GLScene-Lazarus SVN)
-   </ul></font>
-
-
-   <b>Previous version history : </b><font size=-1><ul>
-      $Log: GlFileX.pas,v $
-      Revision 1.2  2009/11/17 15:21:40  da_stranger
-      Improved Unix compatibility (BugtrackerID = 2893580)
-
-      Revision 1.1  2009/11/07 22:12:25  da_stranger
-      Initial version (Added from the GLScene-Lazarus SVN)
-
+{
+      $Log: glfilex.pas,v $
       Revision 1.1  2006/01/10 20:50:44  z0m3ie
       recheckin to make shure that all is lowercase
 
@@ -29,25 +13,15 @@
 
       Revision 1.2  2005/08/03 00:41:38  z0m3ie
       - added automatical generated History from CVS
-   </ul></font>
-}
 
-unit GlFileX;
+}
 
 interface
 
-{$i GLScene.inc}
-
-uses
-  // VCL
-  Classes, SysUtils,
-
-  // GLScene
-  GLVectorFileObjects, ApplicationFileIO, VectorGeometry, GLTexture,
-  VectorLists, GLMaterial,
-
-  // Misc
-  FileX;
+uses classes, sysutils,
+     glvectorfileobjects, applicationfileio, vectorgeometry, gltexture,
+     vectorlists,
+     filex;
 
 type
   TGLXVectorFile = class (TVectorFile)

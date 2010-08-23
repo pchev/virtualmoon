@@ -33,7 +33,7 @@ interface
 uses
   Classes, SysUtils,
   GLVectorFileObjects, ApplicationFileIO, VectorGeometry, VectorLists,
-  GLCrossPlatform, GLTexture, GLMaterial;
+  GLCrossPlatform, GLTexture;
 
 const
   GL_ASE_MAX_TEXURE_CHANNELS = 12; // maximum texture channels
@@ -614,13 +614,13 @@ end;
 
 function StringToFloatRegular(aValue: string): Double;
 begin
-  Result := StrToFloatDef(aValue, 0);
+  Result := GLCrossPlatform.StrToFloatDef(aValue, 0);
   if Result = 0 then begin
     ChangeDotToComma(aValue);
-    Result := StrToFloatDef(aValue, 0);
+    Result := GLCrossPlatform.StrToFloatDef(aValue, 0);
     if Result = 0 then begin
       ChangeCommaToDot(aValue);
-      Result := StrToFloatDef(aValue, 0);
+      Result := GLCrossPlatform.StrToFloatDef(aValue, 0);
     end;
   end;
 end;

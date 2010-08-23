@@ -6,7 +6,6 @@
    PFX particle effects revolving around the use of Perlin noise.<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>22/01/10 - Yar  - Added bmp32.Blank:=false for memory allocation
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>16/03/07 - DaStr - Added explicit pointer dereferencing
                              (thanks Burkhard Carstens) (Bugtracker ID = 1678644)
@@ -261,7 +260,6 @@ begin
    s:=(1 shl TexMapSize);
    bmp32.Width:=s;
    bmp32.Height:=s;
-   bmp32.Blank := false;
    texFormat:=GL_LUMINANCE_ALPHA;
    noise:=TPerlin3DNoise.Create(NoiseSeed);
    try

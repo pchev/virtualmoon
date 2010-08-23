@@ -14,11 +14,11 @@ interface
 
 uses
   xlib, Classes, sysutils, GLCrossPlatform, GLContext, LCLProc, Forms, Controls, OpenGL1x,
-  x, xutil,
+  x, xutil, GTKProc,
 {$ifdef LCLGTK2}
-  GTK2Proc, gtk2, gdk2, gdk2x, gtk2def;
+  gtk2, gdk2, gdk2x, gtkdef;
 {$else}
-  GTKProc, gtk, gtkdef, gdk;
+  gtk, gtkdef, gdk;
 {$endif}
 
 type
@@ -81,11 +81,7 @@ resourcestring
 // ------------------ TGLGTKContext ------------------
 // ------------------
 
-{$IFNDEF GLS_MULTITHREAD}
 var
-{$ELSE}
-threadvar
-{$ENDIF}
 //   vLastPixelFormat : Integer;
    vLastVendor : String;
 

@@ -100,7 +100,7 @@ end;
 //
 procedure TFileMD2.LoadFromStream(aStream : TStream);
 var
-  Skins: array[0..MAX_MD2_SKINS - 1, 0..63] of AnsiChar;
+  Skins: array[0..MAX_MD2_SKINS - 1, 0..63] of char;
   TextureCoords: array[0..MAX_MD2_VERTICES - 1] of TVector2s;
   Buffer: array[0..MAX_MD2_VERTICES * 4 + 127] of byte;
   Header: TMD2Header;
@@ -143,7 +143,7 @@ begin
     Frame := PMD2AliasFrame(@Buffer);
     // read animation / frame info
     aStream.Read(Frame^, Header.FrameSize);
-    FrameName := Trim(String(Frame^.Name));
+    FrameName := Trim(Frame^.Name);
     if Copy(FrameName, Length(FrameName) - 1, 1)[1] in ['0'..'9'] then
       FrameName := Copy(FrameName, 1, Length(FrameName) - 2)
     else

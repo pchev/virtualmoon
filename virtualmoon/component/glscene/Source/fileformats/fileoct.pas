@@ -6,7 +6,6 @@
 	Loader for FSRad OCT files.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>02/04/07 - DaStr - Added $I GLScene.inc
       <li>30/01/03 - Egg - Creation
 	</ul></font>
@@ -46,7 +45,7 @@ type
 
 	TOCTTexture = record
 		id : Integer;				      // texture id
-		Name : array [0..63] of AnsiChar;	// texture name
+		Name : array [0..63] of Char;	// texture name
    end;
 
 	TOCTLightmap = record

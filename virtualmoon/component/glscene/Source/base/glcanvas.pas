@@ -8,8 +8,6 @@
    to the GLScene core units (only to base units).<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>07/11/09 - DaStr - Some cosmetic fixes. Overloaded TGLCanvas.EllipseBB(),
-                             TGLCanvas.Ellipse(), TGLCanvas.FillEllipse()
       <li>31/07/07 - DaStr - Added missing StopPrimitive call to TGLCanvas.FillRect
                              (Bugtracker ID = 1775528)
       <li>06/06/07 - DaStr - Removed ConvertColorVector and ConvertWinColor (now in GLColor.pas)
@@ -34,7 +32,7 @@ interface
 
 {$i GLScene.inc}
 
-uses Classes, Graphics, VectorGeometry, GLColor, GLCrossPlatform;
+uses Classes, VectorGeometry, GLColor, GLCrossPlatform;
 
 type
 	// TGLCanvas
@@ -64,10 +62,10 @@ type
 
 	   protected
 	      { Protected Declarations }
-         procedure BackupOpenGLStates;
-         procedure RestoreOpenGLStates;
+	      procedure BackupOpenGLStates;
+	      procedure RestoreOpenGLStates;
 
-         procedure StartPrimitive(const primitiveType : Integer);
+	      procedure StartPrimitive(const primitiveType : Integer);
 
          procedure EllipseVertices(x, y, xRadius, yRadius : Single);
 
@@ -77,10 +75,10 @@ type
 
       public
 	      { Public Declarations }
-         constructor Create(bufferSizeX, bufferSizeY : Integer;
+	      constructor Create(bufferSizeX, bufferSizeY : Integer;
                             const baseTransform : TMatrix); overload;
-         constructor Create(bufferSizeX, bufferSizeY : Integer); overload;
-         destructor Destroy; override;
+	      constructor Create(bufferSizeX, bufferSizeY : Integer); overload;
+	      destructor Destroy; override;
 
          {: Stops the current internal primitive.<p>
             This function is invoked automatically by TGLCanvas when changeing
@@ -105,22 +103,22 @@ type
          property PenWidth : Integer read FPenWidth write SetPenWidth;
 
          {: Updates the current position (absolute coords). }
-         procedure MoveTo(const x, y : Integer); overload;
-         procedure MoveTo(const x, y : Single); overload;
+	      procedure MoveTo(const x, y : Integer); overload;
+	      procedure MoveTo(const x, y : Single); overload;
          {: Updates the current position (relative coords). }
-         procedure MoveToRel(const x, y : Integer); overload;
-         procedure MoveToRel(const x, y : Single); overload;
+	      procedure MoveToRel(const x, y : Integer); overload;
+	      procedure MoveToRel(const x, y : Single); overload;
 
          {: Draws a line from current position to given coordinate.<p>
             Current position is updated. }
-         procedure LineTo(const x, y : Integer); overload;
-         procedure LineTo(const x, y : Single); overload;
-         procedure LineToRel(const x, y : Integer); overload;
-         procedure LineToRel(const x, y : Single); overload;
+	      procedure LineTo(const x, y : Integer); overload;
+	      procedure LineTo(const x, y : Single); overload;
+	      procedure LineToRel(const x, y : Integer); overload;
+	      procedure LineToRel(const x, y : Single); overload;
          {: Draws a line from (x1, y1) to (x2, y2).<p>
             The current position is NOT updated. }
-         procedure Line(const x1, y1, x2, y2 : Integer); overload;
-         procedure Line(const x1, y1, x2, y2 : Single); overload;
+	      procedure Line(const x1, y1, x2, y2 : Integer); overload;
+	      procedure Line(const x1, y1, x2, y2 : Single); overload;
 
          {: Draws the set of lines defined by connecting the points.<p>
             Similar to invoking MoveTo on the first point, then LineTo
@@ -132,31 +130,23 @@ type
          {: Plots a pixel at given coordinate.<p>
             PenWidth affects pixel size.<br>
             The current position is NOT updated. }
-         procedure PlotPixel(const x, y : Integer); overload;
-         procedure PlotPixel(const x, y : Single); overload;
+  	      procedure PlotPixel(const x, y : Integer); overload;
+	      procedure PlotPixel(const x, y : Single); overload;
 
          {: Draw the (x1,y1)-(x2, y2) rectangle's frame (border). }
          procedure FrameRect(const x1, y1, x2, y2 : Integer); overload;
          procedure FrameRect(const x1, y1, x2, y2 : Single); overload;
-
          {: Draw the (x1,y1)-(x2, y2) rectangle (filled with PenColor). }
          procedure FillRect(const x1, y1, x2, y2 : Integer); overload;
          procedure FillRect(const x1, y1, x2, y2 : Single); overload;
 
          {: Draws an ellipse with (x1,y1)-(x2, y2) bounding rectangle. }
-         procedure EllipseBB(const x1, y1, x2, y2 : Integer); overload;
-         procedure EllipseBB(const x1, y1, x2, y2 : Single); overload;
-
+	      procedure Ellipse(const x1, y1, x2, y2 : Integer); overload;
          {: Draws and ellipse centered at (x, y) with given radiuses. }
-         procedure Ellipse(const x, y : Integer; const xRadius, yRadius : Single); overload;
-         procedure Ellipse(const x, y : Single; const xRadius, yRadius : Single); overload;
-         procedure Ellipse(const x, y : Single; const Radius : Single); overload;
-
+	      procedure Ellipse(const x, y : Integer; const xRadius, yRadius : Single); overload;
+	      procedure Ellipse(x, y, xRadius, yRadius : Single); overload;
          {: Draw a filled ellipse. }
-         procedure FillEllipse(const x, y : Integer; const xRadius, yRadius : Single); overload;
-         procedure FillEllipse(const x, y : Single; const xRadius, yRadius : Single); overload;
-
-         procedure FillEllipse(const x, y : Single; const Radius : Single); overload;
+	      procedure FillEllipse(const x, y : Integer; const xRadius, yRadius : Single); overload;
 	end;
 
 //-------------------------------------------------------------
@@ -533,25 +523,11 @@ begin
       glVertex2f(x+c[i], y+s[i]);
 end;
 
-// EllipseBB
-//
-procedure TGLCanvas.EllipseBB(const x1, y1, x2, y2 : Integer);
-begin
-   Ellipse((x1+x2)*0.5, (y1+y2)*0.5, Abs(x2-x1)*0.5, Abs(y2-y1)*0.5);
-end;
-
-// EllipseBB
-//
-procedure TGLCanvas.EllipseBB(const x1, y1, x2, y2 : Single);
-begin
-   Ellipse((x1+x2)*0.5, (y1+y2)*0.5, Abs(x2-x1)*0.5, Abs(y2-y1)*0.5);
-end;
-
 // Ellipse
 //
-procedure TGLCanvas.Ellipse(const x, y : Single; const Radius: Single);
+procedure TGLCanvas.Ellipse(const x1, y1, x2, y2 : Integer);
 begin
-   Ellipse(x,y,Radius,Radius);
+   Ellipse((x1+x2)*0.5, (y1+y2)*0.5, Abs(x2-x1)*0.5, Abs(y2-y1)*0.5);
 end;
 
 // Ellipse
@@ -566,7 +542,7 @@ end;
 
 // Ellipse
 //
-procedure TGLCanvas.Ellipse(const x, y : Single; const xRadius, yRadius : Single);
+procedure TGLCanvas.Ellipse(x, y, xRadius, yRadius : Single);
 begin
    StartPrimitive(GL_LINE_STRIP);
    EllipseVertices(x, y, xRadius, yRadius);
@@ -581,23 +557,6 @@ begin
    glVertex2f(x, y); // not really necessary, but may help with memory stride
    EllipseVertices(x, y, xRadius, yRadius);
    StopPrimitive;
-end;
-
-// FillEllipse
-//
-procedure TGLCanvas.FillEllipse(const x, y, xRadius, yRadius: Single);
-begin
-   StartPrimitive(GL_TRIANGLE_FAN);
-   glVertex2f(x, y); // not really necessary, but may help with memory stride
-   EllipseVertices(x, y, xRadius, yRadius);
-   StopPrimitive;
-end;
-
-// FillEllipse
-//
-procedure TGLCanvas.FillEllipse(const x, y, Radius: Single);
-begin
-  FillEllipse(x, y, Radius, Radius);
 end;
 
 end.

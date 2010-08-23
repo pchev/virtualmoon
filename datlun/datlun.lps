@@ -2,14 +2,14 @@
 <CONFIG>
   <ProjectSession>
     <Version Value="7"/>
-    <Units Count="39">
+    <Units Count="38">
       <Unit0>
         <Filename Value="datlun.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="datlun"/>
         <CursorPos X="1" Y="27"/>
         <TopLine Value="1"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -19,7 +19,7 @@
         <UnitName Value="u_util"/>
         <CursorPos X="18" Y="601"/>
         <TopLine Value="580"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -71,11 +71,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser3"/>
-        <CursorPos X="1" Y="121"/>
-        <TopLine Value="81"/>
-        <EditorIndex Value="4"/>
+        <CursorPos X="43" Y="35"/>
+        <TopLine Value="29"/>
         <UsageCount Value="38"/>
-        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="vmabrowser2.pas"/>
@@ -95,8 +93,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
-        <CursorPos X="1" Y="501"/>
-        <TopLine Value="482"/>
+        <CursorPos X="21" Y="1021"/>
+        <TopLine Value="1015"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="38"/>
         <Loaded Value="True"/>
@@ -115,9 +113,9 @@
         <Filename Value="dbutil.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="dbutil"/>
-        <CursorPos X="53" Y="146"/>
-        <TopLine Value="106"/>
-        <EditorIndex Value="3"/>
+        <CursorPos X="21" Y="134"/>
+        <TopLine Value="130"/>
+        <EditorIndex Value="1"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit10>
@@ -125,9 +123,9 @@
         <Filename Value="u_constant.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_constant"/>
-        <CursorPos X="7" Y="70"/>
-        <TopLine Value="45"/>
-        <EditorIndex Value="2"/>
+        <CursorPos X="21" Y="171"/>
+        <TopLine Value="133"/>
+        <EditorIndex Value="3"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit11>
@@ -303,137 +301,130 @@
         <TopLine Value="478"/>
         <UsageCount Value="10"/>
       </Unit37>
-      <Unit38>
-        <Filename Value="vmabrowser3.lfm"/>
-        <CursorPos X="1" Y="64"/>
-        <TopLine Value="27"/>
-        <UsageCount Value="10"/>
-        <SyntaxHighlighter Value="LFM"/>
-      </Unit38>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="4"/>
+      <ActiveEditorIndexAtStart Value="3"/>
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="198" Column="26" TopLine="173"/>
+        <Caret Line="196" Column="26" TopLine="173"/>
       </Position1>
       <Position2>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="223" Column="8" TopLine="206"/>
+        <Caret Line="198" Column="26" TopLine="173"/>
       </Position2>
       <Position3>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="223" Column="8" TopLine="206"/>
       </Position3>
       <Position4>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="153" Column="15" TopLine="134"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position4>
       <Position5>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="165" Column="15" TopLine="134"/>
+        <Caret Line="153" Column="15" TopLine="134"/>
       </Position5>
       <Position6>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="255" Column="18" TopLine="236"/>
+        <Caret Line="165" Column="15" TopLine="134"/>
       </Position6>
       <Position7>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="400" Column="55" TopLine="371"/>
+        <Caret Line="255" Column="18" TopLine="236"/>
       </Position7>
       <Position8>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="401" Column="55" TopLine="371"/>
+        <Caret Line="400" Column="55" TopLine="371"/>
       </Position8>
       <Position9>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="402" Column="55" TopLine="371"/>
+        <Caret Line="401" Column="55" TopLine="371"/>
       </Position9>
       <Position10>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="401" Column="55" TopLine="371"/>
+        <Caret Line="402" Column="55" TopLine="371"/>
       </Position10>
       <Position11>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="402" Column="55" TopLine="371"/>
+        <Caret Line="401" Column="55" TopLine="371"/>
       </Position11>
       <Position12>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="403" Column="55" TopLine="371"/>
+        <Caret Line="402" Column="55" TopLine="371"/>
       </Position12>
       <Position13>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="402" Column="55" TopLine="371"/>
+        <Caret Line="403" Column="55" TopLine="371"/>
       </Position13>
       <Position14>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="146" Column="53" TopLine="135"/>
+        <Caret Line="402" Column="55" TopLine="371"/>
       </Position14>
       <Position15>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="33" Column="8" TopLine="18"/>
+        <Caret Line="146" Column="53" TopLine="135"/>
       </Position15>
       <Position16>
-        <Filename Value="u_constant.pas"/>
-        <Caret Line="33" Column="46" TopLine="25"/>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="33" Column="8" TopLine="18"/>
       </Position16>
       <Position17>
         <Filename Value="u_constant.pas"/>
-        <Caret Line="118" Column="18" TopLine="97"/>
+        <Caret Line="33" Column="46" TopLine="25"/>
       </Position17>
       <Position18>
-        <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="26" Column="25" TopLine="18"/>
+        <Filename Value="u_constant.pas"/>
+        <Caret Line="118" Column="18" TopLine="97"/>
       </Position18>
       <Position19>
-        <Filename Value="u_util.pas"/>
-        <Caret Line="64" Column="1" TopLine="51"/>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="26" Column="25" TopLine="18"/>
       </Position19>
       <Position20>
         <Filename Value="u_util.pas"/>
-        <Caret Line="63" Column="18" TopLine="42"/>
+        <Caret Line="64" Column="1" TopLine="51"/>
       </Position20>
       <Position21>
         <Filename Value="u_util.pas"/>
-        <Caret Line="464" Column="18" TopLine="443"/>
+        <Caret Line="63" Column="18" TopLine="42"/>
       </Position21>
       <Position22>
         <Filename Value="u_util.pas"/>
-        <Caret Line="502" Column="18" TopLine="481"/>
+        <Caret Line="464" Column="18" TopLine="443"/>
       </Position22>
       <Position23>
         <Filename Value="u_util.pas"/>
-        <Caret Line="549" Column="18" TopLine="528"/>
+        <Caret Line="502" Column="18" TopLine="481"/>
       </Position23>
       <Position24>
-        <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="158" Column="38" TopLine="142"/>
+        <Filename Value="u_util.pas"/>
+        <Caret Line="549" Column="18" TopLine="528"/>
       </Position24>
       <Position25>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="177" Column="54" TopLine="147"/>
+        <Caret Line="158" Column="38" TopLine="142"/>
       </Position25>
       <Position26>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="187" Column="17" TopLine="167"/>
+        <Caret Line="177" Column="54" TopLine="147"/>
       </Position26>
       <Position27>
         <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="152" Column="18" TopLine="131"/>
+        <Caret Line="187" Column="17" TopLine="167"/>
       </Position27>
       <Position28>
-        <Filename Value="dbutil.pas"/>
-        <Caret Line="252" Column="55" TopLine="222"/>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="152" Column="18" TopLine="131"/>
       </Position28>
       <Position29>
-        <Filename Value="vmabrowser1.pas"/>
-        <Caret Line="137" Column="60" TopLine="131"/>
+        <Filename Value="dbutil.pas"/>
+        <Caret Line="252" Column="55" TopLine="222"/>
       </Position29>
       <Position30>
-        <Filename Value="vmabrowser3.pas"/>
-        <Caret Line="121" Column="1" TopLine="84"/>
+        <Filename Value="vmabrowser1.pas"/>
+        <Caret Line="137" Column="60" TopLine="131"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

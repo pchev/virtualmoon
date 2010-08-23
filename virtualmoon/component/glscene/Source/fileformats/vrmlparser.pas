@@ -20,7 +20,7 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, SysUtils, VectorTypes, VectorLists;
+  Classes, SysUtils, VectorTypes, VectorLists, GLUtils;
 
 type
   TVRMLNode = class
@@ -173,8 +173,6 @@ type
   end;
 
 implementation
-
-uses GLUtils;
 
 function CreateVRMLTokenList(Text : String) : TStringList;
 const
@@ -466,7 +464,7 @@ end;
 //
 function TVRMLParser.ReadSingle : Single;
 begin
-  Result:=GLUtils.StrToFloatDef(ReadToken,0);
+  Result:=StrToFloatDef(ReadToken);
 end;
 
 // ReadVector3f
@@ -507,7 +505,7 @@ begin
     if token = '' then
       exit
     else if token <> ']' then
-      TVRMLSingleArray(FCurrentNode).Values.Add(GLUtils.StrToFloatDef(token,0));
+      TVRMLSingleArray(FCurrentNode).Values.Add(StrToFloatDef(token));
   until token = ']';
 
   FCurrentNode:=FCurrentNode.Parent;

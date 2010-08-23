@@ -5,9 +5,23 @@
 
 	Cadencing composant for GLScene (ease Progress processing)<p>
 
+      $Log: glcadencer.pas,v $
+      Revision 1.1  2006/01/10 20:50:45  z0m3ie
+      recheckin to make shure that all is lowercase
+
+      Revision 1.3  2006/01/09 20:45:49  z0m3ie
+      *** empty log message ***
+
+      Revision 1.2  2005/12/04 16:53:05  z0m3ie
+      renamed everything to lowercase to get better codetools support and avoid unit finding bugs
+
+      Revision 1.1  2005/12/01 21:24:10  z0m3ie
+      *** empty log message ***
+
+      Revision 1.2  2005/08/03 00:41:38  z0m3ie
+      - added automatical generated History from CVS
+
 	<b>History : </b><font size=-1><ul>
-      <li>21/11/09 - DaStr - Bugfixed FSubscribedCadenceableComponents
-                             (thanks Roshal Sasha)
       <li>21/09/07 - DaStr - Added TGLCadencer.SetCurrentTime()
       <li>17/03/07 - DaStr - Dropped Kylix support in favor of FPC (BugTracekrID=1681585)
       <li>28/06/04 - LR - Added some ifdef Win32 for Linux
@@ -39,9 +53,16 @@ interface
 
 {$i GLScene.inc}
 
-uses GLScene, Classes, GLCrossPlatform, BaseClasses, cadencerasap, Forms
+uses GLScene, Classes, GLMisc, GLCrossPlatform, cadencerasap,
    {$ifdef WINDOWS}
-   , Windows, Controls, Messages, StdCtrls
+   Windows, Controls, Messages, StdCtrls, Forms
+   {$endif}
+   {$IFDEF UNIX}
+   {$ifdef fpc}
+   forms
+   {$else}
+   QForms
+   {$endif}
    {$endif}
    ;
 
@@ -82,7 +103,7 @@ type
 	TGLCadencer = class (TComponent)
 		private
 			{ Private Declarations }
-			FSubscribedCadenceableComponents : TList;
+         FSubscribedCadenceableComponents : TList;
 			FScene : TGLScene;
 			FTimeMultiplier : Double;
 			lastTime, downTime, lastMultiplier : Double;
@@ -92,7 +113,7 @@ type
 			FTimeReference : TGLCadencerTimeReference;
 			FCurrentTime : Double;
 			FOriginTime : Double;
-			FMaxDeltaTime, FMinDeltaTime, FFixedDeltaTime : Double;
+         FMaxDeltaTime, FMinDeltaTime, FFixedDeltaTime : Double;
 			FOnProgress : TGLProgressEvent;
       procedure SetCurrentTime(const Value: Double);
 
@@ -104,13 +125,13 @@ type
 			procedure SetScene(const val : TGLScene);
 			procedure SetMode(const val : TGLCadencerMode);
 			procedure SetTimeReference(const val : TGLCadencerTimeReference);
-			procedure SetTimeMultiplier(const val : Double);
+         procedure SetTimeMultiplier(const val : Double);
 			{: Returns raw ref time (no multiplier, no offset) }
 			function GetRawReferenceTime : Double;
-			procedure RestartASAP;
-			procedure Loaded; override;
+         procedure RestartASAP;
+         procedure Loaded; override;
 
-			procedure OnIdleEvent(Sender: TObject; var Done: Boolean);
+         procedure OnIdleEvent(Sender: TObject; var Done: Boolean);
 
 		public
 			{ Public Declarations }
@@ -118,8 +139,8 @@ type
 			constructor Create(AOwner : TComponent); override;
 			destructor Destroy; override;
 
-			procedure Subscribe(aComponent : TGLCadenceAbleComponent);
-			procedure UnSubscribe(aComponent : TGLCadenceAbleComponent);
+         procedure Subscribe(aComponent : TGLCadenceAbleComponent);
+         procedure UnSubscribe(aComponent : TGLCadenceAbleComponent);
 
 			{: Allows to manually trigger a progression.<p>
 				Time stuff is handled automatically.<br>
@@ -133,10 +154,10 @@ type
             Be aware that as long as IsBusy is True, the Cadencer may be
             sending messages and progression calls to cadenceable components
             and scenes. }
-			function IsBusy : Boolean;
+         function IsBusy : Boolean;
 
-			{: Reset the time parameters and returns to zero.<p>}
-			procedure Reset;
+         {: Reset the time parameters and returns to zero.<p>}
+         procedure Reset;
 
 			{: Value soustracted to current time to obtain progression time. }
 			property OriginTime : Double read FOriginTime write FOriginTime;
@@ -158,8 +179,8 @@ type
 			property TimeReference : TGLCadencerTimeReference read FTimeReference write SetTimeReference default cmPerformanceCounter;
 
 			{: Multiplier applied to the time reference.<p>
-			  Zero isn't an allowed value, and be aware that if negative values
-			  are accepted, they may not be supported by other GLScene objects.<br>
+            Zero isn't an allowed value, and be aware that if negative values
+            are accepted, they may not be supported by other GLScene objects.<br>
 				Changing the TimeMultiplier will alter OriginTime. }
 			property TimeMultiplier : Double read FTimeMultiplier write SetTimeMultiplier stored StoreTimeMultiplier;
 
@@ -170,14 +191,14 @@ type
             by the cadencer (it isn't visible in CurrentTime either).<br>
             This option allows to limit progression rate in simulations where
             high values would result in errors/random behaviour. }
-			property MaxDeltaTime : Double read FMaxDeltaTime write FMaxDeltaTime;
+         property MaxDeltaTime : Double read FMaxDeltaTime write FMaxDeltaTime;
 
          {: Minimum value for deltaTime in progression events.<p>
             If superior to zero, this value specifies the minimum time step
             between two progression events.<br>
             This option allows to limit progression rate in simulations where
             low values would result in errors/random behaviour. }
-			property MinDeltaTime : Double read FMinDeltaTime write FMinDeltaTime;
+         property MinDeltaTime : Double read FMinDeltaTime write FMinDeltaTime;
 
          {: Fixed time-step value for progression events.<p>
             If superior to zero, progression steps will happen with that fixed
@@ -188,7 +209,7 @@ type
             This option allows to use fixed time steps in simulations (while the
             animation and rendering itself may happen at a lower or higher
             framerate). }
-			property FixedDeltaTime : Double read FFixedDeltaTime write FFixedDeltaTime;
+         property FixedDeltaTime : Double read FFixedDeltaTime write FFixedDeltaTime;
 
 			{: Adjusts how progression events are triggered.<p>
 				See TGLCadencerMode. }
@@ -526,13 +547,10 @@ begin
                   end;
                   pt.deltaTime:=deltaTime;
                   pt.newTime:=lastTime;
-                  i := 0;
-                  while Assigned(FSubscribedCadenceableComponents) and
-                       (i <= FSubscribedCadenceableComponents.Count - 1) do
-                  begin
-                     TGLCadenceAbleComponent(FSubscribedCadenceableComponents[i]).DoProgress(pt);
-                     i := i + 1;
-                  end;
+                  if Assigned(FSubscribedCadenceableComponents) then
+                     for i:=0 to FSubscribedCadenceableComponents.Count-1 do
+                        with TGLCadenceAbleComponent(FSubscribedCadenceableComponents[i]) do
+                           DoProgress(pt);
                   if Assigned(FOnProgress) and (not (csDesigning in ComponentState)) then
                      FOnProgress(Self, deltaTime, newTime);
                   if deltaTime<=0 then Break;

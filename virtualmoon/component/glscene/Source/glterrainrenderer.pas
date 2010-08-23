@@ -47,8 +47,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLScene, GLHeightData, GLMaterial, VectorGeometry, GLContext,
-   GLROAMPatch, VectorLists, GLRenderContextInfo;
+uses Classes, GLScene, GLHeightData, GLTexture, VectorGeometry, GLContext,
+   GLROAMPatch, VectorLists;
 
 const
    cTilesHashSize = 255;
@@ -241,7 +241,7 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils, OpenGL1x, XOpenGL, GLUtils;
+uses SysUtils, OpenGL1x, GLMisc, XOpenGL, GLUtils;
 
 // HashKey
 //
@@ -608,7 +608,7 @@ begin
       n:=0;
       for iX:=0 to nbX do begin
          absTilePos:=VectorTransform(tilePos, DirectAbsoluteMatrix^);
-         if not IsVolumeClipped(absTilePos, tileRadius, rcci.frustum) then begin
+         if not IsVolumeClipped(absTilePos, tileRadius, rcci) then begin
             patch:=GetPreparedPatch(tilePos, observer, texFactor,
                                     postRenderHeightDataList);
 

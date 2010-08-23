@@ -15,7 +15,6 @@
    which is a Delphi header conversion for SDL (http://libsdl.org)<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>07/06/07 - DaStr - Added $I GLScene.inc
       <li>17/03/07 - DaStr - Dropped Kylix support in favor of FPC (BugTracekrID=1681585)
       <li>16/12/01 - Egg - Resize no longer recreates SDL surface in OpenGL mode
@@ -405,7 +404,7 @@ begin
    if not Assigned(FSDLSurface) then
       RaiseSDLError('Unable to create surface.');
 
-   SDL_WM_SetCaption(PAnsiChar(AnsiString(FCaption)), nil);
+   SDL_WM_SetCaption(PChar(FCaption), nil);
 
    if voOpenGL in Options then
       ReSizeGLWindow;
@@ -500,7 +499,7 @@ begin
    if FCaption<>val then begin
       FCaption:=val;
       if Active then
-         SDL_WM_SetCaption(PANsiChar(AnsiString(FCaption)), nil);
+         SDL_WM_SetCaption(PChar(FCaption), nil);
    end;
 end;
 

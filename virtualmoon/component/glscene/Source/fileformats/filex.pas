@@ -1,26 +1,10 @@
-//
-// This unit is part of the GLScene Project, http://glscene.org
-//
-{: FileX<p>
-
-   Simple X format support for Delphi (Microsoft's favorite format)<p>
-   
-   <b>History : </b><font size=-1><ul>
-      <li>07/11/09 - DaStr - Initial version (Added from the GLScene-Lazarus SVN)
-   </ul></font>
-}
-unit FileX;
+unit filex;
 
 interface
 
-{$i GLScene.inc}
-
 uses
-  // VCL
-  Classes, SysUtils,
-
-  // GLScene
-  VectorTypes, VectorGeometry, VectorLists, PersistentClasses, GLUtils;
+  classes, sysutils, vectortypes, vectorgeometry, vectorlists, persistentclasses,
+  glutils;
 
 type
   TDXNode = class;
@@ -421,9 +405,9 @@ var
 
   procedure ReadMeshMaterialList(Mesh : TDXMesh);
   var
-    i, {NumMaterials,} NumIndices : Integer;
+    i, NumMaterials, NumIndices : Integer;
   begin
-    {NumMaterials:=}ReadInteger;
+    NumMaterials:=ReadInteger;
     NumIndices:=ReadInteger;
     for i:=0 to NumIndices-1 do
       Mesh.MaterialIndices.Add(ReadInteger);

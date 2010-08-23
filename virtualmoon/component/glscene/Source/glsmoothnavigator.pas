@@ -50,7 +50,7 @@ uses
   Classes,
 
   // GLScene
-  GLNavigator, VectorGeometry, GLScene, GLCrossPlatform, GLCoordinates, GLScreen;
+  GLNavigator, VectorGeometry, GLCrossPlatform, GLMisc, GLScene;
 
 type
 	{: TGLNavigatorAdjustDistanceParameters is wrapper for all parameters that

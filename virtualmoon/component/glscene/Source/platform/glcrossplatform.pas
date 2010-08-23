@@ -8,8 +8,23 @@
    Ultimately, *no* cross-platform or cross-version defines should be present
    in the core GLScene units, and have all moved here instead.<p>
 
+      $Log: glcrossplatform.pas,v $
+      Revision 1.2  2006/01/11 05:28:33  z0m3ie
+      *** empty log message ***
+
+      Revision 1.1  2006/01/10 20:50:46  z0m3ie
+      recheckin to make shure that all is lowercase
+
+      Revision 1.1  2006/01/09 21:02:33  z0m3ie
+      *** empty log message ***
+
+      Revision 1.4  2005/12/04 16:53:04  z0m3ie
+      renamed everything to lowercase to get better codetools support and avoid unit finding bugs
+
+      Revision 1.3  2005/08/03 00:41:39  z0m3ie
+      - added automatical generated History from CVS
+
 	<b>Historique : </b><font size=-1><ul>
-      <li>19/03/09 - DanB - Removed some Kylix IFDEFs, and other changes mostly affecting D5/FPC
       <li>29/05/08 - DaStr - Added StrToFloatDef(), TryStrToFloat()
       <li>10/04/08 - DaStr - Added TGLComponent (BugTracker ID = 1938988)
       <li>07/04/08 - DaStr - Added IsInfinite, IsNan
@@ -77,11 +92,13 @@ uses
 //**  Delphi uses section
 {$IFNDEF FPC} //Not FPC
 
+{$IFDEF MSWINDOWS}
 uses
   Windows, Classes, SysUtils, Graphics, Controls, Forms, VectorTypes,
   Dialogs, StdCtrls, ExtDlgs, Consts
   {$IFDEF GLS_COMPILER_6_UP}, Math, StrUtils{$ENDIF}
   ;
+{$ENDIF}
 {$ENDIF}
 //**  end of Delphi uses section
 //**************************************
@@ -89,7 +106,7 @@ uses
 type
 {$IFNDEF FPC}
   // These new types were added to be able to cast pointers to integers
-  // in 64 bit mode, because in FPC "Integer" type is always 32 bit
+  // in 64 bit mode, because in FPC "Integer" type is always 32 bit 
   // (or 16 bit in Pascal mode), but in Delphi it is platform-specific and
   // can be 16, 32 or 64 bit.
   ptrInt  = Integer;
@@ -174,6 +191,20 @@ type
   TTextLayout = StdCtrls.TTextLayout;
 
   {$ENDIF}
+  TPicture = Graphics.TPicture;
+  TGraphic = Graphics.TGraphic;
+  TBitmap = Graphics.TBitmap;
+
+
+  TMouseButton = Controls.TMouseButton;
+  TMouseEvent = Controls.TMouseEvent;
+  TKeyEvent = Controls.TKeyEvent;
+  TKeyPressEvent = Controls.TKeyPressEvent;
+
+  TColor      = Graphics.TColor;
+  TPenStyle   = Graphics.TPenStyle;
+  TPenMode    = Graphics.TPenMode;
+  TBrushStyle = Graphics.TBrushStyle;
 
 const
 {$IFDEF GLS_DELPHI_5_DOWN}
@@ -186,6 +217,130 @@ const
    glpf32Bit = pf32bit;
    glpfDevice = pfDevice;
 
+   // standard colors
+   { Raw rgb values }
+  clBlack = Graphics.clBlack;
+  clMaroon = Graphics.clMaroon;
+  clGreen = Graphics.clGreen;
+  clOlive = Graphics.clOlive;
+  clNavy = Graphics.clNavy;
+  clPurple = Graphics.clPurple;
+  clTeal = Graphics.clTeal;
+  clGray = Graphics.clGray;
+  clSilver = Graphics.clSilver;
+  clRed = Graphics.clRed;
+  clLime = Graphics.clLime;
+  clYellow = Graphics.clYellow;
+  clBlue = Graphics.clBlue;
+  clFuchsia = Graphics.clFuchsia;
+  clAqua = Graphics.clAqua;
+  clLtGray = Graphics.clLtGray;
+  clDkGray = Graphics.clDkGray;
+  clWhite = Graphics.clWhite;
+  clNone = Graphics.clNone;
+  clDefault = Graphics.clDefault;
+
+// Not declared in Graphics.pas
+  clForeground = TColor(-1);
+  clButton = TColor(-2);
+  clLight = TColor(-3);
+  clMidlight = TColor(-4);
+  clDark = TColor(-5);
+  clMid = TColor(-6);
+  clText = TColor(-7);
+  clBrightText = TColor(-8);
+  clButtonText = TColor(-9);
+  clBase = TColor(-10);
+  clBackground = {$IFDEF LCL}graphics.clBackground;{$ELSE}TColor(-11);{$ENDIF}
+  clShadow = TColor(-12);
+  clHighlight = {$IFDEF LCL}graphics.clHighlight;{$ELSE}TColor(-13);{$ENDIF}
+  clHighlightedText = TColor(-14);
+
+  { Mapped role offsets }
+  cloNormal = 32;
+  cloDisabled = 64;
+  cloActive = 96;
+
+  { Normal, mapped, pseudo, rgb values }
+  clNormalForeground = TColor(clForeground - cloNormal);
+  clNormalButton = TColor(clButton - cloNormal);
+  clNormalLight = TColor(clLight - cloNormal);
+  clNormalMidlight = TColor(clMidlight - cloNormal);
+  clNormalDark = TColor(clDark - cloNormal);
+  clNormalMid = TColor(clMid - cloNormal);
+  clNormalText = TColor(clText - cloNormal);
+  clNormalBrightText = TColor(clBrightText - cloNormal);
+  clNormalButtonText = TColor(clButtonText - cloNormal);
+  clNormalBase = TColor(clBase - cloNormal);
+  clNormalBackground = TColor(clBackground - cloNormal);
+  clNormalShadow = TColor(clShadow - cloNormal);
+  clNormalHighlight = TColor(clHighlight - cloNormal);
+  clNormalHighlightedText = TColor(clHighlightedText - cloNormal);
+
+  { Disabled, mapped, pseudo, rgb values }
+  clDisabledForeground = TColor(clForeground - cloDisabled);
+  clDisabledButton = TColor(clButton - cloDisabled);
+  clDisabledLight = TColor(clLight - cloDisabled);
+  clDisabledMidlight = TColor(clMidlight - cloDisabled);
+  clDisabledDark = TColor(clDark - cloDisabled);
+  clDisabledMid = TColor(clMid - cloDisabled);
+  clDisabledText = TColor(clText - cloDisabled);
+  clDisabledBrightText = TColor(clBrightText - cloDisabled);
+  clDisabledButtonText = TColor(clButtonText - cloDisabled);
+  clDisabledBase = TColor(clBase - cloDisabled);
+  clDisabledBackground = TColor(clBackground - cloDisabled);
+  clDisabledShadow = TColor(clShadow - cloDisabled);
+  clDisabledHighlight = TColor(clHighlight - cloDisabled);
+  clDisabledHighlightedText = TColor(clHighlightedText - cloDisabled);
+
+// Not declared in Graphics.pas
+  { Active, mapped, pseudo, rgb values }
+  clActiveForeground = TColor(clForeground - cloActive);
+  clActiveButton = TColor(clButton - cloActive);
+  clActiveLight = TColor(clLight - cloActive);
+  clActiveMidlight = TColor(clMidlight - cloActive);
+  clActiveDark = TColor(clDark - cloActive);
+  clActiveMid = TColor(clMid - cloActive);
+  clActiveText = TColor(clText - cloActive);
+  clActiveBrightText = TColor(clBrightText - cloActive);
+  clActiveButtonText = TColor(clButtonText - cloActive);
+  clActiveBase = TColor(clBase - cloActive);
+  clActiveBackground = TColor(clBackground - cloActive);
+  clActiveShadow = TColor(clShadow - cloActive);
+  clActiveHighlight = TColor(clHighlight - cloActive);
+  clActiveHighlightedText = TColor(clHighlightedText - cloActive);
+
+
+  { Compatiblity colors }
+  clScrollBar = Graphics.clScrollBar;
+  clActiveCaption = Graphics.clActiveCaption;
+  clInactiveCaption = Graphics.clInactiveCaption;
+  clMenu = Graphics.clMenu;
+  clWindow = Graphics.clWindow;
+  clWindowFrame = Graphics.clWindowFrame;
+  clMenuText = Graphics.clMenuText;
+  clWindowText = Graphics.clWindowText;
+  clCaptionText = Graphics.clCaptionText;
+  clActiveBorder = Graphics.clActiveBorder;
+  clInactiveBorder = Graphics.clInactiveBorder;
+  clAppWorkSpace = Graphics.clAppWorkSpace;
+  clBtnFace = Graphics.clBtnFace;
+  clBtnShadow = Graphics.clBtnShadow;
+  clGrayText = Graphics.clGrayText;
+  clBtnText = Graphics.clBtnText;
+  clInactiveCaptionText = Graphics.clInactiveCaptionText;
+  clBtnHighlight = Graphics.clBtnHighlight;
+  cl3DDkShadow = Graphics.cl3DDkShadow;
+  cl3DLight = Graphics.cl3DLight;
+  clInfoText = Graphics.clInfoText;
+  clInfoBk = Graphics.clInfoBk;
+  clHighlightText = Graphics.clHighlightText;
+
+
+ // Not declared in Graphics.pas
+  clFirstSpecialColor = clActiveHighlightedText;
+  clMask = clWhite;
+  clDontMask = clBlack;
 
 // standard keyboard
   glKey_ESCAPE = VK_ESCAPE;
@@ -204,6 +359,48 @@ const
   glKey_PRIOR = VK_PRIOR;
   glKey_NEXT = VK_NEXT;
   glKey_CONTROL = VK_CONTROL;
+
+// TPenStyle.
+  psSolid = Graphics.psSolid;
+  psDash = Graphics.psDash;
+  psDot = Graphics.psDot;
+  psDashDot = Graphics.psDashDot;
+  psDashDotDot = Graphics.psDashDotDot;
+  psClear = Graphics.psClear;
+  {.$IFNDEF FPC}
+  psInsideFrame = Graphics.psInsideFrame;
+  {.$ENDIF}
+
+// TPenMode.
+  pmBlack = Graphics.pmBlack;
+  pmWhite = Graphics.pmWhite;
+  pmNop = Graphics.pmNop;
+  pmNot = Graphics.pmNot;
+  pmCopy = Graphics.pmCopy;
+  pmNotCopy = Graphics.pmNotCopy;
+
+  pmMergePenNot = Graphics.pmMergePenNot;
+  pmMaskPenNot = Graphics.pmMaskPenNot;
+  pmMergeNotPen = Graphics.pmMergeNotPen;
+  pmMaskNotPen = Graphics.pmMaskNotPen;
+  pmMerge = Graphics.pmMerge;
+
+  pmNotMerge = Graphics.pmNotMerge;
+  pmMask = Graphics.pmMask;
+  pmNotMask = Graphics.pmNotMask;
+  pmXor = Graphics.pmXor;
+  pmNotXor = Graphics.pmNotXor;
+
+// TBrushStyle.
+  bsSolid = Graphics.bsSolid;
+  bsClear = Graphics.bsClear;
+  bsHorizontal = Graphics.bsHorizontal;
+  bsVertical = Graphics.bsVertical;
+
+  bsFDiagonal = Graphics.bsFDiagonal;
+  bsBDiagonal = Graphics.bsBDiagonal;
+  bsCross = Graphics.bsCross;
+  bsDiagCross = Graphics.bsDiagCross;
 
 // Several define from unit Consts
 const
@@ -228,12 +425,6 @@ const
   SMsgDlgYesToAll = 'A&lle Ja';
   {$ENDIF}
 
-{$IFDEF GLS_COMPILER_2009_UP}
-  GLS_FONT_CHARS_COUNT = 2024;
-{$else}
-  GLS_FONT_CHARS_COUNT = 256;
-{$ENDIF}
-
 function GLPoint(const x, y : Integer) : TGLPoint;
 
 {: Builds a TColor from Red Green Blue components. }
@@ -246,7 +437,27 @@ function GLRect(const aLeft, aTop, aRight, aBottom : Integer) : TGLRect;
 procedure InflateGLRect(var aRect : TGLRect; dx, dy : Integer);
 procedure IntersectGLRect(var aRect : TGLRect; const rect2 : TGLRect);
 
+{: Pops up a simple dialog with msg and an Ok button. }
+procedure InformationDlg(const msg : String);
+{: Pops up a simple question dialog with msg and yes/no buttons.<p>
+   Returns True if answer was "yes". }
+function QuestionDlg(const msg : String) : Boolean;
+{: Posp a simple dialog with a string input. }
+function InputDlg(const aCaption, aPrompt, aDefault : String) : String;
+
+{: Pops up a simple save picture dialog. }
+function SavePictureDialog(var aFileName : String; const aTitle : String = '') : Boolean;
+{: Pops up a simple open picture dialog. }
+function OpenPictureDialog(var aFileName : String; const aTitle : String = '') : Boolean;
+
+{: Returns True if the application has been terminated. }
+function ApplicationTerminated : Boolean;
+
 procedure RaiseLastOSError;
+
+{$IFDEF GLS_DELPHI_4_DOWN}
+procedure FreeAndNil(var anObject);
+{$ENDIF}
 
 {: Number of pixels per logical inch along the screen width for the device.<p>
    Under Win32 awaits a HDC and returns its LOGPIXELSX. }
@@ -287,8 +498,11 @@ function PrecisionTimerLap(const precisionTimer : Int64) : Double;
 {: Computes time elapsed since timer start and stop timer.<p>
    Return time lap in seconds. }
 function StopPrecisionTimer(const precisionTimer : Int64) : Double;
+{: Returns the number of CPU cycles since startup.<p>
+   Use the similarly named CPU instruction. }
+function RDTSC : Int64;
 
-procedure GLLoadBitmapFromInstance(aInstance: LongInt; ABitmap: TCustomBitmap; AName: string);
+procedure GLLoadBitmapFromInstance(ABitmap: TBitmap; AName: string);
 function GLOKMessageBox(const Text, Caption: string): Integer;
 procedure ShowHTMLUrl(Url: String);
 procedure GLShowCursor(AShow: boolean);
@@ -335,6 +549,9 @@ implementation
 {$IFDEF MSWINDOWS}
 uses
   ShellApi;
+{$ENDIF}
+{$IFDEF UNIX}
+
 {$ENDIF}
 
 var
@@ -446,50 +663,59 @@ end;
 
 function ColorToString(Color: TColor): string;
 begin
+  // Taken from Delphi7 Graphics.pas
   if not ColorToIdent(Color, Result) then
     FmtStr(Result, '%s%.8x', [HexDisplayPrefix, Color]);
 end;
 
 function AnsiStartsText(const ASubText, AText: string): Boolean;
-{$IFDEF GLS_DELPHI_5_DOWN}
+{$IFNDEF GLS_DELPHI_5_DOWN}
+begin
+  Result := StrUtils.AnsiStartsText(ASubText, AText);
+end;
+{$ELSE}
 var
+{$IFDEF MSWINDOWS}
   P: PChar;
+{$ENDIF}
   L, L2: Integer;
 begin
+{$IFDEF MSWINDOWS}
   P := PChar(AText);
+{$ENDIF}
   L := Length(ASubText);
   L2 := Length(AText);
   if L > L2 then
     Result := False
   else
+{$IFDEF MSWINDOWS}
     Result := CompareString(LOCALE_USER_DEFAULT, NORM_IGNORECASE,
       P, L, PChar(ASubText), L) = 2;
-end;
-{$ELSE}
-begin
-  Result := StrUtils.AnsiStartsText(ASubText, AText);
+{$ENDIF}
+{$IFDEF UNIX}
+    Result := WideSameText(ASubText, Copy(AText, 1, L));
+{$ENDIF}
 end;
 {$ENDIF}
 
-procedure GLLoadBitmapFromInstance(aInstance: LongInt; ABitmap: TCustomBitmap; AName: string);
+
+procedure GLLoadBitmapFromInstance(ABitmap: TBitmap; AName: string);
 begin
-  try
-    ABitmap.LoadFromLazarusResource(AName);
-(*
-  {$IFDEF MSWINDOWS}
-    ABitmap.Handle := LoadBitmap(aInstance, PChar(AName));
+{$IFDEF MSWINDOWS}
+  ABitmap.Handle := LoadBitmap(HInstance, PChar(AName));
+{$ENDIF}
+{$IFDEF UNIX}
+  {$IFNDEF FPC}
+  ABitmap.LoadFromResourceName(HInstance, PChar(AName));
+  {$ELSE}
+  ABitmap.LoadFromLazarusResource(AName);
   {$ENDIF}
-  {$IFDEF UNIX}
-    //ABitmap.LoadFromResourceName(aInstance, PChar(AName));
-    ABitmap.LoadFromLazarusResource(AName);
-  {$ENDIF}
-*)
-  except end;
+{$ENDIF}
 end;
 
 function GLOKMessageBox(const Text, Caption: string): Integer;
 begin
-  Result := Application.MessageBox(PChar(Text), PChar(Caption), MB_OK);
+  result := Application.MessageBox(PChar(Text),PChar(Caption),MB_OK);
 end;
 
 procedure GLShowCursor(AShow: boolean);
@@ -534,7 +760,7 @@ end;
 
 function GLGetTickCount:int64;
 begin
-  result := GetTickCount;
+  result:=GetTickCount;
 end;
 
 {$IFDEF UNIX}
@@ -764,6 +990,78 @@ begin
    end;
 end;
 
+// InformationDlg
+//
+procedure InformationDlg(const msg : String);
+begin
+   ShowMessage(msg);
+end;
+
+// QuestionDlg
+//
+function QuestionDlg(const msg : String) : Boolean;
+begin
+   Result:=(MessageDlg(msg, mtConfirmation, [mbYes, mbNo], 0)=mrYes);
+end;
+
+// InputDlg
+//
+function InputDlg(const aCaption, aPrompt, aDefault : String) : String;
+begin
+   Result:=InputBox(aCaption, aPrompt, aDefault);
+end;
+
+// SavePictureDialog
+//
+function SavePictureDialog(var aFileName : String; const aTitle : String = '') : Boolean;
+var
+   saveDialog : TSavePictureDialog;
+begin
+   saveDialog:=TSavePictureDialog.Create(Application);
+   try
+      with saveDialog do begin
+         Options:=[ofHideReadOnly, ofNoReadOnlyReturn];
+         if aTitle<>'' then
+            Title:=aTitle;
+         FileName:=aFileName;
+         Result:=Execute;
+         if Result then
+            aFileName:=FileName;
+      end;
+   finally
+      saveDialog.Free;
+   end;
+end;
+
+// OpenPictureDialog
+//
+function OpenPictureDialog(var aFileName : String; const aTitle : String = '') : Boolean;
+var
+   openDialog : TOpenPictureDialog;
+begin
+   openDialog:=TOpenPictureDialog.Create(Application);
+   try
+      with openDialog do begin
+         Options:=[ofHideReadOnly, ofNoReadOnlyReturn];
+         if aTitle<>'' then
+            Title:=aTitle;
+         FileName:=aFileName;
+         Result:=Execute;
+         if Result then
+            aFileName:=FileName;
+      end;
+   finally
+      openDialog.Free;
+   end;
+end;
+
+// ApplicationTerminated
+//
+function ApplicationTerminated : Boolean;
+begin
+   Result:=Application.Terminated;
+end;
+
 // RaiseLastOSError
 //
 { TODO : Fix this. Currently it does nothing in lazarus. }
@@ -778,6 +1076,19 @@ begin
    raise e;
    {$ENDIF}
 end;
+
+{$IFDEF GLS_DELPHI_4_DOWN}
+// FreeAndNil
+//
+procedure FreeAndNil(var anObject);
+var
+  buf : TObject;
+begin
+  buf:=TObject(anObject);
+  TObject(anObject):=nil;  // clear the reference before destroying the object
+  buf.Free;
+end;
+{$ENDIF}
 
 type
   TDeviceCapabilities = record
@@ -874,12 +1185,13 @@ end;
 //
 procedure Sleep(length : Cardinal);
 begin
-  SysUtils.Sleep(Length);
+  Sleep(Length);
 end;
 
 // QueryPerformanceCounter
 //
 {$IFDEF UNIX}
+  {$IFDEF FPC}
    var
      vProgStartSecond : int64;
 
@@ -890,6 +1202,7 @@ end;
      fpgettimeofday(@tz,nil);
      vProgStartSecond:=tz.tv_sec;
    end;
+  {$ENDIF}
 {$ENDIF}
 
 procedure QueryPerformanceCounter(var val : Int64);
@@ -897,6 +1210,7 @@ procedure QueryPerformanceCounter(var val : Int64);
 begin
    Windows.QueryPerformanceCounter(val);
 {$ELSE}
+   {$IFDEF fpc}
    var
      tz:timeval;
    begin
@@ -905,6 +1219,10 @@ begin
      val:=tz.tv_sec-vProgStartSecond;
      val:=val*1000000;
      val:=val+tz.tv_usec;
+   {$ELSE}
+   begin
+     val:=RDTSC;
+   {$ENDIF}
 {$ENDIF}
 end;
 
@@ -915,8 +1233,23 @@ function QueryPerformanceFrequency(var val : Int64) : Boolean;
 begin
    Result:=Boolean(Windows.QueryPerformanceFrequency(val));
 {$ELSE}
-begin
-  val:=1000000;
+  {$IFDEF FPC}
+  begin
+    val:=1000000;
+  {$ELSE}
+  var
+    startCycles, endCycles : Int64;
+    aTime, refTime : TDateTime;
+  begin
+   aTime:=Now;
+   while aTime=Now do ;
+   startCycles:=RDTSC;
+   refTime:=Now;
+   while refTime=Now do ;
+   endCycles:=RDTSC;
+   aTime:=Now;
+   val:=Round((endCycles-startCycles)/((aTime-refTime)*(3600*24)));
+  {$ENDIF}
   Result:=True;
 {$ENDIF}
 end;
@@ -951,10 +1284,24 @@ begin
    Result:=(cur-precisionTimer)*vInvPerformanceCounterFrequency;
 end;
 
+// RDTSC
+//
+function RDTSC : Int64;
+{$IFDEF FPC}
+begin
+  raise exception.create('Using GLCrossPlatform.RDTSC is a bad idea!');
+end;
+{$ELSE}
+asm
+   db $0f, $31
+end;
+{$ENDIF}
 
 
 initialization
 {$IFDEF UNIX}
+  {$IFDEF FPC}
   Init_vProgStartSecond;
+  {$ENDIF}
 {$ENDIF}
 end.

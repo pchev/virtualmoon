@@ -6,7 +6,6 @@
 	Support for MS3D file format.<p>
 
   <b>History :</b><font size=-1><ul>
-    <li>16/10/08 - UweR - Compatibility fix for Delphi 2009: MaterialIndex is now Byte instead of Char
     <li>31/03/07 - DaStr - Added $I GLScene.inc
     <li>24/03/07 - DaStr - Added explicit pointer dereferencing
                            (thanks Burkhard Carstens) (Bugtracker ID = 1678644)
@@ -23,7 +22,7 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, SysUtils, GLVectorFileObjects,  VectorTypes, GLMaterial, VectorGeometry,
+  Classes, SysUtils, GLVectorFileObjects,  VectorTypes, GLTexture, VectorGeometry,
   VectorLists, ApplicationFileIO;
 
 type
@@ -210,7 +209,7 @@ begin
 
       // if materialindex=-1, then there is no material, and all faces should
       // be added to a base VIL
-      if Group.materialIndex = -1 then
+      if Group.materialIndex = char(-1) then
       begin
         // If there's no base VIL, create one!
         if FaceGroup = nil then
@@ -265,7 +264,7 @@ begin
         for j := 0 to GroupList.Count-1 do
         begin
           Group := TMS3DGroup(GroupList[j]);
-          if Group.materialIndex = i then
+          if Group.materialIndex = char(i) then
             for k := 0 to Group.numtriangles - 1 do
             begin
               ms3d_triangle := ms3d_triangles^[integer(Group.triangleIndices[k])];

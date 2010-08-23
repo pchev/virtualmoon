@@ -7,7 +7,6 @@
    Allows re-routing file reads to reads from a single archive file f.i.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>23/01/10 - Yar - Change LoadFromStream to dynamic
       <li>29/01/07 - DaStr - Moved registration to GLSceneRegister.pas
       <li>05/06/03 - EG - TDataFile moved in from GLMisc
       <li>31/01/03 - EG - Added FileExists mechanism
@@ -109,7 +108,7 @@ type
 
          procedure LoadFromFile(const fileName : String); dynamic;
          procedure SaveToFile(const fileName : String); dynamic;
-         procedure LoadFromStream(stream : TStream); dynamic;
+         procedure LoadFromStream(stream : TStream); dynamic; abstract;
          procedure SaveToStream(stream : TStream); dynamic;
 
          {: Optionnal resource name.<p>
@@ -278,13 +277,6 @@ begin
    finally
       fs.Free;
    end;
-end;
-
-// LoadFromStream
-//
-procedure TDataFile.LoadFromStream(stream : TStream);
-begin
-   Assert(False, 'Imaport for '+ClassName+' to '+stream.ClassName+' not available.');
 end;
 
 // SaveToStream

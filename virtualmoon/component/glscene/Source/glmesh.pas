@@ -9,7 +9,6 @@
    implements more efficient (though more complex) mesh tools.<p> 
 
 	<b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>31/07/07 - DanB - Implemented AxisAlignedDimensionsUnscaled for TGLMesh
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
       <li>30/03/07 - DaStr - Added $I GLScene.inc
@@ -33,21 +32,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLScene, VectorGeometry, OpenGL1x, GLState,
-     GLColor, BaseClasses, GLRenderContextInfo;
-
-type
-   TMeshMode = (mmTriangleStrip, mmTriangleFan, mmTriangles,
-                mmQuadStrip, mmQuads, mmPolygon);
-   TVertexMode = (vmV, vmVN, vmVNC, vmVNCT, vmVNT, vmVT);
-
-const
-   cMeshModeToGLEnum : array [Low(TMeshMode)..High(TMeshMode)] of TGLEnum =
-                     (GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLES,
-                      GL_QUAD_STRIP, GL_QUADS, GL_POLYGON);
-   cVertexModeToGLEnum : array [Low(TVertexMode)..High(TVertexMode)] of TGLEnum =
-                     (GL_V3F, GL_N3F_V3F, GL_C4F_N3F_V3F, GL_T2F_C4F_N3F_V3F,
-                      GL_T2F_N3F_V3F, GL_T2F_V3F);
+uses Classes, GLMisc, GLScene, VectorGeometry, OpenGL1x, GLTexture, GLState,
+     GLColor;
 
 type
 
@@ -629,7 +615,7 @@ begin
    inherited;
    if osDirectDraw in ObjectStyle then
       FVertices.EnterLockSection;
-   rci.GLStates.PushAttrib([sttPolygon, sttEnable, sttCurrent]);
+   glPushAttrib(GL_POLYGON_BIT or GL_ENABLE_BIT or GL_CURRENT_BIT);
    case FVertexMode of
       vmV    : glInterleavedArrays(GL_V3F, SizeOf(TVertexData), FVertices.FirstVertex);
       vmVN   : glInterleavedArrays(GL_N3F_V3F, SizeOf(TVertexData), FVertices.FirstNormal);
@@ -640,7 +626,7 @@ begin
       Assert(False, glsInterleaveNotSupported);
    end;
    if FVertexMode in [vmVNC, vmVNCT] then begin
-      rci.GLStates.Enable(stColorMaterial);
+      glEnable(GL_COLOR_MATERIAL);
       glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
       rci.GLStates.ResetGLMaterialColors;
    end;
@@ -655,7 +641,7 @@ begin
    else
       Assert(False);
    end;
-   rci.GLStates.PopAttrib;
+   glPopAttrib;
    if osDirectDraw in ObjectStyle then
       FVertices.LeaveLockSection;
 end;

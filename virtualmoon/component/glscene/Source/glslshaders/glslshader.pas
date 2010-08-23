@@ -6,20 +6,11 @@
     TGLSLShader is a wrapper for GLS shaders.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>04/11/09 - DaStr - Added default value to TGLCustomGLSLShader.TransformFeedBackMode
-      <li>26/10/09 - DaStr - Updated GeometryShader support (thanks YarUnderoaker)
-      <li>24/08/09 - DaStr - Added GeometryShader support (thanks YarUnderoaker)
-      <li>24/07/09 - DaStr - Added support for TGLCustomShader.DebugMode
-                             Fixed spelling mistake in TGLShaderUnAplyEvent
-                             TGLShader.DoInitialize() now passes rci
-                              (BugTracker ID = 2826217)
-                             Bugfixed TGLCustomGLSLShader.DoInitialize() - now
-                              shader cleanes up correctly if failed to initialize
       <li>15/03/08 - DaStr - Fixups for vIgnoreContextActivationFailures mode
                                                       (BugTracker ID = 1914782)
       <li>25/12/07 - DaStr - Fix-up for previous update (BugtrackerID = 1772477)
-      <li>12/08/07 - LC -    TGLSLShaderParameter.SetAsCustomTexture now restores
-                              the active texture unit (BugtrackerID = 1772477)
+      <li>12/08/07 - LC - TGLSLShaderParameter.SetAsCustomTexture now restores the
+                          active texture unit (BugtrackerID = 1772477)
       <li>12/07/07 - DaStr - TGLSLInitializedShaderParameters removed because
                               even if implemented, it could not give
                               a significant performance increase
@@ -28,7 +19,7 @@
                               used to set texture units for different sampler
                               types (1D/2D/3D) before validation, which fixes
                               a bug (or complies to strict validation) with ATI
-                              drivers
+                              drivers.
       <li>30/03/07 - DaStr - Bugfixed TGLCustomGLSLShader.DoUnApply
                               (Result was not initialized)
       <li>20/03/07 - DaStr - TGLCustomGLSLShader now generates its own events
@@ -68,8 +59,7 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  VectorGeometry, VectorTypes, GLTexture, GLContext, OpenGL1x, GLCustomShader,
-  GLRenderContextInfo;
+  VectorGeometry, VectorTypes, GLTexture, GLContext, OpenGL1x, GLCustomShader;
 
 type
   TGLSLShaderParameter = class;
@@ -77,36 +67,30 @@ type
   EGLSLShaderException = class(EGLCustomShaderException);
 
   TGLSLShaderEvent = procedure(Shader: TGLCustomGLSLShader) of object;
-  TGLSLShaderUnApplyEvent = procedure(Shader: TGLCustomGLSLShader;
+  TGLSLShaderUnUplyEvent = procedure(Shader: TGLCustomGLSLShader;
                                      var ThereAreMorePasses: Boolean) of object;
 
   TGLCustomGLSLShader = class(TGLCustomShader)
   private
     FGLSLProg: TGLProgramHandle;
     FParam: TGLSLShaderParameter;
-    FActiveVarying: TStrings;
-    FTransformFeedBackMode: TGLTransformFeedBackMode;
 
     FOnInitialize: TGLSLShaderEvent;
     FOnApply: TGLSLShaderEvent;
-    FOnUnApply: TGLSLShaderUnApplyEvent;
-
+    FOnUnApply: TGLSLShaderUnUplyEvent;
 
     function GetParam(const Index: string): TGLSLShaderParameter;
     function GetDirectParam(const Index: Cardinal): TGLSLShaderParameter;
-    procedure OnChangeActiveVarying(Sender: TObject);
   protected
     property OnApply: TGLSLShaderEvent read FOnApply write FOnApply;
-    property OnUnApply: TGLSLShaderUnApplyEvent read FOnUnApply write FOnUnApply;
+    property OnUnApply: TGLSLShaderUnUplyEvent read FOnUnApply write FOnUnApply;
     property OnInitialize: TGLSLShaderEvent read FOnInitialize write FOnInitialize;
 
     procedure DoInitialPass; virtual;
 
     function GetGLSLProg: TGLProgramHandle; virtual;
     function GetCurrentParam: TGLSLShaderParameter; virtual;
-    procedure SetActiveVarying(const Value: TStrings);
-    procedure SetTransformFeedBackMode(const Value: TGLTransformFeedBackMode);
-    procedure DoInitialize(var rci: TRenderContextInfo; Sender: TObject); override;
+    procedure DoInitialize; override;
     procedure DoFinalize; override;
     procedure DoApply(var rci: TRenderContextInfo; Sender: TObject); override;
     function DoUnApply(var rci: TRenderContextInfo): Boolean; override;
@@ -118,8 +102,6 @@ type
 
     property Param[const Index: string]: TGLSLShaderParameter read GetParam;
     property DirectParam[const Index: Cardinal]: TGLSLShaderParameter read GetDirectParam;
-    property ActiveVarying: TStrings read FActiveVarying write SetActiveVarying;
-    property TransformFeedBackMode: TGLTransformFeedBackMode read FTransformFeedBackMode write SetTransformFeedBackMode default tfbmInterleaved;
   end;
 
 
@@ -161,9 +143,6 @@ type
     procedure SetAsCustomTexture(const TextureIndex: Integer;
       const TextureTarget: Word; const Value: Cardinal); override;
 
-    function GetAsUniformBuffer: GLenum; override;
-    procedure SetAsUniformBuffer( UBO: GLenum); override;
-
    public
      // Nothing here ...yet.
    end;
@@ -172,7 +151,6 @@ type
   published
     property FragmentProgram;
     property VertexProgram;
-    property GeometryProgram;    
 
     property OnApply;
     property OnUnApply;
@@ -180,9 +158,6 @@ type
 
     property ShaderStyle;
     property FailedInitAction;
-
-    property ActiveVarying;
-    property TransformFeedBackMode;
   end;
 
 
@@ -198,22 +173,14 @@ begin
 end;
 
 
-procedure TGLCustomGLSLShader.DoInitialize(var rci: TRenderContextInfo; Sender: TObject);
-const
-  cGLgsInTypes : array[gsInPoints..gsInAdjTriangles] of GLenum =
-    (GL_POINTS, GL_LINES, GL_LINES_ADJACENCY_EXT, GL_TRIANGLES,
-     GL_TRIANGLES_ADJACENCY_EXT);
-  cGLgsOutTypes: array[gsOutPoints..gsOutTriangleStrip] of GLenum =
-    (GL_POINTS, GL_LINE_STRIP, GL_TRIANGLE_STRIP);
-var
-  i, NumVarying, MaxVaryings: Integer;
+procedure TGLCustomGLSLShader.DoInitialize;
 begin
   try
     if not ShaderSupported then
       HandleFailedInitialization
     else
     try
-      if VertexProgram.Enabled or FragmentProgram.Enabled or GeometryProgram.Enabled then
+      if VertexProgram.Enabled or FragmentProgram.Enabled then
       begin
         FGLSLProg := TGLProgramHandle.CreateAndAllocate;
         FParam.FGLSLProg := FGLSLProg;
@@ -224,44 +191,14 @@ begin
       end;
 
       if VertexProgram.Enabled then
-        FGLSLProg.AddShader(TGLVertexShaderHandle, VertexProgram.Code.Text, FDebugMode);
+        FGLSLProg.AddShader(TGLVertexShaderHandle, VertexProgram.Code.Text);
       if FragmentProgram.Enabled then
-        FGLSLProg.AddShader(TGLFragmentShaderHandle, FragmentProgram.Code.Text, FDebugMode);
-      if GeometryProgram.Enabled then
-        FGLSLProg.AddShader(TGLGeometryShaderHandle, GeometryProgram.Code.Text, FDebugMode);
+        FGLSLProg.AddShader(TGLFragmentShaderHandle, FragmentProgram.Code.Text);
 
-      if VertexProgram.Enabled or FragmentProgram.Enabled or GeometryProgram.Enabled then
+      if VertexProgram.Enabled or FragmentProgram.Enabled then
       begin
-        if GeometryProgram.Enabled then
-        begin
-          glProgramParameteriEXT(FGLSLProg.Handle, GL_GEOMETRY_INPUT_TYPE_EXT,
-            cGLgsInTypes[GeometryProgram.InputPrimitiveType]);
-          glProgramParameteriEXT(FGLSLProg.Handle, GL_GEOMETRY_OUTPUT_TYPE_EXT,
-            cGLgsOutTypes[GeometryProgram.OutputPrimitiveType]);
-          glProgramParameteriEXT(FGLSLProg.Handle, GL_GEOMETRY_VERTICES_OUT_EXT,
-            GeometryProgram.VerticesOut);
-        end;
-
         if (not FGLSLProg.LinkProgram) then
           raise EGLSLShaderException.Create(FGLSLProg.InfoLog);
-
-        NumVarying := FActiveVarying.Count;
-        if NumVarying > 0 then
-        begin
-          // Activate varying
-          glGetintegerv(GL_MAX_VARYING_COMPONENTS, @MaxVaryings);
-
-          if NumVarying > MaxVaryings then
-            raise EGLSLShaderException.Create('Varyings number out of hardware limit.');
-
-          for i := 0 to NumVarying - 1 do
-            FGLSLProg.AddActiveVarying(FActiveVarying.Strings[i]);
-
-          // Relink progaram.
-          if (not FGLSLProg.LinkProgram) then
-            raise EGLSLShaderException.Create(FGLSLProg.InfoLog);
-        end;
-
       end
       else
         FreeAndNil(FGLSLProg);
@@ -269,8 +206,8 @@ begin
     except
       on E: Exception do
       begin
-        FreeAndNil(FGLSLProg);
         HandleFailedInitialization(E.Message);
+        FreeAndNil(FGLSLProg);
       end;
     end;
 
@@ -285,9 +222,9 @@ begin
     except
       on E: Exception do
       begin
-        FreeAndNil(FGLSLProg);
-        Enabled := False;
         HandleFailedInitialization(E.Message);
+        FreeAndNil(FGLSLProg);
+        Enabled:=false;
       end;
     end;
   end;
@@ -354,96 +291,24 @@ constructor TGLCustomGLSLShader.Create(AOwner: TComponent);
 begin
   inherited;
   FParam := TGLSLShaderParameter.Create;
-  FActiveVarying := TStringList.Create;
-  TStringList(FActiveVarying).OnChange := OnChangeActiveVarying;
-  FTransformFeedBackMode := tfbmInterleaved;
 end;
 
 destructor TGLCustomGLSLShader.Destroy;
 begin
-  FreeAndNil(FGLSLProg);
-  FreeAndNil(FParam);
-  FreeAndNil(FActiveVarying);
+  if vIgnoreContextActivationFailures then
+    FGLSLProg.Free;
+  FParam.Free;
   inherited;
 end;
 
-procedure TGLCustomGLSLShader.SetActiveVarying(const Value: TStrings);
-begin
-  FActiveVarying.Assign(Value);
-  NotifyChange(Self);
-end;
-
-procedure TGLCustomGLSLShader.SetTransformFeedBackMode(const Value: TGLTransformFeedBackMode);
-begin
-  if Value <> FTransformFeedBackMode then
-  begin
-    FTransformFeedBackMode := Value;
-    NotifyChange(Self);
-  end;
-end;
-
-procedure TGLCustomGLSLShader.OnChangeActiveVarying(Sender: TObject);
-begin
-  NotifyChange(Self);
-end;
-
 procedure TGLCustomGLSLShader.DoInitialPass;
-const
-  cBufferMode: array[tfbmInterleaved..tfbmSeparate] of GLenum = (
-    GL_INTERLEAVED_ATTRIBS_EXT, GL_SEPARATE_ATTRIBS_EXT);
-var
-  NeedActivate: Boolean;
-  i, NumVarying: Integer;
-  locs: array of GLint;
-  sVaryings: array of AnsiString;
-  pVaryings: array of PGLChar;
-
-  procedure PrepareVaryings;
-  var j: Integer;
-  begin
-    SetLength(sVaryings, NumVarying);
-    SetLength(pVaryings, NumVarying);
-    for j := 0 to NumVarying - 1 do
-    begin
-      sVaryings[i] := AnsiString(FActiveVarying.Strings[j]) + #0;
-      pVaryings[i] := PAnsiChar( sVaryings[j] );
-    end;
-  end;
-
 begin
-  NumVarying := FActiveVarying.Count;
-  NeedActivate := Assigned(FOnInitialize) or (NumVarying > 0);
-
-  if NeedActivate then FGLSLProg.UseProgramObject;
-
-  if NumVarying > 0 then
+  if Assigned(FOnInitialize) then
   begin
-    if Assigned(glTransformFeedbackVaryingsNV) then
-    begin
-      SetLength(locs, NumVarying);
-      for i := 0 to NumVarying-1 do
-        locs[i] := FGLSLProg.GetVaryingLocation(FActiveVarying.Strings[i]);
-      glTransformFeedbackVaryingsNV ( FGLSLProg.Handle, NumVarying, @locs[0],
-        cBufferMode[FTransformFeedBackMode] );
-    end
-    else if Assigned(glTransformFeedbackVaryings) then
-    begin
-      PrepareVaryings;
-      glTransformFeedbackVaryings( FGLSLProg.Handle, NumVarying, @pVaryings[0],
-        cBufferMode[FTransformFeedBackMode] );
-    end
-    else if Assigned(glTransformFeedbackVaryingsEXT) then
-    begin
-      PrepareVaryings;
-      glTransformFeedbackVaryingsEXT ( FGLSLProg.Handle, NumVarying, @locs[0],
-        cBufferMode[FTransformFeedBackMode] );
-    end;
-
-    CheckOpenGLError;
+    FGLSLProg.UseProgramObject;
+    FOnInitialize(Self);
+    FGLSLProg.EndUseProgramObject;
   end;
-  
-  if Assigned(FOnInitialize) then FOnInitialize(Self);
-  if NeedActivate then FGLSLProg.EndUseProgramObject;
 end;
 
 { TGLSLShaderParameter }
@@ -572,21 +437,6 @@ end;
 procedure TGLSLShaderParameter.SetAsVector4i(const Value: TVector4i);
 begin
   glUniform4iARB(FParameterID, Value[0], Value[1], Value[2], Value[3]);
-end;
-
-function TGLSLShaderParameter.GetAsUniformBuffer: GLenum;
-begin
-  glGetUniformivARB(FGLSLProg.Handle, FParameterID, @Result);
-end;
-
-procedure TGLSLShaderParameter.SetAsUniformBuffer(UBO: Cardinal);
-begin
-  if glIsBuffer(UBO) then
-  begin
-    glBindBuffer(GL_UNIFORM_BUFFER_EXT, UBO);
-    glUniformBufferEXT(FGLSLProg.Handle, FParameterID, UBO);
-  end
-  else raise EGLSLShaderException.Create('You are trying to uniform not a buffer object');
 end;
 
 initialization

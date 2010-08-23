@@ -24,8 +24,7 @@ unit GLBehaviours;
 
 interface
 
-uses Classes, GLScene, VectorGeometry, XCollection, BaseClasses,
-     GLCoordinates;
+uses Classes, GLScene, VectorGeometry, GLMisc, XCollection;
 
 type
 
@@ -212,7 +211,7 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils;
+uses SysUtils, OpenGL1x;
 
 // GetInertia
 //

@@ -6,9 +6,6 @@
 	Types and structures for the MS3D file format.<p>
 
 	<b>Historique : </b><font size=-1><ul>
-      <li>24/07/09 - DaStr - TMS3DGroup.MaterialIndex is now Shortint
-                              (BugtrackerID = 2353633)
-      <li>16/10/08 - UweR  - Compatibility fix for Delphi 2009
       <li>06/06/07 - DaStr - Added $I GLScene.inc
                              Added GLColor to uses (BugtrackerID = 1732211)
       <li>31/08/03 - DanB  - Some code standardisation (by Philipp)
@@ -45,10 +42,10 @@ type
   TMS3DGroup = class
   public
     Flags: byte;
-    Name: array[0..31] of AnsiChar;
+    Name: array[0..31] of char;
     NumTriangles: word;
     TriangleIndices: TList;
-    MaterialIndex: Shortint;
+    MaterialIndex: char;
     constructor Create;
     destructor Destroy; override;
   end;
@@ -61,7 +58,7 @@ type
   {$A-}
 
   TMS3DHeader = record
-    ID: array[0..9] of AnsiChar;
+    ID: array[0..9] of char;
     Version: integer;
   end;
 
@@ -77,7 +74,7 @@ type
   TMS3DVertex = record
     Flags: byte;
     Vertex: TD3DVector;
-    BoneId: AnsiChar;
+    BoneId: char;
     ReferenceCount: byte;
   end;
 
@@ -122,16 +119,16 @@ type
   //     char            alphamap[128];                       // alpha.bmp
   // } ms3d_material_t;
   TMS3DMaterial = record
-    Name: array[0..31] of AnsiChar;
+    Name: array[0..31] of char;
     Ambient: TColorVector;
     Diffuse: TColorVector;
     Specular: TColorVector;
     Emissive: TColorVector;
     Shininess: single;
     Transparency: single;
-    Mode: AnsiChar;
-    Texture: array[0..127] of AnsiChar;
-    Alphamap: array[0..127] of AnsiChar;
+    Mode: char;
+    Texture: array[0..127] of char;
+    Alphamap: array[0..127] of char;
   end;
 
 
@@ -178,8 +175,8 @@ type
 
   TMS3DJointBase = record
     Flags: byte;
-    Name: array[0..31] of AnsiChar;
-    ParentName: array[0..31] of AnsiChar;
+    Name: array[0..31] of char;
+    ParentName: array[0..31] of char;
     Rotation: TD3DVector;
     Position: TD3DVector;
     NumKeyFramesRot: word;

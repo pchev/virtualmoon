@@ -8,9 +8,6 @@
    can be useful to make animations with GlScene<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>07/01/10 - DaStr - Added TGLTimeEventsMGR.Reset()
-                             Fixed code formating
-      <li>25/11/09 - DanB - Changed TTimeEvent.Name from ShortString to String
       <li>11/10/07 - DaStr - TTimeEvent.SetEnabled now updates StartTime to
                              Cadencers's current time.
                              (Thanks Lukasz Sokol) (BugTracker ID = 1811141)
@@ -24,7 +21,7 @@ unit GLTimeEventsMgr;
 interface
 
 uses
-  GLCadencer, SysUtils, Classes, BaseClasses;
+  GLCadencer, SysUtils, Classes, GLMisc;
 
 type
 
@@ -35,29 +32,28 @@ type
 	//
    TGLTimeEventsMGR = class(TGLUpdateAbleComponent)
    private
-      { Dï¿½clarations privï¿½es }
+      { Déclarations privées }
       FCadencer : TGLCadencer;
       FEnabled : boolean;
       FFreeEventOnEnd : boolean;
       FEvents : TTimeEvents;
 
    protected
-      { Dï¿½clarations protï¿½gï¿½es }
+      { Déclarations protégées }
       procedure Notification(AComponent: TComponent; Operation: TOperation); override;
 
       procedure SetCadencer(const val : TGLCadencer);
       procedure SetEvents(const val : TTimeEvents);
 
    public
-      { Dï¿½clarations publiques }
+      { Déclarations publiques }
       constructor Create(aOwner : TComponent); override;
       destructor Destroy; override;
 
       procedure DoProgress(const progressTime : TProgressTimes); override;
-      procedure Reset();
 
    published
-      { Dï¿½clarations publiï¿½es }
+      { Déclarations publiées }
       property Cadencer : TGLCadencer read FCadencer write SetCadencer;
       property Enabled : boolean read FEnabled write FEnabled default True;
       property FreeEventOnEnd : boolean read FFreeEventOnEnd write FFreeEventOnEnd default False;
@@ -67,22 +63,22 @@ type
 	// TTimeEvents
 	//
 	TTimeEvents = class (TCollection)
-   protected
-      { Protected Declarations }
-      Owner : TComponent;
-      function GetOwner: TPersistent; override;
-      procedure SetItems(index : Integer; const val : TTimeEvent);
-      function GetItems(index : Integer) : TTimeEvent;
+	   protected
+	      { Protected Declarations }
+	      Owner : TComponent;
+	      function GetOwner: TPersistent; override;
+         procedure SetItems(index : Integer; const val : TTimeEvent);
+	      function GetItems(index : Integer) : TTimeEvent;
 
-   public
-      { Public Declarations }
-      constructor Create(AOwner : TComponent);
+      public
+	      { Public Declarations }
+	      constructor Create(AOwner : TComponent);
 
-      function Add: TTimeEvent;
-      function FindItemID(ID: Integer): TTimeEvent;
-      function EventByName(name:String): TTimeEvent;
+         function Add: TTimeEvent;
+	      function FindItemID(ID: Integer): TTimeEvent;
+         function EventByName(name:ShortString): TTimeEvent;
 
-      property Items[index : Integer] : TTimeEvent read GetItems write SetItems; default;
+	      property Items[index : Integer] : TTimeEvent read GetItems write SetItems; default;
    end;
 
    TTimeEventType = (etOneShot, etContinuous, etPeriodic);
@@ -93,7 +89,7 @@ type
    TTimeEvent = class (TCollectionItem)
       private
          { Private Declarations }
-         FName: String;
+         FName: ShortString;
          FStartTime, FEndTime, FElapsedTime : Double;
          FPeriod : Double;
          FEventType: TTimeEventType;
@@ -106,7 +102,7 @@ type
       protected
          { Protected Declarations }
          function GetDisplayName : String; override;
-         procedure SetName(val : String);
+         procedure SetName(val : ShortString);
 
          procedure DoEvent(const curTime : Double);
 
@@ -122,7 +118,7 @@ type
 
       published
          { Published Declarations }
-         property Name : String read FName write SetName;
+         property Name : ShortString read FName write SetName;
          property StartTime : Double read FStartTime write FStartTime;
          property EndTime : Double read FEndTime write FEndTime;
          property Period : Double read  FPeriod write FPeriod;
@@ -224,16 +220,6 @@ begin
    end;
 end;
 
-// Reset
-//
-procedure TGLTimeEventsMGR.Reset;
-var
-  I: Integer;
-begin
-  if FEvents.Count <> 0 then
-    for I := 0 to FEvents.Count - 1 do
-      FEvents[I].FTickCount := 0;
-end;
 
 
 // ------------------
@@ -285,7 +271,7 @@ end;
 
 // EventByName
 //
-function TTimeEvents.EventByName(name:String): TTimeEvent;
+function TTimeEvents.EventByName(name:ShortString): TTimeEvent;
 var i:integer;
 begin
     i:=0;
@@ -334,7 +320,7 @@ end;
 
 // SetName
 //
-procedure TTimeEvent.SetName(val : String);
+procedure TTimeEvent.SetName(val : ShortString);
 var
    i : Integer;
    ok : Boolean;
@@ -358,8 +344,6 @@ begin
    Inc(FTickCount);
 end;
 
-// SetEnabled
-//
 procedure TTimeEvent.SetEnabled(const Value: Boolean);
 begin
   FEnabled := Value;

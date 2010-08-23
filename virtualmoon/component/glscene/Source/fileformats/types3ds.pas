@@ -36,9 +36,6 @@ uses Classes; // for TStringList
 
 type TDumpLevel = (dlTerseDump, dlMediumDump, dlMaximumDump);
 
-     PChar3DS = PAnsiChar;
-     String3DS = AnsiString;
-
      PWordList = ^TWordList;
      TWordList = array[0..MaxInt shr 2] of Word;
 
@@ -765,7 +762,7 @@ type TDumpLevel = (dlTerseDump, dlMediumDump, dlMaximumDump);
      PFloatPercentage = ^TFloatPercentage;
      TFloatPercentage = Single;
 
-     PMatMapname = PChar3DS;
+     PMatMapname = PChar;
 
      PMeshVersion = ^TMeshVersion;
      TMeshVersion = Integer;
@@ -797,7 +794,7 @@ type TDumpLevel = (dlTerseDump, dlMediumDump, dlMaximumDump);
      POConsts = ^TOConsts;
      TOConsts = TPoint3DS;
 
-     PBitMapName = PChar3DS;
+     PBitMapName = PChar;
 
      PVGradient = ^TVGradient;
      TVGradient = Single;
@@ -841,9 +838,9 @@ type TDumpLevel = (dlTerseDump, dlMediumDump, dlMaximumDump);
        BankAngle: Single;
      end;
 
-     PViewCamera = PChar3DS;
+     PViewCamera = PChar;
 
-     PMatName = PChar3DS;
+     PMatName = PChar;
 
      PMatShading = ^TMatShading;
      TMatShading = SmallInt;
@@ -887,7 +884,7 @@ type TDumpLevel = (dlTerseDump, dlMediumDump, dlMaximumDump);
      PMatMapAng = ^TMatMapAng;
      TMatMapAng = Single;
 
-     PNamedObject = PChar3DS;
+     PNamedObject = PChar;
 
      PPointArray = ^TPointArray;
      TPointArray = record
@@ -945,12 +942,12 @@ type TDumpLevel = (dlTerseDump, dlMediumDump, dlMaximumDump);
        CylIconHeight: Single;
      end;
 
-     PProcName = PChar3DS;
+     PProcName = PChar;
 
      PNDirectLight = ^TNDirectLight;
      TNDirectLight = TPoint3DS;
 
-     PDlExclude = PChar3DS;
+     PDlExclude = PChar;
 
      PDlSpotlight = ^TDlSpotlight;
      TDlSpotlight = record
@@ -974,7 +971,7 @@ type TDumpLevel = (dlTerseDump, dlMediumDump, dlMaximumDump);
      PDlSpotAspect = ^TDlSpotAspect;
      TDlSpotAspect = Single;
 
-     PDlSpotProjector = PChar3DS;
+     PDlSpotProjector = PChar;
 
      PDlRayBias = ^TDlRayBias;
      TDlRayBias = Single;
@@ -1089,7 +1086,7 @@ type TDumpLevel = (dlTerseDump, dlMediumDump, dlMaximumDump);
      PPivot = ^TPivot;
      TPivot = TPoint3DS;
 
-     PInstanceName = PChar3DS;
+     PInstanceName = PChar;
 
      PMorphSmooth = ^TMorphSmooth;
      TMorphSmooth = Single;
@@ -1175,9 +1172,9 @@ type TDumpLevel = (dlTerseDump, dlMediumDump, dlMaximumDump);
        Data: Pointer;
      end;
 
-     PXDataAppName = PChar3DS;
+     PXDataAppName = PChar;
 
-     PXDataString = PChar3DS;
+     PXDataString = PChar;
 
      PXDataFloat = ^TXDataFloat;
      TXDataFloat = Single;

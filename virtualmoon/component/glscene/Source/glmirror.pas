@@ -9,10 +9,6 @@
    materials/mirror demo before using this component.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>08/03/10 - DanB - Removed TGLMirror.ClearZBufferArea + changed depth
-                            clearing to use DepthRange(1,1) instead
-      <li>05/03/10 - DanB - More state added to TGLStateCache
-      <li>15/12/08- Paul Robello - corrected call to  FOnEndRenderingMirrors
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>28/03/07 - DaStr - Renamed parameters in some methods
@@ -34,8 +30,7 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLScene, VectorGeometry, OpenGL1x, GLMaterial, GLColor,
-     GLRenderContextInfo;
+uses Classes, GLScene, VectorGeometry, OpenGL1x, GLMisc, GLTexture, GLColor;
 
 type
 
@@ -80,6 +75,7 @@ type
          procedure Notification(AComponent: TComponent; Operation: TOperation); override;
          procedure SetMirrorObject(const val : TGLBaseSceneObject);
          procedure SetMirrorOptions(const val : TMirrorOptions);
+         procedure ClearZBufferArea;
 
 		   procedure SetHeight(AValue: TGLFloat);
 		   procedure SetWidth(AValue: TGLFloat);
@@ -99,6 +95,7 @@ type
 		   procedure BuildList(var ARci : TRenderContextInfo); override;
 
 		   procedure Assign(Source: TPersistent); override;
+//         function AxisAlignedDimensions : TVector; override;
          function AxisAlignedDimensionsUnscaled : TVector; override;
 
 		published
@@ -176,76 +173,65 @@ var
    clipPlane : TDoubleHmgPlane;
    bgColor : TColorVector;
    cameraPosBackup, cameraDirectionBackup : TVector;
-   CurrentBuffer: TGLSceneBuffer;
 begin
    if FRendering then Exit;
    FRendering:=True;
    try
       oldProxySubObject:=ARci.proxySubObject;
       ARci.proxySubObject:=True;
-      CurrentBuffer := TGLSceneBuffer(ARci.buffer);
 
       if VectorDotProduct(VectorSubtract(ARci.cameraPosition, AbsolutePosition), AbsoluteDirection)>0 then begin
 
-         ARci.GLStates.PushAttrib([sttEnable]);
+         glPushAttrib(GL_ENABLE_BIT);
 
          // "Render" stencil mask
          if MirrorOptions<>[] then begin
             if (moUseStencil in MirrorOptions) then begin
-               ARci.GLStates.StencilClearValue := 0;
+               glClearStencil(0);
                glClear(GL_STENCIL_BUFFER_BIT);
-               ARci.GLStates.Enable(stStencilTest);
-               ARci.GLStates.SetStencilFunc(cfAlways, 1, 1);
-               ARci.GLStates.SetStencilOp(soReplace, soZero, soReplace);
+               glEnable(GL_STENCIL_TEST);
+               glStencilFunc(GL_ALWAYS, 1, 1);
+               glStencilOp(GL_REPLACE, GL_ZERO, GL_REPLACE);
             end;
             if (moOpaque in MirrorOptions) then begin
-               bgColor:=ConvertWinColor(CurrentBuffer.BackgroundColor);
-               ARci.GLStates.SetGLMaterialColors(cmFront, bgColor, clrBlack, clrBlack, clrBlack, 0);
-               ARci.GLStates.Disable(stTexture2D);
+               bgColor:=ConvertWinColor(Scene.CurrentBuffer.BackgroundColor);
+               ARci.GLStates.SetGLMaterialColors(GL_FRONT, bgColor, clrBlack, clrBlack, clrBlack, 0);
+               ARci.GLStates.UnSetGLState(stTexture2D);
             end else begin
-               ARci.GLStates.SetColorMask([]);
+               glColorMask(False, False, False, False);
             end;
-            ARci.GLStates.DepthWriteMask := False;
+            glDepthMask(False);
 
             BuildList(ARci);
 
-            ARci.GLStates.DepthWriteMask := True;
+            glDepthMask(True);
             if (moUseStencil in MirrorOptions) then begin
-               Arci.GLStates.SetStencilFunc(cfEqual, 1, 1);
-               Arci.GLStates.SetStencilOp(soKeep, soKeep, soKeep);
+               glStencilFunc(GL_EQUAL, 1, 1);
+               glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
             end;
 
             if (moClearZBuffer in MirrorOptions) then
-            begin
-               // Draw the mirror at maximum depth
-               ARci.GLStates.SetColorMask([]);
-               ARci.GLStates.DepthFunc := cfAlways;
-               ARci.GLStates.SetDepthRange(1, 1);
-               BuildList(ARci);
-               ARci.GLStates.SetDepthRange(0, 1);
-               ARci.GLStates.DepthFunc := cfLess;
-               ARci.GLStates.SetColorMask(cAllColorComponents);
-            end;
+               ClearZBufferArea;
 
             if not (moOpaque in MirrorOptions) then
-               ARci.GLStates.SetColorMask(cAllColorComponents);
+               glColorMask(True, True, True, True);
          end;
 
          // Mirror lights
          glPushMatrix;
-         glLoadMatrixf(@CurrentBuffer.ViewMatrix);
+         glLoadMatrixf(@Scene.CurrentBuffer.ModelViewMatrix);
          refMat:=MakeReflectionMatrix(AffineVectorMake(AbsolutePosition),
                                       AffineVectorMake(AbsoluteDirection));
          glMultMatrixf(@refMat);
-         Scene.SetupLights(CurrentBuffer.LimitOf[limLights]);
+         Scene.SetupLights(Scene.CurrentBuffer.LimitOf[limLights]);
 
          // mirror geometry and render master
          glGetFloatv(GL_MODELVIEW_MATRIX, @curMat);
-         glLoadMatrixf(@CurrentBuffer.ViewMatrix);
-         CurrentBuffer.PushModelViewMatrix(curMat);
+         glLoadMatrixf(@Scene.CurrentBuffer.ModelViewMatrix);
+         Scene.CurrentBuffer.PushModelViewMatrix(curMat);
 
-         ARci.GLStates.Disable(stCullFace);
-         ARci.GLStates.Enable(stNormalize);
+         glDisable(GL_CULL_FACE);
+         glEnable(GL_NORMALIZE);
 
          if moMirrorPlaneClip in MirrorOptions then begin
             glEnable(GL_CLIP_PLANE0);
@@ -260,8 +246,7 @@ begin
          ARci.cameraDirection:=VectorTransform(ARci.cameraDirection, refMat);
 
          glMultMatrixf(@refMat);
-         // temporary fix? (some objects don't respect culling options, or ?)
-         ARci.GLStates.CullFaceMode := cmFront;
+
          if Assigned(FOnBeginRenderingMirrors) then
             FOnBeginRenderingMirrors(Self);
          if Assigned(FMirrorObject) then begin
@@ -272,19 +257,19 @@ begin
          end else begin
             Scene.Objects.DoRender(ARci, ARenderSelf, True);
          end;
-       if Assigned(FOnEndRenderingMirrors) then
-            FOnEndRenderingMirrors(Self);
+         if Assigned(FOnBeginRenderingMirrors) then
+            FOnBeginRenderingMirrors(Self);
 
          ARci.cameraPosition:=cameraPosBackup;
          ARci.cameraDirection:=cameraDirectionBackup;
-         ARci.GLStates.CullFaceMode := cmBack;
+
          // Restore to "normal"
-         CurrentBuffer.PopModelViewMatrix;
-         glLoadMatrixf(@CurrentBuffer.ViewMatrix);
-         Scene.SetupLights(CurrentBuffer.LimitOf[limLights]);
+         Scene.CurrentBuffer.PopModelViewMatrix;
+         glLoadMatrixf(@Scene.CurrentBuffer.ModelViewMatrix);
+         Scene.SetupLights(Scene.CurrentBuffer.LimitOf[limLights]);
 
          glPopMatrix;
-         ARci.GLStates.PopAttrib;
+         glPopAttrib;
          ARci.GLStates.ResetGLMaterialColors;
          ARci.GLStates.ResetGLCurrentTexture;
 
@@ -304,7 +289,7 @@ begin
          Self.RenderChildren(0, Count-1, ARci);
 
       if Assigned(FMirrorObject) then
-         FMirrorObject.Effects.RenderPostEffects(ARci);
+         FMirrorObject.Effects.RenderPostEffects(Scene.CurrentBuffer, ARci);
    finally
       FRendering:=False;
    end;
@@ -334,6 +319,47 @@ begin
 	  quadric:=gluNewQuadric;
   	gluDisk(Quadric, 0, FRadius, FSlices, 1);  //radius. slices, loops
   end;
+end;
+
+// BuildList
+//
+procedure TGLMirror.ClearZBufferArea;
+var
+   worldMat : TMatrix;
+   p : TAffineVector;
+begin
+   with Scene.CurrentBuffer do begin
+      glPushMatrix;
+      worldMat:=Self.AbsoluteMatrix;
+      glMatrixMode(GL_PROJECTION);
+      glPushMatrix;
+      glLoadIdentity;
+      glOrtho(0, Width, 0, Height, 1, -1);
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity;
+
+      glDepthFunc(GL_ALWAYS);
+      glColorMask(False, False, False, False);
+
+      glBegin(GL_QUADS);
+         p:=WorldToScreen(VectorTransform(AffineVectorMake(Self.Width*0.5, Self.Height*0.5, 0), worldMat));
+         glVertex3f(p[0], p[1], 0.999);
+         p:=WorldToScreen(VectorTransform(AffineVectorMake(-Self.Width*0.5, Self.Height*0.5, 0), worldMat));
+         glVertex3f(p[0], p[1], 0.999);
+         p:=WorldToScreen(VectorTransform(AffineVectorMake(-Self.Width*0.5, -Self.Height*0.5, 0), worldMat));
+         glVertex3f(p[0], p[1], 0.999);
+         p:=WorldToScreen(VectorTransform(AffineVectorMake(Self.Width*0.5, -Self.Height*0.5, 0), worldMat));
+         glVertex3f(p[0], p[1], 0.999);
+      glEnd;
+
+      glColorMask(True, True, True, True);
+      glDepthFunc(GL_LESS);
+      
+      glMatrixMode(GL_PROJECTION);
+      glPopMatrix;
+      glMatrixMode(GL_MODELVIEW);
+      glPopMatrix;
+   end;
 end;
 
 // Notification
@@ -391,7 +417,15 @@ begin
    end;
    inherited Assign(Source);
 end;
-
+{
+// AxisAlignedDimensions
+//
+function TGLMirror.AxisAlignedDimensions: TVector;
+begin
+   Result:=VectorMake(0.5*Abs(FWidth)*Scale.DirectX,
+                      0.5*Abs(FHeight)*Scale.DirectY, 0);
+end;
+}
 // AxisAlignedDimensions
 //
 function TGLMirror.AxisAlignedDimensionsUnscaled: TVector;

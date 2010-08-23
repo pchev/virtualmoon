@@ -471,10 +471,6 @@ msgstr "Εμφάνιση επιγραφών"
 msgid "Show scale"
 msgstr "Εμφάνιση κλίμακας"
 
-#: u_translation.rsside
-msgid "Side:"
-msgstr ""
-
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Απλό"

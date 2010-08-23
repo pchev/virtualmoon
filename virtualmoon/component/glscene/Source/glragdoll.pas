@@ -13,7 +13,7 @@ unit GLRagdoll;
 
 interface
 
-uses GLScene, PersistentClasses, VectorGeometry, GLVectorFileObjects,
+uses GLScene, GLMisc, PersistentClasses, VectorGeometry, GLVectorFileObjects,
   VectorLists, GLObjects;
 
 type

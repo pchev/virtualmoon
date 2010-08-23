@@ -11,8 +11,7 @@
 {*  Modified: 14-Mar-2004                                                     *}
 {*                                                                            *}
 {*  Latest version can be downloaded from:                                    *}
-{*     http://clootie.narod.ru                                                *}
-{*       http://developer.nvidia.com/object/cg_download.html                  *}
+{*     http://www.clootie.ru                                                  *}
 {*                                                                            *}
 {******************************************************************************}
 {                                                                              }
@@ -57,7 +56,7 @@
  *
  * In consideration of your agreement to abide by the following terms, and
  * subject to these terms, NVIDIA grants you a personal, non-exclusive license,
- * under NVIDIA-s copyrights in this original NVIDIA software (the "NVIDIA
+ * under NVIDIAÒs copyrights in this original NVIDIA software (the "NVIDIA
  * Software"), to use, reproduce, modify and redistribute the NVIDIA
  * Software, with or without modifications, in source and/or binary forms;
  * provided that if you redistribute the NVIDIA Software, you must retain the
@@ -94,8 +93,6 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // HISTORY:
-// 17-Nov-09 - Da Stranger
-//   - Improved Unix compatibility (thanks Predator) (BugtrackerID = 2893580)
 // 23-Apr-04 - Nelson Chu:
 //   - Adopted to use with GLScene (jedi.inc -> GLScene.inc)
 // 04-Mar-04 - Alexey Barkovoy:
@@ -108,25 +105,27 @@
 unit cgGL;
 
 {$Include GLScene.inc}
+
+{$ifdef windows}
+  {$DEFINE needs_windows}
+{$endif}
 {$ifdef GLS_DELPHI_6}
-  {$DEFINE COMPILER6_UP}
+  {$UNDEF needs_windows}
 {$endif}
 
 interface
 
 uses
-  OpenGL1x, cg
-  {$IFNDEF COMPILER6_UP}{$IFDEF MSWINDOWS} ,Windows{$ENDIF}{$ENDIF}
-  ;
+  OpenGL1x {$ifdef needs_windows}, Windows{$endif}, cg;
 
 (*$HPPEMIT '#include "cgGL.h"' *)
 
 const
-  {$IFDEF MSWINDOWS}
-  CgGLlibrary = 'cgGL.dll';
-  {$ELSE}
+  {$ifndef windows}
   CgGLlibrary = 'libCgGL.so';
-  {$ENDIF}
+  {$else}
+  CgGLlibrary = 'cgGL.dll';
+  {$endif}
 
 (*****************************************************************************)
 (*** cgGL Type Definitions                                                 ***)

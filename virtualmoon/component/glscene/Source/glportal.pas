@@ -20,8 +20,7 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLVectorFileObjects, GLScene, GLMaterial, VectorGeometry,
-     GLRenderContextInfo;
+uses Classes, GLVectorFileObjects, GLScene, GLTexture, GLMisc, VectorGeometry;
 
 type
 
@@ -215,7 +214,7 @@ begin
       if Assigned(mrci.materialLibrary) then begin
          for i:=0 to FaceGroups.Count-1 do with FaceGroups[i] do begin
             if Length(MaterialName)>0 then begin
-               libMat:=TGLMaterialLibrary(mrci.materialLibrary).Materials.GetLibMaterialByName(MaterialName);
+               libMat:=mrci.materialLibrary.Materials.GetLibMaterialByName(MaterialName);
                if Assigned(libMat) then begin
                   libMat.Apply(mrci);
                   repeat
@@ -293,7 +292,7 @@ begin
    if FDestinationSectorIndex>=0 then begin
       VectorSubtract(FCenter, PAffineVector(@mrci.rcci.origin)^, dir);
       if (VectorDotProduct(FNormal, dir)<=0) and
-            (not IsVolumeClipped(FCenter, FRadius, mrci.rcci.frustum)) then begin
+            (not IsVolumeClipped(FCenter, FRadius, mrci.rcci)) then begin
          Owner.Owner.Owner.Items[FDestinationSectorIndex].BuildList(mrci);
       end
    end;

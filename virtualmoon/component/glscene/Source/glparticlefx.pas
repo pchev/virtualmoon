@@ -10,13 +10,6 @@
    fire and smoke particle systems for instance).<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
-      <li>22/01/10 - Yar  - Added bmp32.Blank:=false for memory allocation
-                            and fix RegisterAsOpenGLTexture
-      <li>12/10/08 - DanB - fix to TGLLifeColoredPFXManager.ComputeRotateAngle (it used lck.FDoScale
-                            instead of lck.FDoRotate), made more use of RCI instead of accessing via global variables.
-                            Changed order of transformations when rendering particles, now does rotation+scaling before translation.
-                            Disabled FRotationCenter,
       <li>15/02/08 - Mrqzzz - Fixed SizeScale in Lifetimes of TGLBaseSpritePFXManager (was ignored)
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
       <li>02/04/07 - DaStr - TPFXLifeColors now inherits from TOwnedCollection
@@ -30,7 +23,7 @@
       <li>19/10/06 - LC - Fixed memory leak in TGLParticleFXManager. Bugtracker ID=1551866 (thanks Dave Gravel)
       <li>08/10/05 - Mathx - Fixed access violation when a PFXManager was removed from
                              form but a particleFX still had a reference to it (added
-                             the FUsers property). Butracker ID=783625.
+                             the FUsers property). Butracker ID=783625. 
       <li>17/02/05 - EG - Restored correct PFXSource.Burst relative/absolute behaviour,
                           EffectsScale support not added back (no clue what it does... Mrqz?)
       <li>23/11/04 - SG - Fixed memory leak in TGLLifeColoredPFXManager (kenguru)
@@ -65,9 +58,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, PersistentClasses, GLScene, VectorGeometry, XCollection, GLMaterial,
-     GLCadencer, VectorLists, GLGraphics, GLContext, GLColor, BaseClasses,
-     GLCoordinates, GLRenderContextInfo, GLManager;
+uses Classes, PersistentClasses, GLScene, VectorGeometry, XCollection, GLTexture,
+     GLCadencer, GLMisc, VectorLists, GLGraphics, GLContext, GLColor;
 
 const
    cPFXNbRegions = 128;     // number of distance regions
@@ -225,7 +217,7 @@ type
             that will be used throughout the whole rendering, per-frame
             initialization should take place here.<br>
             OpenGL states/matrices should not be altered in any way here. }
-         procedure InitializeRendering(var rci: TRenderContextInfo); dynamic; abstract;
+         procedure InitializeRendering; dynamic; abstract;
          {: Triggered just before rendering a set of particles.<p>
             The current OpenGL state should be assumed to be the "base" one as
             was found during InitializeRendering. Manager-specific states should
@@ -233,18 +225,18 @@ type
             Multiple BeginParticles can occur during a render (but all will be
             between InitializeRendering and Finalizerendering, and at least one
             particle will be rendered before EndParticles is invoked). }
-         procedure BeginParticles(var rci: TRenderContextInfo); virtual; abstract;
+         procedure BeginParticles; virtual; abstract;
          {: Request to render a particular particle.<p>
             Due to the nature of the rendering, no particular order should be
             assumed. If possible, no OpenGL state changes should be made in this
             method, but should be placed in Begin/EndParticles. }
-         procedure RenderParticle(var rci: TRenderContextInfo; aParticle : TGLParticle); virtual; abstract;
+         procedure RenderParticle(aParticle : TGLParticle); virtual; abstract;
          {: Triggered after a set of particles as been rendered.<p>
             If OpenGL state were altered directly (ie. not through the states
             caches of GLMisc), it should be restored back to the "base" state. }
-         procedure EndParticles(var rci: TRenderContextInfo); virtual; abstract;
+         procedure EndParticles; virtual; abstract;
          {: Invoked when rendering of particles for this manager is done. }
-         procedure FinalizeRendering(var rci: TRenderContextInfo); dynamic; abstract;
+         procedure FinalizeRendering; dynamic; abstract;
 
          {: ID for the next created particle. }
          property NextID : Integer read FNextID write FNextID;
@@ -253,9 +245,9 @@ type
             Protected and unused in the base class. }
 			property BlendingMode : TBlendingMode read FBlendingMode write FBlendingMode;
          {: Apply BlendingMode relatively to the renderer's blending mode. }
-         procedure ApplyBlendingMode(var rci: TRenderContextInfo);
+         procedure ApplyBlendingMode;
          {: Unapply BlendingMode relatively by restoring the renderer's blending mode. }
-         procedure UnapplyBlendingMode(var rci: TRenderContextInfo);
+         procedure UnapplyBlendingMode;
 
          procedure registerUser(obj: TGLParticleFXEffect);
          procedure unregisterUser(obj: TGLParticleFXEffect);
@@ -375,6 +367,7 @@ type
          FZSortAccuracy : TPFXSortAccuracy;
          FZMaxDistance : Single;
 			FBlendingMode : TBlendingMode;
+         FCurrentRCI : PRenderContextInfo;
          FRegions : array [0..cPFXNbRegions-1] of TPFXRegion;
 
       protected
@@ -395,6 +388,8 @@ type
 
          procedure BuildList(var rci : TRenderContextInfo); override;
 
+         {: Pointer to the current rci, valid only during rendering. }
+         property CurrentRCI : PRenderContextInfo read FCurrentRCI;
          {: Time (in msec) spent sorting the particles for last render. }
          property LastSortTime : Double read FLastSortTime;
          {: Amount of particles during the last render. }
@@ -422,7 +417,7 @@ type
             "Additive" blending is the usual mode (increases brightness and
             saturates), "transparency" may be used for smoke or systems that
             opacify view, "opaque" is more rarely used.<p>
-            Note: specific PFX managers may override/ignore this setting. }
+            Note: specific PFX managers may override/ignore this setting. } 
 			property BlendingMode : TBlendingMode read FBlendingMode write FBlendingMode default bmAdditive;
 
          property Visible;
@@ -515,7 +510,7 @@ type
          FFriction : Single;
          FCurrentTime : Double;
          
-         //FRotationCenter: TAffineVector;
+         FRotationCenter: TAffineVector;
          
 
       protected
@@ -612,7 +607,6 @@ type
 
          function MaxLifeTime : Double;
          function RotationsDefined : Boolean;
-         function ScalingDefined : Boolean;
          procedure PrepareIntervalRatios;
    end;
 
@@ -626,7 +620,6 @@ type
          FLifeColors : TPFXLifeColors;
          FLifeColorsLookup : TList;
          FLifeRotations : Boolean;
-         FLifeScaling : Boolean;
          FColorInner : TGLColor;
          FColorOuter : TGLColor;
          FParticleSize : Single;
@@ -637,8 +630,8 @@ type
          procedure SetColorInner(const val : TGLColor);
          procedure SetColorOuter(const val : TGLColor);
 
-         procedure InitializeRendering(var rci: TRenderContextInfo); override;
-         procedure FinalizeRendering(var rci: TRenderContextInfo); override;
+         procedure InitializeRendering; override;
+         procedure FinalizeRendering; override;
 
          function MaxParticleAge : Single; override;
 
@@ -649,7 +642,7 @@ type
          function  ComputeRotateAngle(var lifeTime, rotateAngle: Single): Boolean;
          
          procedure RotateVertexBuf(buf : TAffineVectorList; lifeTime : Single;
-                                   const axis : TAffineVector; offsetAngle: Single);
+                                   const pos : TAffineVector);
 
       public
          { Public Declarations }
@@ -697,11 +690,11 @@ type
       protected
          { Protected Declarations }
          function  TexturingMode : Cardinal; override;
-         procedure InitializeRendering(var rci: TRenderContextInfo); override;
-         procedure BeginParticles(var rci: TRenderContextInfo); override;
-         procedure RenderParticle(var rci: TRenderContextInfo; aParticle : TGLParticle); override;
-         procedure EndParticles(var rci: TRenderContextInfo); override;
-         procedure FinalizeRendering(var rci: TRenderContextInfo); override;
+         procedure InitializeRendering; override;
+         procedure BeginParticles; override;
+         procedure RenderParticle(aParticle : TGLParticle); override;
+         procedure EndParticles; override;
+         procedure FinalizeRendering; override;
 
       public
          { Public Declarations }
@@ -745,11 +738,11 @@ type
          procedure SetNbSides(const val : Integer);
 
          function TexturingMode : Cardinal; override;
-         procedure InitializeRendering(var rci: TRenderContextInfo); override;
-         procedure BeginParticles(var rci: TRenderContextInfo); override;
-         procedure RenderParticle(var rci: TRenderContextInfo; aParticle : TGLParticle); override;
-         procedure EndParticles(var rci: TRenderContextInfo); override;
-         procedure FinalizeRendering(var rci: TRenderContextInfo); override;
+         procedure InitializeRendering; override;
+         procedure BeginParticles; override;
+         procedure RenderParticle(aParticle : TGLParticle); override;
+         procedure EndParticles; override;
+         procedure FinalizeRendering; override;
 
       public
          { Public Declarations }
@@ -805,7 +798,7 @@ type
          {: Subclasses should draw their stuff in this bmp32. }
          procedure PrepareImage(bmp32 : TGLBitmap32; var texFormat : Integer); virtual; abstract;
 
-         procedure BindTexture(var rci: TRenderContextInfo);
+         procedure BindTexture;
          procedure SetSpritesPerTexture(const val : TSpritesPerTexture); virtual;
          procedure SetColorMode(const val : TSpriteColorMode);
          procedure SetAspectRatio(const val : Single);
@@ -814,11 +807,11 @@ type
          procedure SetShareSprites(const val : TGLBaseSpritePFXManager);
 
          function TexturingMode : Cardinal; override;
-         procedure InitializeRendering(var rci: TRenderContextInfo); override;
-         procedure BeginParticles(var rci: TRenderContextInfo); override;
-         procedure RenderParticle(var rci: TRenderContextInfo; aParticle : TGLParticle); override;
-         procedure EndParticles(var rci: TRenderContextInfo); override;
-         procedure FinalizeRendering(var rci: TRenderContextInfo); override;
+         procedure InitializeRendering; override;
+         procedure BeginParticles; override;
+         procedure RenderParticle(aParticle : TGLParticle); override;
+         procedure EndParticles; override;
+         procedure FinalizeRendering; override;
 
          property SpritesPerTexture : TSpritesPerTexture read FSpritesPerTexture write SetSpritesPerTexture;
 
@@ -1268,21 +1261,21 @@ begin
       if Renderer.BlendingMode in [bmAdditive, bmTransparency] then begin
          case BlendingMode of
             bmAdditive :
-               rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
+               glBlendFunc(GL_SRC_ALPHA, GL_ONE);
             bmTransparency :
-               rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOneMinusSrcAlpha);
+               glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
          else // bmOpaque
-            rci.GLStates.Disable(stBlend);
+            glDisable(GL_BLEND);
          end;
       end else begin
          case BlendingMode of
             bmAdditive : begin
-               rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
-               rci.GLStates.Enable(stBlend);
+               glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+               glEnable(GL_BLEND);
             end;
             bmTransparency : begin
-               rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOneMinusSrcAlpha);
-               rci.GLStates.Enable(stBlend);
+               glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+               glEnable(GL_BLEND);
             end;
          else
             // bmOpaque, do nothing
@@ -1300,21 +1293,21 @@ begin
       if BlendingMode in [bmAdditive, bmTransparency] then begin
          case Renderer.BlendingMode of
             bmAdditive :
-               rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
+               glBlendFunc(GL_SRC_ALPHA, GL_ONE);
             bmTransparency :
-               rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOneMinusSrcAlpha);
+               glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
          else // bmOpaque
-            rci.GLStates.Disable(stBlend);
+            glDisable(GL_BLEND);
          end;
       end else begin
          case Renderer.BlendingMode of
             bmAdditive : begin
-               rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
-               rci.GLStates.Enable(stBlend);
+               glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+               glEnable(GL_BLEND);
             end;
             bmTransparency : begin
-               rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOneMinusSrcAlpha);
-               rci.GLStates.Enable(stBlend);
+               glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+               glEnable(GL_BLEND);
             end;
          else
             // bmOpaque, do nothing
@@ -1588,18 +1581,20 @@ var
    currentTexturingMode : Cardinal;
 begin
    if csDesigning in ComponentState then Exit;
+   FCurrentRCI:=@rci;
    timer:=StartPrecisionTimer;
    // precalcs
-   PSingle(@minDist)^:=rci.rcci.nearClippingDistance+1;
-   if ZMaxDistance<=0 then begin
-      PSingle(@maxDist)^:=rci.rcci.farClippingDistance+1;
-      invRegionSize:=(cPFXNbRegions-2)/(rci.rcci.farClippingDistance-rci.rcci.nearClippingDistance);
-   end else begin
-      PSingle(@maxDist)^:=rci.rcci.nearClippingDistance+ZMaxDistance+1;
-      invRegionSize:=(cPFXNbRegions-2)/ZMaxDistance;
+   with Scene.CurrentGLCamera do begin
+      PSingle(@minDist)^:=NearPlane+1;
+      if ZMaxDistance<=0 then begin
+         PSingle(@maxDist)^:=NearPlane+DepthOfView+1;
+         invRegionSize:=(cPFXNbRegions-2)/DepthOfView;
+      end else begin
+         PSingle(@maxDist)^:=NearPlane+ZMaxDistance+1;
+         invRegionSize:=(cPFXNbRegions-2)/ZMaxDistance;
+      end;
+      distDelta:=NearPlane+1+0.49999/invRegionSize
    end;
-   distDelta:=rci.rcci.nearClippingDistance+1+0.49999/invRegionSize;
-
    SetVector(cameraPos, rci.cameraPosition);
    SetVector(cameraVector, rci.cameraDirection);
    try
@@ -1660,41 +1655,40 @@ begin
       FLastSortTime:=StopPrecisionTimer(timer)*1000;
 
       glPushMatrix;
-      glLoadMatrixf(@TGLSceneBuffer(rci.buffer).ViewMatrix);
+      glLoadMatrixf(@Scene.CurrentBuffer.ModelViewMatrix);
 
-      rci.GLStates.PushAttrib(cAllAttribBits);
-
-      rci.GLStates.Disable(stCullFace);
-      rci.GLStates.Disable(stTexture2D);
+      glPushAttrib(GL_ALL_ATTRIB_BITS);
+      
+      glDisable(GL_CULL_FACE);
+      glDisable(GL_TEXTURE_2D);
       currentTexturingMode:=0;
-      rci.GLStates.Disable(stLighting);
-      rci.GLStates.PolygonMode := pmFill;
+      glDisable(GL_LIGHTING);
+      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
       case FBlendingMode of
          bmAdditive : begin
-            rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
-            rci.GLStates.Enable(stBlend);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+            glEnable(GL_BLEND);
          end;
          bmTransparency : begin
-            rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOneMinusSrcAlpha);
-            rci.GLStates.Enable(stBlend);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glEnable(GL_BLEND);
          end;
       else
          // bmOpaque, do nothing
       end;
-      rci.GLStates.DepthFunc := cfLEqual;
+      glDepthFunc(GL_LEQUAL);
       if not FZWrite then begin
          glGetBooleanv(GL_DEPTH_WRITEMASK, @oldDepthMask);
-         //oldDepthMask := rci.GLStates.DepthWriteMask;
-         rci.GLStates.DepthWriteMask := False;
+         glDepthMask(False);
       end;
       if not FZTest then
-         rci.GLStates.Disable(stDepthTest);
+         glDisable(GL_DEPTH_TEST);
 
       try
          // Initialize managers
          for managerIdx:=0 to FManagerList.Count-1 do
-            TGLParticleFXManager(FManagerList.List^[managerIdx]).InitializeRendering(rci);
+            TGLParticleFXManager(FManagerList.List^[managerIdx]).InitializeRendering;
          // Start Rendering... at last ;)
          try
             curManager:=nil;
@@ -1706,7 +1700,7 @@ begin
                      curParticle:=PParticleReference(curParticleOrder^[particleIdx])^.particle;
                      if curParticle.Manager<>curManager then begin
                         if Assigned(curManager) then
-                           curManager.EndParticles(rci);
+                           curManager.EndParticles;
                         curManager:=curParticle.Manager;
                         if curManager.TexturingMode<>currentTexturingMode then begin
                            if currentTexturingMode<>0 then
@@ -1715,24 +1709,24 @@ begin
                            if currentTexturingMode<>0 then
                               glEnable(currentTexturingMode);
                         end;
-                        curManager.BeginParticles(rci);
+                        curManager.BeginParticles;
                      end;
-                     curManager.RenderParticle(rci, curParticle);
+                     curManager.RenderParticle(curParticle);
                   end;
                end;
             end;
             if Assigned(curManager) then
-               curManager.EndParticles(rci);
+               curManager.EndParticles;
          finally
             // Finalize managers
             for managerIdx:=0 to FManagerList.Count-1 do
-               TGLParticleFXManager(FManagerList.List^[managerIdx]).FinalizeRendering(rci);
+               TGLParticleFXManager(FManagerList.List^[managerIdx]).FinalizeRendering;
          end;
       finally
          if FZWrite then
-            rci.GLStates.DepthWriteMask := oldDepthMask;
+            glDepthMask(oldDepthMask);
          glPopMatrix;
-         rci.GLStates.PopAttrib;
+         glPopAttrib;
       end;
    finally
       // cleanup
@@ -1930,8 +1924,8 @@ begin
    OwnerObjRelPos := OwnerBaseSceneObject.LocalToAbsolute(NullVector);
    pos := ParticleAbsoluteInitialPos;
 
-//   if FManager is TGLDynamicPFXManager then
-//     TGLDynamicPFXManager(FManager).FRotationCenter := pos;
+   if FManager is TGLDynamicPFXManager then
+     TGLDynamicPFXManager(FManager).FRotationCenter := pos;
 
    while nb>0 do
    begin
@@ -2148,21 +2142,6 @@ begin
    Result:=False;
 end;
 
-// ScalingDefined
-//
-function TPFXLifeColors.ScalingDefined : Boolean;
-var
-   i : Integer;
-begin
-   for i:=0 to Count-1 do begin
-      if Items[i].SizeScale<>1 then begin
-         Result:=True;
-         Exit;
-      end;
-   end;
-   Result:=False;
-end;
-
 // PrepareIntervalRatios
 //
 procedure TPFXLifeColors.PrepareIntervalRatios;
@@ -2201,12 +2180,12 @@ var
    i : Integer;
    curParticle : TGLParticle;
    maxAge : Double;
-   {pos, pos1, axis,} accelVector : TAffineVector;
-   {ff,} dt : Single;
+   pos, pos1, axis, accelVector : TAffineVector;
+   ff, dt : Single;
    list : PGLParticleArray;
    doFriction, doPack : Boolean;
    frictionScale : Single;
-   //pos4: TVector;
+   pos4: TVector;
 begin
    maxAge:=MaxParticleAge;
    accelVector:=Acceleration.AsAffineVector;
@@ -2226,9 +2205,7 @@ begin
          with curParticle do begin
             CombineVector(FPosition, FVelocity, dt);
 
-            // DanB - this doesn't seem to fit here, rotation is already
-            // calculated when rendering
-            {if (FRotation <> 0) and (Renderer <> nil) then begin
+            if (FRotation <> 0) and (Renderer <> nil) then begin
               pos := FPosition;
               pos1 := FPosition;
               ff := 1;
@@ -2249,8 +2226,8 @@ begin
 
               FVelocity := VectorSubtract(pos1, pos);
               CombineVector(FPosition, FVelocity, dt);
-            end;}
-
+            end;
+            
             CombineVector(FVelocity, accelVector, dt);
             if doFriction then
                ScaleVector(FVelocity, frictionScale);
@@ -2324,7 +2301,7 @@ end;
 
 // InitializeRendering
 //
-procedure TGLLifeColoredPFXManager.InitializeRendering(var rci: TRenderContextInfo);
+procedure TGLLifeColoredPFXManager.InitializeRendering;
 var
    i, n : Integer;
 begin
@@ -2334,13 +2311,12 @@ begin
    for i:=0 to n-1 do
       FLifeColorsLookup.Add(LifeColors[i]);
    FLifeRotations:=LifeColors.RotationsDefined;
-   FLifeScaling:=LifeColors.ScalingDefined;
    LifeColors.PrepareIntervalRatios;
 end;
 
 // FinalizeRendering
 //
-procedure TGLLifeColoredPFXManager.FinalizeRendering(var rci: TRenderContextInfo);
+procedure TGLLifeColoredPFXManager.FinalizeRendering;
 begin
    FLifeColorsLookup.Free;
 end;
@@ -2533,7 +2509,7 @@ begin
          else
             lck:=LifeColors[k];
             lck1:=LifeColors[k-1];
-            Result:=lck.FDoRotate or lck1.FDoRotate;
+            Result:=lck.FDoScale or lck1.FDoRotate;
             if Result then
             begin
                f:=(lifeTime-lck1.LifeTime)*lck1.InvIntervalRatio;
@@ -2547,20 +2523,25 @@ end;
 // RotateVertexBuf
 //
 procedure TGLLifeColoredPFXManager.RotateVertexBuf(buf : TAffineVectorList;
-               lifeTime : Single; const axis : TAffineVector; offsetAngle: Single);
+               lifeTime : Single; const pos : TAffineVector);
 var
    rotateAngle : Single;
+   axis, p : TAffineVector;
    rotMatrix : TMatrix;
    diff : Single;
-   lifeRotationApplied: Boolean;
 begin
-   rotateAngle:=0;
-   lifeRotationApplied := ComputeRotateAngle(lifeTime, rotateAngle);
-   rotateAngle:=rotateAngle+offsetAngle;
-   if lifeRotationApplied or (rotateAngle<>0) then begin
+   if ComputeRotateAngle(lifeTime, rotateAngle) then begin
+      SetVector(axis, Renderer.Scene.CurrentGLCamera.AbsolutePosition);
+      SetVector(axis, VectorSubtract(axis, pos));
+      NormalizeVector(axis);
       diff := DegToRad(rotateAngle);
       rotMatrix := CreateRotationMatrix(axis, diff);
+      p[0] := -pos[0];
+      p[1] := -pos[1];
+      p[2] := -pos[2];
+      buf.Translate(p);
       buf.TransformAsVectors(rotMatrix);
+      buf.Translate(pos);
    end;
 end;
 
@@ -2610,43 +2591,43 @@ end;
 
 // InitializeRendering
 //
-procedure TGLCustomPFXManager.InitializeRendering(var rci: TRenderContextInfo);
+procedure TGLCustomPFXManager.InitializeRendering;
 begin
    inherited;
    if Assigned(FOnInitializeRendering) then
-      FOnInitializeRendering(Self, rci);
+      FOnInitializeRendering(Self, Renderer.CurrentRCI^);
 end;
 
 // BeginParticles
 //
-procedure TGLCustomPFXManager.BeginParticles(var rci: TRenderContextInfo);
+procedure TGLCustomPFXManager.BeginParticles;
 begin
    if Assigned(FOnBeginParticles) then
-      FOnBeginParticles(Self, rci);
+      FOnBeginParticles(Self, Renderer.CurrentRCI^);
 end;
 
 // RenderParticle
 //
-procedure TGLCustomPFXManager.RenderParticle(var rci: TRenderContextInfo; aParticle : TGLParticle);
+procedure TGLCustomPFXManager.RenderParticle(aParticle : TGLParticle);
 begin
    if Assigned(FOnRenderParticle) then
-      FOnRenderParticle(Self, aParticle, rci);
+      FOnRenderParticle(Self, aParticle, Renderer.CurrentRCI^);
 end;
 
 // EndParticles
 //
-procedure TGLCustomPFXManager.EndParticles(var rci: TRenderContextInfo);
+procedure TGLCustomPFXManager.EndParticles;
 begin
    if Assigned(FOnEndParticles) then
-      FOnEndParticles(Self, rci);
+      FOnEndParticles(Self, Renderer.CurrentRCI^);
 end;
 
 // FinalizeRendering
 //
-procedure TGLCustomPFXManager.FinalizeRendering(var rci: TRenderContextInfo);
+procedure TGLCustomPFXManager.FinalizeRendering;
 begin
    if Assigned(FOnFinalizeRendering) then
-      FOnFinalizeRendering(Self, rci);
+      FOnFinalizeRendering(Self, Renderer.CurrentRCI^);
    inherited;
 end;
 
@@ -2698,7 +2679,7 @@ end;
 
 // InitializeRendering
 //
-procedure TGLPolygonPFXManager.InitializeRendering(var rci: TRenderContextInfo);
+procedure TGLPolygonPFXManager.InitializeRendering;
 var
    i : Integer;
    matrix : TMatrix;
@@ -2722,14 +2703,14 @@ end;
 
 // BeginParticles
 //
-procedure TGLPolygonPFXManager.BeginParticles(var rci: TRenderContextInfo);
+procedure TGLPolygonPFXManager.BeginParticles;
 begin
-   ApplyBlendingMode(rci);
+   ApplyBlendingMode;
 end;
 
 // RenderParticle
 //
-procedure TGLPolygonPFXManager.RenderParticle(var rci: TRenderContextInfo; aParticle : TGLParticle);
+procedure TGLPolygonPFXManager.RenderParticle(aParticle : TGLParticle);
 var
    i : Integer;
    lifeTime, sizeScale : Single;
@@ -2744,27 +2725,16 @@ begin
 
    vertexList:=FVertBuf.List;
 
-   // copy vertices
-   for I := 0 to FVertBuf.Count - 1 do
-     vertexList[i]:= FVertices[i];
-
-   // rotate vertices (if needed)
-   if FLifeRotations or (aParticle.FRotation<>0) then
-      RotateVertexBuf(FVertBuf, lifeTime, AffineVectorMake(rci.cameraDirection), aParticle.FRotation);
-
-   // scale vertices (if needed) then translate to particle position
-   if FLifeScaling or (aParticle.FEffectScale<>1) then
-   begin
-      if FLifeScaling and ComputeSizeScale(lifeTime, sizeScale) then
-        sizeScale := sizeScale * aParticle.FEffectScale
-      else
-        sizeScale:=aParticle.FEffectScale;
-
+   if aParticle.FEffectScale<>1 then begin
       for i:=0 to FVertBuf.Count-1 do
-         vertexList^[i]:=VectorCombine(vertexList^[i], pos, sizeScale, 1);
-   end
-   else
-      FVertBuf.Translate(pos);
+         VectorAdd(VectorScale(FVertices.List^[i], aParticle.FEffectScale), pos, vertexList[i])
+   end else VectorArrayAdd(FVertices.List, pos, FVertBuf.Count, vertexList);
+
+   if FLifeRotations then
+      RotateVertexBuf(FVertBuf, lifeTime, pos);
+
+   if ComputeSizeScale(lifeTime, sizeScale) then
+      FVertBuf.Scale(sizeScale);
 
    glBegin(GL_TRIANGLE_FAN);
       glColor4fv(@inner);
@@ -2779,14 +2749,14 @@ end;
 
 // EndParticles
 //
-procedure TGLPolygonPFXManager.EndParticles(var rci: TRenderContextInfo);
+procedure TGLPolygonPFXManager.EndParticles;
 begin
-   UnapplyBlendingMode(rci);
+   UnapplyBlendingMode;
 end;
 
 // FinalizeRendering
 //
-procedure TGLPolygonPFXManager.FinalizeRendering(var rci: TRenderContextInfo);
+procedure TGLPolygonPFXManager.FinalizeRendering;
 begin
    FVertBuf.Free;
    FVertices.Free;
@@ -2879,23 +2849,23 @@ end;
 
 // BindTexture
 //
-procedure TGLBaseSpritePFXManager.BindTexture(var rci: TRenderContextInfo);
+procedure TGLBaseSpritePFXManager.BindTexture;
 var
    bmp32 : TGLBitmap32;
-   tw, th, td, tf : Integer;
+   tw, th, tf : Integer;
 begin
    if Assigned(FShareSprites) then
-      FShareSprites.BindTexture(rci)
+      FShareSprites.BindTexture
    else begin
       if FTexHandle.Handle=0 then begin
          FTexHandle.AllocateHandle;
          glBindTexture(GL_TEXTURE_2D, FTexHandle.Handle);
 
          glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-         rci.GLStates.UnpackAlignment := 4;
-         rci.GLStates.UnpackRowLength := 0;
-         rci.GLStates.UnpackSkipRows := 0;
-         rci.GLStates.UnpackSkipPixels := 0;
+         glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+         glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+         glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
+         glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
 
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -2904,13 +2874,15 @@ begin
          try
             tf:=GL_RGBA;
             PrepareImage(bmp32, tf);
+            tw:=bmp32.Width;
+            th:=bmp32.Height;
             bmp32.RegisterAsOpenGLTexture(GL_TEXTURE_2D, miLinearMipmapLinear,
-                                          tf, tw, th, td);
+                                          tf, tw, th);
          finally
             bmp32.Free;
          end;
       end else begin
-         rci.GLStates.SetGLCurrentTexture(0, GL_TEXTURE_2D, FTexHandle.Handle);
+         Renderer.CurrentRCI^.GLStates.SetGLCurrentTexture(0, GL_TEXTURE_2D, FTexHandle.Handle);
       end;
    end;
 end;
@@ -2924,7 +2896,7 @@ end;
 
 // InitializeRendering
 //
-procedure TGLBaseSpritePFXManager.InitializeRendering(var rci: TRenderContextInfo);
+procedure TGLBaseSpritePFXManager.InitializeRendering;
 var
    i : Integer;
    matrix : TMatrix;
@@ -2958,20 +2930,20 @@ end;
 
 // BeginParticles
 //
-procedure TGLBaseSpritePFXManager.BeginParticles(var rci: TRenderContextInfo);
+procedure TGLBaseSpritePFXManager.BeginParticles;
 begin
-   BindTexture(rci);
+   BindTexture;
    if ColorMode=scmNone then
       glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
    else glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-   ApplyBlendingMode(rci);
+   ApplyBlendingMode;
    if ColorMode<>scmFade then
       glBegin(GL_QUADS);
 end;
 
 // RenderParticle
 //
-procedure TGLBaseSpritePFXManager.RenderParticle(var rci: TRenderContextInfo; aParticle : TGLParticle);
+procedure TGLBaseSpritePFXManager.RenderParticle(aParticle : TGLParticle);
 type
    TTexCoordsSet = array [0..3] of TTexPoint;
    PTexCoordsSet = ^TTexCoordsSet;
@@ -3019,28 +2991,21 @@ begin
    pos:=aParticle.Position;
    vertexList:=FVertBuf.List;
    sizeScale :=1;
-
-   // copy vertices
-   for i := 0 to FVertBuf.Count - 1 do
-     vertexList^[i]:=FVertices[i];
-
-   // rotate vertices (if needed)
-   if FLifeRotations or (aParticle.FRotation<>0) then
-      RotateVertexBuf(FVertBuf, lifeTime, AffineVectorMake(rci.cameraDirection), aParticle.FRotation);
-
-   // scale vertices (if needed) then translate to particle position
-   if FLifeScaling or (aParticle.FEffectScale<>1) then
+   if (aParticle.FEffectScale<>1) or ComputeSizeScale(lifeTime, sizeScale) then
    begin
-      if FLifeScaling and ComputeSizeScale(lifeTime, sizeScale) then
-        sizeScale := sizeScale * aParticle.FEffectScale
-      else
-        sizeScale:=aParticle.FEffectScale;
-
+      sizeScale := sizeScale * aParticle.FEffectScale;
       for i:=0 to FVertBuf.Count-1 do
-         vertexList^[i]:=VectorCombine(vertexList^[i], pos, sizeScale, 1);
+         vertexList^[i]:=VectorCombine(FVertices.List^[i], pos, sizeScale, 1);
    end
    else
-      FVertBuf.Translate(pos);
+   begin
+      VectorArrayAdd(FVertices.List, pos, FVertBuf.Count, vertexList);
+      {for i:=0 to FVertBuf.Count-1 do
+          ScaleVector(vertexList^[i],aParticle.FEffectScale);}
+   end;
+
+   if FLifeRotations then
+      RotateVertexBuf(FVertBuf, lifeTime, aParticle.Position);
 
    case ColorMode of
       scmFade : begin
@@ -3075,16 +3040,16 @@ end;
 
 // EndParticles
 //
-procedure TGLBaseSpritePFXManager.EndParticles(var rci: TRenderContextInfo);
+procedure TGLBaseSpritePFXManager.EndParticles;
 begin
    if ColorMode<>scmFade then
       glEnd;
-   UnApplyBlendingMode(rci);
+   UnApplyBlendingMode;
 end;
 
 // FinalizeRendering
 //
-procedure TGLBaseSpritePFXManager.FinalizeRendering(var rci: TRenderContextInfo);
+procedure TGLBaseSpritePFXManager.FinalizeRendering;
 begin
    FVertBuf.Free;
    FVertices.Free;
@@ -3163,7 +3128,6 @@ begin
    s:=(1 shl TexMapSize);
    bmp32.Width:=s;
    bmp32.Height:=s;
-   bmp32.Blank:= false;
    texFormat:=GL_LUMINANCE_ALPHA;
 
    h2:=s div 2;

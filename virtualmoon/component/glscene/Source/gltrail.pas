@@ -30,7 +30,7 @@ uses
 
   // GLScene
   GLScene, VectorTypes, MeshUtils, VectorGeometry, GLVectorFileObjects,
-  GLMesh, GLObjects, OpenGL1x, GLMaterial, GLStrings, BaseClasses;
+  GLMesh, GLObjects, GLMisc, OpenGL1x, GLTexture, GLStrings;
 
 
 const cMaxVerts = 2000;
@@ -189,7 +189,7 @@ begin
 
                          end;
                     end;
-     else Assert(False, glsErrorEx + glsUnknownType);
+     else Assert(False, glsUnknownType);
      end;
      v0 := AffinevectorMake(Obj.AbsolutePosition);
      VectorScale(v,width,v);

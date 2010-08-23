@@ -6,8 +6,6 @@
    A shader that allows texture combiner setup.<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>24/07/09 - DaStr - TGLShader.DoInitialize() now passes rci
-                              (BugTracker ID = 2826217)   
       <li>03/04/07 - DaStr - Added $I GLScene.inc
       <li>25/02/07 - DaStr - Moved registration to GLSceneRegister.pas
       <li>23/05/03 - EG - Added support for binding two extra texture units
@@ -20,7 +18,7 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLTexture, GLMaterial, GLRenderContextInfo;
+uses Classes, GLTexture;
 
 type
 
@@ -53,7 +51,7 @@ type
          procedure NotifyLibMaterial3Destruction;
          procedure NotifyLibMaterial4Destruction;
 
-         procedure DoInitialize(var rci : TRenderContextInfo; Sender : TObject); override;
+         procedure DoInitialize; override;
          procedure DoApply(var rci : TRenderContextInfo; Sender : TObject); override;
          function DoUnApply(var rci : TRenderContextInfo) : Boolean; override;
          procedure DoFinalize; override;
@@ -84,7 +82,7 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils, GLTextureCombiners, OpenGL1x, XOpenGL, GLCrossPlatform, GLUtils;
+uses SysUtils, GLTextureCombiners, OpenGL1x, XOpenGL, GLMisc, GLCrossPlatform;
 
 // ------------------
 // ------------------ TGLTexCombineShader ------------------
@@ -208,7 +206,7 @@ end;
 
 // DoInitialize
 //
-procedure TGLTexCombineShader.DoInitialize(var rci : TRenderContextInfo; Sender : TObject);
+procedure TGLTexCombineShader.DoInitialize;
 begin
 end;
 
@@ -229,11 +227,7 @@ begin
             if Assigned(currentLibMaterial3) and (n>=3) then begin
                with currentLibMaterial3.Material.Texture do begin
                   if Enabled then begin
-                     if currentLibMaterial3.TextureMatrixIsIdentity then
-                       ApplyAsTextureN(3, rci)
-                     else
-                       ApplyAsTextureN(3, rci, @currentLibMaterial3.TextureMatrix[0][0]);
-//                     ApplyAsTextureN(3, rci, currentLibMaterial3);
+                     ApplyAsTextureN(3, rci, currentLibMaterial3);
                      Inc(units, 4);
                      FApplied3:=True;
                   end;
@@ -242,11 +236,7 @@ begin
             if Assigned(currentLibMaterial4) and (n>=4) then begin
                with currentLibMaterial4.Material.Texture do begin
                   if Enabled then begin
-                     if currentLibMaterial4.TextureMatrixIsIdentity then
-                       ApplyAsTextureN(4, rci)
-                     else
-                       ApplyAsTextureN(4, rci, @currentLibMaterial4.TextureMatrix[0][0]);
-//                     ApplyAsTextureN(4, rci, currentLibMaterial4);
+                     ApplyAsTextureN(4, rci, currentLibMaterial4);
                      Inc(units, 8);
                      FApplied4:=True;
                   end;
@@ -270,9 +260,9 @@ end;
 function TGLTexCombineShader.DoUnApply(var rci : TRenderContextInfo) : Boolean;
 begin
    if FApplied3 then with currentLibMaterial3.Material.Texture do
-      UnApplyAsTextureN(3, rci, (not currentLibMaterial3.TextureMatrixIsIdentity));
+      UnApplyAsTextureN(3, rci, currentLibMaterial3);
    if FApplied4 then with currentLibMaterial4.Material.Texture do
-      UnApplyAsTextureN(4, rci, (not currentLibMaterial4.TextureMatrixIsIdentity));
+      UnApplyAsTextureN(4, rci, currentLibMaterial4);
    Result:=False;
 end;
 

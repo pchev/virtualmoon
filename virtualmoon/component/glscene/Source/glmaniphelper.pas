@@ -3,7 +3,7 @@ unit glmaniphelper;
 INTERFACE
 
 uses
-  classes, vectorgeometry, glscene, gltexture, opengl1x, sysutils,
+  classes, vectorgeometry, glscene, gltexture, glmisc, opengl1x, sysutils,
   vectorlists, glcrossplatform, glcontext, glsilhouette, globjects,
   geometrybb, glgizmo, glviewer, controls, forms, glgizmoutils,
   contnrs, graphics,dialogs
