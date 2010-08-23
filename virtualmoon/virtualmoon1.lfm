@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 111
+  Left = 375
   Height = 570
-  Top = 58
+  Top = 110
   Width = 885
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
@@ -2399,6 +2399,14 @@ object Form1: TForm1
     object Copy1: TMenuItem
       Caption = 'Copy'
       OnClick = Copy1Click
+    end
+    object DecreaseFont1: TMenuItem
+      Caption = 'Decrease font size'
+      OnClick = DecreaseFont1Click
+    end
+    object IncreaseFont1: TMenuItem
+      Caption = 'Increase font size'
+      OnClick = IncreaseFont1Click
     end
   end
   object TelescopeTimer: TTimer
