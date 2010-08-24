@@ -534,27 +534,27 @@
 						<key>IFPkgDescriptionDeleteWarning</key>
 						<string></string>
 						<key>IFPkgDescriptionDescription</key>
-						<string>Virtual Moon Atlas Pro version 5.1 update</string>
+						<string>Virtual Moon Atlas Pro version 5.1b update</string>
 						<key>IFPkgDescriptionTitle</key>
-						<string>vma_update51</string>
+						<string>vma_update51b</string>
 						<key>IFPkgDescriptionVersion</key>
-						<string>5.1</string>
+						<string>5.1b</string>
 					</dict>
 				</dict>
 				<key>Display Information</key>
 				<dict>
 					<key>CFBundleGetInfoString</key>
-					<string>vmapro 5.1 update Copyrights © 2010 Christian Legrand &amp; Patrick Chevalley</string>
+					<string>vmapro 5.1b update Copyrights © 2010 Christian Legrand &amp; Patrick Chevalley</string>
 					<key>CFBundleIconFile</key>
 					<string></string>
 					<key>CFBundleIconFile Path Type</key>
 					<integer>1</integer>
 					<key>CFBundleIdentifier</key>
-					<string>net.ap-i.pkg.vmaupd51</string>
+					<string>net.ap-i.pkg.vmaupd51b</string>
 					<key>CFBundleName</key>
-					<string>vma_update51</string>
+					<string>vma_update51b</string>
 					<key>CFBundleShortVersionString</key>
-					<string>5.1</string>
+					<string>5.1b</string>
 				</dict>
 				<key>Options</key>
 				<dict>

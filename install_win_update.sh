@@ -54,8 +54,6 @@ install -v -m 644 Installer/Windows/Data/licence.txt $destdir/
 install -v -m 644 Installer/Windows/Data/licence_fr.txt $destdir/
 
 install -m 755 -d $destdir/language
-install -m 755 -d $destdir/Database
-install -m 755 -d $destdir/doc
 install -v -m 644 virtualmoon/language/maplun.en.po $destdir/language/
 install -v -m 644 virtualmoon/language/maplun.fr.po $destdir/language/
 install -v -m 644 datlun/language/datlun.en.po $destdir/language/
@@ -65,9 +63,11 @@ install -v -m 644 datlun/language/vmadatabase.fr.po $destdir/language/
 install -v -m 644 photlun/language/photlun.en.po $destdir/language/
 install -v -m 644 photlun/language/photlun.fr.po $destdir/language/
 
-install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/Database/
-install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/Database/
+#install -m 755 -d $destdir/Database
+#install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/Database/
+#install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/Database/
 
-install -v -m 644 doc/* $destdir/doc/
+#install -m 755 -d $destdir/doc
+#install -v -m 644 doc/* $destdir/doc/
 
-InstData Base_Bumpmap $destdir
+#InstData Base_Bumpmap $destdir

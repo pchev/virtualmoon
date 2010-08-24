@@ -39,8 +39,6 @@ install -v -m 644 Installer/Linux/vmapro/share/pixmaps/virtualmoon.xpm $destdir/
 
 install -m 755 -d $destdir/share/virtualmoon
 install -m 755 -d $destdir/share/virtualmoon/language
-install -m 755 -d $destdir/share/virtualmoon/Database
-install -m 755 -d $destdir/share/virtualmoon/doc
 install -v -m 644 virtualmoon/language/maplun.en.po $destdir/share/virtualmoon/language/
 install -v -m 644 virtualmoon/language/maplun.fr.po $destdir/share/virtualmoon/language/
 install -v -m 644 datlun/language/datlun.en.po $destdir/share/virtualmoon/language/
@@ -50,10 +48,12 @@ install -v -m 644 datlun/language/vmadatabase.fr.po $destdir/share/virtualmoon/l
 install -v -m 644 photlun/language/photlun.en.po $destdir/share/virtualmoon/language/
 install -v -m 644 photlun/language/photlun.fr.po $destdir/share/virtualmoon/language/
 
-install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/share/virtualmoon/Database/
+#install -m 755 -d $destdir/share/virtualmoon/Database
+#install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/share/virtualmoon/Database/
+#install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/share/virtualmoon/Database/
 
-install -v -m 644 doc/* $destdir/share/virtualmoon/doc/
+#install -m 755 -d $destdir/share/virtualmoon/doc
+#install -v -m 644 doc/* $destdir/share/virtualmoon/doc/
 
-InstData Base_Bumpmap $destdir
+#InstData Base_Bumpmap $destdir
 
