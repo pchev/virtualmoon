@@ -717,8 +717,8 @@ begin
     Selectiondimprimante1.Caption := rst_82;
     selectall1.Caption := rst_84;
     copy1.Caption    := rst_85;
-    DecreaseFont1.Caption:=rsDecreaseFont+' Ctrl+-';
-    IncreaseFont1.Caption:=rsIncreaseFont+' Ctrl++';
+    DecreaseFont1.Caption:=rsDecreaseFont;
+    IncreaseFont1.Caption:=rsIncreaseFont;
     glossaire1.Caption := rst_98;
     button15.Caption := rst_114;
     Notes.Caption    := rst_115;

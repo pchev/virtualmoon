@@ -42,6 +42,10 @@ msgstr "Fotografie Clementine"
 msgid "Country"
 msgstr "Nazione"
 
+#: u_translation.rsdecreasefont
+msgid "Decrease font size"
+msgstr ""
+
 #: u_translation.rsdefault
 msgid "Default"
 msgstr "Imp. predefinite"
@@ -86,6 +90,10 @@ msgstr "Griglia"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "IT"
+
+#: u_translation.rsincreasefont
+msgid "Increase font size"
+msgstr ""
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
