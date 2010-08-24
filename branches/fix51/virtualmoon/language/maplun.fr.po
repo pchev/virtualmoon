@@ -1,11 +1,12 @@
 # translation of maplun.fr.po
 # Patrick Chevalley <pch@ap-i.net>, 2009.
 # Patrick Chevalley <pch@freesurf.ch>, 2009.
+# pch <pch@ap-i.net>, 2010.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: \n"
-"PO-Revision-Date: 2009-12-29 15:35+0100\n"
+"Last-Translator: pch <pch@ap-i.net>\n"
+"PO-Revision-Date: 2010-08-24 13:16+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,6 +41,10 @@ msgstr "Photographique Clementine"
 #: u_translation.rscountry
 msgid "Country"
 msgstr "Pays"
+
+#: u_translation.rsdecreasefont
+msgid "Decrease font size"
+msgstr "Diminuer la taille de la police"
 
 #: u_translation.rsdefault
 msgid "Default"
@@ -85,6 +90,10 @@ msgstr "Grilles"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "FR"
+
+#: u_translation.rsincreasefont
+msgid "Increase font size"
+msgstr "Augmenter la taille de la police"
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
@@ -1171,4 +1180,5 @@ msgstr "Votre installation est déjà complète avec toutes les options install�
 #: u_translation.rszoomlevel
 msgid "Zoom level"
 msgstr "Niveau de zoom"
+
 
