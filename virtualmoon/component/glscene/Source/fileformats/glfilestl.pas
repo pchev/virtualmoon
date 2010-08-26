@@ -8,7 +8,6 @@
     to enable support for STL files at run-time.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>22/11/02 - EG - Write capability now properly declared
       <li>17/10/02 - EG - Created from split of GLVectorFileObjects,
                           ASCII STL support (Adem)
@@ -18,7 +17,7 @@ unit GLFileSTL;
 
 interface
 
-uses Classes, GLVectorFileObjects, ApplicationFileIO, GLCrossPlatform;
+uses Classes, GLVectorFileObjects, GLMisc, ApplicationFileIO;
 
 type
 
@@ -82,9 +81,9 @@ var
       if sl.Count<>5 then
          raise Exception.Create('Invalid Normal')
       else begin
-         aNormal[0]:=GLUtils.StrToFloatDef(sl[2], 0);
-         aNormal[1]:=GLUtils.StrToFloatDef(sl[3], 0);
-         aNormal[2]:=GLUtils.StrToFloatDef(sl[4], 0);
+         aNormal[0]:=StrToFloatDef(sl[2], 0);
+         aNormal[1]:=StrToFloatDef(sl[3], 0);
+         aNormal[2]:=StrToFloatDef(sl[4], 0);
       end;
    end;
 
@@ -94,15 +93,15 @@ var
       if (sl.Count<>4) or (CompareText(sl[0], cVERTEX_LABEL)<>0) then
          raise Exception.Create('Invalid Vertex')
       else begin
-         aVertex[0]:=GLUtils.StrToFloatDef(sl[1], 0);
-         aVertex[1]:=GLUtils.StrToFloatDef(sl[2], 0);
-         aVertex[2]:=GLUtils.StrToFloatDef(sl[3], 0);
+         aVertex[0]:=StrToFloatDef(sl[1], 0);
+         aVertex[1]:=StrToFloatDef(sl[2], 0);
+         aVertex[2]:=StrToFloatDef(sl[3], 0);
       end;
    end;
 
 var
    isBinary : Boolean;
-   headerBuf : array [0..cFULL_HEADER_LEN-1] of AnsiChar;
+   headerBuf : array [0..cFULL_HEADER_LEN-1] of Char;
    positionBackup : Integer;
    fileContent : TStringList;
    curLine : String;

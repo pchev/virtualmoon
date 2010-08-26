@@ -28,7 +28,7 @@ interface
 uses classes,sysutils,
      applicationfileio,
      vectorgeometry, vectorlists,
-     glscene, gltexture, glvectorfileObjects;
+     glscene, glmisc, gltexture, glvectorfileObjects;
 
 type
   TGLDXFVectorFile = class (TVectorFile)

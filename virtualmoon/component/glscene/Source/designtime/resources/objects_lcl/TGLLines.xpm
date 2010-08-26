@@ -1,0 +1,38 @@
+/* XPM */
+static char *TGLLines[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 16 1",
+"  c #040204",
+". c #04FEFC",
+"X c #0402FC",
+"o c #FCFEFC",
+"O c #F3470E",
+"+ c #990B00",
+"@ c #833E00",
+"# c #7C7700",
+"$ c #186968",
+"% c #9F0EF1",
+"& c #803E17",
+"* c #7C7700",
+"= c #FF004A",
+"- c #FF0002",
+"; c #FF002D",
+": c red",
+/* pixels */
+"oooooooooooooooo",
+"oooo ooooooooooo",
+"oooo ooooooooooo",
+"oo  X  ooooooooo",
+"ooo. .XXX.ooo oo",
+"oooX ooo.XXX. oo",
+"oooXooooooo  X  ",
+"oo XooooooooX oo",
+"oo .ooooooo.X oo",
+"  X  ooooooX.ooo",
+"oo ooooooo.Xoooo",
+"oo oooooo X.oooo",
+"ooooooooo Xooooo",
+"ooooooo  X  oooo",
+"ooooooooo oooooo",
+"ooooooooo oooooo"
+};

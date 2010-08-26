@@ -7,9 +7,6 @@
 
 
 	<b>History : </b><font size=-1><ul>
-      <li>26/11/09 - DaStr - Improved Lazarus compatibility (BugtrackerID = 2893580)
-      <li>10/03/09 - DanB - DoTesselate now accepts TGLBaseMesh instead of
-                            TGLFreeform, so can now use TGLActor with it too
       <li>29/05/08 - DaStr - Added $I GLScene.inc
       <li>08/09/03 - Jaj - Added single outline polygon support
 
@@ -26,16 +23,15 @@ interface
 {$I GLScene.inc}
 
 Uses
-  GLVectorFileObjects, VectorLists, VectorGeometry;
+  GLVectorFileObjects, VectorLists, Opengl1X, VectorGeometry, GLMisc;
 
 {: Tesselates the polygon outlined by the Vertexes. And addeds them to the first facegroup of the Mesh. }
-Procedure DoTesselate(Vertexes : TAffineVectorList; Mesh : TGLBaseMesh; normal : PAffineVector = Nil; invertNormals : Boolean = False);
+Procedure DoTesselate(Vertexes : TAffineVectorList; Mesh : TGLFreeForm; normal : PAffineVector = Nil; invertNormals : Boolean = False);
 
 implementation
 
 uses
-  SysUtils, OpenGL1x;
-
+  SysUtils;
 Var
   TessMesh : TMeshObject;
   TessFace : TFGIndexTexCoordList;
@@ -43,7 +39,7 @@ Var
   TessExtraVertices : Integer;
   TessVertices : PAffineVectorArray;
 
-procedure DoTessBegin(mode: TGLEnum); {$IFDEF Win32} stdcall; {$ENDIF} {$IFDEF UNIX} cdecl; {$ENDIF}
+procedure DoTessBegin(mode: TGLEnum); stdcall;
 Begin
   TessFace := TFGIndexTexCoordList.CreateOwned(TessMesh.FaceGroups);
   Case mode of
@@ -54,35 +50,35 @@ Begin
   End;
 End;
 
-procedure DoTessVertex3fv(v: PAffineVector); {$IFDEF Win32} stdcall; {$ENDIF} {$IFDEF UNIX} cdecl; {$ENDIF}
+procedure DoTessVertex3fv(v: PAffineVector); stdcall;
 Begin
   TessFace.Add(TessMesh.Vertices.Add(v^),0,0);
 End;
 
-procedure DoTessEnd; {$IFDEF Win32} stdcall; {$ENDIF} {$IFDEF UNIX} cdecl; {$ENDIF}
+procedure DoTessEnd; stdcall;
 Begin
 End;
 
-procedure DoTessError(errno : TGLEnum); {$IFDEF Win32} stdcall; {$ENDIF} {$IFDEF UNIX} cdecl; {$ENDIF}
+procedure DoTessError(errno : TGLEnum); stdcall;
 begin
-  Assert(False, IntToStr(errno)+': '+String(TGLString(gluErrorString(errno))));
+  Assert(False, IntToStr(errno)+': '+gluErrorString(errno));
 end;
 
-function AllocNewVertex : PAffineVector;
+function AllocNewVertex : PAffineVector; stdcall;
 begin
   Inc(TessExtraVertices);
   Result:=@TessVertices[TessExtraVertices-1];
 end;
 
 
-procedure DoTessCombine(coords : PDoubleVector; vertex_data : Pointer; weight : PGLFloat; var outData : Pointer); {$IFDEF Win32} stdcall; {$ENDIF} {$IFDEF UNIX} cdecl; {$ENDIF}
+procedure DoTessCombine(coords : PDoubleVector; vertex_data : Pointer; weight : PGLFloat; var outData : Pointer); stdcall;
 begin
   outData:=AllocNewVertex;
   SetVector(PAffineVector(outData)^, coords[0], coords[1], coords[2]);
 end;
 
 
-Procedure DoTesselate(Vertexes : TAffineVectorList; Mesh : TGLBaseMesh; normal : PAffineVector = Nil; invertNormals : Boolean = False);
+Procedure DoTesselate(Vertexes : TAffineVectorList; Mesh : TGLFreeForm; normal : PAffineVector = Nil; invertNormals : Boolean = False);
 Var
   Tess : PGLUTesselator;
   i : Integer;

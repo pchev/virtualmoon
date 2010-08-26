@@ -39,10 +39,6 @@ msgstr "Fotográfico Clementine"
 msgid "Country"
 msgstr "País"
 
-#: u_translation.rsdecreasefont
-msgid "Decrease font size"
-msgstr ""
-
 #: u_translation.rsdefault
 msgid "Default"
 msgstr "Por defecto"
@@ -86,10 +82,6 @@ msgstr "Cuadrícula"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "ES"
-
-#: u_translation.rsincreasefont
-msgid "Increase font size"
-msgstr ""
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
@@ -478,10 +470,6 @@ msgstr "Mostrar eteiquetas"
 #: u_translation.rsshowscale
 msgid "Show scale"
 msgstr "Mostrar escala"
-
-#: u_translation.rsside
-msgid "Side:"
-msgstr ""
 
 #: u_translation.rssimple
 msgid "Simple"

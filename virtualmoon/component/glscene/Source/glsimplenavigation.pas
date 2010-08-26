@@ -9,10 +9,6 @@
     this component on the form.<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>21/01/10 - Yar   - Bugfixed zooming in design time (BugtrackerID = 2936266)
-      <li>25/12/09 - DaStr - Added OnMouseMove event (thanks YarUnderoaker)
-      <li>18/10/09 - DaStr - Added snoShowFPS option (thanks YarUnderoaker)
-                             Fixed a small bug with FPS string
       <li>29/09/07 - DaStr - Component now automaticly detects Form Caption
       <li>24/03/07 - DaStr - Replaced GLWin32Viewer with GLViewer
                              (thanks Burkhard Carstens) (Bugtracker ID = 1684432)
@@ -45,7 +41,7 @@ interface
 
 uses
   // VCL
-  Classes, Forms, Controls, ExtCtrls, SysUtils, TypInfo,
+  Classes, Forms, ExtCtrls, SysUtils, TypInfo,
 
   // GLSCene
   VectorGeometry, GLScene, GLViewer, GLStrings, GLCrossPlatform;
@@ -55,8 +51,7 @@ type
                                snoInvertMoveAroundX, snoInvertMoveAroundY, // MoveAroundTarget.
                                snoInvertZoom, snoInvertMouseWheel,         // Zoom.
                                snoInvertRotateX, snoInvertRotateY,         // RotateTarget.
-                               snoMouseWheelHandled,                       // MouseWheel.
-                               snoShowFPS                                  // Show FPS
+                               snoMouseWheelHandled                        // MouseWheel.
                                );
 
   TGLSimpleNavigationOptions = set of TGLSimpleNavigationOption;
@@ -109,7 +104,6 @@ type
     FOptions: TGLSimpleNavigationOptions;
     FKeyCombinations: TGLSimpleNavigationKeyCombinations;
     FRotateTargetSpeed: Single;
-    FOnMouseMove: TMouseMoveEvent;
     procedure ShowFPS(Sender: TObject);
     procedure GLSceneViewerMouseMove(Sender: TObject;
       Shift: TShiftState; X, Y: Integer);
@@ -138,16 +132,14 @@ type
     property RotateTargetSpeed: Single read FRotateTargetSpeed write FRotateTargetSpeed stored StoreRotateTargetSpeed;
 
     property FormCaption: string read FFormCaption write FFormCaption stored StoreFormCaption;
-    property Options: TGLSimpleNavigationOptions read FOptions write FOptions default [snoMouseWheelHandled, snoShowFPS];
+    property Options: TGLSimpleNavigationOptions read FOptions write FOptions default [snoMouseWheelHandled];
     property KeyCombinations: TGLSimpleNavigationKeyCombinations read FKeyCombinations write SetKeyCombinations;
-
-    property OnMouseMove: TMouseMoveEvent read FOnMouseMove write FOnMouseMove;
   end;
 
 implementation
 
 const
-  vFPSString = '%FPS';
+  FPSString = '%FPS';
   EPS = 0.001;
 
 { TGLSimpleNavigation }
@@ -185,13 +177,12 @@ begin
   FMoveAroundTargetSpeed := 1;
   FRotateTargetSpeed := 1;
   FZoomSpeed := 1.5;
-  FOptions := [snoMouseWheelHandled, snoShowFPS];
-  FFormCaption := vFPSString;
+  FOptions := [snoMouseWheelHandled];
+  FFormCaption := FPSString;
 
   FTimer := TTimer.Create(nil);
   FTimer.OnTimer := ShowFPS;
 
-  FOnMouseMove:=nil;
   //Detect form
   if AOwner is TCustomForm then SetForm(TCustomForm(AOwner));
 
@@ -228,9 +219,6 @@ procedure TGLSimpleNavigation.FormMouseWheel(Sender: TObject;
 var
   Sign: SmallInt;
 begin
-  if csDesigning in ComponentState then
-    Exit;
-
   if snoInvertMouseWheel in FOptions then
     Sign := -1
   else
@@ -316,7 +304,7 @@ begin
               snaRotateTarget: DoRotateTarget;
               snaCustom: FKeyCombinations[I].DoOnCustomAction(Shift, X, Y);
             else
-              Assert(False, glsErrorEx + glsUnknownType);
+              Assert(False, glsUnknownType);
             end;
 
             if FKeyCombinations[I].FExitOnMatch then
@@ -326,8 +314,6 @@ begin
 
   FOldX := X;
   FOldY := Y;
-
-  if Assigned(FOnMouseMove) then FOnMouseMove(Self, Shift, X, Y);
 end;
 
 procedure TGLSimpleNavigation.Notification(AComponent: TComponent;
@@ -358,8 +344,8 @@ begin
 
   if FForm <> nil then
   begin
-    if FFormCaption = vFPSString then
-      FFormCaption := FForm.Caption + ' - ' + vFPSString;
+    if FFormCaption = FPSString then
+      FFormCaption := FForm.Caption + ' - ' + FPSString;
 
     TForm(FForm).OnMouseWheel := FormMouseWheel;
     FForm.FreeNotification(Self);
@@ -389,18 +375,12 @@ var
   Index: Integer;
   Temp: string;
 begin
-  if (FGLSceneViewer <> nil) and
-     (FForm <> nil) and
-     not(csDesigning in ComponentState) and
-     (snoShowFPS in FOptions) then
+  if (FGLSceneViewer <> nil) and (FForm <> nil) and not(csDesigning in ComponentState) then
   begin
     Temp := FFormCaption;
-    Index := Pos(vFPSString, Temp);
-    if Index <> 0 then
-    begin
-      Delete(Temp, Index, Length(vFPSString));
-      Insert(FGLSceneViewer.FramesPerSecondText, Temp, Index);
-    end;
+    Index := Pos(FPSString, Temp);
+    Delete(Temp, Index, Length(FPSString));
+    Insert(FGLSceneViewer.FramesPerSecondText, Temp, Index);
     FForm.Caption := Temp;
     FGLSceneViewer.ResetPerformanceMonitor;
   end;
@@ -408,7 +388,7 @@ end;
 
 function TGLSimpleNavigation.StoreFormCaption: Boolean;
 begin
-  Result := (FFormCaption <> vFPSString);
+  Result := (FFormCaption <> FPSString);
 end;
 
 function TGLSimpleNavigation.StoreMoveAroundTargetSpeed: Boolean;

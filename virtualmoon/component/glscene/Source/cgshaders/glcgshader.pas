@@ -6,8 +6,6 @@
    Base Cg shader classes.<p>
 
    <b>History :</b><font size=-1><ul>
-      <li>24/07/09 - DaStr - TGLShader.DoInitialize() now passes rci
-                              (BugTracker ID = 2826217)   
       <li>15/03/08 - DaStr - Fixups for vIgnoreContextActivationFailures mode
                                                       (BugTracker ID = 1914782)
       <li>24/03/07 - DaStr - Improved Cross-Platform compatibility
@@ -70,9 +68,8 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  VectorGeometry, VectorLists, VectorTypes, GLTexture, GLStrings,
-  GLCadencer, OpenGL1x, GLCrossPlatform, GLContext, BaseClasses,
-  GLRenderContextInfo, GLMaterial,
+  VectorGeometry, VectorLists, VectorTypes, GLTexture, GLMisc, GLStrings,
+  GLCadencer, OpenGL1x, GLCrossPlatform, GLContext,
 
   // CG
   Cg, CgGL;
@@ -359,7 +356,7 @@ type
     function GetOnInitialize : TCgShaderEvent;
     procedure SetOnInitialize(const val : TCgShaderEvent);
 
-    procedure DoInitialize(var rci : TRenderContextInfo; Sender : TObject); override;
+    procedure DoInitialize; override;
     procedure DoFinalize; override;
     procedure DoApply(var rci : TRenderContextInfo; Sender : TObject); override;
     function  DoUnApply(var rci : TRenderContextInfo) : Boolean; override;
@@ -402,7 +399,7 @@ type
     FCadencer: TGLCadencer;
     procedure SetCadencer(const Value: TGLCadencer);
   protected
-    procedure DoInitialize(var rci : TRenderContextInfo; Sender : TObject); override;
+    procedure DoInitialize; override;
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
   public
     property Cadencer: TGLCadencer read FCadencer write SetCadencer;
@@ -482,7 +479,7 @@ procedure ErrorCallBack; cdecl;
 var  Msg : string;
 begin
   with CurCgProgram do
-    Msg:='[' + LongName + '] ' + String(cgGetErrorString(cgGetError)) + #10 + String(cgGetLastListing(FCgContext));
+    Msg:='[' + LongName + '] ' + cgGetErrorString(cgGetError) + #10 + cgGetLastListing(FCgContext);
   raise EGLCGShaderException.Create(Msg);
 end;
 
@@ -507,7 +504,7 @@ end;
 destructor TCgProgram.Destroy;
 begin
   inherited Destroy;
-  Assert((FParams.Count=0), '[' + LongName + ']: bug! params unbound!');
+  Assert((FParams.Count=0) or vIgnoreContextActivationFailures, '[' + LongName + ']: bug! params unbound!');
   ClearParamsList;
   FParams.Free;
   FCode.Free;
@@ -548,7 +545,7 @@ begin
   newParamObj := TCgParameter.Create;
   with newParamObj do begin
     FOwner := Self;
-    FName  := {StrPas}String(cgGetParameterName(Param));
+    FName  := StrPas(cgGetParameterName(Param));
     FHandle := Param;
     FValueType := cgGetParameterType(Param);
     FDirection := cgGetParameterDirection(Param);
@@ -613,7 +610,7 @@ end;
 //
 function TCgProgram.DirectParamByName(const name: String): PCGparameter;
 begin
-  result:=cgGetNamedParameter(FHandle, PCharCG(StringCG(name)));
+  result:=cgGetNamedParameter(FHandle, PChar(name));
 end;
 
 // ParamCount
@@ -627,18 +624,18 @@ end;
 //
 procedure TCgProgram.Initialize;
 var
-  buf : StringCG;
-  Arg : array of PCharCG;
-  PArg : PPCharCG;
+  buf : String;
+  Arg : array of PChar;
+  PArg : PPChar;
 begin
   Assert(FCgContext=nil);
 
-  buf := StringCG(Trim(Code.Text));
+  buf := Trim(Code.Text);
   if buf='' then exit;
 
   if Precision=psFast then begin
       setlength(Arg, 2);
-      Arg[0]:=PCharCG('-fastprecision');
+      Arg[0]:=PChar('-fastprecision');
       Arg[1]:=nil;
       PArg:=@Arg[0];
     end
@@ -661,8 +658,8 @@ begin
     if FDetectProfile then FProfile:=GetLatestProfile;
     cgGLSetOptimalOptions(FProfile);
     if FProgramName='' then FProgramName:='main'; // default program name
-    FHandle := cgCreateProgram( FCgContext, CG_SOURCE, PCharCG(buf), FProfile,
-                                PCharCG(StringCG(FProgramName)), PArg);
+    FHandle := cgCreateProgram( FCgContext, CG_SOURCE, PChar(buf), FProfile,
+                                PChar(FProgramName), PArg);
     cgGLLoadProgram(FHandle);
     // build parameter list for the selected program
     BuildParamsList;
@@ -722,7 +719,7 @@ end;
 //
 function TCgProgram.GetProfileString: string;
 begin
-  result:=String(cgGetProfileString(FProfile));
+  result:=StrPas(cgGetProfileString(FProfile));
 end;
 
 // ListParameters
@@ -754,7 +751,7 @@ begin
   Output.BeginUpdate;
   Output.Clear;
   if FCgContext<>nil then
-    OutputAsTStrings(String(cgGetProgramString(FHandle, CG_COMPILED_PROGRAM)))
+    OutputAsTStrings(cgGetProgramString(FHandle, CG_COMPILED_PROGRAM))
   else
     Output.add('Cg program not yet initialized');
   Output.EndUpdate;
@@ -1298,7 +1295,7 @@ end;
 
 // DoInitialize
 //
-procedure TCustomCgShader.DoInitialize(var rci : TRenderContextInfo; Sender : TObject);
+procedure TCustomCgShader.DoInitialize;
 begin
   if (csDesigning in ComponentState) and (not FDesignEnable) then
     Exit;
@@ -1383,12 +1380,12 @@ end;
 
 // DoInitialize
 //
-procedure TCadencableCustomCgShader.DoInitialize(var rci : TRenderContextInfo; Sender : TObject);
+procedure TCadencableCustomCgShader.DoInitialize;
 begin
   if FCadencer = nil then
   begin
     Enabled := False;
-    raise EGLCGShaderException.CreateFmt(glsErrorEx + glsCadencerNotDefinedEx, [ClassName]);
+    raise EGLCGShaderException.CreateFmt(glsCadencerNotDefinedEx, [ClassName]);
   end
   else
     inherited;

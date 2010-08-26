@@ -59,13 +59,8 @@ if pos('moon',buf)=0 then begin
     'ID INTEGER PRIMARY KEY,'+
     'DBN integer,'+
     'NAME text,'+
-    'LUN text,'+
-    'NAMETYPE text,'+
     'TYPE text,'+
-    'SUBTYPE text,'+
     'PERIOD text,'+
-    'PROCESS text,'+
-    'GEOLOGY text,'+
     'NAMEDETAIL text,'+
     'NAMEORIGIN text,'+
     'LANGRENUS text,'+
@@ -87,7 +82,6 @@ if pos('moon',buf)=0 then begin
     'LATIC text,'+
     'QUADRANT text,'+
     'AREA text,'+
-    'FACE text,'+
     'RUKL text,'+
     'RUKLC text,'+
     'VISCARDY text,'+
@@ -107,7 +101,6 @@ if pos('moon',buf)=0 then begin
     'SLOPES text,'+
     'WALLS text,'+
     'FLOOR text,'+
-    'TIPS text,'+
     'INTERESTN integer,'+
     'INTERESTC text,'+
     'LUNATION integer,'+
@@ -142,19 +135,11 @@ end;
 
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
 var cmd,v: string;
-    i,imax,ii:integer;
+    i,imax:integer;
     db1:Tmlb2;
-    nolun,nonametype,nosubtype,noprocess,nogeology,noface,notips: boolean;
-const
-    poslun=2;
-    posnametype=3;
-    possubtype=5;
-    posprocess=7;
-    posgeology=8;
-    posface=30;
-    postips=50;
 begin
 if MsgForm=nil then Application.CreateForm(TMsgForm, MsgForm);
+//MsgForm:=TMsgForm.create(nil);
 MsgForm.Label1.caption:=ExtractFileName(fn)+crlf+'Preparing Database. Please Wait ...';
 msgform.show;
 msgform.Refresh;
@@ -163,13 +148,6 @@ db1:=Tmlb2.Create;
 try
 db1.init;
 db1.LoadFromFile(fn);
-nolun:=(db1.GetFieldIndex('LUN')=0);
-nonametype:=(db1.GetFieldIndex('NAMETYPE')=0);
-nosubtype:=(db1.GetFieldIndex('SUBTYPE')=0);
-noprocess:=(db1.GetFieldIndex('PROCESS')=0);
-nogeology:=(db1.GetFieldIndex('GEOLOGY')=0);
-noface:=(db1.GetFieldIndex('FACE')=0);
-notips:=(db1.GetFieldIndex('TIPS')=0);
 db1.GoFirst;
 dbm.StartTransaction;
 dbm.Query('delete from moon where DBN='+side+';');
@@ -179,21 +157,12 @@ dbjournal(extractfilename(dbm.database),'DELETE ALL DBN='+side);
 dbm.StartTransaction;
 repeat
   cmd:='insert into moon values(NULL,'+side+',';
-  ii:=1;
   for i:=1 to db1.FieldCount do begin
-    if nolun and (ii=poslun) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if nonametype and (ii=posnametype) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if nosubtype and (ii=possubtype) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if noprocess and (ii=posprocess) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if nogeology and (ii=posgeology) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if noface and (ii=posface) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if notips and (ii=postips) then begin cmd:=cmd+'"",'; inc(ii); end;
     v:=db1.GetDataByIndex(i);
     v:=stringreplace(v,',','.',[rfreplaceall]); // look why we need that ???
     v:=stringreplace(v,'""','''',[rfreplaceall]);
     v:=stringreplace(v,'"','',[rfreplaceall]);
     cmd:=cmd+'"'+v+'",';
-    inc(ii);
   end;
   cmd:=copy(cmd,1,length(cmd)-1)+');';
   dbm.Query(cmd);
@@ -214,6 +183,8 @@ dbm.Query('insert into file_date values ('+side+','+inttostr(fileage(fn))+');');
 dbm.Commit;
 dbjournal(extractfilename(dbm.database),'INSERT DBN='+side+' MAX ID='+inttostr(imax));
 finally
+//msgform.close;
+//msgform.free;
 db1.Clear;
 db1.Free;
 end;
@@ -224,7 +195,7 @@ var i,db_age : integer;
     buf,missingf:string;
 begin
 missingf:='';
-buf:=Slash(DBdir)+'dbmoon4_u'+uplanguage+'.dbl';
+buf:=Slash(DBdir)+'dbmoon3_u'+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);

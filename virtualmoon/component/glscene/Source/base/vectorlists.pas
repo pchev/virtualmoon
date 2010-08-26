@@ -5,13 +5,29 @@
 
    Misc. lists of vectors and entities<p>
 
+      $Log: vectorlists.pas,v $
+      Revision 1.2  2006/01/12 19:32:05  z0m3ie
+      *** empty log message ***
+
+      Revision 1.1  2006/01/10 20:50:44  z0m3ie
+      recheckin to make shure that all is lowercase
+
+      Revision 1.1  2006/01/09 21:01:43  z0m3ie
+      *** empty log message ***
+
+      Revision 1.3  2006/01/08 21:04:12  z0m3ie
+      *** empty log message ***
+
+      Revision 1.2  2005/12/04 16:52:59  z0m3ie
+      renamed everything to lowercase to get better codetools support and avoid unit finding bugs
+
+      Revision 1.1  2005/12/01 21:24:10  z0m3ie
+      *** empty log message ***
+
+      Revision 1.3  2005/08/03 00:41:38  z0m3ie
+      - added automatical generated History from CVS
+
    <b>History : </b><font size=-1><ul>
-      <li>06/02/10 - Yar - Added methods to TSingleList
-                           Added T4ByteList
-      <li>25/11/09 - DanB - Fixed FastQuickSortLists for 64bit (thanks YarUnderoaker)
-                            (merged from gls4laz)
-                            ASM code protected with IFDEFs
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>01/03/08 - DaStr - Added Borland-style persistency support to TBaseList
       <li>29/03/07 - DaStr - Added more explicit pointer dereferencing
                              (thanks Burkhard Carstens) (Bugtracker ID = 1678644)
@@ -434,10 +450,7 @@ type
     constructor Create; override;
     procedure Assign(Src: TPersistent); override;
 
-    function Add(const item: Single): Integer; overload;
-    procedure Add(const i1, i2: Single); overload;
-    procedure AddSingles(const First: PSingle; n: Integer); overload;
-    procedure AddSingles(const anArray: array of Single); overload;
+    function Add(const item: Single): Integer;
     procedure Push(const Val: Single);
     function Pop: Single;
     procedure Insert(Index: Integer; const item: Single);
@@ -582,45 +595,6 @@ type
     procedure Combine(const list2: TBaseVectorList; factor: Single); override;
   end;
 
-  // 4 byte union contain access like Integer, Single and four Byte
-	T4ByteData = packed record
-    case Byte of
-    0 : (Bytes : record Value : array[0..3] of Byte; end);
-    1 : (Int   : record Value : LongInt; end);
-    2 : (Float : record Value : Single; end);
-  end;
-
-  T4ByteArrayList = array[0..MaxInt shr 4] of T4ByteData;
-  P4ByteArrayList = ^T4ByteArrayList;
-
-  // T4ByteList
-  //
-  {: A list of T4ByteData.<p> }
-
-  T4ByteList = class(TBaseList)
-  private
-    { Private Declarations }
-    FList: P4ByteArrayList;
-  protected
-    { Protected Declarations }
-    function  Get(Index: Integer): T4ByteData;
-    procedure Put(Index: Integer; const item: T4ByteData);
-    procedure SetCapacity(NewCapacity: Integer); override;
-  public
-    { Public Declarations }
-    constructor Create; override;
-    procedure Assign(Src: TPersistent); override;
-
-    function  Add(const item: T4ByteData): Integer; overload;
-    procedure Add(const AList: T4ByteList); overload;
-    procedure Push(const Val: T4ByteData);
-    function  Pop: T4ByteData;
-    procedure Insert(Index: Integer; const item: T4ByteData);
-
-    property Items[Index: Integer]: T4ByteData read Get write Put; default;
-    property List: P4ByteArrayList read FList;
-  end;
-
 {: Sort the refList in ascending order, ordering objList (TList) on the way. }
 procedure QuickSortLists(startIndex, endIndex: Integer; refList: TSingleList; objList: TList); overload;
 
@@ -735,8 +709,9 @@ var
   I, J:    Integer;
   p, Temp: Integer;
   ppl:     PIntegerArray;
-  oTemp    : Pointer;
+  oTemp    : pointer;
   oppl     : PPointerArray;
+
 begin
   // All singles are >=1, so IEEE format allows comparing them as if they were integers
   ppl := PIntegerArray(@refList.List[0]);
@@ -754,11 +729,9 @@ begin
           Dec(J);
         if I <= J then
         begin
-          // swap integers
           Temp := ppl^[I];
           ppl^[I] := ppl^[J];
           ppl^[J] := Temp;
-          // swap pointers
           oTemp := oppl^[I];
           oppl^[I] := oppl^[J];
           oppl^[J] := oTemp;
@@ -778,11 +751,9 @@ begin
     begin
       I := endIndex;
       J := startIndex;
-      // swap integers
       Temp := ppl^[I];
       ppl^[I] := ppl^[J];
       ppl^[J] := Temp;
-      // swap pointers
       oTemp := oppl^[I];
       oppl^[I] := oppl^[J];
       oppl^[J] := oTemp;
@@ -836,25 +807,25 @@ end;
 // ReadItemsData
 procedure TBaseList.ReadItemsData(AReader: TReader);
 var
-  lData: AnsiString;
+  lData: string;
   lOutputText: string;
 begin
   lOutputText := AReader.ReadString;
   {$WARNING Crossbuilder: what is the "+ 1" good for ? IMHO that is wrong.}
   SetLength(lData, Length(lOutputText) div 2 + 1);
-  HexToBin(PChar(lOutputText), PAnsiChar(lData), Length(lData));
+  HexToBin(PChar(lOutputText), PChar(lData), Length(lData));
   LoadFromString(lData);
 end;
 
 // WriteItemsData
 procedure TBaseList.WriteItemsData(AWriter: TWriter);
 var
-  lData: AnsiString;
-  lOutputText: String;
+  lData: string;
+  lOutputText: string;
 begin
   lData := SaveToString;
   SetLength(lOutputText, Length(lData) * 2);
-  BinToHex(PAnsiChar(lData), PChar(lOutputText), Length(lData));
+  BinToHex(PChar(lData), PChar(lOutputText), Length(lData));
   AWriter.WriteString(lOutputText);
 end;
 
@@ -2770,36 +2741,6 @@ begin
   Inc(FCount);
 end;
 
-procedure TSingleList.Add(const i1, i2: Single);
-var
-  tmpList : PSingleArray;
-begin
-  Inc(FCount, 2);
-  while FCount > FCapacity do
-    SetCapacity(FCapacity + FGrowthDelta);
-  tmpList := @FList[FCount - 2];
-  tmpList^[0] := i1;
-  tmpList^[1] := i2;
-end;
-
-procedure TSingleList.AddSingles(const First: PSingle; n: Integer);
-begin
-  if n < 1 then
-    Exit;
-  AdjustCapacityToAtLeast(Count + n);
-  System.Move(First^, FList[FCount], n * SizeOf(Single));
-  FCount := FCount + n;
-end;
-
-procedure TSingleList.AddSingles(const anArray: array of Single);
-var
-  n: Integer;
-begin
-  n := Length(anArray);
-  if n > 0 then
-    AddSingles(@anArray[0], n);
-end;
-
 // Get
 //
 
@@ -2948,34 +2889,13 @@ end;
 //
 
 function TSingleList.Sum: Single;
-{$IFDEF GLS_NO_ASM__crossbuilder__This_Should_be_ifNdef}
-// This code was removed, because it's WRONG!!
-// now it's back in but noone would ever define the above, so I don't care
-// regards, crossbuilder
-
-  function ComputeSum(list: PSingleArrayList; nb: Integer): Single; register;
-  asm
-    fld   dword ptr [eax]
-    @@Loop:
-    dec   edx
-    fadd  dword ptr [eax+edx*4]
-    jnz   @@Loop
-  end;
-
-begin
-  if FCount > 0 then
-    Result := ComputeSum(FList, FCount)
-  else
-    Result := 0;
-{$ELSE}
 var
   i: Integer;
 
 begin
   Result := 0;
   for i := 0 to FCount-1 do
-    Result := Result + FList^[i];
-{$ENDIF}
+     Result := Result + FList^[i];
 end;
 
 // ------------------
@@ -3266,30 +3186,6 @@ end;
 //
 
 function TDoubleList.Sum: Double;
-{$IFDEF GLS_NO_ASM__crossbuilder__This_Should_be_ifNdef}
-
-// This code was removed, because it's WRONG!! It is even worse than the code 
-// from TSingleList.Sum:
-//   *  It's about double, so SCALE must be 8, not 4 !!
-//   *  Both implementations add list[0] twice.
-// now it's back in but noone would ever define the above, so I don't care
-// regards, crossbuilder
-
-  function ComputeSum(list: PDoubleArrayList; nb: Integer): Double; register;
-  asm
-    fld   dword ptr [eax] //load list[0]
-    @@Loop:
-    dec   edx
-    fadd  dword ptr [eax+edx*4] // in last iteration, again add list[0] 
-    jnz   @@Loop
-  end;
-
-begin
-  if FCount > 0 then
-    Result := ComputeSum(FList, FCount)
-  else
-    Result := 0;
-{$ELSE}
 var
   i: Integer;
 
@@ -3297,7 +3193,6 @@ begin
   Result := 0;
   for i := 0 to FCount-1 do
     Result := Result + FList^[i];
-{$ENDIF}
 end;
 
 // ------------------
@@ -3499,130 +3394,6 @@ begin
   end
   else
     inherited;
-end;
-
-// ------------------
-// ------------------ T4ByteList ------------------
-// ------------------
-
-// Create
-//
-
-constructor T4ByteList.Create;
-begin
-  FItemSize := SizeOf(T4ByteList);
-  inherited Create;
-  FGrowthDelta := cDefaultListGrowthDelta;
-end;
-
-// Assign
-//
-
-procedure T4ByteList.Assign(Src: TPersistent);
-begin
-  if Assigned(Src) then
-  begin
-    inherited;
-    if (Src is T4ByteList) then
-      System.Move(T4ByteList(Src).FList^, FList^, FCount * SizeOf(T4ByteData));
-  end
-  else
-    Clear;
-end;
-
-// Add
-//
-
-function T4ByteList.Add(const item: T4ByteData): Integer;
-begin
-  Result := FCount;
-  if Result = FCapacity then
-    SetCapacity(FCapacity + FGrowthDelta);
-  FList^[Result] := Item;
-  Inc(FCount);
-end;
-
-procedure T4ByteList.Add(const AList: T4ByteList);
-begin
-  if Assigned(AList) and (AList.Count > 0) then
-  begin
-    if Count + AList.Count > Capacity then
-      Capacity := Count + AList.Count;
-    System.Move(AList.FList[0], FList[Count], AList.Count * SizeOf(T4ByteData));
-    Inc(FCount, AList.Count);
-  end;
-end;
-
-// Get
-//
-
-function T4ByteList.Get(Index: Integer): T4ByteData;
-begin
-{$IFOPT R+}
-    Assert(Cardinal(Index) < Cardinal(FCount));
-{$ENDIF}
-  Result := FList^[Index];
-end;
-
-// Insert
-//
-
-procedure T4ByteList.Insert(Index: Integer; const Item: T4ByteData);
-begin
-{$IFOPT R+}
-    Assert(Cardinal(Index) < Cardinal(FCount));
-{$ENDIF}
-  if FCount = FCapacity then
-    SetCapacity(FCapacity + FGrowthDelta);
-  if Index < FCount then
-    System.Move(FList[Index], FList[Index + 1],
-      (FCount - Index) * SizeOf(T4ByteData));
-  FList^[Index] := Item;
-  Inc(FCount);
-end;
-
-// Put
-//
-
-procedure T4ByteList.Put(Index: Integer; const Item: T4ByteData);
-begin
-{$IFOPT R+}
-    Assert(Cardinal(Index) < Cardinal(FCount));
-{$ENDIF}
-  FList^[Index] := Item;
-end;
-
-// SetCapacity
-//
-
-procedure T4ByteList.SetCapacity(NewCapacity: Integer);
-begin
-  inherited;
-  FList := P4ByteArrayList(FBaseList);
-end;
-
-// Push
-//
-
-procedure T4ByteList.Push(const Val: T4ByteData);
-begin
-  Add(Val);
-end;
-
-// Pop
-//
-
-function T4ByteList.Pop: T4ByteData;
-const
-  Zero : T4ByteData = ( Int: (Value:0) );
-begin
-  if FCount > 0 then
-  begin
-    Result := Get(FCount - 1);
-    Delete(FCount - 1);
-  end
-  else
-    Result := Zero;
 end;
 
 // ------------------------------------------------------------------

@@ -5,14 +5,26 @@
 
    Miscellaneous support utilities & classes.<p>
 
+      $Log: glutils.pas,v $
+      Revision 1.1  2006/01/10 20:50:46  z0m3ie
+      recheckin to make shure that all is lowercase
+
+      Revision 1.4  2006/01/09 20:45:51  z0m3ie
+      *** empty log message ***
+
+      Revision 1.3  2006/01/08 21:04:12  z0m3ie
+      *** empty log message ***
+
+      Revision 1.2  2005/12/04 16:53:06  z0m3ie
+      renamed everything to lowercase to get better codetools support and avoid unit finding bugs
+
+      Revision 1.1  2005/12/01 21:24:11  z0m3ie
+      *** empty log message ***
+
+      Revision 1.3  2005/08/03 00:41:39  z0m3ie
+      - added automatical generated History from CVS
+
 	<b>History : </b><font size=-1><ul>
-      <li>27/05/09 - DanB - re-added TryStrToFloat, since it ignores user's locale.
-      <li>24/03/09 - DanB - removed TryStrToFloat (exists in SysUtils or GLCrossPlatform already)
-                            changed StrToFloatDef to accept only 1 param + now overloaded
-      <li>24/03/09 - DanB - Moved Dialog utilities here from GLCrossPlatform, because
-                            they work on all platforms (with FPC)
-      <li>16/10/08 - UweR - corrected typo in TryStringToColorAdvanced parameter
-      <li>16/10/08 - DanB - renamed Save/LoadStringFromFile to Save/LoadAnsiStringFromFile
       <li>24/03/08 - DaStr - Removed OpenGL1x dependancy
                              Moved TGLMinFilter and TGLMagFilter from GLUtils.pas
                               to GLGraphics.pas (BugTracker ID = 1923844)
@@ -30,7 +42,7 @@ interface
 
 uses
   // VCL
-  Classes, SysUtils, Graphics, Controls,
+  Classes, SysUtils, Graphics,
 
   // GLScene
   VectorGeometry, GLCrossPlatform;
@@ -53,18 +65,18 @@ function RoundDownToPowerOf2(value : Integer): Integer;
 function IsPowerOf2(value : Integer) : Boolean;
 {: Read a CRLF terminated string from a stream.<p>
    The CRLF is NOT in the returned string. }
-function ReadCRLFString(aStream : TStream) : AnsiString;
+function ReadCRLFString(aStream : TStream) : String;
 //: Write the string and a CRLF in the stream
-procedure WriteCRLFString(aStream : TStream; const aString : AnsiString);
-//: Similar to SysUtils.TryStrToFloat, but ignores user's locale
+procedure WriteCRLFString(aStream : TStream; const aString : String);
+//: TryStrToFloat
 function TryStrToFloat(const strValue : String; var val : Extended) : Boolean;
-//: Similar to SysUtils.StrToFloatDef, but ignores user's locale
+//: StrToFloatDef
 function StrToFloatDef(const strValue : String; defValue : Extended = 0) : Extended;
 
 //: Converts a string into color
 function StringToColorAdvancedSafe(const Str: string; const Default: TColor): TColor;
 //: Converts a string into color
-function TryStringToColorAdvanced(const Str: string; var OutColor: TColor): Boolean;
+function TryStringToColorAdvanced(const Str: string; var OutColot: TColor): Boolean;
 //: Converts a string into color
 function StringToColorAdvanced(const Str: string): TColor;
 
@@ -78,9 +90,9 @@ function ParseInteger(var p : PChar) : Integer;
 function ParseFloat(var p : PChar) : Extended;
 
 {: Saves "data" to "filename". }
-procedure SaveAnsiStringToFile(const fileName: String; const data : AnsiString);
+procedure SaveStringToFile(const fileName, data : String);
 {: Returns the content of "filename". }
-function LoadAnsiStringFromFile(const fileName : String) : AnsiString;
+function LoadStringFromFile(const fileName : String) : String;
 
 {: Saves component to a file. }
 procedure SaveComponentToFile(const Component: TComponent; const FileName: string; const AsText: Boolean = True);
@@ -94,20 +106,6 @@ function SizeOfFile(const fileName : String) : Int64;
 {: Returns a pointer to an array containing the results of "255*sqrt(i/255)". }
 function GetSqrt255Array : PSqrt255Array;
 
-{: Pops up a simple dialog with msg and an Ok button. }
-procedure InformationDlg(const msg : String);
-{: Pops up a simple question dialog with msg and yes/no buttons.<p>
-   Returns True if answer was "yes". }
-function QuestionDlg(const msg : String) : Boolean;
-{: Posp a simple dialog with a string input. }
-function InputDlg(const aCaption, aPrompt, aDefault : String) : String;
-
-{: Pops up a simple save picture dialog. }
-function SavePictureDialog(var aFileName : String; const aTitle : String = '') : Boolean;
-{: Pops up a simple open picture dialog. }
-function OpenPictureDialog(var aFileName : String; const aTitle : String = '') : Boolean;
-
-
 //------------------------------------------------------
 //------------------------------------------------------
 //------------------------------------------------------
@@ -116,7 +114,7 @@ implementation
 //------------------------------------------------------
 //------------------------------------------------------
 
-uses ApplicationFileIO, Dialogs, ExtDlgs;
+uses ApplicationFileIO;
 
 var
 	vSqrt255 : TSqrt255Array;
@@ -126,7 +124,6 @@ resourcestring
 
 // WordToIntegerArray
 //
-{$IFNDEF GEOMETRY_NO_ASM}
 procedure WordToIntegerArray(Source: PWordArray; Dest: PIntegerArray; Count: Cardinal); assembler;
 // EAX contains Source
 // EDX contains Dest
@@ -146,15 +143,6 @@ asm
               POP ESI
 @@Finish:
 end;
-{$ELSE}
-procedure WordToIntegerArray(Source: PWordArray; Dest: PIntegerArray; Count: Cardinal);
-var
-  i:integer;
-begin
-  for i := 0 to Count-1 do
-    Dest^[i] := Source^[i];
-end;
-{$ENDIF}
 
 // RoundUpToPowerOf2
 //
@@ -183,10 +171,10 @@ end;
 
 // ReadCRLFString
 //
-function ReadCRLFString(aStream : TStream) : AnsiString;
+function ReadCRLFString(aStream : TStream) : String;
 var
-   c : AnsiChar;
-   CR, LF: AnsiChar;
+   c : Char;
+   CR, LF: Char;
 begin
    Result := '';
    CR := #0;
@@ -202,7 +190,7 @@ end;
 
 // WriteCRLFString
 //
-procedure WriteCRLFString(aStream : TStream; const aString : AnsiString);
+procedure WriteCRLFString(aStream : TStream; const aString : String);
 const
    cCRLF : Integer = $0A0D;
 begin
@@ -228,7 +216,7 @@ begin
    while (lLen>0) and (strValue[lLen]=' ') do Dec(lLen);
    divider:=lLen+1;
    exponent:=0;
-   for i:=1 to lLen do begin
+	for i:=1 to lLen do begin
       c:=strValue[i];
       case c of
          ' ' : if v<>0 then begin
@@ -315,7 +303,7 @@ end;
 
 // TryStringToColorAdvanced
 //
-function TryStringToColorAdvanced(const Str: string; var OutColor: TColor): Boolean;
+function TryStringToColorAdvanced(const Str: string; var OutColot: TColor): Boolean;
 var
   Code, I: Integer;
   Temp:    string;
@@ -325,18 +313,18 @@ begin
 
   Val(Temp, I, Code); //to see if it is a number
   if Code = 0 then
-    OutColor := TColor(I)                                       //Str = $0000FF
+    OutColot := TColor(I)                                       //Str = $0000FF
   else
   begin
-    if not IdentToColor(Temp, Longint(OutColor)) then           //Str = clRed
+    if not IdentToColor(Temp, Longint(OutColot)) then           //Str = clRed
     begin
       if AnsiStartsText('clr', Temp) then                       //Str = clrRed
       begin
         Delete(Temp, 3, 1);
-        if not IdentToColor(Temp, Longint(OutColor)) then
+        if not IdentToColor(Temp, Longint(OutColot)) then
           Result := False;
       end
-      else if not IdentToColor('cl' + Temp, Longint(OutColor)) then //Str = Red
+      else if not IdentToColor('cl' + Temp, Longint(OutColot)) then //Str = Red
         Result := False;
     end;
   end;
@@ -434,7 +422,7 @@ end;
 
 // SaveStringToFile
 //
-procedure SaveAnsiStringToFile(const fileName: String; const data : AnsiString);
+procedure SaveStringToFile(const fileName, data : String);
 var
    n : Cardinal;
 	fs : TStream;
@@ -451,7 +439,7 @@ end;
 
 // LoadStringFromFile
 //
-function LoadAnsiStringFromFile(const fileName : String) : AnsiString;
+function LoadStringFromFile(const fileName : String) : String;
 var
    n : Cardinal;
 	fs : TStream;
@@ -553,71 +541,5 @@ begin
 	end;
 	Result:=@vSqrt255;
 end;
-
-// InformationDlg
-//
-procedure InformationDlg(const msg : String);
-begin
-   ShowMessage(msg);
-end;
-
-// QuestionDlg
-//
-function QuestionDlg(const msg : String) : Boolean;
-begin
-   Result:=(MessageDlg(msg, mtConfirmation, [mbYes, mbNo], 0)=mrYes);
-end;
-
-// InputDlg
-//
-function InputDlg(const aCaption, aPrompt, aDefault : String) : String;
-begin
-   Result:=InputBox(aCaption, aPrompt, aDefault);
-end;
-
-// SavePictureDialog
-//
-function SavePictureDialog(var aFileName : String; const aTitle : String = '') : Boolean;
-var
-   saveDialog : TSavePictureDialog;
-begin
-   saveDialog:=TSavePictureDialog.Create(nil);
-   try
-      with saveDialog do begin
-         Options:=[ofHideReadOnly, ofNoReadOnlyReturn];
-         if aTitle<>'' then
-            Title:=aTitle;
-         FileName:=aFileName;
-         Result:=Execute;
-         if Result then
-            aFileName:=FileName;
-      end;
-   finally
-      saveDialog.Free;
-   end;
-end;
-
-// OpenPictureDialog
-//
-function OpenPictureDialog(var aFileName : String; const aTitle : String = '') : Boolean;
-var
-   openDialog : TOpenPictureDialog;
-begin
-   openDialog:=TOpenPictureDialog.Create(nil);
-   try
-      with openDialog do begin
-         Options:=[ofHideReadOnly, ofNoReadOnlyReturn];
-         if aTitle<>'' then
-            Title:=aTitle;
-         FileName:=aFileName;
-         Result:=Execute;
-         if Result then
-            aFileName:=FileName;
-      end;
-   finally
-      openDialog.Free;
-   end;
-end;
-
 
 end.

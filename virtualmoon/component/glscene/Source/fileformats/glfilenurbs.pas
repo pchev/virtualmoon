@@ -74,7 +74,7 @@ procedure TGLNurbsVectorFile.LoadFromStream(stream : TStream);
             if buf=']' then Break;
             vals.CommaText:=buf;
             for k:=0 to vals.Count-1 do if vals[k]<>'' then
-               list.Add(GLUtils.StrToFloatDef(vals[k],0));
+               list.Add(StrToFloatDef(vals[k],0));
             Inc(idx);
          end;
          Result:=idx;
@@ -95,7 +95,7 @@ procedure TGLNurbsVectorFile.LoadFromStream(stream : TStream);
             if buf=']' then Break;
             vals.CommaText:=buf;
             if vals.Count>=3 then
-               list.Add(GLUtils.StrToFloatDef(vals[0],0), GLUtils.StrToFloatDef(vals[1],0), GLUtils.StrToFloatDef(vals[2],0));
+               list.Add(StrToFloatDef(vals[0],0), StrToFloatDef(vals[1],0), StrToFloatDef(vals[2],0));
             Inc(idx);
          end;
          Result:=idx;

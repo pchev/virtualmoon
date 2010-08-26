@@ -39,10 +39,6 @@ msgstr "Fotomapa (Clementine)"
 msgid "Country"
 msgstr "Stát"
 
-#: u_translation.rsdecreasefont
-msgid "Decrease font size"
-msgstr ""
-
 #: u_translation.rsdefault
 msgid "Default"
 msgstr "Výchozí"
@@ -85,10 +81,6 @@ msgstr "Souřadnicová síť"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
-msgstr ""
-
-#: u_translation.rsincreasefont
-msgid "Increase font size"
 msgstr ""
 
 #: u_translation.rslabelsfont
@@ -478,10 +470,6 @@ msgstr "Ukázat popisky"
 #: u_translation.rsshowscale
 msgid "Show scale"
 msgstr "Ukázat měřítko"
-
-#: u_translation.rsside
-msgid "Side:"
-msgstr ""
 
 #: u_translation.rssimple
 msgid "Simple"

@@ -176,7 +176,7 @@ Var
   WeldedVertex: TAffineVectorList;
   TmpIntegerList: TIntegerList;
   IndexMap: TStringList;
-  n: TAffineVector;
+  v, n: TAffineVector;
   indicesMap : TIntegerList;
   Index: Integer;
   FaceList: TIntegerList;
@@ -189,6 +189,10 @@ Var
   ReferenceMap: TIntegerList;
   ID1, ID2: Integer;
   Index1, Index2, Index3: Integer;
+
+  Tex1, Tex2, Tex3, Tex4: TTexPoint;
+  List: TIntegerList;
+  DupList: TStringList;
 
   function FindReferenceIndex(aID: Integer): Integer;
   begin

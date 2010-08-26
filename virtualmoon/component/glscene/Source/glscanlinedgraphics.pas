@@ -126,7 +126,7 @@ end;
 
 function TGLScanlinedGraphic.getScanline(y: integer): pointer;
 begin
-  result:= pointer(PtrInt(FData) + y * Width * 4);
+  result:= pointer(integer(FData) + y * Width * 4);
 end;
 
 function TGLScanlinedGraphic.GetTransparent: Boolean;

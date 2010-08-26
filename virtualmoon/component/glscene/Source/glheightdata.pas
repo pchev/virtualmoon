@@ -64,7 +64,7 @@ interface
 
 {$i GLScene.inc}
 
-uses Classes, VectorGeometry, GLCrossPlatform, GLMaterial, BaseClasses
+uses Classes, VectorGeometry, GLCrossPlatform, GLTexture, GLMisc 
      {$ifdef fpc}
      ,glgraphics
      {$endif}
@@ -652,7 +652,7 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils, ApplicationFileIO, GLUtils
+uses SysUtils, ApplicationFileIO, GLUtils, OpenGL1x   //, GMisc
   {$IFDEF MSWINDOWS}
   , Windows  // for CreateMonochromeBitmap
   {$ENDIF}
@@ -1827,7 +1827,7 @@ begin
    // some picture formats trigger a "change" when drawed
    Picture.OnChange:=nil;
    try
-      FBitmap.Canvas.StretchDraw(classes.Rect(0, 0, size, size), Picture.Graphic);
+      FBitmap.Canvas.StretchDraw(Types.Rect(0, 0, size, size), Picture.Graphic);
    finally
       Picture.OnChange:=OnPictureChanged;
    end;
@@ -1859,7 +1859,7 @@ begin
    Result:=FScanLineCache[y];
    if not Assigned(Result) then begin
       {$IFNDEF FPC}
-      Result:=BitmapScanLine(FBitmap, y);//FBitmap.ScanLine[y];
+      Result:=FBitmap.ScanLine[y];
       {$ELSE}
       Result:=PByteArray(FBmp32.ScanLine[y]);
       {$ENDIF}

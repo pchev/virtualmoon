@@ -39,10 +39,6 @@ msgstr "Fotogràfic Clementine"
 msgid "Country"
 msgstr "País"
 
-#: u_translation.rsdecreasefont
-msgid "Decrease font size"
-msgstr ""
-
 #: u_translation.rsdefault
 msgid "Default"
 msgstr "Per defecte"
@@ -86,10 +82,6 @@ msgstr "Graella"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "CA"
-
-#: u_translation.rsincreasefont
-msgid "Increase font size"
-msgstr ""
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
@@ -476,10 +468,6 @@ msgstr "Mostra etiquetes"
 #: u_translation.rsshowscale
 msgid "Show scale"
 msgstr "Mostra escala"
-
-#: u_translation.rsside
-msgid "Side:"
-msgstr ""
 
 #: u_translation.rssimple
 msgid "Simple"

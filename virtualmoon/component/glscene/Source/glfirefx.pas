@@ -6,7 +6,6 @@
 	Fire special effect<p>
 
 	<b>Historique : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>14/03/07 - DaStr - Added explicit pointer dereferencing
@@ -31,9 +30,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLScene, XCollection, VectorGeometry,
-     GLCadencer, GLColor, BaseClasses, GLCoordinates, GLManager,
-     GLRenderContextInfo, GLState;
+uses Classes, GLScene, GLMisc, XCollection, VectorGeometry, GLTexture,
+     GLCadencer, GLColor;
 
 type
 
@@ -199,7 +197,8 @@ type
 			class function FriendlyName : String; override;
 			class function FriendlyDescription : String; override;
 
-         procedure Render(var rci : TRenderContextInfo); override;
+         procedure Render(sceneBuffer : TGLSceneBuffer;
+								  var rci : TRenderContextInfo); override;
 
 		published
 			{ Published Declarations }
@@ -684,7 +683,8 @@ end;
 
 // Render
 //
-procedure TGLBFireFX.Render(var rci : TRenderContextInfo);
+procedure TGLBFireFX.Render(sceneBuffer : TGLSceneBuffer;
+                            var rci : TRenderContextInfo);
 var
    n : Integer;
    i : Integer;
@@ -698,21 +698,21 @@ var
 begin
    if Manager=nil then Exit;
 
-   rci.GLStates.PushAttrib(cAllAttribBits);
+   glPushAttrib(GL_ALL_ATTRIB_BITS);
    glPushMatrix;
    // revert to the base model matrix in the case of a referenced fire
    if Assigned(Manager.Reference) then begin
-      glLoadMatrixf(@TGLSceneBuffer(rci.buffer).ViewMatrix);
+      glLoadMatrixf(@OwnerBaseSceneObject.Scene.CurrentBuffer.ModelViewMatrix);
    end;
 
-   rci.GLStates.Disable(stCullFace);
+   glDisable(GL_CULL_FACE);
    glDisable(GL_TEXTURE_2D);
-   rci.GLStates.Disable(stLighting);
-   rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
-   rci.GLStates.Enable(stBlend);
-   rci.GLStates.DepthFunc := cfLEqual;
+   glDisable(GL_LIGHTING);
+   glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+   glEnable(GL_BLEND);
+   glDepthFunc(GL_LEQUAL);
    if Manager.NoZWrite then
-      rci.GLStates.DepthWriteMask := False;
+      glDepthMask(False);
 
    n := Manager.NP;
 
@@ -754,10 +754,10 @@ begin
    end;
 
    if Manager.NoZWrite then
-      rci.GLStates.DepthWriteMask := True;
-   rci.GLStates.DepthFunc := cfLess;
+      glDepthMask(True);
+   glDepthFunc(GL_LESS);
    glPopMatrix;
-   rci.GLStates.PopAttrib;
+   glPopAttrib;
 end;
 
 // ------------------------------------------------------------------

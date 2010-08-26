@@ -1142,15 +1142,3 @@ msgstr ""
 msgid "Caption"
 msgstr ""
 
-#: u_translation:rsdecreasefont
-msgid "Decrease font size"
-msgstr ""
-
-#: u_translation:rsincreasefont
-msgid "Increase font size"
-msgstr ""
-
-#: u_translation:rsside
-msgid "Side:"
-msgstr ""
-

@@ -40,10 +40,6 @@ msgstr "Clementine fotografisch"
 msgid "Country"
 msgstr "Land"
 
-#: u_translation.rsdecreasefont
-msgid "Decrease font size"
-msgstr ""
-
 #: u_translation.rsdefault
 msgid "Default"
 msgstr "Standaard"
@@ -87,10 +83,6 @@ msgstr "Raster"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "NL"
-
-#: u_translation.rsincreasefont
-msgid "Increase font size"
-msgstr ""
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
@@ -479,10 +471,6 @@ msgstr "Toon labels"
 #: u_translation.rsshowscale
 msgid "Show scale"
 msgstr "Toon schaal"
-
-#: u_translation.rsside
-msgid "Side:"
-msgstr ""
 
 #: u_translation.rssimple
 msgid "Simple"

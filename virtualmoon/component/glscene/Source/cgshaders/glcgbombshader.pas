@@ -6,8 +6,6 @@
    Just a good looking shader. And my first one;) <p>
 
    <b>History :</b><font size=-1><ul>
-      <li>24/07/09 - DaStr - TGLShader.DoInitialize() now passes rci
-                              (BugTracker ID = 2826217)   
       <li>14/03/07 - DaStr - Bugfixed TGLCustomCGBombShader.DoInitialize
                              (Shader is disabled if GradientTexture is not assigned)
       <li>14/03/07 - DaStr - Bugfixed TGLCustomCGBombShader.SetMaterialLibrary
@@ -42,8 +40,7 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  GLTexture, GLCadencer, GLContext, OpenGL1x, GLStrings, GLMaterial,
-  GLRenderContextInfo,
+  GLMisc, GLTexture, GLCadencer, GLContext, OpenGL1x, GLStrings,
 
   // CG Shaders
   CgGL, GLCgShader;
@@ -98,7 +95,7 @@ type
     function GetMaterialLibrary: TGLMaterialLibrary;
 
   protected
-    procedure DoInitialize(var rci : TRenderContextInfo; Sender : TObject); override;
+    procedure DoInitialize; override;
     procedure DoApply(var rci: TRenderContextInfo; Sender: TObject); override;
     procedure OnApplyVP(CgProgram: TCgProgram; Sender: TObject); virtual;
     procedure OnApplyFP(CgProgram: TCgProgram; Sender: TObject); virtual;
@@ -133,7 +130,7 @@ type
 
   TGLCgBombShader = class(TGLCustomCGBombShader)
   protected
-    procedure DoInitialize(var rci : TRenderContextInfo; Sender : TObject); override;
+    procedure DoInitialize; override;
     procedure DoApply(var rci: TRenderContextInfo; Sender: TObject); override;
     procedure OnApplyVP(CgProgram: TCgProgram; Sender: TObject); override;
     procedure OnApplyFP(CgProgram: TCgProgram; Sender: TObject); override;
@@ -210,7 +207,7 @@ begin
 end;
 
 
-procedure TGLCustomCGBombShader.DoInitialize(var rci : TRenderContextInfo; Sender : TObject);
+procedure TGLCustomCGBombShader.DoInitialize;
 begin
   if FGradientTexture = nil then
   try
@@ -310,7 +307,7 @@ begin
     Add('} ');
   end;
 
-  inherited DoInitialize(rci, Sender);
+  inherited DoInitialize;
 
   // May be there was an error and shader disabled itself.
   if Enabled then
@@ -491,7 +488,7 @@ begin
 {$ENDIF}
 end;
 
-procedure TGLCgBombShader.DoInitialize(var rci : TRenderContextInfo; Sender : TObject);
+procedure TGLCgBombShader.DoInitialize;
 begin
 {$IFNDEF GLS_OPTIMIZATIONS}
   if (not (csDesigning in ComponentState)) or DesignEnable then

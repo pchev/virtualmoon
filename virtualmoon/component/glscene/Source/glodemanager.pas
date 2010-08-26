@@ -1,7 +1,7 @@
 //
 // This unit is part of the GLScene Project, http://glscene.org
 //
-{: GLODEManager<p>
+{: GLODEManager<p>                    
 
   An ODE Manager for GLScene.<p>
 
@@ -19,9 +19,7 @@
     <li>25/12/07 - DaStr  - Fixed access violation in TGLODEManager.Destroy()
                              (thanks Sandor Domokos) (BugtrackerID = 1808371)
     <li>30/11/07 - Mrqzzz - Changed parameters in OnCollision event (TODEObjectCollisionEvent)
-    <li>10/10/07 - Mrqzzz - Fixed in TGLODEDynamic.AlignObject the explocit
-                             reference to ODEGL.ODERToGLSceneMatrix(m,R^,pos^)
-                             to avoid ambiguous overloading
+    <li>10/10/07 - Mrqzzz - Fixed in TGLODEDynamic.AlignObject the explocit reference to ODEGL.ODERToGLSceneMatrix(m,R^,pos^) to avoid ambiguous overloading
     <li>08/09/07 - Mrqzzz - small changes in unit references (last reference is to odeimport) in order to
                            make GLODEManager compatible with non-GLODEManager based ODE worlds
                            Added public property "ContactGroup"
@@ -105,9 +103,9 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, dynode, dynodegl, odegl, odeimport, GLScene, VectorGeometry, GLTexture, OpenGL1x,
+  Classes, dynode, dynodegl, odegl, odeimport, GLScene, GLMisc, VectorGeometry, GLTexture, OpenGL1x,
   XOpenGL, SysUtils, GLObjects, XCollection, PersistentClasses, VectorLists,
-  GLColor, GLCoordinates, GLRenderContextInfo, GLManager;
+  GLColor;
 
 type
 

@@ -48,11 +48,11 @@ interface
 
 uses
   // VCL
-  SysUtils, Classes, Graphics,
+  SysUtils, Classes,
 
   // GLScene
-  GLTexture, GLMaterial, GLScene, VectorGeometry, VectorTypes,
-  GLParticleFX, GLCrossPlatform, GLCoordinates;
+  GLTexture, GLScene, VectorGeometry, VectorTypes, GLMisc,
+  GLParticleFX, GLCrossPlatform;
 
 type
 

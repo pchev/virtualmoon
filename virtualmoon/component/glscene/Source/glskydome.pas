@@ -6,9 +6,6 @@
    Skydome object<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
-      <li>10/10/08 - DanB - changed Skydome buildlists to use rci instead
-                            of Scene.CurrentGLCamera
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
       <li>30/03/07 - DaStr - Moved all UNSAFE_TYPE, UNSAFE_CODE checks to GLSCene.inc
       <li>25/03/07 - DaStr - Fixed compiler directives for Delphi5 compatibility
@@ -36,15 +33,15 @@ unit GLSkydome;
 
 interface
 
-{$I GLScene.inc}
+{$I GLSCene.inc}
 
 uses
   // VCL
-  Classes, Graphics,
+  Classes,
 
   // GLSCene
-  GLScene, VectorGeometry, GLGraphics, GLCrossPlatform,
-  VectorTypes, GLColor, GLRenderContextInfo;
+  GLScene, GLMisc, GLTexture, VectorGeometry, GLGraphics, GLCrossPlatform,
+  VectorTypes, GLColor;
 
 type
 
@@ -360,7 +357,7 @@ end;
 //
 function TSkyDomeBand.GetDisplayName : String;
 begin
-	Result:=Format('%d: %.1fï¿½ - %.1fï¿½', [Index, StartAngle, StopAngle]);
+	Result:=Format('%d: %.1f° - %.1f°', [Index, StartAngle, StopAngle]);
 end;
 
 // SetStartAngle
@@ -680,12 +677,12 @@ begin
    n:=0;
    lastPointSize10:=-1;
 
-   rci.GLStates.PushAttrib([sttEnable]);
-   rci.GLStates.Enable(stPointSmooth);
-   rci.GLStates.Enable(stAlphaTest);
-   rci.GLStates.SetGLAlphaFunction(cfNotEqual, 0.0);
-   rci.GLStates.Enable(stBlend);
-   rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
+   glPushAttrib(GL_ENABLE_BIT);
+   glEnable(GL_POINT_SMOOTH);
+   glEnable(GL_ALPHA_TEST);
+   glAlphaFunc(GL_NOTEQUAL, 0.0);
+   glEnable(GL_BLEND);
+   glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
    glBegin(GL_POINTS);
    for i:=0 to Count-1 do begin
@@ -695,12 +692,12 @@ begin
          if pointSize10>15 then begin
             glEnd;
             lastPointSize10:=pointSize10;
-            rci.GLStates.PointSize := pointSize10*0.1;
+            glPointSize(pointSize10*0.1);
             glBegin(GL_POINTS);
          end else if lastPointSize10<>15 then begin
             glEnd;
             lastPointSize10:=15;
-            rci.GLStates.PointSize := 1.5;
+            glPointSize(1.5);
             glBegin(GL_POINTS);
          end;
       end;
@@ -717,10 +714,10 @@ begin
    end;
    glEnd;
 
-   rci.GLStates.PointSize := 1;
-   rci.GLStates.PopAttrib;
+   glPointSize(1);
+   glPopAttrib;
    // restore default GLScene AlphaFunc
-   rci.GLStates.SetGLAlphaFunction(cfGreater, 0);
+   glAlphaFunc(GL_GREATER, 0);
 end;
 
 // AddRandomStars
@@ -899,23 +896,24 @@ var
 begin
    // setup states
    glPushMatrix;
-   rci.GLStates.PushAttrib([sttEnable, sttPolygon]);
-   rci.GLStates.Disable(stLighting);
-   rci.GLStates.Disable(stDepthTest);
-   rci.GLStates.Disable(stFog);
-   rci.GLStates.Disable(stCullFace);
-   rci.GLStates.DepthWriteMask := False;
-   rci.GLStates.PolygonMode := pmFill;
+   glPushAttrib(GL_ENABLE_BIT or GL_POLYGON_BIT);
+   glDisable(GL_LIGHTING);
+   glDisable(GL_DEPTH_TEST);
+   glDisable(GL_FOG);
+   glDisable(GL_CULL_FACE);
+   glDepthMask(False);
+   glPolygonMode(GL_FRONT, GL_FILL);
 
-   f:=rci.rcci.farClippingDistance*0.90;
+   with Scene.CurrentGLCamera do
+      f:=(NearPlane+DepthOfView)*0.90;
    glScalef(f, f, f);
 
    Bands.BuildList(rci);
    Stars.BuildList(rci, (sdoTwinkle in FOptions));
 
    // restore
-   rci.GLStates.DepthWriteMask := True;
-   rci.GLStates.PopAttrib;
+   glDepthMask(True);
+   glPopAttrib;
    glPopMatrix;
 end;
 
@@ -1079,16 +1077,17 @@ var
 begin
    // setup states
    glPushMatrix;
-   rci.GLStates.PushAttrib([sttEnable, sttPolygon]);
-   rci.GLStates.Disable(stLighting);
-   rci.GLStates.Disable(stDepthTest);
-   rci.GLStates.Disable(stFog);
-   rci.GLStates.Disable(stCullFace);
-   rci.GLStates.Disable(stAlphaTest);
-   rci.GLStates.DepthWriteMask := False;
-   rci.GLStates.PolygonMode := pmFill;
+   glPushAttrib(GL_ENABLE_BIT or GL_POLYGON_BIT);
+   glDisable(GL_LIGHTING);
+   glDisable(GL_DEPTH_TEST);
+   glDisable(GL_FOG);
+   glDisable(GL_CULL_FACE);
+   glDisable(GL_ALPHA_TEST);
+   glDepthMask(False);
+   glPolygonMode(GL_FRONT, GL_FILL);
 
-   f:=rci.rcci.farClippingDistance*0.95;
+   with Scene.CurrentGLCamera do
+      f:=(NearPlane+DepthOfView)*0.95;
    glScalef(f, f, f);
 
    RenderDome;
@@ -1096,8 +1095,8 @@ begin
    Stars.BuildList(rci, (sdoTwinkle in FOptions));
 
    // restore
-   rci.GLStates.DepthWriteMask := True;
-   rci.GLStates.PopAttrib;
+   glDepthMask(True);
+   glPopAttrib;
    glPopMatrix;
 end;
 
@@ -1260,7 +1259,7 @@ var
 begin
    ts:=DegToRad(90-SunElevation);
    SetVector(sunPos, sin(ts), 0, cos(ts));
-   // prepare sin/cos LUT, with a higher sampling around 0ï¿½
+   // prepare sin/cos LUT, with a higher sampling around 0°
    n:=Slices div 2;
    steps:=2*n+1;
    GetMem(sinTable, steps*SizeOf(Single));

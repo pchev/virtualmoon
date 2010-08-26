@@ -6,8 +6,6 @@
   Procedural textures.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>22/01/10 - Yar  - Added bmp32.Blank:=false for memory allocation,
-                            Depth dimension, NativeTextureTarget becomes property
       <li>16/03/07 - DaStr - Added explicit pointer dereferencing
                              (thanks Burkhard Carstens) (Bugtracker ID = 1678644)
       <li>01/10/04 - ilh - Added SetPermFromData and SetPermToDefault
@@ -54,8 +52,6 @@ type
    PERM: array [0..GRADIENT_TABLE_SIZE-1] of Byte;
    function GetWidth: Integer; override;
    function GetHeight: Integer; override;
-   function GetDepth: Integer; override;
-   function GetTextureTarget : GLenum; override;
    function  Noise(x, y: Single): Single;
    procedure SetMinCut(const val : Byte);
    procedure SetSeamless(const val : Boolean);
@@ -80,12 +76,19 @@ type
  published
    property Width : Integer read GetWidth write SetWidth default 128;
    property Height : Integer read GetHeight write SetHeight default 128;
-   property Depth : Integer read GetDepth;
    property MinCut : Byte read FMinCut write SetMinCut;
    property NoiseSharpness : Single read FNoiseSharpness write SetNoiseSharpness;
    property Seamless : Boolean read FSeamless write SetSeamless;
    property NoiseRandSeed : Longint read FNoiseRandSeed write SetNoiseRandSeed;
  end;
+
+   // TGLBlankTIE
+   //
+   TGLProcTextureNoiseTIE = class(TGLTextureImageEditor)
+		public
+         { Public Properties }
+			class function Edit(aTexImage : TGLTextureImage) : Boolean; override;
+   end;
 
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
@@ -209,7 +212,6 @@ begin
       FNoiseMap:=TGLBitmap32.Create;
       FNoiseMap.Width:=FWidth;
       FNoiseMap.Height:=FHeight;
-      FNoiseMap.Blank:=false;
       UpdateNoise;
   end;
   Result:=FNoiseMap;
@@ -265,22 +267,6 @@ end;
 function TGLProcTextureNoise.GetWidth: Integer;
 begin
   Result := FWidth;
-end;
-
-function TGLProcTextureNoise.GetDepth: Integer;
-begin
-  Result := 1;
-end;
-
-// GetTextureTarget
-//
-function TGLProcTextureNoise.GetTextureTarget: GLenum;
-begin
-  Result := GL_TEXTURE_2D;
-  if fPreviousTarget<>Result then begin
-    if Assigned(FOwnerTexture) then FOwnerTexture.NotifyTargetChange;
-    fPreviousTarget := Result;
-  end;
 end;
 
 procedure TGLProcTextureNoise.SetHeight(const val: Integer);
@@ -528,6 +514,40 @@ begin
   PERM[250]:=60;  PERM[251]:=83;  PERM[252]:=105;  PERM[253]:=97;  PERM[254]:=204;  PERM[255]:=52;
 end;
 
+
+// Edit
+//
+class function TGLProcTextureNoiseTIE.Edit(aTexImage : TGLTextureImage) : Boolean;
+var
+   p : Integer;
+   buf : String;
+begin
+   with aTexImage as TGLProcTextureNoise do begin
+      buf:=InputDlg(TGLProcTextureNoise.FriendlyName, 'Enter size', Format('%d x %d', [Width, Height]));
+      p:=Pos('x', buf);
+      if p>0 then begin
+         Width:=StrToIntDef(Trim(Copy(buf, 1, p-1)), 256);
+         Height:=StrToIntDef(Trim(Copy(buf, p+1, MaxInt)), 256);
+         buf:=InputDlg(TGLProcTextureNoise.FriendlyName, 'Minimum Cut', IntToStr(FMinCut));
+         FMinCut := StrToIntDef(buf, 0);
+         buf:=InputDlg(TGLProcTextureNoise.FriendlyName, 'Noise Sharpness', FloatToStr(FNoiseSharpness));
+         FNoiseSharpness := StrToFloatDef(buf, 0.9);
+         buf:=InputDlg(TGLProcTextureNoise.FriendlyName, 'Random Seed', IntToStr(FNoiseRandSeed));
+         FNoiseRandSeed := StrToIntDef(buf, 0);
+         RandSeed := FNoiseRandSeed;
+         buf := InputDlg(TGLProcTextureNoise.FriendlyName, 'Generate Seamless Texture (0,1)', IntToStr(Ord(FSeamless)));
+         FSeamless := (buf<>'0');
+         Result:=True;
+         Invalidate;
+      end else begin
+         InformationDlg('Invalid size');
+         Result:=False;
+      end;
+   end;
+end;
+
+
+
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
@@ -537,7 +557,10 @@ initialization
 // ------------------------------------------------------------------
 
    RegisterGLTextureImageClass(TGLProcTextureNoise);
+   RegisterGLTextureImageEditor(TGLProcTextureNoise, TGLProcTextureNoiseTIE);
 
 finalization
+
+   UnRegisterGLTextureImageEditor(TGLProcTextureNoiseTIE);
 
 end.

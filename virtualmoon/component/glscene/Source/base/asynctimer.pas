@@ -5,8 +5,23 @@
 
    This component is based on ThreadedTimer by Carlos Barbosa.<p>
 
+      $Log: asynctimer.pas,v $
+      Revision 1.1  2006/01/10 20:50:44  z0m3ie
+      recheckin to make shure that all is lowercase
+
+      Revision 1.1  2006/01/09 21:01:42  z0m3ie
+      *** empty log message ***
+
+      Revision 1.2  2005/12/04 16:52:59  z0m3ie
+      renamed everything to lowercase to get better codetools support and avoid unit finding bugs
+
+      Revision 1.1  2005/12/01 21:24:10  z0m3ie
+      *** empty log message ***
+
+      Revision 1.2  2005/08/03 00:41:37  z0m3ie
+      - added automatical generated History from CVS
+
    <b>History : </b><font size=-1><ul>
-      <li>06/05/09 - DanB - removed TThreadPriority, was needed for Kylix, but not FPC
       <li>17/03/07 - DaStr - Dropped Kylix support in favor of FPC (BugTracekrID=1681585)
       <li>28/06/04 - LR - Added TThreadPriority for Linux
       <li>24/09/02 - EG - Fixed ThreadPriority default value (Nelson Chu)
@@ -25,6 +40,13 @@ uses Classes;
 
 const
   cDEFAULT_TIMER_INTERVAL = 1000;
+
+{$IFDEF UNIX}
+{$IFNDEF FPC}
+type
+  TThreadPriority = integer;
+{$ENDIF}
+{$ENDIF}
 
 type
    // TAsyncTimer
@@ -80,7 +102,6 @@ type
          FOwner: TAsyncTimer;
          FInterval: Word;
       protected
-      public
          constructor Create(CreateSuspended: Boolean); virtual;
          procedure Execute; override;
    end;

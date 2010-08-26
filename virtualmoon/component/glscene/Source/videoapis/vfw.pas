@@ -121,7 +121,7 @@ function TermVFW: LONG; stdcall;  }
 /*                                                                          */
 /****************************************************************************)
 
-function MKFOURCC(ch0, ch1, ch2, ch3: AnsiChar): FOURCC;
+function MKFOURCC(ch0, ch1, ch2, ch3: Char): FOURCC;
 
 (****************************************************************************
  *
@@ -142,12 +142,12 @@ type
 const
   BI_1632                     = $32333631;    // '1632'
 
-function mmioFOURCC(ch0, ch1, ch2, ch3: AnsiChar): FOURCC;
+function mmioFOURCC(ch0, ch1, ch2, ch3: Char): FOURCC;
 
 type
   TWOCC                       = word;
 
-function aviTWOCC(ch0, ch1: AnsiChar): TWOCC;
+function aviTWOCC(ch0, ch1: Char): TWOCC;
 
 const
   ICTYPE_VIDEO                = $63646976;  {vidc}
@@ -2913,7 +2913,7 @@ function    GetSaveFileNamePreview(lpofn: POPENFILENAMEA): BOOL; stdcall; // Get
 
 implementation
 
-function MKFOURCC( ch0, ch1, ch2, ch3: AnsiChar ): FOURCC;
+function MKFOURCC( ch0, ch1, ch2, ch3: Char ): FOURCC;
 begin
   Result := (DWord(Ord(ch0))) or
             (DWord(Ord(ch1)) shl 8) or
@@ -2921,12 +2921,12 @@ begin
             (DWord(Ord(ch3)) shl 24);
 end;
 
-function mmioFOURCC( ch0, ch1, ch2, ch3: AnsiChar ): FOURCC;
+function mmioFOURCC( ch0, ch1, ch2, ch3: Char ): FOURCC;
 begin
   Result := MKFOURCC(ch0,ch1,ch2,ch3);
 end;
 
-function aviTWOCC(ch0, ch1: AnsiChar): TWOCC;
+function aviTWOCC(ch0, ch1: Char): TWOCC;
 begin
   Result := (Word(Ord(ch0))) or (Word(Ord(ch1)) shl 8);
 end;

@@ -37,7 +37,9 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-uses GLUtils;
+
+uses GLMisc, GLUtils;
+
 // ------------------
 // ------------------ TGLTINVectorFile ------------------
 // ------------------
@@ -67,9 +69,9 @@ begin
       for i:=0 to sl.Count-1 do if Copy(sl[i], 1, 2)='t ' then begin
          tl.CommaText:=Trim(Copy(sl[i], 3, MaxInt));
          if tl.Count=9 then begin
-            SetVector(v1, GLUtils.StrToFloatDef(tl[0],0), GLUtils.StrToFloatDef(tl[1],0), GLUtils.StrToFloatDef(tl[2],0));
-            SetVector(v2, GLUtils.StrToFloatDef(tl[3],0), GLUtils.StrToFloatDef(tl[4],0), GLUtils.StrToFloatDef(tl[5],0));
-            SetVector(v3, GLUtils.StrToFloatDef(tl[6],0), GLUtils.StrToFloatDef(tl[7],0), GLUtils.StrToFloatDef(tl[8],0));
+            SetVector(v1, StrToFloatDef(tl[0]), StrToFloatDef(tl[1]), StrToFloatDef(tl[2]));
+            SetVector(v2, StrToFloatDef(tl[3]), StrToFloatDef(tl[4]), StrToFloatDef(tl[5]));
+            SetVector(v3, StrToFloatDef(tl[6]), StrToFloatDef(tl[7]), StrToFloatDef(tl[8]));
             mesh.Vertices.Add(v1, v2, v3);
             n:=CalcPlaneNormal(v1, v2, v3);
             mesh.Normals.Add(n, n, n);

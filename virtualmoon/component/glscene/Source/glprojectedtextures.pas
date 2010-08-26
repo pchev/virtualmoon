@@ -6,7 +6,6 @@
    Implements projected textures through a GLScene object.
 
    <b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>28/03/07 - DaStr - Renamed parameters in some methods
                              (thanks Burkhard Carstens) (Bugtracker ID = 1678658)
@@ -22,8 +21,7 @@ interface
 {$I GLScene.inc}
 
 uses
-   Classes, GLScene, GLTexture, OpenGL1x, VectorGeometry, xopengl,
-   GLRenderContextInfo, GLState;
+   Classes, GLScene, GLTexture, OpenGL1x, VectorGeometry, xopengl;
 
 type
    {: Possible styles of texture projection. Possible values:<ul>
@@ -339,7 +337,7 @@ begin
    if Style = ptsOriginal then
       self.RenderChildren(0, Count-1, ARci);
 
-   Arci.GLStates.PushAttrib(cAllAttribBits);
+   glPushAttrib(GL_ALL_ATTRIB_BITS);
 
    //generate planes
    glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
@@ -353,9 +351,9 @@ begin
    glTexGenfv(GL_Q, GL_EYE_PLANE, @PQ);
 
    //options
-   Arci.GLStates.Disable(stLighting);
-   Arci.GLStates.DepthFunc := cfLEqual;
-   Arci.GLStates.Enable(stBlend);
+   glDisable(GL_LIGHTING);
+   glDepthFunc(GL_LEQUAL);
+   glEnable(GL_BLEND);
    glEnable(GL_TEXTURE_GEN_S);
    glEnable(GL_TEXTURE_GEN_T);
    glEnable(GL_TEXTURE_GEN_R);
@@ -368,27 +366,27 @@ begin
        if not assigned(emitter) then continue;
        if not emitter.Visible then continue;
 
-       emitter.Material.Apply(ARci);
-
-       ARci.GLStates.Enable(stBlend);
        if Style = ptsOriginal then begin
           //on the original style, render blending the textures
           If emitter.Material.Texture.TextureMode <> tmBlend then
-             ARci.GLStates.SetBlendFunc(bfDstColor, bfOne)
+             glBlendFunc(GL_DST_COLOR,  GL_ONE)
           Else
-             ARci.GLStates.SetBlendFunc(bfDstColor, bfZero);
+             glBlendFunc(GL_DST_COLOR,  GL_ZERO);
        end else begin
           //on inverse style: the first texture projector should
           //be a regular rendering (i.e. no blending). All others
           //are "added" together creating an "illumination mask"
           if i = 0 then
-             Arci.GLStates.SetBlendFunc(bfOne, bfZero)
+             glBlendFunc(GL_ONE,  GL_ZERO)
           else
-             ARci.GLStates.SetBlendFunc(bfOne, bfOne);
+             glBlendFunc(GL_ONE,  GL_ONE);
        end;
+
+       emitter.Material.Apply(ARci);
 
        //get this emitter's tex matrix
        emitter.SetupTexMatrix;
+
        repeat
           ARci.ignoreMaterials:= true;
           Self.RenderChildren(0, Count-1, ARci);
@@ -397,17 +395,17 @@ begin
    end;
 
    LoseTexMatrix;
-   ARci.GLStates.PopAttrib;
+   glPopAttrib;
 
    //second pass (inverse): render regular scene, blending it
    //with the "mask"
    if Style = ptsInverse then begin
-      ARci.GLStates.PushAttrib(cAllAttribBits);
+      glPushAttrib(GL_ALL_ATTRIB_BITS);
 
-      Arci.GLStates.Enable(stBlend);
-      ARci.GLStates.DepthFunc := cfLEqual;
+      glEnable(GL_BLEND);
+      glDepthFunc(GL_LEQUAL);
 
-      ARci.GLStates.SetBlendFunc(bfDstColor, bfSrcColor);
+      glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
 
       //second pass: render everything, blending with what is
       //already there
@@ -415,7 +413,7 @@ begin
       self.RenderChildren(0, Count-1, ARci);
       ARci.ignoreBlendingRequests:= false;
 
-      ARci.GLStates.PopAttrib;
+      glPopAttrib;
    end;
 end;
 

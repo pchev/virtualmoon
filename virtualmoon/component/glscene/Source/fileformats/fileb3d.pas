@@ -6,7 +6,6 @@
 	File streaming class for the B3D loader<p>
 
 	<b>History :</b><font size=-1><ul>
-      <li>24/07/09 - DaStr - Got rid of compiler hints
       <li>29/05/08 - DaStr - Added $I GLScene.inc
       <li>22/12/05 - Mathx - Added to the GLScene Project.
 	</ul></font>
@@ -533,22 +532,22 @@ end;
 procedure TFileB3D.Check;
 var
   NodeLevel: Integer;
-//  NodeCount: Integer;
+  NodeCount: Integer;
   Node: PNODEChunk;
-//  VerticesCount: Integer;
-//  FaceCount: Integer;
+  VerticesCount: Integer;
+  FaceCount: Integer;
   Face: PTRISChunk;
   Vertex: PVertexData;
 begin
   NodeLevel := 0;
-//  NodeCount := 0;
-//  VerticesCount := 0;
-//  FaceCount := 0;
+  NodeCount := 0;
+  VerticesCount := 0;
+  FaceCount := 0;
   Node := fNodes.NodeData;
   while Node<>nil do
   begin
     if Node^.meshes<>nil then
-//      Inc(NodeCount);
+      Inc(NodeCount);
     if Node^.level>NodeLevel then
       NodeLevel := Node^.level;
     if Node^.meshes<>nil then
@@ -556,23 +555,24 @@ begin
       Vertex := Node^.meshes.vertices.vertices;
       while Vertex<>nil do
       begin
-//        Inc(VerticesCount);
+        Inc(VerticesCount);
         Vertex := Vertex.next;
       end;
       Face := Node^.meshes.triangles;
       while Face<>nil do
       begin
-//        Inc(FaceCount);
+        Inc(FaceCount);
         Face := Face.next;
       end;
     end;
     Node := Node^.next;
   end;
-
-  //MessageBeep(FaceCount);
-  //MessageBeep(VerticesCount);
-  //MessageBeep(NodeLevel);
-  //MessageBeep(NodeCount);
+  {
+  MessageBeep(FaceCount);
+  MessageBeep(VerticesCount);
+  MessageBeep(NodeLevel);
+  MessageBeep(NodeCount);
+  }
 end;
 
 end.

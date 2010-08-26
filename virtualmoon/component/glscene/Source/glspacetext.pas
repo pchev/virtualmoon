@@ -12,7 +12,6 @@
    Also extents are valid only when SpaceText has one line. <p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>25/12/07 - DaStr - Added MultiLine support (thanks Lexer)
                              Fixed Memory leak in TFontManager.Destroy
                               (Bugtracker ID = 1857814)
@@ -29,9 +28,9 @@
                              (thanks Burkhard Carstens) (Bugtracker ID = 1678644)
       <li>19/10/06 - LC - Added TGLSpaceText.Assign. Bugtracker ID=1576445 (thanks Zapology)
       <li>16/09/06 - NC - TGLVirtualHandle update (thx Lionel Reynaud)
-      <li>03/06/02 - EG - VirtualHandle notification fix (Sï¿½ren Mï¿½hlbauer)
-      <li>07/03/02 - EG - GetFontBase fix (Sï¿½ren Mï¿½hlbauer)
-      <li>30/01/02 - EG - Text Alignment (Sï¿½ren Mï¿½hlbauer),
+      <li>03/06/02 - EG - VirtualHandle notification fix (Sören Mühlbauer)
+      <li>07/03/02 - EG - GetFontBase fix (Sören Mühlbauer)
+      <li>30/01/02 - EG - Text Alignment (Sören Mühlbauer),
                           TFontManager now GLContext compliant (RenderToBitmap ok!) 
       <li>28/12/01 - EG - Event persistence change (GliGli / Dephi bug)
       <li>12/12/01 - EG - Creation (split from GLScene.pas)
@@ -42,15 +41,14 @@ unit GLSpaceText;
 interface
 
 {$i GLScene.inc}
-{$IFDEF UNIX}{$Message Error 'Unit not supported'}{$ENDIF}
+{$IFDEF UNIX}{$Message Error 'Unit not supported'}{$ENDIF LINUX}
 
 uses
   // VCL
   Windows, Messages, Dialogs, Classes, Graphics,
 
   // GLScene
-  GLScene, OpenGL1x, GLTexture, GLContext, VectorGeometry, GLStrings,
-  GLRenderContextInfo, GLState;
+  GLScene, OpenGL1x, GLTexture, GLContext, VectorGeometry, GLStrings;
 
 type
 
@@ -421,7 +419,7 @@ begin
       if FOblique<>0 then
          glRotatef(FOblique, 0, 0, 1);
 
-      rci.GLStates.PushAttrib([sttPolygon]);
+      glPushAttrib(GL_POLYGON_BIT);
       case FCharacterRange of
         stcrAlphaNum : glListBase(FTextFontEntry^.FVirtualHandle.Handle - 32);
         stcrNumbers :  glListBase(FTextFontEntry^.FVirtualHandle.Handle - Cardinal('0'));
@@ -452,11 +450,11 @@ begin
        end;
 
        glTranslatef(0,-i*(maxHeight+FAspectRatio),0);
-       glCallLists(Length(FLines.Strings[i]), GL_UNSIGNED_BYTE, PGLChar(TGLString(FLines.Strings[i])));
+       glCallLists(Length(FLines.Strings[i]), GL_UNSIGNED_BYTE, PChar(FLines.Strings[i]));
        glPopMatrix;
       end;
       
-      rci.GLStates.PopAttrib;
+      glPopAttrib;
       glPopMatrix;
    end;
 end;
@@ -676,7 +674,7 @@ begin
   else
     begin
       AdjustVector[0] := 0;
-      Assert(False, glsErrorEx + glsUnknownType); // Not implemented...
+      Assert(False, glsUnknownType); // Not implemented...
     end;
   end;
 
@@ -688,7 +686,7 @@ begin
   else
     begin
       AdjustVector[1] := 0;
-      Assert(False, glsErrorEx + glsUnknownType); // Not implemented...
+      Assert(False, glsUnknownType); // Not implemented...
     end;
   end;
 

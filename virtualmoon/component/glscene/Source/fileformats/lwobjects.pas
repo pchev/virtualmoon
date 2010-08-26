@@ -1,7 +1,6 @@
 //
 // This unit is part of the GLScene Project, http://glscene.org
 //
-//  16/10/08 - UweR - Compatibility fix for Delphi 2009
 //  30/03/07 - DaStr - Moved all UNSAFE_TYPE, UNSAFE_CODE checks to GLSCene.inc
 //  29/03/07 - DaStr - Renamed parameters in some methods
 //                     Added more explicit pointer dereferencing
@@ -40,7 +39,7 @@ uses Classes;
 
 type
 
-  TID4 = array[0..3] of AnsiChar;
+  TID4 = array[0..3] of char;
   PID4 = ^TID4;
   TID4DynArray = array of TID4;
 
@@ -247,7 +246,7 @@ type
   TANG4 = TF4;
   PANG4 = ^TANG4;
 
-//  TS0 = PAnsiChar;
+  TS0 = PChar;
 
   TVec12 = array[0..2] of  TF4;
   PVec12 = ^TVec12;
@@ -683,7 +682,7 @@ end;
 procedure FindSurfaceByName(AChunk: TLWChunk; AName: Pointer; var Found: boolean);
 begin
   if (AChunk is TLWSurf) and
-    (TLWSurf(AChunk).Name = PString(AName)^) then
+    (TLWSurf(AChunk).Name = PChar(AName)) then
       Found := true;
 end;
 
@@ -697,7 +696,7 @@ end;
 procedure FindVMapByName(AChunk: TLWChunk; AName: Pointer; var Found: boolean);
 begin
   if (AChunk is TLWVMap) and
-    (TLWVMap(AChunk).Name = PString(AName)^) then
+    (TLWVMap(AChunk).Name = PChar(AName)) then
       Found := true;
 end;
 
@@ -827,7 +826,7 @@ begin
     result:=TLWChunk
   else
     result:=ADefault;
-
+{ this not work on win64 
   for i:=0 to ChunkClasses.Count-1 do
   begin
 
@@ -839,7 +838,7 @@ begin
 
     end;
 
-  end;
+  end;}
 
 end;
 
@@ -1050,7 +1049,7 @@ end;
 
 function ReadS0(Stream: TStream; out Str: string): Integer;
 var
-  Buf: array[0..1] of AnsiChar;
+  Buf: array[0..1] of char;
   StrBuf: string;
 begin
 
@@ -1180,7 +1179,7 @@ type
 
 function ID4ToInt(const Id: TId4): Integer;
 var
-  TmpId: AnsiString;
+  TmpId: string;
 begin
 
   TmpId := Id;
@@ -1321,7 +1320,7 @@ function TLWObjectFile.GetSurfaceByName(Index: string): TLWSurf;
 var
   SurfIdx: Integer;
 begin
-  SurfIdx := Chunks.FindChunk(@FindSurfaceByName,@Index,0);
+  SurfIdx := Chunks.FindChunk(@FindSurfaceByName,PChar(Index),0);
   if SurfIdx <> -1 then
     result := TLWSurf(Chunks[SurfIdx])
   else
@@ -1826,14 +1825,12 @@ end;
 function TLWSurf.GetParamAddr(Param: TID4): Pointer;
 var
   Idx: Integer;
-  sParam: string;
 begin
   result:=inherited GetParamAddr(Param);
 
   if (result=nil) and (Source<>'') then
   begin
-    sParam := Param;
-    Idx:=RootChunks.FindChunk(@FindSurfaceByName,@sParam,0);
+    Idx:=RootChunks.FindChunk(@FindSurfaceByName,@Param,0);
 
     if Idx<>-1 then
       result:=TLWSurf(RootChunks[Idx]).ParamAddr[Param];

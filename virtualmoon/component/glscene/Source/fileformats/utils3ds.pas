@@ -8,7 +8,6 @@
    they deal actually with the database and chunks.
 
 	<b>History :</b><font size=-1><ul>
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>02/11/07 - DaStr - Fixed incorrect positioning when importing 3ds
                               animation (Bugtracker ID = 1824372)
                              Fixed memory leaks in the FreeChunkData() procedure
@@ -22,6 +21,20 @@
       <li>27/10/06 - LC - Fixed memory leak in RelMeshObjField (Bugtracker ID = 1585639)
       <li>12/08/02 -  EG  - ReadMatEntryChunk fix / COLOR_F chunk (coerni)
 	</ul></font>
+
+
+      Revision 1.1  2006/01/09 21:02:31  z0m3ie
+      *** empty log message ***
+
+      Revision 1.7  2005/12/04 16:53:04  z0m3ie
+      renamed everything to lowercase to get better codetools support and avoid unit finding bugs
+
+      Revision 1.6  2005/09/16 18:34:26  k00m
+      Update in the hack to load the 3ds with lazarus.
+
+      Revision 1.5  2005/08/03 00:41:38  z0m3ie
+      - added automatical generated History from CVS
+
 
 
    (c) Copyright 1999, Dipl. Ing. Mike Lischke (public@lischke-online.de)
@@ -1437,12 +1450,13 @@ end;
 
 //---------------------------------------------------------------------------------------------------------------------
 
-const
-  IndentString : string = #9#9#9#9#9#9#9#9#9#9#9#9;
+const IndentString : PChar = #9#9#9#9#9#9#9#9#9#9#9#9;
 
-function Indent(Level: Integer): string;
+function Indent(Level: Integer): PChar;
+
 begin
-  Result := Copy(IndentString, 1, Level);
+  Result := IndentString;
+  Inc(Result, Length(IndentString)-Level);
 end;
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -1452,7 +1466,7 @@ procedure ChunkHeaderReport(var Strings: TStrings; Chunk: PChunk3DS; IndentLevel
 var OutString : String;
 
 begin
-  OutString := Format('%sChunk %s ($%x), Length is %d ($%3:x)', [Indent(IndentLevel),
+  OutString := Format('%sChunk %s ($%x), Length is %d ($%3:x)', [Indent(IndentLevel), 
 	            ChunkTagToString(Chunk^.Tag), Chunk^.Tag, Chunk^.Size]);
   Strings.Add(OutString);
 end;

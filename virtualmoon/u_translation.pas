@@ -301,9 +301,6 @@ rsTexturesLOPA = 'Textures LOPAM photographic High Resolution';
 rsTexturesPhas = 'Textures Phase with dynamic relief using Kaguya data';
 rsDownloadURL='http://ap-i.net/avl/en/download';
 rsCaption = 'Caption';
-rsDecreaseFont = 'Decrease font size';
-rsIncreaseFont = 'Increase font size';
-rsSide = 'Side:';
 
 implementation
 

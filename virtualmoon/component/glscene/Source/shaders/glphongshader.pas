@@ -6,10 +6,6 @@
    An ARBvp1.0 + ARBfp1.0 shader that implements phong shading.<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
-      <li>28/07/09 - DaStr - Small changes and simplifications  
-      <li>24/07/09 - DaStr - TGLShader.DoInitialize() now passes rci
-                              (BugTracker ID = 2826217)   
       <li>20/03/07 - DaStr - Moved some of the stuff from TGLCustomAsmShader back here
       <li>25/02/07 - DaStr - Completely replaced with a descendant of TGLCustomAsmShader.
       <li>11/10/04 - SG - Creation.
@@ -26,8 +22,7 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  GLTexture, ARBProgram, VectorGeometry, VectorLists, OpenGL1x, GLAsmShader,
-  GLRenderContextInfo, GLCustomShader, GLState;
+  GLTexture, ARBProgram, VectorGeometry, VectorLists, OpenGL1x, GLAsmShader;
 
 type
   TGLPhongShader = class(TGLCustomAsmShader)
@@ -39,12 +34,12 @@ type
   protected
     { Protected Declarations }
     procedure DoLightPass(lightID: Cardinal); virtual;
-    procedure DoAmbientPass(var rci: TRenderContextInfo); virtual;
-    procedure UnApplyLights(var rci: TRenderContextInfo); virtual;
+    procedure DoAmbientPass; virtual;
+    procedure UnApplyLights; virtual;
 
     procedure DoApply(var rci: TRenderContextInfo; Sender: TObject); override;
     function DoUnApply(var rci: TRenderContextInfo): Boolean; override;
-    procedure DoInitialize(var rci : TRenderContextInfo; Sender : TObject); override;
+    procedure DoInitialize; override;
   public
     { Public Declarations }
     constructor Create(AOwner: TComponent); override;
@@ -63,21 +58,23 @@ procedure TGLPhongShader.DoApply(var rci: TRenderContextInfo; Sender: TObject);
 begin
   if (csDesigning in ComponentState) and not DesignTimeEnabled then Exit;
 
-  GetActiveLightsList(FLightIDs);
+  FillLights(FLightIDs);
   FAmbientPass := False;
-  rci.GLStates.PushAttrib([sttEnable, sttTexture, sttDepthBuffer,
-                           sttColorBuffer]);
+  glPushAttrib(GL_ENABLE_BIT or
+               GL_TEXTURE_BIT or
+               GL_DEPTH_BUFFER_BIT or
+               GL_COLOR_BUFFER_BIT);
 
   if FLightIDs.Count > 0 then
   begin
-    rci.GLStates.DepthFunc := cfLEqual;
-    rci.GLStates.Disable(stBlend);
+    glDepthFunc(GL_LEQUAL);
+    glDisable(GL_BLEND);
     DoLightPass(FLightIDs[0]);
     FLightIDs.Delete(0);
   end
   else
   begin
-    DoAmbientPass(rci);
+    DoAmbientPass;
     FAmbientPass := True;
   end;
 end;
@@ -91,33 +88,34 @@ begin
 
   if FLightIDs.Count > 0 then
   begin
-    UnApplyLights(rci);
+    UnApplyLights;
     Result := True;
     Exit;
   end
   else
   if not FAmbientPass then
   begin
-    Self.UnApplyShaderPrograms();
+    glDisable(GL_VERTEX_PROGRAM_ARB);
+    glDisable(GL_FRAGMENT_PROGRAM_ARB);
 
-    rci.GLStates.Enable(stBlend);
-    rci.GLStates.SetBlendFunc(bfOne, bfOne);
-    DoAmbientPass(rci);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE);
+    DoAmbientPass;
     FAmbientPass := True;
 
     Result := True;
     Exit;
   end;
 
-  rci.GLStates.PopAttrib;
+  glPopAttrib;
 end;
 
 // DoInitialize
 //
-procedure TGLPhongShader.DoInitialize(var rci : TRenderContextInfo; Sender : TObject);
+procedure TGLPhongShader.DoInitialize;
 begin
   if (csDesigning in ComponentState) and not DesignTimeEnabled then Exit;
-  inherited;
+  inherited DoInitialize;
 end;
 
 // SetDesignTimeEnabled
@@ -219,11 +217,11 @@ end;
 
 // UnApplyLights
 //
-procedure TGLPhongShader.UnApplyLights(var rci: TRenderContextInfo);
+procedure TGLPhongShader.UnApplyLights;
 begin
-  rci.GLStates.DepthFunc := cfLEqual;
-  rci.GLStates.Enable(stBlend);
-  rci.GLStates.SetBlendFunc(bfOne, bfOne);
+  glDepthFunc(GL_LEQUAL);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_ONE, GL_ONE);
   DoLightPass(FLightIDs[0]);
   FLightIDs.Delete(0);
 end;
@@ -234,15 +232,17 @@ begin
   inherited;
 end;
 
-procedure TGLPhongShader.DoAmbientPass(var rci: TRenderContextInfo);
+procedure TGLPhongShader.DoAmbientPass;
 var
   ambient, materialAmbient: TVector;
 begin
-  rci.GLStates.Disable(stLighting);
+  glDisable(GL_LIGHTING);
 
   glGetFloatv(GL_LIGHT_MODEL_AMBIENT, @ambient);
   glGetMaterialfv(GL_FRONT, GL_AMBIENT, @materialAmbient);
-  ScaleVector(ambient, materialAmbient);
+  ambient[0] := ambient[0] * materialAmbient[0];
+  ambient[1] := ambient[1] * materialAmbient[1];
+  ambient[2] := ambient[2] * materialAmbient[2];
   glColor3fv(@ambient);
 end;
 
@@ -250,10 +250,14 @@ procedure TGLPhongShader.DoLightPass(lightID: Cardinal);
 var
   LightParam: TVector;
 begin
-  Self.ApplyShaderPrograms();
+  glEnable(GL_VERTEX_PROGRAM_ARB);
+  glBindProgramARB(GL_VERTEX_PROGRAM_ARB, GetVPHandle);
 
   glGetLightfv(lightID, GL_POSITION, @LightParam);
   glProgramLocalParameter4fvARB(GL_VERTEX_PROGRAM_ARB, 0, @LightParam);
+
+  glEnable(GL_FRAGMENT_PROGRAM_ARB);
+  glBindProgramARB(GL_FRAGMENT_PROGRAM_ARB, GetFPHandle);
 
   glGetLightfv(lightID, GL_DIFFUSE, @LightParam);
   glProgramLocalParameter4fvARB(GL_FRAGMENT_PROGRAM_ARB, 0, @LightParam);

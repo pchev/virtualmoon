@@ -35,11 +35,10 @@ unit GLNavigator;
 interface
 
 uses
-  // VCL
+  //VCL
   SysUtils, Classes,
-
-  // GLScene
-  VectorGeometry, GLScene, GLCrossPlatform, GLCoordinates, GLScreen;
+  //GLScene
+  VectorGeometry, GLScene, GLMisc, GLCrossPlatform;
 
 type
 

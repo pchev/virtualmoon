@@ -57,7 +57,7 @@ var
 implementation
 
 
-uses u_constant, vmabrowser1;
+uses vmabrowser1;
 
 procedure TColumns.SetLang;
 begin
@@ -71,9 +71,9 @@ procedure TColumns.ButtonAllClick(Sender: TObject);
 var i: integer;
 begin
 for i:=0 to CheckListBox1.Items.Count-1 do
-    CheckListBox1.Checked[i]:=(not ((i+1) in hidenfields));
+    CheckListBox1.Checked[i]:=true;
 for i:=0 to CheckListBox2.Items.Count-1 do
-    CheckListBox2.Checked[i]:=(not ((i+1+CheckListBox1.Count) in hidenfields));
+    CheckListBox2.Checked[i]:=true;
 end;
 
 procedure TColumns.ButtonNoneClick(Sender: TObject);

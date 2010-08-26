@@ -19,7 +19,7 @@ unit Joystick;
 interface
 
 {$i GLScene.inc}
-{$IFDEF UNIX}{$Message Error 'Unit not supported'}{$ENDIF}
+{$IFDEF UNIX}{$Message Error 'Unit not supported'}{$ENDIF LINUX}
 
 uses Windows, Forms, Classes, Controls, Messages;
 
@@ -97,6 +97,8 @@ type
 
 	end;
 
+procedure Register;
+
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
@@ -115,6 +117,11 @@ resourcestring
   glsNoJoystickDriver   = 'There''s no joystick driver present';
   glsConnectJoystick    = 'Joystick is not connected to your system';
   glsJoystickError      = 'Your system reports a joystick error, can''t do anything about it';
+
+procedure Register;
+begin
+  RegisterComponents('GLScene Utils', [TJoystick]);
+end;
 
 // ------------------
 // ------------------ TJoystick ------------------
@@ -417,9 +424,5 @@ begin
       FLastZ := Round(ZPos * 100 / 65536);
    MakeJoyButtons(Buttons);
 end;
-
-initialization
-
-  RegisterClasses([TJoystick]);
 
 end.

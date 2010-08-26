@@ -7,7 +7,6 @@
    surface described by a moving curve.<p>
 
 	<b>Historique : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>31/07/07 - DanB - Implemented AxisAlignedDimensionsUnscaled for
                             TGLRevolutionSolid & TGLExtrusionSolid
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
@@ -41,9 +40,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, OpenGL1x, GLObjects, GLScene, GLMultiPolygon,
-     GLColor, VectorTypes, VectorGeometry, GLRenderContextInfo, GLNodes,
-     GLState;
+uses Classes, OpenGL1x, GLObjects, GLScene, GLMisc, GLTexture, GLMultiPolygon,
+     GLColor, VectorTypes, VectorGeometry;
 
 type
 
@@ -118,7 +116,7 @@ type
             This can be useful for rendering, lots of helicoidal objects from
             screws, to nails to stairs etc. }
          property YOffsetPerTurn : Single read FYOffsetPerTurn write SetYOffsetPerTurn;
-         {: Number of slices per turn (360ï¿½). }
+         {: Number of slices per turn (360°). }
          property Slices : Integer read FSlices write SetSlices default 16;
 
          property Normals : TNormalSmoothing read FNormals write SetNormals default nsFlat;
@@ -1062,8 +1060,8 @@ begin
       rSpline:=nil;
    end;
    if NodesColorMode<>pncmNone then begin
-      rci.GLStates.PushAttrib([sttEnable]);
-      rci.GLStates.Enable(stColorMaterial);
+      glPushAttrib(GL_ENABLE_BIT);
+      glEnable(GL_COLOR_MATERIAL);
       glColorMaterial(GL_FRONT_AND_BACK, cPNCMtoEnum[NodesColorMode]);
    end;
    CalculateRow(@rows[0], PAffineVector(@Nodes[0].AsVector)^, normal,
@@ -1135,7 +1133,7 @@ begin
       rSpline.Free;
    end;
    if (NodesColorMode<>pncmNone) then
-      rci.GLStates.PopAttrib;
+      glPopAttrib;
 end;
 
 // ------------------

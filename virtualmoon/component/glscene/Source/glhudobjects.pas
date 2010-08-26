@@ -6,7 +6,6 @@
    GLScene objects that get rendered in 2D coordinates<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>15/03/08 - DaStr - Bugfixed TGLAbsoluteHUDText.DoRender()
                               (thanks Nicoara Adrian) (BugtrackerID = 1914823)
       <li>18/09/07 - DaStr - Added TGLResolutionIndependantHUDText and
@@ -37,8 +36,8 @@ interface
 {$I GLScene.inc}
 
 uses
-   Classes, GLScene, VectorGeometry, GLObjects, GLBitmapFont,
-   GLCrossPlatform, GLColor, GLRenderContextInfo, GLState;
+   Classes, GLScene, VectorGeometry, GLMisc, GLObjects, GLBitmapFont,
+   GLTexture, GLCrossPlatform, GLColor;
 
 type
 
@@ -231,7 +230,7 @@ begin
       // Prepare matrices
       glMatrixMode(GL_MODELVIEW);
       glPushMatrix;
-      glLoadMatrixf(@TGLSceneBuffer(rci.buffer).BaseProjectionMatrix);
+      glLoadMatrixf(@Scene.CurrentBuffer.BaseProjectionMatrix);
       if rci.renderDPI=96 then
          f:=1
       else f:=rci.renderDPI/96;
@@ -243,9 +242,9 @@ begin
       glMatrixMode(GL_PROJECTION);
       glPushMatrix;
       glLoadIdentity;
-      rci.GLStates.PushAttrib([sttEnable]);
-      rci.GLStates.Disable(stDepthTest);
-      rci.GLStates.DepthWriteMask := False;
+      glPushAttrib(GL_ENABLE_BIT);
+      glDisable(GL_DEPTH_TEST);
+      glDepthMask(False);
       // precalc coordinates
       vx:=-Width*0.5*f;    vx1:=vx+Width*f;
       vy:=+Height*0.5*f;   vy1:=vy-Height*f;
@@ -258,8 +257,8 @@ begin
          xglTexCoord2f(0, FYTiles);       glVertex2f( vx,  vy);
       glEnd;
       // restore state
-      rci.GLStates.DepthWriteMask := True;
-      rci.GLStates.PopAttrib;
+      glDepthMask(True);
+      glPopAttrib;
       glPopMatrix;
       glMatrixMode(GL_MODELVIEW);
       glPopMatrix;
@@ -376,11 +375,11 @@ var
    f : Single;
 begin
    if Assigned(FBitmapFont) and (Text<>'') then begin
-      rci.GLStates.PolygonMode := pmFill;
+      rci.GLStates.SetGLPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
       // Prepare matrices
       glMatrixMode(GL_MODELVIEW);
       glPushMatrix;
-      glLoadMatrixf(@TGLSceneBuffer(rci.buffer).BaseProjectionMatrix);
+      glLoadMatrixf(@Scene.CurrentBuffer.BaseProjectionMatrix);
       f:=rci.renderDPI/96;
       glScalef(2/rci.viewPortSize.cx, 2/rci.viewPortSize.cy, 1);
       glTranslatef(X * f-rci.viewPortSize.cx / 2,
@@ -391,12 +390,12 @@ begin
       glMatrixMode(GL_PROJECTION);
       glPushMatrix;
       glLoadIdentity;
-      rci.GLStates.PushAttrib([sttEnable]);
-      rci.GLStates.Disable(stDepthTest);
+      glPushAttrib(GL_ENABLE_BIT);
+      glDisable(GL_DEPTH_TEST);
       // render text
       FBitmapFont.RenderString(rci, Text, FAlignment, FLayout, FModulateColor.Color);
       // restore state
-      rci.GLStates.PopAttrib;
+      glPopAttrib;
       glPopMatrix;
       glMatrixMode(GL_MODELVIEW);
       glPopMatrix;

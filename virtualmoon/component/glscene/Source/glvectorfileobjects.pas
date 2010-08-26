@@ -6,20 +6,12 @@
 	Vector File related objects for GLScene<p>
 
 	<b>History :</b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
-      <li>25/12/09 - DaStr - Separated TGLActor.DoAnimate() from TGLActor.BuildList()
-      <li>16/01/09 - DanB - re-disable VBOs in display list to prevent AV on ATI cards
-      <li>27/11/08 - DanB - fix to TFGVertexIndexList.BuildList
-      <li>05/10/08 - DaStr - Added GLSM format backward compatibility after
-                              MeshObject.LightMapTexCoords update
-                              (thanks Uwe Raabe) (Bugtracker ID = 2140994)
-      <li>03/10/08 - DanB -  Added Delphi 2009 (Unicode) support
       <li>22/06/08 - DaStr - TMeshObject.LightMapTexCoords converted to TAffineVectorList
                               (thanks Ast) (Bugtracker ID = 2000089)
       <li>07/06/08 - DaStr - Implemented TBaseMeshObject.Assign(), TMeshObject.Assign()
       <li>20/05/08 - Mrqzzz - Fixed memory leak in TSkeletonMeshObject.Destroy (thanks Dave Gravel)
       <li>17/05/08 - DaStr - Added TSkeleton.MorphInvisibleParts
-                             (thanks andron13 and ����) (BugtrackerID = 1966020)
+                             (thanks andron13 and ) (BugtrackerID = 1966020)
                              Added vGLVectorFileObjectsEnableVBOByDefault
       <li>01/05/08 - DaStr - Implemented TGLBaseMesh.BarycenterAbsolutePosition()
                              Bugfixed TGLBaseMesh.AxisAlignedDimensionsUnscaled()
@@ -181,10 +173,9 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLScene, OpenGL1x, VectorGeometry, SysUtils, GLTexture, GLMaterial,
+uses Classes, GLScene, OpenGL1x, VectorGeometry, SysUtils, GLMisc, GLTexture,
    GLMesh, VectorLists, PersistentClasses, Octree, GeometryBB,
-   ApplicationFileIO, GLSilhouette, GLContext, GLColor, GLRenderContextInfo,
-   GLCoordinates, BaseClasses;
+   ApplicationFileIO, GLSilhouette, GLContext, GLColor;
 
 type
 
@@ -1758,7 +1749,6 @@ type
 
          procedure PrepareMesh; override;
          procedure PrepareBuildList(var mrci : TRenderContextInfo); override;
-         procedure DoAnimate; virtual;
 
          procedure RegisterControler(aControler : TGLBaseAnimationControler);
          procedure UnRegisterControler(aControler : TGLBaseAnimationControler);
@@ -1909,7 +1899,7 @@ var
    vNextRenderGroupID : Integer = 1;
 
 const
-   cAAFHeader: AnsiString = 'AAF';
+   cAAFHeader = 'AAF';
 
 function InsideList: boolean;
 var
@@ -2752,14 +2742,14 @@ var
    i : Integer;
 begin
    // root node setups and restore OpenGL stuff
-   mrci.GLStates.PushAttrib([sttEnable]);
-   mrci.GLStates.Disable(stColorMaterial);
-   mrci.GLStates.Disable(stLighting);
+   glPushAttrib(GL_ENABLE_BIT);
+   glDisable(GL_COLOR_MATERIAL);
+   glDisable(GL_LIGHTING);
    glColor3f(1, 1, 1);
    // render root-bones
    for i:=0 to Count-1 do
       Items[i].BuildList(mrci);
-   mrci.GLStates.PopAttrib;
+   glPopAttrib;
 end;
 
 // ------------------
@@ -3565,7 +3555,7 @@ var
 begin
    inherited WriteToFiler(writer);
    with writer do begin
-      WriteInteger(3);        // Archive Version 3
+      WriteInteger(2);        // Archive Version 2
       FTexCoords.WriteToFiler(writer);
       FLightMapTexCoords.WriteToFiler(writer);
       FColors.WriteToFiler(writer);
@@ -3586,32 +3576,14 @@ end;
 procedure TMeshObject.ReadFromFiler(reader : TVirtualReader);
 var
    i, Count, archiveVersion : Integer;
-   lOldLightMapTexCoords: TTexPointList;
 begin
    inherited ReadFromFiler(reader);
    archiveVersion:=reader.ReadInteger;
-   if archiveVersion in [0..3] then with reader do
-   begin
+   if archiveVersion in [0..2] then with reader do begin
       FTexCoords.ReadFromFiler(reader);
-
-      if archiveVersion = 0 then
-      begin
-         // FLightMapTexCoords did not exist back than.
-         FLightMapTexCoords.Clear;
-      end
-      else if (archiveVersion = 1) or (archiveVersion = 2) then
-      begin
-         lOldLightMapTexCoords := TTexPointList.CreateFromFiler(reader);
-         for i := 0 to lOldLightMapTexCoords.Count - 1 do
-            FLightMapTexCoords.Add(lOldLightMapTexCoords[i]);
-         lOldLightMapTexCoords.Free;
-      end
-      else
-      begin
-         // Load FLightMapTexCoords the normal way.
-         FLightMapTexCoords.ReadFromFiler(reader);
-      end;
-
+      if archiveVersion>=1 then
+         FLightMapTexCoords.ReadFromFiler(reader)
+      else FLightMapTexCoords.Clear;
       FColors.ReadFromFiler(reader);
       FFaceGroups.ReadFromFiler(reader);
       FMode:=TMeshObjectMode(ReadInteger);
@@ -4217,9 +4189,7 @@ begin
       FillChar(lists, sizeof(lists), 0);
       SetLength(tlists, FTexCoordsEx.Count);
 
-      // workaround for ATI bug, disable element VBO if
-      // inside a display list
-      FUseVBO:= FUseVBO and GL_ARB_vertex_buffer_object and not InsideList;
+      FUseVBO:= FUseVBO and GL_ARB_vertex_buffer_object;
 
       if not FUseVBO then
       begin
@@ -4374,9 +4344,9 @@ begin
    if GL_ARB_multitexture and (not mrci.ignoreMaterials) then begin
       Assert(FArraysDeclared);
       if not FLightMapArrayEnabled then begin
-         mrci.GLStates.ActiveTexture := 1;
-         mrci.GLStates.Enable(stTexture2D);
-         mrci.GLStates.ActiveTexture := 0;
+         glActiveTextureARB(GL_TEXTURE1_ARB);
+         glEnable(GL_TEXTURE_2D);
+         glActiveTextureARB(GL_TEXTURE0_ARB);
          FLightMapArrayEnabled:=True;
       end;
    end;
@@ -4387,9 +4357,9 @@ end;
 procedure TMeshObject.DisableLightMapArray(var mrci : TRenderContextInfo);
 begin
    if GL_ARB_multitexture and FLightMapArrayEnabled then begin
-      mrci.GLStates.ActiveTexture := 1;
-      mrci.GLStates.Disable(stTexture2D);
-      mrci.GLStates.ActiveTexture := 0;
+      glActiveTextureARB(GL_TEXTURE1_ARB);
+      glDisable(GL_TEXTURE_2D);
+      glActiveTextureARB(GL_TEXTURE0_ARB);
       FLightMapArrayEnabled:=False;
    end;
 end;
@@ -4504,8 +4474,8 @@ begin
    FLastXOpenGLTexMapping:=0;
    gotColor:=(Vertices.Count=Colors.Count);
    if gotColor then begin
-      mrci.GLStates.PushAttrib([sttEnable]);
-      mrci.GLStates.Enable(stColorMaterial);
+      glPushAttrib(GL_ENABLE_BIT);
+      glEnable(GL_COLOR_MATERIAL);
       glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
       mrci.GLStates.ResetGLMaterialColors;
    end;
@@ -4589,10 +4559,10 @@ begin
             // restore faceculling
             if (stCullFace in mrci.GLStates.States) then begin
                if not mrci.bufferFaceCull then
-                  mrci.GLStates.Disable(stCullFace);
+                  mrci.GLStates.UnSetGLState(stCullFace);
             end else begin
                if mrci.bufferFaceCull then
-                  mrci.GLStates.Enable(stCullFace);
+                  mrci.GLStates.SetGLState(stCullFace);
             end;
          end else for i:=0 to FaceGroups.Count-1 do
             FaceGroups[i].BuildList(mrci);
@@ -4600,7 +4570,7 @@ begin
    else
       Assert(False);
    end;
-   if gotColor then mrci.GLStates.PopAttrib;
+   if gotColor then glPopAttrib;
    DisableOpenGLArrays(mrci);
 end;
 
@@ -5534,12 +5504,12 @@ procedure TFaceGroup.AttachLightmap(lightMap : TGLTexture; var mrci : TRenderCon
 begin
    if GL_ARB_multitexture then with lightMap do begin
       Assert(Image.NativeTextureTarget=GL_TEXTURE_2D);
-      mrci.GLStates.ActiveTexture := 1;
+      glActiveTextureARB(GL_TEXTURE1_ARB);
 
       mrci.GLStates.SetGLCurrentTexture(1, GL_TEXTURE_2D, Handle);
       glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-      mrci.GLStates.ActiveTexture := 0;
+      glActiveTextureARB(GL_TEXTURE0_ARB);
    end;
 end;
 
@@ -5555,8 +5525,8 @@ begin
             Owner.Owner.FLastLightMapIndex:=lightMapIndex;
             if lightMapIndex>=0 then begin
                // attach and activate lightmap
-               Assert(lightMapIndex<TGLMaterialLibrary(mrci.lightmapLibrary).Materials.Count);
-               libMat:=TGLMaterialLibrary(mrci.lightmapLibrary).Materials[lightMapIndex];
+               Assert(lightMapIndex<mrci.lightmapLibrary.Materials.Count);
+               libMat:=mrci.lightmapLibrary.Materials[lightMapIndex];
                AttachLightmap(libMat.Material.Texture, mrci);
                Owner.Owner.EnableLightMapArray(mrci);
             end else begin
@@ -5692,13 +5662,15 @@ begin
    Owner.Owner.DeclareArraysToOpenGL(mrci,  False);
    AttachOrDetachLightmap(mrci);
 
-   if Owner.Owner.UseVBO then
+   // workaround for ATI bug, disable element VBO if
+   // inside a display list
+   if Owner.Owner.UseVBO and not InsideList then
    begin
       SetupVBO;
 
       FIndexVBO.Bind;
-      glDrawElements(cFaceGroupMeshModeToOpenGL[Mode], VertexIndices.Count,
-                     GL_UNSIGNED_INT, nil);
+      glDrawRangeElements(cFaceGroupMeshModeToOpenGL[Mode], 0, VertexIndices.Count, VertexIndices.Count,
+                          GL_UNSIGNED_INT, nil);
       FIndexVBO.UnBind;
    end
    else
@@ -7831,9 +7803,9 @@ begin
    CurrentFrame:=Value;
 end;
 
-// DoAnimate
+// BuildList
 //
-procedure TGLActor.DoAnimate();
+procedure TGLActor.BuildList(var rci : TRenderContextInfo);
 var
    i, k : Integer;
    nextFrameIdx : Integer;
@@ -7896,19 +7868,12 @@ begin
       end;
       aarNone : ; // do nothing
    end;
-end;
-
-// BuildList
-//
-procedure TGLActor.BuildList(var rci : TRenderContextInfo);
-begin
-   DoAnimate;
    inherited;
    if OverlaySkeleton then begin
-      rci.GLStates.PushAttrib([sttEnable]);
-      rci.GLStates.Disable(stDepthTest);
+      glPushAttrib(GL_ENABLE_BIT);
+      glDisable(GL_DEPTH_TEST);
       Skeleton.RootBones.BuildList(rci);
-      rci.GLStates.PopAttrib;
+      glPopAttrib;
    end;
 end;
 
@@ -8075,7 +8040,7 @@ initialization
 
 finalization
 
-   FreeAndNil(vVectorFileFormats);
+   vVectorFileFormats.Free;
 
 end.
 

@@ -45,8 +45,8 @@ uses
   Classes,
 
   // GLScene
-  GLScene, VectorGeometry, GLTexture, GLMaterial, GLSilhouette, GLStrings,
-  GLCrossPlatform, PersistentClasses, GLRenderContextInfo, BaseClasses;
+  GLScene, VectorGeometry, GLMisc, GLTexture, GLSilhouette, GLStrings,
+  GLCrossPlatform, PersistentClasses;
 
 type
 
@@ -333,7 +333,7 @@ begin
   begin
     FTempLibMaterialName := Value;
     if not (csLoading in OwnerObject.ComponentState) then
-      raise ETexture.Create(glsErrorEx + glsMatLibNotDefined);
+      raise ETexture.Create(glsMatLibNotDefined);
   end
   else
   begin

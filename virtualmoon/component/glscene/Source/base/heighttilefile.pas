@@ -66,7 +66,7 @@ type
    // THTFHeader
    //
    THTFHeader = packed record
-      FileVersion : array [0..5] of AnsiChar;
+      FileVersion : array [0..5] of Char;
       TileIndexOffset : Int64;
       SizeX, SizeY : Integer;
       TileSize : Integer;
@@ -324,7 +324,7 @@ var
       Result:=PtrInt(dest)-Result;
    end;
 
-   function RLEEncode(src : PSmallIntArray; dest : PAnsiChar) : PtrInt;
+   function RLEEncode(src : PSmallIntArray; dest : PChar) : PtrInt;
    var
       v : SmallInt;
       i, n : Integer;
@@ -347,7 +347,7 @@ var
             Inc(i);
          end;
          if (i<packWidth) or (n>0) then begin
-            dest[0]:=AnsiChar(n);
+            dest[0]:=Char(n);
             Inc(dest);
          end;
       end;
@@ -410,7 +410,7 @@ begin
          Move(buf[0], bestBuf[0], bestLength);
       end;
       // RLE encoding
-      len:=RLEEncode(p, PAnsiChar(@buf[0]));
+      len:=RLEEncode(p, PChar(@buf[0]));
       if len<bestLength then begin
          bestLength:=len;
          bestMethod:=2;

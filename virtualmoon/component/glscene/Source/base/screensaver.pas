@@ -6,7 +6,6 @@
 	Component for making screen-savers an easy task<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>17/03/07 - DaStr - Dropped Kylix support in favor of FPC (BugTracekrID=1681585)
       <li>09/07/01 - Egg - Fix in PreviewSaver (from Marco Dissel)
       <li>12/04/00 - Egg - Added ssoEnhancedMouseMoveDetection
@@ -24,7 +23,7 @@ unit ScreenSaver;
 interface
 
 {$i GLScene.inc}
-{$IFDEF UNIX}{$Message Error 'Unit not supported'}{$ENDIF}
+{$IFDEF UNIX}{$Message Error 'Unit not supported'}{$ENDIF LINUX}
 
 uses Windows, Classes, Controls, Forms, Extctrls;
 
@@ -155,6 +154,8 @@ type
 
 	end;
 
+procedure Register;
+
 {: Invokes the standard Windows dialog to set the password.<p>
 	May be invoked from your Properties/Configuration dialog. }
 procedure SetScreenSaverPassword;
@@ -168,6 +169,11 @@ implementation
 // ---------------------------------------------------------------------
 
 uses SysUtils, Registry, Dialogs, Messages;
+
+procedure Register;
+begin
+	RegisterComponents('GLScene Utils', [TScreenSaver]);
+end;
 
 // GetSystemDirectory
 //
@@ -187,7 +193,7 @@ end;
 //
 procedure SetScreenSaverPassword;
 type
-	TSetPwdFunc = function(a: PAnsiChar; ParentHandle: THandle; b, c: Integer): Integer; stdcall;
+	TSetPwdFunc = function(a: PChar; ParentHandle: THandle; b, c: Integer): Integer; stdcall;
 var
 	mprDll : THandle;
 	p : TSetPwdFunc;
@@ -288,9 +294,8 @@ begin
 			with previewRect do
 				frm.SetBounds(0, 0, Right-Left, Bottom-Top);
 			frm.BorderStyle:=bsNone;
-      {$IFNDEF FPC}
-			frm.ParentWindow:=previewHwnd;
-      {$ENDIF}
+                        //lazarus not have this function. k00m
+			//frm.ParentWindows:=previewHwnd;
 			frm.Cursor:=crNone;
          frm.Visible:=False;
 		end;
@@ -410,9 +415,5 @@ begin
             mouseTimer.Enabled:=False;
    lastMousePosition:=mousePos;
 end;
-
-initialization
-
-  RegisterClasses([TScreenSaver]);
 
 end.

@@ -48,8 +48,7 @@ interface
 {$I GLScene.inc}
 
 uses Classes, GLScene, XCollection, VectorGeometry, VectorLists, GLVectorFileObjects,
-   GeometryBB, GLCrossPlatform, GLDCEMisc, GLEllipseCollision,
-   GLTerrainRenderer, GLCoordinates, BaseClasses, GLManager;
+   GeometryBB, GLCrossPlatform, GLMisc, GLDCEMisc, GLEllipseCollision, GLTerrainRenderer;
 
 type
   {Only csEllipsoid can have dynamic behaviour}

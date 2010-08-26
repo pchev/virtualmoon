@@ -6,12 +6,7 @@
    Implements specific proxying classes.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>25/12/09 - DaStr - Bugfixed TGLActorProxy.RayCastIntersect()
-                               in aarMorph mode (thanks Vovik)
-      <li>22/12/09 - DaStr - Added TGLActorProxy.AnimationMode (thanks Vovik)
-                             Removed TGLActorProxy.Interval (was not used)
-      <li>18/06/08 - mrqzzz - Don't raise error when setting animation to an
-                               ActorProxy and no MasterObject is defined
+      <li>18/06/08 - mrqzzz - Don't raise error when setting animation to an ActorProxy and no MasterObject is defined
       <li>15/03/08 - DaStr - Fixup after previous update: removed all hints and
                               warnings, TGLActorProxy now has two versions of
                               RayCastIntersect()
@@ -55,8 +50,8 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  GLScene, VectorGeometry, GLTexture, GLSilhouette, GLVectorFileObjects,
-  GLStrings, GLRenderContextInfo, BaseClasses, GLMaterial;
+  GLScene, VectorGeometry, GLMisc, GLTexture, GLSilhouette, GLVectorFileObjects,
+  GLStrings;
 
 type
   EGLProxyException = class(Exception);
@@ -167,10 +162,6 @@ type
      BoneIndex:integer;
    end;
 
-  // pamLoop mode was too difficalt to implement, so it was discarded ...for now.
-  // pamPlayOnce only works if Actor.AnimationMode <> aamNone.
-  TGLActorProxyAnimationMode = (pamInherited, pamNone, pamPlayOnce);
-
   // TGLActorProxy
   //
   {: A proxy object specialized for Actors.<p> }
@@ -180,9 +171,9 @@ type
     FCurrentFrame: Integer;
     FStartFrame: Integer;
     FEndFrame: Integer;
-    FLastFrame: Integer;
     FCurrentFrameDelta: Single;
     FCurrentTime: TProgressTimes;
+    FInterval: Integer;
     FAnimation: TActorAnimationName;
 
     FTempLibMaterialName: string;
@@ -193,7 +184,6 @@ type
     FStoreBonesMatrix: boolean;
     FStoredBoneNames: TStrings;
     FOnBeforeRender: TGLProgressEvent;
-    FAnimationMode: TGLActorProxyAnimationMode;
 
     procedure SetAnimation(const Value: TActorAnimationName);
     procedure SetMasterActorObject(const Value: TGLActor);
@@ -247,7 +237,7 @@ type
 
   published
     { Published Declarations }
-    property AnimationMode: TGLActorProxyAnimationMode read FAnimationMode write FAnimationMode default pamInherited;
+    property Interval: Integer read FInterval write FInterval default 0;
     property Animation: TActorAnimationName read FAnimation write SetAnimation;
     // Redeclare as TGLActor.
     property MasterObject: TGLActor read GetMasterActorObject write SetMasterActorObject;
@@ -328,7 +318,7 @@ begin
       if ARenderChildren and (Count>0) then
          Self.RenderChildren(0, Count-1, ARci);
       if masterGotEffects then
-         MasterObject.Effects.RenderPostEffects(ARci);
+         MasterObject.Effects.RenderPostEffects(Scene.CurrentBuffer, ARci);
    finally
       FRendering:=False;
    end;
@@ -473,7 +463,6 @@ end;
 constructor TGLActorProxy.Create(AOwner: TComponent);
 begin
   inherited;
-  FAnimationMode := pamInherited;
   ProxyOptions := ProxyOptions - [pooTransformation];
   FBonesMatrices:=TStringList.create;
   FStoredBoneNames:=TStringList.create;
@@ -528,26 +517,8 @@ begin
           cf := CurrentFrame;
           sf := startframe;
           ef := endframe;
-
-          case FAnimationMode of
-            pamInherited: CurrentFrameDelta := FCurrentFrameDelta;
-            pamPlayOnce:
-              begin
-                if (FLastFrame <> FEndFrame - 1) then
-                  CurrentFrameDelta := FCurrentFrameDelta
-                else
-                begin
-                  FCurrentFrameDelta := 0;
-                  FAnimationMode := pamNone;
-                end;
-              end;
-            pamNone: CurrentFrameDelta := 0;
-          else
-            Assert(False, glsUnknownType);
-          end;
-
+          CurrentFrameDelta := FCurrentFrameDelta;
           SetCurrentFrameDirect(FCurrentFrame);
-          FLastFrame:=FCurrentFrame;
           StartFrame := FStartFrame;
           EndFrame := FEndFrame;
 
@@ -581,7 +552,7 @@ begin
     if ARenderChildren and (Count > 0) then
       Self.RenderChildren(0, Count - 1, ARci);
     if masterGotEffects then
-      MasterActor.Effects.RenderPostEffects(ARci);
+      MasterActor.Effects.RenderPostEffects(Scene.CurrentBuffer, ARci);
   finally
     ClearStructureChanged;
   end;
@@ -684,9 +655,6 @@ begin
                                                                intersectNormal);
 end;
 
-// Gain access to TGLDummyActor.DoAnimate().
-type TGLDummyActor = class(TGLActor);
-
 function TGLActorProxy.RayCastIntersectEx(RefActor: TGLActor; const rayStart,
   rayVector: TVector; intersectPoint, intersectNormal: PVector): Boolean;
 var
@@ -694,6 +662,7 @@ var
    cf, sf, ef: Integer;
    cfd: Single;
    HaspooTransformation:boolean;
+   dummyRCI: TRenderContextInfo;
 begin
    // Set RefObject frame as current ActorProxy frame
    with RefActor do
@@ -710,7 +679,8 @@ begin
      RefActor.CurrentFrame := self.CurrentFrame;
 
      // FORCE ACTOR TO ASSUME ACTORPROXY CURRENT ANIMATION FRAME
-     TGLDummyActor(RefActor).DoAnimate();
+     FillChar(dummyRCI, SizeOf(dummyRCI), 0);
+     BuildList(dummyRCI);
 
      HaspooTransformation:=pooTransformation in self.ProxyOptions;
 
@@ -753,7 +723,7 @@ begin
      endframe:=ef;
 
      // REVERT ACTOR TO ASSUME ORIGINAL ANIMATION FRAME
-     TGLDummyActor(RefActor).DoAnimate();
+     BuildList(dummyRCI);
    end;
 end;
 
@@ -774,7 +744,6 @@ begin
       FStartFrame := anAnimation.StartFrame;
       FEndFrame := anAnimation.EndFrame;
       FCurrentFrame := FStartFrame;
-      FLastFrame := FCurrentFrame;
     end;
   end;
 end;
@@ -801,7 +770,7 @@ begin
   begin
     FTempLibMaterialName := Value;
     if not (csLoading in ComponentState) then
-      raise ETexture.Create(glsErrorEx + glsMatLibNotDefined);
+      raise ETexture.Create(glsMatLibNotDefined);
   end
   else
   begin
@@ -885,7 +854,7 @@ begin
       if ARenderChildren and (Count>0) then
          Self.RenderChildren(0, Count-1, ARci);
       if masterGotEffects then
-         MasterObject.Effects.RenderPostEffects(ARci);
+         MasterObject.Effects.RenderPostEffects(Scene.CurrentBuffer, ARci);
    finally
       FRendering:=False;
    end;
@@ -927,7 +896,7 @@ begin
   begin
     FTempLibMaterialName := Value;
     if not (csLoading in ComponentState) then
-      raise ETexture.Create(glsErrorEx + glsMatLibNotDefined);
+      raise ETexture.Create(glsMatLibNotDefined);
   end
   else
   begin

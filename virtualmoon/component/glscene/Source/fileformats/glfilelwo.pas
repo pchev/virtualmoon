@@ -6,7 +6,6 @@
     Support-code to load Lightwave LWO Files (v6.0+, partial support).<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>30/03/07 - DaStr - Added $I GLScene.inc$I GLScene.inc
       <li>24/03/07 - DaStr - Added explicit pointer dereferencing
                              (thanks Burkhard Carstens) (Bugtracker ID = 1678644)
@@ -42,7 +41,7 @@ type
 
 implementation
 
-uses SysUtils, VectorGeometry, GLTexture, GLMaterial, VectorTypes;
+uses SysUtils, VectorGeometry, GLTexture, VectorTypes;
 
 type
   PVector3f = ^TVector3f;
@@ -357,7 +356,7 @@ begin
 
               if Idx<>-1 then
               begin
-                StrParm:=PAnsiChar(TLWClip(Surf.RootChunks[Idx]).ParamAddr[ID_STIL]);
+                StrParm:=PChar(TLWClip(Surf.RootChunks[Idx]).ParamAddr[ID_STIL]);
                 StrParm:=GetContentDir.FindContent(ToDosPath(StrParm));
                 if FileExists(StrParm) then
                 try

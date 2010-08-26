@@ -5,7 +5,6 @@
    A bumpmap texture is generated for each terrain tile, and placed into a TGLMaterialLibrary.
 
 	<b>History : </b><font size=-1><ul>
-      <li>22/01/10 - Yar - Added GLTextureFormat to uses
       <li>13/02/07 - LIN- Thread-safe, for use with TGLAsyncHDS
                           Also takes advantage of texture-coodrinates, calculated by HeightDataSource
       <li>02/02/07 - LIN- GLBumpmapHDS is now derived from THeightDataSourceFilter.
@@ -35,7 +34,7 @@ unit GLBumpmapHDS;
 interface
 
 uses Classes, GLHeightData, GLGraphics, VectorGeometry, GLTexture, Dialogs, Forms,
-     SyncObjs, GLMaterial, GLTextureFormat;
+     SyncObjs;
 
 type
    TGLBumpmapHDS = class;
@@ -263,7 +262,6 @@ begin
   mapSize:=mapSize div SubSampling;
   normalMap.Height:=mapSize;
   normalMap.Width :=mapSize;
-  normalMap.Blank :=false;
   SetVector(ScaleVec,1,1,FBumpScale);
   for y:=0 to mapSize-1 do begin
     nmRow:=normalMap.ScanLine[mapSize-1-y];

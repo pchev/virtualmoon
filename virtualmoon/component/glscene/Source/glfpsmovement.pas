@@ -6,7 +6,6 @@
    FPS-like movement behaviour and manager.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>03/04/07 - DaStr - Added "public" to TCollisionState for FPC compatibility
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>29/01/07 - DaStr - Moved registration to GLSceneRegister.pas
@@ -26,9 +25,9 @@ interface
 {$I GLScene.inc}
 
 uses
-     Classes, Graphics, VectorGeometry, GLScene, GLVectorFileObjects,
-     VectorLists, XCollection, GLGeomObjects,
-     GLNavigator, GLRenderContextInfo, BaseClasses, GLManager, GLState;
+     OpenGL1x, VectorGeometry, GLMisc, GLScene, GLVectorFileObjects, GLTexture,
+     VectorLists, XCollection, Classes, GLGeomObjects, SysUtils,
+     GLNavigator;
 
 type
      TContactPoint = record
@@ -199,7 +198,7 @@ function GetOrCreateFPSMovement(obj: TGLBaseSceneObject): TGLBFPSMovement; overl
 
 implementation
 
-uses SysUtils, OpenGL1x, GLCrossPlatform;
+uses GLCrossPlatform;
 
 function GetFPSMovement(behaviours: TGLBehaviours): TGLBFPSMovement; overload;
 var
@@ -827,8 +826,8 @@ var
 begin
 //  caption:= IntToStr(CollisionStates.Count);
   glColor3f(1,1,1);
-  rci.GLStates.PushAttrib([sttLighting]);
-  rci.GLStates.Disable(stLighting);
+  glPushAttrib(GL_LIGHTING_BIT);
+  glDisable(GL_LIGHTING);
   //draw position trail
   glBegin(GL_LINE_STRIP);
   for i:=0 to CollisionStates.Count-1 do
@@ -853,7 +852,7 @@ begin
       CollisionState.Contact.intPoint[2]+CollisionState.Contact.intNormal[2]);//GLSphere4.Radius);
   end;
   glEnd();
-  rci.GLStates.PopAttrib;
+  glPopAttrib;
 end;
 
 // ------------------------------------------------------------------

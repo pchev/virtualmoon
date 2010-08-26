@@ -1,0 +1,38 @@
+/* XPM */
+static char *TGLPortal[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 16 1",
+"  c #040204",
+". c #048204",
+"X c #848284",
+"o c #04FEFC",
+"O c #C4C2C4",
+"+ c #0402FC",
+"@ c #FCFE04",
+"# c #FCFEFC",
+"$ c #186968",
+"% c #9F0EF1",
+"& c #803E17",
+"* c #7C7700",
+"= c #FF004A",
+"- c #FF0002",
+"; c #FF002D",
+": c red",
+/* pixels */
+"OOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOO",
+"OOXXXXXXXXXXXXOO",
+"OOX########## OO",
+"OOX#o@oooooo# OO",
+"OOX#@@@ooooo# OO",
+"OOX#o@oooooo# OO",
+"OOX#oooooo..# OO",
+"OOX#oooo....# OO",
+"OOX#++......# OO",
+"OOX#+++++...# OO",
+"OOX#++++++++# OO",
+"OOX#++++++++# OO",
+"OOX#++++++++# OO",
+"OOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOO"
+};

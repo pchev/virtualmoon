@@ -378,7 +378,7 @@ var
   i,x,y,xs,xe,
   x1,y1,x2,y2,x3,y3 : integer;
   NormalMap : TAffineVectorList;
-  n : TAffineVector;
+  n,n1,n2,n3 : TAffineVector;
   m,m1,m2,m3 : TAffineMatrix;
 begin
   NormalMap:=TAffineVectorList.Create;

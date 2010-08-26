@@ -1,0 +1,34 @@
+/* XPM */
+static char *TGLSLTextureEmitter[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 12 1",
+"  c #000038",
+". c #000058",
+"X c #484858",
+"o c #0000C0",
+"O c #4040FF",
+"+ c magenta",
+"@ c #A8A838",
+"# c #A8A858",
+"$ c #8080FF",
+"% c #FFFF80",
+"& c #C0C0C0",
+"* c #C0C0FF",
+/* pixels */
+"+OOooOOOOOooooO+",
+"OOOooOOOO*$$$$*O",
+"OOOoooooo$$$$$*O",
+"OOOoooooo$$oooOO",
+"OOOOOOOOO*$oooOO",
+"O&&&&&&OO*$$$oOO",
+"O&&&&&&OO*$$$oOO",
+"O&&OOOOOO*$oooOO",
+"O&&OOOOOO*$oooOO",
+"O&@@@....#XXXX#.",
+"O&@@%%.%.#%%X%#.",
+"O&@%...%..%  %..",
+"O&@%.%.%.. % %..",
+"O&@%%%@%%.%% %%.",
+"O&@@@@@...    ..",
+"+OOOOOOOOOooooO+"
+};

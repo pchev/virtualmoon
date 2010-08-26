@@ -1,21 +1,8 @@
-//
-// This unit is part of the GLScene Project, http://glscene.org
-//
 {: GLWin32Context<p>
 
    Win32 specific Context.<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>06/03/10 - Yar - Added forward context creation in TGLWin32Context.DoActivate
-      <li>20/02/10 - DanB - Allow double-buffered memory viewers, if you want single
-                            buffered, or no swapping, then change buffer options instead.
-                            Some changes from Cardinal to the appropriate HDC /HGLRC type.
-      <li>15/01/10 - DaStr - Bugfixed TGLWin32Context.ChooseWGLFormat()
-                             (BugtrackerID = 2933081) (thanks YarUndeoaker)
-      <li>08/01/10 - DaStr - Added more AntiAliasing modes (thanks YarUndeoaker)
-      <li>13/12/09 - DaStr - Modified for multithread support (thanks Controller)
-      <li>30/08/09 - DanB - vIgnoreContextActivationFailures renamed to
-                            vContextActivationFailureOccurred + check removed.
       <li>06/11/07 - mrqzzz - Ignore ContextActivation failure
                    if GLContext.vIgnoreContextActivationFailures=true
       <li>15/02/07 - DaStr - Integer -> Cardinal because $R- was removed in GLScene.pas
@@ -46,77 +33,73 @@ unit GLWin32Context;
 
 interface
 
-{$I GLScene.inc}
-
-{$IFNDEF MSWINDOWS}{$MESSAGE Error 'Unit is Windows specific'}{$ENDIF}
+{$i GLScene.inc}
 
 uses Windows, Classes, SysUtils, GLContext;
 
 type
 
-  // TGLWin32Context
-  //
-  {: A context driver for standard Windows OpenGL (via MS OpenGL). }
-  TGLWin32Context = class(TGLContext)
-  private
-    { Private Declarations }
-    FRC: HGLRC;
-    FDC: HDC;
-    FHPBUFFER: Integer;
-    FiAttribs: packed array of Integer;
-    FfAttribs: packed array of Single;
-    FLegacyContextsOnly: Boolean;
+   // TGLWin32Context
+   //
+   {: A context driver for standard Windows OpenGL (via MS OpenGL). }
+   TGLWin32Context = class (TGLContext)
+      private
+         { Private Declarations }
+         FRC, FDC : Cardinal;
+         FHPBUFFER : Integer;
+         FiAttribs : packed array of Integer;
+         FfAttribs : packed array of Single;
+         FLegacyContextsOnly : Boolean;
 
-    procedure SpawnLegacyContext(aDC: HDC); // used for WGL_pixel_format soup
+         procedure SpawnLegacyContext(aDC : HDC); // used for WGL_pixel_format soup
 
-  protected
-    { Protected Declarations }
-    procedure ClearIAttribs;
-    procedure AddIAttrib(attrib, value: Integer);
-    procedure ChangeIAttrib(attrib, newValue: Integer);
-    procedure DropIAttrib(attrib: Integer);
-    procedure ClearFAttribs;
-    procedure AddFAttrib(attrib, value: Single);
+      protected
+         { Protected Declarations }
+         procedure ClearIAttribs;
+         procedure AddIAttrib(attrib, value : Integer);
+         procedure ChangeIAttrib(attrib, newValue : Integer);
+         procedure DropIAttrib(attrib : Integer);
+         procedure ClearFAttribs;
+         procedure AddFAttrib(attrib, value : Single);
 
-    procedure DestructionEarlyWarning(sender: TObject);
+         procedure DestructionEarlyWarning(sender : TObject);
 
-    procedure ChooseWGLFormat(DC: HDC; nMaxFormats: Cardinal; piFormats:
-      PInteger;
-      var nNumFormats: Integer; BufferCount: integer = 1);
-    procedure DoCreateContext(outputDevice: Cardinal); override;
-    procedure DoCreateMemoryContext(outputDevice: Cardinal; width, height:
-      Integer; BufferCount: integer); override;
-    procedure DoShareLists(aContext: TGLContext); override;
-    procedure DoDestroyContext; override;
-    procedure DoActivate; override;
-    procedure DoDeactivate; override;
+         procedure ChooseWGLFormat(DC: HDC; nMaxFormats: Cardinal; piFormats: PInteger;
+                                   var nNumFormats: Integer; BufferCount : integer = 1);
+         procedure DoCreateContext(outputDevice : HDC); override;
+         procedure DoCreateMemoryContext(OutputDevice: HDC; width, height : Integer; BufferCount : integer); override;
+         procedure DoShareLists(aContext : TGLContext); override;
+         procedure DoDestroyContext; override;
+         procedure DoActivate; override;
+         procedure DoDeactivate; override;
 
-  public
-    { Public Declarations }
-    constructor Create; override;
-    destructor Destroy; override;
+      public
+         { Public Declarations }
+         constructor Create; override;
+         destructor Destroy; override;
 
-    function IsValid: Boolean; override;
-    procedure SwapBuffers; override;
+         function IsValid : Boolean; override;
+         procedure SwapBuffers; override;
 
-    function RenderOutputDevice: Integer; override;
+         function RenderOutputDevice : Integer; override;
 
-    property DC: HDC read FDC;
-    property RC: HGLRC read FRC;
-  end;
+         property DC : Cardinal read FDC;
+         property RC : Cardinal read FRC;
+   end;
 
-function CreateTempWnd: HWND;
+
+function CreateTempWnd : HWND;
 
 var
-  { This boolean controls a hook-based tracking of top-level forms destruction,
-    with the purpose of being able to properly release OpenGL contexts before
-    they are (improperly) released by some drivers upon top-level form
-    destruction. }
-  vUseWindowTrackingHook: Boolean = True;
+   { This boolean controls a hook-based tracking of top-level forms destruction,
+     with the purpose of being able to properly release OpenGL contexts before
+     they are (improperly) released by some drivers upon top-level form
+     destruction. }
+   vUseWindowTrackingHook : Boolean = True;
 
-  // ------------------------------------------------------------------
-  // ------------------------------------------------------------------
-  // ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
 implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
@@ -125,876 +108,706 @@ implementation
 uses Forms, OpenGL1x, GLCrossPlatform, Messages;
 
 resourcestring
-  cForwardContextFailsed = 'Can not create OpenGL 3.x Forward Context';
-  
-var
-  vTrackingCount: Integer;
-  vTrackedHwnd: array of HWND;
-  vTrackedEvents: array of TNotifyEvent;
-  vTrackingHook: HHOOK;
+   cIncompatibleContexts =       'Incompatible contexts';
+   cDeleteContextFailed =        'Delete context failed';
+   cContextActivationFailed =    'Context activation failed: %X, %s';
+   cContextDeactivationFailed =  'Context deactivation failed';
+   cUnableToCreateLegacyContext= 'Unable to create legacy context';
 
-  // TrackHookProc
-  //
-
-function TrackHookProc(nCode: Integer; wParam: wParam; lParam: LPARAM): Integer;
-  stdcall;
 var
-  i: Integer;
-  p: PCWPStruct;
+   vTrackingCount : Integer;
+   vTrackedHwnd : array of HWND;
+   vTrackedEvents : array of TNotifyEvent;
+   vTrackingHook : HHOOK;
+
+// TrackHookProc
+//
+function TrackHookProc(nCode : Integer; wParam : wParam; lParam : LPARAM) : Integer; stdcall;
+var
+   i : Integer;
+   p : PCWPStruct;
 begin
-  if nCode = HC_ACTION then
-  begin
-    p := PCWPStruct(lParam);
-    //   if (p.message=WM_DESTROY) or (p.message=WM_CLOSE) then begin // destroy & close variant
-    if p.message = WM_DESTROY then
-    begin
-      // special care must be taken by this loop, items may go away unexpectedly
-      i := vTrackingCount - 1;
-      while i >= 0 do
-      begin
-        if IsChild(p.hwnd, vTrackedHwnd[i]) then
-        begin
-          // got one, send notification
-          vTrackedEvents[i](nil);
-        end;
-        Dec(i);
-        while i >= vTrackingCount do
-          Dec(i);
+   if nCode=HC_ACTION then begin
+      p:=PCWPStruct(lParam);
+ //   if (p.message=WM_DESTROY) or (p.message=WM_CLOSE) then begin // destroy & close variant
+      if p.message=WM_DESTROY then begin
+         // special care must be taken by this loop, items may go away unexpectedly
+         i:=vTrackingCount-1;
+         while i>=0 do begin
+            if IsChild(p.hwnd, vTrackedHwnd[i]) then begin
+               // got one, send notification
+               vTrackedEvents[i](nil);
+            end;
+            Dec(i);
+            while i>=vTrackingCount do Dec(i);
+         end;
       end;
-    end;
-    CallNextHookEx(vTrackingHook, nCode, wParam, lParam);
-    Result := 0;
-  end
-  else
-    Result := CallNextHookEx(vTrackingHook, nCode, wParam, lParam);
+      CallNextHookEx(vTrackingHook, nCode, wParam, lParam);
+      Result:=0;
+   end else Result:=CallNextHookEx(vTrackingHook, nCode, wParam, lParam);
 end;
 
 // TrackWindow
 //
-
-procedure TrackWindow(h: HWND; notifyEvent: TNotifyEvent);
+procedure TrackWindow(h : HWND; notifyEvent : TNotifyEvent);
 begin
-  if not IsWindow(h) then
-    Exit;
-  if vTrackingCount = 0 then
-    vTrackingHook := SetWindowsHookEx(WH_CALLWNDPROC, @TrackHookProc, 0,
-      GetCurrentThreadID);
-  Inc(vTrackingCount);
-  SetLength(vTrackedHwnd, vTrackingCount);
-  vTrackedHwnd[vTrackingCount - 1] := h;
-  SetLength(vTrackedEvents, vTrackingCount);
-  vTrackedEvents[vTrackingCount - 1] := notifyEvent;
+   if not IsWindow(h) then Exit;
+   if vTrackingCount=0 then
+      vTrackingHook:=SetWindowsHookEx(WH_CALLWNDPROC, @TrackHookProc, 0, GetCurrentThreadID);
+   Inc(vTrackingCount);
+   SetLength(vTrackedHwnd, vTrackingCount);
+   vTrackedHwnd[vTrackingCount-1]:=h;
+   SetLength(vTrackedEvents, vTrackingCount);
+   vTrackedEvents[vTrackingCount-1]:=notifyEvent;
 end;
 
 // UnTrackWindows
 //
-
-procedure UnTrackWindow(h: HWND);
+procedure UnTrackWindow(h : HWND);
 var
-  i, k: Integer;
+   i, k : Integer;
 begin
-  if not IsWindow(h) then
-    Exit;
-  if vTrackingCount = 0 then
-    Exit;
-  k := 0;
-  for i := 0 to vTrackingCount - 1 do
-    if vTrackedHwnd[i] <> h then
-    begin
-      vTrackedHwnd[k] := vTrackedHwnd[i];
-      vTrackedEvents[k] := vTrackedEvents[i];
+   if not IsWindow(h) then Exit;
+   if vTrackingCount=0 then Exit;
+   k:=0;
+   for i:=0 to vTrackingCount-1 do if vTrackedHwnd[i]<>h then begin
+      vTrackedHwnd[k]:=vTrackedHwnd[i];
+      vTrackedEvents[k]:=vTrackedEvents[i];
       Inc(k);
-    end;
-  Dec(vTrackingCount);
-  SetLength(vTrackedHwnd, vTrackingCount);
-  SetLength(vTrackedEvents, vTrackingCount);
-  if vTrackingCount = 0 then
-    UnhookWindowsHookEx(vTrackingHook);
+   end;
+   Dec(vTrackingCount);
+   SetLength(vTrackedHwnd, vTrackingCount);
+   SetLength(vTrackedEvents, vTrackingCount);
+   if vTrackingCount=0 then
+      UnhookWindowsHookEx(vTrackingHook);
 end;
 
 var
-  vUtilWindowClass: TWndClass = (
-    style: 0;
-    lpfnWndProc: @DefWindowProc;
-    cbClsExtra: 0;
-    cbWndExtra: 0;
-    hInstance: 0;
-    hIcon: 0;
-    hCursor: 0;
-    hbrBackground: 0;
-    lpszMenuName: nil;
-    lpszClassName: 'GLSUtilWindow');
+   vUtilWindowClass: TWndClass = (
+      style: 0;
+      lpfnWndProc: @DefWindowProc;
+      cbClsExtra: 0;
+      cbWndExtra: 0;
+      hInstance: 0;
+      hIcon: 0;
+      hCursor: 0;
+      hbrBackground: 0;
+      lpszMenuName: nil;
+      lpszClassName: 'GLSUtilWindow');
 
-  ForwardContextAttribList: array[0..6] of GLUInt =
-    (
-    WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
-    WGL_CONTEXT_MINOR_VERSION_ARB, 0,
-    WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
-    0
-    );
-
-  // CreateTempWnd
-  //
-
-function CreateTempWnd: HWND;
+// CreateTempWnd
+//
+function CreateTempWnd : HWND;
 var
-  classRegistered: Boolean;
-  tempClass: TWndClass;
+   classRegistered: Boolean;
+   tempClass: TWndClass;
 begin
-  vUtilWindowClass.hInstance := HInstance;
-  classRegistered := GetClassInfo(HInstance, vUtilWindowClass.lpszClassName,
-    tempClass);
-  if not classRegistered then
-    Windows.RegisterClass(vUtilWindowClass);
-  Result := CreateWindowEx(WS_EX_TOOLWINDOW, vUtilWindowClass.lpszClassName,
-    '', WS_POPUP, 0, 0, 0, 0, 0, 0, HInstance, nil);
+   vUtilWindowClass.hInstance:=HInstance;
+   classRegistered:=GetClassInfo(HInstance, vUtilWindowClass.lpszClassName,
+                                 tempClass);
+   if not classRegistered then
+      Windows.RegisterClass(vUtilWindowClass);
+   Result:=CreateWindowEx(WS_EX_TOOLWINDOW, vUtilWindowClass.lpszClassName,
+                          '', WS_POPUP, 0, 0, 0, 0, 0, 0, HInstance, nil);
 end;
 
 // ------------------
 // ------------------ TGLWin32Context ------------------
 // ------------------
 
-{$IFNDEF GLS_MULTITHREAD}
 var
-{$ELSE}
-threadvar
-{$ENDIF}
-  vLastPixelFormat: Integer;
-  vLastVendor: TGLString;
+   vLastPixelFormat : Integer;
+   vLastVendor : String;
 
-  // Create
-  //
-
+// Create
+//
 constructor TGLWin32Context.Create;
 begin
-  inherited Create;
-  ClearIAttribs;
-  ClearFAttribs;
+   inherited Create;
+   ClearIAttribs;
+   ClearFAttribs;
 end;
 
 // Destroy
 //
-
 destructor TGLWin32Context.Destroy;
 begin
-  inherited Destroy;
+   inherited Destroy;
 end;
 
 // SetupPalette
 //
-
 function SetupPalette(DC: HDC; PFD: TPixelFormatDescriptor): HPalette;
 var
-  nColors, I: Integer;
-  LogPalette: TMaxLogPalette;
-  RedMask, GreenMask, BlueMask: Byte;
+   nColors, I : Integer;
+   LogPalette : TMaxLogPalette;
+   RedMask, GreenMask, BlueMask : Byte;
 begin
-  nColors := 1 shl Pfd.cColorBits;
-  LogPalette.palVersion := $300;
-  LogPalette.palNumEntries := nColors;
-  RedMask := (1 shl Pfd.cRedBits) - 1;
-  GreenMask := (1 shl Pfd.cGreenBits) - 1;
-  BlueMask := (1 shl Pfd.cBlueBits) - 1;
-  with LogPalette, PFD do
-    for I := 0 to nColors - 1 do
-    begin
-      palPalEntry[I].peRed := (((I shr cRedShift) and RedMask) * 255) div
-        RedMask;
-      palPalEntry[I].peGreen := (((I shr cGreenShift) and GreenMask) * 255) div
-        GreenMask;
-      palPalEntry[I].peBlue := (((I shr cBlueShift) and BlueMask) * 255) div
-        BlueMask;
+   nColors := 1 shl Pfd.cColorBits;
+   LogPalette.palVersion := $300;
+   LogPalette.palNumEntries := nColors;
+   RedMask := (1 shl Pfd.cRedBits  ) - 1;
+   GreenMask := (1 shl Pfd.cGreenBits) - 1;
+   BlueMask := (1 shl Pfd.cBlueBits ) - 1;
+   with LogPalette, PFD do for I := 0 to nColors - 1 do begin
+      palPalEntry[I].peRed := (((I shr cRedShift  ) and RedMask  ) * 255) div RedMask;
+      palPalEntry[I].peGreen := (((I shr cGreenShift) and GreenMask) * 255) div GreenMask;
+      palPalEntry[I].peBlue := (((I shr cBlueShift ) and BlueMask ) * 255) div BlueMask;
       palPalEntry[I].peFlags := 0;
-    end;
+   end;
 
-  Result := CreatePalette(PLogPalette(@LogPalette)^);
-  if Result <> 0 then
-  begin
-    SelectPalette(DC, Result, False);
-    RealizePalette(DC);
-  end
-  else
-    RaiseLastOSError;
+   Result := CreatePalette(PLogPalette(@LogPalette)^);
+   if Result <> 0 then begin
+      SelectPalette(DC, Result, False);
+      RealizePalette(DC);
+   end else RaiseLastOSError;
 end;
 
 // ClearIAttribs
 //
-
 procedure TGLWin32Context.ClearIAttribs;
 begin
-  SetLength(FiAttribs, 1);
-  FiAttribs[0] := 0;
+   SetLength(FiAttribs, 1);
+   FiAttribs[0]:=0;
 end;
 
 // AddIAttrib
 //
-
-procedure TGLWin32Context.AddIAttrib(attrib, value: Integer);
+procedure TGLWin32Context.AddIAttrib(attrib, value : Integer);
 var
-  n: Integer;
+   n : Integer;
 begin
-  n := Length(FiAttribs);
-  SetLength(FiAttribs, n + 2);
-  FiAttribs[n - 1] := attrib;
-  FiAttribs[n] := value;
-  FiAttribs[n + 1] := 0;
+   n:=Length(FiAttribs);
+   SetLength(FiAttribs, n+2);
+   FiAttribs[n-1]:=attrib;       FiAttribs[n]:=value;
+   FiAttribs[n+1]:=0;
 end;
 
 // ChangeIAttrib
 //
-
-procedure TGLWin32Context.ChangeIAttrib(attrib, newValue: Integer);
+procedure TGLWin32Context.ChangeIAttrib(attrib, newValue : Integer);
 var
-  i: Integer;
+   i : Integer;
 begin
-  i := 0;
-  while i < Length(FiAttribs) do
-  begin
-    if FiAttribs[i] = attrib then
-    begin
-      FiAttribs[i + 1] := newValue;
-      Exit;
-    end;
-    Inc(i, 2);
-  end;
-  AddIAttrib(attrib, newValue);
+   i:=0;
+   while i<Length(FiAttribs) do begin
+      if FiAttribs[i]=attrib then begin
+         FiAttribs[i+1]:=newValue;
+         Exit;
+      end;
+      Inc(i, 2);
+   end;
+   AddIAttrib(attrib, newValue);
 end;
 
 // DropIAttrib
 //
-
-procedure TGLWin32Context.DropIAttrib(attrib: Integer);
+procedure TGLWin32Context.DropIAttrib(attrib : Integer);
 var
-  i: Integer;
+   i : Integer;
 begin
-  i := 0;
-  while i < Length(FiAttribs) do
-  begin
-    if FiAttribs[i] = attrib then
-    begin
-      Inc(i, 2);
-      while i < Length(FiAttribs) do
-      begin
-        FiAttribs[i - 2] := FiAttribs[i];
-        Inc(i);
+   i:=0;
+   while i<Length(FiAttribs) do begin
+      if FiAttribs[i]=attrib then begin
+         Inc(i, 2);
+         while i<Length(FiAttribs) do begin
+            FiAttribs[i-2]:=FiAttribs[i];
+            Inc(i);
+         end;
+         SetLength(FiAttribs, Length(FiAttribs)-2);
+         Exit;
       end;
-      SetLength(FiAttribs, Length(FiAttribs) - 2);
-      Exit;
-    end;
-    Inc(i, 2);
-  end;
+      Inc(i, 2);
+   end;
 end;
 
 // ClearFAttribs
 //
-
 procedure TGLWin32Context.ClearFAttribs;
 begin
-  SetLength(FfAttribs, 1);
-  FfAttribs[0] := 0;
+   SetLength(FfAttribs, 1);
+   FfAttribs[0]:=0;
 end;
 
 // AddFAttrib
 //
-
-procedure TGLWin32Context.AddFAttrib(attrib, value: Single);
+procedure TGLWin32Context.AddFAttrib(attrib, value : Single);
 var
-  n: Integer;
+   n : Integer;
 begin
-  n := Length(FfAttribs);
-  SetLength(FfAttribs, n + 2);
-  FfAttribs[n - 1] := attrib;
-  FfAttribs[n] := value;
-  FfAttribs[n + 1] := 0;
+   n:=Length(FfAttribs);
+   SetLength(FfAttribs, n+2);
+   FfAttribs[n-1]:=attrib;       FfAttribs[n]:=value;
+   FfAttribs[n+1]:=0;
 end;
 
 // DestructionEarlyWarning
 //
-
-procedure TGLWin32Context.DestructionEarlyWarning(sender: TObject);
+procedure TGLWin32Context.DestructionEarlyWarning(sender : TObject);
 begin
-  DestroyContext;
+   DestroyContext;
 end;
 
 // ChooseWGLFormat
 //
-
-procedure TGLWin32Context.ChooseWGLFormat(DC: HDC; nMaxFormats: Cardinal;
-  piFormats: PInteger;
-  var nNumFormats: Integer; BufferCount: integer);
+procedure TGLWin32Context.ChooseWGLFormat(DC: HDC; nMaxFormats: Cardinal; piFormats: PInteger;
+                                          var nNumFormats: Integer; BufferCount : integer);
 const
-  cAAToSamples: array[aaNone..csa16xHQ] of Integer =
-    (1, 2, 2, 4, 4, 6, 8, 16, 8, 8, 16, 16);
-  cCSAAToSamples: array[csa8x..csa16xHQ] of Integer = (4, 8, 4, 8);
+   cAAToSamples : array [aaNone..aa4xHQ] of Integer = (1, 2, 2, 4, 4);
 
-  procedure ChoosePixelFormat;
-  begin
-    if not wglChoosePixelFormatARB(DC, @FiAttribs[0], @FfAttribs[0],
-      32, PGLint(piFormats), @nNumFormats) then
-      nNumFormats := 0;
-  end;
+   procedure ChoosePixelFormat;
+   begin
+      if not wglChoosePixelFormatARB(DC, @FiAttribs[0], @FfAttribs[0],
+                                     32, PGLint(piFormats), @nNumFormats) then
+         nNumFormats:=0;
+   end;
 
-var
-  float: boolean;
+var                       
+   float : boolean;
 
 begin
-  float := (ColorBits = 64) or (ColorBits = 128); // float_type
+   float:= (ColorBits = 64) or (ColorBits = 128);   // float_type
 
-  // request hardware acceleration
-  AddIAttrib(WGL_ACCELERATION_ARB, WGL_FULL_ACCELERATION_ARB);
+   // request hardware acceleration
+   AddIAttrib(WGL_ACCELERATION_ARB, WGL_FULL_ACCELERATION_ARB);
 
-  if float then
-  begin // float_type
-    if GL_ATI_texture_float then
-    begin // NV40 uses ATI_float, with linear filtering
-      AddIAttrib(WGL_PIXEL_TYPE_ARB, WGL_TYPE_RGBA_FLOAT_ATI);
-    end
-    else
-    begin
-      AddIAttrib(WGL_PIXEL_TYPE_ARB, WGL_TYPE_RGBA_ARB);
-      AddIAttrib(WGL_FLOAT_COMPONENTS_NV, GL_TRUE);
-    end;
-  end;
+   if float then begin    // float_type
+     if GL_ATI_texture_float then begin // NV40 uses ATI_float, with linear filtering
+       AddIAttrib(WGL_PIXEL_TYPE_ARB, WGL_TYPE_RGBA_FLOAT_ATI);
+       end
+     else begin
+       AddIAttrib(WGL_PIXEL_TYPE_ARB, WGL_TYPE_RGBA_ARB);
+       AddIAttrib(WGL_FLOAT_COMPONENTS_NV, GL_TRUE);
+     end;
+   end;
 
-  if BufferCount > 1 then
-    // 1 front buffer + (BufferCount-1) aux buffers
-    AddIAttrib(WGL_AUX_BUFFERS_ARB, BufferCount - 1);
+   if BufferCount > 1 then
+     // 1 front buffer + (BufferCount-1) aux buffers
+     AddIAttrib(WGL_AUX_BUFFERS_ARB, BufferCount-1);
 
-  AddIAttrib(WGL_COLOR_BITS_ARB, ColorBits);
-  if AlphaBits > 0 then
-    AddIAttrib(WGL_ALPHA_BITS_ARB, AlphaBits);
-  AddIAttrib(WGL_DEPTH_BITS_ARB, DepthBits);
-  if StencilBits > 0 then
-    AddIAttrib(WGL_STENCIL_BITS_ARB, StencilBits);
-  if AccumBits > 0 then
-    AddIAttrib(WGL_ACCUM_BITS_ARB, AccumBits);
-  if AuxBuffers > 0 then
-    AddIAttrib(WGL_AUX_BUFFERS_ARB, AuxBuffers);
-  if (AntiAliasing <> aaDefault) and WGL_ARB_multisample and GL_ARB_multisample
-    then
-  begin
-    if AntiAliasing = aaNone then
-      AddIAttrib(WGL_SAMPLE_BUFFERS_ARB, GL_FALSE)
-    else
-    begin
-      AddIAttrib(WGL_SAMPLE_BUFFERS_ARB, GL_TRUE);
-      AddIAttrib(WGL_SAMPLES_ARB, cAAToSamples[AntiAliasing]);
-      if (AntiAliasing >= csa8x) and (AntiAliasing <= csa16xHQ) then
-        AddIAttrib(WGL_COLOR_SAMPLES_NV, cCSAAToSamples[AntiAliasing]);
-    end;
+   AddIAttrib(WGL_COLOR_BITS_ARB, ColorBits);
+   if AlphaBits>0 then
+     AddIAttrib(WGL_ALPHA_BITS_ARB, AlphaBits);
+   AddIAttrib(WGL_DEPTH_BITS_ARB, DepthBits);
+   if StencilBits>0 then
+      AddIAttrib(WGL_STENCIL_BITS_ARB, StencilBits);
+   if AccumBits>0 then
+      AddIAttrib(WGL_ACCUM_BITS_ARB, AccumBits);
+   if AuxBuffers>0 then
+      AddIAttrib(WGL_AUX_BUFFERS_ARB, AuxBuffers);
+   if (AntiAliasing<>aaDefault) and WGL_ARB_multisample and GL_ARB_multisample then begin
+      if AntiAliasing=aaNone then
+         AddIAttrib(WGL_SAMPLE_BUFFERS_ARB, GL_FALSE)
+      else begin
+         AddIAttrib(WGL_SAMPLE_BUFFERS_ARB, GL_TRUE);
+         AddIAttrib(WGL_SAMPLES_ARB, cAAToSamples[AntiAliasing]);
+      end;
+   end;
 
-  end;
-
-  ClearFAttribs;
-  ChoosePixelFormat;
-  if (nNumFormats = 0) and (DepthBits >= 32) then
-  begin
-    // couldn't find 32+ bits depth buffer, 24 bits one available?
-    ChangeIAttrib(WGL_DEPTH_BITS_ARB, 24);
-    ChoosePixelFormat;
-  end;
-  if (nNumFormats = 0) and (DepthBits >= 24) then
-  begin
-    // couldn't find 24+ bits depth buffer, 16 bits one available?
-    ChangeIAttrib(WGL_DEPTH_BITS_ARB, 16);
-    ChoosePixelFormat;
-  end;
-  if (nNumFormats = 0) and (ColorBits >= 24) then
-  begin
-    // couldn't find 24+ bits color buffer, 16 bits one available?
-    ChangeIAttrib(WGL_COLOR_BITS_ARB, 16);
-    ChoosePixelFormat;
-  end;
-  if (nNumFormats = 0) and (AntiAliasing <> aaDefault) then
-  begin
-    // Restore DepthBits
-    ChangeIAttrib(WGL_DEPTH_BITS_ARB, DepthBits);
-    // couldn't find AA buffer, try without
-    DropIAttrib(WGL_SAMPLE_BUFFERS_ARB);
-    DropIAttrib(WGL_SAMPLES_ARB);
-    if (AntiAliasing >= csa8x) and (AntiAliasing <= csa16xHQ) then
-      DropIAttrib(WGL_COLOR_SAMPLES_NV);
-    ChoosePixelFormat;
-  end;
-  // Check DepthBits again
-  if (nNumFormats = 0) and (DepthBits >= 32) then
-  begin
-    // couldn't find 32+ bits depth buffer, 24 bits one available?
-    ChangeIAttrib(WGL_DEPTH_BITS_ARB, 24);
-    ChoosePixelFormat;
-  end;
-  if (nNumFormats = 0) and (DepthBits >= 24) then
-  begin
-    // couldn't find 24+ bits depth buffer, 16 bits one available?
-    ChangeIAttrib(WGL_DEPTH_BITS_ARB, 16);
-    ChoosePixelFormat;
-  end;
-  if (nNumFormats = 0) and (ColorBits >= 24) then
-  begin
-    // couldn't find 24+ bits color buffer, 16 bits one available?
-    ChangeIAttrib(WGL_COLOR_BITS_ARB, 16);
-    ChoosePixelFormat;
-  end;
-  if nNumFormats = 0 then
-  begin
-    // ok, last attempt: no AA, restored depth and color,
-    // relaxed hardware-acceleration request
-    ChangeIAttrib(WGL_COLOR_BITS_ARB, ColorBits);
-    ChangeIAttrib(WGL_DEPTH_BITS_ARB, DepthBits);
-    DropIAttrib(WGL_ACCELERATION_ARB);
-    ChoosePixelFormat;
-  end;
+   ClearFAttribs;
+   ChoosePixelFormat;
+   if (nNumFormats=0) and (AntiAliasing<>aaDefault) then begin
+      // couldn't find AA buffer, try without
+      DropIAttrib(WGL_SAMPLE_BUFFERS_ARB);
+      DropIAttrib(WGL_SAMPLES_ARB);
+   end;
+   if (nNumFormats=0) and (DepthBits>=32) then begin
+      // couldn't find 32+ bits depth buffer, 24 bits one available?
+      ChangeIAttrib(WGL_DEPTH_BITS_ARB, 24);
+      ChoosePixelFormat;
+   end;
+   if (nNumFormats=0) and (DepthBits>=24) then begin
+      // couldn't find 24+ bits depth buffer, 16 bits one available?
+      ChangeIAttrib(WGL_DEPTH_BITS_ARB, 16);
+      ChoosePixelFormat;
+   end;
+   if (nNumFormats=0) and (ColorBits>=24) then begin
+      // couldn't find 24+ bits color buffer, 16 bits one available?
+      ChangeIAttrib(WGL_COLOR_BITS_ARB, 16);
+      ChoosePixelFormat;
+   end;
+   if nNumFormats=0 then begin
+      // ok, last attempt: no AA, restored depth and color,
+      // relaxed hardware-acceleration request
+      ChangeIAttrib(WGL_COLOR_BITS_ARB, ColorBits);
+      ChangeIAttrib(WGL_DEPTH_BITS_ARB, DepthBits);
+      DropIAttrib(WGL_ACCELERATION_ARB);
+      ChoosePixelFormat;
+   end;
 end;
 
 // DoCreateContext
 //
 procedure TGLWin32Context.DoCreateContext(outputDevice : HDC);
 const
-  cMemoryDCs = [OBJ_MEMDC, OBJ_METADC, OBJ_ENHMETADC];
-  cBoolToInt: array[False..True] of Integer = (GL_FALSE, GL_TRUE);
+   cMemoryDCs = [OBJ_MEMDC, OBJ_METADC, OBJ_ENHMETADC];
+   cBoolToInt : array [False..True] of Integer = (GL_FALSE, GL_TRUE);
 var
-  pfDescriptor: TPixelFormatDescriptor;
-  pixelFormat, nbFormats, softwarePixelFormat: Integer;
-  aType: DWORD;
-  iFormats: array[0..31] of Integer;
-  tempWnd: HWND;
-  tempDC, outputDC: HDC;
-  localDC: HDC;
-  localRC: HGLRC;
+   pfDescriptor : TPixelFormatDescriptor;
+   pixelFormat, nbFormats, softwarePixelFormat : Integer;
+   aType : DWORD;
+   iFormats : array [0..31] of Integer;
+   tempWnd : HWND;
+   tempDC, outputDC : HDC;
+   localDC, localRC : Integer;
 
-  function CurrentPixelFormatIsHardwareAccelerated: Boolean;
-  var
-    localPFD: TPixelFormatDescriptor;
-  begin
-    Result := False;
-    if pixelFormat = 0 then
-      Exit;
-    with localPFD do
-    begin
-      nSize := SizeOf(localPFD);
-      nVersion := 1;
-    end;
-    DescribePixelFormat(outputDC, pixelFormat, SizeOf(localPFD), localPFD);
-    Result := ((localPFD.dwFlags and PFD_GENERIC_FORMAT) = 0);
-  end;
+   function CurrentPixelFormatIsHardwareAccelerated : Boolean;
+   var
+      localPFD : TPixelFormatDescriptor;
+   begin
+      Result:=False;
+      if pixelFormat=0 then Exit;
+      with localPFD do begin
+         nSize:=SizeOf(localPFD);
+         nVersion:=1;
+      end;
+      DescribePixelFormat(outputDC, pixelFormat, SizeOf(localPFD), localPFD);
+      Result:=((localPFD.dwFlags and PFD_GENERIC_FORMAT)=0);
+   end;
 
 var
-  i, iAttrib, iValue: Integer;
+   i, iAttrib, iValue : Integer;
 begin
-  outputDC := HDC(outputDevice);
-  if vUseWindowTrackingHook then
-    TrackWindow(WindowFromDC(outputDC), DestructionEarlyWarning);
+   outputDC:=HDC(outputDevice);
+   if vUseWindowTrackingHook then
+      TrackWindow(WindowFromDC(LongWord(outputDC)), DestructionEarlyWarning);
 
-  // Just in case it didn't happen already.
-  if not InitOpenGL then
-    RaiseLastOSError;
+   // Just in case it didn't happen already.
+   if not InitOpenGL then RaiseLastOSError;
 
-  // Prepare PFD
-  FillChar(pfDescriptor, SizeOf(pfDescriptor), 0);
-  with PFDescriptor do
-  begin
-    nSize := SizeOf(PFDescriptor);
-    nVersion := 1;
-    dwFlags := PFD_SUPPORT_OPENGL;
-    aType := GetObjectType(outputDC);
-    if aType = 0 then
-      RaiseLastOSError;
-    if aType in cMemoryDCs then
-      dwFlags := dwFlags or PFD_DRAW_TO_BITMAP
-    else
-      dwFlags := dwFlags or PFD_DRAW_TO_WINDOW;
-    if rcoDoubleBuffered in Options then
-      dwFlags := dwFlags or PFD_DOUBLEBUFFER;
-    if rcoStereo in Options then
-      dwFlags := dwFlags or PFD_STEREO;
-    iPixelType := PFD_TYPE_RGBA;
-    cColorBits := ColorBits;
-    cDepthBits := DepthBits;
-    cStencilBits := StencilBits;
-    cAccumBits := AccumBits;
-    cAlphaBits := AlphaBits;
-    cAuxBuffers := AuxBuffers;
-    iLayerType := PFD_MAIN_PLANE;
-  end;
-  pixelFormat := 0;
+   // Prepare PFD
+   FillChar(pfDescriptor, SizeOf(pfDescriptor), 0);
+   with PFDescriptor do begin
+      nSize:=SizeOf(PFDescriptor);
+      nVersion:=1;
+      dwFlags:=PFD_SUPPORT_OPENGL;
+      aType:=GetObjectType(outputDC);
+      if aType=0 then
+         RaiseLastOSError;
+      if aType in cMemoryDCs then
+         dwFlags:=dwFlags or PFD_DRAW_TO_BITMAP
+      else dwFlags:=dwFlags or PFD_DRAW_TO_WINDOW;
+      if rcoDoubleBuffered in Options then
+         dwFlags:=dwFlags or PFD_DOUBLEBUFFER;
+      if rcoStereo in Options then
+         dwFlags:=dwFlags or PFD_STEREO;
+      iPixelType:=PFD_TYPE_RGBA;
+      cColorBits:=ColorBits;
+      cDepthBits:=DepthBits;
+      cStencilBits:=StencilBits;
+      cAccumBits:=AccumBits;
+      cAlphaBits:=AlphaBits;
+      cAuxBuffers:=AuxBuffers;
+      iLayerType:=PFD_MAIN_PLANE;
+   end;
+   pixelFormat:=0;
 
-  // WGL_ARB_pixel_format is used if available
-  //
-  if not (IsMesaGL or FLegacyContextsOnly or (aType in cMemoryDCs)) then
-  begin
-    // the WGL mechanism is a little awkward: we first create a dummy context
-    // on the TOP-level DC (ie. screen), to retrieve our pixelformat, create
-    // our stuff, etc.
-    tempWnd := CreateTempWnd;
-    tempDC := GetDC(tempWnd);
-    localDC := 0;
-    localRC := 0;
-    try
-      SpawnLegacyContext(tempDC);
+   // WGL_ARB_pixel_format is used if available
+   //
+   if not (IsMesaGL or FLegacyContextsOnly or (aType in cMemoryDCs)) then begin
+      // the WGL mechanism is a little awkward: we first create a dummy context
+      // on the TOP-level DC (ie. screen), to retrieve our pixelformat, create
+      // our stuff, etc.
+      tempWnd:=CreateTempWnd;
+      tempDC:=GetDC(tempWnd);
+      localDC:=0;
+      localRC:=0;
       try
-        DoActivate;
-        try
-          ClearGLError;
-          if WGL_ARB_pixel_format then
-          begin
-            // New pixel format selection via wglChoosePixelFormatARB
-            ClearIAttribs;
-            AddIAttrib(WGL_DRAW_TO_WINDOW_ARB, GL_TRUE);
-            AddIAttrib(WGL_STEREO_ARB, cBoolToInt[rcoStereo in Options]);
-            AddIAttrib(WGL_DOUBLE_BUFFER_ARB, cBoolToInt[rcoDoubleBuffered in
-              Options]);
-            ChooseWGLFormat(outputDC, 32, @iFormats, nbFormats);
-            if nbFormats > 0 then
-            begin
-              if WGL_ARB_multisample and (AntiAliasing in [aaNone, aaDefault])
-                then
-              begin
-                // Pick first non AntiAliased for aaDefault and aaNone modes
-                iAttrib := WGL_SAMPLE_BUFFERS_ARB;
-                for i := 0 to nbFormats - 1 do
-                begin
-                  pixelFormat := iFormats[i];
-                  iValue := GL_FALSE;
-                  wglGetPixelFormatAttribivARB(outputDC, pixelFormat, 0, 1,
-                    @iAttrib, @iValue);
-                  if iValue = GL_FALSE then
-                    Break;
-                end;
-              end
-              else
-                pixelFormat := iFormats[0];
-              if GetPixelFormat(outputDC) <> pixelFormat then
-              begin
-                if not SetPixelFormat(outputDC, pixelFormat, @PFDescriptor) then
-                  RaiseLastOSError;
-              end;
+         SpawnLegacyContext(tempDC);
+         try
+            DoActivate;
+            try
+               ClearGLError;
+               if WGL_ARB_pixel_format then begin
+                  // New pixel format selection via wglChoosePixelFormatARB
+                  ClearIAttribs;
+                  AddIAttrib(WGL_DRAW_TO_WINDOW_ARB, GL_TRUE);
+                  AddIAttrib(WGL_STEREO_ARB, cBoolToInt[rcoStereo in Options]);
+                  AddIAttrib(WGL_DOUBLE_BUFFER_ARB, cBoolToInt[rcoDoubleBuffered in Options]);
+                  ChooseWGLFormat(outputDC, 32, @iFormats, nbFormats);
+                  if nbFormats>0 then begin
+                     if WGL_ARB_multisample and (AntiAliasing in [aaNone, aaDefault]) then begin
+                        // Pick first non AntiAliased for aaDefault and aaNone modes
+                        iAttrib:=WGL_SAMPLE_BUFFERS_ARB;
+                        for i:=0 to nbFormats-1 do begin
+                           pixelFormat:=iFormats[i];
+                           iValue:=GL_FALSE;
+                           wglGetPixelFormatAttribivARB(outputDC, pixelFormat, 0, 1,
+                                                        @iAttrib, @iValue);
+                           if iValue=GL_FALSE then Break;
+                        end;
+                     end else pixelFormat:=iFormats[0];
+                     if GetPixelFormat(outputDC)<>pixelFormat then begin
+                        if not SetPixelFormat(outputDC, pixelFormat, @PFDescriptor) then
+                           RaiseLastOSError;
+                     end;
+                  end;
+               end;
+            finally
+               DoDeactivate;
             end;
-          end;
-        finally
-          DoDeactivate;
-        end;
+         finally
+            DoDestroyContext;
+         end;
       finally
-        DoDestroyContext;
+         ReleaseDC(0, tempDC);
+         DestroyWindow(tempWnd);
+         FDC:=localDC;
+         FRC:=localRC;
       end;
-    finally
-      ReleaseDC(0, tempDC);
-      DestroyWindow(tempWnd);
-      FDC := localDC;
-      FRC := localRC;
-    end;
-  end;
-  if pixelFormat = 0 then
-  begin
-    // Legacy pixel format selection
-    pixelFormat := ChoosePixelFormat(outputDC, @PFDescriptor);
-    if (not (aType in cMemoryDCs)) and (not
-      CurrentPixelFormatIsHardwareAccelerated) then
-    begin
-      softwarePixelFormat := pixelFormat;
-      pixelFormat := 0;
-    end
-    else
-      softwarePixelFormat := 0;
-    if pixelFormat = 0 then
-    begin
-      // Failed on default params, try with 16 bits depth buffer
-      PFDescriptor.cDepthBits := 16;
-      pixelFormat := ChoosePixelFormat(outputDC, @PFDescriptor);
-      if not CurrentPixelFormatIsHardwareAccelerated then
-        pixelFormat := 0;
-      if pixelFormat = 0 then
-      begin
-        // Failed, try with 16 bits color buffer
-        PFDescriptor.cColorBits := 16;
-        pixelFormat := ChoosePixelFormat(outputDC, @PFDescriptor);
+   end;
+   if pixelFormat=0 then begin
+      // Legacy pixel format selection
+      pixelFormat:=ChoosePixelFormat(outputDC, @PFDescriptor);
+      if (not (aType in cMemoryDCs)) and (not CurrentPixelFormatIsHardwareAccelerated) then begin
+         softwarePixelFormat:=pixelFormat;
+         pixelFormat:=0;
+      end else softwarePixelFormat:=0;
+      if pixelFormat=0 then begin
+         // Failed on default params, try with 16 bits depth buffer
+         PFDescriptor.cDepthBits:=16;
+         pixelFormat:=ChoosePixelFormat(outputDC, @PFDescriptor);
+         if not CurrentPixelFormatIsHardwareAccelerated then
+            pixelFormat:=0;
+         if pixelFormat=0 then begin
+            // Failed, try with 16 bits color buffer
+            PFDescriptor.cColorBits:=16;
+            pixelFormat:=ChoosePixelFormat(outputDC, @PFDescriptor);
+         end;
+         if not CurrentPixelFormatIsHardwareAccelerated then begin
+            // Fallback to original, should be supported by software
+            pixelFormat:=softwarePixelFormat;
+         end;
+         if pixelFormat=0 then RaiseLastOSError;
       end;
-      if not CurrentPixelFormatIsHardwareAccelerated then
-      begin
-        // Fallback to original, should be supported by software
-        pixelFormat := softwarePixelFormat;
-      end;
-      if pixelFormat = 0 then
-        RaiseLastOSError;
-    end;
-    ClearGLError;
-  end;
+      ClearGLError;
+   end;
 
-  if GetPixelFormat(outputDC) <> pixelFormat then
-  begin
-    if not SetPixelFormat(outputDC, pixelFormat, @PFDescriptor) then
-      RaiseLastOSError;
-  end;
+   if GetPixelFormat(outputDC)<>pixelFormat then begin
+      if not SetPixelFormat(outputDC, pixelFormat, @PFDescriptor) then
+         RaiseLastOSError;
+   end;
 
-  // Check the properties we just set.
-  DescribePixelFormat(outputDC, pixelFormat, SizeOf(PFDescriptor),
-    PFDescriptor);
-  with pfDescriptor do
-    if (dwFlags and PFD_NEED_PALETTE) <> 0 then
-      SetupPalette(outputDC, PFDescriptor);
+   // Check the properties we just set.
+   DescribePixelFormat(outputDC, pixelFormat, SizeOf(PFDescriptor), PFDescriptor);
+   with pfDescriptor do
+      if (dwFlags and PFD_NEED_PALETTE) <> 0 then
+         SetupPalette(outputDC, PFDescriptor);
 
-  if (pfDescriptor.dwFlags and PFD_GENERIC_FORMAT) > 0 then
-    FAcceleration := chaSoftware
-  else
-    FAcceleration := chaHardware;
+   if (pfDescriptor.dwFlags and PFD_GENERIC_FORMAT)>0 then
+      FAcceleration:=chaSoftware
+   else FAcceleration:=chaHardware;
 
-  FRC := wglCreateContext(outputDC);
-  if FRC = 0 then
-    RaiseLastOSError
-  else
-    vLastPixelFormat := 0;
-  FDC := outputDC;
+   FRC:=wglCreateContext(outputDC);
+   if FRC=0 then
+      RaiseLastOSError
+   else vLastPixelFormat:=0;
+   FDC:=outputDC;
 end;
 
 // SpawnLegacyContext
 //
-
-procedure TGLWin32Context.SpawnLegacyContext(aDC: HDC);
+procedure TGLWin32Context.SpawnLegacyContext(aDC : HDC);
 begin
-  try
-    FLegacyContextsOnly := True;
-    try
-      DoCreateContext(aDC);
-    finally
-      FLegacyContextsOnly := False;
-    end;
-  except
-    on E: Exception do
-    begin
-      raise Exception.Create(cUnableToCreateLegacyContext + #13#10
-        + E.ClassName + ': ' + E.Message);
-    end;
-  end;
+   try
+      FLegacyContextsOnly:=True;
+      try
+         DoCreateContext(aDC);
+      finally
+         FLegacyContextsOnly:=False;
+      end;
+   except
+      on E: Exception do begin
+         raise Exception.Create(cUnableToCreateLegacyContext+#13#10
+                                +E.ClassName+': '+E.Message);
+      end;
+   end;
 end;
 
 // DoCreateMemoryContext
 //
-
-procedure TGLWin32Context.DoCreateMemoryContext(outputDevice: HDC; width,
-  height: Integer; BufferCount: integer);
+procedure TGLWin32Context.DoCreateMemoryContext(outputDevice: HDC; width, height : Integer; BufferCount : integer);
 var
-  nbFormats: Integer;
-  iFormats: array[0..31] of Integer;
-  iPBufferAttribs: array[0..0] of Integer;
-  localHPBuffer: Integer;
-  localRC: HGLRC;
-  localDC, tempDC: HDC;
-  tempWnd: HWND;
+   nbFormats : Integer;
+   iFormats : array [0..31] of Integer;
+   iPBufferAttribs : array [0..0] of Integer;
+   localHPBuffer : Integer;
+   localDC, localRC, tempDC : Cardinal;
+   tempWnd : HWND;
 begin
-  localHPBuffer := 0;
-  localDC := 0;
-  localRC := 0;
-  // the WGL mechanism is a little awkward: we first create a dummy context
-  // on the TOP-level DC (ie. screen), to retrieve our pixelformat, create
-  // our stuff, etc.
-  tempWnd := CreateTempWnd;
-  tempDC := GetDC(tempWnd);
-  try
-    SpawnLegacyContext(tempDC);
-    try
-      DoActivate;
+   localHPBuffer:=0;
+   localDC:=0;
+   localRC:=0;
+   // the WGL mechanism is a little awkward: we first create a dummy context
+   // on the TOP-level DC (ie. screen), to retrieve our pixelformat, create
+   // our stuff, etc.
+   tempWnd:=CreateTempWnd;
+   tempDC:=GetDC(tempWnd);
+   try
+      SpawnLegacyContext(tempDC);
       try
-        ClearGLError;
-        if WGL_ARB_pixel_format and WGL_ARB_pbuffer then
-        begin
-          ClearIAttribs;
-          AddIAttrib(WGL_DRAW_TO_PBUFFER_ARB, 1);
-          ChooseWGLFormat(tempDC, 32, @iFormats, nbFormats, BufferCount);
-          if nbFormats = 0 then
-            raise
-              Exception.Create('Format not supported for pbuffer operation.');
-          iPBufferAttribs[0] := 0;
+         DoActivate;
+         try
+            ClearGLError;
+            if WGL_ARB_pixel_format and WGL_ARB_pbuffer then begin
+               ClearIAttribs;
+               AddIAttrib(WGL_DRAW_TO_PBUFFER_ARB, 1);
+               ChooseWGLFormat(Cardinal(tempDC), 32, @iFormats, nbFormats, BufferCount);
+               if nbFormats=0 then
+                  raise Exception.Create('Format not supported for pbuffer operation.');
+               iPBufferAttribs[0]:=0;
 
-          localHPBuffer := wglCreatePbufferARB(tempDC, iFormats[0], width,
-            height,
-            @iPBufferAttribs[0]);
-          if localHPBuffer = 0 then
-            raise Exception.Create('Unabled to create pbuffer.');
-          try
-            localDC := wglGetPbufferDCARB(localHPBuffer);
-            if localDC = 0 then
-              raise Exception.Create('Unabled to create pbuffer''s DC.');
-            try
-              localRC := wglCreateContext(localDC);
-              if localRC = 0 then
-                raise Exception.Create('Unabled to create pbuffer''s RC.');
-            except
-              wglReleasePBufferDCARB(localHPBuffer, localDC);
-              raise;
-            end;
-          except
-            wglDestroyPBufferARB(localHPBuffer);
-            raise;
-          end;
-        end
-        else
-          raise Exception.Create('WGL_ARB_pbuffer support required.');
-        CheckOpenGLError;
+               localHPBuffer:=wglCreatePbufferARB(tempDC, iFormats[0], width, height,
+                                                  @iPBufferAttribs[0]);
+               if localHPBuffer=0 then
+                  raise Exception.Create('Unabled to create pbuffer.');
+               try
+                  localDC:=wglGetPbufferDCARB(localHPBuffer);
+                  if localDC=0 then
+                     raise Exception.Create('Unabled to create pbuffer''s DC.');
+                  try
+                     localRC:=wglCreateContext(localDC);
+                     if localRC=0 then
+                        raise Exception.Create('Unabled to create pbuffer''s RC.');
+                  except
+                     wglReleasePBufferDCARB(localHPBuffer, localDC);
+                     raise;
+                  end;
+               except
+                  wglDestroyPBufferARB(localHPBuffer);
+                  raise;
+               end;
+            end else raise Exception.Create('WGL_ARB_pbuffer support required.');
+            CheckOpenGLError;
+         finally
+            DoDeactivate;
+         end;
       finally
-        DoDeactivate;
+         DoDestroyContext;
       end;
-    finally
-      DoDestroyContext;
-    end;
-  finally
-    ReleaseDC(0, tempDC);
-    DestroyWindow(tempWnd);
-    FHPBUFFER := localHPBuffer;
-    FDC := localDC;
-    FRC := localRC;
-  end;
-  FAcceleration := chaHardware;
+   finally
+      ReleaseDC(0, tempDC);
+      DestroyWindow(tempWnd);
+      FHPBUFFER:=localHPBuffer;
+      FDC:=localDC;
+      FRC:=localRC;
+   end;
+   FAcceleration:=chaHardware;
 
-  // Specific which color buffers are to be drawn into
-  DoActivate;
-  if BufferCount > 1 then
-    //     if GL_ATI_draw_buffers then
-    glDrawBuffersATI(BufferCount, @MRT_BUFFERS);
-  DoDeactivate;
+   // Specific which color buffers are to be drawn into
+   DoActivate;
+   if BufferCount > 1 then
+//     if GL_ATI_draw_buffers then
+       glDrawBuffersATI(BufferCount, @MRT_BUFFERS);
+   DoDeactivate;
 end;
 
 // DoShareLists
 //
-
-procedure TGLWin32Context.DoShareLists(aContext: TGLContext);
+procedure TGLWin32Context.DoShareLists(aContext : TGLContext);
 var
-  otherRC: HGLRC;
+   otherRC : Cardinal;
 begin
-  if aContext is TGLWin32Context then
-  begin
-    otherRC := TGLWin32Context(aContext).FRC;
-    // some drivers fail (access violation) when requesting to share
-    // a context with itself
-    if FRC <> otherRC then
-      wglShareLists(FRC, otherRC);
-  end
-  else
-    raise Exception.Create(cIncompatibleContexts);
+   if aContext is TGLWin32Context then begin
+      otherRC:=TGLWin32Context(aContext).FRC;
+      // some drivers fail (access violation) when requesting to share
+      // a context with itself
+      if FRC<>otherRC then
+         wglShareLists(FRC, otherRC);
+   end else raise Exception.Create(cIncompatibleContexts);
 end;
 
 // DoDestroyContext
 //
-
 procedure TGLWin32Context.DoDestroyContext;
 begin
-  if vUseWindowTrackingHook then
-    UnTrackWindow(WindowFromDC(FDC));
+   if vUseWindowTrackingHook then
+      UnTrackWindow(WindowFromDC(FDC));
 
-  if FRC <> 0 then
-    if not wglDeleteContext(FRC) then
-      raise EGLContext.Create(cDeleteContextFailed);
-  if FHPBUFFER <> 0 then
-  begin
-    wglReleasePbufferDCARB(FHPBuffer, FDC);
-    wglDestroyPbufferARB(FHPBUFFER);
-    FHPBUFFER := 0;
-  end;
-  FRC := 0;
-  FDC := 0;
+   if FRC<>0 then
+      if not wglDeleteContext(FRC) then
+         raise EGLContext.Create(cDeleteContextFailed);
+   if FHPBUFFER<>0 then begin
+      wglReleasePbufferDCARB(FHPBuffer, FDC);
+      wglDestroyPbufferARB(FHPBUFFER);
+      FHPBUFFER:=0;
+   end;
+   FRC:=0;
+   FDC:=0;
 end;
 
 // DoActivate
 //
-
 procedure TGLWin32Context.DoActivate;
 var
-  pixelFormat: Integer;
-  FFRC: HGLRC;
+   pixelFormat : Integer;
 begin
-  if not wglMakeCurrent(FDC, FRC) then
-    raise EGLContext.Create(Format(cContextActivationFailed,
-      [GetLastError, SysErrorMessage(GetLastError)]));
+   if not wglMakeCurrent(Cardinal(FDC), Cardinal(FRC)) then
+     if not GLContext.vIgnoreContextActivationFailures then
+      raise EGLContext.Create(Format(cContextActivationFailed,
+                                     [GetLastError, SysErrorMessage(GetLastError)]));
 
-  // The extension function addresses are unique for each pixel format. All rendering
-  // contexts of a given pixel format share the same extension function addresses.
-  pixelFormat := GetPixelFormat(FDC);
-  if PixelFormat <> vLastPixelFormat then
-  begin
-    if glGetString(GL_VENDOR) <> vLastVendor then
-    begin
-      ReadExtensions;
-      ReadImplementationProperties;
-      vLastVendor := glGetString(GL_VENDOR);
-    end
-    else
-    begin
-      ReadWGLExtensions;
-      ReadWGLImplementationProperties;
-    end;
-    vLastPixelFormat := pixelFormat;
-    // Initialize forward context
-    if GLStates.ForwardContext then
-    begin
-      if @wglCreateContextAttribsARB = nil then
-        raise EGLContext.Create(cForwardContextFailsed);
-      if GL_VERSION_3_2 then
-        ForwardContextAttribList[3] := 2
-      else if GL_VERSION_3_1 then
-        ForwardContextAttribList[3] := 1;
-      FFRC := wglCreateContextAttribsARB(FDC, 0, @ForwardContextAttribList);
-      if FFRC = 0 then
-        raise EGLContext.Create(cForwardContextFailsed);
-      wglDeleteContext(FRC);
-      FRC := FFRC;
-      if not wglMakeCurrent(FDC, FRC) then
-        raise EGLContext.Create(Format(cContextActivationFailed,
-          [GetLastError, SysErrorMessage(GetLastError)]));
-      ReadWGLExtensions;
-      ReadWGLImplementationProperties;
-    end;
-  end;
+   // The extension function addresses are unique for each pixel format. All rendering
+   // contexts of a given pixel format share the same extension function addresses.
+   pixelFormat:=GetPixelFormat(Cardinal(FDC));
+   if PixelFormat<>vLastPixelFormat then begin
+      if glGetString(GL_VENDOR)<>vLastVendor then begin
+         ReadExtensions;
+         ReadImplementationProperties;
+         vLastVendor:=glGetString(GL_VENDOR);
+      end else begin
+         ReadWGLExtensions;
+         ReadWGLImplementationProperties;
+      end;
+      vLastPixelFormat:=pixelFormat;
+   end;
 
-  // If we are using AntiAliasing, adjust filtering hints
-  if (AntiAliasing in [aa2xHQ, aa4xHQ]) and GL_ARB_multisample then
-  begin
-    // Hint for nVidia HQ modes (Quincunx etc.)
-    if GL_NV_multisample_filter_hint then
-      glHint(GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST);
-  end;
+   // If we are using AntiAliasing, adjust filtering hints
+   if (AntiAliasing in [aa2xHQ, aa4xHQ]) and GL_ARB_multisample then begin
+      // Hint for nVidia HQ modes (Quincunx etc.)
+      if GL_NV_multisample_filter_hint then
+         glHint(GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST);
+   end;
 end;
 
 // Deactivate
 //
-
 procedure TGLWin32Context.DoDeactivate;
 begin
-  if not wglMakeCurrent(0, 0) then
-    raise Exception.Create(cContextDeactivationFailed);
+   if not wglMakeCurrent(0, 0) then
+      raise Exception.Create(cContextDeactivationFailed);
 end;
 
 // IsValid
 //
-
-function TGLWin32Context.IsValid: Boolean;
+function TGLWin32Context.IsValid : Boolean;
 begin
-  Result := (FRC <> 0);
+   Result:=(FRC<>0);
 end;
 
 // SwapBuffers
 //
-
 procedure TGLWin32Context.SwapBuffers;
 begin
-  if (FDC <> 0) and (rcoDoubleBuffered in Options) then
-    Windows.SwapBuffers(FDC);
+   if (FHPBUFFER=0) and (FDC<>0) and (rcoDoubleBuffered in Options) then
+      Windows.SwapBuffers(Cardinal(FDC));
 end;
 
 // RenderOutputDevice
 //
-
-function TGLWin32Context.RenderOutputDevice: Integer;
+function TGLWin32Context.RenderOutputDevice : Integer;
 begin
-  Result := FDC;
+   Result:=FDC;
 end;
 
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 initialization
-  // ------------------------------------------------------------------
-  // ------------------------------------------------------------------
-  // ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
 
-  RegisterGLContextClass(TGLWin32Context);
-
+   RegisterGLContextClass(TGLWin32Context);
+   
 end.
-

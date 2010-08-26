@@ -6,7 +6,6 @@
 	A polymorphism-enabled TCollection-like set of classes<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>07/11/09 - DaStr - merged DEBUG_XCOLLECTION option from gls4laz
       <li>10/04/08 - DaStr - TXCollectionItem now descends from
                               TGLInterfacedPersistent (BugTracker ID = 1938988)
       <li>08/12/04 - SG - Added TXCollectionItem.CanAddTo class function
@@ -27,7 +26,7 @@ unit XCollection;
 
 interface
 
-uses Classes, SysUtils, PersistentClasses{$IFDEF DEBUG_XCOLLECTION}, typinfo {$ENDIF};
+uses Classes, SysUtils, PersistentClasses {$IFDEF DEBUG_XCOLLECTION}, typinfo {$ENDIF};
 
 {$i GLScene.inc}
 
@@ -557,7 +556,7 @@ begin
           assert(NextValue in [vaInt8,vaInt16,vaInt32],'Non-Integer ValueType: '+ GetEnumName(TypeInfo(TValueType),ord(NextValue)));
           {$ENDIF}
           lcnum:=ReadInteger;
-          Assert((lcnum >= 0) and (lcnum < classlist.Count), 'Inavlid classlistIndex: ' + IntToStr(lcnum));
+          Assert((lcnum>=0) and (lcnum<classlist.Count),'Inavlid classlistIndex: '+inttostr(lcnum));
           XCollectionItemClass:=TXCollectionItemClass(classList[lcnum]);
           {$IFDEF DEBUG_XCOLLECTION}
           writeln('TXCollection.ReadFromFiler create by number: ',lcnum,' -> ',XCollectionItemClass.ClassName);

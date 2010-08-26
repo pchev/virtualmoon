@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics, GLContext, GLColor,
-  GLObjects, GLMaterial, GLTextureFormat, ExtCtrls, GLTexture, GLCadencer, Info, GLViewer,
+  GLObjects, GLMisc, ExtCtrls, GLTexture, GLCadencer, Info, GLViewer,
   GLCrossPlatform, LResources, GLScene, GLMultiMaterialShader,
   GLBumpShader, GLHUDObjects, GLWindowsFont, GLGeomObjects, GLMirror, GLMesh,
   GLVectorFileObjects, FPImage, LCLType, IntfGraphics, SysUtils,
@@ -340,7 +340,7 @@ var
   f_moon: Tf_moon;
 
 const
-  ZoomByZone: array[1..6] of integer=(3,8,16,35,65,90);
+  ZoomByZone: array[1..4] of integer=(3,8,16,25);
 
 implementation
 
@@ -664,30 +664,6 @@ case level of
      maxrow:=20;
      LoadSlice2;
      end; // 4
- 5 : begin
-     { level 5 :
-     80000x40000 full picture.
-     3200 slices 1024x1024 with 1000x1000 active and 12px white border.
-     Slices start on the middle of far side, longitude -180° ,
-     40 rows of 80 slices from North to South.
-     + 1 x 3 polars cap
-     }
-     maxcol:=80;
-     maxrow:=40;
-     LoadSlice2;
-     end; // 5
- 6 : begin
-     { level 6 :
-     160000x80000 full picture.
-     12800 slices 1024x1024 with 1000x1000 active and 12px white border.
-     Slices start on the middle of far side, longitude -180° ,
-     80 rows of 160 slices from North to South.
-     + 1 x 3 polars cap
-     }
-     maxcol:=160;
-     maxrow:=80;
-     LoadSlice2;
-     end; // 6
 end; //case level
 finally
 jp.Free;
@@ -1084,12 +1060,6 @@ try
        if maxzone>=3 then newzone:=3;
        if (zoom*satzone)>ZoomByZone[3] then begin
          if maxzone>=4 then newzone:=4;
-         if (zoom*satzone)>ZoomByZone[4] then begin
-           if maxzone>=5 then newzone:=5;
-           if (zoom*satzone)>ZoomByZone[5] then begin
-             if maxzone>=6 then newzone:=6;
-           end;
-         end;
        end;
      end;
   end;
@@ -1122,12 +1092,6 @@ begin
        maxzone:=3;
        if DirectoryExists(slash(FTexturePath)+slash(Ftexture[3])+'L4') then begin
           maxzone:=4;
-           if DirectoryExists(slash(FTexturePath)+slash(Ftexture[4])+'L5') then begin
-             maxzone:=5;
-             if DirectoryExists(slash(FTexturePath)+slash(Ftexture[5])+'L6') then begin
-                maxzone:=6;
-             end;
-           end;
        end;
     end;
  end;
@@ -1218,7 +1182,6 @@ end;
  debugln('Check texture size');
 {$endif}
 try
-  GLSceneViewer1.Buffer.RenderingContext.Activate;
   MaxTextureSize:=Glsceneviewer1.Buffer.LimitOf[limTextureSize];
   {$ifdef trace_debug}
    debugln('Texture max: '+inttostr(MaxTextureSize));
@@ -1230,7 +1193,6 @@ except
    debugln('Using default value: '+inttostr(MaxTextureSize));
   {$endif}
 end;
-if MaxTextureSize=0 then MaxTextureSize:=1024;
 if MaxTextureSize<1024 then begin
    raise exception.Create('Graphic card not supported! Texture max size:'+inttostr(MaxTextureSize)+'. Must be at least 1024.');
    halt;
@@ -1571,7 +1533,6 @@ begin
     // Popup
     if (ssRight in DownShift)
      then begin
-        if Assigned(onMoonClick) then onMoonClick(Self,Button,DownShift,X,Y,OnMoon,lon,lat);
         GLSceneViewer1.PopupMenu.parent:=self;
         Pt:=GLSceneViewer1.ClientToScreen(point(x,y));
         GLSceneViewer1.PopupMenu.PopUp(Pt.X+1,Pt.Y+1);
@@ -1920,7 +1881,7 @@ begin
     newSprite      := TGLHUDSprite(GLDummyCubeMarks.AddNewChild(TGLHUDSprite));
     newSprite.Name := 'MoonSprite' + IntToStr(maxsprite + i);
     newSprite.Visible := False;
-    newSprite.Material.FrontProperties.Emission.AsWinColor := SpriteColor;
+    newSprite.Material.FrontProperties.Emission.AsWinColor := MarkColor;
     newSprite.Material.FrontProperties.Ambient.Color := clrBlack;
     newSprite.Material.FrontProperties.Diffuse.Color := clrBlack;
     newSprite.Material.FrontProperties.Specular.Color := clrBlack;

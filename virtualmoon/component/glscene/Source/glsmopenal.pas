@@ -16,8 +16,6 @@
    </ul><p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>11/11/09 - DaStr - Added $I GLScene.inc
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>25/03/08 - DanB - Added design-time support, linked to new OpenAL headers
                             (see OpenAL.pas).
       <li>??/??/03 - Mrqzz - Creation
@@ -26,8 +24,6 @@
 unit GLSMOpenAL;
 
 interface
-
-{$I GLScene.inc}
 
 uses
    Classes, GLSound, GLScene, SysUtils, GLSoundFileObjects;
@@ -269,7 +265,7 @@ begin
 
           // If the sample doesn't have a reference to an OpenAL buffer
           // we need to create a buffer, and load the sample data into it
-          if (aSource.Sample.ManagerTag = 0)and Assigned(aSource.Sample.Data) then begin
+          if aSource.Sample.ManagerTag = 0 then begin
                alGenBuffers(1, PALuint(@aSource.sample.ManagerTag));
                CheckOpenALError;
                // fill buffer (once buffer filled, can't fill buffer again, unless no other sources playing)
@@ -364,7 +360,7 @@ end;
 //
 function TGLSMOpenAL.EAXSupported : Boolean;
 begin
-     result:= alIsExtensionPresent(PAnsiChar('EAX2.0'));
+     result:= alIsExtensionPresent(PChar('EAX2.0'));
 end;
 
 // GetDefaultFrequency

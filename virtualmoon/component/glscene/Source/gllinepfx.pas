@@ -6,8 +6,6 @@
    A PFX whose particles are lines
 
    <b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
-      <li>12/10/08 - DanB - updated to use RCI
       <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>20/02/05 - EG - Creation
@@ -20,7 +18,7 @@ interface
 {$I GLScene.inc}
 
 uses Classes, PersistentClasses, VectorGeometry, GLParticleFX, GLTexture,
-     GLColor, GLRenderContextInfo;
+     GLColor;
 
 type
 
@@ -66,11 +64,11 @@ type
          function StoreDefaultLength : Boolean;
 
          function TexturingMode : Cardinal; override;
-         procedure InitializeRendering(var rci: TRenderContextInfo); override;
-         procedure BeginParticles(var rci: TRenderContextInfo); override;
-         procedure RenderParticle(var rci: TRenderContextInfo; aParticle : TGLParticle); override;
-         procedure EndParticles(var rci: TRenderContextInfo); override;
-         procedure FinalizeRendering(var rci: TRenderContextInfo); override;
+         procedure InitializeRendering; override;
+         procedure BeginParticles; override;
+         procedure RenderParticle(aParticle : TGLParticle); override;
+         procedure EndParticles; override;
+         procedure FinalizeRendering; override;
 
       public
          { Public Declarations }
@@ -143,7 +141,7 @@ end;
 
 // InitializeRendering
 //
-procedure TGLLinePFXManager.InitializeRendering(var rci: TRenderContextInfo);
+procedure TGLLinePFXManager.InitializeRendering;
 var
    i : Integer;
    matrix : TMatrix;
@@ -160,14 +158,14 @@ end;
 
 // BeginParticles
 //
-procedure TGLLinePFXManager.BeginParticles(var rci: TRenderContextInfo);
+procedure TGLLinePFXManager.BeginParticles;
 begin
-   ApplyBlendingMode(rci);
+   ApplyBlendingMode;
 end;
 
 // RenderParticle
 //
-procedure TGLLinePFXManager.RenderParticle(var rci: TRenderContextInfo; aParticle : TGLParticle);
+procedure TGLLinePFXManager.RenderParticle(aParticle : TGLParticle);
 var
    lifeTime, sizeScale, fx, fy, f : Single;
    inner, outer : TColorVector;
@@ -210,14 +208,14 @@ end;
 
 // EndParticles
 //
-procedure TGLLinePFXManager.EndParticles(var rci: TRenderContextInfo);
+procedure TGLLinePFXManager.EndParticles;
 begin
-   UnapplyBlendingMode(rci);
+   UnapplyBlendingMode;
 end;
 
 // FinalizeRendering
 //
-procedure TGLLinePFXManager.FinalizeRendering(var rci: TRenderContextInfo);
+procedure TGLLinePFXManager.FinalizeRendering;
 begin
    inherited;
 end;

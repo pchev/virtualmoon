@@ -17,7 +17,7 @@ interface
 {$I GLScene.inc}
 
 uses
-   SysUtils, OpenGL1x;
+   SysUtils, OpenGL1x, GLContext;
 
 procedure LoadARBProgram(target : GLenum; programText : String; var handle : cardinal);
 
@@ -35,10 +35,10 @@ begin
    glGenProgramsARB(1, @handle);
    glBindProgramARB(target, handle);
    glProgramStringARB(target, GL_PROGRAM_FORMAT_ASCII_ARB,
-      Length(programText), PGLChar(TGLString(programText)));
+      Length(programText), PChar(programText));
    glGetIntegerv(GL_PROGRAM_ERROR_POSITION_ARB, @errPos);
    if errPos>-1 then begin
-      errString:=String(glGetString(GL_PROGRAM_ERROR_STRING_ARB));
+      errString:=glGetString(GL_PROGRAM_ERROR_STRING_ARB);
       raise Exception.CreateFmt('ARB Program Error - [Handle: %d][Pos: %d][Error %s]', [handle, errPos, errString]);
    end;
    CheckOpenGLError;

@@ -9,7 +9,6 @@
   JAJ: Credits to the UniCode Version of SynEdit! I located the needed API calls from them. GPL/MPL as GLScene
 
 	<b>History : </b><font size=-1><ul>
-      <li>13/07/09 - DanB - fix for FPC
       <li>24/03/07 - DaStr - Got rid of Types dependancy
                              Removed unused variables
       <li>17/03/07 - DaStr - Dropped Kylix support in favor of FPC (BugTrackerID=1681585)
@@ -26,8 +25,12 @@ uses
   GLBitmapFont, Classes, GLScene, GLTexture, GLCrossPlatform, VectorGeometry,
   {$IFDEF MSWINDOWS}
   Windows,
+  Graphics
   {$ENDIF}
-  Graphics;
+  {$IFDEF UNIX}
+  QGraphics
+  {$ENDIF}
+  ;
 
 type
 
@@ -206,7 +209,7 @@ var
   // credits to the Unicode version of SynEdit for this function. GPL/MPL as GLScene
   function GetTextSize(DC: HDC; Str: PWideChar; Count: Integer): TSize;
   var
-    tm: {$IFDEF FPC}LPTextMetric{$ELSE}TTextMetricA{$ENDIF};
+    tm: TTextMetricA;
   begin
     Result.cx := 0;
     Result.cy := 0;
@@ -237,7 +240,7 @@ begin
       Font:=Self.Font;
       Font.Color:=clWhite;
       // get characters dimensions for the font
-      CharWidth:=Round(2+MaxInteger(TextWidth('M'), TextWidth('W'), TextWidth('_')));
+      CharWidth:=Round(2+MaxFloat(TextWidth('M'), TextWidth('W'), TextWidth('_')));
       CharHeight:=2+TextHeight('"_pI|,');
       if fsItalic in Font.Style then begin
          // italics aren't properly acknowledged in font width
@@ -296,7 +299,7 @@ begin
    begin
       Brush.Style:=bsSolid;
       Brush.Color:=clBlack;
-      FillRect(Classes.Rect(0, 0, textureWidth, textureHeight));
+      FillRect(Rect(0, 0, textureWidth, textureHeight));
    end;
 
    ComputeCharRects(textureWidth, textureHeight, bitmap.Canvas);

@@ -41,10 +41,6 @@ msgstr "Clementine fotografická"
 msgid "Country"
 msgstr "Krajina"
 
-#: u_translation.rsdecreasefont
-msgid "Decrease font size"
-msgstr ""
-
 #: u_translation.rsdefault
 msgid "Default"
 msgstr "Predvolený"
@@ -88,10 +84,6 @@ msgstr "Sieť"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "UK"
-
-#: u_translation.rsincreasefont
-msgid "Increase font size"
-msgstr ""
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
@@ -480,10 +472,6 @@ msgstr "Ukázať menovky"
 #: u_translation.rsshowscale
 msgid "Show scale"
 msgstr "Ukázať mierku"
-
-#: u_translation.rsside
-msgid "Side:"
-msgstr ""
 
 #: u_translation.rssimple
 msgid "Simple"

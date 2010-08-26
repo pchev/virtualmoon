@@ -4,7 +4,6 @@
 {: GLThorFX<p>
 
   <b>History : </b><font size=-1><ul>
-    <li>05/03/10 - DanB - More state added to TGLStateCache
     <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
     <li>30/03/07 - DaStr - Added $I GLScene.inc
     <li>16/03/07 - DaStr - Added explicit pointer dereferencing
@@ -16,7 +15,7 @@
                    Thanks to Martin Kirsch for this solution
     <li>12/08/01 - EG - Dropped unused Handle allocation (leftover from FirexFX)
                         Fixed leaks (colors)
-    <li>09/03/01 - Renï¿½ Lindsay - unit created
+    <li>09/03/01 - René Lindsay - unit created
   </ul></font>
 }
 unit GLThorFX;
@@ -25,9 +24,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLScene, XCollection, VectorGeometry,
-    GLCadencer, GLColor, BaseClasses, GLCoordinates, GLRenderContextInfo,
-    GLManager, GLState;
+uses Classes, GLScene, GLMisc, XCollection, VectorGeometry, GLTexture,
+    GLCadencer, GLColor;
 
 type
   PThorpoint = ^TThorpoint;
@@ -123,7 +121,7 @@ type
     procedure Assign(Source: TPersistent); override;
     class function FriendlyName : String; override;
 		class function FriendlyDescription : String; override;
-    procedure Render(var rci : TRenderContextInfo); override;
+    procedure Render(sceneBuffer : TGLSceneBuffer; var rci : TRenderContextInfo); override;
   published
 	{ Published Declarations }
     {: Refers the collision manager. }
@@ -498,7 +496,8 @@ end;
 
 // Render
 //
-procedure TGLBThorFX.Render(var rci : TRenderContextInfo);
+procedure TGLBThorFX.Render(sceneBuffer : TGLSceneBuffer;
+                            var rci : TRenderContextInfo);
 var
    N: Integer;
    I: Integer;
@@ -517,18 +516,18 @@ var
 begin
    if Manager=nil then Exit;
 
-   rci.GLStates.PushAttrib(cAllAttribBits);
+   glPushAttrib(GL_ALL_ATTRIB_BITS);
    glPushMatrix;
    // we get the object position and apply translation...
    //absPos:=OwnerBaseSceneObject.AbsolutePosition;
    // ...should be removed when absolute coords will be handled directly
    // in the point system (and will also make a better flame effect)
 
-   rci.GLStates.Disable(stCullFace);
+   glDisable(GL_CULL_FACE);
    glDisable(GL_TEXTURE_2D);
-   rci.GLStates.Disable(stLighting);
-   rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
-   rci.GLStates.Enable(stBlend);
+   glDisable(GL_LIGHTING);
+   glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+   glEnable(GL_BLEND);
 
    n := Manager.NP;
 
@@ -553,22 +552,20 @@ begin
       SetVector(innerColor, Manager.FInnerColor.Color);
 
       //---------------
-      rci.GLStates.PushAttrib([sttEnable, sttCurrent, sttLighting, sttLine,
-                               sttColorBuffer]);
-      rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
-      rci.GLStates.Enable(stBlend);
-      rci.GLStates.Enable(stLineSmooth);
-      rci.GLStates.Disable(stLighting);
-      //Stops particles at same distanceform overwriting each-other
-      rci.GLStates.DepthFunc := cfLEqual;
-      rci.GLStates.LineWidth := 3;
+      glPushAttrib(GL_ENABLE_BIT or GL_CURRENT_BIT or GL_LIGHTING_BIT or GL_LINE_BIT or GL_COLOR_BUFFER_BIT);
+      glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+      glEnable(GL_BLEND);
+      glEnable(GL_LINE_SMOOTH);
+      glDisable(GL_LIGHTING);
+      glDepthFunc(GL_LEQUAL);        //Stops particles at same distanceform overwriting each-other
+      glLineWidth(3);
       Icol:=Manager.FInnerColor.Color;
       Ocol:=Manager.FOuterColor.color;
       Ccol:=Manager.FCoreColor.color;
 
       //---Core Line---
       if Manager.FCore then begin
-      rci.GLStates.Disable(stBlend);
+      glDisable(GL_BLEND);
       glColor4fv(@Ccol);
       glBegin(GL_LINE_STRIP);
       for i:=0 to n-1 do begin
@@ -581,7 +578,7 @@ begin
 
       //---Point Glow---
        if Manager.FGlow then begin
-       rci.GLStates.Enable(stBlend);
+       glEnable(GL_BLEND);
         for i:=n-1 downto 0 do begin
           fp:=PThorpoint(objList[i]);
           SetVector(Ppos, fp^.position);
@@ -604,15 +601,14 @@ begin
        end;//Glow
       end;
 
-      //(GL_ENABLE_BIT or GL_CURRENT_BIT or GL_LIGHTING_BIT or GL_LINE_BIT or GL_COLOR_BUFFER_BIT);
-      rci.GLStates.PopAttrib;
+      glPopAttrib;//(GL_ENABLE_BIT or GL_CURRENT_BIT or GL_LIGHTING_BIT or GL_LINE_BIT or GL_COLOR_BUFFER_BIT);
       glPopMatrix;
 
       objList.Free;
       distList.Free;
    end;
    glPopMatrix;
-   rci.GLStates.PopAttrib;
+   glPopAttrib;
 end;
 
 // GetOrCreateThorFX

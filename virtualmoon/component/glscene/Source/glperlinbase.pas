@@ -85,7 +85,7 @@ End;
 Procedure Perlin_Random1DStrip(X,Width,Step : Integer; Amp : Double; Res : T1DPerlinArray);
 Var
   Posi : PDouble;
-  XC : Integer;
+  XC, tmp : Integer;
 Begin
   Posi := @Res[0];
   For XC := 0 to Width-1 do
@@ -111,7 +111,7 @@ Var
   L2 : PDouble;
   L3 : PDouble;
 
-  XC : Integer;
+  XC, tmp : Integer;
 Begin
   Posi := @Res[0];
   T1 := @B1[0];

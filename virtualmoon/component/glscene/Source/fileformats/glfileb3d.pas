@@ -3,7 +3,6 @@
 	B3D VectorFile class<p>
 
 	<b>History :</b><font size=-1><ul>
-	   <li>22/01/10 - Yar - Added GLTextureFormat to uses
 	   <li>22/12/05 - Mathx - Added to the GLScene Project.
 	</ul></font>
 }
@@ -25,7 +24,7 @@ type
 implementation
 
 uses
-  GLTexture, GLTextureFormat, GLMaterial, VectorGeometry, VectorLists;
+  GLTexture, VectorGeometry, VectorLists;
 
 
 //------------------------------ TGLB3DVectorFile ------------------------------

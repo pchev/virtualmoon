@@ -6,10 +6,9 @@
    ZBuffer retrieval and computations.<p>
 
    See readme.txt in the Demos/SpecialsFX/Shadows directory.<br>
-   By Renï¿½ Lindsay.<p>
+   By René Lindsay.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>29/05/08 - DaStr - Removed unused variables in TGLZShadows.CalcShadowTexture()
       <li>20/01/08 - DaStr - Bugfixed TGLZShadows.HardSet(Bugtracker ID = 1875708)
                              Removed some old commented out code
@@ -73,9 +72,9 @@ interface
 
 {$i GLScene.inc}
 
-uses  Classes, SysUtils, GLScene, VectorGeometry, GLGraphics,
-      GLObjects, GLContext, GLViewer, GLColor,
-      GLRenderContextInfo, GLState;
+uses  Classes, GLMisc, OpenGL1x, GLScene, VectorGeometry, GLGraphics,
+     SysUtils, GLObjects, GLBitmapFont, XOpenGL, GLTexture,
+     GLContext, GLBehaviours, XCollection, GLState, GLViewer;
 
 type
   EZBufferException = class(Exception);
@@ -201,7 +200,7 @@ type
          procedure SetYRes(const val :integer);
          procedure SetSoft(const val :boolean);
 
-         procedure BindTexture(var rci: TRenderContextInfo);
+         procedure BindTexture;
 	public
           ViewerZBuf :TGLzBuffer;
           CasterZBuf :TGLzBuffer;
@@ -231,8 +230,6 @@ type
 
 
 implementation
-
-uses OpenGL1x, XOpenGL;
 
 constructor TGLzBuffer.Create;
 begin
@@ -671,25 +668,25 @@ end;
 
 // BindTexture
 //
-procedure TGLZShadows.BindTexture(var rci: TRenderContextInfo);
+procedure TGLZShadows.BindTexture;
 begin
    if FTexHandle.Handle=0 then begin
       FTexHandle.AllocateHandle;
       glBindTexture(GL_TEXTURE_2D, FTexHandle.Handle);
 
    	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_Fastest);
-        rci.GLStates.UnpackAlignment := 1;  // 4 is default, is this wanted?
-        rci.GLStates.UnpackRowLength := 0;
-        rci.GLStates.UnpackSkipRows := 0;
-        rci.GLStates.UnpackSkipPixels := 0;
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+   	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+        glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
+   	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        rci.GLStates.Enable(stTexture2D);
-        rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOneMinusSrcAlpha);
+        glEnable(GL_TEXTURE_2D);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);       //
-        rci.GLStates.Enable(stBlend);
+        glEnable(GL_BLEND);
 
         PrepareAlphaMemory;
 
@@ -721,21 +718,19 @@ begin
    if not assigned(FViewer) then exit;
    if not assigned(FCaster) then exit;
    if not assigned(CasterZBuf) then exit; //only render if a shadow has been cast
-   //only render in view-camera
-   if TGLSceneBuffer(ARci.buffer).Camera<>FViewer.Camera then exit;
+   if Scene.CurrentGLCamera<>FViewer.Camera then exit;  //only render in view-camera
    if not assigned(ViewerZBuf) then begin  //Create viewer zbuffer
       ViewerZBuf:=TGLZBuffer.Create;
       ViewerZBuf.LinkToViewer(FViewer);
-      Bindtexture(ARci);
+      Bindtexture;
       FTexturePrepared:=False; //if FTexHandle.Handle:=0;
    end;
    ViewerZBuf.Refresh;
 
-   ARci.GLStates.PushAttrib([sttEnable, sttColorBuffer]);
-   ARci.GLStates.Enable(stTexture2D);
+   glPushAttrib(GL_ENABLE_BIT);
+   glEnable(GL_TEXTURE_2D);
 
-   ARci.GLStates.Enable(stBlend);  //by Juergen Linker
-   ARci.GLStates.SetBlendFunc(bfSrcAlpha, bfOneMinusSrcAlpha);
+   glEnable( GL_BLEND ); //by Juergen Linker
 
    if FWidth >ARci.viewPortSize.cx then Fwidth :=ARci.viewPortSize.cx;
    if FHeight>ARci.viewPortSize.cy then FHeight:=ARci.viewPortSize.cy;
@@ -762,7 +757,7 @@ begin
    // Prepare matrices
    glMatrixMode(GL_MODELVIEW);
    glPushMatrix;
-   glLoadMatrixf(@TGLSceneBuffer(ARci.buffer).BaseProjectionMatrix);
+   glLoadMatrixf(@Scene.CurrentBuffer.BaseProjectionMatrix);
    glScalef(2/ARci.viewPortSize.cx, 2/ARci.viewPortSize.cy, 1);
    glTranslatef(Position.X-ARci.viewPortSize.cx*0.5,
                 ARci.viewPortSize.cy*0.5-Position.Y, Position.Z);
@@ -770,8 +765,8 @@ begin
    glMatrixMode(GL_PROJECTION);
    glPushMatrix;
    glLoadIdentity;
-   ARci.GLStates.Disable(stDepthTest);
-   ARci.GLStates.Disable(stLighting);
+   glDisable(GL_DEPTH_TEST);
+   glDisable(GL_LIGHTING);
 
    vx:=0;   vx1:=vx+FWidth;
    vy:=0;   vy1:=vy-FHeight;
@@ -792,8 +787,8 @@ begin
    glMatrixMode(GL_MODELVIEW);
    glPopMatrix;
 
-   ARci.GLStates.Disable(stBlend); //by Juergen Linker
-   ARci.GLStates.PopAttrib;
+   glDisable( GL_BLEND ); //by Juergen Linker
+   glPopAttrib;
 
    if Count>0 then Self.RenderChildren(0, Count-1, ARci);
 end;

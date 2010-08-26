@@ -4,15 +4,15 @@
     <Name Value="glscenelazarus"/>
     <Author Value="Mike Lischke,Eric Grange"/>
     <CompilerOptions>
-      <Version Value="8"/>
+      <Version Value="5"/>
       <SearchPaths>
         <IncludeFiles Value="../Source/"/>
-        <OtherUnitFiles Value="../Source/;../Source/base/;../Source/platform/;../Source/designtime/;../Source/propertyeditors/;../Source/fileformats/;../Source/shaders/;../Source/physicsapis/;../Source/soundapis/;../Source/videoapis/;../Source/cgshaders/;../Source/glslshaders/"/>
+        <OtherUnitFiles Value="../Source/;../Source/base/;../Source/platform/;../Source/designtime/;../Source/fileformats/;../Source/shaders/;../Source/physicsapis/;../Source/soundapis/;../Source/videoapis/;../Source/cgshaders/;../Source/glslshaders/"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Parsing>
         <SyntaxOptions>
-          <SyntaxMode Value="Delphi"/>
+          <DelphiCompat Value="True"/>
         </SyntaxOptions>
       </Parsing>
       <CodeGeneration>
@@ -33,7 +33,7 @@
     <Description Value="GLScene - OpenGL 3D library"/>
     <License Value="LGPL"/>
     <Version Major="1" Build="3"/>
-    <Files Count="181">
+    <Files Count="171">
       <Item1>
         <Filename Value="../Source/base/applicationfileio.pas"/>
         <UnitName Value="ApplicationFileIO"/>
@@ -63,7 +63,7 @@
         <UnitName Value="GLCanvas"/>
       </Item7>
       <Item8>
-        <Filename Value="../Source/platform/glkeyboard.pas"/>
+        <Filename Value="../Source/base/glkeyboard.pas"/>
         <UnitName Value="GLKeyboard"/>
       </Item8>
       <Item9>
@@ -143,15 +143,15 @@
         <UnitName Value="XOpenGL"/>
       </Item27>
       <Item28>
-        <Filename Value="../Source/propertyeditors/fvectoreditor.pas"/>
+        <Filename Value="../Source/designtime/fvectoreditor.pas"/>
         <UnitName Value="FVectorEditor"/>
       </Item28>
       <Item29>
-        <Filename Value="../Source/propertyeditors/fvectoreditor.lfm"/>
+        <Filename Value="../Source/designtime/fvectoreditor.lfm"/>
         <Type Value="LFM"/>
       </Item29>
       <Item30>
-        <Filename Value="../Source/propertyeditors/fvectoreditor.lrs"/>
+        <Filename Value="../Source/designtime/fvectoreditor.lrs"/>
         <Type Value="LRS"/>
       </Item30>
       <Item31>
@@ -167,9 +167,9 @@
         <Type Value="LRS"/>
       </Item33>
       <Item34>
-        <Filename Value="../Source/designtime/glsceneregister.pas"/>
+        <Filename Value="../Source/designtime/gllazarusregister.pas"/>
         <HasRegisterProc Value="True"/>
-        <UnitName Value="glsceneregister"/>
+        <UnitName Value="GLLazarusRegister"/>
       </Item34>
       <Item35>
         <Filename Value="../Source/designtime/glsceneedit.pas"/>
@@ -184,19 +184,19 @@
         <Type Value="LRS"/>
       </Item37>
       <Item38>
-        <Filename Value="../Source/propertyeditors/gltextureimageeditors.pas"/>
+        <Filename Value="../Source/designtime/gltextureimageeditors.pas"/>
         <UnitName Value="GLTextureImageEditors"/>
       </Item38>
       <Item39>
-        <Filename Value="../Source/propertyeditors/info.pas"/>
+        <Filename Value="../Source/designtime/info.pas"/>
         <UnitName Value="Info"/>
       </Item39>
       <Item40>
-        <Filename Value="../Source/propertyeditors/info.lfm"/>
+        <Filename Value="../Source/designtime/info.lfm"/>
         <Type Value="LFM"/>
       </Item40>
       <Item41>
-        <Filename Value="../Source/propertyeditors/info.lrs"/>
+        <Filename Value="../Source/designtime/info.lrs"/>
         <Type Value="LRS"/>
       </Item41>
       <Item42>
@@ -298,6 +298,7 @@
       </Item65>
       <Item66>
         <Filename Value="../Source/glanimatedsprite.pas"/>
+        <HasRegisterProc Value="True"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLAnimatedSprite"/>
       </Item66>
@@ -371,6 +372,7 @@
       </Item83>
       <Item84>
         <Filename Value="../Source/glfeedback.pas"/>
+        <HasRegisterProc Value="True"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLFeedback"/>
       </Item84>
@@ -448,332 +450,294 @@
         <UnitName Value="GLMirror"/>
       </Item102>
       <Item103>
-        <Filename Value="../Source/glmovement.pas"/>
-        <UnitName Value="GLMovement"/>
+        <Filename Value="../Source/glmisc.pas"/>
+        <UnitName Value="GLMisc"/>
       </Item103>
       <Item104>
-        <Filename Value="../Source/glmultipolygon.pas"/>
-        <UnitName Value="GLMultiPolygon"/>
+        <Filename Value="../Source/glmovement.pas"/>
+        <UnitName Value="GLMovement"/>
       </Item104>
       <Item105>
-        <Filename Value="../Source/glmultiproxy.pas"/>
-        <UnitName Value="GLMultiProxy"/>
+        <Filename Value="../Source/glmultipolygon.pas"/>
+        <UnitName Value="GLMultiPolygon"/>
       </Item105>
       <Item106>
+        <Filename Value="../Source/glmultiproxy.pas"/>
+        <UnitName Value="GLMultiProxy"/>
+      </Item106>
+      <Item107>
         <Filename Value="../Source/glnavigator.pas"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLNavigator"/>
-      </Item106>
-      <Item107>
-        <Filename Value="../Source/globjects.pas"/>
-        <UnitName Value="GLObjects"/>
       </Item107>
       <Item108>
-        <Filename Value="../Source/glparametricsurfaces.pas"/>
-        <UnitName Value="GLParametricSurfaces"/>
+        <Filename Value="../Source/globjects.pas"/>
+        <UnitName Value="GLObjects"/>
       </Item108>
       <Item109>
-        <Filename Value="../Source/glparticlefx.pas"/>
-        <UnitName Value="GLParticleFX"/>
+        <Filename Value="../Source/glparametricsurfaces.pas"/>
+        <UnitName Value="GLParametricSurfaces"/>
       </Item109>
       <Item110>
-        <Filename Value="../Source/glparticles.pas"/>
-        <UnitName Value="GLParticles"/>
+        <Filename Value="../Source/glparticlefx.pas"/>
+        <UnitName Value="GLParticleFX"/>
       </Item110>
       <Item111>
-        <Filename Value="../Source/glperlin.pas"/>
-        <UnitName Value="GLPerlin"/>
+        <Filename Value="../Source/glparticles.pas"/>
+        <UnitName Value="GLParticles"/>
       </Item111>
       <Item112>
-        <Filename Value="../Source/glperlinbase.pas"/>
-        <UnitName Value="GLPerlinBase"/>
+        <Filename Value="../Source/glperlin.pas"/>
+        <UnitName Value="GLPerlin"/>
       </Item112>
       <Item113>
-        <Filename Value="../Source/glperlinpfx.pas"/>
-        <UnitName Value="GLPerlinPFX"/>
+        <Filename Value="../Source/glperlinbase.pas"/>
+        <UnitName Value="GLPerlinBase"/>
       </Item113>
       <Item114>
-        <Filename Value="../Source/glpolyhedron.pas"/>
-        <UnitName Value="GLPolyhedron"/>
+        <Filename Value="../Source/glperlinpfx.pas"/>
+        <UnitName Value="GLPerlinPFX"/>
       </Item114>
       <Item115>
-        <Filename Value="../Source/glportal.pas"/>
-        <UnitName Value="GLPortal"/>
+        <Filename Value="../Source/glpolyhedron.pas"/>
+        <UnitName Value="GLPolyhedron"/>
       </Item115>
       <Item116>
-        <Filename Value="../Source/glposteffects.pas"/>
-        <UnitName Value="GLPostEffects"/>
+        <Filename Value="../Source/glportal.pas"/>
+        <UnitName Value="GLPortal"/>
       </Item116>
       <Item117>
-        <Filename Value="../Source/glproctextures.pas"/>
-        <UnitName Value="GLProcTextures"/>
+        <Filename Value="../Source/glposteffects.pas"/>
+        <UnitName Value="GLPostEffects"/>
       </Item117>
       <Item118>
-        <Filename Value="../Source/glprojectedtextures.pas"/>
-        <UnitName Value="GLProjectedTextures"/>
+        <Filename Value="../Source/glproctextures.pas"/>
+        <UnitName Value="GLProcTextures"/>
       </Item118>
       <Item119>
-        <Filename Value="../Source/glproxyobjects.pas"/>
-        <UnitName Value="GLProxyObjects"/>
+        <Filename Value="../Source/glprojectedtextures.pas"/>
+        <UnitName Value="GLProjectedTextures"/>
       </Item119>
       <Item120>
-        <Filename Value="../Source/glroampatch.pas"/>
-        <UnitName Value="GLROAMPatch"/>
+        <Filename Value="../Source/glproxyobjects.pas"/>
+        <UnitName Value="GLProxyObjects"/>
       </Item120>
       <Item121>
-        <Filename Value="../Source/glscanlinedgraphics.pas"/>
-        <UnitName Value="glscanlinedgraphics"/>
+        <Filename Value="../Source/glroampatch.pas"/>
+        <UnitName Value="GLROAMPatch"/>
       </Item121>
       <Item122>
-        <Filename Value="../Source/glscene.pas"/>
-        <UnitName Value="GLScene"/>
+        <Filename Value="../Source/glscanlinedgraphics.pas"/>
+        <UnitName Value="glscanlinedgraphics"/>
       </Item122>
       <Item123>
-        <Filename Value="../Source/platform/glscreen.pas"/>
-        <UnitName Value="GLScreen"/>
+        <Filename Value="../Source/glscene.pas"/>
+        <UnitName Value="GLScene"/>
       </Item123>
       <Item124>
-        <Filename Value="../Source/glshadowplane.pas"/>
-        <UnitName Value="GLShadowPlane"/>
+        <Filename Value="../Source/glscreen.pas"/>
+        <UnitName Value="GLScreen"/>
       </Item124>
       <Item125>
-        <Filename Value="../Source/glshadowvolume.pas"/>
-        <UnitName Value="GLShadowVolume"/>
+        <Filename Value="../Source/glshadowplane.pas"/>
+        <UnitName Value="GLShadowPlane"/>
       </Item125>
       <Item126>
-        <Filename Value="../Source/glsilhouette.pas"/>
-        <UnitName Value="GLSilhouette"/>
+        <Filename Value="../Source/glshadowvolume.pas"/>
+        <UnitName Value="GLShadowVolume"/>
       </Item126>
       <Item127>
-        <Filename Value="../Source/glskybox.pas"/>
-        <UnitName Value="GLSkyBox"/>
+        <Filename Value="../Source/glsilhouette.pas"/>
+        <UnitName Value="GLSilhouette"/>
       </Item127>
       <Item128>
-        <Filename Value="../Source/glskydome.pas"/>
-        <UnitName Value="GLSkydome"/>
+        <Filename Value="../Source/glskybox.pas"/>
+        <UnitName Value="GLSkyBox"/>
       </Item128>
       <Item129>
-        <Filename Value="../Source/glslprojectedtextures.pas"/>
-        <UnitName Value="GLSLProjectedTextures"/>
+        <Filename Value="../Source/glskydome.pas"/>
+        <UnitName Value="GLSkydome"/>
       </Item129>
       <Item130>
-        <Filename Value="../Source/glsound.pas"/>
-        <UnitName Value="GLSound"/>
+        <Filename Value="../Source/glslprojectedtextures.pas"/>
+        <UnitName Value="GLSLProjectedTextures"/>
       </Item130>
       <Item131>
-        <Filename Value="../Source/glspatialpartitioning.pas"/>
-        <UnitName Value="GLSpatialPartitioning"/>
+        <Filename Value="../Source/glsound.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="GLSound"/>
       </Item131>
       <Item132>
-        <Filename Value="../Source/glstate.pas"/>
-        <UnitName Value="GLState"/>
+        <Filename Value="../Source/glspatialpartitioning.pas"/>
+        <UnitName Value="GLSpatialPartitioning"/>
       </Item132>
       <Item133>
-        <Filename Value="../Source/glstrings.pas"/>
-        <UnitName Value="GLStrings"/>
+        <Filename Value="../Source/glstate.pas"/>
+        <UnitName Value="GLState"/>
       </Item133>
       <Item134>
-        <Filename Value="../Source/glteapot.pas"/>
-        <UnitName Value="GLTeapot"/>
+        <Filename Value="../Source/glstrings.pas"/>
+        <UnitName Value="GLStrings"/>
       </Item134>
       <Item135>
-        <Filename Value="../Source/glterrainrenderer.pas"/>
-        <UnitName Value="GLTerrainRenderer"/>
+        <Filename Value="../Source/glteapot.pas"/>
+        <UnitName Value="GLTeapot"/>
       </Item135>
       <Item136>
-        <Filename Value="../Source/gltexlensflare.pas"/>
-        <UnitName Value="GLTexLensFlare"/>
+        <Filename Value="../Source/glterrainrenderer.pas"/>
+        <UnitName Value="GLTerrainRenderer"/>
       </Item136>
       <Item137>
-        <Filename Value="../Source/gltexture.pas"/>
-        <UnitName Value="GLTexture"/>
+        <Filename Value="../Source/gltexlensflare.pas"/>
+        <UnitName Value="GLTexLensFlare"/>
       </Item137>
       <Item138>
-        <Filename Value="../Source/glthorfx.pas"/>
-        <UnitName Value="GLThorFX"/>
+        <Filename Value="../Source/gltexture.pas"/>
+        <UnitName Value="GLTexture"/>
       </Item138>
       <Item139>
-        <Filename Value="../Source/gltileplane.pas"/>
-        <UnitName Value="GLTilePlane"/>
+        <Filename Value="../Source/glthorfx.pas"/>
+        <UnitName Value="GLThorFX"/>
       </Item139>
       <Item140>
+        <Filename Value="../Source/gltileplane.pas"/>
+        <UnitName Value="GLTilePlane"/>
+      </Item140>
+      <Item141>
         <Filename Value="../Source/gltimeeventsmgr.pas"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLTimeEventsMgr"/>
-      </Item140>
-      <Item141>
-        <Filename Value="../Source/gltrail.pas"/>
-        <UnitName Value="GLTrail"/>
       </Item141>
       <Item142>
-        <Filename Value="../Source/gltree.pas"/>
-        <AddToUsesPkgSection Value="False"/>
-        <UnitName Value="GLTree"/>
+        <Filename Value="../Source/gltrail.pas"/>
+        <UnitName Value="GLTrail"/>
       </Item142>
       <Item143>
-        <Filename Value="../Source/glutils.pas"/>
-        <UnitName Value="GLUtils"/>
+        <Filename Value="../Source/gltree.pas"/>
+        <HasRegisterProc Value="True"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="GLTree"/>
       </Item143>
       <Item144>
-        <Filename Value="../Source/glvectorfileobjects.pas"/>
-        <UnitName Value="GLVectorFileObjects"/>
+        <Filename Value="../Source/glutils.pas"/>
+        <UnitName Value="GLUtils"/>
       </Item144>
       <Item145>
-        <Filename Value="../Source/glverletclasses.pas"/>
-        <UnitName Value="GLVerletClasses"/>
+        <Filename Value="../Source/glvectorfileobjects.pas"/>
+        <UnitName Value="GLVectorFileObjects"/>
       </Item145>
       <Item146>
-        <Filename Value="../Source/glverletclothify.pas"/>
-        <UnitName Value="GLVerletClothify"/>
+        <Filename Value="../Source/glverletclasses.pas"/>
+        <UnitName Value="GLVerletClasses"/>
       </Item146>
       <Item147>
-        <Filename Value="../Source/glverletskeletoncolliders.pas"/>
-        <UnitName Value="GLVerletSkeletonColliders"/>
+        <Filename Value="../Source/glverletclothify.pas"/>
+        <UnitName Value="GLVerletClothify"/>
       </Item147>
       <Item148>
-        <Filename Value="../Source/glwaterplane.pas"/>
-        <UnitName Value="GLWaterPlane"/>
+        <Filename Value="../Source/glverletskeletoncolliders.pas"/>
+        <UnitName Value="GLVerletSkeletonColliders"/>
       </Item148>
       <Item149>
-        <Filename Value="../Source/glwindows.pas"/>
-        <UnitName Value="GLWindows"/>
+        <Filename Value="../Source/glwaterplane.pas"/>
+        <UnitName Value="GLWaterPlane"/>
       </Item149>
       <Item150>
-        <Filename Value="../Source/glzbuffer.pas"/>
-        <UnitName Value="GLzBuffer"/>
+        <Filename Value="../Source/glwindows.pas"/>
+        <UnitName Value="GLWindows"/>
       </Item150>
       <Item151>
-        <Filename Value="../Source/platform/cadencerasap.pas"/>
-        <UnitName Value="cadencerasap"/>
+        <Filename Value="../Source/glzbuffer.pas"/>
+        <UnitName Value="GLzBuffer"/>
       </Item151>
       <Item152>
-        <Filename Value="../Source/platform/glcrossplatform.pas"/>
-        <UnitName Value="GLCrossPlatform"/>
+        <Filename Value="../Source/platform/cadencerasap.pas"/>
+        <UnitName Value="cadencerasap"/>
       </Item152>
       <Item153>
-        <Filename Value="../Source/platform/glviewer.pas"/>
-        <UnitName Value="GLViewer"/>
+        <Filename Value="../Source/platform/glcrossplatform.pas"/>
+        <UnitName Value="GLCrossPlatform"/>
       </Item153>
       <Item154>
+        <Filename Value="../Source/platform/glviewer.pas"/>
+        <UnitName Value="GLViewer"/>
+      </Item154>
+      <Item155>
         <Filename Value="../Source/shaders/glbumpshader.pas"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLBumpShader"/>
-      </Item154>
-      <Item155>
+      </Item155>
+      <Item156>
         <Filename Value="../Source/shaders/glcelshader.pas"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLCelShader"/>
-      </Item155>
-      <Item156>
+      </Item156>
+      <Item157>
         <Filename Value="../Source/shaders/glhiddenlineshader.pas"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLHiddenLineShader"/>
-      </Item156>
-      <Item157>
+      </Item157>
+      <Item158>
         <Filename Value="../Source/shaders/glmultimaterialshader.pas"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLMultiMaterialShader"/>
-      </Item157>
-      <Item158>
+      </Item158>
+      <Item159>
         <Filename Value="../Source/shaders/gloutlineshader.pas"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLOutlineShader"/>
-      </Item158>
-      <Item159>
+      </Item159>
+      <Item160>
         <Filename Value="../Source/shaders/glphongshader.pas"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLPhongShader"/>
-      </Item159>
-      <Item160>
+      </Item160>
+      <Item161>
         <Filename Value="../Source/shaders/gltexcombineshader.pas"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLTexCombineShader"/>
-      </Item160>
-      <Item161>
+      </Item161>
+      <Item162>
         <Filename Value="../Source/shaders/glusershader.pas"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLUserShader"/>
-      </Item161>
-      <Item162>
-        <Filename Value="../Source/base/glcolor.pas"/>
-        <UnitName Value="GLColor"/>
       </Item162>
       <Item163>
-        <Filename Value="../Source/gldynamictexture.pas"/>
-        <UnitName Value="GLDynamicTexture"/>
+        <Filename Value="../Source/base/glcolor.pas"/>
+        <UnitName Value="GLColor"/>
       </Item163>
       <Item164>
-        <Filename Value="../Source/platform/gllclviewer.pas"/>
-        <UnitName Value="GLLCLViewer"/>
+        <Filename Value="../Source/gldynamictexture.pas"/>
+        <UnitName Value="GLDynamicTexture"/>
       </Item164>
       <Item165>
-        <Filename Value="../Source/glgizmo.pas"/>
-        <UnitName Value="GLGizmo"/>
+        <Filename Value="../Source/platform/gllclviewer.pas"/>
+        <UnitName Value="GLLCLViewer"/>
       </Item165>
       <Item166>
-        <Filename Value="../Source/fileformats/glfileb3d.pas"/>
-        <UnitName Value="GLFileB3D"/>
+        <Filename Value="../Source/glgizmo.pas"/>
+        <UnitName Value="GLGizmo"/>
       </Item166>
       <Item167>
-        <Filename Value="../Source/glslshaders/glslbumpshader.pas"/>
-        <UnitName Value="GLSLBumpShader"/>
+        <Filename Value="../Source/fileformats/glfileb3d.pas"/>
+        <UnitName Value="GLFileB3D"/>
       </Item167>
       <Item168>
-        <Filename Value="../Source/glslshaders/glsldiffusespecularshader.pas"/>
-        <UnitName Value="GLSLDiffuseSpecularShader"/>
+        <Filename Value="../Source/glslshaders/glslbumpshader.pas"/>
+        <UnitName Value="GLSLBumpShader"/>
       </Item168>
       <Item169>
-        <Filename Value="../Source/glslshaders/glslpostblurshader.pas"/>
-        <UnitName Value="GLSLPostBlurShader"/>
+        <Filename Value="../Source/glslshaders/glsldiffusespecularshader.pas"/>
+        <UnitName Value="GLSLDiffuseSpecularShader"/>
       </Item169>
       <Item170>
-        <Filename Value="../Source/glslshaders/glslshader.pas"/>
-        <UnitName Value="GLSLShader"/>
+        <Filename Value="../Source/glslshaders/glslpostblurshader.pas"/>
+        <UnitName Value="GLSLPostBlurShader"/>
       </Item170>
       <Item171>
-        <Filename Value="../Source/base/baseclasses.pas"/>
-        <UnitName Value="BaseClasses"/>
+        <Filename Value="../Source/glslshaders/glslshader.pas"/>
+        <UnitName Value="GLSLShader"/>
       </Item171>
-      <Item172>
-        <Filename Value="../Source/base/glcoordinates.pas"/>
-        <UnitName Value="GLCoordinates"/>
-      </Item172>
-      <Item173>
-        <Filename Value="../Source/glmanager.pas"/>
-        <UnitName Value="GLManager"/>
-      </Item173>
-      <Item174>
-        <Filename Value="../Source/glnodes.pas"/>
-        <UnitName Value="GLNodes"/>
-      </Item174>
-      <Item175>
-        <Filename Value="../Source/glrendercontextinfo.pas"/>
-        <UnitName Value="GLRenderContextInfo"/>
-      </Item175>
-      <Item176>
-        <Filename Value="../Source/glmaterial.pas"/>
-        <UnitName Value="GLMaterial"/>
-      </Item176>
-      <Item177>
-        <Filename Value="../Source/globjectmanager.pas"/>
-        <UnitName Value="globjectmanager"/>
-      </Item177>
-      <Item178>
-        <Filename Value="../Source/glcameracontroller.pas"/>
-        <UnitName Value="GLCameraController"/>
-      </Item178>
-      <Item179>
-        <Filename Value="../Source/glfbo.pas"/>
-        <UnitName Value="GLFBO"/>
-      </Item179>
-      <Item180>
-        <Filename Value="../Source/glfborenderer.pas"/>
-        <UnitName Value="GLFBORenderer"/>
-      </Item180>
-      <Item181>
-        <Filename Value="../Source/glgizmoex.pas"/>
-        <UnitName Value="GLGizmoEx"/>
-      </Item181>
     </Files>
     <Type Value="DesignTime"/>
     <RequiredPkgs Count="4">

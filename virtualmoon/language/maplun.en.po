@@ -39,10 +39,6 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: u_translation.rsdecreasefont
-msgid "Decrease font size"
-msgstr ""
-
 #: u_translation.rsdefault
 msgid "Default"
 msgstr ""
@@ -85,10 +81,6 @@ msgstr ""
 
 #: u_translation.rshelp_prefix
 msgid "UK"
-msgstr ""
-
-#: u_translation.rsincreasefont
-msgid "Increase font size"
 msgstr ""
 
 #: u_translation.rslabelsfont
@@ -477,10 +469,6 @@ msgstr ""
 
 #: u_translation.rsshowscale
 msgid "Show scale"
-msgstr ""
-
-#: u_translation.rsside
-msgid "Side:"
 msgstr ""
 
 #: u_translation.rssimple

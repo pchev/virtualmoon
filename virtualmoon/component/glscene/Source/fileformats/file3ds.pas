@@ -181,7 +181,7 @@ type TFile3DS = class;
        function  GetChunkNodeID(Chunk: PChunk3DS): SmallInt;
        procedure InitDatabase;
        function  IsNode(Tag: Word): Boolean;
-       procedure KFAddParentName(Chunk: PChunk3DS; Name: String3DS);
+       procedure KFAddParentName(Chunk: PChunk3DS; Name: String);
        procedure MakeNode(var Node: PNodeList);
        procedure ParseDatabase;
        procedure ReadChildren(Parent: PChunk3DS);
@@ -213,7 +213,7 @@ type TFile3DS = class;
        function  ReadPoint: TPoint3DS;
        function  ReadShort: SmallInt;
        function  ReadSingle: Single;
-       function  ReadString: PChar3DS;
+       function  ReadString: PChar;
        function  ReadTexVert: TTexVert3DS;
        function  ReadTrackHeader: TTrackHeader3DS;
        function  ReadWord: Word;
@@ -228,14 +228,14 @@ type TFile3DS = class;
        procedure WriteData(Size: Integer; Data: Pointer);
        procedure WriteDouble(AValue: Double);
        procedure WriteFace(F: TFace3DS);
-       procedure WriteFixedString(const AValue: String3DS; Len: Integer);
+       procedure WriteFixedString(const AValue: String; Len: Integer);
        procedure WriteHeader(ChunkType: Word; ChunkSize: Cardinal);
        procedure WriteInteger(AValue: Integer);
        procedure WriteKeyHeader(K: TKeyHeader3DS);
        procedure WritePoint(P: TPoint3DS);
        procedure WriteShort(AValue: SmallInt);
        procedure WriteSingle(AValue: Single);
-       procedure WriteString(const AValue: String3DS);
+       procedure WriteString(const AValue: String);
        procedure WriteTexVertex(T: TTexVert3DS);
        procedure WriteTrackHeader(T: TTrackHeader3DS);
        procedure WriteWord(AValue: Word);
@@ -260,7 +260,7 @@ implementation
 
 uses Const3DS, Utils3DS, SysUtils, ApplicationFileIO;
 
-function StrPasFree(p : PChar3DS) : String;
+function StrPasFree(p : PAnsiChar) : String;
 begin
    Result:=StrPas(p);
    FreeMem(p);
@@ -791,7 +791,7 @@ var Chunk,
     I: Integer;
     IDNode,
     IDParentNode: PNodeList;
-    Name, Inst: String3DS;
+    Name, Inst: String;
 
 begin
   KfDataChunk := FindChunk(FDatabase.TopChunk, KFDATA);
@@ -949,7 +949,7 @@ end;
 
 //---------------------------------------------------------------------------------------------------------------------
 
-procedure TFile3DS.KFAddParentName(Chunk: PChunk3DS; Name: String3DS);
+procedure TFile3DS.KFAddParentName(Chunk: PChunk3DS; Name: String);
 var
    Temp : PChunk3DS;
 begin
@@ -1014,7 +1014,7 @@ begin
   SeekChild(Parent);
   ParentBody := Parent.Position + Parent.Size;
 
-  // satisfy the D4 compiler by castï¿½ng the (longint) position to a cardinal
+  // satisfy the D4 compiler by castíng the (longint) position to a cardinal
   while Cardinal(FStream.Position) < ParentBody do
   begin
     Child := nil;
@@ -1660,7 +1660,7 @@ end;
 
 //---------------------------------------------------------------------------------------------------------------------
 
-procedure TFile3DS.WriteString(const AValue: String3DS);
+procedure TFile3DS.WriteString(const AValue: String);
 
 begin
   WriteData(Length(AValue), @AValue[1]);
@@ -1669,7 +1669,7 @@ end;
 
 //---------------------------------------------------------------------------------------------------------------------
 
-procedure TFile3DS.WriteFixedString(const AValue: String3DS; Len: Integer);
+procedure TFile3DS.WriteFixedString(const AValue: String; Len: Integer);
 
 var I: Integer;
 
@@ -1681,10 +1681,10 @@ end;
 
 //---------------------------------------------------------------------------------------------------------------------
 
-function TFile3DS.ReadString: PChar3DS;
+function TFile3DS.ReadString: PChar;
 var
    Len, LB: Integer;
-   Buffer: String3DS;
+   Buffer: String;
 begin
    Len := 0;
    LB := 0;

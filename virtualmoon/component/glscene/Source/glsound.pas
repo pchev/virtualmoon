@@ -1,13 +1,8 @@
-//
-// This unit is part of the GLScene Project, http://glscene.org
-//
 {: GLSound<p>
 
 	Base classes and interface for GLScene Sound System<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>06/05/09 - DanB - Split TGLSMWaveOut to GLSMWaveOut.pas, to remove windows dependancy
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
       <li>22/07/02 - EG - SetMute/SetPause fix (Sternas Stefanos)
       <li>02/07/02 - EG - Persistence fix (MP3 / Sternas Stefanos)
       <li>05/03/02 - EG - TGLBSoundEmitter.Loaded
@@ -22,7 +17,7 @@ unit GLSound;
 interface
 
 uses Classes, GLSoundFileObjects, GLScene, XCollection, VectorGeometry, GLCadencer,
-     BaseClasses;
+     GLMisc;
 
 {$i GLScene.inc}
 
@@ -216,11 +211,11 @@ type
             100.0 by default }
          property MaxDistance : Single read FMaxDistance write SetMaxDistance;
 
-         {: Inside cone angle, [0ï¿½; 360ï¿½].<p>
+         {: Inside cone angle, [0°; 360°].<p>
             Sound volume is maximal within this cone.<p>
             See DirectX SDK for details. }
          property InsideConeAngle : Single read FInsideConeAngle write SetInsideConeAngle;
-         {: Outside cone angle, [0ï¿½; 360ï¿½].<p>
+         {: Outside cone angle, [0°; 360°].<p>
             Between inside and outside cone, sound volume decreases between max
             and cone outside volume.<p>
             See DirectX SDK for details. }
@@ -501,6 +496,9 @@ type
 	end;
 
 
+
+procedure Register;
+
 function ActiveSoundManager : TGLSoundManager;
 function GetSoundLibraryByName(const aName : String) : TGLSoundLibrary;
 
@@ -519,11 +517,18 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils, GLCrossPlatform, GLUtils;
+uses SysUtils, GLCrossPlatform;
 
 var
    vActiveSoundManager : TGLSoundManager;
    vSoundLibraries : TList;
+
+// Register
+//
+procedure Register;
+begin
+  RegisterComponents('GLScene', [TGLSoundLibrary]);
+end;
 
 // ActiveSoundManager
 //
@@ -608,7 +613,7 @@ end;
 procedure TGLSoundSample.ReadData(Stream: TStream);
 var
    n : Integer;
-   clName : AnsiString;
+   clName : String;
 begin
    with Stream do begin
       Read(n, SizeOf(Integer));
@@ -625,7 +630,7 @@ end;
 procedure TGLSoundSample.WriteData(Stream: TStream);
 var
    n : Integer;
-   buf : AnsiString;
+   buf : String;
 begin
    with Stream do begin
       n:=Length(FData.ClassName);
@@ -664,7 +669,6 @@ begin
       FData:=sfc.Create(Self);
       FData.LoadFromFile(fileName);
    end else FData:=nil;
-   Assert(Data<>nil,'Could not load '+fileName+', make sure you include the unit required to load this format in your uses clause.');
    Name:=ExtractFileName(fileName);
 end;
 
@@ -1548,7 +1552,11 @@ procedure TGLSoundManager.StopAllSources;
 var
    i : Integer;
 begin
+(* removed delphi 4 support {$ifdef GLS_DELPHI_5_UP}*)
 	for i:=Sources.Count-1 downto 0 do Sources.Delete(i);
+(* removed delphi 4 support {$else}
+	for i:=Sources.Count-1 downto 0 do Sources[i].Free;
+{$endif}*)
 end;
 
 // DoProgress
@@ -1712,6 +1720,7 @@ begin
    FPlayingSource:=nil;
 end;
 
+
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
@@ -1721,14 +1730,12 @@ initialization
 // ------------------------------------------------------------------
 
 	// class registrations
-  RegisterClasses([TGLSoundLibrary]);
 	RegisterXCollectionItemClass(TGLBSoundEmitter);
    vSoundLibraries:=TList.Create;
 
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
 finalization
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------

@@ -15,7 +15,6 @@
    will indicate if there is valid data in the buffer.<p>
 
    <b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>28/03/07 - DaStr - Renamed parameters in some methods
                             (thanks Burkhard Carstens) (Bugtracker ID = 1678658)
@@ -31,7 +30,7 @@ interface
 
 uses
   Classes, SysUtils, VectorGeometry, VectorLists, GLScene, GLVectorFileObjects,
-  GLTexture, GLRenderContextInfo, GLState;
+  GLTexture;
 
 type
   TFeedbackMode = (fm2D, fm3D, fm3DColor, fm3DColorTexture, fm4DColorTexture);
@@ -92,6 +91,8 @@ type
       property Visible;
   end;
 
+procedure Register;
+
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -101,6 +102,13 @@ implementation
 // ----------------------------------------------------------------------
 
 uses OpenGL1x, MeshUtils;
+
+// Register
+//
+procedure Register;
+begin
+  RegisterClasses([TGLFeedback]);
+end;
 
 // ----------
 // ---------- TGLFeedback ----------
@@ -176,8 +184,8 @@ begin
 
     FBuffer.Count:=FMaxBufferSize div SizeOf(Single);
     glFeedBackBuffer(FMaxBufferSize, atype, @FBuffer.List[0]);
-    ARci.GLStates.PushAttrib([sttEnable, sttViewport]);
-    ARci.GLStates.Disable(stCullFace);
+    glPushAttrib(GL_ENABLE_BIT or GL_VIEWPORT_BIT);
+    glDisable(GL_CULL_FACE);
     glMatrixMode(GL_PROJECTION);
     glPushMatrix;
     glLoadIdentity;
@@ -199,7 +207,7 @@ begin
     glMatrixMode(GL_PROJECTION);
     glPopMatrix;
     glMatrixMode(GL_MODELVIEW);
-    ARci.GLStates.PopAttrib;
+    glPopAttrib;
 
   finally
     FBuffered:=(FBuffer.Count>0);
@@ -324,9 +332,5 @@ begin
     FBuffer.Count:=0;
   end;
 end;
-
-initialization
-
-  RegisterClasses([TGLFeedback]);
 
 end.

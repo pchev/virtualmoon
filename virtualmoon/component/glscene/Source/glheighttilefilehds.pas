@@ -6,8 +6,6 @@
    HeightDataSource for the HTF (HeightTileFile) format.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>10/03/09 - DanB - Bug fix for invisible terrain, now changes
-                            heightdata.DataState to hdsPreparing in StartPreparingData
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>15/02/07 - LIN -Added OpenHTF function, for direct access to the HeightTileFile object.
       <li>25/01/07 - LIN -Added Width and Height properties to GLHeightTileFieHDS
@@ -178,7 +176,7 @@ begin
      Exit;
    end else Assert(FHTF.TileSize=heightData.Size,
                    'HTF TileSize and HeightData size don''t match.('+IntToStr(FHTF.TileSize)+' and '+Inttostr(heightData.Size)+')');
-   heightdata.DataState := hdsPreparing;
+
    // retrieve data and place it in the heightData
    with heightData do begin
       if Inverted then YPos:=YTop

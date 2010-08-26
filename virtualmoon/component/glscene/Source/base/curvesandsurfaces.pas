@@ -25,7 +25,7 @@ interface
 {$I GLScene.inc}
 
 uses
-  VectorGeometry, VectorLists;
+  SysUtils, VectorGeometry, VectorLists;
 
 type
   TBSplineContinuity = (bscUniformNonPeriodic, bscUniformPeriodic);
@@ -42,8 +42,6 @@ procedure GenerateBSplineSurface(Steps, UOrder, VOrder, Width, Height : Integer;
 procedure GenerateKnotVector(KnotVector : TSingleList; NumberOfPoints, Order : Integer; Continuity : TBSplineContinuity);
 
 implementation
-
-uses SysUtils;
 
 function Factorial(n : Integer) : Single;
 var

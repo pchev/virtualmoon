@@ -6,7 +6,6 @@
    Texture-based Lens flare object.<p>
 
 	<b>History : </b><font size=-1><ul>
-      <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>23/03/07 - DaStr - Added missing parameters in procedure's implementation
                              (thanks Burkhard Carstens) (Bugtracker ID = 1681409)
@@ -20,8 +19,7 @@ interface
 {$I GLScene.inc}
 
 uses
-   Classes, GLScene, VectorGeometry, GLObjects, GLTexture, OpenGL1x,
-   GLContext, GLRenderContextInfo, BaseClasses, GLState;
+   Classes, GLScene, VectorGeometry, GLObjects, GLTexture, OpenGL1x, GLMisc, GLContext;
 
 type
 
@@ -146,22 +144,20 @@ var
   depth, rnd : Single;
   flag : Boolean;
   i : Integer;
-  CurrentBuffer : TGLSceneBuffer;
 begin
-  CurrentBuffer := TGLSceneBuffer(rci.buffer);
   SetVector(v, AbsolutePosition);
   // are we looking towards the flare?
   rv := VectorSubtract(v, PAffineVector(@rci.cameraPosition)^);
   if VectorDotProduct(rci.cameraDirection, rv) > 0 then
   begin
     // find out where it is on the screen.
-    screenPos := CurrentBuffer.WorldToScreen(v);
+    screenPos := Scene.CurrentBuffer.WorldToScreen(v);
     if (screenPos[0] < rci.viewPortSize.cx) and (screenPos[0] >= 0)
       and (screenPos[1] < rci.viewPortSize.cy) and (screenPos[1] >= 0) then
     begin
       if FAutoZTest then
       begin
-        depth := CurrentBuffer.GetPixelDepth(Round(ScreenPos[0]),
+        depth := Scene.CurrentBuffer.GetPixelDepth(Round(ScreenPos[0]),
           Round(rci.viewPortSize.cy - ScreenPos[1]));
         // but is it behind something?
         if screenPos[2] >= 1 then
@@ -196,7 +192,7 @@ begin
   // Prepare matrices
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix;
-  glLoadMatrixf(@CurrentBuffer.BaseProjectionMatrix);
+  glLoadMatrixf(@Scene.CurrentBuffer.BaseProjectionMatrix);
 
   glMatrixMode(GL_PROJECTION);
   glPushMatrix;
@@ -204,11 +200,11 @@ begin
   glScalef(2 / rci.viewPortSize.cx, 2 / rci.viewPortSize.cy, 1);
 
 
-  rci.GLStates.PushAttrib([sttEnable]);
-  rci.GLStates.Disable(stLighting);
-  rci.GLStates.Disable(stDepthTest);
-  rci.GLStates.Enable(stBlend);
-  rci.GLStates.SetBlendFunc(bfOne, bfOne);
+  glPushAttrib(GL_ENABLE_BIT);
+  glDisable(GL_LIGHTING);
+  glDisable(GL_DEPTH_TEST);  
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_ONE,GL_ONE);
 
   //Rays and Glow on Same Position
   glPushMatrix;
@@ -284,7 +280,7 @@ begin
 
    // restore state
 
-  rci.GLStates.PopAttrib;
+  glPopAttrib;
   glPopMatrix;
   glMatrixMode(GL_MODELVIEW);
   glPopMatrix;

@@ -12,8 +12,7 @@ unit GLMultiProxy;
 
 interface
 
-uses Classes, GLScene, VectorGeometry, GLSilhouette,
-     GLRenderContextInfo, BaseClasses;
+uses Classes, GLScene, VectorGeometry, GLMisc, GLTexture, GLSilhouette;
 
 type
 
