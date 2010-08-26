@@ -1,8 +1,9 @@
 object Form2: TForm2
-  Left = 612
+  Left = 586
   Height = 470
-  Top = 165
+  Top = 162
   Width = 373
+  ActiveControl = PageControl1
   BorderStyle = bsSizeToolWin
   Caption = 'Configuration'
   ClientHeight = 470
@@ -26,8 +27,8 @@ object Form2: TForm2
     TabOrder = 0
     object TabSheet1: TPage
       Caption = 'General'
-      ClientWidth = 367
-      ClientHeight = 390
+      ClientWidth = 369
+      ClientHeight = 401
       object Bevel8: TBevel
         Left = 16
         Height = 140
@@ -44,7 +45,7 @@ object Form2: TForm2
       end
       object Label4: TLabel
         Left = 21
-        Height = 16
+        Height = 19
         Top = 320
         Width = 46
         Caption = 'Langue :'
@@ -52,25 +53,25 @@ object Form2: TForm2
       end
       object Label1: TLabel
         Left = 32
-        Height = 16
+        Height = 19
         Top = 77
-        Width = 45
+        Width = 39
         Caption = 'Latitude'
         ParentColor = False
       end
       object Label2: TLabel
         Left = 144
-        Height = 16
+        Height = 19
         Top = 77
-        Width = 54
+        Width = 48
         Caption = 'Longitude'
         ParentColor = False
       end
       object Label16: TLabel
         Left = 32
-        Height = 16
+        Height = 19
         Top = 12
-        Width = 69
+        Width = 63
         Caption = 'Observatoire'
         Color = clBtnFace
         ParentColor = False
@@ -78,9 +79,9 @@ object Form2: TForm2
       end
       object Label23: TLabel
         Left = 32
-        Height = 16
+        Height = 19
         Top = 156
-        Width = 70
+        Width = 69
         Caption = 'Date / Heure'
         Color = clBtnFace
         ParentColor = False
@@ -88,23 +89,23 @@ object Form2: TForm2
       end
       object Label34: TLabel
         Left = 32
-        Height = 16
+        Height = 19
         Top = 260
-        Width = 67
+        Width = 66
         Caption = 'Zone horaire'
         ParentColor = False
       end
       object Label35: TLabel
         Left = 32
-        Height = 16
+        Height = 19
         Top = 223
-        Width = 25
+        Width = 24
         Caption = 'Pays'
         ParentColor = False
       end
       object ComboBox3: TComboBox
         Left = 88
-        Height = 21
+        Height = 26
         Top = 316
         Width = 219
         ItemHeight = 0
@@ -132,7 +133,7 @@ object Form2: TForm2
       end
       object ComboBox1: TComboBox
         Left = 88
-        Height = 21
+        Height = 26
         Top = 93
         Width = 49
         ItemHeight = 0
@@ -146,7 +147,7 @@ object Form2: TForm2
       end
       object ComboBox2: TComboBox
         Left = 200
-        Height = 21
+        Height = 26
         Top = 93
         Width = 49
         ItemHeight = 0
@@ -160,15 +161,15 @@ object Form2: TForm2
       end
       object CheckBox16: TCheckBox
         Left = 32
-        Height = 18
+        Height = 22
         Top = 184
-        Width = 242
+        Width = 210
         Caption = 'Use Computer Date and Time Zone'
         TabOrder = 5
       end
       object ComboBoxCountry: TComboBox
         Left = 125
-        Height = 20
+        Height = 24
         Top = 220
         Width = 182
         ItemHeight = 0
@@ -178,7 +179,7 @@ object Form2: TForm2
       end
       object ComboBoxTZ: TComboBox
         Left = 125
-        Height = 20
+        Height = 24
         Top = 252
         Width = 181
         ItemHeight = 0
@@ -200,8 +201,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 35
-        ClientWidth = 288
+        ClientHeight = 38
+        ClientWidth = 292
         Columns = 2
         Items.Strings = (
           'Topocentricccccccccccc'
@@ -230,8 +231,8 @@ object Form2: TForm2
         Top = 10
         Width = 305
         Caption = 'Database'
-        ClientHeight = 161
-        ClientWidth = 297
+        ClientHeight = 164
+        ClientWidth = 301
         TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
@@ -300,6 +301,7 @@ object Form2: TForm2
         Width = 305
         ItemHeight = 0
         TabOrder = 1
+        TopIndex = -1
       end
       object CheckBox4: TCheckBox
         Left = 16
@@ -630,8 +632,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 33
-        ClientWidth = 333
+        ClientHeight = 36
+        ClientWidth = 337
         Columns = 2
         Items.Strings = (
           'Simpleeeeeeeeeeeee'
@@ -723,8 +725,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 55
-        ClientWidth = 266
+        ClientHeight = 58
+        ClientWidth = 270
         Items.Strings = (
           'Phase avec relief dynamiqueeeeeeeeeeeeeeeee'
           'Phase sans reliefeeeeeeeeeeeeeeeeeeeeeeeeeee'
@@ -751,8 +753,8 @@ object Form2: TForm2
     end
     object TabSheet6: TPage
       Caption = 'Overlay'
-      ClientWidth = 367
-      ClientHeight = 390
+      ClientWidth = 369
+      ClientHeight = 401
       ImageIndex = 6
       object Panel2: TPanel
         Left = 30
@@ -859,8 +861,8 @@ object Form2: TForm2
           Top = 284
           Width = 294
           Caption = 'Grid'
-          ClientHeight = 50
-          ClientWidth = 286
+          ClientHeight = 57
+          ClientWidth = 290
           TabOrder = 3
           object Label45: TLabel
             Left = 134

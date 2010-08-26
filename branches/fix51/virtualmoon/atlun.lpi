@@ -1,20 +1,19 @@
 <?xml version="1.0"?>
 <CONFIG>
   <ProjectOptions>
+    <Version Value="9"/>
     <PathDelim Value="\"/>
-    <Version Value="7"/>
     <General>
       <Flags>
         <LRSInOutputDirectory Value="False"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <TargetFileExt Value=".exe"/>
       <Title Value="atlun"/>
       <Icon Value="0"/>
     </General>
     <VersionInfo>
-      <ProjectVersion Value=""/>
+      <StringTable ProductVersion=""/>
     </VersionInfo>
     <PublishOptions>
       <Version Value="2"/>
@@ -198,12 +197,17 @@
     </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="8"/>
+    <Version Value="9"/>
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)\"/>
       <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <UseAnsiStrings Value="False"/>
+      </SyntaxOptions>
+    </Parsing>
     <CodeGeneration>
       <Optimizations>
         <OptimizationLevel Value="0"/>
