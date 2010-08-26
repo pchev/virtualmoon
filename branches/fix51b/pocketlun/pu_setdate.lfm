@@ -1,0 +1,119 @@
+object f_setdate: Tf_setdate
+  Left = 789
+  Height = 200
+  Top = 99
+  Width = 240
+  HorzScrollBar.Page = 239
+  VertScrollBar.Page = 199
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'f_setdate'
+  ClientHeight = 200
+  ClientWidth = 240
+  Font.Height = -12
+  Font.Name = 'Tahoma'
+  OnCreate = FormCreate
+  object JDMonthlyCalendar1: TJDMonthlyCalendar
+    Left = 8
+    Height = 160
+    Width = 240
+    BevelInner = bvRaised
+    BevelOuter = bvNone
+    BorderWidth = 1
+    Caption = 'JDMonthlyCalendar1'
+    ClientHeight = 160
+    ClientWidth = 240
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    TabOrder = 0
+    JD = 2454225.5
+    Year = 2007
+    Month = 5
+    Day = 5
+  end
+  object BtnOK: TButton
+    Height = 25
+    Top = 176
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    ParentFont = True
+    TabOrder = 1
+    Visible = False
+  end
+  object Panel1: TPanel
+    Height = 34
+    Top = 160
+    Width = 240
+    BevelOuter = bvNone
+    ClientHeight = 34
+    ClientWidth = 240
+    ParentFont = True
+    TabOrder = 2
+    object Label1: TLabel
+      Left = 20
+      Height = 15
+      Top = 10
+      Width = 34
+      Caption = 'Heure'
+      ParentColor = False
+      ParentFont = True
+    end
+    object Edit1: TEdit
+      Left = 82
+      Height = 22
+      Top = 6
+      Width = 26
+      OnKeyDown = nil
+      ParentFont = True
+      TabOrder = 0
+      Text = '00'
+    end
+    object Edit2: TEdit
+      Left = 130
+      Height = 22
+      Top = 6
+      Width = 26
+      OnKeyDown = nil
+      ParentFont = True
+      TabOrder = 1
+      Text = '00'
+    end
+    object Edit3: TEdit
+      Left = 178
+      Height = 22
+      Top = 6
+      Width = 26
+      OnKeyDown = nil
+      ParentFont = True
+      TabOrder = 2
+      Text = '00'
+    end
+    object Hours: TUpDown
+      Left = 108
+      Height = 22
+      Top = 6
+      Width = 9
+      Associate = Edit1
+      Max = 23
+    end
+    object Minutes: TUpDown
+      Left = 156
+      Height = 22
+      Top = 6
+      Width = 9
+      Associate = Edit2
+      Max = 59
+    end
+    object Seconds: TUpDown
+      Left = 204
+      Height = 22
+      Top = 6
+      Width = 9
+      Associate = Edit3
+      Max = 59
+    end
+  end
+end

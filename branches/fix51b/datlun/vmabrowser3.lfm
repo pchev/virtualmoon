@@ -1,0 +1,62 @@
+object Columns: TColumns
+  Left = 287
+  Height = 495
+  Top = 211
+  Width = 319
+  ActiveControl = CheckListBox1
+  Caption = 'Columns'
+  ClientHeight = 495
+  ClientWidth = 319
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  OnCreate = FormCreate
+  LCLVersion = '0.9.28.3'
+  object CheckListBox1: TCheckListBox
+    Left = 8
+    Height = 448
+    Top = 8
+    Width = 152
+    ItemHeight = 0
+    OnItemClick = CheckListBox1ItemClick
+    TabOrder = 0
+  end
+  object ButtonAll: TButton
+    Left = 24
+    Height = 25
+    Top = 464
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'All'
+    OnClick = ButtonAllClick
+    TabOrder = 1
+  end
+  object ButtonNone: TButton
+    Left = 120
+    Height = 25
+    Top = 464
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'None'
+    OnClick = ButtonNoneClick
+    TabOrder = 2
+  end
+  object ButtonClose: TButton
+    Left = 224
+    Height = 25
+    Top = 464
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Cancel = True
+    Caption = 'Close'
+    OnClick = ButtonCloseClick
+    TabOrder = 3
+  end
+  object CheckListBox2: TCheckListBox
+    Left = 160
+    Height = 448
+    Top = 8
+    Width = 152
+    ItemHeight = 0
+    TabOrder = 4
+  end
+end

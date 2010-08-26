@@ -1,0 +1,179 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: u_translation_database.rsb_1
+msgid "Not named"
+msgstr "Sin nombre"
+
+#: u_translation_database.rsb_2
+msgid "Not indicated"
+msgstr "No indicado"
+
+#: u_translation_database.rsb_3
+msgid "Not evaluated"
+msgstr "No evaluado"
+
+#: u_translation_database.rsb_4
+msgid "Not observable"
+msgstr "No observable"
+
+#: u_translation_database.rsb_5
+msgid "No map"
+msgstr "Sin mapa"
+
+#: u_translation_database.rsb_6
+msgid "No map or picture"
+msgstr "Sin mapa o imagen"
+
+#: u_translation_database.rsb_7
+msgid "No article"
+msgstr "Sin artículo"
+
+#: u_translation_database.rsb_8
+msgid "Not defined"
+msgstr "No definido"
+
+#: u_translation_database.rsb_9
+msgid "Unknown in this period"
+msgstr "Desconocido en este periodo"
+
+#: u_translation_database.rscol_1
+msgid "Crater"
+msgstr "Cráter"
+
+#: u_translation_database.rscol_10
+msgid "Wrinkle ridge"
+msgstr "Cadena de pliegues"
+
+#: u_translation_database.rscol_11
+msgid "Wrinkle ridges network"
+msgstr "Sistema de cadena de pliegues"
+
+#: u_translation_database.rscol_12
+msgid "Scarp"
+msgstr "Escarpe"
+
+#: u_translation_database.rscol_13
+msgid "Rille"
+msgstr "Estría"
+
+#: u_translation_database.rscol_14
+msgid "Rilles network"
+msgstr "Sistema de estrías"
+
+#: u_translation_database.rscol_15
+msgid "Valley"
+msgstr "Valle"
+
+#: u_translation_database.rscol_16
+msgid "Marsh"
+msgstr "Pantano"
+
+#: u_translation_database.rscol_17
+msgid "Lake"
+msgstr "Lago"
+
+#: u_translation_database.rscol_18
+msgid "Sea"
+msgstr "Mar"
+
+#: u_translation_database.rscol_19
+msgid "Cape"
+msgstr "Cabo"
+
+#: u_translation_database.rscol_2
+msgid "Craterlet"
+msgstr "Cratercillo"
+
+#: u_translation_database.rscol_20
+msgid "Bay"
+msgstr "Bahía"
+
+#: u_translation_database.rscol_21
+msgid "Ejecta"
+msgstr "Eyección"
+
+#: u_translation_database.rscol_22
+msgid "Probe "
+msgstr "Sonda"
+
+#: u_translation_database.rscol_23
+msgid "Human mission"
+msgstr "Misión humana"
+
+#: u_translation_database.rscol_24
+msgid "Inert equipment"
+msgstr "Equipamiento inerte"
+
+#: u_translation_database.rscol_25
+msgid "Pyroclastic area"
+msgstr "Área piroclástica"
+
+#: u_translation_database.rscol_3
+msgid "Crater chain"
+msgstr "Cadena de cráteres"
+
+#: u_translation_database.rscol_4
+msgid "Walled plain"
+msgstr "Plano amurallado"
+
+#: u_translation_database.rscol_5
+msgid "Plain"
+msgstr "Plano"
+
+#: u_translation_database.rscol_6
+msgid "Mountain"
+msgstr "Montaña"
+
+#: u_translation_database.rscol_7
+msgid "Mountain range"
+msgstr "Cordillera"
+
+#: u_translation_database.rscol_8
+msgid "Dome"
+msgstr "Domo"
+
+#: u_translation_database.rscol_9
+msgid "Dome system"
+msgstr "Sistema de domos"
+
+#: u_translation_database.rsdb_1
+msgid "NSN"
+msgstr "NSN"
+
+#: u_translation_database.rsdb_2
+msgid "NSI"
+msgstr "NSI"
+
+#: u_translation_database.rsdb_3
+msgid "FSN"
+msgstr "FSN"
+
+#: u_translation_database.rsdb_4
+msgid "FSI"
+msgstr "FSI"
+
+#: u_translation_database.rsdb_5
+msgid "HIS"
+msgstr "HIS"
+
+#: u_translation_database.rsdb_6
+msgid "PYR"
+msgstr "PIR"
+
+#: u_translation_database.rsdb_7
+msgid "DOM"
+msgstr "DOM"
+
+#: u_translation_database.warning1
+msgid " Note to translator:"
+msgstr "Nota del traductor"
+
+#: u_translation_database.warning2
+msgid " The following text must be the same as the content of the TYPE column in the database you use for your language."
+msgstr "El siguiente texto debe ser el mismo que el contenido de la columna TIPO de la base de datos que utiliza para su idioma"
+
+#: u_translation_database.warning3
+msgid " If you not translate the database keep the English text here!"
+msgstr "Si usted no traduce las bases de datos mantenga el texto en Inglés aquí"
+

@@ -1,0 +1,30 @@
+/* XPM */
+static char *TGLTextureLensFlare[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 8 1",
+"  c #0402FC",
+". c #048204",
+"X c #04FEFC",
+"o c red",
+"O c #FC02FC",
+"+ c yellow",
+"@ c #FCFE04",
+"# c #FCFEFC",
+/* pixels */
+"OOOOOOOOOOOOOOOO",
+"O   X          O",
+"O # X #        O",
+"O  X#X         O",
+"OXX#@#XX       O",
+"O  X#X         O",
+"O # X #        O",
+"O   X oo++     O",
+"O     oo++.....O",
+"O    .++oo.....O",
+"O.....++oo.....O",
+"O........++oo..O",
+"O........++oo..O",
+"O........oo++..O",
+"O........oo++..O",
+"OOOOOOOOOOOOOOOO"
+};
