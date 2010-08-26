@@ -1184,6 +1184,7 @@ end;
 try
   GLSceneViewer1.Buffer.RenderingContext.Activate;
   MaxTextureSize:=Glsceneviewer1.Buffer.LimitOf[limTextureSize];
+  GLSceneViewer1.Buffer.RenderingContext.Deactivate;
   {$ifdef trace_debug}
    debugln('Texture max: '+inttostr(MaxTextureSize));
   {$endif}
