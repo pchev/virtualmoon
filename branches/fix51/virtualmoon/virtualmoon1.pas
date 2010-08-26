@@ -3143,14 +3143,11 @@ StartTimer.Enabled:=true;
 end;
 
 procedure TForm1.Init;
-var i:integer;
-    savecaption,savesidelist: string;
 begin
 try
   Setlang;
   form2.onPrinterDialog:=Selectiondimprimante1Click;
   screen.cursor := crHourGlass;
- // moon1.GLSceneViewer1.Visible:=false;
   application.ProcessMessages;
   LoadDB(dbm);
   application.ProcessMessages;
@@ -3236,7 +3233,6 @@ try
   GridButton.Visible:=AsMultiTexture;
 finally
   screen.cursor := crDefault;
-//  StartTimer.Enabled:=true;
 end;
 end;
 
@@ -3623,13 +3619,18 @@ begin
     PanelMoon2.Width:=w2;
     moon2.GLSceneViewer1.Align:=alNone;
     moon2.GLSceneViewer1.Top:=0;
+    moon2.GLSceneViewer1.Width:=moon2.GLSceneViewer1.Width-1;
+    moon2.GLSceneViewer1.Height:=moon2.GLSceneViewer1.Height-1;
     moon2.GLSceneViewer1.Align:=alClient;
   end;
   moon1.GLSceneViewer1.Align:=alNone;
   moon1.GLSceneViewer1.Top:=0;
+  moon1.GLSceneViewer1.Width:=moon1.GLSceneViewer1.Width-1;
+  moon1.GLSceneViewer1.Height:=moon1.GLSceneViewer1.Height-1;
   moon1.GLSceneViewer1.Align:=alClient;
   moon1.RefreshAll;
   activemoon.GetZoomInfo;
+  ResizeTimer.interval:=200;
   if sender<>nil then ResizeTimer.Enabled:=true;
 end;
 
