@@ -3634,16 +3634,16 @@ begin
   if sender<>nil then ResizeTimer.Enabled:=true;
 end;
 
-procedure TForm1.Button5Click(Sender: TObject);
-begin
-  initdate;
-  RefreshMoonImage;
-end;
-
 procedure TForm1.ResizeTimerTimer(Sender: TObject);
 begin
 ResizeTimer.Enabled:=false;
 FormResize(nil);
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+begin
+  initdate;
+  RefreshMoonImage;
 end;
 
 procedure TForm1.Button10Click(Sender: TObject);
