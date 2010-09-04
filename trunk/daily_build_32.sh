@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a 32bit Linux system
 
-version=5.1
+version=5.2
 
 builddir=/tmp/virtualmoon  # Be sure this is set to a non existent directory, it is removed after the run!
 innosetup="C:\Program Files\Inno Setup 5\ISCC.exe"  # Install under Wine from http://www.jrsoftware.org/isinfo.php

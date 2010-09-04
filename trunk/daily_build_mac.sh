@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Mac OS X system
 
-version=5.1
+version=5.2
 
 unset make_darwin_i386
 make_darwin_i386=1
