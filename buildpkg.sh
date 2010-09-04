@@ -64,14 +64,6 @@ mkdir $wd/$outdir
 release=RELEASE
 mkdir $wd/$release
 
-#if [[ $upd ]]; then
-  # revert local changes
-  #svn -R revert .
-  # update to last revision
-  #svn up --force --non-interactive --accept theirs-full    # svn 1.5 only
-  #svn up --non-interactive
-#fi
-
 # check if new revision since last run
 read lastrev <last.build
 lang=LANG
