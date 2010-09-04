@@ -51,14 +51,6 @@ fi
 wd=`pwd`
 mkdir $wd/$outdir
 
-#if [[ $upd ]]; then
-  # revert local changes
-  #svn -R revert .
-  # update to last revision
-  #svn up --force --non-interactive --accept theirs-full    # svn 1.5 only
-  #svn up --non-interactive
-#fi
-
 # check if new revision since last run
 read lastrev <last.build
 lang=LANG
@@ -155,6 +147,12 @@ if [[ $make_darwin_i386 ]]; then
 
   cd $wd
   rm -rf $basedir
+fi
+
+# make ppc Mac version
+if [[ $make_darwin_ppc ]]; then
+  echo I not have a ppc system to test so you may have some work to do!
+  #./configure $configopt prefix=$builddir target=ppc-darwin
 fi
 
 # store revision 
