@@ -1389,8 +1389,8 @@ begin
 //  if FColorWriteMask[Index]<>Value then
   begin
     FColorWriteMask[Index] := Value;
-//    glColorMaski(Index, ccRed in Value, ccGreen in Value, ccBlue in Value,
-//                 ccAlpha in Value);
+    glColorMaski(Index, ccRed in Value, ccGreen in Value, ccBlue in Value,
+                 ccAlpha in Value);
   end;
 end;
 
