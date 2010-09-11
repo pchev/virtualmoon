@@ -73,7 +73,7 @@ fi
 
 # ensure lib are accessible
 ldconfig
-ldconfig -p | grep libplan404
+ldconfig -p | grep libvma404
 rc=$?
 if [ $rc = 0 ] ; then 
   echo "Installation successful" 

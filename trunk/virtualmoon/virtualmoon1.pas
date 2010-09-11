@@ -3643,7 +3643,7 @@ begin
     moon2.GLSceneViewer1.Align:=alClient;
   end;
   moon1.GLSceneViewer1.Align:=alNone;
-  moon1.GLSceneViewer1.Top:=0;
+  moon1.GLSceneViewer1.Top:=-0;
   moon1.GLSceneViewer1.Align:=alClient;
   moon1.RefreshAll;
   activemoon.GetZoomInfo;
