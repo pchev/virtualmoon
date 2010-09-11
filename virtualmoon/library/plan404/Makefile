@@ -7,7 +7,7 @@ ifneq ($(findstring Darwin,$(OSTYPE)),)
 SO_Name       = libplan404.dylib
 LIBFLAGS      = -Wl,-single_module -dynamiclib  -lc -lm
 else
-SO_Name       = libplan404.so
+SO_Name       = libvma404.so
 LIBFLAGS      = -shared -WL,-soname,$(SO_Name) -lc -lm
 endif
 ifneq ($(findstring W32,$(OSTYPE)),)

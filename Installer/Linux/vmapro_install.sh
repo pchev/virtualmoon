@@ -89,7 +89,7 @@ rc=$?
 # try to move lib to lib64 for redhat 64
 if [ "$initial_install" ]; then 
   if [ $filearch = x86_64 ]; then
-    mv lib/libplan404.so lib64/ 2>/dev/null
+    mv lib/libvma404.so lib64/ 2>/dev/null
   fi
 fi
 
@@ -118,7 +118,7 @@ fi
 # ensure lib are accessible
 if [ "$initial_install" ]; then 
 ldconfig
-ldconfig -p | grep libplan404
+ldconfig -p | grep libvma404
 rc=$?
 if [ $rc = 0 ] ; then 
   echo "Installation successful" 
