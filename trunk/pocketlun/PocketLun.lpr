@@ -26,14 +26,13 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  Interfaces,Forms, sysutils, controls,
-  Inifiles, pu_pocketlun, libsql, JPEGForLazarus, pu_info,
+  Interfaces,Forms, sysutils, controls, imagesforlazarus,
+  Inifiles, pu_pocketlun, libsql, pu_info,
 pu_ephemeris, pu_about, pu_config_display, pu_config, pu_calendar, pu_search,
 pu_setdate, cu_moon, u_astro, series96main, elp82main, CDCjdcalendar,
 pu_notes, pu_photo, wince_func, u_translation;
 
 begin
-  Application.Title:='PocketLun';
   screen.cursor:=crHourGlass;
   GetCaption;
   OneInstance;

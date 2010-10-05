@@ -158,21 +158,21 @@ begin
   NewStyle := CurrentStyle or WS_NONAVDONEBUTTON;
   Windows.SetWindowLong(hnd, GWL_STYLE, NewStyle);
 // hide the ok/cancel button
-  SHDoneButton(hnd,SHDB_HIDE);
+//  SHDoneButton(hnd,SHDB_HIDE);
 {$endif}
 end;
 
 procedure ShowOKBtn(hnd: HWND);
 begin
 {$ifdef wince}
-  SHDoneButton(hnd,SHDB_SHOW);
+  //SHDoneButton(hnd,SHDB_SHOW);
 {$endif}
 end;
 
 procedure ShowCancelBtn(hnd: HWND);
 begin
 {$ifdef wince}
-  SHDoneButton(hnd,SHDB_SHOWCANCEL);
+ // SHDoneButton(hnd,SHDB_SHOWCANCEL);
 {$endif}
 end;
 

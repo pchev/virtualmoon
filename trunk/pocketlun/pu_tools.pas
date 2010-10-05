@@ -6,7 +6,7 @@ interface
 
 uses wince_func,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
-  ExtCtrls, Buttons;
+  ExtCtrls, Buttons, StdCtrls;
 
 type
 

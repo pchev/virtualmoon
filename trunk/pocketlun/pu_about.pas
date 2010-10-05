@@ -86,7 +86,7 @@ MenuItem8.Caption:=rsHelp;
 MenuItem10.Caption:=rsMap;
 listbox1.clear;
 if language='fr' then begin
-  listbox1.Items.Add('Version:    1.0   du  12 avril 2008');
+  listbox1.Items.Add('Version:    1.1   du  13 septembre 2010');
   listbox1.Items.Add(''                                  );
   listbox1.Items.Add('Conception:     Christian Legrand' );
   listbox1.Items.Add('Programmation:  Patrick  Chevalley');
@@ -106,7 +106,7 @@ if language='fr' then begin
   listbox1.Items.Add('Les bibliothèques d''images sont sous copyright de leurs'  );
   listbox1.Items.Add('propriétaires respectifs.');
 end else begin
-  listbox1.Items.Add('Version:    1.0   April 12 2008');
+  listbox1.Items.Add('Version:    1.1   September 13 2010');
   listbox1.Items.Add(''                                  );
   listbox1.Items.Add('Conception:     Christian Legrand' );
   listbox1.Items.Add('Programming:    Patrick  Chevalley');

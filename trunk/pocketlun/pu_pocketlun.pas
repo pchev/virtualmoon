@@ -26,7 +26,7 @@ interface
 
 uses   u_translation, wince_func, u_astro, cu_moon, cu_tz, passqlite, IniFiles, Windows,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, Math, ComCtrls, Menus, ActnList, lazjpeg, Buttons;
+  StdCtrls, ExtCtrls, Math, ComCtrls, Menus, ActnList, Buttons;
 
 Const
       crlf = chr(10)+chr(13);

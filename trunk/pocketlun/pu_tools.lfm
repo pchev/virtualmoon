@@ -5,15 +5,17 @@ object f_tools: Tf_tools
   Width = 243
   HorzScrollBar.Page = 242
   VertScrollBar.Page = 244
-  ActiveControl = Button1
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
-  ClientHeight = 245
+  ClientHeight = 246
   ClientWidth = 243
   Menu = MainMenu1
   OnShow = FormShow
+  LCLVersion = '0.9.29'
   object Title: TPanel
+    Left = 0
     Height = 26
+    Top = 0
     Width = 243
     Align = alTop
     Caption = 'Outils'
@@ -22,9 +24,12 @@ object f_tools: Tf_tools
     Font.Height = 14
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 0
     object Button1: TButton
+      Left = 0
       Height = 25
+      Top = 0
       Width = 75
       BorderSpacing.InnerBorder = 4
       Caption = 'OK'
