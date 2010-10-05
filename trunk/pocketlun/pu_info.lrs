@@ -1,30 +1,33 @@
+{ Ceci est un fichier ressource généré automatiquement par Lazarus }
+
 LazarusResources.Add('Tf_info','FORMDATA',[
   'TPF0'#7'Tf_info'#6'f_info'#4'Left'#3#5#3#6'Height'#3#240#0#3'Top'#2'b'#5'Wid'
   +'th'#3#240#0#18'HorzScrollBar.Page'#3#239#0#18'VertScrollBar.Page'#3#219#0#13
   +'ActiveControl'#7#5'Memo1'#11'BorderIcons'#11#0#11'BorderStyle'#7#8'bsDialog'
-  +#7'Caption'#6#6'f_info'#12'ClientHeight'#3#220#0#11'ClientWidth'#3#240#0#4'M'
-  +'enu'#7#9'MainMenu1'#8'OnCreate'#7#10'FormCreate'#6'OnShow'#7#8'FormShow'#0#6
-  +'TPanel'#5'Title'#6'Height'#2#26#5'Width'#3#240#0#5'Align'#7#5'alTop'#12'Cli'
-  +'entHeight'#2#26#11'ClientWidth'#3#240#0#11'Font.Height'#2#14#9'Font.Name'#6
-  +#6'Tahoma'#10'Font.Style'#11#6'fsBold'#0#8'TabOrder'#2#0#0#7'TButton'#7'Butt'
-  +'on1'#6'Height'#2#25#5'Width'#2'K'#25'BorderSpacing.InnerBorder'#2#4#7'Capti'
-  +'on'#6#2'OK'#7'Default'#9#11'ModalResult'#2#1#8'TabOrder'#2#0#7'Visible'#8#0
-  +#0#0#5'TMemo'#5'Memo1'#6'Height'#3#170#0#3'Top'#2#26#5'Width'#3#240#0#5'Alig'
-  +'n'#7#8'alClient'#13'Lines.Strings'#1#6#5'Memo1'#0#10'ParentFont'#9#8'ReadOn'
-  +'ly'#9#10'ScrollBars'#7#10'ssVertical'#8'TabOrder'#2#1#0#0#6'TPanel'#6'Panel'
-  +'1'#6'Height'#2#24#3'Top'#3#196#0#5'Width'#3#240#0#5'Align'#7#8'alBottom'#10
-  +'BevelOuter'#7#6'bvNone'#8'TabOrder'#2#2#0#0#9'TMainMenu'#9'MainMenu1'#4'lef'
-  +'t'#2'M'#3'top'#3#193#0#0#9'TMenuItem'#10'MenuItem11'#7'Caption'#6#2'  '#7'E'
-  +'nabled'#8#0#0#9'TMenuItem'#9'MenuItem1'#7'Caption'#6#4'Menu'#0#9'TMenuItem'
-  +#10'MenuItem10'#7'Caption'#6#5'Carte'#7'OnClick'#7#15'MenuItem10Click'#0#0#9
-  +'TMenuItem'#9'MenuItem2'#7'Caption'#6#13'Configuration'#7'OnClick'#7#14'Menu'
-  +'Item2Click'#0#0#9'TMenuItem'#9'MenuItem3'#7'Caption'#6#9'Affichage'#7'OnCli'
-  +'ck'#7#14'MenuItem3Click'#0#0#9'TMenuItem'#9'MenuItem4'#7'Caption'#6#6'Outil'
-  +'s'#7'Visible'#8#7'OnClick'#7#14'MenuItem4Click'#0#0#9'TMenuItem'#9'MenuItem'
-  +'5'#7'Caption'#6#11'Eph'#233'm'#233'rides'#7'OnClick'#7#14'MenuItem5Click'#0
-  +#0#9'TMenuItem'#9'MenuItem6'#7'Caption'#6#10'Calendrier'#7'OnClick'#7#14'Men'
-  +'uItem6Click'#0#0#9'TMenuItem'#9'MenuItem7'#7'Caption'#6#9'Recherche'#7'OnCl'
-  +'ick'#7#14'MenuItem7Click'#0#0#9'TMenuItem'#9'MenuItem8'#7'Caption'#6#4'Aide'
-  +#7'OnClick'#7#14'MenuItem8Click'#0#0#9'TMenuItem'#9'MenuItem9'#7'Caption'#6#8
-  +'A propos'#7'OnClick'#7#14'MenuItem9Click'#0#0#0#0#0
+  +#7'Caption'#6#6'f_info'#12'ClientHeight'#3#221#0#11'ClientWidth'#3#240#0#4'M'
+  +'enu'#7#9'MainMenu1'#8'OnCreate'#7#10'FormCreate'#6'OnShow'#7#8'FormShow'#10
+  +'LCLVersion'#6#8'0.9.28.2'#0#6'TPanel'#5'Title'#4'Left'#2#0#6'Height'#2#26#3
+  +'Top'#2#0#5'Width'#3#240#0#5'Align'#7#5'alTop'#12'ClientHeight'#2#26#11'Clie'
+  +'ntWidth'#3#240#0#11'Font.Height'#2#14#9'Font.Name'#6#6'Tahoma'#10'Font.Styl'
+  +'e'#11#6'fsBold'#0#10'ParentFont'#8#8'TabOrder'#2#0#0#7'TButton'#7'Button1'#4
+  +'Left'#2#0#6'Height'#2#25#3'Top'#2#0#5'Width'#2'K'#25'BorderSpacing.InnerBor'
+  +'der'#2#4#7'Caption'#6#2'OK'#7'Default'#9#11'ModalResult'#2#1#8'TabOrder'#2#0
+  +#7'Visible'#8#0#0#0#5'TMemo'#5'Memo1'#4'Left'#2#0#6'Height'#3#171#0#3'Top'#2
+  +#26#5'Width'#3#240#0#5'Align'#7#8'alClient'#13'Lines.Strings'#1#6#5'Memo1'#0
+  +#10'ScrollBars'#7#10'ssVertical'#8'TabOrder'#2#1#0#0#6'TPanel'#6'Panel1'#4'L'
+  +'eft'#2#0#6'Height'#2#24#3'Top'#3#197#0#5'Width'#3#240#0#5'Align'#7#8'alBott'
+  +'om'#10'BevelOuter'#7#6'bvNone'#8'TabOrder'#2#2#0#0#9'TMainMenu'#9'MainMenu1'
+  +#4'left'#2'M'#3'top'#3#193#0#0#9'TMenuItem'#10'MenuItem11'#7'Caption'#6#2'  '
+  +#7'Enabled'#8#0#0#9'TMenuItem'#9'MenuItem1'#7'Caption'#6#4'Menu'#0#9'TMenuIt'
+  +'em'#10'MenuItem10'#7'Caption'#6#5'Carte'#7'OnClick'#7#15'MenuItem10Click'#0
+  +#0#9'TMenuItem'#9'MenuItem2'#7'Caption'#6#13'Configuration'#7'OnClick'#7#14
+  +'MenuItem2Click'#0#0#9'TMenuItem'#9'MenuItem3'#7'Caption'#6#9'Affichage'#7'O'
+  +'nClick'#7#14'MenuItem3Click'#0#0#9'TMenuItem'#9'MenuItem4'#7'Caption'#6#6'O'
+  +'utils'#7'Visible'#8#7'OnClick'#7#14'MenuItem4Click'#0#0#9'TMenuItem'#9'Menu'
+  +'Item5'#7'Caption'#6#13'Eph'#195#169'm'#195#169'rides'#7'OnClick'#7#14'MenuI'
+  +'tem5Click'#0#0#9'TMenuItem'#9'MenuItem6'#7'Caption'#6#10'Calendrier'#7'OnCl'
+  +'ick'#7#14'MenuItem6Click'#0#0#9'TMenuItem'#9'MenuItem7'#7'Caption'#6#9'Rech'
+  +'erche'#7'OnClick'#7#14'MenuItem7Click'#0#0#9'TMenuItem'#9'MenuItem8'#7'Capt'
+  +'ion'#6#4'Aide'#7'OnClick'#7#14'MenuItem8Click'#0#0#9'TMenuItem'#9'MenuItem9'
+  +#7'Caption'#6#8'A propos'#7'OnClick'#7#14'MenuItem9Click'#0#0#0#0#0
 ]);

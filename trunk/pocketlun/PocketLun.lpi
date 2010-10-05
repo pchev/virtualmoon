@@ -65,6 +65,7 @@
         <Filename Value="pu_info.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_info"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_info"/>
       </Unit2>
       <Unit3>

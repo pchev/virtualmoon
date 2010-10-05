@@ -10,7 +10,7 @@
         <UnitName Value="PocketLun"/>
         <CursorPos X="1" Y="56"/>
         <TopLine Value="28"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -20,12 +20,13 @@
         <ComponentName Value="f_pocketlun"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_pocketlun"/>
-        <CursorPos X="31" Y="1040"/>
-        <TopLine Value="1030"/>
+        <CursorPos X="3" Y="858"/>
+        <TopLine Value="835"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
-        <Bookmarks Count="1">
-          <Item0 X="53" Y="1638" ID="1"/>
+        <Bookmarks Count="2">
+          <Item0 X="67" Y="1439" ID="1"/>
+          <Item1 X="5" Y="856" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit1>
@@ -33,10 +34,13 @@
         <Filename Value="pu_info.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_info"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_info"/>
-        <CursorPos X="1" Y="22"/>
+        <CursorPos X="28" Y="9"/>
         <TopLine Value="1"/>
+        <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="pu_ephemeris.pas"/>
@@ -56,7 +60,7 @@
         <UnitName Value="pu_about"/>
         <CursorPos X="58" Y="109"/>
         <TopLine Value="94"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit4>
@@ -89,7 +93,7 @@
         <UnitName Value="pu_config"/>
         <CursorPos X="21" Y="310"/>
         <TopLine Value="292"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit7>
@@ -100,9 +104,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_config_display"/>
-        <CursorPos X="10" Y="127"/>
+        <CursorPos X="23" Y="130"/>
         <TopLine Value="123"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit8>
@@ -138,7 +142,7 @@
         <UnitName Value="u_astro"/>
         <CursorPos X="53" Y="413"/>
         <TopLine Value="410"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit12>
@@ -169,7 +173,7 @@
         <UnitName Value="pu_photo"/>
         <CursorPos X="38" Y="27"/>
         <TopLine Value="12"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit15>
@@ -179,7 +183,7 @@
         <UnitName Value="wince_func"/>
         <CursorPos X="16" Y="177"/>
         <TopLine Value="31"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -189,7 +193,7 @@
         <UnitName Value="u_translation"/>
         <CursorPos X="54" Y="65"/>
         <TopLine Value="52"/>
-        <UsageCount Value="65"/>
+        <UsageCount Value="67"/>
       </Unit17>
       <Unit18>
         <Filename Value="pu_tools.pas"/>
@@ -199,8 +203,8 @@
         <UnitName Value="pu_tools"/>
         <CursorPos X="19" Y="4"/>
         <TopLine Value="1"/>
-        <EditorIndex Value="5"/>
-        <UsageCount Value="11"/>
+        <EditorIndex Value="6"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -208,82 +212,82 @@
         <UnitName Value="StdCtrls"/>
         <CursorPos X="14" Y="388"/>
         <TopLine Value="360"/>
-        <EditorIndex Value="3"/>
-        <UsageCount Value="11"/>
+        <EditorIndex Value="4"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit19>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="2"/>
+      <ActiveEditorIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="28" HistoryIndex="26">
       <Position1>
-        <Filename Value="pu_config.pas"/>
-        <Caret Line="176" Column="18" TopLine="163"/>
-      </Position1>
-      <Position2>
-        <Filename Value="pu_config.pas"/>
-        <Caret Line="190" Column="18" TopLine="172"/>
-      </Position2>
-      <Position3>
-        <Filename Value="pu_config.pas"/>
-        <Caret Line="183" Column="15" TopLine="176"/>
-      </Position3>
-      <Position4>
-        <Filename Value="pu_config.pas"/>
-        <Caret Line="185" Column="7" TopLine="171"/>
-      </Position4>
-      <Position5>
-        <Filename Value="pu_config.pas"/>
-        <Caret Line="204" Column="6" TopLine="187"/>
-      </Position5>
-      <Position6>
-        <Filename Value="u_astro.pas"/>
-        <Caret Line="413" Column="18" TopLine="412"/>
-      </Position6>
-      <Position7>
-        <Filename Value="pu_config.pas"/>
-        <Caret Line="185" Column="1" TopLine="181"/>
-      </Position7>
-      <Position8>
-        <Filename Value="pu_config_display.pas"/>
-        <Caret Line="24" Column="20" TopLine="1"/>
-      </Position8>
-      <Position9>
-        <Filename Value="pu_config_display.pas"/>
-        <Caret Line="29" Column="50" TopLine="15"/>
-      </Position9>
-      <Position10>
-        <Filename Value="pu_config_display.pas"/>
-        <Caret Line="38" Column="25" TopLine="15"/>
-      </Position10>
-      <Position11>
-        <Filename Value="pu_config_display.pas"/>
-        <Caret Line="61" Column="23" TopLine="47"/>
-      </Position11>
-      <Position12>
-        <Filename Value="pu_config_display.pas"/>
-        <Caret Line="113" Column="11" TopLine="99"/>
-      </Position12>
-      <Position13>
-        <Filename Value="pu_config_display.pas"/>
-        <Caret Line="139" Column="50" TopLine="123"/>
-      </Position13>
-      <Position14>
-        <Filename Value="wince_func.pas"/>
-        <Caret Line="158" Column="46" TopLine="144"/>
-      </Position14>
-      <Position15>
         <Filename Value="pu_pocketlun.pas"/>
         <Caret Line="656" Column="60" TopLine="646"/>
-      </Position15>
-      <Position16>
+      </Position1>
+      <Position2>
         <Filename Value="wince_func.pas"/>
         <Caret Line="133" Column="1" TopLine="1"/>
-      </Position16>
-      <Position17>
+      </Position2>
+      <Position3>
         <Filename Value="wince_func.pas"/>
         <Caret Line="144" Column="7" TopLine="134"/>
+      </Position3>
+      <Position4>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1050" Column="7" TopLine="1030"/>
+      </Position5>
+      <Position6>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1635" Column="3" TopLine="1633"/>
+      </Position6>
+      <Position7>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position7>
+      <Position8>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1191" Column="53" TopLine="1184"/>
+      </Position8>
+      <Position9>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="27" Column="27" TopLine="1"/>
+      </Position9>
+      <Position10>
+        <Filename Value="wince_func.pas"/>
+        <Caret Line="1" Column="1" TopLine="34"/>
+      </Position10>
+      <Position11>
+        <Filename Value="wince_func.pas"/>
+        <Caret Line="161" Column="3" TopLine="147"/>
+      </Position11>
+      <Position12>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="6" Column="11" TopLine="1"/>
+      </Position12>
+      <Position13>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1044" Column="18" TopLine="1030"/>
+      </Position13>
+      <Position14>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="184" Column="60" TopLine="171"/>
+      </Position14>
+      <Position15>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position15>
+      <Position16>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="325" Column="34" TopLine="307"/>
+      </Position16>
+      <Position17>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1041" Column="49" TopLine="1030"/>
       </Position17>
       <Position18>
         <Filename Value="pu_pocketlun.pas"/>
@@ -291,52 +295,44 @@
       </Position18>
       <Position19>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1050" Column="7" TopLine="1030"/>
+        <Caret Line="854" Column="10" TopLine="839"/>
       </Position19>
       <Position20>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1635" Column="3" TopLine="1633"/>
+        <Caret Line="189" Column="35" TopLine="175"/>
       </Position20>
       <Position21>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="1371" Column="34" TopLine="1371"/>
       </Position21>
       <Position22>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1191" Column="53" TopLine="1184"/>
+        <Caret Line="189" Column="15" TopLine="189"/>
       </Position22>
       <Position23>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="27" Column="27" TopLine="1"/>
+        <Caret Line="854" Column="8" TopLine="848"/>
       </Position23>
       <Position24>
-        <Filename Value="wince_func.pas"/>
-        <Caret Line="1" Column="1" TopLine="34"/>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="860" Column="12" TopLine="848"/>
       </Position24>
       <Position25>
-        <Filename Value="wince_func.pas"/>
-        <Caret Line="161" Column="3" TopLine="147"/>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="855" Column="8" TopLine="841"/>
       </Position25>
       <Position26>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="6" Column="11" TopLine="1"/>
+        <Caret Line="858" Column="51" TopLine="841"/>
       </Position26>
       <Position27>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1044" Column="18" TopLine="1030"/>
+        <Caret Line="856" Column="5" TopLine="835"/>
       </Position27>
       <Position28>
-        <Filename Value="pu_config.pas"/>
-        <Caret Line="184" Column="60" TopLine="171"/>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1439" Column="67" TopLine="1417"/>
       </Position28>
-      <Position29>
-        <Filename Value="pu_config.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position29>
-      <Position30>
-        <Filename Value="pu_config.pas"/>
-        <Caret Line="325" Column="34" TopLine="307"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

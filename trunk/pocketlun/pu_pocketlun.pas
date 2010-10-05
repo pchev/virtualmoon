@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses   u_translation, wince_func, u_astro, cu_moon, cu_tz, passqlite, IniFiles, Windows,
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, FileUtil,
   StdCtrls, ExtCtrls, Math, ComCtrls, Menus, ActnList, Buttons;
 
 Const
@@ -186,7 +186,7 @@ type
     function SearchAtPos(l,b: double):boolean;
     function SearchName(n: string; center: boolean; mark:boolean=false):boolean;
     procedure Search(Sender: TObject);
-    procedure GetDetail(memo:Tmemo);
+    procedure GetDetail(lin:TStringList);
     procedure MoveCamera(x,y :double);
     procedure UpdateEphemeris;
     procedure EphemerisDateChange(Sender: TObject);
@@ -846,14 +846,20 @@ begin
 end;
 
 procedure Tf_pocketlun.info1Execute(Sender: TObject);
+var buf:TStringList;
+    i:integer;
 begin
+  buf:=TStringList.Create;
   f_info.Font.Name:=deffont;
   f_info.Font.Size:=deffontsize;
   f_info.Title.Caption:=currentname;
-  GetDetail(f_info.Memo1);
+  GetDetail(buf);
+  f_info.Memo1.Lines.Assign(buf);
+//  for i:=0 to buf.Count-1 do f_info.Memo1.Lines.Add(buf[i]);
   VMAShowmodal(f_info,self);
   next_win:=f_info.NextWindow;
   nextwindow;
+  buf.free;
 end;
 
 procedure Tf_pocketlun.DebugBtnClick(Sender: TObject);
@@ -1366,12 +1372,12 @@ if dbm.RowCount > 0 then begin
 end;
 end;
 
-Procedure Tf_pocketlun.GetDetail(memo:Tmemo);
+Procedure Tf_pocketlun.GetDetail(lin:TStringList);
 const b=' ';
 var buf,buf2,txt : string;
     i:integer;
 begin
-memo.clear;
+lin.clear;
 buf:='select TYPE,PERIOD,LENGTHKM,WIDEKM,LENGTHMI,WIDEMI,HEIGHTM,HEIGHTFE,RAPPORT,GENERAL,SLOPES,WALLS,FLOOR,';
 buf:=buf+'INTERESTC,MOONDAYS,MOONDAYM,PRINSTRU,LONGIC,LATIC,QUADRANT,AREA,RUKL,RUKLC,VISCARDY,HATFIELD,WESTFALL,WOOD,';
 buf:=buf+'NAMEDETAIL,WORK,NATIONLITY,CENTURYC,COUNTRY,BIRTHPLACE,BIRTHDATE,DEATHPLACE,DEATHDATE,FACTS,NAMEORIGIN,LANGRENUS,HEVELIUS,RICCIOLI ';
@@ -1379,20 +1385,20 @@ buf:=buf+' from moon where ID='+currentid;
 dbm.query(buf);
 if dbm.RowCount>0 then begin
 {  nom:=dbm.Results[0].ByField['NAME'].AsString;
-  memo.Lines.Add(nom);
+  lin.Add(nom);
   i:=dbm.Results[0].ByField['DBN'].asInteger;
   if i>9 then begin
     buf:=m[75]+b+inttostr(i)+b;
     for j:=0 to form2.CheckListBox1.count-1 do
        if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum=i then
           buf:=buf+form2.CheckListBox1.Items[j];
-    memo.Lines.Add(buf);
+    lin.Add(buf);
   end;}
-  memo.Lines.Add(rsType+':'+b+dbm.Results[0].Strings[0]);
-  memo.Lines.Add(rsGeologicalPe+':'+b+dbm.Results[0].Strings[1]);
-  memo.Lines.Add('');
-  memo.Lines.Add(rsSize+':'); //Taille
-  memo.Lines.Add(rsDimension+':'+b+dbm.Results[0].Strings[2]+'x'+dbm.Results[0
+  lin.Add(rsType+':'+b+dbm.Results[0].Strings[0]);
+  lin.Add(rsGeologicalPe+':'+b+dbm.Results[0].Strings[1]);
+  lin.Add('');
+  lin.Add(rsSize+':'); //Taille
+  lin.Add(rsDimension+':'+b+dbm.Results[0].Strings[2]+'x'+dbm.Results[0
     ].Strings[3]+rsKm+b+'/'+b+dbm.Results[0].Strings[4]+'x'+dbm.Results[0
     ].Strings[5]+rsMi);
   buf:=dbm.Results[0].Strings[6];
@@ -1405,46 +1411,46 @@ if dbm.RowCount>0 then begin
      val(buf2,dummy,i);
      if i=0 then txt:=txt+buf2+rsFt;
   end;
-  memo.Lines.Add(txt);
-  memo.Lines.Add(rsHeightWideRa+':'+b+dbm.Results[0].Strings[8]);
-//  memo.Lines.Add(b);
-  memo.Lines.Add('');
-  memo.Lines.Add(rsDescription+':'); //Description
-  if dbm.Results[0].Strings[9]>'' then memo.Lines.Add(dbm.Results[0].Strings[9]);
-  if dbm.Results[0].Strings[10]>'' then memo.Lines.Add(dbm.Results[0].Strings[10]);
-  if dbm.Results[0].Strings[11]>'' then memo.Lines.Add(dbm.Results[0].Strings[11]);
-  if dbm.Results[0].Strings[12]>'' then memo.Lines.Add(dbm.Results[0].Strings[12]);
+  lin.Add(txt);
+  lin.Add(rsHeightWideRa+':'+b+dbm.Results[0].Strings[8]);
+//  lin.Add(b);
+  lin.Add('');
+  lin.Add(rsDescription+':'); //Description
+  if dbm.Results[0].Strings[9]>'' then lin.Add(dbm.Results[0].Strings[9]);
+  if dbm.Results[0].Strings[10]>'' then lin.Add(dbm.Results[0].Strings[10]);
+  if dbm.Results[0].Strings[11]>'' then lin.Add(dbm.Results[0].Strings[11]);
+  if dbm.Results[0].Strings[12]>'' then lin.Add(dbm.Results[0].Strings[12]);
   
-//  memo.Lines.Add(b);
-  memo.Lines.Add('');
-  memo.Lines.Add(rsObservation+':'); //Observation
-  memo.Lines.Add(rsInterest+':'+b+dbm.Results[0].Strings[13]);
+//  lin.Add(b);
+  lin.Add('');
+  lin.Add(rsObservation+':'); //Observation
+  lin.Add(rsInterest+':'+b+dbm.Results[0].Strings[13]);
   buf:=dbm.Results[0].Strings[14];
   buf2:=dbm.Results[0].Strings[15];
   if buf=buf2 then txt:=rsObservationP+':'+b+buf
               else txt:=rsObservationP+':'+b+buf+b+rsOr+b+buf2;
-  memo.Lines.Add(txt);
-  memo.Lines.Add(rsMinimalInstr+':'+b+dbm.Results[0].Strings[16]);
-//  memo.Lines.Add(b);
-  memo.Lines.Add('');
-  memo.Lines.Add(rsPosition+':'); //Position
-  memo.Lines.Add(rsLongitude+':'+b+dbm.Results[0].Strings[17]);
-  memo.Lines.Add(rsLatitude+':'+b+dbm.Results[0].Strings[18]);
-  memo.Lines.Add(rsQuadrant+':'+b+dbm.Results[0].Strings[19]);
-  memo.Lines.Add(rsArea+':'+b+dbm.Results[0].Strings[20]);
-//  memo.Lines.Add(b);
-  memo.Lines.Add('');
-  memo.Lines.Add(rsAtlas+':'); //Atlas
-  memo.Lines.Add(rsRuklMap+':'+b+dbm.Results[0].Strings[21]+' '+dbm.Results[0
+  lin.Add(txt);
+  lin.Add(rsMinimalInstr+':'+b+dbm.Results[0].Strings[16]);
+//  lin.Add(b);
+  lin.Add('');
+  lin.Add(rsPosition+':'); //Position
+  lin.Add(rsLongitude+':'+b+AnsiToUtf8(dbm.Results[0].Strings[17]));
+  lin.Add(rsLatitude+':'+b+AnsiToUtf8(dbm.Results[0].Strings[18]));
+  lin.Add(rsQuadrant+':'+b+AnsiToUtf8(dbm.Results[0].Strings[19]));
+  lin.Add(rsArea+':'+b+dbm.Results[0].Strings[20]);
+//  lin.Add(b);
+  lin.Add('');
+  lin.Add(rsAtlas+':'); //Atlas
+  lin.Add(rsRuklMap+':'+b+dbm.Results[0].Strings[21]+' '+dbm.Results[0
     ].Strings[22]);
   buf:=dbm.Results[0].Strings[23];
-  if trim(buf)>'' then memo.Lines.Add(rsViscardyPage+':'+b+buf);
+  if trim(buf)>'' then lin.Add(rsViscardyPage+':'+b+buf);
   buf:=dbm.Results[0].Strings[24] ;
-  if trim(buf)>'' then memo.Lines.Add(rsHatfieldMap+':'+b+buf);
+  if trim(buf)>'' then lin.Add(rsHatfieldMap+':'+b+buf);
   buf:=dbm.Results[0].Strings[25] ;
-  if trim(buf)>'' then memo.Lines.Add(rsWestfallAtla+':'+b+buf);
+  if trim(buf)>'' then lin.Add(rsWestfallAtla+':'+b+buf);
   buf:=dbm.Results[0].Strings[26] ;
-  if trim(buf)>'' then memo.Lines.Add(rsCharlesWoodA+':'+b+buf);
+  if trim(buf)>'' then lin.Add(rsCharlesWoodA+':'+b+buf);
 {  dblox.Gofirst;
   ok:=dblox.MatchData('NAME', '=', nom);
   if not ok then ok:=dblox.SeekData('NAME',  '=', nom);
@@ -1455,37 +1461,37 @@ if dbm.RowCount>0 then begin
       buf:=buf+b+carte;
       ok:=dblox.SeekData('NAME',  '=', nom);
     end;
-    memo.Lines.Add(buf);
+    lin.Add(buf);
   end;}
-  memo.Lines.Add('');
-  memo.Lines.Add(rsNameOrigine+':'); //Origine
-  memo.Lines.Add(rsDetailedName+':'+b+dbm.Results[0].Strings[27]);
+  lin.Add('');
+  lin.Add(rsNameOrigine+':'); //Origine
+  lin.Add(rsDetailedName+':'+b+dbm.Results[0].Strings[27]);
   if (trim(dbm.Results[0].Strings[28]+dbm.Results[0].Strings[29])>'')and(trim(dbm.Results[0].Strings[30]+dbm.Results[0].Strings[31])>'') then begin
     case PhraseFormat of
-      PhraseFormatEnglish : memo.Lines.Add(dbm.Results[0].Strings[30]+b+
+      PhraseFormatEnglish : lin.Add(dbm.Results[0].Strings[30]+b+
         dbm.Results[0].Strings[29]+b+dbm.Results[0].Strings[28]+b+rsBornIn+b+
         dbm.Results[0].Strings[31]);
-      PhraseFormatLatin   : memo.Lines.Add(dbm.Results[0].Strings[28]+b+
+      PhraseFormatLatin   : lin.Add(dbm.Results[0].Strings[28]+b+
         dbm.Results[0].Strings[29]+b+rsFrom+b+dbm.Results[0].Strings[30]+b+rsBornIn+b+
         dbm.Results[0].Strings[31]);
-      PhraseFormatRussian : memo.Lines.Add(dbm.Results[0].Strings[29]+b+
+      PhraseFormatRussian : lin.Add(dbm.Results[0].Strings[29]+b+
         dbm.Results[0].Strings[28]+b+dbm.Results[0].Strings[30]+b+rsBornIn+b+
         dbm.Results[0].Strings[31]);
     end;
-    memo.Lines.Add(rsBornAt+':'+b+dbm.Results[0].Strings[32]+b+rsIn+b+
+    lin.Add(rsBornAt+':'+b+dbm.Results[0].Strings[32]+b+rsIn+b+
       dbm.Results[0].Strings[33]);
-    memo.Lines.Add(rsDeadAt+':'+b+dbm.Results[0].Strings[34]+b+rsIn+b+
+    lin.Add(rsDeadAt+':'+b+dbm.Results[0].Strings[34]+b+rsIn+b+
       dbm.Results[0].Strings[35]);
   end;
   if (trim(dbm.Results[0].Strings[36])<>'??')and(trim(dbm.Results[0].Strings[36])<>'') then begin
-    memo.Lines.Add('');
-    memo.Lines.Add(rsImportantFac+':'+b+dbm.Results[0].Strings[36]);
+    lin.Add('');
+    lin.Add(rsImportantFac+':'+b+dbm.Results[0].Strings[36]);
   end;
-  memo.Lines.Add('');
-  memo.Lines.Add(rsNameAuthor+':'+b+dbm.Results[0].Strings[37]);
-  memo.Lines.Add(rsNameByLangre+':'+b+dbm.Results[0].Strings[38]);
-  memo.Lines.Add(rsNameByHeveli+':'+b+dbm.Results[0].Strings[39]);
-  memo.Lines.Add(rsNameByRiccio+':'+b+dbm.Results[0].Strings[40]);
+  lin.Add('');
+  lin.Add(rsNameAuthor+':'+b+dbm.Results[0].Strings[37]);
+  lin.Add(rsNameByLangre+':'+b+dbm.Results[0].Strings[38]);
+  lin.Add(rsNameByHeveli+':'+b+dbm.Results[0].Strings[39]);
+  lin.Add(rsNameByRiccio+':'+b+dbm.Results[0].Strings[40]);
 end;
 end;
 
