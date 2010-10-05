@@ -1,7 +1,7 @@
 object f_config_display: Tf_config_display
-  Left = 508
-  Height = 212
-  Top = 100
+  Left = 474
+  Height = 227
+  Top = 103
   Width = 278
   HorzScrollBar.Page = 277
   VertScrollBar.Page = 191
@@ -9,11 +9,12 @@ object f_config_display: Tf_config_display
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'f_config_display'
-  ClientHeight = 192
+  ClientHeight = 208
   ClientWidth = 278
   Menu = MainMenu1
   OnCreate = FormCreate
   OnShow = FormShow
+  LCLVersion = '0.9.28.2'
   object Label1: TLabel
     Left = 8
     Height = 14
@@ -21,7 +22,6 @@ object f_config_display: Tf_config_display
     Width = 99
     Caption = 'Qualité des textures'
     ParentColor = False
-    ParentFont = True
   end
   object Label2: TLabel
     Left = 8
@@ -30,7 +30,6 @@ object f_config_display: Tf_config_display
     Width = 79
     Caption = 'Taille des textes'
     ParentColor = False
-    ParentFont = True
   end
   object Label3: TLabel
     Left = 8
@@ -39,7 +38,6 @@ object f_config_display: Tf_config_display
     Width = 75
     Caption = 'Taille des labels'
     ParentColor = False
-    ParentFont = True
   end
   object Label4: TLabel
     Left = 8
@@ -48,7 +46,6 @@ object f_config_display: Tf_config_display
     Width = 87
     Caption = 'Densité des labels'
     ParentColor = False
-    ParentFont = True
   end
   object Label5: TLabel
     Left = 8
@@ -57,7 +54,6 @@ object f_config_display: Tf_config_display
     Width = 88
     Caption = 'Couleur des labels'
     ParentColor = False
-    ParentFont = True
   end
   object MemLabel: TLabel
     Left = 8
@@ -66,10 +62,11 @@ object f_config_display: Tf_config_display
     Width = 48
     Caption = 'MemLabel'
     ParentColor = False
-    ParentFont = True
   end
   object Title: TPanel
+    Left = 0
     Height = 26
+    Top = 0
     Width = 278
     Align = alTop
     Caption = 'Affichage'
@@ -78,9 +75,12 @@ object f_config_display: Tf_config_display
     Font.Height = 14
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 0
     object Button1: TButton
+      Left = 0
       Height = 25
+      Top = 0
       Width = 75
       BorderSpacing.InnerBorder = 4
       Caption = 'OK'
@@ -99,7 +99,6 @@ object f_config_display: Tf_config_display
     Min = 1
     PageSize = 1
     Position = 1
-    ScalePos = trTop
     TabOrder = 1
   end
   object TextSize: TTrackBar
@@ -112,7 +111,6 @@ object f_config_display: Tf_config_display
     OnChange = TextSizeChange
     PageSize = 1
     Position = 8
-    ScalePos = trTop
     TabOrder = 2
   end
   object LabelSize: TTrackBar
@@ -125,7 +123,6 @@ object f_config_display: Tf_config_display
     OnChange = TextSizeChange
     PageSize = 1
     Position = 8
-    ScalePos = trTop
     TabOrder = 3
   end
   object LabelDensity: TTrackBar
@@ -140,7 +137,6 @@ object f_config_display: Tf_config_display
     OnChange = TextSizeChange
     PageSize = 100
     Position = 100
-    ScalePos = trTop
     TabOrder = 4
   end
   object ColorBox1: TColorBox
@@ -148,39 +144,10 @@ object f_config_display: Tf_config_display
     Height = 21
     Top = 157
     Width = 100
-    AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
     ItemHeight = 15
-    ItemIndex = 0
-    Items.Strings = (
-      'clBlack'
-      'clMaroon'
-      'clGreen'
-      'clOlive'
-      'clNavy'
-      'clPurple'
-      'clTeal'
-      'clGray'
-      'clSilver'
-      'clRed'
-      'clLime'
-      'clYellow'
-      'clBlue'
-      'clFuchsia'
-      'clAqua'
-      'clSilver'
-      'clGray'
-      'clWhite'
-      'clCream'
-      'clNone'
-      'clDefault'
-    )
     ItemWidth = 100
-    MaxLength = 0
-    ParentFont = True
-    ReadOnly = True
-    TabOrder = 5
-    Text = 'clBlack'
     OnChange = ColorBox1Change
+    TabOrder = 5
   end
   object CenterLabel: TCheckBox
     Left = 8
@@ -189,7 +156,6 @@ object f_config_display: Tf_config_display
     Width = 264
     AutoSize = False
     Caption = 'Centre les labels sur la formation'
-    ParentFont = True
     TabOrder = 6
   end
   object MainMenu1: TMainMenu

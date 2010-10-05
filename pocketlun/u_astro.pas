@@ -45,6 +45,7 @@ Function DEToStr(de: Double) : string;
 Function ARmToStr(ar: Double) : string;
 Function DEmToStr(de: Double) : string;
 Function DEdToStr(de: Double) : string;
+Function DEToStri(de: Double; var di,mi,si : integer) : string;
 Function DatToStr(y,m,d: integer) : string;
 Function TimToStr(de: Double) : string;
 Function TimmToStr(de: Double) : string;
@@ -407,6 +408,35 @@ result:=result+buf+'-';
 buf:=inttostr(d);
 if d<10 then buf:='0'+buf;
 result:=result+buf;
+end;
+
+Function DEToStri(de: Double; var di,mi,si : integer) : string;
+var dd,min1,min,sec: Double;
+    d,m,s: string;
+begin
+    dd:=Int(de);
+    min1:=abs(de-dd)*60;
+    if min1>=59.99 then begin
+       dd:=dd+sgn(de);
+       min1:=0.0;
+    end;
+    min:=Int(min1);
+    sec:=(min1-min)*60;
+    if sec>=59.5 then begin
+       min:=min+1;
+       sec:=0.0;
+    end;
+    str(abs(dd):2:0,d);
+    if abs(dd)<10 then d:='0'+trim(d);
+    if de<0 then d:='-'+d else d:='+'+d;
+    str(min:2:0,m);
+    if abs(min)<10 then m:='0'+trim(m);
+    str(sec:2:0,s);
+    if abs(sec)<9.5 then s:='0'+trim(s);
+    di:=strtoint(d);
+    mi:=strtoint(m);
+    si:=strtoint(s);
+    result := d+ldeg+m+lmin+s+lsec;
 end;
 
 Function TimToStr(de: Double) : string;

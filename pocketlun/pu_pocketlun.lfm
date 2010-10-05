@@ -6,7 +6,7 @@ object f_pocketlun: Tf_pocketlun
   HorzScrollBar.Page = 265
   VertScrollBar.Page = 399
   Caption = 'PocketLun'
-  ClientHeight = 400
+  ClientHeight = 401
   ClientWidth = 266
   Menu = MainMenu1
   OnClose = FormClose
@@ -14,7 +14,9 @@ object f_pocketlun: Tf_pocketlun
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
+  LCLVersion = '0.9.28.2'
   object Image1: TImage
+    Left = 0
     Height = 206
     Top = 21
     Width = 266
@@ -22,24 +24,26 @@ object f_pocketlun: Tf_pocketlun
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
     OnMouseUp = Image1MouseUp
-    Transparent = False
     Visible = False
   end
   object MapLabel: TLabel
-    Height = 16
+    Left = 0
+    Height = 14
     Top = 24
     Width = 10
     Caption = '   '
     Font.Color = clWhite
     ParentColor = False
+    ParentFont = False
   end
   object splash: TPanel
-    Height = 173
+    Left = 0
+    Height = 174
     Top = 227
     Width = 266
     Align = alClient
     BevelInner = bvLowered
-    ClientHeight = 173
+    ClientHeight = 174
     ClientWidth = 266
     Color = clBlack
     ParentColor = False
@@ -56,16 +60,17 @@ object f_pocketlun: Tf_pocketlun
       TabOrder = 0
       object Label4: TLabel
         Left = 80
-        Height = 18
+        Height = 17
         Top = 47
         Width = 64
-        Caption = 'version 1.0'
+        Caption = 'version 1.1'
         Font.Height = -13
         ParentColor = False
+        ParentFont = False
       end
       object Label1: TLabel
         Left = 1
-        Height = 26
+        Height = 24
         Top = 1
         Width = 228
         Align = alTop
@@ -73,30 +78,35 @@ object f_pocketlun: Tf_pocketlun
         Caption = 'Virtual Moon Atlas'
         Font.Height = -19
         ParentColor = False
+        ParentFont = False
       end
       object Label2: TLabel
         Left = 62
-        Height = 26
+        Height = 24
         Top = 24
-        Width = 96
+        Width = 100
         Caption = 'PocketLun'
         Font.Height = -19
         Font.Style = [fsBold]
         ParentColor = False
+        ParentFont = False
       end
       object Label3: TLabel
         Left = 11
         Height = 13
         Top = 70
-        Width = 192
-        Caption = '(c) 2008 Christian Legrand, Patrick Chevalley'
+        Width = 203
+        Caption = '(c) 2010 Christian Legrand, Patrick Chevalley'
         Font.Height = -10
         ParentColor = False
+        ParentFont = False
       end
     end
   end
   object TopPanel: TPanel
+    Left = 0
     Height = 21
+    Top = 0
     Width = 266
     Align = alTop
     AutoSize = True
@@ -155,7 +165,6 @@ object f_pocketlun: Tf_pocketlun
         0000000001060700080005000000000000000000000102030405000000000000
         0000
       }
-      Transparent = False
     end
     object btn02: TImage
       Left = 216
@@ -209,7 +218,6 @@ object f_pocketlun: Tf_pocketlun
         0000000001060708090005000000000000000000000102030405000000000000
         0000
       }
-      Transparent = False
     end
     object btn07: TImage
       Left = 106
@@ -266,7 +274,6 @@ object f_pocketlun: Tf_pocketlun
         0304343434343434340C172E2A34343434343434030434343434343434343434
         34343434343434340304
       }
-      Transparent = False
     end
     object btn06: TImage
       Left = 128
@@ -323,7 +330,6 @@ object f_pocketlun: Tf_pocketlun
         00006D6D6D6D6D6D6D030B1E1A6D6D6D6D6D6D6D00006D6D6D6D6D6D6D6D6D6D
         6D6D6D6D6D6D6D6D0000
       }
-      Transparent = False
     end
     object btn09: TImage
       Left = 62
@@ -380,7 +386,6 @@ object f_pocketlun: Tf_pocketlun
         3D042B2B2B2B2B320A140003141408342B2B2B2B3D042B2B2B2B2B2B2B2B2B2B
         2B2B2B2B2B2B2B2B3D04
       }
-      Transparent = False
     end
     object btn03: TImage
       Left = 194
@@ -437,7 +442,6 @@ object f_pocketlun: Tf_pocketlun
         0004010101010101010101010101010101010101000401010101010101010101
         01010101010101010004
       }
-      Transparent = False
     end
     object btn05: TImage
       Left = 150
@@ -482,7 +486,6 @@ object f_pocketlun: Tf_pocketlun
         0000000000000000000000000000000000000000000000000000000000000000
         000000000000000000000000000000000000
       }
-      Transparent = False
     end
     object btn04: TImage
       Left = 172
@@ -527,7 +530,6 @@ object f_pocketlun: Tf_pocketlun
         0000000000000000000000000000000000000000000000000000000000000000
         000000000000000000000000000000000000
       }
-      Transparent = False
     end
     object btn10: TImage
       Left = 40
@@ -565,7 +567,6 @@ object f_pocketlun: Tf_pocketlun
         0000000000000000000000000000000000000000000000000000000000000000
         0000
       }
-      Transparent = False
     end
     object btn08: TImage
       Left = 84
@@ -620,7 +621,6 @@ object f_pocketlun: Tf_pocketlun
         0000000000000000000000000000000000000000000000000000000000000000
         0000
       }
-      Transparent = False
     end
   end
   object ActionList1: TActionList
@@ -629,155 +629,143 @@ object f_pocketlun: Tf_pocketlun
     object Close1: TAction
       Category = 'Main menu'
       Caption = 'Quitter'
-      DisableIfNoHandler = True
       OnExecute = Close1Execute
     end
     object config1: TAction
       Category = 'Main menu'
       Caption = 'Configuration'
-      DisableIfNoHandler = True
       OnExecute = config1Execute
     end
     object display1: TAction
       Category = 'Main menu'
       Caption = 'Affichage'
-      DisableIfNoHandler = True
       OnExecute = display1Execute
     end
     object tools1: TAction
       Category = 'Main menu'
       Caption = 'Outils'
-      DisableIfNoHandler = True
       OnExecute = tools1Execute
     end
     object ephemeris1: TAction
       Category = 'Main menu'
       Caption = 'Ephémérides'
-      DisableIfNoHandler = True
       OnExecute = ephemeris1Execute
     end
     object calendar1: TAction
       Category = 'Main menu'
       Caption = 'Calendrier'
-      DisableIfNoHandler = True
       OnExecute = calendar1Execute
     end
     object Search1: TAction
       Category = 'Main menu'
       Caption = 'Recherche'
-      DisableIfNoHandler = True
       ImageIndex = 0
       OnExecute = Search1Execute
     end
     object help1: TAction
       Category = 'Main menu'
       Caption = 'Aide'
-      DisableIfNoHandler = True
       OnExecute = help1Execute
     end
     object about1: TAction
       Category = 'Main menu'
       Caption = 'A propos'
-      DisableIfNoHandler = True
       OnExecute = about1Execute
     end
     object info1: TAction
       Category = 'Chart popup'
       Caption = 'Information'
-      DisableIfNoHandler = True
       OnExecute = info1Execute
     end
     object notes1: TAction
       Category = 'Chart popup'
       Caption = 'Notes'
-      DisableIfNoHandler = True
       OnExecute = notes1Execute
     end
     object photos1: TAction
       Category = 'Chart popup'
       Caption = 'Photos'
-      DisableIfNoHandler = True
       OnExecute = photos1Execute
     end
     object zoomplus1: TAction
       Category = 'ToobBar'
-      DisableIfNoHandler = True
       ImageIndex = 9
       OnExecute = zoomplus1Execute
     end
     object zoommoins1: TAction
       Category = 'ToobBar'
       Caption = 'Zoom -'
-      DisableIfNoHandler = True
       ImageIndex = 8
       OnExecute = zoommoins1Execute
     end
     object phase1: TAction
       Category = 'ToobBar'
       Caption = 'Phase'
-      DisableIfNoHandler = True
       ImageIndex = 3
       OnExecute = phase1Execute
     end
     object rotation1: TAction
       Category = 'ToobBar'
       Caption = 'Phase cachée'
-      DisableIfNoHandler = True
       ImageIndex = 4
       OnExecute = rotation1Execute
     end
     object centre1: TAction
       Category = 'ToobBar'
       Caption = 'Centrer'
-      DisableIfNoHandler = True
       ImageIndex = 1
       OnExecute = centre1Execute
     end
     object zoom11: TAction
       Category = 'ToobBar'
       Caption = 'Zoom 1:1'
-      DisableIfNoHandler = True
       ImageIndex = 7
       OnExecute = zoom11Execute
     end
     object nordsud1: TAction
       Category = 'ToobBar'
       Caption = 'Nord - Sud'
-      DisableIfNoHandler = True
       ImageIndex = 5
       OnExecute = nordsud1Execute
     end
     object estouest1: TAction
       Category = 'ToobBar'
       Caption = 'Est-Ouest'
-      DisableIfNoHandler = True
       ImageIndex = 6
       OnExecute = estouest1Execute
     end
     object ptotos2: TAction
       Category = 'ToobBar'
       Caption = 'Photos'
-      DisableIfNoHandler = True
       OnExecute = photos1Execute
     end
     object ShowLabel1: TAction
       Category = 'ToobBar'
       Caption = 'Labels'
-      DisableIfNoHandler = True
       ImageIndex = 2
       OnExecute = ShowLabel1Execute
     end
     object comment1: TAction
       Category = 'Chart popup'
       Caption = 'Commentaire'
-      DisableIfNoHandler = True
       OnExecute = comment1Execute
     end
   end
   object dbm: TLiteDB
+    Active = False
+    DllLoaded = False
+    UniCode = False
+    CallBackOnly = False
     FetchMemoryLimit = 33554432
     ResultSet = 'default'
     ThreadSafe = True
+    SQLiteVersion = svAuto
+    PragmasBoolean = []
+    PragmaCacheSize = 0
+    PragmaDefaultCacheSize = 0
+    PragmaPagesize = 0
+    PragmaSynchronous = spOff
+    PragmaTempStore = tpDefault
     left = 27
     top = 152
   end

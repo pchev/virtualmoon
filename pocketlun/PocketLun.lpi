@@ -2,24 +2,18 @@
 <CONFIG>
   <ProjectOptions>
     <PathDelim Value="\"/>
-    <Version Value="6"/>
+    <Version Value="7"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
         <AlwaysBuild Value="False"/>
+        <LRSInOutputDirectory Value="False"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <IconPath Value="./"/>
       <TargetFileExt Value=".exe"/>
       <Title Value="PocketLun"/>
     </General>
-    <VersionInfo>
-      <CurrentMinorRevNr Value="3"/>
-      <CompanyName Value="VMA"/>
-      <FileDescription Value="Pocket VMA"/>
-      <LegalCopyright Value="(c) 2007 Ch. Legrand P. Chevalley"/>
-    </VersionInfo>
     <PublishOptions>
       <Version Value="2"/>
       <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
@@ -33,17 +27,17 @@
     </RunParams>
     <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="zoomimage"/>
-        <MinVersion Valid="True"/>
+        <PackageName Value="ImagesForLazarus"/>
       </Item1>
       <Item2>
-        <PackageName Value="libsql"/>
+        <PackageName Value="zoomimage"/>
+        <MinVersion Valid="True"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="libsql"/>
       </Item3>
       <Item4>
-        <PackageName Value="JPEGForLazarus"/>
+        <PackageName Value="LCL"/>
       </Item4>
       <Item5>
         <PackageName Value="CDCjdcalendar"/>
@@ -62,71 +56,66 @@
       </Unit0>
       <Unit1>
         <Filename Value="pu_pocketlun.pas"/>
-        <ComponentName Value="f_pocketlun"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_pocketlun.lrs"/>
+        <ComponentName Value="f_pocketlun"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_pocketlun"/>
       </Unit1>
       <Unit2>
         <Filename Value="pu_info.pas"/>
-        <ComponentName Value="f_info"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_info.lrs"/>
+        <ComponentName Value="f_info"/>
         <UnitName Value="pu_info"/>
       </Unit2>
       <Unit3>
         <Filename Value="pu_ephemeris.pas"/>
-        <ComponentName Value="f_ephemeris"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_ephemeris.lrs"/>
+        <ComponentName Value="f_ephemeris"/>
         <UnitName Value="pu_ephemeris"/>
       </Unit3>
       <Unit4>
         <Filename Value="pu_about.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_about"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_about.lrs"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_about"/>
       </Unit4>
       <Unit5>
         <Filename Value="pu_search.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_search"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_search.lrs"/>
         <UnitName Value="pu_search"/>
       </Unit5>
       <Unit6>
         <Filename Value="pu_calendar.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_calendar"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_calendar.lrs"/>
         <UnitName Value="pu_calendar"/>
       </Unit6>
       <Unit7>
         <Filename Value="pu_config.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_config"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_config.lrs"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_config"/>
       </Unit7>
       <Unit8>
         <Filename Value="pu_config_display.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_config_display"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_config_display.lrs"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_config_display"/>
       </Unit8>
       <Unit9>
         <Filename Value="pu_setdate.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_setdate"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_setdate.lrs"/>
         <UnitName Value="pu_setdate"/>
       </Unit9>
       <Unit10>
@@ -151,18 +140,17 @@
       </Unit13>
       <Unit14>
         <Filename Value="pu_notes.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_notes"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_notes.lrs"/>
         <UnitName Value="pu_notes"/>
       </Unit14>
       <Unit15>
         <Filename Value="pu_photo.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_photo"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_photo.lrs"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photo"/>
       </Unit15>
       <Unit16>
@@ -178,20 +166,20 @@
     </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="5"/>
+    <Version Value="8"/>
     <PathDelim Value="\"/>
     <SearchPaths>
-      <UnitOutputDirectory Value="D:\source\WinCE\PocketLun"/>
-      <LCLWidgetType Value="wince"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       <SrcPath Value="$(LazarusDir)\lcl\;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType)\"/>
+      <LCLWidgetType Value="wince"/>
     </SearchPaths>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
       <TargetCPU Value="arm"/>
+      <TargetOS Value="WinCE"/>
       <Optimizations>
         <OptimizationLevel Value="2"/>
       </Optimizations>
-      <TargetOS Value="WinCE"/>
     </CodeGeneration>
     <Linking>
       <Debugging>
@@ -206,6 +194,9 @@
       </Options>
     </Linking>
     <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>

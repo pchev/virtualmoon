@@ -2,26 +2,26 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="6"/>
-    <Units Count="19">
+    <Version Value="7"/>
+    <Units Count="20">
       <Unit0>
         <Filename Value="PocketLun.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="PocketLun"/>
-        <CursorPos X="80" Y="40"/>
-        <TopLine Value="12"/>
-        <EditorIndex Value="2"/>
+        <CursorPos X="1" Y="56"/>
+        <TopLine Value="28"/>
+        <EditorIndex Value="7"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="pu_pocketlun.pas"/>
-        <ComponentName Value="f_pocketlun"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_pocketlun.lrs"/>
+        <ComponentName Value="f_pocketlun"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_pocketlun"/>
-        <CursorPos X="45" Y="454"/>
-        <TopLine Value="454"/>
+        <CursorPos X="31" Y="1040"/>
+        <TopLine Value="1030"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
@@ -31,9 +31,8 @@
       </Unit1>
       <Unit2>
         <Filename Value="pu_info.pas"/>
-        <ComponentName Value="f_info"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_info.lrs"/>
+        <ComponentName Value="f_info"/>
         <UnitName Value="pu_info"/>
         <CursorPos X="1" Y="22"/>
         <TopLine Value="1"/>
@@ -41,9 +40,8 @@
       </Unit2>
       <Unit3>
         <Filename Value="pu_ephemeris.pas"/>
-        <ComponentName Value="f_ephemeris"/>
         <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_ephemeris.lrs"/>
+        <ComponentName Value="f_ephemeris"/>
         <UnitName Value="pu_ephemeris"/>
         <CursorPos X="1" Y="22"/>
         <TopLine Value="1"/>
@@ -51,23 +49,22 @@
       </Unit3>
       <Unit4>
         <Filename Value="pu_about.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_about"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_about.lrs"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_about"/>
-        <CursorPos X="38" Y="109"/>
-        <TopLine Value="138"/>
-        <EditorIndex Value="1"/>
+        <CursorPos X="58" Y="109"/>
+        <TopLine Value="94"/>
+        <EditorIndex Value="6"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="pu_search.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_search"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_search.lrs"/>
         <UnitName Value="pu_search"/>
         <CursorPos X="1" Y="22"/>
         <TopLine Value="1"/>
@@ -75,10 +72,9 @@
       </Unit5>
       <Unit6>
         <Filename Value="pu_calendar.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_calendar"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_calendar.lrs"/>
         <UnitName Value="pu_calendar"/>
         <CursorPos X="1" Y="22"/>
         <TopLine Value="1"/>
@@ -86,32 +82,35 @@
       </Unit6>
       <Unit7>
         <Filename Value="pu_config.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_config"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_config.lrs"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_config"/>
-        <CursorPos X="1" Y="22"/>
-        <TopLine Value="1"/>
+        <CursorPos X="21" Y="310"/>
+        <TopLine Value="292"/>
+        <EditorIndex Value="8"/>
         <UsageCount Value="201"/>
+        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="pu_config_display.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_config_display"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_config_display.lrs"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_config_display"/>
-        <CursorPos X="1" Y="22"/>
-        <TopLine Value="1"/>
+        <CursorPos X="10" Y="127"/>
+        <TopLine Value="123"/>
+        <EditorIndex Value="2"/>
         <UsageCount Value="201"/>
+        <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="pu_setdate.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_setdate"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_setdate.lrs"/>
         <UnitName Value="pu_setdate"/>
         <CursorPos X="1" Y="22"/>
         <TopLine Value="1"/>
@@ -137,9 +136,11 @@
         <Filename Value="u_astro.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_astro"/>
-        <CursorPos X="1" Y="22"/>
-        <TopLine Value="1"/>
+        <CursorPos X="53" Y="413"/>
+        <TopLine Value="410"/>
+        <EditorIndex Value="9"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit12>
       <Unit13>
         <Filename Value="elp82main.pas"/>
@@ -151,10 +152,9 @@
       </Unit13>
       <Unit14>
         <Filename Value="pu_notes.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_notes"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_notes.lrs"/>
         <UnitName Value="pu_notes"/>
         <CursorPos X="1" Y="22"/>
         <TopLine Value="1"/>
@@ -162,22 +162,24 @@
       </Unit14>
       <Unit15>
         <Filename Value="pu_photo.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_photo"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
-        <ResourceFilename Value="pu_photo.lrs"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photo"/>
-        <CursorPos X="15" Y="418"/>
-        <TopLine Value="415"/>
+        <CursorPos X="38" Y="27"/>
+        <TopLine Value="12"/>
+        <EditorIndex Value="4"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit15>
       <Unit16>
         <Filename Value="wince_func.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="wince_func"/>
-        <CursorPos X="45" Y="195"/>
-        <TopLine Value="179"/>
-        <EditorIndex Value="3"/>
+        <CursorPos X="16" Y="177"/>
+        <TopLine Value="31"/>
+        <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -187,51 +189,154 @@
         <UnitName Value="u_translation"/>
         <CursorPos X="54" Y="65"/>
         <TopLine Value="52"/>
-        <UsageCount Value="61"/>
+        <UsageCount Value="65"/>
       </Unit17>
       <Unit18>
-        <Filename Value="..\..\..\..\lazarus\fpc\2.2.0\source\rtl\wince\wininc\defines.inc"/>
-        <CursorPos X="6" Y="2469"/>
-        <TopLine Value="2446"/>
-        <EditorIndex Value="4"/>
-        <UsageCount Value="10"/>
+        <Filename Value="pu_tools.pas"/>
+        <ComponentName Value="f_tools"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_tools"/>
+        <CursorPos X="19" Y="4"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="5"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit18>
+      <Unit19>
+        <Filename Value="..\..\..\appli\lazarus\lazarus\lcl\stdctrls.pp"/>
+        <UnitName Value="StdCtrls"/>
+        <CursorPos X="14" Y="388"/>
+        <TopLine Value="360"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit19>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="0"/>
+      <ActiveEditorIndexAtStart Value="2"/>
     </General>
-    <JumpHistory Count="5" HistoryIndex="4">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="34" Column="41" TopLine="1"/>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="176" Column="18" TopLine="163"/>
       </Position1>
       <Position2>
-        <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="467" Column="17" TopLine="431"/>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="190" Column="18" TopLine="172"/>
       </Position2>
       <Position3>
-        <Filename Value="wince_func.pas"/>
-        <Caret Line="197" Column="27" TopLine="179"/>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="183" Column="15" TopLine="176"/>
       </Position3>
       <Position4>
-        <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="468" Column="15" TopLine="452"/>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="185" Column="7" TopLine="171"/>
       </Position4>
       <Position5>
-        <Filename Value="wince_func.pas"/>
-        <Caret Line="208" Column="150" TopLine="179"/>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="204" Column="6" TopLine="187"/>
       </Position5>
+      <Position6>
+        <Filename Value="u_astro.pas"/>
+        <Caret Line="413" Column="18" TopLine="412"/>
+      </Position6>
+      <Position7>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="185" Column="1" TopLine="181"/>
+      </Position7>
+      <Position8>
+        <Filename Value="pu_config_display.pas"/>
+        <Caret Line="24" Column="20" TopLine="1"/>
+      </Position8>
+      <Position9>
+        <Filename Value="pu_config_display.pas"/>
+        <Caret Line="29" Column="50" TopLine="15"/>
+      </Position9>
+      <Position10>
+        <Filename Value="pu_config_display.pas"/>
+        <Caret Line="38" Column="25" TopLine="15"/>
+      </Position10>
+      <Position11>
+        <Filename Value="pu_config_display.pas"/>
+        <Caret Line="61" Column="23" TopLine="47"/>
+      </Position11>
+      <Position12>
+        <Filename Value="pu_config_display.pas"/>
+        <Caret Line="113" Column="11" TopLine="99"/>
+      </Position12>
+      <Position13>
+        <Filename Value="pu_config_display.pas"/>
+        <Caret Line="139" Column="50" TopLine="123"/>
+      </Position13>
+      <Position14>
+        <Filename Value="wince_func.pas"/>
+        <Caret Line="158" Column="46" TopLine="144"/>
+      </Position14>
+      <Position15>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="656" Column="60" TopLine="646"/>
+      </Position15>
+      <Position16>
+        <Filename Value="wince_func.pas"/>
+        <Caret Line="133" Column="1" TopLine="1"/>
+      </Position16>
+      <Position17>
+        <Filename Value="wince_func.pas"/>
+        <Caret Line="144" Column="7" TopLine="134"/>
+      </Position17>
+      <Position18>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position18>
+      <Position19>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1050" Column="7" TopLine="1030"/>
+      </Position19>
+      <Position20>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1635" Column="3" TopLine="1633"/>
+      </Position20>
+      <Position21>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position21>
+      <Position22>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1191" Column="53" TopLine="1184"/>
+      </Position22>
+      <Position23>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="27" Column="27" TopLine="1"/>
+      </Position23>
+      <Position24>
+        <Filename Value="wince_func.pas"/>
+        <Caret Line="1" Column="1" TopLine="34"/>
+      </Position24>
+      <Position25>
+        <Filename Value="wince_func.pas"/>
+        <Caret Line="161" Column="3" TopLine="147"/>
+      </Position25>
+      <Position26>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="6" Column="11" TopLine="1"/>
+      </Position26>
+      <Position27>
+        <Filename Value="pu_pocketlun.pas"/>
+        <Caret Line="1044" Column="18" TopLine="1030"/>
+      </Position27>
+      <Position28>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="184" Column="60" TopLine="171"/>
+      </Position28>
+      <Position29>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position29>
+      <Position30>
+        <Filename Value="pu_config.pas"/>
+        <Caret Line="325" Column="34" TopLine="307"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
-  <Debugging>
-    <Exceptions Count="2">
-      <Item1>
-        <Name Value="ECodetoolError"/>
-      </Item1>
-      <Item2>
-        <Name Value="EFOpenError"/>
-      </Item2>
-    </Exceptions>
-  </Debugging>
 </CONFIG>

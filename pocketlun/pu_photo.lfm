@@ -1,7 +1,7 @@
 object f_photo: Tf_photo
   Left = 242
-  Height = 274
-  Top = 562
+  Height = 254
+  Top = 447
   Width = 240
   HorzScrollBar.Page = 239
   VertScrollBar.Page = 253
@@ -9,35 +9,39 @@ object f_photo: Tf_photo
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'f_photo'
-  ClientHeight = 254
+  ClientHeight = 235
   ClientWidth = 240
   Menu = MainMenu1
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
+  LCLVersion = '0.9.28.2'
   object Image1: TImage
+    Left = 0
     Height = 208
     Top = 21
     Width = 240
     Align = alTop
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
-    Transparent = False
   end
   object Title: TLabel
     Left = 2
-    Height = 16
+    Height = 14
     Top = 26
-    Width = 24
+    Width = 21
     Caption = 'Title'
     Color = clBlack
     Font.Color = clWhite
     ParentColor = False
+    ParentFont = False
     Transparent = False
   end
   object Button1: TButton
+    Left = 0
     Height = 25
+    Top = 0
     Width = 75
     BorderSpacing.InnerBorder = 4
     Caption = 'OK'
@@ -47,33 +51,36 @@ object f_photo: Tf_photo
     Visible = False
   end
   object imglst: TListBox
+    Left = 0
     Height = 110
     Top = 24
     Width = 240
     Columns = 1
     IntegralHeight = True
+    ItemHeight = 0
     OnMouseUp = imglstMouseUp
-    ParentFont = True
     TabOrder = 2
     Visible = False
   end
   object Panel1: TPanel
+    Left = 0
     Height = 20
-    Top = 234
+    Top = 215
     Width = 240
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 3
   end
   object TitleBar: TPanel
+    Left = 0
     Height = 21
+    Top = 0
     Width = 240
     Align = alTop
     Alignment = taLeftJustify
     AutoSize = True
     ClientHeight = 21
     ClientWidth = 240
-    ParentFont = True
     TabOrder = 0
     object btn1: TImage
       Left = 208
@@ -417,49 +424,42 @@ object f_photo: Tf_photo
     object ImgList1: TAction
       Category = 'ToolBar'
       Caption = 'ImgList1'
-      DisableIfNoHandler = True
       ImageIndex = 0
       OnExecute = ImgListExecute
     end
     object flipy1: TAction
       Category = 'ToolBar'
       Caption = 'flipy1'
-      DisableIfNoHandler = True
       ImageIndex = 1
       OnExecute = flipyExecute
     end
     object flipx1: TAction
       Category = 'ToolBar'
       Caption = 'flipx1'
-      DisableIfNoHandler = True
       ImageIndex = 2
       OnExecute = flipxExecute
     end
     object zoommin1: TAction
       Category = 'ToolBar'
       Caption = 'zoommin1'
-      DisableIfNoHandler = True
       ImageIndex = 3
       OnExecute = zoomminExecute
     end
     object zoommax1: TAction
       Category = 'ToolBar'
       Caption = 'zoommax1'
-      DisableIfNoHandler = True
       ImageIndex = 4
       OnExecute = zoommaxExecute
     end
     object zoommoins1: TAction
       Category = 'ToolBar'
       Caption = 'zoommoins1'
-      DisableIfNoHandler = True
       ImageIndex = 5
       OnExecute = zoomminusExecute
     end
     object zoomplus1: TAction
       Category = 'ToolBar'
       Caption = 'zoomplus1'
-      DisableIfNoHandler = True
       ImageIndex = 6
       OnExecute = zoomplusExecute
     end

@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses u_translation, wince_func, cu_tz,
+uses u_translation, wince_func, cu_tz, u_astro,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, Buttons, StdCtrls, ComCtrls, EditBtn, FileCtrl;
 
@@ -172,32 +172,32 @@ end;
 end;
 
 function Tf_config.GetLat: double;
+var s: double;
 begin
-result:=LaD.Position+(LaM.Position/60)+(LaS.Position/3600);
+s:=sgn(LaD.Position);
+result:=s*(abs(LaD.Position)+(LaM.Position/60)+(LaS.Position/3600));
 end;
 
 procedure Tf_config.SetLat(value:double);
 var d,m,s: integer;
 begin
-d:=trunc(value);
-m:=trunc((value-d)*60);
-s:=round( (((value-d)*60)-m)*60 );
+DEToStri(value,d,m,s);
 LaD.Position:=d;
 LaM.Position:=m;
 LaS.Position:=s;
 end;
 
 function Tf_config.GetLon: double;
+var s: double;
 begin
-result:=LoD.Position+(LoM.Position/60)+(LoS.Position/3600);
+s:=sgn(LoD.Position);
+result:=s*(abs(LoD.Position)+(LoM.Position/60)+(LoS.Position/3600));
 end;
 
 procedure Tf_config.SetLon(value:double);
 var d,m,s: integer;
 begin
-d:=trunc(value);
-m:=trunc((value-d)*60);
-s:=round( (((value-d)*60)-m)*60 );
+DEToStri(value,d,m,s);
 LoD.Position:=d;
 LoM.Position:=m;
 LoS.Position:=s;
