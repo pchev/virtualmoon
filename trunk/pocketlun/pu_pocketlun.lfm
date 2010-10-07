@@ -94,10 +94,22 @@ object f_pocketlun: Tf_pocketlun
       object Label3: TLabel
         Left = 11
         Height = 13
-        Top = 70
+        Top = 83
         Width = 203
         Caption = '(c) 2010 Christian Legrand, Patrick Chevalley'
         Font.Height = -10
+        ParentColor = False
+        ParentFont = False
+      end
+      object DateLabel: TLabel
+        Left = 19
+        Height = 14
+        Top = 67
+        Width = 192
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'date'
+        Font.Height = -11
         ParentColor = False
         ParentFont = False
       end

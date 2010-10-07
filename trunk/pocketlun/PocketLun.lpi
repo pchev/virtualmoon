@@ -72,6 +72,7 @@
         <Filename Value="pu_ephemeris.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_ephemeris"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_ephemeris"/>
       </Unit3>
       <Unit4>
@@ -87,6 +88,7 @@
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_search"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_search"/>
       </Unit5>
       <Unit6>
@@ -94,6 +96,7 @@
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_calendar"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_calendar"/>
       </Unit6>
       <Unit7>
@@ -117,6 +120,7 @@
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_setdate"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_setdate"/>
       </Unit9>
       <Unit10>
@@ -144,6 +148,7 @@
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_notes"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_notes"/>
       </Unit14>
       <Unit15>

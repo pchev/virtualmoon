@@ -5,24 +5,24 @@ object f_calendar: Tf_calendar
   Width = 240
   HorzScrollBar.Page = 239
   VertScrollBar.Page = 219
-  BorderIcons = []
-  BorderStyle = bsDialog
+  BorderIcons = [biSystemMenu]
   Caption = 'f_calendar'
-  ClientHeight = 220
+  ClientHeight = 221
   ClientWidth = 240
   Font.Height = -12
   Font.Name = 'Tahoma'
   Menu = MainMenu1
   OnCreate = FormCreate
   OnShow = FormShow
+  LCLVersion = '0.9.28.2'
   object Panel5: TPanel
+    Left = 0
     Height = 164
     Top = 26
     Width = 223
     Align = alClient
     ClientHeight = 164
     ClientWidth = 223
-    ParentFont = True
     TabOrder = 1
     object Panel1: TPanel
       Left = 1
@@ -32,11 +32,11 @@ object f_calendar: Tf_calendar
       Align = alTop
       ClientHeight = 40
       ClientWidth = 221
-      ParentFont = True
       TabOrder = 0
       object Image1: TImage
         Left = 7
         Height = 40
+        Top = 0
         Width = 40
         AutoSize = True
         OnMouseUp = Image1MouseUp
@@ -195,7 +195,6 @@ object f_calendar: Tf_calendar
           0000000000000000000000000000000000000000000000000000000000000000
           0000
         }
-        Transparent = False
       end
       object LabelNL: TLabel
         Left = 65
@@ -204,7 +203,6 @@ object f_calendar: Tf_calendar
         Width = 78
         Caption = 'Nouvelle Lune'
         ParentColor = False
-        ParentFont = True
       end
       object DateNL: TLabel
         Left = 65
@@ -213,7 +211,6 @@ object f_calendar: Tf_calendar
         Width = 41
         Caption = 'DateNL'
         ParentColor = False
-        ParentFont = True
       end
     end
     object Panel2: TPanel
@@ -224,11 +221,11 @@ object f_calendar: Tf_calendar
       Align = alTop
       ClientHeight = 40
       ClientWidth = 221
-      ParentFont = True
       TabOrder = 1
       object Image2: TImage
         Left = 7
         Height = 40
+        Top = 0
         Width = 40
         AutoSize = True
         OnMouseUp = Image2MouseUp
@@ -387,7 +384,6 @@ object f_calendar: Tf_calendar
           0000000000000000000000000000000000000000000000000000000000000000
           0000
         }
-        Transparent = False
       end
       object DatePQ: TLabel
         Left = 65
@@ -396,7 +392,6 @@ object f_calendar: Tf_calendar
         Width = 43
         Caption = 'DatePQ'
         ParentColor = False
-        ParentFont = True
       end
       object LabelPQ: TLabel
         Left = 65
@@ -405,7 +400,6 @@ object f_calendar: Tf_calendar
         Width = 90
         Caption = 'Premier Quartier'
         ParentColor = False
-        ParentFont = True
       end
     end
     object Panel3: TPanel
@@ -416,11 +410,11 @@ object f_calendar: Tf_calendar
       Align = alTop
       ClientHeight = 40
       ClientWidth = 221
-      ParentFont = True
       TabOrder = 2
       object Image3: TImage
         Left = 7
         Height = 40
+        Top = 0
         Width = 40
         AutoSize = True
         OnMouseUp = Image3MouseUp
@@ -579,7 +573,6 @@ object f_calendar: Tf_calendar
           0000000000000000000000000000000000000000000000000000000000000000
           0000
         }
-        Transparent = False
       end
       object DatePL: TLabel
         Left = 65
@@ -588,7 +581,6 @@ object f_calendar: Tf_calendar
         Width = 40
         Caption = 'DatePL'
         ParentColor = False
-        ParentFont = True
       end
       object LabelPL: TLabel
         Left = 65
@@ -597,7 +589,6 @@ object f_calendar: Tf_calendar
         Width = 64
         Caption = 'Pleine Lune'
         ParentColor = False
-        ParentFont = True
       end
     end
     object Panel4: TPanel
@@ -608,11 +599,11 @@ object f_calendar: Tf_calendar
       Align = alTop
       ClientHeight = 40
       ClientWidth = 221
-      ParentFont = True
       TabOrder = 3
       object Image4: TImage
         Left = 7
         Height = 40
+        Top = 0
         Width = 40
         AutoSize = True
         OnMouseUp = Image4MouseUp
@@ -771,7 +762,6 @@ object f_calendar: Tf_calendar
           0000000000000000000000000000000000000000000000000000000000000000
           0000
         }
-        Transparent = False
       end
       object DateLQ: TLabel
         Left = 65
@@ -780,7 +770,6 @@ object f_calendar: Tf_calendar
         Width = 42
         Caption = 'DateLQ'
         ParentColor = False
-        ParentFont = True
       end
       object LabelLQ: TLabel
         Left = 65
@@ -789,12 +778,13 @@ object f_calendar: Tf_calendar
         Width = 88
         Caption = 'Dernier Quartier'
         ParentColor = False
-        ParentFont = True
       end
     end
   end
   object Title: TPanel
+    Left = 0
     Height = 26
+    Top = 0
     Width = 240
     Align = alTop
     Caption = 'Calendrier Lunaire'
@@ -803,10 +793,12 @@ object f_calendar: Tf_calendar
     Font.Height = 14
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 0
     object Button1: TButton
       Left = 1
       Height = 25
+      Top = 0
       Width = 75
       BorderSpacing.InnerBorder = 4
       Caption = 'OK'
@@ -824,12 +816,14 @@ object f_calendar: Tf_calendar
     Align = alRight
     Kind = sbVertical
     Max = 10
+    PageSize = 0
     Position = 4
     TabOrder = 2
     OnChange = ScrollBar1Change
   end
   object Panel6: TPanel
-    Height = 30
+    Left = 0
+    Height = 31
     Top = 190
     Width = 240
     Align = alBottom

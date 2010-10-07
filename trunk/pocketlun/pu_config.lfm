@@ -6,8 +6,6 @@ object f_config: Tf_config
   HorzScrollBar.Page = 239
   VertScrollBar.Page = 186
   ActiveControl = Button1
-  BorderIcons = [biSystemMenu]
-  BorderStyle = bsDialog
   Caption = 'f_config'
   ClientHeight = 199
   ClientWidth = 240

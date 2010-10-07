@@ -6,8 +6,6 @@ object f_photo: Tf_photo
   HorzScrollBar.Page = 239
   VertScrollBar.Page = 253
   ActiveControl = Button1
-  BorderIcons = [biSystemMenu]
-  BorderStyle = bsDialog
   Caption = 'f_photo'
   ClientHeight = 235
   ClientWidth = 240

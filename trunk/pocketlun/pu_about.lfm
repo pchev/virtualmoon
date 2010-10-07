@@ -6,8 +6,6 @@ object f_about: Tf_about
   HorzScrollBar.Page = 239
   VertScrollBar.Page = 199
   ActiveControl = ListBox1
-  BorderIcons = [biSystemMenu]
-  BorderStyle = bsDialog
   Caption = 'f_about'
   ClientHeight = 201
   ClientWidth = 240
