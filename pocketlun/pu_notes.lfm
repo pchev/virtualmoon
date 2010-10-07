@@ -6,17 +6,18 @@ object f_notes: Tf_notes
   HorzScrollBar.Page = 239
   VertScrollBar.Page = 219
   ActiveControl = Button1
-  BorderIcons = [biSystemMenu]
-  BorderStyle = bsDialog
   Caption = 'f_notes'
-  ClientHeight = 220
+  ClientHeight = 221
   ClientWidth = 240
   Menu = MainMenu1
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
+  LCLVersion = '0.9.28.2'
   object Title: TPanel
+    Left = 0
     Height = 26
+    Top = 0
     Width = 240
     Align = alTop
     Caption = 'Notes'
@@ -25,9 +26,12 @@ object f_notes: Tf_notes
     Font.Height = 14
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 0
     object Button1: TButton
+      Left = 0
       Height = 25
+      Top = 0
       Width = 75
       BorderSpacing.InnerBorder = 4
       Caption = 'OK'
@@ -38,7 +42,8 @@ object f_notes: Tf_notes
     end
   end
   object Memo1: TMemo
-    Height = 170
+    Left = 0
+    Height = 171
     Top = 26
     Width = 240
     Align = alClient
@@ -47,8 +52,9 @@ object f_notes: Tf_notes
     TabOrder = 1
   end
   object Panel1: TPanel
+    Left = 0
     Height = 24
-    Top = 196
+    Top = 197
     Width = 240
     Align = alBottom
     BevelOuter = bvNone

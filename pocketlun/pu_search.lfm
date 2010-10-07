@@ -6,16 +6,17 @@ object f_search: Tf_search
   HorzScrollBar.Page = 239
   VertScrollBar.Page = 219
   ActiveControl = StringGrid1
-  BorderIcons = [biSystemMenu]
-  BorderStyle = bsDialog
   Caption = 'f_search'
-  ClientHeight = 220
+  ClientHeight = 221
   ClientWidth = 240
   Menu = MainMenu1
   OnCreate = FormCreate
   OnShow = FormShow
+  LCLVersion = '0.9.28.2'
   object Title: TPanel
+    Left = 0
     Height = 26
+    Top = 0
     Width = 240
     Align = alTop
     Alignment = taLeftJustify
@@ -25,9 +26,12 @@ object f_search: Tf_search
     Font.Height = 14
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 0
     object Button1: TButton
+      Left = 0
       Height = 25
+      Top = 0
       Width = 75
       BorderSpacing.InnerBorder = 4
       Caption = 'OK'
@@ -38,7 +42,7 @@ object f_search: Tf_search
     end
     object EditSearch: TEdit
       Left = 104
-      Height = 21
+      Height = 22
       Top = 2
       Width = 104
       Anchors = [akTop, akRight]
@@ -59,25 +63,24 @@ object f_search: Tf_search
     end
   end
   object StringGrid1: TStringGrid
-    Height = 170
+    Left = 0
+    Height = 171
     Top = 26
     Width = 240
     Align = alClient
     ColCount = 1
     DefaultRowHeight = 18
-    FixedColor = clBtnFace
     FixedCols = 0
     FixedRows = 0
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goRowSelect, goThumbTracking, goRelaxedRowSelect, goSmoothScroll]
     RowCount = 1
-    ScrollBars = ssAutoBoth
     TabOrder = 1
-    TabStop = True
     OnMouseUp = StringGrid1MouseUp
   end
   object Panel1: TPanel
+    Left = 0
     Height = 24
-    Top = 196
+    Top = 197
     Width = 240
     Align = alBottom
     BevelOuter = bvNone

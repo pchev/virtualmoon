@@ -63,7 +63,7 @@ const
   
 var
   AppCaption : widestring;
-  AppDir, language: string;
+  AppDir, language, compile_time: string;
 
 implementation
 

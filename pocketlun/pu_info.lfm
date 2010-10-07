@@ -6,8 +6,7 @@ object f_info: Tf_info
   HorzScrollBar.Page = 239
   VertScrollBar.Page = 219
   ActiveControl = Memo1
-  BorderIcons = []
-  BorderStyle = bsDialog
+  BorderIcons = [biSystemMenu]
   Caption = 'f_info'
   ClientHeight = 221
   ClientWidth = 240

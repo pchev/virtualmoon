@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses u_translation, wince_func, cu_tz, u_astro,
+uses u_translation, wince_func, cu_tz, u_astro, FileUtil,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, Buttons, StdCtrls, ComCtrls, EditBtn, FileCtrl;
 
@@ -151,7 +151,8 @@ Reset(f);
 repeat
   Readln(f,buf);
   buf1:=words(buf,'',1,1);
-  buf2:=CondUTF8Decode(words(buf,'',2,1));
+//  buf2:=CondUTF8Decode(words(buf,'',2,1));
+  buf2:=words(buf,'',2,1);
   if fileexists(dir+'pocketlun.'+buf1+'.po') then begin
      LanguageList.items.Add(buf1+blank+'-'+blank+buf2);
   end;

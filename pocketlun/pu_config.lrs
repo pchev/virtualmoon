@@ -1,15 +1,16 @@
+{ Ceci est un fichier ressource généré automatiquement par Lazarus }
+
 LazarusResources.Add('Tf_config','FORMDATA',[
   'TPF0'#9'Tf_config'#8'f_config'#4'Left'#3#252#1#6'Height'#3#218#0#3'Top'#2'd'
   +#5'Width'#3#240#0#18'HorzScrollBar.Page'#3#239#0#18'VertScrollBar.Page'#3#186
-  +#0#13'ActiveControl'#7#7'Button1'#11'BorderIcons'#11#12'biSystemMenu'#0#11'B'
-  +'orderStyle'#7#8'bsDialog'#7'Caption'#6#8'f_config'#12'ClientHeight'#3#199#0
-  +#11'ClientWidth'#3#240#0#4'Menu'#7#9'MainMenu1'#8'OnCreate'#7#10'FormCreate'
-  +#9'OnDestroy'#7#11'FormDestroy'#8'OnResize'#7#10'FormResize'#6'OnShow'#7#8'F'
-  +'ormShow'#10'LCLVersion'#6#8'0.9.28.2'#0#6'TLabel'#6'Label3'#4'Left'#2#12#6
-  +'Height'#2#14#3'Top'#2#27#5'Width'#2'@'#7'Caption'#6#12'Observatoire'#11'Par'
-  +'entColor'#8#0#0#6'TLabel'#6'Label2'#4'Left'#2#12#6'Height'#2#14#3'Top'#2','
-  +#5'Width'#2'0'#7'Caption'#6#9'Longitude'#11'ParentColor'#8#0#0#6'TLabel'#6'L'
-  +'abel1'#4'Left'#2#12#6'Height'#2#14#3'Top'#2'D'#5'Width'#2'('#7'Caption'#6#8
+  +#0#13'ActiveControl'#7#7'Button1'#7'Caption'#6#8'f_config'#12'ClientHeight'#3
+  +#199#0#11'ClientWidth'#3#240#0#4'Menu'#7#9'MainMenu1'#8'OnCreate'#7#10'FormC'
+  +'reate'#9'OnDestroy'#7#11'FormDestroy'#8'OnResize'#7#10'FormResize'#6'OnShow'
+  +#7#8'FormShow'#10'LCLVersion'#6#8'0.9.28.2'#0#6'TLabel'#6'Label3'#4'Left'#2
+  +#12#6'Height'#2#14#3'Top'#2#27#5'Width'#2'@'#7'Caption'#6#12'Observatoire'#11
+  +'ParentColor'#8#0#0#6'TLabel'#6'Label2'#4'Left'#2#12#6'Height'#2#14#3'Top'#2
+  +','#5'Width'#2'0'#7'Caption'#6#9'Longitude'#11'ParentColor'#8#0#0#6'TLabel'#6
+  +'Label1'#4'Left'#2#12#6'Height'#2#14#3'Top'#2'D'#5'Width'#2'('#7'Caption'#6#8
   +'Latitude'#11'ParentColor'#8#0#0#6'TLabel'#6'Label4'#4'Left'#2#12#6'Height'#2
   +#14#3'Top'#3#140#0#5'Width'#2'$'#7'Caption'#6#6'Langue'#11'ParentColor'#8#0#0
   +#6'TLabel'#6'Label5'#4'Left'#2#12#6'Height'#2#14#3'Top'#2'\'#5'Width'#2#24#7
@@ -63,7 +64,7 @@ LazarusResources.Add('Tf_config','FORMDATA',[
   +'m'#9'MenuItem5'#7'Caption'#6#13'Eph'#195#169'm'#195#169'rides'#7'OnClick'#7
   +#14'MenuItem5Click'#0#0#9'TMenuItem'#9'MenuItem6'#7'Caption'#6#10'Calendrier'
   +#7'OnClick'#7#14'MenuItem6Click'#0#0#9'TMenuItem'#9'MenuItem7'#7'Caption'#6#9
-  ,'Recherche'#7'OnClick'#7#14'MenuItem7Click'#0#0#9'TMenuItem'#9'MenuItem8'#7
-  +'Caption'#6#4'Aide'#7'OnClick'#7#14'MenuItem8Click'#0#0#9'TMenuItem'#9'MenuI'
+  +'Recherche'#7'OnClick'#7#14'MenuItem7Click'#0#0#9'TMenuItem'#9'MenuItem8'#7
+  ,'Caption'#6#4'Aide'#7'OnClick'#7#14'MenuItem8Click'#0#0#9'TMenuItem'#9'MenuI'
   +'tem9'#7'Caption'#6#8'A propos'#7'OnClick'#7#14'MenuItem9Click'#0#0#0#0#0
 ]);
