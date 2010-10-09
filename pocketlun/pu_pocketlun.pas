@@ -855,8 +855,7 @@ begin
   f_info.Font.Size:=deffontsize;
   f_info.Title.Caption:=currentname;
   GetDetail(buf);
-  for i:=0 to buf.Count-1 do f_info.Memo1.Lines.Add(AnsiToUtf8(buf[i]));
-  //f_info.Memo1.Lines.Assign(buf);
+  f_info.Memo1.Lines.Assign(buf);
   VMAShowmodal(f_info,self);
   next_win:=f_info.NextWindow;
   nextwindow;
@@ -1379,6 +1378,11 @@ Procedure Tf_pocketlun.GetDetail(lin:TStringList);
 const b=' ';
 var buf,buf2,txt : string;
     i:integer;
+Function GetField(field:integer):string;
+begin
+ result:=AnsiToUtf8(dbm.Results[0].Strings[field]);
+end;
+
 begin
 lin.clear;
 buf:='select TYPE,PERIOD,LENGTHKM,WIDEKM,LENGTHMI,WIDEMI,HEIGHTM,HEIGHTFE,RAPPORT,GENERAL,SLOPES,WALLS,FLOOR,';
@@ -1387,25 +1391,14 @@ buf:=buf+'NAMEDETAIL,WORK,NATIONLITY,CENTURYC,COUNTRY,BIRTHPLACE,BIRTHDATE,DEATH
 buf:=buf+' from moon where ID='+currentid;
 dbm.query(buf);
 if dbm.RowCount>0 then begin
-{  nom:=dbm.Results[0].ByField['NAME'].AsString;
-  lin.Add(nom);
-  i:=dbm.Results[0].ByField['DBN'].asInteger;
-  if i>9 then begin
-    buf:=m[75]+b+inttostr(i)+b;
-    for j:=0 to form2.CheckListBox1.count-1 do
-       if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum=i then
-          buf:=buf+form2.CheckListBox1.Items[j];
-    lin.Add(buf);
-  end;}
-  lin.Add(rsType+':'+b+dbm.Results[0].Strings[0]);
-  lin.Add(rsGeologicalPe+':'+b+dbm.Results[0].Strings[1]);
+  lin.Add(rsType+':'+b+GetField(0));
+  lin.Add(rsGeologicalPe+':'+b+GetField(1));
   lin.Add('');
   lin.Add(rsSize+':'); //Taille
-  lin.Add(rsDimension+':'+b+dbm.Results[0].Strings[2]+'x'+dbm.Results[0
-    ].Strings[3]+rsKm+b+'/'+b+dbm.Results[0].Strings[4]+'x'+dbm.Results[0
-    ].Strings[5]+rsMi);
-  buf:=dbm.Results[0].Strings[6];
-  buf2:=dbm.Results[0].Strings[7];
+  lin.Add(rsDimension+':'+b+GetField(2)+'x'+GetField(3)+rsKm+b
+          +'/'+b+GetField(4)+'x'+GetField(5)+rsMi);
+  buf:=GetField(6);
+  buf2:=GetField(7);
   if buf=buf2 then txt:=rsHeight+':'+b+buf  // inconnue
   else begin
      txt:=rsHeight+b;
@@ -1415,86 +1408,69 @@ if dbm.RowCount>0 then begin
      if i=0 then txt:=txt+buf2+rsFt;
   end;
   lin.Add(txt);
-  lin.Add(rsHeightWideRa+':'+b+dbm.Results[0].Strings[8]);
-//  lin.Add(b);
+  lin.Add(rsHeightWideRa+':'+b+GetField(8));
   lin.Add('');
   lin.Add(rsDescription+':'); //Description
-  if dbm.Results[0].Strings[9]>'' then lin.Add(dbm.Results[0].Strings[9]);
-  if dbm.Results[0].Strings[10]>'' then lin.Add(dbm.Results[0].Strings[10]);
-  if dbm.Results[0].Strings[11]>'' then lin.Add(dbm.Results[0].Strings[11]);
-  if dbm.Results[0].Strings[12]>'' then lin.Add(dbm.Results[0].Strings[12]);
+  if GetField(9)>'' then lin.Add(GetField(9));
+  if GetField(10)>'' then lin.Add(GetField(10));
+  if GetField(11)>'' then lin.Add(GetField(11));
+  if GetField(12)>'' then lin.Add(GetField(12));
   
-//  lin.Add(b);
   lin.Add('');
   lin.Add(rsObservation+':'); //Observation
-  lin.Add(rsInterest+':'+b+dbm.Results[0].Strings[13]);
-  buf:=dbm.Results[0].Strings[14];
-  buf2:=dbm.Results[0].Strings[15];
+  lin.Add(rsInterest+':'+b+GetField(13));
+  buf:=GetField(14);
+  buf2:=GetField(15);
   if buf=buf2 then txt:=rsObservationP+':'+b+buf
               else txt:=rsObservationP+':'+b+buf+b+rsOr+b+buf2;
   lin.Add(txt);
-  lin.Add(rsMinimalInstr+':'+b+dbm.Results[0].Strings[16]);
-//  lin.Add(b);
+  lin.Add(rsMinimalInstr+':'+b+GetField(16));
   lin.Add('');
   lin.Add(rsPosition+':'); //Position
-  lin.Add(rsLongitude+':'+b+dbm.Results[0].Strings[17]);
-  lin.Add(rsLatitude+':'+b+dbm.Results[0].Strings[18]);
-  lin.Add(rsQuadrant+':'+b+dbm.Results[0].Strings[19]);
-  lin.Add(rsArea+':'+b+dbm.Results[0].Strings[20]);
-//  lin.Add(b);
+  lin.Add(rsLongitude+':'+b+GetField(17));
+  lin.Add(rsLatitude+':'+b+GetField(18));
+  lin.Add(rsQuadrant+':'+b+GetField(19));
+  lin.Add(rsArea+':'+b+GetField(20));
   lin.Add('');
   lin.Add(rsAtlas+':'); //Atlas
-  lin.Add(rsRuklMap+':'+b+dbm.Results[0].Strings[21]+' '+dbm.Results[0
-    ].Strings[22]);
-  buf:=dbm.Results[0].Strings[23];
+  lin.Add(rsRuklMap+':'+b+GetField(21)+' '+GetField(22));
+  buf:=GetField(23);
   if trim(buf)>'' then lin.Add(rsViscardyPage+':'+b+buf);
-  buf:=dbm.Results[0].Strings[24] ;
+  buf:=GetField(24) ;
   if trim(buf)>'' then lin.Add(rsHatfieldMap+':'+b+buf);
-  buf:=dbm.Results[0].Strings[25] ;
+  buf:=GetField(25) ;
   if trim(buf)>'' then lin.Add(rsWestfallAtla+':'+b+buf);
-  buf:=dbm.Results[0].Strings[26] ;
+  buf:=GetField(26) ;
   if trim(buf)>'' then lin.Add(rsCharlesWoodA+':'+b+buf);
-{  dblox.Gofirst;
-  ok:=dblox.MatchData('NAME', '=', nom);
-  if not ok then ok:=dblox.SeekData('NAME',  '=', nom);
-  if ok then begin
-    buf:='Lunar Orbiter:';
-    while ok do begin
-      carte:=dblox.GetDATA('PLATE');
-      buf:=buf+b+carte;
-      ok:=dblox.SeekData('NAME',  '=', nom);
-    end;
-    lin.Add(buf);
-  end;}
   lin.Add('');
   lin.Add(rsNameOrigine+':'); //Origine
-  lin.Add(rsDetailedName+':'+b+dbm.Results[0].Strings[27]);
-  if (trim(dbm.Results[0].Strings[28]+dbm.Results[0].Strings[29])>'')and(trim(dbm.Results[0].Strings[30]+dbm.Results[0].Strings[31])>'') then begin
+  lin.Add(rsDetailedName+':'+b+GetField(27));
+  if (trim(GetField(28)+GetField(29))>'')and(trim(GetField(30)+GetField(31))>'') then begin
     case PhraseFormat of
-      PhraseFormatEnglish : lin.Add(dbm.Results[0].Strings[30]+b+
-        dbm.Results[0].Strings[29]+b+dbm.Results[0].Strings[28]+b+rsBornIn+b+
-        dbm.Results[0].Strings[31]);
-      PhraseFormatLatin   : lin.Add(dbm.Results[0].Strings[28]+b+
-        dbm.Results[0].Strings[29]+b+rsFrom+b+dbm.Results[0].Strings[30]+b+rsBornIn+b+
-        dbm.Results[0].Strings[31]);
-      PhraseFormatRussian : lin.Add(dbm.Results[0].Strings[29]+b+
-        dbm.Results[0].Strings[28]+b+dbm.Results[0].Strings[30]+b+rsBornIn+b+
-        dbm.Results[0].Strings[31]);
+      PhraseFormatEnglish : lin.Add(GetField(30)+b+
+        GetField(29)+b+GetField(28)+b+rsBornIn+b+
+        GetField(31));
+      PhraseFormatLatin   : lin.Add(GetField(28)+b+
+        GetField(29)+b+rsFrom+b+GetField(30)+b+rsBornIn+b+
+        GetField(31));
+      PhraseFormatRussian : lin.Add(GetField(29)+b+
+        GetField(28)+b+GetField(30)+b+rsBornIn+b+
+        GetField(31));
     end;
-    lin.Add(rsBornAt+':'+b+dbm.Results[0].Strings[32]+b+rsIn+b+
-      dbm.Results[0].Strings[33]);
-    lin.Add(rsDeadAt+':'+b+dbm.Results[0].Strings[34]+b+rsIn+b+
-      dbm.Results[0].Strings[35]);
+    lin.Add(rsBornAt+':'+b+GetField(32)+b+rsIn+b+
+      GetField(33));
+    lin.Add(rsDeadAt+':'+b+GetField(34)+b+rsIn+b+
+      GetField(35));
   end;
-  if (trim(dbm.Results[0].Strings[36])<>'??')and(trim(dbm.Results[0].Strings[36])<>'') then begin
+  if (trim(GetField(36))<>'??')and(trim(GetField(36))<>'') then begin
     lin.Add('');
-    lin.Add(rsImportantFac+':'+b+dbm.Results[0].Strings[36]);
+    lin.Add(rsImportantFac+':'+b+GetField(36));
   end;
   lin.Add('');
-  lin.Add(rsNameAuthor+':'+b+dbm.Results[0].Strings[37]);
-  lin.Add(rsNameByLangre+':'+b+dbm.Results[0].Strings[38]);
-  lin.Add(rsNameByHeveli+':'+b+dbm.Results[0].Strings[39]);
-  lin.Add(rsNameByRiccio+':'+b+dbm.Results[0].Strings[40]);
+  lin.Add(rsNameAuthor+':'+b+GetField(37));
+  lin.Add(rsNameByLangre+':'+b+GetField(38));
+  lin.Add(rsNameByHeveli+':'+b+GetField(39));
+  lin.Add(rsNameByRiccio+':'+b+GetField(40));
 end;
 end;
 
