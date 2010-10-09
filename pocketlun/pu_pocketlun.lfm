@@ -15,17 +15,6 @@ object f_pocketlun: Tf_pocketlun
   OnResize = FormResize
   OnShow = FormShow
   LCLVersion = '0.9.28.2'
-  object Image1: TImage
-    Left = 0
-    Height = 206
-    Top = 21
-    Width = 266
-    Align = alTop
-    OnMouseDown = Image1MouseDown
-    OnMouseMove = Image1MouseMove
-    OnMouseUp = Image1MouseUp
-    Visible = False
-  end
   object MapLabel: TLabel
     Left = 0
     Height = 14
@@ -634,6 +623,16 @@ object f_pocketlun: Tf_pocketlun
         0000
       }
     end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 206
+    Top = 21
+    Width = 266
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 2
+    Visible = False
   end
   object ActionList1: TActionList
     left = 72
