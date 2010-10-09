@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="7"/>
-    <Units Count="21">
+    <Units Count="18">
       <Unit0>
         <Filename Value="PocketLun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -18,12 +18,12 @@
         <ComponentName Value="f_pocketlun"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_pocketlun"/>
-        <CursorPos X="39" Y="379"/>
-        <TopLine Value="373"/>
+        <CursorPos X="39" Y="39"/>
+        <TopLine Value="27"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
-          <Item0 X="5" Y="857" ID="2"/>
+          <Item0 X="5" Y="865" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit1>
@@ -89,9 +89,7 @@
         <UnitName Value="pu_config"/>
         <CursorPos X="26" Y="155"/>
         <TopLine Value="138"/>
-        <EditorIndex Value="5"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="pu_config_display.pas"/>
@@ -175,9 +173,7 @@
         <UnitName Value="wince_func"/>
         <CursorPos X="1" Y="76"/>
         <TopLine Value="74"/>
-        <EditorIndex Value="6"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit16>
       <Unit17>
         <Filename Value="u_translation.pas"/>
@@ -185,157 +181,97 @@
         <UnitName Value="u_translation"/>
         <CursorPos X="3" Y="83"/>
         <TopLine Value="69"/>
-        <EditorIndex Value="4"/>
-        <UsageCount Value="70"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="72"/>
       </Unit17>
-      <Unit18>
-        <Filename Value="..\..\..\appli\lazarus\lazarus\lcl\controls.pp"/>
-        <UnitName Value="Controls"/>
-        <CursorPos X="33" Y="1905"/>
-        <TopLine Value="1899"/>
-        <EditorIndex Value="3"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="..\..\..\appli\lazarus\lazarus\lcl\extctrls.pp"/>
-        <UnitName Value="ExtCtrls"/>
-        <CursorPos X="57" Y="8"/>
-        <TopLine Value="1"/>
-        <EditorIndex Value="1"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="..\..\..\appli\lazarus\lazarus\lcl\include\customimage.inc"/>
-        <CursorPos X="55" Y="22"/>
-        <TopLine Value="1"/>
-        <EditorIndex Value="2"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit20>
     </Units>
     <General>
       <ActiveEditorIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="21" HistoryIndex="20">
       <Position1>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1441" Column="56" TopLine="1416"/>
+        <Caret Line="843" Column="10" TopLine="829"/>
       </Position1>
       <Position2>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1442" Column="20" TopLine="1416"/>
+        <Caret Line="880" Column="10" TopLine="866"/>
       </Position2>
       <Position3>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1444" Column="20" TopLine="1430"/>
+        <Caret Line="901" Column="10" TopLine="887"/>
       </Position3>
       <Position4>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1446" Column="20" TopLine="1430"/>
+        <Caret Line="914" Column="10" TopLine="887"/>
       </Position4>
       <Position5>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1448" Column="20" TopLine="1430"/>
+        <Caret Line="936" Column="10" TopLine="922"/>
       </Position5>
       <Position6>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1464" Column="44" TopLine="1450"/>
+        <Caret Line="1070" Column="50" TopLine="1062"/>
       </Position6>
       <Position7>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1465" Column="76" TopLine="1450"/>
+        <Caret Line="1076" Column="39" TopLine="1062"/>
       </Position7>
       <Position8>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1467" Column="49" TopLine="1450"/>
+        <Caret Line="1077" Column="40" TopLine="1062"/>
       </Position8>
       <Position9>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1468" Column="36" TopLine="1450"/>
+        <Caret Line="1095" Column="14" TopLine="1078"/>
       </Position9>
       <Position10>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1469" Column="21" TopLine="1450"/>
+        <Caret Line="1186" Column="29" TopLine="1168"/>
       </Position10>
       <Position11>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1470" Column="49" TopLine="1450"/>
+        <Caret Line="1196" Column="7" TopLine="1168"/>
       </Position11>
       <Position12>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1471" Column="45" TopLine="1450"/>
+        <Caret Line="1244" Column="10" TopLine="1230"/>
       </Position12>
       <Position13>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="1268" Column="10" TopLine="1254"/>
       </Position13>
       <Position14>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="190" Column="24" TopLine="176"/>
+        <Caret Line="1292" Column="43" TopLine="1261"/>
       </Position14>
       <Position15>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="857" Column="10" TopLine="843"/>
+        <Caret Line="39" Column="10" TopLine="16"/>
       </Position15>
       <Position16>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1391" Column="44" TopLine="1377"/>
+        <Caret Line="208" Column="34" TopLine="194"/>
       </Position16>
       <Position17>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="1024" Column="13" TopLine="1007"/>
       </Position17>
       <Position18>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1012" Column="21" TopLine="988"/>
+        <Caret Line="1028" Column="26" TopLine="1016"/>
       </Position18>
       <Position19>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="1837" Column="35" TopLine="1818"/>
       </Position19>
       <Position20>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="96" Column="11" TopLine="82"/>
+        <Caret Line="39" Column="37" TopLine="27"/>
       </Position20>
       <Position21>
         <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="120" Column="21" TopLine="106"/>
+        <Caret Line="39" Column="39" TopLine="27"/>
       </Position21>
-      <Position22>
-        <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="122" Column="21" TopLine="106"/>
-      </Position22>
-      <Position23>
-        <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="124" Column="21" TopLine="106"/>
-      </Position23>
-      <Position24>
-        <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="394" Column="11" TopLine="367"/>
-      </Position24>
-      <Position25>
-        <Filename Value="pu_pocketlun.pas"/>
-        <Caret Line="388" Column="12" TopLine="367"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\..\..\appli\lazarus\lazarus\lcl\extctrls.pp"/>
-        <Caret Line="639" Column="26" TopLine="628"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\..\..\appli\lazarus\lazarus\lcl\extctrls.pp"/>
-        <Caret Line="631" Column="65" TopLine="609"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\..\..\appli\lazarus\lazarus\lcl\include\customimage.inc"/>
-        <Caret Line="4" Column="53" TopLine="1"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\..\..\appli\lazarus\lazarus\lcl\extctrls.pp"/>
-        <Caret Line="590" Column="32" TopLine="581"/>
-      </Position29>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

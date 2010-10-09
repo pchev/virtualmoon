@@ -36,6 +36,14 @@ type
 
   TPhraseFormat = (PhraseFormatEnglish, PhraseFormatLatin, PhraseFormatRussian);
 
+  TChartDrawingControl = class(TCustomControl)
+  public
+    procedure Paint; override;
+    property onMouseDown;
+    property onMouseMove;
+    property onMouseUp;
+  end;
+
   { Tf_pocketlun }
 
   Tf_pocketlun = class(TForm)
@@ -55,6 +63,7 @@ type
     DateLabel: TLabel;
     MapLabel: TLabel;
     MenuItem4: TMenuItem;
+    Panel1: TPanel;
     TopPanel: TPanel;
     SplashPanel: TPanel;
     ShowLabel1: TAction;
@@ -93,7 +102,6 @@ type
     config1: TAction;
     Close1: TAction;
     ActionList1: TActionList;
-    Image1: TImage;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -117,12 +125,6 @@ type
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure help1Execute(Sender: TObject);
-    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer
-      );
-    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
     procedure info1Execute(Sender: TObject);
     procedure DebugBtnClick(Sender: TObject);
     procedure nordsud1Execute(Sender: TObject);
@@ -161,6 +163,10 @@ type
     moonrise,moonset,moontransit,azimuthrise,azimuthset,altitudetransit : string;
     AppDataDir,homedir,prgfilesdir,privatedir,configfile,dbfile,imgfile,sidelist,currentid,currentname: string;
     next_win : Tvma_window;
+    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X,Y: Integer);
+    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
+    procedure Image1Paint(Sender: TObject);
     Procedure SetLang;
     Procedure GetLanguage;
     Function GetTimeZone(jdt:Double) : double;
@@ -199,6 +205,8 @@ type
     procedure SetButtons;
   public
     { public declarations }
+    Image1 : TChartDrawingControl;
+    cbmp: TBitmap;
     procedure Init;
   end;
 
@@ -347,8 +355,8 @@ if zoom=zoommin then begin
   Xpos:=image2d.Width div 2;
   Ypos:=image2d.Height div 2;
 end;
-Image1.picture.bitmap.Width:=Image1.Width;
-Image1.picture.bitmap.Height:=Image1.Height;
+cbmp.Width:=Image1.Width;
+cbmp.Height:=Image1.Height;
 winratio:=Image1.width/Image1.height;
 dx:=round((image2d.width)/zoom/2);
 x0:=image2d.width-dx-dx;
@@ -385,13 +393,13 @@ if flipy then by:=-by;
 xd1:=0; yd1:=0;
 xd2:=xd;
 yd2:=yd;
-Image1.picture.bitmap.canvas.brush.color:=clBlack;
-Image1.picture.bitmap.canvas.Brush.style:=bsSolid;
-Image1.picture.bitmap.canvas.fillrect(rect(0,0,Image1.picture.bitmap.width,Image1.picture.bitmap.height));
-Image1.picture.bitmap.canvas.CopyRect(rect(xd1,yd1,xd2,yd2),image2d.Canvas,rect(x1,y1,x2,y2));
+cbmp.canvas.brush.color:=clBlack;
+cbmp.canvas.Brush.style:=bsSolid;
+cbmp.canvas.fillrect(rect(0,0,cbmp.width,cbmp.height));
+cbmp.canvas.CopyRect(rect(xd1,yd1,xd2,yd2),image2d.Canvas,rect(x1,y1,x2,y2));
 LibrationMark(librlong,librlat);
 DrawLabel;
-Image1.Refresh;
+Image1.Invalidate;
 end;
 
 procedure Tf_pocketlun.InitScreen(Sender: TObject);
@@ -1009,7 +1017,16 @@ GetLanguage;
 u_translation.appdir:=appdir;
 language:=u_translation.translate(language);
 SetLang;
-Image1.Align:=alTop;
+Panel1.Align:=alTop;
+Image1:= TChartDrawingControl.Create(Self);
+Image1.Parent := Panel1;
+Image1.Align:=alClient;
+Image1.DoubleBuffered := true;
+Image1.OnMouseDown:=@Image1MouseDown;
+Image1.OnMouseMove:=@Image1MouseMove;
+Image1.OnMouseUp:=@Image1MouseUp;
+Image1.OnPaint:=@Image1Paint;
+cbmp:=TBitmap.Create;
 moona:=TBitmap.create;
 image2d:=TBitmap.create;
 moon:=TMoon.Create(self);
@@ -1158,9 +1175,11 @@ application.ProcessMessages;
 LoadDB;
 application.ProcessMessages;
 f_notes.LoadDB(privatedir+'notes.csv');
-Image1.Height:=clientHeight-TopPanel.Height;
-Image1.picture.bitmap.Width:=Image1.Width;
-Image1.picture.bitmap.Height:=Image1.Height;
+panel1.Height:=clientHeight-TopPanel.Height;
+Image1.Width:=panel1.Width;
+Image1.Height:=panel1.Height;
+cbmp.Width:=Image1.Width;
+cbmp.Height:=Image1.Height;
 zoommin:=Image1.Height/Image1.Width;
 zoom:=1;
 f_config.tzinfo:=tzinfo;
@@ -1172,7 +1191,7 @@ application.ProcessMessages;
 ComputeMoon;
 application.ProcessMessages;
 splash.visible:=false;
-image1.visible:=true;
+panel1.visible:=true;
 if ObsCountry='' then begin
    ObsCountry:='FR';
    f_config.MenuItem1.Visible:=false;
@@ -1193,10 +1212,12 @@ end;
 procedure Tf_pocketlun.FormDestroy(Sender: TObject);
 begin
 lockrefresh:=true;
+cbmp.Free;
 moon.Free;
 tzinfo.Free;
 moona.free;
 image2d.free;
+image1.Free;
 end;
 
 procedure Tf_pocketlun.FormResize(Sender: TObject);
@@ -1205,8 +1226,8 @@ if lockrefresh then exit;
 Image1.Top:=TopPanel.Top+TopPanel.Height;
 Image1.Left:=0;
 Image1.Height:=clientHeight-2*TopPanel.Height;
-Image1.picture.bitmap.Width:=Image1.Width;
-Image1.picture.bitmap.Height:=Image1.Height;
+cbmp.Width:=Image1.Width;
+cbmp.Height:=Image1.Height;
 zoommin:=Image1.Height/Image1.Width;
 Refresh2DImage;
 end;
@@ -1343,13 +1364,14 @@ end;
 procedure Tf_pocketlun.markpos(x,y: double);
 var xx,yy: integer;
 begin
- with image1.Picture.Bitmap.Canvas do begin
+ with cbmp.Canvas do begin
    world2window(x,y,xx,yy);
    Pen.Color:=clRed;
    Pen.Width:=1;
    Brush.style:=bsClear;
    Ellipse(xx-5,yy-5,xx+5,yy+5);
  end;
+ Image1.Invalidate;
 end;
 
 function Tf_pocketlun.SearchName(n: string; center: boolean; mark:boolean=false):boolean;
@@ -1538,13 +1560,14 @@ begin
   X:=0.51*cos(a);
   Y:=0.51*sin(a);
   world2window(x,y,xx,yy);
-  with Image1.Picture.Bitmap.Canvas  do begin
+  with cbmp.Canvas  do begin
      Pen.Color:=clRed;
      Pen.Width:=1;
      Brush.Color:=clRed;
      Brush.style:=bsSolid;
      Rectangle(xx-2,yy-2,xx+2,yy+2);
   end;
+  Image1.Invalidate;
 end;
 end;
 
@@ -1714,8 +1737,8 @@ begin
 if showlabel and (not SkipLabel) then begin
 try
 screen.Cursor:=crHourGlass;
-xx:=image1.Picture.Bitmap.Width div 2;
-yy:=image1.Picture.Bitmap.Height div 2;
+xx:=cbmp.Width div 2;
+yy:=cbmp.Height div 2;
 Window2World(xx,yy,x,y);
 if not InvProjMoon(2*x,2*y,librl,librb,l,b) then begin
    l:=librl;
@@ -1775,9 +1798,9 @@ for j:=0 to dbm.RowCount-1 do begin
     end;
     world2window(x,y,xx,yy);
     begin
-    if (xx>0)and(yy>0)and(xx<image1.Picture.Bitmap.Width)and(yy<image1.Picture.Bitmap.Height)
+    if (xx>0)and(yy>0)and(xx<cbmp.Width)and(yy<cbmp.Height)
 //     and((currenteyepiece=0)or( sqrt(Intpower(form1.image1.Width/2-xx,2)+Intpower(form1.image1.Height/2-yy,2))<0.475*form1.image1.Width ))
-     then with image1.Picture.Bitmap.Canvas do begin
+     then with cbmp.Canvas do begin
       Font.Color:=LabelColor;
       Font.name:=deffont;
       Font.Style:=[fsBold];
@@ -1798,10 +1821,23 @@ for j:=0 to dbm.RowCount-1 do begin
 end;
 finally
 screen.Cursor:=crDefault;
+Image1.Invalidate;
 end;
 end;
 end;
 
+
+procedure Tf_pocketlun.Image1Paint(Sender: TObject);
+begin
+Image1.Canvas.CopyMode:=cmSrcCopy;
+Image1.Canvas.Draw(0,0,cbmp); // draw bitmap to screen
+inherited Paint;
+end;
+
+procedure TChartDrawingControl.Paint;
+begin
+  inherited Paint;
+end;
 
 initialization
   {$I pu_pocketlun.lrs}
