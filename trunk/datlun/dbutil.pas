@@ -85,9 +85,9 @@ if pos('moon',buf)=0 then begin
     'LONGIC text,'+
     'LATIN float,'+
     'LATIC text,'+
+    'FACE text,'+
     'QUADRANT text,'+
     'AREA text,'+
-    'FACE text,'+
     'RUKL text,'+
     'RUKLC text,'+
     'VISCARDY text,'+
@@ -151,7 +151,7 @@ const
     possubtype=5;
     posprocess=7;
     posgeology=8;
-    posface=30;
+    posface=28;
     postips=50;
 begin
 if MsgForm=nil then Application.CreateForm(TMsgForm, MsgForm);

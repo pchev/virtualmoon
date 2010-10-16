@@ -822,9 +822,9 @@ if modeupdate then
     'LONGIC="'+longic+'",'+
     'LATIN="'+edit5.Text+'",'+
     'LATIC="'+latic+'",'+
+    'FACE="'+face[facenum,0]+'",'+ // face
     'QUADRANT="'+quadrant[quadrantnum,0]+'",'+
     'AREA="'+edit9.Text+'",'+  // area
-    'FACE="'+face[facenum,0]+'",'+ // face
     'RUKL="'+edit10.Text+'",'+ // rukl
     'RUKLC="'+edit11.Text+'",'+
     'LENGTHKM="'+edit1.Text+'",'+
@@ -874,9 +874,9 @@ else
     '"'+longic+'",'+
     '"'+edit5.Text+'",'+
     '"'+latic+'",'+
+    '"'+face[facenum,0]+'",'+ // face
     '"'+quadrant[quadrantnum,0]+'",'+
     '"'+edit9.Text+'",'+  // area
-    '"'+face[facenum,0]+'",'+ // face
     '"'+edit10.Text+'",'+ // rukl
     '"'+edit11.Text+'",'+
     '"'+ndf+'",'+
@@ -927,9 +927,9 @@ else
     'LONGIC="'+longic+'",'+
     'LATIN="'+edit5.Text+'",'+
     'LATIC="'+latic+'",'+
+    'FACE="'+face[facenum,1]+'",'+ // face
     'QUADRANT="'+quadrant[quadrantnum,1]+'",'+
     'AREA="'+edit9.Text+'",'+  // area
-    'FACE="'+face[facenum,1]+'",'+ // face
     'RUKL="'+edit10.Text+'",'+ // rukl
     'RUKLC="'+edit11.Text+'",'+
     'LENGTHKM="'+edit1.Text+'",'+
@@ -979,9 +979,9 @@ else
     '"'+longic+'",'+
     '"'+edit5.Text+'",'+
     '"'+latic+'",'+
+    '"'+face[facenum,1]+'",'+ // face
     '"'+quadrant[quadrantnum,1]+'",'+
     '"'+edit9.Text+'",'+  // area
-    '"'+face[facenum,1]+'",'+ // face
     '"'+edit10.Text+'",'+ // rukl
     '"'+edit11.Text+'",'+
     '"'+nde+'",'+
