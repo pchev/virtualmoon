@@ -1132,7 +1132,7 @@ begin
     end;
  end;
  if not FBumpmap then begin
-   maxzoom:=ZoomByZone[maxzone]*1.4;
+   maxzoom:=ZoomByZone[maxzone]*3;
    ClearSlice(2);
    LoadSlice(1);
    if zone<>1 then LoadSlice(zone);

@@ -7,8 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, catlun_main, libsql, LResources, Printer4Lazarus, TurboPowerIPro,
-  glscenelazarus
+  Forms, catlun_main, dbutil, libsql, LResources, Printer4Lazarus,
+  TurboPowerIPro, glscenelazarus
   { you can add units after this };
 
 {$IFDEF WINDOWS}{$R catlun.rc}{$ENDIF}

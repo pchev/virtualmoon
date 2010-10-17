@@ -33,6 +33,8 @@ type
     ComboBox4: TComboBox;
     ComboBox5: TComboBox;
     ComboBox6: TComboBox;
+    ComboBox7: TComboBox;
+    ComboBox8: TComboBox;
     Desc1: TIpHtmlPanel;
     Edit1: TEdit;
     Edit10: TEdit;
@@ -68,6 +70,8 @@ type
     Label21: TLabel;
     Label22: TLabel;
     Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
@@ -83,11 +87,14 @@ type
     Load1: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     Notebook1: TNotebook;
     OpenDialog1: TOpenDialog;
     Page1: TPage;
     Page2: TPage;
     Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
     Quit1: TMenuItem;
     Save1: TMenuItem;
     PanelMoon: TPanel;
@@ -116,6 +123,7 @@ type
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
+    procedure MenuItem6Click(Sender: TObject);
     procedure Notebook1PageChanged(Sender: TObject);
     procedure Quit1Click(Sender: TObject);
     procedure Save1Click(Sender: TObject);
@@ -154,6 +162,7 @@ var
 
 const
   dbn=99;
+
   nametype: array[0..1] of string =(
      'Nom non officiel',
      'Non official name');
@@ -201,6 +210,17 @@ const
     'RU',
     'SI',
     'VA');
+
+  subtype : array[0..2,0..1] of string = (
+  ('Craterlet d''impact primaire','Primary impact craterlet'),
+  ('Craterlet d''impact secondaire','Secondary impact craterlet'),
+  ('Sous-type non défini','Undefined sub-type'));
+
+  geolprocess : array[0..3,0..1] of string = (
+    ('Exogène météoritique','Exogen meteoritical'),
+    ('Endogène volcanique','Endogen volcanic'),
+    ('Endogène tectonique','Endogen tectonic'),
+    ('Processus non défini','Undefined process'));
 
   quadrant : array[0..4,0..1] of string = (
     ('Nord-Est','North-East'),
@@ -502,6 +522,14 @@ ComboBox1.Clear;
 for i:=0 to 19 do ComboBox1.Items.Add(formationtype[i,0]);
 ComboBox1.ItemIndex:=3;
 
+ComboBox7.Clear;
+for i:=0 to 2 do ComboBox7.Items.Add(subtype[i,0]);
+ComboBox7.ItemIndex:=0;
+
+ComboBox8.Clear;
+for i:=0 to 3 do ComboBox8.Items.Add(geolprocess[i,0]);
+ComboBox8.ItemIndex:=0;
+
 ComboBox2.Clear;
 for i:=0 to 1 do ComboBox2.Items.Add(descgeneral[i,0]);
 ComboBox2.ItemIndex:=0;
@@ -703,7 +731,7 @@ if moon1.MeasuringDistance then Button4Click(nil);
 cmd:='select * from moon where id='+currentid+' and dbn='+inttostr(dbn)+';';
 dbfr.Query(cmd);
 if dbfr.RowCount=0 then begin
-   ShowMessage('Pas de formation Anonyms selectionnée.');
+   ShowMessage('Pas de formation Nonames selectionnée.');
    exit;
 end;
 modeupdate:=true;
@@ -732,6 +760,14 @@ buf:=dbfr.Results[0].ByField['TYPE'].AsString;
 ComboBox1.ItemIndex:=-1;
 for i:=0 to ComboBox1.Items.Count-1 do
   if ComboBox1.Items[i]=buf then ComboBox1.ItemIndex:=i;
+buf:=dbfr.Results[0].ByField['SUBTYPE'].AsString;
+ComboBox7.ItemIndex:=-1;
+for i:=0 to ComboBox7.Items.Count-1 do
+  if ComboBox7.Items[i]=buf then ComboBox7.ItemIndex:=i;
+buf:=dbfr.Results[0].ByField['PROCESS'].AsString;
+ComboBox8.ItemIndex:=-1;
+for i:=0 to ComboBox8.Items.Count-1 do
+  if ComboBox8.Items[i]=buf then ComboBox8.ItemIndex:=i;
 buf:=dbfr.Results[0].ByField['QUADRANT'].AsString;
 quadrantnum:=-1;
 for i:=0 to 4 do
@@ -771,6 +807,7 @@ end;
 procedure Tf_catlun.Button2Click(Sender: TObject);
 var cmd,latic,longic : string;
       y, m, d: word;
+      f:textfile;
 const
     ndf='Non déterminé';
     nde='Not determined';
@@ -817,6 +854,8 @@ if modeupdate then
     'LUN="'+edit7.text+'",'+
     'NAMETYPE="'+nametype[0]+'",'+
     'TYPE="'+formationtype[ComboBox1.ItemIndex,0]+'",'+
+    'SUBTYPE="'+subtype[ComboBox7.ItemIndex,0]+'",'+
+    'PROCESS="'+geolprocess[ComboBox8.ItemIndex,0]+'",'+
     'NAMEDETAIL="'+edit7.text+'",'+
     'LONGIN="'+edit6.Text+'",'+
     'LONGIC="'+longic+'",'+
@@ -851,9 +890,9 @@ else
     '"'+edit7.text+'",'+
     '"'+nametype[0]+'",'+
     '"'+formationtype[ComboBox1.ItemIndex,0]+'",'+
-    '"'+naf+'",'+  //subtype
+    '"'+subtype[ComboBox7.ItemIndex,0]+'",'+
     '"'+ndf+'",'+
-    '"'+naf+'",'+  //process
+    '"'+geolprocess[ComboBox8.ItemIndex,0]+'",'+
     '"'+naf+'",'+  //geology
     '"'+edit7.text+'",'+
     '"'+'Legrand '+inttostr(y)+'",'+
@@ -907,6 +946,9 @@ else
     '"'+prinstru[instnum,0]+'"'+
     ');';
 
+AssignFile(f,'/home/pch/tt.txt');
+rewrite(f);
+writeln(f,cmd);
  dbfr.Query(cmd);
 
 // anglais
@@ -922,6 +964,8 @@ else
     'LUN="'+edit7.text+'",'+
     'NAMETYPE="'+nametype[1]+'",'+
     'TYPE="'+formationtype[ComboBox1.ItemIndex,1]+'",'+
+    'SUBTYPE="'+subtype[ComboBox7.ItemIndex,1]+'",'+
+    'PROCESS="'+geolprocess[ComboBox8.ItemIndex,1]+'",'+
     'NAMEDETAIL="'+edit7.text+'",'+
     'LONGIN="'+edit6.Text+'",'+
     'LONGIC="'+longic+'",'+
@@ -956,9 +1000,9 @@ else
     '"'+edit7.text+'",'+
     '"'+nametype[1]+'",'+
     '"'+formationtype[ComboBox1.ItemIndex,1]+'",'+
-    '"'+nae+'",'+  //subtype
+    '"'+subtype[ComboBox7.ItemIndex,1]+'",'+
     '"'+nde+'",'+
-    '"'+nae+'",'+  //process
+    '"'+geolprocess[ComboBox8.ItemIndex,1]+'",'+
     '"'+nae+'",'+  //geology
     '"'+edit7.text+'",'+
     '"'+'Legrand '+inttostr(y)+'",'+
@@ -1011,6 +1055,9 @@ else
     '"'+thinstru[instnum,1]+'",'+
     '"'+prinstru[instnum,1]+'"'+
     ');';
+
+ writeln(f,cmd);
+ closefile(f);
 
  dben.Query(cmd);
 
@@ -1073,6 +1120,8 @@ end;
 procedure Tf_catlun.Button6Click(Sender: TObject);
 begin
   ComboBox1.ItemIndex:=3;
+  ComboBox7.ItemIndex:=0;
+  ComboBox8.ItemIndex:=0;
   ComboBox2.ItemIndex:=0;
   ComboBox3.ItemIndex:=0;
   ComboBox4.ItemIndex:=0;
@@ -1106,7 +1155,7 @@ if (trim(currentname)>'') and
    dben.Query(cmd);
    nen:=inttostr(dben.RowsAffected);
    dben.Commit;
-   ShowMessage('Suppression terminée.'+crlf+nfr+' enregistrements de Anonyms FR.'+crlf+nen+' enregistrements de Anonyms EN.');
+   ShowMessage('Suppression terminée.'+crlf+nfr+' enregistrements de Nonames FR.'+crlf+nen+' enregistrements de Nonames EN.');
    moon1.RefreshAll;
 end;
 
@@ -1172,13 +1221,13 @@ procedure Tf_catlun.Load1Click(Sender: TObject);
 var fn: string;
     i: integer;
 begin
-if (mrYes=MessageDlg('Remplacer les bases de donnée Anonyms français et anglais par le contenu d''un fichier?',mtConfirmation, mbYesNo, 0)) then begin
+if (mrYes=MessageDlg('Remplacer les bases de donnée Nonames français et anglais par le contenu d''un fichier?',mtConfirmation, mbYesNo, 0)) then begin
   OpenDialog1.InitialDir:=Homedir;
-  OpenDialog1.Title:='Choisir le fichier Anonyms FR';
-  ShowMessage('Choisir le fichier Anonyms FR');
+  OpenDialog1.Title:='Choisir le fichier Nonames FR';
+  ShowMessage('Choisir le fichier Nonames FR');
   if OpenDialog1.Execute then begin
      fn:=OpenDialog1.FileName;
-     i:=Pos('Anonyms_uFR_',fn);
+     i:=Pos('Nonames_uFR_',fn);
      if i=0 then begin
         ShowMessage('Mauvais fichier!');
         exit;
@@ -1186,11 +1235,11 @@ if (mrYes=MessageDlg('Remplacer les bases de donnée Anonyms français et anglai
      convertDB(dbfr,fn,inttostr(dbn));
      if MsgForm<>nil then MsgForm.Close;
   end;
-  OpenDialog1.Title:='Choisir le fichier Anonyms EN de la même date que le FR';
-  ShowMessage('Choisir le fichier Anonyms EN de la même date que le FR');
+  OpenDialog1.Title:='Choisir le fichier Nonames EN de la même date que le FR';
+  ShowMessage('Choisir le fichier Nonames EN de la même date que le FR');
   if OpenDialog1.Execute then begin
      fn:=OpenDialog1.FileName;
-     i:=Pos('Anonyms_uEN_',fn);
+     i:=Pos('Nonames_uEN_',fn);
      if i=0 then begin
         ShowMessage('Mauvais fichier!');
         exit;
@@ -1210,7 +1259,7 @@ end;
 
 procedure Tf_catlun.MenuItem2Click(Sender: TObject);
 begin
-  moon1.Zoom:=moon1.ZoomMax;
+  moon1.Zoom:=moon1.ZoomMax/2;
   moon1.RefreshAll;
 end;
 
@@ -1218,6 +1267,11 @@ procedure Tf_catlun.MenuItem3Click(Sender: TObject);
 begin
   showlabel:=not showlabel;
   moon1.RefreshAll;
+end;
+
+procedure Tf_catlun.MenuItem6Click(Sender: TObject);
+begin
+  moon1.ShowGrid:=not moon1.ShowGrid;
 end;
 
 procedure Tf_catlun.Notebook1PageChanged(Sender: TObject);
@@ -1245,7 +1299,7 @@ SelectDirectoryDialog1.InitialDir:=Homedir;
 if SelectDirectoryDialog1.Execute then begin
    // français
    nfr:=0;
-   fname:=slash(SelectDirectoryDialog1.FileName)+'Anonyms_uFR_'+savedate+'.csv';
+   fname:=slash(SelectDirectoryDialog1.FileName)+'Nonames_uFR_'+savedate+'.csv';
    AssignFile(f,fname);
    rewrite(f);
    dbfr.Query('select * from moon where dbn='+IntToStr(dbn)+' order by NAME;');
@@ -1268,7 +1322,7 @@ if SelectDirectoryDialog1.Execute then begin
    dbfr.ClearResultSets;
    // anglais
    nen:=0;
-   fname:=slash(SelectDirectoryDialog1.FileName)+'Anonyms_uEN_'+savedate+'.csv';
+   fname:=slash(SelectDirectoryDialog1.FileName)+'Nonames_uEN_'+savedate+'.csv';
    AssignFile(f,fname);
    rewrite(f);
    dben.Query('select * from moon where dbn='+IntToStr(dbn)+' order by NAME;');
@@ -1289,7 +1343,7 @@ if SelectDirectoryDialog1.Execute then begin
    end;
    CloseFile(f);
    dben.ClearResultSets;
-   ShowMessage('Enregistrement terminé.'+crlf+inttostr(nfr)+' enregistrements dans Anonyms FR.'+crlf+inttostr(nen)+' enregistrements dans Anonyms EN.');
+   ShowMessage('Enregistrement terminé.'+crlf+inttostr(nfr)+' enregistrements dans Nonames FR.'+crlf+inttostr(nen)+' enregistrements dans Nonames EN.');
 end;
 end;
 
@@ -1338,12 +1392,12 @@ try
   LoadDB(dbfr);
   dbfr.Query('select * from user_database where DBN="'+inttostr(dbn)+'";');
   if dbfr.RowCount=0 then begin
-     dbfr.Query('insert into user_database values('+inttostr(dbn)+',"Catlun anonymes");');
+     dbfr.Query('insert into user_database values('+inttostr(dbn)+',"Catlun Nonames");');
      dbfr.Commit;
   end;
   dben.Query('select * from user_database where DBN="'+inttostr(dbn)+'";');
   if dben.RowCount=0 then begin
-     dben.Query('insert into user_database values('+inttostr(dbn)+',"Catlun anonyms");');
+     dben.Query('insert into user_database values('+inttostr(dbn)+',"Catlun Nonames");');
      dben.Commit;
   end;
   dbq:=dbfr;

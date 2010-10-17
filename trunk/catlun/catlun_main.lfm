@@ -1,12 +1,12 @@
 object f_catlun: Tf_catlun
-  Left = 327
-  Height = 783
-  Top = 110
-  Width = 1131
+  Left = 414
+  Height = 727
+  Top = 111
+  Width = 1074
   ActiveControl = PanelMoon
   Caption = 'f_catlun'
-  ClientHeight = 761
-  ClientWidth = 1131
+  ClientHeight = 705
+  ClientWidth = 1074
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
@@ -15,9 +15,9 @@ object f_catlun: Tf_catlun
   LCLVersion = '0.9.29'
   object PanelMoon: TPanel
     Left = 0
-    Height = 743
+    Height = 687
     Top = 0
-    Width = 720
+    Width = 663
     Align = alClient
     Color = clBlack
     ParentColor = False
@@ -26,8 +26,8 @@ object f_catlun: Tf_catlun
   object StatusBar1: TStatusBar
     Left = 0
     Height = 18
-    Top = 743
-    Width = 1131
+    Top = 687
+    Width = 1074
     Panels = <    
       item
         Width = 150
@@ -38,8 +38,8 @@ object f_catlun: Tf_catlun
     SimplePanel = False
   end
   object Notebook1: TNotebook
-    Left = 720
-    Height = 743
+    Left = 663
+    Height = 687
     Top = 0
     Width = 411
     Align = alRight
@@ -49,11 +49,11 @@ object f_catlun: Tf_catlun
     object Page1: TPage
       Caption = 'Saisie'
       ClientWidth = 407
-      ClientHeight = 715
+      ClientHeight = 659
       object Label1: TLabel
         Left = 214
         Height = 15
-        Top = 18
+        Top = 11
         Width = 56
         Caption = 'Longitude'
         ParentColor = False
@@ -61,7 +61,7 @@ object f_catlun: Tf_catlun
       object Label2: TLabel
         Left = 21
         Height = 15
-        Top = 18
+        Top = 11
         Width = 45
         Caption = 'Latitude'
         ParentColor = False
@@ -77,63 +77,63 @@ object f_catlun: Tf_catlun
       object Label4: TLabel
         Left = 21
         Height = 15
-        Top = 50
+        Top = 30
         Width = 26
         Caption = 'Type'
         ParentColor = False
       end
       object Label5: TLabel
-        Left = 22
+        Left = 21
         Height = 15
-        Top = 114
+        Top = 149
         Width = 52
         Caption = 'Quadrant'
         ParentColor = False
       end
       object Label6: TLabel
-        Left = 22
+        Left = 21
         Height = 15
-        Top = 146
+        Top = 173
         Width = 26
         Caption = 'Area'
         ParentColor = False
       end
       object Label7: TLabel
-        Left = 22
+        Left = 21
         Height = 15
-        Top = 178
+        Top = 194
         Width = 26
         Caption = 'Rukl'
         ParentColor = False
       end
       object Label8: TLabel
-        Left = 158
+        Left = 157
         Height = 15
-        Top = 178
+        Top = 194
         Width = 35
         Caption = 'RuklC'
         ParentColor = False
       end
       object Label9: TLabel
-        Left = 22
+        Left = 21
         Height = 15
-        Top = 210
+        Top = 221
         Width = 53
         Caption = 'Lunaison'
         ParentColor = False
       end
       object Label10: TLabel
-        Left = 22
+        Left = 21
         Height = 15
-        Top = 274
+        Top = 269
         Width = 45
         Caption = 'General'
         ParentColor = False
       end
       object Label11: TLabel
-        Left = 22
+        Left = 21
         Height = 15
-        Top = 306
+        Top = 293
         Width = 40
         Caption = 'Slopes'
         ParentColor = False
@@ -141,15 +141,15 @@ object f_catlun: Tf_catlun
       object Label12: TLabel
         Left = 21
         Height = 15
-        Top = 338
+        Top = 317
         Width = 32
         Caption = 'Walls'
         ParentColor = False
       end
       object Label13: TLabel
-        Left = 22
+        Left = 21
         Height = 15
-        Top = 367
+        Top = 341
         Width = 29
         Caption = 'Floor'
         ParentColor = False
@@ -157,7 +157,7 @@ object f_catlun: Tf_catlun
       object Label14: TLabel
         Left = 21
         Height = 15
-        Top = 402
+        Top = 365
         Width = 42
         Caption = 'Interest'
         ParentColor = False
@@ -165,7 +165,7 @@ object f_catlun: Tf_catlun
       object Label15: TLabel
         Left = 178
         Height = 15
-        Top = 578
+        Top = 501
         Width = 20
         Caption = 'Km'
         ParentColor = False
@@ -173,7 +173,7 @@ object f_catlun: Tf_catlun
       object Label16: TLabel
         Left = 338
         Height = 15
-        Top = 578
+        Top = 501
         Width = 13
         Caption = 'Mi'
         ParentColor = False
@@ -181,7 +181,7 @@ object f_catlun: Tf_catlun
       object Label17: TLabel
         Left = 21
         Height = 15
-        Top = 578
+        Top = 501
         Width = 39
         Caption = 'Length'
         ParentColor = False
@@ -189,7 +189,7 @@ object f_catlun: Tf_catlun
       object Label18: TLabel
         Left = 21
         Height = 15
-        Top = 609
+        Top = 525
         Width = 32
         Caption = 'Width'
         ParentColor = False
@@ -197,7 +197,7 @@ object f_catlun: Tf_catlun
       object Label19: TLabel
         Left = 178
         Height = 15
-        Top = 609
+        Top = 525
         Width = 20
         Caption = 'Km'
         ParentColor = False
@@ -205,7 +205,7 @@ object f_catlun: Tf_catlun
       object Label20: TLabel
         Left = 338
         Height = 15
-        Top = 609
+        Top = 525
         Width = 13
         Caption = 'Mi'
         ParentColor = False
@@ -213,32 +213,32 @@ object f_catlun: Tf_catlun
       object Label21: TLabel
         Left = 21
         Height = 15
-        Top = 434
+        Top = 389
         Width = 51
         Caption = 'Diaminst'
         ParentColor = False
       end
       object Label22: TLabel
-        Left = 22
+        Left = 21
         Height = 15
-        Top = 466
+        Top = 413
         Width = 48
         Caption = 'THinstru'
         ParentColor = False
       end
       object Label23: TLabel
-        Left = 22
+        Left = 21
         Height = 15
-        Top = 498
+        Top = 437
         Width = 49
         Caption = 'PRinstru'
         ParentColor = False
       end
       object Edit1: TEdit
-        Left = 88
+        Left = 90
         Height = 22
-        Top = 571
-        Width = 80
+        Top = 494
+        Width = 78
         OnChange = Edit1Change
         TabOrder = 0
         Text = 'Edit1'
@@ -246,7 +246,7 @@ object f_catlun: Tf_catlun
       object Edit5: TEdit
         Left = 108
         Height = 22
-        Top = 11
+        Top = 6
         Width = 80
         Color = clSilver
         ReadOnly = True
@@ -254,9 +254,9 @@ object f_catlun: Tf_catlun
         Text = 'Edit5'
       end
       object Edit6: TEdit
-        Left = 301
+        Left = 302
         Height = 22
-        Top = 11
+        Top = 6
         Width = 80
         Color = clSilver
         ReadOnly = True
@@ -264,9 +264,9 @@ object f_catlun: Tf_catlun
         Text = 'Edit6'
       end
       object Edit7: TEdit
-        Left = 110
+        Left = 108
         Height = 22
-        Top = 75
+        Top = 78
         Width = 158
         Color = clSilver
         ReadOnly = True
@@ -274,18 +274,18 @@ object f_catlun: Tf_catlun
         Text = 'Edit7'
       end
       object Panel1: TPanel
-        Left = 0
-        Height = 50
-        Top = 643
+        Left = -2
+        Height = 34
+        Top = 550
         Width = 403
         BevelOuter = bvNone
-        ClientHeight = 50
+        ClientHeight = 34
         ClientWidth = 403
         TabOrder = 4
         object Button1: TButton
           Left = 5
           Height = 25
-          Top = 14
+          Top = 8
           Width = 85
           Caption = 'Générer'
           OnClick = Button1Click
@@ -294,7 +294,7 @@ object f_catlun: Tf_catlun
         object Button2: TButton
           Left = 150
           Height = 25
-          Top = 14
+          Top = 8
           Width = 85
           Caption = 'Enregistrer'
           OnClick = Button2Click
@@ -303,7 +303,7 @@ object f_catlun: Tf_catlun
         object Button3: TButton
           Left = 294
           Height = 25
-          Top = 14
+          Top = 8
           Width = 85
           Caption = 'Nouveau'
           OnClick = Button3Click
@@ -311,19 +311,19 @@ object f_catlun: Tf_catlun
         end
       end
       object ComboBox1: TComboBox
-        Left = 110
-        Height = 23
-        Top = 43
+        Left = 108
+        Height = 24
+        Top = 30
         Width = 158
         ItemHeight = 0
         OnChange = ComboBox1Change
+        Style = csDropDownList
         TabOrder = 5
-        Text = 'ComboBox1'
       end
       object Edit8: TEdit
         Left = 110
         Height = 22
-        Top = 107
+        Top = 142
         Width = 158
         Color = clSilver
         ReadOnly = True
@@ -331,9 +331,9 @@ object f_catlun: Tf_catlun
         Text = 'Edit8'
       end
       object Edit9: TEdit
-        Left = 110
+        Left = 109
         Height = 22
-        Top = 139
+        Top = 166
         Width = 158
         Color = clSilver
         ReadOnly = True
@@ -343,7 +343,7 @@ object f_catlun: Tf_catlun
       object Edit10: TEdit
         Left = 110
         Height = 22
-        Top = 171
+        Top = 190
         Width = 40
         Color = clSilver
         ReadOnly = True
@@ -351,9 +351,9 @@ object f_catlun: Tf_catlun
         Text = 'Edit10'
       end
       object Edit11: TEdit
-        Left = 198
+        Left = 197
         Height = 22
-        Top = 171
+        Top = 190
         Width = 183
         Color = clSilver
         ReadOnly = True
@@ -361,9 +361,9 @@ object f_catlun: Tf_catlun
         Text = 'Edit11'
       end
       object Edit12: TEdit
-        Left = 110
+        Left = 109
         Height = 22
-        Top = 203
+        Top = 214
         Width = 40
         Color = clSilver
         ReadOnly = True
@@ -371,9 +371,9 @@ object f_catlun: Tf_catlun
         Text = 'Edit12'
       end
       object Edit13: TEdit
-        Left = 168
+        Left = 167
         Height = 22
-        Top = 203
+        Top = 214
         Width = 213
         Color = clSilver
         ReadOnly = True
@@ -381,9 +381,9 @@ object f_catlun: Tf_catlun
         Text = 'Edit13'
       end
       object Edit14: TEdit
-        Left = 168
+        Left = 167
         Height = 22
-        Top = 235
+        Top = 238
         Width = 213
         Color = clSilver
         ReadOnly = True
@@ -393,7 +393,7 @@ object f_catlun: Tf_catlun
       object Edit15: TEdit
         Left = 110
         Height = 22
-        Top = 427
+        Top = 382
         Width = 80
         Color = clSilver
         ReadOnly = True
@@ -401,54 +401,54 @@ object f_catlun: Tf_catlun
         Text = 'Edit15'
       end
       object ComboBox2: TComboBox
-        Left = 110
-        Height = 23
-        Top = 267
+        Left = 109
+        Height = 24
+        Top = 262
         Width = 271
         ItemHeight = 0
+        Style = csDropDownList
         TabOrder = 14
-        Text = 'ComboBox2'
       end
       object ComboBox3: TComboBox
-        Left = 110
-        Height = 23
-        Top = 299
+        Left = 109
+        Height = 24
+        Top = 286
         Width = 271
         ItemHeight = 0
+        Style = csDropDownList
         TabOrder = 15
-        Text = 'ComboBox3'
       end
       object ComboBox4: TComboBox
         Left = 110
-        Height = 23
-        Top = 331
+        Height = 24
+        Top = 310
         Width = 271
         ItemHeight = 0
+        Style = csDropDownList
         TabOrder = 16
-        Text = 'ComboBox4'
       end
       object ComboBox5: TComboBox
-        Left = 110
-        Height = 23
-        Top = 360
+        Left = 109
+        Height = 24
+        Top = 334
         Width = 271
         ItemHeight = 0
+        Style = csDropDownList
         TabOrder = 17
-        Text = 'ComboBox5'
       end
       object ComboBox6: TComboBox
-        Left = 110
-        Height = 23
-        Top = 395
+        Left = 109
+        Height = 24
+        Top = 358
         Width = 271
         ItemHeight = 0
+        Style = csDropDownList
         TabOrder = 18
-        Text = 'ComboBox6'
       end
       object Button4: TButton
-        Left = 45
+        Left = 46
         Height = 25
-        Top = 531
+        Top = 462
         Width = 123
         Caption = 'Mesure distance'
         OnClick = Button4Click
@@ -457,7 +457,7 @@ object f_catlun: Tf_catlun
       object Edit2: TEdit
         Left = 246
         Height = 22
-        Top = 571
+        Top = 494
         Width = 80
         Color = clSilver
         ReadOnly = True
@@ -467,7 +467,7 @@ object f_catlun: Tf_catlun
       object Edit3: TEdit
         Left = 90
         Height = 22
-        Top = 602
+        Top = 518
         Width = 80
         OnChange = Edit3Change
         TabOrder = 21
@@ -476,7 +476,7 @@ object f_catlun: Tf_catlun
       object Edit4: TEdit
         Left = 246
         Height = 22
-        Top = 603
+        Top = 519
         Width = 80
         Color = clSilver
         ReadOnly = True
@@ -486,16 +486,16 @@ object f_catlun: Tf_catlun
       object Button5: TButton
         Left = 214
         Height = 25
-        Top = 531
+        Top = 462
         Width = 112
         Caption = 'Width=Length'
         OnClick = Button5Click
         TabOrder = 23
       end
       object Edit16: TEdit
-        Left = 110
+        Left = 109
         Height = 22
-        Top = 459
+        Top = 406
         Width = 271
         Color = clSilver
         ReadOnly = True
@@ -503,9 +503,9 @@ object f_catlun: Tf_catlun
         Text = 'Edit16'
       end
       object Edit17: TEdit
-        Left = 110
+        Left = 109
         Height = 22
-        Top = 491
+        Top = 430
         Width = 271
         Color = clSilver
         ReadOnly = True
@@ -513,34 +513,69 @@ object f_catlun: Tf_catlun
         Text = 'Edit17'
       end
       object Button6: TButton
-        Left = 290
+        Left = 291
         Height = 25
-        Top = 43
+        Top = 30
         Width = 91
         Caption = 'Cratère bol'
         OnClick = Button6Click
         TabOrder = 26
       end
       object Edit18: TEdit
-        Left = 286
+        Left = 285
         Height = 22
-        Top = 139
+        Top = 166
         Width = 95
         Color = clSilver
         ReadOnly = True
         TabOrder = 27
         Text = 'Edit18'
       end
+      object ComboBox7: TComboBox
+        Left = 108
+        Height = 24
+        Top = 54
+        Width = 268
+        ItemHeight = 0
+        Style = csDropDownList
+        TabOrder = 28
+      end
+      object ComboBox8: TComboBox
+        Left = 109
+        Height = 24
+        Top = 110
+        Width = 271
+        ItemHeight = 0
+        Style = csDropDownList
+        TabOrder = 29
+      end
+      object Label24: TLabel
+        Left = 21
+        Height = 15
+        Top = 59
+        Width = 45
+        Caption = 'Subtype'
+        ParentColor = False
+      end
+      object Label25: TLabel
+        Left = 21
+        Height = 15
+        Top = 115
+        Width = 47
+        Caption = 'Process'
+        ParentColor = False
+      end
     end
     object Page2: TPage
       Caption = 'Contrôle'
       ClientWidth = 407
-      ClientHeight = 715
+      ClientHeight = 659
       object Desc1: TIpHtmlPanel
-        Left = 10
-        Height = 624
-        Top = 35
-        Width = 386
+        Left = 0
+        Height = 582
+        Top = 38
+        Width = 407
+        Align = alClient
         FixedTypeface = 'Courier New'
         DefaultTypeFace = 'default'
         DefaultFontSize = 12
@@ -551,43 +586,63 @@ object f_catlun: Tf_catlun
         PrintSettings.MarginBottom = 0.5
         TabOrder = 0
       end
-      object Button7: TButton
-        Left = 43
-        Height = 25
-        Top = 9
-        Width = 139
-        Caption = 'Français'
-        OnClick = Button7Click
+      object Panel2: TPanel
+        Left = 0
+        Height = 38
+        Top = 0
+        Width = 407
+        Align = alTop
+        ClientHeight = 38
+        ClientWidth = 407
         TabOrder = 1
+        object Button8: TButton
+          Left = 202
+          Height = 25
+          Top = 8
+          Width = 132
+          Caption = 'Anglais'
+          OnClick = Button8Click
+          TabOrder = 0
+        end
+        object Button7: TButton
+          Left = 43
+          Height = 25
+          Top = 8
+          Width = 139
+          Caption = 'Français'
+          OnClick = Button7Click
+          TabOrder = 1
+        end
       end
-      object Button8: TButton
-        Left = 202
-        Height = 25
-        Top = 9
-        Width = 132
-        Caption = 'Anglais'
-        OnClick = Button8Click
+      object Panel3: TPanel
+        Left = 0
+        Height = 39
+        Top = 620
+        Width = 407
+        Align = alBottom
+        ClientHeight = 39
+        ClientWidth = 407
         TabOrder = 2
-      end
-      object Button9: TButton
-        Left = 14
-        Height = 25
-        Top = 667
-        Width = 142
-        Caption = 'Supprimer'
-        Enabled = False
-        OnClick = Button9Click
-        TabOrder = 3
-        TabStop = False
-      end
-      object Button10: TButton
-        Left = 230
-        Height = 25
-        Top = 667
-        Width = 144
-        Caption = 'Modifier'
-        OnClick = Button10Click
-        TabOrder = 4
+        object Button10: TButton
+          Left = 223
+          Height = 25
+          Top = 8
+          Width = 144
+          Caption = 'Modifier'
+          OnClick = Button10Click
+          TabOrder = 0
+        end
+        object Button9: TButton
+          Left = 23
+          Height = 25
+          Top = 8
+          Width = 142
+          Caption = 'Supprimer'
+          Enabled = False
+          OnClick = Button9Click
+          TabOrder = 1
+          TabStop = False
+        end
       end
     end
   end
@@ -637,6 +692,10 @@ object f_catlun: Tf_catlun
     object MenuItem3: TMenuItem
       Caption = 'Labels'
       OnClick = MenuItem3Click
+    end
+    object MenuItem6: TMenuItem
+      Caption = 'Grille'
+      OnClick = MenuItem6Click
     end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
