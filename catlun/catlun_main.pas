@@ -807,7 +807,6 @@ end;
 procedure Tf_catlun.Button2Click(Sender: TObject);
 var cmd,latic,longic : string;
       y, m, d: word;
-      f:textfile;
 const
     ndf='Non déterminé';
     nde='Not determined';
@@ -946,9 +945,6 @@ else
     '"'+prinstru[instnum,0]+'"'+
     ');';
 
-AssignFile(f,'/home/pch/tt.txt');
-rewrite(f);
-writeln(f,cmd);
  dbfr.Query(cmd);
 
 // anglais
@@ -1055,9 +1051,6 @@ writeln(f,cmd);
     '"'+thinstru[instnum,1]+'",'+
     '"'+prinstru[instnum,1]+'"'+
     ');';
-
- writeln(f,cmd);
- closefile(f);
 
  dben.Query(cmd);
 

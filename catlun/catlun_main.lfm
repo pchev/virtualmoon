@@ -12,6 +12,7 @@ object f_catlun: Tf_catlun
   OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
+  Position = poScreenCenter
   LCLVersion = '0.9.29'
   object PanelMoon: TPanel
     Left = 0
