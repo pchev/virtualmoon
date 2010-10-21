@@ -1,9 +1,9 @@
-# Patrick Chevalley <pch@ap-i.net>, 2009.
+# Patrick Chevalley <pch@ap-i.net>, 2009, 2010.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2009-10-11 14:59+0200\n"
+"Last-Translator: \n"
+"PO-Revision-Date: 2010-10-21 09:43+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -351,7 +351,7 @@ msgstr ""
 
 #: u_translation.rsm_62
 msgid "Name Origine:"
-msgstr ""
+msgstr "Name origin:"
 
 #: u_translation.rsm_63
 msgid "Detailed Name:"
@@ -1177,4 +1177,5 @@ msgstr ""
 #: u_translation.rszoomlevel
 msgid "Zoom level"
 msgstr ""
+
 
