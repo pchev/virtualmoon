@@ -167,7 +167,7 @@ msgstr "Αποθήκευση ρύθμισης"
 
 #: u_translation.rssearch
 msgid "Search"
-msgstr "Αναθήτηση"
+msgstr "Αναζήτηση"
 
 #: u_translation.rsselection
 msgid "Selection"
