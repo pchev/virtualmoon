@@ -12,7 +12,7 @@ msgstr "EL"
 #: u_translation.rsloadcsv01
 msgctxt "u_translation.rsloadcsv01"
 msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."
-msgstr "Αυτό το πρόγραμμα σας επιτρέπει να εισάγερε νέα αντικείμενα στη βάση δεδομένων του Virtual Moon Atlas από ένα αρχείο CSV. Δεν προβλέπεται η συγχώνευση πεδίων δεδομένων ή οποιοσδήποτε υπολογισμός."
+msgstr "Αυτό το πρόγραμμα σας επιτρέπει να εισάγετε νέα αντικείμενα στη βάση δεδομένων του Virtual Moon Atlas από ένα αρχείο CSV. Δεν προβλέπεται η συγχώνευση πεδίων δεδομένων ή οποιοσδήποτε υπολογισμός."
 
 #: u_translation.rsloadcsv02
 msgctxt "u_translation.rsloadcsv02"
@@ -22,7 +22,7 @@ msgstr "Αν είναι απαραίτητο, χρησιμοποιήστε πρ�
 #: u_translation.rsloadcsv03
 msgctxt "u_translation.rsloadcsv03"
 msgid "From this page indicate first the character your file use to separate the different columns ( ; or TAB ) and if a \" surround the text. Then open you CSV data file."
-msgstr "Από αυτή τη σελίδα υποδείξτε τον χαρακτήρα με τον οποίο διαχωρίζονται οι στήλες στο αρχείο σας (; ή TAB) και αν το κείμενο περιβάλλεται από \". Κατόπιν ανοίξτε το αρχείο σας CSV"
+msgstr "Από αυτήν τη σελίδα υποδείξτε τον χαρακτήρα με τον οποίο διαχωρίζονται οι στήλες στο αρχείο σας (; ή TAB) και αν το κείμενο περιβάλλεται από \". Κατόπιν ανοίξτε το αρχείο σας CSV"
 
 #: u_translation.rsloadcsv04
 msgctxt "u_translation.rsloadcsv04"
@@ -32,7 +32,7 @@ msgstr "Αν η μορφή αναγνωρίζεται, τότε εμφανίζε
 #: u_translation.rsloadcsv05
 msgctxt "u_translation.rsloadcsv05"
 msgid "If you already record this file setting you can use the \"Load Setting\" button to retrieve them."
-msgstr "Αν έχετε ήδη αποθηκεύσει αυτή τη ρύθμιση αρχείου, μπορείτε να χρησιμοποιήσετε το κουμπί \"Φόρτωση ρύθμισης\" για να τη φορτώσετε"
+msgstr "Αν έχετε ήδη αποθηκεύσει αυτήν τη ρύθμιση αρχείου, μπορείτε να χρησιμοποιήσετε το κουμπί \"Φόρτωση ρύθμισης\" για να τη φορτώσετε"
 
 #: u_translation.rsloadcsv06
 msgctxt "u_translation.rsloadcsv06"
@@ -60,7 +60,7 @@ msgstr "Μπορείτε επίσης να διαλέξετε γρήγορα ό�
 
 #: u_translation.rsloadcsv11
 msgid "It is mandatory to give a value for the field: DBN, NAME, LONGIN and LATIN."
-msgstr "Είναιε υποχρεωτικό να δώσετε μια τιμή στα πεδία: DBN, NAME, LONGIN και LATIN"
+msgstr "Είναι υποχρεωτικό να δώσετε μια τιμή στα πεδία: DBN, NAME, LONGIN και LATIN"
 
 #: u_translation.rsloadcsv12
 msgid "When all the required field are defined the next tab appear at the top of the page."

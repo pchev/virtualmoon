@@ -132,7 +132,7 @@ msgstr "Τεταρτημόριο:"
 
 #: u_translation.rsm_13
 msgid "Area:"
-msgstr "Εμβαδό:"
+msgstr "Περιοχή:"
 
 #: u_translation.rsm_14
 msgid "Rukl map:"
@@ -930,7 +930,7 @@ msgstr "Ομαλότητα"
 
 #: u_translation.rst_4
 msgid "Zoom:"
-msgstr "Κέντρο"
+msgstr "Μεγέθυνση"
 
 #: u_translation.rst_42
 msgid "All the formation"
@@ -1136,7 +1136,7 @@ msgstr "Εκτυπωτής"
 
 #: u_translation.rst_92
 msgid "Left Margin"
-msgstr "Αριστερό περιθώριο"
+msgstr "Αριστερό περιθώρ."
 
 #: u_translation.rst_93
 msgid "Millimeters"
