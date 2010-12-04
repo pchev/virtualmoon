@@ -108,7 +108,7 @@ object f_catlun: Tf_catlun
         ParentColor = False
       end
       object Label8: TLabel
-        Left = 157
+        Left = 175
         Height = 15
         Top = 194
         Width = 35
@@ -335,7 +335,7 @@ object f_catlun: Tf_catlun
         Left = 109
         Height = 22
         Top = 166
-        Width = 158
+        Width = 271
         Color = clSilver
         ReadOnly = True
         TabOrder = 7
@@ -346,16 +346,15 @@ object f_catlun: Tf_catlun
         Height = 22
         Top = 190
         Width = 40
-        Color = clSilver
-        ReadOnly = True
+        OnChange = Edit10Change
         TabOrder = 8
         Text = 'Edit10'
       end
       object Edit11: TEdit
-        Left = 197
+        Left = 214
         Height = 22
         Top = 190
-        Width = 183
+        Width = 166
         Color = clSilver
         ReadOnly = True
         TabOrder = 9
@@ -525,7 +524,7 @@ object f_catlun: Tf_catlun
       object Edit18: TEdit
         Left = 285
         Height = 22
-        Top = 166
+        Top = 142
         Width = 95
         Color = clSilver
         ReadOnly = True
@@ -565,6 +564,19 @@ object f_catlun: Tf_catlun
         Width = 47
         Caption = 'Process'
         ParentColor = False
+      end
+      object UpDown1: TUpDown
+        Left = 150
+        Height = 22
+        Top = 190
+        Width = 17
+        Associate = Edit10
+        Min = 0
+        Max = 76
+        Position = 0
+        TabOrder = 30
+        Wrap = False
+        OnClick = UpDown1Click
       end
     end
     object Page2: TPage

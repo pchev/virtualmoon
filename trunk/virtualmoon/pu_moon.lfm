@@ -1,7 +1,7 @@
 object f_moon: Tf_moon
-  Left = 275
+  Left = 335
   Height = 520
-  Top = 52
+  Top = 55
   Width = 748
   ActiveControl = Moon
   Caption = 'f_moon'
@@ -73,10 +73,10 @@ object f_moon: Tf_moon
       }
       Visible = False
       BottomRadius = 5
-      Height = 0.10000000149012
+      Height = 0.10000000149011
       Slices = 64
       Stacks = 1
-      BottomInnerRadius = 0.60000002384186
+      BottomInnerRadius = 0.60000002384185
       TopInnerRadius = 2
       TopRadius = 5
       Parts = [anBottom]
@@ -106,8 +106,8 @@ object f_moon: Tf_moon
       Height = 0.07999999821186
       TopRadius = 0.00999999977648
       HeadStackingStyle = ahssIncluded
-      TopArrowHeadHeight = 0.05000000074506
-      TopArrowHeadRadius = 0.01999999955297
+      TopArrowHeadHeight = 0.05000000074505
+      TopArrowHeadRadius = 0.01999999955296
       BottomArrowHeadHeight = 0.5
       BottomArrowHeadRadius = 0.20000000298023
     end
@@ -202,7 +202,6 @@ object f_moon: Tf_moon
       Material.BackProperties.Diffuse.Color = {
         0000000000000000000000000000803F
       }
-      Material.BackProperties.PolygonMode = pmLines
       Material.FrontProperties.Ambient.Color = {
         0000000000000000000000000000803F
       }
@@ -212,7 +211,6 @@ object f_moon: Tf_moon
       Material.FrontProperties.Emission.Color = {
         000000000000803FF8FEFE3E0000803F
       }
-      Material.FrontProperties.PolygonMode = pmLines
       Material.Texture.FilteringQuality = tfAnisotropic
       PitchAngle = 0
       Position.Coordinates = {

@@ -117,6 +117,7 @@ type
     markl,markb: single;
     MaxTextureSize: integer;
     MaxZoom: single;
+    Fmaxzoommultiplier:single;
     mx,my, zone, maxzone,curlabel,cursprite, lastyzoom : integer;
     maps2, newmaps: array[0..8] of integer;
     pmaps2 : array[0..2] of integer;
@@ -328,6 +329,7 @@ type
     property DiffuseColor: TColor read GetDiffuseColor Write SetDiffuseColor;
     property SpecularColor: TColor read GetSpecularColor Write SetSpecularColor;
     property Antialiasing: boolean read GetAntialiasing write SetAntialiasing;
+    property maxzoommultiplier: single read Fmaxzoommultiplier write Fmaxzoommultiplier;
     property onMoonClick : TMoonClickEvent read FOnMoonClick write FOnMoonClick;
     property onMoonMove : TMoonMoveEvent read FOnMoonMove write FOnMoonMove;
     property onMoonMeasure: TMoonMeasureEvent read FonMoonMeasure write FonMoonMeasure;
@@ -1132,7 +1134,7 @@ begin
     end;
  end;
  if not FBumpmap then begin
-   maxzoom:=ZoomByZone[maxzone]*3;
+   maxzoom:=ZoomByZone[maxzone]*Fmaxzoommultiplier;
    ClearSlice(2);
    LoadSlice(1);
    if zone<>1 then LoadSlice(zone);
@@ -1166,6 +1168,7 @@ begin
  for i:=0 to 2 do begin
     pmaps2[i]:=-1;
  end;
+ Fmaxzoommultiplier:=1.4;
  perfdeltay := 0.0000001;
  cap2:=-1;
  zone:=1;
