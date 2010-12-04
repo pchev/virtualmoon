@@ -102,6 +102,7 @@ type
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     StatusBar1: TStatusBar;
     StartTimer: TTimer;
+    UpDown1: TUpDown;
     procedure Button10Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -113,6 +114,7 @@ type
     procedure Button8Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
+    procedure Edit10Change(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
     procedure Edit3Change(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -128,6 +130,7 @@ type
     procedure Quit1Click(Sender: TObject);
     procedure Save1Click(Sender: TObject);
     procedure StartTimerTimer(Sender: TObject);
+    procedure UpDown1Click(Sender: TObject; Button: TUDBtnType);
   private
     { private declarations }
     moon1 : TF_moon;
@@ -312,6 +315,165 @@ const
     ('Télescope 500 mm','500 mm reflector'),
     ('Non visible','Not visible'));
 
+  rukl : array[0..76,0..1] of string = (
+    ('',''),
+    ('1','Markov'),
+    ('2','Pythagoras'),
+    ('3','Plato'),
+    ('4','Archytas'),
+    ('5','Aristoteles'),
+    ('6','Strabo'),
+    ('7','Endymion'),
+    ('8','Rümker'),
+    ('9','Mairan'),
+    ('10','Sinus Iridum'),
+    ('11','Le Verrier'),
+    ('12','Aristillus'),
+    ('13','Eudoxus'),
+    ('14','Hercules'),
+    ('15','Atlas'),
+    ('16','Gauss'),
+    ('17','Struve'),
+    ('18','Aristarchus'),
+    ('19','Brayley'),
+    ('20','Pytheas'),
+    ('21','Timocharis'),
+    ('22','Conon'),
+    ('23','Linné'),
+    ('24','Bessel'),
+    ('25','Römer'),
+    ('26','Cleomedes'),
+    ('27','Plutarch'),
+    ('28','Galilei'),
+    ('29','Marius'),
+    ('30','Kepler'),
+    ('31','Copernicus'),
+    ('32','Stadius'),
+    ('33','Triesnecker'),
+    ('34','Hyginus'),
+    ('35','Arago'),
+    ('36','Cauchy'),
+    ('37','Taruntius'),
+    ('38','Neper'),
+    ('39','Grimaldi'),
+    ('40','Flamsteed'),
+    ('41','Euclides'),
+    ('42','Fra Maurov'),
+    ('43','Lalande'),
+    ('44','Ptolemaeus'),
+    ('45','Andel'),
+    ('46','Theophilus'),
+    ('47','Capella'),
+    ('48','Messier'),
+    ('49','Langrenus'),
+    ('50','Darwin'),
+    ('51','Mersenius'),
+    ('52','Gassendi'),
+    ('53','Bullialdus'),
+    ('54','Birt'),
+    ('55','Arzachel'),
+    ('56','Azophi'),
+    ('57','Catharina'),
+    ('58','Fracastorius'),
+    ('59','Petavius'),
+    ('60','Vendelinus'),
+    ('61','Piazzi'),
+    ('62','Schickard'),
+    ('63','Capuanus'),
+    ('64','Tycho'),
+    ('65','Walter'),
+    ('66','Maurolycus'),
+    ('67','Rabbi Levi'),
+    ('68','Rheita'),
+    ('69','Furnerius'),
+    ('70','Phocylides'),
+    ('71','Schiller'),
+    ('72','Clavius'),
+    ('73','Moretus'),
+    ('74','Manzinus'),
+    ('75','Hagecius'),
+    ('76','Watt'));
+
+  ruklarea : array[0..76,0..1] of string = (
+  ('Non déterminée','undetermined'),
+  ('Limbe Nord-Nord-Ouest de la Lune','Moon North-North-West limb'),
+  ('Limbe Nord-Nord-Ouest de la Lune','Moon North-North-West limb'),
+  ('Limbe Nord de la Lune','Moon North limb'),
+  ('Limbe Nord de la Lune','Moon North limb'),
+  ('Limbe Nord de la Lune','Moon North limb'),
+  ('Limbe Nord-Nord-Est de la Lune','Moon North-North-East limb'),
+  ('Limbe Nord-Nord-Est de la Lune','Moon North-North-East limb'),
+  ('Limbe Nord-Ouest de la Lune','Moon North-West limb'),
+  ('Partie Nord de l''Océan des Tempêtes','Noth part of Oceanus Procellarum'),
+  ('Partie Nord-Ouest de la Mer des Pluies','North-West part of Mare Imbrium'),
+  ('Partie centrale de la Mer des Pluies','Central part of Mare Imbrium'),
+  ('Région au Nord du cratère Archimède','North of Archimedes crater region'),
+  ('Région au Nord de la Mer de la Sérénité','North of Mare Serenitatis region'),
+  ('Région au Nord-Est de la Mer de la Sérénité','North-East of Mare Serenitatis region'),
+  ('Secteur Sud-Est du cratère Atlas','Atlas crater South-East region'),
+  ('Limbe Nord-Est de la Lune','Moon North-East limb'),
+  ('Limbe Ouest-Nord-Ouest de la Lune','Moon West-North-West limb'),
+  ('Secteur du cratère Aristarque','Aristarchus crater region'),
+  ('Région située entre l''Océan des Tempêtes et la Mer des Pluies','Region between Oceanus Procellarum and Mare Imbrium'),
+  ('Partie Sud de la Mer des Pluies','South part of Mare Imbrium'),
+  ('Partie Sud-Est de la Mer des Pluies','South-East part of Mare Imbrium'),
+  ('Secteur des Monts Apennins','Montes Apenninus region'),
+  ('Partie Sud-Ouest de la Mer de la Sérénité','South-West part of Mare Serenitatis'),
+  ('Partie Sud-Est de la Mer de la Sérénité','South-East part of Mare Serenitatis'),
+  ('Région au Nord de la Mer de la Tranquillité','North of Mare Tranquillitatis region'),
+  ('Bord Nord-ouest de la Mer des Crises','North-West edge of Mare Crisium'),
+  ('Limbe Est-Nord-Est de la Lune','Moon East-North-East limb'),
+  ('Limbe Ouest de la Lune','Moon West limb'),
+  ('Partie centrale de l''Océan des Tempêtes','Central part of Oceanus Procellarum'),
+  ('Partie Est de l''Océan des Tempêtes','East part of Oceanus Procellarum'),
+  ('Secteur du cratère Copernic','Copernic crater region'),
+  ('Région au Sud du cratère Erathostène','Erathostenes crater South region'),
+  ('Région au centre du disque lunaire','Lunar disk central area'),
+  ('Région à l''Est de la Mer de la Tranquillité','East of Mare Tranquillitatis region'),
+  ('Partie Est de la Mer de la Tranquillité','East part of Mare Tranquillitatis'),
+  ('Partie centrale de la Mer de la Tranquillité','Central part of Mare Tranquillitatis'),
+  ('Bord Nord de la Mer de la Fécondité','North edge of Mare Fecunditatis'),
+  ('Limbe Est de la Lune','Moon East limb'),
+  ('Limbe Ouest de la Lune','Moon West limb'),
+  ('Partie Sud-Ouest de l''Océan des Tempêtes','South-West part of Oceanus Procellarum'),
+  ('Partie Sud-Est de l''Océan des Tempêtes','South-East part of Oceanus Procellarum'),
+  ('Région au Sud-Est de l''Océan des Tempêtes','South-East of Oceanus Procellarum region'),
+  ('Région à l''Ouest du cratère  Ptolémée','West of Ptolemaeus crater region'),
+  ('Secteur du cratère Ptolémée','Ptolemaeus crater region'),
+  ('Région à l''Est du cratère Ptolémée','East of Ptolemaeus crater region'),
+  ('Secteur Nord-Ouest du cratère Théophile','Theophilus crater North-West region'),
+  ('Secteur Nord-Est du cratère Théophile','Theophilus crater North-East region'),
+  ('Partie Est de la Mer de la Fécondité','East part of Mare Fecunditatis'),
+  ('Limbe Est de la Lune','Moon East limb'),
+  ('Limbe Ouest-Sud-Ouest de la Lune','Moon West-South-West limb'),
+  ('Région à l''Est de Mare Humorum','East of Mare Humorum region'),
+  ('Secteur de la Mer des Humeurs','Mare Humorum region'),
+  ('Partie Ouest de la Mer des Nuées','West part of Mare Nubium'),
+  ('Secteur de la Mer des Nuées','Mare Humorum region'),
+  ('Secteur du cratère Arzachel','Arzachel crater region'),
+  ('Région à l''Ouest du cratère Catherine','West of Catharina crater region'),
+  ('Secteur du cratère Catherine','Catharina crater region'),
+  ('Bord Sud de la Mer du Nectar','Mare Nectaris South edge'),
+  ('Bord Sud de la Mer de la Fécondité','Mare Fecunditatis South edge'),
+  ('Limbe Est-Sud-Est de la Lune','Moon East-South-East limb'),
+  ('Limbe Sud-Ouest de la Lune','Moon South-West limb'),
+  ('Secteur du cratère Schickard','Schickard crater region'),
+  ('Région au Nord-Ouest du cratère Tycho','Tycho crater North-West region'),
+  ('Secteur du cratère Tycho','Tycho crater region'),
+  ('Région à l''Est du cratère Tycho','Tycho crater East region'),
+  ('Secteur du cratère Maurolycus','Maurolycus crater region'),
+  ('Région au Sud de Rupes Altai','Rupes Altai South region'),
+  ('Secteur de la Vallée du  Rheita','Vallis Rheita region'),
+  ('Limbe Sud-Est de la Lune','Moon South-East limb'),
+  ('Limbe Sud-Sud-Ouest de la Lune','Moon South-South-West limb'),
+  ('Limbe Sud-Sud-Ouest de la Lune','Moon South-South-West limb'),
+  ('Limbe Sud de la Lune','Moon South limb'),
+  ('Limbe Sud de la Lune','Moon South limb'),
+  ('Limbe Sud de la Lune','Moon South limb'),
+  ('Limbe Sud-Sud-Est de la Lune','Moon South-South-East limb'),
+  ('Limbe Sud-Sud-Est de la Lune','Moon South-South-East limb'));
+
+
 implementation
 
 { Tf_catlun }
@@ -490,6 +652,7 @@ begin
      texturefiles[5]:='Lopam';
 
  moon1:=Tf_moon.Create(PanelMoon);
+ moon1.maxzoommultiplier:=3;
  moon1.Moon.Align:=alClient;
  moon1.onMoonClick:=@MoonClickEvent;
  moon1.onMoonMove:=@MoonMoveEvent;
@@ -504,8 +667,8 @@ begin
 // moon1.AntiAliasing:=antialias;
 
 marksize:=2;
-spritecolor:=clYellow;
-markcolor:=clRed;
+spritecolor:=clRed;
+markcolor:=clYellow;
 showmark:=true;
 showlabel:=true;
 currentselection:='DBN in ('+inttostr(dbn)+')';
@@ -555,10 +718,10 @@ u_translation.translate('fr','fr');
 end;
 
 procedure Tf_catlun.GetLabel(Sender: TObject);
-var lmin,lmax,bmin,bmax: single;
+var lmin,lmax,bmin,bmax,lc,bc: single;
     w, wmin, wfact, l1, b1: single;
     miniok:    boolean;
-    nom, lun, let:  string;
+    nom, lun, let, txt:  string;
     j: integer;
 begin
 // Labels
@@ -620,6 +783,19 @@ begin
       end;
       if lun<>nom then nom:=capitalize(nom);
       Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom);
+     end;
+     if Tf_moon(Sender).ShowGrid then begin
+        Tf_moon(Sender).GetCenter(lc,bc);
+        l1:=floor(rad2deg*lc);
+        b1:=floor(rad2deg*bc);
+        if l1>=0 then txt:='°E' else txt:='°W';
+        Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*(b1+0.5),formatfloat(f0,abs(l1))+txt);
+        if (l1+1)>=0 then txt:='°E' else txt:='°W';
+        Tf_moon(Sender).AddLabel(deg2rad*(l1+1),deg2rad*(b1+0.5),formatfloat(f0,abs(l1+1))+txt);
+        if b1>=0 then txt:='°N' else txt:='°S';
+        Tf_moon(Sender).AddLabel(deg2rad*(l1+0.5),deg2rad*b1,formatfloat(f0,abs(b1))+txt);
+        if (b1+1)>=0 then txt:='°N' else txt:='°S';
+        Tf_moon(Sender).AddLabel(deg2rad*(l1+0.5),deg2rad*(b1+1),formatfloat(f0,abs(b1+1))+txt);
      end;
   end;
 end;
@@ -860,11 +1036,11 @@ if modeupdate then
     'LONGIC="'+longic+'",'+
     'LATIN="'+edit5.Text+'",'+
     'LATIC="'+latic+'",'+
-    'FACE="'+face[facenum,0]+'",'+ // face
+    'FACE="'+face[facenum,0]+'",'+
     'QUADRANT="'+quadrant[quadrantnum,0]+'",'+
-    'AREA="'+edit9.Text+'",'+  // area
-    'RUKL="'+edit10.Text+'",'+ // rukl
-    'RUKLC="'+edit11.Text+'",'+
+    'AREA="'+ruklarea[UpDown1.Position,0]+'",'+
+    'RUKL="'+rukl[UpDown1.Position,0]+'",'+
+    'RUKLC="'+rukl[UpDown1.Position,1]+'",'+
     'LENGTHKM="'+edit1.Text+'",'+
     'WIDEKM="'+edit3.Text+'",'+
     'LENGTHMI="'+edit2.Text+'",'+
@@ -914,9 +1090,9 @@ else
     '"'+latic+'",'+
     '"'+face[facenum,0]+'",'+ // face
     '"'+quadrant[quadrantnum,0]+'",'+
-    '"'+edit9.Text+'",'+  // area
-    '"'+edit10.Text+'",'+ // rukl
-    '"'+edit11.Text+'",'+
+    '"'+ruklarea[UpDown1.Position,0]+'",'+
+    '"'+rukl[UpDown1.Position,0]+'",'+
+    '"'+rukl[UpDown1.Position,1]+'",'+
     '"'+ndf+'",'+
     '"'+ndf+'",'+
     '"'+ndf+'",'+
@@ -969,9 +1145,9 @@ else
     'LATIC="'+latic+'",'+
     'FACE="'+face[facenum,1]+'",'+ // face
     'QUADRANT="'+quadrant[quadrantnum,1]+'",'+
-    'AREA="'+edit9.Text+'",'+  // area
-    'RUKL="'+edit10.Text+'",'+ // rukl
-    'RUKLC="'+edit11.Text+'",'+
+    'AREA="'+ruklarea[UpDown1.Position,1]+'",'+
+    'RUKL="'+rukl[UpDown1.Position,0]+'",'+
+    'RUKLC="'+rukl[UpDown1.Position,1]+'",'+
     'LENGTHKM="'+edit1.Text+'",'+
     'WIDEKM="'+edit3.Text+'",'+
     'LENGTHMI="'+edit2.Text+'",'+
@@ -1021,9 +1197,9 @@ else
     '"'+latic+'",'+
     '"'+face[facenum,1]+'",'+ // face
     '"'+quadrant[quadrantnum,1]+'",'+
-    '"'+edit9.Text+'",'+  // area
-    '"'+edit10.Text+'",'+ // rukl
-    '"'+edit11.Text+'",'+
+    '"'+ruklarea[UpDown1.Position,1]+'",'+
+    '"'+rukl[UpDown1.Position,0]+'",'+
+    '"'+rukl[UpDown1.Position,1]+'",'+
     '"'+nde+'",'+
     '"'+nde+'",'+
     '"'+nde+'",'+
@@ -1077,9 +1253,6 @@ edit5.Text:='';
 edit6.Text:='';
 edit7.Text:='';
 edit8.Text:='';
-edit9.Text:='';
-edit10.Text:='';
-edit11.Text:='';
 edit12.Text:='';
 edit13.Text:='';
 edit14.Text:='';
@@ -1166,7 +1339,6 @@ if IsNumber(edit1.text) then begin
   edit2.Text:= formatfloat(f1,StrToFloat(edit1.text) / 1.609);
   if ComboBox1.ItemIndex in [1,2,3] then begin
     edit3.Text:=edit1.Text;
-//    edit4.Text:=edit2.Text;
   end;
 end;
 except
@@ -1207,6 +1379,7 @@ procedure Tf_catlun.FormShow(Sender: TObject);
 begin
   moon1.GLSceneViewer1.Camera:=nil;
   Button3Click(nil);
+  UpDown1Click(nil,btNext);
   StartTimer.Enabled:=true;
 end;
 
@@ -1292,7 +1465,7 @@ SelectDirectoryDialog1.InitialDir:=Homedir;
 if SelectDirectoryDialog1.Execute then begin
    // français
    nfr:=0;
-   fname:=slash(SelectDirectoryDialog1.FileName)+'Nonames_uFR_'+savedate+'.csv';
+   fname:=slash(SelectDirectoryDialog1.FileName)+'Nearside_Nonames_uFR_'+savedate+'.csv';
    AssignFile(f,fname);
    rewrite(f);
    dbfr.Query('select * from moon where dbn='+IntToStr(dbn)+' order by NAME;');
@@ -1315,7 +1488,7 @@ if SelectDirectoryDialog1.Execute then begin
    dbfr.ClearResultSets;
    // anglais
    nen:=0;
-   fname:=slash(SelectDirectoryDialog1.FileName)+'Nonames_uEN_'+savedate+'.csv';
+   fname:=slash(SelectDirectoryDialog1.FileName)+'Nearside_Nonames_uEN_'+savedate+'.csv';
    AssignFile(f,fname);
    rewrite(f);
    dben.Query('select * from moon where dbn='+IntToStr(dbn)+' order by NAME;');
@@ -1336,7 +1509,7 @@ if SelectDirectoryDialog1.Execute then begin
    end;
    CloseFile(f);
    dben.ClearResultSets;
-   ShowMessage('Enregistrement terminé.'+crlf+inttostr(nfr)+' enregistrements dans Nonames FR.'+crlf+inttostr(nen)+' enregistrements dans Nonames EN.');
+   ShowMessage('Enregistrement terminé.'+crlf+inttostr(nfr)+' enregistrements dans Nearside_Nonames FR.'+crlf+inttostr(nen)+' enregistrements dans Nearside_Nonames EN.');
 end;
 end;
 
@@ -1359,9 +1532,21 @@ try
   moon1.VisibleSideLock:=false;
   moon1.CenterAt(0,0);
   moon1.RefreshAll;
+  moon1.ShowGrid:=true;
 finally
  screen.cursor := crArrow;
 end;
+end;
+
+procedure Tf_catlun.Edit10Change(Sender: TObject);
+begin
+ UpDown1Click(nil,btNext);
+end;
+
+procedure Tf_catlun.UpDown1Click(Sender: TObject; Button: TUDBtnType);
+begin
+  edit9.Text:=ruklarea[UpDown1.Position,0];
+  edit11.Text:=rukl[UpDown1.Position,1];
 end;
 
 procedure Tf_catlun.Init;
