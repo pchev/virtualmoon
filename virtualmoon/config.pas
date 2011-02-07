@@ -73,7 +73,7 @@ type
     Label35: TLabel;
     LabelFont: TLabel;
     Memo1: TMemo;
-    PageControl1: TNotebook;
+    PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
     RadioGroup1: TRadioGroup;
@@ -84,7 +84,7 @@ type
     RadioGroup6: TRadioGroup;
     BumpRadioGroup: TRadioGroup;
     RadioGroup7: TRadioGroup;
-    TabSheet1: TPage;
+    TabSheet1: TTabSheet;
     Label4: TLabel;
     Label1: TLabel;
     Label2: TLabel;
@@ -93,11 +93,11 @@ type
     Edit2: TEdit;
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
-    TabSheet2: TPage;
+    TabSheet2: TTabSheet;
     TrackBar3: TTrackBar;
     StringGrid1: TStringGrid;
     Label9: TLabel;
-    Impression: TPage;
+    Impression: TTabSheet;
     Label12: TLabel;
     LongEdit1: TLongEdit;
     Label13: TLabel;
@@ -119,7 +119,7 @@ type
     Bevel4: TBevel;
     Label10: TLabel;
     ComboBox4: TComboBox;
-    TabSheet3: TPage;
+    TabSheet3: TTabSheet;
     Bevel1: TBevel;
     CheckBox2: TCheckBox;
     CheckBox1: TCheckBox;
@@ -143,8 +143,8 @@ type
     ruklprefix: TEdit;
     ruklsuffix: TEdit;
     Label22: TLabel;
-    TabSheet4: TPage;
-    TabSheet5: TPage;
+    TabSheet4: TTabSheet;
+    TabSheet5: TTabSheet;
     StringGrid2: TStringGrid;
     Edit6: TEdit;
     Edit7: TEdit;
@@ -159,8 +159,8 @@ type
     CheckBox18: TCheckBox;
     Label28: TLabel;
     Edit10: TEdit;
-    TabSheet6: TPage;
-    TabSheet7: TPage;
+    TabSheet6: TTabSheet;
+    TabSheet7: TTabSheet;
     GroupBox1: TGroupBox;
     CheckBox19: TCheckBox;
     CheckBox20: TCheckBox;
@@ -189,7 +189,6 @@ type
     procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
-    procedure PageControl1ChangeBounds(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
     procedure RadioGroup7Click(Sender: TObject);
     procedure RadioGroupTextureClick(Sender: TObject);
@@ -470,11 +469,6 @@ end;
 procedure TForm2.ComboBox3Change(Sender: TObject);
 begin
 newlang:=GetLangCode(combobox3.text);
-end;
-
-procedure TForm2.PageControl1ChangeBounds(Sender: TObject);
-begin
-
 end;
 
 
