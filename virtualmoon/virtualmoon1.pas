@@ -795,8 +795,8 @@ begin
     // Config
     Form2.Setlang;
     f_features.SetLang;
-  if gloss <> nil then
-    gloss.InitGlossary;
+    // Glossary form changed to a singleton-style function-accessible object
+    GlossaryForm.InitGlossary;
 end;
 
 procedure TForm1.InitObservatoire;
@@ -3159,8 +3159,6 @@ StartTimer.Enabled:=true;
 end;
 
 procedure TForm1.Init;
-var i:integer;
-    savecaption,savesidelist: string;
 begin
 try
   Setlang;
@@ -3967,9 +3965,6 @@ end;
 procedure TForm1.ShowImg(desc, nom: string; forceinternal: boolean);
 var
   buf, buf1: string;
-  i, j: integer;
-  jpg: Tjpegimage;
-  bmp: Tbitmap;
 begin
   chdir(appdir);
   buf  := slash(desc) + trim(nom);
@@ -4689,11 +4684,13 @@ end;
 
 procedure TForm1.Glossaire1Click(Sender: TObject);
 begin
-  if gloss = nil then
-    gloss := TGloss.Create(application);
-  gloss.button2.Caption := imac1;
-  gloss.Caption := stringreplace(Glossaire1.Caption, '&', '', []);
-  gloss.Show;
+//	Glossary is now accessed via singleton-style function-accessible object
+with GlossaryForm do
+ begin
+   closeButton.Caption:=imac1;
+   Caption:=stringreplace(Glossaire1.Caption, '&', '', []);
+   Show;
+ end;
 end;
 
 procedure TForm1.ToolButton3Click(Sender: TObject);
