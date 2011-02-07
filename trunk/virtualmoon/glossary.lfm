@@ -1,428 +1,139 @@
 object Gloss: TGloss
   Left = 323
-  Height = 266
+  Height = 320
   Top = 124
-  Width = 493
-  ActiveControl = Panel1
+  Width = 480
+  ActiveControl = TreeView1
   BorderStyle = bsSizeToolWin
   Caption = 'Glossary'
-  ClientHeight = 266
-  ClientWidth = 493
+  ClientHeight = 320
+  ClientWidth = 480
+  Constraints.MinHeight = 200
+  Constraints.MinWidth = 400
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   KeyPreview = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   LCLVersion = '0.9.28.2'
-  object Edit1: TEdit
-    Left = 280
-    Height = 28
-    Top = 26
-    Width = 153
-    OnKeyDown = Edit1KeyDown
-    TabOrder = 0
-  end
-  object Button1: TButton
-    Left = 440
-    Height = 25
-    Top = 24
-    Width = 33
-    Caption = '>'
-    OnClick = Button1Click
-    TabOrder = 1
+  object divBevel: TBevel
+    Left = 0
+    Height = 4
+    Top = 280
+    Width = 480
+    Align = alBottom
   end
   object TreeView1: TTreeView
     Left = 8
-    Height = 168
+    Height = 208
     Top = 64
-    Width = 209
+    Width = 234
+    Anchors = [akTop, akLeft, akBottom]
     AutoExpand = True
+    DefaultItemHeight = 15
     HideSelection = False
     ReadOnly = True
-    TabOrder = 2
+    TabOrder = 0
     OnChange = TreeView1Change
     OnChanging = TreeView1Changing
     Options = [tvoAutoExpand, tvoAutoItemHeight, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips]
   end
-  object Button2: TButton
-    Left = 192
-    Height = 25
-    Top = 240
-    Width = 75
-    Cancel = True
-    Caption = 'Close'
-    OnClick = Button2Click
-    TabOrder = 3
+  object buttonPanel: TPanel
+    Left = 0
+    Height = 36
+    Top = 284
+    Width = 480
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 36
+    ClientWidth = 480
+    TabOrder = 1
+    OnResize = buttonPanelResize
+    object closeButton: TButton
+      Left = 176
+      Height = 24
+      Top = 4
+      Width = 80
+      Caption = 'Close'
+      OnClick = closeButtonClick
+      TabOrder = 0
+    end
   end
-  object Panel1: TPanel
-    Left = 24
-    Height = 49
+  object alphaPanel: TPanel
+    Left = 8
+    Height = 50
     Top = 8
-    Width = 169
-    ClientHeight = 49
-    ClientWidth = 169
+    Width = 234
+    BevelOuter = bvNone
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 13
+    TabOrder = 2
+  end
+  object navPanel: TPanel
+    Left = 252
+    Height = 50
+    Top = 8
+    Width = 220
+    Anchors = [akTop, akLeft, akRight]
+    BevelInner = bvLowered
+    ClientHeight = 50
+    ClientWidth = 220
+    TabOrder = 3
+    object nextButton: TButton
+      Left = 180
+      Height = 24
+      Top = 12
+      Width = 32
+      Anchors = [akTop, akRight]
+      Caption = '>'
+      OnClick = nextButtonClick
+      TabOrder = 0
+    end
+    object filterEdit: TEdit
+      Left = 40
+      Height = 21
+      Top = 15
+      Width = 136
+      Anchors = [akTop, akLeft, akRight]
+      OnKeyDown = filterEditKeyDown
+      TabOrder = 1
+    end
+    object prevButton: TButton
+      Left = 4
+      Height = 24
+      Top = 12
+      Width = 32
+      Caption = '<'
+      OnClick = prevButtonClick
+      TabOrder = 2
+    end
+  end
+  object htmlPanel: TPanel
+    Left = 252
+    Height = 208
+    Top = 64
+    Width = 220
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    ClientHeight = 208
+    ClientWidth = 220
     TabOrder = 4
-    object Label1: TLabel
-      Left = 8
-      Height = 14
-      Top = 8
-      Width = 10
-      Caption = 'A'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
+    object definitionPanel: TIpHtmlPanel
+      Left = 1
+      Height = 206
+      Top = 1
+      Width = 218
+      Align = alClient
+      FixedTypeface = 'Courier New'
+      DefaultTypeFace = 'default'
+      DefaultFontSize = 10
+      FlagErrors = False
+      PrintSettings.MarginLeft = 0.5
+      PrintSettings.MarginTop = 0.5
+      PrintSettings.MarginRight = 0.5
+      PrintSettings.MarginBottom = 0.5
+      OnHotClick = definitionHotClick
     end
-    object Label2: TLabel
-      Left = 19
-      Height = 14
-      Top = 8
-      Width = 10
-      Caption = 'B'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label3: TLabel
-      Left = 30
-      Height = 14
-      Top = 8
-      Width = 10
-      Caption = 'C'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label5: TLabel
-      Left = 53
-      Height = 14
-      Top = 8
-      Width = 10
-      Caption = 'E'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label6: TLabel
-      Left = 64
-      Height = 14
-      Top = 8
-      Width = 9
-      Caption = 'F'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label4: TLabel
-      Left = 42
-      Height = 14
-      Top = 8
-      Width = 11
-      Caption = 'D'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label7: TLabel
-      Left = 76
-      Height = 14
-      Top = 8
-      Width = 11
-      Caption = 'G'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label8: TLabel
-      Left = 87
-      Height = 14
-      Top = 8
-      Width = 11
-      Caption = 'H'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label9: TLabel
-      Left = 98
-      Height = 14
-      Top = 8
-      Width = 6
-      Caption = 'I'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label10: TLabel
-      Left = 110
-      Height = 14
-      Top = 8
-      Width = 8
-      Caption = 'J'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label11: TLabel
-      Left = 121
-      Height = 14
-      Top = 8
-      Width = 10
-      Caption = 'K'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label12: TLabel
-      Left = 132
-      Height = 14
-      Top = 8
-      Width = 9
-      Caption = 'L'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label13: TLabel
-      Left = 144
-      Height = 14
-      Top = 8
-      Width = 12
-      Caption = 'M'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label14: TLabel
-      Left = 8
-      Height = 14
-      Top = 24
-      Width = 11
-      Caption = 'N'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label15: TLabel
-      Left = 19
-      Height = 14
-      Top = 24
-      Width = 11
-      Caption = 'O'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label16: TLabel
-      Left = 30
-      Height = 14
-      Top = 24
-      Width = 10
-      Caption = 'P'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label17: TLabel
-      Left = 42
-      Height = 14
-      Top = 24
-      Width = 11
-      Caption = 'Q'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label18: TLabel
-      Left = 53
-      Height = 14
-      Top = 24
-      Width = 11
-      Caption = 'R'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label19: TLabel
-      Left = 64
-      Height = 14
-      Top = 24
-      Width = 10
-      Caption = 'S'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label20: TLabel
-      Left = 76
-      Height = 14
-      Top = 24
-      Width = 10
-      Caption = 'T'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label21: TLabel
-      Left = 87
-      Height = 14
-      Top = 24
-      Width = 11
-      Caption = 'U'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label22: TLabel
-      Left = 98
-      Height = 14
-      Top = 24
-      Width = 10
-      Caption = 'V'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label23: TLabel
-      Left = 110
-      Height = 14
-      Top = 24
-      Width = 14
-      Caption = 'W'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label24: TLabel
-      Left = 121
-      Height = 14
-      Top = 24
-      Width = 10
-      Caption = 'X'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label25: TLabel
-      Left = 132
-      Height = 14
-      Top = 24
-      Width = 10
-      Caption = 'Y'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-    object Label26: TLabel
-      Left = 144
-      Height = 14
-      Top = 24
-      Width = 10
-      Caption = 'Z'
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label1Click
-    end
-  end
-  object Button3: TButton
-    Left = 232
-    Height = 25
-    Top = 24
-    Width = 33
-    Caption = '<'
-    OnClick = Button3Click
-    TabOrder = 5
-  end
-  object Gloss1: TIpHtmlPanel
-    Left = 224
-    Height = 178
-    Top = 56
-    Width = 250
-    FixedTypeface = 'Courier New'
-    DefaultTypeFace = 'default'
-    DefaultFontSize = 8
-    FlagErrors = False
-    PrintSettings.MarginLeft = 0.5
-    PrintSettings.MarginTop = 0.5
-    PrintSettings.MarginRight = 0.5
-    PrintSettings.MarginBottom = 0.5
-    OnHotClick = Gloss1HotClick
   end
 end
