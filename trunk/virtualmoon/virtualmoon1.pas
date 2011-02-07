@@ -99,12 +99,12 @@ type
     PanelMoon2: TPanel;
     PrintDialog1: TPrintDialog;
     Quitter1: TMenuItem;
-    PageControl1: TNoteBook;
-    Position: TPage;
+    PageControl1: TPageControl;
+    Position: TTabSheet;
     Panel1:  TPanel;
     Button1: TButton;
     Button2: TButton;
-    Ephemerides: TPage;
+    Ephemerides: TTabSheet;
     Panel4:  TPanel;
     Label6:  TLabel;
     Label9:  TLabel;
@@ -139,8 +139,8 @@ type
     UpDown6: TUpDown;
     GroupBox1: TGroupBox;
     Label7:  TLabel;
-    Terminateur: TPage;
-    Reglage: TPage;
+    Terminateur: TTabSheet;
+    Reglage: TTabSheet;
     TrackBar2: TTrackBar;
     Label8:  TLabel;
     TrackBar3: TTrackBar;
@@ -173,7 +173,7 @@ type
     x11:     TMenuItem;
     x21:     TMenuItem;
     x41:     TMenuItem;
-    Outils:  TPage;
+    Outils:  TTabSheet;
     Bevel4:  TBevel;
     Label23: TLabel;
     Button11: TButton;
@@ -212,7 +212,7 @@ type
     ToolButton5: TToolButton;
     ToolButton7: TToolButton;
     ToolButton10: TToolButton;
-    dbtab:   TPage;
+    dbtab:   TTabSheet;
     StringGrid2: TStringGrid;
     Panel6:  TPanel;
     Button9: TButton;
@@ -238,7 +238,7 @@ type
     e101:    TMenuItem;
     e01:     TMenuItem;
     BMP30001: TMenuItem;
-    Notes:   TPage;
+    Notes:   TTabSheet;
     Memo1:   TMemo;
     Panel7:  TPanel;
     notes_name: TLabel;
@@ -2409,7 +2409,7 @@ begin
     if stringgrid2.Cells[0, dbcol - 1] = 'QUADRANT' then
       stringgrid2.Cells[1, dbcol - 1] := quadrant;
   end;
-  pagecontrol1.ActivePage := dbtab.Caption;
+  pagecontrol1.ActivePage := dbtab;
   sel.left   := 1;
   sel.top    := 1;
   sel.right  := 1;
@@ -4049,7 +4049,7 @@ end;
 procedure TForm1.PageControl1Change(Sender: TObject);
 begin
   if moon1=nil then exit;
-  if (pagecontrol1.ActivePage = Reglage.Caption) then
+  if (pagecontrol1.ActivePage = Reglage) then
   begin
     moon1.ShowFPS:=true;
     Label15.Caption     := rsm_44 + ' 0 FPS';
@@ -4059,13 +4059,13 @@ begin
     moon1.ShowFPS:=false;
   end;
 
-  if pagecontrol1.ActivePage = Terminateur.Caption then
+  if pagecontrol1.ActivePage = Terminateur then
   begin
     if currentphase <> tphase then
       UpdTerminateur;
   end;
 
-  if pagecontrol1.ActivePage = Outils.Caption then
+  if pagecontrol1.ActivePage = Outils then
   begin
     RadioGroup2.Invalidate;
     if activemoon.MeasuringDistance then
@@ -4284,7 +4284,7 @@ end;
 
 procedure TForm1.Position1Click(Sender: TObject);
 begin
-  Pagecontrol1.ActivePage := Position.Caption;
+  Pagecontrol1.ActivePage := Position;
   PageControl1Change(Sender);
   combobox1.SetFocus;
 end;
@@ -4310,7 +4310,7 @@ end;
 
 procedure TForm1.Notes1Click(Sender: TObject);
 begin
-  Pagecontrol1.ActivePage := Notes.Caption;
+  Pagecontrol1.ActivePage := Notes;
   PageControl1Change(Sender);
 end;
 
@@ -4401,7 +4401,7 @@ end;
 
 procedure TForm1.Distance1Click(Sender: TObject);
 begin
-  Pagecontrol1.ActivePage := Outils.Caption;
+  Pagecontrol1.ActivePage := Outils;
   PageControl1Change(Sender);
   Button11.Caption  := rsm_53;
   activemoon.MeasuringDistance := true;
@@ -5181,7 +5181,7 @@ if mf<>activemoon then begin
   CurrentJD:=activemoon.JD;
   SetJDDate;
   RefreshMoonImage;
-  if pagecontrol1.ActivePage = Terminateur.Caption then
+  if pagecontrol1.ActivePage = Terminateur then
   begin
     if currentphase <> tphase then
       UpdTerminateur;

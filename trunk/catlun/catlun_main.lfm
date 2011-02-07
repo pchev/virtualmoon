@@ -38,19 +38,20 @@ object f_catlun: Tf_catlun
       end>
     SimplePanel = False
   end
-  object Notebook1: TNotebook
+  object Notebook1: TPageControl
     Left = 663
     Height = 687
     Top = 0
     Width = 411
+    ActivePage = Page1
     Align = alRight
-    OnPageChanged = Notebook1PageChanged
-    PageIndex = 0
+    TabIndex = 0
     TabOrder = 2
-    object Page1: TPage
+    OnPageChanged = Notebook1PageChanged
+    object Page1: TTabSheet
       Caption = 'Saisie'
-      ClientWidth = 407
       ClientHeight = 659
+      ClientWidth = 407
       object Label1: TLabel
         Left = 214
         Height = 15
@@ -579,10 +580,10 @@ object f_catlun: Tf_catlun
         OnClick = UpDown1Click
       end
     end
-    object Page2: TPage
+    object Page2: TTabSheet
       Caption = 'Contrôle'
-      ClientWidth = 407
       ClientHeight = 659
+      ClientWidth = 407
       object Desc1: TIpHtmlPanel
         Left = 0
         Height = 582

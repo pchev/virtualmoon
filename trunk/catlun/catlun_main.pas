@@ -88,10 +88,10 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
-    Notebook1: TNotebook;
+    Notebook1: TPageControl;
     OpenDialog1: TOpenDialog;
-    Page1: TPage;
-    Page2: TPage;
+    Page1: TTabSheet;
+    Page2: TTabSheet;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
@@ -972,7 +972,7 @@ instnum:=-1;
 for i:=0 to 6 do
   if diaminst[i]=buf then instnum:=i;
 
-Notebook1.ActivePage:=page1.Caption;
+Notebook1.ActivePage:=page1;
 
 moon1.SetMark(deg2rad*curlon,deg2rad*curlat,'Modification');
 Button2.Caption:='Modifier';
@@ -1442,7 +1442,7 @@ end;
 
 procedure Tf_catlun.Notebook1PageChanged(Sender: TObject);
 begin
-modesaisie:=(Notebook1.ActivePage=page1.Caption);
+modesaisie:=(Notebook1.ActivePage=page1);
 if (moon1<>nil) and moon1.MeasuringDistance then Button4Click(nil);
 if modesaisie then sidelist:='1,2,3,4,5,6,7'
               else sidelist:='1,2,3,4,5,6,7,'+inttostr(dbn);
