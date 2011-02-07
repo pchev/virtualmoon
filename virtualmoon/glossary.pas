@@ -28,7 +28,7 @@ uses
 {$ifdef mswindows}
   Windows,
 {$endif}
-  LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms, FileUtil,
   Dialogs, StdCtrls, ComCtrls, ExtCtrls, LResources, IpHtml;
 
 type
@@ -234,7 +234,7 @@ begin
   else
     buf := '<html> <body>' + txt + '</body></html>';
   try
-    s := TStringStream.Create(buf);
+    s := TStringStream.Create(UTF8FileHeader+buf);
     try
       NewHTML := TIpHtml.Create; // Beware: Will be freed automatically by IpHtmlPanel1
       NewHTML.LoadFromStream(s);
