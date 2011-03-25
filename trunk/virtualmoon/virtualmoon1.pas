@@ -3679,6 +3679,7 @@ begin
      f_ephem.jour1.Value:=CurrentDay;
   end;
   f_ephem.geocentric:=geocentric;
+  FormPos(f_ephem,mouse.CursorPos.X,Mouse.CursorPos.Y);
   f_ephem.ShowModal;
 end;
 
