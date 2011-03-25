@@ -1,25 +1,25 @@
 object f_ephem: Tf_ephem
-  Left = 508
+  Left = 586
   Height = 240
-  Top = 127
+  Top = 99
   Width = 320
   Caption = 'f_ephem'
   ClientHeight = 240
   ClientWidth = 320
   OnCreate = FormCreate
-  LCLVersion = '0.9.31'
+  LCLVersion = '0.9.30.1'
   object Label9: TLabel
     Left = 16
-    Height = 16
+    Height = 15
     Top = 12
-    Width = 66
+    Width = 55
     Caption = 'Start Date'
     ParentColor = False
     ParentFont = False
   end
   object annee: TLongEdit
     Left = 110
-    Height = 23
+    Height = 22
     Hint = '-2999..2999'
     Top = 8
     Width = 45
@@ -32,7 +32,7 @@ object f_ephem: Tf_ephem
   end
   object UpDown1: TUpDown
     Left = 155
-    Height = 23
+    Height = 22
     Top = 8
     Width = 13
     Associate = annee
@@ -45,7 +45,7 @@ object f_ephem: Tf_ephem
   end
   object mois: TLongEdit
     Left = 166
-    Height = 23
+    Height = 22
     Hint = '0..12'
     Top = 8
     Width = 28
@@ -57,7 +57,7 @@ object f_ephem: Tf_ephem
   end
   object UpDown2: TUpDown
     Left = 194
-    Height = 23
+    Height = 22
     Top = 8
     Width = 13
     Associate = mois
@@ -69,7 +69,7 @@ object f_ephem: Tf_ephem
   end
   object jour: TLongEdit
     Left = 208
-    Height = 23
+    Height = 22
     Hint = '0..31'
     Top = 8
     Width = 28
@@ -81,7 +81,7 @@ object f_ephem: Tf_ephem
   end
   object UpDown3: TUpDown
     Left = 236
-    Height = 23
+    Height = 22
     Top = 8
     Width = 13
     Associate = jour
@@ -93,16 +93,16 @@ object f_ephem: Tf_ephem
   end
   object Label10: TLabel
     Left = 16
-    Height = 16
+    Height = 15
     Top = 56
-    Width = 59
+    Width = 52
     Caption = 'End Date'
     ParentColor = False
     ParentFont = False
   end
   object annee1: TLongEdit
     Left = 110
-    Height = 23
+    Height = 22
     Hint = '-2999..2999'
     Top = 52
     Width = 45
@@ -115,7 +115,7 @@ object f_ephem: Tf_ephem
   end
   object UpDown4: TUpDown
     Left = 155
-    Height = 23
+    Height = 22
     Top = 52
     Width = 13
     Associate = annee1
@@ -128,7 +128,7 @@ object f_ephem: Tf_ephem
   end
   object mois1: TLongEdit
     Left = 166
-    Height = 23
+    Height = 22
     Hint = '0..12'
     Top = 52
     Width = 28
@@ -140,7 +140,7 @@ object f_ephem: Tf_ephem
   end
   object UpDown5: TUpDown
     Left = 194
-    Height = 23
+    Height = 22
     Top = 52
     Width = 13
     Associate = mois1
@@ -152,7 +152,7 @@ object f_ephem: Tf_ephem
   end
   object jour1: TLongEdit
     Left = 208
-    Height = 23
+    Height = 22
     Hint = '0..31'
     Top = 52
     Width = 28
@@ -164,7 +164,7 @@ object f_ephem: Tf_ephem
   end
   object UpDown6: TUpDown
     Left = 236
-    Height = 23
+    Height = 22
     Top = 52
     Width = 13
     Associate = jour1
@@ -176,7 +176,7 @@ object f_ephem: Tf_ephem
   end
   object step: TLongEdit
     Left = 110
-    Height = 23
+    Height = 22
     Hint = '1..999999'
     Top = 92
     Width = 56
@@ -199,7 +199,7 @@ object f_ephem: Tf_ephem
   end
   object FileNameEdit1: TFileNameEdit
     Left = 110
-    Height = 23
+    Height = 22
     Top = 136
     Width = 176
     DialogOptions = []
@@ -212,23 +212,23 @@ object f_ephem: Tf_ephem
   end
   object Label1: TLabel
     Left = 16
-    Height = 16
+    Height = 15
     Top = 95
-    Width = 30
+    Width = 26
     Caption = 'Step'
     ParentColor = False
   end
   object Label2: TLabel
     Left = 178
-    Height = 16
+    Height = 15
     Top = 95
-    Width = 38
+    Width = 35
     Caption = 'Hours'
     ParentColor = False
   end
   object Label3: TLabel
     Left = 15
-    Height = 16
+    Height = 15
     Top = 139
     Width = 21
     Caption = 'File'
