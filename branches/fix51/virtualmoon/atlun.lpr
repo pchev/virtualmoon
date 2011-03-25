@@ -11,7 +11,7 @@ uses
   Forms, LResources, virtualmoon1, config,
   CraterList, dbutil, fmsg, glossary, splashunit, telescope, SysUtils, TurboPowerIPro, u_constant, cu_tz, cu_planet,
   u_projection, u_util, pu_moon, u_translation_database, u_translation,
-  uniqueinstance_package, pu_features, BigIma, uDE, mlb2;
+  uniqueinstance_package, pu_features, BigIma, uDE, mlb2, pu_ephem;
 
 var i:integer;
 

@@ -303,6 +303,11 @@ rsDownloadURL='http://ap-i.net/avl/en/download';
 rsCaption = 'Caption';
 rsDecreaseFont = 'Decrease font size';
 rsIncreaseFont = 'Increase font size';
+rsSaveEphemeri = 'Save ephemeris to file';
+rsStartDate = 'Start date';
+rsEndDate = 'End date';
+rsSteps = 'Steps';
+rsHours = 'Hours';
 
 implementation
 

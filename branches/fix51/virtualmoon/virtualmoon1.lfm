@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 456
+  Left = 646
   Height = 570
-  Top = 142
+  Top = 111
   Width = 885
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
@@ -162,7 +162,7 @@ object Form1: TForm1
   OnResize = FormResize
   OnShow = FormShow
   Position = poDefaultPosOnly
-  LCLVersion = '0.9.29'
+  LCLVersion = '0.9.30.1'
   object Memo2: TMemo
     Left = 64
     Height = 41
@@ -196,9 +196,9 @@ object Form1: TForm1
     TabOrder = 2
     object Label10: TLabel
       Left = 240
-      Height = 19
+      Height = 15
       Top = 3
-      Width = 32
+      Width = 39
       Caption = 'Zoom:'
       Layout = tlCenter
       ParentColor = False
@@ -231,7 +231,7 @@ object Form1: TForm1
         OnClick = Configuration1Click
       end
       object ToolButton8: TToolButton
-        Left = 143
+        Left = 155
         Top = 0
         Caption = 'Aide'
         OnClick = ToolButton8Click
@@ -461,7 +461,7 @@ object Form1: TForm1
           Width = 376
           Align = alBottom
           Caption = 'Profile'
-          ClientHeight = 14
+          ClientHeight = 18
           ClientWidth = 372
           TabOrder = 3
           object Label7: TLabel
@@ -478,7 +478,7 @@ object Form1: TForm1
         end
         object ComboBox1: TComboBox
           Left = 16
-          Height = 26
+          Height = 23
           Top = 4
           Width = 161
           DropDownCount = 15
@@ -600,7 +600,6 @@ object Form1: TForm1
           Width = 33
           AllowAllUp = True
           Caption = '>>'
-          Color = clBtnFace
           NumGlyphs = 0
           Transparent = False
           OnMouseDown = Button3MouseDown
@@ -614,7 +613,6 @@ object Form1: TForm1
           Width = 33
           AllowAllUp = True
           Caption = '>'
-          Color = clBtnFace
           NumGlyphs = 0
           Transparent = False
           OnMouseDown = Button6MouseDown
@@ -628,7 +626,6 @@ object Form1: TForm1
           Width = 33
           AllowAllUp = True
           Caption = '<'
-          Color = clBtnFace
           NumGlyphs = 0
           Transparent = False
           OnMouseDown = Button7MouseDown
@@ -642,7 +639,6 @@ object Form1: TForm1
           Width = 33
           AllowAllUp = True
           Caption = '<<'
-          Color = clBtnFace
           NumGlyphs = 0
           Transparent = False
           OnMouseDown = Button8MouseDown
@@ -1417,7 +1413,7 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 306
+        ClientHeight = 310
         ClientWidth = 249
         TabOrder = 6
         Visible = False
@@ -1435,7 +1431,6 @@ object Form1: TForm1
           Top = 58
           Width = 49
           Caption = '<'
-          Color = clBtnFace
           NumGlyphs = 0
           OnClick = SpeedButton1Click
         end
@@ -1445,7 +1440,6 @@ object Form1: TForm1
           Top = 58
           Width = 49
           Caption = 'O'
-          Color = clBtnFace
           NumGlyphs = 0
           OnClick = SpeedButton2Click
         end
@@ -1455,7 +1449,6 @@ object Form1: TForm1
           Top = 58
           Width = 49
           Caption = '>'
-          Color = clBtnFace
           NumGlyphs = 0
           OnClick = SpeedButton3Click
         end
@@ -1465,7 +1458,6 @@ object Form1: TForm1
           Top = 98
           Width = 73
           Caption = 'Vue Est'
-          Color = clBtnFace
           NumGlyphs = 0
           OnClick = SpeedButton4Click
         end
@@ -1475,7 +1467,6 @@ object Form1: TForm1
           Top = 98
           Width = 73
           Caption = 'Vue Ouest'
-          Color = clBtnFace
           NumGlyphs = 0
           OnClick = SpeedButton5Click
         end
@@ -1485,7 +1476,6 @@ object Form1: TForm1
           Top = 98
           Width = 73
           Caption = 'Centre'
-          Color = clBtnFace
           NumGlyphs = 0
           OnClick = SpeedButton6Click
         end
@@ -1521,7 +1511,6 @@ object Form1: TForm1
           Top = 58
           Width = 49
           Caption = '| |'
-          Color = clBtnFace
           NumGlyphs = 0
           OnClick = SpeedButton7Click
         end
@@ -1998,7 +1987,7 @@ object Form1: TForm1
         Top = 372
         Width = 204
         Caption = 'Options valid at next startup'
-        ClientHeight = 52
+        ClientHeight = 56
         ClientWidth = 200
         TabOrder = 4
         object CheckBox8: TCheckBox
@@ -2169,6 +2158,10 @@ object Form1: TForm1
         Caption = 'BMP3000'
         OnClick = BMP30001Click
       end
+    end
+    object SaveEphem: TMenuItem
+      Caption = 'New Item16'
+      OnClick = SaveEphemClick
     end
     object N1: TMenuItem
       Caption = '-'

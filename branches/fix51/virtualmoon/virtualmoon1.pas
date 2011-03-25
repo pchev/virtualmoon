@@ -92,6 +92,7 @@ type
     FullScreen1: TMenuItem;
     DecreaseFont1: TMenuItem;
     IncreaseFont1: TMenuItem;
+    SaveEphem: TMenuItem;
     OptFeatures1: TMenuItem;
     PanelTel: TPanel;
     PanelRot: TPanel;
@@ -321,6 +322,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure ResizeTimerTimer(Sender: TObject);
+    procedure SaveEphemClick(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
     procedure Splitter2Moved(Sender: TObject);
@@ -570,7 +572,7 @@ var
 implementation
 
 uses
-  telescope, config, splashunit, pu_features,
+  telescope, config, splashunit, pu_features, pu_ephem,
   glossary, fmsg, dbutil, LCLProc;
 
 procedure TForm1.SetEyepieceMenu;
@@ -659,6 +661,7 @@ begin
     Position.Caption := rst_6;
     Position1.Caption := Position.Caption;
     Ephemerides.Caption := rst_7;
+    SaveEphem.Caption:=rsSaveEphemeri;
     Button1.Caption := rst_10;
     Button2.Caption := rst_11;
     Label9.Caption := rsm_51;
@@ -795,6 +798,7 @@ begin
     // Config
     Form2.Setlang;
     f_features.SetLang;
+    if f_ephem<>nil then f_ephem.Setlang;
   if gloss <> nil then
     gloss.InitGlossary;
 end;
@@ -3640,6 +3644,25 @@ ResizeTimer.Enabled:=false;
 FormResize(nil);
 end;
 
+procedure TForm1.SaveEphemClick(Sender: TObject);
+begin
+    if f_ephem=nil then begin
+       f_ephem:=Tf_ephem.Create(self);
+       f_ephem.Fplanet:=Fplanet;
+       f_ephem.tz:=tz;
+       f_ephem.Setlang;
+       f_ephem.annee.Value:=CurYear;
+       f_ephem.annee1.Value:=CurYear;
+       f_ephem.mois.Value:=CurrentMonth;
+       f_ephem.mois1.Value:=CurrentMonth;
+       f_ephem.jour.Value:=CurrentDay;
+       f_ephem.jour1.Value:=CurrentDay;
+    end;
+    f_ephem.geocentric:=geocentric;
+    FormPos(f_ephem,mouse.CursorPos.X,Mouse.CursorPos.Y);
+    f_ephem.ShowModal;
+end;
+
 procedure TForm1.Button5Click(Sender: TObject);
 begin
   initdate;
@@ -3943,6 +3966,7 @@ begin
     begin
       CursorImage1.Free;
     end;
+    if f_ephem<>nil then f_ephem.Free;
   except
   end;
 end;
