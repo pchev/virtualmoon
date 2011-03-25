@@ -85,6 +85,12 @@ var lp,l,b,f,om,w,T,a,i,lh,bh,e,v,x,y,l0 {,cel,sel,asol,dsol} : double;
     pl :TPlanetData;
 begin
 T := (jde-2451545)/36525;
+if abs(T)>2 then begin   // valid only 1800-2200
+  P:=0;
+  llat:=0;
+  lats:=0;
+  llong:=0;
+end else begin
 e:=deg2rad*23.4392911;
 eq2ecl(ra,dec,e,lp,b);
 F:=93.2720993+483202.0175273*t-0.0034029*t*t-t*t*t/3526000+t*t*t*t/863310000;
@@ -111,6 +117,7 @@ y:=sin(i)*cos(v)*cos(e)-cos(i)*sin(e);
 w:=arctan2(x,y);
 P:=rad2deg*(arcsin(sqrt(x*x+y*y)*cos(ra-w)/cos(llat)));
 llat:=rad2deg*(llat);
+end;
 end;
 
 Function TPlanet.MoonMag(phase:double):double;

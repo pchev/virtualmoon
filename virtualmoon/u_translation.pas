@@ -304,6 +304,11 @@ rsCaption = 'Caption';
 rsDecreaseFont = 'Decrease font size';
 rsIncreaseFont = 'Increase font size';
 rsSide = 'Side:';
+rsSaveEphemeri = 'Save ephemeris to file';
+rsStartDate = 'Start date';
+rsEndDate = 'End date';
+rsSteps = 'Steps';
+rsHours = 'Hours';
 
 implementation
 
