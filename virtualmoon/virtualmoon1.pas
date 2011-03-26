@@ -1296,6 +1296,7 @@ begin
   decodedate(now, y, m, d);
   decodetime(now, h, n, s, ms);
   timezone   := gettimezone(now);
+  timezone   := gettimezone(now-timezone);
   annee.Value := y;
   mois.Value := m;
   jour.Value := d;
@@ -3705,7 +3706,7 @@ begin
   h     :=heure.Value;
   n     :=minute.Value;
   s     :=seconde.Value;
-  timezone := GetJDTimeZone(jd(y, m, d, h+n/60+s/3600));
+  timezone := GetJDTimeZone(jd(y, m, d, h+n/60+s/3600-timezone));
   dt_ut := dtminusut(y);
   CurYear := y;
   CurrentMonth := m;
