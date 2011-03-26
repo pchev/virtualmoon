@@ -72,7 +72,8 @@ begin
 end;
 
 procedure Tf_ephem.Compute1Click(Sender: TObject);
-var startjd,endjd,stepjd,curjd,ctime: double;
+var startljd,endljd,stepjd,ijd: extended;
+    curjd,ctime: double;
     y1,y2,m1,m2,d1,d2: integer;
     moonrise, moonset, moontransit, azimuthrise, azimuthset, eph: string;
     jd0, st0, q, cphase, colong, hh, az, ah: double;
@@ -95,17 +96,13 @@ begin
   y1     :=annee.Value;
   m1     :=mois.Value;
   d1     :=jour.Value;
-  timezone := GetJDTimeZone(jd(y1, m1, d1, 12));
-  dt_ut := dtminusut(y1);
-  startjd := jd(y1, m1, d1, 0 - timezone + DT_UT);
+  startljd := jd(y1, m1, d1, 0);
   y2     :=annee1.Value;
   m2     :=mois1.Value;
   d2     :=jour1.Value;
-  timezone := GetJDTimeZone(jd(y2, m2, d2, 12));
-  dt_ut := dtminusut(y2);
-  endjd := jd(y2, m2, d2, 23 - timezone + DT_UT);
+  endljd := jd(y2, m2, d2, 23);
   stepjd:=step.Value/24;
-  if (endjd>startjd)and(stepjd>0) then begin
+  if (endljd>startljd)and(stepjd>0) then begin
   AssignFile(f,FileNameEdit1.FileName);
   rewrite(f);
   buf:='"'+rst_100;
@@ -119,12 +116,14 @@ begin
        rsm_38+sep+rsm_39+sep+rsm_40+sep+rsm_41+sep+rsm_55+sep+rsm_42+sep+rsEphemeris+'"';
   writeln(f,buf);
   LastDay:=-1;
-  curjd:=startjd;
+  ijd:=startljd;
+  timezone := GetJDTimeZone(ijd);
   repeat
+    djd(ijd, CYear,CMonth,CDay, CTime);
+    timezone := GetJDTimeZone(ijd-timezone/24);
+    dt_ut := dtminusut(CYear);
+    curjd:=ijd+(DT_UT-timezone)/24;
     djd(curjd, aa, mm, dd, hh);
-    dt_ut := dtminusut(aa);
-    timezone := GetJDTimeZone(curjd);
-    djd(curjd-(DT_UT-timezone)/24, CYear,CMonth,CDay, CTime);
     st0 := 0;
     ecl:=ecliptic(curjd);
     Fplanet.SetDE(jpldir);
@@ -163,7 +162,7 @@ begin
     buf:='"';
     buf:=buf+date2str(cyear, cmonth, cday) + ' ' + timtostr(ctime);
     buf:=buf+sep+date2str(aa, mm, dd) + ' ' + timtostr(hh);
-    buf:=buf+sep+formatfloat(f5,curjd);
+    buf:=buf+sep+formatfloat(f5,ijd-(timezone)/24);
     buf:=buf+sep+ formatfloat(f6,rad2deg * ra / 15);
     buf:=buf+sep+ formatfloat(f5,rad2deg * Dec);
     buf:=buf+sep+ formatfloat(f6,rad2deg * rad / 15);
@@ -205,8 +204,8 @@ begin
     buf:=buf+sep+eph;
     buf:=buf+'"';
     writeln(f,buf);
-    curjd:=curjd+stepjd;
-  until curjd>endjd;
+    ijd:=ijd+stepjd;
+  until ijd>endljd;
   closefile(f);
   ModalResult:=mrOK;
   end
