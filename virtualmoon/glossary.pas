@@ -64,6 +64,7 @@ type
     { Déclarations privées }
     procedure CreateNewAlphaButton(aOwner: TComponent; aChar: Char; aClickEvent: TNotifyEvent);
     procedure InitAlphaButtons;
+    procedure SetAlphaButtonStatus;
   public
     { Déclarations publiques }
     procedure InitGlossary;
@@ -334,6 +335,9 @@ begin
   Treeview1.Items[0].Items[0].Selected := True;
   Treeview1.TopItem := Treeview1.Items[0];
   lastnode := Treeview1.Selected;
+
+  //	This sets the status of the alpha-buttons correctly for each language change
+  SetAlphaButtonStatus
 end;
 
 procedure TGloss.FormCreate(Sender: TObject);
@@ -342,8 +346,8 @@ begin
   ScaleForm(self, Screen.PixelsPerInch / 96);
 {$endif}
   dbgloss := TMlb2.Create;
+	InitAlphaButtons;
   InitGlossary;
-  InitAlphaButtons;
 end;
 
 procedure TGloss.FormDestroy(Sender: TObject);
@@ -444,14 +448,6 @@ begin
 end;
 
 procedure TGloss.CreateNewAlphaButton(aOwner: TComponent; aChar: Char; aClickEvent: TNotifyEvent);
-
-	function GetEnabledStatus(aStr: string): Boolean;
-	begin
-		Result := dbgloss.GoFirst;
-		Result := Result and dbgloss.SeekData('GLO_WORD', '>=', aStr);
-		Result := Result and (AnsiCompareStr(LeftStr(dbgloss.GetData('GLO_WORD'), 1), LeftStr(aStr, 1)) = 0);
-  end;
-
 var
 	newBtn: TButton;
 begin
@@ -461,7 +457,7 @@ begin
 	newBtn.Tag:=Ord(aChar);
 	newBtn.OnClick:=aClickEvent;
 	newBtn.Parent:= (aOwner as TWinControl);
-	newBtn.Enabled:= GetEnabledStatus(aChar);
+	newBtn.Enabled:= False;
 	newBtn.Show;
 end;
 
@@ -472,6 +468,29 @@ begin
 	for i:='A' to 'Z' do
 	begin
 		CreateNewAlphaButton(alphaPanel, i, Label1Click);
+	end;
+end;
+
+procedure TGloss.SetAlphaButtonStatus;
+
+	function GetEnabledStatus(aStr: string): Boolean;
+	begin
+		Result := dbgloss.GoFirst;
+		Result := Result and dbgloss.SeekData('GLO_WORD', '>=', aStr);
+		Result := Result and (AnsiCompareStr(LeftStr(dbgloss.GetData('GLO_WORD'), 1), LeftStr(aStr, 1)) = 0);
+  end;
+
+var
+	i: integer;
+  b: TButton;
+begin
+	for i:=0 to Pred(alphaPanel.ControlCount) do
+	begin
+		if (alphaPanel.Controls[i] is TButton) then
+    	b:= (alphaPanel.Controls[i] as TButton)
+    else
+    	continue;
+  	b.Enabled:=GetEnabledStatus(Char(b.Tag));
 	end;
 end;
 
