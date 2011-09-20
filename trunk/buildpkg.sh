@@ -99,6 +99,7 @@ if [[ $make_linux32 ]]; then
   if [[ $? -ne 0 ]]; then exit 1;fi
   make CPU_TARGET=i386 OS_TARGET=linux clean
   make CPU_TARGET=i386 OS_TARGET=linux
+  make CPU_TARGET=i386 OS_TARGET=linux
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ $upd ]]; then
     make install_update
@@ -184,6 +185,7 @@ if [[ $make_linux64 ]]; then
   ./configure $configopt prefix=$builddir target=x86_64-linux
   if [[ $? -ne 0 ]]; then exit 1;fi
   make CPU_TARGET=x86_64 OS_TARGET=linux clean
+  make CPU_TARGET=x86_64 OS_TARGET=linux
   make CPU_TARGET=x86_64 OS_TARGET=linux
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ $upd ]]; then
@@ -366,6 +368,7 @@ if [[ $make_win32 ]]; then
   if [[ $? -ne 0 ]]; then exit 1;fi
   make OS_TARGET=win32 CPU_TARGET=i386 clean
   make OS_TARGET=win32 CPU_TARGET=i386
+  make OS_TARGET=win32 CPU_TARGET=i386
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ $upd ]]; then
     make install_win_update
@@ -444,6 +447,7 @@ if [[ $make_win64 ]]; then
   ./configure $configopt prefix=$builddir/vmapro/Data target=x86_64-win64,x86_64-linux
   if [[ $? -ne 0 ]]; then exit 1;fi
   make OS_TARGET=win64 CPU_TARGET=x86_64 clean
+  make OS_TARGET=win64 CPU_TARGET=x86_64
   make OS_TARGET=win64 CPU_TARGET=x86_64
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ $upd ]]; then
