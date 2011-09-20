@@ -46,12 +46,9 @@ endif
 export LCL_PLATFORM
 
 [rules]
-.PHONY: cleartarget compiled all
+.PHONY: cleartarget all
 
 cleartarget:
         -$(DEL) $(COMPILER_UNITTARGETDIR)/glscene_runtime$(PPUEXT)
-
-compiled:
-        $(COPY) Makefile.compiled $(COMPILER_UNITTARGETDIR)/GLScene_RunTime.compiled
 
 all: cleartarget $(COMPILER_UNITTARGETDIR) glscene_runtime$(PPUEXT) compiled
