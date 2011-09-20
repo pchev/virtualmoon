@@ -29,7 +29,7 @@ interface
 
 uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics,
   GLContext, GLColor, GLObjects, GLMaterial, GLTextureFormat, ExtCtrls,
-  GLTexture, GLCadencer, InfoLCL, GLViewer, GLCrossPlatform, LResources, GLScene,
+  GLTexture, GLCadencer, GLViewer, GLCrossPlatform, LResources, GLScene,
   GLMultiMaterialShader, GLBumpShader, GLPhongShader, GLHUDObjects, OpenGLTokens,
   GLWindowsFont, GLGeomObjects, GLMirror, GLMesh, GLVectorFileObjects, FPImage,
   LCLType, IntfGraphics, SysUtils, Classes, Controls, Forms, Menus, Dialogs ;
@@ -249,7 +249,6 @@ type
   public
     { Declarations publiques }
     procedure AssignMoon(Source: TF_moon);
-    procedure ShowInfo;
     procedure Init(check:boolean=true);
     Procedure GetZoomInfo;
     procedure GetBounds(var lmin,lmax,bmin,bmax: single);
@@ -2487,11 +2486,6 @@ end;
 function  Tf_moon.GetSpecularColor:TColor;
 begin
 result:=GLlightSource1.specular.AsWinColor;
-end;
-
-procedure Tf_moon.ShowInfo;
-begin
-GLSceneViewer1.Buffer.ShowInfo;
 end;
 
 procedure Tf_moon.KeyEvent(event: TMoonKeyClass; key: word);

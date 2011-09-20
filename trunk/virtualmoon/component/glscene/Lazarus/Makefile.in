@@ -51,4 +51,4 @@ export LCL_PLATFORM
 cleartarget:
         -$(DEL) $(COMPILER_UNITTARGETDIR)/glscene_runtime$(PPUEXT)
 
-all: cleartarget $(COMPILER_UNITTARGETDIR) glscene_runtime$(PPUEXT) compiled
+all: cleartarget $(COMPILER_UNITTARGETDIR) glscene_runtime$(PPUEXT)
