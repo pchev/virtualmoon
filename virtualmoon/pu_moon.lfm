@@ -420,6 +420,7 @@ object f_moon: Tf_moon
     Materials = <    
       item
         Name = 'MultiMaterial'
+        Tag = 0
         Material.FrontProperties.Ambient.Color = {
           0000803F0000803F0000803F0000803F
         }
@@ -429,7 +430,6 @@ object f_moon: Tf_moon
         Material.FrontProperties.Specular.Color = {
           0000803F0000803F0000803F0000803F
         }
-        Tag = 0
         Shader = GLMultiMaterialShader
       end>
     left = 48
@@ -473,6 +473,7 @@ object f_moon: Tf_moon
     Materials = <    
       item
         Name = 'Bump'
+        Tag = 0
         Material.FrontProperties.Ambient.Color = {
           0000803F0000803F0000803F0000803F
         }
@@ -483,12 +484,12 @@ object f_moon: Tf_moon
           0000803F0000803F0000803F0000803F
         }
         Material.Texture.Disabled = False
-        Tag = 0
         Texture2Name = 'Diffuse'
         Shader = GLBumpShader1
       end    
       item
         Name = 'Diffuse'
+        Tag = 0
         Material.FrontProperties.Ambient.Color = {
           0000803F0000803F0000803F0000803F
         }
@@ -499,7 +500,6 @@ object f_moon: Tf_moon
           0000803F0000803F0000803F0000803F
         }
         Material.Texture.Disabled = False
-        Tag = 0
       end>
     left = 40
     top = 456
