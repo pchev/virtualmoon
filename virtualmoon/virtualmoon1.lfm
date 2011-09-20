@@ -377,7 +377,7 @@ object Form1: TForm1
     end
     object TrackBar1: TTrackBar
       Left = 280
-      Height = 44
+      Height = 45
       Top = -6
       Width = 112
       Max = 100
@@ -427,16 +427,16 @@ object Form1: TForm1
     Options = [nboMultiLine]
     object Position: TTabSheet
       Caption = 'Information'
-      ClientHeight = 484
-      ClientWidth = 378
+      ClientHeight = 476
+      ClientWidth = 374
       object Panel1: TPanel
         Left = 0
         Height = 97
         Top = 0
-        Width = 378
+        Width = 374
         Align = alTop
         ClientHeight = 97
-        ClientWidth = 378
+        ClientWidth = 374
         TabOrder = 0
         object Button1: TButton
           Left = 16
@@ -460,11 +460,11 @@ object Form1: TForm1
           Left = 1
           Height = 34
           Top = 62
-          Width = 376
+          Width = 372
           Align = alBottom
           Caption = 'Profile'
           ClientHeight = 18
-          ClientWidth = 372
+          ClientWidth = 368
           TabOrder = 3
           object Label7: TLabel
             Left = 0
@@ -480,7 +480,7 @@ object Form1: TForm1
         end
         object ComboBox1: TComboBox
           Left = 16
-          Height = 23
+          Height = 22
           Top = 4
           Width = 161
           DropDownCount = 15
@@ -492,9 +492,9 @@ object Form1: TForm1
       end
       object Desc1: TIpHtmlPanel
         Left = 0
-        Height = 387
+        Height = 379
         Top = 97
-        Width = 378
+        Width = 374
         Align = alClient
         FixedTypeface = 'Courier New'
         DefaultTypeFace = 'Sans'
@@ -513,8 +513,8 @@ object Form1: TForm1
     end
     object Notes: TTabSheet
       Caption = 'Notes'
-      ClientHeight = 484
-      ClientWidth = 378
+      ClientHeight = 476
+      ClientWidth = 374
       ImageIndex = 6
       object Memo1: TMemo
         Left = 0
@@ -558,8 +558,8 @@ object Form1: TForm1
     end
     object Ephemerides: TTabSheet
       Caption = 'Ephemerides'
-      ClientHeight = 484
-      ClientWidth = 378
+      ClientHeight = 476
+      ClientWidth = 374
       ImageIndex = 1
       object Panel4: TPanel
         Left = 0
@@ -1120,8 +1120,8 @@ object Form1: TForm1
     end
     object Terminateur: TTabSheet
       Caption = 'Terminateur'
-      ClientHeight = 484
-      ClientWidth = 378
+      ClientHeight = 476
+      ClientWidth = 374
       ImageIndex = 2
       object Panel5: TPanel
         Left = 0
@@ -1236,8 +1236,8 @@ object Form1: TForm1
     end
     object Outils: TTabSheet
       Caption = 'Outils'
-      ClientHeight = 484
-      ClientWidth = 378
+      ClientHeight = 476
+      ClientWidth = 374
       ImageIndex = 4
       object Bevel4: TBevel
         Left = 8
@@ -1781,8 +1781,8 @@ object Form1: TForm1
     end
     object Reglage: TTabSheet
       Caption = 'Reglage'
-      ClientHeight = 484
-      ClientWidth = 378
+      ClientHeight = 476
+      ClientWidth = 374
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
@@ -2024,8 +2024,8 @@ object Form1: TForm1
     end
     object dbtab: TTabSheet
       Caption = 'Database'
-      ClientHeight = 484
-      ClientWidth = 378
+      ClientHeight = 476
+      ClientWidth = 374
       ImageIndex = 5
       object StringGrid2: TStringGrid
         Left = 0

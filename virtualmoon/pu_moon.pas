@@ -27,12 +27,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics, GLContext, GLColor,
-  GLObjects, GLMaterial, GLTextureFormat, ExtCtrls, GLTexture, GLCadencer, Info, GLViewer,
-  GLCrossPlatform, LResources, GLScene, GLMultiMaterialShader,
-  GLBumpShader, GLHUDObjects, GLWindowsFont, GLGeomObjects, GLMirror, GLMesh,
-  GLVectorFileObjects, FPImage, LCLType, IntfGraphics, SysUtils,
-  Classes, Controls, Forms, Menus, Dialogs ;
+uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics,
+  GLContext, GLColor, GLObjects, GLMaterial, GLTextureFormat, ExtCtrls,
+  GLTexture, GLCadencer, InfoLCL, GLViewer, GLCrossPlatform, LResources, GLScene,
+  GLMultiMaterialShader, GLBumpShader, GLPhongShader, GLHUDObjects, OpenGLTokens,
+  GLWindowsFont, GLGeomObjects, GLMirror, GLMesh, GLVectorFileObjects, FPImage,
+  LCLType, IntfGraphics, SysUtils, Classes, Controls, Forms, Menus, Dialogs ;
 
 const
    MaxLabel=500;
@@ -534,8 +534,8 @@ begin
             with LibMaterialByName('L2_'+inttostr(k)) do begin
               Material.Texture.ImageBrightness:=1;
               Material.Texture.Image.Assign(jp);
-              TextureOffset.SetVector(-col*tscale+toffset,(row-maxrow+1)*tscale+toffset,0);
-              TextureScale.SetVector(maxcol*tscale,maxrow*tscale,0);
+              TextureOffset.SetPoint(-col*tscale+toffset,(row-maxrow+1)*tscale+toffset,0);
+              TextureScale.SetPoint(maxcol*tscale,maxrow*tscale,0);
             end;
          end;
          GLSceneViewer1.Refresh;
@@ -571,8 +571,8 @@ begin
             with LibMaterialByName('P2_'+inttostr(i)) do begin
               Material.Texture.ImageBrightness:=1;
               Material.Texture.Image.Assign(jp);
-              TextureOffset.SetVector(-col*tscale+toffset,(row-maxrow+1)*tscale+toffset,0);
-              TextureScale.SetVector(maxcol*tscale,maxrow*tscale,0);
+              TextureOffset.SetPoint(-col*tscale+toffset,(row-maxrow+1)*tscale+toffset,0);
+              TextureScale.SetPoint(maxcol*tscale,maxrow*tscale,0);
             end;
          end;
          GLSceneViewer1.Refresh;
@@ -624,8 +624,8 @@ case level of
           with LibMaterialByName('L1_'+nn) do begin
             Material.Texture.ImageBrightness:=1;
             Material.Texture.Image.Assign(jp);
-            TextureOffset.SetVector(-col*tscale+toffset,(row-1)*tscale+toffset,0);
-            TextureScale.SetVector(4*tscale,2*tscale,0);
+            TextureOffset.SetPoint(-col*tscale+toffset,(row-1)*tscale+toffset,0);
+            TextureScale.SetPoint(4*tscale,2*tscale,0);
           end;
        end;
       end;
@@ -940,16 +940,16 @@ if value<>FVisibleSideLock then begin
    if FVisibleSideLock then begin
       GLSphereMoon.TurnAngle:=0;
       GLCamera1.TargetObject:=nil;
-      GLCamera1.Position.SetVector(0,0,-100*FEarthDistance/MeanEarthDistance);
+      GLCamera1.Position.SetPoint(0,0,-100*FEarthDistance/MeanEarthDistance);
       GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
-      GLMirror1.Position.SetVector(0,0,-100.01*FEarthDistance/MeanEarthDistance);
+      GLMirror1.Position.SetPoint(0,0,-100.01*FEarthDistance/MeanEarthDistance);
       GLCamera1.Direction.SetVector(0,0,1);
       CenterAt(cl,cb);
    end else begin
       Eyepiece:=0;
-      GLCamera1.Position.SetVector(0,0,-100);
+      GLCamera1.Position.SetPoint(0,0,-100);
       GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
-      GLMirror1.Position.SetVector(0,0,-100.01);
+      GLMirror1.Position.SetPoint(0,0,-100.01);
       GLCamera1.TargetObject:=LibrationDummyCube;
       CenterAt(cl,cb);
    end;
@@ -1152,6 +1152,7 @@ procedure Tf_moon.FormCreate(Sender: TObject);
 var i: integer;
 begin
  if Owner is TWinControl then Moon.Parent:=TWinControl(Owner);
+ vIgnoreOpenGLErrors:=true;
  blankbmp:=Tbitmap.Create;
  blankbmp.Width:=4;
  blankbmp.Height:=4;
@@ -1222,6 +1223,7 @@ end;
 {$endif}
 try
   GLSceneViewer1.Buffer.RenderingContext.Activate;
+  ReadImplementationProperties;
   MaxTextureSize:=Glsceneviewer1.Buffer.LimitOf[limTextureSize];
   {$ifdef trace_debug}
    debugln('Texture max: '+inttostr(MaxTextureSize));
@@ -1337,11 +1339,13 @@ end;
 
 procedure Tf_moon.FormDestroy(Sender: TObject);
 begin
- if GLDummyCubeLabels<>nil then GLDummyCubeLabels.DeleteChildren;
- if GLDummyCubeMarks<>nil then GLDummyCubeMarks.DeleteChildren;
- if GLDummyCubeCoord<>nil then GLDummyCubeCoord.DeleteChildren;
- blankbmp.Free;
- GLSceneViewer1.Buffer.DestroyRC;
+ClearLabel;
+if GLDummyCubeLabels<>nil then GLDummyCubeLabels.DeleteChildren;
+if GLDummyCubeMarks<>nil then GLDummyCubeMarks.DeleteChildren;
+if GLDummyCubeCoord<>nil then GLDummyCubeCoord.DeleteChildren;
+blankbmp.Free;
+GLSceneViewer1.Buffer.DestroyRC;
+GLBitmapFont1.Ranges.Clear;
 end;
 
 
@@ -1888,7 +1892,7 @@ FEarthDistance:=value;
 if VisibleSideLock then begin
   GLCamera1.Position.Z:=-100*FEarthDistance/MeanEarthDistance;
   GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
-  GLMirror1.Position.SetVector(0,0,-100.01*FEarthDistance/MeanEarthDistance);
+  GLMirror1.Position.SetPoint(0,0,-100.01*FEarthDistance/MeanEarthDistance);
 end;
 end;
 
@@ -1998,7 +2002,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
         Width      := marksize;
         Height     := marksize;
         Visible    := True;
-        Position.SetVector(x,y);
+        Position.SetPoint(x,y,0);
       end;
       Inc(cursprite);
       if (cursprite>=MaxSprite)and(cursprite<AbsoluteMaxSprite) then MoreSprite;
@@ -2018,7 +2022,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
   GLSceneViewer1.Height / 2 - y, 2)) < 0.475 * GLSceneViewer1.Width))
   then begin
     with GLDummyCubeLabels.Children[2*curlabel] as TGLHUDText do begin
-      Position.SetVector(x+ShadowOffset,y+ShadowOffset);
+      Position.SetPoint(x+ShadowOffset,y+ShadowOffset,0);
       if labelcenter then
         begin
           Text      := txt;
@@ -2032,7 +2036,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
       Visible:=true;
     end;
     with GLDummyCubeLabels.Children[2*curlabel+1] as TGLHUDText do begin
-      Position.SetVector(x,y);
+      Position.SetPoint(x,y,0);
       if labelcenter then
         begin
           Text      := txt;
@@ -2144,7 +2148,7 @@ else if Moon2Screen(lon,lat,x,y) then begin
   if showmark then
     begin
       GLHUDSpriteMark.BeginUpdate;
-      GLHUDSpriteMark.Position.SetVector(x,y);
+      GLHUDSpriteMark.Position.SetPoint(x,y,0);
       GLHUDSpriteMark.Width:=marksize;
       GLHUDSpriteMark.Height:=marksize;
       GLHUDSpriteMark.Material.FrontProperties.Emission.AsWinColor := MarkColor;
@@ -2159,14 +2163,14 @@ else if Moon2Screen(lon,lat,x,y) then begin
       if x < (glsceneviewer1.Width div 2) then
       begin
         x:=x + 4 ;
-        GLHUDTextMarkShadow.Position.SetVector(x+1,y+1);
-        GLHUDTextMark.Position.SetVector(x,y);
+        GLHUDTextMarkShadow.Position.SetPoint(x+1,y+1,0);
+        GLHUDTextMark.Position.SetPoint(x,y,0);
         GLHUDTextMarkShadow.Alignment  := taLeftJustify;
         GLHUDTextMark.Alignment  := taLeftJustify;
       end else begin
         x:=x - 4 ;
-        GLHUDTextMarkShadow.Position.SetVector(x+1,y+1);
-        GLHUDTextMark.Position.SetVector(x,y);
+        GLHUDTextMarkShadow.Position.SetPoint(x+1,y+1,0);
+        GLHUDTextMark.Position.SetPoint(x,y,0);
         GLHUDTextMarkShadow.Alignment  := taRightJustify;
         GLHUDTextMark.Alignment  := taRightJustify;
       end;
@@ -2584,7 +2588,7 @@ if FShowScale then begin
   xp:=10;
   yp:=GLSceneViewer1.Height-15;
   GLHUDSpriteScale.width:=n*s*u*bx;
-  GLHUDSpriteScale.Position.SetVector(xp+GLHUDSpriteScale.width/2,yp);
+  GLHUDSpriteScale.Position.SetPoint(xp+GLHUDSpriteScale.width/2,yp,0);
   GLHUDSpriteScale.Material.FrontProperties.Emission.AsWinColor := marklabelcolor;
   GLHUDSpriteScale.Visible:=true;
   val:=round(n*s*u*60*1000)/1000;
@@ -2597,8 +2601,8 @@ if FShowScale then begin
   y:=yp-8;
   GLHUDTextScale.BeginUpdate;
   GLHUDTextScaleShadow.BeginUpdate;
-  GLHUDTextScale.Position.SetVector(x,y);
-  GLHUDTextScaleShadow.Position.SetVector(x+1,y+1);
+  GLHUDTextScale.Position.SetPoint(x,y,0);
+  GLHUDTextScaleShadow.Position.SetPoint(x+1,y+1,0);
   GLHUDTextScale.Text:=formatfloat('0',val)+scal;
   GLHUDTextScaleShadow.Text:=formatfloat('0',val)+scal;
   GLHUDTextScale.ModulateColor.AsWinColor := marklabelcolor;
@@ -2613,8 +2617,8 @@ if FShowScale then begin
   y:=yp+8;
   GLHUDTextScalekm.BeginUpdate;
   GLHUDTextScalekmShadow.BeginUpdate;
-  GLHUDTextScalekm.Position.SetVector(x,y);
-  GLHUDTextScalekmShadow.Position.SetVector(x+1,y+1);
+  GLHUDTextScalekm.Position.SetPoint(x,y,0);
+  GLHUDTextScalekmShadow.Position.SetPoint(x+1,y+1,0);
   GLHUDTextScalekm.Text:=valkm;
   GLHUDTextScalekmShadow.Text:=valkm;
   GLHUDTextScalekm.ModulateColor.AsWinColor := marklabelcolor;
