@@ -56,6 +56,6 @@ endif
 [rules]
 .PHONY: all
 
-all: component_all library_all atlun$(EXEEXT)
+all: component_all library_all component_all atlun$(EXEEXT)
 
 
