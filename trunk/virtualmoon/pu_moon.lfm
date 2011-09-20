@@ -1,7 +1,7 @@
 object f_moon: Tf_moon
-  Left = 335
+  Left = 345
   Height = 520
-  Top = 55
+  Top = 158
   Width = 748
   ActiveControl = Moon
   Caption = 'f_moon'
@@ -11,7 +11,7 @@ object f_moon: Tf_moon
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '0.9.29'
+  LCLVersion = '0.9.30.1'
   object Moon: TPanel
     Left = 200
     Height = 500
