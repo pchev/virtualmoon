@@ -1,0 +1,59 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: glsceneformdesign.rbaseformlocalizeddescription
+msgid "GLSceneForm - a special form, which combines the properties of the viewer and the normal form and allows you to render directly into the application window"
+msgstr "GLScene Базовая Форма - специальная форма, которая совмещает в себе свойства вьювера и обычной формы и позволяет производить рендеринг непосредственно в окно приложения."
+
+#: glsceneformdesign.rbaseformlocalizedname
+msgid "GLSBaseForm"
+msgstr "GLS Базовая Форма"
+
+#: glsceneformdesign.rbaseprojectlocalizeddescription
+msgid "Template of GLScene Base Application with TGLSceneForm"
+msgstr "Шаблон  Приложения GLScene с GLSceneForm"
+
+#: glsceneformdesign.rbaseprojectlocalizedname
+msgid "GLScene Base Application"
+msgstr "GLScene Базовое Приложение"
+
+#: glsceneformdesign.rextendedformlocalizeddescription
+msgid "GLSExtendedForm - a special form, which combines the properties viewer and the usual form, and contains an expanded set of components needed to create more complex applications."
+msgstr "GLS Расширенная Форма - специальная форма, которая совмещает в себе свойства вьювера и обычной формы, и содержит расширенный набор компонентов, необходимых для создания более сложных приложений."
+
+#: glsceneformdesign.rextendedformlocalizedname
+msgid "GLSExtendedForm"
+msgstr "GLS Расширенная форма"
+
+#: glsceneformdesign.rextendedprojectlocalizeddescription
+msgid "Template of GLScene Extended Application with TGLSceneForm"
+msgstr "Шаблон  Приложения GLScene с GLSceneForm"
+
+#: glsceneformdesign.rextendedprojectlocalizedname
+msgid "GLScene Extended Application"
+msgstr "GLScene Расширенное Приложение"
+
+#: glsceneformdesign.rsimpleformlocalizeddescription
+msgid "GLSSimpleForm - a special form, which combines the properties viewer and the usual form and contains the basic set of components to create a simple application."
+msgstr "GLS Простая Форма - специальная форма, которая совмещает в себе свойства вьювера и обычной формы и содержыт базовый набор компонентов для создания простого приложения. "
+
+#: glsceneformdesign.rsimpleformlocalizedname
+msgid "GLSSimpleForm"
+msgstr "GLS Простая Форма"
+
+#: glsceneformdesign.rsimpleprojectlocalizeddescription
+msgid "Template of GLScene Simple Application with TGLSceneForm"
+msgstr "Шаблон  Приложения GLScene с GLSceneForm"
+
+#: glsceneformdesign.rsimpleprojectlocalizedname
+msgid "GLScene Simple Application"
+msgstr "GLScene Простое Приложение"
+
