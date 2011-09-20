@@ -1,0 +1,35 @@
+Index: Source/Platform/GLLCLViewer.pas
+===================================================================
+--- Source/Platform/GLLCLViewer.pas	(révision 5953)
++++ Source/Platform/GLLCLViewer.pas	(copie de travail)
+@@ -443,7 +443,7 @@
+ begin
+   inherited Loaded;
+   // initiate window creation
+-  HandleNeeded;
++  //HandleNeeded;
+ end;
+ 
+ // DoBeforeRender
+Index: Source/Base/GLColor.pas
+===================================================================
+--- Source/Base/GLColor.pas	(révision 5953)
++++ Source/Base/GLColor.pas	(copie de travail)
+@@ -453,7 +453,7 @@
+ procedure InitGLSceneColors;
+ begin
+   clrScrollBar := ConvertWinColor(clScrollBar);
+-  clrBackground := ConvertWinColor(clBackground);
++//  clrBackground := ConvertWinColor(clBackground);
+   clrActiveCaption := ConvertWinColor(clActiveCaption);
+   clrInactiveCaption := ConvertWinColor(clInactiveCaption);
+   clrMenu := ConvertWinColor(clMenu);
+@@ -465,7 +465,7 @@
+   clrActiveBorder := ConvertWinColor(clActiveBorder);
+   clrInactiveBorder := ConvertWinColor(clInactiveBorder);
+   clrAppWorkSpace := ConvertWinColor(clAppWorkSpace);
+-  clrHighlight := ConvertWinColor(clHighlight);
++//  clrHighlight := ConvertWinColor(clHighlight);
+   clrHighlightText := ConvertWinColor(clHighlightText);
+   clrBtnFace := ConvertWinColor(clBtnFace);
+   clrBtnShadow := ConvertWinColor(clBtnShadow);
