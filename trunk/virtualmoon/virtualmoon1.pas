@@ -3004,6 +3004,7 @@ begin
   ScaleForm(self,Screen.PixelsPerInch/96);
   ToolsWidth:=round(ToolsWidth*Screen.PixelsPerInch/96);
   {$endif}
+  PageControl1.ActivePageIndex:=0;
   PageControl1.Align:=alRight;
   Splitter1.Align:=alRight;
   PanelMoon2.Align:=alLeft;

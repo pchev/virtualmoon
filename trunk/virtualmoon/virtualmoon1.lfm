@@ -419,9 +419,9 @@ object Form1: TForm1
     Height = 512
     Top = 32
     Width = 382
-    ActivePage = Reglage
+    ActivePage = Position
     MultiLine = True
-    TabIndex = 5
+    TabIndex = 0
     TabOrder = 0
     OnPageChanged = PageControl1Change
     Options = [nboMultiLine]
@@ -518,9 +518,9 @@ object Form1: TForm1
       ImageIndex = 6
       object Memo1: TMemo
         Left = 0
-        Height = 426
+        Height = 418
         Top = 58
-        Width = 378
+        Width = 374
         Align = alClient
         OnChange = Memo1Change
         PopupMenu = PopupMenu2
@@ -532,16 +532,16 @@ object Form1: TForm1
         Left = 0
         Height = 58
         Top = 0
-        Width = 378
+        Width = 374
         Align = alTop
         ClientHeight = 58
-        ClientWidth = 378
+        ClientWidth = 374
         TabOrder = 1
         object notes_name: TLabel
           Left = 8
-          Height = 19
+          Height = 15
           Top = 8
-          Width = 25
+          Width = 17
           Caption = '    '
           ParentColor = False
         end
@@ -1127,38 +1127,38 @@ object Form1: TForm1
         Left = 0
         Height = 130
         Top = 0
-        Width = 378
+        Width = 374
         Align = alTop
         ClientHeight = 130
-        ClientWidth = 378
+        ClientWidth = 374
         TabOrder = 0
         object Label19: TLabel
           Left = 8
-          Height = 19
+          Height = 15
           Top = 12
-          Width = 38
+          Width = 42
           Caption = 'Interet '
           ParentColor = False
         end
         object Label20: TLabel
           Left = 8
-          Height = 19
+          Height = 15
           Top = 36
-          Width = 52
+          Width = 63
           Caption = 'Instrument'
           ParentColor = False
         end
         object Label21: TLabel
           Left = 152
-          Height = 19
+          Height = 15
           Top = 36
-          Width = 22
+          Width = 27
           Caption = 'mm.'
           ParentColor = False
         end
         object ComboBox2: TComboBox
           Left = 80
-          Height = 26
+          Height = 22
           Top = 8
           Width = 121
           ItemHeight = 0
@@ -1175,7 +1175,7 @@ object Form1: TForm1
         end
         object ComboBox3: TComboBox
           Left = 80
-          Height = 26
+          Height = 22
           Top = 32
           Width = 57
           ItemHeight = 0
@@ -1223,9 +1223,9 @@ object Form1: TForm1
       end
       object ListBox1: TListBox
         Left = 0
-        Height = 354
+        Height = 346
         Top = 130
-        Width = 378
+        Width = 374
         Align = alClient
         ItemHeight = 0
         OnClick = ListBox1Click
