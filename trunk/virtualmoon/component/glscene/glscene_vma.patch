@@ -1,3 +1,16 @@
+Index: Source/GLScene.inc
+===================================================================
+--- Source/GLScene.inc	(révision 5953)
++++ Source/GLScene.inc	(copie de travail)
+@@ -59,7 +59,7 @@
+ {.$DEFINE GLS_NO_REGIONS}
+ 
+ // Activate Logging
+-{$DEFINE GLS_LOGGING}
++{.$DEFINE GLS_LOGGING}
+ 
+ // Activate OpenGL debug mode
+ {.$DEFINE GLS_OPENGL_DEBUG}
 Index: Source/Platform/GLLCLViewer.pas
 ===================================================================
 --- Source/Platform/GLLCLViewer.pas	(révision 5953)
