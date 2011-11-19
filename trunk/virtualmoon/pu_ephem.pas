@@ -51,6 +51,8 @@ var
 
 implementation
 
+{$R pu_ephem.lfm}
+
 { Tf_ephem }
 
 
@@ -211,9 +213,6 @@ begin
   end
   else ShowMessage('Invalid date range!');
 end;
-
-initialization
-  {$I pu_ephem.lrs}
 
 end.
 

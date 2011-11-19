@@ -68,6 +68,8 @@ var
 
 implementation
 
+{$R BigIma.lfm}
+
 uses u_util;
 
 
@@ -185,8 +187,5 @@ zoom:=0;
 titre:='';
 labeltext:='';
 end;
-
-initialization
-  {$i BigIma.lrs}
 
 end.

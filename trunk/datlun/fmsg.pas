@@ -47,6 +47,7 @@ var
 
 implementation
 
+{$R fmsg.lfm}
 
 { TMsgForm }
 
@@ -57,7 +58,4 @@ begin
   {$endif}
 end;
 
-initialization
-  {$i fmsg.lrs}
-
-end.
+end.

@@ -56,6 +56,7 @@ var
 
 implementation
 
+{$R vmabrowser3.lfm}
 
 uses u_constant, vmabrowser1;
 
@@ -114,8 +115,5 @@ begin
   ScaleForm(self,Screen.PixelsPerInch/96);
   {$endif}
 end;
-
-initialization
-  {$i vmabrowser3.lrs}
 
 end.

@@ -47,6 +47,7 @@ var
 
 implementation
 
+{$R fmsg.lfm}
 
 { TMsgForm }
 
@@ -56,8 +57,5 @@ begin
  ScaleForm(self,Screen.PixelsPerInch/96);
 {$endif}
 end;
-
-initialization
-  {$i fmsg.lrs}
 
 end.

@@ -111,6 +111,8 @@ var
 
 implementation
 
+{$R vmabrowser4.lfm}
+
 procedure TLoadCSV.SetLang;
 begin
   label9.Caption:=rst_17;
@@ -442,7 +444,4 @@ if Opendialog2.Execute then begin
 end;
 end;
 
-initialization
-  {$i vmabrowser4.lrs}
-
-end.
+end.

@@ -81,6 +81,8 @@ var
 
 implementation
 
+{$R glossary.lfm}
+
 uses u_constant, u_util, mlb2;
 
 var
@@ -495,7 +497,6 @@ begin
 end;
 
 initialization
-  {$i glossary.lrs}
   Gloss := nil;
 
 end.

@@ -345,6 +345,8 @@ const
 
 implementation
 
+{$R pu_moon.lfm}
+
 uses LCLProc, VectorGeometry, OpenGL1x, GLFile3DS;
 
 { Tf_moon }
@@ -2629,9 +2631,6 @@ end else begin
 end;
 
 end;
-
-initialization
-  {$i pu_moon.lrs}
 
 end.
 

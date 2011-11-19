@@ -1,7 +1,7 @@
 object f_features: Tf_features
-  Left = 499
+  Left = 518
   Height = 309
-  Top = 125
+  Top = 127
   Width = 410
   ActiveControl = Memo1
   BorderStyle = bsSizeToolWin
@@ -11,10 +11,10 @@ object f_features: Tf_features
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '0.9.28.3'
+  LCLVersion = '0.9.30.1'
   object Label1: TLabel
     Left = 17
-    Height = 16
+    Height = 1
     Top = 8
     Width = 1
     ParentColor = False
@@ -46,4 +46,4 @@ object f_features: Tf_features
     ModalResult = 1
     TabOrder = 2
   end
-end
+end

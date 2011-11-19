@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   InterfaceBase, LCLVersion, // version number
-  Forms, LResources, glscene_runtime, virtualmoon1, config,
+  Forms, glscene_runtime, virtualmoon1, config,
   CraterList, dbutil, fmsg, glossary, splashunit, telescope, SysUtils, TurboPowerIPro, u_constant, cu_tz, cu_planet,
   u_projection, u_util, pu_moon, u_translation_database, u_translation,
   uniqueinstance_package, pu_features, BigIma, uDE, mlb2, pu_ephem;
@@ -17,8 +17,9 @@ var i:integer;
 
 {$IFDEF WINDOWS}{$R atlun.rc}{$ENDIF}
 
+{$R *.res}
+
 begin
-  {$I atlun.lrs}
   Application.Initialize;
   compile_time:={$I %DATE%}+' '+{$I %TIME%};
   compile_version:='Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+LCLPlatformDirNames[WidgetSet.LCLPlatform];

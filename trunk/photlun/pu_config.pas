@@ -36,6 +36,8 @@ var
 
 implementation
 
+{$R pu_config.lfm}
+
 { Tf_config }
 
 procedure Tf_config.SetLang;
@@ -71,8 +73,5 @@ begin
   if (aCol=1)and(aRow<=2) then CanSelect:=False;
 end;
 
-initialization
-  {$I pu_config.lrs}
-
 end.
-
+

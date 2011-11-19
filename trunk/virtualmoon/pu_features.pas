@@ -33,6 +33,8 @@ var
 
 implementation
 
+{$R pu_features.lfm}
+
 procedure Tf_features.SetLang;
 begin
 caption:=rsCheckForOpti;
@@ -87,8 +89,5 @@ end;
 
 end;
 
-initialization
-  {$I pu_features.lrs}
-
 end.
-
+

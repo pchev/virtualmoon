@@ -7,9 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, catlun_main, dbutil, libsql, Printer4Lazarus,
-  TurboPowerIPro, glscenelazarus
-  { you can add units after this };
+  Forms, glscene_designtime, catlun_main, dbutil, fmsg, pu_moon, libsql,
+  Printer4Lazarus, TurboPowerIPro;
 
 begin
   Application.Initialize;

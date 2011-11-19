@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 520
+  Left = 367
   Height = 570
-  Top = 128
+  Top = 127
   Width = 885
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
@@ -463,7 +463,7 @@ object Form1: TForm1
           Width = 372
           Align = alBottom
           Caption = 'Profile'
-          ClientHeight = 18
+          ClientHeight = 4
           ClientWidth = 368
           TabOrder = 3
           object Label7: TLabel
@@ -480,7 +480,7 @@ object Form1: TForm1
         end
         object ComboBox1: TComboBox
           Left = 16
-          Height = 22
+          Height = 24
           Top = 4
           Width = 161
           DropDownCount = 15

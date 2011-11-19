@@ -5,7 +5,6 @@ unit pu_img;
 interface
 
 uses u_bitmap,
-  lazjpeg,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs,
   cu_zoomimage, ComCtrls, ExtCtrls;
 
@@ -59,6 +58,8 @@ var
   f_img: Tf_img;
 
 implementation
+
+{$R pu_img.lfm}
 
 procedure Tf_img.FormCreate(Sender: TObject);
 begin
@@ -173,9 +174,5 @@ if value<>Fimage then begin
 end;
 end;
 
-
-initialization
-  {$I pu_img.lrs}
-
 end.
-
+

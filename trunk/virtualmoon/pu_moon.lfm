@@ -1,7 +1,7 @@
 object f_moon: Tf_moon
-  Left = 345
+  Left = 382
   Height = 520
-  Top = 158
+  Top = 156
   Width = 748
   ActiveControl = Moon
   Caption = 'f_moon'

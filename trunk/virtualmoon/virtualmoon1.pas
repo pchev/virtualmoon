@@ -569,6 +569,8 @@ var
 
 implementation
 
+{$R virtualmoon1.lfm}
+
 uses
   telescope, config, splashunit, pu_features, pu_ephem,
   glossary, fmsg, dbutil, LCLProc;
@@ -5292,9 +5294,6 @@ begin
     activemoon.Overlay:='';
   end;
 end;
-
-initialization
-{$I virtualmoon1.lrs}
 
 end.
 

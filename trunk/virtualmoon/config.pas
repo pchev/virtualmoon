@@ -240,6 +240,8 @@ var
 
 implementation
 
+{$R config.lfm}
+
 uses u_util, pu_features;
 
 procedure TForm2.Setlang;
@@ -783,9 +785,6 @@ procedure TForm2.ComboBoxTZChange(Sender: TObject);
 begin
  obstz:=ComboBoxTZ.Text;
 end;
-
-initialization
-  {$i config.lrs}
 
 end.
 

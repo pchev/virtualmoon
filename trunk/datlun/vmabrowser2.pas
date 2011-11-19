@@ -103,6 +103,7 @@ var
 
 implementation
 
+{$R vmabrowser2.lfm}
 
 uses vmabrowser5, u_util, u_constant;
 
@@ -343,7 +344,4 @@ if SelectDB.modalresult=mrOk then begin
 end;
 end;
 
-initialization
-  {$i vmabrowser2.lrs}
-
-end.
+end.

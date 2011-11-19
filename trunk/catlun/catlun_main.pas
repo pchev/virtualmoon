@@ -476,6 +476,8 @@ const
 
 implementation
 
+{$R catlun_main.lfm}
+
 { Tf_catlun }
 
 procedure Tf_catlun.GetAppDir;
@@ -1968,9 +1970,6 @@ end else begin
   statusbar1.Panels[1].Text := '';
 end;
 end;
-
-initialization
-  {$I catlun_main.lrs}
 
 end.
 

@@ -1,7 +1,7 @@
 object Gloss: TGloss
-  Left = 323
+  Left = 360
   Height = 320
-  Top = 124
+  Top = 127
   Width = 480
   ActiveControl = TreeView1
   BorderStyle = bsSizeToolWin
@@ -15,7 +15,7 @@ object Gloss: TGloss
   KeyPreview = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '0.9.29'
+  LCLVersion = '0.9.30.1'
   object divBevel: TBevel
     Left = 0
     Height = 4

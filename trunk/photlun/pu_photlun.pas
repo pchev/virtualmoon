@@ -169,6 +169,8 @@ var
 
 implementation
 
+{$R pu_photlun.lfm}
+
 const
   ExitProMsg='Virtual_Moon_Atlas_Pro_exit';
 
@@ -1278,9 +1280,6 @@ finally
 inif.free;
 end;
 end;
-
-initialization
-  {$I pu_photlun.lrs}
 
 end.
 
