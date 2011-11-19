@@ -1,9 +1,9 @@
 object BigImaForm: TBigImaForm
-  Left = 393
+  Left = 425
   Height = 407
-  Top = 125
+  Top = 127
   Width = 615
-  Caption = 'Taille réelle'
+  Caption = 'Taille rÃ©elle'
   ClientHeight = 407
   ClientWidth = 615
   Font.Height = -11
@@ -13,7 +13,7 @@ object BigImaForm: TBigImaForm
   OnKeyPress = FormKeyPress
   OnMouseWheel = FormMouseWheel
   OnShow = FormShow
-  LCLVersion = '0.9.28.2'
+  LCLVersion = '0.9.30.1'
   object Image1: TImage
     Left = 0
     Height = 348
@@ -58,7 +58,7 @@ object BigImaForm: TBigImaForm
       OnClick = ToolButton3Click
     end
     object Label1: TLabel
-      Left = 211
+      Left = 201
       Height = 21
       Top = 2
       Width = 27

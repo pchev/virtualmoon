@@ -55,6 +55,7 @@ var
 
 implementation
 
+{$R vmabrowser5.lfm}
 
 uses u_constant;
 
@@ -156,7 +157,4 @@ for i:=0 to CheckListBox1.Items.Count-1 do begin
 end;
 end;
 
-initialization
-  {$i vmabrowser5.lrs}
-
-end.
+end.

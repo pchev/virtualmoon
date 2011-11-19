@@ -1,7 +1,7 @@
 object f_photo: Tf_photo
-  Left = 645
+  Left = 303
   Height = 449
-  Top = 66
+  Top = 127
   Width = 400
   BorderStyle = bsSizeToolWin
   Caption = 'Photlun'
@@ -11,12 +11,12 @@ object f_photo: Tf_photo
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.28.2'
+  LCLVersion = '0.9.30.1'
   object Image1: TImage
     Left = 0
-    Height = 392
+    Height = 389
     Top = 26
-    Width = 385
+    Width = 384
     Align = alClient
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
@@ -36,75 +36,75 @@ object f_photo: Tf_photo
     ShowHint = True
     TabOrder = 0
     object ToolButton1: TToolButton
-      Left = 59
+      Left = 55
       Top = 2
       ImageIndex = 0
       OnClick = zoomplusClick
     end
     object ToolButton2: TToolButton
-      Left = 82
+      Left = 78
       Top = 2
       ImageIndex = 1
       OnClick = zoomminusClick
     end
     object ToolButton3: TToolButton
-      Left = 232
+      Left = 224
       Top = 2
       ImageIndex = 7
       OnClick = ToolButton3Click
     end
     object ToolButton4: TToolButton
-      Left = 209
+      Left = 201
       Top = 2
       ImageIndex = 6
       OnClick = ToolButton4Click
     end
     object ToolButton5: TToolButton
-      Left = 267
+      Left = 255
       Top = 2
       ImageIndex = 8
       OnClick = ToolButton5Click
     end
     object ToolButton6: TToolButton
-      Left = 290
+      Left = 278
       Top = 2
       ImageIndex = 9
       OnClick = ToolButton6Click
     end
     object ToolButton7: TToolButton
-      Left = 313
+      Left = 301
       Top = 2
       ImageIndex = 10
       OnClick = ToolButton7Click
     end
     object ToolButton8: TToolButton
-      Left = 336
+      Left = 324
       Top = 2
       ImageIndex = 11
       OnClick = ToolButton8Click
     end
     object ToolButton9: TToolButton
-      Left = 163
+      Left = 155
       Top = 2
       ImageIndex = 5
-      Style = tbsCheck
       OnClick = flipybtnClick
+      Style = tbsCheck
     end
     object ToolButton10: TToolButton
-      Left = 186
+      Left = 178
       Top = 2
       ImageIndex = 4
-      Style = tbsCheck
       OnClick = flipxbtnClick
+      Style = tbsCheck
     end
     object ToolButton11: TToolButton
-      Left = 105
+      Left = 101
       Top = 2
       ImageIndex = 3
       OnClick = zoomminClick
     end
     object ToolButton12: TToolButton
-      Left = 128
+      Left = 124
       Top = 2
       ImageIndex = 2
       OnClick = zoommaxClick
@@ -124,29 +124,29 @@ object f_photo: Tf_photo
     object ToolButton15: TToolButton
       Left = 47
       Top = 2
-      Width = 12
+      Width = 8
       Caption = 'ToolButton15'
       Style = tbsSeparator
     end
     object ToolButton16: TToolButton
-      Left = 151
+      Left = 147
       Top = 2
-      Width = 12
+      Width = 8
       Caption = 'ToolButton16'
       Style = tbsSeparator
     end
     object ToolButton17: TToolButton
-      Left = 255
+      Left = 247
       Top = 2
-      Width = 12
+      Width = 8
       Caption = 'ToolButton17'
       Style = tbsSeparator
     end
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 16
-    Top = 433
+    Height = 18
+    Top = 431
     Width = 400
     Panels = <    
       item
@@ -159,8 +159,8 @@ object f_photo: Tf_photo
   end
   object HScrollBar: TScrollBar
     Left = 0
-    Height = 15
-    Top = 418
+    Height = 16
+    Top = 415
     Width = 400
     Align = alBottom
     PageSize = 0
@@ -168,10 +168,10 @@ object f_photo: Tf_photo
     OnChange = HScrollBarChange
   end
   object VScrollBar: TScrollBar
-    Left = 385
-    Height = 392
+    Left = 384
+    Height = 389
     Top = 26
-    Width = 15
+    Width = 16
     Align = alRight
     Kind = sbVertical
     PageSize = 0

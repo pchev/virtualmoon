@@ -1,7 +1,7 @@
 object Selection: TSelection
-  Left = 670
+  Left = 379
   Height = 379
-  Top = 368
+  Top = 221
   Width = 582
   ActiveControl = PageControl1
   Caption = 'Selection'
@@ -11,7 +11,7 @@ object Selection: TSelection
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '0.9.28.3'
+  LCLVersion = '0.9.30.1'
   object PageControl1: TPageControl
     Left = 16
     Height = 336
@@ -24,7 +24,7 @@ object Selection: TSelection
     OnPageChanged = PageControl1Change
     object TabSheet1: TTabSheet
       Caption = 'Predefined Selections'
-      ClientHeight = 310
+      ClientHeight = 300
       ClientWidth = 537
       object CheckListBox1: TCheckListBox
         Tag = 1
@@ -36,6 +36,7 @@ object Selection: TSelection
         ItemHeight = 0
         OnClickCheck = CheckListBox1ClickCheck
         TabOrder = 0
+        TopIndex = -1
       end
       object ButtonAll: TButton
         Left = 164
@@ -67,11 +68,12 @@ object Selection: TSelection
         ItemHeight = 0
         OnClickCheck = CheckListBox1ClickCheck
         TabOrder = 3
+        TopIndex = -1
       end
     end
     object TabSheet2: TTabSheet
       Caption = 'Column Value'
-      ClientHeight = 310
+      ClientHeight = 300
       ClientWidth = 537
       ImageIndex = 2
       TabVisible = False
@@ -89,7 +91,7 @@ object Selection: TSelection
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 192
+        ClientHeight = 206
         ClientWidth = 421
         ItemIndex = 0
         Items.Strings = (
@@ -114,7 +116,7 @@ object Selection: TSelection
         Height = 21
         Top = 8
         Width = 129
-        ItemHeight = 13
+        ItemHeight = 0
         OnChange = RadioGroup2Click
         TabOrder = 1
         TabStop = False
@@ -177,7 +179,7 @@ object Selection: TSelection
     end
     object TabSheet3: TTabSheet
       Caption = 'SQL Request'
-      ClientHeight = 310
+      ClientHeight = 300
       ClientWidth = 537
       ImageIndex = 1
       TabVisible = False
@@ -398,7 +400,7 @@ object Selection: TSelection
         Height = 21
         Top = 178
         Width = 129
-        ItemHeight = 13
+        ItemHeight = 0
         OnSelect = fieldlistSelect
         TabOrder = 17
         TabStop = False
@@ -428,9 +430,9 @@ object Selection: TSelection
   end
   object ExpertMode: TCheckBox
     Left = 44
-    Height = 19
+    Height = 26
     Top = 350
-    Width = 79
+    Width = 100
     Caption = 'Expert mode'
     OnClick = ExpertModeClick
     TabOrder = 3
@@ -445,4 +447,4 @@ object Selection: TSelection
     OnClick = Button19Click
     TabOrder = 4
   end
-end
+end

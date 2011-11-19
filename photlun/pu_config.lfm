@@ -1,7 +1,7 @@
 object f_config: Tf_config
-  Left = 290
+  Left = 244
   Height = 317
-  Top = 149
+  Top = 150
   Width = 444
   HorzScrollBar.Page = 443
   VertScrollBar.Page = 316
@@ -10,7 +10,7 @@ object f_config: Tf_config
   ClientWidth = 444
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '0.9.28.3'
+  LCLVersion = '0.9.30.1'
   object StringGrid1: TStringGrid
     Left = 0
     Height = 243
@@ -65,11 +65,11 @@ object f_config: Tf_config
     TabOrder = 2
     object Label1: TLabel
       Left = 13
-      Height = 16
+      Height = 15
       Top = 12
-      Width = 76
+      Width = 80
       Caption = 'Image folders:'
       ParentColor = False
     end
   end
-end
+end

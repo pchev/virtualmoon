@@ -138,6 +138,7 @@ var
 
 implementation
 
+{$R vmabrowser1.lfm}
 
 uses vmabrowser2, vmabrowser3, vmabrowser4, vmabrowser5;
 
@@ -1049,8 +1050,5 @@ currentselection:=trim(selection.sel.Text);
 Select;
 RefreshGrid;
 end;
-
-initialization
-  {$i vmabrowser1.lrs}
 
 end.

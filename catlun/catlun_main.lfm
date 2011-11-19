@@ -1,11 +1,11 @@
 object f_catlun: Tf_catlun
-  Left = 414
+  Left = 354
   Height = 727
-  Top = 111
+  Top = 112
   Width = 1074
   ActiveControl = PanelMoon
   Caption = 'f_catlun'
-  ClientHeight = 705
+  ClientHeight = 707
   ClientWidth = 1074
   Menu = MainMenu1
   OnClose = FormClose
@@ -13,10 +13,10 @@ object f_catlun: Tf_catlun
   OnResize = FormResize
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '0.9.29'
+  LCLVersion = '0.9.30.1'
   object PanelMoon: TPanel
     Left = 0
-    Height = 687
+    Height = 689
     Top = 0
     Width = 663
     Align = alClient
@@ -27,7 +27,7 @@ object f_catlun: Tf_catlun
   object StatusBar1: TStatusBar
     Left = 0
     Height = 18
-    Top = 687
+    Top = 689
     Width = 1074
     Panels = <    
       item
@@ -40,7 +40,7 @@ object f_catlun: Tf_catlun
   end
   object Notebook1: TPageControl
     Left = 663
-    Height = 687
+    Height = 689
     Top = 0
     Width = 411
     ActivePage = Page1
@@ -50,8 +50,8 @@ object f_catlun: Tf_catlun
     OnPageChanged = Notebook1PageChanged
     object Page1: TTabSheet
       Caption = 'Saisie'
-      ClientHeight = 659
-      ClientWidth = 407
+      ClientHeight = 653
+      ClientWidth = 403
       object Label1: TLabel
         Left = 214
         Height = 15
@@ -314,7 +314,7 @@ object f_catlun: Tf_catlun
       end
       object ComboBox1: TComboBox
         Left = 108
-        Height = 24
+        Height = 26
         Top = 30
         Width = 158
         ItemHeight = 0
@@ -403,7 +403,7 @@ object f_catlun: Tf_catlun
       end
       object ComboBox2: TComboBox
         Left = 109
-        Height = 24
+        Height = 26
         Top = 262
         Width = 271
         ItemHeight = 0
@@ -412,7 +412,7 @@ object f_catlun: Tf_catlun
       end
       object ComboBox3: TComboBox
         Left = 109
-        Height = 24
+        Height = 26
         Top = 286
         Width = 271
         ItemHeight = 0
@@ -421,7 +421,7 @@ object f_catlun: Tf_catlun
       end
       object ComboBox4: TComboBox
         Left = 110
-        Height = 24
+        Height = 26
         Top = 310
         Width = 271
         ItemHeight = 0
@@ -430,7 +430,7 @@ object f_catlun: Tf_catlun
       end
       object ComboBox5: TComboBox
         Left = 109
-        Height = 24
+        Height = 26
         Top = 334
         Width = 271
         ItemHeight = 0
@@ -439,7 +439,7 @@ object f_catlun: Tf_catlun
       end
       object ComboBox6: TComboBox
         Left = 109
-        Height = 24
+        Height = 26
         Top = 358
         Width = 271
         ItemHeight = 0
@@ -534,7 +534,7 @@ object f_catlun: Tf_catlun
       end
       object ComboBox7: TComboBox
         Left = 108
-        Height = 24
+        Height = 26
         Top = 54
         Width = 268
         ItemHeight = 0
@@ -543,7 +543,7 @@ object f_catlun: Tf_catlun
       end
       object ComboBox8: TComboBox
         Left = 109
-        Height = 24
+        Height = 26
         Top = 110
         Width = 271
         ItemHeight = 0
@@ -582,8 +582,8 @@ object f_catlun: Tf_catlun
     end
     object Page2: TTabSheet
       Caption = 'Contrôle'
-      ClientHeight = 659
-      ClientWidth = 407
+      ClientHeight = 653
+      ClientWidth = 403
       object Desc1: TIpHtmlPanel
         Left = 0
         Height = 582

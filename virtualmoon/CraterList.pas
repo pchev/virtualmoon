@@ -53,6 +53,8 @@ var
 
 implementation
 
+{$R CraterList.lfm}
+
 uses
      u_constant, virtualmoon1;
 
@@ -87,7 +89,4 @@ begin
 if key=27 then close;
 end;
 
-initialization
-  {$i CraterList.lrs}
-
-end.
+end.

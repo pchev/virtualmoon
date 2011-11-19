@@ -64,6 +64,7 @@ var
 
 implementation
 
+{$R splashunit.lfm}
 
 const nlin=40;
 var
@@ -231,8 +232,5 @@ procedure Tsplash.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 action:=caFree;
 end;
-
-initialization
-  {$i splashunit.lrs}
 
 end.

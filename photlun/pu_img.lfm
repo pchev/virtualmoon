@@ -1,5 +1,5 @@
 object f_img: Tf_img
-  Left = 245
+  Left = 263
   Height = 300
   Top = 159
   Width = 400
@@ -10,19 +10,27 @@ object f_img: Tf_img
   ClientWidth = 400
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  LCLVersion = '0.9.30.1'
   object ZoomImage1: TZoomImage
-    Height = 251
+    Left = 0
+    Height = 256
     Top = 26
     Width = 400
+    Canvas.AutoRedraw = False
     Canvas.Brush.Color = clBlack
     Zoom = 1
     ZoomMin = 1
     ZoomMax = 4
+    Xcentre = 0
+    Ycentre = 0
+    BGcolor = clBlack
     Align = alClient
     OnResize = ZoomImage1Resize
   end
   object ToolBar1: TToolBar
+    Left = 0
     Height = 26
+    Top = 0
     Width = 400
     Caption = 'ToolBar1'
     ShowCaptions = True
@@ -87,8 +95,9 @@ object f_img: Tf_img
     end
   end
   object StatusBar1: TStatusBar
-    Height = 23
-    Top = 277
+    Left = 0
+    Height = 18
+    Top = 282
     Width = 400
     Panels = <>
   end
@@ -99,4 +108,4 @@ object f_img: Tf_img
     left = 340
     top = 35
   end
-end
+end

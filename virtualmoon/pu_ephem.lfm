@@ -1,5 +1,5 @@
 object f_ephem: Tf_ephem
-  Left = 586
+  Left = 554
   Height = 240
   Top = 99
   Width = 320

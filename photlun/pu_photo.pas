@@ -123,6 +123,8 @@ var
 
 implementation
 
+{$R pu_photo.lfm}
+
 { Tf_photo }
 
 procedure Tf_photo.SetLang;
@@ -516,9 +518,6 @@ begin
  con:=con-10;
  DrawImg;
 end;
-
-initialization
-  {$I pu_photo.lrs}
 
 end.
 

@@ -8,9 +8,10 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   InterfaceBase, LCLVersion, // version number
-  Forms, LResources
-  { add your units here }, pu_photlun, pu_photo, u_translation, uniqueinstance_package,
-  pu_config, u_constant, u_bitmap, u_util;
+  Forms, LResources, imagesforlazarus
+  { add your units here }, pu_photlun, pu_photo, u_translation,
+  uniqueinstance_package, zoomimage, pu_config, u_constant, u_bitmap, u_util,
+  pu_img;
 
  var i:integer;
 

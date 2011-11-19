@@ -1,7 +1,7 @@
 object LoadCSV: TLoadCSV
-  Left = 247
+  Left = 284
   Height = 540
-  Top = 125
+  Top = 137
   Width = 696
   ActiveControl = PageControl1
   Caption = 'LoadCSV'
@@ -12,7 +12,7 @@ object LoadCSV: TLoadCSV
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '0.9.28.3'
+  LCLVersion = '0.9.30.1'
   object PageControl1: TPageControl
     Left = 0
     Height = 540
@@ -24,7 +24,7 @@ object LoadCSV: TLoadCSV
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Select File'
-      ClientHeight = 514
+      ClientHeight = 504
       ClientWidth = 688
       object Bevel3: TBevel
         Left = 16
@@ -49,31 +49,31 @@ object LoadCSV: TLoadCSV
       end
       object Label1: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 52
-        Width = 73
+        Width = 90
         Caption = 'Field separator:'
         ParentColor = False
       end
       object Label2: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 100
-        Width = 72
+        Width = 87
         Caption = 'Text separator:'
         ParentColor = False
       end
       object Label4: TLabel
         Left = 32
-        Height = 14
+        Height = 15
         Top = 176
-        Width = 87
+        Width = 109
         Caption = 'CSV file to import :'
         ParentColor = False
       end
       object Label5: TLabel
         Left = 32
-        Height = 14
+        Height = 1
         Top = 236
         Width = 1
         ParentColor = False
@@ -90,7 +90,7 @@ object LoadCSV: TLoadCSV
       end
       object Edit1: TEdit
         Left = 32
-        Height = 21
+        Height = 22
         Top = 200
         Width = 193
         OnChange = Edit1Change
@@ -108,10 +108,10 @@ object LoadCSV: TLoadCSV
       end
       object SepBox: TComboBox
         Left = 176
-        Height = 21
+        Height = 24
         Top = 48
         Width = 65
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           ';'
@@ -123,10 +123,10 @@ object LoadCSV: TLoadCSV
       end
       object QuoteBox: TComboBox
         Left = 176
-        Height = 21
+        Height = 24
         Top = 96
         Width = 65
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           ''
@@ -159,7 +159,7 @@ object LoadCSV: TLoadCSV
     end
     object TabSheet2: TTabSheet
       Caption = 'Select Data Field'
-      ClientHeight = 514
+      ClientHeight = 504
       ClientWidth = 688
       ImageIndex = 1
       object Bevel6: TBevel
@@ -229,6 +229,7 @@ object LoadCSV: TLoadCSV
         ItemHeight = 0
         OnClick = CheckListBox1Click
         TabOrder = 1
+        TopIndex = -1
       end
       object ConstantText: TEdit
         Left = 384
@@ -271,7 +272,7 @@ object LoadCSV: TLoadCSV
     end
     object TabSheet3: TTabSheet
       Caption = 'Load Database'
-      ClientHeight = 514
+      ClientHeight = 504
       ClientWidth = 688
       ImageIndex = 2
       object Bevel4: TBevel
@@ -387,4 +388,4 @@ object LoadCSV: TLoadCSV
     left = 640
     top = 144
   end
-end
+end
