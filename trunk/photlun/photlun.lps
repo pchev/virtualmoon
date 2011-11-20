@@ -11,7 +11,6 @@
         <TopLine Value="1"/>
         <CursorPos X="64" Y="13"/>
         <UsageCount Value="66"/>
-        <LoadedDesigner Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="pu_photlun.pas"/>
@@ -37,10 +36,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photo"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="106"/>
-        <CursorPos X="73" Y="118"/>
+        <TopLine Value="1"/>
+        <CursorPos X="24" Y="14"/>
         <UsageCount Value="42"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -61,7 +61,7 @@
         <UnitName Value="pu_config"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="34"/>
+        <TopLine Value="1"/>
         <CursorPos X="65" Y="45"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
@@ -96,18 +96,13 @@
       </Unit7>
       <Unit8>
         <Filename Value="pu_img.pas"/>
-        <IsPartOfProject Value="True"/>
         <ComponentName Value="f_img"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_img"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="8"/>
+        <CursorPos X="65" Y="21"/>
         <UsageCount Value="32"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="pu_vignette.pas"/>
@@ -463,7 +458,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="26" HistoryIndex="25">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="pu_photlun.pas"/>
         <Caret Line="38" Column="47" TopLine="28"/>
@@ -556,18 +551,6 @@
         <Filename Value="pu_photo.pas"/>
         <Caret Line="520" Column="1" TopLine="480"/>
       </Position23>
-      <Position24>
-        <Filename Value="pu_img.pas"/>
-        <Caret Line="176" Column="1" TopLine="136"/>
-      </Position24>
-      <Position25>
-        <Filename Value="pu_img.pas"/>
-        <Caret Line="55" Column="73" TopLine="32"/>
-      </Position25>
-      <Position26>
-        <Filename Value="pu_img.pas"/>
-        <Caret Line="8" Column="2" TopLine="1"/>
-      </Position26>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

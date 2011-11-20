@@ -1,7 +1,7 @@
 object f_img: Tf_img
-  Left = 263
+  Left = 293
   Height = 300
-  Top = 159
+  Top = 299
   Width = 400
   HorzScrollBar.Page = 399
   VertScrollBar.Page = 299
@@ -10,7 +10,7 @@ object f_img: Tf_img
   ClientWidth = 400
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '0.9.30.1'
+  LCLVersion = '0.9.30.3'
   object ZoomImage1: TZoomImage
     Left = 0
     Height = 256
