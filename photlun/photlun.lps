@@ -7,10 +7,13 @@
         <Filename Value="photlun.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="photlun"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="64" Y="13"/>
+        <CursorPos X="27" Y="13"/>
         <UsageCount Value="66"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="pu_photlun.pas"/>
@@ -36,11 +39,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photo"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="24" Y="14"/>
+        <CursorPos X="59" Y="5"/>
         <UsageCount Value="42"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -458,7 +460,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="23" HistoryIndex="22">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="pu_photlun.pas"/>
         <Caret Line="38" Column="47" TopLine="28"/>
@@ -551,6 +553,10 @@
         <Filename Value="pu_photo.pas"/>
         <Caret Line="520" Column="1" TopLine="480"/>
       </Position23>
+      <Position24>
+        <Filename Value="photlun.lpr"/>
+        <Caret Line="13" Column="64" TopLine="1"/>
+      </Position24>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
