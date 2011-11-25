@@ -143,7 +143,7 @@ if [[ $make_darwin_i386 ]]; then
   if [[ $? -ne 0 ]]; then exit 1;fi
   tar cvzf virtualmoon$updname-bin-macosx-i386-debug-$currentrev.tgz *
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon$updname-bin-*.tgz $wd
+  mv virtualmoon$updname-bin-*.tgz $wd/$outdir/
   if [[ $? -ne 0 ]]; then exit 1;fi
 
   cd $wd
