@@ -123,9 +123,11 @@ const
   MRT_BUFFERS: array[0..3] of GLenum = (GL_FRONT_LEFT, GL_AUX0, GL_AUX1, GL_AUX2);
 
 {$IFDEF FPC}
+{$IFDEF UNIX}
   {$IF (LCL_RELEASE < 31)}
     {$DEFINE GLS_GENERIC_PREFIX}
   {$IFEND}
+{$ENDIF}
 {$ENDIF}
 
 type

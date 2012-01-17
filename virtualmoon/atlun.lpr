@@ -15,8 +15,6 @@ uses
 
 var i:integer;
 
-{$IFDEF WINDOWS}{$R atlun.rc}{$ENDIF}
-
 {$R *.res}
 
 begin
