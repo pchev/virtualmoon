@@ -15,6 +15,7 @@
    is active in GLScene.inc and recompile.<p>
 
  <b>Historique : </b><font size=-1><ul>
+      <li>25/11/11 - YP - Assertion removed from AssignFromBitmap32
       <li>10/05/11 - Yar - Now VerticalReverseOnAssignFromBitmap works for AssignToBitmap
       <li>04/11/10 - DaStr - Restored Delphi5 and Delphi6 compatibility
       <li>18/07/10 - Yar - Raname TGLBitmap32 to TGLImage
@@ -2722,7 +2723,6 @@ var
   y: Integer;
   pSrc, pDest: PAnsiChar;
 begin
-  Assert((aBitmap32.Width and 3) = 0);
   UnMipmap;
   FLOD[0].Width := aBitmap32.Width;
   FLOD[0].Height := aBitmap32.Height;

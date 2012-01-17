@@ -14,16 +14,16 @@ object Form2: TForm2
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '0.9.30.1'
+  LCLVersion = '0.9.30.3'
   object PageControl1: TPageControl
     Left = 0
     Height = 429
     Top = 0
     Width = 373
-    ActivePage = TabSheet1
+    ActivePage = TabSheet4
     Align = alClient
     MultiLine = True
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheet1: TTabSheet
@@ -554,49 +554,49 @@ object Form2: TForm2
       ImageIndex = 4
       object Label19: TLabel
         Left = 45
-        Height = 19
+        Height = 15
         Top = 4
-        Width = 39
+        Width = 45
         Caption = 'Label19'
         ParentColor = False
       end
       object Label3: TLabel
         Left = 245
-        Height = 19
+        Height = 15
         Top = 4
-        Width = 56
+        Width = 65
         Caption = 'Zoom level'
         ParentColor = False
       end
       object Label29: TLabel
         Left = 223
-        Height = 19
+        Height = 15
         Top = 26
-        Width = 17
+        Width = 19
         Caption = '1-3'
         ParentColor = False
       end
       object Label36: TLabel
         Left = 253
-        Height = 19
+        Height = 15
         Top = 26
-        Width = 17
+        Width = 19
         Caption = '3-8'
         ParentColor = False
       end
       object Label37: TLabel
         Left = 285
-        Height = 19
+        Height = 15
         Top = 26
-        Width = 23
+        Width = 26
         Caption = '8-16'
         ParentColor = False
       end
       object Label38: TLabel
         Left = 317
-        Height = 19
+        Height = 15
         Top = 26
-        Width = 29
+        Width = 33
         Caption = '16-35'
         ParentColor = False
       end
@@ -633,7 +633,7 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 40
+        ClientHeight = 26
         ClientWidth = 337
         Columns = 2
         Items.Strings = (
@@ -745,9 +745,9 @@ object Form2: TForm2
       end
       object CheckBox3: TCheckBox
         Left = 11
-        Height = 22
+        Height = 26
         Top = 326
-        Width = 318
+        Width = 370
         Caption = 'CheckBox33333333333333333333333333333333333333333'
         TabOrder = 8
       end

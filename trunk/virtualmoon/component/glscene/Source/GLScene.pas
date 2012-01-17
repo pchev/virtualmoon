@@ -6,6 +6,7 @@
    Base classes and structures for GLScene.<p>
 
    <b>History : </b><font size=-1><ul>
+      <li>15/10/11 - YP - Don't set GLSelection buffer size, it's automatically done in the repeat until loop
       <li>02/09/11 - Yar - Added csPerspectiveKeepFOV to TGLCamera.CameraStyle (thanks benok1)
       <li>30/06/11 - DaStr - Bugfixed VisibilityCulling in vcObjectBased mode
       <li>04/05/11 - Vince - Fix picking problems with Ortho2D Camera
@@ -9121,7 +9122,8 @@ begin
     xgl.MapTexCoordToNull; // turn off
     PrepareRenderingMatrices(FViewPort, RenderDPI, @Rect);
     FSelector.Hits := -1;
-    FSelector.ObjectCountGuess := objectCountGuess;
+    if objectCountGuess > 0 then
+      FSelector.ObjectCountGuess := objectCountGuess;
     repeat
       FSelector.Start;
       // render the scene (in select mode, nothing is drawn)

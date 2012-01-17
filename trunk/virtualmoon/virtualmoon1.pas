@@ -5225,8 +5225,8 @@ procedure TForm1.MoonMoveEvent(Sender: TObject; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
 begin
 if OnMoon then begin
-  statusbar1.Panels[0].Text := rsm_10 + formatfloat(f1, Rad2Deg*Lon);
-  statusbar1.Panels[1].Text := rsm_11 + formatfloat(f1, Rad2Deg*Lat);
+  statusbar1.Panels[0].Text := rsm_10 + formatfloat(f3, Rad2Deg*Lon);
+  statusbar1.Panels[1].Text := rsm_11 + formatfloat(f3, Rad2Deg*Lat);
 end else begin
   statusbar1.Panels[0].Text := rsm_10;
   statusbar1.Panels[1].Text := rsm_11;

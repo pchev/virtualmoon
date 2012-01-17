@@ -7,6 +7,7 @@
    surface described by a moving curve.<p>
 
  <b>Historique : </b><font size=-1><ul>
+      <li>15/11/11 - Vince - Bugfixed issue with YOffsetPerTurn
       <li>07/05/11 - Yar - Fixed stColorMaterial state switching accordingly NodesColorMode
       <li>28/03/11 - Vince - Improve Normals generation on Pipes
       <li>28/03/11 - Vince - Improve Texture coordinates on Pipes Add Tile
@@ -582,6 +583,7 @@ var
     begin
       topBase[1] := topBase[1] + yOffset;
       bottomBase[1] := bottomBase[1] + yOffset;
+      yOffset := yOffset + deltaYOffset;
     end;
     CalcNormal(@topBase, @bottomBase, normal);
     SetLocalNormals;

@@ -1,26 +1,26 @@
 //
 // This unit is part of the GLScene Project, http://glscene.org
 //
-{: GLThorFX<p>
+{ : GLThorFX<p>
 
   <b>History : </b><font size=-1><ul>
-    <li>21/01/01 - DanB - Added "inherited" call to TGLBThorFX.WriteToFiler
-    <li>23/08/10 - Yar - Added OpenGLTokens to uses, replaced OpenGL1x functions to OpenGLAdapter
-    <li>14/06/10 - Yar - Bugfixed in TGLBThorFX.ReadFromFiler when assertion off (thanks olkondr)
-    <li>22/04/10 - Yar - Fixes after GLState revision
-    <li>05/03/10 - DanB - More state added to TGLStateCache
-    <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
-    <li>30/03/07 - DaStr - Added $I GLScene.inc
-    <li>16/03/07 - DaStr - Added explicit pointer dereferencing
-                           (thanks Burkhard Carstens) (Bugtracker ID = 1678644)
-    <li>13/02/07 - aidave - Updated Target.Style to csPoint
-    <li>23/12/04 - PhP - GLScenestyled Header
-    <li>06/04/04 - PhP - Removed property Paused use of property Disabled instead
-    <li>04/15/03 - Added initialization to CalcThor, to fix an error
-                   Thanks to Martin Kirsch for this solution
-    <li>12/08/01 - EG - Dropped unused Handle allocation (leftover from FirexFX)
-                        Fixed leaks (colors)
-    <li>09/03/01 - René Lindsay - unit created
+  <li>21/01/01 - DanB - Added "inherited" call to TGLBThorFX.WriteToFiler
+  <li>23/08/10 - Yar - Added OpenGLTokens to uses, replaced OpenGL1x functions to OpenGLAdapter
+  <li>14/06/10 - Yar - Bugfixed in TGLBThorFX.ReadFromFiler when assertion off (thanks olkondr)
+  <li>22/04/10 - Yar - Fixes after GLState revision
+  <li>05/03/10 - DanB - More state added to TGLStateCache
+  <li>06/06/07 - DaStr - Added GLColor to uses (BugtrackerID = 1732211)
+  <li>30/03/07 - DaStr - Added $I GLScene.inc
+  <li>16/03/07 - DaStr - Added explicit pointer dereferencing
+  (thanks Burkhard Carstens) (Bugtracker ID = 1678644)
+  <li>13/02/07 - aidave - Updated Target.Style to csPoint
+  <li>23/12/04 - PhP - GLScenestyled Header
+  <li>06/04/04 - PhP - Removed property Paused use of property Disabled instead
+  <li>04/15/03 - Added initialization to CalcThor, to fix an error
+  Thanks to Martin Kirsch for this solution
+  <li>12/08/01 - EG - Dropped unused Handle allocation (leftover from FirexFX)
+  Fixed leaks (colors)
+  <li>09/03/01 - René Lindsay - unit created
   </ul></font>
 }
 unit GLThorFX;
@@ -30,122 +30,131 @@ interface
 {$I GLScene.inc}
 
 uses Classes, GLScene, XCollection, VectorGeometry,
-    GLCadencer, GLColor, BaseClasses, GLCoordinates, GLRenderContextInfo,
-    GLManager, GLState, GLTextureFormat;
+  GLCadencer, GLColor, BaseClasses, GLCoordinates, GLRenderContextInfo,
+  GLManager, GLState, GLTextureFormat;
 
 type
   PThorpoint = ^TThorpoint;
+
   TThorpoint = record
-    Position: TVector;  // Position
-    Size: single;       // particle size
+    Position: TVector; // Position
+    Size: single; // particle size
   end;
 
   PThorpointArray = ^TThorpointArray;
-  TThorpointArray = array [0..MAXINT shr 6]of TThorpoint;
+  TThorpointArray = array [0 .. MAXINT shr 6] of TThorpoint;
 
   TGLBThorFX = class;
 
-  TCalcPointEvent = procedure(Sender: TObject;PointNo :integer; var x:single; var y:single; var z: single) of object;
+  TCalcPointEvent = procedure(Sender: TObject; PointNo: integer; var x: single;
+    var y: single; var z: single) of object;
 
-	// TGLThorFXManager
-	//
-  {: Thor special effect manager. }
-  TGLThorFXManager = class (TGLCadenceAbleComponent)
+  // TGLThorFXManager
+  //
+  { : Thor special effect manager. }
+  TGLThorFXManager = class(TGLCadenceAbleComponent)
   private
-  { Private Declarations }
-    FClients : TList;
-    FThorpoints : PThorpointArray;
-    FTarget : TGLCoordinates;
-    FCadencer : TGLCadencer;
-    FMaxpoints : Integer;
-    FGlowSize :Single;
-    FVibrate  :Single;
-    FWildness :Single;
-    NP : Integer;
+    { Private Declarations }
+    FClients: TList;
+    FThorpoints: PThorpointArray;
+    FTarget: TGLCoordinates;
+    FCadencer: TGLCadencer;
+    FMaxpoints: integer;
+    FGlowSize: single;
+    FVibrate: single;
+    FWildness: single;
+    NP: integer;
     FInnerColor, FOuterColor, FCoreColor: TGLColor;
-    FDisabled, FCore, FGlow : boolean;
-    FOnCalcPoint :TCalcPointEvent;
+    FDisabled, FCore, FGlow: boolean;
+    FOnCalcPoint: TCalcPointEvent;
   protected
-  { Protected Declarations }
+    { Protected Declarations }
     procedure RegisterClient(aClient: TGLBThorFX);
     procedure DeRegisterClient(aClient: TGLBThorFX);
     procedure DeRegisterAllClients;
     procedure SetTarget(const val: TGLCoordinates);
     procedure SetCadencer(const val: TGLCadencer);
-    procedure SetMaxpoints(const val: Integer);
-    function StoreGlowSize: Boolean;
-    function StoreVibrate: Boolean;
-    procedure SetInnerColor(const val: TGLcolor);
-    procedure SetOuterColor(const val: TGLcolor);
-    procedure SetCoreColor(const val: TGLcolor);
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
+    procedure SetMaxpoints(const val: integer);
+    function StoreGlowSize: boolean;
+    function StoreVibrate: boolean;
+    procedure SetInnerColor(const val: TGLColor);
+    procedure SetOuterColor(const val: TGLColor);
+    procedure SetCoreColor(const val: TGLColor);
+    procedure Notification(AComponent: TComponent;
+      Operation: TOperation); override;
     procedure ThorInit;
     procedure CalcThor;
-    procedure CalcFrac(left,right:integer; lh,rh :single; xyz:integer);
+    procedure CalcFrac(left, right: integer; lh, rh: single; xyz: integer);
   public
-  { Public Declarations }
+    { Public Declarations }
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure DoProgress(const progressTime : TProgressTimes); override;
+    procedure DoProgress(const progressTime: TProgressTimes); override;
   published
-  { Published Declarations }
+    { Published Declarations }
     property Target: TGLCoordinates read FTarget write SetTarget;
     property Cadencer: TGLCadencer read FCadencer write SetCadencer;
-    property Maxpoints: Integer read FMaxpoints write SetMaxpoints default 256;
-    property GlowSize: Single read FGlowSize write FGlowSize stored StoreGlowSize;
-    property Vibrate: Single read FVibrate write FVibrate stored StoreVibrate;
-    property InnerColor: TGLcolor read FInnerColor write SetInnerColor;
-    property OuterColor: TGLcolor read FOuterColor write SetOuterColor;// default clrWhite;
-    property CoreColor: TGLcolor read FCoreColor write SetCoreColor;// default clrWhite;
+    property Maxpoints: integer read FMaxpoints write SetMaxpoints default 256;
+    property GlowSize: single read FGlowSize write FGlowSize
+      stored StoreGlowSize;
+    property Vibrate: single read FVibrate write FVibrate stored StoreVibrate;
+    property InnerColor: TGLColor read FInnerColor write SetInnerColor;
+    property OuterColor: TGLColor read FOuterColor write SetOuterColor;
+    // default clrWhite;
+    property CoreColor: TGLColor read FCoreColor write SetCoreColor;
+    // default clrWhite;
     property Disabled: boolean read FDisabled write FDisabled;
     property Core: boolean read FCore write FCore;
     property Glow: boolean read FGlow write FGlow;
-    property Wildness: Single read FWildness write FWildness;
-    property OnCalcPoint :TCalcPointEvent read FOnCalcPoint write FOnCalcPoint;
-	end;
+    property Wildness: single read FWildness write FWildness;
+    property OnCalcPoint: TCalcPointEvent read FOnCalcPoint write FOnCalcPoint;
+  end;
 
- 	// TGLBThorFX
-	//
-	{: Thor special effect }
-	TGLBThorFX = class(TGLObjectPostEffect)
-	private
-  { Private Declarations }
-    FManager : TGLThorFXManager;
-    FManagerName : String; // NOT persistent, temporarily used for persistence
+  // TGLBThorFX
+  //
+  { : Thor special effect }
+  TGLBThorFX = class(TGLObjectPostEffect)
+  private
+    { Private Declarations }
+    FManager: TGLThorFXManager;
+    FManagerName: String; // NOT persistent, temporarily used for persistence
     FTarget: TGLCoordinates;
   protected
-  { Protected Declarations }
-    procedure SetManager(const val : TGLThorFXManager);
-    procedure WriteToFiler(writer : TWriter); override;
-    procedure ReadFromFiler(reader : TReader); override;
+    { Protected Declarations }
+    procedure SetManager(const val: TGLThorFXManager);
+    procedure WriteToFiler(writer: TWriter); override;
+    procedure ReadFromFiler(reader: TReader); override;
     procedure Loaded; override;
     procedure SetTarget(const val: TGLCoordinates);
   public
-  { Public Declarations }
-    constructor Create(aOwner : TXCollection); override;
+    { Public Declarations }
+    constructor Create(AOwner: TXCollection); override;
     destructor Destroy; override;
     procedure Assign(Source: TPersistent); override;
-    class function FriendlyName : String; override;
-		class function FriendlyDescription : String; override;
-    procedure Render(var rci : TRenderContextInfo); override;
+    class function FriendlyName: String; override;
+    class function FriendlyDescription: String; override;
+    procedure Render(var rci: TRenderContextInfo); override;
   published
-	{ Published Declarations }
-    {: Refers the collision manager. }
-    property Manager : TGLThorFXManager read FManager write SetManager;
-	end;
+    { Published Declarations }
+    { : Refers the collision manager. }
+    property Manager: TGLThorFXManager read FManager write SetManager;
+  end;
 
-{: Returns or creates the TGLBThorFX within the given object's effects.<p> }
-function GetOrCreateThorFX(obj : TGLBaseSceneObject; const name : String = '') : TGLBThorFX;
+  { : Returns or creates the TGLBThorFX within the given object's effects.<p> }
+function GetOrCreateThorFX(obj: TGLBaseSceneObject; const name: String = '')
+  : TGLBThorFX;
 
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 implementation
+
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils, OpenGLTokens, GLContext, VectorLists {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
+uses SysUtils, OpenGLTokens, GLContext, VectorLists {$IFDEF GLS_DELPHI},
+  VectorTypes{$ENDIF};
 
 
 // ------------------
@@ -161,16 +170,16 @@ begin
   RegisterManager(Self);
   FTarget := TGLCoordinates.CreateInitialized(Self, VectorMake(0, 1, 0));
   FTarget.Style := csPoint;
-  FMaxpoints:=64;
-  FGlowSize:=0.2;
-  FVibrate:=0;
-  FWildness:=1;
-  FInnerColor:=TGLColor.Create(Self);
+  FMaxpoints := 64;
+  FGlowSize := 0.2;
+  FVibrate := 0;
+  FWildness := 1;
+  FInnerColor := TGLColor.Create(Self);
   FInnerColor.Initialize(clrWhite);
-  FOuterColor:=TGLColor.Create(Self);
+  FOuterColor := TGLColor.Create(Self);
   FOuterColor.Initialize(clrBlue);
-  FOuterColor.Alpha:=0;
-  FCoreColor:=TGLColor.Create(Self);
+  FOuterColor.Alpha := 0;
+  FCoreColor := TGLColor.Create(Self);
   FCoreColor.Initialize(clrWhite);
   FCore := True;
   FGlow := True;
@@ -187,28 +196,30 @@ begin
   FreeAndNil(FClients);
   FreeAndNil(FInnerColor);
   FreeAndNil(FOuterColor);
-  FreeAndNil(FCoreColor);  
+  FreeAndNil(FCoreColor);
   FreeAndNil(FTarget);
-	inherited Destroy;
+  inherited Destroy;
 end;
 
 // RegisterClient
 //
-procedure TGLThorFXManager.RegisterClient(aClient : TGLBThorFX);
+procedure TGLThorFXManager.RegisterClient(aClient: TGLBThorFX);
 begin
   if Assigned(aClient) then
-    if FClients.IndexOf(aClient)<0 then begin
+    if FClients.IndexOf(aClient) < 0 then
+    begin
       FClients.Add(aClient);
-      aClient.FManager:=Self;
+      aClient.FManager := Self;
     end;
 end;
 
 // DeRegisterClient
 //
-procedure TGLThorFXManager.DeRegisterClient(aClient : TGLBThorFX);
+procedure TGLThorFXManager.DeRegisterClient(aClient: TGLBThorFX);
 begin
-  if Assigned(aClient) then begin
-    aClient.FManager:=nil;
+  if Assigned(aClient) then
+  begin
+    aClient.FManager := nil;
     FClients.Remove(aClient);
   end;
 end;
@@ -217,11 +228,11 @@ end;
 //
 procedure TGLThorFXManager.DeRegisterAllClients;
 var
-   i : Integer;
+  i: integer;
 begin
-   // Fast deregistration
-  for i:=0 to FClients.Count-1 do
-    TGLBThorFX(FClients[i]).FManager:=nil;
+  // Fast deregistration
+  for i := 0 to FClients.Count - 1 do
+    TGLBThorFX(FClients[i]).FManager := nil;
   FClients.Clear;
 end;
 
@@ -233,12 +244,13 @@ end;
 
 // SetCadencer
 //
-procedure TGLThorFXManager.SetCadencer(const val : TGLCadencer);
+procedure TGLThorFXManager.SetCadencer(const val: TGLCadencer);
 begin
-  if FCadencer<>val then begin
+  if FCadencer <> val then
+  begin
     if Assigned(FCadencer) then
       FCadencer.UnSubscribe(Self);
-    FCadencer:=val;
+    FCadencer := val;
     if Assigned(FCadencer) then
       FCadencer.Subscribe(Self);
   end;
@@ -246,79 +258,85 @@ end;
 
 // SetMaxpoints
 //
-procedure TGLThorFXManager.SetMaxpoints(const val : Integer);
+procedure TGLThorFXManager.SetMaxpoints(const val: integer);
 begin
-  if FMaxpoints<>val then begin
-    FMaxpoints:=val;
+  if FMaxpoints <> val then
+  begin
+    FMaxpoints := val;
     ThorInit;
   end;
 end;
 
 // StoreGlowSize
 //
-function TGLThorFXManager.StoreGlowSize : Boolean;
+function TGLThorFXManager.StoreGlowSize: boolean;
 begin
-  Result:=(FGlowSize<>1);
+  Result := (FGlowSize <> 1);
 end;
 
 // StoreGlowSize
 //
-function TGLThorFXManager.StoreVibrate : Boolean;
+function TGLThorFXManager.StoreVibrate: boolean;
 begin
-  Result:=(FVibrate<>1);
+  Result := (FVibrate <> 1);
 end;
 
 // SetInnerColor
 //
-procedure TGLThorFXManager.SetInnerColor(const val : TGLcolor);
+procedure TGLThorFXManager.SetInnerColor(const val: TGLColor);
 begin
-  if FInnerColor<>val then begin
-    FInnerColor.color:=val.color;
+  if FInnerColor <> val then
+  begin
+    FInnerColor.color := val.color;
     ThorInit;
   end;
 end;
 
 // SetOuterColor
 //
-procedure TGLThorFXManager.SetOuterColor(const val : TGLcolor);
+procedure TGLThorFXManager.SetOuterColor(const val: TGLColor);
 begin
-  if FOuterColor<>val then begin
-    FOuterColor.color:=val.color;
+  if FOuterColor <> val then
+  begin
+    FOuterColor.color := val.color;
     ThorInit;
   end;
 end;
 
 // SetOuterColor
 //
-procedure TGLThorFXManager.SetCoreColor(const val : TGLcolor);
+procedure TGLThorFXManager.SetCoreColor(const val: TGLColor);
 begin
-  if FCoreColor<>val then begin
-    FCoreColor.color:=val.color;
+  if FCoreColor <> val then
+  begin
+    FCoreColor.color := val.color;
     ThorInit;
   end;
 end;
 
 // Notification
 //
-procedure TGLThorFXManager.Notification(AComponent: TComponent; Operation: TOperation);
+procedure TGLThorFXManager.Notification(AComponent: TComponent;
+  Operation: TOperation);
 begin
-  if (Operation=opRemove) and (AComponent=FCadencer) then
-    Cadencer:=nil;
+  if (Operation = opRemove) and (AComponent = FCadencer) then
+    Cadencer := nil;
   inherited;
 end;
 
 // DoProgress
 //
-procedure TGLThorFXManager.DoProgress(const progressTime : TProgressTimes);
+procedure TGLThorFXManager.DoProgress(const progressTime: TProgressTimes);
 var
-  I: integer;
+  i: integer;
 
 begin
   if not FDisabled then
     CalcThor;
   // Invalidate all clients
-  for I := 0 to FClients.Count - 1 do
-    TGLBThorFX(FClients[I]).OwnerBaseSceneObject.NotifyChange(TGLBThorFX(FClients[i]));
+  for i := 0 to FClients.Count - 1 do
+    TGLBThorFX(FClients[i]).OwnerBaseSceneObject.NotifyChange
+      (TGLBThorFX(FClients[i]));
 end;
 
 // ThorInit
@@ -332,67 +350,77 @@ end;
 //
 procedure TGLThorFXManager.CalcThor;
 var
-   N : Integer;
-   vec, axs, nvec: TVector;
-   dist :single;
-   a,b :single;
-   len :single;
+  N: integer;
+  vec, axs, nvec: TVector;
+  dist: single;
+  a, b: single;
+  len: single;
 begin
- // initialise all points with valid data
- for N := 0 to Maxpoints-1 do
-   SetVector(FThorpoints^[N].Position,0,0,0);
+  // initialise all points with valid data
+  for N := 0 to Maxpoints - 1 do
+    SetVector(FThorpoints^[N].Position, 0, 0, 0);
 
- //------------------Calculate fractal (wildness)---------------
-//  SetVector(FThorpoints[0].Position,0,0,0);
-  SetVector(FThorpoints^[Maxpoints-1].Position,0,0,0);
+  // ------------------Calculate fractal (wildness)---------------
+  // SetVector(FThorpoints[0].Position,0,0,0);
+  SetVector(FThorpoints^[Maxpoints - 1].Position, 0, 0, 0);
 
-  CalcFrac(0,maxpoints-1,0,0,0);
-  CalcFrac(0,maxpoints-1,0,0,1);
-//  CalcFrac(0,maxpoints-1,0,FTarget.z,2);
+  CalcFrac(0, Maxpoints - 1, 0, 0, 0);
+  CalcFrac(0, Maxpoints - 1, 0, 0, 1);
+  // CalcFrac(0,maxpoints-1,0,FTarget.z,2);
 
- //---------------Rotate Vector to target-------------
- SetVector(nvec,FTarget.x,FTarget.y,FTarget.z);
- Len:=VectorLength(nvec);
- NormalizeVector(nvec);
- a:=ArcCos(nvec[2]);
- b:=ArcTan2(nvec[0],nvec[1]);
+  // ---------------Rotate Vector to target-------------
+  SetVector(nvec, FTarget.x, FTarget.y, FTarget.z);
+  len := VectorLength(nvec);
+  NormalizeVector(nvec);
+  a := ArcCos(nvec[2]);
+  b := ArcTan2(nvec[0], nvec[1]);
 
- N:=0;
- While (N<Maxpoints) do begin
-    dist:=N/Maxpoints*len;
-    vec:=FThorpoints^[N].Position;
-    vec[2]:=dist;
+  N := 0;
+  While (N < Maxpoints) do
+  begin
+    dist := N / Maxpoints * len;
+    vec := FThorpoints^[N].Position;
+    vec[2] := dist;
 
-    if Assigned(OnCalcPoint) then OnCalcPoint(self,N,Vec[0],vec[1],vec[2]); //Let user mess around with point position
+    if Assigned(OnCalcPoint) then
+      OnCalcPoint(Self, N, vec[0], vec[1], vec[2]);
+    // Let user mess around with point position
 
-    SetVector(axs,1,0,0);            //Rotate up
-    RotateVector(vec,axs,a);
-    SetVector(axs,0,0,1);            //Rotate to the sides
-    RotateVector(vec,axs,b);
-    FThorpoints^[N].Position:=vec;
+    SetVector(axs, 1, 0, 0); // Rotate up
+    RotateVector(vec, axs, a);
+    SetVector(axs, 0, 0, 1); // Rotate to the sides
+    RotateVector(vec, axs, b);
+    FThorpoints^[N].Position := vec;
     inc(N);
- end;
- //----------------------------------------------------
- NP:=Maxpoints;
+  end;
+  // ----------------------------------------------------
+  NP := Maxpoints;
 end;
 
-procedure TGLThorFXManager.CalcFrac(left,right:integer; lh,rh :single; xyz:integer);
-var midh :single;
-    mid :integer;
-    res :integer;
-    fracScale:single;
+procedure TGLThorFXManager.CalcFrac(left, right: integer; lh, rh: single;
+  xyz: integer);
+var
+  midh: single;
+  mid: integer;
+  res: integer;
+  fracScale: single;
 begin
- mid:=(left+right) div 2;
- res:=(left+right) mod 2;
- fracScale:=(right-left)/maxpoints;
- midh:= (lh+rh)/2 + (fracScale*FWildness*random)-(fracScale*FWildness)/2     ;
- FThorpoints^[mid].Position[xyz]:=midh+(FVibrate*Random-(FVibrate/2));
-// if res=1 then FThorpoints[right-1].Position[xyz]:=
-//    (FThorpoints[right].Position[xyz]+midh)/(right-mid)*(right-mid-1);
- if res=1 then FThorpoints^[right-1].Position[xyz]:=FThorpoints^[right].Position[xyz];
+  mid := (left + right) div 2;
+  res := (left + right) mod 2;
+  fracScale := (right - left) / Maxpoints;
+  midh := (lh + rh) / 2 + (fracScale * FWildness * random) -
+    (fracScale * FWildness) / 2;
+  FThorpoints^[mid].Position[xyz] := midh +
+    (FVibrate * random - (FVibrate / 2));
+  // if res=1 then FThorpoints[right-1].Position[xyz]:=
+  // (FThorpoints[right].Position[xyz]+midh)/(right-mid)*(right-mid-1);
+  if res = 1 then
+    FThorpoints^[right - 1].Position[xyz] := FThorpoints^[right].Position[xyz];
 
- if (mid-left)>1  then CalcFrac(left,mid,lh,midh,xyz);
- if (right-mid)>1 then CalcFrac(mid,right,midh,rh,xyz);
+  if (mid - left) > 1 then
+    CalcFrac(left, mid, lh, midh, xyz);
+  if (right - mid) > 1 then
+    CalcFrac(mid, right, midh, rh, xyz);
 end;
 
 // ------------------
@@ -401,9 +429,9 @@ end;
 
 // Create
 //
-constructor TGLBThorFX.Create(aOwner : TXCollection);
+constructor TGLBThorFX.Create(AOwner: TXCollection);
 begin
-  inherited Create(aOwner);
+  inherited Create(AOwner);
   FTarget := TGLCoordinates.CreateInitialized(Self, VectorMake(0, 1, 0));
   FTarget.Style := csPoint;
 end;
@@ -412,30 +440,31 @@ end;
 //
 destructor TGLBThorFX.Destroy;
 begin
-  Manager:=nil;
+  Manager := nil;
   FreeAndNil(FTarget);
   inherited Destroy;
 end;
 
 // FriendlyName
 //
-class function TGLBThorFX.FriendlyName : String;
+class function TGLBThorFX.FriendlyName: String;
 begin
-  Result:='ThorFX';
+  Result := 'ThorFX';
 end;
 
 // FriendlyDescription
 //
-class function TGLBThorFX.FriendlyDescription : String;
+class function TGLBThorFX.FriendlyDescription: String;
 begin
-  Result:='Thor FX';
+  Result := 'Thor FX';
 end;
 
 // WriteToFiler
 //
-procedure TGLBThorFX.WriteToFiler(writer : TWriter);
+procedure TGLBThorFX.WriteToFiler(writer: TWriter);
 begin
-  with writer do begin
+  with writer do
+  begin
     // ArchiveVersion 1, added inherited call
     WriteInteger(1);
     inherited;
@@ -448,17 +477,18 @@ end;
 
 // ReadFromFiler
 //
-procedure TGLBThorFX.ReadFromFiler(reader : TReader);
+procedure TGLBThorFX.ReadFromFiler(reader: TReader);
 var
-  archiveVersion: Integer;
+  archiveVersion: integer;
 begin
-  with reader do begin
+  with reader do
+  begin
     archiveVersion := ReadInteger;
-    Assert(archiveVersion in [0..1]);
+    Assert(archiveVersion in [0 .. 1]);
     if archiveVersion >= 1 then
       inherited;
-    FManagerName:=ReadString;
-    Manager:=nil;
+    FManagerName := ReadString;
+    Manager := nil;
   end;
 end;
 
@@ -466,15 +496,16 @@ end;
 //
 procedure TGLBThorFX.Loaded;
 var
-  mng : TComponent;
+  mng: TComponent;
 
 begin
   inherited;
-  if FManagerName<>'' then begin
-    mng:=FindManager(TGLThorFXManager, FManagerName);
+  if FManagerName <> '' then
+  begin
+    mng := FindManager(TGLThorFXManager, FManagerName);
     if Assigned(mng) then
-      Manager:=TGLThorFXManager(mng);
-    FManagerName:='';
+      Manager := TGLThorFXManager(mng);
+    FManagerName := '';
   end;
 end;
 
@@ -482,8 +513,9 @@ end;
 //
 procedure TGLBThorFX.Assign(Source: TPersistent);
 begin
-  if Source is TGLBThorFX then begin
-    Manager:=TGLBThorFX(Source).Manager;
+  if Source is TGLBThorFX then
+  begin
+    Manager := TGLBThorFX(Source).Manager;
   end;
   inherited Assign(Source);
 end;
@@ -497,9 +529,10 @@ end;
 
 // SetManager
 //
-procedure TGLBThorFX.SetManager(const val : TGLThorFXManager);
+procedure TGLBThorFX.SetManager(const val: TGLThorFXManager);
 begin
-  if val<>FManager then begin
+  if val <> FManager then
+  begin
     if Assigned(FManager) then
       FManager.DeRegisterClient(Self);
     if Assigned(val) then
@@ -509,155 +542,174 @@ end;
 
 // Render
 //
-procedure TGLBThorFX.Render(var rci : TRenderContextInfo);
+procedure TGLBThorFX.Render(var rci: TRenderContextInfo);
 var
-   N: Integer;
-   I: Integer;
-   //absPos :TVector;
-   innerColor : TVector;
-   distList : TSingleList;
-   objList : TList;
-   fp : PThorpoint;
-   mat : TMatrix;
+  N: integer;
+  i: integer;
+  // absPos :TVector;
+  InnerColor: TVector;
+  distList: TSingleList;
+  objList: TList;
+  fp: PThorpoint;
+  mat: TMatrix;
 
-   vx, vy : TVector;
-   m : Integer;
-   Icol, Ocol, Ccol :TColorVector;
-   Ppos, Ppos2 : TAffineVector;
+  vx, vy: TVector;
+  m: integer;
+  Icol, Ocol, Ccol: TColorVector;
+  Ppos, Ppos2: TAffineVector;
 begin
-   if Manager=nil then Exit;
+  if Manager = nil then
+    Exit;
 
-   GL.PushMatrix;
-   // we get the object position and apply translation...
-   //absPos:=OwnerBaseSceneObject.AbsolutePosition;
-   // ...should be removed when absolute coords will be handled directly
-   // in the point system (and will also make a better flame effect)
+  rci.PipelineTransformation.Push;
+  // we get the object position and apply translation...
+  // absPos:=OwnerBaseSceneObject.AbsolutePosition;
+  // ...should be removed when absolute coords will be handled directly
+  // in the point system (and will also make a better flame effect)
 
-   rci.GLStates.Disable(stCullFace);
-   rci.GLStates.ActiveTextureEnabled[ttTexture2D] := False;
-   rci.GLStates.Disable(stLighting);
-   rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
-   rci.GLStates.Enable(stBlend);
+  rci.GLStates.Disable(stCullFace);
+  rci.GLStates.ActiveTextureEnabled[ttTexture2D] := False;
+  rci.GLStates.Disable(stLighting);
+  rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
+  rci.GLStates.Enable(stBlend);
 
-   n := Manager.NP;
+  N := Manager.NP;
 
-   if n>1 then begin
-      distList:=TSingleList.Create;
-      objList:=TList.Create;
-      for i:=0 to n-1 do begin
-         fp:=@(Manager.FThorpoints[i]);
-         distList.Add(VectorDotProduct(rci.cameraDirection, fp^.Position));
-         objList.Add(fp);
-      end;
-      QuickSortLists(0, N-1, distList, objList);
+  if N > 1 then
+  begin
+    distList := TSingleList.Create;
+    objList := TList.Create;
+    for i := 0 to N - 1 do
+    begin
+      fp := @(Manager.FThorpoints[i]);
+      distList.Add(VectorDotProduct(rci.cameraDirection, fp^.Position));
+      objList.Add(fp);
+    end;
+    QuickSortLists(0, N - 1, distList, objList);
 
-      GL.GetFloatv(GL_MODELVIEW_MATRIX, @mat);
-      for m:=0 to 2 do begin
-          vx[m]:=mat[m][0]*Manager.GlowSize;
-          vy[m]:=mat[m][1]*Manager.GlowSize;
-      end;
+    mat := rci.PipelineTransformation.ModelViewMatrix;
+    for m := 0 to 2 do
+    begin
+      vx[m] := mat[m][0] * Manager.GlowSize;
+      vy[m] := mat[m][1] * Manager.GlowSize;
+    end;
 
-      GL.PushMatrix;
-      SetVector(innerColor, Manager.FInnerColor.Color);
+    SetVector(InnerColor, Manager.FInnerColor.color);
 
-      //---------------
-      rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
-      rci.GLStates.Enable(stBlend);
-      rci.GLStates.Enable(stLineSmooth);
-      rci.GLStates.Disable(stLighting);
-      //Stops particles at same distanceform overwriting each-other
-      rci.GLStates.DepthFunc := cfLEqual;
-      rci.GLStates.LineWidth := 3;
-      Icol:=Manager.FInnerColor.Color;
-      Ocol:=Manager.FOuterColor.color;
-      Ccol:=Manager.FCoreColor.color;
+    // ---------------
+    rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
+    rci.GLStates.Enable(stBlend);
+    rci.GLStates.Enable(stLineSmooth);
+    rci.GLStates.Disable(stLighting);
+    // Stops particles at same distanceform overwriting each-other
+    rci.GLStates.DepthFunc := cfLEqual;
+    rci.GLStates.LineWidth := 3;
+    Icol := Manager.FInnerColor.color;
+    Ocol := Manager.FOuterColor.color;
+    Ccol := Manager.FCoreColor.color;
 
-      //---Core Line---
-      if Manager.FCore then begin
+    // ---Core Line---
+    if Manager.FCore then
+    begin
       rci.GLStates.Disable(stBlend);
       GL.Color4fv(@Ccol);
       GL.Begin_(GL_LINE_STRIP);
-      for i:=0 to n-1 do begin
-          fp:=@(Manager.FThorpoints[i]);
-          SetVector(Ppos, fp^.position);
-          GL.Vertex3f(Ppos[0],Ppos[1],Ppos[2]);
+      for i := 0 to N - 1 do
+      begin
+        fp := @(Manager.FThorpoints[i]);
+        SetVector(Ppos, fp^.Position);
+        GL.Vertex3f(Ppos[0], Ppos[1], Ppos[2]);
       end;
       GL.End_;
-      end;//Core;
+    end; // Core;
 
-      //---Point Glow---
-       if Manager.FGlow then begin
-       rci.GLStates.Enable(stBlend);
-        for i:=n-1 downto 0 do begin
-          fp:=PThorpoint(objList[i]);
-          SetVector(Ppos, fp^.position);
-          fp:=@(Manager.FThorpoints[i]);
-          SetVector(Ppos2, fp^.position);
-          GL.Begin_(GL_TRIANGLE_FAN);
-            GL.Color4fv(@Icol);
-            GL.Vertex3f(ppos[0],ppos[1],ppos[2]);//middle1
-            GL.Color4fv(@Ocol);
-            GL.Vertex3f( vx[0]+vy[0]+ppos[0] , vx[1]+vy[1]+ppos[1] , vx[2]+vy[2]+ppos[2]   );//TopRight
-            GL.Vertex3f( vx[0]*1.4  +ppos[0] , vx[1]*1.4  +ppos[1] , vx[2]*1.4  +ppos[2]   );//Right1
-            GL.Vertex3f( vx[0]-vy[0]+ppos[0] , vx[1]-vy[1]+ppos[1] , vx[2]-vy[2]+ppos[2]   );//BottomRight
-            GL.Vertex3f(-vy[0]*1.4  +ppos[0] ,-vy[1]*1.4  +ppos[1] ,-vy[2]*1.4  +ppos[2]   );//bottom1
-            GL.Vertex3f(-vx[0]-vy[0]+ppos[0] ,-vx[1]-vy[1]+ppos[1] ,-vx[2]-vy[2]+ppos[2]   );//BottomLeft
-            GL.Vertex3f(-vx[0]*1.4  +ppos[0] ,-vx[1]*1.4  +ppos[1] ,-vx[2]*1.4  +ppos[2]   );//left1
-            GL.Vertex3f(-vx[0]+vy[0]+ppos[0] ,-vx[1]+vy[1]+ppos[1] ,-vx[2]+vy[2]+ppos[2]   );//TopLeft
-            GL.Vertex3f( vy[0]*1.4  +ppos[0] , vy[1]*1.4  +ppos[1] , vy[2]*1.4  +ppos[2]   );//top1
-            GL.Vertex3f( vx[0]+vy[0]+ppos[0] , vx[1]+vy[1]+ppos[1] , vx[2]+vy[2]+ppos[2]   );//TopRight
-         GL.End_;
-       end;//Glow
-      end;
+    // ---Point Glow---
+    if Manager.FGlow then
+    begin
+      rci.GLStates.Enable(stBlend);
+      for i := N - 1 downto 0 do
+      begin
+        fp := PThorpoint(objList[i]);
+        SetVector(Ppos, fp^.Position);
+        fp := @(Manager.FThorpoints[i]);
+        SetVector(Ppos2, fp^.Position);
+        GL.Begin_(GL_TRIANGLE_FAN);
+        GL.Color4fv(@Icol);
+        GL.Vertex3f(Ppos[0], Ppos[1], Ppos[2]); // middle1
+        GL.Color4fv(@Ocol);
+        GL.Vertex3f(vx[0] + vy[0] + Ppos[0], vx[1] + vy[1] + Ppos[1],
+          vx[2] + vy[2] + Ppos[2]); // TopRight
+        GL.Vertex3f(vx[0] * 1.4 + Ppos[0], vx[1] * 1.4 + Ppos[1],
+          vx[2] * 1.4 + Ppos[2]); // Right1
+        GL.Vertex3f(vx[0] - vy[0] + Ppos[0], vx[1] - vy[1] + Ppos[1],
+          vx[2] - vy[2] + Ppos[2]); // BottomRight
+        GL.Vertex3f(-vy[0] * 1.4 + Ppos[0], -vy[1] * 1.4 + Ppos[1],
+          -vy[2] * 1.4 + Ppos[2]); // bottom1
+        GL.Vertex3f(-vx[0] - vy[0] + Ppos[0], -vx[1] - vy[1] + Ppos[1],
+          -vx[2] - vy[2] + Ppos[2]); // BottomLeft
+        GL.Vertex3f(-vx[0] * 1.4 + Ppos[0], -vx[1] * 1.4 + Ppos[1],
+          -vx[2] * 1.4 + Ppos[2]); // left1
+        GL.Vertex3f(-vx[0] + vy[0] + Ppos[0], -vx[1] + vy[1] + Ppos[1],
+          -vx[2] + vy[2] + Ppos[2]); // TopLeft
+        GL.Vertex3f(vy[0] * 1.4 + Ppos[0], vy[1] * 1.4 + Ppos[1],
+          vy[2] * 1.4 + Ppos[2]); // top1
+        GL.Vertex3f(vx[0] + vy[0] + Ppos[0], vx[1] + vy[1] + Ppos[1],
+          vx[2] + vy[2] + Ppos[2]); // TopRight
+        GL.End_;
+      end; // Glow
+    end;
 
-      GL.PopMatrix;
-
-      objList.Free;
-      distList.Free;
-   end;
-   GL.PopMatrix;
+    objList.Free;
+    distList.Free;
+  end;
+  rci.PipelineTransformation.Pop;
 end;
 
 // GetOrCreateThorFX
 //
-function GetOrCreateThorFX(obj : TGLBaseSceneObject; const name : String = '') : TGLBThorFX;
+function GetOrCreateThorFX(obj: TGLBaseSceneObject; const name: String = '')
+  : TGLBThorFX;
 var
-	i : Integer;
+  i: integer;
 begin
-   with obj.Effects do begin
-      if name='' then begin
-      	i:=IndexOfClass(TGLBThorFX);
-      	if i>=0 then
-	      	Result:=TGLBThorFX(Items[i])
-      	else Result:=TGLBThorFX.Create(obj.Effects);
-      end else begin
-         i:=IndexOfName(name);
-         if i>=0 then
-            Result:=(Items[i] as TGLBThorFX)
-         else begin
-            Result:=TGLBThorFX.Create(obj.Effects);
-            Result.Name:=name;
-         end;
+  with obj.Effects do
+  begin
+    if name = '' then
+    begin
+      i := IndexOfClass(TGLBThorFX);
+      if i >= 0 then
+        Result := TGLBThorFX(Items[i])
+      else
+        Result := TGLBThorFX.Create(obj.Effects);
+    end
+    else
+    begin
+      i := IndexOfName(name);
+      if i >= 0 then
+        Result := (Items[i] as TGLBThorFX)
+      else
+      begin
+        Result := TGLBThorFX.Create(obj.Effects);
+        Result.name := name;
       end;
-   end;
+    end;
+  end;
 end;
-
-
 
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 initialization
+
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-	// class registrations
-	RegisterXCollectionItemClass(TGLBThorFX);
+// class registrations
+RegisterXCollectionItemClass(TGLBThorFX);
 
 finalization
 
-	UnregisterXCollectionItemClass(TGLBThorFX);
+UnregisterXCollectionItemClass(TGLBThorFX);
 
 end.
-

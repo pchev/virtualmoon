@@ -3188,9 +3188,15 @@ procedure TGLStateCache.CallList(list: TGLuint);
 begin
   while High(FListStates) < Integer(list) do
     SetLength(FListStates, 2 * Length(FListStates));
-  PushAttrib(FListStates[list - 1]);
-  GL.CallList(list);
-  PopAttrib;
+
+  if FListStates[list - 1] <> [] then
+  begin
+    PushAttrib(FListStates[list - 1]);
+    GL.CallList(list);
+    PopAttrib;
+  end
+  else
+    GL.CallList(list);
 end;
 
 procedure TGLStateCache.SetUniformBufferBinding(const Value: TGLuint);

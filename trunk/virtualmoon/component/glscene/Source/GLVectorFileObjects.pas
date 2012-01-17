@@ -3032,7 +3032,7 @@ begin
     WriteInteger(0); // Archive Version 0
     WriteString(FName);
     WriteInteger(FBoneID);
-    WriteInteger(FColor);
+    WriteInteger(Integer(FColor));
   end;
 end;
 
@@ -3050,7 +3050,7 @@ begin
     begin
       FName := ReadString;
       FBoneID := ReadInteger;
-      FColor := ReadInteger;
+      FColor := Cardinal(ReadInteger);
     end
   else
     RaiseFilerException(archiveVersion);

@@ -155,6 +155,7 @@ end;
 destructor TGLWindowsBitmapFont.Destroy;
 begin
   FFont.Free;
+  Ranges.Clear; 
   inherited;
 end;
 

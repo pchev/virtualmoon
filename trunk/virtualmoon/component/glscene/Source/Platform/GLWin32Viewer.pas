@@ -6,6 +6,7 @@
    Win32 specific Scene viewer.<p>
 
  <b>History : </b><font size=-1><ul>
+      <li>28/09/11 - YP - Added support for keyboard arrows via WM_GETDLGCODE
       <li>23/08/10 - Yar - Moved TVSyncMode to GLContext
       <li>22/12/09 - DaStr - Published TabStop, TabOrder, OnEnter, OnExit
                               properties (thanks Yury Plashenkov)
@@ -78,6 +79,7 @@ type
     procedure WMEraseBkgnd(var Message: TWMEraseBkgnd); message WM_ERASEBKGND;
     procedure WMPaint(var Message: TWMPaint); message WM_PAINT;
     procedure WMSize(var Message: TWMSize); message WM_SIZE;
+    procedure WMGetDglCode(var Message: TMessage); message WM_GETDLGCODE;
     procedure WMDestroy(var Message: TWMDestroy); message WM_DESTROY;
 
     procedure CMMouseEnter(var msg: TMessage); message CM_MOUSEENTER;
@@ -188,6 +190,9 @@ type
     property OnMouseWheel;
     property OnMouseWheelDown;
     property OnMouseWheelUp;
+
+    property OnKeyDown;
+    property OnKeyUp;
 
     property OnContextPopup;
     property TabStop;
@@ -391,6 +396,7 @@ begin
     inherited;
 end;
 
+
 // WMSize
 //
 
@@ -425,6 +431,15 @@ begin
     EndPaint(Handle, PS);
     Message.Result := 0;
   end;
+end;
+
+
+// WMGetDglCode
+//
+
+procedure TGLSceneViewer.WMGetDglCode(var Message: TMessage);
+begin
+  Message.Result := Message.Result or DLGC_WANTARROWS;
 end;
 
 // WMDestroy

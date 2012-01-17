@@ -66,7 +66,7 @@ var
   ti, tni : Single;
 begin
   if (t=0) and (i=0) then ti:=1 else ti:=Power(t,i);
-  if (n=i) and (t=1) then tni:=1 else tni:=Power(1-t,n-i);
+  if (n=i) and (t=1) then tni:=1 else tni:=Power(single(1-t),integer(n-i));
   Result:=(Factorial(n)/(Factorial(i)*Factorial(n-i)))*ti*tni;
 end;
 

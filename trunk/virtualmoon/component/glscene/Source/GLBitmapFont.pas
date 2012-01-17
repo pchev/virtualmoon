@@ -404,8 +404,9 @@ begin
     FStopASCII := TBitmapFontRange(Source).FStopASCII;
     FStartGlyphIdx := TBitmapFontRange(Source).FStartGlyphIdx;
     NotifyChange;
-  end;
-  inherited;
+  end
+  else
+    inherited;
 end;
 
 // NotifyChange

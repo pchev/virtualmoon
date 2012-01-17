@@ -17,7 +17,7 @@ units=vmacomponents.pas
 
 [compiler]
 unittargetdir=lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
-unitdir=uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)/ enhedits/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ libsql/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ ./
+unitdir=uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)/ enhedits/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ glscene/Lazarus/lib/$(CPU_TARGET)-$(OS_TARGET) libsql/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ ./
 includedir=./
 options=-dUseCThreads -dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi
 

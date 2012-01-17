@@ -16,7 +16,7 @@ packages=rtl
 [compiler]
 unittargetdir=units/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
 includedir=./
-options= $(opt_target) -dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi -Ch100000 -g -gl -WG -vewni -l 
+options= $(opt_target) -dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi -Ch100000 -g -gl -vewni -l 
 unitdir=../virtualmoon/component/uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)/ ../virtualmoon/component/libsql/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ ../virtualmoon/component/enhedits/lib/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/images/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/components/turbopower_ipro/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/printers/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ ./
 
 [clean]

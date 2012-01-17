@@ -641,26 +641,29 @@ begin
     vx[i] := mat[i][0] * FParticleSize;
     vy[i] := mat[i][1] * FParticleSize;
   end;
-  GL.Begin_(GL_TRIANGLE_FAN);
-  GL.Vertex3fv(@NullVector);
-  GL.Color4f(Color2[0], Color2[1], Color2[2], 0.0);
-  GL.Vertex3f(-vx[0], -vx[1], -vx[2]);
-  // those things should be composited in the model view matrix
-  GL.Vertex3f(-0.5 * vx[0] + FFireEvaporation * vy[0],
-    -0.5 * vx[1] + FFireEvaporation * vy[1],
-    -0.5 * vx[2] + FFireEvaporation * vy[2]);
-  GL.Vertex3f(+0.5 * vx[0] + FFireEvaporation * vy[0],
-    +0.5 * vx[1] + FFireEvaporation * vy[1],
-    +0.5 * vx[2] + FFireEvaporation * vy[2]);
-  GL.Vertex3f(+vx[0], +vx[1], +vx[2]);
-  GL.Vertex3f(+0.5 * vx[0] - FFireEvaporation * vy[0],
-    +0.5 * vx[1] - FFireEvaporation * vy[1],
-    +0.5 * vx[2] - FFireEvaporation * vy[2]);
-  GL.Vertex3f(-0.5 * vx[0] - FFireEvaporation * vy[0],
-    -0.5 * vx[1] - FFireEvaporation * vy[1],
-    -0.5 * vx[2] - FFireEvaporation * vy[2]);
-  GL.Vertex3f(-vx[0], -vx[1], -vx[2]);
-  GL.End_;
+  with GL do
+  begin
+    Begin_(GL_TRIANGLE_FAN);
+    Vertex3fv(@NullVector);
+    Color4f(Color2[0], Color2[1], Color2[2], 0.0);
+    Vertex3f(-vx[0], -vx[1], -vx[2]);
+    // those things should be composited in the model view matrix
+    Vertex3f(-0.5 * vx[0] + FFireEvaporation * vy[0],
+      -0.5 * vx[1] + FFireEvaporation * vy[1],
+      -0.5 * vx[2] + FFireEvaporation * vy[2]);
+    Vertex3f(+0.5 * vx[0] + FFireEvaporation * vy[0],
+      +0.5 * vx[1] + FFireEvaporation * vy[1],
+      +0.5 * vx[2] + FFireEvaporation * vy[2]);
+    Vertex3f(+vx[0], +vx[1], +vx[2]);
+    Vertex3f(+0.5 * vx[0] - FFireEvaporation * vy[0],
+      +0.5 * vx[1] - FFireEvaporation * vy[1],
+      +0.5 * vx[2] - FFireEvaporation * vy[2]);
+    Vertex3f(-0.5 * vx[0] - FFireEvaporation * vy[0],
+      -0.5 * vx[1] - FFireEvaporation * vy[1],
+      -0.5 * vx[2] - FFireEvaporation * vy[2]);
+    Vertex3f(-vx[0], -vx[1], -vx[2]);
+    End_;
+  end;
 end;
 
 // ------------------
@@ -790,7 +793,6 @@ var
   distList: TSingleList;
   objList: TList;
   fp: PFireParticle;
-  FHandle: Integer;
 begin
   if Manager = nil then
     Exit;
@@ -800,14 +802,16 @@ begin
   if Assigned(Manager.Reference) then
     rci.PipelineTransformation.ModelMatrix := IdentityHmgMatrix;
 
+  rci.GLStates.CurrentProgram := 0;
   rci.GLStates.Disable(stCullFace);
   rci.GLStates.ActiveTextureEnabled[ttTexture2D] := False;
   rci.GLStates.Disable(stLighting);
   rci.GLStates.SetBlendFunc(bfSrcAlpha, bfOne);
   rci.GLStates.Enable(stBlend);
+  rci.GLStates.Disable(stAlphaTest);
+  rci.GLStates.Enable(stDepthTest);
   rci.GLStates.DepthFunc := cfLEqual;
-  if Manager.NoZWrite then
-    rci.GLStates.DepthWriteMask := False;
+  rci.GLStates.DepthWriteMask := not Manager.NoZWrite;
 
   n := Manager.NP;
 
@@ -823,13 +827,6 @@ begin
     end;
     QuickSortLists(0, N - 1, distList, objList);
 
-    FHandle := GL.GenLists(1);
-    try
-      rci.GLStates.NewList(FHandle, GL_COMPILE);
-      Manager.AffParticle3d(Manager.FOuterColor.Color, rci.PipelineTransformation.ViewMatrix);
-      rci.GLStates.EndList;
-
-      GL.PushMatrix;
       lastTr := NullVector;
       SetVector(innerColor, Manager.FInnerColor.Color);
       for i := n - 1 downto 0 do
@@ -839,18 +836,13 @@ begin
         SetVector(lastTr, fp^.Position);
         innerColor[3] := fp^.Alpha * fp^.TimeToLive / Sqr(fp^.LifeLength);
         GL.Color4fv(@innerColor);
-        rci.GLStates.CallList(FHandle);
+        Manager.AffParticle3d(Manager.FOuterColor.Color, rci.PipelineTransformation.ViewMatrix);
       end;
-      GL.PopMatrix;
-    finally
-      GL.DeleteLists(FHandle, 1);
-    end;
 
     objList.Free;
     distList.Free;
   end;
 
-  rci.GLStates.DepthFunc := cfLess;
   rci.PipelineTransformation.Pop;
 end;
 

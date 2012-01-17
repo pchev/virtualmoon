@@ -753,7 +753,7 @@ end;
 procedure TGLCustomShaderParameter.SetAsTexture(
   const TextureIndex: Integer; const Value: TGLTexture);
 begin
-  SetAsCustomTexture(TextureIndex, Value.Image.NativeTextureTarget, Value.Handle);
+  SetAsCustomTexture(TextureIndex, Value.TextureHandle.Target, Value.Handle);
 end;
 
 procedure TGLCustomShaderParameter.SetAsTexture1D(

@@ -160,6 +160,7 @@ type
   {: Position (X, Y and X) is in absolute coordinates. This component converts
      them to screen coordinates and renderes text there. }
   TGLAbsoluteHUDText = class(TGLHUDText)
+  public
     procedure DoRender(var rci: TRenderContextInfo;
       renderSelf, renderChildren: Boolean); override;
   end;
