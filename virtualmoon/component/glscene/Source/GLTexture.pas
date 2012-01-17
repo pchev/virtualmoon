@@ -3224,8 +3224,7 @@ begin
     and not rci.GLStates.ForwardContext then
   begin
     // Multisample image do not work with FFP
-    if (FTextureHandle.Target = ttTexture2DMultisample) or
-      (FTextureHandle.Target = ttTexture2DMultisampleArray) then
+    if FTextureHandle.Target in [ttNoShape, ttTexture2DMultisample, ttTexture2DMultisampleArray] then
       exit;
     with rci.GLStates do
     begin
@@ -3346,7 +3345,8 @@ begin
     FSamplerHandle.AllocateHandle;
 
   // bind texture
-  if IsTargetSupported(FTextureHandle.Target) then
+  if (FTextureHandle.Target <> ttNoShape) and
+    IsTargetSupported(FTextureHandle.Target) then
   begin
     if FSamplerHandle.IsDataNeedUpdate then
     begin

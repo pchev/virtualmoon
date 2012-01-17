@@ -269,10 +269,10 @@ begin
   begin
     if lCamera.CameraStyle = csOrthogonal then
       lCamera.FocalLength := FGLSceneViewer.Camera.FocalLength
-        / Power(FZoomSpeed, Sign * WheelDelta div Abs(WheelDelta))
+        / Power(FZoomSpeed, integer(Sign * WheelDelta div Abs(WheelDelta)))
     else
       lCamera.AdjustDistanceToTarget(
-        Power(FZoomSpeed, Sign * WheelDelta div Abs(WheelDelta)));
+        Power(FZoomSpeed, integer(Sign * WheelDelta div Abs(WheelDelta))));
   end;
 
   if snoMouseWheelHandled in FOptions then

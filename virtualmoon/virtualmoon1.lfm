@@ -162,7 +162,7 @@ object Form1: TForm1
   OnResize = FormResize
   OnShow = FormShow
   Position = poDefaultPosOnly
-  LCLVersion = '0.9.30.1'
+  LCLVersion = '0.9.30.3'
   object Memo2: TMemo
     Left = 64
     Height = 41
@@ -1229,6 +1229,7 @@ object Form1: TForm1
         Align = alClient
         ItemHeight = 0
         OnClick = ListBox1Click
+        ScrollWidth = 370
         Sorted = True
         TabOrder = 1
         TopIndex = -1

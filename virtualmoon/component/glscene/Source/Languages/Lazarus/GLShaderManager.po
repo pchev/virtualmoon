@@ -1,0 +1,7 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: glshadermanager.glswrongmethodcall
+msgid "This method must be called between BeginWork...EndWork!"
+msgstr ""
+

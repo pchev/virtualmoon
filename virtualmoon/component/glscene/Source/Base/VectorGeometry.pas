@@ -31,6 +31,7 @@
    all Intel processors after Pentium should be immune to this.<p>
 
 	<b>History : </b><font size=-1><ul>
+      <li>19/12/11 - Yar - Added VectorAdd for 2d vector (thanks microalexx)
       <li>10/06/11 - DaStr - Added some Vector2f routines
                              Overloaded some procedures to accept both 3f and 4f vectors
                              Marked some methods as inline
@@ -689,7 +690,7 @@ function VectorMoreEqualThen(const SourceVector: TVector4s; const ComparedNumber
 function VectorLessThen(const SourceVector: TVector4s; const ComparedNumber: Single): Boolean; overload;
 function VectorLessEqualThen(const SourceVector: TVector4s; const ComparedNumber: Single): Boolean; overload;
 
-
+function VectorAdd(const v1, v2 : TVector2f) : TVector2f; overload;
 //: Returns the sum of two affine vectors
 function VectorAdd(const v1, v2 : TAffineVector) : TAffineVector; overload;
 //: Adds two vectors and places result in vr
@@ -2089,6 +2090,27 @@ begin
 {$endif}
 end;
 
+// VectorAdd (func)
+//
+function VectorAdd(const v1, v2 : TVector2f) : TVector2f;
+// EAX contains address of V1
+// EDX contains address of V2
+// ECX contains the result
+{$ifndef GEOMETRY_NO_ASM}
+asm
+      FLD  DWORD PTR [EAX]
+      FADD DWORD PTR [EDX]
+      FSTP DWORD PTR [ECX]
+      FLD  DWORD PTR [EAX+4]
+      FADD DWORD PTR [EDX+4]
+      FSTP DWORD PTR [ECX+4]
+{$else}
+begin
+   Result[0]:=v1[0]+v2[0];
+   Result[1]:=v1[1]+v2[1];
+{$endif}
+end;
+
 // VectorAdd (func, affine)
 //
 function VectorAdd(const v1, v2 : TAffineVector) : TAffineVector;
@@ -2752,6 +2774,7 @@ begin
    Result[0]:=v1[0]-v2[0];
    Result[1]:=v1[1]-v2[1];
    Result[2]:=v1[2]-v2[2];
+   Result[3]:=v1[3]-v2[3];
 {$endif}
 end;
 
@@ -3935,7 +3958,7 @@ end;
 function InterpolatePower(const Start, Stop, Delta: Single; const DistortionDegree: Single): Single;
 begin
   if (Round(DistortionDegree) <> DistortionDegree) and (Delta < 0) then
-    Result := (Stop - Start) * VectorGeometry.Power(Delta, Round(DistortionDegree)) + Start
+    Result := (Stop - Start) * VectorGeometry.Power(Delta, integer(Round(DistortionDegree))) + Start
   else
     Result := (Stop - Start) * VectorGeometry.Power(Delta, DistortionDegree) + Start;
 end;

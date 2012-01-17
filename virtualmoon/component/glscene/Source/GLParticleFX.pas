@@ -358,12 +358,14 @@ type
     distance: Integer; // stores an IEEE single!
   end;
   PParticleReference = ^TParticleReference;
-  TParticleReferenceArray = packed array[0..MaxInt shr 4] of TParticleReference;
+  TParticleReferenceArray = packed array[0..MaxInt shr 8-1] of TParticleReference;
   PParticleReferenceArray = ^TParticleReferenceArray;
+  PFXPointerList = ^TFXPointerList;
+  TFXPointerList = array[0..MaxInt shr 8-1] of Pointer;
   TPFXRegion = record
     count, capacity: Integer;
     particleRef: PParticleReferenceArray;
-    particleOrder: PPointerList;
+    particleOrder: PFXPointerList;
   end;
   PPFXRegion = ^TPFXRegion;
 
@@ -1764,7 +1766,7 @@ begin
         // Prepare order table
         with curRegion^ do
           for particleIdx := 0 to count - 1 do
-            particleOrder^[particleIdx] := @particleRef^[particleIdx];
+            particleOrder^[particleIdx] := @particleRef[particleIdx];
         // QuickSort
         if (regionIdx < sortMaxRegion) and (FBlendingMode <> bmAdditive) then
           QuickSortRegion(0, curRegion^.count - 1, curRegion);
@@ -2600,7 +2602,7 @@ var
   i, k, n: Integer;
   f: Single;
   lck, lck1: TPFXLifeColor;
-  lifeColorsLookupList: PPointerList;
+  lifeColorsLookupList: PFXPointerList;
 begin
   with LifeColors do
   begin
@@ -2609,13 +2611,7 @@ begin
       inner := ColorInner.Color
     else
     begin
-      lifeColorsLookupList :=
-{$IFDEF GLS_DELPHI_XE2_UP}
-      @FLifeColorsLookup.List[0];
-{$ELSE}
-      FLifeColorsLookup.List;
-{$ENDIF}
-
+      lifeColorsLookupList := @FLifeColorsLookup.List[0];
       if n > 0 then
       begin
         k := -1;

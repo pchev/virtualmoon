@@ -223,6 +223,7 @@ implementation
 uses
   SysUtils,
   OpenGLTokens,
+  GLTextureFormat,
   {$IFDEF GLS_DELPHI} VectorTypes, {$ENDIF}
   GLMultisampleImage;
 
@@ -470,6 +471,7 @@ begin
     FDepthRBO.Free;
     FDepthRBO := nil;
     FHasDepth := True;
+    FHasStencil := depthTex.TextureFormatEx = tfDEPTH24_STENCIL8;
   end
   else if erbDepth in EnabledRenderBuffers then
   begin
@@ -492,9 +494,7 @@ begin
   if erbStencil in EnabledRenderBuffers then
   begin
     if not Assigned(FStencilRBO) then
-    begin
       FStencilRBO := TGLStencilRBO.Create;
-    end;
 
     FStencilRBO.StencilPrecision := FStencilPrecision;
     FStencilRBO.Width := Width;
@@ -505,7 +505,8 @@ begin
   end
   else
   begin
-    FFbo.DetachStencilBuffer;
+    if not FHasStencil then
+      FFbo.DetachStencilBuffer;
     FStencilRBO.Free;
     FStencilRBO := nil;
   end;

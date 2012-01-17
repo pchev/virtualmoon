@@ -10,7 +10,7 @@ uses
   BaseClasses, PersistentClasses;
 
 const
-  MAX_OBJECT_STACK_DEPTH = 512;
+  MAX_OBJECT_STACK_DEPTH = 4096;
 
 type
 
