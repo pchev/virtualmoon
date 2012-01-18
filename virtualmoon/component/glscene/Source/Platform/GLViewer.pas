@@ -84,8 +84,8 @@ begin
     ctx := GL.aGetCurrentContext();
     if Assigned(ctx) then
       case AVSyncMode of
-        vsmSync  : GL.aSetInteger(ctx, AGL_SWAP_INTERVAL, 1);
-        vsmNoSync: GL.aSetInteger(ctx, AGL_SWAP_INTERVAL, 0);
+        vsmSync  : GL.aSetInteger(ctx, AGL_SWAP_INTERVAL, PGLint(1));
+        vsmNoSync: GL.aSetInteger(ctx, AGL_SWAP_INTERVAL, PGLint(0));
       else
          Assert(False);
       end;
