@@ -64,6 +64,8 @@ type
     Label44: TLabel;
     Label45: TLabel;
     Label46: TLabel;
+    Label47: TLabel;
+    Label48: TLabel;
     LabelImp: TLabel;
     LabelGrid: TLabel;
     FontDialog1: TFontDialog;
@@ -84,6 +86,8 @@ type
     RadioGroup6: TRadioGroup;
     BumpRadioGroup: TRadioGroup;
     RadioGroup7: TRadioGroup;
+    RadioGroup8: TRadioGroup;
+    RadioGroup9: TRadioGroup;
     TabSheet1: TTabSheet;
     Label4: TLabel;
     Label1: TLabel;
@@ -423,17 +427,22 @@ RadioGroup3.Items.clear;
 RadioGroup4.Items.clear;
 RadioGroup5.Items.clear;
 RadioGroup6.Items.clear;
+RadioGroup8.Items.clear;
+RadioGroup9.Items.clear;
 for i:=0 to TextureList.Count-1 do begin
     if TextureList[i]='Airbrush' then buf:=rsAirburshReli
     else if TextureList[i]='Airbrush_no_albedo' then buf:=rsAirburshReli2
     else if TextureList[i]='Clementine' then buf:=rsClementinePh
     else if TextureList[i]='Lopam' then buf:=rsLOPAMPhotogr
+    else if TextureList[i]='WAC' then buf:='LRO WAC Mosaic'
     else buf:=TextureList[i];
     RadioGroup2.Items.Add(buf);
     RadioGroup3.Items.Add('');
     RadioGroup4.Items.Add('');
     RadioGroup5.Items.Add('');
     RadioGroup6.Items.Add('');
+    RadioGroup8.Items.Add('');
+    RadioGroup9.Items.Add('');
 end;
 savelibration:=librationeffect;
 countrycode:=TStringList.Create;
@@ -503,7 +512,7 @@ procedure TForm2.showtexture;
 var i,j: smallint;
 begin
 locktexture:=true;
-    for j:=0 to 3 do begin
+    for j:=0 to 5 do begin
       for i:=0 to TextureList.Count-1 do begin
          if TextureList[i]=texturefn[j] then begin
            case j of
@@ -511,6 +520,8 @@ locktexture:=true;
              1: RadioGroup4.ItemIndex:=i;
              2: RadioGroup5.ItemIndex:=i;
              3: RadioGroup6.ItemIndex:=i;
+             4: RadioGroup8.ItemIndex:=i;
+             5: RadioGroup9.ItemIndex:=i;
            end;
          end;
       end;
@@ -575,6 +586,8 @@ RadioGroup3.ItemIndex:=i;
 RadioGroup4.ItemIndex:=i;
 RadioGroup5.ItemIndex:=i;
 RadioGroup6.ItemIndex:=i;
+RadioGroup8.ItemIndex:=i;
+RadioGroup9.ItemIndex:=i;
 Application.ProcessMessages;
 showtexture;
 end;

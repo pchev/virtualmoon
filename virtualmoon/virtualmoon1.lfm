@@ -398,7 +398,7 @@ object Form1: TForm1
     Width = 885
     Panels = <    
       item
-        Width = 100
+        Width = 120
       end    
       item
         Width = 100
