@@ -1,18 +1,19 @@
 # translation of maplun.fr.po
 # Patrick Chevalley <pch@ap-i.net>, 2009.
 # Patrick Chevalley <pch@freesurf.ch>, 2009.
-# pch <pch@ap-i.net>, 2010.
+# pch <pch@ap-i.net>, 2010, 2012.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2010-08-24 13:22+0200\n"
+"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
+"PO-Revision-Date: 2012-01-19 17:58+0100\n"
 "Project-Id-Version: maplun.fr\n"
-"Language-Team: Français <kde-i18n-doc@kde.org>\n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.2\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
 
 #: u_translation.rsadvanced
 msgid "Advanced"
@@ -66,6 +67,10 @@ msgstr "http://ap-i.net/avl/fr/download"
 msgid "Dynamic relief display method"
 msgstr "Méthode d'affichage du relief dynamique"
 
+#: u_translation.rsenddate
+msgid "End date"
+msgstr "Date de fin"
+
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
 msgstr "Ephéméride:"
@@ -90,6 +95,10 @@ msgstr "Grilles"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "FR"
+
+#: u_translation.rshours
+msgid "Hours"
+msgstr "Heures"
 
 #: u_translation.rsincreasefont
 msgid "Increase font size"
@@ -466,6 +475,10 @@ msgstr "Retour fenêtre (Esc)"
 msgid "Remove unknow field values from reports"
 msgstr "N'affiche pas les champs avec une valeur inconnue"
 
+#: u_translation.rssaveephemeri
+msgid "Save ephemeris to file"
+msgstr "Enregistre l'éphéméride dans un fichier"
+
 #: u_translation.rssecond
 #| msgid "s"
 msgid "\""
@@ -490,6 +503,14 @@ msgstr "Face:"
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Simple"
+
+#: u_translation.rsstartdate
+msgid "Start date"
+msgstr "Date de début"
+
+#: u_translation.rssteps
+msgid "Steps"
+msgstr "Pas"
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
@@ -552,7 +573,8 @@ msgid "Eyepieces"
 msgstr "Oculaire"
 
 #: u_translation.rst_11
-msgid "Find Next"
+#| msgid "Find Next"
+msgid "Next"
 msgstr "Suivant"
 
 #: u_translation.rst_110
