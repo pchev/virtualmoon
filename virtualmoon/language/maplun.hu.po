@@ -64,6 +64,10 @@ msgstr "http://ap-i.net/avl/en/download"
 msgid "Dynamic relief display method"
 msgstr "Dynamic relief display method"
 
+#: u_translation.rsenddate
+msgid "End date"
+msgstr ""
+
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
 msgstr "Efemerisz:"
@@ -87,6 +91,10 @@ msgstr "Háló"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "HU"
+
+#: u_translation.rshours
+msgid "Hours"
+msgstr ""
 
 #: u_translation.rsincreasefont
 msgid "Increase font size"
@@ -462,6 +470,10 @@ msgstr "Teljes képernyő kikapcs (Esc)"
 msgid "Remove unknow field values from reports"
 msgstr "Az ismeretlen mezőértékek eltávolítása "
 
+#: u_translation.rssaveephemeri
+msgid "Save ephemeris to file"
+msgstr ""
+
 #: u_translation.rssecond
 #, fuzzy
 #| msgid "s"
@@ -487,6 +499,14 @@ msgstr ""
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Egyszerü"
+
+#: u_translation.rsstartdate
+msgid "Start date"
+msgstr ""
+
+#: u_translation.rssteps
+msgid "Steps"
+msgstr ""
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
@@ -549,7 +569,9 @@ msgid "Eyepieces"
 msgstr "Okulár"
 
 #: u_translation.rst_11
-msgid "Find Next"
+#, fuzzy
+#| msgid "Find Next"
+msgid "Next"
 msgstr "Következő"
 
 #: u_translation.rst_110

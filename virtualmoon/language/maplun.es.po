@@ -63,6 +63,10 @@ msgstr "http://ap-i.net/avl/en/download"
 msgid "Dynamic relief display method"
 msgstr "Método de realce dinámico de visualización"
 
+#: u_translation.rsenddate
+msgid "End date"
+msgstr ""
+
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
 msgstr "Efemérides:"
@@ -86,6 +90,10 @@ msgstr "Cuadrícula"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "ES"
+
+#: u_translation.rshours
+msgid "Hours"
+msgstr ""
 
 #: u_translation.rsincreasefont
 msgid "Increase font size"
@@ -461,6 +469,10 @@ msgstr "Salir del modo pantalla completa (Esc)"
 msgid "Remove unknow field values from reports"
 msgstr "Eliminar los valores de campo desconocidos de los informes"
 
+#: u_translation.rssaveephemeri
+msgid "Save ephemeris to file"
+msgstr ""
+
 #: u_translation.rssecond
 #, fuzzy
 #| msgid "s"
@@ -486,6 +498,14 @@ msgstr ""
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Simple"
+
+#: u_translation.rsstartdate
+msgid "Start date"
+msgstr ""
+
+#: u_translation.rssteps
+msgid "Steps"
+msgstr ""
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
@@ -548,7 +568,9 @@ msgid "Eyepieces"
 msgstr "Oculares"
 
 #: u_translation.rst_11
-msgid "Find Next"
+#, fuzzy
+#| msgid "Find Next"
+msgid "Next"
 msgstr "Siguiente"
 
 #: u_translation.rst_110

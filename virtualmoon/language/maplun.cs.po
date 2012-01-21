@@ -63,6 +63,10 @@ msgstr ""
 msgid "Dynamic relief display method"
 msgstr "Metoda zobrazování reliéfu"
 
+#: u_translation.rsenddate
+msgid "End date"
+msgstr ""
+
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
 msgstr "Efemeridy:"
@@ -85,6 +89,10 @@ msgstr "Souřadnicová síť"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
+msgstr ""
+
+#: u_translation.rshours
+msgid "Hours"
 msgstr ""
 
 #: u_translation.rsincreasefont
@@ -461,6 +469,10 @@ msgstr "Ukončit celou obrazovku (Esc)"
 msgid "Remove unknow field values from reports"
 msgstr ""
 
+#: u_translation.rssaveephemeri
+msgid "Save ephemeris to file"
+msgstr ""
+
 #: u_translation.rssecond
 #, fuzzy
 #| msgid "s"
@@ -486,6 +498,14 @@ msgstr ""
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Jednoduchá"
+
+#: u_translation.rsstartdate
+msgid "Start date"
+msgstr ""
+
+#: u_translation.rssteps
+msgid "Steps"
+msgstr ""
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
@@ -548,7 +568,9 @@ msgid "Eyepieces"
 msgstr "Okuláry"
 
 #: u_translation.rst_11
-msgid "Find Next"
+#, fuzzy
+#| msgid "Find Next"
+msgid "Next"
 msgstr "Hledej další"
 
 #: u_translation.rst_110
