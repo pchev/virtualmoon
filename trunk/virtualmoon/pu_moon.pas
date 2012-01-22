@@ -125,7 +125,7 @@ type
     perftime: double;
     DownShift: TShiftState;
     lock_Zoom,SkipIdent,AbortSliceLoading,SaveShowScale : boolean;
-    distancestart,BumpMapLimit1K: boolean;
+    distancestart,BumpMapLimit1K,moveok: boolean;
     startl,startb,startxx,startyy : single;
     startx, starty, ShadowOffset : integer;
     satl,satb,satr,satli,satlc: single;
@@ -179,6 +179,7 @@ type
     FOverlayTransparency: single;
     FOverlayTransparencyMethode: integer;
     Fjd: double;
+    procedure MoveMoonAround(anObject: TGLBaseSceneObject; pitchDelta, turnDelta: Single);
     procedure SetTexture(lfn:TStringList);
     procedure SetOverlay(fn:string);
     procedure SetBumpPath(fn:string);
@@ -1197,6 +1198,7 @@ begin
  GLLightSource1.Specular.AsWinColor:=$323232;
  FShowScale:=false;
  FShowGrid:=false;
+ moveok:=false;
 end;
 
 procedure Tf_moon.Init(check:boolean=true);
@@ -1454,6 +1456,7 @@ begin
     my:=y;
   end;
   lastyzoom:=y;
+  moveok:=true;
   if FMeasuringDistance and (Button = mbLeft) then
   begin
     if Screen2Moon(x,y,startl,startb) then begin
@@ -1485,6 +1488,48 @@ begin
   end;
 end;
 
+procedure Tf_moon.MoveMoonAround(anObject: TGLBaseSceneObject; pitchDelta, turnDelta: Single);
+//procedure TGLBaseSceneObject.MoveObjectAround(anObject: TGLBaseSceneObject; pitchDelta, turnDelta: Single);
+// Copied here to change pitchNow ClampValue limits
+// Original only allow to go to 1.5 degree from the pole
+var
+  originalT2C, normalT2C, normalCameraRight, newPos: TVector;
+  pitchNow, dist: Single;
+begin
+  if Assigned(anObject) then
+  begin
+    // normalT2C points away from the direction the camera is looking
+    originalT2C := VectorSubtract(GLCamera1.AbsolutePosition,
+      anObject.AbsolutePosition);
+    SetVector(normalT2C, originalT2C);
+    dist := VectorLength(normalT2C);
+    NormalizeVector(normalT2C);
+    // normalRight points to the camera's right
+    // the camera is pitching around this axis.
+    normalCameraRight := VectorCrossProduct(GLCamera1.AbsoluteUp, normalT2C);
+    if VectorLength(normalCameraRight) < 0.001 then
+      SetVector(normalCameraRight, XVector) // arbitrary vector
+    else
+      NormalizeVector(normalCameraRight);
+    // calculate the current pitch.
+    // 0 is looking down and PI is looking up
+    pitchNow := ArcCos(VectorDotProduct(GLCamera1.AbsoluteUp, normalT2C));
+    pitchNow := ClampValue(pitchNow + DegToRad(pitchDelta), 0 + 0.0025, PI -
+      0.0025);
+    // create a new vector pointing up and then rotate it down
+    // into the new position
+    SetVector(normalT2C, GLCamera1.AbsoluteUp);
+    RotateVector(normalT2C, normalCameraRight, -pitchNow);
+    RotateVector(normalT2C, GLCamera1.AbsoluteUp, -DegToRad(turnDelta));
+    ScaleVector(normalT2C, dist);
+    newPos := VectorAdd(GLCamera1.AbsolutePosition, VectorSubtract(normalT2C,
+      originalT2C));
+    if Assigned(GLCamera1.Parent) then
+      newPos := GLCamera1.Parent.AbsoluteToLocal(newPos);
+    GLCamera1.Position.AsVector := newPos;
+  end;
+end;
+
 procedure Tf_moon.GLSceneViewer1MouseMove(Sender: TObject; Shift: TShiftState;
   X, Y: Integer);
 var movespeed,s1,c1,zm: single;
@@ -1492,6 +1537,7 @@ var movespeed,s1,c1,zm: single;
     lat,lon: single;
     OnMoon: boolean;
 begin
+  if not moveok then exit;
   // Distance
   if FMeasuringDistance and distancestart then
      begin
@@ -1533,7 +1579,8 @@ begin
           GLCameraSatellite.MoveAroundTarget((y-my)*movespeed,(x-mx)*movespeed);
         end else begin
           movespeed:=0.3/GLCamera1.SceneScale;
-          GLCamera1.MoveAroundTarget((my-y)*movespeed,(mx-x)*movespeed);
+          MoveMoonAround(GLCamera1.TargetObject,(my-y)*movespeed,(mx-x)*movespeed);
+          //GLCamera1.MoveAroundTarget((my-y)*movespeed,(mx-x)*movespeed);
         end;
         mx:=x;
         my:=y;
@@ -1563,6 +1610,7 @@ var lat,lon: single;
     OnMoon: boolean;
     Pt: TPoint;
 begin
+  moveok:=false;
   // Distance
   if measuringdistance and distancestart then
   begin
