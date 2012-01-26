@@ -143,6 +143,7 @@ type
     function StoreZoomSpeed: Boolean;
     procedure SetKeyCombinations(const Value: TGLSimpleNavigationKeyCombinations);
     function StoreRotateTargetSpeed: Boolean;
+    procedure SetOptions(const Value: TGLSimpleNavigationOptions);
   protected
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
   public
@@ -158,7 +159,7 @@ type
     property RotateTargetSpeed: Single read FRotateTargetSpeed write FRotateTargetSpeed stored StoreRotateTargetSpeed;
 
     property FormCaption: string read FFormCaption write FFormCaption stored StoreFormCaption;
-    property Options: TGLSimpleNavigationOptions read FOptions write FOptions default [snoMouseWheelHandled, snoShowFPS];
+    property Options: TGLSimpleNavigationOptions read FOptions write SetOptions default [snoMouseWheelHandled, snoShowFPS];
     property KeyCombinations: TGLSimpleNavigationKeyCombinations read FKeyCombinations write SetKeyCombinations;
 
     property OnMouseMove: TMouseMoveEvent read FOnMouseMove write FOnMouseMove;
@@ -269,14 +270,13 @@ begin
   begin
     if lCamera.CameraStyle = csOrthogonal then
       lCamera.FocalLength := FGLSceneViewer.Camera.FocalLength
-        / Power(FZoomSpeed, integer(Sign * WheelDelta div Abs(WheelDelta)))
+        / Power(FZoomSpeed, Sign * WheelDelta div Abs(WheelDelta))
     else
       lCamera.AdjustDistanceToTarget(
-        Power(FZoomSpeed, integer(Sign * WheelDelta div Abs(WheelDelta))));
+        Power(FZoomSpeed, Sign * WheelDelta div Abs(WheelDelta)));
   end;
 
-  if snoMouseWheelHandled in FOptions then
-    Handled := True;
+  Handled := snoMouseWheelHandled in FOptions;
 end;
 
 procedure TGLSimpleNavigation.ViewerMouseMove(Sender: TObject;
@@ -497,6 +497,16 @@ end;
 function TGLSimpleNavigation.StoreRotateTargetSpeed: Boolean;
 begin
   Result := Abs(FRotateTargetSpeed - 1) > EPS;
+end;
+
+procedure TGLSimpleNavigation.SetOptions(
+  const Value: TGLSimpleNavigationOptions);
+begin
+  if FOptions <> Value then
+  begin
+    FOptions := Value;
+
+  end;
 end;
 
 { TGLSimpleNavigationKeyCombination }

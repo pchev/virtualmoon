@@ -453,7 +453,6 @@ end;
 procedure InitGLSceneColors;
 begin
   clrScrollBar := ConvertWinColor(clScrollBar);
-//  clrBackground := ConvertWinColor(clBackground);
   clrActiveCaption := ConvertWinColor(clActiveCaption);
   clrInactiveCaption := ConvertWinColor(clInactiveCaption);
   clrMenu := ConvertWinColor(clMenu);
@@ -465,7 +464,6 @@ begin
   clrActiveBorder := ConvertWinColor(clActiveBorder);
   clrInactiveBorder := ConvertWinColor(clInactiveBorder);
   clrAppWorkSpace := ConvertWinColor(clAppWorkSpace);
-//  clrHighlight := ConvertWinColor(clHighlight);
   clrHighlightText := ConvertWinColor(clHighlightText);
   clrBtnFace := ConvertWinColor(clBtnFace);
   clrBtnShadow := ConvertWinColor(clBtnShadow);
@@ -477,6 +475,10 @@ begin
   clr3DLight := ConvertWinColor(cl3DLight);
   clrInfoText := ConvertWinColor(clInfoText);
   clrInfoBk := ConvertWinColor(clInfoBk);
+  {$ifndef LCLGTK2}
+  clrHighlight := ConvertWinColor(clHighlight);
+  clrBackground := ConvertWinColor(clBackground);
+  {$ENDIF}
 end;
 
 // ConvertColorVector

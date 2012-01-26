@@ -344,10 +344,10 @@ begin
 
   // Check support XF86VidMode Extension
   {$IFNDEF GLS_DELPHI_5}
-    {$IF (FPC_VERSION = 2) and (FPC_RELEASE < 7)}
-    if not XF86VidModeQueryExtension( vDisplay, @i, @j ) then
-    {$ELSE}
+    {$IF (FPC_VERSION = 2) and (FPC_RELEASE < 5)}
     if XF86VidModeQueryExtension( vDisplay, @i, @j )=0 then
+    {$ELSE}
+    if not XF86VidModeQueryExtension( vDisplay, @i, @j ) then
     {$IFEND}
       Assert(False, 'XF86VidMode Extension not support');
   {$ENDIF}
@@ -556,4 +556,3 @@ finalization
 {$ENDIF}
       RestoreDefaultMode;  // set default video mode
 end.
-

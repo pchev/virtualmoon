@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <CONFIG>
-  <Package Version="3">
+  <Package Version="4">
     <Name Value="GLScene_DesignTime"/>
+    <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
-      <Version Value="9"/>
+      <Version Value="11"/>
       <SearchPaths>
         <IncludeFiles Value="../Source;../Source/DesignTime;../Source/PropertyEditors"/>
         <OtherUnitFiles Value="../Source;../Source/DesignTime;../Source/PropertyEditors;../Source/Platform;../Source/Base"/>
@@ -19,6 +20,7 @@
       <Other>
         <CompilerMessages>
           <IgnoredMessages idx4055="True" idx5024="True"/>
+          <UseMsgFile Value="True"/>
         </CompilerMessages>
         <CompilerPath Value="$(CompPath)"/>
       </Other>
@@ -122,6 +124,8 @@
       </Item3>
       <Item4>
         <PackageName Value="GLScene_RunTime"/>
+        <MaxVersion Major="1" Valid="True"/>
+        <MinVersion Major="1"/>
       </Item4>
       <Item5>
         <PackageName Value="FCL"/>
