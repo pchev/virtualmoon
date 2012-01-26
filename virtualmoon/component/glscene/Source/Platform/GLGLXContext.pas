@@ -622,7 +622,7 @@ begin
   tempWnd := CreateTempWnd;
   GLSLogger.Log('GLGLXContext: DoCreateContext->Is created a temporary context');
   FGL.Initialize(True);
-  FNewTypeContext := GL.X_VERSION_1_3 or GL.X_VERSION_1_4;
+  FNewTypeContext := GL.X_VERSION_1_2 or GL.X_VERSION_1_3 or GL.X_VERSION_1_4;
 
   DestroyTmpWnd(tempWnd);
   GLSLogger.LogInfo('Temporary rendering context destroyed');

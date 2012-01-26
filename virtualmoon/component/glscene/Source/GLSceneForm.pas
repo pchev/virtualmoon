@@ -710,6 +710,14 @@ begin
   end;
 end;
 
+function GetDesigningBorderStyle(const AForm: TCustomForm): TFormBorderStyle;
+begin
+  if csDesigning in AForm.ComponentState then
+    Result := bsSizeable
+  else
+    Result := AForm.BorderStyle;
+end;
+
 function CalcBorderIconsFlags(const AForm: TCustomForm): DWORD;
 var
   BorderIcons: TBorderIcons;
@@ -718,6 +726,7 @@ begin
   BorderIcons := AForm.BorderIcons;
   if (biSystemMenu in BorderIcons) or (csDesigning in AForm.ComponentState) then
     Result := Result or WS_SYSMENU;
+
   if GetDesigningBorderStyle(AForm) in [bsNone, bsSingle, bsSizeable] then
   begin
     if biMinimize in BorderIcons then
@@ -740,20 +749,44 @@ begin
   end;
 end;
 
+function CalcBorderStyleFlags(const AForm: TCustomForm): DWORD;
+begin
+  Result := WS_CLIPCHILDREN or WS_CLIPSIBLINGS;
+  case GetDesigningBorderStyle(AForm) of
+    bsSizeable, bsSizeToolWin:
+      Result := Result or (WS_OVERLAPPED or WS_THICKFRAME or WS_CAPTION);
+    bsSingle, bsToolWindow:
+      Result := Result or (WS_OVERLAPPED or WS_BORDER or WS_CAPTION);
+    bsDialog:
+      Result := Result or (WS_POPUP or WS_BORDER or WS_CAPTION);
+    bsNone:
+      if (AForm.Parent = nil) and (AForm.ParentWindow = 0) then
+        Result := Result or WS_POPUP;
+  end;
+end;
+
+function CalcBorderStyleFlagsEx(const AForm: TCustomForm): DWORD;
+begin
+  Result := 0;
+  case GetDesigningBorderStyle(AForm) of
+    bsDialog:
+      Result := WS_EX_DLGMODALFRAME or WS_EX_WINDOWEDGE;
+    bsToolWindow, bsSizeToolWin:
+      Result := WS_EX_TOOLWINDOW;
+  end;
+end;
+
 procedure CalcFormWindowFlags(const AForm: TCustomForm; var Flags, FlagsEx:
   DWORD);
-var
-  BorderStyle: TFormBorderStyle;
 begin
-  BorderStyle := GetDesigningBorderStyle(AForm);
-  Flags := BorderStyleToWin32Flags(BorderStyle);
+  Flags := CalcBorderStyleFlags(AForm);
   if AForm.Parent <> nil then
     Flags := (Flags or WS_CHILD) and not WS_POPUP;
   // clear border style flags
   FlagsEx := FlagsEx and not (WS_EX_DLGMODALFRAME or WS_EX_WINDOWEDGE or
     WS_EX_TOOLWINDOW);
   // set border style flags
-  FlagsEx := FlagsEx or BorderStyleToWin32FlagsEx(BorderStyle);
+  FlagsEx := FlagsEx or CalcBorderStyleFlagsEx(AForm);
   if (AForm.FormStyle in fsAllStayOnTop) and not (csDesigning in
     AForm.ComponentState) then
     FlagsEx := FlagsEx or WS_EX_TOPMOST;
@@ -762,15 +795,12 @@ begin
 end;
 
 procedure AdjustFormBounds(const AForm: TCustomForm; var SizeRect: TRect);
-var
-  BorderStyle: TFormBorderStyle;
 begin
   // the LCL defines the size of a form without border, win32 with.
   // -> adjust size according to BorderStyle
   SizeRect := AForm.BoundsRect;
-  BorderStyle := GetDesigningBorderStyle(AForm);
-  Windows.AdjustWindowRectEx(@SizeRect, BorderStyleToWin32Flags(BorderStyle),
-    false, BorderStyleToWin32FlagsEx(BorderStyle));
+  Windows.AdjustWindowRectEx(@SizeRect, CalcBorderStyleFlags(AForm),
+    false, CalcBorderStyleFlagsEx(AForm));
 end;
 
 class function TGLSOpenGLForm.CreateHandle(const AWinControl: TWinControl; const
