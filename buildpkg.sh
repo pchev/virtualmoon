@@ -66,10 +66,7 @@ mkdir $wd/$release
 
 # check if new revision since last run
 read lastrev <last.build
-lang=LANG
-LANG=C
-currentrev=`svn info . | grep Revision: | sed 's/Revision: //'`
-LANG=$lang
+currentrev=$(LC_ALL=C svn info . | grep Revision: | sed 's/Revision: //')
 if [[ $upd ]]; then
   echo $lastrev ' - ' $currentrev
   if [[ $lastrev -eq $currentrev ]]; then
