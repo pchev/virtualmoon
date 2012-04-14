@@ -48,6 +48,11 @@ install -v -m 644 Database/Nearside_Satellite_uEN.csv $destdir/Database/
 install -v -m 644 Database/Nearside_Satellite_uFR.csv $destdir/Database/
 install -v -m 644 Database/Pyroclastic_uEN.csv $destdir/Database/
 install -v -m 644 Database/Pyroclastic_uFR.csv $destdir/Database/
+install -v -m 644 Database/Farside_Unnamed_uEN.csv $destdir/Database/
+install -v -m 644 Database/Farside_Unnamed_uFR.csv $destdir/Database/
+install -v -m 644 Database/Nearside_Unnamed_uEN.csv $destdir/Database/
+install -v -m 644 Database/Nearside_Unnamed_uFR.csv $destdir/Database/
+
 
 # documentation
 install -m 755 -d "$destdir/My Images"
