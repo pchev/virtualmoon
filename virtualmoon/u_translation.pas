@@ -309,6 +309,8 @@ rsStartDate = 'Start date';
 rsEndDate = 'End date';
 rsSteps = 'Steps';
 rsHours = 'Hours';
+rsUnnamedForma = 'Unnamed Formation';
+rsFarSideUnnam = 'Far side Unnamed Formation';
 
 implementation
 

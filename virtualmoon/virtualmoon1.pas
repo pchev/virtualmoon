@@ -34,7 +34,7 @@ uses
 {$endif}
 {$IFDEF LCLgtk2}
   Gtk2Proc,
-{$endif}    glscene,
+{$endif}    GLScene,
   u_translation_database, u_translation,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
@@ -482,7 +482,7 @@ type
     procedure InitDate;
     procedure SetJDDate;
     procedure GetMsg(Sender: TObject; msgclass:TMoonMsgClass; value: String);
-    procedure IdentLB(l, b: single);
+    procedure IdentLB(l, b, w: single);
     procedure InitLopamIdx;
     procedure ListUserDB;
     procedure ShowImg(desc, nom: string; forceinternal: boolean);
@@ -553,7 +553,7 @@ type
     procedure LoadOverlay(fn: string; transparent: single);
     procedure GetLabel(Sender: TObject);
     procedure GetSprite(Sender: TObject);
-    function SearchAtPos(l, b: double): boolean;
+    function SearchAtPos(l, b, w: double): boolean;
     procedure ListObject(delta: double);
     procedure InitTelescope;
     procedure SetFullScreen;
@@ -892,7 +892,9 @@ begin
   usedatabase[5] := True;
   usedatabase[6] := True;
   usedatabase[7] := True;
-  for i := 8 to maxdbn do
+  usedatabase[8] := True;
+  usedatabase[9] := True;
+  for i := 10 to maxdbn do
     usedatabase[i] := False;
   timezone := 0;
   Obslatitude := 48.86;
@@ -910,7 +912,7 @@ begin
   spritecolor:=clRed;
   autolabelcolor := clWhite;
   labelcenter := True;
-  shortdesc:=false;
+  shortdesc:=true;
   minilabel := True;
   showlabel := True;
   showmark := True;
@@ -1062,7 +1064,7 @@ begin
       eyepiecemirror[j]   := ReadInteger(section, 'eyepiecemirror' + IntToStr(j), eyepiecemirror[j]);
       eyepiecerotation[j] := ReadInteger(section, 'eyepiecerotation' + IntToStr(j), eyepiecerotation[j]);
     end;
-    useDBN := ReadInteger(section, 'useDBN', useDBN);
+    //useDBN := ReadInteger(section, 'useDBN', useDBN);
     for i := 1 to useDBN do
       usedatabase[i] := ReadBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
@@ -1197,7 +1199,7 @@ procedure TForm1.GetLabel(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
     w, wmin, wfact, l1, b1: single;
     miniok:    boolean;
-    nom, lun, let:  string;
+    nom, lun, let, dbn:  string;
     j: integer;
 begin
 // Labels
@@ -1215,7 +1217,7 @@ begin
       wmin := -1
     else
       wmin := MinValue([650.0, 3 * LabelDensity / (Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)]);
-      dbm.Query('select NAME,LONGIN,LATIN,WIDEKM,WIDEMI,LENGTHKM,LENGTHMI,LUN from moon' +
+    dbm.Query('select NAME,LONGIN,LATIN,WIDEKM,WIDEMI,LENGTHKM,LENGTHMI,LUN,DBN from moon' +
       ' where DBN in (' + sidelist + ')' + ' and LONGIN > ' +
       formatfloat(f2, rad2deg*lmin) + ' and LONGIN < ' + formatfloat(f2, rad2deg*lmax) +
       ' and LATIN > ' + formatfloat(f2, rad2deg*bmin) +
@@ -1235,6 +1237,9 @@ begin
         continue;
       nom := trim(dbm.Results[j][0]);
       lun := trim(dbm.Results[j][7]);
+      dbn := trim(dbm.Results[j][8]);
+      // Duplicate Mare name
+      if (dbn='8') and (copy(nom,1,3)='AVL') and (w>300) then continue;
       if minilabel then
       begin
         miniok := True;
@@ -1756,7 +1761,7 @@ begin
   end;
 end;
 
-function Tform1.SearchAtPos(l, b: double): boolean;
+function Tform1.SearchAtPos(l, b, w: double): boolean;
 var
   mindist, d, l1, b1, deltab, deltal: double;
   rec, i: integer;
@@ -1766,11 +1771,13 @@ begin
   rec     := 0;
   deltab  := 5;
   deltal  := deltab / cos(deg2rad * b);
-  dbm.query('select ID,LONGIN,LATIN from moon ' + ' where DBN in (' + sidelist + ')' +
+  dbm.query('select ID,LONGIN,LATIN,WIDEKM,WIDEMI from moon ' + ' where DBN in (' + sidelist + ')' +
     ' and LONGIN > ' + formatfloat(f2, l - deltal) +
     ' and LONGIN < ' + formatfloat(f2, l + deltal) +
     ' and LATIN > ' + formatfloat(f2, b - deltab) +
-    ' and LATIN < ' + formatfloat(f2, b + deltab) + ' ;');
+    ' and LATIN < ' + formatfloat(f2, b + deltab) +
+    ' and (WIDEKM=0 or WIDEKM>=' + formatfloat(f2, w) + ')' +
+    ' ;');
   for i := 0 to dbm.RowCount - 1 do
   begin
     l1 := dbm.Results[i].format[1].AsFloat;
@@ -1831,7 +1838,7 @@ begin
   nom := GetField('NAME');
   memo.Lines.Add(nom);
   i := row.ByField['DBN'].AsInteger;
-  if i > 9 then
+  if i > 99 then
   begin
     buf := rsm_75 + b + IntToStr(i) + b;
     for j := 0 to form2.CheckListBox1.Count - 1 do
@@ -1841,9 +1848,20 @@ begin
   end;
   if (GetField('LUN'))>'' then
      memo.Lines.Add('L.U.N.:' + b + GetField('LUN'));
+  if (GetField('LUN_REDUCED'))>'' then
+     memo.Lines.Add('L.U.N.REDUCED:' + b + GetField('LUN_REDUCED'));
+  if (GetField('NAMETYPE'))>'' then
+     memo.Lines.Add('Name type:' + b + GetField('NAMETYPE'));
   memo.Lines.Add(rsm_56 + b + GetField('TYPE'));
+  if (GetField('SUBTYPE'))>'' then
+     memo.Lines.Add('Sub-type:' + b + GetField('SUBTYPE'));
   if (GetField('PERIOD'))>'' then
      memo.Lines.Add(rsm_49 + b + GetField('PERIOD'));
+  if (GetField('PROCESS'))>'' then
+     memo.Lines.Add('Process:' + b + GetField('PROCESS'));
+  if (GetField('GEOLOGY'))>'' then
+     memo.Lines.Add('Geology:' + b + GetField('GEOLOGY'));
+
 
   //Taille
   if (GetField('LENGTHKM')>'')or(GetField('WIDEKM')>'')or(GetField('LENGTHMI')>'')or(GetField('WIDEMI')>'') then
@@ -1896,6 +1914,8 @@ begin
   end;
   if GetField('PRINSTRU') > '' then
      memo.Lines.Add(rsm_28 + b + GetField('PRINSTRU'));
+  if (GetField('TIPS'))>'' then
+     memo.Lines.Add('Tips:' + b + GetField('TIPS'));
 
   if (GetField('LONGIC')>'')or(GetField('LATIC')>'')or(GetField('QUADRANT')>'')or(GetField('AREA')>'') then
      memo.Lines.Add(rsm_60); //Position
@@ -1978,7 +1998,56 @@ if (GetField('RUKL')>'')or(GetField('RUKLC')>'') then
      memo.Lines.Add(rsm_8 + b + GetField('HEVELIUS'));
   if GetField('RICCIOLI')>'' then
      memo.Lines.Add(rsm_9 + b + GetField('RICCIOLI'));
+    // IAU information
+    memo.Lines.Add('IAU information:');
+    if GetField('IAU_FEATURE_NAME')<>'' then
+       memo.Lines.Add('IAU_FEATURE_NAME:' + b + GetField('IAU_FEATURE_NAME'));
+    if GetField('IAU_CLEAN_FEATURE_NAME')<>'' then
+       memo.Lines.Add('IAU_CLEAN_FEATURE_NAME:' + b + GetField('IAU_CLEAN_FEATURE_NAME'));
+    if GetField('IAU_FEATURE_ID')<>'' then
+       memo.Lines.Add('IAU_FEATURE_ID:' + b + GetField('IAU_FEATURE_ID'));
+    if GetField('IAU_TARGET')<>'' then
+       memo.Lines.Add('IAU_TARGET:' + b + GetField('IAU_TARGET'));
+    if GetField('IAU_DIAMETER')<>'' then
+       memo.Lines.Add('IAU_DIAMETER:' + b + GetField('IAU_DIAMETER'));
+    if GetField('IAU_CENTER_LATITUDE')<>'' then
+       memo.Lines.Add('IAU_CENTER_LATITUDE:' + b + GetField('IAU_CENTER_LATITUDE'));
+    if GetField('IAU_CENTER_LONGITUDE')<>'' then
+       memo.Lines.Add('IAU_CENTER_LONGITUDE:' + b + GetField('IAU_CENTER_LONGITUDE'));
+    if GetField('IAU_NORTHERN_LATITUDE')<>'' then
+       memo.Lines.Add('IAU_NORTHERN_LATITUDE:' + b + GetField('IAU_NORTHERN_LATITUDE'));
+    if GetField('IAU_SOUTHERN_LATITUDE')<>'' then
+       memo.Lines.Add('IAU_SOUTHERN_LATITUDE:' + b + GetField('IAU_SOUTHERN_LATITUDE'));
+    if GetField('IAU_EASTERN_LONGITUDE')<>'' then
+       memo.Lines.Add('IAU_EASTERN_LONGITUDE:' + b + GetField('IAU_EASTERN_LONGITUDE'));
+    if GetField('IAU_WESTERN_LONGITUDE')<>'' then
+       memo.Lines.Add('IAU_WESTERN_LONGITUDE:' + b + GetField('IAU_WESTERN_LONGITUDE'));
+    if GetField('IAU_COORDINATE_SYSTEM')<>'' then
+       memo.Lines.Add('IAU_COORDINATE_SYSTEM:' + b + GetField('IAU_COORDINATE_SYSTEM'));
+    if GetField('IAU_CONTINENT')<>'' then
+       memo.Lines.Add('IAU_CONTINENT:' + b + GetField('IAU_CONTINENT'));
+    if GetField('IAU_ETHNICITY')<>'' then
+       memo.Lines.Add('IAU_ETHNICITY:' + b + GetField('IAU_ETHNICITY'));
+    if GetField('IAU_FEATURE_TYPE')<>'' then
+       memo.Lines.Add('IAU_FEATURE_TYPE:' + b + GetField('IAU_FEATURE_TYPE'));
+    if GetField('IAU_FEATURE_TYPE_CODE')<>'' then
+       memo.Lines.Add('IAU_FEATURE_TYPE_CODE:' + b + GetField('IAU_FEATURE_TYPE_CODE'));
+    if GetField('IAU_QUAD')<>'' then
+       memo.Lines.Add('IAU_QUAD:' + b + GetField(''));
+    if GetField('IAU_APPROVAL_STATUS')<>'' then
+       memo.Lines.Add('IAU_APPROVAL_STATUS:' + b + GetField('IAU_APPROVAL_STATUS'));
+    if GetField('IAU_APPROVAL_DATE')<>'' then
+       memo.Lines.Add('IAU_APPROVAL_DATE:' + b + GetField('IAU_APPROVAL_DATE'));
+    if GetField('IAU_REFERENCE')<>'' then
+       memo.Lines.Add('IAU_REFERENCE:' + b + GetField('IAU_REFERENCE'));
+    if GetField('IAU_ORIGIN')<>'' then
+       memo.Lines.Add('IAU_ORIGIN:' + b + GetField('IAU_ORIGIN'));
+    if GetField('IAU_ADDITIONAL_INFO')<>'' then
+       memo.Lines.Add('IAU_ADDITIONAL_INFO:' + b + GetField('IAU_ADDITIONAL_INFO'));
+    if GetField('IAU_LAST_UPDATED')<>'' then
+       memo.Lines.Add('IAU_LAST_UPDATED:' + b + GetField('IAU_LAST_UPDATED'));
 end;
+
 
 procedure TForm1.GetHTMLDetail(row: TResultRow; var txt: string);
 const
@@ -2018,7 +2087,7 @@ begin
     ok := dblox.SeekData('NAME', '=', nom);
   txt  := txt + t1 + nom + t1end + '<br>';
   i    := row.ByField['DBN'].AsInteger;
-  if i > 9 then
+  if i > 99 then
   begin
     txt := txt + t3 + 'From Database:' + t3end + b + IntToStr(i) + b;
     for j := 0 to form2.CheckListBox1.Count - 1 do
@@ -2027,9 +2096,19 @@ begin
   end;
   if (GetField('LUN'))>'' then
      txt  := txt + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + '<br>';
+  if (GetField('LUN_REDUCED'))>'' then
+     txt  := txt + t3 + 'L.U.N.REDUCED:' + t3end + b + GetField('LUN_REDUCED') + '<br>';
+  if (GetField('NAMETYPE'))>'' then
+     txt  := txt + t3 + 'Name type:' + t3end + b + GetField('NAMETYPE') + '<br>';
   txt  := txt + t3 + rsm_56 + t3end + b + GetField('TYPE') + '<br>';
+  if (GetField('SUBTYPE'))>'' then
+     txt  := txt + t3 + 'Sub-type:' + t3end + b + GetField('SUBTYPE') + '<br>';
   if (GetField('PERIOD'))>'' then
      txt  := txt + t3 + rsm_49 + t3end + b + GetField('PERIOD') + '<br>';
+  if (GetField('PROCESS'))>'' then
+     txt  := txt + t3 + 'Process:' + t3end + b + GetField('PROCESS') + '<br>';
+  if (GetField('GEOLOGY'))>'' then
+     txt  := txt + t3 + 'Geology:' + t3end + b + GetField('GEOLOGY') + '<br>';
   txt  := txt + b + '<br>';
 
   //Taille
@@ -2081,6 +2160,8 @@ begin
       txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + b + rsm_26 + b + buf2 + '<br>';
   if GetField('PRINSTRU') > '' then
      txtbuf := txtbuf + t3 + rsm_28 + t3end + b + GetField('PRINSTRU') + '<br>';
+  if (GetField('TIPS'))>'' then
+     txtbuf  := txtbuf + t3 + 'Tips:' + t3end + b + GetField('TIPS') + '<br>';
   if txtbuf>'' then
      txt   := txt + t2 + rsm_59 + t2end + '<br>'+txtbuf+b + '<br>'; //Observation
 
@@ -2211,6 +2292,57 @@ begin
      txtbuf   := txtbuf + t3 + rsm_9 + t3end + b + GetField('RICCIOLI') + '<br>';
   if txtbuf>'' then
      txt := txt + t2 + rsm_62 + t2end + '<br>'+txtbuf+ b + '<br>'; //Origine
+
+  // IAU information
+  txtbuf:='';
+  if GetField('IAU_FEATURE_NAME')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + GetField('IAU_FEATURE_NAME') + '<br>';
+  if GetField('IAU_CLEAN_FEATURE_NAME')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_CLEAN_FEATURE_NAME:' + t3end + b + GetField('IAU_CLEAN_FEATURE_NAME') + '<br>';
+  if GetField('IAU_FEATURE_ID')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_ID:' + t3end + b + GetField('IAU_FEATURE_ID') + '<br>';
+  if GetField('IAU_TARGET')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_TARGET:' + t3end + b + GetField('IAU_TARGET') + '<br>';
+  if GetField('IAU_DIAMETER')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_DIAMETER:' + t3end + b + GetField('IAU_DIAMETER') + '<br>';
+  if GetField('IAU_CENTER_LATITUDE')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_CENTER_LATITUDE:' + t3end + b + GetField('IAU_CENTER_LATITUDE') + '<br>';
+  if GetField('IAU_CENTER_LONGITUDE')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_CENTER_LONGITUDE:' + t3end + b + GetField('IAU_CENTER_LONGITUDE') + '<br>';
+  if GetField('IAU_NORTHERN_LATITUDE')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_NORTHERN_LATITUDE:' + t3end + b + GetField('IAU_NORTHERN_LATITUDE') + '<br>';
+  if GetField('IAU_SOUTHERN_LATITUDE')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_SOUTHERN_LATITUDE:' + t3end + b + GetField('IAU_SOUTHERN_LATITUDE') + '<br>';
+  if GetField('IAU_EASTERN_LONGITUDE')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_EASTERN_LONGITUDE:' + t3end + b + GetField('IAU_EASTERN_LONGITUDE') + '<br>';
+  if GetField('IAU_WESTERN_LONGITUDE')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_WESTERN_LONGITUDE:' + t3end + b + GetField('IAU_WESTERN_LONGITUDE') + '<br>';
+  if GetField('IAU_COORDINATE_SYSTEM')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_COORDINATE_SYSTEM:' + t3end + b + GetField('IAU_COORDINATE_SYSTEM') + '<br>';
+  if GetField('IAU_CONTINENT')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_CONTINENT:' + t3end + b + GetField('IAU_CONTINENT') + '<br>';
+  if GetField('IAU_ETHNICITY')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_ETHNICITY:' + t3end + b + GetField('IAU_ETHNICITY') + '<br>';
+  if GetField('IAU_FEATURE_TYPE')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE:' + t3end + b + GetField('IAU_FEATURE_TYPE') + '<br>';
+  if GetField('IAU_FEATURE_TYPE_CODE')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE_CODE:' + t3end + b + GetField('IAU_FEATURE_TYPE_CODE') + '<br>';
+  if GetField('IAU_QUAD')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_QUAD:' + t3end + b + GetField('') + '<br>';
+  if GetField('IAU_APPROVAL_STATUS')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_STATUS:' + t3end + b + GetField('IAU_APPROVAL_STATUS') + '<br>';
+  if GetField('IAU_APPROVAL_DATE')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_DATE:' + t3end + b + GetField('IAU_APPROVAL_DATE') + '<br>';
+  if GetField('IAU_REFERENCE')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_REFERENCE:' + t3end + b + GetField('IAU_REFERENCE') + '<br>';
+  if GetField('IAU_ORIGIN')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_ORIGIN:' + t3end + b + GetField('IAU_ORIGIN') + '<br>';
+  if GetField('IAU_ADDITIONAL_INFO')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_ADDITIONAL_INFO:' + t3end + b + GetField('IAU_ADDITIONAL_INFO') + '<br>';
+  if GetField('IAU_LAST_UPDATED')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_LAST_UPDATED:' + t3end + b + GetField('IAU_LAST_UPDATED') + '<br>';
+  if txtbuf>'' then
+     txt := txt + t2 + 'IAU information:' + t2end + '<br>'+txtbuf+ b + '<br>';
 
   txt   := txt + '</body></html>';
   if copy(GetField('PROFIL'),1,2)='A_' then begin
@@ -2898,9 +3030,9 @@ end;
 end;
 
 
-procedure TForm1.IdentLB(l, b: single);
+procedure TForm1.IdentLB(l, b, w: single);
 begin
-  if SearchAtPos(l, b) then
+  if SearchAtPos(l, b, w) then
   begin
     l := dbm.Results[0].ByField['LONGIN'].AsFloat;
     b := dbm.Results[0].ByField['LATIN'].AsFloat;
@@ -2978,7 +3110,7 @@ begin
   for i := 0 to form2.Checklistbox1.Count - 1 do
     (form2.Checklistbox1.Items.Objects[i] as TDBinfo).Free;
   form2.CheckListBox1.Clear;
-  dbm.query('select * from user_database where DBN>9');
+  dbm.query('select * from user_database where DBN>99');
   for i := 0 to dbm.RowCount - 1 do
   begin
     j := dbm.Results[i].format[0].AsInteger;
@@ -2993,6 +3125,9 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   i: integer;
 begin
+//  Satellite model
+//  Label18.Visible:=true;
+//  ComboBox6.Visible:=true;
   DecimalSeparator := '.';
   ThousandSeparator:=' ';
   UniqueInstance1:=TCdCUniqueInstance.Create(self);
@@ -3041,7 +3176,7 @@ begin
   CurrentEyepiece := 0;
   EyepieceRatio := 1;
   zoom      := 1;
-  useDBN    := 7;
+  useDBN    := 9;
   compresstexture := true;
   antialias := false;
   ForceBumpMapSize:=0;
@@ -3158,7 +3293,6 @@ UpDown5.Width:=14;
 UpDown6.Width:=14;
 trackdelay.Width:=14;
 Application.BringToFront;
-//moon1.GLSceneViewer1.Visible:=false;
 moon1.GLSceneViewer1.Camera:=nil;
 StartTimer.Enabled:=true;
 end;
@@ -3169,7 +3303,6 @@ try
   Setlang;
   form2.onPrinterDialog:=Selectiondimprimante1Click;
   screen.cursor := crHourGlass;
- // moon1.GLSceneViewer1.Visible:=false;
   application.ProcessMessages;
   LoadDB(dbm);
   application.ProcessMessages;
@@ -3255,7 +3388,6 @@ try
   GridButton.Visible:=AsMultiTexture;
 finally
   screen.cursor := crDefault;
-//  StartTimer.Enabled:=true;
 end;
 end;
 
@@ -3339,6 +3471,8 @@ begin
     form2.checkbox23.Checked := usedatabase[5];
     form2.checkbox24.Checked := usedatabase[6];
     form2.checkbox25.Checked := usedatabase[7];
+    form2.checkbox26.Checked := usedatabase[8];
+    form2.checkbox27.Checked := usedatabase[9];
     ListUserDB;
     form2.checkbox1.Checked := phaseeffect;
     form2.checkbox2.Checked := librationeffect;
@@ -3486,6 +3620,10 @@ begin
         reloaddb     := True;
       if usedatabase[7] <> form2.checkbox25.Checked then
         reloaddb     := True;
+      if usedatabase[8] <> form2.checkbox26.Checked then
+        reloaddb     := True;
+      if usedatabase[9] <> form2.checkbox27.Checked then
+        reloaddb     := True;
       usedatabase[1] := form2.checkbox19.Checked;
       usedatabase[2] := form2.checkbox20.Checked;
       usedatabase[3] := form2.checkbox21.Checked;
@@ -3493,6 +3631,8 @@ begin
       usedatabase[5] := form2.checkbox23.Checked;
       usedatabase[6] := form2.checkbox24.Checked;
       usedatabase[7] := form2.checkbox25.Checked;
+      usedatabase[8] := form2.checkbox26.Checked;
+      usedatabase[9] := form2.checkbox27.Checked;
       for i := 0 to form2.Checklistbox1.Count - 1 do
       begin
         j := (form2.Checklistbox1.Items.Objects[i] as TDBinfo).dbnum;
@@ -5209,12 +5349,17 @@ end;
 procedure TForm1.MoonClickEvent(Sender: TObject; Button: TMouseButton;
                      Shift: TShiftState; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
+var wmin: double;
 begin
 if sender is Tf_moon then SetActiveMoon(Tf_moon(sender));
 if button=mbLeft then begin
   if OnMoon then begin
-     identLB(Rad2Deg*Lon,Rad2Deg*Lat);
-     Tf_moon(Sender).SetMark(deg2rad*currentl,deg2rad*currentb,capitalize(currentname));
+    if (Tf_moon(Sender).Zoom >= 8) then
+      wmin := -1
+    else
+      wmin := MinValue([10.0, 10/(Tf_moon(Sender).Zoom)]);
+    identLB(Rad2Deg*Lon,Rad2Deg*Lat,wmin);
+    Tf_moon(Sender).SetMark(deg2rad*currentl,deg2rad*currentb,capitalize(currentname));
   end else begin
      Tf_moon(Sender).SetMark(0,0,'');
   end;

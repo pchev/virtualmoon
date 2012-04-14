@@ -162,7 +162,7 @@ object Form1: TForm1
   OnResize = FormResize
   OnShow = FormShow
   Position = poDefaultPosOnly
-  LCLVersion = '0.9.30.3'
+  LCLVersion = '0.9.30.4'
   object Memo2: TMemo
     Left = 64
     Height = 41
@@ -393,8 +393,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 18
-    Top = 552
+    Height = 21
+    Top = 549
     Width = 885
     Panels = <    
       item
@@ -427,16 +427,16 @@ object Form1: TForm1
     Options = [nboMultiLine]
     object Position: TTabSheet
       Caption = 'Information'
-      ClientHeight = 476
-      ClientWidth = 327
+      ClientHeight = 481
+      ClientWidth = 331
       object Panel1: TPanel
         Left = 0
         Height = 89
         Top = 0
-        Width = 327
+        Width = 331
         Align = alTop
         ClientHeight = 89
-        ClientWidth = 327
+        ClientWidth = 331
         TabOrder = 0
         object Button1: TButton
           Left = 163
@@ -460,11 +460,11 @@ object Form1: TForm1
           Left = 1
           Height = 48
           Top = 40
-          Width = 325
+          Width = 329
           Align = alBottom
-          Caption = 'Profileeeeeeeeeeeeeeeeeeeeee'
-          ClientHeight = 18
-          ClientWidth = 321
+          Caption = 'Profil----------------------------------------------------------'
+          ClientHeight = 32
+          ClientWidth = 325
           TabOrder = 3
           object Label7: TLabel
             Left = 0
@@ -480,7 +480,7 @@ object Form1: TForm1
         end
         object ComboBox1: TComboBox
           Left = 3
-          Height = 24
+          Height = 23
           Top = 8
           Width = 161
           DropDownCount = 15
@@ -492,9 +492,9 @@ object Form1: TForm1
       end
       object Desc1: TIpHtmlPanel
         Left = 0
-        Height = 387
+        Height = 392
         Top = 89
-        Width = 327
+        Width = 331
         Align = alClient
         FixedTypeface = 'Courier New'
         DefaultTypeFace = 'Sans'
@@ -513,14 +513,14 @@ object Form1: TForm1
     end
     object Notes: TTabSheet
       Caption = 'Notes'
-      ClientHeight = 476
-      ClientWidth = 327
+      ClientHeight = 481
+      ClientWidth = 331
       ImageIndex = 6
       object Memo1: TMemo
         Left = 0
-        Height = 418
+        Height = 423
         Top = 58
-        Width = 327
+        Width = 331
         Align = alClient
         OnChange = Memo1Change
         PopupMenu = PopupMenu2
@@ -532,10 +532,10 @@ object Form1: TForm1
         Left = 0
         Height = 58
         Top = 0
-        Width = 327
+        Width = 331
         Align = alTop
         ClientHeight = 58
-        ClientWidth = 327
+        ClientWidth = 331
         TabOrder = 1
         object notes_name: TLabel
           Left = 8
@@ -558,17 +558,17 @@ object Form1: TForm1
     end
     object Ephemerides: TTabSheet
       Caption = 'Ephemerides'
-      ClientHeight = 476
-      ClientWidth = 327
+      ClientHeight = 481
+      ClientWidth = 331
       ImageIndex = 1
       object Panel4: TPanel
         Left = 0
         Height = 121
         Top = 0
-        Width = 327
+        Width = 331
         Align = alTop
         ClientHeight = 121
-        ClientWidth = 327
+        ClientWidth = 331
         TabOrder = 0
         TabStop = True
         object Label6: TLabel
@@ -1095,9 +1095,9 @@ object Form1: TForm1
       end
       object StringGrid1: TStringGrid
         Left = 0
-        Height = 355
+        Height = 360
         Top = 121
-        Width = 327
+        Width = 331
         Align = alClient
         BorderStyle = bsNone
         Color = clBtnFace
@@ -1120,17 +1120,17 @@ object Form1: TForm1
     end
     object Terminateur: TTabSheet
       Caption = 'Terminateur'
-      ClientHeight = 476
-      ClientWidth = 327
+      ClientHeight = 481
+      ClientWidth = 331
       ImageIndex = 2
       object Panel5: TPanel
         Left = 0
         Height = 138
         Top = 0
-        Width = 327
+        Width = 331
         Align = alTop
         ClientHeight = 138
-        ClientWidth = 327
+        ClientWidth = 331
         TabOrder = 0
         object Label19: TLabel
           Left = 8
@@ -1158,7 +1158,7 @@ object Form1: TForm1
         end
         object ComboBox2: TComboBox
           Left = 80
-          Height = 24
+          Height = 23
           Top = 8
           Width = 121
           ItemHeight = 0
@@ -1175,7 +1175,7 @@ object Form1: TForm1
         end
         object ComboBox3: TComboBox
           Left = 80
-          Height = 24
+          Height = 23
           Top = 32
           Width = 57
           ItemHeight = 0
@@ -1208,7 +1208,7 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 50
+          ClientHeight = 61
           ClientWidth = 234
           Columns = 2
           Items.Strings = (
@@ -1223,13 +1223,13 @@ object Form1: TForm1
       end
       object ListBox1: TListBox
         Left = 0
-        Height = 338
+        Height = 343
         Top = 138
-        Width = 327
+        Width = 331
         Align = alClient
         ItemHeight = 0
         OnClick = ListBox1Click
-        ScrollWidth = 323
+        ScrollWidth = 327
         Sorted = True
         TabOrder = 1
         TopIndex = -1
@@ -1237,177 +1237,86 @@ object Form1: TForm1
     end
     object Outils: TTabSheet
       Caption = 'Outils'
-      ClientHeight = 476
-      ClientWidth = 327
+      ClientHeight = 481
+      ClientWidth = 331
       ImageIndex = 4
-      object Bevel4: TBevel
+      object PanelRot: TPanel
         Left = 8
-        Height = 137
-        Top = 8
-        Width = 253
-        Shape = bsFrame
-      end
-      object Label24: TLabel
-        Left = 24
-        Height = 15
-        Top = 28
-        Width = 86
-        Caption = 'Distance reelle'
-        ParentColor = False
-      end
-      object Label25: TLabel
-        Left = 24
-        Height = 15
-        Top = 52
-        Width = 112
-        Caption = 'Distance apparente'
-        ParentColor = False
-      end
-      object Label1: TLabel
-        Left = 72
-        Height = 15
-        Top = 116
-        Width = 7
-        Caption = 'L'
-        ParentColor = False
-      end
-      object Label2: TLabel
-        Left = 136
-        Height = 15
-        Top = 116
-        Width = 9
-        Caption = 'B'
-        ParentColor = False
-      end
-      object Label3: TLabel
-        Left = 24
-        Height = 15
-        Top = 116
-        Width = 39
-        Caption = 'Centre'
-        ParentColor = False
-      end
-      object Label23: TLabel
-        Left = 16
-        Height = 15
-        Top = 4
-        Width = 58
-        Caption = ' Distance '
-        Color = clBtnFace
-        ParentColor = False
-        Transparent = False
-      end
-      object PanelTel: TPanel
-        Left = 8
-        Height = 162
-        Top = 304
+        Height = 148
+        Top = 148
         Width = 253
         BevelInner = bvLowered
-        ClientHeight = 162
+        ClientHeight = 148
         ClientWidth = 253
-        TabOrder = 8
-        Visible = False
-        object Label28: TLabel
-          Left = 32
-          Height = 15
-          Top = 136
-          Width = 32
-          Caption = 'every'
-          Enabled = False
-          ParentColor = False
-        end
-        object Label26: TLabel
-          Left = 129
-          Height = 15
-          Top = 136
-          Width = 49
-          Caption = 'seconds'
-          Enabled = False
-          ParentColor = False
-        end
-        object Label41: TLabel
-          Left = 7
+        TabOrder = 7
+        object Label40: TLabel
+          Left = 9
           Height = 15
           Top = 4
-          Width = 57
-          Caption = 'Telescope'
+          Width = 47
+          Caption = 'Rotation'
           ParentColor = False
         end
-        object ComboBox5: TComboBox
-          Left = 8
-          Height = 24
-          Top = 26
-          Width = 105
-          ItemHeight = 0
-          OnChange = ComboBox5Change
-          Sorted = True
+        object Button13: TButton
+          Left = 77
+          Height = 25
+          Top = 20
+          Width = 63
+          Caption = 'Droite'
+          OnMouseUp = Button13MouseUp
           TabOrder = 0
         end
-        object Button16: TButton
-          Left = 124
+        object Button12: TButton
+          Left = 9
           Height = 25
-          Top = 24
-          Width = 114
-          Caption = 'Show Menu'
-          OnClick = Button16Click
+          Top = 20
+          Width = 64
+          Caption = 'Gauche'
+          OnMouseUp = Button12MouseUp
           TabOrder = 1
         end
-        object Button17: TButton
-          Left = 8
-          Height = 25
-          Top = 58
-          Width = 100
-          Caption = 'Goto selected'
-          OnClick = Button17Click
+        object CheckBox2: TCheckBox
+          Left = 10
+          Height = 21
+          Top = 100
+          Width = 55
+          Caption = 'Miroir'
+          OnClick = CheckBox2Click
           TabOrder = 2
         end
-        object Button18: TButton
-          Left = 124
-          Height = 25
-          Top = 58
-          Width = 114
-          Caption = 'Sync selected'
-          OnClick = Button18Click
+        object CheckBox1: TCheckBox
+          Left = 10
+          Height = 21
+          Top = 124
+          Width = 194
+          Caption = 'Pole celeste toujours en haut.'
+          OnClick = CheckBox1Click
           TabOrder = 3
         end
-        object CheckBox6: TCheckBox
-          Left = 8
-          Height = 26
-          Top = 90
-          Width = 106
-          Caption = 'Track position'
-          OnClick = CheckBox6Click
+        object RadioGroup2: TRadioGroup
+          Left = 12
+          Height = 42
+          Top = 53
+          Width = 226
+          AutoFill = True
+          Caption = 'RadioGroup2'
+          ChildSizing.LeftRightSpacing = 6
+          ChildSizing.TopBottomSpacing = 6
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.EnlargeVertical = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsScaleChilds
+          ChildSizing.ShrinkVertical = crsScaleChilds
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 2
+          ClientHeight = 23
+          ClientWidth = 222
+          Columns = 2
+          Items.Strings = (
+            'nnnnnnnnnnn'
+            'sssssssssssssss'
+          )
+          OnClick = RadioGroup2Click
           TabOrder = 4
-        end
-        object CheckBox7: TCheckBox
-          Left = 8
-          Height = 26
-          Top = 114
-          Width = 70
-          Caption = 'Correct'
-          Enabled = False
-          TabOrder = 5
-        end
-        object Edit5: TEdit
-          Left = 80
-          Height = 22
-          Top = 132
-          Width = 33
-          Enabled = False
-          TabOrder = 6
-          Text = '10'
-        end
-        object trackdelay: TUpDown
-          Left = 113
-          Height = 22
-          Top = 132
-          Width = 13
-          Associate = Edit5
-          Min = 0
-          Max = 60
-          Position = 10
-          TabOrder = 7
-          Wrap = False
         end
       end
       object GroupBox3: TGroupBox
@@ -1416,7 +1325,7 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 296
+        ClientHeight = 310
         ClientWidth = 249
         TabOrder = 6
         Visible = False
@@ -1579,7 +1488,7 @@ object Form1: TForm1
         end
         object ComboBox4: TComboBox
           Left = 122
-          Height = 24
+          Height = 23
           Top = 16
           Width = 97
           ItemHeight = 0
@@ -1616,7 +1525,7 @@ object Form1: TForm1
         end
         object ComboBox6: TComboBox
           Left = 124
-          Height = 24
+          Height = 23
           Top = 234
           Width = 105
           ItemHeight = 0
@@ -1646,83 +1555,174 @@ object Form1: TForm1
           Visible = False
         end
       end
-      object PanelRot: TPanel
+      object Bevel4: TBevel
         Left = 8
-        Height = 148
-        Top = 148
+        Height = 137
+        Top = 8
+        Width = 253
+        Shape = bsFrame
+      end
+      object Label24: TLabel
+        Left = 24
+        Height = 15
+        Top = 28
+        Width = 86
+        Caption = 'Distance reelle'
+        ParentColor = False
+      end
+      object Label25: TLabel
+        Left = 24
+        Height = 15
+        Top = 52
+        Width = 112
+        Caption = 'Distance apparente'
+        ParentColor = False
+      end
+      object Label1: TLabel
+        Left = 72
+        Height = 15
+        Top = 116
+        Width = 7
+        Caption = 'L'
+        ParentColor = False
+      end
+      object Label2: TLabel
+        Left = 136
+        Height = 15
+        Top = 116
+        Width = 9
+        Caption = 'B'
+        ParentColor = False
+      end
+      object Label3: TLabel
+        Left = 24
+        Height = 15
+        Top = 116
+        Width = 39
+        Caption = 'Centre'
+        ParentColor = False
+      end
+      object Label23: TLabel
+        Left = 16
+        Height = 15
+        Top = 4
+        Width = 58
+        Caption = ' Distance '
+        Color = clBtnFace
+        ParentColor = False
+        Transparent = False
+      end
+      object PanelTel: TPanel
+        Left = 8
+        Height = 162
+        Top = 304
         Width = 253
         BevelInner = bvLowered
-        ClientHeight = 148
+        ClientHeight = 162
         ClientWidth = 253
-        TabOrder = 7
-        object Label40: TLabel
-          Left = 9
+        TabOrder = 8
+        Visible = False
+        object Label28: TLabel
+          Left = 32
           Height = 15
-          Top = 4
-          Width = 47
-          Caption = 'Rotation'
+          Top = 136
+          Width = 32
+          Caption = 'every'
+          Enabled = False
           ParentColor = False
         end
-        object Button13: TButton
-          Left = 77
-          Height = 25
-          Top = 20
-          Width = 63
-          Caption = 'Droite'
-          OnMouseUp = Button13MouseUp
+        object Label26: TLabel
+          Left = 129
+          Height = 15
+          Top = 136
+          Width = 49
+          Caption = 'seconds'
+          Enabled = False
+          ParentColor = False
+        end
+        object Label41: TLabel
+          Left = 7
+          Height = 15
+          Top = 4
+          Width = 57
+          Caption = 'Telescope'
+          ParentColor = False
+        end
+        object ComboBox5: TComboBox
+          Left = 8
+          Height = 23
+          Top = 26
+          Width = 105
+          ItemHeight = 0
+          OnChange = ComboBox5Change
+          Sorted = True
           TabOrder = 0
         end
-        object Button12: TButton
-          Left = 9
+        object Button16: TButton
+          Left = 124
           Height = 25
-          Top = 20
-          Width = 64
-          Caption = 'Gauche'
-          OnMouseUp = Button12MouseUp
+          Top = 24
+          Width = 114
+          Caption = 'Show Menu'
+          OnClick = Button16Click
           TabOrder = 1
         end
-        object CheckBox2: TCheckBox
-          Left = 10
-          Height = 26
-          Top = 100
-          Width = 60
-          Caption = 'Miroir'
-          OnClick = CheckBox2Click
+        object Button17: TButton
+          Left = 8
+          Height = 25
+          Top = 58
+          Width = 100
+          Caption = 'Goto selected'
+          OnClick = Button17Click
           TabOrder = 2
         end
-        object CheckBox1: TCheckBox
-          Left = 10
-          Height = 26
-          Top = 124
-          Width = 199
-          Caption = 'Pole celeste toujours en haut.'
-          OnClick = CheckBox1Click
+        object Button18: TButton
+          Left = 124
+          Height = 25
+          Top = 58
+          Width = 114
+          Caption = 'Sync selected'
+          OnClick = Button18Click
           TabOrder = 3
         end
-        object RadioGroup2: TRadioGroup
-          Left = 12
-          Height = 42
-          Top = 53
-          Width = 226
-          AutoFill = True
-          Caption = 'RadioGroup2'
-          ChildSizing.LeftRightSpacing = 6
-          ChildSizing.TopBottomSpacing = 6
-          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-          ChildSizing.EnlargeVertical = crsHomogenousChildResize
-          ChildSizing.ShrinkHorizontal = crsScaleChilds
-          ChildSizing.ShrinkVertical = crsScaleChilds
-          ChildSizing.Layout = cclLeftToRightThenTopToBottom
-          ChildSizing.ControlsPerLine = 2
-          ClientHeight = 12
-          ClientWidth = 222
-          Columns = 2
-          Items.Strings = (
-            'nnnnnnnnnnn'
-            'sssssssssssssss'
-          )
-          OnClick = RadioGroup2Click
+        object CheckBox6: TCheckBox
+          Left = 8
+          Height = 21
+          Top = 90
+          Width = 101
+          Caption = 'Track position'
+          OnClick = CheckBox6Click
           TabOrder = 4
+        end
+        object CheckBox7: TCheckBox
+          Left = 8
+          Height = 21
+          Top = 114
+          Width = 65
+          Caption = 'Correct'
+          Enabled = False
+          TabOrder = 5
+        end
+        object Edit5: TEdit
+          Left = 80
+          Height = 22
+          Top = 132
+          Width = 33
+          Enabled = False
+          TabOrder = 6
+          Text = '10'
+        end
+        object trackdelay: TUpDown
+          Left = 113
+          Height = 22
+          Top = 132
+          Width = 13
+          Associate = Edit5
+          Min = 0
+          Max = 60
+          Position = 10
+          TabOrder = 7
+          Wrap = False
         end
       end
       object Button11: TButton
@@ -1782,8 +1782,8 @@ object Form1: TForm1
     end
     object Reglage: TTabSheet
       Caption = 'Reglage'
-      ClientHeight = 476
-      ClientWidth = 327
+      ClientHeight = 481
+      ClientWidth = 331
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
@@ -1981,23 +1981,23 @@ object Form1: TForm1
         Top = 372
         Width = 204
         Caption = 'Options valid at next startup'
-        ClientHeight = 42
+        ClientHeight = 56
         ClientWidth = 200
         TabOrder = 4
         object CheckBox8: TCheckBox
           Left = 6
-          Height = 26
+          Height = 21
           Top = 10
-          Width = 181
+          Width = 176
           Caption = 'Force texture compression'
           OnClick = CheckBox8Click
           TabOrder = 0
         end
         object CheckBox3: TCheckBox
           Left = 6
-          Height = 26
+          Height = 21
           Top = 32
-          Width = 80
+          Width = 75
           Caption = 'Anti-Alias'
           OnClick = CheckBox3Click
           TabOrder = 1
@@ -2016,14 +2016,14 @@ object Form1: TForm1
     end
     object dbtab: TTabSheet
       Caption = 'Database'
-      ClientHeight = 476
-      ClientWidth = 327
+      ClientHeight = 481
+      ClientWidth = 331
       ImageIndex = 5
       object StringGrid2: TStringGrid
         Left = 0
-        Height = 443
+        Height = 448
         Top = 0
-        Width = 327
+        Width = 331
         Align = alClient
         ColCount = 2
         DefaultColWidth = 74
@@ -2041,11 +2041,11 @@ object Form1: TForm1
       object Panel6: TPanel
         Left = 0
         Height = 33
-        Top = 443
-        Width = 327
+        Top = 448
+        Width = 331
         Align = alBottom
         ClientHeight = 33
-        ClientWidth = 327
+        ClientWidth = 331
         TabOrder = 1
         object Button9: TButton
           Left = 86

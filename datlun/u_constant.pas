@@ -64,9 +64,11 @@ const crlf = chr(10)+chr(13);
       AbsoluteMaxSprite=5000;
       Label3dSize=1;
       maxfocbase=1900;
-      numdb=7;
+      numdb=99;
       numdbtype = 25;
-      hidenfields = [4,6,8,9,31,51];
+      // NAMETYPE SUBTYPE PROCESS GEOLOGY AREA TIPS
+      //hidenfields = [5,7,9,10,33,53];
+      hidenfields = [];
 
       // Paper size
       PaperNumber=9;

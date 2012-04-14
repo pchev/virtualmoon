@@ -23,7 +23,7 @@ object splash: Tsplash
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '0.9.30.1'
+  LCLVersion = '0.9.30.4'
   object Panel1: TPanel
     Left = 0
     Height = 350
@@ -571,12 +571,12 @@ object splash: Tsplash
     end
     object Label3: TLabel
       Left = 0
-      Height = 94
-      Top = 256
+      Height = 100
+      Top = 250
       Width = 400
       Align = alBottom
       Alignment = taCenter
-      Caption = 'Copyright © 2001-2010  Christian Legrand, Patrick Chevalley, '#10'All rights reserved'#13#10'This program is free software; you can redistribute it and/or'#10'modify it under the terms of the GNU General Public License.'#13#10'All database, pictures and documentation © Ch. Legrand'#13#10'Pictures library are copyrighted by their respective owner.'
+      Caption = 'Copyright © 2002-2012  Christian Legrand, Patrick Chevalley, '#10'All rights reserved'#13#10'This program is free software; you can redistribute it and/or'#10'modify it under the terms of the GNU General Public License.'#13#10'All database, pictures and documentation © Ch. Legrand'#13#10'Pictures library are copyrighted by their respective owner.'
       Color = clBlack
       Font.Color = 57568
       Font.Height = -11
@@ -590,7 +590,7 @@ object splash: Tsplash
     object Label4: TLabel
       Left = 0
       Height = 14
-      Top = 242
+      Top = 236
       Width = 400
       Align = alBottom
       Alignment = taCenter

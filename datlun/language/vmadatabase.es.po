@@ -165,6 +165,14 @@ msgstr "PIR"
 msgid "DOM"
 msgstr "DOM"
 
+#: u_translation_database.rsdb_8
+msgid "NSU"
+msgstr ""
+
+#: u_translation_database.rsdb_9
+msgid "FSU"
+msgstr ""
+
 #: u_translation_database.warning1
 msgid " Note to translator:"
 msgstr "Nota del traductor"

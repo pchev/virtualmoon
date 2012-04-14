@@ -5,6 +5,10 @@ msgstr "Content-Type: text/plain; charset=UTF-8"
 msgid "Edit"
 msgstr ""
 
+#: u_translation.rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr ""
+
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr ""
@@ -396,5 +400,9 @@ msgstr ""
 
 #: u_translation.rst_9
 msgid "Cancel"
+msgstr ""
+
+#: u_translation.rsunnamedforma
+msgid "Unnamed Formation"
 msgstr ""
 

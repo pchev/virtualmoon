@@ -1174,3 +1174,11 @@ msgstr ""
 msgid "Hours"
 msgstr ""
 
+#: u_translation:rsunnamedforma
+msgid "Unnamed Formation"
+msgstr ""
+
+#: u_translation:rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr ""
+

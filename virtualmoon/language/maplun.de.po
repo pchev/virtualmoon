@@ -75,6 +75,10 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr "Ephimeride: "
 
+#: u_translation.rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr ""
+
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Einstellung für den Erstgebrauch"
@@ -1191,6 +1195,10 @@ msgstr "Glossar"
 #: u_translation.rst_99
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#: u_translation.rsunnamedforma
+msgid "Unnamed Formation"
+msgstr ""
 
 #: u_translation.rsyoucandownlo
 msgid "You can download and install the following optional features:"

@@ -386,3 +386,11 @@ msgstr ""
 msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
 msgstr ""
 
+#: u_translation:rsunnamedforma
+msgid "Unnamed Formation"
+msgstr ""
+
+#: u_translation:rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr ""
+

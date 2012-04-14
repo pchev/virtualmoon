@@ -2079,7 +2079,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
         end
         else
         begin
-          Text      := '.' + txt;
+          Text      := '-' + txt;
           Alignment := taLeftJustify;
       end;
       Visible:=true;
@@ -2093,7 +2093,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
         end
         else
         begin
-          Text      := '.' + txt;
+          Text      := '-' + txt;
           Alignment := taLeftJustify;
       end;
       Visible:=true;

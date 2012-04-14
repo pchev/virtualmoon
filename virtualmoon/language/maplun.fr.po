@@ -5,12 +5,12 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2012-01-19 17:58+0100\n"
+"Last-Translator: pch\n"
+"PO-Revision-Date: 2012-04-09 22:34+0200\n"
 "Project-Id-Version: maplun.fr\n"
-"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language: fr\n"
@@ -74,6 +74,10 @@ msgstr "Date de fin"
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
 msgstr "Ephéméride:"
+
+#: u_translation.rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr "Formations non nommées de la face cachée"
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
@@ -1195,6 +1199,10 @@ msgstr "Glossaire"
 msgid "Cancel"
 msgstr "Abandon"
 
+#: u_translation.rsunnamedforma
+msgid "Unnamed Formation"
+msgstr "Formations non nommées"
+
 #: u_translation.rsyoucandownlo
 msgid "You can download and install the following optional features:"
 msgstr "Vous pouvez télécharger les options suivantes:"
@@ -1206,4 +1214,5 @@ msgstr "Votre installation est déjà complète avec toutes les options install�
 #: u_translation.rszoomlevel
 msgid "Zoom level"
 msgstr "Niveau de zoom"
+
 

@@ -29,6 +29,8 @@ rsdb_4='FSI';
 rsdb_5='HIS';
 rsdb_6='PYR';
 rsdb_7='DOM';
+rsdb_8='NSU';
+rsdb_9='FSU';
 rscol_1='Crater';
 rscol_2='Craterlet';
 rscol_3='Crater chain';
@@ -63,6 +65,7 @@ rsb_6='No map or picture';
 rsb_7='No article';
 rsb_8='Not defined';
 rsb_9='Unknown in this period';
+
 
 implementation
 

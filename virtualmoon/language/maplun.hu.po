@@ -72,6 +72,10 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr "Efemerisz:"
 
+#: u_translation.rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr ""
+
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Beállítások az első indítás után"
@@ -1188,6 +1192,10 @@ msgstr "Szójegyzék"
 #: u_translation.rst_99
 msgid "Cancel"
 msgstr "Vissza"
+
+#: u_translation.rsunnamedforma
+msgid "Unnamed Formation"
+msgstr ""
 
 #: u_translation.rsyoucandownlo
 msgid "You can download and install the following optional features:"

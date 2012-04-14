@@ -31,11 +31,100 @@ interface
 Uses Forms, Dialogs, SysUtils, mlb2, passql, passqlite;
 
 const
-    MaxDBN=100;
-
+    MaxDBN=200;
+    NumMoonDBFields = 83;
+    MoonDBFields : array[1..NumMoonDBFields,1..2] of string = (
+      ('NAME','text'),
+      ('LUN','text'),
+      ('LUN_REDUCED','text'),
+      ('NAMETYPE','text'),
+      ('TYPE','text'),
+      ('SUBTYPE','text'),
+      ('PERIOD','text'),
+      ('PROCESS','text'),    // ?
+      ('GEOLOGY','text'),
+      ('NAMEDETAIL','text'),
+      ('NAMEORIGIN','text'),
+      ('LANGRENUS','text'),
+      ('HEVELIUS','text'),
+      ('RICCIOLI','text'),
+      ('WORK','text'),
+      ('COUNTRY','text'),
+      ('NATIONLITY','text'),
+      ('CENTURYN','float'),
+      ('CENTURYC','text'),
+      ('BIRTHPLACE','text'),
+      ('BIRTHDATE','text'),
+      ('DEATHPLACE','text'),
+      ('DEATHDATE','text'),
+      ('FACTS','text'),
+      ('LONGIN','float'),
+      ('LONGIN360','float'),
+      ('LONGIC','text'),
+      ('LATIN','float'),
+      ('LATIC','text'),
+      ('FACE','text'),
+      ('QUADRANT','text'),
+      ('AREA','text'),
+      ('RUKL','text'),
+      ('RUKLC','text'),
+      ('VISCARDY','text'),
+      ('HATFIELD','text'),
+      ('WESTFALL','text'),
+      ('WOOD','text'),
+      ('LOPAM','text'),
+      ('LENGTHKM','float'),
+      ('WIDEKM','float'),
+      ('LENGTHMI','float'),
+      ('WIDEMI','float'),
+      ('HEIGHTM','float'),
+      ('HEIGHTFE','float'),
+      ('RAPPORT','float'),
+      ('PROFIL','text'),
+      ('GENERAL','text'),
+      ('SLOPES','text'),
+      ('WALLS','text'),
+      ('FLOOR','text'),
+      ('TIPS','text'),              // ?
+      ('INTERESTN','integer'),
+      ('INTERESTC','text'),
+      ('LUNATION','integer'),
+      ('MOONDAYS','text'),
+      ('MOONDAYM','text'),
+      ('DIAMINST','integer'),
+      ('THINSTRU','text'),
+      ('PRINSTRU','text'),
+      ('IAU_FEATURE_NAME','text'),
+      ('IAU_CLEAN_FEATURE_NAME','text'),
+      ('IAU_FEATURE_ID','text'),
+      ('IAU_TARGET','text'),
+      ('IAU_DIAMETER','text'),
+      ('IAU_CENTER_LATITUDE','text'),
+      ('IAU_CENTER_LONGITUDE','text'),
+      ('IAU_NORTHERN_LATITUDE','text'),
+      ('IAU_SOUTHERN_LATITUDE','text'),
+      ('IAU_EASTERN_LONGITUDE','text'),
+      ('IAU_WESTERN_LONGITUDE','text'),
+      ('IAU_COORDINATE_SYSTEM','text'),
+      ('IAU_CONTINENT','text'),
+      ('IAU_ETHNICITY','text'),
+      ('IAU_FEATURE_TYPE','text'),
+      ('IAU_FEATURE_TYPE_CODE','text'),
+      ('IAU_QUAD','text'),
+      ('IAU_APPROVAL_STATUS','text'),
+      ('IAU_APPROVAL_DATE','text'),
+      ('IAU_REFERENCE','text'),
+      ('IAU_ORIGIN','text'),
+      ('IAU_ADDITIONAL_INFO','text'),
+      ('IAU_LAST_UPDATED','text')
+      );
+      FDBN=1;
+      FNAME=2;
+      FLONGIN=26;
+      FLATIN=29;
 var
     sidelist: string;
-    database : array[1..7] of string;
+    database : array[1..9] of string;
     usedatabase :array[1..MaxDBN] of boolean;
 
 Procedure LoadDB(dbm: TLiteDB);
@@ -57,67 +146,13 @@ for i:=0 to dbm.RowCount do buf:=buf+dbm.Results[i][0]+' ';
 if pos('moon',buf)=0 then begin
  cmd:='create table moon ( '+
     'ID INTEGER PRIMARY KEY,'+
-    'DBN integer,'+
-    'NAME text,'+
-    'LUN text,'+
-    'NAMETYPE text,'+
-    'TYPE text,'+
-    'SUBTYPE text,'+
-    'PERIOD text,'+
-    'PROCESS text,'+
-    'GEOLOGY text,'+
-    'NAMEDETAIL text,'+
-    'NAMEORIGIN text,'+
-    'LANGRENUS text,'+
-    'HEVELIUS text,'+
-    'RICCIOLI text,'+
-    'WORK text,'+
-    'COUNTRY text,'+
-    'NATIONLITY text,'+
-    'CENTURYN float,'+
-    'CENTURYC text,'+
-    'BIRTHPLACE text,'+
-    'BIRTHDATE text,'+
-    'DEATHPLACE text,'+
-    'DEATHDATE text,'+
-    'FACTS text,'+
-    'LONGIN float,'+
-    'LONGIC text,'+
-    'LATIN float,'+
-    'LATIC text,'+
-    'FACE text,'+
-    'QUADRANT text,'+
-    'AREA text,'+
-    'RUKL text,'+
-    'RUKLC text,'+
-    'VISCARDY text,'+
-    'HATFIELD text,'+
-    'WESTFALL text,'+
-    'WOOD text,'+
-    'LOPAM text,'+
-    'LENGTHKM float,'+
-    'WIDEKM float,'+
-    'LENGTHMI float,'+
-    'WIDEMI float,'+
-    'HEIGHTM float,'+
-    'HEIGHTFE float,'+
-    'RAPPORT float,'+
-    'PROFIL text,'+
-    'GENERAL text,'+
-    'SLOPES text,'+
-    'WALLS text,'+
-    'FLOOR text,'+
-    'TIPS text,'+
-    'INTERESTN integer,'+
-    'INTERESTC text,'+
-    'LUNATION integer,'+
-    'MOONDAYS text,'+
-    'MOONDAYM text,'+
-    'DIAMINST integer,'+
-    'THINSTRU text,'+
-    'PRINSTRU text'+
-    ');';
+    'DBN integer';
+ for i:=1 to NumMoonDBFields do begin
+   cmd:=cmd+','+MoonDBFields[i,1]+' '+MoonDBFields[i,2];
+ end;
+ cmd:=cmd+');';
  dbm.Query(cmd);
+ if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
  dbm.Query('create index moon_pos on moon (longin,latin);');
  dbm.Query('create index moon_name on moon (dbn,name);');
  dbjournal(extractfilename(dbm.database),'CREATE TABLE MOON');
@@ -128,6 +163,7 @@ if pos('file_date',buf)=0 then begin
     'FDATE integer'+
     ');';
  dbm.Query(cmd);
+ if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
  dbjournal(extractfilename(dbm.database),'CREATE TABLE FILE_DATE');
 end;
 if pos('user_database',buf)=0 then begin
@@ -136,23 +172,15 @@ if pos('user_database',buf)=0 then begin
     'NAME text'+
     ');';
  dbm.Query(cmd);
+ if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
  dbjournal(extractfilename(dbm.database),'CREATE TABLE USER_DATABASE');
 end;
 end;
 
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
 var cmd,v: string;
-    i,imax,ii:integer;
+    i,imax,ii,j:integer;
     db1:Tmlb2;
-    nolun,nonametype,nosubtype,noprocess,nogeology,noface,notips: boolean;
-const
-    poslun=2;
-    posnametype=3;
-    possubtype=5;
-    posprocess=7;
-    posgeology=8;
-    posface=28;
-    postips=50;
 begin
 if MsgForm=nil then Application.CreateForm(TMsgForm, MsgForm);
 MsgForm.Label1.caption:=ExtractFileName(fn)+crlf+'Preparing Database. Please Wait ...';
@@ -163,41 +191,31 @@ db1:=Tmlb2.Create;
 try
 db1.init;
 db1.LoadFromFile(fn);
-nolun:=(db1.GetFieldIndex('LUN')=0);
-nonametype:=(db1.GetFieldIndex('NAMETYPE')=0);
-nosubtype:=(db1.GetFieldIndex('SUBTYPE')=0);
-noprocess:=(db1.GetFieldIndex('PROCESS')=0);
-nogeology:=(db1.GetFieldIndex('GEOLOGY')=0);
-noface:=(db1.GetFieldIndex('FACE')=0);
-notips:=(db1.GetFieldIndex('TIPS')=0);
 db1.GoFirst;
 dbm.StartTransaction;
 dbm.Query('delete from moon where DBN='+side+';');
 dbm.Commit;
 dbm.Query('Vacuum;');
 dbjournal(extractfilename(dbm.database),'DELETE ALL DBN='+side);
+v:='';
+for i:=1 to NumMoonDBFields do begin
+  ii:=db1.GetFieldIndex(MoonDBFields[i,1]);
+  if ii=0 then v:=v+MoonDBFields[i,1]+'; ';
+end;
+if v>'' then dbjournal(extractfilename(dbm.database), fn+' missing fields: '+v);
 dbm.StartTransaction;
 repeat
   cmd:='insert into moon values(NULL,'+side+',';
-  ii:=1;
-  for i:=1 to db1.FieldCount do begin
-    if nolun and (ii=poslun) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if nonametype and (ii=posnametype) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if nosubtype and (ii=possubtype) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if noprocess and (ii=posprocess) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if nogeology and (ii=posgeology) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if noface and (ii=posface) then begin cmd:=cmd+'"",'; inc(ii); end;
-    if notips and (ii=postips) then begin cmd:=cmd+'"",'; inc(ii); end;
-    v:=db1.GetDataByIndex(i);
+  for i:=1 to NumMoonDBFields do begin
+    v:=db1.GetData(MoonDBFields[i,1]);
     v:=stringreplace(v,',','.',[rfreplaceall]); // look why we need that ???
     v:=stringreplace(v,'""','''',[rfreplaceall]);
     v:=stringreplace(v,'"','',[rfreplaceall]);
     cmd:=cmd+'"'+v+'",';
-    inc(ii);
   end;
   cmd:=copy(cmd,1,length(cmd)-1)+');';
   dbm.Query(cmd);
-//  showmessage(dbm.ErrorMessage);
+  if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
   db1.GoNext;
 until db1.EndOfFile;
 imax:=dbm.GetLastInsertID;
@@ -224,7 +242,7 @@ var i,db_age : integer;
     buf,missingf:string;
 begin
 missingf:='';
-buf:=Slash(DBdir)+'dbmoon4_u'+uplanguage+'.dbl';
+buf:=Slash(DBdir)+'dbmoon6_u'+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
@@ -250,8 +268,14 @@ if fileexists(buf) then database[6]:=buf
 buf:=Slash(appdir)+Slash('Database')+'Domes_u'+uplanguage+'.csv';
 if fileexists(buf) then database[7]:=buf
    else database[7]:=Slash(appdir)+Slash('Database')+'Domes_uEN.csv';
+buf:=Slash(appdir)+Slash('Database')+'Nearside_Unnamed_u'+uplanguage+'.csv';
+if fileexists(buf) then database[8]:=buf
+   else database[8]:=Slash(appdir)+Slash('Database')+'Nearside_Unnamed_uEN.csv';
+buf:=Slash(appdir)+Slash('Database')+'Farside_Unnamed_u'+uplanguage+'.csv';
+if fileexists(buf) then database[9]:=buf
+   else database[9]:=Slash(appdir)+Slash('Database')+'Farside_Unnamed_uEN.csv';
 CreateDB(dbm);
-for i:=1 to 7 do begin
+for i:=1 to 9 do begin
   if usedatabase[i] then begin
      buf:=dbm.QueryOne('select fdate from file_date where dbn='+inttostr(i)+';');
      if buf='' then db_age:=0 else db_age:=strtoint(buf);
