@@ -363,6 +363,8 @@ u_translation_database.translate(language,'en');
   dbshortname[5]:=rsdb_5;
   dbshortname[6]:=rsdb_6;
   dbshortname[7]:=rsdb_7;
+  dbshortname[8]:=rsdb_8;
+  dbshortname[9]:=rsdb_9;
   Selection.SetLang;
   LoadCSV.SetLang;
   SelectDB.SetLang;
@@ -476,8 +478,8 @@ var dbcol,i:integer;
 begin
 SetLang;
 ReadDefault;
-for i:=1 to 7 do usedatabase[i]:=true;
-for i:=8 to maxdbn do usedatabase[i]:=false;
+for i:=1 to 9 do usedatabase[i]:=true;
+for i:=10 to maxdbn do usedatabase[i]:=false;
 LoadDB(dbm);
 Loadcsv.dbname:=dbm.DataBase;
 Selection.lastselection:=CurrentSelection;
@@ -648,6 +650,8 @@ procedure Tf_main.RefreshGrid;
 var dbcol,dbrow,dbn,i:integer;
     buf:string;
 begin
+screen.Cursor:=crHourGlass;
+try
  ClearSelection;
  setlength(IDlist,MoonGrid.RowCount+2);
  for i:=0 to MoonGrid.RowCount+1 do IDlist[i]:=-1;
@@ -672,6 +676,9 @@ begin
  if currentselection='' then buf:='*'
     else buf:=currentselection;
  panel1.Caption:=rsm_4+' '+inttostr(currentrow+1)+'/'+inttostr(dbm.RowCount)+'   '+rsm_3+' '+buf;
+finally
+screen.Cursor:=crDefault;
+end;
 end;
 
 procedure Tf_main.ScrollBar1Change(Sender: TObject);
@@ -998,7 +1005,7 @@ if currentselection='' then begin showmessage(rsm_6);exit;end;
 if messagedlg(rsm_7,mtConfirmation,[mbYes,mbNo],0)=mrYes then begin
    dbjournal(extractfilename(dbm.DataBase),'DELETE WHERE '+currentselection);
    if dbm.query('delete from moon where '+currentselection+';') then begin
-      dbselection:='DBN in (1,2,3,4,5,6,7)';
+      dbselection:='DBN in (1,2,3,4,5,6,7,8,9)';
       currentselection:=dbselection;
       RemoveUnusedDBN;
       Select;

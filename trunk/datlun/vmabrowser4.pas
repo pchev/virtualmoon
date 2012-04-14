@@ -180,7 +180,7 @@ if Mlb.LoadFromFile(edit1.text) then begin
   Label5.Caption:=inttostr(Mlb.RowCount)+' '+rsm_8;
   Checklistbox1.Checked[0]:=true;
   fieldmode[1]:=1;
-  fieldconst[1]:=inttostr(min(99,max(10,1+strtointdef(dbu.queryone('select max(DBN) from moon'),10))));
+  fieldconst[1]:=inttostr(min(200,max(100,1+strtointdef(dbu.queryone('select max(DBN) from moon'),99))));
   Tabsheet2.TabVisible:=true;
   memo1.Clear;
   Tabsheet3.TabVisible:=false;
@@ -262,10 +262,12 @@ Mlb.Free;
 end;
 
 procedure TLoadCSV.AssignConstantClick(Sender: TObject);
-var i: integer;
+var i,v: integer;
 begin
 i:=Checklistbox1.ItemIndex+1;
 if (i<1) or (not Checklistbox1.Checked[i-1]) then begin showmessage(rsm_11);exit; end;
+v:=StrToIntDef(ConstantText.Text,0);
+if (i=FDBN)and((v<100)or(v>199)) then begin showmessage('DBN must be comprise between 100 and 199');exit; end;
 fieldmode[i]:=1;
 fieldconst[i]:=ConstantText.Text;
 CheckListBox1ItemClick(Sender,i-1);
@@ -302,7 +304,7 @@ case fieldmode[i] of
     end;
 end;
 memo1.Clear;
-if (fieldmode[1]=0)or(fieldmode[2]=0)or(fieldmode[20]=0)or(fieldmode[22]=0)
+if (fieldmode[FDBN]=0)or(fieldmode[FNAME]=0)or(fieldmode[FLONGIN]=0)or(fieldmode[FLATIN]=0)
    then Tabsheet3.TabVisible:=false
    else Tabsheet3.TabVisible:=true;
 end;
@@ -328,11 +330,11 @@ for i:=1 to maxcol do begin
    if not checklistbox1.Checked[i-1] then fieldmode[i]:=0;
 end;
 memo1.Lines.Add(rsm_18);
-if fieldmode[1]=0 then errormsg(rsm_19+' '+checklistbox1.Items[0]);
-if fieldmode[1]<>1 then errormsg(rsm_1);
-if fieldmode[2]=0 then errormsg(rsm_19+' '+checklistbox1.Items[1]);
-if fieldmode[20]=0 then errormsg(rsm_19+' '+checklistbox1.Items[19]);
-if fieldmode[22]=0 then errormsg(rsm_19+' '+checklistbox1.Items[21]);
+if fieldmode[FDBN]=0 then errormsg(rsm_19+' '+checklistbox1.Items[FDBN-1]);
+if fieldmode[FDBN]<>1 then errormsg(rsm_1);
+if fieldmode[FNAME]=0 then errormsg(rsm_19+' '+checklistbox1.Items[FNAME-1]);
+if fieldmode[FLONGIN]=0 then errormsg(rsm_19+' '+checklistbox1.Items[FLONGIN-1]);
+if fieldmode[FLATIN]=0 then errormsg(rsm_19+' '+checklistbox1.Items[FLATIN]);
 memo1.Lines.Add(rsm_20);
 // insert to database
 mlb.GoFirst;
@@ -355,8 +357,9 @@ repeat
         v:=mlb.GetDataByIndex(fieldlist[i]);
         end;
     end;
-    if (trim(v)='')and((i=20)or(i=22)or(i=33)or(i=34)or(i=35)or(i=36)or(i=45))
-       then v:='0';
+{ TODO : check if this replacement is necessary for sqlite }
+//    if (trim(v)='')and((i=20)or(i=22)or(i=33)or(i=34)or(i=35)or(i=36)or(i=45))
+//       then v:='0';
     v:=stringreplace(v,',','.',[rfreplaceall]);
     v:=stringreplace(v,'""','''',[rfreplaceall]);
     v:=stringreplace(v,'"','',[rfreplaceall]);
@@ -438,7 +441,7 @@ if Opendialog2.Execute then begin
   inif.Free;
   Checklistbox1.Checked[0]:=true;
   fieldmode[1]:=1;
-  fieldconst[1]:=inttostr(min(99,max(10,1+strtointdef(dbu.queryone('select max(DBN) from moon'),10))));
+  fieldconst[1]:=inttostr(min(200,max(100,1+strtointdef(dbu.queryone('select max(DBN) from moon'),99))));
   memo1.Clear;
   Tabsheet3.TabVisible:=true;
 end;

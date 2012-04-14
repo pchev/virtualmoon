@@ -5,6 +5,10 @@ msgstr "Content-Type: text/plain; charset=UTF-8"
 msgid "Edit"
 msgstr "Επεξεργασία"
 
+#: u_translation.rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr ""
+
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "EL"
@@ -397,4 +401,8 @@ msgstr "Ok"
 #: u_translation.rst_9
 msgid "Cancel"
 msgstr "Άκυρο"
+
+#: u_translation.rsunnamedforma
+msgid "Unnamed Formation"
+msgstr ""
 

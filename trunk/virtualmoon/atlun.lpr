@@ -31,9 +31,8 @@ begin
       splash.VersionName:=VersionName;
       splash.Splashversion:=Splashversion;
       splash.transmsg:=transmsg;
-   {   splash.show;
-      splash.refresh;  }
- //     Form1.Init;
+      splash.show;
+      splash.refresh;
       Application.Run;
   end
   else Application.Terminate;

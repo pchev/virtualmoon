@@ -15,6 +15,10 @@ msgstr ""
 msgid "Edit"
 msgstr "Editieren"
 
+#: u_translation.rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr ""
+
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "DE"
@@ -407,4 +411,8 @@ msgstr "Ok"
 #: u_translation.rst_9
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#: u_translation.rsunnamedforma
+msgid "Unnamed Formation"
+msgstr ""
 

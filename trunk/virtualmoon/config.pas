@@ -46,6 +46,8 @@ type
     Button8: TButton;
     CheckBox10: TCheckBox;
     CheckBox25: TCheckBox;
+    CheckBox26: TCheckBox;
+    CheckBox27: TCheckBox;
     CheckBox3: TCheckBox;
     CheckBox4: TCheckBox;
     ColorDialog1: TColorDialog;
@@ -308,6 +310,8 @@ begin
       Checkbox23.Caption := rst_164;
       Checkbox24.Caption := rst_187;
       Checkbox25.Caption := rst_188;
+      Checkbox26.Caption := rsUnnamedForma;
+      Checkbox27.Caption := rsFarSideUnnam;
       label28.Caption := rst_124;
       GroupBox1.Caption := rst_129;
       TabSheet7.Caption := GroupBox1.Caption;
@@ -373,6 +377,7 @@ if not fileexists('version.developpement') then begin
   ruklprefix.Visible:=false;   // Rukl chart
   ruklsuffix.Visible:=false;   // Rukl chart
 end;
+PageControl1.ActivePageIndex:=0;
 i:=findfirst(slash(appdir)+slash('language')+'maplun.*.po',0,fs);
 while i=0 do begin
   AssignFile(ft,slash(appdir)+slash('language')+fs.name);

@@ -107,14 +107,17 @@ rsloadcsv06='The next step is to give a relation between your file columns and t
 rsloadcsv07='Click one of the value of your file and check the corresponding database field. When ready press the "<-->" button.';
 rsloadcsv08='It is also possible to give a constant value to a database field. Enter the value at the bottom of the page and press the "Constant Value" button.';
 
-rsloadcsv09='DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects.';
-rsloadcsv10='You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu.';
+rsloadcsv09='DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects.';
+rsloadcsv10='You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu.';
 
 rsloadcsv11='It is mandatory to give a value for the field: DBN, NAME, LONGIN and LATIN.';
 rsloadcsv12='When all the required field are defined the next tab appear at the top of the page.';
 
 rsloadcsv13='Press "Load Database" button to load your data to the database.';
 rsloadcsv14='The "Save Setting" button allow you to save the setting for a later retrieval.';
+
+rsUnnamedForma = 'Unnamed Formation';
+rsFarSideUnnam = 'Far side Unnamed Formation';
 
 implementation
 

@@ -46,7 +46,7 @@ type
   public
     { Public declarations }
     dblist: TStringList;
-    dbn1,dbn2,dbn3,dbn4,dbn5,dbn6,dbn7: string;
+    dbn1,dbn2,dbn3,dbn4,dbn5,dbn6,dbn7,dbn8,dbn9: string;
     procedure SetLang;
   end;
 
@@ -68,6 +68,8 @@ begin
   dbn5:=rst_20;
   dbn6:=rst_51;
   dbn7:=rst_54;
+  dbn8:=rsUnnamedForma;
+  dbn9:=rsFarSideUnnam;
   Button1.Caption:=rst_8;
   Button2.Caption:=rst_9;
   Button3.Caption:=rst_5;
@@ -117,6 +119,14 @@ CheckListBox1.Items.Add(dbn7);
 dblist.Add('7');
 inc(n);
 if pos(' 7 ',lst)>0 then CheckListBox1.Checked[n]:=true;
+CheckListBox1.Items.Add(dbn8);
+dblist.Add('8');
+inc(n);
+if pos(' 8 ',lst)>0 then CheckListBox1.Checked[n]:=true;
+CheckListBox1.Items.Add(dbn9);
+dblist.Add('9');
+inc(n);
+if pos(' 9 ',lst)>0 then CheckListBox1.Checked[n]:=true;
 if dbm.Query('select DBN,NAME from user_database') then begin
   for i:=0 to dbm.RowCount-1 do begin
     buf:=dbm.Results[i][0];

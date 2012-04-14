@@ -1,11 +1,11 @@
 # translation of vmadatabase.fr.po
 # Patrick Chevalley <pch@freesurf.ch>, 2009.
-# Patrick Chevalley <pch@ap-i.net>, 2009.
+# Patrick Chevalley <pch@ap-i.net>, 2009, 2012.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2009-11-22 15:58+0100\n"
+"Last-Translator: pch\n"
+"PO-Revision-Date: 2012-04-09 22:35+0200\n"
 "Project-Id-Version: vmadatabase.fr\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -177,6 +177,14 @@ msgstr "PYR"
 msgid "DOM"
 msgstr "DOM"
 
+#: u_translation_database.rsdb_8
+msgid "NSU"
+msgstr "FVU"
+
+#: u_translation_database.rsdb_9
+msgid "FSU"
+msgstr "FCU"
+
 #: u_translation_database.warning1
 msgid " Note to translator:"
 msgstr " Note to translator:"
@@ -188,4 +196,5 @@ msgstr " The following text must be the same as the content of the TYPE column i
 #: u_translation_database.warning3
 msgid " If you not translate the database keep the English text here!"
 msgstr " If you not translate the database keep the English text here!"
+
 
