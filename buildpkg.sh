@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Linux system
 
-version=5.2
+version=6.0beta
 
 arch=$(arch)
 
