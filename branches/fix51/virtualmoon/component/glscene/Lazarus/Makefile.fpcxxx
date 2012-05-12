@@ -1,0 +1,54 @@
+#   File generated automatically by Lazarus Package Manager
+#
+#   Makefile.fpc for GLScene_RunTime 1.0
+#
+#   This file was generated on 20. 09. 11
+
+[package]
+name=glscene_runtime
+version=1.0
+
+[compiler]
+unittargetdir=lib/$(CPU_TARGET)-$(OS_TARGET)
+unitdir=../Source ../Source/Base ../Source/Platform ../Source/DesignTime ../Source/FileFormats ../Source/Shaders ../Source/GLSLShaders ../Source/PropertyEditors ../Source/VideoAPIs ../Source/Experimental ../Source/FileFormats/ZLIB $(LAZDIR)/components/images/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET) .
+includedir=../Source ../Source/PropertyEditors .
+options= -MDelphi -Saghi -Cro -O1 -gl -vewni -l -dLCL -dLCL$(LCL_PLATFORM)
+
+[target]
+units=glscene_runtime.pas
+
+[clean]
+files=$(wildcard $(COMPILER_UNITTARGETDIR)/*$(OEXT)) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*$(PPUEXT)) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*$(RSTEXT)) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*.lfm) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*.res) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*.compiled) \
+      $(wildcard *$(OEXT)) $(wildcard *$(PPUEXT)) $(wildcard *$(RSTEXT))
+[prerules]
+LAZDIR=/home/compiler/lazarus
+# LCL Platform
+ifndef LCL_PLATFORM
+ifeq ($(OS_TARGET),win32)
+LCL_PLATFORM=win32
+else
+ifeq ($(OS_TARGET),win64)
+LCL_PLATFORM=win32
+else
+ifeq ($(OS_TARGET),darwin)
+LCL_PLATFORM=carbon
+else
+LCL_PLATFORM=gtk2
+endif
+endif
+endif
+endif
+export LCL_PLATFORM
+
+[rules]
+.PHONY: cleartarget all
+
+cleartarget:
+        -$(DEL) $(COMPILER_UNITTARGETDIR)/glscene_runtime$(PPUEXT)
+
+all: cleartarget $(COMPILER_UNITTARGETDIR) glscene_runtime$(PPUEXT)
