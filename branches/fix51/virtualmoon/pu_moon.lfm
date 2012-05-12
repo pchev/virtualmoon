@@ -10,7 +10,7 @@ object f_moon: Tf_moon
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '0.9.28.2'
+  LCLVersion = '0.9.30.4'
   object Moon: TPanel
     Left = 200
     Height = 500
@@ -40,6 +40,7 @@ object f_moon: Tf_moon
       OnMouseUp = GLSceneViewer1MouseUp
       OnMouseWheelDown = GLSceneViewer1MouseWheelDown
       OnMouseWheelUp = GLSceneViewer1MouseWheelUp
+      TabOrder = 0
     end
   end
   object GLScene1: TGLScene
@@ -71,10 +72,10 @@ object f_moon: Tf_moon
       }
       Visible = False
       BottomRadius = 5
-      Height = 0.10000000149011
+      Height = 0.10000000149012
       Slices = 64
       Stacks = 1
-      BottomInnerRadius = 0.60000002384185
+      BottomInnerRadius = 0.60000002384186
       TopInnerRadius = 2
       TopRadius = 5
       Parts = [anBottom]
@@ -104,8 +105,8 @@ object f_moon: Tf_moon
       Height = 0.07999999821186
       TopRadius = 0.00999999977648
       HeadStackingStyle = ahssIncluded
-      TopArrowHeadHeight = 0.05000000074505
-      TopArrowHeadRadius = 0.01999999955296
+      TopArrowHeadHeight = 0.05000000074506
+      TopArrowHeadRadius = 0.01999999955297
       BottomArrowHeadHeight = 0.5
       BottomArrowHeadRadius = 0.20000000298023
     end
@@ -200,7 +201,6 @@ object f_moon: Tf_moon
       Material.BackProperties.Diffuse.Color = {
         0000000000000000000000000000803F
       }
-      Material.BackProperties.PolygonMode = pmLines
       Material.FrontProperties.Ambient.Color = {
         0000000000000000000000000000803F
       }
@@ -210,7 +210,6 @@ object f_moon: Tf_moon
       Material.FrontProperties.Emission.Color = {
         000000000000803FF8FEFE3E0000803F
       }
-      Material.FrontProperties.PolygonMode = pmLines
       Material.Texture.FilteringQuality = tfAnisotropic
       PitchAngle = 0
       Position.Coordinates = {
@@ -420,6 +419,7 @@ object f_moon: Tf_moon
     Materials = <    
       item
         Name = 'MultiMaterial'
+        Tag = 0
         Material.FrontProperties.Ambient.Color = {
           0000803F0000803F0000803F0000803F
         }
@@ -429,7 +429,6 @@ object f_moon: Tf_moon
         Material.FrontProperties.Specular.Color = {
           0000803F0000803F0000803F0000803F
         }
-        Tag = 0
         Shader = GLMultiMaterialShader
       end>
     left = 48
@@ -438,6 +437,7 @@ object f_moon: Tf_moon
   object GLMultiMaterialShader: TGLMultiMaterialShader
     MaterialLibrary = GLMaterialLibrary1
     VisibleAtDesignTime = False
+    ShaderStyle = ssReplace
     left = 48
     top = 201
   end
@@ -472,6 +472,7 @@ object f_moon: Tf_moon
     Materials = <    
       item
         Name = 'Bump'
+        Tag = 0
         Material.FrontProperties.Ambient.Color = {
           0000803F0000803F0000803F0000803F
         }
@@ -482,12 +483,12 @@ object f_moon: Tf_moon
           0000803F0000803F0000803F0000803F
         }
         Material.Texture.Disabled = False
-        Tag = 0
         Texture2Name = 'Diffuse'
         Shader = GLBumpShader1
       end    
       item
         Name = 'Diffuse'
+        Tag = 0
         Material.FrontProperties.Ambient.Color = {
           0000803F0000803F0000803F0000803F
         }
@@ -498,7 +499,6 @@ object f_moon: Tf_moon
           0000803F0000803F0000803F0000803F
         }
         Material.Texture.Disabled = False
-        Tag = 0
       end>
     left = 40
     top = 456
