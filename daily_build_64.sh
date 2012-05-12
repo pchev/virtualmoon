@@ -12,7 +12,7 @@ arch=$(arch)
 unset make_linux32
 make_linux32=1
 unset make_linux64
-if [[ $arch -eq x86_64 ]]; then make_linux64=1;fi
+if [[ $arch == x86_64 ]]; then make_linux64=1;fi
 unset make_linux_data
 make_linux_data=1
 unset make_win32
