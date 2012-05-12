@@ -332,7 +332,7 @@ end;
 { Method to Set Value as a string }
 procedure TLongEdit.SetAsString(NewValue: string);
 begin
-  FValue := CheckValue(StrToInt(NewValue));
+  FValue := CheckValue(StrToIntDef(NewValue,0));
   FormatText;
 end;
 
@@ -344,7 +344,7 @@ const
 begin
   Result := 0;
   if (Text <> '') and not (Text = '-') then
-    FValue := StrToInt(Text);
+    FValue := StrToIntDef(Text,0);
   if (FValue <= MaxInteger) and (FValue >= MinInteger) then
      Result := FValue;
 end;
@@ -364,7 +364,7 @@ const
 begin
   Result := 0;
   if (Text <> '') and not (Text = '-') then
-    FValue := StrToInt(Text);
+    FValue := StrToIntDef(Text,0);
   if (FValue <= MaxWord) and (FValue >= MinWord) then
      Result := word(FValue);
 end;
@@ -384,7 +384,7 @@ const
 begin
   Result := 0;
   if (Text <> '') and not (Text = '-') then
-    FValue := StrToInt(Text);
+    FValue := StrToIntDef(Text,0);
   if (FValue <= MaxByte) and (FValue >= MinByte) then
      Result := byte(FValue);
 end;
@@ -406,11 +406,14 @@ begin
   L := StrToIntDef(Text,0);
   if ((FMinValue<>0) or (FMaxValue<>0)) and (L > FMaxValue) or (L < FMinValue) then
   begin
+    if L>FMaxValue then Text:=inttostr(FMaxValue);
+    if L<FMinValue then Text:=inttostr(FMinValue);
     Beep;
     SelectAll;
     SetFocus;
   end else
   begin
+    Text:=inttostr(L);
     FValue := L;
 //    inherited;
     if Assigned(FOnExit) then  FOnExit(Sender);
@@ -476,7 +479,7 @@ function TFloatEdit.GetValue: Extended;
 begin
 try
   if Text='' then FValue:=0
-             else FValue := StrToFloat(Text);
+             else FValue := StrToFloatDef(Text,0);
   Result := CheckValue(FValue);
 except
   FValue := 0;
@@ -534,12 +537,12 @@ const
   FMinVal: Double = -1.7E308;
 begin
   Result := NewValue;
-  if (FMaxVal <> FMinVal) then
+  if (FMaxValue <> FMinValue) then
   begin
-    if NewValue < FMinVal
-      then Result := FMinVal
+    if NewValue < FMinValue
+      then Result := FMinValue
     else
-      if NewValue > FMaxVal then Result := FMaxVal;
+      if NewValue > FMaxValue then Result := FMaxValue;
   end;
 end;
 
@@ -580,7 +583,7 @@ end;
 { Method to Set Value as a string }
 procedure TFloatEdit.SetAsString(NewValue: string);
 begin
-  FValue := CheckValue(StrToFloat(NewValue));
+  FValue := CheckValue(StrToFloatDef(NewValue,0));
   FormatText;
 end;
 
@@ -592,7 +595,7 @@ const
 begin
   Result := 0;
   if (Text <> '') and not (Text = '-') then
-    FValue := StrToFloat(Text);
+    FValue := StrToFloatDef(Text,0);
   if (FValue <= MaxDouble) and (FValue >= MinDouble) then
      Result := Double(FValue);
 end;
@@ -612,7 +615,7 @@ const
 begin
   Result := 0;
   if (Text <> '') and not (Text = '-') then
-    FValue := StrToFloat(Text);
+    FValue := StrToFloatDef(Text,0);
   if (FValue <= MaxSingle) and (FValue >= MinSingle) then
      Result := Single(FValue);
 end;
@@ -632,7 +635,7 @@ const
 begin
   Result := 0;
   if (Text <> '') and not (Text = '-') then
-    FValue := StrToFloat(Text);
+    FValue := StrToFloatDef(Text,0);
   if (FValue <= MaxReal) and (FValue >= MinReal) then
      Result := Real(FValue);
 end;

@@ -1,0 +1,51 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: glsceneformdesign.rbaseformlocalizeddescription
+msgid "GLSceneForm - a special form, which combines the properties of the viewer and the normal form and allows you to render directly into the application window"
+msgstr ""
+
+#: glsceneformdesign.rbaseformlocalizedname
+msgid "GLSBaseForm"
+msgstr ""
+
+#: glsceneformdesign.rbaseprojectlocalizeddescription
+msgid "Template of GLScene Base Application with TGLSceneForm"
+msgstr ""
+
+#: glsceneformdesign.rbaseprojectlocalizedname
+msgid "GLScene Base Application"
+msgstr ""
+
+#: glsceneformdesign.rextendedformlocalizeddescription
+msgid "GLSExtendedForm - a special form, which combines the properties viewer and the usual form, and contains an expanded set of components needed to create more complex applications."
+msgstr ""
+
+#: glsceneformdesign.rextendedformlocalizedname
+msgid "GLSExtendedForm"
+msgstr ""
+
+#: glsceneformdesign.rextendedprojectlocalizeddescription
+msgid "Template of GLScene Extended Application with TGLSceneForm"
+msgstr ""
+
+#: glsceneformdesign.rextendedprojectlocalizedname
+msgid "GLScene Extended Application"
+msgstr ""
+
+#: glsceneformdesign.rsimpleformlocalizeddescription
+msgid "GLSSimpleForm - a special form, which combines the properties viewer and the usual form and contains the basic set of components to create a simple application."
+msgstr ""
+
+#: glsceneformdesign.rsimpleformlocalizedname
+msgid "GLSSimpleForm"
+msgstr ""
+
+#: glsceneformdesign.rsimpleprojectlocalizeddescription
+msgid "Template of GLScene Simple Application with TGLSceneForm"
+msgstr ""
+
+#: glsceneformdesign.rsimpleprojectlocalizedname
+msgid "GLScene Simple Application"
+msgstr ""
+

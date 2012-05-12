@@ -27,12 +27,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics, GLContext, GLColor,
-  GLObjects, GLMaterial, GLTextureFormat, ExtCtrls, GLTexture, GLCadencer, Info, GLViewer,
-  GLCrossPlatform, LResources, GLScene, GLMultiMaterialShader,
-  GLBumpShader, GLHUDObjects, GLWindowsFont, GLGeomObjects, GLMirror, GLMesh,
-  GLVectorFileObjects, FPImage, LCLType, IntfGraphics, SysUtils,
-  Classes, Controls, Forms, Menus, Dialogs ;
+uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics,
+  GLContext, GLColor, GLObjects, GLMaterial, GLTextureFormat, ExtCtrls,
+  GLTexture, GLCadencer, GLViewer, GLCrossPlatform, LResources, GLScene,
+  GLMultiMaterialShader, GLBumpShader, GLPhongShader, GLHUDObjects, OpenGLTokens,
+  GLWindowsFont, GLGeomObjects, GLMirror, GLMesh, GLVectorFileObjects, FPImage,
+  LCLType, IntfGraphics, SysUtils, Classes, Controls, Forms, Menus, Dialogs ;
 
 const
    MaxLabel=500;
