@@ -117,6 +117,12 @@ if [[ $make_linux32 ]]; then
   fi 
   # tar
   cd $builddir
+  mv bin/atlun bin/atlun-bin
+  mv bin/datlun bin/datlun-bin
+  mv bin/photlun bin/photlun-bin
+  cp $wd/Installer/Linux/bin/atlun bin/
+  cp $wd/Installer/Linux/bin/datlun bin/
+  cp $wd/Installer/Linux/bin/photlun bin/
   if [[ $upd ]]; then
     tar cvzf virtualmoon$updname-$version-$currentrev-linux_i386.tgz --owner=root --group=root *
     if [[ $? -ne 0 ]]; then exit 1;fi
@@ -203,6 +209,12 @@ if [[ $make_linux64 ]]; then
   fi 
   # tar
   cd $builddir
+  mv bin/atlun bin/atlun-bin
+  mv bin/datlun bin/datlun-bin
+  mv bin/photlun bin/photlun-bin
+  cp $wd/Installer/Linux/bin/atlun bin/
+  cp $wd/Installer/Linux/bin/datlun bin/
+  cp $wd/Installer/Linux/bin/photlun bin/
   if [[ $upd ]]; then
     tar cvzf virtualmoon$updname-$version-$currentrev-linux_x86_64.tgz --owner=root --group=root *
     if [[ $? -ne 0 ]]; then exit 1;fi

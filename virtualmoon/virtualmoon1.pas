@@ -250,7 +250,6 @@ type
     Label15: TLabel;
     Label16: TLabel;
     TrackBar5: TTrackBar;
-    Button14: TButton;
     GroupBox2: TGroupBox;
     Rotation1: TMenuItem;
     N5seconde1: TMenuItem;
@@ -390,7 +389,6 @@ type
     procedure EnregistredistClick(Sender: TObject);
     procedure btnEffacerClick(Sender: TObject);
     procedure ToolButton3Click(Sender: TObject);
-    procedure Button14Click(Sender: TObject);
     procedure BMP15001Click(Sender: TObject);
     procedure ZoomEyepieceClick(Sender: TObject);
     procedure BMP30001Click(Sender: TObject);
@@ -731,7 +729,6 @@ begin
     e01.Caption      := rst_117;
     groupbox2.Caption := rst_125;
     Database1.Caption := rst_129;
-    Button14.Caption := rst_145;
     label1.Caption   := rst_153;
     label2.Caption   := rst_154;
     label21.Caption  := rst_155;
@@ -2631,7 +2628,6 @@ procedure TForm1.OptFeatures1Click(Sender: TObject);
 begin
   f_features.showmodal;
 end;
-
 
 procedure TForm1.ComboBox1Select(Sender: TObject);
 begin
@@ -4752,11 +4748,6 @@ recenter:=activemoon.getcenter(l,b);
     RefreshMoonImage;
   end;
 if recenter then activemoon.CenterAt(l,b);
-end;
-
-procedure TForm1.Button14Click(Sender: TObject);
-begin
-  moon1.ShowInfo;
 end;
 
 procedure TForm1.ZoomEyepieceClick(Sender: TObject);
