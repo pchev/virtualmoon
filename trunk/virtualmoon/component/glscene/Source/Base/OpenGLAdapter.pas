@@ -6781,6 +6781,12 @@ begin
 
   GLHandle := LoadLibrary(PChar(GLName));
   GLUHandle := LoadLibrary(PChar(GLUName));
+{$IFDEF Linux}   // make it work when mesa-dev is not installed and only libGL.so.1 is available
+  if (GLHandle=INVALID_MODULEHANDLE) then
+         GLHandle:=LoadLibrary(PChar(GLName+'.1'));
+  if (GLUHandle=INVALID_MODULEHANDLE) then
+         GLUHandle:=LoadLibrary(PChar(GLUName+'.1'));
+{$ENDIF}
 {$IFDEF DARWIN}
   AGLHandle := LoadLibrary(PChar(libAGL));
   dlHandle := LoadLibrary(PChar(libdl));
