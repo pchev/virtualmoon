@@ -1,6 +1,6 @@
 This directory contain a subset of Glscene copied from 
 https://glscene.svn.sourceforge.net/svnroot/glscene/trunk 
-at revision 6008.
+at revision 6090.
 
 GLScene source code is available from the project GLScene 
 at http://glscene.org or http://sourceforge.net/projects/glscene
