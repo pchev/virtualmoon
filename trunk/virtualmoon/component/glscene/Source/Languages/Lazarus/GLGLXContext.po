@@ -1,7 +1,0 @@
-msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
-
-#: glglxcontext.cforwardcontextfailed
-msgid "Can not create OpenGL 3.x Forward Context"
-msgstr ""
-
