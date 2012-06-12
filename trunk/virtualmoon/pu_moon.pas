@@ -916,12 +916,8 @@ if value<>FShowPhase then begin
         GLLightSource1.LightStyle:=lsSpot
      else
         GLLightSource1.LightStyle:=lsParallel;
-     GLLightSource1.Position.x:=0;
-     GLLightSource1.Position.y:=0;
-     GLLightSource1.Position.z:=-100;
-     GLLightSource1.SpotDirection.x:=0;
-     GLLightSource1.SpotDirection.y:=0;
-     GLLightSource1.SpotDirection.z:=1;
+     GLLightSource1.Position.SetPoint(0,0,-100);
+     GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
      SetPhase(FPhase);
   end else begin
      GLLightSource1.LightStyle:=lsParallel;
@@ -1862,12 +1858,8 @@ begin
 sincos(FPhase,s,c);
 GLScene1.BeginUpdate;
 GLLightSource1.BeginUpdate;
-  GLLightSource1.Position.x := -LightDist * s;
-  GLLightSource1.Position.y := -LightDist * tan(-Fsunincl);
-  GLLightSource1.Position.z := -LightDist * c;
-  GLLightSource1.SpotDirection.x := GLLightSource1.Position.x;
-  GLLightSource1.SpotDirection.y := GLLightSource1.Position.y;
-  GLLightSource1.SpotDirection.z := GLLightSource1.Position.z;
+  GLLightSource1.Position.SetPoint(-LightDist * s,-LightDist * tan(-Fsunincl),-LightDist * c);
+  GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
 GLLightSource1.EndUpdate;
 GLScene1.EndUpdate;
 end;

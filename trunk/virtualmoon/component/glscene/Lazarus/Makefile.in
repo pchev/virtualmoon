@@ -10,7 +10,7 @@ version=1.0
 
 [compiler]
 unittargetdir=lib/$(CPU_TARGET)-$(OS_TARGET)
-unitdir=../Source ../Source/Base ../Source/Platform ../Source/DesignTime ../Source/FileFormats ../Source/Shaders ../Source/GLSLShaders ../Source/PropertyEditors ../Source/VideoAPIs ../Source/Experimental ../Source/FileFormats/ZLIB $(LAZDIR)/components/images/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET) .
+unitdir=../Source ../Source/Base ../Source/Platform ../Source/DesignTime ../Source/FileFormats ../Source/Shaders ../Source/GLSLShaders ../Source/PropertyEditors ../Source/FileFormats/ZLIB $(LAZDIR)/components/images/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET) .
 includedir=../Source ../Source/PropertyEditors .
 options= -MDelphi -Saghi -Cro -O1 -gl -vewni -l -dLCL -dLCL$(LCL_PLATFORM)
 
