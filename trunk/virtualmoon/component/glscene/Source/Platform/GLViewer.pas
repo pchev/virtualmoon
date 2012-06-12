@@ -78,14 +78,15 @@ end;
 {$ENDIF}
 {$IFDEF DARWIN}
 var ctx: TAGLContext;
+    I: Integer;
 begin
   if Assigned(GL) then
   begin
     ctx := GL.aGetCurrentContext();
     if Assigned(ctx) then
       case AVSyncMode of
-        vsmSync  : GL.aSetInteger(ctx, AGL_SWAP_INTERVAL, 1);
-        vsmNoSync: GL.aSetInteger(ctx, AGL_SWAP_INTERVAL, 0);
+        vsmSync  : begin I:=1; GL.aSetInteger(ctx, AGL_SWAP_INTERVAL, @I); end;
+        vsmNoSync: begin I:=0; GL.aSetInteger(ctx, AGL_SWAP_INTERVAL, @I); end;
       else
          Assert(False);
       end;
