@@ -254,7 +254,6 @@ rsm_74='Altitude';
 rsm_75='From Database:';
 rsShowLabels = 'Show labels';
 rsShowGrid = 'Show grid';
-rsRemoveUnknow = 'Remove unknow field values from reports';
 rsGrid = 'Grid';
 rsOrbitAltitud = 'Orbit altitude';
 rsOrbitInclina = 'Orbit inclination';
@@ -311,6 +310,12 @@ rsSteps = 'Steps';
 rsHours = 'Hours';
 rsUnnamedForma = 'Unnamed Formation';
 rsFarSideUnnam = 'Far side Unnamed Formation';
+rsCCDField = 'CCD field';
+rsCCDName = 'CCD name';
+rsWidth = 'Width';
+rsHeight = 'Height';
+rsPixelSize = 'Pixel size';
+rsPixelCount = 'Pixel count';
 
 implementation
 

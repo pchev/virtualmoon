@@ -21,6 +21,8 @@ if [ $OS_TARGET = win32 ]; then
   i386-win32-strip -v -o $destdir/atlun.exe virtualmoon/atlun.exe 
   i386-win32-strip -v -o $destdir/datlun.exe datlun/datlun.exe
   i386-win32-strip -v -o $destdir/photlun.exe photlun/photlun.exe
+  i386-win32-strip -v -o $destdir/weblun.exe weblun/weblun.exe
+  i386-win32-strip -v -o $destdir/cclun.exe cclun/cclun.exe
   install -v -m 644 virtualmoon/library/plan404/libplan404.dll  $destdir/
   unzip -d $destdir Installer/Windows/Data/sqlite3.zip
   unzip -d $destdir Installer/Windows/Data/plugins.zip
@@ -29,6 +31,8 @@ if [ $OS_TARGET = win64 ]; then
   x86_64-win64-strip -v -o $destdir/atlun.exe virtualmoon/atlun.exe 
   x86_64-win64-strip -v -o $destdir/datlun.exe datlun/datlun.exe
   x86_64-win64-strip -v -o $destdir/photlun.exe photlun/photlun.exe
+  x86_64-win64-strip -v -o $destdir/weblun.exe weblun/weblun.exe
+  x86_64-win64-strip -v -o $destdir/cclun.exe cclun/cclun.exe
   install -v -m 644 virtualmoon/library/plan404/libplan404_x64.dll  $destdir/libplan404.dll
   unzip -d $destdir Installer/Windows/Data/sqlite3_x64.zip
 fi
@@ -47,6 +51,10 @@ install -v -m 644 datlun/language/vmadatabase.en.po $destdir/language/
 install -v -m 644 datlun/language/vmadatabase.fr.po $destdir/language/
 install -v -m 644 photlun/language/photlun.en.po $destdir/language/
 install -v -m 644 photlun/language/photlun.fr.po $destdir/language/
+install -v -m 644 weblun/language/weblun.en.po $destdir/language/
+install -v -m 644 weblun/language/weblun.fr.po $destdir/language/
+install -v -m 644 cclun/language/cclun.en.po $destdir/language/
+install -v -m 644 cclun/language/cclun.fr.po $destdir/language/
 
 install -m 755 -d $destdir/data
 install -v -m 644 data/country.tab $destdir/data/

@@ -8,16 +8,15 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   InterfaceBase, LCLVersion, // version number
-  Forms, LResources, imagesforlazarus
+  Forms, imagesforlazarus
   { add your units here }, pu_photlun, pu_photo, u_translation,
   uniqueinstance_package, pu_config, u_constant, u_bitmap, u_util;
 
  var i:integer;
 
-{$IFDEF WINDOWS}{$R photlun.rc}{$ENDIF}
+{$R *.res}
 
 begin
-  {$I photlun.lrs}
   Application.Initialize;
   compile_time:={$I %DATE%}+' '+{$I %TIME%};
   compile_version:='Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+LCLPlatformDirNames[WidgetSet.LCLPlatform];

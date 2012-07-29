@@ -8,18 +8,15 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   InterfaceBase, LCLVersion, // version number
-  Forms, LResources
-  { add your units here },
+  Forms,
   u_util, fmsg, libsql, mlb2, vmabrowser1, vmabrowser2, vmabrowser3,
   vmabrowser4, vmabrowser5, dbutil, u_constant, uniqueinstance_package;
 
 var i : integer;
 
-
-{$IFDEF WINDOWS}{$R datlun.rc}{$ENDIF}
+{$R *.res}
 
 begin
-  {$I datlun.lrs}
   Application.Title:='DatLun';
   Application.Initialize;
   compile_time:={$I %DATE%}+' '+{$I %TIME%};

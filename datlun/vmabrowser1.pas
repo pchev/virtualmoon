@@ -478,7 +478,9 @@ var dbcol,i:integer;
 begin
 SetLang;
 ReadDefault;
-for i:=1 to 9 do usedatabase[i]:=true;
+for i:=1 to 7 do usedatabase[i]:=true;
+usedatabase[8]:=false;
+usedatabase[9]:=false;
 for i:=10 to maxdbn do usedatabase[i]:=false;
 LoadDB(dbm);
 Loadcsv.dbname:=dbm.DataBase;
@@ -753,13 +755,24 @@ OpeninVMA1.Visible:=HintX>0;
 end;
 
 procedure Tf_main.Selectfrom1Click(Sender: TObject);
+var s: string;
+    i,n: integer;
 begin
+  Selection.lastselection:=CurrentSelection;
   Selection.fieldlist2.Text:=MoonGrid.Cells[HintY,0];
   Selection.PageControl1.ActivePageIndex:=1;
   Selection.ShowModal;
   if selection.ModalResult=mrOK then begin
      ExpertMode:=Selection.ExpertMode.Checked;
      currentselection:=trim(selection.sel.Text);
+     if Selection.DBselectionChanged then begin
+        for i:=1 to 9 do begin
+          s:=inttostr(i);
+          n:=pos(s,dbselection);
+          usedatabase[i]:=(n>0);
+        end;
+        LoadDB(dbm);
+     end;
      Select;
      RefreshGrid;
   end;
@@ -1005,7 +1018,7 @@ if currentselection='' then begin showmessage(rsm_6);exit;end;
 if messagedlg(rsm_7,mtConfirmation,[mbYes,mbNo],0)=mrYes then begin
    dbjournal(extractfilename(dbm.DataBase),'DELETE WHERE '+currentselection);
    if dbm.query('delete from moon where '+currentselection+';') then begin
-      dbselection:='DBN in (1,2,3,4,5,6,7,8,9)';
+      dbselection:='DBN in (1,2,3,4,5,6,7)';
       currentselection:=dbselection;
       RemoveUnusedDBN;
       Select;

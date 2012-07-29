@@ -57,6 +57,7 @@ install -v -m 644 Database/Farside_Unnamed_uEN.csv $destdir/share/virtualmoon/Da
 install -v -m 644 Database/Farside_Unnamed_uFR.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/Nearside_Unnamed_uEN.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/Nearside_Unnamed_uFR.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/weblun.csv $destdir/share/virtualmoon/Database/
 
 # big data
 InstData Base_JPLeph $destdir

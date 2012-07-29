@@ -92,10 +92,13 @@ type
     procedure ButtonNoneClick(Sender: TObject);
   private
     { Private declarations }
+    oldsel: string;
+    function isDBselectionChanged: boolean;
   public
     { Public declarations }
     lastselection: string;
     Procedure SetLang;
+    property DBselectionChanged: boolean read isDBselectionChanged;
   end;
 
 var
@@ -151,6 +154,7 @@ end;
 
 procedure TSelection.Button11Click(Sender: TObject);
 begin
+dbselection:=oldsel;
 modalresult:=mrCancel;
 end;
 
@@ -227,6 +231,7 @@ if not allchecked then begin
 end;
 if buf>'' then buf:=buf+' ) ORDER BY NAME';
 sel.Text:=dbselection+buf;
+ViewSel.Caption:=dbselection;
 end;
 
 procedure TSelection.ButtonAllClick(Sender: TObject);
@@ -320,6 +325,7 @@ end;
 
 procedure TSelection.FormShow(Sender: TObject);
 begin
+oldsel:=dbselection;
 ViewSel.Caption:=lastselection;
 ExpertModeClick(Sender);
 end;
@@ -342,6 +348,11 @@ if SelectDB.modalresult=mrOk then begin
    dbselection:=dbselection+')';
    CheckListBox1ClickCheck(Sender);
 end;
+end;
+
+function TSelection.isDBselectionChanged: boolean;
+begin
+result:=dbselection<>oldsel;
 end;
 
 end.

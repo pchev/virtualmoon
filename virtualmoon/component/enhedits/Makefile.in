@@ -12,7 +12,7 @@ version=0.0
 unittargetdir=lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
 unitdir=$(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ ./
 includedir=./
-options=-dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi
+options=-dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi -Xs -CX -XX
 
 [target]
 units=enhedit.pas
@@ -29,14 +29,18 @@ LAZDIR=%LAZDIR%
 ifndef LCL_PLATFORM
 ifeq ($(OS_TARGET),win32)
 LCL_PLATFORM=win32
+opt_target= -WG
 else
 ifeq ($(OS_TARGET),win64)
 LCL_PLATFORM=win32
+opt_target= -WG
 else
 ifeq ($(OS_TARGET),darwin)
 LCL_PLATFORM=carbon
+opt_target= -k-macosx_version_min -k10.4 -XR/Developer/SDKs/MacOSX10.4u.sdk/
 else
 LCL_PLATFORM=gtk2
+opt_target=
 endif
 endif
 endif
