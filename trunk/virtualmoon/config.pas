@@ -44,15 +44,24 @@ type
     Button5: TButton;
     Button7: TButton;
     Button8: TButton;
+    Button9: TButton;
     CheckBox10: TCheckBox;
     CheckBox25: TCheckBox;
     CheckBox26: TCheckBox;
     CheckBox27: TCheckBox;
     CheckBox3: TCheckBox;
-    CheckBox4: TCheckBox;
     ColorDialog1: TColorDialog;
     ComboBoxCountry: TComboBox;
     ComboBoxTZ: TComboBox;
+    Edit11: TEdit;
+    Edit12: TEdit;
+    Edit13: TEdit;
+    Edit14: TEdit;
+    Edit15: TEdit;
+    Edit16: TEdit;
+    Edit17: TEdit;
+    Label20: TLabel;
+    Label21: TLabel;
     Label29: TLabel;
     Label3: TLabel;
     Label36: TLabel;
@@ -68,6 +77,19 @@ type
     Label46: TLabel;
     Label47: TLabel;
     Label48: TLabel;
+    Label49: TLabel;
+    Label50: TLabel;
+    Label51: TLabel;
+    Label52: TLabel;
+    Label53: TLabel;
+    Label54: TLabel;
+    Label55: TLabel;
+    Label56: TLabel;
+    Label57: TLabel;
+    Label58: TLabel;
+    Label59: TLabel;
+    Label60: TLabel;
+    Label8: TLabel;
     LabelImp: TLabel;
     LabelGrid: TLabel;
     FontDialog1: TFontDialog;
@@ -80,7 +102,6 @@ type
     PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
-    RadioGroup1: TRadioGroup;
     RadioGroup2: TRadioGroup;
     RadioGroup3: TRadioGroup;
     RadioGroup4: TRadioGroup;
@@ -90,6 +111,7 @@ type
     RadioGroup7: TRadioGroup;
     RadioGroup8: TRadioGroup;
     RadioGroup9: TRadioGroup;
+    StringGrid3: TStringGrid;
     TabSheet1: TTabSheet;
     Label4: TLabel;
     Label1: TLabel;
@@ -100,6 +122,7 @@ type
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
     TabSheet2: TTabSheet;
+    TabSheet8: TTabSheet;
     TrackBar3: TTrackBar;
     StringGrid1: TStringGrid;
     Label9: TLabel;
@@ -191,6 +214,7 @@ type
     CheckBox24: TCheckBox;
     procedure Button5Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
     procedure ComboBoxCountryChange(Sender: TObject);
     procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -301,6 +325,14 @@ begin
       stringgrid2.Cells[1, 0] := rst_119;
       stringgrid2.Cells[2, 0] := '<->';
       stringgrid2.Cells[3, 0] := 'N/S';
+      label49.Caption := rst_110;
+      label50.Caption:=rsPixelSize;
+      label53.Caption:=rsPixelCount;
+      button9.Caption := rst_113;
+      stringgrid3.Cells[0, 0] := rsCCDName;
+      stringgrid3.Cells[1, 0] := rsWidth;
+      stringgrid3.Cells[2, 0] := rsHeight;
+      stringgrid3.Cells[3, 0] := rst_64;
       Checkbox17.Caption := rst_120;
       Checkbox18.Caption := rst_121;
       Checkbox19.Caption := rst_122;
@@ -331,7 +363,6 @@ begin
       CheckBox16.Caption := rst_174;
       label31.Caption := rst_179;
       label33.Caption := rst_181;
-      CheckBox4.Caption:= rsRemoveUnknow;
       GroupBox2.Caption:=rsGrid;
       CheckBox10.Caption:=rsShowGrid;
       label3.Caption:= rsZoomLevel;
@@ -340,9 +371,6 @@ begin
       Label34.Caption:=rst_21;
       BumpRadioGroup.Items[0]:=rsPhaseWithDyn;
       BumpRadioGroup.Items[1]:=rsPhaseWithout;
-      RadioGroup1.Caption:=rsDynamicRelie;
-      RadioGroup1.Items[0]:=rsSimple;
-      RadioGroup1.Items[1]:=rsAdvanced;
       Button7.Caption:=rsCheckForOpti;
       Button8.Caption:=rsCheckForOpti;
       checkbox3.Caption:=rst_87;
@@ -576,6 +604,18 @@ procedure TForm2.Button6Click(Sender: TObject);
 begin
 edit10.Text:=inttostr(round((strtofloat(edit6.text)/strtofloat(edit7.text)) ));
 edit9.Text:=inttostr(round(60* strtofloat(edit8.text)/(strtofloat(edit6.text)/strtofloat(edit7.text)) ));
+end;
+
+procedure TForm2.Button9Click(Sender: TObject);
+var f,px,py,cx,cy: single;
+begin
+f:=strtofloat(edit11.text);
+px:=strtofloat(edit12.text)/1000;
+py:=strtofloat(edit13.text)/1000;
+cx:=strtofloat(edit15.text);
+cy:=strtofloat(edit16.text);
+Edit14.Text:=FormatFloat(f2,arctan(px/f)*cx*rad2deg*60);
+Edit17.Text:=FormatFloat(f2,arctan(py/f)*cy*rad2deg*60);
 end;
 
 procedure TForm2.CheckBox19Click(Sender: TObject);

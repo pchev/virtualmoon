@@ -33,6 +33,7 @@ type
   { Tsplash }
 
   Tsplash = class(TForm)
+    Label5: TLabel;
     Label6: TLabel;
     Timer1: TTimer;
     Panel1: TPanel;
@@ -41,8 +42,6 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
-    Panel2: TPanel;
-    Label5: TLabel;
     Timer2: TTimer;
     procedure Timer1Timer(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -66,88 +65,141 @@ implementation
 
 {$R splashunit.lfm}
 
-const nlin=40;
+const nlin=66;
+      trlin=48;
 var
 cpylst: array[1..2,1..nlin]of string=((
-'IDEE ORIGINALE: Christian LEGRAND',
-'CONCEPTION GENERALE: Christian LEGRAND',
+'Copyright © 2002-2012  Christian Legrand, Patrick Chevalley,',
+'All rights reserved',
+'This program is free software; you can redistribute it and/or',
+'modify it under the terms of the GNU General Public License.',
+'All database, pictures and documentation © Ch. Legrand',
+'Pictures library are copyrighted by their respective owner.',
 '',
-'LOGICIEL:',
-'PROGRAMMATION: Patrick  CHEVALLEY',
-'EPHEMERIDES JPL: Denis BOUCHER',
-'DESIGN DE L''INTERFACE: Patrick  CHEVALLEY',
+'IDEE ORIGINALE : Christian LEGRAND',
 '',
-'TRADUCTION:',
+'CONCEPTION GENERALE : Christian LEGRAND & Patrick CHEVALLEY ',
 '',
+'LOGICIEL :',
+'PROGRAMMATION : Patrick  CHEVALLEY ',
+'INTERFACE : Patrick  CHEVALLEY & Christian LEGRAND ',
 '',
-'CARTOGRAPHIE:',
-'RECHERCHE DES CARTES / OBTENTION DES DROITS: Christian LEGRAND',
-'REALISATION CARTE 2D TOPOGRAPHIQUE: Patrick  CHEVALLEY',
-'REALISATION CARTES 3D TOPOGRAPHIQUES: Patrick  CHEVALLEY',
-'REALISATION CARTE 2D GEOLOGIQUE: Christian LEGRAND',
-'REALISATION CARTE 3D GEOLOGIQUE: Patrick  CHEVALLEY',
-'REALISATION CARTES 3D SCIENTIFIQUES: Christian LEGRAND',
+'CARTOGRAPHIE :',
+'RECHERCHE DES TEXTURES : Christian LEGRAND',
+'MISE EN FORME DES TEXTURES : Patrick  CHEVALLEY ',
+'RECHERCHE DES COUCHES SCIENTIFIQUES : Christian LEGRAND',
+'MISE EN FORME DES COUCHES SCIENTIFIQUES : Christian LEGRAND',
+'AUTORISATION D''UTILISATION DES TEXTURES ET DES COUCHES : Christian LEGRAND ',
 '',
-'BASE DE DONNEES:',
-'ORGANISATION DE LA BASE: Christian LEGRAND',
-'RECHERCHE DES INFORMATIONS: Christian LEGRAND',
-'SAISIE & MISE EN FORME DES INFORMATIONS: Christian LEGRAND',
+'BASE DE DONNEES :',
+'ORGANISATION DE LA BASE : Christian LEGRAND',
+'RECHERCHE DES INFORMATIONS : Christian LEGRAND',
+'SAISIE & MISE EN FORME DES INFORMATIONS : Christian LEGRAND',
+'OUTILS INFORMATIQUES DE GESTION DES BASES : Patrick CHEVALLEY ',
 '',
-'BIBLIOTHEQUE D''IMAGES :',
+'BIBLIOTHEQUE D''IMAGES :',
 'RECHERCHE DES IMAGES : Christian LEGRAND',
-'OBTENTION DES DROITS DE REPRODUCTION: Christian LEGRAND',
-'MISE EN FORME ET TRAITEMENT DES IMAGES: Christian LEGRAND',
+'AUTORISATIONS D’UTILISATION : Christian LEGRAND',
+'MISE EN FORME ET TRAITEMENT DES IMAGES : Christian LEGRAND',
+'OUTILS INFORMATIQUES DE GESTION DES IMAGES : Patrick CHEVALLEY ',
 '',
-'DOCUMENTATION:',
-'REDACTION: Christian LEGRAND & Patrick  CHEVALLEY',
-'MISE EN FORME: Patrick  CHEVALLEY',
-'GLOSSAIRE: Christian LEGRAND',
-'ENCYCLOPEDIE: Christian LEGRAND',
+'DOCUMENTATION :',
+'REDACTION : Christian LEGRAND & Patrick  CHEVALLEY ',
+'MISE EN FORME : Patrick  CHEVALLEY ',
+'GLOSSAIRE : Christian LEGRAND',
+'ENCYCLOPEDIE : Christian LEGRAND',
 '',
-'SITE INTERNET:',
-'REDACTION: Christian LEGRAND & Patrick  CHEVALLEY',
-'MISE EN FORME DES PAGES: Patrick  CHEVALLEY',
-'WEBMESTRE: Patrick  CHEVALLEY',
+'SITE INTERNET :',
+'REDACTION : Patrick CHEVALLEY & Christian LEGRAND',
+'MISE EN FORME : Patrick  CHEVALLEY ',
+'WEBMESTRE : Patrick  CHEVALLEY ',
+'',
+'TRADUCTIONS :',
+'COORDINATION DES TRADUCTIONS : Patrick CHEVALLEY ',
+'',
+'',
+'HOT LINE :',
+'LOGICIEL : Patrick CHEVALLEY ',
+'AUTRES SUJETS : Christian LEGRAND',
+'',
+'PROMOTION :',
+'SUISSE : Patrick CHEVALLEY ',
+'FRANCE :  Christian LEGRAND',
+'AUTRES PAYS : Christian LEGRAND',
+'',
+'PRODUCTION DES CD :',
+'GRAVAGE & IMPRESSION : Christian LEGRAND',
+'ENVOI DES CD : Christian LEGRAND',
+'',
+'LICENSES D’UTILISATION :',
+'OCTROI DES LICENSES : Christian LEGRAND & Patrick CHEVALLEY ',
+'GESTION DES LICENSES : Christian LEGRAND',
 ''),(
-'ORIGINAL IDEA: Christian LEGRAND',
-'GENERAL CONCEPT: Christian LEGRAND',
+'Copyright © 2002-2012  Christian Legrand, Patrick Chevalley,',
+'All rights reserved',
+'This program is free software; you can redistribute it and/or',
+'modify it under the terms of the GNU General Public License.',
+'All database, pictures and documentation © Ch. Legrand',
+'Pictures library are copyrighted by their respective owner.',
 '',
-'SOFTWARE:',
-'PROGRAMING: Patrick  CHEVALLEY',
-'JPL EPHEMERIS: Denis BOUCHER',
-'INTERFACE: Patrick  CHEVALLEY',
+'ORIGINAL IDEA : Christian LEGRAND',
 '',
-'TRANSLATION:',
+'GENERAL CONCEPT : Christian LEGRAND & Patrick CHEVALLEY ',
+'',
+'SOFTWARE :',
+'PROGRAMING : Patrick  CHEVALLEY ',
+'INTERFACE : Patrick  CHEVALLEY & Christian LEGRAND',
+'',
+'CARTOGRAPHY :',
+'TEXTURES SEARCH : Christian LEGRAND',
+'TEXTURES FORMATING : Patrick  CHEVALLEY ',
+'OVERLAYS SEARCH : Christian LEGRAND',
+'OVERLAYS FORMATING : Christian LEGRAND',
+'TEXTURES AND OVERLAYS AUTHORIZATIONS : Christian LEGRAND',
+'',
+'DATABASES :',
+'DATABASE ORGANISATION  : Christian LEGRAND',
+'INFORMATIONS COLLECTING : Christian LEGRAND',
+'INFORMATIONS TYPING AND FORMATING  : Christian LEGRAND',
+'SOFTWARE DATABASES TOOLS : Patrick CHEVALLEY ',
+'',
+'PICTURES LIBRARY :',
+'PICTURES SEARCH  : Christian LEGRAND',
+'PICTURES USE AUTHORIZATIONS : Christian LEGRAND',
+'PICTURES FORMATING : Christian LEGRAND',
+'SOFTWARE PICTURES TOOLS : Patrick CHEVALLEY ',
+'',
+'DOCUMENTATION :',
+'EDITION : Christian LEGRAND & Patrick  CHEVALLEY ',
+'FORMATING : Patrick  CHEVALLEY ',
+'GLOSSARY : Christian LEGRAND',
+'ENCYCLOPEDIA : Christian LEGRAND',
+'',
+'INTERNET SITE :',
+'EDITION : Christian LEGRAND & Patrick  CHEVALLEY ',
+'FORMATING : Patrick  CHEVALLEY ',
+'WEBMASTER : Patrick  CHEVALLEY ',
+'',
+'TRANSLATIONS :',
+'TRANSLATIONS MANAGEMENT : Patrick CHEVALLEY ',
 '',
 '',
-'CARTOGRAPHY:',
-'MAPS SEARCH  AND COPYRIGHTS AUTHORISATIONS: Christian LEGRAND',
-'REALISATION OF 2D TOPOGRAPHICAL MAP: Patrick  CHEVALLEY',
-'REALISATION OF 2D GEOLOGICAL MAP: Christian LEGRAND',
-'REALISATION OF 3D TOPOGRAPHICAL MAPS: Patrick  CHEVALLEY',
-'REALISATION OF 3D GEOLOGICAL MAP: Patrick  CHEVALLEY',
-'REALISATION OF 3D OTHER SCIENTIFIC MAPS: Christian LEGRAND',
+'HOT LINE :',
+'SOFTWARE : Patrick CHEVALLEY ',
+'OTHERS : Christian LEGRAND',
 '',
-'DATABASE:',
-'DATABASES ORGANISATION: Christian LEGRAND',
-'INFORMATIONS COLLECTING: Christian LEGRAND',
-'INFORMATIONS TYPING AND FORMATING: Christian LEGRAND',
+'PROMOTION :',
+'SWITZERLAND : Patrick CHEVALLEY ',
+'FRANCE : Christian LEGRAND',
+'OTHERS COUNTRIES : Christian LEGRAND',
 '',
-'PICTURES LIBRARY:',
-'PICTURES SEARCH: Christian LEGRAND',
-'COPYRIGHTS  AUTHORISATIONS: Christian LEGRAND',
-'PICTURES FORMATING: Christian LEGRAND',
+'CD PRODUCTION :',
+'BURNING AND PRINTING : Christian LEGRAND',
+'CD EXPEDITION : Christian LEGRAND',
 '',
-'DOCUMENTATION:',
-'EDITION: Christian LEGRAND',
-'DOCUMENTATION FORMATING: Patrick  CHEVALLEY',
-'GLOSSARY: Christian LEGRAND',
-'ENCYCLOPEDIA: Christian LEGRAND',
-'',
-'INTERNET SITE:',
-'EDITION: Christian LEGRAND & Patrick  CHEVALLEY',
-'PAGES FORMATING: Patrick  CHEVALLEY',
-'WEBMASTER: Patrick  CHEVALLEY',
+'USE LICENSES :',
+'LICENSES AUTHORIZATIONS : Christian LEGRAND & Patrick CHEVALLEY ',
+'LICENSES MANAGEMENT : Christian LEGRAND',
 ''));
 
 
@@ -175,19 +227,18 @@ begin
 if uppercase(language)='FR' then l:=1 else l:=2;
 buf:='';
 for i:=1 to 6 do begin
-  buf:=buf+' '+crlf;
+  buf:=buf+cpylst[l,i]+crlf;
 end;
-label5.Caption:=buf;
-cpylst[l,9]:=transmsg;
+label3.Caption:=buf;
 application.ProcessMessages;
-i:=0;
+i:=6;
 repeat
   inc(i);
   if i>nlin then i:=1;
   p:=pos(crlf,buf);
   if p>0 then buf:=copy(buf,p+2,9999);
   buf:=buf+cpylst[l,i]+crlf;
-  label5.Caption:=buf;
+  label3.Caption:=buf;
   application.ProcessMessages;
   sleep(500);
 until closing;
@@ -196,19 +247,18 @@ end;
 
 procedure Tsplash.FormShow(Sender: TObject);
 begin
+ClientHeight:=panel1.Height;
 label2.Caption:=VersionName+' '+Splashversion;
 label6.Caption:=compile_version;
-  if SplashTimer then begin
-     panel2.Height:=20;
-     ClientHeight:=panel1.Height+panel2.Height;
-     label5.top:=0;
-     label5.Alignment:=taCenter;
+ if SplashTimer then begin
      label5.Caption:=transmsg;
      label6.visible:=false;
      Timer1.enabled:=true
   end else begin
-     ClientHeight:=panel1.Height+panel2.Height;
+     label5.Caption:='';
      label6.visible:=true;
+     cpylst[1,trlin]:=transmsg;
+     cpylst[2,trlin]:=transmsg;
      Timer2.enabled:=true;
   end;
 end;

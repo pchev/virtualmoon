@@ -29,10 +29,11 @@ interface
 
 uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics,
   GLContext, GLColor, GLObjects, GLMaterial, GLTextureFormat, ExtCtrls,
-  GLTexture, GLCadencer, GLViewer, GLCrossPlatform, LResources, GLScene,
-  GLMultiMaterialShader, GLBumpShader, GLPhongShader, GLHUDObjects, OpenGLTokens,
-  GLWindowsFont, GLGeomObjects, GLMirror, GLMesh, GLVectorFileObjects, FPImage,
-  LCLType, IntfGraphics, SysUtils, Classes, Controls, Forms, Menus, Dialogs ;
+  GLTexture, GLCadencer, GLViewer, GLCrossPlatform, GLLCLViewer, LResources,
+  GLScene, GLMultiMaterialShader, GLBumpShader, GLPhongShader, GLHUDObjects,
+  OpenGLTokens, GLWindowsFont, GLGeomObjects, GLMirror, GLMesh,
+  GLVectorFileObjects, FPImage, FileUtil, LCLType, IntfGraphics, SysUtils,
+  Classes, Controls, Forms, Menus, Dialogs ;
 
 const
    MaxLabel=500;
@@ -64,6 +65,11 @@ type
     GLDummyCubeSatellite: TGLDummyCube;
     GLDummyCubeCoord: TGLDummyCube;
     GLFreeFormSatelite: TGLFreeForm;
+    LabelGroup: TGLHUDSprite;
+    GLHUDSpriteCCD2: TGLHUDSprite;
+    GLHUDSpriteCCD3: TGLHUDSprite;
+    GLHUDSpriteCCD4: TGLHUDSprite;
+    GLHUDSpriteCCD1: TGLHUDSprite;
     GLHUDTextScaleShadow: TGLHUDText;
     GLHUDTextScalekmShadow: TGLHUDText;
     GLHUDTextScalekm: TGLHUDText;
@@ -72,7 +78,6 @@ type
     PerfCadencer: TGLCadencer;
      RotationCadencer: TGLCadencer;
      GLDummyCubeMarks: TGLDummyCube;
-     GLDummyCubeLabels: TGLDummyCube;
      GLHUDSpriteDistance: TGLHUDSprite;
      GLHUDSpriteMark: TGLHUDSprite;
      GLHUDTextMark: TGLHUDText;
@@ -117,7 +122,6 @@ type
     markl,markb: single;
     MaxTextureSize: integer;
     MaxZoom: single;
-    Fmaxzoommultiplier:single;
     mx,my, zone, maxzone,curlabel,cursprite, lastyzoom : integer;
     maps2, newmaps: array[0..8] of integer;
     pmaps2 : array[0..2] of integer;
@@ -144,7 +148,7 @@ type
     FTexturePath: String;
     FTexture: TStringList;
     FOverlayPath: String;
-    FOverlay: String;
+    FOverlay,FOverlayTitle: String;
     FBumpPath: String;
     FBumpmap: Boolean;
     FBumpOk : boolean;
@@ -155,6 +159,8 @@ type
     FGridSpacing: integer;
     FShowGrid: Boolean;
     FShowScale: Boolean;
+    FShowCCD: Boolean;
+    FCCDw,FCCDh,FCCDr: single;
     FMirror: Boolean;
     FVisibleSideLock: Boolean;
     FRotation: single;
@@ -221,6 +227,7 @@ type
     Procedure SetZoomLevel(zoom:single);
     procedure SetShowGrid(value:boolean);
     procedure SetShowScale(value:boolean);
+    procedure SetShowCCD(value:boolean);
     procedure SetGridSpacing(value:integer);
     function  GetBumpMethod:TBumpMapCapability;
     procedure SetBumpMethod(bm:TBumpMapCapability);
@@ -247,6 +254,7 @@ type
     procedure ShowLibrationMark;
     function GetCurrentName : string;
     Procedure SetScale;
+    Procedure SetCCDfield;
   public
     { Declarations publiques }
     procedure AssignMoon(Source: TF_moon);
@@ -271,6 +279,7 @@ type
     procedure SatDirection(x,y,z:single);
     procedure SatUp(x,y,z:single);
     procedure SatPos(x,y,z:single);
+    procedure SetCCD(w,h,r: single);
     property TexturePath : String read FtexturePath write FTexturePath;
     property Texture : TStringList read Ftexture write SetTexture;
     property OverlayPath : String read FOverlayPath write FOverlayPath;
@@ -314,6 +323,7 @@ type
     property GridSpacing: integer read FGridSpacing write SetGridSpacing;
     property ShowGrid : Boolean read FShowGrid write SetShowGrid;
     property ShowScale: Boolean read FShowScale write SetShowScale;
+    property ShowCCD: Boolean read FShowCCD write SetShowCCD;
     property VisibleSideLock : Boolean read FVisibleSideLock write SetVisibleSideLock;
     property LabelFont : TFont read GetLabelFont write SetLabelFont;
     property LabelColor : TColor read FLabelColor write SetLabelColor;
@@ -329,7 +339,6 @@ type
     property DiffuseColor: TColor read GetDiffuseColor Write SetDiffuseColor;
     property SpecularColor: TColor read GetSpecularColor Write SetSpecularColor;
     property Antialiasing: boolean read GetAntialiasing write SetAntialiasing;
-    property maxzoommultiplier: single read Fmaxzoommultiplier write Fmaxzoommultiplier;
     property onMoonClick : TMoonClickEvent read FOnMoonClick write FOnMoonClick;
     property onMoonMove : TMoonMoveEvent read FOnMoonMove write FOnMoonMove;
     property onMoonMeasure: TMoonMeasureEvent read FonMoonMeasure write FonMoonMeasure;
@@ -434,6 +443,7 @@ var toffset,tscale : single;
 
 procedure LoadSlice2;
 var i,j: integer;
+    pmapfn: string;
 begin
  try
      toffset:=12/1024;
@@ -468,9 +478,9 @@ begin
         newmaps[3]:=-1;
         newmaps[4]:=-1;
         newmaps[5]:=-1;
-        pmaps2[0]:=20000;    // South cap
-        pmaps2[1]:=20001;
-        pmaps2[2]:=20002;
+        pmaps2[0]:=120000;    // South cap
+        pmaps2[1]:=120001;
+        pmaps2[2]:=120002;
         newcap:=2;
      end;
      if row>0 then begin
@@ -481,9 +491,9 @@ begin
         newmaps[6]:=-1;
         newmaps[7]:=-1;
         newmaps[8]:=-1;
-        pmaps2[0]:=10000;  // North cap
-        pmaps2[1]:=10001;
-        pmaps2[2]:=10002;
+        pmaps2[0]:=110000;  // North cap
+        pmaps2[1]:=110001;
+        pmaps2[2]:=110002;
         newcap:=1;
      end;
      // remove unused slices
@@ -550,18 +560,21 @@ begin
         cap2:=newcap;
         for i:=0 to 2 do begin
          if AbortSliceLoading then break;
-         if pmaps2[i]>=20000 then begin
+         if pmaps2[i]>=120000 then begin
            row:=maxrow-1;
-           col:=pmaps2[i] mod 20000;
+           col:=pmaps2[i] mod 120000;
            maxcol:=3;
           end
-          else if pmaps2[i]>=10000 then begin
+          else if pmaps2[i]>=110000 then begin
            row:=0;
-           col:=pmaps2[i] mod 10000;
+           col:=pmaps2[i] mod 110000;
            maxcol:=3;
           end;
          with GLMaterialLibrary1 do begin
-            jp.LoadFromFile(tpath+inttostr(pmaps2[i])+'.jpg');
+            if level<6 then pmapfn:=tpath+inttostr(pmaps2[i]-100000)+'.jpg'
+                       else pmapfn:=tpath+inttostr(pmaps2[i])+'.jpg';
+            if FileExistsUTF8(pmapfn) then begin
+            jp.LoadFromFile(pmapfn);
             with jp.Canvas do begin
               brush.Color:=clWhite;
               pen.Color:=clWhite;
@@ -575,6 +588,7 @@ begin
               Material.Texture.Image.Assign(jp);
               TextureOffset.SetPoint(-col*tscale+toffset,(row-maxrow+1)*tscale+toffset,0);
               TextureScale.SetPoint(maxcol*tscale,maxrow*tscale,0);
+            end;
             end;
          end;
          GLSceneViewer1.Refresh;
@@ -763,9 +777,11 @@ begin
 if fn='' then begin
   ClearOverlay;
   FOverlay:='';
+  FOverlayTitle:='';
 end else begin
   if not FileExists(slash(FOverlayPath)+fn) then raise Exception.Create('Overlay not found '+slash(FOverlayPath)+fn);
   FOverlay:=fn;
+  FOverlayTitle:=ExtractFileNameWithoutExt(fn);
   if GLMaterialLibrary1.LibMaterialByName('O1')=nil then CreateMaterial(99);
   j:=TJpegImage.Create;
   b:=Tbitmap.Create;
@@ -887,7 +903,7 @@ if FBumpOk and (value<>FBumpmap) then begin
        GLLightSource1.ConstAttenuation:=0.3;
     GLLightSource1.LightStyle:=lsSpot;
     ClearSlice(2);
-    if i>7 then MaxZoom:=16
+    if i>7 then MaxZoom:=12
     else if i>3 then MaxZoom:=8
     else if i>1 then MaxZoom:=4
     else MaxZoom:=2;
@@ -901,7 +917,7 @@ if FBumpOk and (value<>FBumpmap) then begin
     BumpMaterialLibrary.Materials[1].Material.Texture.Image.Assign(blankbmp);
     GLLightSource1.ConstAttenuation:=0.5;
     GLLightSource1.LightStyle:=lsParallel;
-    maxzoom:=ZoomByZone[maxzone]*1.4;
+    maxzoom:=ZoomByZone[maxzone];
   end;
   GLSceneViewer1.Refresh;
 end;
@@ -945,6 +961,7 @@ if value<>FVisibleSideLock then begin
       CenterAt(cl,cb);
    end else begin
       Eyepiece:=0;
+      FShowCCD:=false;
       GLCamera1.Position.SetPoint(0,0,-100);
       GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
       GLMirror1.Position.SetPoint(0,0,-100.01);
@@ -1057,7 +1074,7 @@ begin
     if RotationCadencer.Enabled then
        FOnGetMsg(self,MsgZoom,rsm_43+inttostr(round(GLCameraSatellite.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+ldeg+' '+rst_4+formatfloat('0.0',Fzoom)+'  '+rsLevel+inttostr(zone))
     else
-       FOnGetMsg(self,MsgZoom,rsm_43+inttostr(round(60*0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+lmin+' '+rst_4+formatfloat('0.0',Fzoom)+'  '+rsLevel+inttostr(zone));
+       FOnGetMsg(self,MsgZoom,rsm_43+inttostr(round(60*0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+lmin+' '+rst_4+formatfloat('0.0',Fzoom)+'  '+rsLevel+inttostr(zone)+' '+FTexture[zone-1]+' '+FOverlayTitle);
   end;
 end;
 
@@ -1132,7 +1149,7 @@ begin
     end;
  end;
  if not FBumpmap then begin
-   maxzoom:=ZoomByZone[maxzone]*Fmaxzoommultiplier;
+   maxzoom:=ZoomByZone[maxzone];
    ClearSlice(2);
    LoadSlice(1);
    if zone<>1 then LoadSlice(zone);
@@ -1167,7 +1184,6 @@ begin
  for i:=0 to 2 do begin
     pmaps2[i]:=-1;
  end;
- Fmaxzoommultiplier:=1.4;
  perfdeltay := 0.0000001;
  cap2:=-1;
  zone:=1;
@@ -1194,6 +1210,9 @@ begin
  GLLightSource1.Specular.AsWinColor:=$323232;
  FShowScale:=false;
  FShowGrid:=false;
+ FShowCCD:=false;
+ FCCDw:=0;
+ FCCDh:=0;
  moveok:=false;
 end;
 
@@ -1339,7 +1358,7 @@ end;
 procedure Tf_moon.FormDestroy(Sender: TObject);
 begin
 ClearLabel;
-if GLDummyCubeLabels<>nil then GLDummyCubeLabels.DeleteChildren;
+if LabelGroup<>nil then LabelGroup.DeleteChildren;
 if GLDummyCubeMarks<>nil then GLDummyCubeMarks.DeleteChildren;
 if GLDummyCubeCoord<>nil then GLDummyCubeCoord.DeleteChildren;
 blankbmp.Free;
@@ -1425,7 +1444,7 @@ begin
     BumpMaterialLibrary.Materials[1].Material.Texture.Image.Assign(blankbmp);
     GLLightSource1.ConstAttenuation:=0.5;
     GLLightSource1.LightStyle:=lsParallel;
-    maxzoom:=ZoomByZone[maxzone]*1.4;
+    maxzoom:=ZoomByZone[maxzone];
   end;
 end;
 
@@ -1533,21 +1552,20 @@ var movespeed,s1,c1,zm: single;
     lat,lon: single;
     OnMoon: boolean;
 begin
-  if not moveok then exit;
+  // Cord. display
+  if (not moveok)or(shift=[]) then begin
+     if Assigned(onMoonMove) then begin
+        OnMoon:=Screen2Moon(x,y,lon,lat);
+        onMoonMove(Self,X,Y,OnMoon,lon,lat);
+     end;
+  end
+  else
   // Distance
   if FMeasuringDistance and distancestart then
      begin
        MeasureDistance(x, y);
 //       ShowCoordinates(x, y);
      end
-  else
-  // Cord. display
-  if shift=[] then begin
-     if Assigned(onMoonMove) then begin
-        OnMoon:=Screen2Moon(x,y,lon,lat);
-        onMoonMove(Self,X,Y,OnMoon,lon,lat);
-     end;
-  end
   else
   // Move map
   if (ssLeft in shift)
@@ -1649,6 +1667,8 @@ begin
   ClearLabel;
  // if marked then SetMark(markl,markb,marktext);
   ShowLibrationMark;
+//  SetScale;
+  SetCCDfield;
   RefreshTimer.Enabled:=false;
   RefreshTimer.Enabled:=true;
 end;
@@ -1657,6 +1677,7 @@ procedure Tf_moon.RefreshTimerTimer(Sender: TObject);
 begin
   RefreshTimer.Enabled:=false;
   SetScale;
+//  SetCCDfield;
   if marked then SetMark(markl,markb,marktext);
   if not RotationCadencer.Enabled then begin
     ShowLibrationMark;
@@ -1992,10 +2013,10 @@ procedure Tf_moon.InitLabel;
 var 	i : Integer;
 	newlabel : TGLHUDText;
 begin
-GLDummyCubeLabels.DeleteChildren;
+LabelGroup.DeleteChildren;
 curlabel:=0;
 for i:=0 to 2*Maxlabel do begin
-    newlabel:=TGLHUDText(GLDummyCubeLabels.AddNewChild(TGLHUDText));
+    newlabel:=TGLHUDText(LabelGroup.AddNewChild(TGLHUDText));
     newlabel.Name:='ML'+inttostr(i);
     newlabel.Visible:=false;
     newlabel.BitmapFont:=GLBitmapFont1;
@@ -2014,9 +2035,9 @@ var i:integer;
 begin
 curlabel:=0;
 cursprite:=0;
-if (GLDummyCubeLabels.Count>0) and GLDummyCubeLabels.Children[0].visible then
+if (LabelGroup.Count>0) and LabelGroup.Children[0].visible then
    for i:=0 to 2*Maxlabel do
-      with GLDummyCubeLabels.Children[i] as TGLHUDText do visible:=false;
+      with LabelGroup.Children[i] as TGLHUDText do visible:=false;
 if (GLDummyCubeMarks.Count > 0) and GLDummyCubeMarks.Children[0].Visible then
    for i := 0 to MaxSprite - 1 do
       with GLDummyCubeMarks.Children[i] as TGLHUDSprite do Visible := False;
@@ -2052,17 +2073,18 @@ end;
 
 function Tf_moon.AddLabel(lon,lat:single; txt:string):boolean;
 var x,y: integer;
+    vis: boolean;
 begin
 result:=false;
 if curlabel>=MaxLabel then exit;
-if marked and (marktext=txt) then exit;
+vis:=not (marked and (marktext=txt));
 if not Moon2Screen(lon,lat,x,y) then exit;
 if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
   (y < GLSceneViewer1.Height) and ((currenteyepiece = 0) or
   (sqrt(Intpower(GLSceneViewer1.Width / 2 - x, 2) + Intpower(
   GLSceneViewer1.Height / 2 - y, 2)) < 0.475 * GLSceneViewer1.Width))
   then begin
-    with GLDummyCubeLabels.Children[2*curlabel] as TGLHUDText do begin
+    with LabelGroup.Children[2*curlabel] as TGLHUDText do begin
       Position.SetPoint(x+ShadowOffset,y+ShadowOffset,0);
       if labelcenter then
         begin
@@ -2074,9 +2096,9 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
           Text      := '-' + txt;
           Alignment := taLeftJustify;
       end;
-      Visible:=true;
+      Visible:=vis;
     end;
-    with GLDummyCubeLabels.Children[2*curlabel+1] as TGLHUDText do begin
+    with LabelGroup.Children[2*curlabel+1] as TGLHUDText do begin
       Position.SetPoint(x,y,0);
       if labelcenter then
         begin
@@ -2088,7 +2110,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
           Text      := '-' + txt;
           Alignment := taLeftJustify;
       end;
-      Visible:=true;
+      Visible:=vis;
     end;
     inc(curlabel);
 end;
@@ -2174,6 +2196,8 @@ end;
 
 procedure Tf_moon.SetMark(lon,lat:single; txt:string);
 var x,y: integer;
+    buf:string;
+    labvis: boolean;
 begin
 if txt='' then begin
   marked:=false;
@@ -2231,6 +2255,13 @@ end else begin
   marktext:=txt;
   markl:=lon;
   markb:=lat;
+end;
+for x:=0 to curlabel do begin
+  buf:=TGLHUDText(LabelGroup.Children[2*x]).Text;
+  if copy(buf,1,1)='-' then Delete(buf,1,1);
+  labvis:=(buf<>marktext);
+  TGLHUDText(LabelGroup.Children[2*x]).Visible:=labvis;
+  TGLHUDText(LabelGroup.Children[2*x+1]).Visible:=labvis;
 end;
 end;
 
@@ -2669,7 +2700,64 @@ end else begin
   GLHUDTextScalekm.Visible:=false;
   GLHUDTextScalekmShadow.visible:=false;
 end;
+end;
 
+procedure Tf_moon.SetCCD(w,h,r: single);
+begin
+  FCCDw:=w;
+  FCCDh:=h;
+  FCCDr:=r;
+end;
+
+procedure Tf_moon.SetShowCCD(value:boolean);
+begin
+FShowCCD:=value and (VisibleSideLock) and (FCCDw>0) and (FCCDh>0);
+SetCCDfield;
+end;
+
+Procedure Tf_moon.SetCCDfield;
+var i: integer;
+    sinr,cosr: extended;
+    fv,bx,u: double;
+    x,y,xc,yc,wc,hc: single;
+begin
+if FShowCCD then begin
+  fv:=0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom;
+  bx:=GLSceneViewer1.Width/fv;
+  u:=1/60;
+  wc:=FCCDw*u*bx;
+  hc:=FCCDh*u*bx;
+  SinCos(deg2rad*FCCDr,sinr,cosr);
+  GLHUDSpriteCCD1.Width:=wc;
+  GLHUDSpriteCCD3.Width:=wc;
+  GLHUDSpriteCCD2.Width:=hc;
+  GLHUDSpriteCCD4.Width:=hc;
+  xc:=GLSceneViewer1.Width/2;
+  yc:=GLSceneViewer1.Height/2;
+  x:=xc-(hc/2)*sinr;
+  y:=yc-(hc/2)*cosr;
+  GLHUDSpriteCCD1.Position.SetPoint(x,y,0);
+  GLHUDSpriteCCD1.Rotation:=FCCDr;
+  x:=xc+(hc/2)*sinr;
+  y:=yc+(hc/2)*cosr;
+  GLHUDSpriteCCD3.Position.SetPoint(x,y,0);
+  GLHUDSpriteCCD3.Rotation:=FCCDr;
+  x:=xc+(wc/2)*cosr;
+  y:=yc-(wc/2)*sinr;
+  GLHUDSpriteCCD2.Position.SetPoint(x,y,0);
+  GLHUDSpriteCCD2.Rotation:=90+FCCDr;
+  x:=xc-(wc/2)*cosr;
+  y:=yc+(wc/2)*sinr;
+  GLHUDSpriteCCD4.Position.SetPoint(x,y,0);
+  GLHUDSpriteCCD4.Rotation:=90+FCCDr;
+  GLHUDSpriteCCD1.Material.FrontProperties.Emission.AsWinColor := markcolor;
+  GLHUDSpriteCCD2.Material.FrontProperties.Emission.AsWinColor := markcolor;
+  GLHUDSpriteCCD3.Material.FrontProperties.Emission.AsWinColor := markcolor;
+  GLHUDSpriteCCD4.Material.FrontProperties.Emission.AsWinColor := markcolor;
+  GLHUDSpriteCCD1.Visible:=true;
+end else begin
+  GLHUDSpriteCCD1.Visible:=false;
+end;
 end;
 
 end.

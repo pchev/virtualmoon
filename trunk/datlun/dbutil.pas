@@ -31,8 +31,9 @@ interface
 Uses Forms, Dialogs, SysUtils, mlb2, passql, passqlite;
 
 const
+    DBversion=600;
     MaxDBN=200;
-    NumMoonDBFields = 83;
+    NumMoonDBFields = 82;
     MoonDBFields : array[1..NumMoonDBFields,1..2] of string = (
       ('NAME','text'),
       ('LUN','text'),
@@ -41,7 +42,7 @@ const
       ('TYPE','text'),
       ('SUBTYPE','text'),
       ('PERIOD','text'),
-      ('PROCESS','text'),    // ?
+      ('PROCESS','text'),  
       ('GEOLOGY','text'),
       ('NAMEDETAIL','text'),
       ('NAMEORIGIN','text'),
@@ -85,7 +86,7 @@ const
       ('SLOPES','text'),
       ('WALLS','text'),
       ('FLOOR','text'),
-      ('TIPS','text'),              // ?
+      ('TIPS','text'),              
       ('INTERESTN','integer'),
       ('INTERESTC','text'),
       ('LUNATION','integer'),
@@ -97,7 +98,6 @@ const
       ('IAU_FEATURE_NAME','text'),
       ('IAU_CLEAN_FEATURE_NAME','text'),
       ('IAU_FEATURE_ID','text'),
-      ('IAU_TARGET','text'),
       ('IAU_DIAMETER','text'),
       ('IAU_CENTER_LATITUDE','text'),
       ('IAU_CENTER_LONGITUDE','text'),
@@ -110,13 +110,13 @@ const
       ('IAU_ETHNICITY','text'),
       ('IAU_FEATURE_TYPE','text'),
       ('IAU_FEATURE_TYPE_CODE','text'),
-      ('IAU_QUAD','text'),
+      ('IAU_QUAD_NAME','text'),
+      ('IAU_QUAD_CODE','text'),
       ('IAU_APPROVAL_STATUS','text'),
       ('IAU_APPROVAL_DATE','text'),
       ('IAU_REFERENCE','text'),
       ('IAU_ORIGIN','text'),
-      ('IAU_ADDITIONAL_INFO','text'),
-      ('IAU_LAST_UPDATED','text')
+      ('IAU_LINK','text')
       );
       FDBN=1;
       FNAME=2;
@@ -137,13 +137,18 @@ implementation
 Uses  u_constant, u_util, fmsg;
 
 Procedure CreateDB(dbm: TLiteDB);
-var i: integer;
-    buf,cmd: string;
+var i,dbv: integer;
+    cmd,buf: string;
 begin
-buf:='';
-dbm.query('select name from sqlite_master where type="table";');
-for i:=0 to dbm.RowCount do buf:=buf+dbm.Results[i][0]+' ';
-if pos('moon',buf)=0 then begin
+buf:=dbm.QueryOne('select version from dbversion;');
+dbv:=StrToIntDef(buf,0);
+if dbv<DBversion then begin
+ dbm.Query('drop table moon;');
+ dbm.Query('drop table file_date;');
+ dbm.Query('drop table user_database;');
+ dbm.Query('drop table dbversion;');
+ dbm.Commit;
+ dbm.Query('Vacuum;');
  cmd:='create table moon ( '+
     'ID INTEGER PRIMARY KEY,'+
     'DBN integer';
@@ -156,8 +161,7 @@ if pos('moon',buf)=0 then begin
  dbm.Query('create index moon_pos on moon (longin,latin);');
  dbm.Query('create index moon_name on moon (dbn,name);');
  dbjournal(extractfilename(dbm.database),'CREATE TABLE MOON');
-end;
-if pos('file_date',buf)=0 then begin
+
  cmd:='create table file_date ( '+
     'DBN integer,'+
     'FDATE integer'+
@@ -165,8 +169,7 @@ if pos('file_date',buf)=0 then begin
  dbm.Query(cmd);
  if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
  dbjournal(extractfilename(dbm.database),'CREATE TABLE FILE_DATE');
-end;
-if pos('user_database',buf)=0 then begin
+
  cmd:='create table user_database ( '+
     'DBN integer,'+
     'NAME text'+
@@ -174,6 +177,15 @@ if pos('user_database',buf)=0 then begin
  dbm.Query(cmd);
  if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
  dbjournal(extractfilename(dbm.database),'CREATE TABLE USER_DATABASE');
+
+ cmd:='create table dbversion ( '+
+    'version integer'+
+    ');';
+ dbm.Query(cmd);
+ cmd:='insert into dbversion values('+inttostr(DBversion)+');';
+ dbm.Query(cmd);
+ if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+ dbjournal(extractfilename(dbm.database),'CREATE TABLE DBVERSION');
 end;
 end;
 
@@ -195,7 +207,6 @@ db1.GoFirst;
 dbm.StartTransaction;
 dbm.Query('delete from moon where DBN='+side+';');
 dbm.Commit;
-dbm.Query('Vacuum;');
 dbjournal(extractfilename(dbm.database),'DELETE ALL DBN='+side);
 v:='';
 for i:=1 to NumMoonDBFields do begin
@@ -240,8 +251,10 @@ end;
 Procedure LoadDB(dbm: TLiteDB);
 var i,db_age : integer;
     buf,missingf:string;
+    needvacuum: boolean;
 begin
 missingf:='';
+needvacuum:=false;
 buf:=Slash(DBdir)+'dbmoon6_u'+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
 sidelist:='1';
@@ -283,11 +296,13 @@ for i:=1 to 9 do begin
      if (db_age<fileage(database[i])) then begin
         dbjournal(extractfilename(dbm.database),'LOAD DATABASE DBN='+inttostr(i)+' FROM FILE: '+database[i]+' FILE DATE: '+ DateTimeToStr(FileDateToDateTime(fileage(database[i]))) );
         convertDB(dbm,database[i],inttostr(i));
+        needvacuum:=true;
      end;
      end
      else missingf:=missingf+database[i]+blank;
   end;
-end;               
+end;
+if needvacuum then dbm.Query('Vacuum;');
 finally
 if MsgForm<>nil then MsgForm.Close;
 if missingf>'' then

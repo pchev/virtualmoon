@@ -42,7 +42,7 @@ uses
   Messages, SysUtils, Classes, Dialogs, FileUtil,
   ComCtrls, Menus, Buttons, dynlibs, BigIma,
   EnhEdits, IniFiles, passql, passqlite,
-  Math, CraterList, LResources, IpHtml, UniqueInstance, GLViewer;
+  Math, CraterList, LResources, IpHtml, UniqueInstance, GLViewer, GLLCLViewer;
 
 type
 
@@ -127,6 +127,7 @@ type
     ResizeTimer: TTimer;
     ToolButton13: TToolButton;
     ToolButton14: TToolButton;
+    ButtonWeblun: TToolButton;
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
@@ -238,6 +239,18 @@ type
     e91:     TMenuItem;
     e101:    TMenuItem;
     e01:     TMenuItem;
+    CCD1: TMenuItem;
+    c11:     TMenuItem;
+    c21:     TMenuItem;
+    c31:     TMenuItem;
+    c41:     TMenuItem;
+    c51:     TMenuItem;
+    c61:     TMenuItem;
+    c71:     TMenuItem;
+    c81:     TMenuItem;
+    c91:     TMenuItem;
+    c101:    TMenuItem;
+    c01:     TMenuItem;
     BMP30001: TMenuItem;
     Notes:   TTabSheet;
     Memo1:   TMemo;
@@ -328,6 +341,7 @@ type
     procedure StartTimerTimer(Sender: TObject);
     procedure ToolButton12Click(Sender: TObject);
     procedure ToolButton14Click(Sender: TObject);
+    procedure ButtonWeblunClick(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
@@ -391,6 +405,7 @@ type
     procedure ToolButton3Click(Sender: TObject);
     procedure BMP15001Click(Sender: TObject);
     procedure ZoomEyepieceClick(Sender: TObject);
+    procedure ZoomCCDClick(Sender: TObject);
     procedure BMP30001Click(Sender: TObject);
     procedure UpdNotesClick(Sender: TObject);
     procedure Memo1Change(Sender: TObject);
@@ -450,7 +465,7 @@ type
     texturefiles: TStringList;
     SplitSize: single;
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
-    firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseCDC,StartDatlun,StartPhotlun,StartCDC: boolean;
+    firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseWeblun,CanCloseCDC,StartDatlun,StartWeblun,StartPhotlun,StartCDC: boolean;
     Desctxt: string;
     {$ifdef windows}
     savetop,saveleft,savewidth,saveheight: integer;
@@ -458,9 +473,11 @@ type
     procedure OpenDatlun(objname,otherparam:string);
     procedure OpenPhotlun(objname,otherparam:string);
     procedure OpenCDC(objname,otherparam:string);
+    procedure OpenWeblun(objname,otherparam:string);
     procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
     procedure InstanceRunning(Sender : TObject);
     procedure SetEyepieceMenu;
+    procedure SetCCDMenu;
     procedure SetLang1;
     procedure SetLang;
     procedure InitObservatoire;
@@ -539,6 +556,8 @@ type
     overlayhi, overlayimg: Tbitmap;
     eyepiecename: array[1..10] of string;
     eyepiecefield, eyepiecemirror, eyepiecerotation: array[1..10] of integer;
+    CCDname: array[1..10] of string;
+    CCDw, CCDh, CCDr: array[1..10] of single;
     EyepieceRatio: double;
     zoom:   double;
     useDBN: integer;
@@ -603,6 +622,37 @@ begin
       8: setmenuitem(e81, i);
       9: setmenuitem(e91, i);
       10: setmenuitem(e101, i);
+    end;
+end;
+
+procedure TForm1.SetCCDMenu;
+var
+  i: integer;
+
+  procedure setmenuitem(mi: Tmenuitem; i: integer);
+  begin
+    if (trim(CCDname[i]) > '') and (CCDw[i] > 0)and (CCDh[i] > 0) then
+    begin
+      mi.Visible := True;
+      mi.Caption := CCDname[i];
+    end
+    else
+      mi.Visible := False;
+  end;
+
+begin
+  for i := 1 to 10 do
+    case i of
+      1: setmenuitem(c11, i);
+      2: setmenuitem(c21, i);
+      3: setmenuitem(c31, i);
+      4: setmenuitem(c41, i);
+      5: setmenuitem(c51, i);
+      6: setmenuitem(c61, i);
+      7: setmenuitem(c71, i);
+      8: setmenuitem(c81, i);
+      9: setmenuitem(c91, i);
+      10: setmenuitem(c101, i);
     end;
 end;
 
@@ -729,6 +779,8 @@ begin
     label3.Caption   := rst_116;
     Eyepiece1.Caption := rst_109;
     e01.Caption      := rst_117;
+    CCD1.Caption := rsCCDField;
+    c01.Caption      := rst_117;
     groupbox2.Caption := rst_125;
     Database1.Caption := rst_129;
     label1.Caption   := rst_153;
@@ -743,7 +795,7 @@ begin
     RemoveMark1.Caption := rst_180;
     Label5.Caption:=rsOrbitAltitud;
     Label17.Caption:=rsOrbitInclina;
-
+    ButtonWeblun.Hint:='WebLun';
     ButtonDatabase.hint := Database1.Caption;
     CheckBox8.Caption := rst_182;
     Toolbutton12.hint := rsShowLabels;
@@ -892,8 +944,8 @@ begin
   usedatabase[5] := True;
   usedatabase[6] := True;
   usedatabase[7] := True;
-  usedatabase[8] := True;
-  usedatabase[9] := True;
+  usedatabase[8] := False;
+  usedatabase[9] := False;
   for i := 10 to maxdbn do
     usedatabase[i] := False;
   timezone := 0;
@@ -944,11 +996,16 @@ begin
   wantbump := false;
   eyepiecename[1] := 'SCT 8" + Plossl 10mm';
   eyepiecefield[1] := 15;
+  CCDname[1]:='SCT 8" + TUC webcam';
+  CCDw[1]:=6.2;
+  CCDh[1]:=4.6;
+  CCDr[1]:=0;
   rotdirection := -1;
   rotstep  := 1;
-  smooth   := 180;
+  smooth   := 360;
   inif := Tmeminifile.Create(ConfigFile);
   firstuse := (not inif.SectionExists('default'));
+  BumpMethod:=0;
   with inif do
   begin
     section     := 'images';
@@ -995,7 +1052,6 @@ begin
     cameraorientation := ReadFloat(section, 'CameraOrientation', CameraOrientation);
     phaseeffect  := ReadBool(section, 'PhaseEffect', phaseeffect);
     wantbump  := ReadBool(section, 'BumpMap', wantbump);
-    BumpMethod:= Readinteger(section,'BumpMethod',0);
     BumpMipmap:= ReadBool(section,'BumpMipmap',true);
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
@@ -1011,7 +1067,7 @@ begin
     labelcenter  := ReadBool(section, 'LabelCenter', labelcenter);
     minilabel    := ReadBool(section, 'MiniLabel', minilabel);
     FollowNorth  := ReadBool(section, 'FollowNorth', FollowNorth);
-    shortdesc  := ReadBool(section, 'shortdesc', shortdesc);
+//    shortdesc  := ReadBool(section, 'shortdesc', shortdesc);
     CheckBox2.Checked := ReadBool(section, 'Mirror', False);
     GridButton.Down:= ReadBool(section, 'Grid', False);
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
@@ -1063,6 +1119,10 @@ begin
       eyepiecefield[j]    := ReadInteger(section, 'eyepiecefield' + IntToStr(j), eyepiecefield[j]);
       eyepiecemirror[j]   := ReadInteger(section, 'eyepiecemirror' + IntToStr(j), eyepiecemirror[j]);
       eyepiecerotation[j] := ReadInteger(section, 'eyepiecerotation' + IntToStr(j), eyepiecerotation[j]);
+      CCDname[j]     := ReadString(section, 'CCDname' + IntToStr(j), CCDname[j]);
+      CCDw[j] := ReadFloat(section, 'CCDw' + IntToStr(j), CCDw[j]);
+      CCDh[j] := ReadFloat(section, 'CCDh' + IntToStr(j), CCDh[j]);
+      CCDr[j] := ReadFloat(section, 'CCDr' + IntToStr(j), CCDr[j]);
     end;
     //useDBN := ReadInteger(section, 'useDBN', useDBN);
     for i := 1 to useDBN do
@@ -1128,7 +1188,6 @@ begin
       WriteFloat(section, 'dt_ut', dt_ut);
       WriteBool(section, 'PhaseEffect', phaseeffect);
       WriteBool(section, 'BumpMap', wantbump or moon1.Bumpmap);
-      WriteInteger(section,'BumpMethod',ord(moon1.BumpMethod));
       WriteBool(section,'BumpMipmap',moon1.BumpMipmap);
       WriteBool(section, 'ShowLabel', ShowLabel);
       WriteBool(section, 'ShowMark', ShowMark);
@@ -1141,7 +1200,7 @@ begin
       WriteInteger(section, 'MarkSize', marksize);
       WriteBool(section, 'LabelCenter', labelcenter);
       WriteBool(section, 'MiniLabel', minilabel);
-      WriteBool(section, 'shortdesc', shortdesc);
+//      WriteBool(section, 'shortdesc', shortdesc);
       WriteBool(section, 'FollowNorth', FollowNorth);
       WriteBool(section, 'Mirror', CheckBox2.Checked);
       WriteBool(section, 'Grid', GridButton.Down);
@@ -1163,6 +1222,10 @@ begin
         WriteInteger(section, 'eyepiecefield' + IntToStr(i), eyepiecefield[i]);
         WriteInteger(section, 'eyepiecemirror' + IntToStr(i), eyepiecemirror[i]);
         WriteInteger(section, 'eyepiecerotation' + IntToStr(i), eyepiecerotation[i]);
+        WriteString(section, 'CCDname' + IntToStr(i), CCDname[i]);
+        WriteFloat(section, 'CCDw' + IntToStr(i), CCDw[i]);
+        WriteFloat(section, 'CCDh' + IntToStr(i), CCDh[i]);
+        WriteFloat(section, 'CCDr' + IntToStr(i), CCDr[i]);
       end;
       WriteInteger(section, 'AmbientLight', moon1.AmbientColor);
       WriteInteger(section, 'DiffuseLight', moon1.DiffuseColor);
@@ -1208,12 +1271,9 @@ begin
   // get search boundaries
     Tf_moon(Sender).GetBounds(lmin,lmax,bmin,bmax);
   // minimal feature size
-    if minilabel then
-      wfact := 0.5
-    else
-      wfact := 1;
+    wfact := 1;
     LabelDensity := maxintvalue([100, LabelDensity]);
-    if (Tf_moon(Sender).Zoom >= 8) and (Tf_moon(Sender).Zoom >= (Tf_moon(Sender).ZoomMax-5)) then
+    if (Tf_moon(Sender).Zoom >= 30) and (Tf_moon(Sender).Zoom >= (Tf_moon(Sender).ZoomMax-5)) then
       wmin := -1
     else
       wmin := MinValue([650.0, 3 * LabelDensity / (Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)]);
@@ -1232,13 +1292,13 @@ begin
       if w <= 0 then
         w := 1.67 * dbm.Results[j].Format[4].AsFloat;
       if (w > 200) and (abs(l1) > 90) then
-        w := 2.5 * w; // moins de grosse formation face cachee
+        w := 1.5 * w; // moins de grosse formation face cachee
       if w < (wmin * wfact) then
         continue;
       nom := trim(dbm.Results[j][0]);
       lun := trim(dbm.Results[j][7]);
       dbn := trim(dbm.Results[j][8]);
-      // Duplicate Mare name
+      // Duplicate Mare name in noname database
       if (dbn='8') and (copy(nom,1,3)='AVL') and (w>300) then continue;
       if minilabel then
       begin
@@ -1658,6 +1718,7 @@ begin
  {$endif}
   Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma
   Datlun  := '"'+bindir + DefaultDatlun+'"';
+  Weblun  := '"'+bindir + DefaultWeblun+'"';
   helpdir := slash(appdir) + slash('doc');
   jpldir  := slash(appdir)+slash('data')+'jpleph';
   // Be sure zoneinfo exists in standard location or in vma directory
@@ -2006,8 +2067,6 @@ if (GetField('RUKL')>'')or(GetField('RUKLC')>'') then
        memo.Lines.Add('IAU_CLEAN_FEATURE_NAME:' + b + GetField('IAU_CLEAN_FEATURE_NAME'));
     if GetField('IAU_FEATURE_ID')<>'' then
        memo.Lines.Add('IAU_FEATURE_ID:' + b + GetField('IAU_FEATURE_ID'));
-    if GetField('IAU_TARGET')<>'' then
-       memo.Lines.Add('IAU_TARGET:' + b + GetField('IAU_TARGET'));
     if GetField('IAU_DIAMETER')<>'' then
        memo.Lines.Add('IAU_DIAMETER:' + b + GetField('IAU_DIAMETER'));
     if GetField('IAU_CENTER_LATITUDE')<>'' then
@@ -2032,8 +2091,10 @@ if (GetField('RUKL')>'')or(GetField('RUKLC')>'') then
        memo.Lines.Add('IAU_FEATURE_TYPE:' + b + GetField('IAU_FEATURE_TYPE'));
     if GetField('IAU_FEATURE_TYPE_CODE')<>'' then
        memo.Lines.Add('IAU_FEATURE_TYPE_CODE:' + b + GetField('IAU_FEATURE_TYPE_CODE'));
-    if GetField('IAU_QUAD')<>'' then
-       memo.Lines.Add('IAU_QUAD:' + b + GetField(''));
+    if GetField('IAU_QUAD_NAME')<>'' then
+       memo.Lines.Add('IAU_QUAD_NAME:' + b + GetField('IAU_QUAD_NAME'));
+    if GetField('IAU_QUAD_CODE')<>'' then
+       memo.Lines.Add('IAU_QUAD_CODE:' + b + GetField('IAU_QUAD_CODE'));
     if GetField('IAU_APPROVAL_STATUS')<>'' then
        memo.Lines.Add('IAU_APPROVAL_STATUS:' + b + GetField('IAU_APPROVAL_STATUS'));
     if GetField('IAU_APPROVAL_DATE')<>'' then
@@ -2042,10 +2103,8 @@ if (GetField('RUKL')>'')or(GetField('RUKLC')>'') then
        memo.Lines.Add('IAU_REFERENCE:' + b + GetField('IAU_REFERENCE'));
     if GetField('IAU_ORIGIN')<>'' then
        memo.Lines.Add('IAU_ORIGIN:' + b + GetField('IAU_ORIGIN'));
-    if GetField('IAU_ADDITIONAL_INFO')<>'' then
-       memo.Lines.Add('IAU_ADDITIONAL_INFO:' + b + GetField('IAU_ADDITIONAL_INFO'));
-    if GetField('IAU_LAST_UPDATED')<>'' then
-       memo.Lines.Add('IAU_LAST_UPDATED:' + b + GetField('IAU_LAST_UPDATED'));
+    if GetField('IAU_LINK')<>'' then
+       memo.Lines.Add('IAU_LINK:' + b + GetField('IAU_LINK'));
 end;
 
 
@@ -2295,14 +2354,17 @@ begin
 
   // IAU information
   txtbuf:='';
-  if GetField('IAU_FEATURE_NAME')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + GetField('IAU_FEATURE_NAME') + '<br>';
+  if GetField('IAU_FEATURE_NAME')<>'' then begin
+     url:=GetField('IAU_LINK');
+     if url='' then
+        txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + GetField('IAU_FEATURE_NAME') + '<br>'
+     else
+        txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + ' <A HREF="' + url + '">' +GetField('IAU_FEATURE_NAME') + '</A>' + '<br>';
+  end;
   if GetField('IAU_CLEAN_FEATURE_NAME')<>'' then
      txtbuf   := txtbuf + t3 + 'IAU_CLEAN_FEATURE_NAME:' + t3end + b + GetField('IAU_CLEAN_FEATURE_NAME') + '<br>';
   if GetField('IAU_FEATURE_ID')<>'' then
      txtbuf   := txtbuf + t3 + 'IAU_FEATURE_ID:' + t3end + b + GetField('IAU_FEATURE_ID') + '<br>';
-  if GetField('IAU_TARGET')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_TARGET:' + t3end + b + GetField('IAU_TARGET') + '<br>';
   if GetField('IAU_DIAMETER')<>'' then
      txtbuf   := txtbuf + t3 + 'IAU_DIAMETER:' + t3end + b + GetField('IAU_DIAMETER') + '<br>';
   if GetField('IAU_CENTER_LATITUDE')<>'' then
@@ -2327,8 +2389,15 @@ begin
      txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE:' + t3end + b + GetField('IAU_FEATURE_TYPE') + '<br>';
   if GetField('IAU_FEATURE_TYPE_CODE')<>'' then
      txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE_CODE:' + t3end + b + GetField('IAU_FEATURE_TYPE_CODE') + '<br>';
-  if GetField('IAU_QUAD')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_QUAD:' + t3end + b + GetField('') + '<br>';
+  if GetField('IAU_QUAD_NAME')<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_QUAD_NAME:' + t3end + b + GetField('IAU_QUAD_NAME') + '<br>';
+  if GetField('IAU_QUAD_CODE')<>'' then begin
+     buf:=GetField('IAU_QUAD_CODE');
+     if copy(buf,1,3)='LAC' then
+        txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + ' <A HREF="http://www.lpi.usra.edu/resources/mapcatalog/LAC/'+buf+ '">' +buf + '</A>' + '<br>'
+     else
+        txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + buf + '<br>';
+  end;
   if GetField('IAU_APPROVAL_STATUS')<>'' then
      txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_STATUS:' + t3end + b + GetField('IAU_APPROVAL_STATUS') + '<br>';
   if GetField('IAU_APPROVAL_DATE')<>'' then
@@ -2337,10 +2406,6 @@ begin
      txtbuf   := txtbuf + t3 + 'IAU_REFERENCE:' + t3end + b + GetField('IAU_REFERENCE') + '<br>';
   if GetField('IAU_ORIGIN')<>'' then
      txtbuf   := txtbuf + t3 + 'IAU_ORIGIN:' + t3end + b + GetField('IAU_ORIGIN') + '<br>';
-  if GetField('IAU_ADDITIONAL_INFO')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_ADDITIONAL_INFO:' + t3end + b + GetField('IAU_ADDITIONAL_INFO') + '<br>';
-  if GetField('IAU_LAST_UPDATED')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_LAST_UPDATED:' + t3end + b + GetField('IAU_LAST_UPDATED') + '<br>';
   if txtbuf>'' then
      txt := txt + t2 + 'IAU information:' + t2end + '<br>'+txtbuf+ b + '<br>';
 
@@ -2692,9 +2757,12 @@ begin
     currentname := dbm.Results[0].ByField['NAME'].AsString;
     activemoon.SetMark(deg2rad*currentl, deg2rad*currentb, capitalize(currentname));
     if center then begin
+      if activemoon.VisibleSideLock and (abs(currentl)>95) then begin
+        ToolButton3.Down:=true;
+        ToolButton3Click(nil);
+      end;
       activemoon.CenterAt(deg2rad*currentl, deg2rad*currentb);
     end;
-    //if center then activemoon.CenterMark;
     GetHTMLDetail(dbm.Results[0], Desctxt);
     SetDescText(Desctxt);
     if dbtab.TabVisible then
@@ -3020,6 +3088,7 @@ case msgclass of
 MsgZoom: begin
           value:=StringReplace(value,'FOV:',rsm_43,[]);
           statusbar1.Panels[3].Text := value;
+          statusbar1.Hint:=value;
           SetZoomBar;
          end;
 MsgPerf: begin
@@ -3136,7 +3205,7 @@ begin
   UniqueInstance1.OnInstanceRunning:=InstanceRunning;
   UniqueInstance1.Enabled:=true;
   UniqueInstance1.Loaded;
-  ToolsWidth:=300;
+  ToolsWidth:=340;
   {$ifdef mswindows}
   ScaleForm(self,Screen.PixelsPerInch/96);
   ToolsWidth:=round(ToolsWidth*Screen.PixelsPerInch/96);
@@ -3151,6 +3220,7 @@ begin
   PanelMoon2.Visible:=false;
 {$ifdef darwin}
   TrackBar1.Top:=2;
+  Desc1.DefaultFontSize:=12;
   ToolButton13.Visible:=false; // fullscreen
   FullScreen1.Visible:=false;
 {$endif}
@@ -3164,8 +3234,10 @@ begin
 {$endif}
   StartDatlun:=false;
   StartPhotlun:=false;
+  StartWeblun:=false;
   StartCDC:=false;
   CanCloseDatlun:=true;
+  CanCloseWeblun:=true;
   CanClosePhotlun:=true;
   CanCloseCDC:=true;
   dbedited  := False;
@@ -3266,8 +3338,10 @@ begin
   CheckBox3.Checked := antialias;
   if PoleOrientation = 0 then
     RadioGroup2.ItemIndex := 0
-  else
+  else begin
     RadioGroup2.ItemIndex := 1;
+    RadioGroup2Click(nil);
+  end;
   checkbox1.Checked := FollowNorth;
   ToolButton12.Down := showlabel;
   appname := ParamStr(0);
@@ -3358,8 +3432,10 @@ try
   Trackbar2.position := moon1.ambientColor and $FF;
   Trackbar3.position := moon1.diffuseColor and $FF;
   Trackbar4.position := moon1.specularColor and $FF;
-  if moon1.GLSphereMoon.Slices = 720 then
-    Trackbar5.position := 5
+  if moon1.GLSphereMoon.Slices = 1440 then
+    Trackbar5.position := 6
+  else if moon1.GLSphereMoon.Slices = 720 then
+      Trackbar5.position := 5
   else if moon1.GLSphereMoon.Slices = 360 then
     Trackbar5.position := 4
   else if moon1.GLSphereMoon.Slices = 180 then
@@ -3384,6 +3460,7 @@ try
   end;
   btnEffacerClick(nil);
   SetEyepieceMenu;
+  SetCCDMenu;
   moon1.Mirror:=checkbox2.Checked;
   GridButton.Visible:=AsMultiTexture;
 finally
@@ -3485,7 +3562,7 @@ begin
     form2.checkbox14.Checked := showlibrationmark;
     form2.checkbox17.Checked := labelcenter;
     form2.checkbox18.Checked := minilabel;
-    form2.CheckBox4.Checked := shortdesc;
+//    form2.CheckBox4.Checked := shortdesc;
     form2.Shape1.Brush.Color := marklabelcolor;
     form2.Shape2.Brush.Color := markcolor;
     form2.Shape3.Brush.Color := autolabelcolor;
@@ -3497,8 +3574,6 @@ begin
     else
        form2.BumpRadioGroup.ItemIndex:=1;
     form2.BumpRadioGroup.Visible:=(activemoon.BumpMapCapabilities<>[]);
-    form2.RadioGroup1.ItemIndex:=ord(activemoon.BumpMethod);
-    form2.RadioGroup1.Visible:=((bcDot3TexCombiner in activemoon.BumpMapCapabilities)and(bcBasicARBFP in moon1.BumpMapCapabilities));
     form2.CheckBox3.Checked:=activemoon.BumpMipmap;
     form2.StringGrid1.RowCount := maximgdir + 10;
     if saveimagesize = 0 then
@@ -3519,6 +3594,10 @@ begin
       form2.StringGrid2.Cells[1, i] := IntToStr(eyepiecefield[i]);
       form2.StringGrid2.Cells[2, i] := IntToStr(eyepiecemirror[i]);
       form2.StringGrid2.Cells[3, i] := IntToStr(eyepiecerotation[i]);
+      form2.StringGrid3.Cells[0, i] := CCDname[i];
+      form2.StringGrid3.Cells[1, i] := FormatFloat(f2,CCDw[i]);
+      form2.StringGrid3.Cells[2, i] := FormatFloat(f2,CCDh[i]);
+      form2.StringGrid3.Cells[3, i] := FormatFloat(f1,CCDr[i]);
     end;
     form2.LongEdit1.Value    := LeftMargin;
     form2.TrackBar1.Position := PrintTextWidth;
@@ -3568,7 +3647,6 @@ begin
         wantbump := (form2.BumpRadioGroup.ItemIndex=0);
       end else
         wantbump:=false;
-      activemoon.BumpMethod:=TBumpMapCapability(form2.RadioGroup1.ItemIndex);
       activemoon.BumpMipmap := form2.CheckBox3.Checked;
       ruklprefix    := form2.ruklprefix.Text;
       ruklsuffix    := form2.ruklsuffix.Text;
@@ -3583,7 +3661,7 @@ begin
       showlibrationmark := form2.checkbox14.Checked;
       labelcenter   := form2.checkbox17.Checked;
       minilabel     := form2.checkbox18.Checked;
-      shortdesc := form2.CheckBox4.Checked;
+//      shortdesc := form2.CheckBox4.Checked;
       activemoon.LabelFont:=form2.FontDialog1.Font;
       activemoon.Labelcolor:=autolabelcolor;
       Obslatitude := strtofloat(form2.Edit1.Text);
@@ -3684,8 +3762,40 @@ begin
         eyepiecefield[i]    := strtointdef(form2.StringGrid2.Cells[1, i], 0);
         eyepiecemirror[i]   := strtointdef(form2.StringGrid2.Cells[2, i], 0);
         eyepiecerotation[i] := strtointdef(form2.StringGrid2.Cells[3, i], 0);
+        CCDname[i] := trim(form2.StringGrid3.Cells[0, i]);
+        CCDw[i]    := StrToFloatDef(form2.StringGrid3.Cells[1, i],0);
+        CCDh[i]    := StrToFloatDef(form2.StringGrid3.Cells[2, i],0);
+        CCDr[i]    := StrToFloatDef(form2.StringGrid3.Cells[3, i],0);
       end;
       SetEyepieceMenu;
+      if CurrentEyepiece > 0 then begin
+        activemoon.Eyepiece:=eyepiecefield[CurrentEyepiece]/(diam/60);
+        case eyepiecerotation[CurrentEyepiece] of
+          1:begin
+            RadioGroup2.ItemIndex := 0;
+            RadioGroup2click(self);
+          end;
+          2:begin
+            RadioGroup2.ItemIndex := 1;
+            RadioGroup2click(self);
+          end;
+        end;
+        case eyepiecemirror[CurrentEyepiece] of
+          1: begin
+            checkbox2.Checked := False;
+            Checkbox2click(self);
+          end;
+          2: begin
+            checkbox2.Checked := True;
+            Checkbox2click(self);
+          end;
+        end;
+      end;
+      SetCCDMenu;
+      if CurrentCCD > 0 then begin
+        activemoon.SetCCD(CCDw[CurrentCCD],CCDh[CurrentCCD],CCDr[CurrentCCD]);
+        activemoon.ShowCCD:=true;
+      end;
       LeftMargin := form2.LongEdit1.Value;
       PrintTextWidth := form2.TrackBar1.Position;
       memo2.Width := PrintTextWidth;
@@ -3744,6 +3854,11 @@ end;
 procedure TForm1.ToolButton14Click(Sender: TObject);
 begin
   activemoon.ShowScale:=ToolButton14.Down;
+end;
+
+procedure TForm1.ButtonWeblunClick(Sender: TObject);
+begin
+  OpenWeblun('','');
 end;
 
 procedure TForm1.ToolButton1Click(Sender: TObject);
@@ -4091,6 +4206,7 @@ begin
     SaveDefault;
     if CanCloseCDC and StartCDC then OpenCDC('','--quit');
     if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
+    if CanCloseWebLun and StartWebLun then OpenWebLun('','-quit');
     if CanClosePhotLun and StartPhotlun then OpenPhotLun('','-quit');
     if scopelibok then
       if ScopeConnected then
@@ -4186,7 +4302,9 @@ var
   i: integer;
 begin
   i := Trackbar5.position;
-  if i = 5 then
+  if i = 6 then
+    i := 1440
+  else if i = 5 then
     i := 720
   else if i = 4 then
     i := 360
@@ -4540,6 +4658,12 @@ begin
   ToolButton4.Down      := (RadioGroup2.ItemIndex = 1);
 end;
 
+procedure TForm1.CheckBox2Click(Sender: TObject);
+begin
+  ToolButton6.Down := checkbox2.Checked;
+  activemoon.Mirror:=checkbox2.Checked;
+end;
+
 procedure TForm1.ToolButton6Click(Sender: TObject);
 begin
   CheckBox2.Checked := not CheckBox2.Checked;
@@ -4578,12 +4702,6 @@ if skiporient then exit;
   activemoon.FollowNorth:=FollowNorth;
   activemoon.Orientation:=CameraOrientation;
   activemoon.RefreshAll;
-end;
-
-procedure TForm1.CheckBox2Click(Sender: TObject);
-begin
-  ToolButton6.Down := checkbox2.Checked;
-  activemoon.Mirror:=checkbox2.Checked;
 end;
 
 procedure TForm1.ToolButton10Click(Sender: TObject);
@@ -4917,6 +5035,7 @@ begin
   end
   else
   begin
+    if activemoon.VisibleSideLock then begin
     activemoon.Eyepiece:=eyepiecefield[CurrentEyepiece]/(diam/60);
     case eyepiecerotation[CurrentEyepiece] of
       1:
@@ -4942,6 +5061,22 @@ begin
         Checkbox2click(self);
       end;
     end;
+   end;
+  end;
+end;
+
+procedure TForm1.ZoomCCDClick(Sender: TObject);
+begin
+  with Sender as TMenuItem do
+    CurrentCCD := tag;
+  if CurrentCCD = 0 then
+  begin
+    activemoon.ShowCCD:=false;
+  end
+  else
+  begin
+    activemoon.SetCCD(CCDw[CurrentCCD],CCDh[CurrentCCD],CCDr[CurrentCCD]);
+    activemoon.ShowCCD:=true;
   end;
 end;
 
@@ -5215,6 +5350,17 @@ begin
     chdir(appdir);
     Execnowait(photlun+' '+param);
     StartPhotlun:=true;
+end;
+
+procedure TForm1.OpenWeblun(objname,otherparam:string);
+var param:string;
+begin
+    param:='-nx ';
+//    if objname<>'' then param:=param+' -n "'+objname+'" ';
+    param:=param+otherparam;
+    chdir(appdir);
+    Execnowait(weblun+' '+param);
+    StartWeblun:=true;
 end;
 
 procedure TForm1.OpenCDC(objname,otherparam:string);

@@ -43,7 +43,7 @@ const crlf = chr(10)+chr(13);
       km_au = 149597870.691 ;
       clight = 299792.458 ;
       tlight = km_au/clight/3600/24;
-      Rmoon = 1737.53;  // moon radius Km
+      Rmoon = 1737.40;  // moon radius Km
       MeanEarthDistance=384401;
       footpermeter = 0.3048;
       kmperdegree=111.1111;
@@ -119,6 +119,7 @@ const crlf = chr(10)+chr(13);
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun';
       DefaultDatlun='datlun';
+      DefaultWeblun='weblun';
       DefaultCdC='skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
@@ -130,6 +131,7 @@ const crlf = chr(10)+chr(13);
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun.app/Contents/MacOS/photlun';
       DefaultDatlun='datlun.app/Contents/MacOS/datlun';
+      DefaultWeblun='weblun.app/Contents/MacOS/weblun';
       DefaultCdC='skychart.app/Contents/MacOS/skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
 {$endif}
@@ -140,6 +142,7 @@ const crlf = chr(10)+chr(13);
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun.exe';
       DefaultDatlun='datlun.exe';
+      DefaultWeblun='weblun.exe';
       DefaultCdC='skychart.exe';
       DefaultCdCconfig='Skychart\skychart.ini';
 {$endif}
@@ -185,7 +188,7 @@ var Plan404 : TPlan404;
 // pseudo-constant only here
 Var  Splashversion, compile_time, compile_version: string;
      BinDir, Homedir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir : string;
-     Photlun,DatLun,CdC,PrtName, transmsg : String;
+     Photlun,DatLun,WebLun,CdC,PrtName, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double;
      ObsTZ,ObsCountry: string;
      ObsTemperature,ObsPressure,ObsRefractionCor,ObsHorizonDepression : Double;
@@ -210,7 +213,7 @@ Var  Splashversion, compile_time, compile_version: string;
 {$endif}
      // to move to pu_moon properties:
      labelcenter,showlabel,showmark: boolean;
-     currenteyepiece,marksize: integer;
+     currenteyepiece,marksize, CurrentCCD: integer;
      marklabelcolor, markcolor, SpriteColor: Tcolor;
 
 // Text formating constant

@@ -263,22 +263,10 @@ if y1>y0 then y1:=y0;
 Ypos:=y1+dy;
 x2:=x1+dx+dx-1;
 y2:=y1+dy+dy-1;
-if flipx then begin
-   x:=x1;
-   x1:=x2;
-   x2:=x;
-end;
-if flipy then begin
-   x:=y1;
-   y1:=y2;
-   y2:=x;
-end;
 ax:=x1;
 ay:=y1;
 bx:=2*dx/xd2;
 by:=2*dy/yd2;
-if flipx then bx:=-bx;
-if flipy then by:=-by;
 if xd2>=Image1.Width then
    xd1:=0
 else begin
@@ -311,6 +299,7 @@ end else begin
   Image1.picture.bitmap.Assign(FB);
   FB.Free;
 end;
+BitmapFlip(Image1.picture.bitmap,flipx,flipy);
 HScrollBar.SetParams(XPos,dx,max(dx,imgbmp.width-dx),dx);
 VScrollBar.SetParams(YPos,dy,max(dy,imgbmp.height-dy),dy);
 Image1.Refresh;

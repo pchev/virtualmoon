@@ -11,7 +11,7 @@ object Selection: TSelection
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '0.9.30.1'
+  LCLVersion = '0.9.30.4'
   object PageControl1: TPageControl
     Left = 16
     Height = 336
@@ -24,8 +24,8 @@ object Selection: TSelection
     OnPageChanged = PageControl1Change
     object TabSheet1: TTabSheet
       Caption = 'Predefined Selections'
-      ClientHeight = 300
-      ClientWidth = 537
+      ClientHeight = 307
+      ClientWidth = 541
       object CheckListBox1: TCheckListBox
         Tag = 1
         Left = 8
@@ -73,8 +73,8 @@ object Selection: TSelection
     end
     object TabSheet2: TTabSheet
       Caption = 'Column Value'
-      ClientHeight = 300
-      ClientWidth = 537
+      ClientHeight = 307
+      ClientWidth = 541
       ImageIndex = 2
       TabVisible = False
       object RadioGroup2: TRadioGroup
@@ -105,15 +105,15 @@ object Selection: TSelection
       end
       object ViewSel: TLabel
         Left = 52
-        Height = 14
+        Height = 15
         Top = 266
-        Width = 31
+        Width = 36
         Caption = 'aaaaa'
         ParentColor = False
       end
       object fieldlist2: TComboBox
         Left = 40
-        Height = 21
+        Height = 23
         Top = 8
         Width = 129
         ItemHeight = 0
@@ -123,7 +123,7 @@ object Selection: TSelection
       end
       object colgt: TEdit
         Left = 136
-        Height = 21
+        Height = 22
         Top = 111
         Width = 121
         Color = clBtnFace
@@ -132,7 +132,7 @@ object Selection: TSelection
       end
       object collt: TEdit
         Left = 136
-        Height = 21
+        Height = 22
         Top = 156
         Width = 121
         Color = clBtnFace
@@ -142,7 +142,7 @@ object Selection: TSelection
       end
       object colbetween1: TEdit
         Left = 136
-        Height = 21
+        Height = 22
         Top = 201
         Width = 121
         Color = clBtnFace
@@ -160,7 +160,7 @@ object Selection: TSelection
       end
       object colbetween2: TEdit
         Left = 304
-        Height = 21
+        Height = 22
         Top = 202
         Width = 121
         Color = clBtnFace
@@ -170,7 +170,7 @@ object Selection: TSelection
       end
       object coleq: TEdit
         Left = 136
-        Height = 21
+        Height = 22
         Top = 66
         Width = 121
         OnChange = RadioGroup2Click
@@ -179,23 +179,23 @@ object Selection: TSelection
     end
     object TabSheet3: TTabSheet
       Caption = 'SQL Request'
-      ClientHeight = 300
-      ClientWidth = 537
+      ClientHeight = 307
+      ClientWidth = 541
       ImageIndex = 1
       TabVisible = False
       object Label1: TLabel
         Left = 8
-        Height = 14
+        Height = 15
         Top = 8
-        Width = 241
+        Width = 297
         Caption = 'Enter selection and order criteria using SQL syntax.'
         ParentColor = False
       end
       object Label2: TLabel
         Left = 8
-        Height = 14
+        Height = 15
         Top = 32
-        Width = 482
+        Width = 555
         Caption = 'i.e: TYPE like "Cra%" and abs(LONGIN)<20 and LENGTHKM between 10 and 15 order by LATIN asc'
         ParentColor = False
       end
@@ -397,7 +397,7 @@ object Selection: TSelection
       end
       object fieldlist: TComboBox
         Left = 320
-        Height = 21
+        Height = 23
         Top = 178
         Width = 129
         ItemHeight = 0
@@ -430,9 +430,9 @@ object Selection: TSelection
   end
   object ExpertMode: TCheckBox
     Left = 44
-    Height = 26
+    Height = 23
     Top = 350
-    Width = 100
+    Width = 97
     Caption = 'Expert mode'
     OnClick = ExpertModeClick
     TabOrder = 3

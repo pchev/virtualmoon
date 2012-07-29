@@ -27,6 +27,14 @@ msgstr "Ανάγλυφο αερογράφου χωρίς λευκαύγεια"
 msgid "Caption"
 msgstr ""
 
+#: u_translation.rsccdfield
+msgid "CCD field"
+msgstr ""
+
+#: u_translation.rsccdname
+msgid "CCD name"
+msgstr ""
+
 #: u_translation.rscheckforopti
 msgid "Check for optional features"
 msgstr "Έλεγχος για προαιρετικά χαρακτηριστικά"
@@ -90,6 +98,10 @@ msgstr "Πλήρης οθόνη (Esc)"
 #: u_translation.rsgrid
 msgid "Grid"
 msgstr "Πλέγμα"
+
+#: u_translation.rsheight
+msgid "Height"
+msgstr ""
 
 #: u_translation.rshelp_prefix
 msgid "UK"
@@ -465,13 +477,17 @@ msgstr "Εικόνα βιβλιοθήκης Lunar Orbiter Photographic Atlas Of 
 msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
 msgstr "Εικόνα βιβλιοθήκης Luna, Ranger, Lunar Orbiter και Surveyor"
 
+#: u_translation.rspixelcount
+msgid "Pixel count"
+msgstr ""
+
+#: u_translation.rspixelsize
+msgid "Pixel size"
+msgstr ""
+
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Έξοδος από την πλήρη οθόνη (Esc)"
-
-#: u_translation.rsremoveunknow
-msgid "Remove unknow field values from reports"
-msgstr "Αφαίρεση άγνωστων τιμών πεδίων από τις αναφορές"
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -1194,6 +1210,10 @@ msgstr "Άκυρο"
 
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
+msgstr ""
+
+#: u_translation.rswidth
+msgid "Width"
 msgstr ""
 
 #: u_translation.rsyoucandownlo

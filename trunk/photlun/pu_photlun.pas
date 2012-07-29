@@ -591,7 +591,7 @@ begin
 SetSizeTimer1.Enabled:=false;
 lockresize:=true;
  PanelVignette.Height:=VignetteHeight;
- ClientHeight:=VignetteHeight+ScrollBar1.Height+4+StatusBar1.Height;
+ ClientHeight:=VignetteHeight+ScrollBar1.Height+4+StatusBar1.Height+20;
  if VignetteHeight>100 then
      ClientHeight:=ClientHeight+StatusBar1.Height
  else
