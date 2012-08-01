@@ -22,7 +22,9 @@ and a more than 7000 pictures library
 /usr/bin/atlun
 /usr/bin/datlun
 /usr/bin/photlun
-/usr/lib64/libplan404.so
+/usr/bin/weblun
+/usr/bin/cclun
+/usr/lib64/libvma404.so
 /usr/share/applications/virtualmoon.desktop
 /usr/share/pixmaps/virtualmoon.xpm
 /usr/share/doc/virtualmoon
