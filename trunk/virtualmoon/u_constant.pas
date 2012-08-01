@@ -33,7 +33,7 @@ uses
 
 const crlf = chr(10)+chr(13);
       cpyr = chr($a9)+chr($c2);  // ©
-      AVLversion = '6.0 beta';
+      AVLversion = '6.0 rc1';
       VersionName = 'AtLun';
       avlcpy = 'Copyright '+cpyr+' 2002-2012 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
@@ -94,11 +94,12 @@ const crlf = chr(10)+chr(13);
       f5='0.00000';
       f6='0.000000';
       dateiso='yyyy"-"mm"-"dd"T"hh":"nn":"ss.zzz';
-      nOptionalFeature= 13;
+      nOptionalFeature= 16;
       OptionalFeatureCheck: array[1..nOptionalFeature]of string=(
                       'Apollo/ACOSTA_A15.jpg',
                       'ApolloMapping/ABBOT_A17.jpg',
                       'BestOfAmateurs/AGRIPPA_WIRTHS.jpg',
+                      'Best_Pic_du_Midi/Archimedes_T1MPDM.jpg',
                       'Clementine/ABBOT_CLEM.jpg',
                       'Kaguya/ALPETRAGIUS_KAGUYA.jpg',
                       'CLA/ABBOT_D2.jpg',
@@ -108,7 +109,10 @@ const crlf = chr(10)+chr(13);
                       'Textures/Airbrush_no_albedo/L1/0.jpg',
                       'Textures/Clementine/L3/0.jpg',
                       'Textures/Lopam/L1/0.jpg',
-                      'Textures/Bumpmap/kaguya.txt');
+                      'Textures/Bumpmap/wacdem.txt',
+                      'Textures/Change/L3/0.jpg',
+                      'Textures/WAC/L3/0.jpg'
+                      );
 
 
 {$ifdef linux}

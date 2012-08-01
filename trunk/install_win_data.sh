@@ -54,8 +54,10 @@ install -v -m 644 Database/Nearside_Unnamed_uEN.csv $destdir/Database/
 install -v -m 644 Database/Nearside_Unnamed_uFR.csv $destdir/Database/
 install -v -m 644 Database/weblun.csv $destdir/Database/
 
+# big data
 InstData Base_JPLeph $destdir
 InstData Base_Airbrush $destdir
 InstData Base_Bumpmap $destdir
 InstData Base_Clementine $destdir
+InstData Base_WAC $destdir
 InstData Base_Overlay $destdir

@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Mac OS X system
 
-version=6.0beta
+version=6.0rc1
 
 unset make_darwin_i386
 make_darwin_i386=1
@@ -94,6 +94,8 @@ if [[ $make_darwin_i386 ]]; then
     if [[ $? -ne 0 ]]; then exit 1;fi
     if [[ $cdrom ]]; then
        make install_data2
+       make install_data3
+       make install_data4
        if [[ $? -ne 0 ]]; then exit 1;fi
     fi   
   fi 

@@ -64,4 +64,5 @@ InstData Base_JPLeph $destdir
 InstData Base_Airbrush $destdir
 InstData Base_Bumpmap $destdir
 InstData Base_Clementine $destdir
+InstData Base_WAC $destdir
 InstData Base_Overlay $destdir
