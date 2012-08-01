@@ -926,6 +926,7 @@ AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','','0');
 AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','','0');
 AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','','0');
 AddImagesDir(slash(appdir) + 'Kaguya', 'Kaguya', 'provided by JAXA/SELENE','0');
+AddImagesDir(slash(appdir)+'Best_Pic_du_Midi','Best of Pic du Midi Observatory','JL Dauvergne, P. Tosi, E. Rousset, F. Colas, IMCCE, S2P , OMP','0');
 end;
 
 procedure TForm1.Readdefault;
@@ -3281,14 +3282,14 @@ begin
   tz.LoadZoneTab(ZoneDir+'zone.tab');
   texturefiles:=TStringList.Create;
   for i:=0 to 5 do texturefiles.Add('');
-  texturefiles[0]:='Airbrush';
-  texturefiles[1]:='Airbrush';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L3') then
-     texturefiles[2]:='Lopam';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L4') then
-     texturefiles[3]:='Lopam';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L5') then
-     texturefiles[4]:='Lopam';
+  texturefiles[0]:='WAC';
+  texturefiles[1]:='WAC';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L3') then
+     texturefiles[2]:='WAC';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L4') then
+     texturefiles[3]:='WAC';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L5') then
+     texturefiles[4]:='WAC';
   if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L6') then
      texturefiles[5]:='Lopam';
   CursorImage1 := TCursorImage.Create;

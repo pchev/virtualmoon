@@ -1558,7 +1558,7 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 26
+          ClientHeight = 25
           ClientWidth = 222
           Columns = 2
           Items.Strings = (
