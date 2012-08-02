@@ -15,7 +15,11 @@ OutputDir=.\
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=true
-UseSetupLdr=false
+UseSetupLdr=true
+DiskSpanning=yes
+SlicesPerDisk=1
+DiskSliceSize=736000000
+CloseApplications=yes
 ShowLanguageDialog=yes
 UsePreviousAppDir=false
 WizardImageFile=setup_pict\WizMoonImage.bmp
@@ -76,14 +80,18 @@ Name: {group}\Atlas Virtuel de la Lune Basic.lnk; Type: files; Components: ; Tas
 Source: vmapro\Data1\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Main
 Source: {userappdata}\virtualmoon\database\notes.csv; DestDir: {localappdata}\virtualmoon\database\; Flags: uninsneveruninstall external skipifsourcedoesntexist onlyifdoesntexist; Components: Main
 Source: vmapro\Data2\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion; Components: Pictures; Tasks: ; Languages: 
+Source: vmapro\Data3\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion; Components: TexturesL5; Tasks: ; Languages: 
+Source: vmapro\Data4\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion; Components: TexturesL5/TexturesL6; Tasks: ; Languages: 
 
 [Components]
 Name: Main; Description: Required program files; Types: custom full compact; Languages: eng; Flags: fixed
 Name: Main; Description: Fichiers nécessaires pour le programme; Types: custom full compact; Languages: fre; Flags: fixed
-Name: Pictures; Description: Lunar formation pictures; Types: full; Languages: eng; Flags: exclusive
-Name: Pictures; Description: Images des formations lunaires; Types: full; Languages: fre; Flags: exclusive
-Name: FixOldPict; Description: No pictures; Flags: exclusive disablenouninstallwarning; Types: custom compact; Languages: eng
-Name: FixOldPict; Description: Sans images; Flags: exclusive disablenouninstallwarning; Types: custom compact; Languages: fre
+Name: Pictures; Description: Lunar formation pictures; Types: full; Languages: eng; Flags: 
+Name: Pictures; Description: Images des formations lunaires; Types: full; Languages: fre; Flags: 
+Name: TexturesL5; Description: 120m resolution textures; Types: full; Languages: eng; Flags: 
+Name: TexturesL5; Description: Textures avec résolution de 120m; Types: full; Languages: fre; Flags: 
+Name: TexturesL5/TexturesL6; Description: 60m resolution textures; Types: full; Languages: eng; Flags: 
+Name: TexturesL5/TexturesL6; Description: Textures avec résolution de 60m; Types: full; Languages: fre; Flags: 
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}
