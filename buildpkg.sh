@@ -380,10 +380,14 @@ if [[ $make_win32 ]]; then
     if [[ $cdrom ]]; then
        mv $builddir/vmapro/Data $builddir/vmapro/Data1
        make install_win_data2
-       make install_win_data3
-       make install_win_data4
        if [[ $? -ne 0 ]]; then exit 1;fi
        mv $builddir/vmapro/Data $builddir/vmapro/Data2
+       make install_win_data3
+       if [[ $? -ne 0 ]]; then exit 1;fi
+       mv $builddir/vmapro/Data $builddir/vmapro/Data3
+       make install_win_data4
+       if [[ $? -ne 0 ]]; then exit 1;fi
+       mv $builddir/vmapro/Data $builddir/vmapro/Data4
     fi
   fi 
   # zip
@@ -462,10 +466,14 @@ if [[ $make_win64 ]]; then
     if [[ $cdrom ]]; then
        mv $builddir/vmapro/Data $builddir/vmapro/Data1
        make install_win_data2
-       make install_win_data3
-       make install_win_data4
        if [[ $? -ne 0 ]]; then exit 1;fi
        mv $builddir/vmapro/Data $builddir/vmapro/Data2
+       make install_win_data3
+       if [[ $? -ne 0 ]]; then exit 1;fi
+       mv $builddir/vmapro/Data $builddir/vmapro/Data3
+       make install_win_data4
+       if [[ $? -ne 0 ]]; then exit 1;fi
+       mv $builddir/vmapro/Data $builddir/vmapro/Data4
     fi
   fi 
   # zip
