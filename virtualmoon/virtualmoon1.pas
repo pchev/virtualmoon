@@ -1600,6 +1600,7 @@ end;
 procedure TForm1.GetAppDir;
 var
   buf: string;
+  inif: TMeminifile;
 {$ifdef darwin}
   i:      integer;
 {$endif}
@@ -1621,6 +1622,9 @@ begin
   end;
 {$else}
   appdir     := getcurrentdir;
+  if not DirectoryExists(slash(appdir)+slash('Textures')) then begin
+     appdir:=ExtractFilePath(ParamStr(0));
+  end;
 {$endif}
   privatedir := DefaultPrivateDir;
 {$ifdef unix}
@@ -1652,6 +1656,15 @@ begin
   CdCconfig  := slash(buf) + DefaultCdCconfig;
 {$endif}
 
+  if fileexists(configfile) then begin
+    inif:=TMeminifile.create(configfile);
+    try
+    buf:=inif.ReadString('default','Install_Dir',appdir);
+    if Directoryexists(slash(buf)+slash('Textures')) then appdir:=noslash(buf);
+    finally
+     inif.Free;
+    end;
+  end;
   if not directoryexists(privatedir) then
     CreateDir(privatedir);
   if not directoryexists(privatedir) then
@@ -3250,7 +3263,7 @@ begin
   EyepieceRatio := 1;
   zoom      := 1;
   useDBN    := 9;
-  compresstexture := true;
+  compresstexture := false;
   antialias := false;
   ForceBumpMapSize:=0;
   showoverlay := True;
@@ -4043,7 +4056,6 @@ begin
       end;
   end;
 end;
-
 
 procedure TForm1.FullScreen1Click(Sender: TObject);
 begin
