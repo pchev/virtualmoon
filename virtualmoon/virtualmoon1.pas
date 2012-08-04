@@ -5295,6 +5295,7 @@ end;
 
 
 procedure TForm1.NewWindowButtonClick(Sender: TObject);
+var cdo:single;
 begin
 if moon2=nil then begin
  moon2:=Tf_moon.Create(PanelMoon2);
@@ -5316,9 +5317,12 @@ if NewWindowButton.Down then begin
   PanelMoon2.Width:=PanelMoon.Width div 2;
   Splitter2.Visible:=true;
   PanelMoon2.Visible:=true;
-  wantbump:=false;
-  moon2.AssignMoon(moon1);
   moon2.GLSceneViewer1.Visible:=true;
+  wantbump:=false;
+  cdo:=moon2.GLSceneViewer1.Camera.DepthOfView;
+  moon2.GLSceneViewer1.Camera.DepthOfView:=0;
+  moon2.AssignMoon(moon1);
+  moon2.GLSceneViewer1.Camera.DepthOfView:=cdo;
 end else begin
   wantbump:=moon1.Bumpmap;
   PanelMoon2.Width:=0;
