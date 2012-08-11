@@ -7,7 +7,7 @@ if [ $my_id != 0 ] ; then
   echo "For example: sudo ./install.sh"
   echo ""
   echo "You can also install the program at any other location you want as root or as normal user."
-  echo "For example: cd ~; mkdir vma5; cd vma5; tar xzf /media/cdrom/virtualmoon-5.1-linux_i386.tgz"
+  echo "For example: cd ~; mkdir vma6; cd vma6; tar xzf /media/cdrom/virtualmoon-6.0-linux_i386.tgz"
   echo "But in this case you must ensure the files in lib folder can be loaded."
   echo "See man ldconfig for more information."
   echo ""
@@ -26,8 +26,10 @@ echo ""
 
 current_dir=$(pwd)
 
-tarfile1="$current_dir"/virtualmoon-5.1-linux_$ARCH.tgz
-tarfile2="$current_dir"/virtualmoon-fulldata-5.1-linux_all.tgz
+tarfile1="$current_dir"/virtualmoon-6.0-linux_$ARCH.tgz
+tarfile2="$current_dir"/virtualmoon-data1-6.0-linux_all.tgz
+tarfile3="$current_dir"/virtualmoon-data2-6.0-linux_all.tgz
+tarfile4="$current_dir"/virtualmoon-data3-6.0-linux_all.tgz
 
 #check file exist
 if [ ! -e $tarfile1 ]; then
@@ -40,9 +42,24 @@ if [ ! -e $tarfile2 ]; then
   echo "Installation aborted" 
   exit 1  
 fi
+if [ ! -e $tarfile3 ]; then
+  echo "File not found: "$tarfile3
+  echo "Installation aborted" 
+  exit 1  
+fi
+if [ ! -e $tarfile4 ]; then
+  echo "File not found: "$tarfile4
+  echo "Installation aborted" 
+  exit 1  
+fi
 
 # get install dir
-install_dir=/usr/local
+d=$(which atlun)
+d=${d/\/bin\/atlun}
+if [[ -n $d ]] 
+  then install_dir=$d
+  else install_dir=/usr/local
+fi
 read -p "Select installation directory [$install_dir] :" 
 if [ "$REPLY" ] ; then install_dir=$REPLY; fi
 
@@ -63,6 +80,25 @@ echo "Installing data, please wait ..."
 tar xzf "$tarfile2" 
 rc1=$?
 ((rc=rc+rc1))
+# data option
+echo ""
+echo "Do you want to install the high resolution 120m textures (+1GB disk space)"
+read -p "? [y,n] :"
+if [ "$REPLY" = "y" ]; then 
+  echo "Installing data, please wait ..."
+  tar xzf "$tarfile3" 
+  rc1=$?
+  ((rc=rc+rc1))
+  echo ""
+  echo "Do you want to install the high resolution 60m textures (+2.2GB disk space)"
+  read -p "? [y,n] :"
+  if [ "$REPLY" = "y" ]; then 
+    echo "Installing data, please wait ..."
+    tar xzf "$tarfile4" 
+    rc1=$?
+    ((rc=rc+rc1))
+  fi
+fi
 cd "$current_dir"
 if [ $rc != 0 ] ; then 
   echo "Errors occured during installation"
@@ -79,6 +115,8 @@ if [ $rc = 0 ] ; then
   echo "Installation successful" 
   echo "You can now run Virtual Moon Atlas with the following command:"
   echo "$install_dir/bin/atlun"
+  echo "Or the Command Center with the following command:"
+  echo "$install_dir/bin/cclun"
 else 
   echo "Installation successful" 
   echo "You can now run Virtual Moon Atlas with the following command:"

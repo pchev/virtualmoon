@@ -1,12 +1,11 @@
 # translation of maplun.fr.po
 # Patrick Chevalley <pch@ap-i.net>, 2009.
-# Patrick Chevalley <pch@freesurf.ch>, 2009.
 # pch <pch@ap-i.net>, 2010, 2012.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: pch\n"
-"PO-Revision-Date: 2012-07-28 15:52+0200\n"
+"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
+"PO-Revision-Date: 2012-08-11 14:27+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,6 +110,10 @@ msgstr "Hauteur"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "FR"
+
+#: u_translation.rshistorical
+msgid "Historical"
+msgstr "Historique"
 
 #: u_translation.rshours
 msgid "Hours"
@@ -399,11 +402,8 @@ msgid "Westfall Atlas:"
 msgstr "Planche Westfall:"
 
 #: u_translation.rsm_67
-msgid ""
-"Warning! The personal notes have changed. Do you want to save the change?"
-msgstr ""
-"Attention les notes personnelles n'ont pas été enregistrée. Les enregistrer "
-"maintenant?"
+msgid "Warning! The personal notes have changed. Do you want to save the change?"
+msgstr "Attention les notes personnelles n'ont pas été enregistrée. Les enregistrer maintenant?"
 
 #: u_translation.rsm_7
 msgid "Name by Langrenus:"
@@ -485,6 +485,10 @@ msgstr "Bibliothèque d'images Lunar Orbiter Photographic Atlas Of The Moon "
 msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
 msgstr "Bibliothèque d'images Sondes Luna, Ranger, Lunar Orbiter et Surveyor"
 
+#: u_translation.rspicturelibrapic
+msgid "Picture Library Best of the Pic du Midi Observatory"
+msgstr "Bibliothèque d'images Observatoire du Pic du Midi"
+
 #: u_translation.rspixelcount
 msgid "Pixel count"
 msgstr "Nombre de pixels"
@@ -538,6 +542,10 @@ msgstr "Pas"
 msgid "Textures Airbursh relief without albedo"
 msgstr "Texture Relief aérographe sans albedo"
 
+#: u_translation.rstextureschange
+msgid "Textures Change photographic High Resolution"
+msgstr "Texture Photographique Change Haute Résolution"
+
 #: u_translation.rstexturesclem
 msgid "Textures Clementine photographic High Resolution"
 msgstr "Texture Photographique Clementine Haute Résolution"
@@ -547,8 +555,13 @@ msgid "Textures LOPAM photographic High Resolution"
 msgstr "Texture Photographique LOPAM Haute Résolution"
 
 #: u_translation.rstexturesphas
-msgid "Textures Phase with dynamic relief using Kaguya data"
-msgstr "Texture Phase avec relief dynamique utilisant les données de Kaguya"
+#| msgid "Textures Phase with dynamic relief using Kaguya data"
+msgid "Textures Phase with dynamic relief using LRO/WAC data"
+msgstr "Texture Phase avec relief dynamique utilisant les données de LRO/WAC"
+
+#: u_translation.rstextureswac
+msgid "Textures LRO/WAC photographic High Resolution"
+msgstr "Texture Photographique LRO/WAC Haute Résolution"
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
@@ -886,14 +899,8 @@ msgid "Label Color"
 msgstr "Couleur des labels"
 
 #: u_translation.rst_184
-msgid ""
-"Your graphic card do not support to display more than one texture for the "
-"same object. Be sure that hardware acceleration is activated or change the "
-"graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr ""
-"Votre carte graphique ne supporte pas d'afficher plus d'une texture par "
-"objet.Contrôlez que l'accélération matérielle est activée ou changez de carte "
-"graphique. La fonction demandée est GL_ARB_MULTITEXTURE"
+msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
+msgstr "Votre carte graphique ne supporte pas d'afficher plus d'une texture par objet.Contrôlez que l'accélération matérielle est activée ou changez de carte graphique. La fonction demandée est GL_ARB_MULTITEXTURE"
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
@@ -1237,11 +1244,9 @@ msgstr "Vous pouvez télécharger les options suivantes:"
 
 #: u_translation.rsyourinstalla
 msgid "Your installation is already complete with all the features installed."
-msgstr ""
-"Votre installation est déjà complète avec toutes les options installées."
+msgstr "Votre installation est déjà complète avec toutes les options installées."
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"
 msgstr "Niveau de zoom"
-
 

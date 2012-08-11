@@ -1,5 +1,5 @@
 Virtual Moon Atlas
-version 5.1
+version 6.0
 Free software for Moon observation or survey
 For Linux i386 and x86_64
 
@@ -25,7 +25,7 @@ Run the software :
 
 Troubleshooting :
 - if the program do not start, try from a console to look at the error messages 
-- if you receive a message about cannot load libplan404.so try the following:
+- if you receive a message about cannot load libvma404.so try the following:
   - run the full command given at the end of the installation, including the LD_LIBRARY_PATH section, change the icon to include this command.
   - add the lib folder path to /etc/ld.so.conf
   - create a symbolic link to libplan404.so in a folder already in /etc/ld.so.conf

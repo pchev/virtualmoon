@@ -13,8 +13,8 @@ LicenseFile=vmapro\Data1\licence.txt
 InfoBeforeFile=vmapro\Data1\readme.txt
 OutputDir=.\
 OutputBaseFilename=setup
-Compression=lzma
-SolidCompression=true
+Compression=zip
+SolidCompression=no
 UseSetupLdr=true
 DiskSpanning=yes
 SlicesPerDisk=1
@@ -30,6 +30,7 @@ VersionInfoDescription={cm:MyAppName}
 
 [CustomMessages]
 eng.MyAppName=Virtual Moon Atlas
+eng.cclun=Command Center
 eng.MyAppUrl=http://www.ap-i.net/avl/en/start
 eng.MyWebPage=VMA
 eng.MyDocumentation=Documentation
@@ -37,6 +38,7 @@ eng.MyDocFile=doc\UK_Index_Doc.html
 eng.MyTutorial=doc\UK_tutorial.html
 eng.MyTutorialMsg=Read the tutorial
 fre.MyAppName=Atlas Virtuel de la Lune
+fre.cclun=Centre de commandes
 fre.MyAppUrl=http://www.ap-i.net/avl/fr/start
 fre.MyWebPage=AVL
 fre.MyDocumentation=Documentation
@@ -79,23 +81,22 @@ Name: {group}\Atlas Virtuel de la Lune Basic.lnk; Type: files; Components: ; Tas
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: vmapro\Data1\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Main
 Source: {userappdata}\virtualmoon\database\notes.csv; DestDir: {localappdata}\virtualmoon\database\; Flags: uninsneveruninstall external skipifsourcedoesntexist onlyifdoesntexist; Components: Main
-Source: vmapro\Data2\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion; Components: Pictures; Tasks: ; Languages: 
-Source: vmapro\Data3\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion; Components: TexturesL5; Tasks: ; Languages: 
-Source: vmapro\Data4\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion; Components: TexturesL5/TexturesL6; Tasks: ; Languages: 
+Source: vmapro\Data2\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion; Components: Textures; Tasks: ; Languages: 
+Source: vmapro\Data3\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion; Components: Textures/TexturesL5; Tasks: ; Languages: 
+Source: vmapro\Data4\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion; Components: Textures/TexturesL5/TexturesL6; Tasks: ; Languages: 
 
 [Components]
 Name: Main; Description: Required program files; Types: custom full compact; Languages: eng; Flags: fixed
 Name: Main; Description: Fichiers nécessaires pour le programme; Types: custom full compact; Languages: fre; Flags: fixed
-Name: Pictures; Description: Lunar formation pictures; Types: full; Languages: eng; Flags: 
-Name: Pictures; Description: Images des formations lunaires; Types: full; Languages: fre; Flags: 
-Name: TexturesL5; Description: 120m resolution textures; Types: full; Languages: eng; Flags: 
-Name: TexturesL5; Description: Textures avec résolution de 120m; Types: full; Languages: fre; Flags: 
-Name: TexturesL5/TexturesL6; Description: 60m resolution textures; Types: full; Languages: eng; Flags: 
-Name: TexturesL5/TexturesL6; Description: Textures avec résolution de 60m; Types: full; Languages: fre; Flags: 
+Name: Textures; Description: High resolution textures and pictures; Types: full; Languages: eng; Flags: checkablealone 
+Name: Textures; Description: Textures à haute résolution et images; Types: full; Languages: fre; Flags: checkablealone
+Name: Textures/TexturesL5; Description: 120m resolution textures; Types: full; Languages: eng; Flags: checkablealone
+Name: Textures/TexturesL5; Description: Textures avec résolution de 120m; Types: full; Languages: fre; Flags: checkablealone 
+Name: Textures/TexturesL5/TexturesL6; Description: 60m resolution textures; Types: full; Languages: eng; Flags: 
+Name: Textures/TexturesL5/TexturesL6; Description: Textures avec résolution de 60m; Types: full; Languages: fre; Flags: 
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}
-Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
 
 [Registry]
 Root: HKCU; Subkey: Software\Astro_PC\VirtualMoon; ValueType: string; ValueName: Install_Dir; ValueData: {app}; Flags: uninsdeletekey
@@ -104,11 +105,11 @@ Root: HKCU; Subkey: Software\Astro_PC\VirtualMoon; ValueType: string; ValueName:
 Filename: {app}\vma.url; Section: InternetShortcut; Key: URL; String: {cm:MyAppUrl}
 
 [Icons]
+Name: {group}\{cm:cclun}; Filename: {app}\cclun.exe; WorkingDir: {app}; IconIndex: 0; Tasks: ; Languages: 
 Name: {group}\{cm:MyAppName}; Filename: {app}\atlun.exe; WorkingDir: {app}; IconIndex: 0; Tasks: ; Languages: 
 Name: {group}\Documentation; Filename: {app}\{cm:MyDocFile}; WorkingDir: {app}/doc
 Name: {group}\{cm:ProgramOnTheWeb,{cm:MyWebPage}}; Filename: {app}\vma.url
-Name: {userdesktop}\{cm:MyAppName}; Filename: {app}\atlun.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
-Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\{cm:MyAppName}; Filename: {app}\atlun.exe; Tasks: quicklaunchicon; WorkingDir: {app}; IconIndex: 0
+Name: {userdesktop}\{cm:MyAppName}; Filename: {app}\cclun.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
 
 [Run]
 Filename: {app}\{cm:MyTutorial}; Flags: postinstall shellexec nowait skipifsilent; Description: {cm:MyTutorialMsg}

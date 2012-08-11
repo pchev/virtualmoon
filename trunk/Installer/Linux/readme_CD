@@ -1,5 +1,5 @@
 Virtual Moon Atlas
-version 5.1
+version 6.0
 Free software for Moon observation or survey
 For Linux i386 and x86_64
 
@@ -40,7 +40,9 @@ Uninstall:
   - bin/atlun
   - bin/datlun
   - bin/photlun
-  - lib/libplan404.so
+  - bin/weblun
+  - bin/cclun
+  - lib/libvma404.so
   - share/applications/virtualmoon.desktop
   - share/doc/virtualmoon/*
   - share/pixmaps/virtualmoon.xpm
