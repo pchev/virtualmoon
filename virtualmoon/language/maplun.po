@@ -1090,6 +1090,10 @@ msgstr ""
 msgid "Picture Library Best Of Amateurs"
 msgstr ""
 
+#: u_translation:rspicturelibrapic
+msgid "Picture Library Best of the Pic du Midi Observatory"
+msgstr ""
+
 #: u_translation:rspicturelibra4
 msgid "Picture Library Clementine Probe"
 msgstr ""
@@ -1127,7 +1131,15 @@ msgid "Textures LOPAM photographic High Resolution"
 msgstr ""
 
 #: u_translation:rstexturesphas
-msgid "Textures Phase with dynamic relief using Kaguya data"
+msgid "Textures Phase with dynamic relief using LRO/WAC data"
+msgstr ""
+
+#: u_translation:rstextureschange
+msgid "Textures Change photographic High Resolution"
+msgstr ""
+
+#: u_translation:rstextureswac
+msgid "Textures LRO/WAC photographic High Resolution"
 msgstr ""
 
 #: u_translation:rsdownloadurl
@@ -1200,5 +1212,9 @@ msgstr ""
 
 #: u_translation:rspixelcount
 msgid "Pixel count"
+msgstr ""
+
+#: u_translation:rshistorical
+msgid "Historical"
 msgstr ""
 

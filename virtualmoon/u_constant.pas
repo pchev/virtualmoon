@@ -69,6 +69,7 @@ const crlf = chr(10)+chr(13);
       Label3dSize=1;
       maxfocbase=1900;
       abek = secarc*20.49552;  // aberration constant
+      maxlevel = 6;
 
       // Paper size
       PaperNumber=9;
@@ -94,6 +95,7 @@ const crlf = chr(10)+chr(13);
       f5='0.00000';
       f6='0.000000';
       dateiso='yyyy"-"mm"-"dd"T"hh":"nn":"ss.zzz';
+      HistoricalDir='Historical';
       nOptionalFeature= 16;
       OptionalFeatureCheck: array[1..nOptionalFeature]of string=(
                       'Apollo/ACOSTA_A15.jpg',

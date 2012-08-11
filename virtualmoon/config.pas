@@ -51,6 +51,7 @@ type
     CheckBox27: TCheckBox;
     CheckBox3: TCheckBox;
     ColorDialog1: TColorDialog;
+    ComboBox6: TComboBox;
     ComboBoxCountry: TComboBox;
     ComboBoxTZ: TComboBox;
     Edit11: TEdit;
@@ -215,6 +216,7 @@ type
     procedure Button5Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
+    procedure ComboBox6Change(Sender: TObject);
     procedure ComboBoxCountryChange(Sender: TObject);
     procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -251,11 +253,13 @@ type
     FPrinterDialog : TNotifyEvent;
     procedure UpdateTzList;
     procedure showtexture;
+    procedure FillHistorical;
   public
     newlang: string;
     tzinfo: TCdCTimeZone;
     obscountry,obstz : string;
-    TexturePath: string;
+    TexturePath,HistTex: string;
+    HistN: array[0..maxlevel] of integer;
     texturefn: TStringList;
     TextureList: TStringList;
     TextureChanged: boolean;
@@ -468,6 +472,10 @@ for i:=0 to TextureList.Count-1 do begin
     else if TextureList[i]='Clementine' then buf:=rsClementinePh
     else if TextureList[i]='Lopam' then buf:=rsLOPAMPhotogr
     else if TextureList[i]='WAC' then buf:='LRO WAC Mosaic'
+    else if TextureList[i]=HistoricalDir then begin
+      buf:=rsHistorical;
+      FillHistorical;
+    end
     else buf:=TextureList[i];
     RadioGroup2.Items.Add(buf);
     RadioGroup3.Items.Add('');
@@ -479,6 +487,24 @@ for i:=0 to TextureList.Count-1 do begin
 end;
 savelibration:=librationeffect;
 countrycode:=TStringList.Create;
+end;
+
+procedure TForm2.FillHistorical;
+var i,j,p : integer;
+    buf,code,AVLlang : string;
+    fs : TSearchRec;
+    ft : TextFile;
+begin
+ComboBox6.clear;
+i:=findfirst(Slash(appdir)+Slash('Textures')+Slash('Historical')+'*',faDirectory,fs);
+while i=0 do begin
+  if ((fs.Attr and faDirectory)= faDirectory)and(fs.Name<>'.')and(fs.Name<>'..') then begin
+    ComboBox6.Items.Add(fs.name);
+  end;
+  i:=findnext(fs);
+end;
+findclose(fs);
+ComboBox6.ItemIndex:=0;
 end;
 
 procedure TForm2.Button5Click(Sender: TObject);
@@ -543,11 +569,14 @@ end;
 
 procedure TForm2.showtexture;
 var i,j: smallint;
+    tex: string;
 begin
 locktexture:=true;
     for j:=0 to 5 do begin
       for i:=0 to TextureList.Count-1 do begin
-         if TextureList[i]=texturefn[j] then begin
+         tex:=texturefn[j];
+         if pos(HistoricalDir,tex)>0 then tex:=noslash(ExtractFilePath(noslash(tex)));
+         if TextureList[i]=tex then begin
            case j of
              0: RadioGroup3.ItemIndex:=i;
              1: RadioGroup4.ItemIndex:=i;
@@ -564,6 +593,8 @@ end;
 
 procedure TForm2.FormShow(Sender: TObject);
 var myRect: TGridRect;
+    i:integer;
+    k:single;
 begin
   memo1.Text:=rst_184;
   OverlayPanel.visible:=AsMultiTexture;
@@ -580,6 +611,28 @@ begin
   LabelGrid.Caption:=inttostr(TrackBar3.Position)+ldeg;
   LabelImp.Caption:=inttostr(trackbar1.Position);
   RadioGroup7Click(nil);
+  for i:=1 to maxlevel do HistN[i]:=-1;
+  for i:=0 to texturefn.count-1 do
+    if pos(HistoricalDir,texturefn[i])>0 then begin
+      HistTex:=ExtractFileName(noslash(texturefn[i]));
+      HistN[i]:=i;
+    end;
+  k:=-1;
+  for i:=0 to RadioGroup2.Items.Count-1 do
+     if RadioGroup2.Items[i]=rsHistorical then begin
+       k:=i+1;
+       break;
+     end;
+  if k>0 then begin
+     ComboBox6.Visible:=true;
+     ComboBox6.Top:=RadioGroup2.top - (ComboBox6.Height div 2) + round((RadioGroup2.Height)/(RadioGroup2.Items.Count+1) * k);
+     for i:=0 to ComboBox6.Items.Count-1 do
+       if ComboBox6.Items[i]=HistTex then begin
+         ComboBox6.ItemIndex:=i;
+         break;
+     end;
+  end
+  else ComboBox6.Visible:=false;
   BringToFront;
 end;
 
@@ -618,6 +671,17 @@ Edit14.Text:=FormatFloat(f2,arctan(px/f)*cx*rad2deg*60);
 Edit17.Text:=FormatFloat(f2,arctan(py/f)*cy*rad2deg*60);
 end;
 
+procedure TForm2.ComboBox6Change(Sender: TObject);
+var i: Integer;
+begin
+  HistTex:=ComboBox6.Text;
+  for i:=0 to texturefn.count-1 do
+    if pos(HistoricalDir,texturefn[i])>0 then begin
+      texturefn[i]:=slash(ExtractFilePath(noslash(texturefn[i])))+HistTex;
+    end;
+  TextureChanged:=true;
+end;
+
 procedure TForm2.CheckBox19Click(Sender: TObject);
 begin
  CheckBox19.Checked:=true;
@@ -646,8 +710,9 @@ i:=(sender as TRadioGroup).ItemIndex;
 j:=(sender as TRadioGroup).Tag;
 if (i>=0)and(j>=0) then begin
   tex:=TextureList[i];
-  if DirectoryExists(slash(TexturePath)+slash(tex)+'L'+inttostr(j+1)) then
-  begin
+  if tex=HistoricalDir then tex:=slash(tex)+ComboBox6.text;
+  if DirectoryExists(slash(TexturePath)+slash(tex)+'L'+inttostr(j+1)) then begin
+    HistTex:=ComboBox6.Text;
     texturefn[j]:=tex;
     TextureChanged:=true;
   end

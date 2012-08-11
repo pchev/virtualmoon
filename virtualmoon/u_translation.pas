@@ -319,6 +319,7 @@ rsWidth = 'Width';
 rsHeight = 'Height';
 rsPixelSize = 'Pixel size';
 rsPixelCount = 'Pixel count';
+rsHistorical = 'Historical';
 
 implementation
 

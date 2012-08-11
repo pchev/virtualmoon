@@ -107,6 +107,10 @@ msgstr ""
 msgid "UK"
 msgstr ""
 
+#: u_translation.rshistorical
+msgid "Historical"
+msgstr ""
+
 #: u_translation.rshours
 msgid "Hours"
 msgstr ""
@@ -477,6 +481,10 @@ msgstr ""
 msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
 msgstr ""
 
+#: u_translation.rspicturelibrapic
+msgid "Picture Library Best of the Pic du Midi Observatory"
+msgstr ""
+
 #: u_translation.rspixelcount
 msgid "Pixel count"
 msgstr ""
@@ -531,6 +539,10 @@ msgstr ""
 msgid "Textures Airbursh relief without albedo"
 msgstr ""
 
+#: u_translation.rstextureschange
+msgid "Textures Change photographic High Resolution"
+msgstr ""
+
 #: u_translation.rstexturesclem
 msgid "Textures Clementine photographic High Resolution"
 msgstr ""
@@ -540,7 +552,11 @@ msgid "Textures LOPAM photographic High Resolution"
 msgstr ""
 
 #: u_translation.rstexturesphas
-msgid "Textures Phase with dynamic relief using Kaguya data"
+msgid "Textures Phase with dynamic relief using LRO/WAC data"
+msgstr ""
+
+#: u_translation.rstextureswac
+msgid "Textures LRO/WAC photographic High Resolution"
 msgstr ""
 
 #: u_translation.rstitle

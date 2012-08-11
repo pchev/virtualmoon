@@ -26,7 +26,9 @@ and a more than 7000 pictures library
 /usr/bin/cclun
 /usr/lib64/libvma404.so
 /usr/share/applications/virtualmoon.desktop
+/usr/share/applications/cclun.desktop
 /usr/share/pixmaps/virtualmoon.xpm
+/usr/share/pixmaps/cclun.xpm
 /usr/share/doc/virtualmoon
 /usr/share/virtualmoon
 

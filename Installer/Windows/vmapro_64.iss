@@ -27,6 +27,7 @@ AppID={{3EB7A19B-690F-49BA-B494-CADA547D0DB9}
 
 [CustomMessages]
 eng.MyAppName=Virtual Moon Atlas
+eng.cclun=Command Center
 eng.MyAppUrl=http://www.ap-i.net/avl/en/start
 eng.MyWebPage=VMA
 eng.MyDocumentation=Documentation
@@ -34,6 +35,7 @@ eng.MyDocFile=doc\UK_Index_Doc.html
 eng.MyTutorial=doc\UK_tutorial.html
 eng.MyTutorialMsg=Read the tutorial
 fre.MyAppName=Atlas Virtuel de la Lune
+fre.cclun=Centre de commandes
 fre.MyAppUrl=http://www.ap-i.net/avl/fr/start
 fre.MyWebPage=AVL
 fre.MyDocumentation=Documentation
@@ -76,7 +78,6 @@ Source: {userappdata}\virtualmoon\database\notes.csv; DestDir: {localappdata}\vi
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}
-Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
 
 [Registry]
 Root: HKCU; Subkey: Software\Astro_PC\VirtualMoon; ValueType: string; ValueName: Install_Dir; ValueData: {app}; Flags: uninsdeletekey
@@ -85,11 +86,11 @@ Root: HKCU; Subkey: Software\Astro_PC\VirtualMoon; ValueType: string; ValueName:
 Filename: {app}\vma.url; Section: InternetShortcut; Key: URL; String: {cm:MyAppUrl}
 
 [Icons]
+Name: {group}\{cm:cclun}; Filename: {app}\cclun.exe; WorkingDir: {app}; IconIndex: 0; Tasks: ; Languages: 
 Name: {group}\{cm:MyAppName}; Filename: {app}\atlun.exe; WorkingDir: {app}; IconIndex: 0; Tasks: ; Languages: 
 Name: {group}\Documentation; Filename: {app}\{cm:MyDocFile}; WorkingDir: {app}/doc
 Name: {group}\{cm:ProgramOnTheWeb,{cm:MyWebPage}}; Filename: {app}\vma.url
-Name: {userdesktop}\{cm:MyAppName}; Filename: {app}\atlun.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
-Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\{cm:MyAppName}; Filename: {app}\atlun.exe; Tasks: quicklaunchicon; WorkingDir: {app}; IconIndex: 0
+Name: {userdesktop}\{cm:MyAppName}; Filename: {app}\cclun.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
 
 [Run]
 Filename: {app}\{cm:MyTutorial}; Flags: postinstall shellexec nowait skipifsilent; Description: {cm:MyTutorialMsg}

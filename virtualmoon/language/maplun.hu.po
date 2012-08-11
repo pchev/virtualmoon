@@ -108,6 +108,10 @@ msgstr ""
 msgid "UK"
 msgstr "HU"
 
+#: u_translation.rshistorical
+msgid "Historical"
+msgstr ""
+
 #: u_translation.rshours
 msgid "Hours"
 msgstr ""
@@ -478,6 +482,10 @@ msgstr "Picture Library Lunar Orbiter Photographic Atlas Of The Moon "
 msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
 msgstr "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
 
+#: u_translation.rspicturelibrapic
+msgid "Picture Library Best of the Pic du Midi Observatory"
+msgstr ""
+
 #: u_translation.rspixelcount
 msgid "Pixel count"
 msgstr ""
@@ -532,6 +540,10 @@ msgstr ""
 msgid "Textures Airbursh relief without albedo"
 msgstr "Textures Airbursh relief without albedo"
 
+#: u_translation.rstextureschange
+msgid "Textures Change photographic High Resolution"
+msgstr ""
+
 #: u_translation.rstexturesclem
 msgid "Textures Clementine photographic High Resolution"
 msgstr "Textures Clementine photographic High Resolution"
@@ -541,8 +553,14 @@ msgid "Textures LOPAM photographic High Resolution"
 msgstr "Textures LOPAM photographic High Resolution"
 
 #: u_translation.rstexturesphas
-msgid "Textures Phase with dynamic relief using Kaguya data"
+#, fuzzy
+#| msgid "Textures Phase with dynamic relief using Kaguya data"
+msgid "Textures Phase with dynamic relief using LRO/WAC data"
 msgstr "Textures Phase with dynamic relief using Kaguya data"
+
+#: u_translation.rstextureswac
+msgid "Textures LRO/WAC photographic High Resolution"
+msgstr ""
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"

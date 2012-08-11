@@ -3429,7 +3429,12 @@ try
   moon1.BumpMethod:=TBumpMapCapability(BumpMethod);
   moon1.BumpMipmap:=BumpMipmap;
   moon1.TextureCompression:=compresstexture;
+  try
   moon1.texture:=texturefiles;
+  except
+    texturefiles[0]:='WAC';
+    moon1.texture:=texturefiles;
+  end;
   if moon1.CanBump then
      moon1.BumpPath:=slash(appdir)+slash('Textures')+slash('Bumpmap');
   moon1.VisibleSideLock:=true;

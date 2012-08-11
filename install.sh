@@ -26,9 +26,11 @@ install -v -m 755 -s weblun/weblun  $destdir/bin/weblun
 install -v -m 755 -s cclun/cclun  $destdir/bin/cclun
 install -v -m 644 -s virtualmoon/library/plan404/libvma404.so  $destdir/lib/libvma404.so
 install -v -m 644 Installer/Linux/vmapro/share/applications/virtualmoon.desktop $destdir/share/applications/virtualmoon.desktop
+install -v -m 644 Installer/Linux/vmapro/share/applications/cclun.desktop $destdir/share/applications/cclun.desktop
 install -v -m 644 Installer/Linux/vmapro/share/doc/virtualmoon/changelog $destdir/share/doc/virtualmoon/changelog
 install -v -m 644 Installer/Linux/vmapro/share/doc/virtualmoon/copyright $destdir/share/doc/virtualmoon/copyright
 install -v -m 644 Installer/Linux/vmapro/share/pixmaps/virtualmoon.xpm $destdir/share/pixmaps/virtualmoon.xpm
+install -v -m 644 Installer/Linux/vmapro/share/pixmaps/cclun.xpm $destdir/share/pixmaps/cclun.xpm
 
 # translation
 install -m 755 -d $destdir/share/virtualmoon

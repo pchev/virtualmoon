@@ -108,6 +108,10 @@ msgstr ""
 msgid "UK"
 msgstr "LT"
 
+#: u_translation.rshistorical
+msgid "Historical"
+msgstr ""
+
 #: u_translation.rshours
 msgid "Hours"
 msgstr ""
@@ -478,6 +482,10 @@ msgstr "Nuotraukų biblioteka: „Lunar Orbiter“ Mėnulio fotografinis atlasas
 msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
 msgstr "Nuotraukų biblioteka: zondai „Luna“, „Ranger“, „Lunar Orbiter“ ir  „Surveyor“"
 
+#: u_translation.rspicturelibrapic
+msgid "Picture Library Best of the Pic du Midi Observatory"
+msgstr ""
+
 #: u_translation.rspixelcount
 msgid "Pixel count"
 msgstr ""
@@ -532,6 +540,10 @@ msgstr ""
 msgid "Textures Airbursh relief without albedo"
 msgstr "Tekstūros: aerografinis reljefas be albedo"
 
+#: u_translation.rstextureschange
+msgid "Textures Change photographic High Resolution"
+msgstr ""
+
 #: u_translation.rstexturesclem
 msgid "Textures Clementine photographic High Resolution"
 msgstr "Tekstūros: „Clementine“ nuotraukos, didelė skyra"
@@ -541,8 +553,14 @@ msgid "Textures LOPAM photographic High Resolution"
 msgstr "Tekstūros: LOPAM nuotraukos, didelė skyra"
 
 #: u_translation.rstexturesphas
-msgid "Textures Phase with dynamic relief using Kaguya data"
+#, fuzzy
+#| msgid "Textures Phase with dynamic relief using Kaguya data"
+msgid "Textures Phase with dynamic relief using LRO/WAC data"
 msgstr "Tekstūros: fazės su dinaminiu reljefu, pagal „Kaguya“ duomenis"
+
+#: u_translation.rstextureswac
+msgid "Textures LRO/WAC photographic High Resolution"
+msgstr ""
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"

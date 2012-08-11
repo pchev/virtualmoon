@@ -2,12 +2,12 @@ object Form2: TForm2
   Left = 322
   Height = 470
   Top = 127
-  Width = 435
+  Width = 454
   ActiveControl = PageControl1
   BorderStyle = bsSizeToolWin
   Caption = 'Configuration'
   ClientHeight = 470
-  ClientWidth = 435
+  ClientWidth = 454
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   FormStyle = fsStayOnTop
@@ -19,17 +19,17 @@ object Form2: TForm2
     Left = 0
     Height = 429
     Top = 0
-    Width = 435
-    ActivePage = TabSheet8
+    Width = 454
+    ActivePage = TabSheet4
     Align = alClient
     MultiLine = True
-    TabIndex = 7
+    TabIndex = 3
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheet1: TTabSheet
       Caption = 'General'
       ClientHeight = 400
-      ClientWidth = 431
+      ClientWidth = 450
       object Bevel8: TBevel
         Left = 16
         Height = 140
@@ -217,7 +217,7 @@ object Form2: TForm2
     object TabSheet7: TTabSheet
       Caption = 'Database'
       ClientHeight = 400
-      ClientWidth = 431
+      ClientWidth = 450
       ImageIndex = 7
       object Label31: TLabel
         Left = 16
@@ -323,7 +323,7 @@ object Form2: TForm2
     object TabSheet3: TTabSheet
       Caption = 'Affichage'
       ClientHeight = 400
-      ClientWidth = 431
+      ClientWidth = 450
       ImageIndex = 3
       object TrackBar2: TTrackBar
         Left = 155
@@ -557,7 +557,7 @@ object Form2: TForm2
     object TabSheet4: TTabSheet
       Caption = 'Textures'
       ClientHeight = 400
-      ClientWidth = 431
+      ClientWidth = 450
       ImageIndex = 4
       object Label19: TLabel
         Left = 45
@@ -576,7 +576,7 @@ object Form2: TForm2
         ParentColor = False
       end
       object Label29: TLabel
-        Left = 223
+        Left = 240
         Height = 15
         Top = 26
         Width = 19
@@ -584,7 +584,7 @@ object Form2: TForm2
         ParentColor = False
       end
       object Label36: TLabel
-        Left = 253
+        Left = 270
         Height = 15
         Top = 26
         Width = 19
@@ -592,7 +592,7 @@ object Form2: TForm2
         ParentColor = False
       end
       object Label37: TLabel
-        Left = 285
+        Left = 302
         Height = 15
         Top = 26
         Width = 26
@@ -600,7 +600,7 @@ object Form2: TForm2
         ParentColor = False
       end
       object Label38: TLabel
-        Left = 317
+        Left = 334
         Height = 15
         Top = 26
         Width = 33
@@ -609,7 +609,7 @@ object Form2: TForm2
       end
       object RadioGroup4: TRadioGroup
         Tag = 1
-        Left = 253
+        Left = 270
         Height = 204
         Top = 42
         Width = 33
@@ -629,7 +629,7 @@ object Form2: TForm2
         Left = 5
         Height = 204
         Top = 42
-        Width = 218
+        Width = 234
         AutoFill = True
         ChildSizing.LeftRightSpacing = 6
         ChildSizing.TopBottomSpacing = 6
@@ -643,7 +643,7 @@ object Form2: TForm2
         TabOrder = 0
       end
       object RadioGroup3: TRadioGroup
-        Left = 221
+        Left = 238
         Height = 204
         Top = 42
         Width = 33
@@ -661,7 +661,7 @@ object Form2: TForm2
       end
       object RadioGroup5: TRadioGroup
         Tag = 2
-        Left = 285
+        Left = 302
         Height = 204
         Top = 42
         Width = 33
@@ -679,7 +679,7 @@ object Form2: TForm2
       end
       object RadioGroup6: TRadioGroup
         Tag = 3
-        Left = 317
+        Left = 334
         Height = 204
         Top = 42
         Width = 33
@@ -736,7 +736,7 @@ object Form2: TForm2
       end
       object RadioGroup8: TRadioGroup
         Tag = 4
-        Left = 349
+        Left = 366
         Height = 204
         Top = 42
         Width = 33
@@ -753,7 +753,7 @@ object Form2: TForm2
         TabOrder = 8
       end
       object Label47: TLabel
-        Left = 349
+        Left = 366
         Height = 15
         Top = 26
         Width = 33
@@ -762,7 +762,7 @@ object Form2: TForm2
       end
       object RadioGroup9: TRadioGroup
         Tag = 5
-        Left = 381
+        Left = 398
         Height = 204
         Top = 42
         Width = 33
@@ -779,18 +779,29 @@ object Form2: TForm2
         TabOrder = 9
       end
       object Label48: TLabel
-        Left = 381
+        Left = 398
         Height = 15
         Top = 26
         Width = 40
         Caption = '65-108'
         ParentColor = False
       end
+      object ComboBox6: TComboBox
+        Left = 105
+        Height = 25
+        Top = 4
+        Width = 135
+        ItemHeight = 0
+        OnChange = ComboBox6Change
+        Style = csDropDownList
+        TabOrder = 10
+        Visible = False
+      end
     end
     object TabSheet6: TTabSheet
       Caption = 'Overlay'
       ClientHeight = 400
-      ClientWidth = 431
+      ClientWidth = 450
       ImageIndex = 6
       object Panel2: TPanel
         Left = 14
@@ -955,7 +966,7 @@ object Form2: TForm2
     object TabSheet2: TTabSheet
       Caption = 'Images'
       ClientHeight = 400
-      ClientWidth = 431
+      ClientWidth = 450
       ImageIndex = 1
       object Label9: TLabel
         Left = 9
@@ -1058,7 +1069,7 @@ object Form2: TForm2
     object TabSheet5: TTabSheet
       Caption = 'Eyepieces'
       ClientHeight = 400
-      ClientWidth = 431
+      ClientWidth = 450
       ImageIndex = 5
       object Label24: TLabel
         Left = 8
@@ -1219,7 +1230,7 @@ object Form2: TForm2
     object TabSheet8: TTabSheet
       Caption = 'CCD'
       ClientHeight = 400
-      ClientWidth = 431
+      ClientWidth = 450
       object StringGrid3: TStringGrid
         Left = 8
         Height = 217
@@ -1395,7 +1406,7 @@ object Form2: TForm2
     object Impression: TTabSheet
       Caption = 'Impression'
       ClientHeight = 400
-      ClientWidth = 431
+      ClientWidth = 450
       ImageIndex = 2
       object Bevel6: TBevel
         Left = 8
@@ -1569,11 +1580,11 @@ object Form2: TForm2
     Left = 0
     Height = 41
     Top = 429
-    Width = 435
+    Width = 454
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 41
-    ClientWidth = 435
+    ClientWidth = 454
     TabOrder = 1
     object Button1: TButton
       Left = 96

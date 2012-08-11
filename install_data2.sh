@@ -40,6 +40,7 @@ InstTexture TexturesClementine $destdir
 InstTexture TexturesLopam $destdir
 InstTexture TexturesWAC $destdir
 InstTexture TexturesChange $destdir
+InstTexture TextureHistorical $destdir
 
 InstPicture PictureApollo $destdir
 InstPicture PictureApolloMapping $destdir
