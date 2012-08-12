@@ -31,6 +31,7 @@ object f_weblun: Tf_weblun
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goSmoothScroll]
     TabOrder = 1
     OnDblClick = StringGrid1DblClick
+    OnDrawCell = StringGrid1DrawCell
     OnMouseDown = StringGrid1MouseDown
     OnMouseMove = StringGrid1MouseMove
     OnMouseUp = StringGrid1MouseUp
