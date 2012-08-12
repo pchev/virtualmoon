@@ -4556,16 +4556,16 @@ procedure TForm1.Aide2Click(Sender: TObject);
 var
   fn: string;
 begin
-  fn := slash(HelpDir) + helpprefix + '_Index_Doc.pdf';
+  fn := slash(HelpDir) + helpprefix + '_Doc_AtLun.pdf';
   if not FileExists(fn) then
   begin
-    fn := slash(HelpDir) + helpprefix + '_Index_Doc.html';
+    fn := slash(HelpDir) + helpprefix + '_Doc_AtLun.html';
     if not FileExists(fn) then
     begin
-      fn := slash(HelpDir) + 'UK_Index_Doc.pdf';
+      fn := slash(HelpDir) + 'UK_Doc_AtLun.pdf';
       if not FileExists(fn) then
       begin
-        fn := slash(HelpDir) + 'UK_Index_Doc.html';
+        fn := slash(HelpDir) + 'UK_Doc_AtLun.html';
       end;
     end;
   end;

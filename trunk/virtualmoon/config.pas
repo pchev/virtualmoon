@@ -376,7 +376,7 @@ begin
       Label34.Caption:=rst_21;
       BumpRadioGroup.Items[0]:=rsPhaseWithout+blank+rsStandardText;
       BumpRadioGroup.Items[1]:=rsPhaseWithDyn;
-      BumpRadioGroup.Items[2]:='No texture (to use with an overlay alone)';
+      BumpRadioGroup.Items[2]:=rsNoTextureToU;
       Button7.Caption:=rsCheckForOpti;
       Button8.Caption:=rsCheckForOpti;
 end;

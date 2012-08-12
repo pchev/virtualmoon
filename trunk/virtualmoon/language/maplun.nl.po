@@ -430,6 +430,10 @@ msgstr "Naam door Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Naam door Riccoli:"
 
+#: u_translation.rsnotexturetou
+msgid "No texture (to use with an overlay alone)"
+msgstr ""
+
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
 msgstr "Baan hoogte"

@@ -429,6 +429,10 @@ msgstr "Όνομα κατά Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Όνομα κατά Riccioli:"
 
+#: u_translation.rsnotexturetou
+msgid "No texture (to use with an overlay alone)"
+msgstr ""
+
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
 msgstr "Τροχιακό ύψος"

@@ -433,6 +433,10 @@ msgstr "Name von Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Name von Riccioli:"
 
+#: u_translation.rsnotexturetou
+msgid "No texture (to use with an overlay alone)"
+msgstr ""
+
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
 msgstr "Höhe des Orbits"

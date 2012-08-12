@@ -1,9 +1,10 @@
 # pch, 2012.
+# Patrick Chevalley <pch@ap-i.net>, 2012.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: pch\n"
-"PO-Revision-Date: 2012-07-28 16:22+0200\n"
+"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
+"PO-Revision-Date: 2012-08-12 15:50+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -12,9 +13,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 1.4\n"
 
+#: u_translation.rsatlundocumen
+msgid "AtLun documentation"
+msgstr "Documentation AtLun"
+
 #: u_translation.rsbrowsetheatl
 msgid "Browse the Atlas pictures"
 msgstr "Parcourir  les photographies lunaires de l'Atlas"
+
+#: u_translation.rsdatlundocume
+msgid "DatLun documentation"
+msgstr "Documentation DatLun"
 
 #: u_translation.rsdocumentatio
 msgid "Documentation"
@@ -36,6 +45,10 @@ msgstr "FR"
 msgid "English"
 msgstr "Français"
 
+#: u_translation.rsphotlundocum
+msgid "PhotLun documentation"
+msgstr "Documentation PhotLun"
+
 #: u_translation.rsquit
 msgid "Quit"
 msgstr "Quitter"
@@ -52,6 +65,8 @@ msgstr "Lire le guide rapide"
 msgid "Search in the Atlas databases"
 msgstr "Faites des recherches dans les bases de données de l'Atlas"
 
+# Header entry was created by Lokalize.
+# pch, 2012.
 #: u_translation.rsspecialediti
 msgid "Special edition \"10th anniversary\""
 msgstr "Edition spéciale \"10eme anniversaire\""
@@ -60,8 +75,6 @@ msgstr "Edition spéciale \"10eme anniversaire\""
 msgid "The Atlas Internet resources"
 msgstr "Les ressources Internet de l'Atlas"
 
-# Header entry was created by Lokalize.
-# pch, 2012.
 #: u_translation.rstitle
 msgid "Virtual Lunar Atlas Command Center"
 msgstr "Centre de Commande de l'Atlas Virtuel de la Lune"
@@ -77,4 +90,8 @@ msgstr "Tutoriel"
 #: u_translation.rsvirtuallunar
 msgid "Virtual Lunar Atlas"
 msgstr "Atlas Virtuel de la Lune"
+
+#: u_translation.rsweblundocume
+msgid "WebLun documentation"
+msgstr "Documentation WebLun"
 

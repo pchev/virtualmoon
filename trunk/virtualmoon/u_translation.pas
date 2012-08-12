@@ -320,6 +320,7 @@ rsHeight = 'Height';
 rsPixelSize = 'Pixel size';
 rsPixelCount = 'Pixel count';
 rsHistorical = 'Historical';
+rsNoTextureToU = 'No texture (to use with an overlay alone)';
 
 implementation
 
