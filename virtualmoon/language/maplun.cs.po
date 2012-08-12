@@ -429,6 +429,10 @@ msgstr "Jméno podle Heveliuse:"
 msgid "Name by Riccioli:"
 msgstr "Jméno podle Riccioliho:"
 
+#: u_translation.rsnotexturetou
+msgid "No texture (to use with an overlay alone)"
+msgstr ""
+
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
 msgstr ""

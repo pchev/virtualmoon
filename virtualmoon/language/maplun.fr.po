@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2012-08-12 13:56+0200\n"
+"PO-Revision-Date: 2012-08-12 14:01+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -432,6 +432,10 @@ msgstr "Nom donné par Hevelius:"
 #: u_translation.rsm_9
 msgid "Name by Riccioli:"
 msgstr "Nom donné par Riccioli:"
+
+#: u_translation.rsnotexturetou
+msgid "No texture (to use with an overlay alone)"
+msgstr "Pas de texture ( utilisation d'une couche seule)"
 
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"

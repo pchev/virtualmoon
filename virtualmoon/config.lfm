@@ -20,10 +20,10 @@ object Form2: TForm2
     Height = 429
     Top = 0
     Width = 454
-    ActivePage = TabSheet4
+    ActivePage = TabSheet1
     Align = alClient
     MultiLine = True
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheet1: TTabSheet
@@ -915,7 +915,7 @@ object Form2: TForm2
           Top = 284
           Width = 367
           Caption = 'Grid'
-          ClientHeight = 57
+          ClientHeight = 56
           ClientWidth = 363
           TabOrder = 3
           object Label45: TLabel

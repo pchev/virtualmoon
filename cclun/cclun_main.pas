@@ -33,7 +33,7 @@ uses
   {$endif}
   u_translation, u_constant, IniFiles,
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons;
+  StdCtrls, Buttons, Menus;
 
 type
 
@@ -59,9 +59,14 @@ type
     Label7: TLabel;
     Label8: TLabel;
     Label9: TLabel;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
     PanelCenter: TPanel;
     PanelBottom: TPanel;
     PanelTop: TPanel;
+    PopupMenu1: TPopupMenu;
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
@@ -76,12 +81,17 @@ type
       );
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItem2Click(Sender: TObject);
+    procedure MenuItem3Click(Sender: TObject);
+    procedure MenuItem4Click(Sender: TObject);
   private
     { private declarations }
     mousex,mousey: integer;
     moveform: boolean;
     procedure GetAppDir;
     procedure SetLang;
+    procedure OpenDoc(doc:string);
   public
     { public declarations }
   end; 
@@ -350,6 +360,10 @@ begin
   BitBtn5.Hint:=rsExitTheComma;
   BitBtn6.Hint:=rsReadTheQuick;
   BitBtn7.Hint:=rsReadTheFullD;
+  MenuItem1.Caption:=rsAtLunDocumen;
+  MenuItem2.Caption:=rsDatLunDocume;
+  MenuItem3.Caption:=rsPhotLunDocum;
+  MenuItem4.Caption:=rsWebLunDocume;
 end;
 
 procedure Tf_cclun.FormCreate(Sender: TObject);
@@ -392,6 +406,27 @@ begin
   moveform:=false;
 end;
 
+procedure Tf_cclun.MenuItem1Click(Sender: TObject);
+begin
+OpenDoc('Doc_AtLun');
+end;
+
+procedure Tf_cclun.MenuItem2Click(Sender: TObject);
+begin
+OpenDoc('Doc_DatLun');
+end;
+
+procedure Tf_cclun.MenuItem3Click(Sender: TObject);
+begin
+OpenDoc('Doc_PhotLun');
+
+end;
+
+procedure Tf_cclun.MenuItem4Click(Sender: TObject);
+begin
+OpenDoc('Doc_WebLun');
+end;
+
 procedure Tf_cclun.BitBtn1Click(Sender: TObject);
 begin
   chdir(appdir);
@@ -421,44 +456,39 @@ begin
   Close;
 end;
 
-procedure Tf_cclun.BitBtn6Click(Sender: TObject);
+procedure Tf_cclun.OpenDoc(doc:string);
 var
   fn: string;
 begin
-  fn := slash(HelpDir) + helpprefix + '_tutorial.pdf';
+  fn := slash(HelpDir) + helpprefix +'_'+doc+'.pdf';
   if not FileExists(fn) then
   begin
-    fn := slash(HelpDir) + helpprefix + '_tutorial.html';
+    fn := slash(HelpDir) + helpprefix +'_'+doc+'.html';
     if not FileExists(fn) then
     begin
-      fn := slash(HelpDir) + 'UK_tutorial.pdf';
+      fn := slash(HelpDir) + 'UK_'+doc+'.pdf';
       if not FileExists(fn) then
       begin
-        fn := slash(HelpDir) + 'UK_tutorial.html';
+        fn := slash(HelpDir) + 'UK_'+doc+'.html';
       end;
     end;
   end;
   ExecuteFile(fn);
 end;
 
+procedure Tf_cclun.BitBtn6Click(Sender: TObject);
+begin
+OpenDoc('tutorial');
+end;
+
 procedure Tf_cclun.BitBtn7Click(Sender: TObject);
 var
-  fn: string;
+  P:Tpoint;
 begin
-  fn := slash(HelpDir) + helpprefix + '_Index_Doc.pdf';
-  if not FileExists(fn) then
-  begin
-    fn := slash(HelpDir) + helpprefix + '_Index_Doc.html';
-    if not FileExists(fn) then
-    begin
-      fn := slash(HelpDir) + 'UK_Index_Doc.pdf';
-      if not FileExists(fn) then
-      begin
-        fn := slash(HelpDir) + 'UK_Index_Doc.html';
-      end;
-    end;
-  end;
-  ExecuteFile(fn);
+P.X:=BitBtn7.Left+BitBtn7.Width;
+P.Y:=BitBtn7.Top;
+P:=PanelCenter.ClientToScreen(P);
+PopupMenu1.PopUp(P.X,P.Y);
 end;
 
 

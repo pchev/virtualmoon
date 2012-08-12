@@ -27,6 +27,10 @@ rsTheAtlasInte = 'The Atlas Internet resources';
 rsExitTheComma = 'Exit the Command Center';
 rsReadTheQuick = 'Read the quick guide';
 rsReadTheFullD = 'Read the full documentation';
+rsAtLunDocumen = 'AtLun documentation';
+rsDatLunDocume = 'DatLun documentation';
+rsPhotLunDocum = 'PhotLun documentation';
+rsWebLunDocume = 'WebLun documentation';
 
 implementation
 

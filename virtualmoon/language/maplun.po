@@ -1218,3 +1218,7 @@ msgstr ""
 msgid "Historical"
 msgstr ""
 
+#: u_translation:rsnotexturetou
+msgid "No texture (to use with an overlay alone)"
+msgstr ""
+

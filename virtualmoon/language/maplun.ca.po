@@ -428,6 +428,10 @@ msgstr "Nom donat per Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Nom donat per Riccioli:"
 
+#: u_translation.rsnotexturetou
+msgid "No texture (to use with an overlay alone)"
+msgstr ""
+
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
 msgstr "Altura de l'òrbita"

@@ -62,3 +62,19 @@ msgstr ""
 msgid "Read the full documentation"
 msgstr ""
 
+#: u_translation:rsatlundocumen
+msgid "AtLun documentation"
+msgstr ""
+
+#: u_translation:rsdatlundocume
+msgid "DatLun documentation"
+msgstr ""
+
+#: u_translation:rsphotlundocum
+msgid "PhotLun documentation"
+msgstr ""
+
+#: u_translation:rsweblundocume
+msgid "WebLun documentation"
+msgstr ""
+
