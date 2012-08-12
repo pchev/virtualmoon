@@ -1146,7 +1146,7 @@ end;
 
 procedure Tf_photlun.MenuItem14Click(Sender: TObject);
 begin
-ShowHelpDoc('Doc','_PHOTLUN','doc');
+ShowHelpDoc('Doc','_PhotLun','doc');
 end;
 
 procedure Tf_photlun.MenuItem15Click(Sender: TObject);

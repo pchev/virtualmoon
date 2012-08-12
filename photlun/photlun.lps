@@ -18,10 +18,11 @@
         <ComponentName Value="f_photlun"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photlun"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1141"/>
-        <CursorPos X="34" Y="1154"/>
+        <TopLine Value="1147"/>
+        <CursorPos X="52" Y="1149"/>
         <UsageCount Value="66"/>
         <Bookmarks Count="1">
           <Item0 X="36" Y="964" ID="1"/>
@@ -36,7 +37,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photo"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="319"/>
@@ -519,7 +519,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="pu_photo.pas"/>
         <Caret Line="114" Column="23" TopLine="83"/>
@@ -636,6 +636,10 @@
         <Filename Value="pu_photo.pas"/>
         <Caret Line="348" Column="24" TopLine="317"/>
       </Position29>
+      <Position30>
+        <Filename Value="pu_photlun.pas"/>
+        <Caret Line="1154" Column="34" TopLine="1141"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
