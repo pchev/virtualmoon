@@ -44,6 +44,8 @@ type
     procedure Quit1Click(Sender: TObject);
     procedure ResetSelectionClick(Sender: TObject);
     procedure StringGrid1DblClick(Sender: TObject);
+    procedure StringGrid1DrawCell(Sender: TObject; aCol, aRow: Integer;
+      aRect: TRect; aState: TGridDrawState);
     procedure StringGrid1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure StringGrid1MouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -168,6 +170,23 @@ begin
  if SelectedSite<>'' then ExecuteFile(SelectedSite);
 end;
 
+procedure Tf_weblun.StringGrid1DrawCell(Sender: TObject; aCol, aRow: Integer;
+  aRect: TRect; aState: TGridDrawState);
+begin
+  if (aRow>0) and (aCol=4) then begin
+    StringGrid1.Canvas.Brush.Style:=bsSolid;
+    StringGrid1.Canvas.Brush.Color:=clWindow;
+    StringGrid1.Canvas.FillRect(aRect);
+    if gdHot in aState
+       then StringGrid1.Canvas.Font.Style:=[fsUnderline,fsBold]
+       else StringGrid1.Canvas.Font.Style:=[fsUnderline];
+    StringGrid1.Canvas.Font.Color:=clNavy;
+    StringGrid1.Canvas.TextRect(aRect,aRect.Left,aRect.Top,StringGrid1.Cells[aCol,aRow]);
+    StringGrid1.Canvas.Font.Style:=[];
+    StringGrid1.Canvas.Font.Color:=clDefault;
+  end;
+end;
+
 procedure Tf_weblun.StringGrid1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
@@ -184,6 +203,8 @@ begin
    if (HintX<>row)or(HintY<>col) then begin
       StringGrid1.Hint:='';
       StringGrid1.ShowHint:=false;
+      if (HintY=4)and(HintX>0)and(HintX<StringGrid1.RowCount)
+        then StringGrid1DrawCell(Sender,HintY,HintX,StringGrid1.CellRect(HintY,HintX),[]);
       HintX:=row;
       HintY:=col;
    end else begin
@@ -191,6 +212,7 @@ begin
          StringGrid1.Hint:=StringGrid1.Cells[col,row];
          StringGrid1.ShowHint:=true;
       end;
+      if col=4 then StringGrid1DrawCell(Sender,col,row,StringGrid1.CellRect(col,row),[gdHot]);
    end;
  end;
 end;
@@ -212,6 +234,7 @@ end else begin
    end
    else begin // site url
       if trim(StringGrid1.Cells[4,row])<>'' then SelectedSite:=StringGrid1.Cells[4,row];
+      if (SelectedSite<>'')and(Col=4) then ExecuteFile(SelectedSite);
    end;
  end;
 end;
