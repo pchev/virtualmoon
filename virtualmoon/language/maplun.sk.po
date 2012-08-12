@@ -529,6 +529,10 @@ msgstr ""
 msgid "Simple"
 msgstr "Jednoduchá"
 
+#: u_translation.rsstandardtext
+msgid "(standard texture selection)"
+msgstr ""
+
 #: u_translation.rsstartdate
 msgid "Start date"
 msgstr ""
@@ -1173,10 +1177,6 @@ msgstr "Kopírovať"
 #: u_translation.rst_86
 msgid "Measure"
 msgstr "Merať"
-
-#: u_translation.rst_87
-msgid "Texture interpolation"
-msgstr "Texturová interpolácia"
 
 #: u_translation.rst_89
 msgid "External display software"

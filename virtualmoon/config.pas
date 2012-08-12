@@ -49,7 +49,6 @@ type
     CheckBox25: TCheckBox;
     CheckBox26: TCheckBox;
     CheckBox27: TCheckBox;
-    CheckBox3: TCheckBox;
     ColorDialog1: TColorDialog;
     ComboBox6: TComboBox;
     ComboBoxCountry: TComboBox;
@@ -103,6 +102,7 @@ type
     PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
+    TexturePanel: TPanel;
     RadioGroup2: TRadioGroup;
     RadioGroup3: TRadioGroup;
     RadioGroup4: TRadioGroup;
@@ -213,6 +213,7 @@ type
     Label32: TLabel;
     TrackBar5: TTrackBar;
     CheckBox24: TCheckBox;
+    procedure BumpRadioGroupClick(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
@@ -373,11 +374,11 @@ begin
       Button5.Caption:=rsLabelsFont;
       Label35.Caption:=rsCountry;
       Label34.Caption:=rst_21;
-      BumpRadioGroup.Items[0]:=rsPhaseWithDyn;
-      BumpRadioGroup.Items[1]:=rsPhaseWithout;
+      BumpRadioGroup.Items[0]:=rsPhaseWithout+blank+rsStandardText;
+      BumpRadioGroup.Items[1]:=rsPhaseWithDyn;
+      BumpRadioGroup.Items[2]:='No texture (to use with an overlay alone)';
       Button7.Caption:=rsCheckForOpti;
       Button8.Caption:=rsCheckForOpti;
-      checkbox3.Caption:=rst_87;
 end;
 
 Function GetLangCode(buf:string):string;
@@ -516,6 +517,13 @@ if FontDialog1.Execute then begin
 end;
 end;
 
+procedure TForm2.BumpRadioGroupClick(Sender: TObject);
+begin
+TexturePanel.Visible:=(BumpRadioGroup.ItemIndex=0);
+TextureChanged:=true;
+if BumpRadioGroup.ItemIndex=2 then CheckBox11.Checked:=true;
+end;
+
 procedure TForm2.Button7Click(Sender: TObject);
 begin
   f_features.showmodal;
@@ -599,6 +607,7 @@ begin
   memo1.Text:=rst_184;
   OverlayPanel.visible:=AsMultiTexture;
   panel2.Visible:=not AsMultiTexture;
+  TexturePanel.Visible:=(BumpRadioGroup.ItemIndex=0);
   myRect.Left := 0;
   myRect.Top := 3;
   myRect.Right := 0;

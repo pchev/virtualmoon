@@ -326,10 +326,6 @@ msgstr ""
 msgid "Measure"
 msgstr ""
 
-#: u_translation:rst_87
-msgid "Texture interpolation"
-msgstr ""
-
 #: u_translation:rst_89
 msgid "External display software"
 msgstr ""
@@ -1032,6 +1028,10 @@ msgstr ""
 
 #: u_translation:rsphasewithout
 msgid "Phase without relief"
+msgstr ""
+
+#: u_translation:rsstandardtext
+msgid "(standard texture selection)"
 msgstr ""
 
 #: u_translation:rssimple

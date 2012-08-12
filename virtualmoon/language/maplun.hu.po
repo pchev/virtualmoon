@@ -528,6 +528,10 @@ msgstr ""
 msgid "Simple"
 msgstr "Egyszerü"
 
+#: u_translation.rsstandardtext
+msgid "(standard texture selection)"
+msgstr ""
+
 #: u_translation.rsstartdate
 msgid "Start date"
 msgstr ""
@@ -1174,10 +1178,6 @@ msgstr "Másolás"
 #: u_translation.rst_86
 msgid "Measure"
 msgstr "Mértékegyég"
-
-#: u_translation.rst_87
-msgid "Texture interpolation"
-msgstr "Textúra interpolációja"
 
 #: u_translation.rst_89
 msgid "External display software"

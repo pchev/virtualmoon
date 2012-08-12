@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2012-08-11 14:27+0200\n"
+"PO-Revision-Date: 2012-08-12 13:56+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -529,6 +529,10 @@ msgstr "Face:"
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Simple"
+
+#: u_translation.rsstandardtext
+msgid "(standard texture selection)"
+msgstr "(choix de la texture)"
 
 #: u_translation.rsstartdate
 msgid "Start date"
@@ -1177,10 +1181,6 @@ msgstr "Copier"
 #: u_translation.rst_86
 msgid "Measure"
 msgstr "Mesurer"
-
-#: u_translation.rst_87
-msgid "Texture interpolation"
-msgstr "Interpolation des textures"
 
 #: u_translation.rst_89
 msgid "External display software"
