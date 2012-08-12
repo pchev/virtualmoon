@@ -461,8 +461,8 @@ type
     ima: TBigImaForm;
     ToolsWidth: integer;
     FullScreen: boolean;
-    lockzoombar: boolean;
-    texturefiles: TStringList;
+    lockzoombar,notexture: boolean;
+    texturefiles,texturenone: TStringList;
     SplitSize: single;
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
     firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseWeblun,CanCloseCDC,StartDatlun,StartWeblun,StartPhotlun,StartCDC: boolean;
@@ -1007,6 +1007,7 @@ begin
   inif := Tmeminifile.Create(ConfigFile);
   firstuse := (not inif.SectionExists('default'));
   BumpMethod:=0;
+  BumpMipmap:= true;
   with inif do
   begin
     section     := 'images';
@@ -1053,7 +1054,6 @@ begin
     cameraorientation := ReadFloat(section, 'CameraOrientation', CameraOrientation);
     phaseeffect  := ReadBool(section, 'PhaseEffect', phaseeffect);
     wantbump  := ReadBool(section, 'BumpMap', wantbump);
-    BumpMipmap:= ReadBool(section,'BumpMipmap',true);
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
     ShowMark     := ReadBool(section, 'ShowMark', ShowMark);
@@ -1068,7 +1068,6 @@ begin
     labelcenter  := ReadBool(section, 'LabelCenter', labelcenter);
     minilabel    := ReadBool(section, 'MiniLabel', minilabel);
     FollowNorth  := ReadBool(section, 'FollowNorth', FollowNorth);
-//    shortdesc  := ReadBool(section, 'shortdesc', shortdesc);
     CheckBox2.Checked := ReadBool(section, 'Mirror', False);
     GridButton.Down:= ReadBool(section, 'Grid', False);
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
@@ -1101,6 +1100,7 @@ begin
     end;
     if ReadBool(section, 'Maximized', False) then
       windowstate := wsMaximized;
+    notexture := ReadBool(section, 'notexture', notexture);
     for j:=0 to 5 do
       texturefiles[j] := ReadString(section, 'texturefile' + IntToStr(j), texturefiles[j]);
 
@@ -1176,6 +1176,7 @@ begin
       WriteString(section, 'overlayname', overlayname);
       WriteFloat(section, 'overlaytr', overlaytr);
       WriteBool(section, 'showoverlay', showoverlay);
+      WriteBool(section, 'notexture', notexture);
       for i := 0 to 5 do
         WriteString(section, 'texturefile' + IntToStr(i), texturefiles[i]);
       WriteBool(section, 'Geocentric', Geocentric);
@@ -1189,7 +1190,6 @@ begin
       WriteFloat(section, 'dt_ut', dt_ut);
       WriteBool(section, 'PhaseEffect', phaseeffect);
       WriteBool(section, 'BumpMap', wantbump or moon1.Bumpmap);
-      WriteBool(section,'BumpMipmap',moon1.BumpMipmap);
       WriteBool(section, 'ShowLabel', ShowLabel);
       WriteBool(section, 'ShowMark', ShowMark);
       WriteBool(section, 'ShowLibrationMark', ShowLibrationMark);
@@ -1201,7 +1201,6 @@ begin
       WriteInteger(section, 'MarkSize', marksize);
       WriteBool(section, 'LabelCenter', labelcenter);
       WriteBool(section, 'MiniLabel', minilabel);
-//      WriteBool(section, 'shortdesc', shortdesc);
       WriteBool(section, 'FollowNorth', FollowNorth);
       WriteBool(section, 'Mirror', CheckBox2.Checked);
       WriteBool(section, 'Grid', GridButton.Down);
@@ -3293,6 +3292,9 @@ begin
   end;
   tz := TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');
+  notexture:=false;
+  texturenone:=TStringList.Create;
+  for i:=0 to 5 do texturenone.Add('NONE');
   texturefiles:=TStringList.Create;
   for i:=0 to 5 do texturefiles.Add('');
   texturefiles[0]:='WAC';
@@ -3430,7 +3432,9 @@ try
   moon1.BumpMipmap:=BumpMipmap;
   moon1.TextureCompression:=compresstexture;
   try
-  moon1.texture:=texturefiles;
+  if notexture
+     then moon1.texture:=texturenone
+     else moon1.texture:=texturefiles;
   except
     texturefiles[0]:='WAC';
     moon1.texture:=texturefiles;
@@ -3581,7 +3585,6 @@ begin
     form2.checkbox14.Checked := showlibrationmark;
     form2.checkbox17.Checked := labelcenter;
     form2.checkbox18.Checked := minilabel;
-//    form2.CheckBox4.Checked := shortdesc;
     form2.Shape1.Brush.Color := marklabelcolor;
     form2.Shape2.Brush.Color := markcolor;
     form2.Shape3.Brush.Color := autolabelcolor;
@@ -3589,11 +3592,12 @@ begin
     form2.TrackBar4.Position := marksize;
     form2.newlang := language;
     if wantbump or activemoon.Bumpmap then
-       form2.BumpRadioGroup.ItemIndex:=0
+       form2.BumpRadioGroup.ItemIndex:=1
+    else if activemoon.Texture[0]='NONE' then
+       form2.BumpRadioGroup.ItemIndex:=2
     else
-       form2.BumpRadioGroup.ItemIndex:=1;
+       form2.BumpRadioGroup.ItemIndex:=0;
     form2.BumpRadioGroup.Visible:=(activemoon.BumpMapCapabilities<>[]);
-    form2.CheckBox3.Checked:=activemoon.BumpMipmap;
     form2.StringGrid1.RowCount := maximgdir + 10;
     if saveimagesize = 0 then
       form2.ComboBox4.ItemIndex := 0
@@ -3662,11 +3666,11 @@ begin
         reload := True;
       end;
       if activemoon=moon1 then begin
-        if wantbump<>(form2.BumpRadioGroup.ItemIndex=0) then reload:=true;
-        wantbump := (form2.BumpRadioGroup.ItemIndex=0);
+        if wantbump<>(form2.BumpRadioGroup.ItemIndex=1) then reload:=true;
+        wantbump := (form2.BumpRadioGroup.ItemIndex=1)and(activemoon.BumpMapCapabilities<>[]);
       end else
         wantbump:=false;
-      activemoon.BumpMipmap := form2.CheckBox3.Checked;
+      notexture:=(form2.BumpRadioGroup.ItemIndex=2);
       ruklprefix    := form2.ruklprefix.Text;
       ruklsuffix    := form2.ruklsuffix.Text;
       markcolor     := form2.Shape2.Brush.Color;
@@ -3680,7 +3684,6 @@ begin
       showlibrationmark := form2.checkbox14.Checked;
       labelcenter   := form2.checkbox17.Checked;
       minilabel     := form2.checkbox18.Checked;
-//      shortdesc := form2.CheckBox4.Checked;
       activemoon.LabelFont:=form2.FontDialog1.Font;
       activemoon.Labelcolor:=autolabelcolor;
       Obslatitude := strtofloat(form2.Edit1.Text);
@@ -3828,7 +3831,9 @@ begin
         application.ProcessMessages;
         activemoon.Eyepiece := 0;
         LoadOverlay(overlayname, overlaytr);
-        activemoon.Texture:=texturefiles;
+        if notexture
+           then activemoon.Texture:=texturenone
+           else activemoon.Texture:=texturefiles;
         activemoon.GridSpacing:=gridspacing;
         RefreshMoonImage;
         activemoon.Zoom:=activemoon.Zoom;
@@ -4251,6 +4256,7 @@ begin
     searchlist.Free;
     param.Free;
     texturefiles.Free;
+    texturenone.Free;
     if CursorImage1 <> nil then
     begin
       CursorImage1.Free;

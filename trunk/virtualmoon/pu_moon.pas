@@ -134,6 +134,7 @@ type
     startx, starty, ShadowOffset : integer;
     satl,satb,satr,satli,satlc: single;
     blankbmp: Tbitmap;
+    blankjp: TJPEGImage;
     MaxSprite: integer;
     FForceBumpMapSize:integer;
     FSatAltitude,FSatInclination,FSatModelScale,FSatViewDistance : single;
@@ -534,7 +535,9 @@ begin
          row:=maps2[k] div maxcol;
          col:=maps2[k] mod maxcol;
          with GLMaterialLibrary1 do begin
-            jp.LoadFromFile(tpath+inttostr(maps2[k])+'.jpg');
+           if Ftexture[level-1]='NONE'
+             then jp.Assign(blankjp)
+             else jp.LoadFromFile(tpath+inttostr(maps2[k])+'.jpg');
             with jp.Canvas do begin
               brush.Color:=clWhite;   // replace white border because of jpeg compression
               pen.Color:=clWhite;
@@ -574,7 +577,9 @@ begin
             if level<6 then pmapfn:=tpath+inttostr(pmaps2[i]-100000)+'.jpg'
                        else pmapfn:=tpath+inttostr(pmaps2[i])+'.jpg';
             if FileExistsUTF8(pmapfn) then begin
-            jp.LoadFromFile(pmapfn);
+            if Ftexture[level-1]='NONE'
+                then jp.Assign(blankjp)
+                else jp.LoadFromFile(pmapfn);
             with jp.Canvas do begin
               brush.Color:=clWhite;
               pen.Color:=clWhite;
@@ -628,7 +633,9 @@ case level of
        col:=i mod 4;
        nn:=inttostr(i);
        with GLMaterialLibrary1 do begin
-          jp.LoadFromFile(tpath+nn+'.jpg');
+          if Ftexture[level-1]='NONE'
+            then jp.Assign(blankjp)
+            else jp.LoadFromFile(tpath+nn+'.jpg');
           with jp.Canvas do begin
             brush.Color:=clWhite;    // replace white border because of jpeg compression
             pen.Color:=clWhite;
@@ -1130,18 +1137,18 @@ end;
 
 procedure Tf_moon.SetTexture(lfn:TStringList);
 begin
- if not DirectoryExists(slash(FTexturePath)+slash(lfn[0])+'L1') then raise Exception.Create('Missing L1 slices for '+slash(FTexturePath)+lfn[0]);
+ if (lfn[0]<>'NONE')and(not DirectoryExists(slash(FTexturePath)+slash(lfn[0])+'L1')) then raise Exception.Create('Missing L1 slices for '+slash(FTexturePath)+lfn[0]);
  Ftexture:=lfn;
  maxzone:=1;
- if DirectoryExists(slash(FTexturePath)+slash(Ftexture[1])+'L2') then begin
+ if (lfn[1]='NONE')or DirectoryExists(slash(FTexturePath)+slash(Ftexture[1])+'L2') then begin
     maxzone:=2;
-    if DirectoryExists(slash(FTexturePath)+slash(Ftexture[2])+'L3') then begin
+    if (lfn[2]='NONE')or DirectoryExists(slash(FTexturePath)+slash(Ftexture[2])+'L3') then begin
        maxzone:=3;
-       if DirectoryExists(slash(FTexturePath)+slash(Ftexture[3])+'L4') then begin
+       if (lfn[3]='NONE')or DirectoryExists(slash(FTexturePath)+slash(Ftexture[3])+'L4') then begin
           maxzone:=4;
-           if DirectoryExists(slash(FTexturePath)+slash(Ftexture[4])+'L5') then begin
+           if (lfn[4]='NONE')or DirectoryExists(slash(FTexturePath)+slash(Ftexture[4])+'L5') then begin
              maxzone:=5;
-             if DirectoryExists(slash(FTexturePath)+slash(Ftexture[5])+'L6') then begin
+             if (lfn[5]='NONE')or DirectoryExists(slash(FTexturePath)+slash(Ftexture[5])+'L6') then begin
                 maxzone:=6;
              end;
            end;
@@ -1172,8 +1179,14 @@ begin
  blankbmp.Width:=4;
  blankbmp.Height:=4;
  blankbmp.Canvas.brush.Color:=clWhite;
- blankbmp.Canvas.pen.Color:=clWhite;
+ blankbmp.Canvas.pen.Color:=blankbmp.Canvas.brush.Color;
  blankbmp.Canvas.FillRect(0,0,4,4);
+ blankjp:=TJPEGImage.Create;
+ blankjp.Width:=1024;
+ blankjp.Height:=1024;
+ blankjp.Canvas.brush.Color:=TColor($FCFCFC);
+ blankjp.Canvas.pen.Color:=blankjp.Canvas.brush.Color;
+ blankjp.Canvas.FillRect(0,0,1024,1024);
  ldeg:='d';
  lmin:='m';
  lsec:='s';
@@ -1362,6 +1375,7 @@ if LabelGroup<>nil then LabelGroup.DeleteChildren;
 if GLDummyCubeMarks<>nil then GLDummyCubeMarks.DeleteChildren;
 if GLDummyCubeCoord<>nil then GLDummyCubeCoord.DeleteChildren;
 blankbmp.Free;
+blankjp.Free;
 GLSceneViewer1.Buffer.DestroyRC;
 GLBitmapFont1.Ranges.Clear;
 end;

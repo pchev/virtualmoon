@@ -531,6 +531,10 @@ msgstr ""
 msgid "Simple"
 msgstr "Einfach"
 
+#: u_translation.rsstandardtext
+msgid "(standard texture selection)"
+msgstr ""
+
 #: u_translation.rsstartdate
 msgid "Start date"
 msgstr ""
@@ -1177,10 +1181,6 @@ msgstr "Kopieren"
 #: u_translation.rst_86
 msgid "Measure"
 msgstr "Messen"
-
-#: u_translation.rst_87
-msgid "Texture interpolation"
-msgstr "Texturinterpolation"
 
 #: u_translation.rst_89
 msgid "External display software"
