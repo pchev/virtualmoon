@@ -1,0 +1,1808 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+
+<html>
+
+<head>
+
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+   <meta name="Author" content="patrick chevalley">
+
+   <meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+
+   
+
+<title>Atlas Virtuel de la Lune / Documentation</title>
+
+</head>
+
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" vlink="#5F9EA0" alink="#FF0000" background="CRATERBACK.JPG">
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%" >
+  <tr> 
+    <td VALIGN=TOP BGCOLOR="#000080" > 
+      <center>
+        <h1> <font color="#FFFFFF" size="7">&quot;DATLUN&quot; <font size="4">(c)</font><br>
+          <font size="5">Gestionnaire de donn&eacute;es<br>
+          de &quot;l'Atlas Virtuel de la Lune&quot; (AVL)</font></font>&nbsp;</h1>
+      </center>
+      <center>
+        <h2><font color="#FFFFFF">Documentation utilisable pour la version disponible 
+          </font><font color="#FFFFFF">au 15 mars 2008</font></h2>
+      </center>
+    </td>
+  </tr>
+  <tr> 
+    <td ALIGN=LEFT> 
+      <p align="center">&nbsp;</p>
+      <p align="center"><font color="#0000FF"><b><font size="4"><a href="FR_Index_DatLun.html">Index 
+        du manuel</a></font></b></font></p>
+      <p align="center">&nbsp;</p>
+      <p><i><b><font size="4">Bienvenue dans &quot;DATLUN&quot; (c) le gestionnaire 
+        de donn&eacute;es de &quot;l'Atlas virtuel de la Lune&quot;. </font></b></i></p>
+      <p>En temps qu'astronomes amateurs nous-m&ecirc;mes, nous continuons de 
+        perfectionner l'AVL pour concevoir un logiciel utile pour les observateurs 
+        de la Lune et pratique pour une utilisation sur le terrain. Nous essayons 
+        toujours de d&eacute;finir des fonctionnalit&eacute;s et une interface 
+        les plus conviviales possibles et intuitives. Voil&agrave; pourquoi, nous 
+        avons incorpor&eacute;dans cette nouvelle version &quot;Pro&quot; de l'<b>AVL</b>&quot;, 
+        un gestionnaire de donn&eacute;es appel&eacute; &quot;<b>DATLUN</b>&quot; 
+        (appellation soumise &agrave; copyright) qui vous permet de s&eacute;lectionner 
+        de fa&ccedil;on pr&eacute;cise les formations lunaires qui vous int&eacute;ressent 
+        et de les localiser directement sur la carte de &quot;l'<b>Atlas virtuel 
+        de la Lune</b>&quot;.</p>
+      <p>Cette premi&egrave;re version comporte les fonctions qui nous ont sembl&eacute; 
+        les plus utiles. Nous r&eacute;fl&eacute;chissons &agrave; d'autres possibilit&eacute;s 
+        qui seront incluses dans les versions suivantes.</p>
+      <p>&quot;<b>DATLUN</b>&quot; est un logiciel d&eacute;di&eacute; &agrave; 
+        l'&eacute;tude de la Lune et extr&egrave;mement puissant puisqu'il utilise 
+        les <b>requ&ecirc;tes SQL</b>. Cemanuel est n&eacute;cessaire pour d&eacute;couvrir 
+        l'ensemble de ses possibilit&eacute;s. Nous vous conseillons de le lire 
+        attentivement en vous exer&ccedil;ant en m&ecirc;me temps au maniement 
+        des fonctions d&eacute;crites.</p>
+      <p>Bonne utilisation et nous esp&eacute;rons que vous appr&eacute;cierez 
+        ce nouveau programme et le recommanderez autour de vous.</p>
+      <p>Merci beaucoup pour votre confiance.<br>
+      </p>
+      <p></p>
+      <p><b>Christian Legrand &amp; Patrick Chevalley</b><br>
+      </p>
+      <p>&nbsp; </p>
+      <p> <font size="5"><i><b><font color="#FF0000">L'&Eacute;CRAN DE DATLUN</font></b></i></font><br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><img src="Datman%20Window%20List%20FR.jpg" width="843" height="585"></p>
+        </blockquote>
+      </blockquote>
+      <p>L'&eacute;cran de <b>DATLUN</b> tient dans une fen&ecirc;tre &quot;Windows&quot;. 
+        Comme toute les fen&ecirc;tres Windows, vous pouvez minimiser, ou maximiser 
+        ou adapter sa taille en cliquant sur les boutons &agrave; droite de la 
+        barre des titres.</p>
+      <p>Il est possible d'ouvrir simultan&eacute;ment l'<b>AVL</b> et <b>DATLUN</b>, 
+        ce qui permet la localisation des formations sur la carte, tout en ayant 
+        acc&egrave;s aux informations de toutes ces formations s&eacute;lectionn&eacute;es.<br>
+      </p>
+      <p>La fen&ecirc;tre de <b>DATLUN</b> comporte :<br>
+        <br>
+        - La <b>barre des menus</b><br>
+        - La fen&ecirc;tre &quot;<b>Liste</b>&quot;<br>
+        - La <b>barre d'&eacute;tat</b><br>
+        <a name="MenuBar"></a><br>
+      </p>
+      <p><i><b><font color="#FF0000" size="5">LA&nbsp;BARRE DES MENUS </font></b></i></p>
+      <p><img src="Datman%20Menu%20Bar%20FR.jpg" width="356" height="22"></p>
+      <p>Cette barre comporte des menus donnant acc&egrave;s &agrave; des listes 
+        de fonctions.<br>
+        <a name="filemenu"></a><br>
+      </p>
+      <blockquote> 
+        <p><font color="#009900"><b><font size="4">LE&nbsp;MENU &quot;FICHIER&quot;</font></b></font></p>
+      </blockquote>
+      <p><img src="Datman%20File%20Menu%20FR.jpg" width="186" height="94"><br>
+        <br>
+        Traditionnel dans tous les logiciels Windows (r), il sert dans <b>DATLUN</b> 
+        &agrave; s&eacute;lectionner et &agrave; maintenir les bases de donn&eacute;es 
+        et &agrave; quitter le programme.</p>
+      <p><a name="seldef"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">FONCTION </font><font color="#FF00FF"> &quot;S&eacute;lection 
+            par d&eacute;faut&quot;</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>Cette fonction vous permet de revenir &agrave; la s&eacute;lection maximale 
+        qui est la s&eacute;lection par d&eacute;faut. Toutes les bases de donn&eacute;es 
+        et toutes les colonnes sont s&eacute;lectionn&eacute;es et il n'y a aucune 
+        requ&ecirc;te SQL pr&eacute;sente en arri&egrave;re plan.</p>
+      <p></p>
+      <p><a name="dboper"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">FONCTION </font><font color="#FF00FF"> &quot;Maintenance 
+            base de donn&eacute;es&quot;</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>Cette fonction donne acc&egrave;s &agrave; un sous menu :</p>
+      <p><img src="Datman%20File%20Menu%20Database%20FR.jpg" width="433" height="113"></p>
+      <p><a name="dbexport"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0000FF">Fonction &quot;Exportation de la s&eacute;lection 
+              en CSV&quot; </font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>Cette fonction vous permet d'exporter la liste des formations que vous 
+        avez s&eacute;lectionn&eacute;es et qui est visible dans la fen&ecirc;tre 
+        &quot;<b>Liste</b>&quot; dans un fichier CSV qui est utilisable dans la 
+        majorit&eacute; des tableurs dont Microsoft Excel (r). </p>
+      <p>La fen&ecirc;tre classique d'enregistrement de fichiers de Windows appara&icirc;t 
+        alors. Enregistrez votre extraction dans le r&eacute;pertoire de votre 
+        choix. </p>
+      <p><b>Attention, les informations de la base de donn&eacute;es sont soumises 
+        &agrave; copyright et ne peuvent &ecirc;tre utilis&eacute;es qu'&agrave; 
+        titre personnel et pas dans un but commercial.</b></p>
+      <p><a name="dbimport"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0000FF">Fonction &quot;Importation depuis CSV&quot; 
+              </font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>Cette fonction vous permet d'importer une liste personnelle de formations 
+        que vous avez r&eacute;alis&eacute;e et de l'incorporer en temps que base 
+        de donn&eacute;es de l'AVL.</p>
+<p>Voir la <a href="#dbimport2">description d&eacute;tail&eacute;e</a>.
+      <p><a name="dbsuppr"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0000FF">Fonction &quot;Supprimer la s&eacute;lection 
+              de la base de donn&eacute;es&quot; </font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p><b>A UTILISER AVEC PRECAUTION !</b> </p>
+      <p>En effet, si vous cliquez sur cette fonction, l'ensemble de la s&eacute;lection 
+        pr&eacute;sente dans &quot;<b>DATLUN&quot;</b> sera im&eacute;diatement 
+        supprim&eacute;e des bases de donn&eacute;es concern&eacute;es et ne pourra 
+        pas &ecirc;tre r&eacute;cup&eacute;r&eacute;e, sauf si vous r&eacute;installez 
+        AVL Pro.<br>
+        <a name="exit"></a> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">FONCTION </font><font color="#FF00FF"> &quot;Quitter&quot; 
+            </font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>Cette fonction permet de quitter <b>DATLUN</b> en fermant toutes les 
+        bases de donn&eacute;es ouvertes eten conservant tous les r&eacute;glages 
+        sur les bases de donn&eacute;es, les colonnes et la s&eacute;lection.</p>
+      <blockquote> 
+        <p><a name="selectmenu"></a><br>
+          <br>
+          <b><font color="#009900" size="4">LE&nbsp;MENU &quot;SELECTION&quot;</font></b></p>
+      </blockquote>
+      <p>Ce menu ouvre une fen&ecirc;tre destin&eacute;e &agrave; :</p>
+      <p>- s&eacute;lectionner les bases de donn&eacute;es &agrave; utiliser.<br>
+        - s&eacute;lectionner les types de formation &agrave; &eacute;tudier.<br>
+        - s&eacute;lectionner une liste de formations bas&eacute;e sur une valeur 
+        sp&eacute;cifique d'un seul champ.<br>
+        - s&eacute;lectionner une liste de formations bas&eacute;e sur plusieurs 
+        crit&egrave;res crois&eacute;s.<br>
+      </p>
+      <p><img src="Datman%20Select%20Normal%20FR.jpg" width="582" height="337"> 
+      </p>
+      <p>La fen&ecirc;tre s'ouvre la premi&egrave;re fois en <b>mode &quot;Simple&quot;</b>. 
+        Il est ensuite possible de passer en <b>mode &quot;Expert&quot;</b>.<br>
+        <a name="dbchoicethumbnail"></a> </p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0000FF">Fen&ecirc;tre &quot;Choix base de donn&eacute;es&quot;</font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>L'appui sur le bouton &quot;Choix base de donn&eacute;e&quot; vous donne 
+        acc&egrave;s &agrave; une nouvelle fen&ecirc;tre :</p>
+      <p><img src="Datman%20Select%20DB%20FR.jpg" width="418" height="301"></p>
+      <p>Cochez les bases de donn&eacute;es que vous souhaitez ouvrir. Plus vous 
+        en ouvrez, plus les temps de traitement sont allong&eacute;s. Si votre 
+        ordinateur n'est pas trop puissant, s&eacute;lectionnez le minimum utile.</p>
+      <p>Il est, bien s&ucirc;r, n&eacute;cessaire d'avoir t&eacute;l&eacute;charg&eacute; 
+        et / ou install&eacute; ces bases de donn&eacute;es auparavant. De nouvelles 
+        bases de donn&eacute;es sont en pr&eacute;paration et pourront &ecirc;tre 
+        incorpor&eacute;es dasn l'<b>AVL</b> et dans <b>DATLUN</b>.</p>
+      <p>&quot;<b>Nomm&eacute;s</b>&quot; se rapporte aux formations nomm&eacute;es 
+        telles que Aristarchus ou Vallis Alpes.</p>
+      <p>&quot;<b>Indic&eacute;s</b>&quot; se rapporte aux crat&egrave;res avec 
+        un nom pourvu d'une lettre tels que Lambert R ou Hesiodus A.</p>
+      <p>&quot;<b>Sites historiques</b>&quot; se rapporte aux sites d'impact ou 
+        d'alunissage de missions automatiques ou humaines.</p>
+      <p>Le bouton &quot;<b>Toutes</b>&quot; s&eacute;lectionne toutes les bases 
+        en une seule op&eacute;ration et le bouton &quot;<b>Aucune</b>&quot; r&eacute;alise 
+        l'op&eacute;ration inverse.</p>
+      <p>Cliquez sur le bouton &quot;<b>OK</b>&quot; un fois votre choix fait. 
+        Cette fen&ecirc;tre disparait et vous revenez &agrave; la fen&ecirc;tre 
+        de s&eacute;lection des types de formations. </p>
+      <p><a name="selectpredefthumbnail"></a> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">ONGLET &quot;S&eacute;lections pr&eacute;d&eacute;finies&quot;</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p> <img src="Datman%20Select%20Normal%20FR.jpg" width="582" height="337"></p>
+      <p>Cochez les types de formations que vous souhaitez s&eacute;lectionner. 
+        Plus vous en s&eacute;lectionnez, plus les temps de traitement sont allong&eacute;s. 
+        Si votre ordinateur n'est pas trop puissant, s&eacute;lectionnez le minimum 
+        utile</p>
+      <p>Le bouton &quot;<b>Toutes</b>&quot; s&eacute;lectionne tous les types 
+        de formations en une seule op&eacute;ration et le bouton &quot;<b>Aucune</b>&quot; 
+        r&eacute;alise l'op&eacute;ration inverse.</p>
+      <p><a name="expertmodethumbnail"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0000FF">Mode &quot;Expert&quot; </font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p></p>
+      <p>Si vous cochez la case &quot;<b>Mode expert</b>&quot;, deux nouveaux 
+        onglets apparaissent :</p>
+      <p><img src="Datman%20Select%20Expert%20Predef%20FR.jpg" width="582" height="337"></p>
+      <p><br>
+        <a name="valcolthumbnail"></a> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">ONGLET &quot;Valeur d'une colonne&quot;</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p> En cliquant sur cet onglet, vous avez la possibilit&eacute; de s&eacute;lectionner 
+        les formations qui comportent la valeur <b>EXACTE</b> que vous sp&eacute;cifi&eacute; 
+        dans le champ que vous choisissez.</p>
+      <p><img src="Datman%20Select%20Expert%20ValCol%20FR.jpg" width="582" height="337"></p>
+      <p>La liste d&eacute;roulante du haut vous permet de choisir la colonne. 
+      </p>
+      <p>Puis cochez la ligne correspondant &agrave; votre requ&ecirc;te simple 
+        :</p>
+      <p>- &quot;<b>=</b>&quot; signifie &quot;<b>valeur de la colonne choisie 
+        &eacute;gale &agrave;</b>&quot;. Par exemple, si vous choisissez la colonne 
+        <b>RUKLN</b> qui correspond au n&deg; des cartes de &quot;<b>l'Atlas de 
+        la Lune</b>&quot; de Antonin R&uuml;kl, vous ne verrez dans la fen&ecirc;tre 
+        &quot;Liste&quot; que les formations qui figure sur la carte de l'atlas. 
+      </p>
+      <p>- &quot;&gt;=&quot; signifie &quot;<b>valeur de la colonne choisie sup&eacute;rieure 
+        ou &eacute;gale &agrave;</b>&quot;</p>
+      <p>- &quot;&lt;=&quot; signifie &quot;<b>valeur de la colonne choisie inf&eacute;rieure 
+        ou &eacute;gale &agrave;</b>&quot;</p>
+      <p>- &quot;<b>Entre</b>&quot; permet de rentrer un intervalle de valeur 
+        &agrave; respecter dans la colonne choisie. </p>
+      <p>Exemple : si vous choisissez la colonne LENGTHKM qui correspond &agrave; 
+        la longueur des formations en km, que vous cochez &quot;<b>Entre</b>&quot; 
+        et que vous entrez 30 dans le champ &agrave; droite de &quot;Entre&quot; 
+        et 40 dans le champ &agrave; doite de &quot;et&quot;, vous ne verrez dans 
+        la fen&ecirc;tre &quot;Liste&quot; que les formations qui mesure entre 
+        30 et 40 km de longueur.</p>
+      <p><b>Attention : Il faut qu'il y ait exacte correspondance entre le libell&eacute; 
+        de votre extraction et la valeur du champ. Cette fonction ne permet pas 
+        de s&eacute;lectionner des formations &agrave; partir d'extraits de champ. 
+        Ceci est le but de la fonction suivante &quot;Requ&ecirc;te SQL&quot;.</b></p>
+      <p><a name="SQLthumbnail"></a> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">ONGLET &quot;Requ&ecirc;te SQL&quot;</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p> En cliquant sur cet onglet, vous avez la possibilit&eacute; de s&eacute;lectionner 
+        les formations dont la fiche comporte les valeurs ou les extraits que 
+        vous sp&eacute;cifi&eacute; dans un ou plusieurs champs que vous choisissez. 
+        Elle necessite un minimum de connaissance de la syntaxe du langage SQL.</p>
+      <p>Les boutons sous la fen&ecirc;tre de saisie vous facilitent l'entr&eacute;e 
+        de la requ&ecirc;te et &eacute;vitent les erreurs de syntaxe.</p>
+      <p>La liste d&eacute;roulante en bas &agrave; droite vous permet de choisir 
+        la colonne. </p>
+      <p></p>
+      <p><img src="Datman%20Select%20Expert%20ReqSQL%20FR.jpg" width="582" height="337"></p>
+      <p></p>
+      <p>- &quot;<b>=</b>&quot; signifie &quot;<b>&eacute;gal &agrave;</b>&quot;. 
+      </p>
+      <p>- &quot;&gt;&quot; signifie &quot;<b>sup&eacute;rieur &agrave;</b>&quot;</p>
+      <p>- &quot;&lt;&quot; signifie &quot;<b>inf&eacute;rieur &agrave;</b>&quot;</p>
+      <p>- &quot;&lt;&gt;&quot; signifie &quot;<b>diff&eacute;rent de</b>&quot;</p>
+      <p>- &quot;&lt;=&quot; signifie &quot;<b>valeur de la colonne choisi inf&eacute;rieure 
+        ou &eacute;gale &agrave;</b>&quot;</p>
+      <p>- &quot;&lt;=&quot; signifie &quot;<b>valeur de la colonne choisi inf&eacute;rieure 
+        ou &eacute;gale &agrave;</b>&quot;</p>
+      <p>- &quot;&lt;=&quot; signifie &quot;<b>valeur de la colonne choisi inf&eacute;rieure 
+        ou &eacute;gale &agrave;</b>&quot;</p>
+      <p></p>
+      <p>- &quot;<b>LIKE</b>&quot; signifie &quot;<b>contient</b>&quot;.</p>
+      <p>- &quot;<b>BETWEEN</b>&quot; signifie &quot;<b>entre</b>&quot;.</p>
+      <p>- &quot;<b>NOT</b>&quot; signifie &quot;<b>pas</b>&quot;.</p>
+      <p>- Les guillemets servent &agrave; encadrer une cha&icirc;ne de caract&egrave;res</p>
+      <p>- <b>%</b> est un &quot;joker&quot; qui sert &agrave; remplacer un morceau 
+        de cha&icirc;ne de caract&egrave;res</p>
+      <p>- &quot;<b>AND</b>&quot; sgnifie &quot;<b>et</b>&quot;.</p>
+      <p>- &quot;<b>OR</b>&quot; signifie &quot;<b>ou</b>&quot;.</p>
+      <p>- &quot;<b>ORDER BY</b>&quot; signifie &quot;<b>tri&eacute; par</b>&quot;.</p>
+      <p>- &quot;<b>ASC</b>&quot; signifie &quot;<b>ASCII</b>&quot;, soit une 
+        cha&icirc;ne de caract&egrave;res.</p>
+      <p>- &quot;<b>DESC</b>&quot; signifie &quot;&quot;.</p>
+      <p><b>Attention : Il faut qu'il y ait exacte correspondance entre le libell&eacute; 
+        de votre requ&ecirc;te et la syntaxe SQL, sinon, des messages d'erreurs 
+        appara&icirc;tront.</b></p>
+      <p>Par exemple la requ&ecirc;te suivante :</p>
+      <p>TYPE LIKE "Cra%" AND LENGTHKM BETWEEN 30 AND 35 ORDER BY LATIN</p>
+      <p>va s&eacute;lectionner DANS TOUTES LES BASES DE DONNEES PRECEDEMMENT 
+        SELECTIONNEES, les formations dont le champ TYPE contient les lettres 
+        Cra (ce qui va prendre les cra-t&egrave;res et les cra-terlets), dont 
+        la valeur du champ LENGTHKM (longueur en km) sera comprise entre 30 et 
+        35 (km) et va les classer par ordre croissant du champ LONGIN (par longitude 
+        croissante).</p>
+      <p>La requ&ecirc;te suivante :</p>
+      <p>COUNTRY = "France" AND WORK LIKE "%icien"</p>
+      <p>va s&eacute;lectionner DANS TOUTES LES BASES DE DONNEES PRECEDEMMENT 
+        SELECTIONNEES, les formations dont le champ COUNTRY (Pays d'origine du 
+        personnage du nom) est &eacute;gal &agrave; France et dont le m&eacute;tier 
+        contient &quot;icien&quot; (Ce qui va s&eacute;lectionner les math&eacute;maticiens, 
+        les physiciens, les g&eacute;ophysiciens, les musiciens...)</p>
+      <p>Ces deux exemples illustrent la puissance de la requ&ecirc;te SQL. Afin 
+        de profiter de cette puissance, il faut maintenant rappeler le contenu 
+        de chaque des champs des bases de donn&eacute;es.</p>
+      <p><b><a name="dblist"></a><br>
+        Description rapide des noms des champs (Le lien donne acc&egrave;s &agrave; 
+        la description d&eacute;taill&eacute;e)</b> :</p>
+      <p><a href="#DBN">DBN</a> = Nom de la base de donn&eacute;es contenant la 
+        formation<br>
+        <a href="#NAME">NAME</a> = Nom officiel de la formation<br>
+        <a href="#TYPE">TYPE</a> = Type de la formation<br>
+        <a href="#PERIOD">PERIOD</a> = P&eacute;riode de cr&eacute;ation de la 
+        formation<br>
+        <a href="#NAMEDETAIL">NAMEDETAIL</a> = Nom d&eacute;taill&eacute; de la 
+        formation<br>
+        <a href="#NAMEORIGIN">NAMEORIGIN</a> = Cr&eacute;ateur du nom de la formation<br>
+        <a href="#LANGRENUS">LANGRENUS</a> = Nom donn&eacute; par Langrenus &agrave; 
+        la formation<br>
+        <a href="#HEVELIUS">HEVELIUS</a> = Nom donn&eacute; par Hevelius &agrave; 
+        la formation<br>
+        <a href="#RICCIOLI">RICCIOLI</a> = Nom donn&eacute; par Riccioli &agrave; 
+        la formation<br>
+        <a href="#WORK">WORK</a> = M&eacute;tier du personnage ayant servi &agrave; 
+        nommer la formation<br>
+        <a href="#COUNTRY">COUNTRY</a> = Nation du personnage ayant servi &agrave; 
+        nommer la formation<br>
+        <a href="#NATIONALTY">NATIONALTY</a> = Nationalit&eacute; du personnage 
+        ayant servi &agrave; nommer la formation<br>
+        <a href="#CENTURYN">CENTURYN</a> = Si&egrave;cle (en nombre) d'existence 
+        du personnage ayant servi &agrave; nommer la formation<br>
+        <a href="#CENTURYC">CENTURYC</a> = Si&egrave;cle (en clair) d'existence 
+        du personnage ayant servi &agrave; nommer la formation<br>
+        <a href="#BIRTHPLACE">BIRTHPLACE</a> = Lieu de naissance du personnage 
+        ayant servi &agrave; nommer la formation<br>
+        <a href="#BIRTHDATE">BIRTHDATE</a> = Ann&eacute;e de naissance du personnage 
+        ayant servi &agrave; nommer la formation<br>
+        <a href="#DEATHPLACE">DEATHPLACE</a> = Lieu de d&eacute;c&egrave;s du personnage 
+        ayant servi &agrave; nommer la formation<br>
+        <a href="#DEATHDATE">DEATHDATE</a> = Date de d&eacute;c&egrave;s du personnage 
+        ayant servi &agrave; nommer la formation<br>
+        <a href="#FACTS">FACTS</a> = Faits marquants de la vie du personnage ayant 
+        servi &agrave; nommer la formation<br>
+        <a href="#LONGIN">LONGIN</a> = Valeur num&eacute;rique de la longitude 
+        de la formation<br>
+        <a href="#LONGIC">LONGIC</a> = Valeur en clair de la longitude de la formation<br>
+        <a href="#LATIN">LATIN</a> = Valeur num&eacute;rique de la latitude de 
+        la formation<br>
+        <a href="#LATIC">LATIC</a> = Valeur en clair de la latitude de la formation<br>
+        <a href="#QUADRANT">QUADRANT</a> = Quadrant lunaire o&ugrave; se situe 
+        la formation<br>
+        <a href="#AREA">AREA</a> = Grande r&eacute;gion de la Lune o&ugrave; se 
+        situe la formation<br>
+        <a href="#RUKL">RUKL</a> = Num&eacute;ro de la carte de l'atlas de R&uuml;kl 
+        contenant la formation<br>
+        <a href="#RUKLC">RUKLC</a> = Titre de la carte de l'atlas de R&uuml;kl 
+        contenant la formation<br>
+        <a href="#VISCARDY">VISCARDY</a> = Num&eacute;ro de la carte de l'atlas 
+        de Viscardy contenant la formation<br>
+        <a href="#HATFIELD">HATFIELD</a> = Num&eacute;ro de la carte de l'atlas 
+        d'Hatfield contenant la formation<br>
+        <a href="#WESTFALL">WESTFALL</a> = Num&eacute;ro de la carte de l'atlas 
+        de Westfall contenant la formation<br>
+        <a href="#WOOD">WOOD</a> = Indication des articles de Charles Wood concernant 
+        la formation<br>
+        <a href="#LOPAM">LOPAM</a> = Num&eacute;ro de la carte de l'atlas de contenant 
+        la formation<br>
+        <a href="#LENGTHKM">LENGTHKM</a> = Longueur de la formation en km<br>
+        <a href="#LENGTHMI">LENGTHMI</a> = Longueur de la formation en miles<br>
+        <a href="#WIDEKM">WIDEKM</a> = Largeur de la formation en km<br>
+        <a href="#WIDEMI">WIDEMI</a> = Largeur de la formation en miles<br>
+        <a href="#HEIGHTM">HEIGHTM</a> = Hauteur de la formation en m<br>
+        <a href="#HEIGHTFE">HEIGHTFE</a> = Hauteur de la formation en pieds<br>
+        <a href="#RAPPORT">RAPPORT</a> = Rapport num&eacute;rique Longueur / Hauteur 
+        de la formation<br>
+        <a href="#PROFIL">PROFIL</a> = Visualisation du profil de la formation<br>
+        <a href="#GENERAL">GENERAL</a> = Description g&eacute;n&eacute;rale de 
+        la formation<br>
+        <a href="#SLOPES">SLOPES</a> = = Description de l'ext&eacute;rieur de la 
+        formation<br>
+        <a href="#WALLS">WALLS</a> = Description de l'in&eacute;trieur de la formation<br>
+        <a href="#FLOOR">FLOOR</a> = Description du fond de la formation <br>
+        <a href="#INTERESTN">INTERESTN</a> = Cotation num&eacute;rique de l'int&eacute;r&ecirc;t 
+        de l'observation de la formation<br>
+        <a href="#INTERESTC">INTERESTC</a> = Cotation en clair de l'int&eacute;r&ecirc;t 
+        de l'observation de la formation<br>
+        <a href="#LUNATION">LUNATION</a> = Jour de la lunaison favorable &agrave; 
+        l'observation de la formation<br>
+        <a href="#MOONDAYS">MOONDAYS</a> = Jour (En clair) de la lunaison favorable 
+        &agrave; l'observation de la formation le soir<br>
+        <a href="#MOONDAYM">MOONDAYM</a> = Jour (En clair) de la lunaison favorable 
+        &agrave; l'observation de la formation le matin<br>
+        <a href="#DIAMINST">DIAMINST</a> = Diam&egrave;tre en mm de l'instrument 
+        th&eacute;orique n&eacute;cessaire &agrave; l'observation de la formation 
+        <br>
+        <a href="#THINSTRU">THINSTRU</a> = Nom de l'instrument th&eacute;orique 
+        n&eacute;cessaire &agrave; l'observation de la formation<br>
+        <a href="#PRINSTRU">PRINSTRU</a> = Nom de l'instrument pratique n&eacute;cessaire 
+        &agrave; l'observation de la formation<br>
+      </p>
+      <p>Lorsqu'un crit&egrave;re d'extraction est bas&eacute;e sur un champ num&eacute;rique 
+        (ex : RUKL, LENGTHKM, INTRESTN, etc...), la valeur &agrave; trouver doit 
+        &ecirc;tre rentr&eacute;e dans la requ&ecirc;te sans guillemets (ex : 
+        RUKL = 45). Lorsqu'un crit&egrave;re d'extraction est bas&eacute;e sur 
+        un champ alphanum&eacute;rique (ex : COUNTRY, FACTS, GENERAL, INTERESTN, 
+        etc...), la valeur &agrave; trouver doit &ecirc;tre rentr&eacute;e dans 
+        la requ&ecirc;te avec des guillemets et des jokers (ex : GENERAL LIKE 
+        = &quot;%fond plat%&quot;). </p>
+      <p>Les majuscules et les minuscules doivent aussi &ecirc;tre respect&eacute;es 
+        (Ex : &quot;%Plat%&quot; est diff&eacute;rent de &quot;%plat%&quot;) </p>
+      <p>Pour une description d&eacute;taill&eacute;e du contenu des champs des 
+        bases de donn&eacute;es, allez au <a href="#dbdescription">chapitre sp&eacute;cial</a> 
+        en fin de manuel.</p>
+      <blockquote> 
+        <p><a name="colmenu"></a><br>
+          <br>
+          <b><font color="#009900" size="4">LE&nbsp;MENU &quot;COLONNES&quot;</font></b></p>
+      </blockquote>
+      <p>Ce menu ouvre une fen&ecirc;tre destin&eacute;e &agrave; s&eacute;lectionner 
+        les colonnes qui seront affich&eacute;es pour la liste de s&eacute;lection. 
+        En effet, il est possible que certaines cat&eacute;gories d'informations 
+        ne vous int&eacute;ressent pas et que vous ne souhaitiez pas balayer forc&eacute;ment 
+        toute la &quot;largeur&quot; de la liste pour trouver celles que vous 
+        rechercher.</p>
+      <p><img src="Datman%20Select%20Col%20FR.jpg" width="319" height="440"></p>
+      <p>Cochez les colonnes que vous souhaitez afficher. Plus vous en s&eacute;lectionnez, 
+        plus les temps de traitement sont allong&eacute;s. Si votre ordinateur 
+        n'est pas trop puissant, s&eacute;lectionnez le minimum utile</p>
+      <p>Le bouton &quot;<b>Toutes</b>&quot; s&eacute;lectionne toutes les colonnes 
+        en une seule op&eacute;ration et le bouton &quot;<b>Aucune</b>&quot; r&eacute;alise 
+        l'op&eacute;ration inverse.</p>
+      <p></p>
+      <p>Fermer la fen&ecirc;tre un fois l'op&eacute;ration de s&eacute;lection 
+        termin&eacute;e avec le bouton &quot;<b>Fermer</b>&quot;.</p>
+      <blockquote> 
+        <p><a name="markmenu"></a><br>
+          <br>
+          <b><font color="#009900" size="4">LE&nbsp;MENU &quot;MARQUE LA SELECTION 
+          SUR LA CARTE&quot;</font></b></p>
+      </blockquote>
+      <p>Ce menu n'est pas un menu, mais une commande directe qui va vous montrer 
+        la puissance de l'association entre DATLUN et l'AVL. En cliquant dessus, 
+        vous allez ouvrir l'Atlas Virtuel de la Lune et voir appara&icirc;tre 
+        la carte avec les formations que vous avez s&eacute;lectionn&eacute;es 
+        dans DATLUN marqu&eacute;es par de gros carr&eacute;s.</p>
+      <p>Par exemple, si vous avez s&eacute;lectionn&eacute; les d&ocirc;mes de 
+        la face visible (peunombreux pour l'instant dans les bases de donn&eacute;es), 
+        voici ce que vous obtenez :</p>
+      <p><img src="AVL%20Domes%20Map%20FR.jpg" width="838" height="617"></p>
+      <p>Autre exemple :</p>
+      <p>Vous pouvez aussi par exemple s&eacute;lectionner, pour &eacute;tude 
+        car vous ne pourrez pas les observer, toutes les cha&icirc;nes de crat&egrave;res 
+        (CATENA) de la face cach&eacute;e (Base FCN) et marquer cette s&eacute;lection 
+        sur la carte.</p>
+      <p><img src="AVL%20Catenas%20FCN%20Map%20FR.jpg" width="838" height="622"></p>
+      <p>En cliquant ensuite sur un des carr&eacute;s, cette formation sera s&eacute;lectionn&eacute;e 
+        dans l'AVL et vous aurez acc&egrave;s aux informations et aux images la 
+        concernant. </p>
+      <p>Dernier exemple, voici tous les crat&egrave;res &agrave; fond plat et 
+        sombre (FLOOR LIKE "%plat%" and FLOOR LIKE "%sombre%") de la face visible. 
+        Il y en a 38 :</p>
+      <p><img src="AVL%20Plat%20Sombre%20Map%20FR.jpg" width="845" height="629"></p>
+      <p>Vous y retrouvez bien s&ucirc;r les c&eacute;l&egrave;bres Billy, Zupus, 
+        Grimaldi et Plato.</p>
+      <p>Ces trois exemples vous ont sans doute montr&eacute; les &eacute;tudes 
+        possibles gr&acirc;ce aux informations uniques contenues dans les bases 
+        de donn&eacute;es de l'<b>AVL</b> et compil&eacute;es par Christian Legrand.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><a name="Record"></a><font color="#009900"><b><font size="4">LE&nbsp;MENU 
+            &quot;AIDE&quot;</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p><img src="Datman%20Help%20Menu%20FR.jpg" width="92" height="66"></p>
+      <p> Traditionnel dans tous les logiciels Windows, il sert dans <b>DATLUN</b> 
+        &agrave; lancer la pr&eacute;sente documentation avec &quot;<b>Aide</b>&quot; 
+        et &agrave; afficher les cr&eacute;dits dans &quot;<b>A propos</b>&quot;.</p>
+      <p><a name="listwindow"></a><br>
+        <b><i><font color="#FF0000" size="5">LA&nbsp;FEN&Ecirc;TRE &quot;LISTE 
+        SELECTIONNEE &quot;</font></i></b> </p>
+      <p>La fen&ecirc;tre de la liste s&eacute;lectionn&eacute;e comporte certaines 
+        fonctionnalit&eacute;s qui viennent renforcer les pr&eacute;c&eacute;dentes.<br>
+      </p>
+      <p><img src="Datman%20List%20FR.jpg" width="680" height="625"></p>
+      <p>Tout d'abord, il faut noter que les deux colonnes de gauche en gris sont 
+        obligatoires et ne peuvent &ecirc;tre enlev&eacute;es. Des ascenseurs, 
+        vertical &agrave; droite et horizontal en bas, permettent de se d&eacute;placer 
+        dans la liste.</p>
+      <p>Si vous cliquez sur l'un des titres de colonnes en gris en haut, la liste 
+        se reclasse par ordre num&eacute;rique (si le champ est num&eacute;rique) 
+        ou alphanum&eacute;rique (si le champ est alphanum&eacute;rique) <b>croissant</b>. 
+        Si vous cliquez une seconde fois sur ce m&ecirc;me titre, la liste se 
+        reclasse par ordre <b>d&eacute;croissant.</b></p>
+      <blockquote> 
+        <blockquote> 
+          <p><a name="colwidth"></a><font color="#009900"><b><font size="4">FONCTION 
+            &quot;LARGEUR DE COLONNE&quot;</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>Vous pouvez aussi ajuster la largeur des colonnes en amenant le curseur 
+        sur la barre des titres en gris, &agrave; la limite entre deux colonnes. 
+        Le curseur se transforme alors.</p>
+      <p><img src="Datman%20Width%20Col%20Mod%20FR.jpg" width="254" height="80"></p>
+      <p>Appuyez sur le bouton gauche de la souris, restez appuy&eacute; et aller 
+        &agrave; doite ou &agrave; gauche pour augmenter ou diminuer la largeur 
+        de la colonne.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><a name="otherfunctions"></a><font color="#009900"><b><font size="4">AUTRES 
+            FONCTIONS</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>Si vous ne pouvez pas afficher la totalit&eacute; de la teneur d'un champ 
+        car il est trop long (FACTS, GENERAL...), &quot;posez&quot; le curseur 
+        dessus. Une bulle appara&icirc;t alors contenant la totalit&eacute; du 
+        champ.</p>
+      <p>Dans la liste, vous pouvez &quot;surligner&quot; une ligne afin de ne 
+        pas la perdre quand vous vous d&eacute;placez vers la doite de la liste. 
+        Cliquez une fois sur la ligne qui vous int&eacute;resse et elle passe 
+        en gris fonc&eacute;.</p>
+      <p>Si ensuite, vous double-cliquez sur cette ligne, l'AVL se lance avec 
+        la formation s&eacute;lectionn&eacute;e uniquement.<br>
+      </p>
+      <p><a name="statebar"></a></p>
+      <p><font color="#FF0000" size="5"><i><b>LA BARRE D'ETAT</b></i></font></p>
+      <p><img src="Datman%20State%20Bar%20FR.jpg" width="446" height="23"></p>
+      <p>La barre d'&eacute;tat indique &agrave; gauche le num&eacute;ro de la 
+        ligne du haut de la liste s&eacute;lectionn&eacute;e sur le total des 
+        lignes de la s&eacute;lection. Puis vous avez le libell&eacute; de la 
+        requ&ecirc;te SQL qui a permis de g&eacute;n&eacute;rer cette liste.</p>
+      <p><br>
+      </p>
+      <p><a name="dbimport2"></a></p>
+      <p><font color="#FF0000" size="5"><i><b>Importation depuis CSV</b></i></font></p>
+      <p>La s&eacute;lection de cette fonction dans le menu &quot;Fichier&quot; ouvre une nouvelle 
+        fen&ecirc;tre :</p>
+      <p><img src="Datman%20Import%20CSV%20FR.jpg" width="696" height="540"></p>
+      <p>Cette fen&ecirc;tre permet d'importer de nouveaux objets depuis un fichier 
+        au format CSV dans une nouvelle base de donn�s utilisable par l'Atlas 
+        Virtuel de la Lune. </p>
+      <p>Il n'offre pas de possibilit�de calcul ou de combinaison de champs. 
+        En cas de besoin utilisez au pr�lable un programme comme OpenOffice, 
+        Org Calc ou Excel pour formater vos donn�s et les enregistrer au format 
+        CSV. </p>
+      <p>Puis dans le cadre ci-dessous, indiquez tout d'abord en utilisant la 
+        liste d&eacute;roulante le caract�e utilis�pour s�arer les colonnes 
+        ( ; ou tabulation ) et si les textes sont entour� avec " ou pas. </p>
+      <p><img src="Datman%20Separate%20CSV%20Frame%20FR.jpg" width="263" height="133"></p>
+      <p>Si vous avez d��enregistr�des param�res pour un fichier vous pouvez 
+        utiliser le bouton "<b>Charger</b>" pour les retrouver. </p>
+      <p><img src="Datman%20Load%20CSV%20Frame%20FR.jpg" width="260" height="99"></p>
+      <p>Si vous n'avez pas enregistr&eacute; de param&egrave;tres pr&eacute;cedemment, 
+        il vous faut ouvrir le fichier contenant vos donn�s personnelles. Indiquer 
+        le chemin du fichier CSV &agrave; importer dans le cadre :</p>
+      <p><img src="Datman%20Import%20CSV%20Frame%20FR.jpg" width="260" height="99"></p>
+      <p>Vous pouvez &eacute;galement utiliser le bouton de la liste d&eacute;roulante 
+        pour le situer. Lorsque le fichier est trouv&eacute; par le programme, 
+        celui-ci indique le nombre d'enregistrements trouv&eacute;s :</p>
+      <p><img src="Datman%20Import%20CSV%20Frame%20FR%202.jpg" width="260" height="99"></p>
+      <p></p>
+      <p>Si le format est reconnu un nouvel onglet appara� en haut de la page 
+        : </p>
+      <p><img src="Datman%20Import%20CSV%20Thumbnail%20FR.jpg" width="280" height="36"></p>
+      <p>.Cliquez dessus pour afficher la <b>fen&ecirc;tre de s&eacute;lection 
+        des champs</b> :</p>
+      <p></p>
+      <p><img src="Datman%20Import%20CSV%20FR%203.jpg" width="696" height="540"> 
+      </p>
+      <p>L'�ape suivante est d'indiquer quelles colonnes de votre fichier correspondent 
+        au diff�ents champs de la base de donn�. R��ez vous au paragraphe 
+        &quot;<b>Contenu des bases de donn&eacute;es</b>&quot; ci-apr&egrave;s 
+        pour la signification exacte de chaque champ. </p>
+      <p>Cliquez sur une des valeurs de votre fichier pour la marquer dans le 
+        cadre de gauche :</p>
+      <p><img src="Datman%20Import%20CSV%20Input%20Frame%20FR.jpg" width="327" height="371"></p>
+      <p>puis cochez le champ correspondant de la base de donn� dans le cadre 
+        de droite :</p>
+      <p><img src="Datman%20Import%20CSV%20Output%20Frame%20FR.jpg" width="306" height="432"></p>
+      <p>et enfin , pressez le bouton <img src="Datman%20Import%20CSV%20Exchange%20Button%20FR.jpg" width="54" height="28"> 
+        pour cr&eacute;er l'association des champs entre les deux fichiers. </p>
+      <p>Il est aussi possible de donner une valeur constante �un des champs 
+        de la base de donn� en entrant cette valeur dans le cadre en bas de la 
+        fen�re :</p>
+      <p><img src="Datman%20Import%20CSV%20Constant%20Frame%20FR.jpg" width="306" height="31"></p>
+      <p>Presser ensuite le bouton "<b>Valeur Constante</b>". </p>
+      <p><b>DBN</b> est un num�o de fichier compris entre 10 et 99 qui permet 
+        d'identifier votre fichier dans la base de donn�. C'est gr�e a lui que 
+        vous pourrez choisir l'affichage de label pour vos objet. Il permet aussi 
+        de visualiser vos objets en entrant DBN=10 dans la <b>fen�re de s�ection 
+        SQL</b>, et de supprimer les donn�s de ce fichier depuis le menu Fichier 
+        - Supprimer. </p>
+      <p>Il est <b>obligatoire</b> de donner une valeur aux champs DBN, NAME, 
+        LONGIN et LATIN afin de pouvoir localiser les formations de votre liste 
+        personnelle sur la carte de l'AVL. Lorsque tout les champs obligatoires 
+        ont une valeur l'onglet suivant appara� en haut de l'�ran :</p>
+      <p><img src="Datman%20Import%20CSV%20Thumbnail%20FR%202.jpg" width="469" height="29"></p>
+      <p>Cliquez dessus afin de faire appara&icirc;tre le <b>cadre de sauvegarde</b> 
+        :</p>
+      <p><img src="Datman%20Import%20CSV%20FR%204.jpg" width="696" height="540"> 
+      </p>
+      <p>Appuyer sur le bouton "<b>Chargement</b>" pour charger la base de donn� 
+        :</p>
+      <p><img src="Datman%20Import%20CSV%20Load%20Frame%20FR.jpg" width="238" height="108"></p>
+      <p>Le bouton "<b>Sauvegarde</b>" vous permettra de retrouver ces param�res 
+        plus tard :</p>
+      <p><img src="Datman%20Import%20CSV%20Backup%20Frame%20FR.jpg" width="333" height="107"></p>
+      <p>Le programme vous confirme ensuite le d&eacute;roulement des op&eacute;rations 
+        :</p>
+      <p><img src="Datman%20Import%20CSV%20FR%205.jpg" width="696" height="540"> 
+      </p>
+      <p>L'op&eacute;ration d'importation est alors termin&eacute;e.</p>
+      <hr>
+      <p align="center"><b><font color="#FF0000" size="5"><i><a name="dbdescription"></a><br>
+        DESCRIPTION DETAILLEE DES INFORMATIONS DES BASES DE DONNEES :</i></font><font color="#FF0000" size="4"><br>
+        </font></b></p>
+      <p>La base de donn&eacute;es de la version &quot;Pro&quot; de l'AVL est 
+        la plus importante base de donn&eacute;e lunaireexistante &agrave; ce 
+        jour. Le fichier repr&eacute;sente plus de 5 Mo de texte. Elle contient 
+        les fiches descriptives de plus de 9000 formations lunaires dont pr&egrave;s 
+        de 6500 pour la face visible. </p>
+      <p>Elle est s&eacute;par&eacute;e en quatre bases distinctes :</p>
+      <p>- <b>Formations nomm&eacute;es de la face visible</b> (ex : Clavius, 
+        Rima Hyginus, Montes Alpes... / 1100 entr&eacute;es environ)<br>
+        <br>
+        - <b>Crat&egrave;res indic&eacute;s de la face visible</b> (ex : Clavius 
+        D, Hyginus A, Plato B... / 5300 entr&eacute;es environ)<br>
+        <br>
+        - <b>Formations nomm&eacute;es de la face cach&eacute;e</b> (ex : Tsiolkovsky, 
+        Mare Moscoviense... / 650 entr&eacute;es environ)<br>
+        <br>
+        - <b>Crat&egrave;res indic&eacute;s de la face cach&eacute;e</b> (ex : 
+        Tsiolkosky D, Schrodinger A... / 4100 entr&eacute;es environ) <br>
+        <br>
+        - <b>Sites historiques des deux faces</b> (eg : Apollo 15 Base, Ranger 
+        7, Luna 9, Apollo 17 S IV B... / 58 entr&eacute;es)<br>
+      </p>
+      <p>Pour chaque formation, les informations mentionn&eacute;es sont relatives 
+        &agrave; :</p>
+      <p>- le type et l'origine g&eacute;ologique de la formation<br>
+        - les dimensions et la description de la formation.<br>
+        - divers renseignements utiles pour l'observation<br>
+        - la localisation de la formation sur le disque lunaire.<br>
+        - la mention des cartes et pages pr&eacute;sentant la formation dans les 
+        principaux atlas de la Lune disponibles<br>
+        - l'origine du nom de la formation.<br>
+      </p>
+      <p>Attention : Dans un document aussi important par la taille, il doit certainement 
+        rester des erreurs de saisie malgr&eacute; le soin apport&eacute;. Vous 
+        pouvez les indiquer &agrave; <a href="mailto:chlegrand@free.fr">Christian 
+        Legrand</a>. Elles seront corrig&eacute;es d&egrave;s que possible. L'auteur 
+        vous remercie par avance pour votre collaboration.</p>
+      <p>La base de donn&eacute;es de l'AVL sera constamment augment&eacute;e 
+        dans les futures versions afin d'apporter de plus en plus de renseignements 
+        sur toujours plus de formations. Surveillez notre site Web pour voir les 
+        mises &agrave; jour.</p>
+      <p><b>ATTENTION : Les informations des bases de donn&eacute;es de l' &quot;Atlas 
+        Virtuel de la Lune&quot; sont fournies sous le copyright &quot;(c) Christian 
+        Legrand&quot; et ne peuvent &ecirc;tre utilis&eacute;es en dehors de ce 
+        programme. Pour tout autre utilisation veuillez contacter <a href="mailto:chlegrand@free.fr">Christian 
+        Legrand</a></b> </p>
+      <p></p>
+      <p><a name="DBN"></a></p>
+      <p><font size="4" color="#00FF00"><b><font color="#009900">DBN = DATABASE 
+        NAME :</font></b></font></p>
+      <p> Il s'agit du nom abr&eacute;g&eacute; des bases de donn&eacute;es utilis&eacute; 
+        par <b>DATLUN.</b> <br>
+      </p>
+      <p>- <b>FVN</b> = &quot;<b>Face visible nomm&eacute;</b>&quot;, c'est &agrave; 
+        dire les formations nomm&eacute;es de la face visible.<br>
+        - <b>FCN</b> = &quot;<b>Face cach&eacute;e nomm&eacute;</b>&quot;, c'est 
+        &agrave; dire les formations nomm&eacute;es de la face cach&eacute;e<br>
+        - <b>FVI</b> = &quot;<b>Face visible indic&eacute;</b>&quot;, c'est &agrave; 
+        dire les formations nomm&eacute;es avec des lettres de la face visible.<br>
+        - <b>FCN</b> = &quot;<b>Face cach&eacute;e indic&eacute;</b>&quot;, c'est 
+        &agrave; dire les formations nomm&eacute;es avec des lettres de la face 
+        cach&eacute;e<br>
+      </p>
+      <p> En ce qui concerne les bases de donn&eacute;es personnelles que vous 
+        aurez import&eacute;es, <b>DBN</b> est un nombre compris entre 10 et 99 
+        qui permet d'identifier vos fichiers. C'est gr�e a lui que vous pourrez 
+        choisir l'affichage de label pour vos objet. Il permet aussi de visualiser 
+        vos objets en entrant DBN = 10 &agrave; 99 dans la fen�re de s�ection 
+        SQL, et de supprimer les donn�s de ce fichier depuis le menu &quot;<b>Fichier 
+        - Supprimer</b>&quot;. </p>
+      <p><a name="NAME"></a> </p>
+      <blockquote> 
+        <p><font size="4" color="#00FF00"><b><font color="#009900">NAME = NOM 
+          OFFICIEL :</font></b></font></p>
+      </blockquote>
+      <p> C'est le nom principal de la formation en latin utilis&eacute; officiellement 
+        par l'<b>Union Astronomique Internationale</b> en majuscules. Dans la 
+        base &quot;<b>Sites historiques</b>&quot;, c'est le nom de la mission 
+        avec une indication sur l'&eacute;l&eacute;ment dont il s'agit (ex : Apollo 
+        15 <i>Base</i>, Ranger 7, Luna 9, Apollo 17 <i>S IV B</i>...)<br>
+      </p>
+      <p><a name="TYPE"></a> </p>
+      <blockquote> 
+        <p><font color="#009900" size="4"><b>TYPE = TYPE DE FORMATION :</b></font></p>
+      </blockquote>
+      <p> Ce champ contient le type de la formation en conformit&eacute; avec 
+        les d&eacute;finitions de l'<b>Union Astronomique Internationale</b> ou 
+        traditionnels plus quelques ajouts sp&eacute;cifiques :</p>
+      <p>- Cap<br>
+        - Cha&icirc;ne de crat&egrave;res<br>
+        - Cha&icirc;ne de montagnes<br>
+        - Crat&egrave;re<br>
+        - Craterlet<br>
+        - Dorsale<br>
+        - D&ocirc;me<br>
+        - Escarpement<br>
+        - Golfe<br>
+        - Lac<br>
+        - Marais<br>
+        - Mer<br>
+        - Mission humaine (Lieu d'alunissage)<br>
+        - Montagne<br>
+        - Plateau<br>
+        - Plaine<br>
+        - Plaine mur&eacute;e<br>
+        - Rainure<br>
+        - Sonde (Lieu d'impact ou d'alunissage)<br>
+        - Syst&egrave;me de d&ocirc;mes<br>
+        - Syst&egrave;me de dorsales<br>
+        - Syst&egrave;me de rainures<br>
+        - Vall&eacute;e</p>
+      <p>La base &quot;<b>Sites historiques</b>&quot; contient des types sp&eacute;cifiques 
+        :</p>
+      <p>- Mission humaine / Atterissage<br>
+        - Equipement inerte / Impact volontaire<br>
+        - Equipement inerte / Impact involontaire<br>
+        - Sonde / Impact volontaire<br>
+        - Sonde / Impact involontaire<br>
+        - Sonde / Atterrissage<br>
+      </p>
+      <p><a name="PERIOD"></a></p>
+      <blockquote> 
+        <p><font color="#009900" size="4"><b>PERIOD = PERIODE DE FORMATION :</b></font></p>
+      </blockquote>
+      <p> L'&acirc;ge de la formation est indiqu&eacute; en fonction de la p&eacute;riode 
+        lunaire de sa mise en place. Les 6 p&eacute;riodes g&eacute;n&eacute;ralement 
+        admises dans la litt&eacute;rature actuelle sont :</p>
+      <p>Le <b>Pr&eacute;-Nectarien</b> : (-4550 MA &agrave; -3920 MA)<br>
+        Le <b>Nectarien</b> : (-3920 MA &agrave; -3850 MA)<br>
+        L'<b>Imbrien inf&eacute;rieur</b>: (-3850 MA &agrave; -3800 MA)<br>
+        L'<b>Imbrien sup&eacute;rieur</b>: (-3800 MA &agrave;-3200 MA)<br>
+        L'<b>Eratosth&eacute;nien</b> : (-3200 MA &agrave;-1100 MA)<br>
+        Le <b>Copernicien</b> : (-1100 MA &agrave; nos jours)</p>
+      <p>MA = Millions d'ann&eacute;es<br>
+      </p>
+      <p>L'&acirc;ge indiqu&eacute; a &eacute;t&eacute; extrait du remarquable 
+        livre de Don E. Wilhelms et son &eacute;quipe : &quot;<b>The geologic 
+        history of the Moon</b>&quot;, USGS publication n&deg; 1348 de 1981. Les 
+        cartes et les textes de cet ouvrage ont fourni la moiti&eacute; des &acirc;ges 
+        indiqu&eacute;s. Post&eacute;rieur aux missions Apollo, cet ouvrage int&egrave;gre 
+        la plupart des d&eacute;couvertes effectu&eacute;es &agrave; cette &eacute;poque. 
+        Depuis, certaines donn&eacute;es ont pu &ecirc;tre remises en cause.</p>
+      <p>Dans cette bible de la g&eacute;ologie lunaire, certains crat&egrave;res 
+        sont des exemples id&eacute;aux de formations de chacune des 6 p&eacute;riodes. 
+        Ils ont &eacute;t&eacute; nomm&eacute;s dans la base de donn&eacute;es 
+        comme &quot;<b>Typique</b>&quot;.</p>
+      <p>L'autre moiti&eacute; des &acirc;ges a &eacute;t&eacute; obtenue &agrave; 
+        partir de la <b>carte g&eacute;ologique de la Lune</b> &eacute;tablie 
+        &eacute;galement par Don E. Wilhelms et son &eacute;quipe en 1971. La 
+        localisation des formations sur cette carte &eacute;tant moins pr&eacute;cise, 
+        les &acirc;ges indiqu&eacute;s sont termin&eacute;s par un &quot;?&quot; 
+        afin de montrer l'incertitude qui subsiste par rapport &agrave; la source 
+        pr&eacute;c&eacute;dente. Par ailleurs, cette carte &eacute;tablie, avant 
+        les r&eacute;sultats des missions Apollo ne comporte que 4 p&eacute;riodes 
+        g&eacute;ologiques. </p>
+      <p>Le <b>Pr&eacute;-Imbrien</b> : (-4550 MA &agrave; -3850 MA) qui regroupe 
+        le Pr&eacute;-Nectarien et le Nectarien.<br>
+        L'<b>Imbrien</b> : (-3850 MA &agrave;-3200 MA) qui regroupe les Imbriens 
+        inf&eacute;rieur et sup&eacute;rieur<br>
+        L' <b>Eratosth&eacute;nien</b> : (-3200 MA &agrave;-1100 MA)<br>
+        Le <b>Copernicien</b> : (-1100 MA &agrave;-0 M)<br>
+      </p>
+      <p>Les &acirc;ges qui sont bas&eacute;s sur cette seconde carte sont donc 
+        un peu moins pr&eacute;cis que les pr&eacute;c&eacute;dents, tout au moins 
+        dans les deux premi&egrave;res p&eacute;riodes de l'&eacute;volution lunaire.</p>
+      <p>Pour certaines formations, il n'a pas &eacute;t&eacute; possible de trouver 
+        d'information concernant la p&eacute;riode de mise en place. Est alors 
+        indiqu&eacute; &quot;P&eacute;riode de formation non trouv&eacute;e&quot;.</p>
+      <p>Pour la base &quot;<b>Sites historiques</b>&quot;, c'est la date de lancement 
+        de la mission qui est indiqu&eacute;e dans ce champ</p>
+      <p>.</p>
+      <blockquote> 
+        <p><font size="5"><b><font color="#009900" size="4">ORIGINE DU NOM :</font></b></font><br>
+        </p>
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="NAMEDETAIL"></a>NAMEDETAIL 
+            = Nom r&eacute;el :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Cette rubrique mentionne le nom r&eacute;el du personnage ayant servi 
+        &agrave; nommer la formation. Lorsqu'il existe un surnom, il est indiqu&eacute; 
+        entre parenth&egrave;ses.</p>
+      <p> Pour les formations autres que les crat&egrave;res, le nom officiel 
+        est d'abord traduit en fran&ccedil;ais, puis il est rappel&eacute; apr&egrave;s 
+        le nom r&eacute;el du personnage ayant servi &agrave; nommer la formation.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font size="4" color="#009900"><b><font color="#0033CC"><a name="NAMEORIGIN"></a>NAMEORIGIN 
+            = Auteur du nom :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ indique lorsqu'ils sont connus ou suppos&eacute;s, le nom de 
+        la personne ou de l'organisme qui a donn&eacute; le nom &agrave; la formation 
+        ainsi que l'ann&eacute;e de nomination. Dans ce paragraphe, UAI signifie 
+        &quot;<b>Union Astronomique Internationale</b>&quot;. On trouve principalement 
+        3 origines :</p>
+      <p>- H&eacute;v&eacute;lius<br>
+        - Riccioli<br>
+        - UAI</p>
+      <p>mais aussi d'autres s&eacute;l&eacute;nographes comme Schr&ouml;ter, 
+        Schmidt... </p>
+      <p> Lorsque l'origine n'a pu &ecirc;tre trouv&eacute;e, le champ comporte 
+        (??). De plus, certaines origines incertaines sont termin&eacute;es par 
+        ?.</p>
+      <p> Ces origines de nom sont donn&eacute;es &agrave; titre purement indicatif 
+        et ne sauraient &ecirc;tre tenues comme rigoureusement exactes compte 
+        tenu des nombreux ajouts qui ont &eacute;t&eacute; faits de tous temps 
+        &agrave; la nomenclature lunaire<br>
+        <br>
+        Pour la base &quot;<b>Sites historiques</b>&quot;, c'est la nationalit&eacute; 
+        du pays et le nom de l'organisme concepteur de la mission qui sont indiqu&eacute;s 
+        (Ex : USA / NASA ou URSS / Korolev...)</p>
+      <blockquote> 
+        <blockquote>
+          <p><font size="4" color="#009900"><b><font color="#0033CC"><a name="LANGRENUS"></a>LANGRENUS 
+            = Nom donn&eacute; par Langrenus :</font> </b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ indique le nom donn&eacute; par <font color="#000000"><b>Michel 
+        Florent Van Langren</b></font> sur sa carte de la Lune de 1644. Lorsque 
+        la formation n'avait pas re&ccedil;u de nom ou ne figurait pas sur la 
+        carte, il est indiqu&eacute; &quot;Non nomm&eacute;&quot;.<br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font size="4" color="#009900"><b><font color="#0033CC"><a name="HEVELIUS"></a>HEVELIUS 
+            = Nom donn&eacute; par Hevelius :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ indique le nom donn&eacute; par <b>Johannes Hevelius</b> sur 
+        sa carte de la Lune de 1647. Lorsque la formation n'avait pas re&ccedil;u 
+        de nom ou ne figurait pas sur la carte, il est indiqu&eacute; &quot;Non 
+        nomm&eacute;&quot;.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font size="4" color="#009900"><b><font color="#0033CC"><a name="RICCIOLI"></a>RICCIOLI 
+            = Nom donn&eacute; par Riccioli :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ indique le nom donn&eacute; par <b>Riccioli</b> en 1651 sur 
+        la carte de la Lune dessin&eacute;e par Francesco Grimaldi. Lorsque la 
+        formation n'avait pas re&ccedil;u de nom ou ne figurait pas sur la carte, 
+        il est indiqu&eacute; &quot;Non nomm&eacute;&quot;.<br>
+      </p>
+      <blockquote> 
+        <blockquote><font color="#009900" size="4"><b><font color="#0033CC"><a name="WORK"></a>WORK 
+          = M&eacute;tier :</font></b></font></blockquote>
+      </blockquote>
+      <p>Ce champ indique, pour les crat&egrave;res, la ou les activit&eacute;s 
+        exerc&eacute;es ou attribu&eacute;es au personnage ayant servi &agrave; 
+        nommer la formation :</p>
+      <p> Voici la liste des &quot;m&eacute;tiers&quot; pr&eacute;sents dans la 
+        base de donn&eacute;es :</p>
+      <p><b>- Agronome<br>
+        - Alchimiste<br>
+        - Amiral<br>
+        - Anthropologue<br>
+        - Arch&eacute;ologue<br>
+        - Archev&ecirc;que<br>
+        - Architecte<br>
+        - Artiste<br>
+        - Astronaute<br>
+        - Astronome<br>
+        - Astrophysicien<br>
+        - Aviateur<br>
+        - Banquier<br>
+        - Biologiste<br>
+        - Botaniste<br>
+        - Calife<br>
+        - Cartographe<br>
+        - Chimiste<br>
+        - Consul<br>
+        - Cosmographe<br>
+        - Devin<br>
+        - Dieu<br>
+        - &Eacute;crivain<br>
+        - &Eacute;gyptologue<br>
+        - Explorateur<br>
+        - G&eacute;od&eacute;sien<br>
+        - G&eacute;ographe<br>
+        - G&eacute;ologue<br>
+        - G&eacute;om&egrave;tre<br>
+        - G&eacute;ophysicien<br>
+        - Graveur<br>
+        - H&eacute;ros<br>
+        - Historien<br>
+        - Homme d'&eacute;tat<br>
+        - Homme politique<br>
+        - Horloger<br>
+        - Humaniste<br>
+        - Hydrographe<br>
+        - Imprimeur<br>
+        - Industriel<br>
+        - Ing&eacute;nieur<br>
+        - Inventeur<br>
+        - Juriste<br>
+        - Marin<br>
+        - Math&eacute;maticien<br>
+        - M&eacute;c&egrave;ne<br>
+        - M&eacute;decin<br>
+        - M&eacute;t&eacute;orologue<br>
+        - Min&eacute;ralogiste<br>
+        - Missionnaire<br>
+        - Naturaliste<br>
+        - Navigateur<br>
+        - Oc&eacute;anographe<br>
+        - Opticien<br>
+        - Pal&eacute;ontologue<br>
+        - Personnage mythologique<br>
+        - Pharmacien<br>
+        - Philologue<br>
+        - Philosophe<br>
+        - Physicien<br>
+        - Physiologiste<br>
+        - Po&egrave;te<br>
+        - Pr&ecirc;tre<br>
+        - Professeur<br>
+        - Roi<br>
+        - Savant<br>
+        - Sainte<br>
+        - Sismologue<br>
+        - Technicien<br>
+        - Th&eacute;ologien<br>
+        - Zoologiste</b> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#0033CC" size="4"><a name="COUNTRY"></a>COUNTRY = 
+            Pays :</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>Ce champ indique le pays d'origine du personnage ayant servi &agrave; 
+        nommer la formation. On peut trouver des nations disparues aujourd'hui. 
+        Cf la liste des nationalit&eacute;s ci-dessous.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#0033CC" size="4"><a name="NATIONALTY"></a>NATIONALTY 
+            = Nationalit&eacute; :</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>Ce champ indique la nationalit&eacute; g&eacute;n&eacute;ralement reconnue 
+        au personnage ayant servi &agrave; nommer la formation. Il peut ne pas 
+        s'agir de sa nationalit&eacute; d'origine. De m&ecirc;me, on peut trouver 
+        des nationalit&eacute;s aujourd'hui disparues :</p>
+      <blockquote> 
+        <blockquote> 
+          <p><b>- allemand<br>
+            - am&eacute;ricain<br>
+            - anglais<br>
+            - arabe<br>
+            - australien<br>
+            - autrichien<br>
+            - babylonien<br>
+            - belge<br>
+            - britannique<br>
+            - byzantin<br>
+            - br&eacute;silien<br>
+            - canadien<br>
+            - carthaginois<br>
+            - castillan<br>
+            - chinois<br>
+            - cr&eacute;tois<br>
+            - dalmate<br>
+            - danois<br>
+            - &eacute;cossais<br>
+            - &eacute;gyptien<br>
+            - espagnol<br>
+            - finlandais<br>
+            - fran&ccedil;ais<br>
+            - grec<br>
+            - hollandais<br>
+            - hongrois<br>
+            - indien<br>
+            - irlandais<br>
+            - italien<br>
+            - japonais<br>
+            - mac&eacute;donien <br>
+            - mexicain<br>
+            - norv&eacute;gien<br>
+            - persan<br>
+            - polonais<br>
+            - portugais<br>
+            - romain<br>
+            - russe<br>
+            - sovi&eacute;tique<br>
+            - sud africain<br>
+            - su&eacute;dois<br>
+            - suisse<br>
+            - tch&egrave;que<br>
+            - v&eacute;nitien<br>
+            </b><br>
+          </p>
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="CENTURYN"></a>CENTURYN 
+            = Nombre du si&egrave;cle :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ indique le num&eacute;ro du si&egrave;cle durant lequel le 
+        personnage ayant servi &agrave; nommer la formation a v&eacute;cu. Par 
+        exemple : 19 pour &quot;19 &egrave;me si&egrave;cle&quot;.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="CENTURYC"></a>CENTURYC 
+            = Libell&eacute; du si&egrave;cle :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>Ce champ indique en clair le libell&eacute; du si&egrave;cle durant lequel 
+        le personnage ayant servi &agrave; nommer la formation a v&eacute;cu. 
+        Par exemple : &quot;19 &egrave;me si&egrave;cle&quot;.</p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <blockquote> 
+              <p></p>
+            </blockquote>
+          </blockquote>
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="BIRTHPLACE"></a>BIRTHPLACE 
+            = Lieu de naissance :</font></b></font></p>
+          </blockquote>
+      </blockquote>
+      <p> Ce champ indique le lieu de naissance du personnage ayant servi &agrave; 
+        nommer la formation s'il a pu &ecirc;tre trouv&eacute;. Dans le cas contraire, 
+        il figure &quot;?&quot; . A noter que pour les personnages imaginaires, 
+        il n'a pas &eacute;t&eacute; indiqu&eacute; de lieu de naissance.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#0033CC"><a name="BIRTHDATE"></a>BIRTHDATE 
+            = Ann&eacute;e de naissance :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ indique l'ann&eacute;e de naissance du personnage ayant servi 
+        &agrave; nommer la formation si elle a pu &ecirc;tre trouv&eacute;e. Dans 
+        le cas contraire, il figure &quot;?&quot; . A noter que pour les personnages 
+        imaginaires, il n'a pas &eacute;t&eacute; indiqu&eacute; d'ann&eacute;e 
+        de naissance.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#0033CC"><a name="DEATHPLACE"></a>DEATHPLACE 
+            = Lieu de d&eacute;c&egrave;s :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ indique le lieu de d&eacute;c&egrave;s du personnage ayant 
+        servi &agrave; nommer la formation s'il a pu &ecirc;tre trouv&eacute;. 
+        Dans le cas contraire, il figure &quot;?&quot; . A noter que pour les 
+        personnages imaginaires, il n'a pas &eacute;t&eacute; indiqu&eacute; de 
+        lieu de d&eacute;c&egrave;s</p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#0033CC"><a name="DEATHDATE"></a>DEATHDATE 
+            = Ann&eacute;e de d&eacute;c&egrave;s :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ indique l'ann&eacute;e de d&eacute;c&egrave;s du personnage 
+        ayant servi &agrave; nommer la formation si elle a pu &ecirc;tre trouv&eacute;e. 
+        Dans le cas contraire figure &quot;?&quot; . A noter que pour les personnages 
+        imaginaires, il n'a pas &eacute;t&eacute; indiqu&eacute; d'ann&eacute;e 
+        de d&eacute;c&egrave;s.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#0033CC"><a name="FACTS"></a>FACTS 
+            = Faits marquants :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Cette rubrique d&eacute;crit les faits marquants de la vie du personnage 
+        ayant servi &agrave; nommer la formation lorqu'ils ont pu &ecirc;tre trouv&eacute;s. 
+        Dans le cas contraire, il figure &quot;??&quot;.</p>
+      <p> Ces renseignements sont adapt&eacute;es des informations de l'<b>Union 
+        Astronomique Internationale</b> compl&eacute;t&eacute;es par des donn&eacute;es 
+        provenant de diverses sources bibliographiques.</p>
+      <p> En r&egrave;gle g&eacute;n&eacute;rale, on trouve les d&eacute;couvertes, 
+        inventions et travaux importants imputables au personnage ainsi que les 
+        distinctions qu'il a pu obtenir durant sa vie (nominations, prix...) avec 
+        les dates associ&eacute;es lorsqu'elles ont pu &ecirc;tre trouv&eacute;es.<br>
+        <br>
+      </p>
+      <blockquote> 
+        <p><font size="5"><b><font color="#009900" size="4">POSITION :</font></b></font></p>
+      </blockquote>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="LONGIN"></a>LONGIN 
+            = Longitude num&eacute;rique :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ donne en nombre la longitude s&eacute;l&eacute;nographique 
+        de la formation donn&eacute;e au dixi&egrave;me de degr&eacute; pr&egrave;s. 
+        Ces donn&eacute;es sont celles communiqu&eacute;es par l'<b>Union Astronomique 
+        Internationale</b>. La longitude est n&eacute;gative &agrave; l'Ouest 
+        du m&eacute;ridien central. Pour les crat&egrave;res, il s'agit de la 
+        longitude du centre de la formation. Pour les formations allong&eacute;es 
+        ou de forme irr&eacute;guli&egrave;re, il s'agit d'un point interne le 
+        plus central possible.</p>
+      <blockquote> 
+        <blockquote> 
+          <p></p>
+          <p> <font color="#009900" size="4"><b><font color="#0033CC"><a name="LONGIC"></a>LONGIC 
+            = Longitude en caract&egrave;res :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ donne en clair la longitude s&eacute;l&eacute;nographique de 
+        la formation donn&eacute;e au dixi&egrave;me de degr&eacute; pr&egrave;s. 
+        Ces donn&eacute;es sont celles communiqu&eacute;es par l'<b>Union Astronomique 
+        Internationale</b>. La longitude est n&eacute;gative &agrave; l'Ouest 
+        du m&eacute;ridien central. Pour les crat&egrave;res, il s'agit de la 
+        longitude du centre de la formation. Pour les formations allong&eacute;es 
+        ou de forme irr&eacute;guli&egrave;re, il s'agit d'un point interne le 
+        plus central possible.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="LATIN"></a>LATIN 
+            = Latitude num&eacute;rique :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ donne en nombre la latitude s&eacute;l&eacute;nographique de 
+        la formation donn&eacute;e au dixi&egrave;me de degr&eacute; pr&egrave;s. 
+        Ces donn&eacute;es sont celles communiqu&eacute;es par l'<b>Union Astronomique 
+        Internationale</b>. La latitude est n&eacute;gative au Sud de l'Equateur 
+        lunaire. Pour les crat&egrave;res, il s'agit de la latitude du centre 
+        de la formation. Pour les formations allong&eacute;es ou de forme irr&eacute;guli&egrave;re, 
+        il s'agit d'un point interne le plus central possible.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="LATIC"></a>LATIC 
+            = Latitude en caract&egrave;res :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ donne en clair la latitude s&eacute;l&eacute;nographique de 
+        la formation donn&eacute;e au dixi&egrave;me de degr&eacute; pr&egrave;s. 
+        Ces donn&eacute;es sont celles communiqu&eacute;es par l'<b>Union Astronomique 
+        Internationale</b>. La latitude est n&eacute;gative au Sud de l'&Eacute;quateur 
+        lunaire. Pour les crat&egrave;res, il s'agit de la latitude du centre 
+        de la formation. Pour les formations allong&eacute;es ou de forme irr&eacute;guli&egrave;re, 
+        il s'agit d'un point interne le plus central possible.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="QUADRANT"></a>QUADRANT 
+            = Quadrant :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Des informations ont &eacute;t&eacute; incluses pour faciliter la localisation 
+        de la formation sur le disque lunaire. Le syst&egrave;me de localisation 
+        est celui retenu par l'<b>Union Astronomique Internationale</b> depuis 
+        1988. Lorsqu'on regarde le disque lunaire &agrave; l'oeil nu, l'Est est 
+        &agrave; droite et le Nord en haut. Ce premier champ indique le quadrant 
+        lunaire o&ugrave; se trouve situ&eacute; la formation en r&eacute;f&eacute;rence 
+        aux &quot;<b>Lunar Quadrant Charts</b>&quot; de Arthur &amp; Agnieray 
+        &eacute;dit&eacute;es par l'Universit&eacute; de l'Arizona ou &agrave; 
+        la carte pliable en 4 quadrants &eacute;dit&eacute;e par la revue am&eacute;ricaine 
+        &quot;<b>Sky and Telescope</b>&quot; : </p>
+      <p><b>- Nord-Est<br>
+        - Sud-Est<br>
+        - Nord-Ouest<br>
+        - Sud-Ouest. </b></p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#009900" size="4"><font color="#0033CC"></font></font></b><font color="#009900" size="4"><b><font color="#0033CC"><a name="AREA"></a>AREA 
+            = R&eacute;gion :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> La rubrique pr&eacute;cise le libell&eacute; de la r&eacute;gion lunaire 
+        en clair o&ugrave; se trouve situ&eacute;e la formation en r&eacute;f&eacute;rence 
+        &agrave; une formation connue (mer ou grand crat&egrave;re) ou &agrave; 
+        la position par rapport au bord de la Lune appel&eacute; &quot;limbe&quot; 
+        ou par rapport au centre du disque lunaire.<br>
+      </p>
+      <blockquote>
+<p><b><font size="4" color="#009933">ATLAS :</font></b> </p>
+      </blockquote>
+      <p>Cette rubrique contient les pages, cartes ou planches des principaux 
+        atlas lunaires actuellement commercialis&eacute;s sur lesquelles la formation 
+        est clairement indiqu&eacute;e.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="RUKL"></a>RUKL 
+            = Numero de la page de l'Atlas de la Lune de Antonin R&uuml;kl :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> En hommage &agrave; son auteur pour sa contribution &agrave; la popularisation 
+        de l'observation de la Lune aupr&egrave;s des astronomes amateurs, nous 
+        avons mentionn&eacute; le num&eacute;ro de la carte de &quot; <b>l'Atlas 
+        de la Lune </b>&quot; de <b>Antonin R&uuml;kl</b> sur laquelle se trouve 
+        la formation.</p>
+      <p>&nbsp; </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="RUKLC"></a>RUKLC 
+            = Titre de la page de l' Atlas de la Lune de Antonin R&uuml;kl :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Nous avons aussi mentionn&eacute; en clair le titre de la carte de &quot; 
+        <b>l'Atlas de la Lune </b>&quot; de <b>Antonin R&uuml;kl</b> sur laquelle 
+        se trouve la formation.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#0033CC"><a name="VISCARDY"></a>VISCARDY 
+            = Page de l' Atlas photographique lunaire &agrave; haute r&eacute;solution 
+            de Georges Viscardy :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> &Eacute;galement en hommage &agrave; cet autre auteur pour sa contribution 
+        &agrave; la popularisation en France de l'observation de la Lune aupr&egrave;s 
+        des astronomes amateurs, nous avons mentionn&eacute; le num&eacute;ro 
+        de la page de &quot; <b>l'Atlas photographique de la Lune &agrave; haute 
+        r&eacute;solution</b> &quot; de <b>Georges Viscardy</b> pr&eacute;sentant 
+        la formation avec un texte ou sur laquelle une photo montre l'endroit 
+        o&ugrave; se trouve situ&eacute;e la formation. Pour ce dernier ouvrage, 
+        lorsque la formation ne figure pas sur au moins une photo, il n'y a pas 
+        de page indiqu&eacute;e. </p>
+      <p>De m&ecirc;me, si la formation appara&icirc;t sur au moins une photo, 
+        mais n'est pas d&eacute;crite dans le texte, c'est la page de la meilleure 
+        photo o&ugrave; elle est normalement visible qui est indiqu&eacute;e.<br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="HATFIELD"></a>HATFIELD 
+            = Page du &quot;Photographic Atlas of the Moon&quot; de Hatfield :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Compte tenu de sa popularit&eacute; dans les pays anglosaxons, nous 
+        avons mentionn&eacute; le num&eacute;ro de la carte du &quot;<b>Hatfield 
+        Lunar Photographic Atlas of the Moon</b>&quot; dans la version r&eacute;&eacute;dit&eacute;e 
+        par <b>Jeremy Cook</b> et sur laquelle se trouve la formation.<br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="WESTFALL"></a>WESTFALL 
+            = Page de l' Atlas of the lunar terminator de Westfall :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Nous avons mentionn&eacute; les num&eacute;ros des planches de l' &quot;<b>Atlas 
+        of the lunar terminator</b>&quot; du <b>professeur John E. Westfall</b> 
+        qui est le seul atlas pr&eacute;sentant la Lune en tenant compte des librations 
+        sur lesquelles se trouve la formation.<br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="WOOD"></a>WOOD 
+            = Articles et ouvrages de Charles Wood :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Nous avons mentionn&eacute; les articles du Docteur <b>Charles Wood</b> 
+        sur de nombreuses formations lunaires parus dans la revue <b>Sky and Telescope</b> 
+        ou le num&eacute;ro de la formation dans sa liste &quot;<b>Lunar 100</b>&quot; 
+        avec sa permission.<br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="LOPAM"></a>LOPAM 
+            = Lunar Orbiter Photographic Atlas of the Moon :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> En plus des photographies directement t&eacute;l&eacute;chargeables 
+        avec AVL, nous avons mentionn&eacute; les num&eacute;ros des planches 
+        du &quot;<b>Lunar Orbiter Photographic Atlas of the Moon</b>&quot; . Il 
+        vous suffit de cliquer sur le lien pour acc&eacute;der, si vous &ecirc;tes 
+        connect&eacute; &agrave; Internet &agrave; la page du site de <b>Jeff 
+        Gillis du Lunar and Planetary Institute</b> pour pouvoir admirer la planche 
+        enti&egrave;re de l'Atlas dont est extraite l'image de la formation.</p>
+      <p>Toutefois, si vous n'&ecirc;tes pas connect&eacute; en permanence &agrave; 
+        Internet, une autre possibilit&eacute; s'offre &agrave; vous. </p>
+      <p>En modifiant le fichier &quot;<b>lopamidx.txt</b>&quot; qui se trouve 
+        dans le sous r&eacute;pertoire &quot;Database&quot; du r&eacute;pertoire 
+        d'installation &quot;Virtual Moon&quot;, avec un &eacute;diteur de texte, 
+        vous pouvez acc&eacute;der directement aux planches du LOPAM que vous 
+        aurez copi&eacute; sur votre disque dur ou sur un CD enregistrable. Dans 
+        ce fichier, il vous suffit d'indiquer apr&egrave;s &quot;Local: URL=&quot; 
+        le chemin de votre support o&ugrave; se trouvent ces planches, ainsi que 
+        le format des images apr&egrave;s &quot;SUFFIX=&quot;. Exemple :</p>
+      <p>Local: URL=c:\Program files\Virtualmoon\planches lopam\ SUFFIX=.jpg</p>
+      <p>permet d'acc&eacute;der aux planches LOPAM stock&eacute;es dans le sous-r&eacute;pertoire 
+        &quot;planches lopam&quot; du r&eacute;pertoire d'installation &quot;Virtual 
+        Moon&quot; sous forme de fichiers &quot;.jpg&quot;. Autre exemple :</p>
+      <p>Local: URL=d:\ SUFFIX=.bmp</p>
+      <p>permet d'acc&eacute;der aux planches LOPAM stock&eacute;es dans la racine 
+        d'un CDRom enregistrable plac&eacute; dans le lecteur d: de votre ordinateur 
+        sous forme de fichiers &quot;.bmp&quot;.<br>
+        <br>
+      </p>
+      <blockquote> 
+        <p><font size="5"><b><font size="5"><b><font color="#009933" size="4">TAILLE 
+          : </font></b></font></b></font></p>
+      </blockquote>
+      <p><i>Les six champs suivants contiennent des donn&eacute;es relatives aux 
+        dimensions des formations. Celles-ci varient selon les sources. On pourra 
+        donc trouver des valeurs diff&eacute;rentes de celles d'autres ouvrages. 
+        Ont &eacute;t&eacute; indiqu&eacute; en priorit&eacute; les donn&eacute;es 
+        &eacute;manant de l'<b>Union Astronomique Internationale</b>, puis celles 
+        d'autres sources lorsqu'elles paraissaient plausibles. Enfin, certaines 
+        dimensions ont &eacute;t&eacute; directement mesur&eacute;e sur cartes 
+        ou atlas lorsqu'elles n'ont pu &ecirc;tre trouv&eacute;e dans la litt&eacute;rature. 
+        Dans la base &quot;<b>Sites historiques</b>&quot;, ces champs sont vides.</i></p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#0033CC"><a name="LENGTHKM"></a>LENGTHKM 
+            = Longueur en km :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ donne la longueur en kilom&egrave;tres de la formation. Dans 
+        le cas des formations crat&eacute;riformes, la longueur est dans la plupart 
+        des cas &eacute;gale &agrave; la largeur puisqu'il s'agit en fait du diam&egrave;tre 
+        moyen de la formation. </p>
+      <blockquote> 
+        <blockquote> 
+          <p> <font color="#009900" size="4"><b><font color="#0033CC"><a name="WIDEKM"></a>WIDEKM 
+            = Largeur en km :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>Ce champ donne la largeur en kilom&egrave;tres de la formation. Dans 
+        le cas d'une largeur variable, c'est la largeur moyenne qui est indiqu&eacute;e. 
+        Pour les formations crat&eacute;riformes r&eacute;guli&egrave;res, elle 
+        est &eacute;gale &agrave; la longueur.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="LENTHMI"></a>LENGTHMI 
+            = Longueur en miles :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ donne la longueur en miles de la formation. Dans le cas des 
+        formations crat&eacute;riformes, la longueur est dans la plupart des cas 
+        &eacute;gale &agrave; la largeur puisqu'il s'agit en fait du diam&egrave;tre 
+        moyen de la formation.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="WIDEMI"></a>WIDEMI 
+            = Largeur en miles :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>Ce champ donne la largeur en miles de la formation. Dans le cas d'une 
+        largeur variable, c'est la largeur moyenne qui est indiqu&eacute;e. Pour 
+        les formations crat&eacute;riformes r&eacute;guli&egrave;res, elle est 
+        &eacute;gale &agrave; la longueur.</p>
+      <blockquote> 
+        <blockquote> 
+          <p> <font color="#009900" size="4"><b><font color="#0033CC"><a name="HEIGHTM"></a>HEIGHTM 
+            = Hauteur en m :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>Ce champ traduit des altitudes relatives et non pas des altitudes absolues 
+        prises en r&eacute;f&eacute;rence &agrave; la sph&egrave;re lunaire moyenne, 
+        et donne la hauteur moyenne en m&egrave;tres de la formation lorsqu'elle 
+        est connue. </p>
+      <p> Dans le cas des crat&egrave;res, la hauteur est la diff&eacute;rence 
+        d'altitude moyenne entre le haut de la muraille et le fond du crat&egrave;re. 
+      </p>
+      <p> Pour les autres formations, il s'agit de la diff&eacute;rence d'altitude 
+        entre le sommet de la formation et les terrains avoisinants.</p>
+      <p> Pour les cha&icirc;nes de montagnes, il s'agit d'une hauteur moyenne, 
+        et l'altitude atteinte par les plus hauts sommets est souvent indiqu&eacute;e 
+        en plus dans les rubriques de description.</p>
+      <p> Pour les rainures et escarpements, le nombre indique en fait la d&eacute;nivellation 
+        en m&egrave;tres entre le sommet et le bas de la formation.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="HEIGHTFE"></a>HEIGHTFE 
+            = Hauteur en pieds (feet) :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>Ce champ traduit des altitudes relatives et non pas des altitudes absolues 
+        prises en r&eacute;f&eacute;rence &agrave; la sph&egrave;re lunaire moyenne, 
+        et donne la hauteur moyenne en pieds de la formation lorsqu'elle est connue. 
+      </p>
+      <p> Dans le cas des crat&egrave;res, la hauteur est la diff&eacute;rence 
+        d'altitude moyenne entre le haut de la muraille et le fond du crat&egrave;re. 
+      </p>
+      <p> Pour les autres formations, il s'agit de la diff&eacute;rence d'altitude 
+        entre le sommet de la formation et les terrains avoisinants.</p>
+      <p> Pour les cha&icirc;nes de montagnes, il s'agit d'une hauteur moyenne, 
+        et l'altitude atteinte par les plus hauts sommets est souvent indiqu&eacute;e 
+        en plus dans les rubriques de description.</p>
+      <p> Pour les rainures et escarpements, le nombre indique en fait la d&eacute;nivellation 
+        en pieds entre le sommet et le bas de la formation.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="RATIO"></a>RATIO 
+            = Rapport hauteur / largeur :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Cette donn&eacute;e n'est indiqu&eacute;e que pour les formations dont 
+        la hauteur est indiqu&eacute;e et en particulier pour de nombreux crat&egrave;res. 
+        Elle repr&eacute;sente le rapport entre le diam&egrave;tre du crat&egrave;re 
+        et sa profondeur lorsque celle-ci est connue. Ce ratio donne une bonne 
+        indication sur le profil g&eacute;n&eacute;ral de la formation.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="PROFIL"></a>PROFIL 
+            = Rapport hauteur / largeur :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> Cette donn&eacute;e n'est indiqu&eacute;e que pour les formations dont 
+        la hauteur est indiqu&eacute;e et en particulier pour de nombreux crat&egrave;res. 
+        Il s'agit d'un champ semi-graphique qui donne une id&eacute;e du profil 
+        en coupe de la formation. Cette information n'est fournie que si la hauteur 
+        de la formation est indiqu&eacute;e. </p>
+      <p> De m&ecirc;me, il n'a pas &eacute;t&eacute; g&eacute;n&eacute;r&eacute; 
+        pour les types de formations suivants pour lesquels il n'est pas repr&eacute;sentatif 
+        :</p>
+      <p><b>- Golfe<br>
+        - Lac<br>
+        - Marais<br>
+        - Mer<br>
+        - Mission humaine<br>
+        - Oc&eacute;an<br>
+        - Sonde<br>
+        </b><br>
+        Cette visualisation est r&eacute;alis&eacute;e comme suit :</p>
+      <p> Les crat&egrave;res sont repr&eacute;sent&eacute;s comme suit :</p>
+      <p align="center"> A________________A</p>
+      <p align="center"> &lt; n caract&egrave;res _&gt;</p>
+      <p align="left"> Les caract&egrave;res &quot;A&quot; visualisent la hauteur 
+        des parois du crat&egrave;re. Le nombre de caract&egrave;res &quot;_&quot; 
+        mat&eacute;rialise, &agrave; l'&eacute;chelle des parois la largeur du 
+        crat&egrave;re. </p>
+      <p align="left"> Dans l'exemple ci-dessus, le rapport entre la hauteur et 
+        la largeur du crat&egrave;re est de 1/8.</p>
+      <p> Les massifs montagneux centraux n'ont pas &eacute;t&eacute; visualis&eacute;s, 
+        car leur hauteur propre poserait des difficult&eacute;s pour la repr&eacute;sentation 
+        en mode semi-graphique.</p>
+      <p> Chaque profil est caract&eacute;ristique d'une formation. De ce fait, 
+        seule la forme du profil est repr&eacute;sentative. Mais on ne peut pas 
+        comparer les dimensions des profils de deux formations.</p>
+      <p> Exemple :</p>
+      <p align="center"> A__________A Profil de (Largeur =20 km &amp; hauteur 
+        = 4000 m)</p>
+      <p align="center"> A__________A Profil de (Largeur = 5 km &amp; hauteur 
+        = 1000 m)</p>
+      <p align="left"> A l'&eacute;cran, les profils sont les m&ecirc;mes, mais 
+        comme on peut le voir, les dimensions sont tr&egrave;s diff&eacute;rentes.</p>
+      <div align="left"><br>
+        <font color="#0000FF"></font></div>
+      <p>Pour les montagnes, cha&icirc;nes de montagnes, d&ocirc;mes et dorsales, 
+        un autre mode de visualisation du relief a &eacute;t&eacute; utilis&eacute; 
+        :</p>
+      <p align="center"> ___A___</p>
+      <p> Le caract&egrave;re &quot;A&quot; visualise la hauteur de la montagne. 
+        Le nombre de caract&egrave;res &quot;_&quot; mat&eacute;rialise, &agrave; 
+        l'&eacute;chelle de la hauteur, la largeur moyenne de la montagne &agrave; 
+        sa base.</p>
+      <p> Dans l'exemple ci-dessus, le rapport entre la largeur et la hauteur 
+        est de 1/7, soit typique d'une montagne telle que Mons Pico.</p>
+      <p> Pour les rainures, syst&egrave;mes de rainures et les vall&eacute;es, 
+        le profil est visualis&eacute; de la fa&ccedil;on suivante :</p>
+      <p align="center"> ___ ___<br>
+        V </p>
+      <p align="left">Le caract&egrave;re &quot;V&quot; visualise la profondeur 
+        de la rainure. Le nombre de caract&egrave;res &quot;_&quot; mat&eacute;rialise, 
+        &agrave; l'&eacute;chelle de la hauteur, la largeur de la rainure.</p>
+      <p align="left"> Dans l'exemple ci-dessus, le rapport entre la largeur et 
+        la hauteur est de 1/7. Pr&eacute;cisons que nous n'avons pu retrouver 
+        dans les ouvrages sur la Lune que la profondeur de peu de rainures. </p>
+      <p align="left">&nbsp;</p>
+      <blockquote> 
+        <p><font size="5"><b><font color="#009933" size="4">DESCRIPTION</font></b></font></p>
+      </blockquote>
+      <p>Cette rubrique est divis&eacute; en plusieurs champs r&eacute;serv&eacute;s 
+        &agrave; la description en clair de la formation. N&eacute;anmoins, cette 
+        division est transparente lors de la consultation de la fiche de la formation 
+        &agrave; l'&eacute;cran ou son impression. La localisation des diff&eacute;rents 
+        constituants de la formation est indiqu&eacute;e par les points cardinaux, 
+        la r&eacute;f&eacute;rence &eacute;tant appliqu&eacute;e &agrave; la partie 
+        m&eacute;diane ou centrale de la formation. Pour un crat&egrave;re, la 
+        r&eacute;f&eacute;rence est le centre du crat&egrave;re. </p>
+      <p> Pour une Lune observ&eacute;e &agrave; l'oeil nu, le Nord se trouve 
+        en haut, le Sud en bas, l'Est &agrave; droite et l'Ouest &agrave; gauche. 
+      </p>
+      <p align="center"> Nord</p>
+      <p align="center"> Nord-Ouest___________________Nord-Est</p>
+      <p align="center"> Centre de<br>
+        la formation</p>
+      <p align="center"> Sud-Ouest_____________________Sud-Est</p>
+      <p align="center"> Sud</p>
+      <p align="left"><br>
+        Par exemple, un craterlet situ&eacute;e sur la muraille d'un crat&egrave;re 
+        en bas &agrave; gauche sera indiqu&eacute; : &quot;Muraille chevauch&eacute;e 
+        par un craterlet au Sud-Ouest&quot;.</p>
+      <p align="left"> Les crat&egrave;res constituants la majeure partie des 
+        formations, leur description est divis&eacute;e en quatre parties.Ces 
+        parties ont &eacute;t&eacute; adapt&eacute;es pour les autres types de 
+        formations. <br>
+        <br>
+      </p>
+      <div align="left"></div>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="GENERAL"></a>GENERAL 
+              = Description g&eacute;n&eacute;rale :</font> </b></font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>Sont tout d'abord mentionn&eacute;es des informations sur la forme, sur 
+        l'&eacute;tat ou sur la situation de la formation. Cette rubrique est 
+        remplie pour toutes les formations.</p>
+      <p>Dans la base &quot;Sites historiques&quot;, des descriptions sp&eacute;cifiques 
+        sont mentionn&eacute;es :</p>
+      <p>- Heure et date de lancement<br>
+        - Nom des astronautes en cas de mission humaine<br>
+        - Description de la sonde ou du vaisseau spatial utilis&eacute;<br>
+        - Heures et dates des principales phases de la mission<br>
+        - Principaux r&eacute;sultats scientifiques<br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="SLOPES"></a>SLOPES 
+              = Description des versants ext&eacute;rieurs :</font> </b></font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>Les versants d&eacute;crits sont les pentes externes des crat&egrave;res. 
+        En r&egrave;gle g&eacute;n&eacute;rale, il s'agit d'indiquer la pente 
+        des versants. Cela va de &quot;peu escarp&eacute;s&quot; si elle est tr&egrave;s 
+        faible jusqu'&agrave; &quot;tr&egrave;s escarp&eacute;s&quot; si le sommet 
+        des versants est nettement au dessus des terrains environnants. </p>
+      <p> Si des ondulations ou des vall&eacute;es radiales marqu&eacute;es sont 
+        pr&eacute;sentes, les versants sont d&eacute;clar&eacute;s &quot;tourment&eacute;s&quot;. 
+        Cette partie indique &eacute;galement les crat&egrave;res et craterlets 
+        qui sont port&eacute;s par les versants de la formation. <br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="WALLS"></a>WALLS 
+              = Description de la muraille interne :</font></b></font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>La muraille d&eacute;crite est, cette fois, celle des pentes internes 
+        du crat&egrave;re. Ce sont les v&eacute;ritables murs du crat&egrave;re 
+        qui relient le bord sup&eacute;rieur des versants au fond du crat&egrave;re. 
+        La muraille est d&eacute;clar&eacute;e &quot;peu &eacute;lev&eacute;e&quot; 
+        lorsque la d&eacute;nivellation ne d&eacute;passe pas r&eacute;ellement 
+        ou apparemment environ 2000 m&egrave;tres, &quot;assez &eacute;lev&eacute;e&quot; 
+        entre 2000 et 3000 m, &quot;&eacute;lev&eacute;e&quot; entre 3000 et 4000 
+        m et &quot;tr&egrave;s &eacute;lev&eacute;e&quot; au del&agrave; de 4000 
+        m&egrave;tres de d&eacute;nivellation.<br>
+      </p>
+      <p>Des informations parfois contradictoires ont &eacute;t&eacute; relev&eacute;es 
+        dans diff&eacute;rentes sources bibliographiques. Dans ce cas, celles 
+        qui ont &eacute;t&eacute; utilis&eacute;es sont celles qui paraissaient 
+        les plus plausibles &agrave; partir de l'observation.<br>
+        <br>
+        Cette partie indique &eacute;galement les crat&egrave;res et craterlets 
+        qui sont port&eacute;s par la muraille de la formation. <br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><font color="#0000FF"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="FLOOR"></a>FLOOR 
+              = Description du fond du crat&egrave;re :</font></b></font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>Le fond du crat&egrave;re est d&eacute;clar&eacute; &quot;plat&quot; 
+        ou &quot;tourment&eacute;&quot; si sa texture est irr&eacute;guli&egrave;re. 
+        Si sa forme n'est pas circulaire, elle est mentionn&eacute;e. De m&ecirc;me, 
+        s'il semble que le fond du crat&egrave;re ait &eacute;t&eacute; rempli 
+        par un &eacute;panchement de lave ult&eacute;rieur, cette particularit&eacute; 
+        est mentionn&eacute;e. Cette partie indique &eacute;galement les crat&egrave;res 
+        et craterlets qui sont port&eacute;s par le fond de la formation.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font size="5"><b><font color="#660033"> <font color="#009933" size="4">OBSERVATION</font></font></b></font></p>
+          <blockquote> 
+            <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="INTERESTN"></a>INTERESTN 
+              = C&ocirc;te de l'int&eacute;r&ecirc;t :</font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p> Cette rubrique donne une indication num&eacute;rique sur l'int&eacute;r&ecirc;t 
+        de l'observation de la formation consid&eacute;r&eacute;e. Cet int&eacute;r&ecirc;t 
+        a &eacute;t&eacute; d&eacute;fini arbitrairement par l'auteur de la base 
+        de donn&eacute;es en fonction des caract&eacute;ristiques de la formation 
+        et de sa facilit&eacute; d'observation et d'un certain int&eacute;r&ecirc;t 
+        g&eacute;ologique personnel. On pourra, bien s&ucirc;r, ne pas partager 
+        l'opinion de l'auteur. Cette information n'est donn&eacute; qu'&agrave; 
+        titre indicatif.</p>
+      <p> Les formations sont d&eacute;clar&eacute;es :</p>
+      <p>- Formation d'int&eacute;r&ecirc;t exceptionnel ( c&ocirc;t&eacute; 4 
+        )<br>
+        - Formation tr&egrave;s int&eacute;ressante ( c&ocirc;t&eacute; 3 )<br>
+        - Formation assez int&eacute;ressante ( c&ocirc;t&eacute; 2 )<br>
+        - Formation peu int&eacute;ressante ( c&ocirc;t&eacute; 1 )</p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="INTERESTC"></a>INTERESTC 
+              = Libell&eacute; en clair de la c&ocirc;te de l'int&eacute;r&ecirc;t 
+              :</font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p> Cette rubrique donne l'indication en clair (Voir ci-dessus) sur l'int&eacute;r&ecirc;t 
+        de l'observation de la formation consid&eacute;r&eacute;e.</p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="LUNATION"></a>LUNATION 
+              = Jour de la lunaison :</font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p> Cette rubrique donne une indication sur le jour de la premi&egrave;re 
+        moiti&eacute; de la lunaison (De la Nouvelle Lune &agrave; la Pleine Lune) 
+        au cours duquel le terminateur est favorable pour une observation de qualit&eacute; 
+        de la formation consid&eacute;r&eacute;e. Elle est bas&eacute;e sur la 
+        longitude de la formation. </p>
+      <p>&quot;3&quot; signifie &quot;3 jours apr&egrave;s la Nouvelle Lune&quot;.<br>
+        &quot;7&quot; signifie &quot;7 jours apr&egrave;s la Nouvelle Lune&quot;, 
+        soit au Premier Quartier.<br>
+        &quot;13&quot; signifie &quot;13 jours apr&egrave;s la Nouvelle Lune&quot;, 
+        soit un jour avant la Pleine Lune.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0033CC" size="4"><a name="MOONDAYS"></a>MOONDAYS 
+              = lunaison du soir :</font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p> Ces termes signifient le meilleur jour moyen de la lunaison pour bien 
+        &eacute;tudier la formation lors d'une observation effectu&eacute;e le 
+        soir, c'est &agrave; dire de la Nouvelle Lune &agrave; la Pleine Lune. 
+        Il a &eacute;t&eacute; admis que l'observation utile des crat&egrave;res 
+        du limbe de la Lune ne peut &ecirc;tre effectu&eacute;e qu'&agrave; partir 
+        du 2&egrave;me jour apr&egrave;s la Nouvelle Lune. </p>
+      <p> Cette rubrique donne le jour d'observation pour une libration nulle. 
+        Son calcul a &eacute;t&eacute; bas&eacute; sur la longitude de la formation. 
+        En fonction de l'intensit&eacute; de la libration, il peut y avoir un 
+        jour de d&eacute;calage en plus ou en moins. </p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><br>
+              <font color="#009900" size="4"><b><font color="#0033CC"><a name="MOONDAYM"></a>MOONDAYM 
+              = Lunaison du matin :</font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p> Ces termes signifient le meilleur jour moyen de la lunaison pour bien 
+        &eacute;tudier la formation lors d'une observation effectu&eacute;e le 
+        matin, c'est &agrave; dire de la Pleine Lune &agrave; la Nouvelle Lune. 
+        Il a &eacute;t&eacute; admis que l'observation utile des crat&egrave;res 
+        du limbe de la Lune ne peut &ecirc;tre effectu&eacute;e qu'au plus tard, 
+        2 jours avant la Nouvelle Lune. </p>
+      <p> Cette rubrique donne le jour d'observation pour une libration nulle. 
+        Son calcul a &eacute;t&eacute; bas&eacute; sur la longitude de la formation. 
+        En fonction de l'intensit&eacute; de la libration, il peut y avoir un 
+        jour de d&eacute;calage en plus ou en moins.</p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="DIAMINST"></a>DIAMINST 
+              = Diam&egrave;tre de l'instrument th&eacute;orique :</font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p> Cette rubrique donne l'indication en clair le diam&egrave;tre en mm 
+        de l'instrument minimum n&eacute;cessaire pour pouvoir observer globalement 
+        la formation. Il s'appuie sur la largeur de la formation et le pouvoir 
+        s&eacute;parateur th&eacute;orique (PST) des instrument bas&eacute; sur 
+        la formule de Dawes.</p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="THINSTRU"></a>THINSTRU 
+              = Nom de l'instrument th&eacute;orique :</font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ indique l'instrument minimum n&eacute;cessaire pour pouvoir 
+        observer globalement la formation. Il s'appuie sur la largeur de la formation 
+        et le pouvoir s&eacute;parateur th&eacute;orique (PST) des instrument 
+        bas&eacute; sur la formule de Dawes</p>
+      <p> Ces donn&eacute;es sont indiqu&eacute;es pour une distance moyenne de 
+        la Lune de 384 400 km. </p>
+      <p>- Oeil nu ( PST = 100 km )<br>
+        - Jumelles 10 fois ( PST = 20 km )<br>
+        - Lunette 50 mm ( PST = 5km )<br>
+        - T&eacute;lescope 100 mm ( PST = 2,5 km )<br>
+        - T&eacute;lescope 150 mm ( PST = 1,5km )<br>
+        - T&eacute;lescope 200 mm ( PST = 1,1 km )<br>
+        - T&eacute;lescope 250 mm ( PSP = 0,9 km )</p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="PRINSTRU"></a>PRINSTRU 
+              = Nom de l'instrument pratique :</font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p> Ce champ indique l'instrument minimum n&eacute;cessaire pour pouvoir 
+        observer confortablement la formation. Il s'appuie sur la largeur de la 
+        formation et le pouvoir s&eacute;parateur pratique (PSP) des instrument, 
+        c'est &agrave; dire le double du pouvoir s&eacute;parateur th&eacute;orique 
+        ou le pouvoir s&eacute;parateur constat&eacute; lorsqu'il n'est pas possible 
+        de pousser le grossissement de l'instrument jusqu'au grossissement r&eacute;solvant 
+        &eacute;gal au diam&egrave;tre de l'instrument exprim&eacute; en millim&egrave;tres.</p>
+      <p> Ces donn&eacute;es sont indiqu&eacute;es pour une distance moyenne de 
+        la Lune de 384 400 km. Elles d&eacute;pendent de trop de facteurs externes 
+        ( Pr&eacute;cision de l'optique, turbulence atmosph&eacute;rique, collimation 
+        de l'instrument... ) pour pouvoir &ecirc;tre consid&eacute;r&eacute;es 
+        comme des donn&eacute;es tr&egrave;s pr&eacute;cises, mais peuvent guider 
+        l'observateur dans ses choix.</p>
+      <p>- Oeil nu ( PSP = 200 km )<br>
+        - Jumelles 10 fois ( PSP = 40 km )<br>
+        - Lunette 50 mm ( PSP = 10 km )<br>
+        - T&eacute;lescope 100 mm ( PSP = 5 km )<br>
+        - T&eacute;lescope 150 mm ( PSP = 3 km )<br>
+        - T&eacute;lescope 200 mm ( PSP = 2,2 km )<br>
+        - T&eacute;lescope 250 mm ( PSP = 1,8 km )</p>
+      <p>&nbsp;</p>
+      <p align="center"><font color="#FF0000" size="5"><i><b>FIN DU MANUEL DE 
+        &quot;DATLUN&quot;</b></i></font></p>
+      <p align="center">Les auteurs remercient les utilisateurs de bien vouloir 
+        leur signaler toute erreur trouv&eacute;e dans ce manuel par le biais 
+        du forum du site Internet.</p>
+      <p align="center"><br>
+        <font color="#0000FF"><b><font size="4"><a href="FR_Index_DatLun.html">Index 
+        du manuel</a></font></b></font> </p>
+      <hr WIDTH="100%">
+    </td>
+  </tr>
+</table>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,1663 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+
+<html>
+
+<head>
+
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+   <meta name="Author" content="patrick chevalley">
+
+   <meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+
+   
+
+<title>Atlas Virtuel de la Lune / Documentation</title>
+
+</head>
+
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" vlink="#5F9EA0" alink="#FF0000" background="CRATERBACK.JPG">
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%" >
+  <tr> 
+    <td VALIGN=TOP BGCOLOR="#000080" height="171"> 
+      <center>
+        <h1> <font color="#FFFFFF" size="7">&quot;DATLUN&quot; <font size="4">(c)</font><br>
+          <font size="5">&quot;Virtual Moon Atlas&quot; (VMA)<br>
+          databases manager</font></font>&nbsp;</h1>
+      </center>
+      <center>
+        <h2><font color="#FFFFFF">Documentation for version available </font><font color="#FFFFFF">on 
+          March 15th, 2008</font></h2>
+      </center>
+    </td>
+  </tr>
+  <tr> 
+    <td ALIGN=LEFT height="31492"> 
+      <p align="center">&nbsp;</p>
+      <p align="center"><font color="#0000FF"><b><font size="4"><a href="../AVL_Expert/FR_indexdoc.html">User's 
+        manual index</a></font></b></font></p>
+      <p align="center">&nbsp;</p>
+      <p><i><b><font size="4">Welcome in &quot;DATLUN&quot; (c) the &quot;Virtual 
+        Moon Atlas&quot; databases manager. </font></b></i></p>
+      <p>As amateur astronomers, we continue to improve VMA for conceiving a useful 
+        software for lunar observer also efficient &quot;on the field&quot;. We 
+        try to add new functions and a user friendly interface. This is why we 
+        have included in this new &quot;Pro&quot; version of &quot;<b>VMA</b>&quot;, 
+        a database manager called &quot;<b>DATLUN</b>&quot; (copyrighted name) 
+        that allows you to select precisely lunar formations that seems you interesting 
+        for your own studies and that allows you to localize them on the <b>VMA</b> 
+        map.</p>
+      <p>This first version includes the functions that have seemed us the more 
+        useful. Sure, we are yet thinking to new possibilities that will be included 
+        in the next versions.</p>
+      <p>&quot;<b>DATLUN</b>&quot; is a dedicated to the Moon software which is 
+        very powerful since it uses <b>SQL requests</b>. This manual is n&eacute;cessary 
+        to discover all its possibilities. We advice you to read it carefully 
+        while testing the described functions.</p>
+      <p>Good use and we haope that you will appreciate this new software and 
+        recommand it around you.</p>
+      <p>Thank you very much for your confidence.<br>
+      </p>
+      <p></p>
+      <p><b>Christian Legrand &amp; Patrick Chevalley</b><br>
+      </p>
+      <p>&nbsp; </p>
+      <p> <font size="5"><i><b><font color="#FF0000">DATLUN SCREEN</font></b></i></font><br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><img src="Datman%20Domes%20List%20UK.jpg" width="856" height="574"></p>
+        </blockquote>
+      </blockquote>
+      <p><b>DATLUN </b>screen is in a Windows frame. As all the Windows frames, 
+        you can minimize, maximize or adapt its size if you click on the upper 
+        right buttons in the title bar.</p>
+      <p>It's possible to open together <b>VMA</b> and <b>DATLUN </b>allowing 
+        formations localisation on the map, while accessing to all the datas about 
+        thes formations.<b>. </b></p>
+      <p><b>DATLUN</b> window features :</p>
+      <p> - The <b> menus bar</b><br>
+        - The window &quot;<b>List</b>&quot;<br>
+        - The <b>stat</b>e <b>bar</b><br>
+        <a name="MenuBar"></a><br>
+      </p>
+      <p><i><b><font color="#FF0000" size="5">THE MENUS BAR</font></b></i></p>
+      <p><img src="Datman%20Menu%20Bar%20UK.jpg" width="287" height="26"></p>
+      <p>This bar contains the menus giving access to functions lists.<br>
+        <a name="filemenu"></a><br>
+      </p>
+      <blockquote> 
+        <p><font color="#009900"><b><font size="4">THE&nbsp;&quot;FILES&quot; 
+          MENU</font></b></font></p>
+      </blockquote>
+      <p><img src="Datman%20File%20Menu%20UK.jpg" width="157" height="103"><br>
+        <br>
+        As a tradition in all Windows (r) sofwares, in <b>DATLUN</b> it's used 
+        to select and maintain the databases and to exit the software.</p>
+      <p><a name="seldef"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">&quot;Default selection&quot; FUNCTION</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>This function allows you to come back to the maximum selection which 
+        is the &quot;default&quot; selection. All the databases and all the columns 
+        are selected and there is no SQL request running in background.</p>
+      <p><a name="dboper"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">&quot;Database maintenance&quot; FUNCTION</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>This function conducts to a new sub-menu :</p>
+      <p><img src="Datman%20File%20Menu%20Database%20UK.jpg" width="342" height="93"></p>
+      <p><a name="dbexport"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0000FF">&quot;Export selection to CSV&quot; function</font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>This function allows you to export the selected formations list which 
+        is visible in the &quot;<b>List</b>&quot; window into a CSV file usable 
+        in the major calc softwares as Microsoft Excel (r)</p>
+      <p>The classic Windows &quot;record files&quot; window will appear. Record 
+        your extraction in the directory you have choosen. </p>
+      <p><b>Beware, databases informations are copyrighted and can be used only 
+        for personal use and not in a commercial goal.</b></p>
+      <p><a name="dbimport"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0000FF">&quot;Import selection from CSV&quot; 
+              function </font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>This function allows you to import a personal formations list compiled 
+        in a CSV file and import it as a VMA database.</p>
+      <p>Please, have a look at the detailed description <a href="#dbimportdetailed">here</a> 
+        to see how it works.</p>
+      <p><a name="dbsuppr"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0000FF">&quot;Delete selection from database&quot; 
+              function </font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p><b>BE CAREFUL WHEN USING THIS FUNCTION !</b> </p>
+      <p>If you click on this function, the selesction realized in &quot;<b>DATLUN</b>&quot; 
+        will be immediatly deleted from the involved databases and cannot be recovered, 
+        but if you reinstall VMA Pro.<br>
+        <a name="exit"></a> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">&quot;Quit&quot; FUNCTION</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>This function allows you to quit &quot;<b>DATLUN</b>&quot; and closes 
+        all the databases. The setup about selected databases, columns and selection 
+        will be kept for your next session.</p>
+      <blockquote> 
+        <p><a name="selectmenu"></a><br>
+          <br>
+          <b><font color="#009900" size="4">THE &quot;SELECTION&quot; MENU</font></b></p>
+      </blockquote>
+      <p>This menu opens a window which permits you :</p>
+      <p>- to select the databases to be used.<br>
+        - to select formations types that you want to study.<br>
+        - to select a formations list based on a specific value in a single field.<br>
+        - to select a formations list based on several crossed criterias.<br>
+      </p>
+      <p><img src="Datman%20Select%20Normal%20UK.jpg" width="582" height="337"> 
+      </p>
+      <p>On first time, the window opens in <b>&quot;basic&quot; mode</b>. After 
+        that, it's possible to use the<b> &quot;Expert&quot; mode</b>.<br>
+        <a name="dbchoicethumbnail"></a> </p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0000FF">&quot;Select databases&quot; function</font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>When pressing the &quot;<b>Select database</b>&quot; button opens a new 
+        window :</p>
+      <p><img src="Datman%20Select%20DB%20UK.jpg" width="418" height="301"></p>
+      <p>Fill boxes of all the dtabases you want to open. The more opened, the 
+        more longer for managing them. If your computer is not too powerful, select 
+        useful minimum. </p>
+      <p>It's, sure, necessary to have downloaded and / or installed these databases 
+        before. New databases are on work and could be incorporated in VMA and 
+        DATLUN in the future.</p>
+      <p>&quot;<b>Named</b>&quot; is about formations named as Aristarchus or 
+        Vallis Alpes.</p>
+      <p>&quot;<b>Indexed</b>&quot; is about craters with a name followed by a 
+        letter as Lambert R ou Hesiodus A.</p>
+      <p>&quot;<b>Historical sites</b>&quot; is about impacts or landings sites 
+        of human or automatic missions.</p>
+      <p>The &quot;<b>All</b>&quot; button select all the bases in a single operation 
+        and the button &quot;<b>None</b>&quot; is for the reversed operation.</p>
+      <p>Click on the &quot;<b>OK</b>&quot; button when your selection is done. 
+        This window disappears and you come back to the Formations type selection 
+        window. </p>
+      <p><a name="selectpredefthumbnail"></a> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">&quot;Predefined selections&quot; THUMBNAIL</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p> <img src="Datman%20Select%20Normal%20UK.jpg" width="582" height="337"></p>
+      <p>Fill boxes of all the formations types that you want to select. The more 
+        selected, the more longer for managing them. If your computer is not too 
+        powerful, select useful minimum.</p>
+      <p>The &quot;<b>All</b>&quot; button select all the types in a single operation 
+        and the button &quot;<b>None</b>&quot; is for the reversed operation.</p>
+      <p><a name="expertmodethumbnail"></a></p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><b><font color="#0000FF">&quot;Expert&quot; mode</font></b></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>If you fill the &quot;<b>Expert&quot; mode</b> box, two new thumbnails 
+        appear. </p>
+      <p><img src="Datman%20Select%20Expert%20Predef%20UK.jpg" width="582" height="337"></p>
+      <p><br>
+        <a name="valcolthumbnail"></a> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">&quot;Column value&quot; THUMBNAIL</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p> When you click on this thumbnail, you can select all the formations 
+        that incorporate the <b>EXACT</b> value that you specify in the field 
+        that you have choosen.</p>
+      <p><img src="Datman%20Select%20Expert%20ValCol%20UK.jpg" width="582" height="337"></p>
+      <p>The upper scrolling list allows you to choose the column. </p>
+      <p>Then fill the bow corresponding to your single request :</p>
+      <p>- &quot;<b>=</b>&quot; is for &quot;<b>Choosen column value equal to</b>&quot;. 
+        For example, if you choose the <b>RUKLN</b> column that corresponds to 
+        the map number in the Antonin R&uuml;kl, &quot;<b>Atlas of the Moon</b>&quot;, 
+        you will see in the &quot;List&quot; window, only the formations that 
+        are on this map of that Atlas. </p>
+      <p>- &quot;&gt;=&quot; is for &quot;<b>Choosen column value upper or equal 
+        to</b>&quot;</p>
+      <p>- &quot;&lt;=&quot; is for &quot;<b>Choosen column value lower or equal 
+        to</b>&quot;</p>
+      <p>- &quot;<b>Between</b>&quot; allows you to enter a value interval to 
+        respect in the choosen column. </p>
+      <p>Exemple : if you choose the LENGTHKM column that is the formation length 
+        in km, that after you fill the box &quot;<b>Between</b>&quot; and that 
+        you enter 30 in the field to the right of &quot;Between&quot; and 40 in 
+        the field to the right of &quot;and&quot;, you will see in the &quot;List&quot; 
+        window only the formations that are between 30 and 40 km length.</p>
+      <p><b>Beware : there must have an exact correspondance between your extraction 
+        writing and the field value. This function does not allows you to build 
+        a selection on a part of the value of a field. This is the following &quot;SQL 
+        Request&quot; goal.</b></p>
+      <p><a name="SQLthumbnail"></a> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#FF00FF">&quot;SQL Request&quot; THUMBNAIL</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p> When clicking on this thumbnail, you can select formations whose datas 
+        include values or extracts you will specify in one or several fields that 
+        you have choosen. You will have to know a minimum about SQL syntax language.</p>
+      <p>The buttons under the typing window make easier the request writing and 
+        avoid syntax mistakes.</p>
+      <p>The scrolling list at lower right allows you to xhoose a column. </p>
+      <p></p>
+      <p><img src="Datman%20Select%20Expert%20ReqSQL%20UK.jpg" width="582" height="337"></p>
+      <p></p>
+      <p>- &quot;<b>=</b>&quot; is for&quot;<b>equal to</b>&quot;. </p>
+      <p>- &quot;&gt;&quot;<b> </b>is for<b> &quot;upper than</b>&quot;</p>
+      <p>- &quot;&lt;&quot; is for &quot;<b>lower than</b>&quot;</p>
+      <p>- &quot;&lt;&gt;&quot; is for &quot;<b>is different of</b>&quot;</p>
+      <p>- &quot;&lt;=&quot; is for &quot;<b>Choosen column value lower or equal 
+        to</b>&quot;</p>
+      <p>- &quot;&gt;=&quot; is for &quot;<b>Choosen column value upper or equal 
+        to</b>&quot;</p>
+      <p></p>
+      <p>- &quot;<b>LIKE</b>&quot; is for &quot;<b>contains</b>&quot;.</p>
+      <p>- &quot;<b>BETWEEN</b>&quot; is for &quot;<b>between</b>&quot;.</p>
+      <p>- &quot;<b>NOT</b>&quot; is for &quot;<b>not</b>&quot;.</p>
+      <p>- The &quot;quotes&quot; are use to delimit an alphanumerical chain.</p>
+      <p>- <b>%</b> is a &quot;joker&quot; that is used to replace a part of an 
+        alphanumerical chain</p>
+      <p>- &quot;<b>AND</b>&quot; is for &quot;<b>and</b>&quot;.</p>
+      <p>- &quot;<b>OR</b>&quot; is for &quot;<b>or</b>&quot;.</p>
+      <p>- &quot;<b>ORDER BY</b>&quot; is for &quot;<b>ordered by</b>&quot;.</p>
+      <p>- &quot;<b>ASC</b>&quot; is for &quot;<b>ASCII</b>&quot;, that's to say 
+        an alphanumerical chain.</p>
+      <p>- &quot;<b>DESC</b>&quot; signifie &quot;&quot;.</p>
+      <p><b>Beware : there must have an exact correspondance between your request 
+        text and the SQL language syntax, or mistakes notes will appear.</b></p>
+      <p>For example, the following request :</p>
+      <p>TYPE LIKE "Cra%" AND LENGTHKM BETWEEN 30 AND 35 ORDER BY LATIN</p>
+      <p>will select IN ALL THE DATABASES PREVIOUSLY CHOOSEN, the formations for 
+        which the field TYPE contains the letters &quot;Cra&quot; (as the cra-ters 
+        and the cra-terlets), withe the field LENGTHKM (lenght in km) value is 
+        comprised between 30 and 35 (km) and will sort them according to growing 
+        LONGIN field value (growing longitude).</p>
+      <p>The following request :</p>
+      <p>COUNTRY = "France" AND WORK LIKE "%ician"</p>
+      <p>will select IN ALL THE DATABASES PREVIOUSLY CHOOSEN, the formations for 
+        which the field COUNTRY (Orignin country of the character of the name) 
+        is equal to France and whose work field will contain &quot;ician&quot; 
+        (And mathematiciens, geophysicians, musicians...)</p>
+      <p>These two examples show well the power of the SQL request. To use completely 
+        this power, we have to remain the fields databases contents :</p>
+      <p><b><a name="dblist"></a><br>
+        </b></p>
+      <p><b>Quick description of fields names (The link conducts to a detailed 
+        description)</b> :</p>
+      <p><a href="DBN">DBN</a> = Name of the database containing the formation<br>
+        <a href="DBN">NAME</a> = Official name of the formation<br>
+        <a href="TYPE">TYPE</a> = Type of theformation<br>
+        <a href="PERIOD">PERIOD</a> = Creation period of the formation<br>
+        <a href="NAMEDETAIL">NAMEDETAIL</a> = Detailed name of the formation<br>
+        <a href="NAMEORIGIN">NAMEORIGIN</a> = Name of the creator of the name 
+        of the formation<br>
+        <a href="LANGRENUS">LANGRENUS</a> = Name given by Langrenus to the formation<br>
+        <a href="HEVELIUS">HEVELIUS</a> = Nom given by Hevelius to the formation<br>
+        <a href="RICCIOLI">RICCIOLI</a> = Nom given by Riccioli to the formation<br>
+        <a href="WORK">WORK</a> = Work of the character whose name has been given 
+        to the formation<br>
+        <a href="COUNTRY">COUNTRY</a> = Nation of the character whose name has 
+        been given to the formation<br>
+        <a href="NATIONALTY">NATIONALTY</a> = Nationalty of the character whose 
+        name has been given to the formation<br>
+        <a href="CENTURYN">CENTURYN</a> = Century (Number) of living of the character 
+        whose name has been given to the formation<br>
+        <a href="CENTURYC">CENTURYC</a> = Century (Letters) of living of the character 
+        whose name has been given to the formation<br>
+        <a href="BIRTHPLACE">BIRTHPLACE</a> = Birth place of the character whose 
+        name has been given to the formation<br>
+        <a href="BIRTHDATE">BIRTHDATE</a> = Birth year of the character whose 
+        name has been given to the formation<br>
+        <a href="DEATHPLACE">DEATHPLACE</a> = Death place of the character whose 
+        name has been given to the formation<br>
+        <a href="DEATHDATE">DEATHDATE</a> = Death year of the character whose 
+        name has been given to the formation<br>
+        <a href="FACTS">FACTS</a> = Important facts during the life of the character 
+        whose name has been given to the formation<br>
+        <a href="LONGIN">LONGIN</a> = numerical value of the longitude of the 
+        formation<br>
+        <a href="LONGIC">LONGIC</a> = Alphanumerical value of the longitude of 
+        the formation<br>
+        <a href="LATIN">LATIN</a> = numerical value of the latitude of the formation<br>
+        <a href="LATIC">LATIC</a> = Alphanumerical value of the latitude of the 
+        formation<br>
+        <a href="QUADRANT">QUADRANT</a> = Lunar quadrant where is situated the 
+        formation<br>
+        <a href="AREA">AREA</a> = Large Moon area where is situated the formation<br>
+        <a href="RUKL">RUKL</a> = Number of the map of R&uuml;kl's atlas where 
+        is situated the formation<br>
+        <a href="RUKLC">RUKLC</a> = Title of the map of R&uuml;kl's atlas where 
+        is situated the formation<br>
+        <a href="VISCARDY">VISCARDY</a> = Number of the map of Viscardy's atlas 
+        where is situated the formation<br>
+        <a href="HATFIELD">HATFIELD</a> = Number of the map of Hatfield's atlas 
+        where is situated the formation<br>
+        <a href="WESTFALL">WESTFALL</a> = Number of the map of Westfall's atlas 
+        where is situated the formation<br>
+        <a href="WOOD">WOOD</a> = Indication of Charles Wood articles about the 
+        formation<br>
+        <a href="LOPAM">LOPAM</a> = Number of the map of the atlas of Lunar Orbiter 
+        where is situated the formation<br>
+        <a href="LENGTHKM">LENGTHKM</a> = Formation length in km<br>
+        <a href="LENGTHMI">LENGTHMI</a> = Formation length in miles<br>
+        <a href="WIDEKM">WIDEKM</a> = Formation width in km<br>
+        <a href="WIDEMI">WIDEMI</a> = Formation width in miles<br>
+        <a href="HEIGHTM">HEIGHTM</a> = Formation height in m<br>
+        <a href="HEIGHTFE">HEIGHTFE</a> = Formation height in feet<br>
+        <a href="RAPPORT">RAPPORT</a> = numerical ratio Length / Height of the 
+        formation<br>
+        <a href="PROFIL">PROFIL</a> = Visualization of theprofile of the formation<br>
+        <a href="GENERAL">GENERAL</a> = General description of the formation<br>
+        <a href="SLOPES">SLOPES</a> = = Description of the surroundings of the 
+        formation<br>
+        <a href="WALLS">WALLS</a> = Description of the interior of the formation<br>
+        <a href="FLOOR">FLOOR</a> = Description of the bottom of the formation 
+        <br>
+        <a href="INTERESTN">INTERESTN</a> = numerical value of the interest of 
+        the observation of the formation<br>
+        <a href="INTERESTC">INTERESTC</a> = Description of the interest of the 
+        observation of the formation<br>
+        <a href="LUNATION">LUNATION</a> = Lunation day making easier observation 
+        of the formation<br>
+        <a href="MOONDAYS">MOONDAYS</a> = Lunation day making easier observation 
+        of the formation on the evening<br>
+        <a href="MOONDAYM">MOONDAYM</a> = Lunation day making easier observation 
+        of the formation on the morning<br>
+        <a href="DIAMINST">DIAMINST</a> = Diameter in mm of the theoritical instrument 
+        necessary to observe the formation <br>
+        <a href="THINSTRU">THINSTRU</a> = Name of the theoritical instrument necessary 
+        to observe the formation<br>
+        <a href="PRINSTRU">PRINSTRU</a> = Name of the practical instrument necessary 
+        to observe the formation<br>
+      </p>
+      <p>When a selection criteria is based on a numerical field (ex : RUKL, LENGTHKM, 
+        INTRESTN, etc...), the value to find must be in the request without quotes 
+        (ex : RUKL = 45). When a selection criteria is based on an alphanumerical 
+        field (ex : COUNTRY, FACTS, GENERAL, INTERESTN, etc...), the value to 
+        find must be in the request with quotes and jokers (ex : GENERAL LIKE 
+        = &quot;%flat floort%&quot;). </p>
+      <p>Upper or lower case letters must be also respected (Ex : &quot;%Flat%&quot; 
+        is different of &quot;%flat%&quot;).</p>
+      <p>For a detailed description of the databases fields contents, please go 
+        to the <a href="dbdescription">special chapter</a> at the end of this 
+        manual.</p>
+      <blockquote> 
+        <p><a name="colmenu"></a><br>
+          <br>
+          <b><font color="#009900" size="4">THE&nbsp;&quot;COLUMNS&quot; MENU</font></b></p>
+      </blockquote>
+      <p>This menu opens a special window for selecting the columns to be displayed 
+        for the selection list. It's possible that some kinds of informations 
+        don't interest you and that you don't wish to scan all the &quot;width&quot; 
+        of the list to see those that you are looking for.</p>
+      <p><img src="Datman%20Select%20Col%20UK.jpg" width="319" height="440"></p>
+      <p>Fill the boxes of the columns that you want to display. The more you 
+        select, the more important for the display delay. If your computer is 
+        not too powerful, select the useful minimum.</p>
+      <p>The &quot;<b>All</b>&quot; button select all the columns in a single 
+        operation and the button &quot;<b>None</b>&quot; is for the reversed operation.</p>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p>Close the window once the selection operation is done with the button 
+        &quot;<b>Close</b>&quot; </p>
+      <blockquote> 
+        <p><a name="markmenu"></a><br>
+          <br>
+          <b><font color="#009900" size="4">THE &quot;MARK SELECTION ON MAP&quot; 
+          MENU</font></b></p>
+      </blockquote>
+      <p>This menu is not eally a menu, but a direct command that will show you 
+        the power of the association between <b>DATLUN</b> and <b>VMA</b>. When 
+        you click on it, you will open the <b>Virtual Moon Atlas</b> and see all 
+        the formations that you have selected in <b>DATLUN</b> on the displayed 
+        map marked with big squares.</p>
+      <p>For example, if you have selected the Nearside domes (rather not numerous 
+        presently in the databases), here is what you obtain:</p>
+      <p><img src="VMA%20Domes%20Map%20UK.jpg" width="924" height="667"></p>
+      <p>Other example :</p>
+      <p>You can also, for example select for study (because you can't observe 
+        them, all the craters chains (CATENA) of the Farside (Database FSN) and 
+        mark them on the map :</p>
+      <p><img src="VMA%20Catenas%20FSN%20Map%20UK.jpg" width="929" height="689"></p>
+      <p>After that, when clicking on one of the squares, this formation will 
+        be selected in VMA and you will be able to access all its informations 
+        and pictures.</p>
+      <p>Last example, here are all the craters with a flat and somber floor (FLOOR 
+        LIKE "%flat%" and FLOOR LIKE "%somber%") of the Nearside. There are 38.</p>
+      <p><img src="VMA%20Flat%20Somber%20Map%20UK.jpg" width="925" height="677"></p>
+      <p>Sure, you find among them the famous Billy, Zupus, Grimaldi and Plato.</p>
+      <p>This three exemples have certainly showed you the possible studies because 
+        of the unique informations contained in the databases of VMA compiled 
+        by Christian Legrand.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><a name="Record"></a><font color="#009900"><b><font size="4">THE&nbsp;&quot;HELP&quot; 
+            MENU </font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p><img src="Datman%20Help%20Menu%20UK.jpg" width="79" height="66"></p>
+      <p> As a classic in all the Windows (c) software, it's used in <b>DATLUN</b> 
+        to launch the present documentation with&quot; <b>Help</b>&quot; and display 
+        the credits with &quot;<b>About</b>&quot;.</p>
+      <p><a name="listwindow"></a><br>
+        <b><i><font color="#FF0000" size="5">THE&nbsp;&quot;SELECTION LIST&quot; 
+        WINDOW </font></i></b> </p>
+      <p>The list window owns some functions that improve the previous ones.<br>
+      </p>
+      <p><img src="Datman%20Window%20List%20UK.jpg" width="930" height="337"></p>
+      <p>First, you can note thes two left columns in grey. They are mandatory 
+        and cannot be deleted. Horizontal and vertical lifters allows you to &quot;travel&quot; 
+        in the list..</p>
+      <p>If you click on the greyed title of one columns in the upper line, this 
+        liste will be sorted in the numerical <b>growing</b> order (if the field 
+        is numerical) or alphanumerical (if the field is alphanumeric). If you 
+        click a second time on the same title, the list will be sorted in the 
+        <b>decreasing</b> order.</p>
+      <blockquote> 
+        <p><a name="colwidth"></a><font color="#009900"><b><font size="4">&quot;COLUMN 
+          WIDTH&quot; FUNCTION</font></b></font></p>
+      </blockquote>
+      <p>You can also adjust the columns width when you put the cursor on grey 
+        titles bar, to the border between two columns. A new cursor then appears.</p>
+      <p><img src="Datman%20Column%20Width%20UK.jpg" width="218" height="92"></p>
+      <p>Cick on the left mouse button, stay clicked and go on left or right to 
+        increase or decrease the column width.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><a name="otherfunctions"></a><font color="#009900"><b><font size="4">OTHER 
+            FUNCTIONS</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>If you can't display all the length of a field because it's too long 
+        (FACTS, GENERAL...), put the cursor on it. A bubble will appear with all 
+        the field text in it.</p>
+      <p>In the list, you can select in grey, by clicking one time on it, one 
+        line so that you will not loose it when you go on the right of the list. 
+      </p>
+      <p>If after that, you double_click on the selected line, VMA will shows 
+        you directly the selected formation.<br>
+      </p>
+      <p><a name="statebar"></a></p>
+      <p><font color="#FF0000" size="5"><i><b>THE STATE BAR</b></i></font></p>
+      <p><img src="Datman%20State%20Bar%20UK.jpg" width="344" height="26"></p>
+      <p>The state bar indicates you several things :</p>
+      <p>It can be the number of the line of the selected line compared to total 
+        number of lines of the selection list </p>
+      <p>Or it can be the text of the SQL request that generates the list.</p>
+      <hr width="100%">
+      <p align="center"><a name="dbimportdetailed"></a><font color="#FF0000" size="5"><i><b>DETAILED 
+        DESCRIPTION OF THE IMPORT OPERATION</b></i></font></p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote>
+            <p>&nbsp;</p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>This function allows you to import a personal formations list compiled 
+        in a CSV file and import it as a VMA database.</p>
+      <p>When selecting this function, a new window appears :</p>
+      <p><img src="Datman%20Import%20CSV%20UK%201.jpg" width="696" height="540"></p>
+      <p>This program let you to import new objects to the Virtual Moon Atlas 
+        database from a CSV file. </p>
+      <p>There is no provision to merge data field or to do any calculation. If 
+        you need that use first a software like OpenOffice.org Calc or Excel to 
+        format your data and save them to a CSV file. </p>
+      <p>From this page indicate first the character your file use to separate 
+        the different columns ( ; or TAB ) and if a " surround the text. </p>
+      <p><img src="Datman%20Separate%20CSV%20Frame%20UK.jpg" width="262" height="131"></p>
+      <p>If you have precedently recorded prameters for one file, you can use 
+        the &quot;<b>Load setting</b>&quot; button :</p>
+      <p><img src="Datman%20Load%20CSV%20Frame%20UK.jpg" width="260" height="99"></p>
+      <p>If it's not the case, you must open the file with your personal datas. 
+        Indicate the directory of the file to import in the frame :</p>
+      <p><img src="Datman%20Load%20CSV%20Frame%20UK%202.jpg" width="261" height="101"></p>
+      <p>When the file is found, its records number is indicated. If the format 
+        is recognised a new thumbnail appear at the top of the page :</p>
+      <p><img src="Datman%20Import%20CSV%20Thumbnail%20UK.jpg" width="167" height="30"></p>
+      <p>Click this tab to display the &quot;<b>Select data field&quot; window&quot;</b>. 
+      </p>
+      <p><img src="Datman%20Import%20CSV%20UK%203.jpg" width="696" height="540"></p>
+      <p>The next step is to give a relation between your file columns and the 
+        different database fields. Refer to &quot;<b>Databases fields&quot; lower 
+        </b> for explanations about each database field. </p>
+      <p>Click one of the value of your file to mark it in the left frame :</p>
+      <p><img src="Datman%20Import%20CSV%20Input%20Frame%20UK.jpg" width="329" height="408"></p>
+      <p>and check the corresponding database field in the right frame :</p>
+      <p><img src="Datman%20Import%20CSV%20Output%20Frame%20UK.jpg" width="302" height="429"></p>
+      <p>. When ready press the <img src="Datman%20Import%20CSV%20Exchange%20Button%20UK.jpg" width="54" height="28"> 
+        button. </p>
+      <p>It is also possible to give a constant value to a database field. Enter 
+        the value at the bottom of the page :</p>
+      <p><img src="Datman%20Import%20CSV%20Constant%20Frame%20UK.jpg" width="309" height="34"></p>
+      <p>and press the "<b>Constant Value</b>" button. </p>
+      <p>&nbsp;</p>
+      <p><b>DBN</b> is an identifier for your file. It range from 10 to 99 and 
+        allow to identify your data in the database. It is use from the main program 
+        to display or not the label for your objects. You can also quickly select 
+        all your objects by using DBN=10 in the <b>SQL selection window</b>, and 
+        delete the data using the File - Delete menu. </p>
+      <p>It is <b>mandatory</b> to give a value for the field: DBN, NAME, LONGIN 
+        and LATIN. When all the required field are defined the next tab appear 
+        at the top of the page. </p>
+      <p><img src="Datman%20Import%20CSV%20Thumbnail%20UK%202.jpg" width="264" height="27"></p>
+      <p>Click on it to display the backup frame :</p>
+      <p><img src="Datman%20Import%20CSV%20UK%204.jpg" width="696" height="540"></p>
+      <p>Press "<b>Load Database</b>" button to load your data to the database. 
+      </p>
+      <p><img src="Datman%20Import%20CSV%20Load%20Frame%20UK.jpg" width="240" height="110"></p>
+      <p> The "Save Setting" button allow you to save the setting for a later 
+        retrieval.</p>
+      <p><img src="Datman%20Import%20CSV%20Backup%20Frame%20UK.jpg" width="336" height="109"></p>
+      <p>The software informs you of the operations during them.</p>
+      <p><img src="Datman%20Import%20CSV%20UK%206.jpg" width="696" height="540"> 
+      </p>
+      <p>Import operation is then finished..</p>
+      <p><br>
+      </p>
+      <hr>
+      <p align="center"><b><font color="#FF0000" size="5"><i><a name="dbdescription"></a><br>
+        DETAILED DESCRIPTION OF THE DATABASES INFORMATIONS</i></font><font color="#FF0000" size="4"><br>
+        </font></b> </p>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p><a name="DBN"></a></p>
+      <p>The database of the &quot;Pro&quot; version of VMA is the most important 
+        detailed lunar database existing today. It's divided in several sections 
+        :</p>
+      <p><b>Nearside named formations</b> : The formations of the Nearside which 
+        have a specific name (eg : Clavius, Rima Hyginus, Montes Alpes...). About 
+        1100 entries.</p>
+      <p><b>Nearside indexed craters</b> : The formations of the Nearside which 
+        don't have a specific name (eg : Clavius D, Hyginus A, Plato B...). About 
+        5300 entries.</p>
+      <p><b>Farside named formations</b> : The formations of the Farside which 
+        have a specific name (eg : Tsiolkovsky, Mare Moscoviense...). About 650 
+        entries.</p>
+      <p><b>Farside indexed craters</b> : The formations of the Farside which 
+        don't have a specific name (eg : Tsiolkosky D, Schrodinger A...). About 
+        4100 entries.</p>
+      <p><b>Historical sites</b> : The sites of all voluntary or accidental human 
+        impacts or landing sites (eg : Apollo 15 Base, Ranger 7, Luna 9, Apollo 
+        17 S IV B... / 58 entries).</p>
+      <p>For each formation, available information is :</p>
+      <p>- the formation name origin.<br>
+        - the main lunar atlases for amateur astronomers&nbsp;page where to find 
+        the formation.<br>
+        - the formation location on the lunar disc.<br>
+        - the formation description.<br>
+        - various useful information for serious observing.<br>
+      </p>
+      <p><i>These databases have been translated from French by a French man. 
+        Please forgive the rather poor English that has been used and language 
+        mistakes that you can find. You can report them to <a href="mailto:chlegrand@free.fr">Christian 
+        Legrand</a>. They will be corrected as soon as possible.</i></p>
+      <p>Warning : In such detailed work, the data will certainly&nbsp;contain 
+        some mistakes -&nbsp;mainly input mistakes. You can also report them to 
+        <a href="mailto:chlegrand@free.fr"> Christian Legrand</a> so that he can&nbsp;correct 
+        the database. The authors thank you in advance for your cooperation.</p>
+      <p>The VMA database will be constantly improved and enhanced in the future 
+        versions to bring you more and more informations on more and more formations. 
+        Please, have a look periodically on our Web site to be informed about 
+        updates. </p>
+      <p><b>Informations of the VMA databases are copyrighted &quot;(c) Christian 
+        Legrand&quot; and can't be used outside of the software. For any other 
+        use, please contact <a href="mailto:chlegrand@free.fr">the author</a>.</b></p>
+      <p><b><font color="#000000" size="5"><br>
+        Database detailed information presentation</font></b><br>
+      </p>
+      <p><a name="DBN"></a></p>
+      <blockquote> 
+        <p><font size="4" color="#00FF00"><b><font color="#009900">DBN = DATABASE 
+          NAME :</font></b></font></p>
+      </blockquote>
+      <p> It's a short name for each name of databases uses by <b>DATLUN.</b> 
+        <br>
+      </p>
+      <p>- <b>NSN</b> = &quot;<b>Nearside named</b>&quot;, for named formations 
+        of Nearside.<br>
+        - <b>FSN</b> = &quot;<b>Farside named</b>&quot;, for named formations 
+        of Farside.<br>
+        - <b>NSI</b> = &quot;<b>Nearside indexed</b>&quot;, for named with letters 
+        formations of the Nearside.<br>
+        - <b>FSI</b> = &quot;<b>Farside indexed</b>&quot;, for named with letters 
+        formations of Farside.<br>
+      </p>
+      <p>About the personal databases that you would have imported, <b>DBN</b> 
+        is a number comprised between 10 to 99 permiting their identification. 
+        It's also used to choose the label display of your objects. It allows 
+        also to visualze your objects if entering DBN = 10 to 99 in the SQL request, 
+        and to delete your datas with the &quot;<b>File - Delete</b>&quot; menu.</p>
+      <p> <a name="officialname"></a> </p>
+      <blockquote> 
+        <p><font color="#00ff00" size="4"><b><font color="#009900">NAME = OFFICIAL 
+          NAME :</font></b></font></p>
+      </blockquote>
+      <p>This field presents the formation main name in Latin used officially 
+        by the International Astronomical Union in capital letters. In the &quot;<b>Historical 
+        sites</b>&quot; database, it's the name of the mission (eg : Apollo 15 
+        <i>Base</i>, Ranger 7, Luna 9, Apollo 17 <i>S IV B</i>...)<br>
+        <br>
+        <a name="formationtype"></a> </p>
+      <blockquote> 
+        <p><font color="#009900" size="4"><b>TYPE = FORMATION TYPE :</b></font></p>
+      </blockquote>
+      <p>This field contains formation type according with tradition or International 
+        Astronomical Union, <b>plus some specific additions</b> :</p>
+      <p>- Cape<br>
+        - Cliff<br>
+        - Crater<br>
+        - Craterlet<br>
+        - Crater chain<br>
+        - Dome<br>
+        - Gulf<br>
+        - Lake<br>
+        - Marsh<br>
+        - Mountain<br>
+        - Mountains range<br>
+        - Plain<br>
+        - Probe<br>
+        - Rille<br>
+        - Rilles system<br>
+        - Sea<br>
+        - Tray<br>
+        - Valley<br>
+        - Walled plain<br>
+        - Wrinkle ridge<br>
+        - Wrinkle ridges system<br>
+      </p>
+      <p>The &quot;<b>Historical site</b>&quot; database contains specific types 
+        :</p>
+      <p>- Human mission / soft landing<br>
+        - Inert equipment / voluntary impact<br>
+        - Inert equipment / unvoluntary impact<br>
+        - Probe / voluntary impact<br>
+        - Probe / unvoluntary impact<br>
+        - Probe / soft landing<br>
+      </p>
+      <blockquote> <a name="formationperiod"></a> 
+        <p><br>
+          <font color="#009900" size="4"><b>PERIOD = FORMATION PERIOD :</b></font></p>
+      </blockquote>
+      <p>Formation age is indicated according to the lunar period of birth. The 
+        6 generally admitted periods in present literature are :</p>
+      <p><b>Pre-Nectarian</b> : (-4550 MY to -3920 MY)<br>
+        <b>Nectarian</b> : (-3920 MY to -3850 MY)<br>
+        <b>Lower Imbrian</b> : (-3850 MY to -3800 MY)<br>
+        <b>Upper Imbrian</b> : (-3800 MY to -3200 MY)<br>
+        <b>Eratosthenian</b> : (-3200 MY to -1100 MY)<br>
+        <b>Copernician</b> : (-1100 MY to present days)</p>
+      <p>MY = Millions years<br>
+      </p>
+      <p>Indicated age has been extracted from remarkable book of Don E. Wilhelms 
+        and his team : "<b>The geologic history of the Moon</b>", USGS publication 
+        n° 1348 of 1981. Maps and texts of this book have provided about half 
+        of the indicated ages. Written after Apollo missions, this book contains 
+        most of this period's discoveries.</p>
+      <p>In this "bible", some craters are ideal examples of each of the 6 above 
+        periods. They have been indicated in the database as "<b>Typical</b>".</p>
+      <p>The other half of the age data&nbsp;has been obtained from the <b>geological 
+        map of the Moon</b>, also realized by Don E. Wilhelms and his team in 
+        1971. Formation&nbsp;age is less precise on this map. Indicated ages have 
+        a "?" at the end to show the lesser precision. More, this map has only 
+        4 periods : </p>
+      <p><b>Pre-Imbrian</b> : (-4550 MY to -3850 MY) that contains Pre-Nectarian 
+        and Nectarian.<br>
+        <b>Imbrian</b> : (-3850 MY to -3200 MY) that contains Lower and Upper 
+        Imbrian.<br>
+        <b>Eratosthenian</b> : (-3200 MY to -1100 MY)<br>
+        <b>Copernician</b> : (-1100 MY to present days)</p>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p>For some formations, it was not possible to find information about the 
+        birth period. Then, it's indicated "Birth period not found".</p>
+      <p>In the &quot;<b>Historical site</b>&quot; database, the launch date is 
+        indicated in this field.</p>
+      <p><a name="nameorigin"></a></p>
+      <blockquote> 
+        <p><font color="#009900" size="4"><b>NAME ORIGIN :</b></font> </p>
+      </blockquote>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="NAMEDETAIL"></a></font></b></font><font color="#0000CC">NAMEDETAIL 
+            = Real name</font></b></font><font color="#0000CC"><b><font size="4"> 
+            </font> </b><font size="4"><b>:</b></font></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field presents the real name of the person whose name has been given 
+        to the formation. When it also exists, a nickname is indicated between 
+        parentheses.</p>
+      <p>For other formations than craters, the official name is first translated 
+        in English,&nbsp; and then you can find the real name of the person whose 
+        name has been given to the formation.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font size="4" color="#009900"><b><font color="#0033CC"><a name="NAMEORIGIN"></a>NAMEORIGIN 
+            = </font></b></font><font color="#0033cc">Name author :</font> </b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field indicates, when it's known or supposed, the organization or 
+        person name that has given the name to the formation. Also included in 
+        this chapter is the year of nomination when it has been found. In this 
+        paragraph, IAU means" International Astronomical Union ". You can find 
+        mainly 3 origins:<br>
+      </p>
+      <p>- Hevelius<br>
+        - Riccioli<br>
+        - IAU</p>
+      <p>But also others selenographers as Schr&ouml;ter, Schmidt...<br>
+      </p>
+      <p>When the origin has not been found, the field contains (??). Additionally, 
+        some uncertain origins end with "?".</p>
+      <p>These name origins are purely indicative and are&nbsp;not to be held 
+        as rigorously exact because of numerous additions made during all periods 
+        to the lunar nomenclature.</p>
+      <p>In the &quot;<b>Historical sites</b>&quot; base, it's the country and 
+        the agency which conceived the mission that are indicated.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font size="4" color="#009900"><b><font color="#0033CC"><a name="LANGRENUS"></a>LANGRENUS 
+            = </font></b></font><font color="#0033cc">Name given by Langrenus:</font> 
+            </b> </font> </p>
+        </blockquote>
+      </blockquote>
+      <p>This field indicates the name given by <font color="#000000">Michel Florent 
+        Van Langren</font> on his Moon map in 1644. When the formation has not 
+        received a name, "Not named" is indicated.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font size="4" color="#009900"><b><font color="#0033CC"><a name="HEVELIUS"></a>HEVELIUS 
+            = </font></b></font><font color="#0033cc">N</font><font color="#009900" size="4"><b><font color="#0033cc">ame 
+            given by</font></b></font><font color="#0033cc"> Hevelius :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field indicates the name given by Johannes Hevelius on his Moon 
+        map in 1647. When the formation has not received a name, "Not named" is 
+        indicated.</p>
+      <blockquote> 
+        <blockquote><font color="#009900" size="4"><b><font size="4" color="#009900"><b><font color="#0033CC"><a name="RICCIOLI"></a>RICCIOLI 
+          = </font></b></font><font color="#0033cc">N</font><font color="#009900" size="4"><b><font color="#0033cc">ame 
+          given by</font></b></font><font color="#0033cc"> Riccioli :</font></b></font></blockquote>
+      </blockquote>
+      <p>This field indicates the name given by Riccioli on the Moon map drawn 
+        in 1651 by Francesco Grimaldi. When the formation has not received a name, 
+        "Not named" is indicated. </p>
+      <blockquote> 
+        <blockquote><br>
+          <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="WORK"></a>WORK 
+          = </font></b></font><font color="#0000CC">Works :</font></b></font></blockquote>
+      </blockquote>
+      <p>This field indicates, for craters, the activities of the person whose 
+        name has been given to the formation.</p>
+      <p>Here is the list of the"works" you can find in the database:</p>
+      <p><b>- Agronomist<br>
+        - Alchemist<br>
+        - Admiral<br>
+        - Anthropologist<br>
+        - Archaeologist<br>
+        - Archbishop<br>
+        - Architect<br>
+        - Artist<br>
+        - Astronaut<br>
+        - Astronomer<br>
+        - Astrophysicist<br>
+        - Aviator<br>
+        - Banker<br>
+        - Biologist<br>
+        - Botanist<br>
+        - Calif<br>
+        - Cartographer<br>
+        - Chemist<br>
+        - Clockwork<br>
+        - Consul<br>
+        - Cosmographer<br>
+        - Egyptologist<br>
+        - Engineer<br>
+        - Engraver<br>
+        - Explorer<br>
+        - Geodesist<br>
+        - Geographer<br>
+        - Geologist<br>
+        - Geometer<br>
+        - Geophysicist<br>
+        - God<br>
+        - Hero<br>
+        - Historian<br>
+        - Humanistic<br>
+        - Hydrographer<br>
+        - Inventor<br>
+        - Jurist<br>
+        - King<br>
+        - Manufacturer<br>
+        - Mathematician<br>
+        - Meteorologist<br>
+        - Mineralogist<br>
+        - Missionary<br>
+        - Mythological fame<br>
+        - Naturalist<br>
+        - Navigator<br>
+        - Oceanographer<br>
+        - Optician<br>
+        - Paleontologist<br>
+        - Pharmacist<br>
+        - Philologist<br>
+        - Philosopher<br>
+        - Physicist<br>
+        - Physiologist<br>
+        - Poet<br>
+        - Political man<br>
+        - Priest<br>
+        - Printer<br>
+        - Professor<br>
+        - Scientist<br>
+        - Sailor<br>
+        - Saint<br>
+        - Sismologist<br>
+        - Sponsor<br>
+        - Stateman<br>
+        - Technician<br>
+        - Theologian<br>
+        - Writer<br>
+        - Zoologist</b></p>
+      <p>Please note that some people have been credited with 2 or 3 works.<br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#0033CC" size="4"><a name="COUNTRY"></a>COUNTRY = 
+            Country:</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>This field contains the country where has lived the character whose name 
+        has been given to the formation. You can find disapeared countries. See 
+        also the list of nationalties here below.Ce champ indique le pays d'origine 
+        du personnage ayant servi &agrave; nommer la formation. On peut trouver 
+        des nations disparues aujourd'hui. Cf la liste des nationalit&eacute;s 
+        ci-dessous.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#0033CC" size="4"><a name="NATIONALTY"></a>NATIONALTY 
+            = </font><font color="#0000CC" size="4">Nationalty :</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>This field indicates the nationality generally attributed to the person 
+        whose name has been given to the formation. It can be&nbsp;the birth nationality. 
+        You can also find nationalities no longer in existence.</p>
+      <p>Here is the list of nationalities present in the database:</p>
+      <blockquote> 
+        <blockquote> 
+          <p><b>- American<br>
+            - Arabian<br>
+            - Australian<br>
+            - Austrian<br>
+            - Babylonian<br>
+            - Belgian<br>
+            - British<br>
+            - Byzantine<br>
+            - Brazilian<br>
+            - Canadian<br>
+            - Carthaginian<br>
+            - Castillan<br>
+            - Chinese<br>
+            - Cretian<br>
+            - Dalmatian<br>
+            - Danish<br>
+            - Dutch<br>
+            - Egyptian<br>
+            - English<br>
+            - Finnish<br>
+            - French<br>
+            - Greek<br>
+            - German<br>
+            - Hungarian<br>
+            - Indian<br>
+            - Irish<br>
+            - Italian<br>
+            - Japanese<br>
+            - Jewish<br>
+            - Macedonian<br>
+            - Mexican<br>
+            - Norwegian<br>
+            - Persian<br>
+            - Polish<br>
+            - Portuguese<br>
+            - Roman<br>
+            - Russian<br>
+            - Scottish<br>
+            - Soviet<br>
+            - South African<br>
+            - Spanish<br>
+            - Swedish<br>
+            - Swiss<br>
+            - Czech<br>
+            - Venetian</b></p>
+        </blockquote>
+      </blockquote>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="CENTURYN"></a>CENTURYN 
+            = Number of life century :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> This field indicates the number of the century during which the character 
+        whose name has been given to the formation most spent most of his life. 
+        For example : 19 for &quot;19 th century&quot;.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="CENTURYC"></a>CENTURYC 
+            = Life century :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field indicates clearly the century during which the character whose 
+        name has been given to the formation most spent most of his life. For 
+        example : &quot;19 th century&quot;.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="BIRTHPLACE"></a>BIRTHPLACE 
+            = </font></b></font><font color="#0000CC">Birth place :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field indicates the birth place of the person whose name has been 
+        given to the formation when it has been possible to find it. If not found, 
+        it is indicated " ? ". Please note that for imaginary persons,&nbsp;there 
+        is&nbsp;no birth place.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p> <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="BIRTHDATE"></a>BIRTHDATE 
+            = </font></b></font><font color="#0000CC">Birth year :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field indicates the birth year of the person whose name has been 
+        given to the formation if it has been possible to find it. If not found, 
+        it is indicated " ? ". Please note that for imaginary persons, there is&nbsp;no 
+        birth year.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="DEATHPLACE"></a>DEATHPLACE 
+            = </font></b></font><font color="#0000CC">Death place :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field indicates the place of&nbsp; death for the person whose name 
+        has been given to the formation when it has been possible to find it. 
+        If not found, it is indicated " ? ". Please note that for imaginary persons,&nbsp;there 
+        is &nbsp;no place of&nbsp;death.</p>
+      <blockquote> 
+        <blockquote> 
+          <p> <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="DEATHDATE"></a>DEATHDATE 
+            = </font></b></font><font color="#0000CC">Death year :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field indicates the year of death for the person whose name has 
+        been given to the formation if it has been possible to find it. If not 
+        found, it is indicated " ? ". Please note that for imaginary persons,&nbsp;there 
+        is&nbsp;no year of death.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p> <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="FACTS"></a>FACTS 
+            = </font></b></font><font color="#0000CC">Prominent facts :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field describes prominent facts during the life of the person whose 
+        name has been given to the formation if it has been possible to&nbsp;find 
+        it. If not found, it has been indicated " ?? " .</p>
+      <p>This information is&nbsp;adapted from information given by the International 
+        Astronomical Union,&nbsp; and additional data&nbsp;coming from various 
+        bibliographical sources.</p>
+      <p>Generally, you can find the discoveries, inventions and important works 
+        attributed to the person, as well as distinctions&nbsp;obtained during 
+        life (nominations, price. ..) with associated dates when they have been 
+        found.</p>
+      <blockquote> 
+        <p><font size="5"><b><font color="#009900" size="4">POSITION :</font></b></font> 
+        </p>
+      </blockquote>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="LONGIN"></a>LONGIN 
+            = Numerical longitude :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> This field gives the numerical value of the selenographic longitude 
+        of the formation with a tenth of degree precision. This data is provided 
+        by <b>International Astronomical Union</b>. Longitude is negative to the 
+        West of central meridian. About craters, it's the center longitude. For 
+        lengthened or irregular formations, it's an internal point the closest 
+        to&nbsp;central.</p>
+      <p>&nbsp; </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="LONGIC"></a>LONGIC 
+            = </font></b></font><font color="#0000CC">Alphanumerical longitude 
+            :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>You can find here the alphanumerical selenographic longitude of the formation 
+        with a tenth of degree precision. This data is provided by International 
+        Astronomical Union. Longitude is negative to the West of central meridian. 
+        About craters, it's the center longitude. For lengthened or irregular 
+        formations, it's an internal point the closest to&nbsp;central.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="LATIN"></a>LATIN 
+            = </font></b></font><font color="#0033CC">Numerical latitude :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>You can find here the numerical selenographic latitude of the formation 
+        with a tenth of degree precision. This data is provided by <b>International 
+        Astronomical Union</b>. Latitude is negative to the South of lunar Equator. 
+        About craters, it's the center longitude. For lengthened or irregular 
+        formations, it's an internal point the closest to central.</p>
+      <blockquote> 
+        <blockquote> 
+          <p></p>
+        </blockquote>
+      </blockquote>
+      <blockquote> 
+        <blockquote> 
+          <p> <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="LATIC"></a>LATIC 
+            = </font></b></font><font color="#0033CC">Alphanumerical latitude 
+            :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>You can find here the alphanumerical selenographic latitude of the formation 
+        with a tenth of degree precision. This data is provided by International 
+        Astronomical Union. Latitude is negative to the South of lunar Equator. 
+        About craters, it's the center longitude. For lengthened or irregular 
+        formations, it's an internal point the closest to central.</p>
+      <blockquote> 
+        <blockquote> 
+          <p> <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="QUADRANT"></a>QUADRANT 
+            = </font></b></font><font color="#0033CC">Quadrant :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>Information has been included to make easier the location of the formation 
+        on the lunar disk. The location system is that of the International Astronomical 
+        Union since 1988. When you look at the lunar disk with the naked eye, 
+        the North is up and the East is right.</p>
+      <p>This first field indicates the lunar quadrant where is situated the formation 
+        according to the "Lunar Quadrant Charts" by Arthur and Agnieray published 
+        by the University of Arizona :</p>
+      <p><b>- North-East<br>
+        - South-East<br>
+        - North-West<br>
+        - South-East<br>
+        </b> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="AREA"></a>AREA 
+            = </font></b></font><font color="#0000CC">Area :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field indicates clearly the lunar region where can be found the 
+        formation according to a more known one (sea, mountain or large crater) 
+        or according to the position on the edge of the lunar disk (limb) or according 
+        to the center of the lunar disk.<br>
+      </p>
+      <blockquote> 
+        <p><a name="atlases"></a></p>
+        <p><b><font color="#009933" size="4">ATLAS :</font></b> </p>
+      </blockquote>
+      <p>This field contains pages, maps or picture of the main paper atlases 
+        presently available on which the selected formation is indicated.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="RUKL"></a>RUKL 
+            = </font></b></font><font color="#0033cc">Number of the page of &quot;Atlas 
+            of the Moon&quot; by Antonin Rükl :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p></p>
+      <p>In honor to its author for his contribution to Astronomy popularization, 
+        we have mentioned the map number of the "<b>Atlas of the Moon</b>" by 
+        <b>Antonin Rükl</b> on which is found the formation.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="RUKLC"></a>RUKLC 
+            = </font></b></font><font color="#009900" size="4"><b><font color="#0033cc"> 
+            Title of the page of &quot;Atlas of the Moon&quot; by Antonin Rükl</font></b></font><font color="#0033cc"> 
+            :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p></p>
+      <p>We have also mentioned the map number of the "Atlas of the Moon" by Antonin 
+        Rükl on which is found the formation.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p> <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="VISCARDY"></a>VISCARDY 
+            = </font></b></font><font color="#009900" size="4"><b><font color="#0033CC">Page 
+            of the &quot;Atlas photographique lunaire &agrave; haute r&eacute;solution&quot; 
+            by Georges Viscardy</font></b></font><font color="#0033cc"> :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>Also in honor to its author for his contribution to Astronomy popularization, 
+        we have also mentioned the page number of the "<b>High resolution photographic 
+        Atlas of the Moon</b>" by <b>Georges Viscardy</b> on which the formation 
+        is found with a text on it, or on which a photograph shows the place where 
+        is situated the formation.<br>
+      </p>
+      <p>For this last work, when the formation does not figure on&nbsp;at least 
+        one photograph, there is no page indicated. Similarly, if the formation 
+        appears on, at least, a photograph, but is not described in the text, 
+        it is the page of the best photograph where it is normally visible that 
+        is indicated.<br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="HATFIELD"></a>HATFIELD 
+            = </font></b></font><font color="#0033cc">Page of the </font><font color="#009900" size="4"><b><font color="#0033CC">&quot;Photographic 
+            Atlas of the Moon&quot;</font></b></font><font color="#0033cc"> by 
+            Hatfield :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>In honor to its author for his contribution to Astronomy popularization, 
+        we have mentioned the map number of the "<b>Hatfield Atlas of the Moon</b>" 
+        republished by <b>Jeremy Cook</b> on which&nbsp;the formation is found.<br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="WESTFALL"></a>WESTFALL 
+            = Page of the &quot;Atlas of the lunar terminator&quot; by Westfall 
+            :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>In honor to its author for his unique work, we have mentioned the maps 
+        numbers of the "<b>Atlas of the Lunar Terminator</b>" from <b>Professor 
+        John E. Westfall</b> on which the formation is found, because it's the 
+        only one that shows all librations variations. </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="WOOD"></a>WOOD 
+            = Articles and books by Charles Wood :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p> We mentioned <b>Charles Wood's articles </b> <b>on numerous </b> formations 
+        edited in <b>Sky and Telescope</b> and the number of his &quot;<b>Lunar 
+        100 list</b>&quot;, with his courtesy.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#0033CC"><a name="LOPAM"></a>LOPAM 
+            = Lunar Orbiter Photographic Atlas of the Moon :</font></b></font> 
+          </p>
+        </blockquote>
+      </blockquote>
+      <p>Adding to downloadable picture of the LOPAM, we have indicated numbers 
+        of &quot;<b>Lunar Orbiter Photographic Atlas of the Moon</b>&quot; pages 
+        on which you can find the selected formation. Just click on this link 
+        and go to the Internet site of <b>Jeff Gillis</b> of <b>Lunar and Planetary 
+        Institute</b> and you will admire the entire picture from which was extracted 
+        the picture.</p>
+      <p>Nevertheless, if you are not permanently connected to the Internet, another 
+        possibility is offered.</p>
+      <p>You can modify the &quot;<b>lopamidx.txt</b>&quot; file which is in the 
+        &quot;<b>Database</b>&quot; sub-directory of the &quot;<b>Virtualmoon</b>&quot; 
+        install directory with a text editor as &quot;<b>Windows notepad</b>&quot;. 
+        After, you can access directly to the LOPAM pages copied on your hard 
+        drive or on a recorded CD. </p>
+      <p>In this file, you have just to indicate after &quot;Local URL=&quot; 
+        the path of your support where are stored your LOPAM pages, and the pictures 
+        type after &quot;SUFFIX=&quot;. For example :</p>
+      <p>Local:URL=c:\Program files\Virtualmoon\LOPAM pages\SUFFIX=.jpg</p>
+      <p>can access to LOPAM pages stored in the sub-directory &quot;LOPAM pages&quot; 
+        of the install directory &quot;Virtual moon&quot; as &quot;.jpg&quot; 
+        files.</p>
+      <p>New example :</p>
+      <p>Local: URL=d:\ SUFFIX=.bmp</p>
+      <p>can access to LOPAM pages stored in the root of a CD placed in a CD reader 
+        called &quot;d:&quot; as &quot;.bmp&quot; files.</p>
+      <blockquote> 
+        <p> <a name="size"></a> <br>
+          <font color="#009900" size="4"><b>SIZE :</b></font> </p>
+      </blockquote>
+      <p><i>The four following fields contain data about formation dimensions. 
+        These vary from different bibliographic sources. First indicated is data 
+        provided by International Astronomical Union, then those coming from other 
+        <br>
+        sources when they seem more accurate. &nbsp;Some of them have been also 
+        directly measured on atlases or photographs when they were not found in 
+        literature.<br>
+        In the &quot;<b>Historical sites</b>&quot; database, these fields are 
+        empty.<br>
+        </i> </p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="LENGTHKM"></a>LENGTHKM 
+            =</font></b></font> <font color="#0000CC">Length in km :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This first field indicates the formation length in km.&nbsp;For craters, 
+        length is very often equal to width because it's the mean diameter.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="WIDEKM"></a>WIDEKM 
+            = </font></b></font><font color="#0000CC">Width in km :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This first field indicates the formation width in km.&nbsp;For craters, 
+        length is very often equal to width because it's the mean diameter.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="LENGTHMI"></a>LENGTHMI 
+            = </font></b></font><font color="#0000CC">Length in miles :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This first field indicates the formation length in miles.&nbsp;For craters, 
+        length is very often equal to width because it's the mean diameter.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="WIDEMI"></a>WIDEMI 
+            = </font></b></font><font color="#0000CC">Width in miles :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This first field indicates the formation width in miles.&nbsp;For craters, 
+        length is very often equal to width because it's the mean diameter.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p> <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="HEIGHTM"></a>HEIGHTM 
+            = </font></b></font><font color="#3300CC">Height in meters :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>You find here relative altitudes, not absolute ones referring to the 
+        mean lunar sphere. It gives the formation height in meters when it's known.<br>
+      </p>
+      <p>For&nbsp;craters, it's the difference between the upper part of the internal 
+        slopes and the floor.</p>
+      <p>For other formations, it's the difference between the formation summit 
+        and surrounding land.</p>
+      <p>For mountains and mountain ranges, it's a mean height and higher summits 
+        height is generally detailed in description fields.</p>
+      <p>For rilles and scarps, it's the difference between surrounding lands 
+        and the formation lower floor.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p> <font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="HEIGHTM"></a>HEIGHFE 
+            = </font></b></font><font color="#3300CC">Height in feet :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>You find here relative altitudes, not absolute ones referring to the 
+        mean lunar sphere. It gives the formation height in feet when it's known.<br>
+      </p>
+      <p>For&nbsp;craters, it's the difference between the upper part of the internal 
+        slopes and the floor.</p>
+      <p>For other formations, it's the difference between the formation summit 
+        and surrounding land.</p>
+      <p>For mountains and mountain ranges, it's a mean height and higher summits 
+        height is generally detailed in description fields.</p>
+      <p>For rilles and scarps, it's the difference between surrounding lands 
+        and the formation lower floor.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="RATIO"></a>RATIO 
+            = </font></b></font><font color="#0000CC">Ratio :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This data is only indicated for formations whose height is known. It's 
+        very often given for craters where it means the diameter / height ratio. 
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="PROFIL"></a>PROFIL 
+            = </font></b></font><font color="#0033CC">Formation profile visualization 
+            :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>In this frame, outline of the formation&nbsp;selected within your search 
+        and whose description is in the "Database window" is displayed. Here is 
+        a semi-graphic field presenting the formation profile. This information 
+        is only provided when height is known. </p>
+      <p>Profile has not be constructed for some formations types :</p>
+      <p><b>- Sea<br>
+        - Lake<br>
+        - Gulf<br>
+        - Marsh<br>
+        - Ocean<br>
+        - Probe<br>
+        - Human mission</b></p>
+      <p>The profile is generated according to the following description :</p>
+      <blockquote> 
+        <p><br>
+          <font color="#0000ff"><b>Crater outline :</b></font></p>
+      </blockquote>
+      <p>Crater is presented so :<br>
+      </p>
+      <p align="center">A________________A</p>
+      <p align="center">&lt; n characters&gt;</p>
+      <p align="left">"A" characters show the slope height.&nbsp; The number of 
+        "_" characters shows the crater width with the same scale as height.</p>
+      <p>Because the "A" character is twice high than wide on an html screen, 
+        in the above example, the width / height crater ratio is 1/8.<br>
+      </p>
+      <p align="left">The central mountain of crater has not been represented 
+        because their height has often not been found.</p>
+      <p>Don't forget that each formation has its own profile. You can't compare 
+        two craters dimensions using their profile representation.</p>
+      <p align="center">A__________A Profile&nbsp;of (Length =20 km &amp; height 
+        = 4000 m)</p>
+      <p align="center">A__________A Profile of (Length = 5 km &amp; height&nbsp;= 
+        1000 m)</p>
+      <p align="left">On screen, these two profiles are identical, but as you 
+        can see, dimensions are different.<br>
+      </p>
+      <blockquote> 
+        <p><br>
+          <font color="#0000ff"><b>Relief outline :</b></font></p>
+      </blockquote>
+      <p>For mountains, mountains ranges, wrinkle ridges or domes, an other viewing 
+        mode is&nbsp;selected :</p>
+      <p align="center">___A___</p>
+      <p align="left">"A" character&nbsp;shows the formation maximum height. The 
+        number of "_" characters&nbsp;shows the formation width with the same 
+        scale as height.</p>
+      <p></p>
+      <blockquote> 
+        <p><br>
+          <font color="#0000ff"><b>Rille outline :</b></font></p>
+      </blockquote>
+      <p>For rilles, rilles system and valleys, profile is shown like this :</p>
+      <p align="center">___ ___<br>
+        V </p>
+      <p align="left">"V" character&nbsp;shows the formation maximum depth. The 
+        number of "_" characters&nbsp;shows the formation width with the same 
+        scale as depth</p>
+      <p><br>
+        <br>
+        <a name="description"></a> </p>
+      <blockquote> 
+        <p><font color="#009900" size="4"><b>DESCRIPTION :</b></font></p>
+      </blockquote>
+      <p>This field is divided in four sections for the formation detailed description. 
+        But this division is not really visible when consulting the <br>
+        formation form on screen or printing it.</p>
+      <p>Cardinal points are reference to indicate where&nbsp;the different details 
+        are situated&nbsp;according to formation center. For a crater, reference 
+        point is the area center.</p>
+      <p>If observed with naked eye, on the Moon, North is up, South is down, 
+        West is left and East is right.<br>
+      </p>
+      <p align="center">North</p>
+      <p align="center">North-West___________________North-East</p>
+      <p align="center">Formation<br>
+        center</p>
+      <p align="center">South-West_____________________South-East</p>
+      <p align="center">South</p>
+      <p align="left"><br>
+        For example, a craterlet located on a crater wall down left will be described 
+        as "Walls ridden by a craterlet at South-West".</p>
+      <p>Craters are the most numerous formations. Their description is well divided 
+        in four parts.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="GENERAL"></a>GENERAL 
+            = </font></b></font><font color="#0000ff">General description</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>First, information about shape, location and preservation of the formation.</p>
+      <p>In the &quot;Historical sites&quot; database, specific description are 
+        present :</p>
+      <p>- Lauch date and hour<br>
+        - Names of astronauts if it's a human mission<br>
+        - Spaceship or probe description<br>
+        - Main dates and hours of the mission<br>
+        - Main scientific results<br>
+        <br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="SLOPES"></a>SLOPES 
+            = </font></b></font><font color="#0000ff">External slopes description</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>Then, the external "slopes" are described. Generally, the comments are 
+        about their inclination. If radial valleys are present, slopes are described 
+        as "tormented". This part also indicates craters and craterlets situated 
+        on external slopes.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#0000ff"><br>
+            </font><font color="#009900" size="4"><b><font color="#0033CC"><a name="WALLS"></a>WALLS 
+            = </font></b></font><font color="#0000ff">Internal walls description</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>The "walls" which are described are the internal ones. They link the 
+        upper rim of the slopes to the crater floor. The walls are described as 
+        "little high when the altitude difference is less than 2,000 m, "pretty 
+        high" between 2,000 and 3,000 m, "high" between 3,000 and 4,000 m and 
+        "very high" if more than 4,000 m. The indicated information&nbsp;is that 
+        which&nbsp;seem the most believable according to important variations 
+        in different bibliographical sources. This part also indicates craters 
+        and craterlets situated on internal slopes.</p>
+      <blockquote> 
+        <blockquote> 
+          <p><font color="#0000ff"><b><br>
+            </b></font><font color="#0000FF"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="FLOOR"></a>FLOOR 
+            = </font></b></font></b></font><font color="#0000ff"><b>Crater floor 
+            description </b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>The crater "floor" is described as "flat" if no hills can be found to 
+        "tormented" if it's&nbsp;very&nbsp;irregular. The non circular shape is 
+        mentioned. If lava seems to have flooded the crater floor, it has been 
+        indicated. This part also indicates craters and craterlets situated on 
+        the floor.<br>
+      </p>
+      <blockquote> 
+        <p> <a name="observing"></a><br>
+          <font size="5"><b><font color="#660033"> <font color="#009933" size="4">OBSERVATION</font></font></b></font> 
+        </p>
+        <blockquote> 
+          <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="INTERESTN"></a>INTERESTN 
+            = </font></b></font><font color="#0000CC">Interest cotation :</font></b></font></p>
+        </blockquote>
+      </blockquote>
+      <p>This field gives a numerical indication on the interest of the formation. 
+        It will help you to determine which formations to observe. It gives you 
+        information on the formation interest. It has been defined by the authors 
+        according to their own experience. Sure, you can disagree with them.<br>
+      </p>
+      <p>Formations are indicated as :</p>
+      <p>- Low interest formation (1)<br>
+        - Pretty interesting formation (2)<br>
+        - Very interesting formation (3)<br>
+        - Exceptionally interesting formation (4)</p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="INTERESTC"></a>INTERESTC 
+              = </font><font color="#009900" size="4"><b><font color="#0000CC">Text 
+              of interest cotation :</font></b></font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p> This field gives a numerical indication on the interest of the formation. 
+        It will help you to determine which formations to observe. It gives you 
+        information on the formation interest. It has been defined by the authors 
+        according to their own experience. Sure, you can disagree with them.<br>
+      </p>
+      <p>Formations are indicated as :</p>
+      <p>- Low interest formation<br>
+        - Pretty interesting formation<br>
+        - Very interesting formation<br>
+        - Exceptionally interesting formation </p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="LUNATION"></a>LUNATION 
+            = </font></b></font><font color="#0000CC" size="4">Lunar month day 
+            :</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>This gives an indication on the day of the first half (From New Moon 
+        to Full Moon) during which, a favorable observation of the selected formation 
+        on the terminator is possible. It's built on the formation longitude.</p>
+      <p>&quot;3&quot; is for &quot;3 days after New Moon&quot;<br>
+        &quot;7&quot; is for &quot;7 days after New Moon&quot;, it's First Quater<br>
+        &quot;14&quot; is for &quot;14&quot; days after New Moon&quot;, it's Full 
+        Moon</p>
+      <blockquote> 
+        <blockquote> 
+          <p><b><font color="#0033CC" size="4"><a name="MOONDAYS"></a>MOONDAYS 
+            = </font><font color="#0000CC" size="4">Lunar month day for evening 
+            observation :</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>This expression means "Day of lunar month permitting an evening observation 
+        of the formation". It has been observed&nbsp;that Eastern limb formations 
+        can only be well observed 2 days after New Moon.</p>
+      <p>The indicated day is the one for a null libration. It has been computed 
+        from formation longitude. According of the real libration value, it can 
+        be shifted&nbsp;by one day more or less.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <p><br>
+            <b><font color="#009900" size="4"><b><font color="#0033CC"><a name="MOONDAYM"></a>MOONDAYM 
+            = </font></b></font><font color="#0000CC" size="4">Lunar month day 
+            for morning observation :</font></b></p>
+        </blockquote>
+      </blockquote>
+      <p>This expression means "Day of lunar month permitting an morning observation 
+        of the formation". It has been&nbsp;observed that Western limb formations 
+        can only be well observed 2 days before New Moon.</p>
+      <p>The indicated day is the one for a null libration. It has been computed 
+        from formation longitude. According of the real libration value, it can 
+        be shifted by one day more or less.<br>
+      </p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="DIAMINST"></a>DIAMINST 
+              = Diam&egrave;tre de l'instrument th&eacute;orique :</font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p> This field gives a numerical value of the diameter of the theoritical 
+        instrument needed to observe the whole selected formation.It's built on 
+        the formation diameter and the theoritical resolution of the instruments 
+        based on the Dawes formula.</p>
+      <blockquote> 
+        <blockquote> 
+          <blockquote> 
+            <p><font color="#009900" size="4"><b><font color="#0033CC"><a name="THINSTRU"></a>THINSTRU 
+              =</font></b></font><font color="#009900" size="4"><b><font color="#0000CC"> 
+              Theoritical instrument :</font></b></font> </p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>This field presents the smallest instrument needed to theoritically observe 
+        the formation. It has been computed from the formation width and from 
+        theoritical resolution power (TRP) of the instruments. It is supposed 
+        to be obtained when using a magnification equal to instrument diameter 
+        in centimeters.</p>
+      <p>This data&nbsp;is provided for a Moon mean distance of 202,000 miles. 
+        An arc second is then about 1 mile on the Moon.</p>
+      <p>- Naked eye (PRP = 50 miles)<br>
+        - x10 binoculars (PRP = 10 miles)<br>
+        - 2" refractor (PRP = 2.5 miles)<br>
+        - 4" reflector (PRP = 1.5 miles)<br>
+        - 6" reflector (PRP = 1.1 miles)<br>
+        - 8" reflector (PRP = 0.9 mile)<br>
+        - 10" reflector (PRP = 0.6 mile)<br>
+      </p>
+      <blockquote>
+        <blockquote>
+          <blockquote> 
+            <p><font color="#009900" size="4"><b><font color="#009900" size="4"><b><font color="#0033CC"><a name="PRINSTRU"></a>PRINSTRU 
+              = </font></b></font><font color="#0000CC">Useful instrument :</font></b></font></p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <p>This field presents the smallest instrument needed to comfortably observe 
+        the formation. It has been computed from the formation width and from 
+        practical resolution power (PRP) of the instruments defined as the double 
+        of TRP. It is supposed to be obtained when using a magnification equal 
+        to instrument diameter in centimeters.</p>
+      <p>This data&nbsp;is provided for a Moon mean distance of 202,000 miles. 
+        An arc second is then about 1 mile on the Moon.</p>
+      <p>This data depends&nbsp;on other external criteria such as instrument 
+        quality, observer's eye health, seeing...).</p>
+      <p>- Naked eye (PRP = 100 miles)<br>
+        - x10 binoculars (PRP = 20 miles)<br>
+        - 2" refractor (PRP = 5 miles)<br>
+        - 4" reflector (PRP = 2.5 miles)<br>
+        - 6" reflector (PRP = 1.6 miles)<br>
+        - 8" reflector (PRP = 1.2 miles)<br>
+        - 10" reflector (PRP = 1 mile)</p>
+      <hr width="100%">
+      <p>&nbsp;</p>
+      <p align="center"><font color="#FF0000" size="5"><i><b>END OF &quot;DATLUN&quot; 
+        USER'S MANUAL</b></i></font></p>
+      <p align="center">The authors thank users to indicate them all mistake they 
+        found in this manual with a message on the Web site forum..</p>
+      <p align="center"><br>
+        <font color="#0000FF"><b><font size="4"><a href="UK_Index_DatLun.html">manual 
+        index</a></font></b></font> </p>
+      <hr WIDTH="100%">
+    </td>
+  </tr>
+</table>
+
+
+
+</body>
+
+</html>
