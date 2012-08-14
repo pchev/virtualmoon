@@ -1,10 +1,10 @@
 object layouts_form: Tlayouts_form
   Left = 208
   Top = 187
+  Width = 616
+  Height = 458
   BorderIcons = [biSystemMenu]
   Caption = 'GUI Layout Editor'
-  ClientHeight = 420
-  ClientWidth = 600
   Color = clBtnFace
   Constraints.MinHeight = 420
   Constraints.MinWidth = 600
@@ -54,6 +54,8 @@ object layouts_form: Tlayouts_form
       Width = 81
       Height = 25
       Caption = 'Load skin'
+      TabOrder = 0
+      OnClick = open_image_buttonClick
       Glyph.Data = {
         36050000424D3605000000000000360400002800000010000000100000000100
         08000000000000010000C40E0000C40E00000001000000010000000000007030
@@ -97,8 +99,6 @@ object layouts_form: Tlayouts_form
         43421A1C1B183528091313264545454545431A3C1C19362C0A13132645454545
         45453B1A1A343A2D0A131326454545454545454342403F3A0B13132626262624
         232120171612120E0D1313131313131313131313131313131313}
-      TabOrder = 0
-      OnClick = open_image_buttonClick
     end
     object open_button: TBitBtn
       Left = 95
@@ -106,6 +106,8 @@ object layouts_form: Tlayouts_form
       Width = 89
       Height = 25
       Caption = 'Open'
+      TabOrder = 1
+      OnClick = open_buttonClick
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
         18000000000000030000000000000000000000000000000000000000FF0000FF
@@ -133,8 +135,6 @@ object layouts_form: Tlayouts_form
         0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FFA59284A58A84B59A
         84C6AA940000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
-      TabOrder = 1
-      OnClick = open_buttonClick
     end
     object save_button: TBitBtn
       Left = 191
@@ -142,6 +142,8 @@ object layouts_form: Tlayouts_form
       Width = 89
       Height = 25
       Caption = 'Save'
+      TabOrder = 2
+      OnClick = save_buttonClick
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
         18000000000000030000000000000000000000000000000000000000FF0000FF
@@ -169,8 +171,6 @@ object layouts_form: Tlayouts_form
         0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
-      TabOrder = 2
-      OnClick = save_buttonClick
     end
     object BitBtn4: TBitBtn
       Tag = 1
@@ -179,6 +179,8 @@ object layouts_form: Tlayouts_form
       Width = 25
       Height = 25
       Anchors = [akTop, akRight]
+      TabOrder = 3
+      OnClick = BitBtn4Click
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
         18000000000000030000000000000000000000000000000000000000FFA5A6A5
@@ -206,8 +208,6 @@ object layouts_form: Tlayouts_form
         0000FF0000FF0000FF0000FF0000FFB5A2A5B5968CBD9E8CBD9E8CA5928CA59E
         9C0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
-      TabOrder = 3
-      OnClick = BitBtn4Click
     end
     object BitBtn5: TBitBtn
       Tag = -1
@@ -216,6 +216,8 @@ object layouts_form: Tlayouts_form
       Width = 25
       Height = 25
       Anchors = [akTop, akRight]
+      TabOrder = 4
+      OnClick = BitBtn4Click
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
         18000000000000030000000000000000000000000000000000000000FFA5A6A5
@@ -243,8 +245,6 @@ object layouts_form: Tlayouts_form
         0000FF0000FF0000FF0000FF0000FFBDB2B5B5968CC6A28CC6A694B5968C9C8E
         8CBDBABD0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
         00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF}
-      TabOrder = 4
-      OnClick = BitBtn4Click
     end
     object BitBtn6: TBitBtn
       Left = 568
@@ -252,6 +252,8 @@ object layouts_form: Tlayouts_form
       Width = 25
       Height = 25
       Anchors = [akTop, akRight]
+      TabOrder = 5
+      OnClick = BitBtn6Click
       Glyph.Data = {
         36050000424D3605000000000000360400002800000010000000100000000100
         08000000000000010000C40E0000C40E00000001000000010000703010004038
@@ -295,8 +297,6 @@ object layouts_form: Tlayouts_form
         170E0F3935201F151513172840180F111016461B1B1B1B1B1B1B2A4129232225
         1A451B1B1B1B1B1B1B1B1B2A41264243491B1B1B1B1B1B1B1B1B1B1B2A191B1B
         1B1B1B1B1B1B1B1B1B1B1B1B1B271B1B1B1B1B1B1B1B1B1B1B1B}
-      TabOrder = 5
-      OnClick = BitBtn6Click
     end
     object BitBtn1: TBitBtn
       Left = 286
@@ -304,6 +304,8 @@ object layouts_form: Tlayouts_form
       Width = 89
       Height = 25
       Caption = 'Done'
+      ModalResult = 1
+      TabOrder = 6
       Glyph.Data = {
         EE040000424DF004000000000000360400002800000010000000100000000100
         08000100000000000000120B0000120B00000000000000000000000000000000
@@ -345,8 +347,6 @@ object layouts_form: Tlayouts_form
         01FA0302010404030000080301FA0302010403030000090301FA030201040203
         00000A0301FA03020104010400000B0301FA0302010200000C0301FA02020102
         00000D0301FA020200000E0301FA01FA0000}
-      ModalResult = 1
-      TabOrder = 6
     end
   end
   object Panel2: TPanel
@@ -416,6 +416,8 @@ object layouts_form: Tlayouts_form
       Width = 73
       Height = 25
       Caption = 'Delete'
+      TabOrder = 1
+      OnClick = delete_item_buttonClick
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
         1800000000000003000000000000000000000000000000000000000080000080
@@ -443,8 +445,6 @@ object layouts_form: Tlayouts_form
         E7C3B5E7C3B5E7C3B5E7C3B5E7C3B50000FF0000FFD6B2A50000800000800000
         FF0000FF00008000008000008000008000008000008000008000008000008000
         0080000080000080000080000080000080000080000080000080}
-      TabOrder = 1
-      OnClick = delete_item_buttonClick
     end
     object add_button: TBitBtn
       Left = 17
@@ -452,6 +452,8 @@ object layouts_form: Tlayouts_form
       Width = 73
       Height = 25
       Caption = 'Add'
+      TabOrder = 2
+      OnClick = add_buttonClick
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
         18000000000000030000000000000000000000000000000000000000FF0000FF
@@ -479,8 +481,6 @@ object layouts_form: Tlayouts_form
         E7C3B5E7C3B5E7C3B5E7C3B5E7C3B5D6C3B5D6BAB500800000FF000080000000
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
         00FF0000FF0080000080000080000000FF0000FF0000FF0000FF}
-      TabOrder = 2
-      OnClick = add_buttonClick
     end
     object left_edit: TSpinEdit
       Left = 24
@@ -610,5 +610,10 @@ object layouts_form: Tlayouts_form
     Options = [ofPathMustExist, ofEnableSizing, ofDontAddToRecent]
     Left = 248
     Top = 96
+  end
+  object GLGuiLayout1: TGLGuiLayout
+    GuiComponents = <>
+    Left = 297
+    Top = 97
   end
 end

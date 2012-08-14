@@ -6,6 +6,8 @@
  Vector File related objects for GLScene<p>
 
  <b>History :</b><font size=-1><ul>
+      <li>11/07/12 - YP - Added BarycenterPosition and BarycenterOffset
+                          New centering option macRestorePosition
       <li>02/07/11 - DaStr - Replaced TAABB.Revision with TMeshObject.FExtentCacheRevision
       <li>30/06/11 - DaStr - TGLBaseMesh.BarycenterAbsolutePosition() now uses caching
       <li>23/02/11 - Yar - Added extent caching to TMeshObject
@@ -205,7 +207,7 @@ type
 
   // TMeshAutoCentering
   //
-  TMeshAutoCentering = (macCenterX, macCenterY, macCenterZ, macUseBarycenter);
+  TMeshAutoCentering = (macCenterX, macCenterY, macCenterZ, macUseBarycenter, macRestorePosition);
   TMeshAutoCenterings = set of TMeshAutoCentering;
 
   // TMeshObjectMode
@@ -1407,6 +1409,8 @@ type
       override;
 
     function AxisAlignedDimensionsUnscaled: TVector; override;
+    function BarycenterOffset: TVector;
+    function BarycenterPosition: TVector;
     function BarycenterAbsolutePosition: TVector; override;
 
     procedure BuildList(var rci: TRenderContextInfo); override;
@@ -7660,9 +7664,10 @@ begin
   SetVector(Result, FAxisAlignedDimensionsCache);
 end;
 
-// BarycenterAbsolutePosition
+// BarycenterOffset
 //
-function TGLBaseMesh.BarycenterAbsolutePosition: TVector;
+
+function TGLBaseMesh.BarycenterOffset: TVector;
 var
   dMin, dMax: TAffineVector;
 begin
@@ -7676,9 +7681,25 @@ begin
     FBaryCenterOffset[3] := 0;
     FBaryCenterOffsetChanged := False;
   end;
-
-  Result := LocalToAbsolute(VectorAdd(Position.DirectVector, FBaryCenterOffset));
+  Result := FBaryCenterOffset;
 end;
+
+// BarycenterPosition
+//
+
+function TGLBaseMesh.BarycenterPosition: TVector;
+begin
+  Result := VectorAdd(Position.DirectVector, BarycenterOffset);
+end;
+
+// BarycenterAbsolutePosition
+//
+function TGLBaseMesh.BarycenterAbsolutePosition: TVector;
+begin
+  Result := LocalToAbsolute(BarycenterPosition);
+end;
+
+
 
 // DestroyHandle
 //
@@ -7727,6 +7748,9 @@ begin
       delta[2] := 0;
   end;
   MeshObjects.Translate(delta);
+
+  if macRestorePosition in AutoCentering then
+    Position.Translate(VectorNegate(delta));
 end;
 
 // PerformAutoScaling

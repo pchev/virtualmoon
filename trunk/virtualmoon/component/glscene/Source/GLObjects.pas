@@ -3647,7 +3647,10 @@ begin
       if DoReverse then
         MakeVector(N1, 0, -1, 0)
       else
+      begin
         N1 := YVector;
+        NegateVector(N1); 
+      end;
     end;
     v1[1] := SinP;
     Theta := AngStop;
@@ -3656,7 +3659,7 @@ begin
       SinCos(Theta, SinT, CosT);
       v1[0] := CosP * SinT;
       v1[2] := CosP * CosT;
-      if FTopCap = ctCenter then
+      if FBottomCap = ctCenter then
       begin
         N1 := VectorPerpendicular(AffineVectorMake(0, -1, 0), v1);
         if DoReverse then

@@ -1,4 +1,4 @@
-//
+﻿//
 // This unit is part of the GLScene Project, http://glscene.org
 //
 {: GLExtrusion<p>
@@ -7,6 +7,7 @@
    surface described by a moving curve.<p>
 
  <b>Historique : </b><font size=-1><ul>
+      <li>15/11/11 - Vince - Fixes pipe texture coordinates missing initialisation
       <li>15/11/11 - Vince - Bugfixed issue with YOffsetPerTurn
       <li>07/05/11 - Yar - Fixed stColorMaterial state switching accordingly NodesColorMode
       <li>28/03/11 - Vince - Improve Normals generation on Pipes
@@ -1531,6 +1532,10 @@ begin
   CalculateRow(@rows[0], PAffineVector(@Nodes[0].AsVector)^, normal,
     TGLPipeNode(Nodes[0]).RadiusFactor);
   rows[0].color := TGLPipeNodes(Nodes)[0].Color.Color;
+  case TexCoordMode of
+    ptcmDefault: rows[0].textcoordT := 0;
+    ptcmManual: rows[0].textcoordT := TGLPipeNode(Nodes[0]).TexCoordT;
+  end;
 
   if ppStartDisk in Parts then
   begin

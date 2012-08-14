@@ -6,6 +6,7 @@
    Platform independant viewer.<p>
 
     History:
+      <li>13/06/12 - Yar - Bugfix synchronization control for Mac OS (thanks to pchev)	
       <li>23/08/10 - Yar - Replaced OpenGL1x to OpenGLTokens
       <li>30/04/10 - Yar - Added vertical synchronization cntrol for Linux (by Rustam Asmandiarov aka Predato) 
       <li>17/09/07 - DaStr - Replaced $IFNDEF KYLIX to $IFDEF MSWINDOWS in 

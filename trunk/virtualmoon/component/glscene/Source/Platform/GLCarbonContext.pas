@@ -77,7 +77,7 @@ type
          function IsValid : Boolean; override;
          procedure SwapBuffers; override;
 
-         function RenderOutputDevice : Integer; override;
+         function RenderOutputDevice : Pointer; override;
    end;
   // ------------------------------------------------------------------
   // ------------------------------------------------------------------
@@ -720,9 +720,9 @@ begin
     FGL.aSwapBuffers(FRC);
 end;
 
-function TGLCarbonContext.RenderOutputDevice: Integer;
+function TGLCarbonContext.RenderOutputDevice: Pointer;
 begin
-  Result := 0;
+  Result := nil;
 end;
 
 end.

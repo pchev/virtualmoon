@@ -325,7 +325,7 @@ type
     function FindCompatibleContext: TGLContext;
     procedure DestroyAllHandles;
 
-    function RenderOutputDevice: Integer; virtual; abstract;
+    function RenderOutputDevice: Pointer; virtual; abstract;
     {: Access to OpenGL command and extension. }
     property GL: TGLExtensionsAndEntryPoints read FGL;
     property MultitextureCoordinator: TAbstractMultitextureCoordinator read GetXGL;

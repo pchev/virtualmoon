@@ -184,7 +184,10 @@ begin
     Abort;
   end;
 
+  Context.Requires;
   FStatus := cufftSetCompatibilityMode(FHandle, CUFFT_COMPATIBILITY_FFTW_PADDING);
+  Context.Release;
+
   fChanges := [];
   inherited;
 end;

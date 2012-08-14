@@ -59,7 +59,7 @@
 {.$DEFINE GLS_NO_REGIONS}
 
 // Activate Logging
-{.$DEFINE GLS_LOGGING}
+{$DEFINE GLS_LOGGING}
 
 // Activate OpenGL debug mode
 {.$DEFINE GLS_OPENGL_DEBUG}
