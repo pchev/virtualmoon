@@ -36,7 +36,7 @@ uses
   Windows,
 {$ENDIF}
 {$IFDEF FPC}
-  LCLIntf, LCLType, Types, LCLProc, LazUTF8,
+  LCLIntf, LCLType, Types, LCLProc,LCLVersion,
 {$ENDIF}
   GLBitmapFont,
   GLRenderContextInfo,
@@ -115,6 +115,11 @@ implementation
 // ------------------------------------------------------------------
 
 uses
+  {$IFDEF FPC}
+    {$IF (lcl_major > 0) or ((lcl_minor >= 9) and (lcl_release >= 31))}
+      LazUTF8,
+    {$IFEND}
+  {$ENDIF}
   GLUtils,
   math,
   SysUtils,
