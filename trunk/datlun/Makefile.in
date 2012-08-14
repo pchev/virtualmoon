@@ -17,7 +17,7 @@ packages=rtl
 unittargetdir=units/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
 includedir=./
 options= $(opt_target) -dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi -Ch100000 -vewni -l -Xs -CX -XX
-unitdir=../virtualmoon/component/uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)/ ../virtualmoon/component/libsql/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ ../virtualmoon/component/enhedits/lib/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/turbopower_ipro/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/printers/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ ./
+unitdir=../virtualmoon/component/uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)/ ../virtualmoon/component/libsql/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ ../virtualmoon/component/enhedits/lib/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/turbopower_ipro/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/printers/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/lazutils/lib/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ./
 
 [clean]
 files=$(wildcard $(COMPILER_UNITTARGETDIR)/*$(OEXT)) \
