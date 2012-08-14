@@ -9,6 +9,7 @@
   Modified by C4 and YarUnderoaker (hope, I didn't miss anybody).
 
   <b>History : </b><font size=-1><ul>
+  <li>09/07/12 - Yar - Fixed DoPostInitialize and DoPreInitialize events (thanks to Gabriel Corneanu)
   <li>22/04/11 - Yar - Bugfixed lighting state restoration
   <li>13/02/11 - Yar - Added RenderContextInfo to BeforeRender and AfterRender event
   <li>07/01/11 - Yar - Added properties Active and PickableTarget
@@ -319,14 +320,14 @@ end;
 
 procedure TGLFBORenderer.DoPostInitialize;
 begin
-  if Assigned(FPreInitialize) then
-    FPreInitialize(Self);
+  if Assigned(FPostInitialize) then
+    FPostInitialize(Self);
 end;
 
 procedure TGLFBORenderer.DoPreInitialize;
 begin
-  if Assigned(FPostInitialize) then
-    FPostInitialize(Self);
+  if Assigned(FPreInitialize) then
+    FPreInitialize(Self);
 end;
 
 procedure TGLFBORenderer.DoRender(var ARci: TRenderContextInfo;

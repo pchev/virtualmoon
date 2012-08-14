@@ -93,7 +93,7 @@ type
     function IsValid: Boolean; override;
     procedure SwapBuffers; override;
 
-    function RenderOutputDevice: Integer; override;
+    function RenderOutputDevice: Pointer; override;
   end;
   {$ENDIF}
   // ------------------------------------------------------------------
@@ -867,9 +867,9 @@ begin
     glXSwapBuffers(FDisplay, FDC);
 end;
 
-function TGLGLXContext.RenderOutputDevice: Integer;
+function TGLGLXContext.RenderOutputDevice: Pointer;
 begin
-  Result := 0;
+  Result := nil;
 end;
 {$ENDIF}
 end.

@@ -158,7 +158,7 @@ type
     function IsValid: Boolean; override;
     procedure SwapBuffers; override;
 
-    function RenderOutputDevice: Integer; override;
+    function RenderOutputDevice: Pointer; override;
 
     property DC: HDC read FDC;
     property RC: HGLRC read FRC;
@@ -1427,9 +1427,9 @@ end;
 // RenderOutputDevice
 //
 
-function TGLWin32Context.RenderOutputDevice: Integer;
+function TGLWin32Context.RenderOutputDevice: Pointer;
 begin
-  Result := FDC;
+  Result := Pointer(FDC);
 end;
 
 // ------------------------------------------------------------------

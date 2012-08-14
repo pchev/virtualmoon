@@ -119,7 +119,7 @@ type
     function IsValid: Boolean; override;
     procedure SwapBuffers; override;
 
-    function RenderOutputDevice: Integer; override;
+    function RenderOutputDevice: Pointer; override;
 
     property SDLWindow: TSDLWindow read FSDLWin;
   end;
@@ -414,7 +414,7 @@ end;
 function TGLSDLContext.RenderOutputDevice: Integer;
 begin
   // unsupported
-  Result := 0;
+  Result := nil;
 end;
 
 // ------------------------------------------------------------------

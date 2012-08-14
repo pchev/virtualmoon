@@ -9,6 +9,9 @@
     to enable support for OBJ & OBJF at run-time.<p>
 
  <b>History : </b><font size=-1><ul>
+      <li>26/06/12 - YP - Split groups in their own mesh instead of a new facegroup
+                          (see globale var vGLFileOBJ_SplitMesh, enabled by default)
+      <li>20/06/12 - YP - Get TexturePaths from MaterialLibrary when loading materials
       <li>30/06/11 - DaStr - Added ability to assign meshes
       <li>23/08/10 - Yar - Replaced OpenGL1x to OpenGLTokens
       <li>04/03/10 - DanB - Now uses CharInSet
@@ -158,6 +161,12 @@ type
     function MaterialVectorProperty(const materialName, propertyName: string;
       const defaultValue: TVector): TVector;
   end;
+
+var
+  {: If enabled, main mesh will be splitted into multiple mesh from facegroup
+     data.}
+
+  vGLFileOBJ_SplitMesh: boolean = True;
 
   // ------------------------------------------------------------------
   // ------------------------------------------------------------------
@@ -328,6 +337,7 @@ var
         { For every Vertex in the current Polygon }
         for j := 0 to FPolygonVertices[Polygon] - 1 do
         begin
+          Assert(NormalIndices.List <> nil);
           idx := NormalIndices.List^[Index];
           if idx >= 0 then
             GL.Normal3fv(@NormalPool[idx]);
@@ -757,9 +767,9 @@ var
     if i >= 0 then
     begin
       faceGroup := TOBJFGVertexNormalTexIndexList(faceGroupNames.Objects[i]);
+
       if faceGroup.MaterialName <> matlName then
       begin
-        aName := aName + '-' + matlName;
         i := faceGroupNames.IndexOf(aName);
         if i >= 0 then
         begin
@@ -863,6 +873,7 @@ var
     matLib: TGLMaterialLibrary;
     libMat: TGLLibMaterial;
     texName: string;
+    libFilename: string;
   begin
     if GetOwner is TGLBaseMesh then
     begin
@@ -877,8 +888,15 @@ var
           // spawn a new material
           libMat := matLib.Materials.Add;
           libMat.Name := matName;
+
+          // get full path for material file to be load
+          if matLib.TexturePaths = EmptyStr then
+            libFilename := libName
+          else
+            libFilename := IncludeTrailingPathDelimiter(matLib.TexturePaths) + libName;
+
           try
-            fs := CreateFileStream(libName);
+            fs := CreateFileStream(libFilename);
           except
             fs := nil;
           end;
@@ -944,6 +962,55 @@ var
       else
         Result := '';
     end;
+  end;
+
+  procedure SplitMesh;
+  var
+    i, j, count: Integer;
+    newMesh: TMeshObject;
+    newfaceGroup: TOBJFGVertexNormalTexIndexList;
+    VertexIdx, NormalIdx, TexCoordIdx: Integer;
+    AffineVector: TAffineVector;
+  begin
+    for i := 0 to mesh.FaceGroups.Count-1 do
+    begin
+      faceGroup := mesh.FaceGroups[i] as TOBJFGVertexNormalTexIndexList;
+
+      newMesh := TMeshObject.CreateOwned(Owner.MeshObjects);
+      newMesh.Mode := momFaceGroups;
+      newMesh.Name := faceGroup.Name;
+
+      newfaceGroup := TOBJFGVertexNormalTexIndexList.CreateOwned(newMesh.FaceGroups);
+      newfaceGroup.Assign(faceGroup);
+      newfaceGroup.FName := faceGroup.Name;
+      newfaceGroup.Mode := faceGroup.Mode;
+      newfaceGroup.MaterialName := faceGroup.MaterialName;
+
+      //SendInteger('VertexIndices', faceGroup.VertexIndices.Count);
+      //SendInteger('TexCoords', faceGroup.TexCoordIndices.Count);
+      //SendInteger('Normals', faceGroup.NormalIndices.Count);
+
+      count := faceGroup.VertexIndices.Count;
+      for j := 0 to count-1 do
+      begin
+        VertexIdx := faceGroup.VertexIndices[j];
+        AffineVector := mesh.Vertices[VertexIdx];
+        VertexIdx := newMesh.Vertices.Add(AffineVector);
+
+        TexCoordIdx := faceGroup.TexCoordIndices[j];
+        AffineVector := mesh.TexCoords[TexCoordIdx];
+        TexCoordIdx := newMesh.TexCoords.Add(AffineVector);
+
+        NormalIdx := faceGroup.NormalIndices[j];
+        AffineVector := mesh.Normals[NormalIdx];
+        NormalIdx := newMesh.Normals.Add(AffineVector);
+
+        newfaceGroup.Add(VertexIdx, NormalIdx, TexCoordIdx);
+      end;
+
+    end;
+
+    Owner.MeshObjects.RemoveAndFree(mesh);
   end;
 
 var
@@ -1068,6 +1135,10 @@ begin
         Mesh.Normals.Count,
         Mesh.FaceGroups.Count]));
 {$ENDIF}
+
+    if vGLFileOBJ_SplitMesh then
+      SplitMesh;
+
   finally
     faceGroupNames.Free;
   end;
@@ -1394,7 +1465,7 @@ begin
     else
     begin
       if FPolygonVertices = nil then
-        TIntegerList.Create;
+        FPolygonVertices := TIntegerList.Create;
       FPolygonVertices.Assign(TOBJFGVertexNormalTexIndexList(Source).FPolygonVertices);
     end;  
   end
