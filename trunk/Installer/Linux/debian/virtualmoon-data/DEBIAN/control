@@ -2,7 +2,7 @@ Package: virtualmoon-data
 Version: 5
 Section: science
 Priority: optional
-Maintainer: Patrick Chevalley <pch@freesurf.ch>
+Maintainer: Patrick Chevalley <pch@ap-i.net>
 Architecture: all
 Suggests: virtualmoon 
 Description: Virtual Moon Atlas - data files
