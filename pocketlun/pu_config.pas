@@ -2,8 +2,8 @@ unit pu_config;
 {
 Copyright (C) 2007 Patrick Chevalley
 
-http://www.astrosurf.com/avl
-pch@freesurf.ch
+http://www.ap-i.net
+pch@ap-i.net
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

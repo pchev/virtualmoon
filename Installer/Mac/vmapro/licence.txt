@@ -1,6 +1,6 @@
 Virtual Moon Atlas
 Copyright (C) 2009 Christian Legrand & Patrick Chevalley
-http://www.astrosurf.com/avl
+http://www.ap-i.net
 
 The "Virtual Moon Atlas" is free software as described by the 
 GNU General Public License undermentioned.

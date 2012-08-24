@@ -2,8 +2,8 @@ unit pu_photlun;
 {
 Copyright (C) 2007 Patrick Chevalley
 
-http://www.astrosurf.com/astropc
-pch@freesurf.ch
+http://www.ap-i.net
+pch@ap-i.net
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -1153,7 +1153,7 @@ procedure Tf_photlun.MenuItem15Click(Sender: TObject);
 begin
   Showmessage('Photlun '+Splashversion+crlf+
               compile_version+crlf+
-              'http://astrosurf.com/avl'+crlf+
+              'http://ap-i.net/avl'+crlf+
               avlcpy+crlf+crlf+
               'Conception : Christian Legrand'+crlf+
               'Programming : Patrick Chevalley'+crlf+
