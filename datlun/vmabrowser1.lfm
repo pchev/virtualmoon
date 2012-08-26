@@ -1,7 +1,7 @@
 object f_main: Tf_main
-  Left = 335
+  Left = 111
   Height = 467
-  Top = 127
+  Top = 49
   Width = 720
   ActiveControl = MoonGrid
   Caption = 'DATLUN'

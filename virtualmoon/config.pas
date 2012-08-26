@@ -634,7 +634,7 @@ begin
      end;
   if k>0 then begin
      ComboBox6.Visible:=true;
-     ComboBox6.Top:=RadioGroup2.top - (ComboBox6.Height div 2) + round((RadioGroup2.Height)/(RadioGroup2.Items.Count+1) * k);
+     ComboBox6.Top:=RadioGroup2.top - ((ComboBox6.Height-abs(RadioGroup2.Font.Height)) div 2) + round((RadioGroup2.Height)/(RadioGroup2.Items.Count+1) * k);
      for i:=0 to ComboBox6.Items.Count-1 do
        if ComboBox6.Items[i]=HistTex then begin
          ComboBox6.ItemIndex:=i;
