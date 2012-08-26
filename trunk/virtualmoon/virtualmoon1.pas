@@ -3562,6 +3562,7 @@ var
   i, j: integer;
   p: TPoint;
 begin
+  activemoon.SatelliteRotation:=0;
   p:=Point(ToolButton2.Left,ToolButton2.Top+ToolButton2.Height);
   p:=ToolBar2.ClientToScreen(p);
   try
@@ -3902,6 +3903,7 @@ end;
 procedure TForm1.ToolButton1Click(Sender: TObject);
 var p: TPoint;
 begin
+  activemoon.SatelliteRotation:=0;
   p:=Point(ToolButton1.Left,ToolButton1.Top+ToolButton1.Height);
   p:=ToolBar2.ClientToScreen(p);
   FilePopup.PopUp(p.x,p.y);
@@ -3910,6 +3912,7 @@ end;
 procedure TForm1.ToolButton8Click(Sender: TObject);
 var p: TPoint;
 begin
+  activemoon.SatelliteRotation:=0;
   p:=Point(ToolButton8.Left,ToolButton8.Top+ToolButton8.Height);
   p:=ToolBar2.ClientToScreen(p);
   HelpPopup.PopUp(p.x,p.y);
@@ -4392,6 +4395,7 @@ begin
   else
   begin
     activemoon.MeasuringDistance := False;
+    activemoon.SatelliteRotation:=0;
   end;
 end;
 
@@ -4402,12 +4406,14 @@ end;
 
 procedure TForm1.EastWest1Click(Sender: TObject);
 begin
+  PageControl1.ActivePage:=Outils;
   rotdirection := -rotdirection;
   activemoon.SatelliteRotation:=rotdirection*rotstep;
 end;
 
 procedure TForm1.N10seconde1Click(Sender: TObject);
 begin
+  PageControl1.ActivePage:=Outils;
   combobox4.ItemIndex := 0;
   rotstep := 10;
   activemoon.SatelliteRotation:=rotdirection*rotstep;
@@ -4415,6 +4421,7 @@ end;
 
 procedure TForm1.N5seconde1Click(Sender: TObject);
 begin
+  PageControl1.ActivePage:=Outils;
   combobox4.ItemIndex := 1;
   rotstep := 5;
   activemoon.SatelliteRotation:=rotdirection*rotstep;
@@ -4422,6 +4429,7 @@ end;
 
 procedure TForm1.N1seconde1Click(Sender: TObject);
 begin
+  PageControl1.ActivePage:=Outils;
   combobox4.ItemIndex := 2;
   rotstep := 1;
   activemoon.SatelliteRotation:=rotdirection*rotstep;
@@ -4429,6 +4437,7 @@ end;
 
 procedure TForm1.N05seconde1Click(Sender: TObject);
 begin
+  PageControl1.ActivePage:=Outils;
   combobox4.ItemIndex := 3;
   rotstep := 0.5;
   activemoon.SatelliteRotation:=rotdirection*rotstep;
@@ -4436,6 +4445,7 @@ end;
 
 procedure TForm1.N02seconde1Click(Sender: TObject);
 begin
+  PageControl1.ActivePage:=Outils;
   combobox4.ItemIndex := 4;
   rotstep := 0.2;
   activemoon.SatelliteRotation:=rotdirection*rotstep;
@@ -4710,6 +4720,7 @@ end;
 
 procedure TForm1.Button11Click(Sender: TObject);
 begin
+  activemoon.SatelliteRotation:=0;
   activemoon.MeasuringDistance := not activemoon.MeasuringDistance;
   if activemoon.MeasuringDistance then
   begin
