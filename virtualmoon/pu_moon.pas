@@ -173,6 +173,7 @@ type
     FOrientation: single;
     FPoleorientation: single;
     FFollowNorth: boolean;
+    FZenithOnTop: Boolean;
     Fzoom : single;
     Flabelcolor: TColor;
     perfdeltay: double;
@@ -320,6 +321,7 @@ type
     property Orientation:single read FOrientation write SetOrientation;
     property Poleorientation: single read FPoleorientation write FPoleorientation;
     property FollowNorth: boolean read FFollowNorth write FFollowNorth;
+    property ZenithOnTop: boolean read FZenithOnTop write FZenithOnTop;
     property ShowPhase : Boolean read FShowPhase write SetShowPhase;
     property GridSpacing: integer read FGridSpacing write SetGridSpacing;
     property ShowGrid : Boolean read FShowGrid write SetShowGrid;
@@ -1406,6 +1408,7 @@ begin
  Orientation:=Source.Orientation;
  Poleorientation   := Source.Poleorientation;
  FollowNorth:=Source.FollowNorth;
+ ZenithOnTop:=Source.ZenithOnTop;
  LabelFont :=Source.LabelFont;
  LabelColor :=Source.LabelColor;
  LibrationMark:=Source.LibrationMark;
