@@ -60,6 +60,13 @@ type
     Edit15: TEdit;
     Edit16: TEdit;
     Edit17: TEdit;
+    GBlvall: TGroupBox;
+    GBlv1: TGroupBox;
+    GBlv2: TGroupBox;
+    GBlv3: TGroupBox;
+    GBlv4: TGroupBox;
+    GBlv5: TGroupBox;
+    GBlv6: TGroupBox;
     Label20: TLabel;
     Label21: TLabel;
     Label29: TLabel;
@@ -103,15 +110,8 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     TexturePanel: TPanel;
-    RadioGroup2: TRadioGroup;
-    RadioGroup3: TRadioGroup;
-    RadioGroup4: TRadioGroup;
-    RadioGroup5: TRadioGroup;
-    RadioGroup6: TRadioGroup;
     BumpRadioGroup: TRadioGroup;
     RadioGroup7: TRadioGroup;
-    RadioGroup8: TRadioGroup;
-    RadioGroup9: TRadioGroup;
     StringGrid3: TStringGrid;
     TabSheet1: TTabSheet;
     Label4: TLabel;
@@ -222,9 +222,9 @@ type
     procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
-    procedure RadioGroup2Click(Sender: TObject);
+    procedure RadioButtonAllClick(Sender: TObject);
     procedure RadioGroup7Click(Sender: TObject);
-    procedure RadioGroupTextureClick(Sender: TObject);
+    procedure RadioButtonLvClick(Sender: TObject);
     procedure Shape1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Button2Click(Sender: TObject);
@@ -388,11 +388,72 @@ p:=pos(' ',buf);
 result:=trim(copy(buf,1,p-1));
 end;
 
+function GBRadioChecked(GB: TGroupBox): integer;
+var i: integer;
+begin
+result:=-1;
+for i:=0 to GB.ControlCount-1 do begin
+  if TRadioButton(GB.Controls[i]).Checked then begin
+    result:=i;
+    break;
+  end;
+end;
+end;
+
 procedure TForm2.FormCreate(Sender: TObject);
 var i,j,p : integer;
     buf,code,AVLlang : string;
     fs : TSearchRec;
     ft : TextFile;
+    bt : TRadioButton;
+    cb : TCheckBox;
+procedure addbuttons(n:integer;txt:string);
+var toppos:integer;
+begin
+  cb:=TCheckBox.Create(self);
+  cb.Parent:=GBlvall;
+  toppos:= 2+n*(cb.Height+4);
+  cb.Top:=toppos;
+  cb.Caption:=txt;
+  cb.Tag:=n;
+  cb.OnClick:=RadioButtonAllClick;
+  bt:=TRadioButton.Create(self);
+  bt.Parent:=GBlv1;
+  bt.Top:=toppos;
+  bt.Caption:='';
+  bt.Tag:=n;
+  bt.OnClick:=RadioButtonLvClick;
+  bt:=TRadioButton.Create(self);
+  bt.Parent:=GBlv2;
+  bt.Top:=toppos;
+  bt.Caption:='';
+  bt.Tag:=1000+n;
+  bt.OnClick:=RadioButtonLvClick;
+  bt:=TRadioButton.Create(self);
+  bt.Parent:=GBlv3;
+  bt.Top:=toppos;
+  bt.Caption:='';
+  bt.Tag:=2000+n;
+  bt.OnClick:=RadioButtonLvClick;
+  bt:=TRadioButton.Create(self);
+  bt.Parent:=GBlv4;
+  bt.Top:=toppos;
+  bt.Caption:='';
+  bt.Tag:=3000+n;
+  bt.OnClick:=RadioButtonLvClick;
+  bt:=TRadioButton.Create(self);
+  bt.Parent:=GBlv5;
+  bt.Top:=toppos;
+  bt.Caption:='';
+  bt.Tag:=4000+n;
+  bt.OnClick:=RadioButtonLvClick;
+  bt:=TRadioButton.Create(self);
+  bt.Parent:=GBlv6;
+  bt.Top:=toppos;
+  bt.Caption:='';
+  bt.Tag:=5000+n;
+  bt.OnClick:=RadioButtonLvClick;
+end;
 begin
 {$ifdef mswindows}
  ScaleForm(self,Screen.PixelsPerInch/96);
@@ -460,13 +521,6 @@ while i=0 do begin
 end;
 findclose(fs);
 TextureList.Sort;
-RadioGroup2.Items.clear;
-RadioGroup3.Items.clear;
-RadioGroup4.Items.clear;
-RadioGroup5.Items.clear;
-RadioGroup6.Items.clear;
-RadioGroup8.Items.clear;
-RadioGroup9.Items.clear;
 for i:=0 to TextureList.Count-1 do begin
     if TextureList[i]='Airbrush' then buf:=rsAirburshReli
     else if TextureList[i]='Airbrush_no_albedo' then buf:=rsAirburshReli2
@@ -478,13 +532,7 @@ for i:=0 to TextureList.Count-1 do begin
       FillHistorical;
     end
     else buf:=TextureList[i];
-    RadioGroup2.Items.Add(buf);
-    RadioGroup3.Items.Add('');
-    RadioGroup4.Items.Add('');
-    RadioGroup5.Items.Add('');
-    RadioGroup6.Items.Add('');
-    RadioGroup8.Items.Add('');
-    RadioGroup9.Items.Add('');
+    addbuttons(i,buf);
 end;
 savelibration:=librationeffect;
 countrycode:=TStringList.Create;
@@ -549,7 +597,6 @@ begin
 newlang:=GetLangCode(combobox3.text);
 end;
 
-
 procedure TForm2.RadioGroup7Click(Sender: TObject);
 var topo:boolean;
 begin
@@ -586,12 +633,12 @@ locktexture:=true;
          if pos(HistoricalDir,tex)>0 then tex:=noslash(ExtractFilePath(noslash(tex)));
          if TextureList[i]=tex then begin
            case j of
-             0: RadioGroup3.ItemIndex:=i;
-             1: RadioGroup4.ItemIndex:=i;
-             2: RadioGroup5.ItemIndex:=i;
-             3: RadioGroup6.ItemIndex:=i;
-             4: RadioGroup8.ItemIndex:=i;
-             5: RadioGroup9.ItemIndex:=i;
+             0: TRadioButton(GBlv1.Controls[i]).Checked:=true;
+             1: TRadioButton(GBlv2.Controls[i]).Checked:=true;
+             2: TRadioButton(GBlv3.Controls[i]).Checked:=true;
+             3: TRadioButton(GBlv4.Controls[i]).Checked:=true;
+             4: TRadioButton(GBlv5.Controls[i]).Checked:=true;
+             5: TRadioButton(GBlv6.Controls[i]).Checked:=true;
            end;
          end;
       end;
@@ -601,8 +648,7 @@ end;
 
 procedure TForm2.FormShow(Sender: TObject);
 var myRect: TGridRect;
-    i:integer;
-    k:single;
+    i,k:integer;
 begin
   memo1.Text:=rst_184;
   OverlayPanel.visible:=AsMultiTexture;
@@ -627,14 +673,14 @@ begin
       HistN[i]:=i;
     end;
   k:=-1;
-  for i:=0 to RadioGroup2.Items.Count-1 do
-     if RadioGroup2.Items[i]=rsHistorical then begin
-       k:=i+1;
+  for i:=0 to GBlvall.ControlCount-1 do
+     if TRadioButton(GBlvall.Controls[i]).Caption=rsHistorical then begin
+       k:=TRadioButton(GBlvall.Controls[i]).Top;
        break;
      end;
   if k>0 then begin
      ComboBox6.Visible:=true;
-     ComboBox6.Top:=RadioGroup2.top - ((ComboBox6.Height-abs(RadioGroup2.Font.Height)) div 2) + round((RadioGroup2.Height)/(RadioGroup2.Items.Count+1) * k);
+     ComboBox6.Top:=k;
      for i:=0 to ComboBox6.Items.Count-1 do
        if ComboBox6.Items[i]=HistTex then begin
          ComboBox6.ItemIndex:=i;
@@ -696,27 +742,28 @@ begin
  CheckBox19.Checked:=true;
 end;
 
-procedure TForm2.RadioGroup2Click(Sender: TObject);
+procedure TForm2.RadioButtonAllClick(Sender: TObject);
 var i: integer;
 begin
-i:=RadioGroup2.ItemIndex;
-RadioGroup3.ItemIndex:=i;
-RadioGroup4.ItemIndex:=i;
-RadioGroup5.ItemIndex:=i;
-RadioGroup6.ItemIndex:=i;
-RadioGroup8.ItemIndex:=i;
-RadioGroup9.ItemIndex:=i;
+i:=TCheckBox(sender).tag;
+TCheckBox(sender).Checked:=false;
+if TRadioButton(GBlv1.Controls[i]).Enabled then TRadioButton(GBlv1.Controls[i]).Checked:=true;
+if TRadioButton(GBlv2.Controls[i]).Enabled then TRadioButton(GBlv2.Controls[i]).Checked:=true;
+if TRadioButton(GBlv3.Controls[i]).Enabled then TRadioButton(GBlv3.Controls[i]).Checked:=true;
+if TRadioButton(GBlv4.Controls[i]).Enabled then TRadioButton(GBlv4.Controls[i]).Checked:=true;
+if TRadioButton(GBlv5.Controls[i]).Enabled then TRadioButton(GBlv5.Controls[i]).Checked:=true;
+if TRadioButton(GBlv6.Controls[i]).Enabled then TRadioButton(GBlv6.Controls[i]).Checked:=true;
 Application.ProcessMessages;
 showtexture;
 end;
 
-procedure TForm2.RadioGroupTextureClick(Sender: TObject);
+procedure TForm2.RadioButtonLvClick(Sender: TObject);
 var i,j: integer;
     tex: string;
 begin
 if locktexture then exit;
-i:=(sender as TRadioGroup).ItemIndex;
-j:=(sender as TRadioGroup).Tag;
+i:=TRadioButton(sender).Tag mod 1000;
+j:=trunc(TRadioButton(sender).Tag/1000);
 if (i>=0)and(j>=0) then begin
   tex:=TextureList[i];
   if tex=HistoricalDir then tex:=slash(tex)+ComboBox6.text;
@@ -726,7 +773,8 @@ if (i>=0)and(j>=0) then begin
     TextureChanged:=true;
   end
     else begin
-      (sender as TRadioGroup).ItemIndex:=-1;
+      TRadioButton(sender).Checked:=false;
+//      TRadioButton(sender).Enabled:=false;
       showtexture;
     end;
   end;
