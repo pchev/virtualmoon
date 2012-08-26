@@ -29,7 +29,7 @@ eng.cclun=Command Center
 eng.MyAppUrl=http://www.ap-i.net/avl/en/start
 eng.MyWebPage=VMA
 eng.MyDocumentation=Documentation
-eng.MyDocFile=doc\UK_Index_Doc.html
+eng.MyDocFile=doc\UK_Doc_AtLun.html
 eng.MyTutorial=doc\UK_tutorial.html
 eng.MyTutorialMsg=Read the tutorial
 fre.MyAppName=Atlas Virtuel de la Lune
@@ -37,7 +37,7 @@ fre.cclun=Centre de commandes
 fre.MyAppUrl=http://www.ap-i.net/avl/fr/start
 fre.MyWebPage=AVL
 fre.MyDocumentation=Documentation
-fre.MyDocFile=doc\FR_Index_Doc.html
+fre.MyDocFile=doc\FR_Doc_AtLun.html
 fre.MyTutorial=doc\FR_tutorial.html
 fre.MyTutorialMsg=Voir les instructions
 

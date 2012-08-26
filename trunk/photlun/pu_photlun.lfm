@@ -1,7 +1,7 @@
 object f_photlun: Tf_photlun
-  Left = 367
+  Left = 62
   Height = 197
-  Top = 125
+  Top = 0
   Width = 810
   ActiveControl = PanelTop
   Caption = 'Photlun'

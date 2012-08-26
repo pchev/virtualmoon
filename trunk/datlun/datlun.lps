@@ -87,10 +87,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser2"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="320"/>
+        <TopLine Value="319"/>
         <CursorPos X="1" Y="349"/>
         <UsageCount Value="42"/>
         <Loaded Value="True"/>
@@ -103,10 +102,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1037"/>
-        <CursorPos X="1" Y="1066"/>
+        <TopLine Value="1035"/>
+        <CursorPos X="94" Y="1041"/>
         <UsageCount Value="42"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
