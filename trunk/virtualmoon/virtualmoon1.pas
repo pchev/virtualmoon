@@ -58,6 +58,7 @@ type
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
+    CheckBox4: TCheckBox;
     CheckBox6: TCheckBox;
     CheckBox7: TCheckBox;
     ComboBox5: TComboBox;
@@ -316,6 +317,7 @@ type
     procedure Button21Click(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
+    procedure CheckBox4Click(Sender: TObject);
     procedure ComboBox6Change(Sender: TObject);
     procedure FullScreen1Click(Sender: TObject);
     procedure GridButtonClick(Sender: TObject);
@@ -523,11 +525,11 @@ type
     PrintEph, PrintDesc, phaseeffect, externalimage, PrintChart, lopamdirect: boolean;
     librl, librb, wheelstep, EphStep, fov, searchl,
     searchb, markx, marky, flipx, rotstep, lunaison: double;
-    ra, Dec, rad, ded, dist, dkm, phase, illum, pa, sunincl, currentphase,
+    ra, Dec, rad, ded, dist, dkm, phase, illum, pa, sunincl, parallacticangle, currentphase,
     tphase, by, bxpos, dummy: double;
     editrow, notesrow, rotdirection, searchpos,BumpMethod: integer;
     dbedited: boolean;
-    SkipIdent, wantbump, geocentric, FollowNorth, notesok, notesedited,
+    SkipIdent, wantbump, geocentric, FollowNorth, ZenithOnTop, notesok, notesedited,
     minilabel, shortdesc, BumpMipmap: boolean;
     lockmove, lockrepeat, showlibrationmark, saveimagewhite, skipresize,skiporient, skiprot: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
@@ -756,6 +758,7 @@ begin
     RadioGroup2.Items[0]:=rst_72;
     RadioGroup2.Items[1]:=rst_73;
     CheckBox1.Caption := rst_68;
+    checkbox4.Caption:=rsLocalZenithO;
     distance1.Caption := rst_69;
     FullScreen1.Caption:=rsFullScreen;
     ToolButton13.Hint:=rsFullScreen;
@@ -983,6 +986,7 @@ begin
   CameraOrientation := 0;
   PoleOrientation := 0;
   FollowNorth := False;
+  ZenithOnTop := False;
   flipx    := 1;
   LeftMargin := 10;
   PrintTextWidth := 700;
@@ -1068,6 +1072,7 @@ begin
     labelcenter  := ReadBool(section, 'LabelCenter', labelcenter);
     minilabel    := ReadBool(section, 'MiniLabel', minilabel);
     FollowNorth  := ReadBool(section, 'FollowNorth', FollowNorth);
+    ZenithOnTop  := ReadBool(section, 'ZenithOnTop', ZenithOnTop);
     CheckBox2.Checked := ReadBool(section, 'Mirror', False);
     GridButton.Down:= ReadBool(section, 'Grid', False);
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
@@ -1202,6 +1207,7 @@ begin
       WriteBool(section, 'LabelCenter', labelcenter);
       WriteBool(section, 'MiniLabel', minilabel);
       WriteBool(section, 'FollowNorth', FollowNorth);
+      WriteBool(section, 'ZenithOnTop', ZenithOnTop);
       WriteBool(section, 'Mirror', CheckBox2.Checked);
       WriteBool(section, 'Grid', GridButton.Down);
       WriteFloat(section, 'PoleOrientation', PoleOrientation);
@@ -2856,7 +2862,6 @@ begin
   f_features.showmodal;
 end;
 
-
 procedure TForm1.ComboBox1Select(Sender: TObject);
 begin
   Firstsearch := True;
@@ -2933,6 +2938,7 @@ begin
   Inc(i);
   if geocentric then
   begin
+    ZenithOnTop:=false;
     Stringgrid1.Cells[0, i] := form2.Label16.Caption + ':';
     Stringgrid1.Cells[1, i] := rst_26;
   end
@@ -2995,6 +3001,8 @@ begin
   if not geocentric then
   begin
     eq2hz(st0 - rad, ded, az, ah);
+    if ZenithOnTop then parallacticangle:= rad2deg*sin(st0-rad)/((tan(deg2rad*ObsLatitude)*cos(ded))-(sin(ded)*cos(st0-rad)))
+            else parallacticangle:=0;
     az := rmod(rad2deg * az + 180, 360);
     Inc(i);
     Stringgrid1.Cells[0, i] := rsm_73;
@@ -3034,6 +3042,7 @@ begin
   end
   else
   begin
+    parallacticangle:=0;
     Inc(i);
     Stringgrid1.Cells[0, i] := b;
     Stringgrid1.Cells[1, i] := b;
@@ -3068,7 +3077,8 @@ begin
     activemoon.LibrLat := 0;
     activemoon.LibrLon := 0;
   end;
-  if FollowNorth then
+  PA:=PA-parallacticangle;
+  if FollowNorth or ZenithOnTop then
   begin
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360);
     activemoon.Orientation:=CameraOrientation;
@@ -3358,7 +3368,10 @@ begin
     RadioGroup2.ItemIndex := 1;
     RadioGroup2Click(nil);
   end;
+  skiporient:=true;
   checkbox1.Checked := FollowNorth;
+  checkbox4.Checked := ZenithOnTop;
+  skiporient:=false;
   ToolButton12.Down := showlabel;
   appname := ParamStr(0);
   if paramcount > 0 then
@@ -3840,6 +3853,7 @@ begin
       end
       else
         RefreshMoonImage;
+      if geocentric and CheckBox4.Checked then  CheckBox4.Checked:=false;
       SaveDefault;
     end;
   finally
@@ -4667,7 +4681,7 @@ if skiporient then exit;
     1: PoleOrientation := 180;
   end;
   ToolButton4.Down := (RadioGroup2.ItemIndex = 1);
-  if FollowNorth then
+  if FollowNorth or ZenithOnTop then
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360)
   else
     CameraOrientation := Poleorientation;
@@ -4719,13 +4733,37 @@ procedure TForm1.CheckBox1Click(Sender: TObject);
 begin
 if skiporient then exit;
   FollowNorth := CheckBox1.Checked;
+  if FollowNorth then begin
+     CheckBox4.Checked:=false;  // exclusive with zenith
+  end;
   if FollowNorth then
     CameraOrientation := rmod(-PA + PoleOrientation + 360, 360)
   else
     CameraOrientation := Poleorientation;
   activemoon.FollowNorth:=FollowNorth;
   activemoon.Orientation:=CameraOrientation;
-  activemoon.RefreshAll;
+  RefreshMoonImage;
+//  activemoon.RefreshAll;
+end;
+
+procedure TForm1.CheckBox4Click(Sender: TObject);
+begin
+  if skiporient then exit;
+    if geocentric then CheckBox4.Checked:=false;
+    ZenithOnTop := CheckBox4.Checked;
+    if ZenithOnTop then begin
+       CheckBox1.Checked:=false;  // exclusive with pole
+       if ObsLatitude>0 then RadioGroup2.ItemIndex:=0  // default rotation for current emisphere
+                        else RadioGroup2.ItemIndex:=1;
+    end;
+    if ZenithOnTop then
+      CameraOrientation := rmod(-PA + PoleOrientation + 360, 360)
+    else
+      CameraOrientation := Poleorientation;
+    activemoon.ZenithOnTop:=ZenithOnTop;
+    activemoon.Orientation:=CameraOrientation;
+    RefreshMoonImage;
+//    activemoon.RefreshAll;
 end;
 
 procedure TForm1.ToolButton10Click(Sender: TObject);
@@ -5473,7 +5511,9 @@ if mf<>activemoon then begin
     RadioGroup2.ItemIndex := 1;
   ToolButton4.Down := (RadioGroup2.ItemIndex = 1);
   FollowNorth:=activemoon.FollowNorth;
+  ZenithOnTop:=activemoon.ZenithOnTop;
   checkbox1.Checked := FollowNorth;
+  checkbox4.Checked := ZenithOnTop;
   skiporient:=false;
   phaseeffect:=activemoon.ShowPhase;
   PhaseButton.Down:=phaseeffect;
