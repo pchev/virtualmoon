@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   InterfaceBase, LCLVersion, // version number
-  Forms, Dialogs, glscene_runtime, glscene_designtime, virtualmoon1, config,
+  Forms, Dialogs, glscene_runtime, virtualmoon1, config,
   OpenGLAdapter, OpenGLTokens, CraterList, dbutil, fmsg, glossary, splashunit,
   telescope, SysUtils, TurboPowerIPro, u_constant, cu_tz, cu_planet,
   u_projection, u_util, pu_moon, u_translation_database, u_translation,
