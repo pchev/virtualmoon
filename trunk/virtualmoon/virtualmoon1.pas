@@ -1110,6 +1110,7 @@ begin
       texturefiles[j] := ReadString(section, 'texturefile' + IntToStr(j), texturefiles[j]);
 
     labf:=TFont.Create;
+   // labf:=moon1.LabelFont;
     labf.Assign(moon1.LabelFont);
     labf.Name := ReadString(section, 'LabelFontName', labf.Name);
     labf.Size := ReadInteger(section, 'LabelFontSize', labf.Size);
@@ -1117,7 +1118,7 @@ begin
     if ReadBool(section, 'LabelFontBold', false) then labf.Style:=labf.Style+[fsBold];
     if ReadBool(section, 'LabelFontItalic', false) then labf.Style:=labf.Style+[fsItalic];
     moon1.LabelFont:=labf;
-    labf.Free;
+//    labf.Free;
     Desc1.DefaultFontSize:=ReadInteger(section, 'DescFontSize', Desc1.DefaultFontSize);
     for j := 1 to 10 do
     begin
