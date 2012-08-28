@@ -57,6 +57,7 @@ type
     UniqueInstance1: TCdCUniqueInstance;
     MouseX, MouseY, HintX, HintY : integer;
     SelectedSite: string;
+    locktheme: boolean;
     procedure SetLang;
     procedure GetAppDir;
     procedure InstanceRunning(Sender : TObject);
@@ -296,6 +297,7 @@ procedure Tf_weblun.FillTheme;
 var i: integer;
     cmd: string;
 begin
+ locktheme:=true;
  ComboBox1.Clear;
  ComboBox2.Clear;
  ComboBox1.Items.Add(rsAll);
@@ -305,6 +307,7 @@ begin
  for i:=0 to dbm.RowCount-1 do begin
    ComboBox1.Items.Add(dbm.Results[i][0]);
  end;
+ locktheme:=false;
  ComboBox1.ItemIndex:=0;
  ComboBox2.ItemIndex:=0;
 end;
@@ -314,6 +317,8 @@ var th: string;
     i: integer;
     cmd: string;
 begin
+if locktheme then exit;
+locktheme:=true;
 edit1.text:='';
  th:=ComboBox1.Text;
  if th=rsAll then begin
@@ -327,10 +332,11 @@ edit1.text:='';
    for i:=0 to dbm.RowCount-1 do begin
      ComboBox2.Items.Add(dbm.Results[i][0]);
    end;
+   locktheme:=false;
    ComboBox2.ItemIndex:=0;
    ComboBox2Change(sender);
  end;
-
+ locktheme:=false;
 end;
 
 procedure Tf_weblun.ComboBox2Change(Sender: TObject);
@@ -338,6 +344,8 @@ var th: string;
     i,j: integer;
     cmd: string;
 begin
+ if locktheme then exit;
+ locktheme:=true;
  edit1.text:='';
  th:=ComboBox2.Text;
  if th=rsAll then begin
@@ -348,6 +356,7 @@ begin
         'where THEME="'+ComboBox1.Text+'" and SUB_THEME="'+th+'" order by THEME,SUB_THEME,SITE_NAME;';
  end;
  dbm.Query(cmd);
+ locktheme:=false;
  RefreshGrid;
 end;
 

@@ -317,6 +317,7 @@ var
   bitmap: TGLBitmap;
   ch: widechar;
   i, cw, nbChars, n: Integer;
+  memstream: TMemorystream;
 begin
   InvalidateUsers;
   Glyphs.OnChange := nil;
@@ -367,6 +368,11 @@ begin
   bitmap.Width := TextureWidth;
 
   ComputeCharRects(bitmap);
+  memstream:=TMemorystream.Create;
+  bitmap.SaveToStream(memstream);
+  memstream.Position:=0;
+  bitmap.LoadFromStream(memstream);
+  memstream.Free;
   FCharsLoaded := true;
   Glyphs.OnChange := OnGlyphsChanged;
 end;

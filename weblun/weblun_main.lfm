@@ -1,7 +1,7 @@
 object f_weblun: Tf_weblun
-  Left = 439
+  Left = 626
   Height = 472
-  Top = 185
+  Top = 136
   Width = 788
   Caption = 'WebLun'
   ClientHeight = 449
@@ -9,7 +9,7 @@ object f_weblun: Tf_weblun
   Menu = MainMenu1
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '0.9.30.4'
+  LCLVersion = '1.0.1.3'
   object StatusBar1: TStatusBar
     Left = 0
     Height = 19
