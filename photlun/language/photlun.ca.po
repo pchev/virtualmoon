@@ -1,4 +1,3 @@
-# Patrick Chevalley <pch@ap-i.net>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"

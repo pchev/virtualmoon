@@ -65,11 +65,11 @@ msgstr ""
 
 #: u_translation.rsloadcsv09
 msgctxt "u_translation.rsloadcsv09"
-msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgstr ""
 
 #: u_translation.rsloadcsv10
-msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
 msgstr ""
 
 #: u_translation.rsloadcsv11
