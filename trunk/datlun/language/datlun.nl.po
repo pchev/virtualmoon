@@ -62,12 +62,16 @@ msgid "It is also possible to give a constant value to a database field. Enter t
 msgstr "Het is ook mogelijk om een constante waarde te geven aan een database veld. Geef de waarde aan de onderkant van de pagina en druk op de  \"constante waarde \" knop."
 
 #: u_translation.rsloadcsv09
+#, fuzzy
+#| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgctxt "u_translation.rsloadcsv09"
-msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgstr "DBN is een idientifier voor je bestand. Het bereik ligt tussen 10 en 99 en het staat je toe de data in je database te identificeren. Het wordt gebruikt door het hoofdprogramma om de labels van je objecten te laten zien."
 
 #: u_translation.rsloadcsv10
-msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+#, fuzzy
+#| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
 msgstr "U kunt ook snel al uw objecten te selecteren met behulp van DBN = 10 in het SQL-venster Selectie en gegevens wisselen met behulp van het File - Delete menu."
 
 #: u_translation.rsloadcsv11

@@ -1,6 +1,3 @@
-# translation of datlun.fr.po
-# Patrick Chevalley <pch@freesurf.ch>, 2009.
-# Patrick Chevalley <pch@ap-i.net>, 2009.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,12 +64,16 @@ msgid "It is also possible to give a constant value to a database field. Enter t
 msgstr "E' anche possibile assegnare un valore costante a uno dei campi della base di dati. Inserite questo valore nella finestra in basso nella pagina e premete il bottone \"Valore costante\"."
 
 #: u_translation.rsloadcsv09
+#, fuzzy
+#| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgctxt "u_translation.rsloadcsv09"
-msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgstr "DBN è un numero, compreso tra 10 e 99, che permette di identificare il vostro file all'interno della base di dati. Viene usato dal programma principale per decidere se mostrare o no le etichette per i vostri oggetti."
 
 #: u_translation.rsloadcsv10
-msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+#, fuzzy
+#| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
 msgstr "Permette anche di selezionare rapidamente i vostri oggetti usando DBN=10 nella finestra di selezione SQL, e cancellare i dati del file mediante il menù File - Cancella."
 
 #: u_translation.rsloadcsv11

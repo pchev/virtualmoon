@@ -1,10 +1,8 @@
-# pch, 2012.
-# Patrick Chevalley <pch@ap-i.net>, 2012.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2012-08-12 15:50+0200\n"
+"PO-Revision-Date: 2012-08-29 13:24+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -65,8 +63,6 @@ msgstr "Lire le guide rapide"
 msgid "Search in the Atlas databases"
 msgstr "Faites des recherches dans les bases de données de l'Atlas"
 
-# Header entry was created by Lokalize.
-# pch, 2012.
 #: u_translation.rsspecialediti
 msgid "Special edition \"10th anniversary\""
 msgstr "Edition spéciale \"10eme anniversaire\""

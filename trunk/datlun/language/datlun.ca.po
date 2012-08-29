@@ -62,12 +62,16 @@ msgid "It is also possible to give a constant value to a database field. Enter t
 msgstr "També és possible donar un valor de constant al camp de la base de dades. Entreu aquest valor al peu de la pàgina i premeu el botó \"Valor de la constant\"."
 
 #: u_translation.rsloadcsv09
+#, fuzzy
+#| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgctxt "u_translation.rsloadcsv09"
-msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgstr "DBN és un identificador del vostre fitxer. Va des de 10 fins a 99 i permet identificar les vostres dades en la base de dades. S'usa des del programa principal per mostrar o no l'etiqueta dels vostres objectes."
 
 #: u_translation.rsloadcsv10
-msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+#, fuzzy
+#| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
 msgstr "Podeu fer una selecció ràpida de tots els vostres objectes usant DBN=10 en la finestra de selecció SQL, i suprimir dades amb el menú Arxiu-Suprimir."
 
 #: u_translation.rsloadcsv11

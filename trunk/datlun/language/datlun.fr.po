@@ -1,6 +1,3 @@
-# translation of datlun.fr.po
-# Patrick Chevalley <pch@freesurf.ch>, 2009.
-# Patrick Chevalley <pch@ap-i.net>, 2009, 2012.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -66,12 +63,16 @@ msgid "It is also possible to give a constant value to a database field. Enter t
 msgstr "Il est aussi possible de donner une valeur constante à un des champs de la base de donnée en entrant cette valeur en bas de la fenêtre et presser le bouton \"Valeur Constante\"."
 
 #: u_translation.rsloadcsv09
+#, fuzzy
+#| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgctxt "u_translation.rsloadcsv09"
-msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgstr "DBN est un numéro de fichier compris entre 10 et 99 qui permet d'identifier votre fichier dans la base de donnée. C'est grâce a lui que vous pourrez choisir l'affichage de label pour vos objet. "
 
 #: u_translation.rsloadcsv10
-msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+#, fuzzy
+#| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
 msgstr "Il permet aussi de visualiser vos objets en entrant DBN=10 dans la fenêtre de sélection SQL, et de supprimer les données de ce fichier depuis le menu Fichier - Supprimer."
 
 #: u_translation.rsloadcsv11
@@ -417,5 +418,4 @@ msgstr "Abandon"
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
 msgstr "Formations non nommées"
-
 

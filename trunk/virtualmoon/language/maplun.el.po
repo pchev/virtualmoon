@@ -1,4 +1,3 @@
-# Patrick Chevalley <pch@ap-i.net>, 2009.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,6 +129,10 @@ msgstr "Ελληνικά (Greek)"
 #: u_translation.rslevel
 msgid "Level:"
 msgstr "Επίπεδο:"
+
+#: u_translation.rslocalzenitho
+msgid "Local zenith on top"
+msgstr ""
 
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
@@ -872,7 +875,9 @@ msgid "Show Phase"
 msgstr "Εμφάνιση φάσης"
 
 #: u_translation.rst_177
-msgid "Flip N-S"
+#, fuzzy
+#| msgid "Flip N-S"
+msgid "Rotate N-S"
 msgstr "Αναστροφή Β-Ν"
 
 #: u_translation.rst_178

@@ -631,7 +631,7 @@ msgid "Show Phase"
 msgstr ""
 
 #: u_translation:rst_177
-msgid "Flip N-S"
+msgid "Rotate N-S"
 msgstr ""
 
 #: u_translation:rst_178
@@ -1220,5 +1220,9 @@ msgstr ""
 
 #: u_translation:rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
+msgstr ""
+
+#: u_translation:rslocalzenitho
+msgid "Local zenith on top"
 msgstr ""
 

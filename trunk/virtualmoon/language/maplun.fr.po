@@ -1,11 +1,8 @@
-# translation of maplun.fr.po
-# Patrick Chevalley <pch@ap-i.net>, 2009.
-# pch <pch@ap-i.net>, 2010, 2012.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2012-08-12 14:01+0200\n"
+"PO-Revision-Date: 2012-08-29 13:14+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -134,6 +131,10 @@ msgstr "Français"
 #: u_translation.rslevel
 msgid "Level:"
 msgstr "Niveau:"
+
+#: u_translation.rslocalzenitho
+msgid "Local zenith on top"
+msgstr "Zénith local en haut"
 
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
@@ -874,8 +875,9 @@ msgid "Show Phase"
 msgstr "Montre la phase"
 
 #: u_translation.rst_177
-msgid "Flip N-S"
-msgstr "Inversion N-S"
+#| msgid "Flip N-S"
+msgid "Rotate N-S"
+msgstr "Rotation N-S"
 
 #: u_translation.rst_178
 msgid "Flip E-W"
