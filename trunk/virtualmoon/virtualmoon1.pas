@@ -2413,10 +2413,7 @@ begin
      txtbuf   := txtbuf + t3 + 'IAU_QUAD_NAME:' + t3end + b + GetField('IAU_QUAD_NAME') + '<br>';
   if GetField('IAU_QUAD_CODE')<>'' then begin
      buf:=GetField('IAU_QUAD_CODE');
-     if copy(buf,1,3)='LAC' then
-        txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + ' <A HREF="http://www.lpi.usra.edu/resources/mapcatalog/LAC/'+buf+ '">' +buf + '</A>' + '<br>'
-     else
-        txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + buf + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + buf + '<br>';
   end;
   if GetField('IAU_APPROVAL_STATUS')<>'' then
      txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_STATUS:' + t3end + b + GetField('IAU_APPROVAL_STATUS') + '<br>';
