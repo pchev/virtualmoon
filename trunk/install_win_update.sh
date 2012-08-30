@@ -114,7 +114,6 @@ cp -a  data/zoneinfo $destdir/data/
 install -m 755 -d "$destdir/My Images"
 install -m 755 -d $destdir/doc
 install -m 755 -d $destdir/Encyclopedia
-install -v -m 644 doc/* $destdir/doc/
 install -v -m 644 Encyclopedia/* $destdir/Encyclopedia/
 
 install -m 755 -d $destdir/Database
@@ -147,6 +146,4 @@ InstData Base_Bumpmap $destdir
 InstData Base_Overlay $destdir
 
 InstTexture TextureHistorical $destdir
-InstPicture PictureBest_Pic_du_Midi $destdir
-
 
