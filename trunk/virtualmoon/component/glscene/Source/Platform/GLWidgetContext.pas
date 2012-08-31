@@ -239,7 +239,7 @@ var
   Params: TCreateWindowExParams;
 begin
   // general initialization of Params
-  {$if   (lcl_release <= 28) }
+  {$if (lcl_major = 0) and (lcl_release <= 28) }
   PrepareCreateWindow(AWinControl, Params);
   {$ELSE}
   PrepareCreateWindow(AWinControl, AParams, Params);
