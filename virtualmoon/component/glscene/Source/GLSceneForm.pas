@@ -824,7 +824,7 @@ var
   SystemMenu: HMenu;
 begin
   // general initialization of Params
-{$IF (LCL_RELEASE <= 28) }
+{$IF (lcl_major=0) and (LCL_RELEASE <= 28) }
   PrepareCreateWindow(AWinControl, Params);
 {$ELSE}
   PrepareCreateWindow(AWinControl, AParams, Params);
