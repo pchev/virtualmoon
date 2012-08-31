@@ -307,9 +307,10 @@ begin
  for i:=0 to dbm.RowCount-1 do begin
    ComboBox1.Items.Add(dbm.Results[i][0]);
  end;
- locktheme:=false;
  ComboBox1.ItemIndex:=0;
  ComboBox2.ItemIndex:=0;
+ Application.ProcessMessages;
+ locktheme:=false;
 end;
 
 procedure Tf_weblun.ComboBox1Change(Sender: TObject);
@@ -332,10 +333,12 @@ edit1.text:='';
    for i:=0 to dbm.RowCount-1 do begin
      ComboBox2.Items.Add(dbm.Results[i][0]);
    end;
+   Application.ProcessMessages;
    locktheme:=false;
    ComboBox2.ItemIndex:=0;
    ComboBox2Change(sender);
  end;
+ Application.ProcessMessages;
  locktheme:=false;
 end;
 
@@ -356,6 +359,7 @@ begin
         'where THEME="'+ComboBox1.Text+'" and SUB_THEME="'+th+'" order by THEME,SUB_THEME,SITE_NAME;';
  end;
  dbm.Query(cmd);
+ Application.ProcessMessages;
  locktheme:=false;
  RefreshGrid;
 end;
