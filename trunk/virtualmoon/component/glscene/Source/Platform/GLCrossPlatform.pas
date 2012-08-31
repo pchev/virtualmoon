@@ -1156,7 +1156,7 @@ function GetDecimalSeparator: Char;
 begin
   Result :=
 {$IFDEF FPC}
-  {$IF (lcl_release > 29) }
+  {$IF (lcl_major >= 1) or (lcl_release > 29) }
   DefaultFormatSettings.
   {$IFEND}
 {$ENDIF}
@@ -1169,7 +1169,7 @@ end;
 procedure SetDecimalSeparator(AValue: Char);
 begin
 {$IFDEF FPC}
-  {$IF (lcl_release > 29) }
+  {$IF (lcl_major >= 1) or (lcl_release > 29) }
   DefaultFormatSettings.
   {$IFEND}
 {$ENDIF}
