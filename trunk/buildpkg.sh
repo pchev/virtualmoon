@@ -11,7 +11,7 @@ arch=$(arch)
 
 unset make_debug
 unset make_linux32
-#make_linux32=1
+make_linux32=1
 unset make_linux64
 if [[ $arch == x86_64 ]]; then make_linux64=1;fi
 unset make_linux_data
