@@ -5,7 +5,6 @@
     <PathDelim Value="\"/>
     <General>
       <Flags>
-        <AlwaysBuild Value="False"/>
         <LRSInOutputDirectory Value="False"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
@@ -20,7 +19,7 @@
       <Item1 Name="default" Default="True"/>
       <Item2 Name="linux32">
         <CompilerOptions>
-          <Version Value="9"/>
+          <Version Value="11"/>
           <PathDelim Value="\"/>
           <SearchPaths>
             <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
@@ -54,11 +53,10 @@
       </Item2>
       <Item3 Name="win32">
         <CompilerOptions>
-          <Version Value="9"/>
+          <Version Value="11"/>
           <PathDelim Value="\"/>
           <SearchPaths>
             <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
-            <LCLWidgetType Value="win32"/>
           </SearchPaths>
           <Parsing>
             <SyntaxOptions>
@@ -89,11 +87,10 @@
       </Item3>
       <Item4 Name="win64">
         <CompilerOptions>
-          <Version Value="9"/>
+          <Version Value="11"/>
           <PathDelim Value="\"/>
           <SearchPaths>
             <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
-            <LCLWidgetType Value="win32"/>
           </SearchPaths>
           <Parsing>
             <SyntaxOptions>
@@ -156,6 +153,7 @@
         <Filename Value="pu_photlun.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_photlun"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photlun"/>
       </Unit1>
@@ -176,6 +174,7 @@
         <Filename Value="pu_config.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_config"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_config"/>
       </Unit4>
@@ -197,7 +196,7 @@
     </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="9"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <SearchPaths>
       <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>

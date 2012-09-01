@@ -570,8 +570,7 @@ if (imglist.Count=0)and(nom2>'') then begin
   end;
 end;
   StatusBar1.Panels[0].Text:=rsSelection+' : '+nom;
-  if SortByName then imglist.CustomSort(@ComparePhotoName)
-     else imglist.Sort;
+  imglist.Sort;
   ScrollBar1.min:=0;
   ScrollBar1.max:=max(0,imglist.count);
   ClearVignettes;

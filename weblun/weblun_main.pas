@@ -88,6 +88,7 @@ procedure Tf_weblun.FormShow(Sender: TObject);
 begin
   FillTheme;
   SelectAll;
+  Application.BringToFront;
 end;
 
 procedure Tf_weblun.Quit1Click(Sender: TObject);
@@ -179,8 +180,8 @@ begin
     StringGrid1.Canvas.Brush.Color:=clWindow;
     StringGrid1.Canvas.FillRect(aRect);
     if gdHot in aState
-       then StringGrid1.Canvas.Font.Style:=[fsUnderline,fsBold]
-       else StringGrid1.Canvas.Font.Style:=[fsUnderline];
+       then StringGrid1.Canvas.Font.Style:=[fsUnderline]
+       else StringGrid1.Canvas.Font.Style:=[];
     StringGrid1.Canvas.Font.Color:=clNavy;
     StringGrid1.Canvas.TextRect(aRect,aRect.Left,aRect.Top,StringGrid1.Cells[aCol,aRow]);
     StringGrid1.Canvas.Font.Style:=[];

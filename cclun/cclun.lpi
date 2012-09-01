@@ -46,13 +46,14 @@
         <Filename Value="cclun_main.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_cclun"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="cclun_main"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="333"/>
-        <CursorPos X="37" Y="366"/>
+        <TopLine Value="329"/>
+        <CursorPos X="32" Y="368"/>
         <UsageCount Value="27"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -74,8 +75,8 @@
         <UnitName Value="u_constant"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="50" Y="21"/>
+        <TopLine Value="4"/>
+        <CursorPos X="20" Y="34"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit3>
@@ -235,7 +236,7 @@
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="9"/>
+    <Version Value="11"/>
     <Target>
       <Filename Value="cclun"/>
     </Target>
