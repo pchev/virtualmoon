@@ -102,6 +102,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="vmabrowser1"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1034"/>
@@ -135,11 +136,10 @@
         <Filename Value="u_constant.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_constant"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
-        <CursorPos X="40" Y="34"/>
+        <CursorPos X="20" Y="7"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit11>

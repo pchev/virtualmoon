@@ -534,17 +534,17 @@
 						<key>IFPkgDescriptionDeleteWarning</key>
 						<string></string>
 						<key>IFPkgDescriptionDescription</key>
-						<string>Virtual Moon Atlas Pro version 5.1</string>
+						<string>Virtual Moon Atlas Pro version 6.0</string>
 						<key>IFPkgDescriptionTitle</key>
-						<string>vmapro5</string>
+						<string>vmapro6</string>
 						<key>IFPkgDescriptionVersion</key>
-						<string>5.1</string>
+						<string>6.0</string>
 					</dict>
 				</dict>
 				<key>Display Information</key>
 				<dict>
 					<key>CFBundleGetInfoString</key>
-					<string>vmapro 5.1 Copyrights © 2009 Christian Legrand &amp; Patrick Chevalley</string>
+					<string>vmapro 6.0 Copyrights © 2012 Christian Legrand &amp; Patrick Chevalley</string>
 					<key>CFBundleIconFile</key>
 					<string></string>
 					<key>CFBundleIconFile Path Type</key>
@@ -554,7 +554,7 @@
 					<key>CFBundleName</key>
 					<string>vmapro</string>
 					<key>CFBundleShortVersionString</key>
-					<string>5.1</string>
+					<string>6.0</string>
 				</dict>
 				<key>Options</key>
 				<dict>
@@ -580,7 +580,7 @@
 				<key>Version</key>
 				<dict>
 					<key>IFMajorVersion</key>
-					<integer>5</integer>
+					<integer>6</integer>
 					<key>IFMinorVersion</key>
 					<integer>0</integer>
 				</dict>
@@ -589,7 +589,7 @@
 		<key>IFPkgFlagPackageSelection</key>
 		<integer>0</integer>
 		<key>Name</key>
-		<string>vmapro5</string>
+		<string>vmapro6</string>
 		<key>Status</key>
 		<integer>1</integer>
 		<key>Type</key>

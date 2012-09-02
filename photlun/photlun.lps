@@ -19,10 +19,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_photlun"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="893"/>
-        <CursorPos X="1" Y="900"/>
+        <CursorPos X="34" Y="903"/>
         <UsageCount Value="67"/>
         <Bookmarks Count="1">
           <Item0 X="36" Y="963" ID="1"/>
@@ -72,11 +73,10 @@
         <Filename Value="u_constant.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_constant"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
-        <CursorPos X="40" Y="34"/>
+        <CursorPos X="45" Y="23"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit5>
