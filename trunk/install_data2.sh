@@ -44,7 +44,6 @@ InstTexture TextureHistorical $destdir
 
 InstPicture PictureApollo $destdir
 InstPicture PictureApolloMapping $destdir
-InstPicture PictureBest_Pic_du_Midi $destdir
 InstPicture PictureCLA $destdir
 InstPicture PictureClementine $destdir
 InstPicture PictureLAC_LM $destdir
