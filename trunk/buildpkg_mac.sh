@@ -9,7 +9,7 @@ make_darwin_i386=1
 unset make_darwin_ppc
 #make_darwin_ppc=1
 
-basedir=/tmp/virtualmoon  # Be sure this is set to a non existent directory, it is removed after the run!
+basedir=/Volume/Data/tmp/virtualmoon  # Be sure this is set to a non existent directory, it is removed after the run!
 builddir=$basedir/Virtual_Moon_Atlas
 
 if [[ -n $1 ]]; then
@@ -126,10 +126,10 @@ if [[ $make_darwin_i386 ]]; then
     cd $basedir
     freeze -v CDvmapro.packproj
     if [[ $? -ne 0 ]]; then exit 1;fi
-    cp Virtual_Moon_Atlas/licence.txt vmapro5/
-    cp Virtual_Moon_Atlas/readme.txt vmapro5/
+    cp Virtual_Moon_Atlas/licence.txt vmapro6/
+    cp Virtual_Moon_Atlas/readme.txt vmapro6/
     rm *.cdr *.iso
-    hdiutil create -anyowners -volname virtualmoon-$version-macosx-i386 -format UDTO -srcfolder ./vmapro5 virtualmoon-$version-macosx.cdr
+    hdiutil create -anyowners -volname virtualmoon-$version-macosx-i386 -format UDTO -srcfolder ./vmapro6 virtualmoon-$version-macosx.cdr
     hdiutil makehybrid -o virtualmoon-$version-macosx.iso virtualmoon-$version-macosx.cdr -iso -joliet   
     if [[ $? -ne 0 ]]; then exit 1;fi
     mv virtualmoon*.iso $wd/CD_Mac/
