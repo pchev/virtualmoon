@@ -454,6 +454,9 @@ AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','','0');
 AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','','0');
 AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','','0');
 AddImagesDir(slash(appdir) + 'Kaguya', 'Kaguya', 'provided by JAXA/SELENE','0');
+AddImagesDir(slash(appdir)+'Best_Pic_du_Midi','Best of Pic du Midi Observatory','JL Dauvergne, P. Tosi, E. Rousset, F. Colas, IMCCE, S2P , OMP','0');
+AddImagesDir(slash(appdir)+'Best_of_Peach','Best of Damian Peach','Damian Peach','0');
+
 end;
 
 procedure Tf_photlun.MenuConfigClick(Sender: TObject);
