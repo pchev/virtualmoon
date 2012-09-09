@@ -585,18 +585,37 @@ begin
 end;
 
 Procedure Tf_weblun.LoadDB(dbm: TLiteDB);
-var i : integer;
-    buf,cmd:string;
+var i,fage1,fage2,fage,db_age: integer;
+    buf,cmd,fn1,fn2,fn:string;
     wdb: TMlb2;
     cols: array[1..ncols] of integer;
 begin
 buf:=Slash(DBdir)+'dbmoon6_u'+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
+fage1:=0; fage2:=0; fage:=0;
+fn1:=Slash(appdir)+Slash('Database')+'weblun.csv';
+fn2:=Slash(Tempdir)+'weblun.csv';
+if FileExists(fn1) then fage1:=fileage(fn1);
+if FileExists(fn2) then fage2:=fileage(fn2);
+if fage2>fage1 then begin
+  fn:=fn2;
+  fage:=fage2;
+end else begin
+  fn:=fn1;
+  fage:=fage1;
+end;
+buf:=dbm.QueryOne('select fdate from weblun_file_date;');
+if buf='' then db_age:=0 else db_age:=strtoint(buf);
 cmd:='select SITE_NAME from weblun limit 1';
 dbm.Query(cmd);
-if dbm.RowCount=0 then begin;
+if (dbm.RowCount=0)or(db_age<fage) then begin;
   dbm.Query('drop table weblun;');
+  dbm.Query('drop table weblun_file_date;');
   dbm.Commit;
+  cmd:='create table weblun_file_date ( '+
+      'FDATE integer'+
+      ');';
+  dbm.Query(cmd);
   cmd:='create table weblun ( '+
        'SITE_NAME text,'+
        'LANGUAGE text,'+
@@ -609,7 +628,7 @@ if dbm.RowCount=0 then begin;
    dbm.Query(cmd);
    wdb:=TMlb2.Create;
    wdb.Init;
-   wdb.LoadFromFile(Slash(appdir)+Slash('Database')+'weblun.csv');
+   wdb.LoadFromFile(fn);
    if uplanguage='FR' then begin
      cols[1]:=1;
      cols[2]:=3;
@@ -637,6 +656,7 @@ if dbm.RowCount=0 then begin;
      dbm.Query(cmd);
      wdb.GoNext;
    until wdb.EndOfFile;
+   dbm.Query('insert into weblun_file_date values ('+inttostr(fage)+');');
    dbm.Commit;
 end;
 end;
