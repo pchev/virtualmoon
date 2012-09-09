@@ -285,13 +285,17 @@ end;
 procedure Tf_weblun.SelectAll;
 var cmd: string;
 begin
+ locktheme:=true;
  StringGrid1.Clear;
  Stringgrid1.RowCount:=5;
  SetTitle;
  cmd:='select SITE_NAME,LANGUAGE,THEME,SUB_THEME,ADDRESS,DESCRIPTION,DATE from weblun order by THEME,SUB_THEME,SITE_NAME;';
  dbm.Query(cmd);
  RefreshGrid;
- FillTheme;
+ ComboBox1.ItemIndex:=0;
+ ComboBox2.ItemIndex:=0;
+ Application.ProcessMessages;
+ locktheme:=false;
 end;
 
 procedure Tf_weblun.FillTheme;
