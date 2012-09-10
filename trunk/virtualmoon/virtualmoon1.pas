@@ -3245,9 +3245,11 @@ begin
   Desc1.DefaultFontSize:=12;
   ToolButton13.Visible:=false; // fullscreen
   FullScreen1.Visible:=false;
+  Selectiondimprimante1.Visible:=false;
 {$endif}
 {$ifdef linux}
   TrackBar1.Top:=-8;
+  Selectiondimprimante1.Visible:=false;
 {$endif}
 {$ifdef mswindows}
   TrackBar1.Top:=-2;
@@ -4883,21 +4885,22 @@ procedure TForm1.Selectiondimprimante1Click(Sender: TObject);
 begin
 {$ifdef mswindows}
   PrinterSetupDialog1.execute;
-{$endif}
-{$ifdef unix}
-  PrintDialog1.execute;
-{$endif}
   GetPrinterResolution(PrtName, PrinterResolution);
+{$endif}
 end;
 
 procedure TForm1.Imprimer1Click(Sender: TObject);
 var
-  i, w, ww, tl, hl, l, maxt: integer;
+  i, w, ww, tl, hl, l, maxt,bh,bw: integer;
   xmin, xmax, ymin, ymax: integer;
-  s:    double;
-  b:    tbitmap;
+  s,bs:    double;
+  b,bt:    tbitmap;
+  ms: TMemoryStream;
   buf1: string;
 begin
+  {$ifdef unix}
+    PrintDialog1.execute;
+  {$endif}
   GetPrinterResolution(PrtName, PrinterResolution);
   s := PrinterResolution / 300;
   Printer.Orientation := poPortrait;
@@ -4928,14 +4931,38 @@ begin
     w := 0;
     b := Tbitmap.Create;
     try
-      memo2.Visible:=true;
-      if PrintChart then
+      if PrintChart then  begin
         // carte
         w := (xmax - xmin) * 2 div 3;
-      activemoon.snapshot(b, True);
-      canvas.StretchDraw(rect(xmin, ymin + hl, xmin + w, ymin + w + hl), b);
+        activemoon.snapshot(b, True);
+        bs:=b.Width/b.Height;
+       {$ifdef darwin}
+        bt := Tbitmap.Create;   // crash on Mac if bitmap is bigger than 255x255
+        bt.Assign(b);
+        if bs > 1 then begin
+          bt.Width:=255;
+          bt.Height:=round(255/bs);
+        end else begin
+          bt.Height:=255;
+          bt.Width:=round(255*bs);
+        end;
+        bt.Canvas.StretchDraw(Rect(0,0,bt.Width,bt.Height),b);
+        canvas.Draw(xmin,ymin+hl,bt);
+        bt.Free;
+        {$else}
+        if bs > 1 then begin
+          bw:=w;
+          bh:=round(w/bs);
+        end else begin
+          bh:=w;
+          bw:=round(w*bs);
+        end;
+        canvas.StretchDraw(rect(xmin, ymin + hl, xmin + bw, ymin + bh + hl), b);
+        {$endif}
+      end;
       if PrintDesc then
       begin
+        memo2.Visible:=true;
         ww := w;
         if (ww = 0) and PrintEph then
           ww := (xmax - xmin) * 2 div 3;
