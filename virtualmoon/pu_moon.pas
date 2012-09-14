@@ -33,7 +33,7 @@ uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics,
   GLScene, GLMultiMaterialShader, GLBumpShader, GLPhongShader, GLHUDObjects,
   OpenGLTokens, GLWindowsFont, GLGeomObjects, GLMirror, GLMesh,
   GLVectorFileObjects, FPImage, FileUtil, LCLType, IntfGraphics, SysUtils,
-  Classes, Controls, Forms, Menus, Dialogs ;
+  Classes, Controls, Forms, Menus, Dialogs, Math ;
 
 const
    MaxLabel=500;
@@ -1175,6 +1175,7 @@ end;
 procedure Tf_moon.FormCreate(Sender: TObject);
 var i: integer;
 begin
+ SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
  if Owner is TWinControl then Moon.Parent:=TWinControl(Owner);
  vIgnoreOpenGLErrors:=true;
  blankbmp:=Tbitmap.Create;
@@ -2776,6 +2777,10 @@ end else begin
   GLHUDSpriteCCD1.Visible:=false;
 end;
 end;
+
+initialization
+
+SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
 
 end.
 
