@@ -11,7 +11,7 @@ object f_moon: Tf_moon
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '0.9.30.4'
+  LCLVersion = '1.0.1.3'
   object Moon: TPanel
     Left = 200
     Height = 500
@@ -69,14 +69,14 @@ object f_moon: Tf_moon
         0000000000000000000080BF00000000
       }
       Visible = False
-      BottomRadius = 0.00999999977648
-      Height = 0.07999999821186
-      TopRadius = 0.00999999977648
+      BottomRadius = 0.00999999977648258
+      Height = 0.0799999982118607
+      TopRadius = 0.00999999977648258
       HeadStackingStyle = ahssIncluded
-      TopArrowHeadHeight = 0.05000000074506
-      TopArrowHeadRadius = 0.01999999955297
+      TopArrowHeadHeight = 0.0500000007450581
+      TopArrowHeadRadius = 0.0199999995529652
       BottomArrowHeadHeight = 0.5
-      BottomArrowHeadRadius = 0.20000000298023
+      BottomArrowHeadRadius = 0.200000002980232
     end
     object LibrationDummyCube: TGLDummyCube
       TagFloat = 0
@@ -113,10 +113,10 @@ object f_moon: Tf_moon
         }
         Visible = False
         BottomRadius = 5
-        Height = 0.10000000149012
+        Height = 0.100000001490116
         Slices = 64
         Stacks = 1
-        BottomInnerRadius = 0.60000002384186
+        BottomInnerRadius = 0.600000023841858
         TopInnerRadius = 2
         TopRadius = 5
         Parts = [anBottom]
@@ -349,6 +349,9 @@ object f_moon: Tf_moon
       Material.FrontProperties.Diffuse.Color = {
         0000000000000000000000000000803F
       }
+      Material.FrontProperties.Emission.Color = {
+        0000803F00000000000000000000803F
+      }
       PitchAngle = 0
       RollAngle = 0
       TurnAngle = 0
@@ -362,6 +365,9 @@ object f_moon: Tf_moon
         }
         Material.FrontProperties.Diffuse.Color = {
           0000000000000000000000000000803F
+        }
+        Material.FrontProperties.Emission.Color = {
+          0000803F00000000000000000000803F
         }
         PitchAngle = 0
         RollAngle = 0
@@ -378,6 +384,9 @@ object f_moon: Tf_moon
         Material.FrontProperties.Diffuse.Color = {
           0000000000000000000000000000803F
         }
+        Material.FrontProperties.Emission.Color = {
+          0000803F00000000000000000000803F
+        }
         PitchAngle = 0
         RollAngle = 0
         TurnAngle = 0
@@ -390,6 +399,9 @@ object f_moon: Tf_moon
         Material.FrontProperties.Diffuse.Color = {
           0000000000000000000000000000803F
         }
+        Material.FrontProperties.Emission.Color = {
+          0000803F00000000000000000000803F
+        }
         PitchAngle = 0
         RollAngle = 0
         TurnAngle = 0
@@ -400,9 +412,24 @@ object f_moon: Tf_moon
     end
     object LabelGroup: TGLHUDSprite
       TagFloat = 0
+      Material.FrontProperties.Ambient.Color = {
+        00000000000000000000000000000000
+      }
+      Material.FrontProperties.Diffuse.Color = {
+        00000000000000000000000000000000
+      }
+      Material.FrontProperties.Emission.Color = {
+        00000000000000000000000000000000
+      }
+      Material.FrontProperties.Specular.Color = {
+        00000000000000000000000000000000
+      }
+      Material.BlendingMode = bmTransparency
       PitchAngle = 0
       RollAngle = 0
       TurnAngle = 0
+      Width = 0
+      Height = 0
       Rotation = 0
     end
     object GLDummyCubeMarks: TGLDummyCube
@@ -425,7 +452,7 @@ object f_moon: Tf_moon
         TagFloat = 0
         DepthOfView = 10
         FocalLength = 33
-        NearPlaneBias = 0.00999999977648
+        NearPlaneBias = 0.00999999977648258
         TargetObject = GLDummyCubeSatellite
         Position.Coordinates = {
           00000000000000000AD723BC0000803F
@@ -527,7 +554,7 @@ object f_moon: Tf_moon
     BumpOptions = [boDiffuseTexture2, boLightAttenuation]
     SpecularMode = smOff
     DesignTimeEnabled = False
-    ParallaxOffset = 0.03999999910593
+    ParallaxOffset = 0.0399999991059303
     left = 40
     top = 392
   end

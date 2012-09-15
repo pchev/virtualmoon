@@ -360,7 +360,7 @@ implementation
 
 {$R pu_moon.lfm}
 
-uses LCLProc, VectorGeometry, OpenGL1x, GLFile3DS;
+uses LCLProc, VectorGeometry, GLFile3DS, OpenGLAdapter;
 
 { Tf_moon }
 
@@ -1175,7 +1175,6 @@ end;
 procedure Tf_moon.FormCreate(Sender: TObject);
 var i: integer;
 begin
- SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
  if Owner is TWinControl then Moon.Parent:=TWinControl(Owner);
  vIgnoreOpenGLErrors:=true;
  blankbmp:=Tbitmap.Create;
@@ -1220,10 +1219,10 @@ begin
  MaxTextureSize:=1024;
  Flabelcolor:=clWhite;
  FMeasuringDistance := False;
- GLLightSource2.Diffuse.AsWinColor :=$141414;
+ GLLightSource2.Diffuse.AsWinColor :=$272727;
  GLLightSource1.Ambient.AsWinColor :=0;
  GLLightSource1.Diffuse.AsWinColor :=$FFFFFF;
- GLLightSource1.Specular.AsWinColor:=$323232;
+ GLLightSource1.Specular.AsWinColor:=$636363;
  FShowScale:=false;
  FShowGrid:=false;
  FShowCCD:=false;
@@ -1257,7 +1256,6 @@ end;
 {$endif}
 try
   GLSceneViewer1.Buffer.RenderingContext.Activate;
-  ReadImplementationProperties;
   MaxTextureSize:=Glsceneviewer1.Buffer.LimitOf[limTextureSize];
   {$ifdef trace_debug}
    debugln('Texture max: '+inttostr(MaxTextureSize));
@@ -1280,23 +1278,24 @@ end;
 {$endif}
 FBumpMapCapabilities:=[];
 try
-CurentDriver:=uppercase(trim(StrPas(PChar(glGetString(GL_VENDOR)))+' '+StrPas(PChar(glGetString(GL_RENDERER))) ));
+CurentDriver:=uppercase(trim(StrPas(PChar(CurrentGLContext.GL.GetString(GL_VENDOR)))+' '+StrPas(PChar(CurrentGLContext.GL.GetString(GL_RENDERER))) ));
 {$ifdef trace_debug}
  debugln('Driver: '+CurentDriver);
 {$endif}
 Restricted:=false;
-for i:=1 to nRestricted do begin
+{for i:=1 to nRestricted do begin     // no restriction at the moment
   if pos(RestrictedDrivers[i],CurentDriver)>0 then
      Restricted:=true;
 end;
+}
 if Restricted and (ForceBumpMapSize=0)
   then begin
    {$ifdef trace_debug}
      debugln('Restricted driver found!');
    {$endif}
     BumpMapLimit1K:=true;
-    if  GL_ARB_multitexture
-    and GL_ARB_texture_env_dot3 then begin
+    if  CurrentGLContext.GL.ARB_multitexture
+    and CurrentGLContext.GL.ARB_texture_env_dot3 then begin
         {$ifdef trace_debug}
          debugln('GL_ARB_texture_env_dot3 OK');
         {$endif}
@@ -1304,16 +1303,16 @@ if Restricted and (ForceBumpMapSize=0)
          FBumpOk:=true;
     end;
 end else begin
-    if  GL_ARB_multitexture
-    and GL_ARB_vertex_program then begin
-      if GL_ARB_texture_env_dot3 then begin
+    if  CurrentGLContext.GL.ARB_multitexture
+    and CurrentGLContext.GL.ARB_vertex_program then begin
+      if CurrentGLContext.GL.ARB_texture_env_dot3 then begin
         {$ifdef trace_debug}
          debugln('GL_ARB_texture_env_dot3 OK');
         {$endif}
          FBumpMapCapabilities:=FBumpMapCapabilities+[bcDot3TexCombiner];
          FBumpOk:=true;
       end;
-      if GL_ARB_fragment_program then begin
+      if CurrentGLContext.GL.ARB_fragment_program then begin
         {$ifdef trace_debug}
          debugln('GL_ARB_fragment_program OK');
         {$endif}
@@ -1340,7 +1339,7 @@ end;
  debugln('Check MultiTexture');
 {$endif}
 try
- FAsMultiTexture := GL_ARB_multitexture and (GLSceneViewer1.Buffer.LimitOf[limNbTextureUnits] > 1);
+ FAsMultiTexture := CurrentGLContext.GL.ARB_multitexture and (GLSceneViewer1.Buffer.LimitOf[limNbTextureUnits] > 1);
 except
  FAsMultiTexture := false;
  {$ifdef trace_debug}
