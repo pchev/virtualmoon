@@ -3547,9 +3547,9 @@ if firstuse then begin
     savecaption:=form2.Caption;
     form2.Caption:=rsFirstUseSett;
     form2.PageControl1.Page[0].TabVisible:=true;
-    for i:=1 to 7 do form2.PageControl1.Page[i].TabVisible:=false;
+    for i:=1 to form2.PageControl1.PageCount-1 do form2.PageControl1.Page[i].TabVisible:=false;
     Configuration1Click(nil);
-    for i:=0 to 7 do form2.PageControl1.Page[i].TabVisible:=true;
+    for i:=0 to form2.PageControl1.PageCount-1 do form2.PageControl1.Page[i].TabVisible:=true;
     form2.Caption := savecaption;
 end;
 finally
@@ -5654,11 +5654,11 @@ end;
 
 procedure TForm1.Button21Click(Sender: TObject);
 begin
-  TrackBar2.Position:=20;
+  TrackBar2.Position:=39;
   TrackBar2Change(Sender);
   TrackBar3.Position:=255;
   TrackBar3Change(Sender);
-  TrackBar4.Position:=50;
+  TrackBar4.Position:=99;
   TrackBar4Change(Sender);
 end;
 
