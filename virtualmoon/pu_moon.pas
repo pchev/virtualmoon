@@ -1233,7 +1233,7 @@ end;
 
 procedure Tf_moon.Init(check:boolean=true);
 const nRestricted=1;
-      RestrictedDrivers: array[1..nRestricted] of string =('INTEL');
+      RestrictedDrivers: array[1..nRestricted] of string =('INTEL 945');
 var   CurentDriver:string;
       Restricted: boolean;
       i: integer;
@@ -1283,11 +1283,10 @@ CurentDriver:=uppercase(trim(StrPas(PChar(CurrentGLContext.GL.GetString(GL_VENDO
  debugln('Driver: '+CurentDriver);
 {$endif}
 Restricted:=false;
-{for i:=1 to nRestricted do begin     // no restriction at the moment
+for i:=1 to nRestricted do begin
   if pos(RestrictedDrivers[i],CurentDriver)>0 then
      Restricted:=true;
 end;
-}
 if Restricted and (ForceBumpMapSize=0)
   then begin
    {$ifdef trace_debug}
