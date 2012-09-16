@@ -1090,7 +1090,7 @@ begin
       Left := i
     else
       Left := 0;
-    i := screen.Height - 50;
+    i := screen.Height - 100;
     i   := minintvalue([i, ReadInteger(section, 'Height', i)]);
     if (i >= 200) then
       Height := i;
@@ -3426,13 +3426,6 @@ try
     InitDate
   else
     SetJDDate;
-  if screen.Width <= 1024 then
-  begin
-   Top    := 0;
-   Left   := 0;
-   Width  := screen.Width;
-   Height := screen.Height;
-  end;
   form2.tzinfo:=tz;
   form2.LoadCountry(slash(Appdir)+slash('data')+'country.tab');
   moon1.Init;
