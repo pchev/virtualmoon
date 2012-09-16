@@ -9,8 +9,8 @@ uses
 Windows, ShlObj,
 {$endif}
   mlb2, u_constant, u_translation, u_util, passql, passqlite, UniqueInstance,
-  IniFiles, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ComCtrls, Menus, Grids, ExtCtrls, StdCtrls;
+  downloaddialog, IniFiles, Classes, SysUtils, FileUtil, Forms, Controls,
+  Graphics, Dialogs, ComCtrls, Menus, Grids, ExtCtrls, StdCtrls;
 
 const ncols=7;
       crlf = chr(10)+chr(13);
@@ -24,6 +24,7 @@ type
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
     ComboBox3: TComboBox;
+    DownloadDialog1: TDownloadDialog;
     Edit1: TEdit;
     Label1: TLabel;
     Label2: TLabel;
@@ -55,7 +56,7 @@ type
   private
     { private declarations }
     UniqueInstance1: TCdCUniqueInstance;
-    MouseX, MouseY, HintX, HintY : integer;
+    MouseX, MouseY, HintX, HintY, checkdate, webdate : integer;
     SelectedSite: string;
     locktheme: boolean;
     procedure SetLang;
@@ -63,12 +64,13 @@ type
     procedure InstanceRunning(Sender : TObject);
     procedure OtherInstance(Sender: TObject;ParamCount: Integer; Parameters: array of String);
     Procedure ReadParam(first:boolean=true);
-    Procedure LoadDB(dbm: TLiteDB);
+    Procedure LoadDB;
     Procedure SortByCol(col:integer);
     procedure SetTitle;
     procedure RefreshGrid;
     procedure FillTheme;
     procedure SelectAll;
+    Procedure WebUpdate;
   public
     { public declarations }
     param: TStringList;
@@ -127,7 +129,7 @@ end;
 procedure Tf_weblun.InitApp;
 begin
   SetLang;
-  LoadDB(dbm);
+  LoadDB;
   ReadParam;
 end;
 
@@ -588,7 +590,55 @@ begin
   end;   }
 end;
 
-Procedure Tf_weblun.LoadDB(dbm: TLiteDB);
+Procedure Tf_weblun.WebUpdate;
+var udate,vdate,cdate:TDateTime;
+    buf,fn: string;
+    y,m,d:word;
+    f: textfile;
+begin
+  checkdate:=trunc(Now);
+  buf:=dbm.QueryOne('select cdate from weblun_file_date;');
+  cdate:=trunc(StrToFloatDef(buf,0));
+  if checkdate>(cdate+7) then begin   // check for new version once a week
+     dbm.Query('update weblun_file_date set cdate='+inttostr(checkdate)+';');
+     dbm.Commit;
+     buf:=dbm.QueryOne('select udate from weblun_file_date;');
+     udate:=trunc(StrToFloatDef(buf,0));
+     fn:=slash(TempDir)+'weblun.ts';
+     DeleteFile(fn);
+     DownloadDialog1.Title:='Weblun database web update';
+     DownloadDialog1.URL:='http://www.ap-i.net/pub/vma/weblun/weblun.ts';
+     DownloadDialog1.ConfirmDownload:=false;
+     DownloadDialog1.SaveToFile:=fn;
+     DownloadDialog1.Timeout:=5000;
+     if DownloadDialog1.Execute then begin
+        if FileExists(fn) then begin
+          AssignFile(f,fn);
+          Reset(f);
+          ReadLn(f,buf);
+          CloseFile(f);
+          buf:=trim(buf);
+          y:=StrToIntDef(copy(buf,1,4),0);
+          m:=StrToIntDef(copy(buf,5,2),0);
+          d:=StrToIntDef(copy(buf,7,2),0);
+          vdate:=EncodeDate(y,m,d);
+        end;
+     end
+     else vdate:=0;
+     if vdate>udate then begin  // new version available
+       fn:=slash(TempDir)+'weblun.csv';
+       DeleteFile(fn);
+       DownloadDialog1.URL:='http://www.ap-i.net/pub/vma/weblun/weblun.csv';
+       DownloadDialog1.ConfirmDownload:=false;
+       DownloadDialog1.SaveToFile:=fn;
+       DownloadDialog1.Timeout:=5000;
+       if DownloadDialog1.Execute then webdate:=trunc(vdate)
+          else DeleteFile(fn);
+     end;
+  end;
+end;
+
+Procedure Tf_weblun.LoadDB;
 var i,fage1,fage2,fage,db_age: integer;
     buf,cmd,fn1,fn2,fn:string;
     wdb: TMlb2;
@@ -596,6 +646,8 @@ var i,fage1,fage2,fage,db_age: integer;
 begin
 buf:=Slash(DBdir)+'dbmoon6_u'+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
+webdate:=0;
+WebUpdate;
 fage1:=0; fage2:=0; fage:=0;
 fn1:=Slash(appdir)+Slash('Database')+'weblun.csv';
 fn2:=Slash(Tempdir)+'weblun.csv';
@@ -617,7 +669,9 @@ if (dbm.RowCount=0)or(db_age<fage) then begin;
   dbm.Query('drop table weblun_file_date;');
   dbm.Commit;
   cmd:='create table weblun_file_date ( '+
-      'FDATE integer'+
+      'FDATE integer,'+
+      'CDATE integer,'+
+      'UDATE integer'+
       ');';
   dbm.Query(cmd);
   cmd:='create table weblun ( '+
@@ -660,7 +714,7 @@ if (dbm.RowCount=0)or(db_age<fage) then begin;
      dbm.Query(cmd);
      wdb.GoNext;
    until wdb.EndOfFile;
-   dbm.Query('insert into weblun_file_date values ('+inttostr(fage)+');');
+   dbm.Query('insert into weblun_file_date values ('+inttostr(fage)+','+inttostr(checkdate)+','+inttostr(webdate)+');');
    dbm.Commit;
 end;
 end;

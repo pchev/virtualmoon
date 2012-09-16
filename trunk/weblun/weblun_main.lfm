@@ -145,4 +145,11 @@ object f_weblun: Tf_weblun
       end
     end
   end
+  object DownloadDialog1: TDownloadDialog
+    FtpFwMode = 0
+    FtpFwPassive = True
+    ConfirmDownload = True
+    left = 128
+    top = 184
+  end
 end
