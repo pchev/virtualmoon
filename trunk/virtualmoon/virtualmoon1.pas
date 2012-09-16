@@ -1080,30 +1080,24 @@ begin
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
     if ToolsWidth<100 then ToolsWidth:=100;
     PageControl1.Width:=ToolsWidth;
-    i := ReadInteger(section, 'Top', -9999);
-    if i > -1000 then
-    begin
-      if (i >= -10) and (i < screen.Height - 20) then
+    i := ReadInteger(section, 'Top', 0);
+    if (i >= -10) and (i < screen.Height - 20) then
         Top := i
-      else
+    else
         Top := 0;
-    end;
-    i := ReadInteger(section, 'Left', -9999);
-    if i > -1000 then
-    begin
-      if (i >= -10) and (i < screen.Width - 20) then
-        Left := i
-      else
-        Left := 0;
-      i := screen.Height - 50;
-      i   := minintvalue([i, ReadInteger(section, 'Height', i)]);
-      if (i >= 20) then
-        Height := i;
-      i := screen.Width - 5;
-      i := minintvalue([i, ReadInteger(section, 'Width', i)]);
-      if (i >= 20) then
-        Width := i;
-    end;
+    i := ReadInteger(section, 'Left', 0);
+    if (i >= -10) and (i < screen.Width - 20) then
+      Left := i
+    else
+      Left := 0;
+    i := screen.Height - 50;
+    i   := minintvalue([i, ReadInteger(section, 'Height', i)]);
+    if (i >= 200) then
+      Height := i;
+    i := screen.Width - 100;
+    i := minintvalue([i, ReadInteger(section, 'Width', i)]);
+    if (i >= 200) then
+      Width := i;
     if ReadBool(section, 'Maximized', False) then
       windowstate := wsMaximized;
     notexture := ReadBool(section, 'notexture', notexture);
@@ -3432,7 +3426,7 @@ try
     InitDate
   else
     SetJDDate;
-  if screen.Width < 750 then
+  if screen.Width <= 1024 then
   begin
    Top    := 0;
    Left   := 0;
