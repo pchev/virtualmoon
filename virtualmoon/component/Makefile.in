@@ -10,14 +10,16 @@ version=0.0
 
 [target]
 dirs=libsql \
+     synapse/source/lib \
      uniqueinstance \
+     downloaddialog \
      enhedits \
      glscene/Lazarus
 units=vmacomponents.pas
 
 [compiler]
 unittargetdir=lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
-unitdir=uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)/ enhedits/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ glscene/Lazarus/lib/$(CPU_TARGET)-$(OS_TARGET) libsql/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ ./
+unitdir=uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)/ synapse/source/lib/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ downloaddialog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ enhedits/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ glscene/Lazarus/lib/$(CPU_TARGET)-$(OS_TARGET) libsql/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ ./
 includedir=./
 options=-dUseCThreads -dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi -Xs -CX -XX
 
@@ -55,5 +57,5 @@ export LCL_PLATFORM
 [rules]
 .PHONY: all
 
-all: libsql_all uniqueinstance_all enhedits_all glscene/Lazarus_all vmacomponents$(PPUEXT)
+all: libsql_all synapse/source/lib_all downloaddialog_all uniqueinstance_all enhedits_all glscene/Lazarus_all vmacomponents$(PPUEXT)
 

@@ -12,6 +12,8 @@ if [ $# -gt 0 ]; then
 fi
 
 dirs="virtualmoon/component/libsql \
+     virtualmoon/component/synapse/source/lib \
+     virtualmoon/component/downloaddialog \
      virtualmoon/component/uniqueinstance \
      virtualmoon/component/enhedits \
      virtualmoon/component/glscene/Lazarus \
