@@ -146,6 +146,7 @@ object f_weblun: Tf_weblun
     end
   end
   object DownloadDialog1: TDownloadDialog
+    Timeout = 90000
     FtpFwMode = 0
     FtpFwPassive = True
     ConfirmDownload = True
