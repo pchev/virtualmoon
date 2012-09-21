@@ -604,10 +604,10 @@ begin
      dbm.Commit;
      buf:=dbm.QueryOne('select udate from weblun_file_date;');
      udate:=trunc(StrToFloatDef(buf,0));
-     fn:=slash(TempDir)+'weblun.ts';
+     fn:=slash(TempDir)+'weblun.date';
      DeleteFile(fn);
      DownloadDialog1.Title:='Weblun database web update';
-     DownloadDialog1.URL:='http://www.ap-i.net/pub/vma/weblun/weblun.ts';
+     DownloadDialog1.URL:='http://www.ap-i.net/pub/vma/weblun/weblun.date';
      DownloadDialog1.ConfirmDownload:=false;
      DownloadDialog1.SaveToFile:=fn;
      DownloadDialog1.Timeout:=5000;
