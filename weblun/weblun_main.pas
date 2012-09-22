@@ -599,7 +599,8 @@ begin
   checkdate:=trunc(Now);
   buf:=dbm.QueryOne('select cdate from weblun_file_date;');
   cdate:=trunc(StrToFloatDef(buf,0));
-  if checkdate>(cdate+7) then begin   // check for new version once a week
+//  if checkdate>(cdate+7) then begin   // check for new version once a week
+  if true then begin   // for testing
      dbm.Query('update weblun_file_date set cdate='+inttostr(checkdate)+';');
      dbm.Commit;
      buf:=dbm.QueryOne('select udate from weblun_file_date;');
