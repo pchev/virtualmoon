@@ -9,7 +9,7 @@ make_darwin_i386=1
 unset make_darwin_ppc
 #make_darwin_ppc=1
 
-basedir=/Volume/Data/tmp/virtualmoon  # Be sure this is set to a non existent directory, it is removed after the run!
+basedir=/Volumes/Data/tmp/virtualmoon  # Be sure this is set to a non existent directory, it is removed after the run!
 builddir=$basedir/Virtual_Moon_Atlas
 
 if [[ -n $1 ]]; then
@@ -94,8 +94,6 @@ if [[ $make_darwin_i386 ]]; then
     if [[ $? -ne 0 ]]; then exit 1;fi
     if [[ $cdrom ]]; then
        make install_data2
-       make install_data3
-       make install_data4
        if [[ $? -ne 0 ]]; then exit 1;fi
     fi   
   fi 
