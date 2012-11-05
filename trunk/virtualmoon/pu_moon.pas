@@ -62,6 +62,7 @@ type
     GLArrowLine1: TGLArrowLine;
     GLBumpShader1: TGLBumpShader;
     GLCameraSatellite: TGLCamera;
+    BaseCube: TGLDummyCube;
     GLDummyCubeSatellite: TGLDummyCube;
     GLDummyCubeCoord: TGLDummyCube;
     GLFreeFormSatelite: TGLFreeForm;
@@ -974,7 +975,7 @@ if value<>FVisibleSideLock then begin
       GLCamera1.Position.SetPoint(0,0,-100);
       GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
       GLMirror1.Position.SetPoint(0,0,-100.01);
-      GLCamera1.TargetObject:=LibrationDummyCube;
+      GLCamera1.TargetObject:=BaseCube;
       CenterAt(cl,cb);
    end;
    if not FShowPhase then begin
