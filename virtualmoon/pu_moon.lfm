@@ -48,37 +48,7 @@ object f_moon: Tf_moon
     ObjectsSorting = osNone
     left = 48
     top = 16
-    object GLArrowLine1: TGLArrowLine
-      TagFloat = 0
-      Material.FrontProperties.Ambient.Color = {
-        0000000000000000000000000000803F
-      }
-      Material.FrontProperties.Diffuse.Color = {
-        0000000000000000000000000000803F
-      }
-      Material.FrontProperties.Specular.Color = {
-        9A99993E9A99993E9A99993E0000803F
-      }
-      Direction.Coordinates = {
-        000080BF000000000000000000000000
-      }
-      PitchAngle = 0
-      RollAngle = 0
-      TurnAngle = 0
-      Up.Coordinates = {
-        0000000000000000000080BF00000000
-      }
-      Visible = False
-      BottomRadius = 0.00999999977648258
-      Height = 0.0799999982118607
-      TopRadius = 0.00999999977648258
-      HeadStackingStyle = ahssIncluded
-      TopArrowHeadHeight = 0.0500000007450581
-      TopArrowHeadRadius = 0.0199999995529652
-      BottomArrowHeadHeight = 0.5
-      BottomArrowHeadRadius = 0.200000002980232
-    end
-    object LibrationDummyCube: TGLDummyCube
+    object BaseCube: TGLDummyCube
       TagFloat = 0
       ObjectsSorting = osRenderBlendedLast
       PitchAngle = 0
@@ -121,47 +91,85 @@ object f_moon: Tf_moon
         TopRadius = 5
         Parts = [anBottom]
       end
-      object GLSphereMoon: TGLSphere
+      object LibrationDummyCube: TGLDummyCube
         TagFloat = 0
-        Material.MaterialLibrary = GLMultiMaterialLibrary
-        Material.LibMaterialName = 'MultiMaterial'
         ObjectsSorting = osRenderBlendedLast
         PitchAngle = 0
         RollAngle = 0
         TurnAngle = 0
-        Up.Coordinates = {
-          59F88EB00000803F0000000000000000
-        }
-        Normals = nsFlat
-        Radius = 0.5
-        Slices = 36
-        Stacks = 18
-        object GLDummyCubeCoord: TGLDummyCube
+        CubeSize = 1
+        object GLSphereMoon: TGLSphere
           TagFloat = 0
+          Material.MaterialLibrary = GLMultiMaterialLibrary
+          Material.LibMaterialName = 'MultiMaterial'
+          ObjectsSorting = osRenderBlendedLast
           PitchAngle = 0
           RollAngle = 0
           TurnAngle = 0
-          CubeSize = 1
+          Up.Coordinates = {
+            59F88EB00000803F0000000000000000
+          }
+          Normals = nsFlat
+          Radius = 0.5
+          Slices = 36
+          Stacks = 18
+          object GLDummyCubeCoord: TGLDummyCube
+            TagFloat = 0
+            PitchAngle = 0
+            RollAngle = 0
+            TurnAngle = 0
+            CubeSize = 1
+          end
+        end
+        object GLLightSource1: TGLLightSource
+          TagFloat = 0
+          Ambient.Color = {
+            0000803F0000803F0000803F0000803F
+          }
+          ConstAttenuation = 0.5
+          LinearAttenuation = 0
+          QuadraticAttenuation = 0
+          Position.Coordinates = {
+            00000000000000000000C8C20000803F
+          }
+          LightStyle = lsParallel
+          Specular.Color = {
+            0000803F0000803F0000803F0000803F
+          }
+          SpotCutOff = 180
+          SpotExponent = 0
         end
       end
-      object GLLightSource1: TGLLightSource
-        TagFloat = 0
-        Ambient.Color = {
-          0000803F0000803F0000803F0000803F
-        }
-        ConstAttenuation = 0.5
-        LinearAttenuation = 0
-        QuadraticAttenuation = 0
-        Position.Coordinates = {
-          00000000000000000000C8C20000803F
-        }
-        LightStyle = lsParallel
-        Specular.Color = {
-          0000803F0000803F0000803F0000803F
-        }
-        SpotCutOff = 180
-        SpotExponent = 0
-      end
+    end
+    object GLArrowLine1: TGLArrowLine
+      TagFloat = 0
+      Material.FrontProperties.Ambient.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.FrontProperties.Diffuse.Color = {
+        0000000000000000000000000000803F
+      }
+      Material.FrontProperties.Specular.Color = {
+        9A99993E9A99993E9A99993E0000803F
+      }
+      Direction.Coordinates = {
+        000080BF000000000000000000000000
+      }
+      PitchAngle = 0
+      RollAngle = 0
+      TurnAngle = 0
+      Up.Coordinates = {
+        0000000000000000000080BF00000000
+      }
+      Visible = False
+      BottomRadius = 0.00999999977648258
+      Height = 0.0799999982118607
+      TopRadius = 0.00999999977648258
+      HeadStackingStyle = ahssIncluded
+      TopArrowHeadHeight = 0.0500000007450581
+      TopArrowHeadRadius = 0.0199999995529652
+      BottomArrowHeadHeight = 0.5
+      BottomArrowHeadRadius = 0.200000002980232
     end
     object GLMirror1: TGLMirror
       TagFloat = 0
