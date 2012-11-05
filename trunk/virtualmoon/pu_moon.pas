@@ -1228,6 +1228,7 @@ begin
  FShowCCD:=false;
  FCCDw:=0;
  FCCDh:=0;
+ curlabel:=0;
  moveok:=false;
 end;
 
@@ -2273,11 +2274,13 @@ end else begin
   markb:=lat;
 end;
 for x:=0 to curlabel do begin
-  buf:=TGLHUDText(LabelGroup.Children[2*x]).Text;
-  if copy(buf,1,1)='-' then Delete(buf,1,1);
-  labvis:=(buf<>marktext);
-  TGLHUDText(LabelGroup.Children[2*x]).Visible:=labvis;
-  TGLHUDText(LabelGroup.Children[2*x+1]).Visible:=labvis;
+  if TGLHUDText(LabelGroup.Children[2*x]).Visible then begin
+    buf:=TGLHUDText(LabelGroup.Children[2*x]).Text;
+    if copy(buf,1,1)='-' then Delete(buf,1,1);
+    labvis:=(buf<>marktext);
+    TGLHUDText(LabelGroup.Children[2*x]).Visible:=labvis;
+    TGLHUDText(LabelGroup.Children[2*x+1]).Visible:=labvis;
+  end;
 end;
 end;
 
