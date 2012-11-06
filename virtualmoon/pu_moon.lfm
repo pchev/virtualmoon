@@ -11,7 +11,7 @@ object f_moon: Tf_moon
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.0.1.3'
+  LCLVersion = '1.0.2.0'
   object Moon: TPanel
     Left = 200
     Height = 500
@@ -61,10 +61,10 @@ object f_moon: Tf_moon
           0000000000000000000000000000803F
         }
         Material.FrontProperties.Diffuse.Color = {
-          0000000000000000000000006666663F
+          0000000000000000000000009A99593F
         }
         Material.FrontProperties.Emission.Color = {
-          CDCCCC3DCDCCCC3DCDCCCC3D0000803F
+          9A99193E9A99193E9A99193E0000803F
         }
         Material.BlendingMode = bmTransparency
         Material.FaceCulling = fcCull
@@ -83,10 +83,10 @@ object f_moon: Tf_moon
         }
         Visible = False
         BottomRadius = 5
-        Height = 0.100000001490116
+        Height = 0.10000000149012
         Slices = 64
         Stacks = 1
-        BottomInnerRadius = 0.600000023841858
+        BottomInnerRadius = 0.60000002384186
         TopInnerRadius = 2
         TopRadius = 5
         Parts = [anBottom]
@@ -162,14 +162,14 @@ object f_moon: Tf_moon
         0000000000000000000080BF00000000
       }
       Visible = False
-      BottomRadius = 0.00999999977648258
-      Height = 0.0799999982118607
-      TopRadius = 0.00999999977648258
+      BottomRadius = 0.00999999977648
+      Height = 0.07999999821186
+      TopRadius = 0.00999999977648
       HeadStackingStyle = ahssIncluded
-      TopArrowHeadHeight = 0.0500000007450581
-      TopArrowHeadRadius = 0.0199999995529652
+      TopArrowHeadHeight = 0.05000000074506
+      TopArrowHeadRadius = 0.01999999955297
       BottomArrowHeadHeight = 0.5
-      BottomArrowHeadRadius = 0.200000002980232
+      BottomArrowHeadRadius = 0.20000000298023
     end
     object GLMirror1: TGLMirror
       TagFloat = 0
@@ -460,7 +460,7 @@ object f_moon: Tf_moon
         TagFloat = 0
         DepthOfView = 10
         FocalLength = 33
-        NearPlaneBias = 0.00999999977648258
+        NearPlaneBias = 0.00999999977648
         TargetObject = GLDummyCubeSatellite
         Position.Coordinates = {
           00000000000000000AD723BC0000803F
@@ -562,7 +562,7 @@ object f_moon: Tf_moon
     BumpOptions = [boDiffuseTexture2, boLightAttenuation]
     SpecularMode = smOff
     DesignTimeEnabled = False
-    ParallaxOffset = 0.0399999991059303
+    ParallaxOffset = 0.03999999910593
     left = 40
     top = 392
   end
