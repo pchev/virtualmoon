@@ -69,6 +69,7 @@ end;
 destructor TPlanet.Destroy;
 begin
 try
+ if de_created then close_de_file;
  inherited destroy;
 except
 end;
@@ -548,20 +549,34 @@ begin
 end;
 
 function TPlanet.load_de(t: double): boolean;
-const
-  ndet=3;
 var
-  det:array [1..ndet] of integer = (421,405,406);
   i: integer;
+  y,ys,ye,m,d : integer;
+  hour,jdstart,jdend: double;
 begin
-result:=false;
-de_type:=0;
-for i:=1 to ndet do begin
-   if load_de_file(t,de_folder,det[i]) then begin
-     result:=true;
-     de_type:=det[i];
-     break;
-   end;
+djd(t,y,m,d,hour);
+if y=de_year then begin
+  result:=(de_type<>0);
+end else begin
+  result:=false;
+  de_type:=0;
+  for i:=1 to nJPL_DE do begin
+     if load_de_file(t,de_folder,JPL_DE[i],jdstart,jdend) then begin
+       result:=true;
+       de_type:=JPL_DE[i];
+       break;
+     end;
+  end;
+  if result then begin
+    djd(jdstart,ys,m,d,hour);
+    djd(jdend,ye,m,d,hour);
+    if (y=ys)or(y=ye) then
+       de_year:=MaxInt
+    else
+       de_year:=y;
+  end
+   else
+    de_year:=MaxInt;
 end;
 end;
 

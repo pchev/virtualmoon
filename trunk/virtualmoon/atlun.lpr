@@ -19,6 +19,9 @@ var i:integer;
 {$R *.res}
 
 begin
+  {$ifdef USEHEAPTRC}
+  SetHeapTraceOutput('/tmp/vma_heap.trc');
+  {$endif}
   Application.Initialize;
   compile_time:={$I %DATE%}+' '+{$I %TIME%};
   compile_version:='Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+LCLPlatformDirNames[WidgetSet.LCLPlatform];
