@@ -271,7 +271,7 @@ type
     procedure CenterAt(lon,lat:single);
     procedure CenterMark;
     procedure KeyEvent(event: TMoonKeyClass; key: word);
-    function AddLabel(lon,lat:single; txt:string):boolean;
+    function AddLabel(lon,lat:single; txt:string; notcenter:boolean):boolean;
     function AddSprite(lon,lat:single):boolean;
     procedure RefreshAll;
     procedure RenderToBitmap(var bmp: TBitmap; size: integer; white: boolean);
@@ -2053,10 +2053,10 @@ var i:integer;
 begin
 curlabel:=0;
 cursprite:=0;
-if (LabelGroup.Count>0) and LabelGroup.Children[0].visible then
+if (LabelGroup.Count>0) and (LabelGroup.Children[0].visible or LabelGroup.Children[2].visible)then
    for i:=0 to 2*Maxlabel do
       with LabelGroup.Children[i] as TGLHUDText do visible:=false;
-if (GLDummyCubeMarks.Count > 0) and GLDummyCubeMarks.Children[0].Visible then
+if (GLDummyCubeMarks.Count > 0) and (GLDummyCubeMarks.Children[0].Visible or GLDummyCubeMarks.Children[1].Visible)then
    for i := 0 to MaxSprite - 1 do
       with GLDummyCubeMarks.Children[i] as TGLHUDSprite do Visible := False;
 GLHUDSpriteMark.Visible:=false;
@@ -2089,7 +2089,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
   end;
 end;
 
-function Tf_moon.AddLabel(lon,lat:single; txt:string):boolean;
+function Tf_moon.AddLabel(lon,lat:single; txt:string; notcenter:boolean):boolean;
 var x,y: integer;
     vis: boolean;
 begin
@@ -2104,7 +2104,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
   then begin
     with LabelGroup.Children[2*curlabel] as TGLHUDText do begin
       Position.SetPoint(x+ShadowOffset,y+ShadowOffset,0);
-      if labelcenter then
+      if labelcenter and (not notcenter) then
         begin
           Text      := txt;
           Alignment := taCenter;
@@ -2118,7 +2118,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
     end;
     with LabelGroup.Children[2*curlabel+1] as TGLHUDText do begin
       Position.SetPoint(x,y,0);
-      if labelcenter then
+      if labelcenter and (not notcenter) then
         begin
           Text      := txt;
           Alignment := taCenter;
