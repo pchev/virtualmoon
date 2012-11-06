@@ -2649,6 +2649,7 @@ end;
 procedure Tf_moon.SetShowScale(value:boolean);
 begin
 FShowScale:=value and (not RotationCadencer.Enabled);
+SaveShowScale:=FShowScale;
 SetScale;
 end;
 
