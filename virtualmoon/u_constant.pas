@@ -71,6 +71,9 @@ const crlf = chr(10)+chr(13);
       abek = secarc*20.49552;  // aberration constant
       maxlevel = 6;
 
+      nJPL_DE = 7;
+      JPL_DE: array [1..nJPL_DE] of integer = (423, 421, 422, 405, 406, 403, 200);
+
       // Paper size
       PaperNumber=9;
       PaperName : array[1..PaperNumber] of string=('A5','A4','A3', 'A2', 'A1', 'A0',  'Letter','Legal','Tabloid');
@@ -212,6 +215,7 @@ Var  Splashversion, compile_time, compile_version: string;
      LinuxDesktop: integer = 0;  // FreeDesktop=0, KDE=1, GNOME=2, Other=3
      Params : TStringList;
      OptionalFeatureName: array[1..nOptionalFeature]of string;
+     de_type, de_year: integer;
 {$ifdef darwin}
      OpenFileCMD:string = 'open';   //
 {$else}

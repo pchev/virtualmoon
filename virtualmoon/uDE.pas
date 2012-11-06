@@ -94,7 +94,7 @@ function Calc_Planet_de(julian_date: double; planet_id: integer; var planet_arr:
                         in_au: boolean; planet_center: integer; velocity: boolean): boolean;
 
 //first must load the de file
-function load_de_file(jd: double; de_folder: string; de_type: integer): boolean;
+function load_de_file(jd: double; de_folder: string; de_type: integer; var jdstart,jdend: double): boolean;
 
 //init the file into the stream
 function init_de_file(ephemeris_filename: string): boolean;
@@ -125,7 +125,7 @@ function Calc_Planet_de(julian_date: double; planet_id: integer; var planet_arr:
 var
     rval : byte;
 begin
-
+try
     //set if output in au or km
     if in_au then de_eph.auinkm := 149597870.691 else de_eph.auinkm := 1;
 
@@ -139,6 +139,9 @@ begin
         result:=true;
     end
     else result:=false;
+except
+  result:=false;
+end;
 end;
 
 PROCEDURE Djd(jd:Double;VAR annee,mois,jour:INTEGER; VAR Heure:double);
@@ -163,7 +166,7 @@ annee:=round(u3+floor((u4-2)/12)-4800);
 heure:=(jd-floor(jd+0.5)+0.5)*24;
 end;
 
-function load_de_file(jd: double; de_folder: string; de_type: integer): boolean;
+function load_de_file(jd: double; de_folder: string; de_type: integer; var jdstart,jdend: double): boolean;
 var
     de_file, de_filename : string;
     de_y,y,m,d : integer;
@@ -175,24 +178,30 @@ begin
     //using the year to find the file and name it.
     Case de_type of
          200: begin  //1600 to 2200 - 50 years steps
-                  if InRange(y, 1600, 2200) then begin
+                  jdstart:= 2305424.5;
+                  jdend:= 2513392.5;
+                  if InRange(jd, jdstart, jdend) then begin
                       de_y := 1600 + floor((y - 1600) / 50) * 50;
                       de_file := 'unxp' + floatToStr(de_y) + '.200';
                   end else exit;
               end;
-        403:  begin  //1950 to 2025 - 25 years step
-                    if InRange(y, 1950, 2025) then begin
-                      de_y := 1950 + floor((y - 1950) / 25) * 25;
-                      de_file := 'linx' + floatToStr(de_y) + '.403';
+        403:  begin  //1600 to 2200 - 100 years step
+                    jdstart:= 2305200.5;
+                    jdend:= 2524400.5;
+                    if InRange(jd, jdstart, jdend) then begin
+                      de_y := 1600 + floor((y - 1600) / 100) * 100;
+                      de_file := 'lnxp' + floatToStr(de_y) + '.403';
                       if not fileexists(de_folder +DirectorySeparator+ de_file) then begin
                          de_file := 'unxp' + floatToStr(de_y) + '.403';
                       end;
                     end else exit;
               end;
         405:  begin  //1600 to 2200 - 150 or 50 years step
-                  if InRange(y, 1600, 2200) then begin
+                  jdstart:= 2305424.5;
+                  jdend:= 2525008.5;
+                  if InRange(jd, jdstart, jdend) then begin
                           de_y := 1600 + floor((y - 1600) / 150) * 150;
-                          de_file := 'linx' + floatToStr(de_y) + '.405';
+                          de_file := 'lnx' + floatToStr(de_y) + '.405';
                           if not fileexists(de_folder +DirectorySeparator+ de_file) then begin
                              de_y := 1600 + floor((y - 1600) / 50) * 50;
                              de_file := 'unxp' + floatToStr(de_y) + '.405';
@@ -200,8 +209,11 @@ begin
                   end else exit;
               end;
         406:  begin  // -3000 to 3000 - 1 file or 300 years step
-                  if InRange(y, -3000, 3000) then begin
-                      de_file := 'linxm3000p3000.406';
+                  jdstart:= 625360.5;
+                  jdend:= 2816912.5;
+                  if InRange(jd, jdstart, jdend) then begin
+                      de_file := 'lnxm3000p3000.406';
+                      if not fileexists(de_folder +DirectorySeparator+ de_file) then de_file := 'lnxm3000p3000.406';
                       if not fileexists(de_folder +DirectorySeparator+ de_file) then begin
                         de_y := -3000 + floor((y - (-3000)) / 300) * 300;
                         if de_y < 0 then
@@ -212,21 +224,42 @@ begin
                   end else exit;
               end;
         421:  begin  //1900 to 2050 - 1 file
-                    if InRange(y, 1900, 2049) then begin
+                    jdstart:= 2414864.5;
+                    jdend:= 2471184.5;
+                    if InRange(jd, jdstart, jdend) then begin
                       de_y := 1900;
-                      de_file := 'linx' + floatToStr(de_y) + '.421';
+                      de_file:='lnxp1900p2053.421';
                       if not fileexists(de_folder +DirectorySeparator+ de_file) then begin
-                         de_file := 'unxp' + floatToStr(de_y) + '.421';
+                         de_file := 'unxp1900p2053.421';
+                      end;
+                      if not fileexists(de_folder +DirectorySeparator+ de_file) then begin
+                         de_file := 'unxp1900.421';
+                      end;
+                    end else exit;
+              end;
+        422:  begin  //-3000 to 3000 - 1 file
+                    jdstart:= 625648.5;
+                    jdend:= 2816816.5;
+                    if InRange(jd, jdstart, jdend) then begin
+                      de_y := -3000;
+                      de_file := 'lnxm3000p3000.422';
+                      if not fileexists(de_folder +DirectorySeparator+ de_file) then begin
+                         de_file := 'unxm3000p3000.422';
                       end;
                     end else exit;
               end;
         423:  begin  //1900 to 2200 - 150 years step
-                  if InRange(y, 1900, 2200) then begin
+                  jdstart:= 2378480.5;
+                  jdend:= 2524624.5;
+                  if InRange(jd, jdstart, jdend) then begin
+                     de_file:='lnxp1800p2200.423';
+                     if not fileexists(de_folder +DirectorySeparator+ de_file) then begin
                           de_y := 1900 + floor((y - 1900) / 150) * 150;
-                          de_file := 'linx' + floatToStr(de_y) + '.423';
+                          de_file := 'lnxp' + floatToStr(de_y) + '.423';
                           if not fileexists(de_folder +DirectorySeparator+ de_file) then begin
                              de_file := 'unxp' + floatToStr(de_y) + '.423';
                           end;
+                     end;
                   end else exit;
               end;
     end;
@@ -244,7 +277,7 @@ begin
       de_filename := de_folder +DirectorySeparator+ de_file;
       //see if file is there, set DE return true if it works
       if fileexists(de_filename) then begin
-            if init_de_file(PChar(de_filename)) then begin
+            if init_de_file(de_filename) then begin
               de_eph.de_file := de_file;
               result := true;
             end;
@@ -412,6 +445,7 @@ var
     list_val : Smallint;
 begin
   result := 0;
+  try
     //zero result to avoid NAN
     for i := 0 to 5 do rrd[i] := 0;
     for i := 0 to 5 do for k:= 0 to 12 do pv[k,i] := 0;
@@ -464,16 +498,19 @@ begin
     if (ntarg * ncent = 30) and (ntarg + ncent = 13) then
         for i := 0 to 5 do pv[2,i] := 0
     else begin
-        if lista[2] = 1 then    //calculate earth state from EMBary
-            for i := 0 to lista[2] * 3 do
+        if lista[2] >= 1 then    //calculate earth state from EMBary
+            for i := 0 to (lista[2] * 3)-1 do
               pv[2,i] := pv[2,i] - pv[9,i] / (1.0 + eph.emrat);
-        if lista[9] = 1 then   //calculate Solar System barycentric moon state
-            for i := 0 to lista[9] * 3 do
+        if lista[9] >= 1 then   //calculate Solar System barycentric moon state
+            for i := 0 to (lista[9] * 3)-1 do
               pv[9,i] := pv[9,i] + pv[2,i];
     end;
     for i := 0 to (list_val * 3) - 1 do
       rrd[i] := pv[ntarg-1,i] - pv[ncent-1,i];
     result := 1;
+  except
+    result := 0;
+  end;
 end;
 
 
@@ -561,7 +598,7 @@ begin
     while n_intervals <= 8 do begin
         for i := 0 to 10 do begin
             if (n_intervals = ephs.ipt[i,2]) and
-            ((list[i] = 1) or (i = 10)) then begin
+            ((list[i] >= 1) or (i = 10)) then begin
                 if i = 10 then flag := 2 else flag := list[i];
                 interp(ephs, ephinfos, @ephs.cache[ephs.ipt[i,0]-1], t,
                 ephs.ipt[i,1], 3, n_intervals, flag, dest);
