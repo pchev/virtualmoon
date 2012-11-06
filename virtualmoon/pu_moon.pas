@@ -897,6 +897,12 @@ if FBumpOk and (value<>FBumpmap) then begin
       BumpMaterialLibrary.Materials[1].Material.Texture.Image.LoadFromFile(slash(FBumpPath)+'map'+inttostr(i)+'k.jpg');
       GLSphereMoon.Material.MaterialLibrary:=BumpMaterialLibrary;
       GLSphereMoon.Material.LibMaterialName:='Bump';
+      GLSceneViewer1.Refresh;
+      if not GLBumpShader1.Enabled then begin
+         SetBumpmap(false);
+         if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'Graphic card do not support the dynamic shadow.');
+         exit;
+      end;
       except
         if i=1 then begin
           if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'Cannot load bumpmap');

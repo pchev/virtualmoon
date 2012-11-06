@@ -696,11 +696,12 @@ begin
 
     success := True;
 
-  finally
+  except
     if not success then
     begin
       Enabled := False;
       DesignTimeEnabled := False;
+      exit;
     end;
   end;
 
