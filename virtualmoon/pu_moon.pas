@@ -906,6 +906,7 @@ if FBumpOk and (value<>FBumpmap) then begin
       except
         if i=1 then begin
           if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'Cannot load bumpmap');
+          SetBumpmap(false);
           exit;
         end;
         i:=i div 2;
