@@ -1190,7 +1190,7 @@ begin
       WriteFloat(section, 'CurrentJD', CurrentJD);
       WriteFloat(section, 'dt_ut', dt_ut);
       WriteBool(section, 'PhaseEffect', phaseeffect);
-      WriteBool(section, 'BumpMap', wantbump or moon1.Bumpmap);
+      WriteBool(section, 'BumpMap', wantbump and moon1.Bumpmap);
       WriteBool(section, 'ShowLabel', ShowLabel);
       WriteBool(section, 'ShowMark', ShowMark);
       WriteBool(section, 'ShowLibrationMark', ShowLibrationMark);
