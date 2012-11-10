@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="\"/>
+    <Version Value="7"/>
+    <General>
+      <Flags>
+        <SaveClosedFiles Value="False"/>
+        <AlwaysBuild Value="False"/>
+        <LRSInOutputDirectory Value="False"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <TargetFileExt Value=".exe"/>
+      <Title Value="PocketLun"/>
+    </General>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="6">
+      <Item1>
+        <PackageName Value="ImagesForLazarus"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="zoomimage"/>
+        <MinVersion Valid="True"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="libsql"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="CDCjdcalendar"/>
+        <MinVersion Valid="True"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item6>
+    </RequiredPackages>
+    <Units Count="18">
+      <Unit0>
+        <Filename Value="PocketLun.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PocketLun"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="pu_pocketlun.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_pocketlun"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_pocketlun"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="pu_info.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_info"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_info"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="pu_ephemeris.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_ephemeris"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_ephemeris"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="pu_about.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_about"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_about"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="pu_search.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_search"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_search"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="pu_calendar.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_calendar"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_calendar"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="pu_config.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_config"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_config"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="pu_config_display.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_config_display"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_config_display"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="pu_setdate.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_setdate"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_setdate"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="cu_moon.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cu_moon"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="series96main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="series96main"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="u_astro.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_astro"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="elp82main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="elp82main"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="pu_notes.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_notes"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_notes"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="pu_photo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_photo"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_photo"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="wince_func.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="wince_func"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="u_translation.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_translation"/>
+      </Unit17>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="8"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <SrcPath Value="$(LazarusDir)\lcl\;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType)\"/>
+      <LCLWidgetType Value="wince"/>
+    </SearchPaths>
+    <CodeGeneration>
+      <SmartLinkUnit Value="True"/>
+      <TargetCPU Value="arm"/>
+      <TargetOS Value="WinCE"/>
+      <Optimizations>
+        <OptimizationLevel Value="2"/>
+      </Optimizations>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <UseLineInfoUnit Value="False"/>
+        <StripSymbols Value="True"/>
+      </Debugging>
+      <LinkSmart Value="True"/>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+</CONFIG>

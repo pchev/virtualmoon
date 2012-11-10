@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: pch\n"
+"PO-Revision-Date: 2012-07-28 16:22+0200\n"
+"Project-Id-Version: \n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
+
+#: u_translation.rsatlundocumen
+msgid "AtLun documentation"
+msgstr ""
+
+#: u_translation.rsbrowsetheatl
+msgid "Browse the Atlas pictures"
+msgstr ""
+
+#: u_translation.rsdatlundocume
+msgid "DatLun documentation"
+msgstr ""
+
+#: u_translation.rsdocumentatio
+msgid "Documentation"
+msgstr ""
+
+#: u_translation.rsexitthecomma
+msgid "Exit the Command Center"
+msgstr ""
+
+#: u_translation.rsexplorethelu
+msgid "Explore the Lunar Atlas maps"
+msgstr ""
+
+#: u_translation.rshelp_prefix
+msgid "UK"
+msgstr ""
+
+#: u_translation.rslanguage
+msgid "English"
+msgstr ""
+
+#: u_translation.rsphotlundocum
+msgid "PhotLun documentation"
+msgstr ""
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr ""
+
+#: u_translation.rsreadthefulld
+msgid "Read the full documentation"
+msgstr ""
+
+#: u_translation.rsreadthequick
+msgid "Read the quick guide"
+msgstr ""
+
+#: u_translation.rssearchinthea
+msgid "Search in the Atlas databases"
+msgstr ""
+
+#: u_translation.rsspecialediti
+msgid "Special edition \"10th anniversary\""
+msgstr ""
+
+#: u_translation.rstheatlasinte
+msgid "The Atlas Internet resources"
+msgstr ""
+
+#: u_translation.rstitle
+msgid "Virtual Lunar Atlas Command Center"
+msgstr "Virtual Moon Atlas Command Center"
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr ""
+
+#: u_translation.rstutorial
+msgid "Tutorial "
+msgstr ""
+
+#: u_translation.rsvirtuallunar
+msgid "Virtual Lunar Atlas"
+msgstr "Virtual Moon Atlas"
+
+#: u_translation.rsweblundocume
+msgid "WebLun documentation"
+msgstr ""
+

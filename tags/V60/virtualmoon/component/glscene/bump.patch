@@ -1,0 +1,18 @@
+Index: Source/Shaders/GLBumpShader.pas
+===================================================================
+--- Source/Shaders/GLBumpShader.pas	(révision 521)
++++ Source/Shaders/GLBumpShader.pas	(copie de travail)
+@@ -696,11 +696,12 @@
+ 
+     success := True;
+ 
+-  finally
++  except
+     if not success then
+     begin
+       Enabled := False;
+       DesignTimeEnabled := False;
++      exit;
+     end;
+   end;
+ 

@@ -1,0 +1,111 @@
+# to ISIS
+pds2isis from=WAC_GLOBAL_P900N0000_256P.IMG to=WAC_GLOBAL_P900N0000_256P.cub                                                        
+pds2isis from=WAC_GLOBAL_P900S0000_256P.IMG to=WAC_GLOBAL_P900S0000_256P.cub 
+
+# dest map 
+maptemplate map=rect.map projection=Equirectangular clon=0 clat=0 targopt=user TargetName=Moon londir=PositiveEast londom=180 rngopt=user  minlon=-180 maxlon=180 minlat=-90 maxlat=90 resopt=ppd resolution=256
+
+# map convert
+map2map from=WAC_GLOBAL_P900N0000_256P.cub map=rect.map to=WAC_GLOBAL_P900N0000_256P.rect.cub pixres=map minlon=-180 maxlon=180 minlat=80 maxlat=90
+map2map from=WAC_GLOBAL_P900S0000_256P.cub map=rect.map to=WAC_GLOBAL_P900S0000_256P.rect.cub pixres=map minlon=-180 maxlon=180 minlat=-90 maxlat=-80
+
+stats from=WAC_GLOBAL_P900N0000_256P.rect.cub
+stats from=WAC_GLOBAL_P900S0000_256P.rect.cub
+cp ../O256/stretch.txt .
+stretch from=WAC_GLOBAL_P900N0000_256P.rect.cub to=wacnstr.cub readfile=true inputfile=stretch.txt null=0 lis=0 lrs=0 his=255 hrs=255
+stretch from=WAC_GLOBAL_P900S0000_256P.rect.cub to=wacsstr.cub readfile=true inputfile=stretch.txt null=0 lis=0 lrs=0 his=255 hrs=255
+
+reduce from=wacnstr.cub to=l5n.cub mode=total ons=80000 onl=2222
+reduce from=wacsstr.cub to=l5s.cub mode=total ons=80000 onl=2222
+
+cp ../O256/l5d.cub .
+
+# put new polar area in place
+handmos from=l5n.cub mosaic=l5d.cub priority=ontop insample=1 inline=1 outsample=1 outline=1 create=no
+handmos from=l5s.cub mosaic=l5d.cub priority=ontop insample=1 inline=1 outsample=1 outline=37778 create=no
+
+#
+#  continue processing the same way as the ortho
+#
+
+# reduce to L4 size
+reduce from=l5d.cub to=l4.cub mode=total ons=40000 onl=20000 
+
+# reduce to L3 size
+reduce from=l4.cub to=l3.cub mode=total ons=20000 onl=10000 
+
+# use qview to find the mini maxi values
+qview l3.cub , stretch , note min, max
+# make l3 png
+isis2std from=l3.cub to=l3.png mode=grayscale format=png stretch=manual minimum=25 maximum=200
+
+# make L3 slice 
+mkdir L3
+convert l3.png +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L3/%d.jpg
+convert l3.png +gravity -crop 20000x1000 R%d.png
+convert R0.png -resize 3000x1000\!  RS0.jpg
+convert R9.png -resize 3000x1000\!  RS9.jpg
+convert RS0.jpg +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L3/1000%d.jpg
+convert RS9.jpg +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L3/2000%d.jpg
+rm R[0-9].png RS[0-9].jpg
+
+# resize to 10000x5000
+convert l3.png -resize 10000x5000 l2.png
+# make L2 slice 
+mkdir L2
+convert l2.png +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L2/%d.jpg
+convert l2.png +gravity -crop 10000x1000 R%d.png
+convert R0.png -resize 3000x1000\!  RS0.jpg
+convert R4.png -resize 3000x1000\!  RS4.jpg
+convert RS0.jpg +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L2/1000%d.jpg
+convert RS4.jpg +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L2/2000%d.jpg
+rm R[0-4].png RS[0-4].jpg
+
+# resize to 4000x2000
+convert l3.png -resize 4000x2000 l1.png
+# make L1 slice 
+mkdir L1
+convert l1.png +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L1/%d.jpg
+
+
+# make l4 band
+cp ../O256/n20.txt .
+crop from=l4.cub to=l4r\$1.cub line=\$2 nlines=1000 -batchlist=n20.txt
+isis2std from=l4r\$1.cub to=l4r\$1.png mode=grayscale format=png stretch=manual minimum=25 maximum=200 -batchlist=n20.txt
+rm l4r*.cub
+
+# make l4 slices
+mkdir L4
+i=1; while ((i<21)); 
+do ((j=40*(i-1))); 
+ echo convert l4r$i.png +repage +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% -scene $j  L4/%d.jpg;
+ convert l4r$i.png +repage +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% -scene $j  L4/%d.jpg;
+ ((i++));  
+done;
+convert l4r1.png -resize 3000x1000\!  RS0.jpg
+convert l4r20.png -resize 3000x1000\!  RS1.jpg
+convert RS0.jpg +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L4/1000%d.jpg
+convert RS1.jpg +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L4/2000%d.jpg
+rm RS0.jpg RS1.jpg
+rm l4r*.png
+
+# make l5 band
+cp ../O256/n40.txt .
+crop from=l5d.cub to=l5r\$1.cub line=\$2 nlines=1000 -batchlist=n40.txt
+isis2std from=l5r\$1.cub to=l5r\$1.png mode=grayscale format=png stretch=manual minimum=25 maximum=200 -batchlist=n40.txt
+rm l5r*.cub
+
+# make l5 slices
+mkdir L5
+i=1; while ((i<41)); 
+do ((j=80*(i-1))); 
+ echo convert l5r$i.png +repage +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% -scene $j  L5/%d.jpg;
+ convert l5r$i.png +repage +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% -scene $j  L5/%d.jpg;
+ ((i++));  
+done;
+convert l5r1.png -resize 3000x1000\!  RS0.jpg
+convert l5r40.png -resize 3000x1000\!  RS1.jpg
+convert RS0.jpg +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L5/1000%d.jpg
+convert RS1.jpg +gravity -crop 1000x1000 -bordercolor white -border 12x12 -quality 65% L5/2000%d.jpg
+rm RS0.jpg RS1.jpg
+rm l5r*.png

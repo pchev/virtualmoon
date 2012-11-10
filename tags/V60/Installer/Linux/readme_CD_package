@@ -1,0 +1,35 @@
+Virtual Moon Atlas
+version 6.0
+Free software for Moon observation or survey
+For Linux i386 and x86_64
+
+This software, realized by Patrick Chevalley and Christian Legrand can visualize the Moon aspect for every date and hour. It permits also to study lunar formations with unique database and pictures library compiled by Christian Legrand.
+Version for Windows and Mac OS X are also available.
+
+How to support our action ?
+http://www.ap-i.net/avl/en/support
+
+Prerequesite:
+- Linux system i386 or x86_64
+- gtk2
+- OpenGL and graphic drivers supporting hardware acceleration
+- sqlite3
+
+Installation instruction:
+- install with your package manager the file corresponding to your computer architecture
+- then install the data package the same way. 
+
+Run the software :
+- just type atlun in a terminal
+- or look at your desktop menu if an icon is present under Education/Sciences
+
+Troubleshooting :
+- if the program do not start, try from a console to look at the error messages 
+- if you receive a message about cannot load libvma404.so try the following:
+  - run the full command given at the end of the installation, including the LD_LIBRARY_PATH section, change the icon to include this command.
+  - add the lib folder path to /etc/ld.so.conf
+  - create a symbolic link to libplan404.so in a folder already in /etc/ld.so.conf
+- other missing prerequesite, run ldd /usr/local/bin/atlun to get a full list of prerequesite for your system.
+
+Uninstall:
+- remove the software using your package manager

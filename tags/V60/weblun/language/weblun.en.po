@@ -1,0 +1,63 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: u_translation.rsaddresse
+msgid "Addresse"
+msgstr ""
+
+#: u_translation.rsall
+msgid "All"
+msgstr ""
+
+#: u_translation.rsdescription
+msgid "Description"
+msgstr ""
+
+#: u_translation.rsfile
+msgid "File"
+msgstr ""
+
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr ""
+
+#: u_translation.rslanguage
+msgid "Language"
+msgstr ""
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr ""
+
+#: u_translation.rsrecdate
+msgid "Recording date"
+msgstr ""
+
+#: u_translation.rsresetselecti
+msgid "Reset selection"
+msgstr ""
+
+#: u_translation.rssearch
+msgid "Search"
+msgstr ""
+
+#: u_translation.rsselectedsite
+msgid "%s selected sites."
+msgstr ""
+
+#: u_translation.rssitename
+msgid "Site name"
+msgstr ""
+
+#: u_translation.rssubthme
+msgid "Sub-theme"
+msgstr ""
+
+#: u_translation.rsthme
+msgid "Theme"
+msgstr ""
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr ""
+

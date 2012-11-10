@@ -1,0 +1,420 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Sáfár Péter <safarpeter@t-online.hu>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: u_translation.rsedit
+msgid "Edit"
+msgstr "Szerkeszt"
+
+#: u_translation.rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr ""
+
+#: u_translation.rshelp_prefix
+msgid "UK"
+msgstr "HU"
+
+#: u_translation.rsloadcsv01
+msgctxt "u_translation.rsloadcsv01"
+msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."
+msgstr "Ezzel a programnak a segítségével új objektumokat lehet a VMA-adatbázisába tölteni egy CSV fájlból. Nincs lehetőség  hogy mezőket csatoljunk össze, vagy kalkulációkat végezzünk el."
+
+#: u_translation.rsloadcsv02
+msgctxt "u_translation.rsloadcsv02"
+msgid "If you need that use first a software like OpenOffice.org Calc or Excel to format your data and save them to a CSV file."
+msgstr "Ha szükséged van erre a lehetőségre, használd az OpenOffice.org Calc programját, vagy az Excelt, formázd az adatokat és mentsd le CSV típusban."
+
+#: u_translation.rsloadcsv03
+msgctxt "u_translation.rsloadcsv03"
+msgid "From this page indicate first the character your file use to separate the different columns ( ; or TAB ) and if a \" surround the text. Then open you CSV data file."
+msgstr "Ezen a lepon, először jelöld meg hogy milyen karakter választja el egymástól az oszlopokat. (\";\" Magyarországon, \",\" US, vagy tabulátor is lehet) és \" között legyen a szöveg. Utána nyitsd meg a CSV fájlt."
+
+#: u_translation.rsloadcsv04
+msgctxt "u_translation.rsloadcsv04"
+msgid "If the format is recognised a new tab appear at the top of the page, click this tab to continue."
+msgstr "Ha a formátum értelmezhető a program számára, egy új \"tab\" jelenik meg a lap tetején, rá kell bökni és gyerünk."
+
+#: u_translation.rsloadcsv05
+msgctxt "u_translation.rsloadcsv05"
+msgid "If you already record this file setting you can use the \"Load Setting\" button to retrieve them."
+msgstr "ha már lementetted ezt a fájl beállítást, használhatod a \"Beállítások betöltése\" gombot a betöltésére."
+
+#: u_translation.rsloadcsv06
+msgctxt "u_translation.rsloadcsv06"
+msgid "The next step is to give a relation between your file columns and the different database fields. Refer to the main help file for explanation about each database field."
+msgstr "A következő lépés a te tábládnak és a VMA adatbázis mezőinek a megfeleltetése. A Help fileban található aVMA adatbázis mezőinek leírása."
+
+#: u_translation.rsloadcsv07
+msgctxt "u_translation.rsloadcsv07"
+msgid "Click one of the value of your file and check the corresponding database field. When ready press the \"<-->\" button."
+msgstr "Rá kell bökni egy értékére a táblázatodnak, ellenőrizni kell a VMA adatbázis mezőt (mármint hogy megfelelnek é egymásnak a jelentésük) Ha kész akkor a <--> gombot kell megnyomni."
+
+#: u_translation.rsloadcsv08
+msgctxt "u_translation.rsloadcsv08"
+msgid "It is also possible to give a constant value to a database field. Enter the value at the bottom of the page and press the \"Constant Value\" button."
+msgstr "Lehetséges állandó értéket adni az adatbázis mezőknek. A lap tetején be lehet ezt írni, és a \"Konstans érték\" gombot nyomogatni."
+
+#: u_translation.rsloadcsv09
+#, fuzzy
+#| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgctxt "u_translation.rsloadcsv09"
+msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgstr "DBN a fájlod azonosítja. Ennek az értéke 10-99 között lehet, és azonosítja az adataidat az adatbázisban, Ezt a fő program használja a cimkék kijelzésének miatt."
+
+#: u_translation.rsloadcsv10
+#, fuzzy
+#| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
+msgstr "Gyorsan ki lehet választani minden objektumot a DBN=10 paranccal az SQL parancs ablakban, a File Delete menüvel lehet törölni."
+
+#: u_translation.rsloadcsv11
+msgid "It is mandatory to give a value for the field: DBN, NAME, LONGIN and LATIN."
+msgstr "A DBN, NAME, LONGIN és LATIN mezőknek kötelező értéket adni!"
+
+#: u_translation.rsloadcsv12
+msgid "When all the required field are defined the next tab appear at the top of the page."
+msgstr "Ha minden szükséges mező meghatáározott, a következő tab megjelenik a lap tetején."
+
+#: u_translation.rsloadcsv13
+msgid "Press \"Load Database\" button to load your data to the database."
+msgstr "Az \" Adatbázis betöltése\" gomb segítségével a táblázatod betölthető a VMA adatbázisba."
+
+#: u_translation.rsloadcsv14
+msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
+msgstr "A \"Beállítások mentése\" gomb segítségével később azt visszaállíthatod."
+
+#: u_translation.rsm_1
+msgid "DBN must be a constant value!"
+msgstr "A DBN konstans érték!"
+
+#: u_translation.rsm_10
+msgid "Value"
+msgstr "Érték"
+
+#: u_translation.rsm_11
+msgid "Select a database field first!"
+msgstr "Válassz egy adatbázis mezőt!"
+
+#: u_translation.rsm_12
+msgid "Select an input file field first!"
+msgstr "Válassz egy input fájl mezőt!"
+
+#: u_translation.rsm_13
+msgid "Uninitialised"
+msgstr "Nincs inicializálva!"
+
+#: u_translation.rsm_14
+msgid "Constant value"
+msgstr "Konstans érték"
+
+#: u_translation.rsm_15
+msgid "Input file field"
+msgstr "Input fájl mező"
+
+#: u_translation.rsm_16
+msgid "Do some validation:"
+msgstr "Következők ellenörzése:"
+
+#: u_translation.rsm_17
+msgid "is checked but no value is defined!"
+msgstr "Nem definiált ellenörző érték!"
+
+#: u_translation.rsm_18
+msgid "All checked field are defined."
+msgstr "Az összes szükséges mező szerepel !"
+
+#: u_translation.rsm_19
+msgid "Missing required field"
+msgstr "Szükséges mező kimaradt!"
+
+#: u_translation.rsm_2
+msgid "No row selected!"
+msgstr "Nincs kiválasztott sor!"
+
+#: u_translation.rsm_20
+msgid "All requiered field are present."
+msgstr "Az összes szükséges mező szerepel!"
+
+#: u_translation.rsm_21
+msgid "Start insert process to database"
+msgstr "Az adatbázisba beszúrás indítása!"
+
+#: u_translation.rsm_22
+msgid "Database update successfully terminated!"
+msgstr "Adatbázis frissítés megszakítva!"
+
+#: u_translation.rsm_23
+msgid "You can now close this window."
+msgstr "Most be tudod zárni az ablakot."
+
+#: u_translation.rsm_24
+msgid "Database insert failed!"
+msgstr "Az adatbázisba illesztés sikertelen!"
+
+#: u_translation.rsm_25
+msgid "Rollback completed."
+msgstr "Visszaállítás sikeres !"
+
+#: u_translation.rsm_26
+msgid "Database not modified."
+msgstr "Az adatbázis nem lett módosítva"
+
+#: u_translation.rsm_3
+msgid "Selection:"
+msgstr "Kiválasztás:"
+
+#: u_translation.rsm_4
+msgid "Row:"
+msgstr "Sor:"
+
+#: u_translation.rsm_5
+msgid "not found in"
+msgstr "nem található"
+
+#: u_translation.rsm_6
+msgid "No current selection, cannot delete all!"
+msgstr "Nincs aktuális kiválasztás, nem törölhető az összes!"
+
+#: u_translation.rsm_7
+msgid "Are you sure you want to delete all the data corresponding to the current selection from the database?"
+msgstr "Biztosan törölni akarja az összes kiválasztott adatot az adatbázisból ?"
+
+#: u_translation.rsm_8
+msgid "Records found"
+msgstr "Rekordokat találtam"
+
+#: u_translation.rsm_9
+msgid "Key"
+msgstr "Kulcs"
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr "Fordította: IZIrájderCsillag(fordító)Klub"
+
+#: u_translation.rst_1
+msgid "File"
+msgstr "Fájl"
+
+#: u_translation.rst_10
+msgid "Clear"
+msgstr "Töröl"
+
+#: u_translation.rst_11
+msgid "Last"
+msgstr "Előző"
+
+#: u_translation.rst_12
+msgid "Enter selection and order criteria using SQL syntax."
+msgstr "Írd be a kiválasztás feltételeit az SQL nyelv szabályai szerint."
+
+#: u_translation.rst_13
+msgid "All (Default)"
+msgstr "Minden (alapértelmezett)"
+
+#: u_translation.rst_14
+msgid "Database maintenance"
+msgstr "Adatbázis karbantartás"
+
+#: u_translation.rst_15
+msgid "Near Side Named Formation"
+msgstr "Föld felőli oldal képződményeinek nevei"
+
+#: u_translation.rst_16
+msgid "Near Side Indexed Craters"
+msgstr "Föld felöli oldal krátereinek listája"
+
+#: u_translation.rst_17
+msgid "Input File"
+msgstr "Input fájl"
+
+#: u_translation.rst_18
+msgid "Far Side Named Formation"
+msgstr "Távoli oldal képződményeinek nevei"
+
+#: u_translation.rst_19
+msgid "Far Side Indexed Craters"
+msgstr "Távoli oldal krátereinek a listája"
+
+#: u_translation.rst_2
+msgid "Quit"
+msgstr "Kilép"
+
+#: u_translation.rst_20
+msgid "Historical Sites"
+msgstr "Történelmi helyek"
+
+#: u_translation.rst_21
+msgid "Predefined Selections"
+msgstr "Előre definiált kiválasztások"
+
+#: u_translation.rst_22
+msgid "SQL Request"
+msgstr "SQL kérés"
+
+#: u_translation.rst_23
+msgid "Select File"
+msgstr "Fájl kiválasztása"
+
+#: u_translation.rst_24
+msgid "Select Data Field"
+msgstr "Mező kiválasztása"
+
+#: u_translation.rst_25
+msgid "Load to Database"
+msgstr "Betöltés adatbázisba"
+
+#: u_translation.rst_26
+msgid "Field separator:"
+msgstr "Mező elválasztó"
+
+#: u_translation.rst_27
+msgid "Text separator:"
+msgstr "Szöveg elválasztó:"
+
+#: u_translation.rst_28
+msgid "CSV file to import:"
+msgstr "Beolvasás CSV fájlból:"
+
+#: u_translation.rst_29
+msgid "Database Fields Map"
+msgstr "Adatbázismezők térképe"
+
+#: u_translation.rst_3
+msgid "Selection"
+msgstr "Kiválasztás"
+
+#: u_translation.rst_30
+msgid "You are now ready to load the database"
+msgstr "Kész vagy az adatbázis betöltésére"
+
+#: u_translation.rst_31
+msgid "Constant Value"
+msgstr "Konstans érték"
+
+#: u_translation.rst_32
+msgid "Load Database"
+msgstr "Adatbázis betöltése"
+
+#: u_translation.rst_33
+msgid "Export Selection to CSV"
+msgstr "A kiválasztás mentése CSV fájlba"
+
+#: u_translation.rst_34
+msgid "Import from CSV"
+msgstr "Beolvasás CSV fájlból:"
+
+#: u_translation.rst_35
+msgid "Delete Selection from Database"
+msgstr "Kiválasztások törlése"
+
+#: u_translation.rst_36
+msgid "Mark Selection on Map"
+msgstr "A kiválasztottak megjelenítése a térképen"
+
+#: u_translation.rst_37
+msgid "Reload a previously saved setting"
+msgstr "Betölti az előzőleg mentett beállításokat"
+
+#: u_translation.rst_38
+msgid "Load Setting"
+msgstr "Beállítások betöltése"
+
+#: u_translation.rst_39
+msgid "Save all the definition for later retrival"
+msgstr "Elmenti az összes meghatározást"
+
+#: u_translation.rst_4
+msgid "Columns"
+msgstr "Oszlopok"
+
+#: u_translation.rst_40
+msgid "Save Setting"
+msgstr "Beállítások mentése"
+
+#: u_translation.rst_41
+msgid "Find in"
+msgstr "Keresés...-ban"
+
+#: u_translation.rst_42
+msgid "Display on Map"
+msgstr "Mutatsd a térképen"
+
+#: u_translation.rst_43
+msgid "Sort by"
+msgstr "Rendezés...szerint"
+
+#: u_translation.rst_44
+msgid "Column Value"
+msgstr "Oszlop érték"
+
+#: u_translation.rst_45
+msgid "Between"
+msgstr "Között"
+
+#: u_translation.rst_46
+msgid "and"
+msgstr "és"
+
+#: u_translation.rst_47
+msgid "Assign input field value"
+msgstr "Hozzárendelés a bemeneti mezőhöz"
+
+#: u_translation.rst_48
+msgid "Select Database"
+msgstr "Adatbázis választás"
+
+#: u_translation.rst_49
+msgid "Expert Mode"
+msgstr "Haladó mód"
+
+#: u_translation.rst_5
+msgid "All"
+msgstr "Minden"
+
+#: u_translation.rst_50
+msgid "Default Selection"
+msgstr "Alapértelmezett kiválasztás"
+
+#: u_translation.rst_51
+msgid "Pyroclastic deposits"
+msgstr "Vulkanikus lerakódások"
+
+#: u_translation.rst_52
+msgid "Help"
+msgstr "Segítség"
+
+#: u_translation.rst_53
+msgid "About"
+msgstr "Rólunk"
+
+#: u_translation.rst_54
+msgid "Lunar Domes"
+msgstr "Dómok"
+
+#: u_translation.rst_6
+msgid "None"
+msgstr "Egyik sem"
+
+#: u_translation.rst_7
+msgid "Close"
+msgstr "Bezár"
+
+#: u_translation.rst_8
+msgid "Ok"
+msgstr "Gyí"
+
+#: u_translation.rst_9
+msgid "Cancel"
+msgstr "Vissza"
+
+#: u_translation.rsunnamedforma
+msgid "Unnamed Formation"
+msgstr ""
+

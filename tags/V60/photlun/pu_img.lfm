@@ -1,0 +1,111 @@
+object f_img: Tf_img
+  Left = 293
+  Height = 300
+  Top = 299
+  Width = 400
+  HorzScrollBar.Page = 399
+  VertScrollBar.Page = 299
+  Caption = 'f_img'
+  ClientHeight = 300
+  ClientWidth = 400
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '0.9.30.3'
+  object ZoomImage1: TZoomImage
+    Left = 0
+    Height = 256
+    Top = 26
+    Width = 400
+    Canvas.AutoRedraw = False
+    Canvas.Brush.Color = clBlack
+    Zoom = 1
+    ZoomMin = 1
+    ZoomMax = 4
+    Xcentre = 0
+    Ycentre = 0
+    BGcolor = clBlack
+    Align = alClient
+    OnResize = ZoomImage1Resize
+  end
+  object ToolBar1: TToolBar
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 400
+    Caption = 'ToolBar1'
+    ShowCaptions = True
+    TabOrder = 0
+    object ToolButton1: TToolButton
+      Left = 1
+      Top = 2
+      Caption = '+'
+      OnClick = ToolButton1Click
+    end
+    object ToolButton2: TToolButton
+      Left = 24
+      Top = 2
+      Caption = '-'
+      OnClick = ToolButton2Click
+    end
+    object ToolButton3: TToolButton
+      Left = 47
+      Top = 2
+      Caption = 'R+'
+      OnClick = ToolButton3Click
+    end
+    object ToolButton4: TToolButton
+      Left = 71
+      Top = 2
+      Caption = 'R-'
+      OnClick = ToolButton4Click
+    end
+    object ToolButton5: TToolButton
+      Left = 94
+      Top = 2
+      Caption = 'L+'
+      OnClick = ToolButton5Click
+    end
+    object ToolButton6: TToolButton
+      Left = 117
+      Top = 2
+      Caption = 'L-'
+      OnClick = ToolButton6Click
+    end
+    object ToolButton7: TToolButton
+      Left = 140
+      Top = 2
+      Caption = 'C+'
+      OnClick = ToolButton7Click
+    end
+    object ToolButton8: TToolButton
+      Left = 164
+      Top = 2
+      Caption = 'C-'
+      OnClick = ToolButton8Click
+    end
+    object ToolButton9: TToolButton
+      Left = 187
+      Top = 2
+      OnClick = ToolButton9Click
+    end
+    object ToolButton10: TToolButton
+      Left = 210
+      Top = 2
+      OnClick = ToolButton10Click
+    end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 18
+    Top = 282
+    Width = 400
+    Panels = <>
+  end
+  object ResizeTimer: TTimer
+    Enabled = False
+    Interval = 200
+    OnTimer = ResizeTimerTimer
+    left = 340
+    top = 35
+  end
+end

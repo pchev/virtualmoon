@@ -1,0 +1,420 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Huub Scheenen <info@kuuke.nl>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: u_translation.rsedit
+msgid "Edit"
+msgstr "Bewerk"
+
+#: u_translation.rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr ""
+
+#: u_translation.rshelp_prefix
+msgid "UK"
+msgstr "NL"
+
+#: u_translation.rsloadcsv01
+msgctxt "u_translation.rsloadcsv01"
+msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."
+msgstr "Dit programma laat u toe om nieuwe objecten te importeren naar de Virtual Moon Atlas database uit een CSV-bestand. Er is geen voorziening om data velden te fuseren of enige berekeningen te doen."
+
+#: u_translation.rsloadcsv02
+msgctxt "u_translation.rsloadcsv02"
+msgid "If you need that use first a software like OpenOffice.org Calc or Excel to format your data and save them to a CSV file."
+msgstr "Als je dat nodig hebt gebruik dan eerst software als OpenOffice.org Calc of Excel om uw gegevens te formatteren en ze dan als een CSV-bestand op te slaan."
+
+#: u_translation.rsloadcsv03
+msgctxt "u_translation.rsloadcsv03"
+msgid "From this page indicate first the character your file use to separate the different columns ( ; or TAB ) and if a \" surround the text. Then open you CSV data file."
+msgstr "Op deze pagina geef eerst het karakter van je bestand aan om de verschillende kolommen te scheiden ( ; or TAB ) of als de tekst tussen \" staat. Open dan je CSV gegevensbestand."
+
+#: u_translation.rsloadcsv04
+msgctxt "u_translation.rsloadcsv04"
+msgid "If the format is recognised a new tab appear at the top of the page, click this tab to continue."
+msgstr "Als de indeling is herkend dan zal een nieuw tabblad verschijnen aan de bovenkant van de pagina, klikt u op dit tabblad om verder te gaan."
+
+#: u_translation.rsloadcsv05
+msgctxt "u_translation.rsloadcsv05"
+msgid "If you already record this file setting you can use the \"Load Setting\" button to retrieve them."
+msgstr "Als je deze bestandsinstelling al hebt opgenomen kan je de \"Laad instelling\" knop gebruiken om te herkriigen."
+
+#: u_translation.rsloadcsv06
+msgctxt "u_translation.rsloadcsv06"
+msgid "The next step is to give a relation between your file columns and the different database fields. Refer to the main help file for explanation about each database field."
+msgstr "De volgende stap is het maken van een relatie tussen kolommen van uw bestand en de verschillende database velden. Verwijs naar de help-bestand voor een uitleg over elk database veld."
+
+#: u_translation.rsloadcsv07
+msgctxt "u_translation.rsloadcsv07"
+msgid "Click one of the value of your file and check the corresponding database field. When ready press the \"<-->\" button."
+msgstr "Klik op een van de waardes van uw bestand en controleer het overeenkomstige database veld. Als u klaar bent drukt u op de  \"<--> \" knop."
+
+#: u_translation.rsloadcsv08
+msgctxt "u_translation.rsloadcsv08"
+msgid "It is also possible to give a constant value to a database field. Enter the value at the bottom of the page and press the \"Constant Value\" button."
+msgstr "Het is ook mogelijk om een constante waarde te geven aan een database veld. Geef de waarde aan de onderkant van de pagina en druk op de  \"constante waarde \" knop."
+
+#: u_translation.rsloadcsv09
+#, fuzzy
+#| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgctxt "u_translation.rsloadcsv09"
+msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgstr "DBN is een idientifier voor je bestand. Het bereik ligt tussen 10 en 99 en het staat je toe de data in je database te identificeren. Het wordt gebruikt door het hoofdprogramma om de labels van je objecten te laten zien."
+
+#: u_translation.rsloadcsv10
+#, fuzzy
+#| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
+msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
+msgstr "U kunt ook snel al uw objecten te selecteren met behulp van DBN = 10 in het SQL-venster Selectie en gegevens wisselen met behulp van het File - Delete menu."
+
+#: u_translation.rsloadcsv11
+msgid "It is mandatory to give a value for the field: DBN, NAME, LONGIN and LATIN."
+msgstr "Het is verplicht om een waarde te geven voor het veld: DBN, NAME, LONGIN en LATIN."
+
+#: u_translation.rsloadcsv12
+msgid "When all the required field are defined the next tab appear at the top of the page."
+msgstr "Als alle verplichte velden zijn gedefinieerd dan verschijnt het volgende tabblad aan de bovenkant van de pagina."
+
+#: u_translation.rsloadcsv13
+msgid "Press \"Load Database\" button to load your data to the database."
+msgstr "Druk de \"\"Laad databse\"\" knop om je data in de database te laden."
+
+#: u_translation.rsloadcsv14
+msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
+msgstr "De \"Bewaar instelling\" knop staat u toe om de instelling voor later gebruik op te slaan."
+
+#: u_translation.rsm_1
+msgid "DBN must be a constant value!"
+msgstr "DBN moet een constante waarde zijn!"
+
+#: u_translation.rsm_10
+msgid "Value"
+msgstr "Waarde"
+
+#: u_translation.rsm_11
+msgid "Select a database field first!"
+msgstr "Selecteer eerst een database veld!"
+
+#: u_translation.rsm_12
+msgid "Select an input file field first!"
+msgstr "Selecteer eerst een invoer veld!"
+
+#: u_translation.rsm_13
+msgid "Uninitialised"
+msgstr "Niet geïnitialiseerd"
+
+#: u_translation.rsm_14
+msgid "Constant value"
+msgstr "Constente waarde"
+
+#: u_translation.rsm_15
+msgid "Input file field"
+msgstr "Bestand invoer gebied"
+
+#: u_translation.rsm_16
+msgid "Do some validation:"
+msgstr "Doe enige validatie:"
+
+#: u_translation.rsm_17
+msgid "is checked but no value is defined!"
+msgstr "is gecontroleerd, maar geen waarde is gedefinieerd!"
+
+#: u_translation.rsm_18
+msgid "All checked field are defined."
+msgstr "Alle aangevinkte velden worden gedefinieerd."
+
+#: u_translation.rsm_19
+msgid "Missing required field"
+msgstr "Vereist veld ontbreekt"
+
+#: u_translation.rsm_2
+msgid "No row selected!"
+msgstr "Geen rij geselecteerd!"
+
+#: u_translation.rsm_20
+msgid "All requiered field are present."
+msgstr "Alle vereiste velden zijn aanwezig"
+
+#: u_translation.rsm_21
+msgid "Start insert process to database"
+msgstr "Invoegen proces database starten"
+
+#: u_translation.rsm_22
+msgid "Database update successfully terminated!"
+msgstr "Update database succesvol afgebroken!"
+
+#: u_translation.rsm_23
+msgid "You can now close this window."
+msgstr "Je kan dit scherm nu sluiten."
+
+#: u_translation.rsm_24
+msgid "Database insert failed!"
+msgstr "Invoegen database mislukt!"
+
+#: u_translation.rsm_25
+msgid "Rollback completed."
+msgstr "Rollback afgerond."
+
+#: u_translation.rsm_26
+msgid "Database not modified."
+msgstr "Database niet aangepast."
+
+#: u_translation.rsm_3
+msgid "Selection:"
+msgstr "Selectie:"
+
+#: u_translation.rsm_4
+msgid "Row:"
+msgstr "Rij:"
+
+#: u_translation.rsm_5
+msgid "not found in"
+msgstr "niet gevonden in"
+
+#: u_translation.rsm_6
+msgid "No current selection, cannot delete all!"
+msgstr "Geen huidige selectie, kan niet alles verwijderen!"
+
+#: u_translation.rsm_7
+msgid "Are you sure you want to delete all the data corresponding to the current selection from the database?"
+msgstr "Weet u zeker dat u alle gegevens die overeenkomen met de huidige selectie uit de database wil verwijderen?"
+
+#: u_translation.rsm_8
+msgid "Records found"
+msgstr "Records gevonden"
+
+#: u_translation.rsm_9
+msgid "Key"
+msgstr "Sleutel"
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr "Vertaling: H. Scheenen"
+
+#: u_translation.rst_1
+msgid "File"
+msgstr "Bestand"
+
+#: u_translation.rst_10
+msgid "Clear"
+msgstr "Wis"
+
+#: u_translation.rst_11
+msgid "Last"
+msgstr "Laatste"
+
+#: u_translation.rst_12
+msgid "Enter selection and order criteria using SQL syntax."
+msgstr "Voer selectie en criteria in met behulp van SQL syntax."
+
+#: u_translation.rst_13
+msgid "All (Default)"
+msgstr "Alles (Standaard)"
+
+#: u_translation.rst_14
+msgid "Database maintenance"
+msgstr "Database onderhoud"
+
+#: u_translation.rst_15
+msgid "Near Side Named Formation"
+msgstr "Voorkant benoemde formatie"
+
+#: u_translation.rst_16
+msgid "Near Side Indexed Craters"
+msgstr "Voorkant geïndexeerde kraters"
+
+#: u_translation.rst_17
+msgid "Input File"
+msgstr "Invoer bestand"
+
+#: u_translation.rst_18
+msgid "Far Side Named Formation"
+msgstr "Achterkant benoemde formatie"
+
+#: u_translation.rst_19
+msgid "Far Side Indexed Craters"
+msgstr "Achterkant geïndexeerde kraters"
+
+#: u_translation.rst_2
+msgid "Quit"
+msgstr "Afsluiten"
+
+#: u_translation.rst_20
+msgid "Historical Sites"
+msgstr "Historische plaatsen"
+
+#: u_translation.rst_21
+msgid "Predefined Selections"
+msgstr "Voorgedefinieerde selecties"
+
+#: u_translation.rst_22
+msgid "SQL Request"
+msgstr "SQL verzoek"
+
+#: u_translation.rst_23
+msgid "Select File"
+msgstr "Selecteer bestand"
+
+#: u_translation.rst_24
+msgid "Select Data Field"
+msgstr "Selecteer data-veld"
+
+#: u_translation.rst_25
+msgid "Load to Database"
+msgstr "laad naar database"
+
+#: u_translation.rst_26
+msgid "Field separator:"
+msgstr "veld scheidingsteken:"
+
+#: u_translation.rst_27
+msgid "Text separator:"
+msgstr "Tekst scheidingsteken:"
+
+#: u_translation.rst_28
+msgid "CSV file to import:"
+msgstr "Te importeren CSV-bestand:"
+
+#: u_translation.rst_29
+msgid "Database Fields Map"
+msgstr "Kaart database velden"
+
+#: u_translation.rst_3
+msgid "Selection"
+msgstr "Selectie"
+
+#: u_translation.rst_30
+msgid "You are now ready to load the database"
+msgstr "Je bent nu klaar om de database te laden"
+
+#: u_translation.rst_31
+msgid "Constant Value"
+msgstr "Constante waarde"
+
+#: u_translation.rst_32
+msgid "Load Database"
+msgstr "Laad database"
+
+#: u_translation.rst_33
+msgid "Export Selection to CSV"
+msgstr "Exporteer selectie naar CSV"
+
+#: u_translation.rst_34
+msgid "Import from CSV"
+msgstr "Importeer van CSV"
+
+#: u_translation.rst_35
+msgid "Delete Selection from Database"
+msgstr "Verwijder selectie uit database"
+
+#: u_translation.rst_36
+msgid "Mark Selection on Map"
+msgstr "Markeer selectie op kaart"
+
+#: u_translation.rst_37
+msgid "Reload a previously saved setting"
+msgstr "Herlaadt een eerder opgeslagen instelling"
+
+#: u_translation.rst_38
+msgid "Load Setting"
+msgstr "instelling laden"
+
+#: u_translation.rst_39
+msgid "Save all the definition for later retrival"
+msgstr "Sla alle definities op voor gebruik later"
+
+#: u_translation.rst_4
+msgid "Columns"
+msgstr "Kolommen"
+
+#: u_translation.rst_40
+msgid "Save Setting"
+msgstr "instelling opslaan"
+
+#: u_translation.rst_41
+msgid "Find in"
+msgstr "Zoek in:"
+
+#: u_translation.rst_42
+msgid "Display on Map"
+msgstr "Laat zien op de kaart"
+
+#: u_translation.rst_43
+msgid "Sort by"
+msgstr "Sorteer op"
+
+#: u_translation.rst_44
+msgid "Column Value"
+msgstr "Kolom waarde"
+
+#: u_translation.rst_45
+msgid "Between"
+msgstr "tussen"
+
+#: u_translation.rst_46
+msgid "and"
+msgstr "en"
+
+#: u_translation.rst_47
+msgid "Assign input field value"
+msgstr "wwarde invoerveld toewijzen"
+
+#: u_translation.rst_48
+msgid "Select Database"
+msgstr "Selecteer database"
+
+#: u_translation.rst_49
+msgid "Expert Mode"
+msgstr "Expert Mode"
+
+#: u_translation.rst_5
+msgid "All"
+msgstr "Allemaal"
+
+#: u_translation.rst_50
+msgid "Default Selection"
+msgstr "Standaard selectie"
+
+#: u_translation.rst_51
+msgid "Pyroclastic deposits"
+msgstr "Pyroclastische deposities"
+
+#: u_translation.rst_52
+msgid "Help"
+msgstr "Help"
+
+#: u_translation.rst_53
+msgid "About"
+msgstr "Over"
+
+#: u_translation.rst_54
+msgid "Lunar Domes"
+msgstr "Maankoepels"
+
+#: u_translation.rst_6
+msgid "None"
+msgstr "Geen"
+
+#: u_translation.rst_7
+msgid "Close"
+msgstr "Sluiten"
+
+#: u_translation.rst_8
+msgid "Ok"
+msgstr "Ok"
+
+#: u_translation.rst_9
+msgid "Cancel"
+msgstr "Verwerpen"
+
+#: u_translation.rsunnamedforma
+msgid "Unnamed Formation"
+msgstr ""
+
