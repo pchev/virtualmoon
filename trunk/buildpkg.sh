@@ -124,7 +124,7 @@ if [[ $make_linux32 ]]; then
     mv virtualmoon*.tgz $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
   fi
-  if [[ $pro ]]; then
+#  if [[ $pro ]]; then
     # deb
 #    cd $wd
 #    rsync -a --exclude=.svn Installer/Linux/debian $builddir
@@ -150,7 +150,7 @@ if [[ $make_linux32 ]]; then
 #    if [[ $? -ne 0 ]]; then exit 1;fi
 #    mv RPMS/i386/virtualmoon*.rpm $wd/$outdir/
 #    if [[ $? -ne 0 ]]; then exit 1;fi
-  fi # if [[ $pro ]]
+#  fi # if [[ $pro ]]
   if [[ $make_debug ]]; then 
     #debug
     cd $wd
@@ -202,7 +202,7 @@ if [[ $make_linux64 ]]; then
     if [[ $? -ne 0 ]]; then exit 1;fi
     cp /home/transfert/avl_release/virtualmoon-6.0-linux_i386.tgz $wd/$outdir/
   fi
-  if [[ $pro ]]; then
+#  if [[ $pro ]]; then
     # deb
 #    cd $wd
 #    rsync -a --exclude=.svn Installer/Linux/debian $builddir
@@ -231,7 +231,7 @@ if [[ $make_linux64 ]]; then
 #    if [[ $? -ne 0 ]]; then exit 1;fi
 #    mv RPMS/x86_64/virtualmoon*.rpm $wd/$outdir/
 #    if [[ $? -ne 0 ]]; then exit 1;fi
-  fi # if [[ $pro ]]
+#  fi # if [[ $pro ]]
   if [[ $make_debug ]]; then
     #debug
     cd $wd
@@ -306,7 +306,7 @@ if [[ ! $upd ]]; then
        tar cf $wd/$release/virtualmoon-$version-linux.tar vmapro_install.sh licence virtualmoon-data-$version-linux_all.tgz virtualmoon-$version-linux_x86_64.tgz virtualmoon-$version-linux_i386.tgz
     fi
   fi
-  if [[ $pro ]]; then 
+#  if [[ $pro ]]; then 
     # deb
 #    cd $wd
 #    rsync -a --exclude=.svn Installer/Linux/debian $builddir
@@ -330,7 +330,7 @@ if [[ ! $upd ]]; then
 #    if [[ $? -ne 0 ]]; then exit 1;fi
 #    mv RPMS/noarch/virtualmoon*.rpm $wd/$outdir/
 #    if [[ $? -ne 0 ]]; then exit 1;fi
-  fi
+#  fi
 
   cd $wd
   rm -rf $builddir
