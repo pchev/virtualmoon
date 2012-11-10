@@ -126,30 +126,30 @@ if [[ $make_linux32 ]]; then
   fi
   if [[ $pro ]]; then
     # deb
-    cd $wd
-    rsync -a --exclude=.svn Installer/Linux/debian $builddir
-    cd $builddir
-    mv bin debian/virtualmoon/usr/
-    mv lib debian/virtualmoon/usr/
-    mv share debian/virtualmoon/usr/
-    cd debian
-    sed -i "/Version:/ s/5/$version/" virtualmoon/DEBIAN/control
-    fakeroot dpkg-deb --build virtualmoon .
-    if [[ $? -ne 0 ]]; then exit 1;fi
-    mv virtualmoon*.deb $wd/$outdir/
-    if [[ $? -ne 0 ]]; then exit 1;fi
+#    cd $wd
+#    rsync -a --exclude=.svn Installer/Linux/debian $builddir
+#    cd $builddir
+#    mv bin debian/virtualmoon/usr/
+#    mv lib debian/virtualmoon/usr/
+#    mv share debian/virtualmoon/usr/
+#    cd debian
+#    sed -i "/Version:/ s/5/$version/" virtualmoon/DEBIAN/control
+#    fakeroot dpkg-deb --build virtualmoon .
+#    if [[ $? -ne 0 ]]; then exit 1;fi
+#    mv virtualmoon*.deb $wd/$outdir/
+#    if [[ $? -ne 0 ]]; then exit 1;fi
     # rpm
-    cd $wd
-    rsync -a --exclude=.svn Installer/Linux/rpm $builddir
-    cd $builddir
-    mv debian/virtualmoon/usr/* rpm/virtualmoon/usr/
-    cd rpm
-    sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon.spec
-    sed -i "/Release:/ s/1/1/" SPECS/virtualmoon.spec
-    setarch i386 fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon.spec
-    if [[ $? -ne 0 ]]; then exit 1;fi
-    mv RPMS/i386/virtualmoon*.rpm $wd/$outdir/
-    if [[ $? -ne 0 ]]; then exit 1;fi
+#    cd $wd
+#    rsync -a --exclude=.svn Installer/Linux/rpm $builddir
+#    cd $builddir
+#    mv debian/virtualmoon/usr/* rpm/virtualmoon/usr/
+#    cd rpm
+#    sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon.spec
+#    sed -i "/Release:/ s/1/1/" SPECS/virtualmoon.spec
+#    setarch i386 fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon.spec
+#    if [[ $? -ne 0 ]]; then exit 1;fi
+#    mv RPMS/i386/virtualmoon*.rpm $wd/$outdir/
+#    if [[ $? -ne 0 ]]; then exit 1;fi
   fi # if [[ $pro ]]
   if [[ $make_debug ]]; then 
     #debug
@@ -196,39 +196,41 @@ if [[ $make_linux64 ]]; then
     mkdir $wd/CD_Linux
     mv virtualmoon*.tgz $wd/CD_Linux/
     if [[ $? -ne 0 ]]; then exit 1;fi
+    cp /home/transfert/avl_release/virtualmoon-6.0-linux_i386.tgz $wd/CD_Linux/
   else
     mv virtualmoon*.tgz $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
+    cp /home/transfert/avl_release/virtualmoon-6.0-linux_i386.tgz $wd/$outdir/
   fi
   if [[ $pro ]]; then
     # deb
-    cd $wd
-    rsync -a --exclude=.svn Installer/Linux/debian $builddir
-    cd $builddir
-    mv bin debian/virtualmoon64/usr/
-    mv lib debian/virtualmoon64/usr/
-    mv share debian/virtualmoon64/usr/
-    cd debian
-    sed -i "/Version:/ s/5/$version/" virtualmoon64/DEBIAN/control
-    fakeroot dpkg-deb --build virtualmoon64 .
-    if [[ $? -ne 0 ]]; then exit 1;fi
-    mv virtualmoon*.deb $wd/$outdir/
-    if [[ $? -ne 0 ]]; then exit 1;fi
+#    cd $wd
+#    rsync -a --exclude=.svn Installer/Linux/debian $builddir
+#    cd $builddir
+#    mv bin debian/virtualmoon64/usr/
+#    mv lib debian/virtualmoon64/usr/
+#    mv share debian/virtualmoon64/usr/
+#    cd debian
+#    sed -i "/Version:/ s/5/$version/" virtualmoon64/DEBIAN/control
+#    fakeroot dpkg-deb --build virtualmoon64 .
+#    if [[ $? -ne 0 ]]; then exit 1;fi
+#    mv virtualmoon*.deb $wd/$outdir/
+#    if [[ $? -ne 0 ]]; then exit 1;fi
     # rpm
-    cd $wd
-    rsync -a --exclude=.svn Installer/Linux/rpm $builddir
-    cd $builddir
-    mv debian/virtualmoon64/usr/* rpm/virtualmoon/usr/
-    # Redhat 64bits lib is lib64 
-    mv rpm/virtualmoon/usr/lib rpm/virtualmoon/usr/lib64
-    cd rpm
-    sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon64.spec
-    sed -i "/Release:/ s/1/1/" SPECS/virtualmoon64.spec
-    # rpm 4.7
-    fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon64.spec
-    if [[ $? -ne 0 ]]; then exit 1;fi
-    mv RPMS/x86_64/virtualmoon*.rpm $wd/$outdir/
-    if [[ $? -ne 0 ]]; then exit 1;fi
+#    cd $wd
+#    rsync -a --exclude=.svn Installer/Linux/rpm $builddir
+#    cd $builddir
+#    mv debian/virtualmoon64/usr/* rpm/virtualmoon/usr/
+#    # Redhat 64bits lib is lib64 
+#    mv rpm/virtualmoon/usr/lib rpm/virtualmoon/usr/lib64
+#    cd rpm
+#    sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon64.spec
+#    sed -i "/Release:/ s/1/1/" SPECS/virtualmoon64.spec
+#    # rpm 4.7
+#    fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon64.spec
+#    if [[ $? -ne 0 ]]; then exit 1;fi
+#    mv RPMS/x86_64/virtualmoon*.rpm $wd/$outdir/
+#    if [[ $? -ne 0 ]]; then exit 1;fi
   fi # if [[ $pro ]]
   if [[ $make_debug ]]; then
     #debug
@@ -306,28 +308,28 @@ if [[ ! $upd ]]; then
   fi
   if [[ $pro ]]; then 
     # deb
-    cd $wd
-    rsync -a --exclude=.svn Installer/Linux/debian $builddir
-    cd $builddir
-    mv share debian/virtualmoon-data/usr/
-    cd debian
-    sed -i "/Version:/ s/5/$version/" virtualmoon-data/DEBIAN/control
-    fakeroot dpkg-deb --build virtualmoon-data .
-    if [[ $? -ne 0 ]]; then exit 1;fi
-    mv virtualmoon-data*.deb $wd/$outdir/
-    if [[ $? -ne 0 ]]; then exit 1;fi
-    # rpm
-    cd $wd
-    rsync -a --exclude=.svn Installer/Linux/rpm $builddir
-    cd $builddir
-    mv debian/virtualmoon-data/usr/* rpm/virtualmoon-data/usr/
-    cd rpm
-    sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon-data.spec
-    sed -i "/Release:/ s/1/1/" SPECS/virtualmoon-data.spec
-    fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon-data" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon-data.spec
-    if [[ $? -ne 0 ]]; then exit 1;fi
-    mv RPMS/noarch/virtualmoon*.rpm $wd/$outdir/
-    if [[ $? -ne 0 ]]; then exit 1;fi
+#    cd $wd
+#    rsync -a --exclude=.svn Installer/Linux/debian $builddir
+#    cd $builddir
+#    mv share debian/virtualmoon-data/usr/
+#    cd debian
+#    sed -i "/Version:/ s/5/$version/" virtualmoon-data/DEBIAN/control
+#    fakeroot dpkg-deb --build virtualmoon-data .
+#    if [[ $? -ne 0 ]]; then exit 1;fi
+#    mv virtualmoon-data*.deb $wd/$outdir/
+#    if [[ $? -ne 0 ]]; then exit 1;fi
+#    # rpm
+#    cd $wd
+#    rsync -a --exclude=.svn Installer/Linux/rpm $builddir
+#    cd $builddir
+#    mv debian/virtualmoon-data/usr/* rpm/virtualmoon-data/usr/
+#    cd rpm
+#    sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon-data.spec
+#    sed -i "/Release:/ s/1/1/" SPECS/virtualmoon-data.spec
+#    fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon-data" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon-data.spec
+#    if [[ $? -ne 0 ]]; then exit 1;fi
+#    mv RPMS/noarch/virtualmoon*.rpm $wd/$outdir/
+#    if [[ $? -ne 0 ]]; then exit 1;fi
   fi
 
   cd $wd
