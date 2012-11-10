@@ -73,7 +73,7 @@ msgstr ""
 
 #: u_translation.rstitle
 msgid "Virtual Lunar Atlas Command Center"
-msgstr ""
+msgstr "Virtual Moon Atlas Command Center"
 
 #: u_translation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: u_translation.rsvirtuallunar
 msgid "Virtual Lunar Atlas"
-msgstr ""
+msgstr "Virtual Moon Atlas"
 
 #: u_translation.rsweblundocume
 msgid "WebLun documentation"

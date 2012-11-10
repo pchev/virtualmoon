@@ -573,7 +573,7 @@ msgstr ""
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
-msgstr "Virtual Lunar Atlas"
+msgstr ""
 
 #: u_translation.rstopocentric
 msgid "Topocentric"
