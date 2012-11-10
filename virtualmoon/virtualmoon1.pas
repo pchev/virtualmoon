@@ -1080,8 +1080,8 @@ begin
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
     if ToolsWidth<100 then ToolsWidth:=100;
     PageControl1.Width:=ToolsWidth;
-    i := ReadInteger(section, 'Top', 0);
-    if (i >= -10) and (i < screen.Height - 20) then
+    i := ReadInteger(section, 'Top', 10);
+    if (i >= -10) and (i < screen.Height - 30) then
         Top := i
     else
         Top := 0;
