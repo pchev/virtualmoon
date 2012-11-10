@@ -36,12 +36,14 @@ type
     ResetSelection: TMenuItem;
     StatusBar1: TStatusBar;
     StringGrid1: TStringGrid;
+    InitTimer: TTimer;
     procedure Button1Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
     procedure Edit1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure InitTimerTimer(Sender: TObject);
     procedure Quit1Click(Sender: TObject);
     procedure ResetSelectionClick(Sender: TObject);
     procedure StringGrid1DblClick(Sender: TObject);
@@ -88,6 +90,13 @@ implementation
 
 procedure Tf_weblun.FormShow(Sender: TObject);
 begin
+  InitTimer.Enabled:=true;
+end;
+
+procedure Tf_weblun.InitTimerTimer(Sender: TObject);
+begin
+  InitTimer.Enabled:=false;
+  InitApp;
   FillTheme;
   SelectAll;
   Application.BringToFront;
@@ -599,8 +608,7 @@ begin
   checkdate:=trunc(Now);
   buf:=dbm.QueryOne('select cdate from weblun_file_date;');
   cdate:=trunc(StrToFloatDef(buf,0));
-//  if checkdate>(cdate+7) then begin   // check for new version once a week
-  if true then begin   // for testing
+  if checkdate>(cdate+7) then begin   // check for new version once a week
      dbm.Query('update weblun_file_date set cdate='+inttostr(checkdate)+';');
      dbm.Commit;
      buf:=dbm.QueryOne('select udate from weblun_file_date;');

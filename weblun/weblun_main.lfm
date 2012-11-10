@@ -153,4 +153,11 @@ object f_weblun: Tf_weblun
     left = 128
     top = 184
   end
+  object InitTimer: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = InitTimerTimer
+    left = 224
+    top = 184
+  end
 end
