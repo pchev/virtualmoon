@@ -29,5 +29,4 @@ echo Install virtualmoon data4 to $destdir
 
 install -m 755 -d $destdir
 
-InstTexture TexturesChange_L6 $destdir
 InstTexture TexturesLopam_L6 $destdir

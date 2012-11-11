@@ -44,8 +44,10 @@ install_data2:
 	./install_darwin_data2.sh $(PREFIX) 
 install_data3:
 	./install_darwin_data3.sh $(PREFIX) 
-install_data4:
-	./install_darwin_data4.sh $(PREFIX) 
+install_data4a:
+	./install_darwin_data4a.sh $(PREFIX) 
+install_data4b:
+	./install_darwin_data4b.sh $(PREFIX) 
 uninstall: 
 	./uninstall_darwin.sh $(PREFIX)
 else

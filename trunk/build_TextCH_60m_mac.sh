@@ -20,16 +20,16 @@ mkdir -p $builddir
 
 ./configure $configopt prefix=$builddir target=i386-darwin
   if [[ $? -ne 0 ]]; then exit 1;fi
-  make install_data4
+  make install_data4b
   if [[ $? -ne 0 ]]; then exit 1;fi
   cp Installer/Mac/vmapro/readme_60m.txt $basedir/readme.txt
   cp Installer/Mac/vmapro/licence.txt $basedir/
   # pkg
   mkdir $wd/CD_Mac
-  cp Installer/Mac/Textures_60m.packproj $basedir
+  cp Installer/Mac/Textures_Change_60m.packproj $basedir
   cd $basedir
-  freeze -v Textures_60m.packproj
+  freeze -v Textures_Change_60m.packproj
   rm -rf $builddir
   rm $basedir/readme.txt
   rm $basedir/licence.txt
-  rm $basedir/Textures_60m.packproj
+  rm $basedir/Textures_Change_60m.packproj
