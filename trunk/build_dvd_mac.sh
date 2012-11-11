@@ -28,11 +28,13 @@ updname=_cdrom
 unset outdir;
 
 wd=`pwd`
-mkdir $wd/$outdir
+
+mkdir -p $builddir
 
 # delete old files
   deldir=$basedir/DVD;
   rm $deldir/virtualmoon*.dmg
+  mkdir $basedir/DVD
 
 # make i386 Mac version
   ./configure $configopt prefix=$builddir target=i386-darwin
