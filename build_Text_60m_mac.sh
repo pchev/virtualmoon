@@ -15,7 +15,8 @@ if [[ -n $2 ]]; then
 fi
 
 wd=`pwd`
-mkdir $wd/$outdir
+
+mkdir -p $builddir
 
 ./configure $configopt prefix=$builddir target=i386-darwin
   if [[ $? -ne 0 ]]; then exit 1;fi
