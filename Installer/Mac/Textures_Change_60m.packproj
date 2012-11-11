@@ -479,7 +479,7 @@
 						<key>IFPkgDescriptionDescription</key>
 						<string></string>
 						<key>IFPkgDescriptionTitle</key>
-						<string>Textures_60m</string>
+						<string>Textures_Change_60m</string>
 						<key>IFPkgDescriptionVersion</key>
 						<string>6.0</string>
 					</dict>
@@ -493,9 +493,9 @@
 					<key>CFBundleIconFile Path Type</key>
 					<integer>1</integer>
 					<key>CFBundleIdentifier</key>
-					<string>net.ap-i.pkg.Textures_60m</string>
+					<string>net.ap-i.pkg.Textures_Change_60m</string>
 					<key>CFBundleName</key>
-					<string>Textures_60m</string>
+					<string>Textures_Change_60m</string>
 					<key>CFBundleShortVersionString</key>
 					<string>6.0</string>
 				</dict>
@@ -532,7 +532,7 @@
 		<key>IFPkgFlagPackageSelection</key>
 		<integer>0</integer>
 		<key>Name</key>
-		<string>Textures_60m</string>
+		<string>Textures_Change_60m</string>
 		<key>Status</key>
 		<integer>1</integer>
 		<key>Type</key>
