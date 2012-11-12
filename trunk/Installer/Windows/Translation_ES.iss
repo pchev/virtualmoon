@@ -24,7 +24,7 @@ MyAppName=Virtual Moon Atlas, Spanish translation
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: translation\es\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: es\share\virtualmoon\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Messages]
 UninstalledAll=%1 was successfully removed from your computer.
