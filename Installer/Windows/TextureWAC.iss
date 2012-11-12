@@ -3,10 +3,11 @@
 
 [Setup]
 AppName={cm:MyAppName}
-AppVerName={cm:MyAppName}
+AppVerName={cm:MyAppName} 
 DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{pf}\VirtualMoon}
+InfoBeforeFile=setup_pict\readme.txt
 OutputDir=setup
-OutputBaseFilename=lang_CA
+OutputBaseFilename=texture_wac
 Compression=zip
 SolidCompression=true
 UseSetupLdr=true
@@ -18,16 +19,23 @@ AppID={{3EB7A19B-690F-49BA-B494-CADA547D0DB9}
 CreateUninstallRegKey=false
 UpdateUninstallLogAppName=false
 DirExistsWarning=no
+ShowLanguageDialog=yes
+
+[Languages]
+Name: eng; MessagesFile: compiler:Default.isl; InfoBeforeFile: setup_pict\readme.txt
+Name: fre; MessagesFile: compiler:Languages\French.isl; InfoBeforeFile: setup_pict\lisezmoi.txt
+
+[Messages]
+eng.UninstalledAll=%1 was successfully removed from your computer.
+fre.UninstalledAll=%1 a été correctement désinstallé de cet ordinateur.
 
 [CustomMessages]
-MyAppName=Virtual Moon Atlas, Catalan translation
+eng.MyAppName=LRO WAC texture complement
+fre.MyAppName=addition texture LRO WAC
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: ca\share\virtualmoon\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
-
-[Messages]
-UninstalledAll=%1 was successfully removed from your computer.
+Source: vmapro\Data\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion createallsubdirs 
 
 [_ISTool]
 UseAbsolutePaths=false
