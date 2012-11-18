@@ -1,0 +1,71 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Giuliano Pinto <giuliano.pinto@tiscalinet.it>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: u_translation.rsaddresse
+msgid "Addresse"
+msgstr "Indirizzo"
+
+#: u_translation.rsall
+msgid "All"
+msgstr "Tutti"
+
+#: u_translation.rsdescription
+msgid "Description"
+msgstr "Descrizione"
+
+#: u_translation.rsfile
+msgid "File"
+msgstr "File"
+
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr "IT"
+
+#: u_translation.rslanguage
+msgid "Language"
+msgstr "Lingua"
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr "Esci"
+
+#: u_translation.rsrecdate
+msgid "Recording date"
+msgstr "Data di registrazione"
+
+#: u_translation.rsresetselecti
+msgid "Reset selection"
+msgstr "Scelta predefinita"
+
+#: u_translation.rssearch
+msgid "Search"
+msgstr "Ricerca"
+
+#: u_translation.rsselectedsite
+msgid "%s selected sites."
+msgstr "% di siti selezionati"
+
+#: u_translation.rssitename
+msgid "Site name"
+msgstr "Nome del sito"
+
+#: u_translation.rssubthme
+msgid "Sub-theme"
+msgstr "Sotto-argomento"
+
+#: u_translation.rsthme
+msgid "Theme"
+msgstr "Argomento"
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr "Traduzione: Giuliano Pinto"
+
