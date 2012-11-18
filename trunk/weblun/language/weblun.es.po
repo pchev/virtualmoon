@@ -1,0 +1,63 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: u_translation.rsaddresse
+msgid "Addresse"
+msgstr "Dirección"
+
+#: u_translation.rsall
+msgid "All"
+msgstr "Todo"
+
+#: u_translation.rsdescription
+msgid "Description"
+msgstr "Descripción"
+
+#: u_translation.rsfile
+msgid "File"
+msgstr "Archivo"
+
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr ""
+
+#: u_translation.rslanguage
+msgid "Language"
+msgstr "Lenguaje"
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr "Salir"
+
+#: u_translation.rsrecdate
+msgid "Recording date"
+msgstr "Grabando fecha"
+
+#: u_translation.rsresetselecti
+msgid "Reset selection"
+msgstr "Reiniciar selección"
+
+#: u_translation.rssearch
+msgid "Search"
+msgstr "Buscar"
+
+#: u_translation.rsselectedsite
+msgid "%s selected sites."
+msgstr "%s sitios seleccionados."
+
+#: u_translation.rssitename
+msgid "Site name"
+msgstr "Nombre del sitio"
+
+#: u_translation.rssubthme
+msgid "Sub-theme"
+msgstr "Sub-tema"
+
+#: u_translation.rsthme
+msgid "Theme"
+msgstr "Tema"
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr "Translation: J. C, Garrido"
+

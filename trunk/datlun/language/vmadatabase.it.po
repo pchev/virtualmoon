@@ -1,8 +1,11 @@
+# translation of vmadatabase.fr.po
+# Patrick Chevalley <pch@freesurf.ch>, 2009.
+# Patrick Chevalley <pch@ap-i.net>, 2009.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Giuliano Pinto <giuliano.pinto@tiscalinet.it>\n"
-"PO-Revision-Date: 2009-12-19 17:03+0100\n"
+"PO-Revision-Date: 2012-11-17 14:50+0100\n"
 "Project-Id-Version: vmadatabase.fr\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -177,11 +180,11 @@ msgstr "DOM"
 
 #: u_translation_database.rsdb_8
 msgid "NSU"
-msgstr ""
+msgstr "FVU"
 
 #: u_translation_database.rsdb_9
 msgid "FSU"
-msgstr ""
+msgstr "FCU"
 
 #: u_translation_database.warning1
 msgid " Note to translator:"

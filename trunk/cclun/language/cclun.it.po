@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: Giuliano Pinto <giuliano.pinto@tiscalinet.it>\n"
+"PO-Revision-Date: 2012-11-17 14:47+0100\n"
+"Project-Id-Version: \n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
+"POT-Creation-Date: \n"
+
+#: u_translation.rsatlundocumen
+msgid "AtLun documentation"
+msgstr "Documentazione di AtLun"
+
+#: u_translation.rsbrowsetheatl
+msgid "Browse the Atlas pictures"
+msgstr "Sfoglia le immagini dell'Atlante"
+
+#: u_translation.rsdatlundocume
+msgid "DatLun documentation"
+msgstr "Documentazione di DatLun"
+
+#: u_translation.rsdocumentatio
+msgid "Documentation"
+msgstr "Documentazione"
+
+#: u_translation.rsexitthecomma
+msgid "Exit the Command Center"
+msgstr "Esci dal Centro di Comando "
+
+#: u_translation.rsexplorethelu
+msgid "Explore the Lunar Atlas maps"
+msgstr "Esplora le mappe dell'Atlante Lunare"
+
+#: u_translation.rshelp_prefix
+msgid "UK"
+msgstr "IT"
+
+#: u_translation.rslanguage
+msgid "English"
+msgstr "Italiano"
+
+#: u_translation.rsphotlundocum
+msgid "PhotLun documentation"
+msgstr "Documentazione di PhotLun"
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr "Esci"
+
+#: u_translation.rsreadthefulld
+msgid "Read the full documentation"
+msgstr "Leggi la documentazione completa"
+
+#: u_translation.rsreadthequick
+msgid "Read the quick guide"
+msgstr "Leggi la Guida Rapida"
+
+#: u_translation.rssearchinthea
+msgid "Search in the Atlas databases"
+msgstr "Cerca nella base di dati dell'Atlante"
+
+#: u_translation.rsspecialediti
+msgid "Special edition \"10th anniversary\""
+msgstr "Edizione speciale \"10° anniversario\""
+
+#: u_translation.rstheatlasinte
+msgid "The Atlas Internet resources"
+msgstr "Risorse su Internet dell'Atlante"
+
+#: u_translation.rstitle
+msgid "Virtual Lunar Atlas Command Center"
+msgstr "Centro di Comando dell'Atlante Lunare Virtuale"
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr "Traduzione: Giuliano Pinto"
+
+#: u_translation.rstutorial
+msgid "Tutorial "
+msgstr "Guida"
+
+#: u_translation.rsvirtuallunar
+msgid "Virtual Lunar Atlas"
+msgstr "Atlante Lunare Virtuale"
+
+#: u_translation.rsweblundocume
+msgid "WebLun documentation"
+msgstr "Documentazione di WebLun"
+
