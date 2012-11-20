@@ -51,7 +51,7 @@ msgstr "Ricerca"
 
 #: u_translation.rsselectedsite
 msgid "%s selected sites."
-msgstr "% di siti selezionati"
+msgstr "%s siti selezionati."
 
 #: u_translation.rssitename
 msgid "Site name"
