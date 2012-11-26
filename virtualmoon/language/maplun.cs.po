@@ -2,13 +2,14 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Jiri Jozif <jiri.jozif@gmail.com>\n"
-"PO-Revision-Date: 2009-12-21 13:07+0100\n"
+"PO-Revision-Date: 2012-11-23 11:00+0100\n"
 "Project-Id-Version: \n"
-"Language-Team: Français <kde-i18n-doc@kde.org>\n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.4\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: cs\n"
 
 #: u_translation.rsadvanced
 msgid "Advanced"
@@ -24,15 +25,15 @@ msgstr "Kresba bez albeda"
 
 #: u_translation.rscaption
 msgid "Caption"
-msgstr ""
+msgstr "Titulek"
 
 #: u_translation.rsccdfield
 msgid "CCD field"
-msgstr ""
+msgstr "CCD pole"
 
 #: u_translation.rsccdname
 msgid "CCD name"
-msgstr ""
+msgstr "CCD název"
 
 #: u_translation.rscheckforopti
 msgid "Check for optional features"
@@ -48,7 +49,7 @@ msgstr "Stát"
 
 #: u_translation.rsdecreasefont
 msgid "Decrease font size"
-msgstr ""
+msgstr "Zmenšit velikost písma"
 
 #: u_translation.rsdefault
 msgid "Default"
@@ -72,7 +73,7 @@ msgstr "Metoda zobrazování reliéfu"
 
 #: u_translation.rsenddate
 msgid "End date"
-msgstr ""
+msgstr "Datum do"
 
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
@@ -80,7 +81,7 @@ msgstr "Efemeridy:"
 
 #: u_translation.rsfarsideunnam
 msgid "Far side Unnamed Formation"
-msgstr ""
+msgstr "Nepojmenované útvary na odvrácené straně"
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
@@ -112,11 +113,11 @@ msgstr ""
 
 #: u_translation.rshours
 msgid "Hours"
-msgstr ""
+msgstr "Hodiny"
 
 #: u_translation.rsincreasefont
 msgid "Increase font size"
-msgstr ""
+msgstr "Zvětšit velikost písma"
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
@@ -132,7 +133,7 @@ msgstr "Úroveň:"
 
 #: u_translation.rslocalzenitho
 msgid "Local zenith on top"
-msgstr ""
+msgstr "Lokální zenit nahoře"
 
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
@@ -183,11 +184,11 @@ msgstr "Rozměr:"
 
 #: u_translation.rsm_18
 msgid "Km"
-msgstr "Km"
+msgstr ""
 
 #: u_translation.rsm_19
 msgid "Mi"
-msgstr "Km"
+msgstr ""
 
 #: u_translation.rsm_2
 msgid "born in"
@@ -204,11 +205,11 @@ msgstr "m"
 
 #: u_translation.rsm_22
 msgid "ft"
-msgstr "ft"
+msgstr ""
 
 #: u_translation.rsm_23
 msgid "Height/Wide ratio:"
-msgstr "Poměr hloubka/průměr:"
+msgstr "Poměr hloubka/šířka"
 
 #: u_translation.rsm_24
 msgid "Interest :"
@@ -268,7 +269,7 @@ msgstr "Zdánlivý průměr:"
 
 #: u_translation.rsm_37
 msgid "Position angle:"
-msgstr "Position angle:"
+msgstr "Poziční úhel"
 
 #: u_translation.rsm_38
 msgid "Rise:"
@@ -304,7 +305,7 @@ msgstr "Rychlost obnovování"
 
 #: u_translation.rsm_45
 msgid "Sub-solar latitude:"
-msgstr "Sub-solar latitude:"
+msgstr ""
 
 #: u_translation.rsm_46
 msgid "Lunation:"
@@ -354,7 +355,7 @@ msgstr "Výška průchodu:"
 
 #: u_translation.rsm_56
 msgid "Type:"
-msgstr "Druh:"
+msgstr "Útvar:"
 
 #: u_translation.rsm_57
 msgid "Size:"
@@ -382,7 +383,7 @@ msgstr "Atlasy:"
 
 #: u_translation.rsm_62
 msgid "Name Origine:"
-msgstr "O názvu útvaru:"
+msgstr "Původ názvu:"
 
 #: u_translation.rsm_63
 msgid "Detailed Name:"
@@ -394,7 +395,7 @@ msgstr "Důležité informace:"
 
 #: u_translation.rsm_65
 msgid "Lunar Orbiter:"
-msgstr "Lunar Orbiter:"
+msgstr ""
 
 #: u_translation.rsm_66
 msgid "Westfall Atlas:"
@@ -410,7 +411,7 @@ msgstr "Jméno podle Langrenuse:"
 
 #: u_translation.rsm_72
 msgid "Charles Wood article:"
-msgstr "Charles Wood articles:"
+msgstr ""
 
 #: u_translation.rsm_73
 msgid "Azimuth"
@@ -434,15 +435,15 @@ msgstr "Jméno podle Riccioliho:"
 
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
-msgstr ""
+msgstr "Bez textury"
 
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
-msgstr ""
+msgstr "Výška dráhy"
 
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
-msgstr ""
+msgstr "Sklon dráhy"
 
 #: u_translation.rsphasewithdyn
 msgid "Phase with dynamic relief"
@@ -494,19 +495,19 @@ msgstr ""
 
 #: u_translation.rspixelcount
 msgid "Pixel count"
-msgstr ""
+msgstr "Velikost v pixlech"
 
 #: u_translation.rspixelsize
 msgid "Pixel size"
-msgstr ""
+msgstr "Velikost pixlu"
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
-msgstr "Ukončit celou obrazovku (Esc)"
+msgstr "Opustit režim celé obrazovky"
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
-msgstr ""
+msgstr "Uložit efemeridy do souboru"
 
 #: u_translation.rssecond
 #, fuzzy
@@ -516,19 +517,19 @@ msgstr "\""
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
-msgstr "Zobrazit síť"
+msgstr "Zobrazit souřadnicovou síť"
 
 #: u_translation.rsshowlabels
 msgid "Show labels"
-msgstr "Ukázat popisky"
+msgstr "Zobrazit popisky"
 
 #: u_translation.rsshowscale
 msgid "Show scale"
-msgstr "Ukázat měřítko"
+msgstr "Zobrazit měřítko"
 
 #: u_translation.rsside
 msgid "Side:"
-msgstr ""
+msgstr "Strana:"
 
 #: u_translation.rssimple
 msgid "Simple"
@@ -540,11 +541,11 @@ msgstr ""
 
 #: u_translation.rsstartdate
 msgid "Start date"
-msgstr ""
+msgstr "Datum od"
 
 #: u_translation.rssteps
 msgid "Steps"
-msgstr ""
+msgstr "Krok"
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
@@ -600,7 +601,7 @@ msgstr "Zobrazit"
 
 #: u_translation.rst_102
 msgid "Mark the point of maximum libration"
-msgstr "Ukázat bod maximální librace"
+msgstr "Zobrazit bod maximální librace"
 
 #: u_translation.rst_103
 msgid "Identification"
@@ -615,8 +616,6 @@ msgid "Eyepieces"
 msgstr "Okuláry"
 
 #: u_translation.rst_11
-#, fuzzy
-#| msgid "Find Next"
 msgid "Next"
 msgstr "Hledej další"
 
@@ -646,7 +645,7 @@ msgstr "Poznámky"
 
 #: u_translation.rst_116
 msgid "Centre"
-msgstr "Střed"
+msgstr "Souřadnice"
 
 #: u_translation.rst_117
 msgid "none"
@@ -666,7 +665,7 @@ msgstr "Vycentrovat popisek útvaru"
 
 #: u_translation.rst_121
 msgid "Short Label"
-msgstr "Vycentrovat popisek útvaru"
+msgstr "Krátký popisek"
 
 #: u_translation.rst_122
 msgid "Near Side Named Formation"
@@ -698,7 +697,7 @@ msgstr "Názvy útvarů na odvrácené straně"
 
 #: u_translation.rst_134
 msgid "Full Globe"
-msgstr "Pootáčení Měsíce"
+msgstr "Celý Měsíc"
 
 #: u_translation.rst_135
 msgid "Orbit the Moon"
@@ -706,7 +705,7 @@ msgstr "Dráha Měsíce"
 
 #: u_translation.rst_136
 msgid "Stop"
-msgstr "Stop"
+msgstr ""
 
 #: u_translation.rst_137
 msgid "Direction"
@@ -738,7 +737,7 @@ msgstr "Vybrat texturu"
 
 #: u_translation.rst_145
 msgid "OpenGL Info"
-msgstr "OpenGL info"
+msgstr "OpenGL informace"
 
 #: u_translation.rst_146
 msgid "Positive East"
@@ -770,15 +769,15 @@ msgstr "Textura"
 
 #: u_translation.rst_153
 msgid "L"
-msgstr "L"
+msgstr ""
 
 #: u_translation.rst_154
 msgid "B"
-msgstr "B"
+msgstr ""
 
 #: u_translation.rst_155
 msgid "mm."
-msgstr "mm"
+msgstr ""
 
 #: u_translation.rst_156
 msgid "Track position"
@@ -806,7 +805,7 @@ msgstr "Dalekohled"
 
 #: u_translation.rst_161
 msgid "Show Menu"
-msgstr "Menu"
+msgstr "Zobrazit menu"
 
 #: u_translation.rst_162
 msgid "Goto selected"
@@ -866,15 +865,13 @@ msgstr "Použít datum a časové pásmo z počítače"
 
 #: u_translation.rst_175
 msgid "Show Libration"
-msgstr "Zobrazit librace"
+msgstr "Zobrazit libraci"
 
 #: u_translation.rst_176
 msgid "Show Phase"
 msgstr "Zobrazit fázi"
 
 #: u_translation.rst_177
-#, fuzzy
-#| msgid "Flip N-S"
 msgid "Rotate N-S"
 msgstr "Překlopit S-J"
 
@@ -888,7 +885,7 @@ msgstr "Uživatelská databáze"
 
 #: u_translation.rst_18
 msgid "OK"
-msgstr "OK"
+msgstr ""
 
 #: u_translation.rst_180
 msgid "Remove Selection Mark"
@@ -973,7 +970,7 @@ msgstr "Zavřít"
 
 #: u_translation.rst_31
 msgid "Zoom"
-msgstr "Zoom"
+msgstr ""
 
 #: u_translation.rst_32
 msgid "Lighting"
@@ -985,11 +982,11 @@ msgstr "Polostín"
 
 #: u_translation.rst_34
 msgid "Diffuse"
-msgstr "Difůzní"
+msgstr "Difůze"
 
 #: u_translation.rst_35
 msgid "Specular"
-msgstr "Ostré"
+msgstr "Ostrost"
 
 #: u_translation.rst_36
 msgid "Performance"
@@ -1001,7 +998,7 @@ msgstr "Vyhlazení"
 
 #: u_translation.rst_4
 msgid "Zoom:"
-msgstr "Zoom"
+msgstr ""
 
 #: u_translation.rst_42
 msgid "All the formation"
@@ -1063,7 +1060,7 @@ msgstr "Nastavení"
 
 #: u_translation.rst_56
 msgid "Sky Chart"
-msgstr "Sky Chart"
+msgstr ""
 
 #: u_translation.rst_57
 msgid "General"
@@ -1159,7 +1156,7 @@ msgstr "Tisk"
 
 #: u_translation.rst_8
 msgid "Zoom+"
-msgstr "Zoom+"
+msgstr ""
 
 #: u_translation.rst_80
 msgid "White background"
@@ -1191,7 +1188,7 @@ msgstr "Jiný program pro zobrazení"
 
 #: u_translation.rst_9
 msgid "Zoom-"
-msgstr "Zoom-"
+msgstr ""
 
 #: u_translation.rst_90
 msgid "Printing"
@@ -1235,19 +1232,19 @@ msgstr "Storno"
 
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
-msgstr ""
+msgstr "Nepojmenované útvary"
 
 #: u_translation.rswidth
 msgid "Width"
-msgstr ""
+msgstr "Šířka"
 
 #: u_translation.rsyoucandownlo
 msgid "You can download and install the following optional features:"
-msgstr "Můžete si stáhnout a nainstalovat následující doplňky:"
+msgstr ""
 
 #: u_translation.rsyourinstalla
 msgid "Your installation is already complete with all the features installed."
-msgstr "Instalace, včetně doplňků, je kompletní."
+msgstr "Instalace je kompletní"
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"
