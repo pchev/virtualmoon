@@ -5,6 +5,7 @@ ALTITUD ABSOLUTA;La lluna és una esfera de 1738 Km de radi mitjà. Les altituds
 ALTITUD RELATIVA;Les altituds donades en l'atles Virtual de la Lluna són altituds relatives denominades ALTITUD. Indiquen l'elevació de la formació en relació als terrenys veïns
 ANGLE DE FASE;Angle format pels eixos Terra-Sol i Terra-Lluna. Permet conèixer la fracció il·luminada de la cara visible de la Lluna.
 APOGEU;El punt més allunyat de l'òrbita el·líptica d'un astre que gira al voltant de la Terra.
+BASALTO;Roca ígnia (provinent de materials fosos y no de sediments ni de altre minerals o roques transformades per l'activitat del medi. Es troba com LAVA solidificada i també en el magma. Se n'ha trobat en les mostres portades per les naus APOLLO.
 BDD;"Abreujament de ""base de dades"". La BDD de la Lluna ha estat elaborada per Christian Legrand."
 CALDERA;CRATER de volcà de gran talla generalment format per l'explosió de la xemeneia colgada per la LAVA.
 CARA OCULTA;Part del globus lunar situada a l'altra costat de la Lluna i invisible des de la Terra pel fet de la ROTACIO SINCRONA de la Lluna. Es pot veure una petita part limítrofa de la cara amagada gràcies al fenomen de la LIBRACIO.
@@ -25,6 +26,7 @@ ECLIPSI DE LLUNA;Desaparició del disc lunar pel fet de passar dins de l'ombra o
 ECLIPSI DE SOL;Desaparició del disc solar darrera del disc lunar en algunes ocasions de LLUNA NOVA quan el  Sol, la Lluna i la Terra estan alineats.
 ECLIPSI PARCIAL;ECLIPSI DE LLUNA  o bé  ECLIPSI DE SOL en els quals l'astre ocultador només tapa parcialment l'astre ocultat.
 ECLIPSI TOTAL;ECLIPSI DE LLUNA  o bé  ECLIPSI DE SOL en els quals l'astre ocultador  tapa totalment l'astre ocultat.
+ECLIPTICA; Òrbita aparent del recorregut del Sol en l'espai.
 EDAT DE LA LLUNA;Dies passats des de la darrera LLUNA NOVA
 ESCARPAT;Pendent més o menys acusat que separa dos terrenys veïns i d'ALTITUD RELATIVA diferent.
 FASE;Canvi d'aspecte de la Lluna degut a al variació de la superfície il·luminada i de la posició del TERMINADOR sobre el globus lunar. Hom distingeix la LLUNA NOVA, el QUART CREIXENT, la LLUNA PLENA i el QUART MINVANT.
@@ -39,7 +41,7 @@ LIBRACIO EN LATITUD;Deguda al fet de l'inclinació del pla de l'òrbita lunar en
 LIBRACIO EN LONGITUD;Deguda al fet de la velocitat de ROTACIO constant de la Lluna i de la seva velocitat variable durant la REVOLUCIO la libració en longitud permet veure les parts limítrofes Est i Oest de la CARA OCULTA.
 LIBRACIO FÍSICA;Veritable balanceig de l'eix de rotació de la Lluna. Està limitat a alguns minuts d'arc  i és degut a les variacions de l'atracció terrestre, tenint en compte  la inhomogeneïtat de l'interior de la Lluna.
 LÍNIA DELS NODES;Recta que materialitza la intersecció entre el pla de l'òrbita terrestre i el pla de l'òrbita lunar. Es projecta sobre l'esfera celest al nivell dels nodes ascendent i descendent. Fa una revolució en 18.61 anys de forma retrògrada.
-LLAC;Terreny del tipus MAR amb FONS fosc i pla, poc extens, enterament enclavat en els CONTINENTs.
+LLAC; (Lacus) Terreny del tipus MAR amb FONS fosc i pla, poc extens, enterament enclavat en els CONTINENTs.
 LLUM CENDROSA;"Fenomen visible entre la LLUNA NOVA i el QUART CREIXENT o el QUART MINVANT quan la lluna està en forma de ""tallada de meló"". La part no il·luminada pel  Sol és tanmateix visible car rep la llum reflectida per la Terra. També anomenat CLAR DE TERRA."
 LLUNA CREIXENT;Expressió popular per designar el període separant la LLUNA NOVA de la LLUNA PLENA  passant pel QUART CREIXENT.
 LLUNA GIBOSA;"Expressió que descriu la forma  de la Lluna ""ventruda"" entre el QUART CREIXENT i la LLUNA PLENA i entre la LLUNA PLENA i el QUART MINVANT."
@@ -59,6 +61,8 @@ MONS;Terme llatí usat per la Unió Astronòmica Internacional (UAI) per designa
 MONTES;Terme llatí usat per la Unió Astronòmica Internacional (UAI) per designar oficialment una CATENA  (cadena) de formacions del tipus MUNTANYA.
 MUNTANYA;Elevació del relleu lunar. Les muntanyes lunars han estat creades, en la seva majoria, quan s'han format els MARs. La seva ALTITUD pot arribar als 7000 m. De vegades són aïllades o també agrupades en MONTES o cadena de muntanyes.
 MURALLA;"Part d'una FORMACIO CRATERIFORME compresa entre el cim dels VESSANTs i el FONS. La seva ALTITUD va de ""poc elevada"" ( <1000 m ) a ""molt elevada"" ( >4000 m)."
+NODE ASCENDENT;Punt on la Lluna creua el pla equatorial des de l'hemisferi sud a l'hemisferi nord.
+NODE DESCENDENT;Punto on la Lluna creua el pla equatorial des de l'hemisferi nord a l'hemisferi sud.
 NOMENCLATURA LUNAR;Conjunt dels noms de les formacions lunars donats oficialment per la Unió Astronòmica Internacional.
 OCEA;Nom donat a un sol MAR lunar per  Riccioli : Oceà de les Tempestes.
 OCEANUS;Terme llatí usat per la Unió Astronòmica Internacional (UAI) per designar oficialment l'únic OCEA lunar.

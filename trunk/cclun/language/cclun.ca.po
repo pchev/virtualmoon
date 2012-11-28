@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: Antoni Clavell <antoni@clavell.org>\n"
+"PO-Revision-Date: 2012-11-17 18:00+0100\n"
+"Project-Id-Version: \n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: ca\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
+
+#: u_translation.rsatlundocumen
+msgid "AtLun documentation"
+msgstr "Documentació AtLun"
+
+#: u_translation.rsbrowsetheatl
+msgid "Browse the Atlas pictures"
+msgstr "Navegar per les fotografies lunars de l'Atles"
+
+#: u_translation.rsdatlundocume
+msgid "DatLun documentation"
+msgstr "Documentació DatLun"
+
+#: u_translation.rsdocumentatio
+msgid "Documentation"
+msgstr "Documentació"
+
+#: u_translation.rsexitthecomma
+msgid "Exit the Command Center"
+msgstr "Sortir del Centre de Comandament"
+
+#: u_translation.rsexplorethelu
+msgid "Explore the Lunar Atlas maps"
+msgstr "Explora les cartes lunars de l'Atles"
+
+#: u_translation.rshelp_prefix
+msgid "UK"
+msgstr "CA"
+
+#: u_translation.rslanguage
+msgid "English"
+msgstr "Català"
+
+#: u_translation.rsphotlundocum
+msgid "PhotLun documentation"
+msgstr "Documentació PhotLun"
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr "Sortir"
+
+#: u_translation.rsreadthefulld
+msgid "Read the full documentation"
+msgstr "Llegir la documentació completa"
+
+#: u_translation.rsreadthequick
+msgid "Read the quick guide"
+msgstr "Llegir la guia ràpida"
+
+#: u_translation.rssearchinthea
+msgid "Search in the Atlas databases"
+msgstr "Fes recerques en les bases de dades de l'Atles"
+
+#: u_translation.rsspecialediti
+msgid "Special edition \"10th anniversary\""
+msgstr "Edició especial \"10è aniversari\""
+
+#: u_translation.rstheatlasinte
+msgid "The Atlas Internet resources"
+msgstr "Els recursos Internet de l'Atles"
+
+#: u_translation.rstitle
+msgid "Virtual Lunar Atlas Command Center"
+msgstr "Centre de Comandament de l'Atles Virtual de la Lluna"
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr "Traducció: A. Clavell"
+
+#: u_translation.rstutorial
+msgid "Tutorial "
+msgstr "Tutorial"
+
+#: u_translation.rsvirtuallunar
+msgid "Virtual Lunar Atlas"
+msgstr "Atles Virtual de la Lluna"
+
+#: u_translation.rsweblundocume
+msgid "WebLun documentation"
+msgstr "Documentació WebLun"
+

@@ -1,14 +1,15 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2009-10-11 14:59+0200\n"
+"Last-Translator: Antoni Clavell <antoni@clavell.org>\n"
+"PO-Revision-Date: 2012-11-17 19:23+0100\n"
 "Project-Id-Version: \n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.4\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: ca\n"
 
 #: u_translation.rsadvanced
 msgid "Advanced"
@@ -24,15 +25,15 @@ msgstr "Relleu d'aerògraf sense albedo"
 
 #: u_translation.rscaption
 msgid "Caption"
-msgstr ""
+msgstr "Llegenda"
 
 #: u_translation.rsccdfield
 msgid "CCD field"
-msgstr ""
+msgstr "Camp CCD"
 
 #: u_translation.rsccdname
 msgid "CCD name"
-msgstr ""
+msgstr "Nom del CCD"
 
 #: u_translation.rscheckforopti
 msgid "Check for optional features"
@@ -48,7 +49,7 @@ msgstr "País"
 
 #: u_translation.rsdecreasefont
 msgid "Decrease font size"
-msgstr ""
+msgstr "Disminueix la mida de la lletra"
 
 #: u_translation.rsdefault
 msgid "Default"
@@ -72,7 +73,7 @@ msgstr "Mètode presentació relleu dinàmic"
 
 #: u_translation.rsenddate
 msgid "End date"
-msgstr ""
+msgstr "Data final"
 
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
@@ -80,7 +81,7 @@ msgstr "Efemèrides:"
 
 #: u_translation.rsfarsideunnam
 msgid "Far side Unnamed Formation"
-msgstr ""
+msgstr "Formacions sense nom de la cara oculta"
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
@@ -88,9 +89,10 @@ msgstr "Configuració inicial"
 
 #: u_translation.rsformat
 msgid "0"
-msgstr "0"
+msgstr "1"
 
 #: u_translation.rsfullscreen
+#| msgid "Full screen"
 msgid "Full screen (Esc)"
 msgstr "Pantalla completa (Esc)"
 
@@ -100,7 +102,7 @@ msgstr "Graella"
 
 #: u_translation.rsheight
 msgid "Height"
-msgstr ""
+msgstr "Altura"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
@@ -108,19 +110,19 @@ msgstr "CA"
 
 #: u_translation.rshistorical
 msgid "Historical"
-msgstr ""
+msgstr "Històric"
 
 #: u_translation.rshours
 msgid "Hours"
-msgstr ""
+msgstr "Hores"
 
 #: u_translation.rsincreasefont
 msgid "Increase font size"
-msgstr ""
+msgstr "Augmenta la mida de la lletra"
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
-msgstr "Font per a etiquetes"
+msgstr "Font per a les etiquetes"
 
 #: u_translation.rslanguage
 msgid "English"
@@ -132,7 +134,7 @@ msgstr "Nivell:"
 
 #: u_translation.rslocalzenitho
 msgid "Local zenith on top"
-msgstr ""
+msgstr "Zenit local a dalt"
 
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
@@ -146,7 +148,7 @@ msgstr "'"
 
 #: u_translation.rsm_1
 msgid "from"
-msgstr "de"
+msgstr "del"
 
 #: u_translation.rsm_10
 msgid "Longitude:"
@@ -182,15 +184,15 @@ msgstr "Ample:"
 
 #: u_translation.rsm_18
 msgid "Km"
-msgstr "Km"
+msgstr " km"
 
 #: u_translation.rsm_19
 msgid "Mi"
-msgstr "Mi"
+msgstr " milles"
 
 #: u_translation.rsm_2
 msgid "born in"
-msgstr "Nascut a:"
+msgstr "nascut a"
 
 #: u_translation.rsm_20
 msgid "Height:"
@@ -199,11 +201,11 @@ msgstr "Altura:"
 #: u_translation.rsm_21
 msgctxt "u_translation.rsm_21"
 msgid "m"
-msgstr "'"
+msgstr " m"
 
 #: u_translation.rsm_22
 msgid "ft"
-msgstr "peus"
+msgstr " peus"
 
 #: u_translation.rsm_23
 msgid "Height/Wide ratio:"
@@ -302,8 +304,9 @@ msgid "Refresh rate"
 msgstr "Freqüència de refresc"
 
 #: u_translation.rsm_45
+#| msgid "Solar inclination:"
 msgid "Sub-solar latitude:"
-msgstr "Inclinació solar:"
+msgstr "Latitud sub-solar:"
 
 #: u_translation.rsm_46
 msgid "Lunation:"
@@ -369,7 +372,7 @@ msgstr "Observació:"
 
 #: u_translation.rsm_6
 msgid "Name Author:"
-msgstr "Autor del nom:"
+msgstr "Creador del nom:"
 
 #: u_translation.rsm_60
 msgid "Position:"
@@ -433,15 +436,15 @@ msgstr "Nom donat per Riccioli:"
 
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
-msgstr ""
+msgstr "Sense textura ( utilització amb una sola capa)"
 
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
-msgstr "Altura de l'òrbita"
+msgstr "Altura orbital"
 
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
-msgstr "Inclinació de l'òrbita"
+msgstr "Inclinació orbital"
 
 #: u_translation.rsphasewithdyn
 msgid "Phase with dynamic relief"
@@ -469,7 +472,7 @@ msgstr "Foto Biblioteca Sonda Clementine"
 
 #: u_translation.rspicturelibra5
 msgid "Picture Library Kaguya Probe"
-msgstr "Foto Biblioteca Sonda Kaguye"
+msgstr "Foto Biblioteca Sonda Kaguya"
 
 #: u_translation.rspicturelibra6
 msgid "Picture Library Consolidated Lunar Atlas"
@@ -489,15 +492,15 @@ msgstr "Foto Biblioteca Sondes Luna, Ranger, Lunar Orbiter i Surveyor"
 
 #: u_translation.rspicturelibrapic
 msgid "Picture Library Best of the Pic du Midi Observatory"
-msgstr ""
+msgstr "Biblioteca d'imatges Observatori del Pic du Midi"
 
 #: u_translation.rspixelcount
 msgid "Pixel count"
-msgstr ""
+msgstr "Nombre de pixels"
 
 #: u_translation.rspixelsize
 msgid "Pixel size"
-msgstr ""
+msgstr "Mida dels píxels"
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
@@ -505,7 +508,7 @@ msgstr "Surt de pantalla completa (Esc)"
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
-msgstr ""
+msgstr "Enregistra l'efemeris en un fitxer"
 
 #: u_translation.rssecond
 #| msgid "s"
@@ -526,7 +529,7 @@ msgstr "Mostra escala"
 
 #: u_translation.rsside
 msgid "Side:"
-msgstr ""
+msgstr "Cara:"
 
 #: u_translation.rssimple
 msgid "Simple"
@@ -534,15 +537,15 @@ msgstr "Simple"
 
 #: u_translation.rsstandardtext
 msgid "(standard texture selection)"
-msgstr ""
+msgstr "(tria de la textura)"
 
 #: u_translation.rsstartdate
 msgid "Start date"
-msgstr ""
+msgstr "Data d'inici"
 
 #: u_translation.rssteps
 msgid "Steps"
-msgstr ""
+msgstr "Passos"
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
@@ -550,7 +553,7 @@ msgstr "Textures de relleu aerogràfiques sense albedo"
 
 #: u_translation.rstextureschange
 msgid "Textures Change photographic High Resolution"
-msgstr ""
+msgstr "Textura Fotogràfica Change Alta Resolució"
 
 #: u_translation.rstexturesclem
 msgid "Textures Clementine photographic High Resolution"
@@ -561,14 +564,13 @@ msgid "Textures LOPAM photographic High Resolution"
 msgstr "Textures fotogràfiques LOPAM d'alta resolució"
 
 #: u_translation.rstexturesphas
-#, fuzzy
 #| msgid "Textures Phase with dynamic relief using Kaguya data"
 msgid "Textures Phase with dynamic relief using LRO/WAC data"
-msgstr "Textures de fase amb relleu dinàmic usant dades de Kaguya"
+msgstr "Textura Fase amb relleu dinàmic utilitzant les dades de LRO/WAC"
 
 #: u_translation.rstextureswac
 msgid "Textures LRO/WAC photographic High Resolution"
-msgstr ""
+msgstr "Textura Fotogràfica LRO/WAC Alta Resolució"
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
@@ -615,9 +617,8 @@ msgid "Eyepieces"
 msgstr "Oculars"
 
 #: u_translation.rst_11
-#, fuzzy
 #| msgid "Find Next"
-msgid "Next"
+msgid "Find Next"
 msgstr "Següent"
 
 #: u_translation.rst_110
@@ -638,7 +639,7 @@ msgstr "Calcula"
 
 #: u_translation.rst_114
 msgid "Update"
-msgstr "Desa els canvis"
+msgstr "Actualitza"
 
 #: u_translation.rst_115
 msgid "Notes"
@@ -786,7 +787,7 @@ msgstr "Segueix la posició"
 
 #: u_translation.rst_157
 msgid "Correct the Moon motion"
-msgstr "Corregeix el moviment de la Lluna"
+msgstr "Compensa el moviment de la Lluna"
 
 #: u_translation.rst_158
 msgid "every"
@@ -861,8 +862,9 @@ msgid "Date / Time"
 msgstr "Dia/hora"
 
 #: u_translation.rst_174
+#| msgid "Use Computer Date and Time Zone"
 msgid "Use Computer Date and Time"
-msgstr "Usa l'hora  i la zona horària de l'ordinador"
+msgstr "Usa data i hora de l'ordinador"
 
 #: u_translation.rst_175
 msgid "Show Libration"
@@ -873,18 +875,18 @@ msgid "Show Phase"
 msgstr "Mostra la fase"
 
 #: u_translation.rst_177
-#, fuzzy
 #| msgid "Flip N-S"
 msgid "Rotate N-S"
-msgstr "Inversió N-S"
+msgstr "Rotació N-S"
 
 #: u_translation.rst_178
 msgid "Flip E-W"
 msgstr "Inversió E-O"
 
 #: u_translation.rst_179
+#| msgid "User Database"
 msgid "User Database loaded from DATLUN"
-msgstr "Bases de dades personals"
+msgstr "Bases de dades personals de DATLUN"
 
 #: u_translation.rst_18
 msgid "OK"
@@ -952,8 +954,9 @@ msgid "Picture"
 msgstr "Imatge"
 
 #: u_translation.rst_26
+#| msgid "Geocentric position"
 msgid "Geocentric"
-msgstr "Posició geocèntrica"
+msgstr "Geocèntric"
 
 #: u_translation.rst_28
 msgid "Color"
@@ -1235,11 +1238,11 @@ msgstr "Surt"
 
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
-msgstr ""
+msgstr "Formacions sense nom"
 
 #: u_translation.rswidth
 msgid "Width"
-msgstr ""
+msgstr "Ample"
 
 #: u_translation.rsyoucandownlo
 msgid "You can download and install the following optional features:"

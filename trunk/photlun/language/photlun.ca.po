@@ -1,8 +1,9 @@
+# Patrick Chevalley <pch@ap-i.net>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2009-12-14 23:19+0100\n"
+"PO-Revision-Date: 2012-11-17 21:19+0100\n"
 "Last-Translator: Antoni Clavell <antoni@clavell.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"

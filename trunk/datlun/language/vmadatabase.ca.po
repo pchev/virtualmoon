@@ -1,5 +1,14 @@
 msgid ""
+msgstr ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
+"Last-Translator: pch\n"
+"PO-Revision-Date: 2012-11-17 21:01+0100\n"
+"Project-Id-Version: vmadatabase.fr\n"
+"Language-Team: Français <kde-i18n-doc@kde.org>\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: u_translation_database.rsb_1
 msgid "Not named"
@@ -151,37 +160,37 @@ msgstr ""
 
 #: u_translation_database.rsdb_4
 msgid "FSI"
-msgstr ""
+msgstr "FCI"
 
 #: u_translation_database.rsdb_5
 msgid "HIS"
-msgstr ""
+msgstr "HIS"
 
 #: u_translation_database.rsdb_6
 msgid "PYR"
-msgstr ""
+msgstr "PIR"
 
 #: u_translation_database.rsdb_7
 msgid "DOM"
-msgstr ""
+msgstr "DOM"
 
 #: u_translation_database.rsdb_8
 msgid "NSU"
-msgstr ""
+msgstr "FVU"
 
 #: u_translation_database.rsdb_9
 msgid "FSU"
-msgstr ""
+msgstr "FCU"
 
 #: u_translation_database.warning1
 msgid " Note to translator:"
-msgstr ""
+msgstr "Nota al traductor:"
 
 #: u_translation_database.warning2
 msgid " The following text must be the same as the content of the TYPE column in the database you use for your language."
-msgstr ""
+msgstr "El txt que segueix cal que sigui el mateix de la columna TIPUS (TYPE) en la base de dades que feu servir per al vostre  idioma"
 
 #: u_translation_database.warning3
 msgid " If you not translate the database keep the English text here!"
-msgstr ""
+msgstr "Si no traduïu la base de dades mantingueu el text anglès!"
 
