@@ -447,7 +447,9 @@ begin
   inherited Loaded;
   // initiate window creation
   {$ifndef LCLGTK2}
+  {$ifndef LCLCARBON}
   HandleNeeded;
+  {$endif}
   {$endif}
 end;
 
