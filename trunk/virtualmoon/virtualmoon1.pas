@@ -1596,6 +1596,12 @@ begin
       Inc(i);
     end;
   except
+    on E: Exception do begin
+    {$ifdef trace_debug}
+      debugln('Exception ReadParam '+E.Message);
+    {$endif}
+    end;
+
   end;
 end;
 
@@ -1803,11 +1809,16 @@ begin
         end;
       end;
     end;
-  finally
-    listbox1.Items.EndUpdate;
-    if listbox1.Items.Count = 0 then
-      listbox1.Items.Add(rsm_27);
+  except
+    on E: Exception do begin
+    {$ifdef trace_debug}
+      debugln('Exception UpdTerminateur '+E.Message);
+    {$endif}
+    end;
   end;
+  listbox1.Items.EndUpdate;
+  if listbox1.Items.Count = 0 then
+     listbox1.Items.Add(rsm_27);
 end;
 
 procedure TForm1.ListObject(delta: double);
@@ -2814,6 +2825,11 @@ begin
     end;
     Desc1.SetHtml(NewHTML);
   except
+    on E: Exception do begin
+    {$ifdef trace_debug}
+      debugln('Exception SetDescText '+E.Message);
+    {$endif}
+    end;
   end;
 end;
 
@@ -2837,6 +2853,11 @@ try
   if i>4 then Desc1.DefaultFontSize:=i;
   SetDescText(Desctxt);
 except
+  on E: Exception do begin
+  {$ifdef trace_debug}
+    debugln('Exception DecreaseFont1Click '+E.Message);
+  {$endif}
+  end;
 end;
 end;
 
@@ -2848,6 +2869,11 @@ try
   if i<20 then Desc1.DefaultFontSize:=i;
   SetDescText(Desctxt);
 except
+  on E: Exception do begin
+  {$ifdef trace_debug}
+    debugln('Exception IncreaseFont1Click '+E.Message);
+  {$endif}
+  end;
 end;
 end;
 
@@ -3438,8 +3464,13 @@ try
      then moon1.texture:=texturenone
      else moon1.texture:=texturefiles;
   except
+    on E: Exception do begin
+    {$ifdef trace_debug}
+      debugln('Exception init texture '+E.Message);
+    {$endif}
     texturefiles[0]:='WAC';
     moon1.texture:=texturefiles;
+    end;
   end;
   if moon1.CanBump then
      moon1.BumpPath:=slash(appdir)+slash('Textures')+slash('Bumpmap');
@@ -3488,9 +3519,14 @@ try
   SetCCDMenu;
   moon1.Mirror:=checkbox2.Checked;
   GridButton.Visible:=AsMultiTexture;
-finally
-  screen.cursor := crDefault;
+except
+  on E: Exception do begin
+  {$ifdef trace_debug}
+    debugln('Exception Init '+E.Message);
+  {$endif}
+  end;
 end;
+screen.cursor := crDefault;
 end;
 
 procedure TForm1.StartTimerTimer(Sender: TObject);
@@ -3540,9 +3576,14 @@ if firstuse then begin
     for i:=0 to form2.PageControl1.PageCount-1 do form2.PageControl1.Page[i].TabVisible:=true;
     form2.Caption := savecaption;
 end;
-finally
- screen.cursor := crDefault;
+except
+  on E: Exception do begin
+  {$ifdef trace_debug}
+    debugln('Exception StartTimerTimer '+E.Message);
+  {$endif}
+  end;
 end;
+screen.cursor := crDefault;
 end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);
@@ -3846,9 +3887,14 @@ begin
       if geocentric and CheckBox4.Checked then  CheckBox4.Checked:=false;
       SaveDefault;
     end;
-  finally
-    screen.cursor := crdefault;
-  end;
+except
+    on E: Exception do begin
+    {$ifdef trace_debug}
+      debugln('Exception Configuration1Click '+E.Message);
+    {$endif}
+    end;
+end;
+ screen.cursor := crdefault;
 end;
 
 procedure TForm1.Splitter1Moved(Sender: TObject);
@@ -4219,6 +4265,11 @@ case key of
   109 :  if Shift=[ssCtrl] then DecreaseFont1Click(nil);   //ctrl-
 end;
 except
+  on E: Exception do begin
+  {$ifdef trace_debug}
+    debugln('Exception FormKeyUp '+E.Message);
+  {$endif}
+  end;
 end;
 end;
 
@@ -4243,6 +4294,11 @@ begin
         ScopeDisconnect(ok);
       end;
   except
+    on E: Exception do begin
+    {$ifdef trace_debug}
+      debugln('Exception FormClose '+E.Message);
+    {$endif}
+    end;
   end;
 end;
 
@@ -4269,6 +4325,11 @@ begin
     end;
     if f_ephem<>nil then f_ephem.Free;
   except
+    on E: Exception do begin
+    {$ifdef trace_debug}
+      debugln('Exception FormDestroy '+E.Message);
+    {$endif}
+    end;
   end;
 end;
 

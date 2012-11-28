@@ -610,6 +610,11 @@ begin
         end;
      end;
     except
+      on E: Exception do begin
+      {$ifdef trace_debug}
+        debugln('Exception LoadSlice2 '+E.Message);
+      {$endif}
+      end;
     end;
 end;
 // LoadSlice
@@ -717,9 +722,14 @@ case level of
      LoadSlice2;
      end; // 6
 end; //case level
-finally
-jp.Free;
+except
+  on E: Exception do begin
+  {$ifdef trace_debug}
+    debugln('Exception LoadSlice '+E.Message);
+  {$endif}
+  end;
 end;
+jp.Free;
 end;
 
 procedure Tf_moon.ClearSlice(level:integer);
@@ -823,10 +833,15 @@ end else begin
       end;
    end;
    GLSceneViewer1.Refresh;
-finally
+except
+  on E: Exception do begin
+  {$ifdef trace_debug}
+    debugln('Exception SetOverlay '+E.Message);
+  {$endif}
+  end;
+end;
  j.free;
  b.free;
-end;
 end;
 end;
 
@@ -904,6 +919,10 @@ if FBumpOk and (value<>FBumpmap) then begin
          exit;
       end;
       except
+        on E: Exception do begin
+        {$ifdef trace_debug}
+          debugln('Exception SetBumpmap '+E.Message);
+        {$endif}
         if i=1 then begin
           if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'Cannot load bumpmap');
           SetBumpmap(false);
@@ -912,7 +931,8 @@ if FBumpOk and (value<>FBumpmap) then begin
         i:=i div 2;
         retry:=true;
         if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'Bumpmap size reduced to '+inttostr(i)+'k');
-      end;
+        end;
+     end;
     until not retry;
     if GLBumpShader1.BumpMethod=bmBasicARBFP then
        GLLightSource1.ConstAttenuation:=0.8
@@ -1140,9 +1160,14 @@ try
   zone:=newzone;
   GetZoomInfo;
   RefreshAll;
-finally
-  lock_Zoom:=false;
+except
+  on E: Exception do begin
+  {$ifdef trace_debug}
+    debugln('Exception SetZoomLevel '+E.Message);
+  {$endif}
+  end;
 end;
+lock_Zoom:=false;
 end;
 
 procedure Tf_moon.SetTexture(lfn:TStringList);
