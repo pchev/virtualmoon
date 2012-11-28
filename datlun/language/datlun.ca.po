@@ -2,8 +2,9 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Antoni Clavell <antoni@clavell.org>\n"
-"PO-Revision-Date: 2009-12-14 22:00+0100\n"
+"PO-Revision-Date: 2012-11-17 18:15+0100\n"
 "Project-Id-Version: datlun.ca\n"
+"Language-Team: \n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +16,7 @@ msgstr "Edició"
 
 #: u_translation.rsfarsideunnam
 msgid "Far side Unnamed Formation"
-msgstr ""
+msgstr "Formacions sense nom de la cara oculta"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
@@ -66,13 +67,13 @@ msgstr "També és possible donar un valor de constant al camp de la base de dad
 #| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgctxt "u_translation.rsloadcsv09"
 msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
-msgstr "DBN és un identificador del vostre fitxer. Va des de 10 fins a 99 i permet identificar les vostres dades en la base de dades. S'usa des del programa principal per mostrar o no l'etiqueta dels vostres objectes."
+msgstr "DBN és un identificador del vostre fitxer. Va des de 100 fins a 199 i permet identificar les vostres dades en la base de dades. S'usa des del programa principal per mostrar o no l'etiqueta dels vostres objectes."
 
 #: u_translation.rsloadcsv10
 #, fuzzy
 #| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
 msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
-msgstr "Podeu fer una selecció ràpida de tots els vostres objectes usant DBN=10 en la finestra de selecció SQL, i suprimir dades amb el menú Arxiu-Suprimir."
+msgstr "Podeu fer una selecció ràpida de tots els vostres objectes usant DBN=100 en la finestra de selecció SQL, i suprimir dades amb el menú Arxiu-Suprimir."
 
 #: u_translation.rsloadcsv11
 msgid "It is mandatory to give a value for the field: DBN, NAME, LONGIN and LATIN."
@@ -416,5 +417,4 @@ msgstr "Cancel.la"
 
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
-msgstr ""
-
+msgstr "Formacions sense nom"
