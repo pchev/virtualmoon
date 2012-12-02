@@ -1,0 +1,25 @@
+{ Ceci est un fichier ressource généré automatiquement par Lazarus }
+
+LazarusResources.Add('TBigImaForm','FORMDATA',[
+  'TPF0'#11'TBigImaForm'#10'BigImaForm'#4'Left'#3'Q'#1#6'Height'#3#151#1#3'Top'
+  +#3#163#0#5'Width'#3'g'#2#7'Caption'#6#14'Taille r'#195#169'elle'#12'ClientHe'
+  +'ight'#3#151#1#11'ClientWidth'#3'g'#2#11'Font.Height'#2#245#9'Font.Name'#6#13
+  +'MS Sans Serif'#7'OnClose'#7#9'FormClose'#8'OnCreate'#7#10'FormCreate'#10'On'
+  +'KeyPress'#7#12'FormKeyPress'#12'OnMouseWheel'#7#14'FormMouseWheel'#6'OnShow'
+  +#7#8'FormShow'#10'LCLVersion'#6#8'0.9.28.2'#0#6'TImage'#6'Image1'#4'Left'#2#0
+  +#6'Height'#3'\'#1#3'Top'#2#16#5'Width'#3'Y'#2#8'AutoSize'#9#0#0#8'TToolBar'#8
+  +'ToolBar1'#4'Left'#2#0#6'Height'#2#23#3'Top'#2#0#5'Width'#3'g'#2#8'AutoSize'
+  +#9#12'ButtonHeight'#2#21#11'ButtonWidth'#2'='#14'ParentShowHint'#8#12'ShowCa'
+  +'ptions'#9#8'ShowHint'#9#8'TabOrder'#2#0#7'Visible'#8#8'Wrapable'#8#8'OnResi'
+  +'ze'#7#14'ToolBar1Resize'#0#11'TToolButton'#11'ToolButton1'#4'Left'#2#1#3'To'
+  +'p'#2#2#7'Caption'#6#5'Close'#10'ImageIndex'#2#0#7'OnClick'#7#16'ToolButton1'
+  +'Click'#0#0#11'TToolButton'#11'ToolButton2'#4'Left'#2'>'#3'Top'#2#2#7'Captio'
+  +'n'#6#6'Zoom +'#10'ImageIndex'#2#1#7'OnClick'#7#16'ToolButton2Click'#0#0#11
+  +'TToolButton'#11'ToolButton3'#4'Left'#2'{'#3'Top'#2#2#7'Caption'#6#13'   Zoo'
+  +'m -    '#10'ImageIndex'#2#2#7'OnClick'#7#16'ToolButton3Click'#0#0#6'TLabel'
+  +#6'Label1'#4'Left'#3#194#0#6'Height'#2#21#3'Top'#2#2#5'Width'#2#27#8'AutoSiz'
+  +'e'#8#7'Caption'#6#6'Label1'#11'Font.Height'#2#245#9'Font.Name'#6#5'Arial'#6
+  +'Layout'#7#8'tlCenter'#11'ParentColor'#8#10'ParentFont'#8#0#0#0#6'TTimer'#6
+  +'Timer1'#7'Enabled'#8#8'Interval'#3#200#0#7'OnTimer'#7#11'Timer1Timer'#4'lef'
+  +'t'#2'('#3'top'#2'0'#0#0#0
+]);
