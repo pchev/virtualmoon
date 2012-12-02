@@ -1,0 +1,38 @@
+/* XPM */
+static char *TGLEarthSkyDome[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 16 1",
+"  c #FC0204",
+". c #FCFE04",
+"X c #848284",
+"o c #C4C2C4",
+"O c #0402FC",
+"+ c #FCFEFC",
+"@ c #833E00",
+"# c #7C7700",
+"$ c #186968",
+"% c #9F0EF1",
+"& c #803E17",
+"* c #7C7700",
+"= c #FF004A",
+"- c #FF0002",
+"; c #FF002D",
+": c red",
+/* pixels */
+"++++++++++++++++",
+"++++++++++++++++",
+"++++++XXXX++++++",
+"++++oXOOOOXo++++",
+"+++oXOOOOOOXo+++",
+"++oXOOOOOOOOXo++",
+"++XOO O O OOOX++",
+"+oXO O O O O Xo+",
+"+XO O O O O O X+",
+"+X O . . . . OX+",
+"+X. ........O.X+",
+"+X..oXXXXXXo..X+",
+"+XXXX++++++XXXX+",
+"++++++++++++++++",
+"++++++++++++++++",
+"++++++++++++++++"
+};

@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="7"/>
+    <Units Count="24">
+      <Unit0>
+        <Filename Value="atlun.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="atlun"/>
+        <CursorPos X="69" Y="34"/>
+        <TopLine Value="19"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="virtualmoon1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="virtualmoon1"/>
+        <CursorPos X="34" Y="4372"/>
+        <TopLine Value="4358"/>
+        <EditorIndex Value="0"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="CraterList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_craterlist"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="craterlist"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="21"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="config.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form2"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="config"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="21"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="BigIma.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="BigImaForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="BigIma"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="21"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="cu_planet.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cu_planet"/>
+        <UsageCount Value="21"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="cu_tz.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cu_tz"/>
+        <UsageCount Value="21"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="dbutil.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="dbutil"/>
+        <CursorPos X="80" Y="6"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="21"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="fmsg.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MsgForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fmsg"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="21"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="glossary.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Gloss"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="glossary"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="21"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="mlb2.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="mlb2"/>
+        <UsageCount Value="21"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="pu_features.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_features"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_features"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="21"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="pu_moon.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_moon"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_moon"/>
+        <CursorPos X="24" Y="1375"/>
+        <TopLine Value="1375"/>
+        <UsageCount Value="21"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="splashunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="splash"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="splashunit"/>
+        <CursorPos X="79" Y="241"/>
+        <TopLine Value="237"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="telescope.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="telescope"/>
+        <UsageCount Value="21"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="u_constant.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_constant"/>
+        <CursorPos X="7" Y="37"/>
+        <TopLine Value="23"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="uDE.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uDE"/>
+        <UsageCount Value="21"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="u_projection.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_projection"/>
+        <UsageCount Value="21"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="u_translation.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_translation"/>
+        <UsageCount Value="21"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="u_translation_database.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_translation_database"/>
+        <UsageCount Value="21"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="u_util.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="u_util"/>
+        <CursorPos X="14" Y="3"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="21"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="pu_ephem.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_ephem"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="pu_ephem"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="21"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="../../../lazarus/lcl/printers.pas"/>
+        <UnitName Value="Printers"/>
+        <CursorPos X="71" Y="436"/>
+        <TopLine Value="426"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="virtualmoon1.lfm"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit23>
+    </Units>
+    <General>
+      <ActiveEditorIndexAtStart Value="3"/>
+    </General>
+    <JumpHistory Count="6" HistoryIndex="5">
+      <Position1>
+        <Filename Value="splashunit.pas"/>
+        <Caret Line="251" Column="22" TopLine="243"/>
+      </Position1>
+      <Position2>
+        <Filename Value="splashunit.pas"/>
+        <Caret Line="56" Column="16" TopLine="42"/>
+      </Position2>
+      <Position3>
+        <Filename Value="splashunit.pas"/>
+        <Caret Line="248" Column="70" TopLine="237"/>
+      </Position3>
+      <Position4>
+        <Filename Value="virtualmoon1.pas"/>
+        <Caret Line="5" Column="38" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="virtualmoon1.pas"/>
+        <Caret Line="4372" Column="34" TopLine="4358"/>
+      </Position5>
+      <Position6>
+        <Filename Value="splashunit.pas"/>
+        <Caret Line="254" Column="42" TopLine="237"/>
+      </Position6>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>
