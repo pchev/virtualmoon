@@ -320,9 +320,9 @@ var
   memstream: TMemorystream;
 begin
   InvalidateUsers;
-  Glyphs.OnChange := nil;
-  //accessing Bitmap might trigger onchange
-  bitmap := Glyphs.Bitmap;
+
+  bitmap:=TGLBitmap.Create;
+  bitmap.Assign(Glyphs.Bitmap);
 
   bitmap.Height      := 0;
   bitmap.PixelFormat := glpf32bit;
@@ -368,13 +368,16 @@ begin
   bitmap.Width := TextureWidth;
 
   ComputeCharRects(bitmap);
+
   memstream:=TMemorystream.Create;
   bitmap.SaveToStream(memstream);
   memstream.Position:=0;
   bitmap.LoadFromStream(memstream);
   memstream.Free;
+  Glyphs.Bitmap.Assign(bitmap);
+  bitmap.Free;
+
   FCharsLoaded := true;
-  Glyphs.OnChange := OnGlyphsChanged;
 end;
 
 // StoreRanges
