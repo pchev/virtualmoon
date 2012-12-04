@@ -69,7 +69,7 @@
 
 // Enable service rendering context, which automatically activate GLS_MULTITHREAD
 // This work only on windows platform and with modern compiler (D2009 and FPC}
-{$DEFINE GLS_SERVICE_CONTEXT}
+{.$DEFINE GLS_SERVICE_CONTEXT}
 
 // Activate support X Window System
 {.$DEFINE GLS_X11_SUPPORT}
