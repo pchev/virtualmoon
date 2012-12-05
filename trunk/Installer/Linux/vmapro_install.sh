@@ -7,7 +7,7 @@ if [ $my_id != 0 ] ; then
   echo "For example: sudo ./vmapro_install.sh"
   echo ""
   echo "You can also install the program at any other location you want as root or as normal user."
-  echo "For example: cd ~; mkdir vma6; cd vma6; tar xzf ~/Download/virtualmoon-6.0-linux_i386.tgz"
+  echo "For example: cd ~; mkdir vma6; cd vma6; tar xzf ~/Download/virtualmoon-6.1-linux_i386.tgz"
   echo "But in this case you must ensure the files in lib folder can be loaded."
   echo "See man ldconfig for more information."
   echo ""
@@ -19,7 +19,7 @@ fi
 echo ""
 echo "Virtual Moon Atlas"
 echo ""
-echo "You can use this script without parameter for the initial installation of virtualmoon-6.0"
+echo "You can use this script without parameter for the initial installation of virtualmoon-6.1"
 echo "or give the name of the additional file to install: sudo ./vmapro_install.sh PictureApollo.tgz"
 echo ""
 
@@ -28,8 +28,8 @@ if [ $ARCH != x86_64 ] ; then ARCH=i386; fi   # handle i686, i586, ...
 
 # read options 
 current_dir=$(pwd)
-defaultfile=virtualmoon-6.0-linux_$ARCH.tgz
-tarfile2="$current_dir"/virtualmoon-data-6.0-linux_all.tgz
+defaultfile=virtualmoon-6.1-linux_$ARCH.tgz
+tarfile2="$current_dir"/virtualmoon-data-6.1-linux_all.tgz
 
 tarfile1=$defaultfile;
 if [ "$1" ] ; then 
