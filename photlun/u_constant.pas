@@ -29,7 +29,7 @@ uses
      dynlibs, Classes, Controls, Graphics;
 
 const crlf = chr(10)+chr(13);
-      AVLversion = '6.0';
+      AVLversion = '6.1';
       VersionName = 'Pro';
       avlcpy = 'Copyright (c) 2002-2012 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';

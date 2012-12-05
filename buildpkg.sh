@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Linux system
 
-version=6.0
+version=6.1
 
 arch=$(arch)
 
@@ -196,11 +196,11 @@ if [[ $make_linux64 ]]; then
     mkdir $wd/CD_Linux
     mv virtualmoon*.tgz $wd/CD_Linux/
     if [[ $? -ne 0 ]]; then exit 1;fi
-    cp /home/transfert/avl_release/virtualmoon-6.0-linux_i386.tgz $wd/CD_Linux/
+    cp /home/transfert/avl_release/virtualmoon-$version-linux_i386.tgz $wd/CD_Linux/
   else
     mv virtualmoon*.tgz $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
-    cp /home/transfert/avl_release/virtualmoon-6.0-linux_i386.tgz $wd/$outdir/
+    cp /home/transfert/avl_release/virtualmoon-$version-linux_i386.tgz $wd/$outdir/
   fi
 #  if [[ $pro ]]; then
     # deb
