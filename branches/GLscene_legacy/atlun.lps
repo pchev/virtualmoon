@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="7"/>
+    <Version Value="9"/>
     <Units Count="24">
       <Unit0>
         <Filename Value="atlun.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="atlun"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="8"/>
         <CursorPos X="69" Y="34"/>
-        <TopLine Value="19"/>
-        <EditorIndex Value="2"/>
         <UsageCount Value="21"/>
-        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="virtualmoon1.pas"/>
@@ -20,11 +20,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="virtualmoon1"/>
-        <CursorPos X="34" Y="4372"/>
-        <TopLine Value="4358"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="4358"/>
+        <CursorPos X="34" Y="4372"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="CraterList.pas"/>
@@ -33,8 +36,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="craterlist"/>
-        <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="21"/>
       </Unit2>
       <Unit3>
@@ -44,8 +47,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="config"/>
-        <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="21"/>
       </Unit3>
       <Unit4>
@@ -55,8 +58,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="BigIma"/>
-        <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="21"/>
       </Unit4>
       <Unit5>
@@ -75,8 +78,8 @@
         <Filename Value="dbutil.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="dbutil"/>
-        <CursorPos X="80" Y="6"/>
         <TopLine Value="1"/>
+        <CursorPos X="80" Y="6"/>
         <UsageCount Value="21"/>
       </Unit7>
       <Unit8>
@@ -86,8 +89,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fmsg"/>
-        <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="21"/>
       </Unit8>
       <Unit9>
@@ -97,8 +100,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="glossary"/>
-        <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="21"/>
       </Unit9>
       <Unit10>
@@ -114,8 +117,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_features"/>
-        <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="21"/>
       </Unit11>
       <Unit12>
@@ -125,8 +128,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_moon"/>
-        <CursorPos X="24" Y="1375"/>
         <TopLine Value="1375"/>
+        <CursorPos X="24" Y="1375"/>
         <UsageCount Value="21"/>
       </Unit12>
       <Unit13>
@@ -136,11 +139,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="splashunit"/>
-        <CursorPos X="79" Y="241"/>
+        <WindowIndex Value="0"/>
         <TopLine Value="237"/>
-        <EditorIndex Value="3"/>
+        <CursorPos X="79" Y="241"/>
         <UsageCount Value="21"/>
-        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="telescope.pas"/>
@@ -152,11 +154,10 @@
         <Filename Value="u_constant.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_constant"/>
-        <CursorPos X="7" Y="37"/>
+        <WindowIndex Value="0"/>
         <TopLine Value="23"/>
-        <EditorIndex Value="1"/>
+        <CursorPos X="7" Y="37"/>
         <UsageCount Value="21"/>
-        <Loaded Value="True"/>
       </Unit15>
       <Unit16>
         <Filename Value="uDE.pas"/>
@@ -186,8 +187,8 @@
         <Filename Value="u_util.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_util"/>
-        <CursorPos X="14" Y="3"/>
         <TopLine Value="1"/>
+        <CursorPos X="14" Y="3"/>
         <UsageCount Value="21"/>
       </Unit20>
       <Unit21>
@@ -196,51 +197,35 @@
         <ComponentName Value="f_ephem"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="pu_ephem"/>
-        <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="21"/>
       </Unit21>
       <Unit22>
-        <Filename Value="../../../lazarus/lcl/printers.pas"/>
+        <Filename Value="/lazarus/lcl/printers.pas"/>
         <UnitName Value="Printers"/>
-        <CursorPos X="71" Y="436"/>
         <TopLine Value="426"/>
+        <CursorPos X="71" Y="436"/>
         <UsageCount Value="10"/>
       </Unit22>
       <Unit23>
         <Filename Value="virtualmoon1.lfm"/>
         <UsageCount Value="10"/>
-        <SyntaxHighlighter Value="LFM"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit23>
     </Units>
     <General>
-      <ActiveEditorIndexAtStart Value="3"/>
+      <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="2" HistoryIndex="1">
       <Position1>
-        <Filename Value="splashunit.pas"/>
-        <Caret Line="251" Column="22" TopLine="243"/>
-      </Position1>
-      <Position2>
-        <Filename Value="splashunit.pas"/>
-        <Caret Line="56" Column="16" TopLine="42"/>
-      </Position2>
-      <Position3>
-        <Filename Value="splashunit.pas"/>
-        <Caret Line="248" Column="70" TopLine="237"/>
-      </Position3>
-      <Position4>
         <Filename Value="virtualmoon1.pas"/>
         <Caret Line="5" Column="38" TopLine="1"/>
-      </Position4>
-      <Position5>
+      </Position1>
+      <Position2>
         <Filename Value="virtualmoon1.pas"/>
         <Caret Line="4372" Column="34" TopLine="4358"/>
-      </Position5>
-      <Position6>
-        <Filename Value="splashunit.pas"/>
-        <Caret Line="254" Column="42" TopLine="237"/>
-      </Position6>
+      </Position2>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
