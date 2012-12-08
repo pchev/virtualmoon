@@ -3375,7 +3375,6 @@ begin
   currentid := '';
   librl     := 0;
   librb     := 0;
-  zoom      := 1;
   lastx     := 0;
   lasty     := 0;
   SkipIdent := False;
@@ -3423,6 +3422,7 @@ StartTimer.Enabled:=true;
 end;
 
 procedure TForm1.Init;
+var i: integer;
 begin
 try
   Setlang;
@@ -3478,7 +3478,12 @@ try
   moon1.Labelcolor:=autolabelcolor;
   AsMultiTexture:=moon1.AsMultiTexture;
   moon1.SetMark(0, 0, '');
-  moon1.zoom:=1;
+  // initial zoom
+  i:=min(PanelMoon.Width,PanelMoon.Height);
+  if i>500 then begin
+    zoom:=i/500;
+  end;
+  moon1.zoom:=zoom;
   moon1.GridSpacing:=gridspacing;
   ReadParam;
   memo2.Width    := PrintTextWidth;
