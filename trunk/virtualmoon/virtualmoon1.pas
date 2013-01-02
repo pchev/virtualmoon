@@ -2965,7 +2965,7 @@ begin
   else
   begin
     Stringgrid1.Cells[0, i] := form2.Label16.Caption + ':';
-    Stringgrid1.Cells[1, i] := demtostr(ObsLatitude) + ' ' + demtostr(ObsLongitude) +
+    Stringgrid1.Cells[1, i] := demtostr(ObsLatitude) + ' ' + ObsLonToStr(ObsLongitude) +
       ' Tz:' + armtostr(timezone);
   end;
   Inc(i);

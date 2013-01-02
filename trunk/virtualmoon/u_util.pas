@@ -62,6 +62,7 @@ Procedure DToS(t: Double; var h,m,s : integer);
 Function DEToStr(de: Double) : string;
 Function ARtoStr(ar: Double) : string;
 Function DEmToStr(de: Double) : string;
+Function ObsLonToStr(de: Double) : string;
 Function DEdToStr(de: Double) : string;
 Function DEToStrmin(de: Double) : string;
 Function ARmtoStr(ar: Double) : string;
@@ -716,6 +717,25 @@ begin
     str(dd:2:0,d);
     result := d;
  end;
+end;
+
+Function ObsLonToStr(de: Double) : string;
+var dd,min: Double;
+    d,m : string;
+begin
+    dd:=Int(de);
+    min:=abs(de-dd)*60;
+    if min>=59.5 then begin
+       dd:=dd+sgn(de);
+       min:=0.0;
+    end;
+    min:=Round(min);
+    str(abs(dd):2:0,d);
+    if abs(dd)<10 then d:='0'+trim(d);
+    if de<0 then d:='E'+d else d:='W'+d;
+    str(min:2:0,m);
+    if abs(min)<10 then m:='0'+trim(m);
+    result := d+ldeg+m+lmin;
 end;
 
 Function ARmToStr(ar: Double) : string;
