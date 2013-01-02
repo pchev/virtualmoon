@@ -3422,6 +3422,7 @@ StartTimer.Enabled:=true;
 end;
 
 procedure TForm1.Init;
+var i: integer;
 begin
 try
   Setlang;
