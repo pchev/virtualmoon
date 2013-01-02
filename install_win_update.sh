@@ -77,3 +77,6 @@ install -v -m 644 Installer/Windows/Data/lisezmoi.txt $destdir/
 install -v -m 644 Installer/Windows/Data/licence.txt $destdir/
 install -v -m 644 Installer/Windows/Data/licence_fr.txt $destdir/
 
+install -m 755 -d $destdir/data
+cp -a  data/zoneinfo $destdir/data/
+
