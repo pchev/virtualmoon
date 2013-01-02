@@ -1,16 +1,27 @@
 # Extract part of tzdata package for use on Windows systems.
-rm -rf zoneinfo
+
+wd=`pwd`
+
+rm -rf tzdata zoneinfo
+mkdir tzdata
 mkdir zoneinfo
-cd zoneinfo
-cp -a /usr/share/zoneinfo/America .
-cp -a /usr/share/zoneinfo/Asia .
-cp -a /usr/share/zoneinfo/Europe .
-cp -a /usr/share/zoneinfo/Africa .
-cp -a /usr/share/zoneinfo/Pacific .
-cp -a /usr/share/zoneinfo/Etc .
-cp -a /usr/share/zoneinfo/Australia .
-cp -a /usr/share/zoneinfo/Indian .
-cp -a /usr/share/zoneinfo/Atlantic .
-cp -a /usr/share/zoneinfo/Antarctica .
-cp -a /usr/share/zoneinfo/Arctic .
-cp /usr/share/zoneinfo/zone.tab . 
+
+wget --retr-symlinks 'ftp://ftp.iana.org/tz/tz*.tar.gz'
+
+cd tzdata
+
+tar xzf ../tzcode*.tar.gz
+tar xzf ../tzdata*.tar.gz
+
+make TOPDIR=$wd/tzdata/ install
+
+cd etc/zoneinfo
+cp zone.tab $wd/zoneinfo
+cat zone.tab |grep -v \# | cut -f3 |xargs -I'{}' -n1  cp -L --parent '{}' $wd/zoneinfo
+cp -rL Etc $wd/zoneinfo
+
+cd $wd
+
+rm -rf tzdata
+rm tzcode*
+rm tzdata*
