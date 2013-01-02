@@ -24,7 +24,7 @@ object Form1: TForm1
   OnKeyUp = FormKeyUp
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '1.0.1.3'
+  LCLVersion = '1.0.4.0'
   object Memo2: TMemo
     Left = 64
     Height = 41
