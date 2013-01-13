@@ -3,11 +3,11 @@ msgstr "Content-Type: text/plain; charset=UTF-8"
 
 #: u_translation.rsedit
 msgid "Edit"
-msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±"
+msgstr "Επεξεργασία"
 
 #: u_translation.rsfarsideunnam
 msgid "Far side Unnamed Formation"
-msgstr ""
+msgstr "Ανώνυμος σχηματισμός της αόρατης πλευράς"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
@@ -16,175 +16,171 @@ msgstr "EL"
 #: u_translation.rsloadcsv01
 msgctxt "u_translation.rsloadcsv01"
 msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."
-msgstr "Ξ‘Ο…Ο„Ο Ο„ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± ΟƒΞ±Ο‚ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ξ½Ξ­Ξ± Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½Ξ± ΟƒΟ„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο„ΞΏΟ… Virtual Moon Atlas Ξ±Ο€Ο Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ CSV. Ξ”ΞµΞ½ Ο€ΟΞΏΞ²Ξ»Ξ­Ο€ΞµΟ„Ξ±ΞΉ Ξ· ΟƒΟ…Ξ³Ο‡ΟΞ½ΞµΟ…ΟƒΞ· Ο€ΞµΞ΄Ξ―Ο‰Ξ½ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ξ® ΞΏΟ€ΞΏΞΉΞΏΟƒΞ΄Ξ®Ο€ΞΏΟ„Ξµ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΞΌΟΟ‚."
+msgstr "Αυτό το πρόγραμμα σας επιτρέπει να εισάγετε νέα αντικείμενα στη βάση δεδομένων του Virtual Moon Atlas από ένα αρχείο CSV. Δεν προβλέπεται η συγχώνευση πεδίων δεδομένων ή οποιοσδήποτε υπολογισμός."
 
 #: u_translation.rsloadcsv02
 msgctxt "u_translation.rsloadcsv02"
 msgid "If you need that use first a software like OpenOffice.org Calc or Excel to format your data and save them to a CSV file."
-msgstr "Ξ‘Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ±Ο€Ξ±ΟΞ±Ξ―Ο„Ξ·Ο„ΞΏ, Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ο€ΟΟΟ„Ξ± Ξ­Ξ½Ξ± Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± ΟΟ€Ο‰Ο‚ Ο„ΞΏ OpenOffice.org Calc Ξ® Ο„ΞΏ Excel Ξ³ΞΉΞ± Ξ½Ξ± ΞΌΞµΟ„Ξ±ΟƒΟ‡Ξ·ΞΌΞ±Ο„Ξ―ΟƒΞµΟ„Ξµ Ο„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± ΟƒΞ±Ο‚ ΞΊΞ±ΞΉ Ξ½Ξ± Ο„Ξ± Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΟƒΞµΟ„Ξµ ΟƒΞµ ΞΌΞΏΟΟ†Ξ® CSV"
+msgstr "Αν είναι απαραίτητο, χρησιμοποιήστε πρώτα ένα πρόγραμμα όπως το OpenOffice.org Calc ή το Excel για να μετασχηματίσετε τα δεδομένα σας και να τα αποθηκεύσετε σε μορφή CSV"
 
 #: u_translation.rsloadcsv03
 msgctxt "u_translation.rsloadcsv03"
 msgid "From this page indicate first the character your file use to separate the different columns ( ; or TAB ) and if a \" surround the text. Then open you CSV data file."
-msgstr "Ξ‘Ο€Ο Ξ±Ο…Ο„Ξ®Ξ½ Ο„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο…Ο€ΞΏΞ΄ΞµΞ―ΞΎΟ„Ξµ Ο„ΞΏΞ½ Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞ± ΞΌΞµ Ο„ΞΏΞ½ ΞΏΟ€ΞΏΞ―ΞΏ Ξ΄ΞΉΞ±Ο‡Ο‰ΟΞ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΞΏΞΉ ΟƒΟ„Ξ®Ξ»ΞµΟ‚ ΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟƒΞ±Ο‚ (; Ξ® TAB) ΞΊΞ±ΞΉ Ξ±Ξ½ Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ο€ΞµΟΞΉΞ²Ξ¬Ξ»Ξ»ΞµΟ„Ξ±ΞΉ Ξ±Ο€Ο \". ΞΞ±Ο„ΟΟ€ΞΉΞ½ Ξ±Ξ½ΞΏΞ―ΞΎΟ„Ξµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟƒΞ±Ο‚ CSV"
+msgstr "Από αυτήν τη σελίδα υποδείξτε τον χαρακτήρα με τον οποίο διαχωρίζονται οι στήλες στο αρχείο σας (; ή TAB) και αν το κείμενο περιβάλλεται από \". Κατόπιν ανοίξτε το αρχείο σας CSV"
 
 #: u_translation.rsloadcsv04
 msgctxt "u_translation.rsloadcsv04"
 msgid "If the format is recognised a new tab appear at the top of the page, click this tab to continue."
-msgstr "Ξ‘Ξ½ Ξ· ΞΌΞΏΟΟ†Ξ® Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞ―Ξ¶ΞµΟ„Ξ±ΞΉ, Ο„ΟΟ„Ξµ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΞΌΞΉΞ± Ξ½Ξ­Ξ± ΞΊΞµΟ†Ξ±Ξ»Ξ―Ξ΄Ξ± ΟƒΟ„Ξ·Ξ½ ΞΊΞΏΟΟ…Ο†Ξ® Ο„Ξ·Ο‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚. ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΞµΞΊΞµΞ― Ξ³ΞΉΞ± Ξ½Ξ± ΟƒΟ…Ξ½ΞµΟ‡Ξ―ΟƒΞµΟ„Ξµ"
+msgstr "Αν η μορφή αναγνωρίζεται, τότε εμφανίζεται μια νέα κεφαλίδα στην κορυφή της σελίδας. Κάντε κλικ εκεί για να συνεχίσετε"
 
 #: u_translation.rsloadcsv05
 msgctxt "u_translation.rsloadcsv05"
 msgid "If you already record this file setting you can use the \"Load Setting\" button to retrieve them."
-msgstr "Ξ‘Ξ½ Ξ­Ο‡ΞµΟ„Ξµ Ξ®Ξ΄Ξ· Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΟƒΞµΞΉ Ξ±Ο…Ο„Ξ®Ξ½ Ο„Ξ· ΟΟΞΈΞΌΞΉΟƒΞ· Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…, ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ο„ΞΏ ΞΊΞΏΟ…ΞΌΟ€Ξ― \"Ξ¦ΟΟΟ„Ο‰ΟƒΞ· ΟΟΞΈΞΌΞΉΟƒΞ·Ο‚\" Ξ³ΞΉΞ± Ξ½Ξ± Ο„Ξ· Ο†ΞΏΟΟ„ΟΟƒΞµΟ„Ξµ"
+msgstr "Αν έχετε ήδη αποθηκεύσει αυτήν τη ρύθμιση αρχείου, μπορείτε να χρησιμοποιήσετε το κουμπί \"Φόρτωση ρύθμισης\" για να τη φορτώσετε"
 
 #: u_translation.rsloadcsv06
 msgctxt "u_translation.rsloadcsv06"
 msgid "The next step is to give a relation between your file columns and the different database fields. Refer to the main help file for explanation about each database field."
-msgstr "Ξ¤ΞΏ ΞµΟ€ΟΞΌΞµΞ½ΞΏ Ξ²Ξ®ΞΌΞ± ΞµΞ―Ξ½Ξ± Ξ½Ξ± ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ ΞΌΞΉΞ± ΟƒΟ‡Ξ­ΟƒΞ· ΞΌΞµΟ„Ξ±ΞΎΟ Ο„Ο‰Ξ½ ΟƒΟ„Ξ·Ξ»ΟΞ½ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΞΊΞ±ΞΉ Ο„Ο‰Ξ½ Ξ΄ΞΉΞ¬Ο†ΞΏΟΟ‰Ξ½ Ο€ΞµΞ΄Ξ―Ο‰Ξ½ Ο„Ξ·Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½. Ξ‘Ξ½Ξ±Ο„ΟΞ­ΞΎΟ„Ξµ ΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ²ΞΏΞ®ΞΈΞµΞΉΞ±Ο‚ Ξ³ΞΉΞ± ΞµΞΎΞ·Ξ³Ξ®ΟƒΞµΞΉΟ‚ ΟƒΟ‡ΞµΟ„ΞΉΞΊΞ¬ ΞΌΞµ ΞΊΞ¬ΞΈΞµ Ο€ΞµΞ΄Ξ―ΞΏ"
+msgstr "Το επόμενο βήμα είνα να εισάγετε μια σχέση μεταξύ των στηλών του αρχείου και των διάφορων πεδίων της βάσης δεδομένων. Ανατρέξτε στο αρχείο βοήθειας για εξηγήσεις σχετικά με κάθε πεδίο"
 
 #: u_translation.rsloadcsv07
 msgctxt "u_translation.rsloadcsv07"
 msgid "Click one of the value of your file and check the corresponding database field. When ready press the \"<-->\" button."
-msgstr "ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΞµ ΞΌΞΉΞ± Ο„ΞΉΞΌΞ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΟƒΞ±Ο‚ ΞΊΞ±ΞΉ ΞµΞ»Ξ­Ξ³ΞΎΟ„Ξµ Ο„ΞΏ Ξ±Ξ½Ο„Ξ―ΟƒΟ„ΞΏΞΉΟ‡ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ Ο„Ξ·Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½. ΞΟ„Ξ±Ξ½ ΞµΞ―ΟƒΟ„Ξµ Ξ­Ο„ΞΏΞΉΞΌΞΏΞΉ Ο€Ξ±Ο„Ξ®ΟƒΟ„Ξµ Ο„ΞΏ ΞΊΞΏΟ…ΞΌΟ€Ξ― \"<-->\""
+msgstr "Κάντε κλικ σε μια τιμή του αρχείου σας και ελέγξτε το αντίστοιχο πεδίο της βάσης δεδομένων. Όταν είστε έτοιμοι πατήστε το κουμπί \"<-->\""
 
 #: u_translation.rsloadcsv08
 msgctxt "u_translation.rsloadcsv08"
 msgid "It is also possible to give a constant value to a database field. Enter the value at the bottom of the page and press the \"Constant Value\" button."
-msgstr "Ξ•Ξ―Ξ½Ξ±ΞΉ ΞµΟ€Ξ―ΟƒΞ·Ο‚ Ξ΄Ο…Ξ½Ξ±Ο„Ο Ξ½Ξ± Ξ΄ΟΟƒΞµΟ„Ξµ ΞΌΞΉΞ± ΟƒΟ„Ξ±ΞΈΞµΟΞ® Ο„ΞΉΞΌΞ® ΟƒΞµ Ξ­Ξ½Ξ± Ο€ΞµΞ΄Ξ―ΞΏ Ο„Ξ·Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½. Ξ•ΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ο„Ξ·Ξ½ Ο„ΞΉΞΌΞ® ΟƒΟ„ΞΏ ΞΊΞ¬Ο„Ο‰ ΞΌΞ­ΟΞΏΟ‚ Ο„Ξ·Ο‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚ ΞΊΞ±ΞΉ Ο€Ξ±Ο„Ξ®ΟƒΟ„Ξµ Ο„ΞΏ ΞΊΞΏΟ…ΞΌΟ€Ξ― \"Ξ£Ο„Ξ±ΞΈΞµΟΞ® Ο„ΞΉΞΌΞ®\""
+msgstr "Είναι επίσης δυνατό να δώσετε μια σταθερή τιμή σε ένα πεδίο της βάσης δεδομένων. Εισάγετε την τιμή στο κάτω μέρος της σελίδας και πατήστε το κουμπί \"Σταθερή τιμή\""
 
 #: u_translation.rsloadcsv09
-#, fuzzy
-#| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgctxt "u_translation.rsloadcsv09"
-msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
-msgstr "Ξ¤ΞΏ DBN ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ½Ξ± Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞΉΟƒΟ„ΞΉΞΊΟ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΟƒΞ±Ο‚. Ξ Ξ±Ξ―ΟΞ½ΞµΞΉ Ο„ΞΉΞΌΞ­Ο‚ Ξ±Ο€Ο 10 ΞΌΞ­Ο‡ΟΞΉ 99 ΞΊΞ±ΞΉ ΟƒΞ±Ο‚ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞ―Ξ¶ΞµΟ„Ξµ Ο„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± ΟƒΞ±Ο‚ ΟƒΟ„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½. Ξ‘Ο€Ο Ο„ΞΏ ΞΊΞµΞ½Ο„ΟΞΉΞΊΟ ΞΌΞµΞ½ΞΏΟ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξµ Ξ® ΟΟ‡ΞΉ Ο„ΞΉΟ‚ ΞµΟ€ΞΉΞ³ΟΞ±Ο†Ξ­Ο‚ Ο„Ο‰Ξ½ Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½Ο‰Ξ½"
+msgid "DBN is an identifier for your file. It range from 100 to 999 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgstr "Το DBN είναι ένα αναγνωριστικό του αρχείου σας. Παίρνει τιμές από 10 μέχρι 99 και σας επιτρέπει να αναγνωρίζετε τα δεδομένα σας στη βάση δεδομένων. Από το κεντρικό μενού μπορείτε να εμφανίζετε ή όχι τις επιγραφές των αντικειμένων"
 
 #: u_translation.rsloadcsv10
-#, fuzzy
-#| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
 msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
-msgstr "ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ ΞµΟ€Ξ―ΟƒΞ·Ο‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ»Ξ­ΞΎΞµΟ„Ξµ Ξ³ΟΞ®Ξ³ΞΏΟΞ± ΟΞ»Ξ± Ο„Ξ± Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½Ξ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΟΞ½Ο„Ξ±Ο‚ DBN=10 ΟƒΟ„ΞΏ Ο€Ξ±ΟΞ¬ΞΈΟ…ΟΞΏ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®Ο‚ SQL, ΞΊΞ±ΞΉ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± ΞΌΞµ Ο„Ξ·Ξ½ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Ξ‘ΟΟ‡ΞµΞ―ΞΏ->Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®."
+msgstr "Μπορείτε επίσης να διαλέξετε γρήγορα όλα τα αντικείμενα χρησιμοποιώντας DBN=10 στο παράθυρο επιλογής SQL, και να διαγράψετε τα δεδομένα με την επιλογή Αρχείο->Διαγραφή."
 
 #: u_translation.rsloadcsv11
 msgid "It is mandatory to give a value for the field: DBN, NAME, LONGIN and LATIN."
-msgstr "Ξ•Ξ―Ξ½Ξ±ΞΉ Ο…Ο€ΞΏΟ‡ΟΞµΟ‰Ο„ΞΉΞΊΟ Ξ½Ξ± Ξ΄ΟΟƒΞµΟ„Ξµ ΞΌΞΉΞ± Ο„ΞΉΞΌΞ® ΟƒΟ„Ξ± Ο€ΞµΞ΄Ξ―Ξ±: DBN, NAME, LONGIN ΞΊΞ±ΞΉ LATIN"
+msgstr "Είναι υποχρεωτικό να δώσετε μια τιμή στα πεδία: DBN, NAME, LONGIN και LATIN"
 
 #: u_translation.rsloadcsv12
 msgid "When all the required field are defined the next tab appear at the top of the page."
-msgstr "ΞΟ„Ξ±Ξ½ ΟΞ»Ξ± Ο„Ξ± Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½Ξ± Ο€ΞµΞ΄Ξ―Ξ± Ξ­Ο‡ΞΏΟ…Ξ½ ΞΏΟΞΉΟƒΟ„ΞµΞ―, ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ· ΞµΟ€ΟΞΌΞµΞ½Ξ· ΞΊΞµΟ†Ξ±Ξ»Ξ―Ξ΄Ξ± ΟƒΟ„Ξ·Ξ½ ΞΊΞΏΟΟ…Ο†Ξ® Ο„Ξ·Ο‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚."
+msgstr "Όταν όλα τα απαιτούμενα πεδία έχουν οριστεί, εμφανίζεται η επόμενη κεφαλίδα στην κορυφή της σελίδας."
 
 #: u_translation.rsloadcsv13
 msgid "Press \"Load Database\" button to load your data to the database."
-msgstr "Ξ Ξ±Ο„Ξ®ΟƒΟ„Ξµ Ο„ΞΏ ΞΊΞΏΟ…ΞΌΟ€Ξ― \"Ξ¦ΟΟΟ„Ο‰ΟƒΞ· Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½\" Ξ³ΞΉΞ± Ξ½Ξ± Ο†ΞΏΟΟ„ΟΟƒΞµΟ„Ξµ Ο„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± ΟƒΞ±Ο‚ ΟƒΟ„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½."
+msgstr "Πατήστε το κουμπί \"Φόρτωση βάσης δεδομένων\" για να φορτώσετε τα δεδομένα σας στη βάση δεδομένων."
 
 #: u_translation.rsloadcsv14
 msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
-msgstr "Ξ¤ΞΏ ΞΊΞΏΟ…ΞΌΟ€Ξ― \"Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· ΟΟΞΈΞΌΞΉΟƒΞ·Ο‚\" ΟƒΞ±Ο‚ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΟƒΞµΟ„Ξµ Ο„Ξ· ΟΟΞΈΞΌΞΉΟƒΞ· Ξ³ΞΉΞ± ΞΌΞµΞ»Ξ»ΞΏΞ½Ο„ΞΉΞΊΞ® Ξ±Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ·."
+msgstr "Το κουμπί \"Αποθήκευση ρύθμισης\" σας επιτρέπει να αποθηκεύσετε τη ρύθμιση για μελλοντική ανάκτηση."
 
 #: u_translation.rsm_1
 msgid "DBN must be a constant value!"
-msgstr "Ξ¤ΞΏ DBN Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞΉΞ± ΟƒΟ„Ξ±ΞΈΞµΟΞ® Ο„ΞΉΞΌΞ®!"
+msgstr "Το DBN πρέπει να είναι μια σταθερή τιμή!"
 
 #: u_translation.rsm_10
 msgid "Value"
-msgstr "Ξ¤ΞΉΞΌΞ®"
+msgstr "Τιμή"
 
 #: u_translation.rsm_11
 msgid "Select a database field first!"
-msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€ΟΟΟ„Ξ± Ξ­Ξ½Ξ± Ο€ΞµΞ΄Ξ―ΞΏ Ο„Ξ·Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½!"
+msgstr "Επιλέξτε πρώτα ένα πεδίο της βάσης δεδομένων!"
 
 #: u_translation.rsm_12
 msgid "Select an input file field first!"
-msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€ΟΟΟ„Ξ± Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞµΞΉΟƒΟΞ΄ΞΏΟ…!"
+msgstr "Επιλέξτε πρώτα ένα αρχείο εισόδου!"
 
 #: u_translation.rsm_13
 msgid "Uninitialised"
-msgstr "Ξ”ΞµΞ½ ΞµΞΊΞΊΞΉΞ½Ξ®ΞΈΞ·ΞΊΞµ"
+msgstr "Δεν εκκινήθηκε"
 
 #: u_translation.rsm_14
 msgid "Constant value"
-msgstr "Ξ£Ο„Ξ±ΞΈΞµΟΞ® Ο„ΞΉΞΌΞ®"
+msgstr "Σταθερή τιμή"
 
 #: u_translation.rsm_15
 msgid "Input file field"
-msgstr "Ξ ΞµΞ΄Ξ―ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΞµΞΉΟƒΟΞ΄ΞΏΟ…"
+msgstr "Πεδίο αρχείου εισόδου"
 
 #: u_translation.rsm_16
 msgid "Do some validation:"
-msgstr "Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΟƒΟ„Ξµ Ο„Ξ± ΞµΞΎΞ®Ο‚:"
+msgstr "Επιβεβαιώστε τα εξής:"
 
 #: u_translation.rsm_17
 msgid "is checked but no value is defined!"
-msgstr "ΞµΞ―Ξ½Ξ±ΞΉ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ Ξ±Ξ»Ξ»Ξ¬ Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ Ο€ΟΞΏΟƒΞ΄ΞΉΞΏΟΞΉΟƒΟ„ΞµΞ― Ο„ΞΉΞΌΞ®!"
+msgstr "είναι επιλεγμένο αλλά δεν έχει προσδιοριστεί τιμή!"
 
 #: u_translation.rsm_18
 msgid "All checked field are defined."
-msgstr "ΞΞ»Ξ± Ο„Ξ± ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ± Ο€ΞµΞ΄Ξ―Ξ± Ξ­Ο‡ΞΏΟ…Ξ½ Ο€ΟΞΏΟƒΞ΄ΞΉΞΏΟΞΉΟƒΟ„ΞµΞ―."
+msgstr "Όλα τα επιλεγμένα πεδία έχουν προσδιοριστεί."
 
 #: u_translation.rsm_19
 msgid "Missing required field"
-msgstr "Ξ›ΞµΞ―Ο€ΞµΞΉ Ο„ΞΏ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ"
+msgstr "Λείπει το απαιτούμενο πεδίο"
 
 #: u_translation.rsm_2
 msgid "No row selected!"
-msgstr "Ξ”ΞµΞ½ ΞµΟ€ΞΉΞ»Ξ­Ο‡ΞΈΞ·ΞΊΞµ Ξ³ΟΞ±ΞΌΞΌΞ®!"
+msgstr "Δεν επιλέχθηκε γραμμή!"
 
 #: u_translation.rsm_20
 msgid "All requiered field are present."
-msgstr "ΞΞ»Ξ± Ο„Ξ± Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½Ξ± Ο€ΞµΞ΄Ξ―Ξ± Ξ­Ο‡ΞΏΟ…Ξ½ Ο€ΟΞΏΟƒΞ΄ΞΉΞΏΟΞΉΟƒΟ„ΞµΞ―."
+msgstr "Όλα τα απαιτούμενα πεδία έχουν προσδιοριστεί."
 
 #: u_translation.rsm_21
 msgid "Start insert process to database"
-msgstr "Ξ•ΞΊΞΊΞ―Ξ½Ξ·ΟƒΞ· Ξ΄ΞΉΞ±Ξ΄ΞΉΞΊΞ±ΟƒΞ―Ξ±Ο‚ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®Ο‚ ΟƒΟ„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
+msgstr "Εκκίνηση διαδικασίας εισαγωγής στη βάση δεδομένων"
 
 #: u_translation.rsm_22
 msgid "Database update successfully terminated!"
-msgstr "Ξ— ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο„Ξ·Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο„ΞµΟΞΌΞ±Ο„Ξ―ΟƒΟ„Ξ·ΞΊΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚!"
+msgstr "Η ενημέρωση της βάσης δεδομένων τερματίστηκε επιτυχώς!"
 
 #: u_translation.rsm_23
 msgid "You can now close this window."
-msgstr "Ξ¤ΟΟΞ± ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞΊΞ»ΞµΞ―ΟƒΞµΟ„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏ Ο€Ξ±ΟΞ¬ΞΈΟ…ΟΞΏ."
+msgstr "Τώρα μπορείτε να κλείσετε αυτό το παράθυρο."
 
 #: u_translation.rsm_24
 msgid "Database insert failed!"
-msgstr "Ξ— ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® ΟƒΟ„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ!"
+msgstr "Η εισαγωγή στη βάση δεδομένων απέτυχε!"
 
 #: u_translation.rsm_25
 msgid "Rollback completed."
-msgstr "Ξ— ΞµΟ€Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬ ΞΏΞ»ΞΏΞΊΞ»Ξ·ΟΟΞΈΞ·ΞΊΞµ."
+msgstr "Η επαναφορά ολοκληρώθηκε."
 
 #: u_translation.rsm_26
 msgid "Database not modified."
-msgstr "Ξ— Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ξ΄ΞµΞ½ Ξ¬Ξ»Ξ»Ξ±ΞΎΞµ."
+msgstr "Η βάση δεδομένων δεν άλλαξε."
 
 #: u_translation.rsm_3
 msgid "Selection:"
-msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ®:"
+msgstr "Επιλογή:"
 
 #: u_translation.rsm_4
 msgid "Row:"
-msgstr "Ξ“ΟΞ±ΞΌΞΌΞ®:"
+msgstr "Γραμμή:"
 
 #: u_translation.rsm_5
 msgid "not found in"
-msgstr "Ξ΄Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ ΟƒΞµ"
+msgstr "δε βρέθηκε σε"
 
 #: u_translation.rsm_6
 msgid "No current selection, cannot delete all!"
-msgstr "Ξ”ΞµΞ½ Ξ­Ξ³ΞΉΞ½Ξµ ΞΊΞ±ΞΌΞΌΞ―Ξ± ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® - Ξ±Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΟΞ»Ο‰Ξ½!"
+msgstr "Δεν έγινε καμμία επιλογή - αδύνατη η διαγραφή όλων!"
 
 #: u_translation.rsm_7
 msgid "Are you sure you want to delete all the data corresponding to the current selection from the database?"
-msgstr "Ξ•Ξ―ΟƒΟ„Ξµ Ξ²Ξ­Ξ²Ξ±ΞΉΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ ΟΞ»Ξ± Ο„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± Ο€ΞΏΟ… Ξ±Ξ½Ο„ΞΉΟƒΟ„ΞΏΞΉΟ‡ΞΏΟΞ½ ΟƒΟ„Ξ·Ξ½ Ο„ΟΞ­Ο‡ΞΏΟ…ΟƒΞ± ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Ξ±Ο€Ο Ο„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½;"
+msgstr "Είστε βέβαιος ότι θέλετε να διαγράψετε όλα τα δεδομένα που αντιστοιχούν στην τρέχουσα επιλογή από τη βάση δεδομένων;"
 
 #: u_translation.rsm_8
 msgid "Records found"
-msgstr "ΞΞ±Ο„Ξ±Ο‡Ο‰ΟΞ®ΟƒΞµΞΉΟ‚"
+msgstr "Καταχωρήσεις"
 
 #: u_translation.rsm_9
 msgid "Key"
-msgstr "ΞΞ»ΞµΞΉΞ΄Ξ―"
+msgstr "Κλειδί"
 
 #: u_translation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
@@ -192,211 +188,211 @@ msgstr "Translation: Antonis Gitsas"
 
 #: u_translation.rst_1
 msgid "File"
-msgstr "Ξ‘ΟΟ‡ΞµΞ―ΞΏ"
+msgstr "Αρχείο"
 
 #: u_translation.rst_10
 msgid "Clear"
-msgstr "Ξ•ΞΊΞΊΞ±ΞΈΞ¬ΟΞΉΟƒΞ·"
+msgstr "Εκκαθάριση"
 
 #: u_translation.rst_11
 msgid "Last"
-msgstr "Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞΏ"
+msgstr "Τελευταίο"
 
 #: u_translation.rst_12
 msgid "Enter selection and order criteria using SQL syntax."
-msgstr "Ξ•ΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ο„Ξ± ΞΊΟΞΉΟ„Ξ®ΟΞΉΞ± ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®Ο‚ ΞΊΞ±ΞΉ Ο„Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ·Ο‚ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΟΞ½Ο„Ξ±Ο‚ ΟƒΟΞ½Ο„Ξ±ΞΎΞ· SQL."
+msgstr "Εισάγετε τα κριτήρια επιλογής και ταξινόμησης χρησιμοποιώντας σύνταξη SQL."
 
 #: u_translation.rst_13
 msgid "All (Default)"
-msgstr "ΞΞ»Ξ± (Ο€ΟΞΏΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®)"
+msgstr "Όλα (προεπιλογή)"
 
 #: u_translation.rst_14
 msgid "Database maintenance"
-msgstr "Ξ•Ξ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
+msgstr "Ενημέρωση βάσης δεδομένων"
 
 #: u_translation.rst_15
 msgid "Near Side Named Formation"
-msgstr "Ξ•Ο€ΟΞ½Ο…ΞΌΞΏΞΉ ΟƒΟ‡Ξ·ΞΌΞ±Ο„ΞΉΟƒΞΌΞΏΞ― ΞΏΟΞ±Ο„Ξ®Ο‚ Ο€Ξ»ΞµΟ…ΟΞ¬Ο‚"
+msgstr "Επώνυμοι σχηματισμοί ορατής πλευράς"
 
 #: u_translation.rst_16
 msgid "Near Side Indexed Craters"
-msgstr "ΞΞ±Ο„Ξ±Ο‡Ο‰ΟΞ·ΞΌΞ­Ξ½ΞΏΞΉ ΞΊΟΞ±Ο„Ξ®ΟΞµΟ‚ ΞΏΟΞ±Ο„Ξ®Ο‚ Ο€Ξ»ΞµΟ…ΟΞ¬Ο‚"
+msgstr "Καταχωρημένοι κρατήρες ορατής πλευράς"
 
 #: u_translation.rst_17
 msgid "Input File"
-msgstr "Ξ‘ΟΟ‡ΞµΞ―ΞΏ ΞµΞΉΟƒΟΞ΄ΞΏΟ…"
+msgstr "Αρχείο εισόδου"
 
 #: u_translation.rst_18
 msgid "Far Side Named Formation"
-msgstr "Ξ•Ο€ΟΞ½Ο…ΞΌΞΏΞΉ ΟƒΟ‡Ξ·ΞΌΞ±Ο„ΞΉΟƒΞΌΞΏΞ― Ξ±ΟΟΞ±Ο„Ξ·Ο‚ Ο€Ξ»ΞµΟ…ΟΞ¬Ο‚"
+msgstr "Επώνυμοι σχηματισμοί αόρατης πλευράς"
 
 #: u_translation.rst_19
 msgid "Far Side Indexed Craters"
-msgstr "ΞΞ±Ο„Ξ±Ο‡Ο‰ΟΞ·ΞΌΞ­Ξ½ΞΏΞΉ ΞΊΟΞ±Ο„Ξ®ΟΞµΟ‚ Ξ±ΟΟΞ±Ο„Ξ·Ο‚ Ο€Ξ»ΞµΟ…ΟΞ¬Ο‚"
+msgstr "Καταχωρημένοι κρατήρες αόρατης πλευράς"
 
 #: u_translation.rst_2
 msgid "Quit"
-msgstr "ΞΞΎΞΏΞ΄ΞΏΟ‚"
+msgstr "Έξοδος"
 
 #: u_translation.rst_20
 msgid "Historical Sites"
-msgstr "Ξ™ΟƒΟ„ΞΏΟΞΉΞΊΞ­Ο‚ Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―ΞµΟ‚"
+msgstr "Ιστορικές τοποθεσίες"
 
 #: u_translation.rst_21
 msgid "Predefined Selections"
-msgstr "Ξ ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞµΟ‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
+msgstr "Προκαθορισμένες επιλογές"
 
 #: u_translation.rst_22
 msgid "SQL Request"
-msgstr "Ξ‘Ξ―Ο„Ξ·ΞΌΞ± SQL"
+msgstr "Αίτημα SQL"
 
 #: u_translation.rst_23
 msgid "Select File"
-msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ±ΟΟ‡ΞµΞ―ΞΏ"
+msgstr "Επιλέξτε αρχείο"
 
 #: u_translation.rst_24
 msgid "Select Data Field"
-msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€ΞµΞ΄Ξ―ΞΏ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
+msgstr "Επιλέξτε πεδίο δεδομένων"
 
 #: u_translation.rst_25
 msgid "Load to Database"
-msgstr "Ξ¦ΟΟΟ„Ο‰ΟƒΞ· ΟƒΟ„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
+msgstr "Φόρτωση στη βάση δεδομένων"
 
 #: u_translation.rst_26
 msgid "Field separator:"
-msgstr "Ξ”ΞΉΞ±Ο‡Ο‰ΟΞΉΟƒΟ„ΞΉΞΊΟ Ο€ΞµΞ΄Ξ―ΞΏΟ…:"
+msgstr "Διαχωριστικό πεδίου:"
 
 #: u_translation.rst_27
 msgid "Text separator:"
-msgstr "Ξ”ΞΉΞ±Ο‡Ο‰ΟΞΉΟƒΟ„ΞΉΞΊΟ ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…:"
+msgstr "Διαχωριστικό κειμένου:"
 
 #: u_translation.rst_28
 msgid "CSV file to import:"
-msgstr "Ξ‘ΟΟ‡ΞµΞ―ΞΏ CSV Ο€ΟΞΏΟ‚ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®:"
+msgstr "Αρχείο CSV προς εισαγωγή:"
 
 #: u_translation.rst_29
 msgid "Database Fields Map"
-msgstr "Ξ§Ξ¬ΟΟ„Ξ·Ο‚ Ο€ΞµΞ΄Ξ―Ο‰Ξ½ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
+msgstr "Χάρτης πεδίων βάσης δεδομένων"
 
 #: u_translation.rst_3
 msgid "Selection"
-msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ®"
+msgstr "Επιλογή"
 
 #: u_translation.rst_30
 msgid "You are now ready to load the database"
-msgstr "Ξ¤ΟΟΞ± ΞµΞ―ΟƒΟ„Ξµ Ξ­Ο„ΞΏΞΉΞΌΞΏΞΉ Ξ½Ξ± Ο†ΞΏΟΟ„ΟΟƒΞµΟ„Ξµ Ο„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
+msgstr "Τώρα είστε έτοιμοι να φορτώσετε τη βάση δεδομένων"
 
 #: u_translation.rst_31
 msgid "Constant Value"
-msgstr "Ξ£Ο„Ξ±ΞΈΞµΟΞ® Ο„ΞΉΞΌΞ®"
+msgstr "Σταθερή τιμή"
 
 #: u_translation.rst_32
 msgid "Load Database"
-msgstr "Ξ¦ΟΟΟ„Ο‰ΟƒΞ· Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
+msgstr "Φόρτωση βάσης δεδομένων"
 
 #: u_translation.rst_33
 msgid "Export Selection to CSV"
-msgstr "Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®Ο‚ ΟƒΟ„ΞΏ CSV"
+msgstr "Εξαγωγή επιλογής στο CSV"
 
 #: u_translation.rst_34
 msgid "Import from CSV"
-msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ±Ο€Ο Ο„ΞΏ CSV"
+msgstr "Εισαγωγή από το CSV"
 
 #: u_translation.rst_35
 msgid "Delete Selection from Database"
-msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®Ο‚ Ξ±Ο€Ο Ο„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
+msgstr "Διαγραφή επιλογής από τη βάση δεδομένων"
 
 #: u_translation.rst_36
 msgid "Mark Selection on Map"
-msgstr "Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ· ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®Ο‚ ΟƒΟ„ΞΏ Ο‡Ξ¬ΟΟ„Ξ·"
+msgstr "Σημείωση επιλογής στο χάρτη"
 
 #: u_translation.rst_37
 msgid "Reload a previously saved setting"
-msgstr "Ξ¦ΟΟΟ„Ο‰ΟƒΞ· ΞΌΞΉΞ±Ο‚ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟ…ΞΌΞ­Ξ½Ξ·Ο‚ ΟΟΞΈΞΌΞΉΟƒΞ·Ο‚"
+msgstr "Φόρτωση μιας αποθηκευμένης ρύθμισης"
 
 #: u_translation.rst_38
 msgid "Load Setting"
-msgstr "Ξ¦ΟΟΟ„Ο‰ΟƒΞ· ΟΟΞΈΞΌΞΉΟƒΞ·Ο‚"
+msgstr "Φόρτωση ρύθμισης"
 
 #: u_translation.rst_39
 msgid "Save all the definition for later retrival"
-msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ ΞΏΟΞΉΟƒΞΌΟΞ½ Ξ³ΞΉΞ± ΞΌΞµΞ»Ξ»ΞΏΞ½Ο„ΞΉΞΊΞ® Ξ±Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ·"
+msgstr "Αποθήκευση όλων των ορισμών για μελλοντική ανάκτηση"
 
 #: u_translation.rst_4
 msgid "Columns"
-msgstr "Ξ£Ο„Ξ®Ξ»ΞµΟ‚"
+msgstr "Στήλες"
 
 #: u_translation.rst_40
 msgid "Save Setting"
-msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· ΟΟΞΈΞΌΞΉΟƒΞ·Ο‚"
+msgstr "Αποθήκευση ρύθμισης"
 
 #: u_translation.rst_41
 msgid "Find in"
-msgstr "Ξ•ΟΟΞµΟƒΞ· ΟƒΞµ"
+msgstr "Εύρεση σε"
 
 #: u_translation.rst_42
 msgid "Display on Map"
-msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟƒΟ„ΞΏ Ο‡Ξ¬ΟΟ„Ξ·"
+msgstr "Εμφάνιση στο χάρτη"
 
 #: u_translation.rst_43
 msgid "Sort by"
-msgstr "Ξ¤Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ· ΞΊΞ±Ο„Ξ¬"
+msgstr "Ταξινόμηση κατά"
 
 #: u_translation.rst_44
 msgid "Column Value"
-msgstr "Ξ¤ΞΉΞΌΞ® ΟƒΟ„Ξ®Ξ»Ξ·Ο‚"
+msgstr "Τιμή στήλης"
 
 #: u_translation.rst_45
 msgid "Between"
-msgstr "ΞΞµΟ„Ξ±ΞΎΟ"
+msgstr "Μεταξύ"
 
 #: u_translation.rst_46
 msgid "and"
-msgstr "ΞΊΞ±ΞΉ"
+msgstr "και"
 
 #: u_translation.rst_47
 msgid "Assign input field value"
-msgstr "Ξ ΟΞΏΟƒΞ΄ΞΉΞΏΟΞΉΟƒΞΌΟΟ‚ Ο„ΞΉΞΌΞ®Ο‚ Ο€ΞµΞ΄Ξ―ΞΏΟ… ΞµΞΉΟƒΟΞ΄ΞΏΟ…"
+msgstr "Προσδιορισμός τιμής πεδίου εισόδου"
 
 #: u_translation.rst_48
 msgid "Select Database"
-msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ® Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
+msgstr "Επιλογή βάσης δεδομένων"
 
 #: u_translation.rst_49
 msgid "Expert Mode"
-msgstr "Ξ“ΞΉΞ± Ο€ΟΞΏΟ‡Ο‰ΟΞ·ΞΌΞ­Ξ½ΞΏΟ…Ο‚"
+msgstr "Για προχωρημένους"
 
 #: u_translation.rst_5
 msgid "All"
-msgstr "ΞΞ»Ξ±"
+msgstr "Όλα"
 
 #: u_translation.rst_50
 msgid "Default Selection"
-msgstr "Ξ ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ· ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®"
+msgstr "Προεπιλεγμένη επιλογή"
 
 #: u_translation.rst_51
 msgid "Pyroclastic deposits"
-msgstr "Ξ Ο…ΟΞΏΞΊΞ»Ξ±ΟƒΟ„ΞΉΞΊΞ­Ο‚ Ξ±Ο€ΞΏΞΈΞ­ΟƒΞµΞΉΟ‚"
+msgstr "Πυροκλαστικές αποθέσεις"
 
 #: u_translation.rst_52
 msgid "Help"
-msgstr "Ξ’ΞΏΞ®ΞΈΞµΞΉΞ±"
+msgstr "Βοήθεια"
 
 #: u_translation.rst_53
 msgid "About"
-msgstr "Ξ£Ο‡ΞµΟ„ΞΉΞΊΞ¬"
+msgstr "Σχετικά"
 
 #: u_translation.rst_54
 msgid "Lunar Domes"
-msgstr "Ξ£ΞµΞ»Ξ·Ξ½ΞΉΞ±ΞΊΞΏΞ― ΞΈΟΞ»ΞΏΞΉ"
+msgstr "Σεληνιακοί θόλοι"
 
 #: u_translation.rst_6
 msgid "None"
-msgstr "ΞΞ±Ξ½Ξ­Ξ½Ξ±"
+msgstr "Κανένα"
 
 #: u_translation.rst_7
 msgid "Close"
-msgstr "ΞΞ»ΞµΞ―ΟƒΞΉΞΌΞΏ"
+msgstr "Κλείσιμο"
 
 #: u_translation.rst_8
 msgid "Ok"
@@ -404,9 +400,9 @@ msgstr "Ok"
 
 #: u_translation.rst_9
 msgid "Cancel"
-msgstr "Ξ†ΞΊΟ…ΟΞΏ"
+msgstr "Άκυρο"
 
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
-msgstr ""
+msgstr "Ανώνυμος σχηματισμός"
 

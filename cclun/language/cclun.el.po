@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: Antonis Gitsas\n"
+"PO-Revision-Date: 2012-08-29 13:24+0200\n"
+"Project-Id-Version: \n"
+"Language-Team: Greek\n"
+"Language: el\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
+
+#: u_translation.rsatlundocumen
+msgid "AtLun documentation"
+msgstr "Έγγραφα AtLun"
+
+#: u_translation.rsbrowsetheatl
+msgid "Browse the Atlas pictures"
+msgstr "Φυλλομέτρηση των φωτογραφιών του Άτλαντα"
+
+#: u_translation.rsdatlundocume
+msgid "DatLun documentation"
+msgstr "Έγγραφα DatLun"
+
+#: u_translation.rsdocumentatio
+msgid "Documentation"
+msgstr "Έγγραφα"
+
+#: u_translation.rsexitthecomma
+msgid "Exit the Command Center"
+msgstr "Έξοδος από το Κέντρο Ελέγχου"
+
+#: u_translation.rsexplorethelu
+msgid "Explore the Lunar Atlas maps"
+msgstr "Εξερεύνηση των Χαρτών της Σελήνης"
+
+#: u_translation.rshelp_prefix
+msgid "UK"
+msgstr "EL"
+
+#: u_translation.rslanguage
+msgid "English"
+msgstr "Ελληνικά"
+
+#: u_translation.rsphotlundocum
+msgid "PhotLun documentation"
+msgstr "Έγγραφα PhotLun"
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr "Έξοδος"
+
+#: u_translation.rsreadthefulld
+msgid "Read the full documentation"
+msgstr "Ανάγνωση όλων των εγγράφων"
+
+#: u_translation.rsreadthequick
+msgid "Read the quick guide"
+msgstr "Ανάγνωση ων σύντομων οδηγιών"
+
+#: u_translation.rssearchinthea
+msgid "Search in the Atlas databases"
+msgstr "Αναζήτηση στις βάσεις δεδομένων του Άτλαντα"
+
+#: u_translation.rsspecialediti
+msgid "Special edition \"10th anniversary\""
+msgstr "Ειδική έκδοση \"10η επέτειος\""
+
+#: u_translation.rstheatlasinte
+msgid "The Atlas Internet resources"
+msgstr "Οι αναφορές του Άτλαντα στο Διαδίκτυο"
+
+#: u_translation.rstitle
+msgid "Virtual Lunar Atlas Command Center"
+msgstr "Κέντρο Ελέγχου του Virtual Lunar Atlas"
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr "Translation: Antonis Gitsas"
+
+#: u_translation.rstutorial
+msgid "Tutorial "
+msgstr "Εγχειρίδιο χρήσης"
+
+#: u_translation.rsvirtuallunar
+msgid "Virtual Lunar Atlas"
+msgstr "Virtual Lunar Atlas"
+
+#: u_translation.rsweblundocume
+msgid "WebLun documentation"
+msgstr "Έγγραφα WebLun"
+

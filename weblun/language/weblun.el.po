@@ -1,0 +1,63 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: u_translation.rsaddresse
+msgid "Addresse"
+msgstr "Διεύθυνση"
+
+#: u_translation.rsall
+msgid "All"
+msgstr "Όλα"
+
+#: u_translation.rsdescription
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: u_translation.rsfile
+msgid "File"
+msgstr "Αρχείο"
+
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr "EL"
+
+#: u_translation.rslanguage
+msgid "Language"
+msgstr "Γλώσσα"
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr "Έξοδος"
+
+#: u_translation.rsrecdate
+msgid "Recording date"
+msgstr "Ημερομηνία εγγραφής"
+
+#: u_translation.rsresetselecti
+msgid "Reset selection"
+msgstr "Επαναφορά επιλογής"
+
+#: u_translation.rssearch
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#: u_translation.rsselectedsite
+msgid "%s selected sites."
+msgstr "%s επιλεγμένες τοποθεσίες."
+
+#: u_translation.rssitename
+msgid "Site name"
+msgstr "Όνομα τοποθεσίας"
+
+#: u_translation.rssubthme
+msgid "Sub-theme"
+msgstr "Υπο-θέμα"
+
+#: u_translation.rsthme
+msgid "Theme"
+msgstr "Θέμα"
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr "Translation: Antonis Gitsas"
+
