@@ -1,14 +1,16 @@
+# Patrick Chevalley <pch@ap-i.net>, 2009.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Antonis Gitsas \n"
-"PO-Revision-Date: 2009-10-11 14:59+0200\n"
+"Last-Translator: Antonis Gitsas\n"
+"PO-Revision-Date: 2012-07-13 21:00+0200\n"
 "Project-Id-Version: \n"
-"Language-Team: Greek http://users.uoi.gr/agitsas\n"
+"Language-Team: Greek http://www.macromolecules.eu\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.4\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: el\n"
 
 #: u_translation.rsadvanced
 msgid "Advanced"
@@ -24,15 +26,15 @@ msgstr "Ανάγλυφο αερογράφου χωρίς λευκαύγεια"
 
 #: u_translation.rscaption
 msgid "Caption"
-msgstr ""
+msgstr "Λεζάντα"
 
 #: u_translation.rsccdfield
 msgid "CCD field"
-msgstr ""
+msgstr "Πεδίο CCD"
 
 #: u_translation.rsccdname
 msgid "CCD name"
-msgstr ""
+msgstr "Όνομα CCD"
 
 #: u_translation.rscheckforopti
 msgid "Check for optional features"
@@ -48,7 +50,7 @@ msgstr "Χώρα"
 
 #: u_translation.rsdecreasefont
 msgid "Decrease font size"
-msgstr ""
+msgstr "Μείωση μεγέθους γραμματοσειράς"
 
 #: u_translation.rsdefault
 msgid "Default"
@@ -64,7 +66,7 @@ msgstr "Κατέβασμα"
 
 #: u_translation.rsdownloadurl
 msgid "http://ap-i.net/avl/en/download"
-msgstr "http://ap-i.net/avl/en/download"
+msgstr "http://ap-i.net/avl/en/translation"
 
 #: u_translation.rsdynamicrelie
 msgid "Dynamic relief display method"
@@ -72,7 +74,7 @@ msgstr "Μέθοδος δυναμικής εμφάνισης αναγλύφου"
 
 #: u_translation.rsenddate
 msgid "End date"
-msgstr ""
+msgstr "Τελική ημερομηνία"
 
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
@@ -80,7 +82,7 @@ msgstr "Εφημερίδα:"
 
 #: u_translation.rsfarsideunnam
 msgid "Far side Unnamed Formation"
-msgstr ""
+msgstr "Ανώνυμοι σχηματισμοί αόρατης πλευράς"
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
@@ -100,7 +102,7 @@ msgstr "Πλέγμα"
 
 #: u_translation.rsheight
 msgid "Height"
-msgstr ""
+msgstr "Ύψος"
 
 #: u_translation.rshelp_prefix
 msgid "UK"
@@ -108,15 +110,15 @@ msgstr "EL"
 
 #: u_translation.rshistorical
 msgid "Historical"
-msgstr ""
+msgstr "Ιστορικές τοποθεσίες"
 
 #: u_translation.rshours
 msgid "Hours"
-msgstr ""
+msgstr "Ώρες"
 
 #: u_translation.rsincreasefont
 msgid "Increase font size"
-msgstr ""
+msgstr "Αύξηση μεγέθους γραμματοσειράς"
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
@@ -132,7 +134,7 @@ msgstr "Επίπεδο:"
 
 #: u_translation.rslocalzenitho
 msgid "Local zenith on top"
-msgstr ""
+msgstr "Τοπικό ζενίθ επάνω"
 
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
@@ -414,11 +416,11 @@ msgstr "Άρθρο Charles Wood:"
 
 #: u_translation.rsm_73
 msgid "Azimuth"
-msgstr "Αζιμούθιο:"
+msgstr "Αζιμούθιο"
 
 #: u_translation.rsm_74
 msgid "Altitude"
-msgstr "Ύψος:"
+msgstr "Ύψος"
 
 #: u_translation.rsm_75
 msgid "From Database:"
@@ -434,7 +436,7 @@ msgstr "Όνομα κατά Riccioli:"
 
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
-msgstr ""
+msgstr "Χωρίς υφή (για χρήση με μια επικάλυψη μόνο)"
 
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
@@ -442,7 +444,7 @@ msgstr "Τροχιακό ύψος"
 
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
-msgstr "Τροχιακή έγκλιση:"
+msgstr "Τροχιακή έγκλιση"
 
 #: u_translation.rsphasewithdyn
 msgid "Phase with dynamic relief"
@@ -490,23 +492,23 @@ msgstr "Εικόνα βιβλιοθήκης Luna, Ranger, Lunar Orbiter και S
 
 #: u_translation.rspicturelibrapic
 msgid "Picture Library Best of the Pic du Midi Observatory"
-msgstr ""
+msgstr "Εικόνα βιβλιοθήκης Best of the Pic du Midi Observatory"
 
 #: u_translation.rspixelcount
 msgid "Pixel count"
-msgstr ""
+msgstr "Αριθμός πίξελ"
 
 #: u_translation.rspixelsize
 msgid "Pixel size"
-msgstr ""
+msgstr "Μέγεθος πίξελ"
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
-msgstr "Έξοδος από την πλήρη οθόνη (Esc)"
+msgstr "Τερματισμός πλήρους οθόνης (Esc)"
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
-msgstr ""
+msgstr "Αποθήκευση εφημερίδας σε αρχείο"
 
 #: u_translation.rssecond
 #, fuzzy
@@ -528,7 +530,7 @@ msgstr "Εμφάνιση κλίμακας"
 
 #: u_translation.rsside
 msgid "Side:"
-msgstr ""
+msgstr "Πλευρά:"
 
 #: u_translation.rssimple
 msgid "Simple"
@@ -536,15 +538,15 @@ msgstr "Απλό"
 
 #: u_translation.rsstandardtext
 msgid "(standard texture selection)"
-msgstr ""
+msgstr "(προκαθορισμένη επιλογή υφής)"
 
 #: u_translation.rsstartdate
 msgid "Start date"
-msgstr ""
+msgstr "Αρχική ημερομηνία"
 
 #: u_translation.rssteps
 msgid "Steps"
-msgstr ""
+msgstr "Βήματα"
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
@@ -552,9 +554,9 @@ msgstr "Yφή αναγλύφου αερογράφου χωρίς λευκαύγ�
 
 #: u_translation.rstextureschange
 msgid "Textures Change photographic High Resolution"
-msgstr ""
+msgstr "Αλλαγή υφής υψηλής φωτογραφικής ποιότητας"
 
-#: u_translation.rstexturesclem
+#: u_translation.rssclem
 msgid "Textures Clementine photographic High Resolution"
 msgstr "Υφή υψηλής ποιότητας φωτογραφικής Κλημεντίνης"
 
@@ -563,14 +565,12 @@ msgid "Textures LOPAM photographic High Resolution"
 msgstr "Υφή υψηλής ποιότητας φωτογραφικής LOPAM"
 
 #: u_translation.rstexturesphas
-#, fuzzy
-#| msgid "Textures Phase with dynamic relief using Kaguya data"
 msgid "Textures Phase with dynamic relief using LRO/WAC data"
-msgstr "Υφή φάσης με δυναμικό ανάγλυφο χρησιμοποιώντας δεδομένα του Kaguya"
+msgstr "Υφή φάσης με δυναμικό ανάγλυφο χρησιμοποιώντας δεδομένα του LRO/WAC"
 
 #: u_translation.rstextureswac
 msgid "Textures LRO/WAC photographic High Resolution"
-msgstr ""
+msgstr "Υφή υψηλής ποιότητας φωτογραφικής LRO/WAC"
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
@@ -617,10 +617,8 @@ msgid "Eyepieces"
 msgstr "Προσοφθάλμια"
 
 #: u_translation.rst_11
-#, fuzzy
-#| msgid "Find Next"
 msgid "Next"
-msgstr "Εύρ. επομένου"
+msgstr "Επόμενο"
 
 #: u_translation.rst_110
 msgid "Telescope focal length"
@@ -875,14 +873,12 @@ msgid "Show Phase"
 msgstr "Εμφάνιση φάσης"
 
 #: u_translation.rst_177
-#, fuzzy
-#| msgid "Flip N-S"
 msgid "Rotate N-S"
-msgstr "Αναστροφή Β-Ν"
+msgstr "Αντιστροφή Β-Ν"
 
 #: u_translation.rst_178
 msgid "Flip E-W"
-msgstr "Αναστροφή Α-Δ"
+msgstr "Αντιστροφή Α-Δ"
 
 #: u_translation.rst_179
 msgid "User Database loaded from DATLUN"
@@ -1237,11 +1233,11 @@ msgstr "Άκυρο"
 
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
-msgstr ""
+msgstr "Ανώνυμος σχηματισμός"
 
 #: u_translation.rswidth
 msgid "Width"
-msgstr ""
+msgstr "Πλάτος"
 
 #: u_translation.rsyoucandownlo
 msgid "You can download and install the following optional features:"
