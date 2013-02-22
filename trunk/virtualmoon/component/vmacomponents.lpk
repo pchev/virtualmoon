@@ -1,29 +1,32 @@
 <?xml version="1.0"?>
 <CONFIG>
-  <Package Version="2">
+  <Package Version="4">
     <Name Value="VMAcomponents"/>
+    <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
-      <Version Value="5"/>
+      <Version Value="11"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
-      <CodeGeneration>
-        <Generate Value="Faster"/>
-      </CodeGeneration>
+      <Parsing>
+        <SyntaxOptions>
+          <UseAnsiStrings Value="False"/>
+        </SyntaxOptions>
+      </Parsing>
       <Other>
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
     <Description Value="Requires packages for Virtual Moon Atlas"/>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="5">
+    <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="libsql"/>
-        <DefaultFilename Value="libsql/libsql.lpk"/>
-      </Item1>
-      <Item2>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="libsql"/>
+        <DefaultFilename Value="libsql/libsql.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="enhedit"/>
@@ -34,9 +37,13 @@
         <DefaultFilename Value="uniqueinstance/uniqueinstance_package.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="glscenelazarus"/>
-        <DefaultFilename Value="glscene/Lazarus/glscenelazarus.lpk"/>
+        <PackageName Value="GLScene_RunTime"/>
+        <DefaultFilename Value="glscene/Lazarus/glscene_runtime.lpk"/>
       </Item5>
+      <Item6>
+        <PackageName Value="GLScene_DesignTime"/>
+        <DefaultFilename Value="glscene/Lazarus/glscene_designtime.lpk"/>
+      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)/"/>
