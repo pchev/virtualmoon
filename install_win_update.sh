@@ -68,11 +68,11 @@ install -m 755 -d $destdir
 
 if [ $OS_TARGET = win32 ]; then
   i386-win32-strip -v -o $destdir/atlun.exe virtualmoon/atlun.exe 
-  i386-win32-strip -v -o $destdir/atlun.exe virtualmoon/datlun.exe 
+  i386-win32-strip -v -o $destdir/datlun.exe datlun/datlun.exe 
 fi
 if [ $OS_TARGET = win64 ]; then
   x86_64-win64-strip -v -o $destdir/atlun.exe virtualmoon/atlun.exe 
-  x86_64-win64-strip -v -o $destdir/atlun.exe virtualmoon/datlun.exe 
+  x86_64-win64-strip -v -o $destdir/datlun.exe datlun/datlun.exe 
 fi
 install -v -m 644 Installer/Windows/Data/readme.txt $destdir/
 install -v -m 644 Installer/Windows/Data/lisezmoi.txt $destdir/
