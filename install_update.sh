@@ -29,6 +29,7 @@ install -m 755 -d $destdir/share/doc
 install -m 755 -d $destdir/share/doc/virtualmoon
 install -m 755 -d $destdir/share/pixmaps
 install -v -m 755 -s virtualmoon/atlun  $destdir/bin/atlun
+install -v -m 755 -s virtualmoon/datlun  $destdir/bin/datlun
 install -v -m 644 Installer/Linux/vmapro/share/applications/virtualmoon.desktop $destdir/share/applications/virtualmoon.desktop
 install -v -m 644 Installer/Linux/vmapro/share/doc/virtualmoon/changelog $destdir/share/doc/virtualmoon/changelog
 install -v -m 644 Installer/Linux/vmapro/share/doc/virtualmoon/copyright $destdir/share/doc/virtualmoon/copyright
