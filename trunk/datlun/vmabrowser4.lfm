@@ -12,19 +12,19 @@ object LoadCSV: TLoadCSV
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '0.9.30.4'
+  LCLVersion = '1.0.8.0'
   object PageControl1: TPageControl
     Left = 0
     Height = 540
     Top = 0
     Width = 696
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Select File'
-      ClientHeight = 509
+      ClientHeight = 512
       ClientWidth = 692
       object Bevel3: TBevel
         Left = 16
@@ -112,9 +112,9 @@ object LoadCSV: TLoadCSV
         Top = 48
         Width = 65
         ItemHeight = 0
-        ItemIndex = 0
         Items.Strings = (
           ';'
+          ','
           'TAB'
         )
         OnChange = Edit1Change
@@ -159,7 +159,7 @@ object LoadCSV: TLoadCSV
     end
     object TabSheet2: TTabSheet
       Caption = 'Select Data Field'
-      ClientHeight = 509
+      ClientHeight = 512
       ClientWidth = 692
       ImageIndex = 1
       object Bevel6: TBevel
@@ -272,7 +272,7 @@ object LoadCSV: TLoadCSV
     end
     object TabSheet3: TTabSheet
       Caption = 'Load Database'
-      ClientHeight = 509
+      ClientHeight = 512
       ClientWidth = 692
       ImageIndex = 2
       object Bevel4: TBevel

@@ -30,7 +30,7 @@ uses  u_translation,
   Dialogs, StdCtrls, mlb2, Grids, {ValEdit,} CheckLst, Math,
   passql, passqlite,u_util, dbutil, ComCtrls, ExtCtrls, IniFiles, LResources;
 
-const maxcol=52;
+const maxcol=82;
 
 type
 
@@ -127,7 +127,7 @@ begin
   AssignConstant.Caption:=rst_31;
   AssignField.Hint:=rst_47;
   Button3.Caption:=rst_32;
-  caption:=rst_33;
+  caption:=rst_34;
   label7.Caption:=rst_37;
   Button1.Caption:=rst_38;
   label8.Caption:=rst_39;
@@ -243,6 +243,7 @@ begin
 ScaleForm(self,Screen.PixelsPerInch/96);
 {$endif}
 Mlb:=TMlb2.Create;
+PageControl1.ActivePageIndex:=0;
 for i:= 1 to maxcol do fieldmode[i]:=0;
 Tabsheet2.TabVisible:=false;
 Tabsheet3.TabVisible:=false;
