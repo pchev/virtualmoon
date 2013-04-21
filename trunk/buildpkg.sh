@@ -5,6 +5,7 @@
 version=6.1
 
 arch=$(arch)
+unset extratarget
 
 # adjuste here the target you want to crossbuild
 # You MUST crosscompile Freepascal and Lazarus for this targets! 
@@ -13,7 +14,10 @@ unset make_debug
 unset make_linux32
 make_linux32=1
 unset make_linux64
-if [[ $arch == x86_64 ]]; then make_linux64=1;fi
+if [[ $arch == x86_64 ]]; then 
+   make_linux64=1
+   extratarget=",x86_64-linux"
+fi
 unset make_linux_data
 make_linux_data=1
 unset make_win32
@@ -94,7 +98,7 @@ fi
 
 # make Linux i386 version
 if [[ $make_linux32 ]]; then 
-  ./configure $configopt prefix=$builddir target=i386-linux,x86_64-linux
+  ./configure $configopt prefix=$builddir target=i386-linux$extratarget
   if [[ $? -ne 0 ]]; then exit 1;fi
   make CPU_TARGET=i386 OS_TARGET=linux clean
   make CPU_TARGET=i386 OS_TARGET=linux
@@ -252,7 +256,7 @@ fi
 # make Linux Data for both architectures
 if [[ $make_linux_data ]]; then 
 if [[ ! $upd ]]; then
-  ./configure $configopt prefix=$builddir target=i386-linux,x86_64-linux
+  ./configure $configopt prefix=$builddir target=i386-linux$extratarget
   if [[ $? -ne 0 ]]; then exit 1;fi
   make install_data
   if [[ $? -ne 0 ]]; then exit 1;fi
@@ -343,7 +347,7 @@ if [[ $make_win32 ]]; then
   ./mkzoneinfo.sh
   cd $wd
   rsync -a --exclude=.svn Installer/Windows/* $builddir
-  ./configure $configopt prefix=$builddir/vmapro/Data target=i386-win32,x86_64-linux
+  ./configure $configopt prefix=$builddir/vmapro/Data target=i386-win32$extratarget
   if [[ $? -ne 0 ]]; then exit 1;fi
   make OS_TARGET=win32 CPU_TARGET=i386 clean
   make OS_TARGET=win32 CPU_TARGET=i386
