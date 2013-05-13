@@ -444,6 +444,7 @@ var toffset,tscale : single;
     lc,bc:single;
     ok: boolean;
     jp: TJPEGImage;
+    bmp: Tbitmap;
 
 procedure LoadSlice2;
 var i,j: integer;
@@ -541,17 +542,18 @@ begin
            if Ftexture[level-1]='NONE'
              then jp.Assign(blankjp)
              else jp.LoadFromFile(tpath+inttostr(maps2[k])+'.jpg');
-            with jp.Canvas do begin
+            bmp.Assign(jp);
+            with bmp.Canvas do begin
               brush.Color:=clWhite;   // replace white border because of jpeg compression
               pen.Color:=clWhite;
-              FillRect(0,0,jp.Width,12);
-              FillRect(0,0,12,jp.Height);
-              FillRect(jp.width-12,0,jp.width,jp.Height);
-              FillRect(0,jp.Height-12,jp.width,jp.Height);
+              FillRect(0,0,bmp.Width,12);
+              FillRect(0,0,12,bmp.Height);
+              FillRect(bmp.width-12,0,bmp.width,bmp.Height);
+              FillRect(0,bmp.Height-12,bmp.width,bmp.Height);
             end;
             with LibMaterialByName('L2_'+inttostr(k)) do begin
               Material.Texture.ImageBrightness:=1;
-              Material.Texture.Image.Assign(jp);
+              Material.Texture.Image.Assign(bmp);
               TextureOffset.SetPoint(-col*tscale+toffset,(row-maxrow+1)*tscale+toffset,0);
               TextureScale.SetPoint(maxcol*tscale,maxrow*tscale,0);
             end;
@@ -583,17 +585,18 @@ begin
             if Ftexture[level-1]='NONE'
                 then jp.Assign(blankjp)
                 else jp.LoadFromFile(pmapfn);
-            with jp.Canvas do begin
+            bmp.Assign(jp);
+            with bmp.Canvas do begin
               brush.Color:=clWhite;
               pen.Color:=clWhite;
-              FillRect(0,0,jp.Width,12);
-              FillRect(0,0,12,jp.Height);
-              FillRect(jp.width-12,0,jp.width,jp.Height);
-              FillRect(0,jp.Height-12,jp.width,jp.Height);
+              FillRect(0,0,bmp.Width,12);
+              FillRect(0,0,12,bmp.Height);
+              FillRect(bmp.width-12,0,bmp.width,bmp.Height);
+              FillRect(0,bmp.Height-12,bmp.width,bmp.Height);
             end;
             with LibMaterialByName('P2_'+inttostr(i)) do begin
               Material.Texture.ImageBrightness:=1;
-              Material.Texture.Image.Assign(jp);
+              Material.Texture.Image.Assign(bmp);
               TextureOffset.SetPoint(-col*tscale+toffset,(row-maxrow+1)*tscale+toffset,0);
               TextureScale.SetPoint(maxcol*tscale,maxrow*tscale,0);
             end;
@@ -623,6 +626,7 @@ try
 AbortSliceLoading:=false;
 level:=lv;
 jp:=TJPEGImage.Create;
+bmp:=Tbitmap.Create;
 case level of
  1 : begin
      { level 1 :
@@ -644,17 +648,18 @@ case level of
           if Ftexture[level-1]='NONE'
             then jp.Assign(blankjp)
             else jp.LoadFromFile(tpath+nn+'.jpg');
-          with jp.Canvas do begin
+          bmp.Assign(jp);
+          with bmp.Canvas do begin
             brush.Color:=clWhite;    // replace white border because of jpeg compression
             pen.Color:=clWhite;
-            FillRect(0,0,jp.Width,12);
-            FillRect(0,0,12,jp.Height);
-            FillRect(jp.width-12,0,jp.width,jp.Height);
-            FillRect(0,jp.Height-12,jp.width,jp.Height);
+            FillRect(0,0,bmp.Width,12);
+            FillRect(0,0,12,bmp.Height);
+            FillRect(bmp.width-12,0,bmp.width,bmp.Height);
+            FillRect(0,bmp.Height-12,bmp.width,bmp.Height);
           end;
           with LibMaterialByName('L1_'+nn) do begin
             Material.Texture.ImageBrightness:=1;
-            Material.Texture.Image.Assign(jp);
+            Material.Texture.Image.Assign(bmp);
             TextureOffset.SetPoint(-col*tscale+toffset,(row-1)*tscale+toffset,0);
             TextureScale.SetPoint(4*tscale,2*tscale,0);
           end;
@@ -730,6 +735,7 @@ except
   end;
 end;
 jp.Free;
+bmp.Free;
 end;
 
 procedure Tf_moon.ClearSlice(level:integer);
