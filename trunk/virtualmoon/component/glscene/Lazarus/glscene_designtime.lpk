@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="GLScene_DesignTime"/>
+    <AddToProjectUsesSection Value="True"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <IncludeFiles Value="../Source"/>
+        <OtherUnitFiles Value="../Source"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+        <SrcPath Value="../Lazarus"/>
+      </SearchPaths>
+      <Parsing>
+        <SyntaxOptions>
+          <SyntaxMode Value="Delphi"/>
+          <IncludeAssertionCode Value="True"/>
+        </SyntaxOptions>
+      </Parsing>
+      <Other>
+        <CompilerMessages>
+          <IgnoredMessages idx4055="True" idx5024="True"/>
+          <UseMsgFile Value="True"/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Version Major="1"/>
+    <Files Count="19">
+      <Item1>
+        <Filename Value="../Source/FXCollectionEditorLCL.pas"/>
+        <UnitName Value="FXCollectionEditorLCL"/>
+      </Item1>
+      <Item2>
+        <Filename Value="../Source/GLSceneEditLCL.pas"/>
+        <UnitName Value="GLSceneEditLCL"/>
+      </Item2>
+      <Item3>
+        <Filename Value="../Source/GLSceneFormDesign.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="GLSceneFormDesign"/>
+      </Item3>
+      <Item4>
+        <Filename Value="../Source/GLSceneLCL.lrs"/>
+        <Type Value="LRS"/>
+      </Item4>
+      <Item5>
+        <Filename Value="../Source/GLSceneObjectsLCL.lrs"/>
+        <Type Value="LRS"/>
+      </Item5>
+      <Item6>
+        <Filename Value="../Source/GLSceneRegisterLCL.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="GLSceneRegisterLCL"/>
+      </Item6>
+      <Item7>
+        <Filename Value="../Source/nonGLSceneLCL.lrs"/>
+        <Type Value="LRS"/>
+      </Item7>
+      <Item8>
+        <Filename Value="../Source/RegisterXCollection.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="RegisterXCollection"/>
+      </Item8>
+      <Item9>
+        <Filename Value="../Source/GLObjectManager.pas"/>
+        <UnitName Value="GLObjectManager"/>
+      </Item9>
+      <Item10>
+        <Filename Value="../Source/FLibMaterialPickerLCL.pas"/>
+        <UnitName Value="FLibMaterialPickerLCL"/>
+      </Item10>
+      <Item11>
+        <Filename Value="../Source/FMaterialEditorFormLCL.pas"/>
+        <UnitName Value="FMaterialEditorFormLCL"/>
+      </Item11>
+      <Item12>
+        <Filename Value="../Source/FRColorEditorLCL.pas"/>
+        <UnitName Value="FRColorEditorLCL"/>
+      </Item12>
+      <Item13>
+        <Filename Value="../Source/FRFaceEditorLCL.pas"/>
+        <UnitName Value="FRFaceEditorLCL"/>
+      </Item13>
+      <Item14>
+        <Filename Value="../Source/FRMaterialPreviewLCL.pas"/>
+        <UnitName Value="FRMaterialPreviewLCL"/>
+      </Item14>
+      <Item15>
+        <Filename Value="../Source/FRTextureEditLCL.pas"/>
+        <UnitName Value="FRTextureEditLCL"/>
+      </Item15>
+      <Item16>
+        <Filename Value="../Source/FRTrackBarEditLCL.pas"/>
+        <UnitName Value="FRTrackBarEditLCL"/>
+      </Item16>
+      <Item17>
+        <Filename Value="../Source/FVectorEditorLCL.pas"/>
+        <UnitName Value="FVectorEditorLCL"/>
+      </Item17>
+      <Item18>
+        <Filename Value="../Source/InfoLCL.pas"/>
+        <UnitName Value="InfoLCL"/>
+      </Item18>
+      <Item19>
+        <Filename Value="../Source/FGUILayoutEditor.pas"/>
+        <UnitName Value="FGUILayoutEditor"/>
+      </Item19>
+    </Files>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="../Locale/Languages/Lazarus"/>
+    </i18n>
+    <Type Value="DesignTime"/>
+    <RequiredPkgs Count="5">
+      <Item1>
+        <PackageName Value="codetools"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="IDEIntf"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="GLScene_RunTime"/>
+        <MaxVersion Major="1" Valid="True"/>
+        <MinVersion Major="1"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item5>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

@@ -1024,18 +1024,18 @@ var xx,yy,zz: single;
     v : TAffineVector;
 begin
 Moon2World(lon,lat,xx,yy,zz);
-v[0]:=xx;
-v[1]:=yy;
-v[2]:=zz;
+v.V[0]:=xx;
+v.V[1]:=yy;
+v.V[2]:=zz;
 v:=GLSceneViewer1.Buffer.WorldToScreen(v);
-if (v[0]>=0)and(v[0]<=GLSceneViewer1.Width)and(v[1]>=0)and(v[1]<=GLSceneViewer1.Height) then begin
+if (v.V[0]>=0)and(v.V[0]<=GLSceneViewer1.Width)and(v.V[1]>=0)and(v.V[1]<=GLSceneViewer1.Height) then begin
   if FMirror then begin
-     x:=GLSceneViewer1.Width-round(v[0]);
-     y:=round(v[1]);
+     x:=GLSceneViewer1.Width-round(v.V[0]);
+     y:=round(v.V[1]);
   end
   else begin
-    x:=round(v[0]);
-    y:=GLSceneViewer1.Height-round(v[1]);
+    x:=round(v.V[0]);
+    y:=GLSceneViewer1.Height-round(v.V[1]);
   end;
   result:=Screen2Moon(x,y,xx,yy) and (abs(lon-xx)<0.1)and(abs(lat-yy)<0.1);
 end
@@ -1062,10 +1062,10 @@ raystart:=p0;
 rayvector:=vectornormalize(vectorsubtract(p1,p0));
 if GLSphereMoon.RayCastIntersect(raystart, rayvector, @ipoint)
 then  begin
-   result:=World2Moon(ipoint[0],ipoint[2],ipoint[1],lon,lat);
+   result:=World2Moon(ipoint.V[0],ipoint.V[2],ipoint.V[1],lon,lat);
    if GLAnnulus1.Visible then begin
-      xx:=ipoint[0]-GLCamera1.Position.X;
-      yy:=ipoint[1]-GLCamera1.Position.Y;
+      xx:=ipoint.V[0]-GLCamera1.Position.X;
+      yy:=ipoint.V[1]-GLCamera1.Position.Y;
       if sqrt(xx*xx+yy*yy)>(GLAnnulus1.BottomInnerRadius/abs(90/GLCamera1.Position.Z))
       then result:=false;
    end;
@@ -1084,13 +1084,13 @@ begin
   xx:=qr*cos(b)*cos(l);
   yy:=qr*cos(b)*sin(l);
   zz:=qr*sin(b);
-  v[0]:=xx;
-  v[1]:=zz;
-  v[2]:=yy;
+  v.V[0]:=xx;
+  v.V[1]:=zz;
+  v.V[2]:=yy;
   v:=GLSphereMoon.LocalToAbsolute(v);
-  x:=v[0];
-  y:=v[1];
-  z:=v[2];
+  x:=v.V[0];
+  y:=v.V[1];
+  z:=v.V[2];
   result:=true;
 end;
 
