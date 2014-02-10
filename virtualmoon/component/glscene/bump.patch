@@ -1,7 +1,7 @@
-Index: Source/Shaders/GLBumpShader.pas
+Index: Source/GLBumpShader.pas
 ===================================================================
---- Source/Shaders/GLBumpShader.pas	(révision 521)
-+++ Source/Shaders/GLBumpShader.pas	(copie de travail)
+--- Source/GLBumpShader.pas	(révision 521)
++++ Source/GLBumpShader.pas	(copie de travail)
 @@ -696,11 +696,12 @@
  
      success := True;
