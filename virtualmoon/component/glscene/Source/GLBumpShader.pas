@@ -701,7 +701,6 @@ begin
     begin
       Enabled := False;
       DesignTimeEnabled := False;
-      exit;
     end;
   end;
 

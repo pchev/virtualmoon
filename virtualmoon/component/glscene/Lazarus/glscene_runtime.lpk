@@ -17,12 +17,6 @@
           <IncludeAssertionCode Value="True"/>
         </SyntaxOptions>
       </Parsing>
-      <CodeGeneration>
-        <Checks>
-          <RangeChecks Value="True"/>
-          <OverflowChecks Value="True"/>
-        </Checks>
-      </CodeGeneration>
       <Other>
         <Verbosity>
           <ShowHints Value="False"/>
@@ -415,15 +409,15 @@
         <UnitName Value="VRMLParser"/>
       </Item95>
       <Item96>
-        <Filename Value="../Source/ZLIB/GLSZLibEx.pas"/>
+        <Filename Value="../Source/GLSZLibEx.pas"/>
         <UnitName Value="GLSZLibEx"/>
       </Item96>
       <Item97>
-        <Filename Value="../Source/ZLIB/GLSZLibExApi.pas"/>
+        <Filename Value="../Source/GLSZLibExApi.pas"/>
         <UnitName Value="GLSZLibExApi"/>
       </Item97>
       <Item98>
-        <Filename Value="../Source/ZLIB/ZLibEx.inc"/>
+        <Filename Value="../Source/ZLibEx.inc"/>
         <Type Value="Include"/>
       </Item98>
       <Item99>
@@ -923,64 +917,64 @@
         <UnitName Value="GLWidgetContext"/>
       </Item222>
       <Item223>
-        <Filename Value="../Source/PropertyEditors/FRUniformEditor.pas"/>
-        <UnitName Value="FRUniformEditor"/>
-      </Item223>
-      <Item224>
         <Filename Value="../Source/GLAsmShader.pas"/>
         <UnitName Value="GLAsmShader"/>
-      </Item224>
-      <Item225>
+      </Item223>
+      <Item224>
         <Filename Value="../Source/GLBumpShader.pas"/>
         <UnitName Value="GLBumpShader"/>
-      </Item225>
-      <Item226>
+      </Item224>
+      <Item225>
         <Filename Value="../Source/GLCelShader.pas"/>
         <UnitName Value="GLCelShader"/>
-      </Item226>
-      <Item227>
+      </Item225>
+      <Item226>
         <Filename Value="../Source/GLCustomShader.pas"/>
         <UnitName Value="GLCustomShader"/>
-      </Item227>
-      <Item228>
+      </Item226>
+      <Item227>
         <Filename Value="../Source/GLHiddenLineShader.pas"/>
         <UnitName Value="GLHiddenLineShader"/>
-      </Item228>
-      <Item229>
+      </Item227>
+      <Item228>
         <Filename Value="../Source/GLMultiMaterialShader.pas"/>
         <UnitName Value="GLMultiMaterialShader"/>
-      </Item229>
-      <Item230>
+      </Item228>
+      <Item229>
         <Filename Value="../Source/GLOutlineShader.pas"/>
         <UnitName Value="GLOutlineShader"/>
-      </Item230>
-      <Item231>
+      </Item229>
+      <Item230>
         <Filename Value="../Source/GLPhongShader.pas"/>
         <UnitName Value="GLPhongShader"/>
-      </Item231>
-      <Item232>
+      </Item230>
+      <Item231>
         <Filename Value="../Source/GLShaderCombiner.pas"/>
         <UnitName Value="GLShaderCombiner"/>
-      </Item232>
-      <Item233>
+      </Item231>
+      <Item232>
         <Filename Value="../Source/GLTexCombineShader.pas"/>
         <UnitName Value="GLTexCombineShader"/>
-      </Item233>
-      <Item234>
+      </Item232>
+      <Item233>
         <Filename Value="../Source/GLTextureSharingShader.pas"/>
         <UnitName Value="GLTextureSharingShader"/>
-      </Item234>
-      <Item235>
+      </Item233>
+      <Item234>
         <Filename Value="../Source/GLUserShader.pas"/>
         <UnitName Value="GLUserShader"/>
-      </Item235>
-      <Item236>
+      </Item234>
+      <Item235>
         <Filename Value="../Source/GLFileBMP.pas"/>
         <UnitName Value="GLFileBMP"/>
-      </Item236>
-      <Item237>
+      </Item235>
+      <Item236>
         <Filename Value="../Source/GLFileTGA.pas"/>
         <UnitName Value="GLFileTGA"/>
+      </Item236>
+      <Item237>
+        <Filename Value="../Source/FRUniformEditor.pas"/>
+        <UnitName Value="FRUniformEditor"/>
       </Item237>
     </Files>
     <RequiredPkgs Count="3">
@@ -1004,5 +998,8 @@
       <Version Value="2"/>
       <IgnoreBinaries Value="False"/>
     </PublishOptions>
+    <CustomOptions Items="ExternHelp" Version="2">
+      <_ExternHelp Items="Count"/>
+    </CustomOptions>
   </Package>
 </CONFIG>
