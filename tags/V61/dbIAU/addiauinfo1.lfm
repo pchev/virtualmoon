@@ -1,0 +1,93 @@
+object Form1: TForm1
+  Left = 250
+  Height = 282
+  Top = 250
+  Width = 320
+  Caption = 'Form1'
+  ClientHeight = 282
+  ClientWidth = 320
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '0.9.30.4'
+  object Button1: TButton
+    Left = 20
+    Height = 25
+    Top = 56
+    Width = 75
+    Caption = 'Button1'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object dblang: TEdit
+    Left = 20
+    Height = 23
+    Top = 16
+    Width = 44
+    TabOrder = 1
+    Text = 'FR'
+  end
+  object Label1: TLabel
+    Left = 24
+    Height = 16
+    Top = 124
+    Width = 37
+    Caption = 'Label1'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 24
+    Height = 16
+    Top = 148
+    Width = 37
+    Caption = 'Label2'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 24
+    Height = 16
+    Top = 172
+    Width = 37
+    Caption = 'Label3'
+    ParentColor = False
+  end
+  object Label4: TLabel
+    Left = 24
+    Height = 16
+    Top = 196
+    Width = 37
+    Caption = 'Label4'
+    ParentColor = False
+  end
+  object Label5: TLabel
+    Left = 24
+    Height = 16
+    Top = 220
+    Width = 37
+    Caption = 'Label5'
+    ParentColor = False
+  end
+  object Label6: TLabel
+    Left = 24
+    Height = 16
+    Top = 244
+    Width = 37
+    Caption = 'Label6'
+    ParentColor = False
+  end
+  object Label0: TLabel
+    Left = 24
+    Height = 16
+    Top = 100
+    Width = 37
+    Caption = 'Label0'
+    ParentColor = False
+  end
+  object Label7: TLabel
+    Left = 112
+    Height = 16
+    Top = 63
+    Width = 37
+    Caption = 'Label7'
+    ParentColor = False
+  end
+end

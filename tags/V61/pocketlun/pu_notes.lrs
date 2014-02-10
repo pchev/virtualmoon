@@ -1,0 +1,34 @@
+{ Ceci est un fichier ressource généré automatiquement par Lazarus }
+
+LazarusResources.Add('Tf_notes','FORMDATA',[
+  'TPF0'#8'Tf_notes'#7'f_notes'#4'Left'#3#252#1#6'Height'#3#240#0#3'Top'#2'd'#5
+  +'Width'#3#240#0#18'HorzScrollBar.Page'#3#239#0#18'VertScrollBar.Page'#3#219#0
+  +#13'ActiveControl'#7#7'Button1'#7'Caption'#6#7'f_notes'#12'ClientHeight'#3
+  +#221#0#11'ClientWidth'#3#240#0#4'Menu'#7#9'MainMenu1'#8'OnCreate'#7#10'FormC'
+  +'reate'#9'OnDestroy'#7#11'FormDestroy'#6'OnShow'#7#8'FormShow'#10'LCLVersion'
+  +#6#8'0.9.28.2'#0#6'TPanel'#5'Title'#4'Left'#2#0#6'Height'#2#26#3'Top'#2#0#5
+  +'Width'#3#240#0#5'Align'#7#5'alTop'#7'Caption'#6#5'Notes'#12'ClientHeight'#2
+  +#26#11'ClientWidth'#3#240#0#11'Font.Height'#2#14#9'Font.Name'#6#6'Tahoma'#10
+  +'Font.Style'#11#6'fsBold'#0#10'ParentFont'#8#8'TabOrder'#2#0#0#7'TButton'#7
+  +'Button1'#4'Left'#2#0#6'Height'#2#25#3'Top'#2#0#5'Width'#2'K'#25'BorderSpaci'
+  +'ng.InnerBorder'#2#4#7'Caption'#6#2'OK'#7'Default'#9#7'OnClick'#7#12'Button1'
+  +'Click'#8'TabOrder'#2#0#7'Visible'#8#0#0#0#5'TMemo'#5'Memo1'#4'Left'#2#0#6'H'
+  +'eight'#3#171#0#3'Top'#2#26#5'Width'#3#240#0#5'Align'#7#8'alClient'#8'OnChan'
+  +'ge'#7#11'Memo1Change'#10'ScrollBars'#7#10'ssAutoBoth'#8'TabOrder'#2#1#0#0#6
+  +'TPanel'#6'Panel1'#4'Left'#2#0#6'Height'#2#24#3'Top'#3#197#0#5'Width'#3#240#0
+  +#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#8'TabOrder'#2#2#0#0#9'TMa'
+  +'inMenu'#9'MainMenu1'#4'left'#2'p'#3'top'#3#193#0#0#9'TMenuItem'#10'MenuItem'
+  +'11'#7'Caption'#6#2'  '#7'Enabled'#8#0#0#9'TMenuItem'#9'MenuItem1'#7'Caption'
+  +#6#4'Menu'#0#9'TMenuItem'#10'MenuItem10'#7'Caption'#6#5'Carte'#7'OnClick'#7
+  +#15'MenuItem10Click'#0#0#9'TMenuItem'#9'MenuItem2'#7'Caption'#6#13'Configura'
+  +'tion'#7'OnClick'#7#14'MenuItem2Click'#0#0#9'TMenuItem'#9'MenuItem3'#7'Capti'
+  +'on'#6#9'Affichage'#7'OnClick'#7#14'MenuItem3Click'#0#0#9'TMenuItem'#9'MenuI'
+  +'tem4'#7'Caption'#6#6'Outils'#7'Visible'#8#7'OnClick'#7#14'MenuItem4Click'#0
+  +#0#9'TMenuItem'#9'MenuItem5'#7'Caption'#6#13'Eph'#195#169'm'#195#169'rides'#7
+  +'OnClick'#7#14'MenuItem5Click'#0#0#9'TMenuItem'#9'MenuItem6'#7'Caption'#6#10
+  +'Calendrier'#7'OnClick'#7#14'MenuItem6Click'#0#0#9'TMenuItem'#9'MenuItem7'#7
+  +'Caption'#6#9'Recherche'#7'OnClick'#7#14'MenuItem7Click'#0#0#9'TMenuItem'#9
+  +'MenuItem8'#7'Caption'#6#4'Aide'#7'OnClick'#7#14'MenuItem8Click'#0#0#9'TMenu'
+  +'Item'#9'MenuItem9'#7'Caption'#6#8'A propos'#7'OnClick'#7#14'MenuItem9Click'
+  +#0#0#0#0#0
+]);

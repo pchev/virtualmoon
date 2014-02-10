@@ -1,0 +1,17 @@
+
+Copyright: GPL
+
+Information :
+Name        : virtualmoon
+Version     : 6.1
+Release     : 1
+Group       : Sciences/Astronomy
+License     : GPL
+Packager    : Patrick Chevalley
+URL         : http://ap-i.net/avl
+Summary     : Virtual Moon Atlas
+Description :
+Can visualize the Moon aspect for every date and hour. 
+It permits also to study lunar formations with unique database and pictures library
+
+

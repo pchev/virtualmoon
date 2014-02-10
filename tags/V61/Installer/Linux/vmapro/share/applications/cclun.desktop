@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=VMA Command Center
+Comment=Virtual Moon Atlas Command Center
+Exec=cclun
+Icon=../pixmaps/cclun.xpm
+Terminal=false
+Type=Application
+Categories=Education;Science;Astronomy

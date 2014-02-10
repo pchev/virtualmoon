@@ -1,0 +1,6 @@
+Virtual Moon Atlas Databases
+Copyright (C) 2009 Christian Legrand
+http://www.ap-i.net
+
+The Database information and picture are copyrighted and cannot be used 
+outside of the software without permission. 

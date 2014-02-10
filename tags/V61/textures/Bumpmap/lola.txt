@@ -1,0 +1,41 @@
+Normal map build using the data provided by LRO/LOLA
+
+If you want to rebuild this map yourself do the following (also look at the source code at http://virtualmoon.svn.sourceforge.net/viewvc/virtualmoon/trunk/textures/Bumpmap/)
+
+
+download LOLA GDR 64p/deg from:
+http://imbrium.mit.edu/DATA/LOLA_GDR/LDEM_64.IMG
+
+change map center:
+recenterimg LDEM_64.IMG 23040
+
+convert to 16bit png:
+img2png LDEM_64.bin 23040 11520
+
+resite png to 8k:
+convert LDEM_64.png -resize 8192X4096 ldem_8k.png
+
+Iris :
+open ldem_8k.png
+RGB separation, keep only one chanel
+repairx 4097
+repairx 4098
+export ldem_8k.bin 0 2 0
+scale 2 0.5 0.5
+export ldem_4k.bin 0 2 0
+scale 2 0.5 0.5
+export ldem_2k.bin 0 2 0
+scale 2 0.5 0.5
+export ldem_1k.bin 0 2 0
+
+nms 1737.4 8192 < ldem_8k.bin > normal8k.ppm
+nms 1737.4 4096 < ldem_4k.bin > normal4k.ppm
+nms 1737.4 2048 < ldem_2k.bin > normal2k.ppm
+nms 1737.4 1024 < ldem_1k.bin > normal1k.ppm
+
+convert normal8k.ppm -quality 90 -sampling-factor 1x1 normal8k.jpg
+convert normal4k.ppm -quality 90 -sampling-factor 1x1 normal4k.jpg
+convert normal2k.ppm -quality 90 -sampling-factor 1x1 normal2k.jpg
+convert normal1k.ppm -quality 90 -sampling-factor 1x1 normal1k.jpg
+
+

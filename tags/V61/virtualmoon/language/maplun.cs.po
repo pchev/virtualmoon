@@ -1,0 +1,1252 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: Jiri Jozif <jiri.jozif@gmail.com>\n"
+"PO-Revision-Date: 2012-11-23 11:00+0100\n"
+"Project-Id-Version: \n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.4\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: cs\n"
+
+#: u_translation.rsadvanced
+msgid "Advanced"
+msgstr "Pokročílá"
+
+#: u_translation.rsairburshreli
+msgid "Airbursh relief with albedo"
+msgstr "Kresba s albedem"
+
+#: u_translation.rsairburshreli2
+msgid "Airbursh relief without albedo"
+msgstr "Kresba bez albeda"
+
+#: u_translation.rscaption
+msgid "Caption"
+msgstr "Titulek"
+
+#: u_translation.rsccdfield
+msgid "CCD field"
+msgstr "CCD pole"
+
+#: u_translation.rsccdname
+msgid "CCD name"
+msgstr "CCD název"
+
+#: u_translation.rscheckforopti
+msgid "Check for optional features"
+msgstr "Další možnosti"
+
+#: u_translation.rsclementineph
+msgid "Clementine photographic"
+msgstr "Fotomapa (Clementine)"
+
+#: u_translation.rscountry
+msgid "Country"
+msgstr "Stát"
+
+#: u_translation.rsdecreasefont
+msgid "Decrease font size"
+msgstr "Zmenšit velikost písma"
+
+#: u_translation.rsdefault
+msgid "Default"
+msgstr "Výchozí"
+
+#: u_translation.rsdegree
+msgid "d"
+msgstr "°"
+
+#: u_translation.rsdownload
+msgid "Download"
+msgstr "Stáhnout"
+
+#: u_translation.rsdownloadurl
+msgid "http://ap-i.net/avl/en/download"
+msgstr ""
+
+#: u_translation.rsdynamicrelie
+msgid "Dynamic relief display method"
+msgstr "Metoda zobrazování reliéfu"
+
+#: u_translation.rsenddate
+msgid "End date"
+msgstr "Datum do"
+
+#: u_translation.rsephemeris
+msgid "Ephemeris:"
+msgstr "Efemeridy:"
+
+#: u_translation.rsfarsideunnam
+msgid "Far side Unnamed Formation"
+msgstr "Nepojmenované útvary na odvrácené straně"
+
+#: u_translation.rsfirstusesett
+msgid "First use setting"
+msgstr ""
+
+#: u_translation.rsformat
+msgid "0"
+msgstr ""
+
+#: u_translation.rsfullscreen
+msgid "Full screen (Esc)"
+msgstr "Celá obrazovka (Esc)"
+
+#: u_translation.rsgrid
+msgid "Grid"
+msgstr "Souřadnicová síť"
+
+#: u_translation.rsheight
+msgid "Height"
+msgstr ""
+
+#: u_translation.rshelp_prefix
+msgid "UK"
+msgstr ""
+
+#: u_translation.rshistorical
+msgid "Historical"
+msgstr ""
+
+#: u_translation.rshours
+msgid "Hours"
+msgstr "Hodiny"
+
+#: u_translation.rsincreasefont
+msgid "Increase font size"
+msgstr "Zvětšit velikost písma"
+
+#: u_translation.rslabelsfont
+msgid "Labels font"
+msgstr "Písmo popisků"
+
+#: u_translation.rslanguage
+msgid "English"
+msgstr "Čeština"
+
+#: u_translation.rslevel
+msgid "Level:"
+msgstr "Úroveň:"
+
+#: u_translation.rslocalzenitho
+msgid "Local zenith on top"
+msgstr "Lokální zenit nahoře"
+
+#: u_translation.rslopamphotogr
+msgid "LOPAM photographic"
+msgstr "LOPAM fotografie"
+
+#: u_translation.rsminute
+#, fuzzy
+#| msgid "m"
+msgctxt "u_translation.rsminute"
+msgid "'"
+msgstr "'"
+
+#: u_translation.rsm_1
+msgid "from"
+msgstr "z"
+
+#: u_translation.rsm_10
+msgid "Longitude:"
+msgstr "Délka:"
+
+#: u_translation.rsm_11
+msgid "Latitude:"
+msgstr "Šířka:"
+
+#: u_translation.rsm_12
+msgid "Quadrant:"
+msgstr "Kvadrant:"
+
+#: u_translation.rsm_13
+msgid "Area:"
+msgstr "Oblast:"
+
+#: u_translation.rsm_14
+msgid "Rukl map:"
+msgstr "Atlas Měsíce (Rükl):"
+
+#: u_translation.rsm_15
+msgid "Viscardy page: "
+msgstr "Photographic Atlas of the Moon (Viscard): "
+
+#: u_translation.rsm_16
+msgid "Hatfield map:"
+msgstr "Hatfield Atlas of the Moon:"
+
+#: u_translation.rsm_17
+msgid "Dimension:"
+msgstr "Rozměr:"
+
+#: u_translation.rsm_18
+msgid "Km"
+msgstr ""
+
+#: u_translation.rsm_19
+msgid "Mi"
+msgstr ""
+
+#: u_translation.rsm_2
+msgid "born in"
+msgstr "Narozen:"
+
+#: u_translation.rsm_20
+msgid "Height:"
+msgstr "Hloubka:"
+
+#: u_translation.rsm_21
+msgctxt "u_translation.rsm_21"
+msgid "m"
+msgstr "m"
+
+#: u_translation.rsm_22
+msgid "ft"
+msgstr ""
+
+#: u_translation.rsm_23
+msgid "Height/Wide ratio:"
+msgstr "Poměr hloubka/šířka"
+
+#: u_translation.rsm_24
+msgid "Interest :"
+msgstr "Zajímavost:"
+
+#: u_translation.rsm_25
+msgid "Observation period:"
+msgstr "Vhodná doba pozorování:"
+
+#: u_translation.rsm_26
+msgid "or"
+msgstr "nebo"
+
+#: u_translation.rsm_27
+msgid "No formation actually near the terminator"
+msgstr "Blízko terminátoru žádný útvar"
+
+#: u_translation.rsm_28
+msgid "Minimal Instrument:"
+msgstr "Nejmenší nutný dalekohled:"
+
+#: u_translation.rsm_29
+msgid "Right Ascension:"
+msgstr "Rektascenze:"
+
+#: u_translation.rsm_3
+msgid "Born at:"
+msgstr "Narozen:"
+
+#: u_translation.rsm_30
+msgid "Declination:"
+msgstr "Deklinace:"
+
+#: u_translation.rsm_31
+msgid "Distance:"
+msgstr "Vzdálenost:"
+
+#: u_translation.rsm_32
+msgid "Phase:"
+msgstr "Fáze:"
+
+#: u_translation.rsm_33
+msgid "Libration in Latitude:"
+msgstr "Librace v šířce:"
+
+#: u_translation.rsm_34
+msgid "Libration in Longitude:"
+msgstr "Librace v délce:"
+
+#: u_translation.rsm_35
+msgid "Illumination:"
+msgstr "Osvětlení:"
+
+#: u_translation.rsm_36
+msgid "Apparent diameter:"
+msgstr "Zdánlivý průměr:"
+
+#: u_translation.rsm_37
+msgid "Position angle:"
+msgstr "Poziční úhel"
+
+#: u_translation.rsm_38
+msgid "Rise:"
+msgstr "Východ:"
+
+#: u_translation.rsm_39
+msgid "Transit:"
+msgstr "Průchod:"
+
+#: u_translation.rsm_4
+msgid "in"
+msgstr "v roce"
+
+#: u_translation.rsm_40
+msgid "Set:"
+msgstr "Západ:"
+
+#: u_translation.rsm_41
+msgid "Rise azimuth:"
+msgstr "Azimut východu:"
+
+#: u_translation.rsm_42
+msgid "Set azimuth:"
+msgstr "Azimut západu:"
+
+#: u_translation.rsm_43
+msgid "Field:"
+msgstr "Zorné pole:"
+
+#: u_translation.rsm_44
+msgid "Refresh rate"
+msgstr "Rychlost obnovování"
+
+#: u_translation.rsm_45
+msgid "Sub-solar latitude:"
+msgstr ""
+
+#: u_translation.rsm_46
+msgid "Lunation:"
+msgstr "Stáří Měsíce:"
+
+#: u_translation.rsm_47
+msgid "days"
+msgstr "dní"
+
+#: u_translation.rsm_48
+msgid "Colongitude:"
+msgstr "Colongitudo:"
+
+#: u_translation.rsm_49
+msgid "Geological period:"
+msgstr "Geologická epocha:"
+
+#: u_translation.rsm_5
+msgid "Dead at:"
+msgstr "Zemřel:"
+
+#: u_translation.rsm_50
+msgctxt "u_translation.rsm_50"
+msgid "Time"
+msgstr "Čas"
+
+#: u_translation.rsm_51
+msgctxt "u_translation.rsm_51"
+msgid "Date"
+msgstr "Datum"
+
+#: u_translation.rsm_52
+msgid "Measure the distance"
+msgstr "Měření vzdálenosti"
+
+#: u_translation.rsm_53
+msgid "Standard cursor mode"
+msgstr "Normální kursor"
+
+#: u_translation.rsm_54
+msgid "Image list"
+msgstr "Seznam obrázků"
+
+#: u_translation.rsm_55
+msgid "Transit Altitude:"
+msgstr "Výška průchodu:"
+
+#: u_translation.rsm_56
+msgid "Type:"
+msgstr "Útvar:"
+
+#: u_translation.rsm_57
+msgid "Size:"
+msgstr "Velikost:"
+
+#: u_translation.rsm_58
+msgid "Description:"
+msgstr "Popis:"
+
+#: u_translation.rsm_59
+msgid "Observation:"
+msgstr "Pozorování:"
+
+#: u_translation.rsm_6
+msgid "Name Author:"
+msgstr "Pojmenoval:"
+
+#: u_translation.rsm_60
+msgid "Position:"
+msgstr "Pozice:"
+
+#: u_translation.rsm_61
+msgid "Atlas:"
+msgstr "Atlasy:"
+
+#: u_translation.rsm_62
+msgid "Name Origine:"
+msgstr "Původ názvu:"
+
+#: u_translation.rsm_63
+msgid "Detailed Name:"
+msgstr "Pojmenován po:"
+
+#: u_translation.rsm_64
+msgid "Important Facts:"
+msgstr "Důležité informace:"
+
+#: u_translation.rsm_65
+msgid "Lunar Orbiter:"
+msgstr ""
+
+#: u_translation.rsm_66
+msgid "Westfall Atlas:"
+msgstr "Atlas of the Lunar Terminator (Westfall):"
+
+#: u_translation.rsm_67
+msgid "Warning! The personal notes have changed. Do you want to save the change?"
+msgstr "Pozor, Vaše poznámky byly změněny! Chcete změny uložit?"
+
+#: u_translation.rsm_7
+msgid "Name by Langrenus:"
+msgstr "Jméno podle Langrenuse:"
+
+#: u_translation.rsm_72
+msgid "Charles Wood article:"
+msgstr ""
+
+#: u_translation.rsm_73
+msgid "Azimuth"
+msgstr "Azimut"
+
+#: u_translation.rsm_74
+msgid "Altitude"
+msgstr "Výška"
+
+#: u_translation.rsm_75
+msgid "From Database:"
+msgstr "Z databáze:"
+
+#: u_translation.rsm_8
+msgid "Name by Hevelius:"
+msgstr "Jméno podle Heveliuse:"
+
+#: u_translation.rsm_9
+msgid "Name by Riccioli:"
+msgstr "Jméno podle Riccioliho:"
+
+#: u_translation.rsnotexturetou
+msgid "No texture (to use with an overlay alone)"
+msgstr "Bez textury"
+
+#: u_translation.rsorbitaltitud
+msgid "Orbit altitude"
+msgstr "Výška dráhy"
+
+#: u_translation.rsorbitinclina
+msgid "Orbit inclination"
+msgstr "Sklon dráhy"
+
+#: u_translation.rsphasewithdyn
+msgid "Phase with dynamic relief"
+msgstr "Terminátor s reliéfem"
+
+#: u_translation.rsphasewithout
+msgid "Phase without relief"
+msgstr "Terminátor bez reliéfu"
+
+#: u_translation.rspicturelibra
+msgid "Picture Library Apollo Missions"
+msgstr ""
+
+#: u_translation.rspicturelibra2
+msgid "Picture Library Apollo Mapping Camera"
+msgstr ""
+
+#: u_translation.rspicturelibra3
+msgid "Picture Library Best Of Amateurs"
+msgstr ""
+
+#: u_translation.rspicturelibra4
+msgid "Picture Library Clementine Probe"
+msgstr ""
+
+#: u_translation.rspicturelibra5
+msgid "Picture Library Kaguya Probe"
+msgstr ""
+
+#: u_translation.rspicturelibra6
+msgid "Picture Library Consolidated Lunar Atlas"
+msgstr ""
+
+#: u_translation.rspicturelibra7
+msgid "Picture Library Lunar Astronautical Charts & Lunar Maps"
+msgstr ""
+
+#: u_translation.rspicturelibra8
+msgid "Picture Library Lunar Orbiter Photographic Atlas Of The Moon "
+msgstr ""
+
+#: u_translation.rspicturelibra9
+msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
+msgstr ""
+
+#: u_translation.rspicturelibrapic
+msgid "Picture Library Best of the Pic du Midi Observatory"
+msgstr ""
+
+#: u_translation.rspixelcount
+msgid "Pixel count"
+msgstr "Velikost v pixlech"
+
+#: u_translation.rspixelsize
+msgid "Pixel size"
+msgstr "Velikost pixlu"
+
+#: u_translation.rsquitfull
+msgid "Quit full screen (Esc)"
+msgstr "Opustit režim celé obrazovky"
+
+#: u_translation.rssaveephemeri
+msgid "Save ephemeris to file"
+msgstr "Uložit efemeridy do souboru"
+
+#: u_translation.rssecond
+#, fuzzy
+#| msgid "s"
+msgid "\""
+msgstr "\""
+
+#: u_translation.rsshowgrid
+msgid "Show grid"
+msgstr "Zobrazit souřadnicovou síť"
+
+#: u_translation.rsshowlabels
+msgid "Show labels"
+msgstr "Zobrazit popisky"
+
+#: u_translation.rsshowscale
+msgid "Show scale"
+msgstr "Zobrazit měřítko"
+
+#: u_translation.rsside
+msgid "Side:"
+msgstr "Strana:"
+
+#: u_translation.rssimple
+msgid "Simple"
+msgstr "Jednoduchá"
+
+#: u_translation.rsstandardtext
+msgid "(standard texture selection)"
+msgstr ""
+
+#: u_translation.rsstartdate
+msgid "Start date"
+msgstr "Datum od"
+
+#: u_translation.rssteps
+msgid "Steps"
+msgstr "Krok"
+
+#: u_translation.rstexturesairb
+msgid "Textures Airbursh relief without albedo"
+msgstr ""
+
+#: u_translation.rstextureschange
+msgid "Textures Change photographic High Resolution"
+msgstr ""
+
+#: u_translation.rstexturesclem
+msgid "Textures Clementine photographic High Resolution"
+msgstr ""
+
+#: u_translation.rstextureslopa
+msgid "Textures LOPAM photographic High Resolution"
+msgstr ""
+
+#: u_translation.rstexturesphas
+msgid "Textures Phase with dynamic relief using LRO/WAC data"
+msgstr ""
+
+#: u_translation.rstextureswac
+msgid "Textures LRO/WAC photographic High Resolution"
+msgstr ""
+
+#: u_translation.rstitle
+msgid "Virtual Moon Atlas"
+msgstr ""
+
+#: u_translation.rstopocentric
+msgid "Topocentric"
+msgstr "Topocentrická pozice"
+
+#: u_translation.rstranslator
+msgid "Translation: P. Chevalley / C. Legrand"
+msgstr "Překlad: Jiří Jozíf"
+
+#: u_translation.rst_1
+msgid "File"
+msgstr "Soubor"
+
+#: u_translation.rst_10
+msgid "Find"
+msgstr "Hledej"
+
+#: u_translation.rst_100
+msgid "Observatory"
+msgstr "Místo pozorování"
+
+#: u_translation.rst_101
+msgid "Display"
+msgstr "Zobrazit"
+
+#: u_translation.rst_102
+msgid "Mark the point of maximum libration"
+msgstr "Zobrazit bod maximální librace"
+
+#: u_translation.rst_103
+msgid "Identification"
+msgstr "Vybraný útvar"
+
+#: u_translation.rst_104
+msgid "Label density"
+msgstr "Hustota popisků"
+
+#: u_translation.rst_109
+msgid "Eyepieces"
+msgstr "Okuláry"
+
+#: u_translation.rst_11
+msgid "Next"
+msgstr "Hledej další"
+
+#: u_translation.rst_110
+msgid "Telescope focal length"
+msgstr "Ohnisková vzdálenost objektivu"
+
+#: u_translation.rst_111
+msgid "Eyepiece focal length"
+msgstr "Ohnisková vzdálenost okuláru"
+
+#: u_translation.rst_112
+msgid "Eyepiece apparent field of vision"
+msgstr "Zdánlivé zorné pole okuláru"
+
+#: u_translation.rst_113
+msgid "Compute"
+msgstr "Přepočítat"
+
+#: u_translation.rst_114
+msgid "Update"
+msgstr "Aktualizuj"
+
+#: u_translation.rst_115
+msgid "Notes"
+msgstr "Poznámky"
+
+#: u_translation.rst_116
+msgid "Centre"
+msgstr "Souřadnice"
+
+#: u_translation.rst_117
+msgid "none"
+msgstr "žádný"
+
+#: u_translation.rst_118
+msgid "Eyepiece Name"
+msgstr "Název okuláru"
+
+#: u_translation.rst_119
+msgid "Field in minutes"
+msgstr "Zorné pole v minutách"
+
+#: u_translation.rst_120
+msgid "Center label on the formation"
+msgstr "Vycentrovat popisek útvaru"
+
+#: u_translation.rst_121
+msgid "Short Label"
+msgstr "Krátký popisek"
+
+#: u_translation.rst_122
+msgid "Near Side Named Formation"
+msgstr "Názvy útvarů na přivrácené straně"
+
+#: u_translation.rst_123
+msgid "Near Side Indexed Craters"
+msgstr "Názvy přidružených útvarů na přivrácené straně"
+
+#: u_translation.rst_124
+msgid "Power"
+msgstr "Zvětšení"
+
+#: u_translation.rst_125
+msgid "Options valid at next startup"
+msgstr "Volby platné od příštího spuštění"
+
+#: u_translation.rst_129
+msgid "Database"
+msgstr "Databáze"
+
+#: u_translation.rst_130
+msgid "Far Side"
+msgstr "Odvrácená strana"
+
+#: u_translation.rst_131
+msgid "Far Side Named Formation"
+msgstr "Názvy útvarů na odvrácené straně"
+
+#: u_translation.rst_134
+msgid "Full Globe"
+msgstr "Celý Měsíc"
+
+#: u_translation.rst_135
+msgid "Orbit the Moon"
+msgstr "Dráha Měsíce"
+
+#: u_translation.rst_136
+msgid "Stop"
+msgstr ""
+
+#: u_translation.rst_137
+msgid "Direction"
+msgstr "Přímo"
+
+#: u_translation.rst_138
+msgid "d/second"
+msgstr "°/sekundu"
+
+#: u_translation.rst_139
+msgid "Rotation speed"
+msgstr "Rychlost rotace"
+
+#: u_translation.rst_14
+msgid "Outline"
+msgstr "Schéma"
+
+#: u_translation.rst_140
+msgid "West View"
+msgstr "Západní okraj"
+
+#: u_translation.rst_142
+msgid "East View"
+msgstr "Východní okraj"
+
+#: u_translation.rst_144
+msgid "Select Texture"
+msgstr "Vybrat texturu"
+
+#: u_translation.rst_145
+msgid "OpenGL Info"
+msgstr "OpenGL informace"
+
+#: u_translation.rst_146
+msgid "Positive East"
+msgstr "+ východně, - západně"
+
+#: u_translation.rst_147
+msgid "N"
+msgstr "S"
+
+#: u_translation.rst_148
+msgid "S"
+msgstr "J"
+
+#: u_translation.rst_149
+msgid "E"
+msgstr "V"
+
+#: u_translation.rst_15
+msgid "Help"
+msgstr "Nápověda"
+
+#: u_translation.rst_150
+msgid "W"
+msgstr "Z"
+
+#: u_translation.rst_152
+msgid "Texture"
+msgstr "Textura"
+
+#: u_translation.rst_153
+msgid "L"
+msgstr ""
+
+#: u_translation.rst_154
+msgid "B"
+msgstr ""
+
+#: u_translation.rst_155
+msgid "mm."
+msgstr ""
+
+#: u_translation.rst_156
+msgid "Track position"
+msgstr ""
+
+#: u_translation.rst_157
+msgid "Correct the Moon motion"
+msgstr ""
+
+#: u_translation.rst_158
+msgid "every"
+msgstr ""
+
+#: u_translation.rst_159
+msgid "seconds"
+msgstr ""
+
+#: u_translation.rst_16
+msgid "About"
+msgstr "O programu"
+
+#: u_translation.rst_160
+msgid "Telescope"
+msgstr "Dalekohled"
+
+#: u_translation.rst_161
+msgid "Show Menu"
+msgstr "Zobrazit menu"
+
+#: u_translation.rst_162
+msgid "Goto selected"
+msgstr ""
+
+#: u_translation.rst_163
+msgid "Sync selected"
+msgstr ""
+
+#: u_translation.rst_164
+msgid "Historical Sites"
+msgstr "Historická místa"
+
+#: u_translation.rst_165
+msgid "Encyclopedia"
+msgstr "Měsíc v číslech"
+
+#: u_translation.rst_166
+msgid "2nd Window"
+msgstr "Druhé okno"
+
+#: u_translation.rst_167
+msgid "Snapshot"
+msgstr "Snímek"
+
+#: u_translation.rst_168
+msgid "Far Side Indexed Craters"
+msgstr "Názvy přidružených útvarů na odvrácené straně"
+
+#: u_translation.rst_169
+msgid "Overlay"
+msgstr "Vrstvy"
+
+#: u_translation.rst_17
+msgid "Now"
+msgstr "Nyní"
+
+#: u_translation.rst_170
+msgid "Show overlay"
+msgstr "Zobrazit vrstvy"
+
+#: u_translation.rst_171
+msgid "Overlay :"
+msgstr "Vrstva :"
+
+#: u_translation.rst_172
+msgid "Transparency:"
+msgstr "Průhlednost:"
+
+#: u_translation.rst_173
+msgid "Date / Time"
+msgstr "Datum / Čas"
+
+#: u_translation.rst_174
+msgid "Use Computer Date and Time"
+msgstr "Použít datum a časové pásmo z počítače"
+
+#: u_translation.rst_175
+msgid "Show Libration"
+msgstr "Zobrazit libraci"
+
+#: u_translation.rst_176
+msgid "Show Phase"
+msgstr "Zobrazit fázi"
+
+#: u_translation.rst_177
+msgid "Rotate N-S"
+msgstr "Překlopit S-J"
+
+#: u_translation.rst_178
+msgid "Flip E-W"
+msgstr "Překlopit V-Z"
+
+#: u_translation.rst_179
+msgid "User Database loaded from DATLUN"
+msgstr "Uživatelská databáze"
+
+#: u_translation.rst_18
+msgid "OK"
+msgstr ""
+
+#: u_translation.rst_180
+msgid "Remove Selection Mark"
+msgstr "Zrušit výběr značky"
+
+#: u_translation.rst_181
+msgid "Mark size"
+msgstr "Velikost značky"
+
+#: u_translation.rst_182
+msgid "Force texture compression"
+msgstr "Vyžadovat kompresi textury"
+
+#: u_translation.rst_183
+msgid "Label Color"
+msgstr "Barva popisku"
+
+#: u_translation.rst_184
+msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
+msgstr ""
+
+#: u_translation.rst_185
+msgid "Look here for a list of supported graphic card"
+msgstr ""
+
+#: u_translation.rst_187
+msgid "Pyroclastic deposits"
+msgstr "Pyroklastické horniny"
+
+#: u_translation.rst_188
+msgid "Lunar Domes"
+msgstr "Lunární dómy"
+
+#: u_translation.rst_19
+msgctxt "u_translation.rst_19"
+msgid "Latitude"
+msgstr "Šířka:"
+
+#: u_translation.rst_2
+msgid "Quit"
+msgstr "Ukončit"
+
+#: u_translation.rst_21
+msgid "Time Zone"
+msgstr "Časové pásmo"
+
+#: u_translation.rst_22
+msgid "Show the phase"
+msgstr "Zobrazit fázi"
+
+#: u_translation.rst_23
+msgid "Show the libration"
+msgstr "Zobrazit librace"
+
+#: u_translation.rst_24
+msgid "Language"
+msgstr "Jazyk"
+
+#: u_translation.rst_25
+msgid "Picture"
+msgstr "Obrázek"
+
+#: u_translation.rst_26
+msgid "Geocentric"
+msgstr "Geocentrická pozice"
+
+#: u_translation.rst_28
+msgid "Color"
+msgstr "Barva"
+
+#: u_translation.rst_29
+msgid "Label"
+msgstr "Popisek"
+
+#: u_translation.rst_3
+msgid "Configuration"
+msgstr "Nastavení"
+
+#: u_translation.rst_30
+msgid "Close"
+msgstr "Zavřít"
+
+#: u_translation.rst_31
+msgid "Zoom"
+msgstr ""
+
+#: u_translation.rst_32
+msgid "Lighting"
+msgstr "Světlo"
+
+#: u_translation.rst_33
+msgid "Penumbra"
+msgstr "Polostín"
+
+#: u_translation.rst_34
+msgid "Diffuse"
+msgstr "Difůze"
+
+#: u_translation.rst_35
+msgid "Specular"
+msgstr "Ostrost"
+
+#: u_translation.rst_36
+msgid "Performance"
+msgstr "Výkon"
+
+#: u_translation.rst_37
+msgid "Smoothness"
+msgstr "Vyhlazení"
+
+#: u_translation.rst_4
+msgid "Zoom:"
+msgstr ""
+
+#: u_translation.rst_42
+msgid "All the formation"
+msgstr "Vše"
+
+#: u_translation.rst_43
+msgid "Pretty interesting"
+msgstr "Pozoruhodné"
+
+#: u_translation.rst_44
+msgid "Very interesting"
+msgstr "Velmi zajímavé"
+
+#: u_translation.rst_45
+msgid "Exceptional"
+msgstr "Excelentní"
+
+#: u_translation.rst_46
+msgid "Sort"
+msgstr "Setřídit podle"
+
+#: u_translation.rst_47
+msgctxt "u_translation.rst_47"
+msgid "Name"
+msgstr "Jména"
+
+#: u_translation.rst_48
+msgid "Interest"
+msgstr "Zajímavosti"
+
+#: u_translation.rst_49
+msgid "Instrument"
+msgstr "Objektiv"
+
+#: u_translation.rst_5
+msgctxt "u_translation.rst_5"
+msgid "Center"
+msgstr "Vycentrovat"
+
+#: u_translation.rst_51
+msgid "Terminator"
+msgstr "Terminátor"
+
+#: u_translation.rst_52
+msgid "Mark"
+msgstr "Značka"
+
+#: u_translation.rst_53
+msgid "Show label"
+msgstr "Zobrazit popisek"
+
+#: u_translation.rst_54
+msgid "Show mark"
+msgstr "Zobrazit značku"
+
+#: u_translation.rst_55
+msgid "Setup"
+msgstr "Nastavení"
+
+#: u_translation.rst_56
+msgid "Sky Chart"
+msgstr ""
+
+#: u_translation.rst_57
+msgid "General"
+msgstr "Obecné"
+
+#: u_translation.rst_58
+msgid "Images"
+msgstr "Obrázky"
+
+#: u_translation.rst_6
+msgid "Information"
+msgstr "Informace"
+
+#: u_translation.rst_60
+msgid "Image folders:"
+msgstr "Složka s obrázky:"
+
+#: u_translation.rst_62
+msgid "Folder"
+msgstr "Složka"
+
+#: u_translation.rst_63
+msgid "Tools"
+msgstr "Nástroje"
+
+#: u_translation.rst_64
+msgid "Rotation"
+msgstr "Potočit"
+
+#: u_translation.rst_65
+msgid "West"
+msgstr "Na západ"
+
+#: u_translation.rst_66
+msgid "East"
+msgstr "Na východ"
+
+#: u_translation.rst_67
+msgid "Default Orientation"
+msgstr "Výchozí orientace"
+
+#: u_translation.rst_68
+msgid "Celestial Pole on top"
+msgstr "Nebeský pól nahoře"
+
+#: u_translation.rst_69
+msgid "Distance"
+msgstr "Vzdálenost"
+
+#: u_translation.rst_7
+msgid "Ephemeris"
+msgstr "Efemeridy"
+
+#: u_translation.rst_70
+msgid "Real Distance"
+msgstr "Skutečná vzdálenost"
+
+#: u_translation.rst_71
+msgid "Apparent Distance"
+msgstr "Zdánlivá vzdálenost"
+
+#: u_translation.rst_72
+msgid "North"
+msgstr "Sever"
+
+#: u_translation.rst_73
+msgid "South"
+msgstr "Jih"
+
+#: u_translation.rst_74
+msgid "Mirror"
+msgstr "Zrcadlově"
+
+#: u_translation.rst_75
+msgid "Save Map"
+msgstr "Uložit mapu"
+
+#: u_translation.rst_76
+msgid "Saved Map size"
+msgstr "Uložit velikost mapy"
+
+#: u_translation.rst_77
+msgid "As on screen"
+msgstr "Jako na obrazovce"
+
+#: u_translation.rst_78
+msgid "Save As"
+msgstr "Uložit jako"
+
+#: u_translation.rst_79
+msgid "Print"
+msgstr "Tisk"
+
+#: u_translation.rst_8
+msgid "Zoom+"
+msgstr ""
+
+#: u_translation.rst_80
+msgid "White background"
+msgstr "Bílé pozadí"
+
+#: u_translation.rst_81
+msgid "Neighbor"
+msgstr "Blízké útvary"
+
+#: u_translation.rst_82
+msgid "Print Setup..."
+msgstr "Nastavení tisku..."
+
+#: u_translation.rst_84
+msgid "Select All"
+msgstr "Vybrat vše"
+
+#: u_translation.rst_85
+msgid "Copy"
+msgstr "Kopírovat"
+
+#: u_translation.rst_86
+msgid "Measure"
+msgstr "Měřítko"
+
+#: u_translation.rst_89
+msgid "External display software"
+msgstr "Jiný program pro zobrazení"
+
+#: u_translation.rst_9
+msgid "Zoom-"
+msgstr ""
+
+#: u_translation.rst_90
+msgid "Printing"
+msgstr "Tisk"
+
+#: u_translation.rst_91
+msgid "Printer"
+msgstr "Tiskárna"
+
+#: u_translation.rst_92
+msgid "Left Margin"
+msgstr "Levý okraj"
+
+#: u_translation.rst_93
+msgid "Millimeters"
+msgstr "milimetrů"
+
+#: u_translation.rst_94
+msgid "Print the ephemeris"
+msgstr "Tisk efemerid"
+
+#: u_translation.rst_95
+msgid "Print the information"
+msgstr "Tisk informací"
+
+#: u_translation.rst_96
+msgid "Print the map"
+msgstr "Tisk mapy"
+
+#: u_translation.rst_97
+msgid "Information text width"
+msgstr "Šířka informačního textu"
+
+#: u_translation.rst_98
+msgid "Glossary"
+msgstr "Slovník"
+
+#: u_translation.rst_99
+msgid "Cancel"
+msgstr "Storno"
+
+#: u_translation.rsunnamedforma
+msgid "Unnamed Formation"
+msgstr "Nepojmenované útvary"
+
+#: u_translation.rswidth
+msgid "Width"
+msgstr "Šířka"
+
+#: u_translation.rsyoucandownlo
+msgid "You can download and install the following optional features:"
+msgstr ""
+
+#: u_translation.rsyourinstalla
+msgid "Your installation is already complete with all the features installed."
+msgstr "Instalace je kompletní"
+
+#: u_translation.rszoomlevel
+msgid "Zoom level"
+msgstr "Zvětšení"
+

@@ -1,0 +1,33 @@
+{ Ceci est un fichier ressource généré automatiquement par Lazarus }
+
+LazarusResources.Add('Tf_setdate','FORMDATA',[
+  'TPF0'#10'Tf_setdate'#9'f_setdate'#4'Left'#3#21#3#6'Height'#3#199#0#3'Top'#2
+  +'c'#5'Width'#3#240#0#18'HorzScrollBar.Page'#3#239#0#18'VertScrollBar.Page'#3
+  +#199#0#11'BorderIcons'#11#12'biSystemMenu'#0#11'BorderStyle'#7#8'bsDialog'#7
+  +'Caption'#6#9'f_setdate'#12'ClientHeight'#3#199#0#11'ClientWidth'#3#240#0#11
+  +'Font.Height'#2#244#9'Font.Name'#6#6'Tahoma'#8'OnCreate'#7#10'FormCreate'#10
+  +'LCLVersion'#6#8'0.9.28.2'#0#18'TJDMonthlyCalendar'#18'JDMonthlyCalendar1'#4
+  +'Left'#2#0#6'Height'#3#160#0#3'Top'#2#0#5'Width'#3#240#0#10'BevelInner'#7#8
+  +'bvRaised'#10'BevelOuter'#7#6'bvNone'#11'BorderWidth'#2#1#7'Caption'#6#18'JD'
+  +'MonthlyCalendar1'#12'ClientHeight'#3#160#0#11'ClientWidth'#3#240#0#11'Font.'
+  +'Height'#2#244#9'Font.Name'#6#6'Tahoma'#10'ParentFont'#8#8'TabOrder'#2#0#2'J'
+  +'D'#5#0#0#0#0#0'F'#203#149#20'@'#4'Year'#3#215#7#5'Month'#2#5#3'Day'#2#5#0#0
+  +#7'TButton'#5'BtnOK'#4'Left'#2#0#6'Height'#2#25#3'Top'#3#168#0#5'Width'#2'K'
+  +#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#2'OK'#7'Default'#9#11'ModalR'
+  +'esult'#2#1#8'TabOrder'#2#1#7'Visible'#8#0#0#6'TPanel'#6'Panel1'#4'Left'#2#0
+  +#6'Height'#2'"'#3'Top'#3#160#0#5'Width'#3#240#0#10'BevelOuter'#7#6'bvNone'#12
+  +'ClientHeight'#2'"'#11'ClientWidth'#3#240#0#8'TabOrder'#2#2#0#6'TLabel'#6'La'
+  +'bel1'#4'Left'#2#20#6'Height'#2#15#3'Top'#2#10#5'Width'#2'"'#7'Caption'#6#5
+  +'Heure'#11'ParentColor'#8#0#0#5'TEdit'#5'Edit1'#4'Left'#2'R'#6'Height'#2#22#3
+  +'Top'#2#6#5'Width'#2#26#8'TabOrder'#2#0#4'Text'#6#2'00'#0#0#5'TEdit'#5'Edit2'
+  +#4'Left'#3#130#0#6'Height'#2#22#3'Top'#2#6#5'Width'#2#26#8'TabOrder'#2#1#4'T'
+  +'ext'#6#2'00'#0#0#5'TEdit'#5'Edit3'#4'Left'#3#178#0#6'Height'#2#22#3'Top'#2#6
+  +#5'Width'#2#26#8'TabOrder'#2#2#4'Text'#6#2'00'#0#0#7'TUpDown'#5'Hours'#4'Lef'
+  +'t'#2'l'#6'Height'#2#22#3'Top'#2#6#5'Width'#2#9#9'Associate'#7#5'Edit1'#3'Mi'
+  +'n'#2#0#3'Max'#2#23#8'Position'#2#0#8'TabOrder'#2#3#4'Wrap'#8#0#0#7'TUpDown'
+  +#7'Minutes'#4'Left'#3#156#0#6'Height'#2#22#3'Top'#2#6#5'Width'#2#9#9'Associa'
+  +'te'#7#5'Edit2'#3'Min'#2#0#3'Max'#2';'#8'Position'#2#0#8'TabOrder'#2#4#4'Wra'
+  +'p'#8#0#0#7'TUpDown'#7'Seconds'#4'Left'#3#204#0#6'Height'#2#22#3'Top'#2#6#5
+  +'Width'#2#9#9'Associate'#7#5'Edit3'#3'Min'#2#0#3'Max'#2';'#8'Position'#2#0#8
+  +'TabOrder'#2#5#4'Wrap'#8#0#0#0#0
+]);

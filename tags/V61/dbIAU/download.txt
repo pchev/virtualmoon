@@ -1,0 +1,9 @@
+ 
+http://planetarynames.wr.usgs.gov/GIS_Downloads
+
+download Moon shapefile: MOON_nomenclature.zip
+
+$ unzip MOON_nomenclature.zip
+$ perl dbf2scv.pl MOON_nomenclature.csv
+$ todos MOON_nomenclature.csv
+

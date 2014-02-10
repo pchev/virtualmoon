@@ -1,0 +1,195 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: xz\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: u_translation_database.rsb_1
+msgid "Not named"
+msgstr "Be pavadinimo"
+
+#: u_translation_database.rsb_2
+msgid "Not indicated"
+msgstr "Nenustatyta"
+
+#: u_translation_database.rsb_3
+msgid "Not evaluated"
+msgstr "Neįvertinta"
+
+#: u_translation_database.rsb_4
+msgid "Not observable"
+msgstr "Nestebima"
+
+#: u_translation_database.rsb_5
+msgid "No map"
+msgstr "Ne žemėlapis"
+
+#: u_translation_database.rsb_6
+msgid "No map or picture"
+msgstr "Ne žemėlapis ir ne paveikslėlis"
+
+#: u_translation_database.rsb_7
+msgid "No article"
+msgstr "Ne straipsnis"
+
+#: u_translation_database.rsb_8
+msgid "Not defined"
+msgstr "Nenustatyta"
+
+#: u_translation_database.rsb_9
+msgid "Unknown in this period"
+msgstr "Nežinomas šiuo laikotarpiu"
+
+#: u_translation_database.rscol_1
+msgid "Crater"
+msgstr "Krateris"
+
+#: u_translation_database.rscol_10
+msgid "Wrinkle ridge"
+msgstr "Kalvagūbris"
+
+#: u_translation_database.rscol_11
+msgid "Wrinkle ridges network"
+msgstr "Kalvagūbrių tinklas"
+
+#: u_translation_database.rscol_12
+msgid "Scarp"
+msgstr "Šlaitas"
+
+#: u_translation_database.rscol_13
+msgid "Rille"
+msgstr "Mėnulio kanjonas"
+
+#: u_translation_database.rscol_14
+msgid "Rilles network"
+msgstr "Mėnulio kanjonų tinklas"
+
+#: u_translation_database.rscol_15
+msgid "Valley"
+msgstr "Slėnis"
+
+#: u_translation_database.rscol_16
+msgid "Marsh"
+msgstr "Pelkė"
+
+#: u_translation_database.rscol_17
+msgid "Lake"
+msgstr "Ežeras"
+
+#: u_translation_database.rscol_18
+msgid "Sea"
+msgstr "Jūra"
+
+#: u_translation_database.rscol_19
+msgid "Cape"
+msgstr "Iškyšulys"
+
+#: u_translation_database.rscol_2
+msgid "Craterlet"
+msgstr "Nedidelis krateris"
+
+#: u_translation_database.rscol_20
+msgid "Bay"
+msgstr "Įlanka"
+
+#: u_translation_database.rscol_21
+msgid "Ejecta"
+msgstr "Lavos išskyros"
+
+#: u_translation_database.rscol_22
+msgid "Probe "
+msgstr "Zondas"
+
+#: u_translation_database.rscol_23
+msgid "Human mission"
+msgstr "Žmonių skrydis"
+
+#: u_translation_database.rscol_24
+msgid "Inert equipment"
+msgstr "Palikta įranga"
+
+#: u_translation_database.rscol_25
+msgid "Pyroclastic area"
+msgstr "Piroklastinė sritis"
+
+#: u_translation_database.rscol_3
+msgid "Crater chain"
+msgstr "Kraterių grandinė"
+
+#: u_translation_database.rscol_4
+msgid "Walled plain"
+msgstr "Lyguma su sienomis"
+
+#: u_translation_database.rscol_5
+msgid "Plain"
+msgstr "Lyguma"
+
+#: u_translation_database.rscol_6
+msgid "Mountain"
+msgstr "Kalnas"
+
+#: u_translation_database.rscol_7
+msgid "Mountain range"
+msgstr "Kalnagūbris"
+
+#: u_translation_database.rscol_8
+msgid "Dome"
+msgstr "Kupolas"
+
+#: u_translation_database.rscol_9
+msgid "Dome system"
+msgstr "Kupolų sistema"
+
+#: u_translation_database.rsdb_1
+msgid "NSN"
+msgstr ""
+
+#: u_translation_database.rsdb_2
+msgid "NSI"
+msgstr ""
+
+#: u_translation_database.rsdb_3
+msgid "FSN"
+msgstr ""
+
+#: u_translation_database.rsdb_4
+msgid "FSI"
+msgstr ""
+
+#: u_translation_database.rsdb_5
+msgid "HIS"
+msgstr ""
+
+#: u_translation_database.rsdb_6
+msgid "PYR"
+msgstr ""
+
+#: u_translation_database.rsdb_7
+msgid "DOM"
+msgstr ""
+
+#: u_translation_database.rsdb_8
+msgid "NSU"
+msgstr ""
+
+#: u_translation_database.rsdb_9
+msgid "FSU"
+msgstr ""
+
+#: u_translation_database.warning1
+msgid " Note to translator:"
+msgstr ""
+
+#: u_translation_database.warning2
+msgid " The following text must be the same as the content of the TYPE column in the database you use for your language."
+msgstr ""
+
+#: u_translation_database.warning3
+msgid " If you not translate the database keep the English text here!"
+msgstr ""
+

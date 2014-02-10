@@ -1,0 +1,5 @@
+mkdir DEM32
+cd DEM32
+wget http://lroc.sese.asu.edu/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/WAC_DTM/WAC_GLD100_E000N1800_032P.IMG
+cd ..
+

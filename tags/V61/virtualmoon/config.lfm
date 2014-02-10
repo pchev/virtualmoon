@@ -1,0 +1,1578 @@
+object Form2: TForm2
+  Left = 478
+  Height = 470
+  Top = 120
+  Width = 454
+  ActiveControl = PageControl1
+  BorderStyle = bsSizeToolWin
+  Caption = 'Configuration'
+  ClientHeight = 470
+  ClientWidth = 454
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  FormStyle = fsStayOnTop
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  LCLVersion = '1.0.4.0'
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 429
+    Top = 0
+    Width = 454
+    ActivePage = TabSheet1
+    Align = alClient
+    MultiLine = True
+    TabIndex = 0
+    TabOrder = 0
+    Options = [nboMultiLine]
+    object TabSheet1: TTabSheet
+      Caption = 'General'
+      ClientHeight = 401
+      ClientWidth = 450
+      object Bevel8: TBevel
+        Left = 16
+        Height = 140
+        Top = 160
+        Width = 372
+        Shape = bsFrame
+      end
+      object Bevel7: TBevel
+        Left = 16
+        Height = 129
+        Top = 8
+        Width = 372
+        Shape = bsFrame
+      end
+      object Label4: TLabel
+        Left = 21
+        Height = 15
+        Top = 320
+        Width = 50
+        Caption = 'Langue :'
+        ParentColor = False
+      end
+      object Label1: TLabel
+        Left = 32
+        Height = 15
+        Top = 77
+        Width = 46
+        Caption = 'Latitude'
+        ParentColor = False
+      end
+      object Label2: TLabel
+        Left = 144
+        Height = 15
+        Top = 77
+        Width = 56
+        Caption = 'Longitude'
+        ParentColor = False
+      end
+      object Label16: TLabel
+        Left = 32
+        Height = 15
+        Top = 12
+        Width = 75
+        Caption = 'Observatoire'
+        Color = clBtnFace
+        ParentColor = False
+        Transparent = False
+      end
+      object Label23: TLabel
+        Left = 32
+        Height = 15
+        Top = 156
+        Width = 73
+        Caption = 'Date / Heure'
+        Color = clBtnFace
+        ParentColor = False
+        Transparent = False
+      end
+      object Label34: TLabel
+        Left = 32
+        Height = 15
+        Top = 260
+        Width = 76
+        Caption = 'Zone horaire'
+        ParentColor = False
+      end
+      object Label35: TLabel
+        Left = 32
+        Height = 15
+        Top = 223
+        Width = 28
+        Caption = 'Pays'
+        ParentColor = False
+      end
+      object ComboBox3: TComboBox
+        Left = 88
+        Height = 23
+        Top = 316
+        Width = 235
+        ItemHeight = 0
+        OnChange = ComboBox3Change
+        Sorted = True
+        TabOrder = 4
+        Text = 'ComboBox3'
+      end
+      object Edit1: TEdit
+        Left = 32
+        Height = 23
+        Top = 93
+        Width = 49
+        AutoSize = False
+        TabOrder = 0
+        Text = 'Edit1'
+      end
+      object Edit2: TEdit
+        Left = 144
+        Height = 23
+        Top = 93
+        Width = 49
+        AutoSize = False
+        TabOrder = 2
+        Text = 'Edit2'
+      end
+      object ComboBox1: TComboBox
+        Left = 88
+        Height = 23
+        Top = 93
+        Width = 49
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          'N'
+          'S'
+        )
+        TabOrder = 1
+        Text = 'N'
+      end
+      object ComboBox2: TComboBox
+        Left = 200
+        Height = 23
+        Top = 93
+        Width = 49
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          'E'
+          'W'
+        )
+        TabOrder = 3
+        Text = 'E'
+      end
+      object CheckBox16: TCheckBox
+        Left = 32
+        Height = 23
+        Top = 184
+        Width = 236
+        Caption = 'Use Computer Date and Time Zone'
+        TabOrder = 5
+      end
+      object ComboBoxCountry: TComboBox
+        Left = 125
+        Height = 26
+        Top = 220
+        Width = 182
+        ItemHeight = 0
+        OnChange = ComboBoxCountryChange
+        Style = csDropDownList
+        TabOrder = 6
+      end
+      object ComboBoxTZ: TComboBox
+        Left = 125
+        Height = 26
+        Top = 252
+        Width = 181
+        ItemHeight = 0
+        OnChange = ComboBoxTZChange
+        Style = csDropDownList
+        TabOrder = 7
+      end
+      object RadioGroup7: TRadioGroup
+        Left = 21
+        Height = 42
+        Top = 30
+        Width = 351
+        AutoFill = True
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 38
+        ClientWidth = 347
+        Columns = 2
+        Items.Strings = (
+          'Topocentricccccccccccc'
+          'Geocentriccccccccccccc'
+        )
+        OnClick = RadioGroup7Click
+        TabOrder = 8
+      end
+      object Button8: TButton
+        Left = 88
+        Height = 25
+        Top = 352
+        Width = 235
+        Caption = 'Button8'
+        OnClick = Button7Click
+        TabOrder = 9
+      end
+    end
+    object TabSheet7: TTabSheet
+      Caption = 'Database'
+      ClientHeight = 401
+      ClientWidth = 450
+      ImageIndex = 7
+      object Label31: TLabel
+        Left = 16
+        Height = 15
+        Top = 259
+        Width = 90
+        Caption = 'User Database '
+        ParentColor = False
+      end
+      object GroupBox1: TGroupBox
+        Left = 16
+        Height = 235
+        Top = 10
+        Width = 388
+        Caption = 'Database'
+        ClientHeight = 219
+        ClientWidth = 384
+        TabOrder = 0
+        object CheckBox19: TCheckBox
+          Left = 24
+          Height = 23
+          Top = 10
+          Width = 133
+          Caption = 'Named Formation'
+          OnClick = CheckBox19Click
+          TabOrder = 0
+        end
+        object CheckBox20: TCheckBox
+          Left = 24
+          Height = 23
+          Top = 33
+          Width = 149
+          Caption = 'Satellites Formation'
+          TabOrder = 1
+        end
+        object CheckBox21: TCheckBox
+          Left = 24
+          Height = 23
+          Top = 56
+          Width = 183
+          Caption = 'Far Side Named Formation'
+          TabOrder = 2
+        end
+        object CheckBox22: TCheckBox
+          Left = 24
+          Height = 23
+          Top = 79
+          Width = 199
+          Caption = 'Far Side Satellites Formation'
+          TabOrder = 3
+        end
+        object CheckBox23: TCheckBox
+          Left = 24
+          Height = 23
+          Top = 102
+          Width = 99
+          Caption = 'Landing Site'
+          TabOrder = 4
+        end
+        object CheckBox24: TCheckBox
+          Left = 24
+          Height = 23
+          Top = 125
+          Width = 149
+          Caption = 'Pyroclastic deposits'
+          TabOrder = 5
+        end
+        object CheckBox25: TCheckBox
+          Left = 24
+          Height = 23
+          Top = 148
+          Width = 67
+          Caption = 'Domes'
+          TabOrder = 6
+        end
+        object CheckBox26: TCheckBox
+          Left = 24
+          Height = 23
+          Top = 171
+          Width = 147
+          Caption = 'Unnamed Formation'
+          TabOrder = 7
+        end
+        object CheckBox27: TCheckBox
+          Left = 24
+          Height = 23
+          Top = 194
+          Width = 196
+          Caption = 'Far side Unnamed Formation'
+          TabOrder = 8
+        end
+      end
+      object CheckListBox1: TCheckListBox
+        Left = 16
+        Height = 95
+        Top = 275
+        Width = 388
+        ItemHeight = 0
+        TabOrder = 1
+        TopIndex = -1
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Affichage'
+      ClientHeight = 401
+      ClientWidth = 450
+      ImageIndex = 3
+      object Bevel3: TBevel
+        Left = 16
+        Height = 154
+        Top = 226
+        Width = 396
+        Shape = bsFrame
+      end
+      object TrackBar2: TTrackBar
+        Left = 155
+        Height = 37
+        Top = 344
+        Width = 193
+        Frequency = 100
+        Min = -600
+        PageSize = 100
+        Position = -100
+        TickStyle = tsNone
+        TabOrder = 5
+      end
+      object Bevel1: TBevel
+        Left = 16
+        Height = 57
+        Top = 0
+        Width = 396
+        Shape = bsFrame
+      end
+      object Bevel9: TBevel
+        Left = 16
+        Height = 97
+        Top = 128
+        Width = 396
+        Shape = bsFrame
+      end
+      object Bevel2: TBevel
+        Left = 16
+        Height = 59
+        Top = 64
+        Width = 396
+        Shape = bsFrame
+      end
+      object Shape1: TShape
+        Left = 24
+        Height = 20
+        Top = 92
+        Width = 20
+        OnMouseUp = Shape1MouseUp
+      end
+      object Label6: TLabel
+        Left = 51
+        Height = 15
+        Top = 96
+        Width = 73
+        Caption = 'Identification'
+        ParentColor = False
+      end
+      object Shape2: TShape
+        Left = 172
+        Height = 20
+        Top = 92
+        Width = 20
+        OnMouseUp = Shape1MouseUp
+      end
+      object Label7: TLabel
+        Left = 199
+        Height = 15
+        Top = 96
+        Width = 43
+        Caption = 'Marque'
+        ParentColor = False
+      end
+      object Label5: TLabel
+        Left = 32
+        Height = 15
+        Top = 64
+        Width = 45
+        Caption = 'Couleur'
+        ParentColor = False
+      end
+      object Shape3: TShape
+        Left = 308
+        Height = 20
+        Top = 92
+        Width = 20
+        OnMouseUp = Shape1MouseUp
+      end
+      object Label17: TLabel
+        Left = 335
+        Height = 15
+        Top = 96
+        Width = 31
+        Caption = 'Label'
+        ParentColor = False
+      end
+      object Label18: TLabel
+        Left = 24
+        Height = 15
+        Top = 352
+        Width = 100
+        Caption = 'Densite de labels'
+        ParentColor = False
+      end
+      object Label33: TLabel
+        Left = 24
+        Height = 15
+        Top = 193
+        Width = 109
+        Caption = 'Taille des marques'
+        ParentColor = False
+      end
+      object LabelFont: TLabel
+        Left = 157
+        Height = 15
+        Top = 309
+        Width = 55
+        Anchors = [akLeft, akBottom]
+        Caption = 'LabelFont'
+        ParentColor = False
+      end
+      object Label39: TLabel
+        Left = 146
+        Height = 15
+        Top = 186
+        Width = 5
+        Caption = '-'
+        ParentColor = False
+      end
+      object Label40: TLabel
+        Left = 146
+        Height = 15
+        Top = 351
+        Width = 5
+        Caption = '-'
+        ParentColor = False
+      end
+      object Label41: TLabel
+        Left = 356
+        Height = 15
+        Top = 186
+        Width = 10
+        Caption = '+'
+        ParentColor = False
+      end
+      object Label42: TLabel
+        Left = 356
+        Height = 15
+        Top = 351
+        Width = 10
+        Caption = '+'
+        ParentColor = False
+      end
+      object CheckBox2: TCheckBox
+        Left = 236
+        Height = 23
+        Top = 24
+        Width = 127
+        Caption = 'Affiche la libration'
+        TabOrder = 1
+      end
+      object CheckBox1: TCheckBox
+        Left = 24
+        Height = 23
+        Top = 24
+        Width = 121
+        Caption = 'Afficher la phase'
+        TabOrder = 0
+      end
+      object CheckBox6: TCheckBox
+        Left = 24
+        Height = 23
+        Top = 157
+        Width = 125
+        Caption = 'Affiche la marque'
+        TabOrder = 4
+      end
+      object CheckBox5: TCheckBox
+        Left = 24
+        Height = 23
+        Top = 245
+        Width = 122
+        Caption = 'Affiche les labels'
+        TabOrder = 3
+      end
+      object CheckBox14: TCheckBox
+        Left = 24
+        Height = 23
+        Top = 136
+        Width = 191
+        Caption = 'Marque la libration maximum'
+        TabOrder = 2
+      end
+      object CheckBox17: TCheckBox
+        Left = 24
+        Height = 23
+        Top = 266
+        Width = 191
+        Caption = 'Label centre sur la formation'
+        TabOrder = 6
+      end
+      object CheckBox18: TCheckBox
+        Left = 24
+        Height = 23
+        Top = 288
+        Width = 112
+        Caption = 'Label minimum'
+        TabOrder = 7
+      end
+      object TrackBar4: TTrackBar
+        Left = 157
+        Height = 37
+        Top = 178
+        Width = 191
+        LineSize = 5
+        Max = 8
+        Min = 1
+        PageSize = 25
+        Position = 5
+        TickStyle = tsNone
+        TabOrder = 8
+      end
+      object Button5: TButton
+        Left = 24
+        Height = 25
+        Top = 319
+        Width = 117
+        Caption = 'Labels font'
+        OnClick = Button5Click
+        TabOrder = 9
+      end
+    end
+    object TabSheet4: TTabSheet
+      Caption = 'Textures'
+      ClientHeight = 401
+      ClientWidth = 450
+      ImageIndex = 4
+      object BumpRadioGroup: TRadioGroup
+        Left = 0
+        Height = 88
+        Top = 0
+        Width = 450
+        Align = alTop
+        AutoFill = True
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 84
+        ClientWidth = 446
+        Items.Strings = (
+          'Phase sans reliefeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+          'Phase avec relief dynamiqueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+          'Pas de texture ( utilisation avec une couche) eeeeeeeeeeeeeeeeeeeeeee'
+        )
+        OnClick = BumpRadioGroupClick
+        TabOrder = 0
+      end
+      object TexturePanel: TPanel
+        Left = 0
+        Height = 297
+        Top = 104
+        Width = 450
+        Align = alBottom
+        BevelOuter = bvNone
+        ClientHeight = 297
+        ClientWidth = 450
+        TabOrder = 1
+        object GBlvall: TGroupBox
+          Left = 8
+          Height = 253
+          Top = 40
+          Width = 242
+          ClientHeight = 249
+          ClientWidth = 238
+          TabOrder = 0
+          object ComboBox6: TComboBox
+            Left = 105
+            Height = 25
+            Top = 56
+            Width = 135
+            ItemHeight = 0
+            OnChange = ComboBox6Change
+            Sorted = True
+            Style = csDropDownList
+            TabOrder = 0
+            Visible = False
+          end
+        end
+        object Label29: TLabel
+          Left = 250
+          Height = 15
+          Top = 24
+          Width = 19
+          Caption = '1-3'
+          ParentColor = False
+        end
+        object Label36: TLabel
+          Left = 280
+          Height = 15
+          Top = 24
+          Width = 19
+          Caption = '3-8'
+          ParentColor = False
+        end
+        object Label37: TLabel
+          Left = 312
+          Height = 15
+          Top = 24
+          Width = 26
+          Caption = '8-16'
+          ParentColor = False
+        end
+        object Label38: TLabel
+          Left = 344
+          Height = 15
+          Top = 24
+          Width = 33
+          Caption = '16-35'
+          ParentColor = False
+        end
+        object Label47: TLabel
+          Left = 376
+          Height = 15
+          Top = 24
+          Width = 33
+          Caption = '35-65'
+          ParentColor = False
+        end
+        object Label48: TLabel
+          Left = 408
+          Height = 15
+          Top = 24
+          Width = 40
+          Caption = '65-108'
+          ParentColor = False
+        end
+        object Label19: TLabel
+          Left = 45
+          Height = 15
+          Top = 8
+          Width = 45
+          Caption = 'Label19'
+          ParentColor = False
+        end
+        object Label3: TLabel
+          Left = 245
+          Height = 15
+          Top = 8
+          Width = 65
+          Caption = 'Zoom level'
+          ParentColor = False
+        end
+        object GBlv1: TGroupBox
+          Left = 250
+          Height = 253
+          Top = 40
+          Width = 33
+          TabOrder = 1
+        end
+        object GBlv2: TGroupBox
+          Left = 283
+          Height = 253
+          Top = 40
+          Width = 33
+          TabOrder = 2
+        end
+        object GBlv3: TGroupBox
+          Left = 316
+          Height = 253
+          Top = 40
+          Width = 33
+          TabOrder = 3
+        end
+        object GBlv4: TGroupBox
+          Left = 349
+          Height = 253
+          Top = 40
+          Width = 33
+          TabOrder = 4
+        end
+        object GBlv5: TGroupBox
+          Left = 382
+          Height = 253
+          Top = 40
+          Width = 33
+          TabOrder = 5
+        end
+        object GBlv6: TGroupBox
+          Left = 415
+          Height = 253
+          Top = 40
+          Width = 33
+          TabOrder = 6
+        end
+      end
+    end
+    object TabSheet6: TTabSheet
+      Caption = 'Overlay'
+      ClientHeight = 401
+      ClientWidth = 450
+      ImageIndex = 6
+      object Panel2: TPanel
+        Left = 14
+        Height = 122
+        Top = 46
+        Width = 296
+        ClientHeight = 122
+        ClientWidth = 296
+        TabOrder = 1
+        object Memo1: TMemo
+          Left = 1
+          Height = 120
+          Top = 1
+          Width = 294
+          Align = alClient
+          Color = clBtnFace
+          ReadOnly = True
+          TabOrder = 0
+        end
+      end
+      object OverlayPanel: TPanel
+        Left = 8
+        Height = 372
+        Top = 8
+        Width = 404
+        BevelOuter = bvNone
+        ClientHeight = 372
+        ClientWidth = 404
+        TabOrder = 0
+        object Image1: TImage
+          Left = 19
+          Height = 140
+          Top = 93
+          Width = 280
+          Proportional = True
+          Stretch = True
+        end
+        object Label30: TLabel
+          Left = 19
+          Height = 14
+          Top = 44
+          Width = 43
+          Caption = 'Overlay :'
+          ParentColor = False
+        end
+        object Label32: TLabel
+          Left = 19
+          Height = 14
+          Top = 254
+          Width = 69
+          Caption = 'Transparency:'
+          ParentColor = False
+        end
+        object Label43: TLabel
+          Left = 156
+          Height = 14
+          Top = 248
+          Width = 4
+          Caption = '-'
+          ParentColor = False
+        end
+        object Label44: TLabel
+          Left = 340
+          Height = 14
+          Top = 248
+          Width = 7
+          Caption = '+'
+          ParentColor = False
+        end
+        object CheckBox11: TCheckBox
+          Left = 19
+          Height = 19
+          Top = 10
+          Width = 149
+          Caption = 'Show overlayyyyyyyyyyyyyy'
+          TabOrder = 0
+        end
+        object ComboBox5: TComboBox
+          Left = 19
+          Height = 21
+          Top = 64
+          Width = 145
+          ItemHeight = 0
+          OnChange = ComboBox5Change
+          Sorted = True
+          TabOrder = 1
+        end
+        object TrackBar5: TTrackBar
+          Left = 172
+          Height = 25
+          Top = 240
+          Width = 160
+          Frequency = 20
+          Max = 100
+          OnChange = TrackBar5Change
+          PageSize = 10
+          Position = 1
+          TickStyle = tsNone
+          TabOrder = 2
+        end
+        object GroupBox2: TGroupBox
+          Left = 21
+          Height = 73
+          Top = 284
+          Width = 367
+          Caption = 'Grid'
+          ClientHeight = 57
+          ClientWidth = 363
+          TabOrder = 3
+          object Label45: TLabel
+            Left = 134
+            Height = 14
+            Top = 21
+            Width = 4
+            Caption = '-'
+            ParentColor = False
+          end
+          object Label46: TLabel
+            Left = 317
+            Height = 14
+            Top = 21
+            Width = 7
+            Caption = '+'
+            ParentColor = False
+          end
+          object LabelGrid: TLabel
+            Left = 133
+            Height = 15
+            Top = 2
+            Width = 152
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'LabelGrid'
+            ParentColor = False
+          end
+          object TrackBar3: TTrackBar
+            Left = 141
+            Height = 25
+            Top = 15
+            Width = 168
+            Frequency = 5
+            LineSize = 5
+            Max = 30
+            Min = 1
+            OnChange = TrackBar3Change
+            PageSize = 5
+            Position = 5
+            TickStyle = tsNone
+            TabOrder = 1
+          end
+          object CheckBox10: TCheckBox
+            Left = 4
+            Height = 19
+            Top = 23
+            Width = 69
+            Caption = 'Show Grid'
+            TabOrder = 0
+          end
+        end
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Images'
+      ClientHeight = 401
+      ClientWidth = 450
+      ImageIndex = 1
+      object Label9: TLabel
+        Left = 9
+        Height = 15
+        Top = 26
+        Width = 131
+        Caption = 'Repertoires d''images :'
+        ParentColor = False
+      end
+      object Label22: TLabel
+        Left = 8
+        Height = 15
+        Top = 348
+        Width = 24
+        Caption = 'Rukl'
+        ParentColor = False
+      end
+      object ruklsuffix: TEdit
+        Left = 184
+        Height = 22
+        Top = 344
+        Width = 121
+        TabOrder = 6
+        Text = '.jpg'
+      end
+      object ruklprefix: TEdit
+        Left = 48
+        Height = 22
+        Top = 344
+        Width = 121
+        TabOrder = 5
+        Text = 'D:\rukl\mo'
+      end
+      object StringGrid1: TStringGrid
+        Left = 8
+        Height = 266
+        Top = 42
+        Width = 396
+        ColCount = 2
+        DefaultRowHeight = 18
+        FixedCols = 0
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
+        RowCount = 11
+        ScrollBars = ssVertical
+        TabOrder = 3
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        OnSelectCell = StringGrid1SelectCell
+        ColWidths = (
+          115
+          250
+        )
+      end
+      object CheckBox12: TCheckBox
+        Left = 8
+        Height = 23
+        Top = 2
+        Width = 134
+        Caption = 'Afficheur externe'
+        OnClick = CheckBox12Click
+        TabOrder = 0
+      end
+      object Edit4: TEdit
+        Left = 157
+        Height = 22
+        Top = 2
+        Width = 121
+        Enabled = False
+        TabOrder = 1
+        Text = 'mspaint.exe'
+      end
+      object Button3: TButton
+        Left = 293
+        Height = 21
+        Top = 3
+        Width = 21
+        Caption = '...'
+        Enabled = False
+        OnClick = Button3Click
+        TabOrder = 2
+      end
+      object CheckBox15: TCheckBox
+        Left = 8
+        Height = 23
+        Top = 366
+        Width = 313
+        Caption = 'Lien direct sur l''image pour l''atlas Lunar Orbiter'
+        TabOrder = 4
+      end
+      object Button7: TButton
+        Left = 53
+        Height = 25
+        Top = 316
+        Width = 235
+        Caption = 'Button7'
+        OnClick = Button7Click
+        TabOrder = 7
+      end
+    end
+    object TabSheet5: TTabSheet
+      Caption = 'Eyepieces'
+      ClientHeight = 401
+      ClientWidth = 450
+      ImageIndex = 5
+      object Label24: TLabel
+        Left = 8
+        Height = 15
+        Top = 8
+        Width = 127
+        Caption = 'Telescope focal length'
+        ParentColor = False
+      end
+      object Label25: TLabel
+        Left = 8
+        Height = 15
+        Top = 34
+        Width = 121
+        Caption = 'Eyepiece focal length'
+        ParentColor = False
+      end
+      object Label26: TLabel
+        Left = 8
+        Height = 15
+        Top = 61
+        Width = 186
+        Caption = 'Eyepiece apparent field of vision'
+        ParentColor = False
+      end
+      object Label27: TLabel
+        Left = 190
+        Height = 15
+        Top = 95
+        Width = 19
+        Caption = '=>'
+        ParentColor = False
+      end
+      object Label28: TLabel
+        Left = 8
+        Height = 15
+        Top = 95
+        Width = 36
+        Caption = 'Power'
+        ParentColor = False
+      end
+      object StringGrid2: TStringGrid
+        Left = 8
+        Height = 217
+        Top = 125
+        Width = 396
+        ColCount = 4
+        DefaultColWidth = 30
+        DefaultRowHeight = 18
+        FixedCols = 0
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor]
+        RowCount = 11
+        TabOrder = 0
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        OnDrawCell = StringGrid2DrawCell
+        OnMouseUp = StringGrid2MouseUp
+        OnSelectCell = StringGrid2SelectCell
+        ColWidths = (
+          170
+          100
+          50
+          50
+        )
+      end
+      object Edit6: TEdit
+        Left = 214
+        Height = 22
+        Top = 4
+        Width = 41
+        TabOrder = 1
+        Text = '2000'
+      end
+      object Edit7: TEdit
+        Left = 214
+        Height = 22
+        Top = 30
+        Width = 41
+        TabOrder = 2
+        Text = '10'
+      end
+      object Edit8: TEdit
+        Left = 214
+        Height = 22
+        Top = 58
+        Width = 41
+        TabOrder = 3
+        Text = '50'
+      end
+      object Edit9: TEdit
+        Left = 214
+        Height = 22
+        Top = 93
+        Width = 49
+        Color = clBtnFace
+        ReadOnly = True
+        TabOrder = 4
+      end
+      object Button6: TButton
+        Left = 294
+        Height = 25
+        Top = 58
+        Width = 75
+        Caption = 'Compute'
+        OnClick = Button6Click
+        TabOrder = 5
+      end
+      object Edit10: TEdit
+        Left = 126
+        Height = 22
+        Top = 93
+        Width = 41
+        Color = clBtnFace
+        ReadOnly = True
+        TabOrder = 6
+      end
+      object Label51: TLabel
+        Left = 267
+        Height = 15
+        Top = 8
+        Width = 31
+        Caption = '[mm]'
+        ParentColor = False
+      end
+      object Label54: TLabel
+        Left = 267
+        Height = 15
+        Top = 34
+        Width = 31
+        Caption = '[mm]'
+        ParentColor = False
+      end
+      object Label56: TLabel
+        Left = 267
+        Height = 15
+        Top = 61
+        Width = 15
+        Caption = '[°]'
+        ParentColor = False
+      end
+      object Label57: TLabel
+        Left = 167
+        Height = 15
+        Top = 95
+        Width = 7
+        Caption = 'x'
+        ParentColor = False
+      end
+      object Label58: TLabel
+        Left = 267
+        Height = 15
+        Top = 95
+        Width = 12
+        Caption = '['']'
+        ParentColor = False
+      end
+    end
+    object TabSheet8: TTabSheet
+      Caption = 'CCD'
+      ClientHeight = 401
+      ClientWidth = 450
+      object StringGrid3: TStringGrid
+        Left = 8
+        Height = 217
+        Top = 125
+        Width = 396
+        ColCount = 4
+        DefaultRowHeight = 18
+        FixedCols = 0
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor]
+        RowCount = 11
+        TabOrder = 0
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        ColWidths = (
+          190
+          60
+          60
+          60
+        )
+      end
+      object Label49: TLabel
+        Left = 8
+        Height = 15
+        Top = 8
+        Width = 127
+        Caption = 'Telescope focal length'
+        ParentColor = False
+      end
+      object Label50: TLabel
+        Left = 8
+        Height = 15
+        Top = 34
+        Width = 53
+        Caption = 'Pixel size'
+        ParentColor = False
+      end
+      object Label52: TLabel
+        Left = 142
+        Height = 15
+        Top = 97
+        Width = 19
+        Caption = '=>'
+        ParentColor = False
+      end
+      object Label53: TLabel
+        Left = 8
+        Height = 15
+        Top = 58
+        Width = 62
+        Caption = 'Pixel count'
+        ParentColor = False
+      end
+      object Edit11: TEdit
+        Left = 168
+        Height = 22
+        Top = 4
+        Width = 41
+        TabOrder = 1
+        Text = '2000'
+      end
+      object Edit12: TEdit
+        Left = 168
+        Height = 22
+        Top = 30
+        Width = 41
+        TabOrder = 2
+        Text = '5.6'
+      end
+      object Edit14: TEdit
+        Left = 168
+        Height = 22
+        Top = 93
+        Width = 41
+        Color = clBtnFace
+        ReadOnly = True
+        TabOrder = 3
+      end
+      object Button9: TButton
+        Left = 310
+        Height = 25
+        Top = 51
+        Width = 75
+        Caption = 'Compute'
+        OnClick = Button9Click
+        TabOrder = 4
+      end
+      object Edit15: TEdit
+        Left = 168
+        Height = 22
+        Top = 54
+        Width = 41
+        TabOrder = 5
+        Text = '640'
+      end
+      object Label8: TLabel
+        Left = 214
+        Height = 15
+        Top = 34
+        Width = 8
+        Caption = 'X'
+        ParentColor = False
+      end
+      object Label20: TLabel
+        Left = 214
+        Height = 15
+        Top = 58
+        Width = 8
+        Caption = 'X'
+        ParentColor = False
+      end
+      object Label21: TLabel
+        Left = 214
+        Height = 15
+        Top = 97
+        Width = 8
+        Caption = 'X'
+        ParentColor = False
+      end
+      object Edit13: TEdit
+        Left = 230
+        Height = 22
+        Top = 30
+        Width = 41
+        TabOrder = 6
+        Text = '5.6'
+      end
+      object Edit16: TEdit
+        Left = 230
+        Height = 22
+        Top = 54
+        Width = 41
+        TabOrder = 7
+        Text = '480'
+      end
+      object Edit17: TEdit
+        Left = 230
+        Height = 22
+        Top = 93
+        Width = 41
+        Color = clBtnFace
+        ReadOnly = True
+        TabOrder = 8
+      end
+      object Label55: TLabel
+        Left = 222
+        Height = 15
+        Top = 8
+        Width = 31
+        Caption = '[mm]'
+        ParentColor = False
+      end
+      object Label59: TLabel
+        Left = 278
+        Height = 15
+        Top = 34
+        Width = 27
+        Caption = '[mu]'
+        ParentColor = False
+      end
+      object Label60: TLabel
+        Left = 278
+        Height = 15
+        Top = 97
+        Width = 12
+        Caption = '['']'
+        ParentColor = False
+      end
+    end
+    object Impression: TTabSheet
+      Caption = 'Impression'
+      ClientHeight = 401
+      ClientWidth = 450
+      ImageIndex = 2
+      object Bevel6: TBevel
+        Left = 8
+        Height = 81
+        Top = 48
+        Width = 388
+        Shape = bsFrame
+      end
+      object Bevel4: TBevel
+        Left = 12
+        Height = 81
+        Top = 256
+        Width = 388
+        Shape = bsFrame
+      end
+      object Label12: TLabel
+        Left = 16
+        Height = 15
+        Top = 64
+        Width = 40
+        Caption = 'Marge '
+        ParentColor = False
+      end
+      object Label13: TLabel
+        Left = 181
+        Height = 15
+        Top = 64
+        Width = 65
+        Caption = 'millimetres'
+        ParentColor = False
+      end
+      object Label14: TLabel
+        Left = 16
+        Height = 15
+        Top = 103
+        Width = 180
+        Caption = 'Largeur du texte de description'
+        ParentColor = False
+      end
+      object Bevel5: TBevel
+        Left = 8
+        Height = 92
+        Top = 140
+        Width = 388
+        Shape = bsFrame
+      end
+      object Label15: TLabel
+        Left = 16
+        Height = 15
+        Top = 22
+        Width = 66
+        Caption = 'Imprimante'
+        ParentColor = False
+      end
+      object Label10: TLabel
+        Left = 24
+        Height = 15
+        Top = 284
+        Width = 177
+        Caption = 'Taille des images enregistrees'
+        ParentColor = False
+        Visible = False
+      end
+      object Label11: TLabel
+        Left = 16
+        Height = 15
+        Top = 240
+        Width = 158
+        Caption = 'Enregistrement des cartes '
+        Color = clBtnFace
+        ParentColor = False
+        Transparent = False
+      end
+      object LabelImp: TLabel
+        Left = 252
+        Height = 15
+        Top = 80
+        Width = 92
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'LabelImp'
+        ParentColor = False
+      end
+      object TrackBar1: TTrackBar
+        Left = 237
+        Height = 25
+        Top = 96
+        Width = 122
+        Frequency = 125
+        Max = 1200
+        Min = 200
+        OnChange = TrackBar1Change
+        Position = 700
+        TickStyle = tsNone
+        TabOrder = 2
+      end
+      object LongEdit1: TLongEdit
+        Left = 109
+        Height = 22
+        Hint = '0..50'
+        Top = 58
+        Width = 49
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        Value = 0
+        MaxValue = 50
+      end
+      object CheckBox8: TCheckBox
+        Left = 24
+        Height = 23
+        Top = 174
+        Width = 168
+        Caption = 'Imprime les ephemerides'
+        TabOrder = 4
+      end
+      object CheckBox9: TCheckBox
+        Left = 24
+        Height = 23
+        Top = 198
+        Width = 155
+        Caption = 'Imprime la description '
+        TabOrder = 5
+      end
+      object Button2: TButton
+        Left = 112
+        Height = 25
+        Top = 16
+        Width = 90
+        Caption = 'Configuration'
+        OnClick = Button2Click
+        TabOrder = 0
+      end
+      object CheckBox13: TCheckBox
+        Left = 24
+        Height = 23
+        Top = 150
+        Width = 118
+        Caption = 'Imprime la carte'
+        TabOrder = 3
+      end
+      object CheckBox7: TCheckBox
+        Left = 24
+        Height = 23
+        Top = 256
+        Width = 85
+        Caption = 'Fond blanc'
+        TabOrder = 6
+      end
+      object ComboBox4: TComboBox
+        Left = 204
+        Height = 23
+        Top = 280
+        Width = 168
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          'Comme a l''ecran'
+          '256'
+          '512'
+          '1024'
+          '2048'
+        )
+        TabOrder = 7
+        Text = 'Comme a l''ecran'
+        Visible = False
+      end
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 41
+    Top = 429
+    Width = 454
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 41
+    ClientWidth = 454
+    TabOrder = 1
+    object Button1: TButton
+      Left = 96
+      Height = 25
+      Top = 8
+      Width = 75
+      Caption = 'OK'
+      ModalResult = 1
+      TabOrder = 0
+    end
+    object Button4: TButton
+      Left = 224
+      Height = 25
+      Top = 8
+      Width = 75
+      Cancel = True
+      Caption = 'Cancel'
+      ModalResult = 2
+      TabOrder = 1
+    end
+  end
+  object ColorDialog1: TColorDialog
+    Color = clBlack
+    CustomColors.Strings = (
+      'ColorA=000000'
+      'ColorB=000080'
+      'ColorC=008000'
+      'ColorD=008080'
+      'ColorE=800000'
+      'ColorF=800080'
+      'ColorG=808000'
+      'ColorH=808080'
+      'ColorI=C0C0C0'
+      'ColorJ=0000FF'
+      'ColorK=00FF00'
+      'ColorL=00FFFF'
+      'ColorM=FF0000'
+      'ColorN=FF00FF'
+      'ColorO=FFFF00'
+      'ColorP=FFFFFF'
+      'ColorQ=C0DCC0'
+      'ColorR=F0CAA6'
+      'ColorS=F0FBFF'
+      'ColorT=A4A0A0'
+    )
+    left = 16
+    top = 416
+  end
+  object OpenDialog1: TOpenDialog
+    DefaultExt = '.exe'
+    Filter = 'Image software|*.exe'
+    left = 80
+    top = 416
+  end
+  object FontDialog1: TFontDialog
+    MinFontSize = 0
+    MaxFontSize = 0
+    left = 48
+    top = 416
+  end
+end

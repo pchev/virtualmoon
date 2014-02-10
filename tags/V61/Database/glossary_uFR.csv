@@ -1,0 +1,111 @@
+GLO_WORD;GLO_TEXT
+AGE DE LA LUNE;Intervalle de temps exprimé en jours qui s'est écoulé depuis la précédente NOUVELLE LUNE.
+ALBEDO;Fraction de la quantité de lumière reçue par un astre réfléchie par ce même astre. Un astre totalement réfléchissant a un albédo égal à 1 et un astre totalement absorbant un albédo égal à 0.
+ALTITUDE ABSOLUE;La Lune est une sphère moyenne de 1738 km de rayon. Les altitudes absolues données sur certaines cartes font référence à ce rayon. L'altitude absolue d'une formation peut donc être négative.
+ALTITUDE RELATIVE;Les altitudes données dans l'Atlas Virtuel de la Lune sont des altitudes relatives appelées HAUTEUR. Elles indiquent l'élévation de la formation par rapport aux terrains environnants.
+ANGLE DE PHASE;Angle formé par les axes Terre-Soleil et Terre-Lune. Permet de connaître la fraction éclairée de la FACE VISIBLE de la Lune.
+APOGEE;Point le plus éloigné de l'orbite elliptique d'un astre tournant autour de la Terre.
+CALDEIRA;CRATERE de VOLCAN de grande taille généralement formé par l'explosion de la cheminée bouchée par la LAVE.
+CAP;
+CATENA;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement une CHAINE DE CRATERES.
+CHAINE DE CRATERES;
+CHAINE DE MONTAGNE;
+CLAIR DE LUNE;
+CLAIR DE TERRE;Equivalent du CLAIR DE LUNE pour un hypothétique habitant de la Lune.
+COLONGITUDE;Donnée mathématique obtenue par calcul à partir de tables préétablies permettant de connaitre la LONGITUDE SELENOGRAPHIQUE du TERMINATEUR DU MATIN ou du TERMINATEUR DU SOIR.
+CONTINENT;Région étendue montagneuse ou tourmentée de la surface de la Lune.
+COORDONNEE SELENOGRAPHIQUE;Ensemble de coordonnées composé de la LONGITUDE SELENOGRAPHIQUE et de la LATITUDE SELENOGRAPHIQUE permettant de situer une formation sur le globe lunaire.
+CRATERE;Sur la Lune, formation généralement circulaire provoquée par la chute d'une météorite. Les FORMATIONs CRATERIFORMEs dont le diamètre est supérieur à 10 km dans DBLUNE sont appelées 'cratère'. Leur LONGUEUR est égale à la LARGEUR sauf exception.
+CRATERLET;FORMATION CRATERIFORME de petit diamètre ( à priori moins de 10 km ) en forme de bol avec FOND arrondi.
+DBLUNE;La base de donnée de l'Atlas Virtuel de la Lune, écrite par Christian Legrand.
+DERNIER QUARTIER;Aspect du disque lunaire à moitié éclairé par le Soleil environ 7 jours après la PLEINE LUNE. Le Dernier Quartier s'observe le matin. La Lune et le Soleil sont à 90° l'un de l'autre pour un observateur terrestre.
+DOME;Formation lunaire en forme de colline arrondie sans doute volcanique. Certains présentent une CALDEIRA au sommet de quelques km. Leur diamètre est compris entre 10 et 20 km et leur HAUTEUR ne dépassent pas quelques centaines de mètres.
+DORSA;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement un système de DORSALEs marines lunaires.
+DORSALE;Crête montagneuse linéaire à pentes douces et de faible HAUTEUR ( quelques centaines de mètres ) serpentant dans les MERs lunaires. Elles sont vraisemblablement d'origine volcanique.
+DORSUM;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement une DORSALE marine lunaire.
+ECLIPSE ANNULAIRE;Se dit des ECLIPSEs TOTALEs au cours desquelles la distance de la Lune est maximale. Le disque lunaire ne parvenant pas à cacher la totalité du disque solaire.
+ECLIPSE DE LUNE;Disparition du disque lunaire du fait de son passage dans l'ombre ou la pénombre de la Terre. Ce phénomène n'a lieu que lorsque le Soleil, la Terre et la Lune sont alignés lors de certaines PLEINEs LUNEs.
+ECLIPSE DE SOLEIL;Disparition du disque solaire derrière le disque lunaire lors de certaines NOUVELLEs LUNEs lorsque le Soleil, la Lune et la Terre sont alignés.
+ECLIPSE PARTIELLE;Se dit des ECLIPSEs DE LUNE ou des ECLIPSEs DE SOLEIL lorsque l'astre occulteur n'obscurcit que partiellement l'astre occulté.
+ECLIPSE TOTALE;Se dit d'une ECLIPSE DE LUNE ou d'une ECLIPSE DE SOLEIL lorsque l'astre occulté est totalement caché par l'astre occulteur.
+ESCARPEMENT;Pente plus ou moins marquée séparant deux terrains avoisinants et d'ALTITUDEs RELATIVEs différentes.
+FACE CACHEE;Partie du globe lunaire située de l'autre côté de la Lune et invisible depuis la Terre du fait de la ROTATION SYNCHRONE de la Lune. On peut voir une petite partie limitrophe de la face cachée de la Lune grâce au phénomène des LIBRATIONs.
+FACE VISIBLE;Partie du globe lunaire toujours dirigée vers la Terre du fait de la ROTATION SYNCHRONE de la Lune. On peut pourtant voir une petite partie de la FACE CACHEE de la Lune grâce au phénomène des LIBRATIONs.
+FOND;Partie interne d'une FORMATION CRATERIFORME comprise à la base des MURAILLEs.
+FORMATION CRATERIFORME;Les formations cratériformes d'origine météoritique (CRATERE, CRATERLET et PLAINE MUREE) comportent des REMPARTs s'élevant au dessus des terrains avoisinants une MURAILLE en pente descendant vers l'intérieur de la formation et un FOND interne.
+GOLFE;Terrain de type MER avec FOND sombre plat peu étendu enclavé dans les CONTINENTs au bord des MERs.
+HAUTEUR;Dans DBLUNE la hauteur d'une formation constitue en fait son ALTITUDE RELATIVE par rapport aux terrains avoisinants.
+LAC;Terrain de type MER à FOND sombre et plat peu étendu entièrement enclavé dans les CONTINENTs.
+LACUS;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement un LAC lunaire.
+LATITUDE SELENOGRAPHIQUE;La latitude des formations lunaires est exprimée en degrés décimaux. Le Nord est en haut et le Sud en bas pour la Lune observée à l'oeil nu. Les latitudes des formations situées au Sud de l'équateur lunaire sont négatives.
+LARGEUR;
+LAVE;
+LIBRATION;Oscillation apparente de la Lune pour un observateur terrestre permettant de découvrir la partie limitrophe de la FACE CACHEE. Il existe 3 types de librations : LIBRATION EN LONGITUDE, LIBRATION EN LATITUDE, et LIBRATION DIURNE.
+LIBRATION DIURNE;
+LIBRATION EN LATITUDE;Du fait de l'inclinaison du plan de l'ORBITE LUNAIRE par rapport au plan de l'orbite terrestre
+LIBRATION EN LONGITUDE;Du fait de la vitesse de ROTATION constante de la Lune et de sa vitesse variable pendant sa REVOLUTION la libration en longitude permet de voir les parties limitrophes Est et Ouest de la FACE CACHEE.
+LIBRATION PHYSIQUE;Véritable balancement de l'axe de rotation de la Lune. Ils sont limités à quelques minutes d'arc et dus aux variations de l'attraction terrestre, compte tenu de l'inhomogénéité de l'intérieur de la Lune.
+LIGNE DES NOEUDS;Droite matérialisant l'intersection entre le plan de l'orbite terrestre et le plan de l'orbite lunaire. Elle se projette sur la sphère céleste au niveau des NOEUD ASCENDANT et NOEUD DESCENDANT. Elle effectue une révolution en 18.61 ans de façon rétrograde.
+LONGITUDE SELENOGRAPHIQUE;La longitude des formations lunaires est exprimée en degrés décimaux. L'Est est à droite et l'Ouest à gauche pour la Lune observée à l'oeil nu. La longitude des formations lunaires situées à l'Ouest du méridien central est négative.
+LONGUEUR;
+LUMIERE CENDREE;Phénomène se traduisant entre la NOUVELLE LUNE et les QUARTIERs lorsque la Lune est dite "en croissant". La partie non éclairée par le Soleil est néanmoins visible car elle reçoit la lumière reflétée par la Terre encore appelée CLAIR DE TERRE.
+LUNAISON;
+LUNE DESCENDANTE;Expression populaire désignant la période séparant la PLEINE LUNE de la NOUVELLE LUNE en passant par le DERNIER QUARTIER.
+LUNE GIBBEUSE;Expression décrivant la forme de la Lune "ventrue" entre le PREMIER QUARTIER et la PLEINE LUNE et entre la PLEINE LUNE et le DERNIER QUARTIER.
+LUNE MONTANTE;Expression populaire désignant la période séparant la NOUVELLE LUNE de la PLEINE LUNE en passant par le PREMIER QUARTIER.
+MARAIS;
+MARE;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement une MER lunaire.
+MASCON;Vient de l'Anglais " Mass Concentration ". Concentrations de masse enfouie sous la surface des MERs lunaires dans lesquelles la densité de matière est supérieure à la moyenne lunaire. Il pourrait s'agir des METEORITEs leur ayant donné naissance.
+MER;Immenses étendues plates et sombres portant des DORSALEs des RAINUREs et des CRATEREs isolés. Constituées d'épanchements de LAVEs basaltiques d'origine interne.
+MERIDIEN;Ligne imaginaire passant par les deux pôles lunaires permettant de connaitre la LONGITUDE SELENOGRAPHIQUE d'une formation lunaire.
+METEORITE;
+MOIS ANOMALISTIQUE;Durée séparant deux passages successifs de la Lune au PERIGEE de l'ORBITE LUNAIRE.
+MOIS LUNAIRE;Encore appelé MOIS SYNODIQUE ou REVOLUTION SYNODIQUE. Durée séparant deux NOUVELLEs LUNEs successives.
+MOIS SIDERAL;Equivalent pour la Lune à sa REVOLUTION SIDERALE. Durée séparant la même position de la Lune par rapport aux étoiles.
+MOIS SYNODIQUE;Encore appelé MOIS LUNAIRE ou REVOLUTION SYNODIQUE. Durée séparant deux NOUVELLEs LUNEs successives.
+MONS;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement une MONTAGNE isolée.
+MONTAGNE;Elévation du relief lunaire. Les montagnes lunaires ont pour la plupart été créées lors de la formation des MERs. Leur HAUTEUR peut atteindre 7000 m. Elles sont parfois isolées (MONS) ou rassemblées en CHAINE DE MONTAGNE (ou MONTES).
+MONTES;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement une CHAINE DE MONTAGNE.
+MURAILLE;Partie d'une FORMATION CRATERIFORME comprise entre le sommet des VERSANTs et le FOND. Sa HAUTEUR va de "peu élevée" ( <1000 m ) à "très élevée" ( >4000 m).
+NOEUD ASCENDANT;
+NOEUD DESCENDANT;
+NOMENCLATURE LUNAIRE;Ensemble des noms des formations lunaires officiellement retenus par l'Union Astronomique Internationale.
+NOUVELLE LUNE;PHASE pendant laquelle la Lune nous présente son disque non éclairé par le Soleil invisible depuis la Terre lorsqu'elle passe entre le Soleil et la Terre. Point de départ d'une nouvelle LUNAISON et période des ECLIPSEs DE SOLEIL.
+OCEAN;Appelation donnée à une seule MER lunaire par Riccioli : " l'Océan des Tempêtes ".
+OCEANUS;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement le seul OCEAN lunaire.
+ORBITE LUNAIRE;
+PALUS;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement un MARAIS lunaire.
+PARALLELE;Ligne imaginaire parallèle à l'Equateur lunaire permettant de connaitre la LATITUDE SELENOGRAPHIQUE d'une formation lunaire.
+PERIGEE;Point le moins éloigné de l'orbite elliptique d'un astre tournant autour de la Terre.
+PHASE;Changement d'aspect de la Lune dû à la variation de l'étendue éclairée et de la position du TERMINATEUR sur le globe lunaire. On distingue la NOUVELLE LUNE le PREMIER QUARTIER la PLEINE LUNE le DERNIER QUARTIER.
+PLAINE MUREE;Formation cratériforme de grand diamètre ( à priori plus de 100 km ) présentant un FOND plat très étendu.
+PLEINE LUNE;Aspect du disque lunaire totalement éclairé par le Soleil. Cette PHASE a lieu quand le Soleil, la Terre et la Lune sont alignés.
+PREMIER QUARTIER;Aspect du disque lunaire à moitié éclairé par le Soleil environ 7 jours après la NOUVELLE LUNE. Le Premier Quartier s'observe le soir. La Lune et le Soleil sont alors à 90° l'un de l'autre pour un observateur terrestre.
+PROMONTORIUM;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement un CAP montagneux lunaire.
+QUARTIER;
+RAINURE;Formation linéaire plus ou moins sinueuses généralement situées dans les terrains de type MER. Il s'agit sans doute d'anciennes coulées de LAVE ou de tunnels de LAVE dont le toit se serait effondré.
+REGOLITHE;Couche de poussières superficielles de la Lune provoquée par la fragmentation des couches inférieures sous l'effet du bombardement météoritique permanent.
+REMPART;
+REVOLUTION;Durée mise par un corps céleste pour effectuer un tour autour de so astre-père. On distingue la REVOLUTION SIDERALE et la REVOLUTION SYNODIQUE selon le repère pris.
+REVOLUTION SIDERALE;Durée prise par un corps céleste pour effectuer un tour du Ciel par rapport aux étoiles pour un observateur terrestre.
+REVOLUTION SYNODIQUE;Encore appelée LUNAISON ou MOIS LUNAIRE. Durée séparant deux PHASEs de la Lune identiques.
+RIMA;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement une RAINURE lunaire.
+RIMAE;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement un SYSTEME DE RAINURES lunaires.
+ROTATION;Durée prise par un corps céleste afin d'effectuer un tour sur lui-même pour un observateur extérieur au système.
+ROTATION SYNCHRONE;Se dit d'un astre dont la durée de rotation est égale à la durée de sa révolution autour de son astre-père. Il lui présente alors toujours un même hémisphère. C'est le cas de la Lune qui présente toujours sa FACE VISIBLE vers la Terre.
+RUPES;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement un ESCARPEMENT.
+SINUS;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement un GOLFE de MER lunaire.
+SYSTEME DE DOMES;Ensemble de DOMEs volcaniques regroupés dans une même région lunaire.
+SYSTEME DE DORSALES;Ensemble de plusieurs DORSALEs lunaires imbriquées ayant une origine commune.
+SYSTEME DE RAINURES;Ensemble de plusieurs RAINUREs lunaires imbriquées ayant une origine commune.
+TERMINATEUR;Zone du disque lunaire constituant la frontière entre la partie éclairée et la partie dans l'obscurité. Le TERMINATEUR DU MATIN s'observe entre la NOUVELLE LUNE et la PLEINE LUNE et le TERMINATEUR DU SOIR entre la PLEINE LUNE et la NOUVELLE LUNE.
+TERMINATEUR DU MATIN;Le terminateur "du matin" est la région où le Soleil se lève sur la Lune. Pour un observateur terrestre il s'observe paradoxalement le soir entre la NOUVELLE LUNE et la PLEINE LUNE.
+TERMINATEUR DU SOIR;Le terminateur du soir est la région lunaire où le Soleil se couche. Pour un observateur terrestre il s'observe paradoxalement le matin entre la PLEINE LUNE et la NOUVELLE LUNE.
+TOPONYMIE LUNAIRE;Origine des noms des formations lunaires.
+UAI;Union Astronomique Internationale;
+VALLEE;Formation rectiligne causée par l'effondrement d'une bande de terrain ou formée par l'alignement de plusieurs CRATEREs générés par les retombées d'un impact météoritique important.
+VALLIS;Terme latin utilisé par l'Union Astronomique Internationale (UAI) pour désigner officiellement une VALLEE.
+VERSANT;Partie d'une FORMATION CRATERIFORME partant des terrains avoisinants et s'élevant jusqu'au sommet de la MURAILLE. Les versants peuvent être de "plats" jusqu'à "très escarpés". Ils sont dits "tourmentés" s'ils présentent des vallées radiales.
+VITESSE DE LIBERATION;Vitesse minimale que doit acquérir un corps pour pouvoir s'échapper de l'attraction gravitationnelle d'un astre.
+VOLCAN;
+ZONE DES LIBRATIONS;Partie limitrophe des FACE CACHEE et FACE VISIBLE situées aux environs des MERIDIENs 90° Ouest et 90° Est alternativement cachées ou visibles en fonction des LIBRATIONs lunaires.
