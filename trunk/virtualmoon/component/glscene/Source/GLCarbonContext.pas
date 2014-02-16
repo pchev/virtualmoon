@@ -12,7 +12,7 @@
 }
 unit GLCarbonContext;
 
-{$i ../GLScene.inc}
+{$i GLScene.inc}
 
 interface
 
