@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   InterfaceBase, LCLVersion, // version number
-  Forms, Dialogs, virtualmoon1, config,
+  Forms, Dialogs, virtualmoon1, config, Math,
   OpenGLAdapter, OpenGLTokens, glscene_runtime, CraterList, dbutil, fmsg, glossary, splashunit,
   telescope, SysUtils, TurboPowerIPro, u_constant, cu_tz, cu_planet,
   u_projection, u_util, pu_moon, u_translation_database, u_translation,
@@ -19,6 +19,7 @@ var i:integer;
 {$R *.res}
 
 begin
+  SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
   {$ifdef USEHEAPTRC}
   SetHeapTraceOutput('/tmp/vma_heap.trc');
   {$endif}

@@ -8145,8 +8145,8 @@ begin
     locOptions := locOptions + [rcoDoubleBuffered];
   if roStereo in ContextOptions then
     locOptions := locOptions + [rcoStereo];
-  if roDebugContext in ContextOptions then
-    locOptions := locOptions + [rcoDebug];
+//  if roDebugContext in ContextOptions then       crash with ATI on Windows
+//    locOptions := locOptions + [rcoDebug];
   if roOpenGL_ES2_Context in ContextOptions then
     locOptions := locOptions + [rcoOGL_ES];
   if roNoColorBuffer in ContextOptions then
