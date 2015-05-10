@@ -1,4 +1,4 @@
-//
+﻿//
 // This unit is part of the GLScene Project, http://glscene.org
 // 
 {: 
@@ -15,7 +15,9 @@ unit GLSArchiveManager;
 interface
 
 uses
-  Classes, SysUtils, PersistentClasses, ApplicationFileIO;
+  Classes, SysUtils,
+  //GLS
+  GLPersistentClasses, GLApplicationFileIO;
 
 Type
 
@@ -243,7 +245,7 @@ Type
   //Внимание!!! Работает только для одного Менеджера Архивов
   function GetArchiveManager: TGLSArchiveManager;
 
-  // ApplicationFileIO
+  // GLApplicationFileIO
   //Эти функции служат для автоматизации загрузки
   //Пользователь вводит LoadFromFile а через эти функции получает результат.
 

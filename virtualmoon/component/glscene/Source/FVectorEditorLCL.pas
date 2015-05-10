@@ -12,9 +12,12 @@ interface
 
 {$i GLScene.inc}
 
-uses  lresources,
-  Forms, ComCtrls, StdCtrls, ExtCtrls, Buttons, Graphics, Controls,
-  Classes;
+uses  
+  lresources,
+  Classes, SysUtils,
+  Forms, StdCtrls, ExtCtrls, Buttons, Graphics, Controls,
+  GLVectorGeometry, GLUtils;
+
 
 type
   TVectorEditorForm = class(TForm)
@@ -73,11 +76,8 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses
-  SysUtils, VectorGeometry, GLUtils; 
-
 var
-	vVectorEditorForm : TVectorEditorForm;
+  vVectorEditorForm : TVectorEditorForm;
 
 function VectorEditorForm : TVectorEditorForm;
 begin

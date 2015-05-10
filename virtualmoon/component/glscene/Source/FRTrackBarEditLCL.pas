@@ -1,3 +1,6 @@
+//
+// This unit is part of the GLScene Project, http://glscene.org
+//
 {: FRTrackBarEdit<p>
 
    Frame combining a TrackBar and an Edit.<p>
@@ -13,7 +16,8 @@ interface
 {$i GLScene.inc}
 
 uses
-  Forms, StdCtrls, ComCtrls, Classes, Controls,lresources;
+  lresources, 
+  Forms, StdCtrls, ComCtrls, Classes, Controls;
 
 type
   TRTrackBarEdit = class(TFrame)

@@ -35,15 +35,10 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,
-  SysUtils,
-  GLCrossPlatform,
-  GLVectorFileObjects,
-  VectorTypes,
-  GLMaterial,
-  VectorGeometry,
-  VectorLists,
-  ApplicationFileIO;
+  Classes, SysUtils,
+
+  GLCrossPlatform, GLVectorFileObjects, GLVectorTypes, GLMaterial,
+  GLVectorGeometry, GLVectorLists, GLApplicationFileIO;
 
 type
   // TGLMS3DVectorFile

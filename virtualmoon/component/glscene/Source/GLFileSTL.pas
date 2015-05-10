@@ -18,7 +18,8 @@ unit GLFileSTL;
 
 interface
 
-uses Classes, GLVectorFileObjects, ApplicationFileIO, GLCrossPlatform;
+uses
+  Classes, GLVectorFileObjects, GLApplicationFileIO, GLCrossPlatform;
 
 type
 
@@ -47,7 +48,9 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses TypesSTL, VectorGeometry, VectorLists, SysUtils, GLUtils;
+uses
+  SysUtils,
+  TypesSTL, GLVectorGeometry, GLVectorLists,  GLUtils;
 
 const
   cSOLID_LABEL       = 'SOLID';

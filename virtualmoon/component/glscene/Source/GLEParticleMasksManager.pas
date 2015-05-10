@@ -58,7 +58,7 @@ uses
   Graphics,
 {$ENDIF}
   // GLScene
-  GLTexture, GLMaterial, GLScene, VectorGeometry, VectorTypes,
+  GLTexture, GLMaterial, GLScene, GLVectorGeometry, GLVectorTypes,
   GLParticleFX, GLCrossPlatform, GLCoordinates;
 
 type

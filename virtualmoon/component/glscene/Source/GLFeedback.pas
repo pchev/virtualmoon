@@ -35,16 +35,12 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,
-  SysUtils,
-  VectorGeometry,
-  VectorLists,
-  GLScene,
-  GLVectorFileObjects,
-  GLTexture,
-  GLRenderContextInfo,
-  GLContext,
-  GLState;
+  Classes, SysUtils,
+  //GLS
+  GLVectorGeometry, GLVectorLists, GLScene, GLVectorFileObjects,
+  GLTexture, GLRenderContextInfo, GLContext, GLState, OpenGLTokens,
+  GLMeshUtils
+  , GLVectorTypes;
 
 type
   TFeedbackMode = (fm2D, fm3D, fm3DColor, fm3DColorTexture, fm4DColorTexture);
@@ -113,11 +109,6 @@ implementation
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
-
-uses
-  OpenGLTokens,
-  MeshUtils
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
 
 // ----------
 // ---------- TGLFeedback ----------

@@ -19,9 +19,10 @@ interface
 
 {$I GLScene.inc}
 
-uses GLVectorFileObjects, GLEllipseCollision, VectorGeometry, VectorLists,
+uses
+  GLVectorFileObjects, GLEllipseCollision, GLVectorGeometry, GLVectorLists,
   GLScene, GLTerrainRenderer,GLProxyObjects, GLMultiProxy
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
+  , GLVectorTypes;
 
 //Calculate and set the collision range
 procedure ECSetCollisionRange(var MovePack: TECMovePack);

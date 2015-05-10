@@ -19,7 +19,7 @@ interface
 {$R-}
 
 uses
-  Classes, TypesB3D, VectorGeometry, VectorTypes, VectorLists;
+  Classes, TypesB3D, GLVectorGeometry, GLVectorTypes, GLVectorLists;
 
 type
   TB3DMaterial = class

@@ -93,67 +93,6 @@
 {$DEFINE UNIX}
 {$ENDIF}
 
-{$IFDEF ver70}
-   {$IFDEF Windows}
-     {$DEFINE Win16}
-   {$ENDIF Windows}
-   {$IFDEF MSDOS}
-     {$DEFINE NO_EXPORTS}
-   {$ENDIF MSDOS}
-   {$IFDEF DPMI}
-     {$DEFINE BP_DPMI}
-   {$ENDIF}
-   {$DEFINE OS_16_BIT}
-   {$DEFINE __OS_DOS__}
-{$ENDIF ver70}
-
-{$IFDEF ver80}
-   {$DEFINE Delphi}      {Delphi 1.x}
-   {$DEFINE Delphi16}
-   {$DEFINE Win16}
-   {$DEFINE OS_16_BIT}
-   {$DEFINE __OS_DOS__}
-{$ENDIF ver80}
-
-{$IFDEF ver90}
-   {$DEFINE Delphi}      {Delphi 2.x}
-   {$DEFINE Delphi32}
-{$ENDIF ver90}
-
-{$IFDEF ver100}
-   {$DEFINE Delphi}      {Delphi 3.x}
-   {$DEFINE Delphi32}
-   {$DEFINE WIN32}
-{$ENDIF ver100}
-
-{$IFDEF ver93}
-   {$DEFINE Delphi}      {C++ Builder 1.x}
-   {$DEFINE Delphi32}
-{$ENDIF ver93}
-
-{$IFDEF ver110}
-   {$DEFINE Delphi}      {C++ Builder 3.x}
-   {$DEFINE Delphi32}
-{$ENDIF ver110}
-
-{$IFDEF ver120}
-   {$DEFINE Delphi}      {Delphi 4.x}
-   {$DEFINE Delphi32}
-   {$DEFINE Has_Int64}
-{$ENDIF ver120}
-
-{$IFDEF ver130}
-   {$DEFINE Delphi}      {Delphi 5.x}
-   {$DEFINE Delphi32}
-   {$DEFINE Has_Int64}
-{$ENDIF ver130}
-
-{$IFDEF ver140}
-   {$DEFINE Delphi}      {Delphi 6.x}
-   {$DEFINE Delphi32}
-   {$DEFINE Has_Int64}
-{$ENDIF ver140}
-
 {$IFDEF ver150}
    {$DEFINE Delphi}      {Delphi 7.x}
    {$DEFINE Delphi32}

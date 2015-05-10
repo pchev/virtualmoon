@@ -51,8 +51,15 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, GLScene, VectorGeometry, GLObjects, OpenGLTokens,
-  GLContext, GLColor, BaseClasses, GLRenderContextInfo, GLState,
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
+
+  GLScene, GLVectorGeometry, GLObjects, OpenGLTokens,
+  GLContext, GLColor, GLBaseClasses, GLRenderContextInfo, GLState
+  , GLVectorTypes, GLUtils,
   GLTextureFormat;
 
 type
@@ -247,8 +254,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses GLUtils {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
 
 // ------------------
 // ------------------ TGLFlareGradient ------------------

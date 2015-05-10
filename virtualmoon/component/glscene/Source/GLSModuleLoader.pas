@@ -169,7 +169,7 @@ end;
 uses
 {$IFDEF UNIX}
   Types,
-  Libc;
+  dl;
 {$else}
   dl,
   Types,

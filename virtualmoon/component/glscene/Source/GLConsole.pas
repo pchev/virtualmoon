@@ -74,18 +74,15 @@ interface
 {$I GLScene.inc}
 
 uses
-  // System
-  Classes, SysUtils, TypInfo,
-  // VCL
 {$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Graphics,
+  System.Classes, System.SysUtils, System.TypInfo, Vcl.Graphics,
 {$ELSE}
-  Graphics,
+  Classes, SysUtils, TypInfo, Graphics,
 {$ENDIF}
   // GLScene
   GLScene, GLObjects, GLHUDObjects, GLViewer, GLBitmapFont,
-  PersistentClasses, GLContext, GLTexture, GLUtils, GLStrings,
-  GLCrossPlatform, GLMaterial{$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
+  GLPersistentClasses, GLContext, GLTexture, GLUtils, GLStrings,
+  GLCrossPlatform, GLMaterial, GLVectorTypes;
 
 const
   CONSOLE_MAX_COMMANDS = 120;
@@ -919,7 +916,7 @@ begin
     AutoCompleteCommand(MatchCount, AdditionalCommandsMatchList,
       CommandsMatchList);
     if MatchCount = 0 then
-      SysUtils.beep;
+      Beep;
 
     if CurrentTickCount - FPreviousTickCount < Controls.FDblClickDelay then
       if MatchCount > 1 then

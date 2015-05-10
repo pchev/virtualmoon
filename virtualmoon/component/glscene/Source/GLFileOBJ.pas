@@ -81,20 +81,13 @@ unit GLFileOBJ;
 interface
 
 uses
-  GLCrossPlatform,
   Classes,
   SysUtils,
-  ApplicationFileIO,
-  PersistentClasses,
-  
-  VectorGeometry,
-  GLScene,
-  GLVectorFileObjects,
-  VectorLists,
-  GLTexture,
-  GLColor,
-  GLRenderContextInfo,
-  GLMaterial;
+
+  GLApplicationFileIO,
+  GLCrossPlatform, GLPersistentClasses, GLVectorGeometry,
+  GLScene,  GLVectorFileObjects, GLVectorLists,  GLTexture,  GLColor,
+  GLRenderContextInfo, GLMaterial;
 
 const
   BufSize = 10240; { Load input data in chunks of BufSize Bytes. }
@@ -185,15 +178,14 @@ implementation
 
 uses
 {$IFDEF GLS_DELPHI_2009_UP}
-  VectorTypes,
+  GLVectorTypes,
 {$ENDIF}
   GLStrings,
   OpenGLTokens,
   XOpenGL,
   GLContext,
-  MeshUtils,
-  GLUtils
- {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
+  GLMeshUtils,
+  GLUtils;
 
 // StreamEOF
 //

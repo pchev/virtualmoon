@@ -14,7 +14,7 @@
 
    <b>History : </b><font size=-1><ul>
       <li>28/01/13 - PW - Added CPP compatibility, moved function
-                          IsPointInPolygon to Vectorgeometry unit;
+                          IsPointInPolygon to GLVectorgeometry unit;
       <li>24/08/10 - Yar - Replaced OpenGL1x to OpenGLTokens
       <li>31/05/10 - Yar - Fixed warnings
       <li>22/04/10 - Yar - Fixes after GLState revision
@@ -76,10 +76,10 @@ uses
   {$IFDEF MSWINDOWS}Windows,{$ENDIF} Classes, SysUtils,
 
   // GLScene
-  OpenGL1x, GLScene, GLColor, GLObjects, VectorGeometry, GLMaterial, GLStrings,
+  OpenGL1x, GLScene, GLColor, GLObjects, GLVectorGeometry, GLMaterial, GLStrings,
   GLGeomObjects, GLBitmapFont, GLViewer, GLVectorFileObjects, GLCrossPlatform,
-  GLCoordinates, GLRenderContextInfo, GeometryBB, VectorTypes, GLCanvas,
-  PersistentClasses, GLScreen, GLState, GLSelection;
+  GLCoordinates, GLRenderContextInfo, GLGeometryBB, GLVectorTypes, GLCanvas,
+  GLPersistentClasses, GLScreen, GLState, GLSelection;
 
 type
   TGLGizmoExObjectCollection = class;

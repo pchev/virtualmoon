@@ -24,7 +24,10 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLHeightData, HeightTileFile;
+uses
+  Classes, SysUtils,
+  //GLS
+  GLHeightData, GLHeightTileFile;
 
 type
 
@@ -60,7 +63,7 @@ type
 	      { Published Declarations }
 
          {: FileName of the HTF file.<p>
-            Note that it is accessed via the services of ApplicationFileIO,
+            Note that it is accessed via the services of GLApplicationFileIO,
             so this may not necessarily be a regular file on a disk... }
          property HTFFileName : String read FHTFFileName write SetHTFFileName;
          {: If true the height field is wrapped indefinetely. }
@@ -82,9 +85,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses SysUtils;
-
 // ------------------
 // ------------------ TGLHeightTileFileHDS ------------------
 // ------------------

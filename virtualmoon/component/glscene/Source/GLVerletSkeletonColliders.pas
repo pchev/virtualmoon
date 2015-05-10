@@ -13,8 +13,10 @@ unit GLVerletSkeletonColliders;
 interface
 
 uses
-  Classes, PersistentClasses, VectorGeometry, GLVectorFileObjects,
-  VerletClasses;
+  Classes,
+  //GLS
+  GLPersistentClasses, GLVectorGeometry, GLVectorFileObjects, GLVerletTypes,
+  GLVectorTypes;
 
 type
   
@@ -90,8 +92,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-uses
-  VectorTypes;
 // ------------------
 // ------------------ Global methods ------------------
 // ------------------

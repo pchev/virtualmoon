@@ -13,8 +13,15 @@ unit GLMultiProxy;
 
 interface
 
-uses Classes, GLScene, VectorGeometry, GLSilhouette,
-     GLRenderContextInfo, BaseClasses, VectorTypes;
+uses
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
+
+  OpenGLTokens, GLContext,  GLScene, GLVectorGeometry, GLSilhouette,
+  GLRenderContextInfo, GLBaseClasses, GLVectorTypes;
 
 type
 
@@ -151,8 +158,6 @@ implementation
 //-------------------------------------------------------------
 //-------------------------------------------------------------
 //-------------------------------------------------------------
-
-uses SysUtils, OpenGLTokens, GLContext;
 
 // ------------------
 // ------------------ TGLMultiProxyMaster ------------------

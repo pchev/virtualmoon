@@ -72,22 +72,18 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes,
-  PersistentClasses,
-  GLScene,
-  VectorGeometry,
-  XCollection,
-  GLMaterial,
-  GLCadencer,
-  VectorLists,
-  GLGraphics,
-  GLContext,
-  GLColor,
-  BaseClasses,
-  GLCoordinates,
-  GLRenderContextInfo,
-  GLManager,
-  GLTextureFormat;
+uses
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils, System.Types,
+  {$ELSE}
+    Classes, SysUtils, Types,
+  {$ENDIF}
+
+  GLScene,  OpenGLTokens,  GLCrossPlatform,  GLState
+  , GLVectorTypes,
+  GLPersistentClasses,  GLVectorGeometry,  XCollection,  GLMaterial,
+  GLCadencer, GLVectorLists,  GLGraphics,  GLContext,  GLColor,  GLBaseClasses,
+  GLCoordinates,  GLRenderContextInfo,  GLManager,  GLTextureFormat;
 
 const
   cPFXNbRegions = 128; // number of distance regions
@@ -956,13 +952,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses
-  SysUtils,
-  OpenGLTokens,
-  GLCrossPlatform,
-  GLState
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
 
 // GetOrCreateSourcePFX
 //

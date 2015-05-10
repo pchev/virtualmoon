@@ -27,7 +27,7 @@ uses
   Classes,
   SysUtils,
   GLCrossPlatform,
-  VectorGeometry,
+  GLVectorGeometry,
   GLGraphics,
   OpenGLTokens;
 

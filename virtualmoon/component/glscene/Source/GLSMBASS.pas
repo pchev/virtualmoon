@@ -34,10 +34,10 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, SysUtils, Forms,
+  Classes, SysUtils, Forms, Controls,
 
   //GLScene
-  GLSound, GLScene, Bass, VectorGeometry;
+  GLSound, GLScene, Bass, GLVectorGeometry;
 
 type
 
@@ -144,7 +144,7 @@ const
 begin
    Assert(bass_isloaded,'BASS DLL is not present');
    {$IFDEF FPC}
-   if not BASS_Init(1, OutputFrequency, BASS_DEVICE_3D, TWinControl(Owner).Handle,nil) then
+   if not BASS_Init(1, OutputFrequency, BASS_DEVICE_3D, Pointer(TWinControl(Owner).Handle), nil) then
    {$ELSE}
    if not BASS_Init(1, OutputFrequency, BASS_DEVICE_3D, Application.Handle,nil) then
    {$ENDIF}
@@ -193,6 +193,7 @@ end;
 // NotifyEnvironmentChanged
 //
 procedure TGLSMBASS.NotifyEnvironmentChanged;
+{$IFDEF MSWINDOWS}
 const
    cEnvironmentToBASSConstant : array [seDefault..sePsychotic] of Integer = (
       EAX_ENVIRONMENT_GENERIC, EAX_ENVIRONMENT_PADDEDCELL, EAX_ENVIRONMENT_ROOM,
@@ -207,6 +208,10 @@ const
 begin
    if FActivated and EAXSupported then
       BASS_SetEAXParameters(cEnvironmentToBASSConstant[Environment],-1,-1,-1);
+{$ELSE}
+begin
+{$ENDIF}
+
 end;
 
 // KillSource
@@ -361,11 +366,16 @@ end;
 // EAXSupported
 //
 function TGLSMBASS.EAXSupported : Boolean;
+{$IFDEF MSWINDOWS}
 var
    c : Cardinal;
    s : Single;
 begin
    Result:=BASS_GetEAXParameters(c, s, s, s);
+{$ELSE}
+begin
+   Result:=false;
+{$ENDIF}
 end;
 
 // GetDefaultFrequency

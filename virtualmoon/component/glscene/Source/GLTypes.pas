@@ -262,8 +262,8 @@ end;
 
 function TGLVector2D.Add(const AVector2D: TGLVector2D): TGLVector2D;
 begin
-  Result.V[0] := Self.V[0] + AVector2D.V[0];
-  Result.V[1] := Self.V[1] + AVector2D.V[1];
+  Result.X := Self.X + AVector2D.X;
+  Result.Y := Self.Y + AVector2D.Y;
   Result.W := 1.0;
 end;
 

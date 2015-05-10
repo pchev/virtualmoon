@@ -25,7 +25,7 @@ uses
   {$IFDEF UNIX} dynlibs, {$ENDIF}
   {$IFDEF GLS_LOGGING} GLSLog, {$ENDIF}
   {$IFDEF FPC} GLSZLibExAPI, {$ENDIF}
-  Classes, SysUtils, VectorGeometry, GLCrossPlatform;
+  Classes, SysUtils, GLVectorGeometry, GLCrossPlatform;
 
 const
 {$IFDEF MSWINDOWS}

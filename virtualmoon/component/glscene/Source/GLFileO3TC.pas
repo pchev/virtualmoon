@@ -29,7 +29,7 @@ uses
   GLContext,
   GLGraphics,
   GLTextureFormat,
-  ApplicationFileIO;
+  GLApplicationFileIO;
 
 type
 
@@ -52,7 +52,7 @@ type
 implementation
 
 uses
-  VectorGeometry;
+  GLVectorGeometry;
 
 const
   O3_TC_RGB_S3TC_DXT1 = 1;

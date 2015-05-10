@@ -28,8 +28,9 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, GLObjectManager, ComponentEditors, PropEdits, LResources, LCLType,
-  LazIDEIntf, ProjectIntf, ProjectResourcesIntf, MacroIntf, resource, Laz_XMLCfg,
+  LResources, resource,
+  Classes, GLObjectManager, ComponentEditors, PropEdits, LCLType,
+  LazIDEIntf, ProjectIntf, ProjectResourcesIntf, MacroIntf, Laz_XMLCfg,
   Forms;
 
 type
@@ -52,7 +53,7 @@ implementation
 uses
   SysUtils, Dialogs, Graphics,
   // GLScene units
-  VectorGeometry, GLScene, GLViewer, GLFullScreenViewer, BaseClasses,
+  GLVectorGeometry, GLScene, GLViewer, GLFullScreenViewer, GLBaseClasses,
   GLStrings, GLCoordinates, GLTexture, GLMaterial, GLScreen,
   GLCadencer, GLTextureImageEditors, GLColor, GLCrossPlatform, GLMaterialEx,
   // GLScene - basic geometry
@@ -91,12 +92,12 @@ uses
   GLBumpShader, GLSLDiffuseSpecularShader, GLSLBumpShader, GLSLPostBlurShader,
   GLAsmShader, GLShaderCombiner, GLTextureSharingShader,
   // GLScene - other
-  GLImposter, GLFeedback, GLCollision, GLScriptBase, AsyncTimer, GLDCE,
+  GLImposter, GLFeedback, GLCollision, GLScriptBase, GLAsyncTimer, GLDCE,
   GLFPSMovement, GLMaterialScript, GLNavigator, GLSmoothNavigator,
-  GLTimeEventsMgr, ApplicationFileIO, GLVfsPAK, GLSimpleNavigation,
+  GLTimeEventsMgr, GLApplicationFileIO, GLVfsPAK, GLSimpleNavigation,
   GLCameraController, GLGizmo, GLGizmoEx, GLFBORenderer,
   GLSoundFileObjects, GLSound, GLCompositeImage, GLSLog, GLSLanguage,
-  GLSArchiveManager,
+  GLSArchiveManager, GLUtils,
 
   // Image file formats
   DDSImage, HDRImage, O3TCImage,
@@ -116,8 +117,7 @@ uses
   // Property editor forms
   GLSceneEditLCL, FVectorEditorLCL, FMaterialEditorFormLCL, FRMaterialPreviewLCL,
   FLibMaterialPickerLCL, FRTextureEditLCL, FRFaceEditorLCL,
-  FRColorEditorLCL, FRTrackBarEditLCL, FRUniformEditor, FGUILayoutEditor,
-  GLUtils;
+  FRColorEditorLCL, FRTrackBarEditLCL, FShaderUniformEditorLCL, FGUILayoutEditorLCL;
 
 var
   vObjectManager: TObjectManager;
@@ -1186,11 +1186,10 @@ end;
 
 procedure Register;
 begin
-  RegisterComponents('GLScene',
-    [TGLScene, TGLSceneViewer, TGLMemoryViewer, TGLMaterialLibrary,
-    TGLCadencer, TGLGuiLayout, TGLBitmapFont, TGLWindowsBitmapFont,
-    TGLScriptLibrary, TGLSoundLibrary,
-    TGLFullScreenViewer, TGLMaterialLibraryEx]);
+  RegisterComponents('GLScene', [TGLScene, TGLSceneViewer, TGLMemoryViewer, 
+  TGLMaterialLibrary, TGLMaterialLibraryEx, TGLCadencer, TGLGuiLayout, 
+  TGLBitmapFont, TGLWindowsBitmapFont, TGLScriptLibrary, TGLSoundLibrary, 
+  TGLFullScreenViewer]);
 
   RegisterComponents('GLScene PFX',
     [TGLCustomPFXManager, TGLPolygonPFXManager, TGLPointLightPFXManager,
@@ -1198,10 +1197,10 @@ begin
     TGLFireFXManager, TGLThorFXManager, TGLEParticleMasksManager]);
 
   RegisterComponents('GLScene Utils',
-    [TAsyncTimer, TGLStaticImposterBuilder, TCollisionManager,
+    [TGLAsyncTimer, TGLStaticImposterBuilder, TGLCollisionManager,
     TGLAnimationControler, TGLDCEManager, TGLFPSMovementManager,
     TGLMaterialScripter, TGLUserInterface, TGLNavigator, TGLSmoothNavigator,
-    TGLSmoothUserInterface, TGLTimeEventsMGR, TApplicationFileIO,
+    TGLSmoothUserInterface, TGLTimeEventsMGR, TGLApplicationFileIO,
     TGLVfsPAK, TGLSimpleNavigation, TGLCameraController, TGLGizmo,
     TGLGizmoEx, TGLSLogger, TGLSLanguage, TGLSArchiveManager]);
 
@@ -1233,8 +1232,8 @@ begin
 
   RegisterPropertyEditor(TypeInfo(TGLSoundFile), TGLSoundSample, '',
     TSoundFileProperty);
-  RegisterPropertyEditor(TypeInfo(string), TGLBaseSoundSource,
-    'SoundName', TSoundNameProperty);
+  RegisterPropertyEditor(TypeInfo(string), TGLBaseSoundSource, 'SoundName', 
+  TSoundNameProperty);
 
   RegisterPropertyEditor(TypeInfo(TGLCoordinates), nil, '', TGLCoordinatesProperty);
 
@@ -1339,8 +1338,7 @@ begin
     RegisterSceneObject(TGLAnnulus, 'Annulus', glsOCAdvancedGeometry, HInstance);
     RegisterSceneObject(TGLExtrusionSolid, 'ExtrusionSolid',
       glsOCAdvancedGeometry, HInstance);
-    RegisterSceneObject(TGLMultiPolygon, 'MultiPolygon',
-      glsOCAdvancedGeometry, HInstance);
+    RegisterSceneObject(TGLMultiPolygon, 'MultiPolygon', glsOCAdvancedGeometry, HInstance);
     RegisterSceneObject(TGLPipe, 'Pipe', glsOCAdvancedGeometry, HInstance);
     RegisterSceneObject(TGLRevolutionSolid, 'RevolutionSolid',
       glsOCAdvancedGeometry, HInstance);
@@ -1352,8 +1350,7 @@ begin
     RegisterSceneObject(TGLMesh, 'Mesh', glsOCMeshObjects, HInstance);
     RegisterSceneObject(TGLTilePlane, 'TilePlane', glsOCMeshObjects, HInstance);
     RegisterSceneObject(TGLPortal, 'Portal', glsOCMeshObjects, HInstance);
-    RegisterSceneObject(TGLTerrainRenderer, 'TerrainRenderer',
-      glsOCMeshObjects, HInstance);
+    RegisterSceneObject(TGLTerrainRenderer, 'TerrainRenderer', glsOCMeshObjects, HInstance);
 
     //Graph-plotting objects
     RegisterSceneObject(TGLFlatText, 'FlatText', glsOCGraphPlottingObjects, HInstance);
@@ -1393,12 +1390,10 @@ begin
     RegisterSceneObject(TGLCheckBox, 'GLCheckBox', glsOCGuiObjects, HInstance);
     RegisterSceneObject(TGLEdit, 'GLEdit', glsOCGuiObjects, HInstance);
     RegisterSceneObject(TGLLabel, 'GLLabel', glsOCGuiObjects, HInstance);
-    RegisterSceneObject(TGLAdvancedLabel, 'GLAdvancedLabel',
-      glsOCGuiObjects, HInstance);
+    RegisterSceneObject(TGLAdvancedLabel, 'GLAdvancedLabel', glsOCGuiObjects, HInstance);
     RegisterSceneObject(TGLScrollbar, 'GLScrollbar', glsOCGuiObjects, HInstance);
     RegisterSceneObject(TGLStringGrid, 'GLStringGrid', glsOCGuiObjects, HInstance);
-    RegisterSceneObject(TGLCustomControl, 'GLBitmapControl',
-      glsOCGuiObjects, HInstance);
+    RegisterSceneObject(TGLCustomControl, 'GLBitmapControl', glsOCGuiObjects, HInstance);
 
     //Special objects
     RegisterSceneObject(TGLLensFlare, 'LensFlare', glsOCSpecialObjects, HInstance);
@@ -1406,15 +1401,13 @@ begin
       glsOCSpecialObjects, HInstance);
     RegisterSceneObject(TGLMirror, 'Mirror', glsOCSpecialObjects, HInstance);
     RegisterSceneObject(TGLShadowPlane, 'ShadowPlane', glsOCSpecialObjects, HInstance);
-    RegisterSceneObject(TGLShadowVolume, 'ShadowVolume',
-      glsOCSpecialObjects, HInstance);
+    RegisterSceneObject(TGLShadowVolume, 'ShadowVolume', glsOCSpecialObjects, HInstance);
     RegisterSceneObject(TGLZShadows, 'ZShadows', glsOCSpecialObjects, HInstance);
     RegisterSceneObject(TGLSLTextureEmitter, 'GLSL Texture Emitter',
       glsOCSpecialObjects, HInstance);
     RegisterSceneObject(TGLSLProjectedTextures, 'GLSL Projected Textures',
       glsOCSpecialObjects, HInstance);
-    RegisterSceneObject(TGLTextureEmitter, 'Texture Emitter',
-      glsOCSpecialObjects, HInstance);
+    RegisterSceneObject(TGLTextureEmitter, 'Texture Emitter', glsOCSpecialObjects, HInstance);
     RegisterSceneObject(TGLProjectedTextures, 'Projected Textures',
       glsOCSpecialObjects, HInstance);
     RegisterSceneObject(TGLBlur, 'Blur', glsOCSpecialObjects, HInstance);

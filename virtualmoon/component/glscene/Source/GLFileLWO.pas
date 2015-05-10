@@ -44,11 +44,12 @@ type
 
 implementation
 
-uses SysUtils,
-  VectorGeometry,
+uses
+  SysUtils,
+  GLVectorGeometry,
   GLTexture,
   GLMaterial,
-  VectorTypes;
+  GLVectorTypes;
 
 type
   PVector3f = ^TVector3f;

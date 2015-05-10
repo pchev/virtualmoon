@@ -25,7 +25,8 @@ unit GLODERagdoll;
 
 interface
 
-uses GLRagdoll, ODEImport, GLScene, GLObjects, VectorGeometry, ODEGL, GLTexture,
+uses
+  GLRagdoll, ODEImport, GLScene, GLObjects, GLVectorGeometry, ODEGL, GLTexture,
   GLVectorFileObjects;
 
 const

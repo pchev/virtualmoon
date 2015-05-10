@@ -4,7 +4,7 @@
 
 	<b>History :</b><font size=-1><ul>
     <li>10/11/12 - PW - Added CPP compatibility: changed vector arrays to arrays of records
-    <li>23/08/10 - Yar - Added VectorTypes to uses
+    <li>23/08/10 - Yar - Added GLVectorTypes to uses
     <li>09/11/05 - LucasG - Fixed joint and few small things
     <li>07/11/05 - LucasG - Fixed bone position and rotation (Align to animation)
     <li>02/11/05 - LucasG - First version created.
@@ -15,8 +15,9 @@ unit GLRagdoll;
 
 interface
 
-uses GLScene, PersistentClasses, VectorGeometry, GLVectorFileObjects,
-  VectorLists, GLObjects;
+uses
+  GLScene, GLPersistentClasses, GLVectorGeometry, GLVectorFileObjects,
+  GLVectorLists, GLObjects;
 
 type
   TGLRagdoll = class;
@@ -130,7 +131,7 @@ type
 implementation
 
 uses
-  VectorTypes;
+  GLVectorTypes;
 
 { TRagdollBoneList }
 

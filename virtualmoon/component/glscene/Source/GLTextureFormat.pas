@@ -18,6 +18,7 @@ unit GLTextureFormat;
 interface
 
 uses
+  GLStrings,
   OpenGLTokens;
 
 type
@@ -275,8 +276,7 @@ function IsTargetSupportMipmap(const glTarget: TGLEnum): Boolean; overload;
 implementation
 
 uses
-  GLContext,
-  GLStrings;
+  GLContext;
 
 type
 

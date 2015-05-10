@@ -149,22 +149,15 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,
-  VectorGeometry,
-  VectorTypes,
-  GLScene,
-  OpenGLAdapter,
-  OpenGLTokens,
-  SysUtils,
-  VectorLists,
-  GLCrossPlatform,
-  GLContext,
-  GLSilhouette,
-  GLColor,
-  GLRenderContextInfo,
-  BaseClasses,
-  GLNodes,
-  GLCoordinates;
+  {$IFDEF GLS_DELPHI_XE2_UP}
+  System.Classes, System.SysUtils,
+  {$ELSE}
+  Classes, SysUtils,
+  {$ENDIF}
+
+  GLVectorGeometry, GLVectorTypes, GLScene, OpenGLAdapter,
+  OpenGLTokens, GLVectorLists, GLCrossPlatform, GLContext, GLSilhouette,
+  GLColor, GLRenderContextInfo, GLBaseClasses, GLNodes, GLCoordinates;
 
 type
 
@@ -362,7 +355,7 @@ type
 
     procedure SetSize(const Width, Height: TGLFloat);
     // : Set width and height to "size"
-    procedure SetSquareSize(const size: TGLFloat);
+    procedure SetSquareSize(const Size: TGLFloat);
 
   published
     { Published Declarations }
@@ -490,7 +483,7 @@ type
       Static sets of points may render faster than dynamic ones. }
     property Static: Boolean read FStatic write SetStatic;
     { : Point size, all points have a fixed size. }
-    property size: Single read FSize write SetSize stored StoreSize;
+    property Size: Single read FSize write SetSize stored StoreSize;
     { : Points style.<p> }
     property Style: TGLPointStyle read FStyle write SetStyle default psSquare;
     { : Point parameters as of ARB_point_parameters.<p>
@@ -975,8 +968,8 @@ type
 
 
 { : Issues OpenGL for a unit-size cube stippled wireframe. }
-procedure CubeWireframeBuildList(var rci: TRenderContextInfo; size: TGLFloat;
-  stipple: Boolean; const Color: TColorVector);
+procedure CubeWireframeBuildList(var rci: TRenderContextInfo; Size: TGLFloat;
+  Stipple: Boolean; const Color: TColorVector);
 { : Issues OpenGL for a unit-size dodecahedron. }
 procedure DodecahedronBuildList;
 { : Issues OpenGL for a unit-size icosahedron. }
@@ -1002,7 +995,7 @@ implementation
 // -------------------------------------------------------------
 
 uses
-  Spline,
+  GLSpline,
   XOpenGL,
   GLState;
 
@@ -1012,8 +1005,8 @@ const
   // CubeWireframeBuildList
   //
 
-procedure CubeWireframeBuildList(var rci: TRenderContextInfo; size: TGLFloat;
-  stipple: Boolean; const Color: TColorVector);
+procedure CubeWireframeBuildList(var rci: TRenderContextInfo; Size: TGLFloat;
+  Stipple: Boolean; const Color: TColorVector);
 var
   mi, ma: Single;
 begin
@@ -1032,7 +1025,7 @@ begin
     rci.GLStates.LineStipplePattern := $CCCC;
   end;
   rci.GLStates.LineWidth := 1;
-  ma := 0.5 * size;
+  ma := 0.5 * Size;
   mi := -ma;
 
   GL.Color4fv(@Color);
@@ -1278,10 +1271,10 @@ end;
 
 function TGLDummyCube.AxisAlignedDimensionsUnscaled: TVector;
 begin
-  Result.V[0] := 0.5 * Abs(FCubeSize);
-  Result.V[1] := Result.V[0];
-  Result.V[2] := Result.V[0];
-  Result.V[3] := 0;
+  Result.X := 0.5 * Abs(FCubeSize);
+  Result.Y := Result.X;
+  Result.Z := Result.X;
+  Result.W := 0;
 end;
 
 // RayCastIntersect
@@ -2056,10 +2049,10 @@ end;
 // SetSquareSize
 //
 
-procedure TGLSprite.SetSquareSize(const size: TGLFloat);
+procedure TGLSprite.SetSquareSize(const Size: TGLFloat);
 begin
-  FWidth := size;
-  FHeight := size;
+  FWidth := Size;
+  FHeight := Size;
   NotifyChange(Self);
 end;
 
@@ -3181,9 +3174,9 @@ begin
     nd := -1
   else
     nd := 1;
-  hw := FCubeSize.V[0] * 0.5;
-  hh := FCubeSize.V[1] * 0.5;
-  hd := FCubeSize.V[2] * 0.5;
+  hw := FCubeSize.X * 0.5;
+  hh := FCubeSize.Y * 0.5;
+  hd := FCubeSize.Z * 0.5;
 
   with GL do
   begin
@@ -3329,9 +3322,9 @@ var
 begin
   connectivity := TConnectivity.Create(True);
 
-  hw := FCubeSize.V[0] * 0.5;
-  hh := FCubeSize.V[1] * 0.5;
-  hd := FCubeSize.V[2] * 0.5;
+  hw := FCubeSize.X * 0.5;
+  hh := FCubeSize.Y * 0.5;
+  hd := FCubeSize.Z * 0.5;
 
   if cpFront in FParts then
   begin
@@ -3440,10 +3433,10 @@ end;
 
 function TGLCube.AxisAlignedDimensionsUnscaled: TVector;
 begin
-  Result.V[0] := FCubeSize.V[0] * 0.5;
-  Result.V[1] := FCubeSize.V[1] * 0.5;
-  Result.V[2] := FCubeSize.V[2] * 0.5;
-  Result.V[3] := 0;
+  Result.X := FCubeSize.X * 0.5;
+  Result.Y := FCubeSize.Y * 0.5;
+  Result.Z := FCubeSize.Z * 0.5;
+  Result.W := 0;
 end;
 
 // RayCastIntersect
@@ -3462,9 +3455,9 @@ begin
   rs := AbsoluteToLocal(rayStart);
   SetVector(rv, VectorNormalize(AbsoluteToLocal(rayVector)));
   e := 0.5 + 0.0001; // Small value for floating point imprecisions
-  eSize.V[0] := FCubeSize.V[0] * e;
-  eSize.V[1] := FCubeSize.V[1] * e;
-  eSize.V[2] := FCubeSize.V[2] * e;
+  eSize.X := FCubeSize.X * e;
+  eSize.Y := FCubeSize.Y * e;
+  eSize.Z := FCubeSize.Z * e;
   p[0] := XHmgVector;
   p[1] := YHmgVector;
   p[2] := ZHmgVector;
@@ -3475,17 +3468,17 @@ begin
   begin
     if VectorDotProduct(p[i], rv) > 0 then
     begin
-      t := -(p[i].V[0] * rs.V[0] + p[i].V[1] * rs.V[1] +
-             p[i].V[2] * rs.V[2] + 0.5 *
-        FCubeSize.V[i mod 3]) / (p[i].V[0] * rv.V[0] +
-                                     p[i].V[1] * rv.V[1] +
-                                     p[i].V[2] * rv.V[2]);
-      MakePoint(r, rs.V[0] + t * rv.V[0], rs.V[1] +
-                                 t * rv.V[1], rs.V[2] +
-                                 t * rv.V[2]);
-      if (Abs(r.V[0]) <= eSize.V[0]) and
-         (Abs(r.V[1]) <= eSize.V[1]) and
-         (Abs(r.V[2]) <= eSize.V[2]) and
+      t := -(p[i].X * rs.X + p[i].Y * rs.Y +
+             p[i].Z * rs.Z + 0.5 *
+        FCubeSize.V[i mod 3]) / (p[i].X * rv.X +
+                                 p[i].Y * rv.Y +
+                                 p[i].Z * rv.Z);
+      MakePoint(r, rs.V[0] + t * rv.X, rs.Y +
+                             t * rv.Y, rs.Z +
+                             t * rv.Z);
+      if (Abs(r.X) <= eSize.X) and
+         (Abs(r.Y) <= eSize.Y) and
+         (Abs(r.Z) <= eSize.Z) and
         (VectorDotProduct(VectorSubtract(r, rs), rv) > 0) then
       begin
         if Assigned(intersectPoint) then
@@ -3670,7 +3663,7 @@ begin
   if (FTop < 90) and (FTopCap in [ctCenter, ctFlat]) then
   begin
     GL.Begin_(GL_TRIANGLE_FAN);
-    VectorGeometry.SinCos(AngTop, SinP, CosP);
+    GLVectorGeometry.SinCos(AngTop, SinP, CosP);
     xgl.TexCoord2f(0.5, 0.5);
     if DoReverse then
       GL.Normal3f(0, -1, 0)
@@ -3689,7 +3682,7 @@ begin
     Theta := AngStart;
     for i := 0 to FSlices do
     begin
-      VectorGeometry.SinCos(Theta, SinT, CosT);
+      GLVectorGeometry.SinCos(Theta, SinT, CosT);
       v1.V[0] := CosP * SinT;
       v1.V[2] := CosP * CosT;
       if FTopCap = ctCenter then
@@ -3715,8 +3708,8 @@ begin
   for j := 0 to FStacks - 1 do
   begin
     Theta := AngStart;
-    VectorGeometry.SinCos(Phi, SinP, CosP);
-    VectorGeometry.SinCos(Phi2, SinP2, CosP2);
+    GLVectorGeometry.SinCos(Phi, SinP, CosP);
+    GLVectorGeometry.SinCos(Phi2, SinP2, CosP2);
     v1.V[1] := SinP;
     V2.V[1] := SinP2;
     vTexCoord0 := 1 - j * vTexFactor;

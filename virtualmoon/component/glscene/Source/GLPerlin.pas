@@ -24,7 +24,8 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, SysUtils, VectorGeometry, GLPerlinBase, GLHeightData,
+  Classes, SysUtils,
+  GLVectorGeometry, GLPerlinBase, GLHeightData,
   GLCrossPlatform;
 
 Type

@@ -15,19 +15,15 @@ interface
 {$I GLScene.inc}
 
 uses
-{$IFNDEF FPC}
-  Windows, Messages,
-{$ENDIF}
-  GLCrossPlatform,
-
-  SysUtils, Classes,
 {$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Graphics, VCL.Controls, VCL.Forms, VCL.Dialogs,
-  VCL.StdCtrls, VCL.ExtCtrls;
+  WinApi.Windows, WinApi.Messages, System.SysUtils, System.Classes, System.UITypes,
+  VCL.Graphics, VCL.Controls, VCL.Forms, VCL.Dialogs, VCL.ClipBrd,
+  VCL.StdCtrls, VCL.ExtCtrls
 {$ELSE}
-  Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls;
-{$ENDIF}
+  Windows, Messages, SysUtils, Classes, Controls, Graphics,
+  Forms, Dialogs, ClipBrd, StdCtrls, ExtCtrls
+{$ENDIF};
+
 
 
 type
@@ -418,7 +414,7 @@ type
     FSelStartX, FSelStartY,
       FSelEndX, FSelEndY,
       FPrevSelX, FPrevSelY: integer;
-    FScrollBars: TScrollStyle;
+    FScrollBars: System.UITypes.TScrollStyle;
     FScrollBarWidth: integer;
     FGutter: TGLSMemoGutter;
     FGutterWidth: integer;
@@ -449,7 +445,7 @@ type
 
     procedure SetHiddenCaret(Value: Boolean);
 
-    procedure SetScrollBars(Value: TScrollStyle);
+    procedure SetScrollBars(Value: System.UITypes.TScrollStyle);
 
     procedure SetGutterWidth(Value: integer);
     procedure SetGutterColor(Value: TColor);
@@ -859,13 +855,6 @@ type
 procedure Border(Canvas: TCanvas; rct: TRect; BorderType: TBorderType);
 
 implementation
-
-uses
-{$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.ClipBrd;
-{$ELSE}
-  ClipBrd;
-{$ENDIF}
 
 const
   cmDelete = VK_DELETE;
@@ -2362,8 +2351,9 @@ begin
     Exit;
   end;
 
-  if Button <> mbLeft then
+  if Button <>mbLeft then
     Exit;
+
 
   if sbVert.MouseDown(Button, Shift, X, Y) then
     Exit;
@@ -2476,13 +2466,13 @@ var
         Exit;
 
       i := clickX;
-      while (i >= 0) and not CharInSet(s[i + 1], stopChars) do
+      while (i >= 0){$IFDEF GLS_DELPHI_XE2_UP} and not CharInSet(s[i + 1], stopChars){$ENDIF} do
         Dec(i);
       FSelStartY := clickY;
       FSelStartX := i + 1;
 
       i := clickX;
-      while (i < Length(s)) and not CharInSet(s[i + 1], stopChars) do
+      while (i < Length(s)){$IFDEF GLS_DELPHI_XE2_UP} and not CharInSet(s[i + 1], stopChars{$ENDIF}) do
         Inc(i);
       FSelEndY := clickY;
       FSelEndX := i;
@@ -2552,9 +2542,9 @@ begin
   GetCursorPos(P);
   P := ScreenToClient(P);
   if PointInRect(P, EditorRect) then
-    Windows.SetCursor(Screen.Cursors[crIBeam])
+    Winapi.Windows.SetCursor(Screen.Cursors[crIBeam])
   else
-    Windows.SetCursor(Screen.Cursors[crArrow]);
+    Winapi.Windows.SetCursor(Screen.Cursors[crArrow]);
 end;
 
 //--------------------------------------------------------------
@@ -2595,7 +2585,7 @@ begin
   begin
     rct := CellRect(CurX - FLeftCol, CurY - FTopLine);
     SetCaretPos(rct.Left, rct.Top + 1);
-    Windows.ShowCaret(Handle);
+    Winapi.Windows.ShowCaret(Handle);
     FCaretVisible := True;
   end;
 end;
@@ -5236,7 +5226,7 @@ begin
     end;
   end;
   // Delimeters
-  if not Done and CharInSet(S[toStart], Delimiters) then
+  if not Done{$IFDEF GLS_DELPHI_XE2_UP} and CharInSet(S[toStart], Delimiters){$ENDIF} then
   begin
     toEnd := toStart;
     StyleNo := FDelimiterStyleNo;
@@ -5244,7 +5234,7 @@ begin
     Done := True;
   end;
   // --- Integer or float type
-  if not Done and CharInSet(S[toStart], ['0'..'9', '.']) then
+  if not Done{$IFDEF GLS_DELPHI_XE2_UP} and CharInSet(S[toStart], ['0'..'9', '.']){$ENDIF} then
   begin
     IntPart := 0;
     WasPoint := False;
@@ -5252,7 +5242,7 @@ begin
     Done := True;
     TokenType := ttInteger;
     StyleNo := FNumberStyleNo;
-    while (toEnd <= Len) and CharInSet(S[toEnd], ['0'..'9', '.']) do
+    while (toEnd <= Len){$IFDEF GLS_DELPHI_XE2_UP} and CharInSet(S[toEnd], ['0'..'9', '.']){$ENDIF} do
     begin
       if S[toEnd] = '.' then
       begin
@@ -5281,7 +5271,7 @@ begin
   if not Done then
   begin
     toEnd := toStart;
-    while (toEnd <= Len) and not CharInSet(S[toEnd], Delimiters) do
+    while (toEnd <= Len){$IFDEF GLS_DELPHI_XE2_UP}and not CharInSet(S[toEnd], Delimiters){$ENDIF} do
       Inc(toEnd);
     Dec(toEnd);
   end;

@@ -11,7 +11,8 @@ unit GLMeshOptimizer;
 
 interface
 
-uses Classes,Sysutils,VectorGeometry, GLVectorFileObjects;
+uses
+  Classes, Sysutils, GLVectorGeometry, GLVectorFileObjects;
 
 type
 
@@ -40,7 +41,8 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses PersistentClasses, VectorLists, MeshUtils;
+uses
+  GLPersistentClasses, GLVectorLists, GLMeshUtils;
 
 // OptimizeMesh (list, default options)
 //

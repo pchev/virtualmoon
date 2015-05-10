@@ -9,6 +9,7 @@
   Modified by C4 and YarUnderoaker (hope, I didn't miss anybody).
 
   <b>History : </b><font size=-1><ul>
+  <li>30/08/13 - NelC - Added OnSetTextureTargets
   <li>09/07/12 - Yar - Fixed DoPostInitialize and DoPreInitialize events (thanks to Gabriel Corneanu)
   <li>22/04/11 - Yar - Bugfixed lighting state restoration
   <li>13/02/11 - Yar - Added RenderContextInfo to BeforeRender and AfterRender event
@@ -31,8 +32,14 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, VectorGeometry, GLScene, GLTexture, GLContext, GLFBO, GLColor,
-  GLMaterial, GLRenderContextInfo, GLState;
+  Classes, SysUtils,
+  //GLS
+  GLVectorGeometry, GLScene, GLTexture, GLContext, GLFBO, GLColor,
+  GLMaterial, GLRenderContextInfo, GLState, OpenGLTokens,
+  GLTextureFormat,
+  GLVectorTypes,
+  GLMultisampleImage,
+  GLSLog;
 
 type
   TGLEnabledRenderBuffer = (erbDepth, erbStencil);
@@ -43,6 +50,11 @@ type
   TGLFBOClearOption = (coColorBufferClear, coDepthBufferClear,
     coStencilBufferClear, coUseBufferBackground);
   TGLFBOClearOptions = set of TGLFBOClearOption;
+
+  TGLTextureArray = array of TGLTexture;
+
+  TSetTextureTargetsEvent = procedure(Sender : TObject;
+    var colorTexs : TGLTextureArray) of object;
 
   TGLFBORenderer = class(TGLBaseSceneObject, IGLMaterialLibrarySupported)
   private
@@ -81,6 +93,7 @@ type
     FMaxSize: Integer;
     FMaxAttachment: Integer;
     FStoreCamera: array[0..2] of TVector;
+    FOnSetTextureTargets: TSetTextureTargetsEvent;
     // implementing IGLMaterialLibrarySupported
     function GetMaterialLibrary: TGLAbstractMaterialLibrary;
     procedure SetMaterialLibrary(const Value: TGLAbstractMaterialLibrary);
@@ -217,18 +230,16 @@ type
       texture must have MinFilter with mipmaping }
     property PostGenerateMipmap: Boolean read FPostGenerateMipmap
       write SetPostGenerateMipmap default True;
+
+    { : Allows multiTargeting to different texture sources instead of all coming
+      from one single MatLib with UseLibraryAsMultiTarget. OnSetTextureTargets
+      overrides the other method of setting target textures via the MaterialLibrary,
+      ColorTextureName and DepthTextureName propertes }
+    property OnSetTextureTargets: TSetTextureTargetsEvent read FOnSetTextureTargets
+      write FOnSetTextureTargets;
   end;
 
 implementation
-
-uses
-  SysUtils,
-  OpenGLTokens,
-  GLTextureFormat,
-  {$IFDEF GLS_DELPHI} VectorTypes, {$ENDIF}
-  GLMultisampleImage
-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
-
 
 { TGLFBORenderer }
 
@@ -373,6 +384,22 @@ begin
 end;
 
 procedure TGLFBORenderer.Initialize;
+
+  procedure AddOneMultiTarget(colorTex: TGLTexture);
+  begin
+    if ForceTextureDimensions then
+      ForceDimensions(colorTex);
+    if FColorAttachment >= FMaxAttachment then
+    begin
+      GLSLogger.LogError
+        ('Number of color attachments out of GL_MAX_COLOR_ATTACHMENTS');
+      Visible := False;
+      Abort;
+    end;
+    FFbo.AttachTexture(FColorAttachment, colorTex);
+    Inc(FColorAttachment);
+  end;
+
 const
   cDrawBuffers: array [0 .. 15] of GLenum = (GL_COLOR_ATTACHMENT0,
     GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2,
@@ -387,6 +414,7 @@ var
   colorTex: TGLTexture;
   depthTex: TGLTexture;
   I: Integer;
+  MulTexture : TGLTextureArray;
 begin
   for I := 0 to MaxColorAttachments - 1 do
     FFbo.DetachTexture(I);
@@ -411,15 +439,23 @@ begin
   DoPreInitialize;
   FFbo.Unbind;
 
-  colorTex := FMaterialLibrary.TextureByName(ColorTextureName);
-  depthTex := FMaterialLibrary.TextureByName(DepthTextureName);
+  if Assigned(FMaterialLibrary) then
+  begin
+    colorTex := FMaterialLibrary.TextureByName(ColorTextureName);
+    depthTex := FMaterialLibrary.TextureByName(DepthTextureName);
+  end
+  else
+  begin
+   colorTex := nil;
+   depthTex := nil;
+  end;
 
   FHasColor := False;
   FHasDepth := False;
   FHasStencil := False;
   FColorAttachment := 0;
 
-  if FUseLibraryAsMultiTarget then
+  if FUseLibraryAsMultiTarget or Assigned(FOnSetTextureTargets) then
   begin
     if not(GL.ARB_draw_buffers or GL.ATI_draw_buffers) then
     begin
@@ -430,27 +466,28 @@ begin
     if FMaxAttachment = 0 then
       GL.GetIntegerv(GL_MAX_COLOR_ATTACHMENTS, @FMaxAttachment);
 
-    // Multicolor attachments
-    for I := 0 to FMaterialLibrary.Materials.Count - 1 do
+    if Assigned(FOnSetTextureTargets) then
     begin
-      colorTex := FMaterialLibrary.Materials[I].Material.Texture;
-      // Skip depth texture
-      if colorTex = depthTex then
-        Continue;
-      if ForceTextureDimensions then
-        ForceDimensions(colorTex);
-
-      if FColorAttachment >= FMaxAttachment then
+      FOnSetTextureTargets(Self, MulTexture);
+      for I := 0 to High(MulTexture) do
       begin
-        GLSLogger.LogError
-          ('Number of color attachments out of GL_MAX_COLOR_ATTACHMENTS');
-        Visible := False;
-        Abort;
+        colorTex := MulTexture[i];
+        // Skip depth texture
+        if colorTex = depthTex then
+          Continue;
+        AddOneMultiTarget(colorTex);
       end;
-
-      FFbo.AttachTexture(FColorAttachment, colorTex);
-      Inc(FColorAttachment);
-    end;
+    end
+    else
+      // Multicolor attachments
+      for I := 0 to FMaterialLibrary.Materials.Count - 1 do
+      begin
+        colorTex := FMaterialLibrary.Materials[I].Material.Texture;
+        // Skip depth texture
+        if colorTex = depthTex then
+          Continue;
+        AddOneMultiTarget(colorTex);
+      end;
     FHasColor := FColorAttachment > 0;
   end
   else
@@ -490,8 +527,11 @@ begin
   else
   begin
     FFbo.DetachDepthBuffer;
-    FDepthRBO.Free;
-    FDepthRBO := nil;
+    if Assigned(FDepthRBO) then
+    begin
+      FDepthRBO.Free;
+      FDepthRBO := nil;
+    end;
   end;
 
   if erbStencil in EnabledRenderBuffers then
@@ -510,8 +550,11 @@ begin
   begin
     if not FHasStencil then
       FFbo.DetachStencilBuffer;
-    FStencilRBO.Free;
-    FStencilRBO := nil;
+    if Assigned(FStencilRBO) then
+    begin
+      FStencilRBO.Free;
+      FStencilRBO := nil;
+    end;
   end;
   FFbo.Bind;
 
@@ -594,7 +637,7 @@ begin
     Exit;
 
   FRendering := True;
-  if ocStructure in Changes then
+  if (ocStructure in Changes) or Assigned(FOnSetTextureTargets) then
   begin
     Initialize;
     if not Active then
@@ -683,7 +726,7 @@ begin
     DoAfterRender(ARci);
     UnApplyCamera(ARci);
     if Assigned(Camera) then
-      Scene.SetupLights(ARci.GLStates.MaxLights);
+      Camera.Scene.SetupLights(ARci.GLStates.MaxLights);
   end;
 end;
 

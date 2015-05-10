@@ -1,6 +1,6 @@
-
+//
 // This unit is part of the GLScene Project, http://glscene.org
-
+//
 {: GLFileJPEG<p>
 
   <b>History : </b><font size=-1><ul>
@@ -19,7 +19,7 @@ interface
 uses
   Classes, SysUtils,
   GLCrossPlatform, OpenGLTokens, GLContext, GLGraphics, GLTextureFormat,
-  ApplicationFileIO;
+  GLApplicationFileIO, GLSLog;
 
 type
 
@@ -76,8 +76,7 @@ uses
   jdatasrc,
   jmemmgr,
 {$ENDIF}
-  VectorGeometry
-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
+  GLVectorGeometry;
 
 
 // ------------------

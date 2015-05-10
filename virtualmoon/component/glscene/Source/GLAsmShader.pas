@@ -30,17 +30,11 @@ interface
 
 uses
   // VCL
-  Classes,
-  SysUtils,
+  Classes, SysUtils,
 
   // GLScene
-  VectorGeometry,
-  VectorTypes,
-  GLTexture,
-  OpenGLTokens,
-  GLContext,
-  GLCustomShader,
-  GLRenderContextInfo;
+  GLVectorGeometry, GLVectorTypes, GLTexture, OpenGLTokens, GLContext,
+  GLCustomShader, GLRenderContextInfo;
 
 type
   TGLCustomAsmShader = class;

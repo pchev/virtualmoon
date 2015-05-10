@@ -1,0 +1,14 @@
+Index: Source/GLGLXContext.pas
+===================================================================
+--- Source/GLGLXContext.pas	(révision 6659)
++++ Source/GLGLXContext.pas	(copie de travail)
+@@ -105,8 +105,7 @@
+ // -----------------------------------------------------------------
+ {$IFDEF SUPPORT_GLX}
+ uses
+-  GLState
+-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
++  GLState, GLSLog;
+ 
+ resourcestring
+   cForwardContextFailed = 'Can not create OpenGL 3.x Forward Context';

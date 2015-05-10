@@ -49,10 +49,10 @@ implementation
 
 
 uses
-   VectorTypes
-  ,VectorGeometry
-  ,PersistentClasses
-  ,VectorLists
+   GLVectorTypes
+  ,GLVectorGeometry
+  ,GLPersistentClasses
+  ,GLVectorLists
   ;
  
  
@@ -204,11 +204,11 @@ end;
 (* === run-time registration functions === *)
 (*----------------------------------------------------------------------------*)
 Procedure QuickSortLists3_P( startIndex, endIndex : Integer; refList : TSingleList; objList : TBaseList);
-Begin VectorLists.QuickSortLists(startIndex, endIndex, refList, objList); END;
+Begin GLVectorLists.QuickSortLists(startIndex, endIndex, refList, objList); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure QuickSortLists2_P( startIndex, endIndex : Integer; refList : TSingleList; objList : TList);
-Begin VectorLists.QuickSortLists(startIndex, endIndex, refList, objList); END;
+Begin GLVectorLists.QuickSortLists(startIndex, endIndex, refList, objList); END;
 
 (*----------------------------------------------------------------------------*)
 procedure TByteListList_R(Self: TByteList; var T: PByteArray);

@@ -78,7 +78,9 @@ implementation
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
 
-uses Forms, VectorGeometry, Dialogs, OpenAL{al, alut, alTypes};
+uses
+  Forms, Dialogs,
+  GLVectorGeometry, OpenAL{al, alut, alTypes};
 
 procedure Register;
 begin

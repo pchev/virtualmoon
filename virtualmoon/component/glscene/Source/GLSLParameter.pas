@@ -16,7 +16,7 @@ interface
 
 uses
   Classes,
-  OpenGLTokens, VectorTypes, GLTextureFormat, GLRenderContextInfo;
+  OpenGLTokens, GLVectorTypes, GLTextureFormat, GLRenderContextInfo;
 
 type
 

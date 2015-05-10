@@ -15,7 +15,7 @@
    Features: CSG_Union, CSG_Subtraction, CSG_Intersection.
 
  <b>History : </b><font size=-1><ul>
-      <li>06/06/10 - Yar - Added VectorTypes to uses
+      <li>06/06/10 - Yar - Added GLVectorTypes to uses
       <li>30/03/07 - DaStr - Added $I GLScene.inc
       <li>18/07/04 - JAJ - Bug fix, causing triangles to dissapear, once in a while.
       <li>29/11/03 - JAJ - Created and Submitted to GLScene.
@@ -28,13 +28,10 @@ interface
 {$I GLScene.inc}
 
 uses
-  SysUtils,
-  Classes,
-  GLScene,
-  GLVectorFileObjects,
-  VectorGeometry,
-  GLBSP,
-  VectorLists;
+  SysUtils, Classes, Math,
+  //GLS
+  GLScene, GLVectorTypes, GLVectorFileObjects,
+  GLVectorGeometry, GLBSP, GLVectorLists;
 
 type
   TCSGOperation = (CSG_Union, CSG_Subtraction, CSG_Intersection);
@@ -42,9 +39,6 @@ type
 procedure CSG_Operation(obj1, obj2: TMeshObject; Operation: TCSGOperation; Res: TMeshObject; const MaterialName1, MaterialName2: string);
 
 implementation
-
-uses Math,
-  VectorTypes;
 
 const
   cOwnTriangleEpsilon = 1e-5;

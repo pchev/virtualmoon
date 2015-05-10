@@ -29,18 +29,6 @@ unit fmodtypes;
   {$PACKRECORDS C}
 {$ENDIF}
 
-{$IFDEF VER110}
-  {$DEFINE DELPHI_5_OR_LOWER}
-{$ELSE}
-  {$IFDEF VER120}
-    {$DEFINE DELPHI_5_OR_LOWER}
-  {$ELSE}
-    {$IFDEF VER130}
-      {$DEFINE DELPHI_5_OR_LOWER}
-    {$ENDIF}
-  {$ENDIF}
-{$ENDIF}
-
 interface
 
 {$IFDEF MSWINDOWS}
@@ -62,12 +50,6 @@ uses
 }
 {$IFDEF VER150}
 {$WARN UNSAFE_TYPE OFF}
-{$ENDIF}
-
-{$IFDEF DELPHI_5_OR_LOWER}
-type
-  PSingle = ^Single;
-  THandle = Cardinal;
 {$ENDIF}
 
 const

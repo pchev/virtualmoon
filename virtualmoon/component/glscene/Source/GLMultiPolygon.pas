@@ -34,7 +34,7 @@
 
   ur:
 
-  And I reactivated the TVectorPool object. The VectorLists are not suitable for this job.
+  And I reactivated the TVectorPool object. The GLVectorLists are not suitable for this job.
   When the tesselator finds an intersection of edges it wants us to give him some storage
   for this new vertex, and he wants a pointer (see tessCombine). The pointers taken from
   TAffineVectorList become invalid after enlarging the capacity (makes a ReAllocMem), which
@@ -51,20 +51,18 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,
-  OpenGLTokens,
-  OpenGLAdapter,
-  Spline,
-  VectorGeometry,
-  VectorLists,
-  PersistentClasses,
-  GLScene,
-  GLObjects,
-  GLGeomObjects,
-  GLNodes,
-  BaseClasses,
-  GLCoordinates,
-  GLRenderContextInfo;
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
+
+  OpenGLTokens,  OpenGLAdapter,  GLSpline,
+  XOpenGL,  GLContext
+  , GLVectorTypes,
+  GLVectorGeometry,  GLVectorLists,  GLPersistentClasses,
+  GLScene,  GLObjects,  GLGeomObjects,  GLNodes,  GLBaseClasses,
+  GLCoordinates,  GLRenderContextInfo;
 
 type
 
@@ -159,7 +157,7 @@ type
      TMultiPolygonBase will take the input contours and let the tesselator
      make an outline from it (this is done in RetreiveOutline). This outline is
      used for Rendering. Only when there are changes in the contours, the
-     outline will be recalculated. The ouline in fact is a list of VectorLists. }
+     outline will be recalculated. The ouline in fact is a list of GLVectorLists. }
   TMultiPolygonBase = class(TGLSceneObject)
   private
     { Private Declarations }
@@ -238,11 +236,6 @@ implementation
 //-------------------------------------------------------------
 //-------------------------------------------------------------
 
-uses SysUtils,
-  XOpenGL,
-  GLContext
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
-
 type
   { page oriented pointer array, with persistent pointer target memory.
     In TVectorList a pointer to a vector will not be valid any more after
@@ -258,7 +251,7 @@ type
     FPageSize: Integer; // number of entries per page
     FArrSize: Integer; // size of one page
     FUsedEntries: Integer; // used entries in actual page
-    FAktArray: VectorGeometry.PByteArray; // pointer to actual page
+    FAktArray: GLVectorGeometry.PByteArray; // pointer to actual page
     procedure CreatePage; // create new page
   public
     constructor Create(APageSize, AEntrySize: Integer);

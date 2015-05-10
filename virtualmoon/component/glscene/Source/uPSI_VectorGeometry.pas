@@ -39,11 +39,11 @@ implementation
 
 uses
    GLCrossPlatform
-  ,VectorTypes
-  ,VectorGeometry
+  ,GLVectorTypes
+  ,GLVectorGeometry
   ;
- 
- 
+
+
 procedure Register;
 begin
   RegisterComponents('GLS ROPS', [TPSImport_VectorGeometry]);
@@ -707,283 +707,283 @@ end;
 
 (*----------------------------------------------------------------------------*)
 Function RayCastSphereIntersect_P( const rayStart, rayVector : TVector; const sphereCenter : TVector; const sphereRadius : Single; var i1, i2 : TVector) : Integer;
-Begin Result := VectorGeometry.RayCastSphereIntersect(rayStart, rayVector, sphereCenter, sphereRadius, i1, i2); END;
+Begin Result := GLVectorGeometry.RayCastSphereIntersect(rayStart, rayVector, sphereCenter, sphereRadius, i1, i2); END;
 
 (*----------------------------------------------------------------------------*)
 Function RayCastIntersectsSphere_P( const rayStart, rayVector : TVector; const sphereCenter : TVector; const sphereRadius : Single) : Boolean;
-Begin Result := VectorGeometry.RayCastIntersectsSphere(rayStart, rayVector, sphereCenter, sphereRadius); END;
+Begin Result := GLVectorGeometry.RayCastIntersectsSphere(rayStart, rayVector, sphereCenter, sphereRadius); END;
 
 (*----------------------------------------------------------------------------*)
 Function RayCastTriangleIntersect_P( const rayStart, rayVector : TVector; const p1, p2, p3 : TAffineVector; intersectPoint : PVector; intersectNormal : PVector) : Boolean;
-Begin Result := VectorGeometry.RayCastTriangleIntersect(rayStart, rayVector, p1, p2, p3, intersectPoint, intersectNormal); END;
+Begin Result := GLVectorGeometry.RayCastTriangleIntersect(rayStart, rayVector, p1, p2, p3, intersectPoint, intersectNormal); END;
 
 (*----------------------------------------------------------------------------*)
 Function RayCastPlaneXZIntersect_P( const rayStart, rayVector : TVector; const planeY : Single; intersectPoint : PVector) : Boolean;
-Begin Result := VectorGeometry.RayCastPlaneXZIntersect(rayStart, rayVector, planeY, intersectPoint); END;
+Begin Result := GLVectorGeometry.RayCastPlaneXZIntersect(rayStart, rayVector, planeY, intersectPoint); END;
 
 (*----------------------------------------------------------------------------*)
 Function RayCastPlaneIntersect_P( const rayStart, rayVector : TVector; const planePoint, planeNormal : TVector; intersectPoint : PVector) : Boolean;
-Begin Result := VectorGeometry.RayCastPlaneIntersect(rayStart, rayVector, planePoint, planeNormal, intersectPoint); END;
+Begin Result := GLVectorGeometry.RayCastPlaneIntersect(rayStart, rayVector, planePoint, planeNormal, intersectPoint); END;
 
 (*----------------------------------------------------------------------------*)
 Function IntersectLinePlane_P( const point, direction : TVector; const plane : THmgPlane; intersectPoint : PVector) : Integer;
-Begin Result := VectorGeometry.IntersectLinePlane(point, direction, plane, intersectPoint); END;
+Begin Result := GLVectorGeometry.IntersectLinePlane(point, direction, plane, intersectPoint); END;
 (*----------------------------------------------------------------------------*)
 Procedure MaxVector_P( var v : TAffineVector; const v1 : TAffineVector);
-Begin VectorGeometry.MaxVector(v, v1); END;
+Begin GLVectorGeometry.MaxVector(v, v1); END;
 
 (*----------------------------------------------------------------------------*)
 Function MinXYZComponent_P( const v : TAffineVector) : single;
-Begin Result := VectorGeometry.MinXYZComponent(v); END;
+Begin Result := GLVectorGeometry.MinXYZComponent(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function MaxXYZComponent_P( const v : TAffineVector) : single;
-Begin Result := VectorGeometry.MaxXYZComponent(v); END;
+Begin Result := GLVectorGeometry.MaxXYZComponent(v); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure OffsetFloatArray_P( valuesDest, valuesDelta : PSingleArray; nb : Integer);
-Begin VectorGeometry.OffsetFloatArray(valuesDest, valuesDelta, nb); END;
+Begin GLVectorGeometry.OffsetFloatArray(valuesDest, valuesDelta, nb); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure ScaleFloatArray_P( var values : TSingleArray; factor : Single);
-Begin VectorGeometry.ScaleFloatArray(values, factor); END;
+Begin GLVectorGeometry.ScaleFloatArray(values, factor); END;
 
 (*----------------------------------------------------------------------------*)
 Function PolygonSignedArea_P( const p : PAffineVectorArray; nSides : Integer) : Single;
-Begin Result := VectorGeometry.PolygonSignedArea(p, nSides); END;
+Begin Result := GLVectorGeometry.PolygonSignedArea(p, nSides); END;
 
 (*----------------------------------------------------------------------------*)
 Function TriangleSignedArea_P( const p1, p2, p3 : TAffineVector) : Single;
-Begin Result := VectorGeometry.TriangleSignedArea(p1, p2, p3); END;
+Begin Result := GLVectorGeometry.TriangleSignedArea(p1, p2, p3); END;
 
 (*----------------------------------------------------------------------------*)
 Function PolygonArea_P( const p : PAffineVectorArray; nSides : Integer) : Single;
-Begin Result := VectorGeometry.PolygonArea(p, nSides); END;
+Begin Result := GLVectorGeometry.PolygonArea(p, nSides); END;
 
 (*----------------------------------------------------------------------------*)
 Function TriangleArea_P( const p1, p2, p3 : TAffineVector) : Single;
-Begin Result := VectorGeometry.TriangleArea(p1, p2, p3); END;
+Begin Result := GLVectorGeometry.TriangleArea(p1, p2, p3); END;
 
 (*----------------------------------------------------------------------------*)
 Function MaxInteger_P( const v1, v2 : Integer) : Integer;
-Begin Result := VectorGeometry.MaxInteger(v1, v2); END;
+Begin Result := GLVectorGeometry.MaxInteger(v1, v2); END;
 
 (*-------------------_---------------------------------------------------------*)
 Function MinInteger_P( const v1, v2 : Integer) : Integer;
-Begin Result := VectorGeometry.MinInteger(v1, v2); END;
+Begin Result := GLVectorGeometry.MinInteger(v1, v2); END;
 (*----------------------------------------------------------------------------*)
 
 Function MaxCardinal_P( const v1, v2 : Cardinal) : Cardinal;
-Begin Result := VectorGeometry.MaxInteger(v1, v2); END;
+Begin Result := GLVectorGeometry.MaxInteger(v1, v2); END;
 
 (*----------------------------------------------------------------------------*)
 Function MinCardinal_P( const v1, v2 : Cardinal) : Cardinal;
-Begin Result := VectorGeometry.MinInteger(v1, v2); END;
+Begin Result := GLVectorGeometry.MinInteger(v1, v2); END;
 
 
 
 (*----------------------------------------------------------------------------*)
 Function MaxFloat2_P( const v1, v2 : Double) : Double;
-Begin Result := VectorGeometry.MaxFloat(v1, v2); END;
+Begin Result := GLVectorGeometry.MaxFloat(v1, v2); END;
 
 (*----------------------------------------------------------------------------*)
 Function MinFloat2_P( const v1, v2 : Double) : Double;
-Begin Result := VectorGeometry.MinFloat(v1, v2); END;
+Begin Result := GLVectorGeometry.MinFloat(v1, v2); END;
 
 (*----------------------------------------------------------------------------*)
 Function MaxFloat3_P( const v1, v2, v3 : Double) : Double;
-Begin Result := VectorGeometry.MaxFloat(v1, v2, v3); END;
+Begin Result := GLVectorGeometry.MaxFloat(v1, v2, v3); END;
 
 (*----------------------------------------------------------------------------*)
 Function MinFloat3_P( const v1, v2, v3 : Double) : Double;
-Begin Result := VectorGeometry.MinFloat(v1, v2, v3); END;
+Begin Result := GLVectorGeometry.MinFloat(v1, v2, v3); END;
 
 
 
 (*----------------------------------------------------------------------------*)
 Function IsInCube_P( const p, d : TVector) : Boolean;
-Begin Result := VectorGeometry.IsInCube(p, d); END;
+Begin Result := GLVectorGeometry.IsInCube(p, d); END;
 
 Function IsInRange_P( const x, a, b : Double) : Boolean;
-Begin Result := VectorGeometry.IsInRange(x, a, b); END;
+Begin Result := GLVectorGeometry.IsInRange(x, a, b); END;
 
 
 (*----------------------------------------------------------------------------*)
 Function Floor64_P( v : Extended) : Int64;
-Begin Result := VectorGeometry.Floor64(v); END;
+Begin Result := GLVectorGeometry.Floor64(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function Floor_P( v : Single) : Integer;
-Begin Result := VectorGeometry.Floor(v); END;
+Begin Result := GLVectorGeometry.Floor(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function Ceil64_P( v : Extended) : Int64;
-Begin Result := VectorGeometry.Ceil64(v); END;
+Begin Result := GLVectorGeometry.Ceil64(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function Ceil_P( v : Single) : Integer;
-Begin Result := VectorGeometry.Ceil(v); END;
+Begin Result := GLVectorGeometry.Ceil(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function Round64_P( v : Extended) : Int64;
-Begin Result := VectorGeometry.Round64(v); END;
+Begin Result := GLVectorGeometry.Round64(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function Round_P( v : Single) : Integer;
-Begin Result := VectorGeometry.Round(v); END;
+Begin Result := GLVectorGeometry.Round(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function Frac_P( v : Extended) : Extended;
-Begin Result := VectorGeometry.Frac(v); END;
+Begin Result := GLVectorGeometry.Frac(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function Int_P( v : Extended) : Extended;
-Begin Result := VectorGeometry.Int(v); END;
+Begin Result := GLVectorGeometry.Int(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function Trunc64_P( v : Extended) : Int64;
-Begin Result := VectorGeometry.Trunc64(v); END;
+Begin Result := GLVectorGeometry.Trunc64(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function Trunc_P( v : Single) : Integer;
-Begin Result := VectorGeometry.Trunc(v); END;
+Begin Result := GLVectorGeometry.Trunc(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function RoundInt_P( v : Extended) : Extended;
-Begin Result := VectorGeometry.RoundInt(v); END;
+Begin Result := GLVectorGeometry.RoundInt(v); END;
 
 (*----------------------------------------------------------------------------*)
 Function ILength_P( x, y, z : Integer) : Integer;
-Begin Result := VectorGeometry.ILength(x, y, z); END;
+Begin Result := GLVectorGeometry.ILength(x, y, z); END;
 
 (*----------------------------------------------------------------------------*)
 Function Cosh_P( const x : Double) : Double;
-Begin Result := VectorGeometry.Cosh(x); END;
+Begin Result := GLVectorGeometry.Cosh(x); END;
 
 (*----------------------------------------------------------------------------*)
 Function Sinh_P( const x : Double) : Double;
-Begin Result := VectorGeometry.Sinh(x); END;
+Begin Result := GLVectorGeometry.Sinh(x); END;
 
 
 (*----------------------------------------------------------------------------*)
 Function CoTan_P( const X : Single) : Single;
-Begin Result := VectorGeometry.CoTan(X); END;
+Begin Result := GLVectorGeometry.CoTan(X); END;
 
 
 (*----------------------------------------------------------------------------*)
 Function Tan_P( const X : Single) : Single;
-Begin Result := VectorGeometry.Tan(X); END;
+Begin Result := GLVectorGeometry.Tan(X); END;
 
 (*----------------------------------------------------------------------------*)
 Function ArcTan2_P( const Y, X : Single) : Single;
-Begin Result := VectorGeometry.ArcTan2(Y, X); END;
+Begin Result := GLVectorGeometry.ArcTan2(Y, X); END;
 
 
 Function ArcSin_P( const X : Single) : Single;
-Begin Result := VectorGeometry.ArcSin(X); END;
+Begin Result := GLVectorGeometry.ArcSin(X); END;
 
 
 (*----------------------------------------------------------------------------*)
 Function ArcCos_P( const x : Single) : Single;
-Begin Result := VectorGeometry.ArcCos(x); END;
+Begin Result := GLVectorGeometry.ArcCos(x); END;
 
 
 (*----------------------------------------------------------------------------*)
 Procedure SinCos_P( const theta, radius : Single; var Sin, Cos : Single);
-Begin VectorGeometry.SinCos(theta, radius, Sin, Cos); END;
+Begin GLVectorGeometry.SinCos(theta, radius, Sin, Cos); END;
 
 (*----------------------------------------------------------------------------*)
 Function RadToDeg_P( const Radians : Single) : Single;
-Begin Result := VectorGeometry.RadToDeg(Radians); END;
+Begin Result := GLVectorGeometry.RadToDeg(Radians); END;
 
 (*----------------------------------------------------------------------------*)
 Function DegToRad_P( const Degrees : Single) : Single;
-Begin Result := VectorGeometry.DegToRad(Degrees); END;
+Begin Result := GLVectorGeometry.DegToRad(Degrees); END;
 
 (*----------------------------------------------------------------------------*)
 Function Power_P( Base : Single; Exponent : Integer) : Single;
-Begin Result := VectorGeometry.Power(Base, Exponent); END;
+Begin Result := GLVectorGeometry.Power(Base, Exponent); END;
 
 (*----------------------------------------------------------------------------*)
 Function Log2_P( X : Single) : Single;
-Begin Result := VectorGeometry.Log2(X); END;
+Begin Result := GLVectorGeometry.Log2(X); END;
 
 
 (*----------------------------------------------------------------------------*)
 Function QuaternionSlerp_P( const source, dest : TQuaternion; const t : Single) : TQuaternion;
-Begin Result := VectorGeometry.QuaternionSlerp(source, dest, t); END;
+Begin Result := GLVectorGeometry.QuaternionSlerp(source, dest, t); END;
 
 (*----------------------------------------------------------------------------*)
 Function PointPlaneDistance_P( const point, planePoint, planeNormal : TAffineVector) : Single;
-Begin Result := VectorGeometry.PointPlaneDistance(point, planePoint, planeNormal); END;
+Begin Result := GLVectorGeometry.PointPlaneDistance(point, planePoint, planeNormal); END;
 
 (*----------------------------------------------------------------------------*)
 Function PointIsInHalfSpace_P( const point, planePoint, planeNormal : TAffineVector) : Boolean;
-Begin Result := VectorGeometry.PointIsInHalfSpace(point, planePoint, planeNormal); END;
+Begin Result := GLVectorGeometry.PointIsInHalfSpace(point, planePoint, planeNormal); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure CalcPlaneNormal_P( const p1, p2, p3 : TVector; var vr : TAffineVector);
-Begin VectorGeometry.CalcPlaneNormal(p1, p2, p3, vr); END;
+Begin GLVectorGeometry.CalcPlaneNormal(p1, p2, p3, vr); END;
 (*----------------------------------------------------------------------------*)
 Function PlaneEvaluatePoint_P( const plane : THmgPlane; const point : TVector) : Single;
-Begin Result := VectorGeometry.PlaneEvaluatePoint(plane, point); END;
+Begin Result := GLVectorGeometry.PlaneEvaluatePoint(plane, point); END;
 
 (*----------------------------------------------------------------------------*)
 Function PlaneMake_P( const p1, p2, p3 : TAffineVector) : THmgPlane;
-Begin Result := VectorGeometry.PlaneMake(p1, p2, p3); END;
+Begin Result := GLVectorGeometry.PlaneMake(p1, p2, p3); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure InvertMatrix_P( var M : TAffineMatrix);
-Begin VectorGeometry.InvertMatrix(M); END;
+Begin GLVectorGeometry.InvertMatrix(M); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure TransposeMatrix_P( var M : TAffineMatrix);
-Begin VectorGeometry.TransposeMatrix(M); END;
+Begin GLVectorGeometry.TransposeMatrix(M); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure TranslateMatrix_P( var M : TMatrix; const v : TVector);
-Begin VectorGeometry.TranslateMatrix(M, v); END;
+Begin GLVectorGeometry.TranslateMatrix(M, v); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure ScaleMatrix_P( var M : TMatrix; const factor : Single);
-Begin VectorGeometry.ScaleMatrix(M, factor); END;
+Begin GLVectorGeometry.ScaleMatrix(M, factor); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure AdjointMatrix_P( var M : TAffineMatrix);
-Begin VectorGeometry.AdjointMatrix(M); END;
+Begin GLVectorGeometry.AdjointMatrix(M); END;
 
 (*----------------------------------------------------------------------------*)
 Function MatrixDeterminant_P( const M : TMatrix) : Single;
-Begin Result := VectorGeometry.MatrixDeterminant(M); END;
+Begin Result := GLVectorGeometry.MatrixDeterminant(M); END;
 
 (*----------------------------------------------------------------------------*)
 Function VectorTransform_P( const V : TAffineVector; const M : TAffineMatrix) : TAffineVector;
-Begin Result := VectorGeometry.VectorTransform(V, M); END;
+Begin Result := GLVectorGeometry.VectorTransform(V, M); END;
 
 (*----------------------------------------------------------------------------*)
 Function MatrixMultiply_P( const M1, M2 : TAffineMatrix) : TAffineMatrix;
-Begin Result := VectorGeometry.MatrixMultiply(M1, M2); END;
+Begin Result := GLVectorGeometry.MatrixMultiply(M1, M2); END;
 
 (*----------------------------------------------------------------------------*)
 Function CreateRotationMatrix_P( const anAxis : TVector; angle : Single) : TMatrix;
-Begin Result := VectorGeometry.CreateRotationMatrix(anAxis, angle); END;
+Begin Result := GLVectorGeometry.CreateRotationMatrix(anAxis, angle); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure SetMatrix_P( var dest : THomogeneousDblMatrix; const src : TMatrix);
-Begin VectorGeometry.SetMatrix(dest, src); END;
+Begin GLVectorGeometry.SetMatrix(dest, src); END;
 
 (*----------------------------------------------------------------------------*)
 Function VectorAbs_P( const v : TAffineVector) : TAffineVector;
-Begin Result := VectorGeometry.VectorAbs(v); END;
+Begin Result := GLVectorGeometry.VectorAbs(v); END;
 
 
 (*----------------------------------------------------------------------------*)
 Procedure AbsVector_P( var v : TAffineVector);
-Begin VectorGeometry.AbsVector(v); END;
+Begin GLVectorGeometry.AbsVector(v); END;
 
 (*----------------------------------------------------------------------------*)
 Procedure ScaleVector_P( var v : TVector; const factor : TVector);
-Begin VectorGeometry.ScaleVector(v, factor); END;
+Begin GLVectorGeometry.ScaleVector(v, factor); END;
 
 (*----------------------------------------------------------------------------*)
 procedure RIRegister_VectorGeometry_Routines(S: TPSExec);

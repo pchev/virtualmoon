@@ -56,9 +56,9 @@ uses
   Classes, SysUtils, Math,
 
   // GLScene
-  GLScene, GLObjects, GLVectorFileObjects, GLTexture, ApplicationFileIO,
-  VectorGeometry, File3DS, Types3DS, OpenGLTokens, GLContext, PersistentClasses,
-  GLStrings, GLFile3DSSceneObjects, GLCrossPlatform, VectorTypes, VectorLists,
+  GLScene, GLObjects, GLVectorFileObjects, GLTexture, GLApplicationFileIO,
+  GLVectorGeometry, File3DS, Types3DS, OpenGLTokens, GLContext, GLPersistentClasses,
+  GLStrings, GLFile3DSSceneObjects, GLCrossPlatform, GLVectorTypes, GLVectorLists,
   GLRenderContextInfo, GLMaterial;
 
 type

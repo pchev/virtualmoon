@@ -21,12 +21,10 @@ interface
 
 uses
   Classes,
-  GLScene,
-  VectorGeometry,
-  OpenGLTokens,
-  GLContext,
+  //GLS
+  GLScene, GLVectorGeometry, OpenGLTokens, GLContext,
   GLRenderContextInfo
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
+  , GLVectorTypes;
 
 type
 

@@ -43,8 +43,8 @@ uses
   Graphics,
 {$ENDIF}
   Classes, SysUtils,
-  GLVectorFileObjects, ApplicationFileIO, VectorLists, VectorGeometry,
-  GLTexture, PersistentClasses, GLGraphics, GLMaterial;
+  GLVectorFileObjects, GLApplicationFileIO, GLVectorLists, GLVectorGeometry,
+  GLTexture, GLPersistentClasses, GLGraphics, GLMaterial;
 
 const
   C_LMTS_ID = $53544D4C;

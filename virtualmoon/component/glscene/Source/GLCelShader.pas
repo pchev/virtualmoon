@@ -29,7 +29,7 @@ interface
 
 uses
   Classes, SysUtils, GLTexture, GLContext, GLGraphics, GLUtils,
-  VectorGeometry, OpenGLTokens, GLColor, GLRenderContextInfo,
+  GLVectorGeometry, OpenGLTokens, GLColor, GLRenderContextInfo,
   GLMaterial, GLState, GLTextureFormat;
 
 type

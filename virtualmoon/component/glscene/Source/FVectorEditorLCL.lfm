@@ -9,12 +9,12 @@ object VectorEditorForm: TVectorEditorForm
   ClientWidth = 265
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
-  LCLVersion = '0.9.29'
+  LCLVersion = '1.2.6.0'
   object Label1: TLabel
     Left = 8
-    Height = 17
+    Height = 16
     Top = 72
-    Width = 40
+    Width = 39
     Caption = 'X axis'
     Font.CharSet = ANSI_CHARSET
     Font.Color = clRed
@@ -26,9 +26,9 @@ object VectorEditorForm: TVectorEditorForm
   end
   object Label2: TLabel
     Left = 8
-    Height = 17
+    Height = 16
     Top = 104
-    Width = 39
+    Width = 38
     Caption = 'Y axis'
     Font.CharSet = ANSI_CHARSET
     Font.Color = clLime
@@ -40,9 +40,9 @@ object VectorEditorForm: TVectorEditorForm
   end
   object Label3: TLabel
     Left = 8
-    Height = 17
+    Height = 16
     Top = 136
-    Width = 38
+    Width = 37
     Caption = 'Z axis'
     Font.CharSet = ANSI_CHARSET
     Font.Color = clBlue
@@ -127,9 +127,7 @@ object VectorEditorForm: TVectorEditorForm
     Top = 8
     Width = 33
     Caption = '+ X'
-    Color = clBtnFace
     Flat = True
-    NumGlyphs = 0
     Transparent = False
     OnClick = TBxClick
   end
@@ -139,9 +137,7 @@ object VectorEditorForm: TVectorEditorForm
     Top = 32
     Width = 33
     Caption = '- X'
-    Color = clBtnFace
     Flat = True
-    NumGlyphs = 0
     Transparent = False
     OnClick = SBmXClick
   end
@@ -151,9 +147,7 @@ object VectorEditorForm: TVectorEditorForm
     Top = 8
     Width = 33
     Caption = '+ Y'
-    Color = clBtnFace
     Flat = True
-    NumGlyphs = 0
     Transparent = False
     OnClick = TByClick
   end
@@ -163,9 +157,7 @@ object VectorEditorForm: TVectorEditorForm
     Top = 32
     Width = 33
     Caption = '- Y'
-    Color = clBtnFace
     Flat = True
-    NumGlyphs = 0
     Transparent = False
     OnClick = SBmYClick
   end
@@ -175,9 +167,7 @@ object VectorEditorForm: TVectorEditorForm
     Top = 8
     Width = 33
     Caption = '+ Z'
-    Color = clBtnFace
     Flat = True
-    NumGlyphs = 0
     Transparent = False
     OnClick = TBzClick
   end
@@ -187,9 +177,7 @@ object VectorEditorForm: TVectorEditorForm
     Top = 32
     Width = 33
     Caption = '- Z'
-    Color = clBtnFace
     Flat = True
-    NumGlyphs = 0
     Transparent = False
     OnClick = SBmZClick
   end
@@ -199,9 +187,7 @@ object VectorEditorForm: TVectorEditorForm
     Top = 8
     Width = 47
     Caption = '0; 0; 0'
-    Color = clBtnFace
     Flat = True
-    NumGlyphs = 0
     Transparent = False
     OnClick = TBnullClick
   end
@@ -211,9 +197,7 @@ object VectorEditorForm: TVectorEditorForm
     Top = 32
     Width = 47
     Caption = '1; 1; 1'
-    Color = clBtnFace
     Flat = True
-    NumGlyphs = 0
     Transparent = False
     OnClick = SBUnitClick
   end
@@ -223,9 +207,7 @@ object VectorEditorForm: TVectorEditorForm
     Top = 8
     Width = 63
     Caption = 'Normalize'
-    Color = clBtnFace
     Flat = True
-    NumGlyphs = 0
     Transparent = False
     OnClick = SpeedButton9Click
   end
@@ -242,9 +224,7 @@ object VectorEditorForm: TVectorEditorForm
     Top = 32
     Width = 63
     Caption = 'Invert'
-    Color = clBtnFace
     Flat = True
-    NumGlyphs = 0
     Transparent = False
     OnClick = SBInvertClick
   end
@@ -285,7 +265,6 @@ object VectorEditorForm: TVectorEditorForm
     GlyphShowMode = gsmAlways
     Kind = bkOK
     ModalResult = 1
-    NumGlyphs = 0
     TabOrder = 3
   end
   object BBcancel: TBitBtn
@@ -296,7 +275,6 @@ object VectorEditorForm: TVectorEditorForm
     GlyphShowMode = gsmAlways
     Kind = bkCancel
     ModalResult = 2
-    NumGlyphs = 0
     TabOrder = 4
   end
 end

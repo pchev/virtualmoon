@@ -37,8 +37,7 @@ implementation
 
 
 uses
-   VectorTypes
-  ;
+   GLVectorTypes;
  
  
 procedure Register;

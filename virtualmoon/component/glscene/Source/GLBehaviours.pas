@@ -26,7 +26,18 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLScene, VectorGeometry, XCollection, BaseClasses,
+uses
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils
+  {$ELSE}
+    Classes, SysUtils
+  {$ENDIF}
+  ,
+  GLVectorTypes,
+  GLScene,
+  GLVectorGeometry,
+  XCollection,
+  GLBaseClasses,
   GLCoordinates;
 
 type
@@ -217,8 +228,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses SysUtils {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
 
 // GetInertia
 

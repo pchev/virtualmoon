@@ -64,11 +64,21 @@ interface
 
 uses
   Windows,
-  Classes,
+  Messages,
   SysUtils,
+  Classes,
+  Forms,
+
+  //GLS
   OpenGLTokens,
   OpenGLAdapter,
-  GLContext;
+  GLContext,
+  GLCrossPlatform,
+  GLState,
+  GLSLog,
+  GLVectorGeometry;
+
+
 
 {$IFDEF FPC}
 const
@@ -194,16 +204,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses
- {$IFDEF GLS_DELPHI_XE2_UP} VCL.Forms, {$ELSE}
-  Forms,
- {$ENDIF}
-  Messages,
-  GLCrossPlatform,
-  GLState,
-  VectorGeometry
-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
 
 
 var
@@ -668,7 +668,9 @@ begin
     if Assigned(FShareContext) and (FShareContext.RC <> 0) then
     begin
       if not wglShareLists(FShareContext.RC, FRC) then
+      {$IFDEF GLS_LOGGING}
         GLSLogger.LogWarning(glsFailedToShare)
+      {$ENDIF}
       else
       begin
         FSharedContexts.Add(FShareContext);
@@ -1221,6 +1223,7 @@ begin
 
                 localRC := FGL.WCreateContextAttribsARB(localDC, 0, @FiAttribs[0]);
                 if localRC = 0 then
+               {$IFDEF GLS_LOGGING}
                 begin
                   if GLStates.ForwardContext then
                     GLSLogger.LogErrorFmt(cForwardContextFailed,
@@ -1230,6 +1233,9 @@ begin
                       [GetLastError, SysErrorMessage(GetLastError)]);
                   Abort;
                 end;
+               {$ELSE}
+                  raise Exception.Create('Unabled to create pbuffer''s RC.');
+               {$ENDIF}
               end
               else
               begin

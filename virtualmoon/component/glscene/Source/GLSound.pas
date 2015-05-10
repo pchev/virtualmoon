@@ -24,8 +24,14 @@ unit GLSound;
 interface
 
 uses
-  Classes, GLSoundFileObjects, GLScene, XCollection, VectorGeometry,
-  GLCadencer, BaseClasses, GLCrossPlatform;
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils, System.Types,
+  {$ELSE}
+    Classes, SysUtils, Types,
+  {$ENDIF}
+
+  GLSoundFileObjects, GLScene, XCollection, GLVectorGeometry,
+  GLCadencer, GLBaseClasses, GLCrossPlatform, GLUtils;
 
 {$I GLScene.inc}
 
@@ -541,8 +547,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses SysUtils, GLUtils;
 
 var
   vActiveSoundManager: TGLSoundManager;

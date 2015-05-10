@@ -19,15 +19,9 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,
-  SysUtils,
-  GLCrossPlatform,
-  OpenGLTokens,
-  GLContext,
-  GLGraphics,
-  GLTextureFormat,
-  ApplicationFileIO
-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
+  Classes, SysUtils,
+  GLCrossPlatform, OpenGLTokens, GLContext, GLGraphics,
+  GLTextureFormat, GLApplicationFileIO;
 
 type
 

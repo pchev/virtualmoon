@@ -18,8 +18,8 @@ unit GLFileGL2;
 interface
 
 uses
-  Classes, SysUtils, GLVectorFileObjects, ApplicationFileIO, GLMaterial, VectorGeometry,
-  FileGL2, VectorTypes, VectorLists;
+  Classes, SysUtils, GLVectorFileObjects, GLApplicationFileIO, GLMaterial,
+  GLVectorGeometry, FileGL2, GLVectorTypes, GLVectorLists;
 
 type
 

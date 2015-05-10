@@ -91,15 +91,11 @@ uses
 {$IFDEF MSWINDOWS}
   Windows,
 {$ENDIF}
-  Classes,
-  PersistentClasses,
 {$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Graphics,
+  System.Classes, System.SysUtils, System.SyncObjs, VCL.Graphics,
 {$ELSE}
-  Graphics,
+  Classes, SysUtils, SyncObjs, Graphics,
 {$ENDIF}
-  ApplicationFileIO,
-  SysUtils,
 {$IFDEF GLS_Graphics32_SUPPORT}
   GR32,
 {$ENDIF}
@@ -112,16 +108,22 @@ uses
 {$ENDIF}
 {$IFDEF FPC}
   fpimage,
-  intfgraphics,
+  Intfgraphics,
   GraphType,
 {$ENDIF}
+  GLApplicationFileIO,
+  GLPersistentClasses,
   OpenGLTokens,
   GLContext,
-  ImageUtils,
+  GLImageUtils,
   GLUtils,
   GLCrossPlatform,
   GLColor,
-  GLTextureFormat;
+  GLTextureFormat,
+  GLVectorGeometry,
+  GLStrings,
+  GLSLog;
+
 
 type
 
@@ -501,12 +503,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses
-  VectorGeometry,
-  GLStrings,
-  SyncObjs
-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
 
 resourcestring
   glsCantConvertImg = '%s: can''t convert image to RGBA8 format';
@@ -1532,7 +1528,7 @@ begin
     fLevelCount := GetImageLodNumber(GetWidth, GetHeight, GetDepth, True);
     UpdateLevelsInfo;
     ReallocMem(FData, DataSize);
-    {$Message Hint 'TGLBaseImage.GenerateMipmap not yet implemented for volume images' }
+    {Message Hint 'TGLBaseImage.GenerateMipmap not yet implemented for volume images' }
   end
   else
   begin
@@ -3512,7 +3508,7 @@ begin
   oldLOD := FLOD;
   if IsVolume then
   begin
-    {$Message Hint 'TGLImage.DataConvertTask not yet implemented for volume images' }
+    {Message Hint 'TGLImage.DataConvertTask not yet implemented for volume images' }
   end
   else
   begin
@@ -3548,3 +3544,4 @@ finalization
   FreeAndNil(vRasterFileFormats);
 
 end.
+

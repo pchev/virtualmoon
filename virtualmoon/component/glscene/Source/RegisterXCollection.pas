@@ -24,7 +24,7 @@ uses
   {$IFDEF FPC}
      componenteditors, propedits
   {$ELSE}
-    {$IFDEF GLS_DELPHI_6_UP} DesignEditors, DesignIntf {$ELSE} DsgnIntf {$ENDIF}
+     DesignEditors, DesignIntf
   {$ENDIF}
    ;
 

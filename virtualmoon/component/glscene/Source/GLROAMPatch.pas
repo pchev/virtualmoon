@@ -1,29 +1,30 @@
-
+//
 // This unit is part of the GLScene Project, http://glscene.org
+//
+{ : GLROAMPatch<p>
 
-{: GLROAMPatch<p>
-
-   Class for managing a ROAM (square) patch.<p>
+  Class for managing a ROAM (square) patch.<p>
 
   <b>History : </b><font size=-1><ul>
-      <li>22/08/10 - DaStr - Fixed compiler warning
-      <li>27/07/10 - YP - Safe tesselation operation to avoid AV after a memory shift
-      <li>26/07/10 - YP - Invalid range test when splitting, we need to check space for n and n+1
-      <li>20/05/10 - Yar - Fixes for Linux x64
-      <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
-      <li>30/03/07 - DaStr - Added $I GLScene.inc
-      <li>19/10/06 - LC - Added code to gracefully handle the case when MaxCLODTriangles is reached.
-                          It will now increase the buffer instead of not splitting. Bugtracker ID=1574111
-      <li>09/10/06 - Lin - Added OnMaxCLODTrianglesReached event.
-      <li>09/06/06 - Lin - Bugfix: Stop splitting Triangles when MaxCLODTriangles is reached (prevents Access Violations)
-      <li>10/06/05 - Mathx - Protection against cards that have GL_EXT_compiled_vertex_array
-                             but not GL_EXT_draw_range_elements
-      <li>25/04/04 - EG - Occlusion testing support
-      <li>06/02/03 - EG - Adaptative variance computation
-      <li>03/12/02 - EG - Minor ROAM tessel/render optimizations
-      <li>15/06/02 - EG - Fixed patch rendering bug "introduced" by TBaseList fix
-      <li>24/02/02 - EG - Hybrid ROAM-stripifier engine
-      <li>10/09/01 - EG - Creation
+  <li>29/12/14 - PW - Fixed SafeTesselation function that caused gaps between tiles
+  <li>22/08/10 - DaStr - Fixed compiler warning
+  <li>27/07/10 - YP - Safe tesselation operation to avoid AV after a memory shift
+  <li>26/07/10 - YP - Invalid range test when splitting, we need to check space for n and n+1
+  <li>20/05/10 - Yar - Fixes for Linux x64
+  <li>16/10/08 - UweR - Compatibility fix for Delphi 2009
+  <li>30/03/07 - DaStr - Added $I GLScene.inc
+  <li>19/10/06 - LC - Added code to gracefully handle the case when MaxCLODTriangles is reached.
+  It will now increase the buffer instead of not splitting. Bugtracker ID=1574111
+  <li>09/10/06 - Lin - Added OnMaxCLODTrianglesReached event.
+  <li>09/06/06 - Lin - Bugfix: Stop splitting Triangles when MaxCLODTriangles is reached (prevents Access Violations)
+  <li>10/06/05 - Mathx - Protection against cards that have GL_EXT_compiled_vertex_array
+  but not GL_EXT_draw_range_elements
+  <li>25/04/04 - EG - Occlusion testing support
+  <li>06/02/03 - EG - Adaptative variance computation
+  <li>03/12/02 - EG - Minor ROAM tessel/render optimizations
+  <li>15/06/02 - EG - Fixed patch rendering bug "introduced" by TBaseList fix
+  <li>24/02/02 - EG - Hybrid ROAM-stripifier engine
+  <li>10/09/01 - EG - Creation
   </ul></font>
 }
 unit GLROAMPatch;
@@ -32,7 +33,10 @@ interface
 
 {$I GLScene.inc}
 
-uses VectorGeometry, GLHeightData, VectorLists, GLCrossPlatform, GLContext, SysUtils;
+uses
+  SysUtils,
+  GLVectorGeometry, GLHeightData, GLVectorLists, GLCrossPlatform, GLContext,
+  OpenGLTokens, XOpenGL;
 
 type
 
@@ -40,7 +44,7 @@ type
   EGLROAMException = class(Exception);
 
   // TROAMTriangleNode
-
+  //
   PROAMTriangleNode = ^TROAMTriangleNode;
 
   TROAMTriangleNode = packed record
@@ -49,50 +53,46 @@ type
   end;
 
   // TROAMRenderPoint
-
+  //
   TROAMRenderPoint = packed record
-    X, Y: integer;
-    idx: integer;
+    X, Y: Integer;
+    idx: Integer;
   end;
 
   // TGLROAMPatch
-
+  //
   TGLROAMPatch = class(TObject)
   private
     { Private Declarations }
-    FID: integer;
+    FID: Integer;
     FHeightData: THeightData; // Referred, not owned
     FHeightRaster: PSmallIntRaster;
-    FTLNode, FBRNode: integer;
+    FTLNode, FBRNode: Integer;
     FTLVariance, FBRVariance: array of cardinal;
-    FPatchSize, FTriangleCount: integer;
+    FPatchSize, FTriangleCount: Integer;
     FListHandle: TGLListHandle;
-    FTag: integer;
+    FTag: Integer;
     FObserverPosition: TAffineVector;
     FNorth, FSouth, FWest, FEast: TGLROAMPatch; // neighbours
-    FHighRes: boolean;
-    FMaxDepth: integer;
+    FHighRes: Boolean;
+    FMaxDepth: Integer;
     FVertexScale, FVertexOffset: TAffineVector;
     FTextureScale, FTextureOffset: TAffineVector;
-    FMaxTLVarianceDepth, FMaxBRVarianceDepth: integer;
+    FMaxTLVarianceDepth, FMaxBRVarianceDepth: Integer;
 
     FOcclusionQuery: TGLOcclusionQueryHandle;
-    FOcclusionSkip, FOcclusionCounter: integer;
-    FLastOcclusionTestPassed: boolean;
-
-
+    FOcclusionSkip, FOcclusionCounter: Integer;
+    FLastOcclusionTestPassed: Boolean;
 
   protected
     { Protected Declarations }
     procedure SetHeightData(val: THeightData);
-    procedure SetOcclusionSkip(val: integer);
+    procedure SetOcclusionSkip(val: Integer);
 
     procedure RenderROAM(vertices: TAffineVectorList;
-      vertexIndices: TIntegerList;
-      texCoords: TTexPointList);
+      vertexIndices: TIntegerList; texCoords: TTexPointList);
     procedure RenderAsStrips(vertices: TAffineVectorList;
-      vertexIndices: TIntegerList;
-      texCoords: TTexPointList);
+      vertexIndices: TIntegerList; texCoords: TTexPointList);
 
     function Tesselate: boolean;
     // Returns false if MaxCLODTriangles limit is reached(Lin)
@@ -101,83 +101,79 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    procedure ComputeVariance(variance: integer);
+    procedure ComputeVariance(variance: Integer);
 
     procedure ResetTessellation;
     procedure ConnectToTheWest(westPatch: TGLROAMPatch);
     procedure ConnectToTheNorth(northPatch: TGLROAMPatch);
 
-         {: AV free version of Tesselate.<p>
-            When IncreaseTrianglesCapacity is called, all PROAMTriangleNode
-            values in higher function became invalid due to the memory shifting.
-            Recursivity is the main problem, that's why SafeTesselate is calling
-            Tesselate in a try..except .}
+    { : AV free version of Tesselate.<p>
+      When IncreaseTrianglesCapacity is called, all PROAMTriangleNode
+      values in higher function became invalid due to the memory shifting.
+      Recursivity is the main problem, that's why SafeTesselate is calling
+      Tesselate in a try..except . }
     function SafeTesselate: boolean;
 
-         {: Render the patch in high-resolution.<p>
-            The lists are assumed to have enough capacity to allow AddNC calls
-            (additions without capacity check). High-resolution renders use
-            display lists, and are assumed to be made together. }
+    { : Render the patch in high-resolution.<p>
+      The lists are assumed to have enough capacity to allow AddNC calls
+      (additions without capacity check). High-resolution renders use
+      display lists, and are assumed to be made together. }
     procedure RenderHighRes(vertices: TAffineVectorList;
-      vertexIndices: TIntegerList;
-      texCoords: TTexPointList;
-      forceROAM: boolean);
-         {: Render the patch by accumulating triangles.<p>
-            The lists are assumed to have enough capacity to allow AddNC calls
-            (additions without capacity check).<br>
-            Once at least autoFlushVertexCount vertices have been accumulated,
-            perform a FlushAccum }
+      vertexIndices: TIntegerList; texCoords: TTexPointList;
+      forceROAM: Boolean);
+    { : Render the patch by accumulating triangles.<p>
+      The lists are assumed to have enough capacity to allow AddNC calls
+      (additions without capacity check).<br>
+      Once at least autoFlushVertexCount vertices have been accumulated,
+      perform a FlushAccum }
     procedure RenderAccum(vertices: TAffineVectorList;
-      vertexIndices: TIntegerList;
-      texCoords: TTexPointList;
-      autoFlushVertexCount: integer);
-         {: Render all vertices accumulated in the arrays and set their count
-            back to zero. }
+      vertexIndices: TIntegerList; texCoords: TTexPointList;
+      autoFlushVertexCount: Integer);
+    { : Render all vertices accumulated in the arrays and set their count
+      back to zero. }
     class procedure FlushAccum(vertices: TAffineVectorList;
-      vertexIndices: TIntegerList;
-      texCoords: TTexPointList);
+      vertexIndices: TIntegerList; texCoords: TTexPointList);
 
     property HeightData: THeightData read FHeightData write SetHeightData;
     property VertexScale: TAffineVector read FVertexScale write FVertexScale;
     property VertexOffset: TAffineVector read FVertexOffset write FVertexOffset;
 
-    property ObserverPosition: TAffineVector
-      read FObserverPosition write FObserverPosition;
+    property ObserverPosition: TAffineVector read FObserverPosition
+      write FObserverPosition;
 
     property TextureScale: TAffineVector read FTextureScale write FTextureScale;
-    property TextureOffset: TAffineVector read FTextureOffset write FTextureOffset;
+    property TextureOffset: TAffineVector read FTextureOffset
+      write FTextureOffset;
 
-    property HighRes: boolean read FHighRes write FHighRes;
+    property HighRes: Boolean read FHighRes write FHighRes;
 
-    {: Number of frames to skip after an occlusion test returned zero pixels. }
-    property OcclusionSkip: integer read FOcclusionSkip write SetOcclusionSkip;
-    {: Number of frames remaining to next occlusion test. }
-    property OcclusionCounter: integer read FOcclusionCounter
+    { : Number of frames to skip after an occlusion test returned zero pixels. }
+    property OcclusionSkip: Integer read FOcclusionSkip write SetOcclusionSkip;
+    { : Number of frames remaining to next occlusion test. }
+    property OcclusionCounter: Integer read FOcclusionCounter
       write FOcclusionCounter;
-         {: Result for the last occlusion test.<p>
-            Note that this value is updated upon rendering the tile in
-            non-high-res mode only. }
-    property LastOcclusionTestPassed: boolean read FLastOcclusionTestPassed;
+    { : Result for the last occlusion test.<p>
+      Note that this value is updated upon rendering the tile in
+      non-high-res mode only. }
+    property LastOcclusionTestPassed: Boolean read FLastOcclusionTestPassed;
 
-    property ID: integer read FID;
-    property TriangleCount: integer read FTriangleCount;
-    property Tag: integer read FTag write FTag;
+    property ID: Integer read FID;
+    property TriangleCount: Integer read FTriangleCount;
+    property Tag: Integer read FTag write FTag;
   end;
 
-
-{: Specifies the maximum number of ROAM triangles that may be allocated. }
-procedure SetROAMTrianglesCapacity(nb: integer);
-function GetROAMTrianglesCapacity: integer;
+  { : Specifies the maximum number of ROAM triangles that may be allocated. }
+procedure SetROAMTrianglesCapacity(nb: Integer);
+function GetROAMTrianglesCapacity: Integer;
 
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 implementation
-// ------------------------------------------------------------------
-// ------------------------------------------------------------------
-// ------------------------------------------------------------------
 
-uses OpenGLTokens, XOpenGL;
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
 
 var
   FVBOVertHandle, FVBOTexHandle: TGLVBOArrayBufferHandle;
@@ -186,20 +182,20 @@ var
 type
 
   // TROAMVariancePoint
-
+  //
   TROAMVariancePoint = packed record
-    X, Y: integer;
-    Z: integer;
+    X, Y: Integer;
+    Z: Integer;
   end;
 
 var
-  vNextPatchID: integer;
-  vNbTris, vTriangleNodesCapacity: integer;
+  vNextPatchID: Integer;
+  vNbTris, vTriangleNodesCapacity: Integer;
   vTriangleNodes: array of TROAMTriangleNode;
 
-// SetROAMTrianglesCapacity
+  // SetROAMTrianglesCapacity
 
-procedure SetROAMTrianglesCapacity(nb: integer);
+procedure SetROAMTrianglesCapacity(nb: Integer);
 begin
   vNbTris := 0;
   if vTriangleNodesCapacity <> nb then
@@ -209,14 +205,13 @@ begin
   end;
 end;
 
-function GetROAMTrianglesCapacity: integer;
+function GetROAMTrianglesCapacity: Integer;
 begin
   Result := vTriangleNodesCapacity;
 end;
 
-
 // The result is the delta between the old address of the array and the new one
-function IncreaseTrianglesCapacity(NewCapacity: integer): int64;
+function IncreaseTrianglesCapacity(NewCapacity: Integer): int64;
 
   procedure FixNodePtr(var p: PROAMTriangleNode; const delta: int64);
   begin
@@ -229,7 +224,7 @@ function IncreaseTrianglesCapacity(NewCapacity: integer): int64;
 var
   oldbase, newbase: pointer;
   node: PROAMTriangleNode;
-  i, oldsize: integer;
+  i, oldsize: Integer;
 begin
   Result := 0;
   if NewCapacity <= vTriangleNodesCapacity then
@@ -264,15 +259,16 @@ begin
 end;
 
 // AllocTriangleNode
-
-function AllocTriangleNode: integer;
+//
+function AllocTriangleNode: Integer;
 var
   nilNode: PROAMTriangleNode;
 begin
   if vNbTris >= vTriangleNodesCapacity then
   begin
     // grow by 50%
-    IncreaseTrianglesCapacity(vTriangleNodesCapacity + (vTriangleNodesCapacity shr 1));
+    IncreaseTrianglesCapacity(vTriangleNodesCapacity +
+      (vTriangleNodesCapacity shr 1));
   end;
   Result := vNbTris;
   with vTriangleNodes[vNbTris] do
@@ -287,20 +283,21 @@ begin
 end;
 
 // Split
-
-function Split(tri: PROAMTriangleNode): boolean;
+//
+function Split(tri: PROAMTriangleNode): Boolean;
 var
-  n: integer;
+  n: Integer;
   lc, rc: PROAMTriangleNode;
   Shift: int64;
 begin
   Result := Assigned(tri.leftChild);
   if Result then
-    Exit;                            //dont split if tri already has a left child
-  with tri^ do
-  begin
+    exit; // dont split if tri already has a left child
+  with tri^ do 
+  begin 
     if Assigned(base) and (base.base <> tri) then
-      Split(base); // If this triangle is not in a proper diamond, force split our base neighbor
+	  Split(base);
+   // If this triangle is not in a proper diamond, force split our base neighbor
     n := vNbTris;
   end;
 
@@ -311,7 +308,8 @@ begin
       (vTriangleNodesCapacity shr 1));
     if Shift <> 0 then
     begin
-      raise EGLROAMException.Create('PROAMTriangleNode addresses are invalid now');
+      raise EGLROAMException.Create
+        ('PROAMTriangleNode addresses are invalid now');
     end;
   end;
 
@@ -319,32 +317,32 @@ begin
   begin
 
     // Create children and cross-link them
-    lc := @vTriangleNodes[n];           //left child
-    rc := @vTriangleNodes[n + 1];         //right child
+    lc := @vTriangleNodes[n]; // left child
+    rc := @vTriangleNodes[n + 1]; // right child
 
     leftChild := lc;
     rightChild := rc;
 
-    rc.base := right;         //right child
+    rc.base := right; // right child
     rc.leftChild := nil;
     rc.rightChild := leftChild;
     rc.right := leftChild;
 
-    lc.base := left;          //left child
+    lc.base := left; // left child
     lc.leftChild := nil;
     lc.rightChild := leftChild;
     lc.left := rightChild;
 
     Inc(vNbTris, 2);
 
-    if Assigned(left) then   // Link our Left Neighbour to the new children
+    if Assigned(left) then // Link our Left Neighbour to the new children
       if left.base = tri then
         left.base := lc
       else if left.left = tri then
         left.left := lc
       else
         left.right := lc;
-    if Assigned(right) then  // Link our Right Neighbour to the new children
+    if Assigned(right) then // Link our Right Neighbour to the new children
       if right.base = tri then
         right.base := rc
       else if right.left = tri then
@@ -362,9 +360,7 @@ begin
         leftChild.right := base.rightChild;
       end
       else
-      begin
         Split(base);
-      end;
     end
     else
     begin // An edge triangle, trivial case.
@@ -381,7 +377,7 @@ end;
 // ------------------
 
 // Create
-
+//
 constructor TGLROAMPatch.Create;
 begin
   inherited Create;
@@ -392,7 +388,7 @@ begin
 end;
 
 // Destroy
-
+//
 destructor TGLROAMPatch.Destroy;
 begin
   FListHandle.Free;
@@ -401,7 +397,7 @@ begin
 end;
 
 // SetHeightData
-
+//
 procedure TGLROAMPatch.SetHeightData(val: THeightData);
 begin
   FHeightData := val;
@@ -410,8 +406,8 @@ begin
 end;
 
 // SetOcclusionSkip
-
-procedure TGLROAMPatch.SetOcclusionSkip(val: integer);
+//
+procedure TGLROAMPatch.SetOcclusionSkip(val: Integer);
 begin
   if val < 0 then
     val := 0;
@@ -423,12 +419,12 @@ begin
 end;
 
 // ConnectToTheWest
-
+//
 procedure TGLROAMPatch.ConnectToTheWest(westPatch: TGLROAMPatch);
 begin
   if Assigned(westPatch) then
   begin
-    if not (westPatch.HighRes or HighRes) then
+    if not(westPatch.HighRes or HighRes) then
     begin
       vTriangleNodes[FTLNode].left := @vTriangleNodes[westPatch.FBRNode];
       vTriangleNodes[westPatch.FBRNode].left := @vTriangleNodes[FTLNode];
@@ -439,12 +435,12 @@ begin
 end;
 
 // ConnectToTheNorth
-
+//
 procedure TGLROAMPatch.ConnectToTheNorth(northPatch: TGLROAMPatch);
 begin
   if Assigned(northPatch) then
   begin
-    if not (northPatch.HighRes or HighRes) then
+    if not(northPatch.HighRes or HighRes) then
     begin
       vTriangleNodes[FTLNode].right := @vTriangleNodes[northPatch.FBRNode];
       vTriangleNodes[northPatch.FBRNode].right := @vTriangleNodes[FTLNode];
@@ -455,34 +451,34 @@ begin
 end;
 
 // ComputeVariance
-
-procedure TGLROAMPatch.ComputeVariance(variance: integer);
+//
+procedure TGLROAMPatch.ComputeVariance(variance: Integer);
 var
   raster: PSmallIntRaster;
   currentVariance: PIntegerArray;
-  maxVarianceDepth: integer;
-  maxNonNullIndex: integer;
-  invVariance: single;
+  maxVarianceDepth: Integer;
+  maxNonNullIndex: Integer;
+  invVariance: Single;
 
-  function ROAMVariancePoint(anX, anY: integer): TROAMVariancePoint;
+  function ROAMVariancePoint(anX, anY: Integer): TROAMVariancePoint;
   begin
     Result.X := anX;
     Result.Y := anY;
-    Result.Z := (integer(FHeightRaster[anY][anX]) shl 8);
+    Result.Z := (Integer(FHeightRaster[anY][anX]) shl 8);
   end;
 
   function RecursComputeVariance(const left, right, apex: TROAMVariancePoint;
-    node: integer): cardinal;
+    node: Integer): Cardinal;
   var
     half: TROAMVariancePoint;
-    v: cardinal;
-    n2: integer;
+    v: Cardinal;
+    n2: Integer;
   begin
     with half do
     begin
       X := (left.X + right.X) shr 1;
       Y := (left.Y + right.Y) shr 1;
-      Z := integer(raster[Y][X]) shl 8;
+      Z := Integer(raster[Y][X]) shl 8;
       Result := ScaleAndRound(Abs(((left.Z + right.Z) div 2) - Z), invVariance);
     end;
 
@@ -499,9 +495,9 @@ var
     currentVariance[node] := Result;
   end;
 
-  procedure ScaleVariance(n, d: integer);
+  procedure ScaleVariance(n, d: Integer);
   var
-    newVal: integer;
+    newVal: Integer;
   begin
     if d >= 0 then
       newVal := (currentVariance[n] shl (d shr 1))
@@ -521,7 +517,7 @@ var
   end;
 
 var
-  s, p: integer;
+  s, p: Integer;
 begin
   invVariance := 1 / variance;
   s := Sqr(FPatchSize);
@@ -554,7 +550,7 @@ begin
 end;
 
 // ResetTessellation
-
+//
 procedure TGLROAMPatch.ResetTessellation;
 begin
   FTLNode := AllocTriangleNode;
@@ -568,18 +564,18 @@ begin
 end;
 
 // Tessellate
-
+//
 var
-  tessMaxVariance: cardinal;
-  tessMaxDepth: cardinal;
+  tessMaxVariance: Cardinal;
+  tessMaxDepth: Cardinal;
   tessCurrentVariance: PIntegerArray;
-  tessObserverPosX, tessObserverPosY: integer;
+  tessObserverPosX, tessObserverPosY: Integer;
 
 function RecursTessellate(tri: PROAMTriangleNode; n: cardinal;
   const left, right, apex: cardinal): boolean;
-  //returns false if tessellation failed due to MaxCLODTriangles limit
+// returns false if tessellation failed due to MaxCLODTriangles limit
 var
-  d: integer;
+  d: Integer;
 begin
   Result := True;
   d := ((left + right) shr 1);
@@ -592,34 +588,34 @@ begin
       if n < tessMaxVariance then
       begin
         RecursTessellate(tri.leftChild, n, apex, left, d);
-        Result :=
-          RecursTessellate(tri.rightChild, n + 1, right, apex, d);
+        Result := RecursTessellate(tri.rightChild, n + 1, right, apex, d);
       end;
     end;
   end;
 end;
 
 function TGLROAMPatch.Tesselate: boolean;
-  //Returns false if MaxCLODTriangles limit is reached.
+// Returns false if MaxCLODTriangles limit is reached.
 var
-  tessFrameVarianceDelta: integer;
+  tessFrameVarianceDelta: Integer;
 
-  function VertexDist(x, y: integer): cardinal;
+  function VertexDist(X, Y: Integer): cardinal;
   var
-    f: single;
+    f: Single;
   const
-    c1Div100: single = 0.01;
+    c1Div100: Single = 0.01;
   begin
     if HighRes then
       f := 0.2 * Sqr(FPatchSize)
     else
-      f := Sqr(x - tessObserverPosX) + Sqr(y - tessObserverPosY) + tessFrameVarianceDelta;
+      f := Sqr(X - tessObserverPosX) + Sqr(Y - tessObserverPosY) +
+        tessFrameVarianceDelta;
     Result := Round(Sqrt(f) + f * c1Div100);
   end;
 
-  procedure FullBaseTess(tri: PROAMTriangleNode; n: cardinal); forward;
+procedure FullBaseTess(tri: PROAMTriangleNode; n: Cardinal); forward;
 
-  procedure FullLeftTess(tri: PROAMTriangleNode; n: cardinal);
+  procedure FullLeftTess(tri: PROAMTriangleNode; n: Cardinal);
   begin
     if Split(tri) then
     begin
@@ -629,7 +625,7 @@ var
     end;
   end;
 
-  procedure FullRightTess(tri: PROAMTriangleNode; n: cardinal);
+  procedure FullRightTess(tri: PROAMTriangleNode; n: Cardinal);
   begin
     if Split(tri) then
     begin
@@ -639,7 +635,7 @@ var
     end;
   end;
 
-  procedure FullBaseTess(tri: PROAMTriangleNode; n: cardinal);
+  procedure FullBaseTess(tri: PROAMTriangleNode; n: Cardinal);
   begin
     if Split(tri) then
     begin
@@ -653,11 +649,11 @@ var
   end;
 
 var
-  s: integer;
+  s: Integer;
 begin
   tessMaxDepth := FMaxDepth;
-  tessObserverPosX := Round(FObserverPosition.V[0]);
-  tessObserverPosY := Round(FObserverPosition.V[1]);
+  tessObserverPosX := Round(FObserverPosition.X);
+  tessObserverPosY := Round(FObserverPosition.Y);
 
   if HighRes then
   begin
@@ -677,8 +673,8 @@ begin
       FullLeftTess(@vTriangleNodes[FBRNode], 1);
     if Assigned(FWest) and FWest.HighRes then
       FullLeftTess(@vTriangleNodes[FTLNode], 1);
-    if FObserverPosition.V[2] > 0 then
-      tessFrameVarianceDelta := Round(Sqr(FObserverPosition.V[2] * (1 / 16)))
+    if FObserverPosition.v[2] > 0 then
+      tessFrameVarianceDelta := Round(Sqr(FObserverPosition.Z * (1 / 16)))
     else
       tessFrameVarianceDelta := 0;
   end;
@@ -705,13 +701,13 @@ begin
   Fail := True;
   repeat
     try
-      ResetTessellation;
+      //ResetTessellation; <- creates gaps between tiles
       Result := Tesselate;
       Fail := False;
     except
       on e: EGLROAMException do
       begin
-        //Nothing to do, just wait the next iteration
+        // Nothing to do, just wait the next iteration
         Fail := True;
       end;
     end;
@@ -719,18 +715,15 @@ begin
 end;
 
 // RenderHighRes
-
+//
 procedure TGLROAMPatch.RenderHighRes(vertices: TAffineVectorList;
-  vertexIndices: TIntegerList;
-  texCoords: TTexPointList;
-  forceROAM: boolean);
+  vertexIndices: TIntegerList; texCoords: TTexPointList; forceROAM: Boolean);
 var
   primitive: TGLEnum;
 begin
   // Prepare display list if needed
   if FListHandle.Handle = 0 then
   begin
-
     // either use brute-force strips or a high-res static tesselation
     if forceROAM then
     begin
@@ -755,8 +748,8 @@ begin
 
     FListHandle.AllocateHandle;
     GL.NewList(FListHandle.Handle, GL_COMPILE);
-    GL.DrawElements(primitive, vertexIndices.Count,
-      GL_UNSIGNED_INT, vertexIndices.List);
+    GL.DrawElements(primitive, vertexIndices.Count, GL_UNSIGNED_INT,
+      vertexIndices.List);
     GL.EndList;
 
     vertices.Count := 0;
@@ -768,14 +761,13 @@ begin
 end;
 
 // RenderAccum
-
+//
 procedure TGLROAMPatch.RenderAccum(vertices: TAffineVectorList;
-  vertexIndices: TIntegerList;
-  texCoords: TTexPointList;
-  autoFlushVertexCount: integer);
+  vertexIndices: TIntegerList; texCoords: TTexPointList;
+  autoFlushVertexCount: Integer);
 var
-  occlusionPassed: boolean;
-  n, nb, nvi: integer;
+  occlusionPassed: Boolean;
+  n, nb, nvi: Integer;
 begin
   // CLOD tiles are rendered via ROAM
   if (FOcclusionSkip > 0) and FOcclusionQuery.IsSupported then
@@ -785,7 +777,8 @@ begin
       FOcclusionQuery.AllocateHandle;
       FOcclusionCounter := -(ID mod (FOcclusionSkip));
     end;
-    occlusionPassed := (FOcclusionCounter <= 0) or (FOcclusionQuery.PixelCount > 0);
+    occlusionPassed := (FOcclusionCounter <= 0) or
+      (FOcclusionQuery.PixelCount > 0);
     Dec(FOcclusionCounter);
     if occlusionPassed then
     begin
@@ -822,10 +815,9 @@ begin
 end;
 
 // FlushAccum
-
+//
 class procedure TGLROAMPatch.FlushAccum(vertices: TAffineVectorList;
-  vertexIndices: TIntegerList;
-  texCoords: TTexPointList);
+  vertexIndices: TIntegerList; texCoords: TTexPointList);
 begin
   if vertexIndices.Count = 0 then
     Exit;
@@ -842,16 +834,16 @@ begin
       GL_STREAM_DRAW_ARB);
     xgl.TexCoordPointer(2, GL_FLOAT, 0, nil);
 
-    GL.DrawRangeElements(GL_TRIANGLES, 0, vertices.Count - 1, vertexIndices.Count,
-      GL_UNSIGNED_INT, vertexIndices.List);
+    GL.DrawRangeElements(GL_TRIANGLES, 0, vertices.Count - 1,
+      vertexIndices.Count, GL_UNSIGNED_INT, vertexIndices.List);
     GL.BindBuffer(GL_ARRAY_BUFFER_ARB, 0);
     GL.BindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
   end
   else if GL.EXT_compiled_vertex_array and GL.EXT_draw_range_elements then
   begin
     GL.LockArrays(0, vertices.Count);
-    GL.DrawRangeElements(GL_TRIANGLES, 0, vertices.Count - 1, vertexIndices.Count,
-      GL_UNSIGNED_INT, vertexIndices.List);
+    GL.DrawRangeElements(GL_TRIANGLES, 0, vertices.Count - 1,
+      vertexIndices.Count, GL_UNSIGNED_INT, vertexIndices.List);
     GL.UnLockArrays;
   end
   else
@@ -865,7 +857,7 @@ begin
 end;
 
 // RenderROAM
-
+//
 var
   renderRaster: PSmallIntRaster;
   renderIndices: PIntegerArray;
@@ -879,33 +871,32 @@ var
   localIndices: PIntegerArray;
 begin
   if Assigned(tri.leftChild) then
-  begin  // = if node is split
+  begin // = if node is split
     half.Y := (left.Y + right.Y) shr 1;
     half.X := (left.X + right.X) shr 1;
     renderTexCoords.AddNC(@half.X);
-    half.Idx := renderVertices.AddNC(@half.X, renderRaster[half.Y][half.X]);
+    half.idx := renderVertices.AddNC(@half.X, renderRaster[half.Y][half.X]);
     RecursRender(tri.leftChild, apex, left, half);
     RecursRender(tri.rightChild, right, apex, half);
   end
   else
   begin
     localIndices := renderIndices;
-    localIndices[0] := left.Idx;
-    localIndices[1] := apex.Idx;
-    localIndices[2] := right.Idx;
+    localIndices[0] := left.idx;
+    localIndices[1] := apex.idx;
+    localIndices[2] := right.idx;
     renderIndices := PIntegerArray(@localIndices[3]);
   end;
 end;
 
 procedure TGLROAMPatch.RenderROAM(vertices: TAffineVectorList;
-  vertexIndices: TIntegerList;
-  texCoords: TTexPointList);
+  vertexIndices: TIntegerList; texCoords: TTexPointList);
 
-  procedure ROAMRenderPoint(var p: TROAMRenderPoint; anX, anY: integer);
+  procedure ROAMRenderPoint(var p: TROAMRenderPoint; anX, anY: Integer);
   begin
     p.X := anX;
     p.Y := anY;
-    p.Idx := vertices.Add(anX, anY, renderRaster[anY][anX]);
+    p.idx := vertices.Add(anX, anY, renderRaster[anY][anX]);
     texCoords.Add(anX, anY);
   end;
 
@@ -929,18 +920,17 @@ begin
   RecursRender(@vTriangleNodes[FTLNode], rbl, rtr, rtl);
   RecursRender(@vTriangleNodes[FBRNode], rtr, rbl, rbr);
 
-  vertexIndices.Count := (PtrUInt(renderIndices) - PtrUInt(vertexIndices.List)) div
-    SizeOf(integer);
+  vertexIndices.Count := (PtrUInt(renderIndices) - PtrUInt(vertexIndices.List))
+    div SizeOf(Integer);
 end;
 
 // RenderAsStrips
-
+//
 procedure TGLROAMPatch.RenderAsStrips(vertices: TAffineVectorList;
-  vertexIndices: TIntegerList;
-  texCoords: TTexPointList);
+  vertexIndices: TIntegerList; texCoords: TTexPointList);
 
 var
-  x, y, baseTop, rowLength: integer;
+  X, Y, baseTop, rowLength: Integer;
   p: TAffineVector;
   row: PSmallIntArray;
   raster: PSmallIntRaster;
@@ -956,16 +946,16 @@ begin
   verticesList := PAffineVector(vertices.List);
   texCoords.Count := Sqr(rowLength);
   texCoordsList := PTexPoint(texCoords.List);
-  for y := 0 to FPatchSize do
+  for Y := 0 to FPatchSize do
   begin
-    p.V[1] := y;
-    tex.T := p.V[1];
-    row := raster[y];
-    for x := 0 to FPatchSize do
+    p.Y := Y;
+    tex.T := p.Y;
+    row := raster[Y];
+    for X := 0 to FPatchSize do
     begin
-      p.V[0] := x;
-      tex.S := p.V[0];
-      p.V[2] := row[x];
+      p.X := X;
+      tex.s := p.X;
+      p.Z := row[X];
       verticesList^ := p;
       Inc(verticesList);
       texCoordsList^ := tex;
@@ -976,34 +966,34 @@ begin
   baseTop := 0;
   vertexIndices.Count := (rowLength * 2 + 2) * FPatchSize - 1;
   indicesList := PInteger(vertexIndices.List);
-  y := 0;
-  while y < FPatchSize do
+  Y := 0;
+  while Y < FPatchSize do
   begin
-    if y > 0 then
+    if Y > 0 then
     begin
       indicesList^ := baseTop + FPatchSize;
       Inc(indicesList);
     end;
-    for x := baseTop + FPatchSize downto baseTop do
+    for X := baseTop + FPatchSize downto baseTop do
     begin
-      indicesList^ := x;
-      PIntegerArray(indicesList)[1] := rowLength + x;
+      indicesList^ := X;
+      PIntegerArray(indicesList)[1] := rowLength + X;
       Inc(indicesList, 2);
     end;
     indicesList^ := baseTop + rowLength;
     Inc(baseTop, rowLength);
     PIntegerArray(indicesList)[1] := baseTop + rowLength;
     Inc(indicesList, 2);
-    for x := baseTop to baseTop + FPatchSize do
+    for X := baseTop to baseTop + FPatchSize do
     begin
-      indicesList^ := rowLength + x;
-      PIntegerArray(indicesList)[1] := x;
+      indicesList^ := rowLength + X;
+      PIntegerArray(indicesList)[1] := X;
       Inc(indicesList, 2);
     end;
     indicesList^ := baseTop + FPatchSize;
     Inc(indicesList);
     Inc(baseTop, rowLength);
-    Inc(y, 2);
+    Inc(Y, 2);
   end;
   vertexIndices.Count := vertexIndices.Count - 1;
 end;
@@ -1012,21 +1002,21 @@ end;
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 initialization
-  // ------------------------------------------------------------------
-  // ------------------------------------------------------------------
-  // ------------------------------------------------------------------
 
-  FVBOVertHandle := TGLVBOArrayBufferHandle.Create;
-  FVBOTexHandle := TGLVBOArrayBufferHandle.Create;
-  FVBOIndicesHandle := TGLVBOElementArrayHandle.Create;
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+
+FVBOVertHandle := TGLVBOArrayBufferHandle.Create;
+FVBOTexHandle := TGLVBOArrayBufferHandle.Create;
+FVBOIndicesHandle := TGLVBOElementArrayHandle.Create;
 
 finalization
 
-  FVBOVertHandle.Free;
-  FVBOTexHandle.Free;
-  FVBOIndicesHandle.Free;
+FVBOVertHandle.Free;
+FVBOTexHandle.Free;
+FVBOIndicesHandle.Free;
 
-  SetROAMTrianglesCapacity(0);
+SetROAMTrianglesCapacity(0);
 
 end.
-

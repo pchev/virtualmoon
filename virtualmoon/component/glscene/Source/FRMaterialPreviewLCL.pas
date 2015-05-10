@@ -10,7 +10,7 @@
    </ul></font>
 }
 // Возникли проблемы с GLSceneViewer и TFrame (при передаче буферу хэндла),
-// по этому его пришлось заменить на MemoryViewer
+// поэтому его пришлось заменить на MemoryViewer
 
 unit FRMaterialPreviewLCL;
 
@@ -18,7 +18,8 @@ interface
 
 {$i GLScene.inc}
 
-uses lresources,
+uses 
+  lresources,
   Classes, Forms, StdCtrls, Controls, ExtCtrls,
   GLScene, GLObjects, GLTexture, GLHUDObjects, GLTeapot,
   GLGeomObjects, GLColor, GLCoordinates,

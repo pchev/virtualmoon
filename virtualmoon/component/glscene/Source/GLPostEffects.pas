@@ -49,8 +49,8 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  GLScene, GLTexture, OpenGLTokens, GLGraphics, GLStrings, GLCustomShader, GLContext,
-  VectorGeometry, GLRenderContextInfo, GLMaterial, GLTextureFormat;
+  GLScene, GLTexture, OpenGLTokens, GLGraphics, GLStrings, GLCustomShader,
+  GLContext, GLVectorGeometry, GLRenderContextInfo, GLMaterial, GLTextureFormat;
 
 type
   EGLPostShaderHolderException = class(Exception);

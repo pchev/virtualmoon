@@ -17,8 +17,9 @@ unit Q3MD3;
 interface
 
 uses
-  Classes,SysUtils,ApplicationFileIO,VectorGeometry,GLVectorFileObjects,
-  VectorLists,GLMaterial,FileMD3;
+  Classes, SysUtils,
+  GLApplicationFileIO, GLVectorGeometry, GLVectorFileObjects,
+  GLVectorLists, GLMaterial, FileMD3;
 
 type
   // This class is used to extract the tag transform information

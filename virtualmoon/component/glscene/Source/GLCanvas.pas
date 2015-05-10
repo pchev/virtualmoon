@@ -51,7 +51,7 @@ uses
 {$ELSE}
   Graphics,
 {$ENDIF}
-  VectorGeometry,
+  GLVectorGeometry,
   GLColor,
   GLCrossPlatform,
   GLState;
@@ -245,7 +245,7 @@ implementation
 uses
   OpenGLTokens,
   GLContext,
-  VectorTypes;
+  GLVectorTypes;
 
 const
   cNoPrimitive = MaxInt;

@@ -18,8 +18,9 @@ interface
 
 uses
   SysUtils, Classes,
-  OpenGLTokens, GLContext, VectorLists, VectorGeometry,
-  BaseClasses, PersistentClasses;
+  //GLS
+  OpenGLTokens, GLContext, GLVectorLists, GLVectorGeometry,
+  GLBaseClasses, GLPersistentClasses;
 
  const
   MAX_OBJECT_STACK_DEPTH = 512;

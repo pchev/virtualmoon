@@ -7,7 +7,7 @@
 
  <b>History : </b><font size=-1><ul>
       <li>23/08/10 - Yar - Added OpenGLTokens to uses, replaced OpenGL1x functions to OpenGLAdapter
-      <li>06/06/10 - Yar - Added VectorTypes to uses
+      <li>06/06/10 - Yar - Added GLVectorTypes to uses
       <li>22/04/10 - Yar - Fixes after GLState revision
       <li>05/03/10 - DanB - More state added to TGLStateCache
       <li>24/03/07 - DaStr - Replaced GLWin32Viewer with GLViewer
@@ -27,14 +27,8 @@ unit GLSpatialPartitioning;
 interface
 
 uses
-  GLViewer,
-  SpatialPartitioning,
-  GLScene,
-  VectorGeometry,
-  OpenGLTokens,
-  GeometryBB,
-  GLRenderContextInfo,
-  GLState;
+  GLViewer, GLSpacePartition, GLScene, GLVectorGeometry,
+  OpenGLTokens, GLGeometryBB, GLRenderContextInfo, GLState;
 
 type
   {: Object for holding glscene objects in a spatial partitioning }
@@ -66,7 +60,7 @@ procedure RenderAABB(var rci: TRenderContextInfo; AABB: TAABB); overload;
 implementation
 
 uses
-  VectorTypes,
+  GLVectorTypes,
   GLContext;
 
 procedure RenderAABB(var rci: TRenderContextInfo; AABB: TAABB);

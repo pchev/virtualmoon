@@ -43,10 +43,10 @@ interface
 
 uses
   GLVectorFileObjects,
-  CurvesAndSurfaces,
-  VectorGeometry,
-  VectorLists,
-  PersistentClasses,
+  GLCurvesAndSurfaces,
+  GLVectorGeometry,
+  GLVectorLists,
+  GLPersistentClasses,
   GLTexture,
   OpenGLTokens,
   OpenGLAdapter,

@@ -14,9 +14,7 @@ interface
 
 uses
   Classes,
-  GLScene,
-  VectorGeometry,
-  GLRenderContextInfo;
+  GLScene, GLVectorGeometry, GLRenderContextInfo;
 
 type
 

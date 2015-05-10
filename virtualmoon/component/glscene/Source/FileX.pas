@@ -22,7 +22,7 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  VectorTypes, VectorGeometry, VectorLists, PersistentClasses, GLUtils;
+  GLVectorTypes, GLVectorGeometry, GLVectorLists, GLPersistentClasses, GLUtils;
 
 type
   TDXNode = class;

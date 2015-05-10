@@ -40,7 +40,7 @@ uses
   Classes, SysUtils,
 
   //GLScene
-  GLSound, GLScene, VectorGeometry,
+  GLSound, GLScene, GLVectorGeometry,
   FMod, FmodTypes, FmodPresets;
 
 type

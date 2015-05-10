@@ -52,10 +52,15 @@ interface
 {$I GLScene.inc}
 
 uses
-  SysUtils, Classes, GLScene, GLHUDObjects,
-  GLMaterial, OpenGLTokens, GLContext, GLBitmapFont, GLWindowsFont,
-    VectorGeometry,
-  GLGui, GLCrossPlatform, GLColor, GLRenderContextInfo, BaseClasses;
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
+
+  GLScene, GLHUDObjects, GLMaterial, OpenGLTokens, GLContext,
+  GLBitmapFont, GLWindowsFont, GLVectorGeometry, GLGui,
+  GLCrossPlatform, GLColor, GLRenderContextInfo, GLBaseClasses;
 
 type
 

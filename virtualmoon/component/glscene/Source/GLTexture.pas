@@ -6,6 +6,8 @@
  Handles all the color and texture stuff.<p>
 
  <b>History : </b><font size=-1><ul>
+       <li>04/01/13 - PW - Added ReleaseBitmap32 in TGLBlankImage destructor to remove
+                           a memory leak (thanks to Lars Nebel)
        <li>04/01/13 - PW - Moved cubic map texture consts CmtPX..CmtNZ from GLColor unit to here
        <li>10/11/12 - PW - Added CPPB compatibility: used dummy instead abstract methods,
                            restored definition of TGLCubeMapTarget as integer type
@@ -220,22 +222,12 @@ interface
 {$I GLScene.inc}
 
 uses
-  // VCL
-  Classes,
-  SysUtils,
+  Classes, SysUtils,
 
   // GLScene
-  GLCrossPlatform,
-  BaseClasses,
-  OpenGLTokens,
-  VectorGeometry,
-  GLGraphics,
-  GLContext,
-  GLState,
-  GLColor,
-  GLCoordinates,
-  GLRenderContextInfo,
-  GLTextureFormat;
+  GLStrings, GLCrossPlatform, GLBaseClasses, OpenGLTokens,
+  GLVectorGeometry, GLGraphics, GLContext, GLState, GLColor, GLCoordinates,
+  GLRenderContextInfo, GLTextureFormat, GLApplicationFileIO, GLUtils;
 
 const
   cDefaultNormalMapScale = 0.125;
@@ -1048,12 +1040,9 @@ implementation
 
 uses
   GLScene,
-  GLStrings,
   XOpenGL,
-  ApplicationFileIO,
-  PictureRegisteredFormats,
-  GLUtils
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
+  PictureRegisteredFormats
+  , GLVectorTypes;
 
 const
   cTextureMode: array[tmDecal..tmAdd] of TGLEnum =
@@ -1400,6 +1389,7 @@ end;
 
 destructor TGLBlankImage.Destroy;
 begin
+  ReleaseBitmap32;
   inherited Destroy;
 end;
 

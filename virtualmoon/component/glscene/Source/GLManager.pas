@@ -18,7 +18,8 @@ interface
 
 {$i GLScene.inc}
 
-uses Classes;
+uses
+  Classes, Types;
 
 procedure RegisterManager(aManager : TComponent);
 procedure DeRegisterManager(aManager : TComponent);

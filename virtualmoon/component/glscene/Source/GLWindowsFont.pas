@@ -6,11 +6,12 @@
   TFont Import into a BitmapFont using variable width...<p>
 
  <b>History : </b><font size=-1><ul>
-      <li>29/05/11 - Yar - Unicode support for Unix OSes (by Gabriel Corneanu)
+      <li>04/12/14 - PW - Corrected the usage of pixel formats for Lazarus (by Gabriel Corneanu)
+       <li>29/05/11 - Yar - Unicode support for Unix OSes (by Gabriel Corneanu)
       <li>16/05/11 - Yar - Redesign to use multiple textures (by Gabriel Corneanu)
       <li>13/05/11 - Yar - Adapted to unicode (by Gabriel Corneanu)
       <li>23/08/10 - Yar - Added OpenGLTokens to uses, replaced OpenGL1x functions to OpenGLAdapter
-      <li>06/06/10 - Yar - Added VectorTypes to uses
+      <li>06/06/10 - Yar - Added "VectorTypes.pas" unit to uses
       <li>25/01/10 - Yar - Bugfix in LoadWindowsFont with zero width of char
                           (thanks olkondr)
                           Replace Char to AnsiChar
@@ -36,7 +37,7 @@ uses
   Windows,
 {$ENDIF}
 {$IFDEF FPC}
-  LCLIntf, LCLType, Types, LCLProc, LazUTF8,
+  LCLIntf, LCLType, LCLProc, LazUTF8,
 {$ENDIF}
   GLBitmapFont,
   GLRenderContextInfo,
@@ -44,11 +45,11 @@ uses
   GLScene,
   GLTexture,
 {$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Graphics,
+  VCL.Graphics, System.Types, System.UITypes,
 {$ELSE}
-  Graphics,
+  Graphics, Types,
 {$ENDIF}
-  VectorLists,
+  GLVectorLists,
   GLCrossPlatform;
 
 type
@@ -116,12 +117,12 @@ implementation
 
 uses
   GLUtils,
-  math,
+  Math,
   SysUtils,
-  VectorGeometry,
+  GLVectorGeometry,
   OpenGLTokens,
-  ApplicationFileIO
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
+  GLApplicationFileIO,
+  GLVectorTypes;
 
 const
   cDefaultLast = '}';
@@ -260,9 +261,9 @@ procedure TGLWindowsBitmapFont.LoadWindowsFont;
           // Draw the Char, the trailing space is to properly handle the italics.
 {$IFDEF MSWINDOWS}
           // credits to the Unicode version of SynEdit for this function call. GPL/MPL as GLScene
-          Windows.ExtTextOutW(bitmap.Canvas.Handle, p.l, p.t, ETO_CLIPPED, @r, buffer, 2, nil);
+          Windows.ExtTextOutW(bitmap.Canvas.Handle, p.l, p.t, ETO_CLIPPED, @r, buffer, 1, nil);
 {$ELSE}
-          ConvertUTF16ToUTF8(utfbuffer, 5, buffer, 2,  [toInvalidCharToSymbol], i);
+          ConvertUTF16ToUTF8(utfbuffer, 5, buffer, 1,  [toInvalidCharToSymbol], i);
           LCLIntf.ExtTextOut(bitmap.Canvas.Handle, p.l, p.t, ETO_CLIPPED, @r, utfbuffer, i-1, nil);
 {$ENDIF}
         end;
@@ -312,9 +313,6 @@ var
   bitmap: TGLBitmap;
   ch: widechar;
   i, cw, nbChars, n: Integer;
-  {$IFDEF FPC}
-  ms: TMemoryStream;
-  {$ENDIF}
 begin
   InvalidateUsers;
   Glyphs.OnChange := nil;
@@ -322,7 +320,10 @@ begin
   bitmap := Glyphs.Bitmap;
 
   bitmap.Height      := 0;
-  bitmap.PixelFormat := glpf32bit;
+  {$IFDEF MSWINDOWS}
+   //due to lazarus doesn't properly support pixel formats
+     bitmap.PixelFormat := glpf32bit;
+  {$ENDIF}
   with bitmap.Canvas do
   begin
     Font := Self.Font;
@@ -365,13 +366,6 @@ begin
   bitmap.Width := TextureWidth;
 
   ComputeCharRects(bitmap);
-  {$IFDEF FPC}
-    ms:=TMemoryStream.Create;
-    bitmap.SaveToStream(ms);
-    ms.Position:=0;
-    bitmap.LoadFromStream(ms);
-    ms.free;
-  {$ENDIF}
   FCharsLoaded := true;
   Glyphs.OnChange := OnGlyphsChanged;
 end;
@@ -490,3 +484,4 @@ initialization
   RegisterClasses([TGLWindowsBitmapFont]);
 
 end.
+

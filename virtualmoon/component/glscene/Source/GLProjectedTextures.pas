@@ -29,7 +29,7 @@ uses
   GLScene,
   GLTexture,
   OpenGLTokens,
-  VectorGeometry,
+  GLVectorGeometry,
   XOpenGL,
   GLRenderContextInfo,
   GLState;

@@ -35,18 +35,15 @@ interface
 {$I GLScene.inc}
 
 uses
-  // System
-  Classes, SysUtils,
-  // VCL
-{$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Graphics,
-{$ELSE}
-  Graphics,
-{$ENDIF}
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils, VCL.Graphics,
+  {$ELSE}
+    Classes, SysUtils,  Graphics,
+  {$ENDIF}
   // GLScene
-  GLScene, VectorGeometry, GLObjects, GLBitmapFont, GLTexture, GLMaterial,
+  GLScene, GLVectorGeometry, GLObjects, GLBitmapFont, GLTexture, GLMaterial,
   GLHudObjects, GLColor, GLGraphics, GLContext, OpenGLTokens,
-  BaseClasses, GLRenderContextInfo;
+  XOpenGL, GLState, GLTextureFormat, GLBaseClasses, GLRenderContextInfo;
 
 type
 
@@ -180,8 +177,6 @@ type
   end;
 
 implementation
-
-uses XOpenGL, GLState, GLTextureFormat;
 
 const
   EPS = 0.001;

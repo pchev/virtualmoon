@@ -29,10 +29,11 @@ interface
 
 {$I GLScene.inc}
 
-{$IFDEF MSWINDOWS}
 uses
-  Windows;
+{$IFDEF MSWINDOWS}
+  Windows,
 {$ENDIF}
+  dynlibs;
 
 const
   BASSVERSION = $204;             // API version
@@ -1034,7 +1035,7 @@ function BASS_SetEAXPreset(env: LongInt): BOOL;
 {$ENDIF}
 
 type
-  TBASSModuleHandle = HINST;
+  TBASSModuleHandle = TLibHandle;
 
 function BASS_Load(LibName: PChar ): Boolean;
 procedure BASS_UnLoad;

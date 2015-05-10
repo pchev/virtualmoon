@@ -1,13 +1,10 @@
 #!/bin/bash
 
-mkdir /tmp/glscene
-svn export http://svn.code.sf.net/p/glscene/code/trunk/Lazarus /tmp/glscene/Lazarus
-svn export http://svn.code.sf.net/p/glscene/code/trunk/Source /tmp/glscene/SourceFull
+rm -rf /tmp/glscene
+svn export http://svn.code.sf.net/p/glscene/code/branches/GLScene_LCL /tmp/glscene
 
-mkdir /tmp/glscene/Source
-cp /tmp/glscene/SourceFull/* /tmp/glscene/Source/
-
-rm -rf /tmp/glscene/SourceFull
+rm -rf /tmp/glscene/Samples
+rm -rf /tmp/glscene/Locale
 
 find /tmp/glscene/Source -name *.obj -delete
 find /tmp/glscene/Source -name *.OBJ -delete
@@ -17,8 +14,5 @@ find /tmp/glscene/Source -name *.exe -delete
 find /tmp/glscene/Source -name *.EXE -delete
 
 fromdos /tmp/glscene/Source/*
-fromdos /tmp/glscene/Lazarus/*
+fromdos /tmp/glscene/Packages/*
 
-# cp -a /tmp/glscene/Lazarus /home/vma/src/virtualmoon/component/glscene/
-# cp -a /tmp/glscene/Source /home/vma/src/virtualmoon/component/glscene/
-# rm -rf /tmp/glscene

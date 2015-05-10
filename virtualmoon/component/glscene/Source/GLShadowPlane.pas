@@ -37,7 +37,7 @@ interface
 uses
   Classes,
   GLScene,
-  VectorGeometry,
+  GLVectorGeometry,
   GLObjects,
   GLCrossPlatform,
   GLColor,

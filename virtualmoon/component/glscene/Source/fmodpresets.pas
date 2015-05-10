@@ -25,14 +25,6 @@ interface
 uses
   fmodtypes;
 
-{$IFDEF VER140}
-{$DEFINE COMPILER6_UP}
-{$ELSE}
-  {$IFDEF VER150}
-  {$DEFINE COMPILER6_UP}
-  {$ENDIF}
-{$ENDIF}
-
 (*
 [DEFINE_START]
 [
@@ -50,7 +42,7 @@ uses
 ]
 *)
 
-{$IFDEF COMPILER6_UP}{$J+}{$ENDIF}
+{$J+}
 const
   FSOUND_PRESET_OFF:              TFSoundReverbProperties = (Environment: 0;  EnvSize: 7.5;   EnvDiffusion: 1.00;   Room: -10000; RoomHF: -10000; RoomLF: 0;  DecayTime: 1.00;  DecayHFRatio: 1.00; DecayLFRatio: 1.0;  Reflections: -2602; ReflectionsDelay: 0.007;  ReflectionsPan: (0.0, 0.0, 0.0);  Reverb: 200;  ReverbDelay: 0.011; ReverbPan: (0.0, 0.0, 0.0); EchoTime: 0.250;  EchoDepth: 0.00;  ModulationTime: 0.25; ModulationDepth: 0.000; AirAbsorptionHF: -5.0;  HFReference: 5000.0;  LFReference: 250.0; RoomRolloffFactor: 0.0; Diffusion: 0.0;   Density: 0.0;   Flags: $33f);
   FSOUND_PRESET_GENERIC:          TFSoundReverbProperties = (Environment: 0;  EnvSize: 7.5;   EnvDiffusion: 1.00;   Room: -1000;  RoomHF: -100;   RoomLF: 0;  DecayTime: 1.49;  DecayHFRatio: 0.83; DecayLFRatio: 1.0;  Reflections: -2602; ReflectionsDelay: 0.007;  ReflectionsPan: (0.0, 0.0, 0.0);  Reverb: 200;  ReverbDelay: 0.011; ReverbPan: (0.0, 0.0, 0.0); EchoTime: 0.250;  EchoDepth: 0.00;  ModulationTime: 0.25; ModulationDepth: 0.000; AirAbsorptionHF: -5.0;  HFReference: 5000.0;  LFReference: 250.0; RoomRolloffFactor: 0.0; Diffusion: 100.0; Density: 100.0; Flags: $3f);
@@ -86,7 +78,7 @@ const
 (* PlayStation 2 Only presets *)
 (* Delphi/Kylix cannot create PlayStation 2 executables, so there is no need to
    convert the PlayStation 2 presets. *)
-{$IFDEF COMPILER6_UP}{$J-}{$ENDIF}
+{$J-}
 
 (* [DEFINE_END] *)
 

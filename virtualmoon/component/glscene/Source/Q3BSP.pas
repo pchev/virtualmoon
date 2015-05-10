@@ -15,7 +15,7 @@ unit Q3BSP;
 
 interface
 
-uses Classes, VectorTypes;
+uses Classes, GLVectorTypes;
 
 const FACE_POLYGON = 1;
 const MAX_TEXTURES = 1000;

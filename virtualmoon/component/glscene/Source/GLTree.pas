@@ -47,8 +47,11 @@ interface
 {$I GLScene.inc}
 
 uses
-   Classes, SysUtils, GLScene, GLMaterial, VectorGeometry, VectorLists,
-   OpenGLTokens, GLVectorFileObjects, ApplicationFileIO, GLRenderContextInfo;
+   Classes, SysUtils,
+   //GLS
+   GLScene, GLMaterial, GLVectorGeometry, GLVectorLists,
+   OpenGLTokens, GLVectorFileObjects, GLApplicationFileIO, GLRenderContextInfo,
+   XOpenGL, GLContext , GLVectorTypes;
 
 type
    TGLTree = class;
@@ -315,8 +318,6 @@ implementation
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-
-uses XOpenGL, GLContext {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
 
 // -----------------------------------------------------------------------------
 // TGLTreeLeaves

@@ -41,14 +41,14 @@ interface
 uses
   Classes,
   GLScene,
-  VectorGeometry,
+  GLVectorGeometry,
   OpenGLTokens,
   OpenGLAdapter,
   GLContext,
   GLObjects,
   GLSilhouette,
-  VectorTypes,
-  GeometryBB,
+  GLVectorTypes,
+  GLGeometryBB,
   GLRenderContextInfo;
 
 type
@@ -591,7 +591,8 @@ implementation
 // -------------------------------------------------------------
 // -------------------------------------------------------------
 
-uses Polynomials,
+uses
+  GLPolynomials,
   XOpenGL;
 
 // ------------------

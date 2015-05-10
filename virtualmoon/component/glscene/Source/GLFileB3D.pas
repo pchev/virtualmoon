@@ -7,7 +7,7 @@
 
   <b>History :</b><font size=-1><ul>
   <li>10/11/12 - PW - Added CPP compatibility: changed vector arrays to records
-  <li>22/01/10 - Yar - Added VectorTypes to uses
+  <li>22/01/10 - Yar - Added GLVectorTypes to uses
   <li>22/01/10 - Yar - Added GLTextureFormat to uses
   <li>22/12/05 - Mathx - Added to the GLScene Project.
   </ul></font>
@@ -17,12 +17,12 @@ unit GLFileB3D;
 interface
 
 uses
-  Classes,
-  SysUtils,
-  GLVectorFileObjects,
-  ApplicationFileIO,
-  FileB3D,
-  TypesB3D;
+  Classes, SysUtils,
+  //GLS
+  GLVectorFileObjects, GLApplicationFileIO, GLTexture, GLTextureFormat,
+  GLMaterial, GLVectorTypes, GLVectorGeometry, GLVectorLists,
+
+  FileB3D, TypesB3D;
 
 type
   TGLB3DVectorFile = class(TVectorFile)
@@ -32,14 +32,6 @@ type
   end;
 
 implementation
-
-uses
-  GLTexture,
-  GLTextureFormat,
-  GLMaterial,
-  VectorTypes,
-  VectorGeometry,
-  VectorLists;
 
 // ------------------------------ TGLB3DVectorFile ------------------------------
 // Capabilities
