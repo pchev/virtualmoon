@@ -361,7 +361,7 @@ implementation
 
 {$R pu_moon.lfm}
 
-uses LCLProc, VectorGeometry, GLFile3DS, OpenGLAdapter;
+uses LCLProc, GLVectorGeometry, GLFile3DS, OpenGLAdapter;
 
 { Tf_moon }
 
