@@ -28,16 +28,16 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,
 {$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Graphics,
+  System.Classes, System.SysUtils, VCL.Graphics,
 {$ELSE}
-  Graphics,
+  Classes,  SysUtils, Graphics,
 {$ENDIF}
   // GLScene
-  VectorGeometry, GLScene, GLVectorFileObjects,
-  VectorLists, XCollection, GLGeomObjects,
-  GLNavigator, GLRenderContextInfo, BaseClasses, GLManager, GLState;
+  OpenGLTokens, GLContext, GLCrossPlatform,
+  GLVectorGeometry, GLScene, GLVectorFileObjects,
+  GLVectorLists, XCollection, GLGeomObjects,
+  GLNavigator, GLRenderContextInfo, GLBaseClasses, GLManager, GLState;
 
 type
   TContactPoint = record
@@ -207,9 +207,8 @@ function GetOrCreateFPSMovement(behaviours: TGLBehaviours)
 function GetOrCreateFPSMovement(obj: TGLBaseSceneObject)
   : TGLBFPSMovement; overload;
 
-implementation
 
-uses SysUtils, OpenGLTokens, GLContext, GLCrossPlatform;
+implementation
 
 function GetFPSMovement(behaviours: TGLBehaviours): TGLBFPSMovement; overload;
 var

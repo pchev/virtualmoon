@@ -59,7 +59,9 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils, VectorGeometry, VectorTypes;
+uses
+  SysUtils,
+  GLVectorGeometry, GLVectorTypes;
 
 // ------------------
 // ------------------ TFileMD2 ------------------

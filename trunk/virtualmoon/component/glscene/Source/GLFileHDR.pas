@@ -24,12 +24,17 @@ interface
 uses
   Classes,
   SysUtils,
+  //GLS
   OpenGLTokens,
   GLContext,
   GLGraphics,
   GLTextureFormat,
-  ApplicationFileIO,
-  GLCrossPlatform;
+  GLApplicationFileIO,
+  GLCrossPlatform,
+  GLSRGBE,
+  GLVectorTypes,
+  GLVectorGeometry;
+
 
 type
 
@@ -60,13 +65,13 @@ type
     property Exposure: Single read fExposure;
     property ProgramType: Ansistring read GetProgramType write SetProgramType;
   end;
-
+//---------------------------------------------------------------------
+//---------------------------------------------------------------------
+//---------------------------------------------------------------------
 implementation
-
-uses
-  RGBE,
-  VectorTypes,
-  VectorGeometry;
+//---------------------------------------------------------------------
+//---------------------------------------------------------------------
+//---------------------------------------------------------------------
 
 // ------------------
 // ------------------ TGLHDRImage ------------------

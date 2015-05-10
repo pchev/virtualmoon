@@ -22,7 +22,7 @@ unit GLODESkeletonColliders;
 interface
 
 uses
-  Classes, PersistentClasses, VectorGeometry, GLVectorFileObjects, ODEImport;
+  Classes, GLPersistentClasses, GLVectorGeometry, GLVectorFileObjects, ODEImport;
 
 type
   
@@ -49,10 +49,10 @@ type
   {: Sphere shaped ODE geom in a skeleton collider. }
   TSCODESphere = class(TSCODEBase)
     private
-      FRadius : Single;
+      FRadius : TdReal;
 
     protected
-      procedure SetRadius(const val : Single);
+      procedure SetRadius(const val : TdReal);
 
     public
       constructor Create; override;
@@ -60,7 +60,7 @@ type
       procedure ReadFromFiler(reader : TVirtualReader); override;
       procedure AddToSpace(Space : PdxSpace); override;
 
-      property Radius : Single read FRadius write SetRadius;
+      property Radius : TdReal read FRadius write SetRadius;
   end;
 
   // TSCODECCylinder
@@ -93,12 +93,12 @@ type
     private
       FBoxWidth,
       FBoxHeight,
-      FBoxDepth : Single;
+      FBoxDepth : TdReal;
 
     protected
-      procedure SetBoxWidth(const val : Single);
-      procedure SetBoxHeight(const val : Single);
-      procedure SetBoxDepth(const val : Single);
+      procedure SetBoxWidth(const val : TdReal);
+      procedure SetBoxHeight(const val : TdReal);
+      procedure SetBoxDepth(const val : TdReal);
 
     public
       constructor Create; override;
@@ -106,9 +106,9 @@ type
       procedure ReadFromFiler(reader : TVirtualReader); override;
       procedure AddToSpace(Space : PdxSpace); override;
 
-      property BoxWidth : Single read FBoxWidth write SetBoxWidth;
-      property BoxHeight : Single read FBoxHeight write SetBoxHeight;
-      property BoxDepth : Single read FBoxDepth write SetBoxDepth;
+      property BoxWidth : TdReal read FBoxWidth write SetBoxWidth;
+      property BoxHeight : TdReal read FBoxHeight write SetBoxHeight;
+      property BoxDepth : TdReal read FBoxDepth write SetBoxDepth;
   end;
 
 {: After loading call this function to add all the geoms in a
@@ -240,7 +240,7 @@ end;
 
 // SetRadius
 //
-procedure TSCODESphere.SetRadius(const val : Single);
+procedure TSCODESphere.SetRadius(const val : TdReal);
 begin
   if val<>FRadius then begin
     FRadius:=val;
@@ -373,7 +373,7 @@ end;
 
 // SetBoxWidth
 //
-procedure TSCODEBox.SetBoxWidth(const val : Single);
+procedure TSCODEBox.SetBoxWidth(const val : TdReal);
 begin
   if val<>FBoxWidth then begin
     FBoxWidth:=val;
@@ -387,7 +387,7 @@ end;
 
 // SetBoxHeight
 //
-procedure TSCODEBox.SetBoxHeight(const val : Single);
+procedure TSCODEBox.SetBoxHeight(const val : TdReal);
 begin
   if val<>FBoxHeight then begin
     FBoxHeight:=val;
@@ -401,7 +401,7 @@ end;
 
 // SetBoxDepth
 //
-procedure TSCODEBox.SetBoxDepth(const val : Single);
+procedure TSCODEBox.SetBoxDepth(const val : TdReal);
 begin
   if val<>FBoxDepth then begin
     FBoxDepth:=val;

@@ -26,8 +26,14 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, GLMaterial, OpenGLTokens, GLCrossPlatform, GLScene, GLColor,
-  BaseClasses, GLRenderContextInfo, GLState;
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes,
+  {$ELSE}
+    Classes,
+  {$ENDIF}
+
+  GLMaterial, OpenGLTokens, GLCrossPlatform, GLScene, GLColor,
+  GLBaseClasses, GLRenderContextInfo, GLState, GLContext;
 
 type
   TGLLineSettings = class(TGLUpdateAbleObject)
@@ -119,8 +125,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-uses
-  GLContext;
 // ------------------
 // ------------------ TGLLineSettings ------------------
 // ------------------

@@ -20,8 +20,8 @@ unit GLFileVRML;
 interface
 
 uses
-  Classes, SysUtils, GLVectorFileObjects, GLMaterial, ApplicationFileIO,
-  VectorTypes, VectorGeometry, VectorLists, VRMLParser, MeshUtils;
+  Classes, SysUtils, GLVectorFileObjects, GLMaterial, GLApplicationFileIO,
+  GLVectorTypes, GLVectorGeometry, GLVectorLists, VRMLParser, GLMeshUtils;
 
 type
 

@@ -20,7 +20,7 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, SysUtils, VectorTypes, VectorLists;
+  Classes, SysUtils, GLVectorTypes, GLVectorLists;
 
 type
   TVRMLNode = class

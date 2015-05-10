@@ -30,12 +30,15 @@ interface
 {$I GLScene.inc}
 
 uses
-  // VCL
-  Classes, SysUtils,
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
 
   // GLScene
   GLScene, GLBitmapFont, GLMaterial, GLCrossPlatform, OpenGLTokens, GLContext,
-  PersistentClasses, VectorGeometry, GLCoordinates, BaseClasses;
+  GLPersistentClasses, GLVectorGeometry, GLCoordinates, GLBaseClasses;
 
 type
 
@@ -527,13 +530,11 @@ begin
       LLayout.FGuiComponents[I].AssignTo(LComponent);
       LComponent.Name := LLayout.FGuiComponents[I].Name;
     end;
-{$IFNDEF GLS_DELPHI_5}
     for I := 0 to FGuiComponentList.Count - 1 do
       TGLUpdateAbleComponent(FGuiComponentList[I]).RemoveFreeNotification(Self);
     FGuiComponentList.Assign(LLayout.FGuiComponentList);
     for I := 0 to FGuiComponentList.Count - 1 do
       TGLUpdateAbleComponent(FGuiComponentList[I]).FreeNotification(Self);
-{$ENDIF}
   end
   else
     inherited; // Assign Error

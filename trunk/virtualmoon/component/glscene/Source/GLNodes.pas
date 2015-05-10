@@ -22,14 +22,13 @@ unit GLNodes;
 interface
 
 uses
-  Classes,
-  VectorGeometry,
-  OpenGLTokens,
-  OpenGLAdapter,
-  GLContext,
-  BaseClasses,
-  GLCoordinates,
-  Spline;
+  Classes, SysUtils,
+  //GLS
+  GLVectorGeometry, OpenGLTokens, OpenGLAdapter, GLContext, GLBaseClasses,
+  GLCoordinates, GLSpline,
+  XOpenGL
+, GLVectorTypes;
+
 
 {$I GLScene.inc}
 
@@ -157,11 +156,6 @@ type
 
 implementation
 
-uses
-  SysUtils,
-  XOpenGL
-{$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
-
 // ------------------
 // ------------------ TGLNode ------------------
 // ------------------
@@ -227,7 +221,7 @@ end;
 
 procedure TGLNode.SetAsAffineVector(const Value: TAffineVector);
 begin
-  VectorGeometry.SetVector(FCoords, Value);
+  GLVectorGeometry.SetVector(FCoords, Value);
   (Collection as TGLNodes).NotifyChange;
 end;
 
@@ -236,7 +230,7 @@ end;
 
 function TGLNode.GetAsAffineVector: TAffineVector;
 begin
-  VectorGeometry.SetVector(Result, FCoords);
+  GLVectorGeometry.SetVector(Result, FCoords);
 end;
 
 function TGLNode.GetCoordinate(const Index: Integer): TGLFloat;

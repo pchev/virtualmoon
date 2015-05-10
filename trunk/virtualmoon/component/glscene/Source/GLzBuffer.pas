@@ -17,7 +17,7 @@
       <li>20/01/08 - DaStr - Bugfixed TGLZShadows.HardSet(Bugtracker ID = 1875708)
                              Removed some old commented out code
                              Removed TGLZShadows.Trnc() procedure - there is a
-                              similar procedure in VectorGeometry.pas
+                              similar procedure in GLVectorGeometry.pas
       <li>28/03/07 - DaStr - Renamed parameters in some methods
                              (thanks Burkhard Carstens) (Bugtracker ID = 1678658)
       <li>24/03/07 - DaStr - Improved Cross-Platform compatibility
@@ -75,9 +75,13 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, SysUtils, GLScene, VectorGeometry, GLGraphics,
-  GLObjects, GLContext, GLViewer, GLColor,
-  GLRenderContextInfo, GLState, GLTextureFormat;
+uses
+  Classes, SysUtils,
+  //GLS
+  GLScene, GLVectorGeometry, GLGraphics, GLObjects, GLContext, GLViewer,
+  GLColor, GLRenderContextInfo, GLState, GLTextureFormat,
+  OpenGLTokens, XOpenGL , GLVectorTypes;
+
 
 type
   EZBufferException = class(Exception);
@@ -236,8 +240,6 @@ type
   end;
 
 implementation
-
-uses OpenGLTokens, XOpenGL {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
 
 constructor TGLzBuffer.Create;
 begin

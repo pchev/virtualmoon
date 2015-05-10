@@ -16,7 +16,7 @@ unit FileNMF;
 interface
 
 uses
-  Classes, VectorGeometry;
+  Classes, GLVectorGeometry;
 
 const
   NMF_HEADER_TAG   = 'NMF ';
@@ -27,24 +27,24 @@ type
     hdr  : array[0..3] of AnsiChar;
     size : cardinal;
   end;
-  
+
   TNmRawTriangle = record
     vert,
     norm     : array[0..2] of TAffineVector;
     texCoord : array[0..2] of TTexPoint;
   end;
-  
+
   TFileNMF = class
     public
       FileHeader,
       TrisHeader   : TNmHeader;
       NumTris      : Integer;
       RawTriangles : array of TNmRawTriangle;
-      
+
       procedure LoadFromStream(Stream : TStream);
       procedure SaveToStream(Stream : TStream);
   end;
-  
+
 implementation
 
 procedure TFileNMF.LoadFromStream(Stream : TStream);

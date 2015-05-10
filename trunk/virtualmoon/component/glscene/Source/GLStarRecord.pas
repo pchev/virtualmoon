@@ -10,7 +10,8 @@ unit GLStarRecord;
 
 interface
 
-uses VectorGeometry;
+uses
+  GLVectorGeometry;
 
 type
    TGLStarRecord = packed record
@@ -34,7 +35,7 @@ function StarRecordColor(const starRecord : TGLStarRecord; bias : Single) : TVec
 implementation
 
 uses
-  VectorTypes;
+  GLVectorTypes;
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------

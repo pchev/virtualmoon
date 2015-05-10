@@ -15,86 +15,8 @@
 *    iztok kacin                                                             *
 *      2009.04.11  CONDITIONALEXPRESSIONS and CompilerVersion changes        *
 *****************************************************************************}
-
+{$ifndef FPC}
 {$ifndef CONDITIONALEXPRESSIONS}
-
-  {** delphi ****************************************************************}
-
-  {$ifdef VER80}                        // delphi 1
-    {$define Delphi}
-
-    {$define Version1}
-  {$endif}
-
-  {$ifdef VER90}                        // delphi 2
-    {$define Delphi}
-
-    {$define Version2}
-  {$endif}
-
-  {$ifdef VER100}                       // delphi 3
-    {$define Delphi}
-
-    {$define Version3}
-  {$endif}
-
-  {$ifdef VER120}                       // delphi 4
-    {$define Delphi}
-
-    {$define Version4}
-  {$endif}
-
-  {** c++ builder ***********************************************************}
-
-  {$ifdef VER93}                        // c++ builder 1
-    {$define CBuilder}
-
-    {$define Version1}
-  {$endif}
-
-  {$ifdef VER110}                       // c++ builder 3
-    {$define CBuilder}
-
-    {$define Version3}
-  {$endif}
-
-  {$ifdef VER125}                       // c++ builder 4
-    {$define CBuilder}
-
-    {$define Version4}
-  {$endif}
-
-  {** delphi/c++ builder (common) *******************************************}
-
-  {$ifdef VER130}                       // delphi/c++ builder 5
-    {$ifdef BCB}
-      {$define CBuilder}
-    {$ELSE}
-      {$define Delphi}
-    {$endif}
-
-    {$define Version5}
-
-    {$define Version5Plus}
-  {$endif}
-
-{$ELSE}
-
-  {$ifdef BCB}
-    {$define CBuilder}
-  {$ELSE}
-    {$define Delphi}
-  {$endif}
-
-  {$define Version5Plus}
-
-  {$if CompilerVersion >= 14.0}         // delphi 6
-    {$ifdef VER140}
-      {$define Version6}
-    {$endif}
-
-    {$define Version6Plus}
-  {$ifend}
 
   {$if CompilerVersion >= 15.0}         // delphi 7
     {$ifdef VER150}
@@ -152,6 +74,7 @@
     {$define Version2010Plus}
   {$ifend}
 
+{$endif}
 {$endif}
 
 {$ifdef FPC}

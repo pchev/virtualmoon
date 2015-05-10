@@ -21,27 +21,27 @@
   <li>17/07/07 - LIN - Bugfix: hdsNone tiles were not being released. (Now also deletes Queued tiles that are no longer needed).
   <li>17/07/07 - LIN - Reversed the order in which Queued tiles are prepared.
   <li>03/04/07 - DaStr - Commented out lines that caused compiler hints
-                 Added more explicit pointer dereferencing
-                 Renamed GLS_DELPHI_5_UP to GLS_DELPHI_4_DOWN for
-                 FPC compatibility (thanks Burkhard Carstens)
+  Added more explicit pointer dereferencing
+  Renamed GLS_DELPHI_5_UP to GLS_DELPHI_4_DOWN for
+  FPC compatibility (thanks Burkhard Carstens)
   <li>27/03/07 - LIN- Data is now prepared in 3 stages, to prevent multi-threading issues:
-                -BeforePreparingData : (Main Thread) - Create empty data structures and textures here.
-                -PreparingData       : (Sub-Thread)  - Fill in the empty structures (MUST be thread safe)
-                -AfterPreparingData  : (Main Thread) - Perform any cleanup, which cant be done from a sub-thread
+  -BeforePreparingData : (Main Thread) - Create empty data structures and textures here.
+  -PreparingData       : (Sub-Thread)  - Fill in the empty structures (MUST be thread safe)
+  -AfterPreparingData  : (Main Thread) - Perform any cleanup, which cant be done from a sub-thread
   <li>17/03/07 - DaStr - Dropped Kylix support in favor of FPC (BugTracekrID=1681585)
   <li>14/03/07 - DaStr - Added explicit pointer dereferencing
-                (thanks Burkhard Carstens) (Bugtracker ID = 1678644)
+  (thanks Burkhard Carstens) (Bugtracker ID = 1678644)
   <li>13/02/07 - LIN- Added THeightDataSource.TextureCoordinates -
-                 Called from TGLBitmapHDS and TGLHeightTileFileHDS
-                 Many tweaks and changes to threading. (I hope I havent broken anything)
+  Called from TGLBitmapHDS and TGLHeightTileFileHDS
+  Many tweaks and changes to threading. (I hope I havent broken anything)
   <li>02/02/07 - LIN- Added TGLHeightDataSourceFilter
   <li>30/01/07 - LIN- Added GLHeightData.LibMaterial. (Use instead of MaterialName)
-                 GLHeightData is now derived from TGLUpdateAbleObject
-                 GLHeightData is now compatible with TGLLibMaterials.DeleteUnusedMaterials
+  GLHeightData is now derived from TGLUpdateAbleObject
+  GLHeightData is now compatible with TGLLibMaterials.DeleteUnusedMaterials
   <li>19/01/07 - LIN- Added 'Inverted' property to TGLBitmapHDS
   <li>10/08/04 - SG - THeightData.InterpolatedHeight fix (Alan Rose)
   <li>03/07/04 - LR - Corrections for Linux compatibility
-                 CreateMonochromeBitmap NOT implemented for Linux
+  CreateMonochromeBitmap NOT implemented for Linux
   <li>12/07/03 - EG - Further InterpolatedHeight fixes
   <li>26/06/03 - EG - Fixed InterpolatedHeight HDS selection
   <li>06/02/03 - EG - Added Hash index to HeightDataSource, HeightMin/Max
@@ -51,7 +51,7 @@
   <li>25/08/02 - EG - THeightData.MarkData/Release fix (Phil Scadden)
   <li>10/07/02 - EG - Support for non-wrapping TGLBitmapHDS
   <li>16/06/02 - EG - Changed HDS destruction sequence (notification-safe),
-                 THeightData now has a MaterialName property
+  THeightData now has a MaterialName property
   <li>24/02/02 - EG - Faster Cleanup & cache management
   <li>21/02/02 - EG - hdtWord replaced by hdtSmallInt, added MarkDirty
   <li>04/02/02 - EG - CreateMonochromeBitmap now shielded against Jpeg "Change" oddity
@@ -66,18 +66,29 @@ interface
 
 {$I GLScene.inc}
 
-uses SysUtils, Classes, VectorGeometry, GLCrossPlatform, GLMaterial, BaseClasses
-{$IFDEF FPC}, IntfGraphics {$ENDIF};
+uses
+{$IFDEF GLS_DELPHI_XE2_UP}
+  System.Classes, System.SysUtils,
+{$ELSE}
+  Classes, SysUtils,
+{$ENDIF}
+{$IFDEF MSWINDOWS}
+  Windows, // for CreateMonochromeBitmap
+{$ENDIF}
+{$IFDEF FPC}IntfGraphics, {$ENDIF}
+  GLApplicationFileIO, GLUtils,
+  GLVectorGeometry, GLCrossPlatform, GLMaterial, GLBaseClasses;
 
 type
-  TByteArray = array [0 .. MaxInt div (2*SizeOf(Byte))] of Byte;
-  TByteRaster = array [0 .. MaxInt div (2*SizeOf(Pointer))] of PByteArray;
+  TByteArray = array [0 .. MaxInt div (2 * SizeOf(Byte))] of Byte;
+  TByteRaster = array [0 .. MaxInt div (2 * SizeOf(Pointer))] of PByteArray;
   PByteRaster = ^TByteRaster;
-  TSmallintArray = array [0 .. MaxInt div (2*SizeOf(SmallInt))] of SmallInt;
+  TSmallintArray = array [0 .. MaxInt div (2 * SizeOf(SmallInt))] of SmallInt;
   PSmallIntArray = ^TSmallintArray;
-  TSmallIntRaster = array [0 .. MaxInt div (2*SizeOf(Pointer))] of PSmallIntArray;
+  TSmallIntRaster = array [0 .. MaxInt div (2 * SizeOf(Pointer))
+    ] of PSmallIntArray;
   PSmallIntRaster = ^TSmallIntRaster;
-  TSingleRaster = array [0 .. MaxInt div (2*SizeOf(Pointer))] of PSingleArray;
+  TSingleRaster = array [0 .. MaxInt div (2 * SizeOf(Pointer))] of PSingleArray;
   PSingleRaster = ^TSingleRaster;
 
   THeightData = class;
@@ -136,9 +147,6 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
-{$IFDEF GLS_DELPHI_4_DOWN}
-    procedure RemoveFreeNotification(AComponent: TComponent);
-{$ENDIF}
     { : Access to currently pooled THeightData objects, and Thread locking }
     property Data: TThreadList read FData;
 
@@ -157,11 +165,11 @@ type
       corresponding to the given area. Size must be a power of two.<p>
       Subclasses may choose to publish it or just publish datasource-
       specific requester method using specific parameters. }
-    function GetData(XLeft, YTop, Size: Integer; DataType: THeightDataType)
+    function GetData(XLeft, YTop, size: Integer; DataType: THeightDataType)
       : THeightData; virtual;
     { : Preloading request.<p>
       See GetData for details. }
-    function PreLoad(XLeft, YTop, Size: Integer; DataType: THeightDataType)
+    function PreLoad(XLeft, YTop, size: Integer; DataType: THeightDataType)
       : THeightData; virtual;
 
     { : Replacing dirty tiles. }
@@ -310,7 +318,7 @@ type
     FThread: THeightDataThread;
     // thread used for multi-threaded processing (if any)
 
-    procedure SetDataType(const val: THeightDataType);
+    procedure SetDataType(const Val: THeightDataType);
     procedure SetMaterialName(const MaterialName: string);
     procedure SetLibMaterial(LibMaterial: TGLLibMaterial);
 
@@ -346,7 +354,7 @@ type
     procedure RegisterUse;
     { : Allocate memory and prepare lookup tables for current datatype.<p>
       Fails if already allocated. Made Dynamic to allow descendants }
-    procedure Allocate(const val: THeightDataType); dynamic;
+    procedure Allocate(const Val: THeightDataType); dynamic;
     { : Decrements UseCounter.<p>
       When the counter reaches zero, notifies the Owner THeightDataSource
       that the data is no longer used.<p>
@@ -442,7 +450,7 @@ type
       : TAffineVector; virtual;
 
     { : Returns True if the data tile overlaps the area. }
-    function OverlapsArea(const area: TGLRect): boolean;
+    function OverlapsArea(const Area: TGLRect): boolean;
 
     { : Reserved for renderer use. }
     property ObjectTag: TObject read FObjectTag write FObjectTag;
@@ -496,12 +504,12 @@ type
 
   protected
     { Protected Declarations }
-    procedure SetPicture(const val: TGLPicture);
+    procedure SetPicture(const Val: TGLPicture);
     procedure OnPictureChanged(sender: TObject);
-    procedure SetInfiniteWrap(val: boolean);
-    procedure SetInverted(val: boolean);
+    procedure SetInfiniteWrap(Val: boolean);
+    procedure SetInverted(Val: boolean);
 
-    procedure CreateMonochromeBitmap(Size: Integer);
+    procedure CreateMonochromeBitmap(size: Integer);
     procedure FreeMonochromeBitmap;
     function GetScanLine(y: Integer): PByteArray;
   public
@@ -510,7 +518,7 @@ type
     destructor Destroy; override;
 
     procedure StartPreparingData(HeightData: THeightData); override;
-    procedure MarkDirty(const area: TGLRect); override;
+    procedure MarkDirty(const Area: TGLRect); override;
     function Width: Integer; override;
     function Height: Integer; override;
 
@@ -522,7 +530,8 @@ type
       feed it this format! }
     property Picture: TGLPicture read FPicture write SetPicture;
     { : If true the height field is wrapped indefinetely. }
-    property InfiniteWrap: boolean read FInfiniteWrap write SetInfiniteWrap default True;
+    property InfiniteWrap: boolean read FInfiniteWrap write SetInfiniteWrap
+      default True;
     { : If true, the rendered terrain is a mirror image of the input data. }
     property Inverted: boolean read FInverted write SetInverted default True;
 
@@ -530,7 +539,7 @@ type
   end;
 
   TStartPreparingDataEvent = procedure(HeightData: THeightData) of object;
-  TMarkDirtyEvent = procedure(const area: TGLRect) of object;
+  TMarkDirtyEvent = procedure(const Area: TGLRect) of object;
 
   // TTexturedHeightDataSource = class (TGLTexturedHeightDataSource)
 
@@ -554,7 +563,7 @@ type
     destructor Destroy; override;
     procedure StartPreparingData(HeightData: THeightData); override;
 
-    procedure MarkDirty(const area: TGLRect); override;
+    procedure MarkDirty(const Area: TGLRect); override;
 
   published
     { Published Declarations }
@@ -625,7 +634,7 @@ type
       updates/changes to HeightData, before it goes into the cache.
       Make sure any code in this function is thread-safe, in case TAsyncHDS was used. }
     procedure PreparingData(HeightData: THeightData); virtual; abstract;
-    procedure SetHDS(val: THeightDataSource);
+    procedure SetHDS(Val: THeightDataSource);
   public
     { Public Declarations }
     constructor Create(AOwner: TComponent); override;
@@ -655,12 +664,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses ApplicationFileIO, GLUtils
-{$IFDEF MSWINDOWS}
-    , Windows // for CreateMonochromeBitmap
-{$ENDIF}
-    ;
 
 // ------------------
 // ------------------ THeightDataSourceThread ------------------
@@ -802,16 +805,6 @@ begin
     FDataHash[i].Free;
 end;
 
-{$IFDEF GLS_DELPHI_4_DOWN}
-
-// RemoveFreeNotification
-//
-procedure THeightDataSource.RemoveFreeNotification(AComponent: TComponent);
-begin
-  Notification(AComponent, opRemove);
-end;
-{$ENDIF}
-
 // Clear
 //
 procedure THeightDataSource.Clear;
@@ -843,14 +836,14 @@ end;
 //
 function THeightDataSource.HashKey(XLeft, YTop: Integer): Integer;
 begin
-  Result := (xLeft + (xLeft shr 8) + (YTop shl 1) + (YTop shr 7)) and
+  Result := (XLeft + (XLeft shr 8) + (YTop shl 1) + (YTop shr 7)) and
     High(FDataHash);
 end;
 
 // FindMatchInList
 //
 
-function THeightDataSource.FindMatchInList(XLeft, YTop, Size: Integer;
+function THeightDataSource.FindMatchInList(XLeft, YTop, size: Integer;
   DataType: THeightDataType): THeightData;
 var
   i: Integer;
@@ -864,7 +857,7 @@ begin
       begin
         HD := THeightData(Items[i]);
         // if (not hd.Dirty) and (hd.XLeft=xLeft) and (hd.YTop=YTop) and (hd.Size=Size) and (hd.DataType=DataType) then begin
-        if (HD.xLeft = xLeft) and (HD.YTop = YTop) and (HD.Size = Size) and
+        if (HD.XLeft = XLeft) and (HD.YTop = YTop) and (HD.size = size) and
           (HD.DataType = DataType) and (HD.DontUse = false) then
         begin
           Result := HD;
@@ -878,12 +871,12 @@ end;
 
 // GetData
 //
-function THeightDataSource.GetData(XLeft, YTop, Size: Integer;
+function THeightDataSource.GetData(XLeft, YTop, size: Integer;
   DataType: THeightDataType): THeightData;
 begin
-  Result := FindMatchInList(XLeft, YTop, Size, DataType);
+  Result := FindMatchInList(XLeft, YTop, size, DataType);
   if not Assigned(Result) then
-    Result := PreLoad(XLeft, YTop, Size, DataType)
+    Result := PreLoad(XLeft, YTop, size, DataType)
   else
     with FData.LockList do
     begin
@@ -899,10 +892,10 @@ end;
 
 // PreLoad
 //
-function THeightDataSource.PreLoad(XLeft, YTop, Size: Integer;
+function THeightDataSource.PreLoad(XLeft, YTop, size: Integer;
   DataType: THeightDataType): THeightData;
 begin
-  Result := HeightDataClass.Create(Self, XLeft, YTop, Size, DataType);
+  Result := HeightDataClass.Create(self, XLeft, YTop, size, DataType);
   with FData.LockList do
     try
       Add(Result);
@@ -932,7 +925,7 @@ var
 begin
   Assert(MaxThreads > 0);
   HD := aHeightData;
-  NewHD := HeightDataClass.Create(self, HD.xLeft, HD.YTop, HD.Size,
+  NewHD := HeightDataClass.Create(self, HD.XLeft, HD.YTop, HD.size,
     HD.DataType);
   with FData.LockList do
     try
@@ -941,7 +934,7 @@ begin
       HD.NewVersion := NewHD; // link
       NewHD.DontUse := True;
       BeforePreparingData(NewHD);
-      FDataHash[HashKey(HD.xLeft, HD.YTop)].Add(NewHD);
+      FDataHash[HashKey(HD.XLeft, HD.YTop)].Add(NewHD);
     finally
       FData.UnlockList;
     end;
@@ -978,7 +971,7 @@ end;
 
 // MarkDirty (ints)
 //
-procedure THeightDataSource.MarkDirty(XLeft, YTop, XRight, YBottom: Integer);
+procedure THeightDataSource.MarkDirty(XLeft, YTop, xRight, yBottom: Integer);
 var
   r: TGLRect;
 begin
@@ -1102,7 +1095,7 @@ end;
 //
 procedure THeightDataSource.SetMaxThreads(const Val: Integer);
 begin
-  if (val <= 0) then
+  if (Val <= 0) then
     FMaxThreads := 0
   else
   begin
@@ -1114,7 +1107,7 @@ begin
 {$ELSE}
       FThread.Start;
 {$ENDIF}
-    FMaxThreads := val;
+    FMaxThreads := Val;
   end;
 end;
 
@@ -1160,7 +1153,7 @@ end;
 procedure THeightDataSource.TextureCoordinates(HeightData: THeightData;
   Stretch: boolean = false);
 var
-  w, h, Size: Integer;
+  w, h, size: Integer;
   scaleS, scaleT: Single;
   offsetS, offsetT: Single;
   HD: THeightData;
@@ -1169,22 +1162,22 @@ begin
   HD := HeightData;
   w := self.Width;
   h := self.Height;
-  Size := HD.FSize;
+  size := HD.FSize;
   // if GL_VERSION_1_2 then begin //OpenGL1.2 supports texture clamping, so seams dont show.
   if Stretch = false then
   begin // These are the real Texture coordinates
-    scaleS := w / (Size - 1);
-    scaleT := h / (Size - 1);
+    scaleS := w / (size - 1);
+    scaleT := h / (size - 1);
     offsetS := -((HD.XLeft / w) * scaleS);
-    offsetT := -(h - (HD.YTop + Size - 1)) / (Size - 1);
+    offsetT := -(h - (HD.YTop + size - 1)) / (size - 1);
   end
   else
   begin // --Texture coordinates: Stretched by 1 pixel, to hide seams on OpenGL-1.1(no Clamping)--
-    scaleS := w / Size;
-    scaleT := h / Size;
-    halfpixel := 1 / (Size shr 1);
+    scaleS := w / size;
+    scaleT := h / size;
+    halfpixel := 1 / (size shr 1);
     offsetS := -((HD.XLeft / w) * scaleS) + halfpixel;
-    offsetT := -(h - (HD.YTop + Size)) / Size - halfpixel;
+    offsetT := -(h - (HD.YTop + size)) / size - halfpixel;
   end;
   HD.FTCScale.S := scaleS;
   HD.FTCScale.T := scaleT;
@@ -1208,8 +1201,8 @@ begin
       for i := 0 to Count - 1 do
       begin
         HD := THeightData(Items[i]);
-        if (HD.XLeft <= x) and (HD.YTop <= y) and (HD.XLeft + HD.Size - 1 > x)
-          and (HD.YTop + HD.Size - 1 > y) then
+        if (HD.XLeft <= x) and (HD.YTop <= y) and (HD.XLeft + HD.size - 1 > x)
+          and (HD.YTop + HD.size - 1 > y) then
         begin
           foundHd := HD;
           Break;
@@ -1234,7 +1227,7 @@ begin
   else
   begin
     // request it using "standard" way (takes care of threads)
-    foundHd := GetData(foundHd.XLeft, foundHd.YTop, foundHd.Size,
+    foundHd := GetData(foundHd.XLeft, foundHd.YTop, foundHd.size,
       foundHd.DataType);
   end;
   if foundHd.DataState = hdsNone then
@@ -1379,32 +1372,32 @@ end;
 
 // Allocate
 //
-procedure THeightData.Allocate(const val: THeightDataType);
+procedure THeightData.Allocate(const Val: THeightDataType);
 begin
   Assert(FDataSize = 0);
-  case val of
+  case Val of
     hdtByte:
       begin
-        FDataSize := Size * Size * SizeOf(Byte);
+        FDataSize := size * size * SizeOf(Byte);
         GetMem(FByteData, FDataSize);
         BuildByteRaster;
       end;
     hdtSmallInt:
       begin
-        FDataSize := Size * Size * SizeOf(SmallInt);
+        FDataSize := size * size * SizeOf(SmallInt);
         GetMem(FSmallIntData, FDataSize);
         BuildSmallIntRaster;
       end;
     hdtSingle:
       begin
-        FDataSize := Size * Size * SizeOf(Single);
+        FDataSize := size * size * SizeOf(Single);
         GetMem(FSingleData, FDataSize);
         BuildSingleRaster;
       end;
   else
     Assert(false);
   end;
-  FDataType := val;
+  FDataType := Val;
 end;
 
 // WARNING: SetMaterialName does NOT register the tile as a user of this texture.
@@ -1433,15 +1426,15 @@ end;
 
 // SetDataType
 //
-procedure THeightData.SetDataType(const val: THeightDataType);
+procedure THeightData.SetDataType(const Val: THeightDataType);
 begin
-  if (val <> FDataType) and (val <> hdtDefault) then
+  if (Val <> FDataType) and (Val <> hdtDefault) then
   begin
     if DataState <> hdsNone then
     begin
       case FDataType of
         hdtByte:
-          case val of
+          case Val of
             hdtSmallInt:
               ConvertByteToSmallInt;
             hdtSingle:
@@ -1450,7 +1443,7 @@ begin
             Assert(false);
           end;
         hdtSmallInt:
-          case val of
+          case Val of
             hdtByte:
               ConvertSmallIntToByte;
             hdtSingle:
@@ -1459,7 +1452,7 @@ begin
             Assert(false);
           end;
         hdtSingle:
-          case val of
+          case Val of
             hdtByte:
               ConvertSingleToByte;
             hdtSmallInt:
@@ -1473,7 +1466,7 @@ begin
         Assert(false);
       end;
     end;
-    FDataType := val;
+    FDataType := Val;
   end;
 end;
 
@@ -1483,9 +1476,9 @@ procedure THeightData.BuildByteRaster;
 var
   i: Integer;
 begin
-  GetMem(FByteRaster, Size * SizeOf(PByteArray));
-  for i := 0 to Size - 1 do
-    FByteRaster^[i] := @FByteData[i * Size]
+  GetMem(FByteRaster, size * SizeOf(PByteArray));
+  for i := 0 to size - 1 do
+    FByteRaster^[i] := @FByteData[i * size]
 end;
 
 // BuildSmallIntRaster
@@ -1494,9 +1487,9 @@ procedure THeightData.BuildSmallIntRaster;
 var
   i: Integer;
 begin
-  GetMem(FSmallIntRaster, Size * SizeOf(PSmallIntArray));
-  for i := 0 to Size - 1 do
-    FSmallIntRaster^[i] := @FSmallIntData[i * Size]
+  GetMem(FSmallIntRaster, size * SizeOf(PSmallIntArray));
+  for i := 0 to size - 1 do
+    FSmallIntRaster^[i] := @FSmallIntData[i * size]
 end;
 
 // BuildSingleRaster
@@ -1505,9 +1498,9 @@ procedure THeightData.BuildSingleRaster;
 var
   i: Integer;
 begin
-  GetMem(FSingleRaster, Size * SizeOf(PSingleArray));
-  for i := 0 to Size - 1 do
-    FSingleRaster^[i] := @FSingleData[i * Size]
+  GetMem(FSingleRaster, size * SizeOf(PSingleArray));
+  for i := 0 to size - 1 do
+    FSingleRaster^[i] := @FSingleData[i * size]
 end;
 
 // ConvertByteToSmallInt
@@ -1518,9 +1511,9 @@ var
 begin
   FreeMem(FByteRaster);
   FByteRaster := nil;
-  FDataSize := Size * Size * SizeOf(SmallInt);
+  FDataSize := size * size * SizeOf(SmallInt);
   GetMem(FSmallIntData, FDataSize);
-  for i := 0 to Size * Size - 1 do
+  for i := 0 to size * size - 1 do
     FSmallIntData^[i] := (FByteData^[i] - 128) shl 7;
   FreeMem(FByteData);
   FByteData := nil;
@@ -1535,9 +1528,9 @@ var
 begin
   FreeMem(FByteRaster);
   FByteRaster := nil;
-  FDataSize := Size * Size * SizeOf(Single);
+  FDataSize := size * size * SizeOf(Single);
   GetMem(FSingleData, FDataSize);
-  for i := 0 to Size * Size - 1 do
+  for i := 0 to size * size - 1 do
     FSingleData^[i] := (FByteData^[i] - 128) shl 7;
   FreeMem(FByteData);
   FByteData := nil;
@@ -1553,9 +1546,9 @@ begin
   FreeMem(FSmallIntRaster);
   FSmallIntRaster := nil;
   FByteData := Pointer(FSmallIntData);
-  for i := 0 to Size * Size - 1 do
+  for i := 0 to size * size - 1 do
     FByteData^[i] := (FSmallIntData^[i] div 128) + 128;
-  FDataSize := Size * Size * SizeOf(Byte);
+  FDataSize := size * size * SizeOf(Byte);
   ReallocMem(FByteData, FDataSize);
   FSmallIntData := nil;
   BuildByteRaster;
@@ -1569,9 +1562,9 @@ var
 begin
   FreeMem(FSmallIntRaster);
   FSmallIntRaster := nil;
-  FDataSize := Size * Size * SizeOf(Single);
+  FDataSize := size * size * SizeOf(Single);
   GetMem(FSingleData, FDataSize);
-  for i := 0 to Size * Size - 1 do
+  for i := 0 to size * size - 1 do
     FSingleData^[i] := FSmallIntData^[i];
   FreeMem(FSmallIntData);
   FSmallIntData := nil;
@@ -1587,9 +1580,9 @@ begin
   FreeMem(FSingleRaster);
   FSingleRaster := nil;
   FByteData := Pointer(FSingleData);
-  for i := 0 to Size * Size - 1 do
+  for i := 0 to size * size - 1 do
     FByteData^[i] := (Round(FSingleData^[i]) div 128) + 128;
-  FDataSize := Size * Size * SizeOf(Byte);
+  FDataSize := size * size * SizeOf(Byte);
   ReallocMem(FByteData, FDataSize);
   FSingleData := nil;
   BuildByteRaster;
@@ -1604,9 +1597,9 @@ begin
   FreeMem(FSingleRaster);
   FSingleRaster := nil;
   FSmallIntData := Pointer(FSingleData);
-  for i := 0 to Size * Size - 1 do
+  for i := 0 to size * size - 1 do
     FSmallIntData^[i] := Round(FSingleData^[i]);
-  FDataSize := Size * Size * SizeOf(SmallInt);
+  FDataSize := size * size * SizeOf(SmallInt);
   ReallocMem(FSmallIntData, FDataSize);
   FSingleData := nil;
   BuildSmallIntRaster;
@@ -1616,7 +1609,7 @@ end;
 //
 function THeightData.ByteHeight(x, y: Integer): Byte;
 begin
-  Assert((Cardinal(x) < Cardinal(Size)) and (Cardinal(y) < Cardinal(Size)));
+  Assert((Cardinal(x) < Cardinal(size)) and (Cardinal(y) < Cardinal(size)));
   Result := ByteRaster^[y]^[x];
 end;
 
@@ -1624,7 +1617,7 @@ end;
 //
 function THeightData.SmallIntHeight(x, y: Integer): SmallInt;
 begin
-  Assert((Cardinal(x) < Cardinal(Size)) and (Cardinal(y) < Cardinal(Size)));
+  Assert((Cardinal(x) < Cardinal(size)) and (Cardinal(y) < Cardinal(size)));
   Result := SmallIntRaster^[y]^[x];
 end;
 
@@ -1632,7 +1625,7 @@ end;
 //
 function THeightData.SingleHeight(x, y: Integer): Single;
 begin
-  Assert((Cardinal(x) < Cardinal(Size)) and (Cardinal(y) < Cardinal(Size)));
+  Assert((Cardinal(x) < Cardinal(size)) and (Cardinal(y) < Cardinal(size)));
   Result := SingleRaster^[y]^[x];
 end;
 
@@ -1652,10 +1645,10 @@ begin
     iy := Trunc(y);
     y := Frac(y);
     ixn := ix + 1;
-    if ixn >= Size then
+    if ixn >= size then
       ixn := ix;
     iyn := iy + 1;
-    if iyn >= Size then
+    if iyn >= size then
       iyn := iy;
     if x > y then
     begin
@@ -1710,7 +1703,7 @@ begin
         hdtByte:
           begin
             b := FByteData^[0];
-            for i := 1 to Size * Size - 1 do
+            for i := 1 to size * size - 1 do
               if FByteData^[i] < b then
                 b := FByteData^[i];
             FHeightMin := ((Integer(b) - 128) shl 7);
@@ -1718,7 +1711,7 @@ begin
         hdtSmallInt:
           begin
             sm := FSmallIntData^[0];
-            for i := 1 to Size * Size - 1 do
+            for i := 1 to size * size - 1 do
               if FSmallIntData^[i] < sm then
                 sm := FSmallIntData^[i];
             FHeightMin := sm;
@@ -1726,7 +1719,7 @@ begin
         hdtSingle:
           begin
             si := FSingleData^[0];
-            for i := 1 to Size * Size - 1 do
+            for i := 1 to size * size - 1 do
               if FSingleData^[i] < si then
                 si := FSingleData^[i];
             FHeightMin := si;
@@ -1758,7 +1751,7 @@ begin
         hdtByte:
           begin
             b := FByteData^[0];
-            for i := 1 to Size * Size - 1 do
+            for i := 1 to size * size - 1 do
               if FByteData^[i] > b then
                 b := FByteData^[i];
             FHeightMax := ((Integer(b) - 128) shl 7);
@@ -1766,7 +1759,7 @@ begin
         hdtSmallInt:
           begin
             sm := FSmallIntData^[0];
-            for i := 1 to Size * Size - 1 do
+            for i := 1 to size * size - 1 do
               if FSmallIntData^[i] > sm then
                 sm := FSmallIntData^[i];
             FHeightMax := sm;
@@ -1774,7 +1767,7 @@ begin
         hdtSingle:
           begin
             si := FSingleData^[0];
-            for i := 1 to Size * Size - 1 do
+            for i := 1 to size * size - 1 do
               if FSingleData^[i] > si then
                 si := FSingleData^[i];
             FHeightMax := si;
@@ -1798,14 +1791,14 @@ var
   dx, dy: Single;
 begin
   if x > 0 then
-    if x < Size - 1 then
+    if x < size - 1 then
       dx := (Height(x + 1, y) - Height(x - 1, y))
     else
       dx := (Height(x, y) - Height(x - 1, y))
   else
     dx := (Height(x + 1, y) - Height(x, y));
   if y > 0 then
-    if y < Size - 1 then
+    if y < size - 1 then
       dy := (Height(x, y + 1) - Height(x, y - 1))
     else
       dy := (Height(x, y) - Height(x, y - 1))
@@ -1825,8 +1818,8 @@ function THeightData.NormalAtNode(x, y: Integer; const scale: TAffineVector)
 var
   dx, dy, Hxy: Single;
 begin
-  MinInteger(MaxInteger(x, 0), Size - 2); // clamp x to 0 -> Size-2
-  MinInteger(MaxInteger(y, 0), Size - 2); // clamp x to 0 -> Size-2
+  MinInteger(MaxInteger(x, 0), size - 2); // clamp x to 0 -> Size-2
+  MinInteger(MaxInteger(y, 0), size - 2); // clamp x to 0 -> Size-2
   Hxy := Height(x, y);
   dx := Height(x + 1, y) - Hxy;
   dy := Height(x, y + 1) - Hxy;
@@ -1841,7 +1834,7 @@ end;
 function THeightData.OverlapsArea(const Area: TGLRect): boolean;
 begin
   Result := (XLeft <= Area.Right) and (YTop <= Area.Bottom) and
-    (XLeft + Size > Area.Left) and (YTop + Size > Area.Top);
+    (XLeft + size > Area.Left) and (YTop + size > Area.Top);
 end;
 
 // ------------------
@@ -1883,16 +1876,16 @@ end;
 
 // SetPicture
 //
-procedure TGLBitmapHDS.SetPicture(const val: TGLPicture);
+procedure TGLBitmapHDS.SetPicture(const Val: TGLPicture);
 begin
-  FPicture.Assign(val);
+  FPicture.Assign(Val);
 end;
 
 // OnPictureChanged
 //
 procedure TGLBitmapHDS.OnPictureChanged(sender: TObject);
 var
-  oldPoolSize, Size: Integer;
+  oldPoolSize, size: Integer;
 begin
   // cleanup pool
   oldPoolSize := MaxPoolSize;
@@ -1901,38 +1894,30 @@ begin
   MaxPoolSize := oldPoolSize;
   // prepare MonoChromeBitmap
   FreeMonochromeBitmap;
-  Size := Picture.Width;
-  if Size > 0 then
-    CreateMonochromeBitmap(Size);
+  size := Picture.Width;
+  if size > 0 then
+    CreateMonochromeBitmap(size);
 end;
 
 // SetInfiniteWrap
 //
-procedure TGLBitmapHDS.SetInfiniteWrap(val: boolean);
+procedure TGLBitmapHDS.SetInfiniteWrap(Val: boolean);
 begin
-  if FInfiniteWrap <> val then
+  if FInfiniteWrap <> Val then
   begin
-    FInfiniteWrap := val;
-{$IFDEF GLS_DELPHI_4}
-    inherited MarkDirty;
-{$ELSE}
+    FInfiniteWrap := Val;
     MarkDirty;
-{$ENDIF}
   end;
 end;
 
 // SetInverted
 //
-procedure TGLBitmapHDS.SetInverted(val: boolean);
+procedure TGLBitmapHDS.SetInverted(Val: boolean);
 begin
-  if FInverted = val then
+  if FInverted = Val then
     Exit;
-  FInverted := val;
-{$IFDEF GLS_DELPHI_4}
-  inherited MarkDirty;
-{$ELSE}
+  FInverted := Val;
   MarkDirty;
-{$ENDIF}
 end;
 
 // MarkDirty
@@ -1947,7 +1932,7 @@ end;
 
 // CreateMonochromeBitmap
 //
-procedure TGLBitmapHDS.CreateMonochromeBitmap(Size: Integer);
+procedure TGLBitmapHDS.CreateMonochromeBitmap(size: Integer);
 {$IFDEF MSWINDOWS}
 type
   TPaletteEntryArray = array [0 .. 255] of TPaletteEntry;
@@ -1963,11 +1948,11 @@ var
   logpal: TLogPal;
   hPal: HPalette;
 begin
-  Size := RoundUpToPowerOf2(Size);
+  size := RoundUpToPowerOf2(size);
   FBitmap := TGLBitmap.Create;
   FBitmap.PixelFormat := glpf8bit;
-  FBitmap.Width := Size;
-  FBitmap.Height := Size;
+  FBitmap.Width := size;
+  FBitmap.Height := size;
   for x := 0 to 255 do
     with PPaletteEntryArray(@logpal.lpal.palPalEntry[0])[x] do
     begin
@@ -1996,7 +1981,7 @@ begin
   IntfImg1.LoadFromBitmap(FBitmap.Handle, FBitmap.MaskHandle);
 {$ENDIF}
   SetLength(FScanLineCache, 0); // clear the cache
-  SetLength(FScanLineCache, Size);
+  SetLength(FScanLineCache, size);
 end;
 {$ENDIF}
 {$IFDEF UNIX}
@@ -2064,18 +2049,18 @@ begin
     if Inverted then
       YPos := YTop
     else
-      YPos := 1 - Size - YTop;
-    for y := 0 to Size - 1 do
+      YPos := 1 - size - YTop;
+    for y := 0 to size - 1 do
     begin
       bitmapLine := GetScanLine((y + YPos) and wrapMask);
       if Inverted then
         rasterLine := ByteRaster^[y]
       else
-        rasterLine := ByteRaster^[Size - 1 - y];
+        rasterLine := ByteRaster^[size - 1 - y];
       // *BIG CAUTION HERE* : Don't remove the intermediate variable here!!!
       // or Delphi compiler will "optimize" to 32 bits access with clamping
       // Resulting in possible reads of stuff beyon bitmapLine length!!!!
-      for x := XLeft to XLeft + Size - 1 do
+      for x := XLeft to XLeft + size - 1 do
       begin
         b := bitmapLine^[x and wrapMask];
         rasterLine^[x - XLeft] := b;
@@ -2182,11 +2167,11 @@ begin
     begin
       oldType := DataType;
       Allocate(hdtSmallInt);
-      for y := YTop to YTop + Size - 1 do
+      for y := YTop to YTop + size - 1 do
       begin
         offset := (y mod cTBHeight) * (cTBWidth * 2);
         rasterLine := SmallIntRaster^[y - YTop];
-        for x := XLeft to XLeft + Size - 1 do
+        for x := XLeft to XLeft + size - 1 do
         begin
           fs.Seek(offset + (x mod cTBWidth) * 2, soFromBeginning);
           fs.Read(b, 2);
@@ -2244,15 +2229,15 @@ end;
 
 // SetHDS  - Set HeightDataSource property
 //
-procedure THeightDataSourceFilter.SetHDS(val: THeightDataSource);
+procedure THeightDataSourceFilter.SetHDS(Val: THeightDataSource);
 begin
-  if val = self then
-    val := nil; // prevent self-referencing
-  if val <> FHDS then
+  if Val = self then
+    Val := nil; // prevent self-referencing
+  if Val <> FHDS then
   begin
     if Assigned(FHDS) then
       FHDS.RemoveFreeNotification(self);
-    FHDS := val;
+    FHDS := Val;
     if Assigned(FHDS) then
       FHDS.FreeNotification(self);
     // MarkDirty;
@@ -2313,6 +2298,6 @@ initialization
 // ------------------------------------------------------------------
 
 // class registrations
-Classes.RegisterClasses([TGLBitmapHDS, TGLCustomHDS, THeightDataSourceFilter]);
+RegisterClasses([TGLBitmapHDS, TGLCustomHDS, THeightDataSourceFilter]);
 
 end.

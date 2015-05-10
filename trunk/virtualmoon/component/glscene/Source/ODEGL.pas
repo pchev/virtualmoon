@@ -8,7 +8,7 @@
   <li>10/11/12 - PW - Added CPP compatibility: changed vector arrays to records
   <li>10/08/10 - Yar - Replaced OpenGL1x to OpenGLTokens
   <li>05/04/10 - Yar - Added GLSceneMatrixToODER (thanks Vovik)
-  <li>22/11/09 - DaStr - Improved Unix compatibility (thanks Predator) 
+  <li>22/11/09 - DaStr - Improved Unix compatibility (thanks Predator)
                  (BugtrackerID = 2893580)
   <li>08/12/08 - PR dBodySetMass no longer accepts zero mass. check added
   <li>06/02/08 - Mrqzzz - Upgrade to ODE 0.9 (upgrade by Paul Robello)
@@ -34,13 +34,14 @@ interface
 }
 
 uses
+  SysUtils,
   OpenGLTokens,
   GLContext,
-  VectorGeometry,
+  GLVectorGeometry,
   ODEImport,
   GLScene,
-  VectorTypes,
-  VectorLists,
+  GLVectorTypes,
+  GLVectorLists,
   GLObjects,
   GLVerletClothify,
   GLVectorFileObjects;
@@ -109,8 +110,6 @@ function RandomColorVector: TVector;
 // { $ EXTERNALSYM GL_ZERO} ?
 
 implementation
-
-uses SysUtils;
 
 procedure ODERToGLSceneMatrix(var m: TMatrix; R: TdMatrix3_As3x4; pos: TdVector3); overload;
 begin
@@ -542,7 +541,7 @@ var
 begin
   // Stup the body
   dMassSetBox(m, 1, Cube.CubeWidth, Cube.CubeHeight, Cube.CubeDepth);
-  dBodySetMass(Body, @m);
+  if m.mass>0 then dBodySetMass(Body, @m);
 
   // Setup the geom
   Geom := CreateGeomFromCube(Cube, Space);

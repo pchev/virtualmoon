@@ -29,14 +29,22 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,
 {$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Graphics, VCL.Controls, VCL.Menus,
+  System.Classes,
+  System.SysUtils,
+  VCL.Graphics,
+  VCL.Controls,
+  VCL.Menus,
 {$ELSE}
-  Graphics, Controls, Menus,
+  Classes,
+  SysUtils,
+  Graphics,
+  Controls,
+  Menus,
 {$ENDIF}
-
-  GLCrossPlatform, GLScene
+  //GLS
+  GLCrossPlatform,
+  GLScene
 {$IFDEF FPC}
   ,LResources
 {$ENDIF};
@@ -106,16 +114,18 @@ type
     property CameraRootIndex: Integer read FCameraRootIndex;
     property ObjectRootIndex: Integer read FObjectRootIndex;
   end;
-
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
 implementation
-
-uses SysUtils;
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
 
 //----------------- TObjectManager ---------------------------------------------
 
 // Create
 //
-
 constructor TObjectManager.Create(AOwner: TComponent);
 begin
   inherited;
@@ -129,7 +139,6 @@ end;
 
 // Destroy
 //
-
 destructor TObjectManager.Destroy;
 begin
   DestroySceneObjectList;
@@ -139,7 +148,6 @@ end;
 
 // FindSceneObjectClass
 //
-
 function TObjectManager.FindSceneObjectClass(AObjectClass: TGLSceneObjectClass;
   const aSceneObject: string = ''): PSceneObjectEntry;
 var
@@ -165,7 +173,6 @@ end;
 
 // GetClassFromIndex
 //
-
 function TObjectManager.GetClassFromIndex(Index: Integer): TGLSceneObjectClass;
 begin
   if Index < 0 then
@@ -177,7 +184,6 @@ end;
 
 // GetImageIndex
 //
-
 function TObjectManager.GetImageIndex(ASceneObject: TGLSceneObjectClass): Integer;
 var
   classEntry: PSceneObjectEntry;
@@ -205,7 +211,6 @@ end;
 
 // GetRegisteredSceneObjects
 //
-
 procedure TObjectManager.GetRegisteredSceneObjects(objectList: TStringList);
 var
   i: Integer;

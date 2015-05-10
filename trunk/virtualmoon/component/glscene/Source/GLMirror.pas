@@ -36,14 +36,11 @@ interface
 
 uses
   Classes,
-  GLScene,
-  VectorGeometry,
-  OpenGLAdapter,
-  OpenGLTokens,
-  GLContext,
-  GLMaterial,
-  GLColor,
-  GLRenderContextInfo;
+  GLScene, GLVectorGeometry, OpenGLAdapter, OpenGLTokens, GLContext,
+  GLMaterial, GLColor, GLRenderContextInfo,
+  GLState
+  , GLVectorTypes;
+
 
 type
 
@@ -157,10 +154,6 @@ implementation
 //-------------------------------------------------------------
 //-------------------------------------------------------------
 //-------------------------------------------------------------
-
-uses
-  GLState
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
 
 // ------------------
 // ------------------ TGLMirror ------------------

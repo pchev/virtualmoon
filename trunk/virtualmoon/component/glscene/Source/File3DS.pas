@@ -257,7 +257,7 @@ type
 
 implementation
 
-uses Const3DS, Utils3DS, SysUtils, ApplicationFileIO;
+uses Const3DS, Utils3DS, SysUtils, GLApplicationFileIO;
 
 function StrPasFree(P: PChar3DS): String;
 begin

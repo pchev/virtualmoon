@@ -33,9 +33,16 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, GLScene, GLContext, VectorTypes, VectorGeometry,
-  PersistentClasses, GLCrossPlatform, GLGraphics, GLColor,
-  GLRenderContextInfo, GLCoordinates, BaseClasses, GLState, GLTextureFormat;
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
+
+  GLScene, GLContext, GLVectorTypes, GLVectorGeometry,
+  GLPersistentClasses, GLCrossPlatform, GLGraphics, GLColor,
+  GLRenderContextInfo, GLCoordinates, GLBaseClasses, GLState, GLTextureFormat,
+  OpenGLTokens, GLUtils;
 
 type
   // TImposterOptions
@@ -475,8 +482,6 @@ implementation
 //-------------------------------------------------------------
 //-------------------------------------------------------------
 //-------------------------------------------------------------
-
-uses SysUtils, OpenGLTokens, GLUtils;
 
 const
   cReferenceToPos: array[Low(TImposterReference)..High(TImposterReference)] of

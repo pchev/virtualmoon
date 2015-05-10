@@ -15,7 +15,8 @@ interface
 {$i GLScene.inc}
 
 uses
-  lresources, LCLIntf,
+  lresources, 
+  LCLIntf,
   Controls, Classes, Forms, StdCtrls, Buttons, Dialogs, Graphics,
   GLViewer, GLMaterial, GLScene, GLObjects, GLTexture,
   GLHUDObjects, GLTeapot, GLGeomObjects, GLColor,

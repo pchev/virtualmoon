@@ -1,4 +1,4 @@
-//
+﻿//
 // This unit is part of the GLScene Project, http://glscene.org
 //
 {: GLSkydome<p>
@@ -46,7 +46,6 @@ interface
 {$I GLScene.inc}
 
 uses
-  // VCL
   Classes,
 {$IFDEF GLS_DELPHI_XE2_UP}
   VCL.Graphics,
@@ -56,10 +55,10 @@ uses
 
   // GLSCene
   GLScene,
-  VectorGeometry,
+  GLVectorGeometry,
   GLGraphics,
   GLCrossPlatform,
-  VectorTypes,
+  GLVectorTypes,
   GLColor,
   GLRenderContextInfo;
 
@@ -479,7 +478,7 @@ procedure TSkyDomeBand.BuildList(var rci: TRenderContextInfo);
       GL.Color4fv(@colStart);
       GL.Vertex3f(0, 0, -1);
       f := 2 * PI / Slices;
-      SinCos(VectorGeometry.DegToRad(stop), vertex1.V[2], r);
+      SinCos(GLVectorGeometry.DegToRad(stop), vertex1.V[2], r);
       GL.Color4fv(@colStop);
       for i := 0 to Slices do
       begin
@@ -495,7 +494,7 @@ procedure TSkyDomeBand.BuildList(var rci: TRenderContextInfo);
       GL.Color4fv(@colStop);
       GL.Vertex3fv(@ZHmgPoint);
       f := 2 * PI / Slices;
-      SinCos(VectorGeometry.DegToRad(start), vertex1.V[2], r);
+      SinCos(GLVectorGeometry.DegToRad(start), vertex1.V[2], r);
       GL.Color4fv(@colStart);
       for i := Slices downto 0 do
       begin
@@ -510,8 +509,8 @@ procedure TSkyDomeBand.BuildList(var rci: TRenderContextInfo);
       // triangle strip
       GL.Begin_(GL_TRIANGLE_STRIP);
       f := 2 * PI / Slices;
-      SinCos(VectorGeometry.DegToRad(start), vertex1.V[2], r);
-      SinCos(VectorGeometry.DegToRad(stop), vertex2.V[2], r2);
+      SinCos(GLVectorGeometry.DegToRad(start), vertex1.V[2], r);
+      SinCos(GLVectorGeometry.DegToRad(stop), vertex2.V[2], r2);
       for i := 0 to Slices do
       begin
         SinCos(i * f, r, vertex1.V[1], vertex1.V[0]);
@@ -1385,8 +1384,8 @@ var
     color := CalculateColor(0, CalculateCosGamma(ZHmgPoint));
     GL.Color4fv(DeepColor.AsAddress);
     GL.Vertex3f(0, 0, -1);
-    SinCos(VectorGeometry.DegToRad(stop), vertex1.V[2], r);
-    thetaStart := VectorGeometry.DegToRad(90 - stop);
+    SinCos(GLVectorGeometry.DegToRad(stop), vertex1.V[2], r);
+    thetaStart := GLVectorGeometry.DegToRad(90 - stop);
     for i := 0 to steps - 1 do
     begin
       vertex1.V[0] := r * cosTable[i];
@@ -1413,8 +1412,8 @@ var
       color := CalculateColor(0, CalculateCosGamma(ZHmgPoint));
       GL.Color4fv(@color);
       GL.Vertex4fv(@ZHmgPoint);
-      SinCos(VectorGeometry.DegToRad(start), vertex1.V[2], r);
-      thetaStart := VectorGeometry.DegToRad(90 - start);
+      SinCos(GLVectorGeometry.DegToRad(start), vertex1.V[2], r);
+      thetaStart := GLVectorGeometry.DegToRad(90 - start);
       for i := 0 to steps - 1 do
       begin
         vertex1.V[0] := r * cosTable[i];
@@ -1430,10 +1429,10 @@ var
       vertex2.V[3] := 1;
       // triangle strip
       GL.Begin_(GL_TRIANGLE_STRIP);
-      SinCos(VectorGeometry.DegToRad(start), vertex1.V[2], r);
-      SinCos(VectorGeometry.DegToRad(stop), vertex2.V[2], r2);
-      thetaStart := VectorGeometry.DegToRad(90 - start);
-      thetaStop := VectorGeometry.DegToRad(90 - stop);
+      SinCos(GLVectorGeometry.DegToRad(start), vertex1.V[2], r);
+      SinCos(GLVectorGeometry.DegToRad(stop), vertex2.V[2], r2);
+      thetaStart := GLVectorGeometry.DegToRad(90 - start);
+      thetaStop := GLVectorGeometry.DegToRad(90 - stop);
       for i := 0 to steps - 1 do
       begin
         vertex1.V[0] := r * cosTable[i];
@@ -1455,7 +1454,7 @@ var
   n, i, sdiv2: Integer;
   t, t2, p, fs: Single;
 begin
-  ts := VectorGeometry.DegToRad(90 - SunElevation);
+  ts := GLVectorGeometry.DegToRad(90 - SunElevation);
   SetVector(sunPos, sin(ts), 0, cos(ts));
   // prepare sin/cos LUT, with a higher sampling around 0Ѝ
   n := Slices div 2;

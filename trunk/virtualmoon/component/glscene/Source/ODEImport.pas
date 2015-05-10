@@ -163,7 +163,8 @@ uses
 {$IFDEF __MACH__}
   GPCMacOSAll,
   {$ENDIF}
-  Classes;
+  Classes,
+  GLSModuleLoader;
 
 const
   // ********************************************************************
@@ -1704,10 +1705,6 @@ var
 
 
 implementation
-
-uses
-  GLSModuleLoader;
-
 
 { TBodyList }
 

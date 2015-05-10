@@ -37,7 +37,7 @@ begin
                         ]);
 
    RegisterComponents('GLScene Utils',
-                      [TAVIRecorder,  TGLJoystick, TGLScreenSaver
+                      [TGLAVIRecorder,  TGLJoystick, TGLScreenSaver
                       ]);
 
 end;

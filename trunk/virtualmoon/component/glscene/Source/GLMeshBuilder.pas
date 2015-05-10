@@ -11,7 +11,7 @@
    Features: BuildCube, BuildCylinder.
 
 	<b>History : </b><font size=-1><ul>
-      <li>22/01/10 - Yar - Added VectorTypes to uses
+      <li>22/01/10 - Yar - Added GLVectorTypes to uses
       <li>29/11/03 - JAJ - Created and Submitted to GLScene.
       <li>21/07/03 - JAJ - Added BuildCylinder2 submitted by Gorka?
 	</ul></font>
@@ -22,7 +22,7 @@ interface
 
 Uses
   SysUtils, Classes, GLScene, GLVectorFileObjects,
-  VectorTypes, VectorGeometry, VectorLists;
+  GLVectorTypes, GLVectorGeometry, GLVectorLists;
 
 Procedure BuildCube(Mesh : TMeshObject; Position, Scale : TAffineVector);
 Procedure BuildCylinder(Mesh : TMeshObject; Position, Scale : TAffineVector; Slices : Integer);

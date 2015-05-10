@@ -28,7 +28,7 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  GLTexture, VectorGeometry, VectorLists, OpenGLTokens, GLContext,
+  GLTexture, GLVectorGeometry, GLVectorLists, OpenGLTokens, GLContext,
   GLAsmShader, GLRenderContextInfo, GLCustomShader, GLState;
 
 type

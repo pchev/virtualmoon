@@ -24,7 +24,7 @@ uses
   GLContext,
   GLGraphics,
   GLTextureFormat,
-  ApplicationFileIO;
+  GLApplicationFileIO;
 
 type
 

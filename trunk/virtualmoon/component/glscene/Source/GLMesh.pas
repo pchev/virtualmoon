@@ -37,16 +37,15 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,
-  GLScene,
-  VectorGeometry,
-  OpenGLTokens,
-  OpenGLAdapter,
-  GLState,
-  GLColor,
-  BaseClasses,
-  GLRenderContextInfo,
-  VectorTypes;
+  {$IFDEF GLS_DELPHI_XE2_UP}
+  System.Classes, System.SysUtils,
+  {$ELSE}
+  Classes, SysUtils,
+  {$ENDIF}
+
+  GLStrings,  XOpenGL,  GLContext,  GLScene,
+  GLVectorGeometry,  OpenGLTokens,  OpenGLAdapter,  GLState,
+  GLColor, GLBaseClasses,  GLRenderContextInfo, GLVectorTypes;
 
 type
   TMeshMode = (mmTriangleStrip, mmTriangleFan, mmTriangles, mmQuadStrip,
@@ -238,11 +237,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses SysUtils,
-  GLStrings,
-  XOpenGL,
-  GLContext;
 
 // ----------------- TVertexList ------------------------------------------------
 

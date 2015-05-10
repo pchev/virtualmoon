@@ -41,18 +41,16 @@ interface
 {$I GLScene.inc}
 
 uses
-  // VCL
-  Windows,
 {$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Graphics, VCL.Forms, VCL.Controls,
+  WinApi.Windows, WinApi.Messages,  System.Classes, System.SysUtils,
+  System.Types, VCL.Graphics, VCL.Forms, VCL.Controls,
 {$ELSE}
+  Windows, Messages, Classes,  SysUtils, Types,
   Graphics, Forms, Controls,
 {$ENDIF}
-  Messages,
-  Classes,
+
   // GLScene
-  GLScene,
-  GLContext;
+  GLScene, GLWin32Context,  GLContext;
 
 type
   TTouchEvent = procedure(X, Y, TouchWidth, TouchHeight : integer; TouchID : Cardinal; MultiTouch : boolean) of object;
@@ -230,10 +228,7 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
 uses
-  GLWin32Context,
-  SysUtils,
   GLViewer;
 
 // ------------------

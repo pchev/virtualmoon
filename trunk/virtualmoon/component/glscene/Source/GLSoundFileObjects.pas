@@ -27,7 +27,9 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes,{$IFDEF MSWINDOWS}MMSystem,{$ENDIF}ApplicationFileIO, GLCrossPlatform;
+uses
+  Classes,{$IFDEF MSWINDOWS}MMSystem,{$ENDIF}
+  GLApplicationFileIO, GLCrossPlatform;
 
 type
 

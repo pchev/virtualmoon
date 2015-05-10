@@ -7,7 +7,7 @@
 
    <b>History : </b><font size=-1><ul>
       <li>22/04/10 - Yar - Fixes after GLState revision
-      <                    Added VectorTypes to uses
+      <                    Added GLVectorTypes to uses
       <li>16/04/07 - DaStr - Shader made ATI compatible
       <li>05/04/07 - DaStr - Initial version (contributed to GLScene)
 
@@ -29,7 +29,7 @@ uses
   Classes,
 
   // GLScene
-  GLTexture, GLScene, VectorGeometry, GLContext,
+  GLTexture, GLScene, GLVectorGeometry, GLContext,
   GLSLShader, GLCustomShader, GLRenderContextInfo, GLTextureFormat;
 
 type
@@ -59,7 +59,7 @@ type
 implementation
 
 uses
-  VectorTypes;
+  GLVectorTypes;
 
 { TGLCustomGLSLPostBlurShader }
 

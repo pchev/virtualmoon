@@ -1,4 +1,4 @@
-//
+﻿//
 // This unit is part of the GLScene Project, http://glscene.org
 //
 {: GLExtrusion<p>
@@ -57,18 +57,11 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes,
-  OpenGLTokens,
-  GLContext,
-  GLObjects,
-  GLScene,
-  GLMultiPolygon,
-  GLColor,
-  VectorGeometry,
-  GLRenderContextInfo,
-  GLNodes,
-  GLState,
-  VectorTypes;
+uses
+  Classes,
+  OpenGLTokens,  GLContext,  GLObjects,  GLScene, GLMultiPolygon,
+  GLColor, GLVectorGeometry, GLRenderContextInfo, GLNodes,
+  GLState, GLVectorTypes;
 
 type
 
@@ -359,9 +352,10 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils,
-  Spline,
-  VectorLists,
+uses
+  SysUtils,
+  GLSpline,
+  GLVectorLists,
   XOpenGL;
 
 // ------------------

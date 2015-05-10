@@ -27,10 +27,19 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, SysUtils, GLRenderContextInfo, BaseClasses, GLContext, VectorTypes,
-  GLMaterial, GLTexture, GLColor, GLCoordinates, VectorGeometry, GLGraphics,
-  PersistentClasses, GLCrossPlatform, GLState, GLTextureFormat, XCollection,
-  GLTextureCombiners, OpenGLTokens, GLSLParameter;
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
+
+  GLRenderContextInfo, GLBaseClasses, GLContext, GLVectorTypes,
+  GLMaterial, GLTexture, GLColor, GLCoordinates, GLVectorGeometry, GLGraphics,
+  GLPersistentClasses, GLCrossPlatform, GLState, GLTextureFormat, XCollection,
+  GLTextureCombiners, OpenGLTokens, GLSLParameter,
+  GLApplicationFileIO, GLStrings, GLImageUtils, GLUtils, XOpenGL,
+  GLSLog;
+
 
 type
 
@@ -1323,11 +1332,6 @@ procedure RegisterGLMaterialExNameChangeEvent(AEvent: TNotifyEvent);
 procedure DeRegisterGLMaterialExNameChangeEvent(AEvent: TNotifyEvent);
 
 implementation
-
-uses
-  ApplicationFileIO, GLStrings, ImageUtils, GLUtils, XOpenGL
-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
-
 
 const
   cTextureMagFilter: array[maNearest..maLinear] of TGLEnum =
@@ -2678,7 +2682,7 @@ begin
   with AWriter do
   begin
     WriteInteger(0); // archive version
-    WriteWideString(Name);
+    WriteString(Name);
     WriteBoolean(FDefferedInit);
     WriteInteger(Integer(FInternalFormat));
     WriteInteger(Integer(FCompression));
@@ -2687,7 +2691,7 @@ begin
     WriteFloat(FImageBrightness);
     WriteFloat(FImageGamma);
     WriteFloat(FHeightToNormalScale);
-    WriteWideString(FSourceFile);
+    WriteString(FSourceFile);
     WriteBoolean(FInternallyStored);
     WriteInteger(Integer(FMipGenMode));
     WriteBoolean(FUseStreaming);

@@ -39,15 +39,8 @@ interface
 
 uses
   Classes,
-  GLScene,
-  VectorGeometry,
-  OpenGLTokens,
-  GLContext,
-  GLSilhouette,
-  GLCrossPlatform,
-  PersistentClasses,
-  GeometryBB,
-  GLColor,
+  GLScene, GLVectorGeometry, OpenGLTokens, GLContext, GLSilhouette,
+  GLCrossPlatform, GLPersistentClasses, GLGeometryBB, GLColor,
   GLRenderContextInfo;
 
 type
@@ -321,9 +314,9 @@ implementation
 
 uses
   SysUtils,
-  VectorLists,
+  GLVectorLists,
   GLState
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
+  , GLVectorTypes;
 
 // ------------------
 // ------------------ TGLShadowVolumeCaster ------------------

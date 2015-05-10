@@ -6,6 +6,7 @@
    Base classes and structures for GLScene.<p>
 
    <b>History : </b><font size=-1><ul>
+      <li>20/11/14 - PW - Added FreeAndNull(FBuffers) in TGLScene.Destroy to prevent memory leaks (by Nelson Chu)
       <li>03/02/13 - Yar - Added master's scale transformation to TGLProxyObject (thanks to Dmitriy aka buh)
       <li>20/11/12 - PW - Added CPP compatibility: changed arrays of vectors to records with arrays
       <li>15/10/11 - YP - Don't set GLSelection buffer size, it's automatically done in the repeat until loop
@@ -43,7 +44,7 @@
                             changed PChar to Pointer where possible
       <li>12/10/08 - DanB - added nearClippingDistance to RCI
       <li>09/10/08 - DanB - removed TGLScene.RenderedObject, moved TGLProgressEvent
-                            to BaseClasses
+                            to GLBaseClasses
       <li>20/04/08 - DaStr - Added a AABB cauching mechanism to TGLBaseSceneObject
                              TGLDirectOpenGL's dimentions are now all all zeros
                              (all above changes were made by Pascal)
@@ -214,7 +215,7 @@
                            leaks related in TGLSceneViewer), dropped the TCanvas,
                            Added PixelRayToWorld (by Rene Lindsay)
       <li>06/07/01 - Egg - Fixed Turn/Roll/Pitch Angle Normalization issue
-      <li>04/07/01 - Egg - Minor VectorTypes related changes
+      <li>04/07/01 - Egg - Minor GLVectorTypes related changes
       <li>25/06/01 - Egg - Added osIgnoreDepthBuffer to TObjectStyles
       <li>20/03/01 - Egg - LoadFromFile & LoadFromStream fixes by Uwe Raabe
       <li>16/03/01 - Egg - SaveToFile/LoadFromFile additions/fixes by Uwe Raabe
@@ -349,19 +350,14 @@ interface
 {$I GLScene.inc}
 
 uses
-  // VCL
-{$IFDEF GLS_DELPHI_OR_CPPB}
+ {$IFDEF GLS_DELPHI_OR_CPPB}
   Windows,
-{$ENDIF}
-  Classes,
-  SysUtils,
-
+ {$ENDIF}
   {$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Graphics,
-  VCL.Controls,
+    System.Classes, System.SysUtils,
+    VCL.Graphics,  VCL.Controls,
   {$ELSE}
-  Graphics,
-  Controls,
+    Classes, SysUtils, Graphics,  Controls,
   {$ENDIF}
 
 {$IFDEF FPC}
@@ -369,25 +365,14 @@ uses
 {$ENDIF}
 
   // GLScene
-  OpenGLTokens,
-  GLContext,
-  VectorGeometry,
-  XCollection,
-  GLSilhouette,
-  PersistentClasses,
-  GLState,
-  GLGraphics,
-  GeometryBB,
-  GLCrossPlatform,
-  VectorLists,
-  GLTexture,
-  GLColor,
-  BaseClasses,
-  GLCoordinates,
-  GLRenderContextInfo,
-  GLMaterial,
-  GLTextureFormat,
-  GLSelection;
+  OpenGLTokens, GLContext, GLVectorGeometry, XCollection, GLSilhouette,
+  GLPersistentClasses, GLState, GLGraphics, GLGeometryBB, GLCrossPlatform,
+  GLVectorLists, GLTexture, GLColor, GLBaseClasses, GLCoordinates,
+  GLRenderContextInfo, GLMaterial, GLTextureFormat, GLSelection,
+  GLStrings, XOpenGL, GLVectorTypes, GLApplicationFileIO,
+  GLUtils,  GLSLog;
+
+
 
 type
 
@@ -405,8 +390,8 @@ type
 
 const
   cDefaultProxyOptions = [pooEffects, pooObjects, pooTransformation];
-  GLSCENE_REVISION = '$Revision: 6404$';
-  GLSCENE_VERSION = '1.2.1.%s';
+  GLSCENE_REVISION = '$Revision: 6530$';
+  GLSCENE_VERSION = '1.3.0.%s';
 
 type
 
@@ -2160,10 +2145,10 @@ type
     property BackgroundAlpha: Single read FBackgroundAlpha write
       SetBackgroundAlpha;
     {: Returns the projection matrix in use or used for the last rendering. }
-    function ProjectionMatrix: TMatrix; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
+    function ProjectionMatrix: TMatrix; deprecated;
     {: Returns the view matrix in use or used for the last rendering. }
-    function ViewMatrix: TMatrix; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
-    function ModelMatrix: TMatrix; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
+    function ViewMatrix: TMatrix; deprecated;
+    function ModelMatrix: TMatrix; deprecated;
 
     {: Returns the base projection matrix in use or used for the last rendering.<p>
        The "base" projection is (as of now) either identity or the pick
@@ -2174,12 +2159,12 @@ type
     {: Back up current View matrix and replace it with newMatrix.<p>
        This method has no effect on the OpenGL matrix, only on the Buffer's
        matrix, and is intended for special effects rendering. }
-    procedure PushViewMatrix(const newMatrix: TMatrix); {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
+    procedure PushViewMatrix(const newMatrix: TMatrix); deprecated;
     {: Restore a View matrix previously pushed. }
-    procedure PopViewMatrix; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
+    procedure PopViewMatrix; deprecated;
 
-    procedure PushProjectionMatrix(const newMatrix: TMatrix); {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
-    procedure PopProjectionMatrix; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
+    procedure PushProjectionMatrix(const newMatrix: TMatrix); deprecated;
+    procedure PopProjectionMatrix;  deprecated;
 
     {: Converts a screen pixel coordinate into 3D coordinates for orthogonal projection.<p>
        This function accepts standard canvas coordinates, with (0,0) being
@@ -2532,15 +2517,6 @@ implementation
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-
-uses
-  GLStrings,
-  XOpenGL,
-  VectorTypes,
-  ApplicationFileIO,
-  GLUtils
-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
-
 
 var
   vCounterFrequency: Int64;
@@ -7047,12 +7023,7 @@ procedure TGLProxyObject.Notification(AComponent: TComponent; Operation:
   TOperation);
 begin
   if (Operation = opRemove) and (AComponent = FMasterObject) then
-{$IFDEF GLS_COMPILER_4}
-    FMasterObject := nil;
-  StructureChanged;
-{$ELSE}
     MasterObject := nil;
-{$ENDIF}
   inherited;
 end;
 
@@ -7385,6 +7356,7 @@ begin
   FObjects.DestroyHandles;
   FLights.Free;
   FObjects.Free;
+  if Assigned(FBuffers) then FreeAndNil(FBuffers);
   inherited Destroy;
 end;
 
@@ -8145,8 +8117,8 @@ begin
     locOptions := locOptions + [rcoDoubleBuffered];
   if roStereo in ContextOptions then
     locOptions := locOptions + [rcoStereo];
-//  if roDebugContext in ContextOptions then       crash with ATI on Windows
-//    locOptions := locOptions + [rcoDebug];
+  if roDebugContext in ContextOptions then
+    locOptions := locOptions + [rcoDebug];
   if roOpenGL_ES2_Context in ContextOptions then
     locOptions := locOptions + [rcoOGL_ES];
   if roNoColorBuffer in ContextOptions then

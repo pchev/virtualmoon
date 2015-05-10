@@ -71,12 +71,15 @@ unit GLCgShader;
 interface
 
 uses
-  // VCL
-  Classes, SysUtils,
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
 
   // GLScene
-  VectorGeometry, VectorLists, VectorTypes, GLTexture, GLStrings,
-  GLCadencer, OpenGLTokens, GLCrossPlatform, GLContext, BaseClasses,
+  GLVectorGeometry, GLVectorLists, GLVectorTypes, GLTexture, GLStrings,
+  GLCadencer, OpenGLTokens, GLCrossPlatform, GLContext, GLBaseClasses,
   GLRenderContextInfo, GLMaterial, GLTextureFormat,
 
   // CG
@@ -899,7 +902,7 @@ end;
 
 procedure TCgParameter.CheckAllScalarTypes;
 begin
-  CheckValueType([CG_FLOAT, CG_HALF, CG_FIXED{$ifdef GLS_DELPHI_6_UP}, CG_BOOL{$endif}]);
+  CheckValueType([CG_FLOAT, CG_HALF, CG_FIXED, CG_BOOL]);
 end;
 
 procedure TCgParameter.CheckAllTextureTypes;

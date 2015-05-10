@@ -40,8 +40,8 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  GLVectorFileObjects, ApplicationFileIO, VectorGeometry, GLTexture,
-  VectorLists, GLMaterial,
+  GLVectorFileObjects, GLApplicationFileIO, GLVectorGeometry, GLTexture,
+  GLVectorLists, GLMaterial,
 
   // Misc
   FileX;

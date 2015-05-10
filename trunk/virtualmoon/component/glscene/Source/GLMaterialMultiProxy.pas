@@ -44,12 +44,16 @@ interface
 {$I GLScene.inc}
 
 uses
-  // VCL
-  Classes,
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
 
   // GLScene
-  GLScene, VectorGeometry, GLTexture, GLMaterial, GLSilhouette, GLStrings,
-  GLCrossPlatform, PersistentClasses, GLRenderContextInfo, BaseClasses;
+  GLScene, GLVectorGeometry, GLTexture, GLMaterial, GLSilhouette, GLStrings,
+  GLCrossPlatform, GLPersistentClasses, GLRenderContextInfo, GLBaseClasses,
+  GLContext , GLVectorTypes;
 
 type
 
@@ -193,8 +197,6 @@ implementation
 //-------------------------------------------------------------
 //-------------------------------------------------------------
 //-------------------------------------------------------------
-
-uses SysUtils, GLContext {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
 
 // ------------------
 // ------------------ TGLMaterialMultiProxyMaster ------------------

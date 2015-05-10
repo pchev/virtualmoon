@@ -28,9 +28,12 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,  GLVectorFileObjects, VerletClasses, VectorTypes, VectorLists,
-  VectorGeometry, GLTexture, OpenGLTokens, SysUtils, GLRenderContextInfo,
-  GLState;
+  Classes, SysUtils,
+  //GLS
+  GLVectorFileObjects, GLVerletTypes, GLVectorTypes, GLVectorLists,
+  GLVectorGeometry, GLTexture, OpenGLTokens, GLRenderContextInfo,
+  GLState, GLContext;
+
 
 type
   {: Class that represents a face. This structure is not used for rendering, but
@@ -175,9 +178,6 @@ type
   end;
 
 implementation
-
-uses
-  GLContext;
 
 { TFaceExtractor }
 

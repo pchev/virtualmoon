@@ -1,3 +1,6 @@
+//
+// This unit is part of the GLScene Project, http://glscene.org
+//
 {: FRFaceEditor<p>
 
    Editor fram for a TGLFaceProperties.<p>
@@ -13,7 +16,7 @@ interface
 {$i GLScene.inc}
 
 uses
-  LResources,
+  lresources,
   Forms, ComCtrls, FRTrackBarEditLCL,
   StdCtrls, FRColorEditorLCL, Controls,  Classes,
   GLTexture, GLMaterial;

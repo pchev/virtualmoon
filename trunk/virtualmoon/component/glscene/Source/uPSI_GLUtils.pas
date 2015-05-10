@@ -25,7 +25,7 @@ type
     procedure ExecImport1(CompExec: TPSScript; const ri: TPSRuntimeClassImporter); override;
   end;
  
- 
+
 { compile-time registration functions }
 procedure SIRegister_GLUtils(CL: TPSPascalCompiler);
 
@@ -41,7 +41,7 @@ implementation
 uses
    Graphics
   ,Controls
-  ,VectorGeometry
+  ,GLVectorGeometry
   ,GLCrossPlatform
   ,GLUtils
   ;

@@ -19,7 +19,7 @@ unit TypesMDC;
 interface
 
 uses
-  VectorTypes;
+  GLVectorTypes;
 
 const
   MDCFILE_IDENTITY = 'IDPC';

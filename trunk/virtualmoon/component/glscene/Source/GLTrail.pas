@@ -26,12 +26,15 @@ interface
 {$I GLScene.inc}
 
 uses
-  // VCL
-  Classes, SysUtils,
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
 
   // GLScene
-  GLScene, VectorTypes, MeshUtils, VectorGeometry, GLVectorFileObjects,
-  GLMesh, GLObjects, GLMaterial, GLStrings, BaseClasses;
+  GLScene, GLVectorTypes, GLMeshUtils, GLVectorGeometry, GLVectorFileObjects,
+  GLMesh, GLObjects, GLMaterial, GLStrings, GLBaseClasses;
 
 
 const cMaxVerts = 2000;

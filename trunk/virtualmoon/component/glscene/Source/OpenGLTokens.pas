@@ -21,7 +21,7 @@ interface
 {$I GLScene.inc}
 
 uses
-  VectorTypes,
+  GLVectorTypes,
   SysUtils,
 {$IFDEF MSWINDOWS}
   Windows
@@ -70,35 +70,43 @@ type
   PGLChar = PAnsiChar;
   TGLString = AnsiString;
 
-  GLenum = UINT;
-  TGLenum = UINT;
+  GLenum = Cardinal;
+ {$EXTERNALSYM GLenum}
+  TGLenum = Cardinal;
   PGLenum = ^TGLenum;
 
   GLboolean = BYTEBOOL;
+ {$EXTERNALSYM GLboolean}
   TGLboolean = BYTEBOOL;
   PGLboolean = ^TGLboolean;
 
   GLbitfield = UINT;
+ {$EXTERNALSYM GLbitfield}
   TGLbitfield = UINT;
   PGLbitfield = ^TGLbitfield;
 
   GLbyte = ShortInt;
+ {$EXTERNALSYM GLbyte}
   TGLbyte = ShortInt;
   PGLbyte = ^TGLbyte;
 
   GLshort = SmallInt;
+ {$EXTERNALSYM GLshort}
   TGLshort = SmallInt;
   PGLshort = ^TGLshort;
 
   GLint = Integer;
+ {$EXTERNALSYM GLint}
   TGLint = Integer;
   PGLint = ^Integer;
 
   GLsizei = Integer;
+ {$EXTERNALSYM GLsizei}
   TGLsizei = Integer;
   PGLsizei = ^TGLsizei;
 
   GLint64 = Int64;
+ {$EXTERNALSYM GLint64}
   TGLint64 = Int64;
   PGLint64 = ^TGLInt64;
 
@@ -106,7 +114,6 @@ type
   TGLint64EXT = Int64;
   PGLint64EXT = ^TGLint64EXT;
 
-{$IFNDEF GLS_DELPHI_7_DOWN}
   GLuint64 = UInt64;
   TGLuint64 = UInt64;
   PGLuint64 = ^TGLuint64;
@@ -114,40 +121,36 @@ type
   GLuint64EXT = UInt64;
   TGLuint64EXT = UInt64;
   PGLuint64EXT = ^TGLuint64EXT;
-{$ELSE}
-  // fake UInt64 by using Int64 for Delphi5 + 6
-  GLuint64 = Int64;
-  TGLuint64 = Int64;
-  PGLuint64 = ^TGLuint64;
-
-  GLuint64EXT = Int64;
-  TGLuint64EXT = Int64;
-  PGLuint64EXT = ^TGLuint64EXT;
-{$ENDIF}
 
   GLubyte = Byte;
+ {$EXTERNALSYM GLubyte}
   TGLubyte = Byte;
-  PGLubyte = {$IFDEF GLS_DELPHI_5}Windows.PByte{$ELSE}System.PByte{$ENDIF};
+  PGLubyte = System.PByte;
 
   GLushort = Word;
+ {$EXTERNALSYM GLushort}
   TGLushort = Word;
-  PGLushort = {$IFDEF GLS_DELPHI_5}Windows.PWord{$ELSE}System.PWord{$ENDIF};
+  PGLushort = System.PWord;
 
   GLuint = UINT;
+ {$EXTERNALSYM GLuint}
   TGLuint = UINT;
   PGLuint = ^TGLuint;
 
   GLfloat = Single;
+ {$EXTERNALSYM GLfloat}
   TGLfloat = Single;
-  PGLfloat = {$IFDEF GLS_DELPHI_5}Windows.PSingle{$ELSE}System.PSingle{$ENDIF};
+  PGLfloat = System.PSingle;
 
   GLclampf = Single;
+ {$EXTERNALSYM GLclampf}
   TGLclampf = Single;
   PGLclampf = ^TGLclampf;
 
   GLdouble = Double;
+ {$EXTERNALSYM GLdouble}
   TGLdouble = Double;
-  PGLdouble = {$IFDEF GLS_DELPHI_5}Windows.PDouble{$ELSE}System.PDouble{$ENDIF};
+  PGLdouble = System.PDouble;
 
   GLclampd = Double;
   TGLclampd = Double;

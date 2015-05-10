@@ -19,7 +19,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, ApplicationFileIO, GLSoundFileObjects{$IFDEF MSWINDOWS} ,MMSystem{$ENDIF};
+uses
+  Classes, GLApplicationFileIO, GLSoundFileObjects{$IFDEF MSWINDOWS} ,MMSystem{$ENDIF};
 
 type
 

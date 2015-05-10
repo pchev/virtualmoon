@@ -45,9 +45,10 @@ uses
   Windows,
 {$ENDIF}
 {$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Dialogs, VCL.Controls,
+  VCL.Dialogs, VCL.Controls, System.UITypes,
 {$ELSE}
-  Dialogs, Controls,
+  Dialogs,
+  Controls,
 {$ENDIF}
  StrUtils, Classes, SysUtils, GLCrossPlatform, SyncObjs
 {$IFDEF MSWINDOWS} , ShellApi {$ENDIF}
@@ -159,9 +160,9 @@ type
     FDisplayLogOnExitIfItContains: TLogLevels;
     FWriteInternalMessages: Boolean;
     FDisplayErrorDialogs: Boolean;
-//{$IFNDEF GLS_LOGGING}
+{$IFNDEF GLS_LOGGING}
     constructor OnlyCreate;
-//{$ENDIF}
+{$ENDIF}
     procedure SetBuffered(const Value: Boolean);
     procedure SetMode(const NewMode: TLogLevels);
     procedure ChangeBufferedState();
@@ -319,13 +320,13 @@ function GLSLogger(): TLogSession;
 begin
   if v_GLSLogger = nil then
   begin
-//  {$IFDEF GLS_LOGGING}
-//    v_GLSLogger := TLogSession.Init(Copy(ExtractFileName(ParamStr(0)), 1,
-//    Length(ExtractFileName(ParamStr(0))) - Length(ExtractFileExt(ParamStr(0)))) +
-//    '.log', lfElapsed, llMax);
-//  {$ELSE}
+  {$IFDEF GLS_LOGGING}
+    v_GLSLogger := TLogSession.Init(Copy(ExtractFileName(ParamStr(0)), 1,
+    Length(ExtractFileName(ParamStr(0))) - Length(ExtractFileExt(ParamStr(0)))) +
+    '.log', lfElapsed, llMax);
+  {$ELSE}
     v_GLSLogger := TLogSession.OnlyCreate;
-//  {$ENDIF}
+  {$ENDIF}
   end;
 
   Result := v_GLSLogger;
@@ -608,8 +609,8 @@ var
       begin
         {$IFDEF FPC}
         if MessageDlg(Format(lErrorMessage, [lLogOriginalDir + sRec.Name,
-          GetLastOSError]), mtWarning, mbYesNo, -1) = mrNo 
-          then Break;
+           GetLastOSError]), mtWarning, mbYesNo, -1) = mrNo
+           then Break;
         {$ELSE}
         if MessageDlg(Format(lErrorMessage, [lLogOriginalDir + sRec.Name,
           GetLastError]), mtWarning, [mbNo], 0) = mrNo
@@ -691,10 +692,10 @@ end;
 
 procedure TLogSession.SetMode(const NewMode: TLogLevels);
 begin
-//{$IFNDEF GLS_LOGGING}
+{$IFNDEF GLS_LOGGING}
   if Self = v_GLSLogger then
     Exit;
-//{$ENDIF}
+{$ENDIF}
   FLogLevels := NewMode;
   PrintLogLevels();
 end;
@@ -847,14 +848,14 @@ begin
     ChangeBufferedState();
 end;
 
-//{$IFNDEF GLS_LOGGING}
+{$IFNDEF GLS_LOGGING}
 
 constructor TLogSession.OnlyCreate;
 begin
   inherited;
 end;
 
-//{$ENDIF}
+{$ENDIF}
 
 procedure TLogSession.PrintLogLevels;
 var
@@ -1018,10 +1019,10 @@ var
   I: TLogLevel;
 begin
   FDestroying := True;
-//{$IFNDEF GLS_LOGGING}
+{$IFNDEF GLS_LOGGING}
   if Self = v_GLSLogger then
     Exit;
-//{$ENDIF}
+{$ENDIF}
 
   if FWriteInternalMessages then
   begin
@@ -1103,10 +1104,10 @@ procedure TLogSession.LogEmtryLine;
 begin
  if not FEnabled then Exit;
 
-//{$IFNDEF GLS_LOGGING}
+{$IFNDEF GLS_LOGGING}
   if Self = v_GLSLogger then
     Exit;
-//{$ENDIF}
+{$ENDIF}
 
   if FBuffered then
   begin
@@ -1185,10 +1186,10 @@ procedure TLogSession.AppendLog(const AString: string; const ALevel: TLogLevel;
 var
   line: string;
 begin
-//{$IFNDEF GLS_LOGGING}
+{$IFNDEF GLS_LOGGING}
   if Self = v_GLSLogger then
     Exit;
-//{$ENDIF}
+{$ENDIF}
 
   if not(ALevel in LogLevels) or not FEnabled then
     Exit;

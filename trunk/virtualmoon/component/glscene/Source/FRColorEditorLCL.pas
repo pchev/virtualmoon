@@ -1,3 +1,6 @@
+//
+// This unit is part of the GLScene Project, http://glscene.org
+//
 {: FRColorEditor<p>
 
    RGB+Alpha color editor.<p>
@@ -13,8 +16,9 @@ interface
 {$i GLScene.inc}
 
 uses
-  Forms, StdCtrls, ComCtrls, ExtCtrls, FRTrackBarEditLCL, Dialogs, Controls,
-  Classes, VectorGeometry, Graphics, SysUtils, GLColor,lresources;
+  lresources, 
+  Forms, StdCtrls, ExtCtrls, FRTrackBarEditLCL, Dialogs, Controls,
+  Classes, GLVectorGeometry, Graphics, SysUtils, GLColor;
 
 type
 

@@ -114,21 +114,12 @@
 unit cgGL;
 
 {$Include GLScene.inc}
-{$ifdef GLS_DELPHI_6}
-  {$DEFINE COMPILER6_UP}
-{$endif}
-
-
-{$ifdef GLS_CPPB_6}
-  {$UNDEF COMPILER6_UP}
-{$endif}
 
 interface
 
 uses
   OpenGLTokens, cg
-  {$IFNDEF COMPILER6_UP}{$IFDEF MSWINDOWS} ,Windows{$ENDIF}{$ENDIF}
-  ;
+  {$IFDEF MSWINDOWS} ,Windows{$ENDIF};
 
 const
   {$IFDEF MSWINDOWS}

@@ -23,7 +23,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, VectorGeometry, VectorLists, GLVectorFileObjects, GLSilhouette;
+uses
+  Classes, GLVectorGeometry, GLVectorLists, GLVectorFileObjects, GLSilhouette;
 
 type
   // TFaceGroupConnectivity

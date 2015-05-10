@@ -109,7 +109,7 @@ interface
 {.$define MULTITHREADOPENGL}
 
 uses
-  OpenGLTokens, VectorTypes, SysUtils,
+  SysUtils, OpenGLTokens, GLVectorTypes,
   {$IFDEF MSWINDOWS}
     Windows
   {$ENDIF }
@@ -142,6 +142,9 @@ var
    GL_VERSION_3_3,
    GL_VERSION_4_0,
    GL_VERSION_4_1,
+   GL_VERSION_4_2,
+   GL_VERSION_4_3,
+   GL_VERSION_4_4,
    GLU_VERSION_1_1,
    GLU_VERSION_1_2,
    GLU_VERSION_1_3: Boolean;

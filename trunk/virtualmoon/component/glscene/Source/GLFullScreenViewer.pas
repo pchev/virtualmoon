@@ -238,32 +238,32 @@ implementation
 
 uses OpenGLTokens, OpenGLAdapter, SysUtils, GLCrossPlatform, GLScreen
 {$IFDEF FPC}
-{$IFDEF Linux}
-{$IFDEF LCLGTK2}
+ {$IFDEF Linux}
+   {$IFDEF LCLGTK2}
     , gtk2proc
-{$ENDIF}
-{$IFDEF LCLGTK}
+   {$ENDIF}
+   {$IFDEF LCLGTK}
     , gtkproc
-{$ENDIF}
-{$ENDIF}
-{$IF DEFINED(LCLWIN32) or DEFINED(LCLWIN64)}
-{$IFNDEF CONTEXT_INCLUDED}
+   {$ENDIF}
+ {$ENDIF} //Linux
+ {$IF DEFINED(LCLWIN32) or DEFINED(LCLWIN64)}
+   {$IFNDEF CONTEXT_INCLUDED}
     , GLWidgetContext
-{$DEFINE CONTEXT_INCLUDED}
-{$ENDIF}
-{$IFEND}
-{$IF DEFINED(LCLGTK) or DEFINED(LCLGTK2)}
-{$IFNDEF CONTEXT_INCLUDED}
+     {$DEFINE CONTEXT_INCLUDED}
+   {$ENDIF}
+ {$IFEND}
+ {$IF DEFINED(LCLGTK) or DEFINED(LCLGTK2)}
+   {$IFNDEF CONTEXT_INCLUDED}
     , GLWidgetContext
-{$DEFINE CONTEXT_INCLUDED}
-{$ENDIF}
-{$IFEND}
-{$IFDEF LCLCARBON}
+     {$DEFINE CONTEXT_INCLUDED}
+   {$ENDIF}
+ {$IFEND}
+ {$IFDEF LCLCARBON}
     , GLCarbonContext
-{$ENDIF}
-{$IFDEF LCLQT}
-{$ERROR unimplemented QT context}
-{$ENDIF}
+ {$ENDIF}
+ {$IFDEF LCLQT}
+   {$ERROR unimplemented QT context}
+ {$ENDIF}
 {$ELSE}
     , GLWin32Context
 {$ENDIF}

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -38,11 +38,7 @@
             <Verbosity>
               <ShowHints Value="False"/>
             </Verbosity>
-            <CompilerMessages>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
             <CustomOptions Value="-dUseCThreads"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -72,15 +68,13 @@
             <Verbosity>
               <ShowHints Value="False"/>
             </Verbosity>
-            <CompilerMessages>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
             <CustomOptions Value="-dUseCThreads"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
-          <LCLWidgetType Value="win32"/>
         </CompilerOptions>
       </Item3>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="844868194224" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -91,7 +85,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <LaunchingApplication PathPlusParams="\usr\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
         <WorkingDirectory Value="\usr\local\bin"/>
       </local>
     </RunParams>
@@ -131,7 +124,6 @@
       <Unit0>
         <Filename Value="atlun.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="atlun"/>
       </Unit0>
       <Unit1>
         <Filename Value="virtualmoon1.pas"/>
@@ -147,7 +139,6 @@
         <ComponentName Value="f_craterlist"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="craterlist"/>
       </Unit2>
       <Unit3>
         <Filename Value="config.pas"/>
@@ -155,7 +146,6 @@
         <ComponentName Value="Form2"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="config"/>
       </Unit3>
       <Unit4>
         <Filename Value="BigIma.pas"/>
@@ -163,22 +153,18 @@
         <ComponentName Value="BigImaForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="BigIma"/>
       </Unit4>
       <Unit5>
         <Filename Value="cu_planet.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="cu_planet"/>
       </Unit5>
       <Unit6>
         <Filename Value="cu_tz.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="cu_tz"/>
       </Unit6>
       <Unit7>
         <Filename Value="dbutil.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="dbutil"/>
       </Unit7>
       <Unit8>
         <Filename Value="fmsg.pas"/>
@@ -186,7 +172,6 @@
         <ComponentName Value="MsgForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fmsg"/>
       </Unit8>
       <Unit9>
         <Filename Value="glossary.pas"/>
@@ -194,12 +179,10 @@
         <ComponentName Value="Gloss"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="glossary"/>
       </Unit9>
       <Unit10>
         <Filename Value="mlb2.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="mlb2"/>
       </Unit10>
       <Unit11>
         <Filename Value="pu_features.pas"/>
@@ -207,7 +190,6 @@
         <ComponentName Value="f_features"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="pu_features"/>
       </Unit11>
       <Unit12>
         <Filename Value="pu_moon.pas"/>
@@ -223,49 +205,40 @@
         <ComponentName Value="splash"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="splashunit"/>
       </Unit13>
       <Unit14>
         <Filename Value="telescope.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="telescope"/>
       </Unit14>
       <Unit15>
         <Filename Value="u_constant.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="u_constant"/>
       </Unit15>
       <Unit16>
         <Filename Value="uDE.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uDE"/>
       </Unit16>
       <Unit17>
         <Filename Value="u_projection.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="u_projection"/>
       </Unit17>
       <Unit18>
         <Filename Value="u_translation.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="u_translation"/>
       </Unit18>
       <Unit19>
         <Filename Value="u_translation_database.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="u_translation_database"/>
       </Unit19>
       <Unit20>
         <Filename Value="u_util.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="u_util"/>
       </Unit20>
       <Unit21>
         <Filename Value="pu_ephem.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_ephem"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="pu_ephem"/>
       </Unit21>
     </Units>
   </ProjectOptions>
@@ -293,11 +266,7 @@
       <Verbosity>
         <ShowHints Value="False"/>
       </Verbosity>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
       <CustomOptions Value="-dUseCThreads"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
 </CONFIG>

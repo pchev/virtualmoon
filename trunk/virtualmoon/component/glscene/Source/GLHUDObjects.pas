@@ -44,7 +44,7 @@ interface
 uses
   Classes,
   GLScene,
-  VectorGeometry,
+  GLVectorGeometry,
   GLObjects,
   GLBitmapFont,
   GLCrossPlatform,

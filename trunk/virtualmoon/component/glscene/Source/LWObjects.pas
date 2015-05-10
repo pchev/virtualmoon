@@ -38,7 +38,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, VectorGeometry;
+uses
+  Classes, GLVectorGeometry;
 
 type
 
@@ -630,7 +631,8 @@ type
 
 implementation
 
-uses SysUtils, ApplicationFileIO;
+uses
+  SysUtils, GLApplicationFileIO;
 
 type
   PWord = ^Word;

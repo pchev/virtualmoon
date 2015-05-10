@@ -32,10 +32,12 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, SysUtils, GLSDL;
+uses
+  Classes, SysUtils, SyncObjs,
+  // GLS
+  GLSDL;
 
 type
-
   // TSDLWindowPixelDepth
   //
   { : Pixel Depth options.<p>
@@ -69,7 +71,6 @@ const
     voResizable];
 
 type
-
   // TSDLWindow
   //
   { : A basic SDL-based window (non-visual component).<p>
@@ -213,7 +214,8 @@ implementation
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
 
-uses OpenGLAdapter, GLContext, SyncObjs, VectorGeometry;
+uses
+  OpenGLAdapter, GLContext, GLVectorGeometry;
 
 var
   vSDLCS: TCriticalSection;
@@ -410,7 +412,8 @@ end;
 //
 procedure TSDLWindow.CreateOrRecreateSDLSurface;
 const
-  cPixelDepthToBpp: array [Low(TSDLWindowPixelDepth)..High(TSDLWindowPixelDepth)] of Integer = (16, 24);
+  cPixelDepthToBpp: array [Low(TSDLWindowPixelDepth)
+    .. High(TSDLWindowPixelDepth)] of Integer = (16, 24);
 var
   videoFlags: Integer;
 begin
@@ -442,22 +445,18 @@ begin
     SDL_putenv('SDL_VIDEODRIVER=windib');
     envVal := 'SDL_WINDOWID=' + IntToStr(Integer(FWindowHandle));
 {$ELSE} // Not Windows.
-   {$IFDEF UNIX}
-      {$IFDEF KYLIX}
-         EnvVal := 'SDL_WINDOWID=' + IntToStr(QWidget_WinId(FWindowHandle));
-      {$ELSE} // Unix, but not Kylix.
-        {$IFDEF FPC}
-           SDL_putenv('SDL_VIDEODRIVER=windib');
-           EnvVal := 'SDL_WINDOWID=' + IntToStr(Integer(FWindowHandle));
-        {$ELSE}
-         .. .Unsupported UNIX target.implement your target code here ! .. .
-        {$ENDIF}  //FPC
-      {$ENDIF} //KYLIX
-   {$ELSE}
+{$IFDEF UNIX}
+{$IFDEF FPC}
+    SDL_putenv('SDL_VIDEODRIVER=windib');
+    envVal := 'SDL_WINDOWID=' + IntToStr(Integer(FWindowHandle));
+{$ELSE}
+    .. .Unsupported UNIX target.implement your target code here ! .. .
+{$ENDIF}  // FPC
+{$ELSE}
       .. .Unsupported target.implement your target code here ! .. .
-   {$ENDIF} //UNIX
-{$ENDIF} //MSWINDOWS
-    SDL_putenv(PAnsiChar(AnsiString(envVal)));
+{$ENDIF} // UNIX
+{$ENDIF} // MSWINDOWS
+      SDL_putenv(PAnsiChar(AnsiString(envVal)));
   end;
 end;
 

@@ -11,7 +11,7 @@ unit TypesB3D;
 interface
 
 uses
-  VectorTypes, VectorGeometry;
+  GLVectorTypes, GLVectorGeometry;
 
 type
   TB3DChunkType = (bctUnknown, bctHeader, bctTexture, bctBrush, bctNode, bctVertex, bctTriangle,

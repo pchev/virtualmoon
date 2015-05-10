@@ -16,7 +16,8 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, ApplicationFileIO, GLSoundFileObjects;
+uses
+  Classes, GLApplicationFileIO, GLSoundFileObjects;
 
 type
 

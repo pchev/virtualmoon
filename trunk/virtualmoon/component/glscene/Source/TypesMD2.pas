@@ -8,7 +8,7 @@ unit TypesMD2;
 interface
 
 uses
-  VectorTypes;
+  GLVectorTypes;
 
 const
   MAX_MD2_TRIANGLES = 4096;

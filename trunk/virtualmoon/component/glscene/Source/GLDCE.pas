@@ -26,7 +26,7 @@
     <li>30/03/07 - DaStr - Added $I GLScene.inc
     <li>29/01/07 - DaStr - Moved registration to GLSceneRegister.pas
     <li>01/07/05 - MathX - Fixed memory leak on contactPoints (moveByDistance method)
-    <li>23/01/05 - LucasG - Code reorganized, many fixes and some new features 
+    <li>23/01/05 - LucasG - Code reorganized, many fixes and some new features
     <li>19/11/04 - GAK - Added standardised collision selection (optionally use same selection criteria as other collision system)
     <li>17/11/04 - LucasG - Added support for static box colliders
     <li>17/11/04 - LucasG - Added UseGravity property to behaviour
@@ -49,14 +49,22 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLScene, XCollection, VectorGeometry, VectorLists, GLVectorFileObjects,
-   GLCrossPlatform, GLDCEMisc, GLEllipseCollision,
-   GLTerrainRenderer, GLCoordinates, BaseClasses, GLManager;
+uses
+  {$IFDEF GLS_DELPHI_XE2_UP}
+    System.Classes, System.SysUtils,
+  {$ELSE}
+    Classes, SysUtils,
+  {$ENDIF}
+
+  GLScene, XCollection, GLVectorGeometry, GLVectorLists, GLVectorFileObjects,
+  GLCrossPlatform, GLDCEMisc, GLEllipseCollision,
+  GLTerrainRenderer, GLCoordinates, GLBaseClasses, GLManager
+  , GLVectorTypes;
 
 type
   {Only csEllipsoid can have dynamic behaviour}
   TDCEShape = (csEllipsoid, csBox, csFreeform, csTerrain);
-  
+
   {: Indicates which type of layer comparison is made when trying to detect
      collisions between 2 bodies (A and B). Possible values are: <ul>
 	 <li>ccsDCEStandard: Collides bodies if A.layer <= B.layer
@@ -257,9 +265,6 @@ function GetOrCreateDCEDynamic(behaviours : TGLBehaviours) : TGLDCEDynamic; over
 function GetOrCreateDCEDynamic(obj : TGLBaseSceneObject) : TGLDCEDynamic; overload;
 
 implementation
-
-uses SysUtils {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
-
 
 function RotateVectorByObject(Obj: TGLBaseSceneObject; v: TAffineVector): TAffineVector;
 var v2: TVector;

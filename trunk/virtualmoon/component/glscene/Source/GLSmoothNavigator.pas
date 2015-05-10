@@ -56,7 +56,7 @@ uses
   Classes,
 
   // GLScene
-  GLNavigator, VectorGeometry, GLScene, GLCrossPlatform, GLCoordinates,
+  GLNavigator, GLVectorGeometry, GLScene, GLCrossPlatform, GLCoordinates,
   GLScreen, XCollection;
 
 type
@@ -791,9 +791,9 @@ begin
 
     if (Abs(FinalPitch) > FCutOff) or (Abs(FinalTurn) > FCutOff) then
     begin
-      MovingObject.AbsolutePosition := VectorGeometry.MoveObjectAround(
+      MovingObject.AbsolutePosition := GLVectorGeometry.MoveObjectAround(
         MovingObject.AbsolutePosition, lUp, AObject.AbsolutePosition, FinalPitch, FinalTurn);
-      Result := True;  
+      Result := True;
     end;
   end;
 end;
@@ -1116,13 +1116,13 @@ begin
 
   if Value > 1 then
   begin
-    FMovementInertia := FMovementInertia * VectorGeometry.Power(2, 1 / Value);
-    FTurnInertia := FTurnInertia * VectorGeometry.Power(2, 1 / Value);
+    FMovementInertia := FMovementInertia * GLVectorGeometry.Power(2, 1 / Value);
+    FTurnInertia := FTurnInertia * GLVectorGeometry.Power(2, 1 / Value);
   end
   else
   begin
-    FMovementInertia := FMovementInertia / VectorGeometry.Power(2, Value);
-    FTurnInertia := FTurnInertia / VectorGeometry.Power(2, Value);
+    FMovementInertia := FMovementInertia / GLVectorGeometry.Power(2, Value);
+    FTurnInertia := FTurnInertia / GLVectorGeometry.Power(2, Value);
   end;
   FTurnMaxAngle := FTurnMaxAngle / Value;
   FTurnSpeed := FTurnSpeed * Value;
@@ -1238,9 +1238,9 @@ begin
   Assert(Value > 0);
 
   if Value < 1 then
-    FInertia := FInertia / VectorGeometry.Power(2, Value)
+    FInertia := FInertia / GLVectorGeometry.Power(2, Value)
   else
-    FInertia := FInertia * VectorGeometry.Power(2, 1 / Value);
+    FInertia := FInertia * GLVectorGeometry.Power(2, 1 / Value);
 
   FMaxAngle := FMaxAngle / Value;
   FPitchSpeed := FPitchSpeed * Value;
@@ -1358,9 +1358,9 @@ begin
   Assert(Value > 0);
 
   if Value < 1 then
-    FInertia := FInertia / VectorGeometry.Power(2, Value)
+    FInertia := FInertia / GLVectorGeometry.Power(2, Value)
   else
-    FInertia := FInertia * VectorGeometry.Power(2, 1 / Value);
+    FInertia := FInertia * GLVectorGeometry.Power(2, 1 / Value);
 end;
 
 function TGLNavigatorAbstractParameters.StoreCutoff: Boolean;
@@ -1459,9 +1459,9 @@ begin
   Assert(Value > 0);
 
   if Value < 1 then
-    FInertia := FInertia / VectorGeometry.Power(2, Value)
+    FInertia := FInertia / GLVectorGeometry.Power(2, Value)
   else
-    FInertia := FInertia * VectorGeometry.Power(2, 1 / Value);
+    FInertia := FInertia * GLVectorGeometry.Power(2, 1 / Value);
 end;
 
 function TGLNavigatorSmoothChangeItem.StoreCutoff: Boolean;

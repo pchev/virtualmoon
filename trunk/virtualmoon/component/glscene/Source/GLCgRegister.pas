@@ -20,16 +20,13 @@ interface
 uses
   // VCL
   Classes,
-  {$IFNDEF FPC}
-    {$IFDEF GLS_DELPHI_6_UP}
-      DesignIntf, DesignEditors, VCLEditors,
-    {$ELSE}
-      DsgnIntf,
-    {$ENDIF}
-    GLSceneRegister,
-  {$ELSE FPC}
+  {$IFDEF FPC}
     propedits, GLSceneRegisterLCL,
-  {$ENDIF FPC}
+  {$ELSE}
+    DesignIntf, DesignEditors, VCLEditors,
+    GLSceneRegister,
+  {$ENDIF}
+
   // GLScene
   GLMaterial,
 

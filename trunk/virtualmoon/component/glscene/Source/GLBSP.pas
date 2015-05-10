@@ -28,8 +28,9 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLVectorFileObjects, GLMaterial, GLCrossPlatform, VectorGeometry,
-  VectorLists, GLColor, GLRenderContextInfo;
+uses
+  Classes, GLVectorFileObjects, GLMaterial, GLCrossPlatform, GLVectorGeometry,
+  GLVectorLists, GLColor, GLRenderContextInfo;
 
 type
 
@@ -213,7 +214,7 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses SysUtils, VectorTypes;
+uses SysUtils, GLVectorTypes;
 
 const
   cOwnTriangleEpsilon = 1E-5;

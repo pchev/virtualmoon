@@ -25,7 +25,7 @@ uses
 {$ENDIF}Classes,
   SysUtils,
   GLCrossPlatform,
-  VectorGeometry,
+  GLVectorGeometry,
   GLGraphics,
   OpenGLTokens;
 

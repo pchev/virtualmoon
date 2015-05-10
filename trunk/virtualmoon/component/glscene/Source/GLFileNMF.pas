@@ -16,7 +16,8 @@ unit GLFileNMF;
 interface
 
 uses
-  Classes, GLVectorFileObjects, VectorGeometry, VectorLists, ApplicationFileIO,
+  Classes,
+  GLVectorFileObjects, GLVectorGeometry, GLVectorLists, GLApplicationFileIO,
   FileNMF;
 
 type

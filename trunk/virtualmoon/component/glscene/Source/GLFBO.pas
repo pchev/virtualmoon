@@ -36,7 +36,12 @@ uses
   GLTexture,
   GLColor,
   GLRenderContextInfo,
-  GLMultisampleImage;
+  GLMultisampleImage,
+  GLGraphics,
+  GLTextureFormat,
+  GLVectorTypes,
+  GLSLog;
+
 
 const
   MaxColorAttachments = 32;
@@ -167,12 +172,6 @@ type
   end;
 
 implementation
-
-uses
-  GLGraphics,
-  GLTextureFormat
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF}
-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
 
 { TGLRenderbuffer }
 

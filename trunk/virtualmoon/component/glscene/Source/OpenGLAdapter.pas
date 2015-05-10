@@ -46,11 +46,10 @@ uses
 {$ENDIF}
 
 {$IFDEF FPC} Math, {$ENDIF}
-{$IFDEF GLS_LOGGING} GLSLog, {$ENDIF}
-
+  GLSLog,
   OpenGLTokens,
-  VectorGeometry,
-  VectorTypes,
+  GLVectorGeometry,
+  GLVectorTypes,
   SysUtils;
 
 type
@@ -3549,8 +3548,10 @@ procedure DebugCallBack(Source: GLenum; type_: GLenum; id: GLuint;
 {$ENDIF}{$IFDEF UNIX} cdecl;
 {$ENDIF}
 begin
-  if length > 0 then
-    GLSLogger.LogDebug(string(message));
+  {$IFDEF GLS_LOGGING}
+   if length > 0 then
+      GLSLogger.LogDebug(string(message));
+  {$ENDIF}
 end;
 
 procedure DebugCallBackAMD(id: GLuint; category: GLenum; severity: GLenum;
@@ -3573,7 +3574,9 @@ procedure glCap;
 {$ENDIF}{$IFDEF UNIX} cdecl;
 {$ENDIF}
 begin
+ {$IFDEF GLS_LOGGING}
   GLSLogger.LogError('Call OpenGL function with undefined entry point');
+  {$ENDIF}
   Abort;
 end;
 

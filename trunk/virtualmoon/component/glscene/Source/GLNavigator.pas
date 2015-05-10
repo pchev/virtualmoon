@@ -41,8 +41,8 @@ uses
   SysUtils, Classes,
 
   // GLScene
-  VectorGeometry, GLScene, GLCrossPlatform, GLCoordinates, GLScreen
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
+  GLVectorGeometry, GLScene, GLCrossPlatform, GLCoordinates, GLScreen
+  , GLVectorTypes;
 
 type
 

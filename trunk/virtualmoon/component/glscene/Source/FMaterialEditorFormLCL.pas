@@ -14,15 +14,14 @@ interface
 {$i GLScene.inc}
 
 uses
-
+  lresources, 
   FRTrackBarEditLCL, Forms,
   FRColorEditorLCL, ComCtrls, FRFaceEditorLCL, StdCtrls, Controls,
   Graphics,
   Classes, Buttons, TypInfo, FRTextureEditLCL,
   GLScene, GLObjects, GLTexture, GLHUDObjects, GLTeapot,
   GLGeomObjects, GLColor, GLLCLViewer, GLCoordinates,
-  GLCrossPlatform, GLMaterial, GLState,
-  LResources;
+  GLCrossPlatform, GLMaterial, GLState;
 
 type
 

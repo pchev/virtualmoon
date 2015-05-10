@@ -12,6 +12,7 @@
   </ul>
 
   <b>History : </b><font size=-1><ul>
+    <li>19/06/14 - PW - Changed some types from Single to TdReal to permit ODE be double based in ODEImport.pas
     <li>10/11/12 - PW - Added CPP compatibility: restored records with arrays instead of vector arrays
     <li>23/08/10 - Yar - Added OpenGLTokens to uses, replaced OpenGL1x functions to OpenGLAdapter
     <li>22/04/10 - Yar - Fixes after GLState revision
@@ -52,16 +53,21 @@ interface
 {$I GLScene.inc}
 
 uses
-  // VCL
+  {$IFDEF GLS_DELPHI_XE2_UP}
+  System.Classes,
+  System.SysUtils,
+
+ {$ELSE}
   Classes,
   SysUtils,
+ {$ENDIF}
 
   // GLscene
   GLODEManager,
   ODEGL,
   ODEImport,
-  VectorGeometry,
-  VectorLists,
+  GLVectorGeometry,
+  GLVectorLists,
   GLScene,
   GLTerrainRenderer,
   GLGraph,
@@ -390,7 +396,7 @@ var
   pos: PdVector3;
   R: PdMatrix3;
   mat, rmat: TMatrix;
-  rad, len, dx, dy, dz: Single;
+  rad, len, dx, dy, dz: TdReal;
 begin
   Result := 0;
 
@@ -448,7 +454,7 @@ var
   pos: PdVector3;
   R: PdMatrix3;
   mat: TMatrix;
-  rad, len, dx, dy: Single;
+  rad, len, dx, dy: TdReal;
 begin
   Result := 0;
 

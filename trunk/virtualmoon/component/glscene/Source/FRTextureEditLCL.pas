@@ -1,3 +1,6 @@
+//
+// This unit is part of the GLScene Project, http://glscene.org
+//
 // FRTextureEdit
 {: Egg<p>
 
@@ -16,8 +19,9 @@ interface
 {$i GLScene.inc}
 
 uses
+  lresources, 
   Forms, StdCtrls, Buttons, Controls, Classes, TypInfo,
-  GLTexture, GLGraphics, lresources;
+  GLTexture, GLGraphics;
 
 type
 

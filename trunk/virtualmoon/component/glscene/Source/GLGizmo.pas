@@ -71,10 +71,10 @@ uses
   Classes, SysUtils,
 
   // GLScene
-  GLScene, GLColor, GLObjects, VectorGeometry, GLMaterial, GLStrings,
+  GLScene, GLColor, GLObjects, GLVectorGeometry, GLMaterial, GLStrings,
   GLGeomObjects, GLBitmapFont, GLViewer, GLVectorFileObjects, GLCrossPlatform,
   GLCoordinates, GLRenderContextInfo, GLState, GLSelection
-{$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
+, GLVectorTypes;
 
 type
   TGLGizmoUndoCollection = class;
@@ -136,7 +136,7 @@ type
   TGLGizmoAxis = (gaNone, gaX, gaY, gaZ, gaXY, gaXZ, gaYZ);
 
   TGLGizmoOperation = (gopMove, gopRotate, gopScale, gopNone, gpMoveGizmo,
-    GpRotateGizmo);
+    gpRotateGizmo);
 
   TGLGizmoAcceptEvent = procedure(Sender: TObject; var Obj: TGLBaseSceneObject;
     var Accept: Boolean; var Dimensions: TVector) of object;
@@ -454,7 +454,7 @@ begin
   _GZOlinex := TGLLines(_GZORootLines.AddnewChild(TGLLines));
   with _GZOlinex do
   begin
-    LineColor.Color := ClrRed;
+    LineColor.Color := clrRed;
     LineWidth := 3;
     NodesAspect := LnaInvisible;
     AddNode(0, 0, 0);
@@ -475,7 +475,7 @@ begin
   _GZOliney := TGLLines(_GZORootLines.AddnewChild(TGLLines));
   with _GZOliney do
   begin
-    LineColor.Color := ClrLime;
+    LineColor.Color := clrLime;
     LineWidth := 3;
     NodesAspect := LnaInvisible;
     AddNode(0, 0, 0);
@@ -496,7 +496,7 @@ begin
   _GZOlinez := TGLLines(_GZORootLines.AddnewChild(TGLLines));
   with _GZOlinez do
   begin
-    LineColor.Color := ClrBlue;
+    LineColor.Color := clrBlue;
     LineWidth := 3;
     NodesAspect := LnaInvisible;
     AddNode(0, 0, 0);
@@ -522,13 +522,13 @@ begin
     NodesAspect := LnaInvisible;
     SplineMode := LsmSegments;
     AddNode(0.8, 1, 0);
-    TGLLinesNode(Nodes[0]).Color.Color := ClrRed;
+    TGLLinesNode(Nodes[0]).Color.Color := clrRed;
     AddNode(1, 1, 0);
-    TGLLinesNode(Nodes[1]).Color.Color := ClrRed;
+    TGLLinesNode(Nodes[1]).Color.Color := clrRed;
     AddNode(1, 1, 0);
-    TGLLinesNode(Nodes[2]).Color.Color := ClrLime;
+    TGLLinesNode(Nodes[2]).Color.Color := clrLime;
     AddNode(1, 0.8, 0);
-    TGLLinesNode(Nodes[3]).Color.Color := ClrLime;
+    TGLLinesNode(Nodes[3]).Color.Color := clrLime;
     // Raycast pickable object
     Cub := TGLGizmoPickCube(AddNewChild(TGLGizmoPickCube));
     Cub.Up.SetVector(1, 0, 0);
@@ -547,13 +547,13 @@ begin
     NodesAspect := LnaInvisible;
     SplineMode := LsmSegments;
     AddNode(1, 0, 0.8);
-    TGLLinesNode(Nodes[0]).Color.Color := ClrBlue;
+    TGLLinesNode(Nodes[0]).Color.Color := clrBlue;
     AddNode(1, 0, 1);
-    TGLLinesNode(Nodes[1]).Color.Color := ClrBlue;
+    TGLLinesNode(Nodes[1]).Color.Color := clrBlue;
     AddNode(1, 0, 1);
-    TGLLinesNode(Nodes[2]).Color.Color := ClrRed;
+    TGLLinesNode(Nodes[2]).Color.Color := clrRed;
     AddNode(0.8, 0, 1);
-    TGLLinesNode(Nodes[3]).Color.Color := ClrRed;
+    TGLLinesNode(Nodes[3]).Color.Color := clrRed;
     // Raycast pickable object
     Cub := TGLGizmoPickCube(AddNewChild(TGLGizmoPickCube));
     Cub.Up.SetVector(1, 0, 0);
@@ -572,13 +572,13 @@ begin
     NodesAspect := LnaInvisible;
     SplineMode := LsmSegments;
     AddNode(0, 0.8, 1);
-    TGLLinesNode(Nodes[0]).Color.Color := ClrLime;
+    TGLLinesNode(Nodes[0]).Color.Color := clrLime;
     AddNode(0, 1, 1);
-    TGLLinesNode(Nodes[1]).Color.Color := ClrLime;
+    TGLLinesNode(Nodes[1]).Color.Color := clrLime;
     AddNode(0, 1, 1);
-    TGLLinesNode(Nodes[2]).Color.Color := ClrBlue;
+    TGLLinesNode(Nodes[2]).Color.Color := clrBlue;
     AddNode(0, 1, 0.8);
-    TGLLinesNode(Nodes[3]).Color.Color := ClrBlue;
+    TGLLinesNode(Nodes[3]).Color.Color := clrBlue;
     // Raycast pickable object
     Cub := TGLGizmoPickCube(AddNewChild(TGLGizmoPickCube));
     Cub.Up.SetVector(0, 0, 1);
@@ -603,7 +603,7 @@ begin
       // FaceCulling:= fcNoCull;
       PolygonMode := PmFill;
       // BackProperties.PolygonMode:= pmFill;
-      FrontProperties.Emission.Color := ClrBlue;
+      FrontProperties.Emission.Color := clrBlue;
     end;
   end;
 
@@ -620,7 +620,7 @@ begin
       // FaceCulling:= fcNoCull;
       PolygonMode := PmFill;
       // BackProperties.PolygonMode:= pmFill;
-      FrontProperties.Emission.Color := ClrRed;
+      FrontProperties.Emission.Color := clrRed;
     end;
   end;
 
@@ -636,7 +636,7 @@ begin
       // FaceCulling:= fcNoCull;
       PolygonMode := PmFill;
       // BackProperties.PolygonMode:= pmFill;
-      FrontProperties.Emission.Color := ClrLime;
+      FrontProperties.Emission.Color := clrLime;
     end;
   end;
 
@@ -651,7 +651,7 @@ begin
     begin
       FaceCulling := FcNoCull;
       PolygonMode := PmFill;
-      FrontProperties.Emission.Color := ClrRed;
+      FrontProperties.Emission.Color := clrRed;
     end;
   end;
 
@@ -666,7 +666,7 @@ begin
     begin
       FaceCulling := FcNoCull;
       PolygonMode := PmFill;
-      FrontProperties.Emission.Color := ClrLime;
+      FrontProperties.Emission.Color := clrLime;
     end;
   end;
 
@@ -681,7 +681,7 @@ begin
     begin
       FaceCulling := FcNoCull;
       PolygonMode := PmFill;
-      FrontProperties.Emission.Color := ClrBlue;
+      FrontProperties.Emission.Color := clrBlue;
     end;
   end;
 
@@ -701,7 +701,7 @@ begin
   _GZOAxisLabelY := TGLFlatText(_GZORootAxisLabel.AddNewChild(TGLFlatText));
   with _GZOAxisLabelY do
   begin
-    ModulateColor.Color := ClrLime;
+    ModulateColor.Color := clrLime;
     Alignment := TaCenter;
     Layout := TlCenter;
     Options := Options + [FtoTwoSided];
@@ -728,7 +728,7 @@ begin
     TGLFlatText(_GZORootVisibleInfoLabels.AddNewChild(TGLFlatText));
   with _GZOVisibleInfoLabels do
   begin
-    ModulateColor.Color := ClrYellow;
+    ModulateColor.Color := clrYellow;
     Alignment := TaCenter;
     Layout := TlCenter;
     Options := Options + [FtoTwoSided];

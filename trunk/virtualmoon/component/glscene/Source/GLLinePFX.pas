@@ -22,8 +22,10 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, PersistentClasses, VectorGeometry, GLParticleFX, GLTexture,
-     GLColor, GLRenderContextInfo;
+uses
+  Classes, SysUtils, GLPersistentClasses, GLVectorGeometry,
+  GLParticleFX, GLTexture, GLColor, GLRenderContextInfo,
+  OpenGLTokens, GLContext , GLVectorTypes;
 
 type
 
@@ -100,8 +102,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses SysUtils, OpenGLTokens, GLContext {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
 
 // ------------------
 // ------------------ TGLLinePFXManager ------------------

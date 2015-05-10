@@ -6,6 +6,7 @@
    Scene Editor, for adding + removing scene objects within the Delphi IDE.<p>
 
 	<b>History : </b><font size=-1><ul>
+  <li>02/01/15 - PW - Fixed for Lazarus 1.2.6
   <li>20/05/10 - Yar - Fixes for Linux x64
   <li>18/05/10 - Yar - Fixed for Lazarus-0.9.29-25483 (thanks Predator)
   <li>26/03/10 - Yar - Added Expand and Collapse buttons, fix for Unix-based systems
@@ -58,14 +59,23 @@ interface
 {$I GLScene.inc}
 
 uses
+  lresources,
+  lclintf,
   {$IFDEF MSWINDOWS}
   Registry,
   {$ENDIF}
   XCollection, GLScene, Classes, SysUtils,
-  Controls,  Forms, ComCtrls,
+  Controls, Forms, ComCtrls,
   Dialogs, Menus, ActnList, ExtCtrls, StdCtrls,
-  propedits, componenteditors, lclintf, lresources
-;
+  propedits, componenteditors,
+
+  GLViewer, 
+  GLSceneRegisterLCL, 
+  GLStrings, 
+  FInfoLCL, 
+  OpenGL1x, 
+  GLCrossPlatform, 
+  ClipBrd;
 
 
 const
@@ -238,12 +248,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses
-  GLViewer, GLSceneRegisterLCL, GLStrings, InfoLCL, OpenGL1x, GLCrossPlatform,
-  ClipBrd;
-
-
-
 resourcestring
    cGLSceneEditor = 'GLScene Editor';
 
@@ -391,11 +395,6 @@ begin
    // Build SubMenus
    SetObjectsSubItems(MIAddObject);
    MIAddObject.SubMenuImages:=ObjectManager.ObjectIcons;
-{$IFNDEF GLS_DELPHI_6_UP}
-   ACCut.Visible:=False;
-   ACCopy.Visible:=False;
-   ACPaste.Visible:=False;
-{$ENDIF}
    SetObjectsSubItems(PMToolBar.Items);
    PMToolBar.Images:=ObjectManager.ObjectIcons;
 
@@ -1168,7 +1167,8 @@ begin
    if (selNode<>nil) and (selNode.Parent<>nil)
       {$IFDEF MSWINDOWS}
       and (ClipBoard.HasFormat(CF_COMPONENT) or (Clipboard.HasFormat(CF_TEXT) and
-      PossibleStream(Clipboard.AsText))) {$ENDIF} then begin
+      PossibleStream(Clipboard.AsText))) {$ENDIF} then
+      begin
       TmpContainer := TComponent.Create(self);
       try
          ComponentList := TDesignerSelections.Create;

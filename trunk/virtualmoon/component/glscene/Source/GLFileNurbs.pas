@@ -14,7 +14,8 @@ unit GLFileNurbs;
 interface
 
 uses
-  Classes, SysUtils, GLVectorFileObjects, VectorGeometry, VectorLists, ApplicationFileIO,
+  Classes, SysUtils, GLVectorFileObjects,
+  GLVectorGeometry, GLVectorLists, GLApplicationFileIO,
   GLParametricSurfaces, GLUtils;
 
 type

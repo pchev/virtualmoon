@@ -63,14 +63,13 @@ interface
 {.$DEFINE GLS_CACHE_MISS_CHECK}
 
 uses
-  Classes,
+  Classes, SysUtils,
+  //GLS
   GLCrossPlatform,
-  VectorTypes,
-  VectorGeometry,
-  SysUtils,
+  GLVectorTypes,
+  GLVectorGeometry,
   OpenGLTokens,
-  GLTextureFormat
-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
+  GLTextureFormat;
 
 const
   GLS_VERTEX_ATTR_NUM = 16;
@@ -614,15 +613,15 @@ type
     procedure PerformEnable(const aState: TGLState);
     procedure PerformDisable(const aState: TGLState);
 
-    procedure SetGLState(const aState : TGLState); {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
-    procedure UnSetGLState(const aState : TGLState); {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
-    procedure ResetGLPolygonMode; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
-    procedure ResetGLMaterialColors; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
-    procedure ResetGLTexture(const TextureUnit: Integer); {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
-    procedure ResetGLCurrentTexture; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
-    procedure ResetGLFrontFace; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
-    procedure SetGLFrontFaceCW; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
-    procedure ResetAll; {$IFNDEF GLS_DELPHI_5} deprecated; {$ENDIF}
+    procedure SetGLState(const aState : TGLState); deprecated;
+    procedure UnSetGLState(const aState : TGLState); deprecated;
+    procedure ResetGLPolygonMode; deprecated;
+    procedure ResetGLMaterialColors; deprecated;
+    procedure ResetGLTexture(const TextureUnit: Integer); deprecated;
+    procedure ResetGLCurrentTexture; deprecated;
+    procedure ResetGLFrontFace; deprecated;
+    procedure SetGLFrontFaceCW; deprecated;
+    procedure ResetAll; deprecated;
 
     {: Adjusts material colors for a face. }
     procedure SetGLMaterialColors(const aFace: TCullFaceMode;
@@ -1151,7 +1150,7 @@ type
   end;
 
 const
-{$IFNDEF GLS_DELPHI_5} {$WARN SYMBOL_DEPRECATED OFF} {$ENDIF}
+{$WARN SYMBOL_DEPRECATED OFF}
   cGLStateTypeToGLEnum: array[TGLStateType] of TGLenum = (
     GL_CURRENT_BIT, GL_POINT_BIT, GL_LINE_BIT, GL_POLYGON_BIT,
     GL_POLYGON_STIPPLE_BIT, GL_PIXEL_MODE_BIT, GL_LIGHTING_BIT, GL_FOG_BIT,
@@ -1160,7 +1159,7 @@ const
     GL_HINT_BIT, GL_EVAL_BIT, GL_LIST_BIT, GL_TEXTURE_BIT, GL_SCISSOR_BIT,
     GL_MULTISAMPLE_BIT);
 
-{$IFNDEF GLS_DELPHI_5} {$WARN SYMBOL_DEPRECATED ON} {$ENDIF}
+{$WARN SYMBOL_DEPRECATED ON}
   cGLStateToGLEnum: array[TGLState] of TStateRecord =
     ((GLConst: GL_ALPHA_TEST; GLDeprecated: True),
     (GLConst: GL_AUTO_NORMAL; GLDeprecated: True),
@@ -1272,7 +1271,6 @@ end;
 
 // Create
 //
-
 constructor TGLStateCache.Create;
 var
   I: Integer;
@@ -1480,7 +1478,6 @@ end;
 
 // Destroy
 //
-
 destructor TGLStateCache.Destroy;
 begin
   inherited;
@@ -1495,7 +1492,6 @@ end;
 
 // Enable
 //
-
 procedure TGLStateCache.Enable(const aState: TGLState);
 begin
   if cGLStateToGLEnum[aState].GLDeprecated and FForwardContext then
@@ -1516,7 +1512,6 @@ end;
 
 // Disable
 //
-
 procedure TGLStateCache.Disable(const aState: TGLState);
 begin
   if cGLStateToGLEnum[aState].GLDeprecated and FForwardContext then
@@ -1566,7 +1561,6 @@ end;
 
 // PerformDisable
 //
-
 procedure TGLStateCache.PerformDisable(const aState: TGLState);
 begin
   if cGLStateToGLEnum[aState].GLDeprecated and FForwardContext then
@@ -3587,7 +3581,7 @@ begin
     else
     begin
       FSpotCutoff[I] := Value;
-      FLightStates.SpotCosCutoffExponent[I].V[0] := cos(VectorGeometry.DegToRad(Value));
+      FLightStates.SpotCosCutoffExponent[I].V[0] := cos(GLVectorGeometry.DegToRad(Value));
     end;
 	
     if FFFPLight then
@@ -3853,12 +3847,12 @@ end;
 
 procedure TGLStateCache.ResetAll;
 begin
-{$IFNDEF GLS_DELPHI_5} {$WARN SYMBOL_DEPRECATED OFF} {$ENDIF}
+ {$WARN SYMBOL_DEPRECATED OFF}
   ResetGLPolygonMode;
   ResetGLMaterialColors;
   ResetGLCurrentTexture;
   ResetGLFrontFace;
-{$IFNDEF GLS_DELPHI_5} {$WARN SYMBOL_DEPRECATED ON} {$ENDIF}
+ {$WARN SYMBOL_DEPRECATED ON}
 end;
 
 end.

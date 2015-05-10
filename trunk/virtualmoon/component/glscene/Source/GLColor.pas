@@ -24,16 +24,15 @@ interface
 {$i GLScene.inc}
 
 uses
-  // GLScene
-  Classes,
 {$IFDEF GLS_DELPHI_XE2_UP}
-  Vcl.Graphics,
+  System.SysUtils, System.Classes, Vcl.Dialogs, Vcl.Graphics,
 {$ELSE}
-  Graphics,
+  SysUtils, Classes, Dialogs, Graphics,
 {$ENDIF}
-  VectorTypes, VectorGeometry,
-  GLCrossPlatform,
-  PersistentClasses, BaseClasses;
+
+  // GLScene
+  GLVectorTypes, GLVectorGeometry, GLCrossPlatform,
+  GLPersistentClasses, GLBaseClasses;
 
 type
   PColorVector = ^TColorVector;
@@ -409,14 +408,6 @@ var
    vUseDefaultColorSets : Boolean = False;
 
 implementation
-
-uses
-  SysUtils,
-{$IFDEF GLS_DELPHI_XE2_UP}
-  Vcl.Dialogs;
-{$ELSE}
-  Dialogs;
-{$ENDIF}
 
 var
 	vColorManager : TGLColorManager;

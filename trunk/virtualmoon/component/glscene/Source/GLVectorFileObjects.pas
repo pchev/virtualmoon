@@ -200,10 +200,17 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLScene, OpenGLTokens, VectorGeometry, SysUtils, GLTexture,
-  GLMaterial, GLMesh, VectorLists, PersistentClasses, Octree, GeometryBB,
-  ApplicationFileIO, GLSilhouette, GLContext, GLColor, GLRenderContextInfo,
-  GLCoordinates, BaseClasses, GLTextureFormat;
+uses
+  {$IFDEF GLS_DELPHI_XE2_UP}
+  System.Classes, System.SysUtils, System.Types,
+  {$ELSE}
+  Classes, SysUtils, Types,
+  {$ENDIF}
+
+  GLScene, OpenGLTokens, GLVectorGeometry,  GLTexture,
+  GLMaterial, GLMesh, GLVectorLists, GLPersistentClasses, GLOctree, GLGeometryBB,
+  GLApplicationFileIO, GLSilhouette, GLContext, GLColor, GLRenderContextInfo,
+  GLCoordinates, GLBaseClasses, GLTextureFormat;
 
 type
 
@@ -1362,7 +1369,7 @@ type
     FLightmapLibrary: TGLMaterialLibrary;
     FAxisAlignedDimensionsCache: TVector;
     FBaryCenterOffsetChanged: Boolean;
-    FBaryCenterOffset: TVector;    
+    FBaryCenterOffset: TVector;
     FUseMeshMaterials: Boolean;
     FOverlaySkeleton: Boolean;
     FIgnoreMissingTextures: Boolean;
@@ -1985,9 +1992,9 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-uses GLStrings, XOpenGL, GLCrossPlatform, MeshUtils, GLState, GLUtils,
-  GLBaseMeshSilhouette
-  {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
+uses
+  GLStrings, XOpenGL, GLCrossPlatform, GLMeshUtils, GLState, GLUtils,
+  GLBaseMeshSilhouette, GLVectorTypes;
 
 var
   vVectorFileFormats: TVectorFileFormatsList;
@@ -5483,7 +5490,7 @@ begin
     begin
       obj := GetMeshObject(i);
       if not obj.Visible then
-        continue;                  
+        continue;
       objTris := obj.ExtractTriangles(objTexCoords, objNormals);
       try
         Result.Add(objTris);
@@ -7922,7 +7929,7 @@ end;
 procedure TGLBaseMesh.StructureChanged;
 begin
   FAxisAlignedDimensionsCache.V[0] := -1;
-  FBaryCenterOffsetChanged := True;  
+  FBaryCenterOffsetChanged := True;
   DropMaterialLibraryCache;
   MeshObjects.Prepare;
   inherited;
@@ -8774,9 +8781,9 @@ begin
     begin
       baseDelta := anim.EndFrame - anim.StartFrame;
       lerpFactor := anim.StartFrame + baseDelta * Ratio;
-      frameIndex1 := VectorGeometry.Trunc(lerpFactor);
+      frameIndex1 := GLVectorGeometry.Trunc(lerpFactor);
       frameIndex2 := frameIndex1 + 1;
-      lerpFactor := VectorGeometry.Frac(lerpFactor);
+      lerpFactor := GLVectorGeometry.Frac(lerpFactor);
     end;
     weight := 1;
     externalRotations := nil;

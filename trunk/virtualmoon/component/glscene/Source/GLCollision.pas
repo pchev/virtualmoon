@@ -6,6 +6,7 @@
 	Collision-detection management for GLScene<p>
 
 	<b>Historique : </b><font size=-1><ul>
+      <li>17/11/14 - PW - Refactored TCollisionManager to TGLCollisionManager
       <li>10/11/12 - PW - Added CPP compatibility: changed vector arrays to records
       <li>21/01/11 - DanB - Added "inherited" call to TGLBCollision.WriteToFiler
       <li>03/04/07 - DaStr - Added "public" to TCollisionNode for FPC compatibility
@@ -27,8 +28,13 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLScene, XCollection, VectorGeometry, VectorLists, GLVectorFileObjects,
-   GeometryBB, GLCrossPlatform, GLManager;
+uses
+  Classes, SysUtils,
+  //GLS
+  GLScene, XCollection, GLVectorGeometry, GLVectorLists, GLVectorFileObjects,
+  GLGeometryBB, GLCrossPlatform,
+  GLManager , GLVectorTypes;
+
 
 type
 
@@ -53,9 +59,9 @@ type
    TFastCollisionChecker = function (obj1, obj2 : TGLBaseSceneObject) : Boolean;
    PFastCollisionChecker = ^TFastCollisionChecker;
 
-	// TCollisionManager
+	// TGLCollisionManager
 	//
-	TCollisionManager = class (TComponent)
+	TGLCollisionManager = class (TComponent)
 	   private
 	      { Private Declarations }
          FClients : TList;
@@ -91,14 +97,14 @@ type
 		private
 			{ Private Declarations }
          FBoundingMode : TCollisionBoundingMode;
-         FManager : TCollisionManager;
+         FManager : TGLCollisionManager;
          FManagerName : String; // NOT persistent, temporarily used for persistence
          FGroupIndex : Integer;
 
 		protected
 			{ Protected Declarations }
          procedure SetGroupIndex(const value : Integer);
-         procedure SetManager(const val : TCollisionManager);
+         procedure SetManager(const val : TGLCollisionManager);
 
 			procedure WriteToFiler(writer : TWriter); override;
          procedure ReadFromFiler(reader : TReader); override;
@@ -117,7 +123,7 @@ type
 		published
 			{ Published Declarations }
          {: Refers the collision manager. }
-         property Manager : TCollisionManager read FManager write SetManager;
+         property Manager : TGLCollisionManager read FManager write SetManager;
          property BoundingMode : TCollisionBoundingMode read FBoundingMode write FBoundingMode;
          property GroupIndex : Integer read FGroupIndex write SetGroupIndex;
 	end;
@@ -160,8 +166,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses SysUtils {$IFDEF GLS_DELPHI}, VectorTypes{$ENDIF};
 
 const
    cEpsilon : Single = 1e-6;
@@ -612,7 +616,7 @@ end;
 
 // Create
 //
-constructor TCollisionManager.Create(AOwner: TComponent);
+constructor TGLCollisionManager.Create(AOwner: TComponent);
 begin
 	inherited Create(AOwner);
    FClients:=TList.Create;
@@ -621,7 +625,7 @@ end;
 
 // Destroy
 //
-destructor TCollisionManager.Destroy;
+destructor TGLCollisionManager.Destroy;
 begin
 	DeRegisterAllClients;
    DeRegisterManager(Self);
@@ -631,7 +635,7 @@ end;
 
 // RegisterClient
 //
-procedure TCollisionManager.RegisterClient(aClient : TGLBCollision);
+procedure TGLCollisionManager.RegisterClient(aClient : TGLBCollision);
 begin
    if Assigned(aClient) then
       if FClients.IndexOf(aClient)<0 then begin
@@ -642,7 +646,7 @@ end;
 
 // DeRegisterClient
 //
-procedure TCollisionManager.DeRegisterClient(aClient : TGLBCollision);
+procedure TGLCollisionManager.DeRegisterClient(aClient : TGLBCollision);
 begin
    if Assigned(aClient) then begin
       aClient.FManager:=nil;
@@ -652,7 +656,7 @@ end;
 
 // DeRegisterAllClients
 //
-procedure TCollisionManager.DeRegisterAllClients;
+procedure TGLCollisionManager.DeRegisterAllClients;
 var
    i : Integer;
 begin
@@ -742,7 +746,7 @@ end;
       if d>0 then Result:=-1 else if d<0 then Result:=1 else Result:=0;
    end;
 
-procedure TCollisionManager.CheckCollisions;
+procedure TGLCollisionManager.CheckCollisions;
 var
   NodeList:TList;
   CollisionNode1, CollisionNode2:TCollisionNode;
@@ -899,9 +903,9 @@ var
 begin
    inherited;
    if FManagerName<>'' then begin
-      mng:=FindManager(TCollisionManager, FManagerName);
+      mng:=FindManager(TGLCollisionManager, FManagerName);
       if Assigned(mng) then
-         Manager:=TCollisionManager(mng);
+         Manager:=TGLCollisionManager(mng);
       FManagerName:='';
    end;
 end;
@@ -926,7 +930,7 @@ end;
 
 // SetManager
 //
-procedure TGLBCollision.SetManager(const val : TCollisionManager);
+procedure TGLBCollision.SetManager(const val : TGLCollisionManager);
 begin
    if val<>FManager then begin
       if Assigned(FManager) then

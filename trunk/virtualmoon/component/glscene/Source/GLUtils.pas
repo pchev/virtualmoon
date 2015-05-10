@@ -35,18 +35,13 @@ interface
 
 uses
   // VCL
-  Classes,
-  SysUtils,
   {$IFDEF GLS_DELPHI_XE2_UP}
-  VCL.Graphics,
-  VCL.Controls,
+  System.Classes, System.SysUtils, VCL.Graphics, VCL.Controls, System.UITypes,
   {$ELSE}
-  Graphics,
-  Controls,
+  Classes, SysUtils, Graphics, Controls,
 {$ENDIF}
   // GLScene
-  VectorGeometry,
-  GLCrossPlatform;
+  GLVectorGeometry, GLCrossPlatform;
 
 type
   EGLUtilsException = class(Exception);
@@ -132,7 +127,7 @@ uses
 {$IFDEF FPC}
   FileUtil,
 {$ENDIF}
-  ApplicationFileIO,
+  GLApplicationFileIO,
 {$IFDEF GLS_DELPHI_XE2_UP}
   VCL.Dialogs,
   VCL.ExtDlgs;
@@ -718,7 +713,7 @@ end;
 
 procedure SetGLSceneMediaDir();
 var
-  path: UTF8String;
+  {$IFDEF FPC}path: UTF8String{$ELSE}path: String {$ENDIF};
   p: Integer;
 begin
    path := {$IFDEF FPC}ParamStrUTF8(0){$ELSE}ParamStr(0){$ENDIF};

@@ -33,8 +33,8 @@ interface
 {$i GLScene.inc}
 
 uses
-  OpenGLTokens, VectorGeometry, GLScene, GLVectorFileObjects, VectorTypes,
-  VectorLists, XCollection, GLCoordinates, GLRenderContextInfo;
+  OpenGLTokens, GLVectorGeometry, GLScene, GLVectorFileObjects, GLVectorTypes,
+  GLVectorLists, XCollection, GLCoordinates, GLRenderContextInfo;
 
 type
   TGLBExplosionFX = class(TGLObjectPreEffect)

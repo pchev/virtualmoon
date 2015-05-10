@@ -705,7 +705,7 @@ const
     '  Windows, Messages, Classes, SysUtils, Forms, Controls, Graphics,' + LineEnding +
     '  Dialogs, GLScene, GLSceneForm, GLCadencer, GLMaterial, GLObjects, ' + LineEnding +
     '  GLHUDObjects, GLWindowsFont, GLSkydome, GLGeomObjects, GLShadowPlane,' + LineEnding +
-    '  GLLCLViewer, BaseClasses, GLFilePNG;' + LineEnding +
+    '  GLLCLViewer, GLBaseClasses, GLFilePNG;' + LineEnding +
 
     '' + LineEnding +
     'type' + LineEnding +
@@ -2315,7 +2315,7 @@ begin
    Result:=
     ' Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, GLScene,' + LineEnding +
     '  GLSceneForm, GLCadencer, GLMaterial, GLObjects, GLHUDObjects, GLWindowsFont,' + LineEnding +
-    '  GLSkydome, GLGeomObjects, GLShadowPlane, GLLCLViewer, BaseClasses, GLFilePNG;' + LineEnding;
+    '  GLSkydome, GLGeomObjects, GLShadowPlane, GLLCLViewer, GLBaseClasses, GLFilePNG;' + LineEnding;
 
 end;
 

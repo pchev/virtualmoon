@@ -9,7 +9,7 @@
 
  <b>History : </b><font size=-1><ul>
       <li>19/06/11 - Yar - Fixed problem with image converting in Lazarus (thanks to Johannes Pretorius, Bugtracker ID = 3322324)
-      <li>06/06/10 - Yar - Added VectorTypes to uses
+      <li>06/06/10 - Yar - Added GLVectorTypes to uses
       <li>22/01/10 - Yar - Added GLTextureFormat to uses
       <li>31/03/07 - DaStr - Added $I GLScene.inc
       <li>31/01/03 - EG - Materials support
@@ -23,9 +23,15 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,
-  GLVectorFileObjects,
-  ApplicationFileIO;
+  Classes, SysUtils,
+  //
+  GLVectorFileObjects, GLApplicationFileIO, GLVectorGeometry,
+  GLVectorTypes, GLVectorLists, Q3BSP, GLBSP, GLTexture,
+  GLGraphics, GLCrossPlatform, GLState, GLUtils,
+  GLMaterial, GLTextureFormat
+  {$IFDEF FPC}
+    ,IntfGraphics
+  {$ENDIF} ;
 
 type
 
@@ -52,25 +58,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses
-
-  Q3BSP,
-  VectorGeometry,
-  VectorTypes,
-  VectorLists,
-  SysUtils,
-  GLBSP,
-  GLTexture,
-  GLGraphics,
-  GLCrossPlatform,
-  GLState,
-  GLUtils,
-  GLMaterial,
-  GLTextureFormat
-  {$IFDEF FPC}
-    ,intfgraphics
-  {$ENDIF} ;
 
 // ------------------
 // ------------------ TGLSTLVectorFile ------------------

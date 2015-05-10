@@ -22,7 +22,11 @@ interface
 
 {$I GLScene.inc}
 
-uses Classes, GLParticleFX, GLGraphics, GLCrossPlatform;
+uses
+  Classes,
+  //GLS
+  GLParticleFX, GLGraphics, GLCrossPlatform,
+  GLPerlinNoise3D, OpenGLTokens, GLVectorGeometry;
 
 type
 
@@ -106,8 +110,6 @@ implementation
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-
-uses PerlinNoise, OpenGLTokens, VectorGeometry;
 
 // ------------------
 // ------------------ TGLPerlinPFXManager ------------------
@@ -213,7 +215,7 @@ end;
 //
 procedure TGLPerlinPFXManager.PrepareImage(bmp32 : TGLBitmap32; var texFormat : Integer);
 
-   procedure PrepareSubImage(dx, dy, s : Integer; noise : TPerlin3DNoise);
+   procedure PrepareSubImage(dx, dy, s : Integer; noise : TGLPerlin3DNoise);
    var
       s2 : Integer;
       x, y, d : Integer;
@@ -258,14 +260,14 @@ procedure TGLPerlinPFXManager.PrepareImage(bmp32 : TGLBitmap32; var texFormat : 
 
 var
    s, s2 : Integer;
-   noise : TPerlin3DNoise;
+   noise : TGLPerlin3DNoise;
 begin
    s:=(1 shl TexMapSize);
    bmp32.Width:=s;
    bmp32.Height:=s;
    bmp32.Blank := false;
    texFormat:=GL_LUMINANCE_ALPHA;
-   noise:=TPerlin3DNoise.Create(NoiseSeed);
+   noise:=TGLPerlin3DNoise.Create(NoiseSeed);
    try
       case SpritesPerTexture of
          sptOne : PrepareSubImage(0, 0, s, noise);

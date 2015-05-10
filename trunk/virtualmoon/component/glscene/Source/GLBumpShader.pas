@@ -65,18 +65,10 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes,
-  SysUtils,
-  GLMaterial,
-  GLGraphics,
-  GLUtils,
-  VectorGeometry,
-  OpenGLTokens,
-  GLContext,
-  VectorLists,
-  GLColor,
-  GLRenderContextInfo,
-  GLState,
+  Classes, SysUtils,
+  //GLS
+  GLMaterial, GLGraphics, GLUtils, GLVectorGeometry, OpenGLTokens,
+  GLContext, GLVectorLists, GLColor, GLRenderContextInfo, GLState,
   GLTextureFormat;
 
 type
