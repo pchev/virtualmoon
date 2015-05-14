@@ -87,8 +87,7 @@ implementation
 // ------------------------------------------------------------------
 // -----------------------------------------------------------------
 uses
-  GLState
-  {$IFDEF GLS_LOGGING}, GLSLog {$ENDIF};
+  GLState, GLSLog;
 
 
 resourcestring
