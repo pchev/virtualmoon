@@ -1,7 +1,8 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="VMAcomponents"/>
+    <Type Value="RunAndDesignTime"/>
     <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -13,12 +14,8 @@
           <UseAnsiStrings Value="False"/>
         </SyntaxOptions>
       </Parsing>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Description Value="Requires packages for Virtual Moon Atlas"/>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="FCL"/>
@@ -38,11 +35,9 @@
       </Item4>
       <Item5>
         <PackageName Value="GLScene_RunTime"/>
-        <DefaultFilename Value="glscene/Lazarus/glscene_runtime.lpk"/>
       </Item5>
       <Item6>
         <PackageName Value="GLScene_DesignTime"/>
-        <DefaultFilename Value="glscene/Lazarus/glscene_designtime.lpk"/>
       </Item6>
     </RequiredPkgs>
     <UsageOptions>
