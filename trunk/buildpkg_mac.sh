@@ -103,7 +103,7 @@ if [[ $make_darwin_i386 ]]; then
     cd $basedir
     freeze -v vmaupdate.packproj
     if [[ $? -ne 0 ]]; then exit 1;fi
-    hdiutil create -anyowners -volname virtualmoon$updname-$version-$currentrev-macosx-i386 -imagekey zlib-level=9 -format UDZO -srcfolder ./build virtualmoon$updname-$version-$currentrev-macosx-i386.dmg
+    hdiutil create -megabytes 1500 -anyowners -volname virtualmoon$updname-$version-$currentrev-macosx-i386 -imagekey zlib-level=9 -format UDZO -srcfolder ./build virtualmoon$updname-$version-$currentrev-macosx-i386.dmg
     if [[ $? -ne 0 ]]; then exit 1;fi
     mv virtualmoon*.dmg $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
@@ -113,7 +113,7 @@ if [[ $make_darwin_i386 ]]; then
     cd $basedir
     freeze -v vmapro.packproj
     if [[ $? -ne 0 ]]; then exit 1;fi
-    hdiutil create -anyowners -volname virtualmoon-$version-macosx-i386 -imagekey zlib-level=9 -format UDZO -srcfolder ./build virtualmoon-$version-macosx-i386.dmg
+    hdiutil create -megabytes 1500 -anyowners -volname virtualmoon-$version-macosx-i386 -imagekey zlib-level=9 -format UDZO -srcfolder ./build virtualmoon-$version-macosx-i386.dmg
     if [[ $? -ne 0 ]]; then exit 1;fi
     mv virtualmoon*.dmg $wd/$outdir/
     if [[ $? -ne 0 ]]; then exit 1;fi
@@ -127,7 +127,7 @@ if [[ $make_darwin_i386 ]]; then
     cp Virtual_Moon_Atlas/licence.txt vmapro6/
     cp Virtual_Moon_Atlas/readme.txt vmapro6/
     rm *.cdr *.iso
-    hdiutil create -anyowners -volname virtualmoon-$version-macosx-i386 -format UDTO -srcfolder ./vmapro6 virtualmoon-$version-macosx.cdr
+    hdiutil create -megabytes 1500 -anyowners -volname virtualmoon-$version-macosx-i386 -format UDTO -srcfolder ./vmapro6 virtualmoon-$version-macosx.cdr
     hdiutil makehybrid -o virtualmoon-$version-macosx.iso virtualmoon-$version-macosx.cdr -iso -joliet   
     if [[ $? -ne 0 ]]; then exit 1;fi
     mv virtualmoon*.iso $wd/CD_Mac/
