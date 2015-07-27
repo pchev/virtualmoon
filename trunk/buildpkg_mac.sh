@@ -9,7 +9,7 @@ make_darwin_i386=1
 unset make_darwin_ppc
 #make_darwin_ppc=1
 
-basedir=/Volumes/Data/tmp/virtualmoon  # Be sure this is set to a non existent directory, it is removed after the run!
+basedir=/tmp/virtualmoon  # Be sure this is set to a non existent directory, it is removed after the run!
 builddir=$basedir/Virtual_Moon_Atlas
 
 if [[ -n $1 ]]; then
