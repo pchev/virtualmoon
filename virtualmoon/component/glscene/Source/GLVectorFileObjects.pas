@@ -3985,7 +3985,11 @@ begin
 {$IFNDEF FPC}
       FRenderingOptions := TMeshObjectRenderingOptions(Byte(ro));
 {$ELSE}
-      FRenderingOptions := TMeshObjectRenderingOptions(ro);
+     {$IF (FPC_VERSION > 2)}
+      FRenderingOptions := TMeshObjectRenderingOptions(Byte(ro));
+     {$ELSE}
+       FRenderingOptions := TMeshObjectRenderingOptions(ro);
+     {$ENDIF}
 {$ENDIF}
       if archiveVersion >= 2 then
       begin
