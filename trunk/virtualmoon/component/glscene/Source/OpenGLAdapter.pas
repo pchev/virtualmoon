@@ -6647,8 +6647,12 @@ begin
 
   // This procedure will probably need changing, as totally untested
   // This might only work if GLX functions/procedures are loaded dynamically
+  {$IFDEF FPC}
+  if Assigned(@glXQueryExtensionsString) then
+  {$ELSE}
   if Assigned(glXQueryExtensionsString) then
-    FBuffer := glXQueryExtensionsString(dpy, 0) // guess at a valid screen
+  {$ENDIF}
+   FBuffer := glXQueryExtensionsString(dpy, 0) // guess at a valid screen
   else
     FBuffer := '';
   X_ARB_create_context := CheckExtension('GLX_ARB_create_context');

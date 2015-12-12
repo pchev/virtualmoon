@@ -31,7 +31,7 @@ type
     X: Single;
     Y: Single;
     public
-      function Create(X, Y : Single): TGLPoint2D; {$IFDEF FPC} static; {$ENDIF}
+      function Create(X, Y : Single): TGLPoint2D; {$IFDEF FPC}{$IF (FPC_VERSION < 3)} static; {$ENDIF}{$ENDIF}
       procedure SetPosition(const X, Y : Single);
       function Add(const APoint2D: TGLPoint2D): TGLPoint2D;
       function Length: Single; //distance to origin
@@ -45,7 +45,7 @@ type
     Y: Single;
     Z: Single;
     public
-      function Create(X, Y, Z: Single): TGLPoint3D; {$IFDEF FPC} static; {$ENDIF}
+      function Create(X, Y, Z: Single): TGLPoint3D; {$IFDEF FPC}{$IF (FPC_VERSION < 3)} static; {$ENDIF}{$ENDIF}
       procedure SetPosition(const X, Y, Z : Single);
       function Add(const AGLPoint3D: TGLPoint3D): TGLPoint3D;
       function Length: Single; //distance to origin
@@ -85,7 +85,7 @@ type
       function Add(const AVector2D: TGLVector2D): TGLVector2D;
       function Norm: Single;
     public
-      function Create(const AX, AY, AW : Single): TGLVector2D; {$IFDEF FPC} static; {$ENDIF}
+      function Create(const AX, AY, AW : Single): TGLVector2D; {$IFDEF FPC}{$IF (FPC_VERSION < 3)} static; {$ENDIF}{$ENDIF}
       function Length: Single;
     case Integer of
       0: (V: TGLVector2DType;);
@@ -99,7 +99,7 @@ type
       function Add(const AVector3D: TGLVector3D): TGLVector3D;
       function Norm: Single;
     public
-      function Create(const AX, AY, AZ, AW : Single): TGLVector3D; {$IFDEF FPC} static; {$ENDIF}
+      function Create(const AX, AY, AZ, AW : Single): TGLVector3D; {$IFDEF FPC}{$IF (FPC_VERSION < 3)} static; {$ENDIF}{$ENDIF}
       function Length: Single;
     case Integer of
       0: (V: TGLVector3DType;);
