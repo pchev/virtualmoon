@@ -85,7 +85,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <WorkingDirectory Value="\usr\local\bin"/>
+        <WorkingDirectory Value="\home\astro\bin"/>
       </local>
     </RunParams>
     <RequiredPackages Count="8">
@@ -131,7 +131,6 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="virtualmoon1"/>
       </Unit1>
       <Unit2>
         <Filename Value="CraterList.pas"/>
@@ -197,7 +196,6 @@
         <ComponentName Value="f_moon"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="pu_moon"/>
       </Unit12>
       <Unit13>
         <Filename Value="splashunit.pas"/>
