@@ -12,7 +12,10 @@ unset extratarget
 
 unset make_debug
 unset make_linux32
-make_linux32=1
+
+if [[ $arch == i386 ]]; then 
+   make_linux32=1
+fi
 unset make_linux64
 if [[ $arch == x86_64 ]]; then 
    make_linux64=1
@@ -134,7 +137,6 @@ if [[ $make_linux32 ]]; then
 #    rsync -a --exclude=.svn Installer/Linux/debian $builddir
 #    cd $builddir
 #    mv bin debian/virtualmoon/usr/
-#    mv lib debian/virtualmoon/usr/
 #    mv share debian/virtualmoon/usr/
 #    cd debian
 #    sed -i "/Version:/ s/5/$version/" virtualmoon/DEBIAN/control
@@ -212,7 +214,6 @@ if [[ $make_linux64 ]]; then
 #    rsync -a --exclude=.svn Installer/Linux/debian $builddir
 #    cd $builddir
 #    mv bin debian/virtualmoon64/usr/
-#    mv lib debian/virtualmoon64/usr/
 #    mv share debian/virtualmoon64/usr/
 #    cd debian
 #    sed -i "/Version:/ s/5/$version/" virtualmoon64/DEBIAN/control
@@ -225,8 +226,6 @@ if [[ $make_linux64 ]]; then
 #    rsync -a --exclude=.svn Installer/Linux/rpm $builddir
 #    cd $builddir
 #    mv debian/virtualmoon64/usr/* rpm/virtualmoon/usr/
-#    # Redhat 64bits lib is lib64 
-#    mv rpm/virtualmoon/usr/lib rpm/virtualmoon/usr/lib64
 #    cd rpm
 #    sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon64.spec
 #    sed -i "/Release:/ s/1/1/" SPECS/virtualmoon64.spec

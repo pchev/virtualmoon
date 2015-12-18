@@ -8,8 +8,8 @@ URL: http://virtualmoon.sourceforge.net
 Packager: Patrick Chevalley
 BuildRoot: %_topdir/%{name}
 BuildArch: x86_64
-Provides: virtualmoon libplan404.so
-Requires: gtk2 glib2 pango libjpeg libpng libsqlite3.so.0
+Provides: virtualmoon
+Requires: libpasastro gtk2 glib2 pango libjpeg libpng libsqlite3.so.0
 AutoReqProv: no
 
 %description
@@ -24,11 +24,8 @@ and a more than 7000 pictures library
 /usr/bin/photlun
 /usr/bin/weblun
 /usr/bin/cclun
-/usr/lib64/libvma404.so
 /usr/share/applications/virtualmoon.desktop
 /usr/share/applications/cclun.desktop
 /usr/share/pixmaps/virtualmoon.xpm
 /usr/share/pixmaps/cclun.xpm
 /usr/share/doc/virtualmoon
-/usr/share/virtualmoon
-
