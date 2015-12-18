@@ -12,6 +12,7 @@ version=0.0
 all: 
 ifeq ($(OS_TARGET),win32)
 else
+ifeq ($(OS_TARGET),Darwin)
 ifeq ($(CPU_TARGET),i386)
 	$(MAKE) -C plan404 all arch_flags=-m32
 else
@@ -22,9 +23,12 @@ else
 endif
 endif
 endif
+endif
 
 clean:
 ifeq ($(OS_TARGET),win32)
 else
+ifeq ($(OS_TARGET),Darwin)
 	$(MAKE) -C plan404 clean
+endif
 endif

@@ -25,6 +25,25 @@ install -m 755 -d $destdir
 install -m 755 -d $destdir/share
 install -m 755 -d $destdir/share/virtualmoon
 
+# translation
+install -m 755 -d $destdir/share/virtualmoon/language
+install -v -m 644 virtualmoon/language/maplun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 virtualmoon/language/maplun.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 datlun/language/datlun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 datlun/language/datlun.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 datlun/language/vmadatabase.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 datlun/language/vmadatabase.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 photlun/language/photlun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 photlun/language/photlun.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 weblun/language/weblun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 weblun/language/weblun.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 cclun/language/cclun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 cclun/language/cclun.fr.po $destdir/share/virtualmoon/language/
+
+install -m 755 -d $destdir/share/virtualmoon/data
+install -v -m 644 data/country.tab $destdir/share/virtualmoon/data/
+install -v -m 644 data/retic.cur $destdir/share/virtualmoon/data/
+
 # documentation
 install -m 755 -d "$destdir/share/virtualmoon/My Images"
 install -m 755 -d $destdir/share/virtualmoon/doc
