@@ -378,10 +378,6 @@ object Form1: TForm1
         DefaultFontSize = 8
         FlagErrors = False
         PopupMenu = PopupMenu2
-        PrintSettings.MarginLeft = 0.5
-        PrintSettings.MarginTop = 0.5
-        PrintSettings.MarginRight = 0.5
-        PrintSettings.MarginBottom = 0.5
         MarginHeight = 5
         MarginWidth = 5
         TabOrder = 1
