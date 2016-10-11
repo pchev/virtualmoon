@@ -90,7 +90,7 @@
     </RunParams>
     <RequiredPackages Count="8">
       <Item1>
-        <PackageName Value="GLScene_RunTime"/>
+        <PackageName Value="GLSceneLCL_RunTime"/>
       </Item1>
       <Item2>
         <PackageName Value="FCL"/>

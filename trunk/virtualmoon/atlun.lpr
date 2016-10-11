@@ -9,7 +9,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   InterfaceBase, LCLVersion, // version number
   Forms, Dialogs, virtualmoon1, config, Math, OpenGLAdapter, OpenGLTokens,
-  GLScene_RunTime, CraterList, dbutil, fmsg, glossary, splashunit, telescope,
+  GLSceneLCL_RunTime, CraterList, dbutil, fmsg, glossary, splashunit, telescope,
   SysUtils, TurboPowerIPro, u_constant, cu_tz, cu_planet, u_projection, u_util,
   pu_moon, u_translation_database, u_translation, uniqueinstance_package,
   pu_features, BigIma, uDE, mlb2, pu_ephem;
