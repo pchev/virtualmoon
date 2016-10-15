@@ -88,37 +88,40 @@
         <WorkingDirectory Value="\home\astro\bin"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="8">
+    <RequiredPackages Count="9">
       <Item1>
-        <PackageName Value="GLSceneLCL_RunTime"/>
+        <PackageName Value="GLScene_DesignTime"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="GLScene_RunTime"/>
       </Item2>
       <Item3>
-        <PackageName Value="uniqueinstance_package"/>
-        <MinVersion Minor="2" Release="1" Valid="True"/>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item3>
       <Item4>
-        <PackageName Value="TurboPowerIPro"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="uniqueinstance_package"/>
+        <MinVersion Minor="2" Release="1" Valid="True"/>
       </Item4>
       <Item5>
-        <PackageName Value="Printer4Lazarus"/>
-        <MinVersion Minor="5" Valid="True"/>
+        <PackageName Value="TurboPowerIPro"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item5>
       <Item6>
-        <PackageName Value="enhedit"/>
-        <MinVersion Valid="True"/>
+        <PackageName Value="Printer4Lazarus"/>
+        <MinVersion Minor="5" Valid="True"/>
       </Item6>
       <Item7>
-        <PackageName Value="libsql"/>
+        <PackageName Value="enhedit"/>
         <MinVersion Valid="True"/>
       </Item7>
       <Item8>
-        <PackageName Value="LCL"/>
+        <PackageName Value="libsql"/>
+        <MinVersion Valid="True"/>
       </Item8>
+      <Item9>
+        <PackageName Value="LCL"/>
+      </Item9>
     </RequiredPackages>
     <Units Count="22">
       <Unit0>
