@@ -13,7 +13,8 @@ object BigImaForm: TBigImaForm
   OnKeyPress = FormKeyPress
   OnMouseWheel = FormMouseWheel
   OnShow = FormShow
-  LCLVersion = '0.9.30.1'
+  LCLVersion = '1.8.0.4'
+  Visible = False
   object Image1: TImage
     Left = 0
     Height = 348
@@ -58,7 +59,7 @@ object BigImaForm: TBigImaForm
       OnClick = ToolButton3Click
     end
     object Label1: TLabel
-      Left = 201
+      Left = 185
       Height = 21
       Top = 2
       Width = 27

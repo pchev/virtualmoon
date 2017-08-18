@@ -11,7 +11,8 @@ object f_moon: Tf_moon
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.4.0.4'
+  LCLVersion = '1.8.0.4'
+  Visible = False
   object Moon: TPanel
     Left = 200
     Height = 500
@@ -30,6 +31,10 @@ object f_moon: Tf_moon
       Width = 498
       Camera = GLCamera1
       Buffer.BackgroundColor = clBlack
+      Buffer.AmbientColor.Red = 0
+      Buffer.AmbientColor.Green = 0
+      Buffer.AmbientColor.Blue = 0
+      Buffer.AmbientColor.Alpha = 1
       Buffer.AmbientColor.Color = {
         0000000000000000000000000000803F
       }
@@ -55,18 +60,62 @@ object f_moon: Tf_moon
       RollAngle = 0
       TurnAngle = 0
       CubeSize = 1
+      EdgeColor.Red = 1
+      EdgeColor.Green = 1
+      EdgeColor.Blue = 1
+      EdgeColor.Alpha = 1
       object GLAnnulus1: TGLAnnulus
         TagFloat = 0
+        Material.BackProperties.Ambient.Red = 0.200000002980232
+        Material.BackProperties.Ambient.Green = 0.200000002980232
+        Material.BackProperties.Ambient.Blue = 0.200000002980232
+        Material.BackProperties.Ambient.Alpha = 1
+        Material.BackProperties.Diffuse.Red = 0.800000011920929
+        Material.BackProperties.Diffuse.Green = 0.800000011920929
+        Material.BackProperties.Diffuse.Blue = 0.800000011920929
+        Material.BackProperties.Diffuse.Alpha = 1
+        Material.BackProperties.Emission.Red = 0
+        Material.BackProperties.Emission.Green = 0
+        Material.BackProperties.Emission.Blue = 0
+        Material.BackProperties.Emission.Alpha = 1
+        Material.BackProperties.Specular.Red = 0
+        Material.BackProperties.Specular.Green = 0
+        Material.BackProperties.Specular.Blue = 0
+        Material.BackProperties.Specular.Alpha = 1
+        Material.FrontProperties.Ambient.Red = 0
+        Material.FrontProperties.Ambient.Green = 0
+        Material.FrontProperties.Ambient.Blue = 0
+        Material.FrontProperties.Ambient.Alpha = 1
         Material.FrontProperties.Ambient.Color = {
           0000000000000000000000000000803F
         }
+        Material.FrontProperties.Diffuse.Red = 0
+        Material.FrontProperties.Diffuse.Green = 0
+        Material.FrontProperties.Diffuse.Blue = 0
+        Material.FrontProperties.Diffuse.Alpha = 0.850000023841858
         Material.FrontProperties.Diffuse.Color = {
           0000000000000000000000009A99593F
         }
+        Material.FrontProperties.Emission.Red = 0.150000005960464
+        Material.FrontProperties.Emission.Green = 0.150000005960464
+        Material.FrontProperties.Emission.Blue = 0.150000005960464
+        Material.FrontProperties.Emission.Alpha = 1
         Material.FrontProperties.Emission.Color = {
           9A99193E9A99193E9A99193E0000803F
         }
+        Material.FrontProperties.Specular.Red = 0
+        Material.FrontProperties.Specular.Green = 0
+        Material.FrontProperties.Specular.Blue = 0
+        Material.FrontProperties.Specular.Alpha = 1
         Material.BlendingMode = bmTransparency
+        Material.Texture.EnvColor.Red = 0
+        Material.Texture.EnvColor.Green = 0
+        Material.Texture.EnvColor.Blue = 0
+        Material.Texture.EnvColor.Alpha = 0
+        Material.Texture.BorderColor.Red = 0
+        Material.Texture.BorderColor.Green = 0
+        Material.Texture.BorderColor.Blue = 0
+        Material.Texture.BorderColor.Alpha = 0
         Material.FaceCulling = fcCull
         ObjectsSorting = osRenderBlendedLast
         Direction.Coordinates = {
@@ -98,6 +147,10 @@ object f_moon: Tf_moon
         RollAngle = 0
         TurnAngle = 0
         CubeSize = 1
+        EdgeColor.Red = 1
+        EdgeColor.Green = 1
+        EdgeColor.Blue = 1
+        EdgeColor.Alpha = 1
         object GLSphereMoon: TGLSphere
           TagFloat = 0
           Material.MaterialLibrary = GLMultiMaterialLibrary
@@ -119,20 +172,36 @@ object f_moon: Tf_moon
             RollAngle = 0
             TurnAngle = 0
             CubeSize = 1
+            EdgeColor.Red = 1
+            EdgeColor.Green = 1
+            EdgeColor.Blue = 1
+            EdgeColor.Alpha = 1
           end
         end
         object GLLightSource1: TGLLightSource
           TagFloat = 0
+          Ambient.Red = 1
+          Ambient.Green = 1
+          Ambient.Blue = 1
+          Ambient.Alpha = 1
           Ambient.Color = {
             0000803F0000803F0000803F0000803F
           }
           ConstAttenuation = 0.5
+          Diffuse.Red = 1
+          Diffuse.Green = 1
+          Diffuse.Blue = 1
+          Diffuse.Alpha = 1
           LinearAttenuation = 0
           QuadraticAttenuation = 0
           Position.Coordinates = {
             00000000000000000000C8C20000803F
           }
           LightStyle = lsParallel
+          Specular.Red = 1
+          Specular.Green = 1
+          Specular.Blue = 1
+          Specular.Alpha = 1
           Specular.Color = {
             0000803F0000803F0000803F0000803F
           }
@@ -143,15 +212,55 @@ object f_moon: Tf_moon
     end
     object GLArrowLine1: TGLArrowLine
       TagFloat = 0
+      Material.BackProperties.Ambient.Red = 0.200000002980232
+      Material.BackProperties.Ambient.Green = 0.200000002980232
+      Material.BackProperties.Ambient.Blue = 0.200000002980232
+      Material.BackProperties.Ambient.Alpha = 1
+      Material.BackProperties.Diffuse.Red = 0.800000011920929
+      Material.BackProperties.Diffuse.Green = 0.800000011920929
+      Material.BackProperties.Diffuse.Blue = 0.800000011920929
+      Material.BackProperties.Diffuse.Alpha = 1
+      Material.BackProperties.Emission.Red = 0
+      Material.BackProperties.Emission.Green = 0
+      Material.BackProperties.Emission.Blue = 0
+      Material.BackProperties.Emission.Alpha = 1
+      Material.BackProperties.Specular.Red = 0
+      Material.BackProperties.Specular.Green = 0
+      Material.BackProperties.Specular.Blue = 0
+      Material.BackProperties.Specular.Alpha = 1
+      Material.FrontProperties.Ambient.Red = 0
+      Material.FrontProperties.Ambient.Green = 0
+      Material.FrontProperties.Ambient.Blue = 0
+      Material.FrontProperties.Ambient.Alpha = 1
       Material.FrontProperties.Ambient.Color = {
         0000000000000000000000000000803F
       }
+      Material.FrontProperties.Diffuse.Red = 0
+      Material.FrontProperties.Diffuse.Green = 0
+      Material.FrontProperties.Diffuse.Blue = 0
+      Material.FrontProperties.Diffuse.Alpha = 1
       Material.FrontProperties.Diffuse.Color = {
         0000000000000000000000000000803F
       }
+      Material.FrontProperties.Emission.Red = 0
+      Material.FrontProperties.Emission.Green = 0
+      Material.FrontProperties.Emission.Blue = 0
+      Material.FrontProperties.Emission.Alpha = 1
+      Material.FrontProperties.Specular.Red = 0.300000011920929
+      Material.FrontProperties.Specular.Green = 0.300000011920929
+      Material.FrontProperties.Specular.Blue = 0.300000011920929
+      Material.FrontProperties.Specular.Alpha = 1
       Material.FrontProperties.Specular.Color = {
         9A99993E9A99993E9A99993E0000803F
       }
+      Material.Texture.EnvColor.Red = 0
+      Material.Texture.EnvColor.Green = 0
+      Material.Texture.EnvColor.Blue = 0
+      Material.Texture.EnvColor.Alpha = 0
+      Material.Texture.BorderColor.Red = 0
+      Material.Texture.BorderColor.Green = 0
+      Material.Texture.BorderColor.Blue = 0
+      Material.Texture.BorderColor.Alpha = 0
       Direction.Coordinates = {
         000080BF000000000000000000000000
       }
@@ -173,28 +282,68 @@ object f_moon: Tf_moon
     end
     object GLMirror1: TGLMirror
       TagFloat = 0
+      Material.BackProperties.Ambient.Red = 0
+      Material.BackProperties.Ambient.Green = 0
+      Material.BackProperties.Ambient.Blue = 0
+      Material.BackProperties.Ambient.Alpha = 0
       Material.BackProperties.Ambient.Color = {
         00000000000000000000000000000000
       }
+      Material.BackProperties.Diffuse.Red = 0
+      Material.BackProperties.Diffuse.Green = 0
+      Material.BackProperties.Diffuse.Blue = 0
+      Material.BackProperties.Diffuse.Alpha = 0
       Material.BackProperties.Diffuse.Color = {
         00000000000000000000000000000000
       }
+      Material.BackProperties.Emission.Red = 0
+      Material.BackProperties.Emission.Green = 0
+      Material.BackProperties.Emission.Blue = 0
+      Material.BackProperties.Emission.Alpha = 0
       Material.BackProperties.Emission.Color = {
         00000000000000000000000000000000
       }
+      Material.BackProperties.Specular.Red = 0
+      Material.BackProperties.Specular.Green = 0
+      Material.BackProperties.Specular.Blue = 0
+      Material.BackProperties.Specular.Alpha = 0
       Material.BackProperties.Specular.Color = {
         00000000000000000000000000000000
       }
+      Material.FrontProperties.Ambient.Red = 0
+      Material.FrontProperties.Ambient.Green = 0
+      Material.FrontProperties.Ambient.Blue = 0
+      Material.FrontProperties.Ambient.Alpha = 0
       Material.FrontProperties.Ambient.Color = {
         00000000000000000000000000000000
       }
+      Material.FrontProperties.Diffuse.Red = 0
+      Material.FrontProperties.Diffuse.Green = 0
+      Material.FrontProperties.Diffuse.Blue = 0
+      Material.FrontProperties.Diffuse.Alpha = 0
       Material.FrontProperties.Diffuse.Color = {
         00000000000000000000000000000000
       }
+      Material.FrontProperties.Emission.Red = 0
+      Material.FrontProperties.Emission.Green = 0
+      Material.FrontProperties.Emission.Blue = 0
+      Material.FrontProperties.Emission.Alpha = 0
       Material.FrontProperties.Emission.Color = {
         00000000000000000000000000000000
       }
+      Material.FrontProperties.Specular.Red = 0
+      Material.FrontProperties.Specular.Green = 0
+      Material.FrontProperties.Specular.Blue = 0
+      Material.FrontProperties.Specular.Alpha = 1
       Material.BlendingMode = bmTransparency
+      Material.Texture.EnvColor.Red = 0
+      Material.Texture.EnvColor.Green = 0
+      Material.Texture.EnvColor.Blue = 0
+      Material.Texture.EnvColor.Alpha = 0
+      Material.Texture.BorderColor.Red = 0
+      Material.Texture.BorderColor.Green = 0
+      Material.Texture.BorderColor.Blue = 0
+      Material.Texture.BorderColor.Alpha = 0
       PitchAngle = 0
       Position.Coordinates = {
         00000000000000001F05C8C20000803F
@@ -209,22 +358,62 @@ object f_moon: Tf_moon
     end
     object GLHUDSpriteDistance: TGLHUDSprite
       TagFloat = 0
+      Material.BackProperties.Ambient.Red = 0
+      Material.BackProperties.Ambient.Green = 0
+      Material.BackProperties.Ambient.Blue = 0
+      Material.BackProperties.Ambient.Alpha = 1
       Material.BackProperties.Ambient.Color = {
         0000000000000000000000000000803F
       }
+      Material.BackProperties.Diffuse.Red = 0
+      Material.BackProperties.Diffuse.Green = 0
+      Material.BackProperties.Diffuse.Blue = 0
+      Material.BackProperties.Diffuse.Alpha = 1
       Material.BackProperties.Diffuse.Color = {
         0000000000000000000000000000803F
       }
+      Material.BackProperties.Emission.Red = 0
+      Material.BackProperties.Emission.Green = 0
+      Material.BackProperties.Emission.Blue = 0
+      Material.BackProperties.Emission.Alpha = 1
+      Material.BackProperties.Specular.Red = 0
+      Material.BackProperties.Specular.Green = 0
+      Material.BackProperties.Specular.Blue = 0
+      Material.BackProperties.Specular.Alpha = 1
+      Material.FrontProperties.Ambient.Red = 0
+      Material.FrontProperties.Ambient.Green = 0
+      Material.FrontProperties.Ambient.Blue = 0
+      Material.FrontProperties.Ambient.Alpha = 1
       Material.FrontProperties.Ambient.Color = {
         0000000000000000000000000000803F
       }
+      Material.FrontProperties.Diffuse.Red = 0
+      Material.FrontProperties.Diffuse.Green = 0
+      Material.FrontProperties.Diffuse.Blue = 0
+      Material.FrontProperties.Diffuse.Alpha = 1
       Material.FrontProperties.Diffuse.Color = {
         0000000000000000000000000000803F
       }
+      Material.FrontProperties.Emission.Red = 0
+      Material.FrontProperties.Emission.Green = 1
+      Material.FrontProperties.Emission.Blue = 0.49803900718689
+      Material.FrontProperties.Emission.Alpha = 1
       Material.FrontProperties.Emission.Color = {
         000000000000803FF8FEFE3E0000803F
       }
+      Material.FrontProperties.Specular.Red = 0
+      Material.FrontProperties.Specular.Green = 0
+      Material.FrontProperties.Specular.Blue = 0
+      Material.FrontProperties.Specular.Alpha = 1
       Material.Texture.FilteringQuality = tfAnisotropic
+      Material.Texture.EnvColor.Red = 0
+      Material.Texture.EnvColor.Green = 0
+      Material.Texture.EnvColor.Blue = 0
+      Material.Texture.EnvColor.Alpha = 0
+      Material.Texture.BorderColor.Red = 0
+      Material.Texture.BorderColor.Green = 0
+      Material.Texture.BorderColor.Blue = 0
+      Material.Texture.BorderColor.Alpha = 0
       PitchAngle = 0
       Position.Coordinates = {
         0000C8420000C842000000000000803F
@@ -238,16 +427,56 @@ object f_moon: Tf_moon
     end
     object GLHUDSpriteMark: TGLHUDSprite
       TagFloat = 0
+      Material.BackProperties.Ambient.Red = 0.200000002980232
+      Material.BackProperties.Ambient.Green = 0.200000002980232
+      Material.BackProperties.Ambient.Blue = 0.200000002980232
+      Material.BackProperties.Ambient.Alpha = 1
+      Material.BackProperties.Diffuse.Red = 0.800000011920929
+      Material.BackProperties.Diffuse.Green = 0.800000011920929
+      Material.BackProperties.Diffuse.Blue = 0.800000011920929
+      Material.BackProperties.Diffuse.Alpha = 1
+      Material.BackProperties.Emission.Red = 0
+      Material.BackProperties.Emission.Green = 0
+      Material.BackProperties.Emission.Blue = 0
+      Material.BackProperties.Emission.Alpha = 1
+      Material.BackProperties.Specular.Red = 0
+      Material.BackProperties.Specular.Green = 0
+      Material.BackProperties.Specular.Blue = 0
+      Material.BackProperties.Specular.Alpha = 1
+      Material.FrontProperties.Ambient.Red = 0
+      Material.FrontProperties.Ambient.Green = 0
+      Material.FrontProperties.Ambient.Blue = 0
+      Material.FrontProperties.Ambient.Alpha = 1
       Material.FrontProperties.Ambient.Color = {
         0000000000000000000000000000803F
       }
+      Material.FrontProperties.Diffuse.Red = 0
+      Material.FrontProperties.Diffuse.Green = 0
+      Material.FrontProperties.Diffuse.Blue = 0
+      Material.FrontProperties.Diffuse.Alpha = 1
       Material.FrontProperties.Diffuse.Color = {
         0000000000000000000000000000803F
       }
+      Material.FrontProperties.Emission.Red = 1
+      Material.FrontProperties.Emission.Green = 0.5
+      Material.FrontProperties.Emission.Blue = 0
+      Material.FrontProperties.Emission.Alpha = 1
       Material.FrontProperties.Emission.Color = {
         0000803F0000003F000000000000803F
       }
+      Material.FrontProperties.Specular.Red = 0
+      Material.FrontProperties.Specular.Green = 0
+      Material.FrontProperties.Specular.Blue = 0
+      Material.FrontProperties.Specular.Alpha = 1
       Material.Texture.FilteringQuality = tfAnisotropic
+      Material.Texture.EnvColor.Red = 0
+      Material.Texture.EnvColor.Green = 0
+      Material.Texture.EnvColor.Blue = 0
+      Material.Texture.EnvColor.Alpha = 0
+      Material.Texture.BorderColor.Red = 0
+      Material.Texture.BorderColor.Green = 0
+      Material.Texture.BorderColor.Blue = 0
+      Material.Texture.BorderColor.Alpha = 0
       PitchAngle = 0
       Position.Coordinates = {
         0000C8420000C842000000000000803F
@@ -267,6 +496,10 @@ object f_moon: Tf_moon
       BitmapFont = GLBitmapFont1
       Rotation = 0
       Layout = tlCenter
+      ModulateColor.Red = 0
+      ModulateColor.Green = 0
+      ModulateColor.Blue = 0
+      ModulateColor.Alpha = 1
       ModulateColor.Color = {
         0000000000000000000000000000803F
       }
@@ -279,15 +512,59 @@ object f_moon: Tf_moon
       BitmapFont = GLBitmapFont1
       Rotation = 0
       Layout = tlCenter
+      ModulateColor.Red = 1
+      ModulateColor.Green = 0
+      ModulateColor.Blue = 0
+      ModulateColor.Alpha = 1
       ModulateColor.Color = {
         0000803F00000000000000000000803F
       }
     end
     object GLHUDSpriteScale: TGLHUDSprite
       TagFloat = 0
+      Material.BackProperties.Ambient.Red = 0.200000002980232
+      Material.BackProperties.Ambient.Green = 0.200000002980232
+      Material.BackProperties.Ambient.Blue = 0.200000002980232
+      Material.BackProperties.Ambient.Alpha = 1
+      Material.BackProperties.Diffuse.Red = 0.800000011920929
+      Material.BackProperties.Diffuse.Green = 0.800000011920929
+      Material.BackProperties.Diffuse.Blue = 0.800000011920929
+      Material.BackProperties.Diffuse.Alpha = 1
+      Material.BackProperties.Emission.Red = 0
+      Material.BackProperties.Emission.Green = 0
+      Material.BackProperties.Emission.Blue = 0
+      Material.BackProperties.Emission.Alpha = 1
+      Material.BackProperties.Specular.Red = 0
+      Material.BackProperties.Specular.Green = 0
+      Material.BackProperties.Specular.Blue = 0
+      Material.BackProperties.Specular.Alpha = 1
+      Material.FrontProperties.Ambient.Red = 0.200000002980232
+      Material.FrontProperties.Ambient.Green = 0.200000002980232
+      Material.FrontProperties.Ambient.Blue = 0.200000002980232
+      Material.FrontProperties.Ambient.Alpha = 1
+      Material.FrontProperties.Diffuse.Red = 0.800000011920929
+      Material.FrontProperties.Diffuse.Green = 0.800000011920929
+      Material.FrontProperties.Diffuse.Blue = 0.800000011920929
+      Material.FrontProperties.Diffuse.Alpha = 1
+      Material.FrontProperties.Emission.Red = 1
+      Material.FrontProperties.Emission.Green = 1
+      Material.FrontProperties.Emission.Blue = 0
+      Material.FrontProperties.Emission.Alpha = 1
       Material.FrontProperties.Emission.Color = {
         0000803F0000803F000000000000803F
       }
+      Material.FrontProperties.Specular.Red = 0
+      Material.FrontProperties.Specular.Green = 0
+      Material.FrontProperties.Specular.Blue = 0
+      Material.FrontProperties.Specular.Alpha = 1
+      Material.Texture.EnvColor.Red = 0
+      Material.Texture.EnvColor.Green = 0
+      Material.Texture.EnvColor.Blue = 0
+      Material.Texture.EnvColor.Alpha = 0
+      Material.Texture.BorderColor.Red = 0
+      Material.Texture.BorderColor.Green = 0
+      Material.Texture.BorderColor.Blue = 0
+      Material.Texture.BorderColor.Alpha = 0
       PitchAngle = 0
       RollAngle = 0
       TurnAngle = 0
@@ -303,6 +580,10 @@ object f_moon: Tf_moon
       BitmapFont = GLBitmapFont1
       Rotation = 0
       Layout = tlCenter
+      ModulateColor.Red = 0
+      ModulateColor.Green = 0
+      ModulateColor.Blue = 0
+      ModulateColor.Alpha = 1
       ModulateColor.Color = {
         0000000000000000000000000000803F
       }
@@ -318,6 +599,10 @@ object f_moon: Tf_moon
       BitmapFont = GLBitmapFont1
       Rotation = 0
       Layout = tlCenter
+      ModulateColor.Red = 1
+      ModulateColor.Green = 1
+      ModulateColor.Blue = 0
+      ModulateColor.Alpha = 1
       ModulateColor.Color = {
         0000803F0000803F000000000000803F
       }
@@ -330,6 +615,10 @@ object f_moon: Tf_moon
       BitmapFont = GLBitmapFont1
       Rotation = 0
       Layout = tlCenter
+      ModulateColor.Red = 0
+      ModulateColor.Green = 0
+      ModulateColor.Blue = 0
+      ModulateColor.Alpha = 1
       ModulateColor.Color = {
         0000000000000000000000000000803F
       }
@@ -345,21 +634,65 @@ object f_moon: Tf_moon
       BitmapFont = GLBitmapFont1
       Rotation = 0
       Layout = tlCenter
+      ModulateColor.Red = 1
+      ModulateColor.Green = 1
+      ModulateColor.Blue = 0
+      ModulateColor.Alpha = 1
       ModulateColor.Color = {
         0000803F0000803F000000000000803F
       }
     end
     object GLHUDSpriteCCD1: TGLHUDSprite
       TagFloat = 0
+      Material.BackProperties.Ambient.Red = 0.200000002980232
+      Material.BackProperties.Ambient.Green = 0.200000002980232
+      Material.BackProperties.Ambient.Blue = 0.200000002980232
+      Material.BackProperties.Ambient.Alpha = 1
+      Material.BackProperties.Diffuse.Red = 0.800000011920929
+      Material.BackProperties.Diffuse.Green = 0.800000011920929
+      Material.BackProperties.Diffuse.Blue = 0.800000011920929
+      Material.BackProperties.Diffuse.Alpha = 1
+      Material.BackProperties.Emission.Red = 0
+      Material.BackProperties.Emission.Green = 0
+      Material.BackProperties.Emission.Blue = 0
+      Material.BackProperties.Emission.Alpha = 1
+      Material.BackProperties.Specular.Red = 0
+      Material.BackProperties.Specular.Green = 0
+      Material.BackProperties.Specular.Blue = 0
+      Material.BackProperties.Specular.Alpha = 1
+      Material.FrontProperties.Ambient.Red = 0
+      Material.FrontProperties.Ambient.Green = 0
+      Material.FrontProperties.Ambient.Blue = 0
+      Material.FrontProperties.Ambient.Alpha = 1
       Material.FrontProperties.Ambient.Color = {
         0000000000000000000000000000803F
       }
+      Material.FrontProperties.Diffuse.Red = 0
+      Material.FrontProperties.Diffuse.Green = 0
+      Material.FrontProperties.Diffuse.Blue = 0
+      Material.FrontProperties.Diffuse.Alpha = 1
       Material.FrontProperties.Diffuse.Color = {
         0000000000000000000000000000803F
       }
+      Material.FrontProperties.Emission.Red = 1
+      Material.FrontProperties.Emission.Green = 0
+      Material.FrontProperties.Emission.Blue = 0
+      Material.FrontProperties.Emission.Alpha = 1
       Material.FrontProperties.Emission.Color = {
         0000803F00000000000000000000803F
       }
+      Material.FrontProperties.Specular.Red = 0
+      Material.FrontProperties.Specular.Green = 0
+      Material.FrontProperties.Specular.Blue = 0
+      Material.FrontProperties.Specular.Alpha = 1
+      Material.Texture.EnvColor.Red = 0
+      Material.Texture.EnvColor.Green = 0
+      Material.Texture.EnvColor.Blue = 0
+      Material.Texture.EnvColor.Alpha = 0
+      Material.Texture.BorderColor.Red = 0
+      Material.Texture.BorderColor.Green = 0
+      Material.Texture.BorderColor.Blue = 0
+      Material.Texture.BorderColor.Alpha = 0
       PitchAngle = 0
       RollAngle = 0
       TurnAngle = 0
@@ -368,15 +701,55 @@ object f_moon: Tf_moon
       Rotation = 0
       object GLHUDSpriteCCD2: TGLHUDSprite
         TagFloat = 0
+        Material.BackProperties.Ambient.Red = 0.200000002980232
+        Material.BackProperties.Ambient.Green = 0.200000002980232
+        Material.BackProperties.Ambient.Blue = 0.200000002980232
+        Material.BackProperties.Ambient.Alpha = 1
+        Material.BackProperties.Diffuse.Red = 0.800000011920929
+        Material.BackProperties.Diffuse.Green = 0.800000011920929
+        Material.BackProperties.Diffuse.Blue = 0.800000011920929
+        Material.BackProperties.Diffuse.Alpha = 1
+        Material.BackProperties.Emission.Red = 0
+        Material.BackProperties.Emission.Green = 0
+        Material.BackProperties.Emission.Blue = 0
+        Material.BackProperties.Emission.Alpha = 1
+        Material.BackProperties.Specular.Red = 0
+        Material.BackProperties.Specular.Green = 0
+        Material.BackProperties.Specular.Blue = 0
+        Material.BackProperties.Specular.Alpha = 1
+        Material.FrontProperties.Ambient.Red = 0
+        Material.FrontProperties.Ambient.Green = 0
+        Material.FrontProperties.Ambient.Blue = 0
+        Material.FrontProperties.Ambient.Alpha = 1
         Material.FrontProperties.Ambient.Color = {
           0000000000000000000000000000803F
         }
+        Material.FrontProperties.Diffuse.Red = 0
+        Material.FrontProperties.Diffuse.Green = 0
+        Material.FrontProperties.Diffuse.Blue = 0
+        Material.FrontProperties.Diffuse.Alpha = 1
         Material.FrontProperties.Diffuse.Color = {
           0000000000000000000000000000803F
         }
+        Material.FrontProperties.Emission.Red = 1
+        Material.FrontProperties.Emission.Green = 0
+        Material.FrontProperties.Emission.Blue = 0
+        Material.FrontProperties.Emission.Alpha = 1
         Material.FrontProperties.Emission.Color = {
           0000803F00000000000000000000803F
         }
+        Material.FrontProperties.Specular.Red = 0
+        Material.FrontProperties.Specular.Green = 0
+        Material.FrontProperties.Specular.Blue = 0
+        Material.FrontProperties.Specular.Alpha = 1
+        Material.Texture.EnvColor.Red = 0
+        Material.Texture.EnvColor.Green = 0
+        Material.Texture.EnvColor.Blue = 0
+        Material.Texture.EnvColor.Alpha = 0
+        Material.Texture.BorderColor.Red = 0
+        Material.Texture.BorderColor.Green = 0
+        Material.Texture.BorderColor.Blue = 0
+        Material.Texture.BorderColor.Alpha = 0
         PitchAngle = 0
         RollAngle = 0
         TurnAngle = 0
@@ -386,15 +759,55 @@ object f_moon: Tf_moon
       end
       object GLHUDSpriteCCD3: TGLHUDSprite
         TagFloat = 0
+        Material.BackProperties.Ambient.Red = 0.200000002980232
+        Material.BackProperties.Ambient.Green = 0.200000002980232
+        Material.BackProperties.Ambient.Blue = 0.200000002980232
+        Material.BackProperties.Ambient.Alpha = 1
+        Material.BackProperties.Diffuse.Red = 0.800000011920929
+        Material.BackProperties.Diffuse.Green = 0.800000011920929
+        Material.BackProperties.Diffuse.Blue = 0.800000011920929
+        Material.BackProperties.Diffuse.Alpha = 1
+        Material.BackProperties.Emission.Red = 0
+        Material.BackProperties.Emission.Green = 0
+        Material.BackProperties.Emission.Blue = 0
+        Material.BackProperties.Emission.Alpha = 1
+        Material.BackProperties.Specular.Red = 0
+        Material.BackProperties.Specular.Green = 0
+        Material.BackProperties.Specular.Blue = 0
+        Material.BackProperties.Specular.Alpha = 1
+        Material.FrontProperties.Ambient.Red = 0
+        Material.FrontProperties.Ambient.Green = 0
+        Material.FrontProperties.Ambient.Blue = 0
+        Material.FrontProperties.Ambient.Alpha = 1
         Material.FrontProperties.Ambient.Color = {
           0000000000000000000000000000803F
         }
+        Material.FrontProperties.Diffuse.Red = 0
+        Material.FrontProperties.Diffuse.Green = 0
+        Material.FrontProperties.Diffuse.Blue = 0
+        Material.FrontProperties.Diffuse.Alpha = 1
         Material.FrontProperties.Diffuse.Color = {
           0000000000000000000000000000803F
         }
+        Material.FrontProperties.Emission.Red = 1
+        Material.FrontProperties.Emission.Green = 0
+        Material.FrontProperties.Emission.Blue = 0
+        Material.FrontProperties.Emission.Alpha = 1
         Material.FrontProperties.Emission.Color = {
           0000803F00000000000000000000803F
         }
+        Material.FrontProperties.Specular.Red = 0
+        Material.FrontProperties.Specular.Green = 0
+        Material.FrontProperties.Specular.Blue = 0
+        Material.FrontProperties.Specular.Alpha = 1
+        Material.Texture.EnvColor.Red = 0
+        Material.Texture.EnvColor.Green = 0
+        Material.Texture.EnvColor.Blue = 0
+        Material.Texture.EnvColor.Alpha = 0
+        Material.Texture.BorderColor.Red = 0
+        Material.Texture.BorderColor.Green = 0
+        Material.Texture.BorderColor.Blue = 0
+        Material.Texture.BorderColor.Alpha = 0
         PitchAngle = 0
         RollAngle = 0
         TurnAngle = 0
@@ -404,12 +817,52 @@ object f_moon: Tf_moon
       end
       object GLHUDSpriteCCD4: TGLHUDSprite
         TagFloat = 0
+        Material.BackProperties.Ambient.Red = 0.200000002980232
+        Material.BackProperties.Ambient.Green = 0.200000002980232
+        Material.BackProperties.Ambient.Blue = 0.200000002980232
+        Material.BackProperties.Ambient.Alpha = 1
+        Material.BackProperties.Diffuse.Red = 0.800000011920929
+        Material.BackProperties.Diffuse.Green = 0.800000011920929
+        Material.BackProperties.Diffuse.Blue = 0.800000011920929
+        Material.BackProperties.Diffuse.Alpha = 1
+        Material.BackProperties.Emission.Red = 0
+        Material.BackProperties.Emission.Green = 0
+        Material.BackProperties.Emission.Blue = 0
+        Material.BackProperties.Emission.Alpha = 1
+        Material.BackProperties.Specular.Red = 0
+        Material.BackProperties.Specular.Green = 0
+        Material.BackProperties.Specular.Blue = 0
+        Material.BackProperties.Specular.Alpha = 1
+        Material.FrontProperties.Ambient.Red = 0.200000002980232
+        Material.FrontProperties.Ambient.Green = 0.200000002980232
+        Material.FrontProperties.Ambient.Blue = 0.200000002980232
+        Material.FrontProperties.Ambient.Alpha = 1
+        Material.FrontProperties.Diffuse.Red = 0
+        Material.FrontProperties.Diffuse.Green = 0
+        Material.FrontProperties.Diffuse.Blue = 0
+        Material.FrontProperties.Diffuse.Alpha = 1
         Material.FrontProperties.Diffuse.Color = {
           0000000000000000000000000000803F
         }
+        Material.FrontProperties.Emission.Red = 1
+        Material.FrontProperties.Emission.Green = 0
+        Material.FrontProperties.Emission.Blue = 0
+        Material.FrontProperties.Emission.Alpha = 1
         Material.FrontProperties.Emission.Color = {
           0000803F00000000000000000000803F
         }
+        Material.FrontProperties.Specular.Red = 0
+        Material.FrontProperties.Specular.Green = 0
+        Material.FrontProperties.Specular.Blue = 0
+        Material.FrontProperties.Specular.Alpha = 1
+        Material.Texture.EnvColor.Red = 0
+        Material.Texture.EnvColor.Green = 0
+        Material.Texture.EnvColor.Blue = 0
+        Material.Texture.EnvColor.Alpha = 0
+        Material.Texture.BorderColor.Red = 0
+        Material.Texture.BorderColor.Green = 0
+        Material.Texture.BorderColor.Blue = 0
+        Material.Texture.BorderColor.Alpha = 0
         PitchAngle = 0
         RollAngle = 0
         TurnAngle = 0
@@ -420,19 +873,59 @@ object f_moon: Tf_moon
     end
     object LabelGroup: TGLHUDSprite
       TagFloat = 0
+      Material.BackProperties.Ambient.Red = 0.200000002980232
+      Material.BackProperties.Ambient.Green = 0.200000002980232
+      Material.BackProperties.Ambient.Blue = 0.200000002980232
+      Material.BackProperties.Ambient.Alpha = 1
+      Material.BackProperties.Diffuse.Red = 0.800000011920929
+      Material.BackProperties.Diffuse.Green = 0.800000011920929
+      Material.BackProperties.Diffuse.Blue = 0.800000011920929
+      Material.BackProperties.Diffuse.Alpha = 1
+      Material.BackProperties.Emission.Red = 0
+      Material.BackProperties.Emission.Green = 0
+      Material.BackProperties.Emission.Blue = 0
+      Material.BackProperties.Emission.Alpha = 1
+      Material.BackProperties.Specular.Red = 0
+      Material.BackProperties.Specular.Green = 0
+      Material.BackProperties.Specular.Blue = 0
+      Material.BackProperties.Specular.Alpha = 1
+      Material.FrontProperties.Ambient.Red = 0
+      Material.FrontProperties.Ambient.Green = 0
+      Material.FrontProperties.Ambient.Blue = 0
+      Material.FrontProperties.Ambient.Alpha = 0
       Material.FrontProperties.Ambient.Color = {
         00000000000000000000000000000000
       }
+      Material.FrontProperties.Diffuse.Red = 0
+      Material.FrontProperties.Diffuse.Green = 0
+      Material.FrontProperties.Diffuse.Blue = 0
+      Material.FrontProperties.Diffuse.Alpha = 0
       Material.FrontProperties.Diffuse.Color = {
         00000000000000000000000000000000
       }
+      Material.FrontProperties.Emission.Red = 0
+      Material.FrontProperties.Emission.Green = 0
+      Material.FrontProperties.Emission.Blue = 0
+      Material.FrontProperties.Emission.Alpha = 0
       Material.FrontProperties.Emission.Color = {
         00000000000000000000000000000000
       }
+      Material.FrontProperties.Specular.Red = 0
+      Material.FrontProperties.Specular.Green = 0
+      Material.FrontProperties.Specular.Blue = 0
+      Material.FrontProperties.Specular.Alpha = 0
       Material.FrontProperties.Specular.Color = {
         00000000000000000000000000000000
       }
       Material.BlendingMode = bmTransparency
+      Material.Texture.EnvColor.Red = 0
+      Material.Texture.EnvColor.Green = 0
+      Material.Texture.EnvColor.Blue = 0
+      Material.Texture.EnvColor.Alpha = 0
+      Material.Texture.BorderColor.Red = 0
+      Material.Texture.BorderColor.Green = 0
+      Material.Texture.BorderColor.Blue = 0
+      Material.Texture.BorderColor.Alpha = 0
       PitchAngle = 0
       RollAngle = 0
       TurnAngle = 0
@@ -446,6 +939,10 @@ object f_moon: Tf_moon
       RollAngle = 0
       TurnAngle = 0
       CubeSize = 1
+      EdgeColor.Red = 1
+      EdgeColor.Green = 1
+      EdgeColor.Blue = 1
+      EdgeColor.Alpha = 1
     end
     object GLDummyCubeSatellite: TGLDummyCube
       TagFloat = 0
@@ -456,6 +953,10 @@ object f_moon: Tf_moon
       RollAngle = 0
       TurnAngle = 0
       CubeSize = 1
+      EdgeColor.Red = 1
+      EdgeColor.Green = 1
+      EdgeColor.Blue = 1
+      EdgeColor.Alpha = 1
       object GLCameraSatellite: TGLCamera
         TagFloat = 0
         DepthOfView = 10
@@ -471,6 +972,46 @@ object f_moon: Tf_moon
       end
       object GLFreeFormSatelite: TGLFreeForm
         TagFloat = 0
+        Material.BackProperties.Ambient.Red = 0.200000002980232
+        Material.BackProperties.Ambient.Green = 0.200000002980232
+        Material.BackProperties.Ambient.Blue = 0.200000002980232
+        Material.BackProperties.Ambient.Alpha = 1
+        Material.BackProperties.Diffuse.Red = 0.800000011920929
+        Material.BackProperties.Diffuse.Green = 0.800000011920929
+        Material.BackProperties.Diffuse.Blue = 0.800000011920929
+        Material.BackProperties.Diffuse.Alpha = 1
+        Material.BackProperties.Emission.Red = 0
+        Material.BackProperties.Emission.Green = 0
+        Material.BackProperties.Emission.Blue = 0
+        Material.BackProperties.Emission.Alpha = 1
+        Material.BackProperties.Specular.Red = 0
+        Material.BackProperties.Specular.Green = 0
+        Material.BackProperties.Specular.Blue = 0
+        Material.BackProperties.Specular.Alpha = 1
+        Material.FrontProperties.Ambient.Red = 0.200000002980232
+        Material.FrontProperties.Ambient.Green = 0.200000002980232
+        Material.FrontProperties.Ambient.Blue = 0.200000002980232
+        Material.FrontProperties.Ambient.Alpha = 1
+        Material.FrontProperties.Diffuse.Red = 0.800000011920929
+        Material.FrontProperties.Diffuse.Green = 0.800000011920929
+        Material.FrontProperties.Diffuse.Blue = 0.800000011920929
+        Material.FrontProperties.Diffuse.Alpha = 1
+        Material.FrontProperties.Emission.Red = 0
+        Material.FrontProperties.Emission.Green = 0
+        Material.FrontProperties.Emission.Blue = 0
+        Material.FrontProperties.Emission.Alpha = 1
+        Material.FrontProperties.Specular.Red = 0
+        Material.FrontProperties.Specular.Green = 0
+        Material.FrontProperties.Specular.Blue = 0
+        Material.FrontProperties.Specular.Alpha = 1
+        Material.Texture.EnvColor.Red = 0
+        Material.Texture.EnvColor.Green = 0
+        Material.Texture.EnvColor.Blue = 0
+        Material.Texture.EnvColor.Alpha = 0
+        Material.Texture.BorderColor.Red = 0
+        Material.Texture.BorderColor.Green = 0
+        Material.Texture.BorderColor.Blue = 0
+        Material.Texture.BorderColor.Alpha = 0
         PitchAngle = 0
         RollAngle = 0
         Scale.Coordinates = {
@@ -495,12 +1036,24 @@ object f_moon: Tf_moon
       }
       object GLLightSource2: TGLLightSource
         TagFloat = 0
+        Ambient.Red = 0
+        Ambient.Green = 0
+        Ambient.Blue = 0
+        Ambient.Alpha = 1
         ConstAttenuation = 1
+        Diffuse.Red = 0.25
+        Diffuse.Green = 0.25
+        Diffuse.Blue = 0.25
+        Diffuse.Alpha = 1
         Diffuse.Color = {
           0000803E0000803E0000803E0000803F
         }
         LinearAttenuation = 0
         QuadraticAttenuation = 0
+        Specular.Red = 0
+        Specular.Green = 0
+        Specular.Blue = 0
+        Specular.Alpha = 1
         SpotCutOff = 180
         SpotDirection.Coordinates = {
           00000000000000000000803F00000000
@@ -518,15 +1071,55 @@ object f_moon: Tf_moon
       item
         Name = 'MultiMaterial'
         Tag = 0
+        Material.BackProperties.Ambient.Red = 0.200000002980232
+        Material.BackProperties.Ambient.Green = 0.200000002980232
+        Material.BackProperties.Ambient.Blue = 0.200000002980232
+        Material.BackProperties.Ambient.Alpha = 1
+        Material.BackProperties.Diffuse.Red = 0.800000011920929
+        Material.BackProperties.Diffuse.Green = 0.800000011920929
+        Material.BackProperties.Diffuse.Blue = 0.800000011920929
+        Material.BackProperties.Diffuse.Alpha = 1
+        Material.BackProperties.Emission.Red = 0
+        Material.BackProperties.Emission.Green = 0
+        Material.BackProperties.Emission.Blue = 0
+        Material.BackProperties.Emission.Alpha = 1
+        Material.BackProperties.Specular.Red = 0
+        Material.BackProperties.Specular.Green = 0
+        Material.BackProperties.Specular.Blue = 0
+        Material.BackProperties.Specular.Alpha = 1
+        Material.FrontProperties.Ambient.Red = 1
+        Material.FrontProperties.Ambient.Green = 1
+        Material.FrontProperties.Ambient.Blue = 1
+        Material.FrontProperties.Ambient.Alpha = 1
         Material.FrontProperties.Ambient.Color = {
           0000803F0000803F0000803F0000803F
         }
+        Material.FrontProperties.Diffuse.Red = 1
+        Material.FrontProperties.Diffuse.Green = 1
+        Material.FrontProperties.Diffuse.Blue = 1
+        Material.FrontProperties.Diffuse.Alpha = 1
         Material.FrontProperties.Diffuse.Color = {
           0000803F0000803F0000803F0000803F
         }
+        Material.FrontProperties.Emission.Red = 0
+        Material.FrontProperties.Emission.Green = 0
+        Material.FrontProperties.Emission.Blue = 0
+        Material.FrontProperties.Emission.Alpha = 1
+        Material.FrontProperties.Specular.Red = 1
+        Material.FrontProperties.Specular.Green = 1
+        Material.FrontProperties.Specular.Blue = 1
+        Material.FrontProperties.Specular.Alpha = 1
         Material.FrontProperties.Specular.Color = {
           0000803F0000803F0000803F0000803F
         }
+        Material.Texture.EnvColor.Red = 0
+        Material.Texture.EnvColor.Green = 0
+        Material.Texture.EnvColor.Blue = 0
+        Material.Texture.EnvColor.Alpha = 0
+        Material.Texture.BorderColor.Red = 0
+        Material.Texture.BorderColor.Green = 0
+        Material.Texture.BorderColor.Blue = 0
+        Material.Texture.BorderColor.Alpha = 0
         Shader = GLMultiMaterialShader
       end>
     left = 48
@@ -571,15 +1164,55 @@ object f_moon: Tf_moon
       item
         Name = 'Bump'
         Tag = 0
+        Material.BackProperties.Ambient.Red = 0.200000002980232
+        Material.BackProperties.Ambient.Green = 0.200000002980232
+        Material.BackProperties.Ambient.Blue = 0.200000002980232
+        Material.BackProperties.Ambient.Alpha = 1
+        Material.BackProperties.Diffuse.Red = 0.800000011920929
+        Material.BackProperties.Diffuse.Green = 0.800000011920929
+        Material.BackProperties.Diffuse.Blue = 0.800000011920929
+        Material.BackProperties.Diffuse.Alpha = 1
+        Material.BackProperties.Emission.Red = 0
+        Material.BackProperties.Emission.Green = 0
+        Material.BackProperties.Emission.Blue = 0
+        Material.BackProperties.Emission.Alpha = 1
+        Material.BackProperties.Specular.Red = 0
+        Material.BackProperties.Specular.Green = 0
+        Material.BackProperties.Specular.Blue = 0
+        Material.BackProperties.Specular.Alpha = 1
+        Material.FrontProperties.Ambient.Red = 1
+        Material.FrontProperties.Ambient.Green = 1
+        Material.FrontProperties.Ambient.Blue = 1
+        Material.FrontProperties.Ambient.Alpha = 1
         Material.FrontProperties.Ambient.Color = {
           0000803F0000803F0000803F0000803F
         }
+        Material.FrontProperties.Diffuse.Red = 1
+        Material.FrontProperties.Diffuse.Green = 1
+        Material.FrontProperties.Diffuse.Blue = 1
+        Material.FrontProperties.Diffuse.Alpha = 1
         Material.FrontProperties.Diffuse.Color = {
           0000803F0000803F0000803F0000803F
         }
+        Material.FrontProperties.Emission.Red = 0
+        Material.FrontProperties.Emission.Green = 0
+        Material.FrontProperties.Emission.Blue = 0
+        Material.FrontProperties.Emission.Alpha = 1
+        Material.FrontProperties.Specular.Red = 1
+        Material.FrontProperties.Specular.Green = 1
+        Material.FrontProperties.Specular.Blue = 1
+        Material.FrontProperties.Specular.Alpha = 1
         Material.FrontProperties.Specular.Color = {
           0000803F0000803F0000803F0000803F
         }
+        Material.Texture.EnvColor.Red = 0
+        Material.Texture.EnvColor.Green = 0
+        Material.Texture.EnvColor.Blue = 0
+        Material.Texture.EnvColor.Alpha = 0
+        Material.Texture.BorderColor.Red = 0
+        Material.Texture.BorderColor.Green = 0
+        Material.Texture.BorderColor.Blue = 0
+        Material.Texture.BorderColor.Alpha = 0
         Material.Texture.Disabled = False
         Texture2Name = 'Diffuse'
         Shader = GLBumpShader1
@@ -587,15 +1220,55 @@ object f_moon: Tf_moon
       item
         Name = 'Diffuse'
         Tag = 0
+        Material.BackProperties.Ambient.Red = 0.200000002980232
+        Material.BackProperties.Ambient.Green = 0.200000002980232
+        Material.BackProperties.Ambient.Blue = 0.200000002980232
+        Material.BackProperties.Ambient.Alpha = 1
+        Material.BackProperties.Diffuse.Red = 0.800000011920929
+        Material.BackProperties.Diffuse.Green = 0.800000011920929
+        Material.BackProperties.Diffuse.Blue = 0.800000011920929
+        Material.BackProperties.Diffuse.Alpha = 1
+        Material.BackProperties.Emission.Red = 0
+        Material.BackProperties.Emission.Green = 0
+        Material.BackProperties.Emission.Blue = 0
+        Material.BackProperties.Emission.Alpha = 1
+        Material.BackProperties.Specular.Red = 0
+        Material.BackProperties.Specular.Green = 0
+        Material.BackProperties.Specular.Blue = 0
+        Material.BackProperties.Specular.Alpha = 1
+        Material.FrontProperties.Ambient.Red = 1
+        Material.FrontProperties.Ambient.Green = 1
+        Material.FrontProperties.Ambient.Blue = 1
+        Material.FrontProperties.Ambient.Alpha = 1
         Material.FrontProperties.Ambient.Color = {
           0000803F0000803F0000803F0000803F
         }
+        Material.FrontProperties.Diffuse.Red = 1
+        Material.FrontProperties.Diffuse.Green = 1
+        Material.FrontProperties.Diffuse.Blue = 1
+        Material.FrontProperties.Diffuse.Alpha = 1
         Material.FrontProperties.Diffuse.Color = {
           0000803F0000803F0000803F0000803F
         }
+        Material.FrontProperties.Emission.Red = 0
+        Material.FrontProperties.Emission.Green = 0
+        Material.FrontProperties.Emission.Blue = 0
+        Material.FrontProperties.Emission.Alpha = 1
+        Material.FrontProperties.Specular.Red = 1
+        Material.FrontProperties.Specular.Green = 1
+        Material.FrontProperties.Specular.Blue = 1
+        Material.FrontProperties.Specular.Alpha = 1
         Material.FrontProperties.Specular.Color = {
           0000803F0000803F0000803F0000803F
         }
+        Material.Texture.EnvColor.Red = 0
+        Material.Texture.EnvColor.Green = 0
+        Material.Texture.EnvColor.Blue = 0
+        Material.Texture.EnvColor.Alpha = 0
+        Material.Texture.BorderColor.Red = 0
+        Material.Texture.BorderColor.Green = 0
+        Material.Texture.BorderColor.Blue = 0
+        Material.Texture.BorderColor.Alpha = 0
         Material.Texture.Disabled = False
       end>
     left = 40

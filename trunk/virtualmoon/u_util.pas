@@ -124,7 +124,7 @@ var traceon : boolean;
 
 implementation
 
-uses u_projection;
+uses LazUTF8, u_projection;
 
 var
   dummy_ext : extended;

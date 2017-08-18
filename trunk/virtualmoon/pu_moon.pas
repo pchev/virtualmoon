@@ -361,7 +361,7 @@ implementation
 
 {$R pu_moon.lfm}
 
-uses LCLProc, GLVectorGeometry, GLFile3DS, OpenGLAdapter;
+uses LazFileUtils, LCLProc, GLVectorGeometry, GLFile3DS, OpenGLAdapter;
 
 { Tf_moon }
 
@@ -2358,7 +2358,8 @@ var x,y,z: single;
     sl,cl,sb,cb: single;
 begin
 if lon>10000 then lon:=-FLibrLon;
-if lat>10000 then lat:=FLibrLat;
+if lat>10000 then lat:= FLibrLat;
+if lat=0 then lat:=0.0001;
 if VisibleSideLock then begin
   if Moon2World(lon,lat,x,y,z) then begin
      GLCamera1.Position.X:=x;

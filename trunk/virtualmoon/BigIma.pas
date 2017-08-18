@@ -70,7 +70,7 @@ implementation
 
 {$R BigIma.lfm}
 
-uses u_util;
+uses LazUTF8, u_util;
 
 
 Procedure TbigImaform.LoadImage(f : string);
