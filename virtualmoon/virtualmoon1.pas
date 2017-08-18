@@ -41,7 +41,7 @@ uses
   mlb2, PrintersDlgs, Printers, Controls,
   Messages, SysUtils, Classes, Dialogs, FileUtil,
   ComCtrls, Menus, Buttons, dynlibs, BigIma,
-  EnhEdits, IniFiles, passql, passqlite,
+  EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase,
   Math, CraterList, LResources, IpHtml, UniqueInstance, GLViewer, GLLCLViewer;
 
 type
@@ -592,7 +592,10 @@ implementation
 
 {$R virtualmoon1.lfm}
 
-uses
+uses LazUTF8,
+  {$IF (lcl_fullversion >= 1070000)}
+  lclplatformdef,
+  {$endif}
   telescope, config, splashunit, pu_features, pu_ephem,
   glossary, fmsg, dbutil, LCLProc;
 
@@ -3236,12 +3239,22 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 var
   i: integer;
+  buf:string;
 begin
 //  Satellite model
 //  Label18.Visible:=true;
 //  ComboBox6.Visible:=true;
-  DecimalSeparator := '.';
-  ThousandSeparator:=' ';
+
+  buf := LCLPlatformDirNames[WidgetSet.LCLPlatform];
+
+  if buf = 'win32' then
+    buf := 'mswindows';
+
+  compile_time := {$I %DATE%}+' '+{$I %TIME%};
+  compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+buf;
+
+  DefaultFormatSettings.DecimalSeparator := '.';
+  DefaultFormatSettings.ThousandSeparator:=' ';
   UniqueInstance1:=TCdCUniqueInstance.Create(self);
   UniqueInstance1.Identifier:='Virtual_Moon_Atlas_MapLun';
   UniqueInstance1.OnOtherInstance:=OtherInstance;
@@ -3399,7 +3412,8 @@ begin
   begin
     for i := 1 to paramcount do
     begin
-      param.Add(ParamStr(i));
+      buf:= ParamStr(i);
+      param.Add(buf);
       if ParamStr(i) = '-safe' then
         borderstyle := bsNone; // canot set this later in formshow
     end;
