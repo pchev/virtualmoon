@@ -476,6 +476,8 @@ const
 
 implementation
 
+uses LazUTF8;
+
 {$R catlun_main.lfm}
 
 { Tf_catlun }
@@ -654,7 +656,7 @@ begin
      texturefiles[5]:='Lopam';
 
  moon1:=Tf_moon.Create(PanelMoon);
- moon1.maxzoommultiplier:=3;
+// moon1.maxzoommultiplier:=3;
  moon1.Moon.Align:=alClient;
  moon1.onMoonClick:=@MoonClickEvent;
  moon1.onMoonMove:=@MoonMoveEvent;
