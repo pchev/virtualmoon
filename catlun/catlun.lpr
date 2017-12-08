@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, glscene_designtime, catlun_main, dbutil, fmsg, pu_moon, libsql,
+  Forms, GLScene_RunTime, catlun_main, dbutil, fmsg, pu_moon, libsql,
   Printer4Lazarus, TurboPowerIPro;
 
 begin
