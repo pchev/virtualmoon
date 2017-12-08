@@ -1,20 +1,16 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <General>
       <MainUnit Value="0"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
-      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
       <EnableI18N LFM="False"/>
     </i18n>
-    <VersionInfo>
-      <StringTable ProductVersion=""/>
-    </VersionInfo>
     <BuildModes Count="1" Active="Default">
       <Item1 Name="Default" Default="True"/>
     </BuildModes>
@@ -26,7 +22,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <LaunchingApplication Use="True" PathPlusParams="/usr/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+        <LaunchingApplication Use="True"/>
         <WorkingDirectory Value="/usr/local/bin"/>
       </local>
     </RunParams>
@@ -50,12 +46,8 @@
       <Unit0>
         <Filename Value="weblun.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="weblun"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="21"/>
+        <EditorIndex Value="3"/>
+        <CursorPos Y="21"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -65,11 +57,8 @@
         <ComponentName Value="f_weblun"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="weblun_main"/>
-        <EditorIndex Value="0"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="580"/>
-        <CursorPos X="1" Y="612"/>
+        <CursorPos Y="612"/>
         <UsageCount Value="32"/>
         <Bookmarks Count="1">
           <Item0 X="27" Y="611" ID="1"/>
@@ -80,7 +69,6 @@
       <Unit2>
         <Filename Value="../../../lazarus/lcl/grids.pas"/>
         <UnitName Value="Grids"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="123"/>
         <CursorPos X="23" Y="142"/>
         <UsageCount Value="11"/>
@@ -88,47 +76,39 @@
       <Unit3>
         <Filename Value="u_translation.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="u_translation"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
         <CursorPos X="26" Y="29"/>
         <UsageCount Value="25"/>
       </Unit3>
       <Unit4>
         <Filename Value="u_constant.pas"/>
-        <UnitName Value="u_constant"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="158"/>
-        <CursorPos X="1" Y="187"/>
+        <CursorPos Y="187"/>
         <UsageCount Value="12"/>
       </Unit4>
       <Unit5>
         <Filename Value="../../../fpc/rtl/objpas/sysutils/sysinth.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="150"/>
         <CursorPos X="62" Y="173"/>
         <UsageCount Value="10"/>
       </Unit5>
       <Unit6>
         <Filename Value="u_util.pas"/>
-        <UnitName Value="u_util"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="63"/>
-        <CursorPos X="1" Y="86"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="54" Y="35"/>
         <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../../lazarus/lcl/translations.pas"/>
         <UnitName Value="Translations"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="380"/>
-        <CursorPos X="1" Y="399"/>
+        <CursorPos Y="399"/>
         <UsageCount Value="10"/>
       </Unit7>
       <Unit8>
         <Filename Value="../../../compiler/lazarus/lcl/graphics.pp"/>
         <UnitName Value="Graphics"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="1121"/>
         <CursorPos X="18" Y="1140"/>
         <UsageCount Value="11"/>
@@ -136,31 +116,25 @@
       <Unit9>
         <Filename Value="../../../compiler/lazarus/lcl/grids.pas"/>
         <UnitName Value="Grids"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="3029"/>
-        <CursorPos X="1" Y="3051"/>
+        <CursorPos Y="3051"/>
         <UsageCount Value="11"/>
       </Unit9>
       <Unit10>
         <Filename Value="../../../compiler/lazarus/lcl/include/canvas.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="1173"/>
         <CursorPos X="3" Y="1212"/>
         <UsageCount Value="11"/>
       </Unit10>
       <Unit11>
         <Filename Value="../../../compiler/fpc/rtl/inc/systemh.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="287"/>
         <CursorPos X="3" Y="307"/>
         <UsageCount Value="10"/>
       </Unit11>
       <Unit12>
         <Filename Value="../../../cdc/src/skychart/component/downloaddialog/downloaddialog.pas"/>
-        <UnitName Value="downloaddialog"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="83" Y="8"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
@@ -168,60 +142,47 @@
       <Unit13>
         <Filename Value="../../../compiler/lazarus/lcl/dialogs.pp"/>
         <UnitName Value="Dialogs"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="14" Y="81"/>
         <UsageCount Value="10"/>
       </Unit13>
       <Unit14>
         <Filename Value="../../../compiler/lazarus/lcl/include/commondialog.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="95"/>
         <CursorPos X="3" Y="106"/>
         <UsageCount Value="10"/>
       </Unit14>
       <Unit15>
         <Filename Value="../../../compiler/fpc/rtl/objpas/classes/classesh.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="1533"/>
         <CursorPos X="15" Y="1553"/>
         <UsageCount Value="10"/>
       </Unit15>
       <Unit16>
         <Filename Value="../../../cdc/src/skychart/component/synapse/source/lib/httpsend.pas"/>
-        <UnitName Value="httpsend"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="269"/>
         <CursorPos X="17" Y="282"/>
         <UsageCount Value="11"/>
       </Unit16>
       <Unit17>
         <Filename Value="../../../cdc/src/skychart/component/synapse/source/lib/blcksock.pas"/>
-        <UnitName Value="blcksock"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="1445"/>
         <CursorPos X="14" Y="1474"/>
         <UsageCount Value="10"/>
       </Unit17>
       <Unit18>
         <Filename Value="../../../compiler/fpc/rtl/objpas/sysutils/filutilh.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="72"/>
         <CursorPos X="42" Y="95"/>
         <UsageCount Value="10"/>
       </Unit18>
       <Unit19>
         <Filename Value="../../../cdc/src/skychart/component/libsql/passqlite.pas"/>
-        <UnitName Value="passqlite"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="154"/>
-        <CursorPos X="1" Y="1"/>
         <UsageCount Value="11"/>
       </Unit19>
       <Unit20>
         <Filename Value="../../../cdc/src/skychart/component/libsql/passql.pas"/>
-        <UnitName Value="passql"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="167"/>
         <CursorPos X="50" Y="180"/>
         <UsageCount Value="11"/>
@@ -230,123 +191,117 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="589" Column="49" TopLine="576"/>
+        <Caret Line="91" Column="3" TopLine="86"/>
       </Position1>
       <Position2>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="109" Column="3" TopLine="109"/>
       </Position2>
       <Position3>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="91" Column="3" TopLine="86"/>
       </Position3>
       <Position4>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="109" Column="3" TopLine="109"/>
+        <Caret Line="73" Column="19" TopLine="41"/>
       </Position4>
       <Position5>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="593" Column="25" TopLine="591"/>
       </Position5>
       <Position6>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="73" Column="19" TopLine="41"/>
+        <Caret Line="642" Column="27" TopLine="619"/>
       </Position6>
       <Position7>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="593" Column="25" TopLine="591"/>
       </Position7>
       <Position8>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="642" Column="27" TopLine="619"/>
+        <Caret Line="67" Column="21" TopLine="35"/>
       </Position8>
       <Position9>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="132" Column="9" TopLine="100"/>
       </Position9>
       <Position10>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="67" Column="21" TopLine="35"/>
+        <Caret Line="626" Column="37" TopLine="610"/>
       </Position10>
       <Position11>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="132" Column="9" TopLine="100"/>
       </Position11>
       <Position12>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="626" Column="37" TopLine="610"/>
+        <Caret Line="67" Column="21" TopLine="35"/>
       </Position12>
       <Position13>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="132" Column="9" TopLine="100"/>
       </Position13>
       <Position14>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="67" Column="21" TopLine="35"/>
+        <Caret Line="642" Column="27" TopLine="610"/>
       </Position14>
       <Position15>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="132" Column="9" TopLine="100"/>
       </Position15>
       <Position16>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="642" Column="27" TopLine="610"/>
+        <Caret Line="67" Column="21" TopLine="35"/>
       </Position16>
       <Position17>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="129" Column="28" TopLine="100"/>
       </Position17>
       <Position18>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="67" Column="21" TopLine="35"/>
       </Position18>
       <Position19>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="129" Column="28" TopLine="100"/>
+        <Caret Line="77" Column="22" TopLine="45"/>
       </Position19>
       <Position20>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="108" Column="58" TopLine="103"/>
       </Position20>
       <Position21>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="77" Column="22" TopLine="45"/>
+        <Caret Line="115" Column="58" TopLine="110"/>
       </Position21>
       <Position22>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="108" Column="58" TopLine="103"/>
+        <Caret Line="104" Column="42" TopLine="98"/>
       </Position22>
       <Position23>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="115" Column="58" TopLine="110"/>
       </Position23>
       <Position24>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="104" Column="42" TopLine="98"/>
+        <Caret Line="94" TopLine="91"/>
       </Position24>
       <Position25>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="106" Column="45" TopLine="96"/>
       </Position25>
       <Position26>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="94" Column="1" TopLine="91"/>
+        <Caret Line="140" Column="3" TopLine="138"/>
       </Position26>
       <Position27>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="106" Column="45" TopLine="96"/>
+        <Caret Line="665" Column="74" TopLine="651"/>
       </Position27>
       <Position28>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="140" Column="3" TopLine="138"/>
+        <Caret Line="631" Column="16" TopLine="602"/>
       </Position28>
       <Position29>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="665" Column="74" TopLine="651"/>
+        <Caret Line="612" TopLine="580"/>
       </Position29>
       <Position30>
-        <Filename Value="weblun_main.pas"/>
-        <Caret Line="631" Column="16" TopLine="602"/>
+        <Filename Value="u_util.pas"/>
+        <Caret Line="113" Column="9" TopLine="90"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -366,12 +321,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
