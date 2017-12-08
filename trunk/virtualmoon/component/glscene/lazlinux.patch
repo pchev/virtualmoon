@@ -1,0 +1,102 @@
+Index: Packages/GLScene_RunTime.lpk
+===================================================================
+--- Packages/GLScene_RunTime.lpk	(revision 7054)
++++ Packages/GLScene_RunTime.lpk	(working copy)
+@@ -330,8 +330,8 @@
+         <UnitName Value="GLFileWAV"/>
+       </Item74>
+       <Item75>
+-        <Filename Value="../Source/FileFormats/GlFileX.pas"/>
+-        <UnitName Value="GlFileX"/>
++        <Filename Value="../Source/FileFormats/GLFileX.pas"/>
++        <UnitName Value="GLFileX"/>
+       </Item75>
+       <Item76>
+         <Filename Value="../Source/FileFormats/GLFileZLIB.pas"/>
+Index: Source/Basis/GLObjectManager.pas
+===================================================================
+--- Source/Basis/GLObjectManager.pas	(revision 7054)
++++ Source/Basis/GLObjectManager.pas	(working copy)
+@@ -493,7 +493,7 @@
+ 
+ initialization
+ 
+-{$I ../../resources/GLSceneObjects.lrs}
++{$I ../../Resources/GLSceneObjects.lrs}
+ 
+ 
+ end.
+Index: Source/DesignTime/FGUISkinEditor.pas
+===================================================================
+--- Source/DesignTime/FGUISkinEditor.pas	(revision 7054)
++++ Source/DesignTime/FGUISkinEditor.pas	(working copy)
+@@ -4,7 +4,7 @@
+ {
+    Editor for Gui skin.
+ }
+-unit FGuiSkinEditor;
++unit FGUISkinEditor;
+ 
+ interface
+ 
+@@ -11,8 +11,10 @@
+ {$I GLScene.inc}
+ 
+ uses
+-  lresources, 
+-  Windows, 
++  lresources,
++  {$ifdef mswindows}
++  Windows,
++  {$endif}
+   Messages, 
+   SysUtils, 
+   Classes, 
+Index: Source/DesignTime/GLSceneRegister.pas
+===================================================================
+--- Source/DesignTime/GLSceneRegister.pas	(revision 7054)
++++ Source/DesignTime/GLSceneRegister.pas	(working copy)
+@@ -160,7 +160,7 @@
+   GLFile3DS, GLFileASE, GLFileB3D, GLFileGL2, GLFileGTS, GLFileLMTS,
+   GLFileLWO, GLFileMD2, GLFileMD3, GLFileMD5, GLFileMDC, GLFileMS3D, GLFileNMF,
+   GLFileNurbs, GLFileOBJ, GLFilePLY, GLFileSMD, GLFileSTL,
+-  GLFileTIN, GLFileVRML, GlFileX,
++  GLFileTIN, GLFileVRML, GLFileX,
+ 
+   // Sound file formats
+   GLFileWAV, GLFileMP3,
+@@ -1492,7 +1492,7 @@
+ 
+ initialization
+ 
+-{$I ../../resources/GLScene.lrs}
++{$I ../../Resources/GLScene.lrs}
+ 
+   GLColor.vUseDefaultColorSets := True;
+   GLCoordinates.vUseDefaultCoordinateSets := True;
+Index: Source/FileFormats/GLFileX.pas
+===================================================================
+--- Source/FileFormats/GLFileX.pas	(revision 7054)
++++ Source/FileFormats/GLFileX.pas	(working copy)
+@@ -28,7 +28,7 @@
+     
+ }
+ 
+-unit GlFileX;
++unit GLFileX;
+ 
+ interface
+ 
+Index: Source/GLCrossPlatform.pas
+===================================================================
+--- Source/GLCrossPlatform.pas	(revision 7054)
++++ Source/GLCrossPlatform.pas	(working copy)
+@@ -88,7 +88,7 @@
+   Windows,
+ {$ENDIF}
+ {$IFDEF UNIX}
+-  Unix, BaseUnix,
++  Unix, BaseUnix, LazUTF8,
+ {$ENDIF}
+ {$IFDEF GLS_X11_SUPPORT}
+   xlib,
