@@ -10,7 +10,7 @@ version=1.0
 
 [compiler]
 unittargetdir=lib/$(CPU_TARGET)-$(OS_TARGET)
-unitdir=../Source $(LAZDIR)/components/images/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)  $(LAZDIR)/components/lazutils/lib/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) .
+unitdir=../Source ../Source/Basis ../Source/FileFormats ../Source/SoundVideoAPIs ../Source/GameAPIs ../Source/Shaders $(LAZDIR)/components/images/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)  $(LAZDIR)/components/lazutils/lib/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) .
 includedir=../Source
 options= -MDelphi -Saghi -O1 -vewni -l -dLCL -dLCL$(LCL_PLATFORM) -Xs -CX -XX
 
