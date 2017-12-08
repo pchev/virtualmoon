@@ -12,7 +12,7 @@ version=0.2
 unittargetdir=lib/$(CPU_TARGET)-$(OS_TARGET)
 unitdir=$(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/lazutils/lib/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ./
 includedir=./
-options=-dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi -Xs -CX -XX
+options= $(fpcopts) -dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi
 
 [target]
 units=uniqueinstance_package.pas
@@ -25,22 +25,22 @@ files=$(wildcard $(COMPILER_UNITTARGETDIR)/*$(OEXT)) \
       $(wildcard *$(OEXT)) $(wildcard *$(PPUEXT)) $(wildcard *$(RSTEXT))
 [prerules]
 LAZDIR=%LAZDIR%
+# Compiler options
+ifndef fpcopts 
+fpcopts=-O3  -CX -XX -Xs 
+endif
 # LCL Platform
 ifndef LCL_PLATFORM
 ifeq ($(OS_TARGET),win32)
 LCL_PLATFORM=win32
-opt_target= -WG
 else
 ifeq ($(OS_TARGET),win64)
 LCL_PLATFORM=win32
-opt_target= -WG
 else
 ifeq ($(OS_TARGET),darwin)
 LCL_PLATFORM=carbon
-opt_target= -k-macosx_version_min -k10.5 -XR/Developer/SDKs/MacOSX10.5.sdk/
 else
 LCL_PLATFORM=gtk2
-opt_target=
 endif
 endif
 endif

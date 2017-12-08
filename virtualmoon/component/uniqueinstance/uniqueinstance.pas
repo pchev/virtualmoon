@@ -29,7 +29,7 @@ unit UniqueInstance;
 
   You should have received a copy of the GNU Library General Public License
   along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 }
 
 
@@ -291,9 +291,22 @@ result:='';
 try
   Process1:=TProcess.Create(nil);
   FillChar(s,sizeof(s),' ');
-  Process1.CommandLine:='pidof '+ExtractFileName(Application.ExeName);
+
 {$ifdef darwin}
-  Process1.CommandLine:='killall -s '+ExtractFileName(Application.ExeName);
+  {$IF (FPC_VERSION = 2) and (FPC_RELEASE < 5)}
+    Process1.CommandLine:='killall -s '+ExtractFileName(Application.ExeName);
+  {$ELSE}
+    Process1.Executable:='killall';
+    Process1.Parameters.Add('-s');
+    Process1.Parameters.Add(ExtractFileName(Application.ExeName));
+  {$ENDIF}
+{$ELSE}
+  {$IF (FPC_VERSION = 2) and (FPC_RELEASE < 5)}
+    Process1.CommandLine:='pidof '+ExtractFileName(Application.ExeName);
+  {$ELSE}
+    Process1.Executable:='pidof';
+    Process1.Parameters.Add(ExtractFileName(Application.ExeName));
+  {$ENDIF}
 {$endif}
   Process1.Options:=[poWaitOnExit,poUsePipes,poNoConsole];
   Process1.Execute;

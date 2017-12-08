@@ -83,7 +83,7 @@ const SQLITE_TEXT       = 3;
 const SQLITE_BLOB       = 4;
 const SQLITE_NULL       = 5;
 
-const SQLITEDLL: PChar  = {$IFDEF LINUX}'libsqlite3.so'{$ENDIF}{$IFDEF MSWINDOWS}'sqlite3.dll'{$ENDIF}{$IFDEF WINCE}'sqlite3.dll'{$ENDIF}{$IFDEF darwin}'libsqlite3.dylib'{$ENDIF};
+const SQLITEDLL: PChar  = {$IFDEF LINUX}'libsqlite3.so'{$ENDIF}{$IFDEF FREEBSD}'libsqlite3.so'{$ENDIF}{$IFDEF MSWINDOWS}'sqlite3.dll'{$ENDIF}{$IFDEF WINCE}'sqlite3.dll'{$ENDIF}{$IFDEF darwin}'libsqlite3.dylib'{$ENDIF};
 
 function LoadLibSqlite3(var libraryName: String): Boolean;
 
@@ -367,7 +367,7 @@ See the documentation under sqlite3_column_blob for additional information.
   //sqlite_progress_handler: procedure (db: Pointer; VMCyclesPerCallback: Integer; ProgressCallBack: Pointer; UserData: Integer{? Pointer?}); cdecl;
 
   Libs3Loaded: Boolean=False;
-  DLLHandle: THandle;
+  DLLHandle: {$IFDEF FPC}TLibHandle{$ELSE}THandle{$ENDIF};
   MsgNoError: String;
 
 
@@ -622,7 +622,7 @@ int sqlite3_value_type(sqlite3_value*);
         {$ELSE}
           FreeLibrary(DLLHandle);
         {$ENDIF}
-        DllHandle := 0;
+        DLLHandle := 0;
         //todo: nil all vars again...
       end;
   end;

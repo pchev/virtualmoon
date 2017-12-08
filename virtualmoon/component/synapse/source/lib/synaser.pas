@@ -1,9 +1,9 @@
 {==============================================================================|
-| Project : Ararat Synapse                                       | 007.005.002 |
+| Project : Ararat Synapse                                       | 007.006.000 |
 |==============================================================================|
 | Content: Serial port support                                                 |
 |==============================================================================|
-| Copyright (c)2001-2011, Lukas Gebauer                                        |
+| Copyright (c)2001-2015, Lukas Gebauer                                        |
 | All rights reserved.                                                         |
 |                                                                              |
 | Redistribution and use in source and binary forms, with or without           |
@@ -33,7 +33,7 @@
 | DAMAGE.                                                                      |
 |==============================================================================|
 | The Initial Developer of the Original Code is Lukas Gebauer (Czech Republic).|
-| Portions created by Lukas Gebauer are Copyright (c)2001-2011.                |
+| Portions created by Lukas Gebauer are Copyright (c)2001-2015.                |
 | All Rights Reserved.                                                         |
 |==============================================================================|
 | Contributor(s):                                                              |
@@ -197,10 +197,14 @@ type
 
 const
 {$IFDEF UNIX}
-  {$IFDEF DARWIN}
+  {$IFDEF BSD}
   MaxRates = 18;  //MAC
   {$ELSE}
-   MaxRates = 30; //UNIX
+    {$IFDEF CPUARM}
+       MaxRates = 19;  //UNIX ARM
+    {$ELSE}
+       MaxRates = 30; //UNIX
+    {$ENDIF}  
   {$ENDIF}
 {$ELSE}
   MaxRates = 19;  //WIN
@@ -226,9 +230,10 @@ const
     (57600, B57600),
     (115200, B115200),
     (230400, B230400)
-{$IFNDEF DARWIN}
+{$IFNDEF BSD}
     ,(460800, B460800)
   {$IFDEF UNIX}
+    {$IFNDEF CPUARM}
     ,(500000, B500000),
     (576000, B576000),
     (921600, B921600),
@@ -240,12 +245,13 @@ const
     (3000000, B3000000),
     (3500000, B3500000),
     (4000000, B4000000)
+    {$ENDIF}
   {$ENDIF}
 {$ENDIF}
     );
 {$ENDIF}
 
-{$IFDEF DARWIN}
+{$IFDEF BSD}
 const // From fcntl.h
   O_SYNC = $0080;  { synchronous writes }
 {$ENDIF}
@@ -314,8 +320,10 @@ type
     FPortAddr: Word;
     function CanEvent(Event: dword; Timeout: integer): boolean;
     procedure DecodeCommError(Error: DWord); virtual;
+ {$IFDEF WIN32}
     function GetPortAddr: Word;  virtual;
     function ReadTxEmpty(PortAddr: Word): Boolean; virtual;
+ {$ENDIF}
 {$ENDIF}
     procedure SetSizeRecvBuffer(size: integer); virtual;
     function GetDSR: Boolean; virtual;
@@ -780,7 +788,7 @@ end;
 
 class function TBlockSerial.GetVersion: string;
 begin
-	Result := 'SynaSer 7.5.0';
+	Result := 'SynaSer 7.6.0';
 end;
 
 procedure TBlockSerial.CloseSocket;
@@ -806,7 +814,7 @@ begin
   DoStatus(HR_SerialClose, FDevice);
 end;
 
-{$IFDEF MSWINDOWS}
+{$IFDEF WIN32}
 function TBlockSerial.GetPortAddr: Word;
 begin
   Result := 0;
@@ -977,7 +985,9 @@ begin
   CommTimeOuts.WriteTotalTimeoutMultiplier := 0;
   CommTimeOuts.WriteTotalTimeoutConstant := 0;
   SetCommTimeOuts(FHandle, CommTimeOuts);
+  {$IFDEF WIN32}
   FPortAddr := GetPortAddr;
+  {$ENDIF}
 {$ENDIF}
   SetSynaError(sOK);
   if not TestCtrlLine then  {HGJ}
@@ -1039,6 +1049,7 @@ begin
   end
   else
     SetSynaError(y);
+  err := 0;
   ClearCommError(FHandle, err, nil);
   if err <> 0 then
     DecodeCommError(err);
@@ -1154,6 +1165,7 @@ begin
   end
   else
     SetSynaError(y);
+  err := 0;
   ClearCommError(FHandle, err, nil);
   if err <> 0 then
     DecodeCommError(err);
@@ -1460,6 +1472,7 @@ var
   stat: TComStat;
   err: DWORD;
 begin
+  err := 0;
   if ClearCommError(FHandle, err, @stat) then
   begin
     SetSynaError(sOK);
@@ -1495,6 +1508,7 @@ var
   err: DWORD;
 begin
   SetSynaError(sOK);
+  err := 0;
   if not ClearCommError(FHandle, err, @stat) then
     serialcheck(sErr);
   ExceptCheck;
@@ -1770,6 +1784,7 @@ begin
     else
     begin
       y := 0;
+      ex := 0;
       if not WaitCommEvent(FHandle, ex, @Overlapped) then
         y := GetLastError;
       if y = ERROR_IO_PENDING then
@@ -1868,6 +1883,7 @@ begin
   Result := SendingData = 0;
   if not Result then
 	  Result := CanEvent(EV_TXEMPTY, Timeout);
+  {$IFDEF WIN32}
   if Result and (Win32Platform <> VER_PLATFORM_WIN32_NT) then
   begin
     t := GetTick;
@@ -1878,6 +1894,7 @@ begin
       Sleep(0);
     end;
   end;
+  {$ENDIF}
   if Result then
     DoStatus(HR_CanWrite, '');
 end;
@@ -1938,7 +1955,7 @@ begin
     {$IFDEF DARWIN}
     SerialCheck(fpioctl(FHandle, TCIOflush, Pointer(PtrInt(TCIOFLUSH))));
     {$ELSE}
-    SerialCheck(fpioctl(FHandle, TCFLSH, Pointer(PtrInt(TCIOFLUSH))));
+    SerialCheck(fpioctl(FHandle, {$IFDEF FreeBSD}TCIOFLUSH{$ELSE}TCFLSH{$ENDIF}, Pointer(PtrInt(TCIOFLUSH))));
     {$ENDIF}
   {$ENDIF}
   FBuffer := '';
@@ -2309,30 +2326,37 @@ end;
 {$IFNDEF MSWINDOWS}
 function GetSerialPortNames: string;
 var
-  Index: Integer;
-  Data: string;
-  TmpPorts: String;
   sr : TSearchRec;
 begin
-  try
-    TmpPorts := '';
-    if FindFirst('/dev/ttyS*', $FFFFFFFF, sr) = 0 then
-    begin
-      repeat
-        if (sr.Attr and $FFFFFFFF) = Sr.Attr then
-        begin
-          data := sr.Name;
-          index := length(data);
-          while (index > 1) and (data[index] <> '/') do
-            index := index - 1;
-          TmpPorts := TmpPorts + ' ' + copy(data, 1, index + 1);
-        end;
-      until FindNext(sr) <> 0;
-    end;
-    FindClose(sr);
-  finally
-    Result:=TmpPorts;
+  Result := '';
+  if FindFirst('/dev/ttyS*', $FFFFFFFF, sr) = 0 then
+    repeat
+      if (sr.Attr and $FFFFFFFF) = Sr.Attr then
+      begin
+        if Result <> '' then
+          Result := Result + ',';
+        Result := Result + '/dev/' + sr.Name;
+      end;
+    until FindNext(sr) <> 0;
+  FindClose(sr);
+  if FindFirst('/dev/ttyUSB*', $FFFFFFFF, sr) = 0 then begin
+    repeat
+      if (sr.Attr and $FFFFFFFF) = Sr.Attr then begin
+        if Result <> '' then Result := Result + ',';
+        Result := Result + '/dev/' + sr.Name;
+      end;
+    until FindNext(sr) <> 0;
   end;
+  FindClose(sr);
+  if FindFirst('/dev/ttyAM*', $FFFFFFFF, sr) = 0 then begin
+    repeat
+      if (sr.Attr and $FFFFFFFF) = Sr.Attr then begin
+        if Result <> '' then Result := Result + ',';
+        Result := Result + '/dev/' + sr.Name;
+      end;
+    until FindNext(sr) <> 0;
+  end;
+  FindClose(sr);
 end;
 {$ENDIF}
 
