@@ -7,16 +7,18 @@ object f_photo: Tf_photo
   Caption = 'Photlun'
   ClientHeight = 449
   ClientWidth = 400
+  DesignTimePPI = 95
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.30.4'
+  LCLVersion = '1.8.0.6'
+  Visible = False
   object Image1: TImage
     Left = 0
-    Height = 389
+    Height = 382
     Top = 26
-    Width = 385
+    Width = 380
     Align = alClient
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
@@ -123,30 +125,30 @@ object f_photo: Tf_photo
     end
     object ToolButton15: TToolButton
       Left = 47
+      Height = 22
       Top = 2
-      Width = 8
       Caption = 'ToolButton15'
       Style = tbsSeparator
     end
     object ToolButton16: TToolButton
       Left = 147
+      Height = 22
       Top = 2
-      Width = 8
       Caption = 'ToolButton16'
       Style = tbsSeparator
     end
     object ToolButton17: TToolButton
       Left = 247
+      Height = 22
       Top = 2
-      Width = 8
       Caption = 'ToolButton17'
       Style = tbsSeparator
     end
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 19
-    Top = 430
+    Height = 21
+    Top = 428
     Width = 400
     Panels = <    
       item
@@ -159,8 +161,8 @@ object f_photo: Tf_photo
   end
   object HScrollBar: TScrollBar
     Left = 0
-    Height = 15
-    Top = 415
+    Height = 20
+    Top = 408
     Width = 400
     Align = alBottom
     PageSize = 0
@@ -168,10 +170,10 @@ object f_photo: Tf_photo
     OnChange = HScrollBarChange
   end
   object VScrollBar: TScrollBar
-    Left = 385
-    Height = 389
+    Left = 380
+    Height = 382
     Top = 26
-    Width = 15
+    Width = 20
     Align = alRight
     Kind = sbVertical
     PageSize = 0
