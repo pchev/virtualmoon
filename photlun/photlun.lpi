@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <PathDelim Value="\"/>
     <General>
       <Flags>
@@ -12,9 +12,6 @@
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
     </General>
-    <VersionInfo>
-      <StringTable ProductVersion=""/>
-    </VersionInfo>
     <BuildModes Count="4">
       <Item1 Name="default" Default="True"/>
       <Item2 Name="linux32">
@@ -43,12 +40,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerMessages>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item2>
       <Item3 Name="win32">
@@ -77,12 +68,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerMessages>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item3>
       <Item4 Name="win64">
@@ -111,12 +96,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerMessages>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item4>
     </BuildModes>
@@ -147,7 +126,6 @@
       <Unit0>
         <Filename Value="photlun.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="photlun"/>
       </Unit0>
       <Unit1>
         <Filename Value="pu_photlun.pas"/>
@@ -155,7 +133,6 @@
         <ComponentName Value="f_photlun"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="pu_photlun"/>
       </Unit1>
       <Unit2>
         <Filename Value="pu_photo.pas"/>
@@ -163,12 +140,10 @@
         <ComponentName Value="f_photo"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="pu_photo"/>
       </Unit2>
       <Unit3>
         <Filename Value="u_translation.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="u_translation"/>
       </Unit3>
       <Unit4>
         <Filename Value="pu_config.pas"/>
@@ -176,22 +151,18 @@
         <ComponentName Value="f_config"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="pu_config"/>
       </Unit4>
       <Unit5>
         <Filename Value="u_constant.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="u_constant"/>
       </Unit5>
       <Unit6>
         <Filename Value="u_bitmap.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="u_bitmap"/>
       </Unit6>
       <Unit7>
         <Filename Value="u_util.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="u_util"/>
       </Unit7>
     </Units>
   </ProjectOptions>
@@ -218,11 +189,5 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
 </CONFIG>

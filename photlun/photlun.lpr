@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  InterfaceBase, LCLVersion, // version number
+  InterfaceBase, LCLVersion, lclplatformdef, // version number
   Forms, imagesforlazarus
   { add your units here }, pu_photlun, pu_photo, u_translation,
   uniqueinstance_package, pu_config, u_constant, u_bitmap, u_util;

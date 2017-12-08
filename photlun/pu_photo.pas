@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses u_translation, u_bitmap, math, IniFiles, FileUtil,
+uses u_translation, u_bitmap, math, IniFiles, FileUtil, LazUTF8,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, Buttons, StdCtrls, ComCtrls, ExtDlgs, uniqueinstance;
 
