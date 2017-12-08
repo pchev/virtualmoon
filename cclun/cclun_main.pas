@@ -31,7 +31,7 @@ uses
   {$ifdef unix}
     unix,baseunix,
   {$endif}
-  u_translation, u_constant, IniFiles,
+  u_translation, u_constant, IniFiles, LazUTF8,
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, Menus;
 
