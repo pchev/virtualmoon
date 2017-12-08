@@ -32,7 +32,7 @@ Windows, ShellAPI,
 {$ifdef unix}
 unix,baseunix,unixutil,
 {$endif}
-Math, Printers, u_constant, Grids, FileUtil,
+Math, Printers, u_constant, Grids, FileUtil,  LazUTF8,
 LCLIntf, SysUtils, Classes, Graphics, Controls, Forms, Dialogs;
 
 Function DEToStr(de: Double) : string;
