@@ -1,0 +1,55 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: glcontext.ccannotalteranactivecontext
+msgid "Cannot alter an active context"
+msgstr ""
+
+#: glcontext.ccontextactivationfailed
+msgid "Context activation failed: %X, %s"
+msgstr ""
+
+#: glcontext.ccontextalreadycreated
+msgid "Context already created"
+msgstr ""
+
+#: glcontext.ccontextdeactivationfailed
+msgid "Context deactivation failed"
+msgstr ""
+
+#: glcontext.ccontextnotcreated
+msgid "Context not created"
+msgstr ""
+
+#: glcontext.cdeletecontextfailed
+msgid "Delete context failed"
+msgstr ""
+
+#: glcontext.cincompatiblecontexts
+msgid "Incompatible contexts"
+msgstr ""
+
+#: glcontext.cinvalidcontextregistration
+msgid "Invalid context registration"
+msgstr ""
+
+#: glcontext.cinvalidnotificationremoval
+msgid "Invalid notification removal"
+msgstr ""
+
+#: glcontext.cnoactiverc
+msgid "No active rendering context"
+msgstr ""
+
+#: glcontext.cunabletocreatelegacycontext
+msgid "Unable to create legacy context"
+msgstr ""
+
+#: glcontext.cunbalancedcontexactivations
+msgid "Unbalanced context activations"
+msgstr ""
+
+#: glcontext.glsfailedtoshare
+msgid "DoCreateContext - Failed to share contexts"
+msgstr ""
+
