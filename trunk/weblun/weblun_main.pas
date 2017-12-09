@@ -10,7 +10,7 @@ Windows, ShlObj,
 {$endif}
   mlb2, u_constant, u_translation, u_util, passql, passqlite, UniqueInstance,
   downloaddialog, IniFiles, Classes, SysUtils, FileUtil, Forms, Controls,
-  Graphics, Dialogs, ComCtrls, Menus, Grids, ExtCtrls, StdCtrls;
+  LazUTF8, Graphics, Dialogs, ComCtrls, Menus, Grids, ExtCtrls, StdCtrls;
 
 const ncols=7;
       crlf = chr(10)+chr(13);
