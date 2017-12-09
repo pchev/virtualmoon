@@ -11,8 +11,37 @@
     <i18n>
       <EnableI18N LFM="False"/>
     </i18n>
-    <BuildModes Count="1" Active="Default">
+    <BuildModes Count="2" Active="win32">
       <Item1 Name="Default" Default="True"/>
+      <Item2 Name="win32">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="win32"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="weblun"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+          </CodeGeneration>
+          <Linking>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item2>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="977055520714" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -57,8 +86,8 @@
         <ComponentName Value="f_weblun"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="580"/>
-        <CursorPos Y="612"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="11" Y="13"/>
         <UsageCount Value="32"/>
         <Bookmarks Count="1">
           <Item0 X="27" Y="611" ID="1"/>
@@ -93,7 +122,6 @@
       </Unit5>
       <Unit6>
         <Filename Value="u_util.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <CursorPos X="54" Y="35"/>
         <UsageCount Value="11"/>
@@ -191,117 +219,117 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="91" Column="3" TopLine="86"/>
       </Position1>
       <Position2>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="109" Column="3" TopLine="109"/>
+        <Caret Line="73" Column="19" TopLine="41"/>
       </Position2>
       <Position3>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="593" Column="25" TopLine="591"/>
       </Position3>
       <Position4>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="73" Column="19" TopLine="41"/>
+        <Caret Line="642" Column="27" TopLine="619"/>
       </Position4>
       <Position5>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="593" Column="25" TopLine="591"/>
       </Position5>
       <Position6>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="642" Column="27" TopLine="619"/>
+        <Caret Line="67" Column="21" TopLine="35"/>
       </Position6>
       <Position7>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="132" Column="9" TopLine="100"/>
       </Position7>
       <Position8>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="67" Column="21" TopLine="35"/>
+        <Caret Line="626" Column="37" TopLine="610"/>
       </Position8>
       <Position9>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="132" Column="9" TopLine="100"/>
       </Position9>
       <Position10>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="626" Column="37" TopLine="610"/>
+        <Caret Line="67" Column="21" TopLine="35"/>
       </Position10>
       <Position11>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="132" Column="9" TopLine="100"/>
       </Position11>
       <Position12>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="67" Column="21" TopLine="35"/>
+        <Caret Line="642" Column="27" TopLine="610"/>
       </Position12>
       <Position13>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="132" Column="9" TopLine="100"/>
       </Position13>
       <Position14>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="642" Column="27" TopLine="610"/>
+        <Caret Line="67" Column="21" TopLine="35"/>
       </Position14>
       <Position15>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="129" Column="28" TopLine="100"/>
       </Position15>
       <Position16>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="67" Column="21" TopLine="35"/>
       </Position16>
       <Position17>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="129" Column="28" TopLine="100"/>
+        <Caret Line="77" Column="22" TopLine="45"/>
       </Position17>
       <Position18>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="108" Column="58" TopLine="103"/>
       </Position18>
       <Position19>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="77" Column="22" TopLine="45"/>
+        <Caret Line="115" Column="58" TopLine="110"/>
       </Position19>
       <Position20>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="108" Column="58" TopLine="103"/>
+        <Caret Line="104" Column="42" TopLine="98"/>
       </Position20>
       <Position21>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="115" Column="58" TopLine="110"/>
       </Position21>
       <Position22>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="104" Column="42" TopLine="98"/>
+        <Caret Line="94" TopLine="91"/>
       </Position22>
       <Position23>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="106" Column="45" TopLine="96"/>
       </Position23>
       <Position24>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="94" TopLine="91"/>
+        <Caret Line="140" Column="3" TopLine="138"/>
       </Position24>
       <Position25>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="106" Column="45" TopLine="96"/>
+        <Caret Line="665" Column="74" TopLine="651"/>
       </Position25>
       <Position26>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="140" Column="3" TopLine="138"/>
+        <Caret Line="631" Column="16" TopLine="602"/>
       </Position26>
       <Position27>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="665" Column="74" TopLine="651"/>
+        <Caret Line="612" TopLine="580"/>
       </Position27>
       <Position28>
-        <Filename Value="weblun_main.pas"/>
-        <Caret Line="631" Column="16" TopLine="602"/>
+        <Filename Value="u_util.pas"/>
+        <Caret Line="113" Column="9" TopLine="90"/>
       </Position28>
       <Position29>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="612" TopLine="580"/>
+        <Caret Line="601" Column="37" TopLine="580"/>
       </Position29>
       <Position30>
-        <Filename Value="u_util.pas"/>
-        <Caret Line="113" Column="9" TopLine="90"/>
+        <Filename Value="weblun_main.pas"/>
+        <Caret Line="491" Column="39" TopLine="471"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
