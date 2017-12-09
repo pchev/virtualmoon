@@ -29,7 +29,7 @@ uses
 {$ifdef mswindows}
 Windows, ShlObj,
 {$endif}
-  u_translation_database, u_translation, FileUtil,
+  u_translation_database, u_translation, FileUtil, LazUTF8,
   u_constant, LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, Grids, Math, passql, passqlite, u_util, dbutil, StdCtrls,
   ExtCtrls, IniFiles, ImgList, LResources, uniqueinstance;
