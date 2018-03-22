@@ -78,11 +78,11 @@ fi
 
 # make i386 Mac version
 if [[ $make_darwin_i386 ]]; then
-  ./configure $configopt prefix=$builddir target=i386-darwin
+  ./configure $configopt prefix=$builddir target=i386-darwin,x86_64-darwin
   if [[ $? -ne 0 ]]; then exit 1;fi
-  make clean
-  make 
-  make 
+  make CPU_TARGET=i386 clean
+  make CPU_TARGET=i386 
+#  make 
   if [[ $? -ne 0 ]]; then exit 1;fi
   if [[ $upd ]]; then
     make install_update

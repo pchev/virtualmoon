@@ -1,5 +1,5 @@
 object Form1: TForm1
-  Left = 323
+  Left = 292
   Height = 570
   Top = 120
   Width = 885
@@ -24,23 +24,11 @@ object Form1: TForm1
   OnKeyUp = FormKeyUp
   OnResize = FormResize
   OnShow = FormShow
-  Visible = False
-  object Memo2: TMemo
-    Left = 64
-    Height = 41
-    Top = 456
-    Width = 100
-    Font.Height = -11
-    Font.Name = 'Arial'
-    ParentFont = False
-    ReadOnly = True
-    TabOrder = 1
-    Visible = False
-  end
+  LCLVersion = '1.8.2.0'
   object DoNotRemove: TGLSceneViewer
-    Left = 64
+    Left = 24
     Height = 100
-    Top = 264
+    Top = 368
     Width = 100
     Buffer.AmbientColor.Red = 0.200000002980232
     Buffer.AmbientColor.Green = 0.200000002980232
@@ -49,6 +37,18 @@ object Form1: TForm1
     FieldOfView = 0
     Visible = False
     TabOrder = 3
+  end
+  object Memo2: TMemo
+    Left = 104
+    Height = 41
+    Top = 480
+    Width = 104
+    Font.Height = -11
+    Font.Name = 'Arial'
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 1
+    Visible = False
   end
   object ControlBar1: TPanel
     Left = 0
@@ -64,9 +64,9 @@ object Form1: TForm1
     TabOrder = 2
     object Label10: TLabel
       Left = 240
-      Height = 13
+      Height = 15
       Top = 3
-      Width = 30
+      Width = 33
       Caption = 'Zoom:'
       Layout = tlCenter
       ParentColor = False
@@ -78,7 +78,7 @@ object Form1: TForm1
       Width = 240
       Align = alNone
       ButtonHeight = 21
-      ButtonWidth = 70
+      ButtonWidth = 75
       Caption = 'ToolBar2'
       Color = clBtnFace
       DragMode = dmAutomatic
@@ -95,13 +95,13 @@ object Form1: TForm1
         OnClick = ToolButton1Click
       end
       object ToolButton2: TToolButton
-        Left = 71
+        Left = 76
         Top = 0
         Caption = 'Configuration'
         OnClick = Configuration1Click
       end
       object ToolButton8: TToolButton
-        Left = 141
+        Left = 155
         Top = 0
         Caption = 'Aide'
         OnClick = ToolButton8Click
@@ -271,8 +271,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 547
+    Height = 15
+    Top = 555
     Width = 885
     Panels = <    
       item
@@ -307,16 +307,16 @@ object Form1: TForm1
     Options = [nboMultiLine]
     object Position: TTabSheet
       Caption = 'Information'
-      ClientHeight = 468
-      ClientWidth = 332
+      ClientHeight = 473
+      ClientWidth = 334
       object Panel1: TPanel
         Left = 0
         Height = 89
         Top = 0
-        Width = 332
+        Width = 334
         Align = alTop
         ClientHeight = 89
-        ClientWidth = 332
+        ClientWidth = 334
         TabOrder = 0
         object Button1: TButton
           Left = 172
@@ -340,11 +340,11 @@ object Form1: TForm1
           Left = 1
           Height = 48
           Top = 40
-          Width = 330
+          Width = 332
           Align = alBottom
           Caption = 'Profil----------------------------------------------------------'
-          ClientHeight = 30
-          ClientWidth = 326
+          ClientHeight = 25
+          ClientWidth = 324
           TabOrder = 3
           object Label7: TLabel
             Left = 0
@@ -364,7 +364,7 @@ object Form1: TForm1
           Top = 8
           Width = 161
           DropDownCount = 15
-          ItemHeight = 13
+          ItemHeight = 0
           OnKeyDown = Edit1KeyDown
           OnSelect = ComboBox1Select
           TabOrder = 0
@@ -372,9 +372,9 @@ object Form1: TForm1
       end
       object Desc1: TIpHtmlPanel
         Left = 0
-        Height = 379
+        Height = 384
         Top = 89
-        Width = 332
+        Width = 334
         Align = alClient
         FixedTypeface = 'Courier New'
         DefaultTypeFace = 'Sans'
@@ -1041,7 +1041,7 @@ object Form1: TForm1
           Height = 21
           Top = 8
           Width = 158
-          ItemHeight = 13
+          ItemHeight = 0
           ItemIndex = 0
           Items.Strings = (
             '1'
@@ -1058,7 +1058,7 @@ object Form1: TForm1
           Height = 21
           Top = 32
           Width = 57
-          ItemHeight = 13
+          ItemHeight = 0
           ItemIndex = 0
           Items.Strings = (
             '999'
@@ -1088,8 +1088,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 62
-          ClientWidth = 234
+          ClientHeight = 57
+          ClientWidth = 230
           Columns = 2
           Items.Strings = (
             'Nom'
@@ -1109,7 +1109,6 @@ object Form1: TForm1
         Align = alClient
         ItemHeight = 0
         OnClick = ListBox1Click
-        ScrollWidth = 334
         Sorted = True
         TabOrder = 1
       end
@@ -1125,8 +1124,8 @@ object Form1: TForm1
         Top = 148
         Width = 253
         Caption = 'Satellisation'
-        ClientHeight = 308
-        ClientWidth = 249
+        ClientHeight = 303
+        ClientWidth = 245
         TabOrder = 6
         Visible = False
         object Label4: TLabel
@@ -1284,7 +1283,7 @@ object Form1: TForm1
           Height = 21
           Top = 16
           Width = 97
-          ItemHeight = 13
+          ItemHeight = 0
           OnChange = ComboBox4Change
           TabOrder = 0
           Text = '5 ?/seconde'
@@ -1321,7 +1320,7 @@ object Form1: TForm1
           Height = 21
           Top = 234
           Width = 105
-          ItemHeight = 13
+          ItemHeight = 0
           ItemIndex = 0
           Items.Strings = (
             'None'
@@ -1389,7 +1388,7 @@ object Form1: TForm1
           Height = 21
           Top = 26
           Width = 105
-          ItemHeight = 13
+          ItemHeight = 0
           OnChange = ComboBox5Change
           Sorted = True
           TabOrder = 0
@@ -1640,8 +1639,8 @@ object Form1: TForm1
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 24
-          ClientWidth = 222
+          ClientHeight = 19
+          ClientWidth = 218
           Columns = 2
           Items.Strings = (
             'nnnnnnnnnnn'
@@ -1862,8 +1861,8 @@ object Form1: TForm1
         Top = 372
         Width = 204
         Caption = 'Options valid at next startup'
-        ClientHeight = 54
-        ClientWidth = 200
+        ClientHeight = 49
+        ClientWidth = 196
         TabOrder = 4
         object CheckBox8: TCheckBox
           Left = 6
@@ -1977,9 +1976,9 @@ object Form1: TForm1
     TabOrder = 4
   end
   object PanelMoon2: TPanel
-    Left = 40
+    Left = 56
     Height = 200
-    Top = 248
+    Top = 232
     Width = 200
     Color = clBlack
     ParentColor = False
