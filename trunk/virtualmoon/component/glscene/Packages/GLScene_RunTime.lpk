@@ -14,15 +14,13 @@
         <SyntaxOptions>
           <SyntaxMode Value="Delphi"/>
           <CStyleOperator Value="False"/>
-          <IncludeAssertionCode Value="True"/>
         </SyntaxOptions>
       </Parsing>
-      <CodeGeneration>
-        <Checks>
-          <RangeChecks Value="True"/>
-          <OverflowChecks Value="True"/>
-        </Checks>
-      </CodeGeneration>
+      <Linking>
+        <Debugging>
+          <GenerateDebugInfo Value="False"/>
+        </Debugging>
+      </Linking>
       <Other>
         <Verbosity>
           <ShowHints Value="False"/>
