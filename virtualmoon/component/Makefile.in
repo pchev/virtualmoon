@@ -56,5 +56,8 @@ export LCL_PLATFORM
 [rules]
 .PHONY: all
 
-all: libsql_all synapse/source/lib_all downloaddialog_all uniqueinstance_all enhedits_all glscene/Packages_all vmacomponents$(PPUEXT)
+outdir:
+	mkdir -p lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
+
+all: outdir libsql_all synapse/source/lib_all downloaddialog_all uniqueinstance_all enhedits_all glscene/Packages_all vmacomponents$(PPUEXT)
 

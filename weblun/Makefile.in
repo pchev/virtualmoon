@@ -53,6 +53,9 @@ export LCL_PLATFORM
 [rules]
 .PHONY: all
 
-all: weblun$(EXEEXT)
+outdir:
+	mkdir -p units/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
+
+all: outdir weblun$(EXEEXT)
 
 
