@@ -1,0 +1,26 @@
+# ignore backup dir
+virtualmoon/backup/
+#ignore external data
+BaseData/*.tgz
+BaseData/*.xz
+BaseData/Readme.txt
+# ignore fpc makefiles
+conf.sh
+Makefile
+Makefile.fpc
+Makefile.fpcxxx
+# ignore build dir
+cclun/cclun
+cclun/units/
+datlun/datlun
+datlun/units/
+photlun/photlun
+photlun/units/
+virtualmoon/atlun
+virtualmoon/units/
+virtualmoon/component/glscene/Packages/lib/
+virtualmoon/component/uniqueinstance/lib/
+weblun/units/
+weblun/weblun
+# ignore binary
+*.o
