@@ -2,22 +2,22 @@
   This source is only used to compile and install the package.
  }
 
-unit GLScene_OpenAL;
+unit GLScene_Physic_native;
 
 {$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  GLSMOpenAL, GLSound, GLSoundFileObjects, GLSoundFileMP3, GLSoundFileOGG, 
-  GLSoundFileWAV, LazarusPackageIntf;
+  GLForceFields, GLForces, GLInertias, GLJoints, GLPhysics, GLPhysicsRegister, 
+  LazarusPackageIntf;
 
 implementation
 
 procedure Register;
 begin
-  RegisterUnit('GLSMOpenAL', @GLSMOpenAL.Register);
+  RegisterUnit('GLPhysicsRegister', @GLPhysicsRegister.Register);
 end;
 
 initialization
-  RegisterPackage('GLScene_OpenAL', @Register);
+  RegisterPackage('GLScene_Physic_native', @Register);
 end.

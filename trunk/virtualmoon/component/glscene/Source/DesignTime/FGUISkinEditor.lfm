@@ -3,6 +3,7 @@ object GUISkinEditor: TGUISkinEditor
   Height = 366
   Top = 216
   Width = 764
+  ActiveControl = Button5
   Caption = 'Skin Editor'
   ClientHeight = 366
   ClientWidth = 764
@@ -11,7 +12,7 @@ object GUISkinEditor: TGUISkinEditor
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
-  LCLVersion = '1.6.4.0'
+  Visible = False
   object StatusBar: TStatusBar
     Left = 0
     Height = 23
@@ -477,18 +478,58 @@ object GUISkinEditor: TGUISkinEditor
     top = 12
     object HUDSprite1: TGLHUDSprite
       TagFloat = 0
+      Material.BackProperties.Ambient.Red = 0.200000002980232
+      Material.BackProperties.Ambient.Green = 0.200000002980232
+      Material.BackProperties.Ambient.Blue = 0.200000002980232
+      Material.BackProperties.Ambient.Alpha = 1
+      Material.BackProperties.Diffuse.Red = 0.800000011920929
+      Material.BackProperties.Diffuse.Green = 0.800000011920929
+      Material.BackProperties.Diffuse.Blue = 0.800000011920929
+      Material.BackProperties.Diffuse.Alpha = 1
+      Material.BackProperties.Emission.Red = 0
+      Material.BackProperties.Emission.Green = 0
+      Material.BackProperties.Emission.Blue = 0
+      Material.BackProperties.Emission.Alpha = 1
+      Material.BackProperties.Specular.Red = 0
+      Material.BackProperties.Specular.Green = 0
+      Material.BackProperties.Specular.Blue = 0
+      Material.BackProperties.Specular.Alpha = 1
+      Material.FrontProperties.Ambient.Red = 0.137254998087883
+      Material.FrontProperties.Ambient.Green = 0.556863009929657
+      Material.FrontProperties.Ambient.Blue = 0.137254998087883
+      Material.FrontProperties.Ambient.Alpha = 1
       Material.FrontProperties.Ambient.Color = {
         938C0C3E938E0E3F938C0C3E0000803F
       }
+      Material.FrontProperties.Diffuse.Red = 0.137254998087883
+      Material.FrontProperties.Diffuse.Green = 0.556863009929657
+      Material.FrontProperties.Diffuse.Blue = 0.137254998087883
+      Material.FrontProperties.Diffuse.Alpha = 1
       Material.FrontProperties.Diffuse.Color = {
         938C0C3E938E0E3F938C0C3E0000803F
       }
+      Material.FrontProperties.Emission.Red = 0.137254998087883
+      Material.FrontProperties.Emission.Green = 0.556863009929657
+      Material.FrontProperties.Emission.Blue = 0.137254998087883
+      Material.FrontProperties.Emission.Alpha = 1
       Material.FrontProperties.Emission.Color = {
         938C0C3E938E0E3F938C0C3E0000803F
       }
+      Material.FrontProperties.Specular.Red = 0.137254998087883
+      Material.FrontProperties.Specular.Green = 0.556863009929657
+      Material.FrontProperties.Specular.Blue = 0.137254998087883
+      Material.FrontProperties.Specular.Alpha = 1
       Material.FrontProperties.Specular.Color = {
         938C0C3E938E0E3F938C0C3E0000803F
       }
+      Material.Texture.EnvColor.Red = 0
+      Material.Texture.EnvColor.Green = 0
+      Material.Texture.EnvColor.Blue = 0
+      Material.Texture.EnvColor.Alpha = 0
+      Material.Texture.BorderColor.Red = 0
+      Material.Texture.BorderColor.Green = 0
+      Material.Texture.BorderColor.Blue = 0
+      Material.Texture.BorderColor.Alpha = 0
       PitchAngle = 0
       Position.Coordinates = {
         0000804300008043000000000000803F
@@ -522,10 +563,22 @@ object GUISkinEditor: TGUISkinEditor
       }
       object GLLightSource1: TGLLightSource
         TagFloat = 0
+        Ambient.Red = 0
+        Ambient.Green = 0
+        Ambient.Blue = 0
+        Ambient.Alpha = 1
         ConstAttenuation = 1
+        Diffuse.Red = 1
+        Diffuse.Green = 1
+        Diffuse.Blue = 1
+        Diffuse.Alpha = 1
         LinearAttenuation = 0
         QuadraticAttenuation = 0
         LightStyle = lsOmni
+        Specular.Red = 0
+        Specular.Green = 0
+        Specular.Blue = 0
+        Specular.Alpha = 1
         SpotCutOff = 180
         SpotExponent = 0
       end
@@ -533,6 +586,10 @@ object GUISkinEditor: TGUISkinEditor
   end
   object GLMemoryViewer1: TGLMemoryViewer
     Camera = GLCamera1
+    Buffer.AmbientColor.Red = 0.200000002980232
+    Buffer.AmbientColor.Green = 0.200000002980232
+    Buffer.AmbientColor.Blue = 0.200000002980232
+    Buffer.AmbientColor.Alpha = 1
     Buffer.ContextOptions = []
     Buffer.DepthTest = False
     Buffer.FaceCulling = False

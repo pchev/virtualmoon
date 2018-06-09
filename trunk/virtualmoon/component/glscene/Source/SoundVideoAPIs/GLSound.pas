@@ -23,7 +23,7 @@ unit GLSound;
 interface
 
 uses
-  Classes, SysUtils, Types,
+  Classes, SysUtils, Types, LCLIntf,
   GLSoundFileObjects, GLScene, GLXCollection, GLVectorGeometry,
   GLCadencer, GLBaseClasses, GLCrossPlatform, GLUtils;
 

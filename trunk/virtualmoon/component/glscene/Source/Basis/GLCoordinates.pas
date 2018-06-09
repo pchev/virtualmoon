@@ -90,10 +90,8 @@ type
 
     procedure Translate(const TranslationVector: TVector); overload;
     procedure Translate(const TranslationVector: TAffineVector); overload;
-    procedure AddScaledVector(const Factor: Single;
-      const TranslationVector: TVector); overload;
-    procedure AddScaledVector(const Factor: Single;
-      const TranslationVector: TAffineVector); overload;
+    procedure AddScaledVector(const Factor: Single; const TranslationVector: TVector); overload;
+    procedure AddScaledVector(const Factor: Single; const TranslationVector: TAffineVector); overload;
     procedure Rotate(const AnAxis: TAffineVector; AnAngle: Single); overload;
     procedure Rotate(const AnAxis: TVector; AnAngle: Single); overload;
     procedure Normalize;
@@ -130,8 +128,7 @@ type
       Assigning a value to this property will trigger notification events,
       if you don't want so, use DirectVector instead. 
       The W component is automatically adjustes depending on style. }
-    property AsAffineVector: TAffineVector read GetAsAffineVector
-      write SetAsAffineVector;
+    property AsAffineVector: TAffineVector read GetAsAffineVector write SetAsAffineVector;
 
     { : The coordinates viewed as a 2D point.
       Assigning a value to this property will trigger notification events,
@@ -143,22 +140,17 @@ type
     property Z: TGLFloat index 2 read GetCoordinate write SetCoordinate;
     property W: TGLFloat index 3 read GetCoordinate write SetCoordinate;
 
-    property Coordinate[const AIndex: Integer]: TGLFloat read GetCoordinate
-      write SetCoordinate; default;
+    property Coordinate[const AIndex: Integer]: TGLFloat read GetCoordinate write SetCoordinate; default;
 
     { : The coordinates, in-between brackets, separated by semi-colons. }
     property AsString: String read GetAsString;
 
     // : Similar to AsVector but does not trigger notification events
     property DirectVector: TVector read FCoords write SetDirectVector;
-    property DirectX: TGLFloat index 0 read GetDirectCoordinate
-      write SetDirectCoordinate;
-    property DirectY: TGLFloat index 1 read GetDirectCoordinate
-      write SetDirectCoordinate;
-    property DirectZ: TGLFloat index 2 read GetDirectCoordinate
-      write SetDirectCoordinate;
-    property DirectW: TGLFloat index 3 read GetDirectCoordinate
-      write SetDirectCoordinate;
+    property DirectX: TGLFloat index 0 read GetDirectCoordinate write SetDirectCoordinate;
+    property DirectY: TGLFloat index 1 read GetDirectCoordinate write SetDirectCoordinate;
+    property DirectZ: TGLFloat index 2 read GetDirectCoordinate write SetDirectCoordinate;
+    property DirectW: TGLFloat index 3 read GetDirectCoordinate write SetDirectCoordinate;
   end;
 
   { : A TGLCustomCoordinates that publishes X, Y properties. }

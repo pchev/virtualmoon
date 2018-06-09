@@ -4,22 +4,20 @@
 
 unit GLScene_DesignTime;
 
+{$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  FXCollectionEditor, GLSceneFormDesign, GLSceneRegister, RegisterXCollection, 
-  GLObjectManager, FLibMaterialPicker, FMaterialEditorForm, FRColorEditor, 
-  FRFaceEditor, FRMaterialPreview, FRTextureEdit, FRTrackBarEdit, 
-  FVectorEditor, FInfo, FGUILayoutEditor, FGLSceneEdit, FShaderUniformEditor, 
-  FGUISkinEditor, LazarusPackageIntf;
+  FXCollectionEditor, GLSceneRegister, GLObjectManager, FLibMaterialPicker, 
+  FMaterialEditorForm, FRColorEditor, FRFaceEditor, FRMaterialPreview, 
+  FRTextureEdit, FRTrackBarEdit, FVectorEditor, FInfo, FGUILayoutEditor, 
+  FGLSceneEdit, FShaderUniformEditor, FGUISkinEditor, LazarusPackageIntf;
 
 implementation
 
 procedure Register;
 begin
-  RegisterUnit('GLSceneFormDesign', @GLSceneFormDesign.Register);
   RegisterUnit('GLSceneRegister', @GLSceneRegister.Register);
-  RegisterUnit('RegisterXCollection', @RegisterXCollection.Register);
 end;
 
 initialization

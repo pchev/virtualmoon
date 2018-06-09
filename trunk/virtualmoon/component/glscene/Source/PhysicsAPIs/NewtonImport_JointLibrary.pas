@@ -32,12 +32,12 @@
 
 unit NewtonImport_JointLibrary;
 
-{$I delphinewton.inc}
-
 // Note: Declare the following in Projects->Options->Conditionals not in this unit! - Stucuk
 //{$DEFINE NEWTON_DOUBLE_PRECISION} // This is needed when you want to use double precision
 
 interface
+
+{$I pascaldefines.inc}
 
 uses
 {$IFDEF __GPC__}
@@ -46,22 +46,10 @@ uses
 {$ENDIF}
 
 {$IFDEF UNIX}
-
-{$IFDEF Ver1_0}
-  linux,
-{$ELSE}
-  pthreads,
-  baseunix,
-  unix,
-{$ENDIF}
-  x,
-  xlib,
-{$ELSE}
   Types,
   Libc,
   Xlib,
 {$ENDIF}
-
 
 {$IFDEF __MACH__}
   GPCMacOSAll,

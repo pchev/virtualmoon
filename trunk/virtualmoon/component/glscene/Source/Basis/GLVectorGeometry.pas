@@ -1332,6 +1332,10 @@ function QuaternionFromRollPitchYaw(const r, p, y : Single) : TQuaternion;
 // Constructs quaternion from Euler angles in arbitrary order (angles in degrees)
 function QuaternionFromEuler(const x, y, z: Single; eulerOrder : TEulerOrder) : TQuaternion;
 
+procedure QuaternionToEuler(const Q: TQuaternion; eulerOrder: TEulerOrder; Out Roll, Pitch, Yaw : Double);
+
+procedure QuaternionToAngleAxis(const Q: TQuaternion; out angle  : Single; out axis : TAffineVector);
+
 { Returns quaternion product qL * qR.
    Note: order is important!
    To combine rotations, use the product QuaternionMuliply(qSecond, qFirst),
@@ -7726,8 +7730,8 @@ begin
     Result := det / VectorLength(VectorCrossProduct(lineDir0, lineDir1));
 end;
 
-// QuaternionMake
-//
+{%region%===[ Quaternion ]======================================================}
+
 function QuaternionMake(const Imag: array of Single; Real: Single): TQuaternion;
 // EAX contains address of Imag
 // ECX contains address to result vector
@@ -7758,8 +7762,8 @@ begin
 {$endif}
 end;
 
-// QuaternionConjugate
-//
+
+
 function QuaternionConjugate(const Q : TQuaternion) : TQuaternion;
 begin
    Result.ImagPart.V[0]:=-Q.ImagPart.V[0];
@@ -7768,15 +7772,11 @@ begin
    Result.RealPart:=Q.RealPart;
 end;
 
-// QuaternionMagnitude
-//
 function QuaternionMagnitude(const q : TQuaternion) : Single;
 begin
    Result:=Sqrt(VectorNorm(q.ImagPart)+Sqr(q.RealPart));
 end;
 
-// NormalizeQuaternion
-//
 procedure NormalizeQuaternion(var q : TQuaternion);
 var
    m, f : Single;
@@ -7789,16 +7789,12 @@ begin
    end else q:=IdentityQuaternion;
 end;
 
-// QuaternionFromPoints
-//
 function QuaternionFromPoints(const V1, V2: TAffineVector): TQuaternion;
 begin
    Result.ImagPart:=VectorCrossProduct(V1, V2);
    Result.RealPart:=Sqrt((VectorDotProduct(V1, V2) + 1)/2);
 end;
 
-// QuaternionFromMatrix
-//
 function QuaternionFromMatrix(const mat : TMatrix) : TQuaternion;
 // the matrix must be a rotation matrix!
 var
@@ -7837,8 +7833,6 @@ begin
    NormalizeQuaternion(Result);
 end;
 
-// QuaternionMultiply
-//
 function QuaternionMultiply(const qL, qR: TQuaternion): TQuaternion;
 var
    Temp : TQuaternion;
@@ -7854,8 +7848,6 @@ begin
    Result:=Temp;
 end;
 
-// QuaternionToMatrix
-//
 function QuaternionToMatrix(quat : TQuaternion) : TMatrix;
 var
    w, x, y, z, xx, xy, xz, xw, yy, yz, yw, zz, zw: Single;
@@ -7892,8 +7884,6 @@ begin
    Result.V[3].V[3] := 1;
 end;
 
-//QuaternionToAffineMatrix
-//
 function QuaternionToAffineMatrix(quat : TQuaternion) : TAffineMatrix;
 var
    w, x, y, z, xx, xy, xz, xw, yy, yz, yw, zz, zw: Single;
@@ -7923,22 +7913,18 @@ begin
    Result.V[2].V[2] := 1 - 2 * ( xx + yy );
 end;
 
-// QuaternionFromAngleAxis
-//
 function QuaternionFromAngleAxis(const angle  : Single; const axis : TAffineVector) : TQuaternion;
 var
    f, s, c : Single;
 begin
    GLVectorGeometry.SinCos(GLVectorGeometry.DegToRad(angle*cOneDotFive), s, c);
-	Result.RealPart:=c;
+   Result.RealPart:=c;
    f:=s/VectorLength(axis);
    Result.ImagPart.V[0]:=axis.V[0]*f;
    Result.ImagPart.V[1]:=axis.V[1]*f;
    Result.ImagPart.V[2]:=axis.V[2]*f;
 end;
 
-// QuaternionFromRollPitchYaw
-//
 function QuaternionFromRollPitchYaw(const r, p, y : Single) : TQuaternion;
 var
    qp, qy : TQuaternion;
@@ -7951,62 +7937,25 @@ begin
    Result:=QuaternionMultiply(qy, Result);
 end;
 
-// QuaternionFromEuler
-//
 function QuaternionFromEuler(const x, y, z: Single; eulerOrder: TEulerOrder): TQuaternion;
-// input angles in degrees
-var
-   gimbalLock: Boolean;
-   quat1, quat2: TQuaternion;
-
-   function EulerToQuat(const X, Y, Z: Single; eulerOrder: TEulerOrder) : TQuaternion;
-   const
-      cOrder : array [Low(TEulerOrder)..High(TEulerOrder)] of array [1..3] of Byte =
-         ( (1, 2, 3), (1, 3, 2), (2, 1, 3),     // eulXYZ, eulXZY, eulYXZ,
-           (3, 1, 2), (2, 3, 1), (3, 2, 1) );   // eulYZX, eulZXY, eulZYX
-   var
-      q : array [1..3] of TQuaternion;
-   begin
-      q[cOrder[eulerOrder][1]]:=QuaternionFromAngleAxis(X, XVector);
-      q[cOrder[eulerOrder][2]]:=QuaternionFromAngleAxis(Y, YVector);
-      q[cOrder[eulerOrder][3]]:=QuaternionFromAngleAxis(Z, ZVector);
-      Result:=QuaternionMultiply(q[2], q[3]);
-      Result:=QuaternionMultiply(q[1], Result);
-   end;
-
 const
-   SMALL_ANGLE = 0.001;
+  cOrder : array [Low(TEulerOrder)..High(TEulerOrder)] of array [1..3] of Byte =
+    ( (1, 2, 3), (1, 3, 2), (2, 1, 3),     // eulXYZ, eulXZY, eulYXZ
+      (2, 3, 1), (3, 1, 2), (3, 2, 1) );   // eulYZX, eulZXY, eulZYX
+var
+  q : array [1..3] of TQuaternion;
+
 begin
-   NormalizeDegAngle(x);
-   NormalizeDegAngle(y);
-   NormalizeDegAngle(z);
-   case EulerOrder of
-      eulXYZ, eulZYX: GimbalLock := Abs(Abs(y) - 90.0) <= EPSILON2; // cos(Y) = 0;
-      eulYXZ, eulZXY: GimbalLock := Abs(Abs(x) - 90.0) <= EPSILON2; // cos(X) = 0;
-      eulXZY, eulYZX: GimbalLock := Abs(Abs(z) - 90.0) <= EPSILON2; // cos(Z) = 0;
-   else
-      Assert(False);
-      gimbalLock:=False;
-   end;
-   if gimbalLock then begin
-      case EulerOrder of
-        eulXYZ, eulZYX: quat1 := EulerToQuat(x, y - SMALL_ANGLE, z, EulerOrder);
-        eulYXZ, eulZXY: quat1 := EulerToQuat(x - SMALL_ANGLE, y, z, EulerOrder);
-        eulXZY, eulYZX: quat1 := EulerToQuat(x, y, z - SMALL_ANGLE, EulerOrder);
-      end;
-      case EulerOrder of
-        eulXYZ, eulZYX: quat2 := EulerToQuat(x, y + SMALL_ANGLE, z, EulerOrder);
-        eulYXZ, eulZXY: quat2 := EulerToQuat(x + SMALL_ANGLE, y, z, EulerOrder);
-        eulXZY, eulYZX: quat2 := EulerToQuat(x, y, z + SMALL_ANGLE, EulerOrder);
-      end;
-      Result := QuaternionSlerp(quat1, quat2, 0.5);
-   end else begin
-      Result := EulerToQuat(x, y, z, EulerOrder);
-   end;
+  q[1]:=QuaternionFromAngleAxis(X, XVector);
+  q[2]:=QuaternionFromAngleAxis(Y, YVector);
+  q[3]:=QuaternionFromAngleAxis(Z, ZVector);
+
+  Result:=QuaternionMultiply(q[cOrder[eulerOrder][1]], q[cOrder[eulerOrder][2]]);
+  Result:=QuaternionMultiply(Result, q[cOrder[eulerOrder][3]]);
 end;
 
-// QuaternionToPoints
-//
+
+
 procedure QuaternionToPoints(const Q: TQuaternion; var ArcFrom, ArcTo: TAffineVector);
 var
    s, invS : Single;
@@ -8024,6 +7973,210 @@ begin
    if Q.RealPart<0 then
       SetAffineVector(ArcFrom, -ArcFrom.V[X], -ArcFrom.V[Y], 0);
 end;
+
+
+function Clamp(a,b,c:Single):Single;
+begin
+  result := a;
+  if a<b then result:=b
+  else if a>c then result:=c;
+end;
+
+{ Method 1 empiric
+var
+   qw, qx, qy, qz: Extended;
+   qx2, qy2, qz2, cosr, sinr, sinp: Extended;
+   X, Y, Z: Extended;
+//   h, a, b: Double;
+begin
+
+    qw := q.RealPart;
+    qx := q.ImagPart.Z;
+    qy := q.ImagPart.X;
+    qz := q.ImagPart.Y;
+
+    //qw2 := qw*qw;
+    qx2 := qx*qx;
+    qy2 := qy*qy;
+    //qz2 := qz*qz;
+
+
+      // Becarefull at the order here 312 --> ZXY
+      // check https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+
+      //--- Euler Order YXZ
+      // roll ( X-Axis)
+      sinr := 2.0 * (qw * qx + qy * qz);
+      cosr := 1.0 - 2.0 * ((qx*qx)+ qy2);
+      Z := arctan2(sinr, cosr);
+
+      // pitch (X-axis rotation, not Y-Axis)
+      sinp := 2.0 * (qw * qy - qz * qx);
+      if (sinp >=1.0) or (sinp <=-1.0) then
+       if (Sinp<0) then X := -(PI/2) else  X := (PI/2) // use 90 degrees if out of range
+      else
+        X := ArcSin(sinp);
+
+      // yaw (Y-axis rotation, not Z-Axis)
+      sinr := 2.0 * (qw * qz + qx * qy);
+      cosr := 1.0 - 2.0 * ((qz*qz)+qy2);
+      Y:= arctan2(sinr, cosr);
+      //----------------------------------------
+      //------ ZXY ------------------------------
+      // Note need to derive equations according desired Euler Order (order of rotation)
+      //----------------------------------------
+
+      //---------------------------------------
+      Roll := RadToDeg(X);  // Roll Y
+      Pitch := RadToDeg(Y);  // Pitch X
+      Yaw := RadToDeg(Z);  // Yaw Z
+end;
+}
+
+// Get euler angle from rotation matrix
+// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToEuler/index.htm
+// https://www.learnopencv.com/rotation-matrix-to-euler-angles/
+// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/derivation/index.htm
+// http://www.euclideanspace.com/maths/geometry/rotations/for/index.htm
+
+// @TODO : Take care of singularity at pole SUD  <-0.999999
+procedure QuaternionToEuler(const Q: TQuaternion; eulerOrder: TEulerOrder; Out Roll, Pitch, Yaw : Double);
+var
+  rm : TMatrix; // Rotation Matrix
+  m11,m12,m13,m21,m22,m23,m31,m32,m33 : Double;
+begin
+  rm := QuaternionToMatrix(Q);
+  // Rotation X
+  m11 := rm.V[0].X;
+  m12 := Clamp(rm.V[0].Y,-1,1);
+  m13 := Clamp(rm.V[0].Z,-1,1);
+  // Rotation Y
+  m21 := Clamp(rm.V[1].X,-1,1);
+  m22 := rm.V[1].Y;
+  m23 := Clamp(rm.V[1].Z,-1,1);
+  // Rotation Z
+  m31 := Clamp(rm.V[2].X,-1,1);
+  m32 := Clamp(rm.V[2].Y,-1,1);
+  m33 := rm.V[2].Z;
+
+  // Remember :
+  // ROLL = X ; YAW = Y ; PITCH = Z
+  case EulerOrder of
+    eulXYZ :
+      begin
+        Yaw := ArcSin(m31);
+        if Abs(m31) < 0.99999 then
+        begin
+          Roll := ArcTan2(-m32,m33);
+          Pitch := ArcTan2(-m21,m11)
+          //Yaw := -cPIDiv2; //DegToRad(-90);
+        end
+        else
+        // if abs(m20)> 0.99999
+        begin
+          Roll := ArcTan2(m23,m22);
+          Pitch := 0;
+        end;
+      end;
+    eulXZY :
+      begin
+        Pitch := ArcSin(m21);
+        if Abs(m21) < 0.99999 then
+        begin
+           Roll := ArcTan2(m23,m22);
+           Yaw := ArcTan2(m31,m11);
+        end
+        else
+        begin
+          Roll := ArcTan2(-m32,m33);
+          Yaw := 0;
+        end;
+      end;
+    eulYXZ :
+      begin
+        Roll := ArcSin(-m32);
+        if Abs(m32)< 0.99999 then
+        begin
+          Yaw :=ArcTan2(m31,m33);
+          Pitch := ArcTan2(m12,m22);
+        end
+        else
+        begin
+          Yaw := ArcTan2(-m13,m11);
+          Pitch := 0;
+        end;
+      end;
+    eulYZX :
+      begin
+        Pitch := ArcSin(m12);
+        if Abs(m12) < 0.99999 then
+        begin
+          Roll := ArcTan2(-m32,m22);
+          Yaw := ArcTan2(-m13,m11);
+        end
+        else
+        begin
+          Roll := 0;
+          Yaw := ArcTan2(m31,m33);
+        end;
+      end;
+    eulZXY :
+      begin
+        Roll := ArcSin(m23);
+        if Abs(m21)< 0.99999 then
+        begin
+          Yaw := ArcTan2(-m13,m33);
+          Pitch := ArcTan2(-m21,m22);
+        end
+        else
+        begin
+          Yaw := 0;
+          Pitch := ArcTan2(m12,m11);
+        end;
+      end;
+    eulZYX :
+      begin
+        Yaw := ArcSin(m13);
+        if Abs(m13) < 0.99999 then
+        begin
+          Roll := ArcTan2(m23,m33);
+          Pitch := ArcTan2(m12,m11);
+        end
+        else
+        begin
+          Roll := 0;
+          Pitch :=  ArcTan2(-m21,m22);
+        end;
+      end;
+  end;
+  Roll := RadToDeg(Roll);
+  Pitch := RadToDeg(Pitch);
+  Yaw := RadToDeg(Yaw);
+end;
+
+procedure QuaternionToAngleAxis(const Q: TQuaternion; out angle  : Single; out axis : TAffineVector);
+var
+  qw2: Double;
+  den: Double;
+begin
+  qw2 := Q.RealPart*Q.RealPart;
+  Angle := RadToDeg(2*ArcCos(Q.RealPart));
+  den := Sqrt(1-qw2);
+  if den <> 0 then
+  begin
+    Axis.x := Q.ImagPart.X/den;
+    Axis.y := Q.ImagPart.Y/den;
+    Axis.z := Q.ImagPart.Z/den;
+  end
+  else
+  begin
+    Axis.x := 0;
+    Axis.y := 0;
+    Axis.z := 0;
+  end;
+end;
+
+{%endregion%}
 
 // LnXP1
 //

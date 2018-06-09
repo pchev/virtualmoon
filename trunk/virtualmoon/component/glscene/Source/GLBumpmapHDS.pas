@@ -1,6 +1,6 @@
-//
+
 // This unit is part of the GLScene Project, http://glscene.org
-//
+
 { 
   Implements a HDS that automatically generates an elevation bumpmap.
 
@@ -43,69 +43,61 @@ interface
 
 uses
   Classes, SysUtils,
-
   GLHeightData, GLGraphics, GLVectorGeometry,
-  GLTexture, GLMaterial, SyncObjs, OpenGLTokens,
+  GLTexture, GLMaterial, SyncObjs,
   GLUtils, GLVectorTypes;
 
 type
   TGLBumpmapHDS = class;
 
   // TNewTilePreparedEvent
-  //
-  TNewTilePreparedEvent = procedure(Sender: TGLBumpmapHDS;
-    heightData: TGLHeightData; normalMapMaterial: TGLLibMaterial) of object;
+
+  TNewTilePreparedEvent = procedure(Sender :TGLBumpmapHDS; heightData :TGLHeightData; normalMapMaterial :TGLLibMaterial) of object;
 
   // TGLBumpmapHDS
-  //
+
   { : An Height Data Source that generates elevation bumpmaps automatically.
     The HDS must be connected to another HDS, which will provide the elevation
     data, and to a MaterialLibrary where bumpmaps will be placed. }
   TGLBumpmapHDS = class(TGLHeightDataSourceFilter)
   private
-     
+
     // FElevationHDS : TGLHeightDataSource;
-    FBumpmapLibrary: TGLMaterialLibrary;
-    FOnNewTilePrepared: TNewTilePreparedEvent;
-    FBumpScale: Single;
-    FSubSampling: Integer;
-    FMaxTextures: Integer;
-    Uno: TCriticalSection;
+    FBumpmapLibrary :TGLMaterialLibrary;
+    FOnNewTilePrepared :TNewTilePreparedEvent;
+    FBumpScale :Single;
+    FSubSampling :Integer;
+    FMaxTextures :Integer;
+    Uno :TCriticalSection;
   protected
-     
-    procedure SetBumpmapLibrary(const val: TGLMaterialLibrary);
-    procedure SetBumpScale(const val: Single);
-    function StoreBumpScale: Boolean;
-    procedure SetSubSampling(const val: Integer);
-    procedure Trim(MaxTextureCount: Integer);
+
+    procedure SetBumpmapLibrary(const val :TGLMaterialLibrary);
+    procedure SetBumpScale(const val :Single);
+    function StoreBumpScale :Boolean;
+    procedure SetSubSampling(const val :Integer);
+    procedure Trim(MaxTextureCount :Integer);
   public
-     
-    constructor Create(AOwner: TComponent); override;
+
+    constructor Create(AOwner :TComponent); override;
     destructor Destroy; override;
-    procedure Release(aHeightData: TGLHeightData); override;
-    procedure Notification(AComponent: TComponent;
-      Operation: TOperation); override;
-    procedure GenerateNormalMap(heightData: TGLHeightData; normalMap: TGLBitmap32;
-      scale: Single);
-    procedure TrimTextureCache(MaxTextureCount: Integer);
+    procedure Release(aHeightData :TGLHeightData); override;
+    procedure Notification(AComponent :TComponent; Operation :TOperation); override;
+    procedure GenerateNormalMap(heightData :TGLHeightData; normalMap :TGLBitmap32; scale :Single);
+    procedure TrimTextureCache(MaxTextureCount :Integer);
     // procedure  TileTextureCoordinates(heightData : TGLHeightData; TextureScale:TTexPoint; TextureOffset:TTexPoint);
-    procedure PreparingData(heightData: TGLHeightData); override;
+    procedure PreparingData(heightData :TGLHeightData); override;
   published
-     
-    property BumpmapLibrary: TGLMaterialLibrary read FBumpmapLibrary
-      write SetBumpmapLibrary;
-    property OnNewTilePrepared: TNewTilePreparedEvent read FOnNewTilePrepared
-      write FOnNewTilePrepared;
-    property BumpScale: Single read FBumpScale write SetBumpScale
-      stored StoreBumpScale;
+
+    property BumpmapLibrary :TGLMaterialLibrary read FBumpmapLibrary write SetBumpmapLibrary;
+    property OnNewTilePrepared :TNewTilePreparedEvent read FOnNewTilePrepared write FOnNewTilePrepared;
+    property BumpScale :Single read FBumpScale write SetBumpScale stored StoreBumpScale;
     { : Specifies the amount of subsampling for the bump texture.
       This value must be a power of 2, and is used to divide the height
       tile resolution to determine the bump texture resolution (f.i.
       a tile size of 128 with a subsampling of 4 will result in textures
       of a resolution of 32x32. SubSampling won't allow texture resolution
       to get below 16x16 (minimal bumpmap resolution). }
-    property SubSampling: Integer read FSubSampling write SetSubSampling
-      default 1;
+    property SubSampling :Integer read FSubSampling write SetSubSampling default 1;
     property MaxPoolSize;
     { : If MaxTextures>0 then the Bumpmap library is trimmed down to size whenever
       the texture count is larger than MaxTextures. The oldest, unused texture is trimmed first.
@@ -116,13 +108,13 @@ type
       is NOT trimmed automatically.
       You will have to manually trim the cache from the main thread, by
       calling 'TrimTextureCache'. (GLAsyncHDS.OnIdle is a good place.) }
-    property MaxTextures: Integer read FMaxTextures write FMaxTextures;
+    property MaxTextures :Integer read FMaxTextures write FMaxTextures;
     property OnSourceDataFetched;
   end;
 
-  // ------------------------------------------------------------------
-  // ------------------------------------------------------------------
-  // ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
 implementation
 
 // ------------------------------------------------------------------
@@ -132,14 +124,14 @@ implementation
 const
   cDefaultBumpScale = 0.01;
 
-  // ------------------
-  // ------------------ TGLBumpmapHDS ------------------
-  // ------------------
+// ------------------
+// ------------------ TGLBumpmapHDS ------------------
+// ------------------
 
-  // Create
-  //
+// Create
 
-constructor TGLBumpmapHDS.Create(AOwner: TComponent);
+
+constructor TGLBumpmapHDS.Create(AOwner :TComponent);
 begin
   inherited Create(AOwner);
   FBumpScale := cDefaultBumpScale;
@@ -148,7 +140,7 @@ begin
 end;
 
 // Destroy
-//
+
 
 destructor TGLBumpmapHDS.Destroy;
 begin
@@ -157,42 +149,45 @@ begin
 end;
 
 // Notification
-//
 
-procedure TGLBumpmapHDS.Notification(AComponent: TComponent;
-  Operation: TOperation);
+
+procedure TGLBumpmapHDS.Notification(AComponent :TComponent; Operation :TOperation);
 begin
   if Operation = opRemove then
   begin
     if AComponent = FBumpmapLibrary then
+    begin
       BumpmapLibrary := nil;
+    end;
   end;
   inherited;
 end;
 
 // Release
-//
 
-procedure TGLBumpmapHDS.Release(aHeightData: TGLHeightData);
+
+procedure TGLBumpmapHDS.Release(aHeightData :TGLHeightData);
 var
-  libMat: TGLLibMaterial;
+  libMat :TGLLibMaterial;
 begin
   libMat := aHeightData.LibMaterial;
   aHeightData.MaterialName := '';
-  if (FMaxTextures > 0) and (assigned(libMat)) and (libMat.IsUsed = false) then
-    libMat.free;
+  if (FMaxTextures > 0) and (assigned(libMat)) and (libMat.IsUsed = False) then
+  begin
+    libMat.Free;
+  end;
   inherited;
 end;
 
 // TrimTextureCache
-//
+
 // This will repeatedly delete the oldest unused texture from the TGLMaterialLibrary,
 // until the texture count drops to MaxTextureCount.
 // DONT use this if you used TGLHeightData.MaterialName to link your terrain textures.
 // Either use with TGLHeightData.LibMaterial, or manually delete unused Normal-Map textures.
-//
 
-procedure TGLBumpmapHDS.TrimTextureCache(MaxTextureCount: Integer);
+
+procedure TGLBumpmapHDS.TrimTextureCache(MaxTextureCount :Integer);
 // Thread-safe Version
 begin
   if assigned(self) then
@@ -203,44 +198,50 @@ begin
   end;
 end;
 
-procedure TGLBumpmapHDS.Trim(MaxTextureCount: Integer); // internal use only
+procedure TGLBumpmapHDS.Trim(MaxTextureCount :Integer); // internal use only
 var
-  matLib: TGLMaterialLibrary;
-  libMat: TGLLibMaterial;
-  i: Integer;
-  cnt: Integer;
+  matLib :TGLMaterialLibrary;
+  libMat :TGLLibMaterial;
+  i      :Integer;
+  cnt    :Integer;
 begin
   matLib := FBumpmapLibrary;
   if matLib <> nil then
   begin
     cnt := matLib.Materials.Count;
-    i := 0;
+    i   := 0;
     while (i < cnt) and (cnt >= MaxTextureCount) do
     begin
       libMat := matLib.Materials[i];
       if libMat.IsUsed then
-        i := i + 1
+      begin
+        i := i + 1;
+      end
       else
-        libMat.free;
+      begin
+        libMat.Free;
+      end;
       cnt := matLib.Materials.Count;
     end;
   end;
 end;
 
 // PreparingData
-//
 
-procedure TGLBumpmapHDS.PreparingData(heightData: TGLHeightData);
+
+procedure TGLBumpmapHDS.PreparingData(heightData :TGLHeightData);
 var
-  HD: TGLHeightData;
-  libMat: TGLLibMaterial;
-  bmp32: TGLBitmap32;
-  MatName: string;
+  HD      :TGLHeightData;
+  libMat  :TGLLibMaterial;
+  bmp32   :TGLBitmap32;
+  MatName :String;
 begin
   if not assigned(FBumpmapLibrary) then
+  begin
     exit;
+  end;
   // --Generate Normal Map for tile--
-  HD := heightData;
+  HD      := heightData;
   MatName := 'BumpHDS_x' + IntToStr(HD.XLeft) + 'y' + IntToStr(HD.YTop) + '.';
   // name contains xy coordinates of the current tile
   Uno.Acquire;
@@ -251,11 +252,13 @@ begin
     if (FMaxTextures > 0) then
     begin
       if HD.Thread = nil { //Dont trim the cache from a sub-thread; } then
-        TrimTextureCache(FMaxTextures)
-        // Trim unused textures from the material library
+      begin
+        TrimTextureCache(FMaxTextures);
+      end;
+      // Trim unused textures from the material library
     end;
     // Generate new NormalMap texture for this tile
-    libMat := FBumpmapLibrary.Materials.Add;
+    libMat      := FBumpmapLibrary.Materials.Add;
     libMat.Name := MatName;
     // Transfer tile texture coordinates to generated texture
     libMat.TextureScale.X := HD.TextureCoordinatesScale.S;
@@ -283,69 +286,74 @@ begin
   // HD.MaterialName:=LibMat.Name;
   HD.LibMaterial := libMat; // attach texture to current tile
   if assigned(FOnNewTilePrepared) then
+  begin
     FOnNewTilePrepared(self, HD, libMat);
+  end;
   Uno.Release;
 end;
 
 // GenerateNormalMap
-//
 
-procedure TGLBumpmapHDS.GenerateNormalMap(heightData: TGLHeightData;
-  normalMap: TGLBitmap32; scale: Single);
+
+procedure TGLBumpmapHDS.GenerateNormalMap(heightData :TGLHeightData; normalMap :TGLBitmap32; scale :Single);
 var
-  MapSize: Integer;
-  HD: TGLHeightData;
-  X, Y: Integer;
-  scaleVec: TAffineVector;
-  vec: TAffineVector;
-  nmRow: PGLPixel32Array;
-  px, py: Integer;
+  MapSize :Integer;
+  HD      :TGLHeightData;
+  X, Y    :Integer;
+  scaleVec : TAffineVector;
+  vec, vvec     : TAffineVector;
+  nmRow   :PGLPixel32Array;
+  px, py  :Integer;
 begin
-  HD := heightData;
+  HD      := heightData;
   MapSize := (HD.Size - 1);
   MapSize := MapSize div SubSampling;
   normalMap.Height := MapSize;
   normalMap.Width := MapSize;
-  normalMap.Blank := false;
+  normalMap.Blank := False;
   SetVector(scaleVec, 1, 1, FBumpScale);
+  //scaleVec.Create(1,1,FBumpScale);
+  SetVector(vVec,128,128,128);
+  //vVec.Create(128,128,128);
   for Y := 0 to MapSize - 1 do
   begin
     nmRow := normalMap.ScanLine[MapSize - 1 - Y];
     for X := 0 to MapSize - 1 do
     begin
-      px := X * SubSampling;
-      py := Y * SubSampling;
+      px  := X * SubSampling;
+      py  := Y * SubSampling;
       vec := HD.NormalAtNode(px, py, scaleVec);
-      nmRow[X].r := round(128 + 127 * vec.V[0]); // nmRow[x].r:=0;         //Red
-      nmRow[X].g := round(128 + 127 * vec.V[1]);
+      Vec:= vectorscale(Vec,127);
+      Vec:= vectoradd(Vec , vVec);
+      nmRow[X].r := round(vec.X); //round(128+127*vec.X);
+      // nmRow[x].r:=0;         //Red
+      nmRow[X].g := round(vec.Y);
       // nmRow[x].g:=0;         //Green
-      nmRow[X].b := round(128 + 127 * vec.V[2]);
+      nmRow[X].b := round(vec.Z);
       // nmRow[x].b:=0;         //Blue
       nmRow[X].a := 255;
     end;
   end;
 end;
 
-// SetBumpmapLibrary
-//
-
-procedure TGLBumpmapHDS.SetBumpmapLibrary(const val: TGLMaterialLibrary);
+procedure TGLBumpmapHDS.SetBumpmapLibrary(const val :TGLMaterialLibrary);
 begin
   if val <> FBumpmapLibrary then
   begin
     if assigned(FBumpmapLibrary) then
+    begin
       FBumpmapLibrary.RemoveFreeNotification(self);
+    end;
     FBumpmapLibrary := val;
     if assigned(FBumpmapLibrary) then
+    begin
       FBumpmapLibrary.FreeNotification(self);
+    end;
     MarkDirty;
   end;
 end;
 
-// SetBumpScale
-//
-
-procedure TGLBumpmapHDS.SetBumpScale(const val: Single);
+procedure TGLBumpmapHDS.SetBumpScale(const val :Single);
 begin
   if FBumpScale <> val then
   begin
@@ -354,24 +362,20 @@ begin
   end;
 end;
 
-// StoreBumpScale
-//
-
-function TGLBumpmapHDS.StoreBumpScale: Boolean;
+function TGLBumpmapHDS.StoreBumpScale :Boolean;
 begin
   Result := (FBumpScale <> cDefaultBumpScale);
 end;
 
-// SetSubSampling
-//
-
-procedure TGLBumpmapHDS.SetSubSampling(const val: Integer);
+procedure TGLBumpmapHDS.SetSubSampling(const val :Integer);
 begin
   if val <> FSubSampling then
   begin
     FSubSampling := RoundDownToPowerOf2(val);
     if FSubSampling < 1 then
+    begin
       FSubSampling := 1;
+    end;
     MarkDirty;
   end;
 end;
@@ -385,7 +389,7 @@ initialization
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
-// class registrations
-RegisterClass(TGLBumpmapHDS);
+  // class registrations
+  RegisterClass(TGLBumpmapHDS);
 
 end.

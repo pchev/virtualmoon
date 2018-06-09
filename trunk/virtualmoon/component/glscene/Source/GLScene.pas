@@ -1997,8 +1997,7 @@ type
     { Converts a screen coordinate into world (3D) coordinates.
        This methods wraps a call to gluUnProject.
        Note that screen coord (0,0) is the lower left corner. }
-    function ScreenToWorld(const aPoint: TAffineVector): TAffineVector;
-      overload;
+    function ScreenToWorld(const aPoint: TAffineVector): TAffineVector; overload;
     function ScreenToWorld(const aPoint: TVector): TVector; overload;
     { Converts a screen pixel coordinate into 3D world coordinates.
        This function accepts standard canvas coordinates, with (0,0) being
@@ -6721,9 +6720,7 @@ constructor TGLLightSource.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FShining := True;
-  FSpotDirection := TGLCoordinates.CreateInitialized(Self, VectorMake(0, 0, -1,
-    0),
-    csVector);
+  FSpotDirection := TGLCoordinates.CreateInitialized(Self, VectorMake(0, 0, -1,0),csVector);
   FConstAttenuation := 1;
   FLinearAttenuation := 0;
   FQuadraticAttenuation := 0;

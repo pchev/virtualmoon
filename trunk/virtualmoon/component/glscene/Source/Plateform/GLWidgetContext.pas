@@ -89,8 +89,7 @@ type
   TGLWidgetContext = class(TGLWin32Context)
   protected
      
-    procedure DoGetHandles(outputDevice: HWND; out XWin: HWND);
-      override;
+    procedure DoGetHandles(outputDevice: HWND; out XWin: HWND); override;
   end;
 {$ENDIF}
   // MacOS X
@@ -105,15 +104,13 @@ type
 {$IFDEF LINUX}
   TGLWidgetContext = class(TGLGLXContext)
   protected
-     
     procedure DoGetHandles(outputDevice: HWND; out XWin: HWND); override;
   end;
 {$ENDIF}
 {$IF DEFINED(LCLwin32) or DEFINED(LCLwin64)}
   TGLSOpenGLControl = class(TWin32WSWinControl)
   published
-    class function CreateHandle(const AWinControl: TWinControl;
-      const AParams: TCreateParams): HWND; override;
+    class function CreateHandle(const AWinControl: TWinControl; const AParams: TCreateParams): HWND; override;
   end;
 procedure GLRegisterWSComponent(aControl: TComponentClass);
 {$ENDIF}
@@ -162,7 +159,7 @@ begin
 {$ENDIF}
 {$IFDEF LCLGTK2}
   gtk_widget_set_double_buffered(vGTKWidget, False);
-  XWin := GDK_WINDOW_XWINDOW(PGdkDrawable(vGTKWidget^.window));
+  XWin := GDK_WINDOW_XWINDOW(PGdkDrawable(vGTKWidget^.Window));
 {$IFDEF GLS_LOGGING}
   GLSLogger.LogInfo('GLWidgetContext: Widget->LCLGTK2');
 {$ENDIF}
