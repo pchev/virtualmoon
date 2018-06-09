@@ -22,7 +22,7 @@ begin
   compile_version:='Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+LCLPlatformDirNames[WidgetSet.LCLPlatform];
   Splashversion := AVLversion+blank+compile_time;
   Application.CreateForm(Tf_photlun, f_photlun);
-  if not f_photlun.param.Find('-quit',i) then begin
+  if (f_photlun.param.IndexOf('-quit')<0) then begin
     Application.CreateForm(Tf_config, f_config);
     Application.Run;
   end
