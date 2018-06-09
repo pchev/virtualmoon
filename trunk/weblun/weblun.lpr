@@ -17,7 +17,7 @@ var i : integer;
 begin
   Application.Initialize;
   Application.CreateForm(Tf_weblun, f_weblun);
-  if not f_weblun.param.Find('-quit',i) then begin
+  if (f_weblun.param.IndexOf('-quit')<0) then begin
      Application.Run;
   end
   else Application.Terminate;

@@ -23,7 +23,7 @@ begin
   compile_version:='Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+LCLPlatformDirNames[WidgetSet.LCLPlatform];
   Splashversion := AVLversion+blank+compile_time;
   Application.CreateForm(Tf_main, f_main);
-  if not f_main.param.Find('-quit',i) then begin
+  if (f_main.param.IndexOf('-quit')<0) then begin
       Application.CreateForm(TColumns, Columns);
       Application.CreateForm(TLoadCSV, LoadCSV);
       Application.CreateForm(TSelectDB, SelectDB);
