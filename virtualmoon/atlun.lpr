@@ -18,7 +18,6 @@ var i:integer;
 {$R *.res}
 
 begin
-  SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
   {$ifdef USEHEAPTRC}
   SetHeapTraceOutput('/tmp/vma_heap.trc');
   {$endif}

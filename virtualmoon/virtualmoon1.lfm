@@ -13,6 +13,7 @@ object Form1: TForm1
   ClientWidth = 885
   Constraints.MinHeight = 500
   Constraints.MinWidth = 500
+  DesignTimePPI = 95
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   KeyPreview = True
@@ -255,7 +256,7 @@ object Form1: TForm1
     end
     object TrackBar1: TTrackBar
       Left = 280
-      Height = 25
+      Height = 41
       Top = -2
       Width = 112
       Max = 100
@@ -360,7 +361,7 @@ object Form1: TForm1
         end
         object ComboBox1: TComboBox
           Left = 3
-          Height = 21
+          Height = 27
           Top = 8
           Width = 161
           DropDownCount = 15
@@ -397,8 +398,8 @@ object Form1: TForm1
     end
     object Notes: TTabSheet
       Caption = 'Notes'
-      ClientHeight = 484
-      ClientWidth = 336
+      ClientHeight = 486
+      ClientWidth = 330
       ImageIndex = 6
       object Memo1: TMemo
         Left = 0
@@ -442,8 +443,8 @@ object Form1: TForm1
     end
     object Ephemerides: TTabSheet
       Caption = 'Ephemerides'
-      ClientHeight = 484
-      ClientWidth = 336
+      ClientHeight = 486
+      ClientWidth = 330
       ImageIndex = 1
       object Panel4: TPanel
         Left = 0
@@ -1000,8 +1001,8 @@ object Form1: TForm1
     end
     object Terminateur: TTabSheet
       Caption = 'Terminateur'
-      ClientHeight = 484
-      ClientWidth = 336
+      ClientHeight = 486
+      ClientWidth = 330
       ImageIndex = 2
       object Panel5: TPanel
         Left = 0
@@ -1111,12 +1112,13 @@ object Form1: TForm1
         OnClick = ListBox1Click
         Sorted = True
         TabOrder = 1
+        TopIndex = -1
       end
     end
     object Outils: TTabSheet
       Caption = 'Outils'
-      ClientHeight = 484
-      ClientWidth = 336
+      ClientHeight = 486
+      ClientWidth = 330
       ImageIndex = 4
       object GroupBox3: TGroupBox
         Left = 8
@@ -1662,8 +1664,8 @@ object Form1: TForm1
     end
     object Reglage: TTabSheet
       Caption = 'Reglage'
-      ClientHeight = 484
-      ClientWidth = 336
+      ClientHeight = 486
+      ClientWidth = 330
       ImageIndex = 3
       object Bevel1: TBevel
         Left = 16
@@ -1896,8 +1898,8 @@ object Form1: TForm1
     end
     object dbtab: TTabSheet
       Caption = 'Database'
-      ClientHeight = 484
-      ClientWidth = 336
+      ClientHeight = 486
+      ClientWidth = 330
       ImageIndex = 5
       object StringGrid2: TStringGrid
         Left = 0
