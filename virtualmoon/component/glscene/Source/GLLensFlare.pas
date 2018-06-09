@@ -1,6 +1,6 @@
-//
+
 // This unit is part of the GLScene Project, http://glscene.org
-//
+
 {
    Lens flare object.
 
@@ -43,77 +43,76 @@
    eMail   : peirick@onlinehome.de 
    Homepage: http://www.TobSoft.de
 }
-unit GLLensFlare;
+Unit GLLensFlare;
 
-interface
+Interface
 
 {$I GLScene.inc}
 
-uses
+Uses
   Classes, SysUtils,
   GLScene, GLVectorGeometry, GLObjects, OpenGLTokens,
-  GLContext, GLColor, GLBaseClasses, GLRenderContextInfo, GLState, 
-  GLVectorTypes, GLUtils, GLTextureFormat;
+  GLContext, GLColor, GLBaseClasses, GLRenderContextInfo, GLState,
+  GLVectorTypes, GLUtils, GLTextureFormat, GLRandomGenerator;
 
-type
+Type
 
   // TFlareElement
-  //
-  TFlareElement = (feGlow, feRing, feStreaks, feRays, feSecondaries);
-  TFlareElements = set of TFlareElement;
+
+  TFlareElement  = (feGlow, feRing, feStreaks, feRays, feSecondaries);
+  TFlareElements = Set Of TFlareElement;
 
   { The actual gradients between two colors are, of course, calculated by OpenGL.
      The start and end colors of a gradient are stored to represent the color of
      lens flare elements. }
-  TGLFlareGradient = class(TGLUpdateAbleObject)
-  private
-     
+  TGLFlareGradient = Class(TGLUpdateAbleObject)
+  Private
+
     FFromColor: TGLColor;
-    FToColor: TGLColor;
+    FToColor:   TGLColor;
 
-  protected
-     
-    procedure SetFromColor(const val: TGLColor);
-    procedure SetToColor(const val: TGLColor);
+  Protected
 
-  public
-     
-    constructor Create(AOwner: TPersistent); override;
-    constructor CreateInitialized(AOwner: TPersistent;
-      const fromColor, toColor: TColorVector);
-    destructor Destroy; override;
-    procedure Assign(Source: TPersistent); override;
+    Procedure SetFromColor(Const val: TGLColor);
+    Procedure SetToColor(Const val: TGLColor);
 
-  published
-     
-    property FromColor: TGLColor read FFromColor write SetFromColor;
-    property ToColor: TGLColor read FToColor write SetToColor;
-  end;
+  Public
 
-const
+    Constructor Create(AOwner: TPersistent); Override;
+    Constructor CreateInitialized(AOwner: TPersistent; Const fromColor, toColor: TColorVector);
+    Destructor Destroy; Override;
+    Procedure Assign(Source: TPersistent); Override;
+
+  Published
+
+    Property FromColor: TGLColor read FFromColor write SetFromColor;
+    Property ToColor: TGLColor read FToColor write SetToColor;
+  End;
+
+Const
   cDefaultFlareElements = [feGlow, feRing, feStreaks, feRays, feSecondaries];
 
-type
+Type
 
   // TGLLensFlare
-  //
-  TGLLensFlare = class(TGLBaseSceneObject)
-  private
-     
-    FSize: Integer;
+
+  TGLLensFlare = Class(TGLBaseSceneObject)
+  Private
+
+    FSize:      Integer;
     FDeltaTime: Single;
-    FCurrSize: Single;
-    FSeed: Integer;
-    FSqueeze: Single;
+    FCurrSize:  Single;
+    FSeed:      Integer;
+    FSqueeze:   Single;
     FNumStreaks: Integer;
     FStreakWidth, FStreakAngle: Single;
-    FNumSecs: Integer;
+    FNumSecs:   Integer;
     FResolution: Integer;
     FAutoZTest: Boolean;
-    FElements: TFlareElements;
-    FSin20Res, FCos20Res: array of Single;
-    FSinRes, FCosRes: array of Single;
-    FTexRays: TGLTextureHandle;
+    FElements:  TFlareElements;
+    FSin20Res, FCos20Res: Array Of Single;
+    FSinRes, FCosRes: Array Of Single;
+    FTexRays:   TGLTextureHandle;
     FFlareIsNotOccluded: Boolean;
     FOcclusionQuery: TGLOcclusionQueryHandle;
     FGlowGradient: TGLFlareGradient;
@@ -121,211 +120,176 @@ type
     FStreaksGradient: TGLFlareGradient;
     FRaysGradient: TGLFlareGradient;
     FSecondariesGradient: TGLFlareGradient;
-    FDynamic: Boolean;
+    FDynamic:   Boolean;
     FPreRenderPoint: TGLRenderPoint;
+    FCustomRNG : TGLRandomNumGenerator;
+  Protected
 
-  protected
-     
-    procedure SetGlowGradient(const val: TGLFlareGradient);
-    procedure SetRingGradient(const val: TGLFlareGradient);
-    procedure SetStreaksGradient(const val: TGLFlareGradient);
-    procedure SetRaysGradient(const val: TGLFlareGradient);
-    procedure SetSecondariesGradient(const val: TGLFlareGradient);
-    procedure SetSize(aValue: Integer);
-    procedure SetSeed(aValue: Integer);
-    procedure SetSqueeze(aValue: Single);
-    function StoreSqueeze: Boolean;
-    procedure SetNumStreaks(aValue: Integer);
-    procedure SetStreakWidth(aValue: Single);
-    function StoreStreakWidth: Boolean;
-    procedure SetStreakAngle(aValue: Single);
-    procedure SetNumSecs(aValue: Integer);
-    procedure SetResolution(aValue: Integer);
-    procedure SetAutoZTest(aValue: Boolean);
-    procedure SetElements(aValue: TFlareElements);
-    procedure SetDynamic(aValue: Boolean);
-    procedure SetPreRenderPoint(const val: TGLRenderPoint);
-    procedure PreRenderEvent(Sender: TObject; var rci: TGLRenderContextInfo);
-    procedure PreRenderPointFreed(Sender: TObject);
+    Procedure SetGlowGradient(Const val: TGLFlareGradient);
+    Procedure SetRingGradient(Const val: TGLFlareGradient);
+    Procedure SetStreaksGradient(Const val: TGLFlareGradient);
+    Procedure SetRaysGradient(Const val: TGLFlareGradient);
+    Procedure SetSecondariesGradient(Const val: TGLFlareGradient);
+    Procedure SetSize(aValue: Integer);
+    Procedure SetSeed(aValue: Integer);
+    Procedure SetSqueeze(aValue: Single);
+    Function StoreSqueeze: Boolean;
+    Procedure SetNumStreaks(aValue: Integer);
+    Procedure SetStreakWidth(aValue: Single);
+    Function StoreStreakWidth: Boolean;
+    Procedure SetStreakAngle(aValue: Single);
+    Procedure SetNumSecs(aValue: Integer);
+    Procedure SetResolution(aValue: Integer);
+    Procedure SetAutoZTest(aValue: Boolean);
+    Procedure SetElements(aValue: TFlareElements);
+    Procedure SetDynamic(aValue: Boolean);
+    Procedure SetPreRenderPoint(Const val: TGLRenderPoint);
+    Procedure PreRenderEvent(Sender: TObject; Var rci: TGLRenderContextInfo);
+    Procedure PreRenderPointFreed(Sender: TObject);
 
     // These are quite unusual in that they don't use an RCI, since
     // PreRender is done before proper rendering starts, but we do know
     // which RC is being used, so we can use this state cache
-    procedure SetupRenderingOptions(StateCache: TGLStateCache);
+    Procedure SetupRenderingOptions(StateCache: TGLStateCache);
 
-    procedure RenderRays(StateCache: TGLStateCache; const size: Single);
-    procedure RenderStreaks(StateCache: TGLStateCache);
-    procedure RenderRing;
-    procedure RenderSecondaries(const posVector: TAffineVector);
+    Procedure RenderRays(StateCache: TGLStateCache; Const size: Single);
+    Procedure RenderStreaks(StateCache: TGLStateCache);
+    Procedure RenderRing;
+    Procedure RenderSecondaries(Const posVector: TAffineVector);
 
-  public
-     
-    constructor Create(AOwner: TComponent); override;
-    destructor Destroy; override;
-    procedure Notification(AComponent: TComponent; Operation: TOperation);
-      override;
+  Public
 
-    procedure BuildList(var rci: TGLRenderContextInfo); override;
-    procedure DoProgress(const progressTime: TProgressTimes); override;
+    Constructor Create(AOwner: TComponent); Override;
+    Destructor Destroy; Override;
+    Procedure Notification(AComponent: TComponent; Operation: TOperation);
+      Override;
+
+    Procedure BuildList(Var rci: TGLRenderContextInfo); Override;
+    Procedure DoProgress(Const progressTime: TProgressTimes); Override;
 
     { Prepares pre-rendered texture to speed up actual rendering.
        Will use the currently active context as scratch space, and will
        automatically do nothing if things have already been prepared,
        thus you can invoke it systematically in a Viewer.BeforeRender
        event f.i. }
-    procedure PreRender(activeBuffer: TGLSceneBuffer);
+    Procedure PreRender(activeBuffer: TGLSceneBuffer);
     { Access to the Flare's current size.
        Flares decay or grow back over several frames, depending on their
        occlusion status, and this property allows to track or manually
        alter this instantaneous size. }
-    property FlareInstantaneousSize: Single read FCurrSize write FCurrSize;
+    Property FlareInstantaneousSize: Single read FCurrSize write FCurrSize;
 
-  published
-     
-    property GlowGradient: TGLFlareGradient read FGlowGradient write
-      SetGlowGradient;
-    property RingGradient: TGLFlareGradient read FRingGradient;
-    property StreaksGradient: TGLFlareGradient read FStreaksGradient;
-    property RaysGradient: TGLFlareGradient read FRaysGradient;
-    property SecondariesGradient: TGLFlareGradient read FSecondariesGradient;
+  Published
+
+    Property GlowGradient: TGLFlareGradient read FGlowGradient write SetGlowGradient;
+    Property RingGradient: TGLFlareGradient read FRingGradient;
+    Property StreaksGradient: TGLFlareGradient read FStreaksGradient;
+    Property RaysGradient: TGLFlareGradient read FRaysGradient;
+    Property SecondariesGradient: TGLFlareGradient read FSecondariesGradient;
 
     // MaxRadius of the flare.
-    property Size: Integer read FSize write SetSize default 50;
-    // Random seed
-    property Seed: Integer read FSeed write SetSeed;
+    Property Size: Integer read FSize write SetSize Default 50;
+    // GLTSRandom.Random seed
+    Property Seed: Integer read FSeed write SetSeed;
     // To create elliptic flares.
-    property Squeeze: Single read FSqueeze write SetSqueeze stored StoreSqueeze;
+    Property Squeeze: Single read FSqueeze write SetSqueeze Stored StoreSqueeze;
     // Number of streaks.
-    property NumStreaks: Integer read FNumStreaks write SetNumStreaks default 4;
+    Property NumStreaks: Integer read FNumStreaks write SetNumStreaks Default 4;
     // Width of the streaks.
-    property StreakWidth: Single read FStreakWidth write SetStreakWidth stored
-      StoreStreakWidth;
+    Property StreakWidth: Single read FStreakWidth write SetStreakWidth Stored StoreStreakWidth;
     // Angle of the streaks (in degrees)
-    property StreakAngle: Single read FStreakAngle write SetStreakAngle;
+    Property StreakAngle: Single read FStreakAngle write SetStreakAngle;
     // Number of secondary flares.
-    property NumSecs: Integer read FNumSecs write SetNumSecs default 8;
+    Property NumSecs: Integer read FNumSecs write SetNumSecs Default 8;
     // Number of segments used when rendering circles.
-    property Resolution: Integer read FResolution write SetResolution default
-      64;
+    Property Resolution: Integer read FResolution write SetResolution Default 64;
     { Automatically computes FlareIsNotOccluded depending on ZBuffer test.
        Not that the automated test may use test result from the previous
        frame into the next (to avoid a rendering stall). }
-    property AutoZTest: Boolean read FAutoZTest write SetAutoZTest default True;
+    Property AutoZTest: Boolean read FAutoZTest write SetAutoZTest Default True;
     { Is the LensFlare not occluded?.
        If false the flare will fade away, if true, it will fade in and stay.
        This value is automatically updated if AutoZTest is set. }
-    property FlareIsNotOccluded: Boolean read FFlareIsNotOccluded write
-      FFlareIsNotOccluded;
+    Property FlareIsNotOccluded: Boolean read FFlareIsNotOccluded write FFlareIsNotOccluded;
     // Which elements should be rendered?
-    property Elements: TFlareElements read FElements write SetElements default
-      cDefaultFlareElements;
+    Property Elements: TFlareElements read FElements write SetElements Default cDefaultFlareElements;
     { Is the flare size adjusted dynamically?
        If true, the flare size will be grown and reduced over a few frames
        when it switches between occluded and non-occluded states. This
-       requires animation to be active, but results in a smoother appearance. 
+       requires animation to be active, but results in a smoother appearance.
        When false, flare will either be at full size or hidden.
        The flare is always considered non-dynamic at design-time. }
-    property Dynamic: Boolean read FDynamic write FDynamic default True;
+    Property Dynamic: Boolean read FDynamic write FDynamic Default True;
 
     { PreRender point for pre-rendered flare textures.
        See PreRender method for more details. }
-    property PreRenderPoint: TGLRenderPoint read FPreRenderPoint write
-      SetPreRenderPoint;
+    Property PreRenderPoint: TGLRenderPoint read FPreRenderPoint write SetPreRenderPoint;
 
-    property ObjectsSorting;
-    property Position;
-    property Visible;
-    property OnProgress;
-    property Behaviours;
-    property Effects;
-  end;
+    Property ObjectsSorting;
+    Property Position;
+    Property Visible;
+    Property OnProgress;
+    Property Behaviours;
+    Property Effects;
+  End;
 
-  // ------------------------------------------------------------------
-  // ------------------------------------------------------------------
-  // ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
-// ------------------------------------------------------------------
-// ------------------------------------------------------------------
+Implementation
 
-// ------------------
-// ------------------ TGLFlareGradient ------------------
-// ------------------
+{%region%=====[ TGLFlareGradient ]==============================================}
 
-// Create
-//
-
-constructor TGLFlareGradient.Create(AOwner: TPersistent);
-begin
-  inherited;
+Constructor TGLFlareGradient.Create(AOwner: TPersistent);
+Begin
+  Inherited;
   FFromColor := TGLColor.Create(Self);
   FToColor := TGLColor.Create(Self);
-end;
+End;
 
-// CreateInitialized
-//
-
-constructor TGLFlareGradient.CreateInitialized(AOwner: TPersistent;
-  const fromColor, toColor: TColorVector);
-begin
+Constructor TGLFlareGradient.CreateInitialized(AOwner: TPersistent; Const fromColor, toColor: TColorVector);
+Begin
   Create(AOwner);
   FFromColor.Initialize(fromColor);
   FToColor.Initialize(toColor);
-end;
+End;
 
-// Destroy
-//
-
-destructor TGLFlareGradient.Destroy;
-begin
+Destructor TGLFlareGradient.Destroy;
+Begin
   FToColor.Free;
   FFromColor.Free;
-  inherited;
-end;
+  Inherited;
+End;
 
- 
-//
-
-procedure TGLFlareGradient.Assign(Source: TPersistent);
-begin
-  if Source is TGLFlareGradient then
-  begin
+Procedure TGLFlareGradient.Assign(Source: TPersistent);
+Begin
+  If Source Is TGLFlareGradient Then
+  Begin
     FromColor := TGLFlareGradient(Source).FromColor;
     ToColor := TGLFlareGradient(Source).ToColor;
-  end;
-  inherited;
-end;
+  End;
+  Inherited;
+End;
 
-// SetFromColor
-//
-
-procedure TGLFlareGradient.SetFromColor(const val: TGLColor);
-begin
+Procedure TGLFlareGradient.SetFromColor(Const val: TGLColor);
+Begin
   FFromColor.Assign(val);
-end;
+End;
 
-// SetToColor
-//
-
-procedure TGLFlareGradient.SetToColor(const val: TGLColor);
-begin
+Procedure TGLFlareGradient.SetToColor(Const val: TGLColor);
+Begin
   FToColor.Assign(val);
-end;
+End;
 
-// ------------------
-// ------------------ TGLLensFlare ------------------
-// ------------------
+{%endregion%}
 
-// Create
-//
-
-constructor TGLLensFlare.Create(AOwner: TComponent);
-begin
-  inherited;
+Constructor TGLLensFlare.Create(AOwner: TComponent);
+Begin
+  Inherited;
   // Set default parameters:
   ObjectStyle := ObjectStyle + [osDirectDraw, osNoVisibilityCulling];
   FSize := 50;
-  FSeed := 1465;
+  FCustomRNG := TGLRandomNumGenerator.create;
+
+  FSeed :=1465;// GettickCount64; // 1465;
+ // FCustomRNG.RandSeed := FSeed;
   FSqueeze := 1;
   FNumStreaks := 4;
   FStreakWidth := 2;
@@ -339,25 +303,17 @@ begin
   // Render all elements by default.
   FElements := [feGlow, feRing, feStreaks, feRays, feSecondaries];
   // Setup default gradients:
-  FGlowGradient := TGLFlareGradient.CreateInitialized(Self,
-    VectorMake(1, 1, 0.8, 0.3), VectorMake(1, 0.2, 0, 0));
-  FRingGradient := TGLFlareGradient.CreateInitialized(Self,
-    VectorMake(0.5, 0.2, 0, 0.1), VectorMake(0.5, 0.4, 0, 0.1));
-  FStreaksGradient := TGLFlareGradient.CreateInitialized(Self,
-    VectorMake(1, 1, 1, 0.2), VectorMake(0.2, 0, 1, 0));
-  FRaysGradient := TGLFlareGradient.CreateInitialized(Self,
-    VectorMake(1, 0.8, 0.5, 0.05), VectorMake(0.5, 0.2, 0, 0));
-  FSecondariesGradient := TGLFlareGradient.CreateInitialized(Self,
-    VectorMake(0, 0.2, 1, 0), VectorMake(0, 0.8, 0.2, 0.15));
+  FGlowGradient := TGLFlareGradient.CreateInitialized(Self, VectorMake(1, 1, 0.8, 0.3), VectorMake(1, 0.2, 0, 0));
+  FRingGradient := TGLFlareGradient.CreateInitialized(Self, VectorMake(0.5, 0.2, 0, 0.1), VectorMake(0.5, 0.4, 0, 0.1));
+  FStreaksGradient := TGLFlareGradient.CreateInitialized(Self, VectorMake(1, 1, 1, 0.2), VectorMake(0.2, 0, 1, 0));
+  FRaysGradient := TGLFlareGradient.CreateInitialized(Self, VectorMake(1, 0.8, 0.5, 0.05), VectorMake(0.5, 0.2, 0, 0));
+  FSecondariesGradient := TGLFlareGradient.CreateInitialized(Self, VectorMake(0, 0.2, 1, 0), VectorMake(0, 0.8, 0.2, 0.15));
 
   FTexRays := TGLTextureHandle.Create;
-end;
+End;
 
-// Destroy
-//
-
-destructor TGLLensFlare.Destroy;
-begin
+Destructor TGLLensFlare.Destroy;
+Begin
   PreRenderPoint := nil;
   FGlowGradient.Free;
   FRingGradient.Free;
@@ -366,27 +322,21 @@ begin
   FSecondariesGradient.Free;
   FOcclusionQuery.Free;
   FTexRays.Free;
-  inherited;
-end;
+  FreeAndNil(FCustomRNG);
+  Inherited;
+End;
 
-// Notification
-//
-
-procedure TGLLensFlare.Notification(AComponent: TComponent; Operation:
-  TOperation);
-begin
-  if (Operation = opRemove) and (AComponent = FPreRenderPoint) then
+Procedure TGLLensFlare.Notification(AComponent: TComponent; Operation: TOperation);
+Begin
+  If (Operation = opRemove) And (AComponent = FPreRenderPoint) Then
     PreRenderPoint := nil;
-  inherited;
-end;
+  Inherited;
+End;
 
-// SetupRenderingOptions
-//
-
-procedure TGLLensFlare.SetupRenderingOptions(StateCache: TGLStateCache);
-begin
-  with StateCache do
-  begin
+Procedure TGLLensFlare.SetupRenderingOptions(StateCache: TGLStateCache);
+Begin
+  With StateCache Do
+  Begin
     Disable(stLighting);
     Disable(stDepthTest);
     Disable(stFog);
@@ -397,55 +347,53 @@ begin
     SetBlendFunc(bfSrcAlpha, bfOne);
     Disable(stAlphaTest);
     PolygonMode := pmFill;
-  end;
-end;
+  End;
+End;
 
-// RenderRays
-//
-
-procedure TGLLensFlare.RenderRays(StateCache: TGLStateCache; const size:
-  Single);
-var
-  i: Integer;
+Procedure TGLLensFlare.RenderRays(StateCache: TGLStateCache; Const size: Single);
+Var
+  i:   Integer;
   rnd: Single;
-begin
+  Rand : Single;
+Begin
 {$IFDEF GLS_OPENGL_DEBUG}
-  if GL.GREMEDY_string_marker then
+  If GL.GREMEDY_string_marker Then
     GL.StringMarkerGREMEDY(14, 'LensFlare.Rays');
 {$ENDIF}
 
-  with StateCache do
-  begin
+  With StateCache Do
+  Begin
     LineWidth := 1;
     Disable(stLineSmooth);
     Disable(stLineStipple);
-  end;
+  End;
+
 
   GL.Begin_(GL_LINES);
-  for i := 0 to Resolution * 20 - 1 do
-  begin
-    if (i and 1) <> 0 then
-      rnd := 1.5 * Random * size
-    else
-      rnd := Random * size;
+  rnd := 0;
+  For i := 0 To Resolution * 20 - 1 Do
+ Begin
+    rand := FCustomRNG.Random;// random; //TSRand.Random;  // 138867;
+    If (i And 1) <> 0 Then
+      rnd := 1.5 * rand * size
+    Else
+      rnd := rand * size;
+
     GL.Color4fv(RaysGradient.FromColor.AsAddress);
     GL.Vertex2f(0, 0);
     GL.Color4fv(RaysGradient.ToColor.AsAddress);
     GL.Vertex2f(rnd * FCos20Res[i], rnd * FSin20Res[i] * Squeeze);
-  end;
+  End;
   GL.End_;
-end;
+End;
 
-// RenderStreak
-//
-
-procedure TGLLensFlare.RenderStreaks(StateCache: TGLStateCache);
-var
+Procedure TGLLensFlare.RenderStreaks(StateCache: TGLStateCache);
+Var
   i: Integer;
   a, f, s, c: Single;
-begin
+Begin
 {$IFDEF GLS_OPENGL_DEBUG}
-  if GL.GREMEDY_string_marker then
+  If GL.GREMEDY_string_marker Then
     GL.StringMarkerGREMEDY(17, 'LensFlare.Streaks');
 {$ENDIF}
   StateCache.Enable(stLineSmooth);
@@ -453,36 +401,33 @@ begin
   a := c2PI / NumStreaks;
   f := 1.5 * FCurrSize;
   GL.Begin_(GL_LINES);
-  for i := 0 to NumStreaks - 1 do
-  begin
+  For i := 0 To NumStreaks - 1 Do
+  Begin
     SinCos(StreakAngle * cPIdiv180 + a * i, f, s, c);
     GL.Color4fv(StreaksGradient.FromColor.AsAddress);
     GL.Vertex3fv(@NullVector);
     GL.Color4fv(StreaksGradient.ToColor.AsAddress);
     GL.Vertex2f(c, Squeeze * s);
-  end;
+  End;
   GL.End_;
   StateCache.Disable(stLineSmooth);
-end;
+End;
 
-// RenderRing
-//
-
-procedure TGLLensFlare.RenderRing;
-var
+Procedure TGLLensFlare.RenderRing;
+Var
   i: Integer;
   rW, s0, c0, s, c: Single;
-begin
+Begin
 {$IFDEF GLS_OPENGL_DEBUG}
-  if GL.GREMEDY_string_marker then
+  If GL.GREMEDY_string_marker Then
     GL.StringMarkerGREMEDY(14, 'LensFlare.Ring');
 {$ENDIF}
   rW := FCurrSize * (1 / 15); // Ring width
   GL.Begin_(GL_QUADS);
   s0 := 0;
   c0 := 0.6;
-  for i := 0 to Resolution - 1 do
-  begin
+  For i := 0 To Resolution - 1 Do
+  Begin
     s := s0;
     c := c0;
     s0 := FSinRes[i] * 0.6 * Squeeze;
@@ -504,136 +449,139 @@ begin
     GL.Color4fv(GlowGradient.ToColor.AsAddress);
     GL.Vertex2f((FCurrSize + rW) * c0, (FCurrSize + rW) * s0);
     GL.Vertex2f((FCurrSize + rW) * c, (FCurrSize + rW) * s);
-  end;
+  End;
   GL.End_;
-end;
+End;
 
-// RenderSecondaries
-//
-
-procedure TGLLensFlare.RenderSecondaries(const posVector: TAffineVector);
-var
+Procedure TGLLensFlare.RenderSecondaries(Const posVector: TAffineVector);
+Var
   i, j: Integer;
-  rnd: Single;
-  v: TAffineVector;
+  rnd:  Single;
+  v:    TAffineVector;
   grad: TGLFlareGradient;
-begin
+Begin
 {$IFDEF GLS_OPENGL_DEBUG}
-  if GL.GREMEDY_string_marker then
+  If GL.GREMEDY_string_marker Then
     GL.StringMarkerGREMEDY(21, 'LensFlare.Secondaries');
 {$ENDIF}
   // Other secondaries (plain gradiented circles, like the glow):
-  for j := 1 to NumSecs do
-  begin
-    rnd := 2 * Random - 1;
+  For j := 1 To NumSecs Do
+  Begin
+    rnd := 2 * FCustomRNG.Random - 1;
     // If rnd < 0 then the secondary glow will end up on the other side
     // of the origin. In this case, we can push it really far away from
     // the flare. If  the secondary is on the flare's side, we pull it
     // slightly towards the origin to avoid it winding up in the middle
     // of the flare.
-    if rnd < 0 then
+    If rnd < 0 Then
       v := VectorScale(posVector, rnd)
-    else
+    Else
       v := VectorScale(posVector, 0.8 * rnd);
-    if j mod 3 = 0 then
+    If j Mod 3 = 0 Then
       grad := GlowGradient
-    else
+    Else
       grad := SecondariesGradient;
-    rnd := (Random + 0.1) * FCurrSize * 0.25;
+    rnd := (FCustomRNG.Random + 0.1) * FCurrSize * 0.25;
 
     GL.Begin_(GL_TRIANGLE_FAN);
     GL.Color4fv(grad.FromColor.AsAddress);
     GL.Vertex2f(v.V[0], v.V[1]);
     GL.Color4fv(grad.ToColor.AsAddress);
-    for i := 0 to Resolution - 1 do
+    For i := 0 To Resolution - 1 Do
       GL.Vertex2f(FCosRes[i] * rnd + v.V[0], FSinRes[i] * rnd + v.V[1]);
     GL.End_;
-  end;
-end;
+  End;
+End;
 
 // BuildList
-//
 
-procedure TGLLensFlare.BuildList(var rci: TGLRenderContextInfo);
-var
+
+Procedure TGLLensFlare.BuildList(Var rci: TGLRenderContextInfo);
+Var
   i: Integer;
   depth, dist: Single;
   posVector, v, rv: TAffineVector;
   screenPos: TAffineVector;
   flareInViewPort, dynamicSize: Boolean;
-  oldSeed: LongWord;
+  oldSeed: Longword;
   projMatrix: TMatrix;
   CurrentBuffer: TGLSceneBuffer;
-begin
-  if (rci.drawState = dsPicking) then
-  begin
-    if Count <> 0 then
+Begin
+  If (rci.drawState = dsPicking) Then
+  Begin
+    If Count <> 0 Then
       Self.RenderChildren(0, Count - 1, rci);
     Exit;
-  end;
+  End;
   CurrentBuffer := TGLSceneBuffer(rci.buffer);
 
   SetVector(v, AbsolutePosition);
   // are we looking towards the flare?
   rv := VectorSubtract(v, PAffineVector(@rci.cameraPosition)^);
-  if VectorDotProduct(rci.cameraDirection, rv) > 0 then
-  begin
+  If VectorDotProduct(rci.cameraDirection, rv) > 0 Then
+  Begin
     // find out where it is on the screen.
     screenPos := CurrentBuffer.WorldToScreen(v);
-    flareInViewPort := (screenPos.V[0] < rci.viewPortSize.cx)
-    and (screenPos.V[0] >= 0)
-    and (screenPos.V[1] < rci.viewPortSize.cy)
-    and (screenPos.V[1] >= 0);
-  end
-  else
+    flareInViewPort := (screenPos.V[0] < rci.viewPortSize.cx) And (screenPos.V[0] >= 0)
+                        And (screenPos.V[1] < rci.viewPortSize.cy) And (screenPos.V[1] >= 0);
+  End
+  Else
     flareInViewPort := False;
 
-  dynamicSize := FDynamic and not (csDesigning in ComponentState);
-  if dynamicSize then
-  begin
+  dynamicSize := FDynamic And Not (csDesigning In ComponentState);
+  If dynamicSize Then
+  Begin
     // make the glow appear/disappear progressively
-    if flareInViewPort and FlareIsNotOccluded then
-    begin
+    If flareInViewPort And FlareIsNotOccluded Then
+    Begin
       FCurrSize := FCurrSize + FDeltaTime * 10 * Size;
-      if FCurrSize > Size then
+      If FCurrSize > Size Then
         FCurrSize := Size;
-    end
-    else
-    begin
+    End
+    Else
+    Begin
       FCurrSize := FCurrSize - FDeltaTime * 10 * Size;
-      if FCurrSize < 0 then
+      If FCurrSize < 0 Then
         FCurrSize := 0;
-    end;
-  end
-  else
-  begin
-    if flareInViewPort and FlareIsNotOccluded then
+    End;
+  End
+  Else
+  Begin
+    If flareInViewPort And FlareIsNotOccluded Then
       FCurrSize := Size
-    else
+    Else
       FCurrSize := 0;
-  end;
+  End;
 
   // Prepare matrices
+ // rci.PipelineTransformation.Push;
+ // rci.PipelineTransformation.ProjectionMatrix:=CurrentBuffer.BaseProjectionMatrix;
+
+  //.ModelMatrix := IdentityHmgMatrix;
   GL.PushMatrix;
   GL.LoadMatrixf(@CurrentBuffer.BaseProjectionMatrix);
 
-  GL.MatrixMode(GL_PROJECTION);
+ GL.MatrixMode(GL_PROJECTION);
   GL.PushMatrix;
+ // rci.PipelineTransformation.Push;
+
   projMatrix := IdentityHmgMatrix;
   projMatrix.V[0].V[0] := 2 / rci.viewPortSize.cx;
   projMatrix.V[1].V[1] := 2 / rci.viewPortSize.cy;
   GL.LoadMatrixf(@projMatrix);
+//  rci.PipelineTransformation.ProjectionMatrix := projMatrix;
 
   MakeVector(posVector,
     screenPos.V[0] - rci.viewPortSize.cx * 0.5,
     screenPos.V[1] - rci.viewPortSize.cy * 0.5,
     0);
 
-  if AutoZTest then
-  begin
-    if dynamicSize and (GL.HP_occlusion_test or
-      TGLOcclusionQueryHandle.IsSupported) then
-    begin
+
+
+  If AutoZTest Then
+  Begin
+    If dynamicSize And (GL.HP_occlusion_test Or TGLOcclusionQueryHandle.IsSupported) Then
+    Begin
       // hardware-based occlusion test is possible
       FlareIsNotOccluded := True;
 
@@ -643,23 +591,23 @@ begin
       rci.GLStates.Enable(stDepthTest);
       rci.GLStates.DepthFunc := cfLEqual;
 
-      if TGLOcclusionQueryHandle.IsSupported then
-      begin
+      If TGLOcclusionQueryHandle.IsSupported Then
+      Begin
         // preferred method, doesn't stall rendering too badly
-        if not Assigned(FOcclusionQuery) then
+        If Not Assigned(FOcclusionQuery) Then
           FOcclusionQuery := TGLOcclusionQueryHandle.Create;
         FOcclusionQuery.AllocateHandle;
-        if FOcclusionQuery.IsDataNeedUpdate then
+        If FOcclusionQuery.IsDataNeedUpdate Then
           FOcclusionQuery.NotifyDataUpdated
-        else
+        Else
           FlareIsNotOccluded := (FOcclusionQuery.PixelCount <> 0);
         FOcclusionQuery.BeginQuery;
-      end
-      else
-      begin
+      End
+      Else
+      Begin
         // occlusion_test, stalls rendering a bit
         GL.Enable(GL_OCCLUSION_TEST_HP);
-      end;
+      End;
 
       GL.Begin_(GL_QUADS);
       GL.Vertex3f(posVector.V[0] + 2, posVector.V[1], 1);
@@ -668,65 +616,64 @@ begin
       GL.Vertex3f(posVector.V[0], posVector.V[1] - 2, 1);
       GL.End_;
 
-      if TGLOcclusionQueryHandle.IsSupported then
+      If TGLOcclusionQueryHandle.IsSupported Then
         FOcclusionQuery.EndQuery
-      else
-      begin
+      Else
+      Begin
         GL.Disable(GL_OCCLUSION_TEST_HP);
-        GL.GetBooleanv(GL_OCCLUSION_TEST_RESULT_HP, @FFlareIsNotOccluded)
-      end;
+        GL.GetBooleanv(GL_OCCLUSION_TEST_RESULT_HP, @FFlareIsNotOccluded);
+      End;
 
       rci.GLStates.DepthFunc := cfLEqual;
       rci.GLStates.SetColorMask(cAllColorComponents);
-    end
-    else
-    begin
+    End
+    Else
+    Begin
       //Compares the distance to the lensflare, to the z-buffer depth.
       //This prevents the flare from being occluded by objects BEHIND the light.
-      depth := CurrentBuffer.PixelToDistance(Round(ScreenPos.V[0]),
-        Round(rci.viewPortSize.cy - ScreenPos.V[1]));
+      depth := CurrentBuffer.PixelToDistance(Round(ScreenPos.V[0]), Round(rci.viewPortSize.cy - ScreenPos.V[1]));
       dist := VectorDistance(rci.cameraPosition, self.AbsolutePosition);
       FlareIsNotOccluded := ((dist - depth) < 1);
-    end;
-  end;
+    End;
+  End;
 
-  if FCurrSize >= 0 then
-  begin
+  If FCurrSize >= 0 Then
+  Begin
 
-    // Random seed must be backed up, could be used for other purposes
-    // (otherwise we essentially reset the random generator at each frame)
-    oldSeed := RandSeed;
-    RandSeed := Seed;
+    // Random seed must be backed up, otherwise LensFlare rendering will be different at each frame)
+      FCustomRNG.ResetSeed;
+    //  oldSeed := RandSeed;
+    //  RandSeed := Seed;
 
     SetupRenderingOptions(rci.GLStates);
 
-    if [feGlow, feStreaks, feRays, feRing] * Elements <> [] then
-    begin
+    If [feGlow, feStreaks, feRays, feRing] * Elements <> [] Then
+    Begin
       GL.Translatef(posVector.V[0], posVector.V[1], posVector.V[2]);
 
       // Glow (a circle with transparent edges):
-      if feGlow in Elements then
-      begin
+      If feGlow In Elements Then
+      Begin
         GL.Begin_(GL_TRIANGLE_FAN);
         GL.Color4fv(GlowGradient.FromColor.AsAddress);
         GL.Vertex2f(0, 0);
         GL.Color4fv(GlowGradient.ToColor.AsAddress);
-        for i := 0 to Resolution - 1 do
+        For i := 0 To Resolution - 1 Do
           GL.Vertex2f(FCurrSize * FCosRes[i],
             Squeeze * FCurrSize * FSinRes[i]);
         GL.End_;
-      end;
+      End;
 
-      if feStreaks in Elements then
+      If feStreaks In Elements Then
         RenderStreaks(rci.GLStates);
 
-      // Rays (random-length lines from the origin):
-      if feRays in Elements then
-      begin
-        if FTexRays.Handle <> 0 then
-        begin
+      // Rays (GLTSRandom.Random-length lines from the origin):
+      If feRays In Elements Then
+      Begin
+        If FTexRays.Handle <> 0 Then
+        Begin
         {$IFDEF GLS_OPENGL_DEBUG}
-          if GL.GREMEDY_string_marker then
+          If GL.GREMEDY_string_marker Then
             GL.StringMarkerGREMEDY(19, 'LensFlare.RaysQuad');
         {$ENDIF}
           rci.GLStates.TextureBinding[0, ttTexture2D] := FTexRays.Handle;
@@ -745,64 +692,66 @@ begin
           GL.End_;
 
           rci.GLStates.ActiveTextureEnabled[ttTexture2D] := False;
-        end
-        else
-          RenderRays(rci.GLStates, FCurrSize);
-      end;
+        End
+        Else
+         RenderRays(rci.GLStates, FCurrSize);
+      End;
 
-      if feRing in Elements then
+      If feRing In Elements Then
         RenderRing;
 
       GL.LoadMatrixf(@projMatrix);
-    end;
+    End;
 
-    if feSecondaries in Elements then
+    If feSecondaries In Elements Then
       RenderSecondaries(posVector);
 
-    RandSeed := oldSeed;
-  end;
+   // RandSeed := oldSeed;
+  End;
 
   GL.PopMatrix;
+ // rci.PipelineTransformation.Pop;
+
   GL.MatrixMode(GL_MODELVIEW);
   GL.PopMatrix;
+//  rci.PipelineTransformation.Pop;
 
-  if Count > 0 then
+  If Count > 0 Then
     Self.RenderChildren(0, Count - 1, rci);
-end;
+End;
 
 // DoProgress
-//
 
-procedure TGLLensFlare.DoProgress(const progressTime: TProgressTimes);
-begin
-  inherited;
+
+Procedure TGLLensFlare.DoProgress(Const progressTime: TProgressTimes);
+Begin
+  Inherited;
   FDeltaTime := progressTime.deltaTime;
-end;
+End;
 
 // PreRender
-//
 
-procedure TGLLensFlare.PreRender(activeBuffer: TGLSceneBuffer);
-var
+
+Procedure TGLLensFlare.PreRender(activeBuffer: TGLSceneBuffer);
+Var
   i, texSize, maxSize: Integer;
   stateCache: TGLStateCache;
-begin
-  if FTexRays.Handle <> 0 then
-    Exit;
-  with activeBuffer.RenderingContext do
-  begin
+Begin
+  If FTexRays.Handle <> 0 Then Exit;
+  With activeBuffer.RenderingContext Do
+  Begin
     stateCache := GLStates;
     PipelineTransformation.Push;
     PipelineTransformation.ProjectionMatrix := CreateOrthoMatrix(0, activeBuffer.Width, 0, activeBuffer.Height, -1, 1);
     PipelineTransformation.ViewMatrix := IdentityHmgMatrix;
-  end;
+  End;
   SetupRenderingOptions(stateCache);
 
   texSize := RoundUpToPowerOf2(Size);
-  if texSize < Size * 1.5 then
+  If texSize < Size * 1.5 Then
     texSize := texSize * 2;
   GL.GetIntegerv(GL_MAX_TEXTURE_SIZE, @maxSize);
-  if texSize > maxSize then
+  If texSize > maxSize Then
     texSize := maxSize;
 
   stateCache.Disable(stBlend);
@@ -820,9 +769,9 @@ begin
 
   FTexRays.AllocateHandle;
   stateCache.TextureBinding[0, ttTexture2D] := FTexRays.Handle;
-  if GL.EXT_texture_edge_clamp then
+  If GL.EXT_texture_edge_clamp Then
     i := GL_CLAMP_TO_EDGE
-  else
+  Else
     i := GL_CLAMP;
   GL.TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, i);
   GL.TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, i);
@@ -834,139 +783,139 @@ begin
   activeBuffer.RenderingContext.PipelineTransformation.Pop;
 
   GL.CheckError;
-end;
+End;
 
 // SetGlowGradient
-//
 
-procedure TGLLensFlare.SetGlowGradient(const val: TGLFlareGradient);
-begin
+
+Procedure TGLLensFlare.SetGlowGradient(Const val: TGLFlareGradient);
+Begin
   FGlowGradient.Assign(val);
   StructureChanged;
-end;
+End;
 
 // SetRingGradient
-//
 
-procedure TGLLensFlare.SetRingGradient(const val: TGLFlareGradient);
-begin
+
+Procedure TGLLensFlare.SetRingGradient(Const val: TGLFlareGradient);
+Begin
   FRingGradient.Assign(val);
   StructureChanged;
-end;
+End;
 
 // SetStreaksGradient
-//
 
-procedure TGLLensFlare.SetStreaksGradient(const val: TGLFlareGradient);
-begin
+
+Procedure TGLLensFlare.SetStreaksGradient(Const val: TGLFlareGradient);
+Begin
   FStreaksGradient.Assign(val);
   StructureChanged;
-end;
+End;
 
 // SetRaysGradient
-//
 
-procedure TGLLensFlare.SetRaysGradient(const val: TGLFlareGradient);
-begin
+
+Procedure TGLLensFlare.SetRaysGradient(Const val: TGLFlareGradient);
+Begin
   FRaysGradient.Assign(val);
   StructureChanged;
-end;
+End;
 
 // SetSecondariesGradient
-//
 
-procedure TGLLensFlare.SetSecondariesGradient(const val: TGLFlareGradient);
-begin
+
+Procedure TGLLensFlare.SetSecondariesGradient(Const val: TGLFlareGradient);
+Begin
   FSecondariesGradient.Assign(val);
   StructureChanged;
-end;
+End;
 
 // SetSize
-//
 
-procedure TGLLensFlare.SetSize(aValue: Integer);
-begin
+
+Procedure TGLLensFlare.SetSize(aValue: Integer);
+Begin
   FSize := aValue;
   StructureChanged;
-end;
+End;
 
 // SetSeed
-//
 
-procedure TGLLensFlare.SetSeed(aValue: Integer);
-begin
+
+Procedure TGLLensFlare.SetSeed(aValue: Integer);
+Begin
   FSeed := aValue;
   StructureChanged;
-end;
+End;
 
 // SetSqueeze
-//
 
-procedure TGLLensFlare.SetSqueeze(aValue: Single);
-begin
+
+Procedure TGLLensFlare.SetSqueeze(aValue: Single);
+Begin
   FSqueeze := aValue;
   StructureChanged;
-end;
+End;
 
 // StoreSqueeze
-//
 
-function TGLLensFlare.StoreSqueeze: Boolean;
-begin
+
+Function TGLLensFlare.StoreSqueeze: Boolean;
+Begin
   Result := (FSqueeze <> 1);
-end;
+End;
 
 // SetNumStreaks
-//
 
-procedure TGLLensFlare.SetNumStreaks(aValue: Integer);
-begin
+
+Procedure TGLLensFlare.SetNumStreaks(aValue: Integer);
+Begin
   FNumStreaks := aValue;
   StructureChanged;
-end;
+End;
 
 // SetStreakWidth
-//
 
-procedure TGLLensFlare.SetStreakWidth(aValue: Single);
-begin
+
+Procedure TGLLensFlare.SetStreakWidth(aValue: Single);
+Begin
   FStreakWidth := aValue;
   StructureChanged;
-end;
+End;
 
 // StoreStreakWidth
-//
 
-function TGLLensFlare.StoreStreakWidth: Boolean;
-begin
+
+Function TGLLensFlare.StoreStreakWidth: Boolean;
+Begin
   Result := (FStreakWidth <> 2);
-end;
+End;
 
 // SetStreakAngle
-//
 
-procedure TGLLensFlare.SetStreakAngle(aValue: Single);
-begin
+
+Procedure TGLLensFlare.SetStreakAngle(aValue: Single);
+Begin
   FStreakAngle := aValue;
   StructureChanged;
-end;
+End;
 
 // SetNumSecs
-//
 
-procedure TGLLensFlare.SetNumSecs(aValue: Integer);
-begin
+
+Procedure TGLLensFlare.SetNumSecs(aValue: Integer);
+Begin
   FNumSecs := aValue;
   StructureChanged;
-end;
+End;
 
 // SetResolution
-//
 
-procedure TGLLensFlare.SetResolution(aValue: Integer);
-begin
-  if FResolution <> aValue then
-  begin
+
+Procedure TGLLensFlare.SetResolution(aValue: Integer);
+Begin
+  If FResolution <> aValue Then
+  Begin
     FResolution := aValue;
     StructureChanged;
     SetLength(FSin20Res, 20 * FResolution);
@@ -975,86 +924,104 @@ begin
     SetLength(FSinRes, FResolution);
     SetLength(FCosRes, FResolution);
     PrepareSinCosCache(FSinRes, FCosRes, 0, 360);
-  end;
-end;
+  End;
+End;
 
 // SetAutoZTest
-//
 
-procedure TGLLensFlare.SetAutoZTest(aValue: Boolean);
-begin
-  if FAutoZTest <> aValue then
-  begin
+
+Procedure TGLLensFlare.SetAutoZTest(aValue: Boolean);
+Begin
+  If FAutoZTest <> aValue Then
+  Begin
     FAutoZTest := aValue;
     StructureChanged;
-  end;
-end;
+  End;
+End;
 
 // SetElements
-//
 
-procedure TGLLensFlare.SetElements(aValue: TFlareElements);
-begin
-  if FElements <> aValue then
-  begin
+
+Procedure TGLLensFlare.SetElements(aValue: TFlareElements);
+Begin
+  If FElements <> aValue Then
+  Begin
     FElements := aValue;
     StructureChanged;
-  end;
-end;
+  End;
+End;
 
 // SetDynamic
-//
 
-procedure TGLLensFlare.SetDynamic(aValue: Boolean);
-begin
-  if aValue <> FDynamic then
-  begin
+
+Procedure TGLLensFlare.SetDynamic(aValue: Boolean);
+Begin
+  If aValue <> FDynamic Then
+  Begin
     FDynamic := aValue;
     NotifyChange(Self);
-  end;
-end;
+  End;
+End;
 
 // SetPreRenderPoint
-//
 
-procedure TGLLensFlare.SetPreRenderPoint(const val: TGLRenderPoint);
-begin
-  if val <> FPreRenderPoint then
-  begin
-    if Assigned(FPreRenderPoint) then
+
+Procedure TGLLensFlare.SetPreRenderPoint(Const val: TGLRenderPoint);
+Begin
+  If val <> FPreRenderPoint Then
+  Begin
+    If Assigned(FPreRenderPoint) Then
       FPreRenderPoint.UnRegisterCallBack(Self.PreRenderEvent);
     FPreRenderPoint := val;
-    if Assigned(FPreRenderPoint) then
+    If Assigned(FPreRenderPoint) Then
       FPreRenderPoint.RegisterCallBack(Self.PreRenderEvent,
         Self.PreRenderPointFreed);
-  end;
-end;
+  End;
+End;
 
 // PreRenderEvent
-//
 
-procedure TGLLensFlare.PreRenderEvent(Sender: TObject; var rci:
-  TGLRenderContextInfo);
-begin
-  PreRender(rci.buffer as TGLSceneBuffer);
-end;
+
+Procedure TGLLensFlare.PreRenderEvent(Sender: TObject; Var rci: TGLRenderContextInfo);
+Begin
+  PreRender(rci.buffer As TGLSceneBuffer);
+End;
 
 // PreRenderPointFreed
-//
 
-procedure TGLLensFlare.PreRenderPointFreed(Sender: TObject);
-begin
+
+Procedure TGLLensFlare.PreRenderPointFreed(Sender: TObject);
+Begin
   FPreRenderPoint := nil;
-end;
+End;
 
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
-initialization
+Initialization
   // ------------------------------------------------------------------
   // ------------------------------------------------------------------
   // ------------------------------------------------------------------
 
   RegisterClasses([TGLLensFlare]);
 
-end.
+End.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -72,11 +72,11 @@ interface
 {$I GLScene.inc}
 
 uses
-  Classes, SysUtils, Types,
+  Classes, SysUtils,
   GLScene,  OpenGLTokens,  GLCrossPlatform,  GLState, GLVectorTypes,
   GLPersistentClasses,  GLVectorGeometry,  GLXCollection,  GLMaterial,
   GLCadencer, GLVectorLists,  GLGraphics,  GLContext,  GLColor,  GLBaseClasses,
-  GLCoordinates,  GLRenderContextInfo,  GLManager,  GLTextureFormat;
+  GLCoordinates,  GLRenderContextInfo,  GLManager,  GLTextureFormat, GLRandomGenerator;
 
 const
   cPFXNbRegions = 128; // number of distance regions
@@ -392,6 +392,7 @@ type
     FBlendingMode: TBlendingMode;
     FRegions: array[0..cPFXNbRegions - 1] of TPFXRegion;
 
+
   protected
      
     function StoreZMaxDistance: Boolean;
@@ -416,7 +417,7 @@ type
     property LastParticleCount: Integer read FLastParticleCount;
 
   published
-     
+
         { Specifies if particles should write to ZBuffer.
            If the PFXRenderer is the last object to be rendered in the scene,
            it is not necessary to write to the ZBuffer since the particles
@@ -474,6 +475,9 @@ type
     FDisabledIfOwnerInvisible: Boolean;
     FTimeRemainder: Double;
     FRotationDispersion: Single;
+    FSeed : Integer;
+
+    Procedure SetSeed(aValue: Integer);
 
   protected
      
@@ -485,7 +489,7 @@ type
     procedure ReadFromFiler(reader: TReader); override;
 
     function ParticleAbsoluteInitialPos: TAffineVector;
-
+    procedure RndVector(const dispersion: TGLSourcePFXDispersionMode; var v: TAffineVector; var f: Single;dispersionRange: TGLCoordinates);
   public
      
     constructor Create(aOwner: TGLXCollection); override;
@@ -498,12 +502,10 @@ type
 
     // Instantaneously creates nb particles
     procedure Burst(time: Double; nb: Integer);
-    procedure RingExplosion(time: Double;
-      minInitialSpeed, maxInitialSpeed: Single;
-      nbParticles: Integer);
+    procedure RingExplosion(time: Double; minInitialSpeed, maxInitialSpeed: Single;  nbParticles: Integer);
 
   published
-     
+    property Seed : Integer read FSeed write SetSeed;
     property InitialVelocity: TGLCoordinates read FInitialVelocity write SetInitialVelocity;
     property VelocityDispersion: Single read FVelocityDispersion write FVelocityDispersion;
     property InitialPosition: TGLCoordinates read FInitialPosition write SetInitialPosition;
@@ -974,41 +976,6 @@ begin
         Result.Name := name;
       end;
     end;
-  end;
-end;
-
-// RndVector
-//
-
-procedure RndVector(const dispersion: TGLSourcePFXDispersionMode;
-  var v: TAffineVector; var f: Single;
-  dispersionRange: TGLCoordinates);
-var
-  f2, fsq: Single;
-  p: TVector;
-begin
-  f2 := 2 * f;
-  if Assigned(dispersionRange) then
-    p := VectorScale(dispersionRange.DirectVector, f2)
-  else
-    p := VectorScale(XYZHmgVector, f2);
-  case dispersion of
-    sdmFast:
-      begin
-        v.V[0] := (Random - 0.5) * p.V[0];
-        v.V[1] := (Random - 0.5) * p.V[1];
-        v.V[2] := (Random - 0.5) * p.V[2];
-      end;
-  else
-    fsq := Sqr(0.5);
-    repeat
-      v.V[0] := (Random - 0.5);
-      v.V[1] := (Random - 0.5);
-      v.V[2] := (Random - 0.5);
-    until VectorNorm(v) <= fsq;
-    v.V[0] := v.V[0] * p.V[0];
-    v.V[1] := v.V[1] * p.V[1];
-    v.V[2] := v.V[2] * p.V[2];
   end;
 end;
 
@@ -1609,6 +1576,7 @@ begin
     TGLParticleFXManager(FManagerList[FManagerList.Count - 1]).Renderer := nil;
 end;
 
+
 // BuildList
 // (beware, large and complex stuff below... this is the heart of the ParticleFX)
 
@@ -1678,18 +1646,8 @@ var
   end;
 
   procedure DistToRegionIdx; register;
-  {$IFOPT O-}
   begin
     regionIdx := Trunc((dist - distDelta) * invRegionSize);
-  {$ELSE}
-    // !! WARNING !! This may cause incorrect behaviour if optimization is turned
-    // off for the project.
-  asm
-      FLD     dist
-      FSUB    distDelta
-      FMUL    invRegionSize
-      FISTP   regionIdx
-   {$ENDIF}
   end;
 
 var
@@ -1703,8 +1661,9 @@ var
   timer: Int64;
   currentTexturingMode: Cardinal;
 begin
-  if csDesigning in ComponentState then
-    Exit;
+  if csDesigning in ComponentState then Exit;
+
+
   timer := StartPrecisionTimer;
   // precalcs
   PSingle(@minDist)^ := rci.rcci.nearClippingDistance + 1;
@@ -1904,10 +1863,9 @@ begin
   FDispersionMode := sdmFast;
   FEnabled := true;
   FDisabledIfOwnerInvisible := False;
+  FSeed := 2389;//GetTickCount64;
+  GLS_RNG.Randomize;
 end;
-
-// Destroy
-//
 
 destructor TGLSourcePFXEffect.Destroy;
 begin
@@ -1917,24 +1875,15 @@ begin
   inherited Destroy;
 end;
 
- 
-//
-
 class function TGLSourcePFXEffect.FriendlyName: string;
 begin
   Result := 'PFX Source';
 end;
 
-// FriendlyDescription
-//
-
 class function TGLSourcePFXEffect.FriendlyDescription: string;
 begin
   Result := 'Simple Particles FX Source';
 end;
-
-// WriteToFiler
-//
 
 procedure TGLSourcePFXEffect.WriteToFiler(writer: TWriter);
 begin
@@ -1961,9 +1910,6 @@ begin
     WriteInteger(Integer(FPositionMode));
   end;
 end;
-
-// ReadFromFiler
-//
 
 procedure TGLSourcePFXEffect.ReadFromFiler(reader: TReader);
 var
@@ -1995,8 +1941,45 @@ begin
   end;
 end;
 
-// SetInitialVelocity
-//
+Procedure TGLSourcePFXEffect.SetSeed(aValue: Integer);
+Begin
+  FSeed := aValue;
+  //StructureChanged;
+End;
+
+procedure TGLSourcePFXEffect.RndVector(const dispersion: TGLSourcePFXDispersionMode; var v: TAffineVector; var f: Single;dispersionRange: TGLCoordinates);
+var
+  f2, fsq: Single;
+  p: TVector;
+  OldSeed : Longword;
+
+begin
+  OldSeed := RandSeed;
+  RandSeed := Seed;
+  f2 := 2 * f;
+  if Assigned(dispersionRange) then
+    p := VectorScale(dispersionRange.DirectVector, f2)
+  else
+    p := VectorScale(XYZHmgVector, f2);
+  case dispersion of
+    sdmFast:
+      begin
+        v.V[0] := (GLS_RNG.Random - 0.5) * p.V[0];
+        v.V[1] := (GLS_RNG.Random - 0.5) * p.V[1];
+        v.V[2] := (GLS_RNG.Random - 0.5) * p.V[2];
+      end;
+  else
+    fsq := Sqr(0.5);
+    repeat
+      v.V[0] := (GLS_RNG.Random - 0.5);
+      v.V[1] := (GLS_RNG.Random - 0.5);
+      v.V[2] := (GLS_RNG.Random - 0.5);
+    until VectorNorm(v) <= fsq;
+    v.V[0] := v.V[0] * p.V[0];
+    v.V[1] := v.V[1] * p.V[1];
+    v.V[2] := v.V[2] * p.V[2];
+  end;
+end;
 
 procedure TGLSourcePFXEffect.SetInitialVelocity(const val: TGLCoordinates);
 begin
@@ -2081,9 +2064,11 @@ var
   particle: TGLParticle;
   av, pos: TAffineVector;
   OwnerObjRelPos: TAffineVector;
+  OldSeed : LongWord;
 begin
-  if Manager = nil then
-    Exit;
+  if Manager = nil then Exit;
+  OldSeed := RandSeed;
+  RandSeed := Seed;
 
   OwnerObjRelPos := OwnerBaseSceneObject.LocalToAbsolute(NullVector);
   pos := ParticleAbsoluteInitialPos;
@@ -2111,7 +2096,9 @@ begin
 
     particle.CreationTime := time;
     if FRotationDispersion <> 0 then
-      particle.FRotation := Random * FRotationDispersion
+    begin
+      particle.FRotation := GLS_RNG.Random * FRotationDispersion
+    End
     else
       particle.FRotation := 0;
     Dec(nb);
@@ -2129,9 +2116,11 @@ var
   av, pos, tmp: TAffineVector;
   ringVectorX, ringVectorY: TAffineVector;
   fx, fy, d: Single;
+  OldSeed : LongWord;
 begin
-  if (Manager = nil) or (nbParticles <= 0) then
-    Exit;
+  if (Manager = nil) or (nbParticles <= 0) then Exit;
+  OldSeed := RandSeed;
+  RandSeed := Seed;
   pos := ParticleAbsoluteInitialPos;
   SetVector(ringVectorY, OwnerBaseSceneObject.AbsoluteUp);
   SetVector(ringVectorX, OwnerBaseSceneObject.AbsoluteDirection);
@@ -2139,11 +2128,11 @@ begin
   while (nbParticles > 0) do
   begin
     // okay, ain't exactly an "isotropic" ring...
-    fx := Random - 0.5;
-    fy := Random - 0.5;
+    fx := GLS_RNG.Random - 0.5;
+    fy := GLS_RNG.Random - 0.5;
     d := RLength(fx, fy);
     tmp := VectorCombine(ringVectorX, ringVectorY, fx * d, fy * d);
-    ScaleVector(tmp, minInitialSpeed + Random * (maxInitialSpeed - minInitialSpeed));
+    ScaleVector(tmp, minInitialSpeed + GLS_RNG.Random * (maxInitialSpeed - minInitialSpeed));
     AddVector(tmp, InitialVelocity.AsVector);
     particle := Manager.CreateParticle;
     with particle do

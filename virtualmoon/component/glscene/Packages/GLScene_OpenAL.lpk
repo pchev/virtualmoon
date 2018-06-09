@@ -8,7 +8,7 @@
       <Version Value="11"/>
       <SearchPaths>
         <IncludeFiles Value="../Source"/>
-        <OtherUnitFiles Value="../Source;../Source/Basis;../Source/DesignTime;../Source/FileFormats;../Source/GameAPIs;../Source/ParallelAPIs;../Source/PhysicsAPIs;../Source/Shaders;../Source/SoundVideoAPIs"/>
+        <OtherUnitFiles Value="../Source;../Source/Basis;../Source/DesignTime;../Source/FileFormats;../Source/GameAPIs;../Source/ParallelAPIs;../Source/PhysicsAPIs;../Source/Shaders;../Source/SoundVideoAPIs;../Source/External/Audio"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Parsing>
@@ -28,12 +28,32 @@
     </CompilerOptions>
     <Description Value="GLScene OpenAL support"/>
     <Version Major="1" Build="3"/>
-    <Files Count="1">
+    <Files Count="6">
       <Item1>
         <Filename Value="../Source/SoundVideoAPIs/GLSMOpenAL.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="GLSMOpenAL"/>
       </Item1>
+      <Item2>
+        <Filename Value="../Source/SoundVideoAPIs/GLSound.pas"/>
+        <UnitName Value="GLSound"/>
+      </Item2>
+      <Item3>
+        <Filename Value="../Source/SoundVideoAPIs/GLSoundFileObjects.pas"/>
+        <UnitName Value="GLSoundFileObjects"/>
+      </Item3>
+      <Item4>
+        <Filename Value="../Source/FileFormats/GLSoundFileMP3.pas"/>
+        <UnitName Value="GLSoundFileMP3"/>
+      </Item4>
+      <Item5>
+        <Filename Value="../Source/FileFormats/GLSoundFileOGG.pas"/>
+        <UnitName Value="GLSoundFileOGG"/>
+      </Item5>
+      <Item6>
+        <Filename Value="../Source/FileFormats/GLSoundFileWAV.pas"/>
+        <UnitName Value="GLSoundFileWAV"/>
+      </Item6>
     </Files>
     <RequiredPkgs Count="2">
       <Item1>

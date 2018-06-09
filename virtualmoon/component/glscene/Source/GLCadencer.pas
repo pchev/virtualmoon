@@ -699,7 +699,7 @@ begin
     // in Idle mode, this processing is implicit
     if Mode = cmASAP then
     begin
-      Application.ProcessMessages;
+      //Application.ProcessMessages; Eater of resources and time
       if (not Assigned(vASAPCadencerList))
         or (vASAPCadencerList.IndexOf(Self) < 0) then
         Exit;

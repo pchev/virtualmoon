@@ -1,7 +1,0 @@
-msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
-
-#: glgraphics.glscantconvertimg
-msgid "%s: can't convert image to RGBA8 format"
-msgstr ""
-

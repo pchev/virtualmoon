@@ -31,8 +31,7 @@ uses
   x, xlib, xutil;
 
 type
-  TGLXFBConfigArray = array[0..MaxInt div (SizeOf(GLXFBConfig) * 2)] of
-    GLXFBConfig;
+  TGLXFBConfigArray = array[0..MaxInt div (SizeOf(GLXFBConfig) * 2)] of GLXFBConfig;
   PGLXFBConfigArray = ^TGLXFBConfigArray;
 
   // TGLGLXContext
