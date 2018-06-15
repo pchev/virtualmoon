@@ -525,7 +525,7 @@ type
     PrintEph, PrintDesc, phaseeffect, externalimage, PrintChart, lopamdirect: boolean;
     librl, librb, wheelstep, EphStep, fov, searchl,
     searchb, markx, marky, flipx, rotstep, lunaison: double;
-    ra, Dec, rad, ded, dist, dkm, phase, illum, pa, sunincl, parallacticangle, currentphase,
+    ra, Dec, rad, ded, dist, dkm, phase, illum, pa, sunlat, sunlong, parallacticangle, currentphase,
     tphase, by, bxpos, dummy: double;
     editrow, notesrow, rotdirection, searchpos,BumpMethod: integer;
     dbedited: boolean;
@@ -2899,7 +2899,7 @@ end;
 procedure TForm1.RefreshMoonImage;
 var
   moonrise, moonset, moontransit, azimuthrise, azimuthset, eph: string;
-  jd0, st0, q, cphase, colong, hh, az, ah: double;
+  jd0, st0, q, cphase, colong, hh, az, ah, ra2, de2: double;
   v1, v2, v3, v4, v5, v6, v7, v8, v9: double;
   gpa, glibrb, gsunincl, glibrl: double;
   aa, mm, dd, i, j: integer;
@@ -2913,10 +2913,16 @@ begin
   Fplanet.sunecl(CurrentJD,sunl,sunb);
   PrecessionEcl(jd2000,CurrentJD,sunl,sunb);
   aberration(CurrentJD,abe,abp);
+  // compute j2000 geocentric
   eph:=Fplanet.Moon(CurrentJD, ra, Dec, dist, dkm, diam, phase, illum);
-  Fplanet.MoonOrientation(CurrentJD, ra, Dec, dist, gpa, glibrb, gsunincl, glibrl);
+  ra2 := ra;   de2 := Dec;
+  // orientation need jdnow
+  precession(jd2000, CurrentJD, ra2, de2);
+  // geocentric orientation, return valid sub-solar position
+  Fplanet.MoonOrientation(CurrentJD, ra2, de2, dist, gpa, glibrb, glibrl, sunlat, sunlong);
   if not geocentric then
   begin
+    // parallax
     jd0 := jd(CurYear, CurrentMonth, CurrentDay, 0.0);
     st0 := SidTim(jd0, CurrentTime - Timezone, ObsLongitude);
     Paralaxe(st0, dist, ra, Dec, ra, Dec, q, jd2000, CurrentJD);
@@ -2924,15 +2930,17 @@ begin
     dkm  := dkm * q;
     dist := dist * q;
   end;
+  // apparent coordinates
   apparent_equatorial(ra,Dec,ecl,sunl,abp,abe,nutl,nuto,false);
   rad := ra;
   ded := Dec;
   mean_equatorial(ra,Dec,ecl,sunl,abp,abe,nutl,nuto);
   precession(jd2000, CurrentJD, rad, ded);
-  Fplanet.MoonOrientation(CurrentJD, ra, Dec, dist, pa, librb, sunincl, librl);
+  // topocentric libration, ignore invalid sub-solar position
+  Fplanet.MoonOrientation(CurrentJD, rad, ded, dist, pa, librb, librl, v1, v2);
   cphase := phase + glibrl;
   tphase := phase;
-  colong := rmod(90 - tphase - glibrl + 360, 360);
+  colong := rmod(90 - sunlong + 360, 360);
   jd0    := jd(CurYear, 1, 1, 0.0);
   Fplanet.MoonPhases(CurYear + (CurrentJD - jd0) / 365.25, nmjd, fqjd, fmjd, lqjd);
   lunaison := CurrentJD - nmjd;
@@ -2998,9 +3006,6 @@ begin
   Stringgrid1.Cells[0, i] := rsm_36;
   Stringgrid1.Cells[1, i] := formatfloat(f2, diam / 60) + lmin;
   Inc(i);
-  Stringgrid1.Cells[0, i] := rsm_48;
-  Stringgrid1.Cells[1, i] := formatfloat(f1, colong) + ldeg;
-  Inc(i);
   Stringgrid1.Cells[0, i] := rsm_32;
   Stringgrid1.Cells[1, i] := formatfloat(f1, phase) + ldeg;
   Inc(i);
@@ -3010,8 +3015,11 @@ begin
   Stringgrid1.Cells[0, i] := rsm_35;
   Stringgrid1.Cells[1, i] := formatfloat(f1, illum * 100) + '%';
   Inc(i);
+  Stringgrid1.Cells[0, i] := rsm_48;
+  Stringgrid1.Cells[1, i] := formatfloat(f1, colong) + ldeg;
+  Inc(i);
   Stringgrid1.Cells[0, i] := rsm_45;
-  Stringgrid1.Cells[1, i] := formatfloat(f1, sunincl) + ldeg;
+  Stringgrid1.Cells[1, i] := formatfloat(f1, sunlat) + ldeg;
   Inc(i);
   Stringgrid1.Cells[0, i] := rsm_33;
   Stringgrid1.Cells[1, i] := demtostr(librb);
@@ -3114,7 +3122,7 @@ begin
   activemoon.EarthDistance:=dkm;
   activemoon.ShowPhase:=phaseeffect;
   activemoon.Phase:=deg2rad*cphase;
-  activemoon.SunIncl:=deg2rad*sunincl;
+  activemoon.SunIncl:=deg2rad*sunlat;
   activemoon.LibrationMark:=ShowLibrationMark;
   activemoon.RefreshAll;
 end;
