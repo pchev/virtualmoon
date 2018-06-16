@@ -237,6 +237,7 @@
         <Filename Value="pu_ephem.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_ephem"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit21>
     </Units>

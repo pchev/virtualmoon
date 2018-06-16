@@ -87,7 +87,7 @@ Function LONmToStr(l: Double) : string;
 Function LONToStr(l: Double) : string;
 function DTminusUT(year : integer) : double;
 Procedure FormPos(form : Tform; x,y : integer;safe: boolean=true);
-Function ExecProcess(cmd: string; output: TStringList): integer;
+function ExecProcess(cmd: string; output: TStringList; ShowConsole: boolean = False): integer;
 Function Exec(cmd: string; hide: boolean=true): integer;
 procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=true);
 function decode_mpc_date(s: string; var y,m,d : integer; var hh:double):boolean;
@@ -1143,47 +1143,147 @@ with Form do begin
 end;
 end;
 
-Function ExecProcess(cmd: string; output: TStringList): integer;
-const READ_BYTES = 2048;
+procedure SplitCmd(S: string; List: TStringList);
+
+  function GetNextWord: string;
+  const
+    WhiteSpace = [' ', #9, #10, #13];
+    Literals = ['"', ''''];
+  var
+    Wstart, wend: integer;
+    InLiteral: boolean;
+    LastLiteral: char;
+  begin
+    WStart := 1;
+
+    while (WStart <= Length(S)) and (S[WStart] in WhiteSpace) do
+      Inc(WStart);
+
+    WEnd := WStart;
+    InLiteral := False;
+    LastLiteral := #0;
+
+    while (Wend <= Length(S)) and (not (S[Wend] in WhiteSpace) or InLiteral) do
+    begin
+      if S[Wend] in Literals then
+        if InLiteral then
+          InLiteral := not (S[Wend] = LastLiteral)
+        else
+        begin
+          InLiteral := True;
+          LastLiteral := S[Wend];
+        end;
+
+      Inc(wend);
+    end;
+
+    Result := Copy(S, WStart, WEnd - WStart);
+
+    if (Length(Result) > 0) and (Result[1] = Result[Length(Result)]) and
+      // if 1st char = last char and..
+      (Result[1] in Literals) // it's one of the literals, then
+    then
+      Result := Copy(Result, 2, Length(Result) - 2);
+    //delete the 2 (but not others in it)
+
+    while (WEnd <= Length(S)) and (S[Wend] in WhiteSpace) do
+      Inc(Wend);
+
+    Delete(S, 1, WEnd - 1);
+  end;
+
+var
+  W: string;
+begin
+
+  while Length(S) > 0 do
+  begin
+    W := GetNextWord;
+
+    if (W <> '') then
+      List.Add(W);
+  end;
+
+end;
+
+function ExecProcess(cmd: string; output: TStringList; ShowConsole: boolean = False): integer;
+const
+  READ_BYTES = 2048;
 var
   M: TMemoryStream;
   P: TProcess;
-  n: LongInt;
-  BytesRead: LongInt;
+  param: TStringList;
+  n: longint;
+  BytesRead: longint;
 begin
-M := TMemoryStream.Create;
-P := TProcess.Create(nil);
-result:=1;
-try
-  BytesRead := 0;
-  P.CommandLine := cmd;
-  P.Options := [poUsePipes, poStdErrToOutPut, poNoConsole];
-  P.Execute;
-  while P.Running do begin
-    Application.ProcessMessages;
-    if P.Output<>nil then begin
-      M.SetSize(BytesRead + READ_BYTES);
-      n := P.Output.Read((M.Memory + BytesRead)^, READ_BYTES);
-      if n > 0 then inc(BytesRead, n);
+
+  M := TMemoryStream.Create;
+  P := TProcess.Create(nil);
+
+  param := TStringList.Create;
+  Result := 1;
+
+  try
+    BytesRead := 0;
+    SplitCmd(cmd, param);
+    cmd := param[0];
+    param.Delete(0);
+    P.Executable := cmd;
+    P.Parameters := param;
+
+    if ShowConsole then
+    begin
+      P.ShowWindow := swoShowNormal;
+      P.StartupOptions := [suoUseShowWindow];
+    end
+    else
+      P.ShowWindow := swoHIDE;
+
+    P.Options := [poUsePipes, poStdErrToOutPut];
+    P.Execute;
+
+    while P.Running do
+    begin
+      Application.ProcessMessages;
+      if P.Output <> nil then
+      begin
+        M.SetSize(BytesRead + READ_BYTES);
+        n := P.Output.Read((M.Memory + BytesRead)^, READ_BYTES);
+        if n > 0 then
+          Inc(BytesRead, n);
+      end;
     end;
+
+    Result := P.ExitStatus;
+    if (Result <> 127) and (P.Output <> nil) then
+      repeat
+        M.SetSize(BytesRead + READ_BYTES);
+        n := P.Output.Read((M.Memory + BytesRead)^, READ_BYTES);
+
+        if n > 0 then
+          Inc(BytesRead, n);
+
+      until (n <= 0) or (P.Output = nil);
+
+    M.SetSize(BytesRead);
+    output.LoadFromStream(M);
+
+    P.Free;
+    M.Free;
+    param.Free;
+
+  except
+    on E: Exception do
+    begin
+      Result := -1;
+      output.add(E.Message);
+      P.Free;
+      M.Free;
+      param.Free;
+    end;
+
   end;
-  result:=P.ExitStatus;
-  if (result<>127)and(P.Output<>nil) then repeat
-    M.SetSize(BytesRead + READ_BYTES);
-    n := P.Output.Read((M.Memory + BytesRead)^, READ_BYTES);
-    if n > 0
-    then begin
-      Inc(BytesRead, n);
-    end;
-  until (n<=0)or(P.Output=nil);
-  M.SetSize(BytesRead);
-  output.LoadFromStream(M);
-  P.Free;
-  M.Free;
-except
-  P.Free;
-  M.Free;
-end;
+
 end;
 
 Function Exec(cmd: string; hide: boolean=true): integer;

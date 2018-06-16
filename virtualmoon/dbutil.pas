@@ -191,7 +191,7 @@ end;
 
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
 var cmd,v: string;
-    i,imax,ii,j:integer;
+    i,imax,ii:integer;
     db1:Tmlb2;
 begin
 if MsgForm=nil then Application.CreateForm(TMsgForm, MsgForm);

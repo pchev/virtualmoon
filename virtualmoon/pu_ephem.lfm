@@ -6,20 +6,21 @@ object f_ephem: Tf_ephem
   Caption = 'f_ephem'
   ClientHeight = 240
   ClientWidth = 320
+  DesignTimePPI = 95
   OnCreate = FormCreate
-  LCLVersion = '0.9.30.1'
+  Visible = False
   object Label9: TLabel
     Left = 16
-    Height = 15
+    Height = 17
     Top = 12
-    Width = 55
+    Width = 66
     Caption = 'Start Date'
     ParentColor = False
     ParentFont = False
   end
   object annee: TLongEdit
     Left = 110
-    Height = 22
+    Height = 29
     Hint = '-2999..2999'
     Top = 8
     Width = 45
@@ -32,12 +33,12 @@ object f_ephem: Tf_ephem
   end
   object UpDown1: TUpDown
     Left = 155
-    Height = 22
+    Height = 29
     Top = 8
     Width = 13
     Associate = annee
-    Min = -2999
     Max = 2999
+    Min = -2999
     Position = 2002
     TabOrder = 1
     Thousands = False
@@ -45,7 +46,7 @@ object f_ephem: Tf_ephem
   end
   object mois: TLongEdit
     Left = 166
-    Height = 22
+    Height = 29
     Hint = '0..12'
     Top = 8
     Width = 28
@@ -57,19 +58,19 @@ object f_ephem: Tf_ephem
   end
   object UpDown2: TUpDown
     Left = 194
-    Height = 22
+    Height = 29
     Top = 8
     Width = 13
     Associate = mois
-    Min = 1
     Max = 12
+    Min = 1
     Position = 1
     TabOrder = 3
     Wrap = True
   end
   object jour: TLongEdit
     Left = 208
-    Height = 22
+    Height = 29
     Hint = '0..31'
     Top = 8
     Width = 28
@@ -81,28 +82,28 @@ object f_ephem: Tf_ephem
   end
   object UpDown3: TUpDown
     Left = 236
-    Height = 22
+    Height = 29
     Top = 8
     Width = 13
     Associate = jour
-    Min = 1
     Max = 31
+    Min = 1
     Position = 31
     TabOrder = 5
     Wrap = True
   end
   object Label10: TLabel
     Left = 16
-    Height = 15
+    Height = 17
     Top = 56
-    Width = 52
+    Width = 59
     Caption = 'End Date'
     ParentColor = False
     ParentFont = False
   end
   object annee1: TLongEdit
     Left = 110
-    Height = 22
+    Height = 29
     Hint = '-2999..2999'
     Top = 52
     Width = 45
@@ -115,12 +116,12 @@ object f_ephem: Tf_ephem
   end
   object UpDown4: TUpDown
     Left = 155
-    Height = 22
+    Height = 29
     Top = 52
     Width = 13
     Associate = annee1
-    Min = -2999
     Max = 2999
+    Min = -2999
     Position = 2002
     TabOrder = 7
     Thousands = False
@@ -128,7 +129,7 @@ object f_ephem: Tf_ephem
   end
   object mois1: TLongEdit
     Left = 166
-    Height = 22
+    Height = 29
     Hint = '0..12'
     Top = 52
     Width = 28
@@ -140,19 +141,19 @@ object f_ephem: Tf_ephem
   end
   object UpDown5: TUpDown
     Left = 194
-    Height = 22
+    Height = 29
     Top = 52
     Width = 13
     Associate = mois1
-    Min = 1
     Max = 12
+    Min = 1
     Position = 1
     TabOrder = 9
     Wrap = True
   end
   object jour1: TLongEdit
     Left = 208
-    Height = 22
+    Height = 29
     Hint = '0..31'
     Top = 52
     Width = 28
@@ -164,19 +165,19 @@ object f_ephem: Tf_ephem
   end
   object UpDown6: TUpDown
     Left = 236
-    Height = 22
+    Height = 29
     Top = 52
     Width = 13
     Associate = jour1
-    Min = 1
     Max = 31
+    Min = 1
     Position = 31
     TabOrder = 11
     Wrap = True
   end
   object step: TLongEdit
     Left = 110
-    Height = 22
+    Height = 29
     Hint = '1..999999'
     Top = 92
     Width = 56
@@ -199,38 +200,38 @@ object f_ephem: Tf_ephem
   end
   object FileNameEdit1: TFileNameEdit
     Left = 110
-    Height = 22
+    Height = 29
     Top = 136
     Width = 176
     DialogOptions = []
     FilterIndex = 0
     HideDirectories = False
     ButtonWidth = 23
-    NumGlyphs = 0
+    NumGlyphs = 1
     MaxLength = 0
     TabOrder = 14
   end
   object Label1: TLabel
     Left = 16
-    Height = 15
+    Height = 17
     Top = 95
-    Width = 26
+    Width = 29
     Caption = 'Step'
     ParentColor = False
   end
   object Label2: TLabel
     Left = 178
-    Height = 15
+    Height = 17
     Top = 95
-    Width = 35
+    Width = 38
     Caption = 'Hours'
     ParentColor = False
   end
   object Label3: TLabel
     Left = 15
-    Height = 15
+    Height = 17
     Top = 139
-    Width = 21
+    Width = 22
     Caption = 'File'
     ParentColor = False
   end

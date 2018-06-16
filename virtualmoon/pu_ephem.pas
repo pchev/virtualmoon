@@ -78,12 +78,12 @@ var startljd,endljd,stepjd,ijd: extended;
     curjd,ctime: double;
     y1,y2,m1,m2,d1,d2: integer;
     moonrise, moonset, moontransit, azimuthrise, azimuthset, eph: string;
-    jd0, st0, q, cphase, colong, hh, az, ah, ra2, de2: double;
+    jd0, st0, q, colong, hh, az, ah, ra2, de2: double;
     v1, v2, v3, v4, v5, v6, v7, v8, v9: double;
-    gpa, glibrb, gsunincl, glibrl: double;
-    aa, mm, dd, i, j: integer;
+    gpa, glibrb, glibrl: double;
+    aa, mm, dd, j: integer;
     ecl,nutl,nuto,sunl,sunb,abe,abp, ra, Dec, dist, dkm, diam, phase, illum : double;
-    rad,ded, pa, librb, sunlat, sunlong, librl,tphase, nmjd, fqjd, fmjd, lqjd,lunaison: double;
+    rad,ded, pa, librb, sunlat, sunlong, librl, nmjd, fqjd, fmjd, lqjd,lunaison: double;
     CYear, CMonth, CDay,LastDay: integer;
     f: textfile;
     buf: string;
@@ -158,8 +158,6 @@ begin
     precession(jd2000, CurrentJD, rad, ded);
     // topocentric libration, ignore invalid sub-solar position
     Fplanet.MoonOrientation(CurrentJD, rad, ded, dist, pa, librb, librl, v1, v2);
-    cphase := phase + glibrl;
-    tphase := phase;
     colong := rmod(90 - sunlong + 360, 360);
     jd0    := jd(CYear, 1, 1, 0.0);
     Fplanet.MoonPhases(CYear + (curjd - jd0) / 365.25, nmjd, fqjd, fmjd, lqjd);

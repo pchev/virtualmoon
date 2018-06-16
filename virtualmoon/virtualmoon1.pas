@@ -1267,7 +1267,7 @@ procedure TForm1.GetLabel(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
     w, wmin, wfact, l1, b1: single;
     miniok,IsLUN:    boolean;
-    nom, lun, let, dbn:  string;
+    nom, let, dbn:  string;
     j: integer;
 begin
 // Labels
@@ -1300,9 +1300,8 @@ begin
         w := 1.5 * w; // moins de grosse formation face cachee
       if w < (wmin * wfact) then
         continue;
-      nom := trim(dbm.Results[j][0]);
-      lun := trim(dbm.Results[j][7]);
-      dbn := trim(dbm.Results[j][8]);
+      nom := trim(string(dbm.Results[j][0]));
+      dbn := trim(string(dbm.Results[j][8]));
       IsLUN:=(copy(nom,1,3)='AVL');
       // Duplicate Mare name in noname database
       if (dbn='8') and IsLUN and (w>300) then continue;
@@ -2901,7 +2900,7 @@ var
   moonrise, moonset, moontransit, azimuthrise, azimuthset, eph: string;
   jd0, st0, q, cphase, colong, hh, az, ah, ra2, de2: double;
   v1, v2, v3, v4, v5, v6, v7, v8, v9: double;
-  gpa, glibrb, gsunincl, glibrl: double;
+  gpa, glibrb, glibrl: double;
   aa, mm, dd, i, j: integer;
 const
   b = ' ';
@@ -4968,8 +4967,10 @@ var
   i, w, ww, tl, hl, l, maxt,bh,bw: integer;
   xmin, xmax, ymin, ymax: integer;
   s,bs:    double;
-  b,bt:    tbitmap;
-  ms: TMemoryStream;
+  b:    tbitmap;
+  {$ifdef darwin}
+  bt:    tbitmap;
+  {$endif}
   buf1: string;
 begin
   {$ifdef unix}

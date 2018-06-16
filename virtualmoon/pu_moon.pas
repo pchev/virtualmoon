@@ -2776,7 +2776,7 @@ SetCCDfield;
 end;
 
 Procedure Tf_moon.SetCCDfield;
-var i: integer;
+var
     sinr,cosr: extended;
     fv,bx,u: double;
     x,y,xc,yc,wc,hc: single;

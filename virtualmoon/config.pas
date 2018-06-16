@@ -539,10 +539,8 @@ countrycode:=TStringList.Create;
 end;
 
 procedure TForm2.FillHistorical;
-var i,j,p : integer;
-    buf,code,AVLlang : string;
+var i : integer;
     fs : TSearchRec;
-    ft : TextFile;
 begin
 ComboBox6.clear;
 i:=findfirst(Slash(appdir)+Slash('Textures')+Slash('Historical')+'*',faDirectory,fs);

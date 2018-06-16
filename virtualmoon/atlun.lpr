@@ -13,8 +13,6 @@ uses
   pu_moon, u_translation_database, u_translation, uniqueinstance_package,
   pu_features, BigIma, uDE, mlb2, pu_ephem;
 
-var i:integer;
-
 {$R *.res}
 
 begin

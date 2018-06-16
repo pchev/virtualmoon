@@ -165,7 +165,7 @@ var
    w : array[1..3] of double;
    planet_arr: Array_5D;
    i : integer;
-   prec,pp : double;
+   pp : double;
 begin
 result:='';
 t0:=t0-(1.27/3600/24); // mean lighttime
