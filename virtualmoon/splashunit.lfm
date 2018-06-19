@@ -14,8 +14,7 @@ object splash: Tsplash
   Caption = 'About'
   ClientHeight = 368
   ClientWidth = 432
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  DesignTimePPI = 95
   FormStyle = fsStayOnTop
   OnClick = Image1DblClick
   OnClose = FormClose
@@ -26,18 +25,18 @@ object splash: Tsplash
   Visible = False
   object Panel1: TPanel
     Left = 0
-    Height = 368
+    Height = 364
     Top = 0
-    Width = 432
+    Width = 428
     BevelOuter = bvNone
-    ClientHeight = 368
-    ClientWidth = 432
+    ClientHeight = 364
+    ClientWidth = 428
     TabOrder = 0
     object Image1: TImage
       Left = 0
-      Height = 253
+      Height = 250
       Top = 0
-      Width = 432
+      Width = 428
       Center = True
       OnClick = Image1DblClick
       Picture.Data = {
@@ -537,15 +536,14 @@ object splash: Tsplash
     end
     object Label1: TLabel
       Left = 0
-      Height = 36
+      Height = 38
       Top = 0
-      Width = 432
+      Width = 428
       Align = alTop
       Alignment = taCenter
       Caption = 'Virtual Lunar Atlas'
       Font.Color = clYellow
       Font.Height = -32
-      Font.Name = 'Times New Roman'
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
@@ -555,30 +553,28 @@ object splash: Tsplash
     object Label2: TLabel
       Left = 0
       Height = 17
-      Top = 64
-      Width = 432
+      Top = 63
+      Width = 428
       Alignment = taCenter
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
       Caption = 'Version - Date'
       Font.Color = clYellow
       Font.Height = -13
-      Font.Name = 'Arial'
       ParentColor = False
       ParentFont = False
       OnClick = Image1DblClick
     end
     object Label3: TLabel
       Left = 0
-      Height = 78
-      Top = 277
-      Width = 432
+      Height = 102
+      Top = 245
+      Width = 428
       Align = alBottom
       Alignment = taCenter
       Caption = 'Copyright © 2002-2012  Christian Legrand, Patrick Chevalley, '#10'All rights reserved'#13#10'This program is free software; you can redistribute it and/or'#10'modify it under the terms of the GNU General Public License.'#13#10'All database, pictures and documentation © Ch. Legrand'#13#10'Pictures library are copyrighted by their respective owner.'
       Color = clBlack
       Font.Color = clSilver
-      Font.Height = -11
       Font.Pitch = fpVariable
       Font.Style = [fsItalic]
       ParentColor = False
@@ -589,15 +585,14 @@ object splash: Tsplash
     object Label4: TLabel
       Left = 0
       Height = 19
-      Top = 258
-      Width = 432
+      Top = 226
+      Width = 428
       Align = alBottom
       Alignment = taCenter
       AutoSize = False
       Caption = 'Virtual Lunar Atlas  http://www.ap-i.net/avl'
       Color = clBlack
       Font.Color = clSilver
-      Font.Height = -11
       Font.Style = [fsItalic]
       ParentColor = False
       ParentFont = False
@@ -607,30 +602,28 @@ object splash: Tsplash
     object Label6: TLabel
       Left = 0
       Height = 17
-      Top = 88
-      Width = 432
+      Top = 87
+      Width = 428
       Alignment = taCenter
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
       Caption = 'Version - Date'
       Font.Color = clYellow
       Font.Height = -13
-      Font.Name = 'Arial'
       ParentColor = False
       ParentFont = False
       OnClick = Image1DblClick
     end
     object Label5: TLabel
       Left = 0
-      Height = 13
-      Top = 355
-      Width = 432
+      Height = 17
+      Top = 347
+      Width = 428
       Align = alBottom
       Alignment = taCenter
       Caption = ' '
       Color = clBlack
       Font.Color = clSilver
-      Font.Height = -11
       Font.Pitch = fpVariable
       Font.Style = [fsItalic]
       ParentColor = False
@@ -643,13 +636,13 @@ object splash: Tsplash
     Interval = 2000
     OnTimer = Timer1Timer
     left = 8
-    top = 72
+    top = 71
   end
   object Timer2: TTimer
     Enabled = False
     Interval = 2000
     OnTimer = Timer2Timer
     left = 8
-    top = 136
+    top = 135
   end
 end

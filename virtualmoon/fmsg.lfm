@@ -10,28 +10,28 @@ object MsgForm: TMsgForm
   ClientHeight = 75
   ClientWidth = 281
   Color = clRed
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  DesignTimePPI = 95
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   Position = poScreenCenter
   Visible = False
   object Panel1: TPanel
     Left = 8
-    Height = 59
+    Height = 58
     Top = 8
-    Width = 265
-    ClientHeight = 59
-    ClientWidth = 265
+    Width = 262
+    ClientHeight = 58
+    ClientWidth = 262
     ParentColor = False
     TabOrder = 0
     object Label1: TLabel
       Left = 0
       Height = 45
       Top = 8
-      Width = 257
+      Width = 254
       AutoSize = False
-      ParentColor = False
+      Color = clDefault
+      Transparent = False
       WordWrap = True
     end
   end

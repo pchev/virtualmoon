@@ -8,10 +8,10 @@ object Gloss: TGloss
   Caption = 'Glossary'
   ClientHeight = 397
   ClientWidth = 664
+  Color = clWindow
   Constraints.MinHeight = 200
   Constraints.MinWidth = 400
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  DesignTimePPI = 95
   KeyPreview = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -25,9 +25,9 @@ object Gloss: TGloss
   end
   object TreeView1: TTreeView
     Left = 8
-    Height = 285
-    Top = 64
-    Width = 234
+    Height = 286
+    Top = 63
+    Width = 232
     Anchors = [akTop, akLeft, akBottom]
     AutoExpand = True
     HideSelection = False
@@ -49,10 +49,10 @@ object Gloss: TGloss
     TabOrder = 1
     OnResize = buttonPanelResize
     object closeButton: TSpeedButton
-      Left = 264
+      Left = 261
       Height = 24
       Top = 4
-      Width = 80
+      Width = 79
       Caption = 'Close'
       Flat = True
       OnClick = closeButtonClick
@@ -60,9 +60,9 @@ object Gloss: TGloss
   end
   object alphaPanel: TPanel
     Left = 8
-    Height = 50
+    Height = 49
     Top = 8
-    Width = 386
+    Width = 382
     BevelOuter = bvNone
     ChildSizing.ShrinkHorizontal = crsScaleChilds
     ChildSizing.ShrinkVertical = crsScaleChilds
@@ -71,17 +71,17 @@ object Gloss: TGloss
     TabOrder = 2
   end
   object navPanel: TPanel
-    Left = 400
-    Height = 50
+    Left = 396
+    Height = 49
     Top = 8
-    Width = 256
+    Width = 260
     Anchors = [akTop, akLeft, akRight]
     BevelInner = bvLowered
-    ClientHeight = 50
-    ClientWidth = 256
+    ClientHeight = 49
+    ClientWidth = 260
     TabOrder = 3
     object nextButton: TSpeedButton
-      Left = 216
+      Left = 220
       Height = 24
       Top = 12
       Width = 32
@@ -92,11 +92,12 @@ object Gloss: TGloss
     end
     object filterEdit: TEdit
       Left = 40
-      Height = 21
+      Height = 29
       Top = 15
-      Width = 172
+      Width = 176
       Anchors = [akTop, akLeft, akRight]
       OnKeyDown = filterEditKeyDown
+      ParentColor = True
       TabOrder = 0
     end
     object prevButton: TSpeedButton
@@ -110,19 +111,19 @@ object Gloss: TGloss
     end
   end
   object htmlPanel: TPanel
-    Left = 252
-    Height = 285
-    Top = 64
-    Width = 404
+    Left = 249
+    Height = 286
+    Top = 63
+    Width = 407
     Anchors = [akTop, akLeft, akRight, akBottom]
-    ClientHeight = 285
-    ClientWidth = 404
+    ClientHeight = 286
+    ClientWidth = 407
     TabOrder = 4
     object definitionPanel: TIpHtmlPanel
       Left = 1
-      Height = 283
+      Height = 284
       Top = 1
-      Width = 402
+      Width = 405
       Align = alClient
       FixedTypeface = 'Courier New'
       DefaultTypeFace = 'default'

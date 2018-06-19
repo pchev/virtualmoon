@@ -8,8 +8,7 @@ object f_craterlist: Tf_craterlist
   Caption = 'f_craterlist'
   ClientHeight = 299
   ClientWidth = 235
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  DesignTimePPI = 95
   FormStyle = fsStayOnTop
   KeyPreview = True
   OnCreate = FormCreate
@@ -24,6 +23,8 @@ object f_craterlist: Tf_craterlist
     Align = alClient
     ItemHeight = 0
     OnMouseUp = CraterLstMouseUp
+    ScrollWidth = 233
     TabOrder = 0
+    TopIndex = -1
   end
 end

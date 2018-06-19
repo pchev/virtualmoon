@@ -26,9 +26,6 @@ begin
      halt;
   end;
   Application.CreateForm(TForm1, Form1);
-  Application.CreateForm(TForm2, Form2);
-  Application.CreateForm(Tf_craterlist, f_craterlist);
-  Application.CreateForm(Tf_features, f_features);
   if (Form1.param.IndexOf('-quit')<0) then begin
       Splashversion := AVLversion+blank+compile_time;
       splash := Tsplash.create(application);
@@ -37,6 +34,11 @@ begin
       splash.transmsg:=transmsg;
       splash.show;
       splash.refresh;
+  end;
+  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(Tf_craterlist, f_craterlist);
+  Application.CreateForm(Tf_features, f_features);
+  if (Form1.param.IndexOf('-quit')<0) then begin
       Application.Run;
   end
   else Application.Terminate;

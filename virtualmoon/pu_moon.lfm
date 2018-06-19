@@ -7,30 +7,25 @@ object f_moon: Tf_moon
   Caption = 'f_moon'
   ClientHeight = 520
   ClientWidth = 748
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  DesignTimePPI = 95
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  LCLVersion = '1.8.4.0'
   Visible = False
   object Moon: TPanel
-    Left = 202
-    Height = 505
+    Left = 200
+    Height = 500
     Top = 0
-    Width = 505
-    ClientHeight = 505
-    ClientWidth = 505
-    Color = clBlack
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
-    ParentColor = False
-    ParentFont = False
+    Width = 500
+    ClientHeight = 500
+    ClientWidth = 500
     TabOrder = 0
     OnResize = MoonResize
     object GLSceneViewer1: TGLSceneViewer
       Left = 1
-      Height = 503
+      Height = 498
       Top = 1
-      Width = 503
+      Width = 498
       Camera = GLCamera1
       Buffer.BackgroundColor = clBlack
       Buffer.AmbientColor.Red = 0
@@ -41,7 +36,7 @@ object f_moon: Tf_moon
         0000000000000000000000000000803F
       }
       Buffer.ContextOptions = [roDoubleBuffer, roStencilBuffer, roRenderToWindow]
-      FieldOfView = 4.80048608779907
+      FieldOfView = 4.7528223991394
       Align = alClient
       OnMouseDown = GLSceneViewer1MouseDown
       OnMouseMove = GLSceneViewer1MouseMove
@@ -53,7 +48,7 @@ object f_moon: Tf_moon
   end
   object GLScene1: TGLScene
     ObjectsSorting = osNone
-    left = 49
+    left = 48
     top = 16
     object BaseCube: TGLDummyCube
       TagFloat = 0
@@ -1065,8 +1060,8 @@ object f_moon: Tf_moon
     end
   end
   object GLMaterialLibrary1: TGLMaterialLibrary
-    left = 49
-    top = 77
+    left = 48
+    top = 76
   end
   object GLMultiMaterialLibrary: TGLMaterialLibrary
     Materials = <    
@@ -1124,22 +1119,22 @@ object f_moon: Tf_moon
         Material.Texture.BorderColor.Alpha = 0
         Shader = GLMultiMaterialShader
       end>
-    left = 49
-    top = 137
+    left = 48
+    top = 136
   end
   object GLMultiMaterialShader: TGLMultiMaterialShader
     MaterialLibrary = GLMaterialLibrary1
     VisibleAtDesignTime = False
     ShaderStyle = ssReplace
-    left = 49
-    top = 203
+    left = 48
+    top = 201
   end
   object RefreshTimer: TTimer
     Enabled = False
     Interval = 200
     OnTimer = RefreshTimerTimer
-    left = 49
-    top = 270
+    left = 48
+    top = 267
   end
   object RotationCadencer: TGLCadencer
     Scene = GLScene1
@@ -1148,8 +1143,8 @@ object f_moon: Tf_moon
     MinDeltaTime = 0
     FixedDeltaTime = 0
     OnProgress = RotationCadencerProgress
-    left = 129
-    top = 89
+    left = 128
+    top = 88
   end
   object GLBumpShader1: TGLBumpShader
     BumpMethod = bmDot3TexCombiner
@@ -1159,7 +1154,7 @@ object f_moon: Tf_moon
     DesignTimeEnabled = False
     ParallaxOffset = 0.0399999991059303
     left = 40
-    top = 396
+    top = 392
   end
   object BumpMaterialLibrary: TGLMaterialLibrary
     Materials = <    
@@ -1274,13 +1269,13 @@ object f_moon: Tf_moon
         Material.Texture.Disabled = False
       end>
     left = 40
-    top = 461
+    top = 456
   end
   object GLBitmapFont1: TGLWindowsBitmapFont
     Font.Color = clWhite
     Font.Height = -11
     Font.Name = 'Default'
-    left = 129
+    left = 128
     top = 16
   end
   object PerfCadencer: TGLCadencer
@@ -1290,7 +1285,7 @@ object f_moon: Tf_moon
     MinDeltaTime = 0
     FixedDeltaTime = 0
     OnProgress = PerfCadencerProgress
-    left = 129
-    top = 146
+    left = 128
+    top = 144
   end
 end

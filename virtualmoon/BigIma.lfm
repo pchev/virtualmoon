@@ -6,8 +6,7 @@ object BigImaForm: TBigImaForm
   Caption = 'Taille réelle'
   ClientHeight = 407
   ClientWidth = 615
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  DesignTimePPI = 95
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
@@ -28,7 +27,7 @@ object BigImaForm: TBigImaForm
     Width = 615
     AutoSize = True
     ButtonHeight = 21
-    ButtonWidth = 61
+    ButtonWidth = 60
     ParentShowHint = False
     ShowCaptions = True
     ShowHint = True
@@ -44,31 +43,29 @@ object BigImaForm: TBigImaForm
       OnClick = ToolButton1Click
     end
     object ToolButton2: TToolButton
-      Left = 62
+      Left = 61
       Top = 2
       Caption = 'Zoom +'
       ImageIndex = 1
       OnClick = ToolButton2Click
     end
     object ToolButton3: TToolButton
-      Left = 123
+      Left = 121
       Top = 2
       Caption = '   Zoom -    '
       ImageIndex = 2
       OnClick = ToolButton3Click
     end
     object Label1: TLabel
-      Left = 185
+      Left = 198
       Height = 21
       Top = 2
       Width = 27
       AutoSize = False
       Caption = 'Label1'
-      Font.Height = -11
-      Font.Name = 'Arial'
+      Color = clDefault
       Layout = tlCenter
-      ParentColor = False
-      ParentFont = False
+      Transparent = False
     end
   end
   object Timer1: TTimer
