@@ -130,6 +130,7 @@ type
     ToolButton13: TToolButton;
     ToolButton14: TToolButton;
     ButtonWeblun: TToolButton;
+    ToolButton15: TToolButton;
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
@@ -3936,6 +3937,7 @@ begin
     SpeedButton8.Caption:='>';
     PageControl1.Width:=ToolsWidth;
   end;
+  FormResize(Sender);
 end;
 
 
@@ -4005,11 +4007,9 @@ begin
     exit;
   if csLoading in ComponentState then
     exit;
-  if ToolsWidth<250 then ToolsWidth:=250;
-  PageControl1.width:=ToolsWidth;
   if PanelMoon2.Visible then begin
     dx:=ClientWidth-Splitter2.Width;
-    if not FullScreen then dx:=dx-ToolsWidth-Splitter1.Width;
+    if not FullScreen then dx:=dx-PageControl1.Width-Splitter1.Width;
     w1:=round(SplitSize*dx);
     w2:=dx-w1;
     PanelMoon.Width:=w1;
