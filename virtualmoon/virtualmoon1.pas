@@ -128,10 +128,12 @@ type
     Splitter2: TSplitter;
     StartTimer: TTimer;
     ResizeTimer: TTimer;
+    ToolBar3: TToolBar;
     ToolButton13: TToolButton;
     ToolButton14: TToolButton;
     ButtonWeblun: TToolButton;
     ToolButton15: TToolButton;
+    ToolButton16: TToolButton;
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
@@ -350,6 +352,7 @@ type
     procedure ToolButton12Click(Sender: TObject);
     procedure ToolButton14Click(Sender: TObject);
     procedure ButtonWeblunClick(Sender: TObject);
+    procedure ToolButton16Click(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
@@ -3945,6 +3948,15 @@ begin
   FormResize(Sender);
 end;
 
+procedure TForm1.ToolButton16Click(Sender: TObject);
+begin
+  savedialog1.DefaultExt := '.txt';
+  savedialog1.Filter     := 'Text file|*.txt';
+  savedialog1.FileName   := 'terminator.txt';
+  if SaveDialog1.Execute then begin
+     ListBox1.Items.SaveToFile(SaveDialog1.FileName);
+  end;
+end;
 
 procedure TForm1.Splitter1Moved(Sender: TObject);
 begin
