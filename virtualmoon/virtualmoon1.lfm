@@ -26,6 +26,7 @@ object Form1: TForm1
   OnKeyUp = FormKeyUp
   OnResize = FormResize
   OnShow = FormShow
+  LCLVersion = '1.8.4.0'
   Visible = False
   object PanelMoon2: TPanel
     Left = 0
@@ -175,7 +176,7 @@ object Form1: TForm1
       Left = 396
       Height = 31
       Top = 2
-      Width = 507
+      Width = 579
       Align = alNone
       ButtonHeight = 30
       ButtonWidth = 30
@@ -262,28 +263,28 @@ object Form1: TForm1
         Style = tbsCheck
       end
       object ToolButton10: TToolButton
-        Left = 309
+        Left = 396
         Top = 0
         Caption = 'Voisinage'
         ImageIndex = 12
         OnClick = ToolButton10Click
       end
       object ToolButton7: TToolButton
-        Left = 339
+        Left = 426
         Top = 0
         Caption = 'Image'
         ImageIndex = 5
         OnClick = ToolButton7Click
       end
       object ButtonDatabase: TToolButton
-        Left = 369
+        Left = 456
         Top = 0
         Caption = 'Database'
         ImageIndex = 6
         OnClick = DataBase1Click
       end
       object NewWindowButton: TToolButton
-        Left = 429
+        Left = 516
         Top = 0
         Caption = 'Window 2'
         ImageIndex = 0
@@ -299,7 +300,7 @@ object Form1: TForm1
         Style = tbsCheck
       end
       object ToolButton13: TToolButton
-        Left = 459
+        Left = 546
         Top = 0
         Caption = 'ToolButton13'
         ImageIndex = 15
@@ -314,11 +315,31 @@ object Form1: TForm1
         Style = tbsCheck
       end
       object ButtonWeblun: TToolButton
-        Left = 399
+        Left = 486
         Top = 0
         Caption = 'ButtonWeblun'
         ImageIndex = 17
         OnClick = ButtonWeblunClick
+      end
+      object TrackBar9: TTrackBar
+        Left = 309
+        Height = 41
+        Top = 0
+        Width = 87
+        Max = 1000
+        Min = 100
+        OnChange = TrackBar9Change
+        PageSize = 100
+        Position = 100
+        Reversed = True
+        ShowSelRange = False
+        TickMarks = tmTopLeft
+        TickStyle = tsNone
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 0
       end
     end
     object SpeedButton8: TSpeedButton
@@ -1048,7 +1069,7 @@ object Form1: TForm1
           ParentFont = False
         end
         object UpDown1: TUpDown
-          Left = 71
+          Left = 72
           Height = 21
           Top = 4
           Width = 13
@@ -1061,7 +1082,7 @@ object Form1: TForm1
           Wrap = False
         end
         object UpDown2: TUpDown
-          Left = 112
+          Left = 113
           Height = 21
           Top = 4
           Width = 13
@@ -1073,7 +1094,7 @@ object Form1: TForm1
           Wrap = True
         end
         object UpDown3: TUpDown
-          Left = 153
+          Left = 155
           Height = 21
           Top = 4
           Width = 13
@@ -1085,7 +1106,7 @@ object Form1: TForm1
           Wrap = True
         end
         object UpDown4: TUpDown
-          Left = 68
+          Left = 69
           Height = 21
           Top = 36
           Width = 13
@@ -1097,7 +1118,7 @@ object Form1: TForm1
           Wrap = True
         end
         object UpDown5: TUpDown
-          Left = 112
+          Left = 113
           Height = 21
           Top = 36
           Width = 13
@@ -1109,7 +1130,7 @@ object Form1: TForm1
           Wrap = True
         end
         object UpDown6: TUpDown
-          Left = 153
+          Left = 155
           Height = 21
           Top = 36
           Width = 13
@@ -1753,9 +1774,9 @@ object Form1: TForm1
           Text = '10'
         end
         object trackdelay: TUpDown
-          Left = 111
+          Left = 112
           Height = 21
-          Top = 130
+          Top = 131
           Width = 13
           Associate = Edit5
           Max = 60

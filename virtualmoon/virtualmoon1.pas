@@ -135,6 +135,7 @@ type
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
+    TrackBar9: TTrackBar;
     trackdelay: TUpDown;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
@@ -383,6 +384,7 @@ type
     procedure TrackBar6Change(Sender: TObject);
     procedure TrackBar7Change(Sender: TObject);
     procedure TrackBar8Change(Sender: TObject);
+    procedure TrackBar9Change(Sender: TObject);
     procedure x21Click(Sender: TObject);
     procedure x41Click(Sender: TObject);
     procedure Button12MouseUp(Sender: TObject; Button: TMouseButton;
@@ -1078,6 +1080,7 @@ begin
     AutolabelColor := ReadInteger(section, 'AutolabelColor', AutolabelColor);
     gridspacing := ReadInteger(section, 'GridSpacing', gridspacing);
     LabelDensity := ReadInteger(section, 'LabelDensity', LabelDensity);
+    TrackBar9.Position:=LabelDensity;
     marksize     := ReadInteger(section, 'MarkSize', marksize);
     labelcenter  := ReadBool(section, 'LabelCenter', labelcenter);
     minilabel    := ReadBool(section, 'MiniLabel', minilabel);
@@ -3759,6 +3762,7 @@ begin
       marklabelcolor    := form2.Shape1.Brush.Color;
       autolabelcolor := form2.Shape3.Brush.Color;
       LabelDensity  := abs(form2.TrackBar2.Position);
+      TrackBar9.Position:=LabelDensity;
       marksize      := form2.TrackBar4.Position;
       showlabel     := form2.checkbox5.Checked;
       showmark      := form2.checkbox6.Checked;
@@ -4615,6 +4619,12 @@ end;
 procedure TForm1.TrackBar8Change(Sender: TObject);
 begin
   activemoon.SatViewDistance:=TrackBar8.Position/4;
+end;
+
+procedure TForm1.TrackBar9Change(Sender: TObject);
+begin
+ LabelDensity:=TrackBar9.Position;
+ activemoon.RefreshAll;
 end;
 
 procedure TForm1.ComboBox2Change(Sender: TObject);
