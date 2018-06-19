@@ -598,6 +598,8 @@ var
   dblox, dbnotes: TMlb2;
   Fplanet: TPlanet;
 
+const MinToolsWidth=350;
+
 implementation
 
 {$R virtualmoon1.lfm}
@@ -1092,7 +1094,7 @@ begin
     GridButton.Down:= ReadBool(section, 'Grid', False);
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
-    if ToolsWidth<250 then ToolsWidth:=250;
+    if ToolsWidth<MinToolsWidth then ToolsWidth:=MinToolsWidth;
     PageControl1.Width:=ToolsWidth;
     i := ReadInteger(section, 'Top', 10);
     if (i >= -10) and (i < screen.Height - 30) then
@@ -3961,7 +3963,10 @@ end;
 procedure TForm1.Splitter1Moved(Sender: TObject);
 begin
  ToolsWidth:=PageControl1.Width;
- if ToolsWidth<250 then ToolsWidth:=250;
+ if ToolsWidth<MinToolsWidth then begin
+    ToolsWidth:=MinToolsWidth;
+    PageControl1.Width:=ToolsWidth;
+ end;
  FormResize(Sender);
 end;
 

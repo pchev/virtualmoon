@@ -9,7 +9,6 @@ object f_features: Tf_features
   ClientHeight = 309
   ClientWidth = 410
   Color = clWindow
-  DesignTimePPI = 95
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   OnShow = FormShow
@@ -20,34 +19,41 @@ object f_features: Tf_features
     Top = 8
     Width = 1
     Color = clWindow
+    ParentColor = False
+    ParentFont = False
     Transparent = False
   end
   object Memo1: TMemo
     Left = 16
-    Height = 224
+    Height = 226
     Top = 32
-    Width = 372
+    Width = 376
     Color = clWindow
+    ParentFont = False
     ReadOnly = True
     ScrollBars = ssAutoVertical
     TabOrder = 0
   end
   object Button1: TSpeedButton
-    Left = 79
+    Left = 80
     Height = 25
-    Top = 269
-    Width = 104
+    Top = 272
+    Width = 105
     Caption = 'Button1'
     Flat = True
+    Transparent = False
     OnClick = Button1Click
+    ParentFont = False
   end
   object Button2: TSpeedButton
-    Left = 222
+    Left = 224
     Height = 25
-    Top = 269
-    Width = 104
+    Top = 272
+    Width = 105
     Caption = 'Button2'
     Flat = True
+    Transparent = False
     OnClick = Button2Click
+    ParentFont = False
   end
 end

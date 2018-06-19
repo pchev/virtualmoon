@@ -2,35 +2,37 @@ object MsgForm: TMsgForm
   Left = 265
   Height = 75
   Top = 112
-  Width = 281
+  Width = 286
   ActiveControl = Panel1
   BorderIcons = []
   BorderStyle = bsNone
   Caption = 'MsgForm'
   ClientHeight = 75
-  ClientWidth = 281
+  ClientWidth = 286
   Color = clRed
-  DesignTimePPI = 95
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   Position = poScreenCenter
   Visible = False
   object Panel1: TPanel
     Left = 8
-    Height = 58
+    Height = 59
     Top = 8
-    Width = 262
-    ClientHeight = 58
-    ClientWidth = 262
+    Width = 272
+    ClientHeight = 59
+    ClientWidth = 272
     ParentColor = False
+    ParentFont = False
     TabOrder = 0
     object Label1: TLabel
-      Left = 0
+      Left = 8
       Height = 45
       Top = 8
-      Width = 254
+      Width = 257
       AutoSize = False
       Color = clDefault
+      ParentColor = False
+      ParentFont = False
       Transparent = False
       WordWrap = True
     end
