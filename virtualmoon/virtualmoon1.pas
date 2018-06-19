@@ -4723,6 +4723,7 @@ end;
 
 procedure TForm1.Position1Click(Sender: TObject);
 begin
+  if PageControl1.Width<=1 then SpeedButton8Click(Sender);
   Pagecontrol1.ActivePage := Position;
   PageControl1Change(Sender);
   combobox1.SetFocus;
@@ -4749,6 +4750,7 @@ end;
 
 procedure TForm1.Notes1Click(Sender: TObject);
 begin
+  if PageControl1.Width<=1 then SpeedButton8Click(Sender);
   Pagecontrol1.ActivePage := Notes;
   PageControl1Change(Sender);
 end;
@@ -4847,6 +4849,7 @@ end;
 
 procedure TForm1.Distance1Click(Sender: TObject);
 begin
+  if PageControl1.Width<=1 then SpeedButton8Click(Sender);
   Pagecontrol1.ActivePage := Outils;
   PageControl1Change(Sender);
   Button11.Caption  := rsm_53;

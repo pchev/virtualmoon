@@ -2524,7 +2524,7 @@ object Form1: TForm1
   object PopupMenu1: TPopupMenu
     AutoPopup = False
     OnPopup = PopupMenu1Popup
-    left = 95
+    left = 96
     top = 63
     object Position1: TMenuItem
       Caption = 'Position'
