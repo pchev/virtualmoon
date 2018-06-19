@@ -65,6 +65,7 @@ type
     ComboBox6: TComboBox;
     Desc1:   TIpHtmlPanel;
     Edit5: TEdit;
+    Edit6: TEdit;
     FilePopup: TPopupMenu;
     DoNotRemove: TGLSceneViewer;
     HelpPopup: TPopupMenu;
@@ -321,6 +322,7 @@ type
     procedure CheckBox3Click(Sender: TObject);
     procedure CheckBox4Click(Sender: TObject);
     procedure ComboBox6Change(Sender: TObject);
+    procedure Edit6EditingDone(Sender: TObject);
     procedure FullScreen1Click(Sender: TObject);
     procedure GridButtonClick(Sender: TObject);
     procedure Desc1HotClick(Sender: TObject);
@@ -356,7 +358,7 @@ type
     procedure ToolButton8Click(Sender: TObject);
     procedure Apropos1Click(Sender: TObject);
     procedure ToolButton9Click(Sender: TObject);
-    procedure Edit1KeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure ComboBox1KeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure TrackBar2Change(Sender: TObject);
     procedure TrackBar3Change(Sender: TObject);
     procedure TrackBar4Change(Sender: TObject);
@@ -1085,7 +1087,7 @@ begin
     GridButton.Down:= ReadBool(section, 'Grid', False);
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
-    if ToolsWidth<100 then ToolsWidth:=100;
+    if ToolsWidth<250 then ToolsWidth:=250;
     PageControl1.Width:=ToolsWidth;
     i := ReadInteger(section, 'Top', 10);
     if (i >= -10) and (i < screen.Height - 30) then
@@ -2842,13 +2844,18 @@ end;
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   Firstsearch := True;
-  SearchText  := Combobox1.Text;
+  SearchText  := Edit6.Text;
   SearchName(SearchText, True);
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   SearchName(SearchText, True);
+end;
+
+procedure TForm1.Edit6EditingDone(Sender: TObject);
+begin
+  Button1Click(Sender);
 end;
 
 procedure TForm1.DecreaseFont1Click(Sender: TObject);
@@ -3929,7 +3936,7 @@ end;
 
 procedure TForm1.SpeedButton8Click(Sender: TObject);
 begin
-  if PageControl1.Width>0 then begin
+  if PageControl1.Width>1 then begin
     SpeedButton8.Caption:='<';
     PageControl1.Width:=0
   end
@@ -4421,10 +4428,10 @@ begin
   activemoon.Zoom:=1;
 end;
 
-procedure TForm1.Edit1KeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+procedure TForm1.ComboBox1KeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
   if key = 13 then
-    button1.Click;  //Enter
+    ComboBox1Select(Sender);  //Enter
 end;
 
 
@@ -5491,8 +5498,8 @@ if moon2=nil then begin
 end;
 if NewWindowButton.Down then begin
   SplitSize:=0.5;
-  PanelMoon2.Width:=PanelMoon.Width div 2;
   Splitter2.Visible:=true;
+  PanelMoon2.Width:=PanelMoon.Width div 2;
   PanelMoon2.Visible:=true;
   moon2.GLSceneViewer1.Visible:=true;
   wantbump:=false;
