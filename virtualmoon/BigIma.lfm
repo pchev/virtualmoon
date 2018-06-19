@@ -39,25 +39,22 @@ object BigImaForm: TBigImaForm
       Left = 1
       Top = 2
       Caption = 'Close'
-      ImageIndex = 0
       OnClick = ToolButton1Click
     end
     object ToolButton2: TToolButton
       Left = 61
       Top = 2
       Caption = 'Zoom +'
-      ImageIndex = 1
       OnClick = ToolButton2Click
     end
     object ToolButton3: TToolButton
-      Left = 121
+      Left = 122
       Top = 2
       Caption = '   Zoom -    '
-      ImageIndex = 2
       OnClick = ToolButton3Click
     end
     object Label1: TLabel
-      Left = 198
+      Left = 205
       Height = 21
       Top = 2
       Width = 27
@@ -65,6 +62,7 @@ object BigImaForm: TBigImaForm
       Caption = 'Label1'
       Color = clDefault
       Layout = tlCenter
+      ParentColor = False
       Transparent = False
     end
   end
