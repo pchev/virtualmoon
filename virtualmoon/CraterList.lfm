@@ -15,7 +15,7 @@ object f_craterlist: Tf_craterlist
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   Position = poDefaultPosOnly
-  LCLVersion = '0.9.30.1'
+  Visible = False
   object CraterLst: TListBox
     Left = 0
     Height = 299
@@ -25,6 +25,5 @@ object f_craterlist: Tf_craterlist
     ItemHeight = 0
     OnMouseUp = CraterLstMouseUp
     TabOrder = 0
-    TopIndex = -1
   end
-end
+end

@@ -49,12 +49,12 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Button12: TButton;
-    Button13: TButton;
-    Button16: TButton;
-    Button17: TButton;
-    Button18: TButton;
-    Button21: TButton;
+    Button12: TSpeedButton;
+    Button13: TSpeedButton;
+    Button16: TSpeedButton;
+    Button17: TSpeedButton;
+    Button18: TSpeedButton;
+    Button21: TSpeedButton;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
@@ -104,8 +104,8 @@ type
     PageControl1: TPageControl;
     Position: TTabSheet;
     Panel1:  TPanel;
-    Button1: TButton;
-    Button2: TButton;
+    Button1: TSpeedButton;
+    Button2: TSpeedButton;
     Ephemerides: TTabSheet;
     Panel4:  TPanel;
     Label6:  TLabel;
@@ -117,10 +117,11 @@ type
     seconde: TLongEdit;
     minute:  TLongEdit;
     heure:   TLongEdit;
-    Button4: TButton;
-    Button5: TButton;
+    Button4: TSpeedButton;
+    Button5: TSpeedButton;
     Apropos1: TMenuItem;
     SpeedButton7: TSpeedButton;
+    SpeedButton8: TSpeedButton;
     Splitter1: TSplitter;
     GridButton: TToolButton;
     Splitter2: TSplitter;
@@ -179,7 +180,7 @@ type
     Outils:  TTabSheet;
     Bevel4:  TBevel;
     Label23: TLabel;
-    Button11: TButton;
+    Button11: TSpeedButton;
     Edit1:   TEdit;
     Edit2:   TEdit;
     Label24: TLabel;
@@ -218,14 +219,14 @@ type
     dbtab:   TTabSheet;
     StringGrid2: TStringGrid;
     Panel6:  TPanel;
-    Button9: TButton;
+    Button9: TSpeedButton;
     Edit3:   TEdit;
     Edit4:   TEdit;
     Label1:  TLabel;
     Label2:  TLabel;
     Label3:  TLabel;
-    Enregistredist: TButton;
-    btnEffacer: TButton;
+    Enregistredist: TSpeedButton;
+    btnEffacer: TSpeedButton;
     ToolButton3: TToolButton;
     BMP15001: TMenuItem;
     Eyepiece1: TMenuItem;
@@ -257,7 +258,7 @@ type
     Memo1:   TMemo;
     Panel7:  TPanel;
     notes_name: TLabel;
-    Button15: TButton;
+    Button15: TSpeedButton;
     Notes1:  TMenuItem;
     Panel8:  TPanel;
     Label13: TLabel;
@@ -301,13 +302,13 @@ type
     Snapshot1: TMenuItem;
     LibrationButton: TToolButton;
     PhaseButton: TToolButton;
-    Button10: TButton;
+    Button10: TSpeedButton;
     DataBase1: TMenuItem;
     N4:      TMenuItem;
     ToolButton4: TToolButton;
     ToolButton6: TToolButton;
-    Button19: TButton;
-    Button20: TButton;
+    Button19: TSpeedButton;
+    Button20: TSpeedButton;
     ToolButton11: TToolButton;
     RemoveMark1: TMenuItem;
     ButtonDatabase: TToolButton;
@@ -338,6 +339,7 @@ type
     procedure ResizeTimerTimer(Sender: TObject);
     procedure SaveEphemClick(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
+    procedure SpeedButton8Click(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
     procedure Splitter2Moved(Sender: TObject);
     procedure StartTimerTimer(Sender: TObject);
@@ -3268,11 +3270,6 @@ begin
   UniqueInstance1.OnInstanceRunning:=InstanceRunning;
   UniqueInstance1.Enabled:=true;
   UniqueInstance1.Loaded;
-  ToolsWidth:=340;
-  {$ifdef mswindows}
-  ScaleForm(self,Screen.PixelsPerInch/96);
-  ToolsWidth:=round(ToolsWidth*Screen.PixelsPerInch/96);
-  {$endif}
   PageControl1.ActivePageIndex:=0;
   PageControl1.Align:=alRight;
   Splitter1.Align:=alRight;
@@ -3923,10 +3920,23 @@ end;
  screen.cursor := crdefault;
 end;
 
+procedure TForm1.SpeedButton8Click(Sender: TObject);
+begin
+  if PageControl1.Width>0 then begin
+    SpeedButton8.Caption:='<';
+    PageControl1.Width:=0
+  end
+  else begin
+    SpeedButton8.Caption:='>';
+    PageControl1.Width:=ToolsWidth;
+  end;
+end;
+
+
 procedure TForm1.Splitter1Moved(Sender: TObject);
 begin
  ToolsWidth:=PageControl1.Width;
- if ToolsWidth<100 then ToolsWidth:=100;
+ if ToolsWidth<250 then ToolsWidth:=250;
  FormResize(Sender);
 end;
 
@@ -3989,7 +3999,7 @@ begin
     exit;
   if csLoading in ComponentState then
     exit;
-  if ToolsWidth<100 then ToolsWidth:=100;
+  if ToolsWidth<250 then ToolsWidth:=250;
   PageControl1.width:=ToolsWidth;
   if PanelMoon2.Visible then begin
     dx:=ClientWidth-Splitter2.Width;

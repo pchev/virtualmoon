@@ -455,9 +455,6 @@ begin
   bt.OnClick:=RadioButtonLvClick;
 end;
 begin
-{$ifdef mswindows}
- ScaleForm(self,Screen.PixelsPerInch/96);
-{$endif}
 ov:=Tbitmap.Create;
 lockoverlay:=false;
 locktexture:=false;

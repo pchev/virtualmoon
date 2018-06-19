@@ -344,9 +344,6 @@ end;
 
 procedure TGloss.FormCreate(Sender: TObject);
 begin
-{$ifdef mswindows}
-  ScaleForm(self, Screen.PixelsPerInch / 96);
-{$endif}
   dbgloss := TMlb2.Create;
 	InitAlphaButtons;
   InitGlossary;

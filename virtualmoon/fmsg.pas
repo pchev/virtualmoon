@@ -53,9 +53,6 @@ implementation
 
 procedure TMsgForm.FormCreate(Sender: TObject);
 begin
-{$ifdef mswindows}
- ScaleForm(self,Screen.PixelsPerInch/96);
-{$endif}
 end;
 
 end.

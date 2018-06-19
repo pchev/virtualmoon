@@ -13,7 +13,6 @@ object BigImaForm: TBigImaForm
   OnKeyPress = FormKeyPress
   OnMouseWheel = FormMouseWheel
   OnShow = FormShow
-  LCLVersion = '1.8.0.4'
   Visible = False
   object Image1: TImage
     Left = 0

@@ -78,9 +78,6 @@ end;
 
 procedure Tf_craterlist.FormCreate(Sender: TObject);
 begin
-{$ifdef mswindows}
- ScaleForm(self,Screen.PixelsPerInch/96);
-{$endif}
 end;
 
 procedure Tf_craterlist.FormKeyUp(Sender: TObject; var Key: Word;
@@ -89,4 +86,4 @@ begin
 if key=27 then close;
 end;
 
-end.
+end.

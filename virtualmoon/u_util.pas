@@ -110,11 +110,6 @@ function SafeUTF8ToSys(v:string):string;
 function ExecFork(cmd:string;p1:string='';p2:string='';p3:string='';p4:string='';p5:string=''):integer;
 function CdcSigAction(const action: pointer):boolean;
 {$endif}
-{$ifdef mswindows}
-procedure ScaleForm(form: TForm; scale: single);
-function FindWin98: boolean;
-function ScreenBPP: integer;
-{$endif}
 function remext(fn:string):string;
 Function testfloat(s:string):double;
 function capitalize(txt:string):string;
@@ -1656,57 +1651,6 @@ Procedure PrtGrid(Grid:TStringGrid; PrtTitle, PrtText, PrtTextDate:string; orien
   end;
   FreeMem(Cols,Grid.ColCount*SizeOf(Integer));
  end;
-
-{$ifdef mswindows}
-function FindWin98: boolean;
-var lpversioninfo: TOSVERSIONINFO;
-begin
-lpversioninfo.dwOSVersionInfoSize:=sizeof(TOSVERSIONINFO);
-if GetVersionEx(lpversioninfo) then begin
-   result:=lpversioninfo.dwMajorVersion<=4;
-end
-else
- result:=false;
-end;
-
-function ScreenBPP: integer;
-var screendc: HDC;
-begin
-screendc:=GetDC(0);
-result:=GetDeviceCaps(screendc,BITSPIXEL);
-ReleaseDC(0,screendc);
-end;
-
-procedure ScaleForm(form: TForm; scale: single);
-var i,j: integer;
-    w: array of integer;
-begin
-if scale<=0 then exit; // must not arise but we don't know what a strange screen can do
-if scale>3 then exit; // >288 dpi! sure?
-if abs(1-scale)<=0.1 then exit; // do not scale for 10%
-with form do begin
-   width := round( width * scale );
-   height := round( height * scale );
-   for i := 0 to ComponentCount-1 do begin
-      if ( Components[i] is TControl ) then with (Components[i] as TControl) do begin
-         width := round( width * scale );
-         height := round( height * scale );
-         top := round( top * scale );
-         left := round( left * scale );
-      end;
-      if ( Components[i] is TStringGrid ) then with (Components[i] as TStringGrid) do begin
-        SetLength(w,ColCount);
-        for j:=0 to ColCount-1 do w[j]:=round( ColWidths[j]*scale );
-        DefaultColWidth:=round( DefaultColWidth*scale );
-        DefaultRowHeight:=round( DefaultRowHeight*scale );
-        for j:=0 to ColCount-1 do begin
-          ColWidths[j]:=w[j];
-        end;
-      end;
-   end;
-end;
-end;
-{$endif}
 
 procedure GetTranslationString(form: TForm; var f: textfile);
 var i,j: integer;

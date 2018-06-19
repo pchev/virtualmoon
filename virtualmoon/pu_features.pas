@@ -73,9 +73,6 @@ end;
 
 procedure Tf_features.FormCreate(Sender: TObject);
 begin
-{$ifdef mswindows}
- ScaleForm(self,Screen.PixelsPerInch/96);
-{$endif}
 end;
 
 function Tf_features.CheckOptionalFeature(optlist:Tstrings): boolean;
@@ -93,4 +90,4 @@ end;
 end;
 
 end.
-
+

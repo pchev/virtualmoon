@@ -3,27 +3,29 @@ object f_ephem: Tf_ephem
   Height = 240
   Top = 99
   Width = 320
+  ActiveControl = annee
   Caption = 'f_ephem'
   ClientHeight = 240
   ClientWidth = 320
-  DesignTimePPI = 95
+  Color = clWindow
   OnCreate = FormCreate
   Visible = False
   object Label9: TLabel
     Left = 16
-    Height = 17
+    Height = 15
     Top = 12
-    Width = 66
+    Width = 51
     Caption = 'Start Date'
-    ParentColor = False
-    ParentFont = False
+    Color = clWindow
+    Transparent = False
   end
   object annee: TLongEdit
-    Left = 110
-    Height = 29
+    Left = 111
+    Height = 23
     Hint = '-2999..2999'
     Top = 8
     Width = 45
+    ParentColor = True
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
@@ -32,8 +34,8 @@ object f_ephem: Tf_ephem
     MaxValue = 2999
   end
   object UpDown1: TUpDown
-    Left = 155
-    Height = 29
+    Left = 156
+    Height = 23
     Top = 8
     Width = 13
     Associate = annee
@@ -45,11 +47,12 @@ object f_ephem: Tf_ephem
     Wrap = False
   end
   object mois: TLongEdit
-    Left = 166
-    Height = 29
+    Left = 168
+    Height = 23
     Hint = '0..12'
     Top = 8
     Width = 28
+    ParentColor = True
     ParentShowHint = False
     ShowHint = True
     TabOrder = 2
@@ -57,8 +60,8 @@ object f_ephem: Tf_ephem
     MaxValue = 12
   end
   object UpDown2: TUpDown
-    Left = 194
-    Height = 29
+    Left = 196
+    Height = 23
     Top = 8
     Width = 13
     Associate = mois
@@ -69,11 +72,12 @@ object f_ephem: Tf_ephem
     Wrap = True
   end
   object jour: TLongEdit
-    Left = 208
-    Height = 29
+    Left = 210
+    Height = 23
     Hint = '0..31'
     Top = 8
     Width = 28
+    ParentColor = True
     ParentShowHint = False
     ShowHint = True
     TabOrder = 4
@@ -81,8 +85,8 @@ object f_ephem: Tf_ephem
     MaxValue = 31
   end
   object UpDown3: TUpDown
-    Left = 236
-    Height = 29
+    Left = 238
+    Height = 23
     Top = 8
     Width = 13
     Associate = jour
@@ -94,19 +98,20 @@ object f_ephem: Tf_ephem
   end
   object Label10: TLabel
     Left = 16
-    Height = 17
-    Top = 56
-    Width = 59
+    Height = 15
+    Top = 57
+    Width = 47
     Caption = 'End Date'
-    ParentColor = False
-    ParentFont = False
+    Color = clWindow
+    Transparent = False
   end
   object annee1: TLongEdit
-    Left = 110
-    Height = 29
+    Left = 111
+    Height = 23
     Hint = '-2999..2999'
-    Top = 52
+    Top = 53
     Width = 45
+    ParentColor = True
     ParentShowHint = False
     ShowHint = True
     TabOrder = 6
@@ -115,9 +120,9 @@ object f_ephem: Tf_ephem
     MaxValue = 2999
   end
   object UpDown4: TUpDown
-    Left = 155
-    Height = 29
-    Top = 52
+    Left = 156
+    Height = 23
+    Top = 53
     Width = 13
     Associate = annee1
     Max = 2999
@@ -128,11 +133,12 @@ object f_ephem: Tf_ephem
     Wrap = False
   end
   object mois1: TLongEdit
-    Left = 166
-    Height = 29
+    Left = 168
+    Height = 23
     Hint = '0..12'
-    Top = 52
+    Top = 53
     Width = 28
+    ParentColor = True
     ParentShowHint = False
     ShowHint = True
     TabOrder = 8
@@ -140,9 +146,9 @@ object f_ephem: Tf_ephem
     MaxValue = 12
   end
   object UpDown5: TUpDown
-    Left = 194
-    Height = 29
-    Top = 52
+    Left = 196
+    Height = 23
+    Top = 53
     Width = 13
     Associate = mois1
     Max = 12
@@ -152,11 +158,12 @@ object f_ephem: Tf_ephem
     Wrap = True
   end
   object jour1: TLongEdit
-    Left = 208
-    Height = 29
+    Left = 210
+    Height = 23
     Hint = '0..31'
-    Top = 52
+    Top = 53
     Width = 28
+    ParentColor = True
     ParentShowHint = False
     ShowHint = True
     TabOrder = 10
@@ -164,9 +171,9 @@ object f_ephem: Tf_ephem
     MaxValue = 31
   end
   object UpDown6: TUpDown
-    Left = 236
-    Height = 29
-    Top = 52
+    Left = 238
+    Height = 23
+    Top = 53
     Width = 13
     Associate = jour1
     Max = 31
@@ -176,11 +183,12 @@ object f_ephem: Tf_ephem
     Wrap = True
   end
   object step: TLongEdit
-    Left = 110
-    Height = 29
+    Left = 111
+    Height = 23
     Hint = '1..999999'
-    Top = 92
-    Width = 56
+    Top = 93
+    Width = 57
+    ParentColor = True
     ParentShowHint = False
     ShowHint = True
     TabOrder = 12
@@ -188,61 +196,63 @@ object f_ephem: Tf_ephem
     MinValue = 1
     MaxValue = 999999
   end
-  object Compute1: TButton
-    Left = 232
+  object Compute1: TSpeedButton
+    Left = 234
     Height = 25
-    Top = 192
-    Width = 75
+    Top = 194
+    Width = 76
     Caption = 'Compute'
-    Default = True
+    Flat = True
     OnClick = Compute1Click
-    TabOrder = 13
   end
   object FileNameEdit1: TFileNameEdit
-    Left = 110
-    Height = 29
-    Top = 136
-    Width = 176
+    Left = 111
+    Height = 23
+    Top = 137
+    Width = 178
     DialogOptions = []
     FilterIndex = 0
     HideDirectories = False
     ButtonWidth = 23
     NumGlyphs = 1
     MaxLength = 0
-    TabOrder = 14
+    ParentColor = True
+    TabOrder = 13
   end
   object Label1: TLabel
     Left = 16
-    Height = 17
-    Top = 95
-    Width = 29
+    Height = 15
+    Top = 96
+    Width = 23
     Caption = 'Step'
-    ParentColor = False
+    Color = clWindow
+    Transparent = False
   end
   object Label2: TLabel
-    Left = 178
-    Height = 17
-    Top = 95
-    Width = 38
+    Left = 180
+    Height = 15
+    Top = 96
+    Width = 32
     Caption = 'Hours'
     ParentColor = False
+    ParentFont = False
   end
   object Label3: TLabel
     Left = 15
-    Height = 17
-    Top = 139
-    Width = 22
+    Height = 15
+    Top = 140
+    Width = 18
     Caption = 'File'
-    ParentColor = False
+    Color = clWindow
+    Transparent = False
   end
-  object Button1: TButton
-    Left = 110
+  object Button1: TSpeedButton
+    Left = 111
     Height = 25
-    Top = 192
-    Width = 75
-    Cancel = True
+    Top = 194
+    Width = 76
     Caption = 'Cancel'
-    ModalResult = 2
-    TabOrder = 15
+    Flat = True
+    OnClick = Button1Click
   end
 end

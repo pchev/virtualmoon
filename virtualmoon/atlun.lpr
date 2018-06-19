@@ -16,6 +16,7 @@ uses
 {$R *.res}
 
 begin
+  Application.Scaled:=True;
   {$ifdef USEHEAPTRC}
   SetHeapTraceOutput('/tmp/vma_heap.trc');
   {$endif}

@@ -9,6 +9,7 @@ conf.sh
 Makefile
 Makefile.fpc
 Makefile.fpcxxx
+virtualmoon/atlun.lps
 # ignore build dir
 cclun/cclun
 cclun/units/
@@ -19,6 +20,7 @@ photlun/units/
 virtualmoon/atlun
 virtualmoon/units/
 virtualmoon/component/glscene/Packages/lib/
+virtualmoon/component/glscene/Locale
 virtualmoon/component/uniqueinstance/lib/
 weblun/units/
 weblun/weblun

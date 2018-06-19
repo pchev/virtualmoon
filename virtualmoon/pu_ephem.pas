@@ -15,8 +15,8 @@ type
   Tf_ephem = class(TForm)
     annee: TLongEdit;
     annee1: TLongEdit;
-    Button1: TButton;
-    Compute1: TButton;
+    Button1: TSpeedButton;
+    Compute1: TSpeedButton;
     FileNameEdit1: TFileNameEdit;
     jour: TLongEdit;
     jour1: TLongEdit;
@@ -34,6 +34,7 @@ type
     UpDown4: TUpDown;
     UpDown5: TUpDown;
     UpDown6: TUpDown;
+    procedure Button1Click(Sender: TObject);
     procedure Compute1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -218,6 +219,11 @@ begin
   ModalResult:=mrOK;
   end
   else ShowMessage('Invalid date range!');
+end;
+
+procedure Tf_ephem.Button1Click(Sender: TObject);
+begin
+  ModalResult:=mrCancel;
 end;
 
 end.

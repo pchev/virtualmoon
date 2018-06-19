@@ -10,6 +10,7 @@
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
       <Title Value="atlun"/>
+      <Scaled Value="True"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
@@ -83,7 +84,7 @@
       <local>
         <FormatVersion Value="1"/>
         <LaunchingApplication PathPlusParams="\usr\lib\wine\wine $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\home\astro\bin"/>
+        <WorkingDirectory Value="E:\VirtualMoon"/>
       </local>
     </RunParams>
     <RequiredPackages Count="9">
@@ -139,6 +140,7 @@
         <ComponentName Value="f_craterlist"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="craterlist"/>
       </Unit2>
       <Unit3>
         <Filename Value="config.pas"/>

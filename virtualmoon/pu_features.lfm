@@ -11,7 +11,7 @@ object f_features: Tf_features
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '0.9.30.1'
+  Visible = False
   object Label1: TLabel
     Left = 17
     Height = 1
@@ -46,4 +46,4 @@ object f_features: Tf_features
     ModalResult = 1
     TabOrder = 2
   end
-end
+end
