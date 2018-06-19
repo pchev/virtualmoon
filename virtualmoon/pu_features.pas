@@ -5,18 +5,19 @@ unit pu_features;
 interface
 
 uses u_translation, u_constant, u_util, Classes, SysUtils, FileUtil, LResources, Forms,
-  Controls, Graphics, Dialogs, StdCtrls;
+  Buttons, Controls, Graphics, Dialogs, StdCtrls;
 
 type
 
   { Tf_features }
 
   Tf_features = class(TForm)
-    Button1: TButton;
-    Button2: TButton;
+    Button1: TSpeedButton;
+    Button2: TSpeedButton;
     Label1: TLabel;
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
@@ -69,6 +70,11 @@ end;
 procedure Tf_features.Button1Click(Sender: TObject);
 begin
   ExecuteFile(rsDownloadURL);
+end;
+
+procedure Tf_features.Button2Click(Sender: TObject);
+begin
+  ModalResult:=mrClose;
 end;
 
 procedure Tf_features.FormCreate(Sender: TObject);

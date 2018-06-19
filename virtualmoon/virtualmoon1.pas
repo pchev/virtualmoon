@@ -343,6 +343,7 @@ type
     procedure Splitter1Moved(Sender: TObject);
     procedure Splitter2Moved(Sender: TObject);
     procedure StartTimerTimer(Sender: TObject);
+    procedure ToolButton11Click(Sender: TObject);
     procedure ToolButton12Click(Sender: TObject);
     procedure ToolButton14Click(Sender: TObject);
     procedure ButtonWeblunClick(Sender: TObject);
@@ -3607,6 +3608,11 @@ except
   end;
 end;
 screen.cursor := crDefault;
+end;
+
+procedure TForm1.ToolButton11Click(Sender: TObject);
+begin
+
 end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);

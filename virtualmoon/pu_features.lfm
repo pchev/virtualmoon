@@ -28,22 +28,22 @@ object f_features: Tf_features
     ScrollBars = ssAutoVertical
     TabOrder = 0
   end
-  object Button1: TButton
+  object Button1: TSpeedButton
     Left = 80
     Height = 25
     Top = 272
     Width = 105
     Caption = 'Button1'
+    Flat = True
     OnClick = Button1Click
-    TabOrder = 1
   end
-  object Button2: TButton
+  object Button2: TSpeedButton
     Left = 224
     Height = 25
     Top = 272
     Width = 105
     Caption = 'Button2'
-    ModalResult = 1
-    TabOrder = 2
+    Flat = True
+    OnClick = Button2Click
   end
 end

@@ -39,12 +39,12 @@ type
   { TForm2 }
 
   TForm2 = class(TForm)
-    Button1: TButton;
-    Button4: TButton;
-    Button5: TButton;
-    Button7: TButton;
-    Button8: TButton;
-    Button9: TButton;
+    Button1: TSpeedButton;
+    Button4: TSpeedButton;
+    Button5: TSpeedButton;
+    Button7: TSpeedButton;
+    Button8: TSpeedButton;
+    Button9: TSpeedButton;
     CheckBox10: TCheckBox;
     CheckBox25: TCheckBox;
     CheckBox26: TCheckBox;
@@ -137,11 +137,11 @@ type
     Label14: TLabel;
     Bevel5: TBevel;
     Bevel6: TBevel;
-    Button2: TButton;
+    Button2: TSpeedButton;
     Label15: TLabel;
     CheckBox12: TCheckBox;
     Edit4: TEdit;
-    Button3: TButton;
+    Button3: TSpeedButton;
     OpenDialog1: TOpenDialog;
     CheckBox13: TCheckBox;
     Label11: TLabel;
@@ -180,7 +180,7 @@ type
     Edit7: TEdit;
     Edit8: TEdit;
     Edit9: TEdit;
-    Button6: TButton;
+    Button6: TSpeedButton;
     Label24: TLabel;
     Label25: TLabel;
     Label26: TLabel;
@@ -214,6 +214,8 @@ type
     TrackBar5: TTrackBar;
     CheckBox24: TCheckBox;
     procedure BumpRadioGroupClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
@@ -565,6 +567,16 @@ begin
 TexturePanel.Visible:=(BumpRadioGroup.ItemIndex=0);
 TextureChanged:=true;
 if BumpRadioGroup.ItemIndex=2 then CheckBox11.Checked:=true;
+end;
+
+procedure TForm2.Button1Click(Sender: TObject);
+begin
+  ModalResult:=mrOK;
+end;
+
+procedure TForm2.Button4Click(Sender: TObject);
+begin
+  ModalResult:=mrCancel;
 end;
 
 procedure TForm2.Button7Click(Sender: TObject);

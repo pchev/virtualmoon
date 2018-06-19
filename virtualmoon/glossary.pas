@@ -29,7 +29,7 @@ uses
   Windows,
 {$endif}
   LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms, FileUtil,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, LResources, IpHtml;
+  Buttons, Dialogs, StdCtrls, ComCtrls, ExtCtrls, LResources, IpHtml;
 
 type
 
@@ -39,15 +39,15 @@ type
     alphaPanel: TPanel;
     definitionPanel: TIpHtmlPanel;
     htmlPanel: TPanel;
-    nextButton: TButton;
-    prevButton: TButton;
+    nextButton: TSpeedButton;
+    prevButton: TSpeedButton;
     buttonPanel: TPanel;
-    closeButton: TButton;
+    closeButton: TSpeedButton;
     divBevel: TBevel;
     filterEdit: TEdit;
     navPanel: TPanel;
     TreeView1: TTreeView;
-    Button2:   TButton;
+    Button2:   TSpeedButton;
     procedure buttonPanelResize(Sender: TObject);
     procedure definitionHotClick(Sender: TObject);
     procedure Label1Click(Sender: TObject);
@@ -267,8 +267,8 @@ var
   l:    string;
   tvi: TTreeNode;
 begin
-	if (Sender is TButton) then
-		l:= (Sender as TButton).Caption
+	if (Sender is TSpeedButton) then
+		l:= (Sender as TSpeedButton).Caption
 	else
 		l:= '';
 
@@ -448,11 +448,12 @@ end;
 
 procedure TGloss.CreateNewAlphaButton(aOwner: TComponent; aChar: Char; aClickEvent: TNotifyEvent);
 var
-	newBtn: TButton;
+	newBtn: TSpeedButton;
 begin
-	newBtn:= TButton.Create(aOwner);
+	newBtn:= TSpeedButton.Create(aOwner);
 	newBtn.Name:= 'alphaButton_'+aChar;
 	newBtn.Caption:=aChar;
+	newBtn.Flat:=True;
 	newBtn.Tag:=Ord(aChar);
 	newBtn.OnClick:=aClickEvent;
 	newBtn.Parent:= (aOwner as TWinControl);
@@ -481,15 +482,16 @@ procedure TGloss.SetAlphaButtonStatus;
 
 var
 	i: integer;
-  b: TButton;
+  b: TSpeedButton;
 begin
 	for i:=0 to Pred(alphaPanel.ControlCount) do
 	begin
-		if (alphaPanel.Controls[i] is TButton) then
-    	b:= (alphaPanel.Controls[i] as TButton)
+		if (alphaPanel.Controls[i] is TSpeedButton) then
+    	b:= (alphaPanel.Controls[i] as TSpeedButton)
     else
     	continue;
   	b.Enabled:=GetEnabledStatus(Char(b.Tag));
+        if b.Enabled then b.Font.Style:=[fsBold] else b.Font.Style:=[];
 	end;
 end;
 
