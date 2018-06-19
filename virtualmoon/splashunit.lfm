@@ -14,7 +14,7 @@ object splash: Tsplash
   Caption = 'About'
   ClientHeight = 368
   ClientWidth = 432
-  DesignTimePPI = 95
+  Color = clBlack
   FormStyle = fsStayOnTop
   OnClick = Image1DblClick
   OnClose = FormClose
@@ -25,18 +25,19 @@ object splash: Tsplash
   Visible = False
   object Panel1: TPanel
     Left = 0
-    Height = 364
+    Height = 368
     Top = 0
-    Width = 428
+    Width = 433
     BevelOuter = bvNone
-    ClientHeight = 364
-    ClientWidth = 428
+    ClientHeight = 368
+    ClientWidth = 433
+    ParentFont = False
     TabOrder = 0
     object Image1: TImage
       Left = 0
-      Height = 250
+      Height = 253
       Top = 0
-      Width = 428
+      Width = 433
       Center = True
       OnClick = Image1DblClick
       Picture.Data = {
@@ -536,9 +537,9 @@ object splash: Tsplash
     end
     object Label1: TLabel
       Left = 0
-      Height = 38
+      Height = 45
       Top = 0
-      Width = 428
+      Width = 433
       Align = alTop
       Alignment = taCenter
       Caption = 'Virtual Lunar Atlas'
@@ -553,8 +554,8 @@ object splash: Tsplash
     object Label2: TLabel
       Left = 0
       Height = 17
-      Top = 63
-      Width = 428
+      Top = 64
+      Width = 433
       Alignment = taCenter
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
@@ -567,9 +568,9 @@ object splash: Tsplash
     end
     object Label3: TLabel
       Left = 0
-      Height = 102
-      Top = 245
-      Width = 428
+      Height = 90
+      Top = 263
+      Width = 433
       Align = alBottom
       Alignment = taCenter
       Caption = 'Copyright © 2002-2012  Christian Legrand, Patrick Chevalley, '#10'All rights reserved'#13#10'This program is free software; you can redistribute it and/or'#10'modify it under the terms of the GNU General Public License.'#13#10'All database, pictures and documentation © Ch. Legrand'#13#10'Pictures library are copyrighted by their respective owner.'
@@ -585,8 +586,8 @@ object splash: Tsplash
     object Label4: TLabel
       Left = 0
       Height = 19
-      Top = 226
-      Width = 428
+      Top = 244
+      Width = 433
       Align = alBottom
       Alignment = taCenter
       AutoSize = False
@@ -602,8 +603,8 @@ object splash: Tsplash
     object Label6: TLabel
       Left = 0
       Height = 17
-      Top = 87
-      Width = 428
+      Top = 88
+      Width = 433
       Alignment = taCenter
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
@@ -616,9 +617,9 @@ object splash: Tsplash
     end
     object Label5: TLabel
       Left = 0
-      Height = 17
-      Top = 347
-      Width = 428
+      Height = 15
+      Top = 353
+      Width = 433
       Align = alBottom
       Alignment = taCenter
       Caption = ' '
@@ -636,13 +637,13 @@ object splash: Tsplash
     Interval = 2000
     OnTimer = Timer1Timer
     left = 8
-    top = 71
+    top = 72
   end
   object Timer2: TTimer
     Enabled = False
     Interval = 2000
     OnTimer = Timer2Timer
     left = 8
-    top = 135
+    top = 136
   end
 end
