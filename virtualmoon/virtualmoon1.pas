@@ -3451,6 +3451,7 @@ begin
   if DarkTheme then begin
     ToolBar1.Images:=ImageListNight;
     ToolBar3.Images:=ImageListNight;
+    ToolBar5.Images:=ImageListNight;
     Desc1.LinkColor:=clWhite;
     Desc1.TextColor:=clSilver;
   end;
