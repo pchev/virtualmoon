@@ -107,6 +107,10 @@ msgstr ""
 msgid "UK"
 msgstr ""
 
+#: u_translation.rshideinformat
+msgid "Hide information and tools"
+msgstr ""
+
 #: u_translation.rshistorical
 msgid "Historical"
 msgstr ""
@@ -517,6 +521,10 @@ msgstr "\""
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
+msgstr ""
+
+#: u_translation.rsshowinformat
+msgid "Show information and tools"
 msgstr ""
 
 #: u_translation.rsshowlabels

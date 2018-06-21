@@ -1226,3 +1226,11 @@ msgstr ""
 msgid "Local zenith on top"
 msgstr ""
 
+#: u_translation:rsshowinformat
+msgid "Show information and tools"
+msgstr ""
+
+#: u_translation:rshideinformat
+msgid "Hide information and tools"
+msgstr ""
+

@@ -95,7 +95,6 @@ msgid "0"
 msgstr "1"
 
 #: u_translation.rsfullscreen
-#| msgid "Full screen"
 msgid "Full screen (Esc)"
 msgstr "A tutto schermo (Esc)"
 
@@ -110,6 +109,10 @@ msgstr "Altezza"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "IT"
+
+#: u_translation.rshideinformat
+msgid "Hide information and tools"
+msgstr ""
 
 #: u_translation.rshistorical
 msgid "Historical"
@@ -144,7 +147,6 @@ msgid "LOPAM photographic"
 msgstr "Rappresentaz. fotografica LOPAM"
 
 #: u_translation.rsminute
-#| msgid "m"
 msgctxt "u_translation.rsminute"
 msgid "'"
 msgstr "'"
@@ -307,7 +309,6 @@ msgid "Refresh rate"
 msgstr "Freq.za di aggiornamento"
 
 #: u_translation.rsm_45
-#| msgid "Solar inclination:"
 msgid "Sub-solar latitude:"
 msgstr "Latitudine sub-solare:"
 
@@ -514,13 +515,16 @@ msgid "Save ephemeris to file"
 msgstr "Salva le effemeridi in un file"
 
 #: u_translation.rssecond
-#| msgid "s"
 msgid "\""
 msgstr "\""
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
 msgstr "Mostra la griglia"
+
+#: u_translation.rsshowinformat
+msgid "Show information and tools"
+msgstr ""
 
 #: u_translation.rsshowlabels
 msgid "Show labels"
@@ -863,7 +867,6 @@ msgid "Date / Time"
 msgstr "Data / Ora"
 
 #: u_translation.rst_174
-#| msgid "Use Computer Date and Time Zone"
 msgid "Use Computer Date and Time"
 msgstr "Usa data e fuso orario del calcolatore"
 
@@ -884,7 +887,6 @@ msgid "Flip E-W"
 msgstr "Inversione E-O"
 
 #: u_translation.rst_179
-#| msgid "User Database"
 msgid "User Database loaded from DATLUN"
 msgstr "Basi di dati personali da DATLUN"
 
@@ -954,7 +956,6 @@ msgid "Picture"
 msgstr "Fotografie"
 
 #: u_translation.rst_26
-#| msgid "Geocentric position"
 msgid "Geocentric"
 msgstr "Posiz. geocentrica"
 

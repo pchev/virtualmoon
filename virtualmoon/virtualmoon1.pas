@@ -124,7 +124,6 @@ type
     Button5: TSpeedButton;
     Apropos1: TMenuItem;
     SpeedButton7: TSpeedButton;
-    SpeedButton8: TSpeedButton;
     Splitter1: TSplitter;
     GridButton: TToolButton;
     Splitter2: TSplitter;
@@ -132,11 +131,13 @@ type
     ResizeTimer: TTimer;
     ToolBar3: TToolBar;
     ToolBar4: TToolBar;
+    ToolBar5: TToolBar;
     ToolButton13: TToolButton;
     ToolButton14: TToolButton;
     ButtonWeblun: TToolButton;
     ToolButton15: TToolButton;
     ToolButton16: TToolButton;
+    ToolButton17: TToolButton;
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
@@ -348,7 +349,7 @@ type
     procedure ResizeTimerTimer(Sender: TObject);
     procedure SaveEphemClick(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
-    procedure SpeedButton8Click(Sender: TObject);
+    procedure ToolButton17Click(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
     procedure Splitter2Moved(Sender: TObject);
     procedure StartTimerTimer(Sender: TObject);
@@ -856,6 +857,10 @@ begin
     Button21.Caption:=rsDefault;
     TrackBar1.Hint:=rsZoomLevel;
     TrackBar9.Hint:=rst_104;
+    if PageControl1.Width>1 then
+      ToolButton17.Hint:=rsHideInformat
+    else
+      ToolButton17.Hint:=rsShowInformat;
     imac1 := rst_30;
     imac2 := rst_8;
     imac3 := rst_9;
@@ -3970,14 +3975,16 @@ end;
  screen.cursor := crdefault;
 end;
 
-procedure TForm1.SpeedButton8Click(Sender: TObject);
+procedure TForm1.ToolButton17Click(Sender: TObject);
 begin
   if PageControl1.Width>1 then begin
-    SpeedButton8.Caption:='<';
+    ToolButton17.ImageIndex:=20;
+    ToolButton17.Hint:=rsShowInformat;
     PageControl1.Width:=0
   end
   else begin
-    SpeedButton8.Caption:='>';
+    ToolButton17.ImageIndex:=19;
+    ToolButton17.Hint:=rsHideInformat;
     PageControl1.Width:=ToolsWidth;
   end;
   FormResize(Sender);
@@ -4761,7 +4768,7 @@ end;
 
 procedure TForm1.Position1Click(Sender: TObject);
 begin
-  if PageControl1.Width<=1 then SpeedButton8Click(Sender);
+  if PageControl1.Width<=1 then ToolButton17Click(Sender);
   Pagecontrol1.ActivePage := Position;
   PageControl1Change(Sender);
   combobox1.SetFocus;
@@ -4788,7 +4795,7 @@ end;
 
 procedure TForm1.Notes1Click(Sender: TObject);
 begin
-  if PageControl1.Width<=1 then SpeedButton8Click(Sender);
+  if PageControl1.Width<=1 then ToolButton17Click(Sender);
   Pagecontrol1.ActivePage := Notes;
   PageControl1Change(Sender);
 end;
@@ -4887,7 +4894,7 @@ end;
 
 procedure TForm1.Distance1Click(Sender: TObject);
 begin
-  if PageControl1.Width<=1 then SpeedButton8Click(Sender);
+  if PageControl1.Width<=1 then ToolButton17Click(Sender);
   Pagecontrol1.ActivePage := Outils;
   PageControl1Change(Sender);
   Button11.Caption  := rsm_53;

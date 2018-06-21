@@ -92,7 +92,6 @@ msgid "0"
 msgstr "1"
 
 #: u_translation.rsfullscreen
-#| msgid "Full screen"
 msgid "Full screen (Esc)"
 msgstr "Pantalla completa (Esc)"
 
@@ -107,6 +106,10 @@ msgstr "Altura"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "CA"
+
+#: u_translation.rshideinformat
+msgid "Hide information and tools"
+msgstr ""
 
 #: u_translation.rshistorical
 msgid "Historical"
@@ -141,7 +144,6 @@ msgid "LOPAM photographic"
 msgstr "Fotogràfic LOPAM"
 
 #: u_translation.rsminute
-#| msgid "m"
 msgctxt "u_translation.rsminute"
 msgid "'"
 msgstr "'"
@@ -304,7 +306,6 @@ msgid "Refresh rate"
 msgstr "Freqüència de refresc"
 
 #: u_translation.rsm_45
-#| msgid "Solar inclination:"
 msgid "Sub-solar latitude:"
 msgstr "Latitud sub-solar:"
 
@@ -511,13 +512,16 @@ msgid "Save ephemeris to file"
 msgstr "Enregistra l'efemeris en un fitxer"
 
 #: u_translation.rssecond
-#| msgid "s"
 msgid "\""
 msgstr "\""
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
 msgstr "Mostra graella"
+
+#: u_translation.rsshowinformat
+msgid "Show information and tools"
+msgstr ""
 
 #: u_translation.rsshowlabels
 msgid "Show labels"
@@ -564,7 +568,6 @@ msgid "Textures LOPAM photographic High Resolution"
 msgstr "Textures fotogràfiques LOPAM d'alta resolució"
 
 #: u_translation.rstexturesphas
-#| msgid "Textures Phase with dynamic relief using Kaguya data"
 msgid "Textures Phase with dynamic relief using LRO/WAC data"
 msgstr "Textura Fase amb relleu dinàmic utilitzant les dades de LRO/WAC"
 
@@ -617,8 +620,9 @@ msgid "Eyepieces"
 msgstr "Oculars"
 
 #: u_translation.rst_11
+#, fuzzy
 #| msgid "Find Next"
-msgid "Find Next"
+msgid "Next"
 msgstr "Següent"
 
 #: u_translation.rst_110
@@ -862,7 +866,6 @@ msgid "Date / Time"
 msgstr "Dia/hora"
 
 #: u_translation.rst_174
-#| msgid "Use Computer Date and Time Zone"
 msgid "Use Computer Date and Time"
 msgstr "Usa data i hora de l'ordinador"
 
@@ -875,7 +878,6 @@ msgid "Show Phase"
 msgstr "Mostra la fase"
 
 #: u_translation.rst_177
-#| msgid "Flip N-S"
 msgid "Rotate N-S"
 msgstr "Rotació N-S"
 
@@ -884,7 +886,6 @@ msgid "Flip E-W"
 msgstr "Inversió E-O"
 
 #: u_translation.rst_179
-#| msgid "User Database"
 msgid "User Database loaded from DATLUN"
 msgstr "Bases de dades personals de DATLUN"
 
@@ -954,7 +955,6 @@ msgid "Picture"
 msgstr "Imatge"
 
 #: u_translation.rst_26
-#| msgid "Geocentric position"
 msgid "Geocentric"
 msgstr "Geocèntric"
 

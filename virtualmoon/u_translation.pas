@@ -322,6 +322,8 @@ rsPixelCount = 'Pixel count';
 rsHistorical = 'Historical';
 rsNoTextureToU = 'No texture (to use with an overlay alone)';
 rsLocalZenithO = 'Local zenith on top';
+rsShowInformat = 'Show information and tools';
+rsHideInformat = 'Hide information and tools';
 
 implementation
 

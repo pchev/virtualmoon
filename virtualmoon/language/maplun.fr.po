@@ -1,12 +1,13 @@
+# pch <pch@ap-i.net>, 2018.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2012-08-29 13:14+0200\n"
+"Last-Translator: pch <pch@ap-i.net>\n"
+"PO-Revision-Date: 2018-06-21 18:53+0100\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 2.0\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language: fr\n"
@@ -92,7 +93,6 @@ msgid "0"
 msgstr "1"
 
 #: u_translation.rsfullscreen
-#| msgid "Full screen"
 msgid "Full screen (Esc)"
 msgstr "Plein écran (Esc)"
 
@@ -107,6 +107,10 @@ msgstr "Hauteur"
 #: u_translation.rshelp_prefix
 msgid "UK"
 msgstr "FR"
+
+#: u_translation.rshideinformat
+msgid "Hide information and tools"
+msgstr "Masque les informations et les outils"
 
 #: u_translation.rshistorical
 msgid "Historical"
@@ -141,7 +145,6 @@ msgid "LOPAM photographic"
 msgstr "Photographique LOPAM"
 
 #: u_translation.rsminute
-#| msgid "m"
 msgctxt "u_translation.rsminute"
 msgid "'"
 msgstr "'"
@@ -304,7 +307,6 @@ msgid "Refresh rate"
 msgstr "Rafraichissement"
 
 #: u_translation.rsm_45
-#| msgid "Solar inclination:"
 msgid "Sub-solar latitude:"
 msgstr "Latitude sub-solaire:"
 
@@ -403,8 +405,11 @@ msgid "Westfall Atlas:"
 msgstr "Planche Westfall:"
 
 #: u_translation.rsm_67
-msgid "Warning! The personal notes have changed. Do you want to save the change?"
-msgstr "Attention les notes personnelles n'ont pas été enregistrée. Les enregistrer maintenant?"
+msgid ""
+"Warning! The personal notes have changed. Do you want to save the change?"
+msgstr ""
+"Attention les notes personnelles n'ont pas été enregistrée. Les enregistrer"
+" maintenant?"
 
 #: u_translation.rsm_7
 msgid "Name by Langrenus:"
@@ -511,13 +516,16 @@ msgid "Save ephemeris to file"
 msgstr "Enregistre l'éphéméride dans un fichier"
 
 #: u_translation.rssecond
-#| msgid "s"
 msgid "\""
 msgstr "\""
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
 msgstr "Afficher les grilles"
+
+#: u_translation.rsshowinformat
+msgid "Show information and tools"
+msgstr "Affiche les informations et les outils"
 
 #: u_translation.rsshowlabels
 msgid "Show labels"
@@ -564,7 +572,6 @@ msgid "Textures LOPAM photographic High Resolution"
 msgstr "Texture Photographique LOPAM Haute Résolution"
 
 #: u_translation.rstexturesphas
-#| msgid "Textures Phase with dynamic relief using Kaguya data"
 msgid "Textures Phase with dynamic relief using LRO/WAC data"
 msgstr "Texture Phase avec relief dynamique utilisant les données de LRO/WAC"
 
@@ -617,7 +624,6 @@ msgid "Eyepieces"
 msgstr "Oculaire"
 
 #: u_translation.rst_11
-#| msgid "Find Next"
 msgid "Next"
 msgstr "Suivant"
 
@@ -862,7 +868,6 @@ msgid "Date / Time"
 msgstr "Date / Heure"
 
 #: u_translation.rst_174
-#| msgid "Use Computer Date and Time Zone"
 msgid "Use Computer Date and Time"
 msgstr "Utiliser la date et l'heure de l'ordinateur"
 
@@ -875,7 +880,6 @@ msgid "Show Phase"
 msgstr "Montre la phase"
 
 #: u_translation.rst_177
-#| msgid "Flip N-S"
 msgid "Rotate N-S"
 msgstr "Rotation N-S"
 
@@ -884,7 +888,6 @@ msgid "Flip E-W"
 msgstr "Inversion E-W"
 
 #: u_translation.rst_179
-#| msgid "User Database"
 msgid "User Database loaded from DATLUN"
 msgstr "Bases de données personnelles de DATLUN"
 
@@ -909,8 +912,14 @@ msgid "Label Color"
 msgstr "Couleur des labels"
 
 #: u_translation.rst_184
-msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr "Votre carte graphique ne supporte pas d'afficher plus d'une texture par objet.Contrôlez que l'accélération matérielle est activée ou changez de carte graphique. La fonction demandée est GL_ARB_MULTITEXTURE"
+msgid ""
+"Your graphic card do not support to display more than one texture for the"
+" same object. Be sure that hardware acceleration is activated or change the"
+" graphic card. The require function is GL_ARB_MULTITEXTURE "
+msgstr ""
+"Votre carte graphique ne supporte pas d'afficher plus d'une texture par"
+" objet.Contrôlez que l'accélération matérielle est activée ou changez de"
+" carte graphique. La fonction demandée est GL_ARB_MULTITEXTURE"
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
@@ -954,7 +963,6 @@ msgid "Picture"
 msgstr "Image"
 
 #: u_translation.rst_26
-#| msgid "Geocentric position"
 msgid "Geocentric"
 msgstr "Geocentrique"
 
@@ -1250,9 +1258,11 @@ msgstr "Vous pouvez télécharger les options suivantes:"
 
 #: u_translation.rsyourinstalla
 msgid "Your installation is already complete with all the features installed."
-msgstr "Votre installation est déjà complète avec toutes les options installées."
+msgstr ""
+"Votre installation est déjà complète avec toutes les options installées."
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"
 msgstr "Niveau de zoom"
+
 

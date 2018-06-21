@@ -108,6 +108,10 @@ msgstr "Höhe"
 msgid "UK"
 msgstr "DE"
 
+#: u_translation.rshideinformat
+msgid "Hide information and tools"
+msgstr ""
+
 #: u_translation.rshistorical
 msgid "Historical"
 msgstr "Historisch"
@@ -141,7 +145,6 @@ msgid "LOPAM photographic"
 msgstr "LOPAM fotografisch"
 
 #: u_translation.rsminute
-#| msgid "m"
 msgctxt "u_translation.rsminute"
 msgid "'"
 msgstr "'"
@@ -402,11 +405,8 @@ msgid "Westfall Atlas:"
 msgstr "Westfall Atlas:"
 
 #: u_translation.rsm_67
-msgid ""
-"Warning! The personal notes have changed. Do you want to save the change?"
-msgstr ""
-"Warnung! Die persönlichen Notizen wurden verändert, wollen sie die "
-"Änderungen speichern?"
+msgid "Warning! The personal notes have changed. Do you want to save the change?"
+msgstr "Warnung! Die persönlichen Notizen wurden verändert, wollen sie die Änderungen speichern?"
 
 #: u_translation.rsm_7
 msgid "Name by Langrenus:"
@@ -490,8 +490,7 @@ msgstr "Bild aus dem Lunar Orbiter Photographic Atlas of the Moon"
 
 #: u_translation.rspicturelibra9
 msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
-msgstr ""
-"Bild aus den Sammlungen Probes Luna, Ranger, Lunar Orbiter and Surveyor"
+msgstr "Bild aus den Sammlungen Probes Luna, Ranger, Lunar Orbiter and Surveyor"
 
 #: u_translation.rspicturelibrapic
 msgid "Picture Library Best of the Pic du Midi Observatory"
@@ -514,13 +513,16 @@ msgid "Save ephemeris to file"
 msgstr "Ephemeride in Datei speichern"
 
 #: u_translation.rssecond
-#| msgid "s"
 msgid "\""
 msgstr "\""
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
 msgstr "Zeige Raster"
+
+#: u_translation.rsshowinformat
+msgid "Show information and tools"
+msgstr ""
 
 #: u_translation.rsshowlabels
 msgid "Show labels"
@@ -907,15 +909,8 @@ msgid "Label Color"
 msgstr "Farbe der Beschriftung"
 
 #: u_translation.rst_184
-msgid ""
-"Your graphic card do not support to display more than one texture for the "
-"same object. Be sure that hardware acceleration is activated or change the "
-"graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr ""
-"Ihre Grafikkarte kann nur eine Textur für dasselbe Objekt anzeigen. "
-"Vergewissern Sie sich, dass die Hardwarebeschleunigung aktiviert ist oder "
-"tauschen Sie die Grafikkarte aus. Die erforderliche Funktion lautet "
-"GL_ARB_MULTITEXTURE"
+msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
+msgstr "Ihre Grafikkarte kann nur eine Textur für dasselbe Objekt anzeigen. Vergewissern Sie sich, dass die Hardwarebeschleunigung aktiviert ist oder tauschen Sie die Grafikkarte aus. Die erforderliche Funktion lautet GL_ARB_MULTITEXTURE"
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
@@ -1259,3 +1254,4 @@ msgstr "Ihre installation ist bereits mit allen Zusätzen versehen."
 #: u_translation.rszoomlevel
 msgid "Zoom level"
 msgstr "Zoomstufe"
+
