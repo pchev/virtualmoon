@@ -130,6 +130,7 @@ type
     StartTimer: TTimer;
     ResizeTimer: TTimer;
     ToolBar3: TToolBar;
+    ToolBar4: TToolBar;
     ToolButton13: TToolButton;
     ToolButton14: TToolButton;
     ButtonWeblun: TToolButton;
@@ -3441,6 +3442,15 @@ begin
     Desc1.LinkColor:=clWhite;
     Desc1.TextColor:=clSilver;
   end;
+  ToolBar2.Left:=0;
+  TrackBar1.Left:=ToolBar2.Left+ToolBar2.Width+1;
+  ToolBar1.Left:=TrackBar1.Left+TrackBar1.Width+1;
+  TrackBar9.Left:=ToolBar1.Left+ToolBar1.Width+1;
+  ToolBar4.Left:=TrackBar9.Left+TrackBar9.Width+1;
+  {$ifdef lclgtk2}
+  TrackBar1.Top:=(ControlBar1.Height-TrackBar1.Height) div 2;
+  TrackBar9.Top:=(ControlBar1.Height-TrackBar9.Height) div 2;
+  {$endif}
   appname := ParamStr(0);
   if paramcount > 0 then
   begin
