@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 292
   Height = 570
   Top = 120
-  Width = 1015
+  Width = 1024
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
@@ -10,7 +10,7 @@ object Form1: TForm1
   ActiveControl = ControlBar1
   Caption = 'Form1'
   ClientHeight = 570
-  ClientWidth = 1015
+  ClientWidth = 1024
   Color = clWindow
   Constraints.MinHeight = 500
   Constraints.MinWidth = 500
@@ -74,11 +74,11 @@ object Form1: TForm1
     Left = 0
     Height = 35
     Top = 0
-    Width = 1015
+    Width = 1024
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 35
-    ClientWidth = 1015
+    ClientWidth = 1024
     Font.Height = 13
     ParentFont = False
     TabOrder = 2
@@ -157,6 +157,8 @@ object Form1: TForm1
       Font.Height = 13
       Images = ImageListDay
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 1
       Transparent = True
       Wrapable = False
@@ -244,15 +246,14 @@ object Form1: TForm1
       end
     end
     object SpeedButton8: TSpeedButton
-      Left = 987
-      Height = 22
-      Top = 4
-      Width = 23
+      Left = 994
+      Height = 30
+      Top = 0
+      Width = 30
       Anchors = [akTop, akRight]
       Caption = '>'
       Color = clDefault
       Flat = True
-      Font.Height = 13
       Transparent = False
       OnClick = SpeedButton8Click
       ParentFont = False
@@ -271,6 +272,8 @@ object Form1: TForm1
       TickStyle = tsNone
       Font.Height = 13
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 2
     end
     object TrackBar9: TTrackBar
@@ -288,6 +291,8 @@ object Form1: TForm1
       TickStyle = tsNone
       Font.Height = 13
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 3
     end
     object ToolBar4: TToolBar
@@ -305,6 +310,8 @@ object Form1: TForm1
       Font.Height = 13
       Images = ImageListDay
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 4
       Transparent = True
       object ToolButton10: TToolButton
@@ -315,14 +322,14 @@ object Form1: TForm1
         OnClick = ToolButton10Click
       end
       object ToolButton7: TToolButton
-        Left = 151
+        Left = 31
         Top = 0
         Caption = 'Image'
         ImageIndex = 5
         OnClick = ToolButton7Click
       end
       object ButtonDatabase: TToolButton
-        Left = 121
+        Left = 61
         Top = 0
         Caption = 'Database'
         ImageIndex = 6
@@ -336,7 +343,7 @@ object Form1: TForm1
         OnClick = ButtonWeblunClick
       end
       object NewWindowButton: TToolButton
-        Left = 61
+        Left = 121
         Top = 0
         Caption = 'Window 2'
         ImageIndex = 0
@@ -344,7 +351,7 @@ object Form1: TForm1
         Style = tbsCheck
       end
       object ToolButton13: TToolButton
-        Left = 31
+        Left = 151
         Top = 0
         Caption = 'ToolButton13'
         ImageIndex = 15
@@ -356,7 +363,7 @@ object Form1: TForm1
     Left = 0
     Height = 23
     Top = 547
-    Width = 1015
+    Width = 1024
     Font.Height = 13
     Panels = <    
       item

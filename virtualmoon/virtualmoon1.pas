@@ -854,6 +854,8 @@ begin
     SpeedButton4.Caption := rst_142;
     NewWindowButton.hint := rst_166;
     Button21.Caption:=rsDefault;
+    TrackBar1.Hint:=rsZoomLevel;
+    TrackBar9.Hint:=rst_104;
     imac1 := rst_30;
     imac2 := rst_8;
     imac3 := rst_9;
