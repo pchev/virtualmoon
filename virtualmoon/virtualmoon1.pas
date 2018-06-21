@@ -69,6 +69,7 @@ type
     FilePopup: TPopupMenu;
     DoNotRemove: TGLSceneViewer;
     HelpPopup: TPopupMenu;
+    ImageListNight: TImageList;
     Label17: TLabel;
     Label18: TLabel;
     Label22: TLabel;
@@ -318,7 +319,7 @@ type
     RemoveMark1: TMenuItem;
     ButtonDatabase: TToolButton;
     CheckBox8: TCheckBox;
-    ImageList1: TImageList;
+    ImageListDay: TImageList;
     ToolButton12: TToolButton;
     procedure Button21Click(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
@@ -2180,7 +2181,10 @@ var
       if result='' then result:=' ';
   end;
 begin
-  txt := '<html> <body bgcolor="white">';
+  if DarkTheme then
+    txt := '<html> <body bgcolor="black">'
+  else
+    txt := '<html> <body bgcolor="white">';
   nom := GetField('NAME');
   dblox.Gofirst;
   ok := dblox.MatchData('NAME', '=', nom);
@@ -3263,7 +3267,7 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 var
-  i: integer;
+  i,c: integer;
   buf:string;
 begin
 //  Satellite model
@@ -3427,6 +3431,16 @@ begin
   checkbox4.Checked := ZenithOnTop;
   skiporient:=false;
   ToolButton12.Down := showlabel;
+  // detect if theme color is dark
+  c:=ColorToRGB(clBtnFace);
+  i:=round((Blue(c)+Green(c)+Red(c))/3);
+  DarkTheme:=(i<128);
+  if DarkTheme then begin
+    ToolBar1.Images:=ImageListNight;
+    ToolBar3.Images:=ImageListNight;
+    Desc1.LinkColor:=clWhite;
+    Desc1.TextColor:=clSilver;
+  end;
   appname := ParamStr(0);
   if paramcount > 0 then
   begin

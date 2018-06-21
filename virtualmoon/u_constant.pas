@@ -225,6 +225,7 @@ Var  Splashversion, compile_time, compile_version: string;
      labelcenter,showlabel,showmark: boolean;
      currenteyepiece,marksize, CurrentCCD: integer;
      marklabelcolor, markcolor, SpriteColor: Tcolor;
+     DarkTheme : boolean;
 
 // Text formating constant
 const
