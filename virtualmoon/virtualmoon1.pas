@@ -95,6 +95,7 @@ type
     FullScreen1: TMenuItem;
     DecreaseFont1: TMenuItem;
     IncreaseFont1: TMenuItem;
+    Panel2: TPanel;
     SaveEphem: TMenuItem;
     OptFeatures1: TMenuItem;
     PanelTel: TPanel;
@@ -2155,14 +2156,14 @@ end;
 procedure TForm1.GetHTMLDetail(row: TResultRow; var txt: string);
 const
   b     = '&nbsp;';
-  t1    = '<center><font size=+1 color="#0000FF"><b>';
+
   t1end = '</b></font></center>';
   t2    = '<font size=+1>';
   t2end = '</font>';
   t3    = '<b>';
   t3end = '</b>';
 var
-  nom, carte, url, img, remoteurl, txtbuf, buf, buf2: string;
+  nom, carte, url, img, remoteurl, txtbuf, buf, buf2, t1: string;
   ok:   boolean;
   i, j: integer;
   function GetField(fn:string):string;
@@ -2182,10 +2183,14 @@ var
       if result='' then result:=' ';
   end;
 begin
-  if DarkTheme then
-    txt := '<html> <body bgcolor="black">'
-  else
+  if DarkTheme then begin
+    txt := '<html> <body bgcolor="black">';
+    t1 := '<center><font size=+1><b>';
+  end
+  else begin
     txt := '<html> <body bgcolor="white">';
+    t1 := '<center><font size=+1 color="#0000FF"><b>';
+  end;
   nom := GetField('NAME');
   dblox.Gofirst;
   ok := dblox.MatchData('NAME', '=', nom);
@@ -2462,7 +2467,7 @@ begin
     while (Label7.Font.Size > 3) and (Label7.Width > GroupBox1.ClientWidth) do
       Label7.Font.Size := Label7.Font.Size - 1;
     Label7.Left := (GroupBox1.ClientWidth - Label7.Width) div 2;
-    Label7.Top  := (GroupBox1.ClientHeight - Label7.Height + 4) div 2;
+    Label7.Top  := (GroupBox1.ClientHeight - Label7.Height ) div 2;
   end
   else
     Label7.Caption := '';
@@ -3445,12 +3450,14 @@ begin
   ToolBar2.Left:=0;
   TrackBar1.Left:=ToolBar2.Left+ToolBar2.Width+1;
   ToolBar1.Left:=TrackBar1.Left+TrackBar1.Width+1;
-  TrackBar9.Left:=ToolBar1.Left+ToolBar1.Width+1;
+  TrackBar9.Left:=ToolBar1.Left+ToolBar1.Width+2;
   ToolBar4.Left:=TrackBar9.Left+TrackBar9.Width+1;
-  {$ifdef lclgtk2}
+  {$ifdef mswindows}
+  TrackBar1.Height:=22;
+  TrackBar9.Height:=22;
+  {$endif}
   TrackBar1.Top:=(ControlBar1.Height-TrackBar1.Height) div 2;
   TrackBar9.Top:=(ControlBar1.Height-TrackBar9.Height) div 2;
-  {$endif}
   appname := ParamStr(0);
   if paramcount > 0 then
   begin

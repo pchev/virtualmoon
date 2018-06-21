@@ -84,7 +84,7 @@
       <local>
         <FormatVersion Value="1"/>
         <LaunchingApplication PathPlusParams="\usr\lib\wine\wine $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\home\astro\bin"/>
+        <WorkingDirectory Value="E:\VirtualMoon"/>
       </local>
     </RunParams>
     <RequiredPackages Count="9">
