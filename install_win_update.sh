@@ -79,6 +79,21 @@ install -v -m 644 Installer/Windows/Data/lisezmoi.txt $destdir/
 install -v -m 644 Installer/Windows/Data/licence.txt $destdir/
 install -v -m 644 Installer/Windows/Data/licence_fr.txt $destdir/
 
+# translation
+install -m 755 -d $destdir/language
+install -v -m 644 virtualmoon/language/maplun.en.po $destdir/language/
+install -v -m 644 virtualmoon/language/maplun.fr.po $destdir/language/
+install -v -m 644 datlun/language/datlun.en.po $destdir/language/
+install -v -m 644 datlun/language/datlun.fr.po $destdir/language/
+install -v -m 644 datlun/language/vmadatabase.en.po $destdir/language/
+install -v -m 644 datlun/language/vmadatabase.fr.po $destdir/language/
+install -v -m 644 photlun/language/photlun.en.po $destdir/language/
+install -v -m 644 photlun/language/photlun.fr.po $destdir/language/
+install -v -m 644 weblun/language/weblun.en.po $destdir/language/
+install -v -m 644 weblun/language/weblun.fr.po $destdir/language/
+install -v -m 644 cclun/language/cclun.en.po $destdir/language/
+install -v -m 644 cclun/language/cclun.fr.po $destdir/language/
+
 install -m 755 -d $destdir/data
 cp -a  data/zoneinfo $destdir/data/
 

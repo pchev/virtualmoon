@@ -1,12 +1,13 @@
 object f_main: Tf_main
   Left = 111
-  Height = 467
+  Height = 444
   Top = 49
   Width = 720
   ActiveControl = MoonGrid
   Caption = 'DATLUN'
   ClientHeight = 444
   ClientWidth = 720
+  DesignTimePPI = 95
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Menu = MainMenu1
@@ -14,12 +15,12 @@ object f_main: Tf_main
   OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '1.0.1.3'
+  Visible = False
   object MoonGrid: TStringGrid
     Left = 0
     Height = 419
     Top = 0
-    Width = 705
+    Width = 700
     Align = alClient
     DefaultColWidth = 100
     FixedCols = 2
@@ -37,10 +38,10 @@ object f_main: Tf_main
     OnMouseUp = MoonGridMouseUp
   end
   object ScrollBar1: TScrollBar
-    Left = 705
+    Left = 700
     Height = 419
     Top = 0
-    Width = 15
+    Width = 20
     Align = alRight
     Kind = sbVertical
     PageSize = 0

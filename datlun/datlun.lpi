@@ -59,7 +59,7 @@
       <local>
         <FormatVersion Value="1"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\usr\local\bin"/>
+        <WorkingDirectory Value="\home\astro\bin"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">

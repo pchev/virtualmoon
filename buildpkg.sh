@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Linux system
 
-version=6.1
+version=6.5
 
 arch=$(arch)
 unset extratarget
@@ -75,7 +75,7 @@ mkdir $wd/$release
 
 # check if new revision since last run
 read lastrev <last.build
-currentrev=$(LC_ALL=C svn info . | grep Revision: | sed 's/Revision: //')
+currentrev=$(git rev-list --count --first-parent HEAD)
 if [[ $upd ]]; then
   echo $lastrev ' - ' $currentrev
   if [[ $lastrev -eq $currentrev ]]; then
