@@ -31,70 +31,85 @@ interface
 Uses Forms, Dialogs, SysUtils, mlb2, passql, passqlite;
 
 const
-    DBversion=600;
+    DBversion=700;
     MaxDBN=200;
-    NumMoonDBFields = 82;
+    NumMoonDBFields = 97;
     MoonDBFields : array[1..NumMoonDBFields,1..2] of string = (
       ('NAME','text'),
       ('LUN','text'),
       ('LUN_REDUCED','text'),
-      ('NAMETYPE','text'),
+      ('NAME_TYPE','text'),
       ('TYPE','text'),
+      ('TYPE_IAU','text'),
       ('SUBTYPE','text'),
+      ('PROCESS','text'),
       ('PERIOD','text'),
-      ('PROCESS','text'),  
+      ('PERIOD_SOURCE','text'),
       ('GEOLOGY','text'),
-      ('NAMEDETAIL','text'),
-      ('NAMEORIGIN','text'),
+      ('NAME_DETAIL','text'),
+      ('NAME_ORIGIN','text'),
+      ('IAU_APPROVAL','text'),
       ('LANGRENUS','text'),
       ('HEVELIUS','text'),
       ('RICCIOLI','text'),
       ('WORK','text'),
       ('COUNTRY','text'),
       ('NATIONLITY','text'),
-      ('CENTURYN','float'),
-      ('CENTURYC','text'),
-      ('BIRTHPLACE','text'),
-      ('BIRTHDATE','text'),
-      ('DEATHPLACE','text'),
-      ('DEATHDATE','text'),
+      ('CENTURY_N','float'),
+      ('CENTURY_C','text'),
+      ('BIRTH_PLACE','text'),
+      ('BIRTH_DATE','text'),
+      ('DEATH_PLACE','text'),
+      ('DEATH_DATE','text'),
       ('FACTS','text'),
-      ('LONGIN','float'),
-      ('LONGIN360','float'),
-      ('LONGIC','text'),
-      ('LATIN','float'),
-      ('LATIC','text'),
+      ('LONGI_N','float'),
+      ('LONGI_N_360','float'),
+      ('LONGI_C','text'),
+      ('LATI_N','float'),
+      ('LATI_C','text'),
       ('FACE','text'),
       ('QUADRANT','text'),
       ('AREA','text'),
       ('RUKL','text'),
-      ('RUKLC','text'),
+      ('RUKL_C','text'),
       ('VISCARDY','text'),
       ('HATFIELD','text'),
       ('WESTFALL','text'),
       ('WOOD','text'),
       ('LOPAM','text'),
-      ('LENGTHKM','float'),
-      ('WIDEKM','float'),
-      ('LENGTHMI','float'),
-      ('WIDEMI','float'),
-      ('HEIGHTM','float'),
-      ('HEIGHTFE','float'),
+      ('LENGTH_KM','float'),
+      ('WIDE_KM','float'),
+      ('LENGTH_MI','float'),
+      ('WIDE_MI','float'),
+      ('LENGTH_ARCSEC','float'),
+      ('HEIGHT_M','float'),
+      ('HEIGHT_FE','float'),
       ('RAPPORT','float'),
       ('PROFIL','text'),
-      ('GENERAL','text'),
+      ('FLOOR_DIAMETER_KM','float'),
+      ('PEAK_HEIGHT_KM','float'),
+      ('PEAK_DIAMETER_KM','float'),
+      ('EXCAVATION_DEPTH_KM','float'),
+      ('MELTING_DEPTH_KM','float'),
+      ('EJECTA_THICK_M_1RADIUS','float'),
+      ('EJECTA_THICK_M_3RADIUS','float'),
+      ('EJECTA_THICK_M_5RADIUS','float'),
+      ('RADAR_BRIGHT_HALO_RADIUS','float'),
+      ('RADAR_DARK_HALO_RADIUS','float'),
+      ('GENERAL1','text'),
+      ('GENERAL2','text'),
       ('SLOPES','text'),
       ('WALLS','text'),
       ('FLOOR','text'),
-      ('TIPS','text'),              
-      ('INTERESTN','integer'),
-      ('INTERESTC','text'),
+      ('ELGER_1895','text'),
+      ('INTEREST_N','integer'),
+      ('INTEREST_C','text'),
       ('LUNATION','integer'),
-      ('MOONDAYS','text'),
-      ('MOONDAYM','text'),
-      ('DIAMINST','integer'),
-      ('THINSTRU','text'),
-      ('PRINSTRU','text'),
+      ('MOONDAY_S','text'),
+      ('MOONDAY_M','text'),
+      ('DIAM_INST','integer'),
+      ('TH_INSTRU','text'),
+      ('PR_INSTRU','text'),
       ('IAU_FEATURE_NAME','text'),
       ('IAU_CLEAN_FEATURE_NAME','text'),
       ('IAU_FEATURE_ID','text'),
@@ -120,8 +135,8 @@ const
       );
       FDBN=1;
       FNAME=2;
-      FLONGIN=26;
-      FLATIN=29;
+      FLONGIN=29;
+      FLATIN=32;
 var
     sidelist: string;
     database : array[1..9] of string;
@@ -158,7 +173,7 @@ if dbv<DBversion then begin
  cmd:=cmd+');';
  dbm.Query(cmd);
  if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
- dbm.Query('create index moon_pos on moon (longin,latin);');
+ dbm.Query('create index moon_pos on moon (long_in,lat_in);');
  dbm.Query('create index moon_name on moon (dbn,name);');
  dbjournal(extractfilename(dbm.database),'CREATE TABLE MOON');
 
@@ -230,14 +245,14 @@ repeat
   db1.GoNext;
 until db1.EndOfFile;
 imax:=dbm.GetLastInsertID;
-dbm.Query('update moon set widekm=0 where widekm="";');
-dbm.Query('update moon set widekm=0 where widekm="?";');
-dbm.Query('update moon set widemi=0 where widemi="";');
-dbm.Query('update moon set widemi=0 where widemi="?";');
-dbm.Query('update moon set lengthkm=0 where lengthkm="";');
-dbm.Query('update moon set lengthkm=0 where lengthkm="?";');
-dbm.Query('update moon set lengthmi=0 where lengthmi="";');
-dbm.Query('update moon set lengthmi=0 where lengthmi="?";');
+dbm.Query('update moon set wide_km=0 where wide_km="";');
+dbm.Query('update moon set wide_km=0 where wide_km="?";');
+dbm.Query('update moon set wide_mi=0 where wide_mi="";');
+dbm.Query('update moon set wide_mi=0 where wide_mi="?";');
+dbm.Query('update moon set length_km=0 where length_km="";');
+dbm.Query('update moon set length_km=0 where length_km="?";');
+dbm.Query('update moon set length_mi=0 where length_mi="";');
+dbm.Query('update moon set length_mi=0 where length_mi="?";');
 dbm.Query('delete from file_date where dbn='+side+';');
 dbm.Query('insert into file_date values ('+side+','+inttostr(fileage(fn))+');');
 dbm.Commit;
@@ -255,40 +270,29 @@ var i,db_age : integer;
 begin
 missingf:='';
 needvacuum:=false;
-buf:=Slash(DBdir)+'dbmoon6_u'+uplanguage+'.dbl';
+buf:=Slash(DBdir)+'dbmoon7'+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
 try
-buf:=Slash(appdir)+Slash('Database')+'Nearside_Named_u'+uplanguage+'.csv';
+buf:=Slash(appdir)+Slash('Database')+'AVL Named EN'+uplanguage+'.csv';
 if fileexists(buf) then database[1]:=buf
-   else database[1]:=Slash(appdir)+Slash('Database')+'Nearside_Named_uEN.csv';
-buf:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_u'+uplanguage+'.csv';
+   else database[1]:=Slash(appdir)+Slash('Database')+'AVL Named EN.csv';
+
+buf:=Slash(appdir)+Slash('Database')+'AVL Satellite '+uplanguage+'.csv';
 if fileexists(buf) then database[2]:=buf
-   else database[2]:=Slash(appdir)+Slash('Database')+'Nearside_Satellite_uEN.csv';
-buf:=Slash(appdir)+Slash('Database')+'Farside_Named_u'+uplanguage+'.csv';
-if fileexists(buf) then database[3]:=buf
-   else database[3]:=Slash(appdir)+Slash('Database')+'Farside_Named_uEN.csv';
-buf:=Slash(appdir)+Slash('Database')+'Farside_Satellite_u'+uplanguage+'.csv';
-if fileexists(buf) then database[4]:=buf
-   else database[4]:=Slash(appdir)+Slash('Database')+'Farside_Satellite_uEN.csv';
-buf:=Slash(appdir)+Slash('Database')+'Historical_u'+uplanguage+'.csv';
+   else database[2]:=Slash(appdir)+Slash('Database')+'AVL Satellite EN.csv';
+
+buf:=Slash(appdir)+Slash('Database')+'AVL Registered '+uplanguage+'.csv';
 if fileexists(buf) then database[5]:=buf
-   else database[5]:=Slash(appdir)+Slash('Database')+'Historical_uEN.csv';
-buf:=Slash(appdir)+Slash('Database')+'Pyroclastic_u'+uplanguage+'.csv';
-if fileexists(buf) then database[6]:=buf
-   else database[6]:=Slash(appdir)+Slash('Database')+'Pyroclastic_uEN.csv';
-buf:=Slash(appdir)+Slash('Database')+'Domes_u'+uplanguage+'.csv';
-if fileexists(buf) then database[7]:=buf
-   else database[7]:=Slash(appdir)+Slash('Database')+'Domes_uEN.csv';
-buf:=Slash(appdir)+Slash('Database')+'Nearside_Unnamed_u'+uplanguage+'.csv';
+   else database[5]:=Slash(appdir)+Slash('Database')+'AVL Registered EN.csv';
+
+buf:=Slash(appdir)+Slash('Database')+'AVL Unnamed '+uplanguage+'.csv';
 if fileexists(buf) then database[8]:=buf
-   else database[8]:=Slash(appdir)+Slash('Database')+'Nearside_Unnamed_uEN.csv';
-buf:=Slash(appdir)+Slash('Database')+'Farside_Unnamed_u'+uplanguage+'.csv';
-if fileexists(buf) then database[9]:=buf
-   else database[9]:=Slash(appdir)+Slash('Database')+'Farside_Unnamed_uEN.csv';
+   else database[8]:=Slash(appdir)+Slash('Database')+'AVL Unnamed EN.csv';
+
 CreateDB(dbm);
-for i:=1 to 9 do begin
+for i:=1 to 4 do begin
   if usedatabase[i] then begin
      buf:=dbm.QueryOne('select fdate from file_date where dbn='+inttostr(i)+';');
      if buf='' then db_age:=0 else db_age:=strtoint(buf);

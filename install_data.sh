@@ -53,29 +53,19 @@ install -v -m 644 Encyclopedia/* $destdir/share/virtualmoon/Encyclopedia/
 
 # database
 install -m 755 -d $destdir/share/virtualmoon/Database
-install -v -m 644 Database/Domes_uEN.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Domes_uFR.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Farside_Named_uEN.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Farside_Named_uFR.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Farside_Satellite_uEN.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Farside_Satellite_uFR.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Named EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Named FR.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Satellite EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Satellite FR.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Registered EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Registered FR.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Unnamed EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Unnamed FR.csv" $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/glossary_uEN.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/glossary_uFR.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Historical_uEN.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Historical_uFR.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/licence.txt $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/lopamidx.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/lopamidx.txt $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Nearside_Named_uEN.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Nearside_Named_uFR.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Nearside_Satellite_uEN.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Nearside_Satellite_uFR.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Pyroclastic_uEN.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Pyroclastic_uFR.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Farside_Unnamed_uEN.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Farside_Unnamed_uFR.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Nearside_Unnamed_uEN.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 Database/Nearside_Unnamed_uFR.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/weblun.csv $destdir/share/virtualmoon/Database/
 
 # big data

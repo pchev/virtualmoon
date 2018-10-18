@@ -1305,12 +1305,12 @@ begin
       wmin := -1
     else
       wmin := MinValue([650.0, 3 * LabelDensity / (Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)]);
-    dbm.Query('select NAME,LONGIN,LATIN,WIDEKM,WIDEMI,LENGTHKM,LENGTHMI,LUN,DBN from moon' +
-      ' where DBN in (' + sidelist + ')' + ' and LONGIN > ' +
-      formatfloat(f2, rad2deg*lmin) + ' and LONGIN < ' + formatfloat(f2, rad2deg*lmax) +
-      ' and LATIN > ' + formatfloat(f2, rad2deg*bmin) +
-      ' and LATIN < ' + formatfloat(f2, rad2deg*bmax) +
-      ' and (WIDEKM=0 or WIDEKM>=' + formatfloat(f2, (wmin * wfact) / 2.5) + ')' +
+    dbm.Query('select NAME,LONGI_N,LATI_N,WIDE_KM,WIDE_MI,LENGTH_KM,LENGTH_MI,LUN,DBN from moon' +
+      ' where DBN in (' + sidelist + ')' + ' and LONGI_N > ' +
+      formatfloat(f2, rad2deg*lmin) + ' and LONGI_N < ' + formatfloat(f2, rad2deg*lmax) +
+      ' and LATI_N > ' + formatfloat(f2, rad2deg*bmin) +
+      ' and LATI_N < ' + formatfloat(f2, rad2deg*bmax) +
+      ' and (WIDE_KM=0 or WIDE_KM>=' + formatfloat(f2, (wmin * wfact) / 2.5) + ')' +
       ' ;');
     for j := 0 to dbm.RowCount - 1 do
     begin
@@ -1366,12 +1366,12 @@ begin
   begin
     // get search boundaries
     Tf_moon(Sender).GetBounds(lmin,lmax,bmin,bmax);
-    dbm.Query('select LONGIN,LATIN from moon where ' + currentselection +
-      ' and LONGIN > ' + formatfloat(f2, rad2deg*lmin) +
-      ' and LONGIN < ' + formatfloat(f2, rad2deg*lmax) +
-      ' and LATIN > ' + formatfloat(f2, rad2deg*bmin) +
-      ' and LATIN < ' + formatfloat(f2, rad2deg*lmax) +
-      ' ORDER BY WIDEKM DESC ' + ' ;');
+    dbm.Query('select LONGI_N,LATI_N from moon where ' + currentselection +
+      ' and LONGI_N > ' + formatfloat(f2, rad2deg*lmin) +
+      ' and LONGI_N < ' + formatfloat(f2, rad2deg*lmax) +
+      ' and LATI_N > ' + formatfloat(f2, rad2deg*bmin) +
+      ' and LATI_N < ' + formatfloat(f2, rad2deg*lmax) +
+      ' ORDER BY WIDE_KM DESC ' + ' ;');
     for j := 0 to dbm.RowCount - 1 do
     begin
       l1 := dbm.Results[j].Format[0].AsFloat;
@@ -1814,11 +1814,11 @@ begin
   interest := combobox2.ItemIndex + 1;
   try
     listbox1.Items.BeginUpdate;
-    dbm.Query('select NAME,LATIN,INTERESTN,DIAMINST from moon ' +
+    dbm.Query('select NAME,LATI_N,INTEREST_N,DIAM_INST from moon ' +
       ' where longin>' + formatfloat(f2, l1) +
       ' and longin<' + formatfloat(f2, l2) + ' and DBN in (' + sidelist + ')' +
-      ' and INTERESTN >=' + IntToStr(interest) +
-      ' and DIAMINST <=' + IntToStr(diam));
+      ' and INTEREST_N >=' + IntToStr(interest) +
+      ' and DIAM_INST <=' + IntToStr(diam));
     for i := 0 to dbm.rowcount - 1 do
     begin
       case RadioGroup1.ItemIndex of
@@ -1859,10 +1859,10 @@ begin
     f_craterlist.Caption := form1.ToolButton10.hint;
     craterlst.Clear;
     dbm.query('select NAME from moon ' + ' where DBN in (' + sidelist + ')' +
-      ' and LONGIN > ' + formatfloat(f2, l - deltal) +
-      ' and LONGIN < ' + formatfloat(f2, l + deltal) +
-      ' and LATIN > ' + formatfloat(f2, b - delta) +
-      ' and LATIN < ' + formatfloat(f2, b + delta) + ' ;');
+      ' and LONGI_N > ' + formatfloat(f2, l - deltal) +
+      ' and LONGI_N < ' + formatfloat(f2, l + deltal) +
+      ' and LATI_N > ' + formatfloat(f2, b - delta) +
+      ' and LATI_N < ' + formatfloat(f2, b + delta) + ' ;');
     for i := 0 to dbm.RowCount - 1 do
     begin
       craterlst.items.add(dbm.Results[i][0]);
@@ -1884,12 +1884,12 @@ begin
   rec     := 0;
   deltab  := 5;
   deltal  := deltab / cos(deg2rad * b);
-  dbm.query('select ID,LONGIN,LATIN,WIDEKM,WIDEMI from moon ' + ' where DBN in (' + sidelist + ')' +
-    ' and LONGIN > ' + formatfloat(f2, l - deltal) +
-    ' and LONGIN < ' + formatfloat(f2, l + deltal) +
-    ' and LATIN > ' + formatfloat(f2, b - deltab) +
-    ' and LATIN < ' + formatfloat(f2, b + deltab) +
-    ' and (WIDEKM=0 or WIDEKM>=' + formatfloat(f2, w) + ')' +
+  dbm.query('select ID,LONGI_N,LATI_N,WIDE_KM,WIDE_MI from moon ' + ' where DBN in (' + sidelist + ')' +
+    ' and LONGI_N > ' + formatfloat(f2, l - deltal) +
+    ' and LONGI_N < ' + formatfloat(f2, l + deltal) +
+    ' and LATI_N > ' + formatfloat(f2, b - deltab) +
+    ' and LATI_N < ' + formatfloat(f2, b + deltab) +
+    ' and (WIDE_KM=0 or WIDE_KM>=' + formatfloat(f2, w) + ')' +
     ' ;');
   for i := 0 to dbm.RowCount - 1 do
   begin
@@ -1963,8 +1963,8 @@ begin
      memo.Lines.Add('L.U.N.:' + b + GetField('LUN'));
   if (GetField('LUN_REDUCED'))>'' then
      memo.Lines.Add('L.U.N.REDUCED:' + b + GetField('LUN_REDUCED'));
-  if (GetField('NAMETYPE'))>'' then
-     memo.Lines.Add('Name type:' + b + GetField('NAMETYPE'));
+  if (GetField('NAME_TYPE'))>'' then
+     memo.Lines.Add('Name type:' + b + GetField('NAME_TYPE'));
   memo.Lines.Add(rsm_56 + b + GetField('TYPE'));
   if (GetField('SUBTYPE'))>'' then
      memo.Lines.Add('Sub-type:' + b + GetField('SUBTYPE'));
@@ -1977,14 +1977,14 @@ begin
 
 
   //Taille
-  if (GetField('LENGTHKM')>'')or(GetField('WIDEKM')>'')or(GetField('LENGTHMI')>'')or(GetField('WIDEMI')>'') then
+  if (GetField('LENGTH_KM')>'')or(GetField('WIDE_KM')>'')or(GetField('LENGTH_MI')>'')or(GetField('WIDE_MI')>'') then
      memo.Lines.Add(rsm_57); //Taille
-  if (GetField('LENGTHKM')>'')or(GetField('WIDEKM')>'')or(GetField('LENGTHMI')>'')or(GetField('WIDEMI')>'') then
-     memo.Lines.Add(rsm_17 + b + GetField('LENGTHKM') + 'x' +
-                    GetField('WIDEKM') + rsm_18 + b + '/' + b + GetField('LENGTHMI') +
-                    'x' + GetField('WIDEMI') + rsm_19);
-  buf  := GetField('HEIGHTM');
-  buf2 := GetField('HEIGHTFE');
+  if (GetField('LENGTH_KM')>'')or(GetField('WIDE_KM')>'')or(GetField('LENGTH_MI')>'')or(GetField('WIDE_MI')>'') then
+     memo.Lines.Add(rsm_17 + b + GetField('LENGTH_KM') + 'x' +
+                    GetField('WIDE_KM') + rsm_18 + b + '/' + b + GetField('LENGTH_MI') +
+                    'x' + GetField('WIDE_MI') + rsm_19);
+  buf  := GetField('HEIGHT_M');
+  buf2 := GetField('HEIGHT_FE');
   if buf<>buf2 then
   begin
     txt := rsm_20 + b;
@@ -2000,10 +2000,10 @@ begin
      memo.Lines.Add(rsm_23 + b + GetField('RAPPORT'));
 
   //Description
-  if (GetField('GENERAL')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
+  if (GetField('GENERAL1')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
      memo.Lines.Add(rsm_58); //Description
-  if GetField('GENERAL') > '' then
-    memo.Lines.Add(GetField('GENERAL'));
+  if GetField('GENERAL1') > '' then
+    memo.Lines.Add(GetField('GENERAL1'));
   if GetField('SLOPES') > '' then
     memo.Lines.Add(GetField('SLOPES'));
   if GetField('WALLS') > '' then
@@ -2012,12 +2012,12 @@ begin
     memo.Lines.Add(GetField('FLOOR'));
 
   //Observation
-  if (GetField('INTERESTC')>'')or(GetField('MOONDAYS')>'')or(GetField('MOONDAYM')>'')or(GetField('PRINSTRU')>'') then
+  if (GetField('INTEREST_C')>'')or(GetField('MOONDAY_S')>'')or(GetField('MOONDAY_M')>'')or(GetField('PR_INSTRU')>'') then
      memo.Lines.Add(rsm_59); //Observation
-  if GetField('INTERESTC') > '' then
-     memo.Lines.Add(rsm_24 + b + GetField('INTERESTC'));
-  buf  := GetField('MOONDAYS');
-  buf2 := GetField('MOONDAYM');
+  if GetField('INTEREST_C') > '' then
+     memo.Lines.Add(rsm_24 + b + GetField('INTEREST_C'));
+  buf  := GetField('MOONDAY_S');
+  buf2 := GetField('MOONDAY_M');
   if (buf+buf2)>'' then begin
     if buf = buf2 then
       txt := rsm_25 + b + buf
@@ -2025,17 +2025,17 @@ begin
       txt := rsm_25 + b + buf + b + rsm_26 + b + buf2;
     memo.Lines.Add(txt);
   end;
-  if GetField('PRINSTRU') > '' then
-     memo.Lines.Add(rsm_28 + b + GetField('PRINSTRU'));
-  if (GetField('TIPS'))>'' then
-     memo.Lines.Add('Tips:' + b + GetField('TIPS'));
+  if GetField('PR_INSTRU') > '' then
+     memo.Lines.Add(rsm_28 + b + GetField('PR_INSTRU'));
+{  if (GetField('TIPS'))>'' then
+     memo.Lines.Add('Tips:' + b + GetField('TIPS')); }
 
-  if (GetField('LONGIC')>'')or(GetField('LATIC')>'')or(GetField('QUADRANT')>'')or(GetField('AREA')>'') then
+  if (GetField('LONGI_C')>'')or(GetField('LATI_C')>'')or(GetField('QUADRANT')>'')or(GetField('AREA')>'') then
      memo.Lines.Add(rsm_60); //Position
-  if GetField('LONGIC') > '' then
-     memo.Lines.Add(rsm_10 + b + GetField('LONGIC'));
-  if GetField('LATIC') > '' then
-     memo.Lines.Add(rsm_11 + b + GetField('LATIC'));
+  if GetField('LONGI_C') > '' then
+     memo.Lines.Add(rsm_10 + b + GetField('LONGI_C'));
+  if GetField('LATI_C') > '' then
+     memo.Lines.Add(rsm_11 + b + GetField('LATI_C'));
   if trim(GetField('FACE')) > '' then
      memo.Lines.Add(rsSide + b + GetField('FACE'));
   if GetField('QUADRANT') > '' then
@@ -2048,10 +2048,10 @@ begin
   ok := dblox.MatchData('NAME', '=', nom);
   if not ok then
     ok := dblox.SeekData('NAME', '=', nom);
-  if ok or (GetField('RUKL')>'')or(GetField('RUKLC')>'')or(GetField('VISCARDY')>'')or(GetField('HATFIELD')>'')or(GetField('WESTFALL')>'')or(GetField('WOOD')>'') then
+  if ok or (GetField('RUKL')>'')or(GetField('RUKL_C')>'')or(GetField('VISCARDY')>'')or(GetField('HATFIELD')>'')or(GetField('WESTFALL')>'')or(GetField('WOOD')>'') then
      memo.Lines.Add(rsm_61); //Atlas
-if (GetField('RUKL')>'')or(GetField('RUKLC')>'') then
-     memo.Lines.Add(rsm_14 + b + GetField('RUKL') + ' ' + GetField('RUKLC'));
+if (GetField('RUKL')>'')or(GetField('RUKL_C')>'') then
+     memo.Lines.Add(rsm_14 + b + GetField('RUKL') + ' ' + GetField('RUKL_C'));
   buf := GetField('VISCARDY');
   if trim(buf) > '' then
     memo.Lines.Add(rsm_15 + b + buf);
@@ -2078,33 +2078,33 @@ if (GetField('RUKL')>'')or(GetField('RUKLC')>'') then
 
   //Origine
   memo.Lines.Add(rsm_62); //Origine
-  if GetField('NAMEDETAIL') > '' then
-     memo.Lines.Add(rsm_63 + b + GetField('NAMEDETAIL'));
+  if GetField('NAME_DETAIL') > '' then
+     memo.Lines.Add(rsm_63 + b + GetField('NAME_DETAIL'));
   if (trim(GetField('WORK') + GetField('NATIONLITY')) > '') and
-    (trim(GetField('CENTURYC') + GetField('COUNTRY')) > '') then
+    (trim(GetField('CENTURY_C') + GetField('COUNTRY')) > '') then
   begin
     case wordformat of
-      0: memo.Lines.Add(GetField('CENTURYC') + b +
+      0: memo.Lines.Add(GetField('CENTURY_C') + b +
           GetField('NATIONLITY') + b + GetField('WORK') + b +
           rsm_2 + b + GetField('COUNTRY'));
       1: memo.Lines.Add(GetField('WORK') + b +
-          GetField('NATIONLITY') + b + rsm_1 + b + GetField('CENTURYC') +
+          GetField('NATIONLITY') + b + rsm_1 + b + GetField('CENTURY_C') +
           b + rsm_2 + b + GetField('COUNTRY'));
       2: memo.Lines.Add(GetField('NATIONLITY') + b +
-          GetField('WORK') + b + GetField('CENTURYC') + b +
+          GetField('WORK') + b + GetField('CENTURY_C') + b +
           rsm_2 + b + GetField('COUNTRY'));
     end;
-    if (GetField('BIRTHPLACE')>'')or((GetField('BIRTHDATE')>'')) then
-       memo.Lines.Add(rsm_3 + b + GetField('BIRTHPLACE') + b + rsm_4 +
-            b + GetField('BIRTHDATE'));
-    if (GetField('DEATHPLACE')>'')or((GetField('DEATHDATE')>'')) then
-       memo.Lines.Add(rsm_5 + b + GetField('DEATHPLACE') + b + rsm_4 +
-            b + GetField('DEATHDATE'));
+    if (GetField('BIRTH_PLACE')>'')or((GetField('BIRTH_DATE')>'')) then
+       memo.Lines.Add(rsm_3 + b + GetField('BIRTH_PLACE') + b + rsm_4 +
+            b + GetField('BIRTH_DATE'));
+    if (GetField('DEATH_PLACE')>'')or((GetField('DEATH_DATE')>'')) then
+       memo.Lines.Add(rsm_5 + b + GetField('DEATH_PLACE') + b + rsm_4 +
+            b + GetField('DEATH_DATE'));
   end;
   if GetField('FACTS')>'' then
     memo.Lines.Add(rsm_64 + b + GetField('FACTS'));
-  if GetField('NAMEORIGIN')>'' then
-     memo.Lines.Add(rsm_6 + b + GetField('NAMEORIGIN'));
+  if GetField('NAME_ORIGIN')>'' then
+     memo.Lines.Add(rsm_6 + b + GetField('NAME_ORIGIN'));
   if GetField('LANGRENUS')>'' then
      memo.Lines.Add(rsm_7 + b + GetField('LANGRENUS'));
   if GetField('HEVELIUS')>'' then
@@ -2216,8 +2216,8 @@ begin
      txt  := txt + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + '<br>';
   if (GetField('LUN_REDUCED'))>'' then
      txt  := txt + t3 + 'L.U.N.REDUCED:' + t3end + b + GetField('LUN_REDUCED') + '<br>';
-  if (GetField('NAMETYPE'))>'' then
-     txt  := txt + t3 + 'Name type:' + t3end + b + GetField('NAMETYPE') + '<br>';
+  if (GetField('NAME_TYPE'))>'' then
+     txt  := txt + t3 + 'Name type:' + t3end + b + GetField('NAME_TYPE') + '<br>';
   txt  := txt + t3 + rsm_56 + t3end + b + GetField('TYPE') + '<br>';
   if (GetField('SUBTYPE'))>'' then
      txt  := txt + t3 + 'Sub-type:' + t3end + b + GetField('SUBTYPE') + '<br>';
@@ -2231,12 +2231,12 @@ begin
 
   //Taille
   txtbuf:='';
-  if (GetField('LENGTHKM')>'')or(GetField('WIDEKM')>'')or(GetField('LENGTHMI')>'')or(GetField('WIDEMI')>'') then
-     txtbuf  := txtbuf + t3 + rsm_17 + t3end + b + GetField('LENGTHKM') + 'x' +
-             GetField('WIDEKM') + rsm_18 + b + '/' + b + GetField('LENGTHMI') +
-             'x' + GetField('WIDEMI') + rsm_19 + '<br>';
-  buf  := GetField('HEIGHTM');
-  buf2 := GetField('HEIGHTFE');
+  if (GetField('LENGTH_KM')>'')or(GetField('WIDEK_M')>'')or(GetField('LENGTH_MI')>'')or(GetField('WIDE_MI')>'') then
+     txtbuf  := txtbuf + t3 + rsm_17 + t3end + b + GetField('LENGTH_KM') + 'x' +
+             GetField('WIDE_KM') + rsm_18 + b + '/' + b + GetField('LENGTH_MI') +
+             'x' + GetField('WIDE_MI') + rsm_19 + '<br>';
+  buf  := GetField('HEIGHT_M');
+  buf2 := GetField('HEIGHT_FE');
   if buf <> buf2 then begin
     txtbuf := txtbuf + t3 + rsm_20 + t3end + b;
     val(buf, dummy, i);
@@ -2254,8 +2254,8 @@ begin
 
   //Description
   txtbuf:='';
-  if GetField('GENERAL') > '' then
-    txtbuf := txtbuf + GetField('GENERAL') + '<br>';
+  if GetField('GENERAL1') > '' then
+    txtbuf := txtbuf + GetField('GENERAL1') + '<br>';
   if GetField('SLOPES') > '' then
     txtbuf := txtbuf + GetField('SLOPES') + '<br>';
   if GetField('WALLS') > '' then
@@ -2267,28 +2267,28 @@ begin
 
   //Observation
   txtbuf:='';
-  if GetField('INTERESTC') > '' then
-     txtbuf   := txtbuf + t3 + rsm_24 + t3end + b + GetField('INTERESTC') + '<br>';
-  buf   := GetField('MOONDAYS');
-  buf2  := GetField('MOONDAYM');
+  if GetField('INTEREST_C') > '' then
+     txtbuf   := txtbuf + t3 + rsm_24 + t3end + b + GetField('INTEREST_C') + '<br>';
+  buf   := GetField('MOONDAY_S');
+  buf2  := GetField('MOONDAY_M');
   if (buf+buf2)>'' then
     if buf = buf2 then
       txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + '<br>'
     else
       txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + b + rsm_26 + b + buf2 + '<br>';
-  if GetField('PRINSTRU') > '' then
-     txtbuf := txtbuf + t3 + rsm_28 + t3end + b + GetField('PRINSTRU') + '<br>';
-  if (GetField('TIPS'))>'' then
-     txtbuf  := txtbuf + t3 + 'Tips:' + t3end + b + GetField('TIPS') + '<br>';
+  if GetField('PR_INSTRU') > '' then
+     txtbuf := txtbuf + t3 + rsm_28 + t3end + b + GetField('PR_INSTRU') + '<br>';
+{  if (GetField('TIPS'))>'' then
+     txtbuf  := txtbuf + t3 + 'Tips:' + t3end + b + GetField('TIPS') + '<br>';}
   if txtbuf>'' then
      txt   := txt + t2 + rsm_59 + t2end + '<br>'+txtbuf+b + '<br>'; //Observation
 
   //Position
   txtbuf:='';
-  if GetField('LONGIC') > '' then
-     txtbuf   := txtbuf + t3 + rsm_10 + t3end + b + GetField('LONGIC') + '<br>';
-  if GetField('LATIC') > '' then
-     txtbuf   := txtbuf + t3 + rsm_11 + t3end + b + GetField('LATIC') + '<br>';
+  if GetField('LONGI_C') > '' then
+     txtbuf   := txtbuf + t3 + rsm_10 + t3end + b + GetField('LONGI_C') + '<br>';
+  if GetField('LATI_C') > '' then
+     txtbuf   := txtbuf + t3 + rsm_11 + t3end + b + GetField('LATI_C') + '<br>';
   if trim(GetField('FACE')) > '' then
      txtbuf   := txtbuf + t3 + rsSide + t3end + b + GetField('FACE') + '<br>';
   if GetField('QUADRANT') > '' then
@@ -2301,7 +2301,7 @@ begin
   //Atlas
   txtbuf:='';
   // RUKL link
-  carte := GetField('RUKL') + ' ' + GetField('RUKLC');
+  carte := GetField('RUKL') + ' ' + GetField('RUKL_C');
   img   := padzeros(GetField('RUKL'), 2);
   url   := ruklprefix + img + ruklsuffix;
   if fileexists(url) then
@@ -2374,34 +2374,34 @@ begin
 
   //Origine
   txtbuf:='';
-  if GetField('NAMEDETAIL') > '' then
-     txtbuf := txtbuf + t3 + rsm_63 + t3end + b + GetField('NAMEDETAIL') + '<br>';
+  if GetField('NAME_DETAIL') > '' then
+     txtbuf := txtbuf + t3 + rsm_63 + t3end + b + GetField('NAME_DETAIL') + '<br>';
   if (trim(GetField('WORK') + GetField('NATIONLITY')) > '') and
-    (trim(GetField('CENTURYC') + GetField('COUNTRY')) > '') then
+    (trim(GetField('CENTURY_C') + GetField('COUNTRY')) > '') then
   begin
     case wordformat of
-      0: txtbuf := txtbuf + GetField('CENTURYC') + b + GetField('NATIONLITY') +
+      0: txtbuf := txtbuf + GetField('CENTURY_C') + b + GetField('NATIONLITY') +
           b + GetField('WORK') + b + rsm_2 + b + GetField('COUNTRY') + '<br>';
       // english
       1: txtbuf := txtbuf + GetField('WORK') + b + GetField('NATIONLITY') +
-          b + rsm_1 + b + GetField('CENTURYC') + b + rsm_2 + b +
+          b + rsm_1 + b + GetField('CENTURY_C') + b + rsm_2 + b +
           GetField('COUNTRY') + '<br>';
       // francais, italian
       2: txtbuf := txtbuf + GetField('NATIONLITY') + b + GetField('WORK') +
-          b + GetField('CENTURYC') + b + rsm_2 + b + GetField('COUNTRY') + '<br>';
+          b + GetField('CENTURY_C') + b + rsm_2 + b + GetField('COUNTRY') + '<br>';
       // russian
     end;
-    if (GetField('BIRTHPLACE')>'')or((GetField('BIRTHDATE')>'')) then
-       txtbuf := txtbuf + t3 + rsm_3 + t3end + b + GetField('BIRTHPLACE') + b +
-                 rsm_4 + b + GetField('BIRTHDATE') + '<br>';
-    if (GetField('DEATHPLACE')>'')or((GetField('DEATHDATE')>'')) then
-       txtbuf := txtbuf + t3 + rsm_5 + t3end + b + GetField('DEATHPLACE') + b +
-                 rsm_4 + b + GetField('DEATHDATE') + '<br>';
+    if (GetField('BIRTH_PLACE')>'')or((GetField('BIRTH_DATE')>'')) then
+       txtbuf := txtbuf + t3 + rsm_3 + t3end + b + GetField('BIRTH_PLACE') + b +
+                 rsm_4 + b + GetField('BIRTH_DATE') + '<br>';
+    if (GetField('DEATH_PLACE')>'')or((GetField('DEATH_DATE')>'')) then
+       txtbuf := txtbuf + t3 + rsm_5 + t3end + b + GetField('DEATH_PLACE') + b +
+                 rsm_4 + b + GetField('DEATH_DATE') + '<br>';
   end;
   if GetField('FACTS')<>'' then
      txtbuf := txtbuf + t3 + rsm_64 + t3end + b + GetField('FACTS') + '<br>';
-  if GetField('NAMEORIGIN')<>'' then
-     txtbuf   := txtbuf + t3 + rsm_6 + t3end + b + GetField('NAMEORIGIN') + '<br>';
+  if GetField('NAME_ORIGIN')<>'' then
+     txtbuf   := txtbuf + t3 + rsm_6 + t3end + b + GetField('NAME_ORIGIN') + '<br>';
   if GetField('LANGRENUS')<>'' then
      txtbuf   := txtbuf + t3 + rsm_7 + t3end + b + GetField('LANGRENUS') + '<br>';
   if GetField('HEVELIUS')<>'' then
@@ -2478,8 +2478,8 @@ begin
   end
   else
     Label7.Caption := '';
-  statusbar1.Panels[0].Text := rsm_10 + GetField('LONGIN');
-  statusbar1.Panels[1].Text := rsm_11 + GetField('LATIN');
+  statusbar1.Panels[0].Text := rsm_10 + GetField('LONGI_N');
+  statusbar1.Panels[1].Text := rsm_11 + GetField('LATI_N');
   Addtolist(nom);
 end;
 
@@ -2518,7 +2518,7 @@ begin
   if (stringgrid2.Cells[1, 0] = '') or (stringgrid2.Cells[1, 1] = '') or
     (stringgrid2.Cells[1, 19] = '') or (stringgrid2.Cells[1, 21] = '') then
   begin
-    ShowMessage('DBN, NAME, LONGIN et LATIN obligatoire!');
+    ShowMessage('DBN, NAME, LONGI_N et LATI_N obligatoire!');
     exit;
   end;
   if editrow = 0 then
@@ -2647,21 +2647,21 @@ begin
       stringgrid2.Cells[1, dbcol - 1] := dbn;
     if (stringgrid2.Cells[0, dbcol - 1] = 'NAME') and (stringgrid2.Cells[1, dbcol - 1] = '') then
       stringgrid2.Cells[1, dbcol - 1] := defaultname;
-    if stringgrid2.Cells[0, dbcol - 1] = 'LENGTHKM' then
+    if stringgrid2.Cells[0, dbcol - 1] = 'LENGTH_KM' then
       stringgrid2.Cells[1, dbcol - 1] := ws;
-    if stringgrid2.Cells[0, dbcol - 1] = 'WIDEKM' then
+    if stringgrid2.Cells[0, dbcol - 1] = 'WIDE_KM' then
       stringgrid2.Cells[1, dbcol - 1] := ws;
-    if stringgrid2.Cells[0, dbcol - 1] = 'LENGTHMI' then
+    if stringgrid2.Cells[0, dbcol - 1] = 'LENGTH_MI' then
       stringgrid2.Cells[1, dbcol - 1] := formatfloat(f1, 0.621 * w);
-    if stringgrid2.Cells[0, dbcol - 1] = 'WIDEMI' then
+    if stringgrid2.Cells[0, dbcol - 1] = 'WIDE_MI' then
       stringgrid2.Cells[1, dbcol - 1] := formatfloat(f1, 0.621 * w);
-    if stringgrid2.Cells[0, dbcol - 1] = 'LONGIN' then
+    if stringgrid2.Cells[0, dbcol - 1] = 'LONGI_N' then
       stringgrid2.Cells[1, dbcol - 1] := ls;
-    if stringgrid2.Cells[0, dbcol - 1] = 'LATIN' then
+    if stringgrid2.Cells[0, dbcol - 1] = 'LATI_N' then
       stringgrid2.Cells[1, dbcol - 1] := bs;
-    if stringgrid2.Cells[0, dbcol - 1] = 'LONGIC' then
+    if stringgrid2.Cells[0, dbcol - 1] = 'LONGI_C' then
       stringgrid2.Cells[1, dbcol - 1] := ls2;
-    if stringgrid2.Cells[0, dbcol - 1] = 'LATIC' then
+    if stringgrid2.Cells[0, dbcol - 1] = 'LATI_C' then
       stringgrid2.Cells[1, dbcol - 1] := bs2;
     if stringgrid2.Cells[0, dbcol - 1] = 'QUADRANT' then
       stringgrid2.Cells[1, dbcol - 1] := quadrant;
@@ -2805,8 +2805,8 @@ begin
     dbm.Query('select * from moon where id=' + searchlist[searchpos]);
     if dbm.RowCount = 0 then
       exit;
-    l := dbm.Results[0].ByField['LONGIN'].AsFloat;
-    b := dbm.Results[0].ByField['LATIN'].AsFloat;
+    l := dbm.Results[0].ByField['LONGI_N'].AsFloat;
+    b := dbm.Results[0].ByField['LATI_N'].AsFloat;
     currentl    := l;
     currentb    := b;
     currentid   := searchlist[searchpos];
@@ -3191,8 +3191,8 @@ procedure TForm1.IdentLB(l, b, w: single);
 begin
   if SearchAtPos(l, b, w) then
   begin
-    l := dbm.Results[0].ByField['LONGIN'].AsFloat;
-    b := dbm.Results[0].ByField['LATIN'].AsFloat;
+    l := dbm.Results[0].ByField['LONGI_N'].AsFloat;
+    b := dbm.Results[0].ByField['LATI_N'].AsFloat;
     searchl := l;
     searchb := b;
     currentl := l;
