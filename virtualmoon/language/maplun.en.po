@@ -205,7 +205,7 @@ msgstr ""
 #: u_translation.rsm_21
 msgctxt "u_translation.rsm_21"
 msgid "m"
-msgstr "'"
+msgstr "m"
 
 #: u_translation.rsm_22
 msgid "ft"

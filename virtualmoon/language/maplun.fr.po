@@ -204,7 +204,7 @@ msgstr "Hauteur:"
 #: u_translation.rsm_21
 msgctxt "u_translation.rsm_21"
 msgid "m"
-msgstr "m'"
+msgstr "m"
 
 #: u_translation.rsm_22
 msgid "ft"
