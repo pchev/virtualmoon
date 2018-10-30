@@ -1,55 +1,55 @@
 object Form2: TForm2
   Left = 478
-  Height = 470
+  Height = 465
   Top = 120
-  Width = 454
+  Width = 449
   ActiveControl = PageControl1
   BorderStyle = bsSizeToolWin
   Caption = 'Configuration'
-  ClientHeight = 470
-  ClientWidth = 454
+  ClientHeight = 465
+  ClientWidth = 449
   Color = clWindow
+  DesignTimePPI = 95
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  Visible = False
   object PageControl1: TPageControl
     Left = 0
-    Height = 429
+    Height = 424
     Top = 0
-    Width = 454
-    ActivePage = TabSheet1
+    Width = 449
+    ActivePage = TabSheet7
     Align = alClient
     MultiLine = True
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheet1: TTabSheet
       Caption = 'General'
-      ClientHeight = 381
-      ClientWidth = 446
+      ClientHeight = 420
+      ClientWidth = 445
       ParentFont = False
       object Bevel8: TBevel
         Left = 16
-        Height = 140
-        Top = 160
-        Width = 372
+        Height = 139
+        Top = 158
+        Width = 368
         Shape = bsFrame
       end
       object Bevel7: TBevel
         Left = 16
-        Height = 129
+        Height = 128
         Top = 8
-        Width = 372
+        Width = 368
         Shape = bsFrame
       end
       object Label4: TLabel
         Left = 21
-        Height = 15
-        Top = 323
-        Width = 45
+        Height = 17
+        Top = 320
+        Width = 55
         Caption = 'Langue :'
         Color = clDefault
         ParentColor = False
@@ -58,9 +58,9 @@ object Form2: TForm2
       end
       object Label1: TLabel
         Left = 32
-        Height = 15
-        Top = 77
-        Width = 43
+        Height = 17
+        Top = 76
+        Width = 53
         Caption = 'Latitude'
         Color = clDefault
         ParentColor = False
@@ -68,10 +68,10 @@ object Form2: TForm2
         Transparent = False
       end
       object Label2: TLabel
-        Left = 154
-        Height = 15
-        Top = 77
-        Width = 54
+        Left = 152
+        Height = 17
+        Top = 76
+        Width = 64
         Caption = 'Longitude'
         Color = clDefault
         ParentColor = False
@@ -80,9 +80,9 @@ object Form2: TForm2
       end
       object Label16: TLabel
         Left = 32
-        Height = 15
+        Height = 17
         Top = 12
-        Width = 67
+        Width = 84
         Caption = 'Observatoire'
         Color = clDefault
         ParentColor = False
@@ -91,9 +91,9 @@ object Form2: TForm2
       end
       object Label23: TLabel
         Left = 32
-        Height = 15
-        Top = 156
-        Width = 67
+        Height = 17
+        Top = 154
+        Width = 82
         Caption = 'Date / Heure'
         Color = clDefault
         ParentColor = False
@@ -102,9 +102,9 @@ object Form2: TForm2
       end
       object Label34: TLabel
         Left = 32
-        Height = 15
-        Top = 267
-        Width = 67
+        Height = 17
+        Top = 264
+        Width = 83
         Caption = 'Zone horaire'
         Color = clDefault
         ParentColor = False
@@ -113,9 +113,9 @@ object Form2: TForm2
       end
       object Label35: TLabel
         Left = 32
-        Height = 15
-        Top = 226
-        Width = 24
+        Height = 17
+        Top = 224
+        Width = 30
         Caption = 'Pays'
         Color = clDefault
         ParentColor = False
@@ -123,11 +123,11 @@ object Form2: TForm2
         Transparent = False
       end
       object ComboBox3: TComboBox
-        Left = 88
-        Height = 23
-        Top = 316
-        Width = 235
-        ItemHeight = 15
+        Left = 87
+        Height = 29
+        Top = 313
+        Width = 233
+        ItemHeight = 0
         OnChange = ComboBox3Change
         ParentColor = True
         ParentFont = False
@@ -138,8 +138,8 @@ object Form2: TForm2
       object Edit1: TEdit
         Left = 32
         Height = 23
-        Top = 97
-        Width = 49
+        Top = 96
+        Width = 48
         AutoSize = False
         ParentColor = True
         ParentFont = False
@@ -147,10 +147,10 @@ object Form2: TForm2
         Text = 'Edit1'
       end
       object Edit2: TEdit
-        Left = 154
+        Left = 152
         Height = 23
-        Top = 97
-        Width = 49
+        Top = 96
+        Width = 48
         AutoSize = False
         ParentColor = True
         ParentFont = False
@@ -158,11 +158,11 @@ object Form2: TForm2
         Text = 'Edit2'
       end
       object ComboBox1: TComboBox
-        Left = 88
-        Height = 23
-        Top = 97
-        Width = 57
-        ItemHeight = 15
+        Left = 87
+        Height = 29
+        Top = 96
+        Width = 56
+        ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           'N'
@@ -174,11 +174,11 @@ object Form2: TForm2
         Text = 'N'
       end
       object ComboBox2: TComboBox
-        Left = 210
-        Height = 23
-        Top = 97
-        Width = 57
-        ItemHeight = 15
+        Left = 208
+        Height = 29
+        Top = 96
+        Width = 56
+        ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           'E'
@@ -191,19 +191,19 @@ object Form2: TForm2
       end
       object CheckBox16: TCheckBox
         Left = 32
-        Height = 19
-        Top = 184
-        Width = 206
+        Height = 21
+        Top = 182
+        Width = 254
         Caption = 'Use Computer Date and Time Zone'
         ParentFont = False
         TabOrder = 5
       end
       object ComboBoxCountry: TComboBox
-        Left = 125
-        Height = 23
-        Top = 220
-        Width = 182
-        ItemHeight = 15
+        Left = 124
+        Height = 33
+        Top = 218
+        Width = 180
+        ItemHeight = 0
         OnChange = ComboBoxCountryChange
         ParentColor = True
         ParentFont = False
@@ -211,11 +211,11 @@ object Form2: TForm2
         TabOrder = 6
       end
       object ComboBoxTZ: TComboBox
-        Left = 125
-        Height = 23
-        Top = 260
-        Width = 181
-        ItemHeight = 15
+        Left = 124
+        Height = 33
+        Top = 257
+        Width = 179
+        ItemHeight = 0
         OnChange = ComboBoxTZChange
         ParentColor = True
         ParentFont = False
@@ -226,7 +226,7 @@ object Form2: TForm2
         Left = 21
         Height = 42
         Top = 30
-        Width = 351
+        Width = 347
         AutoFill = True
         ChildSizing.LeftRightSpacing = 6
         ChildSizing.TopBottomSpacing = 6
@@ -236,8 +236,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 22
-        ClientWidth = 347
+        ClientHeight = 24
+        ClientWidth = 345
         Columns = 2
         Items.Strings = (
           'Topocentricccccccccccc'
@@ -248,10 +248,10 @@ object Form2: TForm2
         TabOrder = 8
       end
       object Button8: TSpeedButton
-        Left = 88
+        Left = 87
         Height = 25
-        Top = 352
-        Width = 235
+        Top = 348
+        Width = 233
         Caption = 'Button8'
         Flat = True
         Transparent = False
@@ -261,14 +261,14 @@ object Form2: TForm2
     end
     object TabSheet7: TTabSheet
       Caption = 'Database'
-      ClientHeight = 381
-      ClientWidth = 446
+      ClientHeight = 420
+      ClientWidth = 445
       ParentFont = False
       object Label31: TLabel
         Left = 16
-        Height = 15
-        Top = 251
-        Width = 77
+        Height = 17
+        Top = 168
+        Width = 100
         Caption = 'User Database '
         Color = clDefault
         ParentColor = False
@@ -277,19 +277,19 @@ object Form2: TForm2
       end
       object GroupBox1: TGroupBox
         Left = 16
-        Height = 235
+        Height = 153
         Top = 10
-        Width = 388
+        Width = 384
         Caption = 'Database'
-        ClientHeight = 215
-        ClientWidth = 384
+        ClientHeight = 135
+        ClientWidth = 382
         ParentFont = False
         TabOrder = 0
         object CheckBox19: TCheckBox
           Left = 24
-          Height = 19
+          Height = 21
           Top = 10
-          Width = 117
+          Width = 141
           Caption = 'Named Formation'
           OnClick = CheckBox19Click
           ParentFont = False
@@ -297,105 +297,61 @@ object Form2: TForm2
         end
         object CheckBox20: TCheckBox
           Left = 24
-          Height = 19
-          Top = 33
-          Width = 124
+          Height = 21
+          Top = 38
+          Width = 155
           Caption = 'Satellites Formation'
           ParentFont = False
           TabOrder = 1
         end
         object CheckBox21: TCheckBox
           Left = 24
-          Height = 19
-          Top = 56
-          Width = 161
+          Height = 21
+          Top = 66
+          Width = 196
           Caption = 'Far Side Named Formation'
           ParentFont = False
           TabOrder = 2
         end
         object CheckBox22: TCheckBox
           Left = 24
-          Height = 19
-          Top = 79
-          Width = 168
+          Height = 21
+          Top = 94
+          Width = 210
           Caption = 'Far Side Satellites Formation'
           ParentFont = False
           TabOrder = 3
         end
-        object CheckBox23: TCheckBox
-          Left = 24
-          Height = 19
-          Top = 102
-          Width = 85
-          Caption = 'Landing Site'
-          ParentFont = False
-          TabOrder = 4
-        end
-        object CheckBox24: TCheckBox
-          Left = 24
-          Height = 19
-          Top = 125
-          Width = 124
-          Caption = 'Pyroclastic deposits'
-          ParentFont = False
-          TabOrder = 5
-        end
-        object CheckBox25: TCheckBox
-          Left = 24
-          Height = 19
-          Top = 148
-          Width = 57
-          Caption = 'Domes'
-          ParentFont = False
-          TabOrder = 6
-        end
-        object CheckBox26: TCheckBox
-          Left = 24
-          Height = 19
-          Top = 171
-          Width = 130
-          Caption = 'Unnamed Formation'
-          ParentFont = False
-          TabOrder = 7
-        end
-        object CheckBox27: TCheckBox
-          Left = 24
-          Height = 19
-          Top = 194
-          Width = 173
-          Caption = 'Far side Unnamed Formation'
-          ParentFont = False
-          TabOrder = 8
-        end
       end
       object CheckListBox1: TCheckListBox
         Left = 16
-        Height = 95
-        Top = 275
-        Width = 388
+        Height = 174
+        Top = 192
+        Width = 384
         ItemHeight = 0
         ParentColor = True
         ParentFont = False
         TabOrder = 1
+        TopIndex = -1
       end
     end
     object TabSheet3: TTabSheet
       Caption = 'Affichage'
-      ClientHeight = 381
-      ClientWidth = 446
+      ClientHeight = 420
+      ClientWidth = 445
       ParentFont = False
       object Bevel3: TBevel
         Left = 16
-        Height = 154
-        Top = 231
-        Width = 396
+        Height = 152
+        Top = 229
+        Width = 392
         Shape = bsFrame
       end
       object TrackBar2: TTrackBar
-        Left = 162
+        Left = 160
         Height = 41
-        Top = 344
-        Width = 193
+        Top = 340
+        Width = 191
         Frequency = 100
         Min = -600
         PageSize = 100
@@ -406,36 +362,36 @@ object Form2: TForm2
       end
       object Bevel1: TBevel
         Left = 16
-        Height = 57
+        Height = 56
         Top = 0
-        Width = 396
+        Width = 392
         Shape = bsFrame
       end
       object Bevel9: TBevel
         Left = 16
-        Height = 97
-        Top = 128
-        Width = 396
+        Height = 96
+        Top = 127
+        Width = 392
         Shape = bsFrame
       end
       object Bevel2: TBevel
         Left = 16
-        Height = 59
-        Top = 64
-        Width = 396
+        Height = 58
+        Top = 63
+        Width = 392
         Shape = bsFrame
       end
       object Shape1: TShape
         Left = 24
         Height = 20
-        Top = 92
+        Top = 91
         Width = 20
         OnMouseUp = Shape1MouseUp
       end
       object Label6: TLabel
-        Left = 51
+        Left = 50
         Height = 15
-        Top = 96
+        Top = 95
         Width = 70
         Caption = 'Identification'
         Color = clDefault
@@ -444,16 +400,16 @@ object Form2: TForm2
         Transparent = False
       end
       object Shape2: TShape
-        Left = 172
+        Left = 170
         Height = 20
-        Top = 92
+        Top = 91
         Width = 20
         OnMouseUp = Shape1MouseUp
       end
       object Label7: TLabel
-        Left = 199
+        Left = 197
         Height = 15
-        Top = 96
+        Top = 95
         Width = 41
         Caption = 'Marque'
         Color = clDefault
@@ -464,7 +420,7 @@ object Form2: TForm2
       object Label5: TLabel
         Left = 32
         Height = 15
-        Top = 57
+        Top = 56
         Width = 42
         Caption = 'Couleur'
         Color = clDefault
@@ -473,16 +429,16 @@ object Form2: TForm2
         Transparent = False
       end
       object Shape3: TShape
-        Left = 308
+        Left = 305
         Height = 20
-        Top = 92
+        Top = 91
         Width = 20
         OnMouseUp = Shape1MouseUp
       end
       object Label17: TLabel
-        Left = 335
+        Left = 332
         Height = 15
-        Top = 96
+        Top = 95
         Width = 28
         Caption = 'Label'
         Color = clDefault
@@ -493,7 +449,7 @@ object Form2: TForm2
       object Label18: TLabel
         Left = 24
         Height = 15
-        Top = 351
+        Top = 347
         Width = 88
         Caption = 'Densite de labels'
         Color = clDefault
@@ -504,7 +460,7 @@ object Form2: TForm2
       object Label33: TLabel
         Left = 24
         Height = 15
-        Top = 186
+        Top = 184
         Width = 97
         Caption = 'Taille des marques'
         Color = clDefault
@@ -513,9 +469,9 @@ object Form2: TForm2
         Transparent = False
       end
       object LabelFont: TLabel
-        Left = 172
+        Left = 170
         Height = 15
-        Top = 317
+        Top = 318
         Width = 52
         Anchors = [akLeft, akBottom]
         Caption = 'LabelFont'
@@ -525,9 +481,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label39: TLabel
-        Left = 160
+        Left = 158
         Height = 15
-        Top = 186
+        Top = 184
         Width = 5
         Caption = '-'
         Color = clDefault
@@ -536,9 +492,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label40: TLabel
-        Left = 154
+        Left = 152
         Height = 15
-        Top = 351
+        Top = 347
         Width = 5
         Caption = '-'
         Color = clDefault
@@ -547,9 +503,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label41: TLabel
-        Left = 356
+        Left = 352
         Height = 15
-        Top = 186
+        Top = 184
         Width = 8
         Caption = '+'
         Color = clDefault
@@ -558,9 +514,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label42: TLabel
-        Left = 356
+        Left = 352
         Height = 15
-        Top = 351
+        Top = 347
         Width = 8
         Caption = '+'
         Color = clDefault
@@ -569,7 +525,7 @@ object Form2: TForm2
         Transparent = False
       end
       object CheckBox2: TCheckBox
-        Left = 236
+        Left = 234
         Height = 19
         Top = 24
         Width = 117
@@ -589,7 +545,7 @@ object Form2: TForm2
       object CheckBox6: TCheckBox
         Left = 24
         Height = 19
-        Top = 157
+        Top = 155
         Width = 114
         Caption = 'Affiche la marque'
         ParentFont = False
@@ -598,7 +554,7 @@ object Form2: TForm2
       object CheckBox5: TCheckBox
         Left = 24
         Height = 19
-        Top = 234
+        Top = 232
         Width = 108
         Caption = 'Affiche les labels'
         ParentFont = False
@@ -607,7 +563,7 @@ object Form2: TForm2
       object CheckBox14: TCheckBox
         Left = 24
         Height = 19
-        Top = 136
+        Top = 135
         Width = 177
         Caption = 'Marque la libration maximum'
         ParentFont = False
@@ -616,7 +572,7 @@ object Form2: TForm2
       object CheckBox17: TCheckBox
         Left = 24
         Height = 19
-        Top = 259
+        Top = 256
         Width = 171
         Caption = 'Label centre sur la formation'
         ParentFont = False
@@ -625,17 +581,17 @@ object Form2: TForm2
       object CheckBox18: TCheckBox
         Left = 24
         Height = 19
-        Top = 286
+        Top = 283
         Width = 104
         Caption = 'Label minimum'
         ParentFont = False
         TabOrder = 7
       end
       object TrackBar4: TTrackBar
-        Left = 172
+        Left = 170
         Height = 41
-        Top = 178
-        Width = 191
+        Top = 176
+        Width = 189
         LineSize = 5
         Max = 8
         Min = 1
@@ -648,8 +604,8 @@ object Form2: TForm2
       object Button5: TSpeedButton
         Left = 24
         Height = 25
-        Top = 312
-        Width = 117
+        Top = 309
+        Width = 116
         Caption = 'Labels font'
         Flat = True
         Transparent = False
@@ -659,12 +615,12 @@ object Form2: TForm2
     end
     object TabSheet4: TTabSheet
       Caption = 'Textures'
-      ClientHeight = 381
-      ClientWidth = 446
+      ClientHeight = 420
+      ClientWidth = 445
       ParentFont = False
       object BumpRadioGroup: TRadioGroup
         Left = 0
-        Height = 88
+        Height = 87
         Top = 0
         Width = 446
         Align = alTop
@@ -677,8 +633,8 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 68
-        ClientWidth = 442
+        ClientHeight = 69
+        ClientWidth = 444
         Items.Strings = (
           'Phase sans reliefeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
           'Phase avec relief dynamiqueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
@@ -690,30 +646,30 @@ object Form2: TForm2
       end
       object TexturePanel: TPanel
         Left = 0
-        Height = 297
-        Top = 84
+        Height = 294
+        Top = 87
         Width = 446
         Align = alBottom
         BevelOuter = bvNone
-        ClientHeight = 297
-        ClientWidth = 446
+        ClientHeight = 290
+        ClientWidth = 442
         ParentFont = False
         TabOrder = 1
         object GBlvall: TGroupBox
           Left = 8
-          Height = 253
+          Height = 250
           Top = 40
-          Width = 242
-          ClientHeight = 233
-          ClientWidth = 238
+          Width = 239
+          ClientHeight = 232
+          ClientWidth = 237
           ParentFont = False
           TabOrder = 0
           object ComboBox6: TComboBox
-            Left = 105
+            Left = 104
             Height = 23
-            Top = 56
-            Width = 135
-            ItemHeight = 15
+            Top = 55
+            Width = 134
+            ItemHeight = 0
             OnChange = ComboBox6Change
             ParentColor = True
             ParentFont = False
@@ -724,7 +680,7 @@ object Form2: TForm2
           end
         end
         object Label29: TLabel
-          Left = 250
+          Left = 247
           Height = 15
           Top = 24
           Width = 17
@@ -735,7 +691,7 @@ object Form2: TForm2
           Transparent = False
         end
         object Label36: TLabel
-          Left = 280
+          Left = 277
           Height = 15
           Top = 24
           Width = 17
@@ -746,7 +702,7 @@ object Form2: TForm2
           Transparent = False
         end
         object Label37: TLabel
-          Left = 312
+          Left = 309
           Height = 15
           Top = 24
           Width = 23
@@ -757,7 +713,7 @@ object Form2: TForm2
           Transparent = False
         end
         object Label38: TLabel
-          Left = 344
+          Left = 340
           Height = 15
           Top = 24
           Width = 29
@@ -768,7 +724,7 @@ object Form2: TForm2
           Transparent = False
         end
         object Label47: TLabel
-          Left = 376
+          Left = 372
           Height = 15
           Top = 24
           Width = 29
@@ -779,7 +735,7 @@ object Form2: TForm2
           Transparent = False
         end
         object Label48: TLabel
-          Left = 408
+          Left = 404
           Height = 15
           Top = 24
           Width = 35
@@ -801,7 +757,7 @@ object Form2: TForm2
           Transparent = False
         end
         object Label3: TLabel
-          Left = 245
+          Left = 242
           Height = 15
           Top = 8
           Width = 59
@@ -812,48 +768,48 @@ object Form2: TForm2
           Transparent = False
         end
         object GBlv1: TGroupBox
-          Left = 250
-          Height = 253
+          Left = 247
+          Height = 250
           Top = 40
           Width = 33
           ParentFont = False
           TabOrder = 1
         end
         object GBlv2: TGroupBox
-          Left = 283
-          Height = 253
+          Left = 280
+          Height = 250
           Top = 40
           Width = 33
           ParentFont = False
           TabOrder = 2
         end
         object GBlv3: TGroupBox
-          Left = 316
-          Height = 253
+          Left = 313
+          Height = 250
           Top = 40
           Width = 33
           ParentFont = False
           TabOrder = 3
         end
         object GBlv4: TGroupBox
-          Left = 349
-          Height = 253
+          Left = 345
+          Height = 250
           Top = 40
           Width = 33
           ParentFont = False
           TabOrder = 4
         end
         object GBlv5: TGroupBox
-          Left = 382
-          Height = 253
+          Left = 378
+          Height = 250
           Top = 40
           Width = 33
           ParentFont = False
           TabOrder = 5
         end
         object GBlv6: TGroupBox
-          Left = 415
-          Height = 253
+          Left = 411
+          Height = 250
           Top = 40
           Width = 33
           ParentFont = False
@@ -863,16 +819,16 @@ object Form2: TForm2
     end
     object TabSheet6: TTabSheet
       Caption = 'Overlay'
-      ClientHeight = 381
-      ClientWidth = 446
+      ClientHeight = 420
+      ClientWidth = 445
       ParentFont = False
       object Panel2: TPanel
         Left = 14
-        Height = 122
+        Height = 121
         Top = 46
-        Width = 296
-        ClientHeight = 122
-        ClientWidth = 296
+        Width = 293
+        ClientHeight = 117
+        ClientWidth = 289
         ParentFont = False
         TabOrder = 1
         object Memo1: TMemo
@@ -889,19 +845,19 @@ object Form2: TForm2
       end
       object OverlayPanel: TPanel
         Left = 8
-        Height = 372
+        Height = 368
         Top = 8
-        Width = 404
+        Width = 400
         BevelOuter = bvNone
-        ClientHeight = 372
-        ClientWidth = 404
+        ClientHeight = 364
+        ClientWidth = 396
         ParentFont = False
         TabOrder = 0
         object Image1: TImage
           Left = 19
-          Height = 140
-          Top = 93
-          Width = 280
+          Height = 139
+          Top = 92
+          Width = 277
           Proportional = True
           Stretch = True
         end
@@ -919,7 +875,7 @@ object Form2: TForm2
         object Label32: TLabel
           Left = 19
           Height = 15
-          Top = 254
+          Top = 251
           Width = 73
           Caption = 'Transparency:'
           Color = clDefault
@@ -928,9 +884,9 @@ object Form2: TForm2
           Transparent = False
         end
         object Label43: TLabel
-          Left = 156
+          Left = 154
           Height = 15
-          Top = 248
+          Top = 245
           Width = 5
           Caption = '-'
           Color = clDefault
@@ -939,9 +895,9 @@ object Form2: TForm2
           Transparent = False
         end
         object Label44: TLabel
-          Left = 340
+          Left = 336
           Height = 15
-          Top = 248
+          Top = 245
           Width = 8
           Caption = '+'
           Color = clDefault
@@ -961,9 +917,9 @@ object Form2: TForm2
         object ComboBox5: TComboBox
           Left = 19
           Height = 23
-          Top = 64
-          Width = 145
-          ItemHeight = 15
+          Top = 63
+          Width = 143
+          ItemHeight = 0
           OnChange = ComboBox5Change
           ParentColor = True
           ParentFont = False
@@ -971,10 +927,10 @@ object Form2: TForm2
           TabOrder = 1
         end
         object TrackBar5: TTrackBar
-          Left = 168
+          Left = 166
           Height = 41
-          Top = 248
-          Width = 160
+          Top = 245
+          Width = 158
           Frequency = 20
           Max = 100
           OnChange = TrackBar5Change
@@ -986,16 +942,16 @@ object Form2: TForm2
         end
         object GroupBox2: TGroupBox
           Left = 21
-          Height = 73
-          Top = 284
-          Width = 367
+          Height = 72
+          Top = 281
+          Width = 363
           Caption = 'Grid'
-          ClientHeight = 53
-          ClientWidth = 363
+          ClientHeight = 54
+          ClientWidth = 361
           ParentFont = False
           TabOrder = 3
           object Label45: TLabel
-            Left = 134
+            Left = 133
             Height = 15
             Top = 21
             Width = 5
@@ -1006,7 +962,7 @@ object Form2: TForm2
             Transparent = False
           end
           object Label46: TLabel
-            Left = 317
+            Left = 314
             Height = 15
             Top = 21
             Width = 8
@@ -1017,10 +973,10 @@ object Form2: TForm2
             Transparent = False
           end
           object LabelGrid: TLabel
-            Left = 133
+            Left = 132
             Height = 15
             Top = 2
-            Width = 152
+            Width = 150
             Alignment = taCenter
             AutoSize = False
             Caption = 'LabelGrid'
@@ -1030,10 +986,10 @@ object Form2: TForm2
             Transparent = False
           end
           object TrackBar3: TTrackBar
-            Left = 143
+            Left = 142
             Height = 41
             Top = 16
-            Width = 168
+            Width = 166
             Frequency = 5
             LineSize = 5
             Max = 30
@@ -1059,8 +1015,8 @@ object Form2: TForm2
     end
     object TabSheet2: TTabSheet
       Caption = 'Images'
-      ClientHeight = 381
-      ClientWidth = 446
+      ClientHeight = 420
+      ClientWidth = 445
       ParentFont = False
       object Label9: TLabel
         Left = 9
@@ -1076,7 +1032,7 @@ object Form2: TForm2
       object Label22: TLabel
         Left = 8
         Height = 15
-        Top = 348
+        Top = 344
         Width = 23
         Caption = 'Rukl'
         Color = clDefault
@@ -1085,20 +1041,20 @@ object Form2: TForm2
         Transparent = False
       end
       object ruklsuffix: TEdit
-        Left = 184
+        Left = 182
         Height = 23
-        Top = 344
-        Width = 121
+        Top = 340
+        Width = 120
         ParentColor = True
         ParentFont = False
         TabOrder = 2
         Text = '.jpg'
       end
       object ruklprefix: TEdit
-        Left = 49
+        Left = 48
         Height = 23
-        Top = 344
-        Width = 121
+        Top = 340
+        Width = 120
         ParentColor = True
         ParentFont = False
         TabOrder = 5
@@ -1106,9 +1062,9 @@ object Form2: TForm2
       end
       object StringGrid1: TStringGrid
         Left = 8
-        Height = 266
+        Height = 263
         Top = 42
-        Width = 396
+        Width = 392
         ColCount = 2
         DefaultRowHeight = 22
         FixedCols = 0
@@ -1120,8 +1076,8 @@ object Form2: TForm2
         TabOrder = 3
         OnSelectCell = StringGrid1SelectCell
         ColWidths = (
-          115
-          250
+          114
+          247
         )
       end
       object CheckBox12: TCheckBox
@@ -1135,10 +1091,10 @@ object Form2: TForm2
         TabOrder = 0
       end
       object Edit4: TEdit
-        Left = 157
+        Left = 155
         Height = 23
         Top = 2
-        Width = 121
+        Width = 120
         Enabled = False
         ParentColor = True
         ParentFont = False
@@ -1146,7 +1102,7 @@ object Form2: TForm2
         Text = 'mspaint.exe'
       end
       object Button3: TSpeedButton
-        Left = 293
+        Left = 290
         Height = 21
         Top = 3
         Width = 21
@@ -1159,17 +1115,17 @@ object Form2: TForm2
       object CheckBox15: TCheckBox
         Left = 9
         Height = 19
-        Top = 372
+        Top = 368
         Width = 270
         Caption = 'Lien direct sur l''image pour l''atlas Lunar Orbiter'
         ParentFont = False
         TabOrder = 4
       end
       object Button7: TSpeedButton
-        Left = 53
+        Left = 52
         Height = 25
-        Top = 316
-        Width = 235
+        Top = 313
+        Width = 233
         Caption = 'Button7'
         Flat = True
         OnClick = Button7Click
@@ -1178,8 +1134,8 @@ object Form2: TForm2
     end
     object TabSheet5: TTabSheet
       Caption = 'Eyepieces'
-      ClientHeight = 381
-      ClientWidth = 446
+      ClientHeight = 420
+      ClientWidth = 445
       ParentFont = False
       object Label24: TLabel
         Left = 8
@@ -1206,7 +1162,7 @@ object Form2: TForm2
       object Label26: TLabel
         Left = 8
         Height = 15
-        Top = 61
+        Top = 60
         Width = 170
         Caption = 'Eyepiece apparent field of vision'
         Color = clDefault
@@ -1215,9 +1171,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label27: TLabel
-        Left = 190
+        Left = 188
         Height = 15
-        Top = 95
+        Top = 94
         Width = 16
         Caption = '=>'
         Color = clDefault
@@ -1228,7 +1184,7 @@ object Form2: TForm2
       object Label28: TLabel
         Left = 8
         Height = 15
-        Top = 95
+        Top = 94
         Width = 33
         Caption = 'Power'
         Color = clDefault
@@ -1238,9 +1194,9 @@ object Form2: TForm2
       end
       object StringGrid2: TStringGrid
         Left = 8
-        Height = 255
-        Top = 125
-        Width = 396
+        Height = 252
+        Top = 124
+        Width = 392
         ColCount = 4
         DefaultColWidth = 30
         DefaultRowHeight = 22
@@ -1254,14 +1210,14 @@ object Form2: TForm2
         OnMouseUp = StringGrid2MouseUp
         OnSelectCell = StringGrid2SelectCell
         ColWidths = (
-          170
-          100
-          50
-          50
+          168
+          99
+          49
+          49
         )
       end
       object Edit6: TEdit
-        Left = 214
+        Left = 212
         Height = 23
         Top = 4
         Width = 41
@@ -1271,7 +1227,7 @@ object Form2: TForm2
         Text = '2000'
       end
       object Edit7: TEdit
-        Left = 214
+        Left = 212
         Height = 23
         Top = 30
         Width = 41
@@ -1281,9 +1237,9 @@ object Form2: TForm2
         Text = '10'
       end
       object Edit8: TEdit
-        Left = 214
+        Left = 212
         Height = 23
-        Top = 58
+        Top = 57
         Width = 41
         ParentColor = True
         ParentFont = False
@@ -1291,20 +1247,20 @@ object Form2: TForm2
         Text = '50'
       end
       object Edit9: TEdit
-        Left = 214
+        Left = 212
         Height = 23
-        Top = 93
-        Width = 49
+        Top = 92
+        Width = 48
         ParentColor = True
         ParentFont = False
         ReadOnly = True
         TabOrder = 4
       end
       object Button6: TSpeedButton
-        Left = 294
+        Left = 291
         Height = 25
-        Top = 58
-        Width = 75
+        Top = 57
+        Width = 74
         Caption = 'Compute'
         Flat = True
         Transparent = False
@@ -1312,9 +1268,9 @@ object Form2: TForm2
         ParentFont = False
       end
       object Edit10: TEdit
-        Left = 126
+        Left = 125
         Height = 23
-        Top = 93
+        Top = 92
         Width = 41
         ParentColor = True
         ParentFont = False
@@ -1322,7 +1278,7 @@ object Form2: TForm2
         TabOrder = 5
       end
       object Label51: TLabel
-        Left = 267
+        Left = 264
         Height = 15
         Top = 8
         Width = 30
@@ -1333,7 +1289,7 @@ object Form2: TForm2
         Transparent = False
       end
       object Label54: TLabel
-        Left = 267
+        Left = 264
         Height = 15
         Top = 34
         Width = 30
@@ -1344,9 +1300,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label56: TLabel
-        Left = 267
+        Left = 264
         Height = 15
-        Top = 61
+        Top = 60
         Width = 13
         Caption = '[°]'
         Color = clDefault
@@ -1355,9 +1311,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label57: TLabel
-        Left = 172
+        Left = 170
         Height = 15
-        Top = 95
+        Top = 94
         Width = 5
         Caption = 'x'
         Color = clDefault
@@ -1366,9 +1322,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label58: TLabel
-        Left = 267
+        Left = 264
         Height = 15
-        Top = 95
+        Top = 94
         Width = 11
         Caption = '['']'
         Color = clDefault
@@ -1379,14 +1335,14 @@ object Form2: TForm2
     end
     object TabSheet8: TTabSheet
       Caption = 'CCD'
-      ClientHeight = 381
-      ClientWidth = 446
+      ClientHeight = 420
+      ClientWidth = 445
       ParentFont = False
       object StringGrid3: TStringGrid
         Left = 8
-        Height = 263
-        Top = 125
-        Width = 396
+        Height = 260
+        Top = 124
+        Width = 392
         ColCount = 4
         DefaultRowHeight = 22
         FixedCols = 0
@@ -1396,10 +1352,10 @@ object Form2: TForm2
         RowCount = 11
         TabOrder = 0
         ColWidths = (
-          190
-          60
-          60
-          60
+          188
+          59
+          59
+          59
         )
       end
       object Label49: TLabel
@@ -1425,9 +1381,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label52: TLabel
-        Left = 142
+        Left = 141
         Height = 15
-        Top = 97
+        Top = 96
         Width = 16
         Caption = '=>'
         Color = clDefault
@@ -1438,7 +1394,7 @@ object Form2: TForm2
       object Label53: TLabel
         Left = 8
         Height = 15
-        Top = 58
+        Top = 57
         Width = 58
         Caption = 'Pixel count'
         Color = clDefault
@@ -1447,7 +1403,7 @@ object Form2: TForm2
         Transparent = False
       end
       object Edit11: TEdit
-        Left = 168
+        Left = 166
         Height = 23
         Top = 4
         Width = 41
@@ -1457,7 +1413,7 @@ object Form2: TForm2
         Text = '2000'
       end
       object Edit12: TEdit
-        Left = 168
+        Left = 166
         Height = 23
         Top = 30
         Width = 41
@@ -1467,9 +1423,9 @@ object Form2: TForm2
         Text = '5.6'
       end
       object Edit14: TEdit
-        Left = 168
+        Left = 166
         Height = 23
-        Top = 93
+        Top = 92
         Width = 41
         ParentColor = True
         ParentFont = False
@@ -1477,10 +1433,10 @@ object Form2: TForm2
         TabOrder = 3
       end
       object Button9: TSpeedButton
-        Left = 310
+        Left = 307
         Height = 25
-        Top = 51
-        Width = 75
+        Top = 50
+        Width = 74
         Caption = 'Compute'
         Flat = True
         Transparent = False
@@ -1488,9 +1444,9 @@ object Form2: TForm2
         ParentFont = False
       end
       object Edit15: TEdit
-        Left = 168
+        Left = 166
         Height = 23
-        Top = 54
+        Top = 53
         Width = 41
         ParentColor = True
         ParentFont = False
@@ -1498,7 +1454,7 @@ object Form2: TForm2
         Text = '640'
       end
       object Label8: TLabel
-        Left = 214
+        Left = 212
         Height = 15
         Top = 34
         Width = 7
@@ -1509,9 +1465,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label20: TLabel
-        Left = 214
+        Left = 212
         Height = 15
-        Top = 58
+        Top = 57
         Width = 7
         Caption = 'X'
         Color = clDefault
@@ -1520,9 +1476,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label21: TLabel
-        Left = 214
+        Left = 212
         Height = 15
-        Top = 97
+        Top = 96
         Width = 7
         Caption = 'X'
         Color = clDefault
@@ -1531,7 +1487,7 @@ object Form2: TForm2
         Transparent = False
       end
       object Edit13: TEdit
-        Left = 230
+        Left = 228
         Height = 23
         Top = 30
         Width = 41
@@ -1541,9 +1497,9 @@ object Form2: TForm2
         Text = '5.6'
       end
       object Edit16: TEdit
-        Left = 230
+        Left = 228
         Height = 23
-        Top = 54
+        Top = 53
         Width = 41
         ParentColor = True
         ParentFont = False
@@ -1551,9 +1507,9 @@ object Form2: TForm2
         Text = '480'
       end
       object Edit17: TEdit
-        Left = 230
+        Left = 228
         Height = 23
-        Top = 93
+        Top = 92
         Width = 41
         ParentColor = True
         ParentFont = False
@@ -1561,7 +1517,7 @@ object Form2: TForm2
         TabOrder = 6
       end
       object Label55: TLabel
-        Left = 222
+        Left = 220
         Height = 15
         Top = 8
         Width = 30
@@ -1572,7 +1528,7 @@ object Form2: TForm2
         Transparent = False
       end
       object Label59: TLabel
-        Left = 278
+        Left = 275
         Height = 15
         Top = 34
         Width = 26
@@ -1583,9 +1539,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label60: TLabel
-        Left = 278
+        Left = 275
         Height = 15
-        Top = 97
+        Top = 96
         Width = 11
         Caption = '['']'
         Color = clDefault
@@ -1596,27 +1552,27 @@ object Form2: TForm2
     end
     object Impression: TTabSheet
       Caption = 'Impression'
-      ClientHeight = 381
-      ClientWidth = 446
+      ClientHeight = 420
+      ClientWidth = 445
       ParentFont = False
       object Bevel6: TBevel
         Left = 8
-        Height = 81
-        Top = 49
-        Width = 388
+        Height = 80
+        Top = 48
+        Width = 384
         Shape = bsFrame
       end
       object Bevel4: TBevel
         Left = 12
-        Height = 81
-        Top = 256
-        Width = 388
+        Height = 80
+        Top = 253
+        Width = 384
         Shape = bsFrame
       end
       object Label12: TLabel
         Left = 16
         Height = 15
-        Top = 64
+        Top = 63
         Width = 37
         Caption = 'Marge '
         Color = clDefault
@@ -1625,9 +1581,9 @@ object Form2: TForm2
         Transparent = False
       end
       object Label13: TLabel
-        Left = 181
+        Left = 179
         Height = 15
-        Top = 64
+        Top = 63
         Width = 59
         Caption = 'millimetres'
         Color = clDefault
@@ -1638,7 +1594,7 @@ object Form2: TForm2
       object Label14: TLabel
         Left = 16
         Height = 15
-        Top = 103
+        Top = 102
         Width = 163
         Caption = 'Largeur du texte de description'
         Color = clDefault
@@ -1648,9 +1604,9 @@ object Form2: TForm2
       end
       object Bevel5: TBevel
         Left = 8
-        Height = 92
-        Top = 140
-        Width = 388
+        Height = 91
+        Top = 139
+        Width = 384
         Shape = bsFrame
       end
       object Label15: TLabel
@@ -1667,7 +1623,7 @@ object Form2: TForm2
       object Label10: TLabel
         Left = 24
         Height = 15
-        Top = 295
+        Top = 292
         Width = 155
         Caption = 'Taille des images enregistrees'
         Color = clDefault
@@ -1679,7 +1635,7 @@ object Form2: TForm2
       object Label11: TLabel
         Left = 16
         Height = 15
-        Top = 241
+        Top = 238
         Width = 138
         Caption = 'Enregistrement des cartes '
         Color = clDefault
@@ -1688,10 +1644,10 @@ object Form2: TForm2
         Transparent = False
       end
       object LabelImp: TLabel
-        Left = 252
+        Left = 249
         Height = 15
-        Top = 80
-        Width = 92
+        Top = 79
+        Width = 91
         Alignment = taCenter
         AutoSize = False
         Caption = 'LabelImp'
@@ -1701,10 +1657,10 @@ object Form2: TForm2
         Transparent = False
       end
       object TrackBar1: TTrackBar
-        Left = 240
+        Left = 238
         Height = 17
-        Top = 103
-        Width = 122
+        Top = 102
+        Width = 121
         Frequency = 125
         Max = 1200
         Min = 200
@@ -1715,11 +1671,11 @@ object Form2: TForm2
         TabOrder = 1
       end
       object LongEdit1: TLongEdit
-        Left = 109
+        Left = 108
         Height = 23
         Hint = '0..50'
-        Top = 58
-        Width = 49
+        Top = 57
+        Width = 48
         ParentColor = True
         ParentFont = False
         ParentShowHint = False
@@ -1731,7 +1687,7 @@ object Form2: TForm2
       object CheckBox8: TCheckBox
         Left = 24
         Height = 19
-        Top = 174
+        Top = 172
         Width = 153
         Caption = 'Imprime les ephemerides'
         ParentFont = False
@@ -1740,17 +1696,17 @@ object Form2: TForm2
       object CheckBox9: TCheckBox
         Left = 24
         Height = 19
-        Top = 198
+        Top = 196
         Width = 142
         Caption = 'Imprime la description '
         ParentFont = False
         TabOrder = 4
       end
       object Button2: TSpeedButton
-        Left = 112
+        Left = 111
         Height = 25
         Top = 16
-        Width = 90
+        Width = 89
         Caption = 'Configuration'
         Flat = True
         OnClick = Button2Click
@@ -1759,7 +1715,7 @@ object Form2: TForm2
       object CheckBox13: TCheckBox
         Left = 24
         Height = 19
-        Top = 150
+        Top = 148
         Width = 106
         Caption = 'Imprime la carte'
         ParentFont = False
@@ -1768,18 +1724,18 @@ object Form2: TForm2
       object CheckBox7: TCheckBox
         Left = 24
         Height = 19
-        Top = 267
+        Top = 264
         Width = 79
         Caption = 'Fond blanc'
         ParentFont = False
         TabOrder = 6
       end
       object ComboBox4: TComboBox
-        Left = 226
+        Left = 224
         Height = 23
-        Top = 291
-        Width = 168
-        ItemHeight = 15
+        Top = 288
+        Width = 166
+        ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
           'Comme a l''ecran'
@@ -1799,19 +1755,19 @@ object Form2: TForm2
   object Panel1: TPanel
     Left = 0
     Height = 41
-    Top = 429
-    Width = 454
+    Top = 424
+    Width = 449
     Align = alBottom
     BevelOuter = bvNone
-    ClientHeight = 41
-    ClientWidth = 454
+    ClientHeight = 37
+    ClientWidth = 445
     ParentFont = False
     TabOrder = 1
     object Button1: TSpeedButton
-      Left = 96
+      Left = 95
       Height = 25
       Top = 8
-      Width = 75
+      Width = 74
       Caption = 'OK'
       Flat = True
       Transparent = False
@@ -1819,10 +1775,10 @@ object Form2: TForm2
       ParentFont = False
     end
     object Button4: TSpeedButton
-      Left = 224
+      Left = 222
       Height = 25
       Top = 8
-      Width = 75
+      Width = 74
       Caption = 'Cancel'
       Flat = True
       Transparent = False
@@ -1855,18 +1811,18 @@ object Form2: TForm2
       'ColorT=A4A0A0'
     )
     left = 16
-    top = 416
+    top = 412
   end
   object OpenDialog1: TOpenDialog
     DefaultExt = '.exe'
     Filter = 'Image software|*.exe'
-    left = 80
-    top = 416
+    left = 79
+    top = 412
   end
   object FontDialog1: TFontDialog
     MinFontSize = 0
     MaxFontSize = 0
-    left = 49
-    top = 416
+    left = 48
+    top = 412
   end
 end

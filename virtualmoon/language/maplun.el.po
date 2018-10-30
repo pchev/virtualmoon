@@ -80,10 +80,6 @@ msgstr "Τελική ημερομηνία"
 msgid "Ephemeris:"
 msgstr "Εφημερίδα:"
 
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr "Ανώνυμοι σχηματισμοί αόρατης πλευράς"
-
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Ρυθμίσεις πρώτης χρήσης"
@@ -438,6 +434,10 @@ msgstr "Όνομα κατά Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Όνομα κατά Riccioli:"
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr "Χωρίς υφή (για χρήση με μια επικάλυψη μόνο)"
@@ -509,6 +509,14 @@ msgstr "Μέγεθος πίξελ"
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Τερματισμός πλήρους οθόνης (Esc)"
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
+msgstr ""
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -678,14 +686,6 @@ msgstr "Κεντράρισμα επιγραφής στο σχηματισμό"
 msgid "Short Label"
 msgstr "Σύντομη επιγραφή"
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr "Επώνυμοι σχηματισμοί ορατής πλευράς"
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr "Καταχωρημένοι κρατήρες ορατής πλευράς"
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Ισχύς"
@@ -701,10 +701,6 @@ msgstr "Βάση δεδομένων"
 #: u_translation.rst_130
 msgid "Far Side"
 msgstr "Αόρατη πλευρά"
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
-msgstr "Επώνυμοι σχηματισμοί αόρατης πλευράς"
 
 #: u_translation.rst_134
 msgid "Full Globe"
@@ -826,10 +822,6 @@ msgstr "Μετάβ. στην επιλογή"
 msgid "Sync selected"
 msgstr "Συγχρονισμός επιλογής"
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr "Ιστορικές τοποθεσίες"
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr "Εγκυκλοπαίδεια"
@@ -841,10 +833,6 @@ msgstr "2ο παράθυρο"
 #: u_translation.rst_167
 msgid "Snapshot"
 msgstr "Στιγμιότυπο"
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
-msgstr "Καταχωρημένοι κρατήρες αόρατης πλευράς"
 
 #: u_translation.rst_169
 msgid "Overlay"
@@ -921,14 +909,6 @@ msgstr "Η κάρτα γραφικών σας δεν υποστηρίζει τη
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Δείτε εδώ μια λίστα με τις κάρτες γραφικών που υποστηρίζονται"
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr "Πυροκλαστικές αποθέσεις"
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
-msgstr "Σεληνιακοί θόλοι"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"

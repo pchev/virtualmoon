@@ -46,9 +46,6 @@ type
     Button8: TSpeedButton;
     Button9: TSpeedButton;
     CheckBox10: TCheckBox;
-    CheckBox25: TCheckBox;
-    CheckBox26: TCheckBox;
-    CheckBox27: TCheckBox;
     ColorDialog1: TColorDialog;
     ComboBox6: TComboBox;
     ComboBoxCountry: TComboBox;
@@ -196,7 +193,6 @@ type
     CheckBox20: TCheckBox;
     CheckBox21: TCheckBox;
     CheckBox22: TCheckBox;
-    CheckBox23: TCheckBox;
     Bevel8: TBevel;
     Label23: TLabel;
     CheckBox16: TCheckBox;
@@ -212,7 +208,6 @@ type
     Label30: TLabel;
     Label32: TLabel;
     TrackBar5: TTrackBar;
-    CheckBox24: TCheckBox;
     procedure BumpRadioGroupClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
@@ -342,15 +337,10 @@ begin
       stringgrid3.Cells[3, 0] := rst_64;
       Checkbox17.Caption := rst_120;
       Checkbox18.Caption := rst_121;
-      Checkbox19.Caption := rst_122;
-      Checkbox20.Caption := rst_123;
-      Checkbox21.Caption := rst_131;
-      Checkbox22.Caption := rst_168;
-      Checkbox23.Caption := rst_164;
-      Checkbox24.Caption := rst_187;
-      Checkbox25.Caption := rst_188;
-      Checkbox26.Caption := rsUnnamedForma;
-      Checkbox27.Caption := rsFarSideUnnam;
+      Checkbox19.Caption := rsNamedFormati;
+      Checkbox20.Caption := rsSatellitesFo;
+      Checkbox21.Caption := rsRegistredFor;
+      Checkbox22.Caption := rsUnnamedForma;
       label28.Caption := rst_124;
       GroupBox1.Caption := rst_129;
       TabSheet7.Caption := GroupBox1.Caption;

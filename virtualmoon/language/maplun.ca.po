@@ -79,10 +79,6 @@ msgstr "Data final"
 msgid "Ephemeris:"
 msgstr "Efemèrides:"
 
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr "Formacions sense nom de la cara oculta"
-
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Configuració inicial"
@@ -435,6 +431,10 @@ msgstr "Nom donat per Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Nom donat per Riccioli:"
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr "Sense textura ( utilització amb una sola capa)"
@@ -506,6 +506,14 @@ msgstr "Mida dels píxels"
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Surt de pantalla completa (Esc)"
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
+msgstr ""
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -673,14 +681,6 @@ msgstr "Etiqueta centrada en la formació"
 msgid "Short Label"
 msgstr "Etiqueta breu"
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr "Formacions de la cara visible amb nom"
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr "Cràters indexats cara visible"
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Augments"
@@ -696,10 +696,6 @@ msgstr "Bases de dades"
 #: u_translation.rst_130
 msgid "Far Side"
 msgstr "Cara oculta"
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
-msgstr "Formacions de la cara oculta amb nom"
 
 #: u_translation.rst_134
 msgid "Full Globe"
@@ -821,10 +817,6 @@ msgstr "Ves a la selecció"
 msgid "Sync selected"
 msgstr "Sincro selecció"
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr "Llocs històrics"
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr "Enciclopèdia"
@@ -836,10 +828,6 @@ msgstr "2a finestra"
 #: u_translation.rst_167
 msgid "Snapshot"
 msgstr "Còpia del mapa"
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
-msgstr "Cràters indexats de la cara oculta"
 
 #: u_translation.rst_169
 msgid "Overlay"
@@ -916,14 +904,6 @@ msgstr "La vostra targeta gràfica no suporta mostrar més d'una textura per obj
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Vegeu ací una llista de targetes suportades"
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr "Dipòsits piroclàstics"
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
-msgstr "Cúpules lunars"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"

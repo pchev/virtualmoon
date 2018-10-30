@@ -79,10 +79,6 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr "Efemerisz:"
 
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr ""
-
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Beállítások az első indítás után"
@@ -437,6 +433,10 @@ msgstr "Hevelius név:"
 msgid "Name by Riccioli:"
 msgstr "Riccioli név:"
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr ""
@@ -508,6 +508,14 @@ msgstr ""
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Teljes képernyő kikapcs (Esc)"
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
+msgstr ""
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -679,14 +687,6 @@ msgstr "Cimke a formáció közepén"
 msgid "Short Label"
 msgstr "Rövid címke"
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr "Föld felőli oldal képződményeinek nevei"
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr "Föld felöli oldal kráter indexe"
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Nagyítás"
@@ -702,10 +702,6 @@ msgstr "Adatbázis"
 #: u_translation.rst_130
 msgid "Far Side"
 msgstr "Távoli nézet"
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
-msgstr "Távoli oldal képződményeinek nevei"
 
 #: u_translation.rst_134
 msgid "Full Globe"
@@ -827,10 +823,6 @@ msgstr "Goto kiválasztva"
 msgid "Sync selected"
 msgstr "Sync kiválasztva"
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr "Történelmi helyek"
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr "Enciklopédia"
@@ -842,10 +834,6 @@ msgstr "Második ablak"
 #: u_translation.rst_167
 msgid "Snapshot"
 msgstr "Pillanatfelvétel"
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
-msgstr "Távoli oldal krátereinek a listája"
 
 #: u_translation.rst_169
 msgid "Overlay"
@@ -924,14 +912,6 @@ msgstr "A grafikus kártya nem támogatja egynél több textura megjelenítésé
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Az alábbi lista tartalmazza a támogatott grafikus kártyákat."
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr "Vulkanikus lerakódások"
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
-msgstr "Dóm"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"

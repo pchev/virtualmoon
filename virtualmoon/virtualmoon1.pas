@@ -971,9 +971,9 @@ begin
   usedatabase[2] := True;
   usedatabase[3] := True;
   usedatabase[4] := True;
-  usedatabase[5] := True;
-  usedatabase[6] := True;
-  usedatabase[7] := True;
+  usedatabase[5] := False;
+  usedatabase[6] := False;
+  usedatabase[7] := False;
   usedatabase[8] := False;
   usedatabase[9] := False;
   for i := 10 to maxdbn do
@@ -3748,11 +3748,6 @@ begin
     form2.checkbox20.Checked := usedatabase[2];
     form2.checkbox21.Checked := usedatabase[3];
     form2.checkbox22.Checked := usedatabase[4];
-    form2.checkbox23.Checked := usedatabase[5];
-    form2.checkbox24.Checked := usedatabase[6];
-    form2.checkbox25.Checked := usedatabase[7];
-    form2.checkbox26.Checked := usedatabase[8];
-    form2.checkbox27.Checked := usedatabase[9];
     ListUserDB;
     form2.checkbox1.Checked := phaseeffect;
     form2.checkbox2.Checked := librationeffect;
@@ -3895,25 +3890,10 @@ begin
         reloaddb := True;
       if usedatabase[4] <> form2.checkbox22.Checked then
         reloaddb := True;
-      if usedatabase[5] <> form2.checkbox23.Checked then
-        reloaddb := True;
-      if usedatabase[6] <> form2.checkbox24.Checked then
-        reloaddb     := True;
-      if usedatabase[7] <> form2.checkbox25.Checked then
-        reloaddb     := True;
-      if usedatabase[8] <> form2.checkbox26.Checked then
-        reloaddb     := True;
-      if usedatabase[9] <> form2.checkbox27.Checked then
-        reloaddb     := True;
       usedatabase[1] := form2.checkbox19.Checked;
       usedatabase[2] := form2.checkbox20.Checked;
       usedatabase[3] := form2.checkbox21.Checked;
       usedatabase[4] := form2.checkbox22.Checked;
-      usedatabase[5] := form2.checkbox23.Checked;
-      usedatabase[6] := form2.checkbox24.Checked;
-      usedatabase[7] := form2.checkbox25.Checked;
-      usedatabase[8] := form2.checkbox26.Checked;
-      usedatabase[9] := form2.checkbox27.Checked;
       for i := 0 to form2.Checklistbox1.Count - 1 do
       begin
         j := (form2.Checklistbox1.Items.Objects[i] as TDBinfo).dbnum;

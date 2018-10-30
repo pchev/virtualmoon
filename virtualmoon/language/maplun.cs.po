@@ -79,10 +79,6 @@ msgstr "Datum do"
 msgid "Ephemeris:"
 msgstr "Efemeridy:"
 
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr "Nepojmenované útvary na odvrácené straně"
-
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr ""
@@ -437,6 +433,10 @@ msgstr "Jméno podle Heveliuse:"
 msgid "Name by Riccioli:"
 msgstr "Jméno podle Riccioliho:"
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr "Bez textury"
@@ -508,6 +508,14 @@ msgstr "Velikost pixlu"
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Opustit režim celé obrazovky"
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
+msgstr ""
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -675,14 +683,6 @@ msgstr "Vycentrovat popisek útvaru"
 msgid "Short Label"
 msgstr "Krátký popisek"
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr "Názvy útvarů na přivrácené straně"
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr "Názvy přidružených útvarů na přivrácené straně"
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Zvětšení"
@@ -698,10 +698,6 @@ msgstr "Databáze"
 #: u_translation.rst_130
 msgid "Far Side"
 msgstr "Odvrácená strana"
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
-msgstr "Názvy útvarů na odvrácené straně"
 
 #: u_translation.rst_134
 msgid "Full Globe"
@@ -823,10 +819,6 @@ msgstr ""
 msgid "Sync selected"
 msgstr ""
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr "Historická místa"
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr "Měsíc v číslech"
@@ -838,10 +830,6 @@ msgstr "Druhé okno"
 #: u_translation.rst_167
 msgid "Snapshot"
 msgstr "Snímek"
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
-msgstr "Názvy přidružených útvarů na odvrácené straně"
 
 #: u_translation.rst_169
 msgid "Overlay"
@@ -918,14 +906,6 @@ msgstr ""
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr ""
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr "Pyroklastické horniny"
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
-msgstr "Lunární dómy"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"

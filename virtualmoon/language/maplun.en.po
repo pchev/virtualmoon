@@ -79,10 +79,6 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr ""
 
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr ""
-
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr ""
@@ -437,6 +433,10 @@ msgstr ""
 msgid "Name by Riccioli:"
 msgstr ""
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr ""
@@ -507,6 +507,14 @@ msgstr ""
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
+msgstr ""
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
 msgstr ""
 
 #: u_translation.rssaveephemeri
@@ -675,14 +683,6 @@ msgstr ""
 msgid "Short Label"
 msgstr ""
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr ""
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr ""
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr ""
@@ -697,10 +697,6 @@ msgstr ""
 
 #: u_translation.rst_130
 msgid "Far Side"
-msgstr ""
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
 msgstr ""
 
 #: u_translation.rst_134
@@ -823,10 +819,6 @@ msgstr ""
 msgid "Sync selected"
 msgstr ""
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr ""
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr ""
@@ -837,10 +829,6 @@ msgstr ""
 
 #: u_translation.rst_167
 msgid "Snapshot"
-msgstr ""
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
 msgstr ""
 
 #: u_translation.rst_169
@@ -917,14 +905,6 @@ msgstr ""
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
-msgstr ""
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr ""
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
 msgstr ""
 
 #: u_translation.rst_19

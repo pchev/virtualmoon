@@ -80,10 +80,6 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr "Efemeridy:"
 
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr ""
-
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Najprv použiť nastavenie"
@@ -438,6 +434,10 @@ msgstr "Meno podľa Heveliusa:"
 msgid "Name by Riccioli:"
 msgstr "Meno podľa Riccioliho:"
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr ""
@@ -509,6 +509,14 @@ msgstr ""
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Skončíť celú obrazovku (Esc)"
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
+msgstr ""
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -678,14 +686,6 @@ msgstr "Vycentrovať menovku na útvar"
 msgid "Short Label"
 msgstr "Krátka menovka"
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr "Pomenované útvary na privrátenej strane"
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr "Indexované krátery na privrátenej strane"
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Zväčšenie"
@@ -701,10 +701,6 @@ msgstr "Databáza"
 #: u_translation.rst_130
 msgid "Far Side"
 msgstr "Odvrátena strana"
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
-msgstr "Pomenované útvary na odvrátenej strane"
 
 #: u_translation.rst_134
 msgid "Full Globe"
@@ -826,10 +822,6 @@ msgstr "Choď na vybrané"
 msgid "Sync selected"
 msgstr "Synchr. vybrané"
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr "Historické miesta"
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr "Encyklopedia"
@@ -841,10 +833,6 @@ msgstr "Druhé okno"
 #: u_translation.rst_167
 msgid "Snapshot"
 msgstr "Snímka"
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
-msgstr "Indexované krátery na odvrátenej strane"
 
 #: u_translation.rst_169
 msgid "Overlay"
@@ -923,14 +911,6 @@ msgstr "Vaša grafická karta nepodporuje zobrazenie viacerých textúr pre rovn
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Pozri si zoznam podporovaných grafických kariet"
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr "Pyroklastické usadeniny"
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
-msgstr "Lunárne dómy"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"

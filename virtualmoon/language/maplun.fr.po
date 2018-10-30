@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2018-06-21 18:53+0100\n"
+"PO-Revision-Date: 2018-10-30 15:42+0100\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -79,10 +79,6 @@ msgstr "Date de fin"
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
 msgstr "Ephéméride:"
-
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr "Formations non nommées de la face cachée"
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
@@ -439,6 +435,10 @@ msgstr "Nom donné par Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Nom donné par Riccioli:"
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr "Formations nommées"
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr "Pas de texture ( utilisation d'une couche seule)"
@@ -510,6 +510,14 @@ msgstr "Taille des pixels"
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Retour fenêtre (Esc)"
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr "Formations enregistrées"
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
+msgstr "Formations satellites"
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -675,14 +683,6 @@ msgstr "Label centré sur la formation"
 msgid "Short Label"
 msgstr "Label court"
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr "Formations nommées de la face visible"
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr "Cratères indicés de la face visible"
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Grossissement"
@@ -698,10 +698,6 @@ msgstr "Bases de données"
 #: u_translation.rst_130
 msgid "Far Side"
 msgstr "Face cachée"
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
-msgstr "Formations nommées de la face cachée"
 
 #: u_translation.rst_134
 msgid "Full Globe"
@@ -823,10 +819,6 @@ msgstr "Goto sélection"
 msgid "Sync selected"
 msgstr "Sync sélection"
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr "Sites historiques"
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr "Encyclopédie"
@@ -838,10 +830,6 @@ msgstr "2eme Fenêtre"
 #: u_translation.rst_167
 msgid "Snapshot"
 msgstr "Copie de la carte"
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
-msgstr "Cratères indicés de la face cachée"
 
 #: u_translation.rst_169
 msgid "Overlay"
@@ -924,14 +912,6 @@ msgstr ""
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Voir ici une liste de cartes supportées"
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr "Dépôts pyroclastiques"
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
-msgstr "Dômes lunaires"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"

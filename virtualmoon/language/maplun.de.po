@@ -80,10 +80,6 @@ msgstr "Enddatum"
 msgid "Ephemeris:"
 msgstr "Ephemeride:"
 
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr "Unbenannte Formationen auf der Rückseite"
-
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Einstellung für den Erstgebrauch"
@@ -436,6 +432,10 @@ msgstr "Name von Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Name von Riccioli:"
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr "Keine Textur (Overlay alleine anwenden)"
@@ -507,6 +507,14 @@ msgstr "Pixelgröße"
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Vollbild verlassen (Esc)"
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
+msgstr ""
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -672,14 +680,6 @@ msgstr "Zentriere die Beschriftung auf der Formation"
 msgid "Short Label"
 msgstr "Kurze Beschriftung"
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr "Benannte Formationen auf der Vorderseite"
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr "Verzeichnete Krater auf der Vorderseite"
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Barlow"
@@ -695,10 +695,6 @@ msgstr "Datenbank"
 #: u_translation.rst_130
 msgid "Far Side"
 msgstr "Rückseite"
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
-msgstr "Benannte Formationen auf der Rückseite"
 
 #: u_translation.rst_134
 msgid "Full Globe"
@@ -820,10 +816,6 @@ msgstr "Gehe zur Auswahl"
 msgid "Sync selected"
 msgstr "Synchronisiere Auswahl"
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr "Geschichtliche Orte"
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr "Encyclopädie"
@@ -835,10 +827,6 @@ msgstr "2tes Fenster"
 #: u_translation.rst_167
 msgid "Snapshot"
 msgstr "Schnappschuß"
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
-msgstr "Verzeichnete Krater auf der Rückseite"
 
 #: u_translation.rst_169
 msgid "Overlay"
@@ -915,14 +903,6 @@ msgstr "Ihre Grafikkarte kann nur eine Textur für dasselbe Objekt anzeigen. Ver
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Liste der unterstützten Grafikkarten"
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr "Pyroklastische Ablagerungen"
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
-msgstr "Lunare Kuppeln"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"

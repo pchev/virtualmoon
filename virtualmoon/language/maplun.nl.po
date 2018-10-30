@@ -79,10 +79,6 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr "efemeride:"
 
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr ""
-
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Instelling eerste gebruik"
@@ -437,6 +433,10 @@ msgstr "Naam door Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Naam door Riccoli:"
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr ""
@@ -508,6 +508,14 @@ msgstr ""
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Volldig scherm afsluiten (Esc)"
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
+msgstr ""
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -679,14 +687,6 @@ msgstr "Centreer label op de formatie"
 msgid "Short Label"
 msgstr "Label kort"
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr "Voorkant benoemde formatie"
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr "Voorkant geïndexeerde kraters"
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Vergroting"
@@ -702,10 +702,6 @@ msgstr "Database"
 #: u_translation.rst_130
 msgid "Far Side"
 msgstr "Achterkant"
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
-msgstr "Achterkant benoemde formatie"
 
 #: u_translation.rst_134
 msgid "Full Globe"
@@ -827,10 +823,6 @@ msgstr "Goto geselecteerd"
 msgid "Sync selected"
 msgstr "Sync geselecteerd"
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr "Historische locaties"
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr "Encyclopedie"
@@ -842,10 +834,6 @@ msgstr "2-de scherm"
 #: u_translation.rst_167
 msgid "Snapshot"
 msgstr "Momentopname"
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
-msgstr "Achterkant geïndexeerde kraters"
 
 #: u_translation.rst_169
 msgid "Overlay"
@@ -924,14 +912,6 @@ msgstr "Uw grafische kaart ondersteunt geen weergave voor meer dan één textuur
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Kijk hier voor een overzicht met ondersteunde grafische kaarten"
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr "Pyroclastische afzettingen"
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
-msgstr "Maankoepels"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"

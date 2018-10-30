@@ -79,10 +79,6 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr "Efemeridės:"
 
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr ""
-
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Iš pradžių naudoti nuostatą"
@@ -437,6 +433,10 @@ msgstr "Hevelijaus pavadinimas:"
 msgid "Name by Riccioli:"
 msgstr "Riccioli pavadinimas:"
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr ""
@@ -508,6 +508,14 @@ msgstr ""
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Išeiti iš viso ekrano režimo (Esc)"
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
+msgstr ""
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -679,14 +687,6 @@ msgstr "Formacijos centro žymė"
 msgid "Short Label"
 msgstr "Trumpoji žymė"
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr "Pavadintasis artimosios pusės darinys"
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr "Indeksuotieji artimosios pusės krateriai"
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Artinimas (kartais)"
@@ -702,10 +702,6 @@ msgstr "Duomenų bazė"
 #: u_translation.rst_130
 msgid "Far Side"
 msgstr "Tolimoji pusė"
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
-msgstr "Pavadintasis tolimosios pusės darinys"
 
 #: u_translation.rst_134
 msgid "Full Globe"
@@ -827,10 +823,6 @@ msgstr "Nukreipti į pažymėtą"
 msgid "Sync selected"
 msgstr "Sinchr. su pažymėtu"
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr "Istorinės vietos"
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr "Enciklopedija"
@@ -842,10 +834,6 @@ msgstr "2-as langas"
 #: u_translation.rst_167
 msgid "Snapshot"
 msgstr "Momentinė fotografija"
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
-msgstr "Indeksuotieji tolimosios pusės krateriai"
 
 #: u_translation.rst_169
 msgid "Overlay"
@@ -924,14 +912,6 @@ msgstr "Jūsų grafinio vaizdo plokštė neleidžia vienam objektui rodyti keli�
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Palaikomų grafinių plokščių sąrašas pateikiamas čia"
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr "Piroklastinės nuosėdos"
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
-msgstr "Mėnulio kupolai"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"

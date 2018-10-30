@@ -78,10 +78,6 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr "Efemérides:"
 
-#: u_translation.rsfarsideunnam
-msgid "Far side Unnamed Formation"
-msgstr ""
-
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Configuración de primer uso"
@@ -436,6 +432,10 @@ msgstr "Nombre de Hevelius:"
 msgid "Name by Riccioli:"
 msgstr "Nombre de Riccioli:"
 
+#: u_translation.rsnamedformati
+msgid "Named formations"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr ""
@@ -507,6 +507,14 @@ msgstr ""
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Salir del modo pantalla completa (Esc)"
+
+#: u_translation.rsregistredfor
+msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rssatellitesfo
+msgid "Satellites formations"
+msgstr ""
 
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
@@ -678,14 +686,6 @@ msgstr "Centrar la etiqueta sobre la formación"
 msgid "Short Label"
 msgstr "Etiqueta corta"
 
-#: u_translation.rst_122
-msgid "Near Side Named Formation"
-msgstr "Formaciones nombradas de la Cara Visible"
-
-#: u_translation.rst_123
-msgid "Near Side Indexed Craters"
-msgstr "Cráteres indexados de la Cara Visible"
-
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Aumentos"
@@ -701,10 +701,6 @@ msgstr "Base de datos"
 #: u_translation.rst_130
 msgid "Far Side"
 msgstr "Cara Oculta"
-
-#: u_translation.rst_131
-msgid "Far Side Named Formation"
-msgstr "Formaciones nombradas de la Cara Oculta"
 
 #: u_translation.rst_134
 msgid "Full Globe"
@@ -826,10 +822,6 @@ msgstr "Ir al seleccionado"
 msgid "Sync selected"
 msgstr "Sincronizar"
 
-#: u_translation.rst_164
-msgid "Historical Sites"
-msgstr "Sitios históricos"
-
 #: u_translation.rst_165
 msgid "Encyclopedia"
 msgstr "Enciclopedia"
@@ -841,10 +833,6 @@ msgstr "2ª ventana"
 #: u_translation.rst_167
 msgid "Snapshot"
 msgstr "Capturar pantalla"
-
-#: u_translation.rst_168
-msgid "Far Side Indexed Craters"
-msgstr "Cráteres indexados en la Cara Oculta"
 
 #: u_translation.rst_169
 msgid "Overlay"
@@ -923,14 +911,6 @@ msgstr "Su tarjeta gráfica no soporta mostrar más de una textura para el mismo
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Mire aquí para ver una lista de tarjetas gráficas soportadas"
-
-#: u_translation.rst_187
-msgid "Pyroclastic deposits"
-msgstr "Depósitos pirocásticos"
-
-#: u_translation.rst_188
-msgid "Lunar Domes"
-msgstr "Domos lunares"
 
 #: u_translation.rst_19
 msgctxt "u_translation.rst_19"

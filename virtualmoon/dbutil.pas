@@ -275,21 +275,21 @@ dbm.Use(utf8encode(buf));
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
 try
-buf:=Slash(appdir)+Slash('Database')+'AVL Named EN'+uplanguage+'.csv';
+buf:=Slash(appdir)+Slash('Database')+'AVL Named '+uplanguage+'_utf8.csv';
 if fileexists(buf) then database[1]:=buf
-   else database[1]:=Slash(appdir)+Slash('Database')+'AVL Named EN.csv';
+   else database[1]:=Slash(appdir)+Slash('Database')+'AVL Named EN_utf8.csv';
 
-buf:=Slash(appdir)+Slash('Database')+'AVL Satellite '+uplanguage+'.csv';
+buf:=Slash(appdir)+Slash('Database')+'AVL Satellite '+uplanguage+'_utf8.csv';
 if fileexists(buf) then database[2]:=buf
-   else database[2]:=Slash(appdir)+Slash('Database')+'AVL Satellite EN.csv';
+   else database[2]:=Slash(appdir)+Slash('Database')+'AVL Satellite EN_utf8.csv';
 
-buf:=Slash(appdir)+Slash('Database')+'AVL Registered '+uplanguage+'.csv';
-if fileexists(buf) then database[5]:=buf
-   else database[5]:=Slash(appdir)+Slash('Database')+'AVL Registered EN.csv';
+buf:=Slash(appdir)+Slash('Database')+'AVL Registered '+uplanguage+'_utf8.csv';
+if fileexists(buf) then database[3]:=buf
+   else database[3]:=Slash(appdir)+Slash('Database')+'AVL Registered EN_utf8.csv';
 
-buf:=Slash(appdir)+Slash('Database')+'AVL Unnamed '+uplanguage+'.csv';
-if fileexists(buf) then database[8]:=buf
-   else database[8]:=Slash(appdir)+Slash('Database')+'AVL Unnamed EN.csv';
+buf:=Slash(appdir)+Slash('Database')+'AVL Unnamed '+uplanguage+'_utf8.csv';
+if fileexists(buf) then database[4]:=buf
+   else database[4]:=Slash(appdir)+Slash('Database')+'AVL Unnamed EN_utf8.csv';
 
 CreateDB(dbm);
 for i:=1 to 4 do begin
@@ -303,7 +303,8 @@ for i:=1 to 4 do begin
         needvacuum:=true;
      end;
      end
-     else missingf:=missingf+database[i]+blank;
+     else
+       missingf:=missingf+database[i]+blank;
   end;
 end;
 if needvacuum then dbm.Query('Vacuum;');
