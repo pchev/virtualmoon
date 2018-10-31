@@ -2002,12 +2002,12 @@ begin
      memo.Lines.Add(rsm_23 + b + GetField('RAPPORT'));
 
   //Description
-  if (GetField('GENERAL1')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
+  if (GetField('GENERAL_1')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
      memo.Lines.Add(rsm_58); //Description
-  if GetField('GENERAL1') > '' then
-    memo.Lines.Add(GetField('GENERAL1'));
-  if GetField('GENERAL2') > '' then
-    memo.Lines.Add(GetField('GENERAL2'));
+  if GetField('GENERAL_1') > '' then
+    memo.Lines.Add(GetField('GENERAL_1'));
+  if GetField('GENERAL_2') > '' then
+    memo.Lines.Add(GetField('GENERAL_2'));
   if GetField('SLOPES') > '' then
     memo.Lines.Add(GetField('SLOPES'));
   if GetField('WALLS') > '' then
@@ -2286,10 +2286,10 @@ begin
 
   //Description
   txtbuf:='';
-  if GetField('GENERAL1') > '' then
-    txtbuf := txtbuf + GetField('GENERAL1') + '<br>';
-  if GetField('GENERAL2') > '' then
-    txtbuf := txtbuf + GetField('GENERAL2') + '<br>';
+  if GetField('GENERAL_1') > '' then
+    txtbuf := txtbuf + GetField('GENERAL_1') + '<br>';
+  if GetField('GENERAL_2') > '' then
+    txtbuf := txtbuf + GetField('GENERAL_2') + '<br>';
   if GetField('SLOPES') > '' then
     txtbuf := txtbuf + GetField('SLOPES') + '<br>';
   if GetField('WALLS') > '' then
