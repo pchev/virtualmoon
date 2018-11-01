@@ -319,6 +319,7 @@ rsHideInformat = 'Hide information and tools';
 rsNamedFormati = 'Named formations';
 rsSatellitesFo = 'Satellites formations';
 rsRegistredFor = 'Registred formations';
+rsSource = 'Source:';
 
 implementation
 

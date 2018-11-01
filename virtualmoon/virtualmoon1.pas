@@ -2193,7 +2193,7 @@ end;
 procedure TForm1.GetHTMLDetail(row: TResultRow; var txt: string);
 const
   b     = '&nbsp;';
-
+  br    = '<br/>';
   t1end = '</b></font></center>';
   t2    = '<font size=+1>';
   t2end = '</font>';
@@ -2228,45 +2228,48 @@ begin
     txt := '<html> <body bgcolor="white">';
     t1 := '<center><font size=+1 color="#0000FF"><b>';
   end;
+  txt:=txt+'<div>';
   nom := GetField('NAME');
   dblox.Gofirst;
   ok := dblox.MatchData('NAME', '=', nom);
   if not ok then
     ok := dblox.SeekData('NAME', '=', nom);
-  txt  := txt + t1 + nom + t1end + '<br>';
+  txt  := txt + t1 + nom + t1end + br;
   i    := row.ByField['DBN'].AsInteger;
   if i > 99 then
   begin
     txt := txt + t3 + 'From Database:' + t3end + b + IntToStr(i) + b;
     for j := 0 to form2.CheckListBox1.Count - 1 do
       if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum = i then
-        txt := txt + form2.CheckListBox1.Items[j] + '<br>';
+        txt := txt + form2.CheckListBox1.Items[j] + br;
   end;
   if (GetField('LUN'))>'' then
-     txt  := txt + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + '<br>';
+     txt  := txt + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + br;
   if (GetField('LUN_REDUCED'))>'' then
-     txt  := txt + t3 + 'L.U.N.REDUCED:' + t3end + b + GetField('LUN_REDUCED') + '<br>';
+     txt  := txt + t3 + 'L.U.N.REDUCED:' + t3end + b + GetField('LUN_REDUCED') + br;
   if (GetField('NAME_TYPE'))>'' then
-     txt  := txt + t3 + 'Name type:' + t3end + b + GetField('NAME_TYPE') + '<br>';
+     txt  := txt + t3 + 'Name type:' + t3end + b + GetField('NAME_TYPE') + br;
   if (GetField('TYPE_IAU'))>'' then
-     txt  := txt + t3 + 'IAU type:' + t3end + b + GetField('TYPE_IAU') + '<br>';
-  txt  := txt + t3 + rsm_56 + t3end + b + GetField('TYPE') + '<br>';
+     txt  := txt + t3 + 'IAU type:' + t3end + b + GetField('TYPE_IAU') + br;
+  txt  := txt + t3 + rsm_56 + t3end + b + GetField('TYPE') + br;
   if (GetField('SUBTYPE'))>'' then
-     txt  := txt + t3 + 'Sub-type:' + t3end + b + GetField('SUBTYPE') + '<br>';
+     txt  := txt + t3 + 'Sub-type:' + t3end + b + GetField('SUBTYPE') + br;
   if (GetField('PERIOD'))>'' then
-     txt  := txt + t3 + rsm_49 + t3end + b + GetField('PERIOD') +','+b+GetField('PERIOD_SOURCE') + '<br>';
+     txt  := txt + t3 + rsm_49 + t3end + b + GetField('PERIOD') + br;
+  if (GetField('PERIOD_SOURCE'))>'' then
+     txt  := txt + t3 + rsSource + t3end + b + GetField('PERIOD_SOURCE') + br;
   if (GetField('PROCESS'))>'' then
-     txt  := txt + t3 + 'Process:' + t3end + b + GetField('PROCESS') + '<br>';
+     txt  := txt + t3 + 'Process:' + t3end + b + GetField('PROCESS') + br;
   if (GetField('GEOLOGY'))>'' then
-     txt  := txt + t3 + 'Geology:' + t3end + b + GetField('GEOLOGY') + '<br>';
-  txt  := txt + b + '<br>';
+     txt  := txt + t3 + 'Geology:' + t3end + b + GetField('GEOLOGY') + br;
+  txt  := txt + b + br;
 
   //Taille
   txtbuf:='';
   if (GetField('LENGTH_KM')>'')or(GetField('WIDEK_M')>'')or(GetField('LENGTH_MI')>'')or(GetField('WIDE_MI')>'') then
      txtbuf  := txtbuf + t3 + rsm_17 + t3end + b + GetField('LENGTH_KM') + 'x' +
              GetField('WIDE_KM') + rsm_18 + b + '/' + b + GetField('LENGTH_MI') +
-             'x' + GetField('WIDE_MI') + rsm_19 + '<br>';
+             'x' + GetField('WIDE_MI') + rsm_19 + br;
   buf  := GetField('HEIGHT_M');
   buf2 := GetField('HEIGHT_FE');
   if buf <> buf2 then begin
@@ -2277,84 +2280,84 @@ begin
     val(buf2, dummy, i);
     if i = 0 then
       txtbuf := txtbuf + buf2 + rsm_22;
-    txtbuf   := txtbuf + '<br>';
+    txtbuf   := txtbuf + br;
     if (GetField('RAPPORT'))>'' then
-       txtbuf := txtbuf + t3 + rsm_23 + t3end + b + GetField('RAPPORT') + '<br>';
+       txtbuf := txtbuf + t3 + rsm_23 + t3end + b + GetField('RAPPORT') + br;
   end;
-  if txtbuf>'' then
-     txt  := txt + t2 + rsm_57 + t2end + '<br>'+txtbuf+ b + '<br>'; //Taille
+  if GetField('FLOOR_DIAMETER_KM') > '' then
+    txtbuf := txtbuf + t3 + 'Floor diameter:'  + t3end+ b + GetField('FLOOR_DIAMETER_KM')+ rsm_18 +br;
+  if GetField('PEAK_HEIGHT_KM') > '' then
+    txtbuf := txtbuf + t3 + 'Peak height:' + t3end + b + GetField('PEAK_HEIGHT_KM')+ rsm_18 +br;
+  if GetField('PEAK_DIAMETER_KM') > '' then
+    txtbuf := txtbuf + t3 + 'Peak diameter:' + t3end + b + GetField('PEAK_DIAMETER_KM')+ rsm_18 +br;
+  if GetField('EXCAVATION_DEPTH_KM') > '' then
+    txtbuf := txtbuf + t3 + 'Excavation depth:' + t3end + b + GetField('EXCAVATION_DEPTH_KM')+ rsm_18 +br;
+  if GetField('MELTING_DEPTH_KM') > '' then
+    txtbuf := txtbuf + t3 + 'Melting depth:' + t3end + b + GetField('MELTING_DEPTH_KM')+ rsm_18 +br;
+  if GetField('EJECTA_THICK_M_1RADIUS') > '' then
+    txtbuf := txtbuf + t3 + 'Ejecta thick at 1 radius:' + t3end + b + GetField('EJECTA_THICK_M_1RADIUS')+rsm_21 +br;
+  if GetField('EJECTA_THICK_M_3RADIUS') > '' then
+    txtbuf := txtbuf + t3 + 'Ejecta thick at 3 radius:' + t3end + b + GetField('EJECTA_THICK_M_3RADIUS')+rsm_21 +br;
+  if GetField('EJECTA_THICK_M_5RADIUS') > '' then
+    txtbuf := txtbuf + t3 + 'Ejecta thick at 5 radius:' + t3end + b + GetField('EJECTA_THICK_M_5RADIUS')+rsm_21 +br;
+  if GetField('RADAR_BRIGHT_HALO_RADIUS') > '' then
+    txtbuf := txtbuf + t3 + 'Radar bright halo radius:' + t3end + b + GetField('RADAR_BRIGHT_HALO_RADIUS')+ rsm_18 +br;
+  if GetField('RADAR_DARK_HALO_RADIUS') > '' then
+    txtbuf := txtbuf + t3 + 'Radar dark halo radius:' + t3end + b + GetField('RADAR_DARK_HALO_RADIUS')+ rsm_18 +br;    if txtbuf>'' then
+     txt  := txt + t2 + rsm_57 + t2end + br+txtbuf+ b + br; //Taille
 
   //Description
   txtbuf:='';
   if GetField('GENERAL_1') > '' then
-    txtbuf := txtbuf + GetField('GENERAL_1') + '<br>';
+    txtbuf := txtbuf + GetField('GENERAL_1') + br;
   if GetField('GENERAL_2') > '' then
-    txtbuf := txtbuf + GetField('GENERAL_2') + '<br>';
+    txtbuf := txtbuf + GetField('GENERAL_2') + br;
   if GetField('SLOPES') > '' then
-    txtbuf := txtbuf + GetField('SLOPES') + '<br>';
+    txtbuf := txtbuf + GetField('SLOPES') + br;
   if GetField('WALLS') > '' then
-    txtbuf:= txtbuf + GetField('WALLS') + '<br>';
+    txtbuf:= txtbuf + GetField('WALLS') + br;
   if GetField('FLOOR') > '' then
-    txtbuf := txtbuf + GetField('FLOOR') + '<br>';
-  if GetField('FLOOR_DIAMETER_KM') > '' then
-    txtbuf := txtbuf + t3 + 'Floor diameter:'  + t3end+ b + GetField('FLOOR_DIAMETER_KM')+ rsm_18 +'<br>';
-  if GetField('PEAK_HEIGHT_KM') > '' then
-    txtbuf := txtbuf + t3 + 'Peak height:' + t3end + b + GetField('PEAK_HEIGHT_KM')+ rsm_18 +'<br>';
-  if GetField('PEAK_DIAMETER_KM') > '' then
-    txtbuf := txtbuf + t3 + 'Peak diameter:' + t3end + b + GetField('PEAK_DIAMETER_KM')+ rsm_18 +'<br>';
-  if GetField('EXCAVATION_DEPTH_KM') > '' then
-    txtbuf := txtbuf + t3 + 'Excavation depth:' + t3end + b + GetField('EXCAVATION_DEPTH_KM')+ rsm_18 +'<br>';
-  if GetField('MELTING_DEPTH_KM') > '' then
-    txtbuf := txtbuf + t3 + 'Melting depth:' + t3end + b + GetField('MELTING_DEPTH_KM')+ rsm_18 +'<br>';
-  if GetField('EJECTA_THICK_M_1RADIUS') > '' then
-    txtbuf := txtbuf + t3 + 'Ejecta thick at 1 radius:' + t3end + b + GetField('EJECTA_THICK_M_1RADIUS')+rsm_21 +'<br>';
-  if GetField('EJECTA_THICK_M_3RADIUS') > '' then
-    txtbuf := txtbuf + t3 + 'Ejecta thick at 3 radius:' + t3end + b + GetField('EJECTA_THICK_M_3RADIUS')+rsm_21 +'<br>';
-  if GetField('EJECTA_THICK_M_5RADIUS') > '' then
-    txtbuf := txtbuf + t3 + 'Ejecta thick at 5 radius:' + t3end + b + GetField('EJECTA_THICK_M_5RADIUS')+rsm_21 +'<br>';
-  if GetField('RADAR_BRIGHT_HALO_RADIUS') > '' then
-    txtbuf := txtbuf + t3 + 'Radar bright halo radius:' + t3end + b + GetField('RADAR_BRIGHT_HALO_RADIUS')+ rsm_18 +'<br>';
-  if GetField('RADAR_DARK_HALO_RADIUS') > '' then
-    txtbuf := txtbuf + t3 + 'Radar dark halo radius:' + t3end + b + GetField('RADAR_DARK_HALO_RADIUS')+ rsm_18 +'<br>';
+    txtbuf := txtbuf + GetField('FLOOR') + br;
+  if GetField('ELGER_1895') > '' then
+    txtbuf :=txtbuf + 'Elger 1895:' + b + GetField('ELGER_1895') + br;
   if txtbuf>'' then
-    txt := txt + t2 + rsm_58 + t2end + '<br>'+txtbuf+b + '<br>'; //Description
-
+    txt := txt + t2 + rsm_58 + t2end + br+txtbuf+b + br; //Description
 
 
   //Observation
   txtbuf:='';
   if GetField('LENGTH_ARCSEC') > '' then
-     txtbuf := txtbuf + t3 + 'Apparent size:' + t3end + GetField('LENGTH_ARCSEC')+rssecond +'<br>';
+     txtbuf := txtbuf + t3 + 'Apparent size:' + t3end + GetField('LENGTH_ARCSEC')+rssecond +br;
   if GetField('INTEREST_C') > '' then
-     txtbuf   := txtbuf + t3 + rsm_24 + t3end + b + GetField('INTEREST_C') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_24 + t3end + b + GetField('INTEREST_C') + br;
   buf   := GetField('MOONDAY_S');
   buf2  := GetField('MOONDAY_M');
   if (buf+buf2)>'' then
     if buf = buf2 then
-      txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + '<br>'
+      txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + br
     else
-      txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + b + rsm_26 + b + buf2 + '<br>';
+      txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + b + rsm_26 + b + buf2 + br;
   if GetField('PR_INSTRU') > '' then
-     txtbuf := txtbuf + t3 + rsm_28 + t3end + b + GetField('PR_INSTRU') + '<br>';
+     txtbuf := txtbuf + t3 + rsm_28 + t3end + b + GetField('PR_INSTRU') + br;
 {  if (GetField('TIPS'))>'' then
-     txtbuf  := txtbuf + t3 + 'Tips:' + t3end + b + GetField('TIPS') + '<br>';}
+     txtbuf  := txtbuf + t3 + 'Tips:' + t3end + b + GetField('TIPS') + br;}
   if txtbuf>'' then
-     txt   := txt + t2 + rsm_59 + t2end + '<br>'+txtbuf+b + '<br>'; //Observation
+     txt   := txt + t2 + rsm_59 + t2end + br+txtbuf+b + br; //Observation
 
   //Position
   txtbuf:='';
   if GetField('LONGI_C') > '' then
-     txtbuf   := txtbuf + t3 + rsm_10 + t3end + b + GetField('LONGI_C') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_10 + t3end + b + GetField('LONGI_C') + br;
   if GetField('LATI_C') > '' then
-     txtbuf   := txtbuf + t3 + rsm_11 + t3end + b + GetField('LATI_C') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_11 + t3end + b + GetField('LATI_C') + br;
   if trim(GetField('FACE')) > '' then
-     txtbuf   := txtbuf + t3 + rsSide + t3end + b + GetField('FACE') + '<br>';
+     txtbuf   := txtbuf + t3 + rsSide + t3end + b + GetField('FACE') + br;
   if GetField('QUADRANT') > '' then
-     txtbuf   := txtbuf + t3 + rsm_12 + t3end + b + GetField('QUADRANT') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_12 + t3end + b + GetField('QUADRANT') + br;
   if GetField('AREA') > '' then
-     txtbuf   := txtbuf + t3 + rsm_13 + t3end + b + GetField('AREA') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_13 + t3end + b + GetField('AREA') + br;
   if txtbuf>'' then
-     txt   := txt + t2 + rsm_60 + t2end + '<br>'+txtbuf+b + '<br>'; //Position
+     txt   := txt + t2 + rsm_60 + t2end + br+txtbuf+b + br; //Position
 
   //Atlas
   txtbuf:='';
@@ -2367,19 +2370,19 @@ begin
   else
     url := carte;
   if trim(url)>'' then
-     txtbuf := txtbuf + t3 + rsm_14 + t3end + b + url + '<br>';
+     txtbuf := txtbuf + t3 + rsm_14 + t3end + b + url + br;
   buf := GetField('VISCARDY');
   if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + rsm_15 + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + rsm_15 + t3end + b + buf + br;
   buf   := GetField('HATFIELD');
   if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + rsm_16 + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + rsm_16 + t3end + b + buf + br;
   buf   := GetField('WESTFALL');
   if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + rsm_66 + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + rsm_66 + t3end + b + buf + br;
   buf   := GetField('WOOD');
   if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + rsm_72 + t3end + b + buf + '<br>';
+    txtbuf := txtbuf + t3 + rsm_72 + t3end + b + buf + br;
   if ok then
   begin
     txtbuf := txtbuf + t3 + rsm_65 + t3end;
@@ -2425,105 +2428,105 @@ begin
       txtbuf := txtbuf + b + ' <A HREF="' + url + '">' + carte + '</A>';
       ok  := dblox.SeekData('NAME', '=', nom);
     end;
-    txtbuf := txtbuf + '<br>';
+    txtbuf := txtbuf + br;
   end;
   if txtbuf>'' then
-     txt   := txt + t2 + rsm_61 + t2end + '<br>'+txtbuf+b + '<br>'; //Atlas
+     txt   := txt + t2 + rsm_61 + t2end + br+txtbuf+b + br; //Atlas
 
   //Origine
   txtbuf:='';
   if GetField('NAME_DETAIL') > '' then
-     txtbuf := txtbuf + t3 + rsm_63 + t3end + b + GetField('NAME_DETAIL') + '<br>';
+     txtbuf := txtbuf + t3 + rsm_63 + t3end + b + GetField('NAME_DETAIL') + br;
   if (trim(GetField('WORK') + GetField('NATIONLITY')) > '') and
     (trim(GetField('CENTURY_C') + GetField('COUNTRY')) > '') then
   begin
     case wordformat of
       0: txtbuf := txtbuf + GetField('CENTURY_C') + b + GetField('NATIONLITY') +
-          b + GetField('WORK') + b + rsm_2 + b + GetField('COUNTRY') + '<br>';
+          b + GetField('WORK') + b + rsm_2 + b + GetField('COUNTRY') + br;
       // english
       1: txtbuf := txtbuf + GetField('WORK') + b + GetField('NATIONLITY') +
           b + rsm_1 + b + GetField('CENTURY_C') + b + rsm_2 + b +
-          GetField('COUNTRY') + '<br>';
+          GetField('COUNTRY') + br;
       // francais, italian
       2: txtbuf := txtbuf + GetField('NATIONLITY') + b + GetField('WORK') +
-          b + GetField('CENTURY_C') + b + rsm_2 + b + GetField('COUNTRY') + '<br>';
+          b + GetField('CENTURY_C') + b + rsm_2 + b + GetField('COUNTRY') + br;
       // russian
     end;
     if (GetField('BIRTH_PLACE')>'')or((GetField('BIRTH_DATE')>'')) then
        txtbuf := txtbuf + t3 + rsm_3 + t3end + b + GetField('BIRTH_PLACE') + b +
-                 rsm_4 + b + GetField('BIRTH_DATE') + '<br>';
+                 rsm_4 + b + GetField('BIRTH_DATE') + br;
     if (GetField('DEATH_PLACE')>'')or((GetField('DEATH_DATE')>'')) then
        txtbuf := txtbuf + t3 + rsm_5 + t3end + b + GetField('DEATH_PLACE') + b +
-                 rsm_4 + b + GetField('DEATH_DATE') + '<br>';
+                 rsm_4 + b + GetField('DEATH_DATE') + br;
   end;
   if GetField('FACTS')<>'' then
-     txtbuf := txtbuf + t3 + rsm_64 + t3end + b + GetField('FACTS') + '<br>';
+     txtbuf := txtbuf + t3 + rsm_64 + t3end + b + GetField('FACTS') + br;
   if GetField('NAME_ORIGIN')<>'' then
-     txtbuf   := txtbuf + t3 + rsm_6 + t3end + b + GetField('NAME_ORIGIN') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_6 + t3end + b + GetField('NAME_ORIGIN') + br;
   if GetField('LANGRENUS')<>'' then
-     txtbuf   := txtbuf + t3 + rsm_7 + t3end + b + GetField('LANGRENUS') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_7 + t3end + b + GetField('LANGRENUS') + br;
   if GetField('HEVELIUS')<>'' then
-     txtbuf   := txtbuf + t3 + rsm_8 + t3end + b + GetField('HEVELIUS') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_8 + t3end + b + GetField('HEVELIUS') + br;
   if GetField('RICCIOLI')<>'' then
-     txtbuf   := txtbuf + t3 + rsm_9 + t3end + b + GetField('RICCIOLI') + '<br>';
+     txtbuf   := txtbuf + t3 + rsm_9 + t3end + b + GetField('RICCIOLI') + br;
   if txtbuf>'' then
-     txt := txt + t2 + rsm_62 + t2end + '<br>'+txtbuf+ b + '<br>'; //Origine
+     txt := txt + t2 + rsm_62 + t2end + br+txtbuf+ b + br; //Origine
 
   // IAU information
   txtbuf:='';
   if GetField('IAU_FEATURE_NAME')<>'' then begin
      url:=GetField('IAU_LINK');
      if url='' then
-        txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + GetField('IAU_FEATURE_NAME') + '<br>'
+        txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + GetField('IAU_FEATURE_NAME') + br
      else
-        txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + ' <A HREF="' + url + '">' +GetField('IAU_FEATURE_NAME') + '</A>' + '<br>';
+        txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + ' <A HREF="' + url + '">' +GetField('IAU_FEATURE_NAME') + '</A>' + br;
   end;
   if GetField('IAU_CLEAN_FEATURE_NAME')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_CLEAN_FEATURE_NAME:' + t3end + b + GetField('IAU_CLEAN_FEATURE_NAME') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_CLEAN_FEATURE_NAME:' + t3end + b + GetField('IAU_CLEAN_FEATURE_NAME') + br;
   if GetField('IAU_FEATURE_ID')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_ID:' + t3end + b + GetField('IAU_FEATURE_ID') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_ID:' + t3end + b + GetField('IAU_FEATURE_ID') + br;
   if GetField('IAU_DIAMETER')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_DIAMETER:' + t3end + b + GetField('IAU_DIAMETER') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_DIAMETER:' + t3end + b + GetField('IAU_DIAMETER') + br;
   if GetField('IAU_CENTER_LATITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_CENTER_LATITUDE:' + t3end + b + GetField('IAU_CENTER_LATITUDE') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_CENTER_LATITUDE:' + t3end + b + GetField('IAU_CENTER_LATITUDE') + br;
   if GetField('IAU_CENTER_LONGITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_CENTER_LONGITUDE:' + t3end + b + GetField('IAU_CENTER_LONGITUDE') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_CENTER_LONGITUDE:' + t3end + b + GetField('IAU_CENTER_LONGITUDE') + br;
   if GetField('IAU_NORTHERN_LATITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_NORTHERN_LATITUDE:' + t3end + b + GetField('IAU_NORTHERN_LATITUDE') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_NORTHERN_LATITUDE:' + t3end + b + GetField('IAU_NORTHERN_LATITUDE') + br;
   if GetField('IAU_SOUTHERN_LATITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_SOUTHERN_LATITUDE:' + t3end + b + GetField('IAU_SOUTHERN_LATITUDE') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_SOUTHERN_LATITUDE:' + t3end + b + GetField('IAU_SOUTHERN_LATITUDE') + br;
   if GetField('IAU_EASTERN_LONGITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_EASTERN_LONGITUDE:' + t3end + b + GetField('IAU_EASTERN_LONGITUDE') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_EASTERN_LONGITUDE:' + t3end + b + GetField('IAU_EASTERN_LONGITUDE') + br;
   if GetField('IAU_WESTERN_LONGITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_WESTERN_LONGITUDE:' + t3end + b + GetField('IAU_WESTERN_LONGITUDE') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_WESTERN_LONGITUDE:' + t3end + b + GetField('IAU_WESTERN_LONGITUDE') + br;
   if GetField('IAU_COORDINATE_SYSTEM')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_COORDINATE_SYSTEM:' + t3end + b + GetField('IAU_COORDINATE_SYSTEM') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_COORDINATE_SYSTEM:' + t3end + b + GetField('IAU_COORDINATE_SYSTEM') + br;
   if GetField('IAU_CONTINENT')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_CONTINENT:' + t3end + b + GetField('IAU_CONTINENT') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_CONTINENT:' + t3end + b + GetField('IAU_CONTINENT') + br;
   if GetField('IAU_ETHNICITY')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_ETHNICITY:' + t3end + b + GetField('IAU_ETHNICITY') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_ETHNICITY:' + t3end + b + GetField('IAU_ETHNICITY') + br;
   if GetField('IAU_FEATURE_TYPE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE:' + t3end + b + GetField('IAU_FEATURE_TYPE') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE:' + t3end + b + GetField('IAU_FEATURE_TYPE') + br;
   if GetField('IAU_FEATURE_TYPE_CODE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE_CODE:' + t3end + b + GetField('IAU_FEATURE_TYPE_CODE') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE_CODE:' + t3end + b + GetField('IAU_FEATURE_TYPE_CODE') + br;
   if GetField('IAU_QUAD_NAME')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_QUAD_NAME:' + t3end + b + GetField('IAU_QUAD_NAME') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_QUAD_NAME:' + t3end + b + GetField('IAU_QUAD_NAME') + br;
   if GetField('IAU_QUAD_CODE')<>'' then begin
      buf:=GetField('IAU_QUAD_CODE');
-     txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + buf + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + buf + br;
   end;
   if GetField('IAU_APPROVAL_STATUS')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_STATUS:' + t3end + b + GetField('IAU_APPROVAL_STATUS') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_STATUS:' + t3end + b + GetField('IAU_APPROVAL_STATUS') + br;
   if GetField('IAU_APPROVAL_DATE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_DATE:' + t3end + b + GetField('IAU_APPROVAL_DATE') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_DATE:' + t3end + b + GetField('IAU_APPROVAL_DATE') + br;
   if GetField('IAU_REFERENCE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_REFERENCE:' + t3end + b + GetField('IAU_REFERENCE') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_REFERENCE:' + t3end + b + GetField('IAU_REFERENCE') + br;
   if GetField('IAU_ORIGIN')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_ORIGIN:' + t3end + b + GetField('IAU_ORIGIN') + '<br>';
+     txtbuf   := txtbuf + t3 + 'IAU_ORIGIN:' + t3end + b + GetField('IAU_ORIGIN') + br;
   if txtbuf>'' then
-     txt := txt + t2 + 'IAU information:' + t2end + '<br>'+txtbuf+ b + '<br>';
+     txt := txt + t2 + 'IAU information:' + t2end + br+txtbuf+ b + br;
 
-  txt   := txt + '</body></html>';
+  txt   := txt + '</div></body></html>';
   if copy(GetField('PROFIL'),1,2)='A_' then begin
     Label7.Caption := GetField('PROFIL');
     Label7.Font.Size := 8;

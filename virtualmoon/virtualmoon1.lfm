@@ -25,6 +25,7 @@ object Form1: TForm1
   OnKeyUp = FormKeyUp
   OnResize = FormResize
   OnShow = FormShow
+  LCLVersion = '2.0.0.2'
   object PanelMoon2: TPanel
     Left = 0
     Height = 516
@@ -77,8 +78,8 @@ object Form1: TForm1
     Width = 1024
     Align = alTop
     BevelOuter = bvNone
-    ClientHeight = 31
-    ClientWidth = 1020
+    ClientHeight = 35
+    ClientWidth = 1024
     Font.Height = 13
     ParentFont = False
     TabOrder = 2
@@ -135,7 +136,7 @@ object Form1: TForm1
       end
       object ToolButton15: TToolButton
         Left = 244
-        Height = 30
+        Height = 8
         Top = 0
         Caption = 'ToolButton15'
         Style = tbsSeparator
@@ -172,7 +173,7 @@ object Form1: TForm1
       end
       object ToolButton11: TToolButton
         Left = 31
-        Height = 30
+        Height = 8
         Top = 0
         Caption = 'ToolButton11'
         Style = tbsSeparator
@@ -346,7 +347,7 @@ object Form1: TForm1
       end
     end
     object ToolBar5: TToolBar
-      Left = 992
+      Left = 996
       Height = 30
       Top = 0
       Width = 31
@@ -413,8 +414,8 @@ object Form1: TForm1
     Options = [nboMultiLine]
     object Position: TTabSheet
       Caption = 'Information'
-      ClientHeight = 503
-      ClientWidth = 342
+      ClientHeight = 475
+      ClientWidth = 336
       Font.Height = 13
       ParentFont = False
       object Panel1: TPanel
@@ -425,8 +426,8 @@ object Form1: TForm1
         Align = alTop
         BevelOuter = bvNone
         BorderStyle = bsSingle
-        ClientHeight = 85
-        ClientWidth = 332
+        ClientHeight = 89
+        ClientWidth = 336
         Font.Height = 13
         ParentFont = False
         TabOrder = 0
@@ -504,8 +505,8 @@ object Form1: TForm1
         BevelOuter = bvNone
         BorderWidth = 1
         BorderStyle = bsSingle
-        ClientHeight = 44
-        ClientWidth = 332
+        ClientHeight = 48
+        ClientWidth = 336
         Font.Height = 13
         ParentFont = False
         TabOrder = 2
@@ -548,8 +549,8 @@ object Form1: TForm1
     end
     object Notes: TTabSheet
       Caption = 'Notes'
-      ClientHeight = 503
-      ClientWidth = 342
+      ClientHeight = 475
+      ClientWidth = 336
       Font.Height = 13
       ParentFont = False
       object Memo1: TMemo
@@ -573,8 +574,8 @@ object Form1: TForm1
         Top = 0
         Width = 336
         Align = alTop
-        ClientHeight = 53
-        ClientWidth = 332
+        ClientHeight = 57
+        ClientWidth = 336
         Font.Height = 13
         ParentFont = False
         TabOrder = 1
@@ -606,8 +607,8 @@ object Form1: TForm1
     end
     object Ephemerides: TTabSheet
       Caption = 'Ephemerides'
-      ClientHeight = 503
-      ClientWidth = 342
+      ClientHeight = 475
+      ClientWidth = 336
       Font.Height = 13
       ParentFont = False
       object Panel4: TPanel
@@ -616,8 +617,8 @@ object Form1: TForm1
         Top = 0
         Width = 336
         Align = alTop
-        ClientHeight = 116
-        ClientWidth = 332
+        ClientHeight = 120
+        ClientWidth = 336
         Font.Height = 13
         ParentFont = False
         TabOrder = 0
@@ -1198,8 +1199,8 @@ object Form1: TForm1
     end
     object Terminateur: TTabSheet
       Caption = 'Terminateur'
-      ClientHeight = 503
-      ClientWidth = 342
+      ClientHeight = 475
+      ClientWidth = 336
       Font.Height = 13
       ParentFont = False
       object Panel5: TPanel
@@ -1208,8 +1209,8 @@ object Form1: TForm1
         Top = 0
         Width = 336
         Align = alTop
-        ClientHeight = 157
-        ClientWidth = 332
+        ClientHeight = 161
+        ClientWidth = 336
         Font.Height = 13
         ParentFont = False
         TabOrder = 0
@@ -1360,7 +1361,7 @@ object Form1: TForm1
         OnClick = ListBox1Click
         ParentColor = True
         ParentFont = False
-        ScrollWidth = 332
+        ScrollWidth = 334
         Sorted = True
         TabOrder = 1
         TopIndex = -1
@@ -1368,8 +1369,8 @@ object Form1: TForm1
     end
     object Outils: TTabSheet
       Caption = 'Outils'
-      ClientHeight = 503
-      ClientWidth = 342
+      ClientHeight = 475
+      ClientWidth = 336
       Font.Height = 13
       ParentFont = False
       object GroupBox3: TGroupBox
@@ -1686,8 +1687,8 @@ object Form1: TForm1
         Top = 311
         Width = 250
         BevelInner = bvLowered
-        ClientHeight = 156
-        ClientWidth = 246
+        ClientHeight = 160
+        ClientWidth = 250
         Font.Height = 13
         ParentFont = False
         TabOrder = 4
@@ -1978,8 +1979,8 @@ object Form1: TForm1
         Top = 146
         Width = 250
         BevelInner = bvLowered
-        ClientHeight = 159
-        ClientWidth = 246
+        ClientHeight = 163
+        ClientWidth = 250
         Font.Height = 13
         ParentFont = False
         TabOrder = 5
@@ -2083,8 +2084,8 @@ object Form1: TForm1
     end
     object Reglage: TTabSheet
       Caption = 'Reglage'
-      ClientHeight = 503
-      ClientWidth = 342
+      ClientHeight = 475
+      ClientWidth = 336
       Font.Height = 13
       ParentFont = False
       object Bevel1: TBevel
@@ -2264,8 +2265,8 @@ object Form1: TForm1
         Height = 129
         Top = 234
         Width = 202
-        ClientHeight = 125
-        ClientWidth = 198
+        ClientHeight = 129
+        ClientWidth = 202
         Font.Height = 13
         ParentFont = False
         TabOrder = 3
@@ -2395,8 +2396,8 @@ object Form1: TForm1
     end
     object dbtab: TTabSheet
       Caption = 'Database'
-      ClientHeight = 503
-      ClientWidth = 342
+      ClientHeight = 475
+      ClientWidth = 336
       Font.Height = 13
       ParentFont = False
       object StringGrid2: TStringGrid
@@ -2422,8 +2423,8 @@ object Form1: TForm1
         Top = 435
         Width = 343
         Align = alBottom
-        ClientHeight = 29
-        ClientWidth = 339
+        ClientHeight = 33
+        ClientWidth = 343
         Font.Height = 13
         ParentFont = False
         TabOrder = 1
