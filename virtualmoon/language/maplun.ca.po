@@ -23,6 +23,10 @@ msgstr "Relleu d'areògraf amb albedo"
 msgid "Airbursh relief without albedo"
 msgstr "Relleu d'aerògraf sense albedo"
 
+#: u_translation.rsapparentsize
+msgid "Apparent size :"
+msgstr ""
+
 #: u_translation.rscaption
 msgid "Caption"
 msgstr "Llegenda"
@@ -71,6 +75,22 @@ msgstr "http://ap-i.net/avl/en/download"
 msgid "Dynamic relief display method"
 msgstr "Mètode presentació relleu dinàmic"
 
+#: u_translation.rsejectathicka
+msgid "Ejecta thick at 1 radius :"
+msgstr ""
+
+#: u_translation.rsejectathicka2
+msgid "Ejecta thick at 3 radius :"
+msgstr ""
+
+#: u_translation.rsejectathicka3
+msgid "Ejecta thick at 5 radius :"
+msgstr ""
+
+#: u_translation.rselgerdescrip
+msgid "Elger description (1895):"
+msgstr ""
+
 #: u_translation.rsenddate
 msgid "End date"
 msgstr "Data final"
@@ -79,9 +99,17 @@ msgstr "Data final"
 msgid "Ephemeris:"
 msgstr "Efemèrides:"
 
+#: u_translation.rsexcavationde
+msgid "Excavation depth :"
+msgstr ""
+
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Configuració inicial"
+
+#: u_translation.rsfloordiamete
+msgid "Floor diameter :"
+msgstr ""
 
 #: u_translation.rsformat
 msgid "0"
@@ -90,6 +118,10 @@ msgstr "1"
 #: u_translation.rsfullscreen
 msgid "Full screen (Esc)"
 msgstr "Pantalla completa (Esc)"
+
+#: u_translation.rsgeology
+msgid "Geology :"
+msgstr ""
 
 #: u_translation.rsgrid
 msgid "Grid"
@@ -115,6 +147,10 @@ msgstr "Històric"
 msgid "Hours"
 msgstr "Hores"
 
+#: u_translation.rsiautype
+msgid "IAU type :"
+msgstr ""
+
 #: u_translation.rsincreasefont
 msgid "Increase font size"
 msgstr "Augmenta la mida de la lletra"
@@ -138,6 +174,10 @@ msgstr "Zenit local a dalt"
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
 msgstr "Fotogràfic LOPAM"
+
+#: u_translation.rsmeltingdepth
+msgid "Melting depth :"
+msgstr ""
 
 #: u_translation.rsminute
 msgctxt "u_translation.rsminute"
@@ -435,6 +475,10 @@ msgstr "Nom donat per Riccioli:"
 msgid "Named formations"
 msgstr ""
 
+#: u_translation.rsnametype
+msgid "Name type :"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr "Sense textura ( utilització amb una sola capa)"
@@ -446,6 +490,14 @@ msgstr "Altura orbital"
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
 msgstr "Inclinació orbital"
+
+#: u_translation.rspeakdiameter
+msgid "Peak diameter :"
+msgstr ""
+
+#: u_translation.rspeakheight
+msgid "Peak height :"
+msgstr ""
 
 #: u_translation.rsphasewithdyn
 msgid "Phase with dynamic relief"
@@ -503,9 +555,21 @@ msgstr "Nombre de pixels"
 msgid "Pixel size"
 msgstr "Mida dels píxels"
 
+#: u_translation.rsprocess
+msgid "Process :"
+msgstr ""
+
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Surt de pantalla completa (Esc)"
+
+#: u_translation.rsradarbrighth
+msgid "Radar bright halo radius :"
+msgstr ""
+
+#: u_translation.rsradardarkhal
+msgid "Radar dark halo radius :"
+msgstr ""
 
 #: u_translation.rsregistredfor
 msgid "Registred formations"
@@ -547,6 +611,10 @@ msgstr "Cara:"
 msgid "Simple"
 msgstr "Simple"
 
+#: u_translation.rssource
+msgid "Source:"
+msgstr ""
+
 #: u_translation.rsstandardtext
 msgid "(standard texture selection)"
 msgstr "(tria de la textura)"
@@ -558,6 +626,10 @@ msgstr "Data d'inici"
 #: u_translation.rssteps
 msgid "Steps"
 msgstr "Passos"
+
+#: u_translation.rssubtype
+msgid "Sub-type :"
+msgstr ""
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"

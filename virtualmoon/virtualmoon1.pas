@@ -1960,24 +1960,24 @@ begin
     memo.Lines.Add(buf);
   end;
   if (GetField('LUN'))>'' then
-     memo.Lines.Add('L.U.N.:' + b + GetField('LUN'));
+     memo.Lines.Add('L.U.N. :' + b + GetField('LUN'));
   if (GetField('LUN_REDUCED'))>'' then
-     memo.Lines.Add('L.U.N.REDUCED:' + b + GetField('LUN_REDUCED'));
+     memo.Lines.Add('L.U.N.REDUCED :' + b + GetField('LUN_REDUCED'));
   if (GetField('NAME_TYPE'))>'' then
-     memo.Lines.Add('Name type:' + b + GetField('NAME_TYPE'));
+     memo.Lines.Add(rsNameType + b + GetField('NAME_TYPE'));
   if (GetField('TYPE_IAU'))>'' then
-     memo.Lines.Add('IAU type:' + b + GetField('TYPE_IAU'));
+     memo.Lines.Add(rsIAUType + b + GetField('TYPE_IAU'));
   memo.Lines.Add(rsm_56 + b + GetField('TYPE'));
   if (GetField('SUBTYPE'))>'' then
-     memo.Lines.Add('Sub-type:' + b + GetField('SUBTYPE'));
+     memo.Lines.Add(rsSubType + b + GetField('SUBTYPE'));
   if (GetField('PERIOD'))>'' then
      memo.Lines.Add(rsm_49 + b + GetField('PERIOD'));
   if (GetField('PERIOD'))>'' then
      memo.Lines.Add(rsSource + b + GetField('PERIOD_SOURCE'));
   if (GetField('PROCESS'))>'' then
-     memo.Lines.Add('Process:' + b + GetField('PROCESS'));
+     memo.Lines.Add(rsProcess + b + GetField('PROCESS'));
   if (GetField('GEOLOGY'))>'' then
-     memo.Lines.Add('Geology:' + b + GetField('GEOLOGY'));
+     memo.Lines.Add(rsGeology + b + GetField('GEOLOGY'));
 
 
   //Taille
@@ -2004,25 +2004,30 @@ begin
      memo.Lines.Add(rsm_23 + b + GetField('RAPPORT'));
 
   if GetField('FLOOR_DIAMETER_KM') > '' then
-    memo.Lines.Add('Floor diameter:' + b + GetField('FLOOR_DIAMETER_KM')+ rsm_18);
+    memo.Lines.Add(rsFloorDiamete + b + GetField('FLOOR_DIAMETER_KM')+ rsm_18);
   if GetField('PEAK_HEIGHT_KM') > '' then
-    memo.Lines.Add('Peak height:' + b + GetField('PEAK_HEIGHT_KM')+ rsm_18);
+    memo.Lines.Add(rsPeakHeight + b + GetField('PEAK_HEIGHT_KM')+ rsm_18);
   if GetField('PEAK_DIAMETER_KM') > '' then
-    memo.Lines.Add('Peak diameter:' + b + GetField('PEAK_DIAMETER_KM')+ rsm_18);
+    memo.Lines.Add(rsPeakDiameter + b + GetField('PEAK_DIAMETER_KM')+ rsm_18);
   if GetField('EXCAVATION_DEPTH_KM') > '' then
-    memo.Lines.Add('Excavation depth:' + b + GetField('EXCAVATION_DEPTH_KM')+ rsm_18);
+    memo.Lines.Add(rsExcavationDe + b + GetField('EXCAVATION_DEPTH_KM')+ rsm_18);
   if GetField('MELTING_DEPTH_KM') > '' then
-    memo.Lines.Add('Melting depth:' + b + GetField('MELTING_DEPTH_KM')+ rsm_18);
+    memo.Lines.Add(rsMeltingDepth + b + GetField('MELTING_DEPTH_KM')+ rsm_18);
   if GetField('EJECTA_THICK_M_1RADIUS') > '' then
-    memo.Lines.Add('Ejecta thick m 1radius:' + b + GetField('EJECTA_THICK_M_1RADIUS')+ rsm_21);
+    memo.Lines.Add(rsEjectaThickA + b + GetField('EJECTA_THICK_M_1RADIUS')+
+      rsm_21);
   if GetField('EJECTA_THICK_M_3RADIUS') > '' then
-    memo.Lines.Add('Ejecta thick m 3radius:' + b + GetField('EJECTA_THICK_M_3RADIUS')+ rsm_21);
+    memo.Lines.Add(rsEjectaThickA2 + b + GetField('EJECTA_THICK_M_3RADIUS')+
+      rsm_21);
   if GetField('EJECTA_THICK_M_5RADIUS') > '' then
-    memo.Lines.Add('Ejecta thick m 5radius:' + b + GetField('EJECTA_THICK_M_5RADIUS')+ rsm_21);
+    memo.Lines.Add(rsEjectaThickA3 + b + GetField('EJECTA_THICK_M_5RADIUS')+
+      rsm_21);
   if GetField('RADAR_BRIGHT_HALO_RADIUS') > '' then
-    memo.Lines.Add('Radar bright halo radius:' + b + GetField('RADAR_BRIGHT_HALO_RADIUS')+ rsm_18);
+    memo.Lines.Add(rsRadarBrightH + b + GetField('RADAR_BRIGHT_HALO_RADIUS')+
+      rsm_18);
   if GetField('RADAR_DARK_HALO_RADIUS') > '' then
-    memo.Lines.Add('Radar dark halo radius:' + b + GetField('RADAR_DARK_HALO_RADIUS')+ rsm_18);
+    memo.Lines.Add(rsRadarDarkHal + b + GetField('RADAR_DARK_HALO_RADIUS')+
+      rsm_18);
 
   //Description
   if (GetField('GENERAL_1')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
@@ -2038,13 +2043,13 @@ begin
   if GetField('FLOOR') > '' then
     memo.Lines.Add(GetField('FLOOR'));
   if GetField('ELGER_1895') > '' then
-    memo.Lines.Add('Elger 1895:' + b + GetField('ELGER_1895'));
+    memo.Lines.Add(rsElgerDescrip + b + GetField('ELGER_1895'));
 
   //Observation
   if (GetField('INTEREST_C')>'')or(GetField('MOONDAY_S')>'')or(GetField('MOONDAY_M')>'')or(GetField('PR_INSTRU')>'') then
      memo.Lines.Add(rsm_59); //Observation
   if GetField('LENGTH_ARCSEC') > '' then
-     memo.Lines.Add('Apparent size:' + b + GetField('LENGTH_ARCSEC')+rssecond);
+     memo.Lines.Add(rsApparentSize + b + GetField('LENGTH_ARCSEC')+rssecond);
   if GetField('INTEREST_C') > '' then
      memo.Lines.Add(rsm_24 + b + GetField('INTEREST_C'));
   buf  := GetField('MOONDAY_S');
@@ -2058,8 +2063,6 @@ begin
   end;
   if GetField('PR_INSTRU') > '' then
      memo.Lines.Add(rsm_28 + b + GetField('PR_INSTRU'));
-{  if (GetField('TIPS'))>'' then
-     memo.Lines.Add('Tips:' + b + GetField('TIPS')); }
 
   if (GetField('LONGI_C')>'')or(GetField('LATI_C')>'')or(GetField('QUADRANT')>'')or(GetField('AREA')>'') then
      memo.Lines.Add(rsm_60); //Position
@@ -2249,20 +2252,20 @@ begin
   if (GetField('LUN_REDUCED'))>'' then
      txt  := txt + t3 + 'L.U.N.REDUCED:' + t3end + b + GetField('LUN_REDUCED') + br;
   if (GetField('NAME_TYPE'))>'' then
-     txt  := txt + t3 + 'Name type:' + t3end + b + GetField('NAME_TYPE') + br;
+     txt  := txt + t3 + rsNameType + t3end + b + GetField('NAME_TYPE') + br;
   if (GetField('TYPE_IAU'))>'' then
-     txt  := txt + t3 + 'IAU type:' + t3end + b + GetField('TYPE_IAU') + br;
+     txt  := txt + t3 + rsIAUType + t3end + b + GetField('TYPE_IAU') + br;
   txt  := txt + t3 + rsm_56 + t3end + b + GetField('TYPE') + br;
   if (GetField('SUBTYPE'))>'' then
-     txt  := txt + t3 + 'Sub-type:' + t3end + b + GetField('SUBTYPE') + br;
+     txt  := txt + t3 + rsSubType + t3end + b + GetField('SUBTYPE') + br;
   if (GetField('PERIOD'))>'' then
      txt  := txt + t3 + rsm_49 + t3end + b + GetField('PERIOD') + br;
   if (GetField('PERIOD_SOURCE'))>'' then
      txt  := txt + t3 + rsSource + t3end + b + GetField('PERIOD_SOURCE') + br;
   if (GetField('PROCESS'))>'' then
-     txt  := txt + t3 + 'Process:' + t3end + b + GetField('PROCESS') + br;
+     txt  := txt + t3 + rsProcess + t3end + b + GetField('PROCESS') + br;
   if (GetField('GEOLOGY'))>'' then
-     txt  := txt + t3 + 'Geology:' + t3end + b + GetField('GEOLOGY') + br;
+     txt  := txt + t3 + rsGeology + t3end + b + GetField('GEOLOGY') + br;
   txt  := txt + b + br;
 
   //Taille
@@ -2286,25 +2289,25 @@ begin
        txtbuf := txtbuf + t3 + rsm_23 + t3end + b + GetField('RAPPORT') + br;
   end;
   if GetField('FLOOR_DIAMETER_KM') > '' then
-    txtbuf := txtbuf + t3 + 'Floor diameter:'  + t3end+ b + GetField('FLOOR_DIAMETER_KM')+ rsm_18 +br;
+    txtbuf := txtbuf + t3 + rsFloorDiamete + t3end+ b + GetField('FLOOR_DIAMETER_KM')+ rsm_18 +br;
   if GetField('PEAK_HEIGHT_KM') > '' then
-    txtbuf := txtbuf + t3 + 'Peak height:' + t3end + b + GetField('PEAK_HEIGHT_KM')+ rsm_18 +br;
+    txtbuf := txtbuf + t3 + rsPeakHeight + t3end + b + GetField('PEAK_HEIGHT_KM')+ rsm_18 +br;
   if GetField('PEAK_DIAMETER_KM') > '' then
-    txtbuf := txtbuf + t3 + 'Peak diameter:' + t3end + b + GetField('PEAK_DIAMETER_KM')+ rsm_18 +br;
+    txtbuf := txtbuf + t3 + rsPeakDiameter + t3end + b + GetField('PEAK_DIAMETER_KM')+ rsm_18 +br;
   if GetField('EXCAVATION_DEPTH_KM') > '' then
-    txtbuf := txtbuf + t3 + 'Excavation depth:' + t3end + b + GetField('EXCAVATION_DEPTH_KM')+ rsm_18 +br;
+    txtbuf := txtbuf + t3 + rsExcavationDe + t3end + b + GetField('EXCAVATION_DEPTH_KM')+ rsm_18 +br;
   if GetField('MELTING_DEPTH_KM') > '' then
-    txtbuf := txtbuf + t3 + 'Melting depth:' + t3end + b + GetField('MELTING_DEPTH_KM')+ rsm_18 +br;
+    txtbuf := txtbuf + t3 + rsMeltingDepth + t3end + b + GetField('MELTING_DEPTH_KM')+ rsm_18 +br;
   if GetField('EJECTA_THICK_M_1RADIUS') > '' then
-    txtbuf := txtbuf + t3 + 'Ejecta thick at 1 radius:' + t3end + b + GetField('EJECTA_THICK_M_1RADIUS')+rsm_21 +br;
+    txtbuf := txtbuf + t3 + rsEjectaThickA + t3end + b + GetField('EJECTA_THICK_M_1RADIUS')+rsm_21 +br;
   if GetField('EJECTA_THICK_M_3RADIUS') > '' then
-    txtbuf := txtbuf + t3 + 'Ejecta thick at 3 radius:' + t3end + b + GetField('EJECTA_THICK_M_3RADIUS')+rsm_21 +br;
+    txtbuf := txtbuf + t3 + rsEjectaThickA2 + t3end + b + GetField('EJECTA_THICK_M_3RADIUS')+rsm_21 +br;
   if GetField('EJECTA_THICK_M_5RADIUS') > '' then
-    txtbuf := txtbuf + t3 + 'Ejecta thick at 5 radius:' + t3end + b + GetField('EJECTA_THICK_M_5RADIUS')+rsm_21 +br;
+    txtbuf := txtbuf + t3 + rsEjectaThickA3 + t3end + b + GetField('EJECTA_THICK_M_5RADIUS')+rsm_21 +br;
   if GetField('RADAR_BRIGHT_HALO_RADIUS') > '' then
-    txtbuf := txtbuf + t3 + 'Radar bright halo radius:' + t3end + b + GetField('RADAR_BRIGHT_HALO_RADIUS')+ rsm_18 +br;
+    txtbuf := txtbuf + t3 + rsRadarBrightH + t3end + b + GetField('RADAR_BRIGHT_HALO_RADIUS')+ rsm_18 +br;
   if GetField('RADAR_DARK_HALO_RADIUS') > '' then
-    txtbuf := txtbuf + t3 + 'Radar dark halo radius:' + t3end + b + GetField('RADAR_DARK_HALO_RADIUS')+ rsm_18 +br;    if txtbuf>'' then
+    txtbuf := txtbuf + t3 + rsRadarDarkHal + t3end + b + GetField('RADAR_DARK_HALO_RADIUS')+ rsm_18 +br;    if txtbuf>'' then
      txt  := txt + t2 + rsm_57 + t2end + br+txtbuf+ b + br; //Taille
 
   //Description
@@ -2319,16 +2322,16 @@ begin
     txtbuf:= txtbuf + GetField('WALLS') + br;
   if GetField('FLOOR') > '' then
     txtbuf := txtbuf + GetField('FLOOR') + br;
-  if GetField('ELGER_1895') > '' then
-    txtbuf :=txtbuf + 'Elger 1895:' + b + GetField('ELGER_1895') + br;
+  if GetField('ELGER_1895') > '' then begin
+    txtbuf :=txtbuf + br + t3 + rsElgerDescrip + t3end + br + GetField('ELGER_1895') + br;
+  end;
   if txtbuf>'' then
     txt := txt + t2 + rsm_58 + t2end + br+txtbuf+b + br; //Description
-
 
   //Observation
   txtbuf:='';
   if GetField('LENGTH_ARCSEC') > '' then
-     txtbuf := txtbuf + t3 + 'Apparent size:' + t3end + GetField('LENGTH_ARCSEC')+rssecond +br;
+     txtbuf := txtbuf + t3 + rsApparentSize + t3end + b + GetField('LENGTH_ARCSEC')+rssecond +br;
   if GetField('INTEREST_C') > '' then
      txtbuf   := txtbuf + t3 + rsm_24 + t3end + b + GetField('INTEREST_C') + br;
   buf   := GetField('MOONDAY_S');
@@ -2340,8 +2343,6 @@ begin
       txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + b + rsm_26 + b + buf2 + br;
   if GetField('PR_INSTRU') > '' then
      txtbuf := txtbuf + t3 + rsm_28 + t3end + b + GetField('PR_INSTRU') + br;
-{  if (GetField('TIPS'))>'' then
-     txtbuf  := txtbuf + t3 + 'Tips:' + t3end + b + GetField('TIPS') + br;}
   if txtbuf>'' then
      txt   := txt + t2 + rsm_59 + t2end + br+txtbuf+b + br; //Observation
 

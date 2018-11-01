@@ -24,6 +24,10 @@ msgstr "Airbrush relief s albedom"
 msgid "Airbursh relief without albedo"
 msgstr "Airbrush relief bez albeda"
 
+#: u_translation.rsapparentsize
+msgid "Apparent size :"
+msgstr ""
+
 #: u_translation.rscaption
 msgid "Caption"
 msgstr ""
@@ -72,6 +76,22 @@ msgstr "http://ap-i.net/avl/en/download"
 msgid "Dynamic relief display method"
 msgstr "Metóda zobrazenia dynamického reliefu"
 
+#: u_translation.rsejectathicka
+msgid "Ejecta thick at 1 radius :"
+msgstr ""
+
+#: u_translation.rsejectathicka2
+msgid "Ejecta thick at 3 radius :"
+msgstr ""
+
+#: u_translation.rsejectathicka3
+msgid "Ejecta thick at 5 radius :"
+msgstr ""
+
+#: u_translation.rselgerdescrip
+msgid "Elger description (1895):"
+msgstr ""
+
 #: u_translation.rsenddate
 msgid "End date"
 msgstr ""
@@ -80,9 +100,17 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr "Efemeridy:"
 
+#: u_translation.rsexcavationde
+msgid "Excavation depth :"
+msgstr ""
+
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Najprv použiť nastavenie"
+
+#: u_translation.rsfloordiamete
+msgid "Floor diameter :"
+msgstr ""
 
 #: u_translation.rsformat
 msgid "0"
@@ -91,6 +119,10 @@ msgstr "0"
 #: u_translation.rsfullscreen
 msgid "Full screen (Esc)"
 msgstr "Celá obrazovka (Esc)"
+
+#: u_translation.rsgeology
+msgid "Geology :"
+msgstr ""
 
 #: u_translation.rsgrid
 msgid "Grid"
@@ -116,6 +148,10 @@ msgstr ""
 msgid "Hours"
 msgstr ""
 
+#: u_translation.rsiautype
+msgid "IAU type :"
+msgstr ""
+
 #: u_translation.rsincreasefont
 msgid "Increase font size"
 msgstr ""
@@ -139,6 +175,10 @@ msgstr ""
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
 msgstr "LOPAM fotografická"
+
+#: u_translation.rsmeltingdepth
+msgid "Melting depth :"
+msgstr ""
 
 #: u_translation.rsminute
 #, fuzzy
@@ -438,6 +478,10 @@ msgstr "Meno podľa Riccioliho:"
 msgid "Named formations"
 msgstr ""
 
+#: u_translation.rsnametype
+msgid "Name type :"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr ""
@@ -448,6 +492,14 @@ msgstr ""
 
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
+msgstr ""
+
+#: u_translation.rspeakdiameter
+msgid "Peak diameter :"
+msgstr ""
+
+#: u_translation.rspeakheight
+msgid "Peak height :"
 msgstr ""
 
 #: u_translation.rsphasewithdyn
@@ -506,9 +558,21 @@ msgstr ""
 msgid "Pixel size"
 msgstr ""
 
+#: u_translation.rsprocess
+msgid "Process :"
+msgstr ""
+
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Skončíť celú obrazovku (Esc)"
+
+#: u_translation.rsradarbrighth
+msgid "Radar bright halo radius :"
+msgstr ""
+
+#: u_translation.rsradardarkhal
+msgid "Radar dark halo radius :"
+msgstr ""
 
 #: u_translation.rsregistredfor
 msgid "Registred formations"
@@ -552,6 +616,10 @@ msgstr ""
 msgid "Simple"
 msgstr "Jednoduchá"
 
+#: u_translation.rssource
+msgid "Source:"
+msgstr ""
+
 #: u_translation.rsstandardtext
 msgid "(standard texture selection)"
 msgstr ""
@@ -562,6 +630,10 @@ msgstr ""
 
 #: u_translation.rssteps
 msgid "Steps"
+msgstr ""
+
+#: u_translation.rssubtype
+msgid "Sub-type :"
 msgstr ""
 
 #: u_translation.rstexturesairb

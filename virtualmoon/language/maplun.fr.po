@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2018-10-30 15:42+0100\n"
+"PO-Revision-Date: 2018-11-01 17:20+0100\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,6 +23,10 @@ msgstr "Relief aérographe avec albédo"
 #: u_translation.rsairburshreli2
 msgid "Airbursh relief without albedo"
 msgstr "Relief aérographe sans albedo"
+
+#: u_translation.rsapparentsize
+msgid "Apparent size :"
+msgstr "Taille apparente :"
 
 #: u_translation.rscaption
 msgid "Caption"
@@ -72,6 +76,22 @@ msgstr "http://ap-i.net/avl/fr/download"
 msgid "Dynamic relief display method"
 msgstr "Méthode d'affichage du relief dynamique"
 
+#: u_translation.rsejectathicka
+msgid "Ejecta thick at 1 radius :"
+msgstr "Epaisseur des éjectas à 1 rayon de distance"
+
+#: u_translation.rsejectathicka2
+msgid "Ejecta thick at 3 radius :"
+msgstr "Epaisseur des éjectas à 3 rayons de distance"
+
+#: u_translation.rsejectathicka3
+msgid "Ejecta thick at 5 radius :"
+msgstr "Epaisseur des éjectas à 5 rayons de distance"
+
+#: u_translation.rselgerdescrip
+msgid "Elger description (1895):"
+msgstr "Description de Elger (1895) :"
+
 #: u_translation.rsenddate
 msgid "End date"
 msgstr "Date de fin"
@@ -80,9 +100,17 @@ msgstr "Date de fin"
 msgid "Ephemeris:"
 msgstr "Ephéméride:"
 
+#: u_translation.rsexcavationde
+msgid "Excavation depth :"
+msgstr "Profondeur de l'excavation"
+
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Configuration initiale"
+
+#: u_translation.rsfloordiamete
+msgid "Floor diameter :"
+msgstr "Diamètre du fond"
 
 #: u_translation.rsformat
 msgid "0"
@@ -91,6 +119,10 @@ msgstr "1"
 #: u_translation.rsfullscreen
 msgid "Full screen (Esc)"
 msgstr "Plein écran (Esc)"
+
+#: u_translation.rsgeology
+msgid "Geology :"
+msgstr "Détails géologiques"
 
 #: u_translation.rsgrid
 msgid "Grid"
@@ -116,6 +148,10 @@ msgstr "Historique"
 msgid "Hours"
 msgstr "Heures"
 
+#: u_translation.rsiautype
+msgid "IAU type :"
+msgstr "Type IAU :"
+
 #: u_translation.rsincreasefont
 msgid "Increase font size"
 msgstr "Augmenter la taille de la police"
@@ -139,6 +175,10 @@ msgstr "Zénith local en haut"
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
 msgstr "Photographique LOPAM"
+
+#: u_translation.rsmeltingdepth
+msgid "Melting depth :"
+msgstr "Epaisseur des fontes d'impact"
 
 #: u_translation.rsminute
 msgctxt "u_translation.rsminute"
@@ -439,6 +479,10 @@ msgstr "Nom donné par Riccioli:"
 msgid "Named formations"
 msgstr "Formations nommées"
 
+#: u_translation.rsnametype
+msgid "Name type :"
+msgstr "Type de nom :"
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr "Pas de texture ( utilisation d'une couche seule)"
@@ -450,6 +494,14 @@ msgstr "Altitude de l'orbite"
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
 msgstr "Inclinaison de l'orbite"
+
+#: u_translation.rspeakdiameter
+msgid "Peak diameter :"
+msgstr "Diamètre du pic central"
+
+#: u_translation.rspeakheight
+msgid "Peak height :"
+msgstr "Hauteur du pic central"
 
 #: u_translation.rsphasewithdyn
 msgid "Phase with dynamic relief"
@@ -507,9 +559,21 @@ msgstr "Nombre de pixels"
 msgid "Pixel size"
 msgstr "Taille des pixels"
 
+#: u_translation.rsprocess
+msgid "Process :"
+msgstr "Processus de formation"
+
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Retour fenêtre (Esc)"
+
+#: u_translation.rsradarbrighth
+msgid "Radar bright halo radius :"
+msgstr "Rayon du halo brillant au radar"
+
+#: u_translation.rsradardarkhal
+msgid "Radar dark halo radius :"
+msgstr "Rayon du halo sombre au radar"
 
 #: u_translation.rsregistredfor
 msgid "Registred formations"
@@ -551,6 +615,10 @@ msgstr "Face:"
 msgid "Simple"
 msgstr "Simple"
 
+#: u_translation.rssource
+msgid "Source:"
+msgstr "Source :"
+
 #: u_translation.rsstandardtext
 msgid "(standard texture selection)"
 msgstr "(choix de la texture)"
@@ -562,6 +630,10 @@ msgstr "Date de début"
 #: u_translation.rssteps
 msgid "Steps"
 msgstr "Pas"
+
+#: u_translation.rssubtype
+msgid "Sub-type :"
+msgstr "Sous-type :"
 
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"

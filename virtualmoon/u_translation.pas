@@ -320,6 +320,23 @@ rsNamedFormati = 'Named formations';
 rsSatellitesFo = 'Satellites formations';
 rsRegistredFor = 'Registred formations';
 rsSource = 'Source:';
+rsElgerDescrip = 'Elger description (1895):';
+rsProcess = 'Process :';
+rsGeology = 'Geology :';
+rsFloorDiamete = 'Floor diameter :';
+rsPeakHeight = 'Peak height :';
+rsPeakDiameter = 'Peak diameter :';
+rsExcavationDe = 'Excavation depth :';
+rsMeltingDepth = 'Melting depth :';
+rsEjectaThickA = 'Ejecta thick at 1 radius :';
+rsEjectaThickA2 = 'Ejecta thick at 3 radius :';
+rsEjectaThickA3 = 'Ejecta thick at 5 radius :';
+rsRadarBrightH = 'Radar bright halo radius :';
+rsRadarDarkHal = 'Radar dark halo radius :';
+rsApparentSize = 'Apparent size :';
+rsNameType = 'Name type :';
+rsIAUType = 'IAU type :';
+rsSubType = 'Sub-type :';
 
 implementation
 

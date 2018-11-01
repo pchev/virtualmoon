@@ -23,6 +23,10 @@ msgstr "Aerografinis reljefas su albedo"
 msgid "Airbursh relief without albedo"
 msgstr "Aerografinis reljefas be albedo"
 
+#: u_translation.rsapparentsize
+msgid "Apparent size :"
+msgstr ""
+
 #: u_translation.rscaption
 msgid "Caption"
 msgstr ""
@@ -71,6 +75,22 @@ msgstr ""
 msgid "Dynamic relief display method"
 msgstr "Dinaminis reljefo rodymo būdas"
 
+#: u_translation.rsejectathicka
+msgid "Ejecta thick at 1 radius :"
+msgstr ""
+
+#: u_translation.rsejectathicka2
+msgid "Ejecta thick at 3 radius :"
+msgstr ""
+
+#: u_translation.rsejectathicka3
+msgid "Ejecta thick at 5 radius :"
+msgstr ""
+
+#: u_translation.rselgerdescrip
+msgid "Elger description (1895):"
+msgstr ""
+
 #: u_translation.rsenddate
 msgid "End date"
 msgstr ""
@@ -79,9 +99,17 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr "Efemeridės:"
 
+#: u_translation.rsexcavationde
+msgid "Excavation depth :"
+msgstr ""
+
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Iš pradžių naudoti nuostatą"
+
+#: u_translation.rsfloordiamete
+msgid "Floor diameter :"
+msgstr ""
 
 #: u_translation.rsformat
 msgid "0"
@@ -90,6 +118,10 @@ msgstr ""
 #: u_translation.rsfullscreen
 msgid "Full screen (Esc)"
 msgstr "Visas ekranas (Esc)"
+
+#: u_translation.rsgeology
+msgid "Geology :"
+msgstr ""
 
 #: u_translation.rsgrid
 msgid "Grid"
@@ -115,6 +147,10 @@ msgstr ""
 msgid "Hours"
 msgstr ""
 
+#: u_translation.rsiautype
+msgid "IAU type :"
+msgstr ""
+
 #: u_translation.rsincreasefont
 msgid "Increase font size"
 msgstr ""
@@ -138,6 +174,10 @@ msgstr ""
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
 msgstr "LOPAM nuotrauka"
+
+#: u_translation.rsmeltingdepth
+msgid "Melting depth :"
+msgstr ""
 
 #: u_translation.rsminute
 #, fuzzy
@@ -437,6 +477,10 @@ msgstr "Riccioli pavadinimas:"
 msgid "Named formations"
 msgstr ""
 
+#: u_translation.rsnametype
+msgid "Name type :"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr ""
@@ -448,6 +492,14 @@ msgstr "Orbitos aukštis"
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
 msgstr "Orbitos inklinacija"
+
+#: u_translation.rspeakdiameter
+msgid "Peak diameter :"
+msgstr ""
+
+#: u_translation.rspeakheight
+msgid "Peak height :"
+msgstr ""
 
 #: u_translation.rsphasewithdyn
 msgid "Phase with dynamic relief"
@@ -505,9 +557,21 @@ msgstr ""
 msgid "Pixel size"
 msgstr ""
 
+#: u_translation.rsprocess
+msgid "Process :"
+msgstr ""
+
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
 msgstr "Išeiti iš viso ekrano režimo (Esc)"
+
+#: u_translation.rsradarbrighth
+msgid "Radar bright halo radius :"
+msgstr ""
+
+#: u_translation.rsradardarkhal
+msgid "Radar dark halo radius :"
+msgstr ""
 
 #: u_translation.rsregistredfor
 msgid "Registred formations"
@@ -551,6 +615,10 @@ msgstr ""
 msgid "Simple"
 msgstr "Paprastas"
 
+#: u_translation.rssource
+msgid "Source:"
+msgstr ""
+
 #: u_translation.rsstandardtext
 msgid "(standard texture selection)"
 msgstr ""
@@ -561,6 +629,10 @@ msgstr ""
 
 #: u_translation.rssteps
 msgid "Steps"
+msgstr ""
+
+#: u_translation.rssubtype
+msgid "Sub-type :"
 msgstr ""
 
 #: u_translation.rstexturesairb

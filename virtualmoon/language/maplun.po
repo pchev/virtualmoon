@@ -1214,3 +1214,75 @@ msgstr ""
 msgid "Registred formations"
 msgstr ""
 
+#: u_translation:rssource
+msgid "Source:"
+msgstr ""
+
+#: u_translation:rselgerdescrip
+msgid "Elger description (1895):"
+msgstr ""
+
+#: u_translation:rsprocess
+msgid "Process :"
+msgstr ""
+
+#: u_translation:rsgeology
+msgid "Geology :"
+msgstr ""
+
+#: u_translation:rsfloordiamete
+msgid "Floor diameter :"
+msgstr ""
+
+#: u_translation:rspeakheight
+msgid "Peak height :"
+msgstr ""
+
+#: u_translation:rspeakdiameter
+msgid "Peak diameter :"
+msgstr ""
+
+#: u_translation:rsexcavationde
+msgid "Excavation depth :"
+msgstr ""
+
+#: u_translation:rsmeltingdepth
+msgid "Melting depth :"
+msgstr ""
+
+#: u_translation:rsejectathicka
+msgid "Ejecta thick at 1 radius :"
+msgstr ""
+
+#: u_translation:rsejectathicka2
+msgid "Ejecta thick at 3 radius :"
+msgstr ""
+
+#: u_translation:rsejectathicka3
+msgid "Ejecta thick at 5 radius :"
+msgstr ""
+
+#: u_translation:rsradarbrighth
+msgid "Radar bright halo radius :"
+msgstr ""
+
+#: u_translation:rsradardarkhal
+msgid "Radar dark halo radius :"
+msgstr ""
+
+#: u_translation:rsapparentsize
+msgid "Apparent size :"
+msgstr ""
+
+#: u_translation:rsnametype
+msgid "Name type :"
+msgstr ""
+
+#: u_translation:rsiautype
+msgid "IAU type :"
+msgstr ""
+
+#: u_translation:rssubtype
+msgid "Sub-type :"
+msgstr ""
+

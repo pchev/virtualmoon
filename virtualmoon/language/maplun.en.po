@@ -23,6 +23,10 @@ msgstr ""
 msgid "Airbursh relief without albedo"
 msgstr ""
 
+#: u_translation.rsapparentsize
+msgid "Apparent size :"
+msgstr ""
+
 #: u_translation.rscaption
 msgid "Caption"
 msgstr ""
@@ -71,6 +75,22 @@ msgstr ""
 msgid "Dynamic relief display method"
 msgstr ""
 
+#: u_translation.rsejectathicka
+msgid "Ejecta thick at 1 radius :"
+msgstr ""
+
+#: u_translation.rsejectathicka2
+msgid "Ejecta thick at 3 radius :"
+msgstr ""
+
+#: u_translation.rsejectathicka3
+msgid "Ejecta thick at 5 radius :"
+msgstr ""
+
+#: u_translation.rselgerdescrip
+msgid "Elger description (1895):"
+msgstr ""
+
 #: u_translation.rsenddate
 msgid "End date"
 msgstr ""
@@ -79,8 +99,16 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr ""
 
+#: u_translation.rsexcavationde
+msgid "Excavation depth :"
+msgstr ""
+
 #: u_translation.rsfirstusesett
 msgid "First use setting"
+msgstr ""
+
+#: u_translation.rsfloordiamete
+msgid "Floor diameter :"
 msgstr ""
 
 #: u_translation.rsformat
@@ -89,6 +117,10 @@ msgstr ""
 
 #: u_translation.rsfullscreen
 msgid "Full screen (Esc)"
+msgstr ""
+
+#: u_translation.rsgeology
+msgid "Geology :"
 msgstr ""
 
 #: u_translation.rsgrid
@@ -115,6 +147,10 @@ msgstr ""
 msgid "Hours"
 msgstr ""
 
+#: u_translation.rsiautype
+msgid "IAU type :"
+msgstr ""
+
 #: u_translation.rsincreasefont
 msgid "Increase font size"
 msgstr ""
@@ -137,6 +173,10 @@ msgstr ""
 
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
+msgstr ""
+
+#: u_translation.rsmeltingdepth
+msgid "Melting depth :"
 msgstr ""
 
 #: u_translation.rsminute
@@ -437,6 +477,10 @@ msgstr ""
 msgid "Named formations"
 msgstr ""
 
+#: u_translation.rsnametype
+msgid "Name type :"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr ""
@@ -447,6 +491,14 @@ msgstr ""
 
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
+msgstr ""
+
+#: u_translation.rspeakdiameter
+msgid "Peak diameter :"
+msgstr ""
+
+#: u_translation.rspeakheight
+msgid "Peak height :"
 msgstr ""
 
 #: u_translation.rsphasewithdyn
@@ -505,8 +557,20 @@ msgstr ""
 msgid "Pixel size"
 msgstr ""
 
+#: u_translation.rsprocess
+msgid "Process :"
+msgstr ""
+
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
+msgstr ""
+
+#: u_translation.rsradarbrighth
+msgid "Radar bright halo radius :"
+msgstr ""
+
+#: u_translation.rsradardarkhal
+msgid "Radar dark halo radius :"
 msgstr ""
 
 #: u_translation.rsregistredfor
@@ -551,6 +615,10 @@ msgstr ""
 msgid "Simple"
 msgstr ""
 
+#: u_translation.rssource
+msgid "Source:"
+msgstr ""
+
 #: u_translation.rsstandardtext
 msgid "(standard texture selection)"
 msgstr ""
@@ -561,6 +629,10 @@ msgstr ""
 
 #: u_translation.rssteps
 msgid "Steps"
+msgstr ""
+
+#: u_translation.rssubtype
+msgid "Sub-type :"
 msgstr ""
 
 #: u_translation.rstexturesairb
