@@ -37,14 +37,14 @@ install -v -m 644 Installer/Linux/vmapro/share/pixmaps/virtualmoon.xpm $destdir/
 
 # database
 install -m 755 -d $destdir/Database
-install -v -m 644 virtualmoon/Database/AVL\ Named\ EN_utf8.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 virtualmoon/Database/AVL\ Satellite\ EN_utf8.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 virtualmoon/Database/AVL\ Registered\ EN_utf8.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 virtualmoon/Database/AVL\ Unnamed\ EN_utf8.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 virtualmoon/Database/AVL\ Named\ FR_utf8.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 virtualmoon/Database/AVL\ Satellite\ FR_utf8.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 virtualmoon/Database/AVL\ Registered\ FR_utf8.csv $destdir/share/virtualmoon/Database/
-install -v -m 644 virtualmoon/Database/AVL\ Unnamed\ FR_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Named\ EN_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Satellite\ EN_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Registered\ EN_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Unnamed\ EN_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Named\ FR_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Satellite\ FR_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Registered\ FR_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Unnamed\ FR_utf8.csv $destdir/share/virtualmoon/Database/
 
 # translation
 install -m 755 -d $destdir/language
