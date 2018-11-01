@@ -35,3 +35,28 @@ install -v -m 644 Installer/Linux/vmapro/share/doc/virtualmoon/changelog $destdi
 install -v -m 644 Installer/Linux/vmapro/share/doc/virtualmoon/copyright $destdir/share/doc/virtualmoon/copyright
 install -v -m 644 Installer/Linux/vmapro/share/pixmaps/virtualmoon.xpm $destdir/share/pixmaps/virtualmoon.xpm
 
+# database
+install -m 755 -d $destdir/Database
+install -v -m 644 virtualmoon/Database/AVL\ Named\ EN_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Satellite\ EN_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Registered\ EN_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Unnamed\ EN_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Named\ FR_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Satellite\ FR_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Registered\ FR_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Unnamed\ FR_utf8.csv $destdir/share/virtualmoon/Database/
+
+# translation
+install -m 755 -d $destdir/language
+install -v -m 644 virtualmoon/language/maplun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 virtualmoon/language/maplun.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 datlun/language/datlun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 datlun/language/datlun.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 datlun/language/vmadatabase.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 datlun/language/vmadatabase.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 photlun/language/photlun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 photlun/language/photlun.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 weblun/language/weblun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 weblun/language/weblun.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 cclun/language/cclun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 cclun/language/cclun.fr.po $destdir/share/virtualmoon/language/

@@ -79,6 +79,17 @@ install -v -m 644 Installer/Windows/Data/lisezmoi.txt $destdir/
 install -v -m 644 Installer/Windows/Data/licence.txt $destdir/
 install -v -m 644 Installer/Windows/Data/licence_fr.txt $destdir/
 
+# database
+install -m 755 -d $destdir/Database
+install -v -m 644 virtualmoon/Database/AVL\ Named\ EN_utf8.csv $destdir/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Satellite\ EN_utf8.csv $destdir/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Registered\ EN_utf8.csv $destdir/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Unnamed\ EN_utf8.csv $destdir/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Named\ FR_utf8.csv $destdir/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Satellite\ FR_utf8.csv $destdir/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Registered\ FR_utf8.csv $destdir/Database/
+install -v -m 644 virtualmoon/Database/AVL\ Unnamed\ FR_utf8.csv $destdir/Database/
+
 # translation
 install -m 755 -d $destdir/language
 install -v -m 644 virtualmoon/language/maplun.en.po $destdir/language/
