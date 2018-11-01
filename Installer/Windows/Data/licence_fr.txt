@@ -1,5 +1,5 @@
 Atlas Virtuel de la Lune
-Copyright (C) 2012 Christian Legrand & Patrick Chevalley
+Copyright (C) 2018 Christian Legrand & Patrick Chevalley
 http://www.ap-i.net
 
 L' "Atlas Virtuel de la Lune" est un logiciel libre comme décrit par la
