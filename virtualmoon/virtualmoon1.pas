@@ -1815,8 +1815,8 @@ begin
   try
     listbox1.Items.BeginUpdate;
     dbm.Query('select NAME,LATI_N,INTEREST_N,DIAM_INST from moon ' +
-      ' where longin>' + formatfloat(f2, l1) +
-      ' and longin<' + formatfloat(f2, l2) + ' and DBN in (' + sidelist + ')' +
+      ' where LONGI_N>' + formatfloat(f2, l1) +
+      ' and LONGI_N<' + formatfloat(f2, l2) + ' and DBN in (' + sidelist + ')' +
       ' and INTEREST_N >=' + IntToStr(interest) +
       ' and DIAM_INST <=' + IntToStr(diam));
     for i := 0 to dbm.rowcount - 1 do
