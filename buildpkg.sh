@@ -27,7 +27,7 @@ unset make_win32
 make_win32=1
 
 builddir=/tmp/virtualmoon  # Be sure this is set to a non existent directory, it is removed after the run!
-innosetup="C:\Program Files\Inno Setup 5\ISCC.exe"  # Install under Wine from http://www.jrsoftware.org/isinfo.php
+innosetup="C:\Program Files (x86)\Inno Setup 5\ISCC.exe"  # Install under Wine from http://www.jrsoftware.org/isinfo.php
 wine_build="Z:\tmp\virtualmoon" # Change to match builddir, Z: is defined in ~/.wine/dosdevices
 
 builddir=/home/pch/tmp/virtualmoon
