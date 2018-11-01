@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Linux system
 
-version=6.5
+version=7.0
 
 arch=$(arch)
 unset extratarget
