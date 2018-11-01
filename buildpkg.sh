@@ -98,6 +98,7 @@ fi
   rm $deldir/bin-*.zip
   rm $deldir/bin-*.bz2
   rm -rf $builddir
+  mkdir $outdir
 
 # make Linux i386 version
 if [[ $make_linux32 ]]; then 
