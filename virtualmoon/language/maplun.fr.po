@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2018-11-01 17:20+0100\n"
+"PO-Revision-Date: 2018-11-01 17:27+0100\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -78,15 +78,15 @@ msgstr "Méthode d'affichage du relief dynamique"
 
 #: u_translation.rsejectathicka
 msgid "Ejecta thick at 1 radius :"
-msgstr "Epaisseur des éjectas à 1 rayon de distance"
+msgstr "Epaisseur des éjectas à 1 rayon de distance :"
 
 #: u_translation.rsejectathicka2
 msgid "Ejecta thick at 3 radius :"
-msgstr "Epaisseur des éjectas à 3 rayons de distance"
+msgstr "Epaisseur des éjectas à 3 rayons de distance :"
 
 #: u_translation.rsejectathicka3
 msgid "Ejecta thick at 5 radius :"
-msgstr "Epaisseur des éjectas à 5 rayons de distance"
+msgstr "Epaisseur des éjectas à 5 rayons de distance :"
 
 #: u_translation.rselgerdescrip
 msgid "Elger description (1895):"
@@ -102,7 +102,7 @@ msgstr "Ephéméride:"
 
 #: u_translation.rsexcavationde
 msgid "Excavation depth :"
-msgstr "Profondeur de l'excavation"
+msgstr "Profondeur de l'excavation :"
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
@@ -110,7 +110,7 @@ msgstr "Configuration initiale"
 
 #: u_translation.rsfloordiamete
 msgid "Floor diameter :"
-msgstr "Diamètre du fond"
+msgstr "Diamètre du fond :"
 
 #: u_translation.rsformat
 msgid "0"
@@ -122,7 +122,7 @@ msgstr "Plein écran (Esc)"
 
 #: u_translation.rsgeology
 msgid "Geology :"
-msgstr "Détails géologiques"
+msgstr "Détails géologiques :"
 
 #: u_translation.rsgrid
 msgid "Grid"
@@ -178,7 +178,7 @@ msgstr "Photographique LOPAM"
 
 #: u_translation.rsmeltingdepth
 msgid "Melting depth :"
-msgstr "Epaisseur des fontes d'impact"
+msgstr "Epaisseur des fontes d'impact :"
 
 #: u_translation.rsminute
 msgctxt "u_translation.rsminute"
@@ -497,11 +497,11 @@ msgstr "Inclinaison de l'orbite"
 
 #: u_translation.rspeakdiameter
 msgid "Peak diameter :"
-msgstr "Diamètre du pic central"
+msgstr "Diamètre du pic central :"
 
 #: u_translation.rspeakheight
 msgid "Peak height :"
-msgstr "Hauteur du pic central"
+msgstr "Hauteur du pic central :"
 
 #: u_translation.rsphasewithdyn
 msgid "Phase with dynamic relief"
@@ -561,7 +561,7 @@ msgstr "Taille des pixels"
 
 #: u_translation.rsprocess
 msgid "Process :"
-msgstr "Processus de formation"
+msgstr "Processus de formation :"
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
@@ -569,11 +569,11 @@ msgstr "Retour fenêtre (Esc)"
 
 #: u_translation.rsradarbrighth
 msgid "Radar bright halo radius :"
-msgstr "Rayon du halo brillant au radar"
+msgstr "Rayon du halo brillant au radar :"
 
 #: u_translation.rsradardarkhal
 msgid "Radar dark halo radius :"
-msgstr "Rayon du halo sombre au radar"
+msgstr "Rayon du halo sombre au radar :"
 
 #: u_translation.rsregistredfor
 msgid "Registred formations"
