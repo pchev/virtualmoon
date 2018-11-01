@@ -28,6 +28,7 @@ install -m 755 -d $destdir/share/applications
 install -m 755 -d $destdir/share/doc
 install -m 755 -d $destdir/share/doc/virtualmoon
 install -m 755 -d $destdir/share/pixmaps
+install -m 755 -d $destdir/share/virtualmoon
 install -v -m 755 -s virtualmoon/atlun  $destdir/bin/atlun
 install -v -m 755 -s datlun/datlun  $destdir/bin/datlun
 install -v -m 644 Installer/Linux/vmapro/share/applications/virtualmoon.desktop $destdir/share/applications/virtualmoon.desktop
@@ -36,7 +37,7 @@ install -v -m 644 Installer/Linux/vmapro/share/doc/virtualmoon/copyright $destdi
 install -v -m 644 Installer/Linux/vmapro/share/pixmaps/virtualmoon.xpm $destdir/share/pixmaps/virtualmoon.xpm
 
 # database
-install -m 755 -d $destdir/Database
+install -m 755 -d $destdir/share/virtualmoon/Database
 install -v -m 644 Database/AVL\ Named\ EN_utf8.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/AVL\ Satellite\ EN_utf8.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/AVL\ Registered\ EN_utf8.csv $destdir/share/virtualmoon/Database/
