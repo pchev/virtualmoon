@@ -1971,7 +1971,9 @@ begin
   if (GetField('SUBTYPE'))>'' then
      memo.Lines.Add('Sub-type:' + b + GetField('SUBTYPE'));
   if (GetField('PERIOD'))>'' then
-     memo.Lines.Add(rsm_49 + b + GetField('PERIOD')+','+b+GetField('PERIOD_SOURCE'));
+     memo.Lines.Add(rsm_49 + b + GetField('PERIOD'));
+  if (GetField('PERIOD'))>'' then
+     memo.Lines.Add(rsSource + b + GetField('PERIOD_SOURCE'));
   if (GetField('PROCESS'))>'' then
      memo.Lines.Add('Process:' + b + GetField('PROCESS'));
   if (GetField('GEOLOGY'))>'' then
@@ -2001,20 +2003,6 @@ begin
   if (GetField('RAPPORT'))>'' then
      memo.Lines.Add(rsm_23 + b + GetField('RAPPORT'));
 
-  //Description
-  if (GetField('GENERAL_1')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
-     memo.Lines.Add(rsm_58); //Description
-  if GetField('GENERAL_1') > '' then
-    memo.Lines.Add(GetField('GENERAL_1'));
-  if GetField('GENERAL_2') > '' then
-    memo.Lines.Add(GetField('GENERAL_2'));
-  if GetField('SLOPES') > '' then
-    memo.Lines.Add(GetField('SLOPES'));
-  if GetField('WALLS') > '' then
-    memo.Lines.Add(GetField('WALLS'));
-  if GetField('FLOOR') > '' then
-    memo.Lines.Add(GetField('FLOOR'));
-
   if GetField('FLOOR_DIAMETER_KM') > '' then
     memo.Lines.Add('Floor diameter:' + b + GetField('FLOOR_DIAMETER_KM')+ rsm_18);
   if GetField('PEAK_HEIGHT_KM') > '' then
@@ -2036,6 +2024,19 @@ begin
   if GetField('RADAR_DARK_HALO_RADIUS') > '' then
     memo.Lines.Add('Radar dark halo radius:' + b + GetField('RADAR_DARK_HALO_RADIUS')+ rsm_18);
 
+  //Description
+  if (GetField('GENERAL_1')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
+     memo.Lines.Add(rsm_58); //Description
+  if GetField('GENERAL_1') > '' then
+    memo.Lines.Add(GetField('GENERAL_1'));
+  if GetField('GENERAL_2') > '' then
+    memo.Lines.Add(GetField('GENERAL_2'));
+  if GetField('SLOPES') > '' then
+    memo.Lines.Add(GetField('SLOPES'));
+  if GetField('WALLS') > '' then
+    memo.Lines.Add(GetField('WALLS'));
+  if GetField('FLOOR') > '' then
+    memo.Lines.Add(GetField('FLOOR'));
   if GetField('ELGER_1895') > '' then
     memo.Lines.Add('Elger 1895:' + b + GetField('ELGER_1895'));
 
@@ -5101,6 +5102,27 @@ var
   bt:    tbitmap;
   {$endif}
   buf1: string;
+
+  procedure PrintHeader;
+  var txtw,txth: integer;
+  begin
+  with Printer do
+  begin
+    Canvas.Font.Style := [fsBold];
+    buf1 := Caption+':  '+vmaurl;
+    Canvas.TextOut(Xmin + 10, ymin, buf1);
+    Canvas.Font.Style := [];
+    if language = 'fr' then
+      buf1 := 'Lunar formations database V2.1 (c) Ch. Legrand,  Reproduction interdite / Pour usage personnel uniquement'
+    else
+      buf1 := 'Lunar formations database V2.1 (c) Ch. Legrand,  Forbidden copy / For personal use only';
+    txtw := (xmax - xmin - Canvas.TextWidth(buf1)) div 2;
+    txth := Canvas.TextHeight(buf1);
+    maxt := ymax - 3 * txth;
+    Canvas.TextOut(Xmin + 10 + txtw, ymax - 2*txth, buf1);
+  end;
+  end;
+
 begin
   {$ifdef unix}
     PrintDialog1.execute;
@@ -5120,18 +5142,7 @@ begin
     Canvas.Font.Color := clBlack;
     Canvas.Font.Size := 8;
     hl   := round(Canvas.TextHeight('H') * 1.1);
-    Canvas.Font.Style := [fsBold];
-    buf1 := Caption+':  '+vmaurl;
-    Canvas.TextOut(Xmin + 10, ymin, buf1);
-    Canvas.Font.Style := [];
-    if language = 'fr' then
-      buf1 := 'Lunar formations database V2.1 '+cpyr+' Ch. Legrand,  Reproduction interdite / Pour usage personnel uniquement'
-    else
-      buf1 := 'Lunar formations database V2.1 '+cpyr+' Ch. Legrand,  Forbidden copy / For personal use only';
-    i := (xmax - xmin - Canvas.TextWidth(buf1)) div 2;
-    w := Canvas.TextHeight(buf1);
-    maxt := ymax - 3 * w;
-    Canvas.TextOut(Xmin + 10 + i, ymax - 2*w, buf1);
+    PrintHeader;
     w := 0;
     b := Tbitmap.Create;
     try
@@ -5164,6 +5175,20 @@ begin
         canvas.StretchDraw(rect(xmin, ymin + hl, xmin + bw, ymin + bh + hl), b);
         {$endif}
       end;
+      if PrintEph then
+      begin
+        tl := ymin + 3 * hl;
+        l  := round(s * 30) + xmin + w;
+        Canvas.Font.Style := [fsBold];
+        Canvas.TextOut(l, tl, Ephemerides.Caption);
+        Canvas.Font.Style := [];
+        tl := tl + hl;
+        for i := 1 to Stringgrid1.RowCount do
+        begin
+          Canvas.TextOut(l, tl, Stringgrid1.Cells[0, i - 1] + ' ' + Stringgrid1.Cells[1, i - 1]);
+          tl := tl + hl;
+        end;
+      end;
       if PrintDesc then
       begin
         memo2.Visible:=true;
@@ -5185,8 +5210,9 @@ begin
         begin
           if tl >= maxt then
           begin
-            Canvas.TextOut(l, tl, 'Truncated ...');
-            break;
+            NewPage;
+            PrintHeader;
+            tl := ymin + 3 * hl;
           end;
           buf1 := memo2.Lines[i - 1];
           if (i = 1) or (copy(buf1, length(buf1), 1) = ':') then
@@ -5197,20 +5223,6 @@ begin
           tl := tl + hl;
         end;
         memo2.Clear;
-      end;
-      if PrintEph then
-      begin
-        tl := ymin + 3 * hl;
-        l  := round(s * 30) + xmin + w;
-        Canvas.Font.Style := [fsBold];
-        Canvas.TextOut(l, tl, Ephemerides.Caption);
-        Canvas.Font.Style := [];
-        tl := tl + hl;
-        for i := 1 to Stringgrid1.RowCount do
-        begin
-          Canvas.TextOut(l, tl, Stringgrid1.Cells[0, i - 1] + ' ' + Stringgrid1.Cells[1, i - 1]);
-          tl := tl + hl;
-        end;
       end;
     finally
       b.Free;
