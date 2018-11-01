@@ -48,7 +48,7 @@ install -v -m 644 Database/AVL\ Registered\ FR_utf8.csv $destdir/share/virtualmo
 install -v -m 644 Database/AVL\ Unnamed\ FR_utf8.csv $destdir/share/virtualmoon/Database/
 
 # translation
-install -m 755 -d $destdir/language
+install -m 755 -d $destdir/share/virtualmoon/language
 install -v -m 644 virtualmoon/language/maplun.en.po $destdir/share/virtualmoon/language/
 install -v -m 644 virtualmoon/language/maplun.fr.po $destdir/share/virtualmoon/language/
 install -v -m 644 datlun/language/datlun.en.po $destdir/share/virtualmoon/language/
