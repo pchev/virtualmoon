@@ -154,6 +154,10 @@ msgstr "Ore"
 msgid "IAU type :"
 msgstr ""
 
+#: u_translation.rsidentity
+msgid "Identity:"
+msgstr ""
+
 #: u_translation.rsincreasefont
 msgid "Increase font size"
 msgstr "Aum. la dimensione dei caratteri"

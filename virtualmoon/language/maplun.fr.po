@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2018-11-01 17:27+0100\n"
+"PO-Revision-Date: 2018-11-02 18:22+0100\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -151,6 +151,10 @@ msgstr "Heures"
 #: u_translation.rsiautype
 msgid "IAU type :"
 msgstr "Type IAU :"
+
+#: u_translation.rsidentity
+msgid "Identity:"
+msgstr "Identité:"
 
 #: u_translation.rsincreasefont
 msgid "Increase font size"

@@ -337,6 +337,7 @@ rsApparentSize = 'Apparent size :';
 rsNameType = 'Name type :';
 rsIAUType = 'IAU type :';
 rsSubType = 'Sub-type :';
+rsIdentity = 'Identity:';
 
 implementation
 

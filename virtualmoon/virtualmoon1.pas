@@ -40,7 +40,7 @@ uses
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   mlb2, PrintersDlgs, Printers, Controls,
   Messages, SysUtils, Classes, Dialogs, FileUtil,
-  ComCtrls, Menus, Buttons, dynlibs, BigIma,
+  ComCtrls, Menus, Buttons, dynlibs, BigIma, view3d,
   EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase,
   Math, CraterList, LResources, IpHtml, UniqueInstance, GLViewer, GLLCLViewer;
 
@@ -138,6 +138,7 @@ type
     ToolButton15: TToolButton;
     ToolButton16: TToolButton;
     ToolButton17: TToolButton;
+    ToolButton3D: TToolButton;
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
@@ -358,6 +359,7 @@ type
     procedure ButtonWeblunClick(Sender: TObject);
     procedure ToolButton16Click(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
+    procedure ToolButton3DClick(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure ToolButton5Click(Sender: TObject);
@@ -2247,6 +2249,7 @@ begin
       if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum = i then
         txt := txt + form2.CheckListBox1.Items[j] + br;
   end;
+  txt  := txt + t2 + rsIdentity + t2end + br;
   if (GetField('LUN'))>'' then
      txt  := txt + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + br;
   if (GetField('LUN_REDUCED'))>'' then
@@ -4092,6 +4095,12 @@ begin
   p:=Point(ToolButton1.Left,ToolButton1.Top+ToolButton1.Height);
   p:=ToolBar2.ClientToScreen(p);
   FilePopup.PopUp(p.x,p.y);
+end;
+
+procedure TForm1.ToolButton3DClick(Sender: TObject);
+begin
+   FormPos(f_3d,mouse.CursorPos.X,Mouse.CursorPos.Y);
+   f_3d.show;
 end;
 
 procedure TForm1.ToolButton8Click(Sender: TObject);

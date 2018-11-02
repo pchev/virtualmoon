@@ -1286,3 +1286,7 @@ msgstr ""
 msgid "Sub-type :"
 msgstr ""
 
+#: u_translation:rsidentity
+msgid "Identity:"
+msgstr ""
+
