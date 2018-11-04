@@ -11,7 +11,7 @@ uses
   GLScene_RunTime, CraterList, dbutil, fmsg, glossary, splashunit, telescope,
   SysUtils, TurboPowerIPro, u_constant, cu_tz, cu_planet, u_projection, u_util,
   pu_moon, u_translation_database, u_translation, uniqueinstance_package,
-  pu_features, BigIma, uDE, mlb2, pu_ephem, view3d;
+  pu_features, BigIma, uDE, mlb2, pu_ephem, view3d, tabsdock;
 
 {$R *.res}
 
@@ -39,6 +39,7 @@ begin
   Application.CreateForm(Tf_craterlist, f_craterlist);
   Application.CreateForm(Tf_features, f_features);
   Application.CreateForm(Tf_3d, f_3d);
+  Application.CreateForm(Tf_tabsdock, f_tabsdock);
   if (Form1.param.IndexOf('-quit')<0) then begin
       Application.Run;
   end

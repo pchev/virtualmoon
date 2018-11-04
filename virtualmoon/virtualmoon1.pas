@@ -35,7 +35,7 @@ uses
 {$IFDEF LCLgtk2}
   Gtk2Proc,
 {$endif}    GLScene,
-  u_translation_database, u_translation,
+  u_translation_database, u_translation, tabsdock,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   mlb2, PrintersDlgs, Printers, Controls,
@@ -96,6 +96,7 @@ type
     DecreaseFont1: TMenuItem;
     IncreaseFont1: TMenuItem;
     Panel2: TPanel;
+    tabs: TPanel;
     SaveEphem: TMenuItem;
     OptFeatures1: TMenuItem;
     PanelTel: TPanel;
@@ -137,7 +138,8 @@ type
     ButtonWeblun: TToolButton;
     ToolButton15: TToolButton;
     ToolButton16: TToolButton;
-    ToolButton17: TToolButton;
+    ToolButtonHideTools: TToolButton;
+    ToolButtonDockTools: TToolButton;
     ToolButton3D: TToolButton;
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
@@ -350,7 +352,7 @@ type
     procedure ResizeTimerTimer(Sender: TObject);
     procedure SaveEphemClick(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
-    procedure ToolButton17Click(Sender: TObject);
+    procedure ToolButtonHideToolsClick(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
     procedure Splitter2Moved(Sender: TObject);
     procedure StartTimerTimer(Sender: TObject);
@@ -358,6 +360,7 @@ type
     procedure ToolButton14Click(Sender: TObject);
     procedure ButtonWeblunClick(Sender: TObject);
     procedure ToolButton16Click(Sender: TObject);
+    procedure ToolButtonDockToolsClick(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure ToolButton3DClick(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
@@ -488,6 +491,7 @@ type
     {$ifdef windows}
     savetop,saveleft,savewidth,saveheight: integer;
     {$endif}
+    procedure returncontrol(sender:TObject);
     procedure OpenDatlun(objname,otherparam:string);
     procedure OpenPhotlun(objname,otherparam:string);
     procedure OpenCDC(objname,otherparam:string);
@@ -859,10 +863,14 @@ begin
     Button21.Caption:=rsDefault;
     TrackBar1.Hint:=rsZoomLevel;
     TrackBar9.Hint:=rst_104;
-    if PageControl1.Width>1 then
-      ToolButton17.Hint:=rsHideInformat
+    if tabs.Width>1 then
+      ToolButtonHideTools.Hint:=rsHideInformat
     else
-      ToolButton17.Hint:=rsShowInformat;
+      ToolButtonHideTools.Hint:=rsShowInformat;
+    if tabs.Parent=Form1 then
+      ToolButtonDockTools.Hint:=rsDetachInform
+    else
+      ToolButtonDockTools.Hint:=rsAttachInform;
     imac1 := rst_30;
     imac2 := rst_8;
     imac3 := rst_9;
@@ -880,6 +888,7 @@ begin
     Form2.Setlang;
     f_features.SetLang;
     if f_ephem<>nil then f_ephem.Setlang;
+    f_tabsdock.SetLang;
     // Glossary form changed to a singleton-style function-accessible object
     GlossaryForm.InitGlossary;
 end;
@@ -1107,7 +1116,7 @@ begin
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
     if ToolsWidth<MinToolsWidth then ToolsWidth:=MinToolsWidth;
-    PageControl1.Width:=ToolsWidth;
+    tabs.Width:=ToolsWidth;
     i := ReadInteger(section, 'Top', 10);
     if (i >= -10) and (i < screen.Height - 30) then
         Top := i
@@ -1870,8 +1879,8 @@ begin
       craterlst.items.add(dbm.Results[i][0]);
     end;
     if not f_craterlist.Visible then
-      FormPos(f_craterlist, PageControl1.Clienttoscreen(point(0, 0)).x,
-        PageControl1.Clienttoscreen(point(0, 0)).y);
+      FormPos(f_craterlist, ToolButton10.Clienttoscreen(point(0, 0)).x,
+        ToolButton10.Clienttoscreen(point(0, 0)).y);
     f_craterlist.Show;
   end;
 end;
@@ -3370,7 +3379,7 @@ begin
   UniqueInstance1.Enabled:=true;
   UniqueInstance1.Loaded;
   PageControl1.ActivePageIndex:=0;
-  PageControl1.Align:=alRight;
+  tabs.Align:=alRight;
   Splitter1.Align:=alRight;
   PanelMoon2.Align:=alLeft;
   Splitter2.Align:=alLeft;
@@ -3557,6 +3566,7 @@ UpDown6.Width:=14;
 trackdelay.Width:=14;
 Application.BringToFront;
 moon1.GLSceneViewer1.Camera:=nil;
+f_tabsdock.onReturnControl:=returncontrol;
 StartTimer.Enabled:=true;
 end;
 
@@ -4022,17 +4032,19 @@ end;
  screen.cursor := crdefault;
 end;
 
-procedure TForm1.ToolButton17Click(Sender: TObject);
+procedure TForm1.ToolButtonHideToolsClick(Sender: TObject);
 begin
-  if PageControl1.Width>1 then begin
-    ToolButton17.ImageIndex:=20;
-    ToolButton17.Hint:=rsShowInformat;
-    PageControl1.Width:=0
+  if tabs.Width>1 then begin
+    ToolButtonHideTools.ImageIndex:=20;
+    ToolButtonHideTools.Hint:=rsShowInformat;
+    tabs.Width:=0;
+    ToolButtonDockTools.Visible:=false;
   end
   else begin
-    ToolButton17.ImageIndex:=19;
-    ToolButton17.Hint:=rsHideInformat;
-    PageControl1.Width:=ToolsWidth;
+    ToolButtonHideTools.ImageIndex:=19;
+    ToolButtonHideTools.Hint:=rsHideInformat;
+    tabs.Width:=ToolsWidth;
+    ToolButtonDockTools.Visible:=true;
   end;
   FormResize(Sender);
 end;
@@ -4049,10 +4061,10 @@ end;
 
 procedure TForm1.Splitter1Moved(Sender: TObject);
 begin
- ToolsWidth:=PageControl1.Width;
+ ToolsWidth:=tabs.Width;
  if ToolsWidth<MinToolsWidth then begin
     ToolsWidth:=MinToolsWidth;
-    PageControl1.Width:=ToolsWidth;
+    tabs.Width:=ToolsWidth;
  end;
  FormResize(Sender);
 end;
@@ -4124,7 +4136,7 @@ begin
     exit;
   if PanelMoon2.Visible then begin
     dx:=ClientWidth-Splitter2.Width;
-    if not FullScreen then dx:=dx-PageControl1.Width-Splitter1.Width;
+    if not FullScreen then dx:=dx-tabs.Width-Splitter1.Width;
     w1:=round(SplitSize*dx);
     w2:=dx-w1;
     PanelMoon.Width:=w1;
@@ -4333,7 +4345,7 @@ if FullScreen then begin
    lPrevStyle := GetWindowLong(handle, GWL_STYLE);
    SetWindowLong(handle, GWL_STYLE, (lPrevStyle And (Not WS_THICKFRAME) And (Not WS_BORDER) And (Not WS_CAPTION) And (Not WS_MINIMIZEBOX) And (Not WS_MAXIMIZEBOX)));
    SetWindowPos(handle, 0, 0, 0, 0, 0, SWP_FRAMECHANGED Or SWP_NOMOVE Or SWP_NOSIZE Or SWP_NOZORDER);
-   PageControl1.Visible:=false;
+   if tabs.Parent=Form1 then tabs.Visible:=false;
    Splitter1.Visible:=false;
    ControlBar1.Visible:=false;
    StatusBar1.Visible:=false;
@@ -4354,7 +4366,7 @@ end else begin
    SetWindowPos(handle, 0, 0, 0, 0, 0, SWP_FRAMECHANGED Or SWP_NOMOVE Or SWP_NOSIZE Or SWP_NOZORDER);
    ControlBar1.Visible:=true;
    StatusBar1.Visible:=true;
-   PageControl1.Visible:=true;
+   tabs.Visible:=true;
    Splitter1.Visible:=true;
    Position1.Visible:=true;
    Notes1.Visible:=true;
@@ -4376,7 +4388,7 @@ FullScreen:=not FullScreen;
   skipresize:=true;
   SetWindowFullScreen(Form1,FullScreen);
   if FullScreen then begin
-    PageControl1.Visible:=false;
+    if tabs.Parent=Form1 then tabs.Visible:=false;
     Splitter1.Visible:=false;
     ControlBar1.Visible:=false;
     StatusBar1.Visible:=false;
@@ -4388,7 +4400,7 @@ FullScreen:=not FullScreen;
   else begin
     ControlBar1.Visible:=true;
     StatusBar1.Visible:=true;
-    PageControl1.Visible:=true;
+    tabs.Visible:=true;
     Splitter1.Visible:=true;
     Position1.Visible:=true;
     Notes1.Visible:=true;
@@ -4685,6 +4697,36 @@ begin
  activemoon.SatelliteRotation:=rotdirection*MinSingle;
 end;
 
+procedure TForm1.returncontrol(sender:TObject);
+begin
+  ToolButtonDockToolsClick(sender);
+end;
+
+procedure TForm1.ToolButtonDockToolsClick(Sender: TObject);
+begin
+  if tabs.Parent = Form1 then begin
+    FormPos(f_tabsdock,tabs.Clienttoscreen(point(0, 0)).x,tabs.Clienttoscreen(point(0, 0)).y);
+    f_tabsdock.ClientHeight:=tabs.Height;
+    f_tabsdock.ClientWidth:=tabs.Width;
+    tabs.Parent:=f_tabsdock;
+    tabs.Align:=alClient;
+    f_tabsdock.Show;
+    f_tabsdock.BringToFront;
+    ToolButtonDockTools.ImageIndex:=23;
+    ToolButtonDockTools.Hint:=rsAttachInform;
+    ToolButtonHideTools.Visible:=false;
+  end
+  else begin
+    tabs.Parent:=Form1;
+    tabs.Align:=alRight;
+    tabs.Visible:= not FullScreen;
+    f_tabsdock.Hide;
+    ToolButtonDockTools.ImageIndex:=22;
+    ToolButtonDockTools.Hint:=rsDetachInform;
+    ToolButtonHideTools.Visible:=true;
+  end;
+end;
+
 procedure TForm1.SpeedButton3Click(Sender: TObject);
 begin
   rotdirection := -1;
@@ -4821,7 +4863,7 @@ end;
 
 procedure TForm1.Position1Click(Sender: TObject);
 begin
-  if PageControl1.Width<=1 then ToolButton17Click(Sender);
+  if tabs.Width<=1 then ToolButtonHideToolsClick(Sender);
   Pagecontrol1.ActivePage := Position;
   PageControl1Change(Sender);
   combobox1.SetFocus;
@@ -4848,7 +4890,7 @@ end;
 
 procedure TForm1.Notes1Click(Sender: TObject);
 begin
-  if PageControl1.Width<=1 then ToolButton17Click(Sender);
+  if tabs.Width<=1 then ToolButtonHideToolsClick(Sender);
   Pagecontrol1.ActivePage := Notes;
   PageControl1Change(Sender);
 end;
@@ -4947,7 +4989,7 @@ end;
 
 procedure TForm1.Distance1Click(Sender: TObject);
 begin
-  if PageControl1.Width<=1 then ToolButton17Click(Sender);
+  if tabs.Width<=1 then ToolButtonHideToolsClick(Sender);
   Pagecontrol1.ActivePage := Outils;
   PageControl1Change(Sender);
   Button11.Caption  := rsm_53;

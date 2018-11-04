@@ -338,6 +338,8 @@ rsNameType = 'Name type :';
 rsIAUType = 'IAU type :';
 rsSubType = 'Sub-type :';
 rsIdentity = 'Identity:';
+rsAttachInform = 'Attach information and tools';
+rsDetachInform = 'Detach information and tools';
 
 implementation
 

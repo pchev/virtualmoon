@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2018-11-02 18:22+0100\n"
+"PO-Revision-Date: 2018-11-04 20:37+0100\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,6 +27,10 @@ msgstr "Relief aérographe sans albedo"
 #: u_translation.rsapparentsize
 msgid "Apparent size :"
 msgstr "Taille apparente :"
+
+#: u_translation.rsattachinform
+msgid "Attach information and tools"
+msgstr "Attache les informations et les outils"
 
 #: u_translation.rscaption
 msgid "Caption"
@@ -63,6 +67,10 @@ msgstr "par défaut"
 #: u_translation.rsdegree
 msgid "d"
 msgstr "°"
+
+#: u_translation.rsdetachinform
+msgid "Detach information and tools"
+msgstr "Détache les informations et les outils"
 
 #: u_translation.rsdownload
 msgid "Download"

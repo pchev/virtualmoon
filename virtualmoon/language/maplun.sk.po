@@ -28,6 +28,10 @@ msgstr "Airbrush relief bez albeda"
 msgid "Apparent size :"
 msgstr ""
 
+#: u_translation.rsattachinform
+msgid "Attach information and tools"
+msgstr ""
+
 #: u_translation.rscaption
 msgid "Caption"
 msgstr ""
@@ -63,6 +67,10 @@ msgstr "Predvolený"
 #: u_translation.rsdegree
 msgid "d"
 msgstr "°"
+
+#: u_translation.rsdetachinform
+msgid "Detach information and tools"
+msgstr ""
 
 #: u_translation.rsdownload
 msgid "Download"

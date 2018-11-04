@@ -1,6 +1,6 @@
 object Form1: TForm1
   Left = 292
-  Height = 570
+  Height = 600
   Top = 120
   Width = 1107
   HorzScrollBar.Page = 813
@@ -9,11 +9,11 @@ object Form1: TForm1
   VertScrollBar.Range = 541
   ActiveControl = ControlBar1
   Caption = 'Form1'
-  ClientHeight = 570
+  ClientHeight = 600
   ClientWidth = 1107
   Color = clWindow
-  Constraints.MinHeight = 500
-  Constraints.MinWidth = 500
+  Constraints.MinHeight = 600
+  Constraints.MinWidth = 1024
   DesignTimePPI = 95
   Font.Height = 13
   KeyPreview = True
@@ -27,23 +27,23 @@ object Form1: TForm1
   OnShow = FormShow
   object PanelMoon2: TPanel
     Left = 0
-    Height = 516
+    Height = 546
     Top = 35
     Width = 198
     Align = alLeft
     Font.Height = 13
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 5
   end
   object PanelMoon: TPanel
     Left = 203
-    Height = 516
+    Height = 546
     Top = 35
     Width = 198
     Align = alLeft
     Font.Height = 13
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
   end
   object DoNotRemove: TGLSceneViewer
     Left = 24
@@ -56,7 +56,7 @@ object Form1: TForm1
     Buffer.AmbientColor.Alpha = 1
     FieldOfView = 0
     Visible = False
-    TabOrder = 3
+    TabOrder = 2
   end
   object Memo2: TMemo
     Left = 103
@@ -67,7 +67,7 @@ object Form1: TForm1
     ParentColor = True
     ParentFont = False
     ReadOnly = True
-    TabOrder = 1
+    TabOrder = 0
     Visible = False
   end
   object ControlBar1: TPanel
@@ -81,7 +81,7 @@ object Form1: TForm1
     ClientWidth = 1107
     Font.Height = 13
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
     object ToolBar2: TToolBar
       Left = 0
       Height = 30
@@ -354,10 +354,10 @@ object Form1: TForm1
       end
     end
     object ToolBar5: TToolBar
-      Left = 1079
+      Left = 1053
       Height = 30
       Top = 0
-      Width = 31
+      Width = 61
       Align = alNone
       Anchors = [akTop, akRight]
       AutoSize = True
@@ -370,19 +370,24 @@ object Form1: TForm1
       ShowHint = True
       TabOrder = 5
       Transparent = True
-      object ToolButton17: TToolButton
+      object ToolButtonDockTools: TToolButton
         Left = 1
         Top = 0
-        Caption = 'ToolButton17'
+        ImageIndex = 22
+        OnClick = ToolButtonDockToolsClick
+      end
+      object ToolButtonHideTools: TToolButton
+        Left = 31
+        Top = 0
         ImageIndex = 19
-        OnClick = ToolButton17Click
+        OnClick = ToolButtonHideToolsClick
       end
     end
   end
   object StatusBar1: TStatusBar
     Left = 0
     Height = 19
-    Top = 551
+    Top = 581
     Width = 1107
     Font.Height = 13
     Panels = <    
@@ -406,2086 +411,6 @@ object Form1: TForm1
     SimplePanel = False
     ShowHint = True
   end
-  object PageControl1: TPageControl
-    Left = 544
-    Height = 507
-    Top = 32
-    Width = 346
-    ActivePage = Position
-    Font.Height = 13
-    MultiLine = True
-    ParentFont = False
-    TabIndex = 0
-    TabOrder = 0
-    OnChange = PageControl1Change
-    Options = [nboMultiLine]
-    object Position: TTabSheet
-      Caption = 'Information'
-      ClientHeight = 478
-      ClientWidth = 336
-      Font.Height = 13
-      ParentFont = False
-      object Panel1: TPanel
-        Left = 0
-        Height = 89
-        Top = 0
-        Width = 336
-        Align = alTop
-        BevelOuter = bvNone
-        BorderStyle = bsSingle
-        ClientHeight = 87
-        ClientWidth = 334
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 0
-        object GroupBox1: TGroupBox
-          Left = 1
-          Height = 53
-          Top = 35
-          Width = 336
-          Caption = 'Profil----------------------------------------------------------'
-          ClientHeight = 35
-          ClientWidth = 334
-          Font.Height = 13
-          ParentFont = False
-          TabOrder = 1
-          object Label7: TLabel
-            Left = 0
-            Height = 1
-            Top = 0
-            Width = 1
-            Alignment = taCenter
-            Color = clWindow
-            Font.Pitch = fpFixed
-            ParentColor = False
-            ParentFont = False
-            Transparent = False
-          end
-        end
-        object ComboBox1: TComboBox
-          Left = 8
-          Height = 29
-          Top = 8
-          Width = 317
-          DropDownCount = 15
-          Font.Height = 13
-          ItemHeight = 0
-          OnKeyDown = ComboBox1KeyDown
-          OnSelect = ComboBox1Select
-          ParentColor = True
-          ParentFont = False
-          TabOrder = 0
-        end
-      end
-      object Desc1: TIpHtmlPanel
-        Left = 0
-        Height = 341
-        Top = 89
-        Width = 336
-        Align = alClient
-        BorderWidth = 1
-        BorderStyle = bsSingle
-        FixedTypeface = 'Courier New'
-        DefaultTypeFace = 'Sans'
-        DefaultFontSize = 8
-        FlagErrors = False
-        MarginHeight = 5
-        MarginWidth = 5
-        PopupMenu = PopupMenu2
-        PrintSettings.MarginLeft = 0.5
-        PrintSettings.MarginTop = 0.5
-        PrintSettings.MarginRight = 0.5
-        PrintSettings.MarginBottom = 0.5
-        PrintSettings.Preview.Left = 480
-        PrintSettings.Preview.Top = 300
-        PrintSettings.Preview.Width = 1440
-        PrintSettings.Preview.Height = 900
-        TabOrder = 1
-        OnHotClick = Desc1HotClick
-      end
-      object Panel2: TPanel
-        Left = 0
-        Height = 48
-        Top = 430
-        Width = 336
-        Align = alBottom
-        BevelOuter = bvNone
-        BorderWidth = 1
-        BorderStyle = bsSingle
-        ClientHeight = 46
-        ClientWidth = 334
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 2
-        object Edit6: TEdit
-          Left = 3
-          Height = 29
-          Top = 8
-          Width = 157
-          Font.Height = 13
-          OnEditingDone = Edit6EditingDone
-          ParentColor = True
-          ParentFont = False
-          TabOrder = 0
-        end
-        object Button1: TSpeedButton
-          Left = 170
-          Height = 25
-          Top = 8
-          Width = 74
-          Caption = 'Recherche'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button1Click
-          ParentFont = False
-        end
-        object Button2: TSpeedButton
-          Left = 249
-          Height = 25
-          Top = 8
-          Width = 74
-          Caption = 'Suivant'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button2Click
-          ParentFont = False
-        end
-      end
-    end
-    object Notes: TTabSheet
-      Caption = 'Notes'
-      ClientHeight = 478
-      ClientWidth = 336
-      Font.Height = 13
-      ParentFont = False
-      object Memo1: TMemo
-        Left = 0
-        Height = 421
-        Top = 57
-        Width = 336
-        Align = alClient
-        Font.Height = 13
-        OnChange = Memo1Change
-        ParentColor = True
-        ParentFont = False
-        PopupMenu = PopupMenu2
-        ScrollBars = ssVertical
-        TabOrder = 0
-        WantTabs = True
-      end
-      object Panel7: TPanel
-        Left = 0
-        Height = 57
-        Top = 0
-        Width = 336
-        Align = alTop
-        ClientHeight = 57
-        ClientWidth = 336
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 1
-        object notes_name: TLabel
-          Left = 8
-          Height = 17
-          Top = 8
-          Width = 16
-          Caption = '    '
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Button15: TSpeedButton
-          Left = 8
-          Height = 25
-          Top = 28
-          Width = 88
-          Caption = 'Update'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = UpdNotesClick
-          ParentFont = False
-        end
-      end
-    end
-    object Ephemerides: TTabSheet
-      Caption = 'Ephemerides'
-      ClientHeight = 478
-      ClientWidth = 336
-      Font.Height = 13
-      ParentFont = False
-      object Panel4: TPanel
-        Left = 0
-        Height = 120
-        Top = 0
-        Width = 336
-        Align = alTop
-        ClientHeight = 120
-        ClientWidth = 336
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 0
-        TabStop = True
-        object Label6: TLabel
-          Left = 2
-          Height = 17
-          Top = 42
-          Width = 39
-          Caption = 'Heure'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label9: TLabel
-          Left = 2
-          Height = 17
-          Top = 10
-          Width = 31
-          Caption = 'Date'
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-        end
-        object Button3: TSpeedButton
-          Left = 148
-          Height = 22
-          Top = 95
-          Width = 33
-          AllowAllUp = True
-          Caption = '>>'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnMouseDown = Button3MouseDown
-          OnMouseLeave = Button3MouseLeave
-          OnMouseUp = Button3MouseUp
-          ParentFont = False
-        end
-        object Button6: TSpeedButton
-          Left = 104
-          Height = 22
-          Top = 95
-          Width = 33
-          AllowAllUp = True
-          Caption = '>'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnMouseDown = Button6MouseDown
-          OnMouseLeave = Button3MouseLeave
-          OnMouseUp = Button3MouseUp
-          ParentFont = False
-        end
-        object Button7: TSpeedButton
-          Left = 55
-          Height = 22
-          Top = 95
-          Width = 33
-          AllowAllUp = True
-          Caption = '<'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnMouseDown = Button7MouseDown
-          OnMouseLeave = Button3MouseLeave
-          OnMouseUp = Button3MouseUp
-          ParentFont = False
-        end
-        object Button8: TSpeedButton
-          Left = 8
-          Height = 22
-          Top = 95
-          Width = 33
-          AllowAllUp = True
-          Caption = '<<'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnMouseDown = Button8MouseDown
-          OnMouseLeave = Button3MouseLeave
-          OnMouseUp = Button3MouseUp
-          ParentFont = False
-        end
-        object NM: TImage
-          Left = 200
-          Height = 24
-          Top = 14
-          Width = 27
-          AutoSize = True
-          OnClick = NMClick
-          Picture.Data = {
-            0A544A706567496D61676518030000FFD8FFE000104A46494600010101004800
-            480000FFDB0043000302020302020303030304030304050805050404050A0707
-            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
-            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
-            1414141414141414141414141414141414141414141414141414141414141414
-            14141414141414141414141414FFC00011080018001B03012200021101031101
-            FFC4001F0000010501010101010100000000000000000102030405060708090A
-            0BFFC400B5100002010303020403050504040000017D01020300041105122131
-            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
-            191A25262728292A3435363738393A434445464748494A535455565758595A63
-            6465666768696A737475767778797A838485868788898A92939495969798999A
-            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
-            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
-            01010101010101010000000000000102030405060708090A0BFFC400B5110002
-            0102040403040705040400010277000102031104052131061241510761711322
-            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
-            292A35363738393A434445464748494A535455565758595A636465666768696A
-            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
-            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
-            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCB5
-            B0B29B509C4512E0FF007BFBB5D7DB782ECE2B656BB9A532B9DC360F96AA7829
-            5192ECB22976202FB5768FA1CB358B4B1CD97C0C0CE71401C2F88BC1736936AB
-            770BFDA2D0FDE23EF27D6B96AF58F2A41686DA7F9D2453F8715E5F25B12E483C
-            50069787F564B0BC1E692B6D27CAFB3EF0FF006ABD82DB5AD21ED61306A76C55
-            94643CAA847E068A280391F17F8A74E86DA6B7D3D8CF7137DE915BE44AF3476D
-            CE4D145007FFD9
-          }
-        end
-        object LabelNM: TLabel
-          Left = 233
-          Height = 17
-          Top = 19
-          Width = 7
-          Caption = 'L'
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          OnClick = NMClick
-        end
-        object LabelFQ: TLabel
-          Left = 233
-          Height = 17
-          Top = 43
-          Width = 7
-          Caption = 'L'
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          OnClick = FQClick
-        end
-        object LabelFM: TLabel
-          Left = 233
-          Height = 17
-          Top = 66
-          Width = 7
-          Caption = 'L'
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          OnClick = FMClick
-        end
-        object LabelLQ: TLabel
-          Left = 233
-          Height = 17
-          Top = 91
-          Width = 7
-          Caption = 'L'
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          OnClick = LQClick
-        end
-        object FQ: TImage
-          Left = 200
-          Height = 24
-          Top = 37
-          Width = 27
-          AutoSize = True
-          OnClick = FQClick
-          Picture.Data = {
-            0A544A706567496D6167657D030000FFD8FFE000104A46494600010101004800
-            480000FFDB0043000302020302020303030304030304050805050404050A0707
-            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
-            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
-            1414141414141414141414141414141414141414141414141414141414141414
-            14141414141414141414141414FFC00011080018001B03012200021101031101
-            FFC4001F0000010501010101010100000000000000000102030405060708090A
-            0BFFC400B5100002010303020403050504040000017D01020300041105122131
-            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
-            191A25262728292A3435363738393A434445464748494A535455565758595A63
-            6465666768696A737475767778797A838485868788898A92939495969798999A
-            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
-            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
-            01010101010101010000000000000102030405060708090A0BFFC400B5110002
-            0102040403040705040400010277000102031104052131061241510761711322
-            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
-            292A35363738393A434445464748494A535455565758595A636465666768696A
-            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
-            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
-            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCB9
-            D334D9351B9544CA7F799ABD9FE0F780FC37A8F8B2D2CB5EB39750B796366654
-            765EDC735E75E079079575903712ABB9BB2D7D01FB3D7810F8A3C7B6F676F36C
-            B89A09392320951D00F7A00D8FDA17F630B2F0C78153C71E04BC373A5AC7E65D
-            E993C8649625FEF29EE318C8EA335F1F2C7BD430D801EC6BF5BB4DF0A2787BC1
-            97F61A862F74FBA8256B88E763B6DDD236CFD0818E0D7E4EEA2A23D42E96DA60
-            20133F978FEEEE38A007685AA0D32F95DC1780B7CE8BF2EE5AFAA3F665F8A9E0
-            BF0E7C48D3755D5B5B8F4AB28207F31EE030C36DE3EE83DE8A2803BCFDAABF6D
-            CF0C6B1E12D4BC25F0E6D8DD3EA44FDB75E92331A843F7D2207925B8CB1C1EB5
-            F0634E0B1F99A8A2803FFFD9
-          }
-        end
-        object FM: TImage
-          Left = 200
-          Height = 24
-          Top = 59
-          Width = 27
-          AutoSize = True
-          OnClick = FMClick
-          Picture.Data = {
-            0A544A706567496D616765B1030000FFD8FFE000104A46494600010101004800
-            480000FFDB0043000302020302020303030304030304050805050404050A0707
-            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
-            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
-            1414141414141414141414141414141414141414141414141414141414141414
-            14141414141414141414141414FFC00011080018001B03012200021101031101
-            FFC4001F0000010501010101010100000000000000000102030405060708090A
-            0BFFC400B5100002010303020403050504040000017D01020300041105122131
-            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
-            191A25262728292A3435363738393A434445464748494A535455565758595A63
-            6465666768696A737475767778797A838485868788898A92939495969798999A
-            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
-            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
-            01010101010101010000000000000102030405060708090A0BFFC400B5110002
-            0102040403040705040400010277000102031104052131061241510761711322
-            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
-            292A35363738393A434445464748494A535455565758595A636465666768696A
-            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
-            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
-            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCFA
-            F82BF092EBE2C7885AD03345A7DB287BA9D067E5CFDD1EE6BEE8D37E0B7C39F0
-            47872DACBFE106B0D52E0A6E9AE6E51A475E3A313D0FE55E2FFB0CEAB05B689E
-            26B25904124D2A89A54C798AB83923DABF44345F84DA06B5E0DFB1346B15DDC2
-            605C84DAD211CA0C74E7FF00D7401F0AFED27FB21F8466F874DE39F87F22585C
-            C0A1AF3474CB4472377EEF2490E07F09273CE2BE14F29CF73F857EBA6B7E1587
-            C1DA1EA2639227D38C330D4967F9C44F1A1C81E9D473EF5F929A8B3CB7F72F6C
-            A3C832314C7A66803B1F843F15AFBE12F8CA0D6ED614D420C08EEB4FB862B1CF
-            1F7538E9EC7B57E9BF87BFE0A5FF00042FBC2D6325C58EAFE1EBF8234492D0DB
-            79E32A00C8901F98668A2803E5EFDAC3F6F91F16B41BAF09782B4C7D2741BA60
-            6F353B850B73743AEC007DC52464F3935F18ACEAA00DEDFF007D5145007FFFD9
-          }
-        end
-        object LQ: TImage
-          Left = 200
-          Height = 24
-          Top = 83
-          Width = 27
-          AutoSize = True
-          OnClick = LQClick
-          Picture.Data = {
-            0A544A706567496D61676564030000FFD8FFE000104A46494600010101004800
-            480000FFDB0043000302020302020303030304030304050805050404050A0707
-            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
-            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
-            1414141414141414141414141414141414141414141414141414141414141414
-            14141414141414141414141414FFC00011080018001B03012200021101031101
-            FFC4001F0000010501010101010100000000000000000102030405060708090A
-            0BFFC400B5100002010303020403050504040000017D01020300041105122131
-            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
-            191A25262728292A3435363738393A434445464748494A535455565758595A63
-            6465666768696A737475767778797A838485868788898A92939495969798999A
-            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
-            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
-            01010101010101010000000000000102030405060708090A0BFFC400B5110002
-            0102040403040705040400010277000102031104052131061241510761711322
-            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
-            292A35363738393A434445464748494A535455565758595A636465666768696A
-            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
-            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
-            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCE5
-            F861F0CF50F89BE224D3EC898A28D5649EE0AF112F622BE84F8ADF007C0DF0E3
-            E19C52A5A5E5D6BB2491FF00A4C93965D87FD9038FD6B77F6065B083C37E2BF3
-            1605BC9E68E213C83718D768208AF57FDA93E1EDA5AFC1FB8B98A576BC79E157
-            61212A467AE0FAD007C01E22F04C7636497965279B081BA489BEF8AE2EBD65AD
-            9A181E193E78C824E7B5795CD1E656F997F3A00F52F809F178FC26F180BCBD86
-            4BED12E47937D670BEC6651D194F4DC3B57DC3FB487ED11F087E21FC0EB6FF00
-            8453C4C64BF6920F36C2F8325C2E0FCC4AE31C7B1A28A00F827C59E34B3BAB69
-            AD74C8F73C9C497078CFAED15E7B451401FFD9
-          }
-        end
-        object nextM: TImage
-          Left = 200
-          Height = 14
-          Top = 107
-          Width = 27
-          AutoSize = True
-          OnClick = nextMClick
-          Picture.Data = {
-            0A544A706567496D6167650D030000FFD8FFE000104A46494600010102001C00
-            1C0000FFDB0043000302020302020303030304030304050805050404050A0707
-            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
-            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
-            1414141414141414141414141414141414141414141414141414141414141414
-            14141414141414141414141414FFC0001108000E001B03012200021101031101
-            FFC4001F0000010501010101010100000000000000000102030405060708090A
-            0BFFC400B5100002010303020403050504040000017D01020300041105122131
-            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
-            191A25262728292A3435363738393A434445464748494A535455565758595A63
-            6465666768696A737475767778797A838485868788898A92939495969798999A
-            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
-            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
-            01010101010101010000000000000102030405060708090A0BFFC400B5110002
-            0102040403040705040400010277000102031104052131061241510761711322
-            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
-            292A35363738393A434445464748494A535455565758595A636465666768696A
-            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
-            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
-            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCAA
-            AFAFFE05FF00C1323E207ED17F0E34EF1AF82BC75F0FEFB4ABACC72C32EA17AB
-            71653800BDBCE82D0EC95770C8C90415652C8CAC7E40AEABC1FF00157C5FF0FF
-            0042F14E8BE1BF11EA1A2E95E28B21A7EB369673144BD8036E08E3FEFA5C8C12
-            924A99D923AB0055F1FF0084E1F02F8CB56F0FC1E20D1FC549A74C6DCEAFA04B
-            24D6370C00DC619248D0BA86CAEF0BB5B692A594AB1E7E8A2803FFD9
-          }
-        end
-        object prevM: TImage
-          Left = 200
-          Height = 14
-          Top = 0
-          Width = 27
-          AutoSize = True
-          OnClick = prevMClick
-          Picture.Data = {
-            0A544A706567496D6167652E030000FFD8FFE000104A46494600010102001C00
-            1C0000FFDB0043000302020302020303030304030304050805050404050A0707
-            06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
-            1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
-            1414141414141414141414141414141414141414141414141414141414141414
-            14141414141414141414141414FFC0001108000E001B03012200021101031101
-            FFC4001F0000010501010101010100000000000000000102030405060708090A
-            0BFFC400B5100002010303020403050504040000017D01020300041105122131
-            410613516107227114328191A1082342B1C11552D1F02433627282090A161718
-            191A25262728292A3435363738393A434445464748494A535455565758595A63
-            6465666768696A737475767778797A838485868788898A92939495969798999A
-            A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
-            D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
-            01010101010101010000000000000102030405060708090A0BFFC400B5110002
-            0102040403040705040400010277000102031104052131061241510761711322
-            328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
-            292A35363738393A434445464748494A535455565758595A636465666768696A
-            737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
-            A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
-            E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCAA
-            AFA8BF672FF827B7C50FDA57E187893C6FE1FB7B7D3B4EB285868A9A91F28EBD
-            728E0490C0C701555448BE73613CD0B1E7FD6BC3F2ED7A7695FB4C7C60D034BB
-            2D334CF8AFE37D374DB1812DEDACED3C47791430448A15234459005550000A00
-            0000050079FEAFA55EE81AA5E699A9D95C69DA9594CF6D75677713453412A315
-            78DD1802ACAC082A4020820D51AD9F13F8AF5BF1D6BB75ADF88F58D435FD6AE8
-            2FDA351D52E9EE6E25DA81577C8E4B361555464F0140E82B1A803FFFD9
-          }
-        end
-        object jour: TLongEdit
-          Left = 144
-          Height = 29
-          Hint = '0..31'
-          Top = 4
-          Width = 26
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 2
-          Value = 31
-          MaxValue = 31
-        end
-        object mois: TLongEdit
-          Left = 102
-          Height = 29
-          Hint = '0..12'
-          Top = 4
-          Width = 26
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 1
-          Value = 1
-          MaxValue = 12
-        end
-        object annee: TLongEdit
-          Left = 43
-          Height = 29
-          Hint = '-2999..2999'
-          Top = 4
-          Width = 45
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 0
-          Value = 2002
-          MinValue = -2999
-          MaxValue = 2999
-        end
-        object seconde: TLongEdit
-          Left = 144
-          Height = 29
-          Hint = '0..59'
-          Top = 36
-          Width = 26
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 5
-          Value = 0
-          MaxValue = 59
-        end
-        object minute: TLongEdit
-          Left = 102
-          Height = 29
-          Hint = '0..59'
-          Top = 36
-          Width = 26
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 4
-          Value = 0
-          MaxValue = 59
-        end
-        object heure: TLongEdit
-          Left = 58
-          Height = 29
-          Hint = '0..23'
-          Top = 36
-          Width = 26
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 3
-          Value = 0
-          MaxValue = 23
-        end
-        object Button4: TSpeedButton
-          Left = 112
-          Height = 25
-          Top = 63
-          Width = 69
-          Caption = 'Compute'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button4Click
-          ParentFont = False
-        end
-        object Button5: TSpeedButton
-          Left = 2
-          Height = 25
-          Top = 63
-          Width = 77
-          Caption = 'Maintenant'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button5Click
-          ParentFont = False
-        end
-        object UpDown1: TUpDown
-          Left = 88
-          Height = 29
-          Top = 4
-          Width = 13
-          Associate = annee
-          Max = 2999
-          Min = -2999
-          Position = 2002
-          TabOrder = 6
-          Thousands = False
-        end
-        object UpDown2: TUpDown
-          Left = 128
-          Height = 29
-          Top = 4
-          Width = 13
-          Associate = mois
-          Max = 12
-          Min = 1
-          Position = 1
-          TabOrder = 7
-          Wrap = True
-        end
-        object UpDown3: TUpDown
-          Left = 170
-          Height = 29
-          Top = 4
-          Width = 13
-          Associate = jour
-          Max = 31
-          Min = 1
-          Position = 31
-          TabOrder = 9
-          Wrap = True
-        end
-        object UpDown4: TUpDown
-          Left = 84
-          Height = 29
-          Top = 36
-          Width = 13
-          Associate = heure
-          Max = 23
-          Min = 0
-          Position = 0
-          TabOrder = 11
-          Wrap = True
-        end
-        object UpDown5: TUpDown
-          Left = 128
-          Height = 29
-          Top = 36
-          Width = 13
-          Associate = minute
-          Max = 59
-          Min = 0
-          Position = 0
-          TabOrder = 8
-          Wrap = True
-        end
-        object UpDown6: TUpDown
-          Left = 170
-          Height = 29
-          Top = 36
-          Width = 13
-          Associate = seconde
-          Max = 59
-          Min = 0
-          Position = 0
-          TabOrder = 10
-          Wrap = True
-        end
-        object Button10: TSpeedButton
-          Left = 83
-          Height = 25
-          Top = 63
-          Width = 26
-          Caption = '0h'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button10Click
-          ParentFont = False
-        end
-      end
-      object StringGrid1: TStringGrid
-        Left = 0
-        Height = 358
-        Top = 120
-        Width = 336
-        Align = alClient
-        BorderStyle = bsNone
-        ColCount = 2
-        DefaultColWidth = 139
-        DefaultRowHeight = 18
-        FixedColor = clDefault
-        FixedCols = 0
-        Font.Height = 13
-        Options = [goFixedVertLine, goVertLine, goRangeSelect, goColSizing, goThumbTracking, goDblClickAutoSize, goSmoothScroll]
-        ParentColor = True
-        ParentFont = False
-        PopupMenu = PopupMenu2
-        RowCount = 26
-        TabOrder = 1
-        TabStop = False
-        TitleFont.Height = 13
-        TitleStyle = tsStandard
-      end
-    end
-    object Terminateur: TTabSheet
-      Caption = 'Terminateur'
-      ClientHeight = 478
-      ClientWidth = 336
-      Font.Height = 13
-      ParentFont = False
-      object Panel5: TPanel
-        Left = 0
-        Height = 161
-        Top = 0
-        Width = 336
-        Align = alTop
-        ClientHeight = 161
-        ClientWidth = 336
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 0
-        object Label19: TLabel
-          Left = 8
-          Height = 17
-          Top = 14
-          Width = 47
-          Caption = 'Interet '
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label20: TLabel
-          Left = 8
-          Height = 17
-          Top = 42
-          Width = 71
-          Caption = 'Instrument'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label21: TLabel
-          Left = 168
-          Height = 17
-          Top = 42
-          Width = 30
-          Caption = 'mm.'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object ComboBox2: TComboBox
-          Left = 104
-          Height = 21
-          Top = 4
-          Width = 156
-          Font.Height = 13
-          ItemHeight = 0
-          ItemIndex = 0
-          Items.Strings = (
-            '1'
-            '2'
-            '3'
-            '4'
-          )
-          OnChange = ComboBox2Change
-          ParentColor = True
-          ParentFont = False
-          TabOrder = 0
-          Text = '1'
-        end
-        object ComboBox3: TComboBox
-          Left = 104
-          Height = 21
-          Top = 36
-          Width = 56
-          Font.Height = 13
-          ItemHeight = 0
-          ItemIndex = 0
-          Items.Strings = (
-            '999'
-            '250'
-            '150'
-            '100'
-            '50'
-            '30'
-            '5'
-          )
-          OnChange = ComboBox2Change
-          ParentColor = True
-          ParentFont = False
-          TabOrder = 1
-          Text = '999'
-        end
-        object RadioGroup1: TRadioGroup
-          Left = 8
-          Height = 79
-          Top = 64
-          Width = 252
-          AutoFill = True
-          Caption = 'Tri'
-          ChildSizing.LeftRightSpacing = 6
-          ChildSizing.TopBottomSpacing = 6
-          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-          ChildSizing.EnlargeVertical = crsHomogenousChildResize
-          ChildSizing.ShrinkHorizontal = crsScaleChilds
-          ChildSizing.ShrinkVertical = crsScaleChilds
-          ChildSizing.Layout = cclLeftToRightThenTopToBottom
-          ChildSizing.ControlsPerLine = 2
-          ClientHeight = 61
-          ClientWidth = 250
-          Columns = 2
-          Font.Height = 13
-          Items.Strings = (
-            'Nom'
-            'Interet'
-            'Instrument'
-            'Latitude'
-          )
-          OnClick = ComboBox2Change
-          ParentFont = False
-          TabOrder = 2
-        end
-        object ToolBar3: TToolBar
-          Left = 272
-          Height = 24
-          Top = 119
-          Width = 27
-          Align = alNone
-          AutoSize = True
-          ButtonHeight = 24
-          ButtonWidth = 24
-          Caption = 'ToolBar3'
-          Color = clBtnFace
-          EdgeBorders = []
-          EdgeInner = esNone
-          EdgeOuter = esNone
-          Font.Height = 13
-          Images = ImageListDay
-          ParentColor = False
-          ParentFont = False
-          TabOrder = 3
-          object ToolButton16: TToolButton
-            Left = 1
-            Top = 0
-            Caption = 'ToolButton16'
-            ImageIndex = 18
-            OnClick = ToolButton16Click
-          end
-        end
-      end
-      object ListBox1: TListBox
-        Left = 0
-        Height = 317
-        Top = 161
-        Width = 336
-        Align = alClient
-        Font.Height = 13
-        ItemHeight = 0
-        OnClick = ListBox1Click
-        ParentColor = True
-        ParentFont = False
-        ScrollWidth = 334
-        Sorted = True
-        TabOrder = 1
-        TopIndex = -1
-      end
-    end
-    object Outils: TTabSheet
-      Caption = 'Outils'
-      ClientHeight = 478
-      ClientWidth = 336
-      Font.Height = 13
-      ParentFont = False
-      object GroupBox3: TGroupBox
-        Left = 8
-        Height = 323
-        Top = 146
-        Width = 250
-        Caption = 'Satellisation'
-        ClientHeight = 305
-        ClientWidth = 248
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 6
-        Visible = False
-        object Label4: TLabel
-          Left = 16
-          Height = 17
-          Top = 20
-          Width = 123
-          Caption = 'Vitesse de rotation'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object SpeedButton1: TSpeedButton
-          Left = 7
-          Height = 22
-          Top = 57
-          Width = 48
-          Caption = '<'
-          Flat = True
-          Font.Height = 13
-          OnClick = SpeedButton1Click
-          ParentFont = False
-        end
-        object SpeedButton2: TSpeedButton
-          Left = 123
-          Height = 22
-          Top = 57
-          Width = 48
-          Caption = 'O'
-          Flat = True
-          Font.Height = 13
-          OnClick = SpeedButton2Click
-          ParentFont = False
-        end
-        object SpeedButton3: TSpeedButton
-          Left = 181
-          Height = 22
-          Top = 57
-          Width = 48
-          Caption = '>'
-          Flat = True
-          Font.Height = 13
-          OnClick = SpeedButton3Click
-          ParentFont = False
-        end
-        object SpeedButton4: TSpeedButton
-          Left = 157
-          Height = 22
-          Top = 97
-          Width = 72
-          Caption = 'Vue Est'
-          Flat = True
-          Font.Height = 13
-          OnClick = SpeedButton4Click
-          ParentFont = False
-        end
-        object SpeedButton5: TSpeedButton
-          Left = 7
-          Height = 22
-          Top = 97
-          Width = 72
-          Caption = 'Vue Ouest'
-          Flat = True
-          Font.Height = 13
-          OnClick = SpeedButton5Click
-          ParentFont = False
-        end
-        object SpeedButton6: TSpeedButton
-          Left = 82
-          Height = 22
-          Top = 97
-          Width = 72
-          Caption = 'Centre'
-          Flat = True
-          Font.Height = 13
-          OnClick = SpeedButton6Click
-          ParentFont = False
-        end
-        object Label17: TLabel
-          Left = 7
-          Height = 17
-          Top = 210
-          Width = 104
-          Caption = 'Orbit inclination'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label18: TLabel
-          Left = 10
-          Height = 17
-          Top = 240
-          Width = 99
-          Caption = 'Satellite model'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-          Visible = False
-        end
-        object Label27: TLabel
-          Left = 10
-          Height = 17
-          Top = 272
-          Width = 91
-          Caption = 'View distance'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-          Visible = False
-        end
-        object SpeedButton7: TSpeedButton
-          Left = 67
-          Height = 22
-          Top = 57
-          Width = 48
-          Caption = '| |'
-          Flat = True
-          Font.Height = 13
-          OnClick = SpeedButton7Click
-          ParentFont = False
-        end
-        object Label5: TLabel
-          Left = 7
-          Height = 17
-          Top = 156
-          Width = 86
-          Caption = 'Orbit altitude'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label36: TLabel
-          Left = 114
-          Height = 17
-          Top = 150
-          Width = 5
-          Caption = '-'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label37: TLabel
-          Left = 113
-          Height = 17
-          Top = 206
-          Width = 5
-          Caption = '-'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label38: TLabel
-          Left = 234
-          Height = 17
-          Top = 150
-          Width = 11
-          Caption = '+'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label39: TLabel
-          Left = 233
-          Height = 17
-          Top = 206
-          Width = 11
-          Caption = '+'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object LabelAltitude: TLabel
-          Left = 123
-          Height = 15
-          Top = 131
-          Width = 106
-          Alignment = taCenter
-          AutoSize = False
-          Caption = 'LabelAltitude'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object LabelIncl: TLabel
-          Left = 123
-          Height = 15
-          Top = 186
-          Width = 106
-          Alignment = taCenter
-          AutoSize = False
-          Caption = 'LabelIncl'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object ComboBox4: TComboBox
-          Left = 121
-          Height = 21
-          Top = 16
-          Width = 96
-          Font.Height = 13
-          ItemHeight = 0
-          OnChange = ComboBox4Change
-          ParentColor = True
-          ParentFont = False
-          TabOrder = 0
-          Text = '5 ?/seconde'
-        end
-        object TrackBar6: TTrackBar
-          Left = 121
-          Height = 41
-          Top = 142
-          Width = 112
-          Frequency = 500
-          Max = 2000
-          Min = 100
-          OnChange = TrackBar6Change
-          PageSize = 100
-          Position = 800
-          TickStyle = tsNone
-          Font.Height = 13
-          ParentFont = False
-          TabOrder = 1
-        end
-        object TrackBar7: TTrackBar
-          Left = 120
-          Height = 41
-          Top = 198
-          Width = 112
-          Frequency = 15
-          Max = 90
-          Min = -90
-          OnChange = TrackBar7Change
-          Position = 0
-          TickStyle = tsNone
-          Font.Height = 13
-          ParentFont = False
-          TabOrder = 2
-        end
-        object ComboBox6: TComboBox
-          Left = 123
-          Height = 21
-          Top = 232
-          Width = 104
-          Font.Height = 13
-          ItemHeight = 0
-          ItemIndex = 0
-          Items.Strings = (
-            'None'
-            'L.E.M.'
-            'Apollo'
-          )
-          OnChange = ComboBox6Change
-          ParentColor = True
-          ParentFont = False
-          TabOrder = 3
-          Text = 'None'
-          Visible = False
-        end
-        object TrackBar8: TTrackBar
-          Left = 121
-          Height = 41
-          Top = 262
-          Width = 104
-          Frequency = 5
-          Max = 30
-          Min = 4
-          OnChange = TrackBar8Change
-          Position = 8
-          TickStyle = tsNone
-          Font.Height = 13
-          ParentFont = False
-          TabOrder = 4
-          Visible = False
-        end
-      end
-      object PanelTel: TPanel
-        Left = 8
-        Height = 160
-        Top = 311
-        Width = 250
-        BevelInner = bvLowered
-        ClientHeight = 160
-        ClientWidth = 250
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 4
-        Visible = False
-        object Label28: TLabel
-          Left = 32
-          Height = 17
-          Top = 135
-          Width = 37
-          Caption = 'every'
-          Color = clWindow
-          Enabled = False
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label26: TLabel
-          Left = 128
-          Height = 17
-          Top = 135
-          Width = 53
-          Caption = 'seconds'
-          Color = clWindow
-          Enabled = False
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label41: TLabel
-          Left = 7
-          Height = 17
-          Top = 4
-          Width = 64
-          Caption = 'Telescope'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object ComboBox5: TComboBox
-          Left = 8
-          Height = 21
-          Top = 26
-          Width = 104
-          Font.Height = 13
-          ItemHeight = 0
-          OnChange = ComboBox5Change
-          ParentColor = True
-          ParentFont = False
-          Sorted = True
-          TabOrder = 0
-        end
-        object Button16: TSpeedButton
-          Left = 123
-          Height = 25
-          Top = 24
-          Width = 113
-          Caption = 'Show Menu'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button16Click
-          ParentFont = False
-        end
-        object Button17: TSpeedButton
-          Left = 8
-          Height = 25
-          Top = 57
-          Width = 99
-          Caption = 'Goto selected'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button17Click
-          ParentFont = False
-        end
-        object Button18: TSpeedButton
-          Left = 123
-          Height = 25
-          Top = 57
-          Width = 113
-          Caption = 'Sync selected'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button18Click
-          ParentFont = False
-        end
-        object CheckBox6: TCheckBox
-          Left = 8
-          Height = 21
-          Top = 89
-          Width = 114
-          Caption = 'Track position'
-          Font.Height = 13
-          OnClick = CheckBox6Click
-          ParentFont = False
-          TabOrder = 4
-        end
-        object CheckBox7: TCheckBox
-          Left = 8
-          Height = 21
-          Top = 113
-          Width = 71
-          Caption = 'Correct'
-          Enabled = False
-          Font.Height = 13
-          ParentFont = False
-          TabOrder = 1
-        end
-        object Edit5: TEdit
-          Left = 79
-          Height = 29
-          Top = 131
-          Width = 33
-          Enabled = False
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          TabOrder = 2
-          Text = '10'
-        end
-        object trackdelay: TUpDown
-          Left = 112
-          Height = 29
-          Top = 131
-          Width = 13
-          Associate = Edit5
-          Max = 60
-          Min = 0
-          Position = 10
-          TabOrder = 3
-        end
-      end
-      object Bevel4: TBevel
-        Left = 8
-        Height = 136
-        Top = 8
-        Width = 250
-        Shape = bsFrame
-      end
-      object Label24: TLabel
-        Left = 24
-        Height = 17
-        Top = 28
-        Width = 98
-        Caption = 'Distance reelle'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label25: TLabel
-        Left = 24
-        Height = 17
-        Top = 56
-        Width = 127
-        Caption = 'Distance apparente'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label1: TLabel
-        Left = 71
-        Height = 17
-        Top = 115
-        Width = 7
-        Caption = 'L'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label2: TLabel
-        Left = 135
-        Height = 17
-        Top = 115
-        Width = 9
-        Caption = 'B'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label3: TLabel
-        Left = 24
-        Height = 17
-        Top = 115
-        Width = 43
-        Caption = 'Centre'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label23: TLabel
-        Left = 16
-        Height = 17
-        Top = 4
-        Width = 65
-        Caption = ' Distance '
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Button11: TSpeedButton
-        Left = 24
-        Height = 25
-        Top = 80
-        Width = 209
-        Caption = 'Start'
-        Flat = True
-        Font.Height = 13
-        Transparent = False
-        OnClick = Button11Click
-        ParentFont = False
-      end
-      object Edit1: TEdit
-        Left = 160
-        Height = 29
-        Top = 24
-        Width = 72
-        Font.Height = 13
-        ParentColor = True
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 0
-      end
-      object Edit2: TEdit
-        Left = 160
-        Height = 29
-        Top = 51
-        Width = 72
-        Font.Height = 13
-        ParentColor = True
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 1
-      end
-      object Edit3: TEdit
-        Left = 82
-        Height = 29
-        Top = 111
-        Width = 41
-        Font.Height = 13
-        ParentColor = True
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 2
-      end
-      object Edit4: TEdit
-        Left = 142
-        Height = 29
-        Top = 111
-        Width = 41
-        Font.Height = 13
-        ParentColor = True
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 3
-      end
-      object Enregistredist: TSpeedButton
-        Left = 193
-        Height = 25
-        Top = 111
-        Width = 40
-        Caption = 'Copier'
-        Flat = True
-        Font.Height = 13
-        Transparent = False
-        OnClick = EnregistredistClick
-        ParentFont = False
-      end
-      object PanelRot: TPanel
-        Left = 8
-        Height = 163
-        Top = 146
-        Width = 250
-        BevelInner = bvLowered
-        ClientHeight = 163
-        ClientWidth = 250
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 5
-        object Label40: TLabel
-          Left = 9
-          Height = 17
-          Top = 4
-          Width = 54
-          Caption = 'Rotation'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Button13: TSpeedButton
-          Left = 87
-          Height = 25
-          Top = 20
-          Width = 62
-          Caption = 'Droite'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnMouseUp = Button13MouseUp
-          ParentFont = False
-        end
-        object Button12: TSpeedButton
-          Left = 12
-          Height = 25
-          Top = 20
-          Width = 63
-          Caption = 'Gauche'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnMouseUp = Button12MouseUp
-          ParentFont = False
-        end
-        object CheckBox2: TCheckBox
-          Left = 9
-          Height = 21
-          Top = 96
-          Width = 61
-          Caption = 'Miroir'
-          Font.Height = 13
-          OnClick = CheckBox2Click
-          ParentFont = False
-          TabOrder = 1
-        end
-        object CheckBox1: TCheckBox
-          Left = 9
-          Height = 21
-          Top = 117
-          Width = 217
-          Caption = 'Pole celeste toujours en haut.'
-          Font.Height = 13
-          OnClick = CheckBox1Click
-          ParentFont = False
-          TabOrder = 3
-        end
-        object RadioGroup2: TRadioGroup
-          Left = 12
-          Height = 42
-          Top = 52
-          Width = 224
-          AutoFill = True
-          Caption = 'RadioGroup2'
-          ChildSizing.LeftRightSpacing = 6
-          ChildSizing.TopBottomSpacing = 6
-          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-          ChildSizing.EnlargeVertical = crsHomogenousChildResize
-          ChildSizing.ShrinkHorizontal = crsScaleChilds
-          ChildSizing.ShrinkVertical = crsScaleChilds
-          ChildSizing.Layout = cclLeftToRightThenTopToBottom
-          ChildSizing.ControlsPerLine = 2
-          ClientHeight = 24
-          ClientWidth = 222
-          Columns = 2
-          Font.Height = 13
-          Items.Strings = (
-            'nnnnnnnnnnn'
-            'sssssssssssssss'
-          )
-          OnClick = RadioGroup2Click
-          ParentFont = False
-          TabOrder = 0
-        end
-        object CheckBox4: TCheckBox
-          Left = 9
-          Height = 21
-          Top = 138
-          Width = 115
-          Caption = 'Zenith on top '
-          Font.Height = 13
-          OnClick = CheckBox4Click
-          ParentFont = False
-          TabOrder = 2
-        end
-      end
-    end
-    object Reglage: TTabSheet
-      Caption = 'Reglage'
-      ClientHeight = 478
-      ClientWidth = 336
-      Font.Height = 13
-      ParentFont = False
-      object Bevel1: TBevel
-        Left = 16
-        Height = 218
-        Top = 8
-        Width = 202
-        Style = bsRaised
-      end
-      object Label8: TLabel
-        Left = 32
-        Height = 13
-        Top = 24
-        Width = 52
-        Caption = 'Penombre'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label12: TLabel
-        Left = 32
-        Height = 13
-        Top = 135
-        Width = 30
-        Caption = 'Direct'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label11: TLabel
-        Left = 32
-        Height = 13
-        Top = 79
-        Width = 31
-        Caption = 'Diffus'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label14: TLabel
-        Left = 32
-        Height = 13
-        Top = 2
-        Width = 49
-        Caption = 'Eclairage '
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label22: TLabel
-        Left = 16
-        Height = 13
-        Top = 48
-        Width = 4
-        Caption = '-'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label29: TLabel
-        Left = 16
-        Height = 13
-        Top = 103
-        Width = 4
-        Caption = '-'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label30: TLabel
-        Left = 16
-        Height = 13
-        Top = 155
-        Width = 4
-        Caption = '-'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label32: TLabel
-        Left = 195
-        Height = 13
-        Top = 48
-        Width = 8
-        Caption = '+'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label33: TLabel
-        Left = 195
-        Height = 13
-        Top = 103
-        Width = 8
-        Caption = '+'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object Label34: TLabel
-        Left = 195
-        Height = 13
-        Top = 155
-        Width = 8
-        Caption = '+'
-        Color = clWindow
-        Font.Height = 13
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object TrackBar2: TTrackBar
-        Left = 24
-        Height = 41
-        Top = 42
-        Width = 173
-        Frequency = 20
-        Max = 128
-        OnChange = TrackBar2Change
-        PageSize = 5
-        Position = 0
-        TickStyle = tsNone
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 0
-      end
-      object TrackBar3: TTrackBar
-        Left = 24
-        Height = 41
-        Top = 98
-        Width = 173
-        Frequency = 43
-        Max = 255
-        OnChange = TrackBar3Change
-        PageSize = 5
-        Position = 0
-        TickStyle = tsNone
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 1
-      end
-      object TrackBar4: TTrackBar
-        Left = 24
-        Height = 41
-        Top = 150
-        Width = 173
-        Frequency = 43
-        Max = 255
-        OnChange = TrackBar4Change
-        PageSize = 5
-        Position = 0
-        TickStyle = tsNone
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 2
-      end
-      object Panel8: TPanel
-        Left = 16
-        Height = 129
-        Top = 234
-        Width = 202
-        ClientHeight = 129
-        ClientWidth = 202
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 3
-        object Label13: TLabel
-          Left = 13
-          Height = 13
-          Top = 40
-          Width = 56
-          Caption = 'Resolution'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label15: TLabel
-          Left = 13
-          Height = 13
-          Top = 111
-          Width = 27
-          Caption = '0 FPS'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label16: TLabel
-          Left = 13
-          Height = 13
-          Top = 4
-          Width = 64
-          Caption = 'Performance'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label31: TLabel
-          Left = 1
-          Height = 13
-          Top = 62
-          Width = 4
-          Caption = '-'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label35: TLabel
-          Left = 179
-          Height = 13
-          Top = 62
-          Width = 8
-          Caption = '+'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object TrackBar5: TTrackBar
-          Left = 7
-          Height = 41
-          Top = 56
-          Width = 173
-          Max = 6
-          Min = 1
-          OnChange = TrackBar5Change
-          PageSize = 1
-          Position = 1
-          TickStyle = tsNone
-          Font.Height = 13
-          ParentFont = False
-          TabOrder = 0
-        end
-      end
-      object GroupBox2: TGroupBox
-        Left = 16
-        Height = 71
-        Top = 368
-        Width = 202
-        Caption = 'Options valid at next startup'
-        ClientHeight = 53
-        ClientWidth = 200
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 4
-        object CheckBox8: TCheckBox
-          Left = 6
-          Height = 19
-          Top = 10
-          Width = 155
-          Caption = 'Force texture compression'
-          Font.Height = 13
-          OnClick = CheckBox8Click
-          ParentFont = False
-          TabOrder = 0
-        end
-        object CheckBox3: TCheckBox
-          Left = 6
-          Height = 19
-          Top = 32
-          Width = 69
-          Caption = 'Anti-Alias'
-          Font.Height = 13
-          OnClick = CheckBox3Click
-          ParentFont = False
-          TabOrder = 1
-          Visible = False
-        end
-      end
-      object Button21: TSpeedButton
-        Left = 111
-        Height = 25
-        Top = 186
-        Width = 86
-        Caption = 'Button21'
-        Flat = True
-        Font.Height = 13
-        Transparent = False
-        OnClick = Button21Click
-        ParentFont = False
-      end
-    end
-    object dbtab: TTabSheet
-      Caption = 'Database'
-      ClientHeight = 478
-      ClientWidth = 336
-      Font.Height = 13
-      ParentFont = False
-      object StringGrid2: TStringGrid
-        Left = 0
-        Height = 435
-        Top = 0
-        Width = 343
-        Align = alClient
-        ColCount = 2
-        DefaultColWidth = 73
-        FixedRows = 0
-        Font.Height = 13
-        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor]
-        ParentColor = True
-        ParentFont = False
-        TabOrder = 0
-        TitleFont.Height = 13
-        OnSetEditText = StringGrid2SetEditText
-      end
-      object Panel6: TPanel
-        Left = 0
-        Height = 33
-        Top = 435
-        Width = 343
-        Align = alBottom
-        ClientHeight = 33
-        ClientWidth = 343
-        Font.Height = 13
-        ParentFont = False
-        TabOrder = 1
-        object Button9: TSpeedButton
-          Left = 85
-          Height = 25
-          Top = 4
-          Width = 74
-          Caption = 'Enregistrer'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button9Click
-          ParentFont = False
-        end
-        object btnEffacer: TSpeedButton
-          Left = 8
-          Height = 25
-          Top = 4
-          Width = 74
-          Caption = 'Nouveau'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = btnEffacerClick
-          ParentFont = False
-        end
-        object Button19: TSpeedButton
-          Left = 162
-          Height = 25
-          Top = 4
-          Width = 72
-          Caption = 'Coord.'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = EnregistredistClick
-          ParentFont = False
-        end
-        object Button20: TSpeedButton
-          Left = 238
-          Height = 25
-          Top = 4
-          Width = 64
-          Caption = 'Delete'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button20Click
-          ParentFont = False
-        end
-      end
-    end
-  end
   object Splitter1: TSplitter
     Left = 483
     Height = 367
@@ -2496,12 +421,2102 @@ object Form1: TForm1
   end
   object Splitter2: TSplitter
     Left = 198
-    Height = 516
+    Height = 546
     Top = 35
     Width = 5
     Constraints.MinWidth = 5
     OnMoved = Splitter2Moved
     Visible = False
+  end
+  object tabs: TPanel
+    Left = 736
+    Height = 509
+    Top = 35
+    Width = 352
+    ClientHeight = 509
+    ClientWidth = 352
+    TabOrder = 8
+    object PageControl1: TPageControl
+      Left = 1
+      Height = 507
+      Top = 1
+      Width = 350
+      ActivePage = Position
+      Align = alClient
+      Font.Height = 13
+      MultiLine = True
+      ParentFont = False
+      TabIndex = 0
+      TabOrder = 0
+      OnChange = PageControl1Change
+      Options = [nboMultiLine]
+      object Position: TTabSheet
+        Caption = 'Information'
+        ClientHeight = 478
+        ClientWidth = 340
+        Font.Height = 13
+        ParentFont = False
+        object Panel1: TPanel
+          Left = 0
+          Height = 89
+          Top = 0
+          Width = 340
+          Align = alTop
+          BevelOuter = bvNone
+          BorderStyle = bsSingle
+          ClientHeight = 87
+          ClientWidth = 338
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 0
+          object GroupBox1: TGroupBox
+            Left = 1
+            Height = 53
+            Top = 35
+            Width = 336
+            Caption = 'Profil----------------------------------------------------------'
+            ClientHeight = 35
+            ClientWidth = 334
+            Font.Height = 13
+            ParentFont = False
+            TabOrder = 1
+            object Label7: TLabel
+              Left = 0
+              Height = 1
+              Top = 0
+              Width = 1
+              Alignment = taCenter
+              Color = clWindow
+              Font.Pitch = fpFixed
+              ParentColor = False
+              ParentFont = False
+              Transparent = False
+            end
+          end
+          object ComboBox1: TComboBox
+            Left = 8
+            Height = 29
+            Top = 8
+            Width = 317
+            DropDownCount = 15
+            Font.Height = 13
+            ItemHeight = 0
+            OnKeyDown = ComboBox1KeyDown
+            OnSelect = ComboBox1Select
+            ParentColor = True
+            ParentFont = False
+            TabOrder = 0
+          end
+        end
+        object Desc1: TIpHtmlPanel
+          Left = 0
+          Height = 341
+          Top = 89
+          Width = 340
+          Align = alClient
+          BorderWidth = 1
+          BorderStyle = bsSingle
+          FixedTypeface = 'Courier New'
+          DefaultTypeFace = 'Sans'
+          DefaultFontSize = 8
+          FlagErrors = False
+          MarginHeight = 5
+          MarginWidth = 5
+          PopupMenu = PopupMenu2
+          PrintSettings.MarginLeft = 0.5
+          PrintSettings.MarginTop = 0.5
+          PrintSettings.MarginRight = 0.5
+          PrintSettings.MarginBottom = 0.5
+          PrintSettings.Preview.Left = 480
+          PrintSettings.Preview.Top = 300
+          PrintSettings.Preview.Width = 1440
+          PrintSettings.Preview.Height = 900
+          TabOrder = 1
+          OnHotClick = Desc1HotClick
+        end
+        object Panel2: TPanel
+          Left = 0
+          Height = 48
+          Top = 430
+          Width = 340
+          Align = alBottom
+          BevelOuter = bvNone
+          BorderWidth = 1
+          BorderStyle = bsSingle
+          ClientHeight = 46
+          ClientWidth = 338
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 2
+          object Edit6: TEdit
+            Left = 3
+            Height = 29
+            Top = 8
+            Width = 157
+            Font.Height = 13
+            OnEditingDone = Edit6EditingDone
+            ParentColor = True
+            ParentFont = False
+            TabOrder = 0
+          end
+          object Button1: TSpeedButton
+            Left = 170
+            Height = 25
+            Top = 8
+            Width = 74
+            Caption = 'Recherche'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button1Click
+            ParentFont = False
+          end
+          object Button2: TSpeedButton
+            Left = 249
+            Height = 25
+            Top = 8
+            Width = 74
+            Caption = 'Suivant'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button2Click
+            ParentFont = False
+          end
+        end
+      end
+      object Notes: TTabSheet
+        Caption = 'Notes'
+        ClientHeight = 478
+        ClientWidth = 340
+        Font.Height = 13
+        ParentFont = False
+        object Memo1: TMemo
+          Left = 0
+          Height = 421
+          Top = 57
+          Width = 336
+          Align = alClient
+          Font.Height = 13
+          OnChange = Memo1Change
+          ParentColor = True
+          ParentFont = False
+          PopupMenu = PopupMenu2
+          ScrollBars = ssVertical
+          TabOrder = 0
+          WantTabs = True
+        end
+        object Panel7: TPanel
+          Left = 0
+          Height = 57
+          Top = 0
+          Width = 336
+          Align = alTop
+          ClientHeight = 57
+          ClientWidth = 336
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 1
+          object notes_name: TLabel
+            Left = 8
+            Height = 17
+            Top = 8
+            Width = 16
+            Caption = '    '
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Button15: TSpeedButton
+            Left = 8
+            Height = 25
+            Top = 28
+            Width = 88
+            Caption = 'Update'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = UpdNotesClick
+            ParentFont = False
+          end
+        end
+      end
+      object Ephemerides: TTabSheet
+        Caption = 'Ephemerides'
+        ClientHeight = 478
+        ClientWidth = 340
+        Font.Height = 13
+        ParentFont = False
+        object Panel4: TPanel
+          Left = 0
+          Height = 120
+          Top = 0
+          Width = 336
+          Align = alTop
+          ClientHeight = 120
+          ClientWidth = 336
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 0
+          TabStop = True
+          object Label6: TLabel
+            Left = 2
+            Height = 17
+            Top = 42
+            Width = 39
+            Caption = 'Heure'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label9: TLabel
+            Left = 2
+            Height = 17
+            Top = 10
+            Width = 31
+            Caption = 'Date'
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+          end
+          object Button3: TSpeedButton
+            Left = 148
+            Height = 22
+            Top = 95
+            Width = 33
+            AllowAllUp = True
+            Caption = '>>'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnMouseDown = Button3MouseDown
+            OnMouseLeave = Button3MouseLeave
+            OnMouseUp = Button3MouseUp
+            ParentFont = False
+          end
+          object Button6: TSpeedButton
+            Left = 104
+            Height = 22
+            Top = 95
+            Width = 33
+            AllowAllUp = True
+            Caption = '>'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnMouseDown = Button6MouseDown
+            OnMouseLeave = Button3MouseLeave
+            OnMouseUp = Button3MouseUp
+            ParentFont = False
+          end
+          object Button7: TSpeedButton
+            Left = 55
+            Height = 22
+            Top = 95
+            Width = 33
+            AllowAllUp = True
+            Caption = '<'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnMouseDown = Button7MouseDown
+            OnMouseLeave = Button3MouseLeave
+            OnMouseUp = Button3MouseUp
+            ParentFont = False
+          end
+          object Button8: TSpeedButton
+            Left = 8
+            Height = 22
+            Top = 95
+            Width = 33
+            AllowAllUp = True
+            Caption = '<<'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnMouseDown = Button8MouseDown
+            OnMouseLeave = Button3MouseLeave
+            OnMouseUp = Button3MouseUp
+            ParentFont = False
+          end
+          object NM: TImage
+            Left = 200
+            Height = 24
+            Top = 14
+            Width = 27
+            AutoSize = True
+            OnClick = NMClick
+            Picture.Data = {
+              0A544A706567496D61676518030000FFD8FFE000104A46494600010101004800
+              480000FFDB0043000302020302020303030304030304050805050404050A0707
+              06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+              1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+              1414141414141414141414141414141414141414141414141414141414141414
+              14141414141414141414141414FFC00011080018001B03012200021101031101
+              FFC4001F0000010501010101010100000000000000000102030405060708090A
+              0BFFC400B5100002010303020403050504040000017D01020300041105122131
+              410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+              191A25262728292A3435363738393A434445464748494A535455565758595A63
+              6465666768696A737475767778797A838485868788898A92939495969798999A
+              A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+              D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+              01010101010101010000000000000102030405060708090A0BFFC400B5110002
+              0102040403040705040400010277000102031104052131061241510761711322
+              328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+              292A35363738393A434445464748494A535455565758595A636465666768696A
+              737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+              A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+              E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCB5
+              B0B29B509C4512E0FF007BFBB5D7DB782ECE2B656BB9A532B9DC360F96AA7829
+              5192ECB22976202FB5768FA1CB358B4B1CD97C0C0CE71401C2F88BC1736936AB
+              770BFDA2D0FDE23EF27D6B96AF58F2A41686DA7F9D2453F8715E5F25B12E483C
+              50069787F564B0BC1E692B6D27CAFB3EF0FF006ABD82DB5AD21ED61306A76C55
+              94643CAA847E068A280391F17F8A74E86DA6B7D3D8CF7137DE915BE44AF3476D
+              CE4D145007FFD9
+            }
+          end
+          object LabelNM: TLabel
+            Left = 233
+            Height = 17
+            Top = 19
+            Width = 7
+            Caption = 'L'
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            OnClick = NMClick
+          end
+          object LabelFQ: TLabel
+            Left = 233
+            Height = 17
+            Top = 43
+            Width = 7
+            Caption = 'L'
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            OnClick = FQClick
+          end
+          object LabelFM: TLabel
+            Left = 233
+            Height = 17
+            Top = 66
+            Width = 7
+            Caption = 'L'
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            OnClick = FMClick
+          end
+          object LabelLQ: TLabel
+            Left = 233
+            Height = 17
+            Top = 91
+            Width = 7
+            Caption = 'L'
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            OnClick = LQClick
+          end
+          object FQ: TImage
+            Left = 200
+            Height = 24
+            Top = 37
+            Width = 27
+            AutoSize = True
+            OnClick = FQClick
+            Picture.Data = {
+              0A544A706567496D6167657D030000FFD8FFE000104A46494600010101004800
+              480000FFDB0043000302020302020303030304030304050805050404050A0707
+              06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+              1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+              1414141414141414141414141414141414141414141414141414141414141414
+              14141414141414141414141414FFC00011080018001B03012200021101031101
+              FFC4001F0000010501010101010100000000000000000102030405060708090A
+              0BFFC400B5100002010303020403050504040000017D01020300041105122131
+              410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+              191A25262728292A3435363738393A434445464748494A535455565758595A63
+              6465666768696A737475767778797A838485868788898A92939495969798999A
+              A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+              D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+              01010101010101010000000000000102030405060708090A0BFFC400B5110002
+              0102040403040705040400010277000102031104052131061241510761711322
+              328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+              292A35363738393A434445464748494A535455565758595A636465666768696A
+              737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+              A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+              E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCB9
+              D334D9351B9544CA7F799ABD9FE0F780FC37A8F8B2D2CB5EB39750B796366654
+              765EDC735E75E079079575903712ABB9BB2D7D01FB3D7810F8A3C7B6F676F36C
+              B89A09392320951D00F7A00D8FDA17F630B2F0C78153C71E04BC373A5AC7E65D
+              E993C8649625FEF29EE318C8EA335F1F2C7BD430D801EC6BF5BB4DF0A2787BC1
+              97F61A862F74FBA8256B88E763B6DDD236CFD0818E0D7E4EEA2A23D42E96DA60
+              20133F978FEEEE38A007685AA0D32F95DC1780B7CE8BF2EE5AFAA3F665F8A9E0
+              BF0E7C48D3755D5B5B8F4AB28207F31EE030C36DE3EE83DE8A2803BCFDAABF6D
+              CF0C6B1E12D4BC25F0E6D8DD3EA44FDB75E92331A843F7D2207925B8CB1C1EB5
+              F0634E0B1F99A8A2803FFFD9
+            }
+          end
+          object FM: TImage
+            Left = 200
+            Height = 24
+            Top = 59
+            Width = 27
+            AutoSize = True
+            OnClick = FMClick
+            Picture.Data = {
+              0A544A706567496D616765B1030000FFD8FFE000104A46494600010101004800
+              480000FFDB0043000302020302020303030304030304050805050404050A0707
+              06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+              1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+              1414141414141414141414141414141414141414141414141414141414141414
+              14141414141414141414141414FFC00011080018001B03012200021101031101
+              FFC4001F0000010501010101010100000000000000000102030405060708090A
+              0BFFC400B5100002010303020403050504040000017D01020300041105122131
+              410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+              191A25262728292A3435363738393A434445464748494A535455565758595A63
+              6465666768696A737475767778797A838485868788898A92939495969798999A
+              A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+              D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+              01010101010101010000000000000102030405060708090A0BFFC400B5110002
+              0102040403040705040400010277000102031104052131061241510761711322
+              328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+              292A35363738393A434445464748494A535455565758595A636465666768696A
+              737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+              A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+              E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCFA
+              F82BF092EBE2C7885AD03345A7DB287BA9D067E5CFDD1EE6BEE8D37E0B7C39F0
+              47872DACBFE106B0D52E0A6E9AE6E51A475E3A313D0FE55E2FFB0CEAB05B689E
+              26B25904124D2A89A54C798AB83923DABF44345F84DA06B5E0DFB1346B15DDC2
+              605C84DAD211CA0C74E7FF00D7401F0AFED27FB21F8466F874DE39F87F22585C
+              C0A1AF3474CB4472377EEF2490E07F09273CE2BE14F29CF73F857EBA6B7E1587
+              C1DA1EA2639227D38C330D4967F9C44F1A1C81E9D473EF5F929A8B3CB7F72F6C
+              A3C832314C7A66803B1F843F15AFBE12F8CA0D6ED614D420C08EEB4FB862B1CF
+              1F7538E9EC7B57E9BF87BFE0A5FF00042FBC2D6325C58EAFE1EBF8234492D0DB
+              79E32A00C8901F98668A2803E5EFDAC3F6F91F16B41BAF09782B4C7D2741BA60
+              6F353B850B73743AEC007DC52464F3935F18ACEAA00DEDFF007D5145007FFFD9
+            }
+          end
+          object LQ: TImage
+            Left = 200
+            Height = 24
+            Top = 83
+            Width = 27
+            AutoSize = True
+            OnClick = LQClick
+            Picture.Data = {
+              0A544A706567496D61676564030000FFD8FFE000104A46494600010101004800
+              480000FFDB0043000302020302020303030304030304050805050404050A0707
+              06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+              1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+              1414141414141414141414141414141414141414141414141414141414141414
+              14141414141414141414141414FFC00011080018001B03012200021101031101
+              FFC4001F0000010501010101010100000000000000000102030405060708090A
+              0BFFC400B5100002010303020403050504040000017D01020300041105122131
+              410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+              191A25262728292A3435363738393A434445464748494A535455565758595A63
+              6465666768696A737475767778797A838485868788898A92939495969798999A
+              A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+              D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+              01010101010101010000000000000102030405060708090A0BFFC400B5110002
+              0102040403040705040400010277000102031104052131061241510761711322
+              328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+              292A35363738393A434445464748494A535455565758595A636465666768696A
+              737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+              A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+              E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCE5
+              F861F0CF50F89BE224D3EC898A28D5649EE0AF112F622BE84F8ADF007C0DF0E3
+              E19C52A5A5E5D6BB2491FF00A4C93965D87FD9038FD6B77F6065B083C37E2BF3
+              1605BC9E68E213C83718D768208AF57FDA93E1EDA5AFC1FB8B98A576BC79E157
+              61212A467AE0FAD007C01E22F04C7636497965279B081BA489BEF8AE2EBD65AD
+              9A181E193E78C824E7B5795CD1E656F997F3A00F52F809F178FC26F180BCBD86
+              4BED12E47937D670BEC6651D194F4DC3B57DC3FB487ED11F087E21FC0EB6FF00
+              8453C4C64BF6920F36C2F8325C2E0FCC4AE31C7B1A28A00F827C59E34B3BAB69
+              AD74C8F73C9C497078CFAED15E7B451401FFD9
+            }
+          end
+          object nextM: TImage
+            Left = 200
+            Height = 14
+            Top = 107
+            Width = 27
+            AutoSize = True
+            OnClick = nextMClick
+            Picture.Data = {
+              0A544A706567496D6167650D030000FFD8FFE000104A46494600010102001C00
+              1C0000FFDB0043000302020302020303030304030304050805050404050A0707
+              06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+              1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+              1414141414141414141414141414141414141414141414141414141414141414
+              14141414141414141414141414FFC0001108000E001B03012200021101031101
+              FFC4001F0000010501010101010100000000000000000102030405060708090A
+              0BFFC400B5100002010303020403050504040000017D01020300041105122131
+              410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+              191A25262728292A3435363738393A434445464748494A535455565758595A63
+              6465666768696A737475767778797A838485868788898A92939495969798999A
+              A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+              D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+              01010101010101010000000000000102030405060708090A0BFFC400B5110002
+              0102040403040705040400010277000102031104052131061241510761711322
+              328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+              292A35363738393A434445464748494A535455565758595A636465666768696A
+              737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+              A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+              E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCAA
+              AFAFFE05FF00C1323E207ED17F0E34EF1AF82BC75F0FEFB4ABACC72C32EA17AB
+              71653800BDBCE82D0EC95770C8C90415652C8CAC7E40AEABC1FF00157C5FF0FF
+              0042F14E8BE1BF11EA1A2E95E28B21A7EB369673144BD8036E08E3FEFA5C8C12
+              924A99D923AB0055F1FF0084E1F02F8CB56F0FC1E20D1FC549A74C6DCEAFA04B
+              24D6370C00DC619248D0BA86CAEF0BB5B692A594AB1E7E8A2803FFD9
+            }
+          end
+          object prevM: TImage
+            Left = 200
+            Height = 14
+            Top = 0
+            Width = 27
+            AutoSize = True
+            OnClick = prevMClick
+            Picture.Data = {
+              0A544A706567496D6167652E030000FFD8FFE000104A46494600010102001C00
+              1C0000FFDB0043000302020302020303030304030304050805050404050A0707
+              06080C0A0C0C0B0A0B0B0D0E12100D0E110E0B0B1016101113141515150C0F17
+              1816141812141514FFDB00430103040405040509050509140D0B0D1414141414
+              1414141414141414141414141414141414141414141414141414141414141414
+              14141414141414141414141414FFC0001108000E001B03012200021101031101
+              FFC4001F0000010501010101010100000000000000000102030405060708090A
+              0BFFC400B5100002010303020403050504040000017D01020300041105122131
+              410613516107227114328191A1082342B1C11552D1F02433627282090A161718
+              191A25262728292A3435363738393A434445464748494A535455565758595A63
+              6465666768696A737475767778797A838485868788898A92939495969798999A
+              A2A3A4A5A6A7A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6
+              D7D8D9DAE1E2E3E4E5E6E7E8E9EAF1F2F3F4F5F6F7F8F9FAFFC4001F01000301
+              01010101010101010000000000000102030405060708090A0BFFC400B5110002
+              0102040403040705040400010277000102031104052131061241510761711322
+              328108144291A1B1C109233352F0156272D10A162434E125F11718191A262728
+              292A35363738393A434445464748494A535455565758595A636465666768696A
+              737475767778797A82838485868788898A92939495969798999AA2A3A4A5A6A7
+              A8A9AAB2B3B4B5B6B7B8B9BAC2C3C4C5C6C7C8C9CAD2D3D4D5D6D7D8D9DAE2E3
+              E4E5E6E7E8E9EAF2F3F4F5F6F7F8F9FAFFDA000C03010002110311003F00FCAA
+              AFA8BF672FF827B7C50FDA57E187893C6FE1FB7B7D3B4EB285868A9A91F28EBD
+              728E0490C0C701555448BE73613CD0B1E7FD6BC3F2ED7A7695FB4C7C60D034BB
+              2D334CF8AFE37D374DB1812DEDACED3C47791430448A15234459005550000A00
+              0000050079FEAFA55EE81AA5E699A9D95C69DA9594CF6D75677713453412A315
+              78DD1802ACAC082A4020820D51AD9F13F8AF5BF1D6BB75ADF88F58D435FD6AE8
+              2FDA351D52E9EE6E25DA81577C8E4B361555464F0140E82B1A803FFFD9
+            }
+          end
+          object jour: TLongEdit
+            Left = 144
+            Height = 29
+            Hint = '0..31'
+            Top = 4
+            Width = 26
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 2
+            Value = 31
+            MaxValue = 31
+          end
+          object mois: TLongEdit
+            Left = 102
+            Height = 29
+            Hint = '0..12'
+            Top = 4
+            Width = 26
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 1
+            Value = 1
+            MaxValue = 12
+          end
+          object annee: TLongEdit
+            Left = 43
+            Height = 29
+            Hint = '-2999..2999'
+            Top = 4
+            Width = 45
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 0
+            Value = 2002
+            MinValue = -2999
+            MaxValue = 2999
+          end
+          object seconde: TLongEdit
+            Left = 144
+            Height = 29
+            Hint = '0..59'
+            Top = 36
+            Width = 26
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 5
+            Value = 0
+            MaxValue = 59
+          end
+          object minute: TLongEdit
+            Left = 102
+            Height = 29
+            Hint = '0..59'
+            Top = 36
+            Width = 26
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 4
+            Value = 0
+            MaxValue = 59
+          end
+          object heure: TLongEdit
+            Left = 58
+            Height = 29
+            Hint = '0..23'
+            Top = 36
+            Width = 26
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 3
+            Value = 0
+            MaxValue = 23
+          end
+          object Button4: TSpeedButton
+            Left = 112
+            Height = 25
+            Top = 63
+            Width = 69
+            Caption = 'Compute'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button4Click
+            ParentFont = False
+          end
+          object Button5: TSpeedButton
+            Left = 2
+            Height = 25
+            Top = 63
+            Width = 77
+            Caption = 'Maintenant'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button5Click
+            ParentFont = False
+          end
+          object UpDown1: TUpDown
+            Left = 88
+            Height = 29
+            Top = 4
+            Width = 13
+            Associate = annee
+            Max = 2999
+            Min = -2999
+            Position = 2002
+            TabOrder = 6
+            Thousands = False
+          end
+          object UpDown2: TUpDown
+            Left = 128
+            Height = 29
+            Top = 4
+            Width = 13
+            Associate = mois
+            Max = 12
+            Min = 1
+            Position = 1
+            TabOrder = 7
+            Wrap = True
+          end
+          object UpDown3: TUpDown
+            Left = 170
+            Height = 29
+            Top = 4
+            Width = 13
+            Associate = jour
+            Max = 31
+            Min = 1
+            Position = 31
+            TabOrder = 9
+            Wrap = True
+          end
+          object UpDown4: TUpDown
+            Left = 84
+            Height = 29
+            Top = 36
+            Width = 13
+            Associate = heure
+            Max = 23
+            Min = 0
+            Position = 0
+            TabOrder = 11
+            Wrap = True
+          end
+          object UpDown5: TUpDown
+            Left = 128
+            Height = 29
+            Top = 36
+            Width = 13
+            Associate = minute
+            Max = 59
+            Min = 0
+            Position = 0
+            TabOrder = 8
+            Wrap = True
+          end
+          object UpDown6: TUpDown
+            Left = 170
+            Height = 29
+            Top = 36
+            Width = 13
+            Associate = seconde
+            Max = 59
+            Min = 0
+            Position = 0
+            TabOrder = 10
+            Wrap = True
+          end
+          object Button10: TSpeedButton
+            Left = 83
+            Height = 25
+            Top = 63
+            Width = 26
+            Caption = '0h'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button10Click
+            ParentFont = False
+          end
+        end
+        object StringGrid1: TStringGrid
+          Left = 0
+          Height = 358
+          Top = 120
+          Width = 336
+          Align = alClient
+          BorderStyle = bsNone
+          ColCount = 2
+          DefaultColWidth = 139
+          DefaultRowHeight = 18
+          FixedColor = clDefault
+          FixedCols = 0
+          Font.Height = 13
+          Options = [goFixedVertLine, goVertLine, goRangeSelect, goColSizing, goThumbTracking, goDblClickAutoSize, goSmoothScroll]
+          ParentColor = True
+          ParentFont = False
+          PopupMenu = PopupMenu2
+          RowCount = 26
+          TabOrder = 1
+          TabStop = False
+          TitleFont.Height = 13
+          TitleStyle = tsStandard
+        end
+      end
+      object Terminateur: TTabSheet
+        Caption = 'Terminateur'
+        ClientHeight = 478
+        ClientWidth = 340
+        Font.Height = 13
+        ParentFont = False
+        object Panel5: TPanel
+          Left = 0
+          Height = 161
+          Top = 0
+          Width = 336
+          Align = alTop
+          ClientHeight = 161
+          ClientWidth = 336
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 0
+          object Label19: TLabel
+            Left = 8
+            Height = 17
+            Top = 14
+            Width = 47
+            Caption = 'Interet '
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label20: TLabel
+            Left = 8
+            Height = 17
+            Top = 42
+            Width = 71
+            Caption = 'Instrument'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label21: TLabel
+            Left = 168
+            Height = 17
+            Top = 42
+            Width = 30
+            Caption = 'mm.'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object ComboBox2: TComboBox
+            Left = 104
+            Height = 21
+            Top = 4
+            Width = 156
+            Font.Height = 13
+            ItemHeight = 0
+            ItemIndex = 0
+            Items.Strings = (
+              '1'
+              '2'
+              '3'
+              '4'
+            )
+            OnChange = ComboBox2Change
+            ParentColor = True
+            ParentFont = False
+            TabOrder = 0
+            Text = '1'
+          end
+          object ComboBox3: TComboBox
+            Left = 104
+            Height = 21
+            Top = 36
+            Width = 56
+            Font.Height = 13
+            ItemHeight = 0
+            ItemIndex = 0
+            Items.Strings = (
+              '999'
+              '250'
+              '150'
+              '100'
+              '50'
+              '30'
+              '5'
+            )
+            OnChange = ComboBox2Change
+            ParentColor = True
+            ParentFont = False
+            TabOrder = 1
+            Text = '999'
+          end
+          object RadioGroup1: TRadioGroup
+            Left = 8
+            Height = 79
+            Top = 64
+            Width = 252
+            AutoFill = True
+            Caption = 'Tri'
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.TopBottomSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 2
+            ClientHeight = 61
+            ClientWidth = 250
+            Columns = 2
+            Font.Height = 13
+            Items.Strings = (
+              'Nom'
+              'Interet'
+              'Instrument'
+              'Latitude'
+            )
+            OnClick = ComboBox2Change
+            ParentFont = False
+            TabOrder = 2
+          end
+          object ToolBar3: TToolBar
+            Left = 272
+            Height = 24
+            Top = 119
+            Width = 27
+            Align = alNone
+            AutoSize = True
+            ButtonHeight = 24
+            ButtonWidth = 24
+            Caption = 'ToolBar3'
+            Color = clBtnFace
+            EdgeBorders = []
+            EdgeInner = esNone
+            EdgeOuter = esNone
+            Font.Height = 13
+            Images = ImageListDay
+            ParentColor = False
+            ParentFont = False
+            TabOrder = 3
+            object ToolButton16: TToolButton
+              Left = 1
+              Top = 0
+              Caption = 'ToolButton16'
+              ImageIndex = 18
+              OnClick = ToolButton16Click
+            end
+          end
+        end
+        object ListBox1: TListBox
+          Left = 0
+          Height = 317
+          Top = 161
+          Width = 336
+          Align = alClient
+          Font.Height = 13
+          ItemHeight = 0
+          OnClick = ListBox1Click
+          ParentColor = True
+          ParentFont = False
+          ScrollWidth = 334
+          Sorted = True
+          TabOrder = 1
+          TopIndex = -1
+        end
+      end
+      object Outils: TTabSheet
+        Caption = 'Outils'
+        ClientHeight = 478
+        ClientWidth = 340
+        Font.Height = 13
+        ParentFont = False
+        object GroupBox3: TGroupBox
+          Left = 8
+          Height = 323
+          Top = 146
+          Width = 250
+          Caption = 'Satellisation'
+          ClientHeight = 305
+          ClientWidth = 248
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 6
+          Visible = False
+          object Label4: TLabel
+            Left = 16
+            Height = 17
+            Top = 20
+            Width = 123
+            Caption = 'Vitesse de rotation'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object SpeedButton1: TSpeedButton
+            Left = 7
+            Height = 22
+            Top = 57
+            Width = 48
+            Caption = '<'
+            Flat = True
+            Font.Height = 13
+            OnClick = SpeedButton1Click
+            ParentFont = False
+          end
+          object SpeedButton2: TSpeedButton
+            Left = 123
+            Height = 22
+            Top = 57
+            Width = 48
+            Caption = 'O'
+            Flat = True
+            Font.Height = 13
+            OnClick = SpeedButton2Click
+            ParentFont = False
+          end
+          object SpeedButton3: TSpeedButton
+            Left = 181
+            Height = 22
+            Top = 57
+            Width = 48
+            Caption = '>'
+            Flat = True
+            Font.Height = 13
+            OnClick = SpeedButton3Click
+            ParentFont = False
+          end
+          object SpeedButton4: TSpeedButton
+            Left = 157
+            Height = 22
+            Top = 97
+            Width = 72
+            Caption = 'Vue Est'
+            Flat = True
+            Font.Height = 13
+            OnClick = SpeedButton4Click
+            ParentFont = False
+          end
+          object SpeedButton5: TSpeedButton
+            Left = 7
+            Height = 22
+            Top = 97
+            Width = 72
+            Caption = 'Vue Ouest'
+            Flat = True
+            Font.Height = 13
+            OnClick = SpeedButton5Click
+            ParentFont = False
+          end
+          object SpeedButton6: TSpeedButton
+            Left = 82
+            Height = 22
+            Top = 97
+            Width = 72
+            Caption = 'Centre'
+            Flat = True
+            Font.Height = 13
+            OnClick = SpeedButton6Click
+            ParentFont = False
+          end
+          object Label17: TLabel
+            Left = 7
+            Height = 17
+            Top = 210
+            Width = 104
+            Caption = 'Orbit inclination'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label18: TLabel
+            Left = 10
+            Height = 17
+            Top = 240
+            Width = 99
+            Caption = 'Satellite model'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Visible = False
+          end
+          object Label27: TLabel
+            Left = 10
+            Height = 17
+            Top = 272
+            Width = 91
+            Caption = 'View distance'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Visible = False
+          end
+          object SpeedButton7: TSpeedButton
+            Left = 67
+            Height = 22
+            Top = 57
+            Width = 48
+            Caption = '| |'
+            Flat = True
+            Font.Height = 13
+            OnClick = SpeedButton7Click
+            ParentFont = False
+          end
+          object Label5: TLabel
+            Left = 7
+            Height = 17
+            Top = 156
+            Width = 86
+            Caption = 'Orbit altitude'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label36: TLabel
+            Left = 114
+            Height = 17
+            Top = 150
+            Width = 5
+            Caption = '-'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label37: TLabel
+            Left = 113
+            Height = 17
+            Top = 206
+            Width = 5
+            Caption = '-'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label38: TLabel
+            Left = 234
+            Height = 17
+            Top = 150
+            Width = 11
+            Caption = '+'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label39: TLabel
+            Left = 233
+            Height = 17
+            Top = 206
+            Width = 11
+            Caption = '+'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object LabelAltitude: TLabel
+            Left = 123
+            Height = 15
+            Top = 131
+            Width = 106
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'LabelAltitude'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object LabelIncl: TLabel
+            Left = 123
+            Height = 15
+            Top = 186
+            Width = 106
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'LabelIncl'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object ComboBox4: TComboBox
+            Left = 121
+            Height = 21
+            Top = 16
+            Width = 96
+            Font.Height = 13
+            ItemHeight = 0
+            OnChange = ComboBox4Change
+            ParentColor = True
+            ParentFont = False
+            TabOrder = 0
+            Text = '5 ?/seconde'
+          end
+          object TrackBar6: TTrackBar
+            Left = 121
+            Height = 41
+            Top = 142
+            Width = 112
+            Frequency = 500
+            Max = 2000
+            Min = 100
+            OnChange = TrackBar6Change
+            PageSize = 100
+            Position = 800
+            TickStyle = tsNone
+            Font.Height = 13
+            ParentFont = False
+            TabOrder = 1
+          end
+          object TrackBar7: TTrackBar
+            Left = 120
+            Height = 41
+            Top = 198
+            Width = 112
+            Frequency = 15
+            Max = 90
+            Min = -90
+            OnChange = TrackBar7Change
+            Position = 0
+            TickStyle = tsNone
+            Font.Height = 13
+            ParentFont = False
+            TabOrder = 2
+          end
+          object ComboBox6: TComboBox
+            Left = 123
+            Height = 21
+            Top = 232
+            Width = 104
+            Font.Height = 13
+            ItemHeight = 0
+            ItemIndex = 0
+            Items.Strings = (
+              'None'
+              'L.E.M.'
+              'Apollo'
+            )
+            OnChange = ComboBox6Change
+            ParentColor = True
+            ParentFont = False
+            TabOrder = 3
+            Text = 'None'
+            Visible = False
+          end
+          object TrackBar8: TTrackBar
+            Left = 121
+            Height = 41
+            Top = 262
+            Width = 104
+            Frequency = 5
+            Max = 30
+            Min = 4
+            OnChange = TrackBar8Change
+            Position = 8
+            TickStyle = tsNone
+            Font.Height = 13
+            ParentFont = False
+            TabOrder = 4
+            Visible = False
+          end
+        end
+        object PanelTel: TPanel
+          Left = 8
+          Height = 160
+          Top = 311
+          Width = 250
+          BevelInner = bvLowered
+          ClientHeight = 160
+          ClientWidth = 250
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 4
+          Visible = False
+          object Label28: TLabel
+            Left = 32
+            Height = 17
+            Top = 135
+            Width = 37
+            Caption = 'every'
+            Color = clWindow
+            Enabled = False
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label26: TLabel
+            Left = 128
+            Height = 17
+            Top = 135
+            Width = 53
+            Caption = 'seconds'
+            Color = clWindow
+            Enabled = False
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label41: TLabel
+            Left = 7
+            Height = 17
+            Top = 4
+            Width = 64
+            Caption = 'Telescope'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object ComboBox5: TComboBox
+            Left = 8
+            Height = 21
+            Top = 26
+            Width = 104
+            Font.Height = 13
+            ItemHeight = 0
+            OnChange = ComboBox5Change
+            ParentColor = True
+            ParentFont = False
+            Sorted = True
+            TabOrder = 0
+          end
+          object Button16: TSpeedButton
+            Left = 123
+            Height = 25
+            Top = 24
+            Width = 113
+            Caption = 'Show Menu'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button16Click
+            ParentFont = False
+          end
+          object Button17: TSpeedButton
+            Left = 8
+            Height = 25
+            Top = 57
+            Width = 99
+            Caption = 'Goto selected'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button17Click
+            ParentFont = False
+          end
+          object Button18: TSpeedButton
+            Left = 123
+            Height = 25
+            Top = 57
+            Width = 113
+            Caption = 'Sync selected'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button18Click
+            ParentFont = False
+          end
+          object CheckBox6: TCheckBox
+            Left = 8
+            Height = 21
+            Top = 89
+            Width = 114
+            Caption = 'Track position'
+            Font.Height = 13
+            OnClick = CheckBox6Click
+            ParentFont = False
+            TabOrder = 4
+          end
+          object CheckBox7: TCheckBox
+            Left = 8
+            Height = 21
+            Top = 113
+            Width = 71
+            Caption = 'Correct'
+            Enabled = False
+            Font.Height = 13
+            ParentFont = False
+            TabOrder = 1
+          end
+          object Edit5: TEdit
+            Left = 79
+            Height = 29
+            Top = 131
+            Width = 33
+            Enabled = False
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            TabOrder = 2
+            Text = '10'
+          end
+          object trackdelay: TUpDown
+            Left = 112
+            Height = 29
+            Top = 131
+            Width = 13
+            Associate = Edit5
+            Max = 60
+            Min = 0
+            Position = 10
+            TabOrder = 3
+          end
+        end
+        object Bevel4: TBevel
+          Left = 8
+          Height = 136
+          Top = 8
+          Width = 250
+          Shape = bsFrame
+        end
+        object Label24: TLabel
+          Left = 24
+          Height = 17
+          Top = 28
+          Width = 98
+          Caption = 'Distance reelle'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label25: TLabel
+          Left = 24
+          Height = 17
+          Top = 56
+          Width = 127
+          Caption = 'Distance apparente'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label1: TLabel
+          Left = 71
+          Height = 17
+          Top = 115
+          Width = 7
+          Caption = 'L'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label2: TLabel
+          Left = 135
+          Height = 17
+          Top = 115
+          Width = 9
+          Caption = 'B'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label3: TLabel
+          Left = 24
+          Height = 17
+          Top = 115
+          Width = 43
+          Caption = 'Centre'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label23: TLabel
+          Left = 16
+          Height = 17
+          Top = 4
+          Width = 65
+          Caption = ' Distance '
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Button11: TSpeedButton
+          Left = 24
+          Height = 25
+          Top = 80
+          Width = 209
+          Caption = 'Start'
+          Flat = True
+          Font.Height = 13
+          Transparent = False
+          OnClick = Button11Click
+          ParentFont = False
+        end
+        object Edit1: TEdit
+          Left = 160
+          Height = 29
+          Top = 24
+          Width = 72
+          Font.Height = 13
+          ParentColor = True
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object Edit2: TEdit
+          Left = 160
+          Height = 29
+          Top = 51
+          Width = 72
+          Font.Height = 13
+          ParentColor = True
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object Edit3: TEdit
+          Left = 82
+          Height = 29
+          Top = 111
+          Width = 41
+          Font.Height = 13
+          ParentColor = True
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 2
+        end
+        object Edit4: TEdit
+          Left = 142
+          Height = 29
+          Top = 111
+          Width = 41
+          Font.Height = 13
+          ParentColor = True
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 3
+        end
+        object Enregistredist: TSpeedButton
+          Left = 193
+          Height = 25
+          Top = 111
+          Width = 40
+          Caption = 'Copier'
+          Flat = True
+          Font.Height = 13
+          Transparent = False
+          OnClick = EnregistredistClick
+          ParentFont = False
+        end
+        object PanelRot: TPanel
+          Left = 8
+          Height = 163
+          Top = 146
+          Width = 250
+          BevelInner = bvLowered
+          ClientHeight = 163
+          ClientWidth = 250
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 5
+          object Label40: TLabel
+            Left = 9
+            Height = 17
+            Top = 4
+            Width = 54
+            Caption = 'Rotation'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Button13: TSpeedButton
+            Left = 87
+            Height = 25
+            Top = 20
+            Width = 62
+            Caption = 'Droite'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnMouseUp = Button13MouseUp
+            ParentFont = False
+          end
+          object Button12: TSpeedButton
+            Left = 12
+            Height = 25
+            Top = 20
+            Width = 63
+            Caption = 'Gauche'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnMouseUp = Button12MouseUp
+            ParentFont = False
+          end
+          object CheckBox2: TCheckBox
+            Left = 9
+            Height = 21
+            Top = 96
+            Width = 61
+            Caption = 'Miroir'
+            Font.Height = 13
+            OnClick = CheckBox2Click
+            ParentFont = False
+            TabOrder = 1
+          end
+          object CheckBox1: TCheckBox
+            Left = 9
+            Height = 21
+            Top = 117
+            Width = 217
+            Caption = 'Pole celeste toujours en haut.'
+            Font.Height = 13
+            OnClick = CheckBox1Click
+            ParentFont = False
+            TabOrder = 3
+          end
+          object RadioGroup2: TRadioGroup
+            Left = 12
+            Height = 42
+            Top = 52
+            Width = 224
+            AutoFill = True
+            Caption = 'RadioGroup2'
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.TopBottomSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 2
+            ClientHeight = 24
+            ClientWidth = 222
+            Columns = 2
+            Font.Height = 13
+            Items.Strings = (
+              'nnnnnnnnnnn'
+              'sssssssssssssss'
+            )
+            OnClick = RadioGroup2Click
+            ParentFont = False
+            TabOrder = 0
+          end
+          object CheckBox4: TCheckBox
+            Left = 9
+            Height = 21
+            Top = 138
+            Width = 115
+            Caption = 'Zenith on top '
+            Font.Height = 13
+            OnClick = CheckBox4Click
+            ParentFont = False
+            TabOrder = 2
+          end
+        end
+      end
+      object Reglage: TTabSheet
+        Caption = 'Reglage'
+        ClientHeight = 478
+        ClientWidth = 340
+        Font.Height = 13
+        ParentFont = False
+        object Bevel1: TBevel
+          Left = 16
+          Height = 218
+          Top = 8
+          Width = 202
+          Style = bsRaised
+        end
+        object Label8: TLabel
+          Left = 32
+          Height = 13
+          Top = 24
+          Width = 52
+          Caption = 'Penombre'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label12: TLabel
+          Left = 32
+          Height = 13
+          Top = 135
+          Width = 30
+          Caption = 'Direct'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label11: TLabel
+          Left = 32
+          Height = 13
+          Top = 79
+          Width = 31
+          Caption = 'Diffus'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label14: TLabel
+          Left = 32
+          Height = 13
+          Top = 2
+          Width = 49
+          Caption = 'Eclairage '
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label22: TLabel
+          Left = 16
+          Height = 13
+          Top = 48
+          Width = 4
+          Caption = '-'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label29: TLabel
+          Left = 16
+          Height = 13
+          Top = 103
+          Width = 4
+          Caption = '-'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label30: TLabel
+          Left = 16
+          Height = 13
+          Top = 155
+          Width = 4
+          Caption = '-'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label32: TLabel
+          Left = 195
+          Height = 13
+          Top = 48
+          Width = 8
+          Caption = '+'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label33: TLabel
+          Left = 195
+          Height = 13
+          Top = 103
+          Width = 8
+          Caption = '+'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label34: TLabel
+          Left = 195
+          Height = 13
+          Top = 155
+          Width = 8
+          Caption = '+'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object TrackBar2: TTrackBar
+          Left = 24
+          Height = 41
+          Top = 42
+          Width = 173
+          Frequency = 20
+          Max = 128
+          OnChange = TrackBar2Change
+          PageSize = 5
+          Position = 0
+          TickStyle = tsNone
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 0
+        end
+        object TrackBar3: TTrackBar
+          Left = 24
+          Height = 41
+          Top = 98
+          Width = 173
+          Frequency = 43
+          Max = 255
+          OnChange = TrackBar3Change
+          PageSize = 5
+          Position = 0
+          TickStyle = tsNone
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 1
+        end
+        object TrackBar4: TTrackBar
+          Left = 24
+          Height = 41
+          Top = 150
+          Width = 173
+          Frequency = 43
+          Max = 255
+          OnChange = TrackBar4Change
+          PageSize = 5
+          Position = 0
+          TickStyle = tsNone
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 2
+        end
+        object Panel8: TPanel
+          Left = 16
+          Height = 129
+          Top = 234
+          Width = 202
+          ClientHeight = 129
+          ClientWidth = 202
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 3
+          object Label13: TLabel
+            Left = 13
+            Height = 13
+            Top = 40
+            Width = 56
+            Caption = 'Resolution'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label15: TLabel
+            Left = 13
+            Height = 13
+            Top = 111
+            Width = 27
+            Caption = '0 FPS'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label16: TLabel
+            Left = 13
+            Height = 13
+            Top = 4
+            Width = 64
+            Caption = 'Performance'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label31: TLabel
+            Left = 1
+            Height = 13
+            Top = 62
+            Width = 4
+            Caption = '-'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label35: TLabel
+            Left = 179
+            Height = 13
+            Top = 62
+            Width = 8
+            Caption = '+'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object TrackBar5: TTrackBar
+            Left = 7
+            Height = 41
+            Top = 56
+            Width = 173
+            Max = 6
+            Min = 1
+            OnChange = TrackBar5Change
+            PageSize = 1
+            Position = 1
+            TickStyle = tsNone
+            Font.Height = 13
+            ParentFont = False
+            TabOrder = 0
+          end
+        end
+        object GroupBox2: TGroupBox
+          Left = 16
+          Height = 71
+          Top = 368
+          Width = 202
+          Caption = 'Options valid at next startup'
+          ClientHeight = 53
+          ClientWidth = 200
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 4
+          object CheckBox8: TCheckBox
+            Left = 6
+            Height = 19
+            Top = 10
+            Width = 155
+            Caption = 'Force texture compression'
+            Font.Height = 13
+            OnClick = CheckBox8Click
+            ParentFont = False
+            TabOrder = 0
+          end
+          object CheckBox3: TCheckBox
+            Left = 6
+            Height = 19
+            Top = 32
+            Width = 69
+            Caption = 'Anti-Alias'
+            Font.Height = 13
+            OnClick = CheckBox3Click
+            ParentFont = False
+            TabOrder = 1
+            Visible = False
+          end
+        end
+        object Button21: TSpeedButton
+          Left = 111
+          Height = 25
+          Top = 186
+          Width = 86
+          Caption = 'Button21'
+          Flat = True
+          Font.Height = 13
+          Transparent = False
+          OnClick = Button21Click
+          ParentFont = False
+        end
+      end
+      object dbtab: TTabSheet
+        Caption = 'Database'
+        ClientHeight = 478
+        ClientWidth = 340
+        Font.Height = 13
+        ParentFont = False
+        object StringGrid2: TStringGrid
+          Left = 0
+          Height = 435
+          Top = 0
+          Width = 343
+          Align = alClient
+          ColCount = 2
+          DefaultColWidth = 73
+          FixedRows = 0
+          Font.Height = 13
+          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor]
+          ParentColor = True
+          ParentFont = False
+          TabOrder = 0
+          TitleFont.Height = 13
+          OnSetEditText = StringGrid2SetEditText
+        end
+        object Panel6: TPanel
+          Left = 0
+          Height = 33
+          Top = 435
+          Width = 343
+          Align = alBottom
+          ClientHeight = 33
+          ClientWidth = 343
+          Font.Height = 13
+          ParentFont = False
+          TabOrder = 1
+          object Button9: TSpeedButton
+            Left = 85
+            Height = 25
+            Top = 4
+            Width = 74
+            Caption = 'Enregistrer'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button9Click
+            ParentFont = False
+          end
+          object btnEffacer: TSpeedButton
+            Left = 8
+            Height = 25
+            Top = 4
+            Width = 74
+            Caption = 'Nouveau'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = btnEffacerClick
+            ParentFont = False
+          end
+          object Button19: TSpeedButton
+            Left = 162
+            Height = 25
+            Top = 4
+            Width = 72
+            Caption = 'Coord.'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = EnregistredistClick
+            ParentFont = False
+          end
+          object Button20: TSpeedButton
+            Left = 238
+            Height = 25
+            Top = 4
+            Width = 64
+            Caption = 'Delete'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button20Click
+            ParentFont = False
+          end
+        end
+      end
+    end
   end
   object FilePopup: TPopupMenu
     left = 16
@@ -2866,7 +2881,7 @@ object Form1: TForm1
     left = 293
     top = 63
     Bitmap = {
-      4C69160000001600000016000000000000000000000000000000000000000000
+      4C69180000001600000016000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4197,6 +4212,127 @@ object Form1: TForm1
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000004F4F
       4F444C4C4C430000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000004A4A4A1F00000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000000000004D4D4D3C4D4D
+      4DF34D4D4D880000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000004D4D4D3F4D4D4DE94C4C4C544D4D4DD34E4E
+      4E80000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00004D4D4D3F4D4D4DE94D4D4D3F00000000515151164D4D4DD34C4C4C7F0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000004D4D4D3C4D4D4DE84E4E
+      4E41000000000000000000000000494949154D4D4DD24D4D4D88000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000004D4D4D3C4D4D4DE84E4E4E4100000000000000000000
+      00000000000000000000494949154D4D4DD24C4C4C7F00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000004D4D
+      4D3C4D4D4DE84E4E4E4100000000000000000000000000000000000000000000
+      000000000000494949154D4D4DD24C4C4C7F0000000000000000000000000000
+      0000000000000000000000000000000000004D4D4D3C4D4D4DE84D4D4D420000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000494949154D4D4DD24C4C4C7F000000000000000000000000000000000000
+      000000000000505050204D4D4DE94C4C4C400000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000005151
+      51164D4D4DD44E4E4E5F00000000000000000000000000000000000000000000
+      0000505050200000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000494949154646
+      460B000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000000000004A4A4A1F0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000494949154646460B000000000000
+      0000000000000000000000000000505050204D4D4DE94D4D4D3F000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000515151164D4D4DD34E4E4E5F0000000000000000000000000000
+      000000000000000000004D4D4D3C4D4D4DE84D4D4D4200000000000000000000
+      0000000000000000000000000000000000000000000000000000494949154D4D
+      4DD24C4C4C7F0000000000000000000000000000000000000000000000000000
+      0000000000004D4D4D3C4D4D4DE84D4D4D420000000000000000000000000000
+      0000000000000000000000000000494949154D4D4DD24C4C4C7F000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00004D4D4D3C4D4D4DE84D4D4D42000000000000000000000000000000000000
+      0000494949154D4D4DD24C4C4C7F000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000004D4D
+      4D3C4D4D4DE84D4D4D42000000000000000000000000494949154D4D4DD24C4C
+      4C7F000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000000000004C4C4C404D4D
+      4DE94D4D4D3F00000000515151164D4D4DD34E4E4E8000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000004C4C4C404D4D4DE94E4E
+      4E554D4D4DD34E4E4E8000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000004D4D4D3C4D4D4DF34D4D4D880000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000505050200000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000
     }
   end
@@ -4231,7 +4367,7 @@ object Form1: TForm1
     left = 384
     top = 63
     Bitmap = {
-      4C69160000001600000016000000000000000000000000000000000000000000
+      4C69180000001600000016000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5562,6 +5698,127 @@ object Form1: TForm1
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000000000000000000000000000F4F4
       F444F4F4F4430000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000EFEFEF1F00000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000F2F2F23CF2F2
+      F2F3F2F2F2880000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000F3F3F33FF2F2F2E9F3F3F354F2F2F2D3F1F1
+      F180000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000F3F3F33FF2F2F2E9F3F3F33F00000000F3F3F316F2F2F2D3F3F3F37F0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000F2F2F23CF2F2F2E8F3F3
+      F341000000000000000000000000F3F3F315F2F2F2D2F2F2F288000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000F2F2F23CF2F2F2E8F3F3F34100000000000000000000
+      00000000000000000000F3F3F315F2F2F2D2F3F3F37F00000000000000000000
+      000000000000000000000000000000000000000000000000000000000000F2F2
+      F23CF2F2F2E8F3F3F34100000000000000000000000000000000000000000000
+      000000000000F3F3F315F2F2F2D2F3F3F37F0000000000000000000000000000
+      000000000000000000000000000000000000F2F2F23CF2F2F2E8F3F3F3420000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000F3F3F315F2F2F2D2F3F3F37F000000000000000000000000000000000000
+      000000000000EFEFEF20F2F2F2E9F3F3F3400000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000F3F3
+      F316F2F2F2D4F2F2F25F00000000000000000000000000000000000000000000
+      0000EFEFEF200000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000F3F3F315E8E8
+      E80B000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000EFEFEF1F0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000F3F3F315E8E8E80B000000000000
+      0000000000000000000000000000EFEFEF20F2F2F2E9F3F3F33F000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000F3F3F316F2F2F2D3F2F2F25F0000000000000000000000000000
+      00000000000000000000F2F2F23CF2F2F2E8F3F3F34200000000000000000000
+      0000000000000000000000000000000000000000000000000000F3F3F315F2F2
+      F2D2F3F3F37F0000000000000000000000000000000000000000000000000000
+      000000000000F2F2F23CF2F2F2E8F3F3F3420000000000000000000000000000
+      0000000000000000000000000000F3F3F315F2F2F2D2F3F3F37F000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000F2F2F23CF2F2F2E8F3F3F342000000000000000000000000000000000000
+      0000F3F3F315F2F2F2D2F3F3F37F000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000F2F2
+      F23CF2F2F2E8F3F3F342000000000000000000000000F3F3F315F2F2F2D2F3F3
+      F37F000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000F3F3F340F2F2
+      F2E9F3F3F33F00000000F3F3F316F2F2F2D3F1F1F18000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000F3F3F340F2F2F2E9F3F3
+      F355F2F2F2D3F1F1F18000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000F2F2F23CF2F2F2F3F2F2F2880000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000EFEFEF200000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000
     }
   end

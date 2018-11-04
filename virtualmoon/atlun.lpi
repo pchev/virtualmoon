@@ -116,7 +116,7 @@
         <PackageName Value="LCL"/>
       </Item9>
     </RequiredPackages>
-    <Units Count="23">
+    <Units Count="24">
       <Unit0>
         <Filename Value="atlun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -240,8 +240,16 @@
         <Filename Value="view3d.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_3d"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit22>
+      <Unit23>
+        <Filename Value="tabsdock.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_tabsdock"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit23>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
