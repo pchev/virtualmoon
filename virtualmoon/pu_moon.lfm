@@ -10,22 +10,22 @@ object f_moon: Tf_moon
   DesignTimePPI = 95
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.8.4.0'
-  Visible = False
   object Moon: TPanel
     Left = 200
     Height = 500
     Top = 0
     Width = 500
+    BevelOuter = bvSpace
+    BevelWidth = 2
     ClientHeight = 500
     ClientWidth = 500
     TabOrder = 0
     OnResize = MoonResize
     object GLSceneViewer1: TGLSceneViewer
-      Left = 1
-      Height = 498
-      Top = 1
-      Width = 498
+      Left = 2
+      Height = 496
+      Top = 2
+      Width = 496
       Camera = GLCamera1
       Buffer.BackgroundColor = clBlack
       Buffer.AmbientColor.Red = 0
@@ -36,7 +36,7 @@ object f_moon: Tf_moon
         0000000000000000000000000000803F
       }
       Buffer.ContextOptions = [roDoubleBuffer, roStencilBuffer, roRenderToWindow]
-      FieldOfView = 4.7528223991394
+      FieldOfView = 4.73375654220581
       Align = alClient
       OnMouseDown = GLSceneViewer1MouseDown
       OnMouseMove = GLSceneViewer1MouseMove
@@ -554,6 +554,13 @@ object f_moon: Tf_moon
       Material.FrontProperties.Specular.Green = 0
       Material.FrontProperties.Specular.Blue = 0
       Material.FrontProperties.Specular.Alpha = 1
+      Material.Texture.ImageClassName = 'TGLBlankImage'
+      Material.Texture.Image.Width = 64
+      Material.Texture.Image.Height = 64
+      Material.Texture.Image.ColorFormat = 6408
+      Material.Texture.MagFilter = maNearest
+      Material.Texture.MinFilter = miNearest
+      Material.Texture.Compression = tcNone
       Material.Texture.EnvColor.Red = 0
       Material.Texture.EnvColor.Green = 0
       Material.Texture.EnvColor.Blue = 0
@@ -682,6 +689,13 @@ object f_moon: Tf_moon
       Material.FrontProperties.Specular.Green = 0
       Material.FrontProperties.Specular.Blue = 0
       Material.FrontProperties.Specular.Alpha = 1
+      Material.Texture.ImageClassName = 'TGLBlankImage'
+      Material.Texture.Image.Width = 64
+      Material.Texture.Image.Height = 64
+      Material.Texture.Image.ColorFormat = 6408
+      Material.Texture.MagFilter = maNearest
+      Material.Texture.MinFilter = miNearest
+      Material.Texture.Compression = tcNone
       Material.Texture.EnvColor.Red = 0
       Material.Texture.EnvColor.Green = 0
       Material.Texture.EnvColor.Blue = 0
@@ -739,6 +753,13 @@ object f_moon: Tf_moon
         Material.FrontProperties.Specular.Green = 0
         Material.FrontProperties.Specular.Blue = 0
         Material.FrontProperties.Specular.Alpha = 1
+        Material.Texture.ImageClassName = 'TGLBlankImage'
+        Material.Texture.Image.Width = 64
+        Material.Texture.Image.Height = 64
+        Material.Texture.Image.ColorFormat = 6408
+        Material.Texture.MagFilter = maNearest
+        Material.Texture.MinFilter = miNearest
+        Material.Texture.Compression = tcNone
         Material.Texture.EnvColor.Red = 0
         Material.Texture.EnvColor.Green = 0
         Material.Texture.EnvColor.Blue = 0
@@ -797,6 +818,13 @@ object f_moon: Tf_moon
         Material.FrontProperties.Specular.Green = 0
         Material.FrontProperties.Specular.Blue = 0
         Material.FrontProperties.Specular.Alpha = 1
+        Material.Texture.ImageClassName = 'TGLBlankImage'
+        Material.Texture.Image.Width = 64
+        Material.Texture.Image.Height = 64
+        Material.Texture.Image.ColorFormat = 6408
+        Material.Texture.MagFilter = maNearest
+        Material.Texture.MinFilter = miNearest
+        Material.Texture.Compression = tcNone
         Material.Texture.EnvColor.Red = 0
         Material.Texture.EnvColor.Green = 0
         Material.Texture.EnvColor.Blue = 0
@@ -852,6 +880,13 @@ object f_moon: Tf_moon
         Material.FrontProperties.Specular.Green = 0
         Material.FrontProperties.Specular.Blue = 0
         Material.FrontProperties.Specular.Alpha = 1
+        Material.Texture.ImageClassName = 'TGLBlankImage'
+        Material.Texture.Image.Width = 64
+        Material.Texture.Image.Height = 64
+        Material.Texture.Image.ColorFormat = 6408
+        Material.Texture.MagFilter = maNearest
+        Material.Texture.MinFilter = miNearest
+        Material.Texture.Compression = tcNone
         Material.Texture.EnvColor.Red = 0
         Material.Texture.EnvColor.Green = 0
         Material.Texture.EnvColor.Blue = 0
@@ -915,6 +950,13 @@ object f_moon: Tf_moon
         00000000000000000000000000000000
       }
       Material.BlendingMode = bmTransparency
+      Material.Texture.ImageClassName = 'TGLBlankImage'
+      Material.Texture.Image.Width = 64
+      Material.Texture.Image.Height = 64
+      Material.Texture.Image.ColorFormat = 6408
+      Material.Texture.MagFilter = maNearest
+      Material.Texture.MinFilter = miNearest
+      Material.Texture.Compression = tcNone
       Material.Texture.EnvColor.Red = 0
       Material.Texture.EnvColor.Green = 0
       Material.Texture.EnvColor.Blue = 0

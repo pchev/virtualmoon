@@ -29,14 +29,14 @@ echo Install virtualmoon data to $destdir
 
 install -m 755 -d $destdir
 install -m 755 -d $destdir/Database
-install -v -m 644 "Database/AVL Named EN.csv" $destdir/Database/
-install -v -m 644 "Database/AVL Named FR.csv" $destdir/Database/
-install -v -m 644 "Database/AVL Satellite EN.csv" $destdir/Database/
-install -v -m 644 "Database/AVL Satellite FR.csv" $destdir/Database/
-install -v -m 644 "Database/AVL Registered EN.csv" $destdir/Database/
-install -v -m 644 "Database/AVL Registered FR.csv" $destdir/Database/
-install -v -m 644 "Database/AVL Unnamed EN.csv" $destdir/Database/
-install -v -m 644 "Database/AVL Unnamed FR.csv" $destdir/Database/
+install -v -m 644 "Database/AVL Named EN_utf8.csv" $destdir/Database/
+install -v -m 644 "Database/AVL Named FR_utf8.csv" $destdir/Database/
+install -v -m 644 "Database/AVL Satellite EN_utf8.csv" $destdir/Database/
+install -v -m 644 "Database/AVL Satellite FR_utf8.csv" $destdir/Database/
+install -v -m 644 "Database/AVL Registered EN_utf8.csv" $destdir/Database/
+install -v -m 644 "Database/AVL Registered FR_utf8.csv" $destdir/Database/
+install -v -m 644 "Database/AVL Unnamed EN_utf8.csv" $destdir/Database/
+install -v -m 644 "Database/AVL Unnamed FR_utf8.csv" $destdir/Database/
 install -v -m 644 Database/glossary_uEN.csv $destdir/Database/
 install -v -m 644 Database/glossary_uFR.csv $destdir/Database/
 install -v -m 644 Database/licence.txt $destdir/Database/

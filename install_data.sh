@@ -53,14 +53,14 @@ install -v -m 644 Encyclopedia/* $destdir/share/virtualmoon/Encyclopedia/
 
 # database
 install -m 755 -d $destdir/share/virtualmoon/Database
-install -v -m 644 "Database/AVL Named EN.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Named FR.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Satellite EN.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Satellite FR.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Registered EN.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Registered FR.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Unnamed EN.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Unnamed FR.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Named EN_utf8.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Named FR_utf8.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Satellite EN_utf8.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Satellite FR_utf8.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Registered EN_utf8.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Registered FR_utf8.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Unnamed EN_utf8.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/AVL Unnamed FR_utf8.csv" $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/glossary_uEN.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/glossary_uFR.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/licence.txt $destdir/share/virtualmoon/Database/

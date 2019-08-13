@@ -40,7 +40,7 @@ uses
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   mlb2, PrintersDlgs, Printers, Controls,
   Messages, SysUtils, Classes, Dialogs, FileUtil,
-  ComCtrls, Menus, Buttons, dynlibs, BigIma, view3d,
+  ComCtrls, Menus, Buttons, dynlibs, BigIma,
   EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase,
   Math, CraterList, LResources, IpHtml, UniqueInstance, GLViewer, GLLCLViewer;
 
@@ -130,6 +130,7 @@ type
     Splitter2: TSplitter;
     StartTimer: TTimer;
     ResizeTimer: TTimer;
+    Splitter2Timer: TTimer;
     ToolBar3: TToolBar;
     ToolBar4: TToolBar;
     ToolBar5: TToolBar;
@@ -138,9 +139,17 @@ type
     ButtonWeblun: TToolButton;
     ToolButton15: TToolButton;
     ToolButton16: TToolButton;
+    ToolButton17: TToolButton;
+    ToolButton18: TToolButton;
+    ToolButton19: TToolButton;
+    ToolButton20: TToolButton;
+    ToolButton21: TToolButton;
+    ToolButtonCCD: TToolButton;
+    ToolButtonNotes: TToolButton;
+    ToolButtonEph: TToolButton;
+    ToolButtonOculaire: TToolButton;
     ToolButtonHideTools: TToolButton;
     ToolButtonDockTools: TToolButton;
-    ToolButton3D: TToolButton;
     TrackBar6: TTrackBar;
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
@@ -352,6 +361,8 @@ type
     procedure ResizeTimerTimer(Sender: TObject);
     procedure SaveEphemClick(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
+    procedure Splitter2TimerTimer(Sender: TObject);
+    procedure ToolButtonEphClick(Sender: TObject);
     procedure ToolButtonHideToolsClick(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
     procedure Splitter2Moved(Sender: TObject);
@@ -362,7 +373,7 @@ type
     procedure ToolButton16Click(Sender: TObject);
     procedure ToolButtonDockToolsClick(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
-    procedure ToolButton3DClick(Sender: TObject);
+    procedure ToolButtonNotesClick(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure ToolButton5Click(Sender: TObject);
@@ -750,7 +761,7 @@ begin
     Apropos1.Caption := rst_16;
     Button5.Caption := rst_17;
     Button4.Caption := rst_113;
-    ToolButton7.hint := rst_25;
+    ToolButton7.hint := 'PhotLun';
     Image2.Caption := ToolButton7.hint;
     Label14.Caption := rst_32;
     Label8.Caption := rst_33;
@@ -824,7 +835,7 @@ begin
     Label5.Caption:=rsOrbitAltitud;
     Label17.Caption:=rsOrbitInclina;
     ButtonWeblun.Hint:='WebLun';
-    ButtonDatabase.hint := Database1.Caption;
+    ButtonDatabase.hint := 'DatLun';
     CheckBox8.Caption := rst_182;
     Toolbutton12.hint := rsShowLabels;
     GridButton.Hint:=rsShowGrid;
@@ -3246,7 +3257,6 @@ end;
 
 procedure  TForm1.GetMsg(Sender: TObject; msgclass:TMoonMsgClass; value: String);
 begin
-if sender is Tf_moon then SetActiveMoon(Tf_moon(sender));
 case msgclass of
 MsgZoom: begin
           value:=StringReplace(value,'FOV:',rsm_43,[]);
@@ -4071,10 +4081,21 @@ end;
 
 procedure TForm1.Splitter2Moved(Sender: TObject);
 begin
-if PanelMoon.Width>0 then begin
-  SplitSize:=PanelMoon.Width/(PanelMoon.Width+PanelMoon2.Width);
-  FormResize(Sender);
+ if PanelMoon.Width>0 then begin
+   SplitSize:=PanelMoon.Width/(PanelMoon.Width+PanelMoon2.Width);
+   FormResize(Sender);
+ end;
+//   Splitter2Timer.Enabled:=false;
+//   Splitter2Timer.Enabled:=true;
 end;
+
+procedure TForm1.Splitter2TimerTimer(Sender: TObject);
+begin
+ Splitter2Timer.Enabled:=false;
+ if PanelMoon.Width>0 then begin
+   SplitSize:=PanelMoon.Width/(PanelMoon.Width+PanelMoon2.Width);
+   FormResize(Sender);
+ end;
 end;
 
 
@@ -4109,10 +4130,9 @@ begin
   FilePopup.PopUp(p.x,p.y);
 end;
 
-procedure TForm1.ToolButton3DClick(Sender: TObject);
+procedure TForm1.ToolButtonNotesClick(Sender: TObject);
 begin
-   FormPos(f_3d,mouse.CursorPos.X,Mouse.CursorPos.Y);
-   f_3d.show;
+  Notes1Click(Sender);
 end;
 
 procedure TForm1.ToolButton8Click(Sender: TObject);
@@ -4695,6 +4715,14 @@ end;
 procedure TForm1.SpeedButton7Click(Sender: TObject);
 begin
  activemoon.SatelliteRotation:=rotdirection*MinSingle;
+end;
+
+
+procedure TForm1.ToolButtonEphClick(Sender: TObject);
+begin
+ if tabs.Width<=1 then ToolButtonHideToolsClick(Sender);
+ Pagecontrol1.ActivePage := Ephemerides;
+ PageControl1Change(Sender);
 end;
 
 procedure TForm1.returncontrol(sender:TObject);
@@ -5677,11 +5705,15 @@ if NewWindowButton.Down then begin
   moon2.GLSceneViewer1.Camera.DepthOfView:=0;
   moon2.AssignMoon(moon1);
   moon2.GLSceneViewer1.Camera.DepthOfView:=cdo;
+  SetActiveMoon(moon2);
+  moon2.RefreshAll;
 end else begin
   wantbump:=moon1.Bumpmap;
   PanelMoon2.Width:=0;
   Splitter2.Visible:=false;
   PanelMoon2.Visible:=false;
+  moon2.Moon.BevelColor:=clDefault;
+  moon1.Moon.BevelColor:=clDefault;
 end;
 end;
 
@@ -5774,7 +5806,9 @@ procedure TForm1.SetActiveMoon(mf: Tf_moon);
 begin
 ToolButton14.Enabled:=mf.SatelliteRotation=0;
 if mf<>activemoon then begin
+  activemoon.Moon.BevelColor:=clDefault;
   activemoon:=Tf_moon(mf);
+  activemoon.Moon.BevelColor:=clRed;
   checkbox2.Checked:=activemoon.Mirror;
   ToolButton3.Down:=not activemoon.VisibleSideLock;
   if ToolButton3.Down then
