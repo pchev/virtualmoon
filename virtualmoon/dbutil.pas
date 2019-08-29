@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-Uses Forms, Dialogs, SysUtils, mlb2, passql, passqlite;
+Uses Forms, Dialogs, Classes, SysUtils, passql, passqlite;
 
 const
     DBversion=700;
@@ -205,35 +205,51 @@ end;
 end;
 
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
-var cmd,v: string;
+var cmd,v,buf: string;
     i,imax,ii:integer;
-    db1:Tmlb2;
+    hdr,row: TStringList;
+    f: TextFile;
+    idx: array[0..NumMoonDBFields] of integer;
 begin
 if MsgForm=nil then Application.CreateForm(TMsgForm, MsgForm);
 MsgForm.Label1.caption:=ExtractFileName(fn)+crlf+'Preparing Database. Please Wait ...';
 msgform.show;
 msgform.Refresh;
 application.ProcessMessages;
-db1:=Tmlb2.Create;
+hdr:=TStringList.Create;
+row:=TStringList.Create;
 try
-db1.init;
-db1.LoadFromFile(fn);
-db1.GoFirst;
+AssignFile(f,fn);
+Reset(f);
+ReadLn(f,buf);
+SplitRec2(buf,';',hdr);
+dbm.Query('PRAGMA journal_mode = MEMORY');
+dbm.Query('PRAGMA synchronous = OFF');
 dbm.StartTransaction;
 dbm.Query('delete from moon where DBN='+side+';');
 dbm.Commit;
 dbjournal(extractfilename(dbm.database),'DELETE ALL DBN='+side);
 v:='';
 for i:=1 to NumMoonDBFields do begin
-  ii:=db1.GetFieldIndex(MoonDBFields[i,1]);
-  if ii=0 then v:=v+MoonDBFields[i,1]+'; ';
+  ii:=hdr.IndexOf(MoonDBFields[i,1]);
+  idx[i]:=ii;
+  if ii<0 then v:=v+MoonDBFields[i,1]+'; ';
 end;
 if v>'' then dbjournal(extractfilename(dbm.database), fn+' missing fields: '+v);
 dbm.StartTransaction;
 repeat
+  ReadLn(f,buf);
+  SplitRec2(buf,';',row);
+  if row.Count<>hdr.Count then begin
+    dbjournal(extractfilename(fn), ' skip bad record: '+copy(buf,1,10)+' fields='+inttostr(row.Count)+' expected='+inttostr(hdr.Count));
+    continue;
+  end;
   cmd:='insert into moon values(NULL,'+side+',';
   for i:=1 to NumMoonDBFields do begin
-    v:=db1.GetData(MoonDBFields[i,1]);
+    if idx[i]>=0 then
+      v:=row[idx[i]]
+    else
+      v:='';
     v:=stringreplace(v,',','.',[rfreplaceall]); // look why we need that ???
     v:=stringreplace(v,'""','''',[rfreplaceall]);
     v:=stringreplace(v,'"','',[rfreplaceall]);
@@ -242,8 +258,7 @@ repeat
   cmd:=copy(cmd,1,length(cmd)-1)+');';
   dbm.Query(cmd);
   if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
-  db1.GoNext;
-until db1.EndOfFile;
+until EOF(f);
 imax:=dbm.GetLastInsertID;
 dbm.Query('update moon set wide_km=0 where wide_km="";');
 dbm.Query('update moon set wide_km=0 where wide_km="?";');
@@ -258,8 +273,8 @@ dbm.Query('insert into file_date values ('+side+','+inttostr(fileage(fn))+');');
 dbm.Commit;
 dbjournal(extractfilename(dbm.database),'INSERT DBN='+side+' MAX ID='+inttostr(imax));
 finally
-db1.Clear;
-db1.Free;
+hdr.Free;
+row.Free;
 end;
 end;
 
@@ -291,8 +306,11 @@ buf:=Slash(appdir)+Slash('Database')+'AVL Unnamed '+uplanguage+'_utf8.csv';
 if fileexists(buf) then database[4]:=buf
    else database[4]:=Slash(appdir)+Slash('Database')+'AVL Unnamed EN_utf8.csv';
 
+buf:=Slash(appdir)+Slash('Database')+'AVL Unnamed 2 EN.csv';
+database[5]:=buf;
+
 CreateDB(dbm);
-for i:=1 to 4 do begin
+for i:=1 to 5 do begin
   if usedatabase[i] then begin
      buf:=dbm.QueryOne('select fdate from file_date where dbn='+inttostr(i)+';');
      if buf='' then db_age:=0 else db_age:=strtoint(buf);

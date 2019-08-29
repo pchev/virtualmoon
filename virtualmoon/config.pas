@@ -46,6 +46,7 @@ type
     Button8: TSpeedButton;
     Button9: TSpeedButton;
     CheckBox10: TCheckBox;
+    CheckBox23: TCheckBox;
     ColorDialog1: TColorDialog;
     ComboBox6: TComboBox;
     ComboBoxCountry: TComboBox;
@@ -341,6 +342,7 @@ begin
       Checkbox20.Caption := rsSatellitesFo;
       Checkbox21.Caption := rsRegistredFor;
       Checkbox22.Caption := rsUnnamedForma;
+      Checkbox23.Caption := rsUnnamedForma+' 2';
       label28.Caption := rst_124;
       GroupBox1.Caption := rst_129;
       TabSheet7.Caption := GroupBox1.Caption;

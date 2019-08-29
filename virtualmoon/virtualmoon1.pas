@@ -1312,7 +1312,7 @@ procedure TForm1.GetLabel(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
     w, wmin, wfact, l1, b1: single;
     miniok,IsLUN:    boolean;
-    nom, let, dbn:  string;
+    nom, let, dbn, sl:  string;
     j: integer;
 begin
 // Labels
@@ -1323,12 +1323,20 @@ begin
   // minimal feature size
     wfact := 1;
     LabelDensity := maxintvalue([100, LabelDensity]);
-    if (Tf_moon(Sender).Zoom >= 30) and (Tf_moon(Sender).Zoom >= (Tf_moon(Sender).ZoomMax-5)) then
+
+    if (Tf_moon(Sender).Zoom >= 30) and (LabelDensity<300) and (Tf_moon(Sender).Zoom >= (Tf_moon(Sender).ZoomMax-5)) then
       wmin := -1
     else
-      wmin := MinValue([650.0, 3 * LabelDensity / (Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)]);
+      wmin := MinValue([650.0, 3 * LabelDensity / ((Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)/(1+3*Tf_moon(Sender).Zoom/90))]);
+
+    if Tf_moon(Sender).Zoom<10 then begin
+      sl:=StringReplace(sidelist,',4','',[]);
+      sl:=StringReplace(sl,',5','',[]);
+    end
+    else
+      sl:=sidelist;
     dbm.Query('select NAME,LONGI_N,LATI_N,WIDE_KM,WIDE_MI,LENGTH_KM,LENGTH_MI,LUN,DBN from moon' +
-      ' where DBN in (' + sidelist + ')' + ' and LONGI_N > ' +
+      ' where DBN in (' + sl + ')' + ' and LONGI_N > ' +
       formatfloat(f2, rad2deg*lmin) + ' and LONGI_N < ' + formatfloat(f2, rad2deg*lmax) +
       ' and LATI_N > ' + formatfloat(f2, rad2deg*bmin) +
       ' and LATI_N < ' + formatfloat(f2, rad2deg*bmax) +
@@ -3776,6 +3784,7 @@ begin
     form2.checkbox20.Checked := usedatabase[2];
     form2.checkbox21.Checked := usedatabase[3];
     form2.checkbox22.Checked := usedatabase[4];
+    form2.checkbox23.Checked := usedatabase[5];
     ListUserDB;
     form2.checkbox1.Checked := phaseeffect;
     form2.checkbox2.Checked := librationeffect;
@@ -3918,10 +3927,13 @@ begin
         reloaddb := True;
       if usedatabase[4] <> form2.checkbox22.Checked then
         reloaddb := True;
+      if usedatabase[5] <> form2.checkbox23.Checked then
+        reloaddb := True;
       usedatabase[1] := form2.checkbox19.Checked;
       usedatabase[2] := form2.checkbox20.Checked;
       usedatabase[3] := form2.checkbox21.Checked;
       usedatabase[4] := form2.checkbox22.Checked;
+      usedatabase[5] := form2.checkbox23.Checked;
       for i := 0 to form2.Checklistbox1.Count - 1 do
       begin
         j := (form2.Checklistbox1.Items.Objects[i] as TDBinfo).dbnum;

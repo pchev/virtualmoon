@@ -49,6 +49,7 @@ function SubColor(c1,c2 : Tcolor):Tcolor;
 function roundF(x:double;n:integer):double;
 procedure Splitarg(buf,sep:string; var arg: TStringList);
 procedure SplitRec(buf,sep:string; var arg: TStringList);
+procedure SplitRec2(buf:string; sep:char; var arg: TStringList);
 function ExpandTab(str:string; tabwidth:integer):string;
 function words(str,sep : string; p,n : integer) : string;
 function wordspace(str:string):string;
@@ -323,6 +324,21 @@ while pos(sep,buf)<>0 do begin
  end;
 end;
 arg.add(buf);
+end;
+
+// same as SplitRec but single char separator
+procedure SplitRec2(buf:string; sep:char; var arg: TStringList);
+var i,j:integer;
+begin
+arg.clear;
+j:=1;
+for i:=1 to length(buf) do begin
+  if buf[i] = sep then begin
+      arg.add(copy(buf,j,i-j));
+      j:=i+1;
+  end;
+end;
+arg.add(copy(buf,j,99999));
 end;
 
 function ExpandTab(str:string; tabwidth:integer):string;
