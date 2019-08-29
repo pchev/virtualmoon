@@ -3784,7 +3784,8 @@ begin
     form2.checkbox20.Checked := usedatabase[2];
     form2.checkbox21.Checked := usedatabase[3];
     form2.checkbox22.Checked := usedatabase[4];
-    form2.checkbox23.Checked := usedatabase[5];
+    form2.checkbox23.Visible := FileExists(Slash(appdir)+Slash('Database')+'AVL Unnamed 2-0');
+    form2.checkbox23.Checked := form2.checkbox23.Visible and usedatabase[5];
     ListUserDB;
     form2.checkbox1.Checked := phaseeffect;
     form2.checkbox2.Checked := librationeffect;

@@ -340,8 +340,10 @@ for i:=1 to 5 do begin
         needvacuum:=true;
      end;
      end
-     else
-       missingf:=missingf+database[i]+blank;
+     else begin
+       usedatabase[i]:=false;
+       if i<>5 then missingf:=missingf+database[i]+blank;
+     end;
   end;
 end;
 if needvacuum then dbm.Query('Vacuum;');
