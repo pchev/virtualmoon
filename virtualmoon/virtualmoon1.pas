@@ -1023,7 +1023,7 @@ begin
   currentselection := '';
   showlibrationmark := False;
   lockmove := False;
-  LabelDensity := 400;
+  LabelDensity := 600;
   gridspacing:=15;
   marksize := 5;
   saveimagesize := 0;
@@ -1329,8 +1329,9 @@ begin
     else
       wmin := MinValue([650.0, 3 * LabelDensity / ((Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)/(1+3*Tf_moon(Sender).Zoom/90))]);
 
-    if Tf_moon(Sender).Zoom<10 then begin
-      sl:=StringReplace(sidelist,',4','',[]);
+    if Tf_moon(Sender).Zoom<20 then begin
+      sl:=sidelist;
+      if Tf_moon(Sender).Zoom<10 then sl:=StringReplace(sl,',4','',[]);
       sl:=StringReplace(sl,',5','',[]);
     end
     else
