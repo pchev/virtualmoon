@@ -40,6 +40,7 @@ type
 
   TForm2 = class(TForm)
     Button1: TSpeedButton;
+    ButtonDefault: TButton;
     Button4: TSpeedButton;
     Button5: TSpeedButton;
     Button7: TSpeedButton;
@@ -210,6 +211,7 @@ type
     Label32: TLabel;
     TrackBar5: TTrackBar;
     procedure BumpRadioGroupClick(Sender: TObject);
+    procedure ButtonDefaultClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
@@ -559,6 +561,31 @@ begin
 TexturePanel.Visible:=(BumpRadioGroup.ItemIndex=0);
 TextureChanged:=true;
 if BumpRadioGroup.ItemIndex=2 then CheckBox11.Checked:=true;
+end;
+
+procedure TForm2.ButtonDefaultClick(Sender: TObject);
+begin
+  CheckBox1.Checked:=true;
+  CheckBox2.Checked:=true;
+  Shape1.Brush.Color:=clYellow;
+  Shape2.Brush.Color:=clRed;
+  Shape3.Brush.Color:=clYellow;
+  CheckBox14.Checked:=false;
+  CheckBox6.Checked:=true;
+  TrackBar4.Position:=5;
+  CheckBox5.Checked:=true;
+  CheckBox17.Checked:=true;
+  CheckBox18.Checked:=true;
+  TrackBar2.Position:=-600;
+  FontDialog1.Font.Name:='default';
+  FontDialog1.Font.Height:=0;
+  FontDialog1.Font.Pitch:=fpDefault;
+  FontDialog1.Font.Quality:=fqDefault;
+  FontDialog1.Font.Size:=0;
+  FontDialog1.Font.Style:=[];
+  LabelFont.Caption:=FontDialog1.Font.Name;
+  LabelFont.Font:=FontDialog1.Font;
+  LabelFont.Font.Color:=clWindowText;
 end;
 
 procedure TForm2.Button1Click(Sender: TObject);

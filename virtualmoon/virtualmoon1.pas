@@ -1014,7 +1014,7 @@ begin
   marklabelcolor := clYellow;
   markcolor := clRed;
   spritecolor:=clRed;
-  autolabelcolor := clWhite;
+  autolabelcolor := clYellow;
   labelcenter := True;
   shortdesc:=true;
   minilabel := True;
