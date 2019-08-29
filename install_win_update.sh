@@ -89,6 +89,13 @@ install -v -m 644 Database/AVL\ Named\ FR_utf8.csv $destdir/Database/
 install -v -m 644 Database/AVL\ Satellite\ FR_utf8.csv $destdir/Database/
 install -v -m 644 Database/AVL\ Registered\ FR_utf8.csv $destdir/Database/
 install -v -m 644 Database/AVL\ Unnamed\ FR_utf8.csv $destdir/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-0 $destdir/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-1 $destdir/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-2 $destdir/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-3 $destdir/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-4 $destdir/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-5 $destdir/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-6 $destdir/Database/
 
 # translation
 install -m 755 -d $destdir/language

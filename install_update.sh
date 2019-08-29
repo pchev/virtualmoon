@@ -46,6 +46,13 @@ install -v -m 644 Database/AVL\ Named\ FR_utf8.csv $destdir/share/virtualmoon/Da
 install -v -m 644 Database/AVL\ Satellite\ FR_utf8.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/AVL\ Registered\ FR_utf8.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/AVL\ Unnamed\ FR_utf8.csv $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-0 $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-1 $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-2 $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-3 $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-4 $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-5 $destdir/share/virtualmoon/Database/
+install -v -m 644 Database/AVL\ Unnamed\ 2-6 $destdir/share/virtualmoon/Database/
 
 # translation
 install -m 755 -d $destdir/share/virtualmoon/language
