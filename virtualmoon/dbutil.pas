@@ -205,8 +205,8 @@ end;
 end;
 
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
-var cmd,v,buf: string;
-    i,imax,ii:integer;
+var cmd,v,buf,fnn: string;
+    i,imax,ii,j,n:integer;
     hdr,row: TStringList;
     f: TextFile;
     idx: array[0..NumMoonDBFields] of integer;
@@ -237,28 +237,47 @@ for i:=1 to NumMoonDBFields do begin
 end;
 if v>'' then dbjournal(extractfilename(dbm.database), fn+' missing fields: '+v);
 dbm.StartTransaction;
+if side='5' then
+  n:=6    // split file
+else
+  n:=0;   // single file
+j:=0;
+fnn:=fn;
 repeat
-  ReadLn(f,buf);
-  SplitRec2(buf,';',row);
-  if row.Count<>hdr.Count then begin
-    dbjournal(extractfilename(fn), ' skip bad record: '+copy(buf,1,10)+' fields='+inttostr(row.Count)+' expected='+inttostr(hdr.Count));
-    continue;
+  repeat
+    ReadLn(f,buf);
+    SplitRec2(buf,';',row);
+    if row.Count<>hdr.Count then begin
+      dbjournal(extractfilename(fnn), ' skip bad record: '+copy(buf,1,20)+' fields='+inttostr(row.Count)+' expected='+inttostr(hdr.Count));
+      continue;
+    end;
+    cmd:='insert into moon values(NULL,'+side+',';
+    for i:=1 to NumMoonDBFields do begin
+      if idx[i]>=0 then
+        v:=row[idx[i]]
+      else
+        v:='';
+      v:=stringreplace(v,',','.',[rfreplaceall]); // look why we need that ???
+      v:=stringreplace(v,'""','''',[rfreplaceall]);
+      v:=stringreplace(v,'"','',[rfreplaceall]);
+      cmd:=cmd+'"'+v+'",';
+    end;
+    cmd:=copy(cmd,1,length(cmd)-1)+');';
+    dbm.Query(cmd);
+    if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+  until EOF(f);
+  CloseFile(f);
+  inc(j);
+  if j<=n then begin
+    fnn:=StringReplace(fn,'-0','-'+inttostr(j),[]);
+    dbjournal(extractfilename(dbm.database),'Process file: '+fnn);
+    MsgForm.Label1.caption:=ExtractFileName(fnn)+crlf+'Preparing Database. Please Wait ...';
+    MsgForm.Refresh;
+    application.ProcessMessages;
+    AssignFile(f,fnn);
+    Reset(f);
   end;
-  cmd:='insert into moon values(NULL,'+side+',';
-  for i:=1 to NumMoonDBFields do begin
-    if idx[i]>=0 then
-      v:=row[idx[i]]
-    else
-      v:='';
-    v:=stringreplace(v,',','.',[rfreplaceall]); // look why we need that ???
-    v:=stringreplace(v,'""','''',[rfreplaceall]);
-    v:=stringreplace(v,'"','',[rfreplaceall]);
-    cmd:=cmd+'"'+v+'",';
-  end;
-  cmd:=copy(cmd,1,length(cmd)-1)+');';
-  dbm.Query(cmd);
-  if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
-until EOF(f);
+until j>n;
 imax:=dbm.GetLastInsertID;
 dbm.Query('update moon set wide_km=0 where wide_km="";');
 dbm.Query('update moon set wide_km=0 where wide_km="?";');
@@ -306,7 +325,7 @@ buf:=Slash(appdir)+Slash('Database')+'AVL Unnamed '+uplanguage+'_utf8.csv';
 if fileexists(buf) then database[4]:=buf
    else database[4]:=Slash(appdir)+Slash('Database')+'AVL Unnamed EN_utf8.csv';
 
-buf:=Slash(appdir)+Slash('Database')+'AVL Unnamed 2 EN.csv';
+buf:=Slash(appdir)+Slash('Database')+'AVL Unnamed 2-0';
 database[5]:=buf;
 
 CreateDB(dbm);
