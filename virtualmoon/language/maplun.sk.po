@@ -192,6 +192,10 @@ msgstr "LOPAM fotografická"
 msgid "Melting depth :"
 msgstr ""
 
+#: u_translation.rsmeteoriticim
+msgid "Meteoritic impact"
+msgstr ""
+
 #: u_translation.rsminute
 #, fuzzy
 #| msgid "m"

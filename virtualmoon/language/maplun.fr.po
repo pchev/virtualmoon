@@ -1,13 +1,13 @@
-# pch <pch@ap-i.net>, 2018.
+# pch <pch@ap-i.net>, 2018, 2019.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2018-11-04 20:37+0100\n"
+"PO-Revision-Date: 2019-08-30 12:42+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 18.12.3\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language: fr\n"
@@ -191,6 +191,10 @@ msgstr "Photographique LOPAM"
 #: u_translation.rsmeltingdepth
 msgid "Melting depth :"
 msgstr "Epaisseur des fontes d'impact :"
+
+#: u_translation.rsmeteoriticim
+msgid "Meteoritic impact"
+msgstr "Impact météoritique"
 
 #: u_translation.rsminute
 msgctxt "u_translation.rsminute"
@@ -1328,5 +1332,4 @@ msgstr ""
 #: u_translation.rszoomlevel
 msgid "Zoom level"
 msgstr "Niveau de zoom"
-
 

@@ -1298,3 +1298,7 @@ msgstr ""
 msgid "Detach information and tools"
 msgstr ""
 
+#: u_translation:rsmeteoriticim
+msgid "Meteoritic impact"
+msgstr ""
+
