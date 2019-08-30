@@ -1310,7 +1310,7 @@ msgstr "Abandon"
 
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
-msgstr "Formations non nommées"
+msgstr "Formation non nommée"
 
 #: u_translation.rswidth
 msgid "Width"

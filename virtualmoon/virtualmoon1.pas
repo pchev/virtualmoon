@@ -2237,7 +2237,8 @@ const
 var
   nom, carte, url, img, remoteurl, txtbuf, buf, buf2, t1: string;
   ok:   boolean;
-  i, j: integer;
+  dbn, i, j: integer;
+  lkm,wkm,lmi,wmi,lon,lat: double;
   function GetField(fn:string):string;
   var k: integer;
   begin
@@ -2270,12 +2271,12 @@ begin
   if not ok then
     ok := dblox.SeekData('NAME', '=', nom);
   txt  := txt + t1 + nom + t1end + br;
-  i    := row.ByField['DBN'].AsInteger;
-  if i > 99 then
+  dbn  := row.ByField['DBN'].AsInteger;
+  if dbn > 99 then
   begin
-    txt := txt + t3 + 'From Database:' + t3end + b + IntToStr(i) + b;
+    txt := txt + t3 + 'From Database:' + t3end + b + IntToStr(dbn) + b;
     for j := 0 to form2.CheckListBox1.Count - 1 do
-      if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum = i then
+      if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum = dbn then
         txt := txt + form2.CheckListBox1.Items[j] + br;
   end;
   txt  := txt + t2 + rsIdentity + t2end + br;
@@ -2283,29 +2284,52 @@ begin
      txt  := txt + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + br;
   if (GetField('LUN_REDUCED'))>'' then
      txt  := txt + t3 + 'L.U.N.REDUCED:' + t3end + b + GetField('LUN_REDUCED') + br;
-  if (GetField('NAME_TYPE'))>'' then
-     txt  := txt + t3 + rsNameType + t3end + b + GetField('NAME_TYPE') + br;
-  if (GetField('TYPE_IAU'))>'' then
-     txt  := txt + t3 + rsIAUType + t3end + b + GetField('TYPE_IAU') + br;
-  txt  := txt + t3 + rsm_56 + t3end + b + GetField('TYPE') + br;
+  if dbn=5 then buf:=rsUnnamedForma
+           else buf:=GetField('NAME_TYPE');
+  if buf>'' then
+     txt  := txt + t3 + rsNameType + t3end + b + buf + br;
+  if dbn=5 then buf:='AA'
+           else buf:=GetField('TYPE_IAU');
+  if buf>'' then
+     txt  := txt + t3 + rsIAUType + t3end + b + buf + br;
+  if dbn=5 then buf:=rscol_1
+           else buf:=GetField('TYPE');
+  txt  := txt + t3 + rsm_56 + t3end + b + buf + br;
   if (GetField('SUBTYPE'))>'' then
      txt  := txt + t3 + rsSubType + t3end + b + GetField('SUBTYPE') + br;
   if (GetField('PERIOD'))>'' then
      txt  := txt + t3 + rsm_49 + t3end + b + GetField('PERIOD') + br;
   if (GetField('PERIOD_SOURCE'))>'' then
      txt  := txt + t3 + rsSource + t3end + b + GetField('PERIOD_SOURCE') + br;
-  if (GetField('PROCESS'))>'' then
-     txt  := txt + t3 + rsProcess + t3end + b + GetField('PROCESS') + br;
+  if dbn=5 then buf:=rsMeteoriticIm
+           else buf:=GetField('PROCESS');
+  if buf>'' then
+     txt  := txt + t3 + rsProcess + t3end + b + buf + br;
   if (GetField('GEOLOGY'))>'' then
      txt  := txt + t3 + rsGeology + t3end + b + GetField('GEOLOGY') + br;
   txt  := txt + b + br;
 
   //Taille
   txtbuf:='';
-  if (GetField('LENGTH_KM')>'')or(GetField('WIDEK_M')>'')or(GetField('LENGTH_MI')>'')or(GetField('WIDE_MI')>'') then
-     txtbuf  := txtbuf + t3 + rsm_17 + t3end + b + GetField('LENGTH_KM') + 'x' +
-             GetField('WIDE_KM') + rsm_18 + b + '/' + b + GetField('LENGTH_MI') +
-             'x' + GetField('WIDE_MI') + rsm_19 + br;
+  lkm:=0;
+  if (GetField('LENGTH_KM')>'') then begin
+     lkm:=row.ByField['LENGTH_KM'].AsFloat;
+     if GetField('WIDE_KM')>'' then
+        wkm:=row.ByField['WIDE_KM'].AsFloat
+     else
+        wkm:=0;
+     lmi:=0;
+     if GetField('LENGTH_MI')>'' then
+        lmi:=row.ByField['LENGTH_MI'].AsFloat;
+     if lmi=0 then lmi:=lkm/mikm;
+     wmi:=0;
+     if GetField('WIDE_MI')>'' then
+        wmi:=row.ByField['WIDE_MI'].AsFloat;
+     if wmi=0 then wmi:=wkm/mikm;
+     txtbuf  := txtbuf + t3 + rsm_17 + t3end + b + FormatFloat(f2,lkm) + 'x' +
+             FormatFloat(f2,wkm) + rsm_18 + b + '/' + b + FormatFloat(f2,lmi) +
+             'x' + FormatFloat(f2,wmi) + rsm_19 + br;
+  end;
   buf  := GetField('HEIGHT_M');
   buf2 := GetField('HEIGHT_FE');
   if buf <> buf2 then begin
@@ -2363,7 +2387,9 @@ begin
   //Observation
   txtbuf:='';
   if GetField('LENGTH_ARCSEC') > '' then
-     txtbuf := txtbuf + t3 + rsApparentSize + t3end + b + GetField('LENGTH_ARCSEC')+rssecond +br;
+     txtbuf := txtbuf + t3 + rsApparentSize + t3end + b + GetField('LENGTH_ARCSEC')+rssecond +br
+  else if lkm>0 then
+     txtbuf := txtbuf + t3 + rsApparentSize + t3end + b + FormatFloat(f2,3600*rad2deg*arctan(lkm/MeanEarthDistance))+rssecond +br;
   if GetField('INTEREST_C') > '' then
      txtbuf   := txtbuf + t3 + rsm_24 + t3end + b + GetField('INTEREST_C') + br;
   buf   := GetField('MOONDAY_S');
@@ -2381,13 +2407,32 @@ begin
   //Position
   txtbuf:='';
   if GetField('LONGI_C') > '' then
-     txtbuf   := txtbuf + t3 + rsm_10 + t3end + b + GetField('LONGI_C') + br;
+     txtbuf   := txtbuf + t3 + rsm_10 + t3end + b + GetField('LONGI_C') + br
+  else if GetField('LONGI_N') > '' then
+     txtbuf   := txtbuf + t3 + rsm_10 + t3end + b + LON180ToStr(row.ByField['LONGI_N'].AsFloat) + br;
   if GetField('LATI_C') > '' then
-     txtbuf   := txtbuf + t3 + rsm_11 + t3end + b + GetField('LATI_C') + br;
+     txtbuf   := txtbuf + t3 + rsm_11 + t3end + b + GetField('LATI_C') + br
+  else if GetField('LATI_N') > '' then
+     txtbuf   := txtbuf + t3 + rsm_11 + t3end + b + LatToStr(row.ByField['LATI_N'].AsFloat) + br;
   if trim(GetField('FACE')) > '' then
-     txtbuf   := txtbuf + t3 + rsSide + t3end + b + GetField('FACE') + br;
+     txtbuf   := txtbuf + t3 + rsSide + t3end + b + GetField('FACE') + br
+  else if GetField('LONGI_N') > '' then begin
+     lon:=row.ByField['LONGI_N'].AsFloat;
+     if abs(lon)<=90 then buf:='Nearside'
+                     else buf:='Farside';
+     txtbuf   := txtbuf + t3 + rsSide + t3end + b + buf + br
+  end;
   if GetField('QUADRANT') > '' then
-     txtbuf   := txtbuf + t3 + rsm_12 + t3end + b + GetField('QUADRANT') + br;
+     txtbuf   := txtbuf + t3 + rsm_12 + t3end + b + GetField('QUADRANT') + br
+  else begin
+     lon:=row.ByField['LONGI_N'].AsFloat;
+     lat:=row.ByField['LATI_N'].AsFloat;
+     if (lon<>0)and(lat<>0) then begin
+       if lat>0 then buf:=rst_72 else buf:=rst_73;
+       if lon>0 then buf:=buf+'-'+rst_66 else buf:=buf+'-'+rst_65;
+       txtbuf   := txtbuf + t3 + rsm_12 + t3end + b + buf + br;
+     end;
+  end;
   if GetField('AREA') > '' then
      txtbuf   := txtbuf + t3 + rsm_13 + t3end + b + GetField('AREA') + br;
   if txtbuf>'' then
@@ -2495,8 +2540,10 @@ begin
   end;
   if GetField('FACTS')<>'' then
      txtbuf := txtbuf + t3 + rsm_64 + t3end + b + GetField('FACTS') + br;
-  if GetField('NAME_ORIGIN')<>'' then
-     txtbuf   := txtbuf + t3 + rsm_6 + t3end + b + GetField('NAME_ORIGIN') + br;
+  if dbn=5 then buf:='Robbins 2018 / Legrand 2019'
+           else buf:=GetField('NAME_ORIGIN');
+  if buf<>'' then
+     txtbuf   := txtbuf + t3 + rsm_6 + t3end + b + buf + br;
   if GetField('LANGRENUS')<>'' then
      txtbuf   := txtbuf + t3 + rsm_7 + t3end + b + GetField('LANGRENUS') + br;
   if GetField('HEVELIUS')<>'' then
@@ -2549,8 +2596,10 @@ begin
      buf:=GetField('IAU_QUAD_CODE');
      txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + buf + br;
   end;
-  if GetField('IAU_APPROVAL_STATUS')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_STATUS:' + t3end + b + GetField('IAU_APPROVAL_STATUS') + br;
+  if dbn=5 then buf:='Not IAU approuved'
+           else buf:=GetField('IAU_APPROVAL_STATUS');
+  if buf<>'' then
+     txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_STATUS:' + t3end + b + buf + br;
   if GetField('IAU_APPROVAL_DATE')<>'' then
      txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_DATE:' + t3end + b + GetField('IAU_APPROVAL_DATE') + br;
   if GetField('IAU_REFERENCE')<>'' then

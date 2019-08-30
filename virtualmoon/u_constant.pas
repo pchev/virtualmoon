@@ -46,6 +46,7 @@ const crlf = chr(10)+chr(13);
       Rmoon = 1737.40;  // moon radius Km
       MeanEarthDistance=384401;
       footpermeter = 0.3048;
+      mikm = 1.60934;
       kmperdegree=111.1111;
       secday=3600*24;
       eps2000 = 23.439291111;

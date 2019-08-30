@@ -340,6 +340,7 @@ rsSubType = 'Sub-type :';
 rsIdentity = 'Identity:';
 rsAttachInform = 'Attach information and tools';
 rsDetachInform = 'Detach information and tools';
+rsMeteoriticIm = 'Meteoritic impact';
 
 implementation
 
