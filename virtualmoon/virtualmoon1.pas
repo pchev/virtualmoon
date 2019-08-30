@@ -532,7 +532,7 @@ type
     procedure InitDate;
     procedure SetJDDate;
     procedure GetMsg(Sender: TObject; msgclass:TMoonMsgClass; value: String);
-    procedure IdentLB(l, b, w: single);
+    procedure IdentLB(l, b, w: single; sl:string);
     procedure InitLopamIdx;
     procedure ListUserDB;
     procedure ShowImg(desc, nom: string; forceinternal: boolean);
@@ -605,7 +605,7 @@ type
     procedure LoadOverlay(fn: string; transparent: single);
     procedure GetLabel(Sender: TObject);
     procedure GetSprite(Sender: TObject);
-    function SearchAtPos(l, b, w: double): boolean;
+    function SearchAtPos(l, b, w: double;sl:string): boolean;
     procedure ListObject(delta: double);
     procedure InitTelescope;
     procedure SetFullScreen;
@@ -1905,7 +1905,7 @@ begin
   end;
 end;
 
-function Tform1.SearchAtPos(l, b, w: double): boolean;
+function Tform1.SearchAtPos(l, b, w: double;sl:string): boolean;
 var
   mindist, d, l1, b1, deltab, deltal: double;
   rec, i: integer;
@@ -1915,7 +1915,7 @@ begin
   rec     := 0;
   deltab  := 5;
   deltal  := deltab / cos(deg2rad * b);
-  dbm.query('select ID,LONGI_N,LATI_N,WIDE_KM,WIDE_MI from moon ' + ' where DBN in (' + sidelist + ')' +
+  dbm.query('select ID,LONGI_N,LATI_N,WIDE_KM,WIDE_MI from moon ' + ' where DBN in (' + sl + ')' +
     ' and LONGI_N > ' + formatfloat(f2, l - deltal) +
     ' and LONGI_N < ' + formatfloat(f2, l + deltal) +
     ' and LATI_N > ' + formatfloat(f2, b - deltab) +
@@ -3330,9 +3330,9 @@ end;
 end;
 
 
-procedure TForm1.IdentLB(l, b, w: single);
+procedure TForm1.IdentLB(l, b, w: single;sl:string);
 begin
-  if SearchAtPos(l, b, w) then
+  if SearchAtPos(l, b, w,sl) then
   begin
     l := dbm.Results[0].ByField['LONGI_N'].AsFloat;
     b := dbm.Results[0].ByField['LATI_N'].AsFloat;
@@ -5966,6 +5966,7 @@ procedure TForm1.MoonClickEvent(Sender: TObject; Button: TMouseButton;
                      Shift: TShiftState; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
 var wmin: double;
+    sl:string;
 begin
 if sender is Tf_moon then SetActiveMoon(Tf_moon(sender));
 if button=mbLeft then begin
@@ -5974,7 +5975,14 @@ if button=mbLeft then begin
       wmin := -1
     else
       wmin := MinValue([10.0, 10/(Tf_moon(Sender).Zoom)]);
-    identLB(Rad2Deg*Lon,Rad2Deg*Lat,wmin);
+    if Tf_moon(Sender).Zoom<20 then begin
+      sl:=sidelist;
+      if Tf_moon(Sender).Zoom<10 then sl:=StringReplace(sl,',4','',[]);
+      sl:=StringReplace(sl,',5','',[]);
+    end
+    else
+      sl:=sidelist;
+    identLB(Rad2Deg*Lon,Rad2Deg*Lat,wmin,sl);
     Tf_moon(Sender).SetMark(deg2rad*currentl,deg2rad*currentb,capitalize(currentname));
   end else begin
      Tf_moon(Sender).SetMark(0,0,'');
