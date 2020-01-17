@@ -47,7 +47,7 @@ type
     Button8: TSpeedButton;
     Button9: TSpeedButton;
     CheckBox10: TCheckBox;
-    CheckBox23: TCheckBox;
+    DbList: TCheckListBox;
     ColorDialog1: TColorDialog;
     ComboBox6: TComboBox;
     ComboBoxCountry: TComboBox;
@@ -95,6 +95,7 @@ type
     Label58: TLabel;
     Label59: TLabel;
     Label60: TLabel;
+    Label61: TLabel;
     Label8: TLabel;
     LabelImp: TLabel;
     LabelGrid: TLabel;
@@ -190,11 +191,6 @@ type
     Edit10: TEdit;
     TabSheet6: TTabSheet;
     TabSheet7: TTabSheet;
-    GroupBox1: TGroupBox;
-    CheckBox19: TCheckBox;
-    CheckBox20: TCheckBox;
-    CheckBox21: TCheckBox;
-    CheckBox22: TCheckBox;
     Bevel8: TBevel;
     Label23: TLabel;
     CheckBox16: TCheckBox;
@@ -220,6 +216,7 @@ type
     procedure ComboBox6Change(Sender: TObject);
     procedure ComboBoxCountryChange(Sender: TObject);
     procedure ComboBoxTZChange(Sender: TObject);
+    procedure DbListItemClick(Sender: TObject; Index: integer);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure RadioButtonAllClick(Sender: TObject);
@@ -234,7 +231,6 @@ type
     procedure StringGrid1SelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
     procedure Button6Click(Sender: TObject);
-    procedure CheckBox19Click(Sender: TObject);
     procedure StringGrid2DrawCell(Sender: TObject; ACol, ARow: Integer;
       Rect: TRect; State: TGridDrawState);
     procedure StringGrid2MouseUp(Sender: TObject; Button: TMouseButton;
@@ -340,14 +336,9 @@ begin
       stringgrid3.Cells[3, 0] := rst_64;
       Checkbox17.Caption := rst_120;
       Checkbox18.Caption := rst_121;
-      Checkbox19.Caption := rsNamedFormati;
-      Checkbox20.Caption := rsSatellitesFo;
-      Checkbox21.Caption := rsRegistredFor;
-      Checkbox22.Caption := rsUnnamedForma;
-      Checkbox23.Caption := rsUnnamedForma+' 2';
       label28.Caption := rst_124;
-      GroupBox1.Caption := rst_129;
-      TabSheet7.Caption := GroupBox1.Caption;
+      label61.Caption := rst_129;
+      TabSheet7.Caption := rst_129;
       combobox1.items[0] := rst_147;
       combobox1.items[1] := rst_148;
       combobox1.ItemIndex := 0;
@@ -763,9 +754,10 @@ begin
   TextureChanged:=true;
 end;
 
-procedure TForm2.CheckBox19Click(Sender: TObject);
+procedure TForm2.DbListItemClick(Sender: TObject; Index: integer);
 begin
- CheckBox19.Checked:=true;
+  if index=0 then
+    DbList.Checked[0]:=true;
 end;
 
 procedure TForm2.RadioButtonAllClick(Sender: TObject);
@@ -991,6 +983,7 @@ procedure TForm2.ComboBoxTZChange(Sender: TObject);
 begin
  obstz:=ComboBoxTZ.Text;
 end;
+
 
 end.
 

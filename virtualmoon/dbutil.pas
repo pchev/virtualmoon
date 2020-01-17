@@ -142,6 +142,7 @@ var
     database : array[1..9] of string;
     usedatabase :array[1..MaxDBN] of boolean;
 
+Procedure ListDB;
 Procedure LoadDB(dbm: TLiteDB);
 Procedure CreateDB(dbm: TLiteDB);
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
@@ -297,6 +298,66 @@ row.Free;
 end;
 end;
 
+Procedure ListDB;
+var f:    Tsearchrec;
+    i,j: integer;
+    dben: TStringList;
+    buf,nb: string;
+begin
+{ Mandatory database file pattern:
+  - number between 1 and 9
+  - underscore character _
+  - name of the database to show in list. Can be translated. _ replaced by space in list.
+  - underscore character _
+  - uppercase language code, two character
+  - .csv
+
+  Example:
+    1_Nearside_Named_EN.csv
+    7_Historical_EN.csv
+    7_Historique_FR.csv
+}
+  DatabaseList.Clear;
+  DatabaseList.Sorted:=true;
+  dben:=TStringList.Create;
+  dben.Sorted:=true;
+  i:=findfirst(Slash(appdir)+Slash('Database')+'*_*_EN.csv', faNormal, f);
+  while (i=0) do begin
+    dben.Add(f.Name);
+    i:=FindNext(f);
+  end;
+  findclose(f);
+  while dben.Count>9 do begin
+     dben.Delete(dben.Count-1);
+  end;
+  if uplanguage='EN' then begin
+    DatabaseList.Assign(dben);
+  end
+  else begin
+    for i:=0 to dben.Count-1 do begin
+       nb:=copy(dben[i],1,1);
+       j:=findfirst(Slash(appdir)+Slash('Database')+nb+'_*_'+uplanguage+'.csv', faNormal, f);
+       if j=0 then
+         DatabaseList.add(f.Name)
+       else
+         DatabaseList.add(dben[i]);
+       FindClose(f);
+    end;
+  end;
+  DatabaseList.Sorted:=false;
+  for i:=1 to 9 do
+    database[i]:='';
+  for i:=0 to DatabaseList.Count-1 do begin
+    buf:=DatabaseList[i];
+    database[i+1]:=Slash(appdir)+Slash('Database')+buf;
+    Delete(buf,1,2);
+    Delete(buf,Length(buf)-6,7);
+    buf:=StringReplace(buf,'_',' ',[rfReplaceAll]);
+    DatabaseList[i]:=buf;
+  end;
+  dben.Free;
+end;
+
 Procedure LoadDB(dbm: TLiteDB);
 var i,db_age : integer;
     buf,missingf:string;
@@ -309,28 +370,10 @@ dbm.Use(utf8encode(buf));
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
 try
-buf:=Slash(appdir)+Slash('Database')+'AVL Named '+uplanguage+'_utf8.csv';
-if fileexists(buf) then database[1]:=buf
-   else database[1]:=Slash(appdir)+Slash('Database')+'AVL Named EN_utf8.csv';
-
-buf:=Slash(appdir)+Slash('Database')+'AVL Satellite '+uplanguage+'_utf8.csv';
-if fileexists(buf) then database[2]:=buf
-   else database[2]:=Slash(appdir)+Slash('Database')+'AVL Satellite EN_utf8.csv';
-
-buf:=Slash(appdir)+Slash('Database')+'AVL Registered '+uplanguage+'_utf8.csv';
-if fileexists(buf) then database[3]:=buf
-   else database[3]:=Slash(appdir)+Slash('Database')+'AVL Registered EN_utf8.csv';
-
-buf:=Slash(appdir)+Slash('Database')+'AVL Unnamed '+uplanguage+'_utf8.csv';
-if fileexists(buf) then database[4]:=buf
-   else database[4]:=Slash(appdir)+Slash('Database')+'AVL Unnamed EN_utf8.csv';
-
-buf:=Slash(appdir)+Slash('Database')+'AVL Unnamed 2-0';
-database[5]:=buf;
-
+ListDB;
 CreateDB(dbm);
-for i:=1 to 5 do begin
-  if usedatabase[i] then begin
+for i:=1 to 9 do begin
+  if usedatabase[i] and (database[i]<>'') then begin
      buf:=dbm.QueryOne('select fdate from file_date where dbn='+inttostr(i)+';');
      if buf='' then db_age:=0 else db_age:=strtoint(buf);
      if fileexists(database[i]) then begin

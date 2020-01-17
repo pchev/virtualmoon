@@ -227,6 +227,7 @@ Var  Splashversion, compile_time, compile_version: string;
      currenteyepiece,marksize, CurrentCCD: integer;
      marklabelcolor, markcolor, SpriteColor: Tcolor;
      DarkTheme : boolean;
+     DatabaseList: Tstringlist;
 
 // Text formating constant
 const

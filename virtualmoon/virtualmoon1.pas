@@ -155,6 +155,7 @@ type
     TrackBar8: TTrackBar;
     TrackBar9: TTrackBar;
     trackdelay: TUpDown;
+    UniqueInstance1: TUniqueInstance;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
     UpDown2: TUpDown;
@@ -407,6 +408,7 @@ type
     procedure TrackBar7Change(Sender: TObject);
     procedure TrackBar8Change(Sender: TObject);
     procedure TrackBar9Change(Sender: TObject);
+    procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
     procedure x21Click(Sender: TObject);
     procedure x41Click(Sender: TObject);
     procedure Button12MouseUp(Sender: TObject; Button: TMouseButton;
@@ -486,7 +488,6 @@ type
     procedure CheckBox8Click(Sender: TObject);
     procedure ZoomTimerTimer(Sender: TObject);
   private
-    UniqueInstance1: TCdCUniqueInstance;
     moon1, moon2, activemoon : TF_moon;
     CursorImage1: TCursorImage;
     tz: TCdCTimeZone;
@@ -507,8 +508,6 @@ type
     procedure OpenPhotlun(objname,otherparam:string);
     procedure OpenCDC(objname,otherparam:string);
     procedure OpenWeblun(objname,otherparam:string);
-    procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
-    procedure InstanceRunning(Sender : TObject);
     procedure SetEyepieceMenu;
     procedure SetCCDMenu;
     procedure SetLang1;
@@ -3440,12 +3439,6 @@ begin
 
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
-  UniqueInstance1:=TCdCUniqueInstance.Create(self);
-  UniqueInstance1.Identifier:='Virtual_Moon_Atlas_MapLun';
-  UniqueInstance1.OnOtherInstance:=OtherInstance;
-  UniqueInstance1.OnInstanceRunning:=InstanceRunning;
-  UniqueInstance1.Enabled:=true;
-  UniqueInstance1.Loaded;
   PageControl1.ActivePageIndex:=0;
   tabs.Align:=alRight;
   Splitter1.Align:=alRight;
@@ -3499,6 +3492,7 @@ begin
   skipresize := False;
   skiporient:=false;
   skiprot:=false;
+  DatabaseList:=Tstringlist.Create;
   Fplanet    := TPlanet.Create(self);
   searchlist := TStringList.Create;
   param      := TStringList.Create;
@@ -3647,6 +3641,7 @@ try
   screen.cursor := crHourGlass;
   application.ProcessMessages;
   LoadDB(dbm);
+  form2.DbList.Items.Assign(DatabaseList);
   application.ProcessMessages;
   ListUserDB;
   InitLopamIdx;
@@ -3830,12 +3825,9 @@ begin
       form2.ComboBox2.ItemIndex := 1
     else
       form2.ComboBox2.ItemIndex := 0;
-    form2.checkbox19.Checked := usedatabase[1];
-    form2.checkbox20.Checked := usedatabase[2];
-    form2.checkbox21.Checked := usedatabase[3];
-    form2.checkbox22.Checked := usedatabase[4];
-    form2.checkbox23.Visible := FileExists(Slash(appdir)+Slash('Database')+'AVL Unnamed 2-0');
-    form2.checkbox23.Checked := form2.checkbox23.Visible and usedatabase[5];
+    for i:=0 to form2.DbList.Count-1 do begin
+      form2.DbList.Checked[i]:=(database[i+1]<>'') and usedatabase[i+1];
+    end;
     ListUserDB;
     form2.checkbox1.Checked := phaseeffect;
     form2.checkbox2.Checked := librationeffect;
@@ -3970,21 +3962,11 @@ begin
       phaseeffect     := form2.checkbox1.Checked;
       librationeffect := form2.checkbox2.Checked;
       Geocentric      := (form2.RadioGroup7.ItemIndex=1);
-      if usedatabase[1] <> form2.checkbox19.Checked then
-        reloaddb := True;
-      if usedatabase[2] <> form2.checkbox20.Checked then
-        reloaddb := True;
-      if usedatabase[3] <> form2.checkbox21.Checked then
-        reloaddb := True;
-      if usedatabase[4] <> form2.checkbox22.Checked then
-        reloaddb := True;
-      if usedatabase[5] <> form2.checkbox23.Checked then
-        reloaddb := True;
-      usedatabase[1] := form2.checkbox19.Checked;
-      usedatabase[2] := form2.checkbox20.Checked;
-      usedatabase[3] := form2.checkbox21.Checked;
-      usedatabase[4] := form2.checkbox22.Checked;
-      usedatabase[5] := form2.checkbox23.Checked;
+      for i:=0 to form2.DbList.Count-1 do begin
+        if usedatabase[i+1] <> form2.DbList.Checked[i] then
+          reloaddb := True;
+        usedatabase[i+1]:=form2.DbList.Checked[i];
+      end;
       for i := 0 to form2.Checklistbox1.Count - 1 do
       begin
         j := (form2.Checklistbox1.Items.Objects[i] as TDBinfo).dbnum;
@@ -4563,6 +4545,7 @@ begin
     end;
     dblox.Free;
     dbnotes.Free;
+    DatabaseList.Free;
     tz.Free;
     Fplanet.Free;
     overlayimg.Free;
@@ -4960,7 +4943,7 @@ begin
   combobox1.SetFocus;
 end;
 
-procedure TForm1.OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
+procedure TForm1.UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
 var i: integer;
 begin
   application.Restore;
@@ -4972,11 +4955,6 @@ begin
      end;
      ReadParam(false);
   end;
-end;
-
-procedure TForm1.InstanceRunning(Sender : TObject);
-begin
-  UniqueInstance1.RetryOrHalt;
 end;
 
 procedure TForm1.Notes1Click(Sender: TObject);

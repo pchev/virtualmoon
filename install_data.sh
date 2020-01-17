@@ -53,14 +53,18 @@ install -v -m 644 Encyclopedia/* $destdir/share/virtualmoon/Encyclopedia/
 
 # database
 install -m 755 -d $destdir/share/virtualmoon/Database
-install -v -m 644 "Database/AVL Named EN_utf8.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Named FR_utf8.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Satellite EN_utf8.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Satellite FR_utf8.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Registered EN_utf8.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Registered FR_utf8.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Unnamed EN_utf8.csv" $destdir/share/virtualmoon/Database/
-install -v -m 644 "Database/AVL Unnamed FR_utf8.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/1_Formations_nommées_FR.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/1_Named_formations_EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/2_Formations_satellites_FR.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/2_Satellite_formations_EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/3_Formations_non_nommées_FR.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/3_Unnamed_formations_EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/4_Historical_sites_EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/4_Sites_historiques_FR.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/5_Domes_EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/5_Dômes_FR.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/6_Formations_pyroclastiques_FR.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/6_Pyroclastic_formations_EN.csv" $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/glossary_uEN.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/glossary_uFR.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/licence.txt $destdir/share/virtualmoon/Database/
