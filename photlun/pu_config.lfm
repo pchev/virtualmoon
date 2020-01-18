@@ -9,8 +9,8 @@ object f_config: Tf_config
   ClientHeight = 317
   ClientWidth = 444
   OnCreate = FormCreate
+  OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.30.1'
   object StringGrid1: TStringGrid
     Left = 0
     Height = 243
@@ -18,6 +18,7 @@ object f_config: Tf_config
     Width = 444
     Align = alClient
     ColCount = 3
+    DefaultColWidth = 64
     FixedCols = 0
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor, goSmoothScroll]
     RowCount = 11
@@ -65,11 +66,11 @@ object f_config: Tf_config
     TabOrder = 2
     object Label1: TLabel
       Left = 13
-      Height = 15
+      Height = 19
       Top = 12
-      Width = 80
+      Width = 92
       Caption = 'Image folders:'
       ParentColor = False
     end
   end
-end
+end

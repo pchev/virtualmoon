@@ -21,6 +21,7 @@ type
     PanelTop: TPanel;
     StringGrid1: TStringGrid;
     procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure StringGrid1SelectCell(Sender: TObject; aCol, aRow: Integer;
       var CanSelect: Boolean);
@@ -54,7 +55,7 @@ end;
 procedure Tf_config.FormShow(Sender: TObject);
 begin
   StringGrid1.ColWidths[0]:=StringGrid1.DefaultColWidth;
-  StringGrid1.ColWidths[1]:=StringGrid1.DefaultColWidth;
+  StringGrid1.ColWidths[1]:=3*StringGrid1.DefaultColWidth;
   StringGrid1.ColWidths[2]:=StringGrid1.ClientWidth-StringGrid1.ColWidths[0]-StringGrid1.ColWidths[1];
   StringGrid1.Selection := Rect(0,3,0,3);
 end;
@@ -67,6 +68,11 @@ begin
   SetLang;
 end;
 
+procedure Tf_config.FormResize(Sender: TObject);
+begin
+  StringGrid1.ColWidths[2]:=StringGrid1.ClientWidth-StringGrid1.ColWidths[0]-StringGrid1.ColWidths[1];
+end;
+
 procedure Tf_config.StringGrid1SelectCell(Sender: TObject; aCol, aRow: Integer;
   var CanSelect: Boolean);
 begin
@@ -74,4 +80,4 @@ begin
 end;
 
 end.
-
+
