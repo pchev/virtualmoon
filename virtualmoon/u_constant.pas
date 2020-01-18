@@ -139,6 +139,7 @@ const crlf = chr(10)+chr(13);
       DefaultWeblun='weblun';
       DefaultCdC='skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
+      DefaultVignetteDir='vignette';
 {$endif}
 {$ifdef darwin}
       DefaultHome='~/';
@@ -152,6 +153,7 @@ const crlf = chr(10)+chr(13);
       DefaultWeblun='weblun.app/Contents/MacOS/weblun';
       DefaultCdC='skychart.app/Contents/MacOS/skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
+      DefaultVignetteDir='vignette';
 {$endif}
 {$ifdef mswindows}
       DefaultPrivateDir='virtualmoon';
@@ -164,6 +166,7 @@ const crlf = chr(10)+chr(13);
       DefaultWeblun='weblun.exe';
       DefaultCdC='skychart.exe';
       DefaultCdCconfig='Skychart\skychart.ini';
+      DefaultVignetteDir='vignette';
 {$endif}
 
 type
@@ -206,7 +209,7 @@ var Plan404 : TPlan404;
 
 // pseudo-constant only here
 Var  Splashversion, compile_time, compile_version: string;
-     BinDir, Homedir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir : string;
+     BinDir, Homedir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir,vignettedir : string;
      MapLun,Photlun,DatLun,WebLun,CdC,PrtName, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double;
      ObsTZ,ObsCountry: string;

@@ -64,6 +64,7 @@ type
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
     help1: TMenuItem;
+    UniqueInstance1: TUniqueInstance;
     View1: TMenuItem;
     MenuItem14: TMenuItem;
     MenuItem15: TMenuItem;
@@ -114,10 +115,10 @@ type
     procedure PanelVignetteResize(Sender: TObject);
     procedure ScrollBar1Change(Sender: TObject);
     procedure SetSizeTimer1Timer(Sender: TObject);
+    procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
     procedure VignetteClick(Sender: TObject);
   private
     { private declarations }
-    UniqueInstance1: TCdCUniqueInstance;
 
     SelectedObject, pofile : string;
     maxphoto,curphoto,photow,photoh,maxheight: integer;
@@ -132,8 +133,6 @@ type
     imgdir : array of array[0..3] of string;
     FileAgeLimit : Longint;
     StartVMA,CanCloseVMA, StartDatlun, CanCloseDatlun, lockresize: boolean;
-    procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
-    procedure InstanceRunning(Sender : TObject);
     procedure SetLang;
     Procedure ReadParam(first:boolean=true);
     procedure ReadConfig;
@@ -833,16 +832,8 @@ end;
 procedure Tf_photlun.FormCreate(Sender: TObject);
 var i: integer;
 begin
-DecimalSeparator := '.';
-ThousandSeparator:=' ';
-//{$ifndef darwin}
-  UniqueInstance1:=TCdCUniqueInstance.Create(self);
-  UniqueInstance1.Identifier:='Virtual_Moon_Atlas_PhotLun';
-  UniqueInstance1.OnOtherInstance:=@OtherInstance;
-  UniqueInstance1.OnInstanceRunning:=@InstanceRunning;
-  UniqueInstance1.Enabled:=true;
-  UniqueInstance1.Loaded;
-//{$endif}
+DefaultFormatSettings.DecimalSeparator := '.';
+DefaultFormatSettings.ThousandSeparator:=' ';
   GetAppDir;
   chdir(appdir);
   ReadConfig;
@@ -990,8 +981,7 @@ begin
   RefreshVignettes(ScrollBar1.Position);
 end;
 
-procedure Tf_photlun.OtherInstance(Sender: TObject;
-  ParamCount: Integer; Parameters: array of String);
+procedure Tf_photlun.UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
 var i: integer;
 begin
   application.Restore;
@@ -1003,12 +993,6 @@ begin
      end;
      ReadParam(false);
   end;
-end;
-
-procedure Tf_photlun.InstanceRunning(Sender : TObject);
-var i : integer;
-begin
-  UniqueInstance1.RetryOrHalt;
 end;
 
 procedure Tf_photlun.BtnLeftClick(Sender: TObject);

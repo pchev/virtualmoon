@@ -29,7 +29,7 @@ interface
 
 uses u_translation, u_bitmap, math, IniFiles, FileUtil, LazUTF8,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
-  ExtCtrls, Buttons, StdCtrls, ComCtrls, ExtDlgs, uniqueinstance;
+  ExtCtrls, Buttons, StdCtrls, ComCtrls, ExtDlgs;
 
 type
 

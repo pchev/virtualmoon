@@ -1,13 +1,12 @@
 object f_photlun: Tf_photlun
   Left = 62
-  Height = 174
+  Height = 176
   Top = 0
-  Width = 810
+  Width = 819
   ActiveControl = PanelTop
   Caption = 'Photlun'
-  ClientHeight = 174
-  ClientWidth = 810
-  DesignTimePPI = 95
+  ClientHeight = 176
+  ClientWidth = 819
   Icon.Data = {
     3E42000000000100010040400000010020002842000016000000280000004000
     0000800000000100200000000000004000006400000064000000000000000000
@@ -547,22 +546,21 @@ object f_photlun: Tf_photlun
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '1.8.0.6'
-  Visible = False
   object PanelTop: TPanel
     Left = 0
-    Height = 124
+    Height = 155
     Top = 0
-    Width = 810
+    Width = 819
     Align = alClient
-    ClientHeight = 124
-    ClientWidth = 810
+    ClientHeight = 155
+    ClientWidth = 819
+    ParentFont = False
     TabOrder = 0
     object ScrollBar1: TScrollBar
       Left = 1
       Height = 20
-      Top = 103
-      Width = 808
+      Top = 134
+      Width = 817
       Align = alBottom
       PageSize = 0
       TabOrder = 0
@@ -570,12 +568,13 @@ object f_photlun: Tf_photlun
     end
     object PanelVignette: TPanel
       Left = 1
-      Height = 120
+      Height = 121
       Top = 1
-      Width = 808
+      Width = 817
       Align = alTop
       Color = clBlack
       ParentColor = False
+      ParentFont = False
       TabOrder = 1
       OnClick = PanelVignetteClick
       OnResize = PanelVignetteResize
@@ -584,20 +583,21 @@ object f_photlun: Tf_photlun
   object StatusBar1: TStatusBar
     Left = 0
     Height = 21
-    Top = 124
-    Width = 810
+    Top = 155
+    Width = 819
     Panels = <    
       item
-        Width = 200
+        Width = 202
       end    
       item
-        Width = 50
+        Width = 51
       end>
+    ParentFont = False
     SimplePanel = False
   end
   object MainMenu1: TMainMenu
-    left = 96
-    top = 67
+    left = 97
+    top = 68
     object File1: TMenuItem
       Caption = 'File'
       object Biblio1: TMenuItem
@@ -714,7 +714,14 @@ object f_photlun: Tf_photlun
     Enabled = False
     Interval = 50
     OnTimer = SetSizeTimer1Timer
-    left = 200
-    top = 67
+    left = 202
+    top = 68
+  end
+  object UniqueInstance1: TUniqueInstance
+    Enabled = True
+    Identifier = 'Virtual_Moon_Atlas_PhotLun'
+    OnOtherInstance = UniqueInstance1OtherInstance
+    left = 310
+    top = 64
   end
 end

@@ -1,24 +1,21 @@
 object f_photo: Tf_photo
   Left = 303
-  Height = 449
+  Height = 454
   Top = 127
-  Width = 400
+  Width = 404
   BorderStyle = bsSizeToolWin
   Caption = 'Photlun'
-  ClientHeight = 449
-  ClientWidth = 400
-  DesignTimePPI = 95
+  ClientHeight = 454
+  ClientWidth = 404
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '1.8.0.6'
-  Visible = False
   object Image1: TImage
     Left = 0
-    Height = 382
+    Height = 387
     Top = 26
-    Width = 380
+    Width = 384
     Align = alClient
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
@@ -29,11 +26,12 @@ object f_photo: Tf_photo
     Left = 0
     Height = 26
     Top = 0
-    Width = 400
+    Width = 404
     Caption = 'ToolBar1'
     Color = clBtnFace
     Images = ImageList1
     ParentColor = False
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
@@ -148,30 +146,31 @@ object f_photo: Tf_photo
   object StatusBar1: TStatusBar
     Left = 0
     Height = 21
-    Top = 428
-    Width = 400
+    Top = 433
+    Width = 404
     Panels = <    
       item
-        Width = 100
+        Width = 101
       end    
       item
-        Width = 100
+        Width = 101
       end>
+    ParentFont = False
     SimplePanel = False
   end
   object HScrollBar: TScrollBar
     Left = 0
     Height = 20
-    Top = 408
-    Width = 400
+    Top = 413
+    Width = 404
     Align = alBottom
     PageSize = 0
     TabOrder = 1
     OnChange = HScrollBarChange
   end
   object VScrollBar: TScrollBar
-    Left = 380
-    Height = 382
+    Left = 384
+    Height = 387
     Top = 26
     Width = 20
     Align = alRight
@@ -184,12 +183,12 @@ object f_photo: Tf_photo
     Enabled = False
     Interval = 200
     OnTimer = ResizeTimerTimer
-    left = 296
-    top = 64
+    left = 299
+    top = 65
   end
   object ImageList1: TImageList
-    left = 236
-    top = 65
+    left = 238
+    top = 66
     Bitmap = {
       4C690E0000001000000010000000FFFFFF00FFFFFF00FFFFFF008C5A52FFD67B
       9CFF7B524AFFC65294FF7B4A4AFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -647,7 +646,7 @@ object f_photo: Tf_photo
     DefaultExt = '.jpg'
     Filter = 'JPEG Image File (*.jpg)|*.jpg'
     FilterIndex = 0
-    left = 236
-    top = 112
+    left = 238
+    top = 113
   end
 end
