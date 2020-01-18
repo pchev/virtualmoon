@@ -13,7 +13,6 @@ object f_craterlist: Tf_craterlist
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   Position = poDefaultPosOnly
-  Visible = False
   object CraterLst: TListBox
     Left = 0
     Height = 299
@@ -25,5 +24,6 @@ object f_craterlist: Tf_craterlist
     ParentFont = False
     ScrollWidth = 233
     TabOrder = 0
+    TopIndex = -1
   end
 end

@@ -109,6 +109,7 @@ type
     PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
+    ScrollBox1: TScrollBox;
     TexturePanel: TPanel;
     BumpRadioGroup: TRadioGroup;
     RadioGroup7: TRadioGroup;
@@ -395,11 +396,19 @@ var i,j,p : integer;
     bt : TRadioButton;
     cb : TCheckBox;
 procedure addbuttons(n:integer;txt:string);
-var toppos:integer;
+var toppos,hh:integer;
 begin
   cb:=TCheckBox.Create(self);
   cb.Parent:=GBlvall;
   toppos:= 2+n*(cb.Height+4);
+  hh:=toppos+cb.Height+4;
+  GBlvall.Height:=hh;
+  GBlv1.Height:=hh;
+  GBlv2.Height:=hh;
+  GBlv3.Height:=hh;
+  GBlv4.Height:=hh;
+  GBlv5.Height:=hh;
+  GBlv6.Height:=hh;
   cb.Top:=toppos;
   cb.Caption:=txt;
   cb.Tag:=n;

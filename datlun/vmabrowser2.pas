@@ -188,7 +188,7 @@ end;
 procedure TSelection.FormCreate(Sender: TObject);
 begin
   {$ifdef mswindows}
-  ScaleForm(self,Screen.PixelsPerInch/96);
+  //ScaleForm(self,Screen.PixelsPerInch/96);
   {$endif}
 end;
 

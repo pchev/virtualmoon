@@ -63,7 +63,7 @@ end;
 procedure Tf_config.FormCreate(Sender: TObject);
 begin
   {$ifdef mswindows}
-  ScaleForm(self,Screen.PixelsPerInch/96);
+//  ScaleForm(self,Screen.PixelsPerInch/96);
   {$endif}
   SetLang;
 end;

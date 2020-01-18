@@ -12,7 +12,6 @@ object f_features: Tf_features
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   OnShow = FormShow
-  Visible = False
   object Label1: TLabel
     Left = 17
     Height = 1

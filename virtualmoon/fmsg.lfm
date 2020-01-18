@@ -13,7 +13,6 @@ object MsgForm: TMsgForm
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   Position = poScreenCenter
-  Visible = False
   object Panel1: TPanel
     Left = 8
     Height = 59

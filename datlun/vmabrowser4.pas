@@ -240,7 +240,7 @@ procedure TLoadCSV.FormCreate(Sender: TObject);
 var i: integer;
 begin
 {$ifdef mswindows}
-ScaleForm(self,Screen.PixelsPerInch/96);
+//ScaleForm(self,Screen.PixelsPerInch/96);
 {$endif}
 Mlb:=TMlb2.Create;
 PageControl1.ActivePageIndex:=0;

@@ -1,11 +1,10 @@
 object f_tabsdock: Tf_tabsdock
   Left = 369
-  Height = 400
+  Height = 404
   Top = 250
-  Width = 350
+  Width = 354
   Caption = 'f_tabsdock'
-  Constraints.MinHeight = 400
-  Constraints.MinWidth = 350
-  DesignTimePPI = 95
+  Constraints.MinHeight = 404
+  Constraints.MinWidth = 354
   OnCloseQuery = FormCloseQuery
 end

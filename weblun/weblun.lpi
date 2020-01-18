@@ -6,6 +6,9 @@
       <MainUnit Value="0"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
+      <XPManifest>
+        <DpiAware Value="True"/>
+      </XPManifest>
       <Icon Value="0"/>
     </General>
     <i18n>
@@ -48,9 +51,6 @@
       <Version Value="2"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <WorkingDirectory Value="/home/astro/bin"/>
-      </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
@@ -94,7 +94,7 @@
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="406"/>
-        <CursorPos X="92" Y="420"/>
+        <CursorPos X="76" Y="441"/>
         <UsageCount Value="32"/>
         <Bookmarks Count="1">
           <Item0 Y="160" ID="1"/>
@@ -112,10 +112,9 @@
       <Unit3>
         <Filename Value="u_translation.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="75" Y="16"/>
         <UsageCount Value="25"/>
-        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="u_constant.pas"/>

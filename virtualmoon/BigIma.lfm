@@ -1,18 +1,16 @@
 object BigImaForm: TBigImaForm
   Left = 425
-  Height = 407
+  Height = 411
   Top = 127
-  Width = 615
+  Width = 621
   Caption = 'Taille réelle'
-  ClientHeight = 407
-  ClientWidth = 615
-  DesignTimePPI = 95
+  ClientHeight = 411
+  ClientWidth = 621
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnMouseWheel = FormMouseWheel
   OnShow = FormShow
-  Visible = False
   object Image1: TImage
     Left = 0
     Height = 348
@@ -24,10 +22,11 @@ object BigImaForm: TBigImaForm
     Left = 0
     Height = 23
     Top = 0
-    Width = 615
+    Width = 621
     AutoSize = True
     ButtonHeight = 21
-    ButtonWidth = 60
+    ButtonWidth = 61
+    ParentFont = False
     ParentShowHint = False
     ShowCaptions = True
     ShowHint = True
@@ -42,19 +41,19 @@ object BigImaForm: TBigImaForm
       OnClick = ToolButton1Click
     end
     object ToolButton2: TToolButton
-      Left = 61
+      Left = 62
       Top = 2
       Caption = 'Zoom +'
       OnClick = ToolButton2Click
     end
     object ToolButton3: TToolButton
-      Left = 122
+      Left = 123
       Top = 2
       Caption = '   Zoom -    '
       OnClick = ToolButton3Click
     end
     object Label1: TLabel
-      Left = 205
+      Left = 195
       Height = 21
       Top = 2
       Width = 27
@@ -63,6 +62,7 @@ object BigImaForm: TBigImaForm
       Color = clDefault
       Layout = tlCenter
       ParentColor = False
+      ParentFont = False
       Transparent = False
     end
   end
@@ -71,6 +71,6 @@ object BigImaForm: TBigImaForm
     Interval = 200
     OnTimer = Timer1Timer
     left = 40
-    top = 48
+    top = 49
   end
 end

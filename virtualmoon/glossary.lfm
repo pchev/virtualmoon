@@ -14,7 +14,6 @@ object Gloss: TGloss
   KeyPreview = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  Visible = False
   object divBevel: TBevel
     Left = 0
     Height = 4
@@ -99,7 +98,7 @@ object Gloss: TGloss
     end
     object filterEdit: TEdit
       Left = 40
-      Height = 23
+      Height = 31
       Top = 15
       Width = 172
       Anchors = [akTop, akLeft, akRight]

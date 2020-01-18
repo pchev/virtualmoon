@@ -11,7 +11,6 @@ object Selection: TSelection
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '2.0.6.0'
   object PageControl1: TPageControl
     Left = 16
     Height = 336
@@ -23,7 +22,7 @@ object Selection: TSelection
     OnChange = PageControl1Change
     object TabSheet1: TTabSheet
       Caption = 'Predefined Selections'
-      ClientHeight = 302
+      ClientHeight = 308
       ClientWidth = 535
       object CheckListBox1: TCheckListBox
         Tag = 1
@@ -32,7 +31,7 @@ object Selection: TSelection
         Top = 4
         Width = 252
         ExtendedSelect = False
-        ItemHeight = 16
+        ItemHeight = 0
         OnClickCheck = CheckListBox1ClickCheck
         TabOrder = 0
         TopIndex = -1
@@ -64,7 +63,7 @@ object Selection: TSelection
         Top = 4
         Width = 252
         ExtendedSelect = False
-        ItemHeight = 16
+        ItemHeight = 0
         OnClickCheck = CheckListBox1ClickCheck
         TabOrder = 3
         TopIndex = -1
@@ -72,7 +71,7 @@ object Selection: TSelection
     end
     object TabSheet2: TTabSheet
       Caption = 'Column Value'
-      ClientHeight = 302
+      ClientHeight = 308
       ClientWidth = 535
       ImageIndex = 2
       TabVisible = False
@@ -178,7 +177,7 @@ object Selection: TSelection
     end
     object TabSheet3: TTabSheet
       Caption = 'SQL Request'
-      ClientHeight = 302
+      ClientHeight = 308
       ClientWidth = 535
       ImageIndex = 1
       TabVisible = False
@@ -429,9 +428,9 @@ object Selection: TSelection
   end
   object ExpertMode: TCheckBox
     Left = 44
-    Height = 23
+    Height = 21
     Top = 350
-    Width = 97
+    Width = 91
     Caption = 'Expert mode'
     OnClick = ExpertModeClick
     TabOrder = 3

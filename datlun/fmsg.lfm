@@ -15,7 +15,6 @@ object MsgForm: TMsgForm
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '0.9.30.1'
   object Panel1: TPanel
     Left = 8
     Height = 49
@@ -35,4 +34,4 @@ object MsgForm: TMsgForm
       WordWrap = True
     end
   end
-end
+end

@@ -11,6 +11,9 @@
       <MainUnit Value="0"/>
       <Title Value="DatLun"/>
       <UseXPManifest Value="True"/>
+      <XPManifest>
+        <DpiAware Value="True"/>
+      </XPManifest>
       <Icon Value="0"/>
     </General>
     <BuildModes Count="2">
@@ -23,6 +26,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <SearchPaths>
+            <OtherUnitFiles Value="..\virtualmoon"/>
             <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Parsing>
