@@ -234,18 +234,14 @@ end;
 winratio:=Image1.width/Image1.height;
 imgratio:=imgbmp.width/imgbmp.height;
 if imgratio>1 then begin
-//  dx:=round(min(imgbmp.width/2,imgbmp.width/zoom/2));
-//  dy:=round(min(imgbmp.height/2,imgbmp.width/zoom/2/winratio));
-  dx:=round(imgbmp.width/zoom/2);
-  dy:=round(imgbmp.width/zoom/2/winratio);
+  dx:=round(min(imgbmp.width/2,imgbmp.width/zoom/2));
+  dy:=round(min(imgbmp.height/2,imgbmp.width/zoom/2/winratio));
   r:=dx/dy;
   xd2:=Image1.Width;
   yd2:=round(min(Image1.Height,xd2/r));
 end else begin
-//  dy:=round(min(imgbmp.height/2,imgbmp.height/zoom/2));
-//  dx:=round(min(imgbmp.width/2,imgbmp.height*winratio/zoom/2));
-  dy:=round(imgbmp.height/zoom/2);
-  dx:=round(imgbmp.height*winratio/zoom/2);
+  dy:=round(min(imgbmp.height/2,imgbmp.height/zoom/2));
+  dx:=round(min(imgbmp.width/2,imgbmp.height*winratio/zoom/2));
   r:=dy/dx;
   yd2:=Image1.Height;
   xd2:=Image1.Width;
