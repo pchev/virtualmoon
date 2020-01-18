@@ -32,10 +32,10 @@ uses
      Classes, Controls, FPCanvas, Graphics;}
 
 const crlf = chr(10)+chr(13);
-      cpyr = chr($a9)+chr($c2);  // ©
+      cpyr = '©'; //chr($a9)+chr($c2);  // ©
       AVLversion = '7.0-beta';
       VersionName = 'AtLun';
-      avlcpy = 'Copyright '+cpyr+' 2002-2018 Christian Legrand, Patrick Chevalley';
+      avlcpy = 'Copyright '+cpyr+' 2002-2020 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
       jd2000 =2451545.0 ;
       jd1950 =2433282.4235;

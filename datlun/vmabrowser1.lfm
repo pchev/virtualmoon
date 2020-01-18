@@ -15,6 +15,7 @@ object f_main: Tf_main
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
+  LCLVersion = '2.0.6.0'
   object MoonGrid: TStringGrid
     Left = 0
     Height = 424

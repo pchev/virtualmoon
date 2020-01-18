@@ -682,10 +682,6 @@ var
 {$ifdef mswindows}
   PIDL:   PItemIDList;
   Folder: array[0..MAX_PATH] of char;
-const
-  CSIDL_PERSONAL = $0005;   // My Documents
-  CSIDL_APPDATA  = $001a;   // <user name>\Application Data
-  CSIDL_LOCAL_APPDATA = $001c; // <user name>\Local Settings\Applicaiton Data (non roaming)
 {$endif}
 begin
 {$ifdef darwin}
@@ -745,11 +741,6 @@ begin
     CreateDir(TempDir);
   if not directoryexists(TempDir) then
     forcedirectories(TempDir);
-  vignettedir:=slash(privatedir)+slash(DefaultVignetteDir);
-  if not DirectoryExists(vignettedir) then
-    CreateDir(vignettedir);
-  if not DirectoryExists(vignettedir) then
-    ForceDirectories(vignettedir);
   DBdir := Slash(privatedir) + 'database';
   if not directoryexists(DBdir) then
     CreateDir(DBdir);
@@ -791,7 +782,7 @@ begin
       end;
     end;
   end;
-{$ifndef darwin}
+  {$ifndef darwin}
   if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
      bindir := slash(ExtractFilePath(ParamStr(0)));
      if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
@@ -802,8 +793,10 @@ begin
      end;
   end;
  {$endif}
-  Datlun  := '"'+bindir + DefaultDatlun+'"';
   Maplun  := '"'+bindir + DefaultMaplun+'"';
+  Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma
+  Datlun  := '"'+bindir + DefaultDatlun+'"';
+  Weblun  := '"'+bindir + DefaultWeblun+'"';
   helpdir  := slash(appdir) + slash('doc');
   // Be sure zoneinfo exists in standard location or in vma directory
 {  ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');

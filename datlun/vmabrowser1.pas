@@ -268,8 +268,10 @@ begin
      end;
   end;
  {$endif}
-  Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma
   Maplun  := '"'+bindir + DefaultMaplun+'"';
+  Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma
+  Datlun  := '"'+bindir + DefaultDatlun+'"';
+  Weblun  := '"'+bindir + DefaultWeblun+'"';
   helpdir  := slash(appdir) + slash('doc');
   // Be sure zoneinfo exists in standard location or in vma directory
 {  ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');

@@ -105,6 +105,12 @@ implementation
 
 { Tf_cclun }
 
+Function NoSlash(nom : string) : string;
+begin
+result:=trim(nom);
+if copy(result,length(nom),1)=PathDelim then result:=copy(result,1,length(nom)-1);
+end;
+
 Function Slash(nom : string) : string;
 begin
 result:=trim(nom);
@@ -223,7 +229,7 @@ var
 begin
 {$ifdef darwin}
   appdir := getcurrentdir;
-  if (not directoryexists(slash(appdir) + slash('Textures'))) then
+  if not DirectoryExists(slash(appdir) + slash('Textures')) then
   begin
     appdir := ExtractFilePath(ParamStr(0));
     i      := pos('.app/', appdir);
@@ -241,6 +247,7 @@ begin
   bindir     := slash(appdir);
   privatedir := expandfilename(PrivateDir);
   configfile := expandfilename(Defaultconfigfile);
+  CdCconfig  := ExpandFileName(DefaultCdCconfig);
 {$endif}
 {$ifdef mswindows}
   buf:='';
@@ -261,6 +268,7 @@ begin
   end;
   privatedir := slash(buf) + privatedir;
   configfile := slash(privatedir) + Defaultconfigfile;
+  CdCconfig  := slash(buf) + DefaultCdCconfig;
 {$endif}
 
   if not directoryexists(privatedir) then
@@ -276,34 +284,39 @@ begin
     CreateDir(TempDir);
   if not directoryexists(TempDir) then
     forcedirectories(TempDir);
-  // Be sur the Textures directory exists
-  if (not directoryexists(slash(appdir) + slash('Textures'))) then
+  DBdir := Slash(privatedir) + 'database';
+  if not directoryexists(DBdir) then
+    CreateDir(DBdir);
+  if not directoryexists(DBdir) then
+    forcedirectories(DBdir);
+  // Be sur the Database directory exists
+  if (not directoryexists(slash(appdir) + slash('Database'))) then
   begin
     // try under the current directory
     buf := GetCurrentDir;
-    if (directoryexists(slash(buf) + slash('Textures'))) then
+    if (directoryexists(slash(buf) + slash('Database'))) then
       appdir := buf
     else
     begin
       // try under the program directory
       buf := ExtractFilePath(ParamStr(0));
-      if (directoryexists(slash(buf) + slash('Textures'))) then
+      if (directoryexists(slash(buf) + slash('Database'))) then
         appdir := buf
       else
       begin
         // try share directory under current location
         buf := ExpandFileName(slash(GetCurrentDir) + SharedDir);
-        if (directoryexists(slash(buf) + slash('Textures'))) then
+        if (directoryexists(slash(buf) + slash('Database'))) then
           appdir := buf
         else
         begin
           // try share directory at the same location as the program
           buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0))) + SharedDir);
-          if (directoryexists(slash(buf) + slash('Textures'))) then
+          if (directoryexists(slash(buf) + slash('Database'))) then
             appdir := buf
           else
           begin
-            MessageDlg('Could not found the application Textures directory.' +
+            MessageDlg('Could not found the application Database directory.' +
               crlf + 'Please try to reinstall the program at a standard location.',
               mtError, [mbAbort], 0);
             Halt;
@@ -312,7 +325,7 @@ begin
       end;
     end;
   end;
- {$ifndef darwin}
+  {$ifndef darwin}
   if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
      bindir := slash(ExtractFilePath(ParamStr(0)));
      if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
@@ -323,11 +336,33 @@ begin
      end;
   end;
  {$endif}
-  Maplun   := '"'+bindir + DefaultMaplun+'"';
-  Photlun := '"'+bindir + DefaultPhotlun+'"';
+  Maplun  := '"'+bindir + DefaultMaplun+'"';
+  Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma
   Datlun  := '"'+bindir + DefaultDatlun+'"';
   Weblun  := '"'+bindir + DefaultWeblun+'"';
-  helpdir := slash(appdir) + slash('doc');
+  helpdir  := slash(appdir) + slash('doc');
+  // Be sure zoneinfo exists in standard location or in vma directory
+{  ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');
+  buf      := slash('') + slash('usr') + slash('share') + slash('zoneinfo');
+  if (FileExists(slash(buf) + 'zone.tab')) then
+    ZoneDir := slash(buf)
+  else
+  begin
+    buf := slash('') + slash('usr') + slash('lib') + slash('zoneinfo');
+    if (FileExists(slash(buf) + 'zone.tab')) then
+      ZoneDir := slash(buf)
+    else
+    begin
+      if (not FileExists(slash(ZoneDir) + 'zone.tab')) then
+      begin
+        MessageDlg('zoneinfo directory not found!' + crlf +
+          'Please install the tzdata package.' + crlf +
+          'If it is not installed at a standard location create a logical link zoneinfo in skychart data directory.',
+          mtError, [mbAbort], 0);
+        Halt;
+      end;
+    end;
+  end;   }
 end;
 
 procedure Tf_cclun.SetLang;
@@ -349,7 +384,7 @@ begin
   Caption  := rstitle;
   helpprefix := rshelp_prefix;
   Label1.Caption:=rsVirtualLunar+blank+AVLversion;
-  Label9.Caption:=rsSpecialEditi;
+//  Label9.Caption:=rsSpecialEditi;
   Label8.Caption:=rsDocumentatio;
   Label7.Caption:=rsTutorial;
   Label10.Caption:=rsQuit;

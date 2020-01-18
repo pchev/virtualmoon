@@ -29083,7 +29083,7 @@ object f_cclun: Tf_cclun
       Align = alTop
       Alignment = taCenter
       AutoSize = False
-      Caption = 'ATLAS VIRTUEL DE LA LUNE PRO 6 '
+      Caption = 'ATLAS VIRTUEL DE LA LUNE '
       Color = clBlack
       Font.Color = clYellow
       Font.Height = 24
@@ -29104,7 +29104,6 @@ object f_cclun: Tf_cclun
       Alignment = taCenter
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
-      Caption = 'EDITION SPECIALE « 10EME ANNIVERSAIRE »'
       Color = clBlack
       Font.Color = clSilver
       Font.Height = 18
@@ -29142,7 +29141,7 @@ object f_cclun: Tf_cclun
       Align = alClient
       Alignment = taCenter
       AutoSize = False
-      Caption = '© Christian Legrand & Patrick Chevalley / 2012'
+      Caption = '© Christian Legrand & Patrick Chevalley / 2020'
       Color = clBlack
       Font.Color = clGray
       ParentColor = False
