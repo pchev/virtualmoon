@@ -215,7 +215,7 @@ Var  Splashversion, compile_time, compile_version: string;
      CurYear,CurrentMonth,CurrentDay : integer;
      CurrentTime,TimeBias,CurrentST,DT_UT_val,CurrentSunH,CurrentMoonH,CurrentMoonIllum,diam : Double;
      PlanetParalaxe: boolean;
-     ForceConfig, Configfile, CdCconfig, language, uplanguage : string;
+     ForceConfig, Configfile, CdCconfig, language, uplanguage, helpprefix : string;
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;
      librationeffect, AsMultiTexture : Boolean;

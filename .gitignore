@@ -1,6 +1,7 @@
 # ignore backup dir
 virtualmoon/backup/
 datlun/backup/
+cclun/backup/
 #ignore external data
 BaseData/*.tgz
 BaseData/*.xz

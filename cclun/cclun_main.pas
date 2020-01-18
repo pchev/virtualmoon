@@ -323,7 +323,7 @@ begin
      end;
   end;
  {$endif}
-  Atlun   := '"'+bindir + DefaultAtlun+'"';
+  Maplun   := '"'+bindir + DefaultMaplun+'"';
   Photlun := '"'+bindir + DefaultPhotlun+'"';
   Datlun  := '"'+bindir + DefaultDatlun+'"';
   Weblun  := '"'+bindir + DefaultWeblun+'"';
@@ -430,7 +430,7 @@ end;
 procedure Tf_cclun.BitBtn1Click(Sender: TObject);
 begin
   chdir(appdir);
-  Execnowait(AtLun);
+  Execnowait(MapLun);
 end;
 
 procedure Tf_cclun.BitBtn2Click(Sender: TObject);

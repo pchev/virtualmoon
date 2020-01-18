@@ -1,37 +1,35 @@
 object f_cclun: Tf_cclun
   Left = 355
-  Height = 537
+  Height = 543
   Top = 120
-  Width = 743
+  Width = 751
   BorderIcons = []
   BorderStyle = bsNone
   BorderWidth = 2
   Caption = 'cclun'
-  ClientHeight = 537
-  ClientWidth = 743
+  ClientHeight = 543
+  ClientWidth = 751
   Color = 2302755
-  DesignTimePPI = 95
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '1.8.0.6'
-  Visible = False
   object PanelCenter: TPanel
     Left = 2
-    Height = 423
-    Top = 82
-    Width = 739
+    Height = 428
+    Top = 83
+    Width = 747
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 423
-    ClientWidth = 739
+    ClientHeight = 428
+    ClientWidth = 747
     Color = clBlack
     ParentColor = False
+    ParentFont = False
     TabOrder = 0
     object Image1: TImage
       Left = 0
-      Height = 423
+      Height = 428
       Top = 0
-      Width = 739
+      Width = 747
       Align = alClient
       OnMouseDown = Image1MouseDown
       OnMouseMove = Image1MouseMove
@@ -22047,10 +22045,10 @@ object f_cclun: Tf_cclun
       }
     end
     object Image2: TImage
-      Left = 219
-      Height = 300
-      Top = 50
-      Width = 300
+      Left = 221
+      Height = 303
+      Top = 51
+      Width = 303
       OnMouseDown = Image1MouseDown
       OnMouseMove = Image1MouseMove
       OnMouseUp = Image1MouseUp
@@ -25799,10 +25797,10 @@ object f_cclun: Tf_cclun
     end
     object BitBtn1: TBitBtn
       Left = 36
-      Height = 74
+      Height = 75
       Hint = 'Atlas Virtuel de la Lune, programme principal'
-      Top = 66
-      Width = 78
+      Top = 67
+      Width = 79
       Color = 2368548
       Glyph.Data = {
         C6330000424DC633000000000000360000002800000042000000420000000100
@@ -26224,14 +26222,15 @@ object f_cclun: Tf_cclun
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
       OnClick = BitBtn1Click
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
     end
     object Label5: TLabel
-      Left = 120
+      Left = 121
       Height = 23
-      Top = 205
+      Top = 207
       Width = 88
       Caption = 'WebLun '
       Color = clBlack
@@ -26245,9 +26244,9 @@ object f_cclun: Tf_cclun
       OnClick = BitBtn4Click
     end
     object Label4: TLabel
-      Left = 540
+      Left = 546
       Height = 23
-      Top = 205
+      Top = 207
       Width = 89
       Caption = 'PhotLun '
       Color = clBlack
@@ -26261,9 +26260,9 @@ object f_cclun: Tf_cclun
       OnClick = BitBtn3Click
     end
     object Label3: TLabel
-      Left = 540
+      Left = 546
       Height = 23
-      Top = 90
+      Top = 91
       Width = 78
       Caption = 'DatLun '
       Color = clBlack
@@ -26278,10 +26277,10 @@ object f_cclun: Tf_cclun
     end
     object BitBtn4: TBitBtn
       Left = 36
-      Height = 74
+      Height = 75
       Hint = 'Etendez vos connaissances de la Lune sur Internet'
-      Top = 178
-      Width = 78
+      Top = 180
+      Width = 79
       Color = 2368548
       Glyph.Data = {
         36400000424D3640000000000000360000002800000040000000400000000100
@@ -26802,16 +26801,17 @@ object f_cclun: Tf_cclun
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
       OnClick = BitBtn4Click
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 2
     end
     object BitBtn3: TBitBtn
-      Left = 622
-      Height = 74
+      Left = 629
+      Height = 75
       Hint = 'Parcourer toutes les photographies lunaires de l''Atlas'
-      Top = 178
-      Width = 78
+      Top = 180
+      Width = 79
       Color = 2368548
       Glyph.Data = {
         36400000424D3640000000000000360000002800000040000000400000000100
@@ -27332,16 +27332,17 @@ object f_cclun: Tf_cclun
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
       OnClick = BitBtn3Click
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 3
     end
     object BitBtn2: TBitBtn
-      Left = 622
-      Height = 74
+      Left = 629
+      Height = 75
       Hint = 'Faites des recherches dans les bases de données de l''Atlas'
-      Top = 66
-      Width = 78
+      Top = 67
+      Width = 79
       Color = 2368548
       Glyph.Data = {
         36400000424D3640000000000000360000002800000040000000400000000100
@@ -27862,14 +27863,15 @@ object f_cclun: Tf_cclun
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
       OnClick = BitBtn2Click
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
     end
     object Label2: TLabel
-      Left = 120
+      Left = 121
       Height = 23
-      Top = 90
+      Top = 91
       Width = 65
       Caption = 'AtLun '
       Color = clBlack
@@ -27883,11 +27885,11 @@ object f_cclun: Tf_cclun
       OnClick = BitBtn1Click
     end
     object BitBtn6: TBitBtn
-      Left = 622
-      Height = 74
+      Left = 629
+      Height = 75
       Hint = 'La documentation de l''Atlas Virtuel de la Lune '
-      Top = 290
-      Width = 78
+      Top = 293
+      Width = 79
       Color = 2368548
       Glyph.Data = {
         36400000424D3640000000000000360000002800000040000000400000000100
@@ -28408,14 +28410,15 @@ object f_cclun: Tf_cclun
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
       OnClick = BitBtn6Click
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 5
     end
     object Label7: TLabel
-      Left = 540
+      Left = 546
       Height = 23
-      Top = 317
+      Top = 320
       Width = 84
       Caption = 'Tutoriel '
       Color = clBlack
@@ -28430,10 +28433,10 @@ object f_cclun: Tf_cclun
     end
     object BitBtn7: TBitBtn
       Left = 36
-      Height = 74
+      Height = 75
       Hint = 'La documentation de l''Atlas Virtuel de la Lune '
-      Top = 290
-      Width = 78
+      Top = 293
+      Width = 79
       Color = 2368548
       Glyph.Data = {
         36400000424D3640000000000000360000002800000040000000400000000100
@@ -28954,14 +28957,15 @@ object f_cclun: Tf_cclun
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
       OnClick = BitBtn7Click
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 4
     end
     object Label8: TLabel
-      Left = 120
+      Left = 121
       Height = 23
-      Top = 317
+      Top = 320
       Width = 154
       Caption = 'Documentation'
       Color = clBlack
@@ -28975,10 +28979,10 @@ object f_cclun: Tf_cclun
       OnClick = BitBtn7Click
     end
     object BitBtn5: TBitBtn
-      Left = 334
+      Left = 338
       Height = 30
       Hint = 'Sortir du Centre de Commande'
-      Top = 374
+      Top = 378
       Width = 30
       Color = 2368548
       Glyph.Data = {
@@ -29033,14 +29037,15 @@ object f_cclun: Tf_cclun
         AB06039C171096000044000018E5EEF10000
       }
       OnClick = BitBtn5Click
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 6
     end
     object Label10: TLabel
-      Left = 374
+      Left = 378
       Height = 21
-      Top = 382
+      Top = 386
       Width = 63
       Caption = 'Quitter'
       Color = clBlack
@@ -29056,15 +29061,16 @@ object f_cclun: Tf_cclun
   end
   object PanelTop: TPanel
     Left = 2
-    Height = 80
+    Height = 81
     Top = 2
-    Width = 739
+    Width = 747
     Align = alTop
     BevelOuter = bvNone
-    ClientHeight = 80
-    ClientWidth = 739
+    ClientHeight = 81
+    ClientWidth = 747
     Color = clBlack
     ParentColor = False
+    ParentFont = False
     TabOrder = 1
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
@@ -29073,7 +29079,7 @@ object f_cclun: Tf_cclun
       Left = 0
       Height = 40
       Top = 0
-      Width = 739
+      Width = 747
       Align = alTop
       Alignment = taCenter
       AutoSize = False
@@ -29094,7 +29100,7 @@ object f_cclun: Tf_cclun
       Left = 0
       Height = 40
       Top = 36
-      Width = 739
+      Width = 747
       Alignment = taCenter
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
@@ -29115,14 +29121,15 @@ object f_cclun: Tf_cclun
   object PanelBottom: TPanel
     Left = 2
     Height = 30
-    Top = 505
-    Width = 739
+    Top = 511
+    Width = 747
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 30
-    ClientWidth = 739
+    ClientWidth = 747
     Color = clBlack
     ParentColor = False
+    ParentFont = False
     TabOrder = 2
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
@@ -29131,7 +29138,7 @@ object f_cclun: Tf_cclun
       Left = 0
       Height = 30
       Top = 0
-      Width = 739
+      Width = 747
       Align = alClient
       Alignment = taCenter
       AutoSize = False
@@ -29148,8 +29155,8 @@ object f_cclun: Tf_cclun
     end
   end
   object PopupMenu1: TPopupMenu
-    left = 64
-    top = 464
+    left = 65
+    top = 469
     object MenuItem1: TMenuItem
       Caption = 'Doc Atlun'
       OnClick = MenuItem1Click
