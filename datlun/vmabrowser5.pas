@@ -46,7 +46,7 @@ type
   public
     { Public declarations }
     dblist: TStringList;
-    dbn1,dbn2,dbn3,dbn4,dbn5,dbn6,dbn7,dbn8,dbn9: string;
+    //dbn1,dbn2,dbn3,dbn4,dbn5,dbn6,dbn7,dbn8,dbn9: string;
     procedure SetLang;
   end;
 
@@ -61,15 +61,15 @@ uses u_constant;
 
 procedure TSelectDB.SetLang;
 begin
-  dbn1:=rst_15;
+{  dbn1:=rst_15;
   dbn2:=rst_16;
   dbn3:=rst_18;
   dbn4:=rst_19;
-  dbn5:=rst_20;
+  dbn5:=rsHistorical;
   dbn6:=rst_51;
   dbn7:=rst_54;
   dbn8:=rsUnnamedForma;
-  dbn9:=rsFarSideUnnam;
+  dbn9:=rsFarSideUnnam;   }
   Button1.Caption:=rst_8;
   Button2.Caption:=rst_9;
   Button3.Caption:=rst_5;
@@ -77,7 +77,7 @@ begin
 end;
 
 procedure TSelectDB.FormShow(Sender: TObject);
-var i,n: integer;
+var i,j,n: integer;
     lst,buf: string;
 begin
 lst:='';
@@ -92,41 +92,21 @@ lst:=' '+lst+' ';
 CheckListBox1.Clear;
 dblist.Clear;
 n:=0;
-CheckListBox1.Items.Add(dbn1);
-dblist.Add('1');
-if pos(' 1 ',lst)>0 then CheckListBox1.Checked[n]:=true;
-CheckListBox1.Items.Add(dbn2);
-dblist.Add('2');
-inc(n);
-if pos(' 2 ',lst)>0 then CheckListBox1.Checked[n]:=true;
-CheckListBox1.Items.Add(dbn3);
-dblist.Add('3');
-inc(n);
-if pos(' 3 ',lst)>0 then CheckListBox1.Checked[n]:=true;
-CheckListBox1.Items.Add(dbn4);
-dblist.Add('4');
-inc(n);
-if pos(' 4 ',lst)>0 then CheckListBox1.Checked[n]:=true;
-CheckListBox1.Items.Add(dbn5);
-dblist.Add('5');
-inc(n);
-if pos(' 5 ',lst)>0 then CheckListBox1.Checked[n]:=true;
-CheckListBox1.Items.Add(dbn6);
-dblist.Add('6');
-inc(n);
-if pos(' 6 ',lst)>0 then CheckListBox1.Checked[n]:=true;
-CheckListBox1.Items.Add(dbn7);
-dblist.Add('7');
-inc(n);
-if pos(' 7 ',lst)>0 then CheckListBox1.Checked[n]:=true;
-CheckListBox1.Items.Add(dbn8);
-dblist.Add('8');
-inc(n);
-if pos(' 8 ',lst)>0 then CheckListBox1.Checked[n]:=true;
-CheckListBox1.Items.Add(dbn9);
-dblist.Add('9');
-inc(n);
-if pos(' 9 ',lst)>0 then CheckListBox1.Checked[n]:=true;
+for i:=1 to 9 do begin
+  buf:=inttostr(i);
+  if i<(DatabaseList.Count-1) then begin
+    CheckListBox1.Items.Add(DatabaseList[i-1]);
+    dblist.Add(buf);
+    if pos(' '+buf+' ',lst)>0 then CheckListBox1.Checked[n]:=true;
+  end
+  else begin
+    j:=CheckListBox1.Items.Add('-');
+    CheckListBox1.Checked[j]:=false;
+    CheckListBox1.ItemEnabled[j]:=false;
+    dblist.Add('-');
+  end;
+  inc(n)
+end;
 if dbm.Query('select DBN,NAME from user_database') then begin
   for i:=0 to dbm.RowCount-1 do begin
     buf:=dbm.Results[i][0];
@@ -155,7 +135,7 @@ procedure TSelectDB.Button3Click(Sender: TObject);
 var i: integer;
 begin
 for i:=0 to CheckListBox1.Items.Count-1 do begin
-    CheckListBox1.Checked[i]:=true;
+  CheckListBox1.Checked[i]:=CheckListBox1.Items[i]<>'-';
 end;
 end;
 
@@ -167,4 +147,4 @@ for i:=0 to CheckListBox1.Items.Count-1 do begin
 end;
 end;
 
-end.
+end.

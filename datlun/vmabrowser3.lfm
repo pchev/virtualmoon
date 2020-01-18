@@ -10,13 +10,13 @@ object Columns: TColumns
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
-  LCLVersion = '0.9.30.1'
+  LCLVersion = '2.0.6.0'
   object CheckListBox1: TCheckListBox
     Left = 8
     Height = 448
     Top = 8
     Width = 152
-    ItemHeight = 0
+    ItemHeight = 16
     OnItemClick = CheckListBox1ItemClick
     TabOrder = 0
     TopIndex = -1
@@ -57,7 +57,7 @@ object Columns: TColumns
     Height = 448
     Top = 8
     Width = 152
-    ItemHeight = 0
+    ItemHeight = 16
     TabOrder = 4
     TopIndex = -1
   end

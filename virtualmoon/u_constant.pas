@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses
-     dynlibs, Classes, Controls, Graphics;
+     dynlibs, Classes, Controls, Graphics, passql, passqlite;
 {
      cu_tz, dynlibs,
      Classes, Controls, FPCanvas, Graphics;}
@@ -120,6 +120,12 @@ const crlf = chr(10)+chr(13);
                       'Textures/WAC/L3/0.jpg'
                       );
 
+      // Datlun constant
+      numdb=99;
+      numdbtype = 25;
+      // NAMETYPE SUBTYPE PROCESS GEOLOGY AREA TIPS
+      //hidenfields = [5,7,9,10,33,53];
+      hidenfields = [];
 
 {$ifdef linux}
       DefaultHome='~/';
@@ -128,6 +134,7 @@ const crlf = chr(10)+chr(13);
       SharedDir='../share/virtualmoon';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun';
+      DefaultMaplun='atlun';
       DefaultDatlun='datlun';
       DefaultWeblun='weblun';
       DefaultCdC='skychart';
@@ -140,6 +147,7 @@ const crlf = chr(10)+chr(13);
       SharedDir='/usr/share/virtualmoon';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun.app/Contents/MacOS/photlun';
+      DefaultMaplun='atlun.app/Contents/MacOS/atlun';
       DefaultDatlun='datlun.app/Contents/MacOS/datlun';
       DefaultWeblun='weblun.app/Contents/MacOS/weblun';
       DefaultCdC='skychart.app/Contents/MacOS/skychart';
@@ -151,6 +159,7 @@ const crlf = chr(10)+chr(13);
       SharedDir='.\';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun.exe';
+      DefaultMaplun='atlun.exe';
       DefaultDatlun='datlun.exe';
       DefaultWeblun='weblun.exe';
       DefaultCdC='skychart.exe';
@@ -198,7 +207,7 @@ var Plan404 : TPlan404;
 // pseudo-constant only here
 Var  Splashversion, compile_time, compile_version: string;
      BinDir, Homedir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir : string;
-     Photlun,DatLun,WebLun,CdC,PrtName, transmsg : String;
+     MapLun,Photlun,DatLun,WebLun,CdC,PrtName, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double;
      ObsTZ,ObsCountry: string;
      ObsTemperature,ObsPressure,ObsRefractionCor,ObsHorizonDepression : Double;
@@ -228,6 +237,13 @@ Var  Splashversion, compile_time, compile_version: string;
      marklabelcolor, markcolor, SpriteColor: Tcolor;
      DarkTheme : boolean;
      DatabaseList: Tstringlist;
+
+     // Datlun var
+     dbtype : array[1..numdbtype] of string;
+     dbshortname : array[1..numdb] of string;
+     dbselection: string;
+     dbm: TLiteDB;
+
 
 // Text formating constant
 const

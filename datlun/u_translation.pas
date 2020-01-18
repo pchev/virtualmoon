@@ -33,6 +33,7 @@ rst_17='Input File';
 rst_18='Far Side Named Formation';
 rst_19='Far Side Indexed Craters';
 rst_20='Historical Sites';
+rsHistorical='Historical';
 rst_21='Predefined Selections';
 rst_22='SQL Request';
 rst_23='Select File';

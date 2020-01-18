@@ -31,8 +31,8 @@ Windows, ShlObj,
 {$endif}
   u_translation_database, u_translation, FileUtil, LazUTF8,
   u_constant, LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, Grids, Math, passql, passqlite, u_util, dbutil, StdCtrls,
-  ExtCtrls, IniFiles, ImgList, LResources, uniqueinstance;
+  Dialogs, Menus, Grids, Math, passql, passqlite, UniqueInstance, u_util, dbutil, StdCtrls,
+  ExtCtrls, IniFiles, ImgList, LResources;
 
 const
   ExitProMsg='Virtual_Moon_Atlas_Pro_exit';
@@ -73,6 +73,8 @@ type
     Databasemaintenance1: TMenuItem;
     Default1: TMenuItem;
     N4: TMenuItem;
+    UniqueInstance1: TUniqueInstance;
+    procedure FormDestroy(Sender: TObject);
     procedure OpenPhotlun1Click(Sender: TObject);
     procedure Quit1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -104,17 +106,15 @@ type
       Rect: TRect; State: TGridDrawState);
     procedure MoonGridDblClick(Sender: TObject);
     procedure Default1Click(Sender: TObject);
+    procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
   private
     { Private declarations }
-    UniqueInstance1: TCdCUniqueInstance;
     currentrow,FindFrom,FindCol, sortorder: integer;
     currentselection, currentsort, transmsg, SelectedObject: string;
     FindCaption, ShowCaption, SortCaption: string;
     MouseX, MouseY, HintX, HintY: integer;
     StartVMA,CanCloseVMA, StartPhotlun, CanClosePhotlun, ExpertMode: boolean;
     IDlist: array of integer;
-    procedure OtherInstance(Sender : TObject; ParamCount: Integer; Parameters: array of String);
-    procedure InstanceRunning(Sender : TObject);
     Procedure SetLang;
     procedure GetAppDir;
     procedure SaveDefault;
@@ -371,8 +371,7 @@ u_translation_database.translate(language,'en');
   Columns.SetLang;
 end;
 
-procedure Tf_main.OtherInstance(Sender: TObject;
-  ParamCount: Integer; Parameters: array of String);
+procedure Tf_main.UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
 var i: integer;
 begin
   application.Restore;
@@ -386,25 +385,11 @@ begin
   end;
 end;
 
-procedure Tf_main.InstanceRunning(Sender : TObject);
-var i : integer;
-begin
-  UniqueInstance1.RetryOrHalt;
-end;
-
 procedure Tf_main.FormCreate(Sender: TObject);
 var i: integer;
 begin
 DecimalSeparator := '.';
 ThousandSeparator:=' ';
-//{$ifndef darwin}
-  UniqueInstance1:=TCdCUniqueInstance.Create(self);
-  UniqueInstance1.Identifier:='Virtual_Moon_Atlas_DatLun';
-  UniqueInstance1.OnOtherInstance:=OtherInstance;
-  UniqueInstance1.OnInstanceRunning:=InstanceRunning;
-  UniqueInstance1.Enabled:=true;
-  UniqueInstance1.Loaded;
-//{$endif}
 {$ifdef mswindows}
 ScaleForm(self,Screen.PixelsPerInch/96);
 {$endif}
@@ -425,9 +410,16 @@ CanClosePhotlun:=true;
 SelectedObject:='';
 dbselection:='DBN in (1,2,3,4,5,6,7)';
 currentselection:=dbselection;
+DatabaseList:=Tstringlist.Create;
 ExpertMode:=false;
 Application.HintHidePause:=10000;
 end;
+
+procedure Tf_main.FormDestroy(Sender: TObject);
+begin
+ DatabaseList.Free;
+end;
+
 
 Procedure Tf_main.ReadParam(first:boolean=true);
 var i : integer;

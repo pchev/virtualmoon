@@ -8,9 +8,9 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   InterfaceBase, LCLVersion, lclplatformdef, // version number
-  Forms,
-  u_util, fmsg, libsql, mlb2, vmabrowser1, vmabrowser2, vmabrowser3,
-  vmabrowser4, vmabrowser5, dbutil, u_constant, uniqueinstance_package;
+  Forms, printer4lazarus,
+  fmsg, libsql, mlb2, vmabrowser1, vmabrowser2, vmabrowser3,
+  vmabrowser4, vmabrowser5, u_util, u_constant;
 
 var i : integer;
 

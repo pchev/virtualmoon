@@ -355,4 +355,4 @@ begin
 result:=dbselection<>oldsel;
 end;
 
-end.
+end.

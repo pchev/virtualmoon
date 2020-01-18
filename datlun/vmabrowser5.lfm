@@ -12,7 +12,6 @@ object SelectDB: TSelectDB
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '0.9.30.4'
   object CheckListBox1: TCheckListBox
     Left = 16
     Height = 193
@@ -64,4 +63,4 @@ object SelectDB: TSelectDB
     OnClick = Button4Click
     TabOrder = 4
   end
-end
+end

@@ -117,8 +117,10 @@ function remext(fn:string):string;
 Function testfloat(s:string):double;
 function capitalize(txt:string):string;
 Procedure SetImgLum(img:Tbitmap; lum:integer);
+Procedure ShowHelpDoc(helpfile : string; suffix:string; directory: string);
 
 var traceon : boolean;
+    hp: string;
 
 implementation
 
@@ -1923,6 +1925,35 @@ if (lum<>0) then begin
   IntfImg.Free;
 end;
 end;
+
+Procedure ShowHelpDoc(helpfile : string; suffix:string; directory: string);
+var p: integer;
+    fn,dir,a:string;
+ begin
+dir := slash(appdir)+slash(directory);
+p:=pos('#',helpfile);
+ if p>0 then begin
+    a:=copy(helpfile,p,999);
+    helpfile:=copy(helpfile,1,p-1);
+ end
+ else a:='';
+
+// try nls PDF, no suffix for pdf
+fn:=dir+hp+helpfile+'.pdf';
+if not fileexists(fn) then begin
+   // try nls html
+   fn:=dir+hp+helpfile+suffix+'.html';
+   if not fileexists(fn) then begin
+      // try UK PDF
+      fn:=dir+'UK_'+helpfile+'.pdf';
+      if not fileexists(fn) then begin
+         // try UK html
+         fn:=dir+'UK_'+helpfile+suffix+'.html';
+      end;
+    end;
+ end;
+ExecuteFile(fn);
+ end;
 
 
 end.
