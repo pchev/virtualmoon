@@ -8,8 +8,8 @@ uses
 {$ifdef mswindows}
 Windows, ShlObj,
 {$endif}
-  mlb2, u_constant, u_translation, u_util, passql, passqlite, UniqueInstance,
-  downloaddialog, IniFiles, Classes, SysUtils, FileUtil, Forms, Controls,
+  mlb2, u_constant, u_translation, u_util, passql, passqlite,
+  downloaddialog, UniqueInstance, IniFiles, Classes, SysUtils, FileUtil, Forms, Controls,
   LazUTF8, Graphics, Dialogs, ComCtrls, Menus, Grids, ExtCtrls, StdCtrls;
 
 const ncols=7;
@@ -37,6 +37,7 @@ type
     StatusBar1: TStatusBar;
     StringGrid1: TStringGrid;
     InitTimer: TTimer;
+    UniqueInstance1: TUniqueInstance;
     procedure Button1Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
@@ -55,16 +56,14 @@ type
       Y: Integer);
     procedure StringGrid1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
   private
     { private declarations }
-    UniqueInstance1: TCdCUniqueInstance;
     MouseX, MouseY, HintX, HintY, checkdate, webdate : integer;
     SelectedSite: string;
     locktheme: boolean;
     procedure SetLang;
     procedure GetAppDir;
-    procedure InstanceRunning(Sender : TObject);
-    procedure OtherInstance(Sender: TObject;ParamCount: Integer; Parameters: array of String);
     Procedure ReadParam(first:boolean=true);
     Procedure LoadDB;
     Procedure SortByCol(col:integer);
@@ -115,14 +114,8 @@ end;
 procedure Tf_weblun.FormCreate(Sender: TObject);
 var i: integer;
 begin
-  DecimalSeparator := '.';
-  ThousandSeparator:=' ';
-  UniqueInstance1:=TCdCUniqueInstance.Create(self);
-  UniqueInstance1.Identifier:='Virtual_Moon_Atlas_WebLun';
-  UniqueInstance1.OnOtherInstance:=@OtherInstance;
-  UniqueInstance1.OnInstanceRunning:=@InstanceRunning;
-  UniqueInstance1.Enabled:=true;
-  UniqueInstance1.Loaded;
+  DefaultFormatSettings.DecimalSeparator := '.';
+  DefaultFormatSettings.ThousandSeparator:=' ';
   GetAppDir;
   chdir(appdir);
   param:=Tstringlist.Create;
@@ -157,8 +150,8 @@ inc(i);
 end;
 end;
 
-procedure Tf_weblun.OtherInstance(Sender: TObject;
-  ParamCount: Integer; Parameters: array of String);
+
+procedure Tf_weblun.UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
 var i: integer;
 begin
   application.Restore;
@@ -172,11 +165,6 @@ begin
   end;
 end;
 
-procedure Tf_weblun.InstanceRunning(Sender : TObject);
-var i : integer;
-begin
-  UniqueInstance1.RetryOrHalt;
-end;
 
 procedure Tf_weblun.StringGrid1DblClick(Sender: TObject);
 begin

@@ -3,6 +3,7 @@ virtualmoon/backup/
 datlun/backup/
 cclun/backup/
 photlun/backup/
+weblun/backup/
 #ignore external data
 BaseData/*.tgz
 BaseData/*.xz

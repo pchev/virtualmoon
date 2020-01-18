@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <General>
       <MainUnit Value="0"/>
       <ResourceType Value="res"/>
@@ -11,7 +11,7 @@
     <i18n>
       <EnableI18N LFM="False"/>
     </i18n>
-    <BuildModes Count="2" Active="win32">
+    <BuildModes Count="2" Active="Default">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="win32">
         <MacroValues Count="1">
@@ -24,6 +24,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../virtualmoon"/>
             <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -45,40 +46,43 @@
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
-      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <FormatVersion Value="1"/>
-        <LaunchingApplication Use="True"/>
-        <WorkingDirectory Value="/usr/local/bin"/>
-      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default">
+          <local>
+            <LaunchingApplication Use="True"/>
+            <WorkingDirectory Value="/home/astro/bin"/>
+          </local>
+        </Mode0>
+      </Modes>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="downldialog"/>
+        <PackageName Value="Printer4Lazarus"/>
       </Item1>
       <Item2>
         <PackageName Value="uniqueinstance_package"/>
-        <MinVersion Minor="2" Release="2" Valid="True"/>
       </Item2>
       <Item3>
-        <PackageName Value="libsql"/>
-        <MinVersion Valid="True"/>
+        <PackageName Value="downldialog"/>
       </Item3>
       <Item4>
-        <PackageName Value="LCL"/>
+        <PackageName Value="libsql"/>
+        <MinVersion Valid="True"/>
       </Item4>
+      <Item5>
+        <PackageName Value="LCL"/>
+      </Item5>
     </RequiredPackages>
-    <Units Count="21">
+    <Units Count="24">
       <Unit0>
         <Filename Value="weblun.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="3"/>
-        <CursorPos Y="21"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="66" Y="21"/>
         <UsageCount Value="32"/>
-        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="weblun_main.pas"/>
@@ -87,10 +91,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="11" Y="13"/>
+        <TopLine Value="13"/>
+        <CursorPos X="62" Y="42"/>
         <UsageCount Value="32"/>
         <Bookmarks Count="1">
-          <Item0 X="27" Y="611" ID="1"/>
+          <Item0 Y="160" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -105,8 +110,10 @@
       <Unit3>
         <Filename Value="u_translation.pas"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="26" Y="29"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="75" Y="16"/>
         <UsageCount Value="25"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="u_constant.pas"/>
@@ -122,10 +129,9 @@
       </Unit5>
       <Unit6>
         <Filename Value="u_util.pas"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="54" Y="35"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../../lazarus/lcl/translations.pas"/>
@@ -162,10 +168,9 @@
       </Unit11>
       <Unit12>
         <Filename Value="../../../cdc/src/skychart/component/downloaddialog/downloaddialog.pas"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="83" Y="8"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit12>
       <Unit13>
         <Filename Value="../../../compiler/lazarus/lcl/dialogs.pp"/>
@@ -215,121 +220,144 @@
         <CursorPos X="50" Y="180"/>
         <UsageCount Value="11"/>
       </Unit20>
+      <Unit21>
+        <Filename Value="../../../compiler/fpc/rtl/objpas/sysutils/sysinth.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="113"/>
+        <CursorPos X="58" Y="134"/>
+        <UsageCount Value="10"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="../virtualmoon/u_constant.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="38" Y="24"/>
+        <UsageCount Value="20"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="../virtualmoon/u_util.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="20"/>
+      </Unit23>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="642" Column="27" TopLine="610"/>
       </Position1>
       <Position2>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="73" Column="19" TopLine="41"/>
       </Position2>
       <Position3>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="593" Column="25" TopLine="591"/>
+        <Caret Line="67" Column="21" TopLine="35"/>
       </Position3>
       <Position4>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="642" Column="27" TopLine="619"/>
+        <Caret Line="129" Column="28" TopLine="100"/>
       </Position4>
       <Position5>
         <Filename Value="weblun_main.pas"/>
       </Position5>
       <Position6>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="67" Column="21" TopLine="35"/>
+        <Caret Line="77" Column="22" TopLine="45"/>
       </Position6>
       <Position7>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="132" Column="9" TopLine="100"/>
+        <Caret Line="108" Column="58" TopLine="103"/>
       </Position7>
       <Position8>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="626" Column="37" TopLine="610"/>
+        <Caret Line="115" Column="58" TopLine="110"/>
       </Position8>
       <Position9>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="104" Column="42" TopLine="98"/>
       </Position9>
       <Position10>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="67" Column="21" TopLine="35"/>
       </Position10>
       <Position11>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="132" Column="9" TopLine="100"/>
+        <Caret Line="94" TopLine="91"/>
       </Position11>
       <Position12>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="642" Column="27" TopLine="610"/>
+        <Caret Line="106" Column="45" TopLine="96"/>
       </Position12>
       <Position13>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="140" Column="3" TopLine="138"/>
       </Position13>
       <Position14>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="67" Column="21" TopLine="35"/>
+        <Caret Line="665" Column="74" TopLine="651"/>
       </Position14>
       <Position15>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="129" Column="28" TopLine="100"/>
+        <Caret Line="631" Column="16" TopLine="602"/>
       </Position15>
       <Position16>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="612" TopLine="580"/>
       </Position16>
       <Position17>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="77" Column="22" TopLine="45"/>
+        <Caret Line="601" Column="37" TopLine="580"/>
       </Position17>
       <Position18>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="108" Column="58" TopLine="103"/>
+        <Caret Line="491" Column="39" TopLine="471"/>
       </Position18>
       <Position19>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="115" Column="58" TopLine="110"/>
+        <Caret Line="15" Column="39"/>
       </Position19>
       <Position20>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="104" Column="42" TopLine="98"/>
+        <Caret Line="26" Column="55" TopLine="3"/>
       </Position20>
       <Position21>
         <Filename Value="weblun_main.pas"/>
+        <Caret Line="117" Column="13" TopLine="98"/>
       </Position21>
       <Position22>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="94" TopLine="91"/>
+        <Caret Line="119" TopLine="98"/>
       </Position22>
       <Position23>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="106" Column="45" TopLine="96"/>
+        <Caret Line="160" TopLine="150"/>
       </Position23>
       <Position24>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="140" Column="3" TopLine="138"/>
+        <Caret Line="65" TopLine="45"/>
       </Position24>
       <Position25>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="665" Column="74" TopLine="651"/>
+        <Caret Line="67" TopLine="46"/>
       </Position25>
       <Position26>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="631" Column="16" TopLine="602"/>
+        <Caret Line="244" TopLine="244"/>
       </Position26>
       <Position27>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="612" TopLine="580"/>
+        <Caret Line="156" TopLine="140"/>
       </Position27>
       <Position28>
-        <Filename Value="u_util.pas"/>
-        <Caret Line="113" Column="9" TopLine="90"/>
+        <Filename Value="weblun_main.pas"/>
+        <Caret Line="67" TopLine="47"/>
       </Position28>
       <Position29>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="601" Column="37" TopLine="580"/>
+        <Caret Line="148" Column="48" TopLine="134"/>
       </Position29>
       <Position30>
         <Filename Value="weblun_main.pas"/>
-        <Caret Line="491" Column="39" TopLine="471"/>
+        <Caret Line="11" Column="9"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -340,6 +368,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../virtualmoon"/>
       <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Linking>

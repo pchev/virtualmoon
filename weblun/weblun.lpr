@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, weblun_main, u_translation, libsql, uniqueinstance_package, downldialog
+  Forms, printer4lazarus, weblun_main, u_translation, u_util, u_constant, libsql, downldialog
   { you can add units after this };
 
 var i : integer;
