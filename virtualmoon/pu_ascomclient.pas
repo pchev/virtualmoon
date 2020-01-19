@@ -31,9 +31,9 @@ uses
   {$ifdef mswindows}
   Variants, comobj, Windows, ShlObj, ShellAPI,
   {$endif}
-  cu_ascomrest, math, LCLIntf, u_util, u_constant, u_help, u_translation,
+  cu_ascomrest, math, LCLIntf, u_util, u_constant, u_translation,
   Messages, SysUtils, Classes, Graphics, Controls,
-  Forms, Dialogs, UScaleDPI, LCLVersion,
+  Forms, Dialogs, LCLVersion,
   StdCtrls, Buttons, inifiles, ComCtrls, Menus, ExtCtrls, Arrow, Spin, SpinEx;
 
 type
@@ -52,12 +52,8 @@ type
     ArrowUp: TArrow;
     AxisRates: TSpinEdit;
     ButtonConnect: TButton;
-    ButtonGetLocation: TSpeedButton;
     ButtonPark: TSpeedButton;
-    elev: TEdit;
     GroupBox3: TGroupBox;
-    ButtonAdvSetting: TSpeedButton;
-    Label2: TLabel;
     Label3: TLabel;
     Label34: TLabel;
     Label35: TLabel;
@@ -79,11 +75,6 @@ type
     ButtonHide: TButton;
     ButtonDisconnect: TButton;
     led: TShape;
-    GroupBox5: TGroupBox;
-    Label15: TLabel;
-    Label16: TLabel;
-    lat: TEdit;
-    long: TEdit;
     Panel1: TPanel;
     LabelAlpha: TLabel;
     LabelDelta: TLabel;
@@ -102,9 +93,6 @@ type
     Label1: TLabel;
     ButtonConfigure: TSpeedButton;
     ButtonAbort: TSpeedButton;
-    ButtonSetTime: TSpeedButton;
-    ButtonSetLocation: TSpeedButton;
-    ButtonHelp: TButton;
     ButtonAbout: TSpeedButton;
     ARestHost: TEdit;
     ARestProtocol: TComboBox;
@@ -113,12 +101,10 @@ type
     procedure ArrowMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure ArrowMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure ArrowStopClick(Sender: TObject);
-    procedure ButtonGetLocationClick(Sender: TObject);
     procedure ButtonParkClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure kill(Sender: TObject; var CanClose: boolean);
-    procedure ButtonAdvSettingClick(Sender: TObject);
     procedure PageControl1Changing(Sender: TObject; var AllowChange: Boolean);
     procedure StopMoveTimerTimer(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -131,8 +117,6 @@ type
     procedure ButtonAbortClick(Sender: TObject);
     procedure ButtonSelectClick(Sender: TObject);
     procedure ButtonConfigureClick(Sender: TObject);
-    procedure ButtonSetLocationClick(Sender: TObject);
-    procedure ButtonSetTimeClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure ButtonTrackingClick(Sender: TObject);
     procedure trackingledChangeBounds(Sender: TObject);
@@ -204,6 +188,9 @@ type
     property Slewing: boolean read FSlewing;
     property onObservatoryCoord: TNotifyEvent read FObservatoryCoord write FObservatoryCoord;
   end;
+
+  var
+    pop_scope: Tpop_scope;
 
 
 implementation
@@ -329,9 +316,6 @@ begin
     ButtonConnect.Enabled := True;
     ButtonSelect.Enabled := True;
     ButtonConfigure.Enabled := True;
-    ButtonSetTime.Enabled := False;
-    ButtonSetLocation.Enabled := False;
-    ButtonGetLocation.Enabled := False;
     UpdTrackingButton;
     UpdParkButton;
   except
@@ -430,9 +414,6 @@ begin
       ButtonConnect.Enabled := False;
       ButtonSelect.Enabled := False;
       ButtonConfigure.Enabled := False;
-      ButtonSetTime.Enabled := True;
-      ButtonSetLocation.Enabled := True;
-      ButtonGetLocation.Enabled := True;
     end
     else
       scopedisconnect(dis_ok);
@@ -666,9 +647,6 @@ begin
   Flatitude := la;
   Flongitude := lo;
   FElevation := alt;
-  lat.Text := detostr(Flatitude);
-  long.Text := detostr(Flongitude);
-  elev.Text := FormatFloat(f1,FElevation);
 end;
 
 procedure Tpop_scope.ScopeGoto(ar, de: single; var ok: boolean);
@@ -879,24 +857,14 @@ begin
   ButtonSelect.Caption := rsSelect;
   ButtonConfigure.Caption := rsConfigure;
   ButtonAbout.Caption := rsAbout;
-  GroupBox5.Caption := rsObservatory;
-  Label15.Caption := rsLatitude;
-  Label16.Caption := rsLongitude;
-  label2.Caption:=rsAltitude;
-  ButtonSetLocation.Caption := rsSetToTelesco;
-  ButtonGetLocation.Caption := rsGetFromTeles;
-  ButtonSetTime.Caption := rsSetTime;
   ButtonTracking.Caption := rsTracking;
   ButtonAbort.Caption := rsAbortSlew;
-  ButtonHelp.Caption := rsHelp;
   ButtonConnect.Caption := rsConnect;
   ButtonDisconnect.Caption := rsDisconnect;
   ButtonHide.Caption := rsHide;
-  ButtonAdvSetting.Caption := rsAdvancedSett2;
   Label4.Caption:=rsSideral+' x';
   flipns.Hint:=rsFlipNSMoveme;
 
-  SetHelp(self, hlpASCOM);
 end;
 
 function Tpop_scope.ReadConfig(ConfigPath: shortstring): boolean;
@@ -910,11 +878,12 @@ const
   default_remote=1;
   {$endif}
 begin
+  FConfig:='';
   Result := DirectoryExists(ConfigPath);
   if Result then
     FConfig := slash(ConfigPath) + 'scope.ini'
   else
-    FConfig := slash(extractfilepath(ParamStr(0))) + 'scope.ini';
+    exit;
   ini := tinifile.Create(FConfig);
   nom := ini.readstring('Ascom', 'name', '');
   edit1.Text := nom;
@@ -933,8 +902,6 @@ begin
   ARestUser.Text := DecryptStr(hextostr(ini.readstring('AscomRemote', 'u', '')), encryptpwd);
   ARestPass.Text := DecryptStr(hextostr(ini.readstring('AscomRemote', 'p', '')), encryptpwd);
   ARestDevice.Value := ini.ReadInteger('AscomRemote', 'device', 0);
-  lat.Text := ini.readstring('observatory', 'latitude', '0');
-  long.Text := ini.readstring('observatory', 'longitude', '0');
   ini.Free;
   Timer1.Interval := strtointdef(ReadIntBox.Text, 1000);
 end;
@@ -948,78 +915,6 @@ begin
     canclose := False;
     hide;
   end;
-end;
-
-procedure Tpop_scope.ButtonAdvSettingClick(Sender: TObject);
-var
-  f: TForm;
-  l: Tlabel;
-  btok, btcan, btdef: TButton;
-begin
-  f := TForm.Create(self);
-  f.AutoSize := False;
-  f.Caption := 'ASCOM ' + rsAdvancedSett2;
-  l := TLabel.Create(f);
-  l.WordWrap := True;
-  l.AutoSize := False;
-  l.Width := 350;
-  l.Height := round(2.2 * l.Height);
-  l.Caption := rsDoNotChangeA;
-  l.ParentFont := True;
-  l.Top := 8;
-  l.Left := 8;
-  feqsys := TCheckBox.Create(l);
-  leqsys := TComboBox.Create(l);
-  feqsys.Caption := rsForceEqSys;
-  feqsys.Left := 8;
-  feqsys.Top := l.Top + l.Height + 8;
-  leqsys.Left := feqsys.Left + feqsys.Width + 8;
-  leqsys.Top := feqsys.Top;
-  leqsys.Items.Add('Local');
-  leqsys.Items.Add('1950');
-  leqsys.Items.Add('2000');
-  leqsys.Items.Add('2050');
-  btok := TButton.Create(f);
-  btcan := TButton.Create(f);
-  btdef := TButton.Create(f);
-  btok.ModalResult := mrOk;
-  btok.Caption := rsOK;
-  btcan.ModalResult := mrCancel;
-  btcan.Caption := rsCancel;
-  btdef.OnClick := @SetDef;
-  btdef.Caption := rsDefault;
-  btok.Left := 8;
-  btok.Top := leqsys.Top + leqsys.Height + 8;
-  btcan.Left := btok.Left + btok.Width + 8;
-  btcan.Top := btok.Top;
-  btdef.Left := btcan.Left + btcan.Width + 8;
-  btdef.Top := btok.Top;
-  l.Parent := f;
-  feqsys.Parent := f;
-  leqsys.Parent := f;
-  btok.Parent := f;
-  btcan.Parent := f;
-  btdef.Parent := f;
-  f.AutoSize := True;
-  FormPos(f, mouse.cursorpos.x, mouse.cursorpos.y);
-  feqsys.Checked := ForceEqSys;
-  leqsys.ItemIndex := EqSysVal;
-  ScaleDPI(f);
-  f.showmodal;
-  if f.ModalResult = mrOk then
-  begin
-    ForceEqSys := feqsys.Checked;
-    EqSysVal := leqsys.ItemIndex;
-  end;
-  btok.Free;
-  btcan.Free;
-  btdef.Free;
-  feqsys.Free;
-  leqsys.Free;
-  l.Free;
-  f.Free;
-  leqsys := nil;
-  feqsys := nil;
 end;
 
 procedure Tpop_scope.PageControl1Changing(Sender: TObject; var AllowChange: Boolean);
@@ -1038,7 +933,6 @@ end;
 
 procedure Tpop_scope.FormCreate(Sender: TObject);
 begin
-  ScaleDPI(Self);
   CoordLock := False;
   Initialized := False;
   FConnected := False;
@@ -1097,6 +991,7 @@ procedure Tpop_scope.SaveConfig;
 var
   ini: tinifile;
 begin
+  if FConfig='' then exit;
   ini := tinifile.Create(FConfig);
   ini.writestring('Ascom', 'name', edit1.Text);
   ini.writestring('Ascom', 'read_interval', ReadIntBox.Text);
@@ -1110,8 +1005,6 @@ begin
   ini.writeinteger('AscomRemote', 'device', ARestDevice.Value);
   ini.writestring('AscomRemote', 'u', strtohex(encryptStr(ARestUser.Text, encryptpwd)));
   ini.writestring('AscomRemote', 'p', strtohex(encryptStr(ARestPass.Text, encryptpwd)));
-  ini.writestring('observatory', 'latitude', lat.Text);
-  ini.writestring('observatory', 'longitude', long.Text);
   ini.UpdateFile;
   ini.Free;
 end;
@@ -1199,35 +1092,6 @@ begin
 {$endif}
 end;
 
-procedure Tpop_scope.ButtonGetLocationClick(Sender: TObject);
-begin
-  if ScopeConnected then
-  begin
-    try
-      {$ifdef mswindows}
-      if not Remote then begin
-        Flongitude := T.SiteLongitude;
-        Flatitude := T.SiteLatitude;
-        FElevation := T.SiteElevation;
-      end
-      else
-      {$endif}
-      begin
-        Flongitude := TR.Get('sitelongitude').AsFloat;
-        Flatitude := TR.Get('sitelatitude').AsFloat;
-        FElevation := TR.Get('siteelevation').AsFloat;
-      end;
-      lat.Text := detostr(Flatitude);
-      long.Text := detostr(Flongitude);
-      elev.Text := FormatFloat(f1,FElevation);
-      if assigned(FObservatoryCoord) then
-        FObservatoryCoord(self);
-    except
-      on E: Exception do
-        MessageDlg(rsASCOMDriverE + ': ' + E.Message, mtWarning, [mbOK], 0);
-    end;
-  end;
-end;
 
 procedure Tpop_scope.ARestProtocolChange(Sender: TObject);
 begin
@@ -1284,59 +1148,6 @@ end;
 procedure Tpop_scope.ArrowStopClick(Sender: TObject);
 begin
  ScopeAbortSlew;
-end;
-
-procedure Tpop_scope.ButtonSetLocationClick(Sender: TObject);
-begin
-  if ScopeConnected then
-  begin
-    try
-      {$ifdef mswindows}
-      if not Remote then begin
-        T.SiteLongitude := Flongitude;
-        T.SiteLatitude := Flatitude;
-        T.SiteElevation := FElevation;
-      end
-      else
-      {$endif}
-      begin
-        TR.Put('SiteLongitude',Flongitude);
-        TR.Put('SiteLatitude',Flatitude);
-        TR.Put('SiteElevation',FElevation);
-      end;
-    except
-      on E: Exception do
-        MessageDlg(rsASCOMDriverE + ': ' + E.Message, mtWarning, [mbOK], 0);
-    end;
-  end;
-end;
-
-procedure Tpop_scope.ButtonSetTimeClick(Sender: TObject);
-var
-  buf: string;
-  {$ifdef mswindows}
-  utc: TSystemTime;
-  {$endif}
-begin
-  if ScopeConnected then
-  begin
-    try
-      {$ifdef mswindows}
-      if not Remote then begin
-        GetSystemTime(utc);
-        T.UTCDate :=SystemTimeToDateTime(utc);
-      end
-      else
-      {$endif}
-      begin
-        buf:=FormatDateTime(dateiso,NowUTC)+'Z';
-        TR.Put('UTCDate',buf);
-      end;
-    except
-      on E: Exception do
-        MessageDlg(rsASCOMDriverE + ': ' + E.Message, mtWarning, [mbOK], 0);
-    end;
-  end;
 end;
 
 procedure Tpop_scope.FormDestroy(Sender: TObject);

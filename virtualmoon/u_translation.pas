@@ -341,6 +341,37 @@ rsIdentity = 'Identity:';
 rsAttachInform = 'Attach information and tools';
 rsDetachInform = 'Detach information and tools';
 rsMeteoriticIm = 'Meteoritic impact';
+rsASCOMDriverE = 'The ASCOM driver report an error';
+rsASCOMTelesc = 'ASCOM telescope interface';
+rsASCOMRemote = 'ASCOM Alpaca is available on %s';
+rsDriverSelect = 'Driver Selection';
+rsRefreshRate = 'Refresh rate';
+rsSelect = 'Select';
+rsConfigure = 'Configure';
+rsSetTime = 'Set Time';
+rsTracking = 'Tracking';
+rsConnect = 'Connect';
+rsDisconnect = 'Disconnect';
+rsHide = 'Hide';
+rsPleaseEnsure = 'Please ensure that ASCOM telescope drivers are installed '
+  + 'properly.';
+rsAbout='About';
+rsAbortSlew = 'Abort Slew';
+rsSideral = 'Sidereal';
+rsFlipNSMoveme = 'Flip N/S movement';
+rsUnpark = 'Unpark';
+rsPark = 'Park';
+rsDoYouReallyW = 'Do you really want to park the mount now?';
+rsNotAvailable = 'Not available';
+rsINDIDriverSe = 'INDI driver settings';
+rsINDIServerHo = 'INDI server host ';
+rsINDIServerPo = 'INDI server port';
+rsTelescopeNam = 'Telescope name';
+rsINDIDriver = 'INDI driver';
+rsGet = 'Get';
+rsINDIready    = 'INDI server is ready';
+rsConnectionTo = 'Connection to INDI server failed!';
+rsPleaseFirstC = 'Please first connect the telescope and select a formation.';
 
 implementation
 

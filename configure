@@ -16,6 +16,7 @@ dirs="virtualmoon/component/libsql \
      virtualmoon/component/downloaddialog \
      virtualmoon/component/uniqueinstance \
      virtualmoon/component/enhedits \
+     virtualmoon/component/indiclient \
      virtualmoon/component/glscene/Packages \
      virtualmoon/component \
      virtualmoon/library \

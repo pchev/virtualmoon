@@ -84,42 +84,51 @@
       <FormatVersion Value="2"/>
       <Modes Count="0"/>
     </RunParams>
-    <RequiredPackages Count="9">
+    <RequiredPackages Count="12">
       <Item1>
-        <PackageName Value="GLScene_DesignTime"/>
+        <PackageName Value="indiclient"/>
       </Item1>
       <Item2>
-        <PackageName Value="GLScene_RunTime"/>
+        <PackageName Value="LazControls"/>
       </Item2>
       <Item3>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="synapse"/>
       </Item3>
       <Item4>
-        <PackageName Value="uniqueinstance_package"/>
-        <MinVersion Minor="2" Release="1" Valid="True"/>
+        <PackageName Value="GLScene_DesignTime"/>
       </Item4>
       <Item5>
-        <PackageName Value="TurboPowerIPro"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="GLScene_RunTime"/>
       </Item5>
       <Item6>
-        <PackageName Value="Printer4Lazarus"/>
-        <MinVersion Minor="5" Valid="True"/>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item6>
       <Item7>
-        <PackageName Value="enhedit"/>
-        <MinVersion Valid="True"/>
+        <PackageName Value="uniqueinstance_package"/>
+        <MinVersion Minor="2" Release="1" Valid="True"/>
       </Item7>
       <Item8>
-        <PackageName Value="libsql"/>
-        <MinVersion Valid="True"/>
+        <PackageName Value="TurboPowerIPro"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item8>
       <Item9>
-        <PackageName Value="LCL"/>
+        <PackageName Value="Printer4Lazarus"/>
+        <MinVersion Minor="5" Valid="True"/>
       </Item9>
+      <Item10>
+        <PackageName Value="enhedit"/>
+        <MinVersion Valid="True"/>
+      </Item10>
+      <Item11>
+        <PackageName Value="libsql"/>
+        <MinVersion Valid="True"/>
+      </Item11>
+      <Item12>
+        <PackageName Value="LCL"/>
+      </Item12>
     </RequiredPackages>
-    <Units Count="23">
+    <Units Count="25">
       <Unit0>
         <Filename Value="atlun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -205,47 +214,61 @@
         <ResourceBaseClass Value="Form"/>
       </Unit13>
       <Unit14>
-        <Filename Value="telescope.pas"/>
+        <Filename Value="u_constant.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit14>
       <Unit15>
-        <Filename Value="u_constant.pas"/>
+        <Filename Value="uDE.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit15>
       <Unit16>
-        <Filename Value="uDE.pas"/>
+        <Filename Value="u_projection.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit16>
       <Unit17>
-        <Filename Value="u_projection.pas"/>
+        <Filename Value="u_translation.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit17>
       <Unit18>
-        <Filename Value="u_translation.pas"/>
+        <Filename Value="u_translation_database.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit18>
       <Unit19>
-        <Filename Value="u_translation_database.pas"/>
+        <Filename Value="u_util.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit19>
       <Unit20>
-        <Filename Value="u_util.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit20>
-      <Unit21>
         <Filename Value="pu_ephem.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_ephem"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit21>
-      <Unit22>
+      </Unit20>
+      <Unit21>
         <Filename Value="tabsdock.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_tabsdock"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="pu_ascomclient.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="pop_scope"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit22>
+      <Unit23>
+        <Filename Value="pu_indiclient.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="pop_indi"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="cu_ascomrest.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit24>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

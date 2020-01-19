@@ -40,7 +40,7 @@ uses
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   mlb2, PrintersDlgs, Printers, Controls,
   Messages, SysUtils, Classes, Dialogs, FileUtil,
-  ComCtrls, Menus, Buttons, dynlibs, BigIma,
+  ComCtrls, Menus, Buttons, dynlibs, BigIma, pu_ascomclient, pu_indiclient,
   EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase,
   Math, CraterList, LResources, IpHtml, UniqueInstance, GLViewer, GLLCLViewer;
 
@@ -60,11 +60,9 @@ type
     CheckBox3: TCheckBox;
     CheckBox4: TCheckBox;
     CheckBox6: TCheckBox;
-    CheckBox7: TCheckBox;
     ComboBox5: TComboBox;
     ComboBox6: TComboBox;
     Desc1:   TIpHtmlPanel;
-    Edit5: TEdit;
     Edit6: TEdit;
     FilePopup: TPopupMenu;
     DoNotRemove: TGLSceneViewer;
@@ -73,9 +71,7 @@ type
     Label17: TLabel;
     Label18: TLabel;
     Label22: TLabel;
-    Label26: TLabel;
     Label27: TLabel;
-    Label28: TLabel;
     Label29: TLabel;
     Label30: TLabel;
     Label31: TLabel;
@@ -154,7 +150,6 @@ type
     TrackBar7: TTrackBar;
     TrackBar8: TTrackBar;
     TrackBar9: TTrackBar;
-    trackdelay: TUpDown;
     UniqueInstance1: TUniqueInstance;
     ZoomTimer: TTimer;
     UpDown1: TUpDown;
@@ -598,7 +593,6 @@ type
     compresstexture,antialias : boolean;
     ForceBumpMapSize: integer;
     showoverlay: boolean;
-    LastScopeTracking: double;
     UseComputerTime: boolean;
     procedure Init;
     procedure LoadOverlay(fn: string; transparent: single);
@@ -619,6 +613,8 @@ var
   Fplanet: TPlanet;
 
 const MinToolsWidth=350;
+      ASCOM='ASCOM';
+      INDI='INDI';
 
 implementation
 
@@ -628,7 +624,7 @@ uses LazUTF8,
   {$IF (lcl_fullversion >= 1070000)}
   lclplatformdef,
   {$endif}
-  telescope, config, splashunit, pu_features, pu_ephem,
+  config, splashunit, pu_features, pu_ephem,
   glossary, fmsg, dbutil, LCLProc;
 
 procedure TForm1.SetEyepieceMenu;
@@ -840,9 +836,6 @@ begin
     GridButton.Hint:=rsShowGrid;
     ToolButton14.Hint:=rsShowScale;
     CheckBox6.Caption := rst_156;
-    CheckBox7.Caption := rst_157;
-    label28.Caption := rst_158;
-    label26.Caption := rst_159;
     label41.Caption := rst_160;
     Button16.Caption := rst_161;
     Button17.Caption := rst_162;
@@ -1180,6 +1173,8 @@ begin
     overlaytr  := ReadFloat(section, 'overlaytr', 0);
     showoverlay := ReadBool(section, 'showoverlay', showoverlay);
     Geocentric  := ReadBool(section, 'Geocentric', Geocentric);
+    scopeinterface := ReadString(section, 'telescope', ASCOM);
+    ComboBox5.Text:=scopeinterface;
     moon1.AmbientColor := ReadInteger(section, 'AmbientLight', moon1.AmbientColor);
     moon1.DiffuseColor := ReadInteger(section, 'DiffuseLight', moon1.DiffuseColor);
     moon1.SpecularColor :=ReadInteger(section, 'SpecularLight', moon1.SpecularColor);
@@ -1228,7 +1223,7 @@ begin
       for i := 0 to 5 do
         WriteString(section, 'texturefile' + IntToStr(i), texturefiles[i]);
       WriteBool(section, 'Geocentric', Geocentric);
-      WriteString(section, 'telescope', Combobox5.Text);
+      WriteString(section, 'telescope', scopeinterface);
       WriteFloat(section, 'Obslatitude', Obslatitude);
       WriteFloat(section, 'Obslongitude', Obslongitude);
       WriteString(section, 'ObsCountry', ObsCountry);
@@ -3462,7 +3457,6 @@ begin
 {$ifdef mswindows}
   TrackBar1.Top:=-2;
   CheckBox3.Visible:=true;  // antialias
-  paneltel.Visible:=true;  // telescope
 {$endif}
   StartDatlun:=false;
   StartPhotlun:=false;
@@ -3485,7 +3479,6 @@ begin
   antialias := false;
   ForceBumpMapSize:=0;
   showoverlay := True;
-  LastScopeTracking := 0;
   UseComputerTime := True;
   GetAppDir;
   chdir(appdir);
@@ -3626,11 +3619,12 @@ UpDown3.Width:=14;
 UpDown4.Width:=14;
 UpDown5.Width:=14;
 UpDown6.Width:=14;
-trackdelay.Width:=14;
 Application.BringToFront;
 moon1.GLSceneViewer1.Camera:=nil;
 f_tabsdock.onReturnControl:=returncontrol;
 StartTimer.Enabled:=true;
+pop_scope.ReadConfig(ExtractFilePath(Configfile));
+pop_indi.ReadConfig(ExtractFilePath(Configfile));
 end;
 
 procedure TForm1.Init;
@@ -4523,11 +4517,8 @@ begin
     if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
     if CanCloseWebLun and StartWebLun then OpenWebLun('','-quit');
     if CanClosePhotLun and StartPhotlun then OpenPhotLun('','-quit');
-    if scopelibok then
-      if ScopeConnected then
-      begin
-        ScopeDisconnect(ok);
-      end;
+    pop_scope.ScopeDisconnect(ok);
+    pop_indi.ScopeDisconnect(ok);
   except
     on E: Exception do begin
     {$ifdef trace_debug}
@@ -5442,9 +5433,7 @@ recenter:=activemoon.getcenter(l,b);
     checkbox2.Visible := True;
     ToolButton6.Enabled := True;
     PanelRot.Visible := True;
-{$ifdef mswindows}
     paneltel.Visible := True;  // telescope
-{$endif}
     case RadioGroup2.ItemIndex of
       0: CameraOrientation := 0;
       1: CameraOrientation := 180;
@@ -5523,34 +5512,12 @@ begin
 end;
 
 procedure TForm1.InitTelescope;
-{$ifdef mswindows}
-var
-  fs:   TSearchRec;
-  i, p: integer;
-  buf:  string;
-{$endif}
 begin
-{$ifdef mswindows}
-  i := findfirst(slash(appdir) + '*.tid', 0, fs);
-  Combobox5.Clear;
-  while i = 0 do
-  begin
-    buf := extractfilename(fs.Name);
-    p   := pos('.tid', buf);
-    buf := trim(copy(buf, 1, p - 1));
-    Combobox5.items.Add(buf);
-    i := findnext(fs);
-  end;
-  findclose(fs);
-  if Combobox5.items.Count > 0 then begin
-    paneltel.Visible := True;
-    if scopeinterface <> '' then
-      Combobox5.Text := scopeinterface
-    else
-      Combobox5.Text := Combobox5.items[0];
-    scopeinterface := ComboBox5.Text;
-  end;
-{$endif}
+  if (scopeinterface=ASCOM) or (scopeinterface=INDI) then
+    Combobox5.Text := scopeinterface
+  else
+    Combobox5.Text := Combobox5.items[0];
+  scopeinterface := ComboBox5.Text;
 end;
 
 procedure TForm1.ComboBox5Change(Sender: TObject);
@@ -5560,22 +5527,19 @@ end;
 
 // Scope menu
 procedure TForm1.Button16Click(Sender: TObject);
-var ok: boolean;
 begin
-  if not scopelibok then  begin  // initialistaion
-    InitScopeLibrary(slash(appdir) + scopeinterface + '.tid');
-    if scopelibok then
-    begin
-      ScopeReadConfig(ExtractFilePath(Configfile),ok);
-    end;
+  if scopeinterface=ASCOM then begin
+    pop_scope.ScopeSetObs(ObsLatitude, ObsLongitude, ObsAltitude);
+    FormPos(pop_scope,mouse.CursorPos.X,Mouse.CursorPos.Y);
+    pop_scope.ScopeShow;
   end;
-  if scopelibok then
-  begin
-    ScopeSetObs(ObsLatitude, ObsLongitude);
-    ScopeShow;
-    geocentric      := False;
-    librationeffect := True;
+  if scopeinterface=INDI then begin
+    pop_indi.ScopeSetObs(ObsLatitude, ObsLongitude, ObsAltitude);
+    FormPos(pop_indi,mouse.CursorPos.X,Mouse.CursorPos.Y);
+    pop_indi.ScopeShow;
   end;
+  geocentric      := False;
+  librationeffect := True;
 end;
 
 // Goto button
@@ -5584,13 +5548,22 @@ var
   ok1: boolean;
   r, d: single;
 begin
-  if scopelibok and scopeconnected and activemoon.GetMarkRaDec(r,d)  then
-  begin
-    ScopeGoto(rad2deg*r/15, rad2deg*d, ok1);
-  end
-  else
-    ShowMessage('Please first connect the telescope and select a formation.');
-  // add to translation!
+  if scopeinterface=ASCOM then begin
+    if  pop_scope.ScopeConnected and activemoon.GetMarkRaDec(r,d)  then
+    begin
+      pop_scope.ScopeGoto(rad2deg*r/15, rad2deg*d, ok1);
+    end
+    else
+      ShowMessage(rsPleaseFirstC);
+  end;
+  if scopeinterface=INDI then begin
+    if  pop_indi.ScopeConnected and activemoon.GetMarkRaDec(r,d)  then
+    begin
+      pop_indi.ScopeGoto(rad2deg*r/15, rad2deg*d, ok1);
+    end
+    else
+      ShowMessage(rsPleaseFirstC);
+  end;
 end;
 
 // Sync button
@@ -5598,39 +5571,36 @@ procedure TForm1.Button18Click(Sender: TObject);
 var
   r, d: single;
 begin
-  if scopelibok and scopeconnected and activemoon.GetMarkRaDec(r,d) then
-  begin
-    ScopeAlign('markname', rad2deg*r/15, rad2deg*d);
-  end
-  else
-    ShowMessage('Please first connect the telescope and select a formation.');
+  if scopeinterface=ASCOM then begin
+    if pop_scope.ScopeConnected and activemoon.GetMarkRaDec(r,d) then
+    begin
+      pop_scope.ScopeAlign('markname', rad2deg*r/15, rad2deg*d);
+    end
+    else
+      ShowMessage(rsPleaseFirstC);
+  end;
+  if scopeinterface=INDI then begin
+    if pop_indi.ScopeConnected and activemoon.GetMarkRaDec(r,d) then
+    begin
+      pop_indi.ScopeAlign('markname', rad2deg*r/15, rad2deg*d);
+    end
+    else
+      ShowMessage(rsPleaseFirstC);
+  end;
+
 end;
 
 // track
 procedure TForm1.CheckBox6Click(Sender: TObject);
 begin
-  if not (scopelibok and scopeconnected) then
+  if ((scopeinterface=ASCOM)and(not pop_scope.ScopeConnected)) or
+     ((scopeinterface=INDI)and(not pop_indi.ScopeConnected))
+   then
     CheckBox6.Checked := False
   else
   begin
     TelescopeTimer.Enabled  := CheckBox6.Checked;
     ToolButton3.Enabled     := not TelescopeTimer.Enabled;
-  end;
-  if CheckBox6.Checked then
-  begin
-    CheckBox7.Enabled := True;
-    Edit5.Enabled     := True;
-    Label26.Enabled   := True;
-    Label28.Enabled   := True;
-  end
-  else
-  begin
-    CheckBox7.Checked := False;
-    CheckBox7.Enabled := False;
-    CheckBox7.Checked := False;
-    Edit5.Enabled     := False;
-    Label26.Enabled   := False;
-    Label28.Enabled   := False;
   end;
 end;
 
@@ -5639,18 +5609,16 @@ var
   r, d: double;
   ok:  boolean;
 begin
-  ScopeGetRaDec(r, d, ok);
+  ok:=false;
+  if scopeinterface=ASCOM then
+     pop_scope.ScopeGetRaDec(r, d, ok);
+  if scopeinterface=INDI then
+     pop_indi.ScopeGetRaDec(r, d, ok);
   if ok then
   begin
     initdate;
     RefreshMoonImage;
     activemoon.CenterAtRaDec(deg2rad*r*15,deg2rad*d);
-    if CheckBox7.Checked and
-      ((LastScopeTracking + trackdelay.position / 86400) <= now) then
-    begin
-      LastScopeTracking := now;
-      Button17Click(Sender);
-    end;
   end
   else
   begin
@@ -5868,9 +5836,7 @@ if mf<>activemoon then begin
     checkbox2.Visible := True;
     ToolButton6.Enabled := True;
     PanelRot.Visible := True;
-{$ifdef mswindows}
     paneltel.Visible := True;
-{$endif}
     GroupBox3.Visible := False;
     Rotation1.Visible := False;
     LibrationButton.Enabled := True;

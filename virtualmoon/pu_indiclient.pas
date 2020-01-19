@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 interface
 
 uses
-  u_help, u_translation, indibaseclient, indibasedevice, indiapi, indicom, pu_indigui,
+  u_translation, indibaseclient, indibasedevice, indiapi, indicom, pu_indigui,
   LCLIntf, u_util, u_constant, Messages, SysUtils, Classes, Graphics,
   Controls, Forms, Dialogs, StdCtrls, Buttons, inifiles, process, ComCtrls, Menus,
   ExtCtrls, Spin, Arrow;
@@ -43,34 +43,22 @@ type
     ArrowRight: TArrow;
     ArrowStop: TButton;
     ArrowUp: TArrow;
-    AutoloadConfig: TCheckBox;
-    BtnIndiGui: TButton;
     BtnGet: TButton;
-    ButtonGetLocation: TSpeedButton;
-    ButtonSetLocation: TSpeedButton;
     AxisRates: TComboBox;
     Connect: TButton;
     Disconnect: TButton;
-    Elev: TEdit;
     FlipNS: TRadioGroup;
-    GroupBox5: TGroupBox;
     Handpad: TPanel;
     IndiServerHost: TEdit;
     IndiServerPort: TEdit;
     IndiTimer: TTimer;
-    Label1: TLabel;
     Label130: TLabel;
-    Label15: TLabel;
-    Label16: TLabel;
     Label260: TLabel;
     Label75: TLabel;
-    lat: TEdit;
     led: TShape;
-    long: TEdit;
     MountIndiDevice: TComboBox;
     Panel2: TPanel;
     Panel3: TPanel;
-    ProtocolTrace: TCheckBox;
     Memomsg: TMemo;
     SpeedButton2: TButton;
     Panel1: TPanel;
@@ -79,7 +67,6 @@ type
     pos_x: TEdit;
     pos_y: TEdit;
     GroupBox1: TGroupBox;
-    SpeedButton4: TButton;
     SpeedButton6: TButton;
     InitTimer: TTimer;
     ConnectTimer: TTimer;
@@ -88,11 +75,7 @@ type
     procedure ArrowMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure ArrowMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure ArrowStopClick(Sender: TObject);
-    procedure AutoloadConfigClick(Sender: TObject);
     procedure BtnGetClick(Sender: TObject);
-    procedure BtnIndiGuiClick(Sender: TObject);
-    procedure ButtonGetLocationClick(Sender: TObject);
-    procedure ButtonSetLocationClick(Sender: TObject);
     procedure ConnectTimerTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure IndiServerHostChange(Sender: TObject);
@@ -102,7 +85,6 @@ type
     procedure kill(Sender: TObject; var CanClose: boolean);
     procedure ConnectClick(Sender: TObject);
     procedure MountIndiDeviceSelect(Sender: TObject);
-    procedure ProtocolTraceChange(Sender: TObject);
     procedure SaveConfig;
     procedure DisconnectClick(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -151,11 +133,12 @@ type
     receiveindidevice: boolean;
     indiclient: TIndiBaseClient;
     FLastArrow: integer;
+    FDevice,FServerHost,FServerPort: string;
+    FConfig: string;
     procedure IndiNewDevice(dp: Basedevice);
     procedure IndiDisconnected(Sender: TObject);
     procedure ClearStatus;
     procedure CheckStatus;
-    procedure LoadConfig;
     procedure NewDevice(dp: Basedevice);
     procedure NewMessage(mp: IMessage);
     procedure NewProperty(indiProp: IndiProperty);
@@ -167,12 +150,10 @@ type
 //    procedure DeleteProperty(indiProp: IndiProperty);
     procedure ServerConnected(Sender: TObject);
     procedure ServerDisconnected(Sender: TObject);
-    procedure IndiGUIdestroy(Sender: TObject);
     function GetSlewing:boolean;
     procedure InitHandpad;
   public
     { Public declarations }
-    csc: Tconf_skychart;
     procedure SetLang;
     function ReadConfig(ConfigPath: shortstring): boolean;
     procedure SetRefreshRate(rate: integer);
@@ -203,9 +184,11 @@ type
     property onObservatoryCoord: TNotifyEvent read FObservatoryCoord write FObservatoryCoord;
   end;
 
+var
+  pop_indi: Tpop_indi;
+
 implementation
 
-uses UScaleDPI;
 
 {$R *.lfm}
 
@@ -238,26 +221,15 @@ end;
 
 procedure Tpop_indi.CheckStatus;
 begin
-  if connected and (coord_prop <> nil) and ((not csc.IndiLoadConfig)or(configprop<>nil)) and (oncoordset_prop <> nil) then
+  if connected and (coord_prop <> nil) and (oncoordset_prop <> nil) then
   begin
     if (not ready) then begin
       ready:=true;
       led.brush.color := clLime;
-      if csc.IndiLoadConfig then begin
-         LoadConfig;
-      end;
     end;
   end;
 end;
 
-procedure Tpop_indi.LoadConfig;
-begin
-  if configprop<>nil then begin
-    IUResetSwitch(configprop);
-    configload.s:=ISS_ON;
-    client.sendNewSwitch(configprop);
-  end;
-end;
 
 procedure Tpop_indi.ServerConnected(Sender: TObject);
 begin
@@ -268,7 +240,7 @@ end;
 procedure Tpop_indi.ConnectTimerTimer(Sender: TObject);
 begin
   ConnectTimer.Enabled := False;
-  client.connectDevice(csc.IndiDevice);
+  client.connectDevice(MountIndiDevice.Text);
 end;
 
 procedure Tpop_indi.ServerDisconnected(Sender: TObject);
@@ -283,7 +255,7 @@ end;
 procedure Tpop_indi.NewDevice(dp: Basedevice);
 begin
   //  Memomsg.Lines.Add('Newdev: '+dp.getDeviceName);
-  if dp.getDeviceName = csc.IndiDevice then
+  if dp.getDeviceName = MountIndiDevice.Text then
   begin
     connected := True;
     TelescopeDevice := dp;
@@ -294,7 +266,7 @@ procedure Tpop_indi.DeleteDevice(dp: Basedevice);
 var
   ok: boolean;
 begin
-  if dp.getDeviceName = csc.indidevice then
+  if dp.getDeviceName = MountIndiDevice.Text then
   begin
     ScopeDisconnect(ok);
   end;
@@ -492,15 +464,8 @@ begin
       exit;
     end;
 
-    client.ProtocolRawFile   := slash(HomeDir) + 'cdc_indiraw.log';
-    client.ProtocolTraceFile := slash(HomeDir) + 'cdc_inditrace.log';
-    client.ProtocolErrorFile := slash(HomeDir) + 'cdc_indierror.log';
-    client.ProtocolTrace := ProtocolTrace.Checked;
-    if client.ProtocolTrace then
-      Memomsg.Lines.Add('Trace started to file: ' + client.ProtocolTraceFile);
-
-    client.SetServer(csc.IndiServerHost, csc.IndiServerPort);
-    client.watchDevice(csc.IndiDevice);
+    client.SetServer(FServerHost, FServerPort);
+    client.watchDevice(FDevice);
     client.ConnectServer;
     led.brush.color := clYellow;
     InitTimer.Enabled := True;
@@ -589,9 +554,6 @@ begin
   Flatitude := la;
   Flongitude := lo;
   FElevation := el;
-  lat.Text := detostr(Flatitude);
-  long.Text := detostr(Flongitude);
-  Elev.Text := FormatFloat(f1,FElevation);
 end;
 
 procedure Tpop_indi.ScopeAlign(Source: string; ra, Dec: single);
@@ -743,42 +705,6 @@ begin
   end;
 end;
 
-procedure Tpop_indi.ButtonGetLocationClick(Sender: TObject);
-begin
-  if ready then
-  begin
-    if (GeographicCoord_prop <> nil) and (geo_lon <> nil) and (geo_lat <> nil) then
-    begin
-      FLongitude := geo_lon.Value;
-      FLatitude  := geo_lat.Value;
-      FElevation := geo_elev.Value;
-      lat.Text := detostr(Flatitude);
-      long.Text := detostr(Flongitude);
-      Elev.Text := FormatFloat(f1,FElevation);
-      if assigned(FObservatoryCoord) then
-        FObservatoryCoord(self);
-    end
-    else
-      Memomsg.Lines.Add('Geographic Coord ' + rsNotAvailable);
-  end;
-end;
-
-procedure Tpop_indi.ButtonSetLocationClick(Sender: TObject);
-begin
-  if ready then
-  begin
-    if (GeographicCoord_prop <> nil) and (geo_lon <> nil) and (geo_lat <> nil) and (geo_elev <> nil) then
-    begin
-      geo_lon.Value := FLongitude;
-      geo_lat.Value := FLatitude;
-      geo_elev.Value := FElevation;
-      client.sendNewNumber(GeographicCoord_prop);
-    end
-    else
-      Memomsg.Lines.Add('Geographic Coord ' + rsNotAvailable);
-  end;
-end;
-
 
 {-------------------------------------------------------------------------------
 
@@ -793,41 +719,55 @@ begin
   Label75.Caption := rsINDIServerHo;
   Label130.Caption := rsINDIServerPo;
   Label260.Caption := rsTelescopeNam;
-  AutoloadConfig.Caption:=rsLoadINDIConf;
-  ProtocolTrace.Caption:=rsProtocolTrac;
   BtnGet.Caption := rsGet;
   Connect.Caption := rsConnect;
   Disconnect.Caption := rsDisconnect;
   SpeedButton6.Caption := rsAbortSlew;
   SpeedButton2.Caption := rsHide;
-  SpeedButton4.Caption := rsHelp;
-  ButtonSetLocation.Caption := rsSetToTelesco;
-  ButtonGetLocation.Caption := rsGetFromTeles;
-  GroupBox5.Caption:=rsObservatory;
-  label15.Caption:=rsLatitude;
-  label16.Caption:=rsLongitude;
-  label1.Caption:=rsAltitude;
-  LabelAlpha.Caption:=rsRA;
-  LabelDelta.Caption:=rsDEC;
   flipns.Hint:=rsFlipNSMoveme;
-  SetHelp(self, hlpINDI);
 end;
 
 function Tpop_indi.ReadConfig(ConfigPath: shortstring): boolean;
+var
+  ini: tinifile;
 begin
-  // config managed in main program
-  Result := True;
+  FConfig:='';
+  Result := DirectoryExists(ConfigPath);
+  if Result then
+    FConfig := slash(ConfigPath) + 'indi.ini'
+  else
+    exit;
+  ini := tinifile.Create(FConfig);
+  FServerHost := ini.ReadString('INDI', 'host', '127.0.0.1');
+  FServerPort := ini.ReadString('INDI', 'port', '7624');
+  FDevice := ini.ReadString('INDI', 'device', '');
+  IndiServerHost.Text:=FServerHost;
+  IndiServerPort.Text:=FServerPort;
+  MountIndiDevice.Text:=FDevice;
+  ini.Free;
+end;
+
+procedure Tpop_indi.SaveConfig;
+var
+  ini: tinifile;
+begin
+  if FConfig='' then exit;
+  ini := tinifile.Create(FConfig);
+  ini.writestring('INDI', 'host', FServerHost);
+  ini.writestring('INDI', 'port', FServerPort);
+  ini.writestring('INDI', 'device', FDevice);
+  ini.UpdateFile;
+  ini.Free;
 end;
 
 procedure Tpop_indi.ScopeShow;
 begin
-  IndiServerHost.Caption := csc.IndiServerHost;
-  IndiServerPort.Caption := csc.IndiServerPort;
-  AutoloadConfig.Checked := csc.IndiLoadConfig;
+  IndiServerHost.Caption := FServerHost;
+  IndiServerPort.Caption := FServerPort;
   MountIndiDevice.items.Clear;
-  if csc.IndiDevice <> '' then
+  if FDevice <> '' then
   begin
-    MountIndiDevice.items.add(csc.IndiDevice);
+    MountIndiDevice.items.add(FDevice);
     MountIndiDevice.ItemIndex := 0;
   end;
   ActiveControl := Connect;
@@ -846,38 +786,23 @@ end;
 
 procedure Tpop_indi.FormCreate(Sender: TObject);
 begin
-  ScaleDPI(Self);
   SlewRateList := TStringList.Create;
   ClearStatus;
 end;
 
 procedure Tpop_indi.IndiServerHostChange(Sender: TObject);
 begin
-  csc.IndiServerHost := IndiServerHost.Text;
+  FServerHost := IndiServerHost.Text;
 end;
 
 procedure Tpop_indi.IndiServerPortChange(Sender: TObject);
 begin
-  csc.IndiServerPort := IndiServerPort.Text;
-end;
-
-procedure Tpop_indi.BtnIndiGuiClick(Sender: TObject);
-begin
-  if not IndiGUIready then
-  begin
-    f_indigui := Tf_indigui.Create(self);
-    f_indigui.onDestroy := @IndiGUIdestroy;
-    f_indigui.IndiServer := csc.IndiServerHost;
-    f_indigui.IndiPort := csc.IndiServerPort;
-    f_indigui.IndiDevice := '';
-    IndiGUIready := True;
-  end;
-  f_indigui.Show;
+  FServerPort := IndiServerPort.Text;
 end;
 
 procedure Tpop_indi.MountIndiDeviceSelect(Sender: TObject);
 begin
- csc.IndiDevice := MountIndiDevice.Text;
+  FDevice := MountIndiDevice.Text;
 end;
 
 procedure Tpop_indi.BtnGetClick(Sender: TObject);
@@ -893,11 +818,6 @@ begin
   IndiTimer.Interval:=5000; // wait 5 sec for initial connection
   IndiTimer.Enabled := True;
   Screen.Cursor := crHourGlass;
-end;
-
-procedure Tpop_indi.AutoloadConfigClick(Sender: TObject);
-begin
-  csc.IndiLoadConfig := AutoloadConfig.Checked;
 end;
 
 procedure Tpop_indi.ArrowMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -992,7 +912,7 @@ begin
     for i := 0 to MountIndiDevice.Items.Count - 1 do
       if MountIndiDevice.Items[i] = mountsavedev then
         MountIndiDevice.ItemIndex := i; // reset last entry
-    csc.IndiDevice := MountIndiDevice.Text;
+    FDevice := MountIndiDevice.Text;
   end;
   ok:=MountIndiDevice.Items.Count > 0;
   end;
@@ -1007,11 +927,6 @@ begin
   finally
     Screen.Cursor := crDefault;
   end;
-end;
-
-procedure Tpop_indi.IndiGUIdestroy(Sender: TObject);
-begin
-  IndiGUIready := False;
 end;
 
 procedure Tpop_indi.InitHandpad;
@@ -1039,7 +954,7 @@ begin
   begin
     ScopeDisconnect(ok);
     Memomsg.Lines.Add('No response from server');
-    Memomsg.Lines.Add('Is driver"' + csc.IndiDevice + '" running?');
+    Memomsg.Lines.Add('Is driver"' + FDevice + '" running?');
   end;
 end;
 
@@ -1048,26 +963,6 @@ var
   ok: boolean;
 begin
   ScopeConnect(ok);
-end;
-
-procedure Tpop_indi.ProtocolTraceChange(Sender: TObject);
-begin
-  if (client <> nil) and ScopeConnected then
-  begin
-    if (ProtocolTrace.Checked <> client.ProtocolTrace) then
-      Memomsg.Lines.Add('Cannot change protocol trace when the telescope is connected');
-    ProtocolTrace.Checked := client.ProtocolTrace;
-  end
-  else
-  begin
-    if ProtocolTrace.Checked then
-      Memomsg.Lines.Add('Warning! the trace file can be very big.');
-  end;
-end;
-
-procedure Tpop_indi.SaveConfig;
-begin
-  // config managed in main program
 end;
 
 procedure Tpop_indi.DisconnectClick(Sender: TObject);
