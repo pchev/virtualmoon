@@ -1289,6 +1289,8 @@ if check then begin
 {$endif}
 if GLSceneViewer1.Buffer.Acceleration=chaSoftware then begin
    ShowMessage('Warning! OpenGL hardware acceleration not detected, program performance can be very poor or the program may crash. Please install a graphic card and driver that support OpenGL acceleration.');
+   GLSphereMoon.Slices:=45;
+   GLSphereMoon.Stacks:=22;
 end;
 // Check texture size
 {$ifdef trace_debug}
