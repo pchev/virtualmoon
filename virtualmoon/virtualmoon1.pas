@@ -55,6 +55,7 @@ type
     Button17: TSpeedButton;
     Button18: TSpeedButton;
     Button21: TSpeedButton;
+    Button22: TSpeedButton;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
@@ -333,6 +334,7 @@ type
     ImageListDay: TImageList;
     ToolButton12: TToolButton;
     procedure Button21Click(Sender: TObject);
+    procedure ExportNotesClick(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
     procedure CheckBox4Click(Sender: TObject);
@@ -808,6 +810,7 @@ begin
     IncreaseFont1.Caption:=rsIncreaseFont;
     glossaire1.Caption := rst_98;
     button15.Caption := rst_114;
+    button16.Caption:=rsExport;
     Notes.Caption    := rst_115;
     Notes1.Caption   := Notes.Caption;
     label3.Caption   := rst_116;
@@ -2831,7 +2834,7 @@ begin
   if notesok then
   begin
     notesrow    := dbnotes.GetPosition;
-    memo1.Text  := dbnotes.GetData('NOTES');
+    memo1.Text  := StringReplace(dbnotes.GetData('NOTES'),' || ',#10,[rfReplaceAll]);
     notesedited := False;
   end;
 end;
@@ -2849,7 +2852,7 @@ begin
   if notesok then
   begin
     dbnotes.Go(notesrow);
-    dbnotes.SetData('NOTES', memo1.Text);
+    dbnotes.SetData('NOTES', StringReplace(memo1.Text,#10,' || ',[rfReplaceAll]));
   end
   else
   begin
@@ -2865,7 +2868,7 @@ begin
     if dbnotes.GetData('NAME') <> nom then
       dbnotes.InsertRow(not notesok);
     dbnotes.SetData('NAME', nom);
-    dbnotes.SetData('NOTES', memo1.Text);
+    dbnotes.SetData('NOTES', StringReplace(memo1.Text,#10,' || ',[rfReplaceAll]));
     notesrow := dbnotes.GetPosition;
     notesok  := True;
   end;
@@ -2875,6 +2878,17 @@ begin
   finally
     screen.Cursor := crDefault;
   end;
+end;
+
+procedure TForm1.ExportNotesClick(Sender: TObject);
+begin
+savedialog1.DefaultExt := '.csv';
+savedialog1.Filter     := 'CSV file|*.csv';
+savedialog1.FileName   := 'notes.csv';
+if SaveDialog1.Execute then begin
+   dbnotes.SaveToCSVFile(SaveDialog1.FileName);
+end;
+
 end;
 
 function TForm1.ImgExists(nom: string): boolean;

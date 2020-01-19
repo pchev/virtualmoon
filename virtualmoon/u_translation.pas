@@ -372,6 +372,7 @@ rsGet = 'Get';
 rsINDIready    = 'INDI server is ready';
 rsConnectionTo = 'Connection to INDI server failed!';
 rsPleaseFirstC = 'Please first connect the telescope and select a formation.';
+rsExport = 'Export';
 
 implementation
 
