@@ -1,0 +1,43 @@
+object f_indigui: Tf_indigui
+  Left = 572
+  Height = 520
+  Top = 53
+  Width = 670
+  Caption = 'INDI'
+  ClientHeight = 520
+  ClientWidth = 670
+  DesignTimePPI = 95
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  object dev: TPageControl
+    Left = 0
+    Height = 425
+    Top = 0
+    Width = 670
+    Align = alClient
+    TabOrder = 0
+  end
+  object Splitter1: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 425
+    Width = 670
+    Align = alBottom
+    Beveled = True
+    ParentColor = False
+    ResizeAnchor = akBottom
+  end
+  object msg: TMemo
+    Left = 0
+    Height = 90
+    Top = 430
+    Width = 670
+    Align = alBottom
+    ReadOnly = True
+    ScrollBars = ssAutoVertical
+    TabOrder = 1
+  end
+end
