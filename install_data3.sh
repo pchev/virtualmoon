@@ -36,3 +36,4 @@ install -v -m 644 Database/AVL\ Unnamed\ 2-6 $destdir/share/virtualmoon/Database
 InstTexture TexturesChange_L5 $destdir
 InstTexture TexturesLopam_L5 $destdir
 InstTexture TexturesWAC_L5 $destdir
+InstTexture Texture_LOLA_Kaguya_Shade_L5 $destdir

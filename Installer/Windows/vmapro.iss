@@ -7,7 +7,7 @@ AppVerName=Virtual Moon Atlas V5
 AppPublisherURL={cm:MyAppUrl}
 AppSupportURL={cm:MyAppUrl}
 AppUpdatesURL={cm:MyAppUrl}
-DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{pf}\VirtualMoon}
+DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{commonpf32}\VirtualMoon}
 DefaultGroupName={cm:MyAppName}
 LicenseFile=vmapro\Data\licence.txt
 InfoBeforeFile=vmapro\Data\readme.txt
@@ -18,6 +18,7 @@ SolidCompression=true
 UseSetupLdr=true
 ShowLanguageDialog=yes
 UsePreviousAppDir=false
+WizardStyle=modern
 WizardImageFile=setup_pict\WizMoonImage.bmp
 WizardSmallImageFile=setup_pict\WizMoonSmallImage.bmp
 UninstallLogMode=append
@@ -88,7 +89,7 @@ Name: {group}\{cm:cclun}; Filename: {app}\cclun.exe; WorkingDir: {app}; IconInde
 Name: {group}\{cm:MyAppName}; Filename: {app}\atlun.exe; WorkingDir: {app}; IconIndex: 0; Tasks: ; Languages: 
 Name: {group}\Documentation; Filename: {app}\{cm:MyDocFile}; WorkingDir: {app}/doc
 Name: {group}\{cm:ProgramOnTheWeb,{cm:MyWebPage}}; Filename: {app}\vma.url
-Name: {userdesktop}\{cm:MyAppName}; Filename: {app}\cclun.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
+Name: {commondesktop}\{cm:MyAppName}; Filename: {app}\cclun.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
 
 [Run]
 Filename: {app}\{cm:MyTutorial}; Flags: postinstall shellexec nowait skipifsilent; Description: {cm:MyTutorialMsg}

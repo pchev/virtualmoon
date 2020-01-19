@@ -2,16 +2,15 @@
 Copyright: GPL
 
 Information :
-Name        : virtualmoon-data
-Version     : 6.0
+Name        : virtualmoon
+Version     : 7.0
 Release     : 1
 Group       : Sciences/Astronomy
 License     : GPL
 Packager    : Patrick Chevalley
 URL         : http://virtualmoon.sourceforge.net
-Summary     : Virtual Moon Atlas - data files
+Summary     : Virtual Moon Atlas
 Description :
 This software can visualize the Moon aspect for every location, date and hour. 
-It permits also to study lunar formations with unique database of more than 9000 entries 
-and a more than 7000 pictures library.
+It permits also to study lunar formations with unique database and pictures library.
 

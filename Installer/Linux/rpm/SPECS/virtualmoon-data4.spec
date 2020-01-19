@@ -1,5 +1,5 @@
-Summary: Virtual Moon Atlas - data files
-Name: virtualmoon-data
+Summary: Virtual Moon Atlas - data files 4
+Name: virtualmoon-data4
 Version: 5
 Release: 1
 Group: Sciences/Astronomy
@@ -8,14 +8,13 @@ URL: http://virtualmoon.sourceforge.net
 Packager: Patrick Chevalley
 BuildRoot: %_topdir/%{name}
 BuildArch: noarch
-Provides: virtualmoon-data
+Provides: virtualmoon-data4
 Requires: virtualmoon
 AutoReqProv: no
 
 %description
 This software can visualize the Moon aspect for every location, date and hour. 
-It permits also to study lunar formations with unique database of more than 9000 entries 
-and a more than 7000 pictures library
+It permits also to study lunar formations with unique database and pictures library
 
 %files
 %defattr(-,root,root)

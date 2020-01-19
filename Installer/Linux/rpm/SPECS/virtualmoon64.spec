@@ -14,8 +14,7 @@ AutoReqProv: no
 
 %description
 This software can visualize the Moon aspect for every location, date and hour. 
-It permits also to study lunar formations with unique database of more than 9000 entries 
-and a more than 7000 pictures library
+It permits also to study lunar formations with unique database and pictures library
 
 %files
 %defattr(-,root,root)

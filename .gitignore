@@ -16,8 +16,12 @@ Makefile.fpc
 Makefile.fpcxxx
 virtualmoon/atlun.lps
 # ignore build dir
-UPD
-PRO
+BUILD_LINUX32
+BUILD_LINUX64
+BUILD_LINUXDATA
+BUILD_WIN
+BUILD_WINDVD
+*.iso
 cclun/cclun
 cclun/units/
 cclun/cclun.exe

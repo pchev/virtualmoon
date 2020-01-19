@@ -1,12 +1,11 @@
-Package: virtualmoon
+Package: virtualmoon-data2
 Version: 5
 Section: science
 Priority: optional
 Maintainer: Patrick Chevalley <pch@ap-i.net>
-Architecture: i386
-Depends: libc6, libgtk2.0-0, libglib2.0-0, libpango1.0-0, libsqlite3-0, libpasastro
-Suggests: skychart
-Description: Virtual Moon Atlas
+Architecture: all
+Suggests: virtualmoon 
+Description: Virtual Moon Atlas - data files 2
  This software can visualize the Moon aspect for every location, date and hour. 
  It permits also to study lunar formations with unique database and pictures library
  .

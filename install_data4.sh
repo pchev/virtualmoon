@@ -27,3 +27,5 @@ install -m 755 -d $destdir/share/virtualmoon
 
 InstTexture TexturesChange_L6 $destdir
 InstTexture TexturesLopam_L6 $destdir
+InstTexture TexturesWAC_L6 $destdir
+InstTexture Texture_LOLA_Kaguya_Shade_L6 $destdir
