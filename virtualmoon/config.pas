@@ -409,6 +409,7 @@ begin
   GBlv4.Height:=hh;
   GBlv5.Height:=hh;
   GBlv6.Height:=hh;
+  TexturePanel.Height:=hh+4;
   cb.Top:=toppos;
   cb.Caption:=txt;
   cb.Tag:=n;
