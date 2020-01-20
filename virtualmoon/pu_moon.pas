@@ -2314,7 +2314,7 @@ end else begin
   markl:=lon;
   markb:=lat;
 end;
-for x:=0 to curlabel do begin
+for x:=0 to curlabel-1 do begin
     buf:=TGLHUDText(LabelGroup.Children[2*x]).Text;
     if copy(buf,1,1)='-' then Delete(buf,1,1);
     labvis:=(buf<>marktext);
