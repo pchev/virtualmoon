@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Linux system
 
-Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|win|windvd]"
+Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|win|windata|windvd]"
 
 version=7.0
 
@@ -34,6 +34,7 @@ unset make_linux32
 unset make_linux64
 unset make_linux_data
 unset make_win32
+unset make_win32_data
 unset make_win32_dvd
 unset outdir
 if [[ $buildname == linux ]]; then 
@@ -58,6 +59,11 @@ if [[ $buildname == win ]]; then
   extratarget=",x86_64-linux"
   outdir="BUILD_WIN"
 fi
+if [[ $buildname == windata ]]; then 
+  make_win32_data=1
+  extratarget=",x86_64-linux"
+  outdir="BUILD_WINDATA"
+fi  
 if [[ $buildname == windvd ]]; then 
   make_win32_dvd=1
   extratarget=",x86_64-linux"
@@ -257,6 +263,50 @@ if [[ $make_win32 ]]; then
   sed -i "/AppVerName/ s/V5/V$version/" vmapro.iss
   sed -i "/OutputBaseFilename/ s/-windows/-$version-windows/" vmapro.iss
   wine "$innosetup" "$wine_build\vmapro.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/virtualmoon*.exe $wd/$outdir/
+  cd $wd
+  rm -rf $builddir
+fi
+
+
+# make Windows data
+if [[ $make_win32_data ]]; then 
+  cd $wd
+  rsync -a --exclude=.svn Installer/Windows/* $builddir
+  ./configure $configopt prefix=$builddir/vmapro/Data target=i386-win32$extratarget
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  make install_win_data2
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/vmapro/Data $builddir/vmapro/Data2
+  make install_win_data3
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/vmapro/Data $builddir/vmapro/Data3
+  make install_win_data4-1
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/vmapro/Data $builddir/vmapro/Data4-1
+  make install_win_data4-2
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/vmapro/Data $builddir/vmapro/Data4-2
+  make install_win_data4-3
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/vmapro/Data $builddir/vmapro/Data4-3
+  make install_win_data4-4
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/vmapro/Data $builddir/vmapro/Data4-4
+  # exe
+  cd $builddir
+  wine "$innosetup" "$wine_build\vmadata1.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  wine "$innosetup" "$wine_build\vmadata2.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  wine "$innosetup" "$wine_build\vmadata3.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  wine "$innosetup" "$wine_build\vmadata4.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  wine "$innosetup" "$wine_build\vmadata5.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  wine "$innosetup" "$wine_build\vmadata6.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/virtualmoon*.exe $wd/$outdir/
   cd $wd

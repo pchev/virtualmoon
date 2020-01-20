@@ -79,6 +79,14 @@ install_win_data3:
 	./install_win_data3.sh $(PREFIX)
 install_win_data4:
 	./install_win_data4.sh $(PREFIX)
+install_win_data4-1:
+	./install_win_data4-1.sh $(PREFIX)
+install_win_data4-2:
+	./install_win_data4-2.sh $(PREFIX)
+install_win_data4-3:
+	./install_win_data4-3.sh $(PREFIX)
+install_win_data4-4:
+	./install_win_data4-4.sh $(PREFIX)
 uninstall: 
 	./uninstall.sh $(PREFIX)
 uninstall_win: 
