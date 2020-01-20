@@ -92,7 +92,31 @@ type
     FullScreen1: TMenuItem;
     DecreaseFont1: TMenuItem;
     IncreaseFont1: TMenuItem;
+    e02: TMenuItem;
+    e92: TMenuItem;
+    e12: TMenuItem;
+    e22: TMenuItem;
+    e32: TMenuItem;
+    e42: TMenuItem;
+    e52: TMenuItem;
+    e62: TMenuItem;
+    e72: TMenuItem;
+    e82: TMenuItem;
+    e102: TMenuItem;
+    c02: TMenuItem;
+    c92: TMenuItem;
+    c102: TMenuItem;
+    c12: TMenuItem;
+    c22: TMenuItem;
+    c32: TMenuItem;
+    c42: TMenuItem;
+    c52: TMenuItem;
+    c62: TMenuItem;
+    c72: TMenuItem;
+    c82: TMenuItem;
     Panel2: TPanel;
+    PopupEyepiece: TPopupMenu;
+    PopupCCD: TPopupMenu;
     tabs: TPanel;
     SaveEphem: TMenuItem;
     OptFeatures1: TMenuItem;
@@ -360,6 +384,7 @@ type
     procedure SaveEphemClick(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure Splitter2TimerTimer(Sender: TObject);
+    procedure ToolButtonCCDClick(Sender: TObject);
     procedure ToolButtonEphClick(Sender: TObject);
     procedure ToolButtonHideToolsClick(Sender: TObject);
     procedure Splitter1Moved(Sender: TObject);
@@ -372,6 +397,7 @@ type
     procedure ToolButtonDockToolsClick(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure ToolButtonNotesClick(Sender: TObject);
+    procedure ToolButtonOculaireClick(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure ToolButton5Click(Sender: TObject);
@@ -647,16 +673,16 @@ var
 begin
   for i := 1 to 10 do
     case i of
-      1: setmenuitem(e11, i);
-      2: setmenuitem(e21, i);
-      3: setmenuitem(e31, i);
-      4: setmenuitem(e41, i);
-      5: setmenuitem(e51, i);
-      6: setmenuitem(e61, i);
-      7: setmenuitem(e71, i);
-      8: setmenuitem(e81, i);
-      9: setmenuitem(e91, i);
-      10: setmenuitem(e101, i);
+      1: begin setmenuitem(e11, i); setmenuitem(e12, i); end;
+      2: begin setmenuitem(e21, i); setmenuitem(e22, i); end;
+      3: begin setmenuitem(e31, i); setmenuitem(e32, i); end;
+      4: begin setmenuitem(e41, i); setmenuitem(e42, i); end;
+      5: begin setmenuitem(e51, i); setmenuitem(e52, i); end;
+      6: begin setmenuitem(e61, i); setmenuitem(e62, i); end;
+      7: begin setmenuitem(e71, i); setmenuitem(e72, i); end;
+      8: begin setmenuitem(e81, i); setmenuitem(e82, i); end;
+      9: begin setmenuitem(e91, i); setmenuitem(e92, i); end;
+      10:begin setmenuitem(e101, i); setmenuitem(e102, i); end;
     end;
 end;
 
@@ -678,16 +704,16 @@ var
 begin
   for i := 1 to 10 do
     case i of
-      1: setmenuitem(c11, i);
-      2: setmenuitem(c21, i);
-      3: setmenuitem(c31, i);
-      4: setmenuitem(c41, i);
-      5: setmenuitem(c51, i);
-      6: setmenuitem(c61, i);
-      7: setmenuitem(c71, i);
-      8: setmenuitem(c81, i);
-      9: setmenuitem(c91, i);
-      10: setmenuitem(c101, i);
+      1: begin setmenuitem(c11, i); setmenuitem(c12, i); end;
+      2: begin setmenuitem(c21, i); setmenuitem(c22, i); end;
+      3: begin setmenuitem(c31, i); setmenuitem(c32, i); end;
+      4: begin setmenuitem(c41, i); setmenuitem(c42, i); end;
+      5: begin setmenuitem(c51, i); setmenuitem(c52, i); end;
+      6: begin setmenuitem(c61, i); setmenuitem(c62, i); end;
+      7: begin setmenuitem(c71, i); setmenuitem(c72, i); end;
+      8: begin setmenuitem(c81, i); setmenuitem(c82, i); end;
+      9: begin setmenuitem(c91, i); setmenuitem(c92, i); end;
+      10:begin setmenuitem(c101, i);setmenuitem(c102, i); end;
     end;
 end;
 
@@ -818,6 +844,12 @@ begin
     e01.Caption      := rst_117;
     CCD1.Caption := rsCCDField;
     c01.Caption      := rst_117;
+    ToolButtonOculaire.Hint:=rst_109;
+    e02.Caption      := rst_117;
+    ToolButtonCCD.Hint:=rsCCDField;
+    c02.Caption      := rst_117;
+    ToolButtonEph.Hint:=rst_7;
+    ToolButtonNotes.Hint:=rst_115;
     groupbox2.Caption := rst_125;
     Database1.Caption := rst_129;
     label1.Caption   := rst_153;
@@ -4152,7 +4184,6 @@ begin
  end;
 end;
 
-
 procedure TForm1.ToolButton12Click(Sender: TObject);
 begin
  showlabel:=not showlabel;
@@ -4189,11 +4220,27 @@ begin
   Notes1Click(Sender);
 end;
 
+procedure TForm1.ToolButtonOculaireClick(Sender: TObject);
+var p:TPoint;
+begin
+  p:=point(ToolButtonOculaire.Left,ToolButtonOculaire.Top+ToolButtonOculaire.Height+4);
+  p:=ToolBar4.ClientToScreen(p);
+  PopupEyepiece.PopUp(p.x,p.y);
+end;
+
+procedure TForm1.ToolButtonCCDClick(Sender: TObject);
+var p:TPoint;
+begin
+  p:=point(ToolButtonCCD.Left,ToolButtonCCD.Top+ToolButtonCCD.Height+4);
+  p:=ToolBar4.ClientToScreen(p);
+  PopupCCD.PopUp(p.x,p.y);
+end;
+
 procedure TForm1.ToolButton8Click(Sender: TObject);
 var p: TPoint;
 begin
   activemoon.SatelliteRotation:=0;
-  p:=Point(ToolButton8.Left,ToolButton8.Top+ToolButton8.Height);
+  p:=Point(ToolButton8.Left,ToolButton8.Top+ToolButton8.Height+4);
   p:=ToolBar2.ClientToScreen(p);
   HelpPopup.PopUp(p.x,p.y);
 end;
