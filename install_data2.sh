@@ -44,7 +44,6 @@ InstTexture Texture_LOLA_Kaguya_Shade $destdir
 InstTexture TexturesChange $destdir
 InstTexture TextureHistorical $destdir
 
-InstPicture PictureApollo $destdir
 InstPicture PictureApolloMapping $destdir
 InstPicture PictureCLA $destdir
 InstPicture PictureClementine $destdir

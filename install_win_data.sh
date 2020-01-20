@@ -19,6 +19,22 @@ function InstData {
   rmdir $tmpdir
 }
 
+function InstPicture {
+  pkg=$1.tgz
+  ddir=$2
+  tmpdir=$(mktemp -d)
+  pkgz=BaseData/$pkg
+  if [ ! -e $pkgz ]; then
+     wget http://sourceforge.net/projects/virtualmoon/files/3-%20data/Lunar%20Pictures%20Library/Linux/$pkg/download -O $pkgz
+  fi
+  tar xvzf $pkgz -C $tmpdir
+  cp -a $tmpdir/share/virtualmoon/* $ddir/
+  rm -rf $tmpdir/share/virtualmoon/*
+  rmdir $tmpdir/share/virtualmoon
+  rmdir $tmpdir/share
+  rmdir $tmpdir
+}
+
 destdir=$1
 
 if [ -z "$destdir" ]; then
@@ -56,3 +72,5 @@ InstData Base_Clementine $destdir
 InstData Base_WAC $destdir
 InstData Base_LOLA_Kaguya_Shade $destdir
 InstData Base_Overlay $destdir
+InstPicture PictureApollo $destdir
+
