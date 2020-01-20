@@ -545,6 +545,7 @@ type
     procedure SetObs(param: string);
     procedure Readdefault;
     procedure SaveDefault;
+    procedure UpdateConfig;
     procedure UpdTerminateur(range:double=12);
     procedure AddToList(buf: string);
     procedure GetDetail(row: TResultRow; memo: Tmemo);
@@ -591,7 +592,7 @@ type
     lopamdirectsuffix, lopamlocalsuffix: string;
     externalimagepath, helpprefix, ruklprefix, ruklsuffix,
     scopeinterface, markname, currentname, currentid: string;
-    appname, pofile: string;
+    appname, pofile, configversion: string;
     //m: array[1..nummessage] of string;
     num_bl: integer;
     bldb: array[1..20] of string;
@@ -1016,10 +1017,10 @@ var
   smooth:  integer;
   labf: TFont;
 begin
-  database[1]    := 'Nearside_Named_ufr.csv';
+  database[1]    := '1_Named_formations_EN.csv';
   usedatabase[1] := True;
   usedatabase[2] := True;
-  usedatabase[3] := True;
+  usedatabase[3] := False;
   usedatabase[4] := True;
   usedatabase[5] := False;
   usedatabase[6] := False;
@@ -1113,6 +1114,7 @@ begin
     PrintEph   := ReadBool(section, 'PrintEph', PrintEph);
     PrintDesc  := ReadBool(section, 'PrintDesc', PrintDesc);
     section    := 'default';
+    configversion := ReadString(section, 'version', '6.0');
     pofile     := ReadString(section, 'lang_po_file', '');
     UseComputerTime := ReadBool(section, 'UseComputerTime', UseComputerTime);
     compresstexture := ReadBool(section, 'compresstexture', compresstexture);
@@ -1181,7 +1183,6 @@ begin
       texturefiles[j] := ReadString(section, 'texturefile' + IntToStr(j), texturefiles[j]);
 
     labf:=TFont.Create;
-   // labf:=moon1.LabelFont;
     labf.Assign(moon1.LabelFont);
     labf.Name := ReadString(section, 'LabelFontName', labf.Name);
     labf.Size := ReadInteger(section, 'LabelFontSize', labf.Size);
@@ -1189,7 +1190,6 @@ begin
     if ReadBool(section, 'LabelFontBold', false) then labf.Style:=labf.Style+[fsBold];
     if ReadBool(section, 'LabelFontItalic', false) then labf.Style:=labf.Style+[fsItalic];
     moon1.LabelFont:=labf;
-//    labf.Free;
     Desc1.DefaultFontSize:=ReadInteger(section, 'DescFontSize', Desc1.DefaultFontSize);
     for j := 1 to 10 do
     begin
@@ -1202,7 +1202,6 @@ begin
       CCDh[j] := ReadFloat(section, 'CCDh' + IntToStr(j), CCDh[j]);
       CCDr[j] := ReadFloat(section, 'CCDr' + IntToStr(j), CCDr[j]);
     end;
-    //useDBN := ReadInteger(section, 'useDBN', useDBN);
     for i := 1 to useDBN do
       usedatabase[i] := ReadBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
@@ -1224,10 +1223,30 @@ begin
   end;
   inif.Free;
   chdir(appdir);
+  UpdateConfig;
   InitObservatoire;
   InitImages;
   moon1.GLSphereMoon.Slices := smooth;
   moon1.GLSphereMoon.Stacks := smooth div 2;
+end;
+
+procedure TForm1.UpdateConfig;
+var udb: array[1..9] of boolean;
+    i: integer;
+begin
+if configversion<>version then begin
+  if configversion<'7.0a' then begin
+    // map new database
+    for i:=1 to 9 do udb[i]:=false;
+    udb[1]:=usedatabase[1] or usedatabase[3]; //named near and far
+    udb[2]:=usedatabase[2] or usedatabase[4]; //indiced near and far
+    udb[3]:=usedatabase[8]; // unnamed
+    udb[4]:=usedatabase[5]; // historic
+    udb[5]:=usedatabase[7]; // domes
+    udb[6]:=usedatabase[6]; // pyroclast
+    for i:=1 to 9 do usedatabase[i]:=udb[i];
+  end;
+end;
 end;
 
 procedure TForm1.SaveDefault;
@@ -1244,6 +1263,7 @@ begin
       if not (ValueExists(section, 'Install_Dir')) then
         WriteString(section, 'Install_Dir', appdir);
       WriteString(section, 'lang_po_file', Language);
+      WriteString(section, 'version', version);
       WriteBool(section, 'LibrationEffect', librationeffect);
       WriteBool(section, 'compresstexture', compresstexture);
       WriteBool(section, 'antialias', antialias);
