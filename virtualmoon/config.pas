@@ -526,6 +526,7 @@ for i:=0 to TextureList.Count-1 do begin
       FillHistorical;
     end
     else buf:=TextureList[i];
+    buf:=StringReplace(buf,'_',' ',[rfReplaceAll]);
     addbuttons(i,buf);
 end;
 savelibration:=librationeffect;
@@ -707,7 +708,7 @@ begin
      end;
   if k>0 then begin
      ComboBox6.Visible:=true;
-     ComboBox6.Top:=k;
+     ComboBox6.Top:=k-3;
      for i:=0 to ComboBox6.Items.Count-1 do
        if ComboBox6.Items[i]=HistTex then begin
          ComboBox6.ItemIndex:=i;
