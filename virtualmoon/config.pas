@@ -401,7 +401,7 @@ begin
   cb:=TCheckBox.Create(self);
   cb.Parent:=GBlvall;
   toppos:= 2+n*(cb.Height+4);
-  hh:=toppos+cb.Height+4;
+  hh:=toppos+cb.Height+40;
   GBlvall.Height:=hh;
   GBlv1.Height:=hh;
   GBlv2.Height:=hh;
@@ -409,7 +409,7 @@ begin
   GBlv4.Height:=hh;
   GBlv5.Height:=hh;
   GBlv6.Height:=hh;
-  TexturePanel.Height:=hh+4;
+  TexturePanel.Height:=GBlvall.top+hh;
   cb.Top:=toppos;
   cb.Caption:=txt;
   cb.Tag:=n;
