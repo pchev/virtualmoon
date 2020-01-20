@@ -1060,8 +1060,7 @@ begin
     on E: Exception do
     begin
       err := 'ASCOM exception:' + E.Message;
-      ShowMessage(err + crlf + rsPleaseEnsure + crlf + Format(
-        rsSeeHttpAscom, ['http://ascom-standards.org']));
+      ShowMessage(err + crlf + rsPleaseEnsure + crlf + 'http://ascom-standards.org');
     end;
   end;
 {$endif}
