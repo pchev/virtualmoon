@@ -1,4 +1,7 @@
-# Extract part of tzdata package for use on Windows systems.
+#!/bin/bash
+#
+# create minimal time zone information for windows
+#
 
 wd=`pwd`
 
@@ -17,11 +20,7 @@ tar xzf ../tzcode*.tar.gz
 tar xzf ../tzdata*.tar.gz
 
 make TOPDIR=$wd/tzdata/ install
-
-cd etc/zoneinfo
-cp zone.tab $wd/zoneinfo
-cat zone.tab |grep -v \# | cut -f3 |xargs -I'{}' -n1  cp -L --parent '{}' $wd/zoneinfo
-cp -rL Etc $wd/zoneinfo
+if [[ $? != 0 ]]; then echo make error;  exit 1; fi
 
 cd usr/share/zoneinfo
 if [[ $? != 0 ]]; then  exit 1; fi
@@ -31,7 +30,6 @@ cat zone.tab |grep -v \# | cut -f3 |xargs -I'{}' -n1  cp --parent '{}' $wd/zonei
 if [[ $? != 0 ]]; then  exit 1; fi
 cp -a Etc $wd/zoneinfo
 if [[ $? != 0 ]]; then  exit 1; fi
-
 
 cd $wd
 
