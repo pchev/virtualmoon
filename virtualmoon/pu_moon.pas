@@ -147,6 +147,7 @@ type
     FOnGetMsg: TGetMsgEvent;
     FOnGetLabel: TNotifyEvent;
     FOnGetSprite: TNotifyEvent;
+    FonMoonActivate: TNotifyEvent;
     FTexturePath: String;
     FTexture: TStringList;
     FOverlayPath: String;
@@ -343,6 +344,7 @@ type
     property DiffuseColor: TColor read GetDiffuseColor Write SetDiffuseColor;
     property SpecularColor: TColor read GetSpecularColor Write SetSpecularColor;
     property Antialiasing: boolean read GetAntialiasing write SetAntialiasing;
+    property onMoonActivate : TNotifyEvent read FonMoonActivate write FonMoonActivate;
     property onMoonClick : TMoonClickEvent read FOnMoonClick write FOnMoonClick;
     property onMoonMove : TMoonMoveEvent read FOnMoonMove write FOnMoonMove;
     property onMoonMeasure: TMoonMeasureEvent read FonMoonMeasure write FonMoonMeasure;
@@ -1711,12 +1713,14 @@ end;
 procedure Tf_moon.GLSceneViewer1MouseWheelDown(Sender: TObject;
   Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 begin
+  if Assigned(FonMoonActivate) then FonMoonActivate(self);
   SetZoomLevel(GLCamera1.SceneScale/1.1);
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseWheelUp(Sender: TObject;
   Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 begin
+  if Assigned(FonMoonActivate) then FonMoonActivate(self);
   SetZoomLevel(GLCamera1.SceneScale*1.1);
 end;
 

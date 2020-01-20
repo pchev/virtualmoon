@@ -564,6 +564,7 @@ type
     procedure SetZoomBar;
     procedure GetSkychartInfo;
     procedure SetActiveMoon(mf: Tf_moon);
+    procedure MoonActivate(Sender: TObject);
     procedure MoonClickEvent(Sender: TObject; Button: TMouseButton;
                      Shift: TShiftState; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
@@ -3580,6 +3581,7 @@ begin
  moon1:=Tf_moon.Create(PanelMoon);
  activemoon:=moon1;
  moon1.Moon.Align:=alClient;
+ moon1.onMoonActivate:=MoonActivate;
  moon1.onMoonClick:=MoonClickEvent;
  moon1.onMoonMove:=MoonMoveEvent;
  moon1.onMoonMeasure:=MoonMeasureEvent;
@@ -5755,6 +5757,7 @@ if moon2=nil then begin
  moon2.GLSceneViewer1.Visible:=false;
  moon2.Caption:=Caption;
  moon2.Moon.Align:=alClient;
+ moon2.onMoonActivate:=MoonActivate;
  moon2.onMoonClick:=MoonClickEvent;
  moon2.onGetLabel:=GetLabel;
  moon2.onGetSprite:=GetSprite;
@@ -5966,6 +5969,11 @@ if mf<>activemoon then begin
       UpdTerminateur;
   end;
 end;
+end;
+
+procedure TForm1.MoonActivate(Sender: TObject);
+begin
+ if sender is Tf_moon then SetActiveMoon(Tf_moon(sender));
 end;
 
 procedure TForm1.MoonClickEvent(Sender: TObject; Button: TMouseButton;
