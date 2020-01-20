@@ -11,7 +11,6 @@ object pop_indi: Tpop_indi
   OnCloseQuery = kill
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  Position = poDefaultPosOnly
   object Panel1: TPanel
     Left = 0
     Height = 89
@@ -24,25 +23,25 @@ object pop_indi: Tpop_indi
     TabOrder = 1
     object LabelAlpha: TLabel
       Left = 8
-      Height = 19
+      Height = 15
       Top = 8
-      Width = 20
+      Width = 18
       Caption = 'RA '
       ParentColor = False
       ParentFont = False
     end
     object LabelDelta: TLabel
       Left = 8
-      Height = 19
+      Height = 15
       Top = 44
-      Width = 25
+      Width = 22
       Caption = 'DEC'
       ParentColor = False
       ParentFont = False
     end
     object pos_x: TEdit
       Left = 45
-      Height = 28
+      Height = 23
       Top = 4
       Width = 113
       Constraints.MaxHeight = 28
@@ -53,7 +52,7 @@ object pop_indi: Tpop_indi
     end
     object pos_y: TEdit
       Left = 45
-      Height = 28
+      Height = 23
       Top = 40
       Width = 113
       Constraints.MaxHeight = 28
@@ -150,8 +149,8 @@ object pop_indi: Tpop_indi
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
-      ClientHeight = 59
-      ClientWidth = 49
+      ClientHeight = 41
+      ClientWidth = 47
       ItemIndex = 0
       Items.Strings = (
         '^'
@@ -164,11 +163,11 @@ object pop_indi: Tpop_indi
     end
     object AxisRates: TComboBox
       Left = 183
-      Height = 28
+      Height = 23
       Top = 0
       Width = 132
       Constraints.MaxHeight = 28
-      ItemHeight = 0
+      ItemHeight = 15
       ParentFont = False
       Style = csDropDownList
       TabOrder = 4
@@ -182,12 +181,12 @@ object pop_indi: Tpop_indi
     Align = alTop
     Caption = 'INDI driver settings'
     ClientHeight = 123
-    ClientWidth = 319
+    ClientWidth = 317
     ParentFont = False
     TabOrder = 0
     object IndiServerPort: TEdit
       Left = 192
-      Height = 28
+      Height = 23
       Top = 20
       Width = 75
       Constraints.MaxHeight = 28
@@ -197,7 +196,7 @@ object pop_indi: Tpop_indi
     end
     object IndiServerHost: TEdit
       Left = 8
-      Height = 28
+      Height = 23
       Top = 20
       Width = 173
       Constraints.MaxHeight = 28
@@ -217,39 +216,39 @@ object pop_indi: Tpop_indi
     end
     object MountIndiDevice: TComboBox
       Left = 8
-      Height = 28
+      Height = 23
       Top = 64
       Width = 170
       AutoCompleteText = [cbactSearchAscending]
       Constraints.MaxHeight = 28
-      ItemHeight = 0
+      ItemHeight = 15
       OnSelect = MountIndiDeviceSelect
       ParentFont = False
       TabOrder = 3
     end
     object Label75: TLabel
       Left = 8
-      Height = 19
+      Height = 15
       Top = 4
-      Width = 110
+      Width = 89
       Caption = 'INDI Server Host '
       ParentColor = False
       ParentFont = False
     end
     object Label130: TLabel
       Left = 192
-      Height = 19
+      Height = 15
       Top = 4
-      Width = 104
+      Width = 82
       Caption = 'INDI server Port'
       ParentColor = False
       ParentFont = False
     end
     object Label260: TLabel
       Left = 8
-      Height = 19
+      Height = 15
       Top = 49
-      Width = 102
+      Width = 84
       Caption = 'Telescope driver'
       ParentColor = False
       ParentFont = False
