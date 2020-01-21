@@ -1,7 +1,7 @@
 Atlas Virtuel de la Lune
 
 Programme gratuit d'étude et d'observation de la Lune.
-Pour Windows 2000/XP/Vista/7/8
+Pour Windows 7/8/10
 
 Images pour l'Atlas Virtuel de la Lune
 

@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Linux system
 
-Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|win|windata]"
+Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|linuxpicture|win|windata|winpicture]"
 
 version=7.0
 
@@ -33,8 +33,10 @@ echo Make $buildname
 unset make_linux32
 unset make_linux64
 unset make_linux_data
+unset make_linux_picture
 unset make_win32
 unset make_win32_data
+unset make_win32_picture
 unset outdir
 if [[ $buildname == linux ]]; then 
   if [[ $arch == i686 ]]; then 
@@ -52,6 +54,10 @@ if [[ $buildname == linuxdata ]]; then
   make_linux_data=1
   outdir="BUILD_LINUXDATA"
 fi  
+if [[ $buildname == linuxpicture ]]; then 
+  make_linux_picture=1
+  outdir="BUILD_LINUXPICTURE"
+fi  
 
 if [[ $buildname == win ]]; then 
   make_win32=1
@@ -62,6 +68,11 @@ if [[ $buildname == windata ]]; then
   make_win32_data=1
   extratarget=",x86_64-linux"
   outdir="BUILD_WINDATA"
+fi  
+if [[ $buildname == winpicture ]]; then 
+  make_win32_picture=1
+  extratarget=",x86_64-linux"
+  outdir="BUILD_WINPICTURE"
 fi  
 
 if [[ -z $outdir ]]; then
@@ -175,8 +186,6 @@ if [[ $make_linux64 ]]; then
 fi
 
 # make Linux Data for both architectures
-
-if [[ $make_linux_data ]]; then 
 function datapkg {
   pkg=$1
   cd $builddir
@@ -212,6 +221,7 @@ function datapkg {
   cd $wd
   rm -rf $builddir
 }
+if [[ $make_linux_data ]]; then 
   ./configure $configopt prefix=$builddir target=x86_64-linux
   if [[ $? -ne 0 ]]; then exit 1;fi
   make install_data
@@ -235,6 +245,16 @@ function datapkg {
   make install_data4-4
   if [[ $? -ne 0 ]]; then exit 1;fi
   datapkg vhres-lolakaguya
+  cd $wd
+  rm -rf $builddir
+fi
+
+if [[ $make_linux_picture ]]; then 
+  ./configure $configopt prefix=$builddir target=x86_64-linux
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  make install_picture
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  datapkg picture 
   cd $wd
   rm -rf $builddir
 fi
@@ -303,6 +323,23 @@ if [[ $make_win32_data ]]; then
   wine "$innosetup" "$wine_build\vmadata4-3.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   wine "$innosetup" "$wine_build\vmadata4-4.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/virtualmoon*.exe $wd/$outdir/
+  cd $wd
+  rm -rf $builddir
+fi
+
+# make Windows pictures
+if [[ $make_win32_picture ]]; then 
+  cd $wd
+  rsync -a --exclude=.svn Installer/Windows/* $builddir
+  ./configure $configopt prefix=$builddir/vmapro/Data target=i386-win32$extratarget
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  make install_win_picture
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  # exe
+  cd $builddir
+  wine "$innosetup" "$wine_build\vmapicture.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/virtualmoon*.exe $wd/$outdir/
   cd $wd

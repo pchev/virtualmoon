@@ -56,6 +56,8 @@ install_data4-3:
 	./install_data4-3.sh $(PREFIX) 
 install_data4-4:
 	./install_data4-4.sh $(PREFIX) 
+install_picture:
+	./install_picture.sh $(PREFIX) 
 install_win: 
 	./install_win.sh win32 $(PREFIX)
 install_win_update: 
@@ -83,6 +85,8 @@ install_win_data4-3:
 	./install_win_data4-3.sh $(PREFIX)
 install_win_data4-4:
 	./install_win_data4-4.sh $(PREFIX)
+install_win_picture:
+	./install_win_picture.sh $(PREFIX) 
 uninstall: 
 	./uninstall.sh $(PREFIX)
 uninstall_win: 

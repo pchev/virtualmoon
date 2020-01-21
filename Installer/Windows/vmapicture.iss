@@ -3,11 +3,11 @@
 
 [Setup]
 AppName={cm:MyAppName}
-AppVerName={cm:MyAppName} 
-DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{pf}\VirtualMoon}
+AppVerName={cm:MyAppName} v7.0
+DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{commonpf32}\VirtualMoon}
 InfoBeforeFile=setup_pict\readme.txt
-OutputDir=setup
-OutputBaseFilename=texture_change_l6
+OutputDir=.\
+OutputBaseFilename=virtualmoon-picture
 Compression=zip
 SolidCompression=true
 UseSetupLdr=true
@@ -20,6 +20,7 @@ CreateUninstallRegKey=false
 UpdateUninstallLogAppName=false
 DirExistsWarning=no
 ShowLanguageDialog=yes
+UsedUserAreasWarning=no
 
 [Languages]
 Name: eng; MessagesFile: compiler:Default.isl; InfoBeforeFile: setup_pict\readme.txt
@@ -30,8 +31,8 @@ eng.UninstalledAll=%1 was successfully removed from your computer.
 fre.UninstalledAll=%1 a été correctement désinstallé de cet ordinateur.
 
 [CustomMessages]
-eng.MyAppName=Chang'e 2 60m texture complement
-fre.MyAppName=addition texture Chang'e 2 60m
+eng.MyAppName=VMA additional picture library
+fre.MyAppName=AVL bibliothèques d'image complémentaires
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
