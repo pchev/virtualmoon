@@ -103,24 +103,15 @@ const crlf = chr(10)+chr(13);
       f6='0.000000';
       dateiso='yyyy"-"mm"-"dd"T"hh":"nn":"ss.zzz';
       HistoricalDir='Historical';
-      nOptionalFeature= 16;
+      nOptionalFeature= 7;
       OptionalFeatureCheck: array[1..nOptionalFeature]of string=(
-                      'Apollo/ACOSTA_A15.jpg',
-                      'ApolloMapping/ABBOT_A17.jpg',
-                      'BestOfAmateurs/AGRIPPA_WIRTHS.jpg',
-                      'Best_Pic_du_Midi/Archimedes_T1MPDM.jpg',
-                      'Clementine/ABBOT_CLEM.jpg',
-                      'Kaguya/ALPETRAGIUS_KAGUYA.jpg',
-                      'CLA/ABBOT_D2.jpg',
-                      'LAC_LM/ABENEZRA_LAC96.jpg',
-                      'Lopam/ABBOT.jpg',
-                      'Probes/ALPETRAGIUS_R9.jpg',
-                      'Textures/Airbrush_no_albedo/L1/0.jpg',
-                      'Textures/Clementine/L3/0.jpg',
-                      'Textures/Lopam/L1/0.jpg',
-                      'Textures/Bumpmap/wacdem.txt',
-                      'Textures/Change/L3/0.jpg',
-                      'Textures/WAC/L3/0.jpg'
+                      'BestOfCathala/NEUMAYER_LCATHALA 1.jpg',  // picture
+                      'Textures/LOLA_Kaguya_Shade/L4/0.jpg',             // data
+                      'Textures/LOLA_Kaguya_Shade/L5/0.jpg',             // hires
+                      'Textures/Change/L6/0.jpg',                        // very hires Chang'e
+                      'Textures/Lopam/L6/0.jpg',                         // very hires LOPAM
+                      'Textures/WAC/L6/0.jpg',                           // LRO WAC
+                      'Textures/LOLA_Kaguya_Shade/L6/0.jpg'              // LOLA - Kaguya
                       );
 
       // Datlun constant
