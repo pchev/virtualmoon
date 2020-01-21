@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Linux system
 
-Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|win|windata|windvd]"
+Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|win|windata]"
 
 version=7.0
 
@@ -35,7 +35,6 @@ unset make_linux64
 unset make_linux_data
 unset make_win32
 unset make_win32_data
-unset make_win32_dvd
 unset outdir
 if [[ $buildname == linux ]]; then 
   if [[ $arch == i686 ]]; then 
@@ -64,11 +63,6 @@ if [[ $buildname == windata ]]; then
   extratarget=",x86_64-linux"
   outdir="BUILD_WINDATA"
 fi  
-if [[ $buildname == windvd ]]; then 
-  make_win32_dvd=1
-  extratarget=",x86_64-linux"
-  outdir="BUILD_WINDVD"
-fi
 
 if [[ -z $outdir ]]; then
   echo $Syntaxe
@@ -222,23 +216,25 @@ function datapkg {
   if [[ $? -ne 0 ]]; then exit 1;fi
   make install_data
   if [[ $? -ne 0 ]]; then exit 1;fi
-  datapkg data1 
+  datapkg basedata 
   make install_data2
   if [[ $? -ne 0 ]]; then exit 1;fi
-  datapkg data2
+  datapkg data
   make install_data3
   if [[ $? -ne 0 ]]; then exit 1;fi
-  datapkg data3
-  make install_data4
+  datapkg hires
+  make install_data4-1
   if [[ $? -ne 0 ]]; then exit 1;fi
-  datapkg data4
-  mkdir $outdir/Linux_CD
-  mkdir $outdir/Linux_download
-  cp Installer/Linux/licence $outdir/Linux_CD/
-  cp Installer/Linux/readme_CD $outdir/Linux_CD/readme
-  cp Installer/Linux/install_CD.sh $outdir/Linux_CD/install.sh
-  cp Installer/Linux/vmapro_install.sh $outdir/Linux_download/
-  cp Installer/Linux/licence $outdir/Linux_download/
+  datapkg vhres-change
+  make install_data4-2
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  datapkg vhres-lopam
+  make install_data4-3
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  datapkg vhres-lrowac
+  make install_data4-4
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  datapkg vhres-lolakaguya
   cd $wd
   rm -rf $builddir
 fi
@@ -296,64 +292,21 @@ if [[ $make_win32_data ]]; then
   mv $builddir/vmapro/Data $builddir/vmapro/Data4-4
   # exe
   cd $builddir
-  wine "$innosetup" "$wine_build\vmadata1.iss"
-  if [[ $? -ne 0 ]]; then exit 1;fi
   wine "$innosetup" "$wine_build\vmadata2.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   wine "$innosetup" "$wine_build\vmadata3.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
-  wine "$innosetup" "$wine_build\vmadata4.iss"
+  wine "$innosetup" "$wine_build\vmadata4-1.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
-  wine "$innosetup" "$wine_build\vmadata5.iss"
+  wine "$innosetup" "$wine_build\vmadata4-2.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
-  wine "$innosetup" "$wine_build\vmadata6.iss"
+  wine "$innosetup" "$wine_build\vmadata4-3.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  wine "$innosetup" "$wine_build\vmadata4-4.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/virtualmoon*.exe $wd/$outdir/
   cd $wd
   rm -rf $builddir
 fi
 
-# make Windows i386 DVD version
-if [[ $make_win32_dvd ]]; then 
-  cd $wd/data
-  ./mkzoneinfo.sh
-  cd $wd
-  rsync -a --exclude=.svn Installer/Windows/* $builddir
-  ./configure $configopt prefix=$builddir/vmapro/Data target=i386-win32$extratarget
-  if [[ $? -ne 0 ]]; then exit 1;fi
-  make OS_TARGET=win32 CPU_TARGET=i386 clean
-  make OS_TARGET=win32 CPU_TARGET=i386
-  if [[ $? -ne 0 ]]; then exit 1;fi
-  make install_win
-  if [[ $? -ne 0 ]]; then exit 1;fi
-  make install_win_data
-  if [[ $? -ne 0 ]]; then exit 1;fi
-  mv $builddir/vmapro/Data $builddir/vmapro/Data1
-  make install_win_data2
-  if [[ $? -ne 0 ]]; then exit 1;fi
-  mv $builddir/vmapro/Data $builddir/vmapro/Data2
-  make install_win_data3
-  if [[ $? -ne 0 ]]; then exit 1;fi
-  mv $builddir/vmapro/Data $builddir/vmapro/Data3
-  make install_win_data4
-  if [[ $? -ne 0 ]]; then exit 1;fi
-  mv $builddir/vmapro/Data $builddir/vmapro/Data4
-  # exe
-  cd $builddir
-  sed -i "/AppVerName/ s/V5/V$version/" vmapro_CD.iss
-  wine "$innosetup" "$wine_build\vmapro_CD.iss"
-  if [[ $? -ne 0 ]]; then exit 1;fi
-  mv $builddir/setup*.exe $outdir/
-  mv $builddir/setup*.bin $outdir/
-  cp $builddir/Data/licence.txt  $outdir/
-  cp $builddir/Data/licence_fr.txt  $outdir/
-  cp $builddir/Data/readme.txt  $outdir/
-  cp $builddir/Data/lisezmoi.txt  $outdir/
-  cp $builddir/Data/autorun.inf  $outdir/
-  cp $builddir/Data/vma.ico  $outdir/
-  cd $wd 
-  mkisofs -R -r -l -J -quiet -Vvirtualmoon -ovirtualmoon-$version-windows.iso $outdir
-  cd $wd
-  rm -rf $builddir
-fi
 

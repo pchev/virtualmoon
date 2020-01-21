@@ -1,5 +1,5 @@
-Summary: Virtual Moon Atlas - data files 4
-Name: virtualmoon-data4
+Summary: Virtual Moon Atlas - Very high resolution LOLA-Kaguya
+Name: virtualmoon-vhres-lolakaguya
 Version: 5
 Release: 1
 Group: Sciences/Astronomy
@@ -8,7 +8,7 @@ URL: http://virtualmoon.sourceforge.net
 Packager: Patrick Chevalley
 BuildRoot: %_topdir/%{name}
 BuildArch: noarch
-Provides: virtualmoon-data4
+Provides: virtualmoon-vhres-lolakaguya
 Requires: virtualmoon
 AutoReqProv: no
 

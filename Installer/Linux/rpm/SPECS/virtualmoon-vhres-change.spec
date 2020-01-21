@@ -1,5 +1,5 @@
-Summary: Virtual Moon Atlas - data files 3
-Name: virtualmoon-data3
+Summary: Virtual Moon Atlas - Very high resolution Change
+Name: virtualmoon-vhres-change
 Version: 5
 Release: 1
 Group: Sciences/Astronomy
@@ -8,7 +8,7 @@ URL: http://virtualmoon.sourceforge.net
 Packager: Patrick Chevalley
 BuildRoot: %_topdir/%{name}
 BuildArch: noarch
-Provides: virtualmoon-data3
+Provides: virtualmoon-vhres-change
 Requires: virtualmoon
 AutoReqProv: no
 

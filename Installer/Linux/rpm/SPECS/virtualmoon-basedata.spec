@@ -1,5 +1,5 @@
-Summary: Virtual Moon Atlas - data files 1
-Name: virtualmoon-data1
+Summary: Virtual Moon Atlas - basic data
+Name: virtualmoon-basedata
 Version: 5
 Release: 1
 Group: Sciences/Astronomy
@@ -8,7 +8,7 @@ URL: http://virtualmoon.sourceforge.net
 Packager: Patrick Chevalley
 BuildRoot: %_topdir/%{name}
 BuildArch: noarch
-Provides: virtualmoon-data1
+Provides: virtualmoon-basedata
 Requires: virtualmoon
 AutoReqProv: no
 

@@ -1,5 +1,5 @@
-Summary: Virtual Moon Atlas - data files 2
-Name: virtualmoon-data2
+Summary: Virtual Moon Atlas - Very high resolution LRO WAC
+Name: virtualmoon-vhres-lrowac
 Version: 5
 Release: 1
 Group: Sciences/Astronomy
@@ -8,7 +8,7 @@ URL: http://virtualmoon.sourceforge.net
 Packager: Patrick Chevalley
 BuildRoot: %_topdir/%{name}
 BuildArch: noarch
-Provides: virtualmoon-data2
+Provides: virtualmoon-vhres-lrowac
 Requires: virtualmoon
 AutoReqProv: no
 

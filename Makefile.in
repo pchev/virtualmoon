@@ -33,24 +33,6 @@ install:
 uninstall: 
 	.\uninstall.cmd $(PREFIX)
 else
-ifeq ($(OS_TARGET),darwin)
-install: 
-	./install_darwin.sh $(PREFIX)
-install_update:
-        ./install_darwin_update.sh $(PREFIX)
-install_data:
-	./install_darwin_data.sh $(PREFIX) 
-install_data2:
-	./install_darwin_data2.sh $(PREFIX) 
-install_data3:
-	./install_darwin_data3.sh $(PREFIX) 
-install_data4a:
-	./install_darwin_data4a.sh $(PREFIX) 
-install_data4b:
-	./install_darwin_data4b.sh $(PREFIX) 
-uninstall: 
-	./uninstall_darwin.sh $(PREFIX)
-else
 install: 
 	./install.sh $(PREFIX)
 install_update: 
@@ -62,7 +44,18 @@ install_data2:
 install_data3:
 	./install_data3.sh $(PREFIX) 
 install_data4:
-	./install_data4.sh $(PREFIX) 
+	./install_data4-1.sh $(PREFIX) 
+	./install_data4-2.sh $(PREFIX) 
+	./install_data4-3.sh $(PREFIX) 
+	./install_data4-4.sh $(PREFIX) 
+install_data4-1:
+	./install_data4-1.sh $(PREFIX) 
+install_data4-2:
+	./install_data4-2.sh $(PREFIX) 
+install_data4-3:
+	./install_data4-3.sh $(PREFIX) 
+install_data4-4:
+	./install_data4-4.sh $(PREFIX) 
 install_win: 
 	./install_win.sh win32 $(PREFIX)
 install_win_update: 
@@ -78,7 +71,10 @@ install_win_data2:
 install_win_data3:
 	./install_win_data3.sh $(PREFIX)
 install_win_data4:
-	./install_win_data4.sh $(PREFIX)
+	./install_win_data4-1.sh $(PREFIX)
+	./install_win_data4-2.sh $(PREFIX)
+	./install_win_data4-3.sh $(PREFIX)
+	./install_win_data4-4.sh $(PREFIX)
 install_win_data4-1:
 	./install_win_data4-1.sh $(PREFIX)
 install_win_data4-2:

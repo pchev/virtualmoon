@@ -18,6 +18,7 @@ SolidCompression=true
 UseSetupLdr=true
 ShowLanguageDialog=yes
 UsePreviousAppDir=false
+UsedUserAreasWarning=no
 WizardStyle=modern
 WizardImageFile=setup_pict\WizMoonImage.bmp
 WizardSmallImageFile=setup_pict\WizMoonSmallImage.bmp
@@ -56,6 +57,7 @@ Name: {app}\fiximg.exe; Type: files; Components: ; Tasks: ; Languages:
 Name: {app}\createtexture.exe; Type: files; Components: ; Tasks: ; Languages: 
 Name: {app}\plan404.dll; Type: files; Components: ; Tasks: ; Languages: 
 Name: {app}\elp82.dll; Type: files; Components: ; Tasks: ; Languages: 
+Name: {app}\*.tid; Type: files; Components: ; Tasks: ; Languages: 
 Name: {userappdata}\Virtualmoon\vignette; Type: filesandordirs
 Name: {userappdata}\Virtualmoon\Database\*.dbl; Type: files
 Name: {userappdata}\Virtualmoon\Database\database_journal.txt; Type: files

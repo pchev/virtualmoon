@@ -3,11 +3,11 @@
 
 [Setup]
 AppName={cm:MyAppName}
-AppVerName={cm:MyAppName} 
+AppVerName={cm:MyAppName} v7.0 
 DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{commonpf32}\VirtualMoon}
 InfoBeforeFile=setup_data\readme.txt
 OutputDir=.\
-OutputBaseFilename=virtualmoon-data3
+OutputBaseFilename=virtualmoon-hires
 Compression=zip
 SolidCompression=true
 UseSetupLdr=true
@@ -20,6 +20,7 @@ CreateUninstallRegKey=false
 UpdateUninstallLogAppName=false
 DirExistsWarning=no
 ShowLanguageDialog=yes
+UsedUserAreasWarning=no
 
 [Languages]
 Name: eng; MessagesFile: compiler:Default.isl; InfoBeforeFile: setup_data\readme.txt
@@ -30,12 +31,12 @@ eng.UninstalledAll=%1 was successfully removed from your computer.
 fre.UninstalledAll=%1 a été correctement désinstallé de cet ordinateur.
 
 [CustomMessages]
-eng.MyAppName=VMA additional data 3
-fre.MyAppName=AVL données complémentaires 3
+eng.MyAppName=VMA High resolution textures
+fre.MyAppName=AVL Textures hautes résolutions
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: vmapro\Data4-1\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion createallsubdirs 
+Source: vmapro\Data3\*; DestDir: {app}; Flags: recursesubdirs ignoreversion replacesameversion createallsubdirs 
 
 [_ISTool]
 UseAbsolutePaths=false
