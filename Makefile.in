@@ -91,4 +91,3 @@ uninstall_win64:
 	./uninstall_win.sh $(PREFIX)
 endif
 endif
-endif
