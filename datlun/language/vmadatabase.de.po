@@ -175,20 +175,23 @@ msgstr "PYR"
 msgid "DOM"
 msgstr "DOM"
 
+#: u_translation_database.rsdb_8
+msgid "NSU"
+msgstr ""
+
+#: u_translation_database.rsdb_9
+msgid "FSU"
+msgstr ""
+
 #: u_translation_database.warning1
 msgid " Note to translator:"
 msgstr "Anmerkung für den Übersetzer:"
 
 #: u_translation_database.warning2
-msgid ""
-" The following text must be the same as the content of the TYPE column in "
-"the database you use for your language."
-msgstr ""
-"Der folgende Text muß derselbe sein wie der Inhalt der TYPE Spalte in der "
-"DAtenbank welche Sie in Ihrer Sprache verwenden."
+msgid " The following text must be the same as the content of the TYPE column in the database you use for your language."
+msgstr "Der folgende Text muß derselbe sein wie der Inhalt der TYPE Spalte in der DAtenbank welche Sie in Ihrer Sprache verwenden."
 
 #: u_translation_database.warning3
 msgid " If you not translate the database keep the English text here!"
-msgstr ""
-"Wenn Sie die Datenbank übersetzen lassen Sie den englischen Text an dieser "
-"Stelle!"
+msgstr "Wenn Sie die Datenbank übersetzen lassen Sie den englischen Text an dieser Stelle!"
+

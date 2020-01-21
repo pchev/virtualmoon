@@ -13,6 +13,10 @@ msgstr ""
 msgid "UK"
 msgstr "ES"
 
+#: u_translation.rshistorical
+msgid "Historical"
+msgstr ""
+
 #: u_translation.rsloadcsv01
 msgctxt "u_translation.rsloadcsv01"
 msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."

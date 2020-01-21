@@ -86,6 +86,10 @@ msgstr ""
 msgid "Historical Sites"
 msgstr ""
 
+#: u_translation:rshistorical
+msgid "Historical"
+msgstr ""
+
 #: u_translation:rst_21
 msgid "Predefined Selections"
 msgstr ""

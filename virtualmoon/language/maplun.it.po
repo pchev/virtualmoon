@@ -14,6 +14,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "POT-Creation-Date: \n"
 
+#: u_translation.rsabortslew
+msgid "Abort Slew"
+msgstr ""
+
+#: u_translation.rsabout
+#, fuzzy
+msgctxt "u_translation.rsabout"
+msgid "About"
+msgstr "Informazioni"
+
 #: u_translation.rsadvanced
 msgid "Advanced"
 msgstr "Avanzata"
@@ -28,6 +38,18 @@ msgstr "Rilievo aerografico senza albedo"
 
 #: u_translation.rsapparentsize
 msgid "Apparent size :"
+msgstr ""
+
+#: u_translation.rsascomdrivere
+msgid "The ASCOM driver report an error"
+msgstr ""
+
+#: u_translation.rsascomremote
+msgid "ASCOM Alpaca is available on %s"
+msgstr ""
+
+#: u_translation.rsascomtelesc
+msgid "ASCOM telescope interface"
 msgstr ""
 
 #: u_translation.rsattachinform
@@ -54,6 +76,18 @@ msgstr "Componenti opzionali"
 msgid "Clementine photographic"
 msgstr "Fotografie Clementine"
 
+#: u_translation.rsconfigure
+msgid "Configure"
+msgstr ""
+
+#: u_translation.rsconnect
+msgid "Connect"
+msgstr ""
+
+#: u_translation.rsconnectionto
+msgid "Connection to INDI server failed!"
+msgstr ""
+
 #: u_translation.rscountry
 msgid "Country"
 msgstr "Nazione"
@@ -74,6 +108,10 @@ msgstr "°"
 msgid "Detach information and tools"
 msgstr ""
 
+#: u_translation.rsdisconnect
+msgid "Disconnect"
+msgstr ""
+
 #: u_translation.rsdownload
 msgid "Download"
 msgstr "Scarica dal Web"
@@ -81,6 +119,14 @@ msgstr "Scarica dal Web"
 #: u_translation.rsdownloadurl
 msgid "http://ap-i.net/avl/en/download"
 msgstr "http://ap-i.net/avl/it/download"
+
+#: u_translation.rsdoyoureallyw
+msgid "Do you really want to park the mount now?"
+msgstr ""
+
+#: u_translation.rsdriverselect
+msgid "Driver Selection"
+msgstr ""
 
 #: u_translation.rsdynamicrelie
 msgid "Dynamic relief display method"
@@ -114,9 +160,17 @@ msgstr "Effemeridi:"
 msgid "Excavation depth :"
 msgstr ""
 
+#: u_translation.rsexport
+msgid "Export"
+msgstr ""
+
 #: u_translation.rsfirstusesett
 msgid "First use setting"
 msgstr "Configurazione iniziale"
+
+#: u_translation.rsflipnsmoveme
+msgid "Flip N/S movement"
+msgstr ""
 
 #: u_translation.rsfloordiamete
 msgid "Floor diameter :"
@@ -134,6 +188,10 @@ msgstr "A tutto schermo (Esc)"
 msgid "Geology :"
 msgstr ""
 
+#: u_translation.rsget
+msgid "Get"
+msgstr ""
+
 #: u_translation.rsgrid
 msgid "Grid"
 msgstr "Griglia"
@@ -146,8 +204,16 @@ msgstr "Altezza"
 msgid "UK"
 msgstr "IT"
 
+#: u_translation.rshide
+msgid "Hide"
+msgstr ""
+
 #: u_translation.rshideinformat
 msgid "Hide information and tools"
+msgstr ""
+
+#: u_translation.rshighresoluti
+msgid "High resolution texture"
 msgstr ""
 
 #: u_translation.rshistorical
@@ -169,6 +235,26 @@ msgstr ""
 #: u_translation.rsincreasefont
 msgid "Increase font size"
 msgstr "Aum. la dimensione dei caratteri"
+
+#: u_translation.rsindidriver
+msgid "INDI driver"
+msgstr ""
+
+#: u_translation.rsindidriverse
+msgid "INDI driver settings"
+msgstr ""
+
+#: u_translation.rsindiready
+msgid "INDI server is ready"
+msgstr ""
+
+#: u_translation.rsindiserverho
+msgid "INDI server host "
+msgstr ""
+
+#: u_translation.rsindiserverpo
+msgid "INDI server port"
+msgstr ""
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
@@ -357,6 +443,7 @@ msgid "Field:"
 msgstr "Campo:"
 
 #: u_translation.rsm_44
+msgctxt "u_translation.rsm_44"
 msgid "Refresh rate"
 msgstr "Freq.za di aggiornamento"
 
@@ -498,6 +585,10 @@ msgstr ""
 msgid "Name type :"
 msgstr ""
 
+#: u_translation.rsnotavailable
+msgid "Not available"
+msgstr ""
+
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr "Senza rappres. superficiale (uso di un solo strato)"
@@ -509,6 +600,10 @@ msgstr "Altezza dell'orbita"
 #: u_translation.rsorbitinclina
 msgid "Orbit inclination"
 msgstr "Inclinaz. dell'orbita"
+
+#: u_translation.rspark
+msgid "Park"
+msgstr ""
 
 #: u_translation.rspeakdiameter
 msgid "Peak diameter :"
@@ -526,45 +621,13 @@ msgstr "Fase con rilievo dinamico"
 msgid "Phase without relief"
 msgstr "Fase senza rilievo"
 
-#: u_translation.rspicturelibra
-msgid "Picture Library Apollo Missions"
-msgstr "Raccolta di immagini delle Missioni Apollo"
+#: u_translation.rspicturelib
+msgid "Picture Library"
+msgstr ""
 
-#: u_translation.rspicturelibra2
-msgid "Picture Library Apollo Mapping Camera"
-msgstr "Raccolta di immagini 'Apollo Mapping Camera'"
-
-#: u_translation.rspicturelibra3
-msgid "Picture Library Best Of Amateurs"
-msgstr "Raccolta di immagini 'Best of Amateurs'"
-
-#: u_translation.rspicturelibra4
-msgid "Picture Library Clementine Probe"
-msgstr "Raccolta di immagini della sonda Clementine"
-
-#: u_translation.rspicturelibra5
-msgid "Picture Library Kaguya Probe"
-msgstr "Raccolta di immagini della sonda Kaguya"
-
-#: u_translation.rspicturelibra6
-msgid "Picture Library Consolidated Lunar Atlas"
-msgstr "Raccolta di immagini 'Consolidated Lunar Atlas'"
-
-#: u_translation.rspicturelibra7
-msgid "Picture Library Lunar Astronautical Charts & Lunar Maps"
-msgstr "Raccolta di immagini 'Lunar Astronautical Charts & Lunar Maps'"
-
-#: u_translation.rspicturelibra8
-msgid "Picture Library Lunar Orbiter Photographic Atlas Of The Moon "
-msgstr "Raccolta di immagini 'Lunar Orbiter Photographic Atlas Of The Moon'"
-
-#: u_translation.rspicturelibra9
-msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
-msgstr "Raccolta di immagini delle sonde Luna, Ranger, Lunar Orbiter e Surveyor"
-
-#: u_translation.rspicturelibrapic
-msgid "Picture Library Best of the Pic du Midi Observatory"
-msgstr "Raccolta di immagini 'Il meglio dell'osservatorio di Pic du Midi'"
+#: u_translation.rspicturesandm
+msgid "Pictures and medium resolution texture"
+msgstr ""
 
 #: u_translation.rspixelcount
 msgid "Pixel count"
@@ -573,6 +636,14 @@ msgstr "Numero di pixel"
 #: u_translation.rspixelsize
 msgid "Pixel size"
 msgstr "Dimensione dei pixel"
+
+#: u_translation.rspleaseensure
+msgid "Please ensure that ASCOM telescope drivers are installed properly."
+msgstr ""
+
+#: u_translation.rspleasefirstc
+msgid "Please first connect the telescope and select a formation."
+msgstr ""
 
 #: u_translation.rsprocess
 msgid "Process :"
@@ -590,6 +661,12 @@ msgstr ""
 msgid "Radar dark halo radius :"
 msgstr ""
 
+#: u_translation.rsrefreshrate
+#, fuzzy
+msgctxt "u_translation.rsrefreshrate"
+msgid "Refresh rate"
+msgstr "Freq.za di aggiornamento"
+
 #: u_translation.rsregistredfor
 msgid "Registred formations"
 msgstr ""
@@ -605,6 +682,14 @@ msgstr "Salva le effemeridi in un file"
 #: u_translation.rssecond
 msgid "\""
 msgstr "\""
+
+#: u_translation.rsselect
+msgid "Select"
+msgstr ""
+
+#: u_translation.rssettime
+msgid "Set Time"
+msgstr ""
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
@@ -625,6 +710,10 @@ msgstr "Mostra la scala"
 #: u_translation.rsside
 msgid "Side:"
 msgstr "Faccia:"
+
+#: u_translation.rssideral
+msgid "Sidereal"
+msgstr ""
 
 #: u_translation.rssimple
 msgid "Simple"
@@ -648,6 +737,10 @@ msgstr "Passo"
 
 #: u_translation.rssubtype
 msgid "Sub-type :"
+msgstr ""
+
+#: u_translation.rstelescopenam
+msgid "Telescope name"
 msgstr ""
 
 #: u_translation.rstexturesairb
@@ -681,6 +774,10 @@ msgstr "Atlante Lunare Virtuale"
 #: u_translation.rstopocentric
 msgid "Topocentric"
 msgstr "Pos. topocentrica"
+
+#: u_translation.rstracking
+msgid "Tracking"
+msgstr ""
 
 #: u_translation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
@@ -887,6 +984,7 @@ msgid "seconds"
 msgstr "secondi"
 
 #: u_translation.rst_16
+msgctxt "u_translation.rst_16"
 msgid "About"
 msgstr "Informazioni"
 
@@ -1308,6 +1406,14 @@ msgstr "Annulla"
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
 msgstr "Formazioni senza nome"
+
+#: u_translation.rsunpark
+msgid "Unpark"
+msgstr ""
+
+#: u_translation.rsveryhighreso
+msgid "Very high resolution %s texture"
+msgstr ""
 
 #: u_translation.rswidth
 msgid "Width"

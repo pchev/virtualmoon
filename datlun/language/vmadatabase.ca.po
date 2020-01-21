@@ -1,7 +1,6 @@
 msgid ""
 msgstr ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
-"Last-Translator: pch\n"
+"Content-Type: text/plain; charset=UTF-8Last-Translator: pch\n"
 "PO-Revision-Date: 2012-11-17 21:01+0100\n"
 "Project-Id-Version: vmadatabase.fr\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"

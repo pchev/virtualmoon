@@ -1050,44 +1050,8 @@ msgstr ""
 msgid "Check for optional features"
 msgstr ""
 
-#: u_translation:rspicturelibra
-msgid "Picture Library Apollo Missions"
-msgstr ""
-
-#: u_translation:rspicturelibra2
-msgid "Picture Library Apollo Mapping Camera"
-msgstr ""
-
-#: u_translation:rspicturelibra3
-msgid "Picture Library Best Of Amateurs"
-msgstr ""
-
-#: u_translation:rspicturelibrapic
-msgid "Picture Library Best of the Pic du Midi Observatory"
-msgstr ""
-
-#: u_translation:rspicturelibra4
-msgid "Picture Library Clementine Probe"
-msgstr ""
-
-#: u_translation:rspicturelibra5
-msgid "Picture Library Kaguya Probe"
-msgstr ""
-
-#: u_translation:rspicturelibra6
-msgid "Picture Library Consolidated Lunar Atlas"
-msgstr ""
-
-#: u_translation:rspicturelibra7
-msgid "Picture Library Lunar Astronautical Charts & Lunar Maps"
-msgstr ""
-
-#: u_translation:rspicturelibra8
-msgid "Picture Library Lunar Orbiter Photographic Atlas Of The Moon "
-msgstr ""
-
-#: u_translation:rspicturelibra9
-msgid "Picture Library Probes Luna, Ranger, Lunar Orbiter and Surveyor"
+#: u_translation:rspicturelib
+msgid "Picture Library"
 msgstr ""
 
 #: u_translation:rstexturesairb
@@ -1300,5 +1264,141 @@ msgstr ""
 
 #: u_translation:rsmeteoriticim
 msgid "Meteoritic impact"
+msgstr ""
+
+#: u_translation:rsascomdrivere
+msgid "The ASCOM driver report an error"
+msgstr ""
+
+#: u_translation:rsascomtelesc
+msgid "ASCOM telescope interface"
+msgstr ""
+
+#: u_translation:rsascomremote
+msgid "ASCOM Alpaca is available on %s"
+msgstr ""
+
+#: u_translation:rsdriverselect
+msgid "Driver Selection"
+msgstr ""
+
+#: u_translation:rsrefreshrate
+msgid "Refresh rate"
+msgstr ""
+
+#: u_translation:rsselect
+msgid "Select"
+msgstr ""
+
+#: u_translation:rsconfigure
+msgid "Configure"
+msgstr ""
+
+#: u_translation:rssettime
+msgid "Set Time"
+msgstr ""
+
+#: u_translation:rstracking
+msgid "Tracking"
+msgstr ""
+
+#: u_translation:rsconnect
+msgid "Connect"
+msgstr ""
+
+#: u_translation:rsdisconnect
+msgid "Disconnect"
+msgstr ""
+
+#: u_translation:rshide
+msgid "Hide"
+msgstr ""
+
+#: u_translation:rspleaseensure
+msgid "Please ensure that ASCOM telescope drivers are installed properly."
+msgstr ""
+
+#: u_translation:rsabout
+msgid "About"
+msgstr ""
+
+#: u_translation:rsabortslew
+msgid "Abort Slew"
+msgstr ""
+
+#: u_translation:rssideral
+msgid "Sidereal"
+msgstr ""
+
+#: u_translation:rsflipnsmoveme
+msgid "Flip N/S movement"
+msgstr ""
+
+#: u_translation:rsunpark
+msgid "Unpark"
+msgstr ""
+
+#: u_translation:rspark
+msgid "Park"
+msgstr ""
+
+#: u_translation:rsdoyoureallyw
+msgid "Do you really want to park the mount now?"
+msgstr ""
+
+#: u_translation:rsnotavailable
+msgid "Not available"
+msgstr ""
+
+#: u_translation:rsindidriverse
+msgid "INDI driver settings"
+msgstr ""
+
+#: u_translation:rsindiserverho
+msgid "INDI server host "
+msgstr ""
+
+#: u_translation:rsindiserverpo
+msgid "INDI server port"
+msgstr ""
+
+#: u_translation:rstelescopenam
+msgid "Telescope name"
+msgstr ""
+
+#: u_translation:rsindidriver
+msgid "INDI driver"
+msgstr ""
+
+#: u_translation:rsget
+msgid "Get"
+msgstr ""
+
+#: u_translation:rsindiready
+msgid "INDI server is ready"
+msgstr ""
+
+#: u_translation:rsconnectionto
+msgid "Connection to INDI server failed!"
+msgstr ""
+
+#: u_translation:rspleasefirstc
+msgid "Please first connect the telescope and select a formation."
+msgstr ""
+
+#: u_translation:rsexport
+msgid "Export"
+msgstr ""
+
+#: u_translation:rspicturesandm
+msgid "Pictures and medium resolution texture"
+msgstr ""
+
+#: u_translation:rshighresoluti
+msgid "High resolution texture"
+msgstr ""
+
+#: u_translation:rsveryhighreso
+msgid "Very high resolution %s texture"
 msgstr ""
 

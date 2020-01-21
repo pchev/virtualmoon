@@ -13,6 +13,10 @@ msgstr "Ανώνυμος σχηματισμός της αόρατης πλευράς"
 msgid "UK"
 msgstr "EL"
 
+#: u_translation.rshistorical
+msgid "Historical"
+msgstr ""
+
 #: u_translation.rsloadcsv01
 msgctxt "u_translation.rsloadcsv01"
 msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."
@@ -54,8 +58,10 @@ msgid "It is also possible to give a constant value to a database field. Enter t
 msgstr "Είναι επίσης δυνατό να δώσετε μια σταθερή τιμή σε ένα πεδίο της βάσης δεδομένων. Εισάγετε την τιμή στο κάτω μέρος της σελίδας και πατήστε το κουμπί \"Σταθερή τιμή\""
 
 #: u_translation.rsloadcsv09
+#, fuzzy
+#| msgid "DBN is an identifier for your file. It range from 100 to 999 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgctxt "u_translation.rsloadcsv09"
-msgid "DBN is an identifier for your file. It range from 100 to 999 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
+msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
 msgstr "Το DBN είναι ένα αναγνωριστικό του αρχείου σας. Παίρνει τιμές από 10 μέχρι 99 και σας επιτρέπει να αναγνωρίζετε τα δεδομένα σας στη βάση δεδομένων. Από το κεντρικό μενού μπορείτε να εμφανίζετε ή όχι τις επιγραφές των αντικειμένων"
 
 #: u_translation.rsloadcsv10
