@@ -194,7 +194,7 @@ function datapkg {
   sed -i "/Version:/ s/5/$version/" virtualmoon-$pkg/DEBIAN/control
   fakeroot dpkg-deb --build virtualmoon-$pkg .
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv virtualmoon-data*.deb $wd/$outdir/
+  mv virtualmoon*.deb $wd/$outdir/
   if [[ $? -ne 0 ]]; then exit 1;fi
   # rpm
   cd $wd
