@@ -1361,7 +1361,7 @@ end;
 procedure TForm1.GetLabel(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
     w, wmin, wfact, l1, b1: single;
-    miniok,IsLUN:    boolean;
+    miniok,IsLUN,IsUnnamed: boolean;
     nom, let, dbn, sl:  string;
     j: integer;
 begin
@@ -1398,17 +1398,19 @@ begin
       l1 := dbm.Results[j].Format[1].AsFloat;
       b1 := dbm.Results[j].Format[2].AsFloat;
       w  := dbm.Results[j].Format[3].AsFloat;
+      nom := trim(string(dbm.Results[j][0]));
+      dbn := trim(string(dbm.Results[j][8]));
+      IsLUN:=(copy(nom,1,3)='AVL');
+      IsUnnamed:=(pos(dbn,UnnamedList)>0);
+      if (not IsUnnamed)and(w<=0) then w:=1;
       if w <= 0 then
         w := 1.67 * dbm.Results[j].Format[4].AsFloat;
       if (w > 200) and (abs(l1) > 90) then
         w := 1.5 * w; // moins de grosse formation face cachee
       if w < (wmin * wfact) then
         continue;
-      nom := trim(string(dbm.Results[j][0]));
-      dbn := trim(string(dbm.Results[j][8]));
-      IsLUN:=(copy(nom,1,3)='AVL');
       // Duplicate Mare name in noname database
-      if (dbn='8') and IsLUN and (w>300) then continue;
+      if IsUnnamed and IsLUN and (w>300) then continue;
       if minilabel then
       begin
         miniok := True;

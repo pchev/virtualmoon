@@ -236,6 +236,7 @@ Var  Splashversion, compile_time, compile_version: string;
      marklabelcolor, markcolor, SpriteColor: Tcolor;
      DarkTheme : boolean;
      DatabaseList: Tstringlist;
+     UnnamedList: string;
 
      // Datlun var
      dbtype : array[1..numdbtype] of string;

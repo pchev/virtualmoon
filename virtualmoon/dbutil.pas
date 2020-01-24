@@ -374,6 +374,8 @@ ListDB;
 CreateDB(dbm);
 for i:=1 to 9 do begin
   if usedatabase[i] and (database[i]<>'') then begin
+     if (pos('_Unnamed',database[i])>0)or(pos('_non_nommées',database[i])>0) then
+       UnnamedList:=UnnamedList+' '+inttostr(i)+' ';
      buf:=dbm.QueryOne('select fdate from file_date where dbn='+inttostr(i)+';');
      if buf='' then db_age:=0 else db_age:=strtoint(buf);
      if fileexists(database[i]) then begin
