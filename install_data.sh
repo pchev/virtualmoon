@@ -75,6 +75,8 @@ install -v -m 644 "Database/5_Domes_EN.csv" $destdir/share/virtualmoon/Database/
 install -v -m 644 "Database/5_Dômes_FR.csv" $destdir/share/virtualmoon/Database/
 install -v -m 644 "Database/6_Formations_pyroclastiques_FR.csv" $destdir/share/virtualmoon/Database/
 install -v -m 644 "Database/6_Pyroclastic_formations_EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/7_NELIOTA_impacts_EN.csv" $destdir/share/virtualmoon/Database/
+install -v -m 644 "Database/7_NELIOTA_impacts_FR.csv" $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/glossary_uEN.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/glossary_uFR.csv $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/licence.txt $destdir/share/virtualmoon/Database/

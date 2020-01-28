@@ -57,6 +57,8 @@ install -v -m 644 "Database/5_Domes_EN.csv" $destdir/Database/
 install -v -m 644 "Database/5_Dômes_FR.csv" $destdir/Database/
 install -v -m 644 "Database/6_Formations_pyroclastiques_FR.csv" $destdir/Database/
 install -v -m 644 "Database/6_Pyroclastic_formations_EN.csv" $destdir/Database/
+install -v -m 644 "Database/7_NELIOTA_impacts_EN.csv" $destdir/Database/
+install -v -m 644 "Database/7_NELIOTA_impacts_FR.csv" $destdir/Database/
 install -v -m 644 Database/glossary_uEN.csv $destdir/Database/
 install -v -m 644 Database/glossary_uFR.csv $destdir/Database/
 install -v -m 644 Database/licence.txt $destdir/Database/
