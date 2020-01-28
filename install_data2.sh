@@ -43,6 +43,7 @@ InstTexture TexturesWAC $destdir
 InstTexture Texture_LOLA_Kaguya_Shade $destdir
 InstTexture TexturesChange $destdir
 InstTexture TextureHistorical $destdir
+InstTexture TextureOverlay $destdir
 
 InstPicture PictureApolloMapping $destdir
 InstPicture PictureCLA $destdir
