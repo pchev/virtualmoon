@@ -1379,13 +1379,7 @@ begin
     else
       wmin := MinValue([650.0, 3 * LabelDensity / ((Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)/(1+3*Tf_moon(Sender).Zoom/90))]);
 
-    if Tf_moon(Sender).Zoom<20 then begin
-      sl:=sidelist;
-      if Tf_moon(Sender).Zoom<10 then sl:=StringReplace(sl,',4','',[]);
-      sl:=StringReplace(sl,',5','',[]);
-    end
-    else
-      sl:=sidelist;
+    sl:=sidelist;
     dbm.Query('select NAME,LONGI_N,LATI_N,WIDE_KM,WIDE_MI,LENGTH_KM,LENGTH_MI,LUN,DBN from moon' +
       ' where DBN in (' + sl + ')' + ' and LONGI_N > ' +
       formatfloat(f2, rad2deg*lmin) + ' and LONGI_N < ' + formatfloat(f2, rad2deg*lmax) +
@@ -1400,7 +1394,8 @@ begin
       w  := dbm.Results[j].Format[3].AsFloat;
       nom := trim(string(dbm.Results[j][0]));
       dbn := trim(string(dbm.Results[j][8]));
-      IsLUN:=(copy(nom,1,3)='AVL');
+      IsLUN:=(copy(nom,1,2)='AA');
+      IsLUN:=IsLun or (copy(nom,1,3)='AVL');
       IsUnnamed:=(pos(dbn,UnnamedList)>0);
       if (not IsUnnamed)and(w<=0) then w:=1;
       if w <= 0 then
@@ -1434,7 +1429,9 @@ begin
         end;
       end;
       nom:=capitalize(nom);
-      Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom,IsLUN);
+      if not Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom,IsLUN) then begin
+        break;
+      end;
      end;
   end;
 end;
@@ -6011,13 +6008,7 @@ if button=mbLeft then begin
       wmin := -1
     else
       wmin := MinValue([10.0, 10/(Tf_moon(Sender).Zoom)]);
-    if Tf_moon(Sender).Zoom<20 then begin
-      sl:=sidelist;
-      if Tf_moon(Sender).Zoom<10 then sl:=StringReplace(sl,',4','',[]);
-      sl:=StringReplace(sl,',5','',[]);
-    end
-    else
-      sl:=sidelist;
+    sl:=sidelist;
     identLB(Rad2Deg*Lon,Rad2Deg*Lat,wmin,sl);
     Tf_moon(Sender).SetMark(deg2rad*currentl,deg2rad*currentb,capitalize(currentname));
   end else begin

@@ -2139,6 +2139,7 @@ var x,y: integer;
 begin
 result:=false;
 if curlabel>=MaxLabel then exit;
+result:=true;
 vis:=not (marked and (marktext=txt));
 if not Moon2Screen(lon,lat,x,y) then exit;
 if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
