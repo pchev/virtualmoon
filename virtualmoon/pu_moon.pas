@@ -357,7 +357,7 @@ var
   f_moon: Tf_moon;
 
 const
-  ZoomByZone: array[1..6] of integer=(3,8,16,35,65,90);
+  ZoomByZone: array[1..6] of integer=(3,8,16,35,65,200);
 
 implementation
 
