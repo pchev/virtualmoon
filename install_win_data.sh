@@ -45,20 +45,6 @@ echo Install virtualmoon data to $destdir
 
 install -m 755 -d $destdir
 install -m 755 -d $destdir/Database
-install -v -m 644 "Database/1_Formations_nommées_FR.csv" $destdir/Database/
-install -v -m 644 "Database/1_Named_formations_EN.csv" $destdir/Database/
-install -v -m 644 "Database/2_Formations_satellites_FR.csv" $destdir/Database/
-install -v -m 644 "Database/2_Satellite_formations_EN.csv" $destdir/Database/
-install -v -m 644 "Database/3_Formations_non_nommées_FR.csv" $destdir/Database/
-install -v -m 644 "Database/3_Unnamed_formations_EN.csv" $destdir/Database/
-install -v -m 644 "Database/4_Historical_sites_EN.csv" $destdir/Database/
-install -v -m 644 "Database/4_Sites_historiques_FR.csv" $destdir/Database/
-install -v -m 644 "Database/5_Domes_EN.csv" $destdir/Database/
-install -v -m 644 "Database/5_Dômes_FR.csv" $destdir/Database/
-install -v -m 644 "Database/6_Formations_pyroclastiques_FR.csv" $destdir/Database/
-install -v -m 644 "Database/6_Pyroclastic_formations_EN.csv" $destdir/Database/
-install -v -m 644 "Database/7_NELIOTA_impacts_EN.csv" $destdir/Database/
-install -v -m 644 "Database/7_NELIOTA_impacts_FR.csv" $destdir/Database/
 install -v -m 644 Database/glossary_uEN.csv $destdir/Database/
 install -v -m 644 Database/glossary_uFR.csv $destdir/Database/
 install -v -m 644 Database/licence.txt $destdir/Database/
@@ -67,6 +53,7 @@ install -v -m 644 Database/lopamidx.txt $destdir/Database/
 install -v -m 644 Database/weblun.csv $destdir/Database/
 
 # big data
+InstData Base_Database $destdir
 InstData Base_JPLeph $destdir
 InstData Base_Airbrush $destdir
 InstData Base_Bumpmap $destdir
