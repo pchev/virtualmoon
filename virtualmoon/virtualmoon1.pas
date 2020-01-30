@@ -4048,6 +4048,7 @@ begin
       end;
       if reloaddb then begin
         LoadDB(dbm);
+        form2.DbList.Items.Assign(DatabaseList);
         firstsearch := True;
         SearchName(currentname, False);
       end;
