@@ -367,11 +367,11 @@ missingf:='';
 needvacuum:=false;
 buf:=Slash(DBdir)+'dbmoon7'+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
-sidelist:='1';
-for i:=2 to maxdbn do if usedatabase[i] then sidelist:=sidelist+','+inttostr(i);
 try
 ListDB;
 CreateDB(dbm);
+sidelist:='1';
+for i:=2 to maxdbn do if usedatabase[i] and (database[i]<>'') then sidelist:=sidelist+','+inttostr(i);
 for i:=1 to 9 do begin
   if usedatabase[i] and (database[i]<>'') then begin
      if (pos('_Unnamed',database[i])>0)or(pos('_non_nommées',database[i])>0) then
@@ -389,7 +389,8 @@ for i:=1 to 9 do begin
        usedatabase[i]:=false;
        if i<>5 then missingf:=missingf+database[i]+blank;
      end;
-  end;
+  end
+  else usedatabase[i]:=false;
 end;
 if needvacuum then dbm.Query('Vacuum;');
 finally
