@@ -8,7 +8,7 @@ function InstData {
   ddir=$2
   pkgz=BaseData/$pkg
   if [ ! -e $pkgz ]; then
-     wget http://sourceforge.net/projects/virtualmoon/files/6-Source_Data/$pkg/download -O $pkgz
+     wget http://sourceforge.net/projects/virtualmoon/files/OldFiles/6-Source_Data/$pkg/download -O $pkgz
   fi
   tar xvzf $pkgz -C $ddir
 }
