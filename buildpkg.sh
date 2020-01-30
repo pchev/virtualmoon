@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Linux system
 
-Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|linuxpicture|win|windata|winpicture]"
+Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|linuxpicture|linuxtranslation|win|windata|winpicture|wintranslation]"
 
 version=7.0
 
@@ -34,9 +34,11 @@ unset make_linux32
 unset make_linux64
 unset make_linux_data
 unset make_linux_picture
+unset make_linux_translation
 unset make_win32
 unset make_win32_data
 unset make_win32_picture
+unset make_win32_translation
 unset outdir
 if [[ $buildname == linux ]]; then 
   if [[ $arch == i686 ]]; then 
@@ -58,6 +60,10 @@ if [[ $buildname == linuxpicture ]]; then
   make_linux_picture=1
   outdir="BUILD_LINUXPICTURE"
 fi  
+if [[ $buildname == linuxtranslation ]]; then 
+  make_linux_translation=1
+  outdir="BUILD_LINUXTRANSLATION"
+fi  
 
 if [[ $buildname == win ]]; then 
   make_win32=1
@@ -73,6 +79,11 @@ if [[ $buildname == winpicture ]]; then
   make_win32_picture=1
   extratarget=",x86_64-linux"
   outdir="BUILD_WINPICTURE"
+fi  
+if [[ $buildname == wintranslation ]]; then 
+  make_win32_translation=1
+  extratarget=",x86_64-linux"
+  outdir="BUILD_WINTRANSLATION"
 fi  
 
 if [[ -z $outdir ]]; then
@@ -259,6 +270,16 @@ if [[ $make_linux_picture ]]; then
   rm -rf $builddir
 fi
 
+if [[ $make_linux_translation ]]; then 
+  ./configure $configopt prefix=$builddir target=x86_64-linux
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  make install_translation
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  datapkg translation 
+  cd $wd
+  rm -rf $builddir
+fi
+
 # make Windows i386 version
 if [[ $make_win32 ]]; then 
   cd $wd/data
@@ -346,4 +367,20 @@ if [[ $make_win32_picture ]]; then
   rm -rf $builddir
 fi
 
+# make Windows translation
+if [[ $make_win32_translation ]]; then 
+  cd $wd
+  rsync -a --exclude=.svn Installer/Windows/* $builddir
+  ./configure $configopt prefix=$builddir/vmapro/Data target=i386-win32$extratarget
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  make install_win_translation
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  # exe
+  cd $builddir
+  wine "$innosetup" "$wine_build\vmatranslation.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/virtualmoon*.exe $wd/$outdir/
+  cd $wd
+  rm -rf $builddir
+fi
 

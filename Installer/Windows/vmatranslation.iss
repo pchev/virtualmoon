@@ -3,11 +3,11 @@
 
 [Setup]
 AppName={cm:MyAppName}
-AppVerName={cm:MyAppName}
-DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{pf}\VirtualMoon}
-OutputDir=setup
-OutputBaseFilename=lang_DE
-Compression=zip
+AppVerName={cm:MyAppName} v7.0
+DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{commonpf32}\VirtualMoon}
+OutputDir=.\
+OutputBaseFilename=virtualmoon-translation
+Compression=lzma
 SolidCompression=true
 UseSetupLdr=true
 UsePreviousAppDir=false
@@ -18,13 +18,14 @@ AppID={{3EB7A19B-690F-49BA-B494-CADA547D0DB9}
 CreateUninstallRegKey=false
 UpdateUninstallLogAppName=false
 DirExistsWarning=no
+UsedUserAreasWarning=no
 
 [CustomMessages]
-MyAppName=Virtual Moon Atlas, German translation
+MyAppName=Virtual Moon Atlas, language translation
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: de\share\virtualmoon\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: vmapro\Data\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Messages]
 UninstalledAll=%1 was successfully removed from your computer.
