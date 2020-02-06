@@ -5194,8 +5194,15 @@ begin
 end;
 
 procedure TForm1.ToolButton10Click(Sender: TObject);
+var delta: double;
 begin
-  listobject(5);
+  case trunc(activemoon.Zoom) of
+    0..20: delta:=5;
+    21..30: delta:=3;
+    31..90: delta:=2;
+    91..MaxInt: delta:=1;
+  end;
+  listobject(delta);
 end;
 
 procedure TForm1.BMP1Click(Sender: TObject);
