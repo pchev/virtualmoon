@@ -165,6 +165,7 @@ type
     ToolButton19: TToolButton;
     ToolButton20: TToolButton;
     ToolButton21: TToolButton;
+    ToolButton22: TToolButton;
     ToolButtonCCD: TToolButton;
     ToolButtonNotes: TToolButton;
     ToolButtonEph: TToolButton;
@@ -384,6 +385,7 @@ type
     procedure SaveEphemClick(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure Splitter2TimerTimer(Sender: TObject);
+    procedure ToolButton22Click(Sender: TObject);
     procedure ToolButtonCCDClick(Sender: TObject);
     procedure ToolButtonEphClick(Sender: TObject);
     procedure ToolButtonHideToolsClick(Sender: TObject);
@@ -870,6 +872,7 @@ begin
     ButtonDatabase.hint := 'DatLun';
     CheckBox8.Caption := rst_182;
     Toolbutton12.hint := rsShowLabels;
+    Toolbutton22.hint := rst_121;
     GridButton.Hint:=rsShowGrid;
     ToolButton14.Hint:=rsShowScale;
     CheckBox6.Caption := rst_156;
@@ -1408,28 +1411,33 @@ begin
       if IsUnnamed and IsLUN and (w>300) then continue;
       if minilabel then
       begin
-        miniok := True;
-        if copy(nom, 1, 6) = 'DOMES ' then
-          miniok := False;
-        if copy(nom, 1, 5) = 'DOME ' then
-          miniok := False;
-        if copy(nom, 1, 6) = 'DORSA ' then
-          miniok := False;
-        if copy(nom, 1, 5) = 'RIMA ' then
-          miniok := False;
-        let      := trim(copy(nom, length(nom) - 1, 2));
-        if miniok and (length(let) = 1) and (let >= 'A') and (let <= 'Z') then
-        begin
-          nom := let;
+        if IsLUN then begin
+          nom:='*';
         end
-        else
-        begin
-          if w < (wmin) then
-            continue;
+        else begin
+          miniok := True;
+          if copy(nom, 1, 6) = 'DOMES ' then
+            miniok := False;
+          if copy(nom, 1, 5) = 'DOME ' then
+            miniok := False;
+          if copy(nom, 1, 6) = 'DORSA ' then
+            miniok := False;
+          if copy(nom, 1, 5) = 'RIMA ' then
+            miniok := False;
+          let      := trim(copy(nom, length(nom) - 1, 2));
+          if miniok and (length(let) = 1) and (let >= 'A') and (let <= 'Z') then
+          begin
+            nom := let;
+          end
+          else
+          begin
+            if w < (wmin) then
+              continue;
+          end;
         end;
       end;
       nom:=capitalize(nom);
-      if not Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom,IsLUN) then begin
+      if not Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom,(IsLUN and (not minilabel)),(IsLUN and minilabel)) then begin
         break;
       end;
      end;
@@ -3642,6 +3650,7 @@ begin
   checkbox4.Checked := ZenithOnTop;
   skiporient:=false;
   ToolButton12.Down := showlabel;
+  ToolButton22.Down := minilabel;
   // detect if theme color is dark
   c:=ColorToRGB(clBtnFace);
   i:=round((Blue(c)+Green(c)+Red(c))/3);
@@ -4210,6 +4219,13 @@ procedure TForm1.ToolButton12Click(Sender: TObject);
 begin
  showlabel:=not showlabel;
  ToolButton12.Down := showlabel;
+ activemoon.RefreshAll;
+end;
+
+procedure TForm1.ToolButton22Click(Sender: TObject);
+begin
+ minilabel:=not minilabel;
+ ToolButton22.Down := minilabel;
  activemoon.RefreshAll;
 end;
 

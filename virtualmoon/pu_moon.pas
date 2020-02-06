@@ -36,7 +36,7 @@ uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics,
   Classes, Controls, Forms, Menus, Dialogs, Math ;
 
 const
-   MaxLabel=500;
+   MaxLabel=5000;
 
 type
 
@@ -272,7 +272,7 @@ type
     procedure CenterAt(lon,lat:single);
     procedure CenterMark;
     procedure KeyEvent(event: TMoonKeyClass; key: word);
-    function AddLabel(lon,lat:single; txt:string; notcenter:boolean):boolean;
+    function AddLabel(lon,lat:single; txt:string; notcenter,forcecenter:boolean):boolean;
     function AddSprite(lon,lat:single):boolean;
     procedure RefreshAll;
     procedure RenderToBitmap(var bmp: TBitmap; size: integer; white: boolean);
@@ -2133,7 +2133,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
   end;
 end;
 
-function Tf_moon.AddLabel(lon,lat:single; txt:string; notcenter:boolean):boolean;
+function Tf_moon.AddLabel(lon,lat:single; txt:string; notcenter,forcecenter:boolean):boolean;
 var x,y: integer;
     vis: boolean;
 begin
@@ -2149,7 +2149,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
   then begin
     with LabelGroup.Children[2*curlabel] as TGLHUDText do begin
       Position.SetPoint(x+ShadowOffset,y+ShadowOffset,0);
-      if labelcenter and (not notcenter) then
+      if (labelcenter or forcecenter) and (not notcenter) then
         begin
           Text      := txt;
           Alignment := taCenter;
@@ -2163,7 +2163,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
     end;
     with LabelGroup.Children[2*curlabel+1] as TGLHUDText do begin
       Position.SetPoint(x,y,0);
-      if labelcenter and (not notcenter) then
+      if (labelcenter or forcecenter) and (not notcenter) then
         begin
           Text      := txt;
           Alignment := taCenter;
