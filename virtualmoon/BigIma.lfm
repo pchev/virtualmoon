@@ -11,13 +11,6 @@ object BigImaForm: TBigImaForm
   OnKeyPress = FormKeyPress
   OnMouseWheel = FormMouseWheel
   OnShow = FormShow
-  object Image1: TImage
-    Left = 0
-    Height = 348
-    Top = 16
-    Width = 601
-    AutoSize = True
-  end
   object ToolBar1: TToolBar
     Left = 0
     Height = 23
@@ -64,6 +57,25 @@ object BigImaForm: TBigImaForm
       ParentColor = False
       ParentFont = False
       Transparent = False
+    end
+  end
+  object ScrollBox1: TScrollBox
+    Left = 0
+    Height = 388
+    Top = 23
+    Width = 621
+    HorzScrollBar.Page = 601
+    VertScrollBar.Page = 348
+    Align = alClient
+    ClientHeight = 386
+    ClientWidth = 619
+    TabOrder = 1
+    object Image1: TImage
+      Left = 0
+      Height = 348
+      Top = 0
+      Width = 601
+      AutoSize = True
     end
   end
   object Timer1: TTimer

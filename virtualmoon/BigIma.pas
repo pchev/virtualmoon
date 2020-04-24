@@ -30,7 +30,11 @@ uses Math, FileUtil,
   ExtCtrls, StdCtrls, Buttons, ComCtrls, ToolWin, LResources;
 
 type
+
+  { TBigImaForm }
+
   TBigImaForm = class(TForm)
+    ScrollBox1: TScrollBox;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
@@ -96,8 +100,8 @@ begin
    image1.Width:=round(x*imageWidth);
    image1.Height:=round(x*imageHeight);
    Caption:=titre+' x'+formatfloat('0.#',Power(2,zoom));
-   ClientWidth:=trunc(minvalue([0.8*Screen.Width,image1.Width]));
-   ClientHeight:=trunc(minvalue([0.8*Screen.Height,image1.Height+toolbar1.height]));
+   ClientWidth:=trunc(minvalue([0.5*Screen.Width,image1.Width]));
+   ClientHeight:=trunc(minvalue([0.5*Screen.Height,image1.Height+toolbar1.height]));
    formpos(self,self.Left,self.Top);
 end;
 
