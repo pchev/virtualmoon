@@ -1308,7 +1308,6 @@ object Form1: TForm1
           RowCount = 26
           TabOrder = 1
           TabStop = False
-          TitleFont.Height = 13
           TitleStyle = tsStandard
         end
       end
@@ -2474,7 +2473,6 @@ object Form1: TForm1
           ParentColor = True
           ParentFont = False
           TabOrder = 0
-          TitleFont.Height = 13
           OnSetEditText = StringGrid2SetEditText
         end
         object Panel6: TPanel

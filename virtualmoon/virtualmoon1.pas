@@ -1363,7 +1363,7 @@ end;
 
 procedure TForm1.GetLabel(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
-    w, wmin, wfact, l1, b1: single;
+    w, wmin, wfact, l1, b1, scale: single;
     miniok,IsLUN,IsUnnamed: boolean;
     nom, let, dbn, sl:  string;
     j: integer;
@@ -1409,10 +1409,12 @@ begin
         continue;
       // Duplicate Mare name in noname database
       if IsUnnamed and IsLUN and (w>300) then continue;
+      scale:=1;
       if minilabel then
       begin
         if IsLUN then begin
           nom:='*';
+          scale:=2;
         end
         else begin
           miniok := True;
@@ -1437,7 +1439,7 @@ begin
         end;
       end;
       nom:=capitalize(nom);
-      if not Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom,(IsLUN and (not minilabel)),(IsLUN and minilabel)) then begin
+      if not Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom,(IsLUN and (not minilabel)),(IsLUN and minilabel),scale) then begin
         break;
       end;
      end;

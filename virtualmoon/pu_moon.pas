@@ -272,7 +272,7 @@ type
     procedure CenterAt(lon,lat:single);
     procedure CenterMark;
     procedure KeyEvent(event: TMoonKeyClass; key: word);
-    function AddLabel(lon,lat:single; txt:string; notcenter,forcecenter:boolean):boolean;
+    function AddLabel(lon,lat:single; txt:string; notcenter,forcecenter:boolean;sc:single=1):boolean;
     function AddSprite(lon,lat:single):boolean;
     procedure RefreshAll;
     procedure RenderToBitmap(var bmp: TBitmap; size: integer; white: boolean);
@@ -2133,7 +2133,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
   end;
 end;
 
-function Tf_moon.AddLabel(lon,lat:single; txt:string; notcenter,forcecenter:boolean):boolean;
+function Tf_moon.AddLabel(lon,lat:single; txt:string; notcenter,forcecenter:boolean;sc:single=1):boolean;
 var x,y: integer;
     vis: boolean;
 begin
@@ -2148,6 +2148,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
   GLSceneViewer1.Height / 2 - y, 2)) < 0.475 * GLSceneViewer1.Width))
   then begin
     with LabelGroup.Children[2*curlabel] as TGLHUDText do begin
+      Scale.SetVector(sc,sc,sc);
       Position.SetPoint(x+ShadowOffset,y+ShadowOffset,0);
       if (labelcenter or forcecenter) and (not notcenter) then
         begin
@@ -2162,6 +2163,7 @@ if (x > 0) and (y > 0) and (x < GLSceneViewer1.Width) and
       Visible:=vis;
     end;
     with LabelGroup.Children[2*curlabel+1] as TGLHUDText do begin
+      Scale.SetVector(sc,sc,sc);
       Position.SetPoint(x,y,0);
       if (labelcenter or forcecenter) and (not notcenter) then
         begin
