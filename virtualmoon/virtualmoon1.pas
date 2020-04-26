@@ -3956,7 +3956,7 @@ begin
     form2.CheckBox8.Checked  := PrintEph;
     form2.CheckBox9.Checked  := PrintDesc;
     form2.TexturePath := activemoon.TexturePath;
-    form2.texturefn.Assign(texturefiles);
+    form2.texturefn.Assign(activemoon.Texture);
     form2.CheckBox15.Checked := LopamDirect;
     form2.ruklprefix.Text := ruklprefix;
     form2.ruklsuffix.Text := ruklsuffix;

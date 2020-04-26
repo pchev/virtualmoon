@@ -1181,7 +1181,7 @@ end;
 procedure Tf_moon.SetTexture(lfn:TStringList);
 begin
  if (lfn[0]<>'NONE')and(not DirectoryExists(slash(FTexturePath)+slash(lfn[0])+'L1')) then raise Exception.Create('Missing L1 slices for '+slash(FTexturePath)+lfn[0]);
- Ftexture:=lfn;
+ Ftexture.Assign(lfn);
  maxzone:=1;
  if (lfn[1]='NONE')or DirectoryExists(slash(FTexturePath)+slash(Ftexture[1])+'L2') then begin
     maxzone:=2;
@@ -1218,6 +1218,7 @@ var i: integer;
 begin
  if Owner is TWinControl then Moon.Parent:=TWinControl(Owner);
  vIgnoreOpenGLErrors:=true;
+ Ftexture:=TStringList.Create;
  blankbmp:=Tbitmap.Create;
  blankbmp.Width:=4;
  blankbmp.Height:=4;
@@ -1423,6 +1424,7 @@ blankbmp.Free;
 blankjp.Free;
 GLSceneViewer1.Buffer.DestroyRC;
 GLBitmapFont1.Ranges.Clear;
+Ftexture.Free;
 end;
 
 
@@ -1432,18 +1434,15 @@ begin
  BumpMapLimit1K:=Source.BumpMapLimit1K;
  FBumpMapCapabilities:=Source.FBumpMapCapabilities;
  BumpMipmap:=Source.BumpMipmap;
-// FBumpOk:=false;
  FBumpOk:=Source.FBumpOk;
  FAsMultiTexture:=Source.FAsMultiTexture;
  TexturePath:=Source.TexturePath;
  OverlayPath:=Source.OverlayPath;
  if CanBump then BumpPath:=Source.BumpPath;
  TextureCompression:=Source.TextureCompression;
- if Texture<>Source.Texture then
-    Texture :=Source.Texture;
+ SetTexture(Source.Texture);
  if Overlay<>Source.Overlay then
     Overlay :=Source.Overlay;
-// if CanBump then Bumpmap :=Source.Bumpmap;
  Bumpmap := false;   // no bumpmap by default on second copy
  ShowPhase :=Source.ShowPhase;
  VisibleSideLock :=Source.VisibleSideLock;
