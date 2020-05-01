@@ -259,6 +259,7 @@ type
     function GetCurrentName : string;
     Procedure SetScale;
     Procedure SetCCDfield;
+    procedure PushLabel;
   public
     { Declarations publiques }
     procedure AssignMoon(Source: TF_moon);
@@ -1707,6 +1708,7 @@ begin
      end;
     GLSceneViewer1.Cursor:=crRetic;
   end;
+  PushLabel;
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseWheelDown(Sender: TObject;
@@ -1747,6 +1749,14 @@ begin
     if zone>1 then LoadSlice(zone);
     GetZoomInfo;
   end;
+  PushLabel;
+end;
+
+procedure Tf_moon.PushLabel;
+begin
+  Application.ProcessMessages;
+  LabelGroup.Visible:=false;
+  LabelGroup.Visible:=true;
 end;
 
 procedure Tf_moon.SetRotation(value:single);
@@ -2184,6 +2194,7 @@ procedure Tf_moon.SetShowGrid(value:boolean);
 begin
 FShowGrid:=value;
 GLDummyCubeCoord.Visible:=FShowGrid;
+PushLabel;
 end;
 
 procedure Tf_moon.SetGridSpacing(value:integer);
@@ -2696,6 +2707,7 @@ begin
 FShowScale:=value and (not RotationCadencer.Enabled);
 SaveShowScale:=FShowScale;
 SetScale;
+PushLabel;
 end;
 
 Procedure Tf_moon.SetScale;
