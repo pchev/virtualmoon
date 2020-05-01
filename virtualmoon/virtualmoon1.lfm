@@ -26,7 +26,7 @@ object Form1: TForm1
   OnShow = FormShow
   object PanelMoon2: TPanel
     Left = 0
-    Height = 550
+    Height = 551
     Top = 35
     Width = 200
     Align = alLeft
@@ -36,7 +36,7 @@ object Form1: TForm1
   end
   object PanelMoon: TPanel
     Left = 205
-    Height = 550
+    Height = 551
     Top = 35
     Width = 200
     Align = alLeft
@@ -449,8 +449,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 21
-    Top = 585
+    Height = 20
+    Top = 586
     Width = 1206
     Font.Height = 13
     Panels = <    
@@ -484,7 +484,7 @@ object Form1: TForm1
   end
   object Splitter2: TSplitter
     Left = 200
-    Height = 550
+    Height = 551
     Top = 35
     Width = 5
     Constraints.MinWidth = 5
@@ -506,12 +506,12 @@ object Form1: TForm1
       Height = 512
       Top = 1
       Width = 354
-      ActivePage = Notes
+      ActivePage = Position
       Align = alClient
       Font.Height = 13
       MultiLine = True
       ParentFont = False
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       OnChange = PageControl1Change
       Options = [nboMultiLine]
@@ -525,12 +525,12 @@ object Form1: TForm1
           Left = 0
           Height = 90
           Top = 0
-          Width = 346
+          Width = 344
           Align = alTop
           BevelOuter = bvNone
           BorderStyle = bsSingle
           ClientHeight = 88
-          ClientWidth = 344
+          ClientWidth = 342
           Font.Height = 13
           ParentFont = False
           TabOrder = 0
@@ -540,7 +540,7 @@ object Form1: TForm1
             Top = 35
             Width = 340
             Caption = 'Profil----------------------------------------------------------'
-            ClientHeight = 34
+            ClientHeight = 35
             ClientWidth = 338
             Font.Height = 13
             ParentFont = False
@@ -560,7 +560,7 @@ object Form1: TForm1
           end
           object ComboBox1: TComboBox
             Left = 8
-            Height = 21
+            Height = 30
             Top = 8
             Width = 320
             DropDownCount = 15
@@ -575,9 +575,9 @@ object Form1: TForm1
         end
         object Desc1: TIpHtmlPanel
           Left = 0
-          Height = 329
+          Height = 343
           Top = 90
-          Width = 346
+          Width = 344
           Align = alClient
           BorderWidth = 1
           BorderStyle = bsSingle
@@ -602,20 +602,20 @@ object Form1: TForm1
         object Panel2: TPanel
           Left = 0
           Height = 49
-          Top = 419
-          Width = 346
+          Top = 433
+          Width = 344
           Align = alBottom
           BevelOuter = bvNone
           BorderWidth = 1
           BorderStyle = bsSingle
           ClientHeight = 47
-          ClientWidth = 344
+          ClientWidth = 342
           Font.Height = 13
           ParentFont = False
           TabOrder = 2
           object Edit6: TEdit
             Left = 3
-            Height = 21
+            Height = 30
             Top = 8
             Width = 159
             Font.Height = 13
@@ -684,7 +684,7 @@ object Form1: TForm1
           TabOrder = 1
           object notes_name: TLabel
             Left = 8
-            Height = 18
+            Height = 16
             Top = 8
             Width = 12
             Caption = '    '
@@ -730,19 +730,19 @@ object Form1: TForm1
           Left = 0
           Height = 121
           Top = 0
-          Width = 346
+          Width = 344
           Align = alTop
           ClientHeight = 121
-          ClientWidth = 346
+          ClientWidth = 344
           Font.Height = 13
           ParentFont = False
           TabOrder = 0
           TabStop = True
           object Label6: TLabel
             Left = 2
-            Height = 13
+            Height = 16
             Top = 42
-            Width = 31
+            Width = 37
             Caption = 'Heure'
             Color = clWindow
             Font.Height = 13
@@ -752,9 +752,9 @@ object Form1: TForm1
           end
           object Label9: TLabel
             Left = 2
-            Height = 13
+            Height = 16
             Top = 10
-            Width = 24
+            Width = 28
             Caption = 'Date'
             Font.Height = 13
             ParentColor = False
@@ -858,9 +858,9 @@ object Form1: TForm1
           end
           object LabelNM: TLabel
             Left = 235
-            Height = 13
+            Height = 16
             Top = 19
-            Width = 5
+            Width = 7
             Caption = 'L'
             Font.Height = 13
             ParentColor = False
@@ -869,9 +869,9 @@ object Form1: TForm1
           end
           object LabelFQ: TLabel
             Left = 235
-            Height = 13
+            Height = 16
             Top = 43
-            Width = 5
+            Width = 7
             Caption = 'L'
             Font.Height = 13
             ParentColor = False
@@ -880,9 +880,9 @@ object Form1: TForm1
           end
           object LabelFM: TLabel
             Left = 235
-            Height = 13
+            Height = 16
             Top = 67
-            Width = 5
+            Width = 7
             Caption = 'L'
             Font.Height = 13
             ParentColor = False
@@ -891,9 +891,9 @@ object Form1: TForm1
           end
           object LabelLQ: TLabel
             Left = 235
-            Height = 13
+            Height = 16
             Top = 92
-            Width = 5
+            Width = 7
             Caption = 'L'
             Font.Height = 13
             ParentColor = False
@@ -1090,7 +1090,7 @@ object Form1: TForm1
           end
           object jour: TLongEdit
             Left = 146
-            Height = 21
+            Height = 30
             Hint = '0..31'
             Top = 4
             Width = 26
@@ -1105,7 +1105,7 @@ object Form1: TForm1
           end
           object mois: TLongEdit
             Left = 103
-            Height = 21
+            Height = 30
             Hint = '0..12'
             Top = 4
             Width = 26
@@ -1120,7 +1120,7 @@ object Form1: TForm1
           end
           object annee: TLongEdit
             Left = 43
-            Height = 21
+            Height = 30
             Hint = '-2999..2999'
             Top = 4
             Width = 45
@@ -1136,7 +1136,7 @@ object Form1: TForm1
           end
           object seconde: TLongEdit
             Left = 146
-            Height = 21
+            Height = 30
             Hint = '0..59'
             Top = 36
             Width = 26
@@ -1151,7 +1151,7 @@ object Form1: TForm1
           end
           object minute: TLongEdit
             Left = 103
-            Height = 21
+            Height = 30
             Hint = '0..59'
             Top = 36
             Width = 26
@@ -1166,7 +1166,7 @@ object Form1: TForm1
           end
           object heure: TLongEdit
             Left = 59
-            Height = 21
+            Height = 30
             Hint = '0..23'
             Top = 36
             Width = 26
@@ -1205,7 +1205,7 @@ object Form1: TForm1
           end
           object UpDown1: TUpDown
             Left = 88
-            Height = 21
+            Height = 30
             Top = 4
             Width = 13
             Associate = annee
@@ -1217,7 +1217,7 @@ object Form1: TForm1
           end
           object UpDown2: TUpDown
             Left = 129
-            Height = 21
+            Height = 30
             Top = 4
             Width = 13
             Associate = mois
@@ -1229,7 +1229,7 @@ object Form1: TForm1
           end
           object UpDown3: TUpDown
             Left = 172
-            Height = 21
+            Height = 30
             Top = 4
             Width = 13
             Associate = jour
@@ -1241,7 +1241,7 @@ object Form1: TForm1
           end
           object UpDown4: TUpDown
             Left = 85
-            Height = 21
+            Height = 30
             Top = 36
             Width = 13
             Associate = heure
@@ -1253,7 +1253,7 @@ object Form1: TForm1
           end
           object UpDown5: TUpDown
             Left = 129
-            Height = 21
+            Height = 30
             Top = 36
             Width = 13
             Associate = minute
@@ -1265,7 +1265,7 @@ object Form1: TForm1
           end
           object UpDown6: TUpDown
             Left = 172
-            Height = 21
+            Height = 30
             Top = 36
             Width = 13
             Associate = seconde
@@ -1290,9 +1290,9 @@ object Form1: TForm1
         end
         object StringGrid1: TStringGrid
           Left = 0
-          Height = 347
+          Height = 361
           Top = 121
-          Width = 346
+          Width = 344
           Align = alClient
           BorderStyle = bsNone
           ColCount = 2
@@ -2154,45 +2154,9 @@ object Form1: TForm1
           Width = 204
           Style = bsRaised
         end
-        object Label8: TLabel
-          Left = 32
-          Height = 18
-          Top = 24
-          Width = 63
-          Caption = 'Penombre'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label12: TLabel
-          Left = 32
-          Height = 18
-          Top = 136
-          Width = 35
-          Caption = 'Direct'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label11: TLabel
-          Left = 32
-          Height = 18
-          Top = 80
-          Width = 35
-          Caption = 'Diffus'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
         object Label14: TLabel
           Left = 32
-          Height = 18
+          Height = 16
           Top = 2
           Width = 56
           Caption = 'Eclairage '
@@ -2204,7 +2168,7 @@ object Form1: TForm1
         end
         object Label22: TLabel
           Left = 16
-          Height = 18
+          Height = 16
           Top = 49
           Width = 4
           Caption = '-'
@@ -2216,7 +2180,7 @@ object Form1: TForm1
         end
         object Label29: TLabel
           Left = 16
-          Height = 18
+          Height = 16
           Top = 104
           Width = 4
           Caption = '-'
@@ -2228,7 +2192,7 @@ object Form1: TForm1
         end
         object Label30: TLabel
           Left = 16
-          Height = 18
+          Height = 16
           Top = 157
           Width = 4
           Caption = '-'
@@ -2240,7 +2204,7 @@ object Form1: TForm1
         end
         object Label32: TLabel
           Left = 197
-          Height = 18
+          Height = 16
           Top = 49
           Width = 7
           Caption = '+'
@@ -2252,7 +2216,7 @@ object Form1: TForm1
         end
         object Label33: TLabel
           Left = 197
-          Height = 18
+          Height = 16
           Top = 104
           Width = 7
           Caption = '+'
@@ -2264,7 +2228,7 @@ object Form1: TForm1
         end
         object Label34: TLabel
           Left = 197
-          Height = 18
+          Height = 16
           Top = 157
           Width = 7
           Caption = '+'
@@ -2285,6 +2249,7 @@ object Form1: TForm1
           PageSize = 5
           Position = 0
           TickStyle = tsNone
+          Constraints.MaxHeight = 30
           Font.Height = 13
           ParentFont = False
           TabOrder = 0
@@ -2300,6 +2265,7 @@ object Form1: TForm1
           PageSize = 5
           Position = 0
           TickStyle = tsNone
+          Constraints.MaxHeight = 30
           Font.Height = 13
           ParentFont = False
           TabOrder = 1
@@ -2315,6 +2281,7 @@ object Form1: TForm1
           PageSize = 5
           Position = 0
           TickStyle = tsNone
+          Constraints.MaxHeight = 30
           Font.Height = 13
           ParentFont = False
           TabOrder = 2
@@ -2331,7 +2298,7 @@ object Form1: TForm1
           TabOrder = 3
           object Label13: TLabel
             Left = 13
-            Height = 18
+            Height = 16
             Top = 40
             Width = 64
             Caption = 'Resolution'
@@ -2343,7 +2310,7 @@ object Form1: TForm1
           end
           object Label15: TLabel
             Left = 13
-            Height = 18
+            Height = 16
             Top = 112
             Width = 32
             Caption = '0 FPS'
@@ -2355,7 +2322,7 @@ object Form1: TForm1
           end
           object Label16: TLabel
             Left = 13
-            Height = 18
+            Height = 16
             Top = 4
             Width = 77
             Caption = 'Performance'
@@ -2367,7 +2334,7 @@ object Form1: TForm1
           end
           object Label31: TLabel
             Left = 1
-            Height = 18
+            Height = 16
             Top = 63
             Width = 4
             Caption = '-'
@@ -2379,7 +2346,7 @@ object Form1: TForm1
           end
           object Label35: TLabel
             Left = 181
-            Height = 18
+            Height = 16
             Top = 63
             Width = 7
             Caption = '+'
@@ -2411,7 +2378,7 @@ object Form1: TForm1
           Top = 372
           Width = 204
           Caption = 'Options valid at next startup'
-          ClientHeight = 52
+          ClientHeight = 53
           ClientWidth = 202
           Font.Height = 13
           ParentFont = False
@@ -2451,6 +2418,42 @@ object Form1: TForm1
           Transparent = False
           OnClick = Button21Click
           ParentFont = False
+        end
+        object Label8: TLabel
+          Left = 32
+          Height = 16
+          Top = 24
+          Width = 63
+          Caption = 'Penombre'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label11: TLabel
+          Left = 32
+          Height = 16
+          Top = 80
+          Width = 35
+          Caption = 'Diffus'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label12: TLabel
+          Left = 32
+          Height = 16
+          Top = 136
+          Width = 35
+          Caption = 'Direct'
+          Color = clWindow
+          Font.Height = 13
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
         end
       end
       object dbtab: TTabSheet
