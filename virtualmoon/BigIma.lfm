@@ -3,7 +3,6 @@ object BigImaForm: TBigImaForm
   Height = 411
   Top = 127
   Width = 621
-  Caption = 'Taille réelle'
   ClientHeight = 411
   ClientWidth = 621
   OnClose = FormClose

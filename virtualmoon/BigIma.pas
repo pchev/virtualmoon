@@ -108,7 +108,7 @@ end;
 Procedure TbigImaform.Zoomplus;
 begin
 if (zoom<2) then begin
-   zoom:=trunc(zoom)+1;
+   zoom:=zoom+0.2;
    ZoomN(zoom);
 end;
 end;
@@ -116,7 +116,7 @@ end;
 Procedure TbigImaform.Zoommoins;
 begin
 if (zoom>-2) then begin
-   zoom:=trunc(zoom)-1;
+   zoom:=zoom-0.2;
    ZoomN(zoom);
 end;
 end;
@@ -168,8 +168,8 @@ procedure TBigImaForm.FormMouseWheel(Sender: TObject; Shift: TShiftState;
   WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
 var x : double;
 begin
-if wheeldelta>0 then x:=zoom+0.5
-                else x:=zoom-0.5;
+if wheeldelta>0 then x:=zoom+0.2
+                else x:=zoom-0.2;
 ZoomN(x);
 end;
 
