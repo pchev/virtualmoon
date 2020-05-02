@@ -287,6 +287,7 @@ type
     procedure SetCCD(w,h,r: single);
     property TexturePath : String read FtexturePath write FTexturePath;
     property Texture : TStringList read Ftexture write SetTexture;
+    property CurrentLevel: integer read zone;
     property OverlayPath : String read FOverlayPath write FOverlayPath;
     property OverlayTransparency : single read FOverlayTransparency write FOverlayTransparency;
     property OverlayTransparencyMethode : integer read FOverlayTransparencyMethode write FOverlayTransparencyMethode;

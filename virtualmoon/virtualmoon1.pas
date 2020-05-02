@@ -1444,6 +1444,18 @@ begin
       end;
      end;
   end;
+  // set texture caption
+  if (Tf_moon(Sender).Texture[Tf_moon(Sender).CurrentLevel-1]='USGS Geological 2020')
+  then begin
+     OverlayCaption1.Caption := 'USGS Geological 2020' + ' ' + rsCaption;
+     OverlayCaption2.Caption := OverlayCaption1.Caption;
+     OverlayCaption1.Visible := True;
+     OverlayCaption2.Visible := True;
+  end
+  else if (not showoverlay) then begin
+    OverlayCaption1.Visible := False;
+    OverlayCaption2.Visible := False;
+  end;
 end;
 
 procedure TForm1.GetSprite(Sender: TObject);
@@ -5493,12 +5505,16 @@ end;
 
 procedure TForm1.OverlayCaption1Click(Sender: TObject);
 var
-  dir: string;
+  dir,ovn: string;
 begin
   chdir(appdir);
   dir := slash('Textures') + slash('Overlay') + slash('caption');
-  if fileexists(dir + overlayname) then
-    showimg(dir, overlayname, True);
+  if activemoon.Texture[activemoon.CurrentLevel-1]='USGS Geological 2020' then
+    ovn:='USGS Geological 2020.jpg'
+  else
+    ovn:=overlayname;
+  if fileexists(dir + ovn) then
+    showimg(dir, ovn, True);
 end;
 
 procedure TForm1.Glossaire1Click(Sender: TObject);
@@ -5922,6 +5938,7 @@ begin
 end;
 
 procedure TForm1.SetActiveMoon(mf: Tf_moon);
+var ovn: string;
 begin
 ToolButton14.Enabled:=mf.SatelliteRotation=0;
 if mf<>activemoon then begin
@@ -5996,8 +6013,14 @@ if mf<>activemoon then begin
   showoverlay:=not (activemoon.Overlay='');
   overlayname:=activemoon.Overlay;
   overlaytr:=activemoon.OverlayTransparency;
-  if showoverlay and (overlayname<>'') and fileexists(Slash(activemoon.OverlayPath) + slash('caption') + overlayname) then begin
-     OverlayCaption1.Caption := remext(overlayname) + ' ' + rsCaption;
+  if (showoverlay and (overlayname<>'') and fileexists(Slash(activemoon.OverlayPath) + slash('caption') + overlayname))
+     or (activemoon.Texture[activemoon.CurrentLevel-1]='USGS Geological 2020')
+  then begin
+     if activemoon.Texture[activemoon.CurrentLevel-1]='USGS Geological 2020' then
+       ovn:='USGS Geological 2020'
+     else
+       ovn:=remext(overlayname);
+     OverlayCaption1.Caption := ovn + ' ' + rsCaption;
      OverlayCaption2.Caption := OverlayCaption1.Caption;
      OverlayCaption1.Visible := True;
      OverlayCaption2.Visible := True;
