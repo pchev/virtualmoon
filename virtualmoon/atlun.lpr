@@ -7,6 +7,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
+  {$ifdef mswindows}
+  windows,
+  {$endif}
   Forms, Dialogs, virtualmoon1, config, Math, OpenGLAdapter, OpenGLTokens,
   GLScene_RunTime, CraterList, dbutil, fmsg, glossary, splashunit,
   SysUtils, TurboPowerIPro, lazcontrols, u_constant, cu_tz, cu_planet, u_projection, u_util,
@@ -14,6 +17,13 @@ uses
   pu_features, BigIma, uDE, mlb2, pu_ephem, tabsdock, pu_ascomclient, pu_indiclient, cu_ascomrest;
 
 {$R *.res}
+
+{$ifdef mswindows}
+{$ifdef cpui386}
+// allow to use more than 2GB of memory
+{$SetPEFlags IMAGE_FILE_LARGE_ADDRESS_AWARE}
+{$endif}
+{$endif}
 
 begin
   Application.Scaled:=True;

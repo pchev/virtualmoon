@@ -365,6 +365,7 @@ rsExport = 'Export';
 rsPicturesAndM = 'Pictures and medium resolution texture';
 rsHighResoluti = 'High resolution texture';
 rsVeryHighReso = 'Very high resolution %s texture';
+rsNoPictureFou = 'No picture found';
 
 implementation
 

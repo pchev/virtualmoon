@@ -1789,6 +1789,7 @@ begin
   privatedir := slash(buf) + privatedir;
   configfile := slash(privatedir) + Defaultconfigfile;
   CdCconfig  := slash(buf) + DefaultCdCconfig;
+  bindir:=slash(appdir);
 {$endif}
 
   if fileexists(configfile) then begin
@@ -3053,13 +3054,19 @@ begin
     GetNotes(Combobox1.Text);
     if ImgExists(currentname) then
     begin
+      ToolButton7.Cursor :=crDefault;
       ToolButton7.Enabled := True;
       Image2.Enabled      := True;
+      ToolButton7.hint := 'PhotLun';
+      Image2.Caption := ToolButton7.hint;
     end
     else
     begin
-      ToolButton7.Enabled := False;
+      ToolButton7.Cursor :=crNo;
+      ToolButton7.Enabled := True;
       Image2.Enabled      := False;
+      ToolButton7.hint := rsNoPictureFou;
+      Image2.Caption := ToolButton7.hint;
     end;
     if f_craterlist.Visible then
     begin
@@ -3432,13 +3439,19 @@ begin
     GetNotes(Combobox1.Text);
     if ImgExists(currentname) then
     begin
+      ToolButton7.Cursor :=crDefault;
       ToolButton7.Enabled := True;
       Image2.Enabled      := True;
+      ToolButton7.hint := 'PhotLun';
+      Image2.Caption := ToolButton7.hint;
     end
     else
     begin
-      ToolButton7.Enabled := False;
+      ToolButton7.Cursor :=crNo;
+      ToolButton7.Enabled := True;
       Image2.Enabled      := False;
+      ToolButton7.hint := rsNoPictureFou;
+      Image2.Caption := ToolButton7.hint;
     end;
     if f_craterlist.Visible then
     begin
@@ -5491,6 +5504,7 @@ procedure TForm1.ToolButton7Click(Sender: TObject);
 var
   param, fx, fy: string;
 begin
+ if ToolButton7.Cursor=crDefault then begin
   if flipx < 0 then
     fx := '1'
   else
@@ -5501,6 +5515,9 @@ begin
     fy := '0';
   param := ' -fx ' + fx + ' -fy ' + fy;
   OpenPhotlun(currentname,param);
+ end
+ else
+   ShowMessage(rsNoPictureFou+crlf+currentname);
 end;
 
 procedure TForm1.OverlayCaption1Click(Sender: TObject);
@@ -5914,7 +5931,7 @@ end;
 
 procedure TForm1.DataBase1Click(Sender: TObject);
 begin
-OpenDatlun('','');
+OpenDatlun(currentname,'');
 end;
 
 procedure TForm1.PopupMenu1Popup(Sender: TObject);

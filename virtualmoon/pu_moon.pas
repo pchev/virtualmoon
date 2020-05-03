@@ -1728,6 +1728,7 @@ end;
 
 procedure Tf_moon.RefreshAll;
 begin
+  if FTexture.Count<1 then exit; // skip call before initialization
   ClearLabel;
  // if marked then SetMark(markl,markb,marktext);
   ShowLibrationMark;
