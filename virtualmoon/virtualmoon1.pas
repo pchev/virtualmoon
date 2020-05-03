@@ -1389,7 +1389,7 @@ begin
       ' and LATI_N > ' + formatfloat(f2, rad2deg*bmin) +
       ' and LATI_N < ' + formatfloat(f2, rad2deg*bmax) +
       ' and (WIDE_KM=0 or WIDE_KM>=' + formatfloat(f2, (wmin * wfact) / 2.5) + ')' +
-      ' ;');
+      ' LIMIT '+inttostr(2*MaxLabel)+';');
     for j := 0 to dbm.RowCount - 1 do
     begin
       l1 := dbm.Results[j].Format[1].AsFloat;

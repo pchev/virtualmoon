@@ -7,6 +7,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
+  {$ifdef mswindows}
+  windows,
+  {$endif}
   InterfaceBase, LCLVersion, lclplatformdef, // version number
   Forms, printer4lazarus,
   fmsg, libsql, mlb2, vmabrowser1, vmabrowser2, vmabrowser3,
@@ -15,6 +18,13 @@ uses
 var i : integer;
 
 {$R *.res}
+
+{$ifdef mswindows}
+{$ifdef cpui386}
+// allow to use more than 2GB of memory
+{$SetPEFlags IMAGE_FILE_LARGE_ADDRESS_AWARE}
+{$endif}
+{$endif}
 
 begin
   Application.Title:='DatLun';

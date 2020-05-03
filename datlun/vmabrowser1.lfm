@@ -31,8 +31,6 @@ object f_main: Tf_main
     RowCount = 18
     ScrollBars = ssHorizontal
     TabOrder = 0
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
     OnDblClick = MoonGridDblClick
     OnDrawCell = MoonGridDrawCell
     OnMouseDown = MoonGridMouseDown

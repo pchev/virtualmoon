@@ -37,6 +37,7 @@ Windows, ShlObj,
 const
   ExitProMsg='Virtual_Moon_Atlas_Pro_exit';
   versionname='DATLUN';
+  rowlimit='10000';
 
 type
 
@@ -615,11 +616,11 @@ end else begin
    currentsort:='';
 end;
 if currentselection='' then
-   ok:=dbm.query('select * from moon order by DBN,NAME;')
+   ok:=dbm.query('select * from moon order by DBN,NAME LIMIT '+rowlimit+';')
 else if buf<>'' then
-   ok:=dbm.query('select * from moon where '+currentselection+';')
+   ok:=dbm.query('select * from moon where '+currentselection+' LIMIT '+rowlimit+';')
 else
-   ok:=dbm.query('select * from moon '+currentselection+';');
+   ok:=dbm.query('select * from moon '+currentselection+' LIMIT '+rowlimit+';');
 if ok then begin
  if dbm.RowCount>0 then begin
     ScrollBar1.Max:=max(dbm.RowCount,MoonGrid.RowCount);
