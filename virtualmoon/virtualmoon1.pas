@@ -548,7 +548,7 @@ type
     procedure Readdefault;
     procedure SaveDefault;
     procedure UpdateConfig;
-    procedure UpdTerminateur(range:double=12);
+    procedure UpdTerminateur(range:double=12; sl:string='1,2');
     procedure AddToList(buf: string);
     procedure GetDetail(row: TResultRow; memo: Tmemo);
     procedure GetHTMLDetail(row: TResultRow; var txt: string);
@@ -1896,7 +1896,7 @@ begin
   end;
 end;
 
-procedure TForm1.UpdTerminateur(range:double=12);
+procedure TForm1.UpdTerminateur(range:double=12; sl:string='1,2');
 var
   interest, diam, i: integer;
   l1, l2: double;
@@ -1920,8 +1920,8 @@ begin
     listbox1.Items.BeginUpdate;
     dbm.Query('select NAME,LATI_N,INTEREST_N,DIAM_INST from moon ' +
       ' where LONGI_N>' + formatfloat(f2, l1) +
-      ' and LONGI_N<' + formatfloat(f2, l2) + ' and DBN in (' + sidelist + ')' +
-      ' and INTEREST_N >=' + IntToStr(interest) +
+      ' and LONGI_N<' + formatfloat(f2, l2) + ' and DBN in (' + sl + ')' +
+      ' and INTEREST_N >=' + IntToStr(interest) + ' and INTEREST_N < 5' +
       ' and DIAM_INST <=' + IntToStr(diam));
     for i := 0 to dbm.rowcount - 1 do
     begin
@@ -3845,7 +3845,7 @@ screen.cursor := crDefault;
 end;
 
 procedure TForm1.StartTimerTimer(Sender: TObject);
-var savecaption,savesidelist: string;
+var savecaption: string;
     i: integer;
 begin
 StartTimer.Enabled:=false;
@@ -3859,18 +3859,15 @@ try
     Combobox2.ItemIndex   := 0;
     Combobox3.ItemIndex   := 5;
     RadioGroup1.ItemIndex := 1;
-    savesidelist:=sidelist;
-    sidelist:='1';
-    Updterminateur(5);
+    Updterminateur(5,'1');
     SearchText  := trim(copy(ListBox1.Items[0], 2, 999));
     if searchtext=trim(copy(rsm_27, 2, 999)) then begin
       Combobox3.ItemIndex := 0;
-      Updterminateur(12);
+      Updterminateur(12,'1');
       SearchText  := trim(copy(ListBox1.Items[0], 2, 999));
     end;
     Firstsearch := True;
     SearchName(SearchText, false);
-    sidelist := savesidelist;
     Combobox3.ItemIndex := 0;
     currentphase := -999;
     moon1.CenterAt(99999, 99999);
