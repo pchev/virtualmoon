@@ -14,7 +14,7 @@ conf.sh
 Makefile
 Makefile.fpc
 Makefile.fpcxxx
-virtualmoon/atlun.lps
+*.lps
 # ignore build dir
 BUILD_LINUX32
 BUILD_LINUX64
