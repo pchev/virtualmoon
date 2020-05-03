@@ -1402,3 +1402,7 @@ msgstr ""
 msgid "Very high resolution %s texture"
 msgstr ""
 
+#: u_translation:rsnopicturefou
+msgid "No picture found"
+msgstr ""
+

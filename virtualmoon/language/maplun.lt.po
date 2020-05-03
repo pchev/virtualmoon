@@ -584,6 +584,10 @@ msgstr ""
 msgid "Name type :"
 msgstr ""
 
+#: u_translation.rsnopicturefou
+msgid "No picture found"
+msgstr ""
+
 #: u_translation.rsnotavailable
 msgid "Not available"
 msgstr ""
