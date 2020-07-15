@@ -34,7 +34,7 @@ uses
 {$endif}
 {$IFDEF LCLgtk2}
   Gtk2Proc,
-{$endif}    GLScene,
+{$endif}
   u_translation_database, u_translation, tabsdock,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
@@ -42,7 +42,7 @@ uses
   Messages, SysUtils, Classes, Dialogs, FileUtil,
   ComCtrls, Menus, Buttons, dynlibs, BigIma, pu_ascomclient, pu_indiclient,
   EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase,
-  Math, CraterList, LResources, IpHtml, UniqueInstance, GLViewer, GLLCLViewer;
+  Math, CraterList, LResources, IpHtml, UniqueInstance;
 
 type
 
@@ -66,7 +66,6 @@ type
     Desc1:   TIpHtmlPanel;
     Edit6: TEdit;
     FilePopup: TPopupMenu;
-    DoNotRemove: TGLSceneViewer;
     HelpPopup: TPopupMenu;
     ImageListNight: TImageList;
     Label17: TLabel;

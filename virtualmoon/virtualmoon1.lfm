@@ -32,7 +32,7 @@ object Form1: TForm1
     Align = alLeft
     Font.Height = 13
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 4
   end
   object PanelMoon: TPanel
     Left = 205
@@ -42,19 +42,6 @@ object Form1: TForm1
     Align = alLeft
     Font.Height = 13
     ParentFont = False
-    TabOrder = 3
-  end
-  object DoNotRemove: TGLSceneViewer
-    Left = 24
-    Height = 100
-    Top = 368
-    Width = 100
-    Buffer.AmbientColor.Red = 0.200000002980232
-    Buffer.AmbientColor.Green = 0.200000002980232
-    Buffer.AmbientColor.Blue = 0.200000002980232
-    Buffer.AmbientColor.Alpha = 1
-    FieldOfView = 0
-    Visible = False
     TabOrder = 2
   end
   object Memo2: TMemo
@@ -500,7 +487,7 @@ object Form1: TForm1
     ClientWidth = 356
     Font.Height = 13
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 7
     object PageControl1: TPageControl
       Left = 1
       Height = 512
@@ -2542,8 +2529,8 @@ object Form1: TForm1
     end
   end
   object FilePopup: TPopupMenu
-    left = 16
-    top = 64
+    Left = 16
+    Top = 64
     object DataBase1: TMenuItem
       Caption = 'DataBase'
       OnClick = DataBase1Click
@@ -2605,8 +2592,8 @@ object Form1: TForm1
     end
   end
   object HelpPopup: TPopupMenu
-    left = 16
-    top = 120
+    Left = 16
+    Top = 120
     object Aide2: TMenuItem
       Caption = 'Aide'
       OnClick = Aide2Click
@@ -2637,14 +2624,14 @@ object Form1: TForm1
     Enabled = False
     Interval = 250
     OnTimer = EphTimer1Timer
-    left = 264
-    top = 195
+    Left = 264
+    Top = 195
   end
   object PopupMenu1: TPopupMenu
     AutoPopup = False
     OnPopup = PopupMenu1Popup
-    left = 97
-    top = 64
+    Left = 97
+    Top = 64
     object Position1: TMenuItem
       Caption = 'Position'
       OnClick = Position1Click
@@ -2847,16 +2834,16 @@ object Form1: TForm1
   end
   object SaveDialog1: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofPathMustExist, ofNoReadOnlyReturn, ofEnableSizing]
-    left = 208
-    top = 64
+    Left = 208
+    Top = 64
   end
   object PrinterSetupDialog1: TPrinterSetupDialog
-    left = 208
-    top = 120
+    Left = 208
+    Top = 120
   end
   object PopupMenu2: TPopupMenu
-    left = 96
-    top = 120
+    Left = 96
+    Top = 120
     object SelectAll1: TMenuItem
       Caption = 'Select All'
       OnClick = SelectAll1Click
@@ -2878,8 +2865,8 @@ object Form1: TForm1
     Enabled = False
     Interval = 2000
     OnTimer = TelescopeTimerTimer
-    left = 48
-    top = 192
+    Left = 48
+    Top = 192
   end
   object dbm: TLiteDB
     Active = False
@@ -2896,14 +2883,14 @@ object Form1: TForm1
     PragmaPagesize = 0
     PragmaSynchronous = spOff
     PragmaTempStore = tpDefault
-    left = 16
-    top = 251
+    Left = 16
+    Top = 251
   end
   object ImageListDay: TImageList
     Height = 22
     Width = 22
-    left = 296
-    top = 64
+    Left = 296
+    Top = 64
     Bitmap = {
       4C691D0000001600000016000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4666,32 +4653,32 @@ object Form1: TForm1
     Enabled = False
     Interval = 200
     OnTimer = ZoomTimerTimer
-    left = 152
-    top = 192
+    Left = 152
+    Top = 192
   end
   object PrintDialog1: TPrintDialog
-    left = 299
-    top = 120
+    Left = 299
+    Top = 120
   end
   object StartTimer: TTimer
     Enabled = False
     Interval = 100
     OnTimer = StartTimerTimer
-    left = 352
-    top = 192
+    Left = 352
+    Top = 192
   end
   object ResizeTimer: TTimer
     Enabled = False
     Interval = 100
     OnTimer = ResizeTimerTimer
-    left = 456
-    top = 192
+    Left = 456
+    Top = 192
   end
   object ImageListNight: TImageList
     Height = 22
     Width = 22
-    left = 388
-    top = 64
+    Left = 388
+    Top = 64
     Bitmap = {
       4C691D0000001600000016000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6454,19 +6441,19 @@ object Form1: TForm1
     Enabled = False
     Interval = 100
     OnTimer = Splitter2TimerTimer
-    left = 539
-    top = 195
+    Left = 539
+    Top = 195
   end
   object UniqueInstance1: TUniqueInstance
     Enabled = True
     Identifier = 'Virtual_Moon_Atlas_MapLun'
     OnOtherInstance = UniqueInstance1OtherInstance
-    left = 496
-    top = 64
+    Left = 496
+    Top = 64
   end
   object PopupEyepiece: TPopupMenu
-    left = 245
-    top = 289
+    Left = 245
+    Top = 289
     object e02: TMenuItem
       Caption = 'e02'
       OnClick = ZoomEyepieceClick
@@ -6523,8 +6510,8 @@ object Form1: TForm1
     end
   end
   object PopupCCD: TPopupMenu
-    left = 328
-    top = 288
+    Left = 328
+    Top = 288
     object c02: TMenuItem
       Caption = 'c02'
       OnClick = ZoomCCDClick
