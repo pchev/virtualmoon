@@ -449,6 +449,7 @@ AddImagesDir(slash(appdir)+'LunaStars','LunaStars','','1');
 AddImagesDir(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association','1');
 AddImagesDir(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005','1');
 AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov','0');
+AddImagesDir(slash(appdir)+'Smart-1','Smart-1','European Space Agency (ESA)','0');
 AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','','0');
 AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','','0');
 AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','','0');
