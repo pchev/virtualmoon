@@ -64,3 +64,4 @@ InstPicture PictureClementine $destdir
 InstPicture PictureLAC_LM $destdir
 InstPicture PictureLopam $destdir
 InstPicture PictureProbes $destdir
+InstPicture PictureSmart1 $destdir
