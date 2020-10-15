@@ -972,13 +972,11 @@ var
   buf: string;
 begin
 ComboBoxTZ.clear;
-j:=0;
 for i:=0 to tzinfo.ZoneTabCnty.Count-1 do begin
   if tzinfo.ZoneTabCnty[i]=obscountry then begin
      buf:=tzinfo.ZoneTabZone[i];
-     ComboBoxTZ.Items.Add(buf);
-     if (j=0)or(tzinfo.ZoneTabZone[i]=obstz) then ComboBoxTZ.ItemIndex:=j;
-     inc(j);
+     j:=ComboBoxTZ.Items.Add(buf);
+     if (tzinfo.ZoneTabZone[i]=obstz) then ComboBoxTZ.ItemIndex:=j;
   end;
 end;
 ObsTZ:=ComboBoxTZ.Text;
