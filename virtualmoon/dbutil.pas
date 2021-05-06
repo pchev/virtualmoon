@@ -141,12 +141,15 @@ var
     sidelist: string;
     database : array[1..9] of string;
     usedatabase :array[1..MaxDBN] of boolean;
+    ILCDCols: TStringList;
 
 Procedure ListDB;
 Procedure LoadDB(dbm: TLiteDB);
 Procedure CreateDB(dbm: TLiteDB);
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
 procedure DBjournal(dbname,txt:string);
+Procedure LoadILCD(fn,path,tname:string; dbm: TLiteDB);
+procedure LoadILCDcols(fn,path,lang:string);
 
 implementation
 
@@ -415,6 +418,91 @@ end else begin
 end;
 writeln(f,FormatDateTime('yyyy"-"mm"-"dd" "hh":"nn":"ss',Now),' DB=',dbname,' ',txt);
 closefile(f);
+end;
+
+Procedure LoadILCD(fn,path,tname:string; dbm: TLiteDB);
+var buf,cols,cmd,v: string;
+    i:integer;
+    col,val: TStringList;
+    f: textfile;
+const colcount=80;
+begin
+ if FileExists(slash(path)+fn+'.csv') then begin
+    cmd:='select * from '+tname+' limit 1';
+    dbm.Query(cmd);
+    if dbm.LastError<>0 then begin
+      col:=TStringList.Create;
+      val:=TStringList.Create;
+      try
+      AssignFile(f,slash(path)+fn+'.csv');
+      Reset(f);
+      ReadLn(f,cols);
+      SplitRec2(cols,';',col);
+      if col.Count<colcount then exit;
+      dbjournal(extractfilename(dbm.database),'CREATE TABLE '+tname);
+      cmd:='create table '+tname+' ( ';
+      for i:=0 to colcount-1 do begin
+        cmd:=cmd+col[i]+' text,';
+      end;
+      cmd:=copy(cmd,1,length(cmd)-1);
+      cmd:=cmd+');';
+      dbm.Query(cmd);
+      if dbm.LastError<>0 then begin
+        dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+        exit;
+      end;
+      cmd:='create index '+tname+'_idx on '+tname+'('+col[0]+');';
+      dbm.Query(cmd);
+      if dbm.LastError<>0 then begin
+        dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+        exit;
+      end;
+      while not eof(f) do begin
+        ReadLn(f,buf);
+        SplitRec2(buf,';',val);
+        if val.Count<colcount then exit;
+        cmd:='insert into '+tname+' values (';
+        for i:=0 to colcount-1 do begin
+          v:=val[i];
+          v:=stringreplace(v,'""','''',[rfreplaceall]);
+          v:=stringreplace(v,'"','',[rfreplaceall]);
+          cmd:=cmd+'"'+v+'",';
+        end;
+        cmd:=copy(cmd,1,length(cmd)-1);
+        cmd:=cmd+');';
+        dbm.Query(cmd);
+        if dbm.LastError<>0 then begin
+           dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+           break;
+        end;
+      end;
+      CloseFile(f);
+      finally
+       col.Free;
+       val.Free;
+      end;
+    end;
+ end;
+end;
+
+procedure LoadILCDcols(fn,path,lang:string);
+var fname,buf:string;
+    f:TextFile;
+begin
+  if ILCDCols=nil then ILCDCols:=TStringList.Create;
+  fname:=slash(path)+fn+'_'+lang+'.txt';
+  if not FileExists(fname) then begin
+    fname:=slash(path)+fn+'_EN.txt';
+    if not FileExists(fname) then
+      fname:=slash(path)+fn+'.csv';
+  end;
+  if FileExists(fname) then begin
+    AssignFile(f,fname);
+    Reset(f);
+    ReadLn(f,buf);
+    CloseFile(f);
+    SplitRec2(buf,';',ILCDCols);
+  end;
 end;
 
 end.

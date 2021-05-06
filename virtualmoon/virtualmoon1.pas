@@ -551,6 +551,7 @@ type
     procedure AddToList(buf: string);
     procedure GetDetail(row: TResultRow; memo: Tmemo);
     procedure GetHTMLDetail(row: TResultRow; var txt: string);
+    function GetILCD(n: string):string;
     procedure GetNotes(n: string);
     function ImgExists(nom: string): boolean;
     procedure InitDate;
@@ -933,6 +934,7 @@ begin
     f_tabsdock.SetLang;
     // Glossary form changed to a singleton-style function-accessible object
     GlossaryForm.InitGlossary;
+    LoadILCDcols('ILCD_2015_AVL',Slash(appdir) + 'Database',uplanguage);
 end;
 
 procedure TForm1.InitObservatoire;
@@ -2681,6 +2683,11 @@ begin
   if txtbuf>'' then
      txt := txt + t2 + 'IAU information:' + t2end + br+txtbuf+ b + br;
 
+  txtbuf := GetILCD(nom);
+  if txtbuf>'' then begin
+    txt := txt + t2 + 'Lunar Impact Crater Database:' + t2end + br+txtbuf+ b + br;
+  end;
+
   txt   := txt + '</div></body></html>';
   if copy(GetField('PROFIL'),1,2)='A_' then begin
     Label7.Caption := GetField('PROFIL');
@@ -2697,6 +2704,30 @@ begin
   statusbar1.Panels[0].Text := rsm_10 + GetField('LONGI_N');
   statusbar1.Panels[1].Text := rsm_11 + GetField('LATI_N');
   Addtolist(nom);
+end;
+
+function Tform1.GetILCD(n: string):string;
+var buf,cmd: string;
+    i:integer;
+const
+    b     = '&nbsp;';
+    br    = '<br/>';
+    t1end = '</b></font></center>';
+    t2    = '<font size=+1>';
+    t2end = '</font>';
+    t3    = '<b>';
+    t3end = '</b>';
+begin
+  result:='';
+  cmd:='select * from ILCD where name="'+n+'"';
+  dbm.Query(cmd);
+  i:=dbm.RowCount;
+  i:=ILCDCols.Count;
+  i:=dbm.Results[0].Count;
+  if (dbm.RowCount>0) and(ILCDCols.Count=dbm.Results[0].Count) then begin
+    for i:=0 to ILCDCols.Count-1 do
+      result:=result+t3+ILCDCols[i]+': '+t3end+dbm.Results[0].Format[i].AsString+br;
+  end;
 end;
 
 procedure Tform1.GetDBgrid;
@@ -3738,6 +3769,7 @@ try
   screen.cursor := crHourGlass;
   application.ProcessMessages;
   LoadDB(dbm);
+  LoadILCD('ILCD_2015_AVL',Slash(appdir) + 'Database', 'ILCD', dbm);
   form2.DbList.Items.Assign(DatabaseList);
   application.ProcessMessages;
   ListUserDB;
