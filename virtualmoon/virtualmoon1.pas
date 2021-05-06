@@ -114,8 +114,17 @@ type
     c72: TMenuItem;
     c82: TMenuItem;
     Panel2: TPanel;
+    PanelAnchor: TPanel;
     PopupEyepiece: TPopupMenu;
     PopupCCD: TPopupMenu;
+    AnchorAtlas: TLabel;
+    AnchorDesc: TLabel;
+    AnchorIAU: TLabel;
+    AnchorIdent: TLabel;
+    AnchorLICD: TLabel;
+    AnchorObs: TLabel;
+    AnchorOrigin: TLabel;
+    AnchorPos: TLabel;
     tabs: TPanel;
     SaveEphem: TMenuItem;
     OptFeatures1: TMenuItem;
@@ -357,6 +366,7 @@ type
     CheckBox8: TCheckBox;
     ImageListDay: TImageList;
     ToolButton12: TToolButton;
+    procedure AnchorClick(Sender: TObject);
     procedure Button21Click(Sender: TObject);
     procedure ExportNotesClick(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
@@ -935,6 +945,14 @@ begin
     // Glossary form changed to a singleton-style function-accessible object
     GlossaryForm.InitGlossary;
     LoadILCDcols('ILCD_2015_AVL',Slash(appdir) + 'Database',uplanguage);
+    AnchorIdent.Caption:=StringReplace(rsIdentity,':','',[]);
+    AnchorDesc.Caption:=StringReplace(rsm_58,':','',[]);
+    AnchorObs.Caption:=StringReplace(rsm_59,':','',[]);
+    AnchorPos.Caption:=StringReplace(rsm_60,':','',[]);
+    AnchorAtlas.Caption:=StringReplace(rsm_61,':','',[]);
+    AnchorOrigin.Caption:=StringReplace(rsm_62,':','',[]);
+    AnchorIAU.Caption:='IAU';
+    AnchorLICD.Caption:='LICD';
 end;
 
 procedure TForm1.InitObservatoire;
@@ -2310,8 +2328,9 @@ const
   t3end = '</b>';
 var
   nom, carte, url, img, remoteurl, txtbuf, buf, buf2, t1: string;
+  anchorvisible: array[1..8] of boolean;
   ok:   boolean;
-  dbn, i, j: integer;
+  dbn, i, j, maxpos: integer;
   lkm,wkm,lmi,wmi,lon,lat: double;
   function GetField(fn:string):string;
   var k: integer;
@@ -2330,6 +2349,7 @@ var
       if result='' then result:=' ';
   end;
 begin
+  for i:=1 to 8 do anchorvisible[i]:=false;
   if DarkTheme then begin
     txt := '<html> <body bgcolor="black">';
     t1 := '<center><font size=+1><b>';
@@ -2338,7 +2358,10 @@ begin
     txt := '<html> <body bgcolor="white">';
     t1 := '<center><font size=+1 color="#0000FF"><b>';
   end;
+
   txt:=txt+'<div>';
+  txt:=txt+ '<a name="ident"> ';
+  anchorvisible[1]:=true;
   nom := GetField('NAME');
   dblox.Gofirst;
   ok := dblox.MatchData('NAME', '=', nom);
@@ -2455,8 +2478,11 @@ begin
   if GetField('ELGER_1895') > '' then begin
     txtbuf :=txtbuf + br + t3 + rsElgerDescrip + t3end + br + GetField('ELGER_1895') + br;
   end;
-  if txtbuf>'' then
+  if txtbuf>'' then begin
+    anchorvisible[2]:=true;
+    txt:=txt+ '<a name="desc"> ';
     txt := txt + t2 + rsm_58 + t2end + br+txtbuf+b + br; //Description
+  end;
 
   //Observation
   txtbuf:='';
@@ -2475,8 +2501,11 @@ begin
       txtbuf := txtbuf + t3 + rsm_25 + t3end + b + buf + b + rsm_26 + b + buf2 + br;
   if GetField('PR_INSTRU') > '' then
      txtbuf := txtbuf + t3 + rsm_28 + t3end + b + GetField('PR_INSTRU') + br;
-  if txtbuf>'' then
+  if txtbuf>'' then begin
+     anchorvisible[3]:=true;
+     txt:=txt+ '<a name="obs"> ';
      txt   := txt + t2 + rsm_59 + t2end + br+txtbuf+b + br; //Observation
+  end;
 
   //Position
   txtbuf:='';
@@ -2509,8 +2538,11 @@ begin
   end;
   if GetField('AREA') > '' then
      txtbuf   := txtbuf + t3 + rsm_13 + t3end + b + GetField('AREA') + br;
-  if txtbuf>'' then
+  if txtbuf>'' then begin
+     anchorvisible[4]:=true;
+     txt:=txt+ '<a name="pos"> ';
      txt   := txt + t2 + rsm_60 + t2end + br+txtbuf+b + br; //Position
+  end;
 
   //Atlas
   txtbuf:='';
@@ -2583,8 +2615,11 @@ begin
     end;
     txtbuf := txtbuf + br;
   end;
-  if txtbuf>'' then
-     txt   := txt + t2 + rsm_61 + t2end + br+txtbuf+b + br; //Atlas
+  if txtbuf>'' then begin
+    anchorvisible[5]:=true;
+    txt:=txt+ '<a name="atlas"> ';
+    txt   := txt + t2 + rsm_61 + t2end + br+txtbuf+b + br; //Atlas
+  end;
 
   //Origine
   txtbuf:='';
@@ -2624,8 +2659,11 @@ begin
      txtbuf   := txtbuf + t3 + rsm_8 + t3end + b + GetField('HEVELIUS') + br;
   if GetField('RICCIOLI')<>'' then
      txtbuf   := txtbuf + t3 + rsm_9 + t3end + b + GetField('RICCIOLI') + br;
-  if txtbuf>'' then
+  if txtbuf>'' then begin
+     anchorvisible[6]:=true;
+     txt:=txt+ '<a name="origin"> ';
      txt := txt + t2 + rsm_62 + t2end + br+txtbuf+ b + br; //Origine
+  end;
 
   // IAU information
   txtbuf:='';
@@ -2680,12 +2718,17 @@ begin
      txtbuf   := txtbuf + t3 + 'IAU_REFERENCE:' + t3end + b + GetField('IAU_REFERENCE') + br;
   if GetField('IAU_ORIGIN')<>'' then
      txtbuf   := txtbuf + t3 + 'IAU_ORIGIN:' + t3end + b + GetField('IAU_ORIGIN') + br;
-  if txtbuf>'' then
-     txt := txt + t2 + 'IAU information:' + t2end + br+txtbuf+ b + br;
+  if txtbuf>'' then begin
+     anchorvisible[7]:=true;
+     txt:=txt+ '<a name="iau"> ';
+     txt := txt + t2 + rsIAUInformati + t2end + br+txtbuf+ b + br;
+  end;
 
   txtbuf := GetILCD(nom);
   if txtbuf>'' then begin
-    txt := txt + t2 + 'Lunar Impact Crater Database:' + t2end + br+txtbuf+ b + br;
+    anchorvisible[8]:=true;
+    txt:=txt+ '<a name="licd"> ';
+    txt := txt + t2 + rsLunarImpactC + t2end + br+txtbuf+ b + br;
   end;
 
   txt   := txt + '</div></body></html>';
@@ -2704,6 +2747,27 @@ begin
   statusbar1.Panels[0].Text := rsm_10 + GetField('LONGI_N');
   statusbar1.Panels[1].Text := rsm_11 + GetField('LATI_N');
   Addtolist(nom);
+  PanelAnchor.AutoSize:=false;
+  AnchorIdent.Visible:=anchorvisible[1];
+  AnchorDesc.Visible:=anchorvisible[2];
+  AnchorObs.Visible:=anchorvisible[3];
+  AnchorPos.Visible:=anchorvisible[4];
+  AnchorAtlas.Visible:=anchorvisible[5];
+  AnchorOrigin.Visible:=anchorvisible[6];
+  AnchorIAU.Visible:=anchorvisible[7];
+  AnchorLICD.Visible:=anchorvisible[8];
+  PanelAnchor.ChildSizing.ControlsPerLine:=8;
+  if AnchorIdent.Visible then maxpos:=AnchorIdent.Left+AnchorIdent.Width;
+  if AnchorDesc.Visible then maxpos:=AnchorDesc.Left+AnchorDesc.Width;
+  if AnchorObs.Visible then maxpos:=AnchorObs.Left+AnchorObs.Width;
+  if AnchorPos.Visible then maxpos:=AnchorPos.Left+AnchorPos.Width;
+  if AnchorAtlas.Visible then maxpos:=AnchorAtlas.Left+AnchorAtlas.Width;
+  if AnchorOrigin.Visible then maxpos:=AnchorOrigin.Left+AnchorOrigin.Width;
+  if AnchorIAU.Visible then maxpos:=AnchorIAU.Left+AnchorIAU.Width;
+  if AnchorLICD.Visible then maxpos:=AnchorLICD.Left+AnchorLICD.Width;
+  if PanelAnchor.ClientWidth<maxpos then
+    PanelAnchor.ChildSizing.ControlsPerLine:=4;
+  PanelAnchor.AutoSize:=true;
 end;
 
 function Tform1.GetILCD(n: string):string;
@@ -3718,6 +3782,14 @@ begin
     ToolBar5.Images:=ImageListNight;
     Desc1.LinkColor:=clWhite;
     Desc1.TextColor:=clSilver;
+    AnchorIdent.Font.Color:=clWhite;
+    AnchorDesc.Font.Color:=clWhite;
+    AnchorObs.Font.Color:=clWhite;
+    AnchorPos.Font.Color:=clWhite;
+    AnchorAtlas.Font.Color:=clWhite;
+    AnchorOrigin.Font.Color:=clWhite;
+    AnchorIAU.Font.Color:=clWhite;
+    AnchorLICD.Font.Color:=clWhite;
   end;
   ToolBar2.Left:=0;
   TrackBar1.Left:=ToolBar2.Left+ToolBar2.Width+1;
@@ -5507,8 +5579,16 @@ begin
 end;
 
 procedure TForm1.Desc1HotClick(Sender: TObject);
+var buf:string;
+    i:integer;
 begin
-  ExecuteFile(desc1.HotURL);
+  if copy(desc1.HotURL,1,1)='#' then begin
+    buf:=trim(copy(desc1.HotURL,2,99));
+    desc1.Scroll(hsaEnd);
+    desc1.MakeAnchorVisible(buf);
+  end
+  else
+    ExecuteFile(desc1.HotURL);
 end;
 
 procedure TForm1.Copy1Click(Sender: TObject);
@@ -6154,6 +6234,28 @@ begin
   TrackBar3Change(Sender);
   TrackBar4.Position:=99;
   TrackBar4Change(Sender);
+end;
+
+procedure TForm1.AnchorClick(Sender: TObject);
+var str: string;
+begin
+  if sender is TLabel then begin
+    str:='';
+    case TLabel(Sender).Tag of
+      1: str:='ident';
+      2: str:='desc';
+      3: str:='obs';
+      4: str:='pos';
+      5: str:='atlas';
+      6: str:='origin';
+      7: str:='iau';
+      8: str:='licd';
+    end;
+    if str<>'' then begin
+      desc1.Scroll(hsaEnd);
+      desc1.MakeAnchorVisible(str);
+    end;
+  end;
 end;
 
 procedure TForm1.LoadOverlay(fn: string; transparent: single);

@@ -366,6 +366,8 @@ rsPicturesAndM = 'Pictures and medium resolution texture';
 rsHighResoluti = 'High resolution texture';
 rsVeryHighReso = 'Very high resolution %s texture';
 rsNoPictureFou = 'No picture found';
+rsIAUInformati = 'IAU information:';
+rsLunarImpactC = 'Lunar Impact Crater Database:';
 
 implementation
 

@@ -562,8 +562,8 @@ object Form1: TForm1
         end
         object Desc1: TIpHtmlPanel
           Left = 0
-          Height = 343
-          Top = 90
+          Height = 327
+          Top = 106
           Width = 344
           Align = alClient
           BorderWidth = 1
@@ -634,6 +634,157 @@ object Form1: TForm1
             Transparent = False
             OnClick = Button2Click
             ParentFont = False
+          end
+        end
+        object PanelAnchor: TPanel
+          Left = 0
+          Height = 16
+          Top = 90
+          Width = 344
+          Align = alTop
+          AutoSize = True
+          BevelOuter = bvNone
+          ChildSizing.HorizontalSpacing = 4
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 8
+          ClientHeight = 16
+          ClientWidth = 344
+          TabOrder = 3
+          object AnchorIdent: TLabel
+            Tag = 1
+            Cursor = crHandPoint
+            Left = 0
+            Height = 16
+            Top = 0
+            Width = 35
+            Caption = 'Ident.'
+            Color = clWindow
+            Font.Color = clBlue
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Visible = False
+            OnClick = AnchorClick
+          end
+          object AnchorDesc: TLabel
+            Tag = 2
+            Cursor = crHandPoint
+            Left = 39
+            Height = 16
+            Top = 0
+            Width = 31
+            Caption = 'Desc.'
+            Color = clWindow
+            Font.Color = clBlue
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Visible = False
+            OnClick = AnchorClick
+          end
+          object AnchorObs: TLabel
+            Tag = 3
+            Cursor = crHandPoint
+            Left = 74
+            Height = 16
+            Top = 0
+            Width = 27
+            Caption = 'Obs.'
+            Color = clWindow
+            Font.Color = clBlue
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Visible = False
+            OnClick = AnchorClick
+          end
+          object AnchorPos: TLabel
+            Tag = 4
+            Cursor = crHandPoint
+            Left = 105
+            Height = 16
+            Top = 0
+            Width = 25
+            Caption = 'Pos.'
+            Color = clWindow
+            Font.Color = clBlue
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Visible = False
+            OnClick = AnchorClick
+          end
+          object AnchorAtlas: TLabel
+            Tag = 5
+            Cursor = crHandPoint
+            Left = 134
+            Height = 16
+            Top = 0
+            Width = 29
+            Caption = 'Atlas'
+            Color = clWindow
+            Font.Color = clBlue
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Visible = False
+            OnClick = AnchorClick
+          end
+          object AnchorOrigin: TLabel
+            Tag = 6
+            Cursor = crHandPoint
+            Left = 167
+            Height = 16
+            Top = 0
+            Width = 37
+            Caption = 'Origin'
+            Color = clWindow
+            Font.Color = clBlue
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Visible = False
+            OnClick = AnchorClick
+          end
+          object AnchorIAU: TLabel
+            Tag = 7
+            Cursor = crHandPoint
+            Left = 208
+            Height = 16
+            Top = 0
+            Width = 22
+            Caption = 'IAU'
+            Color = clWindow
+            Font.Color = clBlue
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Visible = False
+            OnClick = AnchorClick
+          end
+          object AnchorLICD: TLabel
+            Tag = 8
+            Cursor = crHandPoint
+            Left = 234
+            Height = 16
+            Top = 0
+            Width = 28
+            Caption = 'LICD'
+            Color = clWindow
+            Font.Color = clBlue
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Visible = False
+            OnClick = AnchorClick
           end
         end
       end
