@@ -526,7 +526,7 @@ type
     CursorImage1: TCursorImage;
     tz: TCdCTimeZone;
     ima: TBigImaForm;
-    ToolsWidth: integer;
+    ToolsWidth,AnchorLinkWidth: integer;
     FullScreen: boolean;
     lockzoombar,notexture: boolean;
     texturefiles,texturenone: TStringList;
@@ -950,9 +950,18 @@ begin
     AnchorObs.Caption:=StringReplace(rsm_59,':','',[]);
     AnchorPos.Caption:=StringReplace(rsm_60,':','',[]);
     AnchorAtlas.Caption:=StringReplace(rsm_61,':','',[]);
-    AnchorOrigin.Caption:=StringReplace(rsm_62,':','',[]);
+    AnchorOrigin.Caption:=rst_47;
     AnchorIAU.Caption:='IAU';
     AnchorLICD.Caption:='LICD';
+    AnchorLinkWidth:=PanelAnchor.Canvas.TextWidth(AnchorIdent.Caption)+
+                     PanelAnchor.Canvas.TextWidth(AnchorDesc.Caption)+
+                     PanelAnchor.Canvas.TextWidth(AnchorObs.Caption)+
+                     PanelAnchor.Canvas.TextWidth(AnchorPos.Caption)+
+                     PanelAnchor.Canvas.TextWidth(AnchorAtlas.Caption)+
+                     PanelAnchor.Canvas.TextWidth(AnchorOrigin.Caption)+
+                     PanelAnchor.Canvas.TextWidth(AnchorIAU.Caption)+
+                     PanelAnchor.Canvas.TextWidth(AnchorLICD.Caption)+
+                     7*PanelAnchor.ChildSizing.HorizontalSpacing;
 end;
 
 procedure TForm1.InitObservatoire;
@@ -2747,7 +2756,6 @@ begin
   statusbar1.Panels[0].Text := rsm_10 + GetField('LONGI_N');
   statusbar1.Panels[1].Text := rsm_11 + GetField('LATI_N');
   Addtolist(nom);
-  PanelAnchor.AutoSize:=false;
   AnchorIdent.Visible:=anchorvisible[1];
   AnchorDesc.Visible:=anchorvisible[2];
   AnchorObs.Visible:=anchorvisible[3];
@@ -2756,18 +2764,6 @@ begin
   AnchorOrigin.Visible:=anchorvisible[6];
   AnchorIAU.Visible:=anchorvisible[7];
   AnchorLICD.Visible:=anchorvisible[8];
-  PanelAnchor.ChildSizing.ControlsPerLine:=8;
-  if AnchorIdent.Visible then maxpos:=AnchorIdent.Left+AnchorIdent.Width;
-  if AnchorDesc.Visible then maxpos:=AnchorDesc.Left+AnchorDesc.Width;
-  if AnchorObs.Visible then maxpos:=AnchorObs.Left+AnchorObs.Width;
-  if AnchorPos.Visible then maxpos:=AnchorPos.Left+AnchorPos.Width;
-  if AnchorAtlas.Visible then maxpos:=AnchorAtlas.Left+AnchorAtlas.Width;
-  if AnchorOrigin.Visible then maxpos:=AnchorOrigin.Left+AnchorOrigin.Width;
-  if AnchorIAU.Visible then maxpos:=AnchorIAU.Left+AnchorIAU.Width;
-  if AnchorLICD.Visible then maxpos:=AnchorLICD.Left+AnchorLICD.Width;
-  if PanelAnchor.ClientWidth<maxpos then
-    PanelAnchor.ChildSizing.ControlsPerLine:=4;
-  PanelAnchor.AutoSize:=true;
 end;
 
 function Tform1.GetILCD(n: string):string;
@@ -4320,6 +4316,10 @@ begin
     ToolsWidth:=MinToolsWidth;
     tabs.Width:=ToolsWidth;
  end;
+ if AnchorLinkWidth>ToolsWidth then
+   PanelAnchor.ChildSizing.ControlsPerLine:=4
+ else
+   PanelAnchor.ChildSizing.ControlsPerLine:=8;
  FormResize(Sender);
 end;
 
