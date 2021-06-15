@@ -25,7 +25,7 @@ object f_main: Tf_main
     FixedCols = 2
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goThumbTracking]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goThumbTracking, goFixedColSizing]
     ParentFont = False
     PopupMenu = PopupMenu1
     RowCount = 18
@@ -61,8 +61,8 @@ object f_main: Tf_main
     TabOrder = 2
   end
   object MainMenu1: TMainMenu
-    left = 550
-    top = 16
+    Left = 550
+    Top = 16
     object File1: TMenuItem
       Caption = 'File'
       object N3: TMenuItem
@@ -130,8 +130,8 @@ object f_main: Tf_main
   end
   object FindDialog1: TFindDialog
     OnFind = FindDialog1Find
-    left = 550
-    top = 81
+    Left = 550
+    Top = 81
   end
   object SaveDialog1: TSaveDialog
     DefaultExt = '.csv'
@@ -139,13 +139,13 @@ object f_main: Tf_main
     FilterIndex = 0
     InitialDir = 'My Databases'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofPathMustExist, ofEnableSizing]
-    left = 550
-    top = 137
+    Left = 550
+    Top = 137
   end
   object PopupMenu1: TPopupMenu
     OnPopup = PopupMenu1Popup
-    left = 550
-    top = 186
+    Left = 550
+    Top = 186
     object Sortby1: TMenuItem
       Caption = 'Sort by'
       OnClick = Sortby1Click
@@ -165,8 +165,8 @@ object f_main: Tf_main
   end
   object ImageList1: TImageList
     BkColor = clForeground
-    left = 550
-    top = 234
+    Left = 550
+    Top = 234
     Bitmap = {
       4C69020000001000000010000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -239,7 +239,7 @@ object f_main: Tf_main
     Enabled = True
     Identifier = 'Virtual_Moon_Atlas_DatLun'
     OnOtherInstance = UniqueInstance1OtherInstance
-    left = 553
-    top = 306
+    Left = 553
+    Top = 306
   end
 end

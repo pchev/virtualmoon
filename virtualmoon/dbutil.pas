@@ -241,10 +241,7 @@ for i:=1 to NumMoonDBFields do begin
 end;
 if v>'' then dbjournal(extractfilename(dbm.database), fn+' missing fields: '+v);
 dbm.StartTransaction;
-if side='5' then
-  n:=6    // split file
-else
-  n:=0;   // single file
+n:=0;   // single file
 j:=0;
 fnn:=fn;
 repeat
