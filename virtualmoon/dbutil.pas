@@ -158,16 +158,16 @@ Uses  u_constant, u_util, fmsg;
 Procedure CreateDB(dbm: TLiteDB);
 var i,dbv: integer;
     cmd,buf: string;
+    ok:boolean;
 begin
+ok:=dbm.query('select name from moon order by name LIMIT 1;');  // try to detect corrupt database file
 buf:=dbm.QueryOne('select version from dbversion;');
 dbv:=StrToIntDef(buf,0);
-if dbv<DBversion then begin
- dbm.Query('drop table moon;');
- dbm.Query('drop table file_date;');
- dbm.Query('drop table user_database;');
- dbm.Query('drop table dbversion;');
- dbm.Commit;
- dbm.Query('Vacuum;');
+if (dbv<DBversion)or(not ok) then begin
+ buf:=dbm.DataBase;
+ dbm.Close;
+ if FileExists(buf) then DeleteFile(buf);
+ dbm.DataBase:=buf;
  cmd:='create table moon ( '+
     'ID INTEGER PRIMARY KEY,'+
     'DBN integer';
@@ -209,7 +209,7 @@ end;
 end;
 
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
-var cmd,v,buf,fnn: string;
+var cmd,v,buf,fnn,dbv: string;
     i,imax,ii,j,n:integer;
     hdr,row: TStringList;
     f: TextFile;
@@ -222,6 +222,8 @@ msgform.Refresh;
 application.ProcessMessages;
 hdr:=TStringList.Create;
 row:=TStringList.Create;
+dbv:=dbm.QueryOne('select version from dbversion;');
+dbm.Query('update dbversion set version=0;');
 try
 AssignFile(f,fn);
 Reset(f);
@@ -290,11 +292,14 @@ dbm.Query('update moon set length_mi=0 where length_mi="";');
 dbm.Query('update moon set length_mi=0 where length_mi="?";');
 dbm.Query('delete from file_date where dbn='+side+';');
 dbm.Query('insert into file_date values ('+side+','+inttostr(fileage(fn))+');');
+dbm.Query('update dbversion set version='+dbv+';');
 dbm.Commit;
 dbjournal(extractfilename(dbm.database),'INSERT DBN='+side+' MAX ID='+inttostr(imax));
 finally
 hdr.Free;
 row.Free;
+dbm.Query('PRAGMA journal_mode = DELETE');
+dbm.Query('PRAGMA synchronous = NORMAL');
 end;
 end;
 
