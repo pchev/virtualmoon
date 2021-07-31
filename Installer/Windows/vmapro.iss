@@ -16,6 +16,7 @@ OutputBaseFilename=virtualmoon-windows
 Compression=lzma
 SolidCompression=true
 UseSetupLdr=true
+DirExistsWarning=no
 ShowLanguageDialog=yes
 UsePreviousAppDir=false
 UsedUserAreasWarning=no
