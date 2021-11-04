@@ -1,0 +1,13 @@
+
+CFLAGS= -O3  -w -fPIC $(arch_flags) -L./cspice  -I./cspice
+CC           = gcc
+LIBS          = -lcspice -lm
+
+SRC=getcell.c
+
+OBJ=$(SRC:.c=.o)
+
+all: $(OBJ)
+
+clean:
+	rm $(OBJ)

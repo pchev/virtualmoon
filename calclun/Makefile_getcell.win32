@@ -1,0 +1,16 @@
+CC = i686-w64-mingw32-gcc
+MV = mv
+
+CFLAGS= -O3  -w -fPIC $(arch_flags) -L./cspice  -I./cspice
+LIBS          = -lcspice -lm
+
+SRC=getcell.c
+VOBJ=getcellwin32.o
+
+OBJ=$(SRC:.c=.o)
+
+all: $(OBJ)
+	$(MV) getcell.o $(VOBJ)
+
+clean:
+	rm $(OBJ) $(VOBJ)

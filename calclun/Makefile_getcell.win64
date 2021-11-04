@@ -1,0 +1,16 @@
+CC = x86_64-w64-mingw32-gcc
+MV = mv
+
+CFLAGS= -O3  -w -fPIC $(arch_flags) -L/home/libpasastro/libpasastro/spice/cspice  -I/home/libpasastro/libpasastro/spice/cspice
+LIBS          = -lcspice -lm
+
+SRC=getcell.c
+VOBJ=getcellwin64.o
+
+OBJ=$(SRC:.c=.o)
+
+all: $(OBJ)
+	$(MV) getcell.o $(VOBJ)
+
+clean:
+	rm $(OBJ) $(VOBJ)
