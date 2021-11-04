@@ -1,0 +1,27 @@
+CC = i686-w64-mingw32-gcc
+AR = i686-w64-mingw32-ar
+RANLIB = i686-w64-mingw32-ranlib
+CP = cp
+
+CFLAGS  = -c -ansi -O2 -fPIC -DNON_UNIX_STDIOi -DMSDOS $(arch_flags)
+
+LIBNAME = libcspice.a
+SOLIBNAME = libcspice32.dll
+
+.PHONY: clean
+
+# Source files
+SRC=$(wildcard *.c)
+
+OBJ=$(SRC:.c=.o)
+
+all: Platform  $(OBJ)
+	$(AR) cr $(LIBNAME) *.o
+	$(RANLIB) $(LIBNAME)
+	$(CC) -shared *.o -o $(SOLIBNAME)
+
+Platform:
+	$(CP) SpiceZpl-32.h SpiceZpl.h 
+
+clean:
+	rm -f $(OBJ) $(LIBNAME) $(SOLIBNAME) SpiceZpl.h
