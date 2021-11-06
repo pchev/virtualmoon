@@ -4,6 +4,7 @@ datlun/backup/
 cclun/backup/
 photlun/backup/
 weblun/backup/
+calclun/backup/
 #ignore external data
 BaseData/*.tgz
 BaseData/*.xz
@@ -45,6 +46,9 @@ virtualmoon/component/indiclient/lib/
 weblun/units/
 weblun/weblun
 weblun/weblun.exe
+calclun/lib/
+calclun/calclun
+calclun/calclun.exe
 last.build
 # ignore binary
 *.o

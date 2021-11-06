@@ -4,8 +4,8 @@ unit calclun_main;
 
 interface
 
-uses cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, SynEdit, TAGraph, TARadialSeries, TASeries, TAFuncSeries, TAStyles, IniFiles,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ValEdit, ComCtrls, Grids;
+uses cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, SynEdit, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Types;
 
 const
     mcolDay=0; mcolRa2000=1; mcolDe2000=2; mcolRa=3; mcolDe=4; mcolDist=5; mcolDiam=6; mcolPhase=7; mcolLunation=8; mcolIllum=9; mcolColong=10; mcolSubSolLat=11; mcolLibrLon=12; mcolLibrLat=13; mcolPa=14; mcolRise=15; mcolSet=16;
@@ -29,11 +29,18 @@ type
     Chart2: TChart;
     Chart2CubicSplineSeries1: TCubicSplineSeries;
     Chart2LineSeries1: TLineSeries;
+    GridYear: TStringGrid;
+    ImageListPhase: TImageList;
     LabelPhase2: TLabel;
     LabelPhase1: TLabel;
+    PanelYRight: TPanel;
+    PanelYList: TPanel;
+    PanelYphase: TPanel;
     PanelGraph2: TPanel;
     PanelGraph1: TPanel;
     PanelPhase: TPanel;
+    ScrollBoxM: TScrollBox;
+    ScrollBoxY: TScrollBox;
     StatusLabel: TLabel;
     NightEvent: TCheckBox;
     MinElevation: TFloatSpinEdit;
@@ -53,12 +60,14 @@ type
     Altitude: TFloatSpinEdit;
     Label1: TLabel;
     Label2: TLabel;
-    Panel1: TPanel;
+    PanelTest: TPanel;
     memo1: TSynEdit;
     SpinEditYear: TSpinEdit;
     SpinEditMonth: TSpinEdit;
-    Splitter1: TSplitter;
-    StringGridMonth: TStringGrid;
+    GridMonth: TStringGrid;
+    GridPhaseList: TStringGrid;
+    TabSheetYear: TTabSheet;
+    TabSheetDay: TTabSheet;
     TabSheetMonth: TTabSheet;
     TabSheetTest: TTabSheet;
     TimeEdit1: TTimeEdit;
@@ -67,7 +76,8 @@ type
     procedure Button1Click(Sender: TObject);
     procedure DateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure StringGridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
+    procedure GridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
+    procedure GridYearDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
   private
     et : SpiceDouble;
     obspos: TDouble3;
@@ -75,6 +85,7 @@ type
     FCurrentMonthGraph: integer;
     procedure GetAppDir;
     procedure SetKernelsPath;
+    procedure ComputeYear;
     procedure ComputeMonth;
     procedure PlotMonthGraph(col:integer);
     procedure Illum;
@@ -131,6 +142,8 @@ begin
   DecodeDate(now, Year, Month, Day);
   SpinEditYear.Value:=Year;
   SpinEditMonth.Value:=Month;
+
+  ComputeYear;
 
   FCurrentMonthGraph:=mcolLibrLon;
   ComputeMonth;
@@ -321,6 +334,90 @@ begin
   end;
 end;
 
+procedure Tf_calclun.ComputeYear;
+var
+  t1,dt, nm, fq, fm, lq,lunation: double;
+  i,j,k,r: integer;
+  year: Word;
+  newmoon: array[0..14] of double;
+begin
+  StatusLabel.Caption:='';
+  GridYear.ColWidths[0]:=100;
+  GridYear.Width:=GridYear.ColWidths[0]+(GridYear.ColCount-1)*GridYear.DefaultColWidth;
+  for i:=1 to 31 do GridYear.Cells[i,0]:=inttostr(i);
+  for i:=1 to 12 do GridYear.Cells[0,i]:=DefaultFormatSettings.LongMonthNames[i];
+  GridPhaseList.Cells[0,0]:='New Moon';
+  GridPhaseList.Cells[1,0]:='First quarter';
+  GridPhaseList.Cells[2,0]:='Full Moon';
+  GridPhaseList.Cells[3,0]:='Last quarter';
+  reset_c;
+  year:=SpinEditYear.Value;
+  t1:=EncodeDate(year,12,31);
+  dt:=EncodeDate(year-1,12,1);
+  if not MoonPhases(dt, nm, fq, fm, lq,lunation) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  newmoon[0]:=nm;
+  r:=1;
+  repeat
+    dt:=lq+7;
+    if not MoonPhases(dt, nm, fq, fm, lq,lunation) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    newmoon[r]:=nm;
+    GridPhaseList.Cells[0,r]:=FormatDateTime('mm/dd hh:nn:ss',nm);
+    GridPhaseList.Cells[1,r]:=FormatDateTime('mm/dd hh:nn:ss',fq);
+    GridPhaseList.Cells[2,r]:=FormatDateTime('mm/dd hh:nn:ss',fm);
+    GridPhaseList.Cells[3,r]:=FormatDateTime('mm/dd hh:nn:ss',lq);
+    inc(r);
+  until (lq>t1)or(r>=GridPhaseList.RowCount);
+
+  dt:=EncodeDate(year,1,1);
+  r:=0;
+  for i:=0 to 2 do begin
+    if newmoon[i]+29.530588861>=dt then break;
+    inc(r);
+  end;
+  for i:=1 to 12 do begin
+    for j:=1 to 31 do begin
+      if j<=MonthDays[IsLeapYear(year)][i] then begin
+       dt:=EncodeDate(year,i,j);
+       if newmoon[r]+29.530588861<dt then inc(r);
+       k:=trunc(dt-newmoon[r]);
+       GridYear.Cells[j,i]:=inttostr(k);
+      end
+      else
+       GridYear.Cells[j,i]:=' ';
+    end;
+  end;
+
+end;
+
+procedure Tf_calclun.GridYearDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
+var img: TBitmap;
+    i: integer;
+begin
+with sender as TStringGrid do begin
+  if (aRow>0)and(aCol>0) then begin
+      Canvas.Brush.Style:=bsSolid;
+      Canvas.Brush.Color:=clBlack;
+      Canvas.FillRect(aRect);
+      i:=StrToIntDef(Cells[aCol,aRow],-1);
+      if i>=0 then begin
+        img := TBitmap.Create;
+        ImageListPhase.GetBitmap(i, img);
+        Canvas.Draw(aRect.Left,aRect.Top+2,img);
+        img.Free;
+      end;
+  end
+  else begin
+    Canvas.TextOut(aRect.Left,aRect.Top+2,Cells[aCol,aRow]);
+  end;
+end;
+end;
+
 procedure Tf_calclun.ComputeMonth;
 var dt, nm, fq, fm, lq, dtr, dts: double;
     i, nday: integer;
@@ -334,33 +431,33 @@ var dt, nm, fq, fm, lq, dtr, dts: double;
     data: TMoonMonthData;
 begin
   StatusLabel.Caption:='';
-  for i:=0 to StringGridMonth.RowCount-1 do begin
-    if StringGridMonth.Objects[0,i]<>nil then StringGridMonth.Objects[0,i].Free;
+  for i:=0 to GridMonth.RowCount-1 do begin
+    if GridMonth.Objects[0,i]<>nil then GridMonth.Objects[0,i].Free;
   end;
   year:=SpinEditYear.Value;
   month:=SpinEditMonth.Value;
   nday:=MonthDays[IsLeapYear(year)][month];
-  StringGridMonth.Clear;
-  StringGridMonth.ColCount:=mcolSet+1;
-  StringGridMonth.RowCount:=nday+1;
-  StringGridMonth.ColWidths[0]:=50;
-  StringGridMonth.Cells[mcolDay,0]:='Day';
-  StringGridMonth.Cells[mcolRa2000,0]:='RA 2000';
-  StringGridMonth.Cells[mcolDe2000,0]:='DE 2000';
-  StringGridMonth.Cells[mcolRa,0]:='RA date';
-  StringGridMonth.Cells[mcolDe,0]:='DE date';
-  StringGridMonth.Cells[mcolDist,0]:='Distance';
-  StringGridMonth.Cells[mcolDiam,0]:='Diameter';
-  StringGridMonth.Cells[mcolPhase,0]:='Phase';
-  StringGridMonth.Cells[mcolLunation,0]:='Lunation';
-  StringGridMonth.Cells[mcolIllum,0]:='Illumination';
-  StringGridMonth.Cells[mcolColong,0]:='Colongitude';
-  StringGridMonth.Cells[mcolSubSolLat,0]:='Sub-solar lat.';
-  StringGridMonth.Cells[mcolLibrLon,0]:='Libration long.';
-  StringGridMonth.Cells[mcolLibrLat,0]:='Libration lat.';
-  StringGridMonth.Cells[mcolPa,0]:='PA';
-  StringGridMonth.Cells[mcolRise,0]:='Rise';
-  StringGridMonth.Cells[mcolSet,0]:='Set';
+  GridMonth.Clear;
+  GridMonth.ColCount:=mcolSet+1;
+  GridMonth.RowCount:=nday+1;
+  GridMonth.ColWidths[0]:=50;
+  GridMonth.Cells[mcolDay,0]:='Day';
+  GridMonth.Cells[mcolRa2000,0]:='RA 2000';
+  GridMonth.Cells[mcolDe2000,0]:='DE 2000';
+  GridMonth.Cells[mcolRa,0]:='RA apparent';
+  GridMonth.Cells[mcolDe,0]:='DE apparent';
+  GridMonth.Cells[mcolDist,0]:='Distance';
+  GridMonth.Cells[mcolDiam,0]:='Diameter';
+  GridMonth.Cells[mcolPhase,0]:='Phase';
+  GridMonth.Cells[mcolLunation,0]:='Lunation';
+  GridMonth.Cells[mcolIllum,0]:='Illumination';
+  GridMonth.Cells[mcolColong,0]:='Colongitude';
+  GridMonth.Cells[mcolSubSolLat,0]:='Sub-solar latitude';
+  GridMonth.Cells[mcolLibrLon,0]:='Libration longitude';
+  GridMonth.Cells[mcolLibrLat,0]:='Libration latitude';
+  GridMonth.Cells[mcolPa,0]:='PA';
+  GridMonth.Cells[mcolRise,0]:='Rise time';
+  GridMonth.Cells[mcolSet,0]:='Set time';
   reset_c;
   ObsLon:=Longitude.Value*deg2rad;
   ObsLat:=Latitude.Value*deg2rad;
@@ -371,7 +468,7 @@ begin
   end;
   for i:=1 to nday do begin
      data:=TMoonMonthData.Create;
-     StringGridMonth.Cells[mcolDay,i]:=inttostr(i);
+     GridMonth.Cells[mcolDay,i]:=inttostr(i);
      dt:=EncodeDate(year,month,i);
      et:=DateTime2ET(dt);
      data.day:=i;
@@ -390,13 +487,13 @@ begin
      pa:=pa*rad2deg;
      ra:=ra*rad2deg/15;
      de:=de*rad2deg;
-     StringGridMonth.Cells[mcolRa2000,i]:=ARpToStr(ra);
-     StringGridMonth.Cells[mcolDe2000,i]:=DEpToStr(de);
-     StringGridMonth.Cells[mcolDist,i]:=FormatFloat(f3,r);
+     GridMonth.Cells[mcolRa2000,i]:=ARpToStr(ra);
+     GridMonth.Cells[mcolDe2000,i]:=DEpToStr(de);
+     GridMonth.Cells[mcolDist,i]:=FormatFloat(f3,r);
      diam:=60*rad2deg*arctan(2*1737.4/r);
      data.diam:=diam;
-     StringGridMonth.Cells[mcolDiam,i]:=FormatFloat(f2,diam);
-     StringGridMonth.Cells[mcolPa,i]:=FormatFloat(f2,pa);
+     GridMonth.Cells[mcolDiam,i]:=FormatFloat(f2,diam);
+     GridMonth.Cells[mcolPa,i]:=FormatFloat(f2,pa);
 
      // Apparent position
      if not MoonTopocentric(et,true,obspos,obsref,x,y,z,r,ra,de) then begin
@@ -407,8 +504,8 @@ begin
      data.de:=de;
      ra:=ra*rad2deg/15;
      de:=de*rad2deg;
-     StringGridMonth.Cells[mcolRa,i]:=ARpToStr(ra);
-     StringGridMonth.Cells[mcolDe,i]:=DEpToStr(de);
+     GridMonth.Cells[mcolRa,i]:=ARpToStr(ra);
+     GridMonth.Cells[mcolDe,i]:=DEpToStr(de);
 
      // Libration
      if not MoonSubObserverPoint(et,obspos,x,y,z,r,llon,llat) then begin
@@ -417,8 +514,8 @@ begin
      end;
      data.librlong:=llon;
      data.librlat:=llat;
-     StringGridMonth.Cells[mcolLibrLon,i]:=DEmToStr(llon*rad2deg);
-     StringGridMonth.Cells[mcolLibrLat,i]:=DEmToStr(llat*rad2deg);
+     GridMonth.Cells[mcolLibrLon,i]:=DEmToStr(llon*rad2deg);
+     GridMonth.Cells[mcolLibrLat,i]:=DEmToStr(llat*rad2deg);
 
      // Colongitude
      if not MoonSubSolarPoint(et,fixref,x,y,z,r,slon,slat,colongitude) then begin
@@ -427,8 +524,8 @@ begin
      end;
      data.colong:=colongitude;
      data.subsollat:=slat;
-     StringGridMonth.Cells[mcolColong,i]:=FormatFloat(f4,colongitude*rad2deg);
-     StringGridMonth.Cells[mcolSubSolLat,i]:=FormatFloat(f4,slat*rad2deg);
+     GridMonth.Cells[mcolColong,i]:=FormatFloat(f4,colongitude*rad2deg);
+     GridMonth.Cells[mcolSubSolLat,i]:=FormatFloat(f4,slat*rad2deg);
 
      // Lunation
      if not MoonPhases(dt, nm, fq, fm, lq,lunation) then begin
@@ -436,7 +533,7 @@ begin
        exit;
      end;
      data.lunation:=lunation;
-     StringGridMonth.Cells[mcolLunation,i]:=FormatFloat(f2,lunation);
+     GridMonth.Cells[mcolLunation,i]:=FormatFloat(f2,lunation);
 
      // Illumination
      if not MoonPhase(et,phase) then begin
@@ -446,9 +543,9 @@ begin
      if (colongitude>pid2) and (colongitude<(3*pid2))then phase:=pi2-phase;
      data.phase:=phase;
      data.illum:=(1+cos(phase))/2;
-     StringGridMonth.Cells[mcolPhase,i]:=FormatFloat(f3,rad2deg*phase);
-     StringGridMonth.Cells[mcolIllum,i]:=FormatFloat(f1,100*data.illum);
-     StringGridMonth.Objects[0,i]:=data;
+     GridMonth.Cells[mcolPhase,i]:=FormatFloat(f3,rad2deg*phase);
+     GridMonth.Cells[mcolIllum,i]:=FormatFloat(f1,100*data.illum);
+     GridMonth.Objects[0,i]:=data;
   end;
 
   // Rise and set for the month
@@ -471,14 +568,14 @@ begin
     dtr:=ET2DateTime(x);
     DecodeDate(dtr,yy,mm,dd);
     if mm=Month then begin
-      StringGridMonth.Cells[mcolRise,dd]:=TimToStr(frac(dtr)*24);
-      TMoonMonthData(StringGridMonth.Objects[0,dd]).trise:=dtr;
+      GridMonth.Cells[mcolRise,dd]:=TimToStr(frac(dtr)*24);
+      TMoonMonthData(GridMonth.Objects[0,dd]).trise:=dtr;
     end;
     dts:=ET2DateTime(y);
     DecodeDate(dts,yy,mm,dd);
     if mm=Month then begin
-      StringGridMonth.Cells[mcolSet,dd]:=TimToStr(frac(dts)*24);
-      TMoonMonthData(StringGridMonth.Objects[0,dd]).tset:=dts;
+      GridMonth.Cells[mcolSet,dd]:=TimToStr(frac(dts)*24);
+      TMoonMonthData(GridMonth.Objects[0,dd]).tset:=dts;
     end;
    end;
   scard_c (0, Pcnfine);
@@ -503,7 +600,7 @@ begin
 
 end;
 
-procedure Tf_calclun.StringGridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
+procedure Tf_calclun.GridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
 begin
   if IsColumn and (index>0) then
     PlotMonthGraph(index);
@@ -522,175 +619,175 @@ begin
   case col of
     mcolDay      :  ;
     mcolRa2000   : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   prev:=TMoonMonthData(StringGridMonth.Objects[0,1]).ra2000;
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                     if abs(TMoonMonthData(StringGridMonth.Objects[0,i]).ra2000-prev)<pi then
-                        Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).ra2000*rad2deg/15)
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   prev:=TMoonMonthData(GridMonth.Objects[0,1]).ra2000;
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                     if abs(TMoonMonthData(GridMonth.Objects[0,i]).ra2000-prev)<pi then
+                        Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).ra2000*rad2deg/15)
                      else begin
-                        if (TMoonMonthData(StringGridMonth.Objects[0,i]).ra2000-prev)>0 then
-                           Chart1LineSeries1.AddXY(i-1,(prev+pi2)*rad2deg/15,'',clnone)
+                        if (TMoonMonthData(GridMonth.Objects[0,i]).ra2000-prev)>0 then
+                           Chart1LineSeries1.AddXY(i-1,(prev+pi2)*rad2deg/15,'',chart1.BackColor)
                         else
-                           Chart1LineSeries1.AddXY(i-1,(prev-pi2)*rad2deg/15,'',clnone);
-                        Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).ra2000*rad2deg/15);
+                           Chart1LineSeries1.AddXY(i-1,(prev-pi2)*rad2deg/15,'',chart1.BackColor);
+                        Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).ra2000*rad2deg/15);
                      end;
-                     prev:=TMoonMonthData(StringGridMonth.Objects[0,i]).ra2000;
+                     prev:=TMoonMonthData(GridMonth.Objects[0,i]).ra2000;
                    end;
                    end;
     mcolDe2000   : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                      Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).de2000*rad2deg);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                      Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).de2000*rad2deg);
                    end;
                    end;
     mcolRa       : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   prev:=TMoonMonthData(StringGridMonth.Objects[0,1]).ra;
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                     if abs(TMoonMonthData(StringGridMonth.Objects[0,i]).ra-prev)<pi then
-                        Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).ra*rad2deg/15)
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   prev:=TMoonMonthData(GridMonth.Objects[0,1]).ra;
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                     if abs(TMoonMonthData(GridMonth.Objects[0,i]).ra-prev)<pi then
+                        Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).ra*rad2deg/15)
                      else begin
-                        if (TMoonMonthData(StringGridMonth.Objects[0,i]).ra-prev)>0 then
-                           Chart1LineSeries1.AddXY(i-1,(prev+pi2)*rad2deg/15,'',clnone)
+                        if (TMoonMonthData(GridMonth.Objects[0,i]).ra-prev)>0 then
+                           Chart1LineSeries1.AddXY(i-1,(prev+pi2)*rad2deg/15,'',chart1.BackColor)
                         else
-                           Chart1LineSeries1.AddXY(i-1,(prev-pi2)*rad2deg/15,'',clnone);
-                        Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).ra*rad2deg/15);
+                           Chart1LineSeries1.AddXY(i-1,(prev-pi2)*rad2deg/15,'',chart1.BackColor);
+                        Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).ra*rad2deg/15);
                      end;
-                     prev:=TMoonMonthData(StringGridMonth.Objects[0,i]).ra;
+                     prev:=TMoonMonthData(GridMonth.Objects[0,i]).ra;
                    end;
                    end;
     mcolDe       : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                      Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).de*rad2deg);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                      Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).de*rad2deg);
                    end;
                    end;
     mcolDist     : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                      Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).dist);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                      Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).dist);
                    end;
                    end;
     mcolDiam     : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                      Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).diam);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                      Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).diam);
                    end;
                    end;
     mcolPhase    : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   prev:=TMoonMonthData(StringGridMonth.Objects[0,1]).phase;
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                     if abs(TMoonMonthData(StringGridMonth.Objects[0,i]).phase-prev)<pi then
-                        Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).phase*rad2deg)
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   prev:=TMoonMonthData(GridMonth.Objects[0,1]).phase;
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                     if abs(TMoonMonthData(GridMonth.Objects[0,i]).phase-prev)<pi then
+                        Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).phase*rad2deg)
                      else begin
-                        if (TMoonMonthData(StringGridMonth.Objects[0,i]).phase-prev)>0 then
-                           Chart1LineSeries1.AddXY(i-1,(prev+pi2)*rad2deg,'',clnone)
+                        if (TMoonMonthData(GridMonth.Objects[0,i]).phase-prev)>0 then
+                           Chart1LineSeries1.AddXY(i-1,(prev+pi2)*rad2deg,'',chart1.BackColor)
                         else
-                           Chart1LineSeries1.AddXY(i-1,(prev-pi2)*rad2deg,'',clnone);
-                        Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).phase*rad2deg);
+                           Chart1LineSeries1.AddXY(i-1,(prev-pi2)*rad2deg,'',chart1.BackColor);
+                        Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).phase*rad2deg);
                      end;
-                     prev:=TMoonMonthData(StringGridMonth.Objects[0,i]).phase;
+                     prev:=TMoonMonthData(GridMonth.Objects[0,i]).phase;
                    end;
                    end;
     mcolLunation : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   prev:=TMoonMonthData(StringGridMonth.Objects[0,1]).lunation;
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                     if abs(TMoonMonthData(StringGridMonth.Objects[0,i]).lunation-prev)<15 then
-                        Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).lunation)
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   prev:=TMoonMonthData(GridMonth.Objects[0,1]).lunation;
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                     if abs(TMoonMonthData(GridMonth.Objects[0,i]).lunation-prev)<15 then
+                        Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).lunation)
                      else begin
-                        if (TMoonMonthData(StringGridMonth.Objects[0,i]).lunation-prev)>0 then
-                           Chart1LineSeries1.AddXY(i-1,(prev+29.5),'',clnone)
+                        if (TMoonMonthData(GridMonth.Objects[0,i]).lunation-prev)>0 then
+                           Chart1LineSeries1.AddXY(i-1,(prev+29.5),'',chart1.BackColor)
                         else
-                           Chart1LineSeries1.AddXY(i-1,(prev-29.5),'',clnone);
-                        Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).lunation);
+                           Chart1LineSeries1.AddXY(i-1,(prev-29.5),'',chart1.BackColor);
+                        Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).lunation);
                      end;
-                     prev:=TMoonMonthData(StringGridMonth.Objects[0,i]).lunation;
+                     prev:=TMoonMonthData(GridMonth.Objects[0,i]).lunation;
                    end;
                    end;
     mcolIllum    : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                      Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).illum);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                      Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).illum);
                    end;
                    end;
     mcolColong   : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   prev:=TMoonMonthData(StringGridMonth.Objects[0,1]).colong;
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                      if abs(TMoonMonthData(StringGridMonth.Objects[0,i]).colong-prev)<pi then
-                         Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).colong*rad2deg)
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   prev:=TMoonMonthData(GridMonth.Objects[0,1]).colong;
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                      if abs(TMoonMonthData(GridMonth.Objects[0,i]).colong-prev)<pi then
+                         Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).colong*rad2deg)
                       else begin
-                         if (TMoonMonthData(StringGridMonth.Objects[0,i]).colong-prev)>0 then
-                            Chart1LineSeries1.AddXY(i-1,(prev+pi2)*rad2deg,'',clnone)
+                         if (TMoonMonthData(GridMonth.Objects[0,i]).colong-prev)>0 then
+                            Chart1LineSeries1.AddXY(i-1,(prev+pi2)*rad2deg,'',chart1.BackColor)
                          else
-                            Chart1LineSeries1.AddXY(i-1,(prev-pi2)*rad2deg,'',clnone);
-                         Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).colong*rad2deg);
+                            Chart1LineSeries1.AddXY(i-1,(prev-pi2)*rad2deg,'',chart1.BackColor);
+                         Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).colong*rad2deg);
                       end;
-                      prev:=TMoonMonthData(StringGridMonth.Objects[0,i]).colong;
+                      prev:=TMoonMonthData(GridMonth.Objects[0,i]).colong;
                    end;
                    end;
     mcolSubSolLat: begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                      Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).subsollat*rad2deg);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                      Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).subsollat*rad2deg);
                    end;
                    end;
     mcolLibrLon  : begin
                    PanelGraph2.Visible:=true;
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
                    chart2.Title.Text.Add('Libration'+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                      Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).librlong*rad2deg);
-                      Chart2LineSeries1.AddXY(TMoonMonthData(StringGridMonth.Objects[0,i]).librlong*rad2deg,TMoonMonthData(StringGridMonth.Objects[0,i]).librlat*rad2deg,inttostr(i));
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                      Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).librlong*rad2deg);
+                      Chart2LineSeries1.AddXY(TMoonMonthData(GridMonth.Objects[0,i]).librlong*rad2deg,TMoonMonthData(GridMonth.Objects[0,i]).librlat*rad2deg,inttostr(i));
                    end;
                    end;
     mcolLibrLat  : begin
                    PanelGraph2.Visible:=true;
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
                    chart2.Title.Text.Add('Libration'+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                      Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).librlat*rad2deg);
-                      Chart2LineSeries1.AddXY(TMoonMonthData(StringGridMonth.Objects[0,i]).librlong*rad2deg,TMoonMonthData(StringGridMonth.Objects[0,i]).librlat*rad2deg,inttostr(i));
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                      Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).librlat*rad2deg);
+                      Chart2LineSeries1.AddXY(TMoonMonthData(GridMonth.Objects[0,i]).librlong*rad2deg,TMoonMonthData(GridMonth.Objects[0,i]).librlat*rad2deg,inttostr(i));
                    end;
                    end;
     mcolPa       : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                      Chart1LineSeries1.Add(TMoonMonthData(StringGridMonth.Objects[0,i]).pa*rad2deg);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                      Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).pa*rad2deg);
                    end;
                    end;
     mcolRise     : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   prev:=frac(TMoonMonthData(StringGridMonth.Objects[0,1]).trise);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                     if abs(frac(TMoonMonthData(StringGridMonth.Objects[0,i]).trise)-prev)<0.5 then
-                        Chart1LineSeries1.Add(frac(TMoonMonthData(StringGridMonth.Objects[0,i]).trise)*24)
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   prev:=frac(TMoonMonthData(GridMonth.Objects[0,1]).trise);
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                     if abs(frac(TMoonMonthData(GridMonth.Objects[0,i]).trise)-prev)<0.5 then
+                        Chart1LineSeries1.Add(frac(TMoonMonthData(GridMonth.Objects[0,i]).trise)*24)
                      else begin
-                        if (frac(TMoonMonthData(StringGridMonth.Objects[0,i]).trise)-prev)>0 then
-                           Chart1LineSeries1.AddXY(i-1,(prev+1)*24,'',clnone)
+                        if (frac(TMoonMonthData(GridMonth.Objects[0,i]).trise)-prev)>0 then
+                           Chart1LineSeries1.AddXY(i-1,(prev+1)*24,'',chart1.BackColor)
                         else
-                           Chart1LineSeries1.AddXY(i-1,(prev-1)*24,'',clnone);
-                        Chart1LineSeries1.Add(frac(TMoonMonthData(StringGridMonth.Objects[0,i]).trise)*24);
+                           Chart1LineSeries1.AddXY(i-1,(prev-1)*24,'',chart1.BackColor);
+                        Chart1LineSeries1.Add(frac(TMoonMonthData(GridMonth.Objects[0,i]).trise)*24);
                      end;
-                     prev:=frac(TMoonMonthData(StringGridMonth.Objects[0,i]).trise);
+                     prev:=frac(TMoonMonthData(GridMonth.Objects[0,i]).trise);
                    end;
                    end;
     mcolSet      : begin
-                   chart1.Title.Text.Add(StringGridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   prev:=frac(TMoonMonthData(StringGridMonth.Objects[0,1]).tset);
-                   for i:=1 to StringGridMonth.RowCount-1 do begin;
-                     if abs(frac(TMoonMonthData(StringGridMonth.Objects[0,i]).tset)-prev)<0.5 then
-                        Chart1LineSeries1.Add(frac(TMoonMonthData(StringGridMonth.Objects[0,i]).tset)*24)
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   prev:=frac(TMoonMonthData(GridMonth.Objects[0,1]).tset);
+                   for i:=1 to GridMonth.RowCount-1 do begin;
+                     if abs(frac(TMoonMonthData(GridMonth.Objects[0,i]).tset)-prev)<0.5 then
+                        Chart1LineSeries1.Add(frac(TMoonMonthData(GridMonth.Objects[0,i]).tset)*24)
                      else begin
-                        if (frac(TMoonMonthData(StringGridMonth.Objects[0,i]).tset)-prev)>0 then
-                           Chart1LineSeries1.AddXY(i-1,(prev+1)*24,'',clnone)
+                        if (frac(TMoonMonthData(GridMonth.Objects[0,i]).tset)-prev)>0 then
+                           Chart1LineSeries1.AddXY(i-1,(prev+1)*24,'',chart1.BackColor)
                         else
-                           Chart1LineSeries1.AddXY(i-1,(prev-1)*24,'',clnone);
-                        Chart1LineSeries1.Add(frac(TMoonMonthData(StringGridMonth.Objects[0,i]).tset)*24);
+                           Chart1LineSeries1.AddXY(i-1,(prev-1)*24,'',chart1.BackColor);
+                        Chart1LineSeries1.Add(frac(TMoonMonthData(GridMonth.Objects[0,i]).tset)*24);
                      end;
-                     prev:=frac(TMoonMonthData(StringGridMonth.Objects[0,i]).tset);
+                     prev:=frac(TMoonMonthData(GridMonth.Objects[0,i]).tset);
                    end;
                    end;
   end;
@@ -698,8 +795,11 @@ end;
 
 procedure Tf_calclun.DateChange(Sender: TObject);
 begin
-  if not (fsFirstShow in FormState) then
+  if not (fsFirstShow in FormState) then begin
     ComputeMonth;
+    if CurYear<>SpinEditYear.Value then ComputeYear;
+    CurYear:=SpinEditYear.Value;
+  end;
 end;
 
 
@@ -938,11 +1038,11 @@ var Pcnfine,Presult: PSpiceCell;
 begin
   reset_c;
   memo1.Lines.Add('');
-  memo1.Lines.Add('Pleine lune pour les six prochains mois:');
+  memo1.Lines.Add('Pleine lune pour les 12 prochains mois:');
   Pcnfine:=initdoublecell(1);
   Presult:=initdoublecell(2);
   et0:=et;
-  et1:=et0+6*30.5*SecsPerDay;
+  et1:=et0+12*30.5*SecsPerDay;
   wninsd_c ( et0, et1, Pcnfine );
   if realphase then
     ok:=MoonSearchPhase(0.0,'LOCMIN',n,Pcnfine,Presult) // extrema of phase angle
