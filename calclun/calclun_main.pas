@@ -5,6 +5,7 @@ unit calclun_main;
 interface
 
 uses cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, SynEdit, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
+  TAChartUtils,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Types;
 
 const
@@ -31,12 +32,17 @@ type
     Chart2: TChart;
     Chart2CubicSplineSeries1: TCubicSplineSeries;
     Chart2LineSeries1: TLineSeries;
+    ChartAltAz: TChart;
+    ChartAltAzLineSeries1: TLineSeries;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
+    LabelAltAz: TLabel;
     LabelRise1: TLabel;
     LabelRise2: TLabel;
     LabelPhase2: TLabel;
     LabelPhase1: TLabel;
+    PanelAltAz: TPanel;
+    PanelRiseSet: TPanel;
     PanelDRight: TPanel;
     PanelYRight: TPanel;
     PanelYList: TPanel;
@@ -83,6 +89,7 @@ type
     procedure BtnPrevisionClick(Sender: TObject);
     procedure BtnTodayClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure GridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
@@ -129,6 +136,7 @@ procedure Tf_calclun.FormCreate(Sender: TObject);
 begin
   DefaultFormatSettings.DateSeparator:='-';
   StatusLabel.Caption:='';
+  LabelAltAz.Caption:='';
 
   GetAppDir;
   InitError;
@@ -154,12 +162,12 @@ begin
   PageControl1.ActivePage:=TabSheetYear;
 
   ComputeYear;
-
   FCurrentMonthGraph:=mcolLibrLon;
   ComputeMonth;
-
   ComputeDay;
-
+  CurYear:=SpinEditYear.Value;
+  CurrentMonth:=SpinEditYear.Value;
+  CurrentDay:=SpinEditDay.Value;
 end;
 
 procedure Tf_calclun.SetKernelsPath;
@@ -628,15 +636,11 @@ begin
 end;
 
 procedure Tf_calclun.ComputeDay;
-var dt, dtr, dts: double;
+var dt,startt,endt: double;
     i: integer;
-    Year, Month, Day, yy,mm,dd: Word;
-    x,y,z,r,ra,de,pa,llon,llat,slon,slat,colongitude: SpiceDouble;
+    Year, Month, Day: Word;
+    x,y,z,r,ra,de,pa,llon,llat,slon,slat,colongitude,az,el: SpiceDouble;
     obsref,fixref: ConstSpiceChar;
-    refval: SpiceDouble;
-    Pcnfine,Presult: PSpiceCell;
-    nfind: SpiceInt;
-    et0,et1: SpiceDouble;
 begin
   StatusLabel.Caption:='';
   year:=SpinEditYear.Value;
@@ -716,6 +720,74 @@ begin
 
   LabelRise1.Caption:='Rise :'+crlf+'Set :';
   LabelRise2.Caption:=GridMonth.Cells[mcolRise,day]+crlf+GridMonth.Cells[mcolSet,day];
+
+  ChartAltAzLineSeries1.Clear;
+  startt:=TMoonMonthData(GridMonth.Objects[0,day]).trise;
+  endt:=TMoonMonthData(GridMonth.Objects[0,day]).tset;
+  if (endt<startt) then begin
+     if day<(GridMonth.RowCount-2) then
+       endt:=TMoonMonthData(GridMonth.Objects[0,day+1]).tset
+     else
+       endt:=endt+1;
+  end;
+  dt:=startt-1/48;
+  repeat
+    dt:=dt+1/48;
+    if dt>=endt then dt:=endt;
+    et:=DateTime2ET(dt);
+    if not MoonAltAz(et,ObsLon,ObsLat,obspos,obsref,az,el) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    el := el * rad2deg;
+    az := rmod(az*rad2deg+360,360);
+    ChartAltAzLineSeries1.AddXY(az,el);
+  until dt=endt;
+
+end;
+
+procedure Tf_calclun.ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+var pointi: TPoint;
+    pointg: TDoublePoint;
+    i: integer;
+    d,dx,dy,r,newx,newy,newtime:double;
+begin
+  if (x>5)and(x<(ChartAltAz.Width-5))and(y>5)and(y<(ChartAltAz.Height-5)) then begin
+  try
+  // mouse position
+  pointi.x:=X;
+  pointi.y:=Y;
+  pointg:=ChartAltAz.ImageToGraph(pointi);
+  // maximum search radius 5 pixel
+  r:=25;
+  newx:=-1;
+  newy:=-1;
+  newtime:=-1;
+  // search measured point
+  for i:=0 to ChartAltAzLineSeries1.Source.Count-1 do begin
+    dx:=X-ChartAltAz.XGraphToImage(ChartAltAzLineSeries1.Source.Item[i]^.X);
+    dy:=Y-ChartAltAz.YGraphToImage(ChartAltAzLineSeries1.Source.Item[i]^.Y);
+    d:=sqrt(dx*dx+dy*dy);
+    if d<r then begin
+      newx:=ChartAltAzLineSeries1.Source.Item[i]^.X;
+      newy:=ChartAltAzLineSeries1.Source.Item[i]^.Y;
+      newtime:=TMoonMonthData(GridMonth.Objects[0,SpinEditDay.Value]).trise+i/48;
+      r:=d;
+    end;
+  end;
+  if (newx>0)and(newy>0) then begin
+    pointg.x:=newx;
+    pointg.y:=newy;
+  end;
+  // show position
+  LabelAltAz.Caption:='';
+  if newtime>0 then LabelAltAz.Caption:=FormatDateTime('mm/dd hh:nn:ss',newtime)+': ';
+  LabelAltAz.Caption:=LabelAltAz.Caption+'Az:'+FormatFloat(f1,pointg.x)+' Alt:'+FormatFloat(f1,pointg.y);
+  except
+  end;
+  end else begin
+    LabelAltAz.Caption:='';
+  end;
 end;
 
 procedure Tf_calclun.GridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
@@ -915,10 +987,12 @@ procedure Tf_calclun.DateChange(Sender: TObject);
 begin
   if not (fsFirstShow in FormState) then begin
     SpinEditDay.MaxValue:=MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value];
-    ComputeMonth;
+    if (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then ComputeMonth;
     ComputeDay; // after computemonth
     if CurYear<>SpinEditYear.Value then ComputeYear;
     CurYear:=SpinEditYear.Value;
+    CurrentMonth:=SpinEditMonth.Value;
+    CurrentDay:=SpinEditDay.Value;
   end;
 end;
 
