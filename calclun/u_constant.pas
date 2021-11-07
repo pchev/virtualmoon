@@ -46,6 +46,7 @@ const crlf = chr(10)+chr(13);
       tlight = km_au/clight/3600/24;
       Rmoon = 1737.40;  // moon radius Km
       MeanEarthDistance=384401;
+      SynodicMonth = 29.530588;
       footpermeter = 0.3048;
       mikm = 1.60934;
       kmperdegree=111.1111;

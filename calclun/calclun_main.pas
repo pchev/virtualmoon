@@ -9,6 +9,7 @@ uses cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, SynEdit, TA
 
 const
     mcolDay=0; mcolRa2000=1; mcolDe2000=2; mcolRa=3; mcolDe=4; mcolDist=5; mcolDiam=6; mcolPhase=7; mcolLunation=8; mcolIllum=9; mcolColong=10; mcolSubSolLat=11; mcolLibrLon=12; mcolLibrLat=13; mcolPa=14; mcolRise=15; mcolSet=16;
+    dcolHour=0; dcolRa2000=1; dcolDe2000=2; dcolRa=3; dcolDe=4; dcolDist=5; dcolDiam=6; dcolColong=7; dcolSubSolLat=8; dcolLibrLon=9; dcolLibrLat=10; dcolPa=11;
 
 type
 
@@ -24,6 +25,7 @@ type
     BtnCompute: TButton;
     BtnPrevision: TButton;
     Button1: TButton;
+    BtnToday: TButton;
     Chart1: TChart;
     Chart1LineSeries1: TLineSeries;
     Chart2: TChart;
@@ -31,16 +33,21 @@ type
     Chart2LineSeries1: TLineSeries;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
+    LabelRise1: TLabel;
+    LabelRise2: TLabel;
     LabelPhase2: TLabel;
     LabelPhase1: TLabel;
+    PanelDRight: TPanel;
     PanelYRight: TPanel;
     PanelYList: TPanel;
     PanelYphase: TPanel;
     PanelGraph2: TPanel;
     PanelGraph1: TPanel;
     PanelPhase: TPanel;
+    ScrollBoxD: TScrollBox;
     ScrollBoxM: TScrollBox;
     ScrollBoxY: TScrollBox;
+    SpinEditDay: TSpinEdit;
     StatusLabel: TLabel;
     NightEvent: TCheckBox;
     MinElevation: TFloatSpinEdit;
@@ -66,6 +73,7 @@ type
     SpinEditMonth: TSpinEdit;
     GridMonth: TStringGrid;
     GridPhaseList: TStringGrid;
+    GridDay: TStringGrid;
     TabSheetYear: TTabSheet;
     TabSheetDay: TTabSheet;
     TabSheetMonth: TTabSheet;
@@ -73,11 +81,14 @@ type
     TimeEdit1: TTimeEdit;
     procedure BtnComputeClick(Sender: TObject);
     procedure BtnPrevisionClick(Sender: TObject);
+    procedure BtnTodayClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure DateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure GridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
     procedure GridYearDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
+    procedure GridYearHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
+    procedure GridYearSelection(Sender: TObject; aCol, aRow: Integer);
   private
     et : SpiceDouble;
     obspos: TDouble3;
@@ -87,6 +98,7 @@ type
     procedure SetKernelsPath;
     procedure ComputeYear;
     procedure ComputeMonth;
+    procedure ComputeDay;
     procedure PlotMonthGraph(col:integer);
     procedure Illum;
     procedure Position;
@@ -114,7 +126,6 @@ implementation
 { Tf_calclun }
 
 procedure Tf_calclun.FormCreate(Sender: TObject);
-var Year, Month, Day: Word;
 begin
   DefaultFormatSettings.DateSeparator:='-';
   StatusLabel.Caption:='';
@@ -139,14 +150,15 @@ begin
   DateEdit1.Date:=nowutc;
   TimeEdit1.Time:=19/24;
 
-  DecodeDate(now, Year, Month, Day);
-  SpinEditYear.Value:=Year;
-  SpinEditMonth.Value:=Month;
+  BtnToday.Click;
+  PageControl1.ActivePage:=TabSheetYear;
 
   ComputeYear;
 
   FCurrentMonthGraph:=mcolLibrLon;
   ComputeMonth;
+
+  ComputeDay;
 
 end;
 
@@ -377,14 +389,14 @@ begin
   dt:=EncodeDate(year,1,1);
   r:=0;
   for i:=0 to 2 do begin
-    if newmoon[i]+29.530588861>=dt then break;
+    if newmoon[i]+SynodicMonth>=dt then break;
     inc(r);
   end;
   for i:=1 to 12 do begin
     for j:=1 to 31 do begin
       if j<=MonthDays[IsLeapYear(year)][i] then begin
        dt:=EncodeDate(year,i,j);
-       if newmoon[r]+29.530588861<dt then inc(r);
+       if newmoon[r]+SynodicMonth<dt then inc(r);
        k:=trunc(dt-newmoon[r]);
        GridYear.Cells[j,i]:=inttostr(k);
       end
@@ -413,9 +425,24 @@ with sender as TStringGrid do begin
       end;
   end
   else begin
-    Canvas.TextOut(aRect.Left,aRect.Top+2,Cells[aCol,aRow]);
+    Canvas.TextOut(aRect.Left+4,aRect.Top+2,Cells[aCol,aRow]);
   end;
 end;
+end;
+
+procedure Tf_calclun.GridYearHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
+begin
+  if not IsColumn then begin
+    SpinEditMonth.Value:=index;
+    PageControl1.ActivePage:=TabSheetMonth;
+  end;
+end;
+
+procedure Tf_calclun.GridYearSelection(Sender: TObject; aCol, aRow: Integer);
+begin
+  SpinEditMonth.Value:=arow;
+  SpinEditDay.Value:=acol;
+  PageControl1.ActivePage:=TabSheetDay;
 end;
 
 procedure Tf_calclun.ComputeMonth;
@@ -598,6 +625,97 @@ begin
 
   PlotMonthGraph(FCurrentMonthGraph);
 
+end;
+
+procedure Tf_calclun.ComputeDay;
+var dt, dtr, dts: double;
+    i: integer;
+    Year, Month, Day, yy,mm,dd: Word;
+    x,y,z,r,ra,de,pa,llon,llat,slon,slat,colongitude: SpiceDouble;
+    obsref,fixref: ConstSpiceChar;
+    refval: SpiceDouble;
+    Pcnfine,Presult: PSpiceCell;
+    nfind: SpiceInt;
+    et0,et1: SpiceDouble;
+begin
+  StatusLabel.Caption:='';
+  year:=SpinEditYear.Value;
+  month:=SpinEditMonth.Value;
+  day:=SpinEditDay.Value;
+  GridDay.Clear;
+  GridDay.ColCount:=dcolPa+1;
+  GridDay.RowCount:=25;
+  GridDay.ColWidths[0]:=50;
+  GridDay.Cells[dcolHour,0]:='Hour';
+  GridDay.Cells[dcolRa2000,0]:='RA 2000';
+  GridDay.Cells[dcolDe2000,0]:='DE 2000';
+  GridDay.Cells[dcolRa,0]:='RA apparent';
+  GridDay.Cells[dcolDe,0]:='DE apparent';
+  GridDay.Cells[dcolDist,0]:='Distance';
+  GridDay.Cells[dcolDiam,0]:='Diameter';
+  GridDay.Cells[dcolColong,0]:='Colongitude';
+  GridDay.Cells[dcolSubSolLat,0]:='Sub-solar latitude';
+  GridDay.Cells[dcolLibrLon,0]:='Libration longitude';
+  GridDay.Cells[dcolLibrLat,0]:='Libration latitude';
+  GridDay.Cells[dcolPa,0]:='PA';
+  reset_c;
+  ObsLon:=Longitude.Value*deg2rad;
+  ObsLat:=Latitude.Value*deg2rad;
+  ObsAlt:=Altitude.Value/1000;
+  if not ObservatoryPosition(ObsLon,ObsLat,ObsAlt,obspos) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  for i:=1 to 24 do begin
+     GridDay.Cells[dcolHour,i]:=inttostr(i-1)+':00';
+     dt:=EncodeDate(year,month,day)+(i-1)/24;
+     et:=DateTime2ET(dt);
+
+     // J2000 position
+     if not MoonTopocentric(et,false,obspos,obsref,x,y,z,r,ra,de) then begin
+       StatusLabel.Caption:=SpiceLastError;
+       exit;
+     end;
+     MoonPA(et,ra,de,pa);
+     pa:=pa*rad2deg;
+     ra:=ra*rad2deg/15;
+     de:=de*rad2deg;
+     GridDay.Cells[dcolRa2000,i]:=ARpToStr(ra);
+     GridDay.Cells[dcolDe2000,i]:=DEpToStr(de);
+     GridDay.Cells[dcolDist,i]:=FormatFloat(f3,r);
+     diam:=60*rad2deg*arctan(2*1737.4/r);
+     GridDay.Cells[dcolDiam,i]:=FormatFloat(f2,diam);
+     GridDay.Cells[dcolPa,i]:=FormatFloat(f2,pa);
+
+      // Apparent position
+     if not MoonTopocentric(et,true,obspos,obsref,x,y,z,r,ra,de) then begin
+       StatusLabel.Caption:=SpiceLastError;
+       exit;
+     end;
+     ra:=ra*rad2deg/15;
+     de:=de*rad2deg;
+     GridDay.Cells[dcolRa,i]:=ARpToStr(ra);
+     GridDay.Cells[dcolDe,i]:=DEpToStr(de);
+
+     // Libration
+     if not MoonSubObserverPoint(et,obspos,x,y,z,r,llon,llat) then begin
+       StatusLabel.Caption:=SpiceLastError;
+       exit;
+     end;
+     GridDay.Cells[dcolLibrLon,i]:=DEmToStr(llon*rad2deg);
+     GridDay.Cells[dcolLibrLat,i]:=DEmToStr(llat*rad2deg);
+
+     // Colongitude
+     if not MoonSubSolarPoint(et,fixref,x,y,z,r,slon,slat,colongitude) then begin
+        StatusLabel.Caption:=SpiceLastError;
+        exit;
+     end;
+     GridDay.Cells[dcolColong,i]:=FormatFloat(f4,colongitude*rad2deg);
+     GridDay.Cells[dcolSubSolLat,i]:=FormatFloat(f4,slat*rad2deg);
+  end;
+
+  LabelRise1.Caption:='Rise :'+crlf+'Set :';
+  LabelRise2.Caption:=GridMonth.Cells[mcolRise,day]+crlf+GridMonth.Cells[mcolSet,day];
 end;
 
 procedure Tf_calclun.GridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
@@ -796,7 +914,9 @@ end;
 procedure Tf_calclun.DateChange(Sender: TObject);
 begin
   if not (fsFirstShow in FormState) then begin
+    SpinEditDay.MaxValue:=MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value];
     ComputeMonth;
+    ComputeDay; // after computemonth
     if CurYear<>SpinEditYear.Value then ComputeYear;
     CurYear:=SpinEditYear.Value;
   end;
@@ -855,6 +975,15 @@ begin
   FindPhase;
   memo1.Lines.Add('');
   memo1.Lines.Add('Temps de calcul: '+FormatDateTime('ss.zzz',now-st)+' secondes');
+end;
+
+procedure Tf_calclun.BtnTodayClick(Sender: TObject);
+var Year, Month, Day: Word;
+begin
+  DecodeDate(now, Year, Month, Day);
+  SpinEditYear.Value:=Year;
+  SpinEditMonth.Value:=Month;
+  SpinEditDay.Value:=Day;
 end;
 
 procedure Tf_calclun.Button1Click(Sender: TObject);
