@@ -21,12 +21,14 @@ function MoonSearchPhase(value: SpiceDouble; relate: ConstSpiceChar; out nfind:S
 function MoonSearchIllum(pos: TDouble3; value: SpiceDouble; relate: ConstSpiceChar; var fixref:ConstSpiceChar; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell): boolean;
 function MoonSearchLibration(coord: ConstSpiceChar; value: SpiceDouble; relate: ConstSpiceChar; var fixref:ConstSpiceChar; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell):boolean;
 function MoonSearchRiseSet(pos: TDouble3; obslat,el: SpiceDouble; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell): boolean;
-function SearchNight(pos: TDouble3; obslat,el: SpiceDouble; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell): boolean;
 function MoonSearchColongitude(value,delta: SpiceDouble; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell):boolean;
 procedure Moon_udqdec(f:Tudfuns; et:SpiceDouble; out isdecr:SpiceBoolean); cdecl;
 procedure MoonSunLongitude_udfuns(et:SpiceDouble; out value:SpiceDouble); cdecl;
 function MoonSearchSunLongitudeDiff(refval: SpiceDouble; relate: ConstSpiceChar; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell):boolean; cdecl;
 procedure MoonColongitude_test(f:Tudfuns; et:SpiceDouble; out xbool:SpiceBoolean); cdecl;
+function SunTopocentric(et: SpiceDouble; trueequinox: boolean; obspos:TDouble3; out obsref:ConstSpiceChar; out x,y,z,r,ra,de:SpiceDouble): Boolean;
+function SunSearchRiseSet(pos: TDouble3; obslat,el: SpiceDouble; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell): boolean;
+function SearchNight(pos: TDouble3; obslat,el: SpiceDouble; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell): boolean;
 
 implementation
 
@@ -132,6 +134,52 @@ begin
   result:=false;
   refloc := 'OBSERVER';
   target := cnaifMoon;
+  obsctr := 'EARTH';
+  obsref := 'ITRF93';
+  if trueequinox then begin
+    outref := 'EARTH_TRUE_EQUATOR';
+    abcorr := abcorrLTS;
+  end
+  else begin
+    outref := 'J2000';
+    abcorr := abcorrLT;
+  end;
+  spkcpo_c (target,et,outref,refloc,abcorr,obspos,obsctr,obsref,state1, @lt);
+  if failed_c then begin
+    if SpiceLastErr='SPICE(FRAMEDATANOTFOUND)' then begin
+      // out of ITRF93 date range, retry with buildin IAU_EARTH
+      reset_c;
+      obsref := 'IAU_EARTH';
+      spkcpo_c (target,et,outref,refloc,abcorr,obspos,obsctr,obsref,state1, @lt);
+      if failed_c then
+        exit;
+    end
+    else
+      exit;
+  end;
+  result := not failed_c;
+  if result then begin
+    for i:=0 to 2 do state[i]:=state1[i];
+    x:=state[0];
+    y:=state[1];
+    z:=state[2];
+    recrad_c(state,r,ra,de);
+  end;
+end;
+
+function SunTopocentric(et: SpiceDouble; trueequinox: boolean; obspos:TDouble3; out obsref:ConstSpiceChar; out x,y,z,r,ra,de:SpiceDouble): Boolean;
+var state: TDouble3;
+    state1: TDouble6;
+    target,outref,refloc,obsctr,abcorr: ConstSpiceChar;
+    lt: SpiceDouble;
+    i: integer;
+begin
+  // compute topocentric sun position view from obspos
+  // return apparent position if trueequinox is True, J2000 otherwise
+  reset_c;
+  result:=false;
+  refloc := 'OBSERVER';
+  target := cnaifSun;
   obsctr := 'EARTH';
   obsref := 'ITRF93';
   if trueequinox then begin
@@ -653,6 +701,46 @@ begin
   nfind:=wncard_c(Presult);
 end;
 
+function SunSearchRiseSet(pos: TDouble3; obslat,el: SpiceDouble; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell): boolean;
+var
+  illmn,obsrvr,target,abcorr,method,angtyp,fixref,relate: ConstSpiceChar;
+  refval,adjust,step: SpiceDouble;
+begin
+  // search date when sun is above horizon at pos
+  result:=false;
+  illmn  := cnaifSun;
+  obsrvr := cnaifSun;
+  target := cnaifEarth;
+  fixref :='ITRF93';
+  abcorr := abcorrNone;
+  adjust := 0.0;
+  method := 'Ellipsoid';
+  angtyp := 'INCIDENCE';
+  relate:='<';
+  refval := deg2rad*(90-el);
+  if abs(obslat)>(60*deg2rad) then
+    step   := SecsPerHour
+  else
+    step   := 5*SecsPerHour;
+  gfilum_c(method,angtyp,target,illmn,fixref,abcorr,obsrvr,pos,relate,refval,adjust,step,MAXIVL,Pcnfine,Presult);
+  if failed_c then begin
+    if SpiceLastErr='SPICE(FRAMEDATANOTFOUND)' then begin
+      // out of ITRF93 date range, retry with buildin IAU_EARTH;
+      reset_c;
+      fixref:='IAU_EARTH';
+      gfilum_c(method,angtyp,target,illmn,fixref,abcorr,obsrvr,pos,relate,refval,adjust,step,MAXIVL,Pcnfine,Presult);
+      if failed_c then begin
+        exit;
+      end;
+    end
+    else begin
+      exit;
+    end;
+  end;
+  result := not failed_c;
+  nfind:=wncard_c(Presult);
+end;
+
 function SearchNight(pos: TDouble3; obslat,el: SpiceDouble; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell): boolean;
 var
   illmn,obsrvr,target,abcorr,method,angtyp,fixref,relate: ConstSpiceChar;
@@ -661,7 +749,7 @@ begin
   // search date when sun is below horizon at pos
   result:=false;
   illmn  := cnaifSun;
-  obsrvr := cnaifMoon;
+  obsrvr := cnaifSun;
   target := cnaifEarth;
   fixref :='ITRF93';
   abcorr := abcorrNone;

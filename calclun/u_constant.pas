@@ -211,7 +211,7 @@ Var  Splashversion, compile_time, compile_version: string;
      ObsLatitude,ObsLongitude,ObsAltitude : double;
      ObsTZ,ObsCountry: string;
      ObsTemperature,ObsPressure,ObsRefractionCor,ObsHorizonDepression : Double;
-     TimeZone,DT_UT,ObsRoCosPhi,ObsRoSinPhi,CurrentJD : double;
+     TimeZoneD,DT_UT,ObsRoCosPhi,ObsRoSinPhi,CurrentJD : double;
      CurYear,CurrentMonth,CurrentDay : integer;
      CurrentTime,TimeBias,CurrentST,DT_UT_val,CurrentSunH,CurrentMoonH,CurrentMoonIllum,diam : Double;
      PlanetParalaxe: boolean;

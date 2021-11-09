@@ -7,20 +7,22 @@ object f_calclun: Tf_calclun
   ClientHeight = 680
   ClientWidth = 1200
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
   object PanelTop: TPanel
     Left = 0
-    Height = 50
+    Height = 56
     Top = 0
     Width = 1200
     Align = alTop
-    ClientHeight = 50
+    ClientHeight = 56
     ClientWidth = 1200
     TabOrder = 1
     object SpinEditYear: TSpinEdit
-      Left = 52
+      Left = 32
       Height = 28
-      Top = 10
-      Width = 92
+      Top = 20
+      Width = 72
       MaxValue = 2050
       MinValue = 1963
       OnChange = DateChange
@@ -28,10 +30,14 @@ object f_calclun: Tf_calclun
       Value = 1963
     end
     object SpinEditMonth: TSpinEdit
-      Left = 168
+      AnchorSideLeft.Control = SpinEditYear
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = SpinEditYear
+      Left = 116
       Height = 28
-      Top = 10
+      Top = 20
       Width = 50
+      BorderSpacing.Left = 12
       MaxValue = 12
       MinValue = 1
       OnChange = DateChange
@@ -39,10 +45,14 @@ object f_calclun: Tf_calclun
       Value = 1
     end
     object SpinEditDay: TSpinEdit
-      Left = 240
+      AnchorSideLeft.Control = SpinEditMonth
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = SpinEditYear
+      Left = 178
       Height = 28
-      Top = 10
+      Top = 20
       Width = 50
+      BorderSpacing.Left = 12
       MaxValue = 31
       MinValue = 1
       OnChange = DateChange
@@ -50,31 +60,66 @@ object f_calclun: Tf_calclun
       Value = 1
     end
     object BtnToday: TButton
-      Left = 312
+      AnchorSideLeft.Control = SpinEditDay
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = SpinEditYear
+      AnchorSideTop.Side = asrCenter
+      Left = 240
       Height = 25
-      Top = 10
+      Top = 22
       Width = 75
+      BorderSpacing.Left = 12
       Caption = 'Today'
       OnClick = BtnTodayClick
       TabOrder = 3
     end
+    object Label7: TLabel
+      AnchorSideLeft.Control = SpinEditYear
+      AnchorSideBottom.Control = SpinEditYear
+      Left = 32
+      Height = 19
+      Top = 1
+      Width = 28
+      Anchors = [akLeft, akBottom]
+      Caption = 'Year'
+    end
+    object Label8: TLabel
+      AnchorSideLeft.Control = SpinEditMonth
+      AnchorSideBottom.Control = SpinEditMonth
+      Left = 116
+      Height = 19
+      Top = 1
+      Width = 41
+      Anchors = [akLeft, akBottom]
+      Caption = 'Month'
+    end
+    object Label9: TLabel
+      AnchorSideLeft.Control = SpinEditDay
+      AnchorSideBottom.Control = SpinEditDay
+      Left = 178
+      Height = 19
+      Top = 1
+      Width = 24
+      Anchors = [akLeft, akBottom]
+      Caption = 'Day'
+    end
   end
   object PageControl1: TPageControl
     Left = 0
-    Height = 630
-    Top = 50
+    Height = 574
+    Top = 56
     Width = 1200
-    ActivePage = TabSheetDay
+    ActivePage = TabSheetMonth
     Align = alClient
-    TabIndex = 2
+    TabIndex = 1
     TabOrder = 0
     object TabSheetYear: TTabSheet
       Caption = 'Year'
-      ClientHeight = 599
+      ClientHeight = 543
       ClientWidth = 1190
       object PanelYRight: TPanel
         Left = 856
-        Height = 599
+        Height = 543
         Top = 0
         Width = 334
         Align = alRight
@@ -82,13 +127,13 @@ object f_calclun: Tf_calclun
       end
       object ScrollBoxY: TScrollBox
         Left = 0
-        Height = 599
+        Height = 543
         Top = 0
         Width = 856
         HorzScrollBar.Page = 781
-        VertScrollBar.Page = 595
+        VertScrollBar.Page = 539
         Align = alClient
-        ClientHeight = 595
+        ClientHeight = 539
         ClientWidth = 849
         TabOrder = 1
         object PanelYphase: TPanel
@@ -147,37 +192,20 @@ object f_calclun: Tf_calclun
     end
     object TabSheetMonth: TTabSheet
       Caption = 'Month'
-      ClientHeight = 599
+      ClientHeight = 543
       ClientWidth = 1190
-      object PanelBottom: TPanel
-        Left = 0
-        Height = 50
-        Top = 549
-        Width = 1190
-        Align = alBottom
-        ClientHeight = 50
-        ClientWidth = 1190
-        TabOrder = 0
-        object StatusLabel: TLabel
-          Left = 8
-          Height = 19
-          Top = 7
-          Width = 71
-          Caption = 'StatusLabel'
-        end
-      end
       object PanelLeft: TPanel
         Left = 0
-        Height = 549
+        Height = 543
         Top = 0
         Width = 840
         Align = alClient
-        ClientHeight = 549
+        ClientHeight = 543
         ClientWidth = 840
-        TabOrder = 1
+        TabOrder = 0
         object GridMonth: TStringGrid
           Left = 1
-          Height = 547
+          Height = 541
           Top = 1
           Width = 838
           Align = alClient
@@ -189,32 +217,32 @@ object f_calclun: Tf_calclun
       end
       object PanelRight: TPanel
         Left = 840
-        Height = 549
+        Height = 543
         Top = 0
         Width = 350
         Align = alRight
-        ClientHeight = 549
+        ClientHeight = 543
         ClientWidth = 350
-        TabOrder = 2
+        TabOrder = 1
         object ScrollBoxM: TScrollBox
           Left = 1
-          Height = 547
+          Height = 541
           Top = 1
           Width = 348
-          HorzScrollBar.Page = 251
-          VertScrollBar.Page = 543
+          HorzScrollBar.Page = 247
+          VertScrollBar.Page = 539
           Align = alClient
-          ClientHeight = 543
-          ClientWidth = 341
+          ClientHeight = 539
+          ClientWidth = 326
           TabOrder = 0
           object PanelPhase: TPanel
             Left = 0
             Height = 135
             Top = 0
-            Width = 341
+            Width = 326
             Align = alTop
-            ClientHeight = 131
-            ClientWidth = 337
+            ClientHeight = 135
+            ClientWidth = 326
             TabOrder = 0
             object LabelPhase1: TLabel
               Left = 16
@@ -234,17 +262,18 @@ object f_calclun: Tf_calclun
           object PanelGraph1: TPanel
             Left = 0
             Height = 210
-            Top = 135
-            Width = 341
+            Top = 185
+            Width = 326
             Align = alTop
-            ClientHeight = 206
-            ClientWidth = 337
+            BevelOuter = bvNone
+            ClientHeight = 210
+            ClientWidth = 326
             TabOrder = 1
             object Chart1: TChart
-              Left = 1
-              Height = 204
-              Top = 1
-              Width = 335
+              Left = 0
+              Height = 210
+              Top = 0
+              Width = 326
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -277,18 +306,19 @@ object f_calclun: Tf_calclun
           object PanelGraph2: TPanel
             Left = 0
             Height = 348
-            Top = 345
-            Width = 341
+            Top = 395
+            Width = 326
             Align = alTop
-            ClientHeight = 344
-            ClientWidth = 337
+            BevelOuter = bvNone
+            ClientHeight = 348
+            ClientWidth = 326
             TabOrder = 2
             Visible = False
             object Chart2: TChart
-              Left = 1
-              Height = 342
-              Top = 1
-              Width = 335
+              Left = 0
+              Height = 348
+              Top = 0
+              Width = 326
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -336,20 +366,40 @@ object f_calclun: Tf_calclun
               end
             end
           end
+          object PanelBtnGraph: TPanel
+            Left = 0
+            Height = 50
+            Top = 135
+            Width = 326
+            Align = alTop
+            BevelOuter = bvNone
+            ClientHeight = 50
+            ClientWidth = 326
+            TabOrder = 3
+            object BtnGraph: TButton
+              Left = 16
+              Height = 25
+              Top = 13
+              Width = 112
+              Caption = 'Select Graph'
+              OnClick = BtnGraphClick
+              TabOrder = 0
+            end
+          end
         end
       end
     end
     object TabSheetDay: TTabSheet
       Caption = 'Day'
-      ClientHeight = 599
+      ClientHeight = 543
       ClientWidth = 1190
       object PanelDRight: TPanel
         Left = 890
-        Height = 599
+        Height = 543
         Top = 0
         Width = 300
         Align = alRight
-        ClientHeight = 599
+        ClientHeight = 543
         ClientWidth = 300
         TabOrder = 0
         object PanelRiseSet: TPanel
@@ -426,20 +476,20 @@ object f_calclun: Tf_calclun
       end
       object ScrollBoxD: TScrollBox
         Left = 0
-        Height = 599
+        Height = 543
         Top = 0
         Width = 890
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 597
-        ClientWidth = 888
+        ClientHeight = 539
+        ClientWidth = 886
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 597
+          Height = 539
           Top = 0
-          Width = 888
+          Width = 886
           Align = alClient
           ColCount = 15
           DefaultColWidth = 120
@@ -450,9 +500,8 @@ object f_calclun: Tf_calclun
     end
     object TabSheetTest: TTabSheet
       Caption = 'Test'
-      ClientHeight = 599
+      ClientHeight = 543
       ClientWidth = 1190
-      TabVisible = False
       object PanelTest: TPanel
         Left = 0
         Height = 106
@@ -465,7 +514,7 @@ object f_calclun: Tf_calclun
         object BtnCompute: TButton
           AnchorSideTop.Control = DateEdit1
           AnchorSideTop.Side = asrCenter
-          Left = 400
+          Left = 512
           Height = 25
           Top = 67
           Width = 88
@@ -576,7 +625,7 @@ object f_calclun: Tf_calclun
         object BtnPrevision: TButton
           AnchorSideTop.Control = DateEdit1
           AnchorSideTop.Side = asrCenter
-          Left = 520
+          Left = 608
           Height = 25
           Top = 67
           Width = 81
@@ -585,9 +634,9 @@ object f_calclun: Tf_calclun
           TabOrder = 6
         end
         object RiseSetBox: TCheckBox
-          Left = 616
+          Left = 704
           Height = 21
-          Top = 32
+          Top = 31
           Width = 202
           Caption = 'Lune visible de l''observatoire'
           Checked = True
@@ -597,7 +646,7 @@ object f_calclun: Tf_calclun
         object MinElevation: TFloatSpinEdit
           AnchorSideTop.Control = DateEdit1
           AnchorSideTop.Side = asrCenter
-          Left = 752
+          Left = 840
           Height = 28
           Top = 65
           Width = 66
@@ -610,16 +659,16 @@ object f_calclun: Tf_calclun
         object Label6: TLabel
           AnchorSideTop.Control = DateEdit1
           AnchorSideTop.Side = asrCenter
-          Left = 616
+          Left = 704
           Height = 19
           Top = 70
           Width = 117
           Caption = 'élévation minimum'
         end
         object NightEvent: TCheckBox
-          Left = 616
+          Left = 704
           Height = 21
-          Top = 4
+          Top = 3
           Width = 196
           Caption = 'Que les événements de nuit'
           Checked = True
@@ -627,9 +676,9 @@ object f_calclun: Tf_calclun
           TabOrder = 9
         end
         object Button1: TButton
-          Left = 522
+          Left = 610
           Height = 25
-          Top = 25
+          Top = 24
           Width = 75
           Caption = 'Button1'
           OnClick = Button1Click
@@ -638,7 +687,7 @@ object f_calclun: Tf_calclun
       end
       inline memo1: TSynEdit
         Left = 0
-        Height = 493
+        Height = 437
         Top = 106
         Width = 1190
         Align = alClient
@@ -1145,11 +1194,28 @@ object f_calclun: Tf_calclun
       end
     end
   end
+  object PanelBottom: TPanel
+    Left = 0
+    Height = 50
+    Top = 630
+    Width = 1200
+    Align = alBottom
+    ClientHeight = 50
+    ClientWidth = 1200
+    TabOrder = 2
+    object StatusLabel: TLabel
+      Left = 8
+      Height = 19
+      Top = 7
+      Width = 71
+      Caption = 'StatusLabel'
+    end
+  end
   object ImageListPhase: TImageList
     Height = 22
     Width = 22
-    Left = 812
-    Top = 99
+    Left = 840
+    Top = 98
     Bitmap = {
       4C7A1E0000001600000016000000431E00000000000078DAEDDDF5B33D47D1C7
       F1E0EEEE0477770B4E90200182BBBB5B7097E05005C1DDDD21C1DDDD9D8202FE
@@ -1395,5 +1461,89 @@ object f_calclun: Tf_calclun
       853BEC9C98ABF48F53C40BB962920EEAB8CAE3694CCB93E4B3790F1E4FDF252B
       AFD283FCECC750E1F1949DF4700DE7F7E0718FF27F5C3271ED
     }
+  end
+  object PopupMenuGraph: TPopupMenu
+    Left = 1008
+    Top = 224
+    object MenuItem1: TMenuItem
+      Tag = 1
+      Caption = 'MenuItem1'
+      OnClick = SelectGraph
+    end
+    object MenuItem2: TMenuItem
+      Tag = 2
+      Caption = 'MenuItem2'
+      OnClick = SelectGraph
+    end
+    object MenuItem3: TMenuItem
+      Tag = 3
+      Caption = 'MenuItem3'
+      OnClick = SelectGraph
+    end
+    object MenuItem4: TMenuItem
+      Tag = 4
+      Caption = 'MenuItem4'
+      OnClick = SelectGraph
+    end
+    object MenuItem5: TMenuItem
+      Tag = 5
+      Caption = 'MenuItem5'
+      OnClick = SelectGraph
+    end
+    object MenuItem6: TMenuItem
+      Tag = 6
+      Caption = 'MenuItem6'
+      OnClick = SelectGraph
+    end
+    object MenuItem7: TMenuItem
+      Tag = 7
+      Caption = 'MenuItem7'
+      OnClick = SelectGraph
+    end
+    object MenuItem8: TMenuItem
+      Tag = 8
+      Caption = 'MenuItem8'
+      OnClick = SelectGraph
+    end
+    object MenuItem9: TMenuItem
+      Tag = 9
+      Caption = 'MenuItem9'
+      OnClick = SelectGraph
+    end
+    object MenuItem10: TMenuItem
+      Tag = 10
+      Caption = 'MenuItem10'
+      OnClick = SelectGraph
+    end
+    object MenuItem11: TMenuItem
+      Tag = 11
+      Caption = 'MenuItem11'
+      OnClick = SelectGraph
+    end
+    object MenuItem12: TMenuItem
+      Tag = 12
+      Caption = 'MenuItem12'
+      OnClick = SelectGraph
+    end
+    object MenuItem13: TMenuItem
+      Tag = 13
+      Caption = 'MenuItem13'
+      OnClick = SelectGraph
+    end
+    object MenuItem14: TMenuItem
+      Tag = 14
+      Caption = 'MenuItem14'
+      OnClick = SelectGraph
+    end
+    object MenuItem15: TMenuItem
+      Tag = 15
+      Caption = 'MenuItem15'
+      OnClick = SelectGraph
+    end
+    object MenuItem16: TMenuItem
+      Tag = 16
+      Caption = 'MenuItem16'
+      OnClick = SelectGraph
+    end
   end
 end

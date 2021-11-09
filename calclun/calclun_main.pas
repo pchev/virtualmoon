@@ -5,8 +5,8 @@ unit calclun_main;
 interface
 
 uses cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, SynEdit, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
-  TAChartUtils,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Types;
+  TAChartUtils, math, u_projection, cu_tz,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Types;
 
 const
     mcolDay=0; mcolRa2000=1; mcolDe2000=2; mcolRa=3; mcolDe=4; mcolDist=5; mcolDiam=6; mcolPhase=7; mcolLunation=8; mcolIllum=9; mcolColong=10; mcolSubSolLat=11; mcolLibrLon=12; mcolLibrLat=13; mcolPa=14; mcolRise=15; mcolSet=16;
@@ -20,6 +20,11 @@ type
     ra2000,de2000,ra,de,dist,diam,phase,lunation,illum,colong,subsollat,librlong,librlat,pa,trise,tset: double;
   end;
 
+  TRiseSetInfo = record  // all time are local time
+    moonrise,moonset,sunrise,sunset: double;
+    astro1,astro2,nautic1,nautic2,civil1,civil2: double;
+  end;
+
   { Tf_calclun }
 
   Tf_calclun = class(TForm)
@@ -27,6 +32,7 @@ type
     BtnPrevision: TButton;
     Button1: TButton;
     BtnToday: TButton;
+    BtnGraph: TButton;
     Chart1: TChart;
     Chart1LineSeries1: TLineSeries;
     Chart2: TChart;
@@ -34,13 +40,34 @@ type
     Chart2LineSeries1: TLineSeries;
     ChartAltAz: TChart;
     ChartAltAzLineSeries1: TLineSeries;
+    TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
     LabelAltAz: TLabel;
     LabelRise1: TLabel;
     LabelRise2: TLabel;
     LabelPhase2: TLabel;
     LabelPhase1: TLabel;
+    MenuItem1: TMenuItem;
+    MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
+    PanelBtnGraph: TPanel;
     PanelAltAz: TPanel;
     PanelRiseSet: TPanel;
     PanelDRight: TPanel;
@@ -50,6 +77,7 @@ type
     PanelGraph2: TPanel;
     PanelGraph1: TPanel;
     PanelPhase: TPanel;
+    PopupMenuGraph: TPopupMenu;
     ScrollBoxD: TScrollBox;
     ScrollBoxM: TScrollBox;
     ScrollBoxY: TScrollBox;
@@ -86,23 +114,31 @@ type
     TabSheetTest: TTabSheet;
     TimeEdit1: TTimeEdit;
     procedure BtnComputeClick(Sender: TObject);
+    procedure BtnGraphClick(Sender: TObject);
     procedure BtnPrevisionClick(Sender: TObject);
     procedure BtnTodayClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure GridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
     procedure GridYearDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
     procedure GridYearHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
     procedure GridYearSelection(Sender: TObject; aCol, aRow: Integer);
+    procedure SelectGraph(Sender: TObject);
   private
     et : SpiceDouble;
     obspos: TDouble3;
-    ObsLon,ObsLat,ObsAlt: double;
+    tz: TCdCTimeZone;
     FCurrentMonthGraph: integer;
+    RiseSetInfo: array[1..12,1..31] of TRiseSetInfo;
     procedure GetAppDir;
     procedure SetKernelsPath;
+    procedure SetObservatory;
+    function  GetTimeZone(sdt: Tdatetime): double;
+    function  GetTimeZoneD(sdt: Tdatetime): double;
     procedure ComputeYear;
     procedure ComputeMonth;
     procedure ComputeDay;
@@ -137,6 +173,28 @@ begin
   DefaultFormatSettings.DateSeparator:='-';
   StatusLabel.Caption:='';
   LabelAltAz.Caption:='';
+  ObsLatitude:=0;
+  ObsLongitude:=0;
+  ObsAltitude:=0;
+  ObsTZ:='Etc/GMT';
+  tz:=TCdCTimeZone.Create;
+
+  MenuItem1.Caption:='RA 2000';
+  Menuitem2.Caption:='DE 2000';
+  Menuitem3.Caption:='RA apparent';
+  Menuitem4.Caption:='DE apparent';
+  Menuitem5.Caption:='Distance';
+  Menuitem6.Caption:='Diameter';
+  Menuitem7.Caption:='Phase';
+  Menuitem8.Caption:='Lunation';
+  Menuitem9.Caption:='Illumination';
+  Menuitem10.Caption:='Colongitude';
+  Menuitem11.Caption:='Sub-solar latitude';
+  Menuitem12.Caption:='Libration longitude';
+  Menuitem13.Caption:='Libration latitude';
+  Menuitem14.Caption:='PA';
+  Menuitem15.Caption:='Rise time';
+  Menuitem16.Caption:='Set time';
 
   GetAppDir;
   InitError;
@@ -160,14 +218,19 @@ begin
 
   BtnToday.Click;
   PageControl1.ActivePage:=TabSheetYear;
-
-  ComputeYear;
   FCurrentMonthGraph:=mcolLibrLon;
-  ComputeMonth;
-  ComputeDay;
-  CurYear:=SpinEditYear.Value;
-  CurrentMonth:=SpinEditYear.Value;
-  CurrentDay:=SpinEditDay.Value;
+
+end;
+
+procedure Tf_calclun.FormDestroy(Sender: TObject);
+begin
+  tz.Free;
+end;
+
+procedure Tf_calclun.FormShow(Sender: TObject);
+begin
+  SetObservatory;
+  DateChange(nil);
 end;
 
 procedure Tf_calclun.SetKernelsPath;
@@ -354,14 +417,51 @@ begin
   end;
 end;
 
+procedure Time_Alt(jd, ar, de, h: double; out hp1, hp2: double; Lat, Long: double);
+var
+  hh, st, st0: double;
+begin
+  if (ar<0) then ar:=ar+pi2;
+  hh := (sin(deg2rad * h) - sin(Lat) * sin(de)) / (cos(Lat) * cos(de));
+  if abs(hh) <= 1 then
+  begin
+    hh := double(arccos(hh));
+    st0 := rad2deg * sidtim(jd, 0.0, -rad2deg*Long) / 15;
+    st := rad2deg * (ar - hh) / 15;
+    hp1 := rmod((st - st0) / 1.002737908 + 24, 24);
+    st := rad2deg * (ar + hh) / 15;
+    hp2 := rmod((st - st0) / 1.002737908 + 24, 24);
+  end
+  else
+  begin
+    if hh > 0 then
+    begin
+      hp1 := -99;      // never above H
+      hp2 := -99;
+    end
+    else
+    begin
+      hp1 := 99;      // always above H
+      hp2 := 99;
+    end;
+  end;
+end;
+
 procedure Tf_calclun.ComputeYear;
 var
-  t1,dt, nm, fq, fm, lq,lunation: double;
+  t1,dt,nm,fq,fm,lq,lunation,jd0,ct1,ct2: double;
   i,j,k,r: integer;
   year: Word;
   newmoon: array[0..14] of double;
+  refval: SpiceDouble;
+  Pcnfine,Presult: PSpiceCell;
+  nfind: SpiceInt;
+  et0,et1: SpiceDouble;
+  yy,mm,dd: Word;
+  x,y,z,sx,sy,sz,sr,ra,de : SpiceDouble;
+  dtr, dts, dtz: double;
+  obsref: ConstSpiceChar;
 begin
-  StatusLabel.Caption:='';
   GridYear.ColWidths[0]:=100;
   GridYear.Width:=GridYear.ColWidths[0]+(GridYear.ColCount-1)*GridYear.DefaultColWidth;
   for i:=1 to 31 do GridYear.Cells[i,0]:=inttostr(i);
@@ -370,6 +470,7 @@ begin
   GridPhaseList.Cells[1,0]:='First quarter';
   GridPhaseList.Cells[2,0]:='Full Moon';
   GridPhaseList.Cells[3,0]:='Last quarter';
+  // phase table
   reset_c;
   year:=SpinEditYear.Value;
   t1:=EncodeDate(year,12,31);
@@ -387,13 +488,14 @@ begin
       exit;
     end;
     newmoon[r]:=nm;
-    GridPhaseList.Cells[0,r]:=FormatDateTime('mm/dd hh:nn:ss',nm);
-    GridPhaseList.Cells[1,r]:=FormatDateTime('mm/dd hh:nn:ss',fq);
-    GridPhaseList.Cells[2,r]:=FormatDateTime('mm/dd hh:nn:ss',fm);
-    GridPhaseList.Cells[3,r]:=FormatDateTime('mm/dd hh:nn:ss',lq);
+    GridPhaseList.Cells[0,r]:=FormatDateTime('mm/dd hh:nn:ss',nm+GetTimeZoneD(nm));
+    GridPhaseList.Cells[1,r]:=FormatDateTime('mm/dd hh:nn:ss',fq+GetTimeZoneD(fq));
+    GridPhaseList.Cells[2,r]:=FormatDateTime('mm/dd hh:nn:ss',fm+GetTimeZoneD(fm));
+    GridPhaseList.Cells[3,r]:=FormatDateTime('mm/dd hh:nn:ss',lq+GetTimeZoneD(lq));
     inc(r);
   until (lq>t1)or(r>=GridPhaseList.RowCount);
 
+  // year calendar
   dt:=EncodeDate(year,1,1);
   r:=0;
   for i:=0 to 2 do begin
@@ -412,6 +514,88 @@ begin
        GridYear.Cells[j,i]:=' ';
     end;
   end;
+
+  // Moon rise and set for the year
+  FillByte(RiseSetInfo,12*31*sizeof(TRiseSetInfo),0);
+  Pcnfine:=initdoublecell(1);
+  Presult:=initdoublecell(2);
+  dt:=EncodeDate(year,1,1);
+  et:=DateTime2ET(dt);
+  et0:=et;
+  et1:=et0+366*SecsPerDay;
+  wninsd_c ( et0, et1, Pcnfine );
+  // expand by one day for the case the moon is already rised at the start of first interval
+  wnexpd_c ( SecsPerDay, SecsPerDay, Pcnfine );
+  refval := -0.8;  // elevation degree, upper limb with refraction
+  if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,Pcnfine,Presult) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  if nfind>1 then for i:=1 to nfind-2 do begin // skip first and last expanded window
+    wnfetd_c(Presult,i,x,y);
+    dtr:=ET2DateTime(x);
+    dtr:=dtr+GetTimeZoneD(dtr);
+    DecodeDate(dtr,yy,mm,dd);
+    if yy=year then
+      RiseSetInfo[mm,dd].moonrise:=dtr;
+    dts:=ET2DateTime(y);
+    dts:=dts+GetTimeZoneD(dts);
+    DecodeDate(dts,yy,mm,dd);
+    if yy=year then
+      RiseSetInfo[mm,dd].moonset:=dts;
+  end;
+  scard_c (0, Pcnfine);
+  scard_c (0, Presult);
+
+  // Sun rise, set and twilight for the year
+  Pcnfine:=initdoublecell(1);
+  Presult:=initdoublecell(2);
+  dt:=EncodeDate(year,1,1);
+  et:=DateTime2ET(dt);
+  et0:=et;
+  et1:=et0+366*SecsPerDay;
+  wninsd_c ( et0, et1, Pcnfine );
+  // expand by one day for the case the moon is already rised at the start of first interval
+  wnexpd_c ( SecsPerDay, SecsPerDay, Pcnfine );
+  refval := -0.8;  // elevation degree, upper limb with refraction
+  if not SunSearchRiseSet(obspos,ObsLatitude,refval,nfind,Pcnfine,Presult) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  if nfind>1 then for i:=1 to nfind-2 do begin // skip first and last expanded window
+    wnfetd_c(Presult,i,x,y);
+    dtr:=ET2DateTime(x);
+    dtz:=GetTimeZone(dtr);
+    dtr:=dtr+dtz/24;
+    DecodeDate(dtr,yy,mm,dd);
+    if yy=year then begin
+      RiseSetInfo[mm,dd].sunrise:=dtr;
+      // twilight
+      x:=DateTime2ET(trunc(dtr)+0.5); // mean position at noon
+      if not SunTopocentric(x,true,obspos,obsref,sx,sy,sz,sr,ra,de) then begin
+        StatusLabel.Caption:=SpiceLastError;
+        exit;
+      end;
+      jd0:=Jd(yy,mm,dd,0);
+      Time_Alt(jd0,ra,de,-18,ct1,ct2,ObsLatitude,ObsLongitude);
+      if abs(ct1)<=24 then RiseSetInfo[mm,dd].astro1:=trunc(dtr)+rmod(ct1+dtz+24,24)/24 else RiseSetInfo[mm,dd].astro1:=ct1;
+      if abs(ct2)<=24 then RiseSetInfo[mm,dd].astro2:=trunc(dtr)+rmod(ct2+dtz+24,24)/24 else RiseSetInfo[mm,dd].astro2:=ct2;
+      Time_Alt(jd0,ra,de,-12,ct1,ct2,ObsLatitude,ObsLongitude);
+      if abs(ct1)<=24 then RiseSetInfo[mm,dd].nautic1:=trunc(dtr)+rmod(ct1+dtz+24,24)/24 else RiseSetInfo[mm,dd].nautic1:=ct1;
+      if abs(ct2)<=24 then RiseSetInfo[mm,dd].nautic2:=trunc(dtr)+rmod(ct2+dtz+24,24)/24 else RiseSetInfo[mm,dd].nautic2:=ct2;
+      Time_Alt(jd0,ra,de,-6,ct1,ct2,ObsLatitude,ObsLongitude);
+      if abs(ct1)<=24 then RiseSetInfo[mm,dd].civil1:=trunc(dtr)+rmod(ct1+dtz+24,24)/24 else RiseSetInfo[mm,dd].civil1:=ct1;
+      if abs(ct2)<=24 then RiseSetInfo[mm,dd].civil2:=trunc(dtr)+rmod(ct2+dtz+24,24)/24 else RiseSetInfo[mm,dd].civil2:=ct2;
+    end;
+    dts:=ET2DateTime(y);
+    dts:=dts+GetTimeZoneD(dts);
+    DecodeDate(dts,yy,mm,dd);
+    if yy=year then begin
+      RiseSetInfo[mm,dd].sunset:=dts;
+    end;
+  end;
+  scard_c (0, Pcnfine);
+  scard_c (0, Presult);
 
 end;
 
@@ -453,19 +637,43 @@ begin
   PageControl1.ActivePage:=TabSheetDay;
 end;
 
+procedure Tf_calclun.SetObservatory;
+var inif: TMemIniFile;
+begin
+  inif := Tmeminifile.Create(ConfigFile);
+  Obslatitude  := inif.ReadFloat('default', 'Obslatitude', Obslatitude) * deg2rad;
+  Obslongitude := -inif.ReadFloat('default', 'Obslongitude', Obslongitude) * deg2rad;
+  ObsAltitude := inif.ReadFloat('default', 'Obsaltitude', ObsAltitude) / 1000;
+  ObsTZ := inif.ReadString('default', 'ObsTZ', ObsTZ);
+  inif.Free;
+  tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
+  reset_c;
+  if not ObservatoryPosition(ObsLongitude,ObsLatitude,ObsAltitude,obspos) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+end;
+
+function Tf_calclun.GetTimeZone(sdt: Tdatetime): double;
+begin
+    tz.Date := sdt;
+    Result  := tz.SecondsOffset / 3600;
+end;
+
+function Tf_calclun.GetTimeZoneD(sdt: Tdatetime): double;
+begin
+    tz.Date := sdt;
+    Result  := tz.SecondsOffset / 3600 / 24;
+end;
+
 procedure Tf_calclun.ComputeMonth;
 var dt, nm, fq, fm, lq, dtr, dts: double;
     i, nday: integer;
-    Year, Month, yy,mm,dd: Word;
+    Year, Month: Word;
     x,y,z,r,ra,de,pa,llon,llat,slon,slat,colongitude,phase,lunation: SpiceDouble;
     obsref,fixref: ConstSpiceChar;
-    refval: SpiceDouble;
-    Pcnfine,Presult: PSpiceCell;
-    nfind: SpiceInt;
-    et0,et1: SpiceDouble;
     data: TMoonMonthData;
 begin
-  StatusLabel.Caption:='';
   for i:=0 to GridMonth.RowCount-1 do begin
     if GridMonth.Objects[0,i]<>nil then GridMonth.Objects[0,i].Free;
   end;
@@ -493,14 +701,6 @@ begin
   GridMonth.Cells[mcolPa,0]:='PA';
   GridMonth.Cells[mcolRise,0]:='Rise time';
   GridMonth.Cells[mcolSet,0]:='Set time';
-  reset_c;
-  ObsLon:=Longitude.Value*deg2rad;
-  ObsLat:=Latitude.Value*deg2rad;
-  ObsAlt:=Altitude.Value/1000;
-  if not ObservatoryPosition(ObsLon,ObsLat,ObsAlt,obspos) then begin
-    StatusLabel.Caption:=SpiceLastError;
-    exit;
-  end;
   for i:=1 to nday do begin
      data:=TMoonMonthData.Create;
      GridMonth.Cells[mcolDay,i]:=inttostr(i);
@@ -581,40 +781,16 @@ begin
      GridMonth.Cells[mcolPhase,i]:=FormatFloat(f3,rad2deg*phase);
      GridMonth.Cells[mcolIllum,i]:=FormatFloat(f1,100*data.illum);
      GridMonth.Objects[0,i]:=data;
-  end;
 
-  // Rise and set for the month
-  Pcnfine:=initdoublecell(1);
-  Presult:=initdoublecell(2);
-  dt:=EncodeDate(year,month,1);
-  et:=DateTime2ET(dt);
-  et0:=et;
-  et1:=et0+31*SecsPerDay;
-  wninsd_c ( et0, et1, Pcnfine );
-  // expand by one day for the case the moon is already rised at the start of first interval
-  wnexpd_c ( SecsPerDay, SecsPerDay, Pcnfine );
-  refval := -0.8;  // elevation degree
-  if not MoonSearchRiseSet(obspos,ObsLat,refval,nfind,Pcnfine,Presult) then begin
-    StatusLabel.Caption:=SpiceLastError;
-    exit;
+     // Rise and set
+     dtr:=RiseSetInfo[month,i].moonrise;
+     dts:=RiseSetInfo[month,i].moonset;
+     TMoonMonthData(GridMonth.Objects[0,i]).trise:=dtr;
+     TMoonMonthData(GridMonth.Objects[0,i]).tset:=dts;
+     if dtr>0 then GridMonth.Cells[mcolRise,i]:=TimToStr(frac(dtr)*24);
+     if dts>0 then GridMonth.Cells[mcolSet,i]:=TimToStr(frac(dts)*24);
+
   end;
-  if nfind>1 then for i:=1 to nfind-2 do begin // skip first and last expanded window
-    wnfetd_c(Presult,i,x,y);
-    dtr:=ET2DateTime(x);
-    DecodeDate(dtr,yy,mm,dd);
-    if mm=Month then begin
-      GridMonth.Cells[mcolRise,dd]:=TimToStr(frac(dtr)*24);
-      TMoonMonthData(GridMonth.Objects[0,dd]).trise:=dtr;
-    end;
-    dts:=ET2DateTime(y);
-    DecodeDate(dts,yy,mm,dd);
-    if mm=Month then begin
-      GridMonth.Cells[mcolSet,dd]:=TimToStr(frac(dts)*24);
-      TMoonMonthData(GridMonth.Objects[0,dd]).tset:=dts;
-    end;
-   end;
-  scard_c (0, Pcnfine);
-  scard_c (0, Presult);
 
   // Phases for the month
   dt:=EncodeDate(year,month,1);
@@ -626,11 +802,12 @@ begin
                       'First quarter:'+crlf+
                       'Full Moon:'+crlf+
                       'Last quarter:';
-  LabelPhase2.Caption:=FormatDateTime(datestd,nm)+crlf+
-                      FormatDateTime(datestd,fq)+crlf+
-                      FormatDateTime(datestd,fm)+crlf+
-                      FormatDateTime(datestd,lq);
+  LabelPhase2.Caption:=FormatDateTime(datestd,nm+GetTimeZoneD(nm))+crlf+
+                      FormatDateTime(datestd,fq+GetTimeZoneD(fq))+crlf+
+                      FormatDateTime(datestd,fm+GetTimeZoneD(fm))+crlf+
+                      FormatDateTime(datestd,lq+GetTimeZoneD(lq));
 
+  // draw selected graph
   PlotMonthGraph(FCurrentMonthGraph);
 
 end;
@@ -642,7 +819,6 @@ var dt,startt,endt: double;
     x,y,z,r,ra,de,pa,llon,llat,slon,slat,colongitude,az,el: SpiceDouble;
     obsref,fixref: ConstSpiceChar;
 begin
-  StatusLabel.Caption:='';
   year:=SpinEditYear.Value;
   month:=SpinEditMonth.Value;
   day:=SpinEditDay.Value;
@@ -663,16 +839,9 @@ begin
   GridDay.Cells[dcolLibrLat,0]:='Libration latitude';
   GridDay.Cells[dcolPa,0]:='PA';
   reset_c;
-  ObsLon:=Longitude.Value*deg2rad;
-  ObsLat:=Latitude.Value*deg2rad;
-  ObsAlt:=Altitude.Value/1000;
-  if not ObservatoryPosition(ObsLon,ObsLat,ObsAlt,obspos) then begin
-    StatusLabel.Caption:=SpiceLastError;
-    exit;
-  end;
   for i:=1 to 24 do begin
      GridDay.Cells[dcolHour,i]:=inttostr(i-1)+':00';
-     dt:=EncodeDate(year,month,day)+(i-1)/24;
+     dt:=EncodeDate(year,month,day)+(i-1)/24+TimeZoneD;
      et:=DateTime2ET(dt);
 
      // J2000 position
@@ -718,24 +887,34 @@ begin
      GridDay.Cells[dcolSubSolLat,i]:=FormatFloat(f4,slat*rad2deg);
   end;
 
+  // Rise and set
   LabelRise1.Caption:='Rise :'+crlf+'Set :';
-  LabelRise2.Caption:=GridMonth.Cells[mcolRise,day]+crlf+GridMonth.Cells[mcolSet,day];
+  LabelRise2.Caption:=GridMonth.Cells[mcolRise,day]+' '+crlf+GridMonth.Cells[mcolSet,day];
 
+  // Alt-az graph
   ChartAltAzLineSeries1.Clear;
   startt:=TMoonMonthData(GridMonth.Objects[0,day]).trise;
+  if startt=0 then begin
+     if day>1 then
+       startt:=TMoonMonthData(GridMonth.Objects[0,day-1]).trise
+     else
+       exit;
+  end;
+  startt:=startt-TimeZoneD;
   endt:=TMoonMonthData(GridMonth.Objects[0,day]).tset;
   if (endt<startt) then begin
      if day<(GridMonth.RowCount-2) then
        endt:=TMoonMonthData(GridMonth.Objects[0,day+1]).tset
      else
-       endt:=endt+1;
+       exit;
   end;
+  endt:=endt-TimeZoneD;
   dt:=startt-1/48;
   repeat
     dt:=dt+1/48;
     if dt>=endt then dt:=endt;
     et:=DateTime2ET(dt);
-    if not MoonAltAz(et,ObsLon,ObsLat,obspos,obsref,az,el) then begin
+    if not MoonAltAz(et,ObsLongitude,ObsLatitude,obspos,obsref,az,el) then begin
       StatusLabel.Caption:=SpiceLastError;
       exit;
     end;
@@ -750,7 +929,7 @@ procedure Tf_calclun.ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X,
 var pointi: TPoint;
     pointg: TDoublePoint;
     i: integer;
-    d,dx,dy,r,newx,newy,newtime:double;
+    d,dx,dy,r,newx,newy,newtime,startt:double;
 begin
   if (x>5)and(x<(ChartAltAz.Width-5))and(y>5)and(y<(ChartAltAz.Height-5)) then begin
   try
@@ -763,6 +942,13 @@ begin
   newx:=-1;
   newy:=-1;
   newtime:=-1;
+  startt:=TMoonMonthData(GridMonth.Objects[0,SpinEditDay.Value]).trise;
+  if startt=0 then begin
+     if SpinEditDay.Value>1 then
+       startt:=TMoonMonthData(GridMonth.Objects[0,SpinEditDay.Value-1]).trise
+     else
+       exit;
+  end;
   // search measured point
   for i:=0 to ChartAltAzLineSeries1.Source.Count-1 do begin
     dx:=X-ChartAltAz.XGraphToImage(ChartAltAzLineSeries1.Source.Item[i]^.X);
@@ -771,7 +957,7 @@ begin
     if d<r then begin
       newx:=ChartAltAzLineSeries1.Source.Item[i]^.X;
       newy:=ChartAltAzLineSeries1.Source.Item[i]^.Y;
-      newtime:=TMoonMonthData(GridMonth.Objects[0,SpinEditDay.Value]).trise+i/48;
+      newtime:=startt+i/48;
       r:=d;
     end;
   end;
@@ -792,8 +978,20 @@ end;
 
 procedure Tf_calclun.GridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
 begin
-  if IsColumn and (index>0) then
-    PlotMonthGraph(index);
+  if IsColumn then begin
+    if index>0 then PlotMonthGraph(index);
+  end
+  else begin
+    if index>0 then begin
+      SpinEditDay.Value:=index;
+      PageControl1.ActivePage:=TabSheetDay;
+    end;
+  end;
+end;
+
+procedure Tf_calclun.SelectGraph(Sender: TObject);
+begin
+  PlotMonthGraph(TMenuItem(sender).tag);
 end;
 
 procedure Tf_calclun.PlotMonthGraph(col:integer);
@@ -986,10 +1184,12 @@ end;
 procedure Tf_calclun.DateChange(Sender: TObject);
 begin
   if not (fsFirstShow in FormState) then begin
+    StatusLabel.Caption:='';
+    TimeZoneD := GetTimeZoneD(EncodeDate(SpinEditYear.Value,SpinEditMonth.Value,SpinEditDay.Value));
+    if CurYear<>SpinEditYear.Value then ComputeYear; // keep compute order year,month,day
     SpinEditDay.MaxValue:=MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value];
     if (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then ComputeMonth;
-    ComputeDay; // after computemonth
-    if CurYear<>SpinEditYear.Value then ComputeYear;
+    ComputeDay;
     CurYear:=SpinEditYear.Value;
     CurrentMonth:=SpinEditMonth.Value;
     CurrentDay:=SpinEditDay.Value;
@@ -1008,13 +1208,6 @@ begin
   et:=DateTime2ET(dt);
   dt:=ET2DateTime(et);
   memo1.Lines.Add('Calcul pour TU: '+DateTime2DateIso(dt));
-  ObsLon:=Longitude.Value*deg2rad;
-  ObsLat:=Latitude.Value*deg2rad;
-  ObsAlt:=Altitude.Value/1000;
-  if not ObservatoryPosition(ObsLon,ObsLat,ObsAlt,obspos) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
   Position;
   PositionTopo;
   SubEarth;
@@ -1022,6 +1215,14 @@ begin
   Illum;
   memo1.Lines.Add('');
   memo1.Lines.Add('Temps de calcul: '+FormatDateTime('ss.zzz',now-st)+' secondes');
+end;
+
+procedure Tf_calclun.BtnGraphClick(Sender: TObject);
+var p: TPoint;
+begin
+  p:=point(BtnGraph.Left,BtnGraph.Top+BtnGraph.Height);
+  p:=PanelBtnGraph.ClientToScreen(p);
+  PopupMenuGraph.PopUp(p.X,p.Y);
 end;
 
 procedure Tf_calclun.BtnPrevisionClick(Sender: TObject);
@@ -1034,13 +1235,6 @@ begin
   et:=DateTime2ET(dt);
   dt:=ET2DateTime(et);
   memo1.Lines.Add('Calcul depuis TU: '+DateTime2DateIso(dt));
-  ObsLon:=Longitude.Value*deg2rad;
-  ObsLat:=Latitude.Value*deg2rad;
-  ObsAlt:=Altitude.Value/1000;
-  if not ObservatoryPosition(ObsLon,ObsLat,ObsAlt,obspos) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
   FindIllum;
   FindColongitude;
   FindMixed;
@@ -1173,7 +1367,7 @@ begin
   memo1.Lines.Add(tab+'dec: '+DEpToStr(de));
   //memo1.Lines.Add('X Y Z: '+FormatFloat(f3,x)+', '+FormatFloat(f3,y)+', '+FormatFloat(f3,z));
 
-  if not MoonAltAz(et,ObsLon,ObsLat,obspos,obsref,az,el) then begin
+  if not MoonAltAz(et,ObsLongitude,ObsLatitude,obspos,obsref,az,el) then begin
     memo1.Lines.Add(SpiceLastError);
     exit;
   end;
@@ -1285,7 +1479,7 @@ begin
   // expand by one day for the case the moon is already rised at the start of first interval
   wnexpd_c ( SecsPerDay, SecsPerDay, Pcnfine );
   refval := -0.8;  // elevation degree
-  if not MoonSearchRiseSet(obspos,ObsLat,refval,nfind,Pcnfine,Presult) then begin
+  if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,Pcnfine,Presult) then begin
     memo1.Lines.Add(SpiceLastError);
     exit;
   end;
@@ -1361,7 +1555,7 @@ begin
 
   if RiseSetBox.Checked then begin
     refval := MinElevation.Value;  // elevation degree
-    if not MoonSearchRiseSet(obspos,ObsLat,refval,nfind,scresult,sc2) then begin
+    if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
       memo1.Lines.Add(SpiceLastError);
       exit;
     end;
@@ -1370,7 +1564,7 @@ begin
 
   if NightEvent.Checked then begin
     refval := -6;  // civil twilight
-    if not SearchNight(obspos,ObsLat,refval,nfind,scresult,sc2) then begin
+    if not SearchNight(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
       memo1.Lines.Add(SpiceLastError);
       exit;
     end;
@@ -1505,7 +1699,7 @@ begin
 
   if RiseSetBox.Checked then begin
     refval := MinElevation.Value;  // elevation degree
-    if not MoonSearchRiseSet(obspos,ObsLat,refval,nfind,scresult,sc1) then begin
+    if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,scresult,sc1) then begin
       memo1.Lines.Add(SpiceLastError);
       exit;
     end;
@@ -1514,7 +1708,7 @@ begin
 
   if NightEvent.Checked then begin
     refval := -6;  // civil twilight
-    if not SearchNight(obspos,ObsLat,refval,nfind,scresult,sc1) then begin
+    if not SearchNight(obspos,ObsLatitude,refval,nfind,scresult,sc1) then begin
       memo1.Lines.Add(SpiceLastError);
       exit;
     end;
@@ -1570,7 +1764,7 @@ begin
 
   if RiseSetBox.Checked then begin
     refval := MinElevation.Value;  // elevation degree
-    if not MoonSearchRiseSet(obspos,ObsLat,refval,nfind,scresult,sc2) then begin
+    if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
       memo1.Lines.Add(SpiceLastError);
       exit;
     end;
@@ -1579,7 +1773,7 @@ begin
 
   if NightEvent.Checked then begin
     refval := -6;  // civil twilight
-    if not SearchNight(obspos,ObsLat,refval,nfind,scresult,sc2) then begin
+    if not SearchNight(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
       memo1.Lines.Add(SpiceLastError);
       exit;
     end;
