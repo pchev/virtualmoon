@@ -59,6 +59,7 @@ type
     Edit15: TEdit;
     Edit16: TEdit;
     Edit17: TEdit;
+    Edit3: TEdit;
     GBlvall: TGroupBox;
     GBlv1: TGroupBox;
     GBlv2: TGroupBox;
@@ -96,6 +97,7 @@ type
     Label59: TLabel;
     Label60: TLabel;
     Label61: TLabel;
+    Label62: TLabel;
     Label8: TLabel;
     LabelImp: TLabel;
     LabelGrid: TLabel;
@@ -281,6 +283,7 @@ begin
       Caption := rst_3;
       label1.Caption := rst_19;
       label2.Caption := rsm_10;
+      label62.Caption := rsm_74;
       CheckBox1.Caption := rst_22;
       CheckBox2.Caption := rst_23;
       label4.Caption := rst_24;
@@ -633,6 +636,7 @@ label1.Enabled:= topo;
 label2.Enabled:= topo;
 edit1.Enabled:= topo;
 edit2.Enabled:= topo;
+edit3.Enabled:= topo;
 combobox1.Enabled:= topo;
 combobox2.Enabled:= topo;
 end;

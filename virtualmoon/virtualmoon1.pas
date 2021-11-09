@@ -1153,6 +1153,7 @@ begin
     ForceBumpMapSize := ReadInteger(section, 'ForceBumpMapSize', ForceBumpMapSize);
     Obslatitude  := ReadFloat(section, 'Obslatitude', Obslatitude);
     Obslongitude := ReadFloat(section, 'Obslongitude', Obslongitude);
+    ObsAltitude := ReadFloat(section, 'Obsaltitude', ObsAltitude);
     ObsCountry  := ReadString(section, 'ObsCountry', ObsCountry);
     ObsTZ := ReadString(section, 'ObsTZ', ObsTZ);
     tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
@@ -1313,6 +1314,7 @@ begin
       WriteString(section, 'telescope', scopeinterface);
       WriteFloat(section, 'Obslatitude', Obslatitude);
       WriteFloat(section, 'Obslongitude', Obslongitude);
+      WriteFloat(section, 'Obsaltitude', ObsAltitude);
       WriteString(section, 'ObsCountry', ObsCountry);
       WriteString(section, 'ObsTZ', ObsTZ);
       WriteBool(section, 'UseComputerTime', UseComputerTime);
@@ -4011,6 +4013,7 @@ begin
     reloaddb := False;
     form2.Edit1.Text := formatfloat(f2, abs(ObsLatitude));
     form2.Edit2.Text := formatfloat(f2, abs(ObsLongitude));
+    form2.Edit3.Text := formatfloat(f2, ObsAltitude);
     if Obslatitude >= 0 then
       form2.ComboBox1.ItemIndex := 0
     else
@@ -4140,6 +4143,7 @@ begin
       if form2.ComboBox1.ItemIndex = 1 then
         Obslatitude := -Obslatitude;
       Obslongitude  := strtofloat(form2.Edit2.Text);
+      ObsAltitude := StrToFloat(form2.Edit3.Text);
       if form2.ComboBox2.ItemIndex = 0 then
         Obslongitude := -Obslongitude;
       systemtimechange := UseComputerTime <> form2.checkbox16.Checked;
