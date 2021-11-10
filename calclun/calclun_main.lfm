@@ -1691,4 +1691,9 @@ object f_calclun: Tf_calclun
     Left = 768
     Top = 317
   end
+  object DateChangeTimer: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = DateChangeTimerTimer
+  end
 end

@@ -52,6 +52,7 @@ type
     ChartYearSeriesSunset: TAreaSeries;
     DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
     LabelChartYear: TLabel;
+    DateChangeTimer: TTimer;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -134,6 +135,7 @@ type
     procedure ChartYearAxisList1MarkToText(var AText: String; AMark: Double);
     procedure ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DateChange(Sender: TObject);
+    procedure DateChangeTimerTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -478,6 +480,7 @@ var
   dtr, dts, dtz: double;
   obsref: ConstSpiceChar;
 begin
+  LabelChartYear.Caption:='';
   GridYear.ColWidths[0]:=100;
   GridYear.Width:=GridYear.ColWidths[0]+(GridYear.ColCount-1)*GridYear.DefaultColWidth;
   for i:=1 to 31 do GridYear.Cells[i,0]:=inttostr(i);
@@ -1282,16 +1285,23 @@ end;
 procedure Tf_calclun.DateChange(Sender: TObject);
 begin
   if not (fsFirstShow in FormState) then begin
-    StatusLabel.Caption:='';
-    TimeZoneD := GetTimeZoneD(EncodeDate(SpinEditYear.Value,SpinEditMonth.Value,SpinEditDay.Value));
-    if CurYear<>SpinEditYear.Value then ComputeYear; // keep compute order year,month,day
-    SpinEditDay.MaxValue:=MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value];
-    if (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then ComputeMonth;
-    ComputeDay;
-    CurYear:=SpinEditYear.Value;
-    CurrentMonth:=SpinEditMonth.Value;
-    CurrentDay:=SpinEditDay.Value;
+    DateChangeTimer.Enabled:=false;
+    DateChangeTimer.Enabled:=true;
   end;
+end;
+
+procedure Tf_calclun.DateChangeTimerTimer(Sender: TObject);
+begin
+  DateChangeTimer.Enabled:=false;
+  StatusLabel.Caption:='';
+  TimeZoneD := GetTimeZoneD(EncodeDate(SpinEditYear.Value,SpinEditMonth.Value,SpinEditDay.Value));
+  if CurYear<>SpinEditYear.Value then ComputeYear; // keep compute order year,month,day
+  SpinEditDay.MaxValue:=MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value];
+  if (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then ComputeMonth;
+  ComputeDay;
+  CurYear:=SpinEditYear.Value;
+  CurrentMonth:=SpinEditMonth.Value;
+  CurrentDay:=SpinEditDay.Value;
 end;
 
 
