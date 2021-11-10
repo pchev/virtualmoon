@@ -5,8 +5,8 @@ unit calclun_main;
 interface
 
 uses cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, SynEdit, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
-  TAChartUtils, math, u_projection, cu_tz,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Types;
+  TAChartUtils, TAIntervalSources, math, u_projection, cu_tz,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Types, TADrawUtils, TACustomSeries, TAMultiSeries;
 
 const
     mcolDay=0; mcolRa2000=1; mcolDe2000=2; mcolRa=3; mcolDe=4; mcolDist=5; mcolDiam=6; mcolPhase=7; mcolLunation=8; mcolIllum=9; mcolColong=10; mcolSubSolLat=11; mcolLibrLon=12; mcolLibrLat=13; mcolPa=14; mcolRise=15; mcolSet=16;
@@ -21,6 +21,7 @@ type
   end;
 
   TRiseSetInfo = record  // all time are local time
+    tz: double;
     moonrise,moonset,sunrise,sunset: double;
     astro1,astro2,nautic1,nautic2,civil1,civil2: double;
   end;
@@ -38,8 +39,17 @@ type
     Chart2: TChart;
     Chart2CubicSplineSeries1: TCubicSplineSeries;
     Chart2LineSeries1: TLineSeries;
+    ChartYear: TChart;
     ChartAltAz: TChart;
     ChartAltAzLineSeries1: TLineSeries;
+    ChartYearBoxAndWhiskerSeries1: TBoxAndWhiskerSeries;
+    ChartYearSeriesAstro1: TAreaSeries;
+    ChartYearSeriesAstro2: TAreaSeries;
+    ChartYearSeriesNautic1: TAreaSeries;
+    ChartYearSeriesNautic2: TAreaSeries;
+    ChartYearSeriesSunrise: TAreaSeries;
+    ChartYearSeriesSunset: TAreaSeries;
+    DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -142,6 +152,7 @@ type
     procedure ComputeYear;
     procedure ComputeMonth;
     procedure ComputeDay;
+    procedure PlotYearGraph;
     procedure PlotMonthGraph(col:integer);
     procedure Illum;
     procedure Position;
@@ -515,8 +526,18 @@ begin
     end;
   end;
 
-  // Moon rise and set for the year
+  // initialize timezone
+  dtz:=GetTimeZoneD(EncodeDate(year,1,1)+0.5);
   FillByte(RiseSetInfo,12*31*sizeof(TRiseSetInfo),0);
+  for i:=1 to 12 do begin
+    for j:=1 to 31 do begin
+      if j<=MonthDays[IsLeapYear(year)][i] then
+         RiseSetInfo[i,j].tz:=GetTimeZoneD(EncodeDate(year,i,j)+0.5)
+      else
+         RiseSetInfo[i,j].tz:=dtz;
+    end;
+  end;
+  // Moon rise and set for the year
   Pcnfine:=initdoublecell(1);
   Presult:=initdoublecell(2);
   dt:=EncodeDate(year,1,1);
@@ -534,12 +555,10 @@ begin
   if nfind>1 then for i:=1 to nfind-2 do begin // skip first and last expanded window
     wnfetd_c(Presult,i,x,y);
     dtr:=ET2DateTime(x);
-    dtr:=dtr+GetTimeZoneD(dtr);
     DecodeDate(dtr,yy,mm,dd);
     if yy=year then
       RiseSetInfo[mm,dd].moonrise:=dtr;
     dts:=ET2DateTime(y);
-    dts:=dts+GetTimeZoneD(dts);
     DecodeDate(dts,yy,mm,dd);
     if yy=year then
       RiseSetInfo[mm,dd].moonset:=dts;
@@ -565,8 +584,6 @@ begin
   if nfind>1 then for i:=1 to nfind-2 do begin // skip first and last expanded window
     wnfetd_c(Presult,i,x,y);
     dtr:=ET2DateTime(x);
-    dtz:=GetTimeZone(dtr);
-    dtr:=dtr+dtz/24;
     DecodeDate(dtr,yy,mm,dd);
     if yy=year then begin
       RiseSetInfo[mm,dd].sunrise:=dtr;
@@ -588,7 +605,6 @@ begin
       if abs(ct2)<=24 then RiseSetInfo[mm,dd].civil2:=trunc(dtr)+rmod(ct2+dtz+24,24)/24 else RiseSetInfo[mm,dd].civil2:=ct2;
     end;
     dts:=ET2DateTime(y);
-    dts:=dts+GetTimeZoneD(dts);
     DecodeDate(dts,yy,mm,dd);
     if yy=year then begin
       RiseSetInfo[mm,dd].sunset:=dts;
@@ -597,6 +613,41 @@ begin
   scard_c (0, Pcnfine);
   scard_c (0, Presult);
 
+  PlotYearGraph;
+
+end;
+
+procedure Tf_calclun.PlotYearGraph;
+var i,j,k,l: integer;
+    dtz,moonrise,moonset: double;
+    d:Tdatetime;
+begin
+  ChartYearSeriesSunrise.Clear;
+  ChartYearSeriesSunset.Clear;
+  ChartYearSeriesAstro1.Clear;
+  ChartYearSeriesAstro2.Clear;
+  ChartYearSeriesNautic1.Clear;
+  ChartYearSeriesNautic2.Clear;
+  ChartYearBoxAndWhiskerSeries1.Clear;
+  dtz:=GetTimeZoneD(EncodeDate(SpinEditYear.Value,1,1));
+  k:=StrToIntDef(GridYear.Cells[1,1],1);
+  for i:=1 to 12 do begin
+    for j:=1 to MonthDays[IsLeapYear(SpinEditYear.Value)][i] do begin
+      d:=EncodeDate(SpinEditYear.Value,i,j);
+      ChartYearSeriesAstro1.AddXY(d,24*frac(RiseSetInfo[i,j].astro1+dtz));
+      ChartYearSeriesNautic1.AddXY(d,24*frac(RiseSetInfo[i,j].nautic1+dtz));
+      ChartYearSeriesSunrise.AddXY(d,24*frac(RiseSetInfo[i,j].sunrise+dtz));
+      ChartYearSeriesSunset.AddXY(d,24*frac(RiseSetInfo[i,j].sunset+dtz));
+      ChartYearSeriesNautic2.AddXY(d,24*frac(RiseSetInfo[i,j].nautic2+dtz));
+      ChartYearSeriesAstro2.AddXY(d,24*frac(RiseSetInfo[i,j].astro2+dtz));
+      moonrise:=24*frac(RiseSetInfo[i,j].moonrise+dtz);
+      moonset:=24*frac(RiseSetInfo[i,j].moonset+dtz);
+      k:=StrToIntDef(GridYear.Cells[j,i],k);
+      if k<15 then l:=k
+              else l:=30-k;
+      ChartYearBoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,moonset,moonset,'',RGBToColor(17*l,17*l,0));
+    end;
+  end;
 end;
 
 procedure Tf_calclun.GridYearDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
