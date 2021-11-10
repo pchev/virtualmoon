@@ -6,7 +6,7 @@ interface
 
 uses cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, SynEdit, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
   TAChartUtils, TAIntervalSources, math, u_projection, cu_tz,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Types, TADrawUtils, TACustomSeries, TAMultiSeries;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Types, TADrawUtils, TACustomSeries, TAMultiSeries, TATransformations, TAChartAxisUtils;
 
 const
     mcolDay=0; mcolRa2000=1; mcolDe2000=2; mcolRa=3; mcolDe=4; mcolDist=5; mcolDiam=6; mcolPhase=7; mcolLunation=8; mcolIllum=9; mcolColong=10; mcolSubSolLat=11; mcolLibrLon=12; mcolLibrLat=13; mcolPa=14; mcolRise=15; mcolSet=16;
@@ -43,6 +43,7 @@ type
     ChartAltAz: TChart;
     ChartAltAzLineSeries1: TLineSeries;
     ChartYearBoxAndWhiskerSeries1: TBoxAndWhiskerSeries;
+    ChartYearBoxAndWhiskerSeries2: TBoxAndWhiskerSeries;
     ChartYearSeriesAstro1: TAreaSeries;
     ChartYearSeriesAstro2: TAreaSeries;
     ChartYearSeriesNautic1: TAreaSeries;
@@ -50,6 +51,7 @@ type
     ChartYearSeriesSunrise: TAreaSeries;
     ChartYearSeriesSunset: TAreaSeries;
     DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
+    LabelChartYear: TLabel;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -129,6 +131,8 @@ type
     procedure BtnTodayClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure ChartYearAxisList1MarkToText(var AText: String; AMark: Double);
+    procedure ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -184,6 +188,7 @@ begin
   DefaultFormatSettings.DateSeparator:='-';
   StatusLabel.Caption:='';
   LabelAltAz.Caption:='';
+  LabelChartYear.Caption:='';
   ObsLatitude:=0;
   ObsLongitude:=0;
   ObsAltitude:=0;
@@ -619,7 +624,7 @@ end;
 
 procedure Tf_calclun.PlotYearGraph;
 var i,j,k,l: integer;
-    dtz,moonrise,moonset: double;
+    dtz,moonrise,moonset,val: double;
     d:Tdatetime;
 begin
   ChartYearSeriesSunrise.Clear;
@@ -629,23 +634,43 @@ begin
   ChartYearSeriesNautic1.Clear;
   ChartYearSeriesNautic2.Clear;
   ChartYearBoxAndWhiskerSeries1.Clear;
+  ChartYearBoxAndWhiskerSeries2.Clear;
   dtz:=GetTimeZoneD(EncodeDate(SpinEditYear.Value,1,1));
   k:=StrToIntDef(GridYear.Cells[1,1],1);
   for i:=1 to 12 do begin
     for j:=1 to MonthDays[IsLeapYear(SpinEditYear.Value)][i] do begin
       d:=EncodeDate(SpinEditYear.Value,i,j);
-      ChartYearSeriesAstro1.AddXY(d,24*frac(RiseSetInfo[i,j].astro1+dtz));
-      ChartYearSeriesNautic1.AddXY(d,24*frac(RiseSetInfo[i,j].nautic1+dtz));
-      ChartYearSeriesSunrise.AddXY(d,24*frac(RiseSetInfo[i,j].sunrise+dtz));
-      ChartYearSeriesSunset.AddXY(d,24*frac(RiseSetInfo[i,j].sunset+dtz));
-      ChartYearSeriesNautic2.AddXY(d,24*frac(RiseSetInfo[i,j].nautic2+dtz));
-      ChartYearSeriesAstro2.AddXY(d,24*frac(RiseSetInfo[i,j].astro2+dtz));
+      val:=24*frac(RiseSetInfo[i,j].astro1+dtz);
+      ChartYearSeriesAstro1.AddXY(d,val);
+      val:=24*frac(RiseSetInfo[i,j].nautic1+dtz);
+      ChartYearSeriesNautic1.AddXY(d,val);
+      val:=24*frac(RiseSetInfo[i,j].sunrise+dtz);
+      ChartYearSeriesSunrise.AddXY(d,val);
+      val:=24*frac(RiseSetInfo[i,j].sunset+dtz)-24;
+      ChartYearSeriesSunset.AddXY(d,val);
+      val:=24*frac(RiseSetInfo[i,j].nautic2+dtz)-24;
+      ChartYearSeriesNautic2.AddXY(d,val);
+      val:=24*frac(RiseSetInfo[i,j].astro2+dtz)-24;
+      ChartYearSeriesAstro2.AddXY(d,val);
+      // moon luminosity in 0-255 range
+      k:=StrToIntDef(GridYear.Cells[j,i],k);
+      if k<15 then l:=k*17
+              else l:=(30-k)*17;
+      // moon rise set local time
       moonrise:=24*frac(RiseSetInfo[i,j].moonrise+dtz);
       moonset:=24*frac(RiseSetInfo[i,j].moonset+dtz);
-      k:=StrToIntDef(GridYear.Cells[j,i],k);
-      if k<15 then l:=k
-              else l:=30-k;
-      ChartYearBoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,moonset,moonset,'',RGBToColor(17*l,17*l,0));
+      // in -12 +12 range
+      if moonrise>12 then moonrise:=moonrise-24;
+      if moonset>12 then moonset:=moonset-24;
+      if (moonrise<moonset) then begin
+        // single bar
+        ChartYearBoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,moonset,moonset,'',RGBToColor(l,l,0));
+      end
+      else begin
+        // split in two bar
+        ChartYearBoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,12,12,'',RGBToColor(l,l,0));
+        ChartYearBoxAndWhiskerSeries2.AddXY(d,-12,-12,-12,moonset,moonset,'',RGBToColor(l,l,0));
+      end;
     end;
   end;
 end;
@@ -1025,6 +1050,28 @@ begin
   end else begin
     LabelAltAz.Caption:='';
   end;
+end;
+
+procedure Tf_calclun.ChartYearAxisList1MarkToText(var AText: String; AMark: Double);
+begin
+ if amark<0 then
+   atext:=FormatFloat(f0,24+AMark)
+ else
+   atext:=FormatFloat(f0,AMark)
+end;
+
+procedure Tf_calclun.ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+var pointi: TPoint;
+    pointg: TDoublePoint;
+    i: integer;
+begin
+ if (x>1)and(x<(ChartYear.Width-1))and(y>1)and(y<(ChartYear.Height-1)) then begin
+   // mouse position
+   pointi.x:=X;
+   pointi.y:=Y;
+   pointg:=ChartYear.ImageToGraph(pointi);
+   LabelChartYear.Caption:='Date: '+FormatDateTime(datestd,round(pointg.y)+(pointg.x+24)/24);
+ end;
 end;
 
 procedure Tf_calclun.GridMonthHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);

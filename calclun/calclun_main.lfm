@@ -1,10 +1,10 @@
 object f_calclun: Tf_calclun
   Left = 369
-  Height = 680
+  Height = 800
   Top = 250
   Width = 1200
   Caption = 'Calclun'
-  ClientHeight = 680
+  ClientHeight = 800
   ClientWidth = 1200
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -106,7 +106,7 @@ object f_calclun: Tf_calclun
   end
   object PageControl1: TPageControl
     Left = 0
-    Height = 574
+    Height = 694
     Top = 56
     Width = 1200
     ActivePage = TabSheetYear
@@ -115,15 +115,15 @@ object f_calclun: Tf_calclun
     TabOrder = 0
     object TabSheetYear: TTabSheet
       Caption = 'Year'
-      ClientHeight = 543
+      ClientHeight = 663
       ClientWidth = 1190
       object PanelYRight: TPanel
         Left = 856
-        Height = 543
+        Height = 663
         Top = 0
         Width = 334
         Align = alRight
-        ClientHeight = 543
+        ClientHeight = 663
         ClientWidth = 334
         TabOrder = 0
         object ChartYear: TChart
@@ -150,11 +150,13 @@ object f_calclun: Tf_calclun
               Marks.LabelBrush.Style = bsClear
               Minors = <>
               Title.LabelBrush.Style = bsClear
+              OnMarkToText = ChartYearAxisList1MarkToText
             end>
-          BackColor = clBlack
+          BackColor = 15744060
           Extent.UseXMax = True
           Extent.UseXMin = True
-          Extent.XMax = 24
+          Extent.XMax = 12
+          Extent.XMin = -12
           Margins.Left = 0
           Margins.Top = 0
           Margins.Right = 0
@@ -163,35 +165,9 @@ object f_calclun: Tf_calclun
             'TAChart'
           )
           Align = alTop
-          object ChartYearSeriesAstro2: TAreaSeries
-            ZPosition = 10
-            AxisIndexX = 0
-            AxisIndexY = 1
-            AreaBrush.Color = 6553616
-            AreaContourPen.Color = 6553616
-            AreaLinesPen.Color = 6553616
-            Stacked = False
-          end
-          object ChartYearSeriesNautic2: TAreaSeries
-            ZPosition = 12
-            AxisIndexX = 0
-            AxisIndexY = 1
-            AreaBrush.Color = 10496040
-            AreaContourPen.Color = 10496040
-            AreaLinesPen.Color = 10496040
-            Stacked = False
-          end
-          object ChartYearSeriesSunset: TAreaSeries
-            ZPosition = 14
-            AxisIndexX = 0
-            AxisIndexY = 1
-            AreaBrush.Color = 15744060
-            AreaContourPen.Color = 15744060
-            AreaLinesPen.Color = 15744060
-            Stacked = False
-          end
+          OnMouseMove = ChartYearMouseMove
           object ChartYearSeriesSunrise: TAreaSeries
-            ZPosition = 16
+            ZPosition = 10
             AxisIndexX = 0
             AxisIndexY = 1
             AreaBrush.Color = 10496040
@@ -200,7 +176,7 @@ object f_calclun: Tf_calclun
             Stacked = False
           end
           object ChartYearSeriesNautic1: TAreaSeries
-            ZPosition = 18
+            ZPosition = 12
             AxisIndexX = 0
             AxisIndexY = 1
             AreaBrush.Color = 6553616
@@ -209,10 +185,37 @@ object f_calclun: Tf_calclun
             Stacked = False
           end
           object ChartYearSeriesAstro1: TAreaSeries
-            ZPosition = 20
+            ZPosition = 14
             AxisIndexX = 0
             AxisIndexY = 1
             AreaBrush.Color = clBlack
+            Stacked = False
+          end
+          object ChartYearSeriesAstro2: TAreaSeries
+            ZPosition = 16
+            AxisIndexX = 0
+            AxisIndexY = 1
+            AreaBrush.Color = 6553616
+            AreaContourPen.Color = 6553616
+            AreaLinesPen.Color = 6553616
+            Stacked = False
+          end
+          object ChartYearSeriesNautic2: TAreaSeries
+            ZPosition = 18
+            AxisIndexX = 0
+            AxisIndexY = 1
+            AreaBrush.Color = 10496040
+            AreaContourPen.Color = 10496040
+            AreaLinesPen.Color = 10496040
+            Stacked = False
+          end
+          object ChartYearSeriesSunset: TAreaSeries
+            ZPosition = 20
+            AxisIndexX = 0
+            AxisIndexY = 1
+            AreaBrush.Color = 15744060
+            AreaContourPen.Color = 15744060
+            AreaLinesPen.Color = 15744060
             Stacked = False
           end
           object ChartYearBoxAndWhiskerSeries1: TBoxAndWhiskerSeries
@@ -231,17 +234,43 @@ object f_calclun: Tf_calclun
             AxisIndexY = 1
             Marks.Frame.Mode = pmNop
           end
+          object ChartYearBoxAndWhiskerSeries2: TBoxAndWhiskerSeries
+            ZPosition = 30
+            BoxBrush.Color = clYellow
+            BoxPen.Color = clYellow
+            BoxPen.Style = psClear
+            BoxPen.Width = 0
+            BoxWidth = 100
+            MedianPen.Mode = pmNop
+            MedianPen.Width = 0
+            WhiskersPen.Mode = pmNop
+            WhiskersPen.Width = 0
+            WhiskersWidth = 0
+            AxisIndexX = 0
+            AxisIndexY = 1
+            Marks.Frame.Mode = pmNop
+          end
+        end
+        object LabelChartYear: TLabel
+          Left = 17
+          Height = 19
+          Top = 532
+          Width = 316
+          Align = alTop
+          BorderSpacing.Left = 16
+          BorderSpacing.Top = 4
+          Caption = 'LabelChartYear'
         end
       end
       object ScrollBoxY: TScrollBox
         Left = 0
-        Height = 543
+        Height = 663
         Top = 0
         Width = 856
         HorzScrollBar.Page = 777
-        VertScrollBar.Page = 541
+        VertScrollBar.Page = 661
         Align = alClient
-        ClientHeight = 541
+        ClientHeight = 661
         ClientWidth = 834
         TabOrder = 1
         object PanelYphase: TPanel
@@ -300,20 +329,20 @@ object f_calclun: Tf_calclun
     end
     object TabSheetMonth: TTabSheet
       Caption = 'Month'
-      ClientHeight = 543
+      ClientHeight = 663
       ClientWidth = 1190
       object PanelLeft: TPanel
         Left = 0
-        Height = 543
+        Height = 663
         Top = 0
         Width = 840
         Align = alClient
-        ClientHeight = 543
+        ClientHeight = 663
         ClientWidth = 840
         TabOrder = 0
         object GridMonth: TStringGrid
           Left = 1
-          Height = 541
+          Height = 661
           Top = 1
           Width = 838
           Align = alClient
@@ -325,22 +354,22 @@ object f_calclun: Tf_calclun
       end
       object PanelRight: TPanel
         Left = 840
-        Height = 543
+        Height = 663
         Top = 0
         Width = 350
         Align = alRight
-        ClientHeight = 543
+        ClientHeight = 663
         ClientWidth = 350
         TabOrder = 1
         object ScrollBoxM: TScrollBox
           Left = 1
-          Height = 541
+          Height = 661
           Top = 1
           Width = 348
           HorzScrollBar.Page = 251
-          VertScrollBar.Page = 537
+          VertScrollBar.Page = 657
           Align = alClient
-          ClientHeight = 537
+          ClientHeight = 657
           ClientWidth = 341
           TabOrder = 0
           object PanelPhase: TPanel
@@ -499,15 +528,15 @@ object f_calclun: Tf_calclun
     end
     object TabSheetDay: TTabSheet
       Caption = 'Day'
-      ClientHeight = 543
+      ClientHeight = 663
       ClientWidth = 1190
       object PanelDRight: TPanel
         Left = 890
-        Height = 543
+        Height = 663
         Top = 0
         Width = 300
         Align = alRight
-        ClientHeight = 543
+        ClientHeight = 663
         ClientWidth = 300
         TabOrder = 0
         object PanelRiseSet: TPanel
@@ -584,18 +613,18 @@ object f_calclun: Tf_calclun
       end
       object ScrollBoxD: TScrollBox
         Left = 0
-        Height = 543
+        Height = 663
         Top = 0
         Width = 890
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 539
+        ClientHeight = 659
         ClientWidth = 886
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 539
+          Height = 659
           Top = 0
           Width = 886
           Align = alClient
@@ -608,7 +637,7 @@ object f_calclun: Tf_calclun
     end
     object TabSheetTest: TTabSheet
       Caption = 'Test'
-      ClientHeight = 543
+      ClientHeight = 663
       ClientWidth = 1190
       object PanelTest: TPanel
         Left = 0
@@ -795,7 +824,7 @@ object f_calclun: Tf_calclun
       end
       inline memo1: TSynEdit
         Left = 0
-        Height = 437
+        Height = 557
         Top = 106
         Width = 1190
         Align = alClient
@@ -1305,7 +1334,7 @@ object f_calclun: Tf_calclun
   object PanelBottom: TPanel
     Left = 0
     Height = 50
-    Top = 630
+    Top = 750
     Width = 1200
     Align = alBottom
     ClientHeight = 50
@@ -1656,7 +1685,7 @@ object f_calclun: Tf_calclun
   end
   object DateTimeIntervalChartSource1: TDateTimeIntervalChartSource
     DateTimeStepFormat.YearFormat = 'yy'
-    DateTimeStepFormat.MonthFormat = 'yy-mm'
+    DateTimeStepFormat.MonthFormat = 'mm'
     DateTimeStepFormat.DayFormat = 'mm-dd'
     Steps = [dtsYear, dtsMonth, dtsDay]
     Left = 768
