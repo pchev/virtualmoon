@@ -245,8 +245,12 @@ begin
 end;
 
 procedure Tf_calclun.FormDestroy(Sender: TObject);
+var i: integer;
 begin
   tz.Free;
+  for i:=0 to GridMonth.RowCount-1 do begin
+    if GridMonth.Objects[0,i]<>nil then GridMonth.Objects[0,i].free;
+  end;
 end;
 
 procedure Tf_calclun.FormShow(Sender: TObject);

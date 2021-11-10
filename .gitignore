@@ -51,6 +51,8 @@ calclun/units/
 calclun/cspice/*.dll
 calclun/cspice/*.so
 calclun/cspice/SpiceZpl.h
+calclun/getcell.o*
+calclun/getcellwin32.o*
 calclun/calclun
 calclun/calclun.exe
 last.build
