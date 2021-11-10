@@ -1,0 +1,98 @@
+#
+#   Makefile.fpc for Calclun
+#
+
+[package]
+name=calclun
+version=8
+
+[target]
+programs=calclun
+
+[require]
+libc=y
+packages=rtl
+
+[compiler]
+unittargetdir=units/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
+includedir=./
+options= $(opt_target) $(fpcopts) -dUseCThreads -dLCL -dLCL$(LCL_PLATFORM) -MObjFPC -Sgi -vewni -l
+unitdir=$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)/ $(LAZDIR)/components/cairocanvas/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/packager/units/$(CPU_TARGET)-$(OS_TARGET)/ $(LAZDIR)/components/lazutils/lib/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) $(LAZDIR)/components/tachart/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/components/printers/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/components/freetype/lib/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/components/lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ $(LAZDIR)/components/buildintf/units/$(CPU_TARGET)-$(OS_TARGET) $(LAZDIR)/components/ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)/ ./
+
+
+
+[clean]
+files=$(wildcard $(COMPILER_UNITTARGETDIR)/*$(OEXT)) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*$(PPUEXT)) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*$(RSTEXT)) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*.compiled) \
+      $(wildcard *$(OEXT)) $(wildcard *$(PPUEXT)) $(wildcard *$(RSTEXT))
+
+[prerules]
+LAZDIR=%LAZDIR%
+# Compiler options
+ifndef fpcopts 
+ifeq ($(CPU_TARGET),aarch64)
+fpcopts=-O-  -CX -XX -Xs 
+else
+fpcopts=-O3  -CX -XX -Xs  
+endif
+endif
+# LCL Platform
+ifndef LCL_PLATFORM
+ifeq ($(OS_TARGET),win32)
+LCL_PLATFORM=win32
+opt_target= -WG
+else
+ifeq ($(OS_TARGET),win64)
+LCL_PLATFORM=win32
+opt_target= -WG
+else
+ifeq ($(OS_TARGET),darwin)
+ifeq ($(CPU_TARGET),i386)
+LCL_PLATFORM=carbon
+else
+LCL_PLATFORM=cocoa
+endif
+opt_target= -k-macosx_version_min -k10.10
+else
+LCL_PLATFORM=gtk2
+opt_target=
+endif
+endif
+endif
+endif
+export LCL_PLATFORM
+
+[rules]
+.PHONY: all
+
+outdir:
+	mkdir -p units/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
+
+getcell:
+ifeq ($(OS_TARGET),win32)
+	$(MAKE) -f Makefile_getcell.win32 all
+ else
+ ifeq ($(OS_TARGET),win64)
+	$(MAKE) -f Makefile_getcell.win64 all
+ else
+	$(MAKE) -f Makefile_getcell all
+ endif
+endif
+
+getcell_clean:
+ifeq ($(OS_TARGET),win32)
+	$(MAKE) -f Makefile_getcell.win32 clean
+ else
+ ifeq ($(OS_TARGET),win64)
+	$(MAKE) -f Makefile_getcell.win64 clean
+ else
+	$(MAKE) -f Makefile_getcell clean
+ endif
+endif
+
+all: outdir getcell calclun$(EXEEXT)
+
+clean: getcell_clean fpc_clean
+

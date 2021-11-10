@@ -1,3 +1,4 @@
+
 CC = i686-w64-mingw32-gcc
 MV = mv
 
@@ -9,8 +10,16 @@ VOBJ=getcellwin32.o
 
 OBJ=$(SRC:.c=.o)
 
-all: $(OBJ)
-	$(MV) getcell.o $(VOBJ)
+obj_clean:
+	rm -f $(OBJ) $(VOBJ)
 
-clean:
-	rm $(OBJ) $(VOBJ)
+cspice_all:
+	$(MAKE) -j -C cspice -f Makefile.win32 all
+
+cspice_clean:
+	$(MAKE) -C cspice -f Makefile.win32 clean
+
+clean: cspice_clean obj_clean
+
+all: cspice_all $(OBJ)
+	$(MV) getcell.o $(VOBJ)

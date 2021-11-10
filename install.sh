@@ -13,6 +13,7 @@ echo Install virtualmoon to $destdir
 # software
 install -m 755 -d $destdir
 install -m 755 -d $destdir/bin
+install -m 755 -d $destdir/lib
 install -m 755 -d $destdir/share
 install -m 755 -d $destdir/share/applications
 install -m 755 -d $destdir/share/doc
@@ -23,6 +24,8 @@ install -v -m 755 -s datlun/datlun  $destdir/bin/datlun
 install -v -m 755 -s photlun/photlun  $destdir/bin/photlun
 install -v -m 755 -s weblun/weblun  $destdir/bin/weblun
 install -v -m 755 -s cclun/cclun  $destdir/bin/cclun
+install -v -m 755 -s calclun/calclun  $destdir/bin/calclun
+install -v -m 644 calclun/cspice/libcspice.so  $destdir/libcspice.so
 install -v -m 644 Installer/Linux/vmapro/share/applications/virtualmoon.desktop $destdir/share/applications/virtualmoon.desktop
 install -v -m 644 Installer/Linux/vmapro/share/applications/cclun.desktop $destdir/share/applications/cclun.desktop
 install -v -m 644 Installer/Linux/vmapro/share/doc/virtualmoon/changelog $destdir/share/doc/virtualmoon/changelog

@@ -23,7 +23,9 @@ if [ $OS_TARGET = win32 ]; then
   i386-win32-strip -v -o $destdir/photlun.exe photlun/photlun.exe
   i386-win32-strip -v -o $destdir/weblun.exe weblun/weblun.exe
   i386-win32-strip -v -o $destdir/cclun.exe cclun/cclun.exe
+  i386-win32-strip -v -o $destdir/calclun.exe calclun/calclun.exe
   install -v -m 644 virtualmoon/library/plan404/libplan404.dll  $destdir/
+  install -v -m 644 calclun/cspice/libcspice32.dll  $destdir/libcspice32.dll
   unzip -o -d $destdir Installer/Windows/Data/sqlite3.zip
 fi
 if [ $OS_TARGET = win64 ]; then
@@ -32,7 +34,9 @@ if [ $OS_TARGET = win64 ]; then
   x86_64-win64-strip -v -o $destdir/photlun.exe photlun/photlun.exe
   x86_64-win64-strip -v -o $destdir/weblun.exe weblun/weblun.exe
   x86_64-win64-strip -v -o $destdir/cclun.exe cclun/cclun.exe
+  x86_64-win64-strip -v -o $destdir/calclun.exe calclun/calclun.exe
   install -v -m 644 virtualmoon/library/plan404/libplan404_x64.dll  $destdir/libplan404.dll
+  install -v -m 644 calclun/cspice/libcspice64.dll  $destdir/libcspice64.dll
   unzip -o -d $destdir Installer/Windows/Data/sqlite3_x64.zip
 fi
 install -v -m 644 Installer/Windows/Data/readme.txt $destdir/

@@ -4,8 +4,12 @@ unit calclun_main;
 
 interface
 
-uses cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, SynEdit, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
-  TAChartUtils, TAIntervalSources, math, u_projection, cu_tz,
+uses
+  {$ifdef mswindows}
+    Windows, Registry, ShlObj,
+  {$endif}
+  cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
+  TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Types, TADrawUtils, TACustomSeries, TAMultiSeries, TATransformations, TAChartAxisUtils;
 
 const
@@ -53,6 +57,7 @@ type
     DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
     LabelChartYear: TLabel;
     DateChangeTimer: TTimer;
+    Memo1: TMemo;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -115,7 +120,6 @@ type
     Label1: TLabel;
     Label2: TLabel;
     PanelTest: TPanel;
-    memo1: TSynEdit;
     SpinEditYear: TSpinEdit;
     SpinEditMonth: TSpinEdit;
     GridMonth: TStringGrid;

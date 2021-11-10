@@ -47,6 +47,10 @@ weblun/units/
 weblun/weblun
 weblun/weblun.exe
 calclun/lib/
+calclun/units/
+calclun/cspice/*.dll
+calclun/cspice/*.so
+calclun/cspice/SpiceZpl.h
 calclun/calclun
 calclun/calclun.exe
 last.build

@@ -7,7 +7,16 @@ SRC=getcell.c
 
 OBJ=$(SRC:.c=.o)
 
-all: $(OBJ)
+obj_clean:
+	rm -f $(OBJ)
 
-clean:
-	rm $(OBJ)
+cspice_all:
+	$(MAKE) -j -C cspice all
+
+cspice_clean:
+	$(MAKE) -C cspice clean
+
+
+clean: cspice_clean obj_clean
+
+all: cspice_all $(OBJ)

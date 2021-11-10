@@ -7,7 +7,7 @@ name=virtualmoon
 version=6
 
 [target]
-dirs=virtualmoon datlun photlun weblun cclun
+dirs=virtualmoon datlun photlun weblun cclun calclun
 
 [require]
 libc=y
@@ -19,7 +19,7 @@ PREFIX=%PREFIX%
 [rules]
 .PHONY: all
 
-all: virtualmoon_all datlun_all photlun_all weblun_all cclun_all
+all: virtualmoon_all datlun_all photlun_all weblun_all cclun_all calclun_all
 
 ifeq ($(OS_TARGET),win32)
 install: 

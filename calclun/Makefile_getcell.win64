@@ -9,8 +9,16 @@ VOBJ=getcellwin64.o
 
 OBJ=$(SRC:.c=.o)
 
-all: $(OBJ)
-	$(MV) getcell.o $(VOBJ)
+obj_clean:
+	rm -f $(OBJ) $(VOBJ)
 
-clean:
-	rm $(OBJ) $(VOBJ)
+cspice_all:
+	$(MAKE) -j -C cspice -f Makefile.win64 all
+
+cspice_clean:
+	$(MAKE) -C cspice -f Makefile.win64 clean
+
+clean: cspice_clean obj_clean
+
+all: cspice_all $(OBJ)
+	$(MV) getcell.o $(VOBJ)
