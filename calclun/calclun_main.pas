@@ -43,6 +43,11 @@ type
     Chart2: TChart;
     Chart2CubicSplineSeries1: TCubicSplineSeries;
     Chart2LineSeries1: TLineSeries;
+    ChartAltAzCivilArea: TAreaSeries;
+    ChartAltAzNauticArea: TAreaSeries;
+    ChartAltAzAstroArea: TAreaSeries;
+    ChartAltSunArea: TAreaSeries;
+    ChartAltAzLineSeries2: TLineSeries;
     ChartYear: TChart;
     ChartAltAz: TChart;
     ChartAltAzLineSeries1: TLineSeries;
@@ -55,6 +60,7 @@ type
     ChartYearSeriesSunrise: TAreaSeries;
     ChartYearSeriesSunset: TAreaSeries;
     DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
+    DayPhase: TImage;
     LabelChartYear: TLabel;
     DateChangeTimer: TTimer;
     Memo1: TMemo;
@@ -646,6 +652,7 @@ begin
   ChartYearSeriesNautic2.Clear;
   ChartYearBoxAndWhiskerSeries1.Clear;
   ChartYearBoxAndWhiskerSeries2.Clear;
+  // Use same time zome for all the year to ensure graph continuity
   dtz:=GetTimeZoneD(EncodeDate(SpinEditYear.Value,1,1));
   k:=StrToIntDef(GridYear.Cells[1,1],1);
   for i:=1 to 12 do begin
@@ -870,8 +877,8 @@ begin
      GridMonth.Objects[0,i]:=data;
 
      // Rise and set
-     dtr:=RiseSetInfo[month,i].moonrise;
-     dts:=RiseSetInfo[month,i].moonset;
+     dtr:=RiseSetInfo[month,i].moonrise+RiseSetInfo[month,i].tz;
+     dts:=RiseSetInfo[month,i].moonset+RiseSetInfo[month,i].tz;
      TMoonMonthData(GridMonth.Objects[0,i]).trise:=dtr;
      TMoonMonthData(GridMonth.Objects[0,i]).tset:=dts;
      if dtr>0 then GridMonth.Cells[mcolRise,i]:=TimToStr(frac(dtr)*24);
@@ -900,11 +907,12 @@ begin
 end;
 
 procedure Tf_calclun.ComputeDay;
-var dt,startt,endt: double;
+var dt,startt,endt,step: double;
     i: integer;
     Year, Month, Day: Word;
     x,y,z,r,ra,de,pa,llon,llat,slon,slat,colongitude,az,el: SpiceDouble;
     obsref,fixref: ConstSpiceChar;
+    img: TBitmap;
 begin
   year:=SpinEditYear.Value;
   month:=SpinEditMonth.Value;
@@ -928,7 +936,7 @@ begin
   reset_c;
   for i:=1 to 24 do begin
      GridDay.Cells[dcolHour,i]:=inttostr(i-1)+':00';
-     dt:=EncodeDate(year,month,day)+(i-1)/24+TimeZoneD;
+     dt:=EncodeDate(year,month,day)+(i-1)/24-TimeZoneD;
      et:=DateTime2ET(dt);
 
      // J2000 position
@@ -974,28 +982,43 @@ begin
      GridDay.Cells[dcolSubSolLat,i]:=FormatFloat(f4,slat*rad2deg);
   end;
 
-  // Rise and set
+  // find true rise/set time and day
+  startt:=RiseSetInfo[month,day].moonrise;
+  if startt=0 then begin
+     if day>1 then
+       startt:=RiseSetInfo[month,day-1].moonrise
+     else if month>1 then
+       startt:=RiseSetInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
+     else
+       exit;
+  end;
+  if trunc(startt+TimeZoneD)>trunc(startt) then begin
+     if day>1 then
+       startt:=RiseSetInfo[month,day-1].moonrise
+     else if month>1 then
+       startt:=RiseSetInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
+     else
+       exit;
+  end;
+  endt:=RiseSetInfo[month,day].moonset;
+  if (endt<startt) then begin
+     if day<MonthDays[IsLeapYear(year)][month] then
+       endt:=RiseSetInfo[month,day+1].moonset
+     else if month<12 then
+       endt:=RiseSetInfo[month+1,1].moonset
+     else
+       exit;
+  end;
+  // Rise and set label
   LabelRise1.Caption:='Rise :'+crlf+'Set :';
-  LabelRise2.Caption:=GridMonth.Cells[mcolRise,day]+' '+crlf+GridMonth.Cells[mcolSet,day];
+  LabelRise2.Caption:=FormatDateTime('mmm d  hh:nn:ss',startt+TimeZoneD)+' '+crlf+FormatDateTime('mmm d  hh:nn:ss',endt+TimeZoneD);
 
   // Alt-az graph
   ChartAltAzLineSeries1.Clear;
-  startt:=TMoonMonthData(GridMonth.Objects[0,day]).trise;
-  if startt=0 then begin
-     if day>1 then
-       startt:=TMoonMonthData(GridMonth.Objects[0,day-1]).trise
-     else
-       exit;
-  end;
-  startt:=startt-TimeZoneD;
-  endt:=TMoonMonthData(GridMonth.Objects[0,day]).tset;
-  if (endt<startt) then begin
-     if day<(GridMonth.RowCount-2) then
-       endt:=TMoonMonthData(GridMonth.Objects[0,day+1]).tset
-     else
-       exit;
-  end;
-  endt:=endt-TimeZoneD;
+  ChartAltAzLineSeries2.Clear;
+  ChartAltSunArea.Clear;
+  ChartAltAzCivilArea.Clear;
+  ChartAltAzNauticArea.Clear;
   dt:=startt-1/48;
   repeat
     dt:=dt+1/48;
@@ -1007,57 +1030,39 @@ begin
     end;
     el := el * rad2deg;
     az := rmod(az*rad2deg+360,360);
-    ChartAltAzLineSeries1.AddXY(az,el);
+    if trunc(dt+TimeZoneD)=trunc(startt+TimeZoneD) then
+      ChartAltAzLineSeries1.AddXY(frac(dt+TimeZoneD)*24,el)
+    else
+      ChartAltAzLineSeries2.AddXY(frac(dt+TimeZoneD)*24,el);
   until dt=endt;
+  step:=1/1440;
+  ChartAltSunArea.AddXY(frac(RiseSetInfo[month,day].sunrise+TimeZoneD)*24,90);
+  ChartAltSunArea.AddXY(frac(RiseSetInfo[month,day].sunset+TimeZoneD)*24,90);
+  ChartAltAzCivilArea.AddXY(frac(RiseSetInfo[month,day].civil1+TimeZoneD)*24,90);
+  ChartAltAzCivilArea.AddXY(frac(RiseSetInfo[month,day].civil2+TimeZoneD)*24,90);
+  ChartAltAzNauticArea.AddXY(frac(RiseSetInfo[month,day].nautic1+TimeZoneD)*24,90);
+  ChartAltAzNauticArea.AddXY(frac(RiseSetInfo[month,day].nautic2+TimeZoneD)*24,90);
+
+  // Phase image
+  img := TBitmap.Create;
+  i:=round(TMoonMonthData(GridMonth.Objects[0,day]).lunation);
+  ImageListPhase.GetBitmap(i, img);
+  DayPhase.Canvas.StretchDraw(DayPhase.ClientRect,img);
+  img.Free;
 
 end;
 
 procedure Tf_calclun.ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 var pointi: TPoint;
     pointg: TDoublePoint;
-    i: integer;
-    d,dx,dy,r,newx,newy,newtime,startt:double;
 begin
   if (x>5)and(x<(ChartAltAz.Width-5))and(y>5)and(y<(ChartAltAz.Height-5)) then begin
-  try
   // mouse position
   pointi.x:=X;
   pointi.y:=Y;
   pointg:=ChartAltAz.ImageToGraph(pointi);
-  // maximum search radius 5 pixel
-  r:=25;
-  newx:=-1;
-  newy:=-1;
-  newtime:=-1;
-  startt:=TMoonMonthData(GridMonth.Objects[0,SpinEditDay.Value]).trise;
-  if startt=0 then begin
-     if SpinEditDay.Value>1 then
-       startt:=TMoonMonthData(GridMonth.Objects[0,SpinEditDay.Value-1]).trise
-     else
-       exit;
-  end;
-  // search measured point
-  for i:=0 to ChartAltAzLineSeries1.Source.Count-1 do begin
-    dx:=X-ChartAltAz.XGraphToImage(ChartAltAzLineSeries1.Source.Item[i]^.X);
-    dy:=Y-ChartAltAz.YGraphToImage(ChartAltAzLineSeries1.Source.Item[i]^.Y);
-    d:=sqrt(dx*dx+dy*dy);
-    if d<r then begin
-      newx:=ChartAltAzLineSeries1.Source.Item[i]^.X;
-      newy:=ChartAltAzLineSeries1.Source.Item[i]^.Y;
-      newtime:=startt+i/48;
-      r:=d;
-    end;
-  end;
-  if (newx>0)and(newy>0) then begin
-    pointg.x:=newx;
-    pointg.y:=newy;
-  end;
   // show position
-  LabelAltAz.Caption:='';
-  if newtime>0 then LabelAltAz.Caption:=FormatDateTime('mm/dd hh:nn:ss',newtime)+': ';
-  LabelAltAz.Caption:=LabelAltAz.Caption+'Az:'+FormatFloat(f1,pointg.x)+' Alt:'+FormatFloat(f1,pointg.y);
-  except
-  end;
+  LabelAltAz.Caption:=FormatDateTime('hh:nn',pointg.x/24)+':  Alt:'+FormatFloat(f1,pointg.y);
   end else begin
     LabelAltAz.Caption:='';
   end;

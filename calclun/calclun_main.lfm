@@ -109,9 +109,9 @@ object f_calclun: Tf_calclun
     Height = 694
     Top = 56
     Width = 1200
-    ActivePage = TabSheetYear
+    ActivePage = TabSheetDay
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     object TabSheetYear: TTabSheet
       Caption = 'Year'
@@ -267,21 +267,21 @@ object f_calclun: Tf_calclun
         Height = 663
         Top = 0
         Width = 856
-        HorzScrollBar.Page = 777
-        VertScrollBar.Page = 661
+        HorzScrollBar.Page = 781
+        VertScrollBar.Page = 659
         Align = alClient
-        ClientHeight = 661
-        ClientWidth = 834
+        ClientHeight = 659
+        ClientWidth = 849
         TabOrder = 1
         object PanelYphase: TPanel
           Left = 0
           Height = 352
           Top = 0
-          Width = 834
+          Width = 849
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 352
-          ClientWidth = 834
+          ClientHeight = 348
+          ClientWidth = 845
           TabOrder = 1
           object GridYear: TStringGrid
             Left = 0
@@ -306,11 +306,11 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 392
           Top = 352
-          Width = 834
+          Width = 849
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 392
-          ClientWidth = 834
+          ClientHeight = 388
+          ClientWidth = 845
           TabOrder = 0
           object GridPhaseList: TStringGrid
             Left = 0
@@ -556,11 +556,17 @@ object f_calclun: Tf_calclun
             Caption = 'LabelRise1'
           end
           object LabelRise2: TLabel
-            Left = 136
+            Left = 100
             Height = 19
             Top = 16
             Width = 66
             Caption = 'LabelRise2'
+          end
+          object DayPhase: TImage
+            Left = 240
+            Height = 32
+            Top = 16
+            Width = 32
           end
         end
         object PanelAltAz: TPanel
@@ -590,16 +596,53 @@ object f_calclun: Tf_calclun
                 Minors = <>
                 Title.LabelBrush.Style = bsClear
               end>
+            BackColor = clBlack
+            Extent.UseXMax = True
+            Extent.UseXMin = True
             Extent.UseYMax = True
+            Extent.UseYMin = True
+            Extent.XMax = 24
             Extent.YMax = 90
+            Margins.Left = 0
+            Margins.Top = 0
+            Margins.Right = 0
+            Margins.Bottom = 0
             Title.Text.Strings = (
               'TAChart'
             )
             Align = alTop
             OnMouseMove = ChartAltAzMouseMove
             object ChartAltAzLineSeries1: TLineSeries
-              LinePen.Color = clBlue
+              ZPosition = 30
+              LinePen.Color = clYellow
               LinePen.Width = 2
+            end
+            object ChartAltAzLineSeries2: TLineSeries
+              ZPosition = 30
+              LinePen.Color = clYellow
+              LinePen.Width = 2
+            end
+            object ChartAltSunArea: TAreaSeries
+              ZPosition = 20
+              AreaBrush.Color = 15744060
+              AreaContourPen.Color = 15744060
+              AreaLinesPen.Color = 15744060
+            end
+            object ChartAltAzCivilArea: TAreaSeries
+              ZPosition = 18
+              AreaBrush.Color = 10496040
+              AreaContourPen.Color = 10496040
+              AreaLinesPen.Color = 10496040
+            end
+            object ChartAltAzNauticArea: TAreaSeries
+              ZPosition = 16
+              AreaBrush.Color = 6553616
+              AreaContourPen.Color = 6553616
+              AreaLinesPen.Color = 6553616
+            end
+            object ChartAltAzAstroArea: TAreaSeries
+              Active = False
+              AreaBrush.Color = clBlack
             end
           end
           object LabelAltAz: TLabel
@@ -619,14 +662,14 @@ object f_calclun: Tf_calclun
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 659
-        ClientWidth = 886
+        ClientHeight = 661
+        ClientWidth = 888
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 659
+          Height = 661
           Top = 0
-          Width = 886
+          Width = 888
           Align = alClient
           ColCount = 15
           DefaultColWidth = 120
