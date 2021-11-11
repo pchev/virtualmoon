@@ -43,6 +43,11 @@ virtualmoon/component/glscene/Packages/lib/
 virtualmoon/component/glscene/Locale
 virtualmoon/component/uniqueinstance/lib/
 virtualmoon/component/indiclient/lib/
+virtualmoon/component/downloaddialog/lib/
+virtualmoon/component/enhedits/lib/
+virtualmoon/component/lib/
+virtualmoon/component/libsql/lib/
+virtualmoon/component/synapse/source/lib/lib/
 weblun/units/
 weblun/weblun
 weblun/weblun.exe
@@ -50,6 +55,7 @@ calclun/lib/
 calclun/units/
 calclun/cspice/*.dll
 calclun/cspice/*.so
+calclun/cspice/libcspice.a
 calclun/cspice/SpiceZpl.h
 calclun/getcell.o*
 calclun/getcellwin32.o*
