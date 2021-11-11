@@ -11,10 +11,10 @@ obj_clean:
 	rm -f $(OBJ)
 
 cspice_all:
-	$(MAKE) -j -C cspice all
+	$(MAKE) -j -C cspice -f Makefile.cspice all
 
 cspice_clean:
-	$(MAKE) -C cspice clean
+	$(MAKE) -C cspice -f Makefile.cspice clean
 
 
 clean: cspice_clean obj_clean

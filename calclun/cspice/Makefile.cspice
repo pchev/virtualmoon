@@ -1,0 +1,39 @@
+# Common flags
+OSTYPE = $(shell uname)
+ifneq ($(findstring BSD,$(OSTYPE)),)
+CC            = cc
+else
+CC            = gcc
+endif
+
+CP = cp
+AR = ar
+RANLIB = ranlib
+
+LIBNAME = libcspice.a
+
+ifneq ($(findstring Darwin,$(OSTYPE)),)
+  CFLAGS        = -c -ansi -O2 -fPIC -DNON_UNIX_STDIO $(arch_flags) -Wno-implicit-function-declaration -mmacosx-version-min=10.6
+  SOLIBNAME = libcspice.dylib
+else  
+  CFLAGS        = -c -ansi -O2 -fPIC -DNON_UNIX_STDIO $(arch_flags)
+  SOLIBNAME = libcspice.so
+endif
+
+.PHONY: clean
+
+# Source files
+SRC=$(wildcard *.c)
+
+OBJ=$(SRC:.c=.o)
+
+all: Platform $(OBJ)
+	$(AR) cr $(LIBNAME) *.o
+	$(RANLIB) $(LIBNAME)
+	$(CC) -shared *.o -o $(SOLIBNAME)
+
+Platform:
+	$(CP) SpiceZpl-64.h SpiceZpl.h 
+
+clean:
+	rm -f $(OBJ) $(LIBNAME) $(SOLIBNAME) SpiceZpl.h
