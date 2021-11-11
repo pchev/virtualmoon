@@ -23,6 +23,7 @@ It permits also to study lunar formations with unique database and pictures libr
 /usr/bin/photlun
 /usr/bin/weblun
 /usr/bin/cclun
+/usr/bin/calclun
 /usr/share/applications/virtualmoon.desktop
 /usr/share/applications/cclun.desktop
 /usr/share/pixmaps/virtualmoon.xpm
