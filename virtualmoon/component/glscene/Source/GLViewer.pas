@@ -38,7 +38,9 @@ type
 
   TGLSceneViewer = class(GLLCLViewer.TGLSceneViewer)
   public
+    {$IFDEF MSWINDOWS}
     class procedure WSRegisterClass; override;
+    {$endif}
   end;
 
 

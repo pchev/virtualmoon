@@ -227,7 +227,9 @@ begin
   if Registered then
     Exit;
   inherited WSRegisterClass;
+  {$ifdef mswindows}
   RegisterWSComponent(TGLSceneForm, TGLSOpenGLForm);
+  {$endif}
   Registered := True;
 end;
 
