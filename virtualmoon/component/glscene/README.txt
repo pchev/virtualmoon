@@ -1,9 +1,12 @@
-This directory contain a subset of Glscene copied from 
-https://glscene.svn.sourceforge.net/svnroot/glscene/trunk 
-at revision 7133.
+This directory contain a copy of GlScene from 
+https://sourceforge.net/p/glscene/
 
-GLScene source code is available from the project GLScene 
-at http://glscene.org or http://sourceforge.net/projects/glscene
+The command used to get the code is:
+svn export  https://svn.code.sf.net/p/glscene/code/branches/GLSceneLCL glscene
 
-In addition it contain a makefile for build convenience 
+The patch file Complete.patch is necessary to make it work with Lazarus 2.2.0
+Apply the patch with the command:
+patch -p0 < Complete.patch
+
+In addition it contain a makefile for build convenience on the linux build server.
 

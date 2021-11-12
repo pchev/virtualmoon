@@ -9,7 +9,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="..\Source"/>
-        <OtherUnitFiles Value="..\Source\PhysicsAPIs"/>
+        <OtherUnitFiles Value="..\Source"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Parsing>
@@ -22,15 +22,15 @@
     <Description Value="GLScene Physic Newton Engine Support"/>
     <Files Count="3">
       <Item1>
-        <Filename Value="..\Source\PhysicsAPIs\GLNGDManager.pas"/>
+        <Filename Value="..\Source\GLNGDManager.pas"/>
         <UnitName Value="GLNGDManager"/>
       </Item1>
       <Item2>
-        <Filename Value="..\Source\PhysicsAPIs\NewtonImport.pas"/>
+        <Filename Value="..\Source\NewtonImport.pas"/>
         <UnitName Value="NewtonImport"/>
       </Item2>
       <Item3>
-        <Filename Value="..\Source\PhysicsAPIs\GLPhysicNewtonRegister.pas"/>
+        <Filename Value="..\Source\GLPhysicNewtonRegister.pas"/>
         <HasRegisterProc Value="True"/>
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLPhysicNewtonRegister"/>

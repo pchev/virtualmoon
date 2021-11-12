@@ -22,12 +22,12 @@
     <Version Major="1" Build="3"/>
     <Files Count="2">
       <Item1>
-        <Filename Value="../Source/GameAPIs/GLSDLWindow.pas"/>
+        <Filename Value="../Source/GLSDLWindow.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="GLSDLWindow"/>
       </Item1>
       <Item2>
-        <Filename Value="../Source/GameAPIs/GLSDLContext.pas"/>
+        <Filename Value="../Source/GLSDLContext.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="GLSDLContext"/>
       </Item2>

@@ -9,7 +9,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="..\Source"/>
-        <OtherUnitFiles Value="..\Source\PhysicsAPIs"/>
+        <OtherUnitFiles Value="..\Source"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\"/>
       </SearchPaths>
       <Parsing>
@@ -22,27 +22,27 @@
     <Description Value="GLScene Physic Native objects"/>
     <Files Count="6">
       <Item1>
-        <Filename Value="..\Source\PhysicsAPIs\GLForceFields.pas"/>
+        <Filename Value="..\Source\GLForceFields.pas"/>
         <UnitName Value="GLForceFields"/>
       </Item1>
       <Item2>
-        <Filename Value="..\Source\PhysicsAPIs\GLForces.pas"/>
+        <Filename Value="..\Source\GLForces.pas"/>
         <UnitName Value="GLForces"/>
       </Item2>
       <Item3>
-        <Filename Value="..\Source\PhysicsAPIs\GLInertias.pas"/>
+        <Filename Value="..\Source\GLInertias.pas"/>
         <UnitName Value="GLInertias"/>
       </Item3>
       <Item4>
-        <Filename Value="..\Source\PhysicsAPIs\GLJoints.pas"/>
+        <Filename Value="..\Source\GLJoints.pas"/>
         <UnitName Value="GLJoints"/>
       </Item4>
       <Item5>
-        <Filename Value="..\Source\PhysicsAPIs\GLPhysics.pas"/>
+        <Filename Value="..\Source\GLPhysics.pas"/>
         <UnitName Value="GLPhysics"/>
       </Item5>
       <Item6>
-        <Filename Value="..\Source\PhysicsAPIs\GLPhysicsRegister.pas"/>
+        <Filename Value="..\Source\GLPhysicsRegister.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="GLPhysicsRegister"/>
       </Item6>
