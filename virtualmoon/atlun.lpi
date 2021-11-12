@@ -62,6 +62,9 @@
             <TargetOS Value="win32"/>
           </CodeGeneration>
           <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2"/>
+            </Debugging>
             <Options>
               <Win32>
                 <GraphicApplication Value="True"/>
