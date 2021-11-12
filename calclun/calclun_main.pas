@@ -64,6 +64,7 @@ type
     LabelChartYear: TLabel;
     DateChangeTimer: TTimer;
     Memo1: TMemo;
+    GridLibrationList: TStringGrid;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -490,9 +491,10 @@ var
   nfind: SpiceInt;
   et0,et1: SpiceDouble;
   yy,mm,dd: Word;
-  x,y,z,sx,sy,sz,sr,ra,de : SpiceDouble;
+  x,y,z,sx,sy,sz,sr,ra,de,llon,llat : SpiceDouble;
   dtr, dts, dtz: double;
   obsref: ConstSpiceChar;
+  fixref,coord,relate: ConstSpiceChar;
 begin
   LabelChartYear.Caption:='';
   GridYear.ColWidths[0]:=100;
@@ -503,6 +505,10 @@ begin
   GridPhaseList.Cells[1,0]:='First quarter';
   GridPhaseList.Cells[2,0]:='Full Moon';
   GridPhaseList.Cells[3,0]:='Last quarter';
+  GridLibrationList.Cells[0,0]:='East';
+  GridLibrationList.Cells[1,0]:='West';
+  GridLibrationList.Cells[2,0]:='North';
+  GridLibrationList.Cells[3,0]:='South';
   // phase table
   reset_c;
   year:=SpinEditYear.Value;
@@ -637,6 +643,101 @@ begin
 
   PlotYearGraph;
 
+  // Libration extrema for the year
+  Pcnfine:=initdoublecell(1);
+  Presult:=initdoublecell(2);
+  dt:=EncodeDate(year,1,1);
+  et:=DateTime2ET(dt);
+  et0:=et;
+  et1:=et0+366*SecsPerDay;
+  wninsd_c ( et0, et1, Pcnfine );
+  // expand by one day for the case the moon is already rised at the start of first interval
+  wnexpd_c ( SecsPerDay, SecsPerDay, Pcnfine );
+  fixref:=fixrefME;
+  coord:='LONGITUDE';
+  relate:='LOCMIN';
+  refval:=0;
+  if not MoonSearchLibration(coord,refval,relate,fixref,nfind,Pcnfine,Presult) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  r:=1;
+  if nfind>1 then for i:=0 to nfind-1 do begin
+    wnfetd_c(Presult,i,x,y);
+    dtr:=ET2DateTime(x);
+    if not MoonSubEarthPoint(x,fixref,sx,sy,sz,sr,llon,llat) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    GridLibrationList.Cells[1,r]:=FormatDateTime('mm/dd',dtr+GetTimeZoneD(dtr))+' '+DEmToStr(llon*rad2deg);
+    inc(r);
+    if r>=GridLibrationList.RowCount then break;
+  end;
+  scard_c (0, Presult);
+  fixref:=fixrefME;
+  coord:='LONGITUDE';
+  relate:='LOCMAX';
+  refval:=0;
+  if not MoonSearchLibration(coord,refval,relate,fixref,nfind,Pcnfine,Presult) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  r:=1;
+  if nfind>1 then for i:=0 to nfind-1 do begin
+    wnfetd_c(Presult,i,x,y);
+    dtr:=ET2DateTime(x);
+    if not MoonSubEarthPoint(x,fixref,sx,sy,sz,sr,llon,llat) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    GridLibrationList.Cells[0,r]:=FormatDateTime('mm/dd',dtr+GetTimeZoneD(dtr))+' '+DEmToStr(llon*rad2deg);
+    inc(r);
+    if r>=GridLibrationList.RowCount then break;
+  end;
+  scard_c (0, Presult);
+  fixref:=fixrefME;
+  coord:='LATITUDE';
+  relate:='LOCMIN';
+  refval:=0;
+  if not MoonSearchLibration(coord,refval,relate,fixref,nfind,Pcnfine,Presult) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  r:=1;
+  if nfind>1 then for i:=0 to nfind-1 do begin
+    wnfetd_c(Presult,i,x,y);
+    dtr:=ET2DateTime(x);
+    if not MoonSubEarthPoint(x,fixref,sx,sy,sz,sr,llon,llat) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    GridLibrationList.Cells[3,r]:=FormatDateTime('mm/dd',dtr+GetTimeZoneD(dtr))+' '+DEmToStr(llat*rad2deg);
+    inc(r);
+    if r>=GridLibrationList.RowCount then break;
+  end;
+  scard_c (0, Presult);
+  fixref:=fixrefME;
+  coord:='LATITUDE';
+  relate:='LOCMAX';
+  refval:=0;
+  if not MoonSearchLibration(coord,refval,relate,fixref,nfind,Pcnfine,Presult) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  r:=1;
+  if nfind>1 then for i:=0 to nfind-1 do begin
+    wnfetd_c(Presult,i,x,y);
+    dtr:=ET2DateTime(x);
+    if not MoonSubEarthPoint(x,fixref,sx,sy,sz,sr,llon,llat) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    GridLibrationList.Cells[2,r]:=FormatDateTime('mm/dd',dtr+GetTimeZoneD(dtr))+' '+DEmToStr(llat*rad2deg);
+    inc(r);
+    if r>=GridLibrationList.RowCount then break;
+  end;
+  scard_c (0, Pcnfine);
+  scard_c (0, Presult);
 end;
 
 procedure Tf_calclun.PlotYearGraph;
@@ -1706,6 +1807,7 @@ begin
   scard_c (0, sc2);
   scard_c (0, scresult);
 end;
+
 
 procedure Tf_calclun.FindLibration;
 var fixref: ConstSpiceChar;
