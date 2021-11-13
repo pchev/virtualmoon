@@ -9,7 +9,6 @@ object f_calclun: Tf_calclun
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '2.2.0.3'
   object PanelTop: TPanel
     Left = 0
     Height = 56
@@ -110,9 +109,9 @@ object f_calclun: Tf_calclun
     Height = 784
     Top = 56
     Width = 1335
-    ActivePage = TabSheetYear
+    ActivePage = TabSheetMonth
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object TabSheetYear: TTabSheet
       Caption = 'Year'
@@ -120,11 +119,11 @@ object f_calclun: Tf_calclun
       ClientWidth = 1325
       object PanelYRight: TPanel
         Left = 991
-        Height = 753
+        Height = 750
         Top = 0
         Width = 334
         Align = alRight
-        ClientHeight = 753
+        ClientHeight = 750
         ClientWidth = 334
         TabOrder = 0
         object ChartYear: TChart
@@ -269,24 +268,24 @@ object f_calclun: Tf_calclun
       end
       object ScrollBoxY: TScrollBox
         Left = 0
-        Height = 753
+        Height = 750
         Top = 0
         Width = 991
-        HorzScrollBar.Page = 964
+        HorzScrollBar.Page = 968
         VertScrollBar.Page = 744
         Align = alClient
-        ClientHeight = 751
-        ClientWidth = 989
+        ClientHeight = 746
+        ClientWidth = 987
         TabOrder = 1
         object PanelYphase: TPanel
           Left = 0
           Height = 352
           Top = 0
-          Width = 989
+          Width = 987
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 352
-          ClientWidth = 989
+          ClientHeight = 348
+          ClientWidth = 983
           TabOrder = 1
           object GridYear: TStringGrid
             Left = 0
@@ -311,15 +310,15 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 392
           Top = 352
-          Width = 989
+          Width = 987
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 392
-          ClientWidth = 989
+          ClientHeight = 388
+          ClientWidth = 983
           TabOrder = 0
           object GridPhaseList: TStringGrid
             Left = 0
-            Height = 392
+            Height = 388
             Top = 0
             Width = 480
             Align = alLeft
@@ -332,7 +331,7 @@ object f_calclun: Tf_calclun
           end
           object GridLibrationList: TStringGrid
             Left = 484
-            Height = 392
+            Height = 388
             Top = 0
             Width = 480
             Align = alLeft
@@ -353,18 +352,18 @@ object f_calclun: Tf_calclun
       ClientWidth = 1325
       object PanelLeft: TPanel
         Left = 0
-        Height = 753
+        Height = 750
         Top = 0
         Width = 975
         Align = alClient
-        ClientHeight = 753
-        ClientWidth = 975
+        ClientHeight = 746
+        ClientWidth = 971
         TabOrder = 0
         object GridMonth: TStringGrid
           Left = 1
-          Height = 751
+          Height = 744
           Top = 1
-          Width = 973
+          Width = 969
           Align = alClient
           DefaultColWidth = 120
           Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goThumbTracking, goSmoothScroll, goHeaderHotTracking, goHeaderPushedLook, goFixedColSizing]
@@ -374,32 +373,32 @@ object f_calclun: Tf_calclun
       end
       object PanelRight: TPanel
         Left = 975
-        Height = 753
+        Height = 750
         Top = 0
         Width = 350
         Align = alRight
-        ClientHeight = 753
-        ClientWidth = 350
+        ClientHeight = 746
+        ClientWidth = 346
         TabOrder = 1
         object ScrollBoxM: TScrollBox
           Left = 1
-          Height = 751
+          Height = 744
           Top = 1
-          Width = 348
+          Width = 344
           HorzScrollBar.Page = 251
-          VertScrollBar.Page = 743
+          VertScrollBar.Page = 740
           Align = alClient
-          ClientHeight = 747
-          ClientWidth = 344
+          ClientHeight = 740
+          ClientWidth = 340
           TabOrder = 0
           object PanelPhase: TPanel
             Left = 0
             Height = 135
             Top = 0
-            Width = 344
+            Width = 340
             Align = alTop
             ClientHeight = 131
-            ClientWidth = 340
+            ClientWidth = 336
             TabOrder = 0
             object LabelPhase1: TLabel
               Left = 16
@@ -420,17 +419,17 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 210
             Top = 185
-            Width = 344
+            Width = 340
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 210
-            ClientWidth = 344
+            ClientHeight = 206
+            ClientWidth = 336
             TabOrder = 1
             object Chart1: TChart
               Left = 0
               Height = 206
               Top = 0
-              Width = 340
+              Width = 336
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -464,18 +463,18 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 348
             Top = 395
-            Width = 344
+            Width = 340
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 348
-            ClientWidth = 344
+            ClientHeight = 344
+            ClientWidth = 336
             TabOrder = 2
             Visible = False
             object Chart2: TChart
               Left = 0
               Height = 344
               Top = 0
-              Width = 340
+              Width = 336
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -527,11 +526,11 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 50
             Top = 135
-            Width = 344
+            Width = 340
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 50
-            ClientWidth = 344
+            ClientHeight = 46
+            ClientWidth = 336
             TabOrder = 3
             object BtnGraph: TButton
               Left = 16
@@ -552,11 +551,11 @@ object f_calclun: Tf_calclun
       ClientWidth = 1325
       object PanelDRight: TPanel
         Left = 1025
-        Height = 753
+        Height = 750
         Top = 0
         Width = 300
         Align = alRight
-        ClientHeight = 753
+        ClientHeight = 750
         ClientWidth = 300
         TabOrder = 0
         object PanelRiseSet: TPanel
@@ -565,8 +564,8 @@ object f_calclun: Tf_calclun
           Top = 1
           Width = 298
           Align = alTop
-          ClientHeight = 74
-          ClientWidth = 298
+          ClientHeight = 70
+          ClientWidth = 294
           TabOrder = 0
           object LabelRise1: TLabel
             Left = 16
@@ -676,18 +675,18 @@ object f_calclun: Tf_calclun
       end
       object ScrollBoxD: TScrollBox
         Left = 0
-        Height = 753
+        Height = 750
         Top = 0
         Width = 1025
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 749
+        ClientHeight = 746
         ClientWidth = 1021
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 749
+          Height = 746
           Top = 0
           Width = 1021
           Align = alClient
@@ -887,7 +886,7 @@ object f_calclun: Tf_calclun
       end
       object Memo1: TMemo
         Left = 0
-        Height = 647
+        Height = 644
         Top = 106
         Width = 1325
         Align = alClient
@@ -905,8 +904,8 @@ object f_calclun: Tf_calclun
     Top = 840
     Width = 1335
     Align = alBottom
-    ClientHeight = 50
-    ClientWidth = 1335
+    ClientHeight = 46
+    ClientWidth = 1331
     TabOrder = 2
     object StatusLabel: TLabel
       Left = 8
