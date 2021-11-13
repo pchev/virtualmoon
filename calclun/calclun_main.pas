@@ -24,8 +24,9 @@ type
     ra2000,de2000,ra,de,dist,diam,phase,lunation,illum,colong,subsollat,librlong,librlat,pa,trise,tset: double;
   end;
 
-  TRiseSetInfo = record  // all time are local time
+  TYearInfo = record  // all time are UT
     tz: double;
+    moonra,moondec,sunra,sundec: double;
     moonrise,moonset,sunrise,sunset: double;
     astro1,astro2,nautic1,nautic2,civil1,civil2: double;
   end;
@@ -160,7 +161,7 @@ type
     obspos: TDouble3;
     tz: TCdCTimeZone;
     FCurrentMonthGraph: integer;
-    RiseSetInfo: array[1..12,1..31] of TRiseSetInfo;
+    YearInfo: array[1..12,1..31] of TYearInfo;
     procedure SetLang;
     procedure GetAppDir;
     procedure SetKernelsPath;
@@ -541,7 +542,7 @@ end;
 procedure Tf_calclun.ComputeYear;
 var
   t1,dt,nm,fq,fm,lq,lunation,jd0,ct1,ct2: double;
-  i,j,k,r: integer;
+  i,j,k,r,nd: integer;
   year: Word;
   newmoon: array[0..14] of double;
   refval: SpiceDouble;
@@ -602,15 +603,16 @@ begin
 
   // initialize timezone
   dtz:=GetTimeZoneD(EncodeDate(year,1,1)+0.5);
-  FillByte(RiseSetInfo,12*31*sizeof(TRiseSetInfo),0);
+  FillByte(YearInfo,12*31*sizeof(TYearInfo),0);
   for i:=1 to 12 do begin
     for j:=1 to 31 do begin
       if j<=MonthDays[IsLeapYear(year)][i] then
-         RiseSetInfo[i,j].tz:=GetTimeZoneD(EncodeDate(year,i,j)+0.5)
+         YearInfo[i,j].tz:=GetTimeZoneD(EncodeDate(year,i,j)+0.5)
       else
-         RiseSetInfo[i,j].tz:=dtz;
+         YearInfo[i,j].tz:=dtz;
     end;
   end;
+
   // Moon rise and set for the year
   Pcnfine:=initdoublecell(1);
   Presult:=initdoublecell(2);
@@ -631,11 +633,11 @@ begin
     dtr:=ET2DateTime(x);
     DecodeDate(dtr,yy,mm,dd);
     if yy=year then
-      RiseSetInfo[mm,dd].moonrise:=dtr;
+      YearInfo[mm,dd].moonrise:=dtr;
     dts:=ET2DateTime(y);
     DecodeDate(dts,yy,mm,dd);
     if yy=year then
-      RiseSetInfo[mm,dd].moonset:=dts;
+      YearInfo[mm,dd].moonset:=dts;
   end;
   scard_c (0, Pcnfine);
   scard_c (0, Presult);
@@ -660,32 +662,60 @@ begin
     dtr:=ET2DateTime(x);
     DecodeDate(dtr,yy,mm,dd);
     if yy=year then begin
-      RiseSetInfo[mm,dd].sunrise:=dtr;
-      // twilight
-      x:=DateTime2ET(trunc(dtr)+0.5); // mean position at noon
-      if not SunTopocentric(x,true,obspos,obsref,sx,sy,sz,sr,ra,de) then begin
-        StatusLabel.Caption:=SpiceLastError;
-        exit;
-      end;
-      jd0:=Jd(yy,mm,dd,0);
-      Time_Alt(jd0,ra,de,-18,ct1,ct2,ObsLatitude,ObsLongitude);
-      if abs(ct1)<=24 then RiseSetInfo[mm,dd].astro1:=trunc(dtr)+rmod(ct1+dtz+24,24)/24 else RiseSetInfo[mm,dd].astro1:=ct1;
-      if abs(ct2)<=24 then RiseSetInfo[mm,dd].astro2:=trunc(dtr)+rmod(ct2+dtz+24,24)/24 else RiseSetInfo[mm,dd].astro2:=ct2;
-      Time_Alt(jd0,ra,de,-12,ct1,ct2,ObsLatitude,ObsLongitude);
-      if abs(ct1)<=24 then RiseSetInfo[mm,dd].nautic1:=trunc(dtr)+rmod(ct1+dtz+24,24)/24 else RiseSetInfo[mm,dd].nautic1:=ct1;
-      if abs(ct2)<=24 then RiseSetInfo[mm,dd].nautic2:=trunc(dtr)+rmod(ct2+dtz+24,24)/24 else RiseSetInfo[mm,dd].nautic2:=ct2;
-      Time_Alt(jd0,ra,de,-6,ct1,ct2,ObsLatitude,ObsLongitude);
-      if abs(ct1)<=24 then RiseSetInfo[mm,dd].civil1:=trunc(dtr)+rmod(ct1+dtz+24,24)/24 else RiseSetInfo[mm,dd].civil1:=ct1;
-      if abs(ct2)<=24 then RiseSetInfo[mm,dd].civil2:=trunc(dtr)+rmod(ct2+dtz+24,24)/24 else RiseSetInfo[mm,dd].civil2:=ct2;
-    end;
+      YearInfo[mm,dd].sunrise:=dtr;
+     end;
     dts:=ET2DateTime(y);
     DecodeDate(dts,yy,mm,dd);
     if yy=year then begin
-      RiseSetInfo[mm,dd].sunset:=dts;
+      YearInfo[mm,dd].sunset:=dts;
     end;
   end;
   scard_c (0, Pcnfine);
   scard_c (0, Presult);
+
+  // sun and moon geocentric position and twilight
+  for i:=1 to 12 do begin
+    nd:=MonthDays[IsLeapYear(year)][i];
+    for j:=1 to 31 do begin
+      if j<=nd then begin
+        dt:=EncodeDate(year,i,j);
+        et:=DateTime2ET(dt);
+        if not SunTopocentric(et,true,obspos,obsref,sx,sy,sz,sr,ra,de) then begin
+          StatusLabel.Caption:=SpiceLastError;
+          exit;
+        end;
+        // twilight
+        jd0:=Jd(year,i,j,0);
+        Time_Alt(jd0,ra,de,-18,ct1,ct2,ObsLatitude,ObsLongitude);
+        if abs(ct1)<=24 then YearInfo[i,j].astro1:=trunc(dt)+rmod(ct1+dtz+24,24)/24 else YearInfo[i,j].astro1:=0;
+        if abs(ct2)<=24 then YearInfo[i,j].astro2:=trunc(dt)+rmod(ct2+dtz+24,24)/24 else YearInfo[i,j].astro2:=0;
+        Time_Alt(jd0,ra,de,-12,ct1,ct2,ObsLatitude,ObsLongitude);
+        if abs(ct1)<=24 then YearInfo[i,j].nautic1:=trunc(dt)+rmod(ct1+dtz+24,24)/24 else YearInfo[i,j].nautic1:=0;
+        if abs(ct2)<=24 then YearInfo[i,j].nautic2:=trunc(dt)+rmod(ct2+dtz+24,24)/24 else YearInfo[i,j].nautic2:=0;
+        Time_Alt(jd0,ra,de,-6,ct1,ct2,ObsLatitude,ObsLongitude);
+        if abs(ct1)<=24 then YearInfo[i,j].civil1:=trunc(dt)+rmod(ct1+dtz+24,24)/24 else YearInfo[i,j].civil1:=0;
+        if abs(ct2)<=24 then YearInfo[i,j].civil2:=trunc(dt)+rmod(ct2+dtz+24,24)/24 else YearInfo[i,j].civil2:=0;
+        YearInfo[i,j].sunra:=ra;
+        YearInfo[i,j].sundec:=de;
+        if not MoonTopocentric(et,true,obspos,obsref,sx,sy,sz,sr,ra,de) then begin
+          StatusLabel.Caption:=SpiceLastError;
+          exit;
+        end;
+        YearInfo[i,j].moonra:=ra;
+        YearInfo[i,j].moondec:=de;
+        // fix incoherent value near circum-polar limit
+        if (YearInfo[i,j].sunrise=0)and(YearInfo[i,j].sunset<>0)and(j>1) then YearInfo[i,j].sunrise:=YearInfo[i,j-1].sunrise;
+        if (YearInfo[i,j].sunset=0)and(YearInfo[i,j].sunrise<>0)and(j>1) then YearInfo[i,j].sunset:=YearInfo[i,j-1].sunset;
+        if (YearInfo[i,j].astro1=0)and(YearInfo[i,j].astro2<>0)and(j>1) then YearInfo[i,j].astro1:=YearInfo[i,j-1].astro1;
+        if (YearInfo[i,j].astro2=0)and(YearInfo[i,j].astro1<>0)and(j>1) then YearInfo[i,j].astro2:=YearInfo[i,j-1].astro2;
+        if (YearInfo[i,j].nautic1=0)and(YearInfo[i,j].nautic2<>0)and(j>1) then YearInfo[i,j].nautic1:=YearInfo[i,j-1].nautic1;
+        if (YearInfo[i,j].nautic2=0)and(YearInfo[i,j].nautic1<>0)and(j>1) then YearInfo[i,j].nautic2:=YearInfo[i,j-1].nautic2;
+        if (YearInfo[i,j].civil1=0)and(YearInfo[i,j].civil2<>0)and(j>1) then YearInfo[i,j].civil1:=YearInfo[i,j-1].civil1;
+        if (YearInfo[i,j].civil2=0)and(YearInfo[i,j].civil1<>0)and(j>1) then YearInfo[i,j].civil2:=YearInfo[i,j-1].civil2;
+      end;
+
+    end;
+  end;
 
   PlotYearGraph;
 
@@ -805,36 +835,112 @@ begin
   for i:=1 to 12 do begin
     for j:=1 to MonthDays[IsLeapYear(SpinEditYear.Value)][i] do begin
       d:=EncodeDate(SpinEditYear.Value,i,j);
-      val:=24*frac(RiseSetInfo[i,j].astro1+dtz);
-      ChartYearSeriesAstro1.AddXY(d,val);
-      val:=24*frac(RiseSetInfo[i,j].nautic1+dtz);
-      ChartYearSeriesNautic1.AddXY(d,val);
-      val:=24*frac(RiseSetInfo[i,j].sunrise+dtz);
-      ChartYearSeriesSunrise.AddXY(d,val);
-      val:=24*frac(RiseSetInfo[i,j].sunset+dtz)-24;
-      ChartYearSeriesSunset.AddXY(d,val);
-      val:=24*frac(RiseSetInfo[i,j].nautic2+dtz)-24;
-      ChartYearSeriesNautic2.AddXY(d,val);
-      val:=24*frac(RiseSetInfo[i,j].astro2+dtz)-24;
-      ChartYearSeriesAstro2.AddXY(d,val);
+      if (YearInfo[i,j].sunrise=0)or(YearInfo[i,j].sunset=0) then begin
+       // no sun rise/set
+       if sign(YearInfo[i,j].sundec)=sign(ObsLatitude) then begin
+          // sun always visible
+          ChartYearSeriesAstro1.AddXY(d,-12);
+          ChartYearSeriesAstro2.AddXY(d,-12);
+          ChartYearSeriesNautic1.AddXY(d,-12);
+          ChartYearSeriesNautic2.AddXY(d,-12);
+          ChartYearSeriesSunrise.AddXY(d,-12);
+          ChartYearSeriesSunset.AddXY(d,-12);
+       end
+       else begin
+         // sun do not rise
+         if (YearInfo[i,j].astro1=0)or(YearInfo[i,j].astro2=0) then begin
+           // no astro twilight
+           ChartYearSeriesAstro1.AddXY(d,12);
+           ChartYearSeriesAstro2.AddXY(d,-12);
+           ChartYearSeriesNautic1.AddXY(d,-12);
+           ChartYearSeriesNautic2.AddXY(d,-12);
+           ChartYearSeriesSunrise.AddXY(d,-12);
+           ChartYearSeriesSunset.AddXY(d,-12);
+         end
+         else begin
+           // astro twilight
+           ChartYearSeriesAstro1.AddXY(d,24*frac(YearInfo[i,j].astro1+dtz));
+           ChartYearSeriesAstro2.AddXY(d,24*frac(YearInfo[i,j].astro2+dtz)-24);
+           if (YearInfo[i,j].nautic1=0)or(YearInfo[i,j].nautic2=0) then begin
+             // no nautic twilight
+             ChartYearSeriesNautic1.AddXY(d,12);
+             ChartYearSeriesNautic2.AddXY(d,-12);
+             ChartYearSeriesSunrise.AddXY(d,-12);
+             ChartYearSeriesSunset.AddXY(d,-12);
+           end
+           else begin
+             // nautic twilight
+             ChartYearSeriesNautic1.AddXY(d,24*frac(YearInfo[i,j].nautic1+dtz));
+             ChartYearSeriesNautic2.AddXY(d,24*frac(YearInfo[i,j].nautic2+dtz)-24);
+             ChartYearSeriesSunrise.AddXY(d,12);
+             ChartYearSeriesSunset.AddXY(d,-12);
+           end
+         end
+       end
+      end
+      else begin
+        // sun rise and set
+        ChartYearSeriesSunrise.AddXY(d,24*frac(YearInfo[i,j].sunrise+dtz));
+        ChartYearSeriesSunset.AddXY(d,24*frac(YearInfo[i,j].sunset+dtz)-24);
+        if (YearInfo[i,j].astro1=0)or(YearInfo[i,j].astro2=0) then begin
+          // no astro twilight
+          ChartYearSeriesAstro1.AddXY(d,-12);
+          ChartYearSeriesAstro2.AddXY(d,-12);
+          if (YearInfo[i,j].nautic1=0)or(YearInfo[i,j].nautic2=0) then begin
+            // no nautic twilight
+            ChartYearSeriesNautic1.AddXY(d,-12);
+            ChartYearSeriesNautic2.AddXY(d,-12);
+          end
+          else begin
+            //  nautic twilight
+            ChartYearSeriesNautic1.AddXY(d,24*frac(YearInfo[i,j].nautic1+dtz));
+            ChartYearSeriesNautic2.AddXY(d,24*frac(YearInfo[i,j].nautic2+dtz)-24);
+            end
+        end
+        else begin
+          // all twilight
+          ChartYearSeriesAstro1.AddXY(d,24*frac(YearInfo[i,j].astro1+dtz));
+          ChartYearSeriesNautic1.AddXY(d,24*frac(YearInfo[i,j].nautic1+dtz));
+          ChartYearSeriesNautic2.AddXY(d,24*frac(YearInfo[i,j].nautic2+dtz)-24);
+          ChartYearSeriesAstro2.AddXY(d,24*frac(YearInfo[i,j].astro2+dtz)-24);
+        end;
+      end;
       // moon luminosity in 0-255 range
       k:=StrToIntDef(GridYear.Cells[j,i],k);
       if k<15 then l:=k*17
               else l:=(30-k)*17;
-      // moon rise set local time
-      moonrise:=24*frac(RiseSetInfo[i,j].moonrise+dtz);
-      moonset:=24*frac(RiseSetInfo[i,j].moonset+dtz);
-      // in -12 +12 range
-      if moonrise>12 then moonrise:=moonrise-24;
-      if moonset>12 then moonset:=moonset-24;
-      if (moonrise<moonset) then begin
-        // single bar
-        ChartYearBoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,moonset,moonset,'',RGBToColor(l,l,0));
+      // check if moon rise and set
+      if (YearInfo[i,j].moonrise=0)and(YearInfo[i,j].moonset=0) then begin
+        if Sign(YearInfo[i,j].moondec)=sign(ObsLatitude) then begin
+          // always up
+          moonrise:=-12;
+          moonset:=12;
+          ChartYearBoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,moonset,moonset,'',RGBToColor(l,l,0));
+          ChartYearBoxAndWhiskerSeries2.AddXY(d,0,0,0,0,0);
+        end
+        else begin
+          // no rise
+          ChartYearBoxAndWhiskerSeries1.AddXY(d,0,0,0,0,0);
+          ChartYearBoxAndWhiskerSeries2.AddXY(d,0,0,0,0,0);
+        end;
       end
       else begin
-        // split in two bar
-        ChartYearBoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,12,12,'',RGBToColor(l,l,0));
-        ChartYearBoxAndWhiskerSeries2.AddXY(d,-12,-12,-12,moonset,moonset,'',RGBToColor(l,l,0));
+        // moon rise set local time
+        moonrise:=24*frac(YearInfo[i,j].moonrise+dtz);
+        moonset:=24*frac(YearInfo[i,j].moonset+dtz);
+        // in -12 +12 range
+        if moonrise>12 then moonrise:=moonrise-24;
+        if moonset>12 then moonset:=moonset-24;
+        if (moonrise<moonset) then begin
+          // single bar
+          ChartYearBoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,moonset,moonset,'',RGBToColor(l,l,0));
+          ChartYearBoxAndWhiskerSeries2.AddXY(d,0,0,0,0,0);
+        end
+        else begin
+          // split in two bar
+          ChartYearBoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,12,12,'',RGBToColor(l,l,0));
+          ChartYearBoxAndWhiskerSeries2.AddXY(d,-12,-12,-12,moonset,moonset,'',RGBToColor(l,l,0));
+        end;
       end;
     end;
   end;
@@ -1007,22 +1113,29 @@ begin
      GridMonth.Cells[mcolIllum,i]:=FormatFloat(f1,100*data.illum);
 
      // Rise and set
-     dtr:=RiseSetInfo[month,i].moonrise;
-     if dtr>0 then begin
-       dtr:=dtr+RiseSetInfo[month,i].tz;
-       DecodeDate(dtr,rsy,rsm,rsd);
-       if (rsy=year)and(rsm=month) then begin
-         TMoonMonthData(GridMonth.Objects[0,rsd]).trise:=dtr;
-         GridMonth.Cells[mcolRise,rsd]:=TimToStr(frac(dtr)*24);
+     dtr:=YearInfo[month,i].moonrise;
+     dts:=YearInfo[month,i].moonset;
+     if (dtr=0)and(dts=0) then begin  // no rise/set
+       if Sign(YearInfo[month,i].moondec)=sign(ObsLatitude) then
+         GridMonth.Cells[mcolRise,i]:='Always up'
+       else
+         GridMonth.Cells[mcolRise,i]:='Never rise';
+     end else begin
+       if dtr>0 then begin
+         dtr:=dtr+YearInfo[month,i].tz;
+         DecodeDate(dtr,rsy,rsm,rsd);
+         if (rsy=year)and(rsm=month) then begin
+           TMoonMonthData(GridMonth.Objects[0,rsd]).trise:=dtr;
+           GridMonth.Cells[mcolRise,rsd]:=TimToStr(frac(dtr)*24);
+         end;
        end;
-     end;
-     dts:=RiseSetInfo[month,i].moonset;
-     if dts>0 then begin
-       dts:=dts+RiseSetInfo[month,i].tz;
-       DecodeDate(dts,rsy,rsm,rsd);
-       if (rsy=year)and(rsm=month) then begin
-         TMoonMonthData(GridMonth.Objects[0,rsd]).tset:=dts;
-         GridMonth.Cells[mcolSet,rsd]:=TimToStr(frac(dts)*24);
+       if dts>0 then begin
+         dts:=dts+YearInfo[month,i].tz;
+         DecodeDate(dts,rsy,rsm,rsd);
+         if (rsy=year)and(rsm=month) then begin
+           TMoonMonthData(GridMonth.Objects[0,rsd]).tset:=dts;
+           GridMonth.Cells[mcolSet,rsd]:=TimToStr(frac(dts)*24);
+         end;
        end;
      end;
   end;
@@ -1106,29 +1219,29 @@ begin
   end;
 
   // find true rise/set time and day
-  startt:=RiseSetInfo[month,day].moonrise;
+  startt:=YearInfo[month,day].moonrise;
   if startt=0 then begin
      if day>1 then
-       startt:=RiseSetInfo[month,day-1].moonrise
+       startt:=YearInfo[month,day-1].moonrise
      else if month>1 then
-       startt:=RiseSetInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
+       startt:=YearInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
      else
        exit;
   end;
   if trunc(startt+TimeZoneD)>trunc(startt) then begin
      if day>1 then
-       startt:=RiseSetInfo[month,day-1].moonrise
+       startt:=YearInfo[month,day-1].moonrise
      else if month>1 then
-       startt:=RiseSetInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
+       startt:=YearInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
      else
        exit;
   end;
-  endt:=RiseSetInfo[month,day].moonset;
+  endt:=YearInfo[month,day].moonset;
   if (endt<startt) then begin
      if day<MonthDays[IsLeapYear(year)][month] then
-       endt:=RiseSetInfo[month,day+1].moonset
+       endt:=YearInfo[month,day+1].moonset
      else if month<12 then
-       endt:=RiseSetInfo[month+1,1].moonset
+       endt:=YearInfo[month+1,1].moonset
      else
        exit;
   end;
@@ -1157,12 +1270,12 @@ begin
     else
       ChartAltAzLineSeries2.AddXY(frac(dt+TimeZoneD)*24,el);
   until dt=endt;
-  ChartAltSunArea.AddXY(frac(RiseSetInfo[month,day].sunrise+TimeZoneD)*24,90);
-  ChartAltSunArea.AddXY(frac(RiseSetInfo[month,day].sunset+TimeZoneD)*24,90);
-  ChartAltAzCivilArea.AddXY(frac(RiseSetInfo[month,day].civil1+TimeZoneD)*24,90);
-  ChartAltAzCivilArea.AddXY(frac(RiseSetInfo[month,day].civil2+TimeZoneD)*24,90);
-  ChartAltAzNauticArea.AddXY(frac(RiseSetInfo[month,day].nautic1+TimeZoneD)*24,90);
-  ChartAltAzNauticArea.AddXY(frac(RiseSetInfo[month,day].nautic2+TimeZoneD)*24,90);
+  ChartAltSunArea.AddXY(frac(YearInfo[month,day].sunrise+TimeZoneD)*24,90);
+  ChartAltSunArea.AddXY(frac(YearInfo[month,day].sunset+TimeZoneD)*24,90);
+  ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil1+TimeZoneD)*24,90);
+  ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil2+TimeZoneD)*24,90);
+  ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic1+TimeZoneD)*24,90);
+  ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic2+TimeZoneD)*24,90);
 
   // Phase image
   img := TBitmap.Create;
