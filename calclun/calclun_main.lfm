@@ -641,7 +641,7 @@ object f_calclun: Tf_calclun
               LinePen.Color = clYellow
               LinePen.Width = 2
             end
-            object ChartAltSunArea: TAreaSeries
+            object ChartAltazSunArea: TAreaSeries
               ZPosition = 20
               AreaBrush.Color = 15744060
               AreaContourPen.Color = 15744060
@@ -681,14 +681,14 @@ object f_calclun: Tf_calclun
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 749
-        ClientWidth = 1021
+        ClientHeight = 751
+        ClientWidth = 1023
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 749
+          Height = 751
           Top = 0
-          Width = 1021
+          Width = 1023
           Align = alClient
           ColCount = 15
           DefaultColWidth = 120

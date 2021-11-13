@@ -47,7 +47,7 @@ type
     ChartAltAzCivilArea: TAreaSeries;
     ChartAltAzNauticArea: TAreaSeries;
     ChartAltAzAstroArea: TAreaSeries;
-    ChartAltSunArea: TAreaSeries;
+    ChartAltazSunArea: TAreaSeries;
     ChartAltAzLineSeries2: TLineSeries;
     ChartYear: TChart;
     ChartAltAz: TChart;
@@ -1163,6 +1163,7 @@ var dt,startt,endt: double;
     x,y,z,r,ra,de,pa,llon,llat,slon,slat,colongitude,az,el: SpiceDouble;
     obsref,fixref: ConstSpiceChar;
     img: TBitmap;
+    moonriseset, moongraph: boolean;
 begin
   year:=SpinEditYear.Value;
   month:=SpinEditMonth.Value;
@@ -1218,64 +1219,143 @@ begin
      GridDay.Cells[dcolSubSolLat,i]:=FormatFloat(f4,slat*rad2deg);
   end;
 
+  // moon rise or set
+  moonriseset:=(YearInfo[month,day].moonrise<>0)or(YearInfo[month,day].moonset<>0);
   // find true rise/set time and day
-  startt:=YearInfo[month,day].moonrise;
-  if startt=0 then begin
-     if day>1 then
-       startt:=YearInfo[month,day-1].moonrise
-     else if month>1 then
-       startt:=YearInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
-     else
-       exit;
+  if moonriseset then begin
+    moongraph:=true;
+    startt:=YearInfo[month,day].moonrise;
+    if startt=0 then begin
+       if day>1 then
+         startt:=YearInfo[month,day-1].moonrise
+       else if month>1 then
+         startt:=YearInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
+       else
+         exit;
+    end;
+    if trunc(startt+TimeZoneD)>trunc(startt) then begin
+       if day>1 then
+         startt:=YearInfo[month,day-1].moonrise
+       else if month>1 then
+         startt:=YearInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
+       else
+         exit;
+    end;
+    endt:=YearInfo[month,day].moonset;
+    if (endt<startt) then begin
+       if day<MonthDays[IsLeapYear(year)][month] then
+         endt:=YearInfo[month,day+1].moonset
+       else if month<12 then
+         endt:=YearInfo[month+1,1].moonset
+       else
+         exit;
+    end;
+    if endt-startt>1 then begin
+      endt:=endt-1;
+    end;
+    // Rise and set label
+    LabelRise2.Caption:=FormatDateTime('mmm d  hh:nn:ss',startt+TimeZoneD)+' '+crlf+FormatDateTime('mmm d  hh:nn:ss',endt+TimeZoneD);
+  end
+  else begin
+    if sign(YearInfo[month,day].moondec)=sign(ObsLatitude) then begin
+      startt:=EncodeDate(year,month,day)-TimeZoneD;
+      endt:=startt+1;
+      moongraph:=true;
+    end
+    else
+      moongraph:=false;
+    LabelRise2.Caption:=GridMonth.Cells[mcolRise,day];
   end;
-  if trunc(startt+TimeZoneD)>trunc(startt) then begin
-     if day>1 then
-       startt:=YearInfo[month,day-1].moonrise
-     else if month>1 then
-       startt:=YearInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
-     else
-       exit;
-  end;
-  endt:=YearInfo[month,day].moonset;
-  if (endt<startt) then begin
-     if day<MonthDays[IsLeapYear(year)][month] then
-       endt:=YearInfo[month,day+1].moonset
-     else if month<12 then
-       endt:=YearInfo[month+1,1].moonset
-     else
-       exit;
-  end;
-  // Rise and set label
-  LabelRise2.Caption:=FormatDateTime('mmm d  hh:nn:ss',startt+TimeZoneD)+' '+crlf+FormatDateTime('mmm d  hh:nn:ss',endt+TimeZoneD);
+  if (startt=0) or (endt=0) then moongraph:=false;
 
   // Alt-az graph
   ChartAltAzLineSeries1.Clear;
   ChartAltAzLineSeries2.Clear;
-  ChartAltSunArea.Clear;
+  ChartAltazSunArea.Clear;
   ChartAltAzCivilArea.Clear;
   ChartAltAzNauticArea.Clear;
-  dt:=startt-1/48;
-  repeat
-    dt:=dt+1/48;
-    if dt>=endt then dt:=endt;
-    et:=DateTime2ET(dt);
-    if not MoonAltAz(et,ObsLongitude,ObsLatitude,obspos,obsref,az,el) then begin
-      StatusLabel.Caption:=SpiceLastError;
-      exit;
+  if moongraph then begin
+    dt:=startt-1/48;
+    repeat
+      dt:=dt+1/48;
+      if dt>=endt then dt:=endt;
+      et:=DateTime2ET(dt);
+      if not MoonAltAz(et,ObsLongitude,ObsLatitude,obspos,obsref,az,el) then begin
+        StatusLabel.Caption:=SpiceLastError;
+        exit;
+      end;
+      el := el * rad2deg;
+      az := rmod(az*rad2deg+360,360);
+      if trunc(dt+TimeZoneD)=trunc(startt+TimeZoneD) then
+        ChartAltAzLineSeries1.AddXY(frac(dt+TimeZoneD)*24,el)
+      else
+        ChartAltAzLineSeries2.AddXY(frac(dt+TimeZoneD)*24,el);
+    until dt=endt;
+  end;
+  if (YearInfo[month,day].sunrise=0)or(YearInfo[month,day].sunset=0) then begin
+   // no sun rise/set
+   if sign(YearInfo[month,day].sundec)=sign(ObsLatitude) then begin
+      // sun always visible
+     ChartAltazSunArea.AddXY(0,90);
+     ChartAltazSunArea.AddXY(24,90);
+   end
+   else begin
+     // sun do not rise
+     if (YearInfo[month,day].nautic1=0)or(YearInfo[month,day].nautic2=0) then begin
+       // no nautic twilight
+     end
+     else begin
+       // nautic twilight
+       ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic1+TimeZoneD)*24,90);
+       ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic2+TimeZoneD)*24,90);
+       if (YearInfo[month,day].civil1=0)or(YearInfo[month,day].civil2=0) then begin
+         // no civil twilight
+       end
+       else begin
+         // civil twilight
+         ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil1+TimeZoneD)*24,90);
+         ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil2+TimeZoneD)*24,90);
+       end
+     end
+   end
+  end
+  else begin
+    // sun rise and set
+    ChartAltazSunArea.AddXY(frac(YearInfo[month,day].sunrise+TimeZoneD)*24,90);
+    ChartAltazSunArea.AddXY(frac(YearInfo[month,day].sunset+TimeZoneD)*24,90);
+    if (YearInfo[month,day].nautic1=0)or(YearInfo[month,day].nautic2=0) then begin
+      // no nautic twilight
+      if (YearInfo[month,day].civil1=0)or(YearInfo[month,day].civil2=0) then begin
+        // no civil twilight
+      end
+      else begin
+        //  civil twilight
+        ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil1+TimeZoneD)*24,90);
+        ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil2+TimeZoneD)*24,90);
+        end
+    end
+    else begin
+      // all twilight
+      ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil1+TimeZoneD)*24,90);
+      ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil2+TimeZoneD)*24,90);
+      ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic1+TimeZoneD)*24,90);
+      ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic2+TimeZoneD)*24,90);
     end;
-    el := el * rad2deg;
-    az := rmod(az*rad2deg+360,360);
-    if trunc(dt+TimeZoneD)=trunc(startt+TimeZoneD) then
-      ChartAltAzLineSeries1.AddXY(frac(dt+TimeZoneD)*24,el)
-    else
-      ChartAltAzLineSeries2.AddXY(frac(dt+TimeZoneD)*24,el);
-  until dt=endt;
-  ChartAltSunArea.AddXY(frac(YearInfo[month,day].sunrise+TimeZoneD)*24,90);
-  ChartAltSunArea.AddXY(frac(YearInfo[month,day].sunset+TimeZoneD)*24,90);
-  ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil1+TimeZoneD)*24,90);
-  ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil2+TimeZoneD)*24,90);
-  ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic1+TimeZoneD)*24,90);
-  ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic2+TimeZoneD)*24,90);
+  end;
+
+{
+  if YearInfo[month,day].sunrise>0 then begin
+    ChartAltazSunArea.AddXY(frac(YearInfo[month,day].sunrise+TimeZoneD)*24,90);
+    ChartAltazSunArea.AddXY(frac(YearInfo[month,day].sunset+TimeZoneD)*24,90);
+  end;
+  if YearInfo[month,day].civil1>0 then begin
+    ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil1+TimeZoneD)*24,90);
+    ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil2+TimeZoneD)*24,90);
+  end;
+  if YearInfo[month,day].nautic1>0 then begin
+    ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic1+TimeZoneD)*24,90);
+    ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic2+TimeZoneD)*24,90);
+  end;}
 
   // Phase image
   img := TBitmap.Create;
@@ -1532,6 +1612,7 @@ end;
 procedure Tf_calclun.DateChange(Sender: TObject);
 begin
   if not (fsFirstShow in FormState) then begin
+    SpinEditDay.MaxValue:=MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value];
     DateChangeTimer.Enabled:=false;
     DateChangeTimer.Enabled:=true;
   end;
@@ -1544,7 +1625,6 @@ begin
   StatusLabel.Caption:='';
   TimeZoneD := GetTimeZoneD(EncodeDate(SpinEditYear.Value,SpinEditMonth.Value,SpinEditDay.Value));
   if CurYear<>SpinEditYear.Value then ComputeYear; // keep compute order year,month,day
-  SpinEditDay.MaxValue:=MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value];
   if (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then ComputeMonth;
   ComputeDay;
   CurYear:=SpinEditYear.Value;
