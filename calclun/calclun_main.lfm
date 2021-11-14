@@ -109,9 +109,9 @@ object f_calclun: Tf_calclun
     Height = 784
     Top = 56
     Width = 1335
-    ActivePage = TabSheetYear
+    ActivePage = TabSheetDay
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     object TabSheetYear: TTabSheet
       Caption = 'Year'
@@ -271,21 +271,21 @@ object f_calclun: Tf_calclun
         Height = 753
         Top = 0
         Width = 991
-        HorzScrollBar.Page = 964
+        HorzScrollBar.Page = 968
         VertScrollBar.Page = 744
         Align = alClient
-        ClientHeight = 751
-        ClientWidth = 989
+        ClientHeight = 749
+        ClientWidth = 987
         TabOrder = 1
         object PanelYphase: TPanel
           Left = 0
           Height = 352
           Top = 0
-          Width = 989
+          Width = 987
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 352
-          ClientWidth = 989
+          ClientHeight = 348
+          ClientWidth = 983
           TabOrder = 1
           object GridYear: TStringGrid
             Left = 0
@@ -310,15 +310,15 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 392
           Top = 352
-          Width = 989
+          Width = 987
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 392
-          ClientWidth = 989
+          ClientHeight = 388
+          ClientWidth = 983
           TabOrder = 0
           object GridPhaseList: TStringGrid
             Left = 0
-            Height = 392
+            Height = 388
             Top = 0
             Width = 480
             Align = alLeft
@@ -331,7 +331,7 @@ object f_calclun: Tf_calclun
           end
           object GridLibrationList: TStringGrid
             Left = 484
-            Height = 392
+            Height = 388
             Top = 0
             Width = 480
             Align = alLeft
@@ -643,25 +643,27 @@ object f_calclun: Tf_calclun
             end
             object ChartAltazSunArea: TAreaSeries
               ZPosition = 20
-              AreaBrush.Color = 15744060
-              AreaContourPen.Color = 15744060
-              AreaLinesPen.Color = 15744060
+              AreaBrush.Color = 16728128
+              AreaContourPen.Color = 16728128
+              AreaLinesPen.Color = 16728128
             end
             object ChartAltAzCivilArea: TAreaSeries
               ZPosition = 18
+              AreaBrush.Color = 13382451
+              AreaContourPen.Color = 13382451
+              AreaLinesPen.Color = 13382451
+            end
+            object ChartAltAzNauticArea: TAreaSeries
+              ZPosition = 16
               AreaBrush.Color = 10496040
               AreaContourPen.Color = 10496040
               AreaLinesPen.Color = 10496040
             end
-            object ChartAltAzNauticArea: TAreaSeries
-              ZPosition = 16
+            object ChartAltAzAstroArea: TAreaSeries
+              ZPosition = 14
               AreaBrush.Color = 6553616
               AreaContourPen.Color = 6553616
               AreaLinesPen.Color = 6553616
-            end
-            object ChartAltAzAstroArea: TAreaSeries
-              Active = False
-              AreaBrush.Color = clBlack
             end
           end
           object LabelAltAz: TLabel
