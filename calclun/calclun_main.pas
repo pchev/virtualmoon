@@ -9,7 +9,7 @@ uses
     Windows, Registry, ShlObj,
   {$endif}
   cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
-  TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8,
+  TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8, config, u_translation,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Types, TACustomSeries, TAMultiSeries, TATransformations;
 
 const
@@ -64,8 +64,10 @@ type
     DayPhase: TImage;
     LabelChartYear: TLabel;
     DateChangeTimer: TTimer;
+    MainMenu1: TMainMenu;
     Memo1: TMemo;
     GridLibrationList: TStringGrid;
+    MenuSetup: TMenuItem;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -155,6 +157,7 @@ type
     procedure GridYearDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
     procedure GridYearHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
     procedure GridYearSelection(Sender: TObject; aCol, aRow: Integer);
+    procedure MenuSetupClick(Sender: TObject);
     procedure SelectGraph(Sender: TObject);
   private
     et : SpiceDouble;
@@ -162,6 +165,7 @@ type
     tz: TCdCTimeZone;
     FCurrentMonthGraph: integer;
     YearInfo: array[1..12,1..31] of TYearInfo;
+    ForceDateChange: boolean;
     procedure SetLang;
     procedure GetAppDir;
     procedure SetKernelsPath;
@@ -199,6 +203,7 @@ implementation
 { Tf_calclun }
 
 procedure Tf_calclun.FormCreate(Sender: TObject);
+var inifile:Tmeminifile;
 begin
   DefaultFormatSettings.DateSeparator:='-';
   StatusLabel.Caption:='';
@@ -208,11 +213,17 @@ begin
   ObsLongitude:=0;
   ObsAltitude:=0;
   ObsTZ:='Etc/GMT';
-  tz:=TCdCTimeZone.Create;
-
-  SetLang;
+  ForceDateChange:=false;
 
   GetAppDir;
+  inifile := Tmeminifile.Create(ConfigFile);
+  language:= inifile.ReadString('default', 'lang_po_file', '');
+  inifile.Free;
+  language:=u_translation.translate(language,'en');
+  SetLang;
+  tz:=TCdCTimeZone.Create;
+  tz.LoadZoneTab(ZoneDir+'zone.tab');
+
   InitError;
   reset_c;
   SetKernelsPath;
@@ -250,6 +261,8 @@ end;
 procedure Tf_calclun.FormShow(Sender: TObject);
 begin
   SetObservatory;
+  f_config.tzinfo:=tz;
+  f_config.LoadCountry(slash(Appdir)+slash('data')+'country.tab');
   DateChange(nil);
 end;
 
@@ -984,6 +997,58 @@ begin
   PageControl1.ActivePage:=TabSheetDay;
 end;
 
+procedure Tf_calclun.MenuSetupClick(Sender: TObject);
+var inif: TMemIniFile;
+begin
+  f_config.Setlang;
+  f_config.obstz:=ObsTZ;
+  f_config.newlang:=language;
+  f_config.SetObsCountry(ObsCountry);
+  f_config.Edit1.Text := formatfloat(f4, abs(rad2deg*ObsLatitude));
+  f_config.Edit2.Text := formatfloat(f4, abs(rad2deg*ObsLongitude));
+  f_config.Edit3.Text := formatfloat(f0, ObsAltitude*1000);
+  if Obslatitude >= 0 then
+    f_config.ComboBox1.ItemIndex := 0
+  else
+    f_config.ComboBox1.ItemIndex := 1;
+  if Obslongitude >= 0 then
+    f_config.ComboBox2.ItemIndex := 1
+  else
+    f_config.ComboBox2.ItemIndex := 0;
+
+  if f_config.ShowModal = mrOK then begin
+    ObsLatitude := deg2rad*strtofloat(f_config.Edit1.Text);
+    if f_config.ComboBox1.ItemIndex = 1 then
+      ObsLatitude := -ObsLatitude;
+    ObsLongitude := deg2rad*strtofloat(f_config.Edit2.Text);
+    ObsAltitude := StrToFloat(f_config.Edit3.Text)/1000;
+    if f_config.ComboBox2.ItemIndex = 0 then
+      Obslongitude := -Obslongitude;
+    ObsCountry:=f_config.ObsCountry;
+    ObsTZ := f_config.obstz;
+
+    inif := Tmeminifile.Create(ConfigFile);
+    inif.WriteFloat('default', 'Obslatitude', rad2deg * Obslatitude);
+    inif.WriteFloat('default', 'Obslongitude', rad2deg * Obslongitude);
+    inif.WriteFloat('default', 'Obsaltitude', ObsAltitude * 1000);
+    inif.WriteString('default', 'ObsCountry', ObsCountry);
+    inif.WriteString('default', 'ObsTZ', ObsTZ);
+
+    if f_config.newlang <> language then
+    begin
+      language:=u_translation.translate(f_config.newlang,'en');
+      inif.WriteString('default', 'lang_po_file', language);
+      SetLang;
+    end;
+
+    inif.Free;
+
+    SetObservatory;
+    ForceDateChange:=true;
+    DateChange(nil);
+  end;
+end;
+
 procedure Tf_calclun.SetObservatory;
 var inif: TMemIniFile;
 begin
@@ -991,6 +1056,7 @@ begin
   Obslatitude  := inif.ReadFloat('default', 'Obslatitude', Obslatitude) * deg2rad;
   Obslongitude := -inif.ReadFloat('default', 'Obslongitude', Obslongitude) * deg2rad;
   ObsAltitude := inif.ReadFloat('default', 'Obsaltitude', ObsAltitude) / 1000;
+  ObsCountry  := inif.ReadString('default', 'ObsCountry', ObsCountry);
   ObsTZ := inif.ReadString('default', 'ObsTZ', ObsTZ);
   inif.Free;
   tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
@@ -1624,9 +1690,11 @@ begin
   DateChangeTimer.Enabled:=false;
   StatusLabel.Caption:='';
   TimeZoneD := GetTimeZoneD(EncodeDate(SpinEditYear.Value,SpinEditMonth.Value,SpinEditDay.Value));
-  if CurYear<>SpinEditYear.Value then ComputeYear; // keep compute order year,month,day
-  if (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then ComputeMonth;
+  // keep compute order year,month,day
+  if ForceDateChange or (CurYear<>SpinEditYear.Value) then ComputeYear;
+  if ForceDateChange or (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then ComputeMonth;
   ComputeDay;
+  ForceDateChange:=false;
   CurYear:=SpinEditYear.Value;
   CurrentMonth:=SpinEditMonth.Value;
   CurrentDay:=SpinEditDay.Value;

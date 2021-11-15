@@ -106,7 +106,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="8">
+    <Units Count="10">
       <Unit0>
         <Filename Value="calclun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -142,6 +142,17 @@
         <Filename Value="pas_spice.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit7>
+      <Unit8>
+        <Filename Value="config.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_config"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="u_translation.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit9>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
