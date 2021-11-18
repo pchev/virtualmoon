@@ -1312,7 +1312,7 @@ begin
        else if month>1 then
          startt:=YearInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
        else
-         exit;
+         startt:=YearInfo[0,31].moonrise;
     end;
     if trunc(startt+dstoff)>trunc(startt) then begin
        if day>1 then
@@ -1320,7 +1320,7 @@ begin
        else if month>1 then
          startt:=YearInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
        else
-         exit;
+         startt:=YearInfo[0,31].moonrise;
     end;
     endt:=YearInfo[month,day].moonset;
     if (endt<startt) then begin
@@ -1329,7 +1329,7 @@ begin
        else if month<12 then
          endt:=YearInfo[month+1,1].moonset
        else
-         exit;
+         endt:=YearInfo[13,1].moonset;
     end;
     if endt-startt>1 then begin
       endt:=endt-1;
