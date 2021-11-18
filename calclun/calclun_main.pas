@@ -1334,8 +1334,14 @@ begin
     if endt-startt>1 then begin
       endt:=endt-1;
     end;
-    // Rise and set label
-    LabelRise2.Caption:=FormatDateTime('mmm d  hh:nn:ss',startt+dstoff)+' '+crlf+FormatDateTime('mmm d  hh:nn:ss',endt+dstoff);
+    if endt=0 then begin
+      endt:=trunc(startt)+1;
+      LabelRise2.Caption:=FormatDateTime('mmm d  hh:nn:ss',startt+dstoff)+' '+crlf+'-';
+    end
+    else begin
+      // Rise and set label
+      LabelRise2.Caption:=FormatDateTime('mmm d  hh:nn:ss',startt+dstoff)+' '+crlf+FormatDateTime('mmm d  hh:nn:ss',endt+dstoff);
+    end;
   end
   else begin
     if sign(YearInfo[month,day].moondec)=sign(ObsLatitude) then begin
@@ -1361,7 +1367,7 @@ begin
     repeat
       dt:=dt+1/48;
       if dt>=endt then dt:=endt;
-      et:=DateTime2ET(dt);
+      et:=DateTime2ET(dt-stdtz);
       if not MoonAltAz(et,ObsLongitude,ObsLatitude,obspos,obsref,az,el) then begin
         StatusLabel.Caption:=SpiceLastError;
         exit;
