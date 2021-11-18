@@ -216,6 +216,11 @@ begin
   ObsTZ:='Etc/GMT';
   ForceDateChange:=false;
 
+  Top := 50;
+  Left := 50;
+  Height := min(1000,screen.Height - 100);
+  Width := min(1400,screen.Width - 100);
+
   GetAppDir;
   inifile := Tmeminifile.Create(ConfigFile);
   language:= inifile.ReadString('default', 'lang_po_file', '');
