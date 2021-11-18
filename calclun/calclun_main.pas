@@ -39,6 +39,8 @@ type
     Button1: TButton;
     BtnToday: TButton;
     BtnGraph: TButton;
+    BtnDecTime: TButton;
+    BtnIncTime: TButton;
     Chart1: TChart;
     Chart1LineSeries1: TLineSeries;
     Chart2: TChart;
@@ -62,6 +64,7 @@ type
     ChartYearSeriesSunset: TAreaSeries;
     DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
     DayPhase: TImage;
+    Label10: TLabel;
     LabelChartYear: TLabel;
     DateChangeTimer: TTimer;
     MainMenu1: TMainMenu;
@@ -141,7 +144,9 @@ type
     TabSheetTest: TTabSheet;
     TimeEdit1: TTimeEdit;
     procedure BtnComputeClick(Sender: TObject);
+    procedure BtnDecTimeClick(Sender: TObject);
     procedure BtnGraphClick(Sender: TObject);
+    procedure BtnIncTimeClick(Sender: TObject);
     procedure BtnPrevisionClick(Sender: TObject);
     procedure BtnTodayClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -158,6 +163,7 @@ type
     procedure GridYearHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
     procedure GridYearSelection(Sender: TObject; aCol, aRow: Integer);
     procedure MenuSetupClick(Sender: TObject);
+    procedure PageControl1Change(Sender: TObject);
     procedure SelectGraph(Sender: TObject);
   private
     et : SpiceDouble;
@@ -251,6 +257,7 @@ begin
 
   BtnToday.Click;
   PageControl1.ActivePage:=TabSheetYear;
+  label10.Caption:='by year';
   FCurrentMonthGraph:=mcolLibrLon;
 
 end;
@@ -1067,6 +1074,21 @@ begin
   end;
 end;
 
+procedure Tf_calclun.PageControl1Change(Sender: TObject);
+begin
+  case PageControl1.ActivePageIndex of
+    0: begin
+         label10.Caption:='by year';
+       end;
+    1: begin
+         label10.Caption:='by month';
+       end;
+    2: begin
+         label10.Caption:='by day';
+       end;
+  end;
+end;
+
 procedure Tf_calclun.SetObservatory;
 var inif: TMemIniFile;
 begin
@@ -1706,12 +1728,13 @@ begin
     SpinEditDay.MaxValue:=MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value];
     DateChangeTimer.Enabled:=false;
     DateChangeTimer.Enabled:=true;
+    Screen.Cursor:=crHourGlass;
   end;
 end;
 
 procedure Tf_calclun.DateChangeTimerTimer(Sender: TObject);
-var p1,p2: integer;
 begin
+try
   DateChangeTimer.Enabled:=false;
   StatusLabel.Caption:='';
   TimeZoneD := GetTimeZoneD(EncodeDate(SpinEditYear.Value,SpinEditMonth.Value,SpinEditDay.Value));
@@ -1723,9 +1746,66 @@ begin
   CurYear:=SpinEditYear.Value;
   CurrentMonth:=SpinEditMonth.Value;
   CurrentDay:=SpinEditDay.Value;
+finally
+  Screen.Cursor:=crDefault;
+end;
 end;
 
+procedure Tf_calclun.BtnIncTimeClick(Sender: TObject);
+begin
+  case PageControl1.ActivePageIndex of
+    0: SpinEditYear.Value:=SpinEditYear.Value+1;
+    1: begin
+         if SpinEditMonth.Value<12 then
+           SpinEditMonth.Value:=SpinEditMonth.Value+1
+         else begin
+           SpinEditYear.Value:=SpinEditYear.Value+1;
+           SpinEditMonth.Value:=1;
+         end;
+        end;
+    2:  begin
+          if SpinEditDay.Value<MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value] then
+            SpinEditDay.Value:=SpinEditDay.Value+1
+          else begin
+            SpinEditDay.Value:=1;
+            if SpinEditMonth.Value<12 then
+              SpinEditMonth.Value:=SpinEditMonth.Value+1
+            else begin
+              SpinEditYear.Value:=SpinEditYear.Value+1;
+              SpinEditMonth.Value:=1;
+            end;
+          end;
+        end;
+  end;
+end;
 
+procedure Tf_calclun.BtnDecTimeClick(Sender: TObject);
+begin
+  case PageControl1.ActivePageIndex of
+    0: SpinEditYear.Value:=SpinEditYear.Value-1;
+    1: begin
+         if SpinEditMonth.Value>1 then
+           SpinEditMonth.Value:=SpinEditMonth.Value-1
+         else begin
+           SpinEditYear.Value:=SpinEditYear.Value-1;
+           SpinEditMonth.Value:=12;
+         end;
+        end;
+    2:  begin
+          if SpinEditDay.Value>1 then
+            SpinEditDay.Value:=SpinEditDay.Value-1
+          else begin
+            if SpinEditMonth.Value>1 then
+              SpinEditMonth.Value:=SpinEditMonth.Value-1
+            else begin
+              SpinEditYear.Value:=SpinEditYear.Value-1;
+              SpinEditMonth.Value:=12;
+            end;
+            SpinEditDay.Value:=MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value];
+          end;
+        end;
+  end;
+end;
 
 procedure Tf_calclun.BtnComputeClick(Sender: TObject);
 var dt,st: double;

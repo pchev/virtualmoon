@@ -104,6 +104,39 @@ object f_calclun: Tf_calclun
       Anchors = [akLeft, akBottom]
       Caption = 'Day'
     end
+    object BtnDecTime: TButton
+      AnchorSideTop.Control = BtnToday
+      AnchorSideTop.Side = asrCenter
+      Left = 360
+      Height = 25
+      Top = 22
+      Width = 40
+      Caption = '<'
+      OnClick = BtnDecTimeClick
+      TabOrder = 4
+    end
+    object BtnIncTime: TButton
+      AnchorSideTop.Control = BtnToday
+      AnchorSideTop.Side = asrCenter
+      Left = 416
+      Height = 25
+      Top = 22
+      Width = 40
+      Caption = '>'
+      OnClick = BtnIncTimeClick
+      TabOrder = 5
+    end
+    object Label10: TLabel
+      AnchorSideTop.Control = Label9
+      AnchorSideTop.Side = asrCenter
+      Left = 352
+      Height = 19
+      Top = 1
+      Width = 113
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Label10'
+    end
   end
   object PageControl1: TPageControl
     Left = 0
@@ -114,6 +147,7 @@ object f_calclun: Tf_calclun
     Align = alClient
     TabIndex = 2
     TabOrder = 0
+    OnChange = PageControl1Change
     object TabSheetYear: TTabSheet
       Caption = 'Year'
       ClientHeight = 563
@@ -1265,12 +1299,12 @@ object f_calclun: Tf_calclun
     Enabled = False
     Interval = 100
     OnTimer = DateChangeTimerTimer
-    Left = 376
-    Top = 8
+    Left = 48
+    Top = 120
   end
   object MainMenu1: TMainMenu
-    Left = 488
-    Top = 8
+    Left = 48
+    Top = 200
     object MenuSetup: TMenuItem
       Caption = 'Setup'
       OnClick = MenuSetupClick
