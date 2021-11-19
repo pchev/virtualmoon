@@ -10,7 +10,7 @@ uses
   {$endif}
   cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
   TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8, config, u_translation,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Types, TACustomSeries, TAMultiSeries, TATransformations;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Buttons, Types, TACustomSeries, TAMultiSeries, TATransformations;
 
 const
     mcolDay=0; mcolRa2000=1; mcolDe2000=2; mcolRa=3; mcolDe=4; mcolDist=5; mcolDiam=6; mcolPhase=7; mcolLunation=8; mcolIllum=9; mcolColong=10; mcolSubSolLat=11; mcolLibrLon=12; mcolLibrLat=13; mcolPa=14; mcolRise=15; mcolSet=16;
@@ -35,12 +35,12 @@ type
 
   Tf_calclun = class(TForm)
     BtnCompute: TButton;
+    BtnDecTime: TSpeedButton;
+    BtnGraph: TSpeedButton;
+    BtnIncTime: TSpeedButton;
     BtnPrevision: TButton;
+    BtnToday: TSpeedButton;
     Button1: TButton;
-    BtnToday: TButton;
-    BtnGraph: TButton;
-    BtnDecTime: TButton;
-    BtnIncTime: TButton;
     Chart1: TChart;
     Chart1LineSeries1: TLineSeries;
     Chart2: TChart;

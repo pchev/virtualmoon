@@ -6,6 +6,7 @@ object f_calclun: Tf_calclun
   Caption = 'Calclun'
   ClientHeight = 700
   ClientWidth = 1200
+  Color = clWindow
   Menu = MainMenu1
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -60,20 +61,6 @@ object f_calclun: Tf_calclun
       TabOrder = 2
       Value = 1
     end
-    object BtnToday: TButton
-      AnchorSideLeft.Control = SpinEditDay
-      AnchorSideLeft.Side = asrBottom
-      AnchorSideTop.Control = SpinEditYear
-      AnchorSideTop.Side = asrCenter
-      Left = 240
-      Height = 25
-      Top = 22
-      Width = 75
-      BorderSpacing.Left = 12
-      Caption = 'Today'
-      OnClick = BtnTodayClick
-      TabOrder = 3
-    end
     object Label7: TLabel
       AnchorSideLeft.Control = SpinEditYear
       AnchorSideBottom.Control = SpinEditYear
@@ -104,28 +91,6 @@ object f_calclun: Tf_calclun
       Anchors = [akLeft, akBottom]
       Caption = 'Day'
     end
-    object BtnDecTime: TButton
-      AnchorSideTop.Control = BtnToday
-      AnchorSideTop.Side = asrCenter
-      Left = 360
-      Height = 25
-      Top = 22
-      Width = 40
-      Caption = '<'
-      OnClick = BtnDecTimeClick
-      TabOrder = 4
-    end
-    object BtnIncTime: TButton
-      AnchorSideTop.Control = BtnToday
-      AnchorSideTop.Side = asrCenter
-      Left = 416
-      Height = 25
-      Top = 22
-      Width = 40
-      Caption = '>'
-      OnClick = BtnIncTimeClick
-      TabOrder = 5
-    end
     object Label10: TLabel
       AnchorSideTop.Control = Label9
       AnchorSideTop.Side = asrCenter
@@ -136,6 +101,43 @@ object f_calclun: Tf_calclun
       Alignment = taCenter
       AutoSize = False
       Caption = 'Label10'
+    end
+    object BtnToday: TSpeedButton
+      AnchorSideLeft.Control = SpinEditDay
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = SpinEditYear
+      AnchorSideTop.Side = asrCenter
+      Left = 240
+      Height = 25
+      Top = 22
+      Width = 75
+      BorderSpacing.Left = 12
+      Caption = 'Today'
+      Flat = True
+      Transparent = False
+      OnClick = BtnTodayClick
+    end
+    object BtnDecTime: TSpeedButton
+      AnchorSideTop.Side = asrCenter
+      Left = 360
+      Height = 25
+      Top = 22
+      Width = 40
+      Caption = '<'
+      Flat = True
+      Transparent = False
+      OnClick = BtnDecTimeClick
+    end
+    object BtnIncTime: TSpeedButton
+      AnchorSideTop.Side = asrCenter
+      Left = 416
+      Height = 25
+      Top = 22
+      Width = 40
+      Caption = '>'
+      Flat = True
+      Transparent = False
+      OnClick = BtnIncTimeClick
     end
   end
   object PageControl1: TPageControl
@@ -420,20 +422,20 @@ object f_calclun: Tf_calclun
           Height = 561
           Top = 1
           Width = 348
-          HorzScrollBar.Page = 251
-          VertScrollBar.Page = 557
+          HorzScrollBar.Page = 247
+          VertScrollBar.Page = 559
           Align = alClient
-          ClientHeight = 557
-          ClientWidth = 341
+          ClientHeight = 559
+          ClientWidth = 326
           TabOrder = 0
           object PanelPhase: TPanel
             Left = 0
             Height = 135
             Top = 0
-            Width = 341
+            Width = 326
             Align = alTop
-            ClientHeight = 131
-            ClientWidth = 337
+            ClientHeight = 135
+            ClientWidth = 326
             TabOrder = 0
             object LabelPhase1: TLabel
               Left = 16
@@ -454,17 +456,17 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 210
             Top = 185
-            Width = 341
+            Width = 326
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 206
-            ClientWidth = 337
+            ClientHeight = 210
+            ClientWidth = 326
             TabOrder = 1
             object Chart1: TChart
               Left = 0
-              Height = 206
+              Height = 210
               Top = 0
-              Width = 337
+              Width = 326
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -498,18 +500,18 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 348
             Top = 395
-            Width = 341
+            Width = 326
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 344
-            ClientWidth = 337
+            ClientHeight = 348
+            ClientWidth = 326
             TabOrder = 2
             Visible = False
             object Chart2: TChart
               Left = 0
-              Height = 344
+              Height = 348
               Top = 0
-              Width = 337
+              Width = 326
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -561,20 +563,21 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 50
             Top = 135
-            Width = 341
+            Width = 326
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 46
-            ClientWidth = 337
+            ClientHeight = 50
+            ClientWidth = 326
             TabOrder = 3
-            object BtnGraph: TButton
+            object BtnGraph: TSpeedButton
               Left = 16
               Height = 25
               Top = 13
               Width = 112
               Caption = 'Select Graph'
+              Flat = True
+              Transparent = False
               OnClick = BtnGraphClick
-              TabOrder = 0
             end
           end
         end
@@ -718,14 +721,14 @@ object f_calclun: Tf_calclun
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 559
-        ClientWidth = 886
+        ClientHeight = 561
+        ClientWidth = 888
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 559
+          Height = 561
           Top = 0
-          Width = 886
+          Width = 888
           Align = alClient
           ColCount = 15
           DefaultColWidth = 120
