@@ -143,9 +143,9 @@ object f_calclun: Tf_calclun
     Height = 594
     Top = 56
     Width = 1200
-    ActivePage = TabSheetDay
+    ActivePage = TabSheetYear
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     OnChange = PageControl1Change
     object TabSheetYear: TTabSheet
@@ -163,7 +163,7 @@ object f_calclun: Tf_calclun
         TabOrder = 0
         object ChartYear: TChart
           Left = 1
-          Height = 719
+          Height = 764
           Top = 1
           Width = 332
           AntialiasingMode = amOn
@@ -306,20 +306,20 @@ object f_calclun: Tf_calclun
         Height = 563
         Top = 0
         Width = 856
-        HorzScrollBar.Page = 849
-        VertScrollBar.Page = 556
+        HorzScrollBar.Page = 834
+        VertScrollBar.Page = 541
         Align = alClient
-        ClientHeight = 556
-        ClientWidth = 849
+        ClientHeight = 541
+        ClientWidth = 834
         TabOrder = 1
         object PanelYphase: TPanel
           Left = 0
           Height = 352
           Top = 0
-          Width = 968
+          Width = 964
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 348
+          ClientHeight = 352
           ClientWidth = 964
           TabOrder = 1
           object GridYear: TStringGrid
@@ -345,15 +345,15 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 392
           Top = 352
-          Width = 968
+          Width = 964
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 388
+          ClientHeight = 392
           ClientWidth = 964
           TabOrder = 0
           object GridPhaseList: TStringGrid
             Left = 0
-            Height = 388
+            Height = 392
             Top = 0
             Width = 480
             Align = alLeft
@@ -366,7 +366,7 @@ object f_calclun: Tf_calclun
           end
           object GridLibrationList: TStringGrid
             Left = 484
-            Height = 388
+            Height = 392
             Top = 0
             Width = 480
             Align = alLeft
@@ -718,14 +718,14 @@ object f_calclun: Tf_calclun
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 561
-        ClientWidth = 888
+        ClientHeight = 559
+        ClientWidth = 886
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 561
+          Height = 559
           Top = 0
-          Width = 888
+          Width = 886
           Align = alClient
           ColCount = 15
           DefaultColWidth = 120
