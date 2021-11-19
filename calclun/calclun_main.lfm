@@ -118,6 +118,7 @@ object f_calclun: Tf_calclun
       OnClick = BtnTodayClick
     end
     object BtnDecTime: TSpeedButton
+      AnchorSideTop.Control = BtnToday
       AnchorSideTop.Side = asrCenter
       Left = 360
       Height = 25
@@ -129,6 +130,7 @@ object f_calclun: Tf_calclun
       OnClick = BtnDecTimeClick
     end
     object BtnIncTime: TSpeedButton
+      AnchorSideTop.Control = BtnToday
       AnchorSideTop.Side = asrCenter
       Left = 416
       Height = 25
@@ -422,20 +424,20 @@ object f_calclun: Tf_calclun
           Height = 561
           Top = 1
           Width = 348
-          HorzScrollBar.Page = 247
-          VertScrollBar.Page = 559
+          HorzScrollBar.Page = 251
+          VertScrollBar.Page = 557
           Align = alClient
-          ClientHeight = 559
-          ClientWidth = 326
+          ClientHeight = 557
+          ClientWidth = 341
           TabOrder = 0
           object PanelPhase: TPanel
             Left = 0
             Height = 135
             Top = 0
-            Width = 326
+            Width = 341
             Align = alTop
-            ClientHeight = 135
-            ClientWidth = 326
+            ClientHeight = 131
+            ClientWidth = 337
             TabOrder = 0
             object LabelPhase1: TLabel
               Left = 16
@@ -456,17 +458,17 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 210
             Top = 185
-            Width = 326
+            Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 210
-            ClientWidth = 326
+            ClientHeight = 206
+            ClientWidth = 337
             TabOrder = 1
             object Chart1: TChart
               Left = 0
-              Height = 210
+              Height = 206
               Top = 0
-              Width = 326
+              Width = 337
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -500,18 +502,18 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 348
             Top = 395
-            Width = 326
+            Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 348
-            ClientWidth = 326
+            ClientHeight = 344
+            ClientWidth = 337
             TabOrder = 2
             Visible = False
             object Chart2: TChart
               Left = 0
-              Height = 348
+              Height = 344
               Top = 0
-              Width = 326
+              Width = 337
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -563,11 +565,11 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 50
             Top = 135
-            Width = 326
+            Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 50
-            ClientWidth = 326
+            ClientHeight = 46
+            ClientWidth = 337
             TabOrder = 3
             object BtnGraph: TSpeedButton
               Left = 16
@@ -721,14 +723,14 @@ object f_calclun: Tf_calclun
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 561
-        ClientWidth = 888
+        ClientHeight = 559
+        ClientWidth = 886
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 561
+          Height = 559
           Top = 0
-          Width = 888
+          Width = 886
           Align = alClient
           ColCount = 15
           DefaultColWidth = 120
