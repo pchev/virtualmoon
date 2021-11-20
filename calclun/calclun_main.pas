@@ -184,6 +184,7 @@ type
     procedure ComputeDay;
     procedure PlotYearGraph;
     procedure PlotMonthGraph(col:integer);
+    procedure PlotDayGraph;
     procedure Illum;
     procedure Position;
     procedure PositionTopo;
@@ -1263,19 +1264,16 @@ begin
 end;
 
 procedure Tf_calclun.ComputeDay;
-var dt,startt,endt,dt0,dstoff: double;
+var dt: double;
     i: integer;
     Year, Month, Day: Word;
-    x,y,z,r,ra,de,pa,llon,llat,slon,slat,colongitude,az,el: SpiceDouble;
+    x,y,z,r,ra,de,pa,llon,llat,slon,slat,colongitude: SpiceDouble;
     obsref,fixref: ConstSpiceChar;
     img: TBitmap;
-    moonriseset, moongraph: boolean;
 begin
   year:=SpinEditYear.Value;
   month:=SpinEditMonth.Value;
   day:=SpinEditDay.Value;
-  dt0:=EncodeDate(year,month,day);
-  dstoff:=TimeZoneD-stdtz;
   GridDay.RowCount:=1;
   GridDay.RowCount:=25;
   reset_c;
@@ -1326,6 +1324,30 @@ begin
      GridDay.Cells[dcolColong,i]:=FormatFloat(f4,colongitude*rad2deg);
      GridDay.Cells[dcolSubSolLat,i]:=FormatFloat(f4,slat*rad2deg);
   end;
+
+  // Phase image
+  img := TBitmap.Create;
+  i:=round(TMoonMonthData(GridMonth.Objects[0,day]).lunation);
+  ImageListPhase.GetBitmap(i, img);
+  DayPhase.Canvas.StretchDraw(DayPhase.ClientRect,img);
+  img.Free;
+
+  PlotDayGraph;
+
+end;
+
+procedure Tf_calclun.PlotDayGraph;
+var dt,startt,endt,dt0,dstoff: double;
+    Year, Month, Day: Word;
+    az,el: SpiceDouble;
+    obsref: ConstSpiceChar;
+    moonriseset, moongraph: boolean;
+begin
+  year:=SpinEditYear.Value;
+  month:=SpinEditMonth.Value;
+  day:=SpinEditDay.Value;
+  dt0:=EncodeDate(year,month,day);
+  dstoff:=TimeZoneD-stdtz;
 
   // moon rise or set
   moonriseset:=(YearInfo[month,day].moonrise<>0)or(YearInfo[month,day].moonset<>0);
@@ -1469,21 +1491,13 @@ begin
       end;
     end;
   end;
-
-  // Phase image
-  img := TBitmap.Create;
-  i:=round(TMoonMonthData(GridMonth.Objects[0,day]).lunation);
-  ImageListPhase.GetBitmap(i, img);
-  DayPhase.Canvas.StretchDraw(DayPhase.ClientRect,img);
-  img.Free;
-
 end;
 
 procedure Tf_calclun.ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 var pointi: TPoint;
     pointg: TDoublePoint;
 begin
-  if (x>5)and(x<(ChartAltAz.Width-5))and(y>5)and(y<(ChartAltAz.Height-5)) then begin
+  if (ChartAltAz.ScalingValid)and(x>5)and(x<(ChartAltAz.Width-5))and(y>5)and(y<(ChartAltAz.Height-5)) then begin
   // mouse position
   pointi.x:=X;
   pointi.y:=Y;
@@ -1508,7 +1522,7 @@ var pointi: TPoint;
     pointg: TDoublePoint;
     i: integer;
 begin
- if (x>1)and(x<(ChartYear.Width-1))and(y>1)and(y<(ChartYear.Height-1)) then begin
+ if (ChartYear.ScalingValid)and(x>1)and(x<(ChartYear.Width-1))and(y>1)and(y<(ChartYear.Height-1)) then begin
    // mouse position
    pointi.x:=X;
    pointi.y:=Y;
