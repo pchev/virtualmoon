@@ -651,7 +651,11 @@ object f_calclun: Tf_calclun
               end            
               item
                 Alignment = calBottom
+                Marks.Format = '%2:s'
                 Marks.LabelBrush.Style = bsClear
+                Marks.OverlapPolicy = opHideNeighbour
+                Marks.Source = DateTimeIntervalChartSource1
+                Marks.Style = smsLabel
                 Minors = <>
                 Title.LabelBrush.Style = bsClear
               end>
@@ -660,7 +664,6 @@ object f_calclun: Tf_calclun
             Extent.UseXMin = True
             Extent.UseYMax = True
             Extent.UseYMin = True
-            Extent.XMax = 24
             Extent.YMax = 90
             Margins.Left = 0
             Margins.Top = 0
@@ -723,14 +726,14 @@ object f_calclun: Tf_calclun
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 559
-        ClientWidth = 886
+        ClientHeight = 561
+        ClientWidth = 888
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 559
+          Height = 561
           Top = 0
-          Width = 886
+          Width = 888
           Align = alClient
           ColCount = 15
           DefaultColWidth = 120
@@ -1296,7 +1299,7 @@ object f_calclun: Tf_calclun
     DateTimeStepFormat.YearFormat = 'yy'
     DateTimeStepFormat.MonthFormat = 'mm'
     DateTimeStepFormat.DayFormat = 'mm-dd'
-    Steps = [dtsYear, dtsMonth, dtsDay]
+    Steps = [dtsYear, dtsMonth, dtsDay, dtsHour]
     Left = 768
     Top = 317
   end

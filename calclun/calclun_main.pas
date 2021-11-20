@@ -1325,6 +1325,9 @@ begin
      GridDay.Cells[dcolSubSolLat,i]:=FormatFloat(f4,slat*rad2deg);
   end;
 
+  // rise / set label
+  LabelRise2.Caption:=GridMonth.Cells[mcolRise,day]+crlf+GridMonth.Cells[mcolSet,day];
+
   // Phase image
   img := TBitmap.Create;
   i:=round(TMoonMonthData(GridMonth.Objects[0,day]).lunation);
@@ -1349,61 +1352,6 @@ begin
   dt0:=EncodeDate(year,month,day);
   dstoff:=TimeZoneD-stdtz;
 
-  // moon rise or set
-  moonriseset:=(YearInfo[month,day].moonrise<>0)or(YearInfo[month,day].moonset<>0);
-  // find true rise/set time and day
-  if moonriseset then begin
-    moongraph:=true;
-    startt:=YearInfo[month,day].moonrise;
-    if startt=0 then begin
-       if day>1 then
-         startt:=YearInfo[month,day-1].moonrise
-       else if month>1 then
-         startt:=YearInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
-       else
-         startt:=YearInfo[0,31].moonrise;
-    end;
-    if trunc(startt+dstoff)>trunc(startt) then begin
-       if day>1 then
-         startt:=YearInfo[month,day-1].moonrise
-       else if month>1 then
-         startt:=YearInfo[month-1,MonthDays[IsLeapYear(year)][month-1]].moonrise
-       else
-         startt:=YearInfo[0,31].moonrise;
-    end;
-    endt:=YearInfo[month,day].moonset;
-    if (endt<startt) then begin
-       if day<MonthDays[IsLeapYear(year)][month] then
-         endt:=YearInfo[month,day+1].moonset
-       else if month<12 then
-         endt:=YearInfo[month+1,1].moonset
-       else
-         endt:=YearInfo[13,1].moonset;
-    end;
-    if endt-startt>1 then begin
-      endt:=endt-1;
-    end;
-    if endt=0 then begin
-      endt:=trunc(startt)+1;
-      LabelRise2.Caption:=FormatDateTime('mmm d  hh:nn:ss',startt+dstoff)+' '+crlf+'-';
-    end
-    else begin
-      // Rise and set label
-      LabelRise2.Caption:=FormatDateTime('mmm d  hh:nn:ss',startt+dstoff)+' '+crlf+FormatDateTime('mmm d  hh:nn:ss',endt+dstoff);
-    end;
-  end
-  else begin
-    if sign(YearInfo[month,day].moondec)=sign(ObsLatitude) then begin
-      startt:=EncodeDate(year,month,day)-stdtz;
-      endt:=startt+1;
-      moongraph:=true;
-    end
-    else
-      moongraph:=false;
-    LabelRise2.Caption:=GridMonth.Cells[mcolRise,day];
-  end;
-  if (startt=0) or (endt=0) then moongraph:=false;
-
   // Alt-az graph
   ChartAltAzLineSeries1.Clear;
   ChartAltAzLineSeries2.Clear;
@@ -1411,6 +1359,11 @@ begin
   ChartAltAzCivilArea.Clear;
   ChartAltAzNauticArea.Clear;
   ChartAltAzAstroArea.Clear;
+  moongraph:=true;
+  ChartAltAz.Extent.XMin:=dt0;
+  ChartAltAz.Extent.XMax:=dt0+1;
+  startt:=dt0-1;
+  endt:=dt0+2;
   if moongraph then begin
     dt:=startt-1/48;
     repeat
@@ -1423,74 +1376,57 @@ begin
       end;
       el := el * rad2deg;
       az := rmod(az*rad2deg+360,360);
-      if trunc(dt+dstoff)=trunc(startt+dstoff) then
-        ChartAltAzLineSeries1.AddXY(frac(dt+dstoff)*24,el)
-      else
-        ChartAltAzLineSeries2.AddXY(frac(dt+dstoff)*24,el);
+      ChartAltAzLineSeries1.AddXY(dt+dstoff,el)
     until dt=endt;
   end;
-  if (YearInfo[month,day].sunrise=0)or(YearInfo[month,day].sunset=0) then begin
-   // no sun rise/set
-   if sign(YearInfo[month,day].sundec)=sign(ObsLatitude) then begin
-      // sun always visible
-     ChartAltazSunArea.AddXY(0,90);
-     ChartAltazSunArea.AddXY(24,90);
-   end
-   else begin
-     // sun do not rise
-     if (YearInfo[month,day].nautic1=0)or(YearInfo[month,day].nautic2=0) then begin
-       // no nautic twilight
-     end
-     else begin
-       // nautic twilight
-       ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic1+dstoff)*24,90);
-       ChartAltAzNauticArea.AddXY(frac(YearInfo[month,day].nautic2+dstoff)*24,90);
-       if (YearInfo[month,day].civil1=0)or(YearInfo[month,day].civil2=0) then begin
-         // no civil twilight
-       end
-       else begin
-         // civil twilight
-         ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil1+dstoff)*24,90);
-         ChartAltAzCivilArea.AddXY(frac(YearInfo[month,day].civil2+dstoff)*24,90);
-       end
-     end
-   end
-  end
-  else begin
-    // sun rise and set
-    ChartAltazSunArea.AddXY((YearInfo[month,day].sunrise+dstoff-dt0)*24,90);
-    ChartAltazSunArea.AddXY((YearInfo[month,day].sunset+dstoff-dt0)*24,90);
-    if (YearInfo[month,day].civil1=0)or(YearInfo[month,day].civil2=0) then begin
-      // no civil twilight
-      ChartAltAzCivilArea.AddXY(0,90);
-      ChartAltAzCivilArea.AddXY(24,90);
-    end
-    else begin
-      //  civil twilight
-      ChartAltAzCivilArea.AddXY((YearInfo[month,day].civil1+dstoff-dt0)*24,90);
-      ChartAltAzCivilArea.AddXY((YearInfo[month,day].civil2+dstoff-dt0)*24,90);
-      if (YearInfo[month,day].nautic1=0)or(YearInfo[month,day].nautic2=0) then begin
-        // no nautic twilight
-        ChartAltAzNauticArea.AddXY(0,90);
-        ChartAltAzNauticArea.AddXY(24,90);
-      end
-      else begin
-        // nautic twilight
-        ChartAltAzNauticArea.AddXY((YearInfo[month,day].nautic1+dstoff-dt0)*24,90);
-        ChartAltAzNauticArea.AddXY((YearInfo[month,day].nautic2+dstoff-dt0)*24,90);
-        if (YearInfo[month,day].astro1=0)or(YearInfo[month,day].astro2=0) then begin
-          // no astro twilight
-          ChartAltAzAstroArea.AddXY(0,90);
-          ChartAltAzAstroArea.AddXY(24,90);
-        end
-        else begin
-          // astro twilight
-          ChartAltAzAstroArea.AddXY((YearInfo[month,day].astro1+dstoff-dt0)*24,90);
-          ChartAltAzAstroArea.AddXY((YearInfo[month,day].astro2+dstoff-dt0)*24,90);
-        end;
-      end;
-    end;
-  end;
+  ChartAltazSunArea.AddXY((YearInfo[month,day-1].sunrise+dstoff),900);
+  ChartAltazSunArea.AddXY((YearInfo[month,day-1].sunset+dstoff),900);
+  ChartAltazSunArea.AddXY((YearInfo[month,day-1].sunset+dstoff),-900);
+  ChartAltazSunArea.AddXY((YearInfo[month,day].sunrise+dstoff),-900);
+  ChartAltazSunArea.AddXY((YearInfo[month,day].sunrise+dstoff),900);
+  ChartAltazSunArea.AddXY((YearInfo[month,day].sunset+dstoff),900);
+  ChartAltazSunArea.AddXY((YearInfo[month,day].sunset+dstoff),-900);
+  ChartAltazSunArea.AddXY((YearInfo[month,day+1].sunrise+dstoff),-900);
+  ChartAltazSunArea.AddXY((YearInfo[month,day+1].sunrise+dstoff),900);
+  ChartAltazSunArea.AddXY((YearInfo[month,day+1].sunset+dstoff),900);
+  ChartAltazSunArea.AddXY((YearInfo[month,day+1].sunset+dstoff),-900);
+
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day-1].Civil1+dstoff),900);
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day-1].Civil2+dstoff),900);
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day-1].Civil2+dstoff),-900);
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day].Civil1+dstoff),-900);
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day].Civil1+dstoff),900);
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day].Civil2+dstoff),900);
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day].Civil2+dstoff),-900);
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day+1].Civil1+dstoff),-900);
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day+1].Civil1+dstoff),900);
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day+1].Civil2+dstoff),900);
+  ChartAltAzCivilArea.AddXY((YearInfo[month,day+1].Civil2+dstoff),-900);
+
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day-1].nautic1+dstoff),900);
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day-1].nautic2+dstoff),900);
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day-1].nautic2+dstoff),-900);
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day].nautic1+dstoff),-900);
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day].nautic1+dstoff),900);
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day].nautic2+dstoff),900);
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day].nautic2+dstoff),-900);
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day+1].nautic1+dstoff),-900);
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day+1].nautic1+dstoff),900);
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day+1].nautic2+dstoff),900);
+  ChartAltAzNauticArea.AddXY((YearInfo[month,day+1].nautic2+dstoff),-900);
+
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day-1].Astro1+dstoff),900);
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day-1].Astro2+dstoff),900);
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day-1].Astro2+dstoff),-900);
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day].Astro1+dstoff),-900);
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day].Astro1+dstoff),900);
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day].Astro2+dstoff),900);
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day].Astro2+dstoff),-900);
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day+1].Astro1+dstoff),-900);
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day+1].Astro1+dstoff),900);
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day+1].Astro2+dstoff),900);
+  ChartAltAzAstroArea.AddXY((YearInfo[month,day+1].Astro2+dstoff),-900);
+
 end;
 
 procedure Tf_calclun.ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -1503,7 +1439,7 @@ begin
   pointi.y:=Y;
   pointg:=ChartAltAz.ImageToGraph(pointi);
   // show position
-  LabelAltAz.Caption:=FormatDateTime('hh:nn',pointg.x/24)+':  Alt:'+FormatFloat(f1,pointg.y);
+  LabelAltAz.Caption:=FormatDateTime('mm/dd hh:nn',pointg.x)+':  Alt:'+FormatFloat(f1,pointg.y);
   end else begin
     LabelAltAz.Caption:='';
   end;
