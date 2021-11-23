@@ -29,10 +29,10 @@ uses
   LCLIntf,
 {$endif}
   u_translation,
-  Math, u_constant, cu_tz,
-  Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ComCtrls, Buttons, ExtCtrls, Inifiles, Grids,
-  CheckLst, LResources, Spin;
+  u_constant, cu_tz,
+  SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, ComCtrls, Buttons, ExtCtrls,
+  LResources, Spin;
 
 type
 
@@ -139,12 +139,10 @@ end;
 end;
 
 procedure Tf_config.FormCreate(Sender: TObject);
-var i,j,p : integer;
+var i,p : integer;
     buf,code,AVLlang : string;
     fs : TSearchRec;
     ft : TextFile;
-    bt : TRadioButton;
-    cb : TCheckBox;
 begin
 PageControl1.ActivePageIndex:=0;
 i:=findfirst(slash(appdir)+slash('language')+'calclun.*.po',0,fs);
@@ -192,7 +190,6 @@ end;
 
 
 procedure Tf_config.FormDestroy(Sender: TObject);
-var i: integer;
 begin
 countrycode.Free;
 end;

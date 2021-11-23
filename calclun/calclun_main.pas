@@ -10,7 +10,7 @@ uses
   {$endif}
   cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
   TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8, config, u_translation,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Buttons, Types, TACustomSeries, TAMultiSeries, TATransformations, TASources, TACustomSource;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Buttons, Types, TACustomSeries, TAMultiSeries, TATransformations;
 
 const
     mcolDay=0; mcolRa2000=1; mcolDe2000=2; mcolRa=3; mcolDe=4; mcolDist=5; mcolDiam=6; mcolPhase=7; mcolLunation=8; mcolIllum=9; mcolColong=10; mcolSubSolLat=11; mcolLibrLon=12; mcolLibrLat=13; mcolPa=14; mcolRise=15; mcolSet=16;
@@ -355,8 +355,7 @@ begin
 end;
 
 procedure Tf_calclun.SetKernelsPath;
-var i: integer;
-    buf: string;
+var buf: string;
     fi,fo: TextFile;
 begin
   AssignFile(fi,slash(appdir) + slash('data') + slash('kernels')+'vma.tm');
@@ -572,7 +571,7 @@ end;
 procedure Tf_calclun.ComputeYear;
 var
   t1,dt,nm,fq,fm,lq,lunation,jd0,ct1,ct2: double;
-  i,j,k,r,nd: integer;
+  i,j,k,r: integer;
   year: Word;
   newmoon: array[0..14] of double;
   refval: SpiceDouble;
@@ -580,7 +579,7 @@ var
   nfind: SpiceInt;
   et0,et1: SpiceDouble;
   yy,mm,dd: Word;
-  x,y,z,sx,sy,sz,sr,ra,de,llon,llat : SpiceDouble;
+  x,y,sx,sy,sz,sr,ra,de,llon,llat : SpiceDouble;
   dtr, dts: double;
   obsref: ConstSpiceChar;
   fixref,coord,relate: ConstSpiceChar;
@@ -861,7 +860,7 @@ end;
 
 procedure Tf_calclun.PlotYearGraph;
 var i,j,k,l: integer;
-    moonrise,moonset,y1,y2: double;
+    moonrise,moonset: double;
     d:Tdatetime;
     maxv,minv:double;
 begin
@@ -1007,14 +1006,12 @@ end;
 procedure Tf_calclun.ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 var pointi: TPoint;
     pointg: TDoublePoint;
-    i: integer;
 begin
  if (ChartYear.ScalingValid)and(x>1)and(x<(ChartYear.Width-1))and(y>1)and(y<(ChartYear.Height-1)) then begin
    // mouse position
    pointi.x:=X;
    pointi.y:=Y;
    pointg:=ChartYear.ImageToGraph(pointi);
-//   LabelChartYear.Caption:='Date: '+FormatDateTime(datestd,round(pointg.y)+(pointg.x+24)/24-localoffset);
    LabelChartYear.Caption:='Date: '+FormatDateTime(datestd,round(pointg.y)+pointg.x-localoffset);
  end;
 end;
