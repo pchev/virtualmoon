@@ -12,6 +12,7 @@ object f_config: Tf_config
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnShow = FormShow
   object PageControl1: TPageControl
     Left = 0
     Height = 463
@@ -27,7 +28,7 @@ object f_config: Tf_config
     Options = [nboMultiLine]
     object TabSheet1: TTabSheet
       Caption = 'General'
-      ClientHeight = 429
+      ClientHeight = 459
       ClientWidth = 444
       ParentFont = False
       object Bevel8: TBevel
@@ -124,8 +125,7 @@ object f_config: Tf_config
         ParentColor = True
         ParentFont = False
         Sorted = True
-        TabOrder = 4
-        Text = 'ComboBox3'
+        TabOrder = 7
       end
       object Edit1: TEdit
         Left = 32
@@ -133,6 +133,7 @@ object f_config: Tf_config
         Top = 71
         Width = 72
         AutoSize = False
+        HideSelection = False
         ParentColor = True
         ParentFont = False
         TabOrder = 0
@@ -145,6 +146,7 @@ object f_config: Tf_config
         Top = 71
         Width = 72
         AutoSize = False
+        HideSelection = False
         ParentColor = True
         ParentFont = False
         TabOrder = 2
@@ -225,12 +227,12 @@ object f_config: Tf_config
         AnchorSideTop.Control = Edit1
         AnchorSideBottom.Control = Edit1
         AnchorSideBottom.Side = asrBottom
-        Left = 313
+        Left = 312
         Height = 32
         Top = 71
         Width = 59
         Anchors = [akTop, akLeft, akBottom]
-        TabOrder = 7
+        TabOrder = 4
         Text = 'Edit3'
       end
     end
@@ -242,8 +244,8 @@ object f_config: Tf_config
     Width = 454
     Align = alBottom
     BevelOuter = bvNone
-    ClientHeight = 37
-    ClientWidth = 450
+    ClientHeight = 41
+    ClientWidth = 454
     ParentFont = False
     TabOrder = 1
     object Button1: TSpeedButton

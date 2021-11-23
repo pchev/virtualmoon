@@ -12,11 +12,12 @@ function Translate(lang : string = ''; lang2 : string = ''):string;
 
 resourcestring
 
+rslanguage='English';
 rsConfiguratio = 'Configuration';
 rsLatitude = 'Latitude';
 rsLongitude = 'Longitude';
 rsAltitude = 'Altitude';
-rsLanguage = 'Language';
+rsLang = 'Language';
 rsOK = 'OK';
 rsCancel = 'Cancel';
 rsObservatory = 'Observatory';

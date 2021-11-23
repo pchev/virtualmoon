@@ -1,0 +1,64 @@
+#: u_translation:rslanguage
+msgid "English"
+msgstr ""
+
+#: u_translation:rsconfiguratio
+msgid "Configuration"
+msgstr ""
+
+#: u_translation:rslatitude
+msgid "Latitude"
+msgstr ""
+
+#: u_translation:rslongitude
+msgid "Longitude"
+msgstr ""
+
+#: u_translation:rsaltitude
+msgid "Altitude"
+msgstr ""
+
+#: u_translation:rslang
+msgid "Language"
+msgstr ""
+
+#: u_translation:rsok
+msgid "OK"
+msgstr ""
+
+#: u_translation:rscancel
+msgid "Cancel"
+msgstr ""
+
+#: u_translation:rsobservatory
+msgid "Observatory"
+msgstr ""
+
+#: u_translation:rsn
+msgid "N"
+msgstr ""
+
+#: u_translation:rss
+msgid "S"
+msgstr ""
+
+#: u_translation:rse
+msgid "E"
+msgstr ""
+
+#: u_translation:rsw
+msgid "W"
+msgstr ""
+
+#: u_translation:rsdatetime
+msgid "Date / Time"
+msgstr ""
+
+#: u_translation:rscountry
+msgid "Country"
+msgstr ""
+
+#: u_translation:rstimezone
+msgid "Time Zone"
+msgstr ""
+

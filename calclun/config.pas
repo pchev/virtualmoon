@@ -69,6 +69,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     countrycode: TStringList;
     FPrinterDialog : TNotifyEvent;
@@ -103,7 +104,7 @@ begin
       label1.Caption := rsLatitude;
       label2.Caption := rsLongitude;
       label62.Caption := rsAltitude;
-      label4.Caption := rsLanguage;
+      label4.Caption := rsLang;
       Button1.Caption := rsOK;
       Button4.Caption := rsCancel;
       Label16.Caption := rsObservatory;
@@ -175,7 +176,6 @@ while i=0 do begin
   i:=findnext(fs);
 end;
 findclose(fs);
-for j:=0 to combobox3.Items.Count-1 do if GetLangCode(combobox3.Items[j])=language then combobox3.ItemIndex:=j;
 countrycode:=TStringList.Create;
 end;
 
@@ -195,6 +195,14 @@ procedure Tf_config.FormDestroy(Sender: TObject);
 var i: integer;
 begin
 countrycode.Free;
+end;
+
+procedure Tf_config.FormShow(Sender: TObject);
+var j: integer;
+begin
+for j:=0 to combobox3.Items.Count-1 do
+   if GetLangCode(combobox3.Items[j])=language then
+     combobox3.ItemIndex:=j;
 end;
 
 procedure Tf_config.ComboBox3Change(Sender: TObject);
@@ -268,9 +276,11 @@ for i:=0 to tzinfo.ZoneTabCnty.Count-1 do begin
   if tzinfo.ZoneTabCnty[i]=obscountry then begin
      buf:=tzinfo.ZoneTabZone[i];
      j:=ComboBoxTZ.Items.Add(buf);
-     if (tzinfo.ZoneTabZone[i]=obstz) then ComboBoxTZ.ItemIndex:=j;
+     if (tzinfo.ZoneTabZone[i]=obstz) then
+       ComboBoxTZ.ItemIndex:=j;
   end;
 end;
+if ComboBoxTZ.ItemIndex<0 then ComboBoxTZ.ItemIndex:=0;
 ObsTZ:=ComboBoxTZ.Text;
 end;
 

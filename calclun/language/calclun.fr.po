@@ -1,0 +1,69 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: u_translation.rsaltitude
+msgid "Altitude"
+msgstr "Altitude"
+
+#: u_translation.rscancel
+msgid "Cancel"
+msgstr "Abandon"
+
+#: u_translation.rsconfiguratio
+msgid "Configuration"
+msgstr "Configuration"
+
+#: u_translation.rscountry
+msgid "Country"
+msgstr "Pays"
+
+#: u_translation.rsdatetime
+msgid "Date / Time"
+msgstr "Date / Heure"
+
+#: u_translation.rse
+msgid "E"
+msgstr "E"
+
+#: u_translation.rslang
+msgctxt "u_translation.rslang"
+msgid "Language"
+msgstr "Langue"
+
+#: u_translation.rslanguage
+msgctxt "u_translation.rslanguage"
+msgid "English"
+msgstr "Français"
+
+#: u_translation.rslatitude
+msgid "Latitude"
+msgstr "Latitude"
+
+#: u_translation.rslongitude
+msgid "Longitude"
+msgstr "Longitude"
+
+#: u_translation.rsn
+msgid "N"
+msgstr "N"
+
+#: u_translation.rsobservatory
+msgid "Observatory"
+msgstr "Observatoire"
+
+#: u_translation.rsok
+msgid "OK"
+msgstr "OK"
+
+#: u_translation.rss
+msgid "S"
+msgstr "S"
+
+#: u_translation.rstimezone
+msgid "Time Zone"
+msgstr "Zone horaire"
+
+#: u_translation.rsw
+msgid "W"
+msgstr "W"
+

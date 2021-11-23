@@ -58,6 +58,8 @@ install -v -m 644 weblun/language/weblun.en.po $destdir/language/
 install -v -m 644 weblun/language/weblun.fr.po $destdir/language/
 install -v -m 644 cclun/language/cclun.en.po $destdir/language/
 install -v -m 644 cclun/language/cclun.fr.po $destdir/language/
+install -v -m 644 calclun/language/calclun.en.po $destdir/language/
+install -v -m 644 calclun/language/calclun.fr.po $destdir/language/
 
 install -m 755 -d $destdir/data
 install -v -m 644 data/country.tab $destdir/data/

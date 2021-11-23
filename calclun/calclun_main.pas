@@ -1067,6 +1067,7 @@ begin
       SetLang;
     end;
 
+    inif.UpdateFile;
     inif.Free;
 
     SetObservatory;
