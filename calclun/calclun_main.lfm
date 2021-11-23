@@ -195,8 +195,8 @@ object f_calclun: Tf_calclun
           BackColor = 15744060
           Extent.UseXMax = True
           Extent.UseXMin = True
-          Extent.XMax = 12
-          Extent.XMin = -12
+          Extent.XMax = 0.5
+          Extent.XMin = -0.5
           Margins.Left = 0
           Margins.Top = 0
           Margins.Right = 0
