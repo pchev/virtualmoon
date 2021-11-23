@@ -32,7 +32,7 @@ uses
   Math, u_constant, cu_tz,
   Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, Buttons, ExtCtrls, Inifiles, Grids,
-  CheckLst, LResources;
+  CheckLst, LResources, Spin;
 
 type
 
@@ -43,7 +43,9 @@ type
     Button4: TSpeedButton;
     ComboBoxCountry: TComboBox;
     ComboBoxTZ: TComboBox;
-    Edit3: TEdit;
+    Edit1: TFloatSpinEdit;
+    Edit2: TFloatSpinEdit;
+    Edit3: TSpinEdit;
     Label62: TLabel;
     Label34: TLabel;
     Label35: TLabel;
@@ -54,8 +56,6 @@ type
     Label1: TLabel;
     Label2: TLabel;
     ComboBox3: TComboBox;
-    Edit1: TEdit;
-    Edit2: TEdit;
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
     Bevel7: TBevel;

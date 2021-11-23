@@ -1064,9 +1064,9 @@ begin
   f_config.obstz:=ObsTZ;
   f_config.newlang:=language;
   f_config.SetObsCountry(ObsCountry);
-  f_config.Edit1.Text := formatfloat(f4, abs(rad2deg*ObsLatitude));
-  f_config.Edit2.Text := formatfloat(f4, abs(rad2deg*ObsLongitude));
-  f_config.Edit3.Text := formatfloat(f0, ObsAltitude*1000);
+  f_config.Edit1.Value := abs(rad2deg*ObsLatitude);
+  f_config.Edit2.Value := abs(rad2deg*ObsLongitude);
+  f_config.Edit3.Value := ObsAltitude*1000;
   if Obslatitude >= 0 then
     f_config.ComboBox1.ItemIndex := 0
   else
@@ -1077,11 +1077,11 @@ begin
     f_config.ComboBox2.ItemIndex := 0;
 
   if f_config.ShowModal = mrOK then begin
-    ObsLatitude := deg2rad*strtofloat(f_config.Edit1.Text);
+    ObsLatitude := deg2rad*f_config.Edit1.Value;
     if f_config.ComboBox1.ItemIndex = 1 then
       ObsLatitude := -ObsLatitude;
-    ObsLongitude := deg2rad*strtofloat(f_config.Edit2.Text);
-    ObsAltitude := StrToFloat(f_config.Edit3.Text)/1000;
+    ObsLongitude := deg2rad*f_config.Edit2.Value;
+    ObsAltitude := f_config.Edit3.Value/1000;
     if f_config.ComboBox2.ItemIndex = 0 then
       Obslongitude := -Obslongitude;
     ObsCountry:=f_config.ObsCountry;
