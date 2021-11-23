@@ -54,14 +54,23 @@ type
     ChartYear: TChart;
     ChartAltAz: TChart;
     ChartAltAzLineSeries1: TLineSeries;
+    Chart3: TChart;
     ChartYearBoxAndWhiskerSeries1: TBoxAndWhiskerSeries;
     ChartYearBoxAndWhiskerSeries2: TBoxAndWhiskerSeries;
+    Chart3BoxAndWhiskerSeries1: TBoxAndWhiskerSeries;
+    Chart3BoxAndWhiskerSeries2: TBoxAndWhiskerSeries;
     ChartYearSeriesAstro1: TAreaSeries;
     ChartYearSeriesAstro2: TAreaSeries;
+    Chart3SeriesAstro1: TAreaSeries;
+    Chart3SeriesAstro2: TAreaSeries;
     ChartYearSeriesNautic1: TAreaSeries;
     ChartYearSeriesNautic2: TAreaSeries;
+    Chart3SeriesNautic1: TAreaSeries;
+    Chart3SeriesNautic2: TAreaSeries;
     ChartYearSeriesSunrise: TAreaSeries;
+    Chart3SeriesSunrise: TAreaSeries;
     ChartYearSeriesSunset: TAreaSeries;
+    Chart3SeriesSunset: TAreaSeries;
     DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
     DayPhase: TImage;
     Label10: TLabel;
@@ -71,6 +80,7 @@ type
     Memo1: TMemo;
     GridLibrationList: TStringGrid;
     MenuSetup: TMenuItem;
+    PanelGraph3: TPanel;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -186,6 +196,7 @@ type
     procedure ComputeDay;
     procedure PlotYearGraph;
     procedure PlotMonthGraph(col:integer);
+    procedure PlotMonthTwilight;
     procedure PlotDayGraph;
     procedure Illum;
     procedure Position;
@@ -1576,6 +1587,7 @@ begin
   Chart1.Title.Text.Clear;
   Chart2.Title.Text.Clear;
   PanelGraph2.Visible:=false;
+  PanelGraph3.Visible:=false;
   FCurrentMonthGraph:=col;
   case col of
     mcolDay      :  ;
@@ -1720,6 +1732,7 @@ begin
                    end;
                    end;
     mcolRise     : begin
+                   PanelGraph3.Visible:=true;
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
                    prev:=frac(TMoonMonthData(GridMonth.Objects[0,1]).trise);
                    for i:=1 to GridMonth.RowCount-1 do begin;
@@ -1734,8 +1747,10 @@ begin
                      end;
                      prev:=frac(TMoonMonthData(GridMonth.Objects[0,i]).trise);
                    end;
+                   PlotMonthTwilight;
                    end;
     mcolSet      : begin
+                   PanelGraph3.Visible:=true;
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
                    prev:=frac(TMoonMonthData(GridMonth.Objects[0,1]).tset);
                    for i:=1 to GridMonth.RowCount-1 do begin;
@@ -1750,8 +1765,145 @@ begin
                      end;
                      prev:=frac(TMoonMonthData(GridMonth.Objects[0,i]).tset);
                    end;
+                   PlotMonthTwilight;
                    end;
   end;
+end;
+
+procedure Tf_calclun.PlotMonthTwilight;
+var i,j,k,l: integer;
+    moonrise,moonset: double;
+    d:Tdatetime;
+    maxv,minv:double;
+begin
+  Chart3SeriesSunrise.Clear;
+  Chart3SeriesSunset.Clear;
+  Chart3SeriesAstro1.Clear;
+  Chart3SeriesAstro2.Clear;
+  Chart3SeriesNautic1.Clear;
+  Chart3SeriesNautic2.Clear;
+  Chart3BoxAndWhiskerSeries1.Clear;
+  Chart3BoxAndWhiskerSeries2.Clear;
+  maxv:=0.5;
+  minv:=-0.5;
+  moonrise:=0;
+  moonset:=0;
+  k:=StrToIntDef(GridYear.Cells[1,1],1);
+  // Use same time zome for all the year to ensure graph continuity
+  i:=SpinEditMonth.Value;
+    for j:=1 to MonthDays[IsLeapYear(SpinEditYear.Value)][i] do begin
+      d:=EncodeDate(SpinEditYear.Value,i,j);
+      if ((YearInfo[i,j].sunrise=0)or(YearInfo[i,j].sunset=0))or(YearInfo[i,j].sunrise>YearInfo[i,j].sunset) then begin
+       // no sun rise/set
+       if sign(YearInfo[i,j].sundec)=sign(ObsLatitude) then begin
+          // sun always visible
+          Chart3SeriesAstro1.AddXY(d,0);
+          Chart3SeriesAstro2.AddXY(d,0);
+          Chart3SeriesNautic1.AddXY(d,0);
+          Chart3SeriesNautic2.AddXY(d,0);
+          Chart3SeriesSunrise.AddXY(d,0);
+          Chart3SeriesSunset.AddXY(d,0);
+       end
+       else begin
+         // sun do not rise
+         if ((YearInfo[i,j].astro1=0)or(YearInfo[i,j].astro2=0))or(YearInfo[i,j].astro1>YearInfo[i,j].astro2) then begin
+           // no astro twilight
+           Chart3SeriesAstro1.AddXY(d,0);
+           Chart3SeriesAstro2.AddXY(d,0);
+         end
+         else begin
+           // astro twilight
+           Chart3SeriesAstro1.AddXY(d,(YearInfo[i,j].astro1+localoffset)-d);
+           Chart3SeriesAstro2.AddXY(d,max(minv,(YearInfo[i,j].astro2+localoffset)-d-1));
+         end;
+          if ((YearInfo[i,j].nautic1=0)or(YearInfo[i,j].nautic2=0))or(YearInfo[i,j].nautic1>YearInfo[i,j].nautic2) then begin
+            // no nautic twilight
+            Chart3SeriesNautic1.AddXY(d,maxv);
+            Chart3SeriesNautic2.AddXY(d,minv);
+            Chart3SeriesSunrise.AddXY(d,minv);
+            Chart3SeriesSunset.AddXY(d,minv);
+          end
+          else begin
+            // nautic twilight
+            Chart3SeriesNautic1.AddXY(d,(YearInfo[i,j].nautic1+localoffset)-d);
+            Chart3SeriesNautic2.AddXY(d,max(minv,(YearInfo[i,j].nautic2+localoffset)-d-1));
+            Chart3SeriesSunrise.AddXY(d,maxv);
+            Chart3SeriesSunset.AddXY(d,minv);
+          end;
+       end
+      end
+      else begin
+        // sun rise and set
+        Chart3SeriesSunrise.AddXY(d,(YearInfo[i,j].sunrise+localoffset)-d);
+        Chart3SeriesSunset.AddXY(d,max(minv,(YearInfo[i,j].sunset+localoffset)-d-1));
+        if ((YearInfo[i,j].astro1=0)or(YearInfo[i,j].astro2=0))or(YearInfo[i,j].astro1>YearInfo[i,j].astro2) then begin
+          // no astro twilight
+          Chart3SeriesAstro1.AddXY(d,0);
+          Chart3SeriesAstro2.AddXY(d,0);
+          if ((YearInfo[i,j].nautic1=0)or(YearInfo[i,j].nautic2=0))or(YearInfo[i,j].nautic1>YearInfo[i,j].nautic2) then begin
+            // no nautic twilight
+            Chart3SeriesNautic1.AddXY(d,0);
+            Chart3SeriesNautic2.AddXY(d,0);
+          end
+          else begin
+            //  nautic twilight
+            Chart3SeriesNautic1.AddXY(d,(YearInfo[i,j].nautic1+localoffset)-d);
+            Chart3SeriesNautic2.AddXY(d,max(minv,(YearInfo[i,j].nautic2+localoffset)-d-1));
+            end
+        end
+        else begin
+          // all twilight
+          Chart3SeriesAstro1.AddXY(d,(YearInfo[i,j].astro1+localoffset)-d);
+          Chart3SeriesNautic1.AddXY(d,(YearInfo[i,j].nautic1+localoffset)-d);
+          Chart3SeriesNautic2.AddXY(d,max(minv,(YearInfo[i,j].nautic2+localoffset)-d-1));
+          Chart3SeriesAstro2.AddXY(d,max(minv,(YearInfo[i,j].astro2+localoffset)-d-1));
+        end;
+      end;
+      // moon luminosity in 0-255 range
+      k:=StrToIntDef(GridYear.Cells[j,i],k);
+      if k<15 then l:=k*17
+              else l:=(30-k)*17;
+      // check if moon rise and set
+      if (YearInfo[i,j].moonrise=0)and(YearInfo[i,j].moonset=0) then begin
+        if Sign(YearInfo[i,j].moondec)=sign(ObsLatitude) then begin
+          // always up
+          moonrise:=minv;
+          moonset:=maxv;
+          Chart3BoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,moonset,moonset,'',RGBToColor(l,l,0));
+          Chart3BoxAndWhiskerSeries2.AddXY(d,0,0,0,0,0);
+        end
+        else begin
+          // no rise
+          Chart3BoxAndWhiskerSeries1.AddXY(d,0,0,0,0,0);
+          Chart3BoxAndWhiskerSeries2.AddXY(d,0,0,0,0,0);
+        end;
+      end
+      else begin
+        // moon rise set local time
+        if YearInfo[i,j].moonrise<>0 then
+          moonrise:=YearInfo[i,j].moonrise-d+localoffset
+        else
+          moonrise:=GetYearInfo(i,j,-1).moonrise-d+localoffset;
+        if YearInfo[i,j].moonset<>0 then
+          moonset:=YearInfo[i,j].moonset-d+localoffset
+        else
+          moonset:=GetYearInfo(i,j,1).moonset-d+localoffset;
+        // in -12 +12 range
+        if moonrise>0.5 then moonrise:=moonrise-1;
+        if moonset>0.5 then moonset:=moonset-1;
+        if (moonrise<moonset) then begin
+          // single bar
+          Chart3BoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,moonset,moonset,'',RGBToColor(l,l,0));
+          Chart3BoxAndWhiskerSeries2.AddXY(d,0,0,0,0,0);
+        end
+        else begin
+          // split in two bar
+          Chart3BoxAndWhiskerSeries1.AddXY(d,moonrise,moonrise,moonrise,maxv,maxv,'',RGBToColor(l,l,0));
+          Chart3BoxAndWhiskerSeries2.AddXY(d,minv,minv,minv,moonset,moonset,'',RGBToColor(l,l,0));
+        end;
+      end;
+    end;
+
 end;
 
 procedure Tf_calclun.DateChange(Sender: TObject);
