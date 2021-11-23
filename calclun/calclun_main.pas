@@ -81,6 +81,7 @@ type
     GridLibrationList: TStringGrid;
     MenuSetup: TMenuItem;
     PanelGraph3: TPanel;
+    ScrollBoxY2: TScrollBox;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
