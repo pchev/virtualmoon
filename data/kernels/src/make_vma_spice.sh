@@ -10,6 +10,9 @@
 #brief=cspice/exe/brief
 
 cd ..
+mkdir -p share/virtualmoon/data/kernels
+cd share/virtualmoon/data/kernels
+
 rm *.bpc *.tf *.tpc *.tls *.bsp *.tm
 
 wget ftp://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/earth_200101_990628_predict.bpc
@@ -27,7 +30,7 @@ wget ftp://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp
 
 # merge the vma files
 rm vma.bsp
-spkmerge src/merge_vma.txt
+spkmerge ../../../../src/merge_vma.txt
 
 # check the result
 brief vma.bsp
@@ -78,13 +81,16 @@ PATH_VALUES  = ( '' )
 
 PATH_SYMBOLS = ( 'A' )
 
-KERNELS_TO_LOAD = ('$A/earth_true_equator_equinox.tf',
-                   '$A/moon_080317.tf',
-                   '$A/pck00010.tpc',
-                   '$A/latest_leapseconds.tls',
-                   '$A/earth_200101_990628_predict.bpc',
-                   '$A/earth_720101_070426.bpc',      
-                   '$A/earth_latest_high_prec.bpc',
-                   '$A/moon_pa_de421_1900-2050.bpc',
-                   '$A/vma.bsp')
+KERNELS_TO_LOAD = ('\$A/earth_true_equator_equinox.tf',
+                   '\$A/moon_080317.tf',
+                   '\$A/pck00010.tpc',
+                   '\$A/latest_leapseconds.tls',
+                   '\$A/earth_200101_990628_predict.bpc',
+                   '\$A/earth_720101_070426.bpc',      
+                   '\$A/earth_latest_high_prec.bpc',
+                   '\$A/moon_pa_de421_1900-2050.bpc',
+                   '\$A/vma.bsp')
 EOF
+
+cd ../../../..
+tar cvzf Base_Kernels.tgz share

@@ -25,8 +25,8 @@ object f_calclun: Tf_calclun
       Height = 28
       Top = 20
       Width = 72
-      MaxValue = 2050
-      MinValue = 1963
+      MaxValue = 2100
+      MinValue = 1900
       OnChange = DateChange
       TabOrder = 0
       Value = 1963
@@ -149,6 +149,7 @@ object f_calclun: Tf_calclun
     Width = 1200
     ActivePage = TabSheetYear
     Align = alClient
+    Style = tsFlatButtons
     TabIndex = 0
     TabOrder = 0
     OnChange = PageControl1Change

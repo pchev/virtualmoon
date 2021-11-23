@@ -434,6 +434,8 @@ begin
   end;
   // Frac(k) must be 0, 0.25, 0.5 or 0.75, use this method to prevent rounding error
   i:=round(100*Frac(k));
+  if i<0 then i:=100+i;
+
   case i of
    0..10 : begin                  //new moon
           if realphase then

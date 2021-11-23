@@ -623,6 +623,10 @@ var
   end;
 
 begin  // ComputeYear
+  GridPhaseList.RowCount:=1;
+  GridPhaseList.RowCount:=15;
+  GridLibrationList.RowCount:=1;
+  GridLibrationList.RowCount:=15;
   LabelChartYear.Caption:='';
   // phase table
   reset_c;
@@ -1044,6 +1048,7 @@ begin
   if not IsColumn then begin
     SpinEditMonth.Value:=index;
     PageControl1.ActivePage:=TabSheetMonth;
+    PageControl1Change(nil);
   end;
 end;
 
@@ -1052,6 +1057,7 @@ begin
   SpinEditMonth.Value:=arow;
   SpinEditDay.Value:=acol;
   PageControl1.ActivePage:=TabSheetDay;
+  PageControl1Change(nil);
 end;
 
 procedure Tf_calclun.MenuSetupClick(Sender: TObject);
@@ -1551,6 +1557,7 @@ begin
     if index>0 then begin
       SpinEditDay.Value:=index;
       PageControl1.ActivePage:=TabSheetDay;
+      PageControl1Change(nil);
     end;
   end;
 end;
