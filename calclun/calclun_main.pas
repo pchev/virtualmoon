@@ -1758,6 +1758,7 @@ procedure Tf_calclun.DateChange(Sender: TObject);
 begin
   if not (fsFirstShow in FormState) then begin
     SpinEditDay.MaxValue:=MonthDays[IsLeapYear(SpinEditYear.Value)][SpinEditMonth.Value];
+    SpinEditDay.Hint:='1..'+inttostr(SpinEditDay.MaxValue);
     DateChangeTimer.Enabled:=false;
     DateChangeTimer.Enabled:=true;
     Screen.Cursor:=crHourGlass;

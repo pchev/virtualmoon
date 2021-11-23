@@ -23,11 +23,14 @@ object f_calclun: Tf_calclun
     object SpinEditYear: TSpinEdit
       Left = 32
       Height = 28
+      Hint = '1900..2100'
       Top = 20
       Width = 72
       MaxValue = 2100
       MinValue = 1900
       OnChange = DateChange
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
       Value = 1963
     end
@@ -37,12 +40,15 @@ object f_calclun: Tf_calclun
       AnchorSideTop.Control = SpinEditYear
       Left = 116
       Height = 28
+      Hint = '1..12'
       Top = 20
       Width = 50
       BorderSpacing.Left = 12
       MaxValue = 12
       MinValue = 1
       OnChange = DateChange
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 1
       Value = 1
     end
@@ -52,12 +58,15 @@ object f_calclun: Tf_calclun
       AnchorSideTop.Control = SpinEditYear
       Left = 178
       Height = 28
+      Hint = '1..31'
       Top = 20
       Width = 50
       BorderSpacing.Left = 12
       MaxValue = 31
       MinValue = 1
       OnChange = DateChange
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 2
       Value = 1
     end
@@ -1306,7 +1315,7 @@ object f_calclun: Tf_calclun
   end
   object DateChangeTimer: TTimer
     Enabled = False
-    Interval = 100
+    Interval = 250
     OnTimer = DateChangeTimerTimer
     Left = 48
     Top = 120
