@@ -1594,6 +1594,10 @@ begin
     mcolDay      :  ;
     mcolRa2000   : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.YMin:=0;
+                   chart1.Extent.YMax:=24;
+                   chart1.Extent.UseYMin:=true;
+                   chart1.Extent.UseYMax:=true;
                    prev:=TMoonMonthData(GridMonth.Objects[0,1]).ra2000;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                      if abs(TMoonMonthData(GridMonth.Objects[0,i]).ra2000-prev)<pi then
@@ -1610,12 +1614,20 @@ begin
                    end;
     mcolDe2000   : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.YMin:=-90;
+                   chart1.Extent.YMax:=90;
+                   chart1.Extent.UseYMin:=true;
+                   chart1.Extent.UseYMax:=true;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                       Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).de2000*rad2deg);
                    end;
                    end;
     mcolRa       : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.YMin:=0;
+                   chart1.Extent.YMax:=24;
+                   chart1.Extent.UseYMin:=true;
+                   chart1.Extent.UseYMax:=true;
                    prev:=TMoonMonthData(GridMonth.Objects[0,1]).ra;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                      if abs(TMoonMonthData(GridMonth.Objects[0,i]).ra-prev)<pi then
@@ -1632,24 +1644,34 @@ begin
                    end;
     mcolDe       : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.YMin:=-90;
+                   chart1.Extent.YMax:=90;
+                   chart1.Extent.UseYMin:=true;
+                   chart1.Extent.UseYMax:=true;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                       Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).de*rad2deg);
                    end;
                    end;
     mcolDist     : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.UseYMin:=false;
+                   chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                       Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).dist);
                    end;
                    end;
     mcolDiam     : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.UseYMin:=false;
+                   chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                       Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).diam);
                    end;
                    end;
     mcolPhase    : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.UseYMin:=false;
+                   chart1.Extent.UseYMax:=false;
                    prev:=TMoonMonthData(GridMonth.Objects[0,1]).phase;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                      if abs(TMoonMonthData(GridMonth.Objects[0,i]).phase-prev)<pi then
@@ -1666,6 +1688,8 @@ begin
                    end;
     mcolLunation : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.UseYMin:=false;
+                   chart1.Extent.UseYMax:=false;
                    prev:=TMoonMonthData(GridMonth.Objects[0,1]).lunation;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                      if abs(TMoonMonthData(GridMonth.Objects[0,i]).lunation-prev)<15 then
@@ -1682,12 +1706,16 @@ begin
                    end;
     mcolIllum    : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.UseYMin:=false;
+                   chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                       Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).illum);
                    end;
                    end;
     mcolColong   : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.UseYMin:=false;
+                   chart1.Extent.UseYMax:=false;
                    prev:=TMoonMonthData(GridMonth.Objects[0,1]).colong;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                       if abs(TMoonMonthData(GridMonth.Objects[0,i]).colong-prev)<pi then
@@ -1704,6 +1732,8 @@ begin
                    end;
     mcolSubSolLat: begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.UseYMin:=false;
+                   chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                       Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).subsollat*rad2deg);
                    end;
@@ -1712,6 +1742,8 @@ begin
                    PanelGraph2.Visible:=true;
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
                    chart2.Title.Text.Add('Libration'+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.UseYMin:=false;
+                   chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                       Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).librlong*rad2deg);
                       Chart2LineSeries1.AddXY(TMoonMonthData(GridMonth.Objects[0,i]).librlong*rad2deg,TMoonMonthData(GridMonth.Objects[0,i]).librlat*rad2deg,inttostr(i));
@@ -1721,6 +1753,8 @@ begin
                    PanelGraph2.Visible:=true;
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
                    chart2.Title.Text.Add('Libration'+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.UseYMin:=false;
+                   chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                       Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).librlat*rad2deg);
                       Chart2LineSeries1.AddXY(TMoonMonthData(GridMonth.Objects[0,i]).librlong*rad2deg,TMoonMonthData(GridMonth.Objects[0,i]).librlat*rad2deg,inttostr(i));
@@ -1728,6 +1762,8 @@ begin
                    end;
     mcolPa       : begin
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.UseYMin:=false;
+                   chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
                       Chart1LineSeries1.Add(TMoonMonthData(GridMonth.Objects[0,i]).pa*rad2deg);
                    end;
@@ -1735,6 +1771,10 @@ begin
     mcolRise     : begin
                    PanelGraph3.Visible:=true;
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.YMin:=0;
+                   chart1.Extent.YMax:=24;
+                   chart1.Extent.UseYMin:=true;
+                   chart1.Extent.UseYMax:=true;
                    prev:=frac(TMoonMonthData(GridMonth.Objects[0,1]).trise);
                    for i:=1 to GridMonth.RowCount-1 do begin;
                      if abs(frac(TMoonMonthData(GridMonth.Objects[0,i]).trise)-prev)<0.5 then
@@ -1753,6 +1793,10 @@ begin
     mcolSet      : begin
                    PanelGraph3.Visible:=true;
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Extent.YMin:=0;
+                   chart1.Extent.YMax:=24;
+                   chart1.Extent.UseYMin:=true;
+                   chart1.Extent.UseYMax:=true;
                    prev:=frac(TMoonMonthData(GridMonth.Objects[0,1]).tset);
                    for i:=1 to GridMonth.RowCount-1 do begin;
                      if abs(frac(TMoonMonthData(GridMonth.Objects[0,i]).tset)-prev)<0.5 then
