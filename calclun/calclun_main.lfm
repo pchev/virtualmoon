@@ -186,130 +186,142 @@ object f_calclun: Tf_calclun
           ClientHeight = 559
           ClientWidth = 310
           TabOrder = 0
-          object ChartYear: TChart
+          object PanelChartYear: TPanel
             Left = 0
             Height = 764
             Top = 0
             Width = 310
-            AntialiasingMode = amOn
-            AxisList = <            
-              item
-                Grid.Visible = False
-                Arrow.Inverted = True
-                Inverted = True
-                Marks.Format = '%2:s'
-                Marks.LabelBrush.Style = bsClear
-                Marks.Source = DateTimeIntervalChartSource1
-                Marks.Style = smsLabel
-                Minors = <>
-                Title.LabelFont.Orientation = 900
-                Title.LabelBrush.Style = bsClear
-              end            
-              item
-                Grid.Visible = False
-                Alignment = calBottom
-                Marks.LabelBrush.Style = bsClear
-                Minors = <>
-                Title.LabelBrush.Style = bsClear
-                OnMarkToText = ChartYearAxisList1MarkToText
-              end>
-            BackColor = 15744060
-            Extent.UseXMax = True
-            Extent.UseXMin = True
-            Extent.XMax = 0.5
-            Extent.XMin = -0.5
-            Margins.Left = 0
-            Margins.Top = 0
-            Margins.Right = 0
-            Margins.Bottom = 0
-            Title.Text.Strings = (
-              'TAChart'
-            )
             Align = alTop
-            OnMouseMove = ChartYearMouseMove
-            object ChartYearSeriesSunrise: TAreaSeries
-              ZPosition = 10
-              AxisIndexX = 0
-              AxisIndexY = 1
-              AreaBrush.Color = 10496040
-              AreaContourPen.Color = 10496040
-              AreaLinesPen.Color = 10496040
-              Stacked = False
-            end
-            object ChartYearSeriesNautic1: TAreaSeries
-              ZPosition = 12
-              AxisIndexX = 0
-              AxisIndexY = 1
-              AreaBrush.Color = 6553616
-              AreaContourPen.Color = 6553616
-              AreaLinesPen.Color = 6553616
-              Stacked = False
-            end
-            object ChartYearSeriesAstro1: TAreaSeries
-              ZPosition = 14
-              AxisIndexX = 0
-              AxisIndexY = 1
-              AreaBrush.Color = clBlack
-              Stacked = False
-            end
-            object ChartYearSeriesAstro2: TAreaSeries
-              ZPosition = 16
-              AxisIndexX = 0
-              AxisIndexY = 1
-              AreaBrush.Color = 6553616
-              AreaContourPen.Color = 6553616
-              AreaLinesPen.Color = 6553616
-              Stacked = False
-            end
-            object ChartYearSeriesNautic2: TAreaSeries
-              ZPosition = 18
-              AxisIndexX = 0
-              AxisIndexY = 1
-              AreaBrush.Color = 10496040
-              AreaContourPen.Color = 10496040
-              AreaLinesPen.Color = 10496040
-              Stacked = False
-            end
-            object ChartYearSeriesSunset: TAreaSeries
-              ZPosition = 20
-              AxisIndexX = 0
-              AxisIndexY = 1
-              AreaBrush.Color = 15744060
-              AreaContourPen.Color = 15744060
-              AreaLinesPen.Color = 15744060
-              Stacked = False
-            end
-            object ChartYearBoxAndWhiskerSeries1: TBoxAndWhiskerSeries
-              ZPosition = 30
-              BoxBrush.Color = clYellow
-              BoxPen.Color = clYellow
-              BoxPen.Style = psClear
-              BoxPen.Width = 0
-              BoxWidth = 100
-              MedianPen.Mode = pmNop
-              MedianPen.Width = 0
-              WhiskersPen.Mode = pmNop
-              WhiskersPen.Width = 0
-              WhiskersWidth = 0
-              AxisIndexX = 0
-              AxisIndexY = 1
-              Marks.Frame.Mode = pmNop
-            end
-            object ChartYearBoxAndWhiskerSeries2: TBoxAndWhiskerSeries
-              Legend.Visible = False
-              ZPosition = 30
-              BoxBrush.Color = clYellow
-              BoxPen.Style = psClear
-              BoxPen.Width = 0
-              BoxWidth = 100
-              MedianPen.Mode = pmNop
-              MedianPen.Width = 0
-              WhiskersPen.Mode = pmNop
-              WhiskersPen.Width = 0
-              WhiskersWidth = 0
-              AxisIndexX = 0
-              AxisIndexY = 1
-              Marks.Frame.Mode = pmNop
+            BevelOuter = bvNone
+            ClientHeight = 764
+            ClientWidth = 310
+            TabOrder = 0
+            object ChartYear: TChart
+              Left = 0
+              Height = 764
+              Top = 0
+              Width = 310
+              AntialiasingMode = amOn
+              AxisList = <              
+                item
+                  Grid.Visible = False
+                  Arrow.Inverted = True
+                  Inverted = True
+                  Marks.Format = '%2:s'
+                  Marks.LabelBrush.Style = bsClear
+                  Marks.Source = DateTimeIntervalChartSource1
+                  Marks.Style = smsLabel
+                  Minors = <>
+                  Title.LabelFont.Orientation = 900
+                  Title.LabelBrush.Style = bsClear
+                end              
+                item
+                  Grid.Visible = False
+                  Alignment = calBottom
+                  Marks.LabelBrush.Style = bsClear
+                  Minors = <>
+                  Title.LabelBrush.Style = bsClear
+                  OnMarkToText = ChartYearAxisList1MarkToText
+                end>
+              BackColor = 15744060
+              Extent.UseXMax = True
+              Extent.UseXMin = True
+              Extent.XMax = 0.5
+              Extent.XMin = -0.5
+              Margins.Left = 0
+              Margins.Top = 0
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Title.Text.Strings = (
+                'TAChart'
+              )
+              Align = alClient
+              OnDblClick = OpenChart
+              OnMouseMove = ChartYearMouseMove
+              object ChartYearSeriesSunrise: TAreaSeries
+                ZPosition = 10
+                AxisIndexX = 0
+                AxisIndexY = 1
+                AreaBrush.Color = 10496040
+                AreaContourPen.Color = 10496040
+                AreaLinesPen.Color = 10496040
+                Stacked = False
+              end
+              object ChartYearSeriesNautic1: TAreaSeries
+                ZPosition = 12
+                AxisIndexX = 0
+                AxisIndexY = 1
+                AreaBrush.Color = 6553616
+                AreaContourPen.Color = 6553616
+                AreaLinesPen.Color = 6553616
+                Stacked = False
+              end
+              object ChartYearSeriesAstro1: TAreaSeries
+                ZPosition = 14
+                AxisIndexX = 0
+                AxisIndexY = 1
+                AreaBrush.Color = clBlack
+                Stacked = False
+              end
+              object ChartYearSeriesAstro2: TAreaSeries
+                ZPosition = 16
+                AxisIndexX = 0
+                AxisIndexY = 1
+                AreaBrush.Color = 6553616
+                AreaContourPen.Color = 6553616
+                AreaLinesPen.Color = 6553616
+                Stacked = False
+              end
+              object ChartYearSeriesNautic2: TAreaSeries
+                ZPosition = 18
+                AxisIndexX = 0
+                AxisIndexY = 1
+                AreaBrush.Color = 10496040
+                AreaContourPen.Color = 10496040
+                AreaLinesPen.Color = 10496040
+                Stacked = False
+              end
+              object ChartYearSeriesSunset: TAreaSeries
+                ZPosition = 20
+                AxisIndexX = 0
+                AxisIndexY = 1
+                AreaBrush.Color = 15744060
+                AreaContourPen.Color = 15744060
+                AreaLinesPen.Color = 15744060
+                Stacked = False
+              end
+              object ChartYearBoxAndWhiskerSeries1: TBoxAndWhiskerSeries
+                ZPosition = 30
+                BoxBrush.Color = clYellow
+                BoxPen.Color = clYellow
+                BoxPen.Style = psClear
+                BoxPen.Width = 0
+                BoxWidth = 100
+                MedianPen.Mode = pmNop
+                MedianPen.Width = 0
+                WhiskersPen.Mode = pmNop
+                WhiskersPen.Width = 0
+                WhiskersWidth = 0
+                AxisIndexX = 0
+                AxisIndexY = 1
+                Marks.Frame.Mode = pmNop
+              end
+              object ChartYearBoxAndWhiskerSeries2: TBoxAndWhiskerSeries
+                Legend.Visible = False
+                ZPosition = 30
+                BoxBrush.Color = clYellow
+                BoxPen.Style = psClear
+                BoxPen.Width = 0
+                BoxWidth = 100
+                MedianPen.Mode = pmNop
+                MedianPen.Width = 0
+                WhiskersPen.Mode = pmNop
+                WhiskersPen.Width = 0
+                WhiskersWidth = 0
+                AxisIndexX = 0
+                AxisIndexY = 1
+                Marks.Frame.Mode = pmNop
+              end
             end
           end
           object LabelChartYear: TLabel
@@ -511,6 +523,7 @@ object f_calclun: Tf_calclun
               )
               Title.Visible = True
               Align = alClient
+              OnDblClick = OpenChart
               object Chart1LineSeries1: TLineSeries
                 ColorEach = ceLineBefore
                 LinePen.Color = clBlue
@@ -558,6 +571,7 @@ object f_calclun: Tf_calclun
               )
               Title.Visible = True
               Align = alClient
+              OnDblClick = OpenChart
               object Chart2LineSeries1: TLineSeries
                 Legend.Visible = False
                 LinePen.Color = clMaroon
@@ -632,6 +646,7 @@ object f_calclun: Tf_calclun
               )
               Title.Visible = True
               Align = alClient
+              OnDblClick = OpenChart
               OnMouseMove = ChartYearMouseMove
               object Chart3SeriesSunrise: TAreaSeries
                 ZPosition = 10
@@ -795,76 +810,88 @@ object f_calclun: Tf_calclun
           ClientHeight = 197
           ClientWidth = 298
           TabOrder = 1
-          object ChartAltAz: TChart
+          object PanelChartAltAz: TPanel
             Left = 1
             Height = 163
             Top = 1
             Width = 296
-            AxisList = <            
-              item
-                Marks.LabelBrush.Style = bsClear
-                Minors = <>
-                Title.LabelFont.Orientation = 900
-                Title.LabelBrush.Style = bsClear
-              end            
-              item
-                Alignment = calBottom
-                Marks.Format = '%2:s'
-                Marks.LabelBrush.Style = bsClear
-                Marks.OverlapPolicy = opHideNeighbour
-                Marks.Source = DateTimeIntervalChartSource1
-                Marks.Style = smsLabel
-                Minors = <>
-                Title.LabelBrush.Style = bsClear
-              end>
-            BackColor = clBlack
-            Extent.UseXMax = True
-            Extent.UseXMin = True
-            Extent.UseYMax = True
-            Extent.UseYMin = True
-            Extent.YMax = 90
-            Margins.Left = 0
-            Margins.Top = 0
-            Margins.Right = 0
-            Margins.Bottom = 0
-            Title.Text.Strings = (
-              'TAChart'
-            )
             Align = alTop
-            OnMouseMove = ChartAltAzMouseMove
-            object ChartAltAzLineSeries1: TLineSeries
-              ZPosition = 30
-              LinePen.Color = clYellow
-              LinePen.Width = 2
-            end
-            object ChartAltAzLineSeries2: TLineSeries
-              ZPosition = 30
-              LinePen.Color = clYellow
-              LinePen.Width = 2
-            end
-            object ChartAltazSunArea: TAreaSeries
-              ZPosition = 20
-              AreaBrush.Color = 16728128
-              AreaContourPen.Color = 16728128
-              AreaLinesPen.Color = 16728128
-            end
-            object ChartAltAzCivilArea: TAreaSeries
-              ZPosition = 18
-              AreaBrush.Color = 13382451
-              AreaContourPen.Color = 13382451
-              AreaLinesPen.Color = 13382451
-            end
-            object ChartAltAzNauticArea: TAreaSeries
-              ZPosition = 16
-              AreaBrush.Color = 10496040
-              AreaContourPen.Color = 10496040
-              AreaLinesPen.Color = 10496040
-            end
-            object ChartAltAzAstroArea: TAreaSeries
-              ZPosition = 14
-              AreaBrush.Color = 6553616
-              AreaContourPen.Color = 6553616
-              AreaLinesPen.Color = 6553616
+            BevelOuter = bvNone
+            ClientHeight = 163
+            ClientWidth = 296
+            TabOrder = 0
+            object ChartAltAz: TChart
+              Left = 0
+              Height = 163
+              Top = 0
+              Width = 296
+              AxisList = <              
+                item
+                  Marks.LabelBrush.Style = bsClear
+                  Minors = <>
+                  Title.LabelFont.Orientation = 900
+                  Title.LabelBrush.Style = bsClear
+                end              
+                item
+                  Alignment = calBottom
+                  Marks.Format = '%2:s'
+                  Marks.LabelBrush.Style = bsClear
+                  Marks.OverlapPolicy = opHideNeighbour
+                  Marks.Source = DateTimeIntervalChartSource1
+                  Marks.Style = smsLabel
+                  Minors = <>
+                  Title.LabelBrush.Style = bsClear
+                end>
+              BackColor = clBlack
+              Extent.UseXMax = True
+              Extent.UseXMin = True
+              Extent.UseYMax = True
+              Extent.UseYMin = True
+              Extent.YMax = 90
+              Margins.Left = 0
+              Margins.Top = 0
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Title.Text.Strings = (
+                'TAChart'
+              )
+              Align = alClient
+              OnDblClick = OpenChart
+              OnMouseMove = ChartAltAzMouseMove
+              object ChartAltAzLineSeries1: TLineSeries
+                ZPosition = 30
+                LinePen.Color = clYellow
+                LinePen.Width = 2
+              end
+              object ChartAltAzLineSeries2: TLineSeries
+                ZPosition = 30
+                LinePen.Color = clYellow
+                LinePen.Width = 2
+              end
+              object ChartAltazSunArea: TAreaSeries
+                ZPosition = 20
+                AreaBrush.Color = 16728128
+                AreaContourPen.Color = 16728128
+                AreaLinesPen.Color = 16728128
+              end
+              object ChartAltAzCivilArea: TAreaSeries
+                ZPosition = 18
+                AreaBrush.Color = 13382451
+                AreaContourPen.Color = 13382451
+                AreaLinesPen.Color = 13382451
+              end
+              object ChartAltAzNauticArea: TAreaSeries
+                ZPosition = 16
+                AreaBrush.Color = 10496040
+                AreaContourPen.Color = 10496040
+                AreaLinesPen.Color = 10496040
+              end
+              object ChartAltAzAstroArea: TAreaSeries
+                ZPosition = 14
+                AreaBrush.Color = 6553616
+                AreaContourPen.Color = 6553616
+                AreaLinesPen.Color = 6553616
+              end
             end
           end
           object LabelAltAz: TLabel
@@ -884,14 +911,14 @@ object f_calclun: Tf_calclun
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 559
-        ClientWidth = 886
+        ClientHeight = 561
+        ClientWidth = 888
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 559
+          Height = 561
           Top = 0
-          Width = 886
+          Width = 888
           Align = alClient
           ColCount = 15
           DefaultColWidth = 120

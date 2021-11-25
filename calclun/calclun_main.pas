@@ -80,6 +80,8 @@ type
     Memo1: TMemo;
     GridLibrationList: TStringGrid;
     MenuSetup: TMenuItem;
+    PanelChartAltAz: TPanel;
+    PanelChartYear: TPanel;
     PanelGraph3: TPanel;
     ScrollBoxY2: TScrollBox;
     TZspinedit: TFloatSpinEdit;
@@ -163,6 +165,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure ChartYearAxisList1MarkToText(var AText: String; AMark: Double);
+    procedure OpenChart(Sender: TObject);
     procedure ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DateChange(Sender: TObject);
     procedure DateChangeTimerTimer(Sender: TObject);
@@ -199,6 +202,8 @@ type
     procedure PlotMonthGraph(col:integer);
     procedure PlotMonthTwilight;
     procedure PlotDayGraph;
+    procedure CloseChartClick(Sender: TObject);
+    procedure CloseChart(Sender: TObject; var CloseAction: TCloseAction);
     procedure Illum;
     procedure Position;
     procedure PositionTopo;
@@ -1017,6 +1022,70 @@ begin
    atext:=FormatFloat(f0,24+AMark)
  else
    atext:=FormatFloat(f0,AMark)
+end;
+
+procedure Tf_calclun.OpenChart(Sender: TObject);
+var f:TForm;
+    p:TPanel;
+    b:TButton;
+    pt:Tpoint;
+begin
+ f:=TForm.Create(self);
+ p:=TPanel.Create(f);
+ b:=TButton.Create(f);
+ f.OnClose:=@CloseChart;
+ p.Parent:=f;
+ p.Caption:='';
+ p.Height:=b.Height+8;
+ p.Align:=alBottom;
+ b.Caption:='Close';
+ b.OnClick:=@CloseChartClick;
+ b.Parent:=p;
+ b.AnchorSideTop.Control:=p;
+ b.AnchorSideTop.Side:=asrCenter;
+ b.AnchorSideLeft.Control:=p;
+ b.AnchorSideLeft.Side:=asrCenter;
+ f.Width:=TChart(Sender).Width+8;
+ f.Height:=TChart(Sender).Height+p.Height+8;
+ pt.X:=TChart(Sender).Left;
+ pt.Y:=TChart(Sender).Top;
+ pt:=TChart(Sender).Parent.ClientToScreen(pt);
+ FormPos(f,pt.X,pt.Y);
+ TChart(Sender).Parent:=f;
+ TChart(Sender).Align:=alClient;
+ f.Show;
+end;
+
+procedure Tf_calclun.CloseChartClick(Sender: TObject);
+begin
+ TForm(TPanel(TButton(Sender).Parent).Parent).close;
+end;
+
+procedure Tf_calclun.CloseChart(Sender: TObject; var CloseAction: TCloseAction);
+var i: integer;
+begin
+  for i:=0 to TForm(Sender).ControlCount-1 do begin
+     if TForm(Sender).Controls[i] is TChart then
+       with TForm(Sender).Controls[i] as TChart do begin
+         Align:=alClient;
+         if Name='ChartYear' then begin
+            Parent:=PanelChartYear;
+         end
+         else if Name='Chart1' then begin
+            Parent:=PanelGraph1;
+         end
+         else if Name='Chart2' then begin
+            Parent:=PanelGraph2;
+         end
+         else if Name='Chart2' then begin
+            Parent:=PanelGraph3;
+         end
+         else if Name='ChartAltAz' then begin
+            Parent:=PanelChartAltAz;
+         end
+       end;
+  end;
+  CloseAction:=caFree;
 end;
 
 procedure Tf_calclun.ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
