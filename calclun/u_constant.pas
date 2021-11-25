@@ -33,9 +33,9 @@ uses
 
 const crlf = chr(10)+chr(13);
       cpyr = '©'; //chr($a9)+chr($c2);  // ©
-      AVLversion = '7.0';
-      version = '7.0c';
-      VersionName = 'AtLun';
+      AVLversion = '8.0';
+      version = '8.0a';
+      VersionName = 'CalcLun';
       avlcpy = 'Copyright '+cpyr+' 2002-2020 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
       jd2000 =2451545.0 ;

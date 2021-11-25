@@ -911,14 +911,14 @@ object f_calclun: Tf_calclun
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 50
         Align = alClient
-        ClientHeight = 561
-        ClientWidth = 888
+        ClientHeight = 559
+        ClientWidth = 886
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 561
+          Height = 559
           Top = 0
-          Width = 888
+          Width = 886
           Align = alClient
           ColCount = 15
           DefaultColWidth = 120

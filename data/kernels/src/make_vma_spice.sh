@@ -77,17 +77,17 @@ cat <<EOF > vma.tm
 
 \begindata 
 
-PATH_VALUES  = ( '' )
+PATH_VALUES  = ( '', '' )
 
-PATH_SYMBOLS = ( 'A' )
+PATH_SYMBOLS = ( 'A', 'B' )
 
 KERNELS_TO_LOAD = ('\$A/earth_true_equator_equinox.tf',
                    '\$A/moon_080317.tf',
                    '\$A/pck00010.tpc',
-                   '\$A/latest_leapseconds.tls',
+                   '\$B/latest_leapseconds.tls',
                    '\$A/earth_200101_990628_predict.bpc',
                    '\$A/earth_720101_070426.bpc',      
-                   '\$A/earth_latest_high_prec.bpc',
+                   '\$B/earth_latest_high_prec.bpc',
                    '\$A/moon_pa_de421_1900-2050.bpc',
                    '\$A/vma.bsp')
 EOF

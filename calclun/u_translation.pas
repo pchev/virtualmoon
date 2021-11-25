@@ -13,6 +13,7 @@ function Translate(lang : string = ''; lang2 : string = ''):string;
 resourcestring
 
 rslanguage='English';
+rstitle='Calclun';
 rsConfiguratio = 'Configuration';
 rsLatitude = 'Latitude';
 rsLongitude = 'Longitude';

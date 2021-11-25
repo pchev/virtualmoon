@@ -9,8 +9,9 @@ uses
     Windows, Registry, ShlObj,
   {$endif}
   cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
-  TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8, config, u_translation,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Buttons, Types, TACustomSeries, TAMultiSeries, TATransformations;
+  TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8, config, u_translation, FileUtil, downloaddialog, splashunit,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Buttons,
+  LCLVersion, Types, TACustomSeries, TAMultiSeries, TATransformations;
 
 const
     mcolDay=0; mcolRa2000=1; mcolDe2000=2; mcolRa=3; mcolDe=4; mcolDist=5; mcolDiam=6; mcolPhase=7; mcolLunation=8; mcolIllum=9; mcolColong=10; mcolSubSolLat=11; mcolLibrLon=12; mcolLibrLat=13; mcolPa=14; mcolRise=15; mcolSet=16;
@@ -191,6 +192,7 @@ type
     procedure SetLang;
     procedure GetAppDir;
     procedure SetKernelsPath;
+    procedure CheckUpdate;
     procedure SetObservatory;
     function  GetTimeZone(sdt: Tdatetime): double;
     function  GetTimeZoneD(sdt: Tdatetime): double;
@@ -233,6 +235,8 @@ procedure Tf_calclun.FormCreate(Sender: TObject);
 var inifile:Tmeminifile;
 begin
   DefaultFormatSettings.DateSeparator:='-';
+  compile_time := {$I %DATE%}+' '+{$I %TIME%};
+  compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%};
   StatusLabel.Caption:='';
   LabelAltAz.Caption:='';
   LabelChartYear.Caption:='';
@@ -256,6 +260,19 @@ begin
   tz:=TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');
 
+end;
+
+procedure Tf_calclun.FormDestroy(Sender: TObject);
+var i: integer;
+begin
+  tz.Free;
+  for i:=0 to GridMonth.RowCount-1 do begin
+    if GridMonth.Objects[0,i]<>nil then GridMonth.Objects[0,i].free;
+  end;
+end;
+
+procedure Tf_calclun.FormShow(Sender: TObject);
+begin
   InitError;
   reset_c;
   SetKernelsPath;
@@ -280,19 +297,6 @@ begin
   label10.Caption:='by year';
   FCurrentMonthGraph:=mcolLibrLon;
 
-end;
-
-procedure Tf_calclun.FormDestroy(Sender: TObject);
-var i: integer;
-begin
-  tz.Free;
-  for i:=0 to GridMonth.RowCount-1 do begin
-    if GridMonth.Objects[0,i]<>nil then GridMonth.Objects[0,i].free;
-  end;
-end;
-
-procedure Tf_calclun.FormShow(Sender: TObject);
-begin
   SetObservatory;
   f_config.tzinfo:=tz;
   f_config.LoadCountry(slash(Appdir)+slash('data')+'country.tab');
@@ -375,6 +379,13 @@ procedure Tf_calclun.SetKernelsPath;
 var buf: string;
     fi,fo: TextFile;
 begin
+  // update data
+  CheckUpdate;
+  // if it fail use the distributed data
+  if (not FileExists(slash(PrivateDir)+'latest_leapseconds.tls')) then
+    CopyFile(slash(appdir) + slash('data') + slash('kernels')+'latest_leapseconds.tls',slash(PrivateDir)+'latest_leapseconds.tls',true,true);
+  if (not FileExists(slash(PrivateDir)+'earth_latest_high_prec.bpc')) then
+    CopyFile(slash(appdir) + slash('data') + slash('kernels')+'earth_latest_high_prec.bpc',slash(PrivateDir)+'earth_latest_high_prec.bpc',true,true);
   AssignFile(fi,slash(appdir) + slash('data') + slash('kernels')+'vma.tm');
   Reset(fi);
   AssignFile(fo,slash(PrivateDir)+'vma.tm');
@@ -382,12 +393,45 @@ begin
   repeat
     ReadLn(fi,buf);
     if copy(buf,1,11)='PATH_VALUES' then begin
-      buf:='PATH_VALUES = ( '''+slash(appdir) + slash('data') + slash('kernels')+''' )';
+      buf:='PATH_VALUES = ( '''+slash(appdir) + slash('data') + slash('kernels')+''',';
+      WriteLn(fo,buf);
+      buf:='           '''+slash(privatedir)+''')';
     end;
     WriteLn(fo,buf);
   until eof(fi);
   CloseFile(fi);
   CloseFile(fo);
+end;
+
+procedure Tf_calclun.CheckUpdate;
+var dl: TDownloadDialog;
+    fn: string;
+begin
+ dl:=TDownloadDialog.Create(self);
+ try
+ fn:=slash(PrivateDir)+'earth_latest_high_prec.bpc';
+ if (not FileExists(fn)) or ((now-FileDateToDateTime(FileAge(fn))) > 30)
+ then begin
+    dl.ConfirmDownload := False;
+    dl.QuickCancel := false;
+    dl.URL := 'https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/earth_latest_high_prec.bpc';
+    dl.SaveToFile := fn;
+    if not dl.Execute then
+      deletefile(fn);
+ end;
+ fn:=slash(PrivateDir)+'latest_leapseconds.tls';
+ if (not FileExists(fn)) or ((now-FileDateToDateTime(FileAge(fn))) > 30)
+ then begin
+    dl.ConfirmDownload := False;
+    dl.QuickCancel := false;
+    dl.URL := 'https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/latest_leapseconds.tls';
+    dl.SaveToFile := fn;
+    if not dl.Execute then
+      deletefile(fn);
+ end;
+ finally
+  dl.free;
+ end;
 end;
 
 procedure Tf_calclun.GetAppDir;
@@ -2047,6 +2091,7 @@ try
   CurrentDay:=SpinEditDay.Value;
 finally
   Screen.Cursor:=crDefault;
+  if splash.Visible then splash.release;
 end;
 end;
 

@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, tachartlazaruspkg, printer4lazarus, calclun_main, cspice, sysutils, moon_spice, u_util, u_projection, u_constant, pas_spice, config, u_translation
+  Forms, tachartlazaruspkg, printer4lazarus, calclun_main, cspice, sysutils, moon_spice, u_util, u_projection, u_constant, pas_spice, config, u_translation, splashunit, downldialog
   { you can add units after this };
 
 {$R *.res}
@@ -27,6 +27,13 @@ begin
   Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(Tf_calclun, f_calclun);
+
+  Application.CreateForm(Tsplash, splash);
+  Splashversion := AVLversion+blank+compile_time;
+  splash.VersionName:=VersionName;
+  splash.Splashversion:=Splashversion;
+  splash.show;
+
   Application.CreateForm(Tf_config, f_config);
   Application.Run;
 end.
