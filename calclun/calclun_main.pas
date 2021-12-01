@@ -1074,30 +1074,34 @@ var f:TForm;
     b:TButton;
     pt:Tpoint;
 begin
- f:=TForm.Create(self);
- p:=TPanel.Create(f);
- b:=TButton.Create(f);
- f.OnClose:=@CloseChart;
- p.Parent:=f;
- p.Caption:='';
- p.Height:=b.Height+8;
- p.Align:=alBottom;
- b.Caption:='Close';
- b.OnClick:=@CloseChartClick;
- b.Parent:=p;
- b.AnchorSideTop.Control:=p;
- b.AnchorSideTop.Side:=asrCenter;
- b.AnchorSideLeft.Control:=p;
- b.AnchorSideLeft.Side:=asrCenter;
- f.Width:=TChart(Sender).Width+8;
- f.Height:=TChart(Sender).Height+p.Height+8;
- pt.X:=TChart(Sender).Left;
- pt.Y:=TChart(Sender).Top;
- pt:=TChart(Sender).Parent.ClientToScreen(pt);
- FormPos(f,pt.X,pt.Y);
- TChart(Sender).Parent:=f;
- TChart(Sender).Align:=alClient;
- f.Show;
+ if TChart(Sender).Parent is TForm then
+   TForm(TChart(Sender).Parent).close
+ else begin
+   f:=TForm.Create(self);
+   p:=TPanel.Create(f);
+   b:=TButton.Create(f);
+   f.OnClose:=@CloseChart;
+   p.Parent:=f;
+   p.Caption:='';
+   p.Height:=b.Height+8;
+   p.Align:=alBottom;
+   b.Caption:='Close';
+   b.OnClick:=@CloseChartClick;
+   b.Parent:=p;
+   b.AnchorSideTop.Control:=p;
+   b.AnchorSideTop.Side:=asrCenter;
+   b.AnchorSideLeft.Control:=p;
+   b.AnchorSideLeft.Side:=asrCenter;
+   f.Width:=TChart(Sender).Width+8;
+   f.Height:=TChart(Sender).Height+p.Height+8;
+   pt.X:=TChart(Sender).Left;
+   pt.Y:=TChart(Sender).Top;
+   pt:=TChart(Sender).Parent.ClientToScreen(pt);
+   FormPos(f,pt.X,pt.Y);
+   TChart(Sender).Parent:=f;
+   TChart(Sender).Align:=alClient;
+   f.Show;
+ end;
 end;
 
 procedure Tf_calclun.CloseChartClick(Sender: TObject);
