@@ -2034,7 +2034,7 @@ end;
 procedure Tf_moon.SetLabelFont(f:Tfont);
 begin
   if f.Size>20 then f.size:=20;
-  GLBitmapFont1.Font:=f;
+  GLBitmapFont1.Font.Assign(f);
   case f.size of
   0..12 : ShadowOffset:=1;
   else    ShadowOffset:=2;

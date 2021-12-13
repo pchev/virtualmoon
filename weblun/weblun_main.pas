@@ -43,6 +43,7 @@ type
     procedure ComboBox2Change(Sender: TObject);
     procedure Edit1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure InitTimerTimer(Sender: TObject);
     procedure Quit1Click(Sender: TObject);
@@ -126,6 +127,12 @@ begin
      end;
   end;
   dbm:=TLiteDB.Create(self);
+end;
+
+procedure Tf_weblun.FormDestroy(Sender: TObject);
+begin
+  param.free;
+  dbm.free;
 end;
 
 procedure Tf_weblun.InitApp;

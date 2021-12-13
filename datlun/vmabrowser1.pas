@@ -421,6 +421,8 @@ end;
 procedure Tf_main.FormDestroy(Sender: TObject);
 begin
  DatabaseList.Free;
+ param.free;
+ dbm.free;
 end;
 
 

@@ -1222,6 +1222,7 @@ begin
     if ReadBool(section, 'LabelFontBold', false) then labf.Style:=labf.Style+[fsBold];
     if ReadBool(section, 'LabelFontItalic', false) then labf.Style:=labf.Style+[fsItalic];
     moon1.LabelFont:=labf;
+    labf.Free;
     Desc1.DefaultFontSize:=ReadInteger(section, 'DescFontSize', Desc1.DefaultFontSize);
     for j := 1 to 10 do
     begin
@@ -4765,7 +4766,10 @@ begin
        moon2.close;
        moon2.Free;
     end;
+    dbm.free;
+    dblox.Clear;
     dblox.Free;
+    dbnotes.Clear;
     dbnotes.Free;
     DatabaseList.Free;
     tz.Free;

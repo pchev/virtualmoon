@@ -351,6 +351,7 @@ end;
 
 procedure TGloss.FormDestroy(Sender: TObject);
 begin
+  dbgloss.Clear;
   dbgloss.Free;
 end;
 
