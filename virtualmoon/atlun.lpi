@@ -31,6 +31,7 @@
           <Linking>
             <Debugging>
               <DebugInfoType Value="dsDwarf2"/>
+              <UseHeaptrc Value="True"/>
             </Debugging>
             <Options>
               <Win32>

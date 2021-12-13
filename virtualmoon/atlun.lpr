@@ -27,9 +27,11 @@ uses
 
 begin
   Application.Scaled:=True;
+  (* // To stdout by default, uncomment to write to file
   {$ifdef USEHEAPTRC}
   SetHeapTraceOutput('/tmp/vma_heap.trc');
   {$endif}
+  *)
   Application.Initialize;
   if not InitOpenGL then begin
      showmessage('Could not load the OpenGL library '+opengl32+' and '+glu32+crlf+'Please check your OpenGL installation.');

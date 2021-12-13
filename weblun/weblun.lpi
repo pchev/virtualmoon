@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <General>
-      <MainUnit Value="0"/>
+      <Flags>
+        <CompatibilityMode Value="True"/>
+      </Flags>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
@@ -51,11 +53,14 @@
       <Version Value="2"/>
     </PublishOptions>
     <RunParams>
+      <local>
+        <WorkingDirectory Value="/home/astro/VirtualMoon"/>
+      </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <WorkingDirectory Value="/home/astro/bin"/>
+            <WorkingDirectory Value="/home/astro/VirtualMoon"/>
           </local>
         </Mode0>
       </Modes>
@@ -82,9 +87,11 @@
       <Unit0>
         <Filename Value="weblun.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="66" Y="21"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="17" Y="16"/>
         <UsageCount Value="32"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="weblun_main.pas"/>
@@ -92,7 +99,6 @@
         <ComponentName Value="f_weblun"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="406"/>
         <CursorPos X="76" Y="441"/>
         <UsageCount Value="32"/>
@@ -376,6 +382,10 @@
       <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf2"/>
+        <UseHeaptrc Value="True"/>
+      </Debugging>
       <Options>
         <Win32>
           <GraphicApplication Value="True"/>
