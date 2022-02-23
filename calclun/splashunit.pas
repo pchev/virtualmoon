@@ -46,7 +46,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Image1DblClick(Sender: TObject);
     procedure Timer2Timer(Sender: TObject);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     Procedure Animate;
@@ -156,15 +155,6 @@ procedure Tsplash.Timer2Timer(Sender: TObject);
 begin
 timer2.Enabled:=false;
 animate;
-end;
-
-procedure Tsplash.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-begin
-if closing then canclose:=true
-else begin
-  closing:=true;
-  canclose:=false;
-end;  
 end;
 
 procedure Tsplash.FormClose(Sender: TObject; var Action: TCloseAction);

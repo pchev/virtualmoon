@@ -18,7 +18,6 @@ object splash: Tsplash
   FormStyle = fsStayOnTop
   OnClick = Image1DblClick
   OnClose = FormClose
-  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter

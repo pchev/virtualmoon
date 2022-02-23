@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, tachartlazaruspkg, printer4lazarus, calclun_main, cspice, sysutils, moon_spice, u_util, u_projection, u_constant, pas_spice, config, u_translation, splashunit, downldialog
+  Forms, tachartlazaruspkg, printer4lazarus, anchordockpkg, calclun_main, cspice, sysutils, moon_spice, u_util, u_projection, u_constant, pas_spice, config, u_translation, splashunit, downldialog, libsql
   { you can add units after this };
 
 {$R *.res}

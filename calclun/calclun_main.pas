@@ -10,8 +10,9 @@ uses
   {$endif}
   cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
   TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8, config, u_translation, FileUtil, downloaddialog, splashunit,
+  passql, passqlite,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Buttons,
-  LCLVersion, Types, TACustomSeries, TAMultiSeries, TATransformations;
+  LCLVersion, Types, TACustomSeries, TAMultiSeries, TATransformations, AnchorDockPanel;
 
 const
     mcolDay=0; mcolRa2000=1; mcolDe2000=2; mcolRa=3; mcolDe=4; mcolDist=5; mcolDiam=6; mcolPhase=7; mcolLunation=8; mcolIllum=9; mcolColong=10; mcolSubSolLat=11; mcolLibrLon=12; mcolLibrLat=13; mcolPa=14; mcolRise=15; mcolSet=16;
@@ -42,6 +43,7 @@ type
     BtnPrevision: TButton;
     BtnToday: TSpeedButton;
     Button1: TButton;
+    BtnTcompute: TButton;
     Chart1: TChart;
     Chart1LineSeries1: TLineSeries;
     Chart2: TChart;
@@ -72,19 +74,43 @@ type
     Chart3SeriesSunrise: TAreaSeries;
     ChartYearSeriesSunset: TAreaSeries;
     Chart3SeriesSunset: TAreaSeries;
+    ComboBoxFormation: TComboBox;
     DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
     DayPhase: TImage;
+    EditFormation: TEdit;
+    GridTerminator1: TStringGrid;
+    GridTerminator2: TStringGrid;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    PanelTresult: TPanel;
+    PanelTerminator2: TPanel;
+    PanelTerminator1: TPanel;
+    SunMin: TFloatSpinEdit;
+    SunMax: TFloatSpinEdit;
+    FormationLong: TFloatSpinEdit;
+    FormationLat: TFloatSpinEdit;
+    GroupBoxFormation: TGroupBox;
+    GroupBoxCoord: TGroupBox;
+    GroupBoxSunElev: TGroupBox;
     Label10: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
     LabelChartYear: TLabel;
     DateChangeTimer: TTimer;
     MainMenu1: TMainMenu;
     Memo1: TMemo;
     GridLibrationList: TStringGrid;
     MenuSetup: TMenuItem;
+    PanelTtop: TPanel;
+    PanelT: TPanel;
+    PanelTright: TPanel;
     PanelChartAltAz: TPanel;
     PanelChartYear: TPanel;
     PanelGraph3: TPanel;
     ScrollBoxY2: TScrollBox;
+    TabSheetTerminator: TTabSheet;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -162,6 +188,7 @@ type
     procedure BtnGraphClick(Sender: TObject);
     procedure BtnIncTimeClick(Sender: TObject);
     procedure BtnPrevisionClick(Sender: TObject);
+    procedure BtnTcomputeClick(Sender: TObject);
     procedure BtnTodayClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -181,6 +208,7 @@ type
     procedure PageControl1Change(Sender: TObject);
     procedure SelectGraph(Sender: TObject);
   private
+    dbm: TLiteDB;
     et : SpiceDouble;
     obspos: TDouble3;
     tz: TCdCTimeZone;
@@ -188,7 +216,7 @@ type
     localoffset: double; // local-std offset in day
     FCurrentMonthGraph: integer;
     YearInfo: array[0..13,1..31] of TYearInfo;
-    ForceDateChange: boolean;
+    FirstChange,ForceDateChange: boolean;
     procedure SetLang;
     procedure GetAppDir;
     procedure SetKernelsPath;
@@ -244,7 +272,9 @@ begin
   ObsLongitude:=0;
   ObsAltitude:=0;
   ObsTZ:='Etc/GMT';
+  FirstChange:=true;
   ForceDateChange:=false;
+  dbm:=TLiteDB.Create(self);
 
   Top := 50;
   Left := 50;
@@ -265,6 +295,7 @@ end;
 procedure Tf_calclun.FormDestroy(Sender: TObject);
 var i: integer;
 begin
+  dbm.free;
   tz.Free;
   for i:=0 to GridMonth.RowCount-1 do begin
     if GridMonth.Objects[0,i]<>nil then GridMonth.Objects[0,i].free;
@@ -372,7 +403,7 @@ begin
   GridDay.Cells[dcolLibrLat,0]:='Libration latitude';
   GridDay.Cells[dcolPa,0]:='PA';
   LabelRise1.Caption:='Rise :'+crlf+'Set :';
-
+  dbm.Use(Slash(DBdir)+'dbmoon7'+UpperCase(language)+'.dbl');
 end;
 
 procedure Tf_calclun.SetKernelsPath;
@@ -2095,7 +2126,10 @@ try
   CurrentDay:=SpinEditDay.Value;
 finally
   Screen.Cursor:=crDefault;
-  if splash.Visible then splash.release;
+  if FirstChange then begin
+    FirstChange:=false;
+    if splash.Visible then splash.close;
+  end;
 end;
 end;
 
@@ -2200,6 +2234,90 @@ begin
   FindPhase;
   memo1.Lines.Add('');
   memo1.Lines.Add('Temps de calcul: '+FormatDateTime('ss.zzz',now-st)+' secondes');
+end;
+
+procedure Tf_calclun.BtnTcomputeClick(Sender: TObject);
+var fixref: ConstSpiceChar;
+  relate: ConstSpiceChar;
+  refval: SpiceDouble;
+  sc1,sc2,sc3: PSpiceCell;
+  et0,et1,x,y: SpiceDouble;
+  i,nfind: integer;
+  sti,eni: string;
+  lon,lat: SpiceDouble;
+  xx,yy,zz,r,lo,la,colongitude:SpiceDouble;
+  pos: TDouble3;
+begin
+  GridTerminator1.RowCount:=1;
+  GridTerminator1.RowCount:=15;
+  GridTerminator2.RowCount:=1;
+  GridTerminator2.RowCount:=15;
+  reset_c;
+  lon:=FormationLong.Value*deg2rad;
+  lat:=FormationLat.Value*deg2rad;
+  pos:=MoonSurfacePos(lon,lat);
+
+  sc1:=initdoublecell(1);
+  sc2:=initdoublecell(2);
+  sc3:=initdoublecell(3);
+  et0:=et;
+  et1:=et0+365*SecsPerDay;
+  wninsd_c ( et0, et1, sc1 );
+
+  fixref := fixrefME;
+  relate:='<';
+  refval := (90-SunMin.Value) * deg2rad;  // minimal sun elevation
+  if not MoonSearchIllum(pos,refval,relate,fixref,nfind,sc1,sc2) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+
+  relate:='>';
+  refval := (90-SunMax.Value) * deg2rad;  // maximal sun elevation
+  if not MoonSearchIllum(pos,refval,relate,fixref,nfind,sc2,sc1)then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+
+  scard_c (0, sc2);
+  scard_c (0, sc3);
+  if lon<0 then
+    lon:=360+lon;
+  for i:=0 to nfind-1 do begin
+     wnfetd_c(sc1,i,x,y);
+     MoonSubSolarPoint(x,fixref,xx,yy,zz,r,lo,la,colongitude);
+     if (rad2deg*lo-lon) < 180 then
+       wninsd_c(x,y,sc2)   // morning terminator
+     else
+       wninsd_c(x,y,sc3);  // evening terminator
+  end;
+
+  // morning terminator
+  nfind:=wncard_c(sc2);
+  if nfind>0 then
+  for i:=0 to nfind-1 do begin
+    if i>(GridTerminator1.RowCount-2) then break;
+    wnfetd_c(sc2,i,x,y);
+    sti:=FormatDateTime(datestd,ET2DateTime(x));
+    eni:=FormatDateTime(datestd,ET2DateTime(y));
+    GridTerminator1.Cells[0,i+1]:=sti;
+    GridTerminator1.Cells[1,i+1]:=eni;
+  end;
+  // evening terminator
+  nfind:=wncard_c(sc3);
+  if nfind>0 then
+  for i:=0 to nfind-1 do begin
+    if i>(GridTerminator2.RowCount-2) then break;
+    wnfetd_c(sc3,i,x,y);
+    sti:=FormatDateTime(datestd,ET2DateTime(x));
+    eni:=FormatDateTime(datestd,ET2DateTime(y));
+    GridTerminator2.Cells[0,i+1]:=sti;
+    GridTerminator2.Cells[1,i+1]:=eni;
+  end;
+
+  scard_c (0, sc1);
+  scard_c (0, sc2);
+  scard_c (0, sc3);
 end;
 
 procedure Tf_calclun.BtnTodayClick(Sender: TObject);

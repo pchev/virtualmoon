@@ -95,19 +95,25 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="downldialog"/>
+        <PackageName Value="AnchorDocking"/>
       </Item1>
       <Item2>
-        <PackageName Value="Printer4Lazarus"/>
+        <PackageName Value="libsql"/>
       </Item2>
       <Item3>
-        <PackageName Value="TAChartLazarusPkg"/>
+        <PackageName Value="downldialog"/>
       </Item3>
       <Item4>
-        <PackageName Value="LCL"/>
+        <PackageName Value="Printer4Lazarus"/>
       </Item4>
+      <Item5>
+        <PackageName Value="TAChartLazarusPkg"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="LCL"/>
+      </Item6>
     </RequiredPackages>
     <Units Count="11">
       <Unit0>
