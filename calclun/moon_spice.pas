@@ -369,7 +369,7 @@ function MoonSubSolarPoint(et: SpiceDouble; out fixref:ConstSpiceChar; out x,y,z
 var target:ConstSpiceChar;
   obsrvr:ConstSpiceChar;
   spoint:TDouble3;
-  trgepc:SpiceDouble;
+  trgepc,llon:SpiceDouble;
   srfvec:TDouble3;
 begin
   // moon sub-solar point, colongitude is 90-(sub-solar longitude)
@@ -396,9 +396,10 @@ begin
   result := not failed_c;
   if result then begin
     reclat_c(spoint,r,lon,lat);
-    if lon<0 then
-       lon:=pi2+lon;
-    colongitude:=rmod(pid2-lon+pi2,pi2);
+    llon:=lon;
+    if llon<0 then
+       llon:=pi2+llon;
+    colongitude:=rmod(pid2-llon+pi2,pi2);
     x:=spoint[0];
     y:=spoint[1];
     z:=spoint[2];

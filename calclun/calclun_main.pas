@@ -41,6 +41,7 @@ type
     BtnIncTime: TSpeedButton;
     BtnToday: TSpeedButton;
     BtnTcompute: TButton;
+    BtnSearch: TButton;
     Chart1: TChart;
     Chart1LineSeries1: TLineSeries;
     Chart2: TChart;
@@ -168,8 +169,11 @@ type
     procedure BtnIncTimeClick(Sender: TObject);
     procedure BtnTcomputeClick(Sender: TObject);
     procedure BtnTodayClick(Sender: TObject);
+    procedure BtnSearchClick(Sender: TObject);
     procedure ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure ChartYearAxisList1MarkToText(var AText: String; AMark: Double);
+    procedure ComboBoxFormationSelect(Sender: TObject);
+    procedure EditFormationEditingDone(Sender: TObject);
     procedure OpenChart(Sender: TObject);
     procedure ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DateChange(Sender: TObject);
@@ -211,6 +215,7 @@ type
     procedure PlotDayGraph;
     procedure CloseChartClick(Sender: TObject);
     procedure CloseChart(Sender: TObject; var CloseAction: TCloseAction);
+    procedure SelectFormation(id: integer);
   public
 
   end;
@@ -360,6 +365,10 @@ begin
   GridDay.Cells[dcolLibrLat,0]:='Libration latitude';
   GridDay.Cells[dcolPa,0]:='PA';
   LabelRise1.Caption:='Rise :'+crlf+'Set :';
+  GridTerminator1.Cells[0,0]:='Start time';
+  GridTerminator1.Cells[1,0]:='End time';
+  GridTerminator2.Cells[0,0]:='Start time';
+  GridTerminator2.Cells[1,0]:='End time';
   dbm.Use(Slash(DBdir)+'dbmoon7'+UpperCase(language)+'.dbl');
 end;
 
@@ -2162,7 +2171,7 @@ var fixref: ConstSpiceChar;
   et0,et1,x,y: SpiceDouble;
   i,nfind: integer;
   sti,eni: string;
-  lon,lat: SpiceDouble;
+  lon,lat,dl: SpiceDouble;
   xx,yy,zz,r,lo,la,colongitude:SpiceDouble;
   pos: TDouble3;
 begin
@@ -2170,6 +2179,7 @@ begin
   GridTerminator1.RowCount:=15;
   GridTerminator2.RowCount:=1;
   GridTerminator2.RowCount:=15;
+  if SunMax.Value<=SunMin.Value then exit;
   reset_c;
   lon:=FormationLong.Value*deg2rad;
   lat:=FormationLat.Value*deg2rad;
@@ -2199,12 +2209,11 @@ begin
 
   scard_c (0, sc2);
   scard_c (0, sc3);
-  if lon<0 then
-    lon:=360+lon;
   for i:=0 to nfind-1 do begin
      wnfetd_c(sc1,i,x,y);
      MoonSubSolarPoint(x,fixref,xx,yy,zz,r,lo,la,colongitude);
-     if (rad2deg*lo-lon) < 180 then
+     dl:=rmod(lo-lon+pi2,pi2);
+     if dl<pi then
        wninsd_c(x,y,sc2)   // morning terminator
      else
        wninsd_c(x,y,sc3);  // evening terminator
@@ -2245,6 +2254,50 @@ begin
   SpinEditYear.Value:=Year;
   SpinEditMonth.Value:=Month;
   SpinEditDay.Value:=Day;
+end;
+
+procedure Tf_calclun.EditFormationEditingDone(Sender: TObject);
+begin
+  BtnSearchClick(nil);
+end;
+
+procedure Tf_calclun.BtnSearchClick(Sender: TObject);
+var
+  i:   integer;
+  n,sidelist: string;
+begin
+  sidelist:='1,2';
+  n:=trim(EditFormation.Text);
+  if Length(n)<3 then exit;
+  dbm.Query('select id,name from moon ' + ' where DBN in (' + sidelist + ')' +
+      ' and NAME like "' + trim(uppercase(n)) + '%"' +
+      ' order by NAME limit 100;');
+  ComboBoxFormation.Clear;
+  for i := 0 to dbm.RowCount - 1 do
+  begin
+    ComboBoxFormation.Items.AddObject(dbm.Results[i].Format[1].AsString,TObject(dbm.Results[i].Format[0].AsInteger));
+  end;
+  if ComboBoxFormation.Items.Count>0 then begin
+     ComboBoxFormation.ItemIndex:=0;
+     ComboBoxFormationSelect(nil);
+  end;
+end;
+
+procedure Tf_calclun.ComboBoxFormationSelect(Sender: TObject);
+var i: integer;
+begin
+  i:=ComboBoxFormation.ItemIndex;
+  SelectFormation(PtrInt(ComboBoxFormation.Items.Objects[i]));
+end;
+
+procedure Tf_calclun.SelectFormation(id: integer);
+begin
+  dbm.Query('select LONGI_N,LATI_N from moon where id=' + inttostr(id));
+  if dbm.RowCount > 0 then begin
+    FormationLong.Value := dbm.Results[0].Format[0].AsFloat;
+    FormationLat.Value := dbm.Results[0].Format[1].AsFloat;
+    BtnTcomputeClick(nil);
+  end;
 end;
 
 end.

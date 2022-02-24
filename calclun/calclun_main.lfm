@@ -961,38 +961,49 @@ object f_calclun: Tf_calclun
             Left = 1
             Height = 109
             Top = 1
-            Width = 201
+            Width = 241
             Align = alLeft
             Caption = 'Search formation'
             ClientHeight = 89
-            ClientWidth = 199
+            ClientWidth = 239
             TabOrder = 0
             object EditFormation: TEdit
               Left = 8
               Height = 30
               Top = 8
-              Width = 167
+              Width = 135
+              OnEditingDone = EditFormationEditingDone
               TabOrder = 0
             end
             object ComboBoxFormation: TComboBox
               Left = 8
               Height = 35
               Top = 48
-              Width = 167
+              Width = 219
               ItemHeight = 0
+              OnSelect = ComboBoxFormationSelect
               Style = csDropDownList
               TabOrder = 1
             end
+            object BtnSearch: TButton
+              Left = 152
+              Height = 25
+              Top = 11
+              Width = 75
+              Caption = 'Search'
+              OnClick = BtnSearchClick
+              TabOrder = 2
+            end
           end
           object GroupBoxCoord: TGroupBox
-            Left = 202
+            Left = 242
             Height = 109
             Top = 1
-            Width = 206
+            Width = 190
             Align = alLeft
             Caption = 'Lunar coordinates'
             ClientHeight = 89
-            ClientWidth = 204
+            ClientWidth = 188
             TabOrder = 1
             object FormationLong: TFloatSpinEdit
               Left = 80
@@ -1028,14 +1039,14 @@ object f_calclun: Tf_calclun
             end
           end
           object GroupBoxSunElev: TGroupBox
-            Left = 408
+            Left = 432
             Height = 109
             Top = 1
-            Width = 216
+            Width = 288
             Align = alLeft
             Caption = 'Sun elevation'
             ClientHeight = 89
-            ClientWidth = 214
+            ClientWidth = 286
             TabOrder = 2
             object SunMin: TFloatSpinEdit
               Left = 88
@@ -1044,7 +1055,7 @@ object f_calclun: Tf_calclun
               Width = 100
               MaxValue = 90
               TabOrder = 0
-              Value = 0.1
+              Value = 0.5
             end
             object Label14: TLabel
               Left = 11
@@ -1067,7 +1078,7 @@ object f_calclun: Tf_calclun
               Width = 100
               MaxValue = 90
               TabOrder = 1
-              Value = 1
+              Value = 5
             end
           end
           object BtnTcompute: TButton
@@ -1093,61 +1104,71 @@ object f_calclun: Tf_calclun
             Left = 1
             Height = 449
             Top = 1
-            Width = 330
+            Width = 360
             Align = alLeft
             ClientHeight = 449
-            ClientWidth = 330
+            ClientWidth = 360
             TabOrder = 0
             object GridTerminator1: TStringGrid
               Left = 1
               Height = 413
               Top = 35
-              Width = 328
+              Width = 358
               Align = alClient
+              AutoFillColumns = True
               ColCount = 2
               DefaultColWidth = 160
               FixedCols = 0
               RowCount = 15
               TabOrder = 0
+              ColWidths = (
+                178
+                178
+              )
             end
             object Panel1: TPanel
               Left = 1
               Height = 34
               Top = 1
-              Width = 328
+              Width = 358
               Align = alTop
-              Caption = 'Morning terminator'
+              Caption = 'Sun rise'
               TabOrder = 1
             end
           end
           object PanelTerminator2: TPanel
-            Left = 331
+            Left = 361
             Height = 449
             Top = 1
-            Width = 330
+            Width = 360
             Align = alLeft
             ClientHeight = 449
-            ClientWidth = 330
+            ClientWidth = 360
             TabOrder = 1
             object GridTerminator2: TStringGrid
               Left = 1
               Height = 413
               Top = 35
-              Width = 328
+              Width = 358
               Align = alClient
+              AutoFillColumns = True
               ColCount = 2
               DefaultColWidth = 160
               FixedCols = 0
               RowCount = 15
               TabOrder = 0
+              ColWidths = (
+                178
+                178
+              )
             end
             object Panel2: TPanel
               Left = 1
               Height = 34
               Top = 1
-              Width = 328
+              Width = 358
               Align = alTop
-              Caption = 'Evening terminator'
+              Caption = 'Sun set'
               TabOrder = 1
             end
           end
