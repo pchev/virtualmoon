@@ -36,13 +36,10 @@ type
   { Tf_calclun }
 
   Tf_calclun = class(TForm)
-    BtnCompute: TButton;
     BtnDecTime: TSpeedButton;
     BtnGraph: TSpeedButton;
     BtnIncTime: TSpeedButton;
-    BtnPrevision: TButton;
     BtnToday: TSpeedButton;
-    Button1: TButton;
     BtnTcompute: TButton;
     Chart1: TChart;
     Chart1LineSeries1: TLineSeries;
@@ -100,7 +97,6 @@ type
     LabelChartYear: TLabel;
     DateChangeTimer: TTimer;
     MainMenu1: TMainMenu;
-    Memo1: TMemo;
     GridLibrationList: TStringGrid;
     MenuSetup: TMenuItem;
     PanelTtop: TPanel;
@@ -154,25 +150,11 @@ type
     ScrollBoxY: TScrollBox;
     SpinEditDay: TSpinEdit;
     StatusLabel: TLabel;
-    NightEvent: TCheckBox;
-    MinElevation: TFloatSpinEdit;
-    Label6: TLabel;
     PageControl1: TPageControl;
     PanelRight: TPanel;
     PanelLeft: TPanel;
     PanelBottom: TPanel;
     PanelTop: TPanel;
-    RiseSetBox: TCheckBox;
-    DateEdit1: TDateEdit;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Longitude: TFloatSpinEdit;
-    Latitude: TFloatSpinEdit;
-    Altitude: TFloatSpinEdit;
-    Label1: TLabel;
-    Label2: TLabel;
-    PanelTest: TPanel;
     SpinEditYear: TSpinEdit;
     SpinEditMonth: TSpinEdit;
     GridMonth: TStringGrid;
@@ -181,16 +163,11 @@ type
     TabSheetYear: TTabSheet;
     TabSheetDay: TTabSheet;
     TabSheetMonth: TTabSheet;
-    TabSheetTest: TTabSheet;
-    TimeEdit1: TTimeEdit;
-    procedure BtnComputeClick(Sender: TObject);
     procedure BtnDecTimeClick(Sender: TObject);
     procedure BtnGraphClick(Sender: TObject);
     procedure BtnIncTimeClick(Sender: TObject);
-    procedure BtnPrevisionClick(Sender: TObject);
     procedure BtnTcomputeClick(Sender: TObject);
     procedure BtnTodayClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure ChartYearAxisList1MarkToText(var AText: String; AMark: Double);
     procedure OpenChart(Sender: TObject);
@@ -234,17 +211,6 @@ type
     procedure PlotDayGraph;
     procedure CloseChartClick(Sender: TObject);
     procedure CloseChart(Sender: TObject; var CloseAction: TCloseAction);
-    procedure Illum;
-    procedure Position;
-    procedure PositionTopo;
-    procedure SubEarth;
-    procedure SubSolar;
-    procedure FindPhase(realphase:boolean=false);
-    procedure FindRiseSet;
-    procedure FindIllum;
-    procedure FindLibration;
-    procedure FindMixed;
-    procedure FindColongitude;
   public
 
   end;
@@ -313,15 +279,6 @@ begin
     ShowMessage('Error loading file!'+crlf+SpiceLastError);
     halt;
   end;
-
-  memo1.Font.Height:=0;
-  memo1.clear;
-  memo1.Lines.Add('Données disponibles:');
-  pckallinfo(memo1.Lines);
-  spkallinfo(memo1.Lines);
-
-  DateEdit1.Date:=nowutc;
-  TimeEdit1.Time:=19/24;
 
   BtnToday.Click;
   PageControl1.ActivePage:=TabSheetYear;
@@ -2189,51 +2146,12 @@ begin
   end;
 end;
 
-procedure Tf_calclun.BtnComputeClick(Sender: TObject);
-var dt,st: double;
-begin
-  st:=now;
-  memo1.clear;
-  reset_c;
-  dt:=DateEdit1.Date+TimeEdit1.Time;
-  et:=DateTime2ET(dt);
-  dt:=ET2DateTime(et);
-  memo1.Lines.Add('Calcul pour TU: '+DateTime2DateIso(dt));
-  Position;
-  PositionTopo;
-  SubEarth;
-  SubSolar;
-  Illum;
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Temps de calcul: '+FormatDateTime('ss.zzz',now-st)+' secondes');
-end;
-
 procedure Tf_calclun.BtnGraphClick(Sender: TObject);
 var p: TPoint;
 begin
   p:=point(BtnGraph.Left,BtnGraph.Top+BtnGraph.Height);
   p:=PanelBtnGraph.ClientToScreen(p);
   PopupMenuGraph.PopUp(p.X,p.Y);
-end;
-
-procedure Tf_calclun.BtnPrevisionClick(Sender: TObject);
-var dt,st: double;
-begin
-  st:=now;
-  memo1.clear;
-  reset_c;
-  dt:=DateEdit1.Date+TimeEdit1.Time;
-  et:=DateTime2ET(dt);
-  dt:=ET2DateTime(et);
-  memo1.Lines.Add('Calcul depuis TU: '+DateTime2DateIso(dt));
-  FindIllum;
-  FindColongitude;
-  FindMixed;
-  FindLibration;
-  FindRiseSet;
-  FindPhase;
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Temps de calcul: '+FormatDateTime('ss.zzz',now-st)+' secondes');
 end;
 
 procedure Tf_calclun.BtnTcomputeClick(Sender: TObject);
@@ -2327,548 +2245,6 @@ begin
   SpinEditYear.Value:=Year;
   SpinEditMonth.Value:=Month;
   SpinEditDay.Value:=Day;
-end;
-
-procedure Tf_calclun.Button1Click(Sender: TObject);
-var i:integer;
-  fixref:ConstSpiceChar;
-  tt,x,y,z,r,lon,lat,value: SpiceDouble;
-begin
-
-  str2et_c('2021-01-01 00:00:00',tt);
-  for i:=0 to 60 do begin
-    tt:=tt+SecsPerDay;
-
-    MoonPhase(tt,value);
-    memo1.Lines.Add(FormatDateTime(datestd,ET2DateTime(tt))+tab+FormatFloat(f3,rad2deg*value));
-
-    //MoonSubSolarPoint(tt,fixref,x,y,z,r,lon,lat,value);
-    //memo1.Lines.Add(FormatDateTime(datestd,ET2DateTime(tt))+tab+FormatFloat(f3,rad2deg*lon)+tab+FormatFloat(f3,rad2deg*value));
-
-  end;
-end;
-
-procedure Tf_calclun.Illum;
-var phase,lunation,illumination: Double;
-  nm, fq, fm, lq: TDateTime;
-begin
-  memo1.Lines.Add('');
-  if MoonPhase(et,phase) then begin
-    phase:=rad2deg*phase;
-    memo1.Lines.Add('Angle de phase:'+tab+FormatFloat(f3,phase)+'°');
-    illumination:=(1+cos(deg2rad*phase))/2;
-    memo1.Lines.Add('Illumination:  '+tab+FormatFloat(f0,100*illumination)+'%');
-  end
-  else begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  if MoonPhases(DateEdit1.Date+TimeEdit1.Time, nm, fq, fm, lq,lunation) then begin
-    memo1.Lines.Add('Lunaison:        '+tab+FormatFloat(f1,lunation)+' jours');
-    memo1.Lines.Add('Nouvelle lune:   '+tab+FormatDateTime(datestd,nm));
-    memo1.Lines.Add('Premier quartier:'+tab+FormatDateTime(datestd,fq));
-    memo1.Lines.Add('Pleine lune:     '+tab+FormatDateTime(datestd,fm));
-    memo1.Lines.Add('Dernier quartier:'+tab+FormatDateTime(datestd,lq));
-  end
-  else begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-end;
-
-procedure Tf_calclun.Position;
-var
-    x,y,z,r,ra,de,pa: SpiceDouble;
-    trueequinox:boolean;
-begin
-  trueequinox:=false;
-  if not MoonGeocentric(et,trueequinox,x,y,z,r,ra,de) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  MoonPA(et,ra,de,pa);
-  pa:=pa*rad2deg;
-  ra:=ra*rad2deg/15;
-  de:=de*rad2deg;
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Distance géocentrique:  '+FormatFloat(f3,r)+' km');
-  memo1.Lines.Add('Position géocentrique J2000:');
-  memo1.Lines.Add(tab+'ra:  '+ARpToStr(ra,5));
-  memo1.Lines.Add(tab+'dec: '+DEpToStr(de,5));
-  memo1.Lines.Add(tab+'angle de position: '+FormatFloat(f2,pa)+ldeg);
-  //memo1.Lines.Add('X Y Z: '+FormatFloat(f3,x)+', '+FormatFloat(f3,y)+', '+FormatFloat(f3,z));
-
-  trueequinox:=true;
-  if not MoonGeocentric(et,trueequinox,x,y,z,r,ra,de) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  ra:=ra*rad2deg/15;
-  de:=de*rad2deg;
-  memo1.Lines.Add('Position géocentrique apparente:');
-  memo1.Lines.Add(tab+'ra:  '+ARpToStr(ra));
-  memo1.Lines.Add(tab+'dec: '+DEpToStr(de));
-  //memo1.Lines.Add('X Y Z: '+FormatFloat(f3,x)+', '+FormatFloat(f3,y)+', '+FormatFloat(f3,z));
-end;
-
-procedure Tf_calclun.PositionTopo;
-var obsref: ConstSpiceChar;
-    x,y,z,r,ra,de,el,az: SpiceDouble;
-    diam: double;
-begin
-  if not MoonTopocentric(et,false,obspos,obsref,x,y,z,r,ra,de) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  ra:=ra*rad2deg/15;
-  de:=de*rad2deg;
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Distance topocentrique: '+FormatFloat(f3,r)+' km');
-  diam:=60*rad2deg*arctan(2*1737.4/r);
-  memo1.Lines.Add('Diamètre apparent:'+tab+FormatFloat(f2,diam)+lmin);
-  memo1.Lines.Add('Position topocentrique J2000, référentiel: '+obsref);
-  memo1.Lines.Add(tab+'ra:  '+ARpToStr(ra));
-  memo1.Lines.Add(tab+'dec: '+DEpToStr(de));
-  //memo1.Lines.Add('X Y Z: '+FormatFloat(f3,x)+', '+FormatFloat(f3,y)+', '+FormatFloat(f3,z));
-
-  if not MoonTopocentric(et,true,obspos,obsref,x,y,z,r,ra,de) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  ra:=ra*rad2deg/15;
-  de:=de*rad2deg;
-  memo1.Lines.Add('Position topocentrique apparente, référentiel: '+obsref);
-  memo1.Lines.Add(tab+'ra:  '+ARpToStr(ra));
-  memo1.Lines.Add(tab+'dec: '+DEpToStr(de));
-  //memo1.Lines.Add('X Y Z: '+FormatFloat(f3,x)+', '+FormatFloat(f3,y)+', '+FormatFloat(f3,z));
-
-  if not MoonAltAz(et,ObsLongitude,ObsLatitude,obspos,obsref,az,el) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  el := el * rad2deg;
-  az := rmod(az*rad2deg+360,360);
-  memo1.Lines.Add(tab+'azimut:'+FormatFloat(f2,az)+ldeg);
-  memo1.Lines.Add(tab+'élévation:'+FormatFloat(f2,el)+ldeg);
-end;
-
-procedure Tf_calclun.SubEarth;
-var fixref:ConstSpiceChar;
-    x,y,z,lat,lon,r,llat,llon: SpiceDouble;
-begin
-  if not MoonSubEarthPoint(et,fixref,x,y,z,r,llon,llat) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  llon:=llon*rad2deg;
-  llat:=llat*rad2deg;
-  lon:=rmod(llon+360,360);
-  lat:=llat;
-  memo1.Lines.Add('');
-//  memo1.Lines.Add('Point sub-terrestre, référentiel: '+fixref+',  lon360: '+FormatFloat(f6,lon)+' lat: '+FormatFloat(f6,lat));
-  memo1.Lines.Add('Libration géocentrique');
-  memo1.Lines.Add(tab+'lon: '+FormatFloat(f4,llon)+ldeg);
-  memo1.Lines.Add(tab+'lat: '+FormatFloat(f4,llat)+ldeg);
-  //memo1.Lines.Add('X Y Z: '+FormatFloat(f3,x)+', '+FormatFloat(f3,y)+', '+FormatFloat(f3,z));
-  if not MoonSubObserverPoint(et,obspos,x,y,z,r,llon,llat) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  llon:=llon*rad2deg;
-  llat:=llat*rad2deg;
-  lon:=rmod(llon+360,360);
-  lat:=llat;
-//  memo1.Lines.Add('Point sub-observateur:  lon360: '+FormatFloat(f6,lon)+' lat: '+FormatFloat(f6,lat));
-  memo1.Lines.Add('Libration topocentrique');
-  memo1.Lines.Add(tab+'lon: '+FormatFloat(f4,llon)+ldeg);
-  memo1.Lines.Add(tab+'lat: '+FormatFloat(f4,llat)+ldeg);
-end;
-
-procedure Tf_calclun.SubSolar;
-var
-  x,y,z,r,lat,lon,colongitude: SpiceDouble;
-  fixref:ConstSpiceChar;
-begin
-  if not MoonSubSolarPoint(et,fixref,x,y,z,r,lon,lat,colongitude) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Point sub-solaire, référentiel: '+fixref);
-  memo1.Lines.Add(tab+'lon: '+FormatFloat(f6,lon*rad2deg)+ldeg);
-  memo1.Lines.Add(tab+'lat: '+FormatFloat(f6,lat*rad2deg)+ldeg);
-  memo1.Lines.Add(tab+'Colongitude: '+FormatFloat(f4,colongitude*rad2deg)+ldeg);
-  //memo1.Lines.Add('X Y Z: '+FormatFloat(f6,x)+', '+FormatFloat(f6,y)+', '+FormatFloat(f6,z));
-end;
-
-procedure Tf_calclun.FindPhase(realphase:boolean=false);
-var Pcnfine,Presult: PSpiceCell;
-  et0,et1,x,y: SpiceDouble;
-  i,n: integer;
-  ok:boolean;
-  sti: string;
-begin
-  reset_c;
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Pleine lune pour les 12 prochains mois:');
-  Pcnfine:=initdoublecell(1);
-  Presult:=initdoublecell(2);
-  et0:=et;
-  et1:=et0+12*30.5*SecsPerDay;
-  wninsd_c ( et0, et1, Pcnfine );
-  if realphase then
-    ok:=MoonSearchPhase(0.0,'LOCMIN',n,Pcnfine,Presult) // extrema of phase angle
-  else
-    ok:=MoonSearchSunLongitudeDiff(0.0,'LOCMAX',n,Pcnfine,Presult); // official definition using ecliptic longitude
-  if not ok then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  if n>0 then for i:=0 to n-1 do begin
-    wnfetd_c(Presult,i,x,y);
-    sti:=FormatDateTime(datestd,ET2DateTime(x));
-    memo1.Lines.Add(sti);
-  end
-  else
-    memo1.Lines.Add('No interval found');
-
-  scard_c (0, Pcnfine);
-  scard_c (0, Presult);
-end;
-
-procedure Tf_calclun.FindRiseSet;
-var
-  refval: SpiceDouble;
-  Pcnfine,Presult: PSpiceCell;
-  nfind: SpiceInt;
-  et0,et1,x,y: SpiceDouble;
-  i: integer;
-  sti,eni: string;
-begin
-  reset_c;
-  Pcnfine:=initdoublecell(1);
-  Presult:=initdoublecell(2);
-  et0:=et;
-  et1:=et0+7*SecsPerDay;
-  wninsd_c ( et0, et1, Pcnfine );
-  // expand by one day for the case the moon is already rised at the start of first interval
-  wnexpd_c ( SecsPerDay, SecsPerDay, Pcnfine );
-  refval := -0.8;  // elevation degree
-  if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,Pcnfine,Presult) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Lever et coucher pour la prochaine semaine');
-  if nfind>1 then for i:=1 to nfind-2 do begin // skip first and last expanded window
-    wnfetd_c(Presult,i,x,y);
-    sti:=FormatDateTime(datestd,ET2DateTime(x));
-    eni:=FormatDateTime(datestd,ET2DateTime(y));
-    memo1.Lines.Add('Lever: '+sti+tab+'Coucher: '+eni);
-  end
-  else
-    memo1.Lines.Add('No interval found');
-
-  scard_c (0, Pcnfine);
-  scard_c (0, Presult);
-
-end;
-
-procedure Tf_calclun.FindIllum;
-var lon,lat,colong,delta: SpiceDouble;
-  xx,yy,zz,r,lo,la,colongitude:SpiceDouble;
-  relate,fixref: ConstSpiceChar;
-  refval: SpiceDouble;
-  pos: TDouble3;
-  sc1,sc2,scresult: PSpiceCell;
-  nfind: SpiceInt;
-  et0,et1,x,y: SpiceDouble;
-  i: integer;
-  sti,eni: string;
-begin
-  reset_c;
-  // Werner
-  lon:=3.293*deg2rad;
-  lat:=-28.026*deg2rad;
-
-  pos:=MoonSurfacePos(lon,lat);
-
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Recherche sur six mois: X visible, élévation solaire entre 0.7° et 2° sur Werner au lever');
-
-  sc1:=initdoublecell(1);
-  sc2:=initdoublecell(2);
-  scresult:=initdoublecell(3);
-  et0:=et;
-  et1:=et0+6*30.5*SecsPerDay;
-  wninsd_c ( et0, et1, sc1 );
-
-  fixref := fixrefME;
-  relate:='<';
-  refval := 89.3 * deg2rad;  // 0.7° sun elevation
-  if not MoonSearchIllum(pos,refval,relate,fixref,nfind,sc1,sc2) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-
-  relate:='>';
-  refval := 88.0 * deg2rad;  // 2° sun elevation
-  if not MoonSearchIllum(pos,refval,relate,fixref,nfind,sc2,sc1)then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-
-  scard_c (0, sc2);
-  for i:=0 to nfind-1 do begin
-     wnfetd_c(sc1,i,x,y);
-     MoonSubSolarPoint(x,fixref,xx,yy,zz,r,lo,la,colongitude);
-     if colongitude>pi then
-       wninsd_c(x,y,sc2);
-  end;
-  nfind:=wncard_c(sc2);
-  copy_c(sc2,scresult);
-
-  if RiseSetBox.Checked then begin
-    refval := MinElevation.Value;  // elevation degree
-    if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
-      memo1.Lines.Add(SpiceLastError);
-      exit;
-    end;
-    copy_c(sc2,scresult);
-  end;
-
-  if NightEvent.Checked then begin
-    refval := -6;  // civil twilight
-    if not SearchNight(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
-      memo1.Lines.Add(SpiceLastError);
-      exit;
-    end;
-    copy_c(sc2,scresult);
-  end;
-
-  //memo1.Lines.Add('Référentiel: '+fixref);
-  if nfind>0 then for i:=0 to nfind-1 do begin
-    wnfetd_c(scresult,i,x,y);
-    sti:=FormatDateTime(datestd,ET2DateTime(x));
-    eni:=FormatDateTime(datestd,ET2DateTime(y));
-    memo1.Lines.Add('Début: '+sti+tab+'Fin: '+eni);
-  end
-  else
-    memo1.Lines.Add('No interval found');
-
-  scard_c (0, sc1);
-  scard_c (0, sc2);
-  scard_c (0, scresult);
-end;
-
-
-procedure Tf_calclun.FindLibration;
-var fixref: ConstSpiceChar;
-  coord,relate: ConstSpiceChar;
-  refval: SpiceDouble;
-  sc1,sc2,sc3,scresult: PSpiceCell;
-  et0,et1,x,y: SpiceDouble;
-  i,nfind: integer;
-  sti,eni: string;
-begin
-
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Recherche sur six mois: libration en longitude > 5° ou < -5°');
-  sc1:=initdoublecell(1);
-  sc2:=initdoublecell(2);
-  sc3:=initdoublecell(3);
-  scresult:=initdoublecell(4);
-  et0:=et;
-  et1:=et0+6*30.5*SecsPerDay;
-  wninsd_c ( et0, et1, sc1 );
-
-  fixref:=fixrefME;
-  coord:='LONGITUDE';
-  relate:='>';
-  refval:=5*deg2rad;
-  if not MoonSearchLibration(coord,refval,relate,fixref,nfind,sc1,sc2) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-
-  relate:='<';
-  refval:=-5*deg2rad;
-  if not MoonSearchLibration(coord,refval,relate,fixref,nfind,sc1,sc3) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-
-  // add the two result
-  wnunid_c(sc2,sc3,scresult);
-
-  //memo1.Lines.Add('Référentiel: '+fixref);
-
-  nfind:=wncard_c(scresult);
-  if nfind>0 then for i:=0 to nfind-1 do begin
-    wnfetd_c(scresult,i,x,y);
-    sti:=FormatDateTime(datestd,ET2DateTime(x));
-    eni:=FormatDateTime(datestd,ET2DateTime(y));
-    memo1.Lines.Add('Début: '+sti+tab+'Fin: '+eni);
-  end
-  else
-    memo1.Lines.Add('No interval found');
-
-  scard_c (0, sc1);
-  scard_c (0, sc2);
-  scard_c (0, sc3);
-  scard_c (0, scresult);
-end;
-
-procedure Tf_calclun.FindMixed;
-var fixref: ConstSpiceChar;
-  coord,relate: ConstSpiceChar;
-  refval: SpiceDouble;
-  sc1,sc2,scresult: PSpiceCell;
-  et0,et1,x,y: SpiceDouble;
-  i,nfind: integer;
-  sti,eni: string;
-  lon,lat: SpiceDouble;
-  pos: TDouble3;
-begin
-  reset_c;
-  // Mare Orientale
-  lon:=-94.670*deg2rad;
-  lat:=-19.866*deg2rad;
-  pos:=MoonSurfacePos(lon,lat);
-
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Recherche sur un an: élévation solaire > 5° sur Mare Orientale avec');
-  memo1.Lines.Add('libration en longitude < -6.5° et libration en latitude < 0');
-
-  sc1:=initdoublecell(1);
-  sc2:=initdoublecell(2);
-  scresult:=initdoublecell(3);
-  et0:=et;
-  et1:=et0+1*365*SecsPerDay;
-  wninsd_c ( et0, et1, sc1 );
-
-  fixref := fixrefME;
-  relate:='<';
-  refval := 85 * deg2rad;  // 5° sun elevation
-  if not MoonSearchIllum(pos,refval,relate,fixref,nfind,sc1,sc2) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-
-
-  coord:='LONGITUDE';
-  relate:='<';
-  refval:=-6.5*deg2rad;
-  if not MoonSearchLibration(coord,refval,relate,fixref,nfind,sc2,sc1) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-  coord:='LATITUDE';
-  relate:='<';
-  refval:=0*deg2rad;
-  if not MoonSearchLibration(coord,refval,relate,fixref,nfind,sc1,sc2) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-
-  copy_c(sc2,scresult);
-
-  if RiseSetBox.Checked then begin
-    refval := MinElevation.Value;  // elevation degree
-    if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,scresult,sc1) then begin
-      memo1.Lines.Add(SpiceLastError);
-      exit;
-    end;
-    copy_c(sc1,scresult);
-  end;
-
-  if NightEvent.Checked then begin
-    refval := -6;  // civil twilight
-    if not SearchNight(obspos,ObsLatitude,refval,nfind,scresult,sc1) then begin
-      memo1.Lines.Add(SpiceLastError);
-      exit;
-    end;
-    copy_c(sc1,scresult);
-  end;
-
-  nfind:=wncard_c(scresult);
-  if nfind>0 then for i:=0 to nfind-1 do begin
-    wnfetd_c(scresult,i,x,y);
-    sti:=FormatDateTime(datestd,ET2DateTime(x));
-    eni:=FormatDateTime(datestd,ET2DateTime(y));
-    memo1.Lines.Add('Début: '+sti+tab+'Fin: '+eni);
-  end
-  else
-    memo1.Lines.Add('No interval found');
-
-  scard_c (0, sc1);
-  scard_c (0, sc2);
-  scard_c (0, scresult);
-end;
-
-procedure Tf_calclun.FindColongitude;
-var refval: SpiceDouble;
-  colong,delta: SpiceDouble;
-  sc1,sc2,sc3,scresult: PSpiceCell;
-  nfind: SpiceInt;
-  et0,et1,x,y,yy: SpiceDouble;
-  i: integer;
-  sti,eni: string;
-begin
-  reset_c;
-
-  colong:=358.0*deg2rad;
-  delta:=1.2*deg2rad;
-
-  memo1.Lines.Add('');
-  memo1.Lines.Add('Recherche sur six mois: X visible, colongitude de 358° +/- 1.2°');
-
-  sc1:=initdoublecell(1);
-  sc2:=initdoublecell(2);
-  sc3:=initdoublecell(4);
-  scresult:=initdoublecell(3);
-  et0:=et;
-  et1:=et0+6*30.5*SecsPerDay;
-  wninsd_c ( et0, et1, sc1 );
-
-  if not MoonSearchColongitude(colong,delta,nfind,sc1,sc2) then begin
-    memo1.Lines.Add(SpiceLastError);
-    exit;
-  end;
-
-  copy_c(sc2,scresult);
-
-  if RiseSetBox.Checked then begin
-    refval := MinElevation.Value;  // elevation degree
-    if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
-      memo1.Lines.Add(SpiceLastError);
-      exit;
-    end;
-    copy_c(sc2,scresult);
-  end;
-
-  if NightEvent.Checked then begin
-    refval := -6;  // civil twilight
-    if not SearchNight(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
-      memo1.Lines.Add(SpiceLastError);
-      exit;
-    end;
-    copy_c(sc2,scresult);
-  end;
-
-  if nfind>0 then for i:=0 to nfind-1 do begin
-    wnfetd_c(scresult,i,x,y);
-    sti:=FormatDateTime(datestd,ET2DateTime(x));
-    eni:=FormatDateTime(datestd,ET2DateTime(y));
-    memo1.Lines.Add('Début: '+sti+tab+'Fin: '+eni);
-  end
-  else
-    memo1.Lines.Add('No interval found');
-
-  scard_c (0, sc1);
-  scard_c (0, sc2);
-  scard_c (0, sc3);
-  scard_c (0, scresult);
 end;
 
 end.

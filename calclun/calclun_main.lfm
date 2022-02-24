@@ -991,7 +991,7 @@ object f_calclun: Tf_calclun
             Width = 206
             Align = alLeft
             Caption = 'Lunar coordinates'
-            ClientHeight = 107
+            ClientHeight = 89
             ClientWidth = 204
             TabOrder = 1
             object FormationLong: TFloatSpinEdit
@@ -1034,7 +1034,7 @@ object f_calclun: Tf_calclun
             Width = 216
             Align = alLeft
             Caption = 'Sun elevation'
-            ClientHeight = 107
+            ClientHeight = 89
             ClientWidth = 214
             TabOrder = 2
             object SunMin: TFloatSpinEdit
@@ -1154,206 +1154,6 @@ object f_calclun: Tf_calclun
         end
       end
     end
-    object TabSheetTest: TTabSheet
-      Caption = 'Test'
-      ClientHeight = 563
-      ClientWidth = 1190
-      object PanelTest: TPanel
-        Left = 0
-        Height = 106
-        Top = 0
-        Width = 1190
-        Align = alTop
-        ClientHeight = 106
-        ClientWidth = 1190
-        TabOrder = 0
-        object BtnCompute: TButton
-          AnchorSideTop.Control = DateEdit1
-          AnchorSideTop.Side = asrCenter
-          Left = 512
-          Height = 25
-          Top = 67
-          Width = 88
-          Caption = 'Calcul'
-          OnClick = BtnComputeClick
-          TabOrder = 0
-        end
-        object DateEdit1: TDateEdit
-          Left = 120
-          Height = 30
-          Top = 64
-          Width = 120
-          CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
-          DateOrder = doNone
-          DateFormat = 'YYYY MM DD'
-          ButtonWidth = 23
-          NumGlyphs = 1
-          MaxLength = 0
-          TabOrder = 1
-          Text = 'DateEdit1'
-        end
-        object TimeEdit1: TTimeEdit
-          AnchorSideTop.Control = DateEdit1
-          Left = 254
-          Height = 30
-          Top = 64
-          Width = 116
-          ButtonWidth = 23
-          NumGlyphs = 1
-          MaxLength = 0
-          TabOrder = 2
-          Text = 'TimeEdit1'
-        end
-        object Label1: TLabel
-          AnchorSideTop.Control = DateEdit1
-          AnchorSideTop.Side = asrCenter
-          Left = 12
-          Height = 19
-          Top = 70
-          Width = 54
-          Caption = 'Date TU:'
-        end
-        object Label2: TLabel
-          AnchorSideTop.Control = Longitude
-          AnchorSideTop.Side = asrCenter
-          Left = 12
-          Height = 19
-          Top = 29
-          Width = 85
-          Caption = 'Observatoire:'
-        end
-        object Longitude: TFloatSpinEdit
-          Left = 112
-          Height = 28
-          Top = 24
-          Width = 120
-          DecimalPlaces = 6
-          MaxValue = 180
-          MinValue = -180
-          TabOrder = 3
-          Value = 3.397778
-        end
-        object Latitude: TFloatSpinEdit
-          AnchorSideTop.Control = Longitude
-          Left = 254
-          Height = 28
-          Top = 24
-          Width = 120
-          DecimalPlaces = 6
-          MaxValue = 90
-          MinValue = -90
-          TabOrder = 4
-          Value = 44.124722
-        end
-        object Altitude: TFloatSpinEdit
-          AnchorSideTop.Control = Longitude
-          Left = 400
-          Height = 28
-          Top = 24
-          Width = 106
-          DecimalPlaces = 0
-          MaxValue = 10000
-          MinValue = -500
-          TabOrder = 5
-          Value = 900
-        end
-        object Label3: TLabel
-          Left = 112
-          Height = 19
-          Top = 4
-          Width = 63
-          Caption = 'Longitude'
-        end
-        object Label4: TLabel
-          Left = 256
-          Height = 19
-          Top = 4
-          Width = 51
-          Caption = 'Latitude'
-        end
-        object Label5: TLabel
-          Left = 400
-          Height = 19
-          Top = 4
-          Width = 49
-          Caption = 'Altitude'
-        end
-        object BtnPrevision: TButton
-          AnchorSideTop.Control = DateEdit1
-          AnchorSideTop.Side = asrCenter
-          Left = 608
-          Height = 25
-          Top = 67
-          Width = 81
-          Caption = 'Prevision'
-          OnClick = BtnPrevisionClick
-          TabOrder = 6
-        end
-        object RiseSetBox: TCheckBox
-          Left = 704
-          Height = 21
-          Top = 31
-          Width = 202
-          Caption = 'Lune visible de l''observatoire'
-          Checked = True
-          State = cbChecked
-          TabOrder = 7
-        end
-        object MinElevation: TFloatSpinEdit
-          AnchorSideTop.Control = DateEdit1
-          AnchorSideTop.Side = asrCenter
-          Left = 840
-          Height = 28
-          Top = 65
-          Width = 66
-          DecimalPlaces = 1
-          MaxValue = 89
-          MinValue = -1
-          TabOrder = 8
-          Value = 15
-        end
-        object Label6: TLabel
-          AnchorSideTop.Control = DateEdit1
-          AnchorSideTop.Side = asrCenter
-          Left = 704
-          Height = 19
-          Top = 70
-          Width = 117
-          Caption = 'élévation minimum'
-        end
-        object NightEvent: TCheckBox
-          Left = 704
-          Height = 21
-          Top = 3
-          Width = 196
-          Caption = 'Que les événements de nuit'
-          Checked = True
-          State = cbChecked
-          TabOrder = 9
-        end
-        object Button1: TButton
-          Left = 610
-          Height = 25
-          Top = 24
-          Width = 75
-          Caption = 'Button1'
-          OnClick = Button1Click
-          TabOrder = 10
-        end
-      end
-      object Memo1: TMemo
-        Left = 0
-        Height = 457
-        Top = 106
-        Width = 1190
-        Align = alClient
-        Lines.Strings = (
-          'Memo1'
-        )
-        ScrollBars = ssAutoBoth
-        TabOrder = 1
-      end
-    end
   end
   object PanelBottom: TPanel
     Left = 0
@@ -1375,8 +1175,8 @@ object f_calclun: Tf_calclun
   object ImageListPhase: TImageList
     Height = 22
     Width = 22
-    Left = 768
-    Top = 112
+    Left = 896
+    Top = 120
     Bitmap = {
       4C7A1E0000001600000016000000431E00000000000078DAEDDDF5B33D47D1C7
       F1E0EEEE0477770B4E90200182BBBB5B7097E05005C1DDDD21C1DDDD9D8202FE
@@ -1624,8 +1424,8 @@ object f_calclun: Tf_calclun
     }
   end
   object PopupMenuGraph: TPopupMenu
-    Left = 768
-    Top = 208
+    Left = 896
+    Top = 200
     object MenuItem1: TMenuItem
       Tag = 1
       Caption = 'MenuItem1'
@@ -1712,19 +1512,19 @@ object f_calclun: Tf_calclun
     DateTimeStepFormat.MonthFormat = 'mm'
     DateTimeStepFormat.DayFormat = 'mm-dd'
     Steps = [dtsYear, dtsMonth, dtsDay, dtsHour]
-    Left = 768
-    Top = 317
+    Left = 936
+    Top = 288
   end
   object DateChangeTimer: TTimer
     Enabled = False
     Interval = 250
     OnTimer = DateChangeTimerTimer
-    Left = 880
+    Left = 976
     Top = 120
   end
   object MainMenu1: TMainMenu
-    Left = 888
-    Top = 208
+    Left = 976
+    Top = 200
     object MenuSetup: TMenuItem
       Caption = 'Setup'
       OnClick = MenuSetupClick
