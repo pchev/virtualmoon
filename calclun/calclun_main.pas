@@ -40,7 +40,6 @@ type
     BtnGraph: TSpeedButton;
     BtnIncTime: TSpeedButton;
     BtnToday: TSpeedButton;
-    BtnTcompute: TButton;
     BtnSearch: TButton;
     Chart1: TChart;
     Chart1LineSeries1: TLineSeries;
@@ -108,6 +107,7 @@ type
     PanelGraph3: TPanel;
     ScrollBoxY2: TScrollBox;
     TabSheetTerminator: TTabSheet;
+    TerminatorTimer: TTimer;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -167,13 +167,13 @@ type
     procedure BtnDecTimeClick(Sender: TObject);
     procedure BtnGraphClick(Sender: TObject);
     procedure BtnIncTimeClick(Sender: TObject);
-    procedure BtnTcomputeClick(Sender: TObject);
     procedure BtnTodayClick(Sender: TObject);
     procedure BtnSearchClick(Sender: TObject);
     procedure ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure ChartYearAxisList1MarkToText(var AText: String; AMark: Double);
     procedure ComboBoxFormationSelect(Sender: TObject);
     procedure EditFormationEditingDone(Sender: TObject);
+    procedure TerminatorChange(Sender: TObject);
     procedure OpenChart(Sender: TObject);
     procedure ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DateChange(Sender: TObject);
@@ -188,6 +188,7 @@ type
     procedure MenuSetupClick(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
     procedure SelectGraph(Sender: TObject);
+    procedure TerminatorTimerTimer(Sender: TObject);
   private
     dbm: TLiteDB;
     et : SpiceDouble;
@@ -216,6 +217,8 @@ type
     procedure CloseChartClick(Sender: TObject);
     procedure CloseChart(Sender: TObject; var CloseAction: TCloseAction);
     procedure SelectFormation(id: integer);
+    procedure ComputeTerminator;
+
   public
 
   end;
@@ -2163,7 +2166,19 @@ begin
   PopupMenuGraph.PopUp(p.X,p.Y);
 end;
 
-procedure Tf_calclun.BtnTcomputeClick(Sender: TObject);
+procedure Tf_calclun.TerminatorChange(Sender: TObject);
+begin
+  TerminatorTimer.Enabled:=false;
+  TerminatorTimer.Enabled:=true;
+end;
+
+procedure Tf_calclun.TerminatorTimerTimer(Sender: TObject);
+begin
+  TerminatorTimer.Enabled:=false;
+  ComputeTerminator;
+end;
+
+procedure Tf_calclun.ComputeTerminator;
 var fixref: ConstSpiceChar;
   relate: ConstSpiceChar;
   refval: SpiceDouble;
@@ -2296,7 +2311,7 @@ begin
   if dbm.RowCount > 0 then begin
     FormationLong.Value := dbm.Results[0].Format[0].AsFloat;
     FormationLat.Value := dbm.Results[0].Format[1].AsFloat;
-    BtnTcomputeClick(nil);
+    ComputeTerminator;
   end;
 end;
 

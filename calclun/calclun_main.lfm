@@ -1012,6 +1012,7 @@ object f_calclun: Tf_calclun
               Width = 100
               MaxValue = 180
               MinValue = -180
+              OnChange = TerminatorChange
               TabOrder = 0
             end
             object FormationLat: TFloatSpinEdit
@@ -1021,6 +1022,7 @@ object f_calclun: Tf_calclun
               Width = 100
               MaxValue = 89
               MinValue = -89
+              OnChange = TerminatorChange
               TabOrder = 1
             end
             object Label12: TLabel
@@ -1054,6 +1056,7 @@ object f_calclun: Tf_calclun
               Top = 8
               Width = 100
               MaxValue = 90
+              OnChange = TerminatorChange
               TabOrder = 0
               Value = 0.5
             end
@@ -1077,18 +1080,10 @@ object f_calclun: Tf_calclun
               Top = 48
               Width = 100
               MaxValue = 90
+              OnChange = TerminatorChange
               TabOrder = 1
               Value = 5
             end
-          end
-          object BtnTcompute: TButton
-            Left = 632
-            Height = 25
-            Top = 72
-            Width = 75
-            Caption = 'Compute'
-            OnClick = BtnTcomputeClick
-            TabOrder = 3
           end
         end
         object PanelTresult: TPanel
@@ -1550,5 +1545,12 @@ object f_calclun: Tf_calclun
       Caption = 'Setup'
       OnClick = MenuSetupClick
     end
+  end
+  object TerminatorTimer: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = TerminatorTimerTimer
+    Left = 937
+    Top = 363
   end
 end
