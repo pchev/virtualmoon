@@ -991,7 +991,7 @@ object f_calclun: Tf_calclun
             Width = 206
             Align = alLeft
             Caption = 'Lunar coordinates'
-            ClientHeight = 89
+            ClientHeight = 107
             ClientWidth = 204
             TabOrder = 1
             object FormationLong: TFloatSpinEdit
@@ -1034,7 +1034,7 @@ object f_calclun: Tf_calclun
             Width = 216
             Align = alLeft
             Caption = 'Sun elevation'
-            ClientHeight = 89
+            ClientHeight = 107
             ClientWidth = 214
             TabOrder = 2
             object SunMin: TFloatSpinEdit
