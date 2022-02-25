@@ -28,10 +28,12 @@ install -v -m 755 -s calclun/calclun  $destdir/bin/calclun
 install -v -m 644 calclun/cspice/libcspice.so  $destdir/lib/libcspice.so
 install -v -m 644 Installer/Linux/vmapro/share/applications/virtualmoon.desktop $destdir/share/applications/virtualmoon.desktop
 install -v -m 644 Installer/Linux/vmapro/share/applications/cclun.desktop $destdir/share/applications/cclun.desktop
+install -v -m 644 Installer/Linux/vmapro/share/applications/calclun.desktop $destdir/share/applications/calclun.desktop
 install -v -m 644 Installer/Linux/vmapro/share/doc/virtualmoon/changelog $destdir/share/doc/virtualmoon/changelog
 install -v -m 644 Installer/Linux/vmapro/share/doc/virtualmoon/copyright $destdir/share/doc/virtualmoon/copyright
 install -v -m 644 Installer/Linux/vmapro/share/pixmaps/virtualmoon.xpm $destdir/share/pixmaps/virtualmoon.xpm
 install -v -m 644 Installer/Linux/vmapro/share/pixmaps/cclun.xpm $destdir/share/pixmaps/cclun.xpm
+install -v -m 644 Installer/Linux/vmapro/share/pixmaps/calclun.xpm $destdir/share/pixmaps/calclun.xpm
 
 
 
