@@ -101,54 +101,76 @@ object f_calclun: Tf_calclun
       Caption = 'Day'
     end
     object Label10: TLabel
+      AnchorSideLeft.Control = BtnDecTime
       AnchorSideTop.Control = Label9
       AnchorSideTop.Side = asrCenter
-      Left = 352
+      AnchorSideRight.Control = BtnIncTime
+      AnchorSideRight.Side = asrBottom
+      Left = 401
       Height = 19
       Top = 1
-      Width = 113
+      Width = 105
       Alignment = taCenter
+      Anchors = [akTop, akLeft, akRight]
       AutoSize = False
       Caption = 'Label10'
     end
     object BtnToday: TSpeedButton
-      AnchorSideLeft.Control = SpinEditDay
+      AnchorSideLeft.Control = LabelTZ
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = SpinEditYear
       AnchorSideTop.Side = asrCenter
-      Left = 240
+      Left = 302
       Height = 25
       Top = 22
       Width = 75
-      BorderSpacing.Left = 12
+      BorderSpacing.Left = 16
       Caption = 'Today'
       Flat = True
       Transparent = False
       OnClick = BtnTodayClick
     end
     object BtnDecTime: TSpeedButton
+      AnchorSideLeft.Control = BtnToday
+      AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = BtnToday
       AnchorSideTop.Side = asrCenter
-      Left = 360
+      Left = 401
       Height = 25
       Top = 22
       Width = 40
+      BorderSpacing.Left = 24
       Caption = '<'
       Flat = True
       Transparent = False
       OnClick = BtnDecTimeClick
     end
     object BtnIncTime: TSpeedButton
+      AnchorSideLeft.Control = BtnDecTime
+      AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = BtnToday
       AnchorSideTop.Side = asrCenter
-      Left = 416
+      Left = 466
       Height = 25
       Top = 22
       Width = 40
+      BorderSpacing.Left = 25
       Caption = '>'
       Flat = True
       Transparent = False
       OnClick = BtnIncTimeClick
+    end
+    object LabelTZ: TLabel
+      AnchorSideLeft.Control = SpinEditDay
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = SpinEditYear
+      AnchorSideTop.Side = asrCenter
+      Left = 238
+      Height = 19
+      Top = 25
+      Width = 48
+      BorderSpacing.Left = 10
+      Caption = 'LabelTZ'
     end
   end
   object PageControl1: TPageControl

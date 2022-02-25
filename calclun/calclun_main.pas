@@ -77,6 +77,7 @@ type
     EditFormation: TEdit;
     GridTerminator1: TStringGrid;
     GridTerminator2: TStringGrid;
+    LabelTZ: TLabel;
     Panel1: TPanel;
     Panel2: TPanel;
     PanelTerminator1: TPanel;
@@ -1278,6 +1279,7 @@ begin
   ObsTZ := inif.ReadString('default', 'ObsTZ', ObsTZ);
   inif.Free;
   tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
+  labeltz.Caption:=tz.ZoneName;
   reset_c;
   if not ObservatoryPosition(ObsLongitude,ObsLatitude,ObsAltitude,obspos) then begin
     StatusLabel.Caption:=SpiceLastError;
@@ -2095,6 +2097,7 @@ try
   DateChangeTimer.Enabled:=false;
   StatusLabel.Caption:='';
   TimeZoneD := GetTimeZoneD(EncodeDate(SpinEditYear.Value,SpinEditMonth.Value,SpinEditDay.Value));
+  labeltz.Caption:=tz.ZoneName;
   // keep compute order year,month,day
   if ForceDateChange or (CurYear<>SpinEditYear.Value) then ComputeYear;
   if ForceDateChange or (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then begin
