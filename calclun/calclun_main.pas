@@ -2317,7 +2317,7 @@ begin
   ComboBoxFormation.Clear;
   for i := 0 to dbm.RowCount - 1 do
   begin
-    ComboBoxFormation.Items.AddObject(dbm.Results[i].Format[1].AsString,TObject(dbm.Results[i].Format[0].AsInteger));
+    ComboBoxFormation.Items.AddObject(dbm.Results[i].Format[1].AsString,TObject(PtrInt(dbm.Results[i].Format[0].AsInteger)));
   end;
   if ComboBoxFormation.Items.Count>0 then begin
      ComboBoxFormation.ItemIndex:=0;
