@@ -77,12 +77,18 @@ type
     EditFormation: TEdit;
     GridTerminator1: TStringGrid;
     GridTerminator2: TStringGrid;
+    LabelTime: TLabel;
     LabelTZ: TLabel;
+    MemoDay: TMemo;
     Panel1: TPanel;
     Panel2: TPanel;
+    Panel3: TPanel;
     PanelTerminator1: TPanel;
     PanelTerminator2: TPanel;
     PanelTresult: TScrollBox;
+    DayHour: TSpinEdit;
+    DayMin: TSpinEdit;
+    DaySec: TSpinEdit;
     SunMin: TFloatSpinEdit;
     SunMax: TFloatSpinEdit;
     FormationLong: TFloatSpinEdit;
@@ -173,6 +179,7 @@ type
     procedure ChartYearAxisList1MarkToText(var AText: String; AMark: Double);
     procedure ComboBoxFormationSelect(Sender: TObject);
     procedure EditFormationEditingDone(Sender: TObject);
+    procedure DayTimeChange(Sender: TObject);
     procedure TerminatorChange(Sender: TObject);
     procedure OpenChart(Sender: TObject);
     procedure ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -1515,7 +1522,71 @@ begin
   img.Free;
 
   PlotDayGraph;
+  DayTimeChange(nil);
 
+end;
+
+procedure Tf_calclun.DayTimeChange(Sender: TObject);
+var dt: double;
+    Year, Month, Day: Word;
+    x,y,z,r,r1,ra1,de1,ra,de,pa,llon,llat,slon,slat,colongitude,az,el: SpiceDouble;
+    obsref,fixref: ConstSpiceChar;
+begin
+  year:=SpinEditYear.Value;
+  month:=SpinEditMonth.Value;
+  day:=SpinEditDay.Value;
+  reset_c;
+  dt:=EncodeDate(year,month,day);
+  dt:=dt+(DayHour.Value+DayMin.Value/60+DaySec.Value/3600)/24-TimeZoneD;
+  et:=DateTime2ET(dt);
+
+  // J2000 position
+  if not MoonTopocentric(et,false,obspos,obsref,x,y,z,r,ra,de) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  MoonPA(et,ra,de,pa);
+  pa:=pa*rad2deg;
+  ra:=ra*rad2deg/15;
+  de:=de*rad2deg;
+  diam:=60*rad2deg*arctan(2*1737.4/r);
+  // Apparent position
+  if not MoonTopocentric(et,true,obspos,obsref,x,y,z,r1,ra1,de1) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  ra1:=ra1*rad2deg/15;
+  de1:=de1*rad2deg;
+  // Libration
+  if not MoonSubObserverPoint(et,obspos,x,y,z,r1,llon,llat) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  // Colongitude
+  if not MoonSubSolarPoint(et,fixref,x,y,z,r1,slon,slat,colongitude) then begin
+     StatusLabel.Caption:=SpiceLastError;
+     exit;
+  end;
+  // Alt/Az
+  if not MoonAltAz(et,ObsLongitude,ObsLatitude,obspos,obsref,az,el) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+
+  MemoDay.Clear;
+  MemoDay.Lines.Add('RA 2000'+':'+tab+ARpToStr(ra));
+  MemoDay.Lines.Add('DE 2000'+':'+tab+DEpToStr(de));
+  MemoDay.Lines.Add('RA apparent'+':'+tab+ARpToStr(ra1));
+  MemoDay.Lines.Add('DE apparent'+':'+tab+DEpToStr(de1));
+  MemoDay.Lines.Add('Distance'+':'+tab+FormatFloat(f3,r));
+  MemoDay.Lines.Add('Diameter'+':'+tab+FormatFloat(f2,diam));
+  MemoDay.Lines.Add('Colongitude'+':'+tab+FormatFloat(f4,colongitude*rad2deg));
+  MemoDay.Lines.Add('Sub-solar latitude'+':'+tab+FormatFloat(f4,slat*rad2deg));
+  MemoDay.Lines.Add('Libration longitude'+':'+tab+DEmToStr(llon*rad2deg));
+  MemoDay.Lines.Add('Libration latitude'+':'+tab+DEmToStr(llat*rad2deg));
+  MemoDay.Lines.Add('PA'+':'+tab+FormatFloat(f2,pa));
+  MemoDay.Lines.Add('Azimut'+':'+tab+DEmToStr(rmod(az*rad2deg+360,360)));
+  MemoDay.Lines.Add('Elevation'+':'+tab+DEmToStr(el * rad2deg));
 end;
 
 procedure Tf_calclun.PlotDayGraph;
