@@ -377,7 +377,7 @@ begin
   result:=false;
   target:=cnaifMoon;
   obsrvr:=cnaifEarth;
-  fixref:=fixrefIAU;//fixrefME;
+  fixref:=fixrefME;
   subslr_c (submethod,target,et,fixref,abcorrLTS,obsrvr,spoint,trgepc,srfvec);
   if failed_c then begin
     if SpiceLastErr='SPICE(FRAMEDATANOTFOUND)' then begin
