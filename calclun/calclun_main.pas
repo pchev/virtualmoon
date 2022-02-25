@@ -2259,8 +2259,10 @@ begin
   for i:=0 to nfind-1 do begin
     if i>(GridTerminator1.RowCount-2) then break;
     wnfetd_c(sc2,i,x,y);
-    sti:=FormatDateTime(datestd,ET2DateTime(x));
-    eni:=FormatDateTime(datestd,ET2DateTime(y));
+    dt:=ET2DateTime(x);
+    sti:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
+    dt:=ET2DateTime(y);
+    eni:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
     GridTerminator1.Cells[0,i+1]:=sti;
     GridTerminator1.Cells[1,i+1]:=eni;
     if MoonSubObserverPoint((x+y)/2,obspos,x,y,z,r,llon,llat) then begin
@@ -2274,8 +2276,10 @@ begin
   for i:=0 to nfind-1 do begin
     if i>(GridTerminator2.RowCount-2) then break;
     wnfetd_c(sc3,i,x,y);
-    sti:=FormatDateTime(datestd,ET2DateTime(x));
-    eni:=FormatDateTime(datestd,ET2DateTime(y));
+    dt:=ET2DateTime(x);
+    sti:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
+    dt:=ET2DateTime(y);
+    eni:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
     GridTerminator2.Cells[0,i+1]:=sti;
     GridTerminator2.Cells[1,i+1]:=eni;
     if MoonSubObserverPoint((x+y)/2,obspos,x,y,z,r,llon,llat) then begin
