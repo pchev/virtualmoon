@@ -309,84 +309,84 @@ end;
 procedure Tf_calclun.SetLang;
 var i: integer;
 begin
-  MenuItem1.Caption:='RA 2000';
-  Menuitem2.Caption:='DE 2000';
-  Menuitem3.Caption:='RA apparent';
-  Menuitem4.Caption:='DE apparent';
-  Menuitem5.Caption:='Distance';
-  Menuitem6.Caption:='Diameter';
-  Menuitem7.Caption:='Phase';
-  Menuitem8.Caption:='Lunation';
-  Menuitem9.Caption:='Illumination';
-  Menuitem10.Caption:='Colongitude';
-  Menuitem11.Caption:='Sub-solar latitude';
-  Menuitem12.Caption:='Libration longitude';
-  Menuitem13.Caption:='Libration latitude';
-  Menuitem14.Caption:='PA';
-  Menuitem15.Caption:='Rise time';
-  Menuitem16.Caption:='Set time';
+  MenuItem1.Caption:=rsRA2000;
+  Menuitem2.Caption:=rsDE2000;
+  Menuitem3.Caption:=rsRAApparent;
+  Menuitem4.Caption:=rsDEApparent;
+  Menuitem5.Caption:=rsDistance;
+  Menuitem6.Caption:=rsDiameter;
+  Menuitem7.Caption:=rsPhase;
+  Menuitem8.Caption:=rsLunation;
+  Menuitem9.Caption:=rsIllumination;
+  Menuitem10.Caption:=rsColongitude;
+  Menuitem11.Caption:=rsSubSolarLati;
+  Menuitem12.Caption:=rsLibrationLon;
+  Menuitem13.Caption:=rsLibrationLat;
+  Menuitem14.Caption:=rsPA;
+  Menuitem15.Caption:=rsRiseTime;
+  Menuitem16.Caption:=rsSetTime;
   GridYear.ColWidths[0]:=120;
   GridYear.Width:=GridYear.ColWidths[0]+(GridYear.ColCount-1)*GridYear.DefaultColWidth;
   for i:=1 to 31 do GridYear.Cells[i,0]:=inttostr(i);
   for i:=1 to 12 do GridYear.Cells[0,i]:=DefaultFormatSettings.LongMonthNames[i];
-  GridPhaseList.Cells[0,0]:='New Moon';
-  GridPhaseList.Cells[1,0]:='First quarter';
-  GridPhaseList.Cells[2,0]:='Full Moon';
-  GridPhaseList.Cells[3,0]:='Last quarter';
-  GridLibrationList.Cells[0,0]:='East';
-  GridLibrationList.Cells[1,0]:='West';
-  GridLibrationList.Cells[2,0]:='North';
-  GridLibrationList.Cells[3,0]:='South';
+  GridPhaseList.Cells[0, 0]:=rsNewMoon;
+  GridPhaseList.Cells[1, 0]:=rsFirstQuarter;
+  GridPhaseList.Cells[2, 0]:=rsFullMoon;
+  GridPhaseList.Cells[3, 0]:=rsLastQuarter;
+  GridLibrationList.Cells[0, 0]:=rsEast;
+  GridLibrationList.Cells[1, 0]:=rsWest;
+  GridLibrationList.Cells[2, 0]:=rsNorth;
+  GridLibrationList.Cells[3, 0]:=rsSouth;
   GridMonth.ColCount:=mcolSet+1;
   GridMonth.ColWidths[0]:=50;
-  GridMonth.Cells[mcolDay,0]:='Day';
-  GridMonth.Cells[mcolRa2000,0]:='RA 2000';
-  GridMonth.Cells[mcolDe2000,0]:='DE 2000';
-  GridMonth.Cells[mcolRa,0]:='RA apparent';
-  GridMonth.Cells[mcolDe,0]:='DE apparent';
-  GridMonth.Cells[mcolDist,0]:='Distance';
-  GridMonth.Cells[mcolDiam,0]:='Diameter';
-  GridMonth.Cells[mcolPhase,0]:='Phase';
-  GridMonth.Cells[mcolLunation,0]:='Lunation';
-  GridMonth.Cells[mcolIllum,0]:='Illumination';
-  GridMonth.Cells[mcolColong,0]:='Colongitude';
-  GridMonth.Cells[mcolSubSolLat,0]:='Sub-solar latitude';
-  GridMonth.Cells[mcolLibrLon,0]:='Libration longitude';
-  GridMonth.Cells[mcolLibrLat,0]:='Libration latitude';
-  GridMonth.Cells[mcolPa,0]:='PA';
-  GridMonth.Cells[mcolRise,0]:='Rise time';
-  GridMonth.Cells[mcolSet,0]:='Set time';
-  LabelPhase1.Caption:='New Moon:'+crlf+
-                      'First quarter:'+crlf+
-                      'Full Moon:'+crlf+
-                      'Last quarter:';
+  GridMonth.Cells[mcolDay, 0]:=rsDay;
+  GridMonth.Cells[mcolRa2000, 0]:=rsRA2000;
+  GridMonth.Cells[mcolDe2000, 0]:=rsDE2000;
+  GridMonth.Cells[mcolRa, 0]:=rsRAApparent;
+  GridMonth.Cells[mcolDe, 0]:=rsDEApparent;
+  GridMonth.Cells[mcolDist, 0]:=rsDistance;
+  GridMonth.Cells[mcolDiam, 0]:=rsDiameter;
+  GridMonth.Cells[mcolPhase, 0]:=rsPhase;
+  GridMonth.Cells[mcolLunation, 0]:=rsLunation;
+  GridMonth.Cells[mcolIllum, 0]:=rsIllumination;
+  GridMonth.Cells[mcolColong, 0]:=rsColongitude;
+  GridMonth.Cells[mcolSubSolLat, 0]:=rsSubSolarLati;
+  GridMonth.Cells[mcolLibrLon, 0]:=rsLibrationLon;
+  GridMonth.Cells[mcolLibrLat, 0]:=rsLibrationLat;
+  GridMonth.Cells[mcolPa, 0]:=rsPA;
+  GridMonth.Cells[mcolRise, 0]:=rsRiseTime;
+  GridMonth.Cells[mcolSet, 0]:=rsSetTime;
+  LabelPhase1.Caption:=rsNewMoon+':'+crlf+
+                      rsFirstQuarter+':'+crlf+
+                      rsFullMoon+':'+crlf+
+                      rsLastQuarter+':';
   GridDay.ColCount:=dcolPa+1;
   GridDay.ColWidths[0]:=50;
-  GridDay.Cells[dcolHour,0]:='Hour';
-  GridDay.Cells[dcolRa2000,0]:='RA 2000';
-  GridDay.Cells[dcolDe2000,0]:='DE 2000';
-  GridDay.Cells[dcolRa,0]:='RA apparent';
-  GridDay.Cells[dcolDe,0]:='DE apparent';
-  GridDay.Cells[dcolDist,0]:='Distance';
-  GridDay.Cells[dcolDiam,0]:='Diameter';
-  GridDay.Cells[dcolColong,0]:='Colongitude';
-  GridDay.Cells[dcolSubSolLat,0]:='Sub-solar latitude';
-  GridDay.Cells[dcolLibrLon,0]:='Libration longitude';
-  GridDay.Cells[dcolLibrLat,0]:='Libration latitude';
-  GridDay.Cells[dcolPa,0]:='PA';
-  LabelRise1.Caption:='Rise :'+crlf+'Set :';
+  GridDay.Cells[dcolHour, 0]:=rsHour;
+  GridDay.Cells[dcolRa2000, 0]:=rsRA2000;
+  GridDay.Cells[dcolDe2000, 0]:=rsDE2000;
+  GridDay.Cells[dcolRa, 0]:=rsRAApparent;
+  GridDay.Cells[dcolDe, 0]:=rsDEApparent;
+  GridDay.Cells[dcolDist, 0]:=rsDistance;
+  GridDay.Cells[dcolDiam, 0]:=rsDiameter;
+  GridDay.Cells[dcolColong, 0]:=rsColongitude;
+  GridDay.Cells[dcolSubSolLat, 0]:=rsSubSolarLati;
+  GridDay.Cells[dcolLibrLon, 0]:=rsLibrationLon;
+  GridDay.Cells[dcolLibrLat, 0]:=rsLibrationLat;
+  GridDay.Cells[dcolPa, 0]:=rsPA;
+  LabelRise1.Caption:=rsRise+' :'+crlf+rsSet+' :';
   GridTerminator1.ColWidths[2]:=80;
   GridTerminator1.ColWidths[3]:=80;
-  GridTerminator1.Cells[0,0]:='Start time';
-  GridTerminator1.Cells[1,0]:='End time';
-  GridTerminator1.Cells[2,0]:='Libr. lon.';
-  GridTerminator1.Cells[3,0]:='Libr. lat.';
+  GridTerminator1.Cells[0, 0]:=rsStartTime;
+  GridTerminator1.Cells[1, 0]:=rsEndTime;
+  GridTerminator1.Cells[2, 0]:=rsLibrLon;
+  GridTerminator1.Cells[3, 0]:=rsLibrLat;
   GridTerminator2.ColWidths[2]:=80;
   GridTerminator2.ColWidths[3]:=80;
-  GridTerminator2.Cells[0,0]:='Start time';
-  GridTerminator2.Cells[1,0]:='End time';
-  GridTerminator2.Cells[2,0]:='Libr. lon.';
-  GridTerminator2.Cells[3,0]:='Libr. lat.';
+  GridTerminator2.Cells[0, 0]:=rsStartTime;
+  GridTerminator2.Cells[1, 0]:=rsEndTime;
+  GridTerminator2.Cells[2, 0]:=rsLibrLon;
+  GridTerminator2.Cells[3, 0]:=rsLibrLat;
   dbm.Use(Slash(DBdir)+'dbmoon7'+UpperCase(language)+'.dbl');
 end;
 
@@ -1100,7 +1100,7 @@ begin
    p.Caption:='';
    p.Height:=b.Height+8;
    p.Align:=alBottom;
-   b.Caption:='Close';
+   b.Caption:=rsClose;
    b.OnClick:=@CloseChartClick;
    b.Parent:=p;
    b.AnchorSideTop.Control:=p;
@@ -1160,7 +1160,7 @@ begin
    pointi.x:=X;
    pointi.y:=Y;
    pointg:=ChartYear.ImageToGraph(pointi);
-   LabelChartYear.Caption:='Date: '+FormatDateTime(datestd,round(pointg.y)+pointg.x-localoffset);
+   LabelChartYear.Caption:=rsDate+': '+FormatDateTime(datestd, round(pointg.y)+pointg.x-localoffset);
  end;
 end;
 
@@ -1261,16 +1261,16 @@ procedure Tf_calclun.PageControl1Change(Sender: TObject);
 begin
   case PageControl1.ActivePageIndex of
     0: begin
-         label10.Caption:='by year';
+         label10.Caption:=rsByYear;
        end;
     1: begin
-         label10.Caption:='by month';
+         label10.Caption:=rsByMonth;
        end;
     2: begin
-         label10.Caption:='by day';
+         label10.Caption:=rsByDay;
        end;
     3: begin
-         label10.Caption:='by month';
+         label10.Caption:=rsByMonth;
        end;
   end;
 end;
@@ -1410,9 +1410,9 @@ begin
      dts:=YearInfo[month,i].moonset;
      if (dtr=0)and(dts=0) then begin  // no rise/set
        if Sign(YearInfo[month,i].moondec)=sign(ObsLatitude) then
-         GridMonth.Cells[mcolRise,i]:='Always up'
+         GridMonth.Cells[mcolRise, i]:=rsAlwaysUp
        else
-         GridMonth.Cells[mcolRise,i]:='Never rise';
+         GridMonth.Cells[mcolRise, i]:=rsNeverRise;
      end else begin
        if dtr>0 then begin
          dtr:=dtr+YearInfo[month,i].dst;
@@ -1574,19 +1574,19 @@ begin
   end;
 
   MemoDay.Clear;
-  MemoDay.Lines.Add('RA 2000'+':'+tab+ARpToStr(ra));
-  MemoDay.Lines.Add('DE 2000'+':'+tab+DEpToStr(de));
-  MemoDay.Lines.Add('RA apparent'+':'+tab+ARpToStr(ra1));
-  MemoDay.Lines.Add('DE apparent'+':'+tab+DEpToStr(de1));
-  MemoDay.Lines.Add('Distance'+':'+tab+FormatFloat(f3,r));
-  MemoDay.Lines.Add('Diameter'+':'+tab+FormatFloat(f2,diam));
-  MemoDay.Lines.Add('Colongitude'+':'+tab+FormatFloat(f4,colongitude*rad2deg));
-  MemoDay.Lines.Add('Sub-solar latitude'+':'+tab+FormatFloat(f4,slat*rad2deg));
-  MemoDay.Lines.Add('Libration longitude'+':'+tab+DEmToStr(llon*rad2deg));
-  MemoDay.Lines.Add('Libration latitude'+':'+tab+DEmToStr(llat*rad2deg));
-  MemoDay.Lines.Add('PA'+':'+tab+FormatFloat(f2,pa));
-  MemoDay.Lines.Add('Azimut'+':'+tab+DEmToStr(rmod(az*rad2deg+360,360)));
-  MemoDay.Lines.Add('Elevation'+':'+tab+DEmToStr(el * rad2deg));
+  MemoDay.Lines.Add(rsRA2000+':'+tab+ARpToStr(ra));
+  MemoDay.Lines.Add(rsDE2000+':'+tab+DEpToStr(de));
+  MemoDay.Lines.Add(rsRAApparent+':'+tab+ARpToStr(ra1));
+  MemoDay.Lines.Add(rsDEApparent+':'+tab+DEpToStr(de1));
+  MemoDay.Lines.Add(rsDistance+':'+tab+FormatFloat(f3, r));
+  MemoDay.Lines.Add(rsDiameter+':'+tab+FormatFloat(f2, diam));
+  MemoDay.Lines.Add(rsColongitude+':'+tab+FormatFloat(f4, colongitude*rad2deg));
+  MemoDay.Lines.Add(rsSubSolarLati+':'+tab+FormatFloat(f4, slat*rad2deg));
+  MemoDay.Lines.Add(rsLibrationLon+':'+tab+DEmToStr(llon*rad2deg));
+  MemoDay.Lines.Add(rsLibrationLat+':'+tab+DEmToStr(llat*rad2deg));
+  MemoDay.Lines.Add(rsPA+':'+tab+FormatFloat(f2, pa));
+  MemoDay.Lines.Add(rsAzimut+':'+tab+DEmToStr(rmod(az*rad2deg+360, 360)));
+  MemoDay.Lines.Add(rsElevation+':'+tab+DEmToStr(el * rad2deg));
 end;
 
 procedure Tf_calclun.PlotDayGraph;
@@ -1754,7 +1754,7 @@ begin
   pointi.y:=Y;
   pointg:=ChartAltAz.ImageToGraph(pointi);
   // show position
-  LabelAltAz.Caption:=FormatDateTime('mm/dd hh:nn',pointg.x)+':  Alt:'+FormatFloat(f1,pointg.y);
+  LabelAltAz.Caption:=FormatDateTime('mm/dd hh:nn', pointg.x)+':  '+rsAlt+':'+FormatFloat(f1, pointg.y);
   end else begin
     LabelAltAz.Caption:='';
   end;
@@ -1941,7 +1941,7 @@ begin
     mcolLibrLon  : begin
                    PanelGraph2.Visible:=true;
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   chart2.Title.Text.Add('Libration'+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart2.Title.Text.Add(rsLibration+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
@@ -1952,7 +1952,7 @@ begin
     mcolLibrLat  : begin
                    PanelGraph2.Visible:=true;
                    chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   chart2.Title.Text.Add('Libration'+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart2.Title.Text.Add(rsLibration+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
