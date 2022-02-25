@@ -79,9 +79,9 @@ type
     GridTerminator2: TStringGrid;
     Panel1: TPanel;
     Panel2: TPanel;
-    PanelTresult: TPanel;
-    PanelTerminator2: TPanel;
     PanelTerminator1: TPanel;
+    PanelTerminator2: TPanel;
+    PanelTresult: TScrollBox;
     SunMin: TFloatSpinEdit;
     SunMax: TFloatSpinEdit;
     FormationLong: TFloatSpinEdit;
@@ -101,7 +101,6 @@ type
     MenuSetup: TMenuItem;
     PanelTtop: TPanel;
     PanelT: TPanel;
-    PanelTright: TPanel;
     PanelChartAltAz: TPanel;
     PanelChartYear: TPanel;
     PanelGraph3: TPanel;
@@ -368,10 +367,18 @@ begin
   GridDay.Cells[dcolLibrLat,0]:='Libration latitude';
   GridDay.Cells[dcolPa,0]:='PA';
   LabelRise1.Caption:='Rise :'+crlf+'Set :';
+  GridTerminator1.ColWidths[2]:=80;
+  GridTerminator1.ColWidths[3]:=80;
   GridTerminator1.Cells[0,0]:='Start time';
   GridTerminator1.Cells[1,0]:='End time';
+  GridTerminator1.Cells[2,0]:='Libr. lon.';
+  GridTerminator1.Cells[3,0]:='Libr. lat.';
+  GridTerminator2.ColWidths[2]:=80;
+  GridTerminator2.ColWidths[3]:=80;
   GridTerminator2.Cells[0,0]:='Start time';
   GridTerminator2.Cells[1,0]:='End time';
+  GridTerminator2.Cells[2,0]:='Libr. lon.';
+  GridTerminator2.Cells[3,0]:='Libr. lat.';
   dbm.Use(Slash(DBdir)+'dbmoon7'+UpperCase(language)+'.dbl');
 end;
 
@@ -1254,6 +1261,9 @@ begin
     2: begin
          label10.Caption:='by day';
        end;
+    3: begin
+         label10.Caption:='by month';
+       end;
   end;
 end;
 
@@ -2087,7 +2097,10 @@ try
   TimeZoneD := GetTimeZoneD(EncodeDate(SpinEditYear.Value,SpinEditMonth.Value,SpinEditDay.Value));
   // keep compute order year,month,day
   if ForceDateChange or (CurYear<>SpinEditYear.Value) then ComputeYear;
-  if ForceDateChange or (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then ComputeMonth;
+  if ForceDateChange or (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then begin
+     ComputeMonth;
+     ComputeTerminator;
+  end;
   ComputeDay;
   ForceDateChange:=false;
   CurYear:=SpinEditYear.Value;
@@ -2106,7 +2119,7 @@ procedure Tf_calclun.BtnIncTimeClick(Sender: TObject);
 begin
   case PageControl1.ActivePageIndex of
     0: SpinEditYear.Value:=SpinEditYear.Value+1;
-    1: begin
+    1,3: begin
          if SpinEditMonth.Value<12 then
            SpinEditMonth.Value:=SpinEditMonth.Value+1
          else begin
@@ -2134,7 +2147,7 @@ procedure Tf_calclun.BtnDecTimeClick(Sender: TObject);
 begin
   case PageControl1.ActivePageIndex of
     0: SpinEditYear.Value:=SpinEditYear.Value-1;
-    1: begin
+    1,3: begin
          if SpinEditMonth.Value>1 then
            SpinEditMonth.Value:=SpinEditMonth.Value-1
          else begin
@@ -2183,12 +2196,13 @@ var fixref: ConstSpiceChar;
   relate: ConstSpiceChar;
   refval: SpiceDouble;
   sc1,sc2,sc3: PSpiceCell;
-  et0,et1,x,y: SpiceDouble;
+  et0,et1,x,y,dt: SpiceDouble;
   i,nfind: integer;
   sti,eni: string;
-  lon,lat,dl: SpiceDouble;
+  lon,lat,dl,llon,llat,z: SpiceDouble;
   xx,yy,zz,r,lo,la,colongitude:SpiceDouble;
   pos: TDouble3;
+  Year, Month: Word;
 begin
   GridTerminator1.RowCount:=1;
   GridTerminator1.RowCount:=15;
@@ -2199,6 +2213,11 @@ begin
   lon:=FormationLong.Value*deg2rad;
   lat:=FormationLat.Value*deg2rad;
   pos:=MoonSurfacePos(lon,lat);
+
+  year:=SpinEditYear.Value;
+  month:=SpinEditMonth.Value;
+  dt:=EncodeDate(year,month,1);
+  et:=DateTime2ET(dt);
 
   sc1:=initdoublecell(1);
   sc2:=initdoublecell(2);
@@ -2244,6 +2263,10 @@ begin
     eni:=FormatDateTime(datestd,ET2DateTime(y));
     GridTerminator1.Cells[0,i+1]:=sti;
     GridTerminator1.Cells[1,i+1]:=eni;
+    if MoonSubObserverPoint((x+y)/2,obspos,x,y,z,r,llon,llat) then begin
+      GridTerminator1.Cells[2,i+1]:=DEmToStr(llon*rad2deg);
+      GridTerminator1.Cells[3,i+1]:=DEmToStr(llat*rad2deg);
+    end;
   end;
   // evening terminator
   nfind:=wncard_c(sc3);
@@ -2255,6 +2278,10 @@ begin
     eni:=FormatDateTime(datestd,ET2DateTime(y));
     GridTerminator2.Cells[0,i+1]:=sti;
     GridTerminator2.Cells[1,i+1]:=eni;
+    if MoonSubObserverPoint((x+y)/2,obspos,x,y,z,r,llon,llat) then begin
+      GridTerminator2.Cells[2,i+1]:=DEmToStr(llon*rad2deg);
+      GridTerminator2.Cells[3,i+1]:=DEmToStr(llat*rad2deg);
+    end;
   end;
 
   scard_c (0, sc1);

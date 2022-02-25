@@ -931,31 +931,23 @@ object f_calclun: Tf_calclun
       Caption = 'Terminator'
       ClientHeight = 563
       ClientWidth = 1190
-      object PanelTright: TPanel
-        Left = 728
-        Height = 563
-        Top = 0
-        Width = 462
-        Align = alRight
-        TabOrder = 0
-      end
       object PanelT: TPanel
         Left = 0
         Height = 563
         Top = 0
-        Width = 728
+        Width = 1190
         Align = alClient
         ClientHeight = 563
-        ClientWidth = 728
-        TabOrder = 1
+        ClientWidth = 1190
+        TabOrder = 0
         object PanelTtop: TPanel
           Left = 1
           Height = 111
           Top = 1
-          Width = 726
+          Width = 1188
           Align = alTop
           ClientHeight = 111
-          ClientWidth = 726
+          ClientWidth = 1188
           TabOrder = 0
           object GroupBoxFormation: TGroupBox
             Left = 1
@@ -1086,82 +1078,74 @@ object f_calclun: Tf_calclun
             end
           end
         end
-        object PanelTresult: TPanel
+        object PanelTresult: TScrollBox
           Left = 1
-          Height = 451
+          Height = 450
           Top = 112
-          Width = 726
-          Align = alTop
-          ClientHeight = 451
-          ClientWidth = 726
+          Width = 1188
+          HorzScrollBar.Page = 1000
+          VertScrollBar.Page = 86
+          Align = alClient
+          ClientHeight = 448
+          ClientWidth = 1186
           TabOrder = 1
           object PanelTerminator1: TPanel
-            Left = 1
-            Height = 449
-            Top = 1
-            Width = 360
+            Left = 0
+            Height = 448
+            Top = 0
+            Width = 500
             Align = alLeft
-            ClientHeight = 449
-            ClientWidth = 360
+            ClientHeight = 448
+            ClientWidth = 500
             TabOrder = 0
             object GridTerminator1: TStringGrid
               Left = 1
-              Height = 413
+              Height = 412
               Top = 35
-              Width = 358
+              Width = 498
               Align = alClient
-              AutoFillColumns = True
-              ColCount = 2
+              ColCount = 4
               DefaultColWidth = 160
               FixedCols = 0
               RowCount = 15
               TabOrder = 0
-              ColWidths = (
-                178
-                178
-              )
             end
             object Panel1: TPanel
               Left = 1
               Height = 34
               Top = 1
-              Width = 358
+              Width = 498
               Align = alTop
               Caption = 'Sun rise'
               TabOrder = 1
             end
           end
           object PanelTerminator2: TPanel
-            Left = 361
-            Height = 449
-            Top = 1
-            Width = 360
+            Left = 500
+            Height = 448
+            Top = 0
+            Width = 500
             Align = alLeft
-            ClientHeight = 449
-            ClientWidth = 360
+            ClientHeight = 448
+            ClientWidth = 500
             TabOrder = 1
             object GridTerminator2: TStringGrid
               Left = 1
-              Height = 413
+              Height = 412
               Top = 35
-              Width = 358
+              Width = 498
               Align = alClient
-              AutoFillColumns = True
-              ColCount = 2
+              ColCount = 4
               DefaultColWidth = 160
               FixedCols = 0
               RowCount = 15
               TabOrder = 0
-              ColWidths = (
-                178
-                178
-              )
             end
             object Panel2: TPanel
               Left = 1
               Height = 34
               Top = 1
-              Width = 358
+              Width = 498
               Align = alTop
               Caption = 'Sun set'
               TabOrder = 1
