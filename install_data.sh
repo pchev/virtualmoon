@@ -74,6 +74,7 @@ install -v -m 644 Database/weblun.csv $destdir/share/virtualmoon/Database/
 
 # big data
 InstData Base_Database $destdir
+InstData Base_ILCD $destdir
 InstData Base_JPLeph $destdir
 InstData Base_Kernels $destdir
 InstData Base_Airbrush $destdir
