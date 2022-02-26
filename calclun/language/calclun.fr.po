@@ -1,13 +1,64 @@
+# pch <pch@ap-i.net>, 2022.
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr ""
+"Last-Translator: pch <pch@ap-i.net>\n"
+"PO-Revision-Date: 2022-02-26 11:27+0100\n"
+"Project-Id-Version: \n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr_FR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 21.08.1\n"
+
+#: u_translation.rsalt
+msgid "Alt"
+msgstr "Alt"
 
 #: u_translation.rsaltitude
 msgid "Altitude"
 msgstr "Altitude"
 
+#: u_translation.rsalwaysup
+msgid "Always up"
+msgstr "Toujours visible"
+
+#: u_translation.rsapril
+msgid "April"
+msgstr "Avril "
+
+#: u_translation.rsaugust
+msgid "August"
+msgstr "Août"
+
+#: u_translation.rsazimut
+msgid "Azimuth"
+msgstr "Azimut"
+
+#: u_translation.rsbyday
+msgid "by day"
+msgstr "par jour"
+
+#: u_translation.rsbymonth
+msgid "by month"
+msgstr "par mois"
+
+#: u_translation.rsbyyear
+msgid "by year"
+msgstr "par année"
+
 #: u_translation.rscancel
 msgid "Cancel"
 msgstr "Abandon"
+
+#: u_translation.rsclose
+msgid "Close"
+msgstr "Fermer"
+
+#: u_translation.rscolongitude
+msgid "Colongitude"
+msgstr "Colongitude"
 
 #: u_translation.rsconfiguratio
 msgid "Configuration"
@@ -17,13 +68,85 @@ msgstr "Configuration"
 msgid "Country"
 msgstr "Pays"
 
+#: u_translation.rsdate
+msgid "Date"
+msgstr "Date"
+
 #: u_translation.rsdatetime
 msgid "Date / Time"
 msgstr "Date / Heure"
 
+#: u_translation.rsday
+msgid "Day"
+msgstr "Jour"
+
+#: u_translation.rsde2000
+msgid "DE 2000"
+msgstr "DE 2000"
+
+#: u_translation.rsdeapparent
+msgid "DE apparent"
+msgstr "DE apparent"
+
+#: u_translation.rsdecember
+msgid "December"
+msgstr "Décembre"
+
+#: u_translation.rsdiameter
+msgid "Diameter"
+msgstr "Diamètre"
+
+#: u_translation.rsdistance
+msgid "Distance"
+msgstr "Distance"
+
 #: u_translation.rse
 msgid "E"
 msgstr "E"
+
+#: u_translation.rseast
+msgid "East"
+msgstr "Est"
+
+#: u_translation.rselevation
+msgid "Elevation"
+msgstr "Élévation"
+
+#: u_translation.rsendtime
+msgid "End time"
+msgstr "Heure de fin"
+
+#: u_translation.rsfebruary
+msgid "February"
+msgstr "Février"
+
+#: u_translation.rsfirstquarter
+msgid "First quarter"
+msgstr "Premier quartier"
+
+#: u_translation.rsfullmoon
+msgid "Full Moon"
+msgstr "Pleine Lune"
+
+#: u_translation.rshour
+msgid "Hour"
+msgstr "Heure"
+
+#: u_translation.rsillumination
+msgid "Illumination"
+msgstr "Illumination"
+
+#: u_translation.rsjanuary
+msgid "January"
+msgstr "Janvier"
+
+#: u_translation.rsjuly
+msgid "July"
+msgstr "Juillet"
+
+#: u_translation.rsjune
+msgid "June"
+msgstr "Juin"
 
 #: u_translation.rslang
 msgctxt "u_translation.rslang"
@@ -35,35 +158,219 @@ msgctxt "u_translation.rslanguage"
 msgid "English"
 msgstr "Français"
 
+#: u_translation.rslastquarter
+msgid "Last quarter"
+msgstr "Dernier quartier"
+
 #: u_translation.rslatitude
 msgid "Latitude"
 msgstr "Latitude"
+
+#: u_translation.rslibration
+msgid "Libration"
+msgstr "Libration"
+
+#: u_translation.rslibrationext
+msgid "Libration extrema"
+msgstr "Extrema des librations"
+
+#: u_translation.rslibrationlat
+msgid "Libration latitude"
+msgstr "Libration en latitude"
+
+#: u_translation.rslibrationlon
+msgid "Libration longitude"
+msgstr "Libration en longitude"
+
+#: u_translation.rslibrlat
+msgid "Libr. lat."
+msgstr "Libr. lat."
+
+#: u_translation.rslibrlon
+msgid "Libr. lon."
+msgstr "Libr. lon."
 
 #: u_translation.rslongitude
 msgid "Longitude"
 msgstr "Longitude"
 
+#: u_translation.rslunarcoordin
+msgid "Lunar coordinates"
+msgstr "Coordonnées lunaires"
+
+#: u_translation.rslunation
+msgid "Lunation"
+msgstr "Lunaison"
+
+#: u_translation.rsmarch
+msgid "March"
+msgstr "Mars"
+
+#: u_translation.rsmaximum
+msgid "Maximum"
+msgstr "Maximum"
+
+#: u_translation.rsmay
+msgid "May"
+msgstr "Mai"
+
+#: u_translation.rsminimum
+msgid "Minimum"
+msgstr "Minimum"
+
+#: u_translation.rsmonth
+msgid "Month"
+msgstr "Mois"
+
+#: u_translation.rsmoonphase
+msgid "Moon phase"
+msgstr "Phase de la Lune"
+
 #: u_translation.rsn
 msgid "N"
 msgstr "N"
+
+#: u_translation.rsneverrise
+msgid "Never rise"
+msgstr "Jamais levé"
+
+#: u_translation.rsnewmoon
+msgid "New Moon"
+msgstr "Nouvelle Lune"
+
+#: u_translation.rsnorth
+msgid "North"
+msgstr "Nord"
+
+#: u_translation.rsnovember
+msgid "November"
+msgstr "Novembre"
 
 #: u_translation.rsobservatory
 msgid "Observatory"
 msgstr "Observatoire"
 
+#: u_translation.rsoctober
+msgid "October"
+msgstr "Octobre"
+
 #: u_translation.rsok
 msgid "OK"
 msgstr "OK"
+
+#: u_translation.rspa
+msgid "PA"
+msgstr "PA"
+
+#: u_translation.rsphase
+msgid "Phase"
+msgstr "Phase"
+
+#: u_translation.rsra2000
+msgid "RA 2000"
+msgstr "AR 2000"
+
+#: u_translation.rsraapparent
+msgid "RA apparent"
+msgstr "AR apparent"
+
+#: u_translation.rsrise
+msgid "Rise"
+msgstr "Lever"
+
+#: u_translation.rsrisetime
+msgid "Rise time"
+msgstr "Heure de lever"
 
 #: u_translation.rss
 msgid "S"
 msgstr "S"
 
+#: u_translation.rssearch
+msgid "Search"
+msgstr "Recherche"
+
+#: u_translation.rssearchformat
+msgid "Search formation"
+msgstr "Recherche de formation"
+
+#: u_translation.rsselectgraph
+msgid "Select graph"
+msgstr "Choix du graphe"
+
+#: u_translation.rsseptember
+msgid "September"
+msgstr "Septembre"
+
+#: u_translation.rsset
+msgid "Set"
+msgstr "Coucher"
+
+#: u_translation.rssettime
+msgid "Set time"
+msgstr "Heure du coucher"
+
+#: u_translation.rssetup
+msgid "Setup"
+msgstr "Réglages"
+
+#: u_translation.rssouth
+msgid "South"
+msgstr "Sud"
+
+#: u_translation.rsstarttime
+msgid "Start time"
+msgstr "Heure du début"
+
+#: u_translation.rssubsolarlati
+msgid "Sub-solar latitude"
+msgstr "Latitude sub-solaire"
+
+#: u_translation.rssunelevation
+msgid "Sun elevation"
+msgstr "Hauteur du soleil"
+
+#: u_translation.rssunrise
+msgid "Sun rise"
+msgstr "Lever du soleil"
+
+#: u_translation.rssunset
+msgid "Sun set"
+msgstr "Coucher du soleil"
+
+#: u_translation.rsterminator
+msgid "Terminator"
+msgstr "Terminateur"
+
+#: u_translation.rstime
+msgid "Time"
+msgstr "Heure"
+
 #: u_translation.rstimezone
 msgid "Time Zone"
 msgstr "Zone horaire"
 
+#: u_translation.rstitle
+msgid "Calclun"
+msgstr "Calclun"
+
+#: u_translation.rstoday
+msgid "Today"
+msgstr "Aujourd'hui"
+
+#: u_translation.rstwilightandm
+msgid "Twilight and Moon visibility"
+msgstr "Crépuscule et visibilité de la lune"
+
 #: u_translation.rsw
 msgid "W"
 msgstr "W"
+
+#: u_translation.rswest
+msgid "West"
+msgstr "Ouest"
+
+#: u_translation.rsyear
+msgid "Year"
+msgstr "Année"
 

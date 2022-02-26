@@ -68,10 +68,41 @@ rsByMonth = 'by month';
 rsByDay = 'by day';
 rsAlwaysUp = 'Always up';
 rsNeverRise = 'Never rise';
-rsAzimut = 'Azimut';
+rsAzimut = 'Azimuth';
 rsElevation = 'Elevation';
 rsAlt = 'Alt';
 rsLibration = 'Libration';
+rsSetup = 'Setup';
+rsYear = 'Year';
+rsMonth = 'Month';
+rsTerminator = 'Terminator';
+rsToday = 'Today';
+rsSelectGraph = 'Select graph';
+rsTwilightAndM = 'Twilight and Moon visibility';
+rsSunRise = 'Sun rise';
+rsSunSet = 'Sun set';
+rsSearchFormat = 'Search formation';
+rsSearch = 'Search';
+rsLunarCoordin = 'Lunar coordinates';
+rsSunElevation = 'Sun elevation';
+rsMinimum = 'Minimum';
+rsMaximum = 'Maximum';
+rsTime = 'Time';
+rsJanuary = 'January';
+rsFebruary = 'February';
+rsMarch = 'March';
+rsApril = 'April';
+rsMay = 'May';
+rsJune = 'June';
+rsJuly = 'July';
+rsAugust = 'August';
+rsSeptember = 'September';
+rsOctober = 'October';
+rsNovember = 'November';
+rsDecember = 'December';
+rsMoonPhase = 'Moon phase';
+rsLibrationExt = 'Libration extrema';
+
 
 implementation
 

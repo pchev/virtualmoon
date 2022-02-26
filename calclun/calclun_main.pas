@@ -77,12 +77,20 @@ type
     EditFormation: TEdit;
     GridTerminator1: TStringGrid;
     GridTerminator2: TStringGrid;
+    LabelMonth: TLabel;
+    LabelDay: TLabel;
     LabelTime: TLabel;
     LabelTZ: TLabel;
     MemoDay: TMemo;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    Panel8: TPanel;
+    Panel9: TPanel;
     PanelTerminator1: TPanel;
     PanelTerminator2: TPanel;
     PanelTresult: TScrollBox;
@@ -243,7 +251,7 @@ implementation
 procedure Tf_calclun.FormCreate(Sender: TObject);
 var inifile:Tmeminifile;
 begin
-  DefaultFormatSettings.DateSeparator:='-';
+  DefaultFormatSettings.DateSeparator:='/';
   compile_time := {$I %DATE%}+' '+{$I %TIME%};
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%};
   StatusLabel.Caption:='';
@@ -297,7 +305,7 @@ begin
 
   BtnToday.Click;
   PageControl1.ActivePage:=TabSheetYear;
-  label10.Caption:='by year';
+  label10.Caption:=rsByYear;
   FCurrentMonthGraph:=mcolLibrLon;
 
   SetObservatory;
@@ -309,6 +317,45 @@ end;
 procedure Tf_calclun.SetLang;
 var i: integer;
 begin
+  Label7.Caption:=rsYear;
+  Label8.Caption:=rsMonth;
+  Label9.Caption:=rsDay;
+  BtnToday.Caption:=rsToday;
+
+  TabSheetYear.Caption:=rsYear;
+  ChartYear.Title.Text.Clear;
+  ChartYear.Title.Text.Add(rsTwilightAndM);
+  Panel6.Caption:=rsMoonPhase;
+  Panel7.Caption:=rsLibrationExt;
+  GridYear.ColWidths[0]:=120;
+  GridYear.Width:=GridYear.ColWidths[0]+(GridYear.ColCount-1)*GridYear.DefaultColWidth;
+  for i:=1 to 31 do GridYear.Cells[i,0]:=inttostr(i);
+  GridYear.Cells[0, 1]:=rsJanuary;
+  GridYear.Cells[0, 2]:=rsFebruary;
+  GridYear.Cells[0, 3]:=rsMarch;
+  GridYear.Cells[0, 4]:=rsApril;
+  GridYear.Cells[0, 5]:=rsMay;
+  GridYear.Cells[0, 6]:=rsJune;
+  GridYear.Cells[0, 7]:=rsJuly;
+  GridYear.Cells[0, 8]:=rsAugust;
+  GridYear.Cells[0, 9]:=rsSeptember;
+  GridYear.Cells[0, 10]:=rsOctober;
+  GridYear.Cells[0, 11]:=rsNovember;
+  GridYear.Cells[0, 12]:=rsDecember;
+  GridPhaseList.Cells[0, 0]:=rsNewMoon;
+  GridPhaseList.Cells[1, 0]:=rsFirstQuarter;
+  GridPhaseList.Cells[2, 0]:=rsFullMoon;
+  GridPhaseList.Cells[3, 0]:=rsLastQuarter;
+  GridLibrationList.Cells[0, 0]:=rsEast;
+  GridLibrationList.Cells[1, 0]:=rsWest;
+  GridLibrationList.Cells[2, 0]:=rsNorth;
+  GridLibrationList.Cells[3, 0]:=rsSouth;
+
+  TabSheetMonth.Caption:=rsMonth;
+  BtnGraph.Caption:=rsSelectGraph;
+  Chart3.Title.Text.Clear;
+  Chart3.Title.Text.Add(rsTwilightAndM);
+  MenuSetup.Caption:=rsSetup;
   MenuItem1.Caption:=rsRA2000;
   Menuitem2.Caption:=rsDE2000;
   Menuitem3.Caption:=rsRAApparent;
@@ -325,18 +372,6 @@ begin
   Menuitem14.Caption:=rsPA;
   Menuitem15.Caption:=rsRiseTime;
   Menuitem16.Caption:=rsSetTime;
-  GridYear.ColWidths[0]:=120;
-  GridYear.Width:=GridYear.ColWidths[0]+(GridYear.ColCount-1)*GridYear.DefaultColWidth;
-  for i:=1 to 31 do GridYear.Cells[i,0]:=inttostr(i);
-  for i:=1 to 12 do GridYear.Cells[0,i]:=DefaultFormatSettings.LongMonthNames[i];
-  GridPhaseList.Cells[0, 0]:=rsNewMoon;
-  GridPhaseList.Cells[1, 0]:=rsFirstQuarter;
-  GridPhaseList.Cells[2, 0]:=rsFullMoon;
-  GridPhaseList.Cells[3, 0]:=rsLastQuarter;
-  GridLibrationList.Cells[0, 0]:=rsEast;
-  GridLibrationList.Cells[1, 0]:=rsWest;
-  GridLibrationList.Cells[2, 0]:=rsNorth;
-  GridLibrationList.Cells[3, 0]:=rsSouth;
   GridMonth.ColCount:=mcolSet+1;
   GridMonth.ColWidths[0]:=50;
   GridMonth.Cells[mcolDay, 0]:=rsDay;
@@ -360,6 +395,9 @@ begin
                       rsFirstQuarter+':'+crlf+
                       rsFullMoon+':'+crlf+
                       rsLastQuarter+':';
+
+  TabSheetDay.Caption:=rsDay;
+  LabelTime.Caption:=rsTime;
   GridDay.ColCount:=dcolPa+1;
   GridDay.ColWidths[0]:=50;
   GridDay.Cells[dcolHour, 0]:=rsHour;
@@ -375,12 +413,24 @@ begin
   GridDay.Cells[dcolLibrLat, 0]:=rsLibrationLat;
   GridDay.Cells[dcolPa, 0]:=rsPA;
   LabelRise1.Caption:=rsRise+' :'+crlf+rsSet+' :';
+
+  TabSheetTerminator.Caption:=rsTerminator;
+  GroupBoxFormation.Caption:=rsSearchFormat;
+  BtnSearch.Caption:=rsSearch;
+  GroupBoxCoord.Caption:=rsLunarCoordin;
+  Label12.Caption:=rsLongitude;
+  Label13.Caption:=rsLatitude;
+  GroupBoxSunElev.Caption:=rsSunElevation;
+  Label14.Caption:=rsMinimum;
+  Label15.Caption:=rsMaximum;
+  Panel1.Caption:=rsSunRise;
   GridTerminator1.ColWidths[2]:=80;
   GridTerminator1.ColWidths[3]:=80;
   GridTerminator1.Cells[0, 0]:=rsStartTime;
   GridTerminator1.Cells[1, 0]:=rsEndTime;
   GridTerminator1.Cells[2, 0]:=rsLibrLon;
   GridTerminator1.Cells[3, 0]:=rsLibrLat;
+  Panel2.Caption:=rsSunSet;
   GridTerminator2.ColWidths[2]:=80;
   GridTerminator2.ColWidths[3]:=80;
   GridTerminator2.Cells[0, 0]:=rsStartTime;
@@ -730,6 +780,7 @@ begin  // ComputeYear
   until (lq>t1)or(r>=GridPhaseList.RowCount);
 
   // year calendar
+  GridYear.Cells[0,0]:=IntToStr(year);
   dt:=EncodeDate(year,1,1);
   r:=0;
   for i:=0 to 2 do begin
@@ -1319,6 +1370,7 @@ begin
   end;
   year:=SpinEditYear.Value;
   month:=SpinEditMonth.Value;
+  LabelMonth.Caption:=IntToStr(year)+' '+GridYear.Cells[0,month];
   nday:=MonthDays[IsLeapYear(year)][month];
   GridMonth.RowCount:=1;
   GridMonth.RowCount:=nday+1;
@@ -1460,6 +1512,7 @@ begin
   year:=SpinEditYear.Value;
   month:=SpinEditMonth.Value;
   day:=SpinEditDay.Value;
+  LabelDay.Caption:=IntToStr(year)+' '+GridYear.Cells[0,month]+' '+IntToStr(day);
   GridDay.RowCount:=1;
   GridDay.RowCount:=25;
   reset_c;
@@ -1793,7 +1846,7 @@ begin
   case col of
     mcolDay      :  ;
     mcolRa2000   : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.YMin:=0;
                    chart1.Extent.YMax:=24;
                    chart1.Extent.UseYMin:=true;
@@ -1813,7 +1866,7 @@ begin
                    end;
                    end;
     mcolDe2000   : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.YMin:=-90;
                    chart1.Extent.YMax:=90;
                    chart1.Extent.UseYMin:=true;
@@ -1823,7 +1876,7 @@ begin
                    end;
                    end;
     mcolRa       : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.YMin:=0;
                    chart1.Extent.YMax:=24;
                    chart1.Extent.UseYMin:=true;
@@ -1843,7 +1896,7 @@ begin
                    end;
                    end;
     mcolDe       : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.YMin:=-90;
                    chart1.Extent.YMax:=90;
                    chart1.Extent.UseYMin:=true;
@@ -1853,7 +1906,7 @@ begin
                    end;
                    end;
     mcolDist     : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
@@ -1861,7 +1914,7 @@ begin
                    end;
                    end;
     mcolDiam     : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
@@ -1869,7 +1922,7 @@ begin
                    end;
                    end;
     mcolPhase    : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    prev:=TMoonMonthData(GridMonth.Objects[0,1]).phase;
@@ -1887,7 +1940,7 @@ begin
                    end;
                    end;
     mcolLunation : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    prev:=TMoonMonthData(GridMonth.Objects[0,1]).lunation;
@@ -1905,7 +1958,7 @@ begin
                    end;
                    end;
     mcolIllum    : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
@@ -1913,7 +1966,7 @@ begin
                    end;
                    end;
     mcolColong   : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    prev:=TMoonMonthData(GridMonth.Objects[0,1]).colong;
@@ -1931,7 +1984,7 @@ begin
                    end;
                    end;
     mcolSubSolLat: begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
@@ -1940,8 +1993,8 @@ begin
                    end;
     mcolLibrLon  : begin
                    PanelGraph2.Visible:=true;
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   chart2.Title.Text.Add(rsLibration+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
+                   chart2.Title.Text.Add(rsLibration+' '+LabelMonth.Caption);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
@@ -1951,8 +2004,8 @@ begin
                    end;
     mcolLibrLat  : begin
                    PanelGraph2.Visible:=true;
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
-                   chart2.Title.Text.Add(rsLibration+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
+                   chart2.Title.Text.Add(rsLibration+' '+LabelMonth.Caption);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
@@ -1961,7 +2014,7 @@ begin
                    end;
                    end;
     mcolPa       : begin
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.UseYMin:=false;
                    chart1.Extent.UseYMax:=false;
                    for i:=1 to GridMonth.RowCount-1 do begin;
@@ -1970,7 +2023,7 @@ begin
                    end;
     mcolRise     : begin
                    PanelGraph3.Visible:=true;
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.YMin:=0;
                    chart1.Extent.YMax:=24;
                    chart1.Extent.UseYMin:=true;
@@ -1992,7 +2045,7 @@ begin
                    end;
     mcolSet      : begin
                    PanelGraph3.Visible:=true;
-                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+SpinEditYear.Text+'/'+SpinEditMonth.text);
+                   chart1.Title.Text.Add(GridMonth.Cells[col,0]+' '+LabelMonth.Caption);
                    chart1.Extent.YMin:=0;
                    chart1.Extent.YMax:=24;
                    chart1.Extent.UseYMin:=true;

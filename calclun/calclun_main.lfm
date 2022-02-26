@@ -106,7 +106,7 @@ object f_calclun: Tf_calclun
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = BtnIncTime
       AnchorSideRight.Side = asrBottom
-      Left = 401
+      Left = 416
       Height = 19
       Top = 1
       Width = 105
@@ -123,7 +123,7 @@ object f_calclun: Tf_calclun
       Left = 302
       Height = 25
       Top = 22
-      Width = 75
+      Width = 90
       BorderSpacing.Left = 16
       Caption = 'Today'
       Flat = True
@@ -135,7 +135,7 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = BtnToday
       AnchorSideTop.Side = asrCenter
-      Left = 401
+      Left = 416
       Height = 25
       Top = 22
       Width = 40
@@ -150,7 +150,7 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = BtnToday
       AnchorSideTop.Side = asrCenter
-      Left = 466
+      Left = 481
       Height = 25
       Top = 22
       Width = 40
@@ -255,8 +255,9 @@ object f_calclun: Tf_calclun
               Margins.Right = 0
               Margins.Bottom = 0
               Title.Text.Strings = (
-                'TAChart'
+                'Twilight and Moon visibility'
               )
+              Title.Visible = True
               Align = alClient
               OnDblClick = OpenChart
               OnMouseMove = ChartYearMouseMove
@@ -374,11 +375,11 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 352
           Top = 0
-          Width = 964
+          Width = 966
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 352
-          ClientWidth = 964
+          ClientWidth = 966
           TabOrder = 1
           object GridYear: TStringGrid
             Left = 0
@@ -403,38 +404,78 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 392
           Top = 352
-          Width = 964
+          Width = 966
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 392
-          ClientWidth = 964
+          ClientWidth = 966
           TabOrder = 0
-          object GridPhaseList: TStringGrid
+          object Panel4: TPanel
             Left = 0
             Height = 392
             Top = 0
-            Width = 480
+            Width = 483
             Align = alLeft
-            ColCount = 4
-            DefaultColWidth = 120
-            FixedCols = 0
-            RowCount = 15
-            ScrollBars = ssNone
+            Caption = 'Panel4'
+            ClientHeight = 392
+            ClientWidth = 483
             TabOrder = 0
+            object GridPhaseList: TStringGrid
+              Left = 1
+              Height = 362
+              Top = 29
+              Width = 481
+              Align = alClient
+              ColCount = 4
+              DefaultColWidth = 120
+              FixedCols = 0
+              RowCount = 15
+              ScrollBars = ssNone
+              TabOrder = 0
+            end
+            object Panel6: TPanel
+              Left = 1
+              Height = 28
+              Top = 1
+              Width = 481
+              Align = alTop
+              Caption = 'Moon phase'
+              TabOrder = 1
+            end
           end
-          object GridLibrationList: TStringGrid
-            Left = 484
+          object Panel5: TPanel
+            Left = 483
             Height = 392
             Top = 0
-            Width = 480
+            Width = 483
             Align = alLeft
-            BorderSpacing.Left = 4
-            ColCount = 4
-            DefaultColWidth = 120
-            FixedCols = 0
-            RowCount = 15
-            ScrollBars = ssNone
+            Caption = 'Panel5'
+            ClientHeight = 392
+            ClientWidth = 483
             TabOrder = 1
+            object GridLibrationList: TStringGrid
+              Left = 5
+              Height = 362
+              Top = 29
+              Width = 477
+              Align = alClient
+              BorderSpacing.Left = 4
+              ColCount = 4
+              DefaultColWidth = 120
+              FixedCols = 0
+              RowCount = 15
+              ScrollBars = ssNone
+              TabOrder = 0
+            end
+            object Panel7: TPanel
+              Left = 1
+              Height = 28
+              Top = 1
+              Width = 481
+              Align = alTop
+              Caption = 'Libration extrema'
+              TabOrder = 1
+            end
           end
         end
       end
@@ -454,14 +495,31 @@ object f_calclun: Tf_calclun
         TabOrder = 0
         object GridMonth: TStringGrid
           Left = 1
-          Height = 561
-          Top = 1
+          Height = 533
+          Top = 29
           Width = 838
           Align = alClient
-          DefaultColWidth = 120
+          DefaultColWidth = 140
           Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goThumbTracking, goSmoothScroll, goHeaderHotTracking, goHeaderPushedLook, goFixedColSizing]
           TabOrder = 0
           OnHeaderClick = GridMonthHeaderClick
+        end
+        object Panel8: TPanel
+          Left = 1
+          Height = 28
+          Top = 1
+          Width = 838
+          Align = alTop
+          ClientHeight = 28
+          ClientWidth = 838
+          TabOrder = 1
+          object LabelMonth: TLabel
+            Left = 8
+            Height = 19
+            Top = 4
+            Width = 74
+            Caption = 'LabelMonth'
+          end
         end
       end
       object PanelRight: TPanel
@@ -771,7 +829,7 @@ object f_calclun: Tf_calclun
               Height = 25
               Top = 13
               Width = 112
-              Caption = 'Select Graph'
+              Caption = 'Select graph'
               Flat = True
               Transparent = False
               OnClick = BtnGraphClick
@@ -998,21 +1056,38 @@ object f_calclun: Tf_calclun
         Top = 0
         Width = 890
         HorzScrollBar.Page = 75
-        VertScrollBar.Page = 50
+        VertScrollBar.Page = 78
         Align = alClient
-        ClientHeight = 561
-        ClientWidth = 888
+        ClientHeight = 559
+        ClientWidth = 886
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 561
-          Top = 0
-          Width = 888
+          Height = 531
+          Top = 28
+          Width = 886
           Align = alClient
           ColCount = 15
-          DefaultColWidth = 120
+          DefaultColWidth = 140
           RowCount = 25
           TabOrder = 0
+        end
+        object Panel9: TPanel
+          Left = 0
+          Height = 28
+          Top = 0
+          Width = 886
+          Align = alTop
+          ClientHeight = 24
+          ClientWidth = 882
+          TabOrder = 1
+          object LabelDay: TLabel
+            Left = 8
+            Height = 19
+            Top = 4
+            Width = 57
+            Caption = 'LabelDay'
+          end
         end
       end
     end
@@ -1083,7 +1158,7 @@ object f_calclun: Tf_calclun
             Width = 190
             Align = alLeft
             Caption = 'Lunar coordinates'
-            ClientHeight = 89
+            ClientHeight = 107
             ClientWidth = 188
             TabOrder = 1
             object FormationLong: TFloatSpinEdit
@@ -1128,7 +1203,7 @@ object f_calclun: Tf_calclun
             Width = 288
             Align = alLeft
             Caption = 'Sun elevation'
-            ClientHeight = 89
+            ClientHeight = 107
             ClientWidth = 286
             TabOrder = 2
             object SunMin: TFloatSpinEdit
@@ -1173,25 +1248,25 @@ object f_calclun: Tf_calclun
           Top = 112
           Width = 1188
           HorzScrollBar.Page = 1000
-          VertScrollBar.Page = 86
+          VertScrollBar.Page = 90
           Align = alClient
-          ClientHeight = 448
-          ClientWidth = 1186
+          ClientHeight = 446
+          ClientWidth = 1184
           TabOrder = 1
           object PanelTerminator1: TPanel
             Left = 0
-            Height = 448
+            Height = 446
             Top = 0
             Width = 500
             Align = alLeft
-            ClientHeight = 448
-            ClientWidth = 500
+            ClientHeight = 442
+            ClientWidth = 496
             TabOrder = 0
             object GridTerminator1: TStringGrid
               Left = 1
-              Height = 412
+              Height = 406
               Top = 35
-              Width = 498
+              Width = 494
               Align = alClient
               ColCount = 4
               DefaultColWidth = 160
@@ -1203,7 +1278,7 @@ object f_calclun: Tf_calclun
               Left = 1
               Height = 34
               Top = 1
-              Width = 498
+              Width = 494
               Align = alTop
               Caption = 'Sun rise'
               TabOrder = 1
@@ -1211,18 +1286,18 @@ object f_calclun: Tf_calclun
           end
           object PanelTerminator2: TPanel
             Left = 500
-            Height = 448
+            Height = 446
             Top = 0
             Width = 500
             Align = alLeft
-            ClientHeight = 448
-            ClientWidth = 500
+            ClientHeight = 442
+            ClientWidth = 496
             TabOrder = 1
             object GridTerminator2: TStringGrid
               Left = 1
-              Height = 412
+              Height = 406
               Top = 35
-              Width = 498
+              Width = 494
               Align = alClient
               ColCount = 4
               DefaultColWidth = 160
@@ -1234,7 +1309,7 @@ object f_calclun: Tf_calclun
               Left = 1
               Height = 34
               Top = 1
-              Width = 498
+              Width = 494
               Align = alTop
               Caption = 'Sun set'
               TabOrder = 1
@@ -1264,8 +1339,7 @@ object f_calclun: Tf_calclun
   object ImageListPhase: TImageList
     Height = 22
     Width = 22
-    Left = 896
-    Top = 120
+    Left = 568
     Bitmap = {
       4C7A1E0000001600000016000000431E00000000000078DAEDDDF5B33D47D1C7
       F1E0EEEE0477770B4E90200182BBBB5B7097E05005C1DDDD21C1DDDD9D8202FE
@@ -1513,8 +1587,7 @@ object f_calclun: Tf_calclun
     }
   end
   object PopupMenuGraph: TPopupMenu
-    Left = 896
-    Top = 200
+    Left = 824
     object MenuItem1: TMenuItem
       Tag = 1
       Caption = 'MenuItem1'
@@ -1601,19 +1674,16 @@ object f_calclun: Tf_calclun
     DateTimeStepFormat.MonthFormat = 'mm'
     DateTimeStepFormat.DayFormat = 'mm-dd'
     Steps = [dtsYear, dtsMonth, dtsDay, dtsHour]
-    Left = 896
-    Top = 264
+    Left = 984
   end
   object DateChangeTimer: TTimer
     Enabled = False
     Interval = 250
     OnTimer = DateChangeTimerTimer
-    Left = 976
-    Top = 120
+    Left = 656
   end
   object MainMenu1: TMainMenu
-    Left = 976
-    Top = 200
+    Left = 896
     object MenuSetup: TMenuItem
       Caption = 'Setup'
       OnClick = MenuSetupClick
@@ -1623,7 +1693,6 @@ object f_calclun: Tf_calclun
     Enabled = False
     Interval = 500
     OnTimer = TerminatorTimerTimer
-    Left = 976
-    Top = 264
+    Left = 744
   end
 end
