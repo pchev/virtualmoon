@@ -1286,9 +1286,9 @@ begin
   else
     f_config.ComboBox1.ItemIndex := 1;
   if Obslongitude >= 0 then
-    f_config.ComboBox2.ItemIndex := 1
+    f_config.ComboBox2.ItemIndex := 0
   else
-    f_config.ComboBox2.ItemIndex := 0;
+    f_config.ComboBox2.ItemIndex := 1;
 
   if f_config.ShowModal = mrOK then begin
     ObsLatitude := deg2rad*f_config.Edit1.Value;
