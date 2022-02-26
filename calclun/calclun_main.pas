@@ -2437,13 +2437,12 @@ end;
 procedure Tf_calclun.BtnSearchClick(Sender: TObject);
 var
   i:   integer;
-  n,sidelist: string;
+  n: string;
 begin
-  sidelist:='1,2';
   n:=trim(EditFormation.Text);
   if Length(n)<3 then exit;
-  dbm.Query('select id,name from moon ' + ' where DBN in (' + sidelist + ')' +
-      ' and NAME like "' + trim(uppercase(n)) + '%"' +
+  dbm.Query('select id,name from moon ' + ' where '+
+      ' NAME like "' + trim(uppercase(n)) + '%"' +
       ' order by NAME limit 100;');
   ComboBoxFormation.Clear;
   for i := 0 to dbm.RowCount - 1 do
