@@ -102,6 +102,7 @@ rsNovember = 'November';
 rsDecember = 'December';
 rsMoonPhase = 'Moon phase';
 rsLibrationExt = 'Libration extrema';
+rsDatabaseNotF = 'Database not found! Run AtLun or DatLun to initialize the database.';
 
 
 implementation

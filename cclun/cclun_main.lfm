@@ -29639,7 +29639,7 @@ object f_cclun: Tf_cclun
       Font.Style = [fsBold]
       ParentFont = False
       Transparent = False
-      OnClick = BitBtn4Click
+      OnClick = BitBtn8Click
     end
   end
   object PanelTop: TPanel

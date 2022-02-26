@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-02-26 11:27+0100\n"
+"PO-Revision-Date: 2022-02-26 16:15+0100\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr_FR\n"
@@ -67,6 +67,10 @@ msgstr "Configuration"
 #: u_translation.rscountry
 msgid "Country"
 msgstr "Pays"
+
+#: u_translation.rsdatabasenotf
+msgid "Database not found! Run AtLun or DatLun to initialize the database."
+msgstr "Base de donnée non trouvée! Lancez AtLun ou DatLun pour l'initialiser."
 
 #: u_translation.rsdate
 msgid "Date"

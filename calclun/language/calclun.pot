@@ -358,3 +358,7 @@ msgstr ""
 msgid "Libration extrema"
 msgstr ""
 
+#: u_translation:rsdatabasenotf
+msgid "Database not found! Run AtLun or DatLun to initialize the database."
+msgstr ""
+

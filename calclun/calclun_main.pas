@@ -77,6 +77,7 @@ type
     EditFormation: TEdit;
     GridTerminator1: TStringGrid;
     GridTerminator2: TStringGrid;
+    LabelMissingDB: TLabel;
     LabelMonth: TLabel;
     LabelDay: TLabel;
     LabelTime: TLabel;
@@ -316,6 +317,7 @@ end;
 
 procedure Tf_calclun.SetLang;
 var i: integer;
+  buf: string;
 begin
   Label7.Caption:=rsYear;
   Label8.Caption:=rsMonth;
@@ -417,6 +419,7 @@ begin
   TabSheetTerminator.Caption:=rsTerminator;
   GroupBoxFormation.Caption:=rsSearchFormat;
   BtnSearch.Caption:=rsSearch;
+  LabelMissingDB.Caption:=rsDatabaseNotF;
   GroupBoxCoord.Caption:=rsLunarCoordin;
   Label12.Caption:=rsLongitude;
   Label13.Caption:=rsLatitude;
@@ -438,6 +441,19 @@ begin
   GridTerminator2.Cells[2, 0]:=rsLibrLon;
   GridTerminator2.Cells[3, 0]:=rsLibrLat;
   dbm.Use(Slash(DBdir)+'dbmoon7'+UpperCase(language)+'.dbl');
+  buf:=dbm.QueryOne('select version from dbversion;');
+  if buf>'' then begin
+    EditFormation.Enabled:=true;
+    BtnSearch.Enabled:=true;
+    ComboBoxFormation.Visible:=true;
+    LabelMissingDB.Visible:=false;
+  end
+  else begin
+    EditFormation.Enabled:=false;
+    BtnSearch.Enabled:=false;
+    ComboBoxFormation.Visible:=false;
+    LabelMissingDB.Visible:=true;
+  end;
 end;
 
 procedure Tf_calclun.SetKernelsPath;

@@ -57,6 +57,10 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
+#: u_translation.rsdatabasenotf
+msgid "Database not found! Run AtLun or DatLun to initialize the database."
+msgstr ""
+
 #: u_translation.rsdate
 msgid "Date"
 msgstr ""
