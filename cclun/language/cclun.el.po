@@ -43,6 +43,10 @@ msgstr "EL"
 msgid "English"
 msgstr "Ελληνικά"
 
+#: u_translation.rslunarcalcula
+msgid "Lunar calculation"
+msgstr ""
+
 #: u_translation.rsphotlundocum
 msgid "PhotLun documentation"
 msgstr "Έγγραφα PhotLun"

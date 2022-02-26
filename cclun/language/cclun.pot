@@ -78,3 +78,7 @@ msgstr ""
 msgid "WebLun documentation"
 msgstr ""
 
+#: u_translation:rslunarcalcula
+msgid "Lunar calculation"
+msgstr ""
+

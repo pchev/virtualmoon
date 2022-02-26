@@ -43,6 +43,10 @@ msgstr "CA"
 msgid "English"
 msgstr "Català"
 
+#: u_translation.rslunarcalcula
+msgid "Lunar calculation"
+msgstr ""
+
 #: u_translation.rsphotlundocum
 msgid "PhotLun documentation"
 msgstr "Documentació PhotLun"

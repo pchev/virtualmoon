@@ -43,6 +43,10 @@ msgstr ""
 msgid "English"
 msgstr ""
 
+#: u_translation.rslunarcalcula
+msgid "Lunar calculation"
+msgstr ""
+
 #: u_translation.rsphotlundocum
 msgid "PhotLun documentation"
 msgstr ""
