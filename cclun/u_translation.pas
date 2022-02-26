@@ -31,6 +31,7 @@ rsAtLunDocumen = 'AtLun documentation';
 rsDatLunDocume = 'DatLun documentation';
 rsPhotLunDocum = 'PhotLun documentation';
 rsWebLunDocume = 'WebLun documentation';
+rsLunarCalcula = 'Lunar calculation';
 
 implementation
 

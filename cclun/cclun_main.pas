@@ -47,10 +47,12 @@ type
     BitBtn5: TBitBtn;
     BitBtn6: TBitBtn;
     BitBtn7: TBitBtn;
+    BitBtn8: TBitBtn;
     Image1: TImage;
     Image2: TImage;
     Label1: TLabel;
     Label10: TLabel;
+    Label11: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
@@ -74,6 +76,7 @@ type
     procedure BitBtn5Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn7Click(Sender: TObject);
+    procedure BitBtn8Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -340,6 +343,7 @@ begin
   Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma
   Datlun  := '"'+bindir + DefaultDatlun+'"';
   Weblun  := '"'+bindir + DefaultWeblun+'"';
+  Calclun  := '"'+bindir + DefaultCalclun+'"';
   helpdir  := slash(appdir) + slash('doc');
   // Be sure zoneinfo exists in standard location or in vma directory
 {  ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');
@@ -395,6 +399,7 @@ begin
   BitBtn5.Hint:=rsExitTheComma;
   BitBtn6.Hint:=rsReadTheQuick;
   BitBtn7.Hint:=rsReadTheFullD;
+  BitBtn8.Hint:=rsLunarCalcula;
   MenuItem1.Caption:=rsAtLunDocumen;
   MenuItem2.Caption:=rsDatLunDocume;
   MenuItem3.Caption:=rsPhotLunDocum;
@@ -484,6 +489,12 @@ procedure Tf_cclun.BitBtn4Click(Sender: TObject);
 begin
   chdir(appdir);
   Execnowait(WebLun);
+end;
+
+procedure Tf_cclun.BitBtn8Click(Sender: TObject);
+begin
+  chdir(appdir);
+  Execnowait(CalcLun);
 end;
 
 procedure Tf_cclun.BitBtn5Click(Sender: TObject);
