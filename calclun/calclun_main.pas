@@ -253,6 +253,8 @@ procedure Tf_calclun.FormCreate(Sender: TObject);
 var inifile:Tmeminifile;
 begin
   DefaultFormatSettings.DateSeparator:='/';
+  DefaultFormatSettings.TimeSeparator:=':';
+  DefaultFormatSettings.DecimalSeparator:='.';
   compile_time := {$I %DATE%}+' '+{$I %TIME%};
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%};
   StatusLabel.Caption:='';
