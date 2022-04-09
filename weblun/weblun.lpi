@@ -199,13 +199,13 @@
         <UsageCount Value="10"/>
       </Unit15>
       <Unit16>
-        <Filename Value="../../../cdc/src/skychart/component/synapse/source/lib/httpsend.pas"/>
+        <Filename Value="../../../cdc/src/skychart/component/synapse/httpsend.pas"/>
         <TopLine Value="269"/>
         <CursorPos X="17" Y="282"/>
         <UsageCount Value="11"/>
       </Unit16>
       <Unit17>
-        <Filename Value="../../../cdc/src/skychart/component/synapse/source/lib/blcksock.pas"/>
+        <Filename Value="../../../cdc/src/skychart/component/synapse/blcksock.pas"/>
         <TopLine Value="1445"/>
         <CursorPos X="14" Y="1474"/>
         <UsageCount Value="10"/>

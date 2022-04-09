@@ -98,7 +98,7 @@
         <PackageName Value="LazControls"/>
       </Item2>
       <Item3>
-        <PackageName Value="synapse"/>
+        <PackageName Value="laz_synapse"/>
       </Item3>
       <Item4>
         <PackageName Value="GLScene_DesignTime"/>

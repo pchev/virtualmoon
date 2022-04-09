@@ -13,7 +13,7 @@ uses
   Forms, Dialogs, virtualmoon1, config, Math, OpenGLAdapter, OpenGLTokens,
   GLScene_RunTime, CraterList, dbutil, fmsg, glossary, splashunit,
   SysUtils, TurboPowerIPro, lazcontrols, u_constant, cu_tz, cu_planet, u_projection, u_util,
-  pu_moon, u_translation_database, u_translation, uniqueinstance_package, synapse,
+  pu_moon, u_translation_database, u_translation, uniqueinstance_package, laz_synapse,
   pu_features, BigIma, uDE, mlb2, pu_ephem, tabsdock, pu_ascomclient, pu_indiclient, cu_ascomrest;
 
 {$R *.res}
