@@ -228,6 +228,7 @@ Var  Splashversion, compile_time, compile_version: string;
      Params : TStringList;
      OptionalFeatureName: array[1..nOptionalFeature]of string;
      de_type, de_year: integer;
+     DistStartL,DistStartB,DistEndL,DistEndB: double;
 {$ifdef darwin}
      OpenFileCMD:string = 'open';   //
 {$else}

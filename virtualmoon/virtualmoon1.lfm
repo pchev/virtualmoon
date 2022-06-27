@@ -136,6 +136,7 @@ object Form1: TForm1
         Color = clWindow
         Font.Height = 13
         Layout = tlCenter
+        ParentColor = False
         ParentFont = False
         Transparent = False
       end
@@ -541,6 +542,7 @@ object Form1: TForm1
               Alignment = taCenter
               Color = clWindow
               Font.Pitch = fpFixed
+              ParentColor = False
               ParentFont = False
               Transparent = False
             end
@@ -661,6 +663,7 @@ object Form1: TForm1
             Width = 30
             Caption = 'Ident.'
             Color = clWindow
+            ParentColor = False
             Transparent = False
             Visible = False
             OnClick = AnchorClick
@@ -674,6 +677,7 @@ object Form1: TForm1
             Width = 28
             Caption = 'Desc.'
             Color = clWindow
+            ParentColor = False
             Transparent = False
             Visible = False
             OnClick = AnchorClick
@@ -687,6 +691,7 @@ object Form1: TForm1
             Width = 24
             Caption = 'Obs.'
             Color = clWindow
+            ParentColor = False
             Transparent = False
             Visible = False
             OnClick = AnchorClick
@@ -700,6 +705,7 @@ object Form1: TForm1
             Width = 22
             Caption = 'Pos.'
             Color = clWindow
+            ParentColor = False
             Transparent = False
             Visible = False
             OnClick = AnchorClick
@@ -713,6 +719,7 @@ object Form1: TForm1
             Width = 26
             Caption = 'Atlas'
             Color = clWindow
+            ParentColor = False
             Transparent = False
             Visible = False
             OnClick = AnchorClick
@@ -726,6 +733,7 @@ object Form1: TForm1
             Width = 33
             Caption = 'Origin'
             Color = clWindow
+            ParentColor = False
             Transparent = False
             Visible = False
             OnClick = AnchorClick
@@ -739,6 +747,7 @@ object Form1: TForm1
             Width = 19
             Caption = 'IAU'
             Color = clWindow
+            ParentColor = False
             Transparent = False
             Visible = False
             OnClick = AnchorClick
@@ -752,6 +761,7 @@ object Form1: TForm1
             Width = 25
             Caption = 'LICD'
             Color = clWindow
+            ParentColor = False
             Transparent = False
             Visible = False
             OnClick = AnchorClick
@@ -798,6 +808,7 @@ object Form1: TForm1
             Caption = '    '
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -853,6 +864,7 @@ object Form1: TForm1
             Caption = 'Heure'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -863,6 +875,7 @@ object Form1: TForm1
             Width = 24
             Caption = 'Date'
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
           end
           object Button3: TSpeedButton
@@ -968,6 +981,7 @@ object Form1: TForm1
             Width = 5
             Caption = 'L'
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             OnClick = NMClick
           end
@@ -978,6 +992,7 @@ object Form1: TForm1
             Width = 5
             Caption = 'L'
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             OnClick = FQClick
           end
@@ -988,6 +1003,7 @@ object Form1: TForm1
             Width = 5
             Caption = 'L'
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             OnClick = FMClick
           end
@@ -998,6 +1014,7 @@ object Form1: TForm1
             Width = 5
             Caption = 'L'
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             OnClick = LQClick
           end
@@ -1437,6 +1454,7 @@ object Form1: TForm1
             Caption = 'Interet '
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1448,6 +1466,7 @@ object Form1: TForm1
             Caption = 'Instrument'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1459,6 +1478,7 @@ object Form1: TForm1
             Caption = 'mm.'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1604,6 +1624,7 @@ object Form1: TForm1
             Caption = 'Vitesse de rotation'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1681,6 +1702,7 @@ object Form1: TForm1
             Caption = 'Orbit inclination'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1692,6 +1714,7 @@ object Form1: TForm1
             Caption = 'Satellite model'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
             Visible = False
@@ -1704,6 +1727,7 @@ object Form1: TForm1
             Caption = 'View distance'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
             Visible = False
@@ -1727,6 +1751,7 @@ object Form1: TForm1
             Caption = 'Orbit altitude'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1738,6 +1763,7 @@ object Form1: TForm1
             Caption = '-'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1749,6 +1775,7 @@ object Form1: TForm1
             Caption = '-'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1760,6 +1787,7 @@ object Form1: TForm1
             Caption = '+'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1771,6 +1799,7 @@ object Form1: TForm1
             Caption = '+'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1784,6 +1813,7 @@ object Form1: TForm1
             Caption = 'LabelAltitude'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1797,6 +1827,7 @@ object Form1: TForm1
             Caption = 'LabelIncl'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -1896,6 +1927,7 @@ object Form1: TForm1
           Caption = 'Distance reelle'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -1907,6 +1939,7 @@ object Form1: TForm1
           Caption = 'Distance apparente'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -1918,17 +1951,19 @@ object Form1: TForm1
           Caption = 'L'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label2: TLabel
-          Left = 136
+          Left = 134
           Height = 13
           Top = 116
           Width = 6
           Caption = 'B'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -1940,6 +1975,7 @@ object Form1: TForm1
           Caption = 'Centre'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -1951,6 +1987,7 @@ object Form1: TForm1
           Caption = ' Distance '
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -1958,7 +1995,7 @@ object Form1: TForm1
           Left = 24
           Height = 25
           Top = 81
-          Width = 211
+          Width = 112
           Caption = 'Start'
           Flat = True
           Font.Height = 13
@@ -2041,6 +2078,7 @@ object Form1: TForm1
             Caption = 'Rotation'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -2148,6 +2186,7 @@ object Form1: TForm1
             Caption = 'Telescope'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -2218,6 +2257,18 @@ object Form1: TForm1
             TabOrder = 1
           end
         end
+        object DemProfile: TSpeedButton
+          Left = 162
+          Height = 25
+          Top = 81
+          Width = 73
+          Caption = 'Profile'
+          Flat = True
+          Font.Height = 13
+          Transparent = False
+          OnClick = DemProfileClick
+          ParentFont = False
+        end
       end
       object Reglage: TTabSheet
         Caption = 'Reglage'
@@ -2240,6 +2291,7 @@ object Form1: TForm1
           Caption = 'Eclairage '
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -2251,6 +2303,7 @@ object Form1: TForm1
           Caption = '-'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -2262,6 +2315,7 @@ object Form1: TForm1
           Caption = '-'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -2273,6 +2327,7 @@ object Form1: TForm1
           Caption = '-'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -2284,6 +2339,7 @@ object Form1: TForm1
           Caption = '+'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -2295,6 +2351,7 @@ object Form1: TForm1
           Caption = '+'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -2306,6 +2363,7 @@ object Form1: TForm1
           Caption = '+'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -2375,6 +2433,7 @@ object Form1: TForm1
             Caption = 'Resolution'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -2386,6 +2445,7 @@ object Form1: TForm1
             Caption = '0 FPS'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -2397,6 +2457,7 @@ object Form1: TForm1
             Caption = 'Performance'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -2408,6 +2469,7 @@ object Form1: TForm1
             Caption = '-'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -2419,6 +2481,7 @@ object Form1: TForm1
             Caption = '+'
             Color = clWindow
             Font.Height = 13
+            ParentColor = False
             ParentFont = False
             Transparent = False
           end
@@ -2493,6 +2556,7 @@ object Form1: TForm1
           Caption = 'Penombre'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -2504,6 +2568,7 @@ object Form1: TForm1
           Caption = 'Diffus'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end
@@ -2515,6 +2580,7 @@ object Form1: TForm1
           Caption = 'Direct'
           Color = clWindow
           Font.Height = 13
+          ParentColor = False
           ParentFont = False
           Transparent = False
         end

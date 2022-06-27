@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses u_translation, u_util, u_constant, u_projection, Graphics, GLGraphics,
+uses u_translation, u_util, u_constant, u_projection, cu_dem, Graphics, GLGraphics,
   GLContext, GLColor, GLObjects, GLMaterial, GLTextureFormat, ExtCtrls,
   GLTexture, GLCadencer, GLViewer, GLCrossPlatform, GLLCLViewer, LResources,
   GLScene, GLMultiMaterialShader, GLBumpShader, GLPhongShader, GLHUDObjects,
@@ -63,9 +63,11 @@ type
     GLBumpShader1: TGLBumpShader;
     GLCameraSatellite: TGLCamera;
     BaseCube: TGLDummyCube;
+    GLDummyCubeDistance: TGLDummyCube;
     GLDummyCubeSatellite: TGLDummyCube;
     GLDummyCubeCoord: TGLDummyCube;
     GLFreeFormSatelite: TGLFreeForm;
+    GLLinesDistance: TGLLines;
     LabelGroup: TGLHUDSprite;
     GLHUDSpriteCCD2: TGLHUDSprite;
     GLHUDSpriteCCD3: TGLHUDSprite;
@@ -79,7 +81,6 @@ type
     PerfCadencer: TGLCadencer;
      RotationCadencer: TGLCadencer;
      GLDummyCubeMarks: TGLDummyCube;
-     GLHUDSpriteDistance: TGLHUDSprite;
      GLHUDSpriteMark: TGLHUDSprite;
      GLHUDTextMark: TGLHUDText;
      GLHUDTextMarkShadow: TGLHUDText;
@@ -189,6 +190,7 @@ type
     FOverlayTransparency: single;
     FOverlayTransparencyMethode: integer;
     Fjd: double;
+    Fdem: Tdem;
     procedure MoveMoonAround(anObject: TGLBaseSceneObject; pitchDelta, turnDelta: Single);
     procedure SetTexture(lfn:TStringList);
     procedure SetOverlay(fn:string);
@@ -346,6 +348,7 @@ type
     property DiffuseColor: TColor read GetDiffuseColor Write SetDiffuseColor;
     property SpecularColor: TColor read GetSpecularColor Write SetSpecularColor;
     property Antialiasing: boolean read GetAntialiasing write SetAntialiasing;
+    property Dem: Tdem read Fdem write Fdem;
     property onMoonActivate : TNotifyEvent read FonMoonActivate write FonMoonActivate;
     property onMoonClick : TMoonClickEvent read FOnMoonClick write FOnMoonClick;
     property onMoonMove : TMoonMoveEvent read FOnMoonMove write FOnMoonMove;
@@ -1541,12 +1544,10 @@ begin
       Moon2World(startl,startb,startxx,startyy,z);
       distancestart := True;
       SetMark(0, 0, '');
-      GLHUDSpriteDistance.Visible    := True;
-      GLHUDSpriteDistance.Material.FrontProperties.Emission.AsWinColor := MarkColor;
-      GLHUDSpriteDistance.Width      := 1;
-      GLHUDSpriteDistance.Position.X := startx;
-      GLHUDSpriteDistance.Position.Y := starty;
-      GLHUDSpriteDistance.Rotation   := 0;
+      GLLinesDistance.LineColor.AsWinColor:=MarkColor;
+      GLLinesDistance.LineWidth:=1;
+      GLLinesDistance.Nodes.Clear;
+      GLDummyCubeDistance.Visible:=true;
     end;
   end
   else begin
@@ -2117,7 +2118,7 @@ if (GLDummyCubeMarks.Count > 0) and (GLDummyCubeMarks.Children[0].Visible or GLD
 GLHUDSpriteMark.Visible:=false;
 GLHUDTextMark.Visible:=false;
 GLHUDTextMarkShadow.Visible:=false;
-GLHUDSpriteDistance.Visible:= false;
+GLDummyCubeDistance.Visible:=false;
 distancestart := false;
 end;
 
@@ -2365,7 +2366,6 @@ begin
 if value<>FOrientation then begin
   FOrientation:=value;
   sincos(deg2rad * FOrientation, s1, c1);
-  GLHUDSpriteDistance.Visible := False;
   GLCamera1.BeginUpdate;
   GLCamera1.Up.SetVector(s1,c1);
   GLCamera1.EndUpdate;
@@ -2494,19 +2494,35 @@ begin
   else
   begin
     GLSceneViewer1.Cursor:=crRetic;
-    GLHUDSpriteDistance.Visible    := False;
+    GLDummyCubeDistance.Visible:=false;
   end;
 end;
 
 procedure Tf_moon.MeasureDistance(x, y: integer);
+const   qr=0.5005;
 var
   i: integer;
-  xx, yy, zz, l, b, d: single;
+  xx, yy, zz, l, b, d, s,step: single;
+  lat,lon: double;
   m1,m2,m3,m4: string;
+  gc: TGreatCircle;
+procedure coords;
+var cl,sl,cb,sb: single;
+begin
+  sincos(-lon-pi/2,sl,cl);
+  sincos(lat,sb,cb);
+  xx:=qr*cb*cl;
+  yy:=qr*cb*sl;
+  zz:=qr*sb;
+end;
 begin
  if Screen2Moon(x,y,l,b) then begin
-  d  := angulardistance(l, b, startl, startb);
-  m1 := formatfloat(f1, d * Rmoon);
+  DistStartL:=startl;
+  DistStartB:=startb;
+  DistEndL:=l;
+  DistEndB:=b;
+  Fdem.GreatCircle(startl,startb,l,b,Rmoon,gc);
+  m1 := formatfloat(f1,gc.dist);
   Moon2World(l,b,xx,yy,zz);
   xx := startxx - xx;
   yy := startyy - yy;
@@ -2524,10 +2540,16 @@ begin
   x := x - startx;
   y := y - starty;
   d := sqrt(x * x + y * y);
-  GLHUDSpriteDistance.Width := d;
-  GLHUDSpriteDistance.Position.X := startx + x / 2;
-  GLHUDSpriteDistance.Position.Y := starty + y / 2;
-  GLHUDSpriteDistance.Rotation := -rad2deg * (fastarctan2(y, x));
+
+  GLLinesDistance.Nodes.Clear;
+  step:=(gc.s02-gc.s01)/10;
+  for i:=0 to 10 do begin
+    s:=gc.s01+i*step;
+    dem.PointOnCircle(gc,s,lat,lon);
+    coords;
+    gllinesdistance.Nodes.AddNode(xx,zz,yy);
+  end;
+
   if assigned(FonMoonMeasure) then FonMoonMeasure(self,m1,m2,m3,m4);
 end;
 end;

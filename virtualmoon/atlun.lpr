@@ -11,10 +11,11 @@ uses
   windows,
   {$endif}
   Forms, Dialogs, virtualmoon1, config, Math, OpenGLAdapter, OpenGLTokens,
-  GLScene_RunTime, CraterList, dbutil, fmsg, glossary, splashunit,
-  SysUtils, TurboPowerIPro, lazcontrols, u_constant, cu_tz, cu_planet, u_projection, u_util,
-  pu_moon, u_translation_database, u_translation, uniqueinstance_package, laz_synapse,
-  pu_features, BigIma, uDE, mlb2, pu_ephem, tabsdock, pu_ascomclient, pu_indiclient, cu_ascomrest;
+  GLScene_RunTime, CraterList, dbutil, fmsg, glossary, splashunit, SysUtils,
+  TurboPowerIPro, lazcontrols, tachartlazaruspkg, u_constant, cu_tz, cu_planet,
+  u_projection, u_util, pu_moon, u_translation_database, u_translation,
+  uniqueinstance_package, laz_synapse, pu_features, BigIma, uDE, mlb2, pu_ephem,
+  tabsdock, pu_ascomclient, pu_indiclient, cu_ascomrest, cu_dem, pu_demprofile;
 
 {$R *.res}
 
@@ -54,6 +55,7 @@ begin
   Application.CreateForm(Tpop_scope, pop_scope);
   Application.CreateForm(Tpop_indi, pop_indi);
   if (Form1.param.IndexOf('-quit')<0) then begin
+  Application.CreateForm(Tf_demprofile, f_demprofile);
       Application.Run;
   end
   else Application.Terminate;

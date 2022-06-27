@@ -35,7 +35,7 @@ uses
 {$IFDEF LCLgtk2}
   Gtk2Proc,
 {$endif}
-  u_translation_database, u_translation, tabsdock,
+  u_translation_database, u_translation, tabsdock, cu_dem, pu_demprofile,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   mlb2, PrintersDlgs, Printers, Controls,
@@ -65,6 +65,7 @@ type
     ComboBox6: TComboBox;
     Desc1:   TIpHtmlPanel;
     Edit6: TEdit;
+    DemProfile: TSpeedButton;
     FilePopup: TPopupMenu;
     HelpPopup: TPopupMenu;
     ImageListNight: TImageList;
@@ -368,6 +369,7 @@ type
     ToolButton12: TToolButton;
     procedure AnchorClick(Sender: TObject);
     procedure Button21Click(Sender: TObject);
+    procedure DemProfileClick(Sender: TObject);
     procedure ExportNotesClick(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
@@ -523,6 +525,7 @@ type
     procedure ZoomTimerTimer(Sender: TObject);
   private
     moon1, moon2, activemoon : TF_moon;
+    dem: Tdem;
     CursorImage1: TCursorImage;
     tz: TCdCTimeZone;
     ima: TBigImaForm;
@@ -3725,6 +3728,7 @@ begin
     BMP15001.Visible := False;       // save bmp for light version
     BMP30001.Visible := False;       // save bmp for light version
   end;
+ dem:=Tdem.Create;
  moon1:=Tf_moon.Create(PanelMoon);
  activemoon:=moon1;
  moon1.Moon.Align:=alClient;
@@ -3735,6 +3739,7 @@ begin
  moon1.onGetMsg:=GetMsg;
  moon1.onGetLabel:=GetLabel;
  moon1.onGetSprite:=GetSprite;
+ moon1.dem:=dem;
  moon1.PopUp:=PopupMenu1;
  moon1.TexturePath:=slash(appdir)+slash('Textures');
  moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
@@ -5958,6 +5963,7 @@ if moon2=nil then begin
  moon2.onMoonMove:=MoonMoveEvent;
  moon2.onMoonMeasure:=MoonMeasureEvent;
  moon2.onGetMsg:=GetMsg;
+ moon2.dem:=dem;
  moon2.PopUp:=PopupMenu1;
  moon2.Visible:=false;
  moon2.Init(false);
@@ -6242,6 +6248,20 @@ begin
   TrackBar3Change(Sender);
   TrackBar4.Position:=99;
   TrackBar4Change(Sender);
+end;
+
+procedure TForm1.DemProfileClick(Sender: TObject);
+begin
+  if not dem.DemOpen then begin
+    if not dem.OpenDem(slash(Appdir)+slash('data')+slash('dem')+'LDEM_64') then begin
+      ShowMessage(dem.LastMessage);
+      exit;
+    end;
+    f_demprofile.dem:=dem;
+  end;
+  f_demprofile.PlotProfile(DistStartL,DistStartB,DistEndL,DistEndB);
+  FormPos(f_demprofile,mouse.CursorPos.X,mouse.CursorPos.Y);
+  f_demprofile.show;
 end;
 
 procedure TForm1.AnchorClick(Sender: TObject);

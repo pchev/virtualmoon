@@ -1,0 +1,46 @@
+object f_demprofile: Tf_demprofile
+  Left = 377
+  Height = 270
+  Top = 31
+  Width = 548
+  Caption = 'DEM Profile'
+  ClientHeight = 270
+  ClientWidth = 548
+  object Panel1: TPanel
+    Left = 0
+    Height = 270
+    Top = 0
+    Width = 548
+    Align = alClient
+    ClientHeight = 270
+    ClientWidth = 548
+    TabOrder = 0
+    object DemProfile: TChart
+      Left = 1
+      Height = 268
+      Top = 1
+      Width = 546
+      AxisList = <      
+        item
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.LabelFont.Orientation = 900
+          Title.LabelBrush.Style = bsClear
+        end      
+        item
+          Intervals.MaxLength = 100
+          Intervals.MinLength = 40
+          Alignment = calBottom
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.LabelBrush.Style = bsClear
+        end>
+      Title.Text.Strings = (
+        'TAChart'
+      )
+      Align = alClient
+      object DemProfileLineSeries1: TLineSeries
+      end
+    end
+  end
+end
