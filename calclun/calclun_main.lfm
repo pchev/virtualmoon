@@ -22,7 +22,7 @@ object f_calclun: Tf_calclun
     TabOrder = 1
     object SpinEditYear: TSpinEdit
       Left = 32
-      Height = 28
+      Height = 29
       Hint = '1900..2100'
       Top = 20
       Width = 72
@@ -39,7 +39,7 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = SpinEditYear
       Left = 116
-      Height = 28
+      Height = 29
       Hint = '1..12'
       Top = 20
       Width = 50
@@ -57,7 +57,7 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = SpinEditYear
       Left = 178
-      Height = 28
+      Height = 29
       Hint = '1..31'
       Top = 20
       Width = 50
@@ -79,6 +79,7 @@ object f_calclun: Tf_calclun
       Width = 28
       Anchors = [akLeft, akBottom]
       Caption = 'Year'
+      ParentColor = False
     end
     object Label8: TLabel
       AnchorSideLeft.Control = SpinEditMonth
@@ -89,6 +90,7 @@ object f_calclun: Tf_calclun
       Width = 41
       Anchors = [akLeft, akBottom]
       Caption = 'Month'
+      ParentColor = False
     end
     object Label9: TLabel
       AnchorSideLeft.Control = SpinEditDay
@@ -99,6 +101,7 @@ object f_calclun: Tf_calclun
       Width = 24
       Anchors = [akLeft, akBottom]
       Caption = 'Day'
+      ParentColor = False
     end
     object Label10: TLabel
       AnchorSideLeft.Control = BtnDecTime
@@ -114,6 +117,7 @@ object f_calclun: Tf_calclun
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
       Caption = 'Label10'
+      ParentColor = False
     end
     object BtnToday: TSpeedButton
       AnchorSideLeft.Control = LabelTZ
@@ -171,6 +175,7 @@ object f_calclun: Tf_calclun
       Width = 48
       BorderSpacing.Left = 10
       Caption = 'LabelTZ'
+      ParentColor = False
     end
   end
   object PageControl1: TPageControl
@@ -357,6 +362,7 @@ object f_calclun: Tf_calclun
             BorderSpacing.Left = 16
             BorderSpacing.Top = 4
             Caption = 'LabelChartYear'
+            ParentColor = False
           end
         end
       end
@@ -392,6 +398,7 @@ object f_calclun: Tf_calclun
             DefaultDrawing = False
             DefaultRowHeight = 26
             ExtendedSelect = False
+            MouseWheelOption = mwGrid
             RowCount = 13
             ScrollBars = ssNone
             TabOrder = 0
@@ -429,6 +436,7 @@ object f_calclun: Tf_calclun
               ColCount = 4
               DefaultColWidth = 120
               FixedCols = 0
+              MouseWheelOption = mwGrid
               RowCount = 15
               ScrollBars = ssNone
               TabOrder = 0
@@ -463,6 +471,7 @@ object f_calclun: Tf_calclun
               ColCount = 4
               DefaultColWidth = 120
               FixedCols = 0
+              MouseWheelOption = mwGrid
               RowCount = 15
               ScrollBars = ssNone
               TabOrder = 0
@@ -500,6 +509,7 @@ object f_calclun: Tf_calclun
           Width = 838
           Align = alClient
           DefaultColWidth = 140
+          MouseWheelOption = mwGrid
           Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goThumbTracking, goSmoothScroll, goHeaderHotTracking, goHeaderPushedLook, goFixedColSizing]
           TabOrder = 0
           OnHeaderClick = GridMonthHeaderClick
@@ -519,6 +529,7 @@ object f_calclun: Tf_calclun
             Top = 4
             Width = 74
             Caption = 'LabelMonth'
+            ParentColor = False
           end
         end
       end
@@ -557,6 +568,7 @@ object f_calclun: Tf_calclun
               Top = 16
               Width = 78
               Caption = 'LabelPhase1'
+              ParentColor = False
             end
             object LabelPhase2: TLabel
               Left = 168
@@ -564,6 +576,7 @@ object f_calclun: Tf_calclun
               Top = 16
               Width = 78
               Caption = 'LabelPhase2'
+              ParentColor = False
             end
           end
           object PanelGraph1: TPanel
@@ -866,6 +879,7 @@ object f_calclun: Tf_calclun
             Top = 16
             Width = 66
             Caption = 'LabelRise1'
+            ParentColor = False
           end
           object LabelRise2: TLabel
             Left = 100
@@ -873,6 +887,7 @@ object f_calclun: Tf_calclun
             Top = 16
             Width = 66
             Caption = 'LabelRise2'
+            ParentColor = False
           end
           object DayPhase: TImage
             Left = 240
@@ -980,6 +995,7 @@ object f_calclun: Tf_calclun
             Top = 173
             Width = 65
             Caption = 'LabelAltAz'
+            ParentColor = False
           end
         end
         object Panel3: TPanel
@@ -999,12 +1015,13 @@ object f_calclun: Tf_calclun
             Top = 13
             Width = 30
             Caption = 'Time'
+            ParentColor = False
           end
           object DayHour: TSpinEdit
             AnchorSideTop.Control = Panel3
             AnchorSideTop.Side = asrCenter
             Left = 80
-            Height = 28
+            Height = 29
             Top = 8
             Width = 50
             MaxValue = 23
@@ -1016,7 +1033,7 @@ object f_calclun: Tf_calclun
             AnchorSideLeft.Side = asrBottom
             AnchorSideTop.Control = DayHour
             Left = 134
-            Height = 28
+            Height = 29
             Top = 8
             Width = 50
             BorderSpacing.Left = 4
@@ -1029,7 +1046,7 @@ object f_calclun: Tf_calclun
             AnchorSideLeft.Side = asrBottom
             AnchorSideTop.Control = DayHour
             Left = 188
-            Height = 28
+            Height = 29
             Top = 8
             Width = 50
             BorderSpacing.Left = 4
@@ -1069,6 +1086,7 @@ object f_calclun: Tf_calclun
           Align = alClient
           ColCount = 15
           DefaultColWidth = 140
+          MouseWheelOption = mwGrid
           RowCount = 25
           TabOrder = 0
         end
@@ -1087,6 +1105,7 @@ object f_calclun: Tf_calclun
             Top = 4
             Width = 57
             Caption = 'LabelDay'
+            ParentColor = False
           end
         end
       end
@@ -1130,11 +1149,12 @@ object f_calclun: Tf_calclun
               Width = 220
               AutoSize = False
               Caption = 'Database not found! Run AtLun or DatLun to initialize the database.'
+              ParentColor = False
               WordWrap = True
             end
             object EditFormation: TEdit
               Left = 8
-              Height = 30
+              Height = 31
               Top = 8
               Width = 135
               OnEditingDone = EditFormationEditingDone
@@ -1172,7 +1192,7 @@ object f_calclun: Tf_calclun
             TabOrder = 1
             object FormationLong: TFloatSpinEdit
               Left = 80
-              Height = 28
+              Height = 29
               Top = 8
               Width = 100
               MaxValue = 180
@@ -1182,7 +1202,7 @@ object f_calclun: Tf_calclun
             end
             object FormationLat: TFloatSpinEdit
               Left = 80
-              Height = 28
+              Height = 29
               Top = 48
               Width = 100
               MaxValue = 89
@@ -1196,6 +1216,7 @@ object f_calclun: Tf_calclun
               Top = 8
               Width = 63
               Caption = 'Longitude'
+              ParentColor = False
             end
             object Label13: TLabel
               Left = 8
@@ -1203,6 +1224,7 @@ object f_calclun: Tf_calclun
               Top = 48
               Width = 51
               Caption = 'Latitude'
+              ParentColor = False
             end
           end
           object GroupBoxSunElev: TGroupBox
@@ -1217,7 +1239,7 @@ object f_calclun: Tf_calclun
             TabOrder = 2
             object SunMin: TFloatSpinEdit
               Left = 88
-              Height = 28
+              Height = 29
               Top = 8
               Width = 100
               MaxValue = 90
@@ -1231,6 +1253,7 @@ object f_calclun: Tf_calclun
               Top = 8
               Width = 58
               Caption = 'Minimum'
+              ParentColor = False
             end
             object Label15: TLabel
               Left = 11
@@ -1238,10 +1261,11 @@ object f_calclun: Tf_calclun
               Top = 48
               Width = 61
               Caption = 'Maximum'
+              ParentColor = False
             end
             object SunMax: TFloatSpinEdit
               Left = 88
-              Height = 28
+              Height = 29
               Top = 48
               Width = 100
               MaxValue = 90
@@ -1280,6 +1304,7 @@ object f_calclun: Tf_calclun
               ColCount = 4
               DefaultColWidth = 160
               FixedCols = 0
+              MouseWheelOption = mwGrid
               RowCount = 15
               TabOrder = 0
             end
@@ -1311,6 +1336,7 @@ object f_calclun: Tf_calclun
               ColCount = 4
               DefaultColWidth = 160
               FixedCols = 0
+              MouseWheelOption = mwGrid
               RowCount = 15
               TabOrder = 0
             end
@@ -1343,6 +1369,7 @@ object f_calclun: Tf_calclun
       Top = 7
       Width = 71
       Caption = 'StatusLabel'
+      ParentColor = False
     end
   end
   object ImageListPhase: TImageList
