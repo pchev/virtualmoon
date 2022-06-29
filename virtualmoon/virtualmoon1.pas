@@ -6074,6 +6074,8 @@ begin
   edit2.Text := m2;
   edit3.Text := m3;
   edit4.Text := m4;
+  if not Tf_moon(sender).distancestart and f_demprofile.Visible then
+    f_demprofile.PlotProfile(DistStartL,DistStartB,DistEndL,DistEndB);
 end;
 
 procedure TForm1.SetActiveMoon(mf: Tf_moon);
@@ -6260,8 +6262,12 @@ begin
     f_demprofile.dem:=dem;
   end;
   f_demprofile.PlotProfile(DistStartL,DistStartB,DistEndL,DistEndB);
-  FormPos(f_demprofile,mouse.CursorPos.X,mouse.CursorPos.Y);
-  f_demprofile.show;
+  if not f_demprofile.Visible then begin
+    FormPos(f_demprofile,mouse.CursorPos.X,mouse.CursorPos.Y);
+    f_demprofile.show;
+  end;
+  if not activemoon.MeasuringDistance then
+    Button11Click(sender);
 end;
 
 procedure TForm1.AnchorClick(Sender: TObject);

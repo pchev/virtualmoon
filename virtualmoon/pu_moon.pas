@@ -131,7 +131,7 @@ type
     perftime: double;
     DownShift: TShiftState;
     lock_Zoom,SkipIdent,AbortSliceLoading,SaveShowScale : boolean;
-    distancestart,BumpMapLimit1K,moveok: boolean;
+    BumpMapLimit1K,moveok: boolean;
     startl,startb,startxx,startyy : single;
     startx, starty, ShadowOffset : integer;
     satl,satb,satr,satli,satlc: single;
@@ -264,6 +264,7 @@ type
     procedure PushLabel;
   public
     { Declarations publiques }
+    distancestart: boolean;
     procedure AssignMoon(Source: TF_moon);
     procedure Init(check:boolean=true);
     Procedure GetZoomInfo;
@@ -1545,7 +1546,7 @@ begin
       distancestart := True;
       SetMark(0, 0, '');
       GLLinesDistance.LineColor.AsWinColor:=MarkColor;
-      GLLinesDistance.LineWidth:=1;
+      GLLinesDistance.LineWidth:=2;
       GLLinesDistance.Nodes.Clear;
       GLDummyCubeDistance.Visible:=true;
     end;
@@ -1690,8 +1691,8 @@ begin
   // Distance
   if measuringdistance and distancestart then
   begin
-    MeasureDistance(x, y);
     distancestart := False;
+    MeasureDistance(x, y);
   end
   else begin
     // Identification

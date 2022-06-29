@@ -6,6 +6,7 @@ object f_demprofile: Tf_demprofile
   Caption = 'DEM Profile'
   ClientHeight = 270
   ClientWidth = 548
+  FormStyle = fsStayOnTop
   object Panel1: TPanel
     Left = 0
     Height = 270
@@ -17,8 +18,8 @@ object f_demprofile: Tf_demprofile
     TabOrder = 0
     object DemProfile: TChart
       Left = 1
-      Height = 268
-      Top = 1
+      Height = 218
+      Top = 51
       Width = 546
       AxisList = <      
         item
@@ -40,6 +41,27 @@ object f_demprofile: Tf_demprofile
       )
       Align = alClient
       object DemProfileLineSeries1: TLineSeries
+      end
+    end
+    object Panel2: TPanel
+      Left = 1
+      Height = 50
+      Top = 1
+      Width = 546
+      Align = alTop
+      ClientHeight = 50
+      ClientWidth = 546
+      TabOrder = 1
+      OnClick = Panel2Click
+      object Label1: TLabel
+        Left = 1
+        Height = 48
+        Top = 1
+        Width = 544
+        Align = alClient
+        AutoSize = False
+        ParentColor = False
+        WordWrap = True
       end
     end
   end
