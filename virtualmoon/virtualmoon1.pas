@@ -1399,7 +1399,7 @@ procedure TForm1.GetLabel(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
     w, wmin, wfact, l1, b1, scale: single;
     miniok,IsLUN,IsUnnamed: boolean;
-    nom, let, dbn, sl:  string;
+    nom, let, dbn, sl, lun:  string;
     j: integer;
 begin
 // Labels
@@ -1431,6 +1431,7 @@ begin
       w  := dbm.Results[j].Format[3].AsFloat;
       nom := trim(string(dbm.Results[j][0]));
       dbn := trim(string(dbm.Results[j][8]));
+      lun := trim(string(dbm.Results[j][7]));
       IsLUN:=(copy(nom,1,2)='AA');
       IsLUN:=IsLun or (copy(nom,1,3)='AVL');
       IsUnnamed:=(pos(dbn,UnnamedList)>0);
@@ -1443,6 +1444,12 @@ begin
         continue;
       // Duplicate Mare name in noname database
       if IsUnnamed and IsLUN and (w>300) then continue;
+
+{      if (copy(lun,1,2)='ME') then
+        Tf_moon(Sender).Circle(l1,b1,w/2,clLime);
+      if (copy(lun,1,2)='AA') then
+        Tf_moon(Sender).Circle(l1,b1,w/2,clAqua);
+}
       scale:=1;
       if minilabel then
       begin

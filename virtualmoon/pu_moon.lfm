@@ -152,6 +152,13 @@ object f_moon: Tf_moon
               Options = []
             end
           end
+          object GLDummyCubeCircle: TGLDummyCube
+            CubeSize = 1
+            EdgeColor.Red = 1
+            EdgeColor.Green = 1
+            EdgeColor.Blue = 1
+            EdgeColor.Alpha = 1
+          end
         end
         object GLLightSource1: TGLLightSource
           Ambient.Red = 1

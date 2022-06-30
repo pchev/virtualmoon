@@ -63,6 +63,7 @@ type
     GLBumpShader1: TGLBumpShader;
     GLCameraSatellite: TGLCamera;
     BaseCube: TGLDummyCube;
+    GLDummyCubeCircle: TGLDummyCube;
     GLDummyCubeDistance: TGLDummyCube;
     GLDummyCubeSatellite: TGLDummyCube;
     GLDummyCubeCoord: TGLDummyCube;
@@ -275,6 +276,7 @@ type
     procedure SetMark(lon,lat:single; txt:string);
     procedure CenterAt(lon,lat:single);
     procedure CenterMark;
+    procedure Circle(lon,lat,r: single; c: tcolor);
     procedure KeyEvent(event: TMoonKeyClass; key: word);
     function AddLabel(lon,lat:single; txt:string; notcenter,forcecenter:boolean;sc:single=1):boolean;
     function AddSprite(lon,lat:single):boolean;
@@ -1426,6 +1428,7 @@ ClearLabel;
 if LabelGroup<>nil then LabelGroup.DeleteChildren;
 if GLDummyCubeMarks<>nil then GLDummyCubeMarks.DeleteChildren;
 if GLDummyCubeCoord<>nil then GLDummyCubeCoord.DeleteChildren;
+if GLDummyCubeCircle<>nil then GLDummyCubeCircle.DeleteChildren;
 blankbmp.Free;
 blankjp.Free;
 GLSceneViewer1.Buffer.DestroyRC;
@@ -2121,6 +2124,7 @@ GLHUDTextMark.Visible:=false;
 GLHUDTextMarkShadow.Visible:=false;
 GLDummyCubeDistance.Visible:=false;
 distancestart := false;
+GLDummyCubeCircle.DeleteChildren;
 end;
 
 function Tf_moon.AddSprite(lon,lat:single):boolean;
@@ -2199,6 +2203,46 @@ begin
 FShowGrid:=value;
 GLDummyCubeCoord.Visible:=FShowGrid;
 PushLabel;
+end;
+
+procedure Tf_moon.Circle(lon,lat,r: single; c: tcolor);
+const   qr=0.5005;
+var newcircle : TGLLines;
+    l,b,x,y,z,step: single;
+    i,j,k,nl,nb,nk : Integer;
+    v:TVector;
+  procedure coords;
+  var cl,sl,cb,sb: single;
+  begin
+    sincos(-l-pi/2,sl,cl);
+    sincos(b,sb,cb);
+    x:=qr*cb*cl;
+    y:=qr*cb*sl;
+    z:=qr*sb;
+  end;
+begin
+  if r>2000 then exit;
+  newcircle:=TGLLines(GLDummyCubeCircle.AddNewChild(TGLLines));
+  newcircle.SplineMode:=lsmLines;
+  newcircle.ShowAxes:=false;
+  newcircle.AntiAliased:=true;
+  newcircle.LineColor.AsWinColor:=c;
+  newcircle.NodesAspect:=lnaInvisible;
+  newcircle.Visible:=true;
+  nk:=120;
+  step:=pi2/nk;
+  b:=pid2-(r/(Rmoon));
+  for k:=0 to nk do begin
+    l:=k*step;
+    coords;
+    newcircle.Nodes.AddNode(x,z,y);
+  end;
+  lon:=lon*deg2rad;
+  lat:=lat*deg2rad;
+  lat:=lat+LibrLat*cos(lon);
+  lon:=lon-LibrLon+LibrLat*tan(lat)*sin(lon);
+  Moon2World(lon,lat,x,y,z);
+  newcircle.Up.SetVector(x,y,z);
 end;
 
 procedure Tf_moon.SetGridSpacing(value:integer);
