@@ -368,6 +368,7 @@ rsVeryHighReso = 'Very high resolution %s texture';
 rsNoPictureFou = 'No picture found';
 rsIAUInformati = 'IAU information:';
 rsLunarImpactC = 'Lunar Impact Crater Database:';
+rsAmplificatio = 'Vertical amplification';
 
 implementation
 

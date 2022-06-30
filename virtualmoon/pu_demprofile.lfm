@@ -7,6 +7,7 @@ object f_demprofile: Tf_demprofile
   ClientHeight = 270
   ClientWidth = 548
   FormStyle = fsStayOnTop
+  OnCreate = FormCreate
   object Panel1: TPanel
     Left = 0
     Height = 270
@@ -18,14 +19,18 @@ object f_demprofile: Tf_demprofile
     TabOrder = 0
     object DemProfile: TChart
       Left = 1
-      Height = 218
-      Top = 51
+      Height = 189
+      Top = 80
       Width = 546
+      AllowPanning = False
+      AllowZoom = False
       AxisList = <      
         item
           Marks.LabelBrush.Style = bsClear
           Minors = <>
           Title.LabelFont.Orientation = 900
+          Title.Visible = True
+          Title.Caption = 'Height [m]'
           Title.LabelBrush.Style = bsClear
         end      
         item
@@ -34,34 +39,93 @@ object f_demprofile: Tf_demprofile
           Alignment = calBottom
           Marks.LabelBrush.Style = bsClear
           Minors = <>
+          Title.Visible = True
+          Title.Caption = 'Distance [km]'
           Title.LabelBrush.Style = bsClear
         end>
       Title.Text.Strings = (
         'TAChart'
       )
       Align = alClient
+      OnResize = DemProfileResize
       object DemProfileLineSeries1: TLineSeries
       end
     end
     object Panel2: TPanel
       Left = 1
-      Height = 50
+      Height = 79
       Top = 1
       Width = 546
       Align = alTop
-      ClientHeight = 50
+      ClientHeight = 79
       ClientWidth = 546
       TabOrder = 1
-      OnClick = Panel2Click
       object Label1: TLabel
         Left = 1
-        Height = 48
+        Height = 32
         Top = 1
         Width = 544
-        Align = alClient
+        Align = alTop
         AutoSize = False
         ParentColor = False
         WordWrap = True
+      end
+      object Label2: TLabel
+        Left = 8
+        Height = 19
+        Top = 52
+        Width = 136
+        Caption = 'Amplification verticale'
+        ParentColor = False
+      end
+      object Button10x: TSpeedButton
+        Tag = 10
+        Left = 376
+        Height = 25
+        Top = 48
+        Width = 65
+        Caption = '10x'
+        GroupIndex = 100
+        OnClick = ButtonxClick
+      end
+      object ButtonReset: TSpeedButton
+        Left = 448
+        Height = 25
+        Top = 48
+        Width = 75
+        Caption = 'Auto'
+        GroupIndex = 100
+        OnClick = ButtonxClick
+      end
+      object Button5x: TSpeedButton
+        Tag = 5
+        Left = 304
+        Height = 25
+        Top = 48
+        Width = 65
+        Caption = '5x'
+        GroupIndex = 100
+        OnClick = ButtonxClick
+      end
+      object Button2x: TSpeedButton
+        Tag = 2
+        Left = 232
+        Height = 25
+        Top = 48
+        Width = 65
+        Caption = '2x'
+        GroupIndex = 100
+        OnClick = ButtonxClick
+      end
+      object Button1x: TSpeedButton
+        Tag = 1
+        Left = 160
+        Height = 25
+        Top = 48
+        Width = 65
+        Caption = '1x'
+        GroupIndex = 100
+        OnClick = ButtonxClick
       end
     end
   end
