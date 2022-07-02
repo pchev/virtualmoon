@@ -151,7 +151,7 @@ begin
     Fhmax:=max(x,Fhmax);
     r:=(s-gc.s01)*gc.radius;
     DemProfileLineSeries1.AddXY(r,x);
-    s:=s+(1/dem.DemHdr.MAP_RESOLUTION)*deg2rad;
+    s:=s+(1/dem.MapResolution)*deg2rad;
   until s>gc.s02;
   AdjustScale;
   Label1.Caption:=rsm_10+'/'+rsm_11+' '+formatfloat(f3, rad2deg*lon1)+'/'+formatfloat(f3, rad2deg*lat1) +

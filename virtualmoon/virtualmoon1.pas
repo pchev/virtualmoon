@@ -526,6 +526,7 @@ type
   private
     moon1, moon2, activemoon : TF_moon;
     dem: Tdem;
+    demfile: string;
     CursorImage1: TCursorImage;
     tz: TCdCTimeZone;
     ima: TBigImaForm;
@@ -3739,23 +3740,24 @@ begin
     BMP15001.Visible := False;       // save bmp for light version
     BMP30001.Visible := False;       // save bmp for light version
   end;
- dem:=Tdem.Create;
- dem.OpenDem(slash(Appdir)+slash('data')+slash('dem')+'LDEM_64');
- moon1:=Tf_moon.Create(PanelMoon);
- activemoon:=moon1;
- moon1.Moon.Align:=alClient;
- moon1.onMoonActivate:=MoonActivate;
- moon1.onMoonClick:=MoonClickEvent;
- moon1.onMoonMove:=MoonMoveEvent;
- moon1.onMoonMeasure:=MoonMeasureEvent;
- moon1.onGetMsg:=GetMsg;
- moon1.onGetLabel:=GetLabel;
- moon1.onGetSprite:=GetSprite;
- moon1.dem:=dem;
- moon1.PopUp:=PopupMenu1;
- moon1.TexturePath:=slash(appdir)+slash('Textures');
- moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
- if fileexists(slash(appdir) + slash('data') + 'retic.cur') then
+  demfile:='ldem_256';
+  dem:=Tdem.Create;
+  dem.OpenDem(slash(Appdir)+slash('data')+slash('dem'),demfile);
+  moon1:=Tf_moon.Create(PanelMoon);
+  activemoon:=moon1;
+  moon1.Moon.Align:=alClient;
+  moon1.onMoonActivate:=MoonActivate;
+  moon1.onMoonClick:=MoonClickEvent;
+  moon1.onMoonMove:=MoonMoveEvent;
+  moon1.onMoonMeasure:=MoonMeasureEvent;
+  moon1.onGetMsg:=GetMsg;
+  moon1.onGetLabel:=GetLabel;
+  moon1.onGetSprite:=GetSprite;
+  moon1.dem:=dem;
+  moon1.PopUp:=PopupMenu1;
+  moon1.TexturePath:=slash(appdir)+slash('Textures');
+  moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
+  if fileexists(slash(appdir) + slash('data') + 'retic.cur') then
   begin
     CursorImage1.LoadFromFile(slash(appdir) + slash('data') + 'retic.cur');
     Screen.Cursors[crRetic] := CursorImage1.Handle;
@@ -4795,6 +4797,7 @@ begin
     param.Free;
     texturefiles.Free;
     texturenone.Free;
+    dem.Free;
     if CursorImage1 <> nil then
     begin
       CursorImage1.Free;
@@ -6223,11 +6226,12 @@ begin
 if OnMoon then begin
   statusbar1.Panels[statusLon].Text := rsm_10 + formatfloat(f3, Rad2Deg*Lon);
   statusbar1.Panels[statusLat].Text := rsm_11 + formatfloat(f3, Rad2Deg*Lat);
-  statusbar1.Panels[statusElev].Text := rsElevation+': ' + formatfloat(f1,dem.GetDemElevation(Rad2Deg*Lon,Rad2Deg*Lat))+'m';
+  if dem.DemOpen then statusbar1.Panels[statusElev].Text := rsElevation+': ' + formatfloat(f1,dem.GetDemElevation(Rad2Deg*Lon,Rad2Deg*Lat))+'m'
+                 else  statusbar1.Panels[statusElev].Text := rsElevation+': ';
 end else begin
   statusbar1.Panels[statusLon].Text := rsm_10;
   statusbar1.Panels[statusLat].Text := rsm_11;
-  statusbar1.Panels[statusElev].Text := rsElevation;
+  statusbar1.Panels[statusElev].Text := rsElevation+': ';
 end;
 end;
 
@@ -6267,10 +6271,8 @@ end;
 procedure TForm1.DemProfileClick(Sender: TObject);
 begin
   if not dem.DemOpen then begin
-    if not dem.OpenDem(slash(Appdir)+slash('data')+slash('dem')+'LDEM_64') then begin
-      ShowMessage(dem.LastMessage);
-      exit;
-    end;
+    ShowMessage(dem.LastMessage);
+    exit;
   end;
   if f_demprofile.dem=nil then
     f_demprofile.dem:=dem;

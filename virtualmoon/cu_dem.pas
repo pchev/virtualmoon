@@ -6,6 +6,12 @@ interface
 uses u_util, u_constant, {BGRABitmap, BGRABitmapTypes,} math,
   Classes, SysUtils;
 
+// Download LDEM files from
+// https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/cylindrical/img/
+// keep lowercase filename
+
+const
+  MaxDemFile=144; //  ldem_1024
 
 type
 
@@ -13,6 +19,7 @@ type
      FILE_NAME : string;
      MAP_RESOLUTION,LINE_FIRST_PIXEL,LINE_LAST_PIXEL,SAMPLE_FIRST_PIXEL,SAMPLE_LAST_PIXEL  : integer;
      SCALING_FACTOR,OFFSET,CENTER_LATITUDE,CENTER_LONGITUDE,MAP_SCALE,LINE_PROJECTION_OFFSET,SAMPLE_PROJECTION_OFFSET: double;
+     MINIMUM_LATITUDE,MAXIMUM_LATITUDE,WESTERNMOST_LONGITUDE,EASTERNMOST_LONGITUDE: integer;
   end;
 
   TGreatCircle = record
@@ -24,63 +31,101 @@ type
 
   Tdem = class(TObject)
    private
-    FDemHdr: TDemHdr;
-    fDem: file;
+    FDemHdr: array[0..MaxDemFile] of TDemHdr;
+    fDemFileOpen: array[0..MaxDemFile] of boolean;
+    fDem: array[0..MaxDemFile] of file;
+    fDemNum: array[0..360,-90..90] of SmallInt;
+    fMapResolution: integer;
     fDemOpen: boolean;
-//    palette: array[0..255] of TBGRAPixel;
+    fNumDem: integer;
     FLastMessage: string;
-    function ReadDemHDR(fn: string):boolean;
+    //    palette: array[0..255] of TBGRAPixel;
+    function ReadDemHDR(fn: string; var h:TDemHdr):boolean;
    public
     constructor Create;
-    destructor Destroy;
-    function OpenDem(n:string):boolean;
-//    function OpenPalette(n:string):boolean;
-    function GetDemCenter(lon,lat: double; n: integer; out d:TSmallintArray): boolean;
-    function GetDemArea(lon1,lat1,lon2,lat2: double; out d:TSmallintArray): boolean;
-    //function GetBitmap(d:TSmallintArray; var bgra: TBGRABitmap):boolean;
+    destructor Destroy; override;
+    function OpenDem(path,n:string):boolean;
     function GetDemElevation(lon,lat: double): double;
     procedure GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
     procedure PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
     property DemOpen: Boolean read fDemOpen;
-    property DemHdr: TDemHdr read FDemHdr;
+    property MapResolution: integer read fMapResolution;
     property LastMessage: string read FLastMessage;
+    //    function OpenPalette(n:string):boolean;
+    //    function GetDemCenter(lon,lat: double; n: integer; out d:TSmallintArray): boolean;
+    //    function GetDemArea(lon1,lat1,lon2,lat2: double; out d:TSmallintArray): boolean;
+    //    function GetBitmap(d:TSmallintArray; var bgra: TBGRABitmap):boolean;
   end;
 
 
 implementation
 
 constructor Tdem.Create;
+var i,j: integer;
 begin
   inherited Create;
   fDemOpen:=false;
+  for i:=0 to MaxDemFile do
+    fDemFileOpen[i]:=false;
 end;
 
 destructor Tdem.Destroy;
+var i: integer;
 begin
-  if fDemOpen then CloseFile(fdem);
+  if fDemOpen then
+    for i:=0 to MaxDemFile do
+      if fDemFileOpen[i] then CloseFile(fdem[i]);
   inherited Destroy;
 end;
 
-function Tdem.OpenDem(n:string):boolean;
+function Tdem.OpenDem(path,n:string):boolean;
+var f: Tsearchrec;
+    d,i,j,k: integer;
 begin
   result:=false;
-  FLastMessage:='';
-  if not  ReadDemHDR(n+'.LBL') then exit;
-  AssignFile(fDem,DemHdr.FILE_NAME);
   try
-   reset(fDem,1);
-   fDemOpen:=true;
-   result:=true;
+  for i:=0 to 360 do begin
+    for j:=-90 to 90 do begin
+       fDemNum[i,j]:=-1;
+    end;
+  end;
+  FLastMessage:='';
+  d:=0;
+  k:=FindFirst(slash(path)+n+'*'+'.lbl', faNormal, f);
+  while k=0 do begin
+    if d>MaxDemFile then
+      raise(exception.Create('Maximum number of DEM files reach!'));
+    if not ReadDemHDR(slash(path)+f.Name,FDemHdr[d]) then exit;
+    if d=0 then
+      fMapResolution:=FDemHdr[d].MAP_RESOLUTION
+    else if fMapResolution<>FDemHdr[d].MAP_RESOLUTION then
+      raise(exception.Create('Inconsistent MAP_RESOLUTION!'));
+    AssignFile(fDem[d],FDemHdr[d].FILE_NAME);
+    reset(fDem[d],1);
+    fDemFileOpen[d]:=true;
+    for i:=FDemHdr[d].WESTERNMOST_LONGITUDE to FDemHdr[d].EASTERNMOST_LONGITUDE-1 do begin
+      for j:=FDemHdr[d].MINIMUM_LATITUDE to FDemHdr[d].MAXIMUM_LATITUDE-1 do begin
+        fDemNum[i,j]:=d;
+      end;
+    end;
+    inc(d);
+    k:=FindNext(f);
+  end;
+  FindClose(f);
+  fNumDem:=d;
+  if fNumDem=0 then raise(exception.Create('No '+n+' file found!'));
+  fDemOpen:=true;
+  result:=fDemOpen;
   except
    on E: Exception do begin
      result:=false;
-     FLastMessage:='Open '+DemHdr.FILE_NAME+' : '+E.Message;
+     fDemOpen:=false;
+     FLastMessage:='Open '+FDemHdr[d].FILE_NAME+' : '+E.Message;
    end;
   end;
 end;
 
-
-function Tdem.ReadDemHDR(fn: string):Boolean;
+function Tdem.ReadDemHDR(fn: string; var h:TDemHdr):Boolean;
 var f: TextFile;
     i: integer;
     fdir,buf,bufk,bufv,bufu: string;
@@ -164,44 +209,44 @@ begin
   if bufv<>'SIMPLE CYLINDRICAL' then exit;
   if not getval('POSITIVE_LONGITUDE_DIRECTION',bufv,bufu) then exit;
   if bufv<>'EAST' then exit;
-  if not getval('MAXIMUM_LATITUDE',bufv,bufu) then exit;
-  if bufv<>'90' then exit;
-  if not getval('MINIMUM_LATITUDE',bufv,bufu) then exit;
-  if bufv<>'-90' then exit;
-  if not getval('WESTERNMOST_LONGITUDE',bufv,bufu) then exit;
-  if bufv<>'0' then exit;
-  if not getval('EASTERNMOST_LONGITUDE',bufv,bufu) then exit;
-  if bufv<>'360' then exit;
 
   // set parameters
   if not getval('FILE_NAME',bufv,bufu) then exit;
-  FDemHdr.FILE_NAME:=slash(fdir)+bufv;
-  if not FileExists(DemHdr.FILE_NAME) then exit;
+  h.FILE_NAME:=slash(fdir)+lowercase(bufv);
+  if not FileExists(h.FILE_NAME) then exit;
   if not getval('LINE_FIRST_PIXEL',bufv,bufu) then exit;
-  FDemHdr.LINE_FIRST_PIXEL:=StrToInt(bufv);
+  h.LINE_FIRST_PIXEL:=StrToInt(bufv);
   if not getval('LINE_LAST_PIXEL',bufv,bufu) then exit;
-  FDemHdr.LINE_LAST_PIXEL:=StrToInt(bufv);
+  h.LINE_LAST_PIXEL:=StrToInt(bufv);
   if not getval('SAMPLE_FIRST_PIXEL',bufv,bufu) then exit;
-  FDemHdr.SAMPLE_FIRST_PIXEL:=StrToInt(bufv);
+  h.SAMPLE_FIRST_PIXEL:=StrToInt(bufv);
   if not getval('SAMPLE_LAST_PIXEL',bufv,bufu) then exit;
-  FDemHdr.SAMPLE_LAST_PIXEL:=StrToInt(bufv);
+  h.SAMPLE_LAST_PIXEL:=StrToInt(bufv);
   if not getval('MAP_RESOLUTION',bufv,bufu) then exit;
-  if bufu<>'PIX/DEG' then exit;
-  FDemHdr.MAP_RESOLUTION:=StrToInt(bufv);
+  if (bufu<>'PIX/DEG')and(bufu<>'PIXEL/DEG') then exit;
+  h.MAP_RESOLUTION:=StrToInt(bufv);
   if not getval('SCALING_FACTOR',bufv,bufu) then exit;
-  FDemHdr.SCALING_FACTOR:=StrToFloat(bufv);
+  h.SCALING_FACTOR:=StrToFloat(bufv);
   if not getval('OFFSET',bufv,bufu) then exit;
-  FDemHdr.OFFSET:=StrToFloat(bufv);
+  h.OFFSET:=StrToFloat(bufv);
   if not getval('LINE_PROJECTION_OFFSET',bufv,bufu) then exit;
-  FDemHdr.LINE_PROJECTION_OFFSET:=StrToFloat(bufv);
+  h.LINE_PROJECTION_OFFSET:=StrToFloat(bufv);
   if not getval('SAMPLE_PROJECTION_OFFSET',bufv,bufu) then exit;
-  FDemHdr.SAMPLE_PROJECTION_OFFSET:=StrToFloat(bufv);
+  h.SAMPLE_PROJECTION_OFFSET:=StrToFloat(bufv);
   if not getval('MAP_SCALE',bufv,bufu) then exit;
-  FDemHdr.MAP_SCALE:=StrToFloat(bufv);
+  h.MAP_SCALE:=StrToFloat(bufv);
   if not getval('CENTER_LATITUDE',bufv,bufu) then exit;
-  FDemHdr.CENTER_LATITUDE:=StrToFloat(bufv);
+  h.CENTER_LATITUDE:=StrToFloat(bufv);
   if not getval('CENTER_LONGITUDE',bufv,bufu) then exit;
-  FDemHdr.CENTER_LONGITUDE:=StrToFloat(bufv);
+  h.CENTER_LONGITUDE:=StrToFloat(bufv);
+  if not getval('MAXIMUM_LATITUDE',bufv,bufu) then exit;
+  h.MAXIMUM_LATITUDE:=StrToInt(bufv);
+  if not getval('MINIMUM_LATITUDE',bufv,bufu) then exit;
+  h.MINIMUM_LATITUDE:=StrToInt(bufv);
+  if not getval('WESTERNMOST_LONGITUDE',bufv,bufu) then exit;
+  h.WESTERNMOST_LONGITUDE:=StrToInt(bufv);
+  if not getval('EASTERNMOST_LONGITUDE',bufv,bufu) then exit;
+  h.EASTERNMOST_LONGITUDE:=StrToInt(bufv);
 
   result:=true;
   except
@@ -215,6 +260,63 @@ begin
     u.Free;
   end;
 end;
+
+function Tdem.GetDemElevation(lon,lat: double): double;
+var pxc,pyc,d: integer;
+    x: smallint;
+begin
+result:=0;
+try
+if fDemOpen then begin
+  if lon<0 then lon:=lon+360;
+  d:=fDemNum[Trunc(lon),Floor(lat)];
+  if d>=0 then begin
+    pxc:=min(FDemHdr[d].SAMPLE_LAST_PIXEL-1,round((lon-FDemHdr[d].WESTERNMOST_LONGITUDE)*FDemHdr[d].MAP_RESOLUTION));
+    pyc:=min(FDemHdr[d].LINE_LAST_PIXEL-1, round((FDemHdr[d].MAXIMUM_LATITUDE-lat)*FDemHdr[d].MAP_RESOLUTION));
+    seek(fDem[d], pyc*FDemHdr[d].SAMPLE_LAST_PIXEL*2+2*pxc);
+    BlockRead(fDem[d],x,sizeof(smallint));
+    result:=x*FDemHdr[d].SCALING_FACTOR;
+  end;
+end;
+except
+  result:=0;
+end;
+end;
+
+procedure Tdem.GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
+// ref: https://en.wikipedia.org/wiki/Great-circle_navigation
+var l01,l12,a1,s12: double;
+begin
+  c.lon1:=lon1;
+  c.lat1:=lat1;
+  c.lon2:=lon2;
+  c.lat2:=lat2;
+  c.radius:=r;
+  l12:=c.lon2-c.lon1;
+  if l12>pi then l12:=l12-pi2;
+  if l12<-pi then l12:=l12+pi2;
+  a1:=ArcTan2(cos(c.lat2)*sin(l12),cos(c.lat1)*sin(c.lat2)-sin(c.lat1)*cos(c.lat2)*cos(l12));
+  s12:=ArcTan2(sqrt((cos(c.lat1)*sin(c.lat2)-sin(c.lat1)*cos(c.lat2)*cos(l12))**2 + (cos(c.lat2)*sin(l12))**2),sin(c.lat1)*sin(c.lat2)+cos(c.lat1)*cos(c.lat2)*cos(l12));
+  c.dist:=s12*c.radius;
+  c.a0:=ArcTan2(sin(a1)*cos(c.lat1),sqrt((cos(a1)**2)+((sin(a1)**2)*(sin(c.lat1)**2))));
+  if cos(a1)=0 then
+    c.s01:=0
+  else
+    c.s01:=ArcTan2(tan(c.lat1),cos(a1));
+  c.s02:=c.s01+s12;
+  l01:=ArcTan2(sin(c.a0)*sin(c.s01),cos(c.s01));
+  c.l0:=c.lon1-l01;
+end;
+
+procedure Tdem.PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
+var ll:double;
+begin
+  la:=ArcTan2(cos(c.a0)*sin(s),sqrt((cos(s))**2+((sin(c.a0))**2)*((sin(s))**2)));
+  ll:=ArcTan2(sin(c.a0)*sin(s),cos(s));
+  lo:=ll+c.l0;
+end;
+
+{ Bitmap function not used for now
 
 function Tdem.GetDemCenter(lon,lat: double; n: integer; out d:TSmallintArray): boolean;
 var pxc,pyc,s,i,j: integer;
@@ -269,7 +371,7 @@ begin
   result:=true;
 end;
 
-{function Tdem.OpenPalette(n:string):boolean;
+function Tdem.OpenPalette(n:string):boolean;
 var i: integer;
     r,g,b: double;
     f: TextFile;
@@ -322,56 +424,6 @@ begin
   bgra.InvalidateBitmap;
   result:=true;
 end; }
-
-function Tdem.GetDemElevation(lon,lat: double): double;
-var pxc,pyc: integer;
-    x: smallint;
-begin
-if fDemOpen then begin
-  try
-  pxc:=round(lon*DemHdr.MAP_RESOLUTION);
-  pyc:=round((90-lat)*DemHdr.MAP_RESOLUTION);
-  seek(fDem, pyc*DemHdr.SAMPLE_LAST_PIXEL*2+2*pxc);
-  BlockRead(fDem,x,sizeof(smallint));
-  result:=x*DemHdr.SCALING_FACTOR;
-  finally
-  end;
-end
-else result:=0;
-end;
-
-procedure Tdem.GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
-// https://en.wikipedia.org/wiki/Great-circle_navigation
-var l01,l12,a1,s12: double;
-begin
-  c.lon1:=lon1;
-  c.lat1:=lat1;
-  c.lon2:=lon2;
-  c.lat2:=lat2;
-  c.radius:=r;
-  l12:=c.lon2-c.lon1;
-  if l12>pi then l12:=l12-pi2;
-  if l12<-pi then l12:=l12+pi2;
-  a1:=ArcTan2(cos(c.lat2)*sin(l12),cos(c.lat1)*sin(c.lat2)-sin(c.lat1)*cos(c.lat2)*cos(l12));
-  s12:=ArcTan2(sqrt((cos(c.lat1)*sin(c.lat2)-sin(c.lat1)*cos(c.lat2)*cos(l12))**2 + (cos(c.lat2)*sin(l12))**2),sin(c.lat1)*sin(c.lat2)+cos(c.lat1)*cos(c.lat2)*cos(l12));
-  c.dist:=s12*c.radius;
-  c.a0:=ArcTan2(sin(a1)*cos(c.lat1),sqrt((cos(a1)**2)+((sin(a1)**2)*(sin(c.lat1)**2))));
-  if cos(a1)=0 then
-    c.s01:=0
-  else
-    c.s01:=ArcTan2(tan(c.lat1),cos(a1));
-  c.s02:=c.s01+s12;
-  l01:=ArcTan2(sin(c.a0)*sin(c.s01),cos(c.s01));
-  c.l0:=c.lon1-l01;
-end;
-
-procedure Tdem.PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
-var ll:double;
-begin
-  la:=ArcTan2(cos(c.a0)*sin(s),sqrt((cos(s))**2+((sin(c.a0))**2)*((sin(s))**2)));
-  ll:=ArcTan2(sin(c.a0)*sin(s),cos(s));
-  lo:=ll+c.l0;
-end;
 
 end.
 
