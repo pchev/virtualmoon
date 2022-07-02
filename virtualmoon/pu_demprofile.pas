@@ -6,7 +6,7 @@ interface
 
 uses  u_constant, cu_dem, u_translation, u_util, math,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls, Buttons, TAGraph, TASeries;
+  ExtCtrls, StdCtrls, Buttons, TAGraph, TASeries, TAChartUtils;
 
 type
 
@@ -21,10 +21,13 @@ type
     DemProfile: TChart;
     DemProfileLineSeries1: TLineSeries;
     Label2: TLabel;
+    LabelPos: TLabel;
     Panel1: TPanel;
     Panel2: TPanel;
     Label1: TLabel;
+    Panel3: TPanel;
     procedure ButtonxClick(Sender: TObject);
+    procedure DemProfileMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DemProfileResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -48,7 +51,9 @@ begin
  FScale:=0;
  ButtonReset.Down:=true;
  label2.Caption:=rsAmplificatio;
- DemProfile.AxisList[0].Title.Caption:=rsHeight+' [m]';
+ LabelPos.Caption:='';
+ label1.Caption:='';
+ DemProfile.AxisList[0].Title.Caption:=rsElevation+' [m]';
  DemProfile.AxisList[1].Title.Caption:=rst_69+' [km]';
 end;
 
@@ -56,6 +61,29 @@ procedure Tf_demprofile.ButtonxClick(Sender: TObject);
 begin
   Fscale:=TButton(sender).tag;
   AdjustScale;
+end;
+
+procedure Tf_demprofile.DemProfileMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+var i: integer;
+    dx,r,px,py:double;
+begin
+  if (x>5)and(x<(DemProfile.Width-5))and(y>5)and(y<(DemProfile.Height-5)) then begin
+  try
+    r:=99999;
+    for i:=0 to DemProfileLineSeries1.Count-1 do begin
+      dx:=abs(X-DemProfile.XGraphToImage(DemProfileLineSeries1.Source.Item[i]^.X));
+      if dx<r then begin
+        px:=DemProfileLineSeries1.Source.Item[i]^.X;
+        py:=DemProfileLineSeries1.Source.Item[i]^.Y;
+        r:=dx;
+      end;
+    end;
+    LabelPos.Caption:=rst_69+':'+FormatFloat(f2,px)+'km '+rsElevation+':'+FormatFloat(f1,py)+'m';
+   except
+  end;
+  end else begin
+    LabelPos.Caption:='';
+  end;
 end;
 
 procedure Tf_demprofile.DemProfileResize(Sender: TObject);

@@ -369,6 +369,7 @@ rsNoPictureFou = 'No picture found';
 rsIAUInformati = 'IAU information:';
 rsLunarImpactC = 'Lunar Impact Crater Database:';
 rsAmplificatio = 'Vertical amplification';
+rsElevation = 'Elevation';
 
 implementation
 

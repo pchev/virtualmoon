@@ -327,6 +327,7 @@ function Tdem.GetDemElevation(lon,lat: double): double;
 var pxc,pyc: integer;
     x: smallint;
 begin
+if fDemOpen then begin
   try
   pxc:=round(lon*DemHdr.MAP_RESOLUTION);
   pyc:=round((90-lat)*DemHdr.MAP_RESOLUTION);
@@ -335,6 +336,8 @@ begin
   result:=x*DemHdr.SCALING_FACTOR;
   finally
   end;
+end
+else result:=0;
 end;
 
 procedure Tdem.GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);

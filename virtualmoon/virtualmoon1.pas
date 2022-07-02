@@ -660,6 +660,12 @@ var
 const MinToolsWidth=350;
       ASCOM='ASCOM';
       INDI='INDI';
+      statusLon=0;
+      statusLat=1;
+      statusElev=2;
+      statusDate=3;
+      statusFov=4;
+      statusOther=5;
 
 implementation
 
@@ -2766,8 +2772,6 @@ begin
   end
   else
     Label7.Caption := '';
-  statusbar1.Panels[0].Text := rsm_10 + GetField('LONGI_N');
-  statusbar1.Panels[1].Text := rsm_11 + GetField('LATI_N');
   Addtolist(nom);
   AnchorIdent.Visible:=anchorvisible[1];
   AnchorDesc.Visible:=anchorvisible[2];
@@ -3320,7 +3324,7 @@ begin
     lunaison := CurrentJD - Fplanet.MoonPhase(floor(12.3685 *
       (CurYear - 2000 - 0.04 + (CurrentJD - jd0) / 365.25)));
   end;
-  StatusBar1.Panels[2].Text := rsm_51 + ': ' + date2str(curyear, currentmonth, currentday) +
+  StatusBar1.Panels[statusDate].Text := rsm_51 + ': ' + date2str(curyear, currentmonth, currentday) +
     '   ' + rsm_50 + ': ' + timtostr(currenttime);
   phaseoffset := 0;
 
@@ -3511,14 +3515,14 @@ begin
 case msgclass of
 MsgZoom: begin
           value:=StringReplace(value,'FOV:',rsm_43,[]);
-          statusbar1.Panels[3].Text := value;
+          statusbar1.Panels[statusFov].Text := value;
           statusbar1.Hint:=value;
           SetZoomBar;
          end;
 MsgPerf: begin
           Label15.Caption := rsm_44 + blank + value;
          end;
-   else  statusbar1.Panels[4].Text := value;
+   else  statusbar1.Panels[statusOther].Text := value;
 end;
 end;
 
@@ -3736,6 +3740,7 @@ begin
     BMP30001.Visible := False;       // save bmp for light version
   end;
  dem:=Tdem.Create;
+ dem.OpenDem(slash(Appdir)+slash('data')+slash('dem')+'LDEM_64');
  moon1:=Tf_moon.Create(PanelMoon);
  activemoon:=moon1;
  moon1.Moon.Align:=alClient;
@@ -4717,7 +4722,6 @@ end;
 
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
-//statusbar1.Panels[3].Text :='Down: '+inttostr(key);
 case key of
   16  :  activemoon.KeyEvent(mkDown,key); // Shift
   17  :  activemoon.KeyEvent(mkDown,key); // Ctrl
@@ -4728,7 +4732,6 @@ end;
 
 procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-//statusbar1.Panels[3].Text :='Up: '+inttostr(key);
 try
 case key of
   16  :  activemoon.KeyEvent(mkUp,key); // Shift
@@ -6218,11 +6221,13 @@ procedure TForm1.MoonMoveEvent(Sender: TObject; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
 begin
 if OnMoon then begin
-  statusbar1.Panels[0].Text := rsm_10 + formatfloat(f3, Rad2Deg*Lon);
-  statusbar1.Panels[1].Text := rsm_11 + formatfloat(f3, Rad2Deg*Lat);
+  statusbar1.Panels[statusLon].Text := rsm_10 + formatfloat(f3, Rad2Deg*Lon);
+  statusbar1.Panels[statusLat].Text := rsm_11 + formatfloat(f3, Rad2Deg*Lat);
+  statusbar1.Panels[statusElev].Text := rsElevation+': ' + formatfloat(f1,dem.GetDemElevation(Rad2Deg*Lon,Rad2Deg*Lat))+'m';
 end else begin
-  statusbar1.Panels[0].Text := rsm_10;
-  statusbar1.Panels[1].Text := rsm_11;
+  statusbar1.Panels[statusLon].Text := rsm_10;
+  statusbar1.Panels[statusLat].Text := rsm_11;
+  statusbar1.Panels[statusElev].Text := rsElevation;
 end;
 end;
 
@@ -6266,8 +6271,9 @@ begin
       ShowMessage(dem.LastMessage);
       exit;
     end;
-    f_demprofile.dem:=dem;
   end;
+  if f_demprofile.dem=nil then
+    f_demprofile.dem:=dem;
   f_demprofile.PlotProfile(DistStartL,DistStartB,DistEndL,DistEndB);
   if not f_demprofile.Visible then begin
     FormPos(f_demprofile,mouse.CursorPos.X,mouse.CursorPos.Y);
