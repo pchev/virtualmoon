@@ -139,7 +139,7 @@ begin
   GreatCircle(lon1,lat1,lon2,lat2,Rmoon,gc);
   Fdist:=gc.dist*1000;
   ddeg:=360*gc.dist/(pi2*Rmoon);
-  demlib.SetResolution(0,numpoint/ddeg);
+  demlib.SetResolution(3,numpoint/ddeg);
   Fhmin:=999999;
   Fhmax:=-999999;
   s:=gc.s01;
@@ -150,17 +150,19 @@ begin
     lat:=lat*rad2deg;
     lon:=lon*rad2deg;
     if lon<0 then lon:=lon+360;
-    x:=demlib.GetElevation(0,lon,lat);
-    Fhmin:=min(x,Fhmin);
-    Fhmax:=max(x,Fhmax);
-    r:=(s-gc.s01)*gc.radius;
-    DemProfileLineSeries1.AddXY(r,x);
-    s:=s+(1/demlib.GetResolution(0))*deg2rad;
+    x:=demlib.GetElevation(3,lon,lat);
+    if x<>NoHeight then begin
+      Fhmin:=min(x,Fhmin);
+      Fhmax:=max(x,Fhmax);
+      r:=(s-gc.s01)*gc.radius;
+      DemProfileLineSeries1.AddXY(r,x);
+    end;
+    s:=s+(1/demlib.GetResolution(3))*deg2rad;
   until s>gc.s02;
   AdjustScale;
   Label1.Caption:=StringReplace(rsm_10,':','',[])+'/'+StringReplace(rsm_11,':','',[])+blank+LowerCase(rsFrom)+blank+formatfloat(f3, rad2deg*lon1)+blank+'/'+blank+formatfloat(f3, rad2deg*lat1)+
                   blank+LowerCase(rsTo)+blank+formatfloat(f3, rad2deg*lon2)+'/'+formatfloat(f3, rad2deg*lat2)+
-                  crlf+rsUsing+' ldem_'+inttostr(demlib.GetResolution(0))+','+blank+LowerCase(rst_69)+
+                  crlf+rsUsing+' ldem_'+inttostr(demlib.GetResolution(3))+','+blank+LowerCase(rst_69)+
                   blank+formatfloat(f3, gc.dist)+lowercase(rsm_18);
 
 

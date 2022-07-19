@@ -13,7 +13,8 @@ uses u_util, u_constant, {BGRABitmap, BGRABitmapTypes,} math,
 const
   MaxDemFile=144; //  ldem_1024
   MaxDemList=7;   // 4,16,64,128,256,512,1024 pix/deg
-  MaxId=2;        // 0=profile, 1=moon1, 2=moon2
+  MaxId=3;        // 0=lowres, 1=moon1, 2=moon2, 3=profile
+  NoHeight=999999;
 
 type
 
@@ -241,6 +242,7 @@ end;
 function TdemLibrary.GetElevation(id:integer; lon,lat: double): double;
 begin
   result:=FDems[FCurrentDem[id]].GetDemElevation(lon,lat);
+  if result=NoHeight then result:=FDems[0].GetDemElevation(lon,lat);
 end;
 
 //// TDem ////
@@ -428,7 +430,7 @@ function Tdem.GetDemElevation(lon,lat: double): double;
 var pxc,pyc,d: integer;
     x: smallint;
 begin
-result:=0;
+result:=NoHeight;
 try
 if fDemOpen then begin
   if lon<0 then lon:=lon+360;
@@ -443,7 +445,7 @@ if fDemOpen then begin
   end;
 end;
 except
-  result:=0;
+  result:=NoHeight;
 end;
 end;
 
