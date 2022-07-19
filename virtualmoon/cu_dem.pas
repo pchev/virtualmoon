@@ -442,6 +442,7 @@ if fDemOpen then begin
     seek(fDem[d], pyc*FDemHdr[d].SAMPLE_LAST_PIXEL*2+2*pxc);
     BlockRead(fDem[d],x,sizeof(smallint));
     result:=x*FDemHdr[d].SCALING_FACTOR;
+    if result=0 then result:=NoHeight;
   end;
 end;
 except
