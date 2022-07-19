@@ -370,6 +370,9 @@ rsIAUInformati = 'IAU information:';
 rsLunarImpactC = 'Lunar Impact Crater Database:';
 rsAmplificatio = 'Vertical amplification';
 rsElevation = 'Elevation';
+rsFrom = 'From';
+rsTo = 'To';
+rsUsing = 'Using';
 
 implementation
 

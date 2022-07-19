@@ -12,6 +12,8 @@ uses u_util, u_constant, {BGRABitmap, BGRABitmapTypes,} math,
 
 const
   MaxDemFile=144; //  ldem_1024
+  MaxDemList=7;   // 4,16,64,128,256,512,1024 pix/deg
+  MaxId=2;        // moon1,moon2
 
 type
 
@@ -20,11 +22,6 @@ type
      MAP_RESOLUTION,LINE_FIRST_PIXEL,LINE_LAST_PIXEL,SAMPLE_FIRST_PIXEL,SAMPLE_LAST_PIXEL  : integer;
      SCALING_FACTOR,OFFSET,CENTER_LATITUDE,CENTER_LONGITUDE,MAP_SCALE,LINE_PROJECTION_OFFSET,SAMPLE_PROJECTION_OFFSET: double;
      MINIMUM_LATITUDE,MAXIMUM_LATITUDE,WESTERNMOST_LONGITUDE,EASTERNMOST_LONGITUDE: integer;
-  end;
-
-  TGreatCircle = record
-    lat1,lon1,lat2,lon2,radius: double; // input
-    l0,a0,dist,s01,s02: double;         // computed
   end;
 
   TSmallintArray = array of array of smallint;
@@ -46,8 +43,6 @@ type
     destructor Destroy; override;
     function OpenDem(path,n:string):boolean;
     function GetDemElevation(lon,lat: double): double;
-    procedure GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
-    procedure PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
     property DemOpen: Boolean read fDemOpen;
     property MapResolution: integer read fMapResolution;
     property LastMessage: string read FLastMessage;
@@ -57,11 +52,201 @@ type
     //    function GetBitmap(d:TSmallintArray; var bgra: TBGRABitmap):boolean;
   end;
 
+  TdemLibrary = class(TObject)
+  private
+    FDems: array[0..MaxDemList] of Tdem;
+    FDemsRes: array[0..MaxDemList] of integer;
+    FDemsName: array[0..MaxDemList] of string;
+    FDemsPath: array[0..MaxDemList] of string;
+    fNumDems: integer;
+    FCurrentDem,FCurrentResolution: array[0..MaxId] of integer;
+    FSetResolution: array[0..MaxId] of double;
+    FLastMessage: string;
+    function GetOpen: boolean;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    function AddPath(path:string):boolean;
+    procedure SetResolution(id:integer; value:double);
+    function GetResolution(id:integer): integer;
+    function GetElevation(id:integer; lon,lat: double): double;
+    property Open: boolean read GetOpen;
+    property LastMessage: string read FLastMessage;
+  end;
 
 implementation
 
+Function SplitLbl(buf: string; var bufk,bufv,bufu: string): boolean;
+var p: TStringList;
+    i: integer;
+begin
+  p:=TStringList.Create;
+  try
+    result:=false;
+    if copy(buf,1,2)='/*' then exit;
+    SplitRec(UpperCase(buf),'=',p);
+    if p.Count<>2 then exit;
+    result:=true;
+    bufk:=trim(p[0]);
+    p[1]:=StringReplace(p[1],'"','',[rfReplaceAll]);
+    p[1]:=StringReplace(p[1],'''','',[rfReplaceAll]);
+    i:=pos('<',p[1]);
+    if i>0 then begin
+      buf:=p[1];
+      bufv:=trim(copy(buf,1,i-1));
+      Delete(buf,1,i);
+      i:=pos('>',buf);
+      if i>0 then
+        bufu:=trim(copy(buf,1,i-1))
+      else
+        bufu:=trim(buf);
+    end else begin
+      bufv:=trim(p[1]);
+      bufu:='';
+    end;
+  finally
+    p.free;
+  end;
+end;
+
+function DemCompare(List: TStringList; Index1, Index2: Integer): Integer;
+var res1,res2: integer;
+function res(fn:string):integer;
+var p:integer;
+begin
+  p:=pos('_',fn);
+  delete(fn,1,p);
+  p:=pos('_',fn);
+  if p=0 then p:=pos('.',fn);
+  fn:=copy(fn,1,p-1);
+  result:=StrToIntDef(fn,0);
+end;
+begin
+  res1:=res(List[Index1]);
+  res2:=res(List[Index2]);
+  if res1=res2 then
+    result:=0
+  else if res1>res2 then
+    result:=1
+  else
+    result:=-1;
+end;
+
+//// TDemLibrary ////
+
+constructor TdemLibrary.Create;
+var i:integer;
+begin
+  inherited Create;
+  fNumDems:=0;
+  for i:=0 to MaxId do begin
+    FCurrentDem[i]:=0;
+    FCurrentResolution[i]:=0;
+    FSetResolution[i]:=0;
+  end;
+end;
+
+destructor TdemLibrary.Destroy;
+var i: integer;
+begin
+  for i:=0 to fNumDems-1 do
+     FDems[i].Free;
+  inherited Destroy;
+end;
+
+function TdemLibrary.GetOpen: boolean;
+begin
+  result:=fNumDems>0;
+end;
+
+function TdemLibrary.AddPath(path:string):boolean;
+var k,v,u,buf: string;
+    f: Tsearchrec;
+    ft: textfile;
+    found: boolean;
+    i,j,res: integer;
+    demlist: TStringList;
+begin
+  FLastMessage:='';
+  result:=false;
+  demlist:=TStringList.Create;
+  try
+  i:=FindFirst(slash(path)+'ldem*.lbl',faNormal,f);
+  if i<>0 then FLastMessage:='No DEM found';
+  while i=0 do begin
+    demlist.Add(f.Name);
+    i:=FindNext(f);
+  end;
+  FindClose(f);
+  demlist.CustomSort(@DemCompare);
+  for i:=0 to demlist.Count-1 do begin
+    AssignFile(ft,slash(path)+demlist[i]);
+    reset(ft);
+    res:=0;
+    repeat
+      ReadLn(ft,buf);
+      if not SplitLbl(buf,k,v,u) then continue;
+      if k='MAP_RESOLUTION' then begin
+        if (u='PIX/DEG')or(u='PIXEL/DEG') then
+          res:=StrToInt(v);
+        break;
+      end;
+    until EOF(ft);
+    CloseFile(ft);
+    if res>0 then begin
+      found:=false;
+      for j:=0 to fNumDems-1 do begin
+        if FDemsRes[j]=res then begin
+           found:=true;
+           break;
+        end;
+      end;
+      if (not found)and(fNumDems<MaxDemList) then begin
+         result:=true;
+         inc(fNumDems);
+         FDemsRes[fNumDems-1]:=res;
+         FDemsPath[fNumDems-1]:=path;
+         FDemsName[fNumDems-1]:='ldem_'+IntToStr(res);
+         FDems[fNumDems-1]:=Tdem.Create;
+         if not FDems[fNumDems-1].OpenDem(path,FDemsName[fNumDems-1]) then
+           FLastMessage:=FDems[fNumDems-1].LastMessage;
+      end;
+    end;
+  end;
+  finally
+    demlist.Free;
+  end;
+end;
+
+procedure TdemLibrary.SetResolution(id:integer; value:double);
+var i: integer;
+begin
+  if value<>FSetResolution[id] then begin
+    FSetResolution[id]:=value;
+    for i:=0 to fNumDems-1 do begin
+       if (FDemsRes[i]>=FSetResolution[id])or(i=fNumDems-1) then begin
+         FCurrentDem[id]:=i;
+         FCurrentResolution[id]:=FDemsRes[i];
+         break;
+       end;
+    end;
+  end;
+end;
+
+function TdemLibrary.GetResolution(id:integer): integer;
+begin
+  result:=FCurrentResolution[id];
+end;
+
+function TdemLibrary.GetElevation(id:integer; lon,lat: double): double;
+begin
+  result:=FDems[FCurrentDem[id]].GetDemElevation(lon,lat);
+end;
+
+//// TDem ////
+
 constructor Tdem.Create;
-var i,j: integer;
+var i: integer;
 begin
   inherited Create;
   fDemOpen:=false;
@@ -127,9 +312,8 @@ end;
 
 function Tdem.ReadDemHDR(fn: string; var h:TDemHdr):Boolean;
 var f: TextFile;
-    i: integer;
     fdir,buf,bufk,bufv,bufu: string;
-    p,k,v,u: TStringList;
+    k,v,u: TStringList;
 function getval(sk: string; var sv,su: string):boolean;
 var x: integer;
 begin
@@ -153,7 +337,6 @@ begin
     exit;
   end;
   fdir:=ExtractFileDir(fn);
-  p:=TStringList.Create;
   k:=TStringList.Create;
   v:=TStringList.Create;
   u:=TStringList.Create;
@@ -164,26 +347,7 @@ begin
   try
   while not eof(f) do begin
     readln(f,buf);
-    if copy(buf,1,2)='/*' then continue;
-    SplitRec(UpperCase(buf),'=',p);
-    if p.Count<>2 then continue;
-    bufk:=trim(p[0]);
-    p[1]:=StringReplace(p[1],'"','',[rfReplaceAll]);
-    p[1]:=StringReplace(p[1],'''','',[rfReplaceAll]);
-    i:=pos('<',p[1]);
-    if i>0 then begin
-      buf:=p[1];
-      bufv:=trim(copy(buf,1,i-1));
-      Delete(buf,1,i);
-      i:=pos('>',buf);
-      if i>0 then
-        bufu:=trim(copy(buf,1,i-1))
-      else
-        bufu:=trim(buf);
-    end else begin
-      bufv:=trim(p[1]);
-      bufu:='';
-    end;
+    if not SplitLbl(buf,bufk,bufv,bufu) then continue;
     k.Add(bufk);
     v.Add(bufv);
     u.Add(bufu);
@@ -254,7 +418,6 @@ begin
   end;
   finally
     if not result then FLastMessage:='Error '+fn+', '+bufk+' '+bufv+' '+bufu;
-    p.Free;
     k.Free;
     v.Free;
     u.Free;
@@ -269,6 +432,7 @@ result:=0;
 try
 if fDemOpen then begin
   if lon<0 then lon:=lon+360;
+  if lon>360 then lon:=lon-360;
   d:=fDemNum[Trunc(lon),Floor(lat)];
   if d>=0 then begin
     pxc:=min(FDemHdr[d].SAMPLE_LAST_PIXEL-1,round((lon-FDemHdr[d].WESTERNMOST_LONGITUDE)*FDemHdr[d].MAP_RESOLUTION));
@@ -281,39 +445,6 @@ end;
 except
   result:=0;
 end;
-end;
-
-procedure Tdem.GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
-// ref: https://en.wikipedia.org/wiki/Great-circle_navigation
-var l01,l12,a1,s12: double;
-begin
-  c.lon1:=lon1;
-  c.lat1:=lat1;
-  c.lon2:=lon2;
-  c.lat2:=lat2;
-  c.radius:=r;
-  l12:=c.lon2-c.lon1;
-  if l12>pi then l12:=l12-pi2;
-  if l12<-pi then l12:=l12+pi2;
-  a1:=ArcTan2(cos(c.lat2)*sin(l12),cos(c.lat1)*sin(c.lat2)-sin(c.lat1)*cos(c.lat2)*cos(l12));
-  s12:=ArcTan2(sqrt((cos(c.lat1)*sin(c.lat2)-sin(c.lat1)*cos(c.lat2)*cos(l12))**2 + (cos(c.lat2)*sin(l12))**2),sin(c.lat1)*sin(c.lat2)+cos(c.lat1)*cos(c.lat2)*cos(l12));
-  c.dist:=s12*c.radius;
-  c.a0:=ArcTan2(sin(a1)*cos(c.lat1),sqrt((cos(a1)**2)+((sin(a1)**2)*(sin(c.lat1)**2))));
-  if cos(a1)=0 then
-    c.s01:=0
-  else
-    c.s01:=ArcTan2(tan(c.lat1),cos(a1));
-  c.s02:=c.s01+s12;
-  l01:=ArcTan2(sin(c.a0)*sin(c.s01),cos(c.s01));
-  c.l0:=c.lon1-l01;
-end;
-
-procedure Tdem.PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
-var ll:double;
-begin
-  la:=ArcTan2(cos(c.a0)*sin(s),sqrt((cos(s))**2+((sin(c.a0))**2)*((sin(s))**2)));
-  ll:=ArcTan2(sin(c.a0)*sin(s),cos(s));
-  lo:=ll+c.l0;
 end;
 
 { Bitmap function not used for now

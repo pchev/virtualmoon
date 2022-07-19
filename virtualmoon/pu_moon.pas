@@ -191,7 +191,8 @@ type
     FOverlayTransparency: single;
     FOverlayTransparencyMethode: integer;
     Fjd: double;
-    Fdem: Tdem;
+    Fdemlib: TdemLibrary;
+    Flmin,Flmax,Fbmin,Fbmax:single;
     procedure MoveMoonAround(anObject: TGLBaseSceneObject; pitchDelta, turnDelta: Single);
     procedure SetTexture(lfn:TStringList);
     procedure SetOverlay(fn:string);
@@ -351,7 +352,7 @@ type
     property DiffuseColor: TColor read GetDiffuseColor Write SetDiffuseColor;
     property SpecularColor: TColor read GetSpecularColor Write SetSpecularColor;
     property Antialiasing: boolean read GetAntialiasing write SetAntialiasing;
-    property Dem: Tdem read Fdem write Fdem;
+    property Demlib: TdemLibrary read Fdemlib write Fdemlib;
     property onMoonActivate : TNotifyEvent read FonMoonActivate write FonMoonActivate;
     property onMoonClick : TMoonClickEvent read FOnMoonClick write FOnMoonClick;
     property onMoonMove : TMoonMoveEvent read FOnMoonMove write FOnMoonMove;
@@ -1176,6 +1177,8 @@ try
   zone:=newzone;
   GetZoomInfo;
   RefreshAll;
+  GetBounds(Flmin,Flmax,Fbmin,Fbmax);
+  Fdemlib.SetResolution(tag,5*GLSceneViewer1.Width/(abs(Flmax-Flmin)*rad2deg));
 except
   on E: Exception do begin
   {$ifdef trace_debug}
@@ -2566,7 +2569,7 @@ begin
   DistStartB:=startb;
   DistEndL:=l;
   DistEndB:=b;
-  Fdem.GreatCircle(startl,startb,l,b,Rmoon,gc);
+  GreatCircle(startl,startb,l,b,Rmoon,gc);
   m1 := formatfloat(f1,gc.dist);
   Moon2World(l,b,xx,yy,zz);
   xx := startxx - xx;
@@ -2590,7 +2593,7 @@ begin
   step:=(gc.s02-gc.s01)/10;
   for i:=0 to 10 do begin
     s:=gc.s01+i*step;
-    dem.PointOnCircle(gc,s,lat,lon);
+    PointOnCircle(gc,s,lat,lon);
     coords;
     gllinesdistance.Nodes.AddNode(xx,zz,yy);
   end;

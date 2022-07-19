@@ -525,8 +525,7 @@ type
     procedure ZoomTimerTimer(Sender: TObject);
   private
     moon1, moon2, activemoon : TF_moon;
-    dem: Tdem;
-    demfile: string;
+    demlib: TdemLibrary;
     CursorImage1: TCursorImage;
     tz: TCdCTimeZone;
     ima: TBigImaForm;
@@ -3740,11 +3739,13 @@ begin
     BMP15001.Visible := False;       // save bmp for light version
     BMP30001.Visible := False;       // save bmp for light version
   end;
-  demfile:='ldem_256';
-  dem:=Tdem.Create;
-  dem.OpenDem(slash(Appdir)+slash('data')+slash('dem'),demfile);
+
+  demlib:=TdemLibrary.Create;
+  demlib.AddPath(slash(Appdir)+slash('data')+slash('dem'));
+
   moon1:=Tf_moon.Create(PanelMoon);
   activemoon:=moon1;
+  moon1.Tag:=1;
   moon1.Moon.Align:=alClient;
   moon1.onMoonActivate:=MoonActivate;
   moon1.onMoonClick:=MoonClickEvent;
@@ -3753,7 +3754,7 @@ begin
   moon1.onGetMsg:=GetMsg;
   moon1.onGetLabel:=GetLabel;
   moon1.onGetSprite:=GetSprite;
-  moon1.dem:=dem;
+  moon1.Demlib:=demlib;
   moon1.PopUp:=PopupMenu1;
   moon1.TexturePath:=slash(appdir)+slash('Textures');
   moon1.OverlayPath:=slash(appdir)+slash('Textures')+slash('Overlay');
@@ -4797,7 +4798,7 @@ begin
     param.Free;
     texturefiles.Free;
     texturenone.Free;
-    dem.Free;
+    demlib.Free;
     if CursorImage1 <> nil then
     begin
       CursorImage1.Free;
@@ -5966,6 +5967,7 @@ var cdo:single;
 begin
 if moon2=nil then begin
  moon2:=Tf_moon.Create(PanelMoon2);
+ moon2.Tag:=2;
  moon2.GLSceneViewer1.Visible:=false;
  moon2.Caption:=Caption;
  moon2.Moon.Align:=alClient;
@@ -5976,7 +5978,7 @@ if moon2=nil then begin
  moon2.onMoonMove:=MoonMoveEvent;
  moon2.onMoonMeasure:=MoonMeasureEvent;
  moon2.onGetMsg:=GetMsg;
- moon2.dem:=dem;
+ moon2.Demlib:=demlib;
  moon2.PopUp:=PopupMenu1;
  moon2.Visible:=false;
  moon2.Init(false);
@@ -6087,8 +6089,9 @@ begin
   edit2.Text := m2;
   edit3.Text := m3;
   edit4.Text := m4;
-  if not Tf_moon(sender).distancestart and f_demprofile.Visible then
-    f_demprofile.PlotProfile(DistStartL,DistStartB,DistEndL,DistEndB);
+  if not Tf_moon(sender).distancestart and f_demprofile.Visible then begin
+    f_demprofile.PlotProfile(Tf_moon(sender).Tag,DistStartL,DistStartB,DistEndL,DistEndB);
+  end;
 end;
 
 procedure TForm1.SetActiveMoon(mf: Tf_moon);
@@ -6226,7 +6229,7 @@ begin
 if OnMoon then begin
   statusbar1.Panels[statusLon].Text := rsm_10 + formatfloat(f3, Rad2Deg*Lon);
   statusbar1.Panels[statusLat].Text := rsm_11 + formatfloat(f3, Rad2Deg*Lat);
-  if dem.DemOpen then statusbar1.Panels[statusElev].Text := rsElevation+': ' + formatfloat(f1,dem.GetDemElevation(Rad2Deg*Lon,Rad2Deg*Lat))+'m'
+  if demlib.Open then statusbar1.Panels[statusElev].Text := rsElevation+': ' + formatfloat(f1,demlib.GetElevation(Tf_moon(sender).Tag,Rad2Deg*Lon,Rad2Deg*Lat))+'m'
                  else  statusbar1.Panels[statusElev].Text := rsElevation+': ';
 end else begin
   statusbar1.Panels[statusLon].Text := rsm_10;
@@ -6270,13 +6273,13 @@ end;
 
 procedure TForm1.DemProfileClick(Sender: TObject);
 begin
-  if not dem.DemOpen then begin
-    ShowMessage(dem.LastMessage);
+  if not demlib.Open then begin
+    ShowMessage(demlib.LastMessage);
     exit;
   end;
-  if f_demprofile.dem=nil then
-    f_demprofile.dem:=dem;
-  f_demprofile.PlotProfile(DistStartL,DistStartB,DistEndL,DistEndB);
+  if f_demprofile.demlib=nil then
+    f_demprofile.demlib:=demlib;
+  f_demprofile.PlotProfile(activemoon.tag,DistStartL,DistStartB,DistEndL,DistEndB);
   if not f_demprofile.Visible then begin
     FormPos(f_demprofile,mouse.CursorPos.X,mouse.CursorPos.Y);
     f_demprofile.show;

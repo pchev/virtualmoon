@@ -36,6 +36,12 @@ uses Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
     MaskEdit,Menus,Spin,CheckLst,Buttons, ExtCtrls,
     Forms,Graphics,StdCtrls,ComCtrls,Dialogs,Grids,PrintersDlgs,Printers;
 
+type
+TGreatCircle = record
+  lat1,lon1,lat2,lon2,radius: double; // input
+  l0,a0,dist,s01,s02: double;         // computed
+end;
+
 function rmod(x,y:Double):Double;
 Function NormRA(ra : double):double;
 Function sgn(x:Double):Double ;
@@ -118,6 +124,8 @@ Function testfloat(s:string):double;
 function capitalize(txt:string):string;
 Procedure SetImgLum(img:Tbitmap; lum:integer);
 Procedure ShowHelpDoc(helpfile : string; suffix:string; directory: string);
+procedure GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
+procedure PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
 
 var traceon : boolean;
     hp: string;
@@ -1955,6 +1963,38 @@ if not fileexists(fn) then begin
 ExecuteFile(fn);
  end;
 
+procedure GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
+// ref: https://en.wikipedia.org/wiki/Great-circle_navigation
+var l01,l12,a1,s12: double;
+begin
+  c.lon1:=lon1;
+  c.lat1:=lat1;
+  c.lon2:=lon2;
+  c.lat2:=lat2;
+  c.radius:=r;
+  l12:=c.lon2-c.lon1;
+  if l12>pi then l12:=l12-pi2;
+  if l12<-pi then l12:=l12+pi2;
+  a1:=ArcTan2(cos(c.lat2)*sin(l12),cos(c.lat1)*sin(c.lat2)-sin(c.lat1)*cos(c.lat2)*cos(l12));
+  s12:=ArcTan2(sqrt((cos(c.lat1)*sin(c.lat2)-sin(c.lat1)*cos(c.lat2)*cos(l12))**2 + (cos(c.lat2)*sin(l12))**2),sin(c.lat1)*sin(c.lat2)+cos(c.lat1)*cos(c.lat2)*cos(l12));
+  c.dist:=s12*c.radius;
+  c.a0:=ArcTan2(sin(a1)*cos(c.lat1),sqrt((cos(a1)**2)+((sin(a1)**2)*(sin(c.lat1)**2))));
+  if cos(a1)=0 then
+    c.s01:=0
+  else
+    c.s01:=ArcTan2(tan(c.lat1),cos(a1));
+  c.s02:=c.s01+s12;
+  l01:=ArcTan2(sin(c.a0)*sin(c.s01),cos(c.s01));
+  c.l0:=c.lon1-l01;
+end;
+
+procedure PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
+var ll:double;
+begin
+  la:=ArcTan2(cos(c.a0)*sin(s),sqrt((cos(s))**2+((sin(c.a0))**2)*((sin(s))**2)));
+  ll:=ArcTan2(sin(c.a0)*sin(s),cos(s));
+  lo:=ll+c.l0;
+end;
 
 end.
 

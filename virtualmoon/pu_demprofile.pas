@@ -31,12 +31,12 @@ type
     procedure DemProfileResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    Fdem: Tdem;
+    Fdemlib: TdemLibrary;
     Fdist,Fhmin,Fhmax,FScale: double;
     procedure AdjustScale;
   public
-    procedure PlotProfile(lon1,lat1,lon2,lat2: double);
-    property dem: Tdem read Fdem write Fdem;
+    procedure PlotProfile(id: integer;lon1,lat1,lon2,lat2: double);
+    property demlib: TdemLibrary read Fdemlib write Fdemlib;
   end;
 
 var
@@ -127,14 +127,14 @@ else begin
 end;
 end;
 
-procedure Tf_demprofile.PlotProfile(lon1,lat1,lon2,lat2: double);
+procedure Tf_demprofile.PlotProfile(id: integer;lon1,lat1,lon2,lat2: double);
 var x,r,lon,lat,s: double;
     n:integer;
     gc: TGreatCircle;
 begin
   if (lon1=lon2)and(lat1=lat2) then exit;
   DemProfileLineSeries1.Clear;
-  dem.GreatCircle(lon1,lat1,lon2,lat2,Rmoon,gc);
+  GreatCircle(lon1,lat1,lon2,lat2,Rmoon,gc);
   Fdist:=gc.dist*1000;
   Fhmin:=999999;
   Fhmax:=-999999;
@@ -142,21 +142,22 @@ begin
   n:=0;
   repeat
     inc(n);
-    dem.PointOnCircle(gc,s,lat,lon);
+    PointOnCircle(gc,s,lat,lon);
     lat:=lat*rad2deg;
     lon:=lon*rad2deg;
     if lon<0 then lon:=lon+360;
-    x:=dem.GetDemElevation(lon,lat);
+    x:=demlib.GetElevation(id,lon,lat);
     Fhmin:=min(x,Fhmin);
     Fhmax:=max(x,Fhmax);
     r:=(s-gc.s01)*gc.radius;
     DemProfileLineSeries1.AddXY(r,x);
-    s:=s+(1/dem.MapResolution)*deg2rad;
+    s:=s+(1/demlib.GetResolution(id))*deg2rad;
   until s>gc.s02;
   AdjustScale;
-  Label1.Caption:=rsm_10+'/'+rsm_11+' '+formatfloat(f3, rad2deg*lon1)+'/'+formatfloat(f3, rad2deg*lat1) +
-                  ' ; '+formatfloat(f3, rad2deg*lon2)+'/'+formatfloat(f3, rad2deg*lat2)+
-                  ', '+LowerCase(rst_69)+' '+formatfloat(f3, gc.dist)+lowercase(rsm_18);
+  Label1.Caption:=StringReplace(rsm_10,':','',[])+'/'+StringReplace(rsm_11,':','',[])+blank+LowerCase(rsFrom)+blank+formatfloat(f3, rad2deg*lon1)+blank+'/'+blank+formatfloat(f3, rad2deg*lat1)+
+                  blank+LowerCase(rsTo)+blank+formatfloat(f3, rad2deg*lon2)+'/'+formatfloat(f3, rad2deg*lat2)+
+                  crlf+rsUsing+' ldem_'+inttostr(demlib.GetResolution(id))+','+blank+LowerCase(rst_69)+
+                  blank+formatfloat(f3, gc.dist)+lowercase(rsm_18);
 
 
 end;

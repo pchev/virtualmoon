@@ -63,7 +63,7 @@ object f_demprofile: Tf_demprofile
       TabOrder = 1
       object Label1: TLabel
         Left = 1
-        Height = 32
+        Height = 47
         Top = 1
         Width = 544
         Align = alTop
