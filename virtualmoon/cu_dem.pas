@@ -13,7 +13,7 @@ uses u_util, u_constant, {BGRABitmap, BGRABitmapTypes,} math,
 const
   MaxDemFile=144; //  ldem_1024
   MaxDemList=7;   // 4,16,64,128,256,512,1024 pix/deg
-  MaxId=2;        // moon1,moon2
+  MaxId=2;        // 0=profile, 1=moon1, 2=moon2
 
 type
 

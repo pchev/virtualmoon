@@ -6090,7 +6090,7 @@ begin
   edit3.Text := m3;
   edit4.Text := m4;
   if not Tf_moon(sender).distancestart and f_demprofile.Visible then begin
-    f_demprofile.PlotProfile(Tf_moon(sender).Tag,DistStartL,DistStartB,DistEndL,DistEndB);
+    f_demprofile.PlotProfile(DistStartL,DistStartB,DistEndL,DistEndB);
   end;
 end;
 
@@ -6279,7 +6279,7 @@ begin
   end;
   if f_demprofile.demlib=nil then
     f_demprofile.demlib:=demlib;
-  f_demprofile.PlotProfile(activemoon.tag,DistStartL,DistStartB,DistEndL,DistEndB);
+  f_demprofile.PlotProfile(DistStartL,DistStartB,DistEndL,DistEndB);
   if not f_demprofile.Visible then begin
     FormPos(f_demprofile,mouse.CursorPos.X,mouse.CursorPos.Y);
     f_demprofile.show;

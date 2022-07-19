@@ -35,7 +35,7 @@ type
     Fdist,Fhmin,Fhmax,FScale: double;
     procedure AdjustScale;
   public
-    procedure PlotProfile(id: integer;lon1,lat1,lon2,lat2: double);
+    procedure PlotProfile(lon1,lat1,lon2,lat2: double);
     property demlib: TdemLibrary read Fdemlib write Fdemlib;
   end;
 
@@ -127,15 +127,19 @@ else begin
 end;
 end;
 
-procedure Tf_demprofile.PlotProfile(id: integer;lon1,lat1,lon2,lat2: double);
-var x,r,lon,lat,s: double;
+procedure Tf_demprofile.PlotProfile(lon1,lat1,lon2,lat2: double);
+var x,r,lon,lat,s,ddeg: double;
     n:integer;
     gc: TGreatCircle;
+const
+    numpoint=2000;
 begin
   if (lon1=lon2)and(lat1=lat2) then exit;
   DemProfileLineSeries1.Clear;
   GreatCircle(lon1,lat1,lon2,lat2,Rmoon,gc);
   Fdist:=gc.dist*1000;
+  ddeg:=360*gc.dist/(pi2*Rmoon);
+  demlib.SetResolution(0,numpoint/ddeg);
   Fhmin:=999999;
   Fhmax:=-999999;
   s:=gc.s01;
@@ -146,17 +150,17 @@ begin
     lat:=lat*rad2deg;
     lon:=lon*rad2deg;
     if lon<0 then lon:=lon+360;
-    x:=demlib.GetElevation(id,lon,lat);
+    x:=demlib.GetElevation(0,lon,lat);
     Fhmin:=min(x,Fhmin);
     Fhmax:=max(x,Fhmax);
     r:=(s-gc.s01)*gc.radius;
     DemProfileLineSeries1.AddXY(r,x);
-    s:=s+(1/demlib.GetResolution(id))*deg2rad;
+    s:=s+(1/demlib.GetResolution(0))*deg2rad;
   until s>gc.s02;
   AdjustScale;
   Label1.Caption:=StringReplace(rsm_10,':','',[])+'/'+StringReplace(rsm_11,':','',[])+blank+LowerCase(rsFrom)+blank+formatfloat(f3, rad2deg*lon1)+blank+'/'+blank+formatfloat(f3, rad2deg*lat1)+
                   blank+LowerCase(rsTo)+blank+formatfloat(f3, rad2deg*lon2)+'/'+formatfloat(f3, rad2deg*lat2)+
-                  crlf+rsUsing+' ldem_'+inttostr(demlib.GetResolution(id))+','+blank+LowerCase(rst_69)+
+                  crlf+rsUsing+' ldem_'+inttostr(demlib.GetResolution(0))+','+blank+LowerCase(rst_69)+
                   blank+formatfloat(f3, gc.dist)+lowercase(rsm_18);
 
 
