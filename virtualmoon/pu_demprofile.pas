@@ -20,6 +20,7 @@ type
     ButtonReset: TSpeedButton;
     DemProfile: TChart;
     DemProfileLineSeries1: TLineSeries;
+    DemProfileLineSeries2: TLineSeries;
     Label2: TLabel;
     LabelPos: TLabel;
     Panel1: TPanel;
@@ -35,7 +36,7 @@ type
     Fdist,Fhmin,Fhmax,FScale: double;
     procedure AdjustScale;
   public
-    procedure PlotProfile(lon1,lat1,lon2,lat2: double);
+    procedure PlotProfile(lon1,lat1,lon2,lat2: array of double);
     property demlib: TdemLibrary read Fdemlib write Fdemlib;
   end;
 
@@ -95,10 +96,14 @@ procedure Tf_demprofile.AdjustScale;
 var x,y,yy,dy,xx,rc,rs: double;
 begin
 if FScale=0 then begin
-  DemProfile.AxisList[0].Range.UseMin:=false;
-  DemProfile.AxisList[0].Range.UseMax:=false;
-  DemProfile.AxisList[1].Range.UseMin:=false;
-  DemProfile.AxisList[1].Range.UseMax:=false;
+  DemProfile.Extent.XMin:=0;
+  DemProfile.Extent.XMax:=Fdist/1000;
+  DemProfile.Extent.YMin:=fhmin;
+  DemProfile.Extent.YMax:=fhmax;
+  DemProfile.Extent.UseXMin:=true;
+  DemProfile.Extent.UseXMax:=true;
+  DemProfile.Extent.UseYMin:=true;
+  DemProfile.Extent.UseYMax:=true;
 end
 else begin
   x:=Fdist;
@@ -108,62 +113,83 @@ else begin
   if rc>=rs then begin
     yy:=x*rc;
     dy:=(yy-Fscale*y)/2/FScale;
-    DemProfile.AxisList[0].Range.Min:=fhmin-dy;
-    DemProfile.AxisList[0].Range.Max:=fhmax+dy;
-    DemProfile.AxisList[0].Range.UseMin:=true;
-    DemProfile.AxisList[0].Range.UseMax:=true;
-    DemProfile.AxisList[1].Range.UseMin:=false;
-    DemProfile.AxisList[1].Range.UseMax:=false;
+    DemProfile.Extent.XMin:=0;
+    DemProfile.Extent.XMax:=Fdist/1000;
+    DemProfile.Extent.YMin:=fhmin-dy;
+    DemProfile.Extent.YMax:=fhmax+dy;
+    DemProfile.Extent.UseXMin:=true;
+    DemProfile.Extent.UseXMax:=true;
+    DemProfile.Extent.UseYMin:=true;
+    DemProfile.Extent.UseYMax:=true;
   end
   else begin
     xx:=FScale*y/rc/1000;
-    DemProfile.AxisList[1].Range.Min:=0;
-    DemProfile.AxisList[1].Range.Max:=xx;
-    DemProfile.AxisList[1].Range.UseMin:=true;
-    DemProfile.AxisList[1].Range.UseMax:=true;
-    DemProfile.AxisList[0].Range.UseMin:=false;
-    DemProfile.AxisList[0].Range.UseMax:=false;
+    DemProfile.Extent.XMin:=0;
+    DemProfile.Extent.XMax:=xx;
+    DemProfile.Extent.YMin:=fhmin;
+    DemProfile.Extent.YMax:=fhmax;
+    DemProfile.Extent.UseXMin:=true;
+    DemProfile.Extent.UseXMax:=true;
+    DemProfile.Extent.UseYMin:=true;
+    DemProfile.Extent.UseYMax:=true;
   end;
 end;
 end;
 
-procedure Tf_demprofile.PlotProfile(lon1,lat1,lon2,lat2: double);
-var x,r,lon,lat,s,ddeg: double;
-    n:integer;
+procedure Tf_demprofile.PlotProfile(lon1,lat1,lon2,lat2: array of double);
+var x,r,r0,lon,lat,s,ddeg,totdist: double;
+    i,n:integer;
     gc: TGreatCircle;
 const
     numpoint=2000;
 begin
-  if (lon1=lon2)and(lat1=lat2) then exit;
+  if (NumDist=0)or(lon1[0]=lon2[0])and(lat1[0]=lat2[0]) then exit;
   DemProfileLineSeries1.Clear;
-  GreatCircle(lon1,lat1,lon2,lat2,Rmoon,gc);
-  Fdist:=gc.dist*1000;
-  ddeg:=360*gc.dist/(pi2*Rmoon);
-  demlib.SetResolution(3,numpoint/ddeg);
+  DemProfileLineSeries2.Clear;
+  Fdist:=0;
+  r0:=0;
   Fhmin:=999999;
   Fhmax:=-999999;
-  s:=gc.s01;
-  n:=0;
-  repeat
-    inc(n);
-    PointOnCircle(gc,s,lat,lon);
-    lat:=lat*rad2deg;
-    lon:=lon*rad2deg;
-    if lon<0 then lon:=lon+360;
-    x:=demlib.GetElevation(3,lon,lat);
-    if x<>NoHeight then begin
-      Fhmin:=min(x,Fhmin);
-      Fhmax:=max(x,Fhmax);
-      r:=(s-gc.s01)*gc.radius;
-      DemProfileLineSeries1.AddXY(r,x);
+  totdist:=0;
+  // find dem resolution
+  for i:=0 to NumDist-1 do begin
+    GreatCircle(lon1[i],lat1[i],lon2[i],lat2[i],Rmoon,gc);
+    totdist:=totdist+gc.dist;
+  end;
+  ddeg:=360*totdist/(pi2*Rmoon);
+  demlib.SetResolution(3,numpoint/ddeg);
+  // plot
+  for i:=0 to NumDist-1 do begin
+    GreatCircle(lon1[i],lat1[i],lon2[i],lat2[i],Rmoon,gc);
+    Fdist:=Fdist+gc.dist*1000;
+    s:=gc.s01;
+    n:=0;
+    repeat
+      inc(n);
+      PointOnCircle(gc,s,lat,lon);
+      lat:=lat*rad2deg;
+      lon:=lon*rad2deg;
+      if lon<0 then lon:=lon+360;
+      x:=demlib.GetElevation(3,lon,lat);
+      if x<>NoHeight then begin
+        Fhmin:=min(x,Fhmin);
+        Fhmax:=max(x,Fhmax);
+        r:=r0+(s-gc.s01)*gc.radius;
+        DemProfileLineSeries1.AddXY(r,x);
+      end;
+      s:=s+(1/demlib.GetResolution(3))*deg2rad;
+    until s>gc.s02;
+    if i<(NumDist-1) then begin
+      DemProfileLineSeries2.AddXY(r,-999999,'',clNone);
+      DemProfileLineSeries2.AddXY(r,999999,'',clRed);
     end;
-    s:=s+(1/demlib.GetResolution(3))*deg2rad;
-  until s>gc.s02;
+    r0:=r0+gc.dist;
+  end;
   AdjustScale;
-  Label1.Caption:=StringReplace(rsm_10,':','',[])+'/'+StringReplace(rsm_11,':','',[])+blank+LowerCase(rsFrom)+blank+formatfloat(f3, rad2deg*lon1)+blank+'/'+blank+formatfloat(f3, rad2deg*lat1)+
-                  blank+LowerCase(rsTo)+blank+formatfloat(f3, rad2deg*lon2)+'/'+formatfloat(f3, rad2deg*lat2)+
+  Label1.Caption:=StringReplace(rsm_10,':','',[])+'/'+StringReplace(rsm_11,':','',[])+blank+LowerCase(rsFrom)+blank+formatfloat(f3, rad2deg*lon1[0])+blank+'/'+blank+formatfloat(f3, rad2deg*lat1[0])+
+                  blank+LowerCase(rsTo)+blank+formatfloat(f3, rad2deg*lon2[NumDist-1])+'/'+formatfloat(f3, rad2deg*lat2[NumDist-1])+
                   crlf+rsUsing+' ldem_'+inttostr(demlib.GetResolution(3))+','+blank+LowerCase(rst_69)+
-                  blank+formatfloat(f3, gc.dist)+lowercase(rsm_18);
+                  blank+formatfloat(f3, r0)+lowercase(rsm_18);
 
 
 end;

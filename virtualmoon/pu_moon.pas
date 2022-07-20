@@ -53,7 +53,7 @@ type
   TGetSingleEvent = procedure(Sender: TObject; value: single) of object;
   TGetStringEvent = procedure(Sender: TObject; value: string) of object;
   TGetMsgEvent = procedure(Sender: TObject; msgclass:TMoonMsgClass; value: string) of object;
-  TMoonMeasureEvent = procedure(Sender: TObject; m1,m2,m3,m4: string) of object;
+  TMoonMeasureEvent = procedure(Sender: TObject; m1,m2,m3,m4,m5: string) of object;
   TBumpMapCapability = (bcDot3TexCombiner,bcBasicARBFP);
   TBumpMapCapabilities = set of TBumpMapCapability;
 
@@ -133,7 +133,7 @@ type
     DownShift: TShiftState;
     lock_Zoom,SkipIdent,AbortSliceLoading,SaveShowScale : boolean;
     BumpMapLimit1K,moveok: boolean;
-    startl,startb,startxx,startyy : single;
+    startl,startb : single;
     startx, starty, ShadowOffset : integer;
     satl,satb,satr,satli,satlc: single;
     blankbmp: Tbitmap;
@@ -266,7 +266,7 @@ type
     procedure PushLabel;
   public
     { Declarations publiques }
-    distancestart: boolean;
+    distancestart,distanceendsegment: boolean;
     procedure AssignMoon(Source: TF_moon);
     procedure Init(check:boolean=true);
     Procedure GetZoomInfo;
@@ -1283,6 +1283,7 @@ begin
  FCCDh:=0;
  curlabel:=0;
  moveok:=false;
+ distancestart:=false;
 end;
 
 procedure Tf_moon.Init(check:boolean=true);
@@ -1543,13 +1544,14 @@ begin
   end;
   lastyzoom:=y;
   moveok:=true;
-  if FMeasuringDistance and (Button = mbLeft) then
+  if FMeasuringDistance and (Button = mbLeft) and (not distancestart) then
   begin
     if Screen2Moon(x,y,startl,startb) then begin
       startx  := x;
       starty  := y;
-      Moon2World(startl,startb,startxx,startyy,z);
       distancestart := True;
+      distanceendsegment := False;
+      NumDist:=1;
       SetMark(0, 0, '');
       GLLinesDistance.LineColor.AsWinColor:=MarkColor;
       GLLinesDistance.LineWidth:=2;
@@ -1633,7 +1635,6 @@ begin
   if FMeasuringDistance and distancestart then
      begin
        MeasureDistance(x, y);
-//       ShowCoordinates(x, y);
      end
   else
   // Move map
@@ -1697,8 +1698,14 @@ begin
   // Distance
   if measuringdistance and distancestart then
   begin
-    distancestart := False;
-    MeasureDistance(x, y);
+    if (ssShift in Shift)and(NumDist<(MaxMeasurePoint-1)) then begin
+      distanceendsegment := True;
+      MeasureDistance(x, y);
+    end
+    else begin
+      distancestart := False;
+      MeasureDistance(x, y);
+    end;
   end
   else begin
     // Identification
@@ -2549,11 +2556,13 @@ end;
 procedure Tf_moon.MeasureDistance(x, y: integer);
 const   qr=0.5005;
 var
-  i: integer;
-  xx, yy, zz, l, b, d, s,step: single;
-  lat,lon: double;
-  m1,m2,m3,m4: string;
+  i,j: integer;
+  xx, yy, zz, l, b, d, s,step,startxx,startyy: single;
+  lat,lon,dist,dista,sumx,sumy,A,cx,cy: double;
+  m1,m2,m3,m4,m5: string;
   gc: TGreatCircle;
+  pp: array[0..MaxMeasurePoint] of TDoublePoint;
+  C: TDoublePoint;
 procedure coords;
 var cl,sl,cb,sb: single;
 begin
@@ -2565,40 +2574,88 @@ begin
 end;
 begin
  if Screen2Moon(x,y,l,b) then begin
-  DistStartL:=startl;
-  DistStartB:=startb;
-  DistEndL:=l;
-  DistEndB:=b;
-  GreatCircle(startl,startb,l,b,Rmoon,gc);
-  m1 := formatfloat(f1,gc.dist);
-  Moon2World(l,b,xx,yy,zz);
-  xx := startxx - xx;
-  yy := startyy - yy;
-  d  := sqrt(xx * xx + yy * yy) * rad2deg*FDiameter;
-  if not VisibleSideLock then
-     d:=d*FEarthDistance/MeanEarthDistance;
-  m2 := Deptostr(d);
-  i:=pos(ldeg,m2)+length(ldeg);
-  m2 := copy(Deptostr(d), i, 99);
-  xx := startx + ((x - startx) / 2);
-  yy := starty + ((y - starty) / 2);
-  Screen2Moon(round(xx),round(yy),l,b);    // replace by world2moon
-  m3 := formatfloat(f1, rad2deg*l);
-  m4 := formatfloat(f1, rad2deg*b);
-  x := x - startx;
-  y := y - starty;
-  d := sqrt(x * x + y * y);
-
+  DistStartL[NumDist-1]:=startl;
+  DistStartB[NumDist-1]:=startb;
+  DistEndL[NumDist-1]:=l;
+  DistEndB[NumDist-1]:=b;
   GLLinesDistance.Nodes.Clear;
-  step:=(gc.s02-gc.s01)/10;
-  for i:=0 to 10 do begin
-    s:=gc.s01+i*step;
-    PointOnCircle(gc,s,lat,lon);
-    coords;
-    gllinesdistance.Nodes.AddNode(xx,zz,yy);
+  dist:=0;
+  dista:=0;
+  sumx:=DistStartL[0];
+  sumy:=DistStartB[0];
+  for j:=0 to NumDist-1 do begin
+    GreatCircle(DistStartL[j],DistStartB[j],DistEndL[j],DistEndB[j],Rmoon,gc);
+    // distance in km
+    dist:=dist+gc.dist;
+    // apparent distance in arcmin
+    Moon2World(DistStartL[j],DistStartB[j],startxx,startyy,zz);
+    Moon2World(DistEndL[j],DistEndB[j],xx,yy,zz);
+    xx := startxx - xx;
+    yy := startyy - yy;
+    d  := sqrt(xx * xx + yy * yy) * rad2deg*FDiameter;
+    if not VisibleSideLock then
+       d:=d*FEarthDistance/MeanEarthDistance;
+    dista:=dista+d;
+    // plot
+    step:=(gc.s02-gc.s01)/10;
+    for i:=0 to 10 do begin
+      s:=gc.s01+i*step;
+      PointOnCircle(gc,s,lat,lon);
+      coords;
+      gllinesdistance.Nodes.AddNode(xx,zz,yy);
+    end;
   end;
-
-  if assigned(FonMoonMeasure) then FonMoonMeasure(self,m1,m2,m3,m4);
+  m1 := formatfloat(f1,dist)+blank+rsm_18;
+  m2 := Deptostr(dista);
+  i:=pos(ldeg,m2)+length(ldeg);
+  m2 := copy(m2, i, 99);
+  if distancestart then begin
+    m3:='';
+    m4:='';
+    m5:='';
+  end
+  else begin
+    if numdist>1 then begin
+      m3:='';
+      m4:='';
+      m5:='';
+      // close path to compute area and centroid
+      DistStartL[NumDist]:=DistEndL[NumDist-1];
+      DistStartB[NumDist]:=DistEndB[NumDist-1];
+      DistEndL[NumDist]:=DistStartL[0];
+      DistEndB[NumDist]:=DistStartB[0];
+      inc(NumDist);
+      try
+      for j:=0 to NumDist-1 do begin
+        pp[j].X:=DistEndL[j];
+        pp[j].Y:=DistEndB[j];
+      end;
+      A:=PolygonArea(NumDist,pp);
+      if A<>0 then begin
+        C:=PolygonCentroid(NumDist,pp,A);
+        if InsidePolygon(NumDist,pp,C) then begin
+          m3 := formatfloat(f1, rad2deg*C.x);
+          m4 := formatfloat(f1, rad2deg*C.y);
+          m5 := FormatFloat(f1, abs(Rmoon*Rmoon*A))+blank+rsm_18+#194+#178;
+        end;
+      end;
+      dec(NumDist); // not closed for profile plot
+      except
+      end;
+    end
+    else begin
+      m3 := formatfloat(f1, rad2deg*(DistStartL[0]+DistEndL[0])/2);
+      m4 := formatfloat(f1, rad2deg*(DistStartB[0]+DistEndB[0])/2);
+      m5 := '';
+    end;
+  end;
+  if assigned(FonMoonMeasure) then FonMoonMeasure(self,m1,m2,m3,m4,m5);
+  if distanceendsegment then begin // next segment
+    startl:=DistEndL[NumDist-1];
+    startb:=DistEndB[NumDist-1];
+    inc(NumDist);
+    distanceendsegment:=False;
+  end;
 end;
 end;
 

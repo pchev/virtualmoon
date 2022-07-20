@@ -42,6 +42,12 @@ TGreatCircle = record
   l0,a0,dist,s01,s02: double;         // computed
 end;
 
+TDoublePoint = record
+  X:double;
+  Y:double;
+end;
+
+
 function rmod(x,y:Double):Double;
 Function NormRA(ra : double):double;
 Function sgn(x:Double):Double ;
@@ -126,6 +132,9 @@ Procedure SetImgLum(img:Tbitmap; lum:integer);
 Procedure ShowHelpDoc(helpfile : string; suffix:string; directory: string);
 procedure GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
 procedure PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
+function PolygonArea(N:integer;Points:Array of TDoublePoint): double;
+function PolygonCentroid(N:integer;Points:Array of TDoublePoint;area:double): TDoublePoint;
+function InsidePolygon(N:integer;Points:Array of TDoublePoint;p:TDoublePoint): boolean;
 
 var traceon : boolean;
     hp: string;
@@ -1994,6 +2003,71 @@ begin
   la:=ArcTan2(cos(c.a0)*sin(s),sqrt((cos(s))**2+((sin(c.a0))**2)*((sin(s))**2)));
   ll:=ArcTan2(sin(c.a0)*sin(s),cos(s));
   lo:=ll+c.l0;
+end;
+
+function PolygonArea(N:integer;Points:Array of TDoublePoint): double;
+// https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
+var
+  i,j:integer;
+  area:double;
+begin
+  area:=0;
+  For i:= 0 to N-1 do
+  begin
+    j:=(i + 1) mod N;
+    area := area + Points[i].X * Points[j].Y - Points[j].X * Points[i].Y;
+  end;
+  PolygonArea := area / 2;
+end;
+
+function PolygonCentroid(N:integer;Points:Array of TDoublePoint;area:double): TDoublePoint;
+// https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
+var
+  i,j:integer;
+  C:TDoublePoint;
+  P:double;
+begin
+    C.X := 0;
+    C.Y := 0;
+    For i := 0 to N-1 do
+    begin
+         j:=(i + 1) mod N;
+         P:= Points[i].X * Points[j].Y - Points[j].X * Points[i].Y;
+         C.X := C.X + (Points[i].X + Points[j].X) * P;
+         C.Y := C.Y + (Points[i].Y + Points[j].Y) * P;
+    end;
+    C.X := C.X / (6 * area);
+    C.Y := C.Y / (6 * area);
+    PolygonCentroid := C;
+end;
+
+function InsidePolygon(N:integer;Points:Array of TDoublePoint;p:TDoublePoint): boolean;
+// http://paulbourke.net/geometry/polygonmesh/
+var i,counter: integer;
+    xinters: double;
+    p1,p2: TDoublePoint;
+begin
+  counter:=0;
+  p1:=Points[0];
+  for i:=0 to N-1 do begin
+     p2:=Points[i mod N];
+     if p.Y>min(p1.y,p2.y) then begin
+       if p.Y<=max(p1.Y,p2.y) then begin
+         if p.x<=max(p1.x,p2.x) then begin
+           if p1.y<>p2.y then begin
+             xinters:=(p.y-p1.y)*(p2.x-p1.x)/(p2.y-p1.y)+p1.x;
+             if (p1.x=p2.x) or(p.x<=xinters) then
+                 inc(counter);
+           end;
+         end;
+       end;
+     end;
+     p1:=p2;
+  end;
+  if (counter mod 2)=0 then
+    result:=false
+  else
+    result:=true;
 end;
 
 end.

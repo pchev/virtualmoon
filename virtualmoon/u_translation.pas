@@ -373,6 +373,7 @@ rsElevation = 'Elevation';
 rsFrom = 'From';
 rsTo = 'To';
 rsUsing = 'Using';
+rsArea = 'Area';
 
 implementation
 

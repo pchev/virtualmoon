@@ -51,6 +51,14 @@ object f_demprofile: Tf_demprofile
       OnResize = DemProfileResize
       object DemProfileLineSeries1: TLineSeries
       end
+      object DemProfileLineSeries2: TLineSeries
+        Legend.Visible = False
+        ColorEach = ceLineBefore
+        LinePen.Color = clNone
+        MarkPositions = lmpPositive
+        Marks.Visible = False
+        ToolTargets = []
+      end
     end
     object Panel2: TPanel
       Left = 1

@@ -485,17 +485,17 @@ object Form1: TForm1
   end
   object tabs: TPanel
     Left = 744
-    Height = 514
+    Height = 549
     Top = 35
     Width = 356
-    ClientHeight = 514
+    ClientHeight = 549
     ClientWidth = 356
     Font.Height = 13
     ParentFont = False
     TabOrder = 7
     object PageControl1: TPageControl
       Left = 1
-      Height = 512
+      Height = 547
       Top = 1
       Width = 354
       ActivePage = Position
@@ -509,7 +509,7 @@ object Form1: TForm1
       Options = [nboMultiLine]
       object Position: TTabSheet
         Caption = 'Information'
-        ClientHeight = 482
+        ClientHeight = 517
         ClientWidth = 344
         Font.Height = 13
         ParentFont = False
@@ -567,7 +567,7 @@ object Form1: TForm1
         end
         object Desc1: TIpHtmlPanel
           Left = 0
-          Height = 324
+          Height = 359
           Top = 109
           Width = 344
           Align = alClient
@@ -594,7 +594,7 @@ object Form1: TForm1
         object Panel2: TPanel
           Left = 0
           Height = 49
-          Top = 433
+          Top = 468
           Width = 344
           Align = alBottom
           BevelOuter = bvNone
@@ -773,13 +773,13 @@ object Form1: TForm1
       end
       object Notes: TTabSheet
         Caption = 'Notes'
-        ClientHeight = 482
+        ClientHeight = 517
         ClientWidth = 344
         Font.Height = 13
         ParentFont = False
         object Memo1: TMemo
           Left = 0
-          Height = 424
+          Height = 459
           Top = 58
           Width = 344
           Align = alClient
@@ -843,7 +843,7 @@ object Form1: TForm1
       end
       object Ephemerides: TTabSheet
         Caption = 'Ephemerides'
-        ClientHeight = 482
+        ClientHeight = 517
         ClientWidth = 344
         Font.Height = 13
         ParentFont = False
@@ -1411,7 +1411,7 @@ object Form1: TForm1
         end
         object StringGrid1: TStringGrid
           Left = 0
-          Height = 361
+          Height = 396
           Top = 121
           Width = 344
           Align = alClient
@@ -1434,7 +1434,7 @@ object Form1: TForm1
       end
       object Terminateur: TTabSheet
         Caption = 'Terminateur'
-        ClientHeight = 482
+        ClientHeight = 517
         ClientWidth = 344
         Font.Height = 13
         ParentFont = False
@@ -1543,7 +1543,7 @@ object Form1: TForm1
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 60
+            ClientHeight = 61
             ClientWidth = 253
             Columns = 2
             Font.Height = 13
@@ -1587,7 +1587,7 @@ object Form1: TForm1
         end
         object ListBox1: TListBox
           Left = 0
-          Height = 319
+          Height = 354
           Top = 163
           Width = 344
           Align = alClient
@@ -1604,21 +1604,21 @@ object Form1: TForm1
       end
       object Outils: TTabSheet
         Caption = 'Outils'
-        ClientHeight = 482
+        ClientHeight = 517
         ClientWidth = 344
         Font.Height = 13
         ParentFont = False
         object GroupBox3: TGroupBox
           Left = 8
           Height = 326
-          Top = 148
-          Width = 253
+          Top = 200
+          Width = 304
           Caption = 'Satellisation'
-          ClientHeight = 324
-          ClientWidth = 251
+          ClientHeight = 307
+          ClientWidth = 302
           Font.Height = 13
           ParentFont = False
-          TabOrder = 6
+          TabOrder = 2
           Visible = False
           object Label4: TLabel
             Left = 16
@@ -1916,164 +1916,17 @@ object Form1: TForm1
             Visible = False
           end
         end
-        object Bevel4: TBevel
-          Left = 8
-          Height = 137
-          Top = 8
-          Width = 253
-          Shape = bsFrame
-        end
-        object Label24: TLabel
-          Left = 24
-          Height = 18
-          Top = 28
-          Width = 86
-          Caption = 'Distance reelle'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label25: TLabel
-          Left = 24
-          Height = 18
-          Top = 57
-          Width = 116
-          Caption = 'Distance apparente'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label1: TLabel
-          Left = 72
-          Height = 18
-          Top = 116
-          Width = 7
-          Caption = 'L'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label2: TLabel
-          Left = 134
-          Height = 18
-          Top = 116
-          Width = 8
-          Caption = 'B'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label3: TLabel
-          Left = 24
-          Height = 18
-          Top = 116
-          Width = 40
-          Caption = 'Centre'
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label23: TLabel
-          Left = 16
-          Height = 18
-          Top = 4
-          Width = 57
-          Caption = ' Distance '
-          Color = clWindow
-          Font.Height = 13
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Button11: TSpeedButton
-          Left = 24
-          Height = 25
-          Top = 81
-          Width = 112
-          Caption = 'Start'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = Button11Click
-          ParentFont = False
-        end
-        object Edit1: TEdit
-          Left = 162
-          Height = 30
-          Top = 24
-          Width = 73
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          ReadOnly = True
-          TabOrder = 0
-        end
-        object Edit2: TEdit
-          Left = 162
-          Height = 30
-          Top = 52
-          Width = 73
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          ReadOnly = True
-          TabOrder = 1
-        end
-        object Edit3: TEdit
-          Left = 83
-          Height = 30
-          Top = 112
-          Width = 41
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          ReadOnly = True
-          TabOrder = 2
-        end
-        object Edit4: TEdit
-          Left = 143
-          Height = 30
-          Top = 112
-          Width = 41
-          Font.Height = 13
-          ParentColor = True
-          ParentFont = False
-          ReadOnly = True
-          TabOrder = 3
-        end
-        object Enregistredist: TSpeedButton
-          Left = 195
-          Height = 25
-          Top = 112
-          Width = 40
-          Caption = 'Copier'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = EnregistredistClick
-          ParentFont = False
-        end
         object PanelRot: TPanel
           Left = 8
           Height = 165
-          Top = 148
-          Width = 253
+          Top = 200
+          Width = 305
           BevelInner = bvLowered
           ClientHeight = 165
-          ClientWidth = 253
+          ClientWidth = 305
           Font.Height = 13
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 1
           object Label40: TLabel
             Left = 9
             Height = 18
@@ -2114,7 +1967,7 @@ object Form1: TForm1
             Left = 9
             Height = 21
             Top = 97
-            Width = 61
+            Width = 60
             Caption = 'Miroir'
             Font.Height = 13
             OnClick = CheckBox2Click
@@ -2125,7 +1978,7 @@ object Form1: TForm1
             Left = 9
             Height = 21
             Top = 118
-            Width = 207
+            Width = 200
             Caption = 'Pole celeste toujours en haut.'
             Font.Height = 13
             OnClick = CheckBox1Click
@@ -2147,7 +2000,7 @@ object Form1: TForm1
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 22
+            ClientHeight = 23
             ClientWidth = 224
             Columns = 2
             Font.Height = 13
@@ -2163,7 +2016,7 @@ object Form1: TForm1
             Left = 9
             Height = 21
             Top = 139
-            Width = 110
+            Width = 108
             Caption = 'Zenith on top '
             Font.Height = 13
             OnClick = CheckBox4Click
@@ -2172,16 +2025,16 @@ object Form1: TForm1
           end
         end
         object PanelTel: TPanel
-          Left = 8
+          Left = 9
           Height = 162
-          Top = 314
-          Width = 253
+          Top = 360
+          Width = 304
           BevelInner = bvLowered
           ClientHeight = 162
-          ClientWidth = 253
+          ClientWidth = 304
           Font.Height = 13
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 0
           object Label41: TLabel
             Left = 7
             Height = 18
@@ -2261,22 +2114,176 @@ object Form1: TForm1
             TabOrder = 1
           end
         end
-        object DemProfile: TSpeedButton
-          Left = 162
-          Height = 25
-          Top = 81
-          Width = 73
-          Caption = 'Profile'
-          Flat = True
-          Font.Height = 13
-          Transparent = False
-          OnClick = DemProfileClick
-          ParentFont = False
+        object GroupBoxDistance: TGroupBox
+          Left = 8
+          Height = 200
+          Top = 0
+          Width = 305
+          Caption = 'Distance'
+          ClientHeight = 181
+          ClientWidth = 303
+          TabOrder = 3
+          object Label24: TLabel
+            Left = 16
+            Height = 18
+            Top = 52
+            Width = 86
+            Caption = 'Distance reelle'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object EditDisrtR: TEdit
+            Left = 154
+            Height = 30
+            Top = 48
+            Width = 73
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 0
+          end
+          object Label25: TLabel
+            Left = 16
+            Height = 18
+            Top = 82
+            Width = 116
+            Caption = 'Distance apparente'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object EditDistA: TEdit
+            Left = 155
+            Height = 30
+            Top = 80
+            Width = 73
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 1
+          end
+          object Button11: TSpeedButton
+            Left = 16
+            Height = 25
+            Top = 9
+            Width = 112
+            Caption = 'Start'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = Button11Click
+            ParentFont = False
+          end
+          object DemProfile: TSpeedButton
+            Left = 155
+            Height = 25
+            Top = 8
+            Width = 73
+            Caption = 'Profile'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = DemProfileClick
+            ParentFont = False
+          end
+          object Enregistredist: TSpeedButton
+            Left = 240
+            Height = 25
+            Top = 9
+            Width = 40
+            Caption = 'Copier'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = EnregistredistClick
+            ParentFont = False
+          end
+          object Label3: TLabel
+            Left = 16
+            Height = 18
+            Top = 116
+            Width = 40
+            Caption = 'Centre'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object Label1: TLabel
+            Left = 64
+            Height = 18
+            Top = 116
+            Width = 7
+            Caption = 'L'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object EditCenterL: TEdit
+            Left = 76
+            Height = 30
+            Top = 112
+            Width = 60
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 2
+          end
+          object Label2: TLabel
+            Left = 152
+            Height = 18
+            Top = 116
+            Width = 8
+            Caption = 'B'
+            Color = clWindow
+            Font.Height = 13
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
+          object EditCenterB: TEdit
+            Left = 168
+            Height = 30
+            Top = 112
+            Width = 60
+            Font.Height = 13
+            ParentColor = True
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 3
+          end
+          object EditArea: TEdit
+            Left = 76
+            Height = 30
+            Top = 144
+            Width = 151
+            ReadOnly = True
+            TabOrder = 4
+          end
+          object Label26: TLabel
+            Left = 16
+            Height = 18
+            Top = 148
+            Width = 27
+            Caption = 'Area'
+            ParentColor = False
+          end
         end
       end
       object Reglage: TTabSheet
         Caption = 'Reglage'
-        ClientHeight = 482
+        ClientHeight = 517
         ClientWidth = 344
         Font.Height = 13
         ParentFont = False
@@ -2591,13 +2598,13 @@ object Form1: TForm1
       end
       object dbtab: TTabSheet
         Caption = 'Database'
-        ClientHeight = 482
+        ClientHeight = 517
         ClientWidth = 344
         Font.Height = 13
         ParentFont = False
         object StringGrid2: TStringGrid
           Left = 0
-          Height = 449
+          Height = 484
           Top = 0
           Width = 344
           Align = alClient
@@ -2614,7 +2621,7 @@ object Form1: TForm1
         object Panel6: TPanel
           Left = 0
           Height = 33
-          Top = 449
+          Top = 484
           Width = 344
           Align = alBottom
           ClientHeight = 33

@@ -49,6 +49,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    Button11: TSpeedButton;
     Button12: TSpeedButton;
     Button13: TSpeedButton;
     Button16: TSpeedButton;
@@ -63,17 +64,30 @@ type
     CheckBox6: TCheckBox;
     ComboBox5: TComboBox;
     ComboBox6: TComboBox;
+    DemProfile: TSpeedButton;
     Desc1:   TIpHtmlPanel;
     Edit6: TEdit;
-    DemProfile: TSpeedButton;
+    EditArea: TEdit;
+    EditCenterB: TEdit;
+    EditCenterL: TEdit;
+    EditDisrtR: TEdit;
+    EditDistA: TEdit;
+    Enregistredist: TSpeedButton;
     FilePopup: TPopupMenu;
+    GroupBoxDistance: TGroupBox;
     HelpPopup: TPopupMenu;
     ImageListNight: TImageList;
+    Label1: TLabel;
     Label17: TLabel;
     Label18: TLabel;
+    Label2: TLabel;
     Label22: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
     Label27: TLabel;
     Label29: TLabel;
+    Label3: TLabel;
     Label30: TLabel;
     Label31: TLabel;
     Label32: TLabel;
@@ -230,13 +244,6 @@ type
     x21:     TMenuItem;
     x41:     TMenuItem;
     Outils:  TTabSheet;
-    Bevel4:  TBevel;
-    Label23: TLabel;
-    Button11: TSpeedButton;
-    Edit1:   TEdit;
-    Edit2:   TEdit;
-    Label24: TLabel;
-    Label25: TLabel;
     Distance1: TMenuItem;
     CartesduCiel1: TMenuItem;
     Imprimer1: TMenuItem;
@@ -272,12 +279,6 @@ type
     StringGrid2: TStringGrid;
     Panel6:  TPanel;
     Button9: TSpeedButton;
-    Edit3:   TEdit;
-    Edit4:   TEdit;
-    Label1:  TLabel;
-    Label2:  TLabel;
-    Label3:  TLabel;
-    Enregistredist: TSpeedButton;
     btnEffacer: TSpeedButton;
     ToolButton3: TToolButton;
     BMP15001: TMenuItem;
@@ -586,7 +587,7 @@ type
                      OnMoon: boolean; Lon, Lat: Single);
     procedure MoonMoveEvent(Sender: TObject; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
-    procedure MoonMeasureEvent(Sender: TObject; m1,m2,m3,m4: string);
+    procedure MoonMeasureEvent(Sender: TObject; m1,m2,m3,m4,m5: string);
     public
     autolabelcolor: Tcolor;
     lastx, lasty, lastyzoom, MaxSprite: integer;
@@ -844,7 +845,7 @@ begin
     distance1.Caption := rst_69;
     FullScreen1.Caption:=rsFullScreen;
     ToolButton13.Hint:=rsFullScreen;
-    label23.Caption  := b + distance1.Caption + b;
+    GroupBoxDistance.Caption  := distance1.Caption;
     label24.Caption  := rst_70;
     label25.Caption  := rst_71;
     CheckBox2.Caption := rst_74;
@@ -878,6 +879,7 @@ begin
     label1.Caption   := rst_153;
     label2.Caption   := rst_154;
     label21.Caption  := rst_155;
+    label26.Caption  := rsArea;
     Encyclopedia1.Caption := rst_165;
     Snapshot1.Caption := rst_167;
     LibrationButton.hint := rst_175;
@@ -2939,14 +2941,14 @@ var
   ls, bs, ws, ls2, bs2, quadrant, dbn, defaultname: string;
   sel:      TGridRect;
 begin
-  if trim(edit1.Text) = '' then
+  if trim(EditDisrtR.Text) = '' then
     exit;
-  ws := words(edit1.Text, '', 1, 1);
+  ws := words(EditDisrtR.Text, '', 1, 1);
   i  := pos(rsm_18, ws);
   if i > 0 then
     ws := copy(ws, 1, i - 1);
-  ls   := edit3.Text;
-  bs   := edit4.Text;
+  ls   := EditCenterL.Text;
+  bs   := EditCenterB.Text;
   w    := strtofloat(ws);
   l    := strtofloat(ls);
   b    := strtofloat(bs);
@@ -6083,13 +6085,14 @@ begin
   activemoon.RefreshAll;
 end;
 
-procedure TForm1.MoonMeasureEvent(Sender: TObject; m1,m2,m3,m4: string);
+procedure TForm1.MoonMeasureEvent(Sender: TObject; m1,m2,m3,m4,m5: string);
 begin
-  edit1.Text := m1 + rsm_18;
-  edit2.Text := m2;
-  edit3.Text := m3;
-  edit4.Text := m4;
-  if not Tf_moon(sender).distancestart and f_demprofile.Visible then begin
+  EditDisrtR.Text := m1;
+  EditDistA.Text := m2;
+  EditCenterL.Text := m3;
+  EditCenterB.Text := m4;
+  EditArea.Text := m5;
+  if (not Tf_moon(sender).distancestart) and f_demprofile.Visible then begin
     f_demprofile.PlotProfile(DistStartL,DistStartB,DistEndL,DistEndB);
   end;
 end;

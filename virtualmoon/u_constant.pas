@@ -66,6 +66,7 @@ const crlf = chr(10)+chr(13);
       ox=36; oy=36; os=1500; px=0.95467; py=0.95467; //image 1500x1500, lune 1432x1432
       nummessage = 75;
       MaxLabel=500;
+      MaxMeasurePoint=100;
       InitialSprite=1000;
       AbsoluteMaxSprite=5000;
       Label3dSize=1;
@@ -227,8 +228,8 @@ Var  Splashversion, compile_time, compile_version: string;
      LinuxDesktop: integer = 0;  // FreeDesktop=0, KDE=1, GNOME=2, Other=3
      Params : TStringList;
      OptionalFeatureName: array[1..nOptionalFeature]of string;
-     de_type, de_year: integer;
-     DistStartL,DistStartB,DistEndL,DistEndB: double;
+     de_type, de_year, NumDist: integer;
+     DistStartL,DistStartB,DistEndL,DistEndB: array[0..MaxMeasurePoint] of double;
 {$ifdef darwin}
      OpenFileCMD:string = 'open';   //
 {$else}
