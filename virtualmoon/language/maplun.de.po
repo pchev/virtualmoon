@@ -34,8 +34,16 @@ msgstr "Airbrush Relief mit Albedo"
 msgid "Airbursh relief without albedo"
 msgstr "Airbrush Relief ohne Albedo"
 
+#: u_translation.rsamplificatio
+msgid "Vertical amplification"
+msgstr ""
+
 #: u_translation.rsapparentsize
 msgid "Apparent size :"
+msgstr ""
+
+#: u_translation.rsarea
+msgid "Area"
 msgstr ""
 
 #: u_translation.rsascomdrivere
@@ -43,6 +51,7 @@ msgid "The ASCOM driver report an error"
 msgstr ""
 
 #: u_translation.rsascomremote
+#, object-pascal-format
 msgid "ASCOM Alpaca is available on %s"
 msgstr ""
 
@@ -142,6 +151,10 @@ msgstr ""
 msgid "Ejecta thick at 5 radius :"
 msgstr ""
 
+#: u_translation.rselevation
+msgid "Elevation"
+msgstr ""
+
 #: u_translation.rselgerdescrip
 msgid "Elger description (1895):"
 msgstr ""
@@ -177,6 +190,10 @@ msgstr ""
 #: u_translation.rsformat
 msgid "0"
 msgstr "0"
+
+#: u_translation.rsfrom
+msgid "From"
+msgstr ""
 
 #: u_translation.rsfullscreen
 msgid "Full screen (Esc)"
@@ -221,6 +238,10 @@ msgstr "Historisch"
 #: u_translation.rshours
 msgid "Hours"
 msgstr "Stunden"
+
+#: u_translation.rsiauinformati
+msgid "IAU information:"
+msgstr ""
 
 #: u_translation.rsiautype
 msgid "IAU type :"
@@ -273,6 +294,10 @@ msgstr "Lokaler Zenit oben"
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
 msgstr "LOPAM fotografisch"
+
+#: u_translation.rslunarimpactc
+msgid "Lunar Impact Crater Database:"
+msgstr ""
 
 #: u_translation.rsmeltingdepth
 msgid "Melting depth :"
@@ -772,6 +797,10 @@ msgstr "Textur LRO/WAC fotografisch in hoher Auflösung"
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
 msgstr "Virtual Moon Atlas"
+
+#: u_translation.rsto
+msgid "To"
+msgstr ""
 
 #: u_translation.rstopocentric
 msgid "Topocentric"
@@ -1413,7 +1442,12 @@ msgstr "Unbenannte Formationen auf der Vorderseite"
 msgid "Unpark"
 msgstr ""
 
+#: u_translation.rsusing
+msgid "Using"
+msgstr ""
+
 #: u_translation.rsveryhighreso
+#, object-pascal-format
 msgid "Very high resolution %s texture"
 msgstr ""
 

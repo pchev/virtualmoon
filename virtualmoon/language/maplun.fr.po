@@ -1,13 +1,13 @@
-# pch <pch@ap-i.net>, 2018, 2019, 2020.
+# pch <pch@ap-i.net>, 2018, 2019, 2020, 2022.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2020-05-03 22:07+0200\n"
+"PO-Revision-Date: 2022-07-20 17:20+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 21.12.3\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language: fr\n"
@@ -33,15 +33,24 @@ msgstr "Relief aérographe avec albédo"
 msgid "Airbursh relief without albedo"
 msgstr "Relief aérographe sans albedo"
 
+#: u_translation.rsamplificatio
+msgid "Vertical amplification"
+msgstr "Amplification verticale"
+
 #: u_translation.rsapparentsize
 msgid "Apparent size :"
 msgstr "Taille apparente :"
+
+#: u_translation.rsarea
+msgid "Area"
+msgstr "Surface"
 
 #: u_translation.rsascomdrivere
 msgid "The ASCOM driver report an error"
 msgstr "Le pilote ASCOM rapporte une erreur"
 
 #: u_translation.rsascomremote
+#, object-pascal-format
 msgid "ASCOM Alpaca is available on %s"
 msgstr "ASCOM Alpaca est disponible pour %s"
 
@@ -141,6 +150,10 @@ msgstr "Epaisseur des éjectas à 3 rayons de distance :"
 msgid "Ejecta thick at 5 radius :"
 msgstr "Epaisseur des éjectas à 5 rayons de distance :"
 
+#: u_translation.rselevation
+msgid "Elevation"
+msgstr "Altitude"
+
 #: u_translation.rselgerdescrip
 msgid "Elger description (1895):"
 msgstr "Description de Elger (1895) :"
@@ -176,6 +189,10 @@ msgstr "Diamètre du fond :"
 #: u_translation.rsformat
 msgid "0"
 msgstr "1"
+
+#: u_translation.rsfrom
+msgid "From"
+msgstr "De"
 
 #: u_translation.rsfullscreen
 msgid "Full screen (Esc)"
@@ -220,6 +237,10 @@ msgstr "Historique"
 #: u_translation.rshours
 msgid "Hours"
 msgstr "Heures"
+
+#: u_translation.rsiauinformati
+msgid "IAU information:"
+msgstr "Information IAU:"
 
 #: u_translation.rsiautype
 msgid "IAU type :"
@@ -272,6 +293,10 @@ msgstr "Zénith local en haut"
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
 msgstr "Photographique LOPAM"
+
+#: u_translation.rslunarimpactc
+msgid "Lunar Impact Crater Database:"
+msgstr "Lunar Impact Crater Database:"
 
 #: u_translation.rsmeltingdepth
 msgid "Melting depth :"
@@ -770,6 +795,10 @@ msgstr "Texture Photographique LRO/WAC Haute Résolution"
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
 msgstr "Atlas Virtuel de la Lune"
+
+#: u_translation.rsto
+msgid "To"
+msgstr "Vers"
 
 #: u_translation.rstopocentric
 msgid "Topocentric"
@@ -1411,7 +1440,12 @@ msgstr "Formation non nommée"
 msgid "Unpark"
 msgstr "Unpark"
 
+#: u_translation.rsusing
+msgid "Using"
+msgstr "Utilise"
+
 #: u_translation.rsveryhighreso
+#, object-pascal-format
 msgid "Very high resolution %s texture"
 msgstr "Texture très haute résolution %s"
 

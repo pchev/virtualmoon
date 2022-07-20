@@ -33,8 +33,16 @@ msgstr "Kresba s albedem"
 msgid "Airbursh relief without albedo"
 msgstr "Kresba bez albeda"
 
+#: u_translation.rsamplificatio
+msgid "Vertical amplification"
+msgstr ""
+
 #: u_translation.rsapparentsize
 msgid "Apparent size :"
+msgstr ""
+
+#: u_translation.rsarea
+msgid "Area"
 msgstr ""
 
 #: u_translation.rsascomdrivere
@@ -42,6 +50,7 @@ msgid "The ASCOM driver report an error"
 msgstr ""
 
 #: u_translation.rsascomremote
+#, object-pascal-format
 msgid "ASCOM Alpaca is available on %s"
 msgstr ""
 
@@ -141,6 +150,10 @@ msgstr ""
 msgid "Ejecta thick at 5 radius :"
 msgstr ""
 
+#: u_translation.rselevation
+msgid "Elevation"
+msgstr ""
+
 #: u_translation.rselgerdescrip
 msgid "Elger description (1895):"
 msgstr ""
@@ -175,6 +188,10 @@ msgstr ""
 
 #: u_translation.rsformat
 msgid "0"
+msgstr ""
+
+#: u_translation.rsfrom
+msgid "From"
 msgstr ""
 
 #: u_translation.rsfullscreen
@@ -220,6 +237,10 @@ msgstr ""
 #: u_translation.rshours
 msgid "Hours"
 msgstr "Hodiny"
+
+#: u_translation.rsiauinformati
+msgid "IAU information:"
+msgstr ""
 
 #: u_translation.rsiautype
 msgid "IAU type :"
@@ -272,6 +293,10 @@ msgstr "Lokální zenit nahoře"
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
 msgstr "LOPAM fotografie"
+
+#: u_translation.rslunarimpactc
+msgid "Lunar Impact Crater Database:"
+msgstr ""
 
 #: u_translation.rsmeltingdepth
 msgid "Melting depth :"
@@ -774,6 +799,10 @@ msgstr ""
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
+msgstr ""
+
+#: u_translation.rsto
+msgid "To"
 msgstr ""
 
 #: u_translation.rstopocentric
@@ -1416,7 +1445,12 @@ msgstr "Nepojmenované útvary"
 msgid "Unpark"
 msgstr ""
 
+#: u_translation.rsusing
+msgid "Using"
+msgstr ""
+
 #: u_translation.rsveryhighreso
+#, object-pascal-format
 msgid "Very high resolution %s texture"
 msgstr ""
 
