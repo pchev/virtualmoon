@@ -25,13 +25,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {$mode delphi}{$H+}
 interface
 
-uses Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
+uses
   {$ifdef mswindows}
     Windows, ShlObj,
   {$endif}
   {$ifdef unix}
     unix,baseunix,
   {$endif}
+    Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
     Controls, Process, IntfGraphics,FPImage,
     MaskEdit,Menus,Spin,CheckLst,Buttons, ExtCtrls,
     Forms,Graphics,StdCtrls,ComCtrls,Dialogs,Grids,PrintersDlgs,Printers;
