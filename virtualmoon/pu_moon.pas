@@ -2216,7 +2216,7 @@ PushLabel;
 end;
 
 procedure Tf_moon.Circle(lon,lat,r: single; c: tcolor);
-const   qr=0.5005;
+const   qr=0.5002;
 var newcircle : TGLLines;
     l,b,x,y,z,step: single;
     i,j,k,nl,nb,nk : Integer;
@@ -2554,7 +2554,7 @@ begin
 end;
 
 procedure Tf_moon.MeasureDistance(x, y: integer);
-const   qr=0.5005;
+const   qr=0.5008;
 var
   i,j: integer;
   xx, yy, zz, l, b, d, s,step,startxx,startyy: single;
