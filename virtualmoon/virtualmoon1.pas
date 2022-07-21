@@ -954,6 +954,7 @@ begin
     Form2.Setlang;
     f_features.SetLang;
     if f_ephem<>nil then f_ephem.Setlang;
+    if f_demprofile<>nil then f_demprofile.Setlang;
     f_tabsdock.SetLang;
     // Glossary form changed to a singleton-style function-accessible object
     GlossaryForm.InitGlossary;

@@ -1446,3 +1446,11 @@ msgstr ""
 msgid "min"
 msgstr ""
 
+#: u_translation:rsprofile
+msgid "Profile"
+msgstr ""
+
+#: u_translation:rsmax2
+msgid "Max"
+msgstr ""
+

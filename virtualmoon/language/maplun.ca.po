@@ -302,6 +302,10 @@ msgstr ""
 msgid "max"
 msgstr ""
 
+#: u_translation.rsmax2
+msgid "Max"
+msgstr ""
+
 #: u_translation.rsmeltingdepth
 msgid "Melting depth :"
 msgstr ""
@@ -681,6 +685,10 @@ msgstr ""
 
 #: u_translation.rsprocess
 msgid "Process :"
+msgstr ""
+
+#: u_translation.rsprofile
+msgid "Profile"
 msgstr ""
 
 #: u_translation.rsquitfull

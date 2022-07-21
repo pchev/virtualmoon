@@ -36,6 +36,7 @@ type
     Fdist,Fhmin,Fhmax,FScale: double;
     procedure AdjustScale;
   public
+    procedure SetLang;
     procedure PlotProfile(lon1,lat1,lon2,lat2: array of double);
     property demlib: TdemLibrary read Fdemlib write Fdemlib;
   end;
@@ -51,11 +52,16 @@ procedure Tf_demprofile.FormCreate(Sender: TObject);
 begin
  FScale:=0;
  ButtonReset.Down:=true;
- label2.Caption:=rsAmplificatio;
  LabelPos.Caption:='';
  label1.Caption:='';
- DemProfile.AxisList[0].Title.Caption:=rsElevation+' [m]';
- DemProfile.AxisList[1].Title.Caption:=rst_69+' [km]';
+end;
+
+procedure Tf_demprofile.SetLang;
+begin
+  ButtonReset.Caption:=rsMax2;
+  label2.Caption:=rsAmplificatio;
+  DemProfile.AxisList[0].Title.Caption:=rsElevation+' [m]';
+  DemProfile.AxisList[1].Title.Caption:=rst_69+' [km]';
 end;
 
 procedure Tf_demprofile.ButtonxClick(Sender: TObject);

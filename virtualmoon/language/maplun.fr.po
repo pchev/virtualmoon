@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-07-21 09:36+0200\n"
+"PO-Revision-Date: 2022-07-21 10:26+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -301,6 +301,10 @@ msgstr "Lunar Impact Crater Database:"
 #: u_translation.rsmax
 msgid "max"
 msgstr "max"
+
+#: u_translation.rsmax2
+msgid "Max"
+msgstr "Max"
 
 #: u_translation.rsmeltingdepth
 msgid "Melting depth :"
@@ -682,6 +686,10 @@ msgstr "Veuillez connecter le télescope et sélectionner une formation."
 #: u_translation.rsprocess
 msgid "Process :"
 msgstr "Processus de formation :"
+
+#: u_translation.rsprofile
+msgid "Profile"
+msgstr "Profil"
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
