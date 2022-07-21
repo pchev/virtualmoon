@@ -2656,7 +2656,7 @@ begin
             coords;
             line.Nodes.AddNode(xx,zz,yy);
           end;
-          SetMark(c.x,c.y,'+');
+          SetMark(c.x,c.y,rst_5);
           m3 := formatfloat(f1, rad2deg*C.x);
           m4 := formatfloat(f1, rad2deg*C.y);
           m5 := FormatFloat(f1, abs(Rmoon*Rmoon*A))+blank+rsm_18+#194+#178;
