@@ -2129,8 +2129,6 @@ if (GLDummyCubeMarks.Count > 0) and (GLDummyCubeMarks.Children[0].Visible or GLD
 GLHUDSpriteMark.Visible:=false;
 GLHUDTextMark.Visible:=false;
 GLHUDTextMarkShadow.Visible:=false;
-GLDummyCubeDistance.Visible:=false;
-distancestart := false;
 GLDummyCubeCircle.DeleteChildren;
 end;
 
@@ -2546,6 +2544,7 @@ begin
   begin
     GLSceneViewer1.Cursor:=crRetic;
     GLDummyCubeDistance.Visible:=false;
+    SetMark(0,0,'');
   end;
 end;
 
@@ -2576,6 +2575,7 @@ begin
   DistEndL[NumDist-1]:=l;
   DistEndB[NumDist-1]:=b;
   GLDummyCubeDistance.DeleteChildren;
+  SetMark(0,0,'');
   dist:=0;
   dista:=0;
   for j:=0 to NumDist-1 do begin
@@ -2654,6 +2654,7 @@ begin
             coords;
             line.Nodes.AddNode(xx,zz,yy);
           end;
+          SetMark(c.x,c.y,'+');
           m3 := formatfloat(f1, rad2deg*C.x);
           m4 := formatfloat(f1, rad2deg*C.y);
           m5 := FormatFloat(f1, abs(Rmoon*Rmoon*A))+blank+rsm_18+#194+#178;
