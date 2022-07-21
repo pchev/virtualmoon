@@ -340,6 +340,7 @@ object Form1: TForm1
       end
       object ToolButtonCalclun: TToolButton
         Left = 126
+        Hint = 'Calclun'
         Top = 0
         Caption = 'ToolButtonCalclun'
         ImageIndex = 29
@@ -559,7 +560,7 @@ object Form1: TForm1
           end
           object ComboBox1: TComboBox
             Left = 8
-            Height = 30
+            Height = 35
             Top = 8
             Width = 320
             DropDownCount = 15
@@ -614,7 +615,7 @@ object Form1: TForm1
           TabOrder = 2
           object Edit6: TEdit
             Left = 3
-            Height = 30
+            Height = 35
             Top = 8
             Width = 159
             Font.Height = 13
@@ -1218,7 +1219,7 @@ object Form1: TForm1
           end
           object jour: TLongEdit
             Left = 146
-            Height = 30
+            Height = 35
             Hint = '0..31'
             Top = 4
             Width = 26
@@ -1233,7 +1234,7 @@ object Form1: TForm1
           end
           object mois: TLongEdit
             Left = 103
-            Height = 30
+            Height = 35
             Hint = '0..12'
             Top = 4
             Width = 26
@@ -1248,7 +1249,7 @@ object Form1: TForm1
           end
           object annee: TLongEdit
             Left = 43
-            Height = 30
+            Height = 35
             Hint = '-2999..2999'
             Top = 4
             Width = 45
@@ -1264,7 +1265,7 @@ object Form1: TForm1
           end
           object seconde: TLongEdit
             Left = 146
-            Height = 30
+            Height = 35
             Hint = '0..59'
             Top = 36
             Width = 26
@@ -1279,7 +1280,7 @@ object Form1: TForm1
           end
           object minute: TLongEdit
             Left = 103
-            Height = 30
+            Height = 35
             Hint = '0..59'
             Top = 36
             Width = 26
@@ -1294,7 +1295,7 @@ object Form1: TForm1
           end
           object heure: TLongEdit
             Left = 59
-            Height = 30
+            Height = 35
             Hint = '0..23'
             Top = 36
             Width = 26
@@ -1333,7 +1334,7 @@ object Form1: TForm1
           end
           object UpDown1: TUpDown
             Left = 88
-            Height = 30
+            Height = 35
             Top = 4
             Width = 13
             Associate = annee
@@ -1345,7 +1346,7 @@ object Form1: TForm1
           end
           object UpDown2: TUpDown
             Left = 129
-            Height = 30
+            Height = 35
             Top = 4
             Width = 13
             Associate = mois
@@ -1357,7 +1358,7 @@ object Form1: TForm1
           end
           object UpDown3: TUpDown
             Left = 172
-            Height = 30
+            Height = 35
             Top = 4
             Width = 13
             Associate = jour
@@ -1369,7 +1370,7 @@ object Form1: TForm1
           end
           object UpDown4: TUpDown
             Left = 85
-            Height = 30
+            Height = 35
             Top = 36
             Width = 13
             Associate = heure
@@ -1381,7 +1382,7 @@ object Form1: TForm1
           end
           object UpDown5: TUpDown
             Left = 129
-            Height = 30
+            Height = 35
             Top = 36
             Width = 13
             Associate = minute
@@ -1393,7 +1394,7 @@ object Form1: TForm1
           end
           object UpDown6: TUpDown
             Left = 172
-            Height = 30
+            Height = 35
             Top = 36
             Width = 13
             Associate = seconde
@@ -1494,7 +1495,7 @@ object Form1: TForm1
           end
           object ComboBox2: TComboBox
             Left = 105
-            Height = 30
+            Height = 35
             Top = 4
             Width = 158
             Font.Height = 13
@@ -1514,7 +1515,7 @@ object Form1: TForm1
           end
           object ComboBox3: TComboBox
             Left = 105
-            Height = 30
+            Height = 35
             Top = 36
             Width = 57
             Font.Height = 13
@@ -1844,7 +1845,7 @@ object Form1: TForm1
           end
           object ComboBox4: TComboBox
             Left = 122
-            Height = 30
+            Height = 35
             Top = 16
             Width = 97
             Font.Height = 13
@@ -1888,7 +1889,7 @@ object Form1: TForm1
           end
           object ComboBox6: TComboBox
             Left = 124
-            Height = 30
+            Height = 35
             Top = 234
             Width = 105
             Font.Height = 13
@@ -1972,9 +1973,9 @@ object Form1: TForm1
           end
           object CheckBox2: TCheckBox
             Left = 9
-            Height = 21
+            Height = 23
             Top = 97
-            Width = 61
+            Width = 63
             Caption = 'Miroir'
             Font.Height = 13
             OnClick = CheckBox2Click
@@ -1983,9 +1984,9 @@ object Form1: TForm1
           end
           object CheckBox1: TCheckBox
             Left = 9
-            Height = 21
+            Height = 23
             Top = 118
-            Width = 207
+            Width = 209
             Caption = 'Pole celeste toujours en haut.'
             Font.Height = 13
             OnClick = CheckBox1Click
@@ -2021,9 +2022,9 @@ object Form1: TForm1
           end
           object CheckBox4: TCheckBox
             Left = 9
-            Height = 21
+            Height = 23
             Top = 139
-            Width = 110
+            Width = 112
             Caption = 'Zenith on top '
             Font.Height = 13
             OnClick = CheckBox4Click
@@ -2056,7 +2057,7 @@ object Form1: TForm1
           end
           object ComboBox5: TComboBox
             Left = 8
-            Height = 30
+            Height = 35
             Top = 26
             Width = 105
             Font.Height = 13
@@ -2111,9 +2112,9 @@ object Form1: TForm1
           end
           object CheckBox6: TCheckBox
             Left = 8
-            Height = 21
+            Height = 23
             Top = 90
-            Width = 108
+            Width = 110
             Caption = 'Track position'
             Font.Height = 13
             OnClick = CheckBox6Click
@@ -2144,7 +2145,7 @@ object Form1: TForm1
           end
           object EditDisrtR: TEdit
             Left = 154
-            Height = 30
+            Height = 35
             Top = 48
             Width = 73
             Font.Height = 13
@@ -2167,7 +2168,7 @@ object Form1: TForm1
           end
           object EditDistA: TEdit
             Left = 155
-            Height = 30
+            Height = 35
             Top = 80
             Width = 73
             Font.Height = 13
@@ -2240,7 +2241,7 @@ object Form1: TForm1
           end
           object EditCenterL: TEdit
             Left = 76
-            Height = 30
+            Height = 35
             Top = 112
             Width = 60
             Font.Height = 13
@@ -2263,7 +2264,7 @@ object Form1: TForm1
           end
           object EditCenterB: TEdit
             Left = 168
-            Height = 30
+            Height = 35
             Top = 112
             Width = 60
             Font.Height = 13
@@ -2274,7 +2275,7 @@ object Form1: TForm1
           end
           object EditArea: TEdit
             Left = 76
-            Height = 30
+            Height = 35
             Top = 144
             Width = 151
             ReadOnly = True
@@ -2534,9 +2535,9 @@ object Form1: TForm1
           TabOrder = 4
           object CheckBox8: TCheckBox
             Left = 6
-            Height = 21
+            Height = 23
             Top = 10
-            Width = 187
+            Width = 189
             Caption = 'Force texture compression'
             Font.Height = 13
             OnClick = CheckBox8Click
@@ -2545,9 +2546,9 @@ object Form1: TForm1
           end
           object CheckBox3: TCheckBox
             Left = 6
-            Height = 21
+            Height = 23
             Top = 32
-            Width = 81
+            Width = 83
             Caption = 'Anti-Alias'
             Font.Height = 13
             OnClick = CheckBox3Click
