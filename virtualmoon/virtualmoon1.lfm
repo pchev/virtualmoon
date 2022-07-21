@@ -1543,7 +1543,7 @@ object Form1: TForm1
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 61
+            ClientHeight = 60
             ClientWidth = 253
             Columns = 2
             Font.Height = 13
@@ -2169,16 +2169,18 @@ object Form1: TForm1
             ReadOnly = True
             TabOrder = 1
           end
-          object Button11: TSpeedButton
+          object ButtonMeasureDistance: TSpeedButton
             Left = 16
             Height = 25
             Top = 9
-            Width = 112
+            Width = 130
+            AllowAllUp = True
             Caption = 'Start'
             Flat = True
             Font.Height = 13
+            GroupIndex = 1234
             Transparent = False
-            OnClick = Button11Click
+            OnClick = ButtonMeasureDistanceClick
             ParentFont = False
           end
           object DemProfile: TSpeedButton

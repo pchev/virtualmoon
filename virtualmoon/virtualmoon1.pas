@@ -49,7 +49,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Button11: TSpeedButton;
+    ButtonMeasureDistance: TSpeedButton;
     Button12: TSpeedButton;
     Button13: TSpeedButton;
     Button16: TSpeedButton;
@@ -452,7 +452,7 @@ type
       Shift: TShiftState; X, Y: integer);
     procedure Button13MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: integer);
-    procedure Button11Click(Sender: TObject);
+    procedure ButtonMeasureDistanceClick(Sender: TObject);
     procedure Distance1Click(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
@@ -846,6 +846,8 @@ begin
     FullScreen1.Caption:=rsFullScreen;
     ToolButton13.Hint:=rsFullScreen;
     GroupBoxDistance.Caption  := distance1.Caption;
+    ButtonMeasureDistance.Caption:=rsm_52;
+    DemProfile.Caption:=rsProfile;
     label24.Caption  := rst_70;
     label25.Caption  := rst_71;
     CheckBox2.Caption := rst_74;
@@ -4917,10 +4919,7 @@ begin
   if pagecontrol1.ActivePage = Outils then
   begin
     RadioGroup2.Invalidate;
-    if activemoon.MeasuringDistance then
-      Button11.Caption      := rsm_53
-    else
-      Button11.Caption      := rsm_52;
+    ButtonMeasureDistance.Down:=activemoon.MeasuringDistance;
   end
   else
   begin
@@ -5289,18 +5288,10 @@ begin
   ToolButton6.Down  := CheckBox2.Checked;
 end;
 
-procedure TForm1.Button11Click(Sender: TObject);
+procedure TForm1.ButtonMeasureDistanceClick(Sender: TObject);
 begin
   activemoon.SatelliteRotation:=0;
-  activemoon.MeasuringDistance := not activemoon.MeasuringDistance;
-  if activemoon.MeasuringDistance then
-  begin
-    Button11.Caption      := rsm_53;
-  end
-  else
-  begin
-    Button11.Caption      := rsm_52;
-  end;
+  activemoon.MeasuringDistance := ButtonMeasureDistance.Down;
 end;
 
 procedure TForm1.Distance1Click(Sender: TObject);
@@ -5308,7 +5299,7 @@ begin
   if tabs.Width<=1 then ToolButtonHideToolsClick(Sender);
   Pagecontrol1.ActivePage := Outils;
   PageControl1Change(Sender);
-  Button11.Caption  := rsm_53;
+  ButtonMeasureDistance.Down:=true;
   activemoon.MeasuringDistance := true;
 end;
 
@@ -6127,14 +6118,7 @@ if mf<>activemoon then begin
     Rotation1.Visible := False;
     LibrationButton.Enabled := True;
   end;
-  if activemoon.MeasuringDistance then
-  begin
-    Button11.Caption:= rsm_53;
-  end
-  else
-  begin
-    Button11.Caption:= rsm_52;
-  end;
+  ButtonMeasureDistance.Down:=activemoon.MeasuringDistance;
   Poleorientation   := activemoon.Poleorientation;
   CameraOrientation := activemoon.Orientation;
   skiporient:=true;
@@ -6287,8 +6271,10 @@ begin
     FormPos(f_demprofile,mouse.CursorPos.X,mouse.CursorPos.Y);
     f_demprofile.show;
   end;
-  if not activemoon.MeasuringDistance then
-    Button11Click(sender);
+  if not activemoon.MeasuringDistance then begin
+    ButtonMeasureDistance.Down:=true;
+    activemoon.MeasuringDistance:=true;
+  end;
 end;
 
 procedure TForm1.AnchorClick(Sender: TObject);

@@ -376,6 +376,7 @@ rsUsing = 'Using';
 rsArea = 'Area';
 rsMax = 'max';
 rsMin = 'min';
+rsProfile = 'Profile';
 
 implementation
 
