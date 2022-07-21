@@ -1177,7 +1177,7 @@ try
   GetZoomInfo;
   RefreshAll;
   GetBounds(Flmin,Flmax,Fbmin,Fbmax);
-  Fdemlib.SetResolution(tag,5*GLSceneViewer1.Width/(abs(Flmax-Flmin)*rad2deg));
+  Fdemlib.SetResolution(tag,GLSceneViewer1.Width/(abs(Flmax-Flmin)*rad2deg));
 except
   on E: Exception do begin
   {$ifdef trace_debug}
