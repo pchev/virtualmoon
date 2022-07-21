@@ -1,7 +1,7 @@
 Virtual Moon Atlas
 
 Free software for Moon observation or survey
-For Windows 7/8/10
+For Windows 7/8/10/11
 
 Pictures to use with "Virtual Moon Atlas" software
 

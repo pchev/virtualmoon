@@ -1,5 +1,5 @@
 Virtual Moon Atlas
-Copyright (C) 2020 Christian Legrand & Patrick Chevalley
+Copyright (C) 2022 Christian Legrand & Patrick Chevalley
 http://www.ap-i.net
 
 The "Virtual Moon Atlas" is free software as described by the 

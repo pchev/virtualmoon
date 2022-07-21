@@ -63,5 +63,6 @@ InstData Base_Clementine $destdir
 InstData Base_WAC $destdir
 InstData Base_LOLA_Kaguya_Shade $destdir
 InstData Base_Overlay $destdir
+InstData Base_Dem $destdir
 InstPicture PictureApollo $destdir
 
