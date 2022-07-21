@@ -189,6 +189,7 @@ type
     ToolButton20: TToolButton;
     ToolButton21: TToolButton;
     ToolButton22: TToolButton;
+    ToolButtonCalclun: TToolButton;
     ToolButtonCCD: TToolButton;
     ToolButtonNotes: TToolButton;
     ToolButtonEph: TToolButton;
@@ -398,6 +399,7 @@ type
     procedure SpeedButton7Click(Sender: TObject);
     procedure Splitter2TimerTimer(Sender: TObject);
     procedure ToolButton22Click(Sender: TObject);
+    procedure ToolButtonCalclunClick(Sender: TObject);
     procedure ToolButtonCCDClick(Sender: TObject);
     procedure ToolButtonEphClick(Sender: TObject);
     procedure ToolButtonHideToolsClick(Sender: TObject);
@@ -536,7 +538,7 @@ type
     texturefiles,texturenone: TStringList;
     SplitSize: single;
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
-    firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseWeblun,CanCloseCDC,StartDatlun,StartWeblun,StartPhotlun,StartCDC: boolean;
+    firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseWeblun,CanCloseCDC,StartDatlun,StartWeblun,StartPhotlun,StartCDC,StartCalclun: boolean;
     Desctxt: string;
     {$ifdef windows}
     savetop,saveleft,savewidth,saveheight: integer;
@@ -546,6 +548,7 @@ type
     procedure OpenPhotlun(objname,otherparam:string);
     procedure OpenCDC(objname,otherparam:string);
     procedure OpenWeblun(objname,otherparam:string);
+    procedure OpenCalclun(objname,otherparam:string);
     procedure SetEyepieceMenu;
     procedure SetCCDMenu;
     procedure SetLang1;
@@ -1922,6 +1925,7 @@ begin
   Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma
   Datlun  := '"'+bindir + DefaultDatlun+'"';
   Weblun  := '"'+bindir + DefaultWeblun+'"';
+  Calclun  := '"'+bindir + DefaultCalclun+'"';
   helpdir := slash(appdir) + slash('doc');
   jpldir  := slash(appdir)+slash('data')+'jpleph';
   // Be sure zoneinfo exists in standard location or in vma directory
@@ -3675,6 +3679,7 @@ begin
   StartPhotlun:=false;
   StartWeblun:=false;
   StartCDC:=false;
+  StartCalclun:=false;
   CanCloseDatlun:=true;
   CanCloseWeblun:=true;
   CanClosePhotlun:=true;
@@ -4384,6 +4389,11 @@ begin
  minilabel:=not minilabel;
  ToolButton22.Down := minilabel;
  activemoon.RefreshAll;
+end;
+
+procedure TForm1.ToolButtonCalclunClick(Sender: TObject);
+begin
+  OpenCalclun('','');
 end;
 
 procedure TForm1.GridButtonClick(Sender: TObject);
@@ -6047,6 +6057,16 @@ begin
     chdir(appdir);
     Execnowait(weblun+' '+param);
     StartWeblun:=true;
+end;
+
+procedure TForm1.OpenCalclun(objname,otherparam:string);
+var param:string;
+begin
+    param:='';
+    param:=param+otherparam;
+    chdir(appdir);
+    Execnowait(calclun+' '+param);
+    StartCalclun:=true;
 end;
 
 procedure TForm1.OpenCDC(objname,otherparam:string);
