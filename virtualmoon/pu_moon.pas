@@ -2698,11 +2698,6 @@ begin
     inc(NumDist);
     distanceendsegment:=False;
   end;
-end
-else begin
-  // Abort when click out of moon surface
-  distancestart := False;
-  GLDummyCubeDistance.Visible:=false;
 end;
 end;
 
@@ -2817,8 +2812,17 @@ end;
 
 procedure Tf_moon.KeyEvent(event: TMoonKeyClass; key: word);
 begin
-case key of
-  16  : ;
+case event of
+  mkUp: begin
+    case key of
+      VK_SHIFT: begin
+        if measuringdistance and distancestart then begin
+          distancestart := False;
+          MeasureDistance(MeasureLastX,MeasureLastY);
+        end;
+      end;
+    end;
+  end;
 end;
 end;
 

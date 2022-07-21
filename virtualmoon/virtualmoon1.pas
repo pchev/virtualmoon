@@ -4741,10 +4741,10 @@ end;
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
 case key of
-  16  :  activemoon.KeyEvent(mkDown,key); // Shift
-  17  :  activemoon.KeyEvent(mkDown,key); // Ctrl
-  27  :  SetFullScreen; // Esc
-  122 :  SetFullScreen; // F11
+  VK_SHIFT  :  activemoon.KeyEvent(mkDown,key); // Shift
+  VK_CONTROL  :  activemoon.KeyEvent(mkDown,key); // Ctrl
+  VK_ESCAPE  :  SetFullScreen; // Esc
+  VK_F11 :  SetFullScreen; // F11
 end;
 end;
 
@@ -4752,10 +4752,10 @@ procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 try
 case key of
-  16  :  activemoon.KeyEvent(mkUp,key); // Shift
-  17  :  activemoon.KeyEvent(mkUp,key); // Ctrl
-  107 :  if Shift=[ssCtrl] then IncreaseFont1Click(nil);   //ctrl+
-  109 :  if Shift=[ssCtrl] then DecreaseFont1Click(nil);   //ctrl-
+  VK_SHIFT  :  activemoon.KeyEvent(mkUp,key); // Shift
+  VK_CONTROL  :  activemoon.KeyEvent(mkUp,key); // Ctrl
+  VK_ADD :  if Shift=[ssCtrl] then IncreaseFont1Click(nil);   //ctrl+
+  VK_SUBTRACT :  if Shift=[ssCtrl] then DecreaseFont1Click(nil);   //ctrl-
 end;
 except
   on E: Exception do begin
