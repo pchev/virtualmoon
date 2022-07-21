@@ -2553,7 +2553,7 @@ end;
 procedure Tf_moon.MeasureDistance(x, y: integer);
 const   qr=0.5008;
 var
-  i,j: integer;
+  i,j,x1,y1,x2,y2: integer;
   xx, yy, zz, l, b, d, s,step,startxx,startyy: single;
   lat,lon,dist,dista,A: double;
   m1,m2,m3,m4,m5: string;
@@ -2624,46 +2624,50 @@ begin
       m3:='';
       m4:='';
       m5:='';
-      // close path to compute area and centroid
-      DistStartL[NumDist]:=DistEndL[NumDist-1];
-      DistStartB[NumDist]:=DistEndB[NumDist-1];
-      DistEndL[NumDist]:=DistStartL[0];
-      DistEndB[NumDist]:=DistStartB[0];
-      inc(NumDist);
-      try
-      for j:=0 to NumDist-1 do begin
-        pp[j].X:=DistEndL[j];
-        pp[j].Y:=DistEndB[j];
-      end;
-      A:=PolygonArea(NumDist,pp);
-      if A<>0 then begin
-        C:=PolygonCentroid(NumDist,pp,A);
-        if InsidePolygon(NumDist,pp,C) then begin
-          line:=TGLLines(GLDummyCubeDistance.AddNewChild(TGLLines));
-          line.SplineMode:=lsmCubicSpline;
-          line.ShowAxes:=false;
-          line.AntiAliased:=true;
-          line.LineWidth:=2;
-          line.LineColor.AsWinColor:=MarkColor;
-          line.LinePattern:=$1111;
-          line.NodesAspect:=lnaInvisible;
-          line.Visible:=true;
-          GreatCircle(DistStartL[NumDist-1],DistStartB[NumDist-1],DistEndL[NumDist-1],DistEndB[NumDist-1],Rmoon,gc);
-          step:=(gc.s02-gc.s01)/10;
-          for i:=0 to 10 do begin
-            s:=gc.s01+i*step;
-            PointOnCircle(gc,s,lat,lon);
-            coords;
-            line.Nodes.AddNode(xx,zz,yy);
-          end;
-          SetMark(c.x,c.y,rst_5);
-          m3 := formatfloat(f1, rad2deg*C.x);
-          m4 := formatfloat(f1, rad2deg*C.y);
-          m5 := FormatFloat(f1, abs(Rmoon*Rmoon*A))+blank+rsm_18+#194+#178;
+      Moon2Screen(DistStartL[0],DistStartB[0],x1,y1);
+      Moon2Screen(DistEndL[NumDist-1],DistEndB[NumDist-1],x2,y2);
+      if sqrt((x1-x2)**2+(y1-y2)**2)<15 then begin  // end at less than 15 pixel from start
+        // close path to compute area and centroid
+        DistStartL[NumDist]:=DistEndL[NumDist-1];
+        DistStartB[NumDist]:=DistEndB[NumDist-1];
+        DistEndL[NumDist]:=DistStartL[0];
+        DistEndB[NumDist]:=DistStartB[0];
+        inc(NumDist);
+        try
+        for j:=0 to NumDist-1 do begin
+          pp[j].X:=DistEndL[j];
+          pp[j].Y:=DistEndB[j];
         end;
-      end;
-      dec(NumDist); // not closed for profile plot
-      except
+        A:=PolygonArea(NumDist,pp);
+        if A<>0 then begin
+          C:=PolygonCentroid(NumDist,pp,A);
+          if InsidePolygon(NumDist,pp,C) then begin
+            line:=TGLLines(GLDummyCubeDistance.AddNewChild(TGLLines));
+            line.SplineMode:=lsmCubicSpline;
+            line.ShowAxes:=false;
+            line.AntiAliased:=true;
+            line.LineWidth:=2;
+            line.LineColor.AsWinColor:=MarkColor;
+            line.LinePattern:=$1111;
+            line.NodesAspect:=lnaInvisible;
+            line.Visible:=true;
+            GreatCircle(DistStartL[NumDist-1],DistStartB[NumDist-1],DistEndL[NumDist-1],DistEndB[NumDist-1],Rmoon,gc);
+            step:=(gc.s02-gc.s01)/10;
+            for i:=0 to 10 do begin
+              s:=gc.s01+i*step;
+              PointOnCircle(gc,s,lat,lon);
+              coords;
+              line.Nodes.AddNode(xx,zz,yy);
+            end;
+            SetMark(c.x,c.y,rst_5);
+            m3 := formatfloat(f1, rad2deg*C.x);
+            m4 := formatfloat(f1, rad2deg*C.y);
+            m5 := FormatFloat(f1, abs(Rmoon*Rmoon*A))+blank+rsm_18+#194+#178;
+          end;
+        end;
+        dec(NumDist); // not closed for profile plot
+        except
+        end;
       end;
     end
     else begin
@@ -2691,6 +2695,8 @@ begin
   yy := GLSceneViewer1.Height div 2;
   if Screen2Moon(xx,yy,l,b) then
   begin
+    l:=0;
+    b:=0;
     deltab := (2+sin(b))* pid2 / zoom;
     deltal := 2* deltab / cos(b);
   end
