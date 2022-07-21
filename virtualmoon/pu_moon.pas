@@ -1728,14 +1728,7 @@ end;
 
 procedure Tf_moon.GLSceneViewer1KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  case key of
-    VK_SHIFT: begin
-      if measuringdistance and distancestart then begin
-        distancestart := False;
-        MeasureDistance(MeasureLastX,MeasureLastY);
-      end;
-    end;
-  end;
+// this not work on Windows, use Tf_moon.KeyEvent() instead
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseWheelDown(Sender: TObject;

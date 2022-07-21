@@ -41,7 +41,7 @@ uses
   mlb2, PrintersDlgs, Printers, Controls,
   Messages, SysUtils, Classes, Dialogs, FileUtil,
   ComCtrls, Menus, Buttons, dynlibs, BigIma, pu_ascomclient, pu_indiclient,
-  EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase,
+  EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase, LCLType,
   Math, CraterList, LResources, IpHtml, UniqueInstance;
 
 type
