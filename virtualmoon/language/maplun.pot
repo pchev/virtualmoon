@@ -1438,3 +1438,11 @@ msgstr ""
 msgid "Area"
 msgstr ""
 
+#: u_translation:rsmax
+msgid "max"
+msgstr ""
+
+#: u_translation:rsmin
+msgid "min"
+msgstr ""
+

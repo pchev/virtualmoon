@@ -188,8 +188,8 @@ begin
   AdjustScale;
   Label1.Caption:=StringReplace(rsm_10,':','',[])+'/'+StringReplace(rsm_11,':','',[])+blank+LowerCase(rsFrom)+blank+formatfloat(f3, rad2deg*lon1[0])+blank+'/'+blank+formatfloat(f3, rad2deg*lat1[0])+
                   blank+LowerCase(rsTo)+blank+formatfloat(f3, rad2deg*lon2[NumDist-1])+'/'+formatfloat(f3, rad2deg*lat2[NumDist-1])+
-                  crlf+rsUsing+' ldem_'+inttostr(demlib.GetResolution(3))+','+blank+LowerCase(rst_69)+
-                  blank+formatfloat(f3, r0)+lowercase(rsm_18);
+                  crlf+rsUsing+' ldem_'+inttostr(demlib.GetResolution(3))+','+blank+LowerCase(rst_69)+blank+formatfloat(f3, r0)+lowercase(rsm_18)+
+                  ','+blank+rsElevation+blank+rsMin+':'+formatfloat(f1, Fhmin)+'m'+blank+rsMax+':'+formatfloat(f1, Fhmax)+'m';
 
 
 end;

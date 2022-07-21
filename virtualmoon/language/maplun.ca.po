@@ -298,12 +298,20 @@ msgstr "Fotogràfic LOPAM"
 msgid "Lunar Impact Crater Database:"
 msgstr ""
 
+#: u_translation.rsmax
+msgid "max"
+msgstr ""
+
 #: u_translation.rsmeltingdepth
 msgid "Melting depth :"
 msgstr ""
 
 #: u_translation.rsmeteoriticim
 msgid "Meteoritic impact"
+msgstr ""
+
+#: u_translation.rsmin
+msgid "min"
 msgstr ""
 
 #: u_translation.rsminute

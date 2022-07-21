@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-07-20 17:20+0200\n"
+"PO-Revision-Date: 2022-07-21 09:36+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -298,6 +298,10 @@ msgstr "Photographique LOPAM"
 msgid "Lunar Impact Crater Database:"
 msgstr "Lunar Impact Crater Database:"
 
+#: u_translation.rsmax
+msgid "max"
+msgstr "max"
+
 #: u_translation.rsmeltingdepth
 msgid "Melting depth :"
 msgstr "Epaisseur des fontes d'impact :"
@@ -305,6 +309,10 @@ msgstr "Epaisseur des fontes d'impact :"
 #: u_translation.rsmeteoriticim
 msgid "Meteoritic impact"
 msgstr "Impact météoritique"
+
+#: u_translation.rsmin
+msgid "min"
+msgstr "min"
 
 #: u_translation.rsminute
 msgctxt "u_translation.rsminute"

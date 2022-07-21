@@ -374,6 +374,8 @@ rsFrom = 'From';
 rsTo = 'To';
 rsUsing = 'Using';
 rsArea = 'Area';
+rsMax = 'max';
+rsMin = 'min';
 
 implementation
 
