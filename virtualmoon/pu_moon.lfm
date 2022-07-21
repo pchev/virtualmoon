@@ -137,20 +137,6 @@ object f_moon: Tf_moon
             EdgeColor.Green = 1
             EdgeColor.Blue = 1
             EdgeColor.Alpha = 1
-            object GLLinesDistance: TGLLines
-              AntiAliased = True
-              LineColor.Red = 1
-              LineColor.Alpha = 1
-              LineColor.Color = {
-                0000803F00000000000000000000803F
-              }
-              NodeColor.Blue = 1
-              NodeColor.Alpha = 1
-              Nodes = <>
-              NodesAspect = lnaInvisible
-              SplineMode = lsmCubicSpline
-              Options = []
-            end
           end
           object GLDummyCubeCircle: TGLDummyCube
             CubeSize = 1

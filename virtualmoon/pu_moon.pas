@@ -68,7 +68,6 @@ type
     GLDummyCubeSatellite: TGLDummyCube;
     GLDummyCubeCoord: TGLDummyCube;
     GLFreeFormSatelite: TGLFreeForm;
-    GLLinesDistance: TGLLines;
     LabelGroup: TGLHUDSprite;
     GLHUDSpriteCCD2: TGLHUDSprite;
     GLHUDSpriteCCD3: TGLHUDSprite;
@@ -1433,6 +1432,7 @@ if LabelGroup<>nil then LabelGroup.DeleteChildren;
 if GLDummyCubeMarks<>nil then GLDummyCubeMarks.DeleteChildren;
 if GLDummyCubeCoord<>nil then GLDummyCubeCoord.DeleteChildren;
 if GLDummyCubeCircle<>nil then GLDummyCubeCircle.DeleteChildren;
+if GLDummyCubeDistance<>nil then GLDummyCubeDistance.DeleteChildren;
 blankbmp.Free;
 blankjp.Free;
 GLSceneViewer1.Buffer.DestroyRC;
@@ -1527,7 +1527,7 @@ end;
 
 procedure Tf_moon.GLSceneViewer1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
-var z,s1,c1: single;
+var s1,c1: single;
     xx:integer;
     Pt: TPoint;
 begin
@@ -1553,9 +1553,6 @@ begin
       distanceendsegment := False;
       NumDist:=1;
       SetMark(0, 0, '');
-      GLLinesDistance.LineColor.AsWinColor:=MarkColor;
-      GLLinesDistance.LineWidth:=2;
-      GLLinesDistance.Nodes.Clear;
       GLDummyCubeDistance.Visible:=true;
     end;
   end
@@ -2219,8 +2216,7 @@ procedure Tf_moon.Circle(lon,lat,r: single; c: tcolor);
 const   qr=0.5002;
 var newcircle : TGLLines;
     l,b,x,y,z,step: single;
-    i,j,k,nl,nb,nk : Integer;
-    v:TVector;
+    k,nk : Integer;
   procedure coords;
   var cl,sl,cb,sb: single;
   begin
@@ -2558,11 +2554,12 @@ const   qr=0.5008;
 var
   i,j: integer;
   xx, yy, zz, l, b, d, s,step,startxx,startyy: single;
-  lat,lon,dist,dista,sumx,sumy,A,cx,cy: double;
+  lat,lon,dist,dista,A: double;
   m1,m2,m3,m4,m5: string;
   gc: TGreatCircle;
   pp: array[0..MaxMeasurePoint] of TDoublePoint;
   C: TDoublePoint;
+  line: TGLLines;
 procedure coords;
 var cl,sl,cb,sb: single;
 begin
@@ -2578,12 +2575,18 @@ begin
   DistStartB[NumDist-1]:=startb;
   DistEndL[NumDist-1]:=l;
   DistEndB[NumDist-1]:=b;
-  GLLinesDistance.Nodes.Clear;
+  GLDummyCubeDistance.DeleteChildren;
   dist:=0;
   dista:=0;
-  sumx:=DistStartL[0];
-  sumy:=DistStartB[0];
   for j:=0 to NumDist-1 do begin
+    line:=TGLLines(GLDummyCubeDistance.AddNewChild(TGLLines));
+    line.SplineMode:=lsmCubicSpline;
+    line.ShowAxes:=false;
+    line.AntiAliased:=true;
+    line.LineWidth:=2;
+    line.LineColor.AsWinColor:=MarkColor;
+    line.NodesAspect:=lnaInvisible;
+    line.Visible:=true;
     GreatCircle(DistStartL[j],DistStartB[j],DistEndL[j],DistEndB[j],Rmoon,gc);
     // distance in km
     dist:=dist+gc.dist;
@@ -2602,7 +2605,7 @@ begin
       s:=gc.s01+i*step;
       PointOnCircle(gc,s,lat,lon);
       coords;
-      gllinesdistance.Nodes.AddNode(xx,zz,yy);
+      line.Nodes.AddNode(xx,zz,yy);
     end;
   end;
   m1 := formatfloat(f1,dist)+blank+rsm_18;
@@ -2634,6 +2637,23 @@ begin
       if A<>0 then begin
         C:=PolygonCentroid(NumDist,pp,A);
         if InsidePolygon(NumDist,pp,C) then begin
+          line:=TGLLines(GLDummyCubeDistance.AddNewChild(TGLLines));
+          line.SplineMode:=lsmCubicSpline;
+          line.ShowAxes:=false;
+          line.AntiAliased:=true;
+          line.LineWidth:=2;
+          line.LineColor.AsWinColor:=MarkColor;
+          line.LinePattern:=$1111;
+          line.NodesAspect:=lnaInvisible;
+          line.Visible:=true;
+          GreatCircle(DistStartL[NumDist-1],DistStartB[NumDist-1],DistEndL[NumDist-1],DistEndB[NumDist-1],Rmoon,gc);
+          step:=(gc.s02-gc.s01)/10;
+          for i:=0 to 10 do begin
+            s:=gc.s01+i*step;
+            PointOnCircle(gc,s,lat,lon);
+            coords;
+            line.Nodes.AddNode(xx,zz,yy);
+          end;
           m3 := formatfloat(f1, rad2deg*C.x);
           m4 := formatfloat(f1, rad2deg*C.y);
           m5 := FormatFloat(f1, abs(Rmoon*Rmoon*A))+blank+rsm_18+#194+#178;
