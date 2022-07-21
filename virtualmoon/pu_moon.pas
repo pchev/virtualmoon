@@ -1553,6 +1553,7 @@ begin
       distanceendsegment := False;
       NumDist:=1;
       SetMark(0, 0, '');
+      GLDummyCubeDistance.DeleteChildren;
       GLDummyCubeDistance.Visible:=true;
     end;
   end
@@ -2543,6 +2544,7 @@ begin
   else
   begin
     GLSceneViewer1.Cursor:=crRetic;
+    GLDummyCubeDistance.DeleteChildren;
     GLDummyCubeDistance.Visible:=false;
     SetMark(0,0,'');
   end;
