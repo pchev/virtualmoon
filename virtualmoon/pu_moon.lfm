@@ -40,6 +40,7 @@ object f_moon: Tf_moon
       OnMouseDown = GLSceneViewer1MouseDown
       OnMouseMove = GLSceneViewer1MouseMove
       OnMouseUp = GLSceneViewer1MouseUp
+      OnKeyUp = GLSceneViewer1KeyUp
       OnMouseWheelDown = GLSceneViewer1MouseWheelDown
       OnMouseWheelUp = GLSceneViewer1MouseWheelUp
       TabOrder = 0

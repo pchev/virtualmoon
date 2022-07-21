@@ -101,6 +101,7 @@ type
      RefreshTimer: TTimer;
      procedure FormCreate(Sender: TObject);
      procedure FormDestroy(Sender: TObject);
+     procedure GLSceneViewer1KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
      procedure GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
        Shift: TShiftState; X, Y: Integer);
      procedure MoonResize(Sender: TObject);
@@ -192,6 +193,7 @@ type
     Fjd: double;
     Fdemlib: TdemLibrary;
     Flmin,Flmax,Fbmin,Fbmax:single;
+    MeasureLastX,MeasureLastY: integer;
     procedure MoveMoonAround(anObject: TGLBaseSceneObject; pitchDelta, turnDelta: Single);
     procedure SetTexture(lfn:TStringList);
     procedure SetOverlay(fn:string);
@@ -1440,7 +1442,6 @@ GLBitmapFont1.Ranges.Clear;
 Ftexture.Free;
 end;
 
-
 procedure Tf_moon.AssignMoon(Source: TF_moon);
 begin
  MaxTextureSize:=Source.MaxTextureSize;
@@ -1723,6 +1724,18 @@ begin
     GLSceneViewer1.Cursor:=crRetic;
   end;
   PushLabel;
+end;
+
+procedure Tf_moon.GLSceneViewer1KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  case key of
+    VK_SHIFT: begin
+      if measuringdistance and distancestart then begin
+        distancestart := False;
+        MeasureDistance(MeasureLastX,MeasureLastY);
+      end;
+    end;
+  end;
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseWheelDown(Sender: TObject;
@@ -2572,6 +2585,8 @@ begin
 end;
 begin
  if Screen2Moon(x,y,l,b) then begin
+  MeasureLastX:=x;
+  MeasureLastY:=y;
   DistStartL[NumDist-1]:=startl;
   DistStartB[NumDist-1]:=startb;
   DistEndL[NumDist-1]:=l;
@@ -2683,6 +2698,11 @@ begin
     inc(NumDist);
     distanceendsegment:=False;
   end;
+end
+else begin
+  // Abort when click out of moon surface
+  distancestart := False;
+  GLDummyCubeDistance.Visible:=false;
 end;
 end;
 
