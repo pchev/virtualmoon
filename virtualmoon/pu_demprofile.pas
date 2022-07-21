@@ -141,7 +141,7 @@ var x,r,r0,lon,lat,s,ddeg,totdist: double;
     i,n:integer;
     gc: TGreatCircle;
 const
-    numpoint=2000;
+    numpoint=1000;
 begin
   if (NumDist=0)or(lon1[0]=lon2[0])and(lat1[0]=lat2[0]) then exit;
   DemProfileLineSeries1.Clear;
