@@ -6,13 +6,14 @@ interface
 
 uses  u_constant, cu_dem, u_translation, u_util, math,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls, Buttons, TAGraph, TASeries, TAChartUtils;
+  ExtCtrls, StdCtrls, Buttons, Menus, TAGraph, TASeries, TAChartUtils, TAChartAxisUtils;
 
 type
 
   { Tf_demprofile }
 
   Tf_demprofile = class(TForm)
+    ButtonSave: TButton;
     Button10x: TSpeedButton;
     Button1x: TSpeedButton;
     Button2x: TSpeedButton;
@@ -23,14 +24,22 @@ type
     DemProfileLineSeries2: TLineSeries;
     Label2: TLabel;
     LabelPos: TLabel;
+    MenuItemSavePNG: TMenuItem;
+    MenuItemSaveCSV: TMenuItem;
     Panel1: TPanel;
     Panel2: TPanel;
     Label1: TLabel;
     Panel3: TPanel;
+    PopupMenu1: TPopupMenu;
+    SaveDialog1: TSaveDialog;
+    procedure ButtonSaveClick(Sender: TObject);
     procedure ButtonxClick(Sender: TObject);
+    procedure DemProfileAxisList1GetMarkText(Sender: TObject; var AText: String; AMark: Double);
     procedure DemProfileMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DemProfileResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure MenuItemSaveCSVClick(Sender: TObject);
+    procedure MenuItemSavePNGClick(Sender: TObject);
   private
     Fdemlib: TdemLibrary;
     Fdist,Fhmin,Fhmax,FScale: double;
@@ -62,12 +71,23 @@ begin
   label2.Caption:=rsAmplificatio;
   DemProfile.AxisList[0].Title.Caption:=rsElevation+' [m]';
   DemProfile.AxisList[1].Title.Caption:=rst_69+' [km]';
+  ButtonSave.Caption:=rsSaveProfile+'…';
+  MenuItemSavePNG.Caption:=rsAsPNGPicture;
+  MenuItemSaveCSV.Caption:=rsAsCSVFile;
 end;
 
 procedure Tf_demprofile.ButtonxClick(Sender: TObject);
 begin
   Fscale:=TButton(sender).tag;
   AdjustScale;
+end;
+
+procedure Tf_demprofile.DemProfileAxisList1GetMarkText(Sender: TObject; var AText: String; AMark: Double);
+begin
+  if AMark=0 then
+    AText:=rsStart
+  else
+    AText:=FloatToStr(AMark);
 end;
 
 procedure Tf_demprofile.DemProfileMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -199,6 +219,45 @@ begin
                   ','+blank+rsElevation+blank+rsMin+':'+formatfloat(f1, Fhmin)+'m'+blank+rsMax+':'+formatfloat(f1, Fhmax)+'m';
 
 
+end;
+
+procedure Tf_demprofile.ButtonSaveClick(Sender: TObject);
+begin
+ PopupMenu1.PopUp;
+end;
+
+procedure Tf_demprofile.MenuItemSavePNGClick(Sender: TObject);
+var fn: string;
+begin
+  SaveDialog1.DefaultExt:='.png';
+  SaveDialog1.Filter:='PNG file|*.png';
+  if SaveDialog1.Execute then begin
+    fn:=SaveDialog1.FileName;
+    ChangeFileExt(fn,'.png');
+    DemProfile.SaveToFile(TPortableNetworkGraphic,fn);
+  end;
+end;
+
+procedure Tf_demprofile.MenuItemSaveCSVClick(Sender: TObject);
+var i:integer;
+    fn,buf: string;
+    f: TextFile;
+begin
+  SaveDialog1.DefaultExt:='.csv';
+  SaveDialog1.Filter:='CSV file|*.csv';
+  if SaveDialog1.Execute then begin
+    fn:=SaveDialog1.FileName;
+    ChangeFileExt(fn,'.csv');
+    AssignFile(f,fn);
+    Rewrite(f);
+    buf:='Index;Distance;Height';
+    writeln(f,buf);
+    for i:=0 to DemProfileLineSeries1.Count-1 do begin
+      buf:=inttostr(i)+';'+FormatFloat(f3,DemProfileLineSeries1.XValue[i])+';'+FormatFloat(f1,DemProfileLineSeries1.YValue[i]);
+      writeln(f,buf);
+    end;
+    CloseFile(f);
+  end;
 end;
 
 end.

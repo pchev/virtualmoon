@@ -376,8 +376,12 @@ rsUsing = 'Using';
 rsArea = 'Area';
 rsMax = 'max';
 rsMin = 'min';
-rsProfile = 'Profile';
+rsProfile = 'Profile plot';
 rsMax2 = 'Max';
+rsStart = 'Start';
+rsSaveProfile = 'Save profile';
+rsAsPNGPicture = 'as PNG picture';
+rsAsCSVFile = 'as CSV file';
 
 implementation
 

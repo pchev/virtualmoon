@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-07-21 10:26+0200\n"
+"PO-Revision-Date: 2022-07-22 18:13+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,6 +57,14 @@ msgstr "ASCOM Alpaca est disponible pour %s"
 #: u_translation.rsascomtelesc
 msgid "ASCOM telescope interface"
 msgstr "Interface de télescope ASCOM"
+
+#: u_translation.rsascsvfile
+msgid "as CSV file"
+msgstr "comme fichier CSV"
+
+#: u_translation.rsaspngpicture
+msgid "as PNG picture"
+msgstr "comme image PNG"
 
 #: u_translation.rsattachinform
 msgid "Attach information and tools"
@@ -580,8 +588,11 @@ msgid "Westfall Atlas:"
 msgstr "Planche Westfall:"
 
 #: u_translation.rsm_67
-msgid "Warning! The personal notes have changed. Do you want to save the change?"
-msgstr "Attention les notes personnelles n'ont pas été enregistrée. Les enregistrer maintenant?"
+msgid ""
+"Warning! The personal notes have changed. Do you want to save the change?"
+msgstr ""
+"Attention les notes personnelles n'ont pas été enregistrée. Les enregistrer"
+" maintenant?"
 
 #: u_translation.rsm_7
 msgid "Name by Langrenus:"
@@ -677,7 +688,8 @@ msgstr "Taille des pixels"
 
 #: u_translation.rspleaseensure
 msgid "Please ensure that ASCOM telescope drivers are installed properly."
-msgstr "Veuillez vous assurer que les pilotes ASCOM sont installés correctement."
+msgstr ""
+"Veuillez vous assurer que les pilotes ASCOM sont installés correctement."
 
 #: u_translation.rspleasefirstc
 msgid "Please first connect the telescope and select a formation."
@@ -688,7 +700,9 @@ msgid "Process :"
 msgstr "Processus de formation :"
 
 #: u_translation.rsprofile
-msgid "Profile"
+#, fuzzy
+#| msgid "Profile"
+msgid "Profile plot"
 msgstr "Profil"
 
 #: u_translation.rsquitfull
@@ -719,6 +733,10 @@ msgstr "Formations satellites"
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
 msgstr "Enregistre l'éphéméride dans un fichier"
+
+#: u_translation.rssaveprofile
+msgid "Save profile"
+msgstr "Sauvegarde le profil"
 
 #: u_translation.rssecond
 msgid "\""
@@ -767,6 +785,10 @@ msgstr "Source :"
 #: u_translation.rsstandardtext
 msgid "(standard texture selection)"
 msgstr "(choix de la texture)"
+
+#: u_translation.rsstart
+msgid "Start"
+msgstr "Départ"
 
 #: u_translation.rsstartdate
 msgid "Start date"
@@ -1130,8 +1152,14 @@ msgid "Label Color"
 msgstr "Couleur des labels"
 
 #: u_translation.rst_184
-msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr "Votre carte graphique ne supporte pas d'afficher plus d'une texture par objet.Contrôlez que l'accélération matérielle est activée ou changez de carte graphique. La fonction demandée est GL_ARB_MULTITEXTURE"
+msgid ""
+"Your graphic card do not support to display more than one texture for the"
+" same object. Be sure that hardware acceleration is activated or change the"
+" graphic card. The require function is GL_ARB_MULTITEXTURE "
+msgstr ""
+"Votre carte graphique ne supporte pas d'afficher plus d'une texture par"
+" objet.Contrôlez que l'accélération matérielle est activée ou changez de"
+" carte graphique. La fonction demandée est GL_ARB_MULTITEXTURE"
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
@@ -1475,7 +1503,8 @@ msgstr "Vous pouvez télécharger les options suivantes:"
 
 #: u_translation.rsyourinstalla
 msgid "Your installation is already complete with all the features installed."
-msgstr "Votre installation est déjà complète avec toutes les options installées."
+msgstr ""
+"Votre installation est déjà complète avec toutes les options installées."
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"

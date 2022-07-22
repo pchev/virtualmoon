@@ -59,6 +59,14 @@ msgstr ""
 msgid "ASCOM telescope interface"
 msgstr ""
 
+#: u_translation.rsascsvfile
+msgid "as CSV file"
+msgstr ""
+
+#: u_translation.rsaspngpicture
+msgid "as PNG picture"
+msgstr ""
+
 #: u_translation.rsattachinform
 msgid "Attach information and tools"
 msgstr ""
@@ -689,7 +697,7 @@ msgid "Process :"
 msgstr ""
 
 #: u_translation.rsprofile
-msgid "Profile"
+msgid "Profile plot"
 msgstr ""
 
 #: u_translation.rsquitfull
@@ -721,6 +729,10 @@ msgstr ""
 #: u_translation.rssaveephemeri
 msgid "Save ephemeris to file"
 msgstr "Ephemeride in Datei speichern"
+
+#: u_translation.rssaveprofile
+msgid "Save profile"
+msgstr ""
 
 #: u_translation.rssecond
 msgid "\""
@@ -769,6 +781,10 @@ msgstr ""
 #: u_translation.rsstandardtext
 msgid "(standard texture selection)"
 msgstr "(Standart Texturauswahl)"
+
+#: u_translation.rsstart
+msgid "Start"
+msgstr ""
 
 #: u_translation.rsstartdate
 msgid "Start date"

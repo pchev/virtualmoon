@@ -19,7 +19,7 @@ object f_demprofile: Tf_demprofile
     TabOrder = 0
     object DemProfile: TChart
       Left = 1
-      Height = 218
+      Height = 214
       Top = 80
       Width = 546
       AllowPanning = False
@@ -37,11 +37,14 @@ object f_demprofile: Tf_demprofile
           Intervals.MaxLength = 100
           Intervals.MinLength = 40
           Alignment = calBottom
+          Marks.Format = '%2:s'
           Marks.LabelBrush.Style = bsClear
+          Marks.Style = smsLabel
           Minors = <>
           Title.Visible = True
           Title.Caption = 'Distance [km]'
           Title.LabelBrush.Style = bsClear
+          OnGetMarkText = DemProfileAxisList1GetMarkText
         end>
       Title.Text.Strings = (
         'TAChart'
@@ -139,11 +142,11 @@ object f_demprofile: Tf_demprofile
     end
     object Panel3: TPanel
       Left = 1
-      Height = 28
-      Top = 298
+      Height = 32
+      Top = 294
       Width = 546
       Align = alBottom
-      ClientHeight = 28
+      ClientHeight = 32
       ClientWidth = 546
       TabOrder = 2
       object LabelPos: TLabel
@@ -154,6 +157,37 @@ object f_demprofile: Tf_demprofile
         Caption = 'LabelPos'
         ParentColor = False
       end
+      object ButtonSave: TButton
+        AnchorSideTop.Control = Panel3
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = Panel3
+        AnchorSideRight.Side = asrBottom
+        Left = 384
+        Height = 25
+        Top = 4
+        Width = 153
+        Anchors = [akTop, akRight]
+        BorderSpacing.Right = 8
+        Caption = 'Save profile '
+        OnClick = ButtonSaveClick
+        TabOrder = 0
+      end
     end
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 488
+    Top = 160
+    object MenuItemSavePNG: TMenuItem
+      Caption = 'as PNG picture'
+      OnClick = MenuItemSavePNGClick
+    end
+    object MenuItemSaveCSV: TMenuItem
+      Caption = 'as CSV file'
+      OnClick = MenuItemSaveCSVClick
+    end
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 488
+    Top = 216
   end
 end

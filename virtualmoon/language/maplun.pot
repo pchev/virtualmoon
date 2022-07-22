@@ -1447,10 +1447,26 @@ msgid "min"
 msgstr ""
 
 #: u_translation:rsprofile
-msgid "Profile"
+msgid "Profile plot"
 msgstr ""
 
 #: u_translation:rsmax2
 msgid "Max"
+msgstr ""
+
+#: u_translation:rsstart
+msgid "Start"
+msgstr ""
+
+#: u_translation:rssaveprofile
+msgid "Save profile"
+msgstr ""
+
+#: u_translation:rsaspngpicture
+msgid "as PNG picture"
+msgstr ""
+
+#: u_translation:rsascsvfile
+msgid "as CSV file"
 msgstr ""
 

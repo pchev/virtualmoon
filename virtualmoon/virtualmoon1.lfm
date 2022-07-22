@@ -560,7 +560,7 @@ object Form1: TForm1
           end
           object ComboBox1: TComboBox
             Left = 8
-            Height = 35
+            Height = 30
             Top = 8
             Width = 320
             DropDownCount = 15
@@ -615,7 +615,7 @@ object Form1: TForm1
           TabOrder = 2
           object Edit6: TEdit
             Left = 3
-            Height = 35
+            Height = 30
             Top = 8
             Width = 159
             Font.Height = 13
@@ -1219,7 +1219,7 @@ object Form1: TForm1
           end
           object jour: TLongEdit
             Left = 146
-            Height = 35
+            Height = 30
             Hint = '0..31'
             Top = 4
             Width = 26
@@ -1234,7 +1234,7 @@ object Form1: TForm1
           end
           object mois: TLongEdit
             Left = 103
-            Height = 35
+            Height = 30
             Hint = '0..12'
             Top = 4
             Width = 26
@@ -1249,7 +1249,7 @@ object Form1: TForm1
           end
           object annee: TLongEdit
             Left = 43
-            Height = 35
+            Height = 30
             Hint = '-2999..2999'
             Top = 4
             Width = 45
@@ -1265,7 +1265,7 @@ object Form1: TForm1
           end
           object seconde: TLongEdit
             Left = 146
-            Height = 35
+            Height = 30
             Hint = '0..59'
             Top = 36
             Width = 26
@@ -1280,7 +1280,7 @@ object Form1: TForm1
           end
           object minute: TLongEdit
             Left = 103
-            Height = 35
+            Height = 30
             Hint = '0..59'
             Top = 36
             Width = 26
@@ -1295,7 +1295,7 @@ object Form1: TForm1
           end
           object heure: TLongEdit
             Left = 59
-            Height = 35
+            Height = 30
             Hint = '0..23'
             Top = 36
             Width = 26
@@ -1334,7 +1334,7 @@ object Form1: TForm1
           end
           object UpDown1: TUpDown
             Left = 88
-            Height = 35
+            Height = 30
             Top = 4
             Width = 13
             Associate = annee
@@ -1346,7 +1346,7 @@ object Form1: TForm1
           end
           object UpDown2: TUpDown
             Left = 129
-            Height = 35
+            Height = 30
             Top = 4
             Width = 13
             Associate = mois
@@ -1358,7 +1358,7 @@ object Form1: TForm1
           end
           object UpDown3: TUpDown
             Left = 172
-            Height = 35
+            Height = 30
             Top = 4
             Width = 13
             Associate = jour
@@ -1370,7 +1370,7 @@ object Form1: TForm1
           end
           object UpDown4: TUpDown
             Left = 85
-            Height = 35
+            Height = 30
             Top = 36
             Width = 13
             Associate = heure
@@ -1382,7 +1382,7 @@ object Form1: TForm1
           end
           object UpDown5: TUpDown
             Left = 129
-            Height = 35
+            Height = 30
             Top = 36
             Width = 13
             Associate = minute
@@ -1394,7 +1394,7 @@ object Form1: TForm1
           end
           object UpDown6: TUpDown
             Left = 172
-            Height = 35
+            Height = 30
             Top = 36
             Width = 13
             Associate = seconde
@@ -1495,7 +1495,7 @@ object Form1: TForm1
           end
           object ComboBox2: TComboBox
             Left = 105
-            Height = 35
+            Height = 30
             Top = 4
             Width = 158
             Font.Height = 13
@@ -1515,7 +1515,7 @@ object Form1: TForm1
           end
           object ComboBox3: TComboBox
             Left = 105
-            Height = 35
+            Height = 30
             Top = 36
             Width = 57
             Font.Height = 13
@@ -1622,7 +1622,7 @@ object Form1: TForm1
           Top = 200
           Width = 304
           Caption = 'Satellisation'
-          ClientHeight = 324
+          ClientHeight = 307
           ClientWidth = 302
           Font.Height = 13
           ParentFont = False
@@ -1845,7 +1845,7 @@ object Form1: TForm1
           end
           object ComboBox4: TComboBox
             Left = 122
-            Height = 35
+            Height = 30
             Top = 16
             Width = 97
             Font.Height = 13
@@ -1889,7 +1889,7 @@ object Form1: TForm1
           end
           object ComboBox6: TComboBox
             Left = 124
-            Height = 35
+            Height = 30
             Top = 234
             Width = 105
             Font.Height = 13
@@ -1973,9 +1973,9 @@ object Form1: TForm1
           end
           object CheckBox2: TCheckBox
             Left = 9
-            Height = 23
+            Height = 21
             Top = 97
-            Width = 63
+            Width = 60
             Caption = 'Miroir'
             Font.Height = 13
             OnClick = CheckBox2Click
@@ -1984,9 +1984,9 @@ object Form1: TForm1
           end
           object CheckBox1: TCheckBox
             Left = 9
-            Height = 23
+            Height = 21
             Top = 118
-            Width = 209
+            Width = 200
             Caption = 'Pole celeste toujours en haut.'
             Font.Height = 13
             OnClick = CheckBox1Click
@@ -2008,7 +2008,7 @@ object Form1: TForm1
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 22
+            ClientHeight = 23
             ClientWidth = 224
             Columns = 2
             Font.Height = 13
@@ -2022,9 +2022,9 @@ object Form1: TForm1
           end
           object CheckBox4: TCheckBox
             Left = 9
-            Height = 23
+            Height = 21
             Top = 139
-            Width = 112
+            Width = 108
             Caption = 'Zenith on top '
             Font.Height = 13
             OnClick = CheckBox4Click
@@ -2057,7 +2057,7 @@ object Form1: TForm1
           end
           object ComboBox5: TComboBox
             Left = 8
-            Height = 35
+            Height = 30
             Top = 26
             Width = 105
             Font.Height = 13
@@ -2112,9 +2112,9 @@ object Form1: TForm1
           end
           object CheckBox6: TCheckBox
             Left = 8
-            Height = 23
+            Height = 21
             Top = 90
-            Width = 110
+            Width = 108
             Caption = 'Track position'
             Font.Height = 13
             OnClick = CheckBox6Click
@@ -2128,7 +2128,7 @@ object Form1: TForm1
           Top = 0
           Width = 305
           Caption = 'Distance'
-          ClientHeight = 198
+          ClientHeight = 181
           ClientWidth = 303
           TabOrder = 3
           object Label24: TLabel
@@ -2145,7 +2145,7 @@ object Form1: TForm1
           end
           object EditDisrtR: TEdit
             Left = 154
-            Height = 35
+            Height = 30
             Top = 48
             Width = 73
             Font.Height = 13
@@ -2168,7 +2168,7 @@ object Form1: TForm1
           end
           object EditDistA: TEdit
             Left = 155
-            Height = 35
+            Height = 30
             Top = 80
             Width = 73
             Font.Height = 13
@@ -2195,8 +2195,8 @@ object Form1: TForm1
             Left = 155
             Height = 25
             Top = 8
-            Width = 73
-            Caption = 'Profile'
+            Width = 110
+            Caption = 'Profile plot'
             Flat = True
             Font.Height = 13
             Transparent = False
@@ -2206,7 +2206,7 @@ object Form1: TForm1
           object Enregistredist: TSpeedButton
             Left = 240
             Height = 25
-            Top = 9
+            Top = 109
             Width = 40
             Caption = 'Copier'
             Flat = True
@@ -2241,7 +2241,7 @@ object Form1: TForm1
           end
           object EditCenterL: TEdit
             Left = 76
-            Height = 35
+            Height = 30
             Top = 112
             Width = 60
             Font.Height = 13
@@ -2264,7 +2264,7 @@ object Form1: TForm1
           end
           object EditCenterB: TEdit
             Left = 168
-            Height = 35
+            Height = 30
             Top = 112
             Width = 60
             Font.Height = 13
@@ -2275,7 +2275,7 @@ object Form1: TForm1
           end
           object EditArea: TEdit
             Left = 76
-            Height = 35
+            Height = 30
             Top = 144
             Width = 151
             ReadOnly = True
@@ -2535,9 +2535,9 @@ object Form1: TForm1
           TabOrder = 4
           object CheckBox8: TCheckBox
             Left = 6
-            Height = 23
+            Height = 21
             Top = 10
-            Width = 189
+            Width = 187
             Caption = 'Force texture compression'
             Font.Height = 13
             OnClick = CheckBox8Click
@@ -2546,9 +2546,9 @@ object Form1: TForm1
           end
           object CheckBox3: TCheckBox
             Left = 6
-            Height = 23
+            Height = 21
             Top = 32
-            Width = 83
+            Width = 81
             Caption = 'Anti-Alias'
             Font.Height = 13
             OnClick = CheckBox3Click
