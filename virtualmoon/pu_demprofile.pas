@@ -149,6 +149,7 @@ var x,r,r0,lon,lat,s,ddeg,totdist: double;
 const
     numpoint=1000;
 begin
+  if (demlib=nil)or(not demlib.Open) then exit;
   if (NumDist=0)or(lon1[0]=lon2[0])and(lat1[0]=lat2[0]) then exit;
   DemProfileLineSeries1.Clear;
   DemProfileLineSeries2.Clear;
