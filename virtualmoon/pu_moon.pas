@@ -2686,9 +2686,11 @@ begin
   end;
   if assigned(FonMoonMeasure) then FonMoonMeasure(self,m1,m2,m3,m4,m5);
   if distanceendsegment then begin // next segment
-    startl:=DistEndL[NumDist-1];
-    startb:=DistEndB[NumDist-1];
-    inc(NumDist);
+    if (startl<>l)and(startb<>b) then begin // do not add singular segment
+      startl:=DistEndL[NumDist-1];
+      startb:=DistEndB[NumDist-1];
+      inc(NumDist);
+    end;
     distanceendsegment:=False;
   end;
 end;
