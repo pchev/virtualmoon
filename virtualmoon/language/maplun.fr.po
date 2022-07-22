@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-07-22 18:13+0200\n"
+"PO-Revision-Date: 2022-07-22 18:32+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -700,10 +700,9 @@ msgid "Process :"
 msgstr "Processus de formation :"
 
 #: u_translation.rsprofile
-#, fuzzy
 #| msgid "Profile"
 msgid "Profile plot"
-msgstr "Profil"
+msgstr "Tracé de profil"
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"

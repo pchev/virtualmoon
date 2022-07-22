@@ -6,6 +6,7 @@ object f_demprofile: Tf_demprofile
   Caption = 'DEM Profile'
   ClientHeight = 327
   ClientWidth = 548
+  Color = clWindow
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   object Panel1: TPanel
@@ -50,6 +51,7 @@ object f_demprofile: Tf_demprofile
         'TAChart'
       )
       Align = alClient
+      ParentColor = True
       OnMouseMove = DemProfileMouseMove
       OnResize = DemProfileResize
       object DemProfileLineSeries1: TLineSeries
@@ -97,7 +99,9 @@ object f_demprofile: Tf_demprofile
         Top = 48
         Width = 65
         Caption = '10x'
+        Flat = True
         GroupIndex = 100
+        Transparent = False
         OnClick = ButtonxClick
       end
       object ButtonReset: TSpeedButton
@@ -106,7 +110,9 @@ object f_demprofile: Tf_demprofile
         Top = 48
         Width = 75
         Caption = 'Auto'
+        Flat = True
         GroupIndex = 100
+        Transparent = False
         OnClick = ButtonxClick
       end
       object Button5x: TSpeedButton
@@ -116,7 +122,9 @@ object f_demprofile: Tf_demprofile
         Top = 48
         Width = 65
         Caption = '5x'
+        Flat = True
         GroupIndex = 100
+        Transparent = False
         OnClick = ButtonxClick
       end
       object Button2x: TSpeedButton
@@ -126,7 +134,9 @@ object f_demprofile: Tf_demprofile
         Top = 48
         Width = 65
         Caption = '2x'
+        Flat = True
         GroupIndex = 100
+        Transparent = False
         OnClick = ButtonxClick
       end
       object Button1x: TSpeedButton
@@ -136,7 +146,9 @@ object f_demprofile: Tf_demprofile
         Top = 48
         Width = 65
         Caption = '1x'
+        Flat = True
         GroupIndex = 100
+        Transparent = False
         OnClick = ButtonxClick
       end
     end
@@ -157,7 +169,7 @@ object f_demprofile: Tf_demprofile
         Caption = 'LabelPos'
         ParentColor = False
       end
-      object ButtonSave: TButton
+      object ButtonSave: TSpeedButton
         AnchorSideTop.Control = Panel3
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Panel3
@@ -169,8 +181,9 @@ object f_demprofile: Tf_demprofile
         Anchors = [akTop, akRight]
         BorderSpacing.Right = 8
         Caption = 'Save profile '
+        Flat = True
+        Transparent = False
         OnClick = ButtonSaveClick
-        TabOrder = 0
       end
     end
   end

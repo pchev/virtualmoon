@@ -13,12 +13,12 @@ type
   { Tf_demprofile }
 
   Tf_demprofile = class(TForm)
-    ButtonSave: TButton;
     Button10x: TSpeedButton;
     Button1x: TSpeedButton;
     Button2x: TSpeedButton;
     Button5x: TSpeedButton;
     ButtonReset: TSpeedButton;
+    ButtonSave: TSpeedButton;
     DemProfile: TChart;
     DemProfileLineSeries1: TLineSeries;
     DemProfileLineSeries2: TLineSeries;
