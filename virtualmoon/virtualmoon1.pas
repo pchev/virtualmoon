@@ -2761,14 +2761,6 @@ begin
      txt := txt + t2 + rsIAUInformati + t2end + br+txtbuf+ b + br;
   end;
 
-  txtbuf := GetILCD(nom);
-  if txtbuf>'' then begin
-    anchorvisible[8]:=true;
-    txt:=txt+ '<a name="licd"> ';
-    txt := txt + t2 + rsLunarImpactC + t2end + br+txtbuf+ b + br;
-  end;
-
-  txt   := txt + '</div></body></html>';
   if copy(GetField('PROFIL'),1,2)='A_' then begin
     Label7.Caption := GetField('PROFIL');
     Label7.Font.Size := 8;
@@ -2781,6 +2773,15 @@ begin
   end
   else
     Label7.Caption := '';
+
+  txtbuf := GetILCD(nom); // warning, this replace the result row.
+  if txtbuf>'' then begin
+    anchorvisible[8]:=true;
+    txt:=txt+ '<a name="licd"> ';
+    txt := txt + t2 + rsLunarImpactC + t2end + br+txtbuf+ b + br;
+  end;
+
+  txt   := txt + '</div></body></html>';
   Addtolist(nom);
   AnchorIdent.Visible:=anchorvisible[1];
   AnchorDesc.Visible:=anchorvisible[2];
