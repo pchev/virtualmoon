@@ -1252,6 +1252,7 @@ begin
       CCDh[j] := ReadFloat(section, 'CCDh' + IntToStr(j), CCDh[j]);
       CCDr[j] := ReadFloat(section, 'CCDr' + IntToStr(j), CCDr[j]);
     end;
+    useDBN:=ReadInteger(section, 'useDBN', useDBN);
     for i := 1 to useDBN do
       usedatabase[i] := ReadBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
@@ -1431,7 +1432,7 @@ begin
       wmin := MinValue([650.0, 3 * LabelDensity / ((Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)/(1+3*Tf_moon(Sender).Zoom/90))]);
 
     sl:=sidelist;
-    dbm.Query('select NAME,LONGI_N,LATI_N,WIDE_KM,WIDE_MI,LENGTH_KM,LENGTH_MI,LUN,DBN from moon' +
+    dbm.Query('select NAME,LONGI_N,LATI_N,WIDE_KM,LENGTH_KM,LUN,DBN from moon' +
       ' where DBN in (' + sl + ')' + ' and LONGI_N > ' +
       formatfloat(f2, rad2deg*lmin) + ' and LONGI_N < ' + formatfloat(f2, rad2deg*lmax) +
       ' and LATI_N > ' + formatfloat(f2, rad2deg*bmin) +
@@ -1443,15 +1444,15 @@ begin
       l1 := dbm.Results[j].Format[1].AsFloat;
       b1 := dbm.Results[j].Format[2].AsFloat;
       w  := dbm.Results[j].Format[3].AsFloat;
+      if w <= 0 then
+        w := dbm.Results[j].Format[4].AsFloat;
       nom := trim(string(dbm.Results[j][0]));
-      dbn := trim(string(dbm.Results[j][8]));
-      lun := trim(string(dbm.Results[j][7]));
+      dbn := trim(string(dbm.Results[j][6]));
+      lun := trim(string(dbm.Results[j][5]));
       IsLUN:=(copy(nom,1,2)='AA');
       IsLUN:=IsLun or (copy(nom,1,3)='AVL');
       IsUnnamed:=(pos(dbn,UnnamedList)>0);
       if (not IsUnnamed)and(w<=0) then w:=1;
-      if w <= 0 then
-        w := 1.67 * dbm.Results[j].Format[4].AsFloat;
       if (w > 200) and (abs(l1) > 90) then
         w := 1.5 * w; // moins de grosse formation face cachee
       if w < (wmin * wfact) then
@@ -2044,7 +2045,7 @@ begin
   rec     := 0;
   deltab  := 5;
   deltal  := deltab / cos(deg2rad * b);
-  dbm.query('select ID,LONGI_N,LATI_N,WIDE_KM,WIDE_MI from moon ' + ' where DBN in (' + sl + ')' +
+  dbm.query('select ID,LONGI_N,LATI_N,WIDE_KM from moon ' + ' where DBN in (' + sl + ')' +
     ' and LONGI_N > ' + formatfloat(f2, l - deltal) +
     ' and LONGI_N < ' + formatfloat(f2, l + deltal) +
     ' and LATI_N > ' + formatfloat(f2, b - deltab) +
@@ -2088,8 +2089,9 @@ procedure TForm1.GetDetail(row: TResultRow; memo: Tmemo);
 const
   b = ' ';
 var
-  nom, carte, buf, buf2, txt: string;
+  nom, carte, buf, buf2, buf3, buf4, txt: string;
   ok:   boolean;
+  x,y:double;
   i, j: integer;
   function GetField(fn:string):string;
   var k: integer;
@@ -2141,29 +2143,38 @@ begin
 
 
   //Taille
-  if (GetField('LENGTH_KM')>'')or(GetField('WIDE_KM')>'')or(GetField('LENGTH_MI')>'')or(GetField('WIDE_MI')>'') then
+  if (GetField('LENGTH_KM')>'')or(GetField('WIDE_KM')>'') then begin
      memo.Lines.Add(rsm_57); //Taille
-  if (GetField('LENGTH_KM')>'')or(GetField('WIDE_KM')>'')or(GetField('LENGTH_MI')>'')or(GetField('WIDE_MI')>'') then
-     memo.Lines.Add(rsm_17 + b + GetField('LENGTH_KM') + 'x' +
-                    GetField('WIDE_KM') + rsm_18 + b + '/' + b + GetField('LENGTH_MI') +
-                    'x' + GetField('WIDE_MI') + rsm_19);
+     buf:=GetField('LENGTH_KM');
+     val(buf, dummy, i);
+     if i=0 then
+       buf3:=FormatFloat(f1,dummy*km2miles)
+     else buf3:='';
+     buf2:=GetField('WIDE_KM');
+     val(buf, dummy, i);
+     if i=0 then
+       buf4:=formatfloat(f1,dummy*km2miles)
+     else buf4:='';
+     txt:=rsm_17 + b + buf + 'x' + buf2 + rsm_18;
+     txt:=txt + b + '/' + b + buf3 + 'x' + buf4 + rsm_19;
+     memo.Lines.Add(txt);
+  end;
   buf  := GetField('HEIGHT_M');
-  buf2 := GetField('HEIGHT_FE');
-  if buf<>buf2 then
+  if buf<>'' then
   begin
     txt := rsm_20 + b;
     val(buf, dummy, i);
-    if i = 0 then
+    if i = 0 then begin
       txt := txt + buf + rsm_21 + b + '/' + b;
-    val(buf2, dummy, i);
-    if i = 0 then
-      txt := txt + buf2 + rsm_22;
-    memo.Lines.Add(txt);
+      x:=dummy*meter2feet;
+      txt := txt + FormatFloat(f1,x) + rsm_22;
+      memo.Lines.Add(txt);
+    end;
   end;
   if (GetField('RAPPORT'))>'' then
      memo.Lines.Add(rsm_23 + b + GetField('RAPPORT'));
 
-  if GetField('FLOOR_DIAMETER_KM') > '' then
+{  if GetField('FLOOR_DIAMETER_KM') > '' then
     memo.Lines.Add(rsFloorDiamete + b + GetField('FLOOR_DIAMETER_KM')+ rsm_18);
   if GetField('PEAK_HEIGHT_KM') > '' then
     memo.Lines.Add(rsPeakHeight + b + GetField('PEAK_HEIGHT_KM')+ rsm_18);
@@ -2187,7 +2198,7 @@ begin
       rsm_18);
   if GetField('RADAR_DARK_HALO_RADIUS') > '' then
     memo.Lines.Add(rsRadarDarkHal + b + GetField('RADAR_DARK_HALO_RADIUS')+
-      rsm_18);
+      rsm_18);  }
 
   //Description
   if (GetField('GENERAL_1')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
@@ -2367,8 +2378,8 @@ var
   nom, carte, url, img, remoteurl, txtbuf, buf, buf2, t1: string;
   anchorvisible: array[1..8] of boolean;
   ok:   boolean;
-  dbn, i, j, maxpos: integer;
-  lkm,wkm,lmi,wmi,lon,lat: double;
+  dbn, i, j: integer;
+  lkm,wkm,lmi,wmi,lon,lat,x: double;
   function GetField(fn:string):string;
   var k: integer;
   begin
@@ -2452,33 +2463,28 @@ begin
         wkm:=row.ByField['WIDE_KM'].AsFloat
      else
         wkm:=0;
-     lmi:=0;
-     if GetField('LENGTH_MI')>'' then
-        lmi:=row.ByField['LENGTH_MI'].AsFloat;
-     if lmi=0 then lmi:=lkm/mikm;
-     wmi:=0;
-     if GetField('WIDE_MI')>'' then
-        wmi:=row.ByField['WIDE_MI'].AsFloat;
-     if wmi=0 then wmi:=wkm/mikm;
+     lmi:=lkm*km2miles;
+     wmi:=wkm*km2miles;
      txtbuf  := txtbuf + t3 + rsm_17 + t3end + b + FormatFloat(f2,lkm) + 'x' +
              FormatFloat(f2,wkm) + rsm_18 + b + '/' + b + FormatFloat(f2,lmi) +
              'x' + FormatFloat(f2,wmi) + rsm_19 + br;
   end;
   buf  := GetField('HEIGHT_M');
-  buf2 := GetField('HEIGHT_FE');
-  if buf <> buf2 then begin
+  if buf<>'' then
+  begin
     txtbuf := txtbuf + t3 + rsm_20 + t3end + b;
     val(buf, dummy, i);
-    if i = 0 then
+    if i = 0 then begin
       txtbuf := txtbuf + buf + rsm_21 + b + '/' + b;
-    val(buf2, dummy, i);
-    if i = 0 then
-      txtbuf := txtbuf + buf2 + rsm_22;
-    txtbuf   := txtbuf + br;
-    if (GetField('RAPPORT'))>'' then
-       txtbuf := txtbuf + t3 + rsm_23 + t3end + b + GetField('RAPPORT') + br;
+      x:=dummy*meter2feet;
+      txtbuf := txtbuf + FormatFloat(f1,x) + rsm_22;
+      txtbuf   := txtbuf + br;
+    end;
   end;
-  if GetField('FLOOR_DIAMETER_KM') > '' then
+  if (GetField('RAPPORT'))>'' then
+    txtbuf := txtbuf + t3 + rsm_23 + t3end + b + GetField('RAPPORT') + br;
+
+{  if GetField('FLOOR_DIAMETER_KM') > '' then
     txtbuf := txtbuf + t3 + rsFloorDiamete + t3end+ b + GetField('FLOOR_DIAMETER_KM')+ rsm_18 +br;
   if GetField('PEAK_HEIGHT_KM') > '' then
     txtbuf := txtbuf + t3 + rsPeakHeight + t3end + b + GetField('PEAK_HEIGHT_KM')+ rsm_18 +br;
@@ -2497,8 +2503,10 @@ begin
   if GetField('RADAR_BRIGHT_HALO_RADIUS') > '' then
     txtbuf := txtbuf + t3 + rsRadarBrightH + t3end + b + GetField('RADAR_BRIGHT_HALO_RADIUS')+ rsm_18 +br;
   if GetField('RADAR_DARK_HALO_RADIUS') > '' then
-    txtbuf := txtbuf + t3 + rsRadarDarkHal + t3end + b + GetField('RADAR_DARK_HALO_RADIUS')+ rsm_18 +br;    if txtbuf>'' then
-     txt  := txt + t2 + rsm_57 + t2end + br+txtbuf+ b + br; //Taille
+    txtbuf := txtbuf + t3 + rsRadarDarkHal + t3end + b + GetField('RADAR_DARK_HALO_RADIUS')+ rsm_18 +br; }
+
+  if txtbuf>'' then
+    txt  := txt + t2 + rsm_57 + t2end + br+txtbuf+ b + br; //Taille
 
   //Description
   txtbuf:='';
@@ -2985,10 +2993,6 @@ begin
       stringgrid2.Cells[1, dbcol - 1] := ws;
     if stringgrid2.Cells[0, dbcol - 1] = 'WIDE_KM' then
       stringgrid2.Cells[1, dbcol - 1] := ws;
-    if stringgrid2.Cells[0, dbcol - 1] = 'LENGTH_MI' then
-      stringgrid2.Cells[1, dbcol - 1] := formatfloat(f1, 0.621 * w);
-    if stringgrid2.Cells[0, dbcol - 1] = 'WIDE_MI' then
-      stringgrid2.Cells[1, dbcol - 1] := formatfloat(f1, 0.621 * w);
     if stringgrid2.Cells[0, dbcol - 1] = 'LONGI_N' then
       stringgrid2.Cells[1, dbcol - 1] := ls;
     if stringgrid2.Cells[0, dbcol - 1] = 'LATI_N' then
@@ -3871,6 +3875,7 @@ try
   screen.cursor := crHourGlass;
   application.ProcessMessages;
   LoadDB(dbm);
+  useDBN :=DatabaseList.Count;
   LoadILCD('ILCD_2015_AVL',Slash(appdir) + 'Database', 'ILCD', dbm);
   form2.DbList.Items.Assign(DatabaseList);
   application.ProcessMessages;

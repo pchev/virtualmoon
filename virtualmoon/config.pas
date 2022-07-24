@@ -219,7 +219,6 @@ type
     procedure ComboBox6Change(Sender: TObject);
     procedure ComboBoxCountryChange(Sender: TObject);
     procedure ComboBoxTZChange(Sender: TObject);
-    procedure DbListItemClick(Sender: TObject; Index: integer);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure RadioButtonAllClick(Sender: TObject);
@@ -767,12 +766,6 @@ begin
       texturefn[i]:=slash(ExtractFilePath(noslash(texturefn[i])))+HistTex;
     end;
   TextureChanged:=true;
-end;
-
-procedure TForm2.DbListItemClick(Sender: TObject; Index: integer);
-begin
-  if index=0 then
-    DbList.Checked[0]:=true;
 end;
 
 procedure TForm2.RadioButtonAllClick(Sender: TObject);

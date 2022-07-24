@@ -31,16 +31,19 @@ interface
 Uses Forms, Dialogs, Classes, SysUtils, passql, passqlite;
 
 const
-    DBversion=700;
+    DBversion=800;
+    DBname='dbmoon8';
+    MaxDB=99;
     MaxDBN=200;
+    UserDBN=100;
     NumMoonDBFields = 97;
     MoonDBFields : array[1..NumMoonDBFields,1..2] of string = (
       ('NAME','text'),
       ('LUN','text'),
       ('LUN_REDUCED','text'),
       ('NAME_TYPE','text'),
+      ('IAU_TYPE','text'),
       ('TYPE','text'),
-      ('TYPE_IAU','text'),
       ('SUBTYPE','text'),
       ('PROCESS','text'),
       ('PERIOD','text'),
@@ -71,31 +74,31 @@ const
       ('QUADRANT','text'),
       ('AREA','text'),
       ('RUKL','text'),
-      ('RUKL_C','text'),
       ('VISCARDY','text'),
-      ('HATFIELD','text'),
       ('WESTFALL','text'),
       ('WOOD','text'),
       ('LOPAM','text'),
+      ('CLEMENTINE','text'),
+      ('CENTURY_20TH','text'),
+      ('HATFIELD','text'),
+      ('REISEATLAS','text'),
+      ('CHANGE1','text'),
+      ('DISCOVER_MOON','text'),
+      ('TIMES','text'),
+      ('KAGUYA','text'),
+      ('BYRNE_NEAR','text'),
+      ('BYRNE_FAR','text'),
+      ('SIX_INCH','text'),
+      ('DASE','text'),
+      ('PAU','text'),
+      ('LUNA_COGNITA','text'),
+      ('LAC','text'),
       ('LENGTH_KM','float'),
       ('WIDE_KM','float'),
-      ('LENGTH_MI','float'),
-      ('WIDE_MI','float'),
       ('LENGTH_ARCSEC','float'),
       ('HEIGHT_M','float'),
-      ('HEIGHT_FE','float'),
       ('RAPPORT','float'),
       ('PROFIL','text'),
-      ('FLOOR_DIAMETER_KM','float'),
-      ('PEAK_HEIGHT_KM','float'),
-      ('PEAK_DIAMETER_KM','float'),
-      ('EXCAVATION_DEPTH_KM','float'),
-      ('MELTING_DEPTH_KM','float'),
-      ('EJECTA_THICK_M_1RADIUS','float'),
-      ('EJECTA_THICK_M_3RADIUS','float'),
-      ('EJECTA_THICK_M_5RADIUS','float'),
-      ('RADAR_BRIGHT_HALO_RADIUS','float'),
-      ('RADAR_DARK_HALO_RADIUS','float'),
       ('GENERAL_1','text'),
       ('GENERAL_2','text'),
       ('SLOPES','text'),
@@ -133,13 +136,9 @@ const
       ('IAU_ORIGIN','text'),
       ('IAU_LINK','text')
       );
-      FDBN=1;
-      FNAME=2;
-      FLONGIN=29;
-      FLATIN=32;
 var
     sidelist: string;
-    database : array[1..9] of string;
+    database : array[1..MaxDB] of string;
     usedatabase :array[1..MaxDBN] of boolean;
     ILCDCols: TStringList;
 
@@ -260,7 +259,7 @@ repeat
         v:=row[idx[i]]
       else
         v:='';
-      v:=stringreplace(v,',','.',[rfreplaceall]); // look why we need that ???
+      v:=stringreplace(v,',','.',[rfreplaceall]);
       v:=stringreplace(v,'""','''',[rfreplaceall]);
       v:=stringreplace(v,'"','',[rfreplaceall]);
       cmd:=cmd+'"'+v+'",';
@@ -284,12 +283,8 @@ until j>n;
 imax:=dbm.GetLastInsertID;
 dbm.Query('update moon set wide_km=0 where wide_km="";');
 dbm.Query('update moon set wide_km=0 where wide_km="?";');
-dbm.Query('update moon set wide_mi=0 where wide_mi="";');
-dbm.Query('update moon set wide_mi=0 where wide_mi="?";');
 dbm.Query('update moon set length_km=0 where length_km="";');
 dbm.Query('update moon set length_km=0 where length_km="?";');
-dbm.Query('update moon set length_mi=0 where length_mi="";');
-dbm.Query('update moon set length_mi=0 where length_mi="?";');
 dbm.Query('delete from file_date where dbn='+side+';');
 dbm.Query('insert into file_date values ('+side+','+inttostr(fileage(fn))+');');
 dbm.Query('update dbversion set version='+dbv+';');
@@ -305,7 +300,7 @@ end;
 
 Procedure ListDB;
 var f:    Tsearchrec;
-    i,j: integer;
+    i,j,p: integer;
     dben: TStringList;
     buf,nb: string;
 begin
@@ -326,21 +321,21 @@ begin
   DatabaseList.Sorted:=true;
   dben:=TStringList.Create;
   dben.Sorted:=true;
+  writeln('fichier:');
   i:=findfirst(Slash(appdir)+Slash('Database')+'*_*_EN.csv', faNormal, f);
   while (i=0) do begin
+    writeln(f.name);
     dben.Add(f.Name);
     i:=FindNext(f);
   end;
   findclose(f);
-  while dben.Count>9 do begin
-     dben.Delete(dben.Count-1);
-  end;
   if uplanguage='EN' then begin
     DatabaseList.Assign(dben);
   end
   else begin
     for i:=0 to dben.Count-1 do begin
-       nb:=copy(dben[i],1,1);
+       p:=pos('_',dben[i]);
+       nb:=copy(dben[i],1,p-1);
        j:=findfirst(Slash(appdir)+Slash('Database')+nb+'_*_'+uplanguage+'.csv', faNormal, f);
        if j=0 then
          DatabaseList.add(f.Name)
@@ -350,12 +345,15 @@ begin
     end;
   end;
   DatabaseList.Sorted:=false;
-  for i:=1 to 9 do
+  for i:=1 to MaxDB do
     database[i]:='';
+  writeln('database:');
   for i:=0 to DatabaseList.Count-1 do begin
     buf:=DatabaseList[i];
+    writeln(buf);
     database[i+1]:=Slash(appdir)+Slash('Database')+buf;
-    Delete(buf,1,2);
+    p:=pos('_',dben[i]);
+    Delete(buf,1,p);
     Delete(buf,Length(buf)-6,7);
     buf:=StringReplace(buf,'_',' ',[rfReplaceAll]);
     DatabaseList[i]:=buf;
@@ -370,14 +368,14 @@ var i,db_age : integer;
 begin
 missingf:='';
 needvacuum:=false;
-buf:=Slash(DBdir)+'dbmoon7'+uplanguage+'.dbl';
+buf:=Slash(DBdir)+DBname+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
 try
 ListDB;
 CreateDB(dbm);
 sidelist:='1';
 for i:=2 to maxdbn do if usedatabase[i] and (database[i]<>'') then sidelist:=sidelist+','+inttostr(i);
-for i:=1 to 9 do begin
+for i:=1 to MaxDB do begin
   if usedatabase[i] and (database[i]<>'') then begin
      if (pos('_Unnamed',database[i])>0)or(pos('_non_nommées',database[i])>0) then
        UnnamedList:=UnnamedList+' '+inttostr(i)+' ';
