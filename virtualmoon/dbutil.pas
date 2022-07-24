@@ -136,6 +136,10 @@ const
       ('IAU_ORIGIN','text'),
       ('IAU_LINK','text')
       );
+    FDBN=1;
+    FNAME=2;
+    FLONGIN=29;
+    FLATIN=32;
 var
     sidelist: string;
     database : array[1..MaxDB] of string;
