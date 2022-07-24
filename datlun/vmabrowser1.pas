@@ -38,6 +38,7 @@ const
   ExitProMsg='Virtual_Moon_Atlas_Pro_exit';
   versionname='DATLUN';
   rowlimit='10000';
+  defaultselection='1,2,3,4,5';
 
 type
 
@@ -411,7 +412,7 @@ StartPhotlun:=false;
 CanCloseVMA:=true;
 CanClosePhotlun:=true;
 SelectedObject:='';
-dbselection:='DBN in (1,2,3,4,5,6,7)';
+dbselection:='DBN in ('+defaultselection+')';
 currentselection:=dbselection;
 DatabaseList:=Tstringlist.Create;
 ExpertMode:=false;
@@ -471,14 +472,32 @@ Application.BringToFront;
 end;
 
 procedure Tf_main.InitApp;
-var dbcol,i:integer;
+var dbcol,i,j,k:integer;
+    buf: string;
+    dbstr: TStringList;
 begin
 SetLang;
 ReadDefault;
-for i:=1 to 7 do usedatabase[i]:=true;
-usedatabase[8]:=false;
-usedatabase[9]:=false;
-for i:=10 to maxdbn do usedatabase[i]:=false;
+for i:=1 to maxdbn do usedatabase[i]:=false;
+buf:=dbselection;
+i:=pos('(',buf);
+if i>0 then begin
+   delete(buf,1,i);
+   i:=pos(')',buf);
+   delete(buf,i,99);
+   try
+   dbstr:=TStringList.Create;
+   SplitRec2(buf,',',dbstr);
+   for j:=0 to dbstr.Count-1 do begin
+     k:=StrToIntDef(dbstr[j],1);
+     usedatabase[k]:=true;
+   end;
+   finally
+   dbstr.free;
+   end;
+end
+else
+  usedatabase[1]:=true;
 LoadDB(dbm);
 Loadcsv.dbname:=dbm.DataBase;
 Selection.lastselection:=CurrentSelection;
@@ -496,7 +515,7 @@ Selection.fieldlist2.Items.Clear;
 if dbm.RowCount>0 then begin
   MoonGrid.ColCount:=dbm.ColCount-1;    // pas l'id
   MoonGrid.FixedCols:=2;
-  MoonGrid.ColWidths[0]:=round(0.3*MoonGrid.DefaultColWidth);
+//  MoonGrid.ColWidths[0]:=round(0.3*MoonGrid.DefaultColWidth);
   MoonGrid.ColWidths[1]:=round(1.5*MoonGrid.DefaultColWidth);
   for dbcol:=1 to MoonGrid.ColCount do begin
     MoonGrid.Cells[dbcol-1,0]:=dbm.GetField(dbcol);
@@ -663,7 +682,7 @@ try
   IDlist[dbrow-currentrow+1]:=strtointdef(buf,-1);
   buf:=dbm.Results[dbrow][1];
   dbn:=strtointdef(buf,-1);
-  if (dbn>0)and(dbn<=numdb) then buf:=dbshortname[dbn];
+  if (dbn>0)and(dbn<=numdb) then buf:=DatabaseList[dbn-1];//dbshortname[dbn];
   MoonGrid.Cells[0,dbrow-currentrow+1]:=buf;
   for dbcol:=2 to MoonGrid.ColCount do begin
     if MoonGrid.ColWidths[dbcol-1]>0 then
@@ -1015,7 +1034,7 @@ if currentselection='' then begin showmessage(rsm_6);exit;end;
 if messagedlg(rsm_7,mtConfirmation,[mbYes,mbNo],0)=mrYes then begin
    dbjournal(extractfilename(dbm.DataBase),'DELETE WHERE '+currentselection);
    if dbm.query('delete from moon where '+currentselection+';') then begin
-      dbselection:='DBN in (1,2,3,4,5,6,7)';
+      dbselection:='DBN in ('+defaultselection+')';
       currentselection:=dbselection;
       RemoveUnusedDBN;
       Select;
@@ -1060,7 +1079,7 @@ end;
 
 procedure Tf_main.Default1Click(Sender: TObject);
 begin
-dbselection:='DBN in (1,2,3,4,5,6,7)';
+dbselection:='DBN in ('+defaultselection+')';
 Columns.ButtonAllClick(Self);
 Selection.ButtonAllClick(Self);
 currentselection:=trim(selection.sel.Text);

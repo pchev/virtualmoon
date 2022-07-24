@@ -27,7 +27,7 @@ interface
 
 uses  u_translation, u_util,
   LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, CheckLst, LResources;
+  Dialogs, StdCtrls, CheckLst, LResources, ExtCtrls;
 
 type
 
@@ -39,6 +39,7 @@ type
     ButtonNone: TButton;
     ButtonClose: TButton;
     CheckListBox2: TCheckListBox;
+    Panel1: TPanel;
     procedure ButtonAllClick(Sender: TObject);
     procedure ButtonNoneClick(Sender: TObject);
     procedure ButtonCloseClick(Sender: TObject);

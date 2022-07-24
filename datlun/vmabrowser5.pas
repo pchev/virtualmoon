@@ -27,15 +27,19 @@ interface
 
 uses u_translation, u_util,
   LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, CheckLst, LResources;
+  Dialogs, StdCtrls, CheckLst, LResources, ExtCtrls;
 
 type
+
+  { TSelectDB }
+
   TSelectDB = class(TForm)
     CheckListBox1: TCheckListBox;
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
+    Panel1: TPanel;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -46,7 +50,6 @@ type
   public
     { Public declarations }
     dblist: TStringList;
-    //dbn1,dbn2,dbn3,dbn4,dbn5,dbn6,dbn7,dbn8,dbn9: string;
     procedure SetLang;
   end;
 
@@ -61,15 +64,6 @@ uses u_constant;
 
 procedure TSelectDB.SetLang;
 begin
-{  dbn1:=rst_15;
-  dbn2:=rst_16;
-  dbn3:=rst_18;
-  dbn4:=rst_19;
-  dbn5:=rsHistorical;
-  dbn6:=rst_51;
-  dbn7:=rst_54;
-  dbn8:=rsUnnamedForma;
-  dbn9:=rsFarSideUnnam;   }
   Button1.Caption:=rst_8;
   Button2.Caption:=rst_9;
   Button3.Caption:=rst_5;
@@ -92,19 +86,11 @@ lst:=' '+lst+' ';
 CheckListBox1.Clear;
 dblist.Clear;
 n:=0;
-for i:=1 to 9 do begin
+for i:=1 to DatabaseList.Count do begin
   buf:=inttostr(i);
-  if i<(DatabaseList.Count-1) then begin
-    CheckListBox1.Items.Add(DatabaseList[i-1]);
-    dblist.Add(buf);
-    if pos(' '+buf+' ',lst)>0 then CheckListBox1.Checked[n]:=true;
-  end
-  else begin
-    j:=CheckListBox1.Items.Add('-');
-    CheckListBox1.Checked[j]:=false;
-    CheckListBox1.ItemEnabled[j]:=false;
-    dblist.Add('-');
-  end;
+  CheckListBox1.Items.Add(DatabaseList[i-1]);
+  dblist.Add(buf);
+  if pos(' '+buf+' ',lst)>0 then CheckListBox1.Checked[n]:=true;
   inc(n)
 end;
 if dbm.Query('select DBN,NAME from user_database') then begin

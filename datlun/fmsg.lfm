@@ -10,8 +10,6 @@ object MsgForm: TMsgForm
   ClientHeight = 65
   ClientWidth = 281
   Color = clRed
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   Position = poScreenCenter

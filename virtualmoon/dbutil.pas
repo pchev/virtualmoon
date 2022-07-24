@@ -309,7 +309,7 @@ var f:    Tsearchrec;
     buf,nb: string;
 begin
 { Mandatory database file pattern:
-  - number between 1 and 9
+  - number between 01 and 99
   - underscore character _
   - name of the database to show in list. Can be translated. _ replaced by space in list.
   - underscore character _
@@ -317,9 +317,9 @@ begin
   - .csv
 
   Example:
-    1_Nearside_Named_EN.csv
-    7_Historical_EN.csv
-    7_Historique_FR.csv
+    01_Nearside_Named_EN.csv
+    07_Historical_EN.csv
+    07_Historique_FR.csv
 }
   DatabaseList.Clear;
   DatabaseList.Sorted:=true;

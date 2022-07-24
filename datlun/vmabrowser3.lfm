@@ -7,57 +7,66 @@ object Columns: TColumns
   Caption = 'Columns'
   ClientHeight = 493
   ClientWidth = 314
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
   object CheckListBox1: TCheckListBox
-    Left = 8
-    Height = 448
-    Top = 8
+    Left = 0
+    Height = 455
+    Top = 0
     Width = 152
+    Align = alLeft
     ItemHeight = 0
     OnItemClick = CheckListBox1ItemClick
     TabOrder = 0
     TopIndex = -1
   end
-  object ButtonAll: TButton
-    Left = 24
-    Height = 25
-    Top = 464
-    Width = 75
-    BorderSpacing.InnerBorder = 4
-    Caption = 'All'
-    OnClick = ButtonAllClick
-    TabOrder = 1
-  end
-  object ButtonNone: TButton
-    Left = 120
-    Height = 25
-    Top = 464
-    Width = 75
-    BorderSpacing.InnerBorder = 4
-    Caption = 'None'
-    OnClick = ButtonNoneClick
-    TabOrder = 2
-  end
-  object ButtonClose: TButton
-    Left = 224
-    Height = 25
-    Top = 464
-    Width = 75
-    BorderSpacing.InnerBorder = 4
-    Cancel = True
-    Caption = 'Close'
-    OnClick = ButtonCloseClick
-    TabOrder = 3
-  end
   object CheckListBox2: TCheckListBox
-    Left = 160
-    Height = 448
-    Top = 8
-    Width = 152
+    Left = 152
+    Height = 455
+    Top = 0
+    Width = 162
+    Align = alClient
     ItemHeight = 0
-    TabOrder = 4
+    TabOrder = 1
     TopIndex = -1
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 38
+    Top = 455
+    Width = 314
+    Align = alBottom
+    ClientHeight = 38
+    ClientWidth = 314
+    TabOrder = 2
+    object ButtonAll: TButton
+      Left = 0
+      Height = 25
+      Top = 8
+      Width = 75
+      BorderSpacing.InnerBorder = 4
+      Caption = 'All'
+      OnClick = ButtonAllClick
+      TabOrder = 0
+    end
+    object ButtonNone: TButton
+      Left = 96
+      Height = 25
+      Top = 8
+      Width = 75
+      BorderSpacing.InnerBorder = 4
+      Caption = 'None'
+      OnClick = ButtonNoneClick
+      TabOrder = 1
+    end
+    object ButtonClose: TButton
+      Left = 200
+      Height = 25
+      Top = 8
+      Width = 75
+      BorderSpacing.InnerBorder = 4
+      Caption = 'Close'
+      OnClick = ButtonCloseClick
+      TabOrder = 2
+    end
   end
 end
