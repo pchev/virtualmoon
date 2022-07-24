@@ -325,10 +325,8 @@ begin
   DatabaseList.Sorted:=true;
   dben:=TStringList.Create;
   dben.Sorted:=true;
-  writeln('fichier:');
   i:=findfirst(Slash(appdir)+Slash('Database')+'*_*_EN.csv', faNormal, f);
   while (i=0) do begin
-    writeln(f.name);
     dben.Add(f.Name);
     i:=FindNext(f);
   end;
@@ -351,10 +349,8 @@ begin
   DatabaseList.Sorted:=false;
   for i:=1 to MaxDB do
     database[i]:='';
-  writeln('database:');
   for i:=0 to DatabaseList.Count-1 do begin
     buf:=DatabaseList[i];
-    writeln(buf);
     database[i+1]:=Slash(appdir)+Slash('Database')+buf;
     p:=pos('_',dben[i]);
     Delete(buf,1,p);
