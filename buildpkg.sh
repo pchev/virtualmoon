@@ -2,7 +2,7 @@
 
 # script to build virtualmoon on a Linux system
 
-Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|linuxpicture|linuxtranslation|win|windata|winpicture|wintranslation]"
+Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|linuxhires|linuxpicture|linuxtranslation|win|windata|winhires|winpicture|wintranslation]"
 
 version=8.0
 
@@ -15,6 +15,8 @@ wine_build="Z:\tmp\virtualmoon" # Change to match builddir, Z: is defined in ~/.
 builddir=/home/pch/tmp/virtualmoon
 wine_build="Z:\home\pch\tmp\virtualmoon"
 
+# optionaly build the RPM
+unset buildrpm
 
 arch=$(arch)
 unset extratarget
@@ -33,10 +35,12 @@ echo Make $buildname
 unset make_linux32
 unset make_linux64
 unset make_linux_data
+unset make_linux_hires
 unset make_linux_picture
 unset make_linux_translation
 unset make_win32
 unset make_win32_data
+unset make_win32_hires
 unset make_win32_picture
 unset make_win32_translation
 unset outdir
@@ -56,6 +60,10 @@ if [[ $buildname == linuxdata ]]; then
   make_linux_data=1
   outdir="BUILD_LINUXDATA"
 fi  
+if [[ $buildname == linuxhires ]]; then 
+  make_linux_hires=1
+  outdir="BUILD_LINUXDATA"
+fi  
 if [[ $buildname == linuxpicture ]]; then 
   make_linux_picture=1
   outdir="BUILD_LINUXPICTURE"
@@ -72,6 +80,11 @@ if [[ $buildname == win ]]; then
 fi
 if [[ $buildname == windata ]]; then 
   make_win32_data=1
+  extratarget=",x86_64-linux"
+  outdir="BUILD_WINDATA"
+fi  
+if [[ $buildname == winhires ]]; then 
+  make_win32_hires=1
   extratarget=",x86_64-linux"
   outdir="BUILD_WINDATA"
 fi  
@@ -133,19 +146,21 @@ if [[ $make_linux32 ]]; then
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon*.deb $wd/$outdir/
   if [[ $? -ne 0 ]]; then exit 1;fi
- # rpm
-  cd $wd
-  rsync -a --exclude=.svn Installer/Linux/rpm $builddir
-  cd $builddir
-  mkdir -p rpm/virtualmoon/usr/
-  mv debian/virtualmoon/usr/* rpm/virtualmoon/usr/
-  cd rpm
-  sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon.spec
-  sed -i "/Release:/ s/1/1/" SPECS/virtualmoon.spec
-  fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon.spec
+  if [[ $buildrpm ]]; then
+    # rpm
+    cd $wd
+    rsync -a --exclude=.svn Installer/Linux/rpm $builddir
+    cd $builddir
+    mkdir -p rpm/virtualmoon/usr/
+    mv debian/virtualmoon/usr/* rpm/virtualmoon/usr/
+    cd rpm
+    sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon.spec
+    sed -i "/Release:/ s/1/1/" SPECS/virtualmoon.spec
+    fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon.spec
+    if [[ $? -ne 0 ]]; then exit 1;fi
+    mv RPMS/i386/virtualmoon*.rpm $wd/$outdir/
   if [[ $? -ne 0 ]]; then exit 1;fi
-  mv RPMS/i386/virtualmoon*.rpm $wd/$outdir/
-  if [[ $? -ne 0 ]]; then exit 1;fi
+  fi
   cd $wd
   rm -rf $builddir
 fi
@@ -178,20 +193,22 @@ if [[ $make_linux64 ]]; then
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon*.deb $wd/$outdir/
   if [[ $? -ne 0 ]]; then exit 1;fi
-  # rpm
-  cd $wd
-  rsync -a --exclude=.svn Installer/Linux/rpm $builddir
-  cd $builddir
-  mkdir -p rpm/virtualmoon/usr/
-  mv debian/virtualmoon64/usr/* rpm/virtualmoon/usr/
-  cd rpm
-  sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon64.spec
-  sed -i "/Release:/ s/1/1/" SPECS/virtualmoon64.spec
-  # rpm 4.7
-  fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon64.spec
-  if [[ $? -ne 0 ]]; then exit 1;fi
-  mv RPMS/x86_64/virtualmoon*.rpm $wd/$outdir/
-  if [[ $? -ne 0 ]]; then exit 1;fi
+  if [[ $buildrpm ]]; then
+    # rpm
+    cd $wd
+    rsync -a --exclude=.svn Installer/Linux/rpm $builddir
+    cd $builddir
+    mkdir -p rpm/virtualmoon/usr/
+    mv debian/virtualmoon64/usr/* rpm/virtualmoon/usr/
+    cd rpm
+    sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon64.spec
+    sed -i "/Release:/ s/1/1/" SPECS/virtualmoon64.spec
+    # rpm 4.7
+    fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon" --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon64.spec
+    if [[ $? -ne 0 ]]; then exit 1;fi
+    mv RPMS/x86_64/virtualmoon*.rpm $wd/$outdir/
+    if [[ $? -ne 0 ]]; then exit 1;fi
+  fi  
   cd $wd
   rm -rf $builddir
 fi
@@ -216,19 +233,21 @@ function datapkg {
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv virtualmoon*.deb $wd/$outdir/
   if [[ $? -ne 0 ]]; then exit 1;fi
-  # rpm
-  cd $wd
-  rsync -a --exclude=.svn Installer/Linux/rpm $builddir
-  cd $builddir
-  mkdir -p rpm/virtualmoon-$pkg/usr/
-  mv debian/virtualmoon-$pkg/usr/* rpm/virtualmoon-$pkg/usr/
-  cd rpm
-  sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon-$pkg.spec
-  sed -i "/Release:/ s/1/1/" SPECS/virtualmoon-$pkg.spec
-  fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon-"$pkg --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon-$pkg.spec
-  if [[ $? -ne 0 ]]; then exit 1;fi
-  mv RPMS/noarch/virtualmoon*.rpm $wd/$outdir/
-  if [[ $? -ne 0 ]]; then exit 1;fi
+  if [[ $buildrpm ]]; then
+    # rpm
+    cd $wd
+    rsync -a --exclude=.svn Installer/Linux/rpm $builddir
+    cd $builddir
+    mkdir -p rpm/virtualmoon-$pkg/usr/
+    mv debian/virtualmoon-$pkg/usr/* rpm/virtualmoon-$pkg/usr/
+    cd rpm
+    sed -i "/Version:/ s/5/$version/"  SPECS/virtualmoon-$pkg.spec
+    sed -i "/Release:/ s/1/1/" SPECS/virtualmoon-$pkg.spec
+    fakeroot rpmbuild  --buildroot "$builddir/rpm/virtualmoon-"$pkg --define "_topdir $builddir/rpm/" -bb SPECS/virtualmoon-$pkg.spec
+    if [[ $? -ne 0 ]]; then exit 1;fi
+    mv RPMS/noarch/virtualmoon*.rpm $wd/$outdir/
+    if [[ $? -ne 0 ]]; then exit 1;fi
+  fi  
   cd $wd
   rm -rf $builddir
 }
@@ -241,6 +260,12 @@ if [[ $make_linux_data ]]; then
   make install_data2
   if [[ $? -ne 0 ]]; then exit 1;fi
   datapkg data
+  cd $wd
+  rm -rf $builddir
+fi
+
+if [[ $make_linux_hires ]]; then 
+  ./configure $configopt prefix=$builddir target=x86_64-linux
   make install_data3
   if [[ $? -ne 0 ]]; then exit 1;fi
   datapkg hires
@@ -316,6 +341,20 @@ if [[ $make_win32_data ]]; then
   make install_win_data2
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/vmapro/Data $builddir/vmapro/Data2
+  # exe
+  cd $builddir
+  wine "$innosetup" "$wine_build\vmadata2.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/virtualmoon*.exe $wd/$outdir/
+  cd $wd
+  rm -rf $builddir
+fi
+
+if [[ $make_win32_hires ]]; then 
+  cd $wd
+  rsync -a --exclude=.svn Installer/Windows/* $builddir
+  ./configure $configopt prefix=$builddir/vmapro/Data target=i386-win32$extratarget
+  if [[ $? -ne 0 ]]; then exit 1;fi
   make install_win_data3
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/vmapro/Data $builddir/vmapro/Data3
@@ -333,8 +372,6 @@ if [[ $make_win32_data ]]; then
   mv $builddir/vmapro/Data $builddir/vmapro/Data4-4
   # exe
   cd $builddir
-  wine "$innosetup" "$wine_build\vmadata2.iss"
-  if [[ $? -ne 0 ]]; then exit 1;fi
   wine "$innosetup" "$wine_build\vmadata3.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   wine "$innosetup" "$wine_build\vmadata4-1.iss"
