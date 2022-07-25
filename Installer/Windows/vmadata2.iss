@@ -26,6 +26,11 @@ UsedUserAreasWarning=no
 Name: eng; MessagesFile: compiler:Default.isl; InfoBeforeFile: setup_data\readme.txt
 Name: fre; MessagesFile: compiler:Languages\French.isl; InfoBeforeFile: setup_data\lisezmoi.txt
 
+[InstallDelete]
+Name: {app}\Database\6_*.csv; Type: files
+Name: {app}\Database\7_*.csv; Type: files
+Name: {app}\Database\8_*.csv; Type: files
+
 [Messages]
 eng.UninstalledAll=%1 was successfully removed from your computer.
 fre.UninstalledAll=%1 a été correctement désinstallé de cet ordinateur.

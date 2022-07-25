@@ -59,6 +59,11 @@ Name: {app}\createtexture.exe; Type: files; Components: ; Tasks: ; Languages:
 Name: {app}\plan404.dll; Type: files; Components: ; Tasks: ; Languages: 
 Name: {app}\elp82.dll; Type: files; Components: ; Tasks: ; Languages: 
 Name: {app}\*.tid; Type: files; Components: ; Tasks: ; Languages: 
+Name: {app}\Database\1_*.csv; Type: files
+Name: {app}\Database\2_*.csv; Type: files
+Name: {app}\Database\3_*.csv; Type: files
+Name: {app}\Database\4_*.csv; Type: files
+Name: {app}\Database\5_*.csv; Type: files
 Name: {userappdata}\Virtualmoon\vignette; Type: filesandordirs
 Name: {userappdata}\Virtualmoon\Database\*.dbl; Type: files
 Name: {userappdata}\Virtualmoon\Database\database_journal.txt; Type: files
