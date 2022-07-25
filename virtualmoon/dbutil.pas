@@ -337,6 +337,7 @@ begin
   else begin
     for i:=0 to dben.Count-1 do begin
        p:=pos('_',dben[i]);
+       if p<>3 then continue;
        nb:=copy(dben[i],1,p-1);
        j:=findfirst(Slash(appdir)+Slash('Database')+nb+'_*_'+uplanguage+'.csv', faNormal, f);
        if j=0 then
@@ -352,7 +353,7 @@ begin
   for i:=0 to DatabaseList.Count-1 do begin
     buf:=DatabaseList[i];
     database[i+1]:=Slash(appdir)+Slash('Database')+buf;
-    p:=pos('_',dben[i]);
+    p:=pos('_',buf);
     Delete(buf,1,p);
     Delete(buf,Length(buf)-6,7);
     buf:=StringReplace(buf,'_',' ',[rfReplaceAll]);

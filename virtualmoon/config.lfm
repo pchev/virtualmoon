@@ -2,12 +2,12 @@ object Form2: TForm2
   Left = 478
   Height = 504
   Top = 120
-  Width = 454
+  Width = 533
   ActiveControl = PageControl1
   BorderStyle = bsSizeToolWin
   Caption = 'Configuration'
   ClientHeight = 504
-  ClientWidth = 454
+  ClientWidth = 533
   Color = clWindow
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
@@ -17,7 +17,7 @@ object Form2: TForm2
     Left = 0
     Height = 463
     Top = 0
-    Width = 454
+    Width = 533
     ActivePage = TabSheet1
     Align = alClient
     MultiLine = True
@@ -28,20 +28,20 @@ object Form2: TForm2
     object TabSheet1: TTabSheet
       Caption = 'General'
       ClientHeight = 432
-      ClientWidth = 444
+      ClientWidth = 523
       ParentFont = False
       object Bevel8: TBevel
         Left = 16
         Height = 140
         Top = 160
-        Width = 372
+        Width = 496
         Shape = bsFrame
       end
       object Bevel7: TBevel
         Left = 16
         Height = 129
         Top = 8
-        Width = 372
+        Width = 496
         Shape = bsFrame
       end
       object Label4: TLabel
@@ -277,7 +277,7 @@ object Form2: TForm2
     object TabSheet7: TTabSheet
       Caption = 'Database'
       ClientHeight = 432
-      ClientWidth = 444
+      ClientWidth = 523
       ParentFont = False
       object Label31: TLabel
         Left = 16
@@ -322,13 +322,13 @@ object Form2: TForm2
     object TabSheet3: TTabSheet
       Caption = 'Affichage'
       ClientHeight = 432
-      ClientWidth = 444
+      ClientWidth = 523
       ParentFont = False
       object Bevel3: TBevel
         Left = 16
         Height = 154
         Top = 231
-        Width = 396
+        Width = 504
         Shape = bsFrame
       end
       object TrackBar2: TTrackBar
@@ -348,21 +348,21 @@ object Form2: TForm2
         Left = 16
         Height = 57
         Top = 0
-        Width = 396
+        Width = 504
         Shape = bsFrame
       end
       object Bevel9: TBevel
         Left = 16
         Height = 97
         Top = 128
-        Width = 396
+        Width = 504
         Shape = bsFrame
       end
       object Bevel2: TBevel
         Left = 16
         Height = 59
         Top = 64
-        Width = 396
+        Width = 504
         Shape = bsFrame
       end
       object Shape1: TShape
@@ -375,7 +375,7 @@ object Form2: TForm2
       object Label6: TLabel
         Left = 51
         Height = 19
-        Top = 96
+        Top = 93
         Width = 82
         Caption = 'Identification'
         Color = clDefault
@@ -384,16 +384,16 @@ object Form2: TForm2
         Transparent = False
       end
       object Shape2: TShape
-        Left = 172
+        Left = 146
         Height = 20
         Top = 92
         Width = 20
         OnMouseUp = Shape1MouseUp
       end
       object Label7: TLabel
-        Left = 199
+        Left = 172
         Height = 19
-        Top = 96
+        Top = 93
         Width = 48
         Caption = 'Marque'
         Color = clDefault
@@ -413,16 +413,16 @@ object Form2: TForm2
         Transparent = False
       end
       object Shape3: TShape
-        Left = 308
+        Left = 268
         Height = 20
         Top = 92
         Width = 20
         OnMouseUp = Shape1MouseUp
       end
       object Label17: TLabel
-        Left = 335
+        Left = 296
         Height = 19
-        Top = 96
+        Top = 93
         Width = 33
         Caption = 'Label'
         Color = clDefault
@@ -527,9 +527,9 @@ object Form2: TForm2
         TabOrder = 0
       end
       object CheckBox6: TCheckBox
-        Left = 24
+        Left = 335
         Height = 21
-        Top = 157
+        Top = 136
         Width = 132
         Caption = 'Affiche la marque'
         ParentFont = False
@@ -556,16 +556,16 @@ object Form2: TForm2
       object CheckBox17: TCheckBox
         Left = 24
         Height = 21
-        Top = 259
+        Top = 264
         Width = 201
         Caption = 'Label centre sur la formation'
         ParentFont = False
         TabOrder = 6
       end
       object CheckBox18: TCheckBox
-        Left = 24
+        Left = 335
         Height = 21
-        Top = 286
+        Top = 234
         Width = 118
         Caption = 'Label minimum'
         ParentFont = False
@@ -606,17 +606,35 @@ object Form2: TForm2
         ParentFont = False
         TabOrder = 9
       end
+      object Label22: TLabel
+        Left = 416
+        Height = 19
+        Top = 93
+        Width = 84
+        Caption = 'Impact bassin'
+        Color = clDefault
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+      end
+      object Shape4: TShape
+        Left = 390
+        Height = 20
+        Top = 92
+        Width = 20
+        OnMouseUp = Shape1MouseUp
+      end
     end
     object TabSheet4: TTabSheet
       Caption = 'Textures'
       ClientHeight = 432
-      ClientWidth = 444
+      ClientWidth = 523
       ParentFont = False
       object BumpRadioGroup: TRadioGroup
         Left = 0
         Height = 88
         Top = 0
-        Width = 444
+        Width = 523
         Align = alTop
         AutoFill = True
         ChildSizing.LeftRightSpacing = 6
@@ -628,7 +646,7 @@ object Form2: TForm2
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
         ClientHeight = 68
-        ClientWidth = 442
+        ClientWidth = 521
         Items.Strings = (
           'Phase sans reliefeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
           'Phase avec relief dynamiqueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
@@ -642,38 +660,41 @@ object Form2: TForm2
         Left = 0
         Height = 344
         Top = 88
-        Width = 444
-        HorzScrollBar.Page = 440
+        Width = 523
+        HorzScrollBar.Page = 502
         VertScrollBar.Page = 289
         Align = alClient
-        ClientHeight = 337
-        ClientWidth = 440
+        ClientHeight = 340
+        ClientWidth = 519
         TabOrder = 1
         object TexturePanel: TPanel
           Left = 0
           Height = 289
           Top = 0
-          Width = 445
+          Width = 502
           AutoSize = True
           BevelOuter = bvNone
           ClientHeight = 285
-          ClientWidth = 441
+          ClientWidth = 498
           ParentFont = False
           TabOrder = 0
           object GBlvall: TGroupBox
             Left = 0
             Height = 253
             Top = 32
-            Width = 242
+            Width = 270
             ClientHeight = 233
-            ClientWidth = 240
+            ClientWidth = 268
             ParentFont = False
             TabOrder = 0
             object ComboBox6: TComboBox
-              Left = 97
+              AnchorSideRight.Control = GBlvall
+              AnchorSideRight.Side = asrBottom
+              Left = 125
               Height = 28
               Top = 56
               Width = 143
+              Anchors = [akTop, akRight]
               Constraints.MaxHeight = 28
               ItemHeight = 0
               OnChange = ComboBox6Change
@@ -686,10 +707,13 @@ object Form2: TForm2
             end
           end
           object Label29: TLabel
-            Left = 242
+            AnchorSideLeft.Side = asrCenter
+            AnchorSideRight.Control = GBlv1
+            Left = 262
             Height = 19
             Top = 16
             Width = 8
+            Anchors = [akTop, akRight]
             Caption = '1'
             Color = clDefault
             ParentColor = False
@@ -697,10 +721,12 @@ object Form2: TForm2
             Transparent = False
           end
           object Label36: TLabel
-            Left = 272
+            AnchorSideRight.Control = GBlv2
+            Left = 300
             Height = 19
             Top = 16
             Width = 8
+            Anchors = [akTop, akRight]
             Caption = '3'
             Color = clDefault
             ParentColor = False
@@ -708,10 +734,12 @@ object Form2: TForm2
             Transparent = False
           end
           object Label37: TLabel
-            Left = 304
+            AnchorSideRight.Control = GBlv3
+            Left = 338
             Height = 19
             Top = 16
             Width = 8
+            Anchors = [akTop, akRight]
             Caption = '8'
             Color = clDefault
             ParentColor = False
@@ -719,10 +747,12 @@ object Form2: TForm2
             Transparent = False
           end
           object Label38: TLabel
-            Left = 333
+            AnchorSideRight.Control = GBlv4
+            Left = 368
             Height = 19
             Top = 16
             Width = 16
+            Anchors = [akTop, akRight]
             Caption = '16'
             Color = clDefault
             ParentColor = False
@@ -730,10 +760,12 @@ object Form2: TForm2
             Transparent = False
           end
           object Label47: TLabel
-            Left = 366
+            AnchorSideRight.Control = GBlv5
+            Left = 406
             Height = 19
             Top = 16
             Width = 16
+            Anchors = [akTop, akRight]
             Caption = '35'
             Color = clDefault
             ParentColor = False
@@ -741,61 +773,75 @@ object Form2: TForm2
             Transparent = False
           end
           object Label48: TLabel
-            Left = 398
+            AnchorSideRight.Control = GBlv6
+            Left = 444
             Height = 19
             Top = 16
-            Width = 43
-            Caption = '65 200'
+            Width = 16
+            Anchors = [akTop, akRight]
+            Caption = '65'
             Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
           end
           object GBlv1: TGroupBox
-            Left = 242
+            AnchorSideLeft.Control = GBlvall
+            AnchorSideLeft.Side = asrBottom
+            Left = 270
             Height = 253
             Top = 32
-            Width = 33
+            Width = 38
             ParentFont = False
             TabOrder = 1
           end
           object GBlv2: TGroupBox
-            Left = 275
+            AnchorSideLeft.Control = GBlv1
+            AnchorSideLeft.Side = asrBottom
+            Left = 308
             Height = 253
             Top = 32
-            Width = 33
+            Width = 38
             ParentFont = False
             TabOrder = 2
           end
           object GBlv3: TGroupBox
-            Left = 308
+            AnchorSideLeft.Control = GBlv2
+            AnchorSideLeft.Side = asrBottom
+            Left = 346
             Height = 253
             Top = 32
-            Width = 33
+            Width = 38
             ParentFont = False
             TabOrder = 3
           end
           object GBlv4: TGroupBox
-            Left = 341
+            AnchorSideLeft.Control = GBlv3
+            AnchorSideLeft.Side = asrBottom
+            Left = 384
             Height = 253
             Top = 32
-            Width = 33
+            Width = 38
             ParentFont = False
             TabOrder = 4
           end
           object GBlv5: TGroupBox
-            Left = 374
+            AnchorSideLeft.Control = GBlv4
+            AnchorSideLeft.Side = asrBottom
+            Left = 422
             Height = 253
             Top = 32
-            Width = 33
+            Width = 38
             ParentFont = False
             TabOrder = 5
           end
           object GBlv6: TGroupBox
-            Left = 407
+            AnchorSideLeft.Control = GBlv5
+            AnchorSideLeft.Side = asrBottom
+            Left = 460
             Height = 253
             Top = 32
-            Width = 33
+            Width = 38
             ParentFont = False
             TabOrder = 6
           end
@@ -811,7 +857,7 @@ object Form2: TForm2
             Transparent = False
           end
           object Label3: TLabel
-            Left = 237
+            Left = 234
             Height = 19
             Top = 0
             Width = 67
@@ -821,13 +867,24 @@ object Form2: TForm2
             ParentFont = False
             Transparent = False
           end
+          object Label63: TLabel
+            AnchorSideRight.Control = GBlv6
+            AnchorSideRight.Side = asrBottom
+            Left = 474
+            Height = 19
+            Top = 16
+            Width = 24
+            Anchors = [akTop, akRight]
+            Caption = '200'
+            ParentColor = False
+          end
         end
       end
     end
     object TabSheet6: TTabSheet
       Caption = 'Overlay'
       ClientHeight = 432
-      ClientWidth = 444
+      ClientWidth = 523
       ParentFont = False
       object Panel2: TPanel
         Left = 14
@@ -1023,7 +1080,7 @@ object Form2: TForm2
     object TabSheet2: TTabSheet
       Caption = 'Images'
       ClientHeight = 432
-      ClientWidth = 444
+      ClientWidth = 523
       ParentFont = False
       object Label9: TLabel
         Left = 9
@@ -1040,7 +1097,7 @@ object Form2: TForm2
         Left = 8
         Height = 266
         Top = 42
-        Width = 396
+        Width = 400
         ColCount = 2
         DefaultRowHeight = 22
         FixedCols = 0
@@ -1111,7 +1168,7 @@ object Form2: TForm2
     object TabSheet5: TTabSheet
       Caption = 'Eyepieces'
       ClientHeight = 432
-      ClientWidth = 444
+      ClientWidth = 523
       ParentFont = False
       object Label24: TLabel
         Left = 8
@@ -1312,7 +1369,7 @@ object Form2: TForm2
     object TabSheet8: TTabSheet
       Caption = 'CCD'
       ClientHeight = 432
-      ClientWidth = 444
+      ClientWidth = 523
       ParentFont = False
       object StringGrid3: TStringGrid
         Left = 8
@@ -1529,20 +1586,20 @@ object Form2: TForm2
     object Impression: TTabSheet
       Caption = 'Impression'
       ClientHeight = 432
-      ClientWidth = 444
+      ClientWidth = 523
       ParentFont = False
       object Bevel6: TBevel
         Left = 8
         Height = 81
         Top = 49
-        Width = 388
+        Width = 504
         Shape = bsFrame
       end
       object Bevel4: TBevel
         Left = 12
         Height = 81
         Top = 256
-        Width = 388
+        Width = 500
         Shape = bsFrame
       end
       object Label12: TLabel
@@ -1582,7 +1639,7 @@ object Form2: TForm2
         Left = 8
         Height = 92
         Top = 140
-        Width = 388
+        Width = 504
         Shape = bsFrame
       end
       object Label15: TLabel
@@ -1599,7 +1656,7 @@ object Form2: TForm2
       object Label10: TLabel
         Left = 24
         Height = 19
-        Top = 295
+        Top = 300
         Width = 183
         Caption = 'Taille des images enregistrees'
         Color = clDefault
@@ -1707,9 +1764,9 @@ object Form2: TForm2
         TabOrder = 6
       end
       object ComboBox4: TComboBox
-        Left = 226
+        Left = 280
         Height = 31
-        Top = 291
+        Top = 296
         Width = 168
         ItemHeight = 0
         ItemIndex = 0
@@ -1732,11 +1789,11 @@ object Form2: TForm2
     Left = 0
     Height = 41
     Top = 463
-    Width = 454
+    Width = 533
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 41
-    ClientWidth = 454
+    ClientWidth = 533
     ParentFont = False
     TabOrder = 1
     object Button1: TSpeedButton

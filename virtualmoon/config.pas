@@ -69,6 +69,7 @@ type
     GBlv6: TGroupBox;
     Label20: TLabel;
     Label21: TLabel;
+    Label22: TLabel;
     Label29: TLabel;
     Label3: TLabel;
     Label36: TLabel;
@@ -98,6 +99,7 @@ type
     Label60: TLabel;
     Label61: TLabel;
     Label62: TLabel;
+    Label63: TLabel;
     Label8: TLabel;
     LabelImp: TLabel;
     LabelGrid: TLabel;
@@ -112,6 +114,7 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     ScrollBox1: TScrollBox;
+    Shape4: TShape;
     TexturePanel: TPanel;
     BumpRadioGroup: TRadioGroup;
     RadioGroup7: TRadioGroup;
@@ -288,6 +291,7 @@ begin
       Radiogroup7.Items[1] := rst_26;
       Label5.Caption := rst_28;
       Label17.Caption := rst_29;
+      label22.Caption:=rsImpactBassin;
       Label7.Caption := rst_52;
       CheckBox5.Caption := rst_53;
       CheckBox6.Caption := rst_54;

@@ -278,6 +278,7 @@ type
     procedure SetMark(lon,lat:single; txt:string);
     procedure CenterAt(lon,lat:single);
     procedure CenterMark;
+    procedure ClearCircle;
     procedure Circle(lon,lat,r: single; c: tcolor);
     procedure KeyEvent(event: TMoonKeyClass; key: word);
     function AddLabel(lon,lat:single; txt:string; notcenter,forcecenter:boolean;sc:single=1):boolean;
@@ -2136,7 +2137,6 @@ if (GLDummyCubeMarks.Count > 0) and (GLDummyCubeMarks.Children[0].Visible or GLD
 GLHUDSpriteMark.Visible:=false;
 GLHUDTextMark.Visible:=false;
 GLHUDTextMarkShadow.Visible:=false;
-GLDummyCubeCircle.DeleteChildren;
 end;
 
 function Tf_moon.AddSprite(lon,lat:single):boolean;
@@ -2215,6 +2215,11 @@ begin
 FShowGrid:=value;
 GLDummyCubeCoord.Visible:=FShowGrid;
 PushLabel;
+end;
+
+procedure Tf_moon.ClearCircle;
+begin
+  GLDummyCubeCircle.DeleteChildren;
 end;
 
 procedure Tf_moon.Circle(lon,lat,r: single; c: tcolor);

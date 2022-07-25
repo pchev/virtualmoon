@@ -569,6 +569,7 @@ type
     procedure GetDetail(row: TResultRow; memo: Tmemo);
     procedure GetHTMLDetail(row: TResultRow; var txt: string);
     function GetILCD(n: string):string;
+    procedure ImpactBassinCircle(moon:Tf_moon);
     procedure GetNotes(n: string);
     function ImgExists(nom: string): boolean;
     procedure InitDate;
@@ -1092,6 +1093,7 @@ begin
   markcolor := clRed;
   spritecolor:=clRed;
   autolabelcolor := clYellow;
+  bassinColor:=clGreen;
   labelcenter := True;
   shortdesc:=true;
   minilabel := True;
@@ -1188,6 +1190,7 @@ begin
     MarkLabelColor   := ReadInteger(section, 'LabelColor', MarkLabelColor);
     MarkColor    := ReadInteger(section, 'MarkColor', MarkColor);
     spritecolor:=markcolor;
+    bassinColor    := ReadInteger(section, 'bassinColor', bassinColor);
     AutolabelColor := ReadInteger(section, 'AutolabelColor', AutolabelColor);
     gridspacing := ReadInteger(section, 'GridSpacing', gridspacing);
     LabelDensity := ReadInteger(section, 'LabelDensity', LabelDensity);
@@ -1342,6 +1345,7 @@ begin
       WriteBool(section, 'ShowLibrationMark', ShowLibrationMark);
       WriteInteger(section, 'LabelColor', MarkLabelColor);
       WriteInteger(section, 'MarkColor', MarkColor);
+      WriteInteger(section, 'bassinColor', bassinColor);
       WriteInteger(section, 'AutolabelColor', AutolabelColor);
       WriteInteger(section, 'LabelDensity', LabelDensity);
       WriteInteger(section, 'GridSpacing', gridspacing);
@@ -2886,6 +2890,23 @@ begin
   end;
 end;
 
+procedure Tform1.ImpactBassinCircle(moon:Tf_moon);
+var lon,lat,r: single;
+    i: integer;
+begin
+  moon.ClearCircle;
+  if usedatabase[DbImpactBassin] then begin
+     dbm.query('select LONGI_N,LATI_N,LENGTH_KM from moon where DBN=' + IntToStr(DbImpactBassin) + ';');
+     for i:=0 to dbm.RowCount-1 do begin
+       lon:=dbm.Results[i].Format[0].AsFloat;
+       lat:=dbm.Results[i].Format[1].AsFloat;
+       r:=dbm.Results[i].Format[2].AsFloat;
+       if r>0 then
+         moon.Circle(lon,lat,r,bassinColor)
+     end;
+  end;
+end;
+
 procedure TForm1.Button9Click(Sender: TObject);
 var
   dbcol:  integer;
@@ -3999,6 +4020,7 @@ try
   LibrationButton.Down := librationeffect;
   PhaseButton.Down := phaseeffect;
   LoadOverlay(overlayname, overlaytr);
+  ImpactBassinCircle(moon1);
   Visible:=true;
   GridButtonClick(nil);
   if currentname <> '' then
@@ -4077,7 +4099,7 @@ end;
 
 procedure TForm1.Configuration1Click(Sender: TObject);
 var
-  reload, reloaddb, systemtimechange: boolean;
+  reload, reloaddb, systemtimechange, redrawbassin: boolean;
   i, j: integer;
   p: TPoint;
 begin
@@ -4087,6 +4109,7 @@ begin
   try
     reload   := False;
     reloaddb := False;
+    redrawbassin := False;
     form2.Edit1.Text := formatfloat(f2, abs(ObsLatitude));
     form2.Edit2.Text := formatfloat(f2, abs(ObsLongitude));
     form2.Edit3.Text := formatfloat(f2, ObsAltitude);
@@ -4116,6 +4139,7 @@ begin
     form2.Shape1.Brush.Color := marklabelcolor;
     form2.Shape2.Brush.Color := markcolor;
     form2.Shape3.Brush.Color := autolabelcolor;
+    form2.Shape4.Brush.Color := bassinColor;
     form2.TrackBar2.Position := -LabelDensity;
     form2.TrackBar4.Position := marksize;
     form2.newlang := language;
@@ -4201,6 +4225,8 @@ begin
       spritecolor:=markcolor;
       marklabelcolor    := form2.Shape1.Brush.Color;
       autolabelcolor := form2.Shape3.Brush.Color;
+      redrawbassin := bassinColor<>form2.Shape4.Brush.Color;
+      bassinColor     := form2.Shape4.Brush.Color;
       LabelDensity  := abs(form2.TrackBar2.Position);
       TrackBar9.Position:=LabelDensity;
       marksize      := form2.TrackBar4.Position;
@@ -4257,8 +4283,13 @@ begin
       if reloaddb then begin
         LoadDB(dbm);
         form2.DbList.Items.Assign(DatabaseList);
+        redrawbassin:=True;
         firstsearch := True;
         SearchName(currentname, False);
+      end;
+      if redrawbassin then begin
+        ImpactBassinCircle(moon1);
+        if moon2<>nil then ImpactBassinCircle(moon2);
       end;
       LibrationButton.Down := librationeffect;
       PhaseButton.Down     := phaseeffect;
@@ -6027,6 +6058,7 @@ if moon2=nil then begin
  moon2.PopUp:=PopupMenu1;
  moon2.Visible:=false;
  moon2.Init(false);
+ ImpactBassinCircle(moon2);
 end;
 if NewWindowButton.Down then begin
   SplitSize:=0.5;

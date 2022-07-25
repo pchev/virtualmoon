@@ -115,6 +115,7 @@ const crlf = chr(10)+chr(13);
                       'Textures/LOLA_Kaguya_Shade/L6/0.jpg'              // LOLA - Kaguya
                       );
 
+      DbImpactBassin=9;
       // Datlun constant
       numdb=99;
       numdbtype = 25;
@@ -238,7 +239,7 @@ Var  Splashversion, compile_time, compile_version: string;
      // to move to pu_moon properties:
      labelcenter,showlabel,showmark: boolean;
      currenteyepiece,marksize, CurrentCCD: integer;
-     marklabelcolor, markcolor, SpriteColor: Tcolor;
+     marklabelcolor, markcolor, SpriteColor, bassinColor: Tcolor;
      DarkTheme : boolean;
      DatabaseList: Tstringlist;
      UnnamedList: string;
