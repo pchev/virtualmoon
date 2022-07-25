@@ -384,6 +384,7 @@ rsAsPNGPicture = 'as PNG picture';
 rsAsCSVFile = 'as CSV file';
 rsNotIAUApprou = 'Not IAU approuved';
 rsImpactBassin = 'Impact bassin';
+rsNoDatabaseSe = 'No database selected!';
 
 implementation
 

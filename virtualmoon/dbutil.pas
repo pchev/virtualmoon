@@ -374,8 +374,9 @@ dbm.Use(utf8encode(buf));
 try
 ListDB;
 CreateDB(dbm);
-sidelist:='1';
-for i:=2 to maxdbn do if usedatabase[i] and (database[i]<>'') then sidelist:=sidelist+','+inttostr(i);
+sidelist:='';
+for i:=1 to maxdbn do if usedatabase[i] and (database[i]<>'') then sidelist:=sidelist+','+inttostr(i);
+if copy(sidelist,1,1)=',' then delete(sidelist,1,1);
 for i:=1 to MaxDB do begin
   if usedatabase[i] and (database[i]<>'') then begin
      if (pos('_Unnamed',database[i])>0)or(pos('_non_nommées',database[i])>0) then

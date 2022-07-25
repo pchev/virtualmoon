@@ -539,7 +539,7 @@ type
     SplitSize: single;
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
     firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseWeblun,CanCloseCDC,StartDatlun,StartWeblun,StartPhotlun,StartCDC,StartCalclun: boolean;
-    Desctxt: string;
+    Desctxt,MsgNoDB: string;
     {$ifdef windows}
     savetop,saveleft,savewidth,saveheight: integer;
     {$endif}
@@ -954,6 +954,11 @@ begin
     bldb[7] := rsb_7;
     bldb[8] := rsb_8;
     bldb[9] := rsb_9;
+    if DarkTheme then
+      MsgNoDB := '<html> <body bgcolor="black">'
+    else
+      MsgNoDB := '<html> <body bgcolor="white">';
+    MsgNoDB := MsgNoDB + rsNoDatabaseSe + '</div></body></html>';
     // Config
     Form2.Setlang;
     f_features.SetLang;
@@ -1418,6 +1423,11 @@ var lmin,lmax,bmin,bmax: single;
     j: integer;
 begin
 // Labels
+  if sidelist='' then begin
+    SetDescText(MsgNoDB);
+    activemoon.SetMark(0,0,'');
+    exit;
+  end;
   if showlabel and (not TelescopeTimer.Enabled) then
   begin
   // get search boundaries
@@ -1960,6 +1970,10 @@ var
   buf:    string;
 begin
   listbox1.Clear;
+  if sidelist='' then begin
+    ListBox1.Items.Add(rsNoDatabaseSe);
+    exit;
+  end;
   if tphase < 180 then
   begin
     l1 := tphase - 90 + librl;
@@ -2012,6 +2026,10 @@ var
   l, b, deltal: double;
   i: integer;
 begin
+  if sidelist='' then begin
+    SetDescText(MsgNoDB);
+    exit;
+  end;
   l      := currentl;
   b      := currentb;
   deltal := delta / cos(deg2rad * b);
@@ -2042,6 +2060,11 @@ var
 begin
   mindist := 9999;
   Result  := False;
+  if sl='' then begin
+    SetDescText(MsgNoDB);
+    activemoon.SetMark(0,0,'');
+    exit;
+  end;
   rec     := 0;
   deltab  := 5;
   deltal  := deltab / cos(deg2rad * b);
@@ -3195,6 +3218,10 @@ var
   i:   integer;
 begin
   Result := False;
+  if sidelist='' then begin
+    SetDescText(MsgNoDB);
+    exit;
+  end;
   if Firstsearch then
   begin
     dbm.Query('select id,name from moon ' + ' where DBN in (' + sidelist + ')' +
@@ -5185,6 +5212,9 @@ procedure TForm1.ListBox1Click(Sender: TObject);
 var
   i, p: integer;
 begin
+  if sidelist='' then begin
+    exit;
+  end;
   i := listbox1.ItemIndex;
   if i >= 0 then
   begin
@@ -6290,7 +6320,7 @@ var wmin: double;
 begin
 if sender is Tf_moon then SetActiveMoon(Tf_moon(sender));
 if button=mbLeft then begin
-  if OnMoon then begin
+  if OnMoon and (sidelist<>'') then begin
     if (Tf_moon(Sender).Zoom >= 8) then
       wmin := -1
     else
