@@ -173,9 +173,6 @@ type
     TrackBar2: TTrackBar;
     Label18: TLabel;
     CheckBox15: TCheckBox;
-    ruklprefix: TEdit;
-    ruklsuffix: TEdit;
-    Label22: TLabel;
     TabSheet4: TTabSheet;
     TabSheet5: TTabSheet;
     StringGrid2: TStringGrid;
@@ -463,9 +460,6 @@ if not fileexists('version.developpement') then begin
   Edit4.Visible:=false;        // external image display
   Button3.Visible:=false;      // external image display
   checkbox15.Visible:=false;   // direct LOPAM image link
-  label22.Visible:=false;      // Rukl chart
-  ruklprefix.Visible:=false;   // Rukl chart
-  ruklsuffix.Visible:=false;   // Rukl chart
 end;
 PageControl1.ActivePageIndex:=0;
 i:=findfirst(slash(appdir)+slash('language')+'maplun.*.po',0,fs);

@@ -609,7 +609,7 @@ type
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
     lopamdirectsuffix, lopamlocalsuffix: string;
-    externalimagepath, helpprefix, ruklprefix, ruklsuffix,
+    externalimagepath, helpprefix,
     scopeinterface, markname, currentname, currentid: string;
     appname, pofile, configversion: string;
     //m: array[1..nummessage] of string;
@@ -1119,8 +1119,6 @@ begin
   PrintEph := True;
   PrintDesc := True;
   LopamDirect := False;
-  ruklprefix := 'C:\rukl\';
-  ruklsuffix := '_large.jpg';
   externalimage := False;
   externalimagepath := 'mspaint.exe';
   wantbump := false;
@@ -1153,8 +1151,6 @@ begin
       imgdir[i - 1, 2] := ReadString(section, 'name' + IntToStr(i), imgdir[i - 1, 0]);
       imgdir[i - 1, 1] := '';
     end;
-    ruklprefix := ReadString(section, 'ruklprefix', ruklprefix);
-    ruklsuffix := ReadString(section, 'ruklsuffix', ruklsuffix);
     section    := 'Print';
     LeftMargin := ReadInteger(section, 'LeftMargin', LeftMargin);
     PrintTextWidth := ReadInteger(section, 'PrintTextWidth', PrintTextWidth);
@@ -2127,11 +2123,11 @@ begin
      memo.Lines.Add('L.U.N.REDUCED :' + b + GetField('LUN_REDUCED'));
   if (GetField('NAME_TYPE'))>'' then
      memo.Lines.Add(rsNameType + b + GetField('NAME_TYPE'));
-  if (GetField('TYPE_IAU'))>'' then
-     memo.Lines.Add(rsIAUType + b + GetField('TYPE_IAU'));
   memo.Lines.Add(rsm_56 + b + GetField('TYPE'));
   if (GetField('SUBTYPE'))>'' then
      memo.Lines.Add(rsSubType + b + GetField('SUBTYPE'));
+  if (GetField('IAU_TYPE'))>'' then
+    memo.Lines.Add(rsIAUType + b + GetField('IAU_TYPE'));
   if (GetField('PERIOD'))>'' then
      memo.Lines.Add(rsm_49 + b + GetField('PERIOD'));
   if (GetField('PERIOD'))>'' then
@@ -2173,32 +2169,6 @@ begin
   end;
   if (GetField('RAPPORT'))>'' then
      memo.Lines.Add(rsm_23 + b + GetField('RAPPORT'));
-
-{  if GetField('FLOOR_DIAMETER_KM') > '' then
-    memo.Lines.Add(rsFloorDiamete + b + GetField('FLOOR_DIAMETER_KM')+ rsm_18);
-  if GetField('PEAK_HEIGHT_KM') > '' then
-    memo.Lines.Add(rsPeakHeight + b + GetField('PEAK_HEIGHT_KM')+ rsm_18);
-  if GetField('PEAK_DIAMETER_KM') > '' then
-    memo.Lines.Add(rsPeakDiameter + b + GetField('PEAK_DIAMETER_KM')+ rsm_18);
-  if GetField('EXCAVATION_DEPTH_KM') > '' then
-    memo.Lines.Add(rsExcavationDe + b + GetField('EXCAVATION_DEPTH_KM')+ rsm_18);
-  if GetField('MELTING_DEPTH_KM') > '' then
-    memo.Lines.Add(rsMeltingDepth + b + GetField('MELTING_DEPTH_KM')+ rsm_18);
-  if GetField('EJECTA_THICK_M_1RADIUS') > '' then
-    memo.Lines.Add(rsEjectaThickA + b + GetField('EJECTA_THICK_M_1RADIUS')+
-      rsm_21);
-  if GetField('EJECTA_THICK_M_3RADIUS') > '' then
-    memo.Lines.Add(rsEjectaThickA2 + b + GetField('EJECTA_THICK_M_3RADIUS')+
-      rsm_21);
-  if GetField('EJECTA_THICK_M_5RADIUS') > '' then
-    memo.Lines.Add(rsEjectaThickA3 + b + GetField('EJECTA_THICK_M_5RADIUS')+
-      rsm_21);
-  if GetField('RADAR_BRIGHT_HALO_RADIUS') > '' then
-    memo.Lines.Add(rsRadarBrightH + b + GetField('RADAR_BRIGHT_HALO_RADIUS')+
-      rsm_18);
-  if GetField('RADAR_DARK_HALO_RADIUS') > '' then
-    memo.Lines.Add(rsRadarDarkHal + b + GetField('RADAR_DARK_HALO_RADIUS')+
-      rsm_18);  }
 
   //Description
   if (GetField('GENERAL_1')>'')or(GetField('SLOPES')>'')or(GetField('WALLS')>'')or(GetField('FLOOR')>'') then
@@ -2253,22 +2223,66 @@ begin
   ok := dblox.MatchData('NAME', '=', nom);
   if not ok then
     ok := dblox.SeekData('NAME', '=', nom);
-  if ok or (GetField('RUKL')>'')or(GetField('RUKL_C')>'')or(GetField('VISCARDY')>'')or(GetField('HATFIELD')>'')or(GetField('WESTFALL')>'')or(GetField('WOOD')>'') then
-     memo.Lines.Add(rsm_61); //Atlas
-if (GetField('RUKL')>'')or(GetField('RUKL_C')>'') then
-     memo.Lines.Add(rsm_14 + b + GetField('RUKL') + ' ' + GetField('RUKL_C'));
+  memo.Lines.Add(rsm_61); //Atlas
+  if (GetField('RUKL')>'') then
+     memo.Lines.Add(rsm_14 + b + GetField('RUKL'));
   buf := GetField('VISCARDY');
   if trim(buf) > '' then
     memo.Lines.Add(rsm_15 + b + buf);
-  buf := GetField('HATFIELD');
-  if trim(buf) > '' then
-    memo.Lines.Add(rsm_16 + b + buf);
   buf := GetField('WESTFALL');
   if trim(buf) > '' then
     memo.Lines.Add(rsm_66 + b + buf);
   buf := GetField('WOOD');
   if trim(buf) > '' then
     memo.Lines.Add(rsm_72 + b + buf);
+  buf   := GetField('CLEMENTINE');
+  if trim(buf) > '' then
+    memo.Lines.Add('Clementine:' + b + buf);
+  buf   := GetField('CENTURY_21ST');
+  if trim(buf) > '' then
+    memo.Lines.Add('21st Century:' + b + buf);
+  buf := GetField('HATFIELD');
+  if trim(buf) > '' then
+    memo.Lines.Add(rsm_16 + b + buf);
+  buf   := GetField('REISEATLAS');
+  if trim(buf) > '' then
+    memo.Lines.Add('Reise Atlas:' + b + buf);
+  buf   := GetField('CHANGE1');
+  if trim(buf) > '' then
+    memo.Lines.Add('Change 1:' + b + buf);
+  buf   := GetField('DISCOVER_MOON');
+  if trim(buf) > '' then
+    memo.Lines.Add('Discover Moon:' + b + buf);
+  buf   := GetField('TIMES');
+  if trim(buf) > '' then
+    memo.Lines.Add('Times Atlas:' + b + buf);
+  buf   := GetField('KAGUYA');
+  if trim(buf) > '' then
+    memo.Lines.Add('Kaguya:' + b + buf);
+  buf   := GetField('BYRNE_NEAR');
+  if trim(buf) > '' then
+    memo.Lines.Add('Byrne Near:' + b + buf);
+  buf   := GetField('BYRNE_FAR');
+  if trim(buf) > '' then
+    memo.Lines.Add('Byrne Far:' + b + buf);
+  buf   := GetField('SIX_INCH');
+  if trim(buf) > '' then
+    memo.Lines.Add('Six Inch:' + b + buf);
+  buf   := GetField('DASE');
+  if trim(buf) > '' then
+    memo.Lines.Add('DASE:' + b + buf);
+  buf   := GetField('PAU');
+  if trim(buf) > '' then
+    memo.Lines.Add('PAU:' + b + buf);
+  buf   := GetField('LUNA_COGNITA');
+  if trim(buf) > '' then
+    memo.Lines.Add('Luna Cognita:' + b + buf);
+  buf   := GetField('LAC');
+  if trim(buf) > '' then
+    memo.Lines.Add('LAC:' + b + buf);
+  buf   := GetField('LOPAM');
+  if trim(buf) > '' then
+    memo.Lines.Add('Lopam:' + b + buf);
   if ok then
   begin
     buf := rsm_65;
@@ -2318,50 +2332,57 @@ if (GetField('RUKL')>'')or(GetField('RUKL_C')>'') then
      memo.Lines.Add(rsm_9 + b + GetField('RICCIOLI'));
     // IAU information
     memo.Lines.Add('IAU information:');
-    if GetField('IAU_FEATURE_NAME')<>'' then
-       memo.Lines.Add('IAU_FEATURE_NAME:' + b + GetField('IAU_FEATURE_NAME'));
-    if GetField('IAU_CLEAN_FEATURE_NAME')<>'' then
-       memo.Lines.Add('IAU_CLEAN_FEATURE_NAME:' + b + GetField('IAU_CLEAN_FEATURE_NAME'));
-    if GetField('IAU_FEATURE_ID')<>'' then
-       memo.Lines.Add('IAU_FEATURE_ID:' + b + GetField('IAU_FEATURE_ID'));
-    if GetField('IAU_DIAMETER')<>'' then
-       memo.Lines.Add('IAU_DIAMETER:' + b + GetField('IAU_DIAMETER'));
-    if GetField('IAU_CENTER_LATITUDE')<>'' then
-       memo.Lines.Add('IAU_CENTER_LATITUDE:' + b + GetField('IAU_CENTER_LATITUDE'));
-    if GetField('IAU_CENTER_LONGITUDE')<>'' then
-       memo.Lines.Add('IAU_CENTER_LONGITUDE:' + b + GetField('IAU_CENTER_LONGITUDE'));
-    if GetField('IAU_NORTHERN_LATITUDE')<>'' then
-       memo.Lines.Add('IAU_NORTHERN_LATITUDE:' + b + GetField('IAU_NORTHERN_LATITUDE'));
-    if GetField('IAU_SOUTHERN_LATITUDE')<>'' then
-       memo.Lines.Add('IAU_SOUTHERN_LATITUDE:' + b + GetField('IAU_SOUTHERN_LATITUDE'));
-    if GetField('IAU_EASTERN_LONGITUDE')<>'' then
-       memo.Lines.Add('IAU_EASTERN_LONGITUDE:' + b + GetField('IAU_EASTERN_LONGITUDE'));
-    if GetField('IAU_WESTERN_LONGITUDE')<>'' then
-       memo.Lines.Add('IAU_WESTERN_LONGITUDE:' + b + GetField('IAU_WESTERN_LONGITUDE'));
-    if GetField('IAU_COORDINATE_SYSTEM')<>'' then
-       memo.Lines.Add('IAU_COORDINATE_SYSTEM:' + b + GetField('IAU_COORDINATE_SYSTEM'));
-    if GetField('IAU_CONTINENT')<>'' then
-       memo.Lines.Add('IAU_CONTINENT:' + b + GetField('IAU_CONTINENT'));
-    if GetField('IAU_ETHNICITY')<>'' then
-       memo.Lines.Add('IAU_ETHNICITY:' + b + GetField('IAU_ETHNICITY'));
-    if GetField('IAU_FEATURE_TYPE')<>'' then
-       memo.Lines.Add('IAU_FEATURE_TYPE:' + b + GetField('IAU_FEATURE_TYPE'));
-    if GetField('IAU_FEATURE_TYPE_CODE')<>'' then
-       memo.Lines.Add('IAU_FEATURE_TYPE_CODE:' + b + GetField('IAU_FEATURE_TYPE_CODE'));
-    if GetField('IAU_QUAD_NAME')<>'' then
-       memo.Lines.Add('IAU_QUAD_NAME:' + b + GetField('IAU_QUAD_NAME'));
-    if GetField('IAU_QUAD_CODE')<>'' then
-       memo.Lines.Add('IAU_QUAD_CODE:' + b + GetField('IAU_QUAD_CODE'));
-    if GetField('IAU_APPROVAL_STATUS')<>'' then
-       memo.Lines.Add('IAU_APPROVAL_STATUS:' + b + GetField('IAU_APPROVAL_STATUS'));
-    if GetField('IAU_APPROVAL_DATE')<>'' then
-       memo.Lines.Add('IAU_APPROVAL_DATE:' + b + GetField('IAU_APPROVAL_DATE'));
-    if GetField('IAU_REFERENCE')<>'' then
-       memo.Lines.Add('IAU_REFERENCE:' + b + GetField('IAU_REFERENCE'));
-    if GetField('IAU_ORIGIN')<>'' then
-       memo.Lines.Add('IAU_ORIGIN:' + b + GetField('IAU_ORIGIN'));
-    if GetField('IAU_LINK')<>'' then
-       memo.Lines.Add('IAU_LINK:' + b + GetField('IAU_LINK'));
+    buf:=GetField('IAU_FEATURE_NAME');
+    if buf='' then buf:=rsNotIAUApprou;
+    if buf=rsNotIAUApprou then begin
+       memo.Lines.Add(buf);
+    end
+    else begin
+      if GetField('IAU_FEATURE_NAME')<>'' then
+         memo.Lines.Add('IAU_FEATURE_NAME:' + b + GetField('IAU_FEATURE_NAME'));
+      if GetField('IAU_CLEAN_FEATURE_NAME')<>'' then
+         memo.Lines.Add('IAU_CLEAN_FEATURE_NAME:' + b + GetField('IAU_CLEAN_FEATURE_NAME'));
+      if GetField('IAU_FEATURE_ID')<>'' then
+         memo.Lines.Add('IAU_FEATURE_ID:' + b + GetField('IAU_FEATURE_ID'));
+      if GetField('IAU_DIAMETER')<>'' then
+         memo.Lines.Add('IAU_DIAMETER:' + b + GetField('IAU_DIAMETER'));
+      if GetField('IAU_CENTER_LATITUDE')<>'' then
+         memo.Lines.Add('IAU_CENTER_LATITUDE:' + b + GetField('IAU_CENTER_LATITUDE'));
+      if GetField('IAU_CENTER_LONGITUDE')<>'' then
+         memo.Lines.Add('IAU_CENTER_LONGITUDE:' + b + GetField('IAU_CENTER_LONGITUDE'));
+      if GetField('IAU_NORTHERN_LATITUDE')<>'' then
+         memo.Lines.Add('IAU_NORTHERN_LATITUDE:' + b + GetField('IAU_NORTHERN_LATITUDE'));
+      if GetField('IAU_SOUTHERN_LATITUDE')<>'' then
+         memo.Lines.Add('IAU_SOUTHERN_LATITUDE:' + b + GetField('IAU_SOUTHERN_LATITUDE'));
+      if GetField('IAU_EASTERN_LONGITUDE')<>'' then
+         memo.Lines.Add('IAU_EASTERN_LONGITUDE:' + b + GetField('IAU_EASTERN_LONGITUDE'));
+      if GetField('IAU_WESTERN_LONGITUDE')<>'' then
+         memo.Lines.Add('IAU_WESTERN_LONGITUDE:' + b + GetField('IAU_WESTERN_LONGITUDE'));
+      if GetField('IAU_COORDINATE_SYSTEM')<>'' then
+         memo.Lines.Add('IAU_COORDINATE_SYSTEM:' + b + GetField('IAU_COORDINATE_SYSTEM'));
+      if GetField('IAU_CONTINENT')<>'' then
+         memo.Lines.Add('IAU_CONTINENT:' + b + GetField('IAU_CONTINENT'));
+      if GetField('IAU_ETHNICITY')<>'' then
+         memo.Lines.Add('IAU_ETHNICITY:' + b + GetField('IAU_ETHNICITY'));
+      if GetField('IAU_FEATURE_TYPE')<>'' then
+         memo.Lines.Add('IAU_FEATURE_TYPE:' + b + GetField('IAU_FEATURE_TYPE'));
+      if GetField('IAU_FEATURE_TYPE_CODE')<>'' then
+         memo.Lines.Add('IAU_FEATURE_TYPE_CODE:' + b + GetField('IAU_FEATURE_TYPE_CODE'));
+      if GetField('IAU_QUAD_NAME')<>'' then
+         memo.Lines.Add('IAU_QUAD_NAME:' + b + GetField('IAU_QUAD_NAME'));
+      if GetField('IAU_QUAD_CODE')<>'' then
+         memo.Lines.Add('IAU_QUAD_CODE:' + b + GetField('IAU_QUAD_CODE'));
+      if GetField('IAU_APPROVAL_STATUS')<>'' then
+         memo.Lines.Add('IAU_APPROVAL_STATUS:' + b + GetField('IAU_APPROVAL_STATUS'));
+      if GetField('IAU_APPROVAL_DATE')<>'' then
+         memo.Lines.Add('IAU_APPROVAL_DATE:' + b + GetField('IAU_APPROVAL_DATE'));
+      if GetField('IAU_REFERENCE')<>'' then
+         memo.Lines.Add('IAU_REFERENCE:' + b + GetField('IAU_REFERENCE'));
+      if GetField('IAU_ORIGIN')<>'' then
+         memo.Lines.Add('IAU_ORIGIN:' + b + GetField('IAU_ORIGIN'));
+      if GetField('IAU_LINK')<>'' then
+         memo.Lines.Add('IAU_LINK:' + b + GetField('IAU_LINK'));
+    end;
 end;
 
 
@@ -2429,25 +2450,20 @@ begin
      txt  := txt + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + br;
   if (GetField('LUN_REDUCED'))>'' then
      txt  := txt + t3 + 'L.U.N.REDUCED:' + t3end + b + GetField('LUN_REDUCED') + br;
-  if dbn=5 then buf:=rsUnnamedForma
-           else buf:=GetField('NAME_TYPE');
+  buf:=GetField('NAME_TYPE');
   if buf>'' then
      txt  := txt + t3 + rsNameType + t3end + b + buf + br;
-  if dbn=5 then buf:='AA'
-           else buf:=GetField('TYPE_IAU');
-  if buf>'' then
-     txt  := txt + t3 + rsIAUType + t3end + b + buf + br;
-  if dbn=5 then buf:=rscol_1
-           else buf:=GetField('TYPE');
+  buf:=GetField('TYPE');
   txt  := txt + t3 + rsm_56 + t3end + b + buf + br;
   if (GetField('SUBTYPE'))>'' then
      txt  := txt + t3 + rsSubType + t3end + b + GetField('SUBTYPE') + br;
+  if (GetField('IAU_TYPE'))>'' then
+     txt  := txt + t3 + rsIAUType + t3end + b + GetField('IAU_TYPE') + br;
   if (GetField('PERIOD'))>'' then
      txt  := txt + t3 + rsm_49 + t3end + b + GetField('PERIOD') + br;
   if (GetField('PERIOD_SOURCE'))>'' then
      txt  := txt + t3 + rsSource + t3end + b + GetField('PERIOD_SOURCE') + br;
-  if dbn=5 then buf:=rsMeteoriticIm
-           else buf:=GetField('PROCESS');
+  buf:=GetField('PROCESS');
   if buf>'' then
      txt  := txt + t3 + rsProcess + t3end + b + buf + br;
   if (GetField('GEOLOGY'))>'' then
@@ -2483,27 +2499,6 @@ begin
   end;
   if (GetField('RAPPORT'))>'' then
     txtbuf := txtbuf + t3 + rsm_23 + t3end + b + GetField('RAPPORT') + br;
-
-{  if GetField('FLOOR_DIAMETER_KM') > '' then
-    txtbuf := txtbuf + t3 + rsFloorDiamete + t3end+ b + GetField('FLOOR_DIAMETER_KM')+ rsm_18 +br;
-  if GetField('PEAK_HEIGHT_KM') > '' then
-    txtbuf := txtbuf + t3 + rsPeakHeight + t3end + b + GetField('PEAK_HEIGHT_KM')+ rsm_18 +br;
-  if GetField('PEAK_DIAMETER_KM') > '' then
-    txtbuf := txtbuf + t3 + rsPeakDiameter + t3end + b + GetField('PEAK_DIAMETER_KM')+ rsm_18 +br;
-  if GetField('EXCAVATION_DEPTH_KM') > '' then
-    txtbuf := txtbuf + t3 + rsExcavationDe + t3end + b + GetField('EXCAVATION_DEPTH_KM')+ rsm_18 +br;
-  if GetField('MELTING_DEPTH_KM') > '' then
-    txtbuf := txtbuf + t3 + rsMeltingDepth + t3end + b + GetField('MELTING_DEPTH_KM')+ rsm_18 +br;
-  if GetField('EJECTA_THICK_M_1RADIUS') > '' then
-    txtbuf := txtbuf + t3 + rsEjectaThickA + t3end + b + GetField('EJECTA_THICK_M_1RADIUS')+rsm_21 +br;
-  if GetField('EJECTA_THICK_M_3RADIUS') > '' then
-    txtbuf := txtbuf + t3 + rsEjectaThickA2 + t3end + b + GetField('EJECTA_THICK_M_3RADIUS')+rsm_21 +br;
-  if GetField('EJECTA_THICK_M_5RADIUS') > '' then
-    txtbuf := txtbuf + t3 + rsEjectaThickA3 + t3end + b + GetField('EJECTA_THICK_M_5RADIUS')+rsm_21 +br;
-  if GetField('RADAR_BRIGHT_HALO_RADIUS') > '' then
-    txtbuf := txtbuf + t3 + rsRadarBrightH + t3end + b + GetField('RADAR_BRIGHT_HALO_RADIUS')+ rsm_18 +br;
-  if GetField('RADAR_DARK_HALO_RADIUS') > '' then
-    txtbuf := txtbuf + t3 + rsRadarDarkHal + t3end + b + GetField('RADAR_DARK_HALO_RADIUS')+ rsm_18 +br; }
 
   if txtbuf>'' then
     txt  := txt + t2 + rsm_57 + t2end + br+txtbuf+ b + br; //Taille
@@ -2591,28 +2586,66 @@ begin
 
   //Atlas
   txtbuf:='';
-  // RUKL link
-  carte := GetField('RUKL') + ' ' + GetField('RUKL_C');
-  img   := padzeros(GetField('RUKL'), 2);
-  url   := ruklprefix + img + ruklsuffix;
-  if fileexists(url) then
-    url := ' <A HREF="file://' + url + '">' + carte + '</A>'
-  else
-    url := carte;
-  if trim(url)>'' then
-     txtbuf := txtbuf + t3 + rsm_14 + t3end + b + url + br;
+  buf := GetField('RUKL');
+  if trim(buf)>'' then
+     txtbuf := txtbuf + t3 + rsm_14 + t3end + b + buf + br;
   buf := GetField('VISCARDY');
   if trim(buf) > '' then
     txtbuf := txtbuf + t3 + rsm_15 + t3end + b + buf + br;
-  buf   := GetField('HATFIELD');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + rsm_16 + t3end + b + buf + br;
   buf   := GetField('WESTFALL');
   if trim(buf) > '' then
     txtbuf := txtbuf + t3 + rsm_66 + t3end + b + buf + br;
   buf   := GetField('WOOD');
   if trim(buf) > '' then
     txtbuf := txtbuf + t3 + rsm_72 + t3end + b + buf + br;
+  buf   := GetField('CLEMENTINE');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Clementine:' + t3end + b + buf + br;
+  buf   := GetField('CENTURY_21ST');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + '21st Century:' + t3end + b + buf + br;
+  buf   := GetField('HATFIELD');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + rsm_16 + t3end + b + buf + br;
+  buf   := GetField('REISEATLAS');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Reise Atlas:' + t3end + b + buf + br;
+  buf   := GetField('CHANGE1');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Change 1:' + t3end + b + buf + br;
+  buf   := GetField('DISCOVER_MOON');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Discover Moon:' + t3end + b + buf + br;
+  buf   := GetField('TIMES');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Times Atlas:' + t3end + b + buf + br;
+  buf   := GetField('KAGUYA');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Kaguya:' + t3end + b + buf + br;
+  buf   := GetField('BYRNE_NEAR');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Byrne Near:' + t3end + b + buf + br;
+  buf   := GetField('BYRNE_FAR');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Byrne Far:' + t3end + b + buf + br;
+  buf   := GetField('SIX_INCH');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Six Inch:' + t3end + b + buf + br;
+  buf   := GetField('DASE');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'DASE:' + t3end + b + buf + br;
+  buf   := GetField('PAU');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'PAU:' + t3end + b + buf + br;
+  buf   := GetField('LUNA_COGNITA');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Luna Cognita:' + t3end + b + buf + br;
+  buf   := GetField('LAC');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'LAC:' + t3end + b + buf + br;
+  buf   := GetField('LOPAM');
+  if trim(buf) > '' then
+    txtbuf := txtbuf + t3 + 'Lopam:' + t3end + b + buf + br;
   if ok then
   begin
     txtbuf := txtbuf + t3 + rsm_65 + t3end;
@@ -2660,6 +2693,7 @@ begin
     end;
     txtbuf := txtbuf + br;
   end;
+
   if txtbuf>'' then begin
     anchorvisible[5]:=true;
     txt:=txt+ '<a name="atlas"> ';
@@ -2694,8 +2728,7 @@ begin
   end;
   if GetField('FACTS')<>'' then
      txtbuf := txtbuf + t3 + rsm_64 + t3end + b + GetField('FACTS') + br;
-  if dbn=5 then buf:='Robbins 2018 / Legrand 2019'
-           else buf:=GetField('NAME_ORIGIN');
+  buf:=GetField('NAME_ORIGIN');
   if buf<>'' then
      txtbuf   := txtbuf + t3 + rsm_6 + t3end + b + buf + br;
   if GetField('LANGRENUS')<>'' then
@@ -2712,57 +2745,63 @@ begin
 
   // IAU information
   txtbuf:='';
-  if GetField('IAU_FEATURE_NAME')<>'' then begin
-     url:=GetField('IAU_LINK');
-     if url='' then
-        txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + GetField('IAU_FEATURE_NAME') + br
-     else
-        txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + ' <A HREF="' + url + '">' +GetField('IAU_FEATURE_NAME') + '</A>' + br;
+  buf:=GetField('IAU_FEATURE_NAME');
+  if buf='' then buf:=rsNotIAUApprou;
+  if buf=rsNotIAUApprou then begin
+    txtbuf   := txtbuf + t3 + buf + t3end + br;
+  end
+  else begin
+    if GetField('IAU_FEATURE_NAME')<>'' then begin
+       url:=GetField('IAU_LINK');
+       if url='' then
+          txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + GetField('IAU_FEATURE_NAME') + br
+       else
+          txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + ' <A HREF="' + url + '">' +GetField('IAU_FEATURE_NAME') + '</A>' + br;
+    end;
+    if GetField('IAU_CLEAN_FEATURE_NAME')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_CLEAN_FEATURE_NAME:' + t3end + b + GetField('IAU_CLEAN_FEATURE_NAME') + br;
+    if GetField('IAU_FEATURE_ID')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_FEATURE_ID:' + t3end + b + GetField('IAU_FEATURE_ID') + br;
+    if GetField('IAU_DIAMETER')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_DIAMETER:' + t3end + b + GetField('IAU_DIAMETER') + br;
+    if GetField('IAU_CENTER_LATITUDE')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_CENTER_LATITUDE:' + t3end + b + GetField('IAU_CENTER_LATITUDE') + br;
+    if GetField('IAU_CENTER_LONGITUDE')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_CENTER_LONGITUDE:' + t3end + b + GetField('IAU_CENTER_LONGITUDE') + br;
+    if GetField('IAU_NORTHERN_LATITUDE')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_NORTHERN_LATITUDE:' + t3end + b + GetField('IAU_NORTHERN_LATITUDE') + br;
+    if GetField('IAU_SOUTHERN_LATITUDE')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_SOUTHERN_LATITUDE:' + t3end + b + GetField('IAU_SOUTHERN_LATITUDE') + br;
+    if GetField('IAU_EASTERN_LONGITUDE')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_EASTERN_LONGITUDE:' + t3end + b + GetField('IAU_EASTERN_LONGITUDE') + br;
+    if GetField('IAU_WESTERN_LONGITUDE')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_WESTERN_LONGITUDE:' + t3end + b + GetField('IAU_WESTERN_LONGITUDE') + br;
+    if GetField('IAU_COORDINATE_SYSTEM')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_COORDINATE_SYSTEM:' + t3end + b + GetField('IAU_COORDINATE_SYSTEM') + br;
+    if GetField('IAU_CONTINENT')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_CONTINENT:' + t3end + b + GetField('IAU_CONTINENT') + br;
+    if GetField('IAU_ETHNICITY')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_ETHNICITY:' + t3end + b + GetField('IAU_ETHNICITY') + br;
+    if GetField('IAU_FEATURE_TYPE')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE:' + t3end + b + GetField('IAU_FEATURE_TYPE') + br;
+    if GetField('IAU_FEATURE_TYPE_CODE')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE_CODE:' + t3end + b + GetField('IAU_FEATURE_TYPE_CODE') + br;
+    if GetField('IAU_QUAD_NAME')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_QUAD_NAME:' + t3end + b + GetField('IAU_QUAD_NAME') + br;
+    if GetField('IAU_QUAD_CODE')<>'' then begin
+       buf:=GetField('IAU_QUAD_CODE');
+       txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + buf + br;
+    end;
+    buf:=GetField('IAU_APPROVAL_STATUS');
+    if buf<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_STATUS:' + t3end + b + buf + br;
+    if GetField('IAU_APPROVAL_DATE')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_DATE:' + t3end + b + GetField('IAU_APPROVAL_DATE') + br;
+    if GetField('IAU_REFERENCE')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_REFERENCE:' + t3end + b + GetField('IAU_REFERENCE') + br;
+    if GetField('IAU_ORIGIN')<>'' then
+       txtbuf   := txtbuf + t3 + 'IAU_ORIGIN:' + t3end + b + GetField('IAU_ORIGIN') + br;
   end;
-  if GetField('IAU_CLEAN_FEATURE_NAME')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_CLEAN_FEATURE_NAME:' + t3end + b + GetField('IAU_CLEAN_FEATURE_NAME') + br;
-  if GetField('IAU_FEATURE_ID')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_ID:' + t3end + b + GetField('IAU_FEATURE_ID') + br;
-  if GetField('IAU_DIAMETER')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_DIAMETER:' + t3end + b + GetField('IAU_DIAMETER') + br;
-  if GetField('IAU_CENTER_LATITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_CENTER_LATITUDE:' + t3end + b + GetField('IAU_CENTER_LATITUDE') + br;
-  if GetField('IAU_CENTER_LONGITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_CENTER_LONGITUDE:' + t3end + b + GetField('IAU_CENTER_LONGITUDE') + br;
-  if GetField('IAU_NORTHERN_LATITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_NORTHERN_LATITUDE:' + t3end + b + GetField('IAU_NORTHERN_LATITUDE') + br;
-  if GetField('IAU_SOUTHERN_LATITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_SOUTHERN_LATITUDE:' + t3end + b + GetField('IAU_SOUTHERN_LATITUDE') + br;
-  if GetField('IAU_EASTERN_LONGITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_EASTERN_LONGITUDE:' + t3end + b + GetField('IAU_EASTERN_LONGITUDE') + br;
-  if GetField('IAU_WESTERN_LONGITUDE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_WESTERN_LONGITUDE:' + t3end + b + GetField('IAU_WESTERN_LONGITUDE') + br;
-  if GetField('IAU_COORDINATE_SYSTEM')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_COORDINATE_SYSTEM:' + t3end + b + GetField('IAU_COORDINATE_SYSTEM') + br;
-  if GetField('IAU_CONTINENT')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_CONTINENT:' + t3end + b + GetField('IAU_CONTINENT') + br;
-  if GetField('IAU_ETHNICITY')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_ETHNICITY:' + t3end + b + GetField('IAU_ETHNICITY') + br;
-  if GetField('IAU_FEATURE_TYPE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE:' + t3end + b + GetField('IAU_FEATURE_TYPE') + br;
-  if GetField('IAU_FEATURE_TYPE_CODE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE_CODE:' + t3end + b + GetField('IAU_FEATURE_TYPE_CODE') + br;
-  if GetField('IAU_QUAD_NAME')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_QUAD_NAME:' + t3end + b + GetField('IAU_QUAD_NAME') + br;
-  if GetField('IAU_QUAD_CODE')<>'' then begin
-     buf:=GetField('IAU_QUAD_CODE');
-     txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + buf + br;
-  end;
-  if dbn=5 then buf:='Not IAU approuved'
-           else buf:=GetField('IAU_APPROVAL_STATUS');
-  if buf<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_STATUS:' + t3end + b + buf + br;
-  if GetField('IAU_APPROVAL_DATE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_DATE:' + t3end + b + GetField('IAU_APPROVAL_DATE') + br;
-  if GetField('IAU_REFERENCE')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_REFERENCE:' + t3end + b + GetField('IAU_REFERENCE') + br;
-  if GetField('IAU_ORIGIN')<>'' then
-     txtbuf   := txtbuf + t3 + 'IAU_ORIGIN:' + t3end + b + GetField('IAU_ORIGIN') + br;
   if txtbuf>'' then begin
      anchorvisible[7]:=true;
      txt:=txt+ '<a name="iau"> ';
@@ -4119,8 +4158,6 @@ begin
     form2.TexturePath := activemoon.TexturePath;
     form2.texturefn.Assign(activemoon.Texture);
     form2.CheckBox15.Checked := LopamDirect;
-    form2.ruklprefix.Text := ruklprefix;
-    form2.ruklsuffix.Text := ruklsuffix;
     form2.combobox5.Text := remext(overlayname);
     form2.trackbar5.position := round(overlaytr*100);
     form2.combobox5change(Sender);
@@ -4160,8 +4197,6 @@ begin
       end else
         wantbump:=false;
       notexture:=(form2.BumpRadioGroup.ItemIndex=2);
-      ruklprefix    := form2.ruklprefix.Text;
-      ruklsuffix    := form2.ruklsuffix.Text;
       markcolor     := form2.Shape2.Brush.Color;
       spritecolor:=markcolor;
       marklabelcolor    := form2.Shape1.Brush.Color;

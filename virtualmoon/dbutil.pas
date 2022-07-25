@@ -79,7 +79,7 @@ const
       ('WOOD','text'),
       ('LOPAM','text'),
       ('CLEMENTINE','text'),
-      ('CENTURY_20TH','text'),
+      ('CENTURY_21ST','text'),
       ('HATFIELD','text'),
       ('REISEATLAS','text'),
       ('CHANGE1','text'),

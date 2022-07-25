@@ -1036,37 +1036,6 @@ object Form2: TForm2
         ParentFont = False
         Transparent = False
       end
-      object Label22: TLabel
-        Left = 8
-        Height = 19
-        Top = 348
-        Width = 26
-        Caption = 'Rukl'
-        Color = clDefault
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
-      end
-      object ruklsuffix: TEdit
-        Left = 184
-        Height = 31
-        Top = 344
-        Width = 121
-        ParentColor = True
-        ParentFont = False
-        TabOrder = 2
-        Text = '.jpg'
-      end
-      object ruklprefix: TEdit
-        Left = 49
-        Height = 31
-        Top = 344
-        Width = 121
-        ParentColor = True
-        ParentFont = False
-        TabOrder = 5
-        Text = 'D:\rukl\mo'
-      end
       object StringGrid1: TStringGrid
         Left = 8
         Height = 266
@@ -1080,7 +1049,7 @@ object Form2: TForm2
         ParentFont = False
         RowCount = 11
         ScrollBars = ssVertical
-        TabOrder = 3
+        TabOrder = 2
         OnSelectCell = StringGrid1SelectCell
         ColWidths = (
           115
@@ -1126,7 +1095,7 @@ object Form2: TForm2
         Width = 315
         Caption = 'Lien direct sur l''image pour l''atlas Lunar Orbiter'
         ParentFont = False
-        TabOrder = 4
+        TabOrder = 3
       end
       object Button7: TSpeedButton
         Left = 53
