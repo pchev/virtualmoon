@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-07-22 18:32+0200\n"
+"PO-Revision-Date: 2022-07-25 21:16+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -257,6 +257,10 @@ msgstr "Type IAU :"
 #: u_translation.rsidentity
 msgid "Identity:"
 msgstr "Identité:"
+
+#: u_translation.rsimpactbassin
+msgid "Impact bassin"
+msgstr "Bassin d'impact"
 
 #: u_translation.rsincreasefont
 msgid "Increase font size"
@@ -630,6 +634,10 @@ msgstr "Formations nommées"
 msgid "Name type :"
 msgstr "Type de nom :"
 
+#: u_translation.rsnodatabasese
+msgid "No database selected!"
+msgstr "Aucune base de donnée sélectionnée!"
+
 #: u_translation.rsnopicturefou
 msgid "No picture found"
 msgstr "Aucune photo trouvée"
@@ -641,6 +649,10 @@ msgstr "Non disponible"
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr "Pas de texture ( utilisation d'une couche seule)"
+
+#: u_translation.rsnotiauapprou
+msgid "Not IAU approuved"
+msgstr "Non approuvé par l'UAI"
 
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
@@ -700,7 +712,6 @@ msgid "Process :"
 msgstr "Processus de formation :"
 
 #: u_translation.rsprofile
-#| msgid "Profile"
 msgid "Profile plot"
 msgstr "Tracé de profil"
 

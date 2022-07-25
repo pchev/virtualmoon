@@ -258,6 +258,10 @@ msgstr ""
 msgid "Identity:"
 msgstr ""
 
+#: u_translation.rsimpactbassin
+msgid "Impact bassin"
+msgstr ""
+
 #: u_translation.rsincreasefont
 msgid "Increase font size"
 msgstr "Zvětšit velikost písma"
@@ -629,6 +633,10 @@ msgstr ""
 msgid "Name type :"
 msgstr ""
 
+#: u_translation.rsnodatabasese
+msgid "No database selected!"
+msgstr ""
+
 #: u_translation.rsnopicturefou
 msgid "No picture found"
 msgstr ""
@@ -640,6 +648,10 @@ msgstr ""
 #: u_translation.rsnotexturetou
 msgid "No texture (to use with an overlay alone)"
 msgstr "Bez textury"
+
+#: u_translation.rsnotiauapprou
+msgid "Not IAU approuved"
+msgstr ""
 
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"

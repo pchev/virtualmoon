@@ -1470,3 +1470,15 @@ msgstr ""
 msgid "as CSV file"
 msgstr ""
 
+#: u_translation:rsnotiauapprou
+msgid "Not IAU approuved"
+msgstr ""
+
+#: u_translation:rsimpactbassin
+msgid "Impact bassin"
+msgstr ""
+
+#: u_translation:rsnodatabasese
+msgid "No database selected!"
+msgstr ""
+
