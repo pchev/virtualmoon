@@ -192,7 +192,7 @@ type
     FOverlayTransparencyMethode: integer;
     Fjd: double;
     Fdemlib: TdemLibrary;
-    Flmin,Flmax,Fbmin,Fbmax:single;
+    FKmPx: double;
     MeasureLastX,MeasureLastY: integer;
     procedure MoveMoonAround(anObject: TGLBaseSceneObject; pitchDelta, turnDelta: Single);
     procedure SetTexture(lfn:TStringList);
@@ -293,6 +293,7 @@ type
     procedure SatUp(x,y,z:single);
     procedure SatPos(x,y,z:single);
     procedure SetCCD(w,h,r: single);
+    function KmPerPixel: double;
     property TexturePath : String read FtexturePath write FTexturePath;
     property Texture : TStringList read Ftexture write SetTexture;
     property CurrentLevel: integer read zone;
@@ -327,6 +328,7 @@ type
     property DeCentre: single read FDeCentre write FDeCentre;
     property Diameter: single read FDiameter write FDiameter;
     property PositionAngle: single read FPositionAngle write FPositionAngle;
+    property KmPx: double read FKmPx;
     property Zoom : single read Fzoom write SetZoomLevel;
     property ZoomMax: single read MaxZoom;
     property Mirror : Boolean read FMirror write SetMirror;
@@ -368,7 +370,7 @@ var
   f_moon: Tf_moon;
 
 const
-  ZoomByZone: array[1..6] of integer=(3,8,16,35,65,200);
+  ZoomByZone: array[1..6] of integer=(3,8,16,35,65,400);
 
 implementation
 
@@ -1125,12 +1127,24 @@ begin
 end;
 
 Procedure Tf_moon.GetZoomInfo;
+var f,s: string;
+    x: double;
 begin
   if assigned(FOnGetMsg)and(FRaCentre>-9999) then begin
     if RotationCadencer.Enabled then
-       FOnGetMsg(self,MsgZoom,rsm_43+inttostr(round(GLCameraSatellite.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+ldeg+' '+rst_4+formatfloat('0.0',Fzoom)+'  '+rsLevel+inttostr(zone))
-    else
-       FOnGetMsg(self,MsgZoom,rsm_43+inttostr(round(60*0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+lmin+' '+rst_4+formatfloat('0.0',Fzoom)+'  '+rsLevel+inttostr(zone)+' '+FTexture[zone-1]+' '+FOverlayTitle);
+       FOnGetMsg(self,MsgZoom,rsm_43+inttostr(round(GLCameraSatellite.GetFieldOfView(GLSceneViewer1.Width)/Fzoom))+ldeg+'  '+rsLevel+inttostr(zone))
+    else begin
+       x:=60*0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom;
+       if x>=1 then
+         f:=rsm_43+inttostr(round(x))+lmin
+       else
+         f:=rsm_43+inttostr(round(60*x))+lsec;
+       if FKmPx>=1 then
+         s:=formatfloat(f2,FKmPx)+'km/px'
+       else
+         s:=formatfloat(f0,1000*FKmPx)+'m/px';
+       FOnGetMsg(self,MsgZoom,f+', '+s+'  '+rsLevel+inttostr(zone)+' '+FTexture[zone-1]+' '+FOverlayTitle);
+    end;
   end;
 end;
 
@@ -1179,8 +1193,8 @@ try
   zone:=newzone;
   GetZoomInfo;
   RefreshAll;
-  GetBounds(Flmin,Flmax,Fbmin,Fbmax);
-  Fdemlib.SetResolution(tag,GLSceneViewer1.Width/(abs(Flmax-Flmin)*rad2deg));
+  FKmPx:=KmPerPixel;
+  Fdemlib.SetResolution(tag,Rmoon/FKmPx/rad2deg);
 except
   on E: Exception do begin
   {$ifdef trace_debug}
@@ -2710,8 +2724,6 @@ begin
   yy := GLSceneViewer1.Height div 2;
   if Screen2Moon(xx,yy,l,b) then
   begin
-    l:=0;
-    b:=0;
     deltab := (2+sin(b))* pid2 / zoom;
     deltal := 2* deltab / cos(b);
   end
@@ -2960,6 +2972,26 @@ end else begin
   GLHUDTextScalekm.Visible:=false;
   GLHUDTextScalekmShadow.visible:=false;
 end;
+end;
+
+Function Tf_moon.KmPerPixel: double;
+var fv,bx,u:double;
+    n,s:integer;
+begin
+  fv:=0.119*GLCamera1.GetFieldOfView(GLSceneViewer1.Width)/Fzoom;
+  bx:=GLSceneViewer1.Width/fv;
+  fv:=fv/3;
+  if trunc(fv)>20 then begin n:=trunc(fv/5); s:=5; u:=1; end
+  else if trunc(fv)>5 then begin n:=trunc(fv); s:=1; u:=1; end
+  else if trunc(fv)>0 then begin n:=trunc(fv)*2; s:=30; u:=1/60; end
+  else if trunc(6*fv/2)>0 then begin n:=trunc(6*fv); s:=10; u:=1/60; end
+  else if trunc(30*fv/2)>0 then begin n:=trunc(30*fv); s:=2; u:=1/60; end
+  else if trunc(60*fv/2)>0 then begin n:=trunc(60*fv); s:=1; u:=1/60; end
+  else if trunc(360*fv/2)>0 then begin n:=trunc(360*fv); s:=10; u:=1/3600; end
+  else if trunc(1800*fv/2)>0 then begin n:=trunc(1800*fv); s:=2; u:=1/3600; end
+  else begin n:=trunc(3600*fv); s:=1; u:=deg2rad/3600; end;
+  if n<1 then n:=1;
+  Result:=tan(n*s*u*deg2rad)*(MeanEarthDistance-Rmoon)/(n*s*u*bx);
 end;
 
 procedure Tf_moon.SetCCD(w,h,r: single);
