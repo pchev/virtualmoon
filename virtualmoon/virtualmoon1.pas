@@ -1055,12 +1055,17 @@ AddImagesDir(slash(appdir)+'LunaStars','LunaStars','','1');
 AddImagesDir(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association','1');
 AddImagesDir(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005','1');
 AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov','0');
+AddImagesDir(slash(appdir)+'LunarPits','Lunar Pits','Wagner, Robinson, and the LROC Team','0');
+AddImagesDir(slash(appdir)+'Smart-1','Smart-1','European Space Agency (ESA)','0');
 AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','','0');
 AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','','0');
 AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','','0');
-AddImagesDir(slash(appdir) + 'Kaguya', 'Kaguya', 'provided by JAXA/SELENE','0');
+AddImagesDir(slash(appdir)+'Kaguya','Kaguya','provided by JAXA/SELENE','0');
 AddImagesDir(slash(appdir)+'Best_Pic_du_Midi','Best of Pic du Midi Observatory','JL Dauvergne, P. Tosi, E. Rousset, F. Colas, IMCCE, S2P , OMP','0');
 AddImagesDir(slash(appdir)+'Best_of_Peach','Best of Damian Peach','Damian Peach','0');
+AddImagesDir(slash(appdir)+'BestOfCathala','Best of Cathala','Luc Cathala','0');
+AddImagesDir(slash(appdir)+'BestOfBrahic','Best of Jean Pierre Brahic','Jean Pierre Brahic','0');
+AddImagesDir(slash(appdir)+'BestOfViladrich','Best of Christian Viladrich','Christian Viladrich','0');
 end;
 
 procedure TForm1.Readdefault;
@@ -1917,11 +1922,11 @@ begin
     end;
   end;
  {$ifndef darwin}
-  if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+  if not FileExists(slash(bindir)+DefaultPhotlun) then begin
      bindir := slash(ExtractFilePath(ParamStr(0)));
-     if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+     if not FileExists(slash(bindir)+DefaultPhotlun) then begin
         bindir := slash(ExpandFileName(slash(appdir) + slash('..')+slash('..')+'bin'));
-        if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+        if not FileExists(slash(bindir)+DefaultPhotlun) then begin
            bindir:='';
         end;
      end;

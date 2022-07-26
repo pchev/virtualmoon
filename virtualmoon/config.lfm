@@ -1094,7 +1094,7 @@ object Form2: TForm2
         Transparent = False
       end
       object StringGrid1: TStringGrid
-        Left = 8
+        Left = 9
         Height = 266
         Top = 42
         Width = 400

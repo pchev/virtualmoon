@@ -596,8 +596,8 @@ object f_photlun: Tf_photlun
     SimplePanel = False
   end
   object MainMenu1: TMainMenu
-    left = 97
-    top = 68
+    Left = 97
+    Top = 68
     object File1: TMenuItem
       Caption = 'File'
       object Biblio1: TMenuItem
@@ -714,14 +714,14 @@ object f_photlun: Tf_photlun
     Enabled = False
     Interval = 50
     OnTimer = SetSizeTimer1Timer
-    left = 202
-    top = 68
+    Left = 202
+    Top = 68
   end
   object UniqueInstance1: TUniqueInstance
     Enabled = True
     Identifier = 'Virtual_Moon_Atlas_PhotLun'
     OnOtherInstance = UniqueInstance1OtherInstance
-    left = 310
-    top = 64
+    Left = 310
+    Top = 64
   end
 end
