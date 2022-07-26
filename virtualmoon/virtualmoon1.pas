@@ -1470,11 +1470,6 @@ begin
       // Duplicate Mare name in noname database
       if IsUnnamed and IsLUN and (w>300) then continue;
 
-{      if (copy(lun,1,2)='ME') then
-        Tf_moon(Sender).Circle(l1,b1,w/2,clLime);
-      if (copy(lun,1,2)='AA') then
-        Tf_moon(Sender).Circle(l1,b1,w/2,clAqua);
-}
       scale:=1;
       if minilabel then
       begin
@@ -1483,15 +1478,15 @@ begin
           scale:=2;
         end
         else begin
-          miniok := True;
-          if copy(nom, 1, 6) = 'DOMES ' then
+          miniok := (StrToIntDef(dbn,0)=DbSatellite);
+{          if copy(nom, 1, 6) = 'DOMES ' then
             miniok := False;
           if copy(nom, 1, 5) = 'DOME ' then
             miniok := False;
           if copy(nom, 1, 6) = 'DORSA ' then
             miniok := False;
           if copy(nom, 1, 5) = 'RIMA ' then
-            miniok := False;
+            miniok := False; }
           let      := trim(copy(nom, length(nom) - 1, 2));
           if miniok and (length(let) = 1) and (let >= 'A') and (let <= 'Z') then
           begin

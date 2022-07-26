@@ -115,6 +115,7 @@ const crlf = chr(10)+chr(13);
                       'Textures/LOLA_Kaguya_Shade/L6/0.jpg'              // LOLA - Kaguya
                       );
 
+      DbSatellite=2;
       DbImpactBassin=9;
       // Datlun constant
       numdb=99;
