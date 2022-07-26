@@ -81,3 +81,4 @@ InstPicture PictureLAC_LM $destdir
 InstPicture PictureLopam $destdir
 InstPicture PictureProbes $destdir
 InstPicture PictureSmart1 $destdir
+InstPicture PictureLunarPits $destdir
