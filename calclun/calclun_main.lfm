@@ -2,10 +2,10 @@ object f_calclun: Tf_calclun
   Left = 369
   Height = 700
   Top = 250
-  Width = 1200
+  Width = 1618
   Caption = 'Calclun'
   ClientHeight = 700
-  ClientWidth = 1200
+  ClientWidth = 1618
   Color = clWindow
   Menu = MainMenu1
   OnCreate = FormCreate
@@ -15,10 +15,10 @@ object f_calclun: Tf_calclun
     Left = 0
     Height = 56
     Top = 0
-    Width = 1200
+    Width = 1618
     Align = alTop
     ClientHeight = 56
-    ClientWidth = 1200
+    ClientWidth = 1618
     TabOrder = 1
     object SpinEditYear: TSpinEdit
       Left = 32
@@ -182,7 +182,7 @@ object f_calclun: Tf_calclun
     Left = 0
     Height = 594
     Top = 56
-    Width = 1200
+    Width = 1618
     ActivePage = TabSheetYear
     Align = alClient
     Style = tsFlatButtons
@@ -192,9 +192,9 @@ object f_calclun: Tf_calclun
     object TabSheetYear: TTabSheet
       Caption = 'Year'
       ClientHeight = 563
-      ClientWidth = 1190
+      ClientWidth = 1608
       object PanelYRight: TPanel
-        Left = 856
+        Left = 1274
         Height = 563
         Top = 0
         Width = 334
@@ -370,22 +370,22 @@ object f_calclun: Tf_calclun
         Left = 0
         Height = 563
         Top = 0
-        Width = 856
-        HorzScrollBar.Page = 834
-        VertScrollBar.Page = 541
+        Width = 1274
+        HorzScrollBar.Page = 966
+        VertScrollBar.Page = 561
         Align = alClient
-        ClientHeight = 541
-        ClientWidth = 834
+        ClientHeight = 561
+        ClientWidth = 1252
         TabOrder = 1
         object PanelYphase: TPanel
           Left = 0
           Height = 352
           Top = 0
-          Width = 966
+          Width = 1252
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 352
-          ClientWidth = 966
+          ClientWidth = 1252
           TabOrder = 1
           object GridYear: TStringGrid
             Left = 0
@@ -411,11 +411,11 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 392
           Top = 352
-          Width = 966
+          Width = 1252
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 392
-          ClientWidth = 966
+          ClientWidth = 1252
           TabOrder = 0
           object Panel4: TPanel
             Left = 0
@@ -492,21 +492,21 @@ object f_calclun: Tf_calclun
     object TabSheetMonth: TTabSheet
       Caption = 'Month'
       ClientHeight = 563
-      ClientWidth = 1190
+      ClientWidth = 1608
       object PanelLeft: TPanel
         Left = 0
         Height = 563
         Top = 0
-        Width = 840
+        Width = 1258
         Align = alClient
         ClientHeight = 563
-        ClientWidth = 840
+        ClientWidth = 1258
         TabOrder = 0
         object GridMonth: TStringGrid
           Left = 1
           Height = 533
           Top = 29
-          Width = 838
+          Width = 1256
           Align = alClient
           DefaultColWidth = 140
           MouseWheelOption = mwGrid
@@ -518,10 +518,10 @@ object f_calclun: Tf_calclun
           Left = 1
           Height = 28
           Top = 1
-          Width = 838
+          Width = 1256
           Align = alTop
           ClientHeight = 28
-          ClientWidth = 838
+          ClientWidth = 1256
           TabOrder = 1
           object LabelMonth: TLabel
             Left = 8
@@ -534,7 +534,7 @@ object f_calclun: Tf_calclun
         end
       end
       object PanelRight: TPanel
-        Left = 840
+        Left = 1258
         Height = 563
         Top = 0
         Width = 350
@@ -854,9 +854,9 @@ object f_calclun: Tf_calclun
     object TabSheetDay: TTabSheet
       Caption = 'Day'
       ClientHeight = 563
-      ClientWidth = 1190
+      ClientWidth = 1608
       object PanelDRight: TPanel
-        Left = 890
+        Left = 1308
         Height = 563
         Top = 0
         Width = 300
@@ -1071,18 +1071,18 @@ object f_calclun: Tf_calclun
         Left = 0
         Height = 563
         Top = 0
-        Width = 890
+        Width = 1308
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 78
         Align = alClient
         ClientHeight = 559
-        ClientWidth = 886
+        ClientWidth = 1304
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
           Height = 531
           Top = 28
-          Width = 886
+          Width = 1304
           Align = alClient
           ColCount = 15
           DefaultColWidth = 140
@@ -1094,10 +1094,10 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 28
           Top = 0
-          Width = 886
+          Width = 1304
           Align = alTop
           ClientHeight = 24
-          ClientWidth = 882
+          ClientWidth = 1300
           TabOrder = 1
           object LabelDay: TLabel
             Left = 8
@@ -1111,120 +1111,470 @@ object f_calclun: Tf_calclun
       end
     end
     object TabSheetPrediction: TTabSheet
-      Caption = 'Prediction for a specific formation'
+      Caption = 'Prediction'
       ClientHeight = 563
-      ClientWidth = 1190
+      ClientWidth = 1608
       object PageControlPrediction: TPageControl
         Left = 0
-        Height = 459
-        Top = 104
-        Width = 1190
-        ActivePage = TabSheetSunElevation
+        Height = 563
+        Top = 0
+        Width = 1608
+        ActivePage = TabSheetColongitude
         Align = alClient
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 0
+        OnChange = PageControlPredictionChange
         object TabSheetColongitude: TTabSheet
           Caption = 'Colongitude'
-        end
-        object TabSheetSunElevation: TTabSheet
-          Caption = 'Sun Elevation'
-          ClientHeight = 428
-          ClientWidth = 1180
-          object PanelT: TPanel
+          ClientHeight = 532
+          ClientWidth = 1598
+          object PanelColongitude: TPanel
             Left = 0
             Height = 428
-            Top = 0
-            Width = 1180
-            Align = alClient
+            Top = 104
+            Width = 500
+            Align = alLeft
             ClientHeight = 428
-            ClientWidth = 1180
+            ClientWidth = 500
             TabOrder = 0
-            object PanelTtop: TPanel
+            object GridColongitude: TStringGrid
               Left = 1
-              Height = 71
-              Top = 1
-              Width = 1178
-              Align = alTop
-              ClientHeight = 71
-              ClientWidth = 1178
+              Height = 392
+              Top = 35
+              Width = 498
+              Align = alClient
+              ColCount = 3
+              DefaultColWidth = 160
+              FixedCols = 0
+              MouseWheelOption = mwGrid
+              RowCount = 15
               TabOrder = 0
-              object GroupBoxSunElev: TGroupBox
-                Left = 1
-                Height = 69
-                Top = 1
-                Width = 439
+            end
+            object Panel10: TPanel
+              Left = 1
+              Height = 34
+              Top = 1
+              Width = 498
+              Align = alTop
+              Caption = 'Time prediction for colongitude'
+              TabOrder = 1
+            end
+          end
+          object PanelGlobal: TPanel
+            Left = 0
+            Height = 104
+            Top = 0
+            Width = 1598
+            Align = alTop
+            ClientHeight = 104
+            ClientWidth = 1598
+            TabOrder = 1
+            object PanelFormation: TPanel
+              Left = 1
+              Height = 102
+              Top = 1
+              Width = 450
+              Align = alLeft
+              BevelOuter = bvNone
+              ClientHeight = 102
+              ClientWidth = 450
+              TabOrder = 0
+              object GroupBoxFormation: TGroupBox
+                Left = 0
+                Height = 102
+                Top = 0
+                Width = 241
                 Align = alLeft
-                Caption = 'Sun elevation over the specified location'
-                ClientHeight = 49
-                ClientWidth = 437
+                Caption = 'Search formation'
+                ClientHeight = 82
+                ClientWidth = 239
                 TabOrder = 0
-                object SunMin: TFloatSpinEdit
-                  Left = 88
-                  Height = 29
-                  Top = 8
-                  Width = 100
-                  MaxValue = 90
-                  OnChange = TerminatorChange
+                object LabelMissingDB: TLabel
+                  AnchorSideTop.Control = EditFormation
+                  AnchorSideTop.Side = asrBottom
+                  Left = 8
+                  Height = 38
+                  Top = 34
+                  Width = 220
+                  AutoSize = False
+                  Caption = 'Database not found! Run AtLun or DatLun to initialize the database.'
+                  ParentColor = False
+                  WordWrap = True
+                end
+                object EditFormation: TEdit
+                  Left = 8
+                  Height = 31
+                  Top = 3
+                  Width = 135
+                  OnEditingDone = FormationEditingDone
                   TabOrder = 0
-                  Value = 0.5
                 end
-                object Label14: TLabel
-                  AnchorSideTop.Control = SunMin
+                object BtnSearch: TButton
+                  AnchorSideTop.Control = EditFormation
                   AnchorSideTop.Side = asrCenter
-                  Left = 11
-                  Height = 19
-                  Top = 13
-                  Width = 58
-                  Caption = 'Minimum'
-                  ParentColor = False
+                  Left = 152
+                  Height = 25
+                  Top = 6
+                  Width = 75
+                  Caption = 'Search'
+                  OnClick = BtnSearchClick
+                  TabOrder = 2
                 end
-                object Label15: TLabel
-                  AnchorSideTop.Control = SunMax
-                  AnchorSideTop.Side = asrCenter
-                  Left = 240
-                  Height = 19
-                  Top = 13
-                  Width = 61
-                  Caption = 'Maximum'
-                  ParentColor = False
-                end
-                object SunMax: TFloatSpinEdit
-                  Left = 328
-                  Height = 29
-                  Top = 8
-                  Width = 100
-                  MaxValue = 90
-                  OnChange = TerminatorChange
+                object ComboBoxFormation: TComboBox
+                  AnchorSideTop.Control = EditFormation
+                  AnchorSideTop.Side = asrBottom
+                  Left = 8
+                  Height = 35
+                  Top = 38
+                  Width = 219
+                  BorderSpacing.Top = 4
+                  ItemHeight = 0
+                  OnSelect = ComboBoxFormationSelect
+                  Style = csDropDownList
                   TabOrder = 1
-                  Value = 5
+                end
+              end
+              object GroupBoxCoord: TGroupBox
+                Left = 241
+                Height = 102
+                Top = 0
+                Width = 206
+                Align = alLeft
+                Caption = 'Formation coordinates'
+                ClientHeight = 82
+                ClientWidth = 204
+                TabOrder = 1
+                object FormationLong: TFloatSpinEdit
+                  Left = 80
+                  Height = 29
+                  Top = 3
+                  Width = 100
+                  MaxValue = 180
+                  MinValue = -180
+                  OnChange = PredictionChange
+                  TabOrder = 0
+                end
+                object FormationLat: TFloatSpinEdit
+                  AnchorSideTop.Control = FormationLong
+                  AnchorSideTop.Side = asrBottom
+                  Left = 80
+                  Height = 29
+                  Top = 38
+                  Width = 100
+                  BorderSpacing.Top = 6
+                  MaxValue = 89
+                  MinValue = -89
+                  OnChange = PredictionChange
+                  TabOrder = 1
+                end
+                object Label12: TLabel
+                  AnchorSideTop.Control = FormationLong
+                  AnchorSideTop.Side = asrCenter
+                  Left = 8
+                  Height = 19
+                  Top = 8
+                  Width = 63
+                  Caption = 'Longitude'
+                  ParentColor = False
+                end
+                object Label13: TLabel
+                  AnchorSideTop.Control = FormationLat
+                  AnchorSideTop.Side = asrCenter
+                  Left = 8
+                  Height = 19
+                  Top = 43
+                  Width = 51
+                  Caption = 'Latitude'
+                  ParentColor = False
                 end
               end
             end
+            object GroupBoxDuration: TGroupBox
+              Left = 856
+              Height = 102
+              Top = 1
+              Width = 146
+              Align = alLeft
+              Caption = 'Prediction duration'
+              ClientHeight = 82
+              ClientWidth = 144
+              TabOrder = 1
+              object PredictionDuration: TSpinEdit
+                Left = 8
+                Height = 29
+                Top = 40
+                Width = 74
+                MaxValue = 10
+                MinValue = 1
+                OnChange = PredictionChange
+                TabOrder = 0
+                Value = 1
+              end
+              object Label3: TLabel
+                AnchorSideLeft.Control = PredictionDuration
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = PredictionDuration
+                AnchorSideTop.Side = asrCenter
+                Left = 88
+                Height = 19
+                Top = 45
+                Width = 34
+                BorderSpacing.Left = 6
+                Caption = 'Years'
+                ParentColor = False
+              end
+            end
+            object GroupBoxColongitude: TGroupBox
+              Left = 650
+              Height = 102
+              Top = 1
+              Width = 206
+              Align = alLeft
+              Caption = 'Colongitude'
+              ClientHeight = 82
+              ClientWidth = 204
+              TabOrder = 2
+              object EditColongitude: TFloatSpinEdit
+                Left = 112
+                Height = 29
+                Top = 8
+                Width = 80
+                DecimalPlaces = 1
+                MaxValue = 360
+                OnChange = ColongitudeChange
+                TabOrder = 0
+              end
+              object Label16: TLabel
+                AnchorSideTop.Control = EditColongitude
+                AnchorSideTop.Side = asrCenter
+                Left = 11
+                Height = 19
+                Top = 13
+                Width = 75
+                Caption = 'Colongitude'
+                ParentColor = False
+              end
+              object EditColongitudeDelta: TFloatSpinEdit
+                Left = 112
+                Height = 29
+                Top = 40
+                Width = 80
+                DecimalPlaces = 1
+                MaxValue = 10
+                MinValue = 0.1
+                OnChange = ColongitudeChange
+                TabOrder = 1
+                Value = 1
+              end
+              object Label1: TLabel
+                Left = 80
+                Height = 19
+                Top = 45
+                Width = 17
+                Caption = '+/-'
+                ParentColor = False
+              end
+            end
+            object GroupBoxSunElev: TGroupBox
+              Left = 451
+              Height = 102
+              Top = 1
+              Width = 199
+              Align = alLeft
+              Caption = 'Sun elevation range'
+              ClientHeight = 82
+              ClientWidth = 197
+              TabOrder = 3
+              object SunMin: TFloatSpinEdit
+                Left = 88
+                Height = 29
+                Top = 8
+                Width = 100
+                MaxValue = 90
+                OnChange = TerminatorChange
+                TabOrder = 0
+                Value = 0.5
+              end
+              object Label14: TLabel
+                AnchorSideTop.Control = SunMin
+                AnchorSideTop.Side = asrCenter
+                Left = 8
+                Height = 19
+                Top = 13
+                Width = 58
+                Caption = 'Minimum'
+                ParentColor = False
+              end
+              object Label15: TLabel
+                AnchorSideTop.Control = SunMax
+                AnchorSideTop.Side = asrCenter
+                Left = 8
+                Height = 19
+                Top = 53
+                Width = 61
+                Caption = 'Maximum'
+                ParentColor = False
+              end
+              object SunMax: TFloatSpinEdit
+                Left = 88
+                Height = 29
+                Top = 48
+                Width = 100
+                MaxValue = 90
+                OnChange = TerminatorChange
+                TabOrder = 1
+                Value = 5
+              end
+            end
+            object GroupBoxConstraint: TGroupBox
+              Left = 1002
+              Height = 102
+              Top = 1
+              Width = 560
+              Align = alLeft
+              Caption = 'Constraints'
+              ClientHeight = 82
+              ClientWidth = 558
+              TabOrder = 4
+              object CheckBoxNightEvents: TCheckBox
+                Left = 8
+                Height = 21
+                Top = 8
+                Width = 131
+                Caption = 'Only night events'
+                Checked = True
+                OnChange = PredictionChange
+                State = cbChecked
+                TabOrder = 0
+              end
+              object CheckBoxMoonVisible: TCheckBox
+                AnchorSideTop.Control = CheckBoxNightEvents
+                Left = 280
+                Height = 21
+                Top = 8
+                Width = 237
+                Caption = 'Moon visible from the observatory'
+                Checked = True
+                OnChange = PredictionChange
+                State = cbChecked
+                TabOrder = 1
+              end
+              object Label2: TLabel
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = EditTwilight
+                AnchorSideTop.Side = asrCenter
+                AnchorSideRight.Control = EditTwilight
+                Left = 11
+                Height = 19
+                Top = 45
+                Width = 23
+                Anchors = [akTop, akRight]
+                BorderSpacing.Right = 6
+                Caption = 'Sun'
+                ParentColor = False
+              end
+              object Label4: TLabel
+                AnchorSideTop.Control = EditMinElevation
+                AnchorSideTop.Side = asrCenter
+                AnchorSideRight.Control = EditMinElevation
+                Left = 286
+                Height = 19
+                Top = 45
+                Width = 36
+                Anchors = [akTop, akRight]
+                BorderSpacing.Right = 6
+                Caption = 'Moon'
+                ParentColor = False
+              end
+              object EditTwilight: TSpinEdit
+                Left = 40
+                Height = 29
+                Top = 40
+                Width = 58
+                MaxValue = 18
+                MinValue = 1
+                OnChange = PredictionChange
+                TabOrder = 2
+                Value = 12
+              end
+              object EditMinElevation: TSpinEdit
+                AnchorSideTop.Control = EditTwilight
+                Left = 328
+                Height = 29
+                Top = 40
+                Width = 58
+                MaxValue = 50
+                OnChange = PredictionChange
+                TabOrder = 3
+                Value = 15
+              end
+              object Label5: TLabel
+                AnchorSideLeft.Control = EditTwilight
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = EditTwilight
+                AnchorSideTop.Side = asrCenter
+                Left = 104
+                Height = 19
+                Top = 45
+                Width = 135
+                BorderSpacing.Left = 6
+                Caption = 'degree below horizon'
+                ParentColor = False
+              end
+              object Label6: TLabel
+                AnchorSideLeft.Control = EditMinElevation
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = EditMinElevation
+                AnchorSideTop.Side = asrCenter
+                Left = 392
+                Height = 19
+                Top = 45
+                Width = 136
+                BorderSpacing.Left = 6
+                Caption = 'degree above horizon'
+                ParentColor = False
+              end
+            end
+          end
+        end
+        object TabSheetSunElevation: TTabSheet
+          Caption = 'Sun elevation on a formation'
+          ClientHeight = 532
+          ClientWidth = 1598
+          object PanelT: TPanel
+            Left = 0
+            Height = 532
+            Top = 0
+            Width = 1598
+            Align = alClient
+            ClientHeight = 532
+            ClientWidth = 1598
+            TabOrder = 0
             object PanelTresult: TScrollBox
               Left = 1
-              Height = 355
-              Top = 72
-              Width = 1178
+              Height = 530
+              Top = 1
+              Width = 1596
               HorzScrollBar.Page = 1000
-              VertScrollBar.Page = 86
+              VertScrollBar.Page = 90
               Align = alClient
-              ClientHeight = 353
-              ClientWidth = 1176
-              TabOrder = 1
+              ClientHeight = 526
+              ClientWidth = 1592
+              TabOrder = 0
               object PanelTerminator1: TPanel
                 Left = 0
-                Height = 353
+                Height = 526
                 Top = 0
                 Width = 500
                 Align = alLeft
-                ClientHeight = 353
-                ClientWidth = 500
+                ClientHeight = 522
+                ClientWidth = 496
                 TabOrder = 0
                 object GridTerminator1: TStringGrid
                   Left = 1
-                  Height = 317
+                  Height = 486
                   Top = 35
-                  Width = 498
+                  Width = 494
                   Align = alClient
                   ColCount = 4
                   DefaultColWidth = 160
@@ -1237,7 +1587,7 @@ object f_calclun: Tf_calclun
                   Left = 1
                   Height = 34
                   Top = 1
-                  Width = 498
+                  Width = 494
                   Align = alTop
                   Caption = 'Time prediction for increasing Sun elevation'
                   TabOrder = 1
@@ -1245,18 +1595,18 @@ object f_calclun: Tf_calclun
               end
               object PanelTerminator2: TPanel
                 Left = 500
-                Height = 353
+                Height = 526
                 Top = 0
                 Width = 500
                 Align = alLeft
-                ClientHeight = 353
-                ClientWidth = 500
+                ClientHeight = 522
+                ClientWidth = 496
                 TabOrder = 1
                 object GridTerminator2: TStringGrid
                   Left = 1
-                  Height = 317
+                  Height = 486
                   Top = 35
-                  Width = 498
+                  Width = 494
                   Align = alClient
                   ColCount = 4
                   DefaultColWidth = 160
@@ -1269,7 +1619,7 @@ object f_calclun: Tf_calclun
                   Left = 1
                   Height = 34
                   Top = 1
-                  Width = 498
+                  Width = 494
                   Align = alTop
                   Caption = 'Time prediction for decreasing Sun elevation'
                   TabOrder = 1
@@ -1279,189 +1629,16 @@ object f_calclun: Tf_calclun
           end
         end
       end
-      object PanelGlobal: TPanel
-        Left = 0
-        Height = 104
-        Top = 0
-        Width = 1190
-        Align = alTop
-        ClientHeight = 104
-        ClientWidth = 1190
-        TabOrder = 1
-        object GroupBoxFormation: TGroupBox
-          Left = 1
-          Height = 102
-          Top = 1
-          Width = 241
-          Align = alLeft
-          Caption = 'Search formation'
-          ClientHeight = 82
-          ClientWidth = 239
-          TabOrder = 0
-          object LabelMissingDB: TLabel
-            AnchorSideTop.Control = EditFormation
-            AnchorSideTop.Side = asrBottom
-            Left = 8
-            Height = 38
-            Top = 35
-            Width = 220
-            AutoSize = False
-            Caption = 'Database not found! Run AtLun or DatLun to initialize the database.'
-            ParentColor = False
-            WordWrap = True
-          end
-          object EditFormation: TEdit
-            Left = 8
-            Height = 31
-            Top = 4
-            Width = 135
-            OnEditingDone = EditFormationEditingDone
-            TabOrder = 0
-          end
-          object BtnSearch: TButton
-            AnchorSideTop.Control = EditFormation
-            AnchorSideTop.Side = asrCenter
-            Left = 152
-            Height = 25
-            Top = 7
-            Width = 75
-            Caption = 'Search'
-            OnClick = BtnSearchClick
-            TabOrder = 2
-          end
-          object ComboBoxFormation: TComboBox
-            AnchorSideTop.Control = EditFormation
-            AnchorSideTop.Side = asrBottom
-            Left = 8
-            Height = 35
-            Top = 39
-            Width = 219
-            BorderSpacing.Top = 4
-            ItemHeight = 0
-            OnSelect = ComboBoxFormationSelect
-            Style = csDropDownList
-            TabOrder = 1
-          end
-        end
-        object GroupBoxCoord: TGroupBox
-          Left = 242
-          Height = 102
-          Top = 1
-          Width = 206
-          Align = alLeft
-          Caption = 'Formation coordinates'
-          ClientHeight = 82
-          ClientWidth = 204
-          TabOrder = 1
-          object FormationLong: TFloatSpinEdit
-            Left = 80
-            Height = 29
-            Top = 4
-            Width = 100
-            MaxValue = 180
-            MinValue = -180
-            OnChange = TerminatorChange
-            TabOrder = 0
-          end
-          object FormationLat: TFloatSpinEdit
-            AnchorSideTop.Control = FormationLong
-            AnchorSideTop.Side = asrBottom
-            Left = 80
-            Height = 29
-            Top = 39
-            Width = 100
-            BorderSpacing.Top = 6
-            MaxValue = 89
-            MinValue = -89
-            OnChange = TerminatorChange
-            TabOrder = 1
-          end
-          object Label12: TLabel
-            AnchorSideTop.Control = FormationLong
-            AnchorSideTop.Side = asrCenter
-            Left = 8
-            Height = 19
-            Top = 9
-            Width = 63
-            Caption = 'Longitude'
-            ParentColor = False
-          end
-          object Label13: TLabel
-            AnchorSideTop.Control = FormationLat
-            AnchorSideTop.Side = asrCenter
-            Left = 8
-            Height = 19
-            Top = 44
-            Width = 51
-            Caption = 'Latitude'
-            ParentColor = False
-          end
-        end
-        object GroupBoxConstraint: TGroupBox
-          Left = 448
-          Height = 102
-          Top = 1
-          Width = 560
-          Align = alLeft
-          Caption = 'Constraints'
-          ClientHeight = 82
-          ClientWidth = 558
-          TabOrder = 2
-          object CheckBoxNightEvents: TCheckBox
-            Left = 8
-            Height = 21
-            Top = 8
-            Width = 131
-            Caption = 'Only night events'
-            TabOrder = 0
-          end
-          object CheckBoxMoonVisible: TCheckBox
-            AnchorSideTop.Control = CheckBoxNightEvents
-            Left = 280
-            Height = 21
-            Top = 8
-            Width = 237
-            Caption = 'Moon visible from the observatory'
-            TabOrder = 1
-          end
-          object EditTwilight: TLabeledEdit
-            Left = 8
-            Height = 31
-            Top = 40
-            Width = 40
-            EditLabel.Height = 19
-            EditLabel.Width = 135
-            EditLabel.Caption = 'degree below horizon'
-            EditLabel.ParentColor = False
-            LabelPosition = lpRight
-            TabOrder = 2
-            Text = '12'
-          end
-          object EditMinElevation: TLabeledEdit
-            Left = 280
-            Height = 31
-            Top = 40
-            Width = 40
-            EditLabel.Height = 19
-            EditLabel.Width = 155
-            EditLabel.Caption = 'degree minimal elevation'
-            EditLabel.ParentColor = False
-            LabelPosition = lpRight
-            TabOrder = 3
-            Text = '15'
-          end
-        end
-      end
     end
   end
   object PanelBottom: TPanel
     Left = 0
     Height = 50
     Top = 650
-    Width = 1200
+    Width = 1618
     Align = alBottom
     ClientHeight = 50
-    ClientWidth = 1200
+    ClientWidth = 1618
     TabOrder = 2
     object StatusLabel: TLabel
       Left = 8
@@ -1830,5 +2007,11 @@ object f_calclun: Tf_calclun
     Interval = 500
     OnTimer = TerminatorTimerTimer
     Left = 744
+  end
+  object ColongitudeTimer: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = ColongitudeTimerTimer
+    Left = 1080
   end
 end

@@ -89,12 +89,12 @@ msgstr ""
 msgid "December"
 msgstr ""
 
-#: u_translation.rsdegreebelowh
-msgid "degree below horizon"
+#: u_translation.rsdegreeaboveh
+msgid "degree above horizon"
 msgstr ""
 
-#: u_translation.rsdegreeminima
-msgid "degree minimal elevation"
+#: u_translation.rsdegreebelowh
+msgid "degree below horizon"
 msgstr ""
 
 #: u_translation.rsdiameter
@@ -225,6 +225,10 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
+#: u_translation.rsmoon
+msgid "Moon"
+msgstr ""
+
 #: u_translation.rsmoonphase
 msgid "Moon phase"
 msgstr ""
@@ -281,8 +285,8 @@ msgstr ""
 msgid "Prediction"
 msgstr ""
 
-#: u_translation.rspredictionfo
-msgid "Prediction for a specific formation"
+#: u_translation.rspredictiondu
+msgid "Prediction duration"
 msgstr ""
 
 #: u_translation.rsra2000
@@ -345,12 +349,16 @@ msgstr ""
 msgid "Sub-solar latitude"
 msgstr ""
 
-#: u_translation.rssunelevation
-msgid "Sun elevation"
+#: u_translation.rssun
+msgid "Sun"
 msgstr ""
 
 #: u_translation.rssunelevation2
-msgid "Sun elevation over the specified location"
+msgid "Sun elevation range"
+msgstr ""
+
+#: u_translation.rssunelevation3
+msgid "Sun elevation on a formation"
 msgstr ""
 
 #: u_translation.rssunrise
@@ -375,6 +383,10 @@ msgstr ""
 
 #: u_translation.rstimepredicti2
 msgid "Prediction for decreasing solar elevation"
+msgstr ""
+
+#: u_translation.rstimepredicti3
+msgid "Prediction for colongitude"
 msgstr ""
 
 #: u_translation.rstimezone

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-07-26 18:25+0200\n"
+"PO-Revision-Date: 2022-07-26 21:51+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr_FR\n"
@@ -100,13 +100,13 @@ msgstr "DE apparent"
 msgid "December"
 msgstr "Décembre"
 
+#: u_translation.rsdegreeaboveh
+msgid "degree above horizon"
+msgstr "degrés sur l'horizon"
+
 #: u_translation.rsdegreebelowh
 msgid "degree below horizon"
 msgstr "degrés sous l'horizon"
-
-#: u_translation.rsdegreeminima
-msgid "degree minimal elevation"
-msgstr "degrés, élévation minimale"
 
 #: u_translation.rsdiameter
 msgid "Diameter"
@@ -238,6 +238,10 @@ msgstr "Minimum"
 msgid "Month"
 msgstr "Mois"
 
+#: u_translation.rsmoon
+msgid "Moon"
+msgstr "Lune"
+
 #: u_translation.rsmoonphase
 msgid "Moon phase"
 msgstr "Phase de la Lune"
@@ -294,9 +298,9 @@ msgstr "Phase"
 msgid "Prediction"
 msgstr "Prévision"
 
-#: u_translation.rspredictionfo
-msgid "Prediction for a specific formation"
-msgstr "Prévision pour une formation spécifique"
+#: u_translation.rspredictiondu
+msgid "Prediction duration"
+msgstr "Durée de prévision "
 
 #: u_translation.rsra2000
 msgid "RA 2000"
@@ -358,13 +362,17 @@ msgstr "Heure du début"
 msgid "Sub-solar latitude"
 msgstr "Latitude sub-solaire"
 
-#: u_translation.rssunelevation
-msgid "Sun elevation"
-msgstr "Hauteur du soleil"
+#: u_translation.rssun
+msgid "Sun"
+msgstr "Soleil"
 
 #: u_translation.rssunelevation2
-msgid "Sun elevation over the specified location"
-msgstr "Élévation du soleil au-dessus de l'emplacement"
+msgid "Sun elevation range"
+msgstr "Limites d'élévation du soleil"
+
+#: u_translation.rssunelevation3
+msgid "Sun elevation on a formation"
+msgstr "Élévation du Soleil sur une formation"
 
 #: u_translation.rssunrise
 msgid "Sun rise"
@@ -383,13 +391,16 @@ msgid "Time"
 msgstr "Heure"
 
 #: u_translation.rstimepredicti
-#| msgid "Prediction for increasing Sun elevation"
 msgid "Prediction for increasing solar elevation"
 msgstr "Prévision pour une élévation solaire croissante"
 
 #: u_translation.rstimepredicti2
 msgid "Prediction for decreasing solar elevation"
 msgstr "Prévision pour une élévation solaire décroissante"
+
+#: u_translation.rstimepredicti3
+msgid "Prediction for colongitude"
+msgstr "Prévision pour la colongitude"
 
 #: u_translation.rstimezone
 msgid "Time Zone"

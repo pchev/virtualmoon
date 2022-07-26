@@ -76,12 +76,21 @@ type
     ComboBoxFormation: TComboBox;
     DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
     DayPhase: TImage;
+    EditColongitudeDelta: TFloatSpinEdit;
     EditFormation: TEdit;
     GridTerminator1: TStringGrid;
     GridTerminator2: TStringGrid;
+    GridColongitude: TStringGrid;
+    GroupBoxDuration: TGroupBox;
     GroupBoxConstraint: TGroupBox;
-    EditTwilight: TLabeledEdit;
-    EditMinElevation: TLabeledEdit;
+    GroupBoxColongitude: TGroupBox;
+    Label1: TLabel;
+    Label16: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
     LabelMissingDB: TLabel;
     LabelMonth: TLabel;
     LabelDay: TLabel;
@@ -90,6 +99,8 @@ type
     MemoDay: TMemo;
     PageControlPrediction: TPageControl;
     Panel1: TPanel;
+    Panel10: TPanel;
+    PanelFormation: TPanel;
     PanelGlobal: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
@@ -101,10 +112,14 @@ type
     Panel9: TPanel;
     PanelTerminator1: TPanel;
     PanelTerminator2: TPanel;
+    PanelColongitude: TPanel;
     PanelTresult: TScrollBox;
     DayHour: TSpinEdit;
     DayMin: TSpinEdit;
     DaySec: TSpinEdit;
+    PredictionDuration: TSpinEdit;
+    EditTwilight: TSpinEdit;
+    EditMinElevation: TSpinEdit;
     SunMin: TFloatSpinEdit;
     SunMax: TFloatSpinEdit;
     FormationLong: TFloatSpinEdit;
@@ -122,16 +137,17 @@ type
     MainMenu1: TMainMenu;
     GridLibrationList: TStringGrid;
     MenuSetup: TMenuItem;
-    PanelTtop: TPanel;
     PanelT: TPanel;
     PanelChartAltAz: TPanel;
     PanelChartYear: TPanel;
     PanelGraph3: TPanel;
     ScrollBoxY2: TScrollBox;
+    EditColongitude: TFloatSpinEdit;
     TabSheetColongitude: TTabSheet;
     TabSheetSunElevation: TTabSheet;
     TabSheetPrediction: TTabSheet;
     TerminatorTimer: TTimer;
+    ColongitudeTimer: TTimer;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -195,9 +211,14 @@ type
     procedure BtnSearchClick(Sender: TObject);
     procedure ChartAltAzMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure ChartYearAxisList1MarkToText(var AText: String; AMark: Double);
+    procedure ColongitudeTimerTimer(Sender: TObject);
     procedure ComboBoxFormationSelect(Sender: TObject);
-    procedure EditFormationEditingDone(Sender: TObject);
+    procedure ColongitudeChange(Sender: TObject);
+    procedure FormationEditingDone(Sender: TObject);
     procedure DayTimeChange(Sender: TObject);
+    procedure PageControlPredictionChange(Sender: TObject);
+    procedure PredictionChange(Sender: TObject);
+    procedure PredictionEditingDone(Sender: TObject);
     procedure TerminatorChange(Sender: TObject);
     procedure OpenChart(Sender: TObject);
     procedure ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -224,6 +245,7 @@ type
     FCurrentMonthGraph: integer;
     YearInfo: array[0..13,1..31] of TYearInfo;
     FirstChange,ForceDateChange: boolean;
+    LockPredictionTimer: boolean;
     procedure SetLang;
     procedure GetAppDir;
     procedure SetKernelsPath;
@@ -242,6 +264,7 @@ type
     procedure CloseChartClick(Sender: TObject);
     procedure CloseChart(Sender: TObject; var CloseAction: TCloseAction);
     procedure SelectFormation(id: integer);
+    procedure ComputeColongitude;
     procedure ComputeTerminator;
 
   public
@@ -275,6 +298,7 @@ begin
   ObsTZ:='Etc/GMT';
   FirstChange:=true;
   ForceDateChange:=false;
+  LockPredictionTimer:=false;
   dbm:=TLiteDB.Create(self);
 
   Top := 50;
@@ -319,6 +343,11 @@ begin
   PageControl1.ActivePage:=TabSheetYear;
   label10.Caption:=rsByYear;
   FCurrentMonthGraph:=mcolLibrLon;
+  PageControlPrediction.ActivePageIndex:=0;
+  PanelGlobal.Parent:=TabSheetColongitude;
+  PanelFormation.Visible:=false;
+  GroupBoxColongitude.Visible:=true;
+  GroupBoxSunElev.Visible:=false;
 
   SetObservatory;
   f_config.tzinfo:=tz;
@@ -427,9 +456,13 @@ begin
   GridDay.Cells[dcolPa, 0]:=rsPA;
   LabelRise1.Caption:=rsRise+' :'+crlf+rsSet+' :';
 
-  TabSheetPrediction.Caption:=rsPredictionFo;
+  TabSheetPrediction.Caption:=rsPrediction;
   TabSheetColongitude.Caption:=rsColongitude;
-  TabSheetSunElevation.Caption:=rsSunElevation;
+  TabSheetSunElevation.Caption:=rsSunElevation3;
+  GroupBoxColongitude.Caption:=rsColongitude;
+  Label16.Caption:=rsColongitude;
+  GroupBoxDuration.Caption:=rsPredictionDu;
+  Label3.Caption:=rsYear;
   GroupBoxFormation.Caption:=rsSearchFormat;
   BtnSearch.Caption:=rsSearch;
   LabelMissingDB.Caption:=rsDatabaseNotF;
@@ -439,11 +472,17 @@ begin
   GroupBoxConstraint.Caption:=rsConstraints;
   CheckBoxNightEvents.Caption:=rsOnlyNightEve;
   CheckBoxMoonVisible.Caption:=rsMoonVisibleF;
-  EditTwilight.EditLabel.Caption:=rsDegreeBelowH;
-  EditMinElevation.EditLabel.Caption:=rsDegreeMinima;
+  label2.Caption:=rsSun;
+  Label5.Caption:=rsDegreeBelowH;
+  label4.Caption:=rsMoon;
+  Label6.Caption:=rsDegreeAboveH;
   GroupBoxSunElev.Caption:=rsSunElevation2;
   Label14.Caption:=rsMinimum;
   Label15.Caption:=rsMaximum;
+  Panel10.Caption:=rsTimePredicti3;
+  GridColongitude.Cells[0, 0]:=rsStartTime;
+  GridColongitude.Cells[1, 0]:=rsEndTime;
+  GridColongitude.Cells[2, 0]:=rsSubSolarLati;
   Panel1.Caption:=rsTimePredicti;
   GridTerminator1.ColWidths[2]:=80;
   GridTerminator1.ColWidths[3]:=80;
@@ -2260,7 +2299,7 @@ try
   if ForceDateChange or (CurYear<>SpinEditYear.Value) then ComputeYear;
   if ForceDateChange or (CurrentMonth<>SpinEditMonth.Value)or(CurYear<>SpinEditYear.Value) then begin
      ComputeMonth;
-     ComputeTerminator;
+     PredictionChange(Sender);
   end;
   ComputeDay;
   ForceDateChange:=false;
@@ -2340,6 +2379,136 @@ begin
   PopupMenuGraph.PopUp(p.X,p.Y);
 end;
 
+procedure Tf_calclun.PageControlPredictionChange(Sender: TObject);
+begin
+  case PageControlPrediction.ActivePageIndex of
+    0: begin
+        PanelGlobal.Parent:=TabSheetColongitude;
+        PanelFormation.Visible:=false;
+        GroupBoxColongitude.Visible:=true;
+        GroupBoxColongitude.Left:=0;
+        GroupBoxSunElev.Visible:=false;
+        ColongitudeChange(Sender);
+       end;
+    1: begin
+         PanelGlobal.Parent:=TabSheetSunElevation;
+         PanelFormation.Visible:=true;
+         PanelFormation.Left:=0;
+         GroupBoxColongitude.Visible:=false;
+         GroupBoxSunElev.Visible:=true;
+         TerminatorChange(Sender);
+       end;
+  end;
+end;
+
+procedure Tf_calclun.PredictionEditingDone(Sender: TObject);
+begin
+  ActiveControl:=FormationLong;
+  PredictionChange(Sender);
+end;
+
+procedure Tf_calclun.PredictionChange(Sender: TObject);
+begin
+ case PageControlPrediction.ActivePageIndex of
+   0: ColongitudeChange(Sender);
+   1: TerminatorChange(Sender);
+ end;
+end;
+
+procedure Tf_calclun.ColongitudeTimerTimer(Sender: TObject);
+begin
+  ColongitudeTimer.Enabled:=false;
+  if LockPredictionTimer then begin
+    ColongitudeTimer.Enabled:=true;
+  end
+  else begin
+    LockPredictionTimer:=true;
+    ComputeColongitude;
+    LockPredictionTimer:=false;
+  end;
+end;
+
+procedure Tf_calclun.ColongitudeChange(Sender: TObject);
+begin
+  ColongitudeTimer.Enabled:=false;
+  ColongitudeTimer.Enabled:=true;
+end;
+
+procedure Tf_calclun.ComputeColongitude;
+var refval: SpiceDouble;
+  colong,delta: SpiceDouble;
+  sc1,sc2,sc3,scresult: PSpiceCell;
+  et0,et1,x,y,z,dt,r,slon,slat,colongitude: SpiceDouble;
+  fixref: ConstSpiceChar;
+  i,nfind: integer;
+  sti,eni: string;
+  Year, Month: Word;
+begin
+  GridColongitude.RowCount:=1;
+  GridColongitude.RowCount:=15;
+  reset_c;
+
+  year:=SpinEditYear.Value;
+  month:=SpinEditMonth.Value;
+  dt:=EncodeDate(year,month,1);
+  et:=DateTime2ET(dt);
+
+  sc1:=initdoublecell(1);
+  sc2:=initdoublecell(2);
+  sc3:=initdoublecell(3);
+  scresult:=initdoublecell(4);
+  et0:=et;
+  et1:=et0+365.25*SecsPerDay*PredictionDuration.Value;
+  wninsd_c ( et0, et1, sc1 );
+
+  colong:=EditColongitude.Value*deg2rad;
+  delta:=EditColongitudeDelta.Value*deg2rad;
+
+  if not MoonSearchColongitude(colong,delta,nfind,sc1,sc2) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+
+  copy_c(sc2,scresult);
+
+  if CheckBoxMoonVisible.Checked then begin
+    refval := EditMinElevation.Value;  // elevation degree
+    if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    copy_c(sc2,scresult);
+  end;
+
+  if CheckBoxNightEvents.Checked then begin
+    refval := -EditTwilight.Value;   // elevation degree
+    if not SearchNight(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    copy_c(sc2,scresult);
+  end;
+
+  if nfind>0 then
+  for i:=0 to nfind-1 do begin
+    if i>(GridColongitude.RowCount-2) then GridColongitude.RowCount:=GridColongitude.RowCount+1;
+    wnfetd_c(scresult,i,x,y);
+    dt:=ET2DateTime(x);
+    sti:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
+    dt:=ET2DateTime(y);
+    eni:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
+    MoonSubSolarPoint((x+y)/2,fixref,x,y,z,r,slon,slat,colongitude);
+    GridColongitude.Cells[0,i+1]:=sti;
+    GridColongitude.Cells[1,i+1]:=eni;
+    GridColongitude.Cells[2,i+1]:=FormatFloat(f2,slat*rad2deg);
+  end;
+
+  scard_c (0, sc1);
+  scard_c (0, sc2);
+  scard_c (0, sc3);
+  scard_c (0, scresult);
+end;
+
 procedure Tf_calclun.TerminatorChange(Sender: TObject);
 begin
   TerminatorTimer.Enabled:=false;
@@ -2349,14 +2518,21 @@ end;
 procedure Tf_calclun.TerminatorTimerTimer(Sender: TObject);
 begin
   TerminatorTimer.Enabled:=false;
-  ComputeTerminator;
+  if LockPredictionTimer then begin
+    TerminatorTimer.Enabled:=true;
+  end
+  else begin
+    LockPredictionTimer:=true;
+    ComputeTerminator;
+    LockPredictionTimer:=false;
+  end;
 end;
 
 procedure Tf_calclun.ComputeTerminator;
 var fixref: ConstSpiceChar;
   relate: ConstSpiceChar;
   refval: SpiceDouble;
-  sc1,sc2,sc3: PSpiceCell;
+  sc1,sc2,sc3,scresult: PSpiceCell;
   et0,et1,x,y,dt: SpiceDouble;
   i,nfind: integer;
   sti,eni: string;
@@ -2383,8 +2559,9 @@ begin
   sc1:=initdoublecell(1);
   sc2:=initdoublecell(2);
   sc3:=initdoublecell(3);
+  scresult:=initdoublecell(4);
   et0:=et;
-  et1:=et0+365*SecsPerDay;
+  et1:=et0+365.25*SecsPerDay*PredictionDuration.Value;
   wninsd_c ( et0, et1, sc1 );
 
   fixref := fixrefME;
@@ -2402,10 +2579,30 @@ begin
     exit;
   end;
 
+  copy_c(sc1,scresult);
+
+  if CheckBoxMoonVisible.Checked then begin
+    refval := StrToFloatDef(EditMinElevation.Text,15);  // elevation degree
+    if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    copy_c(sc2,scresult);
+  end;
+
+  if CheckBoxNightEvents.Checked then begin
+    refval := -StrToFloatDef(EditTwilight.Text,6);  // civil twilight
+    if not SearchNight(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    copy_c(sc2,scresult);
+  end;
+
   scard_c (0, sc2);
   scard_c (0, sc3);
   for i:=0 to nfind-1 do begin
-     wnfetd_c(sc1,i,x,y);
+     wnfetd_c(scresult,i,x,y);
      MoonSubSolarPoint(x,fixref,xx,yy,zz,r,lo,la,colongitude);
      dl:=rmod(lo-lon+pi2,pi2);
      if dl<pi then
@@ -2418,7 +2615,7 @@ begin
   nfind:=wncard_c(sc2);
   if nfind>0 then
   for i:=0 to nfind-1 do begin
-    if i>(GridTerminator1.RowCount-2) then break;
+    if i>(GridTerminator1.RowCount-2) then GridTerminator1.RowCount:=GridTerminator1.RowCount+1;
     wnfetd_c(sc2,i,x,y);
     dt:=ET2DateTime(x);
     sti:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
@@ -2435,7 +2632,7 @@ begin
   nfind:=wncard_c(sc3);
   if nfind>0 then
   for i:=0 to nfind-1 do begin
-    if i>(GridTerminator2.RowCount-2) then break;
+    if i>(GridTerminator2.RowCount-2) then GridTerminator2.RowCount:=GridTerminator2.RowCount+1;
     wnfetd_c(sc3,i,x,y);
     dt:=ET2DateTime(x);
     sti:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
@@ -2452,6 +2649,7 @@ begin
   scard_c (0, sc1);
   scard_c (0, sc2);
   scard_c (0, sc3);
+  scard_c (0, scresult);
 end;
 
 procedure Tf_calclun.BtnTodayClick(Sender: TObject);
@@ -2463,8 +2661,9 @@ begin
   SpinEditDay.Value:=Day;
 end;
 
-procedure Tf_calclun.EditFormationEditingDone(Sender: TObject);
+procedure Tf_calclun.FormationEditingDone(Sender: TObject);
 begin
+  ActiveControl:=FormationLong;
   BtnSearchClick(nil);
 end;
 
