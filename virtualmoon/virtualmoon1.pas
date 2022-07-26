@@ -3316,6 +3316,7 @@ end;
 
 procedure TForm1.Edit6EditingDone(Sender: TObject);
 begin
+  ActiveControl:=ComboBox1;
   Button1Click(Sender);
 end;
 
