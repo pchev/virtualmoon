@@ -83,7 +83,7 @@ rsSunRise = 'Sun rise';
 rsSunSet = 'Sun set';
 rsSearchFormat = 'Search formation';
 rsSearch = 'Search';
-rsLunarCoordin = 'Lunar coordinates';
+rsFormationCoo = 'Formation coordinates';
 rsSunElevation = 'Sun elevation';
 rsMinimum = 'Minimum';
 rsMaximum = 'Maximum';
@@ -103,6 +103,16 @@ rsDecember = 'December';
 rsMoonPhase = 'Moon phase';
 rsLibrationExt = 'Libration extrema';
 rsDatabaseNotF = 'Database not found! Run AtLun or DatLun to initialize the database.';
+rsPrediction = 'Prediction';
+rsSunElevation2 = 'Sun elevation over the specified location';
+rsConstraints = 'Constraints';
+rsOnlyNightEve = 'Only night events';
+rsMoonVisibleF = 'Moon visible from the observatory';
+rsDegreeBelowH = 'degree below horizon';
+rsDegreeMinima = 'degree minimal elevation';
+rsTimePredicti = 'Prediction for increasing solar elevation';
+rsTimePredicti2 = 'Prediction for decreasing solar elevation';
+rsPredictionFo = 'Prediction for a specific formation';
 
 
 implementation

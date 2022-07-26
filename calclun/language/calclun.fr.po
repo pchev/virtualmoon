@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-02-26 16:15+0100\n"
+"PO-Revision-Date: 2022-07-26 18:25+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr_FR\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.08.1\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: u_translation.rsalt
 msgid "Alt"
@@ -64,6 +64,10 @@ msgstr "Colongitude"
 msgid "Configuration"
 msgstr "Configuration"
 
+#: u_translation.rsconstraints
+msgid "Constraints"
+msgstr "Contraintes"
+
 #: u_translation.rscountry
 msgid "Country"
 msgstr "Pays"
@@ -96,6 +100,14 @@ msgstr "DE apparent"
 msgid "December"
 msgstr "Décembre"
 
+#: u_translation.rsdegreebelowh
+msgid "degree below horizon"
+msgstr "degrés sous l'horizon"
+
+#: u_translation.rsdegreeminima
+msgid "degree minimal elevation"
+msgstr "degrés, élévation minimale"
+
 #: u_translation.rsdiameter
 msgid "Diameter"
 msgstr "Diamètre"
@@ -127,6 +139,10 @@ msgstr "Février"
 #: u_translation.rsfirstquarter
 msgid "First quarter"
 msgstr "Premier quartier"
+
+#: u_translation.rsformationcoo
+msgid "Formation coordinates"
+msgstr "Coordonnées de la formation"
 
 #: u_translation.rsfullmoon
 msgid "Full Moon"
@@ -198,10 +214,6 @@ msgstr "Libr. lon."
 msgid "Longitude"
 msgstr "Longitude"
 
-#: u_translation.rslunarcoordin
-msgid "Lunar coordinates"
-msgstr "Coordonnées lunaires"
-
 #: u_translation.rslunation
 msgid "Lunation"
 msgstr "Lunaison"
@@ -229,6 +241,10 @@ msgstr "Mois"
 #: u_translation.rsmoonphase
 msgid "Moon phase"
 msgstr "Phase de la Lune"
+
+#: u_translation.rsmoonvisiblef
+msgid "Moon visible from the observatory"
+msgstr "Lune visible de l'observatoire"
 
 #: u_translation.rsn
 msgid "N"
@@ -262,6 +278,10 @@ msgstr "Octobre"
 msgid "OK"
 msgstr "OK"
 
+#: u_translation.rsonlynighteve
+msgid "Only night events"
+msgstr "Seulement les événements de nuits"
+
 #: u_translation.rspa
 msgid "PA"
 msgstr "PA"
@@ -269,6 +289,14 @@ msgstr "PA"
 #: u_translation.rsphase
 msgid "Phase"
 msgstr "Phase"
+
+#: u_translation.rsprediction
+msgid "Prediction"
+msgstr "Prévision"
+
+#: u_translation.rspredictionfo
+msgid "Prediction for a specific formation"
+msgstr "Prévision pour une formation spécifique"
 
 #: u_translation.rsra2000
 msgid "RA 2000"
@@ -334,6 +362,10 @@ msgstr "Latitude sub-solaire"
 msgid "Sun elevation"
 msgstr "Hauteur du soleil"
 
+#: u_translation.rssunelevation2
+msgid "Sun elevation over the specified location"
+msgstr "Élévation du soleil au-dessus de l'emplacement"
+
 #: u_translation.rssunrise
 msgid "Sun rise"
 msgstr "Lever du soleil"
@@ -349,6 +381,15 @@ msgstr "Terminateur"
 #: u_translation.rstime
 msgid "Time"
 msgstr "Heure"
+
+#: u_translation.rstimepredicti
+#| msgid "Prediction for increasing Sun elevation"
+msgid "Prediction for increasing solar elevation"
+msgstr "Prévision pour une élévation solaire croissante"
+
+#: u_translation.rstimepredicti2
+msgid "Prediction for decreasing solar elevation"
+msgstr "Prévision pour une élévation solaire décroissante"
 
 #: u_translation.rstimezone
 msgid "Time Zone"

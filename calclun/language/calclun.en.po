@@ -53,6 +53,10 @@ msgstr ""
 msgid "Configuration"
 msgstr ""
 
+#: u_translation.rsconstraints
+msgid "Constraints"
+msgstr ""
+
 #: u_translation.rscountry
 msgid "Country"
 msgstr ""
@@ -85,6 +89,14 @@ msgstr ""
 msgid "December"
 msgstr ""
 
+#: u_translation.rsdegreebelowh
+msgid "degree below horizon"
+msgstr ""
+
+#: u_translation.rsdegreeminima
+msgid "degree minimal elevation"
+msgstr ""
+
 #: u_translation.rsdiameter
 msgid "Diameter"
 msgstr ""
@@ -115,6 +127,10 @@ msgstr ""
 
 #: u_translation.rsfirstquarter
 msgid "First quarter"
+msgstr ""
+
+#: u_translation.rsformationcoo
+msgid "Formation coordinates"
 msgstr ""
 
 #: u_translation.rsfullmoon
@@ -185,10 +201,6 @@ msgstr ""
 msgid "Longitude"
 msgstr ""
 
-#: u_translation.rslunarcoordin
-msgid "Lunar coordinates"
-msgstr ""
-
 #: u_translation.rslunation
 msgid "Lunation"
 msgstr ""
@@ -215,6 +227,10 @@ msgstr ""
 
 #: u_translation.rsmoonphase
 msgid "Moon phase"
+msgstr ""
+
+#: u_translation.rsmoonvisiblef
+msgid "Moon visible from the observatory"
 msgstr ""
 
 #: u_translation.rsn
@@ -249,12 +265,24 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
+#: u_translation.rsonlynighteve
+msgid "Only night events"
+msgstr ""
+
 #: u_translation.rspa
 msgid "PA"
 msgstr ""
 
 #: u_translation.rsphase
 msgid "Phase"
+msgstr ""
+
+#: u_translation.rsprediction
+msgid "Prediction"
+msgstr ""
+
+#: u_translation.rspredictionfo
+msgid "Prediction for a specific formation"
 msgstr ""
 
 #: u_translation.rsra2000
@@ -321,6 +349,10 @@ msgstr ""
 msgid "Sun elevation"
 msgstr ""
 
+#: u_translation.rssunelevation2
+msgid "Sun elevation over the specified location"
+msgstr ""
+
 #: u_translation.rssunrise
 msgid "Sun rise"
 msgstr ""
@@ -335,6 +367,14 @@ msgstr ""
 
 #: u_translation.rstime
 msgid "Time"
+msgstr ""
+
+#: u_translation.rstimepredicti
+msgid "Prediction for increasing solar elevation"
+msgstr ""
+
+#: u_translation.rstimepredicti2
+msgid "Prediction for decreasing solar elevation"
 msgstr ""
 
 #: u_translation.rstimezone

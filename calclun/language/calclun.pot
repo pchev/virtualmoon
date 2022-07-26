@@ -282,8 +282,8 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: u_translation:rslunarcoordin
-msgid "Lunar coordinates"
+#: u_translation:rsformationcoo
+msgid "Formation coordinates"
 msgstr ""
 
 #: u_translation:rssunelevation
@@ -360,5 +360,45 @@ msgstr ""
 
 #: u_translation:rsdatabasenotf
 msgid "Database not found! Run AtLun or DatLun to initialize the database."
+msgstr ""
+
+#: u_translation:rsprediction
+msgid "Prediction"
+msgstr ""
+
+#: u_translation:rssunelevation2
+msgid "Sun elevation over the specified location"
+msgstr ""
+
+#: u_translation:rsconstraints
+msgid "Constraints"
+msgstr ""
+
+#: u_translation:rsonlynighteve
+msgid "Only night events"
+msgstr ""
+
+#: u_translation:rsmoonvisiblef
+msgid "Moon visible from the observatory"
+msgstr ""
+
+#: u_translation:rsdegreebelowh
+msgid "degree below horizon"
+msgstr ""
+
+#: u_translation:rsdegreeminima
+msgid "degree minimal elevation"
+msgstr ""
+
+#: u_translation:rstimepredicti
+msgid "Prediction for increasing solar elevation"
+msgstr ""
+
+#: u_translation:rstimepredicti2
+msgid "Prediction for decreasing solar elevation"
+msgstr ""
+
+#: u_translation:rspredictionfo
+msgid "Prediction for a specific formation"
 msgstr ""
 
