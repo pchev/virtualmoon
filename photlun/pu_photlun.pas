@@ -64,6 +64,7 @@ type
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
     help1: TMenuItem;
+    PanelLabel: TPanel;
     UniqueInstance1: TUniqueInstance;
     View1: TMenuItem;
     MenuItem14: TMenuItem;
@@ -316,6 +317,7 @@ begin
     vignette_info[num].imgfile:=fn;
     vignette_info[num].vignettefile:=vfn;
     if PanelVignette.Height>100 then begin
+       imglabel[num].Width:=PanelVignette.Height;
        imglabel[num].Caption:=nom;
        imglabel[num].Hint:=vignette[num].Hint;
     end;
@@ -592,15 +594,23 @@ SetSizeTimer1.Enabled:=true;
 end;
 
 procedure Tf_photlun.SetSizeTimer1Timer(Sender: TObject);
+var i: integer;
 begin
 SetSizeTimer1.Enabled:=false;
 lockresize:=true;
  PanelVignette.Height:=VignetteHeight;
- ClientHeight:=VignetteHeight+ScrollBar1.Height+4+StatusBar1.Height+20;
- if VignetteHeight>100 then
-     ClientHeight:=ClientHeight+StatusBar1.Height
- else
-     ClientHeight:=ClientHeight+8;
+ if VignetteHeight<100 then begin
+   PanelLabel.Visible:=false;
+   ClientHeight:=VignetteHeight+ScrollBar1.Height+4+StatusBar1.Height+20;
+ end
+ else begin
+   PanelLabel.Visible:=true;
+   ClientHeight:=VignetteHeight+PanelLabel.Height+ScrollBar1.Height+4+StatusBar1.Height+20;
+ end;
+ for i:=0 to vignettenum-1 do begin
+    imglabel[i].Left:=vignette[i].Left;
+    imglabel[i].Width:=VignetteHeight;
+ end;
  maxheight:=Height;
 lockresize:=false;
 end;
@@ -608,6 +618,7 @@ end;
 procedure Tf_photlun.FormResize(Sender: TObject);
 begin
 if not lockresize then begin
+   lockresize:=true;
    if Height<>maxheight then Height:=maxheight;
    if Width<photow then Width:=photow;
 end;
@@ -860,11 +871,16 @@ DefaultFormatSettings.ThousandSeparator:=' ';
     vignette[i].Tag:=i;
     vignette[i].OnClick:=@Vignetteclick;
     imglabel[i]:=TLabel.Create(self);
-    imglabel[i].Parent:=PanelTop;
+    imglabel[i].Parent:=PanelLabel;
     imglabel[i].Transparent:=false;
     imglabel[i].ParentColor:=true;
     imglabel[i].Visible:=false;
     imglabel[i].ShowHint:=true;
+    imglabel[i].AutoSize:=false;
+    imglabel[i].WordWrap:=true;
+    imglabel[i].width:=150;
+    imglabel[i].height:=PanelLabel.height;
+
   end;
   for i:=0 to maxphotowindow do begin
      photo[i]:=TF_photo.Create(self);
@@ -960,12 +976,15 @@ if newcount<>vignettenum then begin
      vignette[i].transparent:=false;
      vignette[i].AutoSize:=false;
      imglabel[i].Visible:=true;
-     imglabel[i].Top:=vignette[i].Top+vignette[i].Height+4;
-     imglabel[i].Left:=vignette[i].Left+2;
+     imglabel[i].Top:=0;
+     imglabel[i].Left:=vignette[i].Left;
      imglabel[i].Caption:='';
      p:=p+vw+1;
   end;
-  for i:=vignettenum to maxvignette do vignette[i].Visible:=false;
+  for i:=vignettenum to maxvignette do begin
+     vignette[i].Visible:=false;
+     imglabel[i].Visible:=false;
+  end;
   ScrollBar1.max:=max(0,imglist.count);
   ScrollBar1.PageSize:=vignettenum;
   ScrollBar1.LargeChange:=vignettenum;
