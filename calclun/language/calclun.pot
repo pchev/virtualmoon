@@ -415,6 +415,6 @@ msgid "Prediction for colongitude"
 msgstr ""
 
 #: u_translation:rspredictionfo
-msgid "Prediction for libration"
+msgid "Prediction for libration, with formation illuminated"
 msgstr ""
 

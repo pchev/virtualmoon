@@ -290,7 +290,7 @@ msgid "Prediction duration"
 msgstr ""
 
 #: u_translation.rspredictionfo
-msgid "Prediction for libration"
+msgid "Prediction for libration, with formation illuminated"
 msgstr ""
 
 #: u_translation.rsra2000

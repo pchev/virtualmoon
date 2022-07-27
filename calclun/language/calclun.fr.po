@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-07-27 09:47+0200\n"
+"PO-Revision-Date: 2022-07-27 13:25+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr_FR\n"
@@ -303,8 +303,9 @@ msgid "Prediction duration"
 msgstr "Durée de prévision "
 
 #: u_translation.rspredictionfo
-msgid "Prediction for libration"
-msgstr "Prévision pour la libration"
+#| msgid "Prediction for libration"
+msgid "Prediction for libration, with formation illuminated"
+msgstr "Prévision pour la libration, avec la formation illuminée"
 
 #: u_translation.rsra2000
 msgid "RA 2000"

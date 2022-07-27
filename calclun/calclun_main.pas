@@ -8,10 +8,10 @@ uses
   {$ifdef mswindows}
     Windows, Registry, ShlObj,
   {$endif}
-  cspice, pas_spice, moon_spice, u_util, u_constant, LazSysUtils, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
+  cspice, pas_spice, moon_spice, u_util, u_constant, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
   TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8, config, u_translation, FileUtil, downloaddialog, splashunit,
   passql, passqlite,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, EditBtn, Spin, ComCtrls, Grids, Menus, Buttons,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, Spin, ComCtrls, Grids, Menus, Buttons,
   LCLVersion, Types, TACustomSeries, TAMultiSeries, TATransformations;
 
 const
@@ -260,6 +260,15 @@ type
     YearInfo: array[0..13,1..31] of TYearInfo;
     FirstChange,ForceDateChange: boolean;
     LockPredictionTimer: boolean;
+    CurColongColong,CurColongDelta,CurColondDt: double;
+    CurColongDuration,CurColongSunElev,CurColongMoonElev: integer;
+    CurColongNight,CurColongVisible: boolean;
+    CurSunElevLon,CurSunElevLat,CurSunElevDt,CurSunElevSunMin,CurSunElevSunMax: double;
+    CurSunElevDuration,CurSunElevSunElev,CurSunElevMoonElev: integer;
+    CurSunElevNight,CurSunElevVisible: boolean;
+    CurLibrationLon,CurLibrationLat,CurLibrationDt,CurLibrationLibrLon,CurLibrationLibrLat: double;
+    CurLibrationEW,CurLibrationNS,CurLibrationDuration,CurLibrationSunElev,CurLibrationMoonElev: integer;
+    CurLibrationNight,CurLibrationVisible: boolean;
     procedure SetLang;
     procedure GetAppDir;
     procedure SetKernelsPath;
@@ -2442,7 +2451,10 @@ begin
   if dbm.RowCount > 0 then begin
     FormationLong.Value := dbm.Results[0].Format[0].AsFloat;
     FormationLat.Value := dbm.Results[0].Format[1].AsFloat;
-    ComputeTerminator;
+    case PageControlPrediction.ActivePageIndex of
+      1:ComputeTerminator;
+      2:ComputeLibration;
+    end;
   end;
 end;
 
@@ -2531,15 +2543,31 @@ var refval: SpiceDouble;
   sti,eni: string;
   Year, Month: Word;
 begin
+  colong:=EditColongitude.Value;
+  delta:=EditColongitudeDelta.Value;
+  year:=SpinEditYear.Value;
+  month:=SpinEditMonth.Value;
+  dt:=EncodeDate(year,month,1);
+
+  if (CurColongColong=colong)and(CurColongDelta=delta)and(CurColondDt=dt)and(CurColongDuration=PredictionDuration.Value)and
+     (CurColongNight=CheckBoxNightEvents.Checked)and(CurColongVisible=CheckBoxMoonVisible.Checked)and
+     (CurColongSunElev=EditTwilight.Value)and(CurColongMoonElev=EditMinElevation.Value)
+     then exit;
+
+  CurColongColong:=colong;
+  CurColongDelta:=delta;
+  CurColondDt:=dt;
+  CurColongDuration:=PredictionDuration.Value;
+  CurColongNight:=CheckBoxNightEvents.Checked;
+  CurColongVisible:=CheckBoxMoonVisible.Checked;
+  CurColongSunElev:=EditTwilight.Value;
+  CurColongMoonElev:=EditMinElevation.Value;
+
   GridColongitude.RowCount:=1;
   GridColongitude.RowCount:=15;
   reset_c;
 
-  year:=SpinEditYear.Value;
-  month:=SpinEditMonth.Value;
-  dt:=EncodeDate(year,month,1);
   et:=DateTime2ET(dt);
-
   sc1:=initdoublecell(1);
   sc2:=initdoublecell(2);
   sc3:=initdoublecell(3);
@@ -2547,9 +2575,6 @@ begin
   et0:=et;
   et1:=et0+365.25*SecsPerDay*PredictionDuration.Value;
   wninsd_c ( et0, et1, sc1 );
-
-  colong:=EditColongitude.Value;
-  delta:=EditColongitudeDelta.Value;
 
   if delta<1 then begin
     if not MoonSearchColongitude(colong*deg2rad,1.0*deg2rad,nfind,sc1,sc2) then begin
@@ -2635,12 +2660,6 @@ var fixref: ConstSpiceChar;
   pos: TDouble3;
   Year, Month: Word;
 begin
-  GridTerminator1.RowCount:=1;
-  GridTerminator1.RowCount:=15;
-  GridTerminator2.RowCount:=1;
-  GridTerminator2.RowCount:=15;
-  if SunMax.Value<=SunMin.Value then exit;
-  reset_c;
   lon:=FormationLong.Value*deg2rad;
   lat:=FormationLat.Value*deg2rad;
   pos:=MoonSurfacePos(lon,lat);
@@ -2648,8 +2667,33 @@ begin
   year:=SpinEditYear.Value;
   month:=SpinEditMonth.Value;
   dt:=EncodeDate(year,month,1);
-  et:=DateTime2ET(dt);
 
+  if (CurSunElevLon=lon)and(CurSunElevLat=lat)and(CurSunElevDt=dt)and(CurSunElevDuration=PredictionDuration.Value)and
+     (CurSunElevSunMin=SunMin.Value)and(CurSunElevSunMax=SunMax.Value)and
+     (CurSunElevNight=CheckBoxNightEvents.Checked)and(CurSunElevVisible=CheckBoxMoonVisible.Checked)and
+     (CurSunElevSunElev=EditTwilight.Value)and(CurSunElevMoonElev=EditMinElevation.Value)
+     then exit;
+
+  CurSunElevLon:=lon;
+  CurSunElevLat:=lat;
+  CurSunElevDt:=dt;
+  CurSunElevSunMin:=SunMin.Value;
+  CurSunElevSunMax:=SunMax.Value;
+  CurSunElevDuration:=PredictionDuration.Value;
+  CurSunElevNight:=CheckBoxNightEvents.Checked;
+  CurSunElevVisible:=CheckBoxMoonVisible.Checked;
+  CurSunElevSunElev:=EditTwilight.Value;
+  CurSunElevMoonElev:=EditMinElevation.Value;
+
+  GridTerminator1.RowCount:=1;
+  GridTerminator1.RowCount:=15;
+  GridTerminator2.RowCount:=1;
+  GridTerminator2.RowCount:=15;
+  if SunMax.Value<=SunMin.Value then exit;
+
+  reset_c;
+
+  et:=DateTime2ET(dt);
   sc1:=initdoublecell(1);
   sc2:=initdoublecell(2);
   sc3:=initdoublecell(3);
@@ -2773,15 +2817,10 @@ var fixref: ConstSpiceChar;
   et0,et1,x,y,dt: SpiceDouble;
   i,nfind: integer;
   sti,eni: string;
-  lon,lat,dl,llon,llat,z: SpiceDouble;
-  xx,yy,zz,r,lo,la,colongitude:SpiceDouble;
+  lon,lat: SpiceDouble;
   pos: TDouble3;
   Year, Month: Word;
 begin
-  GridLibration.RowCount:=1;
-  GridLibration.RowCount:=15;
-  reset_c;
-
   lon:=FormationLong.Value*deg2rad;
   lat:=FormationLat.Value*deg2rad;
   pos:=MoonSurfacePos(lon,lat);
@@ -2789,6 +2828,31 @@ begin
   year:=SpinEditYear.Value;
   month:=SpinEditMonth.Value;
   dt:=EncodeDate(year,month,1);
+
+  if (CurLibrationLon=lon)and(CurLibrationLat=lat)and(CurLibrationDt=dt)and(CurLibrationDuration=PredictionDuration.Value)and
+     (CurLibrationLibrLon=LibrLon.Value)and(CurLibrationLibrLat=LibrLat.Value)and
+     (CurLibrationEW=DirLon.ItemIndex)and(CurLibrationNS=DirLat.ItemIndex)and
+     (CurLibrationNight=CheckBoxNightEvents.Checked)and(CurLibrationVisible=CheckBoxMoonVisible.Checked)and
+     (CurLibrationSunElev=EditTwilight.Value)and(CurLibrationMoonElev=EditMinElevation.Value)
+     then exit;
+
+  CurLibrationLon:=lon;
+  CurLibrationLat:=lat;
+  CurLibrationDt:=dt;
+  CurLibrationLibrLon:=LibrLon.Value;
+  CurLibrationLibrLat:=LibrLat.Value;
+  CurLibrationEW:=DirLon.ItemIndex;
+  CurLibrationNS:=DirLat.ItemIndex;
+  CurLibrationDuration:=PredictionDuration.Value;
+  CurLibrationNight:=CheckBoxNightEvents.Checked;
+  CurLibrationVisible:=CheckBoxMoonVisible.Checked;
+  CurLibrationSunElev:=EditTwilight.Value;
+  CurLibrationMoonElev:=EditMinElevation.Value;
+
+  GridLibration.RowCount:=1;
+  GridLibration.RowCount:=15;
+  reset_c;
+
   et:=DateTime2ET(dt);
 
   sc1:=initdoublecell(1);
