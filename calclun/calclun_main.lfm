@@ -1359,9 +1359,8 @@ object f_calclun: Tf_calclun
                 Height = 29
                 Top = 40
                 Width = 80
-                DecimalPlaces = 1
                 MaxValue = 10
-                MinValue = 0.1
+                MinValue = 0.01
                 OnChange = ColongitudeChange
                 TabOrder = 1
                 Value = 1

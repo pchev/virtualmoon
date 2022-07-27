@@ -2461,10 +2461,17 @@ begin
   et1:=et0+365.25*SecsPerDay*PredictionDuration.Value;
   wninsd_c ( et0, et1, sc1 );
 
-  colong:=EditColongitude.Value*deg2rad;
-  delta:=EditColongitudeDelta.Value*deg2rad;
+  colong:=EditColongitude.Value;
+  delta:=EditColongitudeDelta.Value;
 
-  if not MoonSearchColongitude(colong,delta,nfind,sc1,sc2) then begin
+  if delta<1 then begin
+    if not MoonSearchColongitude(colong*deg2rad,1.0*deg2rad,nfind,sc1,sc2) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    copy_c(sc2,sc1);
+  end;
+  if not MoonSearchColongitude(colong*deg2rad,delta*deg2rad,nfind,sc1,sc2) then begin
     StatusLabel.Caption:=SpiceLastError;
     exit;
   end;

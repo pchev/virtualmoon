@@ -16,9 +16,42 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
-    <BuildModes Count="3">
+    <BuildModes Count="4">
       <Item1 Name="Default" Default="True"/>
-      <Item2 Name="win32">
+      <Item2 Name="Release">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="calclun"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <DebugInfoType Value="dsDwarf2"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dUseHeapTrc"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+      <Item3 Name="win32">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="win32"/>
         </MacroValues>
@@ -50,8 +83,8 @@
             <CustomOptions Value="-dUseHeapTrc"/>
           </Other>
         </CompilerOptions>
-      </Item2>
-      <Item3 Name="win64">
+      </Item3>
+      <Item4 Name="win64">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="win32"/>
         </MacroValues>
@@ -83,7 +116,7 @@
             <CustomOptions Value="-dUseHeapTrc"/>
           </Other>
         </CompilerOptions>
-      </Item3>
+      </Item4>
       <SharedMatrixOptions Count="2">
         <Item1 ID="114807326563" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="427044282431" Modes="win64" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
