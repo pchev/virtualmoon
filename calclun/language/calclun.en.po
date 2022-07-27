@@ -289,6 +289,10 @@ msgstr ""
 msgid "Prediction duration"
 msgstr ""
 
+#: u_translation.rspredictionfo
+msgid "Prediction for libration"
+msgstr ""
+
 #: u_translation.rsra2000
 msgid "RA 2000"
 msgstr ""

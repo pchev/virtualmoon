@@ -73,19 +73,27 @@ type
     Chart3SeriesSunset: TAreaSeries;
     CheckBoxNightEvents: TCheckBox;
     CheckBoxMoonVisible: TCheckBox;
+    DirLon: TComboBox;
+    DirLat: TComboBox;
     ComboBoxFormation: TComboBox;
     DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
     DayPhase: TImage;
     EditColongitudeDelta: TFloatSpinEdit;
     EditFormation: TEdit;
+    LibrLon: TFloatSpinEdit;
+    LibrLat: TFloatSpinEdit;
+    GridLibration: TStringGrid;
     GridTerminator1: TStringGrid;
     GridTerminator2: TStringGrid;
     GridColongitude: TStringGrid;
+    GroupBoxLibration: TGroupBox;
     GroupBoxDuration: TGroupBox;
     GroupBoxConstraint: TGroupBox;
     GroupBoxColongitude: TGroupBox;
     Label1: TLabel;
+    Label11: TLabel;
     Label16: TLabel;
+    Label17: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
@@ -100,6 +108,8 @@ type
     PageControlPrediction: TPageControl;
     Panel1: TPanel;
     Panel10: TPanel;
+    Panel11: TPanel;
+    PanelLibration: TPanel;
     PanelFormation: TPanel;
     PanelGlobal: TPanel;
     Panel2: TPanel;
@@ -143,11 +153,13 @@ type
     PanelGraph3: TPanel;
     ScrollBoxY2: TScrollBox;
     EditColongitude: TFloatSpinEdit;
+    TabSheetLibration: TTabSheet;
     TabSheetColongitude: TTabSheet;
     TabSheetSunElevation: TTabSheet;
     TabSheetPrediction: TTabSheet;
     TerminatorTimer: TTimer;
     ColongitudeTimer: TTimer;
+    LibrationTimer: TTimer;
     TZspinedit: TFloatSpinEdit;
     GridYear: TStringGrid;
     ImageListPhase: TImageList;
@@ -216,10 +228,12 @@ type
     procedure ColongitudeChange(Sender: TObject);
     procedure FormationEditingDone(Sender: TObject);
     procedure DayTimeChange(Sender: TObject);
+    procedure LibrationTimerTimer(Sender: TObject);
     procedure PageControlPredictionChange(Sender: TObject);
     procedure PredictionChange(Sender: TObject);
     procedure PredictionEditingDone(Sender: TObject);
     procedure TerminatorChange(Sender: TObject);
+    procedure LibrationChange(Sender: TObject);
     procedure OpenChart(Sender: TObject);
     procedure ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DateChange(Sender: TObject);
@@ -266,6 +280,7 @@ type
     procedure SelectFormation(id: integer);
     procedure ComputeColongitude;
     procedure ComputeTerminator;
+    procedure ComputeLibration;
 
   public
 
@@ -459,6 +474,7 @@ begin
   TabSheetPrediction.Caption:=rsPrediction;
   TabSheetColongitude.Caption:=rsColongitude;
   TabSheetSunElevation.Caption:=rsSunElevation3;
+  TabSheetLibration.Caption:=rsLibration;
   GroupBoxColongitude.Caption:=rsColongitude;
   Label16.Caption:=rsColongitude;
   GroupBoxDuration.Caption:=rsPredictionDu;
@@ -479,6 +495,12 @@ begin
   GroupBoxSunElev.Caption:=rsSunElevation2;
   Label14.Caption:=rsMinimum;
   Label15.Caption:=rsMaximum;
+  GroupBoxLibration.Caption:=rsLibration;
+  label11.Caption:=rsLongitude;
+  label17.Caption:=rsLatitude;
+  Panel11.Caption:=rsPredictionFo;
+  GridLibration.Cells[0, 0]:=rsStartTime;
+  GridLibration.Cells[1, 0]:=rsEndTime;
   Panel10.Caption:=rsTimePredicti3;
   GridColongitude.Cells[0, 0]:=rsStartTime;
   GridColongitude.Cells[1, 0]:=rsEndTime;
@@ -2371,6 +2393,59 @@ begin
   end;
 end;
 
+procedure Tf_calclun.BtnTodayClick(Sender: TObject);
+var Year, Month, Day: Word;
+begin
+  DecodeDate(now, Year, Month, Day);
+  SpinEditYear.Value:=Year;
+  SpinEditMonth.Value:=Month;
+  SpinEditDay.Value:=Day;
+end;
+
+procedure Tf_calclun.FormationEditingDone(Sender: TObject);
+begin
+  ActiveControl:=FormationLong;
+  BtnSearchClick(nil);
+end;
+
+procedure Tf_calclun.BtnSearchClick(Sender: TObject);
+var
+  i:   integer;
+  n: string;
+begin
+  n:=trim(EditFormation.Text);
+  if Length(n)<3 then exit;
+  dbm.Query('select id,name from moon ' + ' where '+
+      ' NAME like "' + trim(uppercase(n)) + '%"' +
+      ' order by NAME limit 100;');
+  ComboBoxFormation.Clear;
+  for i := 0 to dbm.RowCount - 1 do
+  begin
+    ComboBoxFormation.Items.AddObject(dbm.Results[i].Format[1].AsString,TObject(PtrInt(dbm.Results[i].Format[0].AsInteger)));
+  end;
+  if ComboBoxFormation.Items.Count>0 then begin
+     ComboBoxFormation.ItemIndex:=0;
+     ComboBoxFormationSelect(nil);
+  end;
+end;
+
+procedure Tf_calclun.ComboBoxFormationSelect(Sender: TObject);
+var i: integer;
+begin
+  i:=ComboBoxFormation.ItemIndex;
+  SelectFormation(PtrInt(ComboBoxFormation.Items.Objects[i]));
+end;
+
+procedure Tf_calclun.SelectFormation(id: integer);
+begin
+  dbm.Query('select LONGI_N,LATI_N from moon where id=' + inttostr(id));
+  if dbm.RowCount > 0 then begin
+    FormationLong.Value := dbm.Results[0].Format[0].AsFloat;
+    FormationLat.Value := dbm.Results[0].Format[1].AsFloat;
+    ComputeTerminator;
+  end;
+end;
+
 procedure Tf_calclun.BtnGraphClick(Sender: TObject);
 var p: TPoint;
 begin
@@ -2388,15 +2463,26 @@ begin
         GroupBoxColongitude.Visible:=true;
         GroupBoxColongitude.Left:=0;
         GroupBoxSunElev.Visible:=false;
+        GroupBoxLibration.Visible:=false;
         ColongitudeChange(Sender);
        end;
     1: begin
          PanelGlobal.Parent:=TabSheetSunElevation;
          PanelFormation.Visible:=true;
          PanelFormation.Left:=0;
-         GroupBoxColongitude.Visible:=false;
          GroupBoxSunElev.Visible:=true;
+         GroupBoxColongitude.Visible:=false;
+         GroupBoxLibration.Visible:=false;
          TerminatorChange(Sender);
+       end;
+    2: begin
+         PanelGlobal.Parent:=TabSheetLibration;
+         PanelFormation.Visible:=true;
+         PanelFormation.Left:=0;
+         GroupBoxLibration.Visible:=true;
+         GroupBoxColongitude.Visible:=false;
+         GroupBoxSunElev.Visible:=false;
+         LibrationChange(Sender);
        end;
   end;
 end;
@@ -2412,6 +2498,7 @@ begin
  case PageControlPrediction.ActivePageIndex of
    0: ColongitudeChange(Sender);
    1: TerminatorChange(Sender);
+   2: LibrationChange(Sender);
  end;
 end;
 
@@ -2659,57 +2746,130 @@ begin
   scard_c (0, scresult);
 end;
 
-procedure Tf_calclun.BtnTodayClick(Sender: TObject);
-var Year, Month, Day: Word;
+procedure Tf_calclun.LibrationChange(Sender: TObject);
 begin
-  DecodeDate(now, Year, Month, Day);
-  SpinEditYear.Value:=Year;
-  SpinEditMonth.Value:=Month;
-  SpinEditDay.Value:=Day;
+  LibrationTimer.Enabled:=false;
+  LibrationTimer.Enabled:=true;
 end;
 
-procedure Tf_calclun.FormationEditingDone(Sender: TObject);
+procedure Tf_calclun.LibrationTimerTimer(Sender: TObject);
 begin
-  ActiveControl:=FormationLong;
-  BtnSearchClick(nil);
-end;
-
-procedure Tf_calclun.BtnSearchClick(Sender: TObject);
-var
-  i:   integer;
-  n: string;
-begin
-  n:=trim(EditFormation.Text);
-  if Length(n)<3 then exit;
-  dbm.Query('select id,name from moon ' + ' where '+
-      ' NAME like "' + trim(uppercase(n)) + '%"' +
-      ' order by NAME limit 100;');
-  ComboBoxFormation.Clear;
-  for i := 0 to dbm.RowCount - 1 do
-  begin
-    ComboBoxFormation.Items.AddObject(dbm.Results[i].Format[1].AsString,TObject(PtrInt(dbm.Results[i].Format[0].AsInteger)));
-  end;
-  if ComboBoxFormation.Items.Count>0 then begin
-     ComboBoxFormation.ItemIndex:=0;
-     ComboBoxFormationSelect(nil);
+  LibrationTimer.Enabled:=false;
+  if LockPredictionTimer then begin
+    LibrationTimer.Enabled:=true;
+  end
+  else begin
+    LockPredictionTimer:=true;
+    ComputeLibration;
+    LockPredictionTimer:=false;
   end;
 end;
 
-procedure Tf_calclun.ComboBoxFormationSelect(Sender: TObject);
-var i: integer;
+procedure Tf_calclun.ComputeLibration;
+var fixref: ConstSpiceChar;
+  relate,coord: ConstSpiceChar;
+  refval: SpiceDouble;
+  sc1,sc2,sc3,scresult: PSpiceCell;
+  et0,et1,x,y,dt: SpiceDouble;
+  i,nfind: integer;
+  sti,eni: string;
+  lon,lat,dl,llon,llat,z: SpiceDouble;
+  xx,yy,zz,r,lo,la,colongitude:SpiceDouble;
+  pos: TDouble3;
+  Year, Month: Word;
 begin
-  i:=ComboBoxFormation.ItemIndex;
-  SelectFormation(PtrInt(ComboBoxFormation.Items.Objects[i]));
-end;
+  GridLibration.RowCount:=1;
+  GridLibration.RowCount:=15;
+  reset_c;
 
-procedure Tf_calclun.SelectFormation(id: integer);
-begin
-  dbm.Query('select LONGI_N,LATI_N from moon where id=' + inttostr(id));
-  if dbm.RowCount > 0 then begin
-    FormationLong.Value := dbm.Results[0].Format[0].AsFloat;
-    FormationLat.Value := dbm.Results[0].Format[1].AsFloat;
-    ComputeTerminator;
+  lon:=FormationLong.Value*deg2rad;
+  lat:=FormationLat.Value*deg2rad;
+  pos:=MoonSurfacePos(lon,lat);
+
+  year:=SpinEditYear.Value;
+  month:=SpinEditMonth.Value;
+  dt:=EncodeDate(year,month,1);
+  et:=DateTime2ET(dt);
+
+  sc1:=initdoublecell(1);
+  sc2:=initdoublecell(2);
+  sc3:=initdoublecell(3);
+  scresult:=initdoublecell(4);
+  et0:=et;
+  et1:=et0+365.25*SecsPerDay*PredictionDuration.Value;
+  wninsd_c ( et0, et1, sc1 );
+
+  fixref := fixrefME;
+  relate:='<';
+  refval := 85 * deg2rad;  // 5° sun elevation
+  if not MoonSearchIllum(pos,refval,relate,fixref,nfind,sc1,sc2) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
   end;
+
+  coord:='LONGITUDE';
+  if DirLon.ItemIndex=1 then begin // W
+    relate:='<';
+    refval:=-LibrLon.Value*deg2rad;
+  end
+  else begin // E
+    relate:='>';
+    refval:=LibrLon.Value*deg2rad;
+  end;
+  if not MoonSearchLibration(coord,refval,relate,fixref,nfind,sc2,sc1) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+  coord:='LATITUDE';
+  if DirLat.ItemIndex=1 then begin // S
+    relate:='<';
+    refval:=-LibrLat.Value*deg2rad;
+  end
+  else begin // N
+    relate:='>';
+    refval:=LibrLat.Value*deg2rad;
+  end;
+  if not MoonSearchLibration(coord,refval,relate,fixref,nfind,sc1,sc2) then begin
+    StatusLabel.Caption:=SpiceLastError;
+    exit;
+  end;
+
+  copy_c(sc2,scresult);
+
+  if CheckBoxMoonVisible.Checked then begin
+    refval := StrToFloatDef(EditMinElevation.Text,15);  // elevation degree
+    if not MoonSearchRiseSet(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    copy_c(sc2,scresult);
+  end;
+
+  if CheckBoxNightEvents.Checked then begin
+    refval := -StrToFloatDef(EditTwilight.Text,6);  // civil twilight
+    if not SearchNight(obspos,ObsLatitude,refval,nfind,scresult,sc2) then begin
+      StatusLabel.Caption:=SpiceLastError;
+      exit;
+    end;
+    copy_c(sc2,scresult);
+  end;
+
+  if nfind>0 then
+  for i:=0 to nfind-1 do begin
+    if i>(GridLibration.RowCount-2) then GridLibration.RowCount:=GridLibration.RowCount+1;
+    wnfetd_c(scresult,i,x,y);
+    dt:=ET2DateTime(x);
+    sti:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
+    dt:=ET2DateTime(y);
+    eni:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
+    GridLibration.Cells[0,i+1]:=sti;
+    GridLibration.Cells[1,i+1]:=eni;
+  end;
+
+  scard_c (0, sc1);
+  scard_c (0, sc2);
+  scard_c (0, sc3);
+  scard_c (0, scresult);
 end;
 
 end.

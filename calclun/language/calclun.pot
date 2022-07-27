@@ -414,3 +414,7 @@ msgstr ""
 msgid "Prediction for colongitude"
 msgstr ""
 
+#: u_translation:rspredictionfo
+msgid "Prediction for libration"
+msgstr ""
+

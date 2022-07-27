@@ -116,6 +116,7 @@ rsSun = 'Sun';
 rsMoon = 'Moon';
 rsPredictionDu = 'Prediction duration';
 rsTimePredicti3 = 'Prediction for colongitude';
+rsPredictionFo = 'Prediction for libration';
 
 implementation
 
