@@ -197,7 +197,7 @@ type
     Bevel8: TBevel;
     Label23: TLabel;
     CheckBox16: TCheckBox;
-    CheckListBox1: TCheckListBox;
+    UserDbList: TCheckListBox;
     Label31: TLabel;
     TrackBar4: TTrackBar;
     Label33: TLabel;
@@ -608,7 +608,7 @@ end;
 procedure TForm2.FormDestroy(Sender: TObject);
 var i: integer;
 begin
-for i:=0 to Checklistbox1.Count-1 do (Checklistbox1.Items.Objects[i] as TDBinfo).Free;
+for i:=0 to UserDbList.Count-1 do (UserDbList.Items.Objects[i] as TDBinfo).Free;
 countrycode.Free;
 TextureList.Free;
 Texturefn.Free;

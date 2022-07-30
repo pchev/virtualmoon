@@ -290,7 +290,7 @@ object Form2: TForm2
         ParentFont = False
         Transparent = False
       end
-      object CheckListBox1: TCheckListBox
+      object UserDbList: TCheckListBox
         Left = 15
         Height = 106
         Top = 312

@@ -1072,7 +1072,7 @@ procedure TForm1.Readdefault;
 var
   inif:    TMemIniFile;
   section: string;
-  i, j:    integer;
+  i, j, k:    integer;
   smooth:  integer;
   labf: TFont;
 begin
@@ -1264,6 +1264,13 @@ begin
     useDBN:=ReadInteger(section, 'useDBN', useDBN);
     for i := 1 to useDBN do
       usedatabase[i] := ReadBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
+
+    j:=ReadInteger(section, 'NumUserDB', 0);
+    for i := 1 to j do begin
+      k:=ReadInteger(section, 'UserDBNum'+  IntToStr(i), 0);
+      if k>0 then
+        usedatabase[k]:=ReadBool(section, 'UseUserDB' + IntToStr(i), false );
+    end;
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
     overlaytr  := ReadFloat(section, 'overlaytr', 0);
     showoverlay := ReadBool(section, 'showoverlay', showoverlay);
@@ -1312,7 +1319,7 @@ end;
 procedure TForm1.SaveDefault;
 var
   inif: TMemIniFile;
-  i:    integer;
+  i,j:    integer;
   section: string;
 begin
   inif := Tmeminifile.Create(ConfigFile);
@@ -1332,6 +1339,14 @@ begin
       WriteInteger(section, 'useDBN', useDBN);
       for i := 1 to useDBN do
         WriteBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
+
+      WriteInteger(section, 'NumUserDB', form2.UserDbList.Count);
+      for i := 1 to form2.UserDbList.Count do begin
+        j:=TDBinfo(form2.UserDbList.Items.Objects[i-1]).dbnum;
+        WriteInteger(section, 'UserDBNum' + IntToStr(i), j);
+        WriteBool(section, 'UseUserDB' + IntToStr(i), usedatabase[j]);
+      end;
+
       WriteString(section, 'overlayname', overlayname);
       WriteFloat(section, 'overlaytr', overlaytr);
       WriteBool(section, 'showoverlay', showoverlay);
@@ -2139,9 +2154,9 @@ begin
   if i > 99 then
   begin
     buf := rsm_75 + b + IntToStr(i) + b;
-    for j := 0 to form2.CheckListBox1.Count - 1 do
-      if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum = i then
-        buf := buf + form2.CheckListBox1.Items[j];
+    for j := 0 to form2.UserDbList.Count - 1 do
+      if TDBinfo(form2.UserDbList.Items.Objects[j]).dbnum = i then
+        buf := buf + form2.UserDbList.Items[j];
     memo.Lines.Add(buf);
   end;
   if (GetField('LUN'))>'' then
@@ -2468,9 +2483,9 @@ begin
   if dbn > 99 then
   begin
     txt := txt + t3 + 'From Database:' + t3end + b + IntToStr(dbn) + b;
-    for j := 0 to form2.CheckListBox1.Count - 1 do
-      if (form2.CheckListBox1.Items.Objects[j] as TDBinfo).dbnum = dbn then
-        txt := txt + form2.CheckListBox1.Items[j] + br;
+    for j := 0 to form2.UserDbList.Count - 1 do
+      if TDBinfo(form2.UserDbList.Items.Objects[j]).dbnum = dbn then
+        txt := txt + form2.UserDbList.Items[j] + br;
   end;
   txt  := txt + t2 + rsIdentity + t2end + br;
   if (GetField('LUN'))>'' then
@@ -3712,17 +3727,17 @@ procedure TForm1.ListUserDB;
 var
   i, j, k: integer;
 begin
-  for i := 0 to form2.Checklistbox1.Count - 1 do
-    (form2.Checklistbox1.Items.Objects[i] as TDBinfo).Free;
-  form2.CheckListBox1.Clear;
-  dbm.query('select * from user_database where DBN>99');
+  for i := 0 to form2.UserDbList.Count - 1 do
+    TDBinfo(form2.UserDbList.Items.Objects[i]).Free;
+  form2.UserDbList.Clear;
+  dbm.query('select * from user_database where DBN>'+IntToStr(MaxDB));
   for i := 0 to dbm.RowCount - 1 do
   begin
     j := dbm.Results[i].format[0].AsInteger;
-    k := form2.CheckListBox1.Items.Add(dbm.Results[i][1]);
-    form2.Checklistbox1.Items.Objects[k] := TDBinfo.Create;
-    (form2.Checklistbox1.Items.Objects[k] as TDBinfo).dbnum := j;
-    form2.CheckListBox1.Checked[k] := usedatabase[j];
+    k := form2.UserDbList.Items.Add(dbm.Results[i][1]);
+    form2.UserDbList.Items.Objects[k] := TDBinfo.Create;
+    TDBinfo(form2.UserDbList.Items.Objects[k]).dbnum := j;
+    form2.UserDbList.Checked[k] := usedatabase[j];
   end;
 end;
 
@@ -4291,12 +4306,12 @@ begin
           reloaddb := True;
         usedatabase[i+1]:=form2.DbList.Checked[i];
       end;
-      for i := 0 to form2.Checklistbox1.Count - 1 do
+      for i := 0 to form2.UserDbList.Count - 1 do
       begin
-        j := (form2.Checklistbox1.Items.Objects[i] as TDBinfo).dbnum;
-        if usedatabase[j] <> form2.Checklistbox1.Checked[i] then
+        j := TDBinfo(form2.UserDbList.Items.Objects[i]).dbnum;
+        if usedatabase[j] <> form2.UserDbList.Checked[i] then
           reloaddb     := True;
-        usedatabase[j] := form2.Checklistbox1.Checked[i];
+        usedatabase[j] := form2.UserDbList.Checked[i];
       end;
       InitObservatoire;
       CurrentJD := jd(CurYear, CurrentMonth, CurrentDay, Currenttime - timezone + DT_UT);
