@@ -372,6 +372,7 @@ begin
   PanelFormation.Visible:=false;
   GroupBoxColongitude.Visible:=true;
   GroupBoxSunElev.Visible:=false;
+  GroupBoxLibration.Visible:=false;
 
   SetObservatory;
   f_config.tzinfo:=tz;
@@ -2446,11 +2447,34 @@ begin
 end;
 
 procedure Tf_calclun.SelectFormation(id: integer);
+var lon,lat,llon,llat: double;
 begin
   dbm.Query('select LONGI_N,LATI_N from moon where id=' + inttostr(id));
   if dbm.RowCount > 0 then begin
-    FormationLong.Value := dbm.Results[0].Format[0].AsFloat;
-    FormationLat.Value := dbm.Results[0].Format[1].AsFloat;
+    lon := dbm.Results[0].Format[0].AsFloat;
+    lat := dbm.Results[0].Format[1].AsFloat;
+    if lon>=0 then
+      DirLon.ItemIndex:=0
+    else
+      DirLon.ItemIndex:=1;
+    if lat>=0 then
+      DirLat.ItemIndex:=0
+    else
+      DirLat.ItemIndex:=1;
+    if Abs(lon)>100 then
+      llon:=0
+    else if Abs(lon)>40 then
+      llon:=min(7,max(2,Abs(lon)-90+2))
+    else
+      llon:=0;
+    if Abs(lat)>40 then
+      llat:=min(7,max(2,Abs(lat)-90+2))
+    else
+      llat:=0;
+    LibrLon.Value:=llon;
+    LibrLat.Value:=llat;
+    FormationLong.Value := lon;
+    FormationLat.Value := lat;
     case PageControlPrediction.ActivePageIndex of
       1:ComputeTerminator;
       2:ComputeLibration;
@@ -2497,6 +2521,8 @@ begin
          LibrationChange(Sender);
        end;
   end;
+  GroupBoxDuration.Left:=5000;
+  GroupBoxConstraint.Left:=5100;
 end;
 
 procedure Tf_calclun.PredictionEditingDone(Sender: TObject);
