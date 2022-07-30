@@ -30,8 +30,6 @@ uses  u_translation,
   Dialogs, StdCtrls, mlb2, Grids, {ValEdit,} CheckLst, Math,
   passql, passqlite,u_util, dbutil, ComCtrls, ExtCtrls, IniFiles, LResources;
 
-const maxcol=82;
-
 type
 
   { TLoadCSV }
@@ -95,9 +93,9 @@ type
     { Private declarations }
     mlb:Tmlb2;
     samplerec:integer;
-    fieldmode: array[1..maxcol] of byte;  // 0: not used // 1: use constant // 2: use csv field
-    fieldlist: array[1..maxcol] of byte;  // coresponding csv field number
-    fieldconst: array[1..maxcol] of string; // constant field value
+    fieldmode: array[1..NumMoonDBFields] of byte;  // 0: not used // 1: use constant // 2: use csv field
+    fieldlist: array[1..NumMoonDBFields] of byte;  // coresponding csv field number
+    fieldconst: array[1..NumMoonDBFields] of string; // constant field value
     procedure resetselection;
     procedure GetSampleData;
   public
@@ -195,10 +193,10 @@ else begin
   Tabsheet2.TabVisible:=false;
   memo1.Clear;
   Tabsheet3.TabVisible:=false;
-  for i:=1 to maxcol do fieldmode[i]:=0;
-  for i:=1 to maxcol do fieldList[i]:=0;
-  for i:=1 to maxcol do fieldconst[i]:='';
-  for i:=0 to maxcol-1 do checklistbox1.Checked[i]:=false;
+  for i:=1 to NumMoonDBFields do fieldmode[i]:=0;
+  for i:=1 to NumMoonDBFields do fieldList[i]:=0;
+  for i:=1 to NumMoonDBFields do fieldconst[i]:='';
+  for i:=0 to NumMoonDBFields-1 do checklistbox1.Checked[i]:=false;
 end;
 resetselection;
 end;
@@ -244,7 +242,7 @@ begin
 {$endif}
 Mlb:=TMlb2.Create;
 PageControl1.ActivePageIndex:=0;
-for i:= 1 to maxcol do fieldmode[i]:=0;
+for i:= 1 to NumMoonDBFields do fieldmode[i]:=0;
 Tabsheet2.TabVisible:=false;
 Tabsheet3.TabVisible:=false;
 end;
@@ -326,7 +324,7 @@ end;
 begin
 memo1.Clear;
 memo1.Lines.Add(rsm_16);
-for i:=1 to maxcol do begin
+for i:=1 to NumMoonDBFields do begin
    if checklistbox1.Checked[i-1] and (fieldmode[i]=0) then errormsg(checklistbox1.Items[i-1]+' '+rsm_17);
    if not checklistbox1.Checked[i-1] then fieldmode[i]:=0;
 end;
@@ -402,13 +400,13 @@ if Savedialog1.Execute then begin
     WriteString(section,'FieldSep',SepBox.Text);
     WriteString(section,'TextSep',QuoteBox.Text);
     WriteString(section,'InputFile',Edit1.Text);
-    for i:=1 to maxcol do
+    for i:=1 to NumMoonDBFields do
        WriteInteger(section,'FieldMode'+inttostr(i),fieldmode[i]);
-    for i:=1 to maxcol do
+    for i:=1 to NumMoonDBFields do
        WriteInteger(section,'FieldList'+inttostr(i),fieldList[i]);
-    for i:=1 to maxcol do
+    for i:=1 to NumMoonDBFields do
        WriteString(section,'FieldConst'+inttostr(i),fieldconst[i]);
-    for i:=0 to maxcol-1 do
+    for i:=0 to NumMoonDBFields-1 do
        WriteBool(section,'FieldChecked'+inttostr(i),checklistbox1.Checked[i]);
   end;
   inif.UpdateFile;
@@ -430,13 +428,13 @@ if Opendialog2.Execute then begin
     SepBox.Text:=ReadString(section,'FieldSep',SepBox.Text);
     QuoteBox.Text:=ReadString(section,'TextSep',QuoteBox.Text);
     Edit1.Text:=ReadString(section,'InputFile',Edit1.Text);
-    for i:=1 to maxcol do
+    for i:=1 to NumMoonDBFields do
        fieldmode[i]:=ReadInteger(section,'FieldMode'+inttostr(i),fieldmode[i]);
-    for i:=1 to maxcol do
+    for i:=1 to NumMoonDBFields do
        fieldList[i]:=ReadInteger(section,'FieldList'+inttostr(i),fieldList[i]);
-    for i:=1 to maxcol do
+    for i:=1 to NumMoonDBFields do
        fieldconst[i]:=ReadString(section,'FieldConst'+inttostr(i),fieldconst[i]);
-    for i:=0 to maxcol-1 do
+    for i:=0 to NumMoonDBFields-1 do
        checklistbox1.Checked[i]:=ReadBool(section,'FieldChecked'+inttostr(i),checklistbox1.Checked[i]);
   end;
   inif.Free;

@@ -375,7 +375,7 @@ try
 ListDB;
 CreateDB(dbm);
 sidelist:='';
-for i:=1 to maxdbn do if usedatabase[i] and (database[i]<>'') then sidelist:=sidelist+','+inttostr(i);
+for i:=1 to maxdbn do if usedatabase[i] and ((i>MaxDB)or(database[i]<>'')) then sidelist:=sidelist+','+inttostr(i);
 if copy(sidelist,1,1)=',' then delete(sidelist,1,1);
 for i:=1 to MaxDB do begin
   if usedatabase[i] and (database[i]<>'') then begin

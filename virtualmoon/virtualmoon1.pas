@@ -2481,7 +2481,7 @@ begin
   if buf>'' then
      txt  := txt + t3 + rsNameType + t3end + b + buf + br;
   buf:=GetField('TYPE');
-  txt  := txt + t3 + rsm_56 + t3end + b + buf + br;
+  if buf<>'' then txt  := txt + t3 + rsm_56 + t3end + b + buf + br;
   if (GetField('SUBTYPE'))>'' then
      txt  := txt + t3 + rsSubType + t3end + b + GetField('SUBTYPE') + br;
   if (GetField('IAU_TYPE'))>'' then
