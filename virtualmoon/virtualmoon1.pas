@@ -1271,6 +1271,7 @@ begin
       if k>0 then
         usedatabase[k]:=ReadBool(section, 'UseUserDB' + IntToStr(i), false );
     end;
+    usedatabase[UserDBN]:=true;
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
     overlaytr  := ReadFloat(section, 'overlaytr', 0);
     showoverlay := ReadBool(section, 'showoverlay', showoverlay);
@@ -2487,30 +2488,32 @@ begin
       if TDBinfo(form2.UserDbList.Items.Objects[j]).dbnum = dbn then
         txt := txt + form2.UserDbList.Items[j] + br;
   end;
-  txt  := txt + t2 + rsIdentity + t2end + br;
+
+  // Identity
+  txtbuf:='';
   if (GetField('LUN'))>'' then
-     txt  := txt + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + br;
+     txtbuf  := txtbuf + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + br;
   if (GetField('LUN_REDUCED'))>'' then
-     txt  := txt + t3 + 'L.U.N.REDUCED:' + t3end + b + GetField('LUN_REDUCED') + br;
+     txtbuf  := txtbuf + t3 + 'L.U.N.REDUCED:' + t3end + b + GetField('LUN_REDUCED') + br;
   buf:=GetField('NAME_TYPE');
   if buf>'' then
-     txt  := txt + t3 + rsNameType + t3end + b + buf + br;
+     txtbuf  := txtbuf + t3 + rsNameType + t3end + b + buf + br;
   buf:=GetField('TYPE');
-  if buf<>'' then txt  := txt + t3 + rsm_56 + t3end + b + buf + br;
+  if buf<>'' then txtbuf  := txtbuf + t3 + rsm_56 + t3end + b + buf + br;
   if (GetField('SUBTYPE'))>'' then
-     txt  := txt + t3 + rsSubType + t3end + b + GetField('SUBTYPE') + br;
+     txtbuf  := txtbuf + t3 + rsSubType + t3end + b + GetField('SUBTYPE') + br;
   if (GetField('IAU_TYPE'))>'' then
-     txt  := txt + t3 + rsIAUType + t3end + b + GetField('IAU_TYPE') + br;
+     txtbuf  := txtbuf + t3 + rsIAUType + t3end + b + GetField('IAU_TYPE') + br;
   if (GetField('PERIOD'))>'' then
-     txt  := txt + t3 + rsm_49 + t3end + b + GetField('PERIOD') + br;
+     txtbuf  := txtbuf + t3 + rsm_49 + t3end + b + GetField('PERIOD') + br;
   if (GetField('PERIOD_SOURCE'))>'' then
-     txt  := txt + t3 + rsSource + t3end + b + GetField('PERIOD_SOURCE') + br;
+     txtbuf  := txtbuf + t3 + rsSource + t3end + b + GetField('PERIOD_SOURCE') + br;
   buf:=GetField('PROCESS');
   if buf>'' then
-     txt  := txt + t3 + rsProcess + t3end + b + buf + br;
+     txtbuf  := txtbuf + t3 + rsProcess + t3end + b + buf + br;
   if (GetField('GEOLOGY'))>'' then
-     txt  := txt + t3 + rsGeology + t3end + b + GetField('GEOLOGY') + br;
-  txt  := txt + b + br;
+     txtbuf  := txtbuf + t3 + rsGeology + t3end + b + GetField('GEOLOGY') + br;
+  if txtbuf>'' then  txt  := txt + t2 + rsIdentity + t2end + br + txtbuf + b + br;
 
   //Taille
   txtbuf:='';

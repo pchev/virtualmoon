@@ -35,9 +35,26 @@ type
   { TLoadCSV }
 
   TLoadCSV = class(TForm)
+    Button3: TButton;
+    Button4: TButton;
+    ButtonTemplate: TButton;
+    ButtonExpert: TButton;
+    ButtonSimple: TButton;
+    ButtonLoadSimplified: TButton;
+    ButtonNext2: TButton;
+    ButtonNext3: TButton;
     dbu: TLiteDB;
+    Edit2: TEdit;
+    FileSelect1: TButton;
+    Label10: TLabel;
+    Memo3: TMemo;
+    Memo4: TMemo;
     OpenDialog1: TOpenDialog;
     PageControl1: TPageControl;
+    PageControl2: TPageControl;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    SaveDialog2: TSaveDialog;
     TabSheet1: TTabSheet;
     Edit1: TEdit;
     FileSelect: TButton;
@@ -53,7 +70,7 @@ type
     AssignConstant: TButton;
     Msg: TEdit;
     TabSheet3: TTabSheet;
-    Button3: TButton;
+    ButtonLoadDb: TButton;
     Label2: TLabel;
     QuoteBox: TComboBox;
     Label3: TLabel;
@@ -75,14 +92,22 @@ type
     SaveDialog1: TSaveDialog;
     OpenDialog2: TOpenDialog;
     Label9: TLabel;
+    TabSheetSimple: TTabSheet;
+    TabSheetExpert: TTabSheet;
+    procedure ButtonExpertClick(Sender: TObject);
+    procedure ButtonLoadSimplifiedClick(Sender: TObject);
+    procedure ButtonNext2Click(Sender: TObject);
+    procedure ButtonSimpleClick(Sender: TObject);
+    procedure ButtonTemplateClick(Sender: TObject);
     procedure CheckListBox1Click(Sender: TObject);
     procedure CheckListBox1ItemClick(Sender: TObject; Index: integer);
+    procedure FileSelect1Click(Sender: TObject);
     procedure samplenextClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure AssignConstantClick(Sender: TObject);
     procedure AssignFieldClick(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
+    procedure ButtonLoadDbClick(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
     procedure sampleprevClick(Sender: TObject);
     procedure FileSelectClick(Sender: TObject);
@@ -124,7 +149,7 @@ begin
   label6.Caption:=rst_30;
   AssignConstant.Caption:=rst_31;
   AssignField.Hint:=rst_47;
-  Button3.Caption:=rst_32;
+  ButtonLoadDb.Caption:=rst_32;
   caption:=rst_34;
   label7.Caption:=rst_37;
   Button1.Caption:=rst_38;
@@ -151,13 +176,50 @@ begin
   memo2.Lines.Add('');
   memo2.Lines.Add(rsloadcsv13);
   memo2.Lines.Add(rsloadcsv14);
+
+  ButtonTemplate.Caption:=rsCreateTempla;
+  Label10.Caption:=rst_28;
+  ButtonLoadSimplified.Caption:=rst_32;
+  ButtonExpert.Caption:=rst_49;
+  Button3.Caption:=rst_7;
+  ButtonSimple.Caption:=rsSimpleMode;
+  ButtonNext2.Caption:=rsNext;
+  ButtonNext3.Caption:=rsNext;
+
+  memo4.Lines.Clear;
+  memo4.Lines.Add(rsThisProgramL);
+  memo4.Lines.Add('');
+  memo4.Lines.Add(rsTheSimplifie);
+  memo4.Lines.Add(rsIfYouNeedToA);
+  memo4.Lines.Add('');
+  memo4.Lines.Add(rsTheFormatOfT);
+  memo4.Lines.Add('Formation name; Longitude -180/+180; Latitude; Dimension km; Description');
+  memo4.Lines.Add('');
+  memo4.Lines.Add('"Formation name" '+rsIsTheNameYou);
+  memo4.Lines.Add('"Longitude -180/+180" '+rsIsTheFormati);
+  memo4.Lines.Add('"Latitude" '+rsIsTheFormati2);
+  memo4.Lines.Add('"Dimension km" '+rsIsTheSizeOfT);
+  memo4.Lines.Add('"Description" '+rsIsAnyTextInf);
+  memo4.Lines.Add('');
+  memo4.Lines.Add(rsTheColumnSep);
+  memo4.Lines.Add(rsClicTheButto);
+
 end;
+
+procedure TLoadCSV.FileSelect1Click(Sender: TObject);
+begin
+chdir(appdir);
+OpenDialog1.FileName:=Edit2.Text;
+if OpenDialog1.Execute then Edit2.Text:=OpenDialog1.FileName;
+chdir(appdir);
+end;
+
 
 procedure TLoadCSV.FileSelectClick(Sender: TObject);
 begin
 chdir(appdir);
-OpenDialog1.FileName:=edit1.Text;
-if OpenDialog1.Execute then edit1.Text:=OpenDialog1.FileName;
+OpenDialog1.FileName:=Edit1.Text;
+if OpenDialog1.Execute then Edit1.Text:=OpenDialog1.FileName;
 chdir(appdir);
 end;
 
@@ -178,10 +240,12 @@ if Mlb.LoadFromFile(edit1.text) then begin
   Label5.Caption:=inttostr(Mlb.RowCount)+' '+rsm_8;
   Checklistbox1.Checked[0]:=true;
   fieldmode[1]:=1;
-  fieldconst[1]:=inttostr(min(200,max(100,1+strtointdef(dbu.queryone('select max(DBN) from moon'),99))));
+  fieldconst[1]:=inttostr(min(200,max(101,1+strtointdef(dbu.queryone('select max(DBN) from moon'),99))));
   Tabsheet2.TabVisible:=true;
+  ButtonNext2.Visible:=true;
   memo1.Clear;
   Tabsheet3.TabVisible:=false;
+  ButtonNext3.Visible:=false;
 end
 else begin
   Mlb.Clear;
@@ -191,8 +255,10 @@ else begin
   Label5.Caption:='';
   Pagecontrol1.ActivePageIndex:=0;
   Tabsheet2.TabVisible:=false;
+  ButtonNext2.Visible:=false;
   memo1.Clear;
   Tabsheet3.TabVisible:=false;
+  ButtonNext3.Visible:=false;
   for i:=1 to NumMoonDBFields do fieldmode[i]:=0;
   for i:=1 to NumMoonDBFields do fieldList[i]:=0;
   for i:=1 to NumMoonDBFields do fieldconst[i]:='';
@@ -241,14 +307,17 @@ begin
 //ScaleForm(self,Screen.PixelsPerInch/96);
 {$endif}
 Mlb:=TMlb2.Create;
-PageControl1.ActivePageIndex:=0;
 for i:= 1 to NumMoonDBFields do fieldmode[i]:=0;
-Tabsheet2.TabVisible:=false;
-Tabsheet3.TabVisible:=false;
 end;
 
 procedure TLoadCSV.FormShow(Sender: TObject);
 begin
+PageControl1.ActivePageIndex:=0;
+PageControl2.ActivePageIndex:=0;
+Tabsheet2.TabVisible:=false;
+Tabsheet3.TabVisible:=false;
+ButtonNext2.Visible:=false;
+ButtonNext3.Visible:=false;
 StringGrid1.Cells[0,0]:=rsm_9;
 StringGrid1.Cells[1,0]:=rsm_10;
 dbu.DataBase:=dbname;
@@ -266,7 +335,7 @@ begin
 i:=Checklistbox1.ItemIndex+1;
 if (i<1) or (not Checklistbox1.Checked[i-1]) then begin showmessage(rsm_11);exit; end;
 v:=StrToIntDef(ConstantText.Text,0);
-if (i=FDBN)and((v<100)or(v>199)) then begin showmessage('DBN must be comprise between 100 and 199');exit; end;
+if (i=FDBN)and((v<101)or(v>199)) then begin showmessage('DBN must be comprise between 101 and 199');exit; end;
 fieldmode[i]:=1;
 fieldconst[i]:=ConstantText.Text;
 CheckListBox1ItemClick(Sender,i-1);
@@ -304,8 +373,14 @@ case fieldmode[i] of
 end;
 memo1.Clear;
 if (fieldmode[FDBN]=0)or(fieldmode[FNAME]=0)or(fieldmode[FLONGIN]=0)or(fieldmode[FLATIN]=0)
-   then Tabsheet3.TabVisible:=false
-   else Tabsheet3.TabVisible:=true;
+   then begin
+     Tabsheet3.TabVisible:=false;
+     ButtonNext3.Visible:=false;
+   end
+   else begin
+     Tabsheet3.TabVisible:=true;
+     ButtonNext3.Visible:=true;
+   end;
 end;
 
 procedure TLoadCSV.CheckListBox1Click(Sender: TObject);
@@ -313,7 +388,100 @@ begin
   CheckListBox1ItemClick(sender,CheckListBox1.ItemIndex);
 end;
 
-procedure TLoadCSV.Button3Click(Sender: TObject);
+procedure TLoadCSV.ButtonNext2Click(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex:=PageControl1.ActivePageIndex+1;
+end;
+
+procedure TLoadCSV.ButtonSimpleClick(Sender: TObject);
+begin
+  PageControl2.ActivePageIndex:=0;
+end;
+
+procedure TLoadCSV.ButtonTemplateClick(Sender: TObject);
+var f: textfile;
+begin
+  if SaveDialog2.Execute then begin
+    AssignFile(f,savedialog2.filename);
+    Rewrite(f);
+    WriteLn(f,'Formation name; Longitude -180/+180; Latitude; Dimension km; Description');
+    CloseFile(f);
+  end;
+end;
+
+procedure TLoadCSV.ButtonExpertClick(Sender: TObject);
+begin
+  PageControl2.ActivePageIndex:=1;
+end;
+
+procedure TLoadCSV.ButtonLoadSimplifiedClick(Sender: TObject);
+var i: integer;
+    cmd,v: string;
+begin
+try
+  Memo3.Clear;
+  Mlb.CSVSeparator:=';';
+  Mlb.QuoteSeparator:='';
+  if Mlb.LoadFromFile(Edit2.Text) then begin
+    if Mlb.FieldCount=5 then begin
+      // insert to database
+      mlb.GoFirst;
+      memo3.Lines.Add(rsm_21+' '+dbname);
+      dbu.DataBase:=dbname;
+      dbjournal(extractfilename(dbu.DataBase),'DELETE WHERE DBN='+inttostr(SimplifiedDBN));
+      dbu.query('delete from moon where DBN='+inttostr(SimplifiedDBN)+';');
+      dbjournal(extractfilename(dbu.DataBase),'LOAD DATABASE DBN='+inttostr(SimplifiedDBN)+' FROM FILE: '+mlb.Name);
+      dbu.StartTransaction;
+      repeat
+        cmd:='insert into moon values(NULL,'+inttostr(SimplifiedDBN)+',';
+        for i:=1 to NumMoonDBFields do begin
+          case i of
+           FNAME-1:     v:=mlb.GetDataByIndex(1);
+           FLONGIN-1:   v:=mlb.GetDataByIndex(2);
+           FLATIN-1:    v:=mlb.GetDataByIndex(3);
+           FWIDEKM-1:   v:=mlb.GetDataByIndex(4);
+           FGENERAL1-1: v:=mlb.GetDataByIndex(5);
+           else       v:='';
+          end;
+          v:=stringreplace(v,',','.',[rfreplaceall]);
+          v:=stringreplace(v,'""','''',[rfreplaceall]);
+          v:=stringreplace(v,'"','',[rfreplaceall]);
+          cmd:=cmd+'"'+v+'",';
+        end;
+        cmd:=copy(cmd,1,length(cmd)-1)+');';
+        if not dbu.Query(cmd) then raise exception.Create(rsm_24+crlf+dbu.GetErrorMessage+crlf+cmd);
+        mlb.GoNext;
+      until mlb.EndOfFile;
+      dbu.Commit;
+      dbjournal(extractfilename(dbu.DataBase),'INSERT DBN='+inttostr(SimplifiedDBN)+' MAX ID='+inttostr(dbu.GetLastInsertID));
+      cmd:='delete from user_database where DBN='+inttostr(SimplifiedDBN)+';';
+      dbu.Query(cmd);
+      cmd:='insert into user_database values('+inttostr(SimplifiedDBN)+',"'+extractfilename(mlb.Name)+'");';
+      dbu.Query(cmd);
+      memo3.Lines.Add(rsm_22);
+      memo3.Lines.Add(rsm_23);
+      dbselection:='DBN in ('+inttostr(SimplifiedDBN)+')';
+    end
+    else begin
+      Memo3.Lines.Add(rsIncorrectNum+' '+IntToStr(Mlb.FieldCount));
+      Memo3.Lines.Add(rsMustBe+' 5');
+      Mlb.clear;
+    end;
+  end
+  else begin
+    Memo3.Lines.Add(rsErrorReading+' '+Edit2.Text);
+    Memo3.Lines.Add(mlb.MLBErrorComment);
+  end;
+except
+  on E: Exception do begin
+    Memo3.Lines.Add(rsError);
+    Memo3.Lines.Add(E.Message);
+    dbu.Rollback;
+  end;
+end;
+end;
+
+procedure TLoadCSV.ButtonLoadDbClick(Sender: TObject);
 var i: integer;
     cmd,v,dbn: string;
 Procedure ErrorMsg(txt:string);
@@ -356,9 +524,6 @@ repeat
         v:=mlb.GetDataByIndex(fieldlist[i]);
         end;
     end;
-{ TODO : check if this replacement is necessary for sqlite }
-//    if (trim(v)='')and((i=20)or(i=22)or(i=33)or(i=34)or(i=35)or(i=36)or(i=45))
-//       then v:='0';
     v:=stringreplace(v,',','.',[rfreplaceall]);
     v:=stringreplace(v,'""','''',[rfreplaceall]);
     v:=stringreplace(v,'"','',[rfreplaceall]);
@@ -440,9 +605,10 @@ if Opendialog2.Execute then begin
   inif.Free;
   Checklistbox1.Checked[0]:=true;
   fieldmode[1]:=1;
-  fieldconst[1]:=inttostr(min(200,max(100,1+strtointdef(dbu.queryone('select max(DBN) from moon'),99))));
+  fieldconst[1]:=inttostr(min(200,max(101,1+strtointdef(dbu.queryone('select max(DBN) from moon'),99))));
   memo1.Clear;
   Tabsheet3.TabVisible:=true;
+  ButtonNext3.Visible:=true;
 end;
 end;
 

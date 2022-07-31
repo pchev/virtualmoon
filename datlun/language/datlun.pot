@@ -458,3 +458,15 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
+#: u_translation:rsnext
+msgid "Next"
+msgstr ""
+
+#: u_translation:rssimplemode
+msgid "Simple mode"
+msgstr ""
+
+#: u_translation:rscreatetempla
+msgid "Create template"
+msgstr ""
+

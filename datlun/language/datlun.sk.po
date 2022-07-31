@@ -11,9 +11,25 @@ msgstr ""
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 
+#: u_translation.rsclicthebutto
+msgid "Clic the button \"Create template\" to create an empty file with the column headers."
+msgstr ""
+
+#: u_translation.rscreatetempla
+msgid "Create template"
+msgstr ""
+
 #: u_translation.rsedit
 msgid "Edit"
 msgstr "Editovať"
+
+#: u_translation.rserror
+msgid "Error"
+msgstr ""
+
+#: u_translation.rserrorreading
+msgid "Error reading file"
+msgstr ""
 
 #: u_translation.rsfarsideunnam
 msgid "Far side Unnamed Formation"
@@ -25,6 +41,34 @@ msgstr "UK"
 
 #: u_translation.rshistorical
 msgid "Historical"
+msgstr ""
+
+#: u_translation.rsifyouneedtoa
+msgid "If you need to add more data, please click the \"Expert mode\" button now."
+msgstr ""
+
+#: u_translation.rsincorrectnum
+msgid "Incorrect number of column:"
+msgstr ""
+
+#: u_translation.rsisanytextinf
+msgid "is any text information."
+msgstr ""
+
+#: u_translation.rsistheformati
+msgid "is the formation longitude with positive value to the East and negative to the West."
+msgstr ""
+
+#: u_translation.rsistheformati2
+msgid "is the formation latitude from -90 to 90 degree."
+msgstr ""
+
+#: u_translation.rsisthenameyou
+msgid "is the name you can search for later."
+msgstr ""
+
+#: u_translation.rsisthesizeoft
+msgid "is the size of the formation in kilometer. This is used to filter the label for small formation on wide map."
 msgstr ""
 
 #: u_translation.rsloadcsv01
@@ -90,6 +134,10 @@ msgstr ""
 
 #: u_translation.rsloadcsv14
 msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
+msgstr ""
+
+#: u_translation.rsmustbe
+msgid "Must be"
 msgstr ""
 
 #: u_translation.rsm_1
@@ -195,6 +243,30 @@ msgstr "Nájdene záznamy"
 #: u_translation.rsm_9
 msgid "Key"
 msgstr "Kľúč"
+
+#: u_translation.rsnext
+msgid "Next"
+msgstr ""
+
+#: u_translation.rssimplemode
+msgid "Simple mode"
+msgstr ""
+
+#: u_translation.rsthecolumnsep
+msgid "The column separator is ; and there is no \"\" to enclose the text. Be sure to not use one of this character anywhere in the file"
+msgstr ""
+
+#: u_translation.rstheformatoft
+msgid "The format of the simplified file must be:"
+msgstr ""
+
+#: u_translation.rsthesimplifie
+msgid "The simplified procedure is to add object with information about the name, position and size of the formation."
+msgstr ""
+
+#: u_translation.rsthisprograml
+msgid "This program let you import new objects to the Virtual Moon Atlas database from a CSV file."
+msgstr ""
 
 #: u_translation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"

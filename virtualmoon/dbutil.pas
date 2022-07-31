@@ -140,6 +140,10 @@ const
     FNAME=2;
     FLONGIN=29;
     FLATIN=32;
+    FWIDEKM=58;
+    FGENERAL1=63;
+    SimplifiedDBN=100;
+
 var
     sidelist: string;
     database : array[1..MaxDB] of string;

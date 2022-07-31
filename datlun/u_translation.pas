@@ -119,6 +119,24 @@ rsloadcsv14='The "Save Setting" button allow you to save the setting for a later
 
 rsUnnamedForma = 'Unnamed Formation';
 rsFarSideUnnam = 'Far side Unnamed Formation';
+rsThisProgramL = 'This program let you import new objects to the Virtual Moon Atlas database from a CSV file.';
+rsTheSimplifie = 'The simplified procedure is to add object with information about the name, position and size of the formation.';
+rsIfYouNeedToA = 'If you need to add more data, please click the "Expert mode" button now.';
+rsTheFormatOfT = 'The format of the simplified file must be:';
+rsIsTheNameYou = 'is the name you can search for later.';
+rsIsTheFormati = 'is the formation longitude with positive value to the East and negative to the West.';
+rsIsTheFormati2 = 'is the formation latitude from -90 to 90 degree.';
+rsIsTheSizeOfT = 'is the size of the formation in kilometer. This is used to filter the label for small formation on wide map.';
+rsIsAnyTextInf = 'is any text information.';
+rsTheColumnSep = 'The column separator is ; and there is no "" to enclose the text. Be sure to not use one of this character anywhere in the file';
+rsClicTheButto = 'Clic the button "Create template" to create an empty file with the column headers.';
+rsIncorrectNum = 'Incorrect number of column:';
+rsMustBe = 'Must be';
+rsErrorReading = 'Error reading file';
+rsError = 'Error';
+rsNext = 'Next';
+rsSimpleMode = 'Simple mode';
+rsCreateTempla = 'Create template';
 
 implementation
 
