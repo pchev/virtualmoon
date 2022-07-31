@@ -85,20 +85,17 @@ end;
 lst:=' '+lst+' ';
 CheckListBox1.Clear;
 dblist.Clear;
-n:=0;
 for i:=1 to DatabaseList.Count do begin
   buf:=inttostr(i);
-  CheckListBox1.Items.Add(DatabaseList[i-1]);
+  n:=CheckListBox1.Items.Add(DatabaseList[i-1]);
   dblist.Add(buf);
   if pos(' '+buf+' ',lst)>0 then CheckListBox1.Checked[n]:=true;
-  inc(n)
 end;
 if dbm.Query('select DBN,NAME from user_database') then begin
   for i:=0 to dbm.RowCount-1 do begin
     buf:=dbm.Results[i][0];
     dblist.Add(buf);
-    CheckListBox1.Items.Add(dbm.Results[i][1]);
-    inc(n);
+    n:=CheckListBox1.Items.Add(dbm.Results[i][1]);
     if pos(' '+buf+' ',lst)>0 then CheckListBox1.Checked[n]:=true;
   end;
 end;
