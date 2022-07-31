@@ -137,6 +137,7 @@ rsError = 'Error';
 rsNext = 'Next';
 rsSimpleMode = 'Simple mode';
 rsCreateTempla = 'Create template';
+rsAdd = 'Add';
 
 implementation
 

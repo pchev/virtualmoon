@@ -34,6 +34,8 @@ type
   { TSelection }
 
   TSelection = class(TForm)
+    Button20: TButton;
+    Button21: TButton;
     CheckListBox2: TCheckListBox;
     PageControl1: TPageControl;
     TabSheet1: TTabSheet;
@@ -75,6 +77,8 @@ type
     CheckListBox1: TCheckListBox;
     ButtonAll: TButton;
     ButtonNone: TButton;
+    procedure Button20Click(Sender: TObject);
+    procedure Button21Click(Sender: TObject);
     procedure ButtonClick(Sender: TObject);
     procedure Button10Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
@@ -92,7 +96,7 @@ type
     procedure ButtonNoneClick(Sender: TObject);
   private
     { Private declarations }
-    oldsel: string;
+    oldsel,orderby: string;
     function isDBselectionChanged: boolean;
   public
     { Public declarations }
@@ -128,6 +132,8 @@ begin
   StaticText1.Caption:=rst_46;
   button19.Caption:=rst_48;
   ExpertMode.Caption:=rst_49;
+  Button20.Caption:=rst_10;
+  Button21.Caption:=rsAdd;
   Checklistbox1.Items.Clear;
   for i:=1 to 13 do
       Checklistbox1.Items.Add(dbtype[i]);
@@ -138,7 +144,17 @@ begin
 end;
 
 procedure TSelection.PageControl1Change(Sender: TObject);
+var buf: string;
+    p: integer;
 begin
+if PageControl1.ActivePageIndex=1 then begin
+  buf:=sel.text;
+  p:=pos('ORDER BY',UpperCase(buf));
+  if p>0 then begin
+    sel.text:=copy(buf,1,p-1);
+    orderby:=copy(buf,p+8,9999)+',';
+  end;
+end;
 if PageControl1.ActivePageIndex=3 then begin
   sel.SetFocus;
   sel.SelStart:=length(sel.Text);
@@ -147,7 +163,18 @@ end;
 end;
 
 procedure TSelection.Button10Click(Sender: TObject);
+var buf: string;
 begin
+if (PageControl1.ActivePageIndex=1) then begin
+  if (trim(sel.Text)='') or (trim(sel.text)=dbselection) then
+    Button21Click(nil);
+  if (orderby>'') then begin
+    buf:=orderby;
+    if copy(buf,length(buf),1)=',' then
+      delete(buf,Length(buf),1);
+    sel.text:=sel.text+' order by '+buf;
+  end;
+end;
 modalresult:=mrOK;
 lastselection:=sel.text;
 end;
@@ -264,8 +291,6 @@ case RadioGroup2.ItemIndex of
         collt.Color:=clBtnFace;
         colbetween1.Color:=clBtnFace;
         colbetween2.Color:=clBtnFace;
-        if trim(coleq.Text)<>'' then
-           sel.Text:=dbselection+' and ('+fieldlist2.Text+' LIKE "'+coleq.Text+'")';
       end;
   1 : begin
         coleq.Enabled:=false;
@@ -278,8 +303,6 @@ case RadioGroup2.ItemIndex of
         collt.Color:=clBtnFace;
         colbetween1.Color:=clBtnFace;
         colbetween2.Color:=clBtnFace;
-        if trim(colgt.Text)<>'' then
-           sel.Text:=dbselection+' and ('+fieldlist2.Text+' >= "'+colgt.Text+'") ORDER BY '+fieldlist2.Text+' ASC';
       end;
   2 : begin
         coleq.Enabled:=false;
@@ -292,8 +315,6 @@ case RadioGroup2.ItemIndex of
         collt.Color:=clWindow;
         colbetween1.Color:=clBtnFace;
         colbetween2.Color:=clBtnFace;
-        if trim(collt.Text)<>'' then
-           sel.Text:=dbselection+' and ('+fieldlist2.Text+' <= "'+collt.Text+'") ORDER BY '+fieldlist2.Text+' DESC';
       end;
   3 : begin
         coleq.Enabled:=false;
@@ -306,11 +327,63 @@ case RadioGroup2.ItemIndex of
         collt.Color:=clBtnFace;
         colbetween1.Color:=clWindow;
         colbetween2.Color:=clWindow;
-        if (trim(colbetween1.Text)<>'')and(trim(colbetween2.Text)<>'') then
-           sel.Text:=dbselection+' and ('+fieldlist2.Text+' BETWEEN "'+colbetween1.Text+'" AND "'+colbetween2.Text+'") ORDER BY '+fieldlist2.Text+' ASC';
       end;
 end;
-Viewsel.Caption:=sel.Text;
+end;
+
+procedure TSelection.Button21Click(Sender: TObject);
+var buf: string;
+begin
+if trim(sel.Text)='' then
+  sel.Text:=dbselection;
+case RadioGroup2.ItemIndex of
+  0 : begin
+        if trim(coleq.Text)<>'' then
+           sel.Text:=sel.Text+' and ('+fieldlist2.Text+' LIKE "'+coleq.Text+'")';
+      end;
+  1 : begin
+        if trim(colgt.Text)<>'' then begin
+           sel.Text:=sel.Text+' and ('+fieldlist2.Text+' >= "'+colgt.Text+'")';
+           if pos(fieldlist2.Text,orderby)=0 then
+             orderby:=orderby+fieldlist2.Text+' ASC'+',';
+        end;
+      end;
+  2 : begin
+        if trim(collt.Text)<>'' then begin
+           sel.Text:=sel.Text+' and ('+fieldlist2.Text+' <= "'+collt.Text+'")';
+           if pos(fieldlist2.Text,orderby)=0 then
+             orderby:=orderby+fieldlist2.Text+' DESC'+',';
+        end;
+      end;
+  3 : begin
+        if (trim(colbetween1.Text)<>'')and(trim(colbetween2.Text)<>'') then begin
+           sel.Text:=sel.Text+' and ('+fieldlist2.Text+' BETWEEN "'+colbetween1.Text+'" AND "'+colbetween2.Text+'")';
+           if pos(fieldlist2.Text,orderby)=0 then
+             orderby:=orderby+fieldlist2.Text+' ASC'+',';
+        end;
+      end;
+end;
+if orderby>'' then begin
+  buf:=' order by '+orderby;
+  if copy(buf,length(buf),1)=',' then
+    delete(buf,Length(buf),1);
+end
+else begin
+  buf:='';
+end;
+Viewsel.Caption:=sel.Text+buf;
+end;
+
+procedure TSelection.Button20Click(Sender: TObject);
+begin
+  sel.Text:=dbselection;
+  Viewsel.Caption:=sel.Text;
+  orderby:='';
+  coleq.Caption:='';
+  colgt.Caption:='';
+  collt.Caption:='';
+  colbetween1.Caption:='';
+  colbetween2.Caption:='';
 end;
 
 procedure TSelection.ExpertModeClick(Sender: TObject);
@@ -320,13 +393,27 @@ TabSheet3.TabVisible:=ExpertMode.Checked;
 if not ExpertMode.Checked then begin
    PageControl1.ActivePageIndex:=0;
    CheckListBox1ClickCheck(Sender);
+end
+else begin
+  if PageControl1.ActivePageIndex=0 then PageControl1.ActivePageIndex:=1;
 end;
 end;
 
 procedure TSelection.FormShow(Sender: TObject);
+var buf: string;
+    p: integer;
 begin
 oldsel:=dbselection;
 ViewSel.Caption:=lastselection;
+sel.Text:=lastselection;
+if PageControl1.ActivePageIndex=1 then begin
+  buf:=sel.text;
+  p:=pos('ORDER BY',UpperCase(buf));
+  if p>0 then begin
+    sel.text:=copy(buf,1,p-1);
+    orderby:=copy(buf,p+8,9999)+',';
+  end;
+end;
 ExpertModeClick(Sender);
 end;
 

@@ -14,6 +14,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "POT-Creation-Date: \n"
 
+#: u_translation.rsadd
+msgid "Add"
+msgstr ""
+
 #: u_translation.rsclicthebutto
 msgid "Clic the button \"Create template\" to create an empty file with the column headers."
 msgstr ""

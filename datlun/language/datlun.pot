@@ -470,3 +470,7 @@ msgstr ""
 msgid "Create template"
 msgstr ""
 
+#: u_translation:rsadd
+msgid "Add"
+msgstr ""
+

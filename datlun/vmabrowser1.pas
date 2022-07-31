@@ -84,7 +84,6 @@ type
     procedure ScrollBar1Change(Sender: TObject);
     procedure MoonGridMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure Selection1Click(Sender: TObject);
     procedure Columns1Click(Sender: TObject);
     procedure MoonGridMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -532,9 +531,9 @@ if dbm.RowCount>0 then begin
     Selection.fieldlist.Items.Add(MoonGrid.Cells[dbcol-1,0]);
     Selection.fieldlist2.Items.Add(MoonGrid.Cells[dbcol-1,0]);
   end;
+  Selection.fieldlist.ItemIndex:=1;
+  Selection.fieldlist2.ItemIndex:=1;
 end;
-Selection.fieldlist.Text:=Selection.fieldlist.Items[0];
-Selection.fieldlist2.Text:=Selection.fieldlist2.Items[0];
 ReadParam;
 end;
 
@@ -775,7 +774,6 @@ var s: string;
     i,n: integer;
 begin
   Selection.lastselection:=CurrentSelection;
-  Selection.fieldlist2.Text:=MoonGrid.Cells[HintY,0];
   Selection.PageControl1.ActivePageIndex:=1;
   Selection.ShowModal;
   if selection.ModalResult=mrOK then begin
@@ -834,19 +832,6 @@ begin
       end;
    end;
  end;
-end;
-
-procedure Tf_main.Selection1Click(Sender: TObject);
-begin
-  formpos(selection,mouse.CursorPos.X,mouse.CursorPos.Y);
-  selection.sel.Text:=currentselection;
-  selection.ShowModal;
-  if selection.ModalResult=mrOK then begin
-     ExpertMode:=Selection.ExpertMode.Checked;
-     currentselection:=trim(selection.sel.Text);
-     Select;
-     RefreshGrid;
-  end;
 end;
 
 procedure Tf_main.Columns1Click(Sender: TObject);

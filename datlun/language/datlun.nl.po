@@ -9,6 +9,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: u_translation.rsadd
+msgid "Add"
+msgstr ""
+
 #: u_translation.rsclicthebutto
 msgid "Clic the button \"Create template\" to create an empty file with the column headers."
 msgstr ""

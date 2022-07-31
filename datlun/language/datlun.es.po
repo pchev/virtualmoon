@@ -1,6 +1,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: u_translation.rsadd
+msgid "Add"
+msgstr ""
+
 #: u_translation.rsclicthebutto
 msgid "Clic the button \"Create template\" to create an empty file with the column headers."
 msgstr ""
