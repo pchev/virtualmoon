@@ -2557,6 +2557,7 @@ procedure Tf_calclun.ColongitudeChange(Sender: TObject);
 begin
   ColongitudeTimer.Enabled:=false;
   ColongitudeTimer.Enabled:=true;
+  screen.Cursor:=crHourGlass;
 end;
 
 procedure Tf_calclun.ComputeColongitude;
@@ -2569,6 +2570,7 @@ var refval: SpiceDouble;
   sti,eni: string;
   Year, Month: Word;
 begin
+ try
   colong:=EditColongitude.Value;
   delta:=EditColongitudeDelta.Value;
   year:=SpinEditYear.Value;
@@ -2652,12 +2654,17 @@ begin
   scard_c (0, sc2);
   scard_c (0, sc3);
   scard_c (0, scresult);
+ finally
+  screen.Cursor:=crDefault;
+ end;
+
 end;
 
 procedure Tf_calclun.TerminatorChange(Sender: TObject);
 begin
   TerminatorTimer.Enabled:=false;
   TerminatorTimer.Enabled:=true;
+  screen.Cursor:=crHourGlass;
 end;
 
 procedure Tf_calclun.TerminatorTimerTimer(Sender: TObject);
@@ -2686,6 +2693,7 @@ var fixref: ConstSpiceChar;
   pos: TDouble3;
   Year, Month: Word;
 begin
+ try
   lon:=FormationLong.Value*deg2rad;
   lat:=FormationLat.Value*deg2rad;
   pos:=MoonSurfacePos(lon,lat);
@@ -2814,12 +2822,16 @@ begin
   scard_c (0, sc2);
   scard_c (0, sc3);
   scard_c (0, scresult);
+ finally
+  screen.Cursor:=crDefault;
+ end;
 end;
 
 procedure Tf_calclun.LibrationChange(Sender: TObject);
 begin
   LibrationTimer.Enabled:=false;
   LibrationTimer.Enabled:=true;
+  screen.Cursor:=crHourGlass;
 end;
 
 procedure Tf_calclun.LibrationTimerTimer(Sender: TObject);
@@ -2847,6 +2859,7 @@ var fixref: ConstSpiceChar;
   pos: TDouble3;
   Year, Month: Word;
 begin
+ try
   lon:=FormationLong.Value*deg2rad;
   lat:=FormationLat.Value*deg2rad;
   pos:=MoonSurfacePos(lon,lat);
@@ -2960,6 +2973,9 @@ begin
   scard_c (0, sc2);
   scard_c (0, sc3);
   scard_c (0, scresult);
+ finally
+  screen.Cursor:=crDefault;
+ end;
 end;
 
 end.
