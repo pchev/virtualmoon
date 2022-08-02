@@ -1016,7 +1016,7 @@ end;
 procedure Tf_main.Delete1Click(Sender: TObject);
 begin
 if currentselection='' then begin showmessage(rsm_6);exit;end;
-if messagedlg(rsm_7,mtConfirmation,[mbYes,mbNo],0)=mrYes then begin
+if messagedlg(rsm_7+crlf+currentselection,mtConfirmation,[mbYes,mbNo],0)=mrYes then begin
    dbjournal(extractfilename(dbm.DataBase),'DELETE WHERE '+currentselection);
    if dbm.query('delete from moon where '+currentselection+';') then begin
       dbselection:='DBN in ('+defaultselection+')';
