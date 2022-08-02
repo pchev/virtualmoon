@@ -142,6 +142,10 @@ msgstr "Druk de \"\"Laad databse\"\" knop om je data in de database te laden."
 msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
 msgstr "De \"Bewaar instelling\" knop staat u toe om de instelling voor later gebruik op te slaan."
 
+#: u_translation.rsmapallthefie
+msgid "Map all the fields in the same order"
+msgstr ""
+
 #: u_translation.rsmustbe
 msgid "Must be"
 msgstr ""

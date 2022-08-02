@@ -37,6 +37,7 @@ type
   TLoadCSV = class(TForm)
     Button3: TButton;
     Button4: TButton;
+    ButtonMapIdentity: TButton;
     ButtonTemplate: TButton;
     ButtonExpert: TButton;
     ButtonSimple: TButton;
@@ -94,6 +95,7 @@ type
     Label9: TLabel;
     TabSheetSimple: TTabSheet;
     TabSheetExpert: TTabSheet;
+    procedure ButtonMapIdentityClick(Sender: TObject);
     procedure ButtonExpertClick(Sender: TObject);
     procedure ButtonLoadSimplifiedClick(Sender: TObject);
     procedure ButtonNext2Click(Sender: TObject);
@@ -118,9 +120,9 @@ type
     { Private declarations }
     mlb:Tmlb2;
     samplerec:integer;
-    fieldmode: array[1..NumMoonDBFields] of byte;  // 0: not used // 1: use constant // 2: use csv field
-    fieldlist: array[1..NumMoonDBFields] of byte;  // coresponding csv field number
-    fieldconst: array[1..NumMoonDBFields] of string; // constant field value
+    fieldmode: array[1..NumMoonDBFields+1] of byte;  // 0: not used // 1: use constant // 2: use csv field
+    fieldlist: array[1..NumMoonDBFields+1] of byte;  // coresponding csv field number
+    fieldconst: array[1..NumMoonDBFields+1] of string; // constant field value
     procedure resetselection;
     procedure GetSampleData;
   public
@@ -185,6 +187,7 @@ begin
   ButtonSimple.Caption:=rsSimpleMode;
   ButtonNext2.Caption:=rsNext;
   ButtonNext3.Caption:=rsNext;
+  ButtonMapIdentity.Caption:=rsMapAllTheFie;
 
   memo4.Lines.Clear;
   memo4.Lines.Add(rsThisProgramL);
@@ -351,6 +354,17 @@ if j<1 then begin showmessage(rsm_12);exit; end;
 fieldmode[i]:=2;
 fieldlist[i]:=j;
 CheckListBox1ItemClick(Sender,i-1);
+end;
+
+procedure TLoadCSV.ButtonMapIdentityClick(Sender: TObject);
+var i,j: integer;
+begin
+  for i:=1 to StringGrid1.RowCount-1 do begin
+    fieldmode[i+1]:=2;
+    fieldlist[i+1]:=i;
+    CheckListBox1.Checked[i]:=true;
+    CheckListBox1ItemClick(Sender,i);
+  end;
 end;
 
 procedure TLoadCSV.CheckListBox1ItemClick(Sender: TObject; Index: integer);

@@ -14,10 +14,10 @@ object LoadCSV: TLoadCSV
     Height = 540
     Top = 0
     Width = 696
-    ActivePage = TabSheetSimple
+    ActivePage = TabSheetExpert
     Align = alClient
     ShowTabs = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object TabSheetSimple: TTabSheet
       Caption = 'TabSheetSimple'
@@ -142,9 +142,9 @@ object LoadCSV: TLoadCSV
         Height = 536
         Top = 0
         Width = 686
-        ActivePage = TabSheet1
+        ActivePage = TabSheet2
         Align = alClient
-        TabIndex = 0
+        TabIndex = 1
         TabOrder = 0
         object TabSheet1: TTabSheet
           Caption = 'Select File'
@@ -424,6 +424,15 @@ object LoadCSV: TLoadCSV
             Caption = 'Next'
             OnClick = ButtonNext2Click
             TabOrder = 8
+          end
+          object ButtonMapIdentity: TButton
+            Left = 4
+            Height = 25
+            Top = 32
+            Width = 347
+            Caption = 'Map all the fields in the same order'
+            OnClick = ButtonMapIdentityClick
+            TabOrder = 9
           end
         end
         object TabSheet3: TTabSheet

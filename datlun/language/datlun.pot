@@ -474,3 +474,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+#: u_translation:rsmapallthefie
+msgid "Map all the fields in the same order"
+msgstr ""
+

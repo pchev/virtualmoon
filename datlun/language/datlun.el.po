@@ -132,6 +132,10 @@ msgstr "Πατήστε το κουμπί \"Φόρτωση βάσης δεδομένων\" για να φορτώσετε τα δεδομέ
 msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
 msgstr "Το κουμπί \"Αποθήκευση ρύθμισης\" σας επιτρέπει να αποθηκεύσετε τη ρύθμιση για μελλοντική ανάκτηση."
 
+#: u_translation.rsmapallthefie
+msgid "Map all the fields in the same order"
+msgstr ""
+
 #: u_translation.rsmustbe
 msgid "Must be"
 msgstr ""

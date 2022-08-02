@@ -142,6 +142,10 @@ msgstr "Kad įkeltumėte duomenis į duomenų bazę, paspauskite mygtuką \"Įke
 msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
 msgstr "Mygtuku \"Įrašyti nuostatas\" galima įrašyti nuostatast, kurias vėliau galima grąžinti."
 
+#: u_translation.rsmapallthefie
+msgid "Map all the fields in the same order"
+msgstr ""
+
 #: u_translation.rsmustbe
 msgid "Must be"
 msgstr ""

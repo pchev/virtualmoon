@@ -138,6 +138,7 @@ rsNext = 'Next';
 rsSimpleMode = 'Simple mode';
 rsCreateTempla = 'Create template';
 rsAdd = 'Add';
+rsMapAllTheFie = 'Map all the fields in the same order';
 
 implementation
 

@@ -130,6 +130,10 @@ msgstr ""
 msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
 msgstr ""
 
+#: u_translation.rsmapallthefie
+msgid "Map all the fields in the same order"
+msgstr ""
+
 #: u_translation.rsmustbe
 msgid "Must be"
 msgstr ""

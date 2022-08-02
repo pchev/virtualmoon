@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-07-31 16:43+0200\n"
+"PO-Revision-Date: 2022-08-02 17:42+0200\n"
 "Project-Id-Version: datlun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -214,6 +214,10 @@ msgid ""
 " retrieval."
 msgstr ""
 "Le bouton \"Sauvegarde\" vous permettra de retrouver ces paramètres plus tard."
+
+#: u_translation.rsmapallthefie
+msgid "Map all the fields in the same order"
+msgstr "Définir tous les champs dans le même ordre"
 
 #: u_translation.rsmustbe
 msgid "Must be"
