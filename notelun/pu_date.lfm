@@ -1,0 +1,114 @@
+object f_date: Tf_date
+  Left = 369
+  Height = 101
+  Top = 31
+  Width = 376
+  BorderStyle = bsNone
+  Caption = 'f_date'
+  ClientHeight = 101
+  ClientWidth = 376
+  FormStyle = fsStayOnTop
+  ShowInTaskBar = stNever
+  object Panel1: TPanel
+    Left = 0
+    Height = 101
+    Top = 0
+    Width = 376
+    Align = alClient
+    BevelInner = bvLowered
+    ClientHeight = 101
+    ClientWidth = 376
+    Color = clWindow
+    ParentColor = False
+    TabOrder = 0
+    object DateEdit1: TDateEdit
+      Left = 24
+      Height = 31
+      Top = 16
+      Width = 136
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      DefaultToday = True
+      DateOrder = doNone
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 0
+      Text = 'DateEdit1'
+    end
+    object H: TSpinEdit
+      Left = 184
+      Height = 29
+      Top = 18
+      Width = 50
+      MaxValue = 23
+      TabOrder = 1
+    end
+    object M: TSpinEdit
+      AnchorSideLeft.Control = H
+      AnchorSideLeft.Side = asrBottom
+      Left = 247
+      Height = 29
+      Top = 18
+      Width = 50
+      BorderSpacing.Left = 13
+      MaxValue = 59
+      TabOrder = 2
+    end
+    object S: TSpinEdit
+      AnchorSideLeft.Control = M
+      AnchorSideLeft.Side = asrBottom
+      Left = 310
+      Height = 29
+      Top = 18
+      Width = 50
+      BorderSpacing.Left = 13
+      MaxValue = 59
+      TabOrder = 3
+    end
+    object btncancel: TButton
+      Left = 24
+      Height = 25
+      Top = 64
+      Width = 75
+      Cancel = True
+      Caption = 'Cancel'
+      ModalResult = 2
+      TabOrder = 4
+    end
+    object btnok: TButton
+      Left = 272
+      Height = 25
+      Top = 64
+      Width = 88
+      Caption = 'OK'
+      ModalResult = 1
+      TabOrder = 5
+    end
+    object Label1: TLabel
+      AnchorSideLeft.Control = H
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = H
+      AnchorSideTop.Side = asrCenter
+      Left = 238
+      Height = 19
+      Top = 23
+      Width = 4
+      BorderSpacing.Left = 4
+      Caption = ':'
+      ParentColor = False
+    end
+    object Label2: TLabel
+      AnchorSideLeft.Control = M
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = H
+      AnchorSideTop.Side = asrCenter
+      Left = 301
+      Height = 19
+      Top = 23
+      Width = 4
+      BorderSpacing.Left = 4
+      Caption = ':'
+      ParentColor = False
+    end
+  end
+end
