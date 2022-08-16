@@ -11,6 +11,7 @@ object f_calclun: Tf_calclun
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
+  LCLVersion = '2.2.2.0'
   object PanelTop: TPanel
     Left = 0
     Height = 56
@@ -191,7 +192,7 @@ object f_calclun: Tf_calclun
     OnChange = PageControl1Change
     object TabSheetYear: TTabSheet
       Caption = 'Year'
-      ClientHeight = 563
+      ClientHeight = 560
       ClientWidth = 1608
       object PanelYRight: TPanel
         Left = 1274
@@ -491,7 +492,7 @@ object f_calclun: Tf_calclun
     end
     object TabSheetMonth: TTabSheet
       Caption = 'Month'
-      ClientHeight = 563
+      ClientHeight = 560
       ClientWidth = 1608
       object PanelLeft: TPanel
         Left = 0
@@ -586,8 +587,8 @@ object f_calclun: Tf_calclun
             Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 206
-            ClientWidth = 337
+            ClientHeight = 210
+            ClientWidth = 341
             TabOrder = 1
             object Chart1: TChart
               Left = 0
@@ -631,8 +632,8 @@ object f_calclun: Tf_calclun
             Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 344
-            ClientWidth = 337
+            ClientHeight = 348
+            ClientWidth = 341
             TabOrder = 2
             Visible = False
             object Chart2: TChart
@@ -695,8 +696,8 @@ object f_calclun: Tf_calclun
             Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 344
-            ClientWidth = 337
+            ClientHeight = 348
+            ClientWidth = 341
             TabOrder = 4
             object Chart3: TChart
               Left = 0
@@ -834,8 +835,8 @@ object f_calclun: Tf_calclun
             Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 46
-            ClientWidth = 337
+            ClientHeight = 50
+            ClientWidth = 341
             TabOrder = 3
             object BtnGraph: TSpeedButton
               Left = 16
@@ -853,7 +854,7 @@ object f_calclun: Tf_calclun
     end
     object TabSheetDay: TTabSheet
       Caption = 'Day'
-      ClientHeight = 563
+      ClientHeight = 560
       ClientWidth = 1608
       object PanelDRight: TPanel
         Left = 1308
@@ -1112,7 +1113,7 @@ object f_calclun: Tf_calclun
     end
     object TabSheetPrediction: TTabSheet
       Caption = 'Prediction'
-      ClientHeight = 563
+      ClientHeight = 560
       ClientWidth = 1608
       object PageControlPrediction: TPageControl
         Left = 0
@@ -1126,7 +1127,7 @@ object f_calclun: Tf_calclun
         OnChange = PageControlPredictionChange
         object TabSheetColongitude: TTabSheet
           Caption = 'Colongitude'
-          ClientHeight = 532
+          ClientHeight = 529
           ClientWidth = 1598
           object PanelColongitude: TPanel
             Left = 0
@@ -1632,7 +1633,7 @@ object f_calclun: Tf_calclun
         end
         object TabSheetSunElevation: TTabSheet
           Caption = 'Sun elevation on a formation'
-          ClientHeight = 532
+          ClientHeight = 529
           ClientWidth = 1598
           object PanelT: TPanel
             Left = 0
@@ -1723,7 +1724,7 @@ object f_calclun: Tf_calclun
         end
         object TabSheetLibration: TTabSheet
           Caption = 'Libration'
-          ClientHeight = 532
+          ClientHeight = 529
           ClientWidth = 1598
           object PanelLibration: TPanel
             Left = 0

@@ -51,6 +51,7 @@ end;
 
 function rmod(x,y:Double):Double;
 Function NormRA(ra : double):double;
+function AngleBetween(angle,intstart,intend: double):boolean;
 Function sgn(x:Double):Double ;
 Function PadZeros(x : string ; l :integer) : string;
 Function mm2pi(l,PrinterResolution : single): integer;
@@ -94,6 +95,8 @@ Function DEToStr3(de: Double) : string;
 Function Str3ToDE(dms : string) : double;
 Function DEToStr4(de: Double) : string;
 function isodate(a,m,d : integer) : string;
+function DateTime2DateIso(dt: double): string;
+function DateIso2DateTime(dt: string): double;
 function jddate(jd: double) : string;
 function jddatetime(jd: double;fy,fm,fd,fh,fn,fs:boolean) : string;
 function DateTimetoJD(Date: Tdatetime): double;
@@ -137,6 +140,7 @@ function PolygonArea(N:integer;Points:Array of TDoublePoint): double;
 function PolygonCentroid(N:integer;Points:Array of TDoublePoint;area:double): TDoublePoint;
 function InsidePolygon(N:integer;Points:Array of TDoublePoint;p:TDoublePoint): boolean;
 function CurrentUserName:String;
+
 
 var traceon : boolean;
     hp: string;
@@ -229,6 +233,16 @@ begin
 result:=rmod(ra+pi2,pi2);
 //if (ar2<ar1)and(ra<=arm) then NormRA:=ra+pi2
 //else NormRA:=ra;
+end;
+
+function AngleBetween(angle,intstart,intend: double):boolean;
+begin
+  // return true is angle is between intstart and intend.
+  // intstart and intend must be normalized 0..2*Pi
+  if intend>intstart then
+    result:=(angle>intstart)and(angle<intend)
+  else
+    result:=(angle>intstart)or(angle<intend);
 end;
 
 Function sgn(x:Double):Double ;
@@ -908,6 +922,56 @@ end;
 function isodate(a,m,d : integer) : string;
 begin
 result:=padzeros(inttostr(a),4)+'-'+padzeros(inttostr(m),2)+'-'+padzeros(inttostr(d),2);
+end;
+
+function DateTime2DateIso(dt: double): string;
+begin
+  result:=FormatDateTime(dateiso,dt)
+end;
+
+function DateIso2DateTime(dt: string): double;
+var
+  sy, y, m, d, p: integer;
+  h: double;
+begin
+  Result := 0;
+  sy := 1;
+  h := 0;
+  dt := trim(dt);
+  if length(dt) > 2 then
+  begin
+    if dt[1] = '-' then
+    begin
+      sy := -1;
+      Delete(dt, 1, 1);
+    end;
+    if dt[1] = '+' then
+    begin
+      sy := 1;
+      Delete(dt, 1, 1);
+    end;
+  end;
+  p := pos('-', dt);
+  if p = 0 then
+    exit;
+  y := sy * StrToInt(trim(copy(dt, 1, p - 1)));
+  dt := copy(dt, p + 1, 999);
+  p := pos('-', dt);
+  if p = 0 then
+    exit;
+  m := StrToInt(trim(copy(dt, 1, p - 1)));
+  dt := copy(dt, p + 1, 999);
+  p := pos('T', dt);
+  if p = 0 then
+    p := pos(' ', dt);
+  if p = 0 then
+    d := StrToInt(trim(dt))     // no time part
+  else
+  begin
+    d := StrToInt(trim(copy(dt, 1, p - 1)));
+    h := StrToTime(trim(copy(dt,p+1,99)),':');
+  end;
+  result := EncodeDate(y, m, d) + h;
 end;
 
 function jddatetime(jd: double;fy,fm,fd,fh,fn,fs:boolean) : string;

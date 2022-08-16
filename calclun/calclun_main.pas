@@ -10,7 +10,7 @@ uses
   {$endif}
   cspice, pas_spice, moon_spice, u_util, u_constant, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
   TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8, config, u_translation, FileUtil, downloaddialog, splashunit,
-  passql, passqlite,
+  passql, passqlite, dbutil,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, Spin, ComCtrls, Grids, Menus, Buttons,
   LCLVersion, Types, TACustomSeries, TAMultiSeries, TATransformations;
 
@@ -335,6 +335,7 @@ begin
   language:= inifile.ReadString('default', 'lang_po_file', '');
   inifile.Free;
   language:=u_translation.translate(language,'en');
+  uplanguage:=UpperCase(language);
   SetLang;
   tz:=TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');
@@ -352,7 +353,13 @@ begin
 end;
 
 procedure Tf_calclun.FormShow(Sender: TObject);
+var i: integer;
 begin
+  for i:=1 to maxdbn do usedatabase[i]:=false;
+  usedatabase[1]:=true;
+  DatabaseList:=Tstringlist.Create;
+  LoadDB(dbm);
+
   InitError;
   reset_c;
   SetKernelsPath;
@@ -384,6 +391,10 @@ procedure Tf_calclun.SetLang;
 var i: integer;
   buf: string;
 begin
+  ldeg     := '°';
+  lmin     := '''';
+  lsec     := '"';
+
   Label7.Caption:=rsYear;
   Label8.Caption:=rsMonth;
   Label9.Caption:=rsDay;
@@ -529,7 +540,7 @@ begin
   GridTerminator2.Cells[1, 0]:=rsEndTime;
   GridTerminator2.Cells[2, 0]:=rsLibrLon;
   GridTerminator2.Cells[3, 0]:=rsLibrLat;
-  dbm.Use(Slash(DBdir)+'dbmoon8'+UpperCase(language)+'.dbl');
+{  dbm.Use(Slash(DBdir)+'dbmoon8'+UpperCase(language)+'.dbl');
   buf:=dbm.QueryOne('select version from dbversion;');
   if buf>'' then begin
     EditFormation.Enabled:=true;
@@ -542,7 +553,7 @@ begin
     BtnSearch.Enabled:=false;
     ComboBoxFormation.Visible:=false;
     LabelMissingDB.Visible:=true;
-  end;
+  end;}
 end;
 
 procedure Tf_calclun.SetKernelsPath;
