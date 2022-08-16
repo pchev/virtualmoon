@@ -350,7 +350,6 @@ type
     LQ:      TImage;
     nextM:   TImage;
     prevM:   TImage;
-    dbm:     TLiteDB;
     Encyclopedia1: TMenuItem;
     NewWindowButton: TToolButton;
     Snapshot1: TMenuItem;
@@ -3832,6 +3831,7 @@ begin
                mtError, [mbAbort], 0);
      Halt;
   end;
+  dbm:=TLiteDB.Create(self);
   tz := TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');
   notexture:=false;
