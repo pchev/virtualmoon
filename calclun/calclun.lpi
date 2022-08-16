@@ -149,7 +149,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="12">
+    <Units Count="13">
       <Unit0>
         <Filename Value="calclun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -207,6 +207,10 @@
         <Filename Value="../virtualmoon/u_constant.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit11>
+      <Unit12>
+        <Filename Value="../virtualmoon/cu_tz.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit12>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
