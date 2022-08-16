@@ -5,6 +5,7 @@ cclun/backup/
 photlun/backup/
 weblun/backup/
 calclun/backup/
+notelun/backup/
 #ignore external data
 BaseData/*.tgz
 BaseData/*.xz
@@ -61,6 +62,11 @@ calclun/getcell.o*
 calclun/getcellwin32.o*
 calclun/calclun
 calclun/calclun.exe
+notelun/lib/
+notelun/units/
+notelun/notelun
+notelun/notelun.exe
+
 last.build
 # ignore binary
 *.o

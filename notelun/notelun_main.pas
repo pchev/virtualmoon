@@ -4,27 +4,35 @@ unit notelun_main;
 
 interface
 
-uses dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite,
-  LCLVersion, IniFiles, u_translation, pu_search, pu_date,
+uses
+  {$ifdef mswindows}
+    Windows, ShlObj,
+  {$endif}
+  dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite,
+  LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn;
 
 type
 
+  TNoteID = class(TObject)
+    id: integer;
+  end;
+
   { Tf_notelun }
 
   Tf_notelun = class(TForm)
-    BtnChangeDate1: TSpeedButton;
+    BtnChangeInfoDate: TSpeedButton;
     BtnEdit: TSpeedButton;
     BtnDelete: TSpeedButton;
     BtnSearchFormation1: TSpeedButton;
-    ComboBox1: TComboBox;
-    ComboBox2: TComboBox;
-    ComboBox3: TComboBox;
-    DateEdit1: TDateEdit;
-    DateEdit2: TDateEdit;
-    Edit1: TEdit;
-    Edit2: TEdit;
-    Edit3: TEdit;
+    ObsInstrument: TComboBox;
+    ObsOptic: TComboBox;
+    ObsCamera: TComboBox;
+    ObsMeteo: TEdit;
+    ObsSeeing: TEdit;
+    ObsPower: TEdit;
+    ObsEnd: TEdit;
+    ObsStart: TEdit;
     Label20: TLabel;
     MenuItemHelp: TMenuItem;
     MenuItemAbout: TMenuItem;
@@ -125,22 +133,33 @@ type
     ScrollBox1: TScrollBox;
     ScrollBox2: TScrollBox;
     BtnSearchFormation: TSpeedButton;
-    BtnChangeDate: TSpeedButton;
+    BtnChangeObsDate: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
     Splitter1: TSplitter;
     TabSheetObservation: TTabSheet;
     TabSheetInformation: TTabSheet;
-    TimeEdit1: TTimeEdit;
-    TimeEdit2: TTimeEdit;
-    procedure BtnChangeDateClick(Sender: TObject);
+    procedure BtnChangeInfoDateClick(Sender: TObject);
+    procedure BtnChangeObsDateClick(Sender: TObject);
     procedure BtnSearchFormationClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
+
   private
-    dbm: TLiteDB;
     tz: TCdCTimeZone;
+    Finfodate,Fobsdate: double;
     procedure SetLang;
     procedure GetAppDir;
+    function  FormatDate(val:string):string;
+    procedure SetInfoDate(val:string);
+    procedure ClearList;
+    procedure ClearInfoNote;
+    procedure ClearObsNote;
+    procedure NotesList;
+    procedure ShowInfoNote(id: integer);
+    procedure ShowObsNote(id: integer);
   public
 
   end;
@@ -169,60 +188,35 @@ begin
   language:= inifile.ReadString('default', 'lang_po_file', '');
   inifile.Free;
   language:=u_translation.translate(language,'en');
+  uplanguage:=UpperCase(language);
   SetLang;
   tz:=TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');
   dbm:=TLiteDB.Create(self);
-  dbm.Use(Slash(DBdir)+'dbmoon8'+UpperCase(language)+'.dbl');
-end;
-
-procedure Tf_notelun.BtnSearchFormationClick(Sender: TObject);
-var p: tpoint;
-    ed:tedit;
-begin
-  case TSpeedButton(sender).tag of
-    0: ed:=ObsFormation;
-    1: ed:=InfoFormation;
-  end;
-  p.x:=ed.Left;
-  p.y:=ed.Top+ed.Height;
-  p:=ed.Parent.ClientToScreen(p);
-  f_search.Left:=p.x;
-  f_search.Top:=p.y;
-  if f_search.ShowModal=mrOK then begin
-    ed.Text:=f_search.ListBox1.GetSelectedText;
-  end;
-end;
-
-procedure Tf_notelun.BtnChangeDateClick(Sender: TObject);
-var p: tpoint;
-    dt: double;
-    ed:tedit;
-begin
-  case TSpeedButton(sender).tag of
-    0: ed:=ObsDate;
-    1: ed:=InfoDate;
-  end;
-  p.x:=ed.Left;
-  p.y:=ed.Top+ed.Height;
-  p:=ed.Parent.ClientToScreen(p);
-  f_date.Left:=p.x;
-  f_date.Top:=p.y;
-  if f_date.ShowModal=mrOK then begin
-    dt:=f_date.DateEdit1.Date+(f_date.h.Value+f_date.m.Value/60+f_date.s.Value/3600)/24;
-    ed.Text:=FormatDateTime('YYYY-MM-DD hh:nn:ss',dt);
-  end;
+  dbnotes:=TLiteDB.Create(self);
 end;
 
 procedure Tf_notelun.FormDestroy(Sender: TObject);
 begin
+  ClearList;
   dbm.free;
   tz.Free;
+  DatabaseList.free;
 end;
 
 procedure Tf_notelun.FormShow(Sender: TObject);
+var i: integer;
 begin
+  for i:=1 to maxdbn do usedatabase[i]:=false;
+  usedatabase[1]:=true;
+  DatabaseList:=Tstringlist.Create;
+  LoadDB(dbm);
+  LoadNotelunDB(dbnotes);
   f_search.dbm:=dbm;
+  ClearObsNote;
+  ClearInfoNote;
+  PageControl1.ActivePageIndex:=0;
+  NotesList;
 end;
 
 procedure Tf_notelun.SetLang;
@@ -392,6 +386,209 @@ begin
       end;
     end;
   end;
+end;
+
+procedure Tf_notelun.BtnSearchFormationClick(Sender: TObject);
+var p: tpoint;
+    ed:tedit;
+begin
+  case TSpeedButton(sender).tag of
+    0: ed:=ObsFormation;
+    1: ed:=InfoFormation;
+  end;
+  p.x:=ed.Left;
+  p.y:=ed.Top+ed.Height;
+  p:=ed.Parent.ClientToScreen(p);
+  f_search.SetFormation(ed.Text);
+  f_search.Left:=p.x;
+  f_search.Top:=p.y;
+  if f_search.ShowModal=mrOK then begin
+    ed.Text:=f_search.ListBox1.GetSelectedText;
+  end;
+end;
+
+procedure Tf_notelun.BtnChangeObsDateClick(Sender: TObject);
+var p: tpoint;
+begin
+  p.x:=ObsDate.Left;
+  p.y:=ObsDate.Top+ObsDate.Height;
+  p:=ObsDate.Parent.ClientToScreen(p);
+  f_date.Left:=p.x;
+  f_date.Top:=p.y;
+  if Fobsdate=0 then
+    f_date.Date:=now
+  else
+    f_date.Date:=Fobsdate;
+  if f_date.ShowModal=mrOK then begin
+    Fobsdate:=f_date.Date;
+    ObsDate.Text:=FormatDateTime(datetimedisplay,Fobsdate);
+  end;
+end;
+
+procedure Tf_notelun.BtnChangeInfoDateClick(Sender: TObject);
+var p: tpoint;
+begin
+  p.x:=InfoDate.Left;
+  p.y:=InfoDate.Top+InfoDate.Height;
+  p:=InfoDate.Parent.ClientToScreen(p);
+  f_date.Left:=p.x;
+  f_date.Top:=p.y;
+  if Finfodate=0 then
+    f_date.Date:=now
+  else
+    f_date.Date:=Finfodate;
+  if f_date.ShowModal=mrOK then begin
+    Finfodate:=f_date.Date;
+    InfoDate.Text:=FormatDateTime(datetimedisplay,Finfodate);
+  end;
+end;
+
+function Tf_notelun.FormatDate(val:string):string;
+var dt: double;
+begin
+  dt:=StrToFloatDef(val,0);
+  if dt=0 then
+    result:=''
+  else
+    result:=FormatDateTime(datetimedisplay,dt);
+end;
+
+procedure Tf_notelun.SetInfoDate(val:string);
+begin
+  Finfodate:=StrToFloatDef(val,0);
+  if Finfodate=0 then
+    InfoDate.Text:=''
+  else
+    InfoDate.Text:=FormatDateTime(datetimedisplay,Finfodate);
+end;
+
+procedure Tf_notelun.NotesList;
+var sortcol,cmd: string;
+    i,n: integer;
+    id:TNoteID;
+    ok: boolean;
+begin
+  ClearList;
+  n:=1;
+  sortcol:='FORMATION';
+  cmd:='select ID,FORMATION,DATE from infonotes order by '+sortcol;
+  dbnotes.Query(cmd);
+  ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
+  for i:=0 to dbnotes.RowCount-1 do begin
+    id:=TNoteID.Create;
+    id.id:=dbnotes.Results[i].Format[0].AsInteger;
+    ListNotes.Objects[0,n]:=id;
+    ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
+    ListNotes.Cells[1,n]:=FormatDate(dbnotes.Results[i][2]);
+    ListNotes.Cells[2,n]:='I';
+    inc(n);
+  end;
+  cmd:='select ID,FORMATION,DATESTART from obsnotes order by '+sortcol;
+  dbnotes.Query(cmd);
+  ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
+  for i:=0 to dbnotes.RowCount-1 do begin
+    id:=TNoteID.Create;
+    id.id:=dbnotes.Results[i].Format[0].AsInteger;
+    ListNotes.Objects[0,n]:=id;
+    ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
+    ListNotes.Cells[1,n]:=FormatDate(dbnotes.Results[i][2]);
+    ListNotes.Cells[2,n]:='O';
+    inc(n);
+  end;
+  ListNotesSelectCell(ListNotes,0,1,ok);
+end;
+
+procedure Tf_notelun.ClearList;
+var i: integer;
+begin
+  for i:=1 to ListNotes.RowCount-1 do begin
+    if ListNotes.Objects[0,i]<>nil then begin
+      ListNotes.Objects[0,i].Free;
+      ListNotes.Objects[0,i]:=nil;
+    end;
+  end;
+  ListNotes.RowCount:=1;
+end;
+
+procedure Tf_notelun.ClearInfoNote;
+begin
+  Finfodate:=0;
+  InfoFormation.Text:='';
+  InfoDate.Text:='';
+  InfoAuthor.Text:='';
+  InfoText.Text:='';
+  InfoFiles.Clear;
+end;
+
+procedure Tf_notelun.ClearObsNote;
+begin
+  Fobsdate:=0;
+  ObsFormation.Text:='';
+  ObsDate.Text:='';
+  ObsPlace.Text:='';
+  ObsName.Text:='';
+  ObsStart.Text:='';
+  ObsEnd.Text:='';
+  ObsMeteo.Text:='';
+  ObsSeeing.Text:='';
+  ObsInstrument.Text:='';
+  ObsOptic.Text:='';
+  ObsPower.Text:='';
+  ObsCamera.Text:='';
+  ObsText.Text:='';
+  ObsFiles.Clear;
+  ObsRA.Caption:='';
+  ObsDec.Caption:='';
+  ObsDiam.Caption:='';
+  ObsLunation.Caption:='';
+  ObsColongitude.Caption:='';
+  ObsLibrLon.Caption:='';
+  ObsLibrLat.Caption:='';
+  ObsAzimut.Caption:='';
+  ObsAltitude.Caption:='';
+end;
+
+procedure Tf_notelun.ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
+var i: LongWord;
+    id: TNoteID;
+begin
+  id:=TNoteID(ListNotes.Objects[0,aRow]);
+  if id<>nil then begin
+    i:=id.id;
+    if ListNotes.Cells[2,aRow]='O' then begin
+      ShowObsNote(i);
+    end
+    else if ListNotes.Cells[2,aRow]='I' then begin
+      ShowInfoNote(i);
+    end;
+    CanSelect:=true;
+  end
+  else begin
+    CanSelect:=false;
+  end;
+end;
+
+procedure Tf_notelun.ShowInfoNote(id: integer);
+var cmd: string;
+begin
+  PageControl1.ActivePageIndex:=1;
+  ClearInfoNote;
+  cmd:='select FORMATION,DATE,AUTHOR,NOTE,FILES from infonotes where ID='+inttostr(id);
+  dbnotes.Query(cmd);
+  if dbnotes.RowCount>0 then begin
+    InfoFormation.Text:=dbnotes.Results[0][0];
+    SetInfoDate(dbnotes.Results[0][1]);
+    InfoAuthor.Text:=dbnotes.Results[0][2];
+    InfoText.Text:=dbnotes.Results[0][3];
+    InfoFiles.Items.Add(dbnotes.Results[0][4]);
+  end;
+end;
+
+procedure Tf_notelun.ShowObsNote(id: integer);
+var cmd: string;
+begin
+  PageControl1.ActivePageIndex:=0;
+  ClearObsNote;
 end;
 
 end.

@@ -8,6 +8,8 @@ object f_date: Tf_date
   ClientHeight = 101
   ClientWidth = 376
   FormStyle = fsStayOnTop
+  OnCreate = FormCreate
+  OnShow = FormShow
   ShowInTaskBar = stNever
   object Panel1: TPanel
     Left = 0
@@ -70,7 +72,6 @@ object f_date: Tf_date
       Height = 25
       Top = 64
       Width = 75
-      Cancel = True
       Caption = 'Cancel'
       ModalResult = 2
       TabOrder = 4

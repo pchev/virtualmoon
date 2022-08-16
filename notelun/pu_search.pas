@@ -19,11 +19,13 @@ type
     btnsearch: TSpeedButton;
     btnok: TButton;
     procedure btnsearchClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
   private
 
   public
     dbm: TLiteDB;
+    procedure SetFormation(txt: string);
   end;
 
 var
@@ -38,6 +40,12 @@ implementation
 procedure Tf_search.SpeedButton1Click(Sender: TObject);
 begin
   ModalResult:=mrOK;
+end;
+
+procedure Tf_search.SetFormation(txt: string);
+begin
+  edit1.Text:=txt;
+  btnsearchClick(nil);
 end;
 
 procedure Tf_search.btnsearchClick(Sender: TObject);
@@ -58,6 +66,11 @@ begin
   if ListBox1.Items.Count>0 then begin
      ListBox1.Selected[0]:=true;
   end;
+end;
+
+procedure Tf_search.FormShow(Sender: TObject);
+begin
+  ActiveControl:=btncancel;
 end;
 
 end.

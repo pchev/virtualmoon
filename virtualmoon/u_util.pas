@@ -136,6 +136,7 @@ procedure PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
 function PolygonArea(N:integer;Points:Array of TDoublePoint): double;
 function PolygonCentroid(N:integer;Points:Array of TDoublePoint;area:double): TDoublePoint;
 function InsidePolygon(N:integer;Points:Array of TDoublePoint;p:TDoublePoint): boolean;
+function CurrentUserName:String;
 
 var traceon : boolean;
     hp: string;
@@ -2069,6 +2070,22 @@ begin
     result:=false
   else
     result:=true;
+end;
+
+function CurrentUserName:String;
+{$ifdef mswindows}
+var
+  UserName: array[0..127] of Char;
+  Size:DWord;
+{$endif}
+begin
+{$ifdef mswindows}
+  Size:=SizeOf(UserName);
+  GetUserName(UserName,Size);
+  Result:=UserName;
+{$else}
+  result:=GetEnvironmentVariable('USER');
+{$endif}
 end;
 
 end.

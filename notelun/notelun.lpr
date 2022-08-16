@@ -10,8 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, printer4lazarus, notelun_main, dbutil, u_constant, u_util, cu_tz, libsql, pu_search, pu_date
-  { you can add units after this };
+  Forms, printer4lazarus, notelun_main, dbutil, u_constant, u_util, cu_tz, libsql, pu_search, pu_date;
 
 {$R *.res}
 

@@ -102,6 +102,8 @@ const crlf = chr(10)+chr(13);
       f4='0.0000';
       f5='0.00000';
       f6='0.000000';
+      datetimedisplay='yy"-"mm"-"dd" "hh":"nn":"ss';
+      datedisplay='yy"-"mm"-"dd"';
       dateiso='yyyy"-"mm"-"dd"T"hh":"nn":"ss.zzz';
       HistoricalDir='Historical';
       nOptionalFeature= 7;
@@ -252,7 +254,7 @@ Var  Splashversion, compile_time, compile_version: string;
      dbtype : array[1..numdbtype] of string;
      dbshortname : array[1..numdb] of string;
      dbselection: string;
-     dbm: TLiteDB;
+     dbm,dbnotes: TLiteDB;
 
 
 // Text formating constant

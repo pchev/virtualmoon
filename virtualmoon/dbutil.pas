@@ -32,7 +32,9 @@ Uses Forms, Dialogs, Classes, SysUtils, passql, passqlite;
 
 const
     DBversion=800;
+    DBnotesversion=800;
     DBname='dbmoon8';
+    DBnamenotes='dbnotes';
     MaxDB=99;
     MaxDBN=200;
     UserDBN=100;
@@ -157,6 +159,7 @@ Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
 procedure DBjournal(dbname,txt:string);
 Procedure LoadILCD(fn,path,tname:string; dbm: TLiteDB);
 procedure LoadILCDcols(fn,path,lang:string);
+Procedure LoadNotelunDB(db: TLiteDB);
 
 implementation
 
@@ -509,6 +512,82 @@ begin
     CloseFile(f);
     SplitRec2(buf,';',ILCDCols);
   end;
+end;
+
+Procedure LoadNotelunDB(db: TLiteDB);
+var cmd,buf,txt,user: string;
+    row: TStringList;
+    f: TextFile;
+    dt:double;
+begin
+  db.Use(Slash(DBdir)+DBnamenotes+'.dbl');
+  buf:=db.QueryOne('select version from dbversion;');
+  // next version will eventually look for upgrade
+  if buf='' then begin
+    // create new database
+    dbjournal(extractfilename(db.database),'CREATE TABLE obsnotes');
+    cmd:='create table obsnotes ( '+
+         'ID INTEGER PRIMARY KEY,'+
+         'FORMATION TEXT,'+
+         'DATESTART FLOAT,'+
+         'DATEEND FLOAT,'+
+         'PLACE TEXT,'+
+         'OBSERVER TEXT,'+
+         'METEO TEXT,'+
+         'SEEING TEXT,'+
+         'INSTRUMENT TEXT,'+
+         'OPTICS TEXT,'+
+         'POWER TEXT,'+
+         'CAMERA TEXT,'+
+         'NOTE TEXT,'+
+         'FILES TEXT'+
+         ');';
+    db.Query(cmd);
+    if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+    db.Query('create index ix1_formation on obsnotes(FORMATION);');
+    dbjournal(extractfilename(db.database),'CREATE TABLE infonotes');
+    cmd:='create table infonotes ( '+
+         'ID INTEGER PRIMARY KEY,'+
+         'FORMATION TEXT,'+
+         'DATE FLOAT,'+
+         'AUTHOR TEXT,'+
+         'NOTE TEXT,'+
+         'FILES TEXT'+
+         ');';
+    db.Query(cmd);
+    if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+    db.Query('create index ix2_formation on infonotes(FORMATION);');
+    dbjournal(extractfilename(db.database),'CREATE TABLE dbversion');
+    cmd:='create table dbversion ( '+
+        'version integer'+
+        ');';
+    db.Query(cmd);
+    cmd:='insert into dbversion values('+inttostr(DBversion)+');';
+    db.Query(cmd);
+    if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+    if fileexists(Slash(DBdir) + 'notes.csv') then begin
+      dbjournal(extractfilename(db.database),'IMPORT notes.csv');
+      row:=TStringList.Create;
+      AssignFile(f,Slash(DBdir) + 'notes.csv');
+      Reset(f);
+      ReadLn(f,buf);
+      SplitRec2(buf,';',row);
+      if (row[0]<>'NAME')or(row[1]<>'NOTES') then dbjournal(extractfilename(db.database),'Wrong header '+buf);
+      dt:=now;
+      user:=CurrentUserName;
+      repeat
+        ReadLn(f,buf);
+        SplitRec2(buf,';',row);
+        txt:=StringReplace(row[1],'||',#10,[rfReplaceAll]);
+        cmd:='insert into infonotes values(NULL,"'+row[0]+'","'+formatfloat(f5,dt)+'","'+user+'","'+txt+'","");';
+        db.Query(cmd);
+        if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+      until EOF(f);
+      CloseFile(f);
+      row.Free;
+    end;
+end;
+
 end;
 
 end.
