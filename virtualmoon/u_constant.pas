@@ -187,6 +187,11 @@ type
     dbnum: integer;
   end;
 
+  TNoteID = class(TObject)
+    id: integer;
+  end;
+
+
 // external library
 const
 {$ifdef linux}

@@ -8,15 +8,11 @@ uses
   {$ifdef mswindows}
     Windows, ShlObj,
   {$endif}
-  dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite,
+  dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance,
   LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn;
 
 type
-
-  TNoteID = class(TObject)
-    id: integer;
-  end;
 
   { Tf_notelun }
 
@@ -139,6 +135,7 @@ type
     Splitter1: TSplitter;
     TabSheetObservation: TTabSheet;
     TabSheetInformation: TTabSheet;
+    UniqueInstance1: TUniqueInstance;
     procedure BtnChangeInfoDateClick(Sender: TObject);
     procedure BtnChangeObsDateClick(Sender: TObject);
     procedure BtnSearchFormationClick(Sender: TObject);
@@ -146,18 +143,22 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
+    procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
 
   private
     tz: TCdCTimeZone;
     Finfodate,Fobsdate: double;
+    param : Tstringlist;
+    StartVMA,CanCloseVMA: boolean;
     procedure SetLang;
     procedure GetAppDir;
+    Procedure ReadParam(first:boolean=true);
     function  FormatDate(val:string):string;
     procedure SetInfoDate(val:string);
     procedure ClearList;
     procedure ClearInfoNote;
     procedure ClearObsNote;
-    procedure NotesList;
+    procedure NotesList(formation:string='';fid:integer=0);
     procedure ShowInfoNote(id: integer);
     procedure ShowObsNote(id: integer);
   public
@@ -176,12 +177,15 @@ implementation
 
 procedure Tf_notelun.FormCreate(Sender: TObject);
 var inifile:Tmeminifile;
+    i: integer;
 begin
   DefaultFormatSettings.DateSeparator:='/';
   DefaultFormatSettings.TimeSeparator:=':';
   DefaultFormatSettings.DecimalSeparator:='.';
   compile_time := {$I %DATE%}+' '+{$I %TIME%};
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%};
+  StartVMA:=false;
+  CanCloseVMA:=true;
 
   GetAppDir;
   inifile := Tmeminifile.Create(ConfigFile);
@@ -194,14 +198,23 @@ begin
   tz.LoadZoneTab(ZoneDir+'zone.tab');
   dbm:=TLiteDB.Create(self);
   dbnotes:=TLiteDB.Create(self);
+  param:=Tstringlist.Create;
+  param.clear;
+  if paramcount>0 then begin
+   for i:=1 to paramcount do begin
+      param.Add(paramstr(i));
+   end;
+  end;
 end;
 
 procedure Tf_notelun.FormDestroy(Sender: TObject);
 begin
   ClearList;
   dbm.free;
+  dbnotes.free;
   tz.Free;
   DatabaseList.free;
+  param.free;
 end;
 
 procedure Tf_notelun.FormShow(Sender: TObject);
@@ -217,6 +230,7 @@ begin
   ClearInfoNote;
   PageControl1.ActivePageIndex:=0;
   NotesList;
+  ReadParam;
 end;
 
 procedure Tf_notelun.SetLang;
@@ -388,6 +402,53 @@ begin
   end;
 end;
 
+procedure Tf_notelun.UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
+var i: integer;
+begin
+  application.Restore;
+  application.BringToFront;
+  if ParamCount > 0 then begin
+     param.Clear;
+     for i:=0 to ParamCount-1 do begin
+        param.add(Parameters[i]);
+     end;
+     ReadParam(false);
+  end;
+end;
+
+Procedure Tf_notelun.ReadParam(first:boolean=true);
+var i,id : integer;
+    nam: string;
+begin
+nam:='';
+id:=0;
+i:=0;
+while i <= param.count-1 do begin
+  if (param[i]='-nx')and first then begin       // when started by vma do not close vma on exit!
+     CanCloseVMA:=false;
+  end
+  else if param[i]='-n' then begin
+     inc(i);
+     if i <= param.count-1 then
+        nam:=param[i];
+  end
+  else if param[i]='-i' then begin
+     inc(i);
+     if i <= param.count-1 then
+        id:=StrToIntDef(param[i],0);
+  end
+  else if param[i]='-quit' then begin  // close current instance
+     Close;
+  end
+  else if param[i]='--' then begin   // last parameter
+       break;
+  end;
+  inc(i);
+end;
+if (nam<>'')or(id<>0) then
+  NotesList(nam,id);
+end;
+
 procedure Tf_notelun.BtnSearchFormationClick(Sender: TObject);
 var p: tpoint;
     ed:tedit;
@@ -462,40 +523,46 @@ begin
     InfoDate.Text:=FormatDateTime(datetimedisplay,Finfodate);
 end;
 
-procedure Tf_notelun.NotesList;
+procedure Tf_notelun.NotesList(formation:string='';fid:integer=0);
 var sortcol,cmd: string;
-    i,n: integer;
+    i,n,k: integer;
     id:TNoteID;
     ok: boolean;
 begin
   ClearList;
+  k:=1;
   n:=1;
   sortcol:='FORMATION';
-  cmd:='select ID,FORMATION,DATE from infonotes order by '+sortcol;
+  cmd:='select ID,FORMATION,DATE from infonotes';
+  if formation<>'' then cmd:=cmd+' where FORMATION="'+formation+'"';
+  cmd:=cmd+' order by '+sortcol;
   dbnotes.Query(cmd);
   ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
   for i:=0 to dbnotes.RowCount-1 do begin
     id:=TNoteID.Create;
     id.id:=dbnotes.Results[i].Format[0].AsInteger;
+    if (fid<>0)and(id.id=fid) then k:=n;
     ListNotes.Objects[0,n]:=id;
     ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
     ListNotes.Cells[1,n]:=FormatDate(dbnotes.Results[i][2]);
     ListNotes.Cells[2,n]:='I';
     inc(n);
   end;
-  cmd:='select ID,FORMATION,DATESTART from obsnotes order by '+sortcol;
+  cmd:='select ID,FORMATION,DATESTART from obsnotes';
+  if formation<>'' then cmd:=cmd+' where FORMATION="'+formation+'"';
   dbnotes.Query(cmd);
   ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
   for i:=0 to dbnotes.RowCount-1 do begin
     id:=TNoteID.Create;
     id.id:=dbnotes.Results[i].Format[0].AsInteger;
+    if (fid<>0)and(id.id=fid) then k:=n;
     ListNotes.Objects[0,n]:=id;
     ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
     ListNotes.Cells[1,n]:=FormatDate(dbnotes.Results[i][2]);
     ListNotes.Cells[2,n]:='O';
     inc(n);
   end;
-  ListNotesSelectCell(ListNotes,0,1,ok);
+  ListNotesSelectCell(ListNotes,0,k,ok);
 end;
 
 procedure Tf_notelun.ClearList;

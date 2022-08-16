@@ -56,7 +56,6 @@ type
     Button17: TSpeedButton;
     Button18: TSpeedButton;
     Button21: TSpeedButton;
-    Button22: TSpeedButton;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
@@ -140,6 +139,7 @@ type
     AnchorObs: TLabel;
     AnchorOrigin: TLabel;
     AnchorPos: TLabel;
+    ListNotes: TStringGrid;
     tabs: TPanel;
     SaveEphem: TMenuItem;
     OptFeatures1: TMenuItem;
@@ -309,10 +309,8 @@ type
     c01:     TMenuItem;
     BMP30001: TMenuItem;
     Notes:   TTabSheet;
-    Memo1:   TMemo;
     Panel7:  TPanel;
     notes_name: TLabel;
-    Button15: TSpeedButton;
     Notes1:  TMenuItem;
     Panel8:  TPanel;
     Label13: TLabel;
@@ -371,7 +369,6 @@ type
     procedure AnchorClick(Sender: TObject);
     procedure Button21Click(Sender: TObject);
     procedure DemProfileClick(Sender: TObject);
-    procedure ExportNotesClick(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox3Click(Sender: TObject);
     procedure CheckBox4Click(Sender: TObject);
@@ -388,6 +385,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure DecreaseFont1Click(Sender: TObject);
     procedure IncreaseFont1Click(Sender: TObject);
+    procedure ListNotesDblClick(Sender: TObject);
     procedure OptFeatures1Click(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
@@ -479,8 +477,6 @@ type
     procedure ZoomEyepieceClick(Sender: TObject);
     procedure ZoomCCDClick(Sender: TObject);
     procedure BMP30001Click(Sender: TObject);
-    procedure UpdNotesClick(Sender: TObject);
-    procedure Memo1Change(Sender: TObject);
     procedure Notes1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -537,7 +533,7 @@ type
     texturefiles,texturenone: TStringList;
     SplitSize: single;
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
-    firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseWeblun,CanCloseCDC,StartDatlun,StartWeblun,StartPhotlun,StartCDC,StartCalclun: boolean;
+    firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseWeblun,CanCloseCDC,CanCloseNoteLun,StartDatlun,StartWeblun,StartPhotlun,StartCDC,StartCalclun,StartNotelun: boolean;
     Desctxt,MsgNoDB: string;
     {$ifdef windows}
     savetop,saveleft,savewidth,saveheight: integer;
@@ -545,6 +541,7 @@ type
     procedure returncontrol(sender:TObject);
     procedure OpenDatlun(objname,otherparam:string);
     procedure OpenPhotlun(objname,otherparam:string);
+    procedure OpenNoteLun(id: integer; objname,otherparam:string);
     procedure OpenCDC(objname,otherparam:string);
     procedure OpenWeblun(objname,otherparam:string);
     procedure OpenCalclun(objname,otherparam:string);
@@ -569,7 +566,9 @@ type
     procedure GetHTMLDetail(row: TResultRow; var txt: string);
     function GetILCD(n: string):string;
     procedure ImpactBassinCircle(moon:Tf_moon);
-    procedure GetNotes(n: string);
+    procedure ClearNotesList;
+    function FormatNoteDate(val:string):string;
+    procedure GetNotes(nam: string);
     function ImgExists(nom: string): boolean;
     procedure InitDate;
     procedure SetJDDate;
@@ -603,7 +602,7 @@ type
     tphase, by, bxpos, dummy: double;
     editrow, notesrow, rotdirection, searchpos,BumpMethod: integer;
     dbedited: boolean;
-    SkipIdent, wantbump, geocentric, FollowNorth, ZenithOnTop, notesok, notesedited,
+    SkipIdent, wantbump, geocentric, FollowNorth, ZenithOnTop,
     minilabel, shortdesc, BumpMipmap: boolean;
     lockmove, lockrepeat, showlibrationmark, saveimagewhite, skipresize,skiporient, skiprot: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
@@ -658,7 +657,7 @@ type
 
 var
   Form1:   TForm1;
-  dblox, dbnotes: TMlb2;
+  dblox: TMlb2;
   Fplanet: TPlanet;
 
 const MinToolsWidth=350;
@@ -865,7 +864,6 @@ begin
     DecreaseFont1.Caption:=rsDecreaseFont;
     IncreaseFont1.Caption:=rsIncreaseFont;
     glossaire1.Caption := rst_98;
-    button15.Caption := rst_114;
     button16.Caption:=rsExport;
     Notes.Caption    := rst_115;
     Notes1.Caption   := Notes.Caption;
@@ -1953,6 +1951,7 @@ begin
   Datlun  := '"'+bindir + DefaultDatlun+'"';
   Weblun  := '"'+bindir + DefaultWeblun+'"';
   Calclun  := '"'+bindir + DefaultCalclun+'"';
+  NoteLun  := '"'+bindir + DefaultNotelun+'"';
   helpdir := slash(appdir) + slash('doc');
   jpldir  := slash(appdir)+slash('data')+'jpleph';
   // Be sure zoneinfo exists in standard location or in vma directory
@@ -3114,77 +3113,69 @@ begin
   stringgrid2.SetFocus;
 end;
 
-procedure TForm1.GetNotes(n: string);
+procedure TForm1.ClearNotesList;
+var i: integer;
 begin
-  if notesedited then
-    if messagedlg(rsm_67, mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-      UpdNotesClick(nil);
-  notes_name.Caption := n;
-  memo1.Clear;
-  notesok     := False;
-  notesedited := False;
-  notesrow    := -1;
-  dbnotes.GoFirst;
-  notesok := dbnotes.MatchData('NAME', '=', trim(uppercase(n)));
-  if not notesok then
-    notesok := dbnotes.SeekData('NAME', '=', trim(uppercase(n)));
-  if notesok then
-  begin
-    notesrow    := dbnotes.GetPosition;
-    memo1.Text  := StringReplace(dbnotes.GetData('NOTES'),' || ',#10,[rfReplaceAll]);
-    notesedited := False;
+  for i:=1 to ListNotes.RowCount-1 do begin
+    if ListNotes.Objects[0,i]<>nil then begin
+      ListNotes.Objects[0,i].Free;
+      ListNotes.Objects[0,i]:=nil;
+    end;
   end;
+  ListNotes.RowCount:=1;
 end;
 
-procedure TForm1.Memo1Change(Sender: TObject);
+function TForm1.FormatNoteDate(val:string):string;
+var dt: double;
 begin
-  notesedited := True;
-end;
-
-procedure TForm1.UpdNotesClick(Sender: TObject);
-var
-  nom: string;
-begin
-  notesedited := False;
-  if notesok then
-  begin
-    dbnotes.Go(notesrow);
-    dbnotes.SetData('NOTES', StringReplace(memo1.Text,#10,' || ',[rfReplaceAll]));
-  end
+  dt:=StrToFloatDef(val,0);
+  if dt=0 then
+    result:=''
   else
-  begin
-    nom := uppercase(trim(notes_name.Caption));
-    if nom = '' then
-      exit;
-    dbnotes.Gofirst;
-    notesok := dbnotes.MatchData('NAME', '>=', nom);
-    if not notesok then
-      notesok := dbnotes.SeekData('NAME', '>=', nom);
-    if not notesok then
-      dbnotes.golast;
-    if dbnotes.GetData('NAME') <> nom then
-      dbnotes.InsertRow(not notesok);
-    dbnotes.SetData('NAME', nom);
-    dbnotes.SetData('NOTES', StringReplace(memo1.Text,#10,' || ',[rfReplaceAll]));
-    notesrow := dbnotes.GetPosition;
-    notesok  := True;
+    result:=FormatDateTime(datetimedisplay,dt);
+end;
+
+procedure TForm1.GetNotes(nam: string);
+var cmd: string;
+    i,n: integer;
+    id:TNoteID;
+begin
+  notes_name.Caption:=nam;
+  ClearNotesList;
+  n:=1;
+  cmd:='select ID,FORMATION,DATE from infonotes where FORMATION = "'+nam+'" order by DATE DESC';
+  dbnotes.Query(cmd);
+  ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
+  for i:=0 to dbnotes.RowCount-1 do begin
+    id:=TNoteID.Create;
+    id.id:=dbnotes.Results[i].Format[0].AsInteger;
+    ListNotes.Objects[0,n]:=id;
+    ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
+    ListNotes.Cells[1,n]:=FormatNoteDate(dbnotes.Results[i][2]);
+    ListNotes.Cells[2,n]:='I';
+    inc(n);
   end;
-  screen.Cursor := crHourGlass;
-  try
-    dbnotes.SaveToCSVFile(Slash(DBdir) + 'notes.csv');
-  finally
-    screen.Cursor := crDefault;
+  cmd:='select ID,FORMATION,DATESTART from obsnotes where FORMATION = "'+nam+'" order by DATE DESC';
+  dbnotes.Query(cmd);
+  ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
+  for i:=0 to dbnotes.RowCount-1 do begin
+    id:=TNoteID.Create;
+    id.id:=dbnotes.Results[i].Format[0].AsInteger;
+    ListNotes.Objects[0,n]:=id;
+    ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
+    ListNotes.Cells[1,n]:=FormatNoteDate(dbnotes.Results[i][2]);
+    ListNotes.Cells[2,n]:='O';
+    inc(n);
   end;
 end;
 
-procedure TForm1.ExportNotesClick(Sender: TObject);
+procedure TForm1.ListNotesDblClick(Sender: TObject);
+var sel:TGridRect;
+    row:integer;
 begin
-savedialog1.DefaultExt := '.csv';
-savedialog1.Filter     := 'CSV file|*.csv';
-savedialog1.FileName   := 'notes.csv';
-if SaveDialog1.Execute then begin
-   dbnotes.SaveToCSVFile(SaveDialog1.FileName);
-end;
+  sel:=ListNotes.Selection;
+  row:=sel.top;
+  OpenNoteLun(TNoteID(ListNotes.Objects[0,row]).id,notes_name.Caption,'');
 
 end;
 
@@ -3791,9 +3782,11 @@ begin
   StartWeblun:=false;
   StartCDC:=false;
   StartCalclun:=false;
+  StartNotelun:=false;
   CanCloseDatlun:=true;
   CanCloseWeblun:=true;
   CanClosePhotlun:=true;
+  CanCloseNoteLun:=true;
   CanCloseCDC:=true;
   dbedited  := False;
   perfdeltay := 0.00001;
@@ -3833,6 +3826,7 @@ begin
      Halt;
   end;
   dbm:=TLiteDB.Create(self);
+  dbnotes:=TLiteDB.Create(self);
   tz := TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');
   notexture:=false;
@@ -3897,7 +3891,6 @@ begin
   lasty     := 0;
   SkipIdent := False;
   dblox     := TMlb2.Create;
-  dbnotes   := TMlb2.Create;
   GetSkyChartInfo;
   CheckBox8.Checked := compresstexture;
   CheckBox3.Checked := antialias;
@@ -3984,6 +3977,7 @@ try
   LoadDB(dbm);
   useDBN :=DatabaseList.Count;
   LoadILCD('ILCD_2015_AVL',Slash(appdir) + 'Database', 'ILCD', dbm);
+  LoadNotelunDB(dbnotes);
   form2.DbList.Items.Assign(DatabaseList);
   application.ProcessMessages;
   ListUserDB;
@@ -3991,19 +3985,6 @@ try
   InitTelescope;
   dblox.LoadFromFile(Slash(appdir) + Slash('Database') + 'lopamidx.csv');
   dblox.GoFirst;
-  if fileexists(Slash(DBdir) + 'notes.csv') then
-    dbnotes.LoadFromFile(Slash(DBdir) + 'notes.csv')
-  else
-  begin
-    if fileexists(Slash(appdir) + Slash('Database') + 'notes.csv') then
-      dbnotes.LoadFromFile(Slash(appdir) + Slash('Database') + 'notes.csv')
-    else
-    begin
-      dbnotes.AddField('NAME');
-      dbnotes.AddField('NOTES');
-    end;
-  end;
-  dbnotes.GoFirst;
   if UseComputerTime then
     InitDate
   else
@@ -4900,6 +4881,7 @@ begin
     if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
     if CanCloseWebLun and StartWebLun then OpenWebLun('','-quit');
     if CanClosePhotLun and StartPhotlun then OpenPhotLun('','-quit');
+    if CanCloseNoteLun and StartNotelun then OpenNotelun(0,'','-quit');
     pop_scope.ScopeDisconnect(ok);
     pop_indi.ScopeDisconnect(ok);
   except
@@ -4919,10 +4901,9 @@ begin
        moon2.Free;
     end;
     dbm.free;
+    dbnotes.free;
     dblox.Clear;
     dblox.Free;
-    dbnotes.Clear;
-    dbnotes.Free;
     DatabaseList.Free;
     tz.Free;
     Fplanet.Free;
@@ -5748,7 +5729,6 @@ procedure TForm1.Copy1Click(Sender: TObject);
 begin
 case PageControl1.PageIndex of
 0:  Desc1.CopyToClipboard;
-1:  Memo1.CopyToClipboard;
 2:  StringGrid1.CopyToClipboard;
 end;
 end;
@@ -5757,7 +5737,6 @@ procedure TForm1.SelectAll1Click(Sender: TObject);
 begin
 case PageControl1.PageIndex of
 0:  Desc1.SelectAll;
-1:  Memo1.SelectAll;
 end;
 end;
 
@@ -6169,6 +6148,18 @@ begin
     chdir(appdir);
     Execnowait(photlun+' '+param);
     StartPhotlun:=true;
+end;
+
+procedure TForm1.OpenNotelun(id: integer; objname,otherparam:string);
+var param:string;
+begin
+    param:='-nx ';
+    if objname<>'' then param:=param+' -n "'+objname+'" ';
+    if id<>0 then param:=param+' -i "'+inttostr(id)+'" ';
+    param:=param+otherparam;
+    chdir(appdir);
+    Execnowait(NoteLun+' '+param);
+    StartNotelun:=true;
 end;
 
 procedure TForm1.OpenWeblun(objname,otherparam:string);
