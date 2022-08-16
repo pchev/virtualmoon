@@ -17,6 +17,7 @@ uses
 const
     mcolDay=0; mcolRa2000=1; mcolDe2000=2; mcolRa=3; mcolDe=4; mcolDist=5; mcolDiam=6; mcolPhase=7; mcolLunation=8; mcolIllum=9; mcolColong=10; mcolSubSolLat=11; mcolLibrLon=12; mcolLibrLat=13; mcolPa=14; mcolRise=15; mcolSet=16;
     dcolHour=0; dcolRa2000=1; dcolDe2000=2; dcolRa=3; dcolDe=4; dcolDist=5; dcolDiam=6; dcolColong=7; dcolSubSolLat=8; dcolLibrLon=9; dcolLibrLat=10; dcolPa=11;
+    VersionName = 'CalcLun';
 
 type
 

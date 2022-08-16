@@ -670,6 +670,7 @@ const MinToolsWidth=350;
       statusDate=3;
       statusFov=4;
       statusOther=5;
+      VersionName = 'AtLun';
 
 implementation
 
