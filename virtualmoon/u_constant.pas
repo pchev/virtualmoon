@@ -188,6 +188,7 @@ type
   end;
 
   TNoteID = class(TObject)
+    prefix: char;
     id: integer;
   end;
 

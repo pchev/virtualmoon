@@ -158,7 +158,7 @@ type
     procedure ClearList;
     procedure ClearInfoNote;
     procedure ClearObsNote;
-    procedure NotesList(formation:string='';fid:integer=0);
+    procedure NotesList(formation:string='';prefix:char=' ';fid:integer=0);
     procedure ShowInfoNote(id: integer);
     procedure ShowObsNote(id: integer);
   public
@@ -419,8 +419,10 @@ end;
 Procedure Tf_notelun.ReadParam(first:boolean=true);
 var i,id : integer;
     nam: string;
+    prefix: char;
 begin
 nam:='';
+prefix:=' ';
 id:=0;
 i:=0;
 while i <= param.count-1 do begin
@@ -431,6 +433,11 @@ while i <= param.count-1 do begin
      inc(i);
      if i <= param.count-1 then
         nam:=param[i];
+  end
+  else if param[i]='-p' then begin
+     inc(i);
+     if i <= param.count-1 then
+        prefix:=param[i].Chars[0];
   end
   else if param[i]='-i' then begin
      inc(i);
@@ -446,7 +453,7 @@ while i <= param.count-1 do begin
   inc(i);
 end;
 if (nam<>'')or(id<>0) then
-  NotesList(nam,id);
+  NotesList(nam,prefix,id);
 end;
 
 procedure Tf_notelun.BtnSearchFormationClick(Sender: TObject);
@@ -523,7 +530,7 @@ begin
     InfoDate.Text:=FormatDateTime(datetimedisplay,Finfodate);
 end;
 
-procedure Tf_notelun.NotesList(formation:string='';fid:integer=0);
+procedure Tf_notelun.NotesList(formation:string='';prefix:char=' ';fid:integer=0);
 var sortcol,cmd: string;
     i,n,k: integer;
     id:TNoteID;
@@ -540,8 +547,9 @@ begin
   ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
   for i:=0 to dbnotes.RowCount-1 do begin
     id:=TNoteID.Create;
+    id.prefix:='I';
     id.id:=dbnotes.Results[i].Format[0].AsInteger;
-    if (fid<>0)and(id.id=fid) then k:=n;
+    if (fid<>0)and(prefix='I')and(id.id=fid) then k:=n;
     ListNotes.Objects[0,n]:=id;
     ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
     ListNotes.Cells[1,n]:=FormatDate(dbnotes.Results[i][2]);
@@ -554,8 +562,9 @@ begin
   ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
   for i:=0 to dbnotes.RowCount-1 do begin
     id:=TNoteID.Create;
+    id.prefix:='O';
     id.id:=dbnotes.Results[i].Format[0].AsInteger;
-    if (fid<>0)and(id.id=fid) then k:=n;
+    if (fid<>0)and(prefix='O')and(id.id=fid) then k:=n;
     ListNotes.Objects[0,n]:=id;
     ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
     ListNotes.Cells[1,n]:=FormatDate(dbnotes.Results[i][2]);
@@ -622,10 +631,10 @@ begin
   id:=TNoteID(ListNotes.Objects[0,aRow]);
   if id<>nil then begin
     i:=id.id;
-    if ListNotes.Cells[2,aRow]='O' then begin
+    if id.prefix='O' then begin
       ShowObsNote(i);
     end
-    else if ListNotes.Cells[2,aRow]='I' then begin
+    else if id.prefix='I' then begin
       ShowInfoNote(i);
     end;
     CanSelect:=true;

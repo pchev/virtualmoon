@@ -541,7 +541,7 @@ type
     procedure returncontrol(sender:TObject);
     procedure OpenDatlun(objname,otherparam:string);
     procedure OpenPhotlun(objname,otherparam:string);
-    procedure OpenNoteLun(id: integer; objname,otherparam:string);
+    procedure OpenNoteLun(id: integer; prefix:char; objname,otherparam:string);
     procedure OpenCDC(objname,otherparam:string);
     procedure OpenWeblun(objname,otherparam:string);
     procedure OpenCalclun(objname,otherparam:string);
@@ -3149,6 +3149,7 @@ begin
   for i:=0 to dbnotes.RowCount-1 do begin
     id:=TNoteID.Create;
     id.id:=dbnotes.Results[i].Format[0].AsInteger;
+    id.prefix:='I';
     ListNotes.Objects[0,n]:=id;
     ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
     ListNotes.Cells[1,n]:=FormatNoteDate(dbnotes.Results[i][2]);
@@ -3160,6 +3161,7 @@ begin
   ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
   for i:=0 to dbnotes.RowCount-1 do begin
     id:=TNoteID.Create;
+    id.prefix:='O';
     id.id:=dbnotes.Results[i].Format[0].AsInteger;
     ListNotes.Objects[0,n]:=id;
     ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
@@ -3175,7 +3177,7 @@ var sel:TGridRect;
 begin
   sel:=ListNotes.Selection;
   row:=sel.top;
-  OpenNoteLun(TNoteID(ListNotes.Objects[0,row]).id,notes_name.Caption,'');
+  OpenNoteLun(TNoteID(ListNotes.Objects[0,row]).id,TNoteID(ListNotes.Objects[0,row]).prefix,notes_name.Caption,'');
 
 end;
 
@@ -4881,7 +4883,7 @@ begin
     if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
     if CanCloseWebLun and StartWebLun then OpenWebLun('','-quit');
     if CanClosePhotLun and StartPhotlun then OpenPhotLun('','-quit');
-    if CanCloseNoteLun and StartNotelun then OpenNotelun(0,'','-quit');
+    if CanCloseNoteLun and StartNotelun then OpenNotelun(0,' ','','-quit');
     pop_scope.ScopeDisconnect(ok);
     pop_indi.ScopeDisconnect(ok);
   except
@@ -6150,12 +6152,13 @@ begin
     StartPhotlun:=true;
 end;
 
-procedure TForm1.OpenNotelun(id: integer; objname,otherparam:string);
+procedure TForm1.OpenNotelun(id: integer; prefix:char; objname,otherparam:string);
 var param:string;
 begin
     param:='-nx ';
-    if objname<>'' then param:=param+' -n "'+objname+'" ';
+    if trim(objname)<>'' then param:=param+' -n "'+objname+'" ';
     if id<>0 then param:=param+' -i "'+inttostr(id)+'" ';
+    if trim(prefix)<>'' then param:=param+' -p "'+prefix+'" ';
     param:=param+otherparam;
     chdir(appdir);
     Execnowait(NoteLun+' '+param);
