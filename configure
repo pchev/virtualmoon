@@ -26,6 +26,7 @@ dirs="virtualmoon/component/libsql \
      weblun \
      cclun \
      calclun \
+     notelun \
      . "
 
 if [ -n "$target" ]; then

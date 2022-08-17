@@ -25,6 +25,7 @@ install -v -m 755 -s photlun/photlun  $destdir/bin/photlun
 install -v -m 755 -s weblun/weblun  $destdir/bin/weblun
 install -v -m 755 -s cclun/cclun  $destdir/bin/cclun
 install -v -m 755 -s calclun/calclun  $destdir/bin/calclun
+install -v -m 755 -s notelun/notelun  $destdir/bin/notelun
 install -v -m 644 calclun/cspice/libcspice.so  $destdir/lib/libcspice.so
 install -v -m 644 Installer/Linux/vmapro/share/applications/virtualmoon.desktop $destdir/share/applications/virtualmoon.desktop
 install -v -m 644 Installer/Linux/vmapro/share/applications/cclun.desktop $destdir/share/applications/cclun.desktop
