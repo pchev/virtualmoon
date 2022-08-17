@@ -573,7 +573,7 @@ begin
       ReadLn(f,buf);
       SplitRec2(buf,';',row);
       if (row[0]<>'NAME')or(row[1]<>'NOTES') then dbjournal(extractfilename(db.database),'Wrong header '+buf);
-      dt:=now;
+      dt:=trunc(now);
       user:=CurrentUserName;
       repeat
         ReadLn(f,buf);

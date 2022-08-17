@@ -197,10 +197,10 @@ object f_notelun: Tf_notelun
       Height = 720
       Top = 0
       Width = 819
-      ActivePage = TabSheetObservation
+      ActivePage = TabSheetInformation
       Align = alClient
       ShowTabs = False
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       object TabSheetObservation: TTabSheet
         Caption = 'TabSheetObservation'
@@ -700,21 +700,22 @@ object f_notelun: Tf_notelun
           Height = 716
           Top = 0
           Width = 809
-          HorzScrollBar.Page = 760
+          HorzScrollBar.Page = 756
           VertScrollBar.Page = 405
           Align = alClient
-          ClientHeight = 712
-          ClientWidth = 805
+          ClientHeight = 714
+          ClientWidth = 807
           TabOrder = 0
           object PanelInfoTop: TPanel
             Left = 0
             Height = 122
             Top = 0
-            Width = 805
+            Width = 807
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 118
-            ClientWidth = 801
+            Caption = 'q'
+            ClientHeight = 122
+            ClientWidth = 807
             TabOrder = 0
             object Label1: TLabel
               AnchorSideLeft.Control = InfoFormation
@@ -722,7 +723,7 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Side = asrBottom
               Left = 16
               Height = 19
-              Top = 67
+              Top = 86
               Width = 83
               BorderSpacing.Top = 24
               Caption = 'Note author :'
@@ -735,8 +736,8 @@ object f_notelun: Tf_notelun
               AnchorSideRight.Control = InfoFormation
               AnchorSideRight.Side = asrBottom
               Left = 145
-              Height = 27
-              Top = 63
+              Height = 31
+              Top = 80
               Width = 230
               Anchors = [akTop, akRight]
               TabOrder = 0
@@ -746,7 +747,7 @@ object f_notelun: Tf_notelun
               AnchorSideLeft.Control = PanelInfoTop
               AnchorSideTop.Control = PanelInfoTop
               Left = 16
-              Height = 27
+              Height = 46
               Top = 16
               Width = 359
               BorderSpacing.Left = 16
@@ -765,7 +766,7 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Control = InfoFormation
               AnchorSideTop.Side = asrCenter
               Left = 425
-              Height = 27
+              Height = 46
               Top = 16
               Width = 300
               BorderSpacing.Left = 50
@@ -786,7 +787,7 @@ object f_notelun: Tf_notelun
               AnchorSideBottom.Control = InfoFormation
               AnchorSideBottom.Side = asrBottom
               Left = 375
-              Height = 27
+              Height = 46
               Top = 16
               Width = 31
               Anchors = [akTop, akLeft, akBottom]
@@ -803,7 +804,7 @@ object f_notelun: Tf_notelun
               AnchorSideBottom.Control = InfoDate
               AnchorSideBottom.Side = asrBottom
               Left = 725
-              Height = 27
+              Height = 46
               Top = 16
               Width = 31
               Anchors = [akTop, akLeft, akBottom]
@@ -817,20 +818,20 @@ object f_notelun: Tf_notelun
             AnchorSideTop.Side = asrBottom
             Left = 0
             Height = 175
-            Top = 537
-            Width = 805
+            Top = 539
+            Width = 807
             Align = alBottom
             BorderSpacing.Top = 8
             Caption = 'Files'
             ClientHeight = 155
-            ClientWidth = 803
+            ClientWidth = 805
             Constraints.MinWidth = 100
             TabOrder = 1
             object InfoFiles: TListBox
               Left = 0
               Height = 147
               Top = 8
-              Width = 803
+              Width = 805
               Align = alClient
               BorderSpacing.Top = 8
               ItemHeight = 0
@@ -840,20 +841,20 @@ object f_notelun: Tf_notelun
           end
           object InfoNote: TGroupBox
             Left = 0
-            Height = 407
+            Height = 409
             Top = 122
-            Width = 805
+            Width = 807
             Align = alClient
             Caption = 'Note'
-            ClientHeight = 387
-            ClientWidth = 803
+            ClientHeight = 389
+            ClientWidth = 805
             Constraints.MinHeight = 100
             TabOrder = 2
             object InfoText: TMemo
               Left = 0
-              Height = 383
+              Height = 385
               Top = 4
-              Width = 803
+              Width = 805
               Align = alClient
               BorderSpacing.Top = 4
               TabOrder = 0
@@ -982,5 +983,13 @@ object f_notelun: Tf_notelun
     Identifier = 'Virtual_Moon_Atlas_NoteLun'
     OnOtherInstance = UniqueInstance1OtherInstance
     Left = 1152
+  end
+  object CalendarDialog1: TCalendarDialog
+    DialogPosition = poDesigned
+    Date = 44790
+    OKCaption = '&OK'
+    CancelCaption = 'Cancel'
+    Left = 1152
+    Top = 64
   end
 end

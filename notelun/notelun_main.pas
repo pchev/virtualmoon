@@ -10,7 +10,7 @@ uses
   {$endif}
   dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance,
   LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs;
 
 type
 
@@ -21,6 +21,7 @@ type
     BtnEdit: TSpeedButton;
     BtnDelete: TSpeedButton;
     BtnSearchFormation1: TSpeedButton;
+    CalendarDialog1: TCalendarDialog;
     ObsInstrument: TComboBox;
     ObsOptic: TComboBox;
     ObsCamera: TComboBox;
@@ -499,15 +500,15 @@ begin
   p.x:=InfoDate.Left;
   p.y:=InfoDate.Top+InfoDate.Height;
   p:=InfoDate.Parent.ClientToScreen(p);
-  f_date.Left:=p.x;
-  f_date.Top:=p.y;
   if Finfodate=0 then
-    f_date.Date:=now
+    CalendarDialog1.Date:=now
   else
-    f_date.Date:=Finfodate;
-  if f_date.ShowModal=mrOK then begin
-    Finfodate:=f_date.Date;
-    InfoDate.Text:=FormatDateTime(datetimedisplay,Finfodate);
+    CalendarDialog1.Date:=Finfodate;
+  CalendarDialog1.Left:=p.x;
+  CalendarDialog1.Top:=p.y;
+  if CalendarDialog1.Execute then begin
+    Finfodate:=trunc(CalendarDialog1.Date);
+    InfoDate.Text:=FormatDateTime(datedisplay,Finfodate);
   end;
 end;
 
@@ -518,7 +519,7 @@ begin
   if dt=0 then
     result:=''
   else
-    result:=FormatDateTime(datetimedisplay,dt);
+    result:=FormatDateTime(datedisplay,dt);
 end;
 
 procedure Tf_notelun.SetInfoDate(val:string);
@@ -527,7 +528,7 @@ begin
   if Finfodate=0 then
     InfoDate.Text:=''
   else
-    InfoDate.Text:=FormatDateTime(datetimedisplay,Finfodate);
+    InfoDate.Text:=FormatDateTime(datedisplay,Finfodate);
 end;
 
 procedure Tf_notelun.NotesList(formation:string='';prefix:char=' ';fid:integer=0);
