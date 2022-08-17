@@ -713,7 +713,6 @@ object f_notelun: Tf_notelun
             Width = 807
             Align = alTop
             BevelOuter = bvNone
-            Caption = 'q'
             ClientHeight = 122
             ClientWidth = 807
             TabOrder = 0
@@ -937,20 +936,34 @@ object f_notelun: Tf_notelun
     end
     object MenuSetup: TMenuItem
       Caption = 'Setup'
-      object MenuItemSetupPlace: TMenuItem
-        Caption = 'MenuItemSetupPlace'
+      object MenuItemSetupLocation: TMenuItem
+        Caption = 'MenuItemSetupLocation'
+        OnClick = MenuSetupObservation
       end
       object MenuItemSetupObserver: TMenuItem
+        Tag = 1
         Caption = 'MenuItemSetupObserver'
+        OnClick = MenuSetupObservation
       end
       object MenuItemSetupInstrument: TMenuItem
+        Tag = 2
         Caption = 'MenuItemSetupInstrument'
+        OnClick = MenuSetupObservation
+      end
+      object MenuItemSetupBarlow: TMenuItem
+        Tag = 3
+        Caption = 'MenuItemSetupBarlow'
+        OnClick = MenuSetupObservation
       end
       object MenuItemSetupEyepiece: TMenuItem
+        Tag = 4
         Caption = 'MenuItemSetupEyepiece'
+        OnClick = MenuSetupObservation
       end
       object MenuItemSetupCamera: TMenuItem
+        Tag = 5
         Caption = 'MenuItemSetupCamera'
+        OnClick = MenuSetupObservation
       end
       object MenuItemSetupEphemeris: TMenuItem
         Caption = 'MenuItemSetupEphemeris'

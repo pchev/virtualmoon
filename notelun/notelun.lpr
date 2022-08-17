@@ -10,7 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, printer4lazarus, notelun_main, dbutil, u_constant, u_util, cu_tz, libsql, pu_search, pu_date;
+  Forms, printer4lazarus, notelun_main, dbutil, u_constant, u_util, cu_tz, libsql, pu_search, pu_date, notelun_setup;
 
 {$R *.res}
 
@@ -21,6 +21,7 @@ begin
   Application.CreateForm(Tf_notelun, f_notelun);
   Application.CreateForm(Tf_search, f_search);
   Application.CreateForm(Tf_date, f_date);
+  Application.CreateForm(TFSetup, FSetup);
   Application.Run;
 end.
 

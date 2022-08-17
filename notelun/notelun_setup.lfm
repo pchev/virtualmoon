@@ -1,0 +1,224 @@
+object FSetup: TFSetup
+  Left = 369
+  Height = 455
+  Top = 31
+  Width = 621
+  Caption = 'FSetup'
+  ClientHeight = 455
+  ClientWidth = 621
+  Color = clWindow
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 405
+    Width = 621
+    Align = alBottom
+    ClientHeight = 50
+    ClientWidth = 621
+    TabOrder = 0
+    object BtnSave: TButton
+      AnchorSideTop.Control = BtnCancel
+      AnchorSideTop.Side = asrCenter
+      Left = 368
+      Height = 25
+      Top = 13
+      Width = 115
+      BorderSpacing.Left = 16
+      Caption = 'Save'
+      Color = clBtnFace
+      OnClick = BtnSaveClick
+      TabOrder = 0
+    end
+    object BtnAddRow: TButton
+      AnchorSideTop.Control = BtnCancel
+      Left = 192
+      Height = 25
+      Top = 13
+      Width = 115
+      BorderSpacing.Left = 16
+      Caption = 'Add row'
+      Color = clBtnFace
+      OnClick = BtnAddRowClick
+      TabOrder = 1
+    end
+    object BtnCancel: TButton
+      AnchorSideTop.Control = Panel1
+      AnchorSideTop.Side = asrCenter
+      Left = 16
+      Height = 25
+      Top = 13
+      Width = 115
+      BorderSpacing.Left = 16
+      Caption = 'Cancel'
+      Color = clBtnFace
+      OnClick = BtnCancelClick
+      TabOrder = 2
+    end
+  end
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 405
+    Top = 0
+    Width = 621
+    ActivePage = TabSheetLocation
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 1
+    object TabSheetLocation: TTabSheet
+      Caption = 'Location'
+      ClientHeight = 374
+      ClientWidth = 611
+      object StringGridLocation: TStringGrid
+        Tag = 1
+        Left = 0
+        Height = 374
+        Top = 0
+        Width = 611
+        Align = alClient
+        AutoFillColumns = True
+        FixedCols = 0
+        MouseWheelOption = mwGrid
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs, goAlwaysShowEditor, goSmoothScroll]
+        TabOrder = 0
+        OnValidateEntry = StringGridValidateEntry
+        ColWidths = (
+          121
+          121
+          121
+          121
+          125
+        )
+      end
+    end
+    object TabSheetObserver: TTabSheet
+      Caption = 'Observer'
+      ClientHeight = 374
+      ClientWidth = 611
+      object StringGridObserver: TStringGrid
+        Tag = 2
+        Left = 0
+        Height = 374
+        Top = 0
+        Width = 611
+        Align = alClient
+        AutoFillColumns = True
+        ColCount = 4
+        FixedCols = 0
+        MouseWheelOption = mwGrid
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs, goAlwaysShowEditor, goSmoothScroll]
+        TabOrder = 0
+        OnValidateEntry = StringGridValidateEntry
+        ColWidths = (
+          151
+          151
+          151
+          154
+        )
+      end
+    end
+    object TabSheetInstrument: TTabSheet
+      Caption = 'Instrument'
+      ClientHeight = 374
+      ClientWidth = 611
+      object StringGridInstrument: TStringGrid
+        Tag = 3
+        Left = 0
+        Height = 374
+        Top = 0
+        Width = 611
+        Align = alClient
+        AutoFillColumns = True
+        FixedCols = 0
+        MouseWheelOption = mwGrid
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs, goAlwaysShowEditor, goSmoothScroll]
+        TabOrder = 0
+        OnValidateEntry = StringGridValidateEntry
+        ColWidths = (
+          121
+          121
+          121
+          121
+          123
+        )
+      end
+    end
+    object TabSheetBarlow: TTabSheet
+      Caption = 'Barlow'
+      ClientHeight = 374
+      ClientWidth = 611
+      object StringGridBarlow: TStringGrid
+        Tag = 4
+        Left = 0
+        Height = 374
+        Top = 0
+        Width = 611
+        Align = alClient
+        AutoFillColumns = True
+        ColCount = 2
+        FixedCols = 0
+        MouseWheelOption = mwGrid
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs, goAlwaysShowEditor, goSmoothScroll]
+        TabOrder = 0
+        OnValidateEntry = StringGridValidateEntry
+        ColWidths = (
+          303
+          304
+        )
+      end
+    end
+    object TabSheetEyepiece: TTabSheet
+      Caption = 'Eyepiece'
+      ClientHeight = 374
+      ClientWidth = 611
+      object StringGridEyepiece: TStringGrid
+        Tag = 5
+        Left = 0
+        Height = 374
+        Top = 0
+        Width = 611
+        Align = alClient
+        AutoFillColumns = True
+        ColCount = 3
+        FixedCols = 0
+        MouseWheelOption = mwGrid
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs, goAlwaysShowEditor, goSmoothScroll]
+        TabOrder = 0
+        OnValidateEntry = StringGridValidateEntry
+        ColWidths = (
+          202
+          202
+          203
+        )
+      end
+    end
+    object TabSheetCamera: TTabSheet
+      Caption = 'Camera'
+      ClientHeight = 374
+      ClientWidth = 611
+      object StringGridCamera: TStringGrid
+        Tag = 6
+        Left = 0
+        Height = 374
+        Top = 0
+        Width = 611
+        Align = alClient
+        AutoFillColumns = True
+        ColCount = 4
+        FixedCols = 0
+        MouseWheelOption = mwGrid
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs, goAlwaysShowEditor, goSmoothScroll]
+        TabOrder = 0
+        OnValidateEntry = StringGridValidateEntry
+        ColWidths = (
+          151
+          151
+          151
+          154
+        )
+      end
+    end
+  end
+end

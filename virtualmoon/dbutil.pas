@@ -525,6 +525,7 @@ begin
   // next version will eventually look for upgrade
   if buf='' then begin
     // create new database
+
     dbjournal(extractfilename(db.database),'CREATE TABLE obsnotes');
     cmd:='create table obsnotes ( '+
          'ID INTEGER PRIMARY KEY,'+
@@ -545,6 +546,7 @@ begin
     db.Query(cmd);
     if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
     db.Query('create index ix1_formation on obsnotes(FORMATION);');
+
     dbjournal(extractfilename(db.database),'CREATE TABLE infonotes');
     cmd:='create table infonotes ( '+
          'ID INTEGER PRIMARY KEY,'+
@@ -557,6 +559,78 @@ begin
     db.Query(cmd);
     if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
     db.Query('create index ix2_formation on infonotes(FORMATION);');
+
+    dbjournal(extractfilename(db.database),'CREATE TABLE location');
+    cmd:='create table location ( '+
+         'ID INTEGER PRIMARY KEY,'+
+         'NAME TEXT,'+
+         'LONGITUDE FLOAT,'+
+         'LATITUDE FLOAT,'+
+         'ELEVATION FLOAT,'+
+         'TIMEZONE TEXT'+
+         ');';
+    db.Query(cmd);
+    if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+    db.Query('create index ix_location on location(NAME);');
+
+    dbjournal(extractfilename(db.database),'CREATE TABLE observer');
+    cmd:='create table observer ( '+
+         'ID INTEGER PRIMARY KEY,'+
+         'NAME TEXT,'+
+         'FIRSTNAME TEXT,'+
+         'PSEUDO TEXT,'+
+         'CONTACT TEXT'+
+         ');';
+    db.Query(cmd);
+    if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+    db.Query('create index ix_observer on observer(NAME);');
+
+    dbjournal(extractfilename(db.database),'CREATE TABLE instrument');
+    cmd:='create table instrument ( '+
+         'ID INTEGER PRIMARY KEY,'+
+         'NAME TEXT,'+
+         'TYPE TEXT,'+
+         'DIAMETER FLOAT,'+
+         'FOCAL FLOAT,'+
+         'FD FLOAT'+
+         ');';
+    db.Query(cmd);
+    if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+    db.Query('create index ix_instrument on instrument(NAME);');
+
+    dbjournal(extractfilename(db.database),'CREATE TABLE barlow');
+    cmd:='create table barlow ( '+
+         'ID INTEGER PRIMARY KEY,'+
+         'NAME TEXT,'+
+         'POWER FLOAT'+
+         ');';
+    db.Query(cmd);
+    if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+    db.Query('create index ix_barlow on barlow(NAME);');
+
+    dbjournal(extractfilename(db.database),'CREATE TABLE eyepiece');
+    cmd:='create table eyepiece ( '+
+         'ID INTEGER PRIMARY KEY,'+
+         'NAME TEXT,'+
+         'FOCAL FLOAT,'+
+         'FIELD FLOAT'+
+         ');';
+    db.Query(cmd);
+    if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+    db.Query('create index ix_eyepiece on eyepiece(NAME);');
+
+    dbjournal(extractfilename(db.database),'CREATE TABLE camera');
+    cmd:='create table camera ( '+
+         'ID INTEGER PRIMARY KEY,'+
+         'NAME TEXT,'+
+         'PIXELX FLOAT,'+
+         'PIXELY FLOAT,'+
+         'PIXELSIZE FLOAT'+
+         ');';
+    db.Query(cmd);
+    if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+    db.Query('create index ix_camera on camera(NAME);');
+
     dbjournal(extractfilename(db.database),'CREATE TABLE dbversion');
     cmd:='create table dbversion ( '+
         'version integer'+
@@ -565,6 +639,7 @@ begin
     cmd:='insert into dbversion values('+inttostr(DBversion)+');';
     db.Query(cmd);
     if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+
     if fileexists(Slash(DBdir) + 'notes.csv') then begin
       dbjournal(extractfilename(db.database),'IMPORT notes.csv');
       row:=TStringList.Create;
@@ -586,6 +661,7 @@ begin
       CloseFile(f);
       row.Free;
     end;
+
 end;
 
 end;

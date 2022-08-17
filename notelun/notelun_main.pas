@@ -8,7 +8,7 @@ uses
   {$ifdef mswindows}
     Windows, ShlObj,
   {$endif}
-  dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance,
+  dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup,
   LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs;
 
@@ -22,6 +22,7 @@ type
     BtnDelete: TSpeedButton;
     BtnSearchFormation1: TSpeedButton;
     CalendarDialog1: TCalendarDialog;
+    MenuItemSetupBarlow: TMenuItem;
     ObsInstrument: TComboBox;
     ObsOptic: TComboBox;
     ObsCamera: TComboBox;
@@ -33,7 +34,7 @@ type
     Label20: TLabel;
     MenuItemHelp: TMenuItem;
     MenuItemAbout: TMenuItem;
-    MenuItemSetupPlace: TMenuItem;
+    MenuItemSetupLocation: TMenuItem;
     MenuItemSetupLastFormation: TMenuItem;
     MenuItemSetupObserver: TMenuItem;
     MenuItemSetupInstrument: TMenuItem;
@@ -144,6 +145,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
+    procedure MenuSetupObservation(Sender: TObject);
     procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
 
   private
@@ -236,7 +238,12 @@ end;
 
 procedure Tf_notelun.SetLang;
 begin
-
+  MenuItemSetupLocation.Caption:='Location';
+  MenuItemSetupObserver.Caption:='Observer';
+  MenuItemSetupInstrument.Caption:='Instrument';
+  MenuItemSetupBarlow.Caption:='Barlow';
+  MenuItemSetupEyepiece.Caption:='Eyepiece';
+  MenuItemSetupCamera.Caption:='Camera';
 end;
 
 procedure Tf_notelun.GetAppDir;
@@ -643,6 +650,12 @@ begin
   else begin
     CanSelect:=false;
   end;
+end;
+
+procedure Tf_notelun.MenuSetupObservation(Sender: TObject);
+begin
+  FSetup.PageControl1.ActivePageIndex:=TMenuItem(Sender).tag;
+  FSetup.ShowModal;
 end;
 
 procedure Tf_notelun.ShowInfoNote(id: integer);
