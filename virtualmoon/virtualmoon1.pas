@@ -3138,7 +3138,7 @@ begin
   if dt=0 then
     result:=''
   else
-    result:=FormatDateTime(datetimedisplay,dt);
+    result:=FormatDateTime(datedisplay,dt);
 end;
 
 procedure TForm1.GetNotes(nam: string);
