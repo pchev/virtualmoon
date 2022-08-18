@@ -22,6 +22,7 @@ type
     BtnDelete: TSpeedButton;
     BtnSearchFormation1: TSpeedButton;
     CalendarDialog1: TCalendarDialog;
+    InfoFiles: TStringGrid;
     MenuItemSetupBarlow: TMenuItem;
     ObsInstrument: TComboBox;
     ObsOptic: TComboBox;
@@ -102,7 +103,6 @@ type
     InfoNote: TGroupBox;
     InfoAuthor: TEdit;
     Label1: TLabel;
-    InfoFiles: TListBox;
     MainMenu1: TMainMenu;
     InfoText: TMemo;
     MenuFile: TMenuItem;
@@ -140,11 +140,16 @@ type
     UniqueInstance1: TUniqueInstance;
     procedure BtnChangeInfoDateClick(Sender: TObject);
     procedure BtnChangeObsDateClick(Sender: TObject);
+    procedure BtnEditClick(Sender: TObject);
+    procedure BtnSaveClick(Sender: TObject);
     procedure BtnSearchFormationClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure InfoFilesValidateEntry(sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
+    procedure InfoNoteChange(Sender: TObject);
     procedure ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
+    procedure MenuItemNewInfoClick(Sender: TObject);
     procedure MenuSetupObservation(Sender: TObject);
     procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
 
@@ -153,6 +158,8 @@ type
     Finfodate,Fobsdate: double;
     param : Tstringlist;
     StartVMA,CanCloseVMA: boolean;
+    EditingObservation,EditingInformation,ModifiedObservation,ModifiedInformation,NewInformation,NewObservation: boolean;
+    CurrentInfoId, CurrentObsId: integer;
     procedure SetLang;
     procedure GetAppDir;
     Procedure ReadParam(first:boolean=true);
@@ -164,6 +171,13 @@ type
     procedure NotesList(formation:string='';prefix:char=' ';fid:integer=0);
     procedure ShowInfoNote(id: integer);
     procedure ShowObsNote(id: integer);
+    procedure SetEditObservation(onoff: boolean);
+    procedure SetEditInformation(onoff: boolean);
+    procedure SaveInformationNote;
+    procedure SaveObservationNote;
+    procedure NewInformationNote(formation:string='');
+    procedure DeleteInformation(id: integer);
+
   public
 
   end;
@@ -426,7 +440,7 @@ end;
 
 Procedure Tf_notelun.ReadParam(first:boolean=true);
 var i,id : integer;
-    nam: string;
+    nam,txt: string;
     prefix: char;
 begin
 nam:='';
@@ -437,20 +451,36 @@ while i <= param.count-1 do begin
   if (param[i]='-nx')and first then begin       // when started by vma do not close vma on exit!
      CanCloseVMA:=false;
   end
-  else if param[i]='-n' then begin
+  else if param[i]='-n' then begin   // set formation name to search
      inc(i);
      if i <= param.count-1 then
         nam:=param[i];
   end
-  else if param[i]='-p' then begin
+  else if param[i]='-p' then begin   // set note type to search
      inc(i);
      if i <= param.count-1 then
         prefix:=param[i].Chars[0];
   end
-  else if param[i]='-i' then begin
+  else if param[i]='-i' then begin   //set note id to search
      inc(i);
      if i <= param.count-1 then
         id:=StrToIntDef(param[i],0);
+  end
+  else if param[i]='-newi' then begin   // create new information note
+     inc(i);
+     if i <= param.count-1 then
+        txt:=param[i]
+     else
+        txt:='';
+     NewInformationNote(txt);
+  end
+  else if param[i]='-newo' then begin   // create new observation note
+     inc(i);
+     if i <= param.count-1 then
+        txt:=param[i]
+     else
+        txt:='';
+     //NewObservationNote(txt);
   end
   else if param[i]='-quit' then begin  // close current instance
      Close;
@@ -602,6 +632,7 @@ begin
   InfoAuthor.Text:='';
   InfoText.Text:='';
   InfoFiles.Clear;
+  ModifiedInformation:=false;
 end;
 
 procedure Tf_notelun.ClearObsNote;
@@ -630,6 +661,7 @@ begin
   ObsLibrLat.Caption:='';
   ObsAzimut.Caption:='';
   ObsAltitude.Caption:='';
+  ModifiedObservation:=false;
 end;
 
 procedure Tf_notelun.ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
@@ -662,16 +694,22 @@ procedure Tf_notelun.ShowInfoNote(id: integer);
 var cmd: string;
 begin
   PageControl1.ActivePageIndex:=1;
+  SetEditInformation(false);
   ClearInfoNote;
-  cmd:='select FORMATION,DATE,AUTHOR,NOTE,FILES from infonotes where ID='+inttostr(id);
+  cmd:='select ID,FORMATION,DATE,AUTHOR,NOTE,FILES from infonotes where ID='+inttostr(id);
   dbnotes.Query(cmd);
   if dbnotes.RowCount>0 then begin
-    InfoFormation.Text:=dbnotes.Results[0][0];
-    SetInfoDate(dbnotes.Results[0][1]);
-    InfoAuthor.Text:=dbnotes.Results[0][2];
-    InfoText.Text:=dbnotes.Results[0][3];
-    InfoFiles.Items.Add(dbnotes.Results[0][4]);
-  end;
+    CurrentInfoId:=dbnotes.Results[0].Format[0].AsInteger;
+    InfoFormation.Text:=dbnotes.Results[0][1];
+    SetInfoDate(dbnotes.Results[0][2]);
+    InfoAuthor.Text:=dbnotes.Results[0][3];
+    InfoText.Text:=dbnotes.Results[0][4];
+    InfoFiles.RowCount:=1;
+    InfoFiles.Cells[0,0]:=dbnotes.Results[0][5];
+  end
+  else
+    CurrentInfoId:=-1;
+  ModifiedInformation:=false;
 end;
 
 procedure Tf_notelun.ShowObsNote(id: integer);
@@ -679,6 +717,132 @@ var cmd: string;
 begin
   PageControl1.ActivePageIndex:=0;
   ClearObsNote;
+end;
+
+procedure Tf_notelun.BtnEditClick(Sender: TObject);
+begin
+  case PageControl1.ActivePageIndex of
+    0 : SetEditObservation(true);
+    1 : SetEditInformation(true);
+  end;
+end;
+
+procedure Tf_notelun.BtnSaveClick(Sender: TObject);
+begin
+  case PageControl1.ActivePageIndex of
+    0 : SaveObservationNote;
+    1 : SaveInformationNote;
+  end;
+end;
+
+procedure Tf_notelun.SetEditObservation(onoff: boolean);
+begin
+  EditingObservation:=onoff;
+
+end;
+
+procedure Tf_notelun.SetEditInformation(onoff: boolean);
+var b:TBorderStyle;
+begin
+
+  if (not onoff) and ModifiedInformation then begin
+    if MessageDlg('Note is modified do you want to save the modification?',mtConfirmation,mbYesNo,0)=mrYes then
+      SaveInformationNote
+    else begin
+      if NewInformation then DeleteInformation(CurrentInfoId);
+    end;
+  end;
+  EditingInformation:=onoff;
+  if EditingInformation then
+    b:=bsSingle
+  else
+    b:=bsNone;
+  InfoFormation.BorderStyle:=b;
+  BtnSearchFormation1.Visible:=EditingInformation;
+  InfoDate.BorderStyle:=b;
+  BtnChangeInfoDate.Visible:=EditingInformation;
+  InfoAuthor.BorderStyle:=b;
+  InfoAuthor.ReadOnly:=not EditingInformation;
+  InfoText.BorderStyle:=b;
+  InfoText.ReadOnly:=not EditingInformation;
+  InfoFiles.BorderStyle:=b;
+  if (EditingInformation)and(not (goEditing in InfoFiles.Options)) then
+    InfoFiles.Options:=InfoFiles.Options+[goEditing];
+  if (not EditingInformation)and(goEditing in InfoFiles.Options) then
+     InfoFiles.Options:=InfoFiles.Options-[goEditing];
+end;
+
+procedure Tf_notelun.InfoNoteChange(Sender: TObject);
+begin
+ ModifiedInformation:=true;
+end;
+
+procedure Tf_notelun.InfoFilesValidateEntry(sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
+begin
+ if OldValue<>NewValue then InfoNoteChange(sender);
+end;
+
+procedure Tf_notelun.SaveInformationNote;
+var cmd: string;
+    id: integer;
+begin
+ if CurrentInfoId>0 then begin
+   id:=CurrentInfoId;
+   cmd:='replace into infonotes (ID,FORMATION,DATE,AUTHOR,NOTE,FILES) values ('+
+        IntToStr(CurrentInfoId)+',"'+
+        SafeSqlText(InfoFormation.Text)+'",'+
+        FormatFloat(f5,Finfodate)+',"'+
+        SafeSqlText(InfoAuthor.Text)+'","'+
+        SafeSqlText(InfoText.Text)+'","'+
+        SafeSqlText(InfoFiles.Cells[0,0])+'")';
+   dbnotes.Query(cmd);
+   if dbnotes.LastError=0 then begin
+     ModifiedInformation:=false;
+     if NewInformation then
+       NotesList(InfoFormation.Text,'I');
+     ShowInfoNote(id);
+     NewInformation:=false;
+   end
+   else
+     ShowMessage('Error: '+dbnotes.ErrorMessage)
+ end;
+end;
+
+procedure Tf_notelun.MenuItemNewInfoClick(Sender: TObject);
+begin
+  NewInformationNote;
+end;
+
+procedure Tf_notelun.NewInformationNote(formation:string='');
+var cmd: string;
+begin
+  SetEditInformation(false);
+  cmd:='insert into infonotes (ID,FORMATION,DATE,AUTHOR,NOTE,FILES) values ('+'null,"'+
+       SafeSqlText(formation)+'",'+FormatFloat(f5,trunc(now))+',"","","")';
+  dbnotes.Query(cmd);
+ if dbnotes.LastError=0 then begin
+   NewInformation:=true;
+   CurrentInfoId:=dbnotes.LastInsertID;
+   ModifiedInformation:=false;
+   ShowInfoNote(CurrentInfoId);
+   SetEditInformation(true);
+   ModifiedInformation:=true;
+ end
+ else
+   ShowMessage('Error: '+dbnotes.ErrorMessage)
+end;
+
+procedure Tf_notelun.DeleteInformation(id: integer);
+var cmd: string;
+begin
+  NewInformation:=false;
+  cmd:='delete from infonotes where ID='+inttostr(id);
+  dbnotes.Query(cmd);
+end;
+
+procedure Tf_notelun.SaveObservationNote;
+begin
+
 end;
 
 end.

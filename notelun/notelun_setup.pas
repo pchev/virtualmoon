@@ -42,7 +42,6 @@ type
     procedure ClearGrid(grid:TStringGrid);
     Procedure ClearData;
     Procedure LoadData;
-    function SafeSqlText(txt: string):string;
     function SaveGrid(grid: TStringGrid; table,cmdprefix: string ):boolean;
     function SaveData:boolean;
   public
@@ -299,11 +298,6 @@ begin
     StringGridCamera.Cells[2,i+1]:=dbnotes.Results[i][3];
     StringGridCamera.Cells[3,i+1]:=dbnotes.Results[i][4];
   end;
-end;
-
-function TFSetup.SafeSqlText(txt: string):string;
-begin
-  result:=StringReplace(txt,'"','""',[rfReplaceAll]);
 end;
 
 function TFSetup.SaveGrid(grid: TStringGrid; table,cmdprefix: string ):boolean;

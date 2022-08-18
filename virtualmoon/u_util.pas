@@ -140,7 +140,7 @@ function PolygonArea(N:integer;Points:Array of TDoublePoint): double;
 function PolygonCentroid(N:integer;Points:Array of TDoublePoint;area:double): TDoublePoint;
 function InsidePolygon(N:integer;Points:Array of TDoublePoint;p:TDoublePoint): boolean;
 function CurrentUserName:String;
-
+function SafeSqlText(txt: string):string;
 
 var traceon : boolean;
     hp: string;
@@ -2150,6 +2150,11 @@ begin
 {$else}
   result:=GetEnvironmentVariable('USER');
 {$endif}
+end;
+
+function SafeSqlText(txt: string):string;
+begin
+  result:=StringReplace(trim(txt),'"','""',[rfReplaceAll]);
 end;
 
 end.

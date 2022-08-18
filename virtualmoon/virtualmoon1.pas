@@ -49,6 +49,8 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    BtnNewInfo: TSpeedButton;
+    BtnNewObs: TSpeedButton;
     ButtonMeasureDistance: TSpeedButton;
     Button12: TSpeedButton;
     Button13: TSpeedButton;
@@ -367,6 +369,8 @@ type
     ImageListDay: TImageList;
     ToolButton12: TToolButton;
     procedure AnchorClick(Sender: TObject);
+    procedure BtnNewInfoClick(Sender: TObject);
+    procedure BtnNewObsClick(Sender: TObject);
     procedure Button21Click(Sender: TObject);
     procedure DemProfileClick(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
@@ -542,6 +546,8 @@ type
     procedure OpenDatlun(objname,otherparam:string);
     procedure OpenPhotlun(objname,otherparam:string);
     procedure OpenNoteLun(id: integer; prefix:char; objname,otherparam:string);
+    procedure NewNoteLunInfo(objname:string);
+    procedure NewNoteLunObs(objname:string);
     procedure OpenCDC(objname,otherparam:string);
     procedure OpenWeblun(objname,otherparam:string);
     procedure OpenCalclun(objname,otherparam:string);
@@ -3178,7 +3184,16 @@ begin
   sel:=ListNotes.Selection;
   row:=sel.top;
   OpenNoteLun(TNoteID(ListNotes.Objects[0,row]).id,TNoteID(ListNotes.Objects[0,row]).prefix,notes_name.Caption,'');
+end;
 
+procedure TForm1.BtnNewInfoClick(Sender: TObject);
+begin
+  NewNoteLunInfo(notes_name.Caption);
+end;
+
+procedure TForm1.BtnNewObsClick(Sender: TObject);
+begin
+  NewNoteLunObs(notes_name.Caption);
 end;
 
 function TForm1.ImgExists(nom: string): boolean;
@@ -6160,6 +6175,28 @@ begin
     if id<>0 then param:=param+' -i "'+inttostr(id)+'" ';
     if trim(prefix)<>'' then param:=param+' -p "'+prefix+'" ';
     param:=param+otherparam;
+    chdir(appdir);
+    Execnowait(NoteLun+' '+param);
+    StartNotelun:=true;
+end;
+
+procedure TForm1.NewNoteLunInfo(objname:string);
+var param:string;
+begin
+    if trim(objname)='' then exit;
+    param:='-nx ';
+    param:=param+' -newi '+objname;
+    chdir(appdir);
+    Execnowait(NoteLun+' '+param);
+    StartNotelun:=true;
+end;
+
+procedure TForm1.NewNoteLunObs(objname:string);
+var param:string;
+begin
+    if trim(objname)='' then exit;
+    param:='-nx ';
+    param:=param+' -newo '+objname;
     chdir(appdir);
     Execnowait(NoteLun+' '+param);
     StartNotelun:=true;

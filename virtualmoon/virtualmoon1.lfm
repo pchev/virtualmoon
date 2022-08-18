@@ -787,11 +787,11 @@ object Form1: TForm1
         ParentFont = False
         object Panel7: TPanel
           Left = 0
-          Height = 58
+          Height = 74
           Top = 0
           Width = 344
           Align = alTop
-          ClientHeight = 58
+          ClientHeight = 74
           ClientWidth = 344
           Font.Height = 13
           ParentFont = False
@@ -808,11 +808,35 @@ object Form1: TForm1
             ParentFont = False
             Transparent = False
           end
+          object BtnNewInfo: TSpeedButton
+            Left = 8
+            Height = 25
+            Top = 40
+            Width = 160
+            Caption = 'New information note'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = BtnNewInfoClick
+            ParentFont = False
+          end
+          object BtnNewObs: TSpeedButton
+            Left = 176
+            Height = 25
+            Top = 40
+            Width = 160
+            Caption = 'New observation note'
+            Flat = True
+            Font.Height = 13
+            Transparent = False
+            OnClick = BtnNewObsClick
+            ParentFont = False
+          end
         end
         object ListNotes: TStringGrid
           Left = 0
-          Height = 459
-          Top = 58
+          Height = 443
+          Top = 74
           Width = 344
           Align = alClient
           AutoFillColumns = True
@@ -822,7 +846,7 @@ object Form1: TForm1
               MinSize = 200
               MaxSize = 600
               Title.Caption = 'Formation'
-              Width = 187
+              Width = 172
             end          
             item
               MinSize = 100
@@ -845,7 +869,7 @@ object Form1: TForm1
           TabOrder = 0
           OnDblClick = ListNotesDblClick
           ColWidths = (
-            187
+            172
             100
             50
           )

@@ -3,13 +3,14 @@ object FSetup: TFSetup
   Height = 455
   Top = 31
   Width = 621
-  Caption = 'FSetup'
+  Caption = 'Setup'
   ClientHeight = 455
   ClientWidth = 621
   Color = clWindow
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
+  LCLVersion = '2.2.2.0'
   object Panel1: TPanel
     Left = 0
     Height = 50
@@ -69,7 +70,7 @@ object FSetup: TFSetup
     TabOrder = 1
     object TabSheetLocation: TTabSheet
       Caption = 'Location'
-      ClientHeight = 374
+      ClientHeight = 371
       ClientWidth = 611
       object StringGridLocation: TStringGrid
         Tag = 1
@@ -85,17 +86,17 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          121
-          121
-          121
-          121
-          125
+          122
+          122
+          122
+          122
+          123
         )
       end
     end
     object TabSheetObserver: TTabSheet
       Caption = 'Observer'
-      ClientHeight = 374
+      ClientHeight = 371
       ClientWidth = 611
       object StringGridObserver: TStringGrid
         Tag = 2
@@ -112,16 +113,16 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          151
-          151
-          151
-          154
+          152
+          152
+          152
+          155
         )
       end
     end
     object TabSheetInstrument: TTabSheet
       Caption = 'Instrument'
-      ClientHeight = 374
+      ClientHeight = 371
       ClientWidth = 611
       object StringGridInstrument: TStringGrid
         Tag = 3
@@ -137,17 +138,17 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          121
-          121
-          121
-          121
+          122
+          122
+          122
+          122
           123
         )
       end
     end
     object TabSheetBarlow: TTabSheet
       Caption = 'Barlow'
-      ClientHeight = 374
+      ClientHeight = 371
       ClientWidth = 611
       object StringGridBarlow: TStringGrid
         Tag = 4
@@ -164,14 +165,14 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          303
-          304
+          305
+          306
         )
       end
     end
     object TabSheetEyepiece: TTabSheet
       Caption = 'Eyepiece'
-      ClientHeight = 374
+      ClientHeight = 371
       ClientWidth = 611
       object StringGridEyepiece: TStringGrid
         Tag = 5
@@ -188,15 +189,15 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          202
-          202
           203
+          203
+          205
         )
       end
     end
     object TabSheetCamera: TTabSheet
       Caption = 'Camera'
-      ClientHeight = 374
+      ClientHeight = 371
       ClientWidth = 611
       object StringGridCamera: TStringGrid
         Tag = 6
@@ -213,10 +214,10 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          151
-          151
-          151
-          154
+          152
+          152
+          152
+          155
         )
       end
     end
