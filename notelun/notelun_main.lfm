@@ -34,14 +34,10 @@ object f_notelun: Tf_notelun
       ClientWidth = 374
       TabOrder = 0
       object BtnListAll: TSpeedButton
-        AnchorSideLeft.Control = PanelTopRight
-        AnchorSideTop.Control = PanelTopRight
-        AnchorSideTop.Side = asrCenter
         Left = 17
         Height = 22
         Top = 7
         Width = 55
-        BorderSpacing.Left = 16
         Caption = 'All'
         Flat = True
         Transparent = False
@@ -80,9 +76,11 @@ object f_notelun: Tf_notelun
         Height = 22
         Top = 7
         Width = 115
+        AllowAllUp = True
         BorderSpacing.Left = 8
         Caption = 'Edit'
         Flat = True
+        GroupIndex = 897
         Transparent = False
         OnClick = BtnEditClick
       end
@@ -264,7 +262,7 @@ object f_notelun: Tf_notelun
               TabOrder = 0
               OnValidateEntry = ObsFilesValidateEntry
               ColWidths = (
-                783
+                801
               )
             end
           end
@@ -767,7 +765,7 @@ object f_notelun: Tf_notelun
                     Caption = 'Barlow/reducer'
                     ParentColor = False
                   end
-                  object Label10: TLabel
+                  object ObsPower: TLabel
                     AnchorSideLeft.Control = ObsEyepiece
                     AnchorSideLeft.Side = asrBottom
                     AnchorSideTop.Control = Label21
@@ -805,17 +803,6 @@ object f_notelun: Tf_notelun
                     Style = csDropDownList
                     TabOrder = 1
                   end
-                  object ObsPower: TEdit
-                    AnchorSideTop.Control = Label10
-                    AnchorSideTop.Side = asrCenter
-                    Left = 472
-                    Height = 31
-                    Top = 84
-                    Width = 80
-                    ReadOnly = True
-                    TabOrder = 2
-                    Text = 'ObsPower'
-                  end
                   object Label20: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
@@ -837,7 +824,7 @@ object f_notelun: Tf_notelun
                     ItemHeight = 0
                     OnChange = ObsCameraChange
                     Style = csDropDownList
-                    TabOrder = 3
+                    TabOrder = 2
                   end
                   object Label21: TLabel
                     AnchorSideTop.Side = asrCenter
@@ -860,7 +847,18 @@ object f_notelun: Tf_notelun
                     ItemHeight = 0
                     OnChange = ObsEyepieceChange
                     Style = csDropDownList
-                    TabOrder = 4
+                    TabOrder = 3
+                  end
+                  object ObsCameraFov: TLabel
+                    AnchorSideLeft.Side = asrBottom
+                    AnchorSideTop.Side = asrCenter
+                    Left = 377
+                    Height = 19
+                    Top = 129
+                    Width = 20
+                    BorderSpacing.Left = 16
+                    Caption = 'fov'
+                    ParentColor = False
                   end
                 end
               end
@@ -1011,7 +1009,7 @@ object f_notelun: Tf_notelun
                     Caption = 'Barlow/reducer'
                     ParentColor = False
                   end
-                  object Label32: TLabel
+                  object ObsPowerRO: TLabel
                     AnchorSideLeft.Side = asrBottom
                     AnchorSideTop.Side = asrCenter
                     Left = 377
@@ -1072,12 +1070,15 @@ object f_notelun: Tf_notelun
                     Caption = 'ObsCameraRO'
                     ParentColor = False
                   end
-                  object ObsPowerRO: TLabel
-                    Left = 457
+                  object ObsCameraFovRO: TLabel
+                    AnchorSideLeft.Side = asrBottom
+                    AnchorSideTop.Side = asrCenter
+                    Left = 377
                     Height = 19
-                    Top = 90
-                    Width = 82
-                    Caption = 'ObsPowerRO'
+                    Top = 129
+                    Width = 20
+                    BorderSpacing.Left = 16
+                    Caption = 'fov'
                     ParentColor = False
                   end
                 end

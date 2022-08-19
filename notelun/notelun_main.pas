@@ -33,15 +33,16 @@ type
     Label29: TLabel;
     Label30: TLabel;
     Label31: TLabel;
-    Label32: TLabel;
+    ObsCameraFov: TLabel;
+    ObsPowerRO: TLabel;
     Label33: TLabel;
     Label34: TLabel;
-    ObsPowerRO: TLabel;
     ObsCameraRO: TLabel;
     ObsEypieceRO: TLabel;
     ObsBarlowRO: TLabel;
     ObsInstrumentRO: TLabel;
     ObsGear1: TGroupBox;
+    ObsCameraFovRO: TLabel;
     ObsSeeingRO: TLabel;
     ObsMeteoRO: TLabel;
     ObsEndRO: TLabel;
@@ -59,7 +60,6 @@ type
     ObsCamera: TComboBox;
     ObsMeteo: TEdit;
     ObsSeeing: TEdit;
-    ObsPower: TEdit;
     ObsEnd: TEdit;
     ObsStart: TEdit;
     Label20: TLabel;
@@ -105,7 +105,7 @@ type
     ObsObserver: TComboBox;
     ObsLocation: TComboBox;
     ObsFilesBox: TGroupBox;
-    Label10: TLabel;
+    ObsPower: TLabel;
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
@@ -219,12 +219,16 @@ type
     procedure LoadObsBoxes;
     function  GetObsBoxIndex(box:TComboBox):int64;
     procedure SetObsBoxIndex(box:TComboBox; lbl:TLabel; id: int64);
+    procedure ComputePower;
+    procedure ComputeCamera;
+    procedure ComputeEphemeris;
 
     procedure ClearInfoNote;
     procedure SetInfoDate(val:string);
     procedure ShowInfoNote(id: int64);
     procedure SetEditInformation(onoff: boolean);
     procedure SaveInformationNote;
+    procedure CancelEditInformation;
     procedure NewInformationNote(formation:string='');
     procedure DeleteInformation(id: int64);
 
@@ -233,6 +237,7 @@ type
     procedure ShowObsNote(id: int64);
     procedure SetEditObservation(onoff: boolean);
     procedure SaveObservationNote;
+    procedure CancelEditObservation;
     procedure NewObservationNote(formation:string='');
     procedure DeleteObservation(id: int64);
 
@@ -650,28 +655,76 @@ begin
   end;
 end;
 
+procedure Tf_notelun.ComputePower;
+var fi,fe,b,fve,power: double;
+begin
+  fi:=StrToFloatDef(dbnotes.QueryOne('select focal from instrument where id='+inttostr(GetObsBoxIndex(ObsInstrument))),0);
+  fe:=StrToFloatDef(dbnotes.QueryOne('select focal from eyepiece where id='+inttostr(GetObsBoxIndex(ObsEyepiece))),0);
+  fve:=StrToFloatDef(dbnotes.QueryOne('select field from eyepiece where id='+inttostr(GetObsBoxIndex(ObsEyepiece))),0);
+  b:=StrToFloatDef(dbnotes.QueryOne('select power from barlow where id='+inttostr(GetObsBoxIndex(ObsBarlow))),1);
+  if (fi>0)and(fe>0) then begin
+    power:=b*fi/fe;
+    ObsPower.Caption:='Power: '+FormatFloat(f0,power)+'x';
+    if fve>0 then ObsPower.Caption:=ObsPower.Caption+' , FOV: '+FormatFloat(f1,60*fve/power)+'''';
+  end
+  else
+    ObsPower.Caption:='';
+  ObsPowerRO.Caption:=ObsPower.Caption;
+end;
+
+procedure Tf_notelun.ComputeCamera;
+var fi,b,cx,cy,cpx,fx,fy: double;
+begin
+  fi:=StrToFloatDef(dbnotes.QueryOne('select focal from instrument where id='+inttostr(GetObsBoxIndex(ObsInstrument))),0);
+  b:=StrToFloatDef(dbnotes.QueryOne('select power from barlow where id='+inttostr(GetObsBoxIndex(ObsBarlow))),1);
+  cx:=StrToFloatDef(dbnotes.QueryOne('select pixelx from camera where id='+inttostr(GetObsBoxIndex(ObsCamera))),0);
+  cy:=StrToFloatDef(dbnotes.QueryOne('select pixely from camera where id='+inttostr(GetObsBoxIndex(ObsCamera))),0);
+  cpx:=StrToFloatDef(dbnotes.QueryOne('select pixelsize from camera where id='+inttostr(GetObsBoxIndex(ObsCamera))),0);
+  if (fi>0)and(cx>0)and(cy>0)and(cpx>0) then begin
+    cx:=cx*cpx/1000;
+    cy:=cy*cpx/1000;
+    fx:=60*rad2deg*ArcTan(cx/fi/b);
+    fy:=60*rad2deg*ArcTan(cy/fi/b);
+    ObsCameraFov.Caption:='FOV : '+FormatFloat(f1,fx)+'''x'+FormatFloat(f1,fy)+'''';
+  end
+  else
+    ObsCameraFov.Caption:='';
+  ObsCameraFovRO.Caption:=ObsCameraFov.Caption;
+end;
+
+procedure Tf_notelun.ComputeEphemeris;
+begin
+
+end;
+
 procedure Tf_notelun.ObsBarlowChange(Sender: TObject);
 begin
   LastBarlow:=GetObsBoxIndex(ObsBarlow);
   ModifiedObservation:=true;
+  ComputePower;
+  ComputeCamera;
 end;
 
 procedure Tf_notelun.ObsCameraChange(Sender: TObject);
 begin
   LastCamera:=GetObsBoxIndex(ObsCamera);
   ModifiedObservation:=true;
+  ComputeCamera;
 end;
 
 procedure Tf_notelun.ObsEyepieceChange(Sender: TObject);
 begin
   LastEyepiece:=GetObsBoxIndex(ObsEyepiece);
   ModifiedObservation:=true;
+  ComputePower;
 end;
 
 procedure Tf_notelun.ObsInstrumentChange(Sender: TObject);
 begin
   LastInstrument:=GetObsBoxIndex(ObsInstrument);
   ModifiedObservation:=true;
+  ComputePower;
+  ComputeCamera;
 end;
 
 procedure Tf_notelun.ObsLocationChange(Sender: TObject);
@@ -849,7 +902,7 @@ begin
   ObsSeeing.Text:='';
   ObsInstrument.Text:='';
   ObsBarlow.Text:='';
-  ObsPower.Text:='';
+  ObsPower.Caption:='';
   ObsCamera.Text:='';
   ObsText.Text:='';
   ObsFiles.Clear;
@@ -963,10 +1016,18 @@ end;
 
 procedure Tf_notelun.BtnEditClick(Sender: TObject);
 begin
-  case PageControl1.ActivePageIndex of
-    0 : SetEditObservation(true);
-    1 : SetEditInformation(true);
-  end;
+ if EditingObservation or EditingInformation then begin
+   case PageControl1.ActivePageIndex of
+     0 : CancelEditObservation;
+     1 : CancelEditInformation;
+   end;
+ end
+ else begin
+   case PageControl1.ActivePageIndex of
+     0 : SetEditObservation(true);
+     1 : SetEditInformation(true);
+   end;
+ end;
 end;
 
 procedure Tf_notelun.BtnListAllClick(Sender: TObject);
@@ -1005,6 +1066,7 @@ begin
     end;
   end;
   EditingInformation:=onoff;
+  BtnEdit.Down:=EditingInformation;
   if EditingInformation then
     b:=bsSingle
   else
@@ -1022,6 +1084,24 @@ begin
     InfoFiles.Options:=InfoFiles.Options+[goEditing];
   if (not EditingInformation)and(goEditing in InfoFiles.Options) then
      InfoFiles.Options:=InfoFiles.Options-[goEditing];
+end;
+
+procedure Tf_notelun.CancelEditInformation;
+begin
+  if ModifiedInformation then begin
+    if MessageDlg('Note is modified do you want to save the modification?',mtConfirmation,mbYesNo,0)=mrYes then
+      SaveInformationNote
+    else begin
+      if NewObservation then DeleteInformation(CurrentInfoId);
+    end;
+  end;
+  ModifiedInformation:=false;
+  if NewInformation then
+    NotesList(InfoFormation.Text,'I')
+  else
+    NotesList;
+  ShowInfoNote(CurrentInfoId);
+  NewInformation:=false;
 end;
 
 procedure Tf_notelun.InfoNoteChange(Sender: TObject);
@@ -1155,6 +1235,8 @@ begin
     ObsText.Text:=dbnotes.Results[0][12];
     ObsFiles.RowCount:=1;
     ObsFiles.Cells[0,0]:=dbnotes.Results[0][13];
+    ComputePower;
+    ComputeCamera;
   end
   else
     CurrentObsId:=-1;
@@ -1172,6 +1254,7 @@ begin
     end;
   end;
   EditingObservation:=onoff;
+  BtnEdit.Down:=EditingObservation;
   if EditingObservation then begin
     b:=bsSingle;
     PCobs.ActivePageIndex:=0;
@@ -1180,25 +1263,9 @@ begin
     b:=bsNone;
     PCobs.ActivePageIndex:=1;
   end;
-
   ObsFormation.BorderStyle:=b;
   BtnSearchFormation.Visible:=EditingObservation;
   ObsDate.BorderStyle:=b;
-  ObsStart.BorderStyle:=b;
-  ObsEnd.BorderStyle:=b;
-  BtnDateStart.Visible:=EditingObservation;
-  BtnDateEnd.Visible:=EditingObservation;
-  ObsLocation.ReadOnly:=not EditingObservation;
-  ObsObserver.ReadOnly:=not EditingObservation;
-  ObsMeteo.BorderStyle:=b;
-  ObsMeteo.ReadOnly:=not EditingObservation;
-  ObsSeeing.BorderStyle:=b;
-  ObsSeeing.ReadOnly:=not EditingObservation;
-  ObsInstrument.ReadOnly:=not EditingObservation;
-  ObsBarlow.ReadOnly:=not EditingObservation;
-  ObsEyepiece.ReadOnly:=not EditingObservation;
-  ObsCamera.ReadOnly:=not EditingObservation;
-  ObsPower.BorderStyle:=b;
   ObsText.BorderStyle:=b;
   ObsText.ReadOnly:=not EditingObservation;
   ObsFiles.BorderStyle:=b;
@@ -1242,6 +1309,24 @@ begin
    else
      ShowMessage('Error: '+dbnotes.ErrorMessage)
  end;
+end;
+
+procedure Tf_notelun.CancelEditObservation;
+begin
+  if ModifiedObservation then begin
+    if MessageDlg('Note is modified do you want to save the modification?',mtConfirmation,mbYesNo,0)=mrYes then
+      SaveObservationNote
+    else begin
+      if NewObservation then DeleteObservation(CurrentObsId);
+    end;
+  end;
+  ModifiedObservation:=false;
+  if NewObservation then
+    NotesList(ObsFormation.Text,'O')
+  else
+    NotesList;
+  ShowObsNote(CurrentObsId);
+  NewObservation:=false;
 end;
 
 procedure Tf_notelun.NewObservationNote(formation:string='');
