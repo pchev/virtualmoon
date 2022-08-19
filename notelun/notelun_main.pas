@@ -20,8 +20,35 @@ type
     BtnChangeInfoDate: TSpeedButton;
     BtnEdit: TSpeedButton;
     BtnDelete: TSpeedButton;
+    BtnListAll: TSpeedButton;
     BtnSearchFormation1: TSpeedButton;
     CalendarDialog1: TCalendarDialog;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
+    Label28: TLabel;
+    Label29: TLabel;
+    Label30: TLabel;
+    Label31: TLabel;
+    Label32: TLabel;
+    Label33: TLabel;
+    Label34: TLabel;
+    ObsPowerRO: TLabel;
+    ObsCameraRO: TLabel;
+    ObsEypieceRO: TLabel;
+    ObsBarlowRO: TLabel;
+    ObsInstrumentRO: TLabel;
+    ObsGear1: TGroupBox;
+    ObsSeeingRO: TLabel;
+    ObsMeteoRO: TLabel;
+    ObsEndRO: TLabel;
+    ObsStartRO: TLabel;
+    ObsObserverRO: TLabel;
+    ObsLocationRO: TLabel;
+    ObsCircumstance1: TGroupBox;
     ObsFiles: TStringGrid;
     ObsEyepiece: TComboBox;
     InfoFiles: TStringGrid;
@@ -63,6 +90,8 @@ type
     MenuItemPrintNote: TMenuItem;
     MenuItemPrintList: TMenuItem;
     MenuItemExport: TMenuItem;
+    PCobs: TPageControl;
+    PanelObs: TPanel;
     Quit: TMenuItem;
     ObsAltitude: TLabel;
     ObsAzimut: TLabel;
@@ -136,12 +165,15 @@ type
     BtnDateEnd: TSpeedButton;
     BtnDateStart: TSpeedButton;
     Splitter1: TSplitter;
+    PCRW: TTabSheet;
+    PCRO: TTabSheet;
     TabSheetObservation: TTabSheet;
     TabSheetInformation: TTabSheet;
     UniqueInstance1: TUniqueInstance;
     procedure BtnChangeInfoDateClick(Sender: TObject);
     procedure BtnDeleteClick(Sender: TObject);
     procedure BtnEditClick(Sender: TObject);
+    procedure BtnListAllClick(Sender: TObject);
     procedure BtnSaveClick(Sender: TObject);
     procedure BtnSearchFormationClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -158,8 +190,10 @@ type
     procedure ObsBarlowChange(Sender: TObject);
     procedure ObsCameraChange(Sender: TObject);
     procedure ObsEyepieceChange(Sender: TObject);
+    procedure ObsFilesValidateEntry(sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
     procedure ObsInstrumentChange(Sender: TObject);
     procedure ObsLocationChange(Sender: TObject);
+    procedure ObsNoteChange(Sender: TObject);
     procedure ObsObserverChange(Sender: TObject);
     procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
 
@@ -184,7 +218,7 @@ type
     procedure LoadObsBox(table: string;box:TComboBox;  name2:string='');
     procedure LoadObsBoxes;
     function  GetObsBoxIndex(box:TComboBox):int64;
-    procedure SetObsBoxIndex(box:TComboBox; id: int64);
+    procedure SetObsBoxIndex(box:TComboBox; lbl:TLabel; id: int64);
 
     procedure ClearInfoNote;
     procedure SetInfoDate(val:string);
@@ -612,37 +646,54 @@ begin
     end;
     ed.Text:=FormatDateTime(datetimedisplay,f_date.Date);
     if TSpeedButton(sender).tag=1 then ObsDate.Text:=FormatDateTime(datedisplay,Fobsdatestart);
+    ModifiedObservation:=true;
   end;
 end;
 
 procedure Tf_notelun.ObsBarlowChange(Sender: TObject);
 begin
   LastBarlow:=GetObsBoxIndex(ObsBarlow);
+  ModifiedObservation:=true;
 end;
 
 procedure Tf_notelun.ObsCameraChange(Sender: TObject);
 begin
   LastCamera:=GetObsBoxIndex(ObsCamera);
+  ModifiedObservation:=true;
 end;
 
 procedure Tf_notelun.ObsEyepieceChange(Sender: TObject);
 begin
   LastEyepiece:=GetObsBoxIndex(ObsEyepiece);
+  ModifiedObservation:=true;
 end;
 
 procedure Tf_notelun.ObsInstrumentChange(Sender: TObject);
 begin
   LastInstrument:=GetObsBoxIndex(ObsInstrument);
+  ModifiedObservation:=true;
 end;
 
 procedure Tf_notelun.ObsLocationChange(Sender: TObject);
 begin
   LastLocation:=GetObsBoxIndex(ObsLocation);
+  ModifiedObservation:=true;
 end;
 
 procedure Tf_notelun.ObsObserverChange(Sender: TObject);
 begin
   LastObserver:=GetObsBoxIndex(ObsObserver);
+  ModifiedObservation:=true;
+end;
+
+procedure Tf_notelun.ObsNoteChange(Sender: TObject);
+begin
+  ModifiedObservation:=true;
+end;
+
+procedure Tf_notelun.ObsFilesValidateEntry(sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
+begin
+  if OldValue<>NewValue then ObsNoteChange(sender);
 end;
 
 procedure Tf_notelun.BtnChangeInfoDateClick(Sender: TObject);
@@ -689,16 +740,20 @@ begin
   if Fobsdatestart=0 then begin
     ObsDate.Text:='';
     ObsStart.Text:='';
+    ObsStartRO.Caption:='';
   end
   else begin
     ObsDate.Text:=FormatDateTime(datedisplay,Fobsdatestart);
     ObsStart.Text:=FormatDateTime(datetimedisplay,Fobsdatestart);
+    ObsStartRO.Caption:=ObsStart.Text;
   end;
   if Fobsdateend=0 then begin
     ObsEnd.Text:='';
+    ObsEndRO.Caption:='';
   end
   else begin
     ObsEnd.Text:=FormatDateTime(datetimedisplay,Fobsdateend);
+    ObsEndRO.Caption:=ObsEnd.Text;
   end;
 end;
 
@@ -880,7 +935,7 @@ begin
   LoadObsBox('observer',ObsObserver,'firstname');
   LoadObsBox('instrument',ObsInstrument);
   LoadObsBox('barlow',ObsBarlow);
-  LoadObsBox('eyepiece',ObsEyepiece,'focal');
+  LoadObsBox('eyepiece',ObsEyepiece);
   LoadObsBox('camera',ObsCamera);
 end;
 
@@ -912,6 +967,12 @@ begin
     0 : SetEditObservation(true);
     1 : SetEditInformation(true);
   end;
+end;
+
+procedure Tf_notelun.BtnListAllClick(Sender: TObject);
+begin
+  CurrentFormation:='';
+  NotesList;
 end;
 
 procedure Tf_notelun.BtnSaveClick(Sender: TObject);
@@ -1050,7 +1111,7 @@ begin
     result:=TNoteID(box.items.Objects[i]).id;
 end;
 
-procedure Tf_notelun.SetObsBoxIndex(box:TComboBox; id: int64);
+procedure Tf_notelun.SetObsBoxIndex(box:TComboBox; lbl:TLabel; id: int64);
 var i,n: integer;
     rid: int64;
 begin
@@ -1062,6 +1123,7 @@ begin
        rid:=TNoteID(box.items.Objects[i]).id;
      if rid=id then begin
        n:=i;
+       if lbl<>nil then lbl.Caption:=box.Items[i];
        break;
      end;
   end;
@@ -1080,14 +1142,16 @@ begin
     CurrentObsId:=dbnotes.Results[0].Format[0].AsInteger;
     ObsFormation.Text:=dbnotes.Results[0][1];
     SetObsDate(dbnotes.Results[0][2],dbnotes.Results[0][3]);
-    SetObsBoxIndex(ObsLocation,dbnotes.Results[0].Format[4].AsInteger);
-    SetObsBoxIndex(ObsObserver,dbnotes.Results[0].Format[5].AsInteger);
+    SetObsBoxIndex(ObsLocation,ObsLocationRO,dbnotes.Results[0].Format[4].AsInteger);
+    SetObsBoxIndex(ObsObserver,ObsObserverRO,dbnotes.Results[0].Format[5].AsInteger);
     ObsMeteo.Text:=dbnotes.Results[0][6];
+    ObsMeteoRO.Caption:=ObsMeteo.Text;
     ObsSeeing.Text:=dbnotes.Results[0][7];
-    SetObsBoxIndex(ObsInstrument,dbnotes.Results[0].Format[8].AsInteger);
-    SetObsBoxIndex(ObsBarlow,dbnotes.Results[0].Format[9].AsInteger);
-    SetObsBoxIndex(ObsEyepiece,dbnotes.Results[0].Format[10].AsInteger);
-    SetObsBoxIndex(ObsCamera,dbnotes.Results[0].Format[11].AsInteger);
+    ObsSeeingRO.Caption:=ObsSeeing.Text;
+    SetObsBoxIndex(ObsInstrument,ObsInstrumentRO,dbnotes.Results[0].Format[8].AsInteger);
+    SetObsBoxIndex(ObsBarlow,ObsBarlowRO,dbnotes.Results[0].Format[9].AsInteger);
+    SetObsBoxIndex(ObsEyepiece,ObsEypieceRO,dbnotes.Results[0].Format[10].AsInteger);
+    SetObsBoxIndex(ObsCamera,ObsCameraRO,dbnotes.Results[0].Format[11].AsInteger);
     ObsText.Text:=dbnotes.Results[0][12];
     ObsFiles.RowCount:=1;
     ObsFiles.Cells[0,0]:=dbnotes.Results[0][13];
@@ -1108,10 +1172,15 @@ begin
     end;
   end;
   EditingObservation:=onoff;
-  if EditingObservation then
-    b:=bsSingle
-  else
+  if EditingObservation then begin
+    b:=bsSingle;
+    PCobs.ActivePageIndex:=0;
+  end
+  else begin
     b:=bsNone;
+    PCobs.ActivePageIndex:=1;
+  end;
+
   ObsFormation.BorderStyle:=b;
   BtnSearchFormation.Visible:=EditingObservation;
   ObsDate.BorderStyle:=b;
