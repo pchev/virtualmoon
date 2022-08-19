@@ -3162,7 +3162,7 @@ begin
     ListNotes.Cells[2,n]:='I';
     inc(n);
   end;
-  cmd:='select ID,FORMATION,DATESTART from obsnotes where FORMATION = "'+nam+'" order by DATE DESC';
+  cmd:='select ID,FORMATION,DATESTART from obsnotes where FORMATION = "'+nam+'" order by DATESTART DESC';
   dbnotes.Query(cmd);
   ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
   for i:=0 to dbnotes.RowCount-1 do begin

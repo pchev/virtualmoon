@@ -532,14 +532,14 @@ begin
          'FORMATION TEXT,'+
          'DATESTART FLOAT,'+
          'DATEEND FLOAT,'+
-         'PLACE TEXT,'+
-         'OBSERVER TEXT,'+
+         'LOCATION INTEGER,'+
+         'OBSERVER INTEGER,'+
          'METEO TEXT,'+
          'SEEING TEXT,'+
-         'INSTRUMENT TEXT,'+
-         'OPTICS TEXT,'+
-         'POWER TEXT,'+
-         'CAMERA TEXT,'+
+         'INSTRUMENT INTEGER,'+
+         'BARLOW INTEGER,'+
+         'EYEPIECE INTEGER,'+
+         'CAMERA INTEGER,'+
          'NOTE TEXT,'+
          'FILES TEXT'+
          ');';

@@ -10,6 +10,7 @@ object f_notelun: Tf_notelun
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
   Menu = MainMenu1
+  OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -248,7 +249,7 @@ object f_notelun: Tf_notelun
               TabOrder = 0
               OnValidateEntry = InfoFilesValidateEntry
               ColWidths = (
-                783
+                801
               )
             end
           end
@@ -504,6 +505,7 @@ object f_notelun: Tf_notelun
               Top = 4
               Width = 177
               ItemHeight = 0
+              OnChange = ObsInstrumentChange
               Style = csDropDownList
               TabOrder = 0
             end
@@ -517,6 +519,7 @@ object f_notelun: Tf_notelun
               Width = 177
               BorderSpacing.Top = 4
               ItemHeight = 0
+              OnChange = ObsBarlowChange
               Style = csDropDownList
               TabOrder = 1
             end
@@ -527,6 +530,7 @@ object f_notelun: Tf_notelun
               Height = 31
               Top = 84
               Width = 80
+              ReadOnly = True
               TabOrder = 2
               Text = 'ObsPower'
             end
@@ -550,6 +554,7 @@ object f_notelun: Tf_notelun
               Width = 177
               BorderSpacing.Top = 4
               ItemHeight = 0
+              OnChange = ObsCameraChange
               Style = csDropDownList
               TabOrder = 3
             end
@@ -573,6 +578,7 @@ object f_notelun: Tf_notelun
               Width = 177
               BorderSpacing.Top = 4
               ItemHeight = 0
+              OnChange = ObsEyepieceChange
               Style = csDropDownList
               TabOrder = 4
             end
@@ -628,7 +634,7 @@ object f_notelun: Tf_notelun
               ParentColor = False
             end
             object Label6: TLabel
-              AnchorSideLeft.Control = SpeedButton3
+              AnchorSideLeft.Control = BtnDateStart
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = ObsMeteo
               AnchorSideTop.Side = asrCenter
@@ -657,6 +663,7 @@ object f_notelun: Tf_notelun
               Top = 4
               Width = 177
               ItemHeight = 0
+              OnChange = ObsLocationChange
               Style = csDropDownList
               TabOrder = 0
             end
@@ -670,6 +677,7 @@ object f_notelun: Tf_notelun
               Width = 177
               BorderSpacing.Top = 4
               ItemHeight = 0
+              OnChange = ObsObserverChange
               Style = csDropDownList
               TabOrder = 1
             end
@@ -703,7 +711,8 @@ object f_notelun: Tf_notelun
               TabOrder = 4
               Text = 'ObsEnd'
             end
-            object SpeedButton2: TSpeedButton
+            object BtnDateEnd: TSpeedButton
+              Tag = 2
               AnchorSideLeft.Control = ObsEnd
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = ObsEnd
@@ -714,6 +723,8 @@ object f_notelun: Tf_notelun
               Top = 117
               Width = 23
               Anchors = [akTop, akLeft, akBottom]
+              Caption = '...'
+              OnClick = ChangeObsDate
             end
             object ObsStart: TEdit
               AnchorSideLeft.Control = ObsLocation
@@ -727,7 +738,8 @@ object f_notelun: Tf_notelun
               TabOrder = 5
               Text = '2022-08-23 22:34:55'
             end
-            object SpeedButton3: TSpeedButton
+            object BtnDateStart: TSpeedButton
+              Tag = 1
               AnchorSideLeft.Control = ObsStart
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = ObsStart
@@ -738,6 +750,8 @@ object f_notelun: Tf_notelun
               Top = 82
               Width = 23
               Anchors = [akTop, akLeft, akBottom]
+              Caption = '...'
+              OnClick = ChangeObsDate
             end
           end
           object PanelObsTop: TPanel
@@ -796,22 +810,6 @@ object f_notelun: Tf_notelun
               Flat = True
               Transparent = False
               OnClick = BtnSearchFormationClick
-            end
-            object BtnChangeObsDate: TSpeedButton
-              AnchorSideLeft.Control = ObsDate
-              AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = ObsDate
-              AnchorSideBottom.Control = ObsDate
-              AnchorSideBottom.Side = asrBottom
-              Left = 725
-              Height = 46
-              Top = 16
-              Width = 31
-              Anchors = [akTop, akLeft, akBottom]
-              Caption = '...'
-              Flat = True
-              Transparent = False
-              OnClick = BtnChangeObsDateClick
             end
           end
         end

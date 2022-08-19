@@ -133,19 +133,18 @@ type
     ScrollBox1: TScrollBox;
     ScrollBox2: TScrollBox;
     BtnSearchFormation: TSpeedButton;
-    BtnChangeObsDate: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
+    BtnDateEnd: TSpeedButton;
+    BtnDateStart: TSpeedButton;
     Splitter1: TSplitter;
     TabSheetObservation: TTabSheet;
     TabSheetInformation: TTabSheet;
     UniqueInstance1: TUniqueInstance;
     procedure BtnChangeInfoDateClick(Sender: TObject);
-    procedure BtnChangeObsDateClick(Sender: TObject);
     procedure BtnDeleteClick(Sender: TObject);
     procedure BtnEditClick(Sender: TObject);
     procedure BtnSaveClick(Sender: TObject);
     procedure BtnSearchFormationClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -155,40 +154,53 @@ type
     procedure MenuItemNewInfoClick(Sender: TObject);
     procedure MenuItemNewObsClick(Sender: TObject);
     procedure MenuSetupObservation(Sender: TObject);
+    procedure ChangeObsDate(Sender: TObject);
+    procedure ObsBarlowChange(Sender: TObject);
+    procedure ObsCameraChange(Sender: TObject);
+    procedure ObsEyepieceChange(Sender: TObject);
+    procedure ObsInstrumentChange(Sender: TObject);
+    procedure ObsLocationChange(Sender: TObject);
+    procedure ObsObserverChange(Sender: TObject);
     procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
 
   private
     tz: TCdCTimeZone;
-    Finfodate,Fobsdate: double;
+    Finfodate,Fobsdatestart,Fobsdateend: double;
     param : Tstringlist;
-    StartVMA,CanCloseVMA: boolean;
+    StartVMA,CanCloseVMA,locklist: boolean;
     EditingObservation,EditingInformation,ModifiedObservation,ModifiedInformation,NewInformation,NewObservation: boolean;
-    CurrentInfoId, CurrentObsId: integer;
+    CurrentInfoId, CurrentObsId: int64;
+    LastLocation,LastObserver,LastInstrument,LastBarlow,LastEyepiece,LastCamera: Int64;
     CurrentFormation: string;
     procedure SetLang;
     procedure GetAppDir;
+    procedure ReadConfig;
+    procedure WriteConfig;
     Procedure ReadParam(first:boolean=true);
     function  FormatDate(val:string):string;
-    procedure SetInfoDate(val:string);
     procedure ClearList;
-    procedure NotesList(formation:string='';prefix:char=' ';fid:integer=0);
+    procedure NotesList(formation:string='';prefix:char=' ';fid:int64=0);
     procedure ClearObsBox(box:TComboBox);
     procedure LoadObsBox(table: string;box:TComboBox;  name2:string='');
     procedure LoadObsBoxes;
+    function  GetObsBoxIndex(box:TComboBox):int64;
+    procedure SetObsBoxIndex(box:TComboBox; id: int64);
 
     procedure ClearInfoNote;
-    procedure ShowInfoNote(id: integer);
+    procedure SetInfoDate(val:string);
+    procedure ShowInfoNote(id: int64);
     procedure SetEditInformation(onoff: boolean);
     procedure SaveInformationNote;
     procedure NewInformationNote(formation:string='');
-    procedure DeleteInformation(id: integer);
+    procedure DeleteInformation(id: int64);
 
     procedure ClearObsNote;
-    procedure ShowObsNote(id: integer);
+    procedure SetObsDate(val1,val2:string);
+    procedure ShowObsNote(id: int64);
     procedure SetEditObservation(onoff: boolean);
     procedure SaveObservationNote;
     procedure NewObservationNote(formation:string='');
-    procedure DeleteObservation(id: integer);
+    procedure DeleteObservation(id: int64);
 
   public
 
@@ -215,7 +227,7 @@ begin
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%};
   StartVMA:=false;
   CanCloseVMA:=true;
-
+  locklist:=false;
   GetAppDir;
   inifile := Tmeminifile.Create(ConfigFile);
   language:= inifile.ReadString('default', 'lang_po_file', '');
@@ -227,6 +239,7 @@ begin
   tz.LoadZoneTab(ZoneDir+'zone.tab');
   dbm:=TLiteDB.Create(self);
   dbnotes:=TLiteDB.Create(self);
+  ReadConfig;
   param:=Tstringlist.Create;
   param.clear;
   if paramcount>0 then begin
@@ -234,6 +247,37 @@ begin
       param.Add(paramstr(i));
    end;
   end;
+end;
+
+procedure Tf_notelun.ReadConfig;
+var inif: TMemIniFile;
+    section: string;
+begin
+  inif := Tmeminifile.Create(ConfigFile);
+  section:='Notelun';
+  LastLocation:=inif.ReadInt64(section, 'LastLocation', 0);
+  LastObserver:=inif.ReadInt64(section, 'LastObserver', 0);
+  LastInstrument:=inif.ReadInt64(section, 'LastInstrument', 0);
+  LastBarlow:=inif.ReadInt64(section, 'LastBarlow', 0);
+  LastEyepiece:=inif.ReadInt64(section, 'LastEyepiece', 0);
+  LastCamera:=inif.ReadInt64(section, 'LastCamera', 0);
+  inif.Free;
+end;
+
+procedure Tf_notelun.WriteConfig;
+var inif: TMemIniFile;
+    section: string;
+begin
+  inif := Tmeminifile.Create(ConfigFile);
+  section:='Notelun';
+  inif.WriteInt64(section, 'LastLocation', LastLocation);
+  inif.WriteInt64(section, 'LastObserver', LastObserver);
+  inif.WriteInt64(section, 'LastInstrument', LastInstrument);
+  inif.WriteInt64(section, 'LastBarlow', LastBarlow);
+  inif.WriteInt64(section, 'LastEyepiece', LastEyepiece);
+  inif.WriteInt64(section, 'LastCamera', LastCamera);
+  inif.UpdateFile;
+  inif.Free;
 end;
 
 procedure Tf_notelun.FormDestroy(Sender: TObject);
@@ -268,6 +312,11 @@ begin
   LoadObsBoxes;
   ReadParam;
   if CurrentFormation='' then NotesList;
+end;
+
+procedure Tf_notelun.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  WriteConfig;
 end;
 
 procedure Tf_notelun.SetLang;
@@ -459,7 +508,8 @@ begin
 end;
 
 Procedure Tf_notelun.ReadParam(first:boolean=true);
-var i,id : integer;
+var i : integer;
+    id: int64;
     nam,txt: string;
     prefix: char;
 begin
@@ -537,22 +587,62 @@ begin
   end;
 end;
 
-procedure Tf_notelun.BtnChangeObsDateClick(Sender: TObject);
+procedure Tf_notelun.ChangeObsDate(Sender: TObject);
 var p: tpoint;
+    ed:tedit;
+    val: double;
 begin
-  p.x:=ObsDate.Left;
-  p.y:=ObsDate.Top+ObsDate.Height;
-  p:=ObsDate.Parent.ClientToScreen(p);
+  case TSpeedButton(sender).tag of
+    1: begin ed:=ObsStart; val:=Fobsdatestart;end;
+    2: begin ed:=ObsEnd; val:=Fobsdateend;end;
+  end;
+  p.x:=ed.Left;
+  p.y:=ed.Top+ed.Height;
+  p:=ed.Parent.ClientToScreen(p);
   f_date.Left:=p.x;
   f_date.Top:=p.y;
-  if Fobsdate=0 then
+  if val=0 then
     f_date.Date:=now
   else
-    f_date.Date:=Fobsdate;
+    f_date.Date:=val;
   if f_date.ShowModal=mrOK then begin
-    Fobsdate:=f_date.Date;
-    ObsDate.Text:=FormatDateTime(datetimedisplay,Fobsdate);
+    case TSpeedButton(sender).tag of
+      1: Fobsdatestart:=f_date.Date;
+      2: Fobsdateend:=f_date.Date;
+    end;
+    ed.Text:=FormatDateTime(datetimedisplay,f_date.Date);
+    if TSpeedButton(sender).tag=1 then ObsDate.Text:=FormatDateTime(datedisplay,Fobsdatestart);
   end;
+end;
+
+procedure Tf_notelun.ObsBarlowChange(Sender: TObject);
+begin
+  LastBarlow:=GetObsBoxIndex(ObsBarlow);
+end;
+
+procedure Tf_notelun.ObsCameraChange(Sender: TObject);
+begin
+  LastCamera:=GetObsBoxIndex(ObsCamera);
+end;
+
+procedure Tf_notelun.ObsEyepieceChange(Sender: TObject);
+begin
+  LastEyepiece:=GetObsBoxIndex(ObsEyepiece);
+end;
+
+procedure Tf_notelun.ObsInstrumentChange(Sender: TObject);
+begin
+  LastInstrument:=GetObsBoxIndex(ObsInstrument);
+end;
+
+procedure Tf_notelun.ObsLocationChange(Sender: TObject);
+begin
+  LastLocation:=GetObsBoxIndex(ObsLocation);
+end;
+
+procedure Tf_notelun.ObsObserverChange(Sender: TObject);
+begin
+  LastObserver:=GetObsBoxIndex(ObsObserver);
 end;
 
 procedure Tf_notelun.BtnChangeInfoDateClick(Sender: TObject);
@@ -592,12 +682,34 @@ begin
     InfoDate.Text:=FormatDateTime(datedisplay,Finfodate);
 end;
 
-procedure Tf_notelun.NotesList(formation:string='';prefix:char=' ';fid:integer=0);
+procedure Tf_notelun.SetObsDate(val1,val2:string);
+begin
+  Fobsdatestart:=StrToFloatDef(val1,0);
+  Fobsdateend:=StrToFloatDef(val2,0);
+  if Fobsdatestart=0 then begin
+    ObsDate.Text:='';
+    ObsStart.Text:='';
+  end
+  else begin
+    ObsDate.Text:=FormatDateTime(datedisplay,Fobsdatestart);
+    ObsStart.Text:=FormatDateTime(datetimedisplay,Fobsdatestart);
+  end;
+  if Fobsdateend=0 then begin
+    ObsEnd.Text:='';
+  end
+  else begin
+    ObsEnd.Text:=FormatDateTime(datetimedisplay,Fobsdateend);
+  end;
+end;
+
+procedure Tf_notelun.NotesList(formation:string='';prefix:char=' ';fid:int64=0);
 var sortcol,cmd: string;
     i,n,k: integer;
     id:TNoteID;
     ok: boolean;
 begin
+  locklist:=true;
+  try
   if formation='' then
     formation:=CurrentFormation
   else
@@ -624,7 +736,9 @@ begin
   end;
   cmd:='select ID,FORMATION,DATESTART from obsnotes';
   if formation<>'' then cmd:=cmd+' where FORMATION="'+formation+'"';
+  cmd:=cmd+' order by '+sortcol;
   dbnotes.Query(cmd);
+  i:=dbnotes.RowCount;
   ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
   for i:=0 to dbnotes.RowCount-1 do begin
     id:=TNoteID.Create;
@@ -637,7 +751,10 @@ begin
     ListNotes.Cells[2,n]:='O';
     inc(n);
   end;
-  ListNotesSelectCell(ListNotes,0,k,ok);
+  finally
+   locklist:=false;
+   ListNotesSelectCell(ListNotes,0,k,ok);
+  end;
 end;
 
 procedure Tf_notelun.ClearList;
@@ -665,7 +782,8 @@ end;
 
 procedure Tf_notelun.ClearObsNote;
 begin
-  Fobsdate:=0;
+  Fobsdatestart:=0;
+  Fobsdateend:=0;
   ObsFormation.Text:='';
   ObsDate.Text:='';
   ObsLocation.Text:='';
@@ -693,9 +811,10 @@ begin
 end;
 
 procedure Tf_notelun.ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
-var i: LongWord;
+var i: int64;
     id: TNoteID;
 begin
+  if locklist then exit;
   id:=TNoteID(ListNotes.Objects[0,aRow]);
   if id<>nil then begin
     i:=id.id;
@@ -734,10 +853,12 @@ end;
 
 procedure Tf_notelun.LoadObsBox(table: string;box:TComboBox; name2:string='');
 var cmd: string;
-    i: integer;
+    i,n: integer;
     id: TNoteID;
 begin
   ClearObsBox(box);
+  box.Items.Add('N/A');
+  n:=0;
   if name2='' then
     cmd:='select id,name from '+table+' order by name'
   else
@@ -751,7 +872,6 @@ begin
     else
       box.Items.AddObject(dbnotes.Results[i][1]+' '+dbnotes.Results[i][2],id);
   end;
-  if box.Items.Count>0 then box.ItemIndex:=0;
 end;
 
 procedure Tf_notelun.LoadObsBoxes;
@@ -764,7 +884,7 @@ begin
   LoadObsBox('camera',ObsCamera);
 end;
 
-procedure Tf_notelun.ShowInfoNote(id: integer);
+procedure Tf_notelun.ShowInfoNote(id: int64);
 var cmd: string;
 begin
   PageControl1.ActivePageIndex:=1;
@@ -816,7 +936,6 @@ end;
 procedure Tf_notelun.SetEditInformation(onoff: boolean);
 var b:TBorderStyle;
 begin
-
   if (not onoff) and ModifiedInformation then begin
     if MessageDlg('Note is modified do you want to save the modification?',mtConfirmation,mbYesNo,0)=mrYes then
       SaveInformationNote
@@ -856,12 +975,12 @@ end;
 
 procedure Tf_notelun.SaveInformationNote;
 var cmd: string;
-    id: integer;
+    id: int64;
 begin
  if CurrentInfoId>0 then begin
    id:=CurrentInfoId;
    cmd:='replace into infonotes (ID,FORMATION,DATE,AUTHOR,NOTE,FILES) values ('+
-        IntToStr(CurrentInfoId)+',"'+
+        IntToStr(id)+',"'+
         SafeSqlText(InfoFormation.Text)+'",'+
         FormatFloat(f5,Finfodate)+',"'+
         SafeSqlText(InfoAuthor.Text)+'","'+
@@ -871,7 +990,9 @@ begin
    if dbnotes.LastError=0 then begin
      ModifiedInformation:=false;
      if NewInformation then
-       NotesList(InfoFormation.Text,'I');
+       NotesList(InfoFormation.Text,'I')
+     else
+       NotesList;
      ShowInfoNote(id);
      NewInformation:=false;
    end
@@ -887,7 +1008,7 @@ end;
 
 procedure Tf_notelun.MenuItemNewObsClick(Sender: TObject);
 begin
-  PageControl1.ActivePageIndex:=0;
+  NewObservationNote;
 end;
 
 procedure Tf_notelun.NewInformationNote(formation:string='');
@@ -909,7 +1030,7 @@ begin
    ShowMessage('Error: '+dbnotes.ErrorMessage)
 end;
 
-procedure Tf_notelun.DeleteInformation(id: integer);
+procedure Tf_notelun.DeleteInformation(id: int64);
 var cmd: string;
 begin
   NewInformation:=false;
@@ -919,34 +1040,171 @@ begin
   end;
 end;
 
-procedure Tf_notelun.ShowObsNote(id: integer);
+function Tf_notelun.GetObsBoxIndex(box:TComboBox):int64;
+var i: integer;
+begin
+  i:=box.ItemIndex;
+  if box.items.Objects[i]=nil then
+    result:=0
+  else
+    result:=TNoteID(box.items.Objects[i]).id;
+end;
+
+procedure Tf_notelun.SetObsBoxIndex(box:TComboBox; id: int64);
+var i,n: integer;
+    rid: int64;
+begin
+  n:=0;
+  for i:=0 to box.Items.Count-1 do begin
+     if box.items.Objects[i]=nil then
+       rid:=0
+     else
+       rid:=TNoteID(box.items.Objects[i]).id;
+     if rid=id then begin
+       n:=i;
+       break;
+     end;
+  end;
+  box.ItemIndex:=n;
+end;
+
+procedure Tf_notelun.ShowObsNote(id: int64);
 var cmd: string;
 begin
   PageControl1.ActivePageIndex:=0;
+  SetEditObservation(false);
   ClearObsNote;
+  cmd:='select ID,FORMATION,DATESTART,DATEEND,LOCATION,OBSERVER,METEO,SEEING,INSTRUMENT,BARLOW,EYEPIECE,CAMERA,NOTE,FILES from obsnotes where ID='+inttostr(id);
+  dbnotes.Query(cmd);
+  if dbnotes.RowCount>0 then begin
+    CurrentObsId:=dbnotes.Results[0].Format[0].AsInteger;
+    ObsFormation.Text:=dbnotes.Results[0][1];
+    SetObsDate(dbnotes.Results[0][2],dbnotes.Results[0][3]);
+    SetObsBoxIndex(ObsLocation,dbnotes.Results[0].Format[4].AsInteger);
+    SetObsBoxIndex(ObsObserver,dbnotes.Results[0].Format[5].AsInteger);
+    ObsMeteo.Text:=dbnotes.Results[0][6];
+    ObsSeeing.Text:=dbnotes.Results[0][7];
+    SetObsBoxIndex(ObsInstrument,dbnotes.Results[0].Format[8].AsInteger);
+    SetObsBoxIndex(ObsBarlow,dbnotes.Results[0].Format[9].AsInteger);
+    SetObsBoxIndex(ObsEyepiece,dbnotes.Results[0].Format[10].AsInteger);
+    SetObsBoxIndex(ObsCamera,dbnotes.Results[0].Format[11].AsInteger);
+    ObsText.Text:=dbnotes.Results[0][12];
+    ObsFiles.RowCount:=1;
+    ObsFiles.Cells[0,0]:=dbnotes.Results[0][13];
+  end
+  else
+    CurrentObsId:=-1;
+  ModifiedObservation:=false;
 end;
 
 procedure Tf_notelun.SetEditObservation(onoff: boolean);
+var b:TBorderStyle;
 begin
+  if (not onoff) and ModifiedObservation then begin
+    if MessageDlg('Note is modified do you want to save the modification?',mtConfirmation,mbYesNo,0)=mrYes then
+      SaveObservationNote
+    else begin
+      if NewObservation then DeleteObservation(CurrentObsId);
+    end;
+  end;
   EditingObservation:=onoff;
-
+  if EditingObservation then
+    b:=bsSingle
+  else
+    b:=bsNone;
+  ObsFormation.BorderStyle:=b;
+  BtnSearchFormation.Visible:=EditingObservation;
+  ObsDate.BorderStyle:=b;
+  ObsStart.BorderStyle:=b;
+  ObsEnd.BorderStyle:=b;
+  BtnDateStart.Visible:=EditingObservation;
+  BtnDateEnd.Visible:=EditingObservation;
+  ObsLocation.ReadOnly:=not EditingObservation;
+  ObsObserver.ReadOnly:=not EditingObservation;
+  ObsMeteo.BorderStyle:=b;
+  ObsMeteo.ReadOnly:=not EditingObservation;
+  ObsSeeing.BorderStyle:=b;
+  ObsSeeing.ReadOnly:=not EditingObservation;
+  ObsInstrument.ReadOnly:=not EditingObservation;
+  ObsBarlow.ReadOnly:=not EditingObservation;
+  ObsEyepiece.ReadOnly:=not EditingObservation;
+  ObsCamera.ReadOnly:=not EditingObservation;
+  ObsPower.BorderStyle:=b;
+  ObsText.BorderStyle:=b;
+  ObsText.ReadOnly:=not EditingObservation;
+  ObsFiles.BorderStyle:=b;
+  if (EditingObservation)and(not (goEditing in ObsFiles.Options)) then
+    ObsFiles.Options:=ObsFiles.Options+[goEditing];
+  if (not EditingObservation)and(goEditing in ObsFiles.Options) then
+     ObsFiles.Options:=ObsFiles.Options-[goEditing];
 end;
 
 procedure Tf_notelun.SaveObservationNote;
+var cmd: string;
+    id: int64;
 begin
-
+ if CurrentObsId>0 then begin
+   id:=CurrentObsId;
+   cmd:='replace into obsnotes (ID,FORMATION,DATESTART,DATEEND,LOCATION,OBSERVER,METEO,SEEING,INSTRUMENT,BARLOW,EYEPIECE,CAMERA,NOTE,FILES) values ('+
+        IntToStr(id)+',"'+
+        SafeSqlText(ObsFormation.Text)+'",'+
+        FormatFloat(f5,Fobsdatestart)+','+
+        FormatFloat(f5,Fobsdateend)+','+
+        inttostr(GetObsBoxIndex(ObsLocation))+','+
+        inttostr(GetObsBoxIndex(ObsObserver))+',"'+
+        SafeSqlText(ObsMeteo.Text)+'","'+
+        SafeSqlText(ObsSeeing.Text)+'",'+
+        inttostr(GetObsBoxIndex(ObsInstrument))+','+
+        inttostr(GetObsBoxIndex(ObsBarlow))+','+
+        inttostr(GetObsBoxIndex(ObsEyepiece))+','+
+        inttostr(GetObsBoxIndex(ObsCamera))+',"'+
+        SafeSqlText(ObsText.Text)+'","'+
+        SafeSqlText(ObsFiles.Cells[0,0])+'")';
+   dbnotes.Query(cmd);
+   if dbnotes.LastError=0 then begin
+     ModifiedObservation:=false;
+     if NewObservation then
+       NotesList(ObsFormation.Text,'O')
+     else
+       NotesList;
+     ShowObsNote(id);
+     NewObservation:=false;
+   end
+   else
+     ShowMessage('Error: '+dbnotes.ErrorMessage)
+ end;
 end;
 
 procedure Tf_notelun.NewObservationNote(formation:string='');
+var cmd: string;
 begin
+ SetEditObservation(false);
+ cmd:='insert into obsnotes (ID,FORMATION,DATESTART,DATEEND,LOCATION,OBSERVER,METEO,SEEING,INSTRUMENT,BARLOW,EYEPIECE,CAMERA,NOTE,FILES) values ('+'null,"'+
+       SafeSqlText(formation)+'",'+FormatFloat(f5,trunc(now))+','+FormatFloat(f5,trunc(now))+','+
+       IntToStr(LastLocation)+','+IntToStr(LastObserver)+',"","",'+
+       IntToStr(LastInstrument)+','+IntToStr(LastBarlow)+','+IntToStr(LastEyepiece)+','+IntToStr(LastCamera)+',"","")';
+ dbnotes.Query(cmd);
+ if dbnotes.LastError=0 then begin
+   NewObservation:=true;
+   CurrentObsId:=dbnotes.LastInsertID;
+   ModifiedObservation:=false;
+   ShowObsNote(CurrentObsId);
+   SetEditObservation(true);
+   ModifiedObservation:=true;
+ end
+ else
+   ShowMessage('Error: '+dbnotes.ErrorMessage)
+ end;
 
-end;
-
-procedure Tf_notelun.DeleteObservation(id: integer);
+procedure Tf_notelun.DeleteObservation(id: int64);
+var cmd: string;
 begin
-
+  NewObservation:=false;
+  if id>0 then begin
+    cmd:='delete from obsnotes where ID='+inttostr(id);
+    dbnotes.Query(cmd);
+  end;
 end;
-
 
 end.
 
