@@ -43,6 +43,26 @@ object f_notelun: Tf_notelun
         Transparent = False
         OnClick = BtnListAllClick
       end
+      object BtnListSelection: TSpeedButton
+        Left = 104
+        Height = 22
+        Top = 7
+        Width = 160
+        Caption = 'Select formation'
+        Flat = True
+        Transparent = False
+        OnClick = BtnListSelectionClick
+      end
+      object BtnListNew: TSpeedButton
+        Left = 296
+        Height = 22
+        Top = 7
+        Width = 55
+        Caption = 'New'
+        Flat = True
+        Transparent = False
+        OnClick = BtnListNewClick
+      end
     end
     object PanelTopRight: TPanel
       Left = 376
@@ -1407,7 +1427,7 @@ object f_notelun: Tf_notelun
     object MenuFile: TMenuItem
       Caption = 'File'
       object MenuItemNewObs: TMenuItem
-        Caption = 'MenuItemNewObs'
+        Caption = 'New observation note'
         OnClick = MenuItemNewObsClick
       end
       object MenuItemNewInfo: TMenuItem
@@ -1415,10 +1435,12 @@ object f_notelun: Tf_notelun
         OnClick = MenuItemNewInfoClick
       end
       object MenuItemEditNote: TMenuItem
-        Caption = 'MenuItemEditNote'
+        Caption = 'Edit note'
+        OnClick = BtnEditClick
       end
       object MenuItemDeleteNote: TMenuItem
-        Caption = 'MenuItemDeleteNote'
+        Caption = 'Delete note'
+        OnClick = BtnDeleteClick
       end
       object MenuItemPrintNote: TMenuItem
         Caption = 'MenuItemPrintNote'
@@ -1436,13 +1458,16 @@ object f_notelun: Tf_notelun
     object MenuManage: TMenuItem
       Caption = 'Manage'
       object MenuItemSortFormation: TMenuItem
-        Caption = 'MenuItemSortFormation'
+        Caption = 'Sort by formation'
+        OnClick = MenuItemSortFormationClick
       end
       object MenuItemSortDate: TMenuItem
-        Caption = 'MenuItemSortDate'
+        Caption = 'Sort by date'
+        OnClick = MenuItemSortDateClick
       end
       object MenuItemSortType: TMenuItem
-        Caption = 'MenuItemSortType'
+        Caption = 'Sort by type'
+        OnClick = MenuItemSortTypeClick
       end
       object MenuItemSortPlace: TMenuItem
         Caption = 'MenuItemSortPlace'
@@ -1463,32 +1488,32 @@ object f_notelun: Tf_notelun
     object MenuSetup: TMenuItem
       Caption = 'Setup'
       object MenuItemSetupLocation: TMenuItem
-        Caption = 'MenuItemSetupLocation'
+        Caption = 'Setup location'
         OnClick = MenuSetupObservation
       end
       object MenuItemSetupObserver: TMenuItem
         Tag = 1
-        Caption = 'MenuItemSetupObserver'
+        Caption = 'Setup observer'
         OnClick = MenuSetupObservation
       end
       object MenuItemSetupInstrument: TMenuItem
         Tag = 2
-        Caption = 'MenuItemSetupInstrument'
+        Caption = 'Setup instrument'
         OnClick = MenuSetupObservation
       end
       object MenuItemSetupBarlow: TMenuItem
         Tag = 3
-        Caption = 'MenuItemSetupBarlow'
+        Caption = 'Setup barlow'
         OnClick = MenuSetupObservation
       end
       object MenuItemSetupEyepiece: TMenuItem
         Tag = 4
-        Caption = 'MenuItemSetupEyepiece'
+        Caption = 'Setup eyepiece'
         OnClick = MenuSetupObservation
       end
       object MenuItemSetupCamera: TMenuItem
         Tag = 5
-        Caption = 'MenuItemSetupCamera'
+        Caption = 'Setup camera'
         OnClick = MenuSetupObservation
       end
       object MenuItemSetupEphemeris: TMenuItem

@@ -19,6 +19,8 @@ type
   Tf_notelun = class(TForm)
     BtnAddInfoFile: TSpeedButton;
     BtnDelInfoFile: TSpeedButton;
+    BtnListNew: TSpeedButton;
+    BtnListSelection: TSpeedButton;
     BtnPastObsFile: TSpeedButton;
     BtnDelObsFile: TSpeedButton;
     BtnChangeInfoDate: TSpeedButton;
@@ -188,6 +190,8 @@ type
     procedure BtnDelObsFileClick(Sender: TObject);
     procedure BtnEditClick(Sender: TObject);
     procedure BtnListAllClick(Sender: TObject);
+    procedure BtnListNewClick(Sender: TObject);
+    procedure BtnListSelectionClick(Sender: TObject);
     procedure BtnPastInfoFileClick(Sender: TObject);
     procedure BtnPastObsFileClick(Sender: TObject);
     procedure BtnSaveClick(Sender: TObject);
@@ -205,6 +209,9 @@ type
     procedure ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
     procedure MenuItemNewInfoClick(Sender: TObject);
     procedure MenuItemNewObsClick(Sender: TObject);
+    procedure MenuItemSortDateClick(Sender: TObject);
+    procedure MenuItemSortFormationClick(Sender: TObject);
+    procedure MenuItemSortTypeClick(Sender: TObject);
     procedure MenuSetupObservation(Sender: TObject);
     procedure ChangeObsDate(Sender: TObject);
     procedure ObsBarlowChange(Sender: TObject);
@@ -218,6 +225,7 @@ type
     procedure ObsNoteChange(Sender: TObject);
     procedure ObsObserverChange(Sender: TObject);
     procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
+    procedure BtnListNewSelection(sender: TObject);
 
   private
     tz: TCdCTimeZone;
@@ -245,7 +253,6 @@ type
     procedure ComputePower;
     procedure ComputeCamera;
     procedure ComputeEphemeris;
-
     procedure ClearInfoNote;
     procedure SetInfoDate(val:string);
     procedure ShowInfoNote(id: int64);
@@ -1073,6 +1080,53 @@ begin
   NotesList;
 end;
 
+procedure Tf_notelun.BtnListNewClick(Sender: TObject);
+var r: TRadioGroup;
+    f: Tform;
+    p: tpoint;
+begin
+  r:=TRadioGroup.Create(self);
+  r.Caption:='Type of note';
+  r.Items.Add('Observation');
+  r.Items.Add('Information');
+  r.ItemIndex:=-1;
+  r.Align:=alClient;
+  r.OnClick:=@BtnListNewSelection;
+  f:=Tform.Create(self);
+  f.Width:=300;
+  f.Height:=150;
+  r.Parent:=f;
+  p.x:=BtnListNew.Left;
+  p.y:=BtnListNew.Top+BtnListNew.Height;
+  p:=BtnListNew.Parent.ClientToScreen(p);
+  f.Left:=p.x;
+  f.Top:=p.y;
+  f.ShowModal;
+  if f.ModalResult=mrOK then begin
+    case r.ItemIndex of
+      0: NewObservationNote;
+      1: NewInformationNote;
+    end;
+  end;
+  r.free;
+  f.free;
+end;
+
+procedure Tf_notelun.BtnListNewSelection(sender: TObject);
+begin
+  Tform(TRadioGroup(sender).Parent).ModalResult:=mrOK;
+end;
+
+procedure Tf_notelun.BtnListSelectionClick(Sender: TObject);
+var txt:string;
+begin
+  txt:=CurrentFormation;
+  if InputQuery('Selection','Formation',txt) then begin
+    CurrentFormation:=StringReplace(txt,'*','%',[rfReplaceAll]);
+    NotesList;
+  end;
+end;
+
 procedure Tf_notelun.BtnSaveClick(Sender: TObject);
 begin
   case PageControl1.ActivePageIndex of
@@ -1083,11 +1137,13 @@ end;
 
 procedure Tf_notelun.BtnDeleteClick(Sender: TObject);
 begin
-  case PageControl1.ActivePageIndex of
-    0 : DeleteObservation(CurrentInfoId);
-    1 : DeleteInformation(CurrentInfoId);
+  if MessageDlg('Delete note?',mtConfirmation,mbYesNo,0)=mrYes then begin
+    case PageControl1.ActivePageIndex of
+      0 : DeleteObservation(CurrentInfoId);
+      1 : DeleteInformation(CurrentInfoId);
+    end;
+    NotesList;
   end;
-  NotesList;
 end;
 
 procedure Tf_notelun.SetEditInformation(onoff: boolean);
@@ -1128,7 +1184,7 @@ begin
     if MessageDlg('Note is modified do you want to save the modification?',mtConfirmation,mbYesNo,0)=mrYes then
       SaveInformationNote
     else begin
-      if NewObservation then DeleteInformation(CurrentInfoId);
+      if NewInformation then DeleteInformation(CurrentInfoId);
     end;
   end;
   ModifiedInformation:=false;
@@ -1197,6 +1253,24 @@ end;
 procedure Tf_notelun.MenuItemNewObsClick(Sender: TObject);
 begin
   NewObservationNote;
+end;
+
+procedure Tf_notelun.MenuItemSortDateClick(Sender: TObject);
+begin
+  SortCol:=1;
+  NotesList;
+end;
+
+procedure Tf_notelun.MenuItemSortFormationClick(Sender: TObject);
+begin
+  SortCol:=0;
+  NotesList;
+end;
+
+procedure Tf_notelun.MenuItemSortTypeClick(Sender: TObject);
+begin
+  SortCol:=2;
+  NotesList;
 end;
 
 procedure Tf_notelun.NewInformationNote(formation:string='');
