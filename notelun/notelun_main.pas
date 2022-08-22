@@ -10,7 +10,7 @@ uses
   {$endif}
   dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup,
   LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, Clipbrd,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs, Types;
 
 type
 
@@ -29,6 +29,7 @@ type
     BtnPastInfoFile: TSpeedButton;
     BtnSearchFormation1: TSpeedButton;
     CalendarDialog1: TCalendarDialog;
+    ImageList1: TImageList;
     Label22: TLabel;
     Label23: TLabel;
     Label24: TLabel;
@@ -199,6 +200,8 @@ type
     procedure InfoFilesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
     procedure InfoFilesValidateEntry(sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
     procedure InfoNoteChange(Sender: TObject);
+    procedure ListNotesDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
+    procedure ListNotesHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
     procedure ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
     procedure MenuItemNewInfoClick(Sender: TObject);
     procedure MenuItemNewObsClick(Sender: TObject);
@@ -220,12 +223,12 @@ type
     tz: TCdCTimeZone;
     Finfodate,Fobsdatestart,Fobsdateend: double;
     param : Tstringlist;
-    StartVMA,CanCloseVMA,locklist: boolean;
+    StartVMA,CanCloseVMA,locklist,SortAsc: boolean;
     EditingObservation,EditingInformation,ModifiedObservation,ModifiedInformation,NewInformation,NewObservation: boolean;
     CurrentInfoId, CurrentObsId: int64;
     LastLocation,LastObserver,LastInstrument,LastBarlow,LastEyepiece,LastCamera: Int64;
     CurrentFormation: string;
-    CurrentObsFile,CurrentInfoFile: integer;
+    CurrentObsFile,CurrentInfoFile,SortCol: integer;
     procedure SetLang;
     procedure GetAppDir;
     procedure ReadConfig;
@@ -291,6 +294,8 @@ begin
   StartVMA:=false;
   CanCloseVMA:=true;
   locklist:=false;
+  SortCol:=0;
+  SortAsc:=true;
   GetAppDir;
   inifile := Tmeminifile.Create(ConfigFile);
   language:= inifile.ReadString('default', 'lang_po_file', '');
@@ -835,7 +840,7 @@ begin
 end;
 
 procedure Tf_notelun.NotesList(formation:string='';prefix:char=' ';fid:int64=0);
-var sortcol,cmd: string;
+var cmd: string;
     i,n,k: integer;
     id:TNoteID;
     ok: boolean;
@@ -849,44 +854,53 @@ begin
   ClearList;
   k:=1;
   n:=1;
-  sortcol:='FORMATION';
-  cmd:='select ID,FORMATION,DATE from infonotes';
-  if formation<>'' then cmd:=cmd+' where FORMATION="'+formation+'"';
-  cmd:=cmd+' order by '+sortcol;
-  dbnotes.Query(cmd);
-  ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
-  for i:=0 to dbnotes.RowCount-1 do begin
-    id:=TNoteID.Create;
-    id.prefix:='I';
-    id.id:=dbnotes.Results[i].Format[0].AsInteger;
-    if (fid<>0)and(prefix='I')and(id.id=fid) then k:=n;
-    ListNotes.Objects[0,n]:=id;
-    ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
-    ListNotes.Cells[1,n]:=FormatDate(dbnotes.Results[i][2]);
-    ListNotes.Cells[2,n]:='I';
-    inc(n);
+  cmd:='select id,formation,date,"I" from infonotes';
+  if formation<>'' then begin
+    if pos('%',formation)=0 then
+      cmd:=cmd+' where FORMATION="'+formation+'"'
+    else
+      cmd:=cmd+' where FORMATION like "'+formation+'"';
   end;
-  cmd:='select ID,FORMATION,DATESTART from obsnotes';
-  if formation<>'' then cmd:=cmd+' where FORMATION="'+formation+'"';
-  cmd:=cmd+' order by '+sortcol;
+  cmd:=cmd+' union select id,formation,datestart,"O" from obsnotes';
+  if formation<>'' then begin
+    if pos('%',formation)=0 then
+      cmd:=cmd+' where FORMATION="'+formation+'"'
+    else
+      cmd:=cmd+' where FORMATION like "'+formation+'"';
+  end;
+  cmd:=cmd+' order by '+IntToStr(SortCol+2);
+  if SortAsc then
+    cmd:=cmd+' ASC'
+  else
+    cmd:=cmd+' DESC';
   dbnotes.Query(cmd);
-  i:=dbnotes.RowCount;
-  ListNotes.RowCount:=ListNotes.RowCount+dbnotes.RowCount;
+  ListNotes.RowCount:=dbnotes.RowCount+1;
   for i:=0 to dbnotes.RowCount-1 do begin
     id:=TNoteID.Create;
-    id.prefix:='O';
+    id.prefix:=dbnotes.Results[i][3];
     id.id:=dbnotes.Results[i].Format[0].AsInteger;
-    if (fid<>0)and(prefix='O')and(id.id=fid) then k:=n;
+    if (fid<>0)and(prefix=id.prefix)and(id.id=fid) then k:=n;
     ListNotes.Objects[0,n]:=id;
     ListNotes.Cells[0,n]:=dbnotes.Results[i][1];
     ListNotes.Cells[1,n]:=FormatDate(dbnotes.Results[i][2]);
-    ListNotes.Cells[2,n]:='O';
+    ListNotes.Cells[2,n]:=id.prefix;
     inc(n);
   end;
   finally
    locklist:=false;
    ListNotesSelectCell(ListNotes,0,k,ok);
   end;
+end;
+
+procedure Tf_notelun.ListNotesHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
+begin
+ if IsColumn then begin
+   if SortCol=Index then
+     SortAsc:=not SortAsc
+   else
+     SortCol:=index;
+   NotesList;
+ end;
 end;
 
 procedure Tf_notelun.ClearList;
@@ -1129,6 +1143,17 @@ end;
 procedure Tf_notelun.InfoNoteChange(Sender: TObject);
 begin
  ModifiedInformation:=true;
+end;
+
+procedure Tf_notelun.ListNotesDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
+begin
+  if (ARow=0)and(aCol=SortCol) then begin
+    if SortAsc then
+      Imagelist1.Draw(ListNotes.Canvas,aRect.Right-Imagelist1.width,aRect.Top,1,true)
+    else
+      Imagelist1.Draw(ListNotes.Canvas,aRect.Right-Imagelist1.width,aRect.Top,0,true);
+  end;
+
 end;
 
 procedure Tf_notelun.InfoFilesValidateEntry(sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
