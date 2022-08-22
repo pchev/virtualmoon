@@ -1,10 +1,10 @@
 object f_notelun: Tf_notelun
   Left = 369
-  Height = 889
+  Height = 925
   Top = 31
   Width = 1200
   Caption = 'NoteLun'
-  ClientHeight = 889
+  ClientHeight = 925
   ClientWidth = 1200
   Color = clWindow
   Constraints.MinHeight = 600
@@ -127,18 +127,18 @@ object f_notelun: Tf_notelun
   end
   object PanelLeft: TPanel
     Left = 0
-    Height = 809
+    Height = 845
     Top = 40
     Width = 376
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 809
+    ClientHeight = 845
     ClientWidth = 376
     TabOrder = 1
     object PanelListBottom: TPanel
       Left = 0
       Height = 40
-      Top = 769
+      Top = 805
       Width = 376
       Align = alBottom
       BevelOuter = bvNone
@@ -146,17 +146,17 @@ object f_notelun: Tf_notelun
     end
     object PanelList: TPanel
       Left = 0
-      Height = 769
+      Height = 805
       Top = 0
       Width = 376
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 769
+      ClientHeight = 805
       ClientWidth = 376
       TabOrder = 1
       object ListNotes: TStringGrid
         Left = 0
-        Height = 769
+        Height = 805
         Top = 0
         Width = 376
         Align = alClient
@@ -199,19 +199,19 @@ object f_notelun: Tf_notelun
   end
   object PanelRight: TPanel
     Left = 381
-    Height = 809
+    Height = 845
     Top = 40
     Width = 819
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 809
+    ClientHeight = 845
     ClientWidth = 819
     Color = clWindow
     ParentColor = False
     TabOrder = 2
     object PageControl1: TPageControl
       Left = 0
-      Height = 809
+      Height = 845
       Top = 0
       Width = 819
       ActivePage = TabSheetObservation
@@ -221,33 +221,33 @@ object f_notelun: Tf_notelun
       TabOrder = 0
       object TabSheetObservation: TTabSheet
         Caption = 'TabSheetObservation'
-        ClientHeight = 805
+        ClientHeight = 841
         ClientWidth = 809
         object ScrollBox1: TScrollBox
           Left = 0
-          Height = 805
+          Height = 841
           Top = 0
           Width = 809
           HorzScrollBar.Page = 757
-          VertScrollBar.Page = 795
+          VertScrollBar.Page = 825
           Align = alClient
-          ClientHeight = 803
+          ClientHeight = 839
           ClientWidth = 807
           TabOrder = 0
           object ObsFilesBox: TGroupBox
             Left = 0
-            Height = 100
-            Top = 703
+            Height = 130
+            Top = 709
             Width = 807
             Align = alBottom
             Caption = 'Files'
-            ClientHeight = 80
+            ClientHeight = 110
             ClientWidth = 805
-            Constraints.MinHeight = 100
+            Constraints.MinHeight = 130
             TabOrder = 0
             object ObsFiles: TStringGrid
               Left = 0
-              Height = 72
+              Height = 70
               Top = 8
               Width = 805
               Align = alClient
@@ -258,28 +258,82 @@ object f_notelun: Tf_notelun
               FixedRows = 0
               MouseWheelOption = mwGrid
               Options = [goFixedVertLine, goFixedHorzLine, goRangeSelect, goAlwaysShowEditor, goSmoothScroll]
-              RowCount = 3
+              RowCount = 0
               TabOrder = 0
+              OnDblClick = ObsFilesDblClick
+              OnSelectCell = ObsFilesSelectCell
               OnValidateEntry = ObsFilesValidateEntry
               ColWidths = (
                 801
               )
             end
+            object PanelObsfileEdit: TPanel
+              Left = 0
+              Height = 32
+              Top = 78
+              Width = 805
+              Align = alBottom
+              ClientHeight = 32
+              ClientWidth = 805
+              TabOrder = 1
+              object BtnAddObsFile: TSpeedButton
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = PanelObsfileEdit
+                AnchorSideTop.Side = asrCenter
+                Left = 16
+                Height = 22
+                Top = 5
+                Width = 115
+                BorderSpacing.Left = 8
+                Caption = 'Add'
+                Flat = True
+                Transparent = False
+                OnClick = BtnAddObsFileClick
+              end
+              object BtnDelObsFile: TSpeedButton
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = PanelObsfileEdit
+                AnchorSideTop.Side = asrCenter
+                Left = 320
+                Height = 22
+                Top = 5
+                Width = 115
+                BorderSpacing.Left = 8
+                Caption = 'Delete'
+                Flat = True
+                Transparent = False
+                OnClick = BtnDelObsFileClick
+              end
+              object BtnPastObsFile: TSpeedButton
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = PanelObsfileEdit
+                AnchorSideTop.Side = asrCenter
+                Left = 168
+                Height = 22
+                Top = 5
+                Width = 115
+                BorderSpacing.Left = 8
+                Caption = 'Past'
+                Flat = True
+                Transparent = False
+                OnClick = BtnPastObsFileClick
+              end
+            end
           end
           object ObsNote: TGroupBox
             Left = 0
-            Height = 112
+            Height = 118
             Top = 591
             Width = 807
             Align = alClient
             Caption = 'Note'
-            ClientHeight = 92
+            ClientHeight = 98
             ClientWidth = 805
             Constraints.MinHeight = 100
             TabOrder = 1
             object ObsText: TMemo
               Left = 0
-              Height = 88
+              Height = 94
               Top = 4
               Width = 805
               Align = alClient
@@ -1089,28 +1143,28 @@ object f_notelun: Tf_notelun
       end
       object TabSheetInformation: TTabSheet
         Caption = 'TabSheetInformation'
-        ClientHeight = 805
+        ClientHeight = 841
         ClientWidth = 809
         object ScrollBox2: TScrollBox
           Left = 0
-          Height = 805
+          Height = 841
           Top = 0
           Width = 809
-          HorzScrollBar.Page = 740
+          HorzScrollBar.Page = 736
           VertScrollBar.Page = 427
           Align = alClient
-          ClientHeight = 801
-          ClientWidth = 805
+          ClientHeight = 839
+          ClientWidth = 807
           TabOrder = 0
           object PanelInfoTop: TPanel
             Left = 0
             Height = 144
             Top = 0
-            Width = 805
+            Width = 807
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 140
-            ClientWidth = 801
+            ClientHeight = 144
+            ClientWidth = 807
             TabOrder = 0
             object Label1: TLabel
               AnchorSideLeft.Control = InfoFormation
@@ -1118,7 +1172,7 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Side = asrBottom
               Left = 16
               Height = 19
-              Top = 89
+              Top = 101
               Width = 83
               BorderSpacing.Top = 24
               Caption = 'Note author :'
@@ -1131,8 +1185,8 @@ object f_notelun: Tf_notelun
               AnchorSideRight.Control = InfoFormation
               AnchorSideRight.Side = asrBottom
               Left = 162
-              Height = 27
-              Top = 85
+              Height = 31
+              Top = 95
               Width = 278
               Anchors = [akTop, akRight]
               OnChange = InfoNoteChange
@@ -1141,7 +1195,7 @@ object f_notelun: Tf_notelun
             end
             object InfoFormation: TEdit
               Left = 16
-              Height = 27
+              Height = 39
               Top = 38
               Width = 424
               Font.Color = clRed
@@ -1159,7 +1213,7 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Control = InfoFormation
               AnchorSideTop.Side = asrCenter
               Left = 493
-              Height = 27
+              Height = 39
               Top = 38
               Width = 212
               BorderSpacing.Left = 22
@@ -1181,7 +1235,7 @@ object f_notelun: Tf_notelun
               AnchorSideBottom.Control = InfoFormation
               AnchorSideBottom.Side = asrBottom
               Left = 440
-              Height = 27
+              Height = 39
               Top = 38
               Width = 31
               Anchors = [akTop, akLeft, akBottom]
@@ -1198,7 +1252,7 @@ object f_notelun: Tf_notelun
               AnchorSideBottom.Control = InfoDate
               AnchorSideBottom.Side = asrBottom
               Left = 705
-              Height = 27
+              Height = 39
               Top = 38
               Width = 31
               Anchors = [akTop, akLeft, akBottom]
@@ -1223,20 +1277,20 @@ object f_notelun: Tf_notelun
             AnchorSideTop.Side = asrBottom
             Left = 0
             Height = 175
-            Top = 626
-            Width = 805
+            Top = 664
+            Width = 807
             Align = alBottom
             BorderSpacing.Top = 8
             Caption = 'Files'
             ClientHeight = 155
-            ClientWidth = 803
+            ClientWidth = 805
             Constraints.MinWidth = 100
             TabOrder = 1
             object InfoFiles: TStringGrid
               Left = 0
-              Height = 147
+              Height = 115
               Top = 8
-              Width = 803
+              Width = 805
               Align = alClient
               AutoFillColumns = True
               BorderSpacing.Top = 8
@@ -1245,28 +1299,82 @@ object f_notelun: Tf_notelun
               FixedRows = 0
               Options = [goFixedVertLine, goFixedHorzLine, goRangeSelect, goAlwaysShowEditor, goSmoothScroll]
               TabOrder = 0
+              OnDblClick = InfoFilesDblClick
+              OnSelectCell = InfoFilesSelectCell
               OnValidateEntry = InfoFilesValidateEntry
               ColWidths = (
-                799
+                783
               )
+            end
+            object PanelInfofileEdit: TPanel
+              Left = 0
+              Height = 32
+              Top = 123
+              Width = 805
+              Align = alBottom
+              ClientHeight = 32
+              ClientWidth = 805
+              TabOrder = 1
+              object BtnAddInfoFile: TSpeedButton
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = PanelInfofileEdit
+                AnchorSideTop.Side = asrCenter
+                Left = 16
+                Height = 22
+                Top = 5
+                Width = 115
+                BorderSpacing.Left = 8
+                Caption = 'Add'
+                Flat = True
+                Transparent = False
+                OnClick = BtnAddInfoFileClick
+              end
+              object BtnDelInfoFile: TSpeedButton
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = PanelInfofileEdit
+                AnchorSideTop.Side = asrCenter
+                Left = 320
+                Height = 22
+                Top = 5
+                Width = 115
+                BorderSpacing.Left = 8
+                Caption = 'Delete'
+                Flat = True
+                Transparent = False
+                OnClick = BtnDelInfoFileClick
+              end
+              object BtnPastInfoFile: TSpeedButton
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = PanelInfofileEdit
+                AnchorSideTop.Side = asrCenter
+                Left = 168
+                Height = 22
+                Top = 5
+                Width = 115
+                BorderSpacing.Left = 8
+                Caption = 'Past'
+                Flat = True
+                Transparent = False
+                OnClick = BtnPastInfoFileClick
+              end
             end
           end
           object InfoNote: TGroupBox
             Left = 0
-            Height = 474
+            Height = 512
             Top = 144
-            Width = 805
+            Width = 807
             Align = alClient
             Caption = 'Note'
-            ClientHeight = 454
-            ClientWidth = 803
+            ClientHeight = 492
+            ClientWidth = 805
             Constraints.MinHeight = 100
             TabOrder = 2
             object InfoText: TMemo
               Left = 0
-              Height = 450
+              Height = 488
               Top = 4
-              Width = 803
+              Width = 805
               Align = alClient
               BorderSpacing.Top = 4
               OnChange = InfoNoteChange
@@ -1280,7 +1388,7 @@ object f_notelun: Tf_notelun
   object PanelStatus: TPanel
     Left = 0
     Height = 40
-    Top = 849
+    Top = 885
     Width = 1200
     Align = alBottom
     BevelInner = bvLowered
@@ -1288,7 +1396,7 @@ object f_notelun: Tf_notelun
   end
   object Splitter1: TSplitter
     Left = 376
-    Height = 809
+    Height = 845
     Top = 40
     Width = 5
   end
@@ -1420,5 +1528,9 @@ object f_notelun: Tf_notelun
     CancelCaption = 'Cancel'
     Left = 1152
     Top = 64
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 1112
+    Top = 832
   end
 end

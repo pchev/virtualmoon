@@ -9,7 +9,7 @@ uses
     Windows, ShlObj,
   {$endif}
   dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup,
-  LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8,
+  LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, Clipbrd,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs;
 
 type
@@ -17,10 +17,16 @@ type
   { Tf_notelun }
 
   Tf_notelun = class(TForm)
+    BtnAddInfoFile: TSpeedButton;
+    BtnDelInfoFile: TSpeedButton;
+    BtnPastObsFile: TSpeedButton;
+    BtnDelObsFile: TSpeedButton;
     BtnChangeInfoDate: TSpeedButton;
+    BtnAddObsFile: TSpeedButton;
     BtnEdit: TSpeedButton;
     BtnDelete: TSpeedButton;
     BtnListAll: TSpeedButton;
+    BtnPastInfoFile: TSpeedButton;
     BtnSearchFormation1: TSpeedButton;
     CalendarDialog1: TCalendarDialog;
     Label22: TLabel;
@@ -90,6 +96,9 @@ type
     MenuItemPrintNote: TMenuItem;
     MenuItemPrintList: TMenuItem;
     MenuItemExport: TMenuItem;
+    OpenDialog1: TOpenDialog;
+    PanelObsfileEdit: TPanel;
+    PanelInfofileEdit: TPanel;
     PCobs: TPageControl;
     PanelObs: TPanel;
     Quit: TMenuItem;
@@ -170,16 +179,24 @@ type
     TabSheetObservation: TTabSheet;
     TabSheetInformation: TTabSheet;
     UniqueInstance1: TUniqueInstance;
+    procedure BtnAddInfoFileClick(Sender: TObject);
+    procedure BtnAddObsFileClick(Sender: TObject);
     procedure BtnChangeInfoDateClick(Sender: TObject);
     procedure BtnDeleteClick(Sender: TObject);
+    procedure BtnDelInfoFileClick(Sender: TObject);
+    procedure BtnDelObsFileClick(Sender: TObject);
     procedure BtnEditClick(Sender: TObject);
     procedure BtnListAllClick(Sender: TObject);
+    procedure BtnPastInfoFileClick(Sender: TObject);
+    procedure BtnPastObsFileClick(Sender: TObject);
     procedure BtnSaveClick(Sender: TObject);
     procedure BtnSearchFormationClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure InfoFilesDblClick(Sender: TObject);
+    procedure InfoFilesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
     procedure InfoFilesValidateEntry(sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
     procedure InfoNoteChange(Sender: TObject);
     procedure ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
@@ -190,6 +207,8 @@ type
     procedure ObsBarlowChange(Sender: TObject);
     procedure ObsCameraChange(Sender: TObject);
     procedure ObsEyepieceChange(Sender: TObject);
+    procedure ObsFilesDblClick(Sender: TObject);
+    procedure ObsFilesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
     procedure ObsFilesValidateEntry(sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
     procedure ObsInstrumentChange(Sender: TObject);
     procedure ObsLocationChange(Sender: TObject);
@@ -206,6 +225,7 @@ type
     CurrentInfoId, CurrentObsId: int64;
     LastLocation,LastObserver,LastInstrument,LastBarlow,LastEyepiece,LastCamera: Int64;
     CurrentFormation: string;
+    CurrentObsFile,CurrentInfoFile: integer;
     procedure SetLang;
     procedure GetAppDir;
     procedure ReadConfig;
@@ -231,6 +251,8 @@ type
     procedure CancelEditInformation;
     procedure NewInformationNote(formation:string='');
     procedure DeleteInformation(id: int64);
+    procedure SetInfoFiles(txt: string);
+    function  GetInfoFiles: string;
 
     procedure ClearObsNote;
     procedure SetObsDate(val1,val2:string);
@@ -240,6 +262,8 @@ type
     procedure CancelEditObservation;
     procedure NewObservationNote(formation:string='');
     procedure DeleteObservation(id: int64);
+    procedure SetObsFiles(txt: string);
+    function  GetObsFiles: string;
 
   public
 
@@ -1006,8 +1030,7 @@ begin
     SetInfoDate(dbnotes.Results[0][2]);
     InfoAuthor.Text:=dbnotes.Results[0][3];
     InfoText.Text:=dbnotes.Results[0][4];
-    InfoFiles.RowCount:=1;
-    InfoFiles.Cells[0,0]:=dbnotes.Results[0][5];
+    SetInfoFiles(dbnotes.Results[0][5]);
   end
   else
     CurrentInfoId:=-1;
@@ -1053,8 +1076,6 @@ begin
   NotesList;
 end;
 
-
-
 procedure Tf_notelun.SetEditInformation(onoff: boolean);
 var b:TBorderStyle;
 begin
@@ -1080,6 +1101,7 @@ begin
   InfoText.BorderStyle:=b;
   InfoText.ReadOnly:=not EditingInformation;
   InfoFiles.BorderStyle:=b;
+  PanelInfofileEdit.Visible:=EditingInformation;
   if (EditingInformation)and(not (goEditing in InfoFiles.Options)) then
     InfoFiles.Options:=InfoFiles.Options+[goEditing];
   if (not EditingInformation)and(goEditing in InfoFiles.Options) then
@@ -1126,7 +1148,7 @@ begin
         FormatFloat(f5,Finfodate)+',"'+
         SafeSqlText(InfoAuthor.Text)+'","'+
         SafeSqlText(InfoText.Text)+'","'+
-        SafeSqlText(InfoFiles.Cells[0,0])+'")';
+        SafeSqlText(GetInfoFiles)+'")';
    dbnotes.Query(cmd);
    if dbnotes.LastError=0 then begin
      ModifiedInformation:=false;
@@ -1178,6 +1200,79 @@ begin
   if id>0 then begin
     cmd:='delete from infonotes where ID='+inttostr(id);
     dbnotes.Query(cmd);
+  end;
+end;
+
+procedure Tf_notelun.SetInfoFiles(txt: string);
+var lst: TStringList;
+    i: integer;
+begin
+  CurrentInfoFile:=-1;
+  if txt='' then begin
+    InfoFiles.RowCount:=0;
+  end
+  else begin
+    lst:=TStringList.Create;
+    SplitRec2(txt,#10,lst);
+    InfoFiles.RowCount:=lst.Count;
+    for i:=0 to lst.Count-1 do begin
+      InfoFiles.Cells[0,i]:=lst[i];
+    end;
+    lst.free;
+  end;
+end;
+
+function  Tf_notelun.GetInfoFiles: string;
+var i: integer;
+begin
+  result:='';
+  for i:=0 to InfoFiles.RowCount-1 do begin
+    result:=Result+InfoFiles.Cells[0,i]+#10;
+  end;
+  if Length(result)>1 then Delete(result,Length(result),1);
+end;
+
+procedure Tf_notelun.InfoFilesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
+begin
+  CurrentInfoFile:=aRow;
+  CanSelect:=true;
+end;
+
+procedure Tf_notelun.InfoFilesDblClick(Sender: TObject);
+var fn: string;
+begin
+  if CurrentInfoFile<0 then exit;
+  fn:=InfoFiles.Cells[0,CurrentInfoFile];
+  if fn<>'' then
+    ExecuteFile(fn);
+end;
+
+procedure Tf_notelun.BtnAddInfoFileClick(Sender: TObject);
+begin
+  if OpenDialog1.Execute then begin
+    InfoFiles.RowCount:=InfoFiles.RowCount+1;
+    InfoFiles.Cells[0,InfoFiles.RowCount-1]:=OpenDialog1.FileName;
+    ModifiedInformation:=true;
+  end;
+end;
+
+procedure Tf_notelun.BtnPastInfoFileClick(Sender: TObject);
+var url:string;
+begin
+  url:=Clipboard.AsText;
+  if url<>'' then begin
+    InfoFiles.RowCount:=InfoFiles.RowCount+1;
+    InfoFiles.Cells[0,InfoFiles.RowCount-1]:=url;
+    ModifiedInformation:=true;
+  end;
+end;
+
+procedure Tf_notelun.BtnDelInfoFileClick(Sender: TObject);
+begin
+  if CurrentInfoFile<0 then exit;
+  if MessageDlg('Remove file '+crlf+InfoFiles.Cells[0,CurrentInfoFile],mtConfirmation,mbYesNo,0)=mrYes then begin
+    InfoFiles.DeleteRow(CurrentInfoFile);
+    ModifiedInformation:=true;
   end;
 end;
 
@@ -1233,8 +1328,7 @@ begin
     SetObsBoxIndex(ObsEyepiece,ObsEypieceRO,dbnotes.Results[0].Format[10].AsInteger);
     SetObsBoxIndex(ObsCamera,ObsCameraRO,dbnotes.Results[0].Format[11].AsInteger);
     ObsText.Text:=dbnotes.Results[0][12];
-    ObsFiles.RowCount:=1;
-    ObsFiles.Cells[0,0]:=dbnotes.Results[0][13];
+    SetObsFiles(dbnotes.Results[0][13]);
     ComputePower;
     ComputeCamera;
   end
@@ -1269,6 +1363,7 @@ begin
   ObsText.BorderStyle:=b;
   ObsText.ReadOnly:=not EditingObservation;
   ObsFiles.BorderStyle:=b;
+  PanelObsfileEdit.Visible:=EditingObservation;
   if (EditingObservation)and(not (goEditing in ObsFiles.Options)) then
     ObsFiles.Options:=ObsFiles.Options+[goEditing];
   if (not EditingObservation)and(goEditing in ObsFiles.Options) then
@@ -1295,7 +1390,7 @@ begin
         inttostr(GetObsBoxIndex(ObsEyepiece))+','+
         inttostr(GetObsBoxIndex(ObsCamera))+',"'+
         SafeSqlText(ObsText.Text)+'","'+
-        SafeSqlText(ObsFiles.Cells[0,0])+'")';
+        SafeSqlText(GetObsFiles)+'")';
    dbnotes.Query(cmd);
    if dbnotes.LastError=0 then begin
      ModifiedObservation:=false;
@@ -1357,6 +1452,79 @@ begin
   if id>0 then begin
     cmd:='delete from obsnotes where ID='+inttostr(id);
     dbnotes.Query(cmd);
+  end;
+end;
+
+procedure Tf_notelun.SetObsFiles(txt: string);
+var lst: TStringList;
+    i: integer;
+begin
+  CurrentObsFile:=-1;
+  if txt='' then begin
+    ObsFiles.RowCount:=0;
+  end
+  else begin
+    lst:=TStringList.Create;
+    SplitRec2(txt,#10,lst);
+    ObsFiles.RowCount:=lst.Count;
+    for i:=0 to lst.Count-1 do begin
+      ObsFiles.Cells[0,i]:=lst[i];
+    end;
+    lst.free;
+  end;
+end;
+
+function  Tf_notelun.GetObsFiles: string;
+var i: integer;
+begin
+  result:='';
+  for i:=0 to ObsFiles.RowCount-1 do begin
+    result:=Result+ObsFiles.Cells[0,i]+#10;
+  end;
+  if Length(result)>1 then Delete(result,Length(result),1);
+end;
+
+procedure Tf_notelun.ObsFilesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
+begin
+  CurrentObsFile:=aRow;
+  CanSelect:=true;
+end;
+
+procedure Tf_notelun.ObsFilesDblClick(Sender: TObject);
+var fn: string;
+begin
+  if CurrentObsFile<0 then exit;
+  fn:=ObsFiles.Cells[0,CurrentObsFile];
+  if fn<>'' then
+    ExecuteFile(fn);
+end;
+
+procedure Tf_notelun.BtnAddObsFileClick(Sender: TObject);
+begin
+  if OpenDialog1.Execute then begin
+    ObsFiles.RowCount:=ObsFiles.RowCount+1;
+    ObsFiles.Cells[0,ObsFiles.RowCount-1]:=OpenDialog1.FileName;
+    ModifiedObservation:=true;
+  end;
+end;
+
+procedure Tf_notelun.BtnPastObsFileClick(Sender: TObject);
+var url:string;
+begin
+  url:=Clipboard.AsText;
+  if url<>'' then begin
+    ObsFiles.RowCount:=ObsFiles.RowCount+1;
+    ObsFiles.Cells[0,ObsFiles.RowCount-1]:=url;
+    ModifiedObservation:=true;
+  end;
+end;
+
+procedure Tf_notelun.BtnDelObsFileClick(Sender: TObject);
+begin
+  if CurrentObsFile<0 then exit;
+  if MessageDlg('Remove file '+crlf+ObsFiles.Cells[0,CurrentObsFile],mtConfirmation,mbYesNo,0)=mrYes then begin
+    ObsFiles.DeleteRow(CurrentObsFile);
+    ModifiedObservation:=true;
   end;
 end;
 
