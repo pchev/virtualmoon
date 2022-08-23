@@ -45,11 +45,12 @@ type
     Label31: TLabel;
     Label32: TLabel;
     Label35: TLabel;
+    ObsLocationDetail2: TLabel;
     ObsPa: TLabel;
     ObsIllum: TLabel;
     ObsSubsolarLat: TLabel;
     ObsCameraFov: TLabel;
-    ObsLocationDetailRO: TLabel;
+    ObsLocationDetail1: TLabel;
     ObsPowerRO: TLabel;
     Label33: TLabel;
     Label34: TLabel;
@@ -775,7 +776,8 @@ begin
      ObsAltitude:=dbnotes.Results[0].Format[2].AsFloat;
      tzname:=dbnotes.Results[0][3];
      if ObsLongitude<0 then ew:='W' else ew:='E';
-     ObsLocationDetailRO.Caption:='Longitude: '+ew+' '+FormatFloat(f4,abs(ObsLongitude))+', Latitude: '+FormatFloat(f4,ObsLatitude)+', Elevation: '+FormatFloat(f0,ObsAltitude)+', Time zone: '+tzname;
+     ObsLocationDetail1.Caption:='Longitude: '+ew+' '+FormatFloat(f4,abs(ObsLongitude))+', Latitude: '+FormatFloat(f4,ObsLatitude)+', Elevation: '+FormatFloat(f0,ObsAltitude);
+     ObsLocationDetail2.Caption:='Time zone: '+tzname;
      ObsLongitude:=-ObsLongitude; // Meeus convention
      p := degtorad(ObsLatitude);
      u := arctan(ratio * tan(p));
