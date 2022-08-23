@@ -187,7 +187,7 @@ object f_notelun: Tf_notelun
             MinSize = 200
             MaxSize = 600
             Title.Caption = 'Formation'
-            Width = 224
+            Width = 222
           end        
           item
             MinSize = 100
@@ -212,7 +212,7 @@ object f_notelun: Tf_notelun
         OnHeaderClick = ListNotesHeaderClick
         OnSelectCell = ListNotesSelectCell
         ColWidths = (
-          224
+          222
           100
           50
         )
@@ -243,35 +243,35 @@ object f_notelun: Tf_notelun
       TabOrder = 0
       object TabSheetObservation: TTabSheet
         Caption = 'TabSheetObservation'
-        ClientHeight = 841
-        ClientWidth = 809
+        ClientHeight = 837
+        ClientWidth = 811
         object ScrollBox1: TScrollBox
           Left = 0
-          Height = 841
+          Height = 837
           Top = 0
-          Width = 809
-          HorzScrollBar.Page = 768
-          VertScrollBar.Page = 825
+          Width = 811
+          HorzScrollBar.Page = 760
+          VertScrollBar.Page = 738
           Align = alClient
-          ClientHeight = 839
+          ClientHeight = 833
           ClientWidth = 807
           TabOrder = 0
           object ObsFilesBox: TGroupBox
             Left = 0
             Height = 130
-            Top = 709
+            Top = 703
             Width = 807
             Align = alBottom
             Caption = 'Files'
             ClientHeight = 110
-            ClientWidth = 805
+            ClientWidth = 803
             Constraints.MinHeight = 130
             TabOrder = 0
             object ObsFiles: TStringGrid
               Left = 0
               Height = 70
               Top = 8
-              Width = 805
+              Width = 803
               Align = alClient
               AutoFillColumns = True
               BorderSpacing.Top = 8
@@ -286,17 +286,17 @@ object f_notelun: Tf_notelun
               OnSelectCell = ObsFilesSelectCell
               OnValidateEntry = ObsFilesValidateEntry
               ColWidths = (
-                801
+                799
               )
             end
             object PanelObsfileEdit: TPanel
               Left = 0
               Height = 32
               Top = 78
-              Width = 805
+              Width = 803
               Align = alBottom
               ClientHeight = 32
-              ClientWidth = 805
+              ClientWidth = 803
               TabOrder = 1
               object BtnAddObsFile: TSpeedButton
                 AnchorSideLeft.Side = asrBottom
@@ -344,124 +344,125 @@ object f_notelun: Tf_notelun
           end
           object ObsNote: TGroupBox
             Left = 0
-            Height = 118
-            Top = 591
+            Height = 199
+            Top = 504
             Width = 807
             Align = alClient
             Caption = 'Note'
-            ClientHeight = 98
-            ClientWidth = 805
+            ClientHeight = 179
+            ClientWidth = 803
             Constraints.MinHeight = 100
             TabOrder = 1
             object ObsText: TMemo
               Left = 0
-              Height = 94
+              Height = 175
               Top = 4
-              Width = 805
+              Width = 803
               Align = alClient
               BorderSpacing.Top = 4
               Constraints.MinHeight = 80
               OnChange = ObsNoteChange
+              ScrollBars = ssAutoBoth
               TabOrder = 0
             end
           end
           object ObsEph: TGroupBox
             Left = 0
-            Height = 143
-            Top = 448
+            Height = 128
+            Top = 376
             Width = 807
             Align = alTop
             Caption = 'Ephemeris'
-            ClientHeight = 123
-            ClientWidth = 805
+            ClientHeight = 108
+            ClientWidth = 803
             TabOrder = 2
             object Label11: TLabel
               AnchorSideTop.Control = ObsRA
-              Left = 16
-              Height = 19
-              Top = 56
-              Width = 17
+              Left = 14
+              Height = 15
+              Top = 58
+              Width = 15
               Caption = 'RA'
               ParentColor = False
             end
             object Label12: TLabel
               AnchorSideTop.Control = ObsDec
               Left = 288
-              Height = 19
-              Top = 56
-              Width = 24
+              Height = 15
+              Top = 58
+              Width = 20
               Caption = 'Dec'
               ParentColor = False
             end
             object Label13: TLabel
               AnchorSideTop.Control = ObsDiam
               Left = 552
-              Height = 19
-              Top = 88
-              Width = 118
+              Height = 15
+              Top = 81
+              Width = 99
               Caption = 'Apparent diameter'
               ParentColor = False
             end
             object Label14: TLabel
               AnchorSideTop.Control = ObsLunation
               Left = 552
-              Height = 19
-              Top = 0
-              Width = 54
+              Height = 15
+              Top = 12
+              Width = 47
               Caption = 'Lunation'
               ParentColor = False
             end
             object Label15: TLabel
               AnchorSideTop.Control = ObsColongitude
               Left = 16
-              Height = 19
-              Top = 27
-              Width = 75
+              Height = 15
+              Top = 35
+              Width = 66
               Caption = 'Colongitude'
               ParentColor = False
             end
             object Label16: TLabel
               AnchorSideTop.Control = ObsLibrLon
               Left = 16
-              Height = 19
-              Top = 0
-              Width = 130
+              Height = 15
+              Top = 12
+              Width = 114
               Caption = 'Libration in longitude'
               ParentColor = False
             end
             object Label17: TLabel
               AnchorSideTop.Control = ObsLibrLat
               Left = 288
-              Height = 19
-              Top = 0
-              Width = 118
+              Height = 15
+              Top = 12
+              Width = 103
               Caption = 'Libration in latitude'
               ParentColor = False
             end
             object Label18: TLabel
               AnchorSideTop.Control = ObsAzimut
               Left = 15
-              Height = 19
-              Top = 88
-              Width = 43
+              Height = 15
+              Top = 81
+              Width = 38
               Caption = 'Azimut'
               ParentColor = False
             end
             object Label19: TLabel
               AnchorSideTop.Control = ObsAlt
               Left = 288
-              Height = 19
-              Top = 88
-              Width = 49
+              Height = 15
+              Top = 81
+              Width = 42
               Caption = 'Altitude'
               ParentColor = False
             end
             object ObsRA: TLabel
               AnchorSideTop.Side = asrBottom
               Left = 160
-              Height = 19
-              Top = 56
-              Width = 41
+              Height = 15
+              Top = 58
+              Width = 36
               BorderSpacing.Top = 8
               Caption = 'ObsRA'
               ParentColor = False
@@ -469,26 +470,26 @@ object f_notelun: Tf_notelun
             object ObsDec: TLabel
               AnchorSideTop.Side = asrBottom
               Left = 424
-              Height = 19
-              Top = 56
-              Width = 48
+              Height = 15
+              Top = 58
+              Width = 41
               BorderSpacing.Top = 8
               Caption = 'ObsDec'
               ParentColor = False
             end
             object ObsDiam: TLabel
               Left = 688
-              Height = 19
-              Top = 88
-              Width = 56
+              Height = 15
+              Top = 81
+              Width = 49
               Caption = 'ObsDiam'
               ParentColor = False
             end
             object ObsLunation: TLabel
               Left = 688
-              Height = 19
-              Top = 0
-              Width = 78
+              Height = 15
+              Top = 12
+              Width = 68
               Caption = 'ObsLunation'
               ParentColor = False
             end
@@ -496,9 +497,9 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Control = ObsLunation
               AnchorSideTop.Side = asrBottom
               Left = 160
-              Height = 19
-              Top = 27
-              Width = 99
+              Height = 15
+              Top = 35
+              Width = 87
               BorderSpacing.Top = 8
               Caption = 'ObsColongitude'
               ParentColor = False
@@ -506,84 +507,84 @@ object f_notelun: Tf_notelun
             object ObsLibrLon: TLabel
               AnchorSideTop.Control = ObsLunation
               Left = 160
-              Height = 19
-              Top = 0
-              Width = 71
+              Height = 15
+              Top = 12
+              Width = 61
               Caption = 'ObsLibrLon'
               ParentColor = False
             end
             object ObsLibrLat: TLabel
               AnchorSideTop.Control = ObsLunation
               Left = 424
-              Height = 19
-              Top = 0
-              Width = 67
+              Height = 15
+              Top = 12
+              Width = 57
               Caption = 'ObsLibrLat'
               ParentColor = False
             end
             object ObsAzimut: TLabel
               Left = 160
-              Height = 19
-              Top = 88
-              Width = 67
+              Height = 15
+              Top = 81
+              Width = 59
               Caption = 'ObsAzimut'
               ParentColor = False
             end
             object ObsAlt: TLabel
               Left = 424
-              Height = 19
-              Top = 88
-              Width = 41
+              Height = 15
+              Top = 81
+              Width = 36
               Caption = 'ObsAlt'
               ParentColor = False
             end
             object Label10: TLabel
               AnchorSideTop.Control = ObsSubsolarLat
               Left = 288
-              Height = 19
-              Top = 27
-              Width = 107
+              Height = 15
+              Top = 35
+              Width = 93
               Caption = 'Sub-solar latitude'
               ParentColor = False
             end
             object ObsSubsolarLat: TLabel
               AnchorSideTop.Control = ObsColongitude
               Left = 424
-              Height = 19
-              Top = 27
-              Width = 96
+              Height = 15
+              Top = 35
+              Width = 82
               Caption = 'ObsSubsolarLat'
               ParentColor = False
             end
             object Label32: TLabel
               Left = 552
-              Height = 19
-              Top = 27
-              Width = 73
+              Height = 15
+              Top = 35
+              Width = 64
               Caption = 'Illumination'
               ParentColor = False
             end
             object Label35: TLabel
               Left = 552
-              Height = 19
-              Top = 56
-              Width = 86
+              Height = 15
+              Top = 58
+              Width = 75
               Caption = 'Position angle'
               ParentColor = False
             end
             object ObsIllum: TLabel
               Left = 688
-              Height = 19
-              Top = 27
-              Width = 55
+              Height = 15
+              Top = 35
+              Width = 48
               Caption = 'ObsIllum'
               ParentColor = False
             end
             object ObsPa: TLabel
               Left = 688
-              Height = 19
-              Top = 56
-              Width = 39
+              Height = 15
+              Top = 58
+              Width = 34
               Caption = 'ObsPa'
               ParentColor = False
             end
@@ -599,7 +600,7 @@ object f_notelun: Tf_notelun
             TabOrder = 3
             object ObsFormation: TEdit
               Left = 16
-              Height = 39
+              Height = 33
               Top = 38
               Width = 474
               BorderSpacing.Left = 16
@@ -618,7 +619,7 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Control = ObsFormation
               AnchorSideTop.Side = asrCenter
               Left = 540
-              Height = 39
+              Height = 33
               Top = 38
               Width = 111
               BorderSpacing.Left = 50
@@ -637,7 +638,7 @@ object f_notelun: Tf_notelun
               AnchorSideBottom.Control = ObsFormation
               AnchorSideBottom.Side = asrBottom
               Left = 490
-              Height = 39
+              Height = 33
               Top = 38
               Width = 31
               Anchors = [akTop, akLeft, akBottom]
@@ -648,9 +649,9 @@ object f_notelun: Tf_notelun
             end
             object Label28: TLabel
               Left = 16
-              Height = 27
+              Height = 25
               Top = 7
-              Width = 164
+              Width = 155
               Caption = 'Observation note'
               Font.Height = -19
               Font.Style = [fsBold]
@@ -660,71 +661,71 @@ object f_notelun: Tf_notelun
           end
           object PanelObs: TPanel
             Left = 0
-            Height = 366
+            Height = 294
             Top = 82
             Width = 807
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 366
+            ClientHeight = 294
             ClientWidth = 807
             TabOrder = 4
             object PCobs: TPageControl
               Left = 0
-              Height = 366
+              Height = 294
               Top = 0
               Width = 807
-              ActivePage = PCRO
+              ActivePage = PCRW
               Align = alClient
               ShowTabs = False
-              TabIndex = 1
+              TabIndex = 0
               TabOrder = 0
               object PCRW: TTabSheet
                 Caption = 'PCRW'
-                ClientHeight = 362
-                ClientWidth = 797
+                ClientHeight = 286
+                ClientWidth = 799
                 object ObsCircumstance: TGroupBox
                   Left = 0
-                  Height = 180
+                  Height = 144
                   Top = 0
-                  Width = 797
+                  Width = 799
                   Align = alTop
                   Caption = 'Circumstance'
-                  ClientHeight = 160
+                  ClientHeight = 124
                   ClientWidth = 795
                   TabOrder = 0
                   object Label2: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
+                    Height = 15
                     Top = 12
-                    Width = 99
+                    Width = 85
                     Caption = 'Observing place'
                     ParentColor = False
                   end
                   object Label3: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 51
-                    Width = 59
+                    Height = 15
+                    Top = 40
+                    Width = 47
                     Caption = 'Observer'
                     ParentColor = False
                   end
                   object Label4: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 88
-                    Width = 108
+                    Height = 15
+                    Top = 68
+                    Width = 90
                     Caption = 'Observation start'
                     ParentColor = False
                   end
                   object Label5: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 123
-                    Width = 103
+                    Height = 15
+                    Top = 96
+                    Width = 87
                     Caption = 'Observation end'
                     ParentColor = False
                   end
@@ -734,9 +735,9 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label4
                     AnchorSideTop.Side = asrCenter
                     Left = 377
-                    Height = 19
-                    Top = 88
-                    Width = 152
+                    Height = 15
+                    Top = 68
+                    Width = 134
                     BorderSpacing.Left = 16
                     Caption = 'Meteorological condition'
                     ParentColor = False
@@ -746,9 +747,9 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label5
                     AnchorSideTop.Side = asrCenter
                     Left = 377
-                    Height = 19
-                    Top = 123
-                    Width = 42
+                    Height = 15
+                    Top = 96
+                    Width = 35
                     Caption = 'Seeing'
                     ParentColor = False
                   end
@@ -756,10 +757,11 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label2
                     AnchorSideTop.Side = asrCenter
                     Left = 184
-                    Height = 35
-                    Top = 4
+                    Height = 23
+                    Top = 8
                     Width = 177
-                    ItemHeight = 0
+                    Constraints.MaxHeight = 26
+                    ItemHeight = 15
                     OnChange = ObsLocationChange
                     Style = csDropDownList
                     TabOrder = 0
@@ -769,11 +771,12 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label3
                     AnchorSideTop.Side = asrCenter
                     Left = 184
-                    Height = 35
-                    Top = 43
+                    Height = 23
+                    Top = 36
                     Width = 177
                     BorderSpacing.Top = 4
-                    ItemHeight = 0
+                    Constraints.MaxHeight = 26
+                    ItemHeight = 15
                     OnChange = ObsObserverChange
                     Style = csDropDownList
                     TabOrder = 1
@@ -782,9 +785,10 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label4
                     AnchorSideTop.Side = asrCenter
                     Left = 548
-                    Height = 31
-                    Top = 82
+                    Height = 23
+                    Top = 64
                     Width = 197
+                    Constraints.MaxHeight = 26
                     OnChange = ObsNoteChange
                     TabOrder = 2
                     Text = 'ObsMeteo'
@@ -793,9 +797,10 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label5
                     AnchorSideTop.Side = asrCenter
                     Left = 548
-                    Height = 31
-                    Top = 117
+                    Height = 23
+                    Top = 92
                     Width = 197
+                    Constraints.MaxHeight = 26
                     OnChange = ObsNoteChange
                     TabOrder = 3
                     Text = 'ObsSeeing'
@@ -805,10 +810,11 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label5
                     AnchorSideTop.Side = asrCenter
                     Left = 184
-                    Height = 31
-                    Top = 117
+                    Height = 23
+                    Top = 92
                     Width = 154
                     BorderSpacing.Top = 4
+                    Constraints.MaxHeight = 26
                     TabOrder = 4
                     Text = 'ObsEnd'
                   end
@@ -820,8 +826,8 @@ object f_notelun: Tf_notelun
                     AnchorSideBottom.Control = ObsEnd
                     AnchorSideBottom.Side = asrBottom
                     Left = 338
-                    Height = 31
-                    Top = 117
+                    Height = 23
+                    Top = 92
                     Width = 23
                     Anchors = [akTop, akLeft, akBottom]
                     Caption = '...'
@@ -832,10 +838,11 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label4
                     AnchorSideTop.Side = asrCenter
                     Left = 184
-                    Height = 31
-                    Top = 82
+                    Height = 23
+                    Top = 64
                     Width = 154
                     BorderSpacing.Top = 4
+                    Constraints.MaxHeight = 26
                     TabOrder = 5
                     Text = '2022-08-23 22:34:55'
                   end
@@ -847,8 +854,8 @@ object f_notelun: Tf_notelun
                     AnchorSideBottom.Control = ObsStart
                     AnchorSideBottom.Side = asrBottom
                     Left = 338
-                    Height = 31
-                    Top = 82
+                    Height = 23
+                    Top = 64
                     Width = 23
                     Anchors = [akTop, akLeft, akBottom]
                     Caption = '...'
@@ -857,29 +864,29 @@ object f_notelun: Tf_notelun
                 end
                 object ObsGear: TGroupBox
                   Left = 0
-                  Height = 185
-                  Top = 180
-                  Width = 797
+                  Height = 144
+                  Top = 144
+                  Width = 799
                   Align = alTop
                   Caption = 'Gear'
-                  ClientHeight = 165
+                  ClientHeight = 124
                   ClientWidth = 795
                   TabOrder = 1
                   object Label8: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
+                    Height = 15
                     Top = 12
-                    Width = 71
+                    Width = 58
                     Caption = 'Instrument'
                     ParentColor = False
                   end
                   object Label9: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 51
-                    Width = 97
+                    Height = 15
+                    Top = 40
+                    Width = 81
                     Caption = 'Barlow/reducer'
                     ParentColor = False
                   end
@@ -888,9 +895,9 @@ object f_notelun: Tf_notelun
                     AnchorSideLeft.Side = asrBottom
                     AnchorSideTop.Control = Label21
                     Left = 377
-                    Height = 19
-                    Top = 90
-                    Width = 40
+                    Height = 15
+                    Top = 68
+                    Width = 33
                     BorderSpacing.Left = 16
                     Caption = 'Power'
                     ParentColor = False
@@ -899,10 +906,11 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label8
                     AnchorSideTop.Side = asrCenter
                     Left = 184
-                    Height = 35
-                    Top = 4
+                    Height = 23
+                    Top = 8
                     Width = 177
-                    ItemHeight = 0
+                    Constraints.MaxHeight = 26
+                    ItemHeight = 15
                     OnChange = ObsInstrumentChange
                     Style = csDropDownList
                     TabOrder = 0
@@ -912,11 +920,12 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label9
                     AnchorSideTop.Side = asrCenter
                     Left = 184
-                    Height = 35
-                    Top = 43
+                    Height = 23
+                    Top = 36
                     Width = 177
                     BorderSpacing.Top = 4
-                    ItemHeight = 0
+                    Constraints.MaxHeight = 26
+                    ItemHeight = 15
                     OnChange = ObsBarlowChange
                     Style = csDropDownList
                     TabOrder = 1
@@ -924,9 +933,9 @@ object f_notelun: Tf_notelun
                   object Label20: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 129
-                    Width = 47
+                    Height = 15
+                    Top = 96
+                    Width = 41
                     Caption = 'Camera'
                     ParentColor = False
                   end
@@ -935,11 +944,12 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label20
                     AnchorSideTop.Side = asrCenter
                     Left = 184
-                    Height = 35
-                    Top = 121
+                    Height = 23
+                    Top = 92
                     Width = 177
                     BorderSpacing.Top = 4
-                    ItemHeight = 0
+                    Constraints.MaxHeight = 26
+                    ItemHeight = 15
                     OnChange = ObsCameraChange
                     Style = csDropDownList
                     TabOrder = 2
@@ -947,9 +957,9 @@ object f_notelun: Tf_notelun
                   object Label21: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 90
-                    Width = 55
+                    Height = 15
+                    Top = 68
+                    Width = 46
                     Caption = 'Eyepiece'
                     ParentColor = False
                   end
@@ -958,11 +968,12 @@ object f_notelun: Tf_notelun
                     AnchorSideTop.Control = Label21
                     AnchorSideTop.Side = asrCenter
                     Left = 184
-                    Height = 35
-                    Top = 82
+                    Height = 23
+                    Top = 64
                     Width = 177
                     BorderSpacing.Top = 4
-                    ItemHeight = 0
+                    Constraints.MaxHeight = 26
+                    ItemHeight = 15
                     OnChange = ObsEyepieceChange
                     Style = csDropDownList
                     TabOrder = 3
@@ -971,9 +982,9 @@ object f_notelun: Tf_notelun
                     AnchorSideLeft.Side = asrBottom
                     AnchorSideTop.Side = asrCenter
                     Left = 377
-                    Height = 19
-                    Top = 129
-                    Width = 20
+                    Height = 15
+                    Top = 96
+                    Width = 17
                     BorderSpacing.Left = 16
                     Caption = 'fov'
                     ParentColor = False
@@ -982,51 +993,51 @@ object f_notelun: Tf_notelun
               end
               object PCRO: TTabSheet
                 Caption = 'PCRO'
-                ClientHeight = 362
-                ClientWidth = 797
+                ClientHeight = 286
+                ClientWidth = 799
                 object ObsCircumstance1: TGroupBox
                   Left = 0
-                  Height = 180
+                  Height = 144
                   Top = 0
-                  Width = 797
+                  Width = 799
                   Align = alTop
                   Caption = 'Circumstance'
-                  ClientHeight = 160
+                  ClientHeight = 124
                   ClientWidth = 795
                   TabOrder = 0
                   object Label22: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
+                    Height = 15
                     Top = 12
-                    Width = 99
+                    Width = 85
                     Caption = 'Observing place'
                     ParentColor = False
                   end
                   object Label23: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 51
-                    Width = 59
+                    Height = 15
+                    Top = 40
+                    Width = 47
                     Caption = 'Observer'
                     ParentColor = False
                   end
                   object Label24: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 88
-                    Width = 108
+                    Height = 15
+                    Top = 68
+                    Width = 90
                     Caption = 'Observation start'
                     ParentColor = False
                   end
                   object Label25: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 123
-                    Width = 103
+                    Height = 15
+                    Top = 96
+                    Width = 87
                     Caption = 'Observation end'
                     ParentColor = False
                   end
@@ -1034,9 +1045,9 @@ object f_notelun: Tf_notelun
                     AnchorSideLeft.Side = asrBottom
                     AnchorSideTop.Side = asrCenter
                     Left = 377
-                    Height = 19
-                    Top = 88
-                    Width = 152
+                    Height = 15
+                    Top = 68
+                    Width = 134
                     BorderSpacing.Left = 16
                     Caption = 'Meteorological condition'
                     ParentColor = False
@@ -1044,65 +1055,65 @@ object f_notelun: Tf_notelun
                   object Label27: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 377
-                    Height = 19
-                    Top = 123
-                    Width = 42
+                    Height = 15
+                    Top = 96
+                    Width = 35
                     Caption = 'Seeing'
                     ParentColor = False
                   end
                   object ObsLocationRO: TLabel
                     Left = 184
-                    Height = 19
+                    Height = 15
                     Top = 12
-                    Width = 94
+                    Width = 83
                     Caption = 'ObsLocationRO'
                     ParentColor = False
                   end
                   object ObsObserverRO: TLabel
                     Left = 184
-                    Height = 19
-                    Top = 51
-                    Width = 101
+                    Height = 15
+                    Top = 40
+                    Width = 84
                     Caption = 'ObsObserverRO'
                     ParentColor = False
                   end
                   object ObsStartRO: TLabel
                     Left = 184
-                    Height = 19
-                    Top = 88
-                    Width = 72
+                    Height = 15
+                    Top = 68
+                    Width = 61
                     Caption = 'ObsStartRO'
                     ParentColor = False
                   end
                   object ObsEndRO: TLabel
                     Left = 184
-                    Height = 19
-                    Top = 123
-                    Width = 65
+                    Height = 15
+                    Top = 96
+                    Width = 57
                     Caption = 'ObsEndRO'
                     ParentColor = False
                   end
                   object ObsMeteoRO: TLabel
-                    Left = 548
-                    Height = 19
-                    Top = 88
-                    Width = 83
+                    Left = 544
+                    Height = 15
+                    Top = 68
+                    Width = 71
                     Caption = 'ObsMeteoRO'
                     ParentColor = False
                   end
                   object ObsSeeingRO: TLabel
-                    Left = 548
-                    Height = 19
-                    Top = 123
-                    Width = 84
+                    Left = 544
+                    Height = 15
+                    Top = 96
+                    Width = 72
                     Caption = 'ObsSeeingRO'
                     ParentColor = False
                   end
                   object ObsLocationDetailRO: TLabel
                     Left = 377
-                    Height = 19
+                    Height = 15
                     Top = 12
-                    Width = 130
+                    Width = 113
                     BorderSpacing.Left = 16
                     Caption = 'ObsLocationDetailRO'
                     ParentColor = False
@@ -1110,29 +1121,29 @@ object f_notelun: Tf_notelun
                 end
                 object ObsGear1: TGroupBox
                   Left = 0
-                  Height = 185
-                  Top = 180
-                  Width = 797
+                  Height = 144
+                  Top = 144
+                  Width = 799
                   Align = alTop
                   Caption = 'Gear'
-                  ClientHeight = 165
+                  ClientHeight = 124
                   ClientWidth = 795
                   TabOrder = 1
                   object Label30: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
+                    Height = 15
                     Top = 12
-                    Width = 71
+                    Width = 58
                     Caption = 'Instrument'
                     ParentColor = False
                   end
                   object Label31: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 51
-                    Width = 97
+                    Height = 15
+                    Top = 40
+                    Width = 81
                     Caption = 'Barlow/reducer'
                     ParentColor = False
                   end
@@ -1140,9 +1151,9 @@ object f_notelun: Tf_notelun
                     AnchorSideLeft.Side = asrBottom
                     AnchorSideTop.Side = asrCenter
                     Left = 377
-                    Height = 19
-                    Top = 90
-                    Width = 40
+                    Height = 15
+                    Top = 68
+                    Width = 33
                     BorderSpacing.Left = 16
                     Caption = 'Power'
                     ParentColor = False
@@ -1150,50 +1161,50 @@ object f_notelun: Tf_notelun
                   object Label33: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 129
-                    Width = 47
+                    Height = 15
+                    Top = 96
+                    Width = 41
                     Caption = 'Camera'
                     ParentColor = False
                   end
                   object Label34: TLabel
                     AnchorSideTop.Side = asrCenter
                     Left = 16
-                    Height = 19
-                    Top = 90
-                    Width = 55
+                    Height = 15
+                    Top = 68
+                    Width = 46
                     Caption = 'Eyepiece'
                     ParentColor = False
                   end
                   object ObsInstrumentRO: TLabel
                     Left = 184
-                    Height = 19
+                    Height = 15
                     Top = 12
-                    Width = 113
+                    Width = 95
                     Caption = 'ObsInstrumentRO'
                     ParentColor = False
                   end
                   object ObsBarlowRO: TLabel
                     Left = 184
-                    Height = 19
-                    Top = 51
-                    Width = 85
+                    Height = 15
+                    Top = 40
+                    Width = 73
                     Caption = 'ObsBarlowRO'
                     ParentColor = False
                   end
                   object ObsEypieceRO: TLabel
                     Left = 184
-                    Height = 19
-                    Top = 90
-                    Width = 89
+                    Height = 15
+                    Top = 68
+                    Width = 77
                     Caption = 'ObsEypieceRO'
                     ParentColor = False
                   end
                   object ObsCameraRO: TLabel
                     Left = 184
-                    Height = 19
-                    Top = 129
-                    Width = 89
+                    Height = 15
+                    Top = 96
+                    Width = 78
                     Caption = 'ObsCameraRO'
                     ParentColor = False
                   end
@@ -1201,9 +1212,9 @@ object f_notelun: Tf_notelun
                     AnchorSideLeft.Side = asrBottom
                     AnchorSideTop.Side = asrCenter
                     Left = 377
-                    Height = 19
-                    Top = 129
-                    Width = 20
+                    Height = 15
+                    Top = 96
+                    Width = 17
                     BorderSpacing.Left = 16
                     Caption = 'fov'
                     ParentColor = False
@@ -1216,37 +1227,37 @@ object f_notelun: Tf_notelun
       end
       object TabSheetInformation: TTabSheet
         Caption = 'TabSheetInformation'
-        ClientHeight = 841
-        ClientWidth = 809
+        ClientHeight = 837
+        ClientWidth = 811
         object ScrollBox2: TScrollBox
           Left = 0
-          Height = 841
+          Height = 837
           Top = 0
-          Width = 809
-          HorzScrollBar.Page = 740
+          Width = 811
+          HorzScrollBar.Page = 736
           VertScrollBar.Page = 427
           Align = alClient
-          ClientHeight = 837
-          ClientWidth = 805
+          ClientHeight = 833
+          ClientWidth = 807
           TabOrder = 0
           object PanelInfoTop: TPanel
             Left = 0
             Height = 144
             Top = 0
-            Width = 805
+            Width = 807
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 140
-            ClientWidth = 801
+            ClientHeight = 144
+            ClientWidth = 807
             TabOrder = 0
             object Label1: TLabel
               AnchorSideLeft.Control = InfoFormation
               AnchorSideTop.Control = InfoFormation
               AnchorSideTop.Side = asrBottom
               Left = 16
-              Height = 19
-              Top = 89
-              Width = 83
+              Height = 15
+              Top = 95
+              Width = 70
               BorderSpacing.Top = 24
               Caption = 'Note author :'
               ParentColor = False
@@ -1258,8 +1269,8 @@ object f_notelun: Tf_notelun
               AnchorSideRight.Control = InfoFormation
               AnchorSideRight.Side = asrBottom
               Left = 162
-              Height = 27
-              Top = 85
+              Height = 23
+              Top = 91
               Width = 278
               Anchors = [akTop, akRight]
               OnChange = InfoNoteChange
@@ -1268,7 +1279,7 @@ object f_notelun: Tf_notelun
             end
             object InfoFormation: TEdit
               Left = 16
-              Height = 27
+              Height = 33
               Top = 38
               Width = 424
               Font.Color = clRed
@@ -1286,7 +1297,7 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Control = InfoFormation
               AnchorSideTop.Side = asrCenter
               Left = 493
-              Height = 27
+              Height = 33
               Top = 38
               Width = 212
               BorderSpacing.Left = 22
@@ -1308,7 +1319,7 @@ object f_notelun: Tf_notelun
               AnchorSideBottom.Control = InfoFormation
               AnchorSideBottom.Side = asrBottom
               Left = 440
-              Height = 27
+              Height = 33
               Top = 38
               Width = 31
               Anchors = [akTop, akLeft, akBottom]
@@ -1325,7 +1336,7 @@ object f_notelun: Tf_notelun
               AnchorSideBottom.Control = InfoDate
               AnchorSideBottom.Side = asrBottom
               Left = 705
-              Height = 27
+              Height = 33
               Top = 38
               Width = 31
               Anchors = [akTop, akLeft, akBottom]
@@ -1336,9 +1347,9 @@ object f_notelun: Tf_notelun
             end
             object Label29: TLabel
               Left = 16
-              Height = 27
+              Height = 25
               Top = 7
-              Width = 163
+              Width = 154
               Caption = 'Information note'
               Font.Height = -19
               Font.Style = [fsBold]
@@ -1350,8 +1361,8 @@ object f_notelun: Tf_notelun
             AnchorSideTop.Side = asrBottom
             Left = 0
             Height = 175
-            Top = 662
-            Width = 805
+            Top = 658
+            Width = 807
             Align = alBottom
             BorderSpacing.Top = 8
             Caption = 'Files'
@@ -1376,7 +1387,7 @@ object f_notelun: Tf_notelun
               OnSelectCell = InfoFilesSelectCell
               OnValidateEntry = InfoFilesValidateEntry
               ColWidths = (
-                796
+                799
               )
             end
             object PanelInfofileEdit: TPanel
@@ -1434,23 +1445,24 @@ object f_notelun: Tf_notelun
           end
           object InfoNote: TGroupBox
             Left = 0
-            Height = 510
+            Height = 506
             Top = 144
-            Width = 805
+            Width = 807
             Align = alClient
             Caption = 'Note'
-            ClientHeight = 490
+            ClientHeight = 486
             ClientWidth = 803
             Constraints.MinHeight = 100
             TabOrder = 2
             object InfoText: TMemo
               Left = 0
-              Height = 486
+              Height = 482
               Top = 4
               Width = 803
               Align = alClient
               BorderSpacing.Top = 4
               OnChange = InfoNoteChange
+              ScrollBars = ssAutoBoth
               TabOrder = 0
             end
           end
