@@ -1541,10 +1541,12 @@ object f_notelun: Tf_notelun
         OnClick = BtnDeleteClick
       end
       object MenuItemPrintNote: TMenuItem
-        Caption = 'MenuItemPrintNote'
+        Caption = 'Print note'
+        OnClick = MenuItemPrintNoteClick
       end
       object MenuItemPrintList: TMenuItem
-        Caption = 'MenuItemPrintList'
+        Caption = 'Print list of notes'
+        OnClick = MenuItemPrintListClick
       end
       object MenuItemExport: TMenuItem
         Caption = 'MenuItemExport'

@@ -94,6 +94,7 @@ const crlf = chr(10)+chr(13);
       greekUTF8 : array[1..24] of word =($CEB1,$CEB2,$CEB3,$CEB4,$CEB5,$CEB6,$CEB7,$CEB8,$CEB9,$CEBA,$CEBB,$CEBC,$CEBD,$CEBE,$CEBF,$CF80,$CF81,$CF83,$CF84,$CF85,$CF86,$CF87,$CF88,$CF89);
       blank15='               ';
       blank=' ';
+      b80 ='                                                                                ';
       tab=#09;
       deftxt = '?';
       f0='0';

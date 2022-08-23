@@ -8,7 +8,7 @@ uses
   {$ifdef mswindows}
     Windows, ShlObj,
   {$endif}
-  dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup,
+  dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup, Printers, cu_print,
   LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, Clipbrd, cu_planet, u_projection, math,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs, Types;
 
@@ -222,6 +222,8 @@ type
     procedure ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
     procedure MenuItemNewInfoClick(Sender: TObject);
     procedure MenuItemNewObsClick(Sender: TObject);
+    procedure MenuItemPrintListClick(Sender: TObject);
+    procedure MenuItemPrintNoteClick(Sender: TObject);
     procedure MenuItemSortDateClick(Sender: TObject);
     procedure MenuItemSortFormationClick(Sender: TObject);
     procedure MenuItemSortTypeClick(Sender: TObject);
@@ -1485,6 +1487,92 @@ end;
 procedure Tf_notelun.MenuItemNewObsClick(Sender: TObject);
 begin
   NewObservationNote;
+end;
+
+procedure Tf_notelun.MenuItemPrintListClick(Sender: TObject);
+var i: integer;
+begin
+  //Printer.SetPrinter('PDF');
+  InitPage('Notes list','Courier New',2,1.2);
+  PrinterWriteln('Notes list',18,true);
+  PrinterWriteln(' ',18,false);
+  for i:=0 to ListNotes.RowCount-1 do begin
+     PrinterWriteln(copy(ListNotes.Cells[0,i]+b80,1,50)+ListNotes.Cells[1,i]+tab+ListNotes.Cells[2,i],12,false);
+  end;
+  ClosePage;
+end;
+
+procedure Tf_notelun.MenuItemPrintNoteClick(Sender: TObject);
+var i: integer;
+begin
+  //Printer.SetPrinter('PDF');
+  case PageControl1.ActivePageIndex of
+    0: begin  // Obs
+        InitPage('Observation note','Arial',2,1.2);
+        PrinterWriteln(label28.Caption,18,true);
+        PrinterWriteln(ObsFormation.Text+tab+ObsDate.Text,16,true);
+        PrinterWriteln(' ',16,false);
+        PrinterWriteln(ObsCircumstance1.Caption,12,true);
+        PrinterWriteln(label22.Caption+': '+ObsLocationRO.Caption,12,false);
+        PrinterWriteln(tab+ObsLocationDetail1.Caption,12,false);
+        PrinterWriteln(tab+ObsLocationDetail2.Caption,12,false);
+        PrinterWriteln(label23.Caption+': '+ObsObserverRO.Caption,12,false);
+        PrinterWriteln(label24.Caption+': '+ObsStartRO.Caption,12,false);
+        PrinterWriteln(label25.Caption+': '+ObsEndRO.Caption,12,false);
+        PrinterWriteln(label26.Caption+': '+ObsMeteoRO.Caption,12,false);
+        PrinterWriteln(label27.Caption+': '+ObsSeeingRO.Caption,12,false);
+        PrinterWriteln(' ',16,false);
+        PrinterWriteln(ObsGear1.Caption,12,true);
+        PrinterWriteln(label30.Caption+': '+ObsInstrumentRO.Caption,12,false);
+        PrinterWriteln(label31.Caption+': '+ObsBarlowRO.Caption,12,false);
+        PrinterWriteln(label34.Caption+': '+ObsEypieceRO.Caption,12,false);
+        if trim(ObsPowerRO.Caption)>'' then PrinterWriteln(tab+ObsPowerRO.Caption,12,false);
+        PrinterWriteln(label33.Caption+': '+ObsCamera.Caption,12,false);
+        if trim(ObsCameraFovRO.Caption)>'' then PrinterWriteln(tab+ObsCameraFovRO.Caption,12,false);
+        PrinterWriteln(' ',16,false);
+        PrinterWriteln(ObsEph.Caption,12,true);
+        PrinterWriteln(label16.Caption+': '+ObsLibrLon.Caption,12,false);
+        PrinterWriteln(label17.Caption+': '+ObsLibrLat.Caption,12,false);
+        PrinterWriteln(label15.Caption+': '+ObsColongitude.Caption,12,false);
+        PrinterWriteln(label10.Caption+': '+ObsSubsolarLat.Caption,12,false);
+        PrinterWriteln(label14.Caption+': '+ObsLunation.Caption,12,false);
+        PrinterWriteln(label32.Caption+': '+ObsIllum.Caption,12,false);
+        PrinterWriteln(label35.Caption+': '+ObsPa.Caption,12,false);
+        PrinterWriteln(label13.Caption+': '+ObsDiam.Caption,12,false);
+        PrinterWriteln(label11.Caption+': '+ObsRA.Caption,12,false);
+        PrinterWriteln(label12.Caption+': '+ObsDec.Caption,12,false);
+        PrinterWriteln(label18.Caption+': '+ObsAzimut.Caption,12,false);
+        PrinterWriteln(label19.Caption+': '+ObsAlt.Caption,12,false);
+        PrinterWriteln(' ',16,false);
+        PrinterWriteln(ObsNote.Caption,12,true);
+        for i:=0 to ObsText.Lines.Count-1 do begin
+          PrinterWriteln(ObsText.Lines[i],12,false);
+        end;
+        PrinterWriteln(' ',16,false);
+        PrinterWriteln(ObsFilesBox.Caption,12,true);
+        for i:=0 to ObsFiles.RowCount-1 do begin
+          PrinterWriteln(ObsFiles.Cells[0,i],12,false);
+        end;
+       end;
+    1: begin  // Info
+        InitPage('Information note','Arial',2,1.2);
+        PrinterWriteln(label29.Caption,18,true);
+        PrinterWriteln(InfoFormation.Text+tab+InfoDate.Text,16,true);
+        PrinterWriteln(' ',16,false);
+        PrinterWriteln(label1.Caption+tab+InfoAuthor.Text,12,false);
+        PrinterWriteln(' ',16,false);
+        PrinterWriteln(InfoNote.Caption,12,true);
+        for i:=0 to InfoText.Lines.Count-1 do begin
+          PrinterWriteln(InfoText.Lines[i],12,false);
+        end;
+        PrinterWriteln(' ',16,false);
+        PrinterWriteln(InfoFilesBox.Caption,12,true);
+        for i:=0 to InfoFiles.RowCount-1 do begin
+          PrinterWriteln(InfoFiles.Cells[0,i],12,false);
+        end;
+       end;
+  end;
+  ClosePage;
 end;
 
 procedure Tf_notelun.MenuItemSortDateClick(Sender: TObject);
