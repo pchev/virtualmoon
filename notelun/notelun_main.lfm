@@ -250,7 +250,7 @@ object f_notelun: Tf_notelun
           Height = 841
           Top = 0
           Width = 809
-          HorzScrollBar.Page = 757
+          HorzScrollBar.Page = 768
           VertScrollBar.Page = 825
           Align = alClient
           ClientHeight = 839
@@ -379,34 +379,34 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Control = ObsRA
               Left = 16
               Height = 19
-              Top = 62
+              Top = 56
               Width = 17
               Caption = 'RA'
               ParentColor = False
             end
             object Label12: TLabel
               AnchorSideTop.Control = ObsDec
-              Left = 16
+              Left = 288
               Height = 19
-              Top = 89
+              Top = 56
               Width = 24
               Caption = 'Dec'
               ParentColor = False
             end
             object Label13: TLabel
               AnchorSideTop.Control = ObsDiam
-              Left = 544
+              Left = 552
               Height = 19
-              Top = 8
+              Top = 88
               Width = 118
               Caption = 'Apparent diameter'
               ParentColor = False
             end
             object Label14: TLabel
               AnchorSideTop.Control = ObsLunation
-              Left = 16
+              Left = 552
               Height = 19
-              Top = 8
+              Top = 0
               Width = 54
               Caption = 'Lunation'
               ParentColor = False
@@ -415,95 +415,89 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Control = ObsColongitude
               Left = 16
               Height = 19
-              Top = 35
+              Top = 27
               Width = 75
               Caption = 'Colongitude'
               ParentColor = False
             end
             object Label16: TLabel
               AnchorSideTop.Control = ObsLibrLon
-              Left = 264
+              Left = 16
               Height = 19
-              Top = 8
+              Top = 0
               Width = 130
               Caption = 'Libration in longitude'
               ParentColor = False
             end
             object Label17: TLabel
               AnchorSideTop.Control = ObsLibrLat
-              Left = 264
+              Left = 288
               Height = 19
-              Top = 35
+              Top = 0
               Width = 118
               Caption = 'Libration in latitude'
               ParentColor = False
             end
             object Label18: TLabel
               AnchorSideTop.Control = ObsAzimut
-              Left = 264
+              Left = 15
               Height = 19
-              Top = 62
+              Top = 88
               Width = 43
               Caption = 'Azimut'
               ParentColor = False
             end
             object Label19: TLabel
-              AnchorSideTop.Control = ObsAltitude
-              Left = 264
+              AnchorSideTop.Control = ObsAlt
+              Left = 288
               Height = 19
-              Top = 89
+              Top = 88
               Width = 49
               Caption = 'Altitude'
               ParentColor = False
             end
             object ObsRA: TLabel
-              AnchorSideLeft.Control = ObsLunation
-              AnchorSideTop.Control = ObsColongitude
               AnchorSideTop.Side = asrBottom
-              Left = 112
+              Left = 160
               Height = 19
-              Top = 62
+              Top = 56
               Width = 41
               BorderSpacing.Top = 8
               Caption = 'ObsRA'
               ParentColor = False
             end
             object ObsDec: TLabel
-              AnchorSideLeft.Control = ObsLunation
-              AnchorSideTop.Control = ObsRA
               AnchorSideTop.Side = asrBottom
-              Left = 112
+              Left = 424
               Height = 19
-              Top = 89
+              Top = 56
               Width = 48
               BorderSpacing.Top = 8
               Caption = 'ObsDec'
               ParentColor = False
             end
             object ObsDiam: TLabel
-              AnchorSideTop.Control = ObsLunation
-              Left = 699
+              Left = 688
               Height = 19
-              Top = 8
+              Top = 88
               Width = 56
               Caption = 'ObsDiam'
               ParentColor = False
             end
             object ObsLunation: TLabel
-              Left = 112
+              Left = 688
               Height = 19
-              Top = 8
+              Top = 0
               Width = 78
               Caption = 'ObsLunation'
               ParentColor = False
             end
             object ObsColongitude: TLabel
-              AnchorSideLeft.Control = ObsLunation
               AnchorSideTop.Control = ObsLunation
               AnchorSideTop.Side = asrBottom
-              Left = 112
+              Left = 160
               Height = 19
-              Top = 35
+              Top = 27
               Width = 99
               BorderSpacing.Top = 8
               Caption = 'ObsColongitude'
@@ -511,38 +505,86 @@ object f_notelun: Tf_notelun
             end
             object ObsLibrLon: TLabel
               AnchorSideTop.Control = ObsLunation
-              Left = 416
+              Left = 160
               Height = 19
-              Top = 8
+              Top = 0
               Width = 71
               Caption = 'ObsLibrLon'
               ParentColor = False
             end
             object ObsLibrLat: TLabel
-              AnchorSideTop.Control = ObsColongitude
-              Left = 416
+              AnchorSideTop.Control = ObsLunation
+              Left = 424
               Height = 19
-              Top = 35
+              Top = 0
               Width = 67
               Caption = 'ObsLibrLat'
               ParentColor = False
             end
             object ObsAzimut: TLabel
-              AnchorSideTop.Control = ObsRA
-              Left = 416
+              Left = 160
               Height = 19
-              Top = 62
+              Top = 88
               Width = 67
               Caption = 'ObsAzimut'
               ParentColor = False
             end
-            object ObsAltitude: TLabel
-              AnchorSideTop.Control = ObsDec
-              Left = 416
+            object ObsAlt: TLabel
+              Left = 424
               Height = 19
-              Top = 89
+              Top = 88
+              Width = 41
+              Caption = 'ObsAlt'
+              ParentColor = False
+            end
+            object Label10: TLabel
+              AnchorSideTop.Control = ObsSubsolarLat
+              Left = 288
+              Height = 19
+              Top = 27
+              Width = 107
+              Caption = 'Sub-solar latitude'
+              ParentColor = False
+            end
+            object ObsSubsolarLat: TLabel
+              AnchorSideTop.Control = ObsColongitude
+              Left = 424
+              Height = 19
+              Top = 27
+              Width = 96
+              Caption = 'ObsSubsolarLat'
+              ParentColor = False
+            end
+            object Label32: TLabel
+              Left = 552
+              Height = 19
+              Top = 27
               Width = 73
-              Caption = 'ObsAltitude'
+              Caption = 'Illumination'
+              ParentColor = False
+            end
+            object Label35: TLabel
+              Left = 552
+              Height = 19
+              Top = 56
+              Width = 86
+              Caption = 'Position angle'
+              ParentColor = False
+            end
+            object ObsIllum: TLabel
+              Left = 688
+              Height = 19
+              Top = 27
+              Width = 55
+              Caption = 'ObsIllum'
+              ParentColor = False
+            end
+            object ObsPa: TLabel
+              Left = 688
+              Height = 19
+              Top = 56
+              Width = 39
+              Caption = 'ObsPa'
               ParentColor = False
             end
           end
@@ -631,10 +673,10 @@ object f_notelun: Tf_notelun
               Height = 366
               Top = 0
               Width = 807
-              ActivePage = PCRW
+              ActivePage = PCRO
               Align = alClient
               ShowTabs = False
-              TabIndex = 0
+              TabIndex = 1
               TabOrder = 0
               object PCRW: TTabSheet
                 Caption = 'PCRW'
@@ -1054,6 +1096,15 @@ object f_notelun: Tf_notelun
                     Top = 123
                     Width = 84
                     Caption = 'ObsSeeingRO'
+                    ParentColor = False
+                  end
+                  object ObsLocationDetailRO: TLabel
+                    Left = 377
+                    Height = 19
+                    Top = 12
+                    Width = 130
+                    BorderSpacing.Left = 16
+                    Caption = 'ObsLocationDetailRO'
                     ParentColor = False
                   end
                 end

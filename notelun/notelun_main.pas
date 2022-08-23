@@ -9,7 +9,7 @@ uses
     Windows, ShlObj,
   {$endif}
   dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup,
-  LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, Clipbrd,
+  LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, Clipbrd, cu_planet, u_projection, math,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs, Types;
 
 type
@@ -32,6 +32,7 @@ type
     BtnSearchFormation1: TSpeedButton;
     CalendarDialog1: TCalendarDialog;
     ImageList1: TImageList;
+    Label10: TLabel;
     Label22: TLabel;
     Label23: TLabel;
     Label24: TLabel;
@@ -42,7 +43,13 @@ type
     Label29: TLabel;
     Label30: TLabel;
     Label31: TLabel;
+    Label32: TLabel;
+    Label35: TLabel;
+    ObsPa: TLabel;
+    ObsIllum: TLabel;
+    ObsSubsolarLat: TLabel;
     ObsCameraFov: TLabel;
+    ObsLocationDetailRO: TLabel;
     ObsPowerRO: TLabel;
     Label33: TLabel;
     Label34: TLabel;
@@ -105,7 +112,7 @@ type
     PCobs: TPageControl;
     PanelObs: TPanel;
     Quit: TMenuItem;
-    ObsAltitude: TLabel;
+    ObsAlt: TLabel;
     ObsAzimut: TLabel;
     ObsLibrLat: TLabel;
     ObsLibrLon: TLabel;
@@ -229,6 +236,7 @@ type
 
   private
     tz: TCdCTimeZone;
+    Fplanet: TPlanet;
     Finfodate,Fobsdatestart,Fobsdateend: double;
     param : Tstringlist;
     StartVMA,CanCloseVMA,locklist,SortAsc: boolean;
@@ -252,7 +260,7 @@ type
     procedure SetObsBoxIndex(box:TComboBox; lbl:TLabel; id: int64);
     procedure ComputePower;
     procedure ComputeCamera;
-    procedure ComputeEphemeris;
+    procedure ComputeEphemeris(obs:integer;dt:double);
     procedure ClearInfoNote;
     procedure SetInfoDate(val:string);
     procedure ShowInfoNote(id: int64);
@@ -264,6 +272,7 @@ type
     procedure SetInfoFiles(txt: string);
     function  GetInfoFiles: string;
 
+    procedure ClearEphemeris;
     procedure ClearObsNote;
     procedure SetObsDate(val1,val2:string);
     procedure ShowObsNote(id: int64);
@@ -310,8 +319,21 @@ begin
   language:=u_translation.translate(language,'en');
   uplanguage:=UpperCase(language);
   SetLang;
+  Fplanet:=TPlanet.Create(self);
   tz:=TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');
+  Plan404    := nil;
+  Plan404lib := LoadLibrary(lib404);
+  if Plan404lib <> 0 then
+  begin
+    Plan404 := TPlan404(GetProcAddress(Plan404lib, 'Plan404'));
+  end;
+  if @Plan404=nil then begin
+     MessageDlg('Could not load library '+lib404+crlf
+               +'Please try to reinstall the program.',
+               mtError, [mbAbort], 0);
+     Halt;
+  end;
   dbm:=TLiteDB.Create(self);
   dbnotes:=TLiteDB.Create(self);
   ReadConfig;
@@ -367,6 +389,7 @@ begin
   dbm.free;
   dbnotes.free;
   tz.Free;
+  Fplanet.Free;
   DatabaseList.free;
   param.free;
 end;
@@ -396,6 +419,9 @@ end;
 
 procedure Tf_notelun.SetLang;
 begin
+  ldeg:='°';
+  lmin:='''';
+  lsec:='"';
   MenuItemSetupLocation.Caption:='Location';
   MenuItemSetupObserver.Caption:='Observer';
   MenuItemSetupInstrument.Caption:='Instrument';
@@ -728,9 +754,97 @@ begin
   ObsCameraFovRO.Caption:=ObsCameraFov.Caption;
 end;
 
-procedure Tf_notelun.ComputeEphemeris;
+procedure Tf_notelun.ComputeEphemeris(obs:integer;dt:double);
+var cmd, tzname,ew: string;
+  u, p: double;
+  h: double;
+  year,month,day: Word;
+  jd0, st0, ecl, q, colong, az, ah, ra,de, ra2, de2,rad,ded,pa: double;
+  v1, v2, dist, dkm,phase, illum: double;
+  gpa, glibrb, glibrl, nutl,nuto,sunl,sunb,abe,abp,sunlat, sunlong: double;
+  librb, librl,lunaison,nmjd, fqjd, fmjd, lqjd: double;
+const
+  ratio = 0.99664719;
+  H0    = 6378140.0;
 begin
+   cmd:='select longitude,latitude,elevation,timezone from location where id='+IntToStr(obs);
+   dbnotes.Query(cmd);
+   if dbnotes.RowCount>0 then begin
+     ObsLongitude:=dbnotes.Results[0].Format[0].AsFloat;
+     ObsLatitude:=dbnotes.Results[0].Format[1].AsFloat;
+     ObsAltitude:=dbnotes.Results[0].Format[2].AsFloat;
+     tzname:=dbnotes.Results[0][3];
+     if ObsLongitude<0 then ew:='W' else ew:='E';
+     ObsLocationDetailRO.Caption:='Longitude: '+ew+' '+FormatFloat(f4,abs(ObsLongitude))+', Latitude: '+FormatFloat(f4,ObsLatitude)+', Elevation: '+FormatFloat(f0,ObsAltitude)+', Time zone: '+tzname;
+     ObsLongitude:=-ObsLongitude; // Meeus convention
+     p := degtorad(ObsLatitude);
+     u := arctan(ratio * tan(p));
+     ObsRoSinPhi := ratio * sin(u) + (ObsAltitude / H0) * sin(p);
+     ObsRoCosPhi := cos(u) + (ObsAltitude / H0) * cos(p);
+     ObsRefractionCor := 1;
+     tz.TimeZoneFile:=ZoneDir + StringReplace(tzname, '/', PathDelim, [rfReplaceAll]);
+     tz.Date:=dt;
+     timezone:=tz.SecondsOffset/3600;
+     DecodeDate(dt,year,month,day);
+     h:=frac(dt)*24;
+     dt_ut:=dtminusut(year);
+     CurrentJD:=jd(year,month,day,h-timezone+dt_ut);
+     ecl:=ecliptic(CurrentJD);
+     Fplanet.SetDE(jpldir);
+     Fplanet.nutation(CurrentJD,nutl,nuto);
+     Fplanet.sunecl(CurrentJD,sunl,sunb);
+     PrecessionEcl(jd2000,CurrentJD,sunl,sunb);
+     aberration(CurrentJD,abe,abp);
+     // compute j2000 geocentric
+     Fplanet.Moon(CurrentJD, ra, de, dist, dkm, diam, phase, illum);
+     ra2 := ra;   de2 := de;
+     // orientation need jdnow
+     precession(jd2000, CurrentJD, ra2, de2);
+     // geocentric orientation, return valid sub-solar position
+     Fplanet.MoonOrientation(CurrentJD, ra2, de2, dist, gpa, glibrb, glibrl, sunlat, sunlong);
+     // parallax
+     jd0 := jd(year, month, day, 0.0);
+     st0 := SidTim(jd0, h - Timezone, ObsLongitude);
+     Paralaxe(st0, dist, ra, de, ra, de, q, jd2000, CurrentJD);
+     diam := diam / q;
+     dkm  := dkm * q;
+     dist := dist * q;
+     // apparent coordinates
+     apparent_equatorial(ra,de,ecl,sunl,abp,abe,nutl,nuto,false);
+     rad := ra;
+     ded := de;
+     mean_equatorial(ra,de,ecl,sunl,abp,abe,nutl,nuto);
+     precession(jd2000, CurrentJD, rad, ded);
+      // topocentric libration, ignore invalid sub-solar position
+      Fplanet.MoonOrientation(CurrentJD, rad, ded, dist, pa, librb, librl, v1, v2);
+      colong := rmod(90 - sunlong + 360, 360);
+      jd0    := jd(year, 1, 1, 0.0);
+      Fplanet.MoonPhases(year + (CurrentJD - jd0) / 365.25, nmjd, fqjd, fmjd, lqjd);
+      lunaison := CurrentJD - nmjd;
+      if lunaison < 0 then
+      begin
+        lunaison := CurrentJD - Fplanet.MoonPhase(floor(12.3685 *
+          (year - 2000 - 0.04 + (CurrentJD - jd0) / 365.25)));
+      end;
+      eq2hz(st0 - rad, ded, az, ah);
+      az := rmod(rad2deg * az + 180, 360);
+      ah := rad2deg * ah;
 
+      ObsLunation.Caption:=formatfloat(f2, lunaison)+' days';
+      ObsColongitude.Caption:=formatfloat(f2, colong)+ldeg;
+      ObsSubsolarLat.Caption:=formatfloat(f2, sunlat)+ldeg;
+      ObsLibrLon.Caption:=demtostr(librl);
+      ObsLibrLat.Caption:=demtostr(librb);
+      ObsIllum.Caption:=formatfloat(f1, illum * 100) + '%';
+      ObsDiam.Caption:=formatfloat(f2, diam / 60) + lmin;
+      ObsRA.Caption:=arptostr(rad2deg * rad / 15,1);
+      ObsDec.Caption:=deptostr(rad2deg * ded,1);
+      ObsPa.Caption:=formatfloat(f1, pa) + ldeg;;
+      ObsAzimut.Caption:=demtostr(az);
+      ObsAlt.Caption:=demtostr(ah);
+   end
+   else
+      ClearEphemeris;
 end;
 
 procedure Tf_notelun.ObsBarlowChange(Sender: TObject);
@@ -951,16 +1065,24 @@ begin
   ObsCamera.Text:='';
   ObsText.Text:='';
   ObsFiles.Clear;
+  ClearEphemeris;
+  ModifiedObservation:=false;
+end;
+
+procedure Tf_notelun.ClearEphemeris;
+begin
   ObsRA.Caption:=' ';
   ObsDec.Caption:=' ';
   ObsDiam.Caption:=' ';
   ObsLunation.Caption:=' ';
   ObsColongitude.Caption:=' ';
+  ObsSubsolarLat.Caption:=' ';
+  ObsIllum.Caption:=' ';
+  ObsPa.Caption:=' ';
   ObsLibrLon.Caption:=' ';
   ObsLibrLat.Caption:=' ';
   ObsAzimut.Caption:=' ';
-  ObsAltitude.Caption:=' ';
-  ModifiedObservation:=false;
+  ObsAlt.Caption:=' ';
 end;
 
 procedure Tf_notelun.ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
@@ -1428,6 +1550,7 @@ begin
     SetObsBoxIndex(ObsCamera,ObsCameraRO,dbnotes.Results[0].Format[11].AsInteger);
     ObsText.Text:=dbnotes.Results[0][12];
     SetObsFiles(dbnotes.Results[0][13]);
+    ComputeEphemeris(dbnotes.Results[0].Format[4].AsInteger,dbnotes.Results[0].Format[2].AsFloat);
     ComputePower;
     ComputeCamera;
   end
@@ -1451,6 +1574,7 @@ begin
   if EditingObservation then begin
     b:=bsSingle;
     PCobs.ActivePageIndex:=0;
+    ClearEphemeris;
   end
   else begin
     b:=bsNone;
@@ -1478,8 +1602,8 @@ begin
    cmd:='replace into obsnotes (ID,FORMATION,DATESTART,DATEEND,LOCATION,OBSERVER,METEO,SEEING,INSTRUMENT,BARLOW,EYEPIECE,CAMERA,NOTE,FILES) values ('+
         IntToStr(id)+',"'+
         SafeSqlText(ObsFormation.Text)+'",'+
-        FormatFloat(f5,Fobsdatestart)+','+
-        FormatFloat(f5,Fobsdateend)+','+
+        FormatFloat(f9,Fobsdatestart)+','+
+        FormatFloat(f9,Fobsdateend)+','+
         inttostr(GetObsBoxIndex(ObsLocation))+','+
         inttostr(GetObsBoxIndex(ObsObserver))+',"'+
         SafeSqlText(ObsMeteo.Text)+'","'+

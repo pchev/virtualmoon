@@ -70,7 +70,7 @@ begin
   x:=frac(x)*60;
   m.Value:=trunc(x);
   x:=frac(x)*60;
-  s.Value:=trunc(x);
+  s.Value:=round(x);
 end;
 
 end.

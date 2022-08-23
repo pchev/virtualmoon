@@ -10,7 +10,6 @@ object FSetup: TFSetup
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '2.2.2.0'
   object Panel1: TPanel
     Left = 0
     Height = 50
@@ -70,7 +69,7 @@ object FSetup: TFSetup
     TabOrder = 1
     object TabSheetLocation: TTabSheet
       Caption = 'Location'
-      ClientHeight = 371
+      ClientHeight = 374
       ClientWidth = 611
       object StringGridLocation: TStringGrid
         Tag = 1
@@ -80,23 +79,60 @@ object FSetup: TFSetup
         Width = 611
         Align = alClient
         AutoFillColumns = True
+        ColCount = 6
+        Columns = <        
+          item
+            Title.Caption = 'Name'
+            Width = 111
+          end        
+          item
+            ButtonStyle = cbsPickList
+            DropDownRows = 2
+            MinSize = 50
+            MaxSize = 50
+            PickList.Strings = (
+              'E'
+              'W'
+            )
+            SizePriority = 0
+            Title.Caption = 'EW'
+            Width = 50
+          end        
+          item
+            Title.Caption = 'Longitude'
+            Width = 111
+          end        
+          item
+            Title.Caption = 'Latitude'
+            Width = 111
+          end        
+          item
+            Title.Caption = 'Elevation'
+            Width = 111
+          end        
+          item
+            ButtonStyle = cbsPickList
+            Title.Caption = 'Time zone'
+            Width = 115
+          end>
         FixedCols = 0
         MouseWheelOption = mwGrid
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs, goAlwaysShowEditor, goSmoothScroll]
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          122
-          122
-          122
-          122
-          123
+          111
+          50
+          111
+          111
+          111
+          115
         )
       end
     end
     object TabSheetObserver: TTabSheet
       Caption = 'Observer'
-      ClientHeight = 371
+      ClientHeight = 374
       ClientWidth = 611
       object StringGridObserver: TStringGrid
         Tag = 2
@@ -113,16 +149,16 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          152
-          152
-          152
-          155
+          151
+          151
+          151
+          154
         )
       end
     end
     object TabSheetInstrument: TTabSheet
       Caption = 'Instrument'
-      ClientHeight = 371
+      ClientHeight = 374
       ClientWidth = 611
       object StringGridInstrument: TStringGrid
         Tag = 3
@@ -138,17 +174,17 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          122
-          122
-          122
-          122
+          121
+          121
+          121
+          121
           123
         )
       end
     end
     object TabSheetBarlow: TTabSheet
       Caption = 'Barlow'
-      ClientHeight = 371
+      ClientHeight = 374
       ClientWidth = 611
       object StringGridBarlow: TStringGrid
         Tag = 4
@@ -165,14 +201,14 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          305
-          306
+          303
+          304
         )
       end
     end
     object TabSheetEyepiece: TTabSheet
       Caption = 'Eyepiece'
-      ClientHeight = 371
+      ClientHeight = 374
       ClientWidth = 611
       object StringGridEyepiece: TStringGrid
         Tag = 5
@@ -189,15 +225,15 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
+          202
+          202
           203
-          203
-          205
         )
       end
     end
     object TabSheetCamera: TTabSheet
       Caption = 'Camera'
-      ClientHeight = 371
+      ClientHeight = 374
       ClientWidth = 611
       object StringGridCamera: TStringGrid
         Tag = 6
@@ -214,10 +250,10 @@ object FSetup: TFSetup
         TabOrder = 0
         OnValidateEntry = StringGridValidateEntry
         ColWidths = (
-          152
-          152
-          152
-          155
+          151
+          151
+          151
+          154
         )
       end
     end

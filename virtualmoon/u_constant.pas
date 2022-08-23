@@ -104,6 +104,7 @@ const crlf = chr(10)+chr(13);
       f4='0.0000';
       f5='0.00000';
       f6='0.000000';
+      f9='0.000000000';
       datetimedisplay='yyyy"-"mm"-"dd" "hh":"nn":"ss';
       datedisplay='yyyy"-"mm"-"dd"';
       dateiso='yyyy"-"mm"-"dd"T"hh":"nn":"ss.zzz';
