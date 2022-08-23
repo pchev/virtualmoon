@@ -1630,7 +1630,8 @@ end;
 procedure TForm1.SetDate(param: string);
 var
   buf: string;
-  p, yy, mm, dd, h, m, s: integer;
+  p, yy, mm, dd, h, m: integer;
+  s: double;
 begin
   buf := trim(param);
   p   := pos('-', buf);
@@ -1658,7 +1659,7 @@ begin
     exit;
   m     := StrToInt(trim(copy(buf, 1, p - 1)));
   buf   := copy(buf, p + 1, 999);
-  s     := StrToInt(trim(buf));
+  s     := StrToFloat(trim(buf));
   CurYear := yy;
   CurrentMonth := mm;
   CurrentDay := dd;
@@ -1797,6 +1798,10 @@ begin
       else if (param[i]='-ns')and first then
       begin
         CanCloseCDC:=false;  // when started by skychart do not close skychart on exit!
+      end
+      else if (param[i]='-nn')and first then
+      begin
+        CanCloseNoteLun:=false;  // when started by notelun do not close notelun on exit!
       end
       else if param[i]='-quit' then
       begin

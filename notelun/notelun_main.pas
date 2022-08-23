@@ -32,6 +32,7 @@ type
     BtnSearchFormation1: TSpeedButton;
     CalendarDialog1: TCalendarDialog;
     ImageList1: TImageList;
+    ImageList2: TImageList;
     Label10: TLabel;
     Label22: TLabel;
     Label23: TLabel;
@@ -204,6 +205,10 @@ type
     procedure BtnPastObsFileClick(Sender: TObject);
     procedure BtnSaveClick(Sender: TObject);
     procedure BtnSearchFormationClick(Sender: TObject);
+    procedure ButtonAtlunClick(Sender: TObject);
+    procedure ButtonDatlunClick(Sender: TObject);
+    procedure ButtonPhotlunClick(Sender: TObject);
+    procedure ButtonWeblunClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -240,9 +245,9 @@ type
     Fplanet: TPlanet;
     Finfodate,Fobsdatestart,Fobsdateend: double;
     param : Tstringlist;
-    StartVMA,CanCloseVMA,locklist,SortAsc: boolean;
+    StartVMA,CanCloseVMA,StartPhotLun,StartDatlun,StartWeblun,locklist,SortAsc: boolean;
     EditingObservation,EditingInformation,ModifiedObservation,ModifiedInformation,NewInformation,NewObservation: boolean;
-    CurrentInfoId, CurrentObsId: int64;
+    CurrentInfoId, CurrentObsId, CurrentObsLocation: int64;
     LastLocation,LastObserver,LastInstrument,LastBarlow,LastEyepiece,LastCamera: Int64;
     CurrentFormation: string;
     CurrentObsFile,CurrentInfoFile,SortCol: integer;
@@ -261,7 +266,13 @@ type
     procedure SetObsBoxIndex(box:TComboBox; lbl:TLabel; id: int64);
     procedure ComputePower;
     procedure ComputeCamera;
+    procedure ClearEphemeris;
     procedure ComputeEphemeris(obs:integer;dt:double);
+    procedure OpenVMA;
+    procedure OpenPhotlun;
+    procedure OpenDatlun;
+    procedure OpenWeblun;
+
     procedure ClearInfoNote;
     procedure SetInfoDate(val:string);
     procedure ShowInfoNote(id: int64);
@@ -273,7 +284,6 @@ type
     procedure SetInfoFiles(txt: string);
     function  GetInfoFiles: string;
 
-    procedure ClearEphemeris;
     procedure ClearObsNote;
     procedure SetObsDate(val1,val2:string);
     procedure ShowObsNote(id: int64);
@@ -310,6 +320,9 @@ begin
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%};
   StartVMA:=false;
   CanCloseVMA:=true;
+  StartPhotLun:=false;
+  StartDatlun:=false;
+  StartWeblun:=false;
   locklist:=false;
   SortCol:=0;
   SortAsc:=true;
@@ -555,11 +568,11 @@ begin
     end;
   end;
  {$ifndef darwin}
-  if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+  if not FileExists(slash(bindir)+DefaultMaplun) then begin
      bindir := slash(ExtractFilePath(ParamStr(0)));
-     if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+     if not FileExists(slash(bindir)+DefaultMaplun) then begin
         bindir := slash(ExpandFileName(slash(appdir) + slash('..')+slash('..')+'bin'));
-        if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+        if not FileExists(slash(bindir)+DefaultMaplun) then begin
            bindir:='';
         end;
      end;
@@ -688,6 +701,101 @@ begin
     ed.Text:=f_search.ListBox1.GetSelectedText;
   end;
 end;
+
+procedure Tf_notelun.OpenVMA;
+var p,buf,cmd:string;
+    x,y: double;
+begin
+// -nn -z 3 -n ALPETRAGIUS -d 2022-08-23T11:00:00.000 -o LON:-03d23m24sLAT:+44d07m12sTZ:2.00
+  p:='-nn -z 3';
+  if PageControl1.ActivePageIndex=1 then begin // info note
+    buf:=trim(InfoFormation.text);
+    if buf<>'' then p:=p+' -n '+buf;
+  end
+  else begin // obs note
+    buf:=trim(ObsFormation.text);
+    if buf<>'' then p:=p+' -n '+buf;
+    if Fobsdatestart>0 then begin
+      buf:=FormatDateTime(dateiso,Fobsdatestart);
+      p:=p+' -d '+buf;
+    end;
+    cmd:='select longitude,latitude from location where id='+IntToStr(CurrentObsLocation);
+    dbnotes.Query(cmd);
+    if dbnotes.RowCount>0 then begin
+      x:=dbnotes.Results[0].Format[0].AsFloat;
+      y:=dbnotes.Results[0].Format[1].AsFloat;
+      buf:=dbnotes.Results[0][3];
+      p:=p+' -o LON:'+DEToStr3(x)+'LAT:'+DEToStr3(y)+'TZ:'+FormatFloat(f2,TimeZone);
+    end;
+  end;
+  chdir(appdir);
+  Execnowait(maplun+' '+p);
+  StartVMA:=true;
+end;
+
+procedure Tf_notelun.OpenPhotlun;
+var p,buf:string;
+begin
+  p:='-nn ';
+  if PageControl1.ActivePageIndex=1 then begin // info note
+    buf:=trim(InfoFormation.text);
+    if buf<>'' then p:=p+' -n '+buf;
+  end
+  else begin // obs note
+    buf:=trim(ObsFormation.text);
+    if buf<>'' then p:=p+' -n '+buf;
+  end;
+  chdir(appdir);
+  Execnowait(photlun+' '+p);
+  StartPhotlun:=true;
+end;
+
+procedure Tf_notelun.OpenDatlun;
+var p,buf:string;
+begin
+  p:='-nn ';
+  if PageControl1.ActivePageIndex=1 then begin // info note
+    buf:=trim(InfoFormation.text);
+    if buf<>'' then p:=p+' -n '+buf;
+  end
+  else begin // obs note
+    buf:=trim(ObsFormation.text);
+    if buf<>'' then p:=p+' -n '+buf;
+  end;
+  chdir(appdir);
+  Execnowait(DatLun+' '+p);
+  StartDatlun:=true;
+end;
+
+procedure Tf_notelun.OpenWeblun;
+var p,buf:string;
+begin
+  p:='-nn ';
+  chdir(appdir);
+  Execnowait(WebLun+' '+p);
+  StartWeblun:=true;
+end;
+
+procedure Tf_notelun.ButtonAtlunClick(Sender: TObject);
+begin
+  OpenVMA;
+end;
+
+procedure Tf_notelun.ButtonDatlunClick(Sender: TObject);
+begin
+  OpenDatlun;
+end;
+
+procedure Tf_notelun.ButtonPhotlunClick(Sender: TObject);
+begin
+  OpenPhotlun;
+end;
+
+procedure Tf_notelun.ButtonWeblunClick(Sender: TObject);
+begin
+  OpenWeblun;
+end;
+
 
 procedure Tf_notelun.ChangeObsDate(Sender: TObject);
 var p: tpoint;
@@ -1540,7 +1648,8 @@ begin
     CurrentObsId:=dbnotes.Results[0].Format[0].AsInteger;
     ObsFormation.Text:=dbnotes.Results[0][1];
     SetObsDate(dbnotes.Results[0][2],dbnotes.Results[0][3]);
-    SetObsBoxIndex(ObsLocation,ObsLocationRO,dbnotes.Results[0].Format[4].AsInteger);
+    CurrentObsLocation:=dbnotes.Results[0].Format[4].AsInteger;
+    SetObsBoxIndex(ObsLocation,ObsLocationRO,CurrentObsLocation);
     SetObsBoxIndex(ObsObserver,ObsObserverRO,dbnotes.Results[0].Format[5].AsInteger);
     ObsMeteo.Text:=dbnotes.Results[0][6];
     ObsMeteoRO.Caption:=ObsMeteo.Text;
