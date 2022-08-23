@@ -1263,7 +1263,7 @@ procedure Tf_notelun.BtnDeleteClick(Sender: TObject);
 begin
   if MessageDlg('Delete note?',mtConfirmation,mbYesNo,0)=mrYes then begin
     case PageControl1.ActivePageIndex of
-      0 : DeleteObservation(CurrentInfoId);
+      0 : DeleteObservation(CurrentObsId);
       1 : DeleteInformation(CurrentInfoId);
     end;
     NotesList;
