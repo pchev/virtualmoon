@@ -164,6 +164,13 @@
         <Filename Value="cu_print.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="pu_listselection.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_listselection"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-08-24 18:45+0200\n"
+"PO-Revision-Date: 2022-08-24 22:32+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -184,6 +184,10 @@ msgstr "Champ"
 msgid "File"
 msgstr "Fichier"
 
+#: u_translation.rsfilenamefilt
+msgid "File name filter"
+msgstr "Filtre de nom de fichier"
+
 #: u_translation.rsfiles
 msgid "Files"
 msgstr "Fichiers"
@@ -324,6 +328,10 @@ msgstr "Options des notes"
 msgid "Notes list"
 msgstr "Liste des notes"
 
+#: u_translation.rsnotetexttose
+msgid "Note text to search"
+msgstr "Texte de la note à rechercher"
+
 #: u_translation.rsobservatione
 msgid "Observation end"
 msgstr "Fin de l'observation"
@@ -416,9 +424,37 @@ msgstr "Cherche"
 msgid "Seeing"
 msgstr "Seeing"
 
+#: u_translation.rsselectcamera
+msgid "Select camera"
+msgstr "Choisir la camera"
+
+#: u_translation.rsselecteyepie
+msgid "Select eyepiece"
+msgstr "Choisir l'oculaire"
+
+#: u_translation.rsselectfileat
+msgid "Select file attachment"
+msgstr "Choisir un fichier joint"
+
 #: u_translation.rsselectformat
 msgid "Select formation"
 msgstr "Sélection de la formation"
+
+#: u_translation.rsselectinstru
+msgid "Select instrument"
+msgstr "Choisir un instrument"
+
+#: u_translation.rsselectlocati
+msgid "Select location"
+msgstr "Choisir un lieu"
+
+#: u_translation.rsselectnotete
+msgid "Select note text"
+msgstr "Choisir un texte de la note"
+
+#: u_translation.rsselectobserv
+msgid "Select observer"
+msgstr "Choisir un observateur"
 
 #: u_translation.rssetup
 msgid "Setup"

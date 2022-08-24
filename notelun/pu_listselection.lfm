@@ -1,0 +1,46 @@
+object f_listselection: Tf_listselection
+  Left = 369
+  Height = 117
+  Top = 31
+  Width = 332
+  BorderStyle = bsToolWindow
+  ClientHeight = 117
+  ClientWidth = 332
+  ShowInTaskBar = stNever
+  object btncancel: TButton
+    Left = 16
+    Height = 25
+    Top = 80
+    Width = 75
+    Cancel = True
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 0
+  end
+  object btnok: TButton
+    Left = 224
+    Height = 25
+    Top = 80
+    Width = 88
+    Caption = 'OK'
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object Selection: TComboBox
+    Left = 16
+    Height = 35
+    Top = 32
+    Width = 296
+    ItemHeight = 0
+    Style = csDropDownList
+    TabOrder = 2
+  end
+  object Prompt: TLabel
+    Left = 16
+    Height = 19
+    Top = 8
+    Width = 46
+    Caption = 'Prompt'
+    ParentColor = False
+  end
+end

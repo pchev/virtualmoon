@@ -466,3 +466,39 @@ msgstr ""
 msgid "E"
 msgstr ""
 
+#: u_translation:rsselectlocati
+msgid "Select location"
+msgstr ""
+
+#: u_translation:rsselectobserv
+msgid "Select observer"
+msgstr ""
+
+#: u_translation:rsselectinstru
+msgid "Select instrument"
+msgstr ""
+
+#: u_translation:rsselecteyepie
+msgid "Select eyepiece"
+msgstr ""
+
+#: u_translation:rsselectcamera
+msgid "Select camera"
+msgstr ""
+
+#: u_translation:rsselectfileat
+msgid "Select file attachment"
+msgstr ""
+
+#: u_translation:rsselectnotete
+msgid "Select note text"
+msgstr ""
+
+#: u_translation:rsnotetexttose
+msgid "Note text to search"
+msgstr ""
+
+#: u_translation:rsfilenamefilt
+msgid "File name filter"
+msgstr ""
+

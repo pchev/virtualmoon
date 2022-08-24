@@ -21,17 +21,17 @@ object f_notelun: Tf_notelun
     Width = 1193
     Align = alTop
     BevelInner = bvLowered
-    ClientHeight = 40
-    ClientWidth = 1193
+    ClientHeight = 36
+    ClientWidth = 1189
     TabOrder = 0
     object PanelTopLeft: TPanel
       Left = 2
-      Height = 36
+      Height = 32
       Top = 2
       Width = 374
       Align = alLeft
-      ClientHeight = 36
-      ClientWidth = 374
+      ClientHeight = 28
+      ClientWidth = 370
       TabOrder = 0
       object BtnListAll: TSpeedButton
         Left = 17
@@ -66,12 +66,12 @@ object f_notelun: Tf_notelun
     end
     object PanelTopRight: TPanel
       Left = 376
-      Height = 36
+      Height = 32
       Top = 2
-      Width = 815
+      Width = 811
       Align = alClient
-      ClientHeight = 36
-      ClientWidth = 815
+      ClientHeight = 28
+      ClientWidth = 807
       TabOrder = 1
       object BtnSave: TSpeedButton
         AnchorSideLeft.Control = PanelTopRight
@@ -79,7 +79,7 @@ object f_notelun: Tf_notelun
         AnchorSideTop.Side = asrCenter
         Left = 17
         Height = 22
-        Top = 7
+        Top = 3
         Width = 115
         BorderSpacing.Left = 16
         Caption = 'Save'
@@ -94,7 +94,7 @@ object f_notelun: Tf_notelun
         AnchorSideTop.Side = asrCenter
         Left = 140
         Height = 22
-        Top = 7
+        Top = 3
         Width = 115
         AllowAllUp = True
         BorderSpacing.Left = 8
@@ -111,7 +111,7 @@ object f_notelun: Tf_notelun
         AnchorSideTop.Side = asrCenter
         Left = 263
         Height = 22
-        Top = 7
+        Top = 3
         Width = 115
         BorderSpacing.Left = 8
         Caption = 'Delete'
@@ -178,33 +178,33 @@ object f_notelun: Tf_notelun
     Width = 376
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 845
-    ClientWidth = 376
+    ClientHeight = 841
+    ClientWidth = 372
     TabOrder = 1
     object PanelListBottom: TPanel
       Left = 0
       Height = 40
-      Top = 805
-      Width = 376
+      Top = 801
+      Width = 372
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 0
     end
     object PanelList: TPanel
       Left = 0
-      Height = 805
+      Height = 801
       Top = 0
-      Width = 376
+      Width = 372
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 805
-      ClientWidth = 376
+      ClientHeight = 797
+      ClientWidth = 368
       TabOrder = 1
       object ListNotes: TStringGrid
         Left = 0
-        Height = 805
+        Height = 797
         Top = 0
-        Width = 376
+        Width = 368
         Align = alClient
         AutoFillColumns = True
         ColCount = 3
@@ -213,7 +213,7 @@ object f_notelun: Tf_notelun
             MinSize = 200
             MaxSize = 600
             Title.Caption = 'Formation'
-            Width = 224
+            Width = 214
           end        
           item
             MinSize = 100
@@ -238,7 +238,7 @@ object f_notelun: Tf_notelun
         OnHeaderClick = ListNotesHeaderClick
         OnSelectCell = ListNotesSelectCell
         ColWidths = (
-          224
+          214
           100
           50
         )
@@ -621,12 +621,12 @@ object f_notelun: Tf_notelun
             Top = 0
             Width = 800
             Align = alTop
-            ClientHeight = 82
-            ClientWidth = 800
+            ClientHeight = 78
+            ClientWidth = 796
             TabOrder = 3
             object ObsFormation: TEdit
               Left = 16
-              Height = 39
+              Height = 27
               Top = 38
               Width = 474
               BorderSpacing.Left = 16
@@ -645,7 +645,7 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Control = ObsFormation
               AnchorSideTop.Side = asrCenter
               Left = 540
-              Height = 39
+              Height = 27
               Top = 38
               Width = 111
               BorderSpacing.Left = 50
@@ -664,7 +664,7 @@ object f_notelun: Tf_notelun
               AnchorSideBottom.Control = ObsFormation
               AnchorSideBottom.Side = asrBottom
               Left = 490
-              Height = 39
+              Height = 27
               Top = 38
               Width = 31
               Anchors = [akTop, akLeft, akBottom]
@@ -707,7 +707,7 @@ object f_notelun: Tf_notelun
               TabOrder = 0
               object PCRW: TTabSheet
                 Caption = 'PCRW'
-                ClientHeight = 290
+                ClientHeight = 260
                 ClientWidth = 790
                 object ObsCircumstance: TGroupBox
                   Left = 0
@@ -1019,7 +1019,7 @@ object f_notelun: Tf_notelun
               end
               object PCRO: TTabSheet
                 Caption = 'PCRO'
-                ClientHeight = 290
+                ClientHeight = 260
                 ClientWidth = 790
                 object ObsCircumstance1: TGroupBox
                   Left = 0
@@ -1571,20 +1571,33 @@ object f_notelun: Tf_notelun
         Caption = 'Sort by type'
         OnClick = MenuItemSortTypeClick
       end
-      object MenuItemSortPlace: TMenuItem
-        Caption = 'MenuItemSortPlace'
+      object MenuItemSelectPlace: TMenuItem
+        Caption = 'MenuItemSelectPlace'
+        OnClick = MenuItemSelectPlaceClick
       end
-      object MenuItemSortObserver: TMenuItem
-        Caption = 'MenuItemSortObserver'
+      object MenuItemSelectObserver: TMenuItem
+        Caption = 'MenuItemSelectObserver'
+        OnClick = MenuItemSelectObserverClick
       end
-      object MenuItemSortInstrument: TMenuItem
-        Caption = 'MenuItemSortInstrument'
+      object MenuItemSelectInstrument: TMenuItem
+        Caption = 'MenuItemSelectInstrument'
+        OnClick = MenuItemSelectInstrumentClick
       end
-      object MenuItemSortEyepiece: TMenuItem
-        Caption = 'MenuItemSortEyepiece'
+      object MenuItemSelectEyepiece: TMenuItem
+        Caption = 'MenuItemSelectEyepiece'
+        OnClick = MenuItemSelectEyepieceClick
       end
-      object MenuItemSortFileFormat: TMenuItem
-        Caption = 'MenuItemSortFileFormat'
+      object MenuItemSelectCamera: TMenuItem
+        Caption = 'MenuItemSelectCamera'
+        OnClick = MenuItemSelectCameraClick
+      end
+      object MenuItemSelectNoteText: TMenuItem
+        Caption = 'MenuItemSelectNoteText'
+        OnClick = MenuItemSelectNoteTextClick
+      end
+      object MenuItemSelectFileFormat: TMenuItem
+        Caption = 'MenuItemSelectFileFormat'
+        OnClick = MenuItemSelectFileFormatClick
       end
     end
     object MenuSetup: TMenuItem

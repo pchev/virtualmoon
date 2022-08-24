@@ -129,6 +129,15 @@ rsFontToPrintN = 'Font to print note text';
 rsFixedPitchFo = 'Fixed pitch font to print list of notes';
 rsW = 'W';
 rsE = 'E';
+rsSelectLocati = 'Select location';
+rsSelectObserv = 'Select observer';
+rsSelectInstru = 'Select instrument';
+rsSelectEyepie = 'Select eyepiece';
+rsSelectCamera = 'Select camera';
+rsSelectFileAt = 'Select file attachment';
+rsSelectNoteTe = 'Select note text';
+rsNoteTextToSe = 'Note text to search';
+rsFileNameFilt = 'File name filter';
 
 implementation
 

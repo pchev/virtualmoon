@@ -10,6 +10,7 @@ uses
   {$endif}
   dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup, Printers, cu_print,
   LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, PrintersDlgs, Clipbrd, cu_planet, u_projection, math,
+  pu_listselection,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs, Types;
 
 type
@@ -46,6 +47,8 @@ type
     Label31: TLabel;
     Label32: TLabel;
     Label35: TLabel;
+    MenuItemSelectNoteText: TMenuItem;
+    MenuItemSelectCamera: TMenuItem;
     ObsLocationDetail2: TLabel;
     ObsPa: TLabel;
     ObsIllum: TLabel;
@@ -92,11 +95,11 @@ type
     MenuItemSortFormation: TMenuItem;
     MenuItemSortDate: TMenuItem;
     MenuItemSortType: TMenuItem;
-    MenuItemSortPlace: TMenuItem;
-    MenuItemSortObserver: TMenuItem;
-    MenuItemSortInstrument: TMenuItem;
-    MenuItemSortEyepiece: TMenuItem;
-    MenuItemSortFileFormat: TMenuItem;
+    MenuItemSelectPlace: TMenuItem;
+    MenuItemSelectObserver: TMenuItem;
+    MenuItemSelectInstrument: TMenuItem;
+    MenuItemSelectEyepiece: TMenuItem;
+    MenuItemSelectFileFormat: TMenuItem;
     MenuItemNewObs: TMenuItem;
     MenuItemNewInfo: TMenuItem;
     MenuItemEditNote: TMenuItem;
@@ -223,8 +226,15 @@ type
     procedure MenuItemNewObsClick(Sender: TObject);
     procedure MenuItemPrintListClick(Sender: TObject);
     procedure MenuItemPrintNoteClick(Sender: TObject);
+    procedure MenuItemSelectCameraClick(Sender: TObject);
+    procedure MenuItemSelectEyepieceClick(Sender: TObject);
+    procedure MenuItemSelectFileFormatClick(Sender: TObject);
+    procedure MenuItemSelectInstrumentClick(Sender: TObject);
+    procedure MenuItemSelectNoteTextClick(Sender: TObject);
+    procedure MenuItemSelectObserverClick(Sender: TObject);
     procedure MenuItemSortDateClick(Sender: TObject);
     procedure MenuItemSortFormationClick(Sender: TObject);
+    procedure MenuItemSelectPlaceClick(Sender: TObject);
     procedure MenuItemSortTypeClick(Sender: TObject);
     procedure MenuSetupObservation(Sender: TObject);
     procedure ChangeObsDate(Sender: TObject);
@@ -251,7 +261,7 @@ type
     EditingObservation,EditingInformation,ModifiedObservation,ModifiedInformation,NewInformation,NewObservation: boolean;
     CurrentInfoId, CurrentObsId, CurrentObsLocation: int64;
     LastLocation,LastObserver,LastInstrument,LastBarlow,LastEyepiece,LastCamera: Int64;
-    CurrentFormation: string;
+    CurrentFormation,AdditionalSelection,FileSelection,TextSelection,LastFileSelection,LastTextSelection: string;
     CurrentObsFile,CurrentInfoFile,SortCol: integer;
     procedure SetLang;
     procedure GetAppDir;
@@ -353,6 +363,11 @@ begin
   ReadConfig;
   SortCol:=DefaultSortCol;
   SortAsc:=not DefaultReverseSort;
+  AdditionalSelection:='';
+  FileSelection:='';
+  TextSelection:='';
+  LastFileSelection:='%.pdf';
+  LastTextSelection:='';
   param:=Tstringlist.Create;
   param.clear;
   if paramcount>0 then begin
@@ -526,6 +541,13 @@ begin
   MenuItemSortFormation.Caption:=rsSortByFormat;
   MenuItemSortDate.Caption:=rsSortByDate;
   MenuItemSortType.Caption:=rsSortByType;
+  MenuItemSelectPlace.Caption:=rsSelectLocati;
+  MenuItemSelectObserver.Caption:=rsSelectObserv;
+  MenuItemSelectInstrument.Caption:=rsSelectInstru;
+  MenuItemSelectEyepiece.Caption:=rsSelectEyepie;
+  MenuItemSelectCamera.Caption:=rsSelectCamera;
+  MenuItemSelectNoteText.Caption:=rsSelectNoteTe;
+  MenuItemSelectFileFormat.Caption:=rsSelectFileAt;
 
   MenuSetup.Caption:=rsSetup;
   MenuItemSetupLocation.Caption:=rsLocation;
@@ -1171,6 +1193,100 @@ begin
   end;
 end;
 
+procedure Tf_notelun.MenuItemSelectPlaceClick(Sender: TObject);
+begin
+  f_listselection.Prompt.Caption:=rsSelectLocati;
+  f_listselection.Selection.Items.Assign(ObsLocation.Items);
+  SetObsBoxIndex(f_listselection.Selection,nil,LastLocation);
+  FormPos(f_listselection,mouse.CursorPos.X,mouse.CursorPos.Y);
+  f_listselection.ShowModal;
+  if f_listselection.ModalResult=mrOK then begin
+    LastLocation:=GetObsBoxIndex(f_listselection.Selection);
+    AdditionalSelection:='location='+IntToStr(LastLocation);
+    NotesList;
+  end;
+end;
+
+procedure Tf_notelun.MenuItemSelectObserverClick(Sender: TObject);
+begin
+  f_listselection.Prompt.Caption:=rsSelectObserv;
+  f_listselection.Selection.Items.Assign(ObsObserver.Items);
+  SetObsBoxIndex(f_listselection.Selection,nil,LastObserver);
+  FormPos(f_listselection,mouse.CursorPos.X,mouse.CursorPos.Y);
+  f_listselection.ShowModal;
+  if f_listselection.ModalResult=mrOK then begin
+    LastObserver:=GetObsBoxIndex(f_listselection.Selection);
+    AdditionalSelection:='observer='+IntToStr(LastObserver);
+    NotesList;
+  end;
+end;
+
+procedure Tf_notelun.MenuItemSelectInstrumentClick(Sender: TObject);
+begin
+  f_listselection.Prompt.Caption:=rsSelectInstru;
+  f_listselection.Selection.Items.Assign(ObsInstrument.Items);
+  SetObsBoxIndex(f_listselection.Selection,nil,LastInstrument);
+  FormPos(f_listselection,mouse.CursorPos.X,mouse.CursorPos.Y);
+  f_listselection.ShowModal;
+  if f_listselection.ModalResult=mrOK then begin
+    LastInstrument:=GetObsBoxIndex(f_listselection.Selection);
+    AdditionalSelection:='instrument='+IntToStr(LastInstrument);
+    NotesList;
+  end;
+end;
+
+procedure Tf_notelun.MenuItemSelectEyepieceClick(Sender: TObject);
+begin
+  f_listselection.Prompt.Caption:=rsSelectEyepie;
+  f_listselection.Selection.Items.Assign(ObsEyepiece.Items);
+  SetObsBoxIndex(f_listselection.Selection,nil,LastEyepiece);
+  FormPos(f_listselection,mouse.CursorPos.X,mouse.CursorPos.Y);
+  f_listselection.ShowModal;
+  if f_listselection.ModalResult=mrOK then begin
+    LastEyepiece:=GetObsBoxIndex(f_listselection.Selection);
+    AdditionalSelection:='eyepiece='+IntToStr(LastEyepiece);
+    NotesList;
+  end;
+end;
+
+procedure Tf_notelun.MenuItemSelectCameraClick(Sender: TObject);
+begin
+  f_listselection.Prompt.Caption:=rsSelectCamera;
+  f_listselection.Selection.Items.Assign(ObsCamera.Items);
+  SetObsBoxIndex(f_listselection.Selection,nil,LastCamera);
+  FormPos(f_listselection,mouse.CursorPos.X,mouse.CursorPos.Y);
+  f_listselection.ShowModal;
+  if f_listselection.ModalResult=mrOK then begin
+    LastCamera:=GetObsBoxIndex(f_listselection.Selection);
+    AdditionalSelection:='camera='+IntToStr(LastCamera);
+    NotesList;
+  end;
+end;
+
+procedure Tf_notelun.MenuItemSelectNoteTextClick(Sender: TObject);
+var txt: string;
+begin
+  txt:=LastTextSelection;
+  if InputQuery(rsSelectNoteTe, rsNoteTextToSe+':', txt) then begin
+    LastTextSelection:=txt;
+    txt:=StringReplace(txt,'*','%',[rfReplaceAll]);
+    TextSelection:='note like "%'+txt+'%"';
+    NotesList;
+  end;
+end;
+
+procedure Tf_notelun.MenuItemSelectFileFormatClick(Sender: TObject);
+var txt: string;
+begin
+  txt:=LastFileSelection;
+  if InputQuery(rsSelectFileAt, rsFileNameFilt+':', txt) then begin
+    LastFileSelection:=txt;
+    txt:=StringReplace(txt,'*','%',[rfReplaceAll]);
+    FileSelection:='files like "'+txt+#10+'%"';
+    NotesList;
+  end;
+end;
+
 procedure Tf_notelun.NotesList(formation:string='';prefix:char=' ';fid:int64=0);
 var cmd: string;
     i,n,k: integer;
@@ -1186,19 +1302,49 @@ begin
   ClearList;
   k:=1;
   n:=1;
-  cmd:='select id,formation,date,"I" from infonotes';
-  if formation<>'' then begin
-    if pos('%',formation)=0 then
-      cmd:=cmd+' where FORMATION="'+formation+'"'
-    else
-      cmd:=cmd+' where FORMATION like "'+formation+'"';
+  if AdditionalSelection='' then begin // additional selection is only for observation
+    cmd:='select id,formation,date,"I" from infonotes';
+    if formation<>'' then begin
+      if pos('%',formation)=0 then
+        cmd:=cmd+' where FORMATION="'+formation+'"'
+      else
+        cmd:=cmd+' where FORMATION like "'+formation+'"';
+      if TextSelection<>'' then
+        cmd:=cmd+' and '+TextSelection;
+      if FileSelection<>'' then
+        cmd:=cmd+' and '+FileSelection;
+    end
+    else begin
+      if TextSelection<>'' then
+        cmd:=cmd+' where '+TextSelection;
+      if FileSelection<>'' then
+        cmd:=cmd+' where '+FileSelection;
+    end;
+    cmd:=cmd+' union ';
+  end
+  else begin
+    cmd:='';
   end;
-  cmd:=cmd+' union select id,formation,datestart,"O" from obsnotes';
+  cmd:=cmd+'select id,formation,datestart,"O" from obsnotes';
   if formation<>'' then begin
     if pos('%',formation)=0 then
       cmd:=cmd+' where FORMATION="'+formation+'"'
     else
       cmd:=cmd+' where FORMATION like "'+formation+'"';
+    if AdditionalSelection<>'' then
+      cmd:=cmd+' and '+AdditionalSelection;
+    if TextSelection<>'' then
+      cmd:=cmd+' and '+TextSelection;
+    if FileSelection<>'' then
+      cmd:=cmd+' and '+FileSelection;
+  end
+  else begin
+    if AdditionalSelection<>'' then
+      cmd:=cmd+' where '+AdditionalSelection;
+    if TextSelection<>'' then
+      cmd:=cmd+' where '+TextSelection;
+    if FileSelection<>'' then
+      cmd:=cmd+' where '+FileSelection;
   end;
   cmd:=cmd+' order by '+IntToStr(SortCol+2);
   if SortAsc then
@@ -1220,7 +1366,10 @@ begin
   end;
   finally
    locklist:=false;
-   ListNotesSelectCell(ListNotes,0,k,ok);
+   if ListNotes.RowCount>1 then ListNotesSelectCell(ListNotes,0,k,ok);
+   AdditionalSelection:='';
+   FileSelection:='';
+   TextSelection:='';
   end;
 end;
 
@@ -1301,6 +1450,7 @@ var i: int64;
     id: TNoteID;
 begin
   if locklist then exit;
+  if aRow>=ListNotes.RowCount then exit;
   id:=TNoteID(ListNotes.Objects[0,aRow]);
   if id<>nil then begin
     i:=id.id;
@@ -1436,6 +1586,8 @@ end;
 procedure Tf_notelun.BtnListAllClick(Sender: TObject);
 begin
   CurrentFormation:='';
+  AdditionalSelection:='';
+  FileSelection:='';
   NotesList;
 end;
 
@@ -1478,9 +1630,16 @@ end;
 
 procedure Tf_notelun.BtnListSelectionClick(Sender: TObject);
 var txt:string;
+    p:TPoint;
 begin
-  txt:=CurrentFormation;
-  if InputQuery(rsSelectFormat,rsFormation,txt) then begin
+  p.x:=BtnListSelection.Left;
+  p.y:=BtnListSelection.Top+BtnListSelection.Height;
+  p:=BtnListSelection.Parent.ClientToScreen(p);
+  f_search.SetFormation(CurrentFormation);
+  f_search.Left:=p.x;
+  f_search.Top:=p.y;
+  if f_search.ShowModal=mrOK then begin
+    txt:=f_search.ListBox1.GetSelectedText;
     CurrentFormation:=StringReplace(txt,'*','%',[rfReplaceAll]);
     NotesList;
   end;
@@ -1588,7 +1747,7 @@ begin
         FormatFloat(f5,Finfodate)+',"'+
         SafeSqlText(InfoAuthor.Text)+'","'+
         SafeSqlText(InfoText.Text)+'","'+
-        SafeSqlText(GetInfoFiles)+'")';
+        GetInfoFiles+'")';
    dbnotes.Query(cmd);
    if dbnotes.LastError=0 then begin
      ModifiedInformation:=false;
@@ -1770,12 +1929,14 @@ end;
 
 function  Tf_notelun.GetInfoFiles: string;
 var i: integer;
+    buf:string;
 begin
   result:='';
   for i:=0 to InfoFiles.RowCount-1 do begin
-    result:=Result+InfoFiles.Cells[0,i]+#10;
+    buf:=SafeSqlText(InfoFiles.Cells[0,i]);
+    if buf<>'' then
+      result:=Result+buf+#10;
   end;
-  if Length(result)>1 then Delete(result,Length(result),1);
 end;
 
 procedure Tf_notelun.InfoFilesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
@@ -1940,7 +2101,7 @@ begin
         inttostr(GetObsBoxIndex(ObsEyepiece))+','+
         inttostr(GetObsBoxIndex(ObsCamera))+',"'+
         SafeSqlText(ObsText.Text)+'","'+
-        SafeSqlText(GetObsFiles)+'")';
+        GetObsFiles+'")';
    dbnotes.Query(cmd);
    if dbnotes.LastError=0 then begin
      ModifiedObservation:=false;
@@ -2026,12 +2187,14 @@ end;
 
 function  Tf_notelun.GetObsFiles: string;
 var i: integer;
+    buf:string;
 begin
   result:='';
   for i:=0 to ObsFiles.RowCount-1 do begin
-    result:=Result+ObsFiles.Cells[0,i]+#10;
+    buf:=SafeSqlText(ObsFiles.Cells[0,i]);
+    if buf<>'' then
+      result:=Result+buf+#10;
   end;
-  if Length(result)>1 then Delete(result,Length(result),1);
 end;
 
 procedure Tf_notelun.ObsFilesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
