@@ -1,0 +1,482 @@
+# pch <pch@ap-i.net>, 2022.
+msgid ""
+msgstr ""
+"Last-Translator: pch <pch@ap-i.net>\n"
+"PO-Revision-Date: 2022-08-24 18:45+0200\n"
+"Project-Id-Version: \n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 21.12.3\n"
+
+#: u_translation.rsabout
+msgid "About"
+msgstr "A propos "
+
+#: u_translation.rsadd
+msgid "Add"
+msgstr "Ajouter"
+
+#: u_translation.rsaddrow
+msgid "Add row"
+msgstr "Ajouter une ligne"
+
+#: u_translation.rsall
+msgid "All"
+msgstr "Tout"
+
+#: u_translation.rsaltitude
+msgid "Altitude"
+msgstr "Altitude"
+
+#: u_translation.rsazimut
+msgid "Azimuth"
+msgstr "Azimut"
+
+#: u_translation.rsbarlow
+msgid "Barlow"
+msgstr "Barlow"
+
+#: u_translation.rsbarlowreduce
+msgid "Barlow/reducer"
+msgstr "Barlow/réducteur"
+
+#: u_translation.rsbarlowreduce2
+msgid "Barlow/Reducer"
+msgstr "Barlow/réducteur"
+
+#: u_translation.rsbydate
+msgid "By date"
+msgstr "Par date"
+
+#: u_translation.rsbyformationn
+msgid "By formation name"
+msgstr "Par nom de formation"
+
+#: u_translation.rsbytypeofnote
+msgid "By type of note"
+msgstr "Par type de note"
+
+#: u_translation.rscamera
+msgid "Camera"
+msgstr "Caméra"
+
+#: u_translation.rscancel
+msgid "Cancel"
+msgstr "Abandon"
+
+#: u_translation.rscircumstance
+msgid "Circumstance"
+msgstr "Circonstance"
+
+#: u_translation.rsclose
+msgid "Close"
+msgstr "Fermer"
+
+#: u_translation.rscolongitude
+msgid "Colongitude"
+msgstr "Colongitude"
+
+#: u_translation.rsconfiguratio
+msgid "Configuration"
+msgstr "Configuration"
+
+#: u_translation.rscontact
+msgid "Contact"
+msgstr "Contact"
+
+#: u_translation.rscountry
+msgid "Country"
+msgstr "Pays"
+
+#: u_translation.rsdate
+msgid "Date"
+msgstr "Date"
+
+#: u_translation.rsdatetime
+msgid "Date / Time"
+msgstr "Date / Heure"
+
+#: u_translation.rsdays
+msgid "days"
+msgstr "jours"
+
+#: u_translation.rsdeapparent
+msgid "DE apparent"
+msgstr "DE apparent"
+
+#: u_translation.rsdefaultlists
+msgid "Default list sorting options"
+msgstr "Options de tri de liste par défaut"
+
+#: u_translation.rsdelete
+msgid "Delete"
+msgstr "Supprimer"
+
+#: u_translation.rsdeletenote
+msgid "Delete note"
+msgstr "Supprimer la note"
+
+#: u_translation.rsdeletenote2
+msgid "Delete note?"
+msgstr "Supprimer la note?"
+
+#: u_translation.rsdiameter
+msgid "Diameter"
+msgstr "Diamètre"
+
+#: u_translation.rsdiametermm
+msgid "Diameter [mm]"
+msgstr "Diamètre [mm]"
+
+#: u_translation.rsdistance
+msgid "Distance"
+msgstr "Distance"
+
+#: u_translation.rse
+msgid "E"
+msgstr "E"
+
+#: u_translation.rsedit
+msgid "Edit"
+msgstr "Modifier"
+
+#: u_translation.rseditnote
+msgid "Edit note"
+msgstr "Modifier la note"
+
+#: u_translation.rselevation
+msgid "Elevation"
+msgstr "Altitude"
+
+#: u_translation.rselevationmet
+msgid "Elevation [meter]"
+msgstr "Altitude [mètre]"
+
+#: u_translation.rsendtime
+msgid "End time"
+msgstr "Heure de fin"
+
+#: u_translation.rsephemeris
+msgid "Ephemeris"
+msgstr "Éphémérides"
+
+#: u_translation.rsew
+msgid "E/W"
+msgstr "E/O"
+
+#: u_translation.rseyepiece
+msgid "Eyepiece"
+msgstr "Oculaire"
+
+#: u_translation.rsfd
+msgid "F/D"
+msgstr "F/D"
+
+#: u_translation.rsfield
+msgid "Field"
+msgstr "Champ"
+
+#: u_translation.rsfile
+msgid "File"
+msgstr "Fichier"
+
+#: u_translation.rsfiles
+msgid "Files"
+msgstr "Fichiers"
+
+#: u_translation.rsfirstname
+msgid "First name"
+msgstr "Prénom"
+
+#: u_translation.rsfixedpitchfo
+msgid "Fixed pitch font to print list of notes"
+msgstr "Police à pas fixe pour imprimer la liste des notes"
+
+#: u_translation.rsfocalmm
+msgid "Focal [mm]"
+msgstr "Focale [mm]"
+
+#: u_translation.rsfonttoprintn
+msgid "Font to print note text"
+msgstr "Police d'impression pour imprimer le texte de la note"
+
+#: u_translation.rsformation
+msgid "Formation"
+msgstr "Formation"
+
+#: u_translation.rsgear
+msgid "Gear"
+msgstr "Équipement"
+
+#: u_translation.rshelp
+msgid "Help"
+msgstr "Aide"
+
+#: u_translation.rshelp_prefix
+msgid "UK"
+msgstr "FR"
+
+#: u_translation.rshorizontalre
+msgid "Horizontal resolution [pixel]"
+msgstr "Résolution horizontale [pixel]"
+
+#: u_translation.rsillumination
+msgid "Illumination"
+msgstr "Illumination"
+
+#: u_translation.rsinformationn
+msgid "Information note"
+msgstr "Note d'information"
+
+#: u_translation.rsinstrument
+msgid "Instrument"
+msgstr "Instrument"
+
+#: u_translation.rslang
+msgid "Language"
+msgstr "Langue"
+
+#: u_translation.rslanguage
+msgid "English"
+msgstr "Français"
+
+#: u_translation.rslatitude
+msgid "Latitude"
+msgstr "Latitude"
+
+#: u_translation.rslibrationlat
+msgid "Libration latitude"
+msgstr "Libration en latitude"
+
+#: u_translation.rslibrationlon
+msgid "Libration longitude"
+msgstr "Libration en longitude"
+
+#: u_translation.rslistandnotes
+msgid "List and notes"
+msgstr "Liste et notes"
+
+#: u_translation.rslocation
+msgid "Location"
+msgstr "Emplacement"
+
+#: u_translation.rslongitude
+msgid "Longitude"
+msgstr "Longitude"
+
+#: u_translation.rslunation
+msgid "Lunation"
+msgstr "Lunaison"
+
+#: u_translation.rsmagnificatio
+msgid "Magnification"
+msgstr "Grossissement"
+
+#: u_translation.rsmanage
+msgid "Manage"
+msgstr "Gestion"
+
+#: u_translation.rsmeteorologic
+msgid "Meteorological condition"
+msgstr "Condition météorologique"
+
+#: u_translation.rsmonth
+msgid "Month"
+msgstr "Mois"
+
+#: u_translation.rsname
+msgid "Name"
+msgstr "Nom"
+
+#: u_translation.rsnew
+msgid "New"
+msgstr "Nouveau"
+
+#: u_translation.rsnewinformati
+msgid "New information note"
+msgstr "Nouvelle note d'information"
+
+#: u_translation.rsnewobservati
+msgid "New observation note"
+msgstr "Nouvelle note d'observation"
+
+#: u_translation.rsnote
+msgid "Note"
+msgstr "Note"
+
+#: u_translation.rsnoteauthor
+msgid "Note author"
+msgstr "Auteur de la note"
+
+#: u_translation.rsnoteismodifi
+msgid "Note is modified do you want to save the change?"
+msgstr "La note est modifiée, voulez-vous enregistrer la modification ?"
+
+#: u_translation.rsnoteoptions
+msgid "Note options"
+msgstr "Options des notes"
+
+#: u_translation.rsnoteslist
+msgid "Notes list"
+msgstr "Liste des notes"
+
+#: u_translation.rsobservatione
+msgid "Observation end"
+msgstr "Fin de l'observation"
+
+#: u_translation.rsobservationn
+msgid "Observation note"
+msgstr "Note d'observation"
+
+#: u_translation.rsobservations
+msgid "Observation start"
+msgstr "Début de l'observation"
+
+#: u_translation.rsobservatory
+msgid "Observatory"
+msgstr "Observatoire"
+
+#: u_translation.rsobserver
+msgid "Observer"
+msgstr "Observateur"
+
+#: u_translation.rsobservingpla
+msgid "Observing place"
+msgstr "Lieu d'observation"
+
+#: u_translation.rsok
+msgid "OK"
+msgstr "OK"
+
+#: u_translation.rspast
+msgid "Past"
+msgstr "Coller"
+
+#: u_translation.rsphase
+msgid "Phase"
+msgstr "Phase"
+
+#: u_translation.rspixelsize
+msgid "Pixel size"
+msgstr "Taille des pixels"
+
+#: u_translation.rspositionangl
+msgid "Position angle"
+msgstr "Angle de position"
+
+#: u_translation.rspower
+msgid "Power"
+msgstr "Puissance"
+
+#: u_translation.rsprintlistofn
+msgid "Print list of notes"
+msgstr "Impression de la liste des notes"
+
+#: u_translation.rsprintnote
+msgid "Print note"
+msgstr "Impression de la note"
+
+#: u_translation.rsprintoptions
+msgid "Print options"
+msgstr "Options d'impression"
+
+#: u_translation.rspseudo
+msgid "Pseudo"
+msgstr "Pseudo"
+
+#: u_translation.rsquit
+msgid "Quit"
+msgstr "Quitter"
+
+#: u_translation.rsraapparent
+msgid "RA apparent"
+msgstr "AR apparent"
+
+#: u_translation.rsremovefile
+msgid "Remove file"
+msgstr "Supprime le fichier"
+
+#: u_translation.rsreversesorto
+msgid "Reverse sort order"
+msgstr "Ordre de tri inversé"
+
+#: u_translation.rssave
+msgid "Save"
+msgstr "Enregistrer"
+
+#: u_translation.rssearch
+msgid "Search"
+msgstr "Cherche"
+
+#: u_translation.rsseeing
+msgid "Seeing"
+msgstr "Seeing"
+
+#: u_translation.rsselectformat
+msgid "Select formation"
+msgstr "Sélection de la formation"
+
+#: u_translation.rssetup
+msgid "Setup"
+msgstr "Réglages"
+
+#: u_translation.rsshowephemeri
+msgid "Show ephemeris"
+msgstr "Voir les éphémérides"
+
+#: u_translation.rssortbydate
+msgid "Sort by date"
+msgstr "Tri par date"
+
+#: u_translation.rssortbyformat
+msgid "Sort by formation"
+msgstr "Tri par formation"
+
+#: u_translation.rssortbytype
+msgid "Sort by type"
+msgstr "Tri par type"
+
+#: u_translation.rsstarttime
+msgid "Start time"
+msgstr "Heure du début"
+
+#: u_translation.rssubsolarlati
+msgid "Sub-solar latitude"
+msgstr "Latitude sub-solaire"
+
+#: u_translation.rstimezone
+msgid "Time Zone"
+msgstr "Zone horaire"
+
+#: u_translation.rstimezone2
+msgid "Timezone"
+msgstr "Zone horaire"
+
+#: u_translation.rstitle
+msgid "NoteLun"
+msgstr "NoteLun"
+
+#: u_translation.rstype
+msgid "Type"
+msgstr "Type"
+
+#: u_translation.rstypeofnote
+msgid "Type of note"
+msgstr "Type de note"
+
+#: u_translation.rsverticalreso
+msgid "Vertical resolution [pixel]"
+msgstr "Résolution verticale [pixel]"
+
+#: u_translation.rsw
+msgid "W"
+msgstr "O"
+
+#: u_translation.rsyear
+msgid "Year"
+msgstr "Année"
+

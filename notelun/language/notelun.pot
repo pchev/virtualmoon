@@ -1,0 +1,468 @@
+#: u_translation:rslanguage
+msgid "English"
+msgstr ""
+
+#: u_translation:rshelp_prefix
+msgid "UK"
+msgstr ""
+
+#: u_translation:rstitle
+msgid "NoteLun"
+msgstr ""
+
+#: u_translation:rsconfiguratio
+msgid "Configuration"
+msgstr ""
+
+#: u_translation:rslatitude
+msgid "Latitude"
+msgstr ""
+
+#: u_translation:rslongitude
+msgid "Longitude"
+msgstr ""
+
+#: u_translation:rsaltitude
+msgid "Altitude"
+msgstr ""
+
+#: u_translation:rslang
+msgid "Language"
+msgstr ""
+
+#: u_translation:rsok
+msgid "OK"
+msgstr ""
+
+#: u_translation:rscancel
+msgid "Cancel"
+msgstr ""
+
+#: u_translation:rsobservatory
+msgid "Observatory"
+msgstr ""
+
+#: u_translation:rsdatetime
+msgid "Date / Time"
+msgstr ""
+
+#: u_translation:rscountry
+msgid "Country"
+msgstr ""
+
+#: u_translation:rstimezone
+msgid "Time Zone"
+msgstr ""
+
+#: u_translation:rsraapparent
+msgid "RA apparent"
+msgstr ""
+
+#: u_translation:rsdeapparent
+msgid "DE apparent"
+msgstr ""
+
+#: u_translation:rsdistance
+msgid "Distance"
+msgstr ""
+
+#: u_translation:rsdiameter
+msgid "Diameter"
+msgstr ""
+
+#: u_translation:rsphase
+msgid "Phase"
+msgstr ""
+
+#: u_translation:rslunation
+msgid "Lunation"
+msgstr ""
+
+#: u_translation:rsillumination
+msgid "Illumination"
+msgstr ""
+
+#: u_translation:rscolongitude
+msgid "Colongitude"
+msgstr ""
+
+#: u_translation:rssubsolarlati
+msgid "Sub-solar latitude"
+msgstr ""
+
+#: u_translation:rslibrationlon
+msgid "Libration longitude"
+msgstr ""
+
+#: u_translation:rslibrationlat
+msgid "Libration latitude"
+msgstr ""
+
+#: u_translation:rsstarttime
+msgid "Start time"
+msgstr ""
+
+#: u_translation:rsendtime
+msgid "End time"
+msgstr ""
+
+#: u_translation:rsclose
+msgid "Close"
+msgstr ""
+
+#: u_translation:rsdate
+msgid "Date"
+msgstr ""
+
+#: u_translation:rsazimut
+msgid "Azimuth"
+msgstr ""
+
+#: u_translation:rssetup
+msgid "Setup"
+msgstr ""
+
+#: u_translation:rsyear
+msgid "Year"
+msgstr ""
+
+#: u_translation:rsmonth
+msgid "Month"
+msgstr ""
+
+#: u_translation:rsnewobservati
+msgid "New observation note"
+msgstr ""
+
+#: u_translation:rsnewinformati
+msgid "New information note"
+msgstr ""
+
+#: u_translation:rseditnote
+msgid "Edit note"
+msgstr ""
+
+#: u_translation:rsdeletenote
+msgid "Delete note"
+msgstr ""
+
+#: u_translation:rsprintnote
+msgid "Print note"
+msgstr ""
+
+#: u_translation:rsprintlistofn
+msgid "Print list of notes"
+msgstr ""
+
+#: u_translation:rsquit
+msgid "Quit"
+msgstr ""
+
+#: u_translation:rssortbyformat
+msgid "Sort by formation"
+msgstr ""
+
+#: u_translation:rssortbydate
+msgid "Sort by date"
+msgstr ""
+
+#: u_translation:rssortbytype
+msgid "Sort by type"
+msgstr ""
+
+#: u_translation:rslocation
+msgid "Location"
+msgstr ""
+
+#: u_translation:rsobserver
+msgid "Observer"
+msgstr ""
+
+#: u_translation:rsinstrument
+msgid "Instrument"
+msgstr ""
+
+#: u_translation:rsbarlow
+msgid "Barlow"
+msgstr ""
+
+#: u_translation:rseyepiece
+msgid "Eyepiece"
+msgstr ""
+
+#: u_translation:rscamera
+msgid "Camera"
+msgstr ""
+
+#: u_translation:rslistandnotes
+msgid "List and notes"
+msgstr ""
+
+#: u_translation:rshelp
+msgid "Help"
+msgstr ""
+
+#: u_translation:rsabout
+msgid "About"
+msgstr ""
+
+#: u_translation:rsobservationn
+msgid "Observation note"
+msgstr ""
+
+#: u_translation:rscircumstance
+msgid "Circumstance"
+msgstr ""
+
+#: u_translation:rsobservingpla
+msgid "Observing place"
+msgstr ""
+
+#: u_translation:rsobservations
+msgid "Observation start"
+msgstr ""
+
+#: u_translation:rsobservatione
+msgid "Observation end"
+msgstr ""
+
+#: u_translation:rsmeteorologic
+msgid "Meteorological condition"
+msgstr ""
+
+#: u_translation:rsseeing
+msgid "Seeing"
+msgstr ""
+
+#: u_translation:rsgear
+msgid "Gear"
+msgstr ""
+
+#: u_translation:rsbarlowreduce
+msgid "Barlow/reducer"
+msgstr ""
+
+#: u_translation:rsephemeris
+msgid "Ephemeris"
+msgstr ""
+
+#: u_translation:rspositionangl
+msgid "Position angle"
+msgstr ""
+
+#: u_translation:rsnote
+msgid "Note"
+msgstr ""
+
+#: u_translation:rsfiles
+msgid "Files"
+msgstr ""
+
+#: u_translation:rsadd
+msgid "Add"
+msgstr ""
+
+#: u_translation:rsdelete
+msgid "Delete"
+msgstr ""
+
+#: u_translation:rspast
+msgid "Past"
+msgstr ""
+
+#: u_translation:rsformation
+msgid "Formation"
+msgstr ""
+
+#: u_translation:rstype
+msgid "Type"
+msgstr ""
+
+#: u_translation:rsall
+msgid "All"
+msgstr ""
+
+#: u_translation:rsselectformat
+msgid "Select formation"
+msgstr ""
+
+#: u_translation:rsnew
+msgid "New"
+msgstr ""
+
+#: u_translation:rssave
+msgid "Save"
+msgstr ""
+
+#: u_translation:rsedit
+msgid "Edit"
+msgstr ""
+
+#: u_translation:rsinformationn
+msgid "Information note"
+msgstr ""
+
+#: u_translation:rsnoteauthor
+msgid "Note author"
+msgstr ""
+
+#: u_translation:rsfile
+msgid "File"
+msgstr ""
+
+#: u_translation:rsmanage
+msgid "Manage"
+msgstr ""
+
+#: u_translation:rssearch
+msgid "Search"
+msgstr ""
+
+#: u_translation:rstypeofnote
+msgid "Type of note"
+msgstr ""
+
+#: u_translation:rsdeletenote2
+msgid "Delete note?"
+msgstr ""
+
+#: u_translation:rsmagnificatio
+msgid "Magnification"
+msgstr ""
+
+#: u_translation:rselevation
+msgid "Elevation"
+msgstr ""
+
+#: u_translation:rsdays
+msgid "days"
+msgstr ""
+
+#: u_translation:rsnoteismodifi
+msgid "Note is modified do you want to save the change?"
+msgstr ""
+
+#: u_translation:rsnoteslist
+msgid "Notes list"
+msgstr ""
+
+#: u_translation:rsremovefile
+msgid "Remove file"
+msgstr ""
+
+#: u_translation:rsname
+msgid "Name"
+msgstr ""
+
+#: u_translation:rsew
+msgid "E/W"
+msgstr ""
+
+#: u_translation:rselevationmet
+msgid "Elevation [meter]"
+msgstr ""
+
+#: u_translation:rstimezone2
+msgid "Timezone"
+msgstr ""
+
+#: u_translation:rsfirstname
+msgid "First name"
+msgstr ""
+
+#: u_translation:rspseudo
+msgid "Pseudo"
+msgstr ""
+
+#: u_translation:rscontact
+msgid "Contact"
+msgstr ""
+
+#: u_translation:rsdiametermm
+msgid "Diameter [mm]"
+msgstr ""
+
+#: u_translation:rsfocalmm
+msgid "Focal [mm]"
+msgstr ""
+
+#: u_translation:rsfd
+msgid "F/D"
+msgstr ""
+
+#: u_translation:rsbarlowreduce2
+msgid "Barlow/Reducer"
+msgstr ""
+
+#: u_translation:rspower
+msgid "Power"
+msgstr ""
+
+#: u_translation:rsfield
+msgid "Field"
+msgstr ""
+
+#: u_translation:rshorizontalre
+msgid "Horizontal resolution [pixel]"
+msgstr ""
+
+#: u_translation:rsverticalreso
+msgid "Vertical resolution [pixel]"
+msgstr ""
+
+#: u_translation:rspixelsize
+msgid "Pixel size"
+msgstr ""
+
+#: u_translation:rsaddrow
+msgid "Add row"
+msgstr ""
+
+#: u_translation:rsdefaultlists
+msgid "Default list sorting options"
+msgstr ""
+
+#: u_translation:rsbyformationn
+msgid "By formation name"
+msgstr ""
+
+#: u_translation:rsbydate
+msgid "By date"
+msgstr ""
+
+#: u_translation:rsbytypeofnote
+msgid "By type of note"
+msgstr ""
+
+#: u_translation:rsreversesorto
+msgid "Reverse sort order"
+msgstr ""
+
+#: u_translation:rsnoteoptions
+msgid "Note options"
+msgstr ""
+
+#: u_translation:rsshowephemeri
+msgid "Show ephemeris"
+msgstr ""
+
+#: u_translation:rsprintoptions
+msgid "Print options"
+msgstr ""
+
+#: u_translation:rsfonttoprintn
+msgid "Font to print note text"
+msgstr ""
+
+#: u_translation:rsfixedpitchfo
+msgid "Fixed pitch font to print list of notes"
+msgstr ""
+
+#: u_translation:rsw
+msgid "W"
+msgstr ""
+
+#: u_translation:rse
+msgid "E"
+msgstr ""
+

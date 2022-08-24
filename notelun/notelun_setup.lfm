@@ -22,7 +22,7 @@ object FSetup: TFSetup
     object BtnSave: TButton
       AnchorSideTop.Control = BtnCancel
       AnchorSideTop.Side = asrCenter
-      Left = 368
+      Left = 376
       Height = 25
       Top = 13
       Width = 115
@@ -34,10 +34,10 @@ object FSetup: TFSetup
     end
     object BtnAddRow: TButton
       AnchorSideTop.Control = BtnCancel
-      Left = 192
+      Left = 184
       Height = 25
       Top = 13
-      Width = 115
+      Width = 144
       BorderSpacing.Left = 16
       Caption = 'Add row'
       Color = clBtnFace

@@ -4,7 +4,7 @@ unit pu_date;
 
 interface
 
-uses u_constant,
+uses u_constant, u_translation,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, EditBtn, Buttons, Spin, StdCtrls;
 
 type
@@ -25,6 +25,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
   private
+    procedure SetLang;
     function GetDate: double;
     procedure SetDate(value: double);
   public
@@ -40,6 +41,12 @@ implementation
 
 { Tf_date }
 
+procedure Tf_date.SetLang;
+begin
+  btncancel.Caption:=rsCancel;
+  btnok.Caption:=rsOK;
+end;
+
 procedure Tf_date.SpeedButton1Click(Sender: TObject);
 begin
   ModalResult:=mrOK;
@@ -47,8 +54,8 @@ end;
 
 procedure Tf_date.FormCreate(Sender: TObject);
 begin
+  SetLang;
   DateEdit1.DateFormat:=datedisplay;
-
 end;
 
 procedure Tf_date.FormShow(Sender: TObject);

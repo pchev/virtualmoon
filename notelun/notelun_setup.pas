@@ -4,7 +4,7 @@ unit notelun_setup;
 
 interface
 
-uses passql, passqlite, u_constant, u_util, cu_tz,
+uses passql, passqlite, u_translation, u_constant, u_util, cu_tz,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, ComCtrls, Grids, Buttons;
 
 type
@@ -96,36 +96,55 @@ end;
 
 procedure TFSetup.SetLang;
 begin
-  TabSheetLocation.Caption:='Location';
-  StringGridLocation.Columns[0].Title.Caption:='Name';
-  StringGridLocation.Columns[1].Title.Caption:='E/W';
-  StringGridLocation.Columns[2].Title.Caption:='Longitude';
-  StringGridLocation.Columns[3].Title.Caption:='Latitude';
-  StringGridLocation.Columns[4].Title.Caption:='Elevation [meter]';
-  StringGridLocation.Columns[5].Title.Caption:='Timezone';
-  TabSheetObserver.Caption:='Observer';
-  StringGridObserver.Cells[0,0]:='Name';
-  StringGridObserver.Cells[1,0]:='First name';
-  StringGridObserver.Cells[2,0]:='Pseudo';
-  StringGridObserver.Cells[3,0]:='Contact';
-  TabSheetInstrument.Caption:='Instrument';
-  StringGridInstrument.Cells[0,0]:='Name';
-  StringGridInstrument.Cells[1,0]:='Type';
-  StringGridInstrument.Cells[2,0]:='Diameter [mm]';
-  StringGridInstrument.Cells[3,0]:='Focal [mm]';
-  StringGridInstrument.Cells[4,0]:='F/D';
-  TabSheetBarlow.Caption:='Barlow/Reducer';
-  StringGridBarlow.Cells[0,0]:='Name';
-  StringGridBarlow.Cells[1,0]:='Power';
-  TabSheetEyepiece.Caption:='Eyepiece';
-  StringGridEyepiece.Cells[0,0]:='Name';
-  StringGridEyepiece.Cells[1,0]:='Focal [mm]';
-  StringGridEyepiece.Cells[2,0]:='Field [°]';
-  TabSheetCamera.Caption:='Camera';
-  StringGridCamera.Cells[0,0]:='Name';
-  StringGridCamera.Cells[1,0]:='Horizontal resolution [pixel]';
-  StringGridCamera.Cells[2,0]:='Vertical resolution [pixel]';
-  StringGridCamera.Cells[3,0]:='Pixel size [µ]';
+  BtnAddRow.Caption:=rsAddRow;
+  BtnSave.Caption:=rsSave;
+  BtnCancel.Caption:=rsCancel;
+
+  TabSheetLocation.Caption:=rsLocation;
+  StringGridLocation.Columns[0].Title.Caption:=rsName;
+  StringGridLocation.Columns[1].Title.Caption:=rsEW;
+  StringGridLocation.Columns[1].PickList[0]:=rsE;
+  StringGridLocation.Columns[1].PickList[1]:=rsW;
+  StringGridLocation.Columns[2].Title.Caption:=rsLongitude;
+  StringGridLocation.Columns[3].Title.Caption:=rsLatitude;
+  StringGridLocation.Columns[4].Title.Caption:=rsElevationMet;
+  StringGridLocation.Columns[5].Title.Caption:=rsTimezone2;
+  TabSheetObserver.Caption:=rsObserver;
+  StringGridObserver.Cells[0, 0]:=rsName;
+  StringGridObserver.Cells[1, 0]:=rsFirstName;
+  StringGridObserver.Cells[2, 0]:=rsPseudo;
+  StringGridObserver.Cells[3, 0]:=rsContact;
+  TabSheetInstrument.Caption:=rsInstrument;
+  StringGridInstrument.Cells[0, 0]:=rsName;
+  StringGridInstrument.Cells[1, 0]:=rsType;
+  StringGridInstrument.Cells[2, 0]:=rsDiameterMm;
+  StringGridInstrument.Cells[3, 0]:=rsFocalMm;
+  StringGridInstrument.Cells[4, 0]:=rsFD;
+  TabSheetBarlow.Caption:=rsBarlowReduce2;
+  StringGridBarlow.Cells[0, 0]:=rsName;
+  StringGridBarlow.Cells[1, 0]:=rsPower;
+  TabSheetEyepiece.Caption:=rsEyepiece;
+  StringGridEyepiece.Cells[0, 0]:=rsName;
+  StringGridEyepiece.Cells[1, 0]:=rsFocalMm;
+  StringGridEyepiece.Cells[2, 0]:=rsField+' [°]';
+  TabSheetCamera.Caption:=rsCamera;
+  StringGridCamera.Cells[0, 0]:=rsName;
+  StringGridCamera.Cells[1, 0]:=rsHorizontalRe;
+  StringGridCamera.Cells[2, 0]:=rsVerticalReso;
+  StringGridCamera.Cells[3, 0]:=rsPixelSize+' [µ]';
+
+  TabSheetList.Caption:=rsListAndNotes;
+  RadioGroupSortList.Caption:=rsDefaultListS;
+  RadioGroupSortList.Items[0]:=rsByFormationN;
+  RadioGroupSortList.Items[1]:=rsByDate;
+  RadioGroupSortList.Items[2]:=rsByTypeOfNote;
+  CheckBoxReverseSort.Caption:=rsReverseSortO;
+  GroupBoxNote.Caption:=rsNoteOptions;
+  CheckBoxEphemeris.Caption:=rsShowEphemeri;
+  GroupBoxPrint.Caption:=rsPrintOptions;
+  label1.Caption:=rsFontToPrintN;
+  label2.Caption:=rsFixedPitchFo;
+
 end;
 
 procedure TFSetup.ClearData;
@@ -168,7 +187,7 @@ end;
 
 procedure TFSetup.SpeedButtonFixedFontClick(Sender: TObject);
 begin
-  FontDialog1.Font.Name:='Courier new';
+  FontDialog1.Font.Name:=FontFixed.Text;
   FontDialog1.Options:=[fdFixedPitchOnly,fdEffects,fdNoSizeSel,fdNoStyleSel];
   if FontDialog1.Execute then
     FontFixed.Text:=FontDialog1.Font.Name;
@@ -176,7 +195,7 @@ end;
 
 procedure TFSetup.SpeedButtonFontClick(Sender: TObject);
 begin
-  FontDialog1.Font.Name:='Arial';
+  FontDialog1.Font.Name:=FontNote.Text;
   FontDialog1.Options:=[fdEffects,fdNoSizeSel,fdNoStyleSel];
   if FontDialog1.Execute then
     FontNote.Text:=FontDialog1.Font.Name;
@@ -189,7 +208,7 @@ begin
   case TStringGrid(sender).tag of
     1: if OldValue<>NewValue then begin // Location
          LocationModified:=true;
-         if (aCol=1)and(NewValue<>'E')and(NewValue<>'W') then NewValue:=OldValue;
+         if (aCol=1)and(NewValue<>rsE)and(NewValue<>rsW) then NewValue:=OldValue;
          if (aCol=2) then begin
            val(NewValue,x,n);
            if (n<>0)or(x<0)or(x>180) then NewValue:=OldValue;
@@ -294,9 +313,9 @@ begin
     StringGridLocation.Cells[0,i+1]:=dbnotes.Results[i][1];
     x:=dbnotes.Results[i].Format[2].AsFloat;
     if x>0 then
-      StringGridLocation.Cells[1,i+1]:='E'
+      StringGridLocation.Cells[1,i+1]:=rsE
     else
-      StringGridLocation.Cells[1,i+1]:='W';
+      StringGridLocation.Cells[1,i+1]:=rsW;
     StringGridLocation.Cells[2,i+1]:=FormatFloat(f4,abs(x));
     StringGridLocation.Cells[3,i+1]:=dbnotes.Results[i][3];
     StringGridLocation.Cells[4,i+1]:=dbnotes.Results[i][4];
@@ -392,7 +411,7 @@ begin
     end;
     cmd:=cmd+SafeSqlText(grid.Cells[0,i])+'","'; //name
     x:=StrToFloatDef(grid.Cells[2,i],0);
-    if trim(grid.Cells[1,i])='W' then x:=-x;
+    if trim(grid.Cells[1,i])=rsW then x:=-x;
     cmd:=cmd+FormatFloat(f4,x)+'","';
     for j:=3 to grid.ColCount-1 do begin
       cmd:=cmd+SafeSqlText(grid.Cells[j,i])+'","';
@@ -411,6 +430,7 @@ begin
       grid.Objects[0,i]:=newid;
     end;
   end;
+  result:=true;
 end;
 
 function TFSetup.SaveGrid(grid: TStringGrid; table,cmdprefix: string ):boolean;
@@ -447,6 +467,7 @@ begin
       grid.Objects[0,i]:=newid;
     end;
   end;
+  result:=true;
 end;
 
 function TFSetup.SaveData:boolean;

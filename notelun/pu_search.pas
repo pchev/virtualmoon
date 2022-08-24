@@ -4,7 +4,7 @@ unit pu_search;
 
 interface
 
-uses passql, passqlite,
+uses passql, passqlite, u_translation,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons, ExtCtrls, StdCtrls;
 
 type
@@ -19,10 +19,11 @@ type
     btnsearch: TSpeedButton;
     btnok: TButton;
     procedure btnsearchClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
   private
-
+    procedure SetLang;
   public
     dbm: TLiteDB;
     procedure SetFormation(txt: string);
@@ -40,6 +41,13 @@ implementation
 procedure Tf_search.SpeedButton1Click(Sender: TObject);
 begin
   ModalResult:=mrOK;
+end;
+
+procedure Tf_search.SetLang;
+begin
+  btnsearch.Caption:=rsSearch;
+  btnok.Caption:=rsOK;
+  btncancel.Caption:=rsCancel;
 end;
 
 procedure Tf_search.SetFormation(txt: string);
@@ -66,6 +74,11 @@ begin
   if ListBox1.Items.Count>0 then begin
      ListBox1.Selected[0]:=true;
   end;
+end;
+
+procedure Tf_search.FormCreate(Sender: TObject);
+begin
+  SetLang;
 end;
 
 procedure Tf_search.FormShow(Sender: TObject);

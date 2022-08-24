@@ -4,7 +4,7 @@ object f_date: Tf_date
   Top = 31
   Width = 376
   BorderStyle = bsNone
-  Caption = 'f_date'
+  Caption = 'Date'
   ClientHeight = 101
   ClientWidth = 376
   FormStyle = fsStayOnTop

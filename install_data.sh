@@ -51,6 +51,8 @@ install -v -m 644 cclun/language/cclun.en.po $destdir/share/virtualmoon/language
 install -v -m 644 cclun/language/cclun.fr.po $destdir/share/virtualmoon/language/
 install -v -m 644 calclun/language/calclun.en.po $destdir/share/virtualmoon/language/
 install -v -m 644 calclun/language/calclun.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 notelun/language/notelun.en.po $destdir/share/virtualmoon/language/
+install -v -m 644 notelun/language/notelun.fr.po $destdir/share/virtualmoon/language/
 
 install -m 755 -d $destdir/share/virtualmoon/data
 install -v -m 644 data/country.tab $destdir/share/virtualmoon/data/

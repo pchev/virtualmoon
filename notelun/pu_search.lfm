@@ -9,6 +9,7 @@ object f_search: Tf_search
   ClientWidth = 384
   Color = clWindow
   FormStyle = fsStayOnTop
+  OnCreate = FormCreate
   OnShow = FormShow
   ShowInTaskBar = stNever
   object Panel1: TPanel

@@ -449,26 +449,96 @@ begin
   ldeg:='°';
   lmin:='''';
   lsec:='"';
-  MenuItemNewObs.Caption:='New observation note';
-  MenuItemNewInfo.Caption:='New information note';
-  MenuItemEditNote.Caption:='Edit note';
-  MenuItemDeleteNote.Caption:='Delete note';
-  MenuItemPrintNote.Caption:='Print note';
-  MenuItemPrintList.Caption:='Print list of notes';
-  Quit.Caption:='Quit';
+  u_util.hp:=rshelp_prefix+'_';
 
-  MenuItemSortFormation.Caption:='Sort by formation';
-  MenuItemSortDate.Caption:='Sort by date';
-  MenuItemSortType.Caption:='Sort by type';
-  MenuItemSetupLocation.Caption:='Location';
-  MenuItemSetupObserver.Caption:='Observer';
-  MenuItemSetupInstrument.Caption:='Instrument';
-  MenuItemSetupBarlow.Caption:='Barlow';
-  MenuItemSetupEyepiece.Caption:='Eyepiece';
-  MenuItemSetupCamera.Caption:='Camera';
-  MenuItemSetupListNotes.Caption:='List and notes';
-  MenuItemHelp.Caption:='Help';
-  MenuItemAbout.Caption:='About';
+  ListNotes.Cells[0, 0]:=rsFormation;
+  ListNotes.Cells[1, 0]:=rsDate;
+  ListNotes.Cells[2, 0]:=rsType;
+  BtnListAll.Caption:=rsAll;
+  BtnListSelection.Caption:=rsSelectFormat;
+  BtnListNew.Caption:=rsNew;
+  BtnSave.Caption:=rsSave;
+  BtnEdit.Caption:=rsEdit;
+  BtnDelete.Caption:=rsDelete;
+
+  label28.Caption:=rsObservationN;
+  ObsCircumstance.Caption:=rsCircumstance;
+  ObsCircumstance1.Caption:=rsCircumstance;
+  label2.Caption:=rsObservingPla;
+  label22.Caption:=rsObservingPla;
+  label3.Caption:=rsObserver;
+  label23.Caption:=rsObserver;
+  label4.Caption:=rsObservationS;
+  label24.Caption:=rsObservationS;
+  label5.Caption:=rsObservationE;
+  label25.Caption:=rsObservationE;
+  label6.Caption:=rsMeteorologic;
+  label26.Caption:=rsMeteorologic;
+  label7.Caption:=rsSeeing;
+  label27.Caption:=rsSeeing;
+  ObsGear.Caption:=rsGear;
+  ObsGear1.Caption:=rsGear;
+  label8.Caption:=rsInstrument;
+  label30.Caption:=rsInstrument;
+  label9.Caption:=rsBarlowReduce;
+  label31.Caption:=rsBarlowReduce;
+  label20.Caption:=rsCamera;
+  label33.Caption:=rsCamera;
+  label21.Caption:=rsEyepiece;
+  label34.Caption:=rsEyepiece;
+  ObsEph.Caption:=rsEphemeris;
+  label11.caption:=rsRAApparent;
+  label12.caption:=rsDEApparent;
+  label13.caption:=rsDiameter;
+  label14.caption:=rsLunation;
+  label15.caption:=rsColongitude;
+  label16.caption:=rsLibrationLon;
+  label17.caption:=rsLibrationLat;
+  label18.caption:=rsAzimut;
+  label19.caption:=rsAltitude;
+  label10.caption:=rsSubSolarLati;
+  label32.caption:=rsIllumination;
+  label35.caption:=rsPositionAngl;
+  ObsNote.Caption:=rsNote;
+  ObsFilesBox.Caption:=rsFiles;
+  BtnAddObsFile.Caption:=rsAdd;
+  BtnDelObsFile.Caption:=rsDelete;
+  BtnPastObsFile.Caption:=rsPast;
+
+  label29.Caption:=rsInformationN;
+  label1.Caption:=rsNoteAuthor;
+  InfoNote.Caption:=rsNote;
+  InfoFilesBox.Caption:=rsFiles;
+  BtnAddInfoFile.Caption:=rsAdd;
+  BtnDelInfoFile.Caption:=rsDelete;
+  BtnPastInfoFile.Caption:=rsPast;
+
+  MenuFile.Caption:=rsFile;
+  MenuItemNewObs.Caption:=rsNewObservati;
+  MenuItemNewInfo.Caption:=rsNewInformati;
+  MenuItemEditNote.Caption:=rsEditNote;
+  MenuItemDeleteNote.Caption:=rsDeleteNote;
+  MenuItemPrintNote.Caption:=rsPrintNote;
+  MenuItemPrintList.Caption:=rsPrintListOfN;
+  Quit.Caption:=rsQuit;
+
+  MenuManage.Caption:=rsManage;
+  MenuItemSortFormation.Caption:=rsSortByFormat;
+  MenuItemSortDate.Caption:=rsSortByDate;
+  MenuItemSortType.Caption:=rsSortByType;
+
+  MenuSetup.Caption:=rsSetup;
+  MenuItemSetupLocation.Caption:=rsLocation;
+  MenuItemSetupObserver.Caption:=rsObserver;
+  MenuItemSetupInstrument.Caption:=rsInstrument;
+  MenuItemSetupBarlow.Caption:=rsBarlow;
+  MenuItemSetupEyepiece.Caption:=rsEyepiece;
+  MenuItemSetupCamera.Caption:=rsCamera;
+  MenuItemSetupListNotes.Caption:=rsListAndNotes;
+
+  MenuHelp.Caption:=rsHelp;
+  MenuItemHelp.Caption:=rsHelp;
+  MenuItemAbout.Caption:=rsAbout;
 end;
 
 procedure Tf_notelun.GetAppDir;
@@ -733,7 +803,6 @@ procedure Tf_notelun.OpenVMA;
 var p,buf,cmd:string;
     x,y: double;
 begin
-// -nn -z 3 -n ALPETRAGIUS -d 2022-08-23T11:00:00.000 -o LON:-03d23m24sLAT:+44d07m12sTZ:2.00
   p:='-nn -z 3';
   if PageControl1.ActivePageIndex=1 then begin // info note
     buf:=trim(InfoFormation.text);
@@ -795,7 +864,7 @@ begin
 end;
 
 procedure Tf_notelun.OpenWeblun;
-var p,buf:string;
+var p:string;
 begin
   p:='-nn ';
   chdir(appdir);
@@ -862,7 +931,7 @@ begin
   b:=StrToFloatDef(dbnotes.QueryOne('select power from barlow where id='+inttostr(GetObsBoxIndex(ObsBarlow))),1);
   if (fi>0)and(fe>0) then begin
     power:=b*fi/fe;
-    ObsPower.Caption:='Power: '+FormatFloat(f0,power)+'x';
+    ObsPower.Caption:=rsMagnificatio+': '+FormatFloat(f0, power)+'x';
     if fve>0 then ObsPower.Caption:=ObsPower.Caption+' , FOV: '+FormatFloat(f1,60*fve/power)+'''';
   end
   else
@@ -910,8 +979,8 @@ begin
      ObsLatitude:=dbnotes.Results[0].Format[1].AsFloat;
      ObsAltitude:=dbnotes.Results[0].Format[2].AsFloat;
      tzname:=dbnotes.Results[0][3];
-     if ObsLongitude<0 then ew:='W' else ew:='E';
-     ObsLocationDetail1.Caption:='Longitude: '+ew+' '+FormatFloat(f4,abs(ObsLongitude))+', Latitude: '+FormatFloat(f4,ObsLatitude)+', Elevation: '+FormatFloat(f0,ObsAltitude);
+     if ObsLongitude<0 then ew:=rsW else ew:=rsE;
+     ObsLocationDetail1.Caption:=rsLongitude+': '+ew+' '+FormatFloat(f4, abs(ObsLongitude))+', '+rsLatitude+': '+FormatFloat(f4, ObsLatitude)+', '+rsElevation+': '+FormatFloat(f0, ObsAltitude);
      ObsLocationDetail2.Caption:='Time zone: '+tzname;
      ObsLongitude:=-ObsLongitude; // Meeus convention
      p := degtorad(ObsLatitude);
@@ -967,7 +1036,7 @@ begin
       az := rmod(rad2deg * az + 180, 360);
       ah := rad2deg * ah;
 
-      ObsLunation.Caption:=formatfloat(f2, lunaison)+' days';
+      ObsLunation.Caption:=formatfloat(f2, lunaison)+' '+rsDays;
       ObsColongitude.Caption:=formatfloat(f2, colong)+ldeg;
       ObsSubsolarLat.Caption:=formatfloat(f2, sunlat)+ldeg;
       ObsLibrLon.Caption:=demtostr(librl);
@@ -1250,12 +1319,20 @@ end;
 
 procedure Tf_notelun.MenuItemAboutClick(Sender: TObject);
 begin
-  MessageDlg('About Notelun','Notelun software'+#10+'Conception Ch. Legrand / Programmation P. Chevalley',mtInformation,[mbClose],0);
+  Showmessage('Notelun '+Splashversion+crlf+
+              compile_version+crlf+
+              avlcpy+crlf+crlf+
+              'Conception : Christian Legrand'+crlf+
+              'Programming : Patrick Chevalley'+crlf+crlf+
+              'This program is free software; you can redistribute it and/or '+crlf+
+              'modify it under the terms of the GNU General Public License '+crlf+
+              'as published by the Free Software Foundation.'
+              );
 end;
 
 procedure Tf_notelun.MenuItemHelpClick(Sender: TObject);
 begin
-  ExecuteFile(slash(HelpDir)+'Doc_NoteLun.html');
+  showhelpdoc('Doc','_NoteLun','doc');
 end;
 
 procedure Tf_notelun.MenuSetupObservation(Sender: TObject);
@@ -1368,9 +1445,9 @@ var r: TRadioGroup;
     p: tpoint;
 begin
   r:=TRadioGroup.Create(self);
-  r.Caption:='Type of note';
-  r.Items.Add('Observation');
-  r.Items.Add('Information');
+  r.Caption:=rsTypeOfNote;
+  r.Items.Add(rsObservationN);
+  r.Items.Add(rsInformationN);
   r.ItemIndex:=-1;
   r.Align:=alClient;
   r.OnClick:=@BtnListNewSelection;
@@ -1403,7 +1480,7 @@ procedure Tf_notelun.BtnListSelectionClick(Sender: TObject);
 var txt:string;
 begin
   txt:=CurrentFormation;
-  if InputQuery('Selection','Formation',txt) then begin
+  if InputQuery(rsSelectFormat,rsFormation,txt) then begin
     CurrentFormation:=StringReplace(txt,'*','%',[rfReplaceAll]);
     NotesList;
   end;
@@ -1419,7 +1496,7 @@ end;
 
 procedure Tf_notelun.BtnDeleteClick(Sender: TObject);
 begin
-  if MessageDlg('Delete note?',mtConfirmation,mbYesNo,0)=mrYes then begin
+  if MessageDlg(rsDeleteNote2, mtConfirmation, mbYesNo, 0)=mrYes then begin
     case PageControl1.ActivePageIndex of
       0 : DeleteObservation(CurrentObsId);
       1 : DeleteInformation(CurrentInfoId);
@@ -1432,7 +1509,7 @@ procedure Tf_notelun.SetEditInformation(onoff: boolean);
 var b:TBorderStyle;
 begin
   if (not onoff) and ModifiedInformation then begin
-    if MessageDlg('Note is modified do you want to save the modification?',mtConfirmation,mbYesNo,0)=mrYes then
+    if MessageDlg(rsNoteIsModifi, mtConfirmation, mbYesNo, 0)=mrYes then
       SaveInformationNote
     else begin
       if NewInformation then DeleteInformation(CurrentInfoId);
@@ -1463,7 +1540,7 @@ end;
 procedure Tf_notelun.CancelEditInformation;
 begin
   if ModifiedInformation then begin
-    if MessageDlg('Note is modified do you want to save the modification?',mtConfirmation,mbYesNo,0)=mrYes then
+    if MessageDlg(rsNoteIsModifi,mtConfirmation,mbYesNo,0)=mrYes then
       SaveInformationNote
     else begin
       if NewInformation then DeleteInformation(CurrentInfoId);
@@ -1541,8 +1618,8 @@ procedure Tf_notelun.MenuItemPrintListClick(Sender: TObject);
 var i: integer;
 begin
   if not PrintDialog1.Execute then exit;
-  InitPage('Notes list',PrintFixedFont,2,1.2);
-  PrinterWriteln('Notes list',18,true);
+  InitPage(rsNotesList, PrintFixedFont, 2, 1.2);
+  PrinterWriteln(rsNotesList,18,true);
   PrinterWriteln(' ',18,false);
   for i:=0 to ListNotes.RowCount-1 do begin
      PrinterWriteln(copy(ListNotes.Cells[0,i]+b80,1,50)+ListNotes.Cells[1,i]+tab+ListNotes.Cells[2,i],12,false);
@@ -1556,7 +1633,7 @@ begin
   if not PrintDialog1.Execute then exit;
   case PageControl1.ActivePageIndex of
     0: begin  // Obs
-        InitPage('Observation note',PrintNoteFont,2,1.2);
+        InitPage(rsObservationN,PrintNoteFont,2,1.2);
         PrinterWriteln(label28.Caption,18,true);
         PrinterWriteln(ObsFormation.Text+tab+ObsDate.Text,16,true);
         PrinterWriteln(' ',16,false);
@@ -1605,7 +1682,7 @@ begin
         end;
        end;
     1: begin  // Info
-        InitPage('Information note','Arial',2,1.2);
+        InitPage(rsInformationN,PrintNoteFont,2,1.2);
         PrinterWriteln(label29.Caption,18,true);
         PrinterWriteln(InfoFormation.Text+tab+InfoDate.Text,16,true);
         PrinterWriteln(' ',16,false);
@@ -1739,7 +1816,7 @@ end;
 procedure Tf_notelun.BtnDelInfoFileClick(Sender: TObject);
 begin
   if CurrentInfoFile<0 then exit;
-  if MessageDlg('Remove file '+crlf+InfoFiles.Cells[0,CurrentInfoFile],mtConfirmation,mbYesNo,0)=mrYes then begin
+  if MessageDlg(rsRemoveFile+' '+crlf+InfoFiles.Cells[0, CurrentInfoFile]+'?', mtConfirmation, mbYesNo, 0)=mrYes then begin
     InfoFiles.DeleteRow(CurrentInfoFile);
     ModifiedInformation:=true;
   end;
@@ -1813,7 +1890,7 @@ procedure Tf_notelun.SetEditObservation(onoff: boolean);
 var b:TBorderStyle;
 begin
   if (not onoff) and ModifiedObservation then begin
-    if MessageDlg('Note is modified do you want to save the modification?',mtConfirmation,mbYesNo,0)=mrYes then
+    if MessageDlg(rsNoteIsModifi,mtConfirmation,mbYesNo,0)=mrYes then
       SaveObservationNote
     else begin
       if NewObservation then DeleteObservation(CurrentObsId);
@@ -1882,7 +1959,7 @@ end;
 procedure Tf_notelun.CancelEditObservation;
 begin
   if ModifiedObservation then begin
-    if MessageDlg('Note is modified do you want to save the modification?',mtConfirmation,mbYesNo,0)=mrYes then
+    if MessageDlg(rsNoteIsModifi,mtConfirmation,mbYesNo,0)=mrYes then
       SaveObservationNote
     else begin
       if NewObservation then DeleteObservation(CurrentObsId);
@@ -1995,7 +2072,7 @@ end;
 procedure Tf_notelun.BtnDelObsFileClick(Sender: TObject);
 begin
   if CurrentObsFile<0 then exit;
-  if MessageDlg('Remove file '+crlf+ObsFiles.Cells[0,CurrentObsFile],mtConfirmation,mbYesNo,0)=mrYes then begin
+  if MessageDlg(rsRemoveFile+' '+crlf+ObsFiles.Cells[0,CurrentObsFile]+'?',mtConfirmation,mbYesNo,0)=mrYes then begin
     ObsFiles.DeleteRow(CurrentObsFile);
     ModifiedObservation:=true;
   end;
