@@ -46,8 +46,40 @@
           </Linking>
         </CompilerOptions>
       </Item>
-      <SharedMatrixOptions Count="1">
+      <Item Name="qt">
+        <MacroValues Count="1">
+          <Macro2 Name="LCLWidgetType" Value="qt5"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="notelun"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../virtualmoon"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <Linking>
+            <Debugging>
+              <UseHeaptrc Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CompilerMessages>
+              <IgnoredMessages idx6058="True"/>
+            </CompilerMessages>
+          </Other>
+        </CompilerOptions>
+      </Item>
+      <SharedMatrixOptions Count="2">
         <Item1 ID="099843986923" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
+        <Item2 ID="360678233942" Modes="qt" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt5"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>

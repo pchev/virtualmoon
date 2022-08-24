@@ -15,14 +15,27 @@ type
     BtnAddRow: TButton;
     BtnCancel: TButton;
     BtnSave: TButton;
+    CheckBoxEphemeris: TCheckBox;
+    CheckBoxReverseSort: TCheckBox;
+    FontNote: TEdit;
+    FontFixed: TEdit;
+    FontDialog1: TFontDialog;
+    GroupBoxPrint: TGroupBox;
+    GroupBoxNote: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
     PageControl1: TPageControl;
     Panel1: TPanel;
+    RadioGroupSortList: TRadioGroup;
+    SpeedButtonFont: TSpeedButton;
+    SpeedButtonFixedFont: TSpeedButton;
     StringGridCamera: TStringGrid;
     StringGridLocation: TStringGrid;
     StringGridObserver: TStringGrid;
     StringGridInstrument: TStringGrid;
     StringGridBarlow: TStringGrid;
     StringGridEyepiece: TStringGrid;
+    TabSheetList: TTabSheet;
     TabSheetCamera: TTabSheet;
     TabSheetEyepiece: TTabSheet;
     TabSheetBarlow: TTabSheet;
@@ -35,6 +48,9 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure PageControl1Change(Sender: TObject);
+    procedure SpeedButtonFixedFontClick(Sender: TObject);
+    procedure SpeedButtonFontClick(Sender: TObject);
     procedure StringGridValidateEntry(sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
   private
     LocationModified,ObserverModified,InstrumentModified,BarlowModified,EyepieceModified,CameraModified: boolean;
@@ -143,6 +159,27 @@ end;
 procedure TFSetup.FormShow(Sender: TObject);
 begin
   LoadData;
+end;
+
+procedure TFSetup.PageControl1Change(Sender: TObject);
+begin
+  BtnAddRow.Visible:=PageControl1.ActivePageIndex<>6;
+end;
+
+procedure TFSetup.SpeedButtonFixedFontClick(Sender: TObject);
+begin
+  FontDialog1.Font.Name:='Courier new';
+  FontDialog1.Options:=[fdFixedPitchOnly,fdEffects,fdNoSizeSel,fdNoStyleSel];
+  if FontDialog1.Execute then
+    FontFixed.Text:=FontDialog1.Font.Name;
+end;
+
+procedure TFSetup.SpeedButtonFontClick(Sender: TObject);
+begin
+  FontDialog1.Font.Name:='Arial';
+  FontDialog1.Options:=[fdEffects,fdNoSizeSel,fdNoStyleSel];
+  if FontDialog1.Execute then
+    FontNote.Text:=FontDialog1.Font.Name;
 end;
 
 procedure TFSetup.StringGridValidateEntry(sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
@@ -328,6 +365,11 @@ begin
     StringGridCamera.Cells[2,i+1]:=dbnotes.Results[i][3];
     StringGridCamera.Cells[3,i+1]:=dbnotes.Results[i][4];
   end;
+  RadioGroupSortList.ItemIndex:=DefaultSortCol;
+  CheckBoxReverseSort.Checked:=DefaultReverseSort;
+  CheckBoxEphemeris.Checked:=ShowEphemeris;
+  FontNote.Text:=PrintNoteFont;
+  FontFixed.Text:=PrintFixedFont;
 end;
 
 function TFSetup.SaveLocationGrid(grid: TStringGrid; table,cmdprefix: string ):boolean;
@@ -428,6 +470,12 @@ begin
   if CameraModified and (StringGridCamera.RowCount>1) then begin
     if not SaveGrid(StringGridCamera,'Camera','replace into camera (id,name,pixelx,pixely,pixelsize) values (') then exit;
   end;
+  DefaultSortCol     := RadioGroupSortList.ItemIndex;
+  DefaultReverseSort := CheckBoxReverseSort.Checked;
+  ShowEphemeris      := CheckBoxEphemeris.Checked;
+  PrintNoteFont      := FontNote.Text;
+  PrintFixedFont     := FontFixed.Text;
+
   result:=true
 end;
 

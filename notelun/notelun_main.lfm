@@ -1522,6 +1522,7 @@ object f_notelun: Tf_notelun
   end
   object MainMenu1: TMainMenu
     Left = 1088
+    Top = 8
     object MenuFile: TMenuItem
       Caption = 'File'
       object MenuItemNewObs: TMenuItem
@@ -1553,6 +1554,7 @@ object f_notelun: Tf_notelun
       end
       object Quit: TMenuItem
         Caption = 'Quit'
+        OnClick = QuitClick
       end
     end
     object MenuManage: TMenuItem
@@ -1616,29 +1618,21 @@ object f_notelun: Tf_notelun
         Caption = 'Setup camera'
         OnClick = MenuSetupObservation
       end
-      object MenuItemSetupEphemeris: TMenuItem
-        Caption = 'MenuItemSetupEphemeris'
-      end
-      object MenuItemSetupFont: TMenuItem
-        Caption = 'MenuItemSetupFont'
-      end
-      object MenuItemSetupList: TMenuItem
-        Caption = 'MenuItemSetupList'
-      end
-      object MenuItemSetupPrint: TMenuItem
-        Caption = 'MenuItemSetupPrint'
-      end
-      object MenuItemSetupLastFormation: TMenuItem
-        Caption = 'MenuItemSetupLastFormation'
+      object MenuItemSetupListNotes: TMenuItem
+        Tag = 6
+        Caption = 'List and notes'
+        OnClick = MenuSetupObservation
       end
     end
     object MenuHelp: TMenuItem
       Caption = 'Help'
       object MenuItemHelp: TMenuItem
-        Caption = 'MenuItemHelp'
+        Caption = 'Help'
+        OnClick = MenuItemHelpClick
       end
       object MenuItemAbout: TMenuItem
-        Caption = 'MenuItemAbout'
+        Caption = 'About'
+        OnClick = MenuItemAboutClick
       end
     end
   end
@@ -1672,7 +1666,7 @@ object f_notelun: Tf_notelun
   object ImageList2: TImageList
     Height = 22
     Width = 22
-    Left = 1096
+    Left = 1112
     Top = 120
     Bitmap = {
       4C7A0400000016000000160000006D0300000000000078DAED98CB6B135114C6
@@ -1705,5 +1699,9 @@ object f_notelun: Tf_notelun
       B9641972CA33A34F97AB62559BC7953235F3225BEBBA532DD3DB8F67B7FD05A9
       A61D7A
     }
+  end
+  object PrintDialog1: TPrintDialog
+    Left = 1112
+    Top = 184
   end
 end

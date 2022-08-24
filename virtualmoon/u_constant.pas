@@ -266,6 +266,12 @@ Var  Splashversion, compile_time, compile_version: string;
      dbselection: string;
      dbm,dbnotes: TLiteDB;
 
+     // Notelun
+     DefaultSortCol: integer;
+     DefaultReverseSort,ShowEphemeris: boolean;
+     PrintNoteFont,PrintFixedFont: string;
+
+
 
 // Text formating constant
 const

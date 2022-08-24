@@ -67,6 +67,7 @@ object FSetup: TFSetup
     Align = alClient
     TabIndex = 0
     TabOrder = 1
+    OnChange = PageControl1Change
     object TabSheetLocation: TTabSheet
       Caption = 'Location'
       ClientHeight = 374
@@ -257,5 +258,150 @@ object FSetup: TFSetup
         )
       end
     end
+    object TabSheetList: TTabSheet
+      Caption = 'List and Notes'
+      ClientHeight = 374
+      ClientWidth = 611
+      object RadioGroupSortList: TRadioGroup
+        Left = 0
+        Height = 128
+        Top = 0
+        Width = 611
+        Align = alTop
+        AutoFill = True
+        Caption = 'Default list sort options'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 3
+        ClientHeight = 108
+        ClientWidth = 609
+        Columns = 3
+        Items.Strings = (
+          'By formation name'
+          'By date'
+          'By type of note'
+        )
+        TabOrder = 0
+        object CheckBoxReverseSort: TCheckBox
+          Left = 6
+          Height = 54
+          Top = 54
+          Width = 231
+          Caption = 'Reverse sort order'
+          TabOrder = 2
+        end
+      end
+      object GroupBoxNote: TGroupBox
+        Left = 0
+        Height = 81
+        Top = 128
+        Width = 611
+        Align = alTop
+        Caption = 'Note options'
+        ClientHeight = 61
+        ClientWidth = 609
+        TabOrder = 1
+        object CheckBoxEphemeris: TCheckBox
+          Left = 16
+          Height = 21
+          Top = 16
+          Width = 127
+          Caption = 'Show ephemeris'
+          TabOrder = 0
+        end
+      end
+      object GroupBoxPrint: TGroupBox
+        Left = 0
+        Height = 165
+        Top = 209
+        Width = 611
+        Align = alClient
+        Caption = 'Print options'
+        ClientHeight = 163
+        ClientWidth = 609
+        TabOrder = 2
+        object FontNote: TEdit
+          Left = 16
+          Height = 31
+          Top = 32
+          Width = 300
+          ReadOnly = True
+          TabOrder = 0
+          Text = 'FontNote'
+        end
+        object FontFixed: TEdit
+          Left = 16
+          Height = 31
+          Top = 96
+          Width = 300
+          ReadOnly = True
+          TabOrder = 1
+          Text = 'FontFixed'
+        end
+        object SpeedButtonFont: TSpeedButton
+          AnchorSideLeft.Control = FontNote
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = FontNote
+          AnchorSideBottom.Control = FontNote
+          AnchorSideBottom.Side = asrBottom
+          Left = 316
+          Height = 31
+          Top = 32
+          Width = 30
+          Anchors = [akTop, akLeft, akBottom]
+          Caption = '...'
+          OnClick = SpeedButtonFontClick
+        end
+        object SpeedButtonFixedFont: TSpeedButton
+          AnchorSideLeft.Control = FontFixed
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = FontFixed
+          AnchorSideBottom.Control = FontFixed
+          AnchorSideBottom.Side = asrBottom
+          Left = 316
+          Height = 31
+          Top = 96
+          Width = 30
+          Anchors = [akTop, akLeft, akBottom]
+          Caption = '...'
+          OnClick = SpeedButtonFixedFontClick
+        end
+        object Label1: TLabel
+          AnchorSideLeft.Control = FontNote
+          AnchorSideTop.Side = asrCenter
+          AnchorSideBottom.Control = FontNote
+          Left = 16
+          Height = 19
+          Top = 13
+          Width = 136
+          Anchors = [akLeft, akBottom]
+          Caption = 'Font to print note text'
+          ParentColor = False
+        end
+        object Label2: TLabel
+          AnchorSideLeft.Control = FontFixed
+          AnchorSideBottom.Control = FontFixed
+          Left = 16
+          Height = 19
+          Top = 77
+          Width = 218
+          Anchors = [akLeft, akBottom]
+          Caption = 'Fixed pitch font to print list of notes'
+          ParentColor = False
+        end
+      end
+    end
+  end
+  object FontDialog1: TFontDialog
+    Font.Height = -13
+    MinFontSize = 0
+    MaxFontSize = 0
+    Options = [fdEffects, fdNoSizeSel, fdNoStyleSel]
+    Left = 546
+    Top = 351
   end
 end

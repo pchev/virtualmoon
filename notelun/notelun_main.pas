@@ -9,7 +9,7 @@ uses
     Windows, ShlObj,
   {$endif}
   dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup, Printers, cu_print,
-  LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, Clipbrd, cu_planet, u_projection, math,
+  LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, PrintersDlgs, Clipbrd, cu_planet, u_projection, math,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs, Types;
 
 type
@@ -84,15 +84,11 @@ type
     MenuItemHelp: TMenuItem;
     MenuItemAbout: TMenuItem;
     MenuItemSetupLocation: TMenuItem;
-    MenuItemSetupLastFormation: TMenuItem;
     MenuItemSetupObserver: TMenuItem;
     MenuItemSetupInstrument: TMenuItem;
     MenuItemSetupEyepiece: TMenuItem;
     MenuItemSetupCamera: TMenuItem;
-    MenuItemSetupEphemeris: TMenuItem;
-    MenuItemSetupFont: TMenuItem;
-    MenuItemSetupList: TMenuItem;
-    MenuItemSetupPrint: TMenuItem;
+    MenuItemSetupListNotes: TMenuItem;
     MenuItemSortFormation: TMenuItem;
     MenuItemSortDate: TMenuItem;
     MenuItemSortType: TMenuItem;
@@ -113,6 +109,7 @@ type
     PanelInfofileEdit: TPanel;
     PCobs: TPageControl;
     PanelObs: TPanel;
+    PrintDialog1: TPrintDialog;
     Quit: TMenuItem;
     ObsAlt: TLabel;
     ObsAzimut: TLabel;
@@ -220,6 +217,8 @@ type
     procedure ListNotesDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
     procedure ListNotesHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
     procedure ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
+    procedure MenuItemAboutClick(Sender: TObject);
+    procedure MenuItemHelpClick(Sender: TObject);
     procedure MenuItemNewInfoClick(Sender: TObject);
     procedure MenuItemNewObsClick(Sender: TObject);
     procedure MenuItemPrintListClick(Sender: TObject);
@@ -239,6 +238,7 @@ type
     procedure ObsLocationChange(Sender: TObject);
     procedure ObsNoteChange(Sender: TObject);
     procedure ObsObserverChange(Sender: TObject);
+    procedure QuitClick(Sender: TObject);
     procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
     procedure BtnListNewSelection(sender: TObject);
 
@@ -326,8 +326,6 @@ begin
   StartDatlun:=false;
   StartWeblun:=false;
   locklist:=false;
-  SortCol:=0;
-  SortAsc:=true;
   GetAppDir;
   inifile := Tmeminifile.Create(ConfigFile);
   language:= inifile.ReadString('default', 'lang_po_file', '');
@@ -353,6 +351,8 @@ begin
   dbm:=TLiteDB.Create(self);
   dbnotes:=TLiteDB.Create(self);
   ReadConfig;
+  SortCol:=DefaultSortCol;
+  SortAsc:=not DefaultReverseSort;
   param:=Tstringlist.Create;
   param.clear;
   if paramcount>0 then begin
@@ -374,6 +374,12 @@ begin
   LastBarlow:=inif.ReadInt64(section, 'LastBarlow', 0);
   LastEyepiece:=inif.ReadInt64(section, 'LastEyepiece', 0);
   LastCamera:=inif.ReadInt64(section, 'LastCamera', 0);
+  DefaultSortCol:=inif.ReadInteger(section, 'DefaultSortCol', 0);
+  DefaultReverseSort:=inif.ReadBool(section, 'DefaultReverseSort', false);
+  ShowEphemeris:=inif.ReadBool(section, 'ShowEphemeris', true);
+  PrintNoteFont:=inif.ReadString(section, 'PrintNoteFont', 'default');
+  PrintFixedFont:=inif.ReadString(section, 'PrintFixedFont', 'default');
+
   inif.Free;
 end;
 
@@ -389,6 +395,11 @@ begin
   inif.WriteInt64(section, 'LastBarlow', LastBarlow);
   inif.WriteInt64(section, 'LastEyepiece', LastEyepiece);
   inif.WriteInt64(section, 'LastCamera', LastCamera);
+  inif.WriteInteger(section, 'DefaultSortCol', DefaultSortCol);
+  inif.WriteBool(section, 'DefaultReverseSort', DefaultReverseSort);
+  inif.WriteBool(section, 'ShowEphemeris', ShowEphemeris);
+  inif.WriteString(section, 'PrintNoteFont', PrintNoteFont);
+  inif.WriteString(section, 'PrintFixedFont', PrintFixedFont);
   inif.UpdateFile;
   inif.Free;
 end;
@@ -438,12 +449,26 @@ begin
   ldeg:='°';
   lmin:='''';
   lsec:='"';
+  MenuItemNewObs.Caption:='New observation note';
+  MenuItemNewInfo.Caption:='New information note';
+  MenuItemEditNote.Caption:='Edit note';
+  MenuItemDeleteNote.Caption:='Delete note';
+  MenuItemPrintNote.Caption:='Print note';
+  MenuItemPrintList.Caption:='Print list of notes';
+  Quit.Caption:='Quit';
+
+  MenuItemSortFormation.Caption:='Sort by formation';
+  MenuItemSortDate.Caption:='Sort by date';
+  MenuItemSortType.Caption:='Sort by type';
   MenuItemSetupLocation.Caption:='Location';
   MenuItemSetupObserver.Caption:='Observer';
   MenuItemSetupInstrument.Caption:='Instrument';
   MenuItemSetupBarlow.Caption:='Barlow';
   MenuItemSetupEyepiece.Caption:='Eyepiece';
   MenuItemSetupCamera.Caption:='Camera';
+  MenuItemSetupListNotes.Caption:='List and notes';
+  MenuItemHelp.Caption:='Help';
+  MenuItemAbout.Caption:='About';
 end;
 
 procedure Tf_notelun.GetAppDir;
@@ -1001,6 +1026,11 @@ begin
   ModifiedObservation:=true;
 end;
 
+procedure Tf_notelun.QuitClick(Sender: TObject);
+begin
+   Close;
+end;
+
 procedure Tf_notelun.ObsNoteChange(Sender: TObject);
 begin
   ModifiedObservation:=true;
@@ -1218,12 +1248,30 @@ begin
   end;
 end;
 
+procedure Tf_notelun.MenuItemAboutClick(Sender: TObject);
+begin
+  MessageDlg('About Notelun','Notelun software'+#10+'Conception Ch. Legrand / Programmation P. Chevalley',mtInformation,[mbClose],0);
+end;
+
+procedure Tf_notelun.MenuItemHelpClick(Sender: TObject);
+begin
+  ExecuteFile(slash(HelpDir)+'Doc_NoteLun.html');
+end;
+
 procedure Tf_notelun.MenuSetupObservation(Sender: TObject);
 begin
   FSetup.PageControl1.ActivePageIndex:=TMenuItem(Sender).tag;
+  FSetup.BtnAddRow.Visible:=FSetup.PageControl1.ActivePageIndex<>6;
   FSetup.ShowModal;
-  if FSetup.ModalResult=mrOK then
+  if FSetup.ModalResult=mrOK then begin
     LoadObsBoxes;
+    ObsEph.Visible:=ShowEphemeris;
+    if (SortCol<>DefaultSortCol)or(SortAsc<>(not DefaultReverseSort)) then begin
+      SortCol:=DefaultSortCol;
+      SortAsc:=not DefaultReverseSort;
+      NotesList;
+    end;
+  end;
 end;
 
 procedure Tf_notelun.ClearObsBox(box:TComboBox);
@@ -1492,8 +1540,8 @@ end;
 procedure Tf_notelun.MenuItemPrintListClick(Sender: TObject);
 var i: integer;
 begin
-  //Printer.SetPrinter('PDF');
-  InitPage('Notes list','Courier New',2,1.2);
+  if not PrintDialog1.Execute then exit;
+  InitPage('Notes list',PrintFixedFont,2,1.2);
   PrinterWriteln('Notes list',18,true);
   PrinterWriteln(' ',18,false);
   for i:=0 to ListNotes.RowCount-1 do begin
@@ -1505,10 +1553,10 @@ end;
 procedure Tf_notelun.MenuItemPrintNoteClick(Sender: TObject);
 var i: integer;
 begin
-  //Printer.SetPrinter('PDF');
+  if not PrintDialog1.Execute then exit;
   case PageControl1.ActivePageIndex of
     0: begin  // Obs
-        InitPage('Observation note','Arial',2,1.2);
+        InitPage('Observation note',PrintNoteFont,2,1.2);
         PrinterWriteln(label28.Caption,18,true);
         PrinterWriteln(ObsFormation.Text+tab+ObsDate.Text,16,true);
         PrinterWriteln(' ',16,false);
@@ -1529,20 +1577,22 @@ begin
         if trim(ObsPowerRO.Caption)>'' then PrinterWriteln(tab+ObsPowerRO.Caption,12,false);
         PrinterWriteln(label33.Caption+': '+ObsCamera.Caption,12,false);
         if trim(ObsCameraFovRO.Caption)>'' then PrinterWriteln(tab+ObsCameraFovRO.Caption,12,false);
-        PrinterWriteln(' ',16,false);
-        PrinterWriteln(ObsEph.Caption,12,true);
-        PrinterWriteln(label16.Caption+': '+ObsLibrLon.Caption,12,false);
-        PrinterWriteln(label17.Caption+': '+ObsLibrLat.Caption,12,false);
-        PrinterWriteln(label15.Caption+': '+ObsColongitude.Caption,12,false);
-        PrinterWriteln(label10.Caption+': '+ObsSubsolarLat.Caption,12,false);
-        PrinterWriteln(label14.Caption+': '+ObsLunation.Caption,12,false);
-        PrinterWriteln(label32.Caption+': '+ObsIllum.Caption,12,false);
-        PrinterWriteln(label35.Caption+': '+ObsPa.Caption,12,false);
-        PrinterWriteln(label13.Caption+': '+ObsDiam.Caption,12,false);
-        PrinterWriteln(label11.Caption+': '+ObsRA.Caption,12,false);
-        PrinterWriteln(label12.Caption+': '+ObsDec.Caption,12,false);
-        PrinterWriteln(label18.Caption+': '+ObsAzimut.Caption,12,false);
-        PrinterWriteln(label19.Caption+': '+ObsAlt.Caption,12,false);
+        if ShowEphemeris then begin
+          PrinterWriteln(' ',16,false);
+          PrinterWriteln(ObsEph.Caption,12,true);
+          PrinterWriteln(label16.Caption+': '+ObsLibrLon.Caption,12,false);
+          PrinterWriteln(label17.Caption+': '+ObsLibrLat.Caption,12,false);
+          PrinterWriteln(label15.Caption+': '+ObsColongitude.Caption,12,false);
+          PrinterWriteln(label10.Caption+': '+ObsSubsolarLat.Caption,12,false);
+          PrinterWriteln(label14.Caption+': '+ObsLunation.Caption,12,false);
+          PrinterWriteln(label32.Caption+': '+ObsIllum.Caption,12,false);
+          PrinterWriteln(label35.Caption+': '+ObsPa.Caption,12,false);
+          PrinterWriteln(label13.Caption+': '+ObsDiam.Caption,12,false);
+          PrinterWriteln(label11.Caption+': '+ObsRA.Caption,12,false);
+          PrinterWriteln(label12.Caption+': '+ObsDec.Caption,12,false);
+          PrinterWriteln(label18.Caption+': '+ObsAzimut.Caption,12,false);
+          PrinterWriteln(label19.Caption+': '+ObsAlt.Caption,12,false);
+        end;
         PrinterWriteln(' ',16,false);
         PrinterWriteln(ObsNote.Caption,12,true);
         for i:=0 to ObsText.Lines.Count-1 do begin
@@ -1749,6 +1799,7 @@ begin
     SetObsBoxIndex(ObsCamera,ObsCameraRO,dbnotes.Results[0].Format[11].AsInteger);
     ObsText.Text:=dbnotes.Results[0][12];
     SetObsFiles(dbnotes.Results[0][13]);
+    ObsEph.Visible:=ShowEphemeris;
     ComputeEphemeris(dbnotes.Results[0].Format[4].AsInteger,dbnotes.Results[0].Format[2].AsFloat);
     ComputePower;
     ComputeCamera;
