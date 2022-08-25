@@ -185,6 +185,10 @@ type
     BtnSearchFormation: TSpeedButton;
     BtnDateEnd: TSpeedButton;
     BtnDateStart: TSpeedButton;
+    Separator1: TMenuItem;
+    Separator2: TMenuItem;
+    Separator3: TMenuItem;
+    Separator4: TMenuItem;
     Splitter1: TSplitter;
     PCRW: TTabSheet;
     PCRO: TTabSheet;

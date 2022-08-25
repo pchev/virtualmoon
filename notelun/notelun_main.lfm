@@ -1537,6 +1537,9 @@ object f_notelun: Tf_notelun
         Caption = 'New information note'
         OnClick = MenuItemNewInfoClick
       end
+      object Separator1: TMenuItem
+        Caption = '-'
+      end
       object MenuItemEditNote: TMenuItem
         Caption = 'Edit note'
         OnClick = BtnEditClick
@@ -1544,6 +1547,9 @@ object f_notelun: Tf_notelun
       object MenuItemDeleteNote: TMenuItem
         Caption = 'Delete note'
         OnClick = BtnDeleteClick
+      end
+      object Separator2: TMenuItem
+        Caption = '-'
       end
       object MenuItemPrintNote: TMenuItem
         Caption = 'Print note'
@@ -1556,6 +1562,9 @@ object f_notelun: Tf_notelun
       object MenuItemExport: TMenuItem
         Caption = 'Export to CSV'
         OnClick = MenuItemExportClick
+      end
+      object Separator3: TMenuItem
+        Caption = '-'
       end
       object Quit: TMenuItem
         Caption = 'Quit'
@@ -1575,6 +1584,9 @@ object f_notelun: Tf_notelun
       object MenuItemSortType: TMenuItem
         Caption = 'Sort by type'
         OnClick = MenuItemSortTypeClick
+      end
+      object Separator4: TMenuItem
+        Caption = '-'
       end
       object MenuItemSelectPlace: TMenuItem
         Caption = 'Select location'

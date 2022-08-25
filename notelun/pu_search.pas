@@ -19,6 +19,7 @@ type
     btnsearch: TSpeedButton;
     btnok: TButton;
     procedure btnsearchClick(Sender: TObject);
+    procedure Edit1EditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -76,6 +77,12 @@ begin
   end;
 end;
 
+procedure Tf_search.Edit1EditingDone(Sender: TObject);
+begin
+  ActiveControl:=ListBox1;
+  btnsearchClick(Sender);
+end;
+
 procedure Tf_search.FormCreate(Sender: TObject);
 begin
   SetLang;
@@ -83,7 +90,7 @@ end;
 
 procedure Tf_search.FormShow(Sender: TObject);
 begin
-  ActiveControl:=btncancel;
+  ActiveControl:=Edit1;
 end;
 
 end.
