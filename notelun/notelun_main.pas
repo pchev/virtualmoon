@@ -10,7 +10,7 @@ uses
   {$endif}
   dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup, Printers, cu_print,
   LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, PrintersDlgs, Clipbrd, cu_planet, u_projection, math,
-  pu_listselection,
+  pu_listselection, pu_export,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs, Types;
 
 type
@@ -221,6 +221,7 @@ type
     procedure ListNotesHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
     procedure ListNotesSelectCell(Sender: TObject; aCol, aRow: Integer; var CanSelect: Boolean);
     procedure MenuItemAboutClick(Sender: TObject);
+    procedure MenuItemExportClick(Sender: TObject);
     procedure MenuItemHelpClick(Sender: TObject);
     procedure MenuItemNewInfoClick(Sender: TObject);
     procedure MenuItemNewObsClick(Sender: TObject);
@@ -268,7 +269,7 @@ type
     procedure ReadConfig;
     procedure WriteConfig;
     Procedure ReadParam(first:boolean=true);
-    function  FormatDate(val:string):string;
+    function  FormatDate(val:string;long:boolean=false):string;
     procedure ClearList;
     procedure NotesList(formation:string='';prefix:char=' ';fid:int64=0);
     procedure ClearObsBox(box:TComboBox);
@@ -535,6 +536,7 @@ begin
   MenuItemDeleteNote.Caption:=rsDeleteNote;
   MenuItemPrintNote.Caption:=rsPrintNote;
   MenuItemPrintList.Caption:=rsPrintListOfN;
+  MenuItemExport.Caption:=rsExportToCSV;
   Quit.Caption:=rsQuit;
 
   MenuManage.Caption:=rsManage;
@@ -1150,14 +1152,18 @@ begin
   end;
 end;
 
-function Tf_notelun.FormatDate(val:string):string;
+function Tf_notelun.FormatDate(val:string;long:boolean=false):string;
 var dt: double;
 begin
   dt:=StrToFloatDef(val,0);
   if dt=0 then
     result:=''
-  else
-    result:=FormatDateTime(datedisplay,dt);
+  else begin
+    if long then
+      result:=FormatDateTime(datetimedisplay,dt)
+    else
+      result:=FormatDateTime(datedisplay,dt);
+  end;
 end;
 
 procedure Tf_notelun.SetInfoDate(val:string);
@@ -1478,6 +1484,12 @@ begin
               'modify it under the terms of the GNU General Public License '+crlf+
               'as published by the Free Software Foundation.'
               );
+end;
+
+procedure Tf_notelun.MenuItemExportClick(Sender: TObject);
+begin
+  FormPos(f_export,mouse.CursorPos.X,mouse.CursorPos.Y);
+  f_export.ShowModal;
 end;
 
 procedure Tf_notelun.MenuItemHelpClick(Sender: TObject);

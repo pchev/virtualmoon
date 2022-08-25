@@ -502,3 +502,27 @@ msgstr ""
 msgid "File name filter"
 msgstr ""
 
+#: u_translation:rsexport
+msgid "Export"
+msgstr ""
+
+#: u_translation:rsnotestoexpor
+msgid "Notes to export"
+msgstr ""
+
+#: u_translation:rsreplacelineb
+msgid "Replace line break character by"
+msgstr ""
+
+#: u_translation:rsexporttocsv
+msgid "Export to CSV"
+msgstr ""
+
+#: u_translation:rsexportinform
+msgid "Export information notes as"
+msgstr ""
+
+#: u_translation:rsexportobserv
+msgid "Export observation notes as"
+msgstr ""
+

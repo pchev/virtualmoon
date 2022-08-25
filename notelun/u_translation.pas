@@ -138,6 +138,12 @@ rsSelectFileAt = 'Select file attachment';
 rsSelectNoteTe = 'Select note text';
 rsNoteTextToSe = 'Note text to search';
 rsFileNameFilt = 'File name filter';
+rsExport = 'Export';
+rsNotesToExpor = 'Notes to export';
+rsReplaceLineB = 'Replace line break character by';
+rsExportToCSV = 'Export to CSV';
+rsExportInform = 'Export information notes as';
+rsExportObserv = 'Export observation notes as';
 
 implementation
 

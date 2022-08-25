@@ -631,6 +631,22 @@ begin
     if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
     db.Query('create index ix_camera on camera(NAME);');
 
+    dbjournal(extractfilename(db.database),'CREATE VIEW flatobs');
+    cmd:='create view flatobs as '+
+         'select formation,datestart,dateend,location.name as LOCATION,observer.name || " " || observer.firstname as OBSERVER, '+
+         'meteo,seeing,instrument.name as INSTRUMENT,barlow.name as BARLOW,eyepiece.name as EYEPIECE,camera.name as CAMERA, '+
+         'note,files '+
+         'from obsnotes '+
+         'left outer join location on location.id = location '+
+         'left outer join observer on observer.id = observer '+
+         'left outer join instrument on instrument.id = instrument '+
+         'left outer join barlow on barlow.id = barlow '+
+         'left outer join eyepiece on eyepiece.id = eyepiece '+
+         'left outer join camera on camera.id = camera '+
+         '; ';
+    db.Query(cmd);
+    if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+
     dbjournal(extractfilename(db.database),'CREATE TABLE dbversion');
     cmd:='create table dbversion ( '+
         'version integer'+

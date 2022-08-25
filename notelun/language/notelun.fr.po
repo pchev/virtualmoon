@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-08-24 22:32+0200\n"
+"PO-Revision-Date: 2022-08-25 11:37+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -168,6 +168,22 @@ msgstr "Éphémérides"
 msgid "E/W"
 msgstr "E/O"
 
+#: u_translation.rsexport
+msgid "Export"
+msgstr "Exporter"
+
+#: u_translation.rsexportinform
+msgid "Export information notes as"
+msgstr "Exporter les notes d'information sous"
+
+#: u_translation.rsexportobserv
+msgid "Export observation notes as"
+msgstr "Exporter les notes d'observation sous"
+
+#: u_translation.rsexporttocsv
+msgid "Export to CSV"
+msgstr "Exporter en CSV"
+
 #: u_translation.rseyepiece
 msgid "Eyepiece"
 msgstr "Oculaire"
@@ -328,6 +344,10 @@ msgstr "Options des notes"
 msgid "Notes list"
 msgstr "Liste des notes"
 
+#: u_translation.rsnotestoexpor
+msgid "Notes to export"
+msgstr "Notes à exporter"
+
 #: u_translation.rsnotetexttose
 msgid "Note text to search"
 msgstr "Texte de la note à rechercher"
@@ -407,6 +427,10 @@ msgstr "AR apparent"
 #: u_translation.rsremovefile
 msgid "Remove file"
 msgstr "Supprime le fichier"
+
+#: u_translation.rsreplacelineb
+msgid "Replace line break character by"
+msgstr "Remplacer les sauts de ligne par"
 
 #: u_translation.rsreversesorto
 msgid "Reverse sort order"

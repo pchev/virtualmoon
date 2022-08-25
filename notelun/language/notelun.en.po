@@ -157,6 +157,22 @@ msgstr ""
 msgid "E/W"
 msgstr ""
 
+#: u_translation.rsexport
+msgid "Export"
+msgstr ""
+
+#: u_translation.rsexportinform
+msgid "Export information notes as"
+msgstr ""
+
+#: u_translation.rsexportobserv
+msgid "Export observation notes as"
+msgstr ""
+
+#: u_translation.rsexporttocsv
+msgid "Export to CSV"
+msgstr ""
+
 #: u_translation.rseyepiece
 msgid "Eyepiece"
 msgstr ""
@@ -317,6 +333,10 @@ msgstr ""
 msgid "Notes list"
 msgstr ""
 
+#: u_translation.rsnotestoexpor
+msgid "Notes to export"
+msgstr ""
+
 #: u_translation.rsnotetexttose
 msgid "Note text to search"
 msgstr ""
@@ -395,6 +415,10 @@ msgstr ""
 
 #: u_translation.rsremovefile
 msgid "Remove file"
+msgstr ""
+
+#: u_translation.rsreplacelineb
+msgid "Replace line break character by"
 msgstr ""
 
 #: u_translation.rsreversesorto

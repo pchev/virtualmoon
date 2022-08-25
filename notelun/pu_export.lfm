@@ -1,0 +1,83 @@
+object f_export: Tf_export
+  Left = 369
+  Height = 240
+  Top = 31
+  Width = 303
+  Caption = 'Export'
+  ClientHeight = 240
+  ClientWidth = 303
+  OnCreate = FormCreate
+  object CheckGroup1: TCheckGroup
+    Left = 0
+    Height = 128
+    Top = 0
+    Width = 303
+    Align = alTop
+    AutoFill = True
+    Caption = 'Notes to export'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.TopBottomSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 108
+    ClientWidth = 301
+    Items.Strings = (
+      'Information notes'
+      'Observation notes'
+    )
+    TabOrder = 0
+    Data = {
+      020000000202
+    }
+  end
+  object CheckBox1: TCheckBox
+    Left = 8
+    Height = 21
+    Top = 142
+    Width = 214
+    Caption = 'Replace line break character by'
+    TabOrder = 1
+  end
+  object Edit1: TEdit
+    AnchorSideLeft.Control = CheckBox1
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = CheckBox1
+    AnchorSideTop.Side = asrCenter
+    Left = 230
+    Height = 31
+    Top = 137
+    Width = 42
+    BorderSpacing.Left = 8
+    TabOrder = 2
+    Text = '.'
+  end
+  object Button1: TButton
+    Left = 15
+    Height = 25
+    Top = 197
+    Width = 75
+    Cancel = True
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 3
+  end
+  object Button2: TButton
+    Left = 205
+    Height = 25
+    Top = 197
+    Width = 75
+    Caption = 'Export'
+    OnClick = Button2Click
+    TabOrder = 4
+  end
+  object SaveDialog1: TSaveDialog
+    DefaultExt = '.csv'
+    Filter = 'CSV files|*.csv'
+    Left = 232
+    Top = 40
+  end
+end
