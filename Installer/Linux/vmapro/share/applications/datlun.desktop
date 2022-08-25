@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Datlun
+Comment=Moon formation database
+Exec=datlun
+Icon=../pixmaps/datlun.xpm
+Terminal=false
+Type=Application
+Categories=Education;Science;Astronomy

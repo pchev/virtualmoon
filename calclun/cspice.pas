@@ -23,7 +23,7 @@ const
       libcspice = './libcspice.dylib';
       {$L getcell.o}
     {$else}
-      libcspice = 'libcspice.so';
+      libcspice = 'libcspicevma.so';
       {$L getcell.o}
     {$endif}
   {$endif}

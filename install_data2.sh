@@ -47,16 +47,16 @@ install -m 755 -d $destdir/share/virtualmoon
 
 InstData Base_Database2 $destdir
 
-InstTexture TexturesAirbrush_na $destdir
-InstTexture TexturesClementine $destdir
-InstTexture TexturesClementineNegative $destdir
-InstTexture TexturesLopam $destdir
-InstTexture TexturesWAC $destdir
-InstTexture Texture_LOLA_Kaguya_Shade $destdir
-InstTexture TexturesChange $destdir
-InstTexture TextureHistorical $destdir
-InstTexture TextureOverlay $destdir
-InstTexture TextureGeological $destdir
+#InstTexture TexturesAirbrush_na $destdir
+#InstTexture TexturesClementine $destdir
+#InstTexture TexturesClementineNegative $destdir
+#InstTexture TexturesLopam $destdir
+#InstTexture TexturesWAC $destdir
+#InstTexture Texture_LOLA_Kaguya_Shade $destdir
+#InstTexture TexturesChange $destdir
+#InstTexture TextureHistorical $destdir
+#InstTexture TextureOverlay $destdir
+#InstTexture TextureGeological $destdir
 
 InstPicture PictureApolloMapping $destdir
 InstPicture PictureCLA $destdir

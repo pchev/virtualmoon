@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Notelun
+Comment=Moon observer logbook
+Exec=notelun
+Icon=../pixmaps/Notelun.xpm
+Terminal=false
+Type=Application
+Categories=Education;Science;Astronomy

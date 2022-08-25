@@ -325,6 +325,7 @@ begin
   ForceDateChange:=false;
   LockPredictionTimer:=false;
   dbm:=TLiteDB.Create(self);
+  DatabaseList:=Tstringlist.Create;
 
   Top := 50;
   Left := 50;
@@ -347,6 +348,7 @@ procedure Tf_calclun.FormDestroy(Sender: TObject);
 var i: integer;
 begin
   dbm.free;
+  DatabaseList.free;
   tz.Free;
   for i:=0 to GridMonth.RowCount-1 do begin
     if GridMonth.Objects[0,i]<>nil then GridMonth.Objects[0,i].free;
@@ -358,7 +360,6 @@ var i: integer;
 begin
   for i:=1 to maxdbn do usedatabase[i]:=false;
   usedatabase[1]:=true;
-  DatabaseList:=Tstringlist.Create;
   LoadDB(dbm);
 
   InitError;

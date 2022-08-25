@@ -380,6 +380,9 @@ begin
       param.Add(paramstr(i));
    end;
   end;
+  {$ifdef lclgtk2}
+  ButtonAtlun.Visible:=false;
+  {$endif}
 end;
 
 procedure Tf_notelun.ReadConfig;

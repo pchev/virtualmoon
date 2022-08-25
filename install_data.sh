@@ -34,11 +34,12 @@ echo Install virtualmoon data to $destdir
 install -m 755 -d $destdir
 install -m 755 -d $destdir/share
 install -m 755 -d $destdir/share/virtualmoon
+install -m 755 -d $destdir/share/virtualmoon/Textures
 
 # translation
 install -m 755 -d $destdir/share/virtualmoon/language
-install -v -m 644 virtualmoon/language/maplun.en.po $destdir/share/virtualmoon/language/
-install -v -m 644 virtualmoon/language/maplun.fr.po $destdir/share/virtualmoon/language/
+#install -v -m 644 virtualmoon/language/maplun.en.po $destdir/share/virtualmoon/language/
+#install -v -m 644 virtualmoon/language/maplun.fr.po $destdir/share/virtualmoon/language/
 install -v -m 644 datlun/language/datlun.en.po $destdir/share/virtualmoon/language/
 install -v -m 644 datlun/language/datlun.fr.po $destdir/share/virtualmoon/language/
 install -v -m 644 datlun/language/vmadatabase.en.po $destdir/share/virtualmoon/language/
@@ -79,12 +80,12 @@ InstData Base_Database $destdir
 InstData Base_ILCD $destdir
 InstData Base_JPLeph $destdir
 InstData Base_Kernels $destdir
-InstData Base_Airbrush $destdir
-InstData Base_Bumpmap $destdir
-InstData Base_Clementine $destdir
-InstData Base_WAC $destdir
-InstData Base_LOLA_Kaguya_Shade $destdir
-InstData Base_Overlay $destdir
-InstData Base_Dem $destdir
+#InstData Base_Airbrush $destdir
+#InstData Base_Bumpmap $destdir
+#InstData Base_Clementine $destdir
+#InstData Base_WAC $destdir
+#InstData Base_LOLA_Kaguya_Shade $destdir
+#InstData Base_Overlay $destdir
+#InstData Base_Dem $destdir
 InstPicture PictureApollo $destdir
 

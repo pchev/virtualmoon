@@ -415,6 +415,13 @@ begin
   moveform:=false;
   GetAppDir;
   SetLang;
+  {$ifdef lclgtk2}
+   BitBtn4.Top:=BitBtn9.top;
+   BitBtn4.Left:=BitBtn9.Left;
+   BitBtn9.Top:=BitBtn1.top;
+   BitBtn9.Left:=BitBtn1.Left;
+   BitBtn1.Visible:=false;
+  {$endif}
 end;
 
 procedure Tf_cclun.Image1MouseDown(Sender: TObject; Button: TMouseButton;
