@@ -32,6 +32,7 @@ type
     BtnPastInfoFile: TSpeedButton;
     BtnSearchFormation1: TSpeedButton;
     CalendarDialog1: TCalendarDialog;
+    GroupBox1: TGroupBox;
     ImageList1: TImageList;
     ImageList2: TImageList;
     Label10: TLabel;
@@ -170,7 +171,6 @@ type
     PanelInfoTop: TPanel;
     PanelStatus: TPanel;
     PanelList: TPanel;
-    PanelListBottom: TPanel;
     PanelRight: TPanel;
     PanelLeft: TPanel;
     PanelTop: TPanel;

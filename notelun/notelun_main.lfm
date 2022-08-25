@@ -181,28 +181,19 @@ object f_notelun: Tf_notelun
     ClientHeight = 870
     ClientWidth = 376
     TabOrder = 1
-    object PanelListBottom: TPanel
-      Left = 0
-      Height = 40
-      Top = 830
-      Width = 376
-      Align = alBottom
-      BevelOuter = bvNone
-      TabOrder = 0
-    end
     object PanelList: TPanel
       Left = 0
-      Height = 830
+      Height = 870
       Top = 0
       Width = 376
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 830
+      ClientHeight = 870
       ClientWidth = 376
-      TabOrder = 1
+      TabOrder = 0
       object ListNotes: TStringGrid
         Left = 0
-        Height = 830
+        Height = 870
         Top = 0
         Width = 376
         Align = alClient
@@ -246,14 +237,14 @@ object f_notelun: Tf_notelun
     end
   end
   object PanelRight: TPanel
-    Left = 381
+    Left = 379
     Height = 870
     Top = 40
-    Width = 819
+    Width = 821
     Align = alClient
     BevelOuter = bvNone
     ClientHeight = 870
-    ClientWidth = 819
+    ClientWidth = 821
     Color = clWindow
     ParentColor = False
     TabOrder = 2
@@ -261,7 +252,7 @@ object f_notelun: Tf_notelun
       Left = 0
       Height = 870
       Top = 0
-      Width = 819
+      Width = 821
       ActivePage = TabSheetObservation
       Align = alClient
       ShowTabs = False
@@ -270,37 +261,39 @@ object f_notelun: Tf_notelun
       object TabSheetObservation: TTabSheet
         Caption = 'TabSheetObservation'
         ClientHeight = 866
-        ClientWidth = 809
+        ClientWidth = 811
         object ScrollBox1: TScrollBox
           Left = 0
           Height = 866
           Top = 0
-          Width = 809
+          Width = 811
           HorzScrollBar.Page = 768
-          VertScrollBar.Page = 746
+          VertScrollBar.Page = 750
           Align = alClient
           ClientHeight = 864
-          ClientWidth = 807
+          ClientWidth = 809
           TabOrder = 0
           object ObsFilesBox: TGroupBox
             Left = 0
             Height = 130
             Top = 734
-            Width = 807
+            Width = 809
             Align = alBottom
             Caption = 'Files'
             ClientHeight = 110
-            ClientWidth = 805
+            ClientWidth = 807
             Constraints.MinHeight = 130
             TabOrder = 0
             object ObsFiles: TStringGrid
-              Left = 0
+              Left = 16
               Height = 70
               Top = 8
-              Width = 805
+              Width = 783
               Align = alClient
               AutoFillColumns = True
+              BorderSpacing.Left = 16
               BorderSpacing.Top = 8
+              BorderSpacing.Right = 8
               ColCount = 1
               FixedCols = 0
               FixedRows = 0
@@ -312,17 +305,17 @@ object f_notelun: Tf_notelun
               OnSelectCell = ObsFilesSelectCell
               OnValidateEntry = ObsFilesValidateEntry
               ColWidths = (
-                801
+                779
               )
             end
             object PanelObsfileEdit: TPanel
               Left = 0
               Height = 32
               Top = 78
-              Width = 805
+              Width = 807
               Align = alBottom
               ClientHeight = 32
-              ClientWidth = 805
+              ClientWidth = 807
               TabOrder = 1
               object BtnAddObsFile: TSpeedButton
                 AnchorSideLeft.Side = asrBottom
@@ -372,20 +365,22 @@ object f_notelun: Tf_notelun
             Left = 0
             Height = 222
             Top = 512
-            Width = 807
+            Width = 809
             Align = alClient
             Caption = 'Note'
             ClientHeight = 202
-            ClientWidth = 805
+            ClientWidth = 807
             Constraints.MinHeight = 100
             TabOrder = 1
             object ObsText: TMemo
-              Left = 0
-              Height = 198
-              Top = 4
-              Width = 805
+              Left = 16
+              Height = 194
+              Top = 8
+              Width = 783
               Align = alClient
-              BorderSpacing.Top = 4
+              BorderSpacing.Left = 16
+              BorderSpacing.Top = 8
+              BorderSpacing.Right = 8
               Constraints.MinHeight = 80
               OnChange = ObsNoteChange
               ScrollBars = ssAutoVertical
@@ -396,11 +391,11 @@ object f_notelun: Tf_notelun
             Left = 0
             Height = 136
             Top = 376
-            Width = 807
+            Width = 809
             Align = alTop
             Caption = 'Ephemeris'
             ClientHeight = 116
-            ClientWidth = 805
+            ClientWidth = 807
             TabOrder = 2
             object Label11: TLabel
               AnchorSideTop.Control = ObsRA
@@ -619,10 +614,10 @@ object f_notelun: Tf_notelun
             Left = 0
             Height = 82
             Top = 0
-            Width = 807
+            Width = 809
             Align = alTop
             ClientHeight = 82
-            ClientWidth = 807
+            ClientWidth = 809
             TabOrder = 3
             object ObsFormation: TEdit
               Left = 16
@@ -640,16 +635,14 @@ object f_notelun: Tf_notelun
               Text = 'Formation'
             end
             object ObsDate: TEdit
-              AnchorSideLeft.Control = ObsFormation
+              AnchorSideLeft.Control = BtnSearchFormation
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = ObsFormation
-              AnchorSideTop.Side = asrCenter
-              Left = 540
+              Left = 543
               Height = 39
               Top = 38
               Width = 111
-              BorderSpacing.Left = 50
-              BorderSpacing.Top = 16
+              BorderSpacing.Left = 22
               Font.Color = clRed
               Font.Height = -19
               Font.Style = [fsBold]
@@ -689,17 +682,17 @@ object f_notelun: Tf_notelun
             Left = 0
             Height = 294
             Top = 82
-            Width = 807
+            Width = 809
             Align = alTop
             BevelOuter = bvNone
             ClientHeight = 294
-            ClientWidth = 807
+            ClientWidth = 809
             TabOrder = 4
             object PCobs: TPageControl
               Left = 0
               Height = 294
               Top = 0
-              Width = 807
+              Width = 809
               ActivePage = PCRO
               Align = alClient
               ShowTabs = False
@@ -708,16 +701,16 @@ object f_notelun: Tf_notelun
               object PCRW: TTabSheet
                 Caption = 'PCRW'
                 ClientHeight = 290
-                ClientWidth = 797
+                ClientWidth = 799
                 object ObsCircumstance: TGroupBox
                   Left = 0
                   Height = 144
                   Top = 0
-                  Width = 797
+                  Width = 799
                   Align = alTop
                   Caption = 'Circumstance'
                   ClientHeight = 124
-                  ClientWidth = 795
+                  ClientWidth = 797
                   TabOrder = 0
                   object Label2: TLabel
                     AnchorSideTop.Side = asrCenter
@@ -892,11 +885,11 @@ object f_notelun: Tf_notelun
                   Left = 0
                   Height = 144
                   Top = 144
-                  Width = 797
+                  Width = 799
                   Align = alTop
                   Caption = 'Gear'
                   ClientHeight = 124
-                  ClientWidth = 795
+                  ClientWidth = 797
                   TabOrder = 1
                   object Label8: TLabel
                     AnchorSideTop.Side = asrCenter
@@ -1020,16 +1013,16 @@ object f_notelun: Tf_notelun
               object PCRO: TTabSheet
                 Caption = 'PCRO'
                 ClientHeight = 290
-                ClientWidth = 797
+                ClientWidth = 799
                 object ObsCircumstance1: TGroupBox
                   Left = 0
                   Height = 144
                   Top = 0
-                  Width = 797
+                  Width = 799
                   Align = alTop
                   Caption = 'Circumstance'
                   ClientHeight = 124
-                  ClientWidth = 795
+                  ClientWidth = 797
                   TabOrder = 0
                   object Label22: TLabel
                     AnchorSideTop.Side = asrCenter
@@ -1158,11 +1151,11 @@ object f_notelun: Tf_notelun
                   Left = 0
                   Height = 144
                   Top = 144
-                  Width = 797
+                  Width = 799
                   Align = alTop
                   Caption = 'Gear'
                   ClientHeight = 124
-                  ClientWidth = 795
+                  ClientWidth = 797
                   TabOrder = 1
                   object Label30: TLabel
                     AnchorSideTop.Side = asrCenter
@@ -1263,60 +1256,51 @@ object f_notelun: Tf_notelun
       object TabSheetInformation: TTabSheet
         Caption = 'TabSheetInformation'
         ClientHeight = 866
-        ClientWidth = 809
+        ClientWidth = 811
         object ScrollBox2: TScrollBox
           Left = 0
           Height = 866
           Top = 0
-          Width = 809
-          HorzScrollBar.Page = 736
-          VertScrollBar.Page = 427
+          Width = 811
+          HorzScrollBar.Page = 689
+          VertScrollBar.Page = 421
           Align = alClient
-          ClientHeight = 864
+          ClientHeight = 862
           ClientWidth = 807
           TabOrder = 0
           object PanelInfoTop: TPanel
             Left = 0
-            Height = 144
+            Height = 82
             Top = 0
             Width = 807
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 144
-            ClientWidth = 807
+            ClientHeight = 78
+            ClientWidth = 803
             TabOrder = 0
-            object Label1: TLabel
-              AnchorSideLeft.Control = InfoFormation
-              AnchorSideTop.Control = InfoFormation
-              AnchorSideTop.Side = asrBottom
-              Left = 16
-              Height = 19
-              Top = 101
-              Width = 76
-              BorderSpacing.Top = 24
-              Caption = 'Note author'
-              ParentColor = False
-            end
-            object InfoAuthor: TEdit
-              AnchorSideLeft.Side = asrCenter
-              AnchorSideTop.Control = Label1
-              AnchorSideTop.Side = asrCenter
-              AnchorSideRight.Control = InfoFormation
-              AnchorSideRight.Side = asrBottom
-              Left = 162
-              Height = 31
-              Top = 95
-              Width = 278
-              Anchors = [akTop, akRight]
-              OnChange = InfoNoteChange
-              TabOrder = 0
-              Text = 'Author'
-            end
             object InfoFormation: TEdit
               Left = 16
-              Height = 39
+              Height = 27
               Top = 38
-              Width = 424
+              Width = 474
+              Font.Color = clRed
+              Font.Height = -19
+              Font.Style = [fsBold]
+              OnChange = InfoNoteChange
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 0
+              Text = 'Formation'
+            end
+            object InfoDate: TEdit
+              AnchorSideLeft.Control = BtnSearchFormation1
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = InfoFormation
+              Left = 543
+              Height = 27
+              Top = 38
+              Width = 111
+              BorderSpacing.Left = 22
               Font.Color = clRed
               Font.Height = -19
               Font.Style = [fsBold]
@@ -1324,26 +1308,6 @@ object f_notelun: Tf_notelun
               ParentFont = False
               ReadOnly = True
               TabOrder = 1
-              Text = 'Formation'
-            end
-            object InfoDate: TEdit
-              AnchorSideLeft.Control = BtnSearchFormation1
-              AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = InfoFormation
-              AnchorSideTop.Side = asrCenter
-              Left = 493
-              Height = 39
-              Top = 38
-              Width = 212
-              BorderSpacing.Left = 22
-              BorderSpacing.Top = 16
-              Font.Color = clRed
-              Font.Height = -19
-              Font.Style = [fsBold]
-              OnChange = InfoNoteChange
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 2
               Text = 'Date'
             end
             object BtnSearchFormation1: TSpeedButton
@@ -1353,8 +1317,8 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Control = InfoFormation
               AnchorSideBottom.Control = InfoFormation
               AnchorSideBottom.Side = asrBottom
-              Left = 440
-              Height = 39
+              Left = 490
+              Height = 27
               Top = 38
               Width = 31
               Anchors = [akTop, akLeft, akBottom]
@@ -1370,8 +1334,8 @@ object f_notelun: Tf_notelun
               AnchorSideTop.Control = InfoDate
               AnchorSideBottom.Control = InfoDate
               AnchorSideBottom.Side = asrBottom
-              Left = 705
-              Height = 39
+              Left = 654
+              Height = 27
               Top = 38
               Width = 31
               Anchors = [akTop, akLeft, akBottom]
@@ -1396,7 +1360,7 @@ object f_notelun: Tf_notelun
             AnchorSideTop.Side = asrBottom
             Left = 0
             Height = 175
-            Top = 689
+            Top = 687
             Width = 807
             Align = alBottom
             BorderSpacing.Top = 8
@@ -1406,13 +1370,15 @@ object f_notelun: Tf_notelun
             Constraints.MinWidth = 100
             TabOrder = 1
             object InfoFiles: TStringGrid
-              Left = 0
+              Left = 16
               Height = 115
               Top = 8
-              Width = 805
+              Width = 781
               Align = alClient
               AutoFillColumns = True
+              BorderSpacing.Left = 16
               BorderSpacing.Top = 8
+              BorderSpacing.Right = 8
               ColCount = 1
               FixedCols = 0
               FixedRows = 0
@@ -1422,7 +1388,7 @@ object f_notelun: Tf_notelun
               OnSelectCell = InfoFilesSelectCell
               OnValidateEntry = InfoFilesValidateEntry
               ColWidths = (
-                783
+                774
               )
             end
             object PanelInfofileEdit: TPanel
@@ -1480,25 +1446,60 @@ object f_notelun: Tf_notelun
           end
           object InfoNote: TGroupBox
             Left = 0
-            Height = 537
-            Top = 144
+            Height = 541
+            Top = 138
             Width = 807
             Align = alClient
             Caption = 'Note'
-            ClientHeight = 517
+            ClientHeight = 521
             ClientWidth = 805
             Constraints.MinHeight = 100
             TabOrder = 2
             object InfoText: TMemo
-              Left = 0
+              Left = 16
               Height = 513
-              Top = 4
-              Width = 805
+              Top = 8
+              Width = 781
               Align = alClient
-              BorderSpacing.Top = 4
+              BorderSpacing.Left = 16
+              BorderSpacing.Top = 8
+              BorderSpacing.Right = 8
               OnChange = InfoNoteChange
               ScrollBars = ssAutoVertical
               TabOrder = 0
+            end
+          end
+          object GroupBox1: TGroupBox
+            Left = 0
+            Height = 56
+            Top = 82
+            Width = 807
+            Align = alTop
+            ClientHeight = 54
+            ClientWidth = 805
+            TabOrder = 3
+            object Label1: TLabel
+              AnchorSideTop.Control = GroupBox1
+              AnchorSideTop.Side = asrCenter
+              Left = 16
+              Height = 19
+              Top = 18
+              Width = 76
+              BorderSpacing.Top = 24
+              Caption = 'Note author'
+              ParentColor = False
+            end
+            object InfoAuthor: TEdit
+              AnchorSideTop.Control = Label1
+              AnchorSideTop.Side = asrCenter
+              AnchorSideRight.Side = asrBottom
+              Left = 162
+              Height = 27
+              Top = 14
+              Width = 278
+              OnChange = InfoNoteChange
+              TabOrder = 0
+              Text = 'Author'
             end
           end
         end
@@ -1513,12 +1514,15 @@ object f_notelun: Tf_notelun
     Align = alBottom
     BevelInner = bvLowered
     TabOrder = 3
+    Visible = False
   end
   object Splitter1: TSplitter
     Left = 376
     Height = 870
     Top = 40
-    Width = 5
+    Width = 3
+    AutoSnap = False
+    MinSize = 240
   end
   object MainMenu1: TMainMenu
     Left = 1088
