@@ -191,6 +191,7 @@ type
     ToolButton20: TToolButton;
     ToolButton21: TToolButton;
     ToolButton22: TToolButton;
+    ToolButtonNotelun: TToolButton;
     ToolButtonCalclun: TToolButton;
     ToolButtonCCD: TToolButton;
     ToolButtonNotes: TToolButton;
@@ -413,6 +414,7 @@ type
     procedure ToolButton16Click(Sender: TObject);
     procedure ToolButtonDockToolsClick(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
+    procedure ToolButtonNotelunClick(Sender: TObject);
     procedure ToolButtonNotesClick(Sender: TObject);
     procedure ToolButtonOculaireClick(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
@@ -901,6 +903,7 @@ begin
     Label17.Caption:=rsOrbitInclina;
     ButtonWeblun.Hint:='WebLun';
     ButtonDatabase.hint := 'DatLun';
+    ToolButtonNotelun.Hint:='Notelun';
     CheckBox8.Caption := rst_182;
     Toolbutton12.hint := rsShowLabels;
     Toolbutton22.hint := rst_121;
@@ -4540,6 +4543,11 @@ begin
   p:=Point(ToolButton1.Left,ToolButton1.Top+ToolButton1.Height);
   p:=ToolBar2.ClientToScreen(p);
   FilePopup.PopUp(p.x,p.y);
+end;
+
+procedure TForm1.ToolButtonNotelunClick(Sender: TObject);
+begin
+  OpenNotelun(0,' ','','');
 end;
 
 procedure TForm1.ToolButtonNotesClick(Sender: TObject);
