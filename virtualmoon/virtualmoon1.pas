@@ -38,7 +38,7 @@ uses
   u_translation_database, u_translation, tabsdock, cu_dem, pu_demprofile,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
-  mlb2, PrintersDlgs, Printers, Controls,
+  PrintersDlgs, Printers, Controls,
   Messages, SysUtils, Classes, Dialogs, FileUtil,
   ComCtrls, Menus, Buttons, dynlibs, BigIma, pu_ascomclient, pu_indiclient,
   EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase, LCLType,
@@ -541,6 +541,7 @@ type
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
     firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseWeblun,CanCloseCDC,CanCloseNoteLun,StartDatlun,StartWeblun,StartPhotlun,StartCDC,StartCalclun,StartNotelun: boolean;
     Desctxt,MsgNoDB: string;
+    dblox: TLiteDB;
     {$ifdef windows}
     savetop,saveleft,savewidth,saveheight: integer;
     {$endif}
@@ -665,7 +666,6 @@ type
 
 var
   Form1:   TForm1;
-  dblox: TMlb2;
   Fplanet: TPlanet;
 
 const MinToolsWidth=350;
@@ -972,8 +972,6 @@ begin
     if f_ephem<>nil then f_ephem.Setlang;
     if f_demprofile<>nil then f_demprofile.Setlang;
     f_tabsdock.SetLang;
-    // Glossary form changed to a singleton-style function-accessible object
-    GlossaryForm.InitGlossary;
     LoadILCDcols('ILCD_2015_AVL',Slash(appdir) + 'Database',uplanguage);
     AnchorIdent.Caption:=StringReplace(rsIdentity,':','',[]);
     AnchorDesc.Caption:=StringReplace(rsm_58,':','',[]);
@@ -2275,10 +2273,8 @@ begin
      memo.Lines.Add(rsm_13 + b + GetField('AREA'));
 
   //Atlas
-  dblox.Gofirst;
-  ok := dblox.MatchData('NAME', '=', nom);
-  if not ok then
-    ok := dblox.SeekData('NAME', '=', nom);
+  dblox.Query('select NAME,PLATE,IMAGE from lopamidx where NAME="'+nom+'"');
+  ok:=dblox.RowCount>0;
   memo.Lines.Add(rsm_61); //Atlas
   if (GetField('RUKL')>'') then
      memo.Lines.Add(rsm_14 + b + GetField('RUKL'));
@@ -2342,11 +2338,9 @@ begin
   if ok then
   begin
     buf := rsm_65;
-    while ok do
-    begin
-      carte := dblox.GetDATA('PLATE');
+    for i:=0 to dblox.RowCount-1 do begin
+      carte := dblox.Results[i][1];
       buf   := buf + b + carte;
-      ok    := dblox.SeekData('NAME', '=', nom);
     end;
     memo.Lines.Add(buf);
   end;
@@ -2488,10 +2482,8 @@ begin
   txt:=txt+ '<a name="ident"> ';
   anchorvisible[1]:=true;
   nom := GetField('NAME');
-  dblox.Gofirst;
-  ok := dblox.MatchData('NAME', '=', nom);
-  if not ok then
-    ok := dblox.SeekData('NAME', '=', nom);
+  dblox.Query('select NAME,PLATE,IMAGE from lopamidx where NAME="'+nom+'"');
+  ok:=dblox.RowCount>0;
   txt  := txt + t1 + nom + t1end + br;
   dbn  := row.ByField['DBN'].AsInteger;
   if dbn > 99 then
@@ -2707,12 +2699,11 @@ begin
   if ok then
   begin
     txtbuf := txtbuf + t3 + rsm_65 + t3end;
-    while ok do
-    begin
-      carte := dblox.GetDATA('PLATE');
+    for i:=0 to dblox.RowCount-1 do begin
+      carte := dblox.Results[i][1];
       if lopamdirect then
       begin
-        img := dblox.GetDATA('IMAGE');
+        img := dblox.Results[i][2];
         url := lopamlocalurl + img + lopamlocalsuffix;
         remoteurl := lopamdirecturl + img + lopamdirectsuffix;
         // on regarde d'abord en local
@@ -2747,7 +2738,6 @@ begin
         url := lopamplateurl + carte + lopamplatesuffix;
       end;
       txtbuf := txtbuf + b + ' <A HREF="' + url + '">' + carte + '</A>';
-      ok  := dblox.SeekData('NAME', '=', nom);
     end;
     txtbuf := txtbuf + br;
   end;
@@ -3915,7 +3905,6 @@ begin
   lastx     := 0;
   lasty     := 0;
   SkipIdent := False;
-  dblox     := TMlb2.Create;
   GetSkyChartInfo;
   CheckBox8.Checked := compresstexture;
   CheckBox3.Checked := antialias;
@@ -4008,8 +3997,9 @@ try
   ListUserDB;
   InitLopamIdx;
   InitTelescope;
-  dblox.LoadFromFile(Slash(appdir) + Slash('Database') + 'lopamidx.csv');
-  dblox.GoFirst;
+  LoadLopamIdx('lopamidx',Slash(appdir) + 'Database',dbm);
+  dblox:=TLiteDB.Create(self);
+  dblox.Use(dbm.DataBase);
   if UseComputerTime then
     InitDate
   else
@@ -4928,11 +4918,9 @@ begin
   try
     if moon2<>nil then begin
        moon2.close;
-       moon2.Free;
     end;
     dbm.free;
     dbnotes.free;
-    dblox.Clear;
     dblox.Free;
     DatabaseList.Free;
     tz.Free;
@@ -4944,6 +4932,8 @@ begin
     texturefiles.Free;
     texturenone.Free;
     demlib.Free;
+    ILCDCols.Free;
+    ClearNotesList;
     if CursorImage1 <> nil then
     begin
       CursorImage1.Free;

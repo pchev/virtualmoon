@@ -159,6 +159,7 @@ Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
 procedure DBjournal(dbname,txt:string);
 Procedure LoadILCD(fn,path,tname:string; dbm: TLiteDB);
 procedure LoadILCDcols(fn,path,lang:string);
+Procedure LoadLopamIdx(fn,path:string; dbm: TLiteDB);
 Procedure LoadNotelunDB(db: TLiteDB);
 
 implementation
@@ -427,6 +428,68 @@ end else begin
 end;
 writeln(f,FormatDateTime('yyyy"-"mm"-"dd" "hh":"nn":"ss',Now),' DB=',dbname,' ',txt);
 closefile(f);
+end;
+
+Procedure LoadLopamIdx(fn,path:string; dbm: TLiteDB);
+var buf,cmd,v: string;
+    i:integer;
+    val: TStringList;
+    f: textfile;
+const colcount=80;
+begin
+ if FileExists(slash(path)+fn+'.csv') then begin
+    cmd:='select * from lopamidx limit 1';
+    dbm.Query(cmd);
+    if dbm.LastError<>0 then begin
+      val:=TStringList.Create;
+      try
+      dbjournal(extractfilename(dbm.database),'CREATE TABLE LOPAMIDX');
+      cmd:='create table lopamidx ( '+
+         'NAME TEXT,'+
+         'F_LATIN FLOAT,'+
+         'F_LONGIN FLOAT,'+
+         'PLATE TEXT,'+
+         'IMAGE TEXT,'+
+         'LATIN FLOAT,'+
+         'LONGIN FLOAT'+
+         ');';
+      dbm.Query(cmd);
+      if dbm.LastError<>0 then dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+      cmd:='create index lopamidx_idx on lopamidx(NAME);';
+      dbm.Query(cmd);
+      if dbm.LastError<>0 then begin
+        dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+        exit;
+      end;
+      AssignFile(f,slash(path)+fn+'.csv');
+      Reset(f);
+      ReadLn(f,buf);
+
+      cmd:='insert into lopamidx values ';
+      while not eof(f) do begin
+        ReadLn(f,buf);
+        SplitRec2(buf,';',val);
+        cmd:=cmd+'(';
+        for i:=0 to 6 do begin
+          v:=val[i];
+          v:=stringreplace(v,'""','''',[rfreplaceall]);
+          v:=stringreplace(v,'"','',[rfreplaceall]);
+          cmd:=cmd+'"'+v+'",';
+        end;
+        cmd:=copy(cmd,1,length(cmd)-1);
+        cmd:=cmd+'),';
+      end;
+      CloseFile(f);
+      cmd:=copy(cmd,1,length(cmd)-1);
+      dbm.Query(cmd);
+      if dbm.LastError<>0 then begin
+         dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+      end;
+      finally
+       val.Free;
+      end;
+    end;
+ end;
 end;
 
 Procedure LoadILCD(fn,path,tname:string; dbm: TLiteDB);
