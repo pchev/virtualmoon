@@ -4,7 +4,7 @@ unit cu_print;
 
 interface
 
-uses
+uses  math,
   Classes, SysUtils, Graphics, Printers;
 
 procedure InitPage(title,font: string; margincm,linespacing:double);
@@ -16,16 +16,19 @@ implementation
 var
   gTopMargin, gBottomMargin, gLeftMargin, gRightMargin: double;
   gLineSpacing: double;
-  H, ADPI, marginX, marginY, maxY, currentX, currentY: integer;
+  H, ADPI, marginX, marginY, maxX, maxY, currentX, currentY: integer;
   PrintFont: string;
 
 
 function GetPoints(x:double;dpi:integer): integer;
 begin
-  result:=round(x*dpi/2.54);
+  result:=round(x*dpi/2.54);  // cm -> points
 end;
 
 procedure PrinterWriteln(theString: string; fontsize:integer; bold: boolean);
+var
+  W,maxW,i,j: integer;
+  buf: string;
 begin
   try
   if bold then
@@ -38,8 +41,30 @@ begin
   end;
   Printer.Canvas.Font.Size := fontsize;
   H := round(Printer.Canvas.TextHeight('X') * gLineSpacing);
-  Printer.Canvas.TextOut(currentX, currentY, theString);
-  Inc(currentY, H);
+  W := Printer.Canvas.TextWidth(theString);   // width of the string in points
+  maxW:=maxX-currentX;                        // available width on page
+  if W>maxW then begin                        // need wordwrap
+    i:=max(1,round(length(theString)*maxW/W));// average number of character in one line
+    repeat
+      if currentY>maxY then begin             // maybe a page break is need
+        Printer.NewPage;
+        currentY:=marginY;
+      end;
+      buf:=copy(theString,1,i);               // to print on this line
+      j:=LastDelimiter(' ,.;:',buf);          // search last delimiter
+      if j>0 then begin
+        i:=j;                                 // position of delimiter
+        buf:=copy(theString,1,i);             // adjust line to delimiter
+      end;
+      Printer.Canvas.TextOut(currentX, currentY, buf); // print line
+      Inc(currentY, H);
+      delete(theString,1,i);                  // delete already printed text
+    until theString='';
+  end
+  else begin  // can print line directly in full
+    Printer.Canvas.TextOut(currentX, currentY, theString);
+    Inc(currentY, H);
+  end;
   except
     on E: Exception do
     begin
@@ -65,6 +90,7 @@ begin
   currentX := marginX;
   currentY := marginY;
   Printer.BeginDoc;
+  maxX := Printer.PageWidth-GetPoints(gRightMargin, ADPI);
   maxY := Printer.PageHeight-GetPoints(gBottomMargin, ADPI);
   Printer.Canvas.Font.Name := PrintFont;
   Printer.Canvas.Font.Style := [];
