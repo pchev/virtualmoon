@@ -381,6 +381,7 @@ end;
 procedure Tf_notelun.ReadConfig;
 var inif: TMemIniFile;
     section: string;
+    i: integer;
 begin
   inif := Tmeminifile.Create(ConfigFile);
   section:='Notelun';
@@ -395,7 +396,17 @@ begin
   ShowEphemeris:=inif.ReadBool(section, 'ShowEphemeris', true);
   PrintNoteFont:=inif.ReadString(section, 'PrintNoteFont', 'default');
   PrintFixedFont:=inif.ReadString(section, 'PrintFixedFont', 'default');
-
+  i:=inif.ReadInteger(section,'Top',1);
+  if (i>=-10)and(i<screen.Height-20) then Top:=i else Top:=1;
+  i:=inif.ReadInteger(section,'Left',1);
+  if (i>=-10)and(i<screen.width-20) then Left:=i else Left:=1;
+  i:=screen.height-50;
+  i:=minintvalue([i,inif.ReadInteger(section,'Height',height)]);
+  if (i>=20) then Height:=i;
+  i:=screen.width-5;
+  i:=minintvalue([i,inif.ReadInteger(section,'Width',width)]);
+  if (i>=20) then Width:=i;
+  if inif.ReadBool(section,'Maximized',false) then windowstate:=wsMaximized;
   inif.Free;
 end;
 
@@ -416,6 +427,11 @@ begin
   inif.WriteBool(section, 'ShowEphemeris', ShowEphemeris);
   inif.WriteString(section, 'PrintNoteFont', PrintNoteFont);
   inif.WriteString(section, 'PrintFixedFont', PrintFixedFont);
+  inif.WriteInteger(section,'Top',Top);
+  inif.WriteInteger(section,'Left',Left);
+  inif.WriteInteger(section,'Height',Height);
+  inif.WriteInteger(section,'Width',Width);
+  inif.WriteBool(section,'Maximized',(windowstate=wsMaximized));
   inif.UpdateFile;
   inif.Free;
 end;
