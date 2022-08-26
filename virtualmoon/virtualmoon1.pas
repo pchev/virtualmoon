@@ -1477,11 +1477,11 @@ begin
       ' LIMIT '+inttostr(2*MaxLabel)+';');
     for j := 0 to dbm.RowCount - 1 do
     begin
-      l1 := dbm.Results[j].Format[1].AsFloat;
-      b1 := dbm.Results[j].Format[2].AsFloat;
-      w  := dbm.Results[j].Format[3].AsFloat;
+      l1 := StrToFloatDef(dbm.Results[j][1],0);
+      b1 := StrToFloatDef(dbm.Results[j][2],0);
+      w  := StrToFloatDef(dbm.Results[j][3],0);
       if w <= 0 then
-        w := dbm.Results[j].Format[4].AsFloat;
+        w := StrToFloatDef(dbm.Results[j][4],0);
       nom := trim(string(dbm.Results[j][0]));
       dbn := trim(string(dbm.Results[j][6]));
       lun := trim(string(dbm.Results[j][5]));
@@ -1563,8 +1563,8 @@ begin
       ' ORDER BY WIDE_KM DESC ' + ' ;');
     for j := 0 to dbm.RowCount - 1 do
     begin
-      l1 := dbm.Results[j].Format[0].AsFloat;
-      b1 := dbm.Results[j].Format[1].AsFloat;
+      l1 := StrToFloatDef(dbm.Results[j][0],0);
+      b1 := StrToFloatDef(dbm.Results[j][1],0);
       Tf_moon(Sender).AddSprite(deg2rad*l1,deg2rad*b1);
     end;
   end;
@@ -2027,11 +2027,11 @@ begin
         0: listbox1.Items.Add(dbm.Results[i][0]);
         1: listbox1.Items.Add(IntToStr(5 - dbm.Results[i].format[2].AsInteger) +
             ' ' + dbm.Results[i][0]);
-        2: listbox1.Items.Add(formatfloat('000', dbm.Results[i].format[3].AsFloat) +
+        2: listbox1.Items.Add(formatfloat('000', StrToFloatDef(dbm.Results[i][3],0)) +
             ' ' + dbm.Results[i][0]);
         3:
         begin
-          buf := demtostr(dbm.Results[i].format[1].AsFloat) + ' ' + dbm.Results[i][0];
+          buf := demtostr(StrToFloatDef(dbm.Results[i][1],0)) + ' ' + dbm.Results[i][0];
           listbox1.Items.Add(buf);
         end;
       end;
@@ -2104,8 +2104,8 @@ begin
     ' ;');
   for i := 0 to dbm.RowCount - 1 do
   begin
-    l1 := dbm.Results[i].format[1].AsFloat;
-    b1 := dbm.Results[i].format[2].AsFloat;
+    l1 := StrToFloatDef(dbm.Results[i][1],0);
+    b1 := StrToFloatDef(dbm.Results[i][2],0);
     d  := angulardistance(deg2rad*l, deg2rad*b, deg2rad*l1, deg2rad*b1);
     if d < mindist then
     begin
@@ -2942,9 +2942,9 @@ begin
   if usedatabase[DbImpactBassin] then begin
      dbm.query('select LONGI_N,LATI_N,LENGTH_KM from moon where DBN=' + IntToStr(DbImpactBassin) + ';');
      for i:=0 to dbm.RowCount-1 do begin
-       lon:=dbm.Results[i].Format[0].AsFloat;
-       lat:=dbm.Results[i].Format[1].AsFloat;
-       r:=dbm.Results[i].Format[2].AsFloat;
+       lon:=StrToFloatDef(dbm.Results[i][0],0);
+       lat:=StrToFloatDef(dbm.Results[i][1],0);
+       r:=StrToFloatDef(dbm.Results[i][2],0);
        if r>0 then
          moon.Circle(lon,lat,r,bassinColor)
      end;
