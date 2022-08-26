@@ -3995,7 +3995,9 @@ begin
   EXT_transform_feedback := CheckExtension('GL_EXT_transform_feedback');
   EXT_vertex_array := CheckExtension('GL_EXT_vertex_array');
   EXT_texture_sRGB_decode := CheckExtension('GL_EXT_texture_sRGB_decode');
+  {$ifdef mswindows} // this solve texture loading on Linux
   EXT_direct_state_access := CheckExtension('EXT_direct_state_access');
+  {$endif}
   EXT_texture_swizzle := CheckExtension('EXT_texture_swizzle');
 
   HP_occlusion_test := CheckExtension('GL_HP_occlusion_test');
