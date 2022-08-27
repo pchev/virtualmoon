@@ -2576,7 +2576,7 @@ begin
 end;
 
 procedure Tf_moon.MeasureDistance(x, y: integer);
-const   qr=0.5008;
+const   qr=0.5000;
 var
   i,j,x1,y1,x2,y2: integer;
   xx, yy, zz, l, b, d, s,step,startxx,startyy: single;
