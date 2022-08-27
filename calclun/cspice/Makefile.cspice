@@ -15,9 +15,11 @@ LIBNAME = libcspice.a
 ifneq ($(findstring Darwin,$(OSTYPE)),)
   CFLAGS        = -c -ansi -O2 -fPIC -DNON_UNIX_STDIO $(arch_flags) -Wno-implicit-function-declaration -mmacosx-version-min=10.6
   SOLIBNAME = libcspice.dylib
+  SOLIBNAMEVMA = libcspicevma.dylib
 else  
   CFLAGS        = -c -ansi -O2 -fPIC -DNON_UNIX_STDIO $(arch_flags)
   SOLIBNAME = libcspice.so
+  SOLIBNAMEVMA = libcspicevma.so
 endif
 
 .PHONY: clean
@@ -31,9 +33,10 @@ all: Platform $(OBJ)
 	$(AR) cr $(LIBNAME) *.o
 	$(RANLIB) $(LIBNAME)
 	$(CC) -shared *.o -o $(SOLIBNAME)
+	$(CP)  $(SOLIBNAME) $(SOLIBNAMEVMA)
 
 Platform:
 	$(CP) SpiceZpl-64.h SpiceZpl.h 
 
 clean:
-	rm -f $(OBJ) $(LIBNAME) $(SOLIBNAME) SpiceZpl.h
+	rm -f $(OBJ) $(LIBNAME) $(SOLIBNAME) $(SOLIBNAMEVMA) SpiceZpl.h
