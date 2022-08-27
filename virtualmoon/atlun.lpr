@@ -39,7 +39,7 @@ begin
      halt;
   end;
   Application.CreateForm(TForm1, Form1);
-  if (Form1.param.IndexOf('-quit')<0) then begin
+  if (Form1.param.Count=0) then begin
       Splashversion := AVLversion+blank+compile_time;
       splash := Tsplash.create(application);
       splash.VersionName:=VersionName;

@@ -141,6 +141,7 @@ function PolygonCentroid(N:integer;Points:Array of TDoublePoint;area:double): TD
 function InsidePolygon(N:integer;Points:Array of TDoublePoint;p:TDoublePoint): boolean;
 function CurrentUserName:String;
 function SafeSqlText(txt: string):string;
+function GetSelectedCell(grid:TStringGrid; out aCol, aRow: integer): string;
 
 var traceon : boolean;
     hp: string;
@@ -2155,6 +2156,20 @@ end;
 function SafeSqlText(txt: string):string;
 begin
   result:=StringReplace(trim(txt),'"','""',[rfReplaceAll]);
+end;
+
+function GetSelectedCell(grid:TStringGrid; out aCol, aRow: integer): string;
+var sel:TGridRect;
+begin
+// return cell content after double click
+try
+  sel:=grid.Selection;
+  aCol:=sel.left;
+  aRow:=sel.top;
+  result:=grid.Cells[sel.left,sel.top];
+except
+  result:='';
+end;
 end;
 
 end.

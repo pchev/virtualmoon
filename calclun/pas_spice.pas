@@ -7,8 +7,7 @@ interface
 uses cspice, u_util, u_constant,
   Classes, SysUtils;
 
-const
-  datestd = 'yyyy/mm/dd hh:nn:ss';
+var datestd: string;
 
 procedure InitError;
 function SpiceLastErr: string;

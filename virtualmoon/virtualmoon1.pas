@@ -1633,6 +1633,7 @@ var
   buf: string;
   p, yy, mm, dd, h, m: integer;
   s: double;
+  dt:TDateTime;
 begin
   buf := trim(param);
   p   := pos('-', buf);
@@ -1665,9 +1666,12 @@ begin
   CurrentMonth := mm;
   CurrentDay := dd;
   CurrentTime := h + m / 60 + s / 3600;
+  dt:=EncodeDate(CurYear,CurrentMonth,CurrentDay)+CurrentTime/24;
+  timezone := GetTimeZone(dt);
   dt_ut := dtminusut(CurYear);
   CurrentJD := jd(CurYear, CurrentMonth, CurrentDay, Currenttime - timezone + DT_UT);
   SetJDDate;
+  RefreshMoonImage;
 end;
 
 procedure TForm1.SetObs(param: string);

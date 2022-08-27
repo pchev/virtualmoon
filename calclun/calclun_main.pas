@@ -229,6 +229,11 @@ type
     procedure ColongitudeChange(Sender: TObject);
     procedure FormationEditingDone(Sender: TObject);
     procedure DayTimeChange(Sender: TObject);
+    procedure GridColongitudeDblClick(Sender: TObject);
+    procedure GridDayHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
+    procedure GridLibrationDblClick(Sender: TObject);
+    procedure GridTerminator1DblClick(Sender: TObject);
+    procedure GridTerminator2DblClick(Sender: TObject);
     procedure LibrationTimerTimer(Sender: TObject);
     procedure PageControlPredictionChange(Sender: TObject);
     procedure PredictionChange(Sender: TObject);
@@ -270,6 +275,7 @@ type
     CurLibrationLon,CurLibrationLat,CurLibrationDt,CurLibrationLibrLon,CurLibrationLibrLat: double;
     CurLibrationEW,CurLibrationNS,CurLibrationDuration,CurLibrationSunElev,CurLibrationMoonElev: integer;
     CurLibrationNight,CurLibrationVisible: boolean;
+    StartVMA: boolean;
     procedure SetLang;
     procedure GetAppDir;
     procedure SetKernelsPath;
@@ -291,6 +297,7 @@ type
     procedure ComputeColongitude;
     procedure ComputeTerminator;
     procedure ComputeLibration;
+    procedure OpenAtlun(dt,nam:string);
 
   public
 
@@ -326,6 +333,7 @@ begin
   LockPredictionTimer:=false;
   dbm:=TLiteDB.Create(self);
   DatabaseList:=Tstringlist.Create;
+  datestd:=datetimedisplay;
 
   Top := 50;
   Left := 50;
@@ -741,11 +749,11 @@ begin
     end;
   end;
  {$ifndef darwin}
-  if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+  if not FileExists(slash(bindir)+'atlun') then begin
      bindir := slash(ExtractFilePath(ParamStr(0)));
-     if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+     if not FileExists(slash(bindir)+'atlun') then begin
         bindir := slash(ExpandFileName(slash(appdir) + slash('..')+slash('..')+'bin'));
-        if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
+        if not FileExists(slash(bindir)+'atlun') then begin
            bindir:='';
         end;
      end;
@@ -1758,6 +1766,86 @@ begin
   MemoDay.Lines.Add(rsPA+':'+tab+FormatFloat(f2, pa));
   MemoDay.Lines.Add(rsAzimut+':'+tab+DEmToStr(rmod(az*rad2deg+360, 360)));
   MemoDay.Lines.Add(rsElevation+':'+tab+DEmToStr(el * rad2deg));
+end;
+
+procedure Tf_calclun.OpenAtlun(dt,nam:string);
+var p: string;
+begin
+  p:='-nc -d '+dt;
+  if nam<>'' then p:=p+' -n "'+nam+'"';
+  chdir(appdir);
+  Execnowait(maplun+' '+p);
+  StartVMA:=true;
+end;
+
+procedure Tf_calclun.GridDayHeaderClick(Sender: TObject; IsColumn: Boolean; Index: Integer);
+var buf:string;
+    dt:double;
+    Year, Month, Day: Word;
+    h,p: integer;
+begin
+  if IsColumn then exit;
+  if Index>0 then begin
+  buf:=GridDay.Cells[0,index];
+  p:=pos(':',buf);
+  if (p>0) then begin
+    buf:=copy(buf,1,p-1);
+    h:=StrToIntdef(buf,0);
+    year:=SpinEditYear.Value;
+    month:=SpinEditMonth.Value;
+    day:=SpinEditDay.Value;
+    dt:=EncodeDate(year,month,day)+h/24;
+    buf:=FormatDateTime(dateiso,dt);
+    OpenAtlun(buf,'');
+  end;
+  end;
+end;
+
+procedure Tf_calclun.GridColongitudeDblClick(Sender: TObject);
+var buf:string;
+    c,r: integer;
+begin
+  buf:=GetSelectedCell(GridColongitude,c,r);
+  if (r>0)and(c<=1)and(buf<>'') then begin
+    buf:=StringReplace(buf,' ','T',[]);
+    OpenAtlun(buf,'');
+  end;
+end;
+
+procedure Tf_calclun.GridLibrationDblClick(Sender: TObject);
+var buf,f:string;
+    c,r: integer;
+begin
+  buf:=GetSelectedCell(GridLibration,c,r);
+  if (r>0)and(c<=1)and(buf<>'') then begin
+    buf:=StringReplace(buf,' ','T',[]);
+    f:=trim(ComboBoxFormation.Text);
+    OpenAtlun(buf,f);
+  end;
+end;
+
+procedure Tf_calclun.GridTerminator1DblClick(Sender: TObject);
+var buf,f:string;
+    c,r: integer;
+begin
+  buf:=GetSelectedCell(GridTerminator1,c,r);
+  if (r>0)and(c<=1)and(buf<>'') then begin
+    buf:=StringReplace(buf,' ','T',[]);
+    f:=trim(ComboBoxFormation.Text);
+    OpenAtlun(buf,f);
+  end;
+end;
+
+procedure Tf_calclun.GridTerminator2DblClick(Sender: TObject);
+var buf,f:string;
+    c,r: integer;
+begin
+  buf:=GetSelectedCell(GridTerminator2,c,r);
+  if (r>0)and(c<=1)and(buf<>'') then begin
+    buf:=StringReplace(buf,' ','T',[]);
+    f:=trim(ComboBoxFormation.Text);
+    OpenAtlun(buf,f);
+  end;
 end;
 
 procedure Tf_calclun.PlotDayGraph;
