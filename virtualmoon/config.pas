@@ -560,6 +560,9 @@ end;
 
 procedure TForm2.BumpRadioGroupClick(Sender: TObject);
 begin
+{$ifdef lclgtk2}
+if BumpRadioGroup.ItemIndex=1 then BumpRadioGroup.ItemIndex:=0;  // do not work on Linux for now
+{$endif}
 TexturePanel.Visible:=(BumpRadioGroup.ItemIndex=0);
 TextureChanged:=true;
 if BumpRadioGroup.ItemIndex=2 then CheckBox11.Checked:=true;

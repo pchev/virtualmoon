@@ -1188,6 +1188,9 @@ begin
     cameraorientation := ReadFloat(section, 'CameraOrientation', CameraOrientation);
     phaseeffect  := ReadBool(section, 'PhaseEffect', phaseeffect);
     wantbump  := ReadBool(section, 'BumpMap', wantbump);
+    {$ifdef lclgtk2}
+    wantbump:=false;  // do not work on Linux for now
+    {$endif}
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
     ShowMark     := ReadBool(section, 'ShowMark', ShowMark);
