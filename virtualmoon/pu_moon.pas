@@ -37,6 +37,7 @@ uses u_translation, u_util, u_constant, u_projection, cu_dem, Graphics, GLGraphi
 
 const
    MaxLabel=5000;
+   MaxMaps=15;
 
 type
 
@@ -126,7 +127,7 @@ type
     MaxTextureSize: integer;
     MaxZoom: single;
     mx,my, zone, maxzone,curlabel,cursprite, lastyzoom : integer;
-    maps2, newmaps: array[0..8] of integer;
+    maps2, newmaps: array[0..MaxMaps-1] of integer;
     pmaps2 : array[0..2] of integer;
     cap2,newcap: integer;
     perftime: double;
@@ -411,7 +412,7 @@ with GLMaterialLibrary1 do begin
               Material.Texture.MinFilter:=miNearest;
        end;
     end;
-    for i:=0 to 8 do begin
+    for i:=0 to MaxMaps-1 do begin
        with AddTextureMaterial('L2_'+inttostr(i),blankbmp) do begin
               Material.BlendingMode:=bmTransparency;
               Material.FrontProperties.Ambient.AsWinColor:=clWhite;
@@ -511,10 +512,10 @@ begin
         newcap:=1;
      end;
      // remove unused slices
-     for i:=0 to 8 do begin
+     for i:=0 to MaxMaps-1 do begin
        if maps2[i]<0 then continue;
        ok:=false;
-       for j:=0 to 8 do begin
+       for j:=0 to MaxMaps-1 do begin
           if newmaps[j]<0 then continue;
           if (newmaps[j]=maps2[i]) then begin
              ok:=true;
@@ -527,11 +528,11 @@ begin
        end;
      end;
      // add new slices
-     for i:=0 to 8 do begin
+     for i:=0 to MaxMaps-1 do begin
        if AbortSliceLoading then break;
        if newmaps[i]<0 then continue;
        ok:=false;
-       for j:=0 to 8 do begin
+       for j:=0 to MaxMaps-1 do begin
           if maps2[j]<0 then continue;
           if (newmaps[i]=maps2[j]) then begin
              ok:=true;
@@ -539,7 +540,7 @@ begin
           end;
        end;
        if not ok then begin
-         for j:=0 to 8 do
+         for j:=0 to MaxMaps-1 do
              if maps2[j]<0 then begin
                k:=j;
                break;
@@ -753,7 +754,7 @@ begin
 AbortSliceLoading:=true;
 if level>1 then begin
     if GLMaterialLibrary1.LibMaterialByName('L2_0')<>nil then begin
-    for j:=0 to 8 do begin
+    for j:=0 to MaxMaps-1 do begin
        GLMaterialLibrary1.LibMaterialByName('L2_'+inttostr(j)).Material.Texture.Image.Assign(blankbmp);
        maps2[j]:=-1;
     end;
@@ -771,7 +772,7 @@ procedure Tf_moon.DisableSlice2;
 var j: integer;
 begin
 AbortSliceLoading:=true;
-    for j:=0 to 8 do begin
+    for j:=0 to MaxMaps-1 do begin
        maps2[j]:=-1;
     end;
     for j:=0 to 2 do begin
@@ -1256,7 +1257,7 @@ begin
  lmin:='m';
  lsec:='s';
  lock_Zoom:=false;
- for i:=0 to 8 do begin
+ for i:=0 to MaxMaps-1 do begin
     maps2[i]:=-1;
  end;
  for i:=0 to 2 do begin
