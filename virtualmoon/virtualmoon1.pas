@@ -60,7 +60,6 @@ type
     Button21: TSpeedButton;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
-    CheckBox3: TCheckBox;
     CheckBox4: TCheckBox;
     CheckBox6: TCheckBox;
     ComboBox5: TComboBox;
@@ -320,7 +319,6 @@ type
     Label15: TLabel;
     Label16: TLabel;
     TrackBar5: TTrackBar;
-    GroupBox2: TGroupBox;
     Rotation1: TMenuItem;
     N5seconde1: TMenuItem;
     Stop1:   TMenuItem;
@@ -366,7 +364,6 @@ type
     ToolButton11: TToolButton;
     RemoveMark1: TMenuItem;
     ButtonDatabase: TToolButton;
-    CheckBox8: TCheckBox;
     ImageListDay: TImageList;
     ToolButton12: TToolButton;
     procedure AnchorClick(Sender: TObject);
@@ -375,7 +372,6 @@ type
     procedure Button21Click(Sender: TObject);
     procedure DemProfileClick(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
-    procedure CheckBox3Click(Sender: TObject);
     procedure CheckBox4Click(Sender: TObject);
     procedure ComboBox6Change(Sender: TObject);
     procedure Edit6EditingDone(Sender: TObject);
@@ -525,7 +521,6 @@ type
     procedure Button20Click(Sender: TObject);
     procedure RemoveMark1Click(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
-    procedure CheckBox8Click(Sender: TObject);
     procedure ZoomTimerTimer(Sender: TObject);
   private
     moon1, moon2, activemoon : TF_moon;
@@ -647,7 +642,6 @@ type
     useDBN: integer;
     nmjd, fqjd, fmjd, lqjd, currentl, currentb: double;
     searchlist: TStringList;
-    compresstexture,antialias : boolean;
     ForceBumpMapSize: integer;
     showoverlay: boolean;
     UseComputerTime: boolean;
@@ -886,8 +880,7 @@ begin
     c02.Caption      := rst_117;
     ToolButtonEph.Hint:=rst_7;
     ToolButtonNotes.Hint:=rst_115;
-    groupbox2.Caption := rst_125;
-    Database1.Caption := rst_129;
+     Database1.Caption := rst_129;
     label1.Caption   := rst_153;
     label2.Caption   := rst_154;
     label21.Caption  := rst_155;
@@ -904,7 +897,6 @@ begin
     ButtonWeblun.Hint:='WebLun';
     ButtonDatabase.hint := 'DatLun';
     ToolButtonNotelun.Hint:='Notelun';
-    CheckBox8.Caption := rst_182;
     Toolbutton12.hint := rsShowLabels;
     Toolbutton22.hint := rst_121;
     GridButton.Hint:=rsShowGrid;
@@ -1178,8 +1170,6 @@ begin
     configversion := ReadString(section, 'version', '6.0');
     pofile     := ReadString(section, 'lang_po_file', '');
     UseComputerTime := ReadBool(section, 'UseComputerTime', UseComputerTime);
-    compresstexture := ReadBool(section, 'compresstexture', compresstexture);
-    antialias := ReadBool(section, 'antialias', antialias);
     ForceBumpMapSize := ReadInteger(section, 'ForceBumpMapSize', ForceBumpMapSize);
     Obslatitude  := ReadFloat(section, 'Obslatitude', Obslatitude);
     Obslongitude := ReadFloat(section, 'Obslongitude', Obslongitude);
@@ -1338,8 +1328,6 @@ begin
       WriteString(section, 'lang_po_file', Language);
       WriteString(section, 'version', version);
       WriteBool(section, 'LibrationEffect', librationeffect);
-      WriteBool(section, 'compresstexture', compresstexture);
-      WriteBool(section, 'antialias', antialias);
       WriteInteger(section, 'ForceBumpMapSize', ForceBumpMapSize);
       WriteFloat(section, 'CameraOrientation', CameraOrientation);
       WriteInteger(section, 'useDBN', useDBN);
@@ -3816,8 +3804,6 @@ begin
   EyepieceRatio := 1;
   zoom      := 1;
   useDBN    := 9;
-  compresstexture := false;
-  antialias := false;
   ForceBumpMapSize:=0;
   showoverlay := True;
   UseComputerTime := True;
@@ -3901,7 +3887,6 @@ begin
   end;
   SetLang1;
   readdefault;
-  moon1.AntiAliasing:=antialias;
   moon1.ForceBumpMapSize:=ForceBumpMapSize;
   currentid := '';
   librl     := 0;
@@ -3910,8 +3895,6 @@ begin
   lasty     := 0;
   SkipIdent := False;
   GetSkyChartInfo;
-  CheckBox8.Checked := compresstexture;
-  CheckBox3.Checked := antialias;
   if PoleOrientation = 0 then
     RadioGroup2.ItemIndex := 0
   else begin
@@ -4013,7 +3996,6 @@ try
   moon1.Init;
   moon1.BumpMethod:=TBumpMapCapability(BumpMethod);
   moon1.BumpMipmap:=BumpMipmap;
-  moon1.TextureCompression:=compresstexture;
   try
   if notexture
      then moon1.texture:=texturenone
@@ -4711,11 +4693,6 @@ end;
 procedure TForm1.Button3MouseLeave(Sender: TObject);
 begin
   EphTimer1.Enabled := False;
-end;
-
-procedure TForm1.CheckBox3Click(Sender: TObject);
-begin
-  AntiAlias:=CheckBox3.Checked;
 end;
 
 procedure TForm1.ComboBox6Change(Sender: TObject);
@@ -5909,11 +5886,6 @@ begin
     activemoon.SetCCD(CCDw[CurrentCCD],CCDh[CurrentCCD],CCDr[CurrentCCD]);
     activemoon.ShowCCD:=true;
   end;
-end;
-
-procedure TForm1.CheckBox8Click(Sender: TObject);
-begin
-  compresstexture := CheckBox8.Checked;
 end;
 
 procedure TForm1.InitTelescope;

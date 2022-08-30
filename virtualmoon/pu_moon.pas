@@ -184,7 +184,6 @@ type
     FShowFPS: Boolean;
     FLibrationMark: Boolean;
     FEyepiece: single;
-    FTextureCompression: Boolean;
     TextureCmp: TGLTextureCompression;
     FMeasuringDistance: Boolean;
     FRaCentre, FDeCentre, FDiameter, FPositionAngle: single;
@@ -217,7 +216,6 @@ type
     procedure SetPopUp(value:TPopupMenu);
     function  GetPopUp : TPopupMenu;
     procedure SetEyepiece(value:single);
-    procedure SetTextureCompression(value:boolean);
     procedure SetMeasuringDistance(value:boolean);
     procedure MeasureDistance(x, y: integer);
     function  GetAcceleration: integer;
@@ -241,8 +239,6 @@ type
     function  GetBumpMethod:TBumpMapCapability;
     procedure SetBumpMethod(bm:TBumpMapCapability);
     procedure SetBumpMipmap(value: boolean);
-    function  GetAntialiasing: boolean;
-    procedure SetAntialiasing(value:boolean);
     procedure SetSatAltitude(value:single);
     procedure SetSatInclination(value:single);
     function  GetSatInclination:single;
@@ -349,13 +345,11 @@ type
     property PopUp: TPopupMenu read GetPopUp write SetPopUp;
     // Eyepiece field of vision in Moon apparent diameter unit.
     property Eyepiece : single read FEyepiece write SetEyepiece;
-    property TextureCompression: Boolean read FTextureCompression write SetTextureCompression;
     property MeasuringDistance: Boolean read FMeasuringDistance write SetMeasuringDistance;
     property Acceleration: integer read GetAcceleration;
     property AmbientColor: TColor read GetAmbientColor Write SetAmbientColor;
     property DiffuseColor: TColor read GetDiffuseColor Write SetDiffuseColor;
     property SpecularColor: TColor read GetSpecularColor Write SetSpecularColor;
-    property Antialiasing: boolean read GetAntialiasing write SetAntialiasing;
     property Demlib: TdemLibrary read Fdemlib write Fdemlib;
     property onMoonActivate : TNotifyEvent read FonMoonActivate write FonMoonActivate;
     property onMoonClick : TMoonClickEvent read FOnMoonClick write FOnMoonClick;
@@ -1283,7 +1277,6 @@ begin
  FBumpOk:=false;
  BumpMapLimit1K:=false;
  ForceBumpMapSize:=0;
- TextureCompression:=true;
  MaxZoom:=3;
  MaxTextureSize:=1024;
  Flabelcolor:=clWhite;
@@ -1437,6 +1430,10 @@ except
    halt;
   end;
 end;
+// simple antialias
+GLSceneViewer1.Buffer.AntiAliasing:=aa4x;
+// defaut compression
+TextureCmp:=tcDefault;
 {$ifdef trace_debug}
  debugln('Init OpenGL OK');
 {$endif}
@@ -1468,7 +1465,6 @@ begin
  TexturePath:=Source.TexturePath;
  OverlayPath:=Source.OverlayPath;
  if CanBump then BumpPath:=Source.BumpPath;
- TextureCompression:=Source.TextureCompression;
  SetTexture(Source.Texture);
  if Overlay<>Source.Overlay then
     Overlay :=Source.Overlay;
@@ -2546,19 +2542,6 @@ if FEyepiece<>value then begin
 end;
 end;
 
-procedure Tf_moon.SetTextureCompression(value:boolean);
-begin
-FTextureCompression:=value;
-if TextureCompression then
-  begin
-    TextureCmp := tcStandard;
-  end
-else
-  begin
-    TextureCmp := tcDefault;
-  end;
-end;
-
 procedure Tf_moon.SetMeasuringDistance(value:boolean);
 begin
   FMeasuringDistance := value;
@@ -2883,17 +2866,6 @@ if VisibleSideLock then begin
      GLAnnulus1.Position.y := GLCamera1.Position.y;
    end;
 end;
-end;
-
-function  Tf_moon.GetAntialiasing: boolean;
-begin
-result:=(GLSceneViewer1.Buffer.AntiAliasing=aa4x);
-end;
-
-procedure Tf_moon.SetAntialiasing(value:boolean);
-begin
-if value then GLSceneViewer1.Buffer.AntiAliasing:=aa4x
-         else GLSceneViewer1.Buffer.AntiAliasing:=aaDefault;
 end;
 
 procedure Tf_moon.SetShowScale(value:boolean);
