@@ -483,16 +483,24 @@ begin
      newmaps[0]:=maxcol*row+col;  // center frame
      if col<(maxcol-1) then newmaps[1]:=maxcol*row+col+1  // right
                        else newmaps[1]:=maxcol*row;
+     if col<(maxcol-2) then newmaps[9]:=maxcol*row+col+2  // right+1
+                       else newmaps[9]:=maxcol*row+1;
      if col>0 then newmaps[2]:=maxcol*row+col-1           // left
               else newmaps[2]:=maxcol*row+maxcol-1;
+     if col>1 then newmaps[10]:=maxcol*row+col-2           // left+1
+              else newmaps[10]:=maxcol*row+maxcol-2;
      if row<(maxrow-1) then begin
         newmaps[3]:=newmaps[0]+maxcol; // bottom
         newmaps[4]:=newmaps[1]+maxcol; // bottom right
         newmaps[5]:=newmaps[2]+maxcol; // bottom left
+        newmaps[11]:=newmaps[9]+maxcol; // bottom right-1
+        newmaps[12]:=newmaps[10]+maxcol; // bottom left-1
      end else begin
         newmaps[3]:=-1;
         newmaps[4]:=-1;
         newmaps[5]:=-1;
+        newmaps[11]:=-1;
+        newmaps[12]:=-1;
         pmaps2[0]:=120000;    // South cap
         pmaps2[1]:=120001;
         pmaps2[2]:=120002;
@@ -502,10 +510,14 @@ begin
         newmaps[6]:=newmaps[0]-maxcol; // top
         newmaps[7]:=newmaps[1]-maxcol; // top right
         newmaps[8]:=newmaps[2]-maxcol; // top left
+        newmaps[13]:=newmaps[9]-maxcol; // top right+1
+        newmaps[14]:=newmaps[10]-maxcol; // top left+1
     end else begin
         newmaps[6]:=-1;
         newmaps[7]:=-1;
         newmaps[8]:=-1;
+        newmaps[13]:=-1;
+        newmaps[14]:=-1;
         pmaps2[0]:=110000;  // North cap
         pmaps2[1]:=110001;
         pmaps2[2]:=110002;
