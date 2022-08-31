@@ -156,9 +156,9 @@ begin
     rad := ra;
     ded := Dec;
     mean_equatorial(ra,Dec,ecl,sunl,abp,abe,nutl,nuto);
-    precession(jd2000, CurrentJD, rad, ded);
+    precession(jd2000, curjd, rad, ded);
     // topocentric libration, ignore invalid sub-solar position
-    Fplanet.MoonOrientation(CurrentJD, rad, ded, dist, pa, librb, librl, v1, v2);
+    Fplanet.MoonOrientation(curjd, rad, ded, dist, pa, librb, librl, v1, v2);
     colong := rmod(90 - sunlong + 360, 360);
     jd0    := jd(CYear, 1, 1, 0.0);
     Fplanet.MoonPhases(CYear + (curjd - jd0) / 365.25, nmjd, fqjd, fmjd, lqjd);
