@@ -3785,7 +3785,6 @@ begin
 {$endif}
 {$ifdef mswindows}
   TrackBar1.Top:=-2;
-  CheckBox3.Visible:=true;  // antialias
 {$endif}
   StartDatlun:=false;
   StartPhotlun:=false;
