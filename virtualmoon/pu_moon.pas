@@ -37,7 +37,7 @@ uses u_translation, u_util, u_constant, u_projection, cu_dem, Graphics, GLGraphi
 
 const
    MaxLabel=5000;
-   MaxMaps=15;
+   MaxMaps=21;
 
 type
 
@@ -456,8 +456,20 @@ var toffset,tscale : single;
     jp: TJPEGImage;
     bmp: Tbitmap;
 
+function map(l,b:double): integer;
+begin
+// l>0 ; l<360 ; b>0 ; b<180
+  if l<0 then l:=l+pi2;
+  if l>pi2 then l:=l-pi2;
+  if b<0 then b:=0;
+  if b>pi then b:=pi;
+  result:=maxcol*trunc(maxrow*b/pi)+trunc(maxcol*l/(pi2));
+end;
+
 procedure LoadSlice2;
 var i,j: integer;
+    lstep,bstep:double;
+    widescreen: boolean;
     pmapfn: string;
 begin
  try
@@ -474,54 +486,67 @@ begin
        lc:=lc+pi;
        bc:=pi/2-bc;
      end;
+     lstep:=(2*pi)/maxcol;
+     bstep:=pi/maxrow;
      col:=trunc(maxcol*lc/(2*pi));
      row:=trunc(maxrow*bc/pi);
      pmaps2[0]:=-1;
      pmaps2[1]:=-1;
      pmaps2[2]:=-1;
      newcap:=-1;
-     newmaps[0]:=maxcol*row+col;  // center frame
-     if col<(maxcol-1) then newmaps[1]:=maxcol*row+col+1  // right
-                       else newmaps[1]:=maxcol*row;
-     if col<(maxcol-2) then newmaps[9]:=maxcol*row+col+2  // right+1
-                       else newmaps[9]:=maxcol*row+1;
-     if col>0 then newmaps[2]:=maxcol*row+col-1           // left
-              else newmaps[2]:=maxcol*row+maxcol-1;
-     if col>1 then newmaps[10]:=maxcol*row+col-2           // left+1
-              else newmaps[10]:=maxcol*row+maxcol-2;
+     newmaps[0]:=map(lc,bc);          // center frame
+     newmaps[1]:=map(lc+lstep,bc);    // right
+     newmaps[9]:=map(lc+2*lstep,bc);  // right+1
+     newmaps[15]:=map(lc+3*lstep,bc); // right+2
+     newmaps[2]:=map(lc-lstep,bc);    // left
+     newmaps[10]:=map(lc-2*lstep,bc); // left+1
+     newmaps[16]:=map(lc-3*lstep,bc); // left+2
      if row<(maxrow-1) then begin
-        newmaps[3]:=newmaps[0]+maxcol; // bottom
-        newmaps[4]:=newmaps[1]+maxcol; // bottom right
-        newmaps[5]:=newmaps[2]+maxcol; // bottom left
-        newmaps[11]:=newmaps[9]+maxcol; // bottom right-1
-        newmaps[12]:=newmaps[10]+maxcol; // bottom left-1
+        newmaps[3]:=map(lc,bc+bstep);          // bottom
+        newmaps[4]:=map(lc+lstep,bc+bstep);    // bottom right
+        newmaps[5]:=map(lc-lstep,bc+bstep);    // bottom left
+        newmaps[11]:=map(lc+2*lstep,bc+bstep); // bottom right-1
+        newmaps[12]:=map(lc-2*lstep,bc+bstep); // bottom left-1
+        newmaps[17]:=map(lc+3*lstep,bc+bstep); // bottom right-2
+        newmaps[18]:=map(lc-3*lstep,bc+bstep); // bottom left-2
      end else begin
         newmaps[3]:=-1;
         newmaps[4]:=-1;
         newmaps[5]:=-1;
         newmaps[11]:=-1;
         newmaps[12]:=-1;
+        newmaps[17]:=-1;
+        newmaps[18]:=-1;
         pmaps2[0]:=120000;    // South cap
         pmaps2[1]:=120001;
         pmaps2[2]:=120002;
         newcap:=2;
      end;
      if row>0 then begin
-        newmaps[6]:=newmaps[0]-maxcol; // top
-        newmaps[7]:=newmaps[1]-maxcol; // top right
-        newmaps[8]:=newmaps[2]-maxcol; // top left
-        newmaps[13]:=newmaps[9]-maxcol; // top right+1
-        newmaps[14]:=newmaps[10]-maxcol; // top left+1
+       newmaps[6]:=map(lc,bc-bstep);          // top
+       newmaps[7]:=map(lc+lstep,bc-bstep);    // top right
+       newmaps[8]:=map(lc-lstep,bc-bstep);    // top left
+       newmaps[13]:=map(lc+2*lstep,bc-bstep); // top right-1
+       newmaps[14]:=map(lc-2*lstep,bc-bstep); // top left-1
+       newmaps[19]:=map(lc+3*lstep,bc-bstep); // top right-2
+       newmaps[20]:=map(lc-3*lstep,bc-bstep); // top left-2
     end else begin
         newmaps[6]:=-1;
         newmaps[7]:=-1;
         newmaps[8]:=-1;
         newmaps[13]:=-1;
         newmaps[14]:=-1;
+        newmaps[19]:=-1;
+        newmaps[20]:=-1;
         pmaps2[0]:=110000;  // North cap
         pmaps2[1]:=110001;
         pmaps2[2]:=110002;
         newcap:=1;
+     end;
+     // extra slice only for wide screen
+     widescreen:=(GLSceneViewer1.Width/GLSceneViewer1.Height)>1.5;
+     if not widescreen then begin
+       for i:=9 to MaxMaps-1 do newmaps[i]:=-1;
      end;
      // remove unused slices
      for i:=0 to MaxMaps-1 do begin
