@@ -139,6 +139,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+    class procedure WSRegisterClass; override;
     procedure DestroyWnd; override;
 
     property IsRenderingContextAvailable: Boolean read
@@ -217,6 +218,19 @@ begin
   FBuffer := nil;
   FFullScreenVideoMode.Destroy;
   inherited Destroy;
+end;
+
+class procedure TGLSceneForm.WSRegisterClass;
+const
+  Registered : Boolean = False;
+begin
+  if Registered then
+    Exit;
+  inherited WSRegisterClass;
+  {$ifdef mswindows}
+  RegisterWSComponent(TGLSceneForm, TGLSOpenGLForm);
+  {$endif}
+  Registered := True;
 end;
 
 // Notification
@@ -793,7 +807,7 @@ end;
 
 procedure GLRegisterWSComponent(aControl: TComponentClass);
 begin
-  RegisterWSComponent(aControl, TGLSOpenGLForm);
+//  RegisterWSComponent(aControl, TGLSOpenGLForm);
 end;
 {$endif}
 

@@ -30,12 +30,12 @@
     <Version Major="1" Build="3"/>
     <Files Count="2">
       <Item1>
-        <Filename Value="../Source/SoundVideoAPIs/GLSMBASS.pas"/>
+        <Filename Value="../Source/GLSMBASS.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="GLSMBASS"/>
       </Item1>
       <Item2>
-        <Filename Value="../Source/SoundVideoAPIs/Bass.pas"/>
+        <Filename Value="../Source/Bass.pas"/>
         <UnitName Value="Bass"/>
       </Item2>
     </Files>

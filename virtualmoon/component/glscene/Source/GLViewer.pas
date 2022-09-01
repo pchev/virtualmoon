@@ -29,12 +29,19 @@ interface
 {$I GLScene.inc}
 
 uses
-  GLContext,
+  GLContext, WSLCLClasses, GLWidgetContext,
 
   GLLCLViewer;
 type
 
-  TGLSceneViewer = GLLCLViewer.TGLSceneViewer;
+  { TGLSceneViewer }
+
+  TGLSceneViewer = class(GLLCLViewer.TGLSceneViewer)
+  public
+    {$IFDEF MSWINDOWS}
+    class procedure WSRegisterClass; override;
+    {$endif}
+  end;
 
 
 procedure SetupVSync(const AVSyncMode : TVSyncMode);
@@ -60,6 +67,20 @@ begin
     end;
   end;
 end;
+
+{ TGLSceneViewer }
+
+class procedure TGLSceneViewer.WSRegisterClass;
+const
+  Registered : Boolean = False;
+begin
+  if Registered then
+    Exit;
+  inherited WSRegisterClass;
+  RegisterWSComponent(TGLSceneViewer, TGLSOpenGLControl);
+  Registered := True;
+end;
+
 {$ENDIF}
 {$IFDEF Linux}
 begin

@@ -1,0 +1,28 @@
+diff --git a/virtualmoon/component/glscene/Source/DesignTime/GLSceneForm.pas b/virtualmoon/component/glscene/Source/DesignTime/GLSceneForm.pas
+index feaba0f..0253133 100644
+--- a/virtualmoon/component/glscene/Source/DesignTime/GLSceneForm.pas
++++ b/virtualmoon/component/glscene/Source/DesignTime/GLSceneForm.pas
+@@ -227,7 +227,9 @@ class procedure TGLSceneForm.WSRegisterClass;
+   if Registered then
+     Exit;
+   inherited WSRegisterClass;
++  {$ifdef mswindows}
+   RegisterWSComponent(TGLSceneForm, TGLSOpenGLForm);
++  {$endif}
+   Registered := True;
+ end;
+ 
+diff --git a/virtualmoon/component/glscene/Source/GLViewer.pas b/virtualmoon/component/glscene/Source/GLViewer.pas
+index 6124057..c9ee4a7 100644
+--- a/virtualmoon/component/glscene/Source/GLViewer.pas
++++ b/virtualmoon/component/glscene/Source/GLViewer.pas
+@@ -38,7 +38,9 @@
+ 
+   TGLSceneViewer = class(GLLCLViewer.TGLSceneViewer)
+   public
++    {$IFDEF MSWINDOWS}
+     class procedure WSRegisterClass; override;
++    {$endif}
+   end;
+ 
+ 

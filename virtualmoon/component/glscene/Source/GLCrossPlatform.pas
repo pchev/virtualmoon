@@ -825,7 +825,7 @@ begin
   else
   begin
 
-    path := ExtractFilePath(ParamStr(0));
+    path := ExtractFilePath(ParamStrUTF8(0));
     path := IncludeTrailingPathDelimiter(path);
     SetCurrentDirUTF8(path);
   end;

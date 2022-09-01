@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <PathDelim Value="\"/>
     <General>
       <Flags>
         <LRSInOutputDirectory Value="False"/>
+        <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="0"/>
       <Title Value="atlun"/>
       <Scaled Value="True"/>
       <ResourceType Value="res"/>
@@ -82,17 +82,16 @@
     </PublishOptions>
     <RunParams>
       <FormatVersion Value="2"/>
-      <Modes Count="0"/>
     </RunParams>
     <RequiredPackages Count="12">
       <Item1>
-        <PackageName Value="indiclient"/>
+        <PackageName Value="laz_synapse"/>
       </Item1>
       <Item2>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="indiclient"/>
       </Item2>
       <Item3>
-        <PackageName Value="synapse"/>
+        <PackageName Value="LazControls"/>
       </Item3>
       <Item4>
         <PackageName Value="GLScene_DesignTime"/>

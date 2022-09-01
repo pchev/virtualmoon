@@ -34,7 +34,8 @@ interface
 
 uses
   Classes, SysUtils, types,
-  Graphics, Controls, FileUtil, LazUtf8, lazfileutils, Dialogs, ExtDlgs,
+  Graphics, Controls, FileUtil, LazUTF8, 
+  LazFileUtils, Dialogs, ExtDlgs,
   // GLScene
   GLVectorGeometry, GLCrossPlatform;
 
@@ -699,16 +700,15 @@ begin
   end;
 end;
 
-Function SetGLSceneMediaDir:string;
+function SetGLSceneMediaDir:string;
 var
   path: UTF8String;
   p: integer;
 begin
    result:='';
 
-   // We need to lower case path because the functions are case sensible
-//   path := lowercase(ExtractFilePath(ParamStrUTF8(0)));
-   path := lowercase(ExtractFilePath(ParamStr(0)));
+   // We need to lower case path because the functions are case sensitive
+   path := lowercase(ExtractFilePath(ParamStrUTF8(0)));
    p := Pos('samples', path);
    Delete(path, p + 7, Length(path));
    path := IncludeTrailingPathDelimiter(IncludeTrailingPathDelimiter(path) + 'media');
@@ -718,8 +718,8 @@ begin
      // The function SetCurrentDirUTF8 return TRUE but we are always in the application's folder
      // NB These functions provide from LazFileUtils unit and not from deprecated functions in FileUtils unit.
 
-   MediaPath:=Path ;
-   result:=path;
+   MediaPath:=Path;
+   result := path;
 
 end;
 

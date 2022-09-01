@@ -76,7 +76,7 @@ type
     function  TextureFormat: Integer; override;
     procedure StreamlineRanges;
   public
-     
+    
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -294,7 +294,7 @@ procedure TGLWindowsBitmapFont.LoadWindowsFont;
     GetTextExtentPoint32W(DC, Str, Count, Result);
     if not Win32PlatformIsUnicode then
     begin
-      GetTextMetricsW(DC, tm);
+      GetTextMetricsW(DC, @tm);
       if tm.tmPitchAndFamily and TMPF_TRUETYPE <> 0 then
         Result.cx := Result.cx - tm.tmOverhang
       else

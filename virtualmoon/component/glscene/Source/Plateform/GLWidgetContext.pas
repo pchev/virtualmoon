@@ -258,7 +258,7 @@ end;
 
 procedure GLRegisterWSComponent(aControl: TComponentClass);
 begin
-  RegisterWSComponent(aControl, TGLSOpenGLControl);
+//  RegisterWSComponent(aControl, TGLSOpenGLControl);
 end;
 {$ENDIF}
 

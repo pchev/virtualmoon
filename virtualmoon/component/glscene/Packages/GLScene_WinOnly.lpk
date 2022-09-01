@@ -8,7 +8,7 @@
       <Version Value="11"/>
       <SearchPaths>
         <IncludeFiles Value="../Source"/>
-        <OtherUnitFiles Value="../Source;../Source/Basis;../Source/DesignTime;../Source/FileFormats;../Source/GameAPIs;../Source/ParallelAPIs;../Source/PhysicsAPIs;../Source/Shaders;../Source/SoundVideoAPIs"/>
+        <OtherUnitFiles Value="../Source"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Parsing>
@@ -22,23 +22,23 @@
     <Version Major="1" Build="3"/>
     <Files Count="6">
       <Item1>
-        <Filename Value="../Source/Basis/GLJoystick.pas"/>
+        <Filename Value="../Source/GLJoystick.pas"/>
         <UnitName Value="GLJoystick"/>
       </Item1>
       <Item2>
-        <Filename Value="../Source/SoundVideoAPIs/GLScreenSaver.pas"/>
+        <Filename Value="../Source/GLScreenSaver.pas"/>
         <UnitName Value="GLScreenSaver"/>
       </Item2>
       <Item3>
-        <Filename Value="../Source/SoundVideoAPIs/GLSMWaveOut.pas"/>
+        <Filename Value="../Source/GLSMWaveOut.pas"/>
         <UnitName Value="GLSMWaveOut"/>
       </Item3>
       <Item4>
-        <Filename Value="../Source/SoundVideoAPIs/GLAVIRecorder.pas"/>
+        <Filename Value="../Source/GLAVIRecorder.pas"/>
         <UnitName Value="GLAVIRecorder"/>
       </Item4>
       <Item5>
-        <Filename Value="../Source/SoundVideoAPIs/GLSVfw.pas"/>
+        <Filename Value="../Source/GLSVfw.pas"/>
         <UnitName Value="GLSVfw"/>
       </Item5>
       <Item6>

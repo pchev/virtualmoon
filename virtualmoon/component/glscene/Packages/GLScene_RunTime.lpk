@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <Package Version="4">
+  <Package Version="5">
     <Name Value="GLScene_RunTime"/>
     <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <IncludeFiles Value="../Source"/>
-        <OtherUnitFiles Value="../Source;../Source/Basis;../Source/DesignTime;../Source/FileFormats;../Source/GameAPIs;../Source/ParallelAPIs;../Source/PhysicsAPIs;../Source/Shaders;../Source/SoundVideoAPIs;../Source/ScriptingAPIs;../Source/Plateform"/>
+        <OtherUnitFiles Value="../Source;../Source/Basis;../Source/FileFormats;../Source/Shaders;../Source/GameAPIs;../Source/ScriptingAPIs;../Source/Plateform;../Source/DesignTime"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Parsing>
@@ -33,7 +33,7 @@
     <Description Value="GLScene OpenGL 3D library
 "/>
     <Version Major="1"/>
-    <Files Count="238">
+    <Files Count="240">
       <Item1>
         <Filename Value="../Source/Basis/GLApplicationFileIO.pas"/>
         <UnitName Value="GLApplicationFileIO"/>
@@ -987,7 +987,16 @@
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="GLFileX"/>
       </Item238>
+      <Item239>
+        <Filename Value="../Source/Plateform/GLLCLViewer.pas"/>
+        <UnitName Value="GLLCLViewer"/>
+      </Item239>
+      <Item240>
+        <Filename Value="../Source/DesignTime/GLSceneForm.pas"/>
+        <UnitName Value="GLSceneForm"/>
+      </Item240>
     </Files>
+    <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="3">
       <Item1>
         <PackageName Value="ImagesForLazarus"/>
@@ -1007,7 +1016,6 @@
     </UsageOptions>
     <PublishOptions>
       <Version Value="2"/>
-      <IgnoreBinaries Value="False"/>
     </PublishOptions>
   </Package>
 </CONFIG>

@@ -31,28 +31,28 @@
     <Version Major="1" Build="3"/>
     <Files Count="6">
       <Item1>
-        <Filename Value="../Source/Shaders/GLCgRegister.pas"/>
+        <Filename Value="../Source/GLCgRegister.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="GLCgRegister"/>
       </Item1>
       <Item2>
-        <Filename Value="../Source/Shaders/GLCgShader.pas"/>
+        <Filename Value="../Source/GLCgShader.pas"/>
         <UnitName Value="GLCgShader"/>
       </Item2>
       <Item3>
-        <Filename Value="../Source/Shaders/cg.pas"/>
+        <Filename Value="../Source/cg.pas"/>
         <UnitName Value="cg"/>
       </Item3>
       <Item4>
-        <Filename Value="../Source/Shaders/cgGL.pas"/>
+        <Filename Value="../Source/cgGL.pas"/>
         <UnitName Value="CgGL"/>
       </Item4>
       <Item5>
-        <Filename Value="../Source/Shaders/GLCgBombShader.pas"/>
+        <Filename Value="../Source/GLCgBombShader.pas"/>
         <UnitName Value="GLCgBombShader"/>
       </Item5>
       <Item6>
-        <Filename Value="../Source/Shaders/cgPostTransformationShader.pas"/>
+        <Filename Value="../Source/cgPostTransformationShader.pas"/>
         <UnitName Value="CGPostTransformationShader"/>
       </Item6>
     </Files>

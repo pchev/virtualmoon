@@ -32,24 +32,24 @@
     <Version Major="1" Build="3"/>
     <Files Count="5">
       <Item1>
-        <Filename Value="../Source/SoundVideoAPIs/GLSMFMOD.pas"/>
+        <Filename Value="../Source/GLSMFMOD.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="GLSMFMOD"/>
       </Item1>
       <Item2>
-        <Filename Value="../Source/SoundVideoAPIs/FmodPresets.pas"/>
+        <Filename Value="../Source/FmodPresets.pas"/>
         <UnitName Value="fmodpresets"/>
       </Item2>
       <Item3>
-        <Filename Value="../Source/SoundVideoAPIs/fmodtypes.pas"/>
+        <Filename Value="../Source/fmodtypes.pas"/>
         <UnitName Value="fmodtypes"/>
       </Item3>
       <Item4>
-        <Filename Value="../Source/SoundVideoAPIs/fmoderrors.pas"/>
+        <Filename Value="../Source/fmoderrors.pas"/>
         <UnitName Value="fmoderrors"/>
       </Item4>
       <Item5>
-        <Filename Value="../Source/SoundVideoAPIs/fmoddyn.pas"/>
+        <Filename Value="../Source/fmoddyn.pas"/>
         <UnitName Value="fmoddyn"/>
       </Item5>
     </Files>
