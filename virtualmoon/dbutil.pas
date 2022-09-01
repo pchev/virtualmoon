@@ -493,7 +493,7 @@ begin
 end;
 
 Procedure LoadILCD(fn,path,tname:string; dbm: TLiteDB);
-var buf,cols,cmd,v: string;
+var buf,cols,cmd,buf1,v: string;
     i:integer;
     col,val: TStringList;
     f: textfile;
@@ -502,7 +502,12 @@ begin
  if FileExists(slash(path)+fn+'.csv') then begin
     cmd:='select * from '+tname+' limit 1';
     dbm.Query(cmd);
-    if dbm.LastError<>0 then begin
+    if dbm.RowCount<=0 then begin
+      if MsgForm=nil then Application.CreateForm(TMsgForm, MsgForm);
+      MsgForm.Label1.caption:=ExtractFileName(fn)+crlf+'Preparing Database. Please Wait ...';
+      msgform.show;
+      msgform.Refresh;
+      application.ProcessMessages;
       col:=TStringList.Create;
       val:=TStringList.Create;
       try
@@ -512,6 +517,8 @@ begin
       SplitRec2(cols,';',col);
       if col.Count<colcount then exit;
       dbjournal(extractfilename(dbm.database),'CREATE TABLE '+tname);
+      cmd:='drop table '+tname+';';
+      dbm.Query(cmd);
       cmd:='create table '+tname+' ( ';
       for i:=0 to colcount-1 do begin
         cmd:=cmd+col[i]+' text,';
@@ -529,27 +536,30 @@ begin
         dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
         exit;
       end;
+      cmd:='insert into '+tname+' values (';
       while not eof(f) do begin
         ReadLn(f,buf);
         SplitRec2(buf,';',val);
         if val.Count<colcount then exit;
-        cmd:='insert into '+tname+' values (';
+        buf1:='';
         for i:=0 to colcount-1 do begin
           v:=val[i];
           v:=stringreplace(v,'""','''',[rfreplaceall]);
           v:=stringreplace(v,'"','',[rfreplaceall]);
-          cmd:=cmd+'"'+v+'",';
+          buf1:=buf1+'"'+v+'",';
         end;
-        cmd:=copy(cmd,1,length(cmd)-1);
-        cmd:=cmd+');';
-        dbm.Query(cmd);
-        if dbm.LastError<>0 then begin
-           dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
-           break;
-        end;
+        buf1:=copy(buf1,1,length(buf1)-1);
+        cmd:=cmd+buf1+'),(';
       end;
+      i:=length(cmd);
+      delete(cmd,Length(cmd)-1,2);
+      dbm.Query(cmd);
+      if dbm.LastError<>0 then begin
+         dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+       end;
       CloseFile(f);
       finally
+       if MsgForm<>nil then MsgForm.Close;
        col.Free;
        val.Free;
       end;
