@@ -418,3 +418,11 @@ msgstr ""
 msgid "Prediction for libration, with formation illuminated"
 msgstr ""
 
+#: u_translation:rssunelevation
+msgid "Sun elevation at start"
+msgstr ""
+
+#: u_translation:rssunelevation4
+msgid "Sun elevation at end"
+msgstr ""
+

@@ -117,6 +117,8 @@ rsMoon = 'Moon';
 rsPredictionDu = 'Prediction duration';
 rsTimePredicti3 = 'Prediction for colongitude';
 rsPredictionFo = 'Prediction for libration, with formation illuminated';
+rsSunElevation = 'Sun elevation at start';
+rsSunElevation4 = 'Sun elevation at end';
 
 implementation
 

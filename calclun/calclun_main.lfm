@@ -1,10 +1,10 @@
 object f_calclun: Tf_calclun
   Left = 369
-  Height = 700
+  Height = 380
   Top = 250
   Width = 1618
   Caption = 'Calclun'
-  ClientHeight = 700
+  ClientHeight = 380
   ClientWidth = 1618
   Color = clWindow
   Menu = MainMenu1
@@ -22,7 +22,7 @@ object f_calclun: Tf_calclun
     TabOrder = 1
     object SpinEditYear: TSpinEdit
       Left = 32
-      Height = 29
+      Height = 34
       Hint = '1900..2100'
       Top = 20
       Width = 72
@@ -39,7 +39,7 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = SpinEditYear
       Left = 116
-      Height = 29
+      Height = 34
       Hint = '1..12'
       Top = 20
       Width = 50
@@ -57,7 +57,7 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = SpinEditYear
       Left = 178
-      Height = 29
+      Height = 34
       Hint = '1..31'
       Top = 20
       Width = 50
@@ -74,9 +74,9 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Control = SpinEditYear
       AnchorSideBottom.Control = SpinEditYear
       Left = 32
-      Height = 19
-      Top = 1
-      Width = 28
+      Height = 17
+      Top = 3
+      Width = 30
       Anchors = [akLeft, akBottom]
       Caption = 'Year'
       ParentColor = False
@@ -85,9 +85,9 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Control = SpinEditMonth
       AnchorSideBottom.Control = SpinEditMonth
       Left = 116
-      Height = 19
-      Top = 1
-      Width = 41
+      Height = 17
+      Top = 3
+      Width = 44
       Anchors = [akLeft, akBottom]
       Caption = 'Month'
       ParentColor = False
@@ -96,9 +96,9 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Control = SpinEditDay
       AnchorSideBottom.Control = SpinEditDay
       Left = 178
-      Height = 19
-      Top = 1
-      Width = 24
+      Height = 17
+      Top = 3
+      Width = 25
       Anchors = [akLeft, akBottom]
       Caption = 'Day'
       ParentColor = False
@@ -109,9 +109,9 @@ object f_calclun: Tf_calclun
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = BtnIncTime
       AnchorSideRight.Side = asrBottom
-      Left = 416
+      Left = 421
       Height = 19
-      Top = 1
+      Top = 2
       Width = 105
       Alignment = taCenter
       Anchors = [akTop, akLeft, akRight]
@@ -124,9 +124,9 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = SpinEditYear
       AnchorSideTop.Side = asrCenter
-      Left = 302
+      Left = 307
       Height = 25
-      Top = 22
+      Top = 25
       Width = 90
       BorderSpacing.Left = 16
       Caption = 'Today'
@@ -139,9 +139,9 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = BtnToday
       AnchorSideTop.Side = asrCenter
-      Left = 416
+      Left = 421
       Height = 25
-      Top = 22
+      Top = 25
       Width = 40
       BorderSpacing.Left = 24
       Caption = '<'
@@ -154,9 +154,9 @@ object f_calclun: Tf_calclun
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = BtnToday
       AnchorSideTop.Side = asrCenter
-      Left = 481
+      Left = 486
       Height = 25
-      Top = 22
+      Top = 25
       Width = 40
       BorderSpacing.Left = 25
       Caption = '>'
@@ -170,9 +170,9 @@ object f_calclun: Tf_calclun
       AnchorSideTop.Control = SpinEditYear
       AnchorSideTop.Side = asrCenter
       Left = 238
-      Height = 19
-      Top = 25
-      Width = 48
+      Height = 17
+      Top = 29
+      Width = 53
       BorderSpacing.Left = 10
       Caption = 'LabelTZ'
       ParentColor = False
@@ -180,7 +180,7 @@ object f_calclun: Tf_calclun
   end
   object PageControl1: TPageControl
     Left = 0
-    Height = 594
+    Height = 274
     Top = 56
     Width = 1618
     ActivePage = TabSheetYear
@@ -191,43 +191,43 @@ object f_calclun: Tf_calclun
     OnChange = PageControl1Change
     object TabSheetYear: TTabSheet
       Caption = 'Year'
-      ClientHeight = 563
+      ClientHeight = 243
       ClientWidth = 1608
       object PanelYRight: TPanel
         Left = 1274
-        Height = 563
+        Height = 243
         Top = 0
         Width = 334
         Align = alRight
-        ClientHeight = 563
+        ClientHeight = 243
         ClientWidth = 334
         TabOrder = 0
         object ScrollBoxY2: TScrollBox
           Left = 1
-          Height = 561
+          Height = 241
           Top = 1
           Width = 332
-          HorzScrollBar.Page = 111
-          VertScrollBar.Page = 559
+          HorzScrollBar.Page = 120
+          VertScrollBar.Page = 239
           Align = alClient
-          ClientHeight = 559
-          ClientWidth = 310
+          ClientHeight = 239
+          ClientWidth = 317
           TabOrder = 0
           object PanelChartYear: TPanel
             Left = 0
             Height = 764
             Top = 0
-            Width = 310
+            Width = 317
             Align = alTop
             BevelOuter = bvNone
             ClientHeight = 764
-            ClientWidth = 310
+            ClientWidth = 317
             TabOrder = 0
             object ChartYear: TChart
               Left = 0
               Height = 764
               Top = 0
-              Width = 310
+              Width = 317
               AntialiasingMode = amOn
               AxisList = <              
                 item
@@ -355,9 +355,9 @@ object f_calclun: Tf_calclun
           object LabelChartYear: TLabel
             AnchorSideTop.Side = asrBottom
             Left = 16
-            Height = 19
+            Height = 17
             Top = 768
-            Width = 294
+            Width = 301
             Align = alTop
             BorderSpacing.Left = 16
             BorderSpacing.Top = 4
@@ -368,24 +368,24 @@ object f_calclun: Tf_calclun
       end
       object ScrollBoxY: TScrollBox
         Left = 0
-        Height = 563
+        Height = 243
         Top = 0
         Width = 1274
         HorzScrollBar.Page = 966
-        VertScrollBar.Page = 561
+        VertScrollBar.Page = 241
         Align = alClient
-        ClientHeight = 561
-        ClientWidth = 1252
+        ClientHeight = 241
+        ClientWidth = 1259
         TabOrder = 1
         object PanelYphase: TPanel
           Left = 0
           Height = 352
           Top = 0
-          Width = 1252
+          Width = 1259
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 352
-          ClientWidth = 1252
+          ClientWidth = 1259
           TabOrder = 1
           object GridYear: TStringGrid
             Left = 0
@@ -411,11 +411,11 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 392
           Top = 352
-          Width = 1252
+          Width = 1259
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 392
-          ClientWidth = 1252
+          ClientWidth = 1259
           TabOrder = 0
           object Panel4: TPanel
             Left = 0
@@ -491,20 +491,20 @@ object f_calclun: Tf_calclun
     end
     object TabSheetMonth: TTabSheet
       Caption = 'Month'
-      ClientHeight = 563
+      ClientHeight = 243
       ClientWidth = 1608
       object PanelLeft: TPanel
         Left = 0
-        Height = 563
+        Height = 243
         Top = 0
         Width = 1258
         Align = alClient
-        ClientHeight = 563
+        ClientHeight = 243
         ClientWidth = 1258
         TabOrder = 0
         object GridMonth: TStringGrid
           Left = 1
-          Height = 533
+          Height = 213
           Top = 29
           Width = 1256
           Align = alClient
@@ -525,9 +525,9 @@ object f_calclun: Tf_calclun
           TabOrder = 1
           object LabelMonth: TLabel
             Left = 8
-            Height = 19
+            Height = 17
             Top = 4
-            Width = 74
+            Width = 81
             Caption = 'LabelMonth'
             ParentColor = False
           end
@@ -535,46 +535,46 @@ object f_calclun: Tf_calclun
       end
       object PanelRight: TPanel
         Left = 1258
-        Height = 563
+        Height = 243
         Top = 0
         Width = 350
         Align = alRight
-        ClientHeight = 563
+        ClientHeight = 243
         ClientWidth = 350
         TabOrder = 1
         object ScrollBoxM: TScrollBox
           Left = 1
-          Height = 561
+          Height = 241
           Top = 1
           Width = 348
-          HorzScrollBar.Page = 251
-          VertScrollBar.Page = 557
+          HorzScrollBar.Page = 254
+          VertScrollBar.Page = 239
           Align = alClient
-          ClientHeight = 557
-          ClientWidth = 341
+          ClientHeight = 239
+          ClientWidth = 333
           TabOrder = 0
           object PanelPhase: TPanel
             Left = 0
             Height = 135
             Top = 0
-            Width = 341
+            Width = 333
             Align = alTop
-            ClientHeight = 131
-            ClientWidth = 337
+            ClientHeight = 135
+            ClientWidth = 333
             TabOrder = 0
             object LabelPhase1: TLabel
               Left = 16
-              Height = 19
+              Height = 17
               Top = 16
-              Width = 78
+              Width = 85
               Caption = 'LabelPhase1'
               ParentColor = False
             end
             object LabelPhase2: TLabel
               Left = 168
-              Height = 19
+              Height = 17
               Top = 16
-              Width = 78
+              Width = 85
               Caption = 'LabelPhase2'
               ParentColor = False
             end
@@ -583,17 +583,17 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 210
             Top = 185
-            Width = 341
+            Width = 333
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 206
-            ClientWidth = 337
+            ClientHeight = 210
+            ClientWidth = 333
             TabOrder = 1
             object Chart1: TChart
               Left = 0
-              Height = 206
+              Height = 210
               Top = 0
-              Width = 337
+              Width = 333
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -628,18 +628,18 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 348
             Top = 743
-            Width = 341
+            Width = 333
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 344
-            ClientWidth = 337
+            ClientHeight = 348
+            ClientWidth = 333
             TabOrder = 2
             Visible = False
             object Chart2: TChart
               Left = 0
-              Height = 344
+              Height = 348
               Top = 0
-              Width = 337
+              Width = 333
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -692,17 +692,17 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 348
             Top = 395
-            Width = 341
+            Width = 333
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 344
-            ClientWidth = 337
+            ClientHeight = 348
+            ClientWidth = 333
             TabOrder = 4
             object Chart3: TChart
               Left = 0
-              Height = 344
+              Height = 348
               Top = 0
-              Width = 337
+              Width = 333
               AntialiasingMode = amOn
               AxisList = <              
                 item
@@ -831,11 +831,11 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 50
             Top = 135
-            Width = 341
+            Width = 333
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 46
-            ClientWidth = 337
+            ClientHeight = 50
+            ClientWidth = 333
             TabOrder = 3
             object BtnGraph: TSpeedButton
               Left = 16
@@ -853,15 +853,15 @@ object f_calclun: Tf_calclun
     end
     object TabSheetDay: TTabSheet
       Caption = 'Day'
-      ClientHeight = 563
+      ClientHeight = 243
       ClientWidth = 1608
       object PanelDRight: TPanel
         Left = 1308
-        Height = 563
+        Height = 243
         Top = 0
         Width = 300
         Align = alRight
-        ClientHeight = 563
+        ClientHeight = 243
         ClientWidth = 300
         TabOrder = 0
         object PanelRiseSet: TPanel
@@ -875,17 +875,17 @@ object f_calclun: Tf_calclun
           TabOrder = 0
           object LabelRise1: TLabel
             Left = 16
-            Height = 19
+            Height = 17
             Top = 16
-            Width = 66
+            Width = 73
             Caption = 'LabelRise1'
             ParentColor = False
           end
           object LabelRise2: TLabel
             Left = 100
-            Height = 19
+            Height = 17
             Top = 16
-            Width = 66
+            Width = 73
             Caption = 'LabelRise2'
             ParentColor = False
           end
@@ -991,9 +991,9 @@ object f_calclun: Tf_calclun
           end
           object LabelAltAz: TLabel
             Left = 40
-            Height = 19
+            Height = 17
             Top = 173
-            Width = 65
+            Width = 74
             Caption = 'LabelAltAz'
             ParentColor = False
           end
@@ -1001,7 +1001,7 @@ object f_calclun: Tf_calclun
         object Panel3: TPanel
           Left = 1
           Height = 44
-          Top = 272
+          Top = 242
           Width = 298
           Align = alTop
           ClientHeight = 44
@@ -1011,9 +1011,9 @@ object f_calclun: Tf_calclun
             AnchorSideTop.Control = DayHour
             AnchorSideTop.Side = asrCenter
             Left = 10
-            Height = 19
-            Top = 13
-            Width = 30
+            Height = 17
+            Top = 14
+            Width = 33
             Caption = 'Time'
             ParentColor = False
           end
@@ -1021,8 +1021,8 @@ object f_calclun: Tf_calclun
             AnchorSideTop.Control = Panel3
             AnchorSideTop.Side = asrCenter
             Left = 80
-            Height = 29
-            Top = 8
+            Height = 34
+            Top = 5
             Width = 50
             MaxValue = 23
             OnChange = DayTimeChange
@@ -1033,8 +1033,8 @@ object f_calclun: Tf_calclun
             AnchorSideLeft.Side = asrBottom
             AnchorSideTop.Control = DayHour
             Left = 134
-            Height = 29
-            Top = 8
+            Height = 34
+            Top = 5
             Width = 50
             BorderSpacing.Left = 4
             MaxValue = 59
@@ -1046,8 +1046,8 @@ object f_calclun: Tf_calclun
             AnchorSideLeft.Side = asrBottom
             AnchorSideTop.Control = DayHour
             Left = 188
-            Height = 29
-            Top = 8
+            Height = 34
+            Top = 5
             Width = 50
             BorderSpacing.Left = 4
             MaxValue = 59
@@ -1057,8 +1057,8 @@ object f_calclun: Tf_calclun
         end
         object MemoDay: TMemo
           Left = 1
-          Height = 246
-          Top = 316
+          Height = 33
+          Top = 242
           Width = 298
           Align = alClient
           ReadOnly = True
@@ -1069,20 +1069,20 @@ object f_calclun: Tf_calclun
       end
       object ScrollBoxD: TScrollBox
         Left = 0
-        Height = 563
+        Height = 243
         Top = 0
         Width = 1308
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 78
         Align = alClient
-        ClientHeight = 559
-        ClientWidth = 1304
+        ClientHeight = 241
+        ClientWidth = 1306
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 531
+          Height = 213
           Top = 28
-          Width = 1304
+          Width = 1306
           Align = alClient
           ColCount = 15
           DefaultColWidth = 140
@@ -1095,16 +1095,16 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 28
           Top = 0
-          Width = 1304
+          Width = 1306
           Align = alTop
-          ClientHeight = 24
-          ClientWidth = 1300
+          ClientHeight = 28
+          ClientWidth = 1306
           TabOrder = 1
           object LabelDay: TLabel
             Left = 8
-            Height = 19
+            Height = 17
             Top = 4
-            Width = 57
+            Width = 62
             Caption = 'LabelDay'
             ParentColor = False
           end
@@ -1113,11 +1113,11 @@ object f_calclun: Tf_calclun
     end
     object TabSheetPrediction: TTabSheet
       Caption = 'Prediction'
-      ClientHeight = 563
+      ClientHeight = 243
       ClientWidth = 1608
       object PageControlPrediction: TPageControl
         Left = 0
-        Height = 563
+        Height = 243
         Top = 0
         Width = 1608
         ActivePage = TabSheetColongitude
@@ -1127,22 +1127,22 @@ object f_calclun: Tf_calclun
         OnChange = PageControlPredictionChange
         object TabSheetColongitude: TTabSheet
           Caption = 'Colongitude'
-          ClientHeight = 559
+          ClientHeight = 212
           ClientWidth = 1598
           object PanelColongitude: TPanel
             Left = 0
-            Height = 455
+            Height = 108
             Top = 104
             Width = 500
             Align = alLeft
-            ClientHeight = 451
-            ClientWidth = 496
+            ClientHeight = 108
+            ClientWidth = 500
             TabOrder = 0
             object GridColongitude: TStringGrid
               Left = 1
-              Height = 415
+              Height = 72
               Top = 35
-              Width = 494
+              Width = 498
               Align = alClient
               ColCount = 3
               DefaultColWidth = 160
@@ -1156,7 +1156,7 @@ object f_calclun: Tf_calclun
               Left = 1
               Height = 34
               Top = 1
-              Width = 494
+              Width = 498
               Align = alTop
               Caption = 'Prediction for colongitude'
               TabOrder = 1
@@ -1189,7 +1189,7 @@ object f_calclun: Tf_calclun
                 Width = 241
                 Align = alLeft
                 Caption = 'Search formation'
-                ClientHeight = 82
+                ClientHeight = 84
                 ClientWidth = 239
                 TabOrder = 0
                 object LabelMissingDB: TLabel
@@ -1197,7 +1197,7 @@ object f_calclun: Tf_calclun
                   AnchorSideTop.Side = asrBottom
                   Left = 8
                   Height = 38
-                  Top = 34
+                  Top = 37
                   Width = 220
                   AutoSize = False
                   Caption = 'Database not found! Run AtLun or DatLun to initialize the database.'
@@ -1206,7 +1206,7 @@ object f_calclun: Tf_calclun
                 end
                 object EditFormation: TEdit
                   Left = 8
-                  Height = 31
+                  Height = 34
                   Top = 3
                   Width = 135
                   OnEditingDone = FormationEditingDone
@@ -1217,7 +1217,7 @@ object f_calclun: Tf_calclun
                   AnchorSideTop.Side = asrCenter
                   Left = 152
                   Height = 25
-                  Top = 6
+                  Top = 8
                   Width = 75
                   Caption = 'Search'
                   OnClick = BtnSearchClick
@@ -1227,8 +1227,8 @@ object f_calclun: Tf_calclun
                   AnchorSideTop.Control = EditFormation
                   AnchorSideTop.Side = asrBottom
                   Left = 8
-                  Height = 35
-                  Top = 38
+                  Height = 33
+                  Top = 41
                   Width = 219
                   BorderSpacing.Top = 4
                   ItemHeight = 0
@@ -1244,12 +1244,12 @@ object f_calclun: Tf_calclun
                 Width = 206
                 Align = alLeft
                 Caption = 'Formation coordinates'
-                ClientHeight = 100
+                ClientHeight = 84
                 ClientWidth = 204
                 TabOrder = 1
                 object FormationLong: TFloatSpinEdit
                   Left = 80
-                  Height = 29
+                  Height = 34
                   Top = 8
                   Width = 100
                   MaxValue = 180
@@ -1261,8 +1261,8 @@ object f_calclun: Tf_calclun
                   AnchorSideTop.Control = FormationLong
                   AnchorSideTop.Side = asrBottom
                   Left = 80
-                  Height = 29
-                  Top = 43
+                  Height = 34
+                  Top = 48
                   Width = 100
                   BorderSpacing.Top = 6
                   MaxValue = 89
@@ -1274,9 +1274,9 @@ object f_calclun: Tf_calclun
                   AnchorSideTop.Control = FormationLong
                   AnchorSideTop.Side = asrCenter
                   Left = 8
-                  Height = 19
-                  Top = 13
-                  Width = 63
+                  Height = 17
+                  Top = 17
+                  Width = 68
                   Caption = 'Longitude'
                   ParentColor = False
                 end
@@ -1284,9 +1284,9 @@ object f_calclun: Tf_calclun
                   AnchorSideTop.Control = FormationLat
                   AnchorSideTop.Side = asrCenter
                   Left = 8
-                  Height = 19
-                  Top = 48
-                  Width = 51
+                  Height = 17
+                  Top = 57
+                  Width = 57
                   Caption = 'Latitude'
                   ParentColor = False
                 end
@@ -1300,12 +1300,12 @@ object f_calclun: Tf_calclun
               Width = 206
               Align = alLeft
               Caption = 'Colongitude'
-              ClientHeight = 100
+              ClientHeight = 84
               ClientWidth = 204
               TabOrder = 2
               object EditColongitude: TFloatSpinEdit
                 Left = 112
-                Height = 29
+                Height = 34
                 Top = 8
                 Width = 80
                 DecimalPlaces = 1
@@ -1317,15 +1317,15 @@ object f_calclun: Tf_calclun
                 AnchorSideTop.Control = EditColongitude
                 AnchorSideTop.Side = asrCenter
                 Left = 11
-                Height = 19
-                Top = 13
-                Width = 75
+                Height = 17
+                Top = 17
+                Width = 82
                 Caption = 'Colongitude'
                 ParentColor = False
               end
               object EditColongitudeDelta: TFloatSpinEdit
                 Left = 112
-                Height = 29
+                Height = 34
                 Top = 43
                 Width = 80
                 MaxValue = 10
@@ -1338,9 +1338,9 @@ object f_calclun: Tf_calclun
                 AnchorSideTop.Control = EditColongitudeDelta
                 AnchorSideTop.Side = asrCenter
                 Left = 80
-                Height = 19
-                Top = 48
-                Width = 17
+                Height = 17
+                Top = 52
+                Width = 18
                 Caption = '+/-'
                 ParentColor = False
               end
@@ -1353,12 +1353,12 @@ object f_calclun: Tf_calclun
               Width = 199
               Align = alLeft
               Caption = 'Sun elevation range'
-              ClientHeight = 100
+              ClientHeight = 84
               ClientWidth = 197
               TabOrder = 3
               object SunMin: TFloatSpinEdit
                 Left = 88
-                Height = 29
+                Height = 34
                 Top = 8
                 Width = 100
                 MaxValue = 90
@@ -1370,9 +1370,9 @@ object f_calclun: Tf_calclun
                 AnchorSideTop.Control = SunMin
                 AnchorSideTop.Side = asrCenter
                 Left = 8
-                Height = 19
-                Top = 13
-                Width = 58
+                Height = 17
+                Top = 17
+                Width = 63
                 Caption = 'Minimum'
                 ParentColor = False
               end
@@ -1380,15 +1380,15 @@ object f_calclun: Tf_calclun
                 AnchorSideTop.Control = SunMax
                 AnchorSideTop.Side = asrCenter
                 Left = 8
-                Height = 19
-                Top = 48
-                Width = 61
+                Height = 17
+                Top = 52
+                Width = 67
                 Caption = 'Maximum'
                 ParentColor = False
               end
               object SunMax: TFloatSpinEdit
                 Left = 88
-                Height = 29
+                Height = 34
                 Top = 43
                 Width = 100
                 MaxValue = 90
@@ -1402,17 +1402,17 @@ object f_calclun: Tf_calclun
               Left = 856
               Height = 102
               Top = 1
-              Width = 200
+              Width = 208
               Align = alLeft
               Caption = 'Libration'
-              ClientHeight = 100
-              ClientWidth = 198
+              ClientHeight = 84
+              ClientWidth = 206
               TabOrder = 5
               object LibrLon: TFloatSpinEdit
-                Left = 144
-                Height = 29
+                Left = 152
+                Height = 34
                 Top = 8
-                Width = 50
+                Width = 54
                 DecimalPlaces = 1
                 MaxValue = 8
                 OnChange = LibrationChange
@@ -1420,10 +1420,10 @@ object f_calclun: Tf_calclun
                 Value = 6
               end
               object LibrLat: TFloatSpinEdit
-                Left = 144
-                Height = 29
+                Left = 152
+                Height = 34
                 Top = 43
-                Width = 50
+                Width = 54
                 DecimalPlaces = 1
                 MaxValue = 8
                 OnChange = LibrationChange
@@ -1431,10 +1431,11 @@ object f_calclun: Tf_calclun
               end
               object DirLon: TComboBox
                 AnchorSideTop.Control = LibrLon
+                AnchorSideTop.Side = asrCenter
                 Left = 88
                 Height = 29
-                Top = 8
-                Width = 56
+                Top = 11
+                Width = 64
                 Constraints.MaxHeight = 29
                 ItemHeight = 0
                 ItemIndex = 0
@@ -1448,10 +1449,11 @@ object f_calclun: Tf_calclun
               end
               object DirLat: TComboBox
                 AnchorSideTop.Control = LibrLat
+                AnchorSideTop.Side = asrCenter
                 Left = 88
                 Height = 29
-                Top = 43
-                Width = 56
+                Top = 46
+                Width = 64
                 Constraints.MaxHeight = 29
                 ItemHeight = 0
                 ItemIndex = 0
@@ -1467,9 +1469,9 @@ object f_calclun: Tf_calclun
                 AnchorSideTop.Control = LibrLon
                 AnchorSideTop.Side = asrCenter
                 Left = 8
-                Height = 19
-                Top = 13
-                Width = 63
+                Height = 17
+                Top = 17
+                Width = 68
                 Caption = 'Longitude'
                 ParentColor = False
               end
@@ -1477,27 +1479,27 @@ object f_calclun: Tf_calclun
                 AnchorSideTop.Control = LibrLat
                 AnchorSideTop.Side = asrCenter
                 Left = 8
-                Height = 19
-                Top = 48
-                Width = 51
+                Height = 17
+                Top = 52
+                Width = 57
                 Caption = 'Latitude'
                 ParentColor = False
               end
             end
             object GroupBoxDuration: TGroupBox
               AnchorSideLeft.Control = GroupBoxLibration
-              Left = 1056
+              Left = 1064
               Height = 102
               Top = 1
               Width = 146
               Align = alLeft
               Caption = 'Prediction duration'
-              ClientHeight = 100
+              ClientHeight = 84
               ClientWidth = 144
               TabOrder = 1
               object PredictionDuration: TSpinEdit
                 Left = 8
-                Height = 29
+                Height = 34
                 Top = 43
                 Width = 74
                 MaxValue = 10
@@ -1512,9 +1514,9 @@ object f_calclun: Tf_calclun
                 AnchorSideTop.Control = PredictionDuration
                 AnchorSideTop.Side = asrCenter
                 Left = 88
-                Height = 19
-                Top = 48
-                Width = 34
+                Height = 17
+                Top = 52
+                Width = 37
                 BorderSpacing.Left = 6
                 Caption = 'Years'
                 ParentColor = False
@@ -1522,20 +1524,20 @@ object f_calclun: Tf_calclun
             end
             object GroupBoxConstraint: TGroupBox
               AnchorSideLeft.Control = GroupBoxDuration
-              Left = 1202
+              Left = 1210
               Height = 102
               Top = 1
               Width = 560
               Align = alLeft
               Caption = 'Constraints'
-              ClientHeight = 100
+              ClientHeight = 84
               ClientWidth = 558
               TabOrder = 4
               object CheckBoxNightEvents: TCheckBox
                 Left = 8
-                Height = 21
+                Height = 23
                 Top = 8
-                Width = 131
+                Width = 140
                 Caption = 'Only night events'
                 Checked = True
                 OnChange = PredictionChange
@@ -1545,9 +1547,9 @@ object f_calclun: Tf_calclun
               object CheckBoxMoonVisible: TCheckBox
                 AnchorSideTop.Control = CheckBoxNightEvents
                 Left = 280
-                Height = 21
+                Height = 23
                 Top = 8
-                Width = 237
+                Width = 258
                 Caption = 'Moon visible from the observatory'
                 Checked = True
                 OnChange = PredictionChange
@@ -1559,10 +1561,10 @@ object f_calclun: Tf_calclun
                 AnchorSideTop.Control = EditTwilight
                 AnchorSideTop.Side = asrCenter
                 AnchorSideRight.Control = EditTwilight
-                Left = 11
-                Height = 19
-                Top = 48
-                Width = 23
+                Left = 18
+                Height = 17
+                Top = 52
+                Width = 24
                 Anchors = [akTop, akRight]
                 BorderSpacing.Right = 6
                 Caption = 'Sun'
@@ -1572,18 +1574,18 @@ object f_calclun: Tf_calclun
                 AnchorSideTop.Control = EditMinElevation
                 AnchorSideTop.Side = asrCenter
                 AnchorSideRight.Control = EditMinElevation
-                Left = 286
-                Height = 19
-                Top = 48
-                Width = 36
+                Left = 283
+                Height = 17
+                Top = 52
+                Width = 39
                 Anchors = [akTop, akRight]
                 BorderSpacing.Right = 6
                 Caption = 'Moon'
                 ParentColor = False
               end
               object EditTwilight: TSpinEdit
-                Left = 40
-                Height = 29
+                Left = 48
+                Height = 34
                 Top = 43
                 Width = 58
                 MaxValue = 18
@@ -1595,7 +1597,7 @@ object f_calclun: Tf_calclun
               object EditMinElevation: TSpinEdit
                 AnchorSideTop.Control = EditTwilight
                 Left = 328
-                Height = 29
+                Height = 34
                 Top = 43
                 Width = 58
                 MaxValue = 50
@@ -1608,10 +1610,10 @@ object f_calclun: Tf_calclun
                 AnchorSideLeft.Side = asrBottom
                 AnchorSideTop.Control = EditTwilight
                 AnchorSideTop.Side = asrCenter
-                Left = 104
-                Height = 19
-                Top = 48
-                Width = 135
+                Left = 112
+                Height = 17
+                Top = 52
+                Width = 145
                 BorderSpacing.Left = 6
                 Caption = 'degree below horizon'
                 ParentColor = False
@@ -1622,9 +1624,9 @@ object f_calclun: Tf_calclun
                 AnchorSideTop.Control = EditMinElevation
                 AnchorSideTop.Side = asrCenter
                 Left = 392
-                Height = 19
-                Top = 48
-                Width = 136
+                Height = 17
+                Top = 52
+                Width = 145
                 BorderSpacing.Left = 6
                 Caption = 'degree above horizon'
                 ParentColor = False
@@ -1634,42 +1636,42 @@ object f_calclun: Tf_calclun
         end
         object TabSheetSunElevation: TTabSheet
           Caption = 'Sun elevation on a formation'
-          ClientHeight = 559
+          ClientHeight = 212
           ClientWidth = 1598
           object PanelT: TPanel
             Left = 0
-            Height = 559
+            Height = 212
             Top = 0
             Width = 1598
             Align = alClient
-            ClientHeight = 555
-            ClientWidth = 1594
+            ClientHeight = 212
+            ClientWidth = 1598
             TabOrder = 0
             object PanelTresult: TScrollBox
               Left = 1
-              Height = 553
+              Height = 210
               Top = 1
-              Width = 1592
+              Width = 1596
               HorzScrollBar.Page = 1000
-              VertScrollBar.Page = 90
+              VertScrollBar.Page = 86
               Align = alClient
-              ClientHeight = 549
-              ClientWidth = 1588
+              ClientHeight = 208
+              ClientWidth = 1594
               TabOrder = 0
               object PanelTerminator1: TPanel
                 Left = 0
-                Height = 549
+                Height = 208
                 Top = 0
                 Width = 500
                 Align = alLeft
-                ClientHeight = 545
-                ClientWidth = 496
+                ClientHeight = 208
+                ClientWidth = 500
                 TabOrder = 0
                 object GridTerminator1: TStringGrid
                   Left = 1
-                  Height = 509
+                  Height = 172
                   Top = 35
-                  Width = 494
+                  Width = 498
                   Align = alClient
                   ColCount = 4
                   DefaultColWidth = 160
@@ -1683,7 +1685,7 @@ object f_calclun: Tf_calclun
                   Left = 1
                   Height = 34
                   Top = 1
-                  Width = 494
+                  Width = 498
                   Align = alTop
                   Caption = 'Prediction for increasing Sun elevation'
                   TabOrder = 1
@@ -1691,18 +1693,18 @@ object f_calclun: Tf_calclun
               end
               object PanelTerminator2: TPanel
                 Left = 500
-                Height = 549
+                Height = 208
                 Top = 0
                 Width = 500
                 Align = alLeft
-                ClientHeight = 545
-                ClientWidth = 496
+                ClientHeight = 208
+                ClientWidth = 500
                 TabOrder = 1
                 object GridTerminator2: TStringGrid
                   Left = 1
-                  Height = 509
+                  Height = 172
                   Top = 35
-                  Width = 494
+                  Width = 498
                   Align = alClient
                   ColCount = 4
                   DefaultColWidth = 160
@@ -1716,7 +1718,7 @@ object f_calclun: Tf_calclun
                   Left = 1
                   Height = 34
                   Top = 1
-                  Width = 494
+                  Width = 498
                   Align = alTop
                   Caption = 'Prediction for decreasing Sun elevation'
                   TabOrder = 1
@@ -1727,39 +1729,46 @@ object f_calclun: Tf_calclun
         end
         object TabSheetLibration: TTabSheet
           Caption = 'Libration'
-          ClientHeight = 559
+          ClientHeight = 212
           ClientWidth = 1598
           object PanelLibration: TPanel
             Left = 0
-            Height = 559
+            Height = 212
             Top = 0
-            Width = 496
+            Width = 728
             Align = alLeft
-            ClientHeight = 555
-            ClientWidth = 492
+            ClientHeight = 212
+            ClientWidth = 728
             TabOrder = 0
             object Panel11: TPanel
               Left = 1
               Height = 34
               Top = 1
-              Width = 490
+              Width = 726
               Align = alTop
               Caption = 'Prediction for libration, with formation illuminated'
               TabOrder = 0
             end
             object GridLibration: TStringGrid
               Left = 1
-              Height = 519
+              Height = 176
               Top = 35
-              Width = 490
+              Width = 726
               Align = alClient
-              ColCount = 3
+              AutoFillColumns = True
+              ColCount = 4
               DefaultColWidth = 160
               FixedCols = 0
               MouseWheelOption = mwGrid
               RowCount = 15
               TabOrder = 1
               OnDblClick = GridLibrationDblClick
+              ColWidths = (
+                177
+                177
+                177
+                180
+              )
             end
           end
         end
@@ -1769,7 +1778,7 @@ object f_calclun: Tf_calclun
   object PanelBottom: TPanel
     Left = 0
     Height = 50
-    Top = 650
+    Top = 330
     Width = 1618
     Align = alBottom
     ClientHeight = 50
@@ -1777,9 +1786,9 @@ object f_calclun: Tf_calclun
     TabOrder = 2
     object StatusLabel: TLabel
       Left = 8
-      Height = 19
+      Height = 17
       Top = 7
-      Width = 71
+      Width = 80
       Caption = 'StatusLabel'
       ParentColor = False
     end

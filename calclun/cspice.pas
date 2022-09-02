@@ -131,6 +131,7 @@ procedure recgeo_c (rectan: TDouble3; re,f:SpiceDouble; out lon,lat,alt); cdecl;
 procedure georec_c (lon,lat,alt,re,f: SpiceDouble; out rectan: TDouble3); cdecl; external libcspice;
 function phaseq_c (et:SpiceDouble; target,illmn,obsrvr,abcorr:ConstSpiceChar): SpiceDouble; cdecl; external libcspice;
 procedure surfpt_c(positn,u:TDouble3; a,b,c:SpiceDouble; out point:TDouble3; out found:SpiceBoolean); cdecl; external libcspice;
+procedure ilumin_c (method,target:ConstSpiceChar;et:SpiceDouble;fixref,abcorr,obsrvr:ConstSpiceChar;out spoint:TDouble3;out trgepc:SpiceDouble;out srfvec:TDouble3; out phase,incdnc,emissn:SpiceDouble); cdecl; external libcspice;
 
 // transformation matrix
 procedure mxv_c (m1:TArray3; vin: TDouble3; out vout: TDouble3); cdecl; external libcspice;

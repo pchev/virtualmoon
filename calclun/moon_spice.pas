@@ -17,6 +17,7 @@ function MoonAltAz(et,obslon,obslat: SpiceDouble; obspos:TDouble3; out obsref:Co
 function MoonSubEarthPoint(et: SpiceDouble; out fixref:ConstSpiceChar; out x,y,z,r,lon,lat:SpiceDouble): Boolean;
 function MoonSubObserverPoint(et: SpiceDouble; obspos:TDouble3; out x,y,z,r,lon,lat:SpiceDouble): Boolean;
 function MoonSubSolarPoint(et: SpiceDouble; out fixref:ConstSpiceChar; out x,y,z,r,lon,lat,colongitude:SpiceDouble): Boolean;
+function MoonPointIllum(pos: TDouble3; et: SpiceDouble; var fixref:ConstSpiceChar; out phase,incdnc,emissn:SpiceDouble): boolean;
 function MoonSearchPhase(value: SpiceDouble; relate: ConstSpiceChar; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell): boolean;
 function MoonSearchIllum(pos: TDouble3; value: SpiceDouble; relate: ConstSpiceChar; var fixref:ConstSpiceChar; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell): boolean;
 function MoonSearchLibration(coord: ConstSpiceChar; value: SpiceDouble; relate: ConstSpiceChar; var fixref:ConstSpiceChar; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell):boolean;
@@ -592,6 +593,36 @@ begin
   gfudb_c(@udf_c,@MoonColongitude_test,step,Pcnfine,Presult);
   result := not failed_c;
   nfind:=wncard_c(Presult);
+end;
+
+function MoonPointIllum(pos: TDouble3; et: SpiceDouble; var fixref:ConstSpiceChar; out phase,incdnc,emissn:SpiceDouble): boolean;
+var
+  obsrvr,target,abcorr,method: ConstSpiceChar;
+  trgepc:SpiceDouble;
+  srfvec:TDouble3;
+begin
+  reset_c;
+  result:=false;
+  method := 'Ellipsoid';
+  target := cnaifMoon;
+  abcorr := abcorrLTS;
+  obsrvr := cnaifEarth;
+  ilumin_c (method,target,et,fixref,abcorr,obsrvr,pos,trgepc,srfvec,phase,incdnc,emissn);
+  if failed_c then begin
+    if SpiceLastErr='SPICE(FRAMEDATANOTFOUND)' then begin
+      // out of MOON_ME date range, retry with buildin IAU_MOON
+      reset_c;
+      fixref:=fixrefIAU;
+      ilumin_c (method,target,et,fixref,abcorr,obsrvr,pos,trgepc,srfvec,phase,incdnc,emissn);
+      if failed_c then begin
+        exit;
+      end;
+    end
+    else begin
+      exit;
+    end;
+  end;
+  result := not failed_c;
 end;
 
 function MoonSearchIllum(pos: TDouble3; value: SpiceDouble; relate: ConstSpiceChar; var fixref:ConstSpiceChar; out nfind:SpiceInt; Pcnfine,Presult:PSpiceCell): boolean;

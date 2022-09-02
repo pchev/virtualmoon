@@ -532,6 +532,8 @@ begin
   Panel11.Caption:=rsPredictionFo;
   GridLibration.Cells[0, 0]:=rsStartTime;
   GridLibration.Cells[1, 0]:=rsEndTime;
+  GridLibration.Cells[2, 0]:=rsSunElevation;
+  GridLibration.Cells[3, 0]:=rsSunElevation4;
   Panel10.Caption:=rsTimePredicti3;
   GridColongitude.Cells[0, 0]:=rsStartTime;
   GridColongitude.Cells[1, 0]:=rsEndTime;
@@ -2954,6 +2956,7 @@ var fixref: ConstSpiceChar;
   refval: SpiceDouble;
   sc1,sc2,sc3,scresult: PSpiceCell;
   et0,et1,x,y,dt: SpiceDouble;
+  phase,incdnc,emissn:SpiceDouble;
   i,nfind: integer;
   sti,eni: string;
   lon,lat: SpiceDouble;
@@ -3068,6 +3071,14 @@ begin
     eni:=FormatDateTime(datestd,dt+GetTimeZoneD(dt));
     GridLibration.Cells[0,i+1]:=sti;
     GridLibration.Cells[1,i+1]:=eni;
+    if MoonPointIllum(pos,x,fixref,phase,incdnc,emissn) then
+      GridLibration.Cells[2,i+1]:=FormatFloat(f3,rad2deg*incdnc)
+    else
+      GridLibration.Cells[2,i+1]:='-';
+    if MoonPointIllum(pos,y,fixref,phase,incdnc,emissn) then
+      GridLibration.Cells[3,i+1]:=FormatFloat(f3,rad2deg*incdnc)
+    else
+      GridLibration.Cells[3,i+1]:='-';
   end;
 
   scard_c (0, sc1);

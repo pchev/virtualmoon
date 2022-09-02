@@ -357,12 +357,20 @@ msgstr ""
 msgid "Sun"
 msgstr ""
 
+#: u_translation.rssunelevation
+msgid "Sun elevation at start"
+msgstr ""
+
 #: u_translation.rssunelevation2
 msgid "Sun elevation range"
 msgstr ""
 
 #: u_translation.rssunelevation3
 msgid "Sun elevation on a formation"
+msgstr ""
+
+#: u_translation.rssunelevation4
+msgid "Sun elevation at end"
 msgstr ""
 
 #: u_translation.rssunrise
