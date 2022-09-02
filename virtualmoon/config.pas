@@ -47,6 +47,7 @@ type
     Button8: TSpeedButton;
     Button9: TSpeedButton;
     CheckBox10: TCheckBox;
+    CheckBoxTerminatorLine: TCheckBox;
     DbList: TCheckListBox;
     ColorDialog1: TColorDialog;
     ComboBox6: TComboBox;
@@ -285,6 +286,7 @@ begin
       label62.Caption := rsm_74;
       CheckBox1.Caption := rst_22;
       CheckBox2.Caption := rst_23;
+      CheckBoxTerminatorLine.Caption:=rsTerminatorLi;
       label4.Caption := rst_24;
       Button1.Caption := rst_18;
       Radiogroup7.Items[0] := rsTopocentric;
@@ -572,6 +574,7 @@ procedure TForm2.ButtonDefaultClick(Sender: TObject);
 begin
   CheckBox1.Checked:=true;
   CheckBox2.Checked:=true;
+  CheckBoxTerminatorLine.Checked:=false;
   Shape1.Brush.Color:=clYellow;
   Shape2.Brush.Color:=clRed;
   Shape3.Brush.Color:=clYellow;

@@ -238,7 +238,7 @@ Var  Splashversion, compile_time, compile_version: string;
      ForceConfig, Configfile, CdCconfig, language, uplanguage, helpprefix : string;
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;
-     librationeffect, AsMultiTexture : Boolean;
+     librationeffect,showterminatorline, AsMultiTexture : Boolean;
      Firstsearch: boolean;
      DisplayIs32bpp: Boolean;
      ThemePath:string ='data/Themes';

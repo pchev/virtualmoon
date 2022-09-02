@@ -64,11 +64,13 @@ type
     GLBumpShader1: TGLBumpShader;
     GLCameraSatellite: TGLCamera;
     BaseCube: TGLDummyCube;
+    GLDummyCubeTerminator: TGLDummyCube;
     GLDummyCubeCircle: TGLDummyCube;
     GLDummyCubeDistance: TGLDummyCube;
     GLDummyCubeSatellite: TGLDummyCube;
     GLDummyCubeCoord: TGLDummyCube;
     GLFreeFormSatelite: TGLFreeForm;
+    GLLinesTerminator: TGLLines;
     LabelGroup: TGLHUDSprite;
     GLHUDSpriteCCD2: TGLHUDSprite;
     GLHUDSpriteCCD3: TGLHUDSprite;
@@ -277,6 +279,8 @@ type
     procedure CenterMark;
     procedure ClearCircle;
     procedure Circle(lon,lat,r: single; c: tcolor);
+    procedure CreateTerminator;
+    procedure SetTerminator(vis:boolean;lon,lat: double);
     procedure KeyEvent(event: TMoonKeyClass; key: word);
     function AddLabel(lon,lat:single; txt:string; notcenter,forcecenter:boolean;sc:single=1):boolean;
     function AddSprite(lon,lat:single):boolean;
@@ -1472,6 +1476,7 @@ end;
 GLSceneViewer1.Buffer.AntiAliasing:=aa4x;
 // defaut compression
 TextureCmp:=tcDefault;
+CreateTerminator;
 {$ifdef trace_debug}
  debugln('Init OpenGL OK');
 {$endif}
@@ -1485,6 +1490,7 @@ if GLDummyCubeMarks<>nil then GLDummyCubeMarks.DeleteChildren;
 if GLDummyCubeCoord<>nil then GLDummyCubeCoord.DeleteChildren;
 if GLDummyCubeCircle<>nil then GLDummyCubeCircle.DeleteChildren;
 if GLDummyCubeDistance<>nil then GLDummyCubeDistance.DeleteChildren;
+if GLDummyCubeTerminator<>nil then GLDummyCubeTerminator.DeleteChildren;
 blankbmp.Free;
 blankjp.Free;
 GLSceneViewer1.Buffer.DestroyRC;
@@ -2307,6 +2313,48 @@ begin
   lon:=lon-LibrLon+LibrLat*tan(lat)*sin(lon);
   Moon2World(lon,lat,x,y,z);
   newcircle.Up.SetVector(x,y,z);
+end;
+
+procedure Tf_moon.CreateTerminator;
+const   qr=0.5005;
+var l,b,x,y,z,space,step: single;
+    k,nk: integer;
+  procedure coords;
+  var cl,sl,cb,sb: single;
+  begin
+    sincos(-l-pi/2,sl,cl);
+    sincos(b,sb,cb);
+    x:=qr*cb*cl;
+    y:=qr*cb*sl;
+    z:=qr*sb;
+  end;
+begin
+  GLLinesTerminator.SplineMode:=lsmCubicSpline;
+  GLLinesTerminator.ShowAxes:=false;
+  GLLinesTerminator.AntiAliased:=true;
+  GLLinesTerminator.LineColor.AsWinColor:=clWhite;
+  GLLinesTerminator.NodesAspect:=lnaInvisible;
+  GLLinesTerminator.Visible:=true;
+  nk:=120;
+  step:=pi2/nk;
+  b:=0;
+  for k:=0 to nk do begin
+    l:=k*step;
+    coords;
+    GLLinesTerminator.Nodes.AddNode(x,z,y);
+  end;
+end;
+
+procedure Tf_moon.SetTerminator(vis:boolean;lon,lat: double);
+var x,y,z: single;
+begin
+  GLDummyCubeTerminator.Visible:=vis;
+  lon:=lon*deg2rad;
+  lat:=lat*deg2rad;
+  lat:=lat+LibrLat*cos(lon);
+  lon:=lon-LibrLon+LibrLat*tan(lat)*sin(lon);
+  Moon2World(lon,lat,x,y,z);
+  GLLinesTerminator.Up.SetVector(x,y,z);
 end;
 
 procedure Tf_moon.SetGridSpacing(value:integer);

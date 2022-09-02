@@ -509,9 +509,9 @@ object Form2: TForm2
         Transparent = False
       end
       object CheckBox2: TCheckBox
-        Left = 236
+        Left = 200
         Height = 23
-        Top = 24
+        Top = 16
         Width = 150
         Caption = 'Affiche la libration'
         ParentFont = False
@@ -520,7 +520,7 @@ object Form2: TForm2
       object CheckBox1: TCheckBox
         Left = 24
         Height = 23
-        Top = 24
+        Top = 16
         Width = 138
         Caption = 'Afficher la phase'
         ParentFont = False
@@ -624,6 +624,14 @@ object Form2: TForm2
         Width = 20
         OnMouseUp = Shape1MouseUp
       end
+      object CheckBoxTerminatorLine: TCheckBox
+        Left = 376
+        Height = 23
+        Top = 16
+        Width = 128
+        Caption = 'Terminator line'
+        TabOrder = 10
+      end
     end
     object TabSheet4: TTabSheet
       Caption = 'Textures'
@@ -645,7 +653,7 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 86
+        ClientHeight = 70
         ClientWidth = 521
         Items.Strings = (
           'Phase sans reliefeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
@@ -661,17 +669,17 @@ object Form2: TForm2
         Height = 344
         Top = 88
         Width = 523
-        HorzScrollBar.Page = 498
-        VertScrollBar.Page = 285
+        HorzScrollBar.Page = 502
+        VertScrollBar.Page = 289
         Align = alClient
-        ClientHeight = 342
-        ClientWidth = 521
+        ClientHeight = 340
+        ClientWidth = 519
         TabOrder = 1
         object TexturePanel: TPanel
           Left = 0
-          Height = 285
+          Height = 289
           Top = 0
-          Width = 498
+          Width = 502
           AutoSize = True
           BevelOuter = bvNone
           ClientHeight = 285
@@ -683,7 +691,7 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 270
-            ClientHeight = 251
+            ClientHeight = 235
             ClientWidth = 268
             ParentFont = False
             TabOrder = 0

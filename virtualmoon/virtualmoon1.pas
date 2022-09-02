@@ -1093,6 +1093,7 @@ begin
   Obsaltitude := 0;
   phaseeffect := True;
   librationeffect := True;
+  showterminatorline:=false;
   geocentric := False;
   showoverlay := False;
   wheelstep := 1.05;
@@ -1192,6 +1193,7 @@ begin
     wantbump:=false;  // do not work on Linux for now
     {$endif}
     librationeffect := ReadBool(section, 'LibrationEffect', librationeffect);
+    showterminatorline:= ReadBool(section, 'ShowTerminatorLine', showterminatorline);
     ShowLabel    := ReadBool(section, 'ShowLabel', ShowLabel);
     ShowMark     := ReadBool(section, 'ShowMark', ShowMark);
     ShowLibrationMark := ReadBool(section, 'ShowLibrationMark', ShowLibrationMark);
@@ -1331,6 +1333,7 @@ begin
       WriteString(section, 'lang_po_file', Language);
       WriteString(section, 'version', version);
       WriteBool(section, 'LibrationEffect', librationeffect);
+      WriteBool(section, 'ShowTerminatorLine', showterminatorline);
       WriteInteger(section, 'ForceBumpMapSize', ForceBumpMapSize);
       WriteFloat(section, 'CameraOrientation', CameraOrientation);
       WriteInteger(section, 'useDBN', useDBN);
@@ -3620,6 +3623,7 @@ begin
   activemoon.Phase:=deg2rad*cphase;
   activemoon.SunIncl:=deg2rad*sunlat;
   activemoon.LibrationMark:=ShowLibrationMark;
+  activemoon.SetTerminator(showterminatorline,sunlong,sunlat);
   activemoon.RefreshAll;
 end;
 
@@ -4158,6 +4162,7 @@ begin
     ListUserDB;
     form2.checkbox1.Checked := phaseeffect;
     form2.checkbox2.Checked := librationeffect;
+    form2.CheckBoxTerminatorLine.Checked := showterminatorline;
     if geocentric then
        form2.radiogroup7.ItemIndex:=1
     else
@@ -4288,6 +4293,7 @@ begin
       end;
       phaseeffect     := form2.checkbox1.Checked;
       librationeffect := form2.checkbox2.Checked;
+      showterminatorline := form2.CheckBoxTerminatorLine.Checked;
       Geocentric      := (form2.RadioGroup7.ItemIndex=1);
       for i:=0 to form2.DbList.Count-1 do begin
         if usedatabase[i+1] <> form2.DbList.Checked[i] then
