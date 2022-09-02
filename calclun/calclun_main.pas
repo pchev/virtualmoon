@@ -3072,11 +3072,11 @@ begin
     GridLibration.Cells[0,i+1]:=sti;
     GridLibration.Cells[1,i+1]:=eni;
     if MoonPointIllum(pos,x,fixref,phase,incdnc,emissn) then
-      GridLibration.Cells[2,i+1]:=FormatFloat(f3,rad2deg*incdnc)
+      GridLibration.Cells[2,i+1]:=FormatFloat(f2,90-rad2deg*incdnc)+ldeg
     else
       GridLibration.Cells[2,i+1]:='-';
     if MoonPointIllum(pos,y,fixref,phase,incdnc,emissn) then
-      GridLibration.Cells[3,i+1]:=FormatFloat(f3,rad2deg*incdnc)
+      GridLibration.Cells[3,i+1]:=FormatFloat(f2,90-rad2deg*incdnc)+ldeg
     else
       GridLibration.Cells[3,i+1]:='-';
   end;
