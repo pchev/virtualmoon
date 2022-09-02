@@ -2,10 +2,10 @@ object f_calclun: Tf_calclun
   Left = 369
   Height = 380
   Top = 250
-  Width = 1618
+  Width = 817
   Caption = 'Calclun'
   ClientHeight = 380
-  ClientWidth = 1618
+  ClientWidth = 817
   Color = clWindow
   Menu = MainMenu1
   OnCreate = FormCreate
@@ -15,10 +15,10 @@ object f_calclun: Tf_calclun
     Left = 0
     Height = 56
     Top = 0
-    Width = 1618
+    Width = 817
     Align = alTop
     ClientHeight = 56
-    ClientWidth = 1618
+    ClientWidth = 817
     TabOrder = 1
     object SpinEditYear: TSpinEdit
       Left = 32
@@ -182,7 +182,7 @@ object f_calclun: Tf_calclun
     Left = 0
     Height = 274
     Top = 56
-    Width = 1618
+    Width = 817
     ActivePage = TabSheetYear
     Align = alClient
     Style = tsFlatButtons
@@ -192,9 +192,9 @@ object f_calclun: Tf_calclun
     object TabSheetYear: TTabSheet
       Caption = 'Year'
       ClientHeight = 243
-      ClientWidth = 1608
+      ClientWidth = 807
       object PanelYRight: TPanel
-        Left = 1274
+        Left = 473
         Height = 243
         Top = 0
         Width = 334
@@ -370,22 +370,22 @@ object f_calclun: Tf_calclun
         Left = 0
         Height = 243
         Top = 0
-        Width = 1274
-        HorzScrollBar.Page = 966
-        VertScrollBar.Page = 241
+        Width = 473
+        HorzScrollBar.Page = 458
+        VertScrollBar.Page = 228
         Align = alClient
-        ClientHeight = 241
-        ClientWidth = 1259
+        ClientHeight = 228
+        ClientWidth = 458
         TabOrder = 1
         object PanelYphase: TPanel
           Left = 0
           Height = 352
           Top = 0
-          Width = 1259
+          Width = 966
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 352
-          ClientWidth = 1259
+          ClientWidth = 966
           TabOrder = 1
           object GridYear: TStringGrid
             Left = 0
@@ -411,11 +411,11 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 392
           Top = 352
-          Width = 1259
+          Width = 966
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 392
-          ClientWidth = 1259
+          ClientWidth = 966
           TabOrder = 0
           object Panel4: TPanel
             Left = 0
@@ -492,21 +492,21 @@ object f_calclun: Tf_calclun
     object TabSheetMonth: TTabSheet
       Caption = 'Month'
       ClientHeight = 243
-      ClientWidth = 1608
+      ClientWidth = 807
       object PanelLeft: TPanel
         Left = 0
         Height = 243
         Top = 0
-        Width = 1258
+        Width = 457
         Align = alClient
         ClientHeight = 243
-        ClientWidth = 1258
+        ClientWidth = 457
         TabOrder = 0
         object GridMonth: TStringGrid
           Left = 1
           Height = 213
           Top = 29
-          Width = 1256
+          Width = 455
           Align = alClient
           DefaultColWidth = 140
           MouseWheelOption = mwGrid
@@ -518,10 +518,10 @@ object f_calclun: Tf_calclun
           Left = 1
           Height = 28
           Top = 1
-          Width = 1256
+          Width = 455
           Align = alTop
           ClientHeight = 28
-          ClientWidth = 1256
+          ClientWidth = 455
           TabOrder = 1
           object LabelMonth: TLabel
             Left = 8
@@ -534,7 +534,7 @@ object f_calclun: Tf_calclun
         end
       end
       object PanelRight: TPanel
-        Left = 1258
+        Left = 457
         Height = 243
         Top = 0
         Width = 350
@@ -547,20 +547,20 @@ object f_calclun: Tf_calclun
           Height = 241
           Top = 1
           Width = 348
-          HorzScrollBar.Page = 254
-          VertScrollBar.Page = 239
+          HorzScrollBar.Page = 258
+          VertScrollBar.Page = 237
           Align = alClient
-          ClientHeight = 239
-          ClientWidth = 333
+          ClientHeight = 237
+          ClientWidth = 341
           TabOrder = 0
           object PanelPhase: TPanel
             Left = 0
             Height = 135
             Top = 0
-            Width = 333
+            Width = 341
             Align = alTop
-            ClientHeight = 135
-            ClientWidth = 333
+            ClientHeight = 131
+            ClientWidth = 337
             TabOrder = 0
             object LabelPhase1: TLabel
               Left = 16
@@ -583,17 +583,17 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 210
             Top = 185
-            Width = 333
+            Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 210
-            ClientWidth = 333
+            ClientHeight = 206
+            ClientWidth = 337
             TabOrder = 1
             object Chart1: TChart
               Left = 0
-              Height = 210
+              Height = 206
               Top = 0
-              Width = 333
+              Width = 337
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -628,18 +628,18 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 348
             Top = 743
-            Width = 333
+            Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 348
-            ClientWidth = 333
+            ClientHeight = 344
+            ClientWidth = 337
             TabOrder = 2
             Visible = False
             object Chart2: TChart
               Left = 0
-              Height = 348
+              Height = 344
               Top = 0
-              Width = 333
+              Width = 337
               AllowPanning = False
               AllowZoom = False
               AxisList = <              
@@ -692,17 +692,17 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 348
             Top = 395
-            Width = 333
+            Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 348
-            ClientWidth = 333
+            ClientHeight = 344
+            ClientWidth = 337
             TabOrder = 4
             object Chart3: TChart
               Left = 0
-              Height = 348
+              Height = 344
               Top = 0
-              Width = 333
+              Width = 337
               AntialiasingMode = amOn
               AxisList = <              
                 item
@@ -831,11 +831,11 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 50
             Top = 135
-            Width = 333
+            Width = 341
             Align = alTop
             BevelOuter = bvNone
-            ClientHeight = 50
-            ClientWidth = 333
+            ClientHeight = 46
+            ClientWidth = 337
             TabOrder = 3
             object BtnGraph: TSpeedButton
               Left = 16
@@ -854,9 +854,9 @@ object f_calclun: Tf_calclun
     object TabSheetDay: TTabSheet
       Caption = 'Day'
       ClientHeight = 243
-      ClientWidth = 1608
+      ClientWidth = 807
       object PanelDRight: TPanel
-        Left = 1308
+        Left = 507
         Height = 243
         Top = 0
         Width = 300
@@ -1071,18 +1071,18 @@ object f_calclun: Tf_calclun
         Left = 0
         Height = 243
         Top = 0
-        Width = 1308
+        Width = 507
         HorzScrollBar.Page = 75
         VertScrollBar.Page = 78
         Align = alClient
-        ClientHeight = 241
-        ClientWidth = 1306
+        ClientHeight = 239
+        ClientWidth = 503
         TabOrder = 1
         object GridDay: TStringGrid
           Left = 0
-          Height = 213
+          Height = 211
           Top = 28
-          Width = 1306
+          Width = 503
           Align = alClient
           ColCount = 15
           DefaultColWidth = 140
@@ -1095,10 +1095,10 @@ object f_calclun: Tf_calclun
           Left = 0
           Height = 28
           Top = 0
-          Width = 1306
+          Width = 503
           Align = alTop
-          ClientHeight = 28
-          ClientWidth = 1306
+          ClientHeight = 24
+          ClientWidth = 499
           TabOrder = 1
           object LabelDay: TLabel
             Left = 8
@@ -1114,12 +1114,12 @@ object f_calclun: Tf_calclun
     object TabSheetPrediction: TTabSheet
       Caption = 'Prediction'
       ClientHeight = 243
-      ClientWidth = 1608
+      ClientWidth = 807
       object PageControlPrediction: TPageControl
         Left = 0
         Height = 243
         Top = 0
-        Width = 1608
+        Width = 807
         ActivePage = TabSheetColongitude
         Align = alClient
         TabIndex = 0
@@ -1128,7 +1128,7 @@ object f_calclun: Tf_calclun
         object TabSheetColongitude: TTabSheet
           Caption = 'Colongitude'
           ClientHeight = 212
-          ClientWidth = 1598
+          ClientWidth = 797
           object PanelColongitude: TPanel
             Left = 0
             Height = 108
@@ -1166,10 +1166,10 @@ object f_calclun: Tf_calclun
             Left = 0
             Height = 104
             Top = 0
-            Width = 1598
+            Width = 797
             Align = alTop
             ClientHeight = 104
-            ClientWidth = 1598
+            ClientWidth = 797
             TabOrder = 1
             object PanelFormation: TPanel
               AnchorSideLeft.Control = PanelGlobal
@@ -1364,7 +1364,6 @@ object f_calclun: Tf_calclun
                 MaxValue = 90
                 OnChange = TerminatorChange
                 TabOrder = 0
-                Value = 0.5
               end
               object Label14: TLabel
                 AnchorSideTop.Control = SunMin
@@ -1394,12 +1393,12 @@ object f_calclun: Tf_calclun
                 MaxValue = 90
                 OnChange = TerminatorChange
                 TabOrder = 1
-                Value = 5
+                Value = 1
               end
             end
             object GroupBoxLibration: TGroupBox
               AnchorSideLeft.Control = PanelFormation
-              Left = 856
+              Left = 796
               Height = 102
               Top = 1
               Width = 208
@@ -1488,7 +1487,7 @@ object f_calclun: Tf_calclun
             end
             object GroupBoxDuration: TGroupBox
               AnchorSideLeft.Control = GroupBoxLibration
-              Left = 1064
+              Left = 796
               Height = 102
               Top = 1
               Width = 146
@@ -1524,7 +1523,7 @@ object f_calclun: Tf_calclun
             end
             object GroupBoxConstraint: TGroupBox
               AnchorSideLeft.Control = GroupBoxDuration
-              Left = 1210
+              Left = 796
               Height = 102
               Top = 1
               Width = 560
@@ -1637,41 +1636,41 @@ object f_calclun: Tf_calclun
         object TabSheetSunElevation: TTabSheet
           Caption = 'Sun elevation on a formation'
           ClientHeight = 212
-          ClientWidth = 1598
+          ClientWidth = 797
           object PanelT: TPanel
             Left = 0
             Height = 212
             Top = 0
-            Width = 1598
+            Width = 797
             Align = alClient
             ClientHeight = 212
-            ClientWidth = 1598
+            ClientWidth = 797
             TabOrder = 0
             object PanelTresult: TScrollBox
               Left = 1
               Height = 210
               Top = 1
-              Width = 1596
-              HorzScrollBar.Page = 1000
-              VertScrollBar.Page = 86
+              Width = 795
+              HorzScrollBar.Page = 791
+              VertScrollBar.Page = 90
               Align = alClient
-              ClientHeight = 208
-              ClientWidth = 1594
+              ClientHeight = 203
+              ClientWidth = 791
               TabOrder = 0
               object PanelTerminator1: TPanel
                 Left = 0
-                Height = 208
+                Height = 203
                 Top = 0
                 Width = 500
                 Align = alLeft
-                ClientHeight = 208
-                ClientWidth = 500
+                ClientHeight = 199
+                ClientWidth = 496
                 TabOrder = 0
                 object GridTerminator1: TStringGrid
                   Left = 1
-                  Height = 172
+                  Height = 163
                   Top = 35
-                  Width = 498
+                  Width = 494
                   Align = alClient
                   ColCount = 4
                   DefaultColWidth = 160
@@ -1685,7 +1684,7 @@ object f_calclun: Tf_calclun
                   Left = 1
                   Height = 34
                   Top = 1
-                  Width = 498
+                  Width = 494
                   Align = alTop
                   Caption = 'Prediction for increasing Sun elevation'
                   TabOrder = 1
@@ -1693,18 +1692,18 @@ object f_calclun: Tf_calclun
               end
               object PanelTerminator2: TPanel
                 Left = 500
-                Height = 208
+                Height = 203
                 Top = 0
                 Width = 500
                 Align = alLeft
-                ClientHeight = 208
-                ClientWidth = 500
+                ClientHeight = 199
+                ClientWidth = 496
                 TabOrder = 1
                 object GridTerminator2: TStringGrid
                   Left = 1
-                  Height = 172
+                  Height = 163
                   Top = 35
-                  Width = 498
+                  Width = 494
                   Align = alClient
                   ColCount = 4
                   DefaultColWidth = 160
@@ -1718,7 +1717,7 @@ object f_calclun: Tf_calclun
                   Left = 1
                   Height = 34
                   Top = 1
-                  Width = 498
+                  Width = 494
                   Align = alTop
                   Caption = 'Prediction for decreasing Sun elevation'
                   TabOrder = 1
@@ -1730,7 +1729,7 @@ object f_calclun: Tf_calclun
         object TabSheetLibration: TTabSheet
           Caption = 'Libration'
           ClientHeight = 212
-          ClientWidth = 1598
+          ClientWidth = 797
           object PanelLibration: TPanel
             Left = 0
             Height = 212
@@ -1764,10 +1763,10 @@ object f_calclun: Tf_calclun
               TabOrder = 1
               OnDblClick = GridLibrationDblClick
               ColWidths = (
-                177
-                177
-                177
-                180
+                179
+                179
+                179
+                182
               )
             end
           end
@@ -1779,10 +1778,10 @@ object f_calclun: Tf_calclun
     Left = 0
     Height = 50
     Top = 330
-    Width = 1618
+    Width = 817
     Align = alBottom
     ClientHeight = 50
-    ClientWidth = 1618
+    ClientWidth = 817
     TabOrder = 2
     object StatusLabel: TLabel
       Left = 8
