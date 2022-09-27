@@ -7,8 +7,8 @@ Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|linuxdata|linu
 version=8.0
 
 builddir=/tmp/virtualmoon  # Be sure this is set to a non existent directory, it is removed after the run!
-export WINEPREFIX=~/.wineinno6
-innosetup="C:\Program Files (x86)\Inno Setup 6\ISCC.exe"  # Install under Wine from http://www.jrsoftware.org/isinfo.php
+export WINEPREFIX=~/.wine
+innosetup="C:\Program Files\Inno Setup 6\ISCC.exe"  # Install under Wine from http://www.jrsoftware.org/isinfo.php
 wine_build="Z:\tmp\virtualmoon" # Change to match builddir, Z: is defined in ~/.wine/dosdevices
 
 # not enough space on /
