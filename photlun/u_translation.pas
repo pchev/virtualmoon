@@ -11,6 +11,7 @@ function GetDefaultLanguage:string;
 function Translate(lang : string = ''; lang2 : string = ''):string;
 
 resourcestring
+  rshelp_prefix='EN';
   rsFile = 'File';
   rsLibrary = 'Library';
   rsSearch = 'Search';
@@ -34,7 +35,6 @@ resourcestring
   rsByName = 'by name';
   rsByLibrary = 'by library';
   rsCloseAllWind = 'Close all window';
-  rsHelpPrefix = 'HelpPrefix';
   rsImageMirror = 'Image mirror';
   rsNone1 = 'None';
   rsEastWest = 'East<->West';

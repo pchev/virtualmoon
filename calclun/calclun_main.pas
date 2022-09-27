@@ -107,6 +107,9 @@ type
     LabelTZ: TLabel;
     MemoDay: TMemo;
     MenuFile: TMenuItem;
+    MenuHelp: TMenuItem;
+    MenuItemDocumentation: TMenuItem;
+    MenuItemAbout: TMenuItem;
     MenuQuit: TMenuItem;
     MenuPrintEphem: TMenuItem;
     PageControlPrediction: TPageControl;
@@ -238,6 +241,8 @@ type
     procedure GridTerminator1DblClick(Sender: TObject);
     procedure GridTerminator2DblClick(Sender: TObject);
     procedure LibrationTimerTimer(Sender: TObject);
+    procedure MenuItemAboutClick(Sender: TObject);
+    procedure MenuItemDocumentationClick(Sender: TObject);
     procedure MenuPrintEphemClick(Sender: TObject);
     procedure MenuQuitClick(Sender: TObject);
     procedure PageControlPredictionChange(Sender: TObject);
@@ -410,10 +415,14 @@ begin
   lmin     := '''';
   lsec     := '"';
 
+  u_util.hp := rshelp_prefix;
   Label7.Caption:=rsYear;
   Label8.Caption:=rsMonth;
   Label9.Caption:=rsDay;
   BtnToday.Caption:=rsToday;
+  MenuHelp.Caption:=rsHelp;
+  MenuItemDocumentation.Caption:=rsHelp;
+  MenuItemAbout.Caption:=rsAbout;
 
   TabSheetYear.Caption:=rsYear;
   ChartYear.Title.Text.Clear;
@@ -2958,6 +2967,24 @@ begin
     ComputeLibration;
     LockPredictionTimer:=false;
   end;
+end;
+
+procedure Tf_calclun.MenuItemDocumentationClick(Sender: TObject);
+begin
+  ShowHelpDoc('Doc','CalcLun','doc');
+end;
+
+procedure Tf_calclun.MenuItemAboutClick(Sender: TObject);
+begin
+Showmessage('CalcLun '+Splashversion+crlf+
+            compile_version+crlf+
+            avlcpy+crlf+crlf+
+            'Conception : Patrick Chevalley'+crlf+
+            'Programming : Patrick Chevalley'+crlf+crlf+
+            'This program is free software; you can redistribute it and/or '+crlf+
+            'modify it under the terms of the GNU General Public License '+crlf+
+            'as published by the Free Software Foundation.'
+            );
 end;
 
 procedure Tf_calclun.MenuPrintEphemClick(Sender: TObject);

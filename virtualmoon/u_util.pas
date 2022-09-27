@@ -2023,21 +2023,21 @@ p:=pos('#',helpfile);
  else a:='';
 
 // try nls PDF, no suffix for pdf
-fn:=dir+hp+helpfile+'.pdf';
+fn:=dir+hp+'_'+helpfile+'_'+suffix+'.pdf';
 if not fileexists(fn) then begin
    // try nls html
-   fn:=dir+hp+helpfile+suffix+'.html';
+   fn:=dir+hp+'_'+helpfile+'_'+suffix+'.html';
    if not fileexists(fn) then begin
-      // try UK PDF
-      fn:=dir+'UK_'+helpfile+'.pdf';
+      // try EN PDF
+      fn:=dir+hp+'_'+helpfile+'_'+suffix+'.pdf';
       if not fileexists(fn) then begin
-         // try UK html
-         fn:=dir+'UK_'+helpfile+suffix+'.html';
+         // try EN html
+         fn:=dir+'EN_'+helpfile+'_'+suffix+'.html';
       end;
     end;
  end;
 ExecuteFile(fn);
- end;
+end;
 
 procedure GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
 // ref: https://en.wikipedia.org/wiki/Great-circle_navigation

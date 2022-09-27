@@ -31,7 +31,7 @@ uses
   {$ifdef unix}
     unix,baseunix,
   {$endif}
-  u_translation, u_constant, IniFiles, LazUTF8,
+  u_translation, u_constant, IniFiles, LazUTF8, u_util,
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, Menus;
 
@@ -97,7 +97,6 @@ type
     moveform: boolean;
     procedure GetAppDir;
     procedure SetLang;
-    procedure OpenDoc(doc:string);
   public
     { public declarations }
   end; 
@@ -390,7 +389,7 @@ begin
   language:=u_translation.translate(language,'en');
   uplanguage:=UpperCase(language);
   Caption  := rstitle;
-  helpprefix := rshelp_prefix;
+  u_util.hp := rshelp_prefix;
   Label1.Caption:=rsVirtualLunar+blank+AVLversion;
 //  Label9.Caption:=rsSpecialEditi;
   Label8.Caption:=rsDocumentatio;
@@ -452,23 +451,22 @@ end;
 
 procedure Tf_cclun.MenuItem1Click(Sender: TObject);
 begin
-OpenDoc('Doc_AtLun');
+ShowHelpDoc('Doc','AtLun','doc');
 end;
 
 procedure Tf_cclun.MenuItem2Click(Sender: TObject);
 begin
-OpenDoc('Doc_DatLun');
+ShowHelpDoc('Doc','DatLun','doc');
 end;
 
 procedure Tf_cclun.MenuItem3Click(Sender: TObject);
 begin
-OpenDoc('Doc_PhotLun');
-
+ShowHelpDoc('Doc','PhotLun','doc');
 end;
 
 procedure Tf_cclun.MenuItem4Click(Sender: TObject);
 begin
-OpenDoc('Doc_WebLun');
+ShowHelpDoc('Doc','WebLun','doc');
 end;
 
 procedure Tf_cclun.BitBtn1Click(Sender: TObject);
@@ -512,29 +510,9 @@ begin
   Close;
 end;
 
-procedure Tf_cclun.OpenDoc(doc:string);
-var
-  fn: string;
-begin
-  fn := slash(HelpDir) + helpprefix +'_'+doc+'.pdf';
-  if not FileExists(fn) then
-  begin
-    fn := slash(HelpDir) + helpprefix +'_'+doc+'.html';
-    if not FileExists(fn) then
-    begin
-      fn := slash(HelpDir) + 'UK_'+doc+'.pdf';
-      if not FileExists(fn) then
-      begin
-        fn := slash(HelpDir) + 'UK_'+doc+'.html';
-      end;
-    end;
-  end;
-  ExecuteFile(fn);
-end;
-
 procedure Tf_cclun.BitBtn6Click(Sender: TObject);
 begin
-OpenDoc('tutorial');
+ShowHelpDoc('Doc','tutorial','doc');
 end;
 
 procedure Tf_cclun.BitBtn7Click(Sender: TObject);

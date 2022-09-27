@@ -77,9 +77,9 @@ msgstr "Tamaño completo"
 msgid "Help"
 msgstr "Ayuda"
 
-#: u_translation.rshelpprefix
-msgid "HelpPrefix"
-msgstr "ES_"
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr "ES"
 
 #: u_translation.rshorizontalmi
 msgid "Horizontal Mirror"

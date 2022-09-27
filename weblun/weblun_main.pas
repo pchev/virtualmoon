@@ -31,6 +31,9 @@ type
     Label3: TLabel;
     MainMenu1: TMainMenu;
     File1: TMenuItem;
+    Help1: TMenuItem;
+    MenuHelp: TMenuItem;
+    MenuAbout: TMenuItem;
     PanelTop: TPanel;
     Quit1: TMenuItem;
     ResetSelection: TMenuItem;
@@ -46,6 +49,8 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure InitTimerTimer(Sender: TObject);
+    procedure MenuHelpClick(Sender: TObject);
+    procedure MenuAboutClick(Sender: TObject);
     procedure Quit1Click(Sender: TObject);
     procedure ResetSelectionClick(Sender: TObject);
     procedure StringGrid1DblClick(Sender: TObject);
@@ -100,6 +105,24 @@ begin
   FillTheme;
   SelectAll;
   Application.BringToFront;
+end;
+
+procedure Tf_weblun.MenuHelpClick(Sender: TObject);
+begin
+ ShowHelpDoc('Doc','WebLun','doc')
+end;
+
+procedure Tf_weblun.MenuAboutClick(Sender: TObject);
+begin
+Showmessage('WebLun '+Splashversion+crlf+
+            compile_version+crlf+
+            avlcpy+crlf+crlf+
+            'Conception : Christian Legrand'+crlf+
+            'Programming : Patrick Chevalley'+crlf+crlf+
+            'This program is free software; you can redistribute it and/or '+crlf+
+            'modify it under the terms of the GNU General Public License '+crlf+
+            'as published by the Free Software Foundation.'
+            );
 end;
 
 procedure Tf_weblun.Quit1Click(Sender: TObject);
@@ -430,8 +453,12 @@ inifile.Free;
 chdir(appdir);
 language:=u_translation.translate(language,'en');
 uplanguage:=UpperCase(language);
+u_util.hp := rshelp_prefix;
 file1.Caption:=rsFile;
 Quit1.Caption:=rsQuit;
+help1.Caption:=rsHelp;
+MenuHelp.Caption:=rsHelp;
+MenuAbout.Caption:=rsAbout;
 ResetSelection.Caption:=rsResetSelecti;
 label1.Caption:=rsThMe;
 label2.Caption:=rsSubThMe;

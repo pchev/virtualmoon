@@ -610,7 +610,7 @@ type
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
     lopamdirectsuffix, lopamlocalsuffix: string;
-    externalimagepath, helpprefix,
+    externalimagepath,
     scopeinterface, markname, currentname, currentid: string;
     appname, pofile, configversion: string;
     //m: array[1..nummessage] of string;
@@ -787,7 +787,7 @@ begin
     lsec     := rssecond;
     transmsg := rstranslator;
     Caption  := rstitle;
-    helpprefix := rshelp_prefix;
+    u_util.hp := rshelp_prefix;
     ToolButton1.Caption := rst_1;
     quitter1.Caption := rst_2;
     ToolButton2.Caption := rst_3;
@@ -5256,23 +5256,8 @@ begin
 end;
 
 procedure TForm1.Aide2Click(Sender: TObject);
-var
-  fn: string;
 begin
-  fn := slash(HelpDir) + helpprefix + '_Doc_AtLun.pdf';
-  if not FileExists(fn) then
-  begin
-    fn := slash(HelpDir) + helpprefix + '_Doc_AtLun.html';
-    if not FileExists(fn) then
-    begin
-      fn := slash(HelpDir) + 'UK_Doc_AtLun.pdf';
-      if not FileExists(fn) then
-      begin
-        fn := slash(HelpDir) + 'UK_Doc_AtLun.html';
-      end;
-    end;
-  end;
-  ExecuteFile(fn);
+  ShowHelpDoc('Doc','AtLun','doc');
 end;
 
 procedure TForm1.Encyclopedia1Click(Sender: TObject);

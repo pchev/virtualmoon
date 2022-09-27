@@ -79,9 +79,9 @@ msgstr "Taille maximum"
 msgid "Help"
 msgstr "Aide"
 
-#: u_translation.rshelpprefix
-msgid "HelpPrefix"
-msgstr "FR_"
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr "FR"
 
 #: u_translation.rshorizontalmi
 msgid "Horizontal Mirror"

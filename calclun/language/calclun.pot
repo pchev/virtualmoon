@@ -2,6 +2,10 @@
 msgid "English"
 msgstr ""
 
+#: u_translation:rshelp_prefix
+msgid "EN"
+msgstr ""
+
 #: u_translation:rstitle
 msgid "Calclun"
 msgstr ""
@@ -424,5 +428,41 @@ msgstr ""
 
 #: u_translation:rssunelevation4
 msgid "Sun elevation at end"
+msgstr ""
+
+#: u_translation:rssaveephemeri
+msgid "Save ephemeris to file"
+msgstr ""
+
+#: u_translation:rsstartdate
+msgid "Start date"
+msgstr ""
+
+#: u_translation:rsenddate
+msgid "End date"
+msgstr ""
+
+#: u_translation:rssteps
+msgid "Steps"
+msgstr ""
+
+#: u_translation:rsephemeris
+msgid "Ephemeris"
+msgstr ""
+
+#: u_translation:rsfile
+msgid "File"
+msgstr ""
+
+#: u_translation:rscompute
+msgid "Compute"
+msgstr ""
+
+#: u_translation:rshelp
+msgid "Help"
+msgstr ""
+
+#: u_translation:rsabout
+msgid "About"
 msgstr ""
 

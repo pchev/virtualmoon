@@ -13,7 +13,7 @@ function Translate(lang : string = ''; lang2 : string = ''):string;
 resourcestring
 
 rslanguage='English';
-rshelp_prefix='UK';
+rshelp_prefix='EN';
 rstitle='NoteLun';
 rsConfiguratio = 'Configuration';
 rsLatitude = 'Latitude';

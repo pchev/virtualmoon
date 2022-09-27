@@ -26,6 +26,8 @@ rsRecDate = 'Recording date';
 rsAll = 'All';
 rsSelectedSite = '%s selected sites.';
 rsSearch = 'Search';
+rsHelp = 'Help';
+rsAbout = 'About';
 
 implementation
 

@@ -65,13 +65,16 @@
         </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="libsql"/>
+        <PackageName Value="Printer4Lazarus"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="libsql"/>
       </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
     </RequiredPackages>
     <Units Count="9">
       <Unit0>
@@ -88,9 +91,8 @@
         <ComponentName Value="f_cclun"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="412"/>
-        <CursorPos X="24" Y="419"/>
+        <TopLine Value="374"/>
+        <CursorPos X="69" Y="469"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -98,9 +100,9 @@
       <Unit2>
         <Filename Value="u_translation.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="10"/>
-        <CursorPos X="15" Y="19"/>
+        <CursorPos X="41" Y="17"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -150,117 +152,118 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="243" TopLine="226"/>
       </Position1>
       <Position2>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="245" TopLine="228"/>
+        <Caret Line="402" Column="18" TopLine="372"/>
       </Position2>
       <Position3>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="495" Column="18" TopLine="475"/>
+        <Caret Line="400" Column="36" TopLine="372"/>
       </Position3>
       <Position4>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="376" Column="56" TopLine="361"/>
+        <Caret Line="399" Column="45" TopLine="372"/>
       </Position4>
       <Position5>
         <Filename Value="cclun_main.pas"/>
       </Position5>
       <Position6>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="346" Column="39" TopLine="314"/>
+        <Caret Line="368" Column="52" TopLine="360"/>
       </Position6>
       <Position7>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="405" Column="40" TopLine="374"/>
+        <Caret Line="369" Column="52" TopLine="361"/>
       </Position7>
       <Position8>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="466" Column="20" TopLine="443"/>
+        <Caret Line="371" Column="52" TopLine="363"/>
       </Position8>
       <Position9>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="490" Column="20" TopLine="371"/>
+        <Caret Line="489" Column="77" TopLine="475"/>
       </Position9>
       <Position10>
         <Filename Value="cclun_main.pas"/>
+        <Caret Line="500" Column="19" TopLine="475"/>
       </Position10>
       <Position11>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="345" Column="9" TopLine="314"/>
+        <Caret Line="349" TopLine="329"/>
       </Position11>
       <Position12>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="325" Column="86" TopLine="314"/>
       </Position12>
       <Position13>
         <Filename Value="cclun_main.pas"/>
+        <Caret Line="350" Column="39" TopLine="315"/>
       </Position13>
       <Position14>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="402" Column="18" TopLine="372"/>
+        <Caret Line="501" Column="21" TopLine="466"/>
       </Position14>
       <Position15>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="400" Column="36" TopLine="372"/>
+        <Caret Line="350" Column="28" TopLine="330"/>
       </Position15>
       <Position16>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="399" Column="45" TopLine="372"/>
+        <Caret Line="375" Column="67" TopLine="335"/>
       </Position16>
       <Position17>
         <Filename Value="cclun_main.pas"/>
       </Position17>
       <Position18>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="368" Column="52" TopLine="360"/>
+        <Caret Line="83" Column="22" TopLine="49"/>
       </Position18>
       <Position19>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="369" Column="52" TopLine="361"/>
+        <Caret Line="419" Column="24" TopLine="412"/>
       </Position19>
       <Position20>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="371" Column="52" TopLine="363"/>
+        <Caret Line="519" Column="34" TopLine="509"/>
       </Position20>
       <Position21>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="489" Column="77" TopLine="475"/>
+        <Caret Line="522" Column="38" TopLine="509"/>
       </Position21>
       <Position22>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="500" Column="19" TopLine="475"/>
       </Position22>
       <Position23>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="349" TopLine="329"/>
+        <Caret Line="393" Column="13" TopLine="357"/>
       </Position23>
       <Position24>
         <Filename Value="cclun_main.pas"/>
+        <Caret Line="519" Column="32" TopLine="498"/>
       </Position24>
       <Position25>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="350" Column="39" TopLine="315"/>
+        <Caret Line="393" Column="3" TopLine="371"/>
       </Position25>
       <Position26>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="501" Column="21" TopLine="466"/>
+        <Caret Line="15" Column="22"/>
       </Position26>
       <Position27>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="350" Column="28" TopLine="330"/>
+        <Caret Line="515" TopLine="489"/>
       </Position27>
       <Position28>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="375" Column="67" TopLine="335"/>
+        <Caret Line="100" TopLine="79"/>
       </Position28>
       <Position29>
         <Filename Value="cclun_main.pas"/>
+        <Caret Line="454" TopLine="433"/>
       </Position29>
       <Position30>
         <Filename Value="cclun_main.pas"/>
-        <Caret Line="83" Column="22" TopLine="49"/>
+        <Caret Line="469" Column="69" TopLine="374"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

@@ -1121,7 +1121,7 @@ MenuItem12.Caption:=rsByLibrary;
 View1.Caption:=rsView;
 Database.Caption:=rsDatabase;
 Carte.Caption:=rsShowOnMap;
-u_util.hp:=rsHelpPrefix;
+u_util.hp:=rshelp_prefix;
 MenuItem16.Caption:=rsImageMirror;
 MenuItem20.Caption:=rsNone1;
 MenuItem18.Caption:=rsEastWest;
@@ -1148,7 +1148,7 @@ end;
 
 procedure Tf_photlun.MenuItem14Click(Sender: TObject);
 begin
-ShowHelpDoc('Doc','_PhotLun','doc');
+ShowHelpDoc('Doc','PhotLun','doc');
 end;
 
 procedure Tf_photlun.MenuItem15Click(Sender: TObject);

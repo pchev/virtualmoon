@@ -15,7 +15,7 @@ msgid "Virtual Moon Atlas"
 msgstr ""
 
 #: u_translation:rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr ""
 
 #: u_translation:rsdegree
@@ -446,10 +446,6 @@ msgstr ""
 msgid "Power"
 msgstr ""
 
-#: u_translation:rst_125
-msgid "Options valid at next startup"
-msgstr ""
-
 #: u_translation:rst_129
 msgid "Database"
 msgstr ""
@@ -628,10 +624,6 @@ msgstr ""
 
 #: u_translation:rst_181
 msgid "Mark size"
-msgstr ""
-
-#: u_translation:rst_182
-msgid "Force texture compression"
 msgstr ""
 
 #: u_translation:rst_183
@@ -1480,5 +1472,9 @@ msgstr ""
 
 #: u_translation:rsnodatabasese
 msgid "No database selected!"
+msgstr ""
+
+#: u_translation:rsterminatorli
+msgid "Terminator line"
 msgstr ""
 

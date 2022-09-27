@@ -77,9 +77,9 @@ msgstr "Πλήρες μέγεθος"
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: u_translation.rshelpprefix
-msgid "HelpPrefix"
-msgstr "EL_"
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr "EL"
 
 #: u_translation.rshorizontalmi
 msgid "Horizontal Mirror"

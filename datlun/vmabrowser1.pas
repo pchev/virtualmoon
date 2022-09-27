@@ -316,7 +316,7 @@ language:=u_translation.translate(language,'en');
 uplanguage:=UpperCase(language);
 u_translation_database.translate(language,'en');
   transmsg:=rstranslator;
-  u_util.hp:=rshelp_prefix+'_';
+  u_util.hp:=rshelp_prefix;
   Help1.caption:=rst_52;
   Help2.caption:=Help1.caption;
   APropos1.caption:=rst_53;
@@ -1042,7 +1042,7 @@ begin
   Showmessage('Datlun '+Splashversion+crlf+
               compile_version+crlf+
               avlcpy+crlf+crlf+
-              'Conception : Christian Legrand'+crlf+
+              'Conception : Patrick Chevalley'+crlf+
               'Programming : Patrick Chevalley'+crlf+crlf+
               'This program is free software; you can redistribute it and/or '+crlf+
               'modify it under the terms of the GNU General Public License '+crlf+
@@ -1052,7 +1052,7 @@ end;
 
 procedure Tf_main.Help2Click(Sender: TObject);
 begin
-showhelpdoc('Doc','_DatLun','doc');
+showhelpdoc('Doc','DatLun','doc');
 end;
 
 procedure Tf_main.MoonGridDrawCell(Sender: TObject; ACol, ARow: Integer;

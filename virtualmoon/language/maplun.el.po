@@ -224,7 +224,7 @@ msgid "Height"
 msgstr "Ύψος"
 
 #: u_translation.rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr "EL"
 
 #: u_translation.rshide
@@ -818,6 +818,10 @@ msgstr ""
 msgid "Telescope name"
 msgstr ""
 
+#: u_translation.rsterminatorli
+msgid "Terminator line"
+msgstr ""
+
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
 msgstr "Yφή αναγλύφου αερογράφου χωρίς λευκαύγεια"
@@ -951,10 +955,6 @@ msgstr "Σύντομη επιγραφή"
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Ισχύς"
-
-#: u_translation.rst_125
-msgid "Options valid at next startup"
-msgstr "Επιλογές επόμενης εκκίνησης"
 
 #: u_translation.rst_129
 msgid "Database"
@@ -1156,10 +1156,6 @@ msgstr "Αφαίρεση σημαδιού επιλογής"
 #: u_translation.rst_181
 msgid "Mark size"
 msgstr "Μέγεθος σημαδιού"
-
-#: u_translation.rst_182
-msgid "Force texture compression"
-msgstr "Επιβολή συμπίεσης υφής"
 
 #: u_translation.rst_183
 msgid "Label Color"

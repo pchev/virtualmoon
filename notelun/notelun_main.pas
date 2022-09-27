@@ -485,7 +485,7 @@ begin
   ldeg:='°';
   lmin:='''';
   lsec:='"';
-  u_util.hp:=rshelp_prefix+'_';
+  u_util.hp:=rshelp_prefix;
 
   ListNotes.Cells[0, 0]:=rsFormation;
   ListNotes.Cells[1, 0]:=rsDate;
@@ -1514,7 +1514,7 @@ end;
 
 procedure Tf_notelun.MenuItemHelpClick(Sender: TObject);
 begin
-  showhelpdoc('Doc','_NoteLun','doc');
+  showhelpdoc('Doc','NoteLun','doc');
 end;
 
 procedure Tf_notelun.MenuSetupObservation(Sender: TObject);

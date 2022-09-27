@@ -111,14 +111,14 @@
     <RunParams>
       <local>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\home\astro\VirtualMoon"/>
+        <WorkingDirectory Value="\usr\bin"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
             <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-            <WorkingDirectory Value="\home\astro\VirtualMoon"/>
+            <WorkingDirectory Value="\usr\bin"/>
           </local>
         </Mode0>
       </Modes>

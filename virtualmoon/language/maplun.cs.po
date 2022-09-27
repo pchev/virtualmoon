@@ -223,8 +223,8 @@ msgid "Height"
 msgstr ""
 
 #: u_translation.rshelp_prefix
-msgid "UK"
-msgstr ""
+msgid "EN"
+msgstr "CS"
 
 #: u_translation.rshide
 msgid "Hide"
@@ -817,6 +817,10 @@ msgstr ""
 msgid "Telescope name"
 msgstr ""
 
+#: u_translation.rsterminatorli
+msgid "Terminator line"
+msgstr ""
+
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
 msgstr ""
@@ -948,10 +952,6 @@ msgstr "Krátký popisek"
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Zvětšení"
-
-#: u_translation.rst_125
-msgid "Options valid at next startup"
-msgstr "Volby platné od příštího spuštění"
 
 #: u_translation.rst_129
 msgid "Database"
@@ -1153,10 +1153,6 @@ msgstr "Zrušit výběr značky"
 #: u_translation.rst_181
 msgid "Mark size"
 msgstr "Velikost značky"
-
-#: u_translation.rst_182
-msgid "Force texture compression"
-msgstr "Vyžadovat kompresi textury"
 
 #: u_translation.rst_183
 msgid "Label Color"

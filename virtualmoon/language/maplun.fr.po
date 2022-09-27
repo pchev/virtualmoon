@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-07-25 21:16+0200\n"
+"PO-Revision-Date: 2022-09-27 18:47+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -223,7 +223,7 @@ msgid "Height"
 msgstr "Hauteur"
 
 #: u_translation.rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr "FR"
 
 #: u_translation.rshide
@@ -816,6 +816,10 @@ msgstr "Sous-type :"
 msgid "Telescope name"
 msgstr "Nom du télescope"
 
+#: u_translation.rsterminatorli
+msgid "Terminator line"
+msgstr "Ligne du terminateur"
+
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
 msgstr "Texture Relief aérographe sans albedo"
@@ -947,10 +951,6 @@ msgstr "Label court"
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Grossissement"
-
-#: u_translation.rst_125
-msgid "Options valid at next startup"
-msgstr "Options pour le prochain lancement"
 
 #: u_translation.rst_129
 msgid "Database"
@@ -1152,10 +1152,6 @@ msgstr "Supprime les marques de sélection"
 #: u_translation.rst_181
 msgid "Mark size"
 msgstr "Taille des marques"
-
-#: u_translation.rst_182
-msgid "Force texture compression"
-msgstr "Compression des textures "
 
 #: u_translation.rst_183
 msgid "Label Color"

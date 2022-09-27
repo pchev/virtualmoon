@@ -39,7 +39,7 @@ msgid "Far side Unnamed Formation"
 msgstr "Formacions sense nom de la cara oculta"
 
 #: u_translation.rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr "CA"
 
 #: u_translation.rshistorical

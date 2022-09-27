@@ -79,9 +79,9 @@ msgstr "Plná veľkosť"
 msgid "Help"
 msgstr "Pomoc"
 
-#: u_translation.rshelpprefix
-msgid "HelpPrefix"
-msgstr "UK_"
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr "SK"
 
 #: u_translation.rshorizontalmi
 msgid "Horizontal Mirror"

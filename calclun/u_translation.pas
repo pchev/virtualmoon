@@ -13,6 +13,7 @@ function Translate(lang : string = ''; lang2 : string = ''):string;
 resourcestring
 
 rslanguage='English';
+rshelp_prefix='EN';
 rstitle='Calclun';
 rsConfiguratio = 'Configuration';
 rsLatitude = 'Latitude';
@@ -126,6 +127,8 @@ rsSteps = 'Steps';
 rsEphemeris = 'Ephemeris';
 rsFile = 'File';
 rsCompute = 'Compute';
+rsHelp = 'Help';
+rsAbout = 'About';
 
 implementation
 

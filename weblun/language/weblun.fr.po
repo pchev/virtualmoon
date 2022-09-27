@@ -1,5 +1,20 @@
+# pch <pch@ap-i.net>, 2022.
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr ""
+"Last-Translator: pch <pch@ap-i.net>\n"
+"PO-Revision-Date: 2022-09-27 18:48+0200\n"
+"Project-Id-Version: \n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 21.12.3\n"
+
+#: u_translation.rsabout
+msgid "About"
+msgstr "A propos"
 
 #: u_translation.rsaddresse
 msgid "Addresse"
@@ -16,6 +31,10 @@ msgstr "Description"
 #: u_translation.rsfile
 msgid "File"
 msgstr "Fichier "
+
+#: u_translation.rshelp
+msgid "Help"
+msgstr "Aide"
 
 #: u_translation.rshelp_prefix
 msgid "EN"
@@ -42,6 +61,7 @@ msgid "Search"
 msgstr "Recherche"
 
 #: u_translation.rsselectedsite
+#, object-pascal-format
 msgid "%s selected sites."
 msgstr "%s sites sélectionné"
 

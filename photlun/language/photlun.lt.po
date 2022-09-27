@@ -77,9 +77,9 @@ msgstr "Visas dydis"
 msgid "Help"
 msgstr "Žinynas"
 
-#: u_translation.rshelpprefix
-msgid "HelpPrefix"
-msgstr "UK_"
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr "LT"
 
 #: u_translation.rshorizontalmi
 msgid "Horizontal Mirror"

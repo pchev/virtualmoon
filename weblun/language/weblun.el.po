@@ -1,6 +1,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: u_translation.rsabout
+msgid "About"
+msgstr ""
+
 #: u_translation.rsaddresse
 msgid "Addresse"
 msgstr "Διεύθυνση"
@@ -16,6 +20,10 @@ msgstr "Περιγραφή"
 #: u_translation.rsfile
 msgid "File"
 msgstr "Αρχείο"
+
+#: u_translation.rshelp
+msgid "Help"
+msgstr ""
 
 #: u_translation.rshelp_prefix
 msgid "EN"
@@ -42,6 +50,7 @@ msgid "Search"
 msgstr "Αναζήτηση"
 
 #: u_translation.rsselectedsite
+#, object-pascal-format
 msgid "%s selected sites."
 msgstr "%s επιλεγμένες τοποθεσίες."
 

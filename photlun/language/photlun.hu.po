@@ -77,9 +77,9 @@ msgstr "Teljes méret"
 msgid "Help"
 msgstr "Segítség"
 
-#: u_translation.rshelpprefix
-msgid "HelpPrefix"
-msgstr "UK_"
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr "HU"
 
 #: u_translation.rshorizontalmi
 msgid "Horizontal Mirror"

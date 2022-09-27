@@ -80,9 +80,9 @@ msgstr "Mida màxima"
 msgid "Help"
 msgstr "Ajuda"
 
-#: u_translation.rshelpprefix
-msgid "HelpPrefix"
-msgstr "CA_"
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr "CA"
 
 #: u_translation.rshorizontalmi
 msgid "Horizontal Mirror"

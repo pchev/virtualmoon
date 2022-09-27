@@ -77,9 +77,9 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: u_translation.rshelpprefix
-msgid "HelpPrefix"
-msgstr "UK_"
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr ""
 
 #: u_translation.rshorizontalmi
 msgid "Horizontal Mirror"

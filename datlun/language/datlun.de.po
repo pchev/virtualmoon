@@ -39,7 +39,7 @@ msgid "Far side Unnamed Formation"
 msgstr "Unbenannte Formationen auf der Rückseite"
 
 #: u_translation.rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr "DE"
 
 #: u_translation.rshistorical

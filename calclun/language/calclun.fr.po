@@ -2,8 +2,8 @@
 # Patrick Chevalley <pchap-i.net>, 2022.
 msgid ""
 msgstr ""
-"Last-Translator: Patrick Chevalley <pchap-i.net>\n"
-"PO-Revision-Date: 2022-09-02 12:03+0100\n"
+"Last-Translator: pch <pch@ap-i.net>\n"
+"PO-Revision-Date: 2022-09-27 18:45+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr_FR\n"
@@ -11,7 +11,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 21.12.3\n"
+
+#: u_translation.rsabout
+msgid "About"
+msgstr "A propos "
 
 #: u_translation.rsalt
 msgid "Alt"
@@ -60,6 +64,10 @@ msgstr "Fermer"
 #: u_translation.rscolongitude
 msgid "Colongitude"
 msgstr "Colongitude"
+
+#: u_translation.rscompute
+msgid "Compute"
+msgstr "Calcul"
 
 #: u_translation.rsconfiguratio
 msgid "Configuration"
@@ -129,13 +137,25 @@ msgstr "Est"
 msgid "Elevation"
 msgstr "Élévation"
 
+#: u_translation.rsenddate
+msgid "End date"
+msgstr "Date de fin"
+
 #: u_translation.rsendtime
 msgid "End time"
 msgstr "Heure de fin"
 
+#: u_translation.rsephemeris
+msgid "Ephemeris"
+msgstr "Epheméride"
+
 #: u_translation.rsfebruary
 msgid "February"
 msgstr "Février"
+
+#: u_translation.rsfile
+msgid "File"
+msgstr "Fichier"
 
 #: u_translation.rsfirstquarter
 msgid "First quarter"
@@ -148,6 +168,14 @@ msgstr "Coordonnées de la formation"
 #: u_translation.rsfullmoon
 msgid "Full Moon"
 msgstr "Pleine Lune"
+
+#: u_translation.rshelp
+msgid "Help"
+msgstr "Aide"
+
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr "FR"
 
 #: u_translation.rshour
 msgid "Hour"
@@ -327,6 +355,10 @@ msgstr "Heure de lever"
 msgid "S"
 msgstr "S"
 
+#: u_translation.rssaveephemeri
+msgid "Save ephemeris to file"
+msgstr "Enregistre l'éphéméride dans un fichier"
+
 #: u_translation.rssearch
 msgid "Search"
 msgstr "Recherche"
@@ -359,9 +391,17 @@ msgstr "Réglages"
 msgid "South"
 msgstr "Sud"
 
+#: u_translation.rsstartdate
+msgid "Start date"
+msgstr "Date de début"
+
 #: u_translation.rsstarttime
 msgid "Start time"
 msgstr "Heure du début"
+
+#: u_translation.rssteps
+msgid "Steps"
+msgstr "Pas"
 
 #: u_translation.rssubsolarlati
 msgid "Sub-solar latitude"
@@ -442,5 +482,4 @@ msgstr "Ouest"
 #: u_translation.rsyear
 msgid "Year"
 msgstr "Année"
-
 

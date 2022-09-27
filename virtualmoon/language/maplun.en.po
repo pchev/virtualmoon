@@ -222,7 +222,7 @@ msgid "Height"
 msgstr ""
 
 #: u_translation.rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr ""
 
 #: u_translation.rshide
@@ -815,6 +815,10 @@ msgstr ""
 msgid "Telescope name"
 msgstr ""
 
+#: u_translation.rsterminatorli
+msgid "Terminator line"
+msgstr ""
+
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
 msgstr ""
@@ -945,10 +949,6 @@ msgstr ""
 
 #: u_translation.rst_124
 msgid "Power"
-msgstr ""
-
-#: u_translation.rst_125
-msgid "Options valid at next startup"
 msgstr ""
 
 #: u_translation.rst_129
@@ -1150,10 +1150,6 @@ msgstr ""
 
 #: u_translation.rst_181
 msgid "Mark size"
-msgstr ""
-
-#: u_translation.rst_182
-msgid "Force texture compression"
 msgstr ""
 
 #: u_translation.rst_183

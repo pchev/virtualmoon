@@ -86,7 +86,7 @@ object f_weblun: Tf_weblun
       Left = 408
       Height = 19
       Top = 4
-      Width = 66
+      Width = 65
       Caption = 'Recherche'
       ParentColor = False
     end
@@ -134,8 +134,8 @@ object f_weblun: Tf_weblun
     end
   end
   object MainMenu1: TMainMenu
-    left = 40
-    top = 184
+    Left = 40
+    Top = 176
     object File1: TMenuItem
       Caption = 'File'
       object ResetSelection: TMenuItem
@@ -147,6 +147,17 @@ object f_weblun: Tf_weblun
         OnClick = Quit1Click
       end
     end
+    object Help1: TMenuItem
+      Caption = 'Help'
+      object MenuHelp: TMenuItem
+        Caption = 'Documentation'
+        OnClick = MenuHelpClick
+      end
+      object MenuAbout: TMenuItem
+        Caption = 'About'
+        OnClick = MenuAboutClick
+      end
+    end
   end
   object DownloadDialog1: TDownloadDialog
     Timeout = 90000
@@ -154,21 +165,21 @@ object f_weblun: Tf_weblun
     FtpFwPassive = True
     ConfirmDownload = True
     QuickCancel = False
-    left = 128
-    top = 184
+    Left = 128
+    Top = 184
   end
   object InitTimer: TTimer
     Enabled = False
     Interval = 100
     OnTimer = InitTimerTimer
-    left = 224
-    top = 184
+    Left = 224
+    Top = 184
   end
   object UniqueInstance1: TUniqueInstance
     Enabled = True
     Identifier = 'Virtual_Moon_Atlas_WebLun'
     OnOtherInstance = UniqueInstance1OtherInstance
-    left = 320
-    top = 191
+    Left = 320
+    Top = 191
   end
 end

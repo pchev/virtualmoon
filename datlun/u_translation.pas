@@ -12,7 +12,7 @@ function Translate(lang : string = ''; lang2 : string = ''):string;
 
 resourcestring
 rstranslator='Translation: P. Chevalley / C. Legrand';
-rshelp_prefix='UK';
+rshelp_prefix='EN';
 rst_1='File';
 rst_2='Quit';
 rst_3='Selection';

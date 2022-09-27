@@ -223,7 +223,7 @@ msgid "Height"
 msgstr ""
 
 #: u_translation.rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr "NL"
 
 #: u_translation.rshide
@@ -817,6 +817,10 @@ msgstr ""
 msgid "Telescope name"
 msgstr ""
 
+#: u_translation.rsterminatorli
+msgid "Terminator line"
+msgstr ""
+
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
 msgstr "Texturen Airbursh verlichting zonder albedo"
@@ -952,10 +956,6 @@ msgstr "Label kort"
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Vergroting"
-
-#: u_translation.rst_125
-msgid "Options valid at next startup"
-msgstr "Optis beschikbaar bij de volgende opstart"
 
 #: u_translation.rst_129
 msgid "Database"
@@ -1159,10 +1159,6 @@ msgstr "Verwijder selectie markering"
 #: u_translation.rst_181
 msgid "Mark size"
 msgstr "Markeer grootte"
-
-#: u_translation.rst_182
-msgid "Force texture compression"
-msgstr "Forceer textuurcompressie"
 
 #: u_translation.rst_183
 msgid "Label Color"

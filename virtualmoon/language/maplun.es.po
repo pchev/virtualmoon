@@ -222,7 +222,7 @@ msgid "Height"
 msgstr ""
 
 #: u_translation.rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr "ES"
 
 #: u_translation.rshide
@@ -816,6 +816,10 @@ msgstr ""
 msgid "Telescope name"
 msgstr ""
 
+#: u_translation.rsterminatorli
+msgid "Terminator line"
+msgstr ""
+
 #: u_translation.rstexturesairb
 msgid "Textures Airbursh relief without albedo"
 msgstr "Realce de texturas de aerógrafo sin albedo"
@@ -951,10 +955,6 @@ msgstr "Etiqueta corta"
 #: u_translation.rst_124
 msgid "Power"
 msgstr "Aumentos"
-
-#: u_translation.rst_125
-msgid "Options valid at next startup"
-msgstr "Opciones válidas en el siguiente reinicio"
 
 #: u_translation.rst_129
 msgid "Database"
@@ -1158,10 +1158,6 @@ msgstr "Quitar la marca de selección"
 #: u_translation.rst_181
 msgid "Mark size"
 msgstr "Tamaño de la marca"
-
-#: u_translation.rst_182
-msgid "Force texture compression"
-msgstr "Forzar la compresión de textura"
 
 #: u_translation.rst_183
 msgid "Label Color"

@@ -14,7 +14,7 @@ resourcestring
 rstranslator='Translation: P. Chevalley / C. Legrand';
 rslanguage='English';
 rstitle='Virtual Lunar Atlas Command Center';
-rshelp_prefix='UK';
+rshelp_prefix='EN';
 rsVirtualLunar = 'Virtual Lunar Atlas';
 rsSpecialEditi = 'Special edition "10th anniversary"';
 rsDocumentatio = 'Documentation';

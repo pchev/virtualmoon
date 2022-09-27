@@ -3,7 +3,7 @@ msgid "Translation: P. Chevalley / C. Legrand"
 msgstr ""
 
 #: u_translation:rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr ""
 
 #: u_translation:rst_1

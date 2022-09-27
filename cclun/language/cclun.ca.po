@@ -36,7 +36,9 @@ msgid "Explore the Lunar Atlas maps"
 msgstr "Explora les cartes lunars de l'Atles"
 
 #: u_translation.rshelp_prefix
-msgid "UK"
+#, fuzzy
+#| msgid "UK"
+msgid "EN"
 msgstr "CA"
 
 #: u_translation.rslanguage

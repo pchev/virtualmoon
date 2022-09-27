@@ -2155,6 +2155,17 @@ object f_calclun: Tf_calclun
       Caption = 'Setup'
       OnClick = MenuSetupClick
     end
+    object MenuHelp: TMenuItem
+      Caption = 'Help'
+      object MenuItemDocumentation: TMenuItem
+        Caption = 'Documentation'
+        OnClick = MenuItemDocumentationClick
+      end
+      object MenuItemAbout: TMenuItem
+        Caption = 'About'
+        OnClick = MenuItemAboutClick
+      end
+    end
   end
   object TerminatorTimer: TTimer
     Enabled = False

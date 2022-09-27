@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-02-26 15:33+0100\n"
+"PO-Revision-Date: 2022-09-27 18:45+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.08.1\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: u_translation.rsatlundocumen
 msgid "AtLun documentation"
@@ -37,7 +37,7 @@ msgid "Explore the Lunar Atlas maps"
 msgstr "Explorer les cartes lunaires de l'Atlas"
 
 #: u_translation.rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr "FR"
 
 #: u_translation.rslanguage

@@ -237,7 +237,7 @@ msgid "Help"
 msgstr "Aide"
 
 #: u_translation.rshelp_prefix
-msgid "UK"
+msgid "EN"
 msgstr "FR"
 
 #: u_translation.rshorizontalre

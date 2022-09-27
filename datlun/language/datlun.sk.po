@@ -40,8 +40,8 @@ msgid "Far side Unnamed Formation"
 msgstr ""
 
 #: u_translation.rshelp_prefix
-msgid "UK"
-msgstr "UK"
+msgid "EN"
+msgstr "SK"
 
 #: u_translation.rshistorical
 msgid "Historical"
