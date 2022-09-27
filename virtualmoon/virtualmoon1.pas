@@ -1097,7 +1097,7 @@ begin
   markcolor := clRed;
   spritecolor:=clRed;
   autolabelcolor := clYellow;
-  bassinColor:=clGreen;
+  bassinColor:=clYellow;
   labelcenter := True;
   shortdesc:=true;
   minilabel := True;
