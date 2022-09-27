@@ -1472,8 +1472,6 @@ except
    halt;
   end;
 end;
-// simple antialias
-GLSceneViewer1.Buffer.AntiAliasing:=aa4x;
 // defaut compression
 TextureCmp:=tcDefault;
 CreateTerminator;

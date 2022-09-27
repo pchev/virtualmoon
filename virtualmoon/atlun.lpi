@@ -48,7 +48,12 @@
             <Verbosity>
               <ShowHints Value="False"/>
             </Verbosity>
-            <CustomOptions Value="-dUseCThreads"/>
+            <CustomOptions Value="-dUseCThreads
+-dUSEHEAPTRC"/>
+            <OtherDefines Count="2">
+              <Define0 Value="UseCThreads"/>
+              <Define1 Value="USEHEAPTRC"/>
+            </OtherDefines>
           </Other>
         </CompilerOptions>
       </Item2>
