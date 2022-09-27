@@ -2934,17 +2934,23 @@ end;
 
 procedure Tform1.ImpactBassinCircle(moon:Tf_moon);
 var lon,lat,r: single;
+    n: string;
     i: integer;
 begin
   moon.ClearCircle;
   if usedatabase[DbImpactBassin] then begin
-     dbm.query('select LONGI_N,LATI_N,LENGTH_KM from moon where DBN=' + IntToStr(DbImpactBassin) + ';');
+     dbm.query('select NAME,LONGI_N,LATI_N,LENGTH_KM from moon where DBN=' + IntToStr(DbImpactBassin) + ';');
      for i:=0 to dbm.RowCount-1 do begin
-       lon:=StrToFloatDef(dbm.Results[i][0],0);
-       lat:=StrToFloatDef(dbm.Results[i][1],0);
-       r:=StrToFloatDef(dbm.Results[i][2],0)/2;
-       if r>0 then
-         moon.Circle(lon,lat,r,bassinColor)
+       n:=dbm.Results[i][0];
+       lon:=StrToFloatDef(dbm.Results[i][1],0);
+       lat:=StrToFloatDef(dbm.Results[i][2],0);
+       r:=StrToFloatDef(dbm.Results[i][3],0)/2;
+       if r>0 then begin
+         if n=currentname then
+           moon.Circle(lon,lat,r,markcolor)
+         else
+           moon.Circle(lon,lat,r,bassinColor)
+       end;
      end;
   end;
 end;
@@ -3270,6 +3276,7 @@ begin
     currentid   := searchlist[searchpos];
     currentname := dbm.Results[0].ByField['NAME'].AsString;
     activemoon.SetMark(deg2rad*currentl, deg2rad*currentb, capitalize(currentname));
+    if usedatabase[DbImpactBassin] then ImpactBassinCircle(activemoon);
     if center then begin
       if activemoon.VisibleSideLock and (abs(currentl)>95) then begin
         ToolButton3.Down:=true;
@@ -6366,8 +6373,10 @@ if button=mbLeft then begin
     sl:=sidelist;
     identLB(Rad2Deg*Lon,Rad2Deg*Lat,wmin,sl);
     Tf_moon(Sender).SetMark(deg2rad*currentl,deg2rad*currentb,capitalize(currentname));
+    if usedatabase[DbImpactBassin] then ImpactBassinCircle(Tf_moon(Sender));
   end else begin
      Tf_moon(Sender).SetMark(0,0,'');
+     if usedatabase[DbImpactBassin] then ImpactBassinCircle(Tf_moon(Sender));
   end;
 end;
 end;
