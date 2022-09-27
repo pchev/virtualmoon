@@ -534,7 +534,7 @@ type
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
     firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseWeblun,CanCloseCDC,CanCloseNoteLun,StartDatlun,StartWeblun,StartPhotlun,StartCDC,StartCalclun,StartNotelun: boolean;
     Desctxt,MsgNoDB: string;
-    dblox: TLiteDB;
+    dblox,dbimp: TLiteDB;
     {$ifdef windows}
     savetop,saveleft,savewidth,saveheight: integer;
     {$endif}
@@ -2338,6 +2338,7 @@ begin
     end;
     memo.Lines.Add(buf);
   end;
+  dblox.Clear;
 
   //Origine
   memo.Lines.Add(rsm_62); //Origine
@@ -2735,6 +2736,7 @@ begin
     end;
     txtbuf := txtbuf + br;
   end;
+  dblox.Clear;
 
   if txtbuf>'' then begin
     anchorvisible[5]:=true;
@@ -2935,12 +2937,12 @@ var lon,lat,r: single;
 begin
   moon.ClearCircle;
   if usedatabase[DbImpactBassin] then begin
-     dbm.query('select NAME,LONGI_N,LATI_N,LENGTH_KM from moon where DBN=' + IntToStr(DbImpactBassin) + ';');
-     for i:=0 to dbm.RowCount-1 do begin
-       n:=dbm.Results[i][0];
-       lon:=StrToFloatDef(dbm.Results[i][1],0);
-       lat:=StrToFloatDef(dbm.Results[i][2],0);
-       r:=StrToFloatDef(dbm.Results[i][3],0)/2;
+     dbimp.query('select NAME,LONGI_N,LATI_N,LENGTH_KM from moon where DBN=' + IntToStr(DbImpactBassin) + ';');
+     for i:=0 to dbimp.RowCount-1 do begin
+       n:=dbimp.Results[i][0];
+       lon:=StrToFloatDef(dbimp.Results[i][1],0);
+       lat:=StrToFloatDef(dbimp.Results[i][2],0);
+       r:=StrToFloatDef(dbimp.Results[i][3],0)/2;
        if r>0 then begin
          if n=currentname then
            moon.Circle(lon,lat,r,markcolor)
@@ -2948,6 +2950,7 @@ begin
            moon.Circle(lon,lat,r,bassinColor)
        end;
      end;
+     dbimp.Clear;
   end;
 end;
 
@@ -3996,6 +3999,8 @@ try
   LoadLopamIdx('lopamidx',Slash(appdir) + 'Database',dbm);
   dblox:=TLiteDB.Create(self);
   dblox.Use(dbm.DataBase);
+  dbimp:=TLiteDB.Create(self);
+  dbimp.Use(dbm.DataBase);
   if UseComputerTime then
     InitDate
   else
@@ -4895,6 +4900,7 @@ begin
     dbm.free;
     dbnotes.free;
     dblox.Free;
+    dbimp.Free;
     DatabaseList.Free;
     tz.Free;
     Fplanet.Free;
