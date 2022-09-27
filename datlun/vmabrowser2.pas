@@ -38,6 +38,11 @@ type
     Button21: TButton;
     CheckListBox2: TCheckListBox;
     PageControl1: TPageControl;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
     TabSheet1: TTabSheet;
     TabSheet3: TTabSheet;
     Label1: TLabel;
@@ -135,10 +140,10 @@ begin
   Button20.Caption:=rst_10;
   Button21.Caption:=rsAdd;
   Checklistbox1.Items.Clear;
-  for i:=1 to 13 do
+  for i:=1 to numdbtypepage-1 do
       Checklistbox1.Items.Add(dbtype[i]);
   Checklistbox2.Items.Clear;
-  for i:=14 to 25 do
+  for i:=numdbtypepage to numdbtype do
       Checklistbox2.Items.Add(dbtype[i]);
 
 end;
@@ -247,10 +252,10 @@ if not allchecked then begin
   if CheckListBox2.Checked[i] then begin
      if i>=8 then wildcard:='%';
      if first then begin
-        buf:=' and ( (TYPE LIKE "'+dbtype[i+14]+wildcard+'")';
+        buf:=' and ( (TYPE LIKE "'+dbtype[i+numdbtypepage]+wildcard+'")';
         first:=false;
      end else begin
-        buf:=buf+ ' or (TYPE LIKE "'+dbtype[i+14]+wildcard+'")';
+        buf:=buf+ ' or (TYPE LIKE "'+dbtype[i+numdbtypepage]+wildcard+'")';
      end;
   end;
  end; // for

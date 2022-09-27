@@ -109,6 +109,22 @@ msgstr "Equipamiento inerte"
 msgid "Pyroclastic area"
 msgstr "Área piroclástica"
 
+#: u_translation_database.rscol_26
+msgid "Irregular Mare Patch"
+msgstr ""
+
+#: u_translation_database.rscol_27
+msgid "Lunar pit"
+msgstr ""
+
+#: u_translation_database.rscol_28
+msgid "Impact basin"
+msgstr ""
+
+#: u_translation_database.rscol_29
+msgid "Contemporary meteoritic impact"
+msgstr ""
+
 #: u_translation_database.rscol_3
 msgid "Crater chain"
 msgstr "Cadena de cráteres"
@@ -136,42 +152,6 @@ msgstr "Domo"
 #: u_translation_database.rscol_9
 msgid "Dome system"
 msgstr "Sistema de domos"
-
-#: u_translation_database.rsdb_1
-msgid "NSN"
-msgstr "NSN"
-
-#: u_translation_database.rsdb_2
-msgid "NSI"
-msgstr "NSI"
-
-#: u_translation_database.rsdb_3
-msgid "FSN"
-msgstr "FSN"
-
-#: u_translation_database.rsdb_4
-msgid "FSI"
-msgstr "FSI"
-
-#: u_translation_database.rsdb_5
-msgid "HIS"
-msgstr "HIS"
-
-#: u_translation_database.rsdb_6
-msgid "PYR"
-msgstr "PIR"
-
-#: u_translation_database.rsdb_7
-msgid "DOM"
-msgstr "DOM"
-
-#: u_translation_database.rsdb_8
-msgid "NSU"
-msgstr ""
-
-#: u_translation_database.rsdb_9
-msgid "FSU"
-msgstr ""
 
 #: u_translation_database.warning1
 msgid " Note to translator:"

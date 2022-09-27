@@ -125,7 +125,8 @@ const crlf = chr(10)+chr(13);
       DbImpactBassin=9;
       // Datlun constant
       numdb=99;
-      numdbtype = 25;
+      numdbtype = 29;
+      numdbtypepage = 15;
       // NAMETYPE SUBTYPE PROCESS GEOLOGY AREA TIPS
       //hidenfields = [5,7,9,10,33,53];
       hidenfields = [];
@@ -263,7 +264,6 @@ Var  Splashversion, compile_time, compile_version: string;
 
      // Datlun var
      dbtype : array[1..numdbtype] of string;
-     dbshortname : array[1..numdb] of string;
      dbselection: string;
      dbm,dbnotes: TLiteDB;
 

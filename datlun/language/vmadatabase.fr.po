@@ -1,14 +1,16 @@
+# pch <pch@ap-i.net>, 2022.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: pch\n"
-"PO-Revision-Date: 2012-04-09 22:35+0200\n"
+"Last-Translator: pch <pch@ap-i.net>\n"
+"PO-Revision-Date: 2022-09-27 21:31+0200\n"
 "Project-Id-Version: vmadatabase.fr\n"
-"Language-Team: Français <kde-i18n-doc@kde.org>\n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 21.12.3\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
 
 #: u_translation_database.rsb_1
 msgid "Not named"
@@ -118,6 +120,22 @@ msgstr "Matériel inerte"
 msgid "Pyroclastic area"
 msgstr "Région à caractère pyroclastique"
 
+#: u_translation_database.rscol_26
+msgid "Irregular Mare Patch"
+msgstr "Tache marine irrégulière"
+
+#: u_translation_database.rscol_27
+msgid "Lunar pit"
+msgstr "Puit lunaire"
+
+#: u_translation_database.rscol_28
+msgid "Impact basin"
+msgstr "Bassin d'impact"
+
+#: u_translation_database.rscol_29
+msgid "Contemporary meteoritic impact"
+msgstr "Impact météoritique contemporain"
+
 #: u_translation_database.rscol_3
 msgid "Crater chain"
 msgstr "Chaîne de cratères"
@@ -145,42 +163,6 @@ msgstr "Dôme"
 #: u_translation_database.rscol_9
 msgid "Dome system"
 msgstr "Système de dômes"
-
-#: u_translation_database.rsdb_1
-msgid "NSN"
-msgstr "FVN"
-
-#: u_translation_database.rsdb_2
-msgid "NSI"
-msgstr "FVI"
-
-#: u_translation_database.rsdb_3
-msgid "FSN"
-msgstr "FCN"
-
-#: u_translation_database.rsdb_4
-msgid "FSI"
-msgstr "FCI"
-
-#: u_translation_database.rsdb_5
-msgid "HIS"
-msgstr "HIS"
-
-#: u_translation_database.rsdb_6
-msgid "PYR"
-msgstr "PYR"
-
-#: u_translation_database.rsdb_7
-msgid "DOM"
-msgstr "DOM"
-
-#: u_translation_database.rsdb_8
-msgid "NSU"
-msgstr "FVU"
-
-#: u_translation_database.rsdb_9
-msgid "FSU"
-msgstr "FCU"
 
 #: u_translation_database.warning1
 msgid " Note to translator:"

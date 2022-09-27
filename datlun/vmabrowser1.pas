@@ -359,15 +359,10 @@ u_translation_database.translate(language,'en');
   dbtype[23]:=rscol_23;
   dbtype[24]:=rscol_24;
   dbtype[25]:=rscol_25;
-  dbshortname[1]:=rsdb_1;
-  dbshortname[2]:=rsdb_2;
-  dbshortname[3]:=rsdb_3;
-  dbshortname[4]:=rsdb_4;
-  dbshortname[5]:=rsdb_5;
-  dbshortname[6]:=rsdb_6;
-  dbshortname[7]:=rsdb_7;
-  dbshortname[8]:=rsdb_8;
-  dbshortname[9]:=rsdb_9;
+  dbtype[26]:=rscol_26;
+  dbtype[27]:=rscol_27;
+  dbtype[28]:=rscol_28;
+  dbtype[29]:=rscol_29;
   Selection.SetLang;
   LoadCSV.SetLang;
   SelectDB.SetLang;
@@ -681,7 +676,7 @@ try
   IDlist[dbrow-currentrow+1]:=strtointdef(buf,-1);
   buf:=dbm.Results[dbrow][1];
   dbn:=strtointdef(buf,-1);
-  if (dbn>0)and(dbn<=numdb) then buf:=DatabaseList[dbn-1];//dbshortname[dbn];
+  if (dbn>0)and(dbn<=numdb) then buf:=DatabaseList[dbn-1];
   MoonGrid.Cells[0,dbrow-currentrow+1]:=buf;
   for dbcol:=2 to MoonGrid.ColCount do begin
     if MoonGrid.ColWidths[dbcol-1]>0 then
