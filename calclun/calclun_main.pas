@@ -10,7 +10,7 @@ uses
   {$endif}
   cspice, pas_spice, moon_spice, u_util, u_constant, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
   TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8, config, u_translation, FileUtil, downloaddialog, splashunit,
-  passql, passqlite, dbutil,
+  passql, passqlite, dbutil, pu_ephem,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, Spin, ComCtrls, Grids, Menus, Buttons,
   LCLVersion, Types, TACustomSeries, TAMultiSeries, TATransformations;
 
@@ -106,6 +106,9 @@ type
     LabelTime: TLabel;
     LabelTZ: TLabel;
     MemoDay: TMemo;
+    MenuFile: TMenuItem;
+    MenuQuit: TMenuItem;
+    MenuPrintEphem: TMenuItem;
     PageControlPrediction: TPageControl;
     Panel1: TPanel;
     Panel10: TPanel;
@@ -235,6 +238,8 @@ type
     procedure GridTerminator1DblClick(Sender: TObject);
     procedure GridTerminator2DblClick(Sender: TObject);
     procedure LibrationTimerTimer(Sender: TObject);
+    procedure MenuPrintEphemClick(Sender: TObject);
+    procedure MenuQuitClick(Sender: TObject);
     procedure PageControlPredictionChange(Sender: TObject);
     procedure PredictionChange(Sender: TObject);
     procedure PredictionEditingDone(Sender: TObject);
@@ -657,10 +662,12 @@ begin
   end;
 {$endif}
   privatedir := DefaultPrivateDir;
+  HomeDir := DefaultHomeDir;
 {$ifdef unix}
   appdir     := expandfilename(appdir);
   bindir     := slash(appdir);
   privatedir := expandfilename(PrivateDir);
+  Homedir := expandfilename(Homedir);
   configfile := expandfilename(Defaultconfigfile);
   CdCconfig  := ExpandFileName(DefaultCdCconfig);
 {$endif}
@@ -685,6 +692,9 @@ begin
   configfile := slash(privatedir) + Defaultconfigfile;
   CdCconfig  := slash(buf) + DefaultCdCconfig;
   bindir:=slash(appdir);
+  SHGetSpecialFolderLocation(0, CSIDL_PERSONAL, PIDL);
+  SHGetPathFromIDList(PIDL, Folder);
+  homedir := trim(WinCPToUTF8(Folder));
 {$endif}
 
   if fileexists(configfile) then begin
@@ -1529,7 +1539,7 @@ begin
      GridMonth.Cells[mcolRa2000,i]:=ARpToStr(ra);
      GridMonth.Cells[mcolDe2000,i]:=DEpToStr(de);
      GridMonth.Cells[mcolDist,i]:=FormatFloat(f3,r);
-     diam:=60*rad2deg*arctan(2*1737.4/r);
+     diam:=60*rad2deg*arctan(2*Rmoon/r);
      data.diam:=diam;
      GridMonth.Cells[mcolDiam,i]:=FormatFloat(f2,diam);
      GridMonth.Cells[mcolPa,i]:=FormatFloat(f2,pa);
@@ -1661,7 +1671,7 @@ begin
      GridDay.Cells[dcolRa2000,i]:=ARpToStr(ra);
      GridDay.Cells[dcolDe2000,i]:=DEpToStr(de);
      GridDay.Cells[dcolDist,i]:=FormatFloat(f3,r);
-     diam:=60*rad2deg*arctan(2*1737.4/r);
+     diam:=60*rad2deg*arctan(2*Rmoon/r);
      GridDay.Cells[dcolDiam,i]:=FormatFloat(f2,diam);
      GridDay.Cells[dcolPa,i]:=FormatFloat(f2,pa);
 
@@ -1730,7 +1740,7 @@ begin
   pa:=pa*rad2deg;
   ra:=ra*rad2deg/15;
   de:=de*rad2deg;
-  diam:=60*rad2deg*arctan(2*1737.4/r);
+  diam:=60*rad2deg*arctan(2*Rmoon/r);
   // Apparent position
   if not MoonTopocentric(et,true,obspos,obsref,x,y,z,r1,ra1,de1) then begin
     StatusLabel.Caption:=SpiceLastError;
@@ -2948,6 +2958,28 @@ begin
     ComputeLibration;
     LockPredictionTimer:=false;
   end;
+end;
+
+procedure Tf_calclun.MenuPrintEphemClick(Sender: TObject);
+begin
+  if f_ephem=nil then begin
+     f_ephem:=Tf_ephem.Create(self);
+     f_ephem.tz:=tz;
+     f_ephem.Setlang;
+     f_ephem.annee.Value:=CurYear;
+     f_ephem.annee1.Value:=CurYear;
+     f_ephem.mois.Value:=CurrentMonth;
+     f_ephem.mois1.Value:=CurrentMonth;
+     f_ephem.jour.Value:=CurrentDay;
+     f_ephem.jour1.Value:=CurrentDay;
+  end;
+  FormPos(f_ephem,mouse.CursorPos.X,Mouse.CursorPos.Y);
+  f_ephem.ShowModal;
+end;
+
+procedure Tf_calclun.MenuQuitClick(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure Tf_calclun.ComputeLibration;

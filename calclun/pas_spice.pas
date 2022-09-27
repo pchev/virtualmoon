@@ -16,6 +16,7 @@ function initdoublecell(index: SpiceInt): PSpiceCell;
 function initintcell(index: SpiceInt): PSpiceCell;
 function DateTime2ET(tim:TDateTime): double;
 function ET2DateTime(et:double): TDateTime;
+function ET2Str(et:double):string;
 procedure spkinfo(spk: ConstSpiceChar; info:TStrings);
 procedure pckinfo(pck: ConstSpiceChar; info:TStrings);
 procedure spkallinfo(info:TStrings);
@@ -84,6 +85,15 @@ begin
   // convert a cspice ET to TDateTime
   et2utc_c(et,'ISOC',3,80,@buf);
   result:=DateIso2DateTime(buf);
+end;
+
+function ET2Str(et:double):string;
+var pictur: ConstSpiceChar;
+    buf: array[0..80] of char;
+begin
+  pictur:='YYYY-MM-DD HR:MN:SC ::TDT';
+  timout_c(et,pictur,80,@buf);
+  result:=buf;
 end;
 
 procedure spkinfo(spk: ConstSpiceChar; info:TStrings);

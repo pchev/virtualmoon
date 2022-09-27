@@ -131,7 +131,7 @@ const crlf = chr(10)+chr(13);
       hidenfields = [];
 
 {$ifdef linux}
-      DefaultHome='~/';
+      DefaultHomeDir='~/';
       DefaultPrivateDir='~/.virtualmoon';
       Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='../share/virtualmoon';
@@ -147,7 +147,7 @@ const crlf = chr(10)+chr(13);
       DefaultVignetteDir='vignette';
 {$endif}
 {$ifdef darwin}
-      DefaultHome='~/';
+      DefaultHomeDir='~/';
       DefaultPrivateDir='~/.virtualmoon';
       Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='/usr/share/virtualmoon';
@@ -163,6 +163,7 @@ const crlf = chr(10)+chr(13);
       DefaultVignetteDir='vignette';
 {$endif}
 {$ifdef mswindows}
+      DefaultHomeDir='';
       DefaultPrivateDir='virtualmoon';
       Defaultconfigfile='vma.rc';
       SharedDir='.\';

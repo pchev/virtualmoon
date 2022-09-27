@@ -14,7 +14,7 @@ uses
   GLScene_RunTime, CraterList, dbutil, fmsg, glossary, splashunit, SysUtils,
   TurboPowerIPro, lazcontrols, tachartlazaruspkg, u_constant, cu_tz, cu_planet,
   u_projection, u_util, pu_moon, u_translation_database, u_translation,
-  uniqueinstance_package, laz_synapse, pu_features, BigIma, uDE, mlb2, pu_ephem,
+  uniqueinstance_package, laz_synapse, pu_features, BigIma, uDE, mlb2,
   tabsdock, pu_ascomclient, pu_indiclient, cu_ascomrest, cu_dem, pu_demprofile;
 
 {$R *.res}

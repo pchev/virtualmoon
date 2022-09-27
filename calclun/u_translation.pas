@@ -119,6 +119,13 @@ rsTimePredicti3 = 'Prediction for colongitude';
 rsPredictionFo = 'Prediction for libration, with formation illuminated';
 rsSunElevation = 'Sun elevation at start';
 rsSunElevation4 = 'Sun elevation at end';
+rsSaveEphemeri = 'Save ephemeris to file';
+rsStartDate = 'Start date';
+rsEndDate = 'End date';
+rsSteps = 'Steps';
+rsEphemeris = 'Ephemeris';
+rsFile = 'File';
+rsCompute = 'Compute';
 
 implementation
 

@@ -142,7 +142,7 @@
         <PackageName Value="LCL"/>
       </Item13>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="26">
       <Unit0>
         <Filename Value="atlun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -252,48 +252,41 @@
         <IsPartOfProject Value="True"/>
       </Unit19>
       <Unit20>
-        <Filename Value="pu_ephem.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="f_ephem"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit20>
-      <Unit21>
         <Filename Value="tabsdock.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_tabsdock"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit21>
-      <Unit22>
+      </Unit20>
+      <Unit21>
         <Filename Value="pu_ascomclient.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="pop_scope"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit22>
-      <Unit23>
+      </Unit21>
+      <Unit22>
         <Filename Value="pu_indiclient.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="pop_indi"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="cu_ascomrest.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit23>
       <Unit24>
-        <Filename Value="cu_ascomrest.pas"/>
+        <Filename Value="cu_dem.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit24>
       <Unit25>
-        <Filename Value="cu_dem.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit25>
-      <Unit26>
         <Filename Value="pu_demprofile.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_demprofile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit26>
+      </Unit25>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
