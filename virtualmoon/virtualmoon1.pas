@@ -2942,7 +2942,7 @@ begin
      for i:=0 to dbm.RowCount-1 do begin
        lon:=StrToFloatDef(dbm.Results[i][0],0);
        lat:=StrToFloatDef(dbm.Results[i][1],0);
-       r:=StrToFloatDef(dbm.Results[i][2],0);
+       r:=StrToFloatDef(dbm.Results[i][2],0)/2;
        if r>0 then
          moon.Circle(lon,lat,r,bassinColor)
      end;
