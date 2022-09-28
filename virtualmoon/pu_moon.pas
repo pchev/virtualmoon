@@ -1066,6 +1066,8 @@ if value<>FVisibleSideLock then begin
       GLLightSource1.Position:=GLCamera1.Position;
       GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
    end;
+   GLDummyCubeDistance.DeleteChildren;
+   GLDummyCubeDistance.Visible:=false;
    GLSceneViewer1.Refresh;
 end;
 end;
@@ -2275,7 +2277,7 @@ begin
 end;
 
 procedure Tf_moon.Circle(lon,lat,r: single; c: tcolor);
-const   qr=0.5002;
+const   qr=0.50013;
 var newcircle : TGLLines;
     l,b,x,y,z,step: single;
     k,nk : Integer;
@@ -2314,8 +2316,8 @@ begin
 end;
 
 procedure Tf_moon.CreateTerminator;
-const   qr=0.5005;
-var l,b,x,y,z,space,step: single;
+const   qr=0.50015;
+var l,b,x,y,z,step: single;
     k,nk: integer;
   procedure coords;
   var cl,sl,cb,sb: single;
@@ -2356,7 +2358,7 @@ begin
 end;
 
 procedure Tf_moon.SetGridSpacing(value:integer);
-const   qr=0.5005;
+const   qr=0.50011;
 var 	i,j,k,nl,nb,nk : Integer;
         l,b,x,y,z,space: single;
 	newline : TGLLines;
@@ -2643,10 +2645,9 @@ begin
 end;
 
 procedure Tf_moon.MeasureDistance(x, y: integer);
-const   qr=0.5000;
 var
   i,j,x1,y1,x2,y2: integer;
-  xx, yy, zz, l, b, d, s,step,startxx,startyy: single;
+  xx, yy, zz, l, b, d, s,step,startxx,startyy,qr: single;
   lat,lon,dist,dista,A: double;
   m1,m2,m3,m4,m5: string;
   gc: TGreatCircle;
@@ -2663,6 +2664,10 @@ begin
   zz:=qr*sb;
 end;
 begin
+ if FVisibleSideLock then
+   qr:=0.50002
+ else
+   qr:=0.5001;
  if Screen2Moon(x,y,l,b) then begin
   MeasureLastX:=x;
   MeasureLastY:=y;
