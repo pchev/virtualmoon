@@ -160,7 +160,7 @@ procedure DBjournal(dbname,txt:string);
 Procedure LoadILCD(fn,path,tname:string; dbm: TLiteDB);
 procedure LoadILCDcols(fn,path,lang:string);
 Procedure LoadLopamIdx(fn,path:string; dbm: TLiteDB);
-Procedure LoadNotelunDB(db: TLiteDB);
+function LoadNotelunDB(db: TLiteDB): integer;
 
 implementation
 
@@ -587,12 +587,14 @@ begin
   end;
 end;
 
-Procedure LoadNotelunDB(db: TLiteDB);
+function LoadNotelunDB(db: TLiteDB): integer;
 var cmd,buf,txt,user: string;
     row: TStringList;
     f: TextFile;
     dt:double;
+    n: integer;
 begin
+  n:=0;
   db.Use(Slash(DBdir)+DBnamenotes+'.dbl');
   buf:=db.QueryOne('select version from dbversion;');
   // next version will eventually look for upgrade
@@ -745,14 +747,16 @@ begin
         txt:=StringReplace(row[1],'||',#10,[rfReplaceAll]);
         cmd:='insert into infonotes values(NULL,"'+row[0]+'","'+formatfloat(f5,dt)+'","'+user+'","'+txt+'","");';
         db.Query(cmd);
-        if db.LastError<>0 then dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage);
+        if db.LastError<>0 then
+          dbjournal(extractfilename(db.database),copy(cmd,1,60)+'...  Error: '+db.ErrorMessage)
+        else
+          inc(n);
       until EOF(f);
       CloseFile(f);
       row.Free;
     end;
-
 end;
-
+result:=n;
 end;
 
 end.

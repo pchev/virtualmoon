@@ -262,7 +262,7 @@ type
     Fplanet: TPlanet;
     Finfodate,Fobsdatestart,Fobsdateend: double;
     param : Tstringlist;
-    StartVMA,CanCloseVMA,StartPhotLun,StartDatlun,StartWeblun,locklist,SortAsc: boolean;
+    FirstRun,StartVMA,CanCloseVMA,StartPhotLun,StartDatlun,StartWeblun,locklist,SortAsc: boolean;
     EditingObservation,EditingInformation,ModifiedObservation,ModifiedInformation,NewInformation,NewObservation: boolean;
     CurrentInfoId, CurrentObsId, CurrentObsLocation: int64;
     LastLocation,LastObserver,LastInstrument,LastBarlow,LastEyepiece,LastCamera: Int64;
@@ -388,6 +388,7 @@ var inif: TMemIniFile;
     i: integer;
 begin
   inif := Tmeminifile.Create(ConfigFile);
+  FirstRun:=(not inif.SectionExists('Notelun'));
   section:='Notelun';
   LastLocation:=inif.ReadInt64(section, 'LastLocation', 0);
   LastObserver:=inif.ReadInt64(section, 'LastObserver', 0);
@@ -464,13 +465,18 @@ begin
   usedatabase[1]:=true;
   DatabaseList:=Tstringlist.Create;
   LoadDB(dbm);
-  LoadNotelunDB(dbnotes);
+  i:=LoadNotelunDB(dbnotes);
+  if i>0 then MessageDlg('NoteLun',Format(rsInformationN2, [inttostr(i)]),mtInformation,[mbOK],0);
   f_search.dbm:=dbm;
   ClearObsNote;
   ClearInfoNote;
   PageControl1.ActivePageIndex:=0;
   CurrentFormation:='';
   LoadObsBoxes;
+  if FirstRun then begin
+    messagedlg(rsBeforeToCrea+crlf+rsYouCanComple+': '+rsSetup, mtInformation, [mbOK], 0);
+    MenuSetupObservation(MenuItemSetupLocation);
+  end;
   ReadParam;
   if CurrentFormation='' then NotesList;
 end;

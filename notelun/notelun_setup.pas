@@ -96,6 +96,7 @@ end;
 
 procedure TFSetup.SetLang;
 begin
+  Caption:=rsSetup;
   BtnAddRow.Caption:=rsAddRow;
   BtnSave.Caption:=rsSave;
   BtnCancel.Caption:=rsCancel;
