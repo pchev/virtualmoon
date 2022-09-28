@@ -526,3 +526,15 @@ msgstr ""
 msgid "Export observation notes as"
 msgstr ""
 
+#: u_translation:rsbeforetocrea
+msgid "Before to create observation notes you need to configure the equipment in use and the location you observe from, so this can be picked in the note."
+msgstr ""
+
+#: u_translation:rsyoucancomple
+msgid "You can complete that later using the menu"
+msgstr ""
+
+#: u_translation:rsinformationn2
+msgid "%s information notes imported from previous version"
+msgstr ""
+

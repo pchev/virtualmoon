@@ -37,6 +37,10 @@ msgstr ""
 msgid "Barlow/Reducer"
 msgstr ""
 
+#: u_translation.rsbeforetocrea
+msgid "Before to create observation notes you need to configure the equipment in use and the location you observe from, so this can be picked in the note."
+msgstr ""
+
 #: u_translation.rsbydate
 msgid "By date"
 msgstr ""
@@ -239,6 +243,11 @@ msgstr ""
 
 #: u_translation.rsinformationn
 msgid "Information note"
+msgstr ""
+
+#: u_translation.rsinformationn2
+#, object-pascal-format
+msgid "%s information notes imported from previous version"
 msgstr ""
 
 #: u_translation.rsinstrument
@@ -527,5 +536,9 @@ msgstr ""
 
 #: u_translation.rsyear
 msgid "Year"
+msgstr ""
+
+#: u_translation.rsyoucancomple
+msgid "You can complete that later using the menu"
 msgstr ""
 
