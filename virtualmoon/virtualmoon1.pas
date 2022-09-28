@@ -1098,6 +1098,7 @@ begin
   spritecolor:=clRed;
   autolabelcolor := clYellow;
   bassinColor:=clYellow;
+  terminatorColor:=clBlue;
   labelcenter := True;
   shortdesc:=true;
   minilabel := True;
@@ -1197,6 +1198,7 @@ begin
     MarkColor    := ReadInteger(section, 'MarkColor', MarkColor);
     spritecolor:=markcolor;
     bassinColor    := ReadInteger(section, 'bassinColor', bassinColor);
+    terminatorColor := ReadInteger(section, 'terminatorColor', terminatorColor);
     AutolabelColor := ReadInteger(section, 'AutolabelColor', AutolabelColor);
     gridspacing := ReadInteger(section, 'GridSpacing', gridspacing);
     LabelDensity := ReadInteger(section, 'LabelDensity', LabelDensity);
@@ -1367,6 +1369,7 @@ begin
       WriteInteger(section, 'LabelColor', MarkLabelColor);
       WriteInteger(section, 'MarkColor', MarkColor);
       WriteInteger(section, 'bassinColor', bassinColor);
+      WriteInteger(section, 'terminatorColor', terminatorColor);
       WriteInteger(section, 'AutolabelColor', AutolabelColor);
       WriteInteger(section, 'LabelDensity', LabelDensity);
       WriteInteger(section, 'GridSpacing', gridspacing);
@@ -4184,6 +4187,7 @@ begin
     form2.Shape2.Brush.Color := markcolor;
     form2.Shape3.Brush.Color := autolabelcolor;
     form2.Shape4.Brush.Color := bassinColor;
+    form2.Shape5.Brush.Color := terminatorColor;
     form2.TrackBar2.Position := -LabelDensity;
     form2.TrackBar4.Position := marksize;
     form2.newlang := language;
@@ -4271,6 +4275,7 @@ begin
       autolabelcolor := form2.Shape3.Brush.Color;
       redrawbassin := bassinColor<>form2.Shape4.Brush.Color;
       bassinColor     := form2.Shape4.Brush.Color;
+      terminatorColor := form2.Shape5.Brush.Color;
       LabelDensity  := abs(form2.TrackBar2.Position);
       TrackBar9.Position:=LabelDensity;
       marksize      := form2.TrackBar4.Position;
@@ -4336,6 +4341,8 @@ begin
         ImpactBassinCircle(moon1);
         if moon2<>nil then ImpactBassinCircle(moon2);
       end;
+      moon1.GLLinesTerminator.LineColor.AsWinColor:=terminatorColor;
+      if moon2<>nil then moon2.GLLinesTerminator.LineColor.AsWinColor:=terminatorColor;
       LibrationButton.Down := librationeffect;
       PhaseButton.Down     := phaseeffect;
       externalimage := form2.CheckBox12.Checked;

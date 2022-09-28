@@ -2330,7 +2330,7 @@ begin
   GLLinesTerminator.SplineMode:=lsmCubicSpline;
   GLLinesTerminator.ShowAxes:=false;
   GLLinesTerminator.AntiAliased:=true;
-  GLLinesTerminator.LineColor.AsWinColor:=clWhite;
+  GLLinesTerminator.LineColor.AsWinColor:=terminatorColor;
   GLLinesTerminator.NodesAspect:=lnaInvisible;
   GLLinesTerminator.Visible:=true;
   nk:=120;

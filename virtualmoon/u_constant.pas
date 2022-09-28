@@ -257,7 +257,7 @@ Var  Splashversion, compile_time, compile_version: string;
      // to move to pu_moon properties:
      labelcenter,showlabel,showmark: boolean;
      currenteyepiece,marksize, CurrentCCD: integer;
-     marklabelcolor, markcolor, SpriteColor, bassinColor: Tcolor;
+     marklabelcolor, markcolor, SpriteColor, bassinColor, terminatorColor: Tcolor;
      DarkTheme : boolean;
      DatabaseList: Tstringlist;
      UnnamedList: string;

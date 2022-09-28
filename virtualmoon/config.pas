@@ -68,6 +68,10 @@ type
     GBlv4: TGroupBox;
     GBlv5: TGroupBox;
     GBlv6: TGroupBox;
+    GroupBox1: TGroupBox;
+    GroupBox3: TGroupBox;
+    GroupBox4: TGroupBox;
+    GroupBoxColor: TGroupBox;
     Label20: TLabel;
     Label21: TLabel;
     Label22: TLabel;
@@ -101,6 +105,7 @@ type
     Label61: TLabel;
     Label62: TLabel;
     Label63: TLabel;
+    Label64: TLabel;
     Label8: TLabel;
     LabelImp: TLabel;
     LabelGrid: TLabel;
@@ -114,8 +119,10 @@ type
     PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
+    Panel3: TPanel;
     ScrollBox1: TScrollBox;
     Shape4: TShape;
+    Shape5: TShape;
     TexturePanel: TPanel;
     BumpRadioGroup: TRadioGroup;
     RadioGroup7: TRadioGroup;
@@ -157,16 +164,12 @@ type
     Label10: TLabel;
     ComboBox4: TComboBox;
     TabSheet3: TTabSheet;
-    Bevel1: TBevel;
     CheckBox2: TCheckBox;
     CheckBox1: TCheckBox;
-    Label5: TLabel;
     Shape1: TShape;
     Label6: TLabel;
     Shape2: TShape;
     Label7: TLabel;
-    Bevel2: TBevel;
-    Bevel3: TBevel;
     CheckBox6: TCheckBox;
     CheckBox5: TCheckBox;
     Bevel7: TBevel;
@@ -202,7 +205,6 @@ type
     Label31: TLabel;
     TrackBar4: TTrackBar;
     Label33: TLabel;
-    Bevel9: TBevel;
     OverlayPanel: TPanel;
     CheckBox11: TCheckBox;
     ComboBox5: TComboBox;
@@ -291,7 +293,7 @@ begin
       Button1.Caption := rst_18;
       Radiogroup7.Items[0] := rsTopocentric;
       Radiogroup7.Items[1] := rst_26;
-      Label5.Caption := rst_28;
+      GroupBoxColor.Caption := rst_28;
       Label17.Caption := rst_29;
       label22.Caption:=rsImpactBassin;
       Label7.Caption := rst_52;
@@ -578,6 +580,8 @@ begin
   Shape1.Brush.Color:=clYellow;
   Shape2.Brush.Color:=clRed;
   Shape3.Brush.Color:=clYellow;
+  Shape4.Brush.Color:=clYellow;
+  Shape5.Brush.Color:=clBlue;
   CheckBox14.Checked:=false;
   CheckBox6.Checked:=true;
   TrackBar4.Position:=5;
