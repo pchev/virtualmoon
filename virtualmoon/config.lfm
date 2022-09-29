@@ -1,12 +1,12 @@
 object Form2: TForm2
   Left = 478
-  Height = 504
+  Height = 557
   Top = 120
   Width = 533
   ActiveControl = PageControl1
   BorderStyle = bsSizeToolWin
   Caption = 'Configuration'
-  ClientHeight = 504
+  ClientHeight = 557
   ClientWidth = 533
   Color = clWindow
   FormStyle = fsStayOnTop
@@ -15,7 +15,7 @@ object Form2: TForm2
   OnShow = FormShow
   object PageControl1: TPageControl
     Left = 0
-    Height = 463
+    Height = 516
     Top = 0
     Width = 533
     ActivePage = TabSheet1
@@ -27,7 +27,7 @@ object Form2: TForm2
     Options = [nboMultiLine]
     object TabSheet1: TTabSheet
       Caption = 'General'
-      ClientHeight = 432
+      ClientHeight = 485
       ClientWidth = 523
       ParentFont = False
       object Bevel8: TBevel
@@ -276,7 +276,7 @@ object Form2: TForm2
     end
     object TabSheet7: TTabSheet
       Caption = 'Database'
-      ClientHeight = 432
+      ClientHeight = 485
       ClientWidth = 523
       ParentFont = False
       object Label31: TLabel
@@ -321,16 +321,16 @@ object Form2: TForm2
     end
     object TabSheet3: TTabSheet
       Caption = 'Affichage'
-      ClientHeight = 432
+      ClientHeight = 485
       ClientWidth = 523
       ParentFont = False
       object GroupBox1: TGroupBox
         Left = 0
-        Height = 42
+        Height = 58
         Top = 0
         Width = 523
         Align = alTop
-        ClientHeight = 40
+        ClientHeight = 38
         ClientWidth = 521
         TabOrder = 0
         object CheckBox1: TCheckBox
@@ -363,11 +363,11 @@ object Form2: TForm2
       object GroupBoxColor: TGroupBox
         Left = 0
         Height = 86
-        Top = 42
+        Top = 58
         Width = 523
         Align = alTop
         Caption = 'Color'
-        ClientHeight = 66
+        ClientHeight = 84
         ClientWidth = 521
         TabOrder = 1
         object Shape1: TShape
@@ -463,11 +463,11 @@ object Form2: TForm2
       end
       object GroupBox3: TGroupBox
         Left = 0
-        Height = 92
-        Top = 128
+        Height = 112
+        Top = 144
         Width = 523
         Align = alTop
-        ClientHeight = 90
+        ClientHeight = 110
         ClientWidth = 521
         TabOrder = 2
         object Label33: TLabel
@@ -538,11 +538,11 @@ object Form2: TForm2
       end
       object GroupBox4: TGroupBox
         Left = 0
-        Height = 152
-        Top = 220
+        Height = 176
+        Top = 256
         Width = 523
         Align = alTop
-        ClientHeight = 150
+        ClientHeight = 174
         ClientWidth = 521
         TabOrder = 3
         object TrackBar2: TTrackBar
@@ -646,7 +646,7 @@ object Form2: TForm2
       object Panel3: TPanel
         Left = 0
         Height = 40
-        Top = 372
+        Top = 432
         Width = 523
         Align = alTop
         BevelOuter = bvNone
@@ -667,7 +667,7 @@ object Form2: TForm2
     end
     object TabSheet4: TTabSheet
       Caption = 'Textures'
-      ClientHeight = 432
+      ClientHeight = 485
       ClientWidth = 523
       ParentFont = False
       object BumpRadioGroup: TRadioGroup
@@ -685,7 +685,7 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 68
+        ClientHeight = 86
         ClientWidth = 521
         Items.Strings = (
           'Phase sans reliefeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
@@ -698,20 +698,20 @@ object Form2: TForm2
       end
       object ScrollBox1: TScrollBox
         Left = 0
-        Height = 344
+        Height = 397
         Top = 88
         Width = 523
-        HorzScrollBar.Page = 502
-        VertScrollBar.Page = 289
+        HorzScrollBar.Page = 498
+        VertScrollBar.Page = 285
         Align = alClient
-        ClientHeight = 340
-        ClientWidth = 519
+        ClientHeight = 395
+        ClientWidth = 521
         TabOrder = 1
         object TexturePanel: TPanel
           Left = 0
-          Height = 289
+          Height = 285
           Top = 0
-          Width = 502
+          Width = 498
           AutoSize = True
           BevelOuter = bvNone
           ClientHeight = 285
@@ -723,7 +723,7 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 270
-            ClientHeight = 233
+            ClientHeight = 251
             ClientWidth = 268
             ParentFont = False
             TabOrder = 0
@@ -923,7 +923,7 @@ object Form2: TForm2
     end
     object TabSheet6: TTabSheet
       Caption = 'Overlay'
-      ClientHeight = 432
+      ClientHeight = 485
       ClientWidth = 523
       ParentFont = False
       object Panel2: TPanel
@@ -1119,7 +1119,7 @@ object Form2: TForm2
     end
     object TabSheet2: TTabSheet
       Caption = 'Images'
-      ClientHeight = 432
+      ClientHeight = 485
       ClientWidth = 523
       ParentFont = False
       object Label9: TLabel
@@ -1207,7 +1207,7 @@ object Form2: TForm2
     end
     object TabSheet5: TTabSheet
       Caption = 'Eyepieces'
-      ClientHeight = 432
+      ClientHeight = 485
       ClientWidth = 523
       ParentFont = False
       object Label24: TLabel
@@ -1408,7 +1408,7 @@ object Form2: TForm2
     end
     object TabSheet8: TTabSheet
       Caption = 'CCD'
-      ClientHeight = 432
+      ClientHeight = 485
       ClientWidth = 523
       ParentFont = False
       object StringGrid3: TStringGrid
@@ -1625,7 +1625,7 @@ object Form2: TForm2
     end
     object Impression: TTabSheet
       Caption = 'Impression'
-      ClientHeight = 432
+      ClientHeight = 485
       ClientWidth = 523
       ParentFont = False
       object Bevel6: TBevel
@@ -1828,7 +1828,7 @@ object Form2: TForm2
   object Panel1: TPanel
     Left = 0
     Height = 41
-    Top = 463
+    Top = 516
     Width = 533
     Align = alBottom
     BevelOuter = bvNone

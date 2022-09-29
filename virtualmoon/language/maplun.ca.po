@@ -306,6 +306,10 @@ msgstr "Zenit local a dalt"
 msgid "LOPAM photographic"
 msgstr "Fotogràfic LOPAM"
 
+#: u_translation.rslowsunelevat
+msgid "Low Sun elevation"
+msgstr ""
+
 #: u_translation.rslunarimpactc
 msgid "Lunar Impact Crater Database:"
 msgstr ""
