@@ -68,6 +68,7 @@ InstTexture TexturesClementine $destdir
 InstTexture TexturesClementineNegative $destdir
 InstTexture TexturesLopam $destdir
 InstTexture TexturesWAC $destdir
+InstTexture TexturesWAC_LOWSUN $destdir
 InstTexture Texture_LOLA_Kaguya_Shade $destdir
 InstTexture TexturesChange $destdir
 InstTexture TextureHistorical $destdir
