@@ -306,6 +306,10 @@ msgstr ""
 msgid "LOPAM photographic"
 msgstr "LOPAM nuotrauka"
 
+#: u_translation.rslowsunelevat
+msgid "Low Sun elevation"
+msgstr ""
+
 #: u_translation.rslunarimpactc
 msgid "Lunar Impact Crater Database:"
 msgstr ""

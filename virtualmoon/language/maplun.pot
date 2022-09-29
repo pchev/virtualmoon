@@ -1478,3 +1478,7 @@ msgstr ""
 msgid "Terminator line"
 msgstr ""
 
+#: u_translation:rslowsunelevat
+msgid "Low Sun elevation"
+msgstr ""
+
