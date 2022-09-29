@@ -525,6 +525,7 @@ for i:=0 to TextureList.Count-1 do begin
     else if TextureList[i]='Clementine' then buf:=rsClementinePh
     else if TextureList[i]='Lopam' then buf:=rsLOPAMPhotogr
     else if TextureList[i]='WAC' then buf:='LRO WAC Mosaic'
+    else if TextureList[i]='WAC_LOWSUN' then buf:='LRO WAC '+rsLowSunElevat
     else if TextureList[i]=HistoricalDir then begin
       buf:=rsHistorical;
       FillHistorical;

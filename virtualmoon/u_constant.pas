@@ -110,15 +110,17 @@ const crlf = chr(10)+chr(13);
       datedisplay='yyyy"-"mm"-"dd"';
       dateiso='yyyy"-"mm"-"dd"T"hh":"nn":"ss.zzz';
       HistoricalDir='Historical';
-      nOptionalFeature= 7;
+      nOptionalFeature= 9;
       OptionalFeatureCheck: array[1..nOptionalFeature]of string=(
-                      'BestOfCathala/NEUMAYER_LCATHALA 1.jpg',  // picture
+                      'BestOfCathala/NEUMAYER_LCATHALA 1.jpg',           // picture
                       'Textures/LOLA_Kaguya_Shade/L4/0.jpg',             // data
                       'Textures/LOLA_Kaguya_Shade/L5/0.jpg',             // hires
                       'Textures/Change/L6/0.jpg',                        // very hires Chang'e
                       'Textures/Lopam/L6/0.jpg',                         // very hires LOPAM
                       'Textures/WAC/L6/0.jpg',                           // LRO WAC
-                      'Textures/LOLA_Kaguya_Shade/L6/0.jpg'              // LOLA - Kaguya
+                      'Textures/LOLA_Kaguya_Shade/L6/0.jpg',             // LOLA - Kaguya
+                      'Textures/WAC_LOWSUN/L6/0.jpg',                    // LRO WAC
+                      'Textures/LAC/L5/0.jpg'                            // LAC
                       );
 
       DbSatellite=2;

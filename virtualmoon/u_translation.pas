@@ -384,6 +384,7 @@ rsNotIAUApprou = 'Not IAU approuved';
 rsImpactBassin = 'Impact bassin';
 rsNoDatabaseSe = 'No database selected!';
 rsTerminatorLi = 'Terminator line';
+rsLowSunElevat = 'Low Sun elevation';
 
 implementation
 

@@ -49,6 +49,8 @@ OptionalFeatureName[4]:=format(rsVeryHighReso, ['Chang''e']);
 OptionalFeatureName[5]:=format(rsVeryHighReso, ['LOPAM']);
 OptionalFeatureName[6]:=format(rsVeryHighReso, ['LRO WAC']);
 OptionalFeatureName[7]:=format(rsVeryHighReso, ['LOLA-Kaguya Shade']);
+OptionalFeatureName[8]:=format(rsVeryHighReso, ['LRO WAC '+rsLowSunElevat]);
+OptionalFeatureName[9]:=format(rsVeryHighReso, ['Lunar Astronautical Chart']);
 end;
 
 procedure Tf_features.FormShow(Sender: TObject);
