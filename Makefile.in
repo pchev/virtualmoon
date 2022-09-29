@@ -59,6 +59,8 @@ install_data4-4:
 	./install_data4-4.sh $(PREFIX) 
 install_data4-5:
 	./install_data4-5.sh $(PREFIX) 
+install_data5:
+	./install_data5.sh $(PREFIX) 
 install_picture:
 	./install_picture.sh $(PREFIX) 
 install_translation:
@@ -93,6 +95,8 @@ install_win_data4-4:
 	./install_win_data4-4.sh $(PREFIX)
 install_win_data4-5:
 	./install_win_data4-5.sh $(PREFIX)
+install_win_data5:
+	./install_win_data5.sh $(PREFIX)
 install_win_picture:
 	./install_win_picture.sh $(PREFIX) 
 install_win_translation:

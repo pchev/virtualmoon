@@ -284,6 +284,9 @@ if [[ $make_linux_hires ]]; then
   make install_data4-5
   if [[ $? -ne 0 ]]; then exit 1;fi
   datapkg vhres-waclowsun
+  make install_data5
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  datapkg hires-lac
   cd $wd
   rm -rf $builddir
 fi
@@ -376,6 +379,9 @@ if [[ $make_win32_hires ]]; then
   make install_win_data4-5
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/vmapro/Data $builddir/vmapro/Data4-5
+  make install_win_data5
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  mv $builddir/vmapro/Data $builddir/vmapro/Data5
   # exe
   cd $builddir
   wine "$innosetup" "$wine_build\vmadata3.iss"
@@ -389,6 +395,8 @@ if [[ $make_win32_hires ]]; then
   wine "$innosetup" "$wine_build\vmadata4-4.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   wine "$innosetup" "$wine_build\vmadata4-5.iss"
+  if [[ $? -ne 0 ]]; then exit 1;fi
+  wine "$innosetup" "$wine_build\vmadata5.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/virtualmoon*.exe $wd/$outdir/
   cd $wd
