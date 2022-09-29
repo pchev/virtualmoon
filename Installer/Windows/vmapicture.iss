@@ -3,7 +3,7 @@
 
 [Setup]
 AppName={cm:MyAppName}
-AppVerName={cm:MyAppName} v7.0
+AppVerName={cm:MyAppName} v8.0
 DefaultDirName={reg:HKCU\Software\Astro_PC\VirtualMoon,Install_Dir|{commonpf32}\VirtualMoon}
 InfoBeforeFile=setup_pict\readme.txt
 OutputDir=.\
