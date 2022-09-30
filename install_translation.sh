@@ -36,6 +36,8 @@ for lang in $lg; do
   install -v -m 644 photlun/language/photlun.$lang.po $destdir/share/virtualmoon/language/
   install -v -m 644 weblun/language/weblun.$lang.po $destdir/share/virtualmoon/language/
   install -v -m 644 cclun/language/cclun.$lang.po $destdir/share/virtualmoon/language/
+  install -v -m 644 notelun/language/notelun.$lang.po $destdir/share/virtualmoon/language/
+  install -v -m 644 calclun/language/calclun.$lang.po $destdir/share/virtualmoon/language/
 done
 
 InstData Translation_Database $destdir
