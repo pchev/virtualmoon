@@ -4332,6 +4332,8 @@ begin
       end;
       if reloaddb then begin
         LoadDB(dbm);
+        useDBN :=DatabaseList.Count;
+        LoadILCD('ILCD_2015_AVL',Slash(appdir) + 'Database', 'ILCD', dbm);
         form2.DbList.Items.Assign(DatabaseList);
         redrawbassin:=True;
         firstsearch := True;
