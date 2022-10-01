@@ -17,6 +17,8 @@ uses
 {$R *.res}
 
 begin
+  Application.Scaled:=True;
+  Application.Title:='';
   Application.Initialize;
   compile_time:={$I %DATE%}+' '+{$I %TIME%};
   compile_version:='Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+LCLPlatformDirNames[WidgetSet.LCLPlatform];

@@ -15,6 +15,8 @@ var i : integer;
 {$R *.res}
 
 begin
+  Application.Scaled:=True;
+  Application.Title:='';
   Application.Initialize;
   Application.CreateForm(Tf_weblun, f_weblun);
   if (f_weblun.param.IndexOf('-quit')<0) then begin
