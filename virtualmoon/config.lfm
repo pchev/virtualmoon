@@ -367,7 +367,7 @@ object Form2: TForm2
         Width = 523
         Align = alTop
         Caption = 'Color'
-        ClientHeight = 84
+        ClientHeight = 66
         ClientWidth = 521
         TabOrder = 1
         object Shape1: TShape
@@ -685,7 +685,7 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 86
+        ClientHeight = 68
         ClientWidth = 521
         Items.Strings = (
           'Phase sans reliefeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
@@ -701,17 +701,17 @@ object Form2: TForm2
         Height = 397
         Top = 88
         Width = 523
-        HorzScrollBar.Page = 498
-        VertScrollBar.Page = 285
+        HorzScrollBar.Page = 502
+        VertScrollBar.Page = 289
         Align = alClient
-        ClientHeight = 395
-        ClientWidth = 521
+        ClientHeight = 393
+        ClientWidth = 519
         TabOrder = 1
         object TexturePanel: TPanel
           Left = 0
-          Height = 285
+          Height = 289
           Top = 0
-          Width = 498
+          Width = 502
           AutoSize = True
           BevelOuter = bvNone
           ClientHeight = 285
@@ -723,7 +723,7 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 270
-            ClientHeight = 251
+            ClientHeight = 233
             ClientWidth = 268
             ParentFont = False
             TabOrder = 0
@@ -949,19 +949,19 @@ object Form2: TForm2
       end
       object OverlayPanel: TPanel
         Left = 8
-        Height = 372
+        Height = 464
         Top = 8
-        Width = 404
+        Width = 508
         BevelOuter = bvNone
-        ClientHeight = 372
-        ClientWidth = 404
+        ClientHeight = 464
+        ClientWidth = 508
         ParentFont = False
         TabOrder = 0
         object Image1: TImage
           Left = 19
-          Height = 140
+          Height = 220
           Top = 93
-          Width = 280
+          Width = 440
           Proportional = True
           Stretch = True
         end
@@ -979,7 +979,7 @@ object Form2: TForm2
         object Label32: TLabel
           Left = 19
           Height = 19
-          Top = 254
+          Top = 326
           Width = 86
           Caption = 'Transparency:'
           Color = clDefault
@@ -990,7 +990,7 @@ object Form2: TForm2
         object Label43: TLabel
           Left = 156
           Height = 19
-          Top = 248
+          Top = 320
           Width = 4
           Caption = '-'
           Color = clDefault
@@ -1001,7 +1001,7 @@ object Form2: TForm2
         object Label44: TLabel
           Left = 340
           Height = 19
-          Top = 248
+          Top = 320
           Width = 8
           Caption = '+'
           Color = clDefault
@@ -1022,7 +1022,7 @@ object Form2: TForm2
           Left = 19
           Height = 31
           Top = 64
-          Width = 145
+          Width = 440
           ItemHeight = 0
           OnChange = ComboBox5Change
           ParentColor = True
@@ -1033,7 +1033,7 @@ object Form2: TForm2
         object TrackBar5: TTrackBar
           Left = 168
           Height = 41
-          Top = 248
+          Top = 320
           Width = 160
           Frequency = 20
           Max = 100
@@ -1047,10 +1047,10 @@ object Form2: TForm2
         object GroupBox2: TGroupBox
           Left = 21
           Height = 73
-          Top = 284
+          Top = 356
           Width = 367
           Caption = 'Grid'
-          ClientHeight = 71
+          ClientHeight = 53
           ClientWidth = 365
           ParentFont = False
           TabOrder = 3
