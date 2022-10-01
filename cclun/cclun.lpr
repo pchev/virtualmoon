@@ -12,6 +12,8 @@ uses
 {$R *.res}
 
 begin
+  Application.Scaled:=True;
+  Application.Title:='';
   Application.Initialize;
   Application.CreateForm(Tf_cclun, f_cclun);
   Application.Run;

@@ -30307,5 +30307,13 @@ object f_cclun: Tf_cclun
       Caption = 'Doc Weblun'
       OnClick = MenuItem4Click
     end
+    object MenuItem5: TMenuItem
+      Caption = 'Doc Notelun'
+      OnClick = MenuItem5Click
+    end
+    object MenuItem6: TMenuItem
+      Caption = 'Doc Calclun'
+      OnClick = MenuItem6Click
+    end
   end
 end
