@@ -189,6 +189,7 @@ type
     ToolButton20: TToolButton;
     ToolButton21: TToolButton;
     ToolButton22: TToolButton;
+    TerminatorButton: TToolButton;
     ToolButtonNotelun: TToolButton;
     ToolButtonCalclun: TToolButton;
     ToolButtonCCD: TToolButton;
@@ -394,6 +395,7 @@ type
     procedure ResizeTimerTimer(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure Splitter2TimerTimer(Sender: TObject);
+    procedure TerminatorButtonClick(Sender: TObject);
     procedure ToolButton22Click(Sender: TObject);
     procedure ToolButtonCalclunClick(Sender: TObject);
     procedure ToolButtonCCDClick(Sender: TObject);
@@ -4066,6 +4068,7 @@ try
   LabelIncl.Caption:=inttostr(TrackBar7.Position)+ ldeg;
   LibrationButton.Down := librationeffect;
   PhaseButton.Down := phaseeffect;
+  TerminatorButton.Down:=showterminatorline;
   LoadOverlay(overlayname, overlaytr);
   ImpactBassinCircle(moon1);
   Visible:=true;
@@ -4348,6 +4351,7 @@ begin
       if moon2<>nil then moon2.GLLinesTerminator.LineColor.AsWinColor:=terminatorColor;
       LibrationButton.Down := librationeffect;
       PhaseButton.Down     := phaseeffect;
+      TerminatorButton.Down:= showterminatorline;
       externalimage := form2.CheckBox12.Checked;
       LopamDirect   := form2.CheckBox15.Checked;
       externalimagepath := form2.edit4.Text;
@@ -6113,6 +6117,12 @@ begin
      activemoon.Bumpmap:=true
   else
      activemoon.Bumpmap:=false;
+  RefreshMoonImage;
+end;
+
+procedure TForm1.TerminatorButtonClick(Sender: TObject);
+begin
+  showterminatorline:=TerminatorButton.Down;
   RefreshMoonImage;
 end;
 
