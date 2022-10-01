@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-09-28 10:46+0200\n"
+"PO-Revision-Date: 2022-10-01 22:08+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -257,9 +257,9 @@ msgid "Information note"
 msgstr "Note d'information"
 
 #: u_translation.rsinformationn2
-#, object-pascal-format, fuzzy, badformat
+#, object-pascal-format
 msgid "%s information notes imported from previous version"
-msgstr "% notes d'information importée de la version précédente"
+msgstr "%s notes d'information importée de la version précédente"
 
 #: u_translation.rsinstrument
 msgid "Instrument"

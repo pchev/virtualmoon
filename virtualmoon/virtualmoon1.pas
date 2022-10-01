@@ -888,6 +888,7 @@ begin
     Snapshot1.Caption := rst_167;
     LibrationButton.hint := rst_175;
     PhaseButton.hint := rst_176;
+    TerminatorButton.Hint:=rsTerminatorLi;
     ToolButton4.hint := rst_177;
     ToolButton6.hint := rst_178;
     RemoveMark1.Caption := rst_180;

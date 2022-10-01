@@ -20,6 +20,10 @@ msgstr "Documentazione di AtLun"
 msgid "Browse the Atlas pictures"
 msgstr "Sfoglia le immagini dell'Atlante"
 
+#: u_translation.rscalclundocum
+msgid "CalcLun documentation"
+msgstr ""
+
 #: u_translation.rsdatlundocume
 msgid "DatLun documentation"
 msgstr "Documentazione di DatLun"
@@ -48,6 +52,10 @@ msgstr "Italiano"
 
 #: u_translation.rslunarcalcula
 msgid "Lunar calculation"
+msgstr ""
+
+#: u_translation.rsnotelundocum
+msgid "NoteLun documentation"
 msgstr ""
 
 #: u_translation.rsphotlundocum

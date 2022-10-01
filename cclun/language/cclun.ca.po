@@ -19,6 +19,10 @@ msgstr "Documentació AtLun"
 msgid "Browse the Atlas pictures"
 msgstr "Navegar per les fotografies lunars de l'Atles"
 
+#: u_translation.rscalclundocum
+msgid "CalcLun documentation"
+msgstr ""
+
 #: u_translation.rsdatlundocume
 msgid "DatLun documentation"
 msgstr "Documentació DatLun"
@@ -47,6 +51,10 @@ msgstr "Català"
 
 #: u_translation.rslunarcalcula
 msgid "Lunar calculation"
+msgstr ""
+
+#: u_translation.rsnotelundocum
+msgid "NoteLun documentation"
 msgstr ""
 
 #: u_translation.rsphotlundocum

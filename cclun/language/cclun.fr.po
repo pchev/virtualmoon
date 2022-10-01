@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-09-27 18:45+0200\n"
+"PO-Revision-Date: 2022-10-01 21:57+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -19,6 +19,10 @@ msgstr "Documentation AtLun"
 #: u_translation.rsbrowsetheatl
 msgid "Browse the Atlas pictures"
 msgstr "Parcourir  les photographies lunaires de l'Atlas"
+
+#: u_translation.rscalclundocum
+msgid "CalcLun documentation"
+msgstr "Documentation CalcLun"
 
 #: u_translation.rsdatlundocume
 msgid "DatLun documentation"
@@ -47,6 +51,10 @@ msgstr "Français"
 #: u_translation.rslunarcalcula
 msgid "Lunar calculation"
 msgstr "Calcul lunaires"
+
+#: u_translation.rsnotelundocum
+msgid "NoteLun documentation"
+msgstr "Documentation NoteLun"
 
 #: u_translation.rsphotlundocum
 msgid "PhotLun documentation"
