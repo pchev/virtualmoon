@@ -230,6 +230,7 @@ var Plan404 : TPlan404;
 
 // pseudo-constant only here
 Var  Splashversion, compile_time, compile_version: string;
+     dpiscale: double;
      BinDir, Homedir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir,vignettedir : string;
      MapLun,Photlun,DatLun,WebLun,CalcLun,NoteLun,CdC,PrtName, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double;
