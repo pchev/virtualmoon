@@ -1614,7 +1614,7 @@ begin
          GridMonth.Cells[mcolRise, i]:=rsNeverRise;
      end else begin
        if dtr>0 then begin
-         dtr:=dtr+YearInfo[month,i].dst;
+         dtr:=dtr-YearInfo[month,i].dst;
          DecodeDate(dtr,rsy,rsm,rsd);
          if (rsy=year)and(rsm=month) then begin
            TMoonMonthData(GridMonth.Objects[0,rsd]).trise:=dtr;
@@ -1622,7 +1622,7 @@ begin
          end;
        end;
        if dts>0 then begin
-         dts:=dts+YearInfo[month,i].dst;
+         dts:=dts-YearInfo[month,i].dst;
          DecodeDate(dts,rsy,rsm,rsd);
          if (rsy=year)and(rsm=month) then begin
            TMoonMonthData(GridMonth.Objects[0,rsd]).tset:=dts;
