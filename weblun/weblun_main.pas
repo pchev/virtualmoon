@@ -8,7 +8,7 @@ uses
 {$ifdef mswindows}
 Windows, ShlObj,
 {$endif}
-  mlb2, u_constant, u_translation, u_util, passql, passqlite,
+  u_constant, u_translation, u_util, passql, passqlite,
   downloaddialog, UniqueInstance, IniFiles, Classes, SysUtils, FileUtil, Forms, Controls,
   LazUTF8, Graphics, Dialogs, ComCtrls, Menus, Grids, ExtCtrls, StdCtrls;
 
@@ -272,8 +272,6 @@ end;
 end;
 
 Procedure Tf_weblun.SortByCol(col:integer);
-var i,p,q:integer;
-    buf,direction: string;
 begin
 if StringGrid1.SortOrder=soAscending then StringGrid1.SortOrder:=soDescending else StringGrid1.SortOrder:=soAscending;
 StringGrid1.SortColRow(true,col);
@@ -378,7 +376,6 @@ end;
 
 procedure Tf_weblun.ComboBox2Change(Sender: TObject);
 var th: string;
-    i,j: integer;
     cmd: string;
 begin
  if locktheme then exit;
@@ -407,7 +404,6 @@ end;
 
 procedure Tf_weblun.Button1Click(Sender: TObject);
 var buf,cmd, sel:string;
-  i,j: integer;
 begin
  buf:=trim(edit1.text);
  sel:='';
@@ -438,9 +434,8 @@ begin
 end;
 
 Procedure Tf_weblun.SetLang;
-var section,buf : string;
+var section : string;
     inifile : Tmeminifile;
-    i : integer;
 begin
 language := '';
 inifile := Tmeminifile.Create(ConfigFile);
@@ -632,41 +627,41 @@ begin
   checkdate:=trunc(Now);
   buf:=dbm.QueryOne('select cdate from weblun_file_date;');
   cdate:=trunc(StrToFloatDef(buf,0));
-  if checkdate>(cdate+7) then begin   // check for new version once a week
+  if checkdate>(cdate+30) then begin   // check for new version once a month
      dbm.Query('update weblun_file_date set cdate='+inttostr(checkdate)+';');
      dbm.Commit;
      buf:=dbm.QueryOne('select udate from weblun_file_date;');
      udate:=trunc(StrToFloatDef(buf,0));
-     fn:=slash(TempDir)+'weblun.date';
+     fn:=slash(TempDir)+'weblun8.date';
      DeleteFile(fn);
      DownloadDialog1.Title:='Weblun database web update';
-     DownloadDialog1.URL:='http://www.ap-i.net/pub/vma/weblun/weblun.date';
+     DownloadDialog1.URL:='http://www.ap-i.net/pub/vma/weblun/weblun8.date';
      DownloadDialog1.ConfirmDownload:=false;
      DownloadDialog1.SaveToFile:=fn;
      DownloadDialog1.Timeout:=5000;
-     if DownloadDialog1.Execute then begin
-        if FileExists(fn) then begin
-          AssignFile(f,fn);
-          Reset(f);
-          ReadLn(f,buf);
-          CloseFile(f);
-          buf:=trim(buf);
-          y:=StrToIntDef(copy(buf,1,4),0);
-          m:=StrToIntDef(copy(buf,5,2),0);
-          d:=StrToIntDef(copy(buf,7,2),0);
-          vdate:=EncodeDate(y,m,d);
-        end;
+     if DownloadDialog1.Execute and FileExists(fn) then begin
+       AssignFile(f,fn);
+       Reset(f);
+       ReadLn(f,buf);
+       CloseFile(f);
+       buf:=trim(buf);
+       y:=StrToIntDef(copy(buf,1,4),0);
+       m:=StrToIntDef(copy(buf,5,2),0);
+       d:=StrToIntDef(copy(buf,7,2),0);
+       vdate:=EncodeDate(y,m,d);
      end
      else vdate:=0;
      if vdate>udate then begin  // new version available
-       fn:=slash(TempDir)+'weblun.csv';
+       fn:=slash(TempDir)+'weblun8.csv';
        DeleteFile(fn);
-       DownloadDialog1.URL:='http://www.ap-i.net/pub/vma/weblun/weblun.csv';
+       DownloadDialog1.URL:='http://www.ap-i.net/pub/vma/weblun/weblun8.csv';
        DownloadDialog1.ConfirmDownload:=false;
        DownloadDialog1.SaveToFile:=fn;
        DownloadDialog1.Timeout:=5000;
-       if DownloadDialog1.Execute then webdate:=trunc(vdate)
-          else DeleteFile(fn);
+       if DownloadDialog1.Execute then
+         webdate:=trunc(vdate)
+       else
+         DeleteFile(fn);
      end;
   end;
 end;
@@ -674,16 +669,17 @@ end;
 Procedure Tf_weblun.LoadDB;
 var i,fage1,fage2,fage,db_age: integer;
     buf,cmd,fn1,fn2,fn:string;
-    wdb: TMlb2;
+    f: textfile;
+    row:TStringList;
     cols: array[1..ncols] of integer;
 begin
-buf:=Slash(DBdir)+'dbmoon6_u'+uplanguage+'.dbl';
+buf:=Slash(DBdir)+'dbmoon8'+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
 webdate:=0;
 WebUpdate;
 fage1:=0; fage2:=0; fage:=0;
 fn1:=Slash(appdir)+Slash('Database')+'weblun.csv';
-fn2:=Slash(Tempdir)+'weblun.csv';
+fn2:=Slash(Tempdir)+'weblun8.csv';
 if FileExists(fn1) then fage1:=fileage(fn1);
 if FileExists(fn2) then fage2:=fileage(fn2);
 if fage2>fage1 then begin
@@ -697,15 +693,15 @@ buf:=dbm.QueryOne('select fdate from weblun_file_date;');
 if buf='' then db_age:=0 else db_age:=strtoint(buf);
 cmd:='select SITE_NAME from weblun limit 1';
 dbm.Query(cmd);
-if (dbm.RowCount=0)or(db_age<fage) then begin;
+if (dbm.RowCount=0) then begin;
   dbm.Query('drop table weblun;');
   dbm.Query('drop table weblun_file_date;');
   dbm.Commit;
   cmd:='create table weblun_file_date ( '+
-      'FDATE integer,'+
-      'CDATE integer,'+
-      'UDATE integer'+
-      ');';
+       'FDATE integer,'+
+       'CDATE integer,'+
+       'UDATE integer'+
+       ');';
   dbm.Query(cmd);
   cmd:='create table weblun ( '+
        'SITE_NAME text,'+
@@ -717,9 +713,6 @@ if (dbm.RowCount=0)or(db_age<fage) then begin;
        'DATE text'+
       ');';
    dbm.Query(cmd);
-   wdb:=TMlb2.Create;
-   wdb.Init;
-   wdb.LoadFromFile(fn);
    if uplanguage='FR' then begin
      cols[1]:=1;
      cols[2]:=3;
@@ -737,20 +730,26 @@ if (dbm.RowCount=0)or(db_age<fage) then begin;
      cols[6]:=11;
      cols[7]:=13;
    end;
-   wdb.GoFirst;
+   AssignFile(f,fn);
+   Reset(f);
+   readln(f);
+   row:=TStringList.Create;
    repeat
+     readln(f,buf);
+     SplitRec2(buf,';',row);
      cmd:='insert into weblun values(';
      for i:=1 to ncols do begin
-       cmd:=cmd+'"'+wdb.GetDataByIndex(cols[i])+'",';
+       cmd:=cmd+'"'+SafeSqlText(row[cols[i]-1])+'",';
      end;
      cmd:=copy(cmd,1,length(cmd)-1)+');';
      dbm.Query(cmd);
-     wdb.GoNext;
-   until wdb.EndOfFile;
+     if dbm.LastError<>0 then ShowMessage(dbm.ErrorMessage);
+   until EOF(f);
    dbm.Query('insert into weblun_file_date values ('+inttostr(fage)+','+inttostr(checkdate)+','+inttostr(webdate)+');');
    dbm.Commit;
+   row.Free;
 end;
-end;
+ end;
 
 
 end.

@@ -10,8 +10,6 @@ uses
   Forms, printer4lazarus, weblun_main, u_translation, u_util, u_constant, libsql, downldialog
   { you can add units after this };
 
-var i : integer;
-
 {$R *.res}
 
 begin

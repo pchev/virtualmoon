@@ -1,33 +1,34 @@
 object f_weblun: Tf_weblun
   Left = 62
-  Height = 472
+  Height = 557
   Top = 63
-  Width = 788
+  Width = 1118
   Caption = 'WebLun'
-  ClientHeight = 472
-  ClientWidth = 788
+  ClientHeight = 557
+  ClientWidth = 1118
   Menu = MainMenu1
   OnCreate = FormCreate
   OnShow = FormShow
   object StatusBar1: TStatusBar
     Left = 0
     Height = 21
-    Top = 451
-    Width = 788
+    Top = 536
+    Width = 1118
     Panels = <>
   end
   object StringGrid1: TStringGrid
     Left = 0
-    Height = 401
+    Height = 486
     Top = 50
-    Width = 788
+    Width = 1118
     Align = alClient
     ColCount = 7
     DefaultColWidth = 150
     DefaultRowHeight = 24
     HeaderHotZones = []
     HeaderPushZones = []
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goSmoothScroll]
+    MouseWheelOption = mwGrid
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goSmoothScroll, goFixedColSizing]
     TabOrder = 1
     OnDblClick = StringGrid1DblClick
     OnDrawCell = StringGrid1DrawCell
@@ -39,10 +40,10 @@ object f_weblun: Tf_weblun
     Left = 0
     Height = 50
     Top = 0
-    Width = 788
+    Width = 1118
     Align = alTop
     ClientHeight = 50
-    ClientWidth = 788
+    ClientWidth = 1118
     TabOrder = 2
     object ComboBox1: TComboBox
       Left = 16
