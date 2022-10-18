@@ -1353,7 +1353,8 @@ begin
       WriteBool(section, 'showoverlay', showoverlay);
       WriteBool(section, 'notexture', notexture);
       for i := 0 to 5 do
-        WriteString(section, 'texturefile' + IntToStr(i), texturefiles[i]);
+        if texturefiles[i]<>'' then
+          WriteString(section, 'texturefile' + IntToStr(i), texturefiles[i]);
       WriteBool(section, 'Geocentric', Geocentric);
       WriteString(section, 'telescope', scopeinterface);
       WriteFloat(section, 'Obslatitude', Obslatitude);
@@ -3858,16 +3859,16 @@ begin
   for i:=0 to 5 do texturenone.Add('NONE');
   texturefiles:=TStringList.Create;
   for i:=0 to 5 do texturefiles.Add('');
-  texturefiles[0]:='WAC';
-  texturefiles[1]:='WAC';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L3') then
-     texturefiles[2]:='WAC';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L4') then
-     texturefiles[3]:='WAC';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L5') then
-     texturefiles[4]:='WAC';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L6') then
-     texturefiles[5]:='Lopam';
+  texturefiles[0]:='WAC_LOWSUN';
+  texturefiles[1]:='WAC_LOWSUN';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC_LOWSUN')+'L3') then
+     texturefiles[2]:='WAC_LOWSUN';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC_LOWSUN')+'L4') then
+     texturefiles[3]:='WAC_LOWSUN';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC_LOWSUN')+'L5') then
+     texturefiles[4]:='WAC_LOWSUN';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC_LOWSUN')+'L6') then
+     texturefiles[5]:='WAC_LOWSUN';
   CursorImage1 := TCursorImage.Create;
   overlayhi := Tbitmap.Create;
   overlayimg := Tbitmap.Create;
@@ -4026,7 +4027,7 @@ try
     {$ifdef trace_debug}
       debugln('Exception init texture '+E.Message);
     {$endif}
-    texturefiles[0]:='WAC';
+    texturefiles[0]:='WAC_LOWSUN';
     moon1.texture:=texturefiles;
     end;
   end;
