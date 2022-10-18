@@ -8,6 +8,7 @@ object f_weblun: Tf_weblun
   ClientWidth = 1118
   Menu = MainMenu1
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   object StatusBar1: TStatusBar
     Left = 0
