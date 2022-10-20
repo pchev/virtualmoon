@@ -279,7 +279,7 @@ end;
 
 procedure Tf_weblun.SetTitle;
 begin
-  StringGrid1.ColWidths[0]:=250;
+  StringGrid1.ColWidths[0]:=300;
   StringGrid1.ColWidths[1]:=70;
   StringGrid1.ColWidths[2]:=100;
   StringGrid1.ColWidths[3]:=150;
@@ -690,7 +690,10 @@ end else begin
   fage:=fage1;
 end;
 buf:=dbm.QueryOne('select fdate from weblun_file_date;');
-if buf='' then db_age:=0 else db_age:=strtoint(buf);
+if buf='' then
+  db_age:=0
+else
+  db_age:=strtoint(buf);
 cmd:='select SITE_NAME from weblun limit 1';
 dbm.Query(cmd);
 if (dbm.RowCount=0) then begin;
@@ -713,44 +716,47 @@ if (dbm.RowCount=0) then begin;
        'DATE text'+
       ');';
    dbm.Query(cmd);
-   if uplanguage='FR' then begin
-     cols[1]:=1;
-     cols[2]:=3;
-     cols[3]:=5;
-     cols[4]:=7;
-     cols[5]:=9;
-     cols[6]:=10;
-     cols[7]:=12;
-   end else begin
-     cols[1]:=2;
-     cols[2]:=4;
-     cols[3]:=6;
-     cols[4]:=8;
-     cols[5]:=9;
-     cols[6]:=11;
-     cols[7]:=13;
-   end;
-   AssignFile(f,fn);
-   Reset(f);
-   readln(f);
-   row:=TStringList.Create;
-   repeat
-     readln(f,buf);
-     SplitRec2(buf,';',row);
-     cmd:='insert into weblun values(';
-     for i:=1 to ncols do begin
-       cmd:=cmd+'"'+SafeSqlText(row[cols[i]-1])+'",';
-     end;
-     cmd:=copy(cmd,1,length(cmd)-1)+');';
-     dbm.Query(cmd);
-     if dbm.LastError<>0 then ShowMessage(dbm.ErrorMessage);
-   until EOF(f);
-   dbm.Query('insert into weblun_file_date values ('+inttostr(fage)+','+inttostr(checkdate)+','+inttostr(webdate)+');');
-   dbm.Commit;
-   row.Free;
 end;
+if fage>db_age then begin
+  if uplanguage='FR' then begin
+    cols[1]:=1;
+    cols[2]:=3;
+    cols[3]:=5;
+    cols[4]:=7;
+    cols[5]:=9;
+    cols[6]:=10;
+    cols[7]:=12;
+  end else begin
+    cols[1]:=2;
+    cols[2]:=4;
+    cols[3]:=6;
+    cols[4]:=8;
+    cols[5]:=9;
+    cols[6]:=11;
+    cols[7]:=13;
+  end;
+  cmd:='delete from weblun;';
+  dbm.Query(cmd);
+  AssignFile(f,fn);
+  Reset(f);
+  readln(f);
+  row:=TStringList.Create;
+  repeat
+    readln(f,buf);
+    SplitRec2(buf,';',row);
+    cmd:='insert into weblun values(';
+    for i:=1 to ncols do begin
+      cmd:=cmd+'"'+SafeSqlText(row[cols[i]-1])+'",';
+    end;
+    cmd:=copy(cmd,1,length(cmd)-1)+');';
+    dbm.Query(cmd);
+    if dbm.LastError<>0 then ShowMessage(dbm.ErrorMessage);
+  until EOF(f);
+  dbm.Query('insert into weblun_file_date values ('+inttostr(fage)+','+inttostr(checkdate)+','+inttostr(webdate)+');');
+  dbm.Commit;
+  row.Free;
  end;
-
+end;
 
 end.
 

@@ -1,10 +1,10 @@
 object f_weblun: Tf_weblun
   Left = 62
-  Height = 557
+  Height = 648
   Top = 63
   Width = 1118
   Caption = 'WebLun'
-  ClientHeight = 557
+  ClientHeight = 648
   ClientWidth = 1118
   Menu = MainMenu1
   OnCreate = FormCreate
@@ -13,19 +13,19 @@ object f_weblun: Tf_weblun
   object StatusBar1: TStatusBar
     Left = 0
     Height = 21
-    Top = 536
+    Top = 627
     Width = 1118
     Panels = <>
   end
   object StringGrid1: TStringGrid
     Left = 0
-    Height = 486
+    Height = 577
     Top = 50
     Width = 1118
     Align = alClient
     ColCount = 7
     DefaultColWidth = 150
-    DefaultRowHeight = 24
+    DefaultRowHeight = 30
     HeaderHotZones = []
     HeaderPushZones = []
     MouseWheelOption = mwGrid
