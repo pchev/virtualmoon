@@ -160,7 +160,7 @@ msgstr "Epaisseur des éjectas à 5 rayons de distance :"
 
 #: u_translation.rselevation
 msgid "Elevation"
-msgstr "Altitude"
+msgstr "Hauteur"
 
 #: u_translation.rselgerdescrip
 msgid "Elger description (1895):"

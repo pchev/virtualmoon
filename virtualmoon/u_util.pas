@@ -142,6 +142,8 @@ function InsidePolygon(N:integer;Points:Array of TDoublePoint;p:TDoublePoint): b
 function CurrentUserName:String;
 function SafeSqlText(txt: string):string;
 function GetSelectedCell(grid:TStringGrid; out aCol, aRow: integer): string;
+function TzGMT2UTC(gmttz: string): string;
+function TzUTC2GMT(utctz: string): string;
 
 var traceon : boolean;
     hp: string;
@@ -2170,6 +2172,62 @@ try
 except
   result:='';
 end;
+end;
+
+function TzGMT2UTC(gmttz: string): string;
+var
+  buf: string;
+begin
+
+  //  Etc/GMT+5 -> UTC-5
+  if copy(gmttz, 1, 7) = 'Etc/GMT' then
+  begin
+
+    buf := StringReplace(gmttz, 'Etc/GMT', 'UTC', []);
+    if pos('+', buf) > 0 then
+      buf := StringReplace(buf, '+', '-', [])
+    else
+      buf := StringReplace(buf, '-', '+', []);
+    Result := buf;
+
+  end
+  //  GMT+5 -> UTC-5
+  else if copy(gmttz, 1, 3) = 'GMT' then
+  begin
+
+    buf := StringReplace(gmttz, 'GMT', 'UTC', []);
+    if pos('+', buf) > 0 then
+      buf := StringReplace(buf, '+', '-', [])
+    else
+      buf := StringReplace(buf, '-', '+', []);
+    Result := buf;
+
+  end
+  else
+    Result := gmttz;
+
+end;
+
+function TzUTC2GMT(utctz: string): string;
+var
+  buf: string;
+begin
+
+  //  UTC-5 -> Etc/GMT+5
+  if copy(utctz, 1, 3) = 'UTC' then
+  begin
+    buf := StringReplace(utctz, 'UTC', 'Etc/GMT', []);
+
+    if pos('+', buf) > 0 then
+      buf := StringReplace(buf, '+', '-', [])
+    else
+      buf := StringReplace(buf, '-', '+', []);
+
+    Result := buf;
+  end
+  else
+    Result := utctz;
+
 end;
 
 end.

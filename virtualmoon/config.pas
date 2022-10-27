@@ -951,6 +951,8 @@ if fileexists(fn) then begin
     if buf[1]='#' then continue;
     SplitRec(buf,tab,rec);
     if rec.Count<3 then continue;
+    if rec[1]='ZZ' then
+       rec[2]:='UTC';
     countrycode.Add(rec[1]);
     ComboBoxCountry.Items.Add(rec[2]);
   until eof(f);
@@ -981,6 +983,8 @@ ComboBoxTZ.clear;
 for i:=0 to tzinfo.ZoneTabCnty.Count-1 do begin
   if tzinfo.ZoneTabCnty[i]=obscountry then begin
      buf:=tzinfo.ZoneTabZone[i];
+     if (obscountry = 'ZZ') then
+        buf := TzGMT2UTC(buf);
      j:=ComboBoxTZ.Items.Add(buf);
      if (tzinfo.ZoneTabZone[i]=obstz) then ComboBoxTZ.ItemIndex:=j;
   end;
@@ -997,8 +1001,9 @@ end;
 procedure TForm2.ComboBoxTZChange(Sender: TObject);
 begin
  obstz:=ComboBoxTZ.Text;
+ if copy(obstz, 1, 3) = 'UTC' then
+    obstz := TzUTC2GMT(obstz);
 end;
-
 
 end.
 
