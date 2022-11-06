@@ -4293,11 +4293,11 @@ begin
       minilabel     := form2.checkbox18.Checked;
       activemoon.LabelFont:=form2.FontDialog1.Font;
       activemoon.Labelcolor:=autolabelcolor;
-      Obslatitude := strtofloat(form2.Edit1.Text);
+      Obslatitude := strtofloat(decisep(form2.Edit1.Text));
       if form2.ComboBox1.ItemIndex = 1 then
         Obslatitude := -Obslatitude;
-      Obslongitude  := strtofloat(form2.Edit2.Text);
-      ObsAltitude := StrToFloat(form2.Edit3.Text);
+      Obslongitude  := strtofloat(decisep(form2.Edit2.Text));
+      ObsAltitude := StrToFloat(decisep(form2.Edit3.Text));
       if form2.ComboBox2.ItemIndex = 0 then
         Obslongitude := -Obslongitude;
       systemtimechange := UseComputerTime <> form2.checkbox16.Checked;

@@ -144,6 +144,7 @@ function SafeSqlText(txt: string):string;
 function GetSelectedCell(grid:TStringGrid; out aCol, aRow: integer): string;
 function TzGMT2UTC(gmttz: string): string;
 function TzUTC2GMT(utctz: string): string;
+function decisep(txt:string):string;
 procedure ScaleFormForFontSize(f: Tform; desdpi:integer);
 
 var traceon : boolean;
@@ -2229,6 +2230,11 @@ begin
   else
     Result := utctz;
 
+end;
+
+function decisep(txt:string):string;
+begin
+  result:=trim(StringReplace(txt,',','.',[rfReplaceAll]));
 end;
 
 procedure ScaleFormForFontSize(f: Tform; desdpi:integer);

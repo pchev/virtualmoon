@@ -769,11 +769,6 @@ begin
 if (ACol=0)and(Arow<=2) then CanSelect:=False;
 end;
 
-function decisep(txt:string):string;
-begin
-  result:=trim(StringReplace(txt,',','.',[rfReplaceAll]));
-end;
-
 procedure TForm2.Button6Click(Sender: TObject);
 begin
 edit10.Text:=inttostr(round((strtofloat(decisep(edit6.text))/strtofloat(decisep(edit7.text))) ));
