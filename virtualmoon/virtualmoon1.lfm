@@ -15,7 +15,6 @@ object Form1: TForm1
   Constraints.MinHeight = 606
   Constraints.MinWidth = 1035
   DoubleBuffered = False
-  Font.Height = 13
   KeyPreview = True
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
@@ -32,8 +31,6 @@ object Form1: TForm1
     Top = 35
     Width = 200
     Align = alLeft
-    Font.Height = 13
-    ParentFont = False
     TabOrder = 4
   end
   object PanelMoon: TPanel
@@ -42,8 +39,6 @@ object Form1: TForm1
     Top = 35
     Width = 200
     Align = alLeft
-    Font.Height = 13
-    ParentFont = False
     TabOrder = 2
   end
   object Memo2: TMemo
@@ -51,9 +46,7 @@ object Form1: TForm1
     Height = 41
     Top = 480
     Width = 104
-    Font.Height = 13
     ParentColor = True
-    ParentFont = False
     ReadOnly = True
     TabOrder = 0
     Visible = False
@@ -67,8 +60,6 @@ object Form1: TForm1
     BevelOuter = bvNone
     ClientHeight = 35
     ClientWidth = 1206
-    Font.Height = 13
-    ParentFont = False
     TabOrder = 1
     object TrackBar9: TTrackBar
       Left = 728
@@ -83,8 +74,6 @@ object Form1: TForm1
       Reversed = True
       ShowSelRange = False
       TickStyle = tsNone
-      Font.Height = 13
-      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 3
@@ -102,8 +91,6 @@ object Form1: TForm1
       DragMode = dmAutomatic
       EdgeInner = esNone
       EdgeOuter = esNone
-      Font.Height = 13
-      ParentFont = False
       ShowCaptions = True
       TabOrder = 0
       Transparent = True
@@ -134,10 +121,8 @@ object Form1: TForm1
         AutoSize = False
         Caption = 'Zoom:'
         Color = clWindow
-        Font.Height = 13
         Layout = tlCenter
         ParentColor = False
-        ParentFont = False
         Transparent = False
       end
       object ToolButton15: TToolButton
@@ -161,9 +146,7 @@ object Form1: TForm1
       DragMode = dmAutomatic
       EdgeInner = esNone
       EdgeOuter = esNone
-      Font.Height = 13
       Images = ImageListDay
-      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
@@ -293,8 +276,6 @@ object Form1: TForm1
       Position = 1
       ShowSelRange = False
       TickStyle = tsNone
-      Font.Height = 13
-      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 2
@@ -311,9 +292,7 @@ object Form1: TForm1
       Caption = 'ToolBar4'
       EdgeInner = esNone
       EdgeOuter = esNone
-      Font.Height = 13
       Images = ImageListDay
-      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 4
@@ -438,9 +417,7 @@ object Form1: TForm1
       ButtonWidth = 30
       EdgeInner = esNone
       EdgeOuter = esNone
-      Font.Height = 13
       Images = ImageListDay
-      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 5
@@ -464,7 +441,6 @@ object Form1: TForm1
     Height = 21
     Top = 585
     Width = 1206
-    Font.Height = 13
     Panels = <    
       item
         Width = 140
@@ -484,7 +460,6 @@ object Form1: TForm1
       item
         Width = 100
       end>
-    ParentFont = False
     ParentShowHint = False
     SimplePanel = False
     ShowHint = True
@@ -513,8 +488,6 @@ object Form1: TForm1
     Width = 356
     ClientHeight = 549
     ClientWidth = 356
-    Font.Height = 13
-    ParentFont = False
     TabOrder = 7
     object PageControl1: TPageControl
       Left = 1
@@ -523,9 +496,7 @@ object Form1: TForm1
       Width = 354
       ActivePage = Position
       Align = alClient
-      Font.Height = 13
       MultiLine = True
-      ParentFont = False
       TabIndex = 0
       TabOrder = 0
       OnChange = PageControl1Change
@@ -534,8 +505,6 @@ object Form1: TForm1
         Caption = 'Information'
         ClientHeight = 517
         ClientWidth = 344
-        Font.Height = 13
-        ParentFont = False
         object Panel1: TPanel
           Left = 0
           Height = 90
@@ -546,8 +515,6 @@ object Form1: TForm1
           BorderStyle = bsSingle
           ClientHeight = 88
           ClientWidth = 342
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 0
           object GroupBox1: TGroupBox
             Left = 1
@@ -557,8 +524,6 @@ object Form1: TForm1
             Caption = 'Profil----------------------------------------------------------'
             ClientHeight = 29
             ClientWidth = 338
-            Font.Height = 13
-            ParentFont = False
             TabOrder = 1
             object Label7: TLabel
               Left = 0
@@ -569,7 +534,6 @@ object Form1: TForm1
               Color = clWindow
               Font.Pitch = fpFixed
               ParentColor = False
-              ParentFont = False
               Transparent = False
             end
           end
@@ -579,12 +543,10 @@ object Form1: TForm1
             Top = 8
             Width = 320
             DropDownCount = 15
-            Font.Height = 13
             ItemHeight = 0
             OnKeyDown = ComboBox1KeyDown
             OnSelect = ComboBox1Select
             ParentColor = True
-            ParentFont = False
             TabOrder = 0
           end
         end
@@ -625,18 +587,14 @@ object Form1: TForm1
           BorderStyle = bsSingle
           ClientHeight = 47
           ClientWidth = 342
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 2
           object Edit6: TEdit
             Left = 3
             Height = 30
             Top = 8
             Width = 159
-            Font.Height = 13
             OnEditingDone = Edit6EditingDone
             ParentColor = True
-            ParentFont = False
             TabOrder = 0
           end
           object Button1: TSpeedButton
@@ -646,10 +604,8 @@ object Form1: TForm1
             Width = 75
             Caption = 'Recherche'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = Button1Click
-            ParentFont = False
           end
           object Button2: TSpeedButton
             Left = 252
@@ -658,10 +614,8 @@ object Form1: TForm1
             Width = 75
             Caption = 'Suivant'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = Button2Click
-            ParentFont = False
           end
         end
         object PanelAnchor: TPanel
@@ -678,7 +632,6 @@ object Form1: TForm1
           ClientHeight = 19
           ClientWidth = 344
           Font.Color = clBlue
-          ParentFont = False
           TabOrder = 3
           object AnchorIdent: TLabel
             Tag = 1
@@ -798,8 +751,6 @@ object Form1: TForm1
         Caption = 'Notes'
         ClientHeight = 517
         ClientWidth = 344
-        Font.Height = 13
-        ParentFont = False
         object Panel7: TPanel
           Left = 0
           Height = 74
@@ -808,8 +759,6 @@ object Form1: TForm1
           Align = alTop
           ClientHeight = 74
           ClientWidth = 344
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 1
           object notes_name: TLabel
             Left = 8
@@ -818,9 +767,7 @@ object Form1: TForm1
             Width = 12
             Caption = '    '
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object BtnNewInfo: TSpeedButton
@@ -830,10 +777,8 @@ object Form1: TForm1
             Width = 160
             Caption = 'New information note'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = BtnNewInfoClick
-            ParentFont = False
           end
           object BtnNewObs: TSpeedButton
             Left = 176
@@ -842,10 +787,8 @@ object Form1: TForm1
             Width = 160
             Caption = 'New observation note'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = BtnNewObsClick
-            ParentFont = False
           end
         end
         object ListNotes: TStringGrid
@@ -894,8 +837,6 @@ object Form1: TForm1
         Caption = 'Ephemerides'
         ClientHeight = 517
         ClientWidth = 344
-        Font.Height = 13
-        ParentFont = False
         object Panel4: TPanel
           Left = 0
           Height = 121
@@ -904,8 +845,6 @@ object Form1: TForm1
           Align = alTop
           ClientHeight = 121
           ClientWidth = 344
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 0
           TabStop = True
           object Label6: TLabel
@@ -915,9 +854,7 @@ object Form1: TForm1
             Width = 37
             Caption = 'Heure'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label9: TLabel
@@ -926,9 +863,7 @@ object Form1: TForm1
             Top = 10
             Width = 28
             Caption = 'Date'
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
           end
           object Button3: TSpeedButton
             Left = 150
@@ -938,12 +873,10 @@ object Form1: TForm1
             AllowAllUp = True
             Caption = '>>'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnMouseDown = Button3MouseDown
             OnMouseLeave = Button3MouseLeave
             OnMouseUp = Button3MouseUp
-            ParentFont = False
           end
           object Button6: TSpeedButton
             Left = 105
@@ -953,12 +886,10 @@ object Form1: TForm1
             AllowAllUp = True
             Caption = '>'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnMouseDown = Button6MouseDown
             OnMouseLeave = Button3MouseLeave
             OnMouseUp = Button3MouseUp
-            ParentFont = False
           end
           object Button7: TSpeedButton
             Left = 56
@@ -968,12 +899,10 @@ object Form1: TForm1
             AllowAllUp = True
             Caption = '<'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnMouseDown = Button7MouseDown
             OnMouseLeave = Button3MouseLeave
             OnMouseUp = Button3MouseUp
-            ParentFont = False
           end
           object Button8: TSpeedButton
             Left = 8
@@ -983,12 +912,10 @@ object Form1: TForm1
             AllowAllUp = True
             Caption = '<<'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnMouseDown = Button8MouseDown
             OnMouseLeave = Button3MouseLeave
             OnMouseUp = Button3MouseUp
-            ParentFont = False
           end
           object NM: TImage
             Left = 202
@@ -1032,9 +959,7 @@ object Form1: TForm1
             Top = 19
             Width = 7
             Caption = 'L'
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             OnClick = NMClick
           end
           object LabelFQ: TLabel
@@ -1043,9 +968,7 @@ object Form1: TForm1
             Top = 43
             Width = 7
             Caption = 'L'
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             OnClick = FQClick
           end
           object LabelFM: TLabel
@@ -1054,9 +977,7 @@ object Form1: TForm1
             Top = 67
             Width = 7
             Caption = 'L'
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             OnClick = FMClick
           end
           object LabelLQ: TLabel
@@ -1065,9 +986,7 @@ object Form1: TForm1
             Top = 92
             Width = 7
             Caption = 'L'
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             OnClick = LQClick
           end
           object FQ: TImage
@@ -1264,9 +1183,7 @@ object Form1: TForm1
             Hint = '0..31'
             Top = 4
             Width = 26
-            Font.Height = 13
             ParentColor = True
-            ParentFont = False
             ParentShowHint = False
             ShowHint = True
             TabOrder = 2
@@ -1279,9 +1196,7 @@ object Form1: TForm1
             Hint = '0..12'
             Top = 4
             Width = 26
-            Font.Height = 13
             ParentColor = True
-            ParentFont = False
             ParentShowHint = False
             ShowHint = True
             TabOrder = 1
@@ -1294,9 +1209,7 @@ object Form1: TForm1
             Hint = '-2999..2999'
             Top = 4
             Width = 45
-            Font.Height = 13
             ParentColor = True
-            ParentFont = False
             ParentShowHint = False
             ShowHint = True
             TabOrder = 0
@@ -1310,9 +1223,7 @@ object Form1: TForm1
             Hint = '0..59'
             Top = 36
             Width = 26
-            Font.Height = 13
             ParentColor = True
-            ParentFont = False
             ParentShowHint = False
             ShowHint = True
             TabOrder = 5
@@ -1325,9 +1236,7 @@ object Form1: TForm1
             Hint = '0..59'
             Top = 36
             Width = 26
-            Font.Height = 13
             ParentColor = True
-            ParentFont = False
             ParentShowHint = False
             ShowHint = True
             TabOrder = 4
@@ -1340,9 +1249,7 @@ object Form1: TForm1
             Hint = '0..23'
             Top = 36
             Width = 26
-            Font.Height = 13
             ParentColor = True
-            ParentFont = False
             ParentShowHint = False
             ShowHint = True
             TabOrder = 3
@@ -1356,10 +1263,8 @@ object Form1: TForm1
             Width = 70
             Caption = 'Compute'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = Button4Click
-            ParentFont = False
           end
           object Button5: TSpeedButton
             Left = 2
@@ -1368,10 +1273,8 @@ object Form1: TForm1
             Width = 78
             Caption = 'Maintenant'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = Button5Click
-            ParentFont = False
           end
           object UpDown1: TUpDown
             Left = 88
@@ -1452,10 +1355,8 @@ object Form1: TForm1
             Width = 26
             Caption = '0h'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = Button10Click
-            ParentFont = False
           end
         end
         object StringGrid1: TStringGrid
@@ -1470,10 +1371,8 @@ object Form1: TForm1
           DefaultRowHeight = 18
           FixedColor = clDefault
           FixedCols = 0
-          Font.Height = 13
           Options = [goFixedVertLine, goVertLine, goRangeSelect, goColSizing, goThumbTracking, goDblClickAutoSize, goSmoothScroll]
           ParentColor = True
-          ParentFont = False
           PopupMenu = PopupMenu2
           RowCount = 26
           TabOrder = 1
@@ -1485,8 +1384,6 @@ object Form1: TForm1
         Caption = 'Terminateur'
         ClientHeight = 517
         ClientWidth = 344
-        Font.Height = 13
-        ParentFont = False
         object Panel5: TPanel
           Left = 0
           Height = 163
@@ -1495,8 +1392,6 @@ object Form1: TForm1
           Align = alTop
           ClientHeight = 163
           ClientWidth = 344
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 0
           object Label19: TLabel
             Left = 8
@@ -1505,9 +1400,7 @@ object Form1: TForm1
             Width = 44
             Caption = 'Interet '
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label20: TLabel
@@ -1517,9 +1410,7 @@ object Form1: TForm1
             Width = 68
             Caption = 'Instrument'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label21: TLabel
@@ -1529,9 +1420,7 @@ object Form1: TForm1
             Width = 27
             Caption = 'mm.'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object ComboBox2: TComboBox
@@ -1539,7 +1428,6 @@ object Form1: TForm1
             Height = 30
             Top = 4
             Width = 158
-            Font.Height = 13
             ItemHeight = 0
             ItemIndex = 0
             Items.Strings = (
@@ -1550,7 +1438,6 @@ object Form1: TForm1
             )
             OnChange = ComboBox2Change
             ParentColor = True
-            ParentFont = False
             TabOrder = 0
             Text = '1'
           end
@@ -1559,7 +1446,6 @@ object Form1: TForm1
             Height = 30
             Top = 36
             Width = 57
-            Font.Height = 13
             ItemHeight = 0
             ItemIndex = 0
             Items.Strings = (
@@ -1573,7 +1459,6 @@ object Form1: TForm1
             )
             OnChange = ComboBox2Change
             ParentColor = True
-            ParentFont = False
             TabOrder = 1
             Text = '999'
           end
@@ -1595,7 +1480,6 @@ object Form1: TForm1
             ClientHeight = 60
             ClientWidth = 253
             Columns = 2
-            Font.Height = 13
             Items.Strings = (
               'Nom'
               'Interet'
@@ -1603,7 +1487,6 @@ object Form1: TForm1
               'Latitude'
             )
             OnClick = ComboBox2Change
-            ParentFont = False
             TabOrder = 2
           end
           object ToolBar3: TToolBar
@@ -1620,10 +1503,8 @@ object Form1: TForm1
             EdgeBorders = []
             EdgeInner = esNone
             EdgeOuter = esNone
-            Font.Height = 13
             Images = ImageListDay
             ParentColor = False
-            ParentFont = False
             TabOrder = 3
             object ToolButton16: TToolButton
               Left = 1
@@ -1640,11 +1521,9 @@ object Form1: TForm1
           Top = 163
           Width = 344
           Align = alClient
-          Font.Height = 13
           ItemHeight = 0
           OnClick = ListBox1Click
           ParentColor = True
-          ParentFont = False
           ScrollWidth = 342
           Sorted = True
           TabOrder = 1
@@ -1655,8 +1534,6 @@ object Form1: TForm1
         Caption = 'Outils'
         ClientHeight = 517
         ClientWidth = 344
-        Font.Height = 13
-        ParentFont = False
         object GroupBox3: TGroupBox
           Left = 8
           Height = 326
@@ -1665,8 +1542,6 @@ object Form1: TForm1
           Caption = 'Satellisation'
           ClientHeight = 324
           ClientWidth = 302
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 2
           Visible = False
           object Label4: TLabel
@@ -1676,9 +1551,7 @@ object Form1: TForm1
             Width = 112
             Caption = 'Vitesse de rotation'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object SpeedButton1: TSpeedButton
@@ -1688,9 +1561,7 @@ object Form1: TForm1
             Width = 49
             Caption = '<'
             Flat = True
-            Font.Height = 13
             OnClick = SpeedButton1Click
-            ParentFont = False
           end
           object SpeedButton2: TSpeedButton
             Left = 124
@@ -1699,9 +1570,7 @@ object Form1: TForm1
             Width = 49
             Caption = 'O'
             Flat = True
-            Font.Height = 13
             OnClick = SpeedButton2Click
-            ParentFont = False
           end
           object SpeedButton3: TSpeedButton
             Left = 183
@@ -1710,9 +1579,7 @@ object Form1: TForm1
             Width = 49
             Caption = '>'
             Flat = True
-            Font.Height = 13
             OnClick = SpeedButton3Click
-            ParentFont = False
           end
           object SpeedButton4: TSpeedButton
             Left = 159
@@ -1721,9 +1588,7 @@ object Form1: TForm1
             Width = 73
             Caption = 'Vue Est'
             Flat = True
-            Font.Height = 13
             OnClick = SpeedButton4Click
-            ParentFont = False
           end
           object SpeedButton5: TSpeedButton
             Left = 7
@@ -1732,9 +1597,7 @@ object Form1: TForm1
             Width = 73
             Caption = 'Vue Ouest'
             Flat = True
-            Font.Height = 13
             OnClick = SpeedButton5Click
-            ParentFont = False
           end
           object SpeedButton6: TSpeedButton
             Left = 83
@@ -1743,9 +1606,7 @@ object Form1: TForm1
             Width = 73
             Caption = 'Centre'
             Flat = True
-            Font.Height = 13
             OnClick = SpeedButton6Click
-            ParentFont = False
           end
           object Label17: TLabel
             Left = 7
@@ -1754,9 +1615,7 @@ object Form1: TForm1
             Width = 96
             Caption = 'Orbit inclination'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label18: TLabel
@@ -1766,9 +1625,7 @@ object Form1: TForm1
             Width = 88
             Caption = 'Satellite model'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
             Visible = False
           end
@@ -1779,9 +1636,7 @@ object Form1: TForm1
             Width = 81
             Caption = 'View distance'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
             Visible = False
           end
@@ -1792,9 +1647,7 @@ object Form1: TForm1
             Width = 49
             Caption = '| |'
             Flat = True
-            Font.Height = 13
             OnClick = SpeedButton7Click
-            ParentFont = False
           end
           object Label5: TLabel
             Left = 7
@@ -1803,9 +1656,7 @@ object Form1: TForm1
             Width = 80
             Caption = 'Orbit altitude'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label36: TLabel
@@ -1815,9 +1666,7 @@ object Form1: TForm1
             Width = 4
             Caption = '-'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label37: TLabel
@@ -1827,9 +1676,7 @@ object Form1: TForm1
             Width = 4
             Caption = '-'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label38: TLabel
@@ -1839,9 +1686,7 @@ object Form1: TForm1
             Width = 7
             Caption = '+'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label39: TLabel
@@ -1851,9 +1696,7 @@ object Form1: TForm1
             Width = 7
             Caption = '+'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object LabelAltitude: TLabel
@@ -1865,9 +1708,7 @@ object Form1: TForm1
             AutoSize = False
             Caption = 'LabelAltitude'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object LabelIncl: TLabel
@@ -1879,9 +1720,7 @@ object Form1: TForm1
             AutoSize = False
             Caption = 'LabelIncl'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object ComboBox4: TComboBox
@@ -1889,11 +1728,9 @@ object Form1: TForm1
             Height = 30
             Top = 16
             Width = 97
-            Font.Height = 13
             ItemHeight = 0
             OnChange = ComboBox4Change
             ParentColor = True
-            ParentFont = False
             TabOrder = 0
             Text = '5 ?/seconde'
           end
@@ -1909,8 +1746,6 @@ object Form1: TForm1
             PageSize = 100
             Position = 800
             TickStyle = tsNone
-            Font.Height = 13
-            ParentFont = False
             TabOrder = 1
           end
           object TrackBar7: TTrackBar
@@ -1924,8 +1759,6 @@ object Form1: TForm1
             OnChange = TrackBar7Change
             Position = 0
             TickStyle = tsNone
-            Font.Height = 13
-            ParentFont = False
             TabOrder = 2
           end
           object ComboBox6: TComboBox
@@ -1933,7 +1766,6 @@ object Form1: TForm1
             Height = 30
             Top = 234
             Width = 105
-            Font.Height = 13
             ItemHeight = 0
             ItemIndex = 0
             Items.Strings = (
@@ -1943,7 +1775,6 @@ object Form1: TForm1
             )
             OnChange = ComboBox6Change
             ParentColor = True
-            ParentFont = False
             TabOrder = 3
             Text = 'None'
             Visible = False
@@ -1959,8 +1790,6 @@ object Form1: TForm1
             OnChange = TrackBar8Change
             Position = 8
             TickStyle = tsNone
-            Font.Height = 13
-            ParentFont = False
             TabOrder = 4
             Visible = False
           end
@@ -1973,8 +1802,6 @@ object Form1: TForm1
           BevelInner = bvLowered
           ClientHeight = 165
           ClientWidth = 305
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 1
           object Label40: TLabel
             Left = 9
@@ -1983,9 +1810,7 @@ object Form1: TForm1
             Width = 52
             Caption = 'Rotation'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Button13: TSpeedButton
@@ -1995,10 +1820,8 @@ object Form1: TForm1
             Width = 63
             Caption = 'Droite'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnMouseUp = Button13MouseUp
-            ParentFont = False
           end
           object Button12: TSpeedButton
             Left = 12
@@ -2007,10 +1830,8 @@ object Form1: TForm1
             Width = 64
             Caption = 'Gauche'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnMouseUp = Button12MouseUp
-            ParentFont = False
           end
           object CheckBox2: TCheckBox
             Left = 9
@@ -2018,9 +1839,7 @@ object Form1: TForm1
             Top = 97
             Width = 61
             Caption = 'Miroir'
-            Font.Height = 13
             OnClick = CheckBox2Click
-            ParentFont = False
             TabOrder = 1
           end
           object CheckBox1: TCheckBox
@@ -2029,9 +1848,7 @@ object Form1: TForm1
             Top = 118
             Width = 207
             Caption = 'Pole celeste toujours en haut.'
-            Font.Height = 13
             OnClick = CheckBox1Click
-            ParentFont = False
             TabOrder = 3
           end
           object RadioGroup2: TRadioGroup
@@ -2052,13 +1869,11 @@ object Form1: TForm1
             ClientHeight = 22
             ClientWidth = 224
             Columns = 2
-            Font.Height = 13
             Items.Strings = (
               'nnnnnnnnnnn'
               'sssssssssssssss'
             )
             OnClick = RadioGroup2Click
-            ParentFont = False
             TabOrder = 0
           end
           object CheckBox4: TCheckBox
@@ -2067,9 +1882,7 @@ object Form1: TForm1
             Top = 139
             Width = 110
             Caption = 'Zenith on top '
-            Font.Height = 13
             OnClick = CheckBox4Click
-            ParentFont = False
             TabOrder = 2
           end
         end
@@ -2081,8 +1894,6 @@ object Form1: TForm1
           BevelInner = bvLowered
           ClientHeight = 162
           ClientWidth = 304
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 0
           object Label41: TLabel
             Left = 7
@@ -2091,9 +1902,7 @@ object Form1: TForm1
             Width = 58
             Caption = 'Telescope'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object ComboBox5: TComboBox
@@ -2101,7 +1910,6 @@ object Form1: TForm1
             Height = 30
             Top = 26
             Width = 105
-            Font.Height = 13
             ItemHeight = 0
             ItemIndex = 0
             Items.Strings = (
@@ -2110,7 +1918,6 @@ object Form1: TForm1
             )
             OnChange = ComboBox5Change
             ParentColor = True
-            ParentFont = False
             Sorted = True
             TabOrder = 0
             Text = 'ASCOM'
@@ -2122,10 +1929,8 @@ object Form1: TForm1
             Width = 114
             Caption = 'Show Menu'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = Button16Click
-            ParentFont = False
           end
           object Button17: TSpeedButton
             Left = 8
@@ -2134,10 +1939,8 @@ object Form1: TForm1
             Width = 100
             Caption = 'Goto selected'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = Button17Click
-            ParentFont = False
           end
           object Button18: TSpeedButton
             Left = 124
@@ -2146,10 +1949,8 @@ object Form1: TForm1
             Width = 114
             Caption = 'Sync selected'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = Button18Click
-            ParentFont = False
           end
           object CheckBox6: TCheckBox
             Left = 8
@@ -2157,9 +1958,7 @@ object Form1: TForm1
             Top = 90
             Width = 108
             Caption = 'Track position'
-            Font.Height = 13
             OnClick = CheckBox6Click
-            ParentFont = False
             TabOrder = 1
           end
         end
@@ -2179,9 +1978,7 @@ object Form1: TForm1
             Width = 86
             Caption = 'Distance reelle'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object EditDisrtR: TEdit
@@ -2189,9 +1986,7 @@ object Form1: TForm1
             Height = 30
             Top = 48
             Width = 73
-            Font.Height = 13
             ParentColor = True
-            ParentFont = False
             ReadOnly = True
             TabOrder = 0
           end
@@ -2202,9 +1997,7 @@ object Form1: TForm1
             Width = 116
             Caption = 'Distance apparente'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object EditDistA: TEdit
@@ -2212,9 +2005,7 @@ object Form1: TForm1
             Height = 30
             Top = 80
             Width = 73
-            Font.Height = 13
             ParentColor = True
-            ParentFont = False
             ReadOnly = True
             TabOrder = 1
           end
@@ -2226,11 +2017,9 @@ object Form1: TForm1
             AllowAllUp = True
             Caption = 'Start'
             Flat = True
-            Font.Height = 13
             GroupIndex = 1234
             Transparent = False
             OnClick = ButtonMeasureDistanceClick
-            ParentFont = False
           end
           object DemProfile: TSpeedButton
             Left = 155
@@ -2239,10 +2028,8 @@ object Form1: TForm1
             Width = 110
             Caption = 'Profile plot'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = DemProfileClick
-            ParentFont = False
           end
           object Enregistredist: TSpeedButton
             Left = 240
@@ -2251,10 +2038,8 @@ object Form1: TForm1
             Width = 40
             Caption = 'Copier'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = EnregistredistClick
-            ParentFont = False
           end
           object Label3: TLabel
             Left = 16
@@ -2263,9 +2048,7 @@ object Form1: TForm1
             Width = 40
             Caption = 'Centre'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label1: TLabel
@@ -2275,9 +2058,7 @@ object Form1: TForm1
             Width = 7
             Caption = 'L'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object EditCenterL: TEdit
@@ -2285,9 +2066,7 @@ object Form1: TForm1
             Height = 30
             Top = 112
             Width = 60
-            Font.Height = 13
             ParentColor = True
-            ParentFont = False
             ReadOnly = True
             TabOrder = 2
           end
@@ -2298,9 +2077,7 @@ object Form1: TForm1
             Width = 8
             Caption = 'B'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object EditCenterB: TEdit
@@ -2308,9 +2085,7 @@ object Form1: TForm1
             Height = 30
             Top = 112
             Width = 60
-            Font.Height = 13
             ParentColor = True
-            ParentFont = False
             ReadOnly = True
             TabOrder = 3
           end
@@ -2336,8 +2111,6 @@ object Form1: TForm1
         Caption = 'Reglage'
         ClientHeight = 517
         ClientWidth = 344
-        Font.Height = 13
-        ParentFont = False
         object Bevel1: TBevel
           Left = 16
           Height = 220
@@ -2352,9 +2125,7 @@ object Form1: TForm1
           Width = 56
           Caption = 'Eclairage '
           Color = clWindow
-          Font.Height = 13
           ParentColor = False
-          ParentFont = False
           Transparent = False
         end
         object Label22: TLabel
@@ -2364,9 +2135,7 @@ object Form1: TForm1
           Width = 4
           Caption = '-'
           Color = clWindow
-          Font.Height = 13
           ParentColor = False
-          ParentFont = False
           Transparent = False
         end
         object Label29: TLabel
@@ -2376,9 +2145,7 @@ object Form1: TForm1
           Width = 4
           Caption = '-'
           Color = clWindow
-          Font.Height = 13
           ParentColor = False
-          ParentFont = False
           Transparent = False
         end
         object Label30: TLabel
@@ -2388,9 +2155,7 @@ object Form1: TForm1
           Width = 4
           Caption = '-'
           Color = clWindow
-          Font.Height = 13
           ParentColor = False
-          ParentFont = False
           Transparent = False
         end
         object Label32: TLabel
@@ -2400,9 +2165,7 @@ object Form1: TForm1
           Width = 7
           Caption = '+'
           Color = clWindow
-          Font.Height = 13
           ParentColor = False
-          ParentFont = False
           Transparent = False
         end
         object Label33: TLabel
@@ -2412,9 +2175,7 @@ object Form1: TForm1
           Width = 7
           Caption = '+'
           Color = clWindow
-          Font.Height = 13
           ParentColor = False
-          ParentFont = False
           Transparent = False
         end
         object Label34: TLabel
@@ -2424,9 +2185,7 @@ object Form1: TForm1
           Width = 7
           Caption = '+'
           Color = clWindow
-          Font.Height = 13
           ParentColor = False
-          ParentFont = False
           Transparent = False
         end
         object TrackBar2: TTrackBar
@@ -2441,8 +2200,6 @@ object Form1: TForm1
           Position = 0
           TickStyle = tsNone
           Constraints.MaxHeight = 30
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 0
         end
         object TrackBar3: TTrackBar
@@ -2457,8 +2214,6 @@ object Form1: TForm1
           Position = 0
           TickStyle = tsNone
           Constraints.MaxHeight = 30
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 1
         end
         object TrackBar4: TTrackBar
@@ -2473,8 +2228,6 @@ object Form1: TForm1
           Position = 0
           TickStyle = tsNone
           Constraints.MaxHeight = 30
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 2
         end
         object Panel8: TPanel
@@ -2484,8 +2237,6 @@ object Form1: TForm1
           Width = 204
           ClientHeight = 130
           ClientWidth = 204
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 3
           object Label13: TLabel
             Left = 13
@@ -2494,9 +2245,7 @@ object Form1: TForm1
             Width = 64
             Caption = 'Resolution'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label15: TLabel
@@ -2506,9 +2255,7 @@ object Form1: TForm1
             Width = 32
             Caption = '0 FPS'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label16: TLabel
@@ -2518,9 +2265,7 @@ object Form1: TForm1
             Width = 77
             Caption = 'Performance'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label31: TLabel
@@ -2530,9 +2275,7 @@ object Form1: TForm1
             Width = 4
             Caption = '-'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object Label35: TLabel
@@ -2542,9 +2285,7 @@ object Form1: TForm1
             Width = 7
             Caption = '+'
             Color = clWindow
-            Font.Height = 13
             ParentColor = False
-            ParentFont = False
             Transparent = False
           end
           object TrackBar5: TTrackBar
@@ -2558,8 +2299,6 @@ object Form1: TForm1
             PageSize = 1
             Position = 1
             TickStyle = tsNone
-            Font.Height = 13
-            ParentFont = False
             TabOrder = 0
           end
         end
@@ -2570,10 +2309,8 @@ object Form1: TForm1
           Width = 87
           Caption = 'Button21'
           Flat = True
-          Font.Height = 13
           Transparent = False
           OnClick = Button21Click
-          ParentFont = False
         end
         object Label8: TLabel
           Left = 32
@@ -2582,9 +2319,7 @@ object Form1: TForm1
           Width = 63
           Caption = 'Penombre'
           Color = clWindow
-          Font.Height = 13
           ParentColor = False
-          ParentFont = False
           Transparent = False
         end
         object Label11: TLabel
@@ -2594,9 +2329,7 @@ object Form1: TForm1
           Width = 35
           Caption = 'Diffus'
           Color = clWindow
-          Font.Height = 13
           ParentColor = False
-          ParentFont = False
           Transparent = False
         end
         object Label12: TLabel
@@ -2606,9 +2339,7 @@ object Form1: TForm1
           Width = 35
           Caption = 'Direct'
           Color = clWindow
-          Font.Height = 13
           ParentColor = False
-          ParentFont = False
           Transparent = False
         end
       end
@@ -2616,8 +2347,6 @@ object Form1: TForm1
         Caption = 'Database'
         ClientHeight = 517
         ClientWidth = 344
-        Font.Height = 13
-        ParentFont = False
         object StringGrid2: TStringGrid
           Left = 0
           Height = 484
@@ -2627,10 +2356,8 @@ object Form1: TForm1
           ColCount = 2
           DefaultColWidth = 74
           FixedRows = 0
-          Font.Height = 13
           Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor]
           ParentColor = True
-          ParentFont = False
           TabOrder = 0
           OnSetEditText = StringGrid2SetEditText
         end
@@ -2642,8 +2369,6 @@ object Form1: TForm1
           Align = alBottom
           ClientHeight = 33
           ClientWidth = 344
-          Font.Height = 13
-          ParentFont = False
           TabOrder = 1
           object Button9: TSpeedButton
             Left = 86
@@ -2652,10 +2377,8 @@ object Form1: TForm1
             Width = 75
             Caption = 'Enregistrer'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = Button9Click
-            ParentFont = False
           end
           object btnEffacer: TSpeedButton
             Left = 8
@@ -2664,10 +2387,8 @@ object Form1: TForm1
             Width = 75
             Caption = 'Nouveau'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = btnEffacerClick
-            ParentFont = False
           end
           object Button19: TSpeedButton
             Left = 164
@@ -2676,10 +2397,8 @@ object Form1: TForm1
             Width = 73
             Caption = 'Coord.'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = EnregistredistClick
-            ParentFont = False
           end
           object Button20: TSpeedButton
             Left = 241
@@ -2688,10 +2407,8 @@ object Form1: TForm1
             Width = 65
             Caption = 'Delete'
             Flat = True
-            Font.Height = 13
             Transparent = False
             OnClick = Button20Click
-            ParentFont = False
           end
         end
       end
