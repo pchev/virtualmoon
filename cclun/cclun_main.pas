@@ -417,6 +417,7 @@ end;
 
 procedure Tf_cclun.FormCreate(Sender: TObject);
 begin
+  ScaleFormForFontSize(self,96);
   moveform:=false;
   GetAppDir;
   SetLang;

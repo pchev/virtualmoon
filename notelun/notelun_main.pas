@@ -330,6 +330,7 @@ procedure Tf_notelun.FormCreate(Sender: TObject);
 var inifile:Tmeminifile;
     i: integer;
 begin
+  ScaleFormForFontSize(self,96);
   DefaultFormatSettings.DateSeparator:='/';
   DefaultFormatSettings.TimeSeparator:=':';
   DefaultFormatSettings.DecimalSeparator:='.';

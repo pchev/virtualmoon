@@ -326,6 +326,7 @@ implementation
 procedure Tf_calclun.FormCreate(Sender: TObject);
 var inifile:Tmeminifile;
 begin
+  ScaleFormForFontSize(self,96);
   DefaultFormatSettings.DateSeparator:='/';
   DefaultFormatSettings.TimeSeparator:=':';
   DefaultFormatSettings.DecimalSeparator:='.';

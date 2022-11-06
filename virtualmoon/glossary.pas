@@ -344,6 +344,7 @@ end;
 
 procedure TGloss.FormCreate(Sender: TObject);
 begin
+  ScaleFormForFontSize(self,96);
   dbgloss := TMlb2.Create;
 	InitAlphaButtons;
   InitGlossary;

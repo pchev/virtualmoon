@@ -78,6 +78,7 @@ implementation
 procedure TFSetup.FormCreate(Sender: TObject);
 var s: TStringList;
 begin
+  ScaleFormForFontSize(self,96);
   SetLang;
   tz:=TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');

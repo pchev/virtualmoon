@@ -933,6 +933,7 @@ end;
 
 procedure Tpop_scope.FormCreate(Sender: TObject);
 begin
+  ScaleFormForFontSize(self,96);
   CoordLock := False;
   Initialized := False;
   FConnected := False;

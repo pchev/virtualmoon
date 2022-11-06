@@ -53,6 +53,7 @@ implementation
 
 procedure Tf_ephem.FormCreate(Sender: TObject);
 begin
+  ScaleFormForFontSize(self,96);
   FileNameEdit1.FileName:=slash(Homedir)+'ephem.csv';
 end;
 

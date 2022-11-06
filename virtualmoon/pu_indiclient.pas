@@ -786,6 +786,7 @@ end;
 
 procedure Tpop_indi.FormCreate(Sender: TObject);
 begin
+  ScaleFormForFontSize(self,96);
   SlewRateList := TStringList.Create;
   ClearStatus;
 end;

@@ -1281,6 +1281,7 @@ end;
 procedure Tf_moon.FormCreate(Sender: TObject);
 var i: integer;
 begin
+ ScaleFormForFontSize(self,96);
  if Owner is TWinControl then Moon.Parent:=TWinControl(Owner);
  vIgnoreOpenGLErrors:=true;
  Ftexture:=TStringList.Create;

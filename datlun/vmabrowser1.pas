@@ -386,11 +386,9 @@ end;
 procedure Tf_main.FormCreate(Sender: TObject);
 var i: integer;
 begin
+ScaleFormForFontSize(self,96);
 DecimalSeparator := '.';
 ThousandSeparator:=' ';
-{$ifdef mswindows}
-//ScaleForm(self,Screen.PixelsPerInch/96);
-{$endif}
 dbm:=TLiteDB.Create(self);
 GetAppDir;
 chdir(appdir);

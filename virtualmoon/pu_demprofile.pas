@@ -59,6 +59,7 @@ implementation
 
 procedure Tf_demprofile.FormCreate(Sender: TObject);
 begin
+ ScaleFormForFontSize(self,96);
  FScale:=0;
  ButtonReset.Down:=true;
  LabelPos.Caption:='';

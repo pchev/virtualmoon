@@ -219,9 +219,7 @@ end;
 
 procedure TSelection.FormCreate(Sender: TObject);
 begin
-  {$ifdef mswindows}
-  //ScaleForm(self,Screen.PixelsPerInch/96);
-  {$endif}
+ScaleFormForFontSize(self,96);
 end;
 
 procedure TSelection.CheckListBox1ClickCheck(Sender: TObject);

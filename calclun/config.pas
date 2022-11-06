@@ -144,6 +144,7 @@ var i,p : integer;
     fs : TSearchRec;
     ft : TextFile;
 begin
+ScaleFormForFontSize(self,96);
 PageControl1.ActivePageIndex:=0;
 i:=findfirst(slash(appdir)+slash('language')+'calclun.*.po',0,fs);
 while i=0 do begin

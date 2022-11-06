@@ -840,6 +840,7 @@ end;
 procedure Tf_photlun.FormCreate(Sender: TObject);
 var i: integer;
 begin
+ScaleFormForFontSize(self,96);
 DefaultFormatSettings.DecimalSeparator := '.';
 DefaultFormatSettings.ThousandSeparator:=' ';
   GetAppDir;

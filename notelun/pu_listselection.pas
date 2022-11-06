@@ -4,7 +4,7 @@ unit pu_listselection;
 
 interface
 
-uses
+uses  u_util,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls;
 
 type
@@ -16,6 +16,7 @@ type
     btnok: TButton;
     Selection: TComboBox;
     Prompt: TLabel;
+    procedure FormCreate(Sender: TObject);
   private
 
   public
@@ -28,6 +29,13 @@ var
 implementation
 
 {$R *.lfm}
+
+{ Tf_listselection }
+
+procedure Tf_listselection.FormCreate(Sender: TObject);
+begin
+  ScaleFormForFontSize(self,96);
+end;
 
 end.
 

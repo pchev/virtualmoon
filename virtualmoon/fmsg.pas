@@ -53,6 +53,7 @@ implementation
 
 procedure TMsgForm.FormCreate(Sender: TObject);
 begin
+  ScaleFormForFontSize(self,96);
 end;
 
 end.

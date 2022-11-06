@@ -78,6 +78,7 @@ end;
 
 procedure Tf_craterlist.FormCreate(Sender: TObject);
 begin
+ScaleFormForFontSize(self,96);
 end;
 
 procedure Tf_craterlist.FormKeyUp(Sender: TObject; var Key: Word;

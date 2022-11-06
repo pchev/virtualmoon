@@ -72,6 +72,7 @@ end;
 
 procedure Tf_features.FormCreate(Sender: TObject);
 begin
+ScaleFormForFontSize(self,96);
 end;
 
 function Tf_features.CheckOptionalFeature(optlist:Tstrings): boolean;

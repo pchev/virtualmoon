@@ -211,6 +211,7 @@ end;
 
 procedure Tsplash.FormCreate(Sender: TObject);
 begin
+ScaleFormForFontSize(self,96);
 closing:=false;
 label1.caption:=rstitle;
 end;

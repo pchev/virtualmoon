@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses u_translation, u_bitmap, math, IniFiles, FileUtil, LazUTF8,
+uses u_translation, u_bitmap, math, IniFiles, FileUtil, LazUTF8, u_util,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
   ExtCtrls, Buttons, StdCtrls, ComCtrls, ExtDlgs;
 
@@ -412,6 +412,7 @@ end;
 
 procedure Tf_photo.FormCreate(Sender: TObject);
 begin
+ ScaleFormForFontSize(self,96);
  SetLang;
  imgbmp:=TBitmap.Create;
  oribmp:=TBitmap.Create;

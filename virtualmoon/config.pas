@@ -459,6 +459,7 @@ begin
   bt.OnClick:=RadioButtonLvClick;
 end;
 begin
+ScaleFormForFontSize(self,96);
 ov:=Tbitmap.Create;
 lockoverlay:=false;
 locktexture:=false;

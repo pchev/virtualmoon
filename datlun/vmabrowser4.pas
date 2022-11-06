@@ -306,9 +306,7 @@ end;
 procedure TLoadCSV.FormCreate(Sender: TObject);
 var i: integer;
 begin
-{$ifdef mswindows}
-//ScaleForm(self,Screen.PixelsPerInch/96);
-{$endif}
+ScaleFormForFontSize(self,96);
 Mlb:=TMlb2.Create;
 for i:= 1 to NumMoonDBFields do fieldmode[i]:=0;
 end;

@@ -34,7 +34,7 @@ uses
   {$endif}
     Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
     Controls, Process, IntfGraphics,FPImage,
-    MaskEdit,Menus,Spin,CheckLst,Buttons, ExtCtrls,
+    MaskEdit,Menus,Spin,CheckLst,Buttons, ExtCtrls, Types,
     Forms,Graphics,StdCtrls,ComCtrls,Dialogs,Grids,PrintersDlgs,Printers;
 
 type
@@ -144,6 +144,7 @@ function SafeSqlText(txt: string):string;
 function GetSelectedCell(grid:TStringGrid; out aCol, aRow: integer): string;
 function TzGMT2UTC(gmttz: string): string;
 function TzUTC2GMT(utctz: string): string;
+procedure ScaleFormForFontSize(f: Tform; desdpi:integer);
 
 var traceon : boolean;
     hp: string;
@@ -2228,6 +2229,24 @@ begin
   else
     Result := utctz;
 
+end;
+
+procedure ScaleFormForFontSize(f: Tform; desdpi:integer);
+var
+  rs: TSize;
+  sc: double;
+const
+  teststr = 'The Lazy Fox Jumps';
+  designlen = 125;
+  designhig = 18;
+begin
+  rs := f.Canvas.TextExtent(teststr);
+  sc := rs.cx / designlen;
+  sc := max(sc, rs.cy / designhig);
+  if abs(1 - sc) < 0.02 then
+    sc := 1;
+  if (sc>0.75)and(sc<5) then
+    f.PixelsPerInch:=round(desdpi / sc);
 end;
 
 end.

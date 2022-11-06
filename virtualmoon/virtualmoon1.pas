@@ -39,7 +39,7 @@ uses
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
   PrintersDlgs, Printers, Controls,
-  Messages, SysUtils, Classes, Dialogs, FileUtil,
+  Messages, SysUtils, Classes, Dialogs, FileUtil, Types,
   ComCtrls, Menus, Buttons, dynlibs, BigIma, pu_ascomclient, pu_indiclient,
   EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase, LCLType,
   Math, CraterList, LResources, IpHtml, UniqueInstance;
@@ -1385,11 +1385,11 @@ begin
       WriteBool(section, 'Mirror', CheckBox2.Checked);
       WriteBool(section, 'Grid', GridButton.Down);
       WriteFloat(section, 'PoleOrientation', PoleOrientation);
-      WriteInteger(section, 'ToolsWidth', ToolsWidth);
+      WriteInteger(section, 'ToolsWidth', round(ToolsWidth*dpiscale));
       WriteInteger(section, 'Top', Top);
       WriteInteger(section, 'Left', Left);
-      WriteInteger(section, 'Height', Height);
-      WriteInteger(section, 'Width', Width);
+      WriteInteger(section, 'Height', round(Height*dpiscale));
+      WriteInteger(section, 'Width', round(Width*dpiscale));
       WriteBool(section, 'Maximized', (windowstate = wsMaximized));
       WriteString(section, 'LabelFontName', moon1.LabelFont.Name);
       WriteInteger(section, 'LabelFontSize', moon1.LabelFont.Size);
@@ -3779,7 +3779,8 @@ begin
   compile_time := {$I %DATE%}+' '+{$I %TIME%};
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+buf;
 
-  dpiscale:=Scale96ToForm(100)/100;
+  ScaleFormForFontSize(self,96);
+  dpiscale:=Scale96ToForm(10000)/10000;
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
   PageControl1.ActivePageIndex:=0;

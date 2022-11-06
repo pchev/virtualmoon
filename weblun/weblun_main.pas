@@ -138,6 +138,7 @@ end;
 procedure Tf_weblun.FormCreate(Sender: TObject);
 var i: integer;
 begin
+  ScaleFormForFontSize(self,96);
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
   GetAppDir;

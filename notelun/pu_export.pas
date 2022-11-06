@@ -40,6 +40,7 @@ implementation
 
 procedure Tf_export.FormCreate(Sender: TObject);
 begin
+  ScaleFormForFontSize(self,96);
   SetLang;
   CheckGroup1.Checked[0]:=true;
   CheckGroup1.Checked[1]:=true;

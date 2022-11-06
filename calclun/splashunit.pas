@@ -100,6 +100,7 @@ cpylst: array[1..2,1..nlin]of string=((
 
 procedure Tsplash.FormCreate(Sender: TObject);
 begin
+ScaleFormForFontSize(self,96);
 closing:=false;
 label1.caption:=rstitle;
 end;
