@@ -1050,7 +1050,7 @@ object Form2: TForm2
           Top = 356
           Width = 367
           Caption = 'Grid'
-          ClientHeight = 53
+          ClientHeight = 71
           ClientWidth = 365
           ParentFont = False
           TabOrder = 3
@@ -1267,13 +1267,34 @@ object Form2: TForm2
       end
       object StringGrid2: TStringGrid
         Left = 8
-        Height = 255
-        Top = 125
+        Height = 264
+        Top = 128
         Width = 396
         ColCount = 4
-        DefaultColWidth = 30
+        Columns = <        
+          item
+            MinSize = 200
+            MaxSize = 400
+            SizePriority = 0
+            Title.Caption = 'Title'
+            Width = 189
+          end        
+          item
+            Title.Caption = 'Title'
+            Width = 64
+          end        
+          item
+            Title.Caption = 'Title'
+            Width = 64
+          end        
+          item
+            Title.Caption = 'Title'
+            Width = 64
+          end>
+        DefaultColWidth = 64
         DefaultRowHeight = 22
         FixedCols = 0
+        MouseWheelOption = mwGrid
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor]
         ParentColor = True
         ParentFont = False
@@ -1282,11 +1303,12 @@ object Form2: TForm2
         OnDrawCell = StringGrid2DrawCell
         OnMouseUp = StringGrid2MouseUp
         OnSelectCell = StringGrid2SelectCell
+        OnValidateEntry = StringGrid2ValidateEntry
         ColWidths = (
-          170
-          100
-          50
-          50
+          189
+          64
+          64
+          64
         )
       end
       object Edit6: TEdit
@@ -1327,7 +1349,7 @@ object Form2: TForm2
         ParentColor = True
         ParentFont = False
         ReadOnly = True
-        TabOrder = 4
+        TabOrder = 5
       end
       object Button6: TSpeedButton
         Left = 294
@@ -1348,7 +1370,7 @@ object Form2: TForm2
         ParentColor = True
         ParentFont = False
         ReadOnly = True
-        TabOrder = 5
+        TabOrder = 4
       end
       object Label51: TLabel
         Left = 267
@@ -1417,18 +1439,37 @@ object Form2: TForm2
         Top = 125
         Width = 396
         ColCount = 4
+        Columns = <        
+          item
+            Title.Caption = 'Title'
+            Width = 183
+          end        
+          item
+            Title.Caption = 'Title'
+            Width = 64
+          end        
+          item
+            Title.Caption = 'Title'
+            Width = 64
+          end        
+          item
+            Title.Caption = 'Title'
+            Width = 64
+          end>
         DefaultRowHeight = 22
         FixedCols = 0
+        MouseWheelOption = mwGrid
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor]
         ParentColor = True
         ParentFont = False
         RowCount = 11
         TabOrder = 0
+        OnValidateEntry = StringGrid3ValidateEntry
         ColWidths = (
-          190
-          60
-          60
-          60
+          183
+          64
+          64
+          64
         )
       end
       object Label49: TLabel
@@ -1503,7 +1544,7 @@ object Form2: TForm2
         ParentColor = True
         ParentFont = False
         ReadOnly = True
-        TabOrder = 3
+        TabOrder = 6
       end
       object Button9: TSpeedButton
         Left = 310
@@ -1566,7 +1607,7 @@ object Form2: TForm2
         Width = 41
         ParentColor = True
         ParentFont = False
-        TabOrder = 5
+        TabOrder = 3
         Text = '5.6'
       end
       object Edit16: TEdit
@@ -1576,7 +1617,7 @@ object Form2: TForm2
         Width = 41
         ParentColor = True
         ParentFont = False
-        TabOrder = 7
+        TabOrder = 5
         Text = '480'
       end
       object Edit17: TEdit
@@ -1587,7 +1628,7 @@ object Form2: TForm2
         ParentColor = True
         ParentFont = False
         ReadOnly = True
-        TabOrder = 6
+        TabOrder = 7
       end
       object Label55: TLabel
         Left = 222

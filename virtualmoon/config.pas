@@ -244,6 +244,8 @@ type
       var CanSelect: Boolean);
     procedure ComboBox5Change(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure StringGrid2ValidateEntry(Sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
+    procedure StringGrid3ValidateEntry(Sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
     procedure TrackBar1Change(Sender: TObject);
     procedure TrackBar3Change(Sender: TObject);
     procedure TrackBar5Change(Sender: TObject);
@@ -330,18 +332,18 @@ begin
       label25.Caption := rst_111;
       label26.Caption := rst_112;
       button6.Caption := rst_113;
-      stringgrid2.Cells[0, 0] := rst_118;
-      stringgrid2.Cells[1, 0] := rst_119;
-      stringgrid2.Cells[2, 0] := '<->';
-      stringgrid2.Cells[3, 0] := 'N/S';
+      stringgrid2.Columns[0].Title.Caption := rst_118;
+      stringgrid2.Columns[1].Title.Caption := rst_119;
+      stringgrid2.Columns[2].Title.Caption := '<->';
+      stringgrid2.Columns[3].Title.Caption := 'N/S';
       label49.Caption := rst_110;
       label50.Caption:=rsPixelSize;
       label53.Caption:=rsPixelCount;
       button9.Caption := rst_113;
-      stringgrid3.Cells[0, 0] := rsCCDName;
-      stringgrid3.Cells[1, 0] := rsWidth;
-      stringgrid3.Cells[2, 0] := rsHeight;
-      stringgrid3.Cells[3, 0] := rst_64;
+      stringgrid3.Columns[0].Title.Caption := rsCCDName;
+      stringgrid3.Columns[1].Title.Caption := rsWidth;
+      stringgrid3.Columns[2].Title.Caption := rsHeight;
+      stringgrid3.Columns[3].Title.Caption := rst_64;
       Checkbox17.Caption := rst_120;
       Checkbox18.Caption := rst_121;
       label28.Caption := rst_124;
@@ -627,6 +629,24 @@ Texturefn.Free;
 ov.Free;
 end;
 
+procedure TForm2.StringGrid2ValidateEntry(Sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
+var p: integer;
+begin
+ if (arow>0)and(acol>0) then begin
+   p:=pos('.',NewValue);
+   if p>0 then NewValue:=copy(NewValue,1,p-1);
+   p:=pos(',',NewValue);
+   if p>0 then NewValue:=copy(NewValue,1,p-1);
+ end;
+end;
+
+procedure TForm2.StringGrid3ValidateEntry(Sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
+begin
+ if (arow>0)and(acol>0) then begin
+   NewValue:=StringReplace(NewValue,',','.',[rfReplaceAll]);
+ end;
+end;
+
 procedure TForm2.TrackBar1Change(Sender: TObject);
 begin
   LabelImp.Caption:=inttostr(trackbar1.Position);
@@ -749,20 +769,25 @@ begin
 if (ACol=0)and(Arow<=2) then CanSelect:=False;
 end;
 
+function decisep(txt:string):string;
+begin
+  result:=trim(StringReplace(txt,',','.',[rfReplaceAll]));
+end;
+
 procedure TForm2.Button6Click(Sender: TObject);
 begin
-edit10.Text:=inttostr(round((strtofloat(edit6.text)/strtofloat(edit7.text)) ));
-edit9.Text:=inttostr(round(60* strtofloat(edit8.text)/(strtofloat(edit6.text)/strtofloat(edit7.text)) ));
+edit10.Text:=inttostr(round((strtofloat(decisep(edit6.text))/strtofloat(decisep(edit7.text))) ));
+edit9.Text:=inttostr(round(60* strtofloat(decisep(edit8.text))/(strtofloat(decisep(edit6.text))/strtofloat(decisep(edit7.text))) ));
 end;
 
 procedure TForm2.Button9Click(Sender: TObject);
 var f,px,py,cx,cy: single;
 begin
-f:=strtofloat(edit11.text);
-px:=strtofloat(edit12.text)/1000;
-py:=strtofloat(edit13.text)/1000;
-cx:=strtofloat(edit15.text);
-cy:=strtofloat(edit16.text);
+f:=strtofloat(decisep(edit11.text));
+px:=strtofloat(decisep(edit12.text))/1000;
+py:=strtofloat(decisep(edit13.text))/1000;
+cx:=strtofloat(decisep(edit15.text));
+cy:=strtofloat(decisep(edit16.text));
 Edit14.Text:=FormatFloat(f2,arctan(px/f)*cx*rad2deg*60);
 Edit17.Text:=FormatFloat(f2,arctan(py/f)*cy*rad2deg*60);
 end;
