@@ -636,6 +636,14 @@ msgstr ""
 msgid "Name type :"
 msgstr ""
 
+#: u_translation.rsnewinformati
+msgid "New information note"
+msgstr ""
+
+#: u_translation.rsnewobservati
+msgid "New observation note"
+msgstr ""
+
 #: u_translation.rsnodatabasese
 msgid "No database selected!"
 msgstr ""

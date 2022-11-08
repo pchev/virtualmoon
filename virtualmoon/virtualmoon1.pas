@@ -868,6 +868,8 @@ begin
     button16.Caption:=rsExport;
     Notes.Caption    := rst_115;
     Notes1.Caption   := Notes.Caption;
+    BtnNewInfo.Caption:=rsNewInformati;
+    BtnNewObs.Caption:=rsNewObservati;
     label3.Caption   := rst_116;
     Eyepiece1.Caption := rst_109;
     e01.Caption      := rst_117;
@@ -6169,7 +6171,7 @@ var param:string;
 begin
     if trim(objname)='' then exit;
     param:='-nx ';
-    param:=param+' -newi '+objname;
+    param:=param+' -newi "'+objname+'"';
     chdir(appdir);
     Execnowait(NoteLun+' '+param);
     StartNotelun:=true;
@@ -6180,7 +6182,7 @@ var param:string;
 begin
     if trim(objname)='' then exit;
     param:='-nx ';
-    param:=param+' -newo '+objname;
+    param:=param+' -newo "'+objname+'"';
     chdir(appdir);
     Execnowait(NoteLun+' '+param);
     StartNotelun:=true;

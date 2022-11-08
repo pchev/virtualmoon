@@ -635,6 +635,14 @@ msgstr "Formations nommées"
 msgid "Name type :"
 msgstr "Type de nom :"
 
+#: u_translation.rsnewinformati
+msgid "New information note"
+msgstr "Nouvelle note d'information"
+
+#: u_translation.rsnewobservati
+msgid "New observation note"
+msgstr "Nouvelle note d'observation"
+
 #: u_translation.rsnodatabasese
 msgid "No database selected!"
 msgstr "Aucune base de donnée sélectionnée!"

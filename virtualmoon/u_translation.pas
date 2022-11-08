@@ -385,6 +385,8 @@ rsImpactBassin = 'Impact bassin';
 rsNoDatabaseSe = 'No database selected!';
 rsTerminatorLi = 'Terminator line';
 rsLowSunElevat = 'Low Sun elevation';
+rsNewInformati = 'New information note';
+rsNewObservati = 'New observation note';
 
 implementation
 
