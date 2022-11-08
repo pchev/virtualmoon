@@ -387,6 +387,7 @@ procedure Tf_main.FormCreate(Sender: TObject);
 var i: integer;
 begin
 ScaleFormForFontSize(self,96);
+dpiscale:=Scale96ToForm(10000)/10000;
 DecimalSeparator := '.';
 ThousandSeparator:=' ';
 dbm:=TLiteDB.Create(self);

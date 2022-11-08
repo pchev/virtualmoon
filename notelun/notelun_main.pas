@@ -331,6 +331,7 @@ var inifile:Tmeminifile;
     i: integer;
 begin
   ScaleFormForFontSize(self,96);
+  dpiscale:=Scale96ToForm(10000)/10000;
   DefaultFormatSettings.DateSeparator:='/';
   DefaultFormatSettings.TimeSeparator:=':';
   DefaultFormatSettings.DecimalSeparator:='.';
@@ -435,8 +436,8 @@ begin
   inif.WriteString(section, 'PrintFixedFont', PrintFixedFont);
   inif.WriteInteger(section,'Top',Top);
   inif.WriteInteger(section,'Left',Left);
-  inif.WriteInteger(section,'Height',Height);
-  inif.WriteInteger(section,'Width',Width);
+  inif.WriteInteger(section,'Height',round(Height*dpiscale));
+  inif.WriteInteger(section,'Width',round(Width*dpiscale));
   inif.WriteBool(section,'Maximized',(windowstate=wsMaximized));
   inif.UpdateFile;
   inif.Free;
