@@ -418,6 +418,7 @@ begin
     Rewrite(f);
     WriteLn(f,'Formation name; Longitude -180/+180; Latitude; Dimension km; Description');
     CloseFile(f);
+    Edit2.Text:=savedialog2.filename;
   end;
 end;
 

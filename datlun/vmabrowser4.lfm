@@ -204,7 +204,7 @@ object LoadCSV: TLoadCSV
           end
           object Label7: TLabel
             Left = 32
-            Height = 25
+            Height = 40
             Top = 304
             Width = 225
             AutoSize = False
@@ -276,9 +276,9 @@ object LoadCSV: TLoadCSV
             TabStop = False
           end
           object Button1: TButton
-            Left = 40
+            Left = 32
             Height = 25
-            Top = 342
+            Top = 352
             Width = 121
             BorderSpacing.InnerBorder = 4
             Caption = 'Load Setting'
@@ -569,6 +569,7 @@ object LoadCSV: TLoadCSV
     DefaultExt = '.csv'
     Filter = 'CSV Files|*.csv'
     InitialDir = 'My Databases'
+    Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
     Left = 640
     Top = 296
   end
