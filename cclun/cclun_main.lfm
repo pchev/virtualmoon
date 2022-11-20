@@ -30291,6 +30291,10 @@ object f_cclun: Tf_cclun
   object PopupMenu1: TPopupMenu
     Left = 48
     Top = 8
+    object MenuItem7: TMenuItem
+      Caption = 'Doc CClun'
+      OnClick = MenuItem7Click
+    end
     object MenuItem1: TMenuItem
       Caption = 'Doc Atlun'
       OnClick = MenuItem1Click

@@ -69,6 +69,7 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
     PanelCenter: TPanel;
     PanelBottom: TPanel;
     PanelTop: TPanel;
@@ -95,6 +96,7 @@ type
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem5Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
+    procedure MenuItem7Click(Sender: TObject);
   private
     { private declarations }
     mousex,mousey: integer;
@@ -413,6 +415,7 @@ begin
   MenuItem4.Caption:=rsWebLunDocume;
   MenuItem5.Caption:=rsNoteLunDocum;
   MenuItem6.Caption:=rsCalcLunDocum;
+  MenuItem7.Caption:=rsCcLunDocumen;
 end;
 
 procedure Tf_cclun.FormCreate(Sender: TObject);
@@ -484,6 +487,11 @@ end;
 procedure Tf_cclun.MenuItem6Click(Sender: TObject);
 begin
 ShowHelpDoc('Doc','CalcLun','doc');
+end;
+
+procedure Tf_cclun.MenuItem7Click(Sender: TObject);
+begin
+ShowHelpDoc('Doc','CcLun','doc');
 end;
 
 procedure Tf_cclun.BitBtn1Click(Sender: TObject);
