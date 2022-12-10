@@ -46,6 +46,14 @@ install -m 755 -d $destdir/share
 install -m 755 -d $destdir/share/virtualmoon
 
 InstData Base_Database2 $destdir
+InstData Base_ILCD $destdir
+
+InstData Base_Airbrush $destdir
+InstData Base_Clementine $destdir
+InstData Base_WAC $destdir
+InstData Base_LOLA_Kaguya_Shade $destdir
+# issues with bumpmap on Linux, better to not install for now
+# InstData Base_Bumpmap $destdir
 
 InstTexture TexturesAirbrush_na $destdir
 InstTexture TexturesClementine $destdir
@@ -65,6 +73,5 @@ InstPicture PictureCLA $destdir
 InstPicture PictureClementine $destdir
 InstPicture PictureLAC_LM $destdir
 InstPicture PictureLopam $destdir
-InstPicture PictureProbes $destdir
 InstPicture PictureSmart1 $destdir
 InstPicture PictureLunarPits $destdir

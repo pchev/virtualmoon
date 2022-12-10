@@ -371,9 +371,9 @@ begin
       Button5.Caption:=rsLabelsFont;
       Label35.Caption:=rsCountry;
       Label34.Caption:=rst_21;
-      BumpRadioGroup.Items[0]:=rsPhaseWithout+blank+rsStandardText;
-      BumpRadioGroup.Items[1]:=rsPhaseWithDyn;
-      BumpRadioGroup.Items[2]:=rsNoTextureToU;
+      BumpRadioGroup.Items[0]:=rst_152+blank+rsStandardText;
+      BumpRadioGroup.Items[1]:=rsNoTextureToU;
+      if BumpRadioGroup.Items.Count>2 then BumpRadioGroup.Items[2]:=rsPhaseWithDyn;
       Button7.Caption:=rsCheckForOpti;
       Button8.Caption:=rsCheckForOpti;
 end;
@@ -568,12 +568,9 @@ end;
 
 procedure TForm2.BumpRadioGroupClick(Sender: TObject);
 begin
-{$ifdef lclgtk2}
-if BumpRadioGroup.ItemIndex=1 then BumpRadioGroup.ItemIndex:=0;  // do not work on Linux for now
-{$endif}
 TexturePanel.Visible:=(BumpRadioGroup.ItemIndex=0);
 TextureChanged:=true;
-if BumpRadioGroup.ItemIndex=2 then CheckBox11.Checked:=true;
+if BumpRadioGroup.ItemIndex=1 then CheckBox11.Checked:=true;
 end;
 
 procedure TForm2.ButtonDefaultClick(Sender: TObject);

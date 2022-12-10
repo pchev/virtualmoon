@@ -806,7 +806,7 @@ object Form1: TForm1
               MinSize = 200
               MaxSize = 600
               Title.Caption = 'Formation'
-              Width = 187
+              Width = 172
             end          
             item
               MinSize = 100
@@ -829,7 +829,7 @@ object Form1: TForm1
           TabOrder = 0
           OnDblClick = ListNotesDblClick
           ColWidths = (
-            187
+            172
             100
             50
           )
@@ -1542,7 +1542,7 @@ object Form1: TForm1
           Top = 200
           Width = 304
           Caption = 'Satellisation'
-          ClientHeight = 324
+          ClientHeight = 306
           ClientWidth = 302
           TabOrder = 2
           Visible = False
@@ -1970,7 +1970,7 @@ object Form1: TForm1
           Top = 0
           Width = 305
           Caption = 'Distance'
-          ClientHeight = 198
+          ClientHeight = 180
           ClientWidth = 303
           TabOrder = 3
           object Label24: TLabel

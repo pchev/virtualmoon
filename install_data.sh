@@ -58,16 +58,12 @@ install -v -m 644 Database/weblun.csv $destdir/share/virtualmoon/Database/
 
 # big data
 InstData Base_Database $destdir
-InstData Base_ILCD $destdir
 InstData Base_JPLeph $destdir
 InstData Base_Kernels $destdir
-InstData Base_Airbrush $destdir
-InstData Base_Bumpmap $destdir
-InstData Base_Clementine $destdir
-InstData Base_WAC $destdir
-InstData Base_WAC_LOWSUN $destdir
-InstData Base_LOLA_Kaguya_Shade $destdir
-InstData Base_Overlay $destdir
 InstData Base_Dem $destdir
+InstData Base_WAC_LOWSUN $destdir
+InstData Base_Change $destdir
+InstData Base_Overlay $destdir
+InstData Base_Historical $destdir
 InstPicture PictureApollo $destdir
-
+InstPicture PictureProbes $destdir

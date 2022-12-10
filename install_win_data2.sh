@@ -62,6 +62,13 @@ echo Install virtualmoon data2 to $destdir
 install -m 755 -d $destdir
 
 InstData Base_Database2 $destdir
+InstData Base_ILCD $destdir
+
+InstData Base_Airbrush $destdir
+InstData Base_Clementine $destdir
+InstData Base_WAC $destdir
+InstData Base_LOLA_Kaguya_Shade $destdir
+InstData Base_Bumpmap $destdir
 
 InstTexture TexturesAirbrush_na $destdir
 InstTexture TexturesClementine $destdir
@@ -81,6 +88,5 @@ InstPicture PictureCLA $destdir
 InstPicture PictureClementine $destdir
 InstPicture PictureLAC_LM $destdir
 InstPicture PictureLopam $destdir
-InstPicture PictureProbes $destdir
 InstPicture PictureSmart1 $destdir
 InstPicture PictureLunarPits $destdir

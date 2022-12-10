@@ -1078,7 +1078,7 @@ begin
   usedatabase[1] := True;
   usedatabase[2] := True;
   usedatabase[3] := False;
-  usedatabase[4] := True;
+  usedatabase[4] := False;
   usedatabase[5] := False;
   usedatabase[6] := False;
   usedatabase[7] := False;
@@ -1220,22 +1220,22 @@ begin
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
     if ToolsWidth<MinToolsWidth then ToolsWidth:=MinToolsWidth;
     tabs.Width:=ToolsWidth;
-    i := ReadInteger(section, 'Top', 10);
-    if (i >= -10) and (i < screen.Height - 30) then
+    i := ReadInteger(section, 'Top', 40);
+    if (i >= 0) and (i < screen.Height - 100) then
         Top := i
     else
         Top := 0;
-    i := ReadInteger(section, 'Left', 0);
-    if (i >= -10) and (i < screen.Width - 20) then
+    i := ReadInteger(section, 'Left', 40);
+    if (i >= 0) and (i < screen.Width - 100) then
       Left := i
     else
       Left := 0;
-    i := screen.Height - 100;
+    i := minintvalue([screen.Height - 100,round(0.8*screen.Height)]);
     i   := minintvalue([i, ReadInteger(section, 'Height', i)]);
     if (i >= 200) then
       Height := i;
     i := screen.Width - 100;
-    i := minintvalue([i, ReadInteger(section, 'Width', i)]);
+    i := minintvalue([i, ReadInteger(section, 'Width', round(1.5*Height))]);
     if (i >= 200) then
       Width := i;
     if ReadBool(section, 'Maximized', False) then
@@ -3864,17 +3864,7 @@ begin
   texturenone:=TStringList.Create;
   for i:=0 to 5 do texturenone.Add('NONE');
   texturefiles:=TStringList.Create;
-  for i:=0 to 5 do texturefiles.Add('');
-  texturefiles[0]:='WAC_LOWSUN';
-  texturefiles[1]:='WAC_LOWSUN';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC_LOWSUN')+'L3') then
-     texturefiles[2]:='WAC_LOWSUN';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC_LOWSUN')+'L4') then
-     texturefiles[3]:='WAC_LOWSUN';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC_LOWSUN')+'L5') then
-     texturefiles[4]:='WAC_LOWSUN';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC_LOWSUN')+'L6') then
-     texturefiles[5]:='WAC_LOWSUN';
+  for i:=0 to 5 do texturefiles.Add('WAC_LOWSUN');
   CursorImage1 := TCursorImage.Create;
   overlayhi := Tbitmap.Create;
   overlayimg := Tbitmap.Create;
@@ -4040,6 +4030,8 @@ try
   end;
   if moon1.CanBump then
      moon1.BumpPath:=slash(appdir)+slash('Textures')+slash('Bumpmap');
+  if not moon1.CanBump then
+     form2.BumpRadioGroup.Items.Delete(2);
   moon1.VisibleSideLock:=true;
   moon1.Labelcolor:=autolabelcolor;
   AsMultiTexture:=moon1.AsMultiTexture;
@@ -4204,10 +4196,10 @@ begin
     form2.TrackBar2.Position := -LabelDensity;
     form2.TrackBar4.Position := marksize;
     form2.newlang := language;
-    if wantbump or activemoon.Bumpmap then
-       form2.BumpRadioGroup.ItemIndex:=1
-    else if activemoon.Texture[0]='NONE' then
+    if (wantbump or activemoon.Bumpmap)and(form2.BumpRadioGroup.Items.Count>2) then
        form2.BumpRadioGroup.ItemIndex:=2
+    else if activemoon.Texture[0]='NONE' then
+       form2.BumpRadioGroup.ItemIndex:=1
     else
        form2.BumpRadioGroup.ItemIndex:=0;
     form2.BumpRadioGroup.Visible:=(activemoon.BumpMapCapabilities<>[]);
@@ -4277,11 +4269,11 @@ begin
         reload := True;
       end;
       if activemoon=moon1 then begin
-        if wantbump<>(form2.BumpRadioGroup.ItemIndex=1) then reload:=true;
-        wantbump := (form2.BumpRadioGroup.ItemIndex=1)and(activemoon.BumpMapCapabilities<>[]);
+        if wantbump<>(form2.BumpRadioGroup.ItemIndex=2) then reload:=true;
+        wantbump := (form2.BumpRadioGroup.ItemIndex=2)and(activemoon.BumpMapCapabilities<>[]);
       end else
         wantbump:=false;
-      notexture:=(form2.BumpRadioGroup.ItemIndex=2);
+      notexture:=(form2.BumpRadioGroup.ItemIndex=1);
       markcolor     := form2.Shape2.Brush.Color;
       spritecolor:=markcolor;
       marklabelcolor    := form2.Shape1.Brush.Color;

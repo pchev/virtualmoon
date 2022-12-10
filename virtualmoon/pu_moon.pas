@@ -1274,8 +1274,12 @@ end;
 
 procedure Tf_moon.SetBumpPath(fn:string);
 begin
-if not FileExists(slash(fn)+'normal2k.jpg') then raise Exception.Create('No bumpmap in '+fn);
-FBumpPath:=fn;
+  if FileExists(slash(fn)+'normal2k.jpg') then begin
+     FBumpPath:=fn;
+  end
+  else begin
+     FBumpOk:=false;
+  end;
 end;
 
 procedure Tf_moon.FormCreate(Sender: TObject);

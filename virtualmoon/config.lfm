@@ -330,7 +330,7 @@ object Form2: TForm2
         Top = 0
         Width = 523
         Align = alTop
-        ClientHeight = 38
+        ClientHeight = 56
         ClientWidth = 521
         TabOrder = 0
         object CheckBox1: TCheckBox
@@ -685,12 +685,12 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 68
+        ClientHeight = 86
         ClientWidth = 521
         Items.Strings = (
-          'Phase sans reliefeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-          'Phase avec relief dynamiqueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-          'Pas de texture ( utilisation avec une couche) eeeeeeeeeeeeeeeeeeeeeee'
+          'Texture standard'
+          'Pas de texture ( utilisation avec une couche) '
+          'Phase avec relief dynamique'
         )
         OnClick = BumpRadioGroupClick
         ParentFont = False
@@ -701,17 +701,17 @@ object Form2: TForm2
         Height = 397
         Top = 88
         Width = 523
-        HorzScrollBar.Page = 502
-        VertScrollBar.Page = 289
+        HorzScrollBar.Page = 498
+        VertScrollBar.Page = 285
         Align = alClient
-        ClientHeight = 393
-        ClientWidth = 519
+        ClientHeight = 395
+        ClientWidth = 521
         TabOrder = 1
         object TexturePanel: TPanel
           Left = 0
-          Height = 289
+          Height = 285
           Top = 0
-          Width = 502
+          Width = 498
           AutoSize = True
           BevelOuter = bvNone
           ClientHeight = 285
@@ -723,7 +723,7 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 270
-            ClientHeight = 233
+            ClientHeight = 251
             ClientWidth = 268
             ParentFont = False
             TabOrder = 0
@@ -1050,7 +1050,7 @@ object Form2: TForm2
           Top = 356
           Width = 367
           Caption = 'Grid'
-          ClientHeight = 71
+          ClientHeight = 53
           ClientWidth = 365
           ParentFont = False
           TabOrder = 3
