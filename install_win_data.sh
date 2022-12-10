@@ -53,6 +53,7 @@ install -v -m 644 Database/lopamidx.txt $destdir/Database/
 install -v -m 644 Database/weblun.csv $destdir/Database/
 
 # big data
+InstData Base_Doc $destdir
 InstData Base_Database $destdir
 InstData Base_JPLeph $destdir
 InstData Base_Kernels $destdir

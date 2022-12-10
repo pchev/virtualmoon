@@ -44,7 +44,6 @@ install -v -m 644 data/retic.cur $destdir/share/virtualmoon/data/
 install -m 755 -d "$destdir/share/virtualmoon/My Images"
 install -m 755 -d $destdir/share/virtualmoon/doc
 install -m 755 -d $destdir/share/virtualmoon/Encyclopedia
-install -v -m 644 doc/* $destdir/share/virtualmoon/doc/
 install -v -m 644 Encyclopedia/* $destdir/share/virtualmoon/Encyclopedia/
 
 # database
@@ -57,6 +56,7 @@ install -v -m 644 Database/lopamidx.txt $destdir/share/virtualmoon/Database/
 install -v -m 644 Database/weblun.csv $destdir/share/virtualmoon/Database/
 
 # big data
+InstData Base_Doc $destdir
 InstData Base_Database $destdir
 InstData Base_JPLeph $destdir
 InstData Base_Kernels $destdir

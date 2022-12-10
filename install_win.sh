@@ -74,5 +74,4 @@ cp -a  data/zoneinfo $destdir/data/
 install -m 755 -d "$destdir/My Images"
 install -m 755 -d $destdir/doc
 install -m 755 -d $destdir/Encyclopedia
-install -v -m 644 doc/* $destdir/doc/
 install -v -m 644 Encyclopedia/* $destdir/Encyclopedia/
