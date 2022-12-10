@@ -196,6 +196,7 @@ type
     Fdemlib: TdemLibrary;
     FKmPx: double;
     MeasureLastX,MeasureLastY: integer;
+    FNoExtraSlice: boolean;
     procedure MoveMoonAround(anObject: TGLBaseSceneObject; pitchDelta, turnDelta: Single);
     procedure SetTexture(lfn:TStringList);
     procedure SetOverlay(fn:string);
@@ -309,6 +310,7 @@ type
     property BumpMipmap : Boolean read FBumpMipmap write SetBumpMipmap;
     property CanBump : Boolean read FBumpOk;
     property ForceBumpMapSize: integer read FForceBumpMapSize write FForceBumpMapSize;
+    property NoExtraSlice: boolean read FNoExtraSlice write FNoExtraSlice;
     property AsMultiTexture : boolean read FAsMultiTexture;
     property SatelliteAltitude : single read FSatAltitude write SetSatAltitude;
     property SatInclination : single read GetSatInclination write SetSatInclination;
@@ -473,7 +475,6 @@ end;
 procedure LoadSlice2;
 var i,j: integer;
     lstep,bstep:double;
-    widescreen: boolean;
     pmapfn: string;
 begin
  try
@@ -547,9 +548,8 @@ begin
         pmaps2[2]:=110002;
         newcap:=1;
      end;
-     // extra slice only for wide screen
-     widescreen:=(GLSceneViewer1.Width/GLSceneViewer1.Height)>1.5;
-     if not widescreen then begin
+     // remove extra slice in case of video memory issue
+     if FNoExtraSlice then begin
        for i:=9 to MaxMaps-1 do newmaps[i]:=-1;
      end;
      // remove unused slices
@@ -1321,6 +1321,7 @@ begin
  FSatModel:='';
  FBumpOk:=false;
  BumpMapLimit1K:=false;
+ FNoExtraSlice:=false;
  ForceBumpMapSize:=0;
  MaxZoom:=3;
  MaxTextureSize:=1024;

@@ -643,7 +643,7 @@ type
     nmjd, fqjd, fmjd, lqjd, currentl, currentb: double;
     searchlist: TStringList;
     ForceBumpMapSize: integer;
-    showoverlay: boolean;
+    NoExtraSlice,showoverlay: boolean;
     UseComputerTime: boolean;
     procedure Init;
     procedure LoadOverlay(fn: string; transparent: single);
@@ -1174,6 +1174,7 @@ begin
     pofile     := ReadString(section, 'lang_po_file', '');
     UseComputerTime := ReadBool(section, 'UseComputerTime', UseComputerTime);
     ForceBumpMapSize := ReadInteger(section, 'ForceBumpMapSize', ForceBumpMapSize);
+    NoExtraSlice := ReadBool(section, 'NoExtraSlice', false);
     Obslatitude  := ReadFloat(section, 'Obslatitude', Obslatitude);
     Obslongitude := ReadFloat(section, 'Obslongitude', Obslongitude);
     ObsAltitude := ReadFloat(section, 'Obsaltitude', ObsAltitude);
@@ -1338,6 +1339,7 @@ begin
       WriteBool(section, 'LibrationEffect', librationeffect);
       WriteBool(section, 'ShowTerminatorLine', showterminatorline);
       WriteInteger(section, 'ForceBumpMapSize', ForceBumpMapSize);
+      WriteBool(section, 'NoExtraSlice', NoExtraSlice);
       WriteFloat(section, 'CameraOrientation', CameraOrientation);
       WriteInteger(section, 'useDBN', useDBN);
       for i := 1 to useDBN do
@@ -3828,6 +3830,7 @@ begin
   zoom      := 1;
   useDBN    := 9;
   ForceBumpMapSize:=0;
+  NoExtraSlice:=False;
   showoverlay := True;
   UseComputerTime := True;
   GetAppDir;
@@ -3911,6 +3914,7 @@ begin
   SetLang1;
   readdefault;
   moon1.ForceBumpMapSize:=ForceBumpMapSize;
+  moon1.NoExtraSlice:=NoExtraSlice;
   currentid := '';
   librl     := 0;
   librb     := 0;
@@ -6072,6 +6076,7 @@ if moon2=nil then begin
  moon2.Tag:=2;
  moon2.GLSceneViewer1.Visible:=false;
  moon2.Caption:=Caption;
+ moon2.NoExtraSlice:=NoExtraSlice;
  moon2.Moon.Align:=alClient;
  moon2.onMoonActivate:=MoonActivate;
  moon2.onMoonClick:=MoonClickEvent;
