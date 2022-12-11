@@ -5,7 +5,7 @@ unit pu_features;
 interface
 
 uses u_translation, u_constant, u_util, Classes, SysUtils, FileUtil, LResources, Forms,
-  Buttons, Controls, Graphics, Dialogs, StdCtrls;
+  Buttons, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls;
 
 type
 
@@ -16,6 +16,7 @@ type
     Button2: TSpeedButton;
     Label1: TLabel;
     Memo1: TMemo;
+    Panel1: TPanel;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -42,15 +43,15 @@ caption:=rsCheckForOpti;
 label1.caption:=rsYouCanDownlo;
 button1.Caption:=rsDownload;
 button2.Caption:=rst_2;
-OptionalFeatureName[1]:=rsPictureLib;
-OptionalFeatureName[2]:=rsPicturesAndM;
-OptionalFeatureName[3]:=rsHighResoluti;
-OptionalFeatureName[4]:=format(rsVeryHighReso, ['Chang''e']);
-OptionalFeatureName[5]:=format(rsVeryHighReso, ['LOPAM']);
-OptionalFeatureName[6]:=format(rsVeryHighReso, ['LRO WAC']);
-OptionalFeatureName[7]:=format(rsVeryHighReso, ['LOLA-Kaguya Shade']);
-OptionalFeatureName[8]:=format(rsVeryHighReso, ['LRO WAC '+rsLowSunElevat]);
-OptionalFeatureName[9]:=format(rsVeryHighReso, ['Lunar Astronautical Chart']);
+OptionalFeatureName[1]:=rsPictureLib + ' (virtualmoon-picture)';
+OptionalFeatureName[2]:=rsPicturesAndM + ' (virtualmoon-data)';
+OptionalFeatureName[3]:=rsHighResoluti + ' (virtualmoon-hires)';
+OptionalFeatureName[4]:=format(rsVeryHighReso, ['Chang''e']) + ' (virtualmoon-veryhires-change)';
+OptionalFeatureName[5]:=format(rsVeryHighReso, ['LOPAM']) + ' (virtualmoon-veryhires-lopam)';
+OptionalFeatureName[6]:=format(rsVeryHighReso, ['LRO WAC']) + '( virtualmoon-veryhires-lrowac)';
+OptionalFeatureName[7]:=format(rsVeryHighReso, ['LOLA-Kaguya Shade']) + ' (virtualmoon-veryhires-lolakaguya)';
+OptionalFeatureName[8]:=format(rsVeryHighReso, ['LRO WAC '+rsLowSunElevat]) + ' (virtualmoon-veryhires-waclowsun)';
+OptionalFeatureName[9]:=rsHighResoluti + ' Lunar Astronautical Chart' + ' (virtualmoon-hires-lac)';
 end;
 
 procedure Tf_features.FormShow(Sender: TObject);

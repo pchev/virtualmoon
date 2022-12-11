@@ -406,7 +406,9 @@ object Form1: TForm1
       end
     end
     object ToolBar5: TToolBar
-      Left = 1155
+      AnchorSideRight.Control = ControlBar1
+      AnchorSideRight.Side = asrBottom
+      Left = 1145
       Height = 30
       Top = 0
       Width = 61

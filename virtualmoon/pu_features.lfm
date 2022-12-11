@@ -2,12 +2,12 @@ object f_features: Tf_features
   Left = 518
   Height = 309
   Top = 127
-  Width = 410
+  Width = 605
   ActiveControl = Memo1
   BorderStyle = bsSizeToolWin
   Caption = 'f_features'
   ClientHeight = 309
-  ClientWidth = 410
+  ClientWidth = 605
   Color = clWindow
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
@@ -23,36 +23,47 @@ object f_features: Tf_features
     Transparent = False
   end
   object Memo1: TMemo
-    Left = 16
-    Height = 226
-    Top = 32
-    Width = 376
+    Left = 0
+    Height = 267
+    Top = 0
+    Width = 605
+    Align = alClient
     Color = clWindow
     ParentFont = False
     ReadOnly = True
     ScrollBars = ssAutoVertical
     TabOrder = 0
   end
-  object Button1: TSpeedButton
-    Left = 80
-    Height = 25
-    Top = 272
-    Width = 105
-    Caption = 'Button1'
-    Flat = True
-    Transparent = False
-    OnClick = Button1Click
-    ParentFont = False
-  end
-  object Button2: TSpeedButton
-    Left = 224
-    Height = 25
-    Top = 272
-    Width = 105
-    Caption = 'Button2'
-    Flat = True
-    Transparent = False
-    OnClick = Button2Click
-    ParentFont = False
+  object Panel1: TPanel
+    Left = 0
+    Height = 42
+    Top = 267
+    Width = 605
+    Align = alBottom
+    ClientHeight = 38
+    ClientWidth = 601
+    TabOrder = 1
+    object Button1: TSpeedButton
+      Left = 176
+      Height = 25
+      Top = 8
+      Width = 105
+      Caption = 'Button1'
+      Flat = True
+      Transparent = False
+      OnClick = Button1Click
+      ParentFont = False
+    end
+    object Button2: TSpeedButton
+      Left = 320
+      Height = 25
+      Top = 8
+      Width = 105
+      Caption = 'Button2'
+      Flat = True
+      Transparent = False
+      OnClick = Button2Click
+      ParentFont = False
+    end
   end
 end
