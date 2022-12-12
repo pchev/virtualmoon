@@ -32,16 +32,16 @@ eng.cclun=Command Center
 eng.MyAppUrl=http://www.ap-i.net/avl/en/start
 eng.MyWebPage=VMA
 eng.MyDocumentation=Documentation
-eng.MyDocFile=doc\UK_Doc_AtLun.html
-eng.MyTutorial=doc\UK_Doc_tutorial.html
+eng.MyDocFile=doc\UK_Doc_AtLun.pdf
+eng.MyTutorial=doc\UK_Doc_tutorial.pdf
 eng.MyTutorialMsg=Read the tutorial
 fre.MyAppName=Atlas Virtuel de la Lune
 fre.cclun=Centre de commandes
 fre.MyAppUrl=http://www.ap-i.net/avl/fr/start
 fre.MyWebPage=AVL
 fre.MyDocumentation=Documentation
-fre.MyDocFile=doc\FR_Doc_AtLun.html
-fre.MyTutorial=doc\FR_Doc_tutorial.html
+fre.MyDocFile=doc\FR_Doc_AtLun.pdf
+fre.MyTutorial=doc\FR_Doc_tutorial.pdf
 fre.MyTutorialMsg=Voir les instructions
 
 [Languages]
@@ -105,7 +105,7 @@ Filename: {app}\{cm:MyTutorial}; Flags: postinstall shellexec nowait skipifsilen
 [UninstallDelete]
 Type: files; Name: {app}\vma.url
 Name: {localappdata}\Virtualmoon\vignette; Type: filesandordirs
-Name: {localappdata}\Virtualmoon\Database\*.dbl; Type: files
+Name: {localappdata}\Virtualmoon\Database\dbmoon*.dbl; Type: files
 Name: {localappdata}\Virtualmoon\Database\database_journal.txt; Type: files
 Name: {localappdata}\Virtualmoon\vma.rc; Type: files
 
