@@ -1230,12 +1230,16 @@ begin
       Left := i
     else
       Left := 0;
-    i := minintvalue([screen.Height - 100,round(0.8*screen.Height)]);
-    i   := minintvalue([i, ReadInteger(section, 'Height', i)]);
+    if ValueExists(section, 'Height') then
+       i   := ReadInteger(section, 'Height', height)
+    else
+       i := minintvalue([screen.Height - 100,round(0.8*screen.Height)]);
     if (i >= 200) then
       Height := i;
-    i := screen.Width - 100;
-    i := minintvalue([i, ReadInteger(section, 'Width', round(1.5*Height))]);
+    if ValueExists(section, 'Width') then
+      i:=ReadInteger(section, 'Width', width)
+    else
+      i:= minintvalue([screen.Width - 100, round(1.5*Height)]);
     if (i >= 200) then
       Width := i;
     if ReadBool(section, 'Maximized', False) then
@@ -3783,8 +3787,12 @@ begin
   compile_time := {$I %DATE%}+' '+{$I %TIME%};
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+buf;
 
+  {$ifdef lclgtk2}
   ScaleFormForFontSize(self,96);
   dpiscale:=Scale96ToForm(10000)/10000;
+  {$else}
+  dpiscale:=1;
+  {$endif}
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
   PageControl1.ActivePageIndex:=0;

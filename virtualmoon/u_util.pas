@@ -2238,6 +2238,7 @@ begin
 end;
 
 procedure ScaleFormForFontSize(f: Tform; desdpi:integer);
+{$ifdef lclgtk2}
 var
   rs: TSize;
   sc: double;
@@ -2245,7 +2246,9 @@ const
   teststr = 'The Lazy Fox Jumps';
   designlen = 125;
   designhig = 18;
+{$endif}
 begin
+{$ifdef lclgtk2}
   rs := f.Canvas.TextExtent(teststr);
   sc := rs.cx / designlen;
   sc := max(sc, rs.cy / designhig);
@@ -2253,6 +2256,7 @@ begin
     sc := 1;
   if (sc>0.75)and(sc<5) then
     f.PixelsPerInch:=round(desdpi / sc);
+{$endif}
 end;
 
 end.
