@@ -572,7 +572,7 @@ object splash: Tsplash
       Width = 433
       Align = alBottom
       Alignment = taCenter
-      Caption = 'Copyright © 2002-2020  Christian Legrand, Patrick Chevalley, '#10'All rights reserved'#13#10'This program is free software; you can redistribute it and/or'#10'modify it under the terms of the GNU General Public License.'#13#10'All database, pictures and documentation © Ch. Legrand'#13#10'Pictures library are copyrighted by their respective owner.'
+      Caption = 'Copyright © 2002-2022  Christian Legrand, Patrick Chevalley, '#10'All rights reserved'#13#10'This program is free software; you can redistribute it and/or'#10'modify it under the terms of the GNU General Public License.'#13#10'All database, pictures and documentation © Ch. Legrand'#13#10'Pictures library are copyrighted by their respective owner.'
       Color = clBlack
       Font.Color = clSilver
       Font.Pitch = fpVariable
@@ -635,14 +635,14 @@ object splash: Tsplash
     Enabled = False
     Interval = 2000
     OnTimer = Timer1Timer
-    left = 8
-    top = 72
+    Left = 8
+    Top = 72
   end
   object Timer2: TTimer
     Enabled = False
     Interval = 2000
     OnTimer = Timer2Timer
-    left = 8
-    top = 136
+    Left = 8
+    Top = 136
   end
 end
