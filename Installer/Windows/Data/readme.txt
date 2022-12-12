@@ -1,5 +1,5 @@
 Virtual Moon Atlas
-version 8.0beta
+version 8.0
 Free software for Moon observation or survey
 For Windows 7/8/10/11
 
