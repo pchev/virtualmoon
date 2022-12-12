@@ -2252,9 +2252,7 @@ begin
   rs := f.Canvas.TextExtent(teststr);
   sc := rs.cx / designlen;
   sc := max(sc, rs.cy / designhig);
-  if abs(1 - sc) < 0.02 then
-    sc := 1;
-  if (sc>0.75)and(sc<5) then
+  if (abs(1 - sc)>0.1)and(sc>0.75)and(sc<5) then
     f.PixelsPerInch:=round(desdpi / sc);
 {$endif}
 end;
