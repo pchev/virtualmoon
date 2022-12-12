@@ -270,6 +270,7 @@ type
     CurrentObsFile,CurrentInfoFile,SortCol: integer;
     procedure SetLang;
     procedure GetAppDir;
+    procedure ReadwindowSize;
     procedure ReadConfig;
     procedure WriteConfig;
     Procedure ReadParam(first:boolean=true);
@@ -384,6 +385,27 @@ begin
   end;
 end;
 
+procedure Tf_notelun.ReadwindowSize;
+var inif: TMemIniFile;
+    section: string;
+    i: integer;
+begin
+  inif := Tmeminifile.Create(ConfigFile);
+  section:='Notelun';
+  i:=inif.ReadInteger(section,'Top',1);
+  if (i>=-10)and(i<screen.Height-20) then Top:=i else Top:=1;
+  i:=inif.ReadInteger(section,'Left',1);
+  if (i>=-10)and(i<screen.width-20) then Left:=i else Left:=1;
+  i:=screen.height-50;
+  i:=minintvalue([i,inif.ReadInteger(section,'Height',height)]);
+  if (i>=20) then Height:=i;
+  i:=screen.width-5;
+  i:=minintvalue([i,inif.ReadInteger(section,'Width',width)]);
+  if (i>=20) then Width:=i;
+  if inif.ReadBool(section,'Maximized',false) then windowstate:=wsMaximized;
+  inif.Free;
+end;
+
 procedure Tf_notelun.ReadConfig;
 var inif: TMemIniFile;
     section: string;
@@ -403,17 +425,6 @@ begin
   ShowEphemeris:=inif.ReadBool(section, 'ShowEphemeris', true);
   PrintNoteFont:=inif.ReadString(section, 'PrintNoteFont', 'default');
   PrintFixedFont:=inif.ReadString(section, 'PrintFixedFont', 'default');
-  i:=inif.ReadInteger(section,'Top',1);
-  if (i>=-10)and(i<screen.Height-20) then Top:=i else Top:=1;
-  i:=inif.ReadInteger(section,'Left',1);
-  if (i>=-10)and(i<screen.width-20) then Left:=i else Left:=1;
-  i:=screen.height-50;
-  i:=minintvalue([i,inif.ReadInteger(section,'Height',height)]);
-  if (i>=20) then Height:=i;
-  i:=screen.width-5;
-  i:=minintvalue([i,inif.ReadInteger(section,'Width',width)]);
-  if (i>=20) then Width:=i;
-  if inif.ReadBool(section,'Maximized',false) then windowstate:=wsMaximized;
   inif.Free;
 end;
 
@@ -463,6 +474,7 @@ end;
 procedure Tf_notelun.FormShow(Sender: TObject);
 var i: integer;
 begin
+  ReadwindowSize;
   for i:=1 to maxdbn do usedatabase[i]:=false;
   usedatabase[1]:=true;
   DatabaseList:=Tstringlist.Create;

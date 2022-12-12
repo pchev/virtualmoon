@@ -561,6 +561,7 @@ type
     procedure AddImagesDir(dir, nom, cpy, rot: string);
     procedure ReadParam(first:boolean=true);
     procedure SetObs(param: string);
+    procedure ReadWindowSize;
     procedure Readdefault;
     procedure SaveDefault;
     procedure UpdateConfig;
@@ -1066,6 +1067,47 @@ AddImagesDir(slash(appdir)+'BestOfBrahic','Best of Jean Pierre Brahic','Jean Pie
 AddImagesDir(slash(appdir)+'BestOfViladrich','Best of Christian Viladrich','Christian Viladrich','0');
 end;
 
+procedure TForm1.ReadWindowSize;
+var
+  inif:    TMemIniFile;
+  section: string;
+  i: integer;
+begin
+  inif := Tmeminifile.Create(ConfigFile);
+  with inif do
+  begin
+    section     := 'default';
+    ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
+    if ToolsWidth<MinToolsWidth then ToolsWidth:=MinToolsWidth;
+    tabs.Width:=ToolsWidth;
+    i := ReadInteger(section, 'Top', 40);
+    if (i >= 0) and (i < screen.Height - 100) then
+        Top := i
+    else
+        Top := 0;
+    i := ReadInteger(section, 'Left', 40);
+    if (i >= 0) and (i < screen.Width - 100) then
+      Left := i
+    else
+      Left := 0;
+    if ValueExists(section, 'Height') then
+       i   := ReadInteger(section, 'Height', height)
+    else
+       i := minintvalue([screen.Height - 100,round(0.8*screen.Height)]);
+    if (i >= 200) then
+      Height := i;
+    if ValueExists(section, 'Width') then
+      i:=ReadInteger(section, 'Width', width)
+    else
+      i:= minintvalue([screen.Width - 100, round(1.5*Height)]);
+    if (i >= 200) then
+      Width := i;
+    if ReadBool(section, 'Maximized', False) then
+      windowstate := wsMaximized;
+  end;
+  inif.Free;
+end;
+
 procedure TForm1.Readdefault;
 var
   inif:    TMemIniFile;
@@ -1217,33 +1259,7 @@ begin
     CheckBox2.Checked := ReadBool(section, 'Mirror', False);
     GridButton.Down:= ReadBool(section, 'Grid', False);
     PoleOrientation := ReadFloat(section, 'PoleOrientation', PoleOrientation);
-    ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
-    if ToolsWidth<MinToolsWidth then ToolsWidth:=MinToolsWidth;
-    tabs.Width:=ToolsWidth;
-    i := ReadInteger(section, 'Top', 40);
-    if (i >= 0) and (i < screen.Height - 100) then
-        Top := i
-    else
-        Top := 0;
-    i := ReadInteger(section, 'Left', 40);
-    if (i >= 0) and (i < screen.Width - 100) then
-      Left := i
-    else
-      Left := 0;
-    if ValueExists(section, 'Height') then
-       i   := ReadInteger(section, 'Height', height)
-    else
-       i := minintvalue([screen.Height - 100,round(0.8*screen.Height)]);
-    if (i >= 200) then
-      Height := i;
-    if ValueExists(section, 'Width') then
-      i:=ReadInteger(section, 'Width', width)
-    else
-      i:= minintvalue([screen.Width - 100, round(1.5*Height)]);
-    if (i >= 200) then
-      Width := i;
-    if ReadBool(section, 'Maximized', False) then
-      windowstate := wsMaximized;
+
     notexture := ReadBool(section, 'notexture', notexture);
     for j:=0 to 5 do
       texturefiles[j] := ReadString(section, 'texturefile' + IntToStr(j), texturefiles[j]);
@@ -3980,6 +3996,7 @@ UpDown3.Width:=14;
 UpDown4.Width:=14;
 UpDown5.Width:=14;
 UpDown6.Width:=14;
+ReadWindowSize;
 Application.BringToFront;
 moon1.GLSceneViewer1.Camera:=nil;
 f_tabsdock.onReturnControl:=returncontrol;
