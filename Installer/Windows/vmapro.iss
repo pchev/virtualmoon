@@ -32,8 +32,8 @@ eng.cclun=Command Center
 eng.MyAppUrl=http://www.ap-i.net/avl/en/start
 eng.MyWebPage=VMA
 eng.MyDocumentation=Documentation
-eng.MyDocFile=doc\UK_Doc_AtLun.pdf
-eng.MyTutorial=doc\UK_Doc_tutorial.pdf
+eng.MyDocFile=doc\EN_Doc_AtLun.pdf
+eng.MyTutorial=doc\EN_Doc_Tutorial.pdf
 eng.MyTutorialMsg=Read the tutorial
 fre.MyAppName=Atlas Virtuel de la Lune
 fre.cclun=Centre de commandes
@@ -41,42 +41,12 @@ fre.MyAppUrl=http://www.ap-i.net/avl/fr/start
 fre.MyWebPage=AVL
 fre.MyDocumentation=Documentation
 fre.MyDocFile=doc\FR_Doc_AtLun.pdf
-fre.MyTutorial=doc\FR_Doc_tutorial.pdf
+fre.MyTutorial=doc\FR_Doc_Tutorial.pdf
 fre.MyTutorialMsg=Voir les instructions
 
 [Languages]
 Name: eng; MessagesFile: compiler:Default.isl; InfoBeforeFile: vmapro\Data\readme.txt; LicenseFile: vmapro\Data\licence.txt
 Name: fre; MessagesFile: compiler:Languages\French.isl; InfoBeforeFile: vmapro\Data\lisezmoi.txt; LicenseFile: vmapro\Data\licence_fr.txt
-
-[InstallDelete]
-Name: {app}\vmapro.exe; Type: files; Components: ; Tasks: ; Languages: 
-Name: {app}\vmaexpert.exe; Type: files; Components: ; Tasks: ; Languages: 
-Name: {app}\vmalight.exe; Type: files; Components: ; Tasks: ; Languages: 
-Name: {app}\virtualmoon.exe; Type: files; Components: ; Tasks: ; Languages: 
-Name: {app}\vmabasic.exe; Type: files; Components: ; Tasks: ; Languages: 
-Name: {app}\fiximg.exe; Type: files; Components: ; Tasks: ; Languages: 
-Name: {app}\createtexture.exe; Type: files; Components: ; Tasks: ; Languages: 
-Name: {app}\plan404.dll; Type: files; Components: ; Tasks: ; Languages: 
-Name: {app}\elp82.dll; Type: files; Components: ; Tasks: ; Languages: 
-Name: {app}\*.tid; Type: files; Components: ; Tasks: ; Languages: 
-Name: {app}\Database\1_*.csv; Type: files
-Name: {app}\Database\2_*.csv; Type: files
-Name: {app}\Database\3_*.csv; Type: files
-Name: {app}\Database\4_*.csv; Type: files
-Name: {app}\Database\5_*.csv; Type: files
-Name: {userappdata}\Virtualmoon\vignette; Type: filesandordirs
-Name: {userappdata}\Virtualmoon\Database\*.dbl; Type: files
-Name: {userappdata}\Virtualmoon\Database\database_journal.txt; Type: files
-Name: {userappdata}\Virtualmoon\virtualmoon.ini; Type: files
-Name: {group}\Virtual Moon Atlas Pro.lnk; Type: files; Components: ; Tasks: ; Languages: 
-Name: {group}\Virtual Moon Atlas Expert.lnk; Type: files; Components: ; Tasks: ; Languages: 
-Name: {group}\Virtual Moon Atlas Light.lnk; Type: files; Components: ; Tasks: ; Languages: 
-Name: {group}\Virtual Moon Atlas Basic.lnk; Type: files; Components: ; Tasks: ; Languages: 
-Name: {group}\Atlas Virtuel de la Lune Pro.lnk; Type: files; Components: ; Tasks: ; Languages: 
-Name: {group}\Atlas Virtuel de la Lune Expert.lnk; Type: files; Components: ; Tasks: ; Languages: 
-Name: {group}\Atlas Virtuel de la Lune Light.lnk; Type: files; Components: ; Tasks: ; Languages: 
-Name: {group}\Atlas Virtuel de la Lune Basic.lnk; Type: files; Components: ; Tasks: ; Languages: 
-
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
@@ -104,7 +74,6 @@ Filename: {app}\{cm:MyTutorial}; Flags: postinstall shellexec nowait skipifsilen
 
 [UninstallDelete]
 Type: files; Name: {app}\vma.url
-Name: {localappdata}\Virtualmoon\vignette; Type: filesandordirs
 Name: {localappdata}\Virtualmoon\Database\dbmoon*.dbl; Type: files
 Name: {localappdata}\Virtualmoon\Database\database_journal.txt; Type: files
 Name: {localappdata}\Virtualmoon\vma.rc; Type: files

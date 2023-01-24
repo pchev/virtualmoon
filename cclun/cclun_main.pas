@@ -537,7 +537,7 @@ end;
 
 procedure Tf_cclun.BitBtn6Click(Sender: TObject);
 begin
-ShowHelpDoc('Doc','tutorial','doc');
+ShowHelpDoc('Doc','Tutorial','doc');
 end;
 
 procedure Tf_cclun.BitBtn7Click(Sender: TObject);

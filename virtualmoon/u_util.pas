@@ -2033,7 +2033,7 @@ if not fileexists(fn) then begin
    fn:=dir+hp+'_'+helpfile+'_'+suffix+'.html';
    if not fileexists(fn) then begin
       // try EN PDF
-      fn:=dir+hp+'_'+helpfile+'_'+suffix+'.pdf';
+      fn:=dir+'EN_'+helpfile+'_'+suffix+'.pdf';
       if not fileexists(fn) then begin
          // try EN html
          fn:=dir+'EN_'+helpfile+'_'+suffix+'.html';
