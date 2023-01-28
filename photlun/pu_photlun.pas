@@ -1156,11 +1156,9 @@ procedure Tf_photlun.MenuItem15Click(Sender: TObject);
 begin
   Showmessage('Photlun '+Splashversion+crlf+
               compile_version+crlf+
-              'http://ap-i.net/avl'+crlf+
               avlcpy+crlf+crlf+
-              'Conception : Christian Legrand'+crlf+
-              'Programming : Patrick Chevalley'+crlf+
-              rsTranslatedBy+crlf+crlf+
+              'Conception : Christian Legrand & Patrick Chevalley'+crlf+
+              'Programming : Patrick Chevalley'+crlf+crlf+
               'This program is free software; you can redistribute it and/or '+crlf+
               'modify it under the terms of the GNU General Public License '+crlf+
               'as published by the Free Software Foundation.'

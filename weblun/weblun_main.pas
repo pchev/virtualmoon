@@ -10,7 +10,7 @@ Windows, ShlObj,
 {$endif}
   u_constant, u_translation, u_util, passql, passqlite,
   downloaddialog, UniqueInstance, IniFiles, Classes, SysUtils, FileUtil, Forms, Controls,
-  LazUTF8, Graphics, Dialogs, ComCtrls, Menus, Grids, ExtCtrls, StdCtrls;
+  LCLVersion, LazUTF8, Graphics, Dialogs, ComCtrls, Menus, Grids, ExtCtrls, StdCtrls;
 
 const ncols=7;
       crlf = chr(10)+chr(13);
@@ -138,6 +138,9 @@ end;
 procedure Tf_weblun.FormCreate(Sender: TObject);
 var i: integer;
 begin
+  compile_time := {$I %DATE%}+' '+{$I %TIME%};
+  compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%};
+  Splashversion := AVLversion+blank+compile_time;
   ScaleFormForFontSize(self,96);
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';

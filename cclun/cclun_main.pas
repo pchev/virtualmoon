@@ -70,6 +70,7 @@ type
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
     PanelCenter: TPanel;
     PanelBottom: TPanel;
     PanelTop: TPanel;
@@ -97,6 +98,7 @@ type
     procedure MenuItem5Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
     procedure MenuItem7Click(Sender: TObject);
+    procedure MenuItem8Click(Sender: TObject);
   private
     { private declarations }
     mousex,mousey: integer;
@@ -492,6 +494,11 @@ end;
 procedure Tf_cclun.MenuItem7Click(Sender: TObject);
 begin
 ShowHelpDoc('Doc','CcLun','doc');
+end;
+
+procedure Tf_cclun.MenuItem8Click(Sender: TObject);
+begin
+ShowHelpDoc('Doc','Copyright','doc');
 end;
 
 procedure Tf_cclun.BitBtn1Click(Sender: TObject);

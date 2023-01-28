@@ -4993,14 +4993,15 @@ end;
 procedure TForm1.Apropos1Click(Sender: TObject);
 begin
   ToolButton8.Down := False;
-  splash := Tsplash.Create(application);
-  splashunit.SplashTimer := False;
-  splash.Caption := stringreplace(Apropos1.Caption, '&', '', []);
-  splash.VersionName   := VersionName;
-  splash.Splashversion := Splashversion;
-  splash.transmsg      := transmsg;
-  splash.Show;
-  splash.refresh;
+  Showmessage('AtLun '+Splashversion+crlf+
+              compile_version+crlf+
+              avlcpy+crlf+crlf+
+              'Conception : Christian Legrand & Patrick Chevalley'+crlf+
+              'Programming : Patrick Chevalley'+crlf+crlf+
+              'This program is free software; you can redistribute it and/or '+crlf+
+              'modify it under the terms of the GNU General Public License '+crlf+
+              'as published by the Free Software Foundation.'
+              );
 end;
 
 procedure TForm1.ToolButton9Click(Sender: TObject);
