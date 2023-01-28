@@ -1851,7 +1851,7 @@ end;
 
 procedure TForm1.GetAppDir;
 var
-  buf: string;
+  buf,testfile: string;
   inif: TMeminifile;
 {$ifdef darwin}
   i:      integer;
@@ -1861,9 +1861,10 @@ var
   Folder: array[0..MAX_PATH] of char;
 {$endif}
 begin
+testfile:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
 {$ifdef darwin}
   appdir := getcurrentdir;
-  if (not directoryexists(slash(appdir) + slash('Textures'))) then
+  if (not FileExists(slash(appdir)+testfile)) then
   begin
     appdir := ExtractFilePath(ParamStr(0));
     i      := pos('.app/', appdir);
@@ -1874,7 +1875,7 @@ begin
   end;
 {$else}
   appdir     := getcurrentdir;
-  if not DirectoryExists(slash(appdir)+slash('Textures')) then begin
+  if not FileExists(slash(appdir)+testfile) then begin
      appdir:=ExtractFilePath(ParamStr(0));
   end;
 {$endif}
@@ -1909,15 +1910,6 @@ begin
   bindir:=slash(appdir);
 {$endif}
 
-  if fileexists(configfile) then begin
-    inif:=TMeminifile.create(configfile);
-    try
-    buf:=inif.ReadString('default','Install_Dir',appdir);
-    if Directoryexists(slash(buf)+slash('Textures')) then appdir:=noslash(buf);
-    finally
-     inif.Free;
-    end;
-  end;
   if not directoryexists(privatedir) then
     CreateDir(privatedir);
   if not directoryexists(privatedir) then
@@ -1937,36 +1929,47 @@ begin
   if not directoryexists(DBdir) then
     forcedirectories(DBdir);
   // Be sur the Textures directory exists
-  if (not directoryexists(slash(appdir) + slash('Textures'))) then
+  if (not FileExists(slash(appdir)+testfile)) then
   begin
     // try under the current directory
     buf := GetCurrentDir;
-    if (directoryexists(slash(buf) + slash('Textures'))) then
+    if (FileExists(slash(buf)+testfile)) then
       appdir := buf
     else
     begin
       // try under the program directory
       buf := ExtractFilePath(ParamStr(0));
-      if (directoryexists(slash(buf) + slash('Textures'))) then
+      if (FileExists(slash(buf)+testfile)) then
         appdir := buf
       else
       begin
         // try share directory under current location
         buf := ExpandFileName(slash(GetCurrentDir) + SharedDir);
-        if (directoryexists(slash(buf) + slash('Textures'))) then
+        if (FileExists(slash(buf)+testfile)) then
           appdir := buf
         else
         begin
           // try share directory at the same location as the program
           buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0))) + SharedDir);
-          if (directoryexists(slash(buf) + slash('Textures'))) then
+          if (FileExists(slash(buf)+testfile)) then
             appdir := buf
           else
           begin
-            MessageDlg('Could not found the application Textures directory.' +
-              crlf + 'Please try to reinstall the program at a standard location.',
-              mtError, [mbAbort], 0);
-            Halt;
+            if fileexists(configfile) then begin
+              inif:=TMeminifile.create(configfile);
+              try
+              buf:=inif.ReadString('default','Install_Dir',appdir);
+              if FileExists(slash(buf)+testfile) then appdir:=noslash(buf);
+              finally
+               inif.Free;
+              end;
+            end;
+            if not FileExists(slash(appdir)+testfile) then begin
+              MessageDlg('Could not found the application Textures directory.' +
+                crlf + 'Please try to reinstall the program at a standard location.',
+                mtError, [mbAbort], 0);
+              Halt;
+            end;
           end;
         end;
       end;
