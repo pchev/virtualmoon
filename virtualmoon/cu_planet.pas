@@ -47,7 +47,7 @@ type
      function Moon(t0 : double; var alpha,delta,dist,dkm,diam,phase,illum : double; highprec:boolean=true):string;
      Procedure MoonIncl(Lar,Lde,Sar,Sde : double; var incl : double);
      Function MoonMag(phase:double):double;
-     Procedure MoonOrientation(jde,ra,dec,d:double; var P,llat,llong,lats,longs : double);
+     Function MoonOrientation(jde,ra,dec,d:double; var P,llat,llong,lats,longs : double):boolean;
      Function MoonPhase(k: double):double;
      Procedure MoonPhases(year:double; var nm,fq,fm,lq : double);
      procedure PlanetRiseSet(pla:integer; jd0:double; AzNorth:boolean; var thr,tht,ths,tazr,tazs: string; var jdr,jdt,jds,rar,der,rat,det,ras,des:double ; var i: integer);
@@ -81,7 +81,7 @@ result:=rmod(x+3600000000,360);
 end;
 
 
-Procedure TPlanet.MoonOrientation(jde,ra,dec,d:double; var P,llat,llong,lats,longs : double);
+Function TPlanet.MoonOrientation(jde,ra,dec,d:double; var P,llat,llong,lats,longs : double):boolean;
 var lp,l,b,f,om,w,T,a,aa,i,lh,bh,e,v,x,y,l0 {,cel,sel,asol,dsol} : double;
     pl :TPlanetData;
 begin
@@ -91,6 +91,7 @@ if abs(T)>2 then begin   // valid only 1800-2200
   llat:=0;
   lats:=0;
   llong:=0;
+  result:=false;
 end else begin
 e:=deg2rad*23.4392911;
 eq2ecl(ra,dec,e,lp,b);
@@ -120,6 +121,7 @@ y:=sin(i)*cos(v)*cos(e)-cos(i)*sin(e);
 w:=arctan2(x,y);
 P:=rad2deg*(arcsin(sqrt(x*x+y*y)*cos(ra-w)/cos(llat)));
 llat:=rad2deg*(llat);
+result:=true;
 end;
 end;
 

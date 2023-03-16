@@ -3442,6 +3442,7 @@ var
   v1, v2, v3, v4, v5, v6, v7, v8, v9: double;
   gpa, glibrb, glibrl: double;
   aa, mm, dd, i, j: integer;
+  OrientValid: boolean;
 const
   b = ' ';
 begin
@@ -3458,7 +3459,7 @@ begin
   // orientation need jdnow
   precession(jd2000, CurrentJD, ra2, de2);
   // geocentric orientation, return valid sub-solar position
-  Fplanet.MoonOrientation(CurrentJD, ra2, de2, dist, gpa, glibrb, glibrl, sunlat, sunlong);
+  OrientValid:=Fplanet.MoonOrientation(CurrentJD, ra2, de2, dist, gpa, glibrb, glibrl, sunlat, sunlong);
   if not geocentric then
   begin
     // parallax
@@ -3476,7 +3477,7 @@ begin
   mean_equatorial(ra,Dec,ecl,sunl,abp,abe,nutl,nuto);
   precession(jd2000, CurrentJD, rad, ded);
   // topocentric libration, ignore invalid sub-solar position
-  Fplanet.MoonOrientation(CurrentJD, rad, ded, dist, pa, librb, librl, v1, v2);
+  OrientValid:=Fplanet.MoonOrientation(CurrentJD, rad, ded, dist, pa, librb, librl, v1, v2);
   cphase := phase + glibrl;
   tphase := phase;
   colong := rmod(90 - sunlong + 360, 360);
@@ -3503,6 +3504,8 @@ begin
 
  // Stringgrid1.colwidths[1] := 150;
   i := 0;
+  Stringgrid1.Clear;
+  StringGrid1.RowCount:=26;
   Stringgrid1.Cells[0, i] := rsEphemeris;
   Stringgrid1.Cells[1, i] := eph;
   Inc(i);
@@ -3553,21 +3556,23 @@ begin
   Inc(i);
   Stringgrid1.Cells[0, i] := rsm_35;
   Stringgrid1.Cells[1, i] := formatfloat(f1, illum * 100) + '%';
-  Inc(i);
-  Stringgrid1.Cells[0, i] := rsm_48;
-  Stringgrid1.Cells[1, i] := formatfloat(f1, colong) + ldeg;
-  Inc(i);
-  Stringgrid1.Cells[0, i] := rsm_45;
-  Stringgrid1.Cells[1, i] := formatfloat(f1, sunlat) + ldeg;
-  Inc(i);
-  Stringgrid1.Cells[0, i] := rsm_33;
-  Stringgrid1.Cells[1, i] := demtostr(librb);
-  Inc(i);
-  Stringgrid1.Cells[0, i] := rsm_34;
-  Stringgrid1.Cells[1, i] := demtostr(librl);
-  Inc(i);
-  Stringgrid1.Cells[0, i] := rsm_37;
-  Stringgrid1.Cells[1, i] := formatfloat(f1, pa) + ldeg;
+  if OrientValid then begin
+    Inc(i);
+    Stringgrid1.Cells[0, i] := rsm_48;
+    Stringgrid1.Cells[1, i] := formatfloat(f1, colong) + ldeg;
+    Inc(i);
+    Stringgrid1.Cells[0, i] := rsm_45;
+    Stringgrid1.Cells[1, i] := formatfloat(f1, sunlat) + ldeg;
+    Inc(i);
+    Stringgrid1.Cells[0, i] := rsm_33;
+    Stringgrid1.Cells[1, i] := demtostr(librb);
+    Inc(i);
+    Stringgrid1.Cells[0, i] := rsm_34;
+    Stringgrid1.Cells[1, i] := demtostr(librl);
+    Inc(i);
+    Stringgrid1.Cells[0, i] := rsm_37;
+    Stringgrid1.Cells[1, i] := formatfloat(f1, pa) + ldeg;
+  end;
   if not geocentric then
   begin
     eq2hz(st0 - rad, ded, az, ah);
@@ -3662,8 +3667,8 @@ begin
   activemoon.ShowPhase:=phaseeffect;
   activemoon.Phase:=deg2rad*cphase;
   activemoon.SunIncl:=deg2rad*sunlat;
-  activemoon.LibrationMark:=ShowLibrationMark;
-  activemoon.SetTerminator(showterminatorline,sunlong,sunlat);
+  activemoon.LibrationMark:=ShowLibrationMark and OrientValid;
+  activemoon.SetTerminator(showterminatorline and OrientValid,sunlong,sunlat);
   activemoon.RefreshAll;
 end;
 
