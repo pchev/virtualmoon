@@ -3811,8 +3811,8 @@ begin
   compile_time := {$I %DATE%}+' '+{$I %TIME%};
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+buf;
 
-  ScaleFormForFontSize(self,96);
   dpiscale:=Scale96ToForm(10000)/10000;
+  ScaleFormForFontSize(self,96);
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
   PageControl1.ActivePageIndex:=0;
