@@ -139,6 +139,7 @@ if [[ $make_linux32 ]]; then
   cd $builddir
   mkdir debian/virtualmoon/usr/
   mv bin debian/virtualmoon/usr/
+  mv lib debian/virtualmoon/usr/
   mv share debian/virtualmoon/usr/
   cd debian
   sed -i "/Version:/ s/5/$version/" virtualmoon/DEBIAN/control
@@ -186,6 +187,7 @@ if [[ $make_linux64 ]]; then
   cd $builddir
   mkdir debian/virtualmoon64/usr/
   mv bin debian/virtualmoon64/usr/
+  mv lib debian/virtualmoon64/usr/
   mv share debian/virtualmoon64/usr/
   cd debian
   sed -i "/Version:/ s/5/$version/" virtualmoon64/DEBIAN/control
