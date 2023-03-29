@@ -1148,20 +1148,26 @@ begin
 end;
 
 function Tf_moon.World2Moon(x,y,z:single; var lon,lat: single): boolean;
-var lo,la,qr: single;
+var qr: single;
+    v: TAffineVector;
 begin
-   lo:=-arctan2(y,x)-pi/2;
-   if (lo<-pi) then lo:=lo+2*pi;
-   qr:=sqrt(x*x+y*y);
-   if qr<>0 then begin
-      la:=arctan(z/qr);
-      lat:=la+LibrLat*cos(lo);
-      lon:=lo-LibrLon+LibrLat*tan(lat)*sin(lo);
-      result:=true;
-   end else begin
-      lat:=0;
-      result:=false;
-   end;
+  v.V[0]:=x;
+  v.V[1]:=z;
+  v.V[2]:=y;
+  v:=GLSphereMoon.AbsoluteToLocal(v);
+  x := v.V[0];
+  z := v.V[1];
+  y := v.V[2];
+  lon:=-arctan2(y,x)-pi/2;
+  if (lon<-pi) then lon:=lon+2*pi;
+  qr:=sqrt(x*x+y*y);
+  if qr<>0 then begin
+    lat:=arctan(z/qr);
+    result:=true;
+  end else begin
+    lat:=0;
+    result:=false;
+  end;
 end;
 
 Procedure Tf_moon.GetZoomInfo;
