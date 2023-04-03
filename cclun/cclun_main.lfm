@@ -30276,7 +30276,7 @@ object f_cclun: Tf_cclun
       Align = alClient
       Alignment = taCenter
       AutoSize = False
-      Caption = '© Christian Legrand & Patrick Chevalley / 2022'
+      Caption = '© Christian Legrand & Patrick Chevalley / 2023'
       Color = clBlack
       Font.Color = clGray
       ParentColor = False
