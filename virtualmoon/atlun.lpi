@@ -18,9 +18,15 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
+    <MacroValues Count="1">
+      <Macro3 Name="LCLWidgetType" Value="gtk2"/>
+    </MacroValues>
     <BuildModes Count="3">
       <Item1 Name="release" Default="True"/>
       <Item2 Name="debug">
+        <MacroValues Count="1">
+          <Macro2 Name="LCLWidgetType" Value="gtk2"/>
+        </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -90,8 +96,10 @@
           </Other>
         </CompilerOptions>
       </Item3>
-      <SharedMatrixOptions Count="1">
+      <SharedMatrixOptions Count="3">
         <Item1 ID="844868194224" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
+        <Item2 ID="791117738627" Modes="debug" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item3 ID="929163840731" Modes="release" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
