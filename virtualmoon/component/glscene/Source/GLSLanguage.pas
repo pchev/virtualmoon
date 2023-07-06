@@ -244,8 +244,8 @@ begin
       Result := CP866ToUTF8(aValue);
     celCP874ToUTF8:
       Result := CP874ToUTF8(aValue);
-    celKOI8ToUTF8:
-      Result := KOI8ToUTF8(aValue);
+//    celKOI8ToUTF8:
+//      Result := KOI8ToUTF8(aValue);
     celUCS2LEToUTF8:
       Result := UCS2LEToUTF8(aValue);
     celUCS2BEToUTF8:

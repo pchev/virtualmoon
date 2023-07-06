@@ -682,6 +682,9 @@ uses LazUTF8,
   {$IF (lcl_fullversion >= 1070000)}
   lclplatformdef,
   {$endif}
+  {$if lcl_major >= 3}
+  IpHtmlTypes,
+  {$endif}
   config, splashunit, pu_features,
   glossary, fmsg, dbutil, LCLProc;
 
