@@ -495,7 +495,7 @@ begin
   FOwnDC := GetDC(FForm.Handle);
   Buffer.CreateRC(FOwnDC, False);
   // Linux Unicode
-{$IFDEF Linux}
+{$IFDEF LCLGTK}
   GrabMouseToForm(FForm);
 {$ENDIF}
   // todo
@@ -516,7 +516,7 @@ begin
     Cursor := crDefault;
     PopupMenu := nil;
   end;
-{$IFDEF Linux}
+{$IFDEF LCLGTK}
   ReleaseMouseFromForm(FForm);
 {$ENDIF}
 {$IFDEF MSWINDOWS}

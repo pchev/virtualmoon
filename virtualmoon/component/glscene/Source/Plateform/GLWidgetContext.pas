@@ -71,6 +71,9 @@ gtkproc, gtk, gtkdef, gdk;
 {$IFDEF LCLQT}
 QT4, QTWidgets;
 {$ENDIF}
+{$IFDEF LCLQT5}
+QT5, QTWidgets;
+{$ENDIF}
 {$IFDEF LCLfpgui}
 {$MESSAGE Warn 'LCLfpgui: Needs to be implemented'}
 {$ENDIF}
