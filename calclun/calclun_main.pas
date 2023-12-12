@@ -251,6 +251,7 @@ type
     procedure TerminatorChange(Sender: TObject);
     procedure LibrationChange(Sender: TObject);
     procedure OpenChart(Sender: TObject);
+    procedure OpenChartAsync(data: PtrInt);
     procedure ChartYearMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DateChange(Sender: TObject);
     procedure DateChangeTimerTimer(Sender: TObject);
@@ -1283,11 +1284,18 @@ begin
 end;
 
 procedure Tf_calclun.OpenChart(Sender: TObject);
+begin
+  Application.QueueAsyncCall(@OpenChartAsync,PtrInt(Sender));
+end;
+
+procedure Tf_calclun.OpenChartAsync(data: PtrInt);
 var f:TForm;
     p:TPanel;
     b:TButton;
     pt:Tpoint;
+    Sender: TObject;
 begin
+ Sender:=TObject(data);
  if TChart(Sender).Parent is TForm then
    TForm(TChart(Sender).Parent).close
  else begin
@@ -1339,7 +1347,7 @@ begin
          else if Name='Chart2' then begin
             Parent:=PanelGraph2;
          end
-         else if Name='Chart2' then begin
+         else if Name='Chart3' then begin
             Parent:=PanelGraph3;
          end
          else if Name='ChartAltAz' then begin
