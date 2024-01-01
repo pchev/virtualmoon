@@ -44,7 +44,7 @@ type
     FonDownloadComplete: TDownloadProc;
     FonProgress: TDownloadProc;
 
-    FMillis: cardinal; // passed ms
+    FMillis: QWord; // passed ms
 
     procedure SockStatus(Sender: TObject; Reason: THookSocketReason;
       const Value: string);
@@ -55,14 +55,14 @@ type
   public
 
     procedure FTPStatus(Sender: TObject; Response: boolean; const Value: string);
-    procedure UpdateSizeText(ASize: int64);
+    procedure UpdateSizeText(ASize, dt: int64);
 
   public
     Phttp: ^THTTPSend;
     Pftp: ^TFTPSend;
     protocol: TDownloadProtocol;
 
-    Fsockreadcount, Fsockwritecount: integer;
+    Fsockreadcount, Fsockwritecount, FUpdateSize: integer;
 
     Durl, Dftpdir, Dftpfile, progresstext: string;
     ok: boolean;
@@ -94,6 +94,7 @@ type
     FDownloadFile, FCopyfrom, Ftofile, FDownload, FCancel: string;
     FConfirmDownload: boolean;
     FQuickCancel: boolean;
+    FScaleDpi: double;
     DF: TForm;
     okButton, cancelButton: TButton;
     progress: Tedit;
@@ -110,6 +111,8 @@ type
     procedure FTPComplete;
     procedure progressreport;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure SetScaleDpi(value: double);
+    function  doScaleDpi(x: integer): integer;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -119,6 +122,7 @@ type
     property msgtofile: string read Ftofile write Ftofile;
     property msgDownloadBtn: string read FDownload write FDownload;
     property msgCancelBtn: string read FCancel write FCancel;
+    property ScaleDpi: double read FScaleDpi write SetScaleDpi;
   published
     property URL: string read Furl write Furl;
     property SaveToFile: string read Ffile write Ffile;
@@ -198,6 +202,7 @@ begin
   Ftofile := 'to file:';
   FDownload := 'Download';
   FCancel := 'Cancel';
+  FScaleDpi := 1;
 
 end;
 
@@ -208,6 +213,21 @@ begin
   Timer1.Free;
 
   inherited Destroy;
+end;
+
+procedure TDownloadDialog.SetScaleDpi(value: double);
+begin
+  if value<1 then
+     FScaleDpi:=1
+  else if abs(value-1)<0.05 then
+     FScaleDpi:=1
+  else
+     FScaleDpi:=value;
+end;
+
+function TDownloadDialog.doScaleDpi(x: integer): integer;
+begin
+  Result := round(x*FScaleDpi);
 end;
 
 function TDownloadDialog.Execute: boolean;
@@ -230,11 +250,13 @@ begin
   with urltxt do
   begin
     Parent := DF;
-    Width := 400;
+    Width := doScaleDpi(400);
+    Constraints.MaxHeight:=doScaleDpi(28);
+    Height:=doScaleDpi(28);
     Text := Furl;
     EditLabel.Caption := ' ' + FCopyfrom;
-    top := Editlabel.Height + 4;
-    left := 8;
+    top := Editlabel.Height + doScaleDpi(4);
+    left := doScaleDpi(8);
     ReadOnly := True;
     color := clBtnFace;
     selstart := 1;
@@ -245,11 +267,13 @@ begin
   with filetxt do
   begin
     Parent := DF;
-    Width := 400;
+    Width := doScaleDpi(400);
+    Constraints.MaxHeight:=doScaleDpi(28);
+    Height:=doScaleDpi(28);
     Text := systoutf8(Ffile);
     EditLabel.Caption := ' ' + Ftofile;
-    top := Editlabel.Height + urltxt.Top + urltxt.Height + 4;
-    left := 8;
+    top := Editlabel.Height + urltxt.Top + urltxt.Height + doScaleDpi(4);
+    left := doScaleDpi(8);
     ReadOnly := True;
     color := clBtnFace;
   end;
@@ -258,10 +282,12 @@ begin
   with progress do
   begin
     Parent := DF;
-    Width := 400;
+    Width := doScaleDpi(400);
+    Constraints.MaxHeight:=doScaleDpi(28);
+    Height:=doScaleDpi(28);
     Text := '';
-    top := filetxt.Top + filetxt.Height + 4;
-    left := 8;
+    top := filetxt.Top + filetxt.Height + doScaleDpi(4);
+    left := doScaleDpi(8);
     ReadOnly := True;
     color := clBtnFace;
   end;
@@ -270,11 +296,12 @@ begin
   with okButton do
   begin
     Parent := DF;
+    Constraints.MaxHeight:=doScaleDpi(28);
     AutoSize := True;
     Caption := FDownload;
     onClick := @BtnDownload;
-    top := progress.Top + progress.Height + 4;
-    left := 8;
+    top := progress.Top + progress.Height + doScaleDpi(4);
+    left := doScaleDpi(8);
     Default := True;
   end;
 
@@ -282,16 +309,17 @@ begin
   with cancelButton do
   begin
     Parent := DF;
+    Constraints.MaxHeight:=doScaleDpi(28);
     AutoSize := True;
     Caption := FCancel;
     onClick := @BtnCancel;
     top := okButton.top;
-    left := progress.Width - cancelButton.Width - 8;
+    left := progress.Width - cancelButton.Width - doScaleDpi(8);
     Cancel := True;
   end;
 
-  DF.Width := urltxt.Width + 16;
-  DF.Height := okButton.Top + okButton.Height + 8;
+  DF.Width := urltxt.Width + doScaleDpi(16);
+  DF.Height := okButton.Top + okButton.Height + doScaleDpi(8);
 
   if not FConfirmDownload then
   begin
@@ -495,7 +523,7 @@ begin
     http.Document.SaveToFile(FFile);
 
     //SZ Update exact size
-    DownloadDaemon.UpdateSizeText(http.Document.Size);
+    DownloadDaemon.UpdateSizeText(http.Document.Size,0);
     progressreport;
 
     FResponse := 'Finished: ' + progress.Text;
@@ -572,9 +600,9 @@ begin
     //SZ Update exact size
 
     if ftp.DirectFile then
-      DownloadDaemon.UpdateSizeText(FileSize(ftp.DirectFileName))
+      DownloadDaemon.UpdateSizeText(FileSize(ftp.DirectFileName),0)
     else
-      DownloadDaemon.UpdateSizeText(ftp.DataStream.Size);
+      DownloadDaemon.UpdateSizeText(ftp.DataStream.Size,0);
 
     progressreport;
 
@@ -615,22 +643,47 @@ end;
 constructor TDownloadDaemon.Create;
 begin
   ok := False;
+  FMillis := 0;
   FreeOnTerminate := True;
   inherited Create(True);
 end;
 
 
 //SZ Update size  and text
-procedure TDownloadDaemon.UpdateSizeText(ASize: int64);
+procedure TDownloadDaemon.UpdateSizeText(ASize, dt: int64);
+var dsize: int64;
+    speed: double;
 begin
+  dsize:=ASize-FUpdateSize;
+
   FSockreadcount := ASize;
+  FUpdateSize := FSockreadcount;
 
-  progresstext := format('Read Bytes: %.0n', [1.0 * FSockreadcount]);
+  if FSockreadcount<1024 then
+    progresstext := format('Read Bytes: %.0n', [1.0 * FSockreadcount])
+  else if FSockreadcount<(1024*1024) then
+    progresstext := format('Read KB: %.1f', [FSockreadcount / 1024])
+  else
+    progresstext := format('Read MB: %.1f', [FSockreadcount / 1024 / 1024]);
 
-  if FFileSize > 0 then
-    progresstext := progresstext +
-      format(' of %.0n (%5.2f%%)', [1.0 * FFileSize, FSockreadcount * 100 / FFileSize]);
+  if FFileSize > 0 then begin
+    if FSockreadcount<1024 then
+      progresstext := progresstext + format(' of %.0n (%5.2f%%)', [1.0 * FFileSize, FSockreadcount * 100 / FFileSize])
+    else if FSockreadcount<(1024*1024) then
+      progresstext := progresstext + format(' of %.1f (%5.2f%%)', [FFileSize/1024, FSockreadcount * 100 / FFileSize])
+    else
+      progresstext := progresstext + format(' of %.1f (%5.2f%%)', [FFileSize/1024/1024, FSockreadcount * 100 / FFileSize])
+  end;
 
+  if (dsize>0)and(dt>0) then begin
+    speed := dsize * 1000 / dt;
+    if speed<1024 then
+      progresstext := progresstext + format(', %.0n Bytes/Seconds', [speed])
+    else if speed<(1024*1024) then
+      progresstext := progresstext + format(', %.1f KB/Seconds', [speed/1024])
+    else
+      progresstext := progresstext + format(', %.1f MB/Seconds', [speed/1024/1024]);
+  end;
 end;
 
 
@@ -704,6 +757,7 @@ procedure TDownloadDaemon.Execute;
 begin
   Fsockreadcount := 0;
   Fsockwritecount := 0;
+  FUpdateSize := 0;
 
   FFileSize := 0;
 
@@ -782,7 +836,7 @@ end;
 
 procedure TDownloadDaemon.SockMonitor(Sender: TObject; Writing: boolean;
   const Buffer: Pointer; Len: integer);
-
+var dt: Int64;
 begin
 
   if not Writing then
@@ -792,23 +846,25 @@ begin
 
     //SZ Update text every second
 
-    if abs(GetTickCount - FMillis) > 1000 then
+    if FMillis = 0 then
+      FMillis := GetTickCount64
+    else
     begin
-      FMillis := GetTickCount;
-
-      // SZ Added percentage
-
-      UpdateSizeText(FSockreadcount);
-
-      FMillis := GetTickCount;
-
-      if (progresstext <> '') and assigned(FonProgress) then
-        synchronize(FonProgress);
-
+      dt := GetTickCount64 - FMillis;
+      if dt<0 then
+        FMillis := GetTickCount64
+      else
+      begin
+        if dt > 1000 then
+        begin
+          UpdateSizeText(FSockreadcount,dt);
+          FMillis := GetTickCount64;
+          if (progresstext <> '') and assigned(FonProgress) then
+            synchronize(FonProgress);
+        end;
+      end;
     end;
-
   end;
-
 end;
 
 procedure TDownloadDaemon.FTPStatus(Sender: TObject; Response: boolean;
