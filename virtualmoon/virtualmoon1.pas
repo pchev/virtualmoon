@@ -3579,8 +3579,11 @@ begin
   if not geocentric then
   begin
     eq2hz(st0 - rad, ded, az, ah);
-    if ZenithOnTop then parallacticangle:= rad2deg*sin(st0-rad)/((tan(deg2rad*ObsLatitude)*cos(ded))-(sin(ded)*cos(st0-rad)))
-            else parallacticangle:=0;
+    if ZenithOnTop then begin
+       parallacticangle:= rad2deg* ArcTan2(sin(st0-rad),((tan(deg2rad*ObsLatitude)*cos(ded))-(sin(ded)*cos(st0-rad))))
+     end
+    else
+      parallacticangle:=0;
     az := rmod(rad2deg * az + 180, 360);
     Inc(i);
     Stringgrid1.Cells[0, i] := rsm_73;
