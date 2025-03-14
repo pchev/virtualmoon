@@ -34,7 +34,7 @@
   SPICEINT_CELL ( intcell9, MAXIVL );
   SPICEINT_CELL ( intcell10, MAXIVL );
   
-  long getdoublecell ( int * i )
+  SpiceCell * getdoublecell ( int * i )
   { 
      if (i==1) { 
       return &doublecell1; 
@@ -68,7 +68,7 @@
      }  
    }
  
-   long getintcell ( int * i )
+  SpiceCell * getintcell ( int * i )
   { 
      if (i==1) { 
       return &intcell1; 
