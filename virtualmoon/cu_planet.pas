@@ -557,6 +557,7 @@ var
   i: integer;
   y,ys,ye,m,d : integer;
   hour,jdstart,jdend: double;
+  defn: string;
 begin
 djd(t,y,m,d,hour);
 if y=de_year then begin
@@ -565,7 +566,7 @@ end else begin
   result:=false;
   de_type:=0;
   for i:=1 to nJPL_DE do begin
-     if load_de_file(t,de_folder,JPL_DE[i],jdstart,jdend) then begin
+     if load_de_file(t,de_folder,JPL_DE[i], defn,jdstart,jdend) then begin
        result:=true;
        de_type:=JPL_DE[i];
        break;

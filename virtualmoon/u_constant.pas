@@ -78,8 +78,8 @@ const crlf = chr(10)+chr(13);
       siderealrate = 15.041067178669; // arcsec/second
       encryptpwd = 'aehooX4Aekiu7tha;Eiraingienugoo1v.Aexejae3outhah3O';
 
-      nJPL_DE = 7;
-      JPL_DE: array [1..nJPL_DE] of integer = (423, 421, 422, 405, 406, 403, 200);
+      nJPL_DE = 9;
+      JPL_DE: array [1..nJPL_DE] of integer = (441, 440, 423, 421, 422, 405, 406, 403, 200);
 
       // Paper size
       PaperNumber=9;
