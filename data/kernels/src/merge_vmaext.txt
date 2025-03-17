@@ -1,0 +1,9 @@
+LEAPSECONDS_KERNEL = latest_leapseconds.tls
+
+SPK_KERNEL = vma.bsp
+  BEGIN_TIME = 1 JAN 1550 00:00:00.000 TDB
+  END_TIME = 1 JAN 2650 00:00:00.000 TDB
+  SOURCE_SPK_KERNEL = de440.bsp
+    BODIES          = 3, 10, 399, 301 
+    
+ 

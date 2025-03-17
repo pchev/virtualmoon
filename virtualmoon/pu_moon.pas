@@ -153,6 +153,7 @@ type
     FOnGetLabel: TNotifyEvent;
     FOnGetSprite: TNotifyEvent;
     FonMoonActivate: TNotifyEvent;
+    FonMoveCamera: TNotifyEvent;
     FTexturePath: String;
     FTexture: TStringList;
     FOverlayPath: String;
@@ -365,6 +366,7 @@ type
     property onGetMsg : TGetMsgEvent read FOnGetMsg write FOnGetMsg;
     property onGetLabel : TNotifyEvent read FOnGetLabel write FOnGetLabel;
     property onGetSprite : TNotifyEvent read FonGetSprite write FonGetSprite;
+    property onMoveCamera: TNotifyEvent read FonMoveCamera write FonMoveCamera;
   end;
 
 var
@@ -1742,6 +1744,7 @@ begin
        GLLightSource1.Position:=GLCamera1.Position;
        GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
     end;
+    if assigned(onMoveCamera) then onMoveCamera(self);
     RefreshAll;
   end
   else

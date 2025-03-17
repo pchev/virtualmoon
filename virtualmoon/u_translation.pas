@@ -387,6 +387,7 @@ rsTerminatorLi = 'Terminator line';
 rsLowSunElevat = 'Low Sun elevation';
 rsNewInformati = 'New information note';
 rsNewObservati = 'New observation note';
+rsWindowPositi = 'Window position coupling';
 
 implementation
 

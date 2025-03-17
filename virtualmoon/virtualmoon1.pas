@@ -190,6 +190,13 @@ type
     ToolButton21: TToolButton;
     ToolButton22: TToolButton;
     TerminatorButton: TToolButton;
+    ButtonSetTexture: TToolButton;
+    ToolButton24: TToolButton;
+    ButtonSetOverlay: TToolButton;
+    ButtonSetDatabase: TToolButton;
+    ToolButton27: TToolButton;
+    LinkWindowButton: TToolButton;
+    ButtonProfile: TToolButton;
     ToolButtonNotelun: TToolButton;
     ToolButtonCalclun: TToolButton;
     ToolButtonCCD: TToolButton;
@@ -370,6 +377,9 @@ type
     procedure BtnNewInfoClick(Sender: TObject);
     procedure BtnNewObsClick(Sender: TObject);
     procedure Button21Click(Sender: TObject);
+    procedure ButtonSetDatabaseClick(Sender: TObject);
+    procedure ButtonSetOverlayClick(Sender: TObject);
+    procedure ButtonSetTextureClick(Sender: TObject);
     procedure DemProfileClick(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox4Click(Sender: TObject);
@@ -386,6 +396,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure DecreaseFont1Click(Sender: TObject);
     procedure IncreaseFont1Click(Sender: TObject);
+    procedure LinkWindowButtonClick(Sender: TObject);
     procedure ListNotesDblClick(Sender: TObject);
     procedure OptFeatures1Click(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
@@ -397,6 +408,7 @@ type
     procedure Splitter2TimerTimer(Sender: TObject);
     procedure TerminatorButtonClick(Sender: TObject);
     procedure ToolButton22Click(Sender: TObject);
+    procedure ButtonProfileClick(Sender: TObject);
     procedure ToolButtonCalclunClick(Sender: TObject);
     procedure ToolButtonCCDClick(Sender: TObject);
     procedure ToolButtonEphClick(Sender: TObject);
@@ -595,6 +607,9 @@ type
     procedure MoonMoveEvent(Sender: TObject; X, Y: Integer;
                      OnMoon: boolean; Lon, Lat: Single);
     procedure MoonMeasureEvent(Sender: TObject; m1,m2,m3,m4,m5: string);
+    procedure MoonMoveCamera(Sender: TObject);
+    procedure SetRotation(m:Tf_moon; onoff: boolean);
+    procedure OpenConfig(page: integer=-1);
     public
     autolabelcolor: Tcolor;
     lastx, lasty, lastyzoom, MaxSprite: integer;
@@ -935,6 +950,11 @@ begin
     SpeedButton6.Caption := rst_5;
     SpeedButton4.Caption := rst_142;
     NewWindowButton.hint := rst_166;
+    LinkWindowButton.hint := rsWindowPositi;
+    ButtonSetTexture.hint := rst_3 +' / '+ rst_152;
+    ButtonSetOverlay.hint := rst_3 +' / '+ rst_169 ;
+    ButtonSetDatabase.hint := rst_3 +' / '+ rst_129;
+    ButtonProfile.hint := rsProfile;
     Button21.Caption:=rsDefault;
     TrackBar1.Hint:=rsZoomLevel;
     TrackBar9.Hint:=rst_104;
@@ -4183,7 +4203,7 @@ end;
 screen.cursor := crDefault;
 end;
 
-procedure TForm1.Configuration1Click(Sender: TObject);
+procedure TForm1.OpenConfig(page: integer=-1);
 var
   reload, reloaddb, systemtimechange, redrawbassin: boolean;
   i, j: integer;
@@ -4272,7 +4292,7 @@ begin
     form2.CheckBox15.Checked := LopamDirect;
     form2.combobox5.Text := remext(overlayname);
     form2.trackbar5.position := round(overlaytr*100);
-    form2.combobox5change(Sender);
+    form2.combobox5change(nil);
     form2.checkbox11.Checked := showoverlay;
     form2.checkbox10.Checked := GridButton.Down;
     form2.TrackBar3.Position:=gridspacing;
@@ -4284,6 +4304,8 @@ begin
     form2.obstz:=ObsTZ;
     form2.SetObsCountry(ObsCountry);
     FormPos(form2,p.x,p.y);
+    if page>0 then
+      form2.PageControl1.ActivePageIndex:=page;
     Form2.showmodal;
     if form2.ModalResult = mrOk then
     begin
@@ -4482,6 +4504,26 @@ except
     end;
 end;
  screen.cursor := crdefault;
+end;
+
+procedure TForm1.Configuration1Click(Sender: TObject);
+begin
+  OpenConfig;
+end;
+
+procedure TForm1.ButtonSetDatabaseClick(Sender: TObject);
+begin
+  OpenConfig(1);
+end;
+
+procedure TForm1.ButtonSetOverlayClick(Sender: TObject);
+begin
+  OpenConfig(4);
+end;
+
+procedure TForm1.ButtonSetTextureClick(Sender: TObject);
+begin
+  OpenConfig(3);
 end;
 
 procedure TForm1.ToolButtonHideToolsClick(Sender: TObject);
@@ -5824,7 +5866,7 @@ procedure TForm1.ToolButton3Click(Sender: TObject);
 var l,b: single;
     recenter:boolean;
 begin
-recenter:=activemoon.getcenter(l,b);
+  recenter:=activemoon.getcenter(l,b);
   if ToolButton3.Down then
   begin
     librl := 0;
@@ -5836,12 +5878,13 @@ recenter:=activemoon.getcenter(l,b);
     GroupBox3.Visible := True;    // satellite
     Rotation1.Visible := True;
     LibrationButton.Enabled := False;
-    activemoon.LibrationMark:=False;
-    activemoon.Mirror:=False;
-    activemoon.VisibleSideLock:=false;
-    activemoon.LibrLat:=0;
-    activemoon.LibrLon:=0;
-    activemoon.RefreshAll;
+    SetRotation(activemoon,True);
+    if NewWindowButton.Down and LinkWindowButton.Down then begin
+     if activemoon=moon1 then
+       SetRotation(moon2,True)
+     else
+       SetRotation(moon1,True);
+    end;
   end
   else
   begin
@@ -5856,14 +5899,38 @@ recenter:=activemoon.getcenter(l,b);
     GroupBox3.Visible := False;
     Rotation1.Visible := False;
     LibrationButton.Enabled := True;
-    activemoon.VisibleSideLock:=true;
-    activemoon.LibrationMark:=ShowLibrationMark;
-    activemoon.SatelliteRotation:=0;
-    activemoon.Orientation:=CameraOrientation;
-    activemoon.Mirror:=checkbox2.Checked;
+    SetRotation(activemoon,False);
+    if NewWindowButton.Down and LinkWindowButton.Down then begin
+     if activemoon=moon1 then
+       SetRotation(moon2,False)
+     else
+       SetRotation(moon1,False);
+    end;
     RefreshMoonImage;
   end;
-if recenter then activemoon.CenterAt(l,b);
+  if recenter then activemoon.CenterAt(l,b);
+end;
+
+procedure TForm1.SetRotation(m:Tf_moon; onoff: boolean);
+begin
+  if onoff then
+  begin
+    m.LibrationMark:=False;
+    m.Mirror:=False;
+    m.VisibleSideLock:=false;
+    m.LibrLat:=0;
+    m.LibrLon:=0;
+    m.RefreshAll;
+  end
+  else
+  begin
+    m.VisibleSideLock:=true;
+    m.LibrationMark:=ShowLibrationMark;
+    m.SatelliteRotation:=0;
+    m.Orientation:=CameraOrientation;
+    m.Mirror:=checkbox2.Checked;
+    m.RefreshAll;
+  end;
 end;
 
 procedure TForm1.ZoomEyepieceClick(Sender: TObject);
@@ -6112,6 +6179,8 @@ if moon2=nil then begin
  moon2.onGetSprite:=GetSprite;
  moon2.onMoonMove:=MoonMoveEvent;
  moon2.onMoonMeasure:=MoonMeasureEvent;
+ moon2.onMoveCamera:=MoonMoveCamera;
+ moon1.onMoveCamera:=MoonMoveCamera;
  moon2.onGetMsg:=GetMsg;
  moon2.Demlib:=demlib;
  moon2.PopUp:=PopupMenu1;
@@ -6139,6 +6208,43 @@ end else begin
   PanelMoon2.Visible:=false;
   moon2.Moon.BevelColor:=clDefault;
   moon1.Moon.BevelColor:=clDefault;
+end;
+end;
+
+procedure TForm1.LinkWindowButtonClick(Sender: TObject);
+var destmoon: TF_moon;
+begin
+if NewWindowButton.Down and LinkWindowButton.Down then begin
+  if activemoon=moon1 then
+    destmoon:=moon2
+  else
+    destmoon:=moon1;
+  SetRotation(destmoon,not activemoon.VisibleSideLock);
+  MoonMoveCamera(activemoon);
+end;
+end;
+
+procedure TForm1.MoonMoveCamera(Sender: TObject);
+var srcmoon,destmoon: TF_moon;
+begin
+if NewWindowButton.Down and LinkWindowButton.Down then begin
+  srcmoon:=Tf_moon(sender);
+  if srcmoon=moon1 then
+    destmoon:=moon2
+  else
+    destmoon:=moon1;
+  destmoon.GLCamera1.Position.AsVector:=srcmoon.GLCamera1.Position.AsVector;
+  with destmoon do begin
+    if VisibleSideLock then begin
+      GLAnnulus1.Position.x := GLCamera1.Position.x;
+      GLAnnulus1.Position.y := GLCamera1.Position.y;
+    end;
+    if (not ShowPhase)and(not RotationCadencer.Enabled) then begin
+       GLLightSource1.Position:=GLCamera1.Position;
+       GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
+    end;
+  end;
+  destmoon.RefreshAll;
 end;
 end;
 
@@ -6454,7 +6560,21 @@ begin
   TrackBar4Change(Sender);
 end;
 
+procedure TForm1.ButtonProfileClick(Sender: TObject);
+begin
+  if f_demprofile.Visible then begin
+     ButtonMeasureDistance.Down:=false;
+     activemoon.MeasuringDistance := False;
+     f_demprofile.Hide;
+  end
+  else begin
+    PageControl1.ActivePageIndex:=4;
+    DemProfileClick(nil);
+  end;
+end;
+
 procedure TForm1.DemProfileClick(Sender: TObject);
+var p: Tpoint;
 begin
   if not demlib.Open then begin
     ShowMessage(demlib.LastMessage);
@@ -6464,7 +6584,9 @@ begin
     f_demprofile.demlib:=demlib;
   f_demprofile.PlotProfile(DistStartL,DistStartB,DistEndL,DistEndB);
   if not f_demprofile.Visible then begin
-    FormPos(f_demprofile,mouse.CursorPos.X,mouse.CursorPos.Y);
+    p:=Point(GroupBoxDistance.Left,GroupBoxDistance.Top+GroupBoxDistance.Height);
+    p:=Outils.ClientToScreen(p);
+    FormPos(f_demprofile,p.X,p.Y);
     f_demprofile.show;
   end;
   if not activemoon.MeasuringDistance then begin
