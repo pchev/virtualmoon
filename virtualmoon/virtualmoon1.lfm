@@ -27,16 +27,16 @@ object Form1: TForm1
   ParentDoubleBuffered = False
   object PanelMoon2: TPanel
     Left = 0
-    Height = 548
-    Top = 35
+    Height = 551
+    Top = 32
     Width = 200
     Align = alLeft
     TabOrder = 4
   end
   object PanelMoon: TPanel
     Left = 205
-    Height = 548
-    Top = 35
+    Height = 551
+    Top = 32
     Width = 200
     Align = alLeft
     TabOrder = 2
@@ -53,18 +53,19 @@ object Form1: TForm1
   end
   object ControlBar1: TPanel
     Left = 0
-    Height = 35
+    Height = 32
     Top = 0
     Width = 1558
     Align = alTop
+    AutoSize = True
     BevelOuter = bvNone
-    ClientHeight = 35
+    ClientHeight = 32
     ClientWidth = 1558
     TabOrder = 1
     object TrackBar9: TTrackBar
-      Left = 728
-      Height = 43
-      Top = 0
+      Left = 784
+      Height = 30
+      Top = 2
       Width = 88
       Max = 1000
       Min = 100
@@ -74,6 +75,7 @@ object Form1: TForm1
       Reversed = True
       ShowSelRange = False
       TickStyle = tsNone
+      Constraints.MaxHeight = 30
       ParentShowHint = False
       ShowHint = True
       TabOrder = 3
@@ -266,7 +268,7 @@ object Form1: TForm1
     end
     object TrackBar1: TTrackBar
       Left = 296
-      Height = 43
+      Height = 30
       Top = 0
       Width = 112
       Max = 100
@@ -276,12 +278,13 @@ object Form1: TForm1
       Position = 1
       ShowSelRange = False
       TickStyle = tsNone
+      Constraints.MaxHeight = 30
       ParentShowHint = False
       ShowHint = True
       TabOrder = 2
     end
     object ToolBar4: TToolBar
-      Left = 819
+      Left = 870
       Height = 30
       Top = 0
       Width = 542
@@ -526,8 +529,8 @@ object Form1: TForm1
   end
   object Splitter2: TSplitter
     Left = 200
-    Height = 548
-    Top = 35
+    Height = 551
+    Top = 32
     Width = 5
     Constraints.MinWidth = 5
     OnMoved = Splitter2Moved
@@ -858,7 +861,7 @@ object Form1: TForm1
               MinSize = 200
               MaxSize = 600
               Title.Caption = 'Formation'
-              Width = 179
+              Width = 200
             end          
             item
               MinSize = 100
@@ -881,7 +884,7 @@ object Form1: TForm1
           TabOrder = 0
           OnDblClick = ListNotesDblClick
           ColWidths = (
-            179
+            200
             100
             50
           )

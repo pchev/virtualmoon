@@ -4674,6 +4674,14 @@ begin
     exit;
   if csLoading in ComponentState then
     exit;
+  if width<(ToolBar2.Width+TrackBar1.Width+ToolBar1.Width+TrackBar9.Width+ToolBar4.Width+ToolBar5.Width) then begin
+    ToolBar4.Top:=ToolBar1.Top+ToolBar1.Height;
+    ToolBar4.Left:=0;
+  end
+  else begin
+    ToolBar4.Left:=TrackBar9.Left+TrackBar9.Width;
+    ToolBar4.Top:=0;
+  end;
   if PanelMoon2.Visible then begin
     dx:=ClientWidth-Splitter2.Width;
     if not FullScreen then dx:=dx-tabs.Width-Splitter1.Width;
