@@ -387,6 +387,9 @@ rsLowSunElevat = 'Low Sun elevation';
 rsNewInformati = 'New information note';
 rsNewObservati = 'New observation note';
 rsWindowPositi = 'Window position coupling';
+rsFull = 'Full';
+rsAbbreviated = 'Abbreviated';
+rsMinimal = 'Minimal';
 
 implementation
 

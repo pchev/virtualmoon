@@ -618,10 +618,10 @@ type
     searchb, markx, marky, flipx, rotstep, lunaison: double;
     ra, Dec, rad, ded, dist, dkm, phase, illum, pa, sunlat, sunlong, parallacticangle, currentphase,
     tphase, by, bxpos, dummy: double;
-    editrow, notesrow, rotdirection, searchpos,BumpMethod: integer;
+    editrow, notesrow, rotdirection, searchpos,BumpMethod, LabelType: integer;
     dbedited: boolean;
     SkipIdent, wantbump, geocentric, FollowNorth, ZenithOnTop,
-    minilabel, shortdesc, BumpMipmap: boolean;
+    shortdesc, BumpMipmap: boolean;
     lockmove, lockrepeat, showlibrationmark, saveimagewhite, skipresize,skiporient, skiprot: boolean;
     searchtext, imac1, imac2, imac3, lopamplateurl, lopamnameurl,
     lopamdirecturl, lopamlocalurl, lopamplatesuffix, lopamnamesuffix,
@@ -1168,7 +1168,7 @@ begin
   terminatorColor:=clBlue;
   labelcenter := True;
   shortdesc:=true;
-  minilabel := True;
+  LabelType:=2;
   showlabel := True;
   showmark := True;
   currentselection := '';
@@ -1273,7 +1273,7 @@ begin
     TrackBar9.Position:=LabelDensity;
     marksize     := ReadInteger(section, 'MarkSize', marksize);
     labelcenter  := ReadBool(section, 'LabelCenter', labelcenter);
-    minilabel    := ReadBool(section, 'MiniLabel', minilabel);
+    LabelType    := ReadInteger(section, 'LabelType', LabelType);
     FollowNorth  := ReadBool(section, 'FollowNorth', FollowNorth);
     ZenithOnTop  := ReadBool(section, 'ZenithOnTop', ZenithOnTop);
     CheckBox2.Checked := ReadBool(section, 'Mirror', False);
@@ -1423,7 +1423,7 @@ begin
       WriteInteger(section, 'GridSpacing', gridspacing);
       WriteInteger(section, 'MarkSize', marksize);
       WriteBool(section, 'LabelCenter', labelcenter);
-      WriteBool(section, 'MiniLabel', minilabel);
+      WriteInteger(section, 'LabelType', LabelType);
       WriteBool(section, 'FollowNorth', FollowNorth);
       WriteBool(section, 'ZenithOnTop', ZenithOnTop);
       WriteBool(section, 'Mirror', CheckBox2.Checked);
@@ -1538,7 +1538,7 @@ begin
       if IsUnnamed and IsLUN and (w>300) then continue;
 
       scale:=1;
-      if minilabel then
+      if LabelType>0 then
       begin
         if IsLUN then begin
           nom:='*';
@@ -1546,18 +1546,13 @@ begin
         end
         else begin
           miniok := (StrToIntDef(dbn,0)=DbSatellite);
-{          if copy(nom, 1, 6) = 'DOMES ' then
-            miniok := False;
-          if copy(nom, 1, 5) = 'DOME ' then
-            miniok := False;
-          if copy(nom, 1, 6) = 'DORSA ' then
-            miniok := False;
-          if copy(nom, 1, 5) = 'RIMA ' then
-            miniok := False; }
           let      := trim(copy(nom, length(nom) - 1, 2));
           if miniok and (length(let) = 1) and (let >= 'A') and (let <= 'Z') then
           begin
-            nom := let;
+            case LabelType of
+              1: nom := copy(nom,1,3)+' '+let;
+              2: nom := let;
+            end;
           end
           else
           begin
@@ -1567,7 +1562,7 @@ begin
         end;
       end;
       nom:=capitalize(nom);
-      if not Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom,(IsLUN and (not minilabel)),(IsLUN and minilabel),scale) then begin
+      if not Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom,(IsLUN and (LabelType=0)),(IsLUN and (LabelType>0)),scale) then begin
         break;
       end;
      end;
@@ -3965,7 +3960,7 @@ begin
   checkbox4.Checked := ZenithOnTop;
   skiporient:=false;
   ToolButton12.Down := showlabel;
-  ToolButton22.Down := minilabel;
+  ToolButton22.Down := LabelType>0;
   // detect if theme color is dark
   c:=ColorToRGB(clBtnFace);
   i:=round((Blue(c)+Green(c)+Red(c))/3);
@@ -4230,7 +4225,7 @@ begin
     form2.checkbox6.Checked := showmark;
     form2.checkbox14.Checked := showlibrationmark;
     form2.checkbox17.Checked := labelcenter;
-    form2.checkbox18.Checked := minilabel;
+    form2.RadioGroup1.ItemIndex := LabelType;
     form2.Shape1.Brush.Color := marklabelcolor;
     form2.Shape2.Brush.Color := markcolor;
     form2.Shape3.Brush.Color := autolabelcolor;
@@ -4333,7 +4328,7 @@ begin
       showmark      := form2.checkbox6.Checked;
       showlibrationmark := form2.checkbox14.Checked;
       labelcenter   := form2.checkbox17.Checked;
-      minilabel     := form2.checkbox18.Checked;
+      LabelType     := form2.RadioGroup1.ItemIndex;
       activemoon.LabelFont:=form2.FontDialog1.Font;
       activemoon.Labelcolor:=autolabelcolor;
       Obslatitude := strtofloat(decisep(form2.Edit1.Text));
@@ -4583,8 +4578,9 @@ end;
 
 procedure TForm1.ToolButton22Click(Sender: TObject);
 begin
- minilabel:=not minilabel;
- ToolButton22.Down := minilabel;
+ inc(LabelType);
+ if LabelType>2 then LabelType:=0;
+ ToolButton22.Down := LabelType>0;
  activemoon.RefreshAll;
 end;
 

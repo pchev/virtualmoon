@@ -120,6 +120,7 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
+    RadioGroup1: TRadioGroup;
     ScrollBox1: TScrollBox;
     Shape4: TShape;
     Shape5: TShape;
@@ -193,7 +194,6 @@ type
     Label26: TLabel;
     Label27: TLabel;
     CheckBox17: TCheckBox;
-    CheckBox18: TCheckBox;
     Label28: TLabel;
     Edit10: TEdit;
     TabSheet6: TTabSheet;
@@ -347,7 +347,9 @@ begin
       stringgrid3.Columns[2].Title.Caption := rsHeight;
       stringgrid3.Columns[3].Title.Caption := rst_64;
       Checkbox17.Caption := rst_120;
-      Checkbox18.Caption := rst_121;
+      RadioGroup1.Items[0]:=rsFull;
+      RadioGroup1.Items[1]:=rsAbbreviated;
+      RadioGroup1.Items[2]:=rsMinimal;
       label28.Caption := rst_124;
       label61.Caption := rst_129;
       TabSheet7.Caption := rst_129;
@@ -618,7 +620,7 @@ begin
   TrackBar4.Position:=5;
   CheckBox5.Checked:=true;
   CheckBox17.Checked:=true;
-  CheckBox18.Checked:=true;
+  RadioGroup1.ItemIndex:=2;
   TrackBar2.Position:=-600;
   FontDialog1.Font.Name:='default';
   FontDialog1.Font.Height:=0;
