@@ -26,16 +26,16 @@ object f_moon: Tf_moon
     OnResize = MoonResize
     object GLSceneViewer1: TGLSceneViewer
       Left = 2
-      Height = 501
+      Height = 480
       Top = 2
-      Width = 501
+      Width = 480
       Camera = GLCamera1
       Buffer.BackgroundColor = clBlack
       Buffer.AmbientColor.Alpha = 1
       Buffer.AmbientColor.Color = {
         0000000000000000000000000000803F
       }
-      FieldOfView = 4.78142070770264
+      FieldOfView = 4.5812201499939
       Align = alClient
       OnMouseDown = GLSceneViewer1MouseDown
       OnMouseMove = GLSceneViewer1MouseMove
@@ -44,6 +44,33 @@ object f_moon: Tf_moon
       OnMouseWheelDown = GLSceneViewer1MouseWheelDown
       OnMouseWheelUp = GLSceneViewer1MouseWheelUp
       TabOrder = 0
+    end
+    object HorScrollBar: TScrollBar
+      Left = 2
+      Height = 21
+      Top = 482
+      Width = 501
+      Align = alBottom
+      Max = 5000
+      Min = -5000
+      PageSize = 0
+      TabOrder = 1
+      Visible = False
+      OnScroll = HorScrollBarScroll
+    end
+    object VerScrollBar: TScrollBar
+      Left = 482
+      Height = 480
+      Top = 2
+      Width = 21
+      Align = alRight
+      Kind = sbVertical
+      Max = 5000
+      Min = -5000
+      PageSize = 0
+      TabOrder = 2
+      Visible = False
+      OnScroll = VerScrollBarScroll
     end
   end
   object GLScene1: TGLScene
@@ -57,6 +84,20 @@ object f_moon: Tf_moon
       EdgeColor.Green = 1
       EdgeColor.Blue = 1
       EdgeColor.Alpha = 1
+      object CameraDirectionDummyCube: TGLDummyCube
+        CubeSize = 1
+        EdgeColor.Red = 1
+        EdgeColor.Green = 1
+        EdgeColor.Blue = 1
+        EdgeColor.Alpha = 1
+        object OffsetDummyCube: TGLDummyCube
+          CubeSize = 1
+          EdgeColor.Red = 1
+          EdgeColor.Green = 1
+          EdgeColor.Blue = 1
+          EdgeColor.Alpha = 1
+        end
+      end
       object GLAnnulus1: TGLAnnulus
         Material.BackProperties.Ambient.Red = 0.200000002980232
         Material.BackProperties.Ambient.Green = 0.200000002980232

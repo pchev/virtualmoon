@@ -33,7 +33,7 @@ uses u_translation, u_util, u_constant, u_projection, cu_dem, Graphics, GLGraphi
   GLScene, GLMultiMaterialShader, GLBumpShader, GLPhongShader, GLHUDObjects,
   OpenGLTokens, GLWindowsFont, GLGeomObjects, GLMirror, GLMesh,
   GLVectorFileObjects, FPImage, FileUtil, LCLType, IntfGraphics, SysUtils,
-  Classes, Controls, Forms, Menus, Dialogs, Math ;
+  Classes, Controls, Forms, Menus, Dialogs, StdCtrls, Math ;
 
 const
    MaxLabel=5000;
@@ -64,6 +64,8 @@ type
     GLBumpShader1: TGLBumpShader;
     GLCameraSatellite: TGLCamera;
     BaseCube: TGLDummyCube;
+    CameraDirectionDummyCube: TGLDummyCube;
+    OffsetDummyCube: TGLDummyCube;
     GLDummyCubeTerminator: TGLDummyCube;
     GLDummyCubeCircle: TGLDummyCube;
     GLDummyCubeDistance: TGLDummyCube;
@@ -102,11 +104,14 @@ type
      GLBitmapFont1: TGLWindowsBitmapFont;
      Moon: TPanel;
      RefreshTimer: TTimer;
+     HorScrollBar: TScrollBar;
+     VerScrollBar: TScrollBar;
      procedure FormCreate(Sender: TObject);
      procedure FormDestroy(Sender: TObject);
      procedure GLSceneViewer1KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
      procedure GLSceneViewer1MouseUp(Sender: TObject; Button: TMouseButton;
        Shift: TShiftState; X, Y: Integer);
+     procedure HorScrollBarScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
      procedure MoonResize(Sender: TObject);
      procedure PerfCadencerProgress(Sender: TObject; const deltaTime,
        newTime: Double);
@@ -121,6 +126,7 @@ type
      procedure GLSceneViewer1MouseWheelUp(Sender: TObject;
        Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
      procedure RefreshTimerTimer(Sender: TObject);
+     procedure VerScrollBarScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
   private
     { Déclarations privées }
     marked: boolean;
@@ -266,6 +272,7 @@ type
     Procedure SetScale;
     Procedure SetCCDfield;
     procedure PushLabel;
+    procedure ResetOffset;
   public
     { Declarations publiques }
     distancestart,distanceendsegment: boolean;
@@ -1041,6 +1048,15 @@ if value<>FShowPhase then begin
 end;
 end;
 
+procedure Tf_moon.ResetOffset;
+begin
+  HorScrollBar.Position:=0;
+  VerScrollBar.Position:=0;
+  CameraDirectionDummyCube.Direction.SetVector(0,0,1);
+  CameraDirectionDummyCube.Up.SetVector(0,1,0);
+  OffsetDummyCube.Position.SetPoint(0,0,0);
+end;
+
 procedure Tf_moon.SetVisibleSideLock(value:boolean);
 var cl,cb: single;
 begin
@@ -1053,6 +1069,8 @@ if value<>FVisibleSideLock then begin
       GLCamera1.Position.SetPoint(0,0,-100*FEarthDistance/MeanEarthDistance);
       GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
       GLMirror1.Position.SetPoint(0,0,-100.01*FEarthDistance/MeanEarthDistance);
+      HorScrollBar.Visible:=false;
+      VerScrollBar.Visible:=false;
       GLCamera1.Direction.SetVector(0,0,1);
       CenterAt(cl,cb);
    end else begin
@@ -1061,7 +1079,10 @@ if value<>FVisibleSideLock then begin
       GLCamera1.Position.SetPoint(0,0,-100);
       GLAnnulus1.Position.Z:=GLCamera1.Position.Z+90;
       GLMirror1.Position.SetPoint(0,0,-100.01);
-      GLCamera1.TargetObject:=BaseCube;
+      HorScrollBar.Visible:=true;
+      VerScrollBar.Visible:=true;
+      ResetOffset;
+      GLCamera1.TargetObject:=OffsetDummyCube;
       CenterAt(cl,cb);
    end;
    if not FShowPhase then begin
@@ -1681,7 +1702,22 @@ begin
     if Assigned(GLCamera1.Parent) then
       newPos := GLCamera1.Parent.AbsoluteToLocal(newPos);
     GLCamera1.Position.AsVector := newPos;
+    CameraDirectionDummyCube.Direction.SetVector(-newPos.X,-newPos.Y,-newPos.Z);
+    CameraDirectionDummyCube.Up.AsVector:=GLCamera1.Up.AsVector;
   end;
+end;
+
+procedure Tf_moon.HorScrollBarScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
+begin
+  OffsetDummyCube.Position.X:=-ScrollPos/10000;
+  RefreshAll;
+end;
+
+procedure Tf_moon.VerScrollBarScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
+begin
+  OffsetDummyCube.Position.Z:=-1.4*ScrollPos/10000;
+  OffsetDummyCube.Position.Y:=-1.4*ScrollPos/10000;
+  RefreshAll;
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseMove(Sender: TObject; Shift: TShiftState;
@@ -2567,6 +2603,7 @@ end else begin
   sincos(lat-FLibrLat,sb,cb);
   GLScene1.BeginUpdate;
   GLCamera1.BeginUpdate;
+  ResetOffset;
   GLCamera1.Position.x := -100*cb * sl;
   GLCamera1.Position.y := 100 * sb;
   GLCamera1.Position.z := -100*cb * cl;
