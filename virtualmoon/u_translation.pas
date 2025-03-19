@@ -30,7 +30,6 @@ rst_8='Zoom+';
 rst_9='Zoom-';
 rst_10='Find';
 rst_11='Next';
-rst_14='Outline';
 rst_15='Help';
 rst_16='About';
 rst_17='Now';

@@ -562,37 +562,15 @@ object Form1: TForm1
         ClientWidth = 350
         object Panel1: TPanel
           Left = 0
-          Height = 90
+          Height = 48
           Top = 0
           Width = 350
           Align = alTop
           BevelOuter = bvNone
           BorderStyle = bsSingle
-          ClientHeight = 90
+          ClientHeight = 48
           ClientWidth = 350
           TabOrder = 0
-          object GroupBox1: TGroupBox
-            Left = 1
-            Height = 48
-            Top = 40
-            Width = 340
-            Caption = 'Profil----------------------------------------------------------'
-            ClientHeight = 18
-            ClientWidth = 336
-            TabOrder = 1
-            object Label7: TLabel
-              Left = 0
-              Height = 1
-              Top = 0
-              Width = 1
-              Alignment = taCenter
-              Color = clWindow
-              Font.Pitch = fpFixed
-              ParentColor = False
-              ParentFont = False
-              Transparent = False
-            end
-          end
           object ComboBox1: TComboBox
             Left = 8
             Height = 32
@@ -608,8 +586,8 @@ object Form1: TForm1
         end
         object Desc1: TIpHtmlPanel
           Left = 0
-          Height = 355
-          Top = 108
+          Height = 397
+          Top = 66
           Width = 350
           Align = alClient
           BorderWidth = 1
@@ -677,7 +655,7 @@ object Form1: TForm1
         object PanelAnchor: TPanel
           Left = 0
           Height = 18
-          Top = 90
+          Top = 48
           Width = 350
           Align = alTop
           AutoSize = True

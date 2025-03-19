@@ -217,8 +217,6 @@ type
     UpDown4: TUpDown;
     UpDown5: TUpDown;
     UpDown6: TUpDown;
-    GroupBox1: TGroupBox;
-    Label7:  TLabel;
     Terminateur: TTabSheet;
     Reglage: TTabSheet;
     TrackBar2: TTrackBar;
@@ -824,7 +822,6 @@ begin
     Button2.Caption := rst_11;
     Label9.Caption := rsm_51;
     Label6.Caption := rsm_50;
-    Groupbox1.Caption := rst_14;
     toolbutton8.Caption := rst_15;
     aide2.Caption := toolbutton8.Caption;
     OptFeatures1.Caption:=rsCheckForOpti;
@@ -2908,19 +2905,6 @@ begin
      txt:=txt+ '<a name="iau"> ';
      txt := txt + t2 + rsIAUInformati + t2end + br+txtbuf+ b + br;
   end;
-
-  if copy(GetField('PROFIL'),1,2)='A_' then begin
-    Label7.Caption := GetField('PROFIL');
-    Label7.Font.Size := 8;
-    Label7.Left := 8;
-    Label7.Top := 8;
-    while (Label7.Font.Size > 3) and (Label7.Width > GroupBox1.ClientWidth) do
-      Label7.Font.Size := Label7.Font.Size - 1;
-    Label7.Left := (GroupBox1.ClientWidth - Label7.Width) div 2;
-    Label7.Top  := (GroupBox1.ClientHeight - Label7.Height ) div 2;
-  end
-  else
-    Label7.Caption := '';
 
   txtbuf := GetILCD(nom); // warning, this replace the result row.
   if txtbuf>'' then begin
