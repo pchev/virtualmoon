@@ -2490,6 +2490,8 @@ const
   b     = '&nbsp;';
   br    = '<br/>';
   t1end = '</b></font></center>';
+  t11    = '<center><b>';
+  t11end = '</b></center>';
   t2    = '<font size=+1>';
   t2end = '</font>';
   t3    = '<b>';
@@ -2534,6 +2536,8 @@ begin
   dblox.Query('select NAME,PLATE,IMAGE from lopamidx where NAME="'+nom+'"');
   ok:=dblox.RowCount>0;
   txt  := txt + t1 + nom + t1end + br;
+  if GetField('NAME_DETAIL') > '' then
+     txt := txt + t11 + GetField('NAME_DETAIL') + t11end + br;
   dbn  := row.ByField['DBN'].AsInteger;
   if dbn > 99 then
   begin
