@@ -255,6 +255,8 @@ type
     lockoverlay,locktexture: boolean;
     savelibration : boolean;
     FPrinterDialog : TNotifyEvent;
+    function MaxTexLevel(tex: string): integer;
+    procedure SetTexButton;
     procedure UpdateTzList;
     procedure showtexture;
     procedure FillHistorical;
@@ -395,6 +397,34 @@ for i:=0 to GB.ControlCount-1 do begin
     break;
   end;
 end;
+end;
+
+function TForm2.MaxTexLevel(tex: string): integer;
+var i: integer;
+begin
+  if tex=HistoricalDir then tex:=slash(tex)+ComboBox6.text;
+  for i:=1 to 7 do begin
+    if not DirectoryExists(slash(TexturePath)+slash(tex)+'L'+inttostr(i)) then begin
+      result:=i-1;
+      break;
+    end;
+  end;
+end;
+
+procedure TForm2.SetTexButton;
+var i,mx: integer;
+    t: string;
+begin
+  for i:=0 to TextureList.Count-1 do begin
+    t:=TextureList[i];
+    mx:=MaxTexLevel(t);
+    TRadioButton(GBlv1.Controls[i]).Enabled:=(mx>=1);
+    TRadioButton(GBlv2.Controls[i]).Enabled:=(mx>=2);
+    TRadioButton(GBlv3.Controls[i]).Enabled:=(mx>=3);
+    TRadioButton(GBlv4.Controls[i]).Enabled:=(mx>=4);
+    TRadioButton(GBlv5.Controls[i]).Enabled:=(mx>=5);
+    TRadioButton(GBlv6.Controls[i]).Enabled:=(mx>=6);
+  end;
 end;
 
 procedure TForm2.FormCreate(Sender: TObject);
@@ -746,6 +776,7 @@ begin
      end;
   end
   else ComboBox6.Visible:=false;
+  SetTexButton;
   BringToFront;
 end;
 
@@ -793,6 +824,7 @@ begin
       texturefn[i]:=slash(ExtractFilePath(noslash(texturefn[i])))+HistTex;
     end;
   TextureChanged:=true;
+  SetTexButton;
 end;
 
 procedure TForm2.RadioButtonAllClick(Sender: TObject);
