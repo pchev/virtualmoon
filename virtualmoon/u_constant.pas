@@ -263,6 +263,7 @@ Var  Splashversion, compile_time, compile_version: string;
      marklabelcolor, markcolor, SpriteColor, bassinColor, terminatorColor: Tcolor;
      DarkTheme : boolean;
      DatabaseList: Tstringlist;
+     ConnectDatabaseList: Tstringlist;
      UnnamedList: string;
 
      // Datlun var

@@ -579,7 +579,7 @@ type
     procedure AddToList(buf: string);
     procedure GetDetail(row: TResultRow; memo: Tmemo);
     procedure GetHTMLDetail(row: TResultRow; var txt: string);
-    function GetILCD(n: string):string;
+    function GetConnectDB(n: string):string;
     procedure ImpactBassinCircle(moon:Tf_moon);
     procedure ClearNotesList;
     function FormatNoteDate(val:string):string;
@@ -986,7 +986,6 @@ begin
     f_features.SetLang;
     if f_demprofile<>nil then f_demprofile.Setlang;
     f_tabsdock.SetLang;
-    LoadILCDcols('ILCD_2015_AVL',Slash(appdir) + 'Database',uplanguage);
     AnchorIdent.Caption:=StringReplace(rsIdentity,':','',[]);
     AnchorDesc.Caption:=StringReplace(rsm_58,':','',[]);
     AnchorObs.Caption:=StringReplace(rsm_59,':','',[]);
@@ -2905,7 +2904,7 @@ begin
      txt := txt + t2 + rsIAUInformati + t2end + br+txtbuf+ b + br;
   end;
 
-  txtbuf := GetILCD(nom); // warning, this replace the result row.
+  txtbuf := GetConnectDB(nom); // warning, this replace the result row.
   if txtbuf>'' then begin
     anchorvisible[8]:=true;
     txt:=txt+ '<a name="licd"> ';
@@ -2924,9 +2923,9 @@ begin
   AnchorLICD.Visible:=anchorvisible[8];
 end;
 
-function Tform1.GetILCD(n: string):string;
-var buf,cmd: string;
-    i:integer;
+function Tform1.GetConnectDB(n: string):string;
+var buf,cmd,fn,tname: string;
+    i,j:integer;
 const
     b     = '&nbsp;';
     br    = '<br/>';
@@ -2937,14 +2936,19 @@ const
     t3end = '</b>';
 begin
   result:='';
-  cmd:='select * from ILCD where name="'+n+'"';
-  dbm.Query(cmd);
-  i:=dbm.RowCount;
-  i:=ILCDCols.Count;
-  i:=dbm.Results[0].Count;
-  if (dbm.RowCount>0) and(ILCDCols.Count=dbm.Results[0].Count) then begin
-    for i:=0 to ILCDCols.Count-1 do
-      result:=result+t3+ILCDCols[i]+': '+t3end+dbm.Results[0].Format[i].AsString+br;
+  for j:=1 to ConnectDatabaseList.Count do begin
+    fn:=connectdatabase[j];
+    tname:='connected_'+lowercase(stringreplace(ConnectDatabaseList[j-1],' ','',[rfReplaceAll]));
+
+    cmd:='select * from '+tname+' where name="'+n+'"';
+    dbm.Query(cmd);
+    i:=dbm.RowCount;
+    i:=ConnectDBCols[j].Count;
+    i:=dbm.Results[0].Count;
+    if (dbm.RowCount>0) and(ConnectDBCols[j].Count=dbm.Results[0].Count) then begin
+      for i:=0 to ConnectDBCols[j].Count-1 do
+        result:=result+t3+ConnectDBCols[j][i]+': '+t3end+dbm.Results[0].Format[i].AsString+br;
+    end;
   end;
 end;
 
@@ -3748,11 +3752,14 @@ end;
 
 procedure TForm1.InitLopamIdx;
 var
+  fn: string;
   f: textfile;
   i: integer;
 begin
+  fn:=Slash(appdir) + Slash('Database') + 'lopamidx.txt';
+  if not FileExists(fn) then exit;
   filemode := 0;
-  assignfile(f, Slash(appdir) + Slash('Database') + 'lopamidx.txt');
+  assignfile(f, fn);
   reset(f);
   readln(f);
   readln(f, lopamplateurl);
@@ -3877,6 +3884,7 @@ begin
   skiporient:=false;
   skiprot:=false;
   DatabaseList:=Tstringlist.Create;
+  ConnectDatabaseList:=Tstringlist.Create;
   Fplanet    := TPlanet.Create(self);
   searchlist := TStringList.Create;
   param      := TStringList.Create;
@@ -4032,9 +4040,9 @@ try
   application.ProcessMessages;
   LoadDB(dbm);
   useDBN :=DatabaseList.Count;
-  LoadILCD('ILCD_2015_AVL',Slash(appdir) + 'Database', 'ILCD', dbm);
   LoadNotelunDB(dbnotes);
   form2.DbList.Items.Assign(DatabaseList);
+  form2.ConnectDbList.Items.Assign(ConnectDatabaseList);
   application.ProcessMessages;
   ListUserDB;
   InitLopamIdx;
@@ -4378,7 +4386,6 @@ begin
       if reloaddb then begin
         LoadDB(dbm);
         useDBN :=DatabaseList.Count;
-        LoadILCD('ILCD_2015_AVL',Slash(appdir) + 'Database', 'ILCD', dbm);
         form2.DbList.Items.Assign(DatabaseList);
         redrawbassin:=True;
         firstsearch := True;
@@ -4976,6 +4983,7 @@ begin
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
+var i: integer;
 begin
   try
     if moon2<>nil then begin
@@ -4986,6 +4994,9 @@ begin
     dblox.Free;
     dbimp.Free;
     DatabaseList.Free;
+    for i:=1 to ConnectDatabaseList.Count do
+      ConnectDBCols[i].free;
+    ConnectDatabaseList.Free;
     tz.Free;
     Fplanet.Free;
     overlayimg.Free;
@@ -4995,7 +5006,6 @@ begin
     texturefiles.Free;
     texturenone.Free;
     demlib.Free;
-    ILCDCols.Free;
     ClearNotesList;
     if CursorImage1 <> nil then
     begin

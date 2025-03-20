@@ -31,18 +31,19 @@ interface
 Uses Forms, Dialogs, Classes, SysUtils, passql, passqlite;
 
 const
-    DBversion=800;
+    DBversion=900;
     DBnotesversion=800;
-    DBname='dbmoon8';
+    DBname='dbmoon9';
     DBnamenotes='dbnotes';
     MaxDB=99;
     MaxDBN=200;
     UserDBN=100;
-    NumMoonDBFields = 97;
+    ConnectDBN=500;
+    MaxConnectDBN=100;
+    NumMoonDBFields = 52;
     MoonDBFields : array[1..NumMoonDBFields,1..2] of string = (
       ('NAME','text'),
       ('LUN','text'),
-      ('LUN_REDUCED','text'),
       ('NAME_TYPE','text'),
       ('IAU_TYPE','text'),
       ('TYPE','text'),
@@ -75,38 +76,16 @@ const
       ('FACE','text'),
       ('QUADRANT','text'),
       ('AREA','text'),
-      ('RUKL','text'),
-      ('VISCARDY','text'),
-      ('WESTFALL','text'),
-      ('WOOD','text'),
-      ('LOPAM','text'),
-      ('CLEMENTINE','text'),
-      ('CENTURY_21ST','text'),
-      ('HATFIELD','text'),
-      ('REISEATLAS','text'),
-      ('CHANGE1','text'),
-      ('DISCOVER_MOON','text'),
-      ('TIMES','text'),
-      ('KAGUYA','text'),
-      ('BYRNE_NEAR','text'),
-      ('BYRNE_FAR','text'),
-      ('SIX_INCH','text'),
-      ('DASE','text'),
-      ('PAU','text'),
-      ('LUNA_COGNITA','text'),
-      ('LAC','text'),
       ('LENGTH_KM','float'),
       ('WIDE_KM','float'),
       ('LENGTH_ARCSEC','float'),
       ('HEIGHT_M','float'),
       ('RAPPORT','float'),
-      ('PROFIL','text'),
       ('GENERAL_1','text'),
       ('GENERAL_2','text'),
       ('SLOPES','text'),
       ('WALLS','text'),
       ('FLOOR','text'),
-      ('ELGER_1895','text'),
       ('INTEREST_N','integer'),
       ('INTEREST_C','text'),
       ('LUNATION','integer'),
@@ -114,51 +93,31 @@ const
       ('MOONDAY_M','text'),
       ('DIAM_INST','integer'),
       ('TH_INSTRU','text'),
-      ('PR_INSTRU','text'),
-      ('IAU_FEATURE_NAME','text'),
-      ('IAU_CLEAN_FEATURE_NAME','text'),
-      ('IAU_FEATURE_ID','text'),
-      ('IAU_DIAMETER','text'),
-      ('IAU_CENTER_LATITUDE','text'),
-      ('IAU_CENTER_LONGITUDE','text'),
-      ('IAU_NORTHERN_LATITUDE','text'),
-      ('IAU_SOUTHERN_LATITUDE','text'),
-      ('IAU_EASTERN_LONGITUDE','text'),
-      ('IAU_WESTERN_LONGITUDE','text'),
-      ('IAU_COORDINATE_SYSTEM','text'),
-      ('IAU_CONTINENT','text'),
-      ('IAU_ETHNICITY','text'),
-      ('IAU_FEATURE_TYPE','text'),
-      ('IAU_FEATURE_TYPE_CODE','text'),
-      ('IAU_QUAD_NAME','text'),
-      ('IAU_QUAD_CODE','text'),
-      ('IAU_APPROVAL_STATUS','text'),
-      ('IAU_APPROVAL_DATE','text'),
-      ('IAU_REFERENCE','text'),
-      ('IAU_ORIGIN','text'),
-      ('IAU_LINK','text')
+      ('PR_INSTRU','text')
       );
     FDBN=1;
     FNAME=2;
-    FLONGIN=29;
-    FLATIN=32;
-    FWIDEKM=58;
-    FGENERAL1=63;
+    FLONGIN=28;
+    FLATIN=31;
+    FWIDEKM=37;
+    FGENERAL1=41;
     SimplifiedDBN=100;
 
 var
     sidelist: string;
     database : array[1..MaxDB] of string;
     usedatabase :array[1..MaxDBN] of boolean;
-    ILCDCols: TStringList;
+    connectdatabase : array[1..MaxConnectDBN] of string;
+    useconnectdatabase : array[1..MaxConnectDBN] of boolean;
+    ConnectDBCols: array[1..MaxConnectDBN] of TStringList;
 
 Procedure ListDB;
 Procedure LoadDB(dbm: TLiteDB);
+Procedure LoadConnectDB(dbm: TLiteDB);
+procedure LoadConnectDBcols;
 Procedure CreateDB(dbm: TLiteDB);
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
 procedure DBjournal(dbname,txt:string);
-Procedure LoadILCD(fn,path,tname:string; dbm: TLiteDB);
-procedure LoadILCDcols(fn,path,lang:string);
 Procedure LoadLopamIdx(fn,path:string; dbm: TLiteDB);
 function LoadNotelunDB(db: TLiteDB): integer;
 
@@ -312,8 +271,9 @@ end;
 
 Procedure ListDB;
 var f:    Tsearchrec;
-    i,j,p: integer;
+    i,j,n,p: integer;
     dben: TStringList;
+    cdben: TStringList;
     buf,nb: string;
 begin
 { Mandatory database file pattern:
@@ -328,24 +288,36 @@ begin
     01_Nearside_Named_EN.csv
     07_Historical_EN.csv
     07_Historique_FR.csv
+
+  Connected database start at 500_
 }
   DatabaseList.Clear;
   DatabaseList.Sorted:=true;
   dben:=TStringList.Create;
   dben.Sorted:=true;
+  ConnectDatabaseList.Clear;
+  ConnectDatabaseList.Sorted:=true;
+  cdben:=TStringList.Create;
+  cdben.Sorted:=true;
   i:=findfirst(Slash(appdir)+Slash('Database')+'*_*_EN.csv', faNormal, f);
   while (i=0) do begin
-    dben.Add(f.Name);
+    p:=pos('_',f.Name);
+    n:=StrToIntDef(copy(f.Name,1,p-1),-1);
+    if n<0 then continue;
+    if n<100 then
+      dben.Add(f.Name)
+    else if (n>=500)and(n<600) then
+      cdben.Add(f.Name);
     i:=FindNext(f);
   end;
   findclose(f);
   if uplanguage='EN' then begin
     DatabaseList.Assign(dben);
+    ConnectDatabaseList.Assign(cdben);
   end
   else begin
     for i:=0 to dben.Count-1 do begin
        p:=pos('_',dben[i]);
-       if p<>3 then continue;
        nb:=copy(dben[i],1,p-1);
        j:=findfirst(Slash(appdir)+Slash('Database')+nb+'_*_'+uplanguage+'.csv', faNormal, f);
        if j=0 then
@@ -354,8 +326,19 @@ begin
          DatabaseList.add(dben[i]);
        FindClose(f);
     end;
+    for i:=0 to cdben.Count-1 do begin
+       p:=pos('_',cdben[i]);
+       nb:=copy(cdben[i],1,p-1);
+       j:=findfirst(Slash(appdir)+Slash('Database')+nb+'_*_'+uplanguage+'.csv', faNormal, f);
+       if j=0 then
+         ConnectDatabaseList.add(f.Name)
+       else
+         ConnectDatabaseList.add(cdben[i]);
+       FindClose(f);
+    end;
   end;
   DatabaseList.Sorted:=false;
+  ConnectDatabaseList.Sorted:=false;
   for i:=1 to MaxDB do
     database[i]:='';
   for i:=0 to DatabaseList.Count-1 do begin
@@ -367,7 +350,19 @@ begin
     buf:=StringReplace(buf,'_',' ',[rfReplaceAll]);
     DatabaseList[i]:=buf;
   end;
+  for i:=1 to MaxConnectDBN do
+    connectdatabase[i]:='';
+  for i:=0 to ConnectDatabaseList.Count-1 do begin
+    buf:=ConnectDatabaseList[i];
+    connectdatabase[i+1]:=Slash(appdir)+Slash('Database')+buf;
+    p:=pos('_',buf);
+    Delete(buf,1,p);
+    Delete(buf,Length(buf)-6,7);
+    buf:=StringReplace(buf,'_',' ',[rfReplaceAll]);
+    ConnectDatabaseList[i]:=buf;
+  end;
   dben.Free;
+  cdben.Free;
 end;
 
 Procedure LoadDB(dbm: TLiteDB);
@@ -387,7 +382,7 @@ for i:=1 to maxdbn do if usedatabase[i] and ((i>MaxDB)or(database[i]<>'')) then 
 if copy(sidelist,1,1)=',' then delete(sidelist,1,1);
 for i:=1 to MaxDB do begin
   if usedatabase[i] and (database[i]<>'') then begin
-     if (pos('_Unnamed',database[i])>0)or(pos('_non_nommées',database[i])>0) then
+     if (pos('_Satellite_',database[i])>0) then
        UnnamedList:=UnnamedList+' '+inttostr(i)+' ';
      buf:=dbm.QueryOne('select fdate from file_date where dbn='+inttostr(i)+';');
      if buf='' then db_age:=0 else db_age:=strtoint(buf);
@@ -406,11 +401,113 @@ for i:=1 to MaxDB do begin
   else usedatabase[i]:=false;
 end;
 if needvacuum then dbm.Query('Vacuum;');
+LoadConnectDBcols;
+LoadConnectDB(dbm);
 finally
 if MsgForm<>nil then MsgForm.Close;
 if missingf>'' then
    MessageDlg('Some database files are missing, the program may not work correctly.'+crlf+missingf,mtError,[mbClose],0);
 end;
+end;
+
+Procedure LoadConnectDB(dbm: TLiteDB);
+var fn,tname,buf,cols,cmd,buf1,v: string;
+    i,j,colcount:integer;
+    col,val: TStringList;
+    f: textfile;
+begin
+for j:=1 to ConnectDatabaseList.Count do begin
+  fn:=connectdatabase[j];
+  tname:='connected_'+lowercase(stringreplace(ConnectDatabaseList[j-1],' ','',[rfReplaceAll]));
+  colcount:=ConnectDBCols[j].Count;
+  if FileExists(fn) then begin
+    cmd:='select * from '+tname+' limit 1';
+    dbm.Query(cmd);
+    if dbm.RowCount<=0 then begin
+      if MsgForm=nil then Application.CreateForm(TMsgForm, MsgForm);
+      MsgForm.Label1.caption:=ExtractFileName(fn)+crlf+'Preparing Database. Please Wait ...';
+      msgform.show;
+      msgform.Refresh;
+      application.ProcessMessages;
+      col:=TStringList.Create;
+      val:=TStringList.Create;
+      try
+      AssignFile(f,fn);
+      Reset(f);
+      ReadLn(f,cols);
+      SplitRec2(cols,';',col);
+      if col.Count<colcount then exit;
+      dbjournal(extractfilename(dbm.database),'CREATE TABLE '+tname);
+      cmd:='drop table '+tname+';';
+      dbm.Query(cmd);
+      cmd:='create table '+tname+' ( ';
+      for i:=0 to colcount-1 do begin
+        cmd:=cmd+ConnectDBCols[j][i]+' text,';
+      end;
+      cmd:=copy(cmd,1,length(cmd)-1);
+      cmd:=cmd+');';
+      dbm.Query(cmd);
+      if dbm.LastError<>0 then begin
+        dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+        exit;
+      end;
+      cmd:='create index '+tname+'_idx on '+tname+'(NAME);';
+      dbm.Query(cmd);
+      if dbm.LastError<>0 then begin
+        dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+        exit;
+      end;
+      cmd:='insert into '+tname+' values (';
+      while not eof(f) do begin
+        ReadLn(f,buf);
+        SplitRec2(buf,';',val);
+        if val.Count<colcount then continue;
+        buf1:='';
+        for i:=0 to colcount-1 do begin
+          v:=val[i];
+          v:=stringreplace(v,'""','''',[rfreplaceall]);
+          v:=stringreplace(v,'"','',[rfreplaceall]);
+          buf1:=buf1+'"'+v+'",';
+        end;
+        buf1:=copy(buf1,1,length(buf1)-1);
+        cmd:=cmd+buf1+'),(';
+      end;
+      i:=length(cmd);
+      delete(cmd,Length(cmd)-1,2);
+      dbm.Query(cmd);
+      if dbm.LastError<>0 then begin
+         dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+       end;
+      CloseFile(f);
+      finally
+       if MsgForm<>nil then MsgForm.Close;
+       col.Free;
+       val.Free;
+      end;
+    end;
+  end;
+end;
+end;
+
+procedure LoadConnectDBcols;
+var i: integer;
+    fn,fname,buf:string;
+    f:TextFile;
+begin
+  for i:=1 to ConnectDatabaseList.Count do begin
+     if ConnectDBCols[i]=nil then  ConnectDBCols[i]:=TStringList.Create;
+     fn:=connectdatabase[i];
+     fname:=ChangeFileExt(fn,'.txt');
+     if not FileExists(fname) then
+       fname:=fn;
+     if FileExists(fname) then begin
+       AssignFile(f,fname);
+       Reset(f);
+       ReadLn(f,buf);
+       CloseFile(f);
+       SplitRec2(buf,';',ConnectDBCols[i]);
+     end;
+  end;
 end;
 
 procedure DBjournal(dbname,txt:string);
@@ -490,101 +587,6 @@ begin
       end;
     end;
  end;
-end;
-
-Procedure LoadILCD(fn,path,tname:string; dbm: TLiteDB);
-var buf,cols,cmd,buf1,v: string;
-    i:integer;
-    col,val: TStringList;
-    f: textfile;
-const colcount=80;
-begin
- if FileExists(slash(path)+fn+'.csv') then begin
-    cmd:='select * from '+tname+' limit 1';
-    dbm.Query(cmd);
-    if dbm.RowCount<=0 then begin
-      if MsgForm=nil then Application.CreateForm(TMsgForm, MsgForm);
-      MsgForm.Label1.caption:=ExtractFileName(fn)+crlf+'Preparing Database. Please Wait ...';
-      msgform.show;
-      msgform.Refresh;
-      application.ProcessMessages;
-      col:=TStringList.Create;
-      val:=TStringList.Create;
-      try
-      AssignFile(f,slash(path)+fn+'.csv');
-      Reset(f);
-      ReadLn(f,cols);
-      SplitRec2(cols,';',col);
-      if col.Count<colcount then exit;
-      dbjournal(extractfilename(dbm.database),'CREATE TABLE '+tname);
-      cmd:='drop table '+tname+';';
-      dbm.Query(cmd);
-      cmd:='create table '+tname+' ( ';
-      for i:=0 to colcount-1 do begin
-        cmd:=cmd+col[i]+' text,';
-      end;
-      cmd:=copy(cmd,1,length(cmd)-1);
-      cmd:=cmd+');';
-      dbm.Query(cmd);
-      if dbm.LastError<>0 then begin
-        dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
-        exit;
-      end;
-      cmd:='create index '+tname+'_idx on '+tname+'('+col[0]+');';
-      dbm.Query(cmd);
-      if dbm.LastError<>0 then begin
-        dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
-        exit;
-      end;
-      cmd:='insert into '+tname+' values (';
-      while not eof(f) do begin
-        ReadLn(f,buf);
-        SplitRec2(buf,';',val);
-        if val.Count<colcount then exit;
-        buf1:='';
-        for i:=0 to colcount-1 do begin
-          v:=val[i];
-          v:=stringreplace(v,'""','''',[rfreplaceall]);
-          v:=stringreplace(v,'"','',[rfreplaceall]);
-          buf1:=buf1+'"'+v+'",';
-        end;
-        buf1:=copy(buf1,1,length(buf1)-1);
-        cmd:=cmd+buf1+'),(';
-      end;
-      i:=length(cmd);
-      delete(cmd,Length(cmd)-1,2);
-      dbm.Query(cmd);
-      if dbm.LastError<>0 then begin
-         dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
-       end;
-      CloseFile(f);
-      finally
-       if MsgForm<>nil then MsgForm.Close;
-       col.Free;
-       val.Free;
-      end;
-    end;
- end;
-end;
-
-procedure LoadILCDcols(fn,path,lang:string);
-var fname,buf:string;
-    f:TextFile;
-begin
-  if ILCDCols=nil then ILCDCols:=TStringList.Create;
-  fname:=slash(path)+fn+'_'+lang+'.txt';
-  if not FileExists(fname) then begin
-    fname:=slash(path)+fn+'_EN.txt';
-    if not FileExists(fname) then
-      fname:=slash(path)+fn+'.csv';
-  end;
-  if FileExists(fname) then begin
-    AssignFile(f,fname);
-    Reset(f);
-    ReadLn(f,buf);
-    CloseFile(f);
-    SplitRec2(buf,';',ILCDCols);
-  end;
 end;
 
 function LoadNotelunDB(db: TLiteDB): integer;

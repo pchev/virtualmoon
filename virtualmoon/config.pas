@@ -48,6 +48,7 @@ type
     Button9: TSpeedButton;
     CheckBox10: TCheckBox;
     CheckBoxTerminatorLine: TCheckBox;
+    ConnectDbList: TCheckListBox;
     DbList: TCheckListBox;
     ColorDialog1: TColorDialog;
     ComboBox6: TComboBox;
@@ -91,6 +92,7 @@ type
     Label47: TLabel;
     Label48: TLabel;
     Label49: TLabel;
+    Label5: TLabel;
     Label50: TLabel;
     Label51: TLabel;
     Label52: TLabel;
