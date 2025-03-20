@@ -546,7 +546,8 @@ type
     nutl,nuto,abe,abp,sunl,sunb,ecl:double;
     firstuse,CanCloseDatlun,CanClosePhotlun,CanCloseWeblun,CanCloseCDC,CanCloseNoteLun,StartDatlun,StartWeblun,StartPhotlun,StartCDC,StartCalclun,StartNotelun: boolean;
     Desctxt,MsgNoDB: string;
-    dblox,dbimp: TLiteDB;
+    dblox,dbimp,dbc: TLiteDB;
+    anchorvisible: array[1..8] of boolean;
     {$ifdef windows}
     savetop,saveleft,savewidth,saveheight: integer;
     {$endif}
@@ -579,7 +580,7 @@ type
     procedure AddToList(buf: string);
     procedure GetDetail(row: TResultRow; memo: Tmemo);
     procedure GetHTMLDetail(row: TResultRow; var txt: string);
-    function GetConnectDB(n: string):string;
+    function GetConnectDB(dbname, n: string):string;
     procedure ImpactBassinCircle(moon:Tf_moon);
     procedure ClearNotesList;
     function FormatNoteDate(val:string):string;
@@ -2492,7 +2493,6 @@ const
   t3end = '</b>';
 var
   nom, carte, url, img, remoteurl, txtbuf, buf, buf2, t1: string;
-  anchorvisible: array[1..8] of boolean;
   ok:   boolean;
   dbn, i, j: integer;
   lkm,wkm,lmi,wmi,lon,lat,x: double;
@@ -2540,6 +2540,7 @@ begin
       if TDBinfo(form2.UserDbList.Items.Objects[j]).dbnum = dbn then
         txt := txt + form2.UserDbList.Items[j] + br;
   end;
+  txt:=txt+crlf;
 
   // Identity
   txtbuf:='';
@@ -2566,6 +2567,7 @@ begin
   if (GetField('GEOLOGY'))>'' then
      txtbuf  := txtbuf + t3 + rsGeology + t3end + b + GetField('GEOLOGY') + br;
   if txtbuf>'' then  txt  := txt + t2 + rsIdentity + t2end + br + txtbuf + b + br;
+  txt:=txt+crlf;
 
   //Taille
   txtbuf:='';
@@ -2599,6 +2601,7 @@ begin
 
   if txtbuf>'' then
     txt  := txt + t2 + rsm_57 + t2end + br+txtbuf+ b + br; //Taille
+  txt:=txt+crlf;
 
   //Description
   txtbuf:='';
@@ -2615,11 +2618,14 @@ begin
   if GetField('ELGER_1895') > '' then begin
     txtbuf :=txtbuf + br + t3 + rsElgerDescrip + t3end + br + GetField('ELGER_1895') + br;
   end;
+
+  txtbuf := txtbuf + GetConnectDB('Descriptions', nom);
   if txtbuf>'' then begin
     anchorvisible[2]:=true;
     txt:=txt+ '<a name="desc"> ';
     txt := txt + t2 + rsm_58 + t2end + br+txtbuf+b + br; //Description
   end;
+  txt:=txt+crlf;
 
   //Observation
   txtbuf:='';
@@ -2643,6 +2649,7 @@ begin
      txt:=txt+ '<a name="obs"> ';
      txt   := txt + t2 + rsm_59 + t2end + br+txtbuf+b + br; //Observation
   end;
+  txt:=txt+crlf;
 
   //Position
   txtbuf:='';
@@ -2675,74 +2682,7 @@ begin
   end;
   if GetField('AREA') > '' then
      txtbuf   := txtbuf + t3 + rsm_13 + t3end + b + GetField('AREA') + br;
-  if txtbuf>'' then begin
-     anchorvisible[4]:=true;
-     txt:=txt+ '<a name="pos"> ';
-     txt   := txt + t2 + rsm_60 + t2end + br+txtbuf+b + br; //Position
-  end;
-
-  //Atlas
-  txtbuf:='';
-  buf := GetField('RUKL');
-  if trim(buf)>'' then
-     txtbuf := txtbuf + t3 + rsm_14 + t3end + b + buf + br;
-  buf := GetField('VISCARDY');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + rsm_15 + t3end + b + buf + br;
-  buf   := GetField('WESTFALL');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + rsm_66 + t3end + b + buf + br;
-  buf   := GetField('WOOD');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + rsm_72 + t3end + b + buf + br;
-  buf   := GetField('CLEMENTINE');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Clementine:' + t3end + b + buf + br;
-  buf   := GetField('CENTURY_21ST');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + '21st Century:' + t3end + b + buf + br;
-  buf   := GetField('HATFIELD');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + rsm_16 + t3end + b + buf + br;
-  buf   := GetField('REISEATLAS');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Reise Atlas:' + t3end + b + buf + br;
-  buf   := GetField('CHANGE1');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Change 1:' + t3end + b + buf + br;
-  buf   := GetField('DISCOVER_MOON');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Discover Moon:' + t3end + b + buf + br;
-  buf   := GetField('TIMES');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Times Atlas:' + t3end + b + buf + br;
-  buf   := GetField('KAGUYA');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Kaguya:' + t3end + b + buf + br;
-  buf   := GetField('BYRNE_NEAR');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Byrne Near:' + t3end + b + buf + br;
-  buf   := GetField('BYRNE_FAR');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Byrne Far:' + t3end + b + buf + br;
-  buf   := GetField('SIX_INCH');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Six Inch:' + t3end + b + buf + br;
-  buf   := GetField('DASE');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'DASE:' + t3end + b + buf + br;
-  buf   := GetField('PAU');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'PAU:' + t3end + b + buf + br;
-  buf   := GetField('LUNA_COGNITA');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Luna Cognita:' + t3end + b + buf + br;
-  buf   := GetField('LAC');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'LAC:' + t3end + b + buf + br;
-  buf   := GetField('LOPAM');
-  if trim(buf) > '' then
-    txtbuf := txtbuf + t3 + 'Lopam:' + t3end + b + buf + br;
+  // LOPAM link
   if ok then
   begin
     txtbuf := txtbuf + t3 + rsm_65 + t3end;
@@ -2789,12 +2729,12 @@ begin
     txtbuf := txtbuf + br;
   end;
   dblox.Clear;
-
   if txtbuf>'' then begin
-    anchorvisible[5]:=true;
-    txt:=txt+ '<a name="atlas"> ';
-    txt   := txt + t2 + rsm_61 + t2end + br+txtbuf+b + br; //Atlas
+     anchorvisible[4]:=true;
+     txt:=txt+ '<a name="pos">  ';
+     txt   := txt + t2 + rsm_60 + t2end + br+txtbuf+b + br; //Position
   end;
+  txt:=txt+crlf;
 
   //Origine
   txtbuf:='';
@@ -2834,82 +2774,35 @@ begin
   if GetField('RICCIOLI')<>'' then
      txtbuf   := txtbuf + t3 + rsm_9 + t3end + b + GetField('RICCIOLI') + br;
   if txtbuf>'' then begin
-     anchorvisible[6]:=true;
-     txt:=txt+ '<a name="origin"> ';
+     anchorvisible[5]:=true;
+     txt:=txt+ '<a name="origin">  ';
      txt := txt + t2 + rsm_62 + t2end + br+txtbuf+ b + br; //Origine
   end;
+  txt:=txt+crlf;
 
-  // IAU information
-  txtbuf:='';
-  buf:=GetField('IAU_FEATURE_NAME');
-  if buf='' then buf:=rsNotIAUApprou;
-  if buf=rsNotIAUApprou then begin
-    txtbuf   := txtbuf + t3 + buf + t3end + br;
-  end
-  else begin
-    if GetField('IAU_FEATURE_NAME')<>'' then begin
-       url:=GetField('IAU_LINK');
-       if url='' then
-          txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + GetField('IAU_FEATURE_NAME') + br
-       else
-          txtbuf   := txtbuf + t3 + 'IAU_FEATURE_NAME:' + t3end + b + ' <A HREF="' + url + '">' +GetField('IAU_FEATURE_NAME') + '</A>' + br;
-    end;
-    if GetField('IAU_CLEAN_FEATURE_NAME')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_CLEAN_FEATURE_NAME:' + t3end + b + GetField('IAU_CLEAN_FEATURE_NAME') + br;
-    if GetField('IAU_FEATURE_ID')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_FEATURE_ID:' + t3end + b + GetField('IAU_FEATURE_ID') + br;
-    if GetField('IAU_DIAMETER')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_DIAMETER:' + t3end + b + GetField('IAU_DIAMETER') + br;
-    if GetField('IAU_CENTER_LATITUDE')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_CENTER_LATITUDE:' + t3end + b + GetField('IAU_CENTER_LATITUDE') + br;
-    if GetField('IAU_CENTER_LONGITUDE')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_CENTER_LONGITUDE:' + t3end + b + GetField('IAU_CENTER_LONGITUDE') + br;
-    if GetField('IAU_NORTHERN_LATITUDE')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_NORTHERN_LATITUDE:' + t3end + b + GetField('IAU_NORTHERN_LATITUDE') + br;
-    if GetField('IAU_SOUTHERN_LATITUDE')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_SOUTHERN_LATITUDE:' + t3end + b + GetField('IAU_SOUTHERN_LATITUDE') + br;
-    if GetField('IAU_EASTERN_LONGITUDE')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_EASTERN_LONGITUDE:' + t3end + b + GetField('IAU_EASTERN_LONGITUDE') + br;
-    if GetField('IAU_WESTERN_LONGITUDE')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_WESTERN_LONGITUDE:' + t3end + b + GetField('IAU_WESTERN_LONGITUDE') + br;
-    if GetField('IAU_COORDINATE_SYSTEM')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_COORDINATE_SYSTEM:' + t3end + b + GetField('IAU_COORDINATE_SYSTEM') + br;
-    if GetField('IAU_CONTINENT')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_CONTINENT:' + t3end + b + GetField('IAU_CONTINENT') + br;
-    if GetField('IAU_ETHNICITY')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_ETHNICITY:' + t3end + b + GetField('IAU_ETHNICITY') + br;
-    if GetField('IAU_FEATURE_TYPE')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE:' + t3end + b + GetField('IAU_FEATURE_TYPE') + br;
-    if GetField('IAU_FEATURE_TYPE_CODE')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_FEATURE_TYPE_CODE:' + t3end + b + GetField('IAU_FEATURE_TYPE_CODE') + br;
-    if GetField('IAU_QUAD_NAME')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_QUAD_NAME:' + t3end + b + GetField('IAU_QUAD_NAME') + br;
-    if GetField('IAU_QUAD_CODE')<>'' then begin
-       buf:=GetField('IAU_QUAD_CODE');
-       txtbuf   := txtbuf + t3 + 'IAU_QUAD_CODE:' + t3end + b + buf + br;
-    end;
-    buf:=GetField('IAU_APPROVAL_STATUS');
-    if buf<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_STATUS:' + t3end + b + buf + br;
-    if GetField('IAU_APPROVAL_DATE')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_APPROVAL_DATE:' + t3end + b + GetField('IAU_APPROVAL_DATE') + br;
-    if GetField('IAU_REFERENCE')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_REFERENCE:' + t3end + b + GetField('IAU_REFERENCE') + br;
-    if GetField('IAU_ORIGIN')<>'' then
-       txtbuf   := txtbuf + t3 + 'IAU_ORIGIN:' + t3end + b + GetField('IAU_ORIGIN') + br;
-  end;
+  txtbuf := GetConnectDB('Atlas',nom);
   if txtbuf>'' then begin
-     anchorvisible[7]:=true;
-     txt:=txt+ '<a name="iau"> ';
-     txt := txt + t2 + rsIAUInformati + t2end + br+txtbuf+ b + br;
+    anchorvisible[6]:=true;
+    txt:=txt+'<a name="'+'Atlas'+'">  '+ t2 + 'Atlas' +':'+ t2end + br;
+    txt := txt + txtbuf;
   end;
+  txt:=txt+crlf;
 
-  txtbuf := GetConnectDB(nom); // warning, this replace the result row.
+  txtbuf := GetConnectDB('IAU 2024',nom);
+  if txtbuf>'' then begin
+    anchorvisible[7]:=true;
+    txt:=txt+'<a name="'+'IAU 2024'+'">  '+ t2 + 'IAU 2024' +':'+ t2end + br;
+    txt := txt + txtbuf;
+  end;
+  txt:=txt+crlf;
+
+  txtbuf := GetConnectDB('LICD 2015',nom);
   if txtbuf>'' then begin
     anchorvisible[8]:=true;
-    txt:=txt+ '<a name="licd"> ';
-    txt := txt + t2 + rsLunarImpactC + t2end + br+txtbuf+ b + br;
+    txt:=txt+'<a name="'+'LICD 2015'+'">  '+ t2 + 'LICD 2015' +':'+ t2end + br;
+    txt := txt + txtbuf;
   end;
+  txt:=txt+crlf;
 
   txt   := txt + '</div></body></html>';
   Addtolist(nom);
@@ -2917,14 +2810,14 @@ begin
   AnchorDesc.Visible:=anchorvisible[2];
   AnchorObs.Visible:=anchorvisible[3];
   AnchorPos.Visible:=anchorvisible[4];
-  AnchorAtlas.Visible:=anchorvisible[5];
-  AnchorOrigin.Visible:=anchorvisible[6];
+  AnchorOrigin.Visible:=anchorvisible[5];
+  AnchorAtlas.Visible:=anchorvisible[6];
   AnchorIAU.Visible:=anchorvisible[7];
   AnchorLICD.Visible:=anchorvisible[8];
 end;
 
-function Tform1.GetConnectDB(n: string):string;
-var buf,cmd,fn,tname: string;
+function Tform1.GetConnectDB(dbname, n: string):string;
+var cmd,tname,title,val: string;
     i,j:integer;
 const
     b     = '&nbsp;';
@@ -2937,19 +2830,21 @@ const
 begin
   result:='';
   for j:=1 to ConnectDatabaseList.Count do begin
-    fn:=connectdatabase[j];
+    title:=ConnectDatabaseList[j-1];
+    if title<>dbname then
+      continue;
     tname:='connected_'+lowercase(stringreplace(ConnectDatabaseList[j-1],' ','',[rfReplaceAll]));
-
-    cmd:='select * from '+tname+' where name="'+n+'"';
-    dbm.Query(cmd);
-    i:=dbm.RowCount;
-    i:=ConnectDBCols[j].Count;
-    i:=dbm.Results[0].Count;
-    if (dbm.RowCount>0) and(ConnectDBCols[j].Count=dbm.Results[0].Count) then begin
-      for i:=0 to ConnectDBCols[j].Count-1 do
-        result:=result+t3+ConnectDBCols[j][i]+': '+t3end+dbm.Results[0].Format[i].AsString+br;
+    cmd:='select * from '+tname+' where NAME="'+n+'"';
+    dbc.Query(cmd);
+    if (dbc.RowCount>0) and(ConnectDBCols[j].Count=dbc.Results[0].Count) then begin
+      for i:=0 to ConnectDBCols[j].Count-1 do begin
+        val:=dbc.Results[0].Format[i].AsString;
+        if (dbc.Fields[i]<>'NAME')and(val<>'') then
+          result:=result+t3+ConnectDBCols[j][i]+': '+t3end+val+br;
+      end;
     end;
   end;
+  dbc.Clear;
 end;
 
 procedure Tform1.GetDBgrid;
@@ -4052,6 +3947,8 @@ try
   dblox.Use(dbm.DataBase);
   dbimp:=TLiteDB.Create(self);
   dbimp.Use(dbm.DataBase);
+  dbc:=TLiteDB.Create(self);
+  dbc.Use(dbm.DataBase);
   if UseComputerTime then
     InitDate
   else
@@ -4130,6 +4027,7 @@ try
   SetCCDMenu;
   moon1.Mirror:=checkbox2.Checked;
   GridButton.Visible:=AsMultiTexture;
+  Splitter1Moved(nil);
 except
   on E: Exception do begin
   {$ifdef trace_debug}
@@ -4993,6 +4891,7 @@ begin
     dbnotes.free;
     dblox.Free;
     dbimp.Free;
+    dbc.Free;
     DatabaseList.Free;
     for i:=1 to ConnectDatabaseList.Count do
       ConnectDBCols[i].free;
@@ -6607,10 +6506,10 @@ begin
       2: str:='desc';
       3: str:='obs';
       4: str:='pos';
-      5: str:='atlas';
-      6: str:='origin';
-      7: str:='iau';
-      8: str:='licd';
+      5: str:='origin';
+      6: str:='Atlas';
+      7: str:='IAU 2024';
+      8: str:='LICD 2015';
     end;
     if str<>'' then begin
       desc1.Scroll(hsaEnd);

@@ -586,8 +586,8 @@ object Form1: TForm1
         end
         object Desc1: TIpHtmlPanel
           Left = 0
-          Height = 397
-          Top = 66
+          Height = 379
+          Top = 84
           Width = 350
           Align = alClient
           BorderWidth = 1
@@ -654,7 +654,7 @@ object Form1: TForm1
         end
         object PanelAnchor: TPanel
           Left = 0
-          Height = 18
+          Height = 36
           Top = 48
           Width = 350
           Align = alTop
@@ -662,8 +662,8 @@ object Form1: TForm1
           BevelOuter = bvNone
           ChildSizing.HorizontalSpacing = 20
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
-          ChildSizing.ControlsPerLine = 8
-          ClientHeight = 18
+          ChildSizing.ControlsPerLine = 6
+          ClientHeight = 36
           ClientWidth = 350
           Font.Color = clBlue
           ParentFont = False
@@ -724,24 +724,10 @@ object Form1: TForm1
             Visible = False
             OnClick = AnchorClick
           end
-          object AnchorAtlas: TLabel
+          object AnchorOrigin: TLabel
             Tag = 5
             Cursor = crHandPoint
             Left = 203
-            Height = 18
-            Top = 0
-            Width = 30
-            Caption = 'Atlas'
-            Color = clWindow
-            ParentColor = False
-            Transparent = False
-            Visible = False
-            OnClick = AnchorClick
-          end
-          object AnchorOrigin: TLabel
-            Tag = 6
-            Cursor = crHandPoint
-            Left = 253
             Height = 18
             Top = 0
             Width = 39
@@ -752,13 +738,27 @@ object Form1: TForm1
             Visible = False
             OnClick = AnchorClick
           end
+          object AnchorAtlas: TLabel
+            Tag = 6
+            Cursor = crHandPoint
+            Left = 262
+            Height = 18
+            Top = 0
+            Width = 30
+            Caption = 'Atlas'
+            Color = clWindow
+            ParentColor = False
+            Transparent = False
+            Visible = False
+            OnClick = AnchorClick
+          end
           object AnchorIAU: TLabel
             Tag = 7
             Cursor = crHandPoint
-            Left = 312
+            Left = 0
             Height = 18
-            Top = 0
-            Width = 23
+            Top = 18
+            Width = 36
             Caption = 'IAU'
             Color = clWindow
             ParentColor = False
@@ -769,10 +769,10 @@ object Form1: TForm1
           object AnchorLICD: TLabel
             Tag = 8
             Cursor = crHandPoint
-            Left = 355
+            Left = 56
             Height = 18
-            Top = 0
-            Width = 29
+            Top = 18
+            Width = 33
             Caption = 'LICD'
             Color = clWindow
             ParentColor = False
