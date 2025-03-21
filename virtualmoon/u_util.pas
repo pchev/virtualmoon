@@ -146,6 +146,7 @@ function TzGMT2UTC(gmttz: string): string;
 function TzUTC2GMT(utctz: string): string;
 function decisep(txt:string):string;
 procedure ScaleFormForFontSize(f: Tform; desdpi:integer);
+function striphtml(html: string): string;
 
 var traceon : boolean;
     hp: string;
@@ -2255,6 +2256,47 @@ begin
   if (abs(1 - sc)>0.1)and(sc>0.75)and(sc<5) then
     f.PixelsPerInch:=round(desdpi / sc);
 {$endif}
+end;
+
+function striphtml(html: string): string;
+var
+  i: integer;
+  c: char;
+  intag: boolean;
+  tag: string;
+begin
+  Result := '';
+  intag := False;
+  tag := '';
+  for i := 1 to length(html) do
+  begin
+    c := html[i];
+    case c of
+      '<':
+      begin
+        intag := True;
+        tag := '';
+      end;
+      '>':
+      begin
+        intag := False;
+        if tag = 'p' then
+          Result := Result + chr(13);
+        if tag = 'br' then
+          Result := Result + chr(13);
+        if tag = 'br/' then
+          Result := Result + chr(13);
+      end;
+      else
+      begin
+        if intag then
+          tag := tag + c
+        else
+          Result := Result + c;
+      end;
+    end;
+  end;
+  Result := StringReplace(Result, '&nbsp;', ' ', [rfReplaceAll]);
 end;
 
 end.
