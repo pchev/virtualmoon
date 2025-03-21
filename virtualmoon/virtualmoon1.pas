@@ -2780,32 +2780,29 @@ begin
   end;
   txt:=txt+crlf;
 
-  txtbuf := GetConnectDB('Atlas',nom);
-  if txtbuf>'' then begin
-    anchorvisible[6]:=true;
-    txt:=txt+'<a name="'+'Atlas'+'">  '+ t2 + 'Atlas' +':'+ t2end + br;
-    txt := txt + txtbuf;
+  for j:=1 to ConnectDatabaseList.Count do begin
+      buf:=ConnectDatabaseList[j-1];
+      if buf='Descriptions' then continue; // additional description is already displayed in it's own bloc
+      txtbuf := GetConnectDB(buf,nom);
+      if txtbuf>'' then begin
+        // set link for predefined data
+        if buf='Atlas' then
+          anchorvisible[6]:=true
+        else if buf='IAU 2024' then
+          anchorvisible[7]:=true
+        else if buf='LICD 2015' then
+          anchorvisible[8]:=true;
+        // display data with title
+        txt:=txt+'<a name="'+buf+'">  '+ t2 + buf +':'+ t2end + br;
+        txt := txt + txtbuf;
+      end;
+      txt:=txt+crlf;
   end;
-  txt:=txt+crlf;
-
-  txtbuf := GetConnectDB('IAU 2024',nom);
-  if txtbuf>'' then begin
-    anchorvisible[7]:=true;
-    txt:=txt+'<a name="'+'IAU 2024'+'">  '+ t2 + 'IAU 2024' +':'+ t2end + br;
-    txt := txt + txtbuf;
-  end;
-  txt:=txt+crlf;
-
-  txtbuf := GetConnectDB('LICD 2015',nom);
-  if txtbuf>'' then begin
-    anchorvisible[8]:=true;
-    txt:=txt+'<a name="'+'LICD 2015'+'">  '+ t2 + 'LICD 2015' +':'+ t2end + br;
-    txt := txt + txtbuf;
-  end;
-  txt:=txt+crlf;
 
   txt   := txt + '</div></body></html>';
   Addtolist(nom);
+
+  // set all the label visibility in order to prevent mixup
   AnchorIdent.Visible:=anchorvisible[1];
   AnchorDesc.Visible:=anchorvisible[2];
   AnchorObs.Visible:=anchorvisible[3];
@@ -2820,13 +2817,9 @@ function Tform1.GetConnectDB(dbname, n: string):string;
 var cmd,tname,title,val: string;
     i,j:integer;
 const
-    b     = '&nbsp;';
     br    = '<br/>';
-    t1end = '</b></font></center>';
-    t2    = '<font size=+1>';
-    t2end = '</font>';
-    t3    = '<b>';
-    t3end = '</b>';
+    bold    = '<b>';
+    boldend = '</b>';
 begin
   result:='';
   for j:=1 to ConnectDatabaseList.Count do begin
@@ -2840,7 +2833,7 @@ begin
       for i:=0 to ConnectDBCols[j].Count-1 do begin
         val:=dbc.Results[0].Format[i].AsString;
         if (dbc.Fields[i]<>'NAME')and(val<>'') then
-          result:=result+t3+ConnectDBCols[j][i]+': '+t3end+val+br;
+          result:=result+bold+ConnectDBCols[j][i]+': '+boldend+val+br;
       end;
     end;
   end;
