@@ -590,7 +590,7 @@ object splash: Tsplash
       Align = alBottom
       Alignment = taCenter
       AutoSize = False
-      Caption = 'Virtual Lunar Atlas  http://www.ap-i.net/avl'
+      Caption = 'Virtual Moon Atlas  http://www.ap-i.net/avl'
       Color = clBlack
       Font.Color = clSilver
       Font.Style = [fsItalic]
