@@ -388,8 +388,8 @@ var i: integer;
 begin
 ScaleFormForFontSize(self,96);
 dpiscale:=Scale96ToForm(10000)/10000;
-DecimalSeparator := '.';
-ThousandSeparator:=' ';
+DefaultFormatSettings.DecimalSeparator := '.';
+DefaultFormatSettings.ThousandSeparator:=' ';
 dbm:=TLiteDB.Create(self);
 GetAppDir;
 chdir(appdir);
@@ -408,13 +408,18 @@ SelectedObject:='';
 dbselection:='DBN in ('+defaultselection+')';
 currentselection:=dbselection;
 DatabaseList:=Tstringlist.Create;
+ConnectDatabaseList:=Tstringlist.Create;
 ExpertMode:=false;
 Application.HintHidePause:=10000;
 end;
 
 procedure Tf_main.FormDestroy(Sender: TObject);
+var i: integer;
 begin
  DatabaseList.Free;
+ for i:=1 to ConnectDatabaseList.Count do
+   ConnectDBCols[i].free;
+ ConnectDatabaseList.Free;
  param.free;
  dbm.free;
 end;

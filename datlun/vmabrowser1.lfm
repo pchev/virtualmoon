@@ -5,7 +5,7 @@ object f_main: Tf_main
   Width = 728
   ActiveControl = MoonGrid
   Caption = 'DATLUN'
-  ClientHeight = 438
+  ClientHeight = 408
   ClientWidth = 728
   Menu = MainMenu1
   OnClose = FormClose
@@ -15,7 +15,7 @@ object f_main: Tf_main
   OnShow = FormShow
   object MoonGrid: TStringGrid
     Left = 0
-    Height = 413
+    Height = 383
     Top = 0
     Width = 708
     Align = alClient
@@ -35,7 +35,7 @@ object f_main: Tf_main
   end
   object ScrollBar1: TScrollBar
     Left = 708
-    Height = 413
+    Height = 383
     Top = 0
     Width = 20
     Align = alRight
@@ -47,7 +47,7 @@ object f_main: Tf_main
   object Panel1: TPanel
     Left = 0
     Height = 25
-    Top = 413
+    Top = 383
     Width = 728
     Align = alBottom
     Alignment = taLeftJustify
