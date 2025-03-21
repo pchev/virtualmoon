@@ -345,6 +345,7 @@ begin
   LockPredictionTimer:=false;
   dbm:=TLiteDB.Create(self);
   DatabaseList:=Tstringlist.Create;
+  ConnectDatabaseList:=Tstringlist.Create;
   datestd:=datetimedisplay;
 
   Top := 50;
@@ -369,6 +370,9 @@ var i: integer;
 begin
   dbm.free;
   DatabaseList.free;
+  for i:=1 to ConnectDatabaseList.Count do
+    ConnectDBCols[i].free;
+  ConnectDatabaseList.Free;
   tz.Free;
   for i:=0 to GridMonth.RowCount-1 do begin
     if GridMonth.Objects[0,i]<>nil then GridMonth.Objects[0,i].free;
@@ -622,7 +626,6 @@ begin
  if (not FileExists(fn)) or ((now-FileDateToDateTime(FileAge(fn))) > 30)
  then begin
     dl.ConfirmDownload := False;
-    dl.QuickCancel := false;
     dl.URL := 'https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/earth_latest_high_prec.bpc';
     dl.SaveToFile := fn;
     if not dl.Execute then
@@ -632,7 +635,6 @@ begin
  if (not FileExists(fn)) or ((now-FileDateToDateTime(FileAge(fn))) > 30)
  then begin
     dl.ConfirmDownload := False;
-    dl.QuickCancel := false;
     dl.URL := 'https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/latest_leapseconds.tls';
     dl.SaveToFile := fn;
     if not dl.Execute then
