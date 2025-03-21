@@ -1148,6 +1148,12 @@ begin
   usedatabase[9] := False;
   for i := 10 to maxdbn do
     usedatabase[i] := False;
+  useconnectdatabase[1] := True;
+  useconnectdatabase[2] := True;
+  useconnectdatabase[3] := True;
+  useconnectdatabase[4] := True;
+  for i := 5 to MaxConnectDBN do
+    useconnectdatabase[i] := False;
   timezone := 0;
   Obslatitude := 48.86;
   Obslongitude := -2.33;
@@ -1309,6 +1315,9 @@ begin
     for i := 1 to useDBN do
       usedatabase[i] := ReadBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
 
+    for i := 1 to ReadInteger(section, 'ConnectDatabaseCount', 0) do
+      useconnectdatabase[i] := ReadBool(section, 'UseConnectDatabase' + IntToStr(i), useconnectdatabase[i]);
+
     j:=ReadInteger(section, 'NumUserDB', 0);
     for i := 1 to j do begin
       k:=ReadInteger(section, 'UserDBNum'+  IntToStr(i), 0);
@@ -1384,6 +1393,10 @@ begin
       WriteInteger(section, 'useDBN', useDBN);
       for i := 1 to useDBN do
         WriteBool(section, 'UseDatabase' + IntToStr(i), usedatabase[i]);
+
+      WriteInteger(section, 'ConnectDatabaseCount', ConnectDatabaseList.Count);
+      for i := 1 to ConnectDatabaseList.Count do
+        WriteBool(section, 'UseConnectDatabase' + IntToStr(i), useconnectdatabase[i]);
 
       WriteInteger(section, 'NumUserDB', form2.UserDbList.Count);
       for i := 1 to form2.UserDbList.Count do begin
@@ -2823,6 +2836,8 @@ const
 begin
   result:='';
   for j:=1 to ConnectDatabaseList.Count do begin
+    if not useconnectdatabase[j] then
+      continue;
     title:=ConnectDatabaseList[j-1];
     if title<>dbname then
       continue;
@@ -4112,6 +4127,9 @@ begin
     for i:=0 to form2.DbList.Count-1 do begin
       form2.DbList.Checked[i]:=(database[i+1]<>'') and usedatabase[i+1];
     end;
+    for i:=0 to form2.ConnectDbList.Count-1 do begin
+      form2.ConnectDbList.Checked[i]:=useconnectdatabase[i+1];
+    end;
     ListUserDB;
     form2.checkbox1.Checked := phaseeffect;
     form2.checkbox2.Checked := librationeffect;
@@ -4256,6 +4274,9 @@ begin
         if usedatabase[i+1] <> form2.DbList.Checked[i] then
           reloaddb := True;
         usedatabase[i+1]:=form2.DbList.Checked[i];
+      end;
+      for i:=0 to form2.ConnectDbList.Count-1 do begin
+        useconnectdatabase[i+1]:=form2.ConnectDbList.Checked[i];
       end;
       for i := 0 to form2.UserDbList.Count - 1 do
       begin
