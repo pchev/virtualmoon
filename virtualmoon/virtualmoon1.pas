@@ -2559,8 +2559,6 @@ begin
   txtbuf:='';
   if (GetField('LUN'))>'' then
      txtbuf  := txtbuf + t3 + 'L.U.N.:' + t3end + b + GetField('LUN') + br;
-  if (GetField('LUN_REDUCED'))>'' then
-     txtbuf  := txtbuf + t3 + 'L.U.N.REDUCED:' + t3end + b + GetField('LUN_REDUCED') + br;
   buf:=GetField('NAME_TYPE');
   if buf>'' then
      txtbuf  := txtbuf + t3 + rsNameType + t3end + b + buf + br;
@@ -2591,11 +2589,8 @@ begin
         wkm:=row.ByField['WIDE_KM'].AsFloat
      else
         wkm:=0;
-     lmi:=lkm*km2miles;
-     wmi:=wkm*km2miles;
      txtbuf  := txtbuf + t3 + rsm_17 + t3end + b + FormatFloat(f2,lkm) + 'x' +
-             FormatFloat(f2,wkm) + rsm_18 + b + '/' + b + FormatFloat(f2,lmi) +
-             'x' + FormatFloat(f2,wmi) + rsm_19 + br;
+             FormatFloat(f2,wkm) + rsm_18 + br;
   end;
   buf  := GetField('HEIGHT_M');
   if buf<>'' then
@@ -2603,10 +2598,7 @@ begin
     txtbuf := txtbuf + t3 + rsm_20 + t3end + b;
     val(buf, dummy, i);
     if i = 0 then begin
-      txtbuf := txtbuf + buf + rsm_21 + b + '/' + b;
-      x:=dummy*meter2feet;
-      txtbuf := txtbuf + FormatFloat(f1,x) + rsm_22;
-      txtbuf   := txtbuf + br;
+      txtbuf := txtbuf + buf + rsm_21 + br;
     end;
   end;
   if (GetField('RAPPORT'))>'' then
@@ -2628,9 +2620,6 @@ begin
     txtbuf:= txtbuf + GetField('WALLS') + br;
   if GetField('FLOOR') > '' then
     txtbuf := txtbuf + GetField('FLOOR') + br;
-  if GetField('ELGER_1895') > '' then begin
-    txtbuf :=txtbuf + br + t3 + rsElgerDescrip + t3end + br + GetField('ELGER_1895') + br;
-  end;
 
   txtbuf := txtbuf + GetConnectDB('Descriptions', nom);
   if txtbuf>'' then begin
