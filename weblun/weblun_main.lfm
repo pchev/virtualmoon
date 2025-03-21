@@ -166,7 +166,6 @@ object f_weblun: Tf_weblun
     FtpFwMode = 0
     FtpFwPassive = True
     ConfirmDownload = True
-    QuickCancel = False
     Left = 128
     Top = 184
   end
