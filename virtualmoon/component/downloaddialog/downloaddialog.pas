@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 interface
 
 uses
-  LResources, blcksock, HTTPsend, FTPSend, FileUtil, ssl_openssl,
+  LResources, blcksock, HTTPsend, FTPSend, FileUtil, ssl_openssl3,
   Classes, SysUtils, LazUTF8, Dialogs, Buttons, Graphics, Forms,
   Controls, StdCtrls, ExtCtrls;
 
@@ -40,6 +40,7 @@ type
   private
 
     FFileSize: int64;
+    FfileStream: TFileStream;
 
     FonDownloadComplete: TDownloadProc;
     FonProgress: TDownloadProc;
@@ -64,7 +65,7 @@ type
 
     Fsockreadcount, Fsockwritecount, FUpdateSize: integer;
 
-    Durl, Dftpdir, Dftpfile, progresstext: string;
+    Durl, Dftpdir, Dftpfile, Dhttpfile, progresstext: string;
     ok: boolean;
 
     constructor Create;
@@ -84,6 +85,7 @@ type
     FDownloadFeedback: TDownloadFeedback;
     Furl, Ffirsturl: string;
     Ffile: string;
+    FHttpDirectDownload: boolean;
     FResponse: string;
     Fproxy, Fproxyport, Fproxyuser, Fproxypass: string;
     FSocksproxy, FSockstype: string;
@@ -93,7 +95,6 @@ type
     FUsername, FPassword, FFWhost, FFWport, FFWUsername, FFWPassword: string;
     FDownloadFile, FCopyfrom, Ftofile, FDownload, FCancel: string;
     FConfirmDownload: boolean;
-    FQuickCancel: boolean;
     FScaleDpi: double;
     DF: TForm;
     okButton, cancelButton: TButton;
@@ -101,6 +102,8 @@ type
     http: THTTPSend;
     ftp: TFTPSend;
     Timer1: TTimer;
+    procedure SetUserAgent(value: string);
+    function  GetUserAgent: string;
   protected
     procedure BtnDownload(Sender: TObject);
     procedure BtnCancel(Sender: TObject);
@@ -126,8 +129,10 @@ type
   published
     property URL: string read Furl write Furl;
     property SaveToFile: string read Ffile write Ffile;
+    property HttpDirectDownload: boolean read FHttpDirectDownload write FHttpDirectDownload;
     property ResponseText: string read FResponse;
     property Timeout: integer read FTimeout write FTimeout;
+    property UserAgent: string read GetUserAgent write SetUserAgent;
     property HttpProxy: string read Fproxy write Fproxy;
     property HttpProxyPort: string read Fproxyport write Fproxyport;
     property HttpProxyUser: string read Fproxyuser write Fproxyuser;
@@ -143,7 +148,6 @@ type
     property FtpFwUserName: string read FFWUsername write FFWUsername;
     property FtpFwPassword: string read FFWPassword write FFWPassword;
     property ConfirmDownload: boolean read FConfirmDownload write FConfirmDownload;
-    property QuickCancel: boolean read FQuickCancel write FQuickCancel;
     property onFeedback: TDownloadFeedback read FDownloadFeedback
       write FDownloadFeedback;
   end;
@@ -184,19 +188,19 @@ begin
   inherited Create(AOwner);
 
   http := THTTPSend.Create;
-  http.UserAgent := 'Wget/1.16.1 (linux-gnu)';
+  http.UserAgent := 'Skychart/4';
   ftp := TFTPSend.Create;
   Timer1 := TTimer.Create(self);
   Timer1.Enabled := False;
   Timer1.Interval := 2000;
   Timer1.OnTimer := @Timer1Timer;
   FTimeout := 90000;
-  FQuickCancel := False;
   Fproxy := '';
   FSocksproxy := '';
   FFWMode := 0;
   FFWpassive := True;
   FConfirmDownload := True;
+  FHttpDirectDownload := False;
   FDownloadFile := 'Download File';
   FCopyfrom := 'Copy from:';
   Ftofile := 'to file:';
@@ -228,6 +232,16 @@ end;
 function TDownloadDialog.doScaleDpi(x: integer): integer;
 begin
   Result := round(x*FScaleDpi);
+end;
+
+procedure TDownloadDialog.SetUserAgent(value: string);
+begin
+  if http<>nil then http.UserAgent:=value;
+end;
+
+function  TDownloadDialog.GetUserAgent: string;
+begin
+  if http<>nil then result:=http.UserAgent else result:='';
 end;
 
 function TDownloadDialog.Execute: boolean;
@@ -332,7 +346,7 @@ begin
       application.ProcessMessages;
     until i <> mrNone;
     Timer1.Enabled := False;
-    Result := DF.modalresult = mrOk;
+    Result := i = mrOk;
   end
   else
   begin
@@ -350,10 +364,7 @@ end;
 procedure TDownloadDialog.Timer1Timer(Sender: TObject);
 begin
   Timer1.Enabled := False;
-  if FQuickCancel then
-    BtnCancel(nil)
-  else
-    DF.ShowModal;
+  DF.ShowModal;
 end;
 
 procedure TDownloadDialog.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -376,7 +387,7 @@ procedure TDownloadDialog.doCancel(Sender: TObject);
 begin
 
   if not okButton.Visible then
-  begin // transfert in progress
+  begin // transfer in progress
     DownloadDaemon.onProgress := nil;
     DownloadDaemon.onDownloadComplete := nil;
 
@@ -444,6 +455,10 @@ begin
 
     DownloadDaemon := TDownloadDaemon.Create;
     DownloadDaemon.Phttp := @http;
+    if FHttpDirectDownload then
+      DownloadDaemon.Dhttpfile := Ffile
+    else
+      DownloadDaemon.Dhttpfile := '';
     DownloadDaemon.Durl := Furl;
     DownloadDaemon.protocol := prHttp;
     DownloadDaemon.onProgress := @progressreport;
@@ -515,17 +530,22 @@ var
   abuf: string;
 begin
 
+  try
   ok := DownloadDaemon.ok;
 
   if ok and ((http.ResultCode = 200) or (http.ResultCode = 0)) then
   begin  // success
-    http.Document.Position := 0;
-    http.Document.SaveToFile(FFile);
-
-    //SZ Update exact size
-    DownloadDaemon.UpdateSizeText(http.Document.Size,0);
-    progressreport;
-
+    if FHttpDirectDownload then begin
+      DownloadDaemon.UpdateSizeText(FileSize(Ffile),0);
+      progressreport;
+    end
+    else begin
+      http.Document.Position := 0;
+      http.Document.SaveToFile(FFile);
+      //SZ Update exact size
+      DownloadDaemon.UpdateSizeText(http.Document.Size,0);
+      progressreport;
+    end;
     FResponse := 'Finished: ' + progress.Text;
   end
   else if (http.ResultCode = 301) or (http.ResultCode = 302) or (http.ResultCode = 307) then
@@ -584,6 +604,12 @@ begin
     DF.modalresult := mrOk
   else
     DF.modalresult := mrCancel;
+
+  except
+    on E: Exception do begin
+     FResponse:=E.Message;
+  end;
+  end;
 end;
 
 procedure TDownloadDialog.FTPComplete;
@@ -644,6 +670,7 @@ constructor TDownloadDaemon.Create;
 begin
   ok := False;
   FMillis := 0;
+  Dhttpfile:='';
   FreeOnTerminate := True;
   inherited Create(True);
 end;
@@ -765,13 +792,24 @@ begin
   begin
     phttp^.Sock.OnStatus := @SockStatus;
     phttp^.sock.OnMonitor := @SockMonitor;
+    phttp^.OutputStream := nil;
 
     //SZ Added code to retrieve file size for download progress
     FFileSize := HTTP_FileSize(phttp^, Durl);
 
+    if Dhttpfile<>'' then begin
+      FfileStream := TFileStream.Create(Dhttpfile,fmCreate or fmShareDenyWrite);
+      phttp^.OutputStream := FfileStream;
+    end;
+
     FSockreadcount := 0;
 
     ok := phttp^.HTTPMethod('GET', Durl);
+
+    if Dhttpfile<>'' then begin
+      phttp^.OutputStream:=nil;
+      FfileStream.Free;
+    end;
 
   end
   else
