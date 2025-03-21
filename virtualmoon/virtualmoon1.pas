@@ -5310,7 +5310,6 @@ begin
     hl   := round(Canvas.TextHeight('H') * 1.1);
     PrintHeader;
     w := 0;
-    b := Tbitmap.Create;
     try
       if PrintChart then  begin
         // carte
@@ -5340,6 +5339,7 @@ begin
         end;
         canvas.StretchDraw(rect(xmin, ymin + hl, xmin + bw, ymin + bh + hl), b);
         {$endif}
+        b.free;
       end;
       if PrintEph then
       begin
@@ -5392,7 +5392,6 @@ begin
         memo2.Clear;
       end;
     finally
-      b.Free;
       Printer.EndDoc;
       memo2.Visible:=false;
     end;
