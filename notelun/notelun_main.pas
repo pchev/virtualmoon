@@ -456,6 +456,7 @@ begin
 end;
 
 procedure Tf_notelun.FormDestroy(Sender: TObject);
+var i: integer;
 begin
   ClearList;
   ClearObsBox(ObsLocation);
@@ -469,6 +470,9 @@ begin
   tz.Free;
   Fplanet.Free;
   DatabaseList.free;
+  for i:=1 to ConnectDatabaseList.Count do
+    ConnectDBCols[i].free;
+  ConnectDatabaseList.free;
   param.free;
 end;
 
@@ -479,6 +483,7 @@ begin
   for i:=1 to maxdbn do usedatabase[i]:=false;
   usedatabase[1]:=true;
   DatabaseList:=Tstringlist.Create;
+  ConnectDatabaseList:=Tstringlist.Create;
   LoadDB(dbm);
   i:=LoadNotelunDB(dbnotes);
   if i>0 then MessageDlg('NoteLun',Format(rsInformationN2, [inttostr(i)]),mtInformation,[mbOK],0);
