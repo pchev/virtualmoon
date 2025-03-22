@@ -4,7 +4,7 @@ unit fu_img;
 
 interface
 
-uses  BGRABitmap, BGRABitmapTypes, math,
+uses  BGRABitmap, BGRABitmapTypes, math, u_translation,
   Classes, SysUtils, Forms, Controls, ExtCtrls, Buttons, StdCtrls;
 
 type
@@ -34,18 +34,23 @@ type
     BtnFlipV: TSpeedButton;
     BtnDetach: TSpeedButton;
     BtnClose: TSpeedButton;
+    BtnRotation1: TSpeedButton;
+    BtnRotation2: TSpeedButton;
+    BtnReset: TSpeedButton;
     procedure BtnCloseClick(Sender: TObject);
     procedure BtnDetachClick(Sender: TObject);
+    procedure BtnResetClick(Sender: TObject);
     procedure FrameResize(Sender: TObject);
     procedure PlotTimerTimer(Sender: TObject);
     procedure BtnFlipHClick(Sender: TObject);
     procedure BtnFlipVClick(Sender: TObject);
+    procedure BtnRotationClick(Sender: TObject);
   private
     Fimage: string;
     img_Width,img_Height : integer;
     OrigX,OrigY,MouseDownX,MouseDownY,Mx,My: integer;
     ZoomMin,ImgZoom,ImgScale0,ImgCx,ImgCy: double;
-    LockTimerPlot,LockMouseWheel,FlipHorz,FlipVert,MouseMoving: boolean;
+    LockTimerPlot,LockMouseWheel,FlipHorz,FlipVert,MouseMoving,firstrot: boolean;
     ImaBmp,ScrBmp: TBGRABitmap;
     Image1: TImgDrawingControl;
     FonClose, FonDetach: TNotifyEvent;
@@ -60,6 +65,7 @@ type
   public
     constructor Create(aOwner: TComponent); override;
     destructor  Destroy; override;
+    procedure SetLang;
     property image: string read Fimage write SetImage;
     property imgWidth: integer read img_Width;
     property imgHeight: integer read img_Height;
@@ -76,7 +82,7 @@ const ZoomMax=5;
 constructor Tf_img.Create(aOwner: TComponent);
 begin
  inherited Create(aOwner);
-// SetLang;
+ SetLang;
  FlipHorz:=false;
  FlipVert:=false;
  LockTimerPlot:=false;
@@ -99,9 +105,23 @@ end;
 
 destructor Tf_img.Destroy;
 begin
+ try
  ImaBmp.Free;
  ScrBmp.Free;
  inherited Destroy;
+ except
+ end;
+end;
+
+procedure Tf_img.SetLang;
+begin
+BtnRotation1.Hint:=rsRotateCounte;
+BtnRotation2.Hint:=rsRotateClockw;
+BtnFlipV.Hint:=rsVerticalMirr;
+BtnFlipH.Hint:=rsHorizontalMi;
+BtnDetach.Hint:=rsOpenInNewWin;
+BtnReset.Hint:=rsResetDefault;
+BtnClose.Hint:=rsClose;
 end;
 
 procedure Tf_img.FrameResize(Sender: TObject);
@@ -113,12 +133,17 @@ end;
 procedure Tf_img.BtnCloseClick(Sender: TObject);
 begin
   if Assigned(FonClose) then FonClose(self);
-  Free;
+//  Free;
 end;
 
 procedure Tf_img.BtnDetachClick(Sender: TObject);
 begin
   if Assigned(FonDetach) then FonDetach(self);
+end;
+
+procedure Tf_img.BtnResetClick(Sender: TObject);
+begin
+  SetImage(Fimage);
 end;
 
 procedure Tf_img.PlotTimerTimer(Sender: TObject);
@@ -142,6 +167,26 @@ begin
   PlotImage;
 end;
 
+procedure Tf_img.BtnRotationClick(Sender: TObject);
+var tmp: TBGRABitmap;
+  x: integer;
+  angle: single;
+begin
+  if firstrot then begin
+    firstrot:=false;
+    x:=2+round(Sqrt(imabmp.Width*imabmp.Width + ImaBmp.Height*ImaBmp.Height));
+    tmp:=TBGRABitmap.Create(x,x);
+    tmp.PutImage((x-imabmp.Width) div 2,(x-imabmp.Height) div 2,ImaBmp,dmSet);
+    ImaBmp.Assign(tmp);
+    img_Width:=ImaBmp.Width;
+    img_Height:=ImaBmp.Height;
+    tmp.free;
+  end;
+  angle:=TSpeedButton(Sender).Tag * 15;
+  BGRAReplace(imabmp,imabmp.FilterRotate(PointF(imabmp.Width div 2,ImaBmp.Height div 2),angle,true));
+  PlotImage;
+end;
+
 Procedure Tf_img.ClearImage;
 begin
 ScrBmp.FillRect(0,0,ScrBmp.Width,ScrBmp.Height,clBlackOpaque);
@@ -153,6 +198,7 @@ begin
  ImaBmp.LoadFromFile(Fimage);
  img_Width:=ImaBmp.Width;
  img_Height:=ImaBmp.Height;
+ firstrot:=true;
  PlotImage;
 end;
 

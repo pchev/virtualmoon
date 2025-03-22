@@ -8,10 +8,12 @@ object f_photlun: Tf_photlun
   ClientWidth = 950
   Color = 5263440
   Font.Color = clSilver
+  KeyPreview = True
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   ShowHint = True
   object PageControl1: TPageControl

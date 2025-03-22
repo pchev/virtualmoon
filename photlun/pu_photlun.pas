@@ -13,7 +13,7 @@ uses
   {$endif}
   u_translation,
   BGRABitmap, BGRABitmapTypes, LazUTF8, UniqueInstance, math,
-  fu_img, pu_config, u_util, u_constant, LazFileUtils, IniFiles,
+  fu_img, pu_config, u_util, u_constant, LazFileUtils, IniFiles, LCLType,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, Menus;
 
 type
@@ -59,6 +59,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure ImageClose(Sender: TObject);
     procedure ImageFormClose(Sender: TObject);
@@ -90,6 +91,9 @@ type
     procedure ClearVignette;
     procedure CreateVignette(fn: string);
     procedure VignetteClick(Sender: TObject);
+    procedure CloseImgAsync(Data: PtrInt);
+    procedure ImgFormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure ImgFormClose(Sender: TObject; var CloseAction: TCloseAction);
     Procedure ReadParam(first:boolean=true);
     procedure ListImgDir(dir: string; filter:string='*');
     procedure SelectObject(nom: string);
@@ -545,7 +549,7 @@ procedure Tf_photlun.VignetteClick(Sender: TObject);
 var img: Tf_img;
 begin
   inc(imgnum);
-  img:=Tf_img.Create(self);
+  img:=Tf_img.Create(nil);
   img.Name:='f_img'+inttostr(imgnum);
   img.Hint:=TVignette(Sender).Hint;
   img.Info.Caption:=img.Hint;
@@ -557,12 +561,57 @@ begin
   PageControl1.ActivePageIndex:=1;
 end;
 
+procedure Tf_photlun.ImageClose(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex:=0;
+  Application.QueueAsyncCall(@CloseImgAsync,PtrInt(sender));
+end;
+
+procedure Tf_photlun.CloseImgAsync(Data: PtrInt);
+begin
+  PageControl1.ActivePageIndex:=0;
+  if TControl(Data) is Tf_img then
+    Tf_img(data).Destroy;
+end;
+
+procedure Tf_photlun.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+var i: integer;
+begin
+  if (key=VK_ESCAPE)and(PageControl1.ActivePageIndex=1) then begin
+    for i:=Panel3.ControlCount-1 downto 0 do begin
+      if Panel3.Controls[i] is Tf_img then
+        Application.QueueAsyncCall(@CloseImgAsync,PtrInt(Panel3.Controls[i]));
+    end;
+  end;
+end;
+
+procedure Tf_photlun.ImgFormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+var i: integer;
+begin
+  if key=VK_ESCAPE then begin
+    TForm(Sender).Close;
+  end;
+end;
+
+procedure Tf_photlun.ImgFormClose(Sender: TObject; var CloseAction: TCloseAction);
+var i: integer;
+begin
+  for i:=TForm(Sender).ControlCount-1 downto 0 do begin
+    if TForm(Sender).Controls[i] is Tf_img then
+      Application.QueueAsyncCall(@CloseImgAsync,PtrInt(TForm(Sender).Controls[i]));
+  end;
+end;
+
 procedure Tf_photlun.ImageDetach(Sender: TObject);
 var f: TForm;
 begin
   f:=TForm.Create(self);
   f.Width:=800;
   f.Height:=600;
+  f.ShowHint:=true;
+  f.OnClose:=@ImgFormClose;
+  f.KeyPreview:=true;
+  f.OnKeyDown:=@ImgFormKeyDown;
   f.Caption:=Tf_img(Sender).Hint;
   Tf_img(Sender).Parent:=f;
   Tf_img(Sender).onClose:=@ImageFormClose;
@@ -622,11 +671,6 @@ procedure Tf_photlun.ImageFormClose(Sender: TObject);
 begin
   if Tf_img(Sender).Parent is TForm then
     TForm(Tf_img(Sender).Parent).close;
-end;
-
-procedure Tf_photlun.ImageClose(Sender: TObject);
-begin
-  PageControl1.ActivePageIndex:=0;
 end;
 
 procedure Tf_photlun.GetAppDir;

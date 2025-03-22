@@ -61,6 +61,8 @@ resourcestring
   rsSaveSetting = 'Save setting';
   rsTranslatedBy = 'Translated by :';
   rsView = 'View';
+  rsOpenInNewWin = 'Open in new window';
+  rsClose = 'Close';
 
 implementation
 
