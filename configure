@@ -13,6 +13,7 @@ fi
 
 dirs="virtualmoon/component/libsql \
      virtualmoon/component/synapse \
+     virtualmoon/component/bgrabitmap \
      virtualmoon/component/downloaddialog \
      virtualmoon/component/uniqueinstance \
      virtualmoon/component/enhedits \
