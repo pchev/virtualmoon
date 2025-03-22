@@ -82,6 +82,17 @@ object f_img: Tf_img
       OnClick = BtnDetachClick
       ParentFont = False
     end
+    object Info: TLabel
+      AnchorSideTop.Control = BtnFlipH
+      AnchorSideTop.Side = asrCenter
+      Left = 144
+      Height = 18
+      Top = 6
+      Width = 25
+      Caption = 'Info'
+      ParentColor = False
+      ParentFont = False
+    end
   end
   object PanelImg: TPanel
     Left = 0

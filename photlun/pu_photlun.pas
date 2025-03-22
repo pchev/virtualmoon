@@ -412,12 +412,24 @@ procedure Tf_photlun.CreateVignette(fn: string);
 var v: TVignette;
     bmp: TBGRABitmap;
     r1,r2: double;
-    w,h: integer;
+    i,w,h: integer;
+    libr,cpy: string;
 begin
+  libr:=noslash(ExtractFilePath(fn));
+  for i:=0 to maximgdir-1 do begin
+     if noslash(imgdir[i,0])=libr then begin
+        libr:=imgdir[i,2];
+        cpy:=imgdir[i,1];
+        break;
+     end;
+  end;
   v:=TVignette.Create(self);
   v.onClick:=@VignetteClick;
   v.Parent:=PanelVignette;
   v.lbl.Caption:=ExtractFileNameOnly(fn);
+  v.Hint:=libr+'  '+v.lbl.Caption;
+  if cpy<>'' then
+    v.Hint:=v.Hint+', '+cpy;
   v.imgpath:=fn;
   v.img.Stretch:=false;
   bmp:=TBGRABitmap.Create(v.imgpath);
@@ -535,6 +547,8 @@ begin
   inc(imgnum);
   img:=Tf_img.Create(self);
   img.Name:='f_img'+inttostr(imgnum);
+  img.Hint:=TVignette(Sender).Hint;
+  img.Info.Caption:=img.Hint;
   img.Parent:=panel3;
   img.Align:=alClient;
   img.image:=TVignette(Sender).imgpath;
@@ -549,6 +563,7 @@ begin
   f:=TForm.Create(self);
   f.Width:=800;
   f.Height:=600;
+  f.Caption:=Tf_img(Sender).Hint;
   Tf_img(Sender).Parent:=f;
   Tf_img(Sender).onClose:=@ImageFormClose;
   Tf_img(Sender).BtnDetach.Visible:=False;

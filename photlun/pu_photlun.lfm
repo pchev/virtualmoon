@@ -4,8 +4,8 @@ object f_photlun: Tf_photlun
   Top = 30
   Width = 950
   Caption = 'f_photlun'
-  ClientHeight = 210
-  ClientWidth = 320
+  ClientHeight = 540
+  ClientWidth = 950
   Color = 5263440
   Font.Color = clSilver
   Menu = MainMenu1
@@ -13,7 +13,7 @@ object f_photlun: Tf_photlun
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '2.2.6.0'
+  ShowHint = True
   object PageControl1: TPageControl
     Left = 0
     Height = 517
@@ -81,10 +81,10 @@ object f_photlun: Tf_photlun
     Width = 950
     Panels = <    
       item
-        Width = 50
+        Width = 250
       end    
       item
-        Width = 50
+        Width = 250
       end>
     ParentColor = False
     SimplePanel = False

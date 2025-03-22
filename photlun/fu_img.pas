@@ -5,7 +5,7 @@ unit fu_img;
 interface
 
 uses  BGRABitmap, BGRABitmapTypes, math,
-  Classes, SysUtils, Forms, Controls, ExtCtrls, Buttons;
+  Classes, SysUtils, Forms, Controls, ExtCtrls, Buttons, StdCtrls;
 
 type
 
@@ -25,6 +25,7 @@ type
 
   Tf_img = class(TFrame)
     ImageList1: TImageList;
+    Info: TLabel;
     PanelImg: TPanel;
     PanelBot: TPanel;
     PanelTop: TPanel;
