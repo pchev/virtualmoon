@@ -11,6 +11,7 @@ version=0.0
 [target]
 dirs=libsql \
      synapse \
+     bgrabitmap \
      uniqueinstance \
      downloaddialog \
      enhedits \
@@ -60,5 +61,5 @@ export LCL_PLATFORM
 outdir:
 	mkdir -p lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)
 
-all: outdir libsql_all synapse_all downloaddialog_all uniqueinstance_all enhedits_all glscene/Packages_all indiclient_all vmacomponents$(PPUEXT)
+all: outdir libsql_all synapse_all downloaddialog_all uniqueinstance_all bgrabitmap_all enhedits_all glscene/Packages_all indiclient_all vmacomponents$(PPUEXT)
 

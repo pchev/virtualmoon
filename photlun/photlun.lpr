@@ -3,22 +3,21 @@ program photlun;
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
+  {$IFDEF HASAMIGA}
+  athreads,
+  {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   InterfaceBase, LCLVersion, lclplatformdef, // version number
-  Forms, imagesforlazarus, printer4lazarus
-  { add your units here }, pu_photlun, pu_photo, u_translation,
-  pu_config, u_bitmap, u_util, u_constant, libsql;
-
- var i:integer;
+  Forms, printer4lazarus, pu_photlun, libsql, fu_img, pu_config, u_constant;
 
 {$R *.res}
 
 begin
+  RequireDerivedFormResource:=True;
   Application.Scaled:=True;
-  Application.Title:='';
   Application.Initialize;
   compile_time:={$I %DATE%}+' '+{$I %TIME%};
   compile_version:='Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+LCLPlatformDirNames[WidgetSet.LCLPlatform];
@@ -29,5 +28,6 @@ begin
     Application.Run;
   end
   else Application.Terminate;
+
 end.
 

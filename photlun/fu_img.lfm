@@ -1,0 +1,130 @@
+object f_img: Tf_img
+  Left = 0
+  Height = 340
+  Top = 0
+  Width = 396
+  ClientHeight = 340
+  ClientWidth = 396
+  OnResize = FrameResize
+  TabOrder = 0
+  DesignLeft = 369
+  DesignTop = 30
+  object PanelTop: TPanel
+    Left = 0
+    Height = 30
+    Top = 0
+    Width = 396
+    Align = alTop
+    ClientHeight = 30
+    ClientWidth = 396
+    TabOrder = 0
+    object BtnClose: TSpeedButton
+      AnchorSideTop.Control = PanelTop
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = PanelTop
+      AnchorSideRight.Side = asrBottom
+      Left = 364
+      Height = 22
+      Top = 4
+      Width = 23
+      Anchors = [akTop, akRight]
+      BorderSpacing.Right = 8
+      Caption = 'x'
+      OnClick = BtnCloseClick
+      ParentFont = False
+    end
+  end
+  object PanelBot: TPanel
+    Left = 0
+    Height = 30
+    Top = 310
+    Width = 396
+    Align = alBottom
+    ClientHeight = 30
+    ClientWidth = 396
+    TabOrder = 1
+    object BtnFlipH: TSpeedButton
+      AnchorSideTop.Control = PanelBot
+      AnchorSideTop.Side = asrCenter
+      Left = 31
+      Height = 22
+      Top = 4
+      Width = 23
+      AllowAllUp = True
+      GroupIndex = 1
+      Images = ImageList1
+      ImageIndex = 0
+      OnClick = BtnFlipHClick
+      ParentFont = False
+    end
+    object BtnFlipV: TSpeedButton
+      AnchorSideTop.Control = BtnFlipH
+      Left = 64
+      Height = 22
+      Top = 4
+      Width = 23
+      AllowAllUp = True
+      GroupIndex = 2
+      Images = ImageList1
+      ImageIndex = 1
+      OnClick = BtnFlipVClick
+      ShowCaption = False
+      ParentFont = False
+    end
+    object BtnDetach: TSpeedButton
+      AnchorSideTop.Control = BtnFlipH
+      Left = 104
+      Height = 22
+      Top = 4
+      Width = 23
+      Images = ImageList1
+      ImageIndex = 2
+      OnClick = BtnDetachClick
+      ParentFont = False
+    end
+  end
+  object PanelImg: TPanel
+    Left = 0
+    Height = 280
+    Top = 30
+    Width = 396
+    Align = alClient
+    TabOrder = 2
+  end
+  object PlotTimer: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = PlotTimerTimer
+    Left = 197
+    Top = 102
+  end
+  object ImageList1: TImageList
+    Left = 91
+    Top = 101
+    Bitmap = {
+      4C7A030000001000000010000000AC0200000000000078DAED965D68526118C7
+      75AD39224657B11641D75117359A63E49C3577E1E744F123F4AA75314C0563E0
+      E7D866A0E25D51A39B90988E144983FC28BDDB558C45C86203AFA4A86EA4A9E0
+      0AC4FE2F21C8E9E88EB6D5CD2EFEF0729EF777CE73DEE7FF3CE7341A0D56E388
+      94C964C6887AE5171717E788BA61767676581A8D864FE5E7E7E77988B13BB11B
+      1B1B2C954A25904AA51FA9BCC964CA227693EC69C767B3D9CB2291E805F81F34
+      FC7BC422D873858ECDE572176432D9AA5C2E9F00FF8586DF023F2E91485643A1
+      D075CA399F53ABD521B7DBCDB7D96C27B1E7330DBF89F8003489FBBF49A7D323
+      4D1E6BC2879D4E27DFEFF70F20874F74BCDD6EE7B85C2E1E783C323342C9FF22
+      AE3F999D9D25F9D3F2C88B4BF650F36F2A1289DC42FC39F49D867F4762D823AC
+      D7EBEC76F5D3E974D338C73C0DFFDA62B1088BC56247FF140A05B656AB9DA2E1
+      27B6B7B7D94C3CB8B7B7F7877FCBE5F23FEF9FFF2DE24BAA4F988AF8099E5C27
+      226BA61CF1007AEC12BCF2147E16C0EF3CD257F0CDCC41B5CFE7F32CF8572016
+      8BD7979797C74BA5D209A8CFE3F15CC3FD8256AB55D8698660EE08E0F15DECFD
+      8959F1CD60307C25226B5CAB409B7ABD7EB2E98FC39CB378CF3BD01C53A1E7C7
+      5A79F8F46E3702C33D6CBF901E83DE421F68B465369B5FA206DC4AA5D255FD56
+      56564699D4AF9D7FB066E49F5661C611CFA489C2E1F068BB997554FD73ACBF57
+      341A1DEA954D2693C30A85E215BEA7B77B6047E09B475EAF5782D9E5837F8D98
+      19A798B0B158EC3C9E1BF3F97CD3F8E6F4E31D86D10FDE858585FB07B1C160F0
+      2A9EFBCCE170DC68BD9E4AA50631C31EA01FEEA19F4ED3B1F1789CE4FC381008
+      CCECEFEFF7D1FC1B719087676969C958ABD5065A6389446248A95446D0B353D5
+      6AB5BF433DCEE23C1E1A8D462D35B6B6B67686E1D90EA2269C637FFFD62F74C5
+      FD97
+    }
+  end
+end

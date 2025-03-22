@@ -2,72 +2,45 @@
 <CONFIG>
   <ProjectOptions>
     <Version Value="12"/>
-    <PathDelim Value="\"/>
     <General>
-      <Flags>
-        <LRSInOutputDirectory Value="False"/>
-        <CompatibilityMode Value="True"/>
-      </Flags>
       <SessionStorage Value="InProjectDir"/>
+      <Title Value="photlun"/>
       <Scaled Value="True"/>
+      <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
         <DpiAware Value="True"/>
       </XPManifest>
       <Icon Value="0"/>
     </General>
-    <BuildModes Count="4">
-      <Item1 Name="default" Default="True"/>
-      <Item2 Name="linux32">
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+    </MacroValues>
+    <BuildModes>
+      <Item Name="Default" Default="True"/>
+      <Item Name="win32">
+        <MacroValues Count="1">
+          <Macro2 Name="LCLWidgetType" Value="win32"/>
+        </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
-          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="photlun"/>
+          </Target>
           <SearchPaths>
-            <OtherUnitFiles Value="..\virtualmoon"/>
-            <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../virtualmoon"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
-          <Parsing>
-            <SyntaxOptions>
-              <UseAnsiStrings Value="False"/>
-            </SyntaxOptions>
-          </Parsing>
-          <CodeGeneration>
-            <TargetCPU Value="i386"/>
-            <TargetOS Value="linux"/>
-            <Optimizations>
-              <OptimizationLevel Value="0"/>
-            </Optimizations>
-          </CodeGeneration>
-          <Linking>
-            <Options>
-              <Win32>
-                <GraphicApplication Value="True"/>
-              </Win32>
-            </Options>
-          </Linking>
-        </CompilerOptions>
-      </Item2>
-      <Item3 Name="win32">
-        <CompilerOptions>
-          <Version Value="11"/>
-          <PathDelim Value="\"/>
-          <SearchPaths>
-            <OtherUnitFiles Value="..\virtualmoon"/>
-            <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
-          </SearchPaths>
-          <Parsing>
-            <SyntaxOptions>
-              <UseAnsiStrings Value="False"/>
-            </SyntaxOptions>
-          </Parsing>
           <CodeGeneration>
             <TargetCPU Value="i386"/>
             <TargetOS Value="win32"/>
-            <Optimizations>
-              <OptimizationLevel Value="0"/>
-            </Optimizations>
           </CodeGeneration>
           <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2Set"/>
+              <UseHeaptrc Value="True"/>
+            </Debugging>
             <Options>
               <Win32>
                 <GraphicApplication Value="True"/>
@@ -75,136 +48,77 @@
             </Options>
           </Linking>
         </CompilerOptions>
-      </Item3>
-      <Item4 Name="win64">
-        <CompilerOptions>
-          <Version Value="11"/>
-          <PathDelim Value="\"/>
-          <SearchPaths>
-            <OtherUnitFiles Value="..\virtualmoon"/>
-            <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
-          </SearchPaths>
-          <Parsing>
-            <SyntaxOptions>
-              <UseAnsiStrings Value="False"/>
-            </SyntaxOptions>
-          </Parsing>
-          <CodeGeneration>
-            <TargetCPU Value="x86_64"/>
-            <TargetOS Value="win64"/>
-            <Optimizations>
-              <OptimizationLevel Value="0"/>
-            </Optimizations>
-          </CodeGeneration>
-          <Linking>
-            <Options>
-              <Win32>
-                <GraphicApplication Value="True"/>
-              </Win32>
-            </Options>
-          </Linking>
-        </CompilerOptions>
-      </Item4>
+      </Item>
+      <SharedMatrixOptions Count="2">
+        <Item1 ID="767849857868" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item2 ID="868112782873" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
+      <UseFileFilters Value="True"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="\usr\bin"/>
-      </local>
       <FormatVersion Value="2"/>
-      <Modes Count="1">
-        <Mode0 Name="default">
-          <local>
-            <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-            <WorkingDirectory Value="\usr\bin"/>
-          </local>
-        </Mode0>
-      </Modes>
     </RunParams>
-    <RequiredPackages Count="5">
-      <Item1>
-        <PackageName Value="Printer4Lazarus"/>
-      </Item1>
-      <Item2>
-        <PackageName Value="libsql"/>
-      </Item2>
-      <Item3>
+    <RequiredPackages>
+      <Item>
         <PackageName Value="uniqueinstance_package"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="ImagesForLazarus"/>
-      </Item4>
-      <Item5>
+      </Item>
+      <Item>
+        <PackageName Value="BGRABitmapPack"/>
+      </Item>
+      <Item>
+        <PackageName Value="Printer4Lazarus"/>
+      </Item>
+      <Item>
+        <PackageName Value="libsql"/>
+      </Item>
+      <Item>
         <PackageName Value="LCL"/>
-      </Item5>
+      </Item>
     </RequiredPackages>
-    <Units Count="8">
-      <Unit0>
+    <Units>
+      <Unit>
         <Filename Value="photlun.lpr"/>
         <IsPartOfProject Value="True"/>
-      </Unit0>
-      <Unit1>
+      </Unit>
+      <Unit>
         <Filename Value="pu_photlun.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_photlun"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="pu_photo.pas"/>
+      </Unit>
+      <Unit>
+        <Filename Value="fu_img.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="f_photo"/>
+        <ComponentName Value="f_img"/>
         <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="u_translation.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit3>
-      <Unit4>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit>
+      <Unit>
         <Filename Value="pu_config.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="f_config"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="u_bitmap.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="..\virtualmoon\u_constant.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="..\virtualmoon\u_util.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit7>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
-    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="photlun"/>
+    </Target>
     <SearchPaths>
-      <OtherUnitFiles Value="..\virtualmoon"/>
-      <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../virtualmoon"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <Parsing>
-      <SyntaxOptions>
-        <UseAnsiStrings Value="False"/>
-      </SyntaxOptions>
-    </Parsing>
-    <CodeGeneration>
-      <Optimizations>
-        <OptimizationLevel Value="0"/>
-      </Optimizations>
-    </CodeGeneration>
     <Linking>
       <Debugging>
-        <DebugInfoType Value="dsDwarf2"/>
+        <DebugInfoType Value="dsDwarf2Set"/>
         <UseHeaptrc Value="True"/>
       </Debugging>
       <Options>
@@ -214,4 +128,17 @@
       </Options>
     </Linking>
   </CompilerOptions>
+  <Debugging>
+    <Exceptions>
+      <Item>
+        <Name Value="EAbort"/>
+      </Item>
+      <Item>
+        <Name Value="ECodetoolError"/>
+      </Item>
+      <Item>
+        <Name Value="EFOpenError"/>
+      </Item>
+    </Exceptions>
+  </Debugging>
 </CONFIG>

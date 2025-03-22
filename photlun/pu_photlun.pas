@@ -1,390 +1,251 @@
 unit pu_photlun;
-{
-Copyright (C) 2007 Patrick Chevalley
-
-http://www.ap-i.net
-pch@ap-i.net
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-}
-{
-  Main PhotLun window (vignettes)
-}
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-{$ifdef mswindows}
-  Windows, ShlObj,
-{$endif}
-{$ifdef unix}
+  {$ifdef mswindows}
+    Windows, ShlObj,
+  {$endif}
+  {$ifdef unix}
     unix,
-{$endif}
+  {$endif}
   u_translation,
-  pu_photo, pu_config, u_bitmap, u_util, u_constant,
-  FPReadJPEG, Math, Inifiles, FileUtil, LazUTF8,
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
-  ExtCtrls, StdCtrls, ComCtrls, Spin, UniqueInstance;
-
-const maxvignette = 25;
-      maxphotowindow=9;
-      vignwidth = 160;
-      vignheight = 120;
+  BGRABitmap, BGRABitmapTypes, LazUTF8, UniqueInstance, math,
+  fu_img, pu_config, u_util, u_constant, LazFileUtils, IniFiles,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, Menus;
 
 type
 
-  Tvignette_info = record
-                   autorot: boolean;
-                   imgfile,vignettefile: string;
-                   end;
+  TVignette = class(TPanel)
+    img: TImage;
+    lbl: TPanel;
+  private
+    FonClick: TNotifyEvent;
+    procedure imgclick(sender: TObject);
+  public
+    imgpath: string;
+    constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
+    property onClick: TNotifyEvent read FonClick write FonClick;
+  end;
 
   { Tf_photlun }
 
   Tf_photlun = class(TForm)
-    MainMenu1: TMainMenu;
-    File1: TMenuItem;
     Biblio1: TMenuItem;
-    MenuItem1: TMenuItem;
-    MenuClose: TMenuItem;
-    MenuItem10: TMenuItem;
-    MenuItem11: TMenuItem;
-    MenuItem12: TMenuItem;
+    Carte: TMenuItem;
+    Database: TMenuItem;
+    File1: TMenuItem;
     help1: TMenuItem;
-    PanelLabel: TPanel;
-    UniqueInstance1: TUniqueInstance;
-    View1: TMenuItem;
+    MainMenu1: TMainMenu;
+    MenuClose: TMenuItem;
+    MenuConfig: TMenuItem;
+    MenuItem1: TMenuItem;
     MenuItem14: TMenuItem;
     MenuItem15: TMenuItem;
-    MenuItem16: TMenuItem;
-    MenuConfig: TMenuItem;
-    Database: TMenuItem;
-    Carte: TMenuItem;
-    MenuItem18: TMenuItem;
-    MenuItem19: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItem20: TMenuItem;
-    MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
-    MenuItem5: TMenuItem;
-    MenuItem6: TMenuItem;
-    MenuItem7: TMenuItem;
-    MenuItem8: TMenuItem;
-    MenuItem9: TMenuItem;
+    PageControl1: TPageControl;
     PanelVignette: TPanel;
-    PanelTop: TPanel;
-    ScrollBar1: TScrollBar;
+    Panel3: TPanel;
+    ScrollBox1: TScrollBox;
     StatusBar1: TStatusBar;
-    SetSizeTimer1: TTimer;
-    procedure FormResize(Sender: TObject);
-    procedure MenuConfigClick(Sender: TObject);
-    procedure MenuItem11Click(Sender: TObject);
-    procedure MenuItem14Click(Sender: TObject);
-    procedure MenuItem15Click(Sender: TObject);
-    procedure MenuItem18Click(Sender: TObject);
-    procedure MenuItem19Click(Sender: TObject);
-    procedure MenuItem20Click(Sender: TObject);
-    procedure MenuItem9Click(Sender: TObject);
-    procedure BtnLeftClick(Sender: TObject);
-    procedure BtnRightClick(Sender: TObject);
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    UniqueInstance1: TUniqueInstance;
+    View1: TMenuItem;
     procedure CarteClick(Sender: TObject);
     procedure DatabaseClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure MenuItem1Click(Sender: TObject);
+    procedure ImageClose(Sender: TObject);
+    procedure ImageFormClose(Sender: TObject);
+    procedure ImageDetach(Sender: TObject);
     procedure MenuCloseClick(Sender: TObject);
-    procedure MenuItem4Click(Sender: TObject);
-    procedure MenuItem5Click(Sender: TObject);
-    procedure MenuItem6Click(Sender: TObject);
-    procedure MenuItem8Click(Sender: TObject);
-    procedure PanelVignetteClick(Sender: TObject);
-    procedure PanelVignetteResize(Sender: TObject);
-    procedure ScrollBar1Change(Sender: TObject);
-    procedure SetSizeTimer1Timer(Sender: TObject);
+    procedure MenuConfigClick(Sender: TObject);
+    procedure MenuItem14Click(Sender: TObject);
+    procedure MenuItem15Click(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
+    procedure ScrollBox1Resize(Sender: TObject);
     procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
-    procedure VignetteClick(Sender: TObject);
   private
-    { private declarations }
-
-    SelectedObject, pofile : string;
-    maxphoto,curphoto,photow,photoh,maxheight: integer;
-    vignettenum, currentvignette, vignetteleft, vignetteright,maximgdir: integer;
-    VignetteHeight, Nhphoto: integer;
-    imglist: TStringList;
-    SortByName, autoflipx, autoflipy: Boolean;
-    vignette : array [0..maxvignette] of TImage;
-    vignette_info : array [0..maxvignette] of Tvignette_info;
-    imglabel : array [0..maxvignette] of TLabel;
-    photo : array [0..maxphotowindow] of TF_photo;
+    imgnum, maximgdir: integer;
     imgdir : array of array[0..3] of string;
-    FileAgeLimit : Longint;
-    StartVMA,CanCloseVMA, StartDatlun, CanCloseDatlun, lockresize: boolean;
+    imglist: TStringList;
+    SelectedObject,pofile: string;
+    StartVMA,CanCloseVMA, StartDatlun, CanCloseDatlun: boolean;
+    SortByName, autoflipx, autoflipy: Boolean;
     procedure SetLang;
-    Procedure ReadParam(first:boolean=true);
+    procedure GetAppDir;
     procedure ReadConfig;
     procedure SaveConfig;
-    procedure PhotoSaveParam(Sender: TObject);
     Procedure SetBiblioMenu;
     procedure BiblioClick(Sender: TObject);
     procedure AllBiblioClick(Sender: TObject);
-    Procedure AddImagesDir(dir,nom,cpy,autorot:string);
-    Function GetImgCpy(dir,nom:string):string;
     Procedure InitImagesDir;
-    function GetAutorot(fn:string):string;
+    Procedure AddImagesDir(dir,nom,cpy:string);
+    Function GetImgCpy(dir,nom:string):string;
+    procedure ClearVignette;
+    procedure CreateVignette(fn: string);
+    procedure VignetteClick(Sender: TObject);
+    Procedure ReadParam(first:boolean=true);
     procedure ListImgDir(dir: string; filter:string='*');
-    function GetObjectFromPhoto(p:string): string;
-    procedure ClearVignettes;
-    procedure RefreshVignettes(first:integer);
-    procedure ReloadVignettes;
-    procedure CreateVignette(orig,vign: string);
-    procedure doCreateVignette(bmp:TBitmap; vign: string);
-    procedure loadvignette(num:integer; fn:string);
-    Procedure SetVignetteSize(h:integer);
-    procedure GetAppDir;
     procedure SelectObject(nom: string);
+    procedure RefreshVignettes;
+    function GetObjectFromPhoto(p:string): string;
     procedure OpenVMA(objname,otherparam:string);
     procedure OpenDatlun(objname,otherparam:string);
   public
-    { public declarations }
     param : Tstringlist;
-  end; 
+
+  end;
 
 var
   f_photlun: Tf_photlun;
 
 implementation
 
-{$R pu_photlun.lfm}
-
 const
-  ExitProMsg='Virtual_Moon_Atlas_Pro_exit';
+  VignetteWidth=300;
+  VignetteHeight=220;
+
+{$R *.lfm}
 
 { Tf_photlun }
 
-Function Slash(nom : string) : string;
-begin
-result:=trim(nom);
-if copy(result,length(nom),1)<>PathDelim then result:=result+PathDelim;
-end;
-
-Function NoSlash(nom : string) : string;
-begin
-result:=trim(nom);
-if copy(result,length(nom),1)=PathDelim then result:=copy(result,1,length(nom)-1);
-end;
-
-Procedure FormPos(form : Tform; x,y : integer);
-const bot=40; //minimal distance from screen bottom
-begin
-with Form do begin
-  left:=x;
-  if left+width>Screen.Width then left:=Screen.Width-width;
-  if left<0 then left:=0;
-  top:=y;
-  if top+height>(Screen.height-bot) then top:=Screen.height-height-bot;
-  if top<0 then top:=0;
-end;
-end;
-
-Function Exec(cmd: string; hide: boolean=true): integer;
-{$ifdef unix}
-begin
- result:=fpSystem(cmd);
-end;
-{$endif}
-{$ifdef mswindows}
-var
-   bchExec: array[0..1024] of char;
-   pchEXEC: Pchar;
-   si: TStartupInfo;
-   pi: TProcessInformation;
-   res:cardinal;
-begin
-   pchExec := @bchExec;
-   StrPCopy(pchExec,cmd);
-   FillChar(si,sizeof(si),0);
-   FillChar(pi,sizeof(pi),0);
-   si.dwFlags:=STARTF_USESHOWWINDOW;
-   if hide then si.wShowWindow:=SW_SHOWMINIMIZED
-           else si.wShowWindow:=SW_SHOWNORMAL;
-   si.cb := sizeof(si);
-   try
-      if CreateProcess(Nil,pchExec,Nil,Nil,false,CREATE_NEW_CONSOLE or NORMAL_PRIORITY_CLASS,
-                       Nil,Nil,si,pi) = True then
-         begin
-           WaitForSingleObject(pi.hProcess,INFINITE);
-           GetExitCodeProcess(pi.hProcess,Res);
-           result:=res;
-         end
-         else
-           Result := GetLastError;
-    except;
-       Result := GetLastError;
-    end;
-end;
-{$endif}
-
-
-procedure Tf_photlun.CreateVignette(orig,vign: string);
-var vbmp1:Tbitmap;
-    jpeg:TJPEGImage;
-begin
-try
- jpeg:=TJPEGImage.Create;
- vbmp1:=TBitmap.Create;
- jpeg.Performance:=jpBestSpeed;
- try
-   jpeg.LoadFromFile(systoutf8(orig));
- except
-   exit;
- end;
- vbmp1.Assign(jpeg);
- doCreateVignette(vbmp1,vign);
-finally
- jpeg.Free;
- vbmp1.Free;
-end;
-end;
-
-procedure Tf_photlun.doCreateVignette(bmp:TBitmap; vign: string);
-var vh,vw: integer;
-    rs,rv,zoom: double;
-    vbmp1,vbmp2:Tbitmap;
-    jpeg:TJPEGImage;
-begin
-jpeg:=TJPEGImage.Create;
-vbmp2:=TBitmap.Create;
-try
- rs:=bmp.Width/bmp.Height;
- rv:=vignwidth/vignheight;
- if rs>rv then begin
-    zoom:=vignwidth/bmp.Width;
- end else begin
-    zoom:=vignheight/bmp.Height;
- end;
- BitmapResize(bmp,vbmp2,zoom);
- jpeg.Assign(vbmp2);
- jpeg.CompressionQuality:=50;
- jpeg.SaveToFile(systoutf8(vign));
-finally
- jpeg.Free;
- vbmp2.Free;
-end;
-end;
-
-procedure Tf_photlun.loadvignette(num:integer; fn:string);
-var
-  jpeg:TJPEGImage;
-  fp,vfp,vfn,libr,nom,autor: string;
-  i: integer;
-begin
-  fp:=noslash(ExtractFilePath(fn));
-  vfp:=vignettedir+ExtractFileName(fp);
-  if not DirectoryExists(vfp) then ForceDirectories(vfp);
-  vfn:=slash(vfp)+ExtractFileName(fn);
-  jpeg:=TJPEGImage.Create;
-  try
-  if (not FileExists(vfn)) or (FileAge(vfn)<FileAge(fn)) then CreateVignette(fn,vfn);
-  if (FileExists(vfn)) then begin
-    jpeg.LoadFromFile(systoutf8(vfn));
-    vignette[num].Picture.Bitmap.Assign(jpeg);
-    libr:=noslash(ExtractFilePath(fn));
-    for i:=0 to maximgdir-1 do begin
-       if noslash(imgdir[i,0])=libr then begin
-          libr:=imgdir[i,2];
-          autor:=imgdir[i,3];
-          break;
-       end;
-    end;
-    nom:=ChangeFileExt(ExtractFileName(fn),'');
-    vignette[num].Hint:=libr+'  '+nom+', '+imgdir[i,1];
-    vignette_info[num].autorot:=(autor='1');
-    vignette_info[num].imgfile:=fn;
-    vignette_info[num].vignettefile:=vfn;
-    if PanelVignette.Height>100 then begin
-       imglabel[num].Width:=PanelVignette.Height;
-       imglabel[num].Caption:=nom;
-       imglabel[num].Hint:=vignette[num].Hint;
-    end;
-  end;
-  finally
-  jpeg.Free;
-  end;
-end;
-
-procedure Tf_photlun.ListImgDir(dir: string; filter:string='*');
-var f: TSearchRec;
-    r: integer;
-begin
-try
-  dir:=slash(dir);
-  filter:=uppercase(filter);
-  r:=FindFirst(dir+'*.*',0,f);
-  while (r=0) do begin
-    if (uppercase(ExtractFileExt(f.Name))='.JPG')
-       and (  ( filter='*' )
-           or (pos(filter,uppercase(f.Name))=1) )
-       then imglist.Add(dir+f.Name);
-    r:=findnext(f);
-  end;
-finally
-  FindClose(f);
-end;
-end;
-
-procedure Tf_photlun.RefreshVignettes(first:integer);
-var i,n: integer;
-begin
-  if imglist.count=0 then exit;
-  if first>(imglist.count-vignettenum) then first:=(imglist.count-vignettenum);
-  if first<0 then first:=0;
-  if first<>vignetteleft then begin
-    vignetteleft:=first;
-    n:=min(vignettenum-1,imglist.Count-1);
-    SelectedObject:=GetObjectFromPhoto(imglist[vignetteleft]);
-    for i:=0 to n do begin
-      vignetteright:=first+i;
-      loadvignette(i,imglist[vignetteright]);
-    end;
-    ScrollBar1.Position:=vignetteleft;
-  end;
-end;
-
-procedure Tf_photlun.ReloadVignettes;
-var i:integer;
-begin
-i:=vignetteleft;
-vignetteleft:=-1;
-RefreshVignettes(i);
-end;
-
-procedure Tf_photlun.ClearVignettes;
+procedure Tf_photlun.FormCreate(Sender: TObject);
 var i: integer;
 begin
-  for i:=0 to vignettenum do begin
-    vignette[i].Picture.Clear;
-    vignette[i].Hint:='';
-    imglabel[i].Caption:='';
-    imglabel[i].Hint:='';
+  DefaultFormatSettings.DecimalSeparator := '.';
+  DefaultFormatSettings.ThousandSeparator:=' ';
+  GetAppDir;
+  chdir(appdir);
+  ReadConfig;
+  language:=u_translation.translate(pofile,'en');
+  SelectedObject:='';
+  SortByName:=true;
+  param:=Tstringlist.Create;
+  param.clear;
+  if paramcount>0 then begin
+   for i:=1 to paramcount do begin
+      param.Add(paramstr(i));
+   end;
   end;
+  StartVMA:=false;
+  StartDatlun:=false;
+  CanCloseVMA:=true;
+  CanCloseDatlun:=true;
+  imglist:=TStringList.Create;
+
+  imgnum:=0;
+
 end;
 
-Procedure Tf_photlun.AddImagesDir(dir,nom,cpy,autorot:string);
+procedure Tf_photlun.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+SaveConfig;
+if CanCloseVMA and StartVMA then OpenVMA('','-quit');
+if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
+end;
+
+procedure Tf_photlun.DatabaseClick(Sender: TObject);
+begin
+  OpenDatlun(SelectedObject,'');
+end;
+
+procedure Tf_photlun.CarteClick(Sender: TObject);
+begin
+  OpenVMA(SelectedObject,'');
+end;
+
+procedure Tf_photlun.FormDestroy(Sender: TObject);
+begin
+imglist.Free;
+param.Free;
+end;
+
+procedure Tf_photlun.FormShow(Sender: TObject);
+begin
+  SetLang;
+  PageControl1.ActivePageIndex:=0;
+  ReadParam;
+  SetBiblioMenu;
+  if imglist.Count=0 then AllBiblioClick(Sender);
+  Application.BringToFront;
+end;
+
+procedure Tf_photlun.SetLang;
+begin
+File1.Caption:=rsFile;
+Biblio1.Caption:=rsLibrary;
+MenuItem1.Caption:=rsSearch;
+MenuClose.Caption:=rsQuit;
+View1.Caption:=rsView;
+Database.Caption:=rsDatabase;
+Carte.Caption:=rsShowOnMap;
+u_util.hp:=rshelp_prefix;
+help1.Caption:=rsHelp;
+MenuItem14.Caption:=rsHelp;
+MenuItem15.Caption:=rsAbout;
+MenuConfig.Caption:=rsLibrarySetti;
+end;
+
+procedure Tf_photlun.ReadConfig;
+var inif: TMemIniFile;
+    section,fn,fd,cpy: string;
+    i,n: integer;
+begin
+inif:=TMeminifile.create(configfile);
+try
+with inif do begin
+section:='default';
+pofile:=ReadString(section,'lang_po_file','');
+section:='photlun';
+section:='images';
+n:=ReadInteger(section,'NumDir',0);
+if n=0 then
+  InitImagesDir
+else begin
+  maximgdir:=0;
+  setlength(imgdir,0);
+  for i:=1 to n do begin
+    fd:=noslash(ReadString(section,'dir'+inttostr(i),''));
+    fn:=ReadString(section,'name'+inttostr(i),'');
+    cpy:=GetImgCpy(fd,fn);
+    AddImagesDir(slash(fd), fn, cpy);
+  end;
+  InitImagesDir
+end;
+end;
+finally
+inif.free;
+end;
+end;
+
+procedure Tf_photlun.SaveConfig;
+var inif: TMemIniFile;
+    section: string;
+    i: integer;
+begin
+inif:=TMeminifile.create(configfile);
+try
+with inif do begin
+section:='images';
+WriteInteger(section,'NumDir',maximgdir);
+for i:=1 to maximgdir do begin
+  WriteString(section,'name'+inttostr(i),imgdir[i-1,2]);
+  WriteString(section,'dir'+inttostr(i),noslash(imgdir[i-1,0]));
+end;
+UpdateFile;
+end;
+finally
+inif.free;
+end;
+end;
+
+Procedure Tf_photlun.AddImagesDir(dir,nom,cpy:string);
 var i:integer;
     ok:boolean;
 begin
@@ -396,7 +257,7 @@ if ok then begin
   imgdir[maximgdir-1,0]:=noslash(dir);
   imgdir[maximgdir-1,1]:=cpy;
   imgdir[maximgdir-1,2]:=nom;
-  imgdir[maximgdir-1,3]:=autorot;
+  imgdir[maximgdir-1,3]:='0';
 end;
 end;
 
@@ -413,18 +274,6 @@ else if fileexists(slash(dir)+'copyright.txt') then begin
   readln(f,result);
   closefile(f);
 end;
-end;
-
-function Tf_photlun.GetAutorot(fn:string):string;
-begin
-result:='0';
-if (fn='LOPAM') or
-   (fn='My Images') or
-   (fn='Clementine') or
-   (fn='LunaStars') or
-   (fn='CLA') or
-   (fn='LAC_LM')
-   then result:='1';
 end;
 
 Procedure Tf_photlun.InitImagesDir;
@@ -445,49 +294,58 @@ if maximgdir=0 then begin
    imgdir[2,2]:='My Images';
    imgdir[2,3]:='1';
 end;
-AddImagesDir(slash(appdir)+'Clementine','Clementine','','1');
-AddImagesDir(slash(appdir)+'Probes','Probes','','0');
-AddImagesDir(slash(appdir)+'LunaStars','LunaStars','','1');
-AddImagesDir(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association','1');
-AddImagesDir(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005','1');
-AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov','0');
-AddImagesDir(slash(appdir)+'LunarPits','Lunar Pits','Wagner, Robinson, and the LROC Team','0');
-AddImagesDir(slash(appdir)+'Smart-1','Smart-1','European Space Agency (ESA)','0');
-AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','','0');
-AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','','0');
-AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','','0');
-AddImagesDir(slash(appdir)+'Kaguya','Kaguya','provided by JAXA/SELENE','0');
-AddImagesDir(slash(appdir)+'Best_Pic_du_Midi','Best of Pic du Midi Observatory','JL Dauvergne, P. Tosi, E. Rousset, F. Colas, IMCCE, S2P , OMP','0');
-AddImagesDir(slash(appdir)+'Best_of_Peach','Best of Damian Peach','Damian Peach','0');
-AddImagesDir(slash(appdir)+'BestOfCathala','Best of Cathala','Luc Cathala','0');
-AddImagesDir(slash(appdir)+'BestOfBrahic','Best of Jean Pierre Brahic','Jean Pierre Brahic','0');
-AddImagesDir(slash(appdir)+'BestOfViladrich','Best of Christian Viladrich','Christian Viladrich','0');
+AddImagesDir(slash(appdir)+'Clementine','Clementine','');
+AddImagesDir(slash(appdir)+'Probes','Probes','');
+AddImagesDir(slash(appdir)+'LunaStars','LunaStars','');
+AddImagesDir(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association');
+AddImagesDir(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005');
+AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov');
+AddImagesDir(slash(appdir)+'LunarPits','Lunar Pits','Wagner, Robinson, and the LROC Team');
+AddImagesDir(slash(appdir)+'Smart-1','Smart-1','European Space Agency (ESA)');
+AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','');
+AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','');
+AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','');
+AddImagesDir(slash(appdir)+'Kaguya','Kaguya','provided by JAXA/SELENE');
+AddImagesDir(slash(appdir)+'Best_Pic_du_Midi','Best of Pic du Midi Observatory','JL Dauvergne, P. Tosi, E. Rousset, F. Colas, IMCCE, S2P , OMP');
+AddImagesDir(slash(appdir)+'Best_of_Peach','Best of Damian Peach','Damian Peach');
+AddImagesDir(slash(appdir)+'BestOfCathala','Best of Cathala','Luc Cathala');
+AddImagesDir(slash(appdir)+'BestOfBrahic','Best of Jean Pierre Brahic','Jean Pierre Brahic');
+AddImagesDir(slash(appdir)+'BestOfViladrich','Best of Christian Viladrich','Christian Viladrich');
 end;
 
-procedure Tf_photlun.MenuConfigClick(Sender: TObject);
-var i,j: integer;
-    cpy,autorot: string;
+Procedure Tf_photlun.ReadParam(first:boolean=true);
+var i : integer;
 begin
-f_config.StringGrid1.RowCount:=maximgdir+10;
-for i:=1 to maximgdir do begin
-  f_config.StringGrid1.Cells[0,i]:=imgdir[i-1,3];
-  f_config.StringGrid1.Cells[1,i]:=imgdir[i-1,2];
-  f_config.StringGrid1.Cells[2,i]:=noslash(imgdir[i-1,0]);
-end;
-FormPos(f_config,mouse.cursorpos.x,mouse.cursorpos.y);
-f_config.showmodal;
-if f_config.ModalResult=mrOK then begin
-   maximgdir:=0;
-   setlength(imgdir,maximgdir);
-   for i:=1 to f_config.StringGrid1.RowCount-1 do
-     if trim(f_config.StringGrid1.Cells[1,i])>'' then begin
-       cpy:=GetImgCpy(f_config.StringGrid1.Cells[2,i], f_config.StringGrid1.Cells[1,i]);
-       autorot:=f_config.StringGrid1.Cells[0,i];
-       if autorot<>'1' then autorot:='0';
-       AddImagesDir(noslash(f_config.StringGrid1.Cells[2,i]), f_config.StringGrid1.Cells[1,i], cpy, autorot);
-       inc(j);
-   end;
-   SetBiblioMenu;
+i:=0;
+while i <= param.count-1 do begin
+  if (param[i]='-nx')and first then begin       // when started by vma do not close vma on exit!
+     CanCloseVMA:=false;
+  end
+  else if (param[i]='-nd')and first then begin  // when started by datlun do not close datlun on exit!
+     CanCloseDatlun:=false;
+  end
+  else if param[i]='-n' then begin
+     inc(i);
+     if i <= param.count-1 then
+        SelectObject(param[i]);
+  end
+  else if param[i]='-fx' then begin
+     inc(i);
+     if i <= param.count-1 then
+        autoflipx:=(param[i]='1');
+  end
+  else if param[i]='-fy' then begin
+     inc(i);
+     if i <= param.count-1 then
+        autoflipy:=(param[i]='1');
+  end
+  else if param[i]='-quit' then begin  // close current instance
+     Close;
+  end
+  else if param[i]='--' then begin   // last parameter
+       break;
+  end;
+  inc(i);
 end;
 end;
 
@@ -525,11 +383,7 @@ begin
   StatusBar1.Panels[0].Text:=imgdir[i,2];
   if SortByName then imglist.CustomSort(@ComparePhotoName)
      else imglist.Sort;
-  ScrollBar1.min:=0;
-  ScrollBar1.max:=max(0,imglist.count);
-  ClearVignettes;
-  vignetteleft:=-1;
-  RefreshVignettes(0);
+  RefreshVignettes;
 end;
 
 procedure Tf_photlun.AllBiblioClick(Sender: TObject);
@@ -542,12 +396,43 @@ begin
   StatusBar1.Panels[0].Text:=rsAllLibraries;
   if SortByName then imglist.CustomSort(@ComparePhotoName)
      else imglist.Sort;
-  ScrollBar1.min:=0;
-  ScrollBar1.max:=max(0,imglist.count);
-  vignetteleft:=-1;
-  RefreshVignettes(0);
+  RefreshVignettes;
 end;
 
+procedure Tf_photlun.ClearVignette;
+var i: integer;
+begin
+  for i:=PanelVignette.ControlCount-1 downto 0 do begin
+    if PanelVignette.Controls[i] is TVignette then
+      TVignette(PanelVignette.Controls[i]).Free;
+  end;
+end;
+
+procedure Tf_photlun.CreateVignette(fn: string);
+var v: TVignette;
+    bmp: TBGRABitmap;
+    r1,r2: double;
+    w,h: integer;
+begin
+  v:=TVignette.Create(self);
+  v.onClick:=@VignetteClick;
+  v.Parent:=PanelVignette;
+  v.lbl.Caption:=ExtractFileNameOnly(fn);
+  v.imgpath:=fn;
+  v.img.Stretch:=false;
+  bmp:=TBGRABitmap.Create(v.imgpath);
+  r1:=bmp.Width/bmp.Height;
+  w:=v.Width;
+  h:=v.height;
+  r2:=w/h;
+  if r1>r2 then
+    h:=max(1,trunc(w/r1))
+  else
+    w:=max(1,trunc(h*r1));
+  BGRAReplace(bmp, bmp.Resample(w,h,rmSimpleStretch));
+  v.img.Picture.Assign(bmp);
+  bmp.Free;
+end;
 
 procedure Tf_photlun.MenuItem1Click(Sender: TObject);
 var n: String;
@@ -579,50 +464,98 @@ if (imglist.Count=0)and(nom2>'') then begin
 end;
   StatusBar1.Panels[0].Text:=rsSelection+' : '+nom;
   imglist.Sort;
-  ScrollBar1.min:=0;
-  ScrollBar1.max:=max(0,imglist.count);
-  ClearVignettes;
-  vignetteleft:=-1;
-  RefreshVignettes(0);
+  RefreshVignettes;
 end;
 
-Procedure Tf_photlun.SetVignetteSize(h:integer);
-var mh,nh,mw: TConstraintSize;
+procedure Tf_photlun.RefreshVignettes;
+var i,n: integer;
 begin
-VignetteHeight:=h;
-SetSizeTimer1.Enabled:=true;
+  ClearVignette;
+  if imglist.count=0 then exit;
+  n:=min(100,imglist.Count-1);
+  SelectedObject:=GetObjectFromPhoto(imglist[0]);
+  for i:=0 to n do begin
+    CreateVignette(imglist[i]);
+  end;
 end;
 
-procedure Tf_photlun.SetSizeTimer1Timer(Sender: TObject);
+procedure Tf_photlun.ListImgDir(dir: string; filter:string='*');
+var f: TSearchRec;
+    r: integer;
+begin
+try
+  dir:=slash(dir);
+  filter:=uppercase(filter);
+  r:=FindFirst(dir+'*.*',0,f);
+  while (r=0) do begin
+    if (uppercase(ExtractFileExt(f.Name))='.JPG')
+       and (  ( filter='*' )
+           or (pos(filter,uppercase(f.Name))=1) )
+       then imglist.Add(dir+f.Name);
+    r:=findnext(f);
+  end;
+finally
+  FindClose(f);
+end;
+end;
+
+function Tf_photlun.GetObjectFromPhoto(p:string): string;
 var i: integer;
 begin
-SetSizeTimer1.Enabled:=false;
-lockresize:=true;
- PanelVignette.Height:=VignetteHeight;
- if VignetteHeight<100 then begin
-   PanelLabel.Visible:=false;
-   ClientHeight:=VignetteHeight+ScrollBar1.Height+4+StatusBar1.Height+20;
- end
- else begin
-   PanelLabel.Visible:=true;
-   ClientHeight:=VignetteHeight+PanelLabel.Height+ScrollBar1.Height+4+StatusBar1.Height+20;
- end;
- for i:=0 to vignettenum-1 do begin
-    imglabel[i].Left:=vignette[i].Left;
-    imglabel[i].Width:=VignetteHeight;
- end;
- maxheight:=Height;
-lockresize:=false;
+p:=ExtractFileName(p);
+i:=pos('_',p);
+if i>0 then delete(p,i,999);
+i:=pos('.',p);
+if i>0 then delete(p,i,999);
+result:=p;
 end;
 
-procedure Tf_photlun.FormResize(Sender: TObject);
+procedure Tf_photlun.ScrollBox1Resize(Sender: TObject);
 begin
-if not lockresize then begin
-   lockresize:=true;
-   if Height<>maxheight then Height:=maxheight;
-   if Width<photow then Width:=photow;
+  PanelVignette.ChildSizing.ControlsPerLine:=ScrollBox1.Width div VignetteWidth;
 end;
-Nhphoto:=max(1,width div photow);
+
+procedure Tf_photlun.UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
+var i: integer;
+begin
+  application.Restore;
+  application.BringToFront;
+  if ParamCount > 0 then begin
+     param.Clear;
+     for i:=0 to ParamCount-1 do begin
+        param.add(Parameters[i]);
+     end;
+     ReadParam(false);
+  end;
+end;
+
+procedure Tf_photlun.VignetteClick(Sender: TObject);
+var img: Tf_img;
+begin
+  inc(imgnum);
+  img:=Tf_img.Create(self);
+  img.Name:='f_img'+inttostr(imgnum);
+  img.Parent:=panel3;
+  img.Align:=alClient;
+  img.image:=TVignette(Sender).imgpath;
+  img.onClose:=@ImageClose;
+  img.onDetach:=@ImageDetach;
+  PageControl1.ActivePageIndex:=1;
+end;
+
+procedure Tf_photlun.ImageDetach(Sender: TObject);
+var f: TForm;
+begin
+  f:=TForm.Create(self);
+  f.Width:=800;
+  f.Height:=600;
+  Tf_img(Sender).Parent:=f;
+  Tf_img(Sender).onClose:=@ImageFormClose;
+  Tf_img(Sender).BtnDetach.Visible:=False;
+  Tf_img(Sender).PanelTop.Visible:=False;
+  FormPos(f,Mouse.CursorPos.X,Mouse.CursorPos.Y);
+  f.ShowOnTop;
+  PageControl1.ActivePageIndex:=0;
 end;
 
 procedure Tf_photlun.MenuCloseClick(Sender: TObject);
@@ -630,62 +563,55 @@ begin
   Close;
 end;
 
-procedure Tf_photlun.MenuItem4Click(Sender: TObject);
+procedure Tf_photlun.MenuConfigClick(Sender: TObject);
+var i: integer;
+    cpy: string;
 begin
-  SetVignetteSize(60);
+f_config.StringGrid1.RowCount:=maximgdir+10;
+for i:=1 to maximgdir do begin
+  f_config.StringGrid1.Cells[0,i]:=imgdir[i-1,2];
+  f_config.StringGrid1.Cells[1,i]:=noslash(imgdir[i-1,0]);
+end;
+FormPos(f_config,mouse.cursorpos.x,mouse.cursorpos.y);
+f_config.showmodal;
+if f_config.ModalResult=mrOK then begin
+   maximgdir:=0;
+   setlength(imgdir,maximgdir);
+   for i:=1 to f_config.StringGrid1.RowCount-1 do
+     if trim(f_config.StringGrid1.Cells[0,i])>'' then begin
+       cpy:=GetImgCpy(f_config.StringGrid1.Cells[1,i], f_config.StringGrid1.Cells[0,i]);
+       AddImagesDir(noslash(f_config.StringGrid1.Cells[1,i]), f_config.StringGrid1.Cells[0,i], cpy);
+   end;
+   SetBiblioMenu;
+end;
 end;
 
-procedure Tf_photlun.MenuItem5Click(Sender: TObject);
+procedure Tf_photlun.MenuItem14Click(Sender: TObject);
 begin
-  SetVignetteSize(120);
+  ShowHelpDoc('Doc','PhotLun','doc');
 end;
 
-procedure Tf_photlun.MenuItem6Click(Sender: TObject);
+procedure Tf_photlun.MenuItem15Click(Sender: TObject);
 begin
-  SetVignetteSize(200);
+  Showmessage('Photlun '+Splashversion+crlf+
+              compile_version+crlf+
+              avlcpy+crlf+crlf+
+              'Conception : Christian Legrand & Patrick Chevalley'+crlf+
+              'Programming : Patrick Chevalley'+crlf+crlf+
+              'This program is free software; you can redistribute it and/or '+crlf+
+              'modify it under the terms of the GNU General Public License '+crlf+
+              'as published by the Free Software Foundation.');
 end;
 
-procedure Tf_photlun.MenuItem8Click(Sender: TObject);
-var f: TForm;
-    sp: TSpinEdit;
-    la: TLabel;
-    bt: TButton;
+procedure Tf_photlun.ImageFormClose(Sender: TObject);
 begin
- f:=TForm.Create(self) ;
- f.BorderStyle:=bsToolWindow;
- f.AutoSize:=true;
- sp:=TSpinEdit.Create(self);
- la:=TLabel.Create(self);
- bt:=TButton.Create(self);
- la.Parent:=f;
- la.Caption:=rsNumberOfWind;
- la.Width:=200;
-// la.AutoSize:=true;
- la.Top:=8;
- la.Left:=8;
- sp.Parent:=f;
- sp.MaxValue:=10;
- sp.MinValue:=1;
- sp.Value:=maxphoto;
- sp.Top:=8;
- sp.Left:=la.Left+la.Width+8;
- bt.Parent:=f;
- bt.Caption:=rsOK;
- bt.ModalResult:=mrOK;
- bt.Left:=sp.Left;
- bt.Top:=sp.Top+sp.Height+8;
- formpos(f,mouse.CursorPos.x,mouse.CursorPos.y);
- f.ShowModal;
- if f.ModalResult=mrOK then maxphoto:=sp.Value;
- sp.Free;
- la.Free;
- bt.Free;
- f.Free;
+  if Tf_img(Sender).Parent is TForm then
+    TForm(Tf_img(Sender).Parent).close;
 end;
 
-procedure Tf_photlun.PanelVignetteClick(Sender: TObject);
+procedure Tf_photlun.ImageClose(Sender: TObject);
 begin
-
+  PageControl1.ActivePageIndex:=0;
 end;
 
 procedure Tf_photlun.GetAppDir;
@@ -813,268 +739,6 @@ begin
   Datlun  := '"'+bindir + DefaultDatlun+'"';
   Weblun  := '"'+bindir + DefaultWeblun+'"';
   helpdir  := slash(appdir) + slash('doc');
-  // Be sure zoneinfo exists in standard location or in vma directory
-{  ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');
-  buf      := slash('') + slash('usr') + slash('share') + slash('zoneinfo');
-  if (FileExists(slash(buf) + 'zone.tab')) then
-    ZoneDir := slash(buf)
-  else
-  begin
-    buf := slash('') + slash('usr') + slash('lib') + slash('zoneinfo');
-    if (FileExists(slash(buf) + 'zone.tab')) then
-      ZoneDir := slash(buf)
-    else
-    begin
-      if (not FileExists(slash(ZoneDir) + 'zone.tab')) then
-      begin
-        MessageDlg('zoneinfo directory not found!' + crlf +
-          'Please install the tzdata package.' + crlf +
-          'If it is not installed at a standard location create a logical link zoneinfo in skychart data directory.',
-          mtError, [mbAbort], 0);
-        Halt;
-      end;
-    end;
-  end;   }
-end;
-
-procedure Tf_photlun.FormCreate(Sender: TObject);
-var i: integer;
-begin
-ScaleFormForFontSize(self,96);
-DefaultFormatSettings.DecimalSeparator := '.';
-DefaultFormatSettings.ThousandSeparator:=' ';
-  GetAppDir;
-  chdir(appdir);
-  ReadConfig;
-  language:=u_translation.translate(pofile,'en');
-  SelectedObject:='';
-  SortByName:=true;
-  param:=Tstringlist.Create;
-  param.clear;
-  if paramcount>0 then begin
-   for i:=1 to paramcount do begin
-      param.Add(paramstr(i));
-   end;
-  end;
-  StartVMA:=false;
-  StartDatlun:=false;
-  CanCloseVMA:=true;
-  CanCloseDatlun:=true;
-  FileAgeLimit:=DateTimeToFileDate(EncodeDate(2007,1,1));
-  imglist:=TStringList.Create;
-  vignettenum:=0;
-  vignetteleft:=-1;
-  for i:=0 to maxvignette do begin
-    vignette[i]:=TImage.Create(self);
-    vignette[i].Parent:=PanelVignette;
-    vignette[i].Visible:=false;
-    vignette[i].ShowHint:=true;
-    vignette[i].Tag:=i;
-    vignette[i].OnClick:=@Vignetteclick;
-    imglabel[i]:=TLabel.Create(self);
-    imglabel[i].Parent:=PanelLabel;
-    imglabel[i].Transparent:=false;
-    imglabel[i].ParentColor:=true;
-    imglabel[i].Visible:=false;
-    imglabel[i].ShowHint:=true;
-    imglabel[i].AutoSize:=false;
-    imglabel[i].WordWrap:=true;
-    imglabel[i].width:=150;
-    imglabel[i].height:=PanelLabel.height;
-
-  end;
-  for i:=0 to maxphotowindow do begin
-     photo[i]:=TF_photo.Create(self);
-     photo[i].onSaveParam:=@PhotoSaveParam;
-  end;
-  maxphoto:=2;
-  curphoto:=0;
-  photow:=photo[0].Width;
-  photoh:=photo[0].Height;
-  lockresize:=true;
-  maxheight:=height;
-  Nhphoto:=2;
-  autoflipx:=false;
-  autoflipy:=false;
-end;
-
-procedure Tf_photlun.FormShow(Sender: TObject);
-begin
-  SetLang;
-  ReadParam;
-  SetBiblioMenu;
-  if imglist.Count=0 then AllBiblioClick(Sender);
-  Application.BringToFront;
-end;
-
-procedure Tf_photlun.FormDestroy(Sender: TObject);
-var i : integer;
-begin
-  imglist.Free;
-  param.Free;
-  for i:=0 to maxvignette do begin
-     vignette[i].Free;
-     imglabel[i].Free;
-  end;
-  for i:=0 to maxphotowindow do photo[i].Free;
-end;
-
-Procedure Tf_photlun.ReadParam(first:boolean=true);
-var i : integer;
-begin
-i:=0;
-while i <= param.count-1 do begin
-  if (param[i]='-nx')and first then begin       // when started by vma do not close vma on exit!
-     CanCloseVMA:=false;
-  end
-  else if (param[i]='-nd')and first then begin  // when started by datlun do not close datlun on exit!
-     CanCloseDatlun:=false;
-  end
-  else if param[i]='-n' then begin
-     inc(i);
-     if i <= param.count-1 then
-        SelectObject(param[i]);
-  end
-  else if param[i]='-fx' then begin
-     inc(i);
-     if i <= param.count-1 then
-        autoflipx:=(param[i]='1');
-  end
-  else if param[i]='-fy' then begin
-     inc(i);
-     if i <= param.count-1 then
-        autoflipy:=(param[i]='1');
-  end
-  else if param[i]='-quit' then begin  // close current instance
-     Close;
-  end
-  else if param[i]='--' then begin   // last parameter
-       break;
-  end;
-  inc(i);
-end;
-end;
-
-procedure Tf_photlun.PanelVignetteResize(Sender: TObject);
-var vw,vh,newcount: integer;
-    i,p : integer;
-begin
-vh:=PanelVignette.Height;
-vw:=round(vh*4/3);
-newcount:=PanelVignette.Width div vw;
-if newcount>maxvignette then newcount:=maxvignette;
-if newcount<>vignettenum then begin
-  vignettenum:=newcount;
-  p:=0;
-  for i:=0 to vignettenum-1 do begin
-     vignette[i].Visible:=true;
-     vignette[i].Top:=0;
-     vignette[i].Left:=p;
-     vignette[i].Height:=vh;
-     vignette[i].Width:=vw;
-     vignette[i].Stretch:=true;
-     vignette[i].Proportional:=true;
-     vignette[i].transparent:=false;
-     vignette[i].AutoSize:=false;
-     imglabel[i].Visible:=true;
-     imglabel[i].Top:=0;
-     imglabel[i].Left:=vignette[i].Left;
-     imglabel[i].Caption:='';
-     p:=p+vw+1;
-  end;
-  for i:=vignettenum to maxvignette do begin
-     vignette[i].Visible:=false;
-     imglabel[i].Visible:=false;
-  end;
-  ScrollBar1.max:=max(0,imglist.count);
-  ScrollBar1.PageSize:=vignettenum;
-  ScrollBar1.LargeChange:=vignettenum;
-  ReloadVignettes;
-end;
-end;
-
-procedure Tf_photlun.ScrollBar1Change(Sender: TObject);
-begin
-  RefreshVignettes(ScrollBar1.Position);
-end;
-
-procedure Tf_photlun.UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
-var i: integer;
-begin
-  application.Restore;
-  application.BringToFront;
-  if ParamCount > 0 then begin
-     param.Clear;
-     for i:=0 to ParamCount-1 do begin
-        param.add(Parameters[i]);
-     end;
-     ReadParam(false);
-  end;
-end;
-
-procedure Tf_photlun.BtnLeftClick(Sender: TObject);
-begin
-  RefreshVignettes(vignetteleft-vignettenum);
-end;
-
-procedure Tf_photlun.BtnRightClick(Sender: TObject);
-begin
-  RefreshVignettes(vignetteright+1);
-end;
-
-procedure Tf_photlun.CarteClick(Sender: TObject);
-begin
-  OpenVMA(SelectedObject,'');
-end;
-
-procedure Tf_photlun.DatabaseClick(Sender: TObject);
-begin
-  OpenDatlun(SelectedObject,'');
-end;
-
-procedure Tf_photlun.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  SaveConfig;
-  if CanCloseVMA and StartVMA then OpenVMA('','-quit');
-  if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
-end;
-
-function Tf_photlun.GetObjectFromPhoto(p:string): string;
-var i: integer;
-begin
-p:=ExtractFileName(p);
-i:=pos('_',p);
-if i>0 then delete(p,i,999);
-i:=pos('.',p);
-if i>0 then delete(p,i,999);
-result:=p;
-end;
-
-procedure Tf_photlun.VignetteClick(Sender: TObject);
-var n,num: integer;
-    p: TPoint;
-begin
-n:=TImage(Sender).Tag;
-num:=vignetteleft+n;
-if (num>=0) and (num<=(imglist.Count-1)) then begin
-  SelectedObject:=GetObjectFromPhoto(imglist[num]);
-  photo[curphoto].autorotate:=vignette_info[n].autorot;
-  photo[curphoto].autoflipx:=autoflipx;
-  photo[curphoto].autoflipy:=autoflipy;
-  photo[curphoto].param:=ChangeFileExt(vignette_info[n].vignettefile,'.param');
-  photo[curphoto].image:=imglist[num];
-  photo[curphoto].Caption:='PhotLun : '+TImage(Sender).Hint;
-  if not photo[curphoto].Visible then begin
-    p.x:=left+(photow+8)*(curphoto mod Nhphoto);
-    p.y:=top+height+34+photoh*(curphoto div Nhphoto);
-    ClientToScreen(p);
-    formpos(photo[curphoto],p.x,p.y);
-  end;
-  photo[curphoto].Show;
-  photo[curphoto].BringToFront;
-  inc(curphoto);
-  if curphoto>(maxphoto-1) then curphoto:=0;
-end;
 end;
 
 procedure Tf_photlun.OpenVMA(objname,otherparam:string);
@@ -1102,184 +766,38 @@ begin
     StartDatlun:=true;
 end;
 
-procedure Tf_photlun.SetLang;
+//============ TVignette =========================
+
+constructor TVignette.Create(TheOwner: TComponent);
 begin
-File1.Caption:=rsFile;
-Biblio1.Caption:=rsLibrary;
-MenuItem1.Caption:=rsSearch;
-MenuClose.Caption:=rsQuit;
-MenuItem9.Caption:=rsCloseAllWind;
-MenuItem2.Caption:=rsVignettes;
-MenuItem3.Caption:=rsSize;
-MenuItem4.Caption:=rsSmall;
-MenuItem5.Caption:=rsMedium;
-MenuItem6.Caption:=rsLarge;
-MenuItem7.Caption:=rsImages;
-MenuItem8.Caption:=rsNumberOfWind;
-MenuItem10.Caption:=rsSort;
-MenuItem11.Caption:=rsByName;
-MenuItem12.Caption:=rsByLibrary;
-View1.Caption:=rsView;
-Database.Caption:=rsDatabase;
-Carte.Caption:=rsShowOnMap;
-u_util.hp:=rshelp_prefix;
-MenuItem16.Caption:=rsImageMirror;
-MenuItem20.Caption:=rsNone1;
-MenuItem18.Caption:=rsEastWest;
-MenuItem19.Caption:=rsNorthSouth;
-help1.Caption:=rsHelp;
-MenuItem14.Caption:=rsHelp;
-MenuItem15.Caption:=rsAbout;
-MenuConfig.Caption:=rsLibrarySetti;
+  inherited Create(TheOwner);
+  AutoSize:=true;
+  lbl:=TPanel.Create(self);
+  img:=TImage.Create(self);
+  img.Picture.Bitmap.Width:=VignetteWidth;
+  img.Picture.Bitmap.Height:=VignetteHeight;
+  img.Width:=VignetteWidth;
+  img.Height:=VignetteHeight;
+  img.top:=0;
+  img.left:=0;
+  img.OnClick:=@imgclick;
+  lbl.height:=30;
+  lbl.width:=VignetteWidth;
+  lbl.top:=224;
+  lbl.left:=0;
+  lbl.Parent:=self;
+  img.Parent:=self;
+  lbl.Caption:=' ';
 end;
 
-procedure Tf_photlun.MenuItem11Click(Sender: TObject);
+destructor TVignette.Destroy;
 begin
- SortByName:=MenuItem11.Checked;
- if (imglist<>nil)and(imglist.Count>0) then begin
-  if SortByName then imglist.CustomSort(@ComparePhotoName)
-     else imglist.Sort;
-  ScrollBar1.min:=0;
-  ScrollBar1.max:=max(0,imglist.count);
-  ClearVignettes;
-  vignetteleft:=-1;
-  RefreshVignettes(0);
- end;
+  inherited Destroy;
 end;
 
-procedure Tf_photlun.MenuItem14Click(Sender: TObject);
+procedure TVignette.imgclick(sender: TObject);
 begin
-ShowHelpDoc('Doc','PhotLun','doc');
-end;
-
-procedure Tf_photlun.MenuItem15Click(Sender: TObject);
-begin
-  Showmessage('Photlun '+Splashversion+crlf+
-              compile_version+crlf+
-              avlcpy+crlf+crlf+
-              'Conception : Christian Legrand & Patrick Chevalley'+crlf+
-              'Programming : Patrick Chevalley'+crlf+crlf+
-              'This program is free software; you can redistribute it and/or '+crlf+
-              'modify it under the terms of the GNU General Public License '+crlf+
-              'as published by the Free Software Foundation.'
-);
-end;
-
-procedure Tf_photlun.MenuItem18Click(Sender: TObject);
-begin
-  MenuItem20.Checked:=false;
-  MenuItem18.Checked:=true;
-  autoflipx:=true;
-end;
-
-procedure Tf_photlun.MenuItem19Click(Sender: TObject);
-begin
-  MenuItem20.Checked:=false;
-  MenuItem19.Checked:=true;
-  autoflipy:=true;
-end;
-
-procedure Tf_photlun.MenuItem20Click(Sender: TObject);
-begin
-  autoflipx:=false;
-  autoflipy:=false;
-  MenuItem18.Checked:=false;
-  MenuItem19.Checked:=false;
-  MenuItem20.Checked:=true;
-end;
-
-procedure Tf_photlun.MenuItem9Click(Sender: TObject);
-var i: integer;
-begin
-  for i:=0 to maxphotowindow do photo[i].Close;
-  curphoto:=0;
-end;
-
-procedure Tf_photlun.PhotoSaveParam(Sender: TObject);
-var vign: string;
-begin
-vign:=ChangeFileExt(Tf_photo(sender).param,'.jpg');
-doCreateVignette(Tf_photo(sender).imgbmp,vign);
-ReloadVignettes;
-end;
-
-procedure Tf_photlun.ReadConfig;
-var inif: TMemIniFile;
-    section,fn,fd,fr,cpy,autorot: string;
-    i,n: integer;
-begin
-{$ifdef mswindows}    // migrate old config in app directory
-if not fileexists(ConfigFile) then
-   CopyFile(pchar(slash(AppDir)+'virtualmoon.ini'),pchar(ConfigFile),true);
-{$endif}
-inif:=TMeminifile.create(configfile);
-try
-with inif do begin
-section:='default';
-pofile:=ReadString(section,'lang_po_file','');
-section:='photlun';
-maxphoto:=ReadInteger(section,'ImageWindow',2);
-if ReadBool(section,'VignetteSmall',false) then MenuItem4.Click;
-if ReadBool(section,'VignetteBig',false) then MenuItem6.Click;
-if ReadBool(section,'VignetteMedium',true) then MenuItem5.Click;
-if ReadBool(section,'SortByName',true) then MenuItem11.Click
-   else MenuItem12.Click;
-if ReadBool(section,'MirrorNone',true) then MenuItem20.Click;
-if ReadBool(section,'MirrorEastWest',false) then MenuItem18.Click;
-if ReadBool(section,'MirrorNorthSouth',false) then MenuItem19.Click;
-section:='images';
-n:=ReadInteger(section,'NumDir',0);
-if n=0 then
-  InitImagesDir
-else begin
-  maximgdir:=0;
-  setlength(imgdir,0);
-  for i:=1 to n do begin
-    fd:=noslash(ReadString(section,'dir'+inttostr(i),''));
-    fn:=ReadString(section,'name'+inttostr(i),'');
-    autorot:=ReadString(section,'autorot'+inttostr(i),'?');
-    if autorot='?' then autorot:=getautorot(fn);
-    cpy:=GetImgCpy(fd,fn);
-    if autorot<>'1' then autorot:='0';
-    AddImagesDir(slash(fd), fn, cpy, autorot);
-  end;
-  InitImagesDir
-end;
-end;
-finally
-inif.free;
-end;
-end;
-
-procedure Tf_photlun.SaveConfig;
-var inif: TMemIniFile;
-    section: string;
-    i: integer;
-begin
-inif:=TMeminifile.create(configfile);
-try
-with inif do begin
-section:='photlun';
-WriteBool(section,'VignetteSmall',MenuItem4.Checked);
-WriteBool(section,'VignetteBig',MenuItem6.Checked);
-WriteBool(section,'VignetteMedium',MenuItem5.Checked);
-WriteBool(section,'SortByName',MenuItem11.Checked);
-WriteInteger(section,'ImageWindow',maxphoto);
-WriteBool(section,'MirrorNone',MenuItem20.Checked);
-WriteBool(section,'MirrorEastWest',MenuItem18.Checked);
-WriteBool(section,'MirrorNorthSouth',MenuItem19.Checked);
-section:='images';
-WriteInteger(section,'NumDir',maximgdir);
-for i:=1 to maximgdir do begin
-  WriteString(section,'name'+inttostr(i),imgdir[i-1,2]);
-  WriteString(section,'dir'+inttostr(i),noslash(imgdir[i-1,0]));
-  WriteString(section,'autorot'+inttostr(i),imgdir[i-1,3]);
-end;
-UpdateFile;
-end;
-finally
-inif.free;
-end;
+  if assigned(FonClick) then FonClick(self);
 end;
 
 end.
