@@ -94,6 +94,7 @@ type
     procedure CloseImgAsync(Data: PtrInt);
     procedure ImgFormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ImgFormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure ImgFormDestroy(Sender: TObject);
     Procedure ReadParam(first:boolean=true);
     procedure ListImgDir(dir: string; filter:string='*');
     procedure SelectObject(nom: string);
@@ -148,10 +149,15 @@ begin
 end;
 
 procedure Tf_photlun.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+var i: integer;
 begin
-SaveConfig;
-if CanCloseVMA and StartVMA then OpenVMA('','-quit');
-if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
+  SaveConfig;
+  if CanCloseVMA and StartVMA then OpenVMA('','-quit');
+  if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
+  for i:=Panel3.ControlCount-1 downto 0 do begin
+    if Panel3.Controls[i] is Tf_img then
+      Tf_img(Panel3.Controls[i]).Destroy;
+  end;
 end;
 
 procedure Tf_photlun.DatabaseClick(Sender: TObject);
@@ -551,8 +557,7 @@ begin
   inc(imgnum);
   img:=Tf_img.Create(nil);
   img.Name:='f_img'+inttostr(imgnum);
-  img.Hint:=TVignette(Sender).Hint;
-  img.Info.Caption:=img.Hint;
+  img.Info.Caption:=TVignette(Sender).Hint;
   img.Parent:=panel3;
   img.Align:=alClient;
   img.image:=TVignette(Sender).imgpath;
@@ -602,6 +607,15 @@ begin
   end;
 end;
 
+procedure Tf_photlun.ImgFormDestroy(Sender: TObject);
+var i: integer;
+begin
+  for i:=TForm(Sender).ControlCount-1 downto 0 do begin
+    if TForm(Sender).Controls[i] is Tf_img then
+      Tf_img(TForm(Sender).Controls[i]).Destroy;
+  end;
+end;
+
 procedure Tf_photlun.ImageDetach(Sender: TObject);
 var f: TForm;
 begin
@@ -610,9 +624,10 @@ begin
   f.Height:=600;
   f.ShowHint:=true;
   f.OnClose:=@ImgFormClose;
+  f.OnDestroy:=@ImgFormDestroy;
   f.KeyPreview:=true;
   f.OnKeyDown:=@ImgFormKeyDown;
-  f.Caption:=Tf_img(Sender).Hint;
+  f.Caption:=Tf_img(Sender).Info.Caption;
   Tf_img(Sender).Parent:=f;
   Tf_img(Sender).onClose:=@ImageFormClose;
   Tf_img(Sender).BtnDetach.Visible:=False;
