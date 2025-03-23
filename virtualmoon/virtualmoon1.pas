@@ -609,6 +609,7 @@ type
     procedure MoonMoveCamera(Sender: TObject);
     procedure SetRotation(m:Tf_moon; onoff: boolean);
     procedure OpenConfig(page: integer=-1);
+    procedure ProfileClose(Sender: TObject);
     public
     autolabelcolor: Tcolor;
     lastx, lasty, lastyzoom, MaxSprite: integer;
@@ -3626,6 +3627,7 @@ f_tabsdock.onReturnControl:=returncontrol;
 StartTimer.Enabled:=true;
 pop_scope.ReadConfig(ExtractFilePath(Configfile));
 pop_indi.ReadConfig(ExtractFilePath(Configfile));
+f_demprofile.onClose:=ProfileClose;
 end;
 
 procedure TForm1.Init;
@@ -6185,6 +6187,13 @@ begin
     activemoon.MeasuringDistance := False;
     f_demprofile.Hide;
   end;
+end;
+
+procedure TForm1.ProfileClose(Sender: TObject);
+begin
+  ButtonMeasureDistance.Down:=false;
+  ButtonProfile.Down:=false;
+  activemoon.MeasuringDistance := False;
 end;
 
 procedure TForm1.DemProfileClick(Sender: TObject);

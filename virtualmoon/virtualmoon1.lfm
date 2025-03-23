@@ -840,7 +840,7 @@ object Form1: TForm1
               MinSize = 200
               MaxSize = 600
               Title.Caption = 'Formation'
-              Width = 179
+              Width = 200
             end          
             item
               MinSize = 100
@@ -863,7 +863,7 @@ object Form1: TForm1
           TabOrder = 0
           OnDblClick = ListNotesDblClick
           ColWidths = (
-            179
+            200
             100
             50
           )

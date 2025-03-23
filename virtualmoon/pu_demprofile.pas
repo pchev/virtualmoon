@@ -37,17 +37,20 @@ type
     procedure DemProfileAxisList1GetMarkText(Sender: TObject; var AText: String; AMark: Double);
     procedure DemProfileMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure DemProfileResize(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure MenuItemSaveCSVClick(Sender: TObject);
     procedure MenuItemSavePNGClick(Sender: TObject);
   private
     Fdemlib: TdemLibrary;
     Fdist,Fhmin,Fhmax,FScale: double;
+    FonClose: TNotifyEvent;
     procedure AdjustScale;
   public
     procedure SetLang;
     procedure PlotProfile(lon1,lat1,lon2,lat2: array of double);
     property demlib: TdemLibrary read Fdemlib write Fdemlib;
+    property onClose: TNotifyEvent read FonClose write FonClose;
   end;
 
 var
@@ -117,6 +120,12 @@ end;
 procedure Tf_demprofile.DemProfileResize(Sender: TObject);
 begin
   AdjustScale;
+end;
+
+procedure Tf_demprofile.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  if assigned(FonClose) then FonClose(self);
+
 end;
 
 procedure Tf_demprofile.AdjustScale;
