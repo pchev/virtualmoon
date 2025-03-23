@@ -33,6 +33,20 @@ object f_img: Tf_img
       OnClick = BtnCloseClick
       ParentFont = False
     end
+    object BtnDetach: TSpeedButton
+      AnchorSideTop.Control = BtnClose
+      AnchorSideRight.Control = BtnClose
+      Left = 329
+      Height = 22
+      Top = 4
+      Width = 23
+      Anchors = [akTop, akRight]
+      BorderSpacing.Right = 12
+      Images = ImageListDay
+      ImageIndex = 2
+      OnClick = BtnDetachClick
+      ParentFont = False
+    end
   end
   object PanelBot: TPanel
     Left = 0
@@ -71,21 +85,10 @@ object f_img: Tf_img
       ShowCaption = False
       ParentFont = False
     end
-    object BtnDetach: TSpeedButton
-      AnchorSideTop.Control = BtnFlipH
-      Left = 176
-      Height = 22
-      Top = 4
-      Width = 23
-      Images = ImageListDay
-      ImageIndex = 2
-      OnClick = BtnDetachClick
-      ParentFont = False
-    end
     object Info: TLabel
       AnchorSideTop.Control = BtnFlipH
       AnchorSideTop.Side = asrCenter
-      Left = 208
+      Left = 184
       Height = 18
       Top = 6
       Width = 25
