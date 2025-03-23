@@ -488,7 +488,8 @@ if i>0 then begin
    SplitRec2(buf,',',dbstr);
    for j:=0 to dbstr.Count-1 do begin
      k:=StrToIntDef(dbstr[j],1);
-     usedatabase[k]:=true;
+     if k<MaxDBN then
+       usedatabase[k]:=true;
    end;
    finally
    dbstr.free;
