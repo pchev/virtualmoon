@@ -4,7 +4,7 @@ unit fu_img;
 
 interface
 
-uses  BGRABitmap, BGRABitmapTypes, math, u_translation,
+uses  BGRABitmap, BGRABitmapTypes, math, u_translation, Graphics,
   Classes, SysUtils, Forms, Controls, ExtCtrls, Buttons, StdCtrls;
 
 type
@@ -24,7 +24,8 @@ type
   { Tf_img }
 
   Tf_img = class(TFrame)
-    ImageList1: TImageList;
+    ImageListNight: TImageList;
+    ImageListDay: TImageList;
     Info: TLabel;
     PanelImg: TPanel;
     PanelBot: TPanel;
@@ -80,6 +81,7 @@ const ZoomMax=5;
 {$R *.lfm}
 
 constructor Tf_img.Create(aOwner: TComponent);
+var c,i: integer;
 begin
  inherited Create(aOwner);
  SetLang;
@@ -90,6 +92,17 @@ begin
  ImgZoom:=0;
  ImgCx:=0;
  ImgCy:=0;
+ // detect if theme color is dark
+ c:=ColorToRGB(clBtnFace);
+ i:=round((Blue(c)+Green(c)+Red(c))/3);
+ if (i<128) then begin
+   BtnFlipH.Images:=ImageListNight;
+   BtnFlipV.Images:=ImageListNight;
+   BtnDetach.Images:=ImageListNight;
+   BtnRotation1.Images:=ImageListNight;
+   BtnRotation2.Images:=ImageListNight;
+   BtnReset.Images:=ImageListNight;
+ end;
  ImaBmp:=TBGRABitmap.Create;
  ScrBmp:=TBGRABitmap.Create;
  ScrBmp.SetSize(PanelImg.Width,PanelImg.Height);
