@@ -5092,6 +5092,7 @@ procedure TForm1.ButtonMeasureDistanceClick(Sender: TObject);
 begin
   activemoon.SatelliteRotation:=0;
   activemoon.MeasuringDistance := ButtonMeasureDistance.Down;
+  ButtonProfile.Down:=ButtonMeasureDistance.Down;
 end;
 
 procedure TForm1.Distance1Click(Sender: TObject);
@@ -5100,6 +5101,7 @@ begin
   Pagecontrol1.ActivePage := Outils;
   PageControl1Change(Sender);
   ButtonMeasureDistance.Down:=true;
+  ButtonProfile.Down:=true;
   activemoon.MeasuringDistance := true;
 end;
 
@@ -6029,6 +6031,7 @@ if mf<>activemoon then begin
     LibrationButton.Enabled := True;
   end;
   ButtonMeasureDistance.Down:=activemoon.MeasuringDistance;
+  ButtonProfile.Down:=activemoon.MeasuringDistance;
   Poleorientation   := activemoon.Poleorientation;
   CameraOrientation := activemoon.Orientation;
   skiporient:=true;
@@ -6172,14 +6175,15 @@ end;
 
 procedure TForm1.ButtonProfileClick(Sender: TObject);
 begin
-  if f_demprofile.Visible then begin
-     ButtonMeasureDistance.Down:=false;
-     activemoon.MeasuringDistance := False;
-     f_demprofile.Hide;
+  if ButtonProfile.Down then begin
+      PageControl1.ActivePageIndex:=4;
+      DemProfileClick(nil);
   end
   else begin
-    PageControl1.ActivePageIndex:=4;
-    DemProfileClick(nil);
+    ButtonMeasureDistance.Down:=false;
+    ButtonProfile.Down:=false;
+    activemoon.MeasuringDistance := False;
+    f_demprofile.Hide;
   end;
 end;
 
@@ -6201,6 +6205,7 @@ begin
   end;
   if not activemoon.MeasuringDistance then begin
     ButtonMeasureDistance.Down:=true;
+    ButtonProfile.Down:=true;
     activemoon.MeasuringDistance:=true;
   end;
 end;
