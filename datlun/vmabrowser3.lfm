@@ -2,44 +2,55 @@ object Columns: TColumns
   Left = 346
   Height = 493
   Top = 177
-  Width = 314
+  Width = 613
   ActiveControl = CheckListBox1
   Caption = 'Columns'
   ClientHeight = 493
-  ClientWidth = 314
+  ClientWidth = 613
   OnCreate = FormCreate
   object CheckListBox1: TCheckListBox
-    Left = 0
-    Height = 455
-    Top = 0
-    Width = 152
+    Left = 2
+    Height = 451
+    Top = 2
+    Width = 200
     Align = alLeft
+    BorderSpacing.Around = 2
     ItemHeight = 0
     OnItemClick = CheckListBox1ItemClick
     TabOrder = 0
-    TopIndex = -1
   end
   object CheckListBox2: TCheckListBox
-    Left = 152
-    Height = 455
-    Top = 0
-    Width = 162
-    Align = alClient
+    Left = 204
+    Height = 451
+    Top = 2
+    Width = 200
+    Align = alLeft
+    BorderSpacing.Around = 2
     ItemHeight = 0
     TabOrder = 1
-    TopIndex = -1
+  end
+  object CheckListBox3: TCheckListBox
+    Left = 406
+    Height = 451
+    Top = 2
+    Width = 200
+    Align = alLeft
+    BorderSpacing.Around = 2
+    ItemHeight = 0
+    OnItemClick = CheckListBox1ItemClick
+    TabOrder = 3
   end
   object Panel1: TPanel
     Left = 0
     Height = 38
     Top = 455
-    Width = 314
+    Width = 613
     Align = alBottom
     ClientHeight = 38
-    ClientWidth = 314
+    ClientWidth = 613
     TabOrder = 2
     object ButtonAll: TButton
-      Left = 0
+      Left = 160
       Height = 25
       Top = 8
       Width = 75
@@ -49,7 +60,7 @@ object Columns: TColumns
       TabOrder = 0
     end
     object ButtonNone: TButton
-      Left = 96
+      Left = 256
       Height = 25
       Top = 8
       Width = 75
@@ -59,7 +70,7 @@ object Columns: TColumns
       TabOrder = 1
     end
     object ButtonClose: TButton
-      Left = 200
+      Left = 360
       Height = 25
       Top = 8
       Width = 75

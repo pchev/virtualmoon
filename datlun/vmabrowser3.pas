@@ -39,6 +39,7 @@ type
     ButtonNone: TButton;
     ButtonClose: TButton;
     CheckListBox2: TCheckListBox;
+    CheckListBox3: TCheckListBox;
     Panel1: TPanel;
     procedure ButtonAllClick(Sender: TObject);
     procedure ButtonNoneClick(Sender: TObject);
@@ -76,6 +77,8 @@ for i:=0 to CheckListBox1.Items.Count-1 do
     CheckListBox1.Checked[i]:=(not ((i+1) in hidenfields));
 for i:=0 to CheckListBox2.Items.Count-1 do
     CheckListBox2.Checked[i]:=(not ((i+1+CheckListBox1.Count) in hidenfields));
+for i:=0 to CheckListBox3.Items.Count-1 do
+    CheckListBox3.Checked[i]:=(not ((i+1+CheckListBox1.Count+CheckListBox2.Count) in hidenfields));
 end;
 
 procedure TColumns.ButtonNoneClick(Sender: TObject);
@@ -85,6 +88,8 @@ for i:=2 to CheckListBox1.Items.Count-1 do
     CheckListBox1.Checked[i]:=false;
 for i:=0 to CheckListBox2.Items.Count-1 do
     CheckListBox2.Checked[i]:=false;
+for i:=0 to CheckListBox3.Items.Count-1 do
+    CheckListBox3.Checked[i]:=false;
 end;
 
 procedure TColumns.ButtonCloseClick(Sender: TObject);
@@ -101,6 +106,12 @@ for i:=0 to CheckListBox2.Items.Count-1 do begin
      if f_main.MoonGrid.ColWidths[i+26]=0 then f_main.MoonGrid.ColWidths[i+26]:=f_main.MoonGrid.DefaultColWidth;
   end else
       f_main.MoonGrid.ColWidths[i+26]:=0;
+end;
+for i:=0 to CheckListBox3.Items.Count-1 do begin
+  if  CheckListBox3.Checked[i] then begin
+     if f_main.MoonGrid.ColWidths[i+53]=0 then f_main.MoonGrid.ColWidths[i+53]:=f_main.MoonGrid.DefaultColWidth;
+  end else
+      f_main.MoonGrid.ColWidths[i+53]:=0;
 end;
 ModalResult:=mrOK;
 end;

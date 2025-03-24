@@ -508,6 +508,7 @@ if dbm.RowCount=0 then begin
 end;
 Columns.CheckListBox1.Items.Clear;
 Columns.CheckListBox2.Items.Clear;
+Columns.CheckListBox3.Items.Clear;
 Loadcsv.CheckListBox1.Items.Clear;
 Selection.fieldlist.Items.Clear;
 Selection.fieldlist2.Items.Clear;
@@ -522,9 +523,12 @@ if dbm.RowCount>0 then begin
     if dbcol<=26 then begin
       Columns.CheckListBox1.Items.Add(MoonGrid.Cells[dbcol-1,0]);
       Columns.CheckListBox1.Checked[dbcol-1]:=(MoonGrid.ColWidths[dbcol-1]>0);
-    end else begin
+    end else if dbcol<=53 then begin
       Columns.CheckListBox2.Items.Add(MoonGrid.Cells[dbcol-1,0]);
       Columns.CheckListBox2.Checked[dbcol-27]:=(MoonGrid.ColWidths[dbcol-1]>0);
+    end else begin
+      Columns.CheckListBox3.Items.Add(MoonGrid.Cells[dbcol-1,0]);
+      Columns.CheckListBox3.Checked[dbcol-54]:=(MoonGrid.ColWidths[dbcol-1]>0);
     end;
     Loadcsv.CheckListBox1.Items.Add(MoonGrid.Cells[dbcol-1,0]);
     Loadcsv.CheckListBox1.Checked[dbcol-1]:=false;
@@ -636,11 +640,11 @@ end else begin
    currentsort:='';
 end;
 if currentselection='' then
-   ok:=dbm.query('select * from moon order by DBN,NAME LIMIT '+rowlimit+';')
+   ok:=dbm.query('select * from moonall order by DBN,NAME LIMIT '+rowlimit+';')
 else if buf<>'' then
-   ok:=dbm.query('select * from moon where '+currentselection+' LIMIT '+rowlimit+';')
+   ok:=dbm.query('select * from moonall where '+currentselection+' LIMIT '+rowlimit+';')
 else
-   ok:=dbm.query('select * from moon '+currentselection+' LIMIT '+rowlimit+';');
+   ok:=dbm.query('select * from moonall '+currentselection+' LIMIT '+rowlimit+';');
 if ok then begin
  if dbm.RowCount>0 then begin
     ScrollBar1.Max:=max(dbm.RowCount,MoonGrid.RowCount);
