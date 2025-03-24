@@ -267,7 +267,6 @@ type
     procedure SelectGraph(Sender: TObject);
     procedure TerminatorTimerTimer(Sender: TObject);
   private
-    dbm: TLiteDB;
     et : SpiceDouble;
     obspos: TDouble3;
     tz: TCdCTimeZone;

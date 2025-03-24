@@ -117,7 +117,7 @@ Procedure LoadConnectDB(dbm: TLiteDB);
 procedure LoadConnectDBcols;
 Procedure CreateDB(dbm: TLiteDB);
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
-procedure CreateView;
+procedure CreateView(dbm: TLiteDB);
 procedure DBjournal(dbname,txt:string);
 Procedure LoadLopamIdx(fn,path:string; dbm: TLiteDB);
 function LoadNotelunDB(db: TLiteDB): integer;
@@ -404,7 +404,7 @@ end;
 if needvacuum then dbm.Query('Vacuum;');
 LoadConnectDBcols;
 LoadConnectDB(dbm);
-CreateView;
+CreateView(dbm);
 finally
 if MsgForm<>nil then MsgForm.Close;
 if missingf>'' then
@@ -512,7 +512,7 @@ begin
   end;
 end;
 
-procedure CreateView;
+procedure CreateView(dbm: TLiteDB);
 var cmd,cdbn: string;
     i,j,colcount: integer;
 begin
