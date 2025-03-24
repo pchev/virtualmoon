@@ -74,6 +74,7 @@ Filename: {app}\{cm:MyTutorial}; Flags: postinstall shellexec nowait skipifsilen
 
 [InstallDelete]
 Name: {app}\Database\01_Formations_nommÃ©es_FR.csv; Type: filesandordirs; Components: ; Tasks: 
+Name: {app}\Database\01_Formations_nommées_FR.csv; Type: filesandordirs; Components: ; Tasks:
 Name: {app}\Database\01_Named_formations_EN.csv; Type: filesandordirs; Components: ; Tasks: 
 Name: {app}\Database\02_Formations_satellites_FR.csv; Type: filesandordirs; Components: ; Tasks: 
 Name: {app}\Database\02_Satellite_formations_EN.csv; Type: filesandordirs; Components: ; Tasks: 
