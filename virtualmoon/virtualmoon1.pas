@@ -1605,7 +1605,7 @@ begin
   begin
     // get search boundaries
     Tf_moon(Sender).GetBounds(lmin,lmax,bmin,bmax);
-    dbm.Query('select LONGI_N,LATI_N from moon where ' + currentselection +
+    dbm.Query('select LONGI_N,LATI_N from moonall where ' + currentselection +
       ' and LONGI_N > ' + formatfloat(f2, rad2deg*lmin) +
       ' and LONGI_N < ' + formatfloat(f2, rad2deg*lmax) +
       ' and LATI_N > ' + formatfloat(f2, rad2deg*bmin) +
