@@ -117,6 +117,7 @@ Procedure LoadConnectDB(dbm: TLiteDB);
 procedure LoadConnectDBcols;
 Procedure CreateDB(dbm: TLiteDB);
 Procedure ConvertDB(dbm: TLiteDB; fn,side:string);
+procedure CreateView;
 procedure DBjournal(dbname,txt:string);
 Procedure LoadLopamIdx(fn,path:string; dbm: TLiteDB);
 function LoadNotelunDB(db: TLiteDB): integer;
@@ -403,6 +404,7 @@ end;
 if needvacuum then dbm.Query('Vacuum;');
 LoadConnectDBcols;
 LoadConnectDB(dbm);
+CreateView;
 finally
 if MsgForm<>nil then MsgForm.Close;
 if missingf>'' then
@@ -508,6 +510,33 @@ begin
        SplitRec2(buf,';',ConnectDBCols[i]);
      end;
   end;
+end;
+
+procedure CreateView;
+var cmd,cdbn: string;
+    i,j,colcount: integer;
+begin
+cmd:='create view if not exists moonall as select moon.ID,moon.DBN';
+for i:=1 to NumMoonDBFields do begin
+ cmd:=cmd+', moon.'+MoonDBFields[i,1];
+end;
+for j:=1 to ConnectDatabaseList.Count do begin
+  colcount:=ConnectDBCols[j].Count;
+  cdbn:='connected_'+lowercase(stringreplace(ConnectDatabaseList[j-1],' ','',[rfReplaceAll]));
+  for i:=0 to colcount-1 do begin
+    if ConnectDBCols[j][i]<>'NAME' then
+      cmd:=cmd+', '+cdbn+'.'+ConnectDBCols[j][i];
+  end;
+end;
+cmd:=cmd+' from moon';
+for j:=1 to ConnectDatabaseList.Count do begin
+  cdbn:='connected_'+lowercase(stringreplace(ConnectDatabaseList[j-1],' ','',[rfReplaceAll]));
+  cmd:=cmd+' left join '+cdbn+' on moon.NAME='+cdbn+'.NAME';
+end;
+dbm.Query(cmd);
+if dbm.LastError<>0 then begin
+   dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
+end;
 end;
 
 procedure DBjournal(dbname,txt:string);
