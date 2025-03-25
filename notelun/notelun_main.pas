@@ -470,8 +470,10 @@ begin
   tz.Free;
   Fplanet.Free;
   DatabaseList.free;
-  for i:=1 to ConnectDatabaseList.Count do
+  for i:=1 to ConnectDatabaseList.Count do begin
+    ConnectTableCols[i].free;
     ConnectDBCols[i].free;
+  end;
   ConnectDatabaseList.free;
   param.free;
 end;

@@ -417,8 +417,10 @@ procedure Tf_main.FormDestroy(Sender: TObject);
 var i: integer;
 begin
  DatabaseList.Free;
- for i:=1 to ConnectDatabaseList.Count do
+ for i:=1 to ConnectDatabaseList.Count do begin
+   ConnectTableCols[i].free;
    ConnectDBCols[i].free;
+ end;
  ConnectDatabaseList.Free;
  param.free;
  dbm.free;

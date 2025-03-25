@@ -109,6 +109,7 @@ var
     usedatabase :array[1..MaxDBN] of boolean;
     connectdatabase : array[1..MaxConnectDBN] of string;
     useconnectdatabase : array[1..MaxConnectDBN] of boolean;
+    ConnectTableCols: array[1..MaxConnectDBN] of TStringList;
     ConnectDBCols: array[1..MaxConnectDBN] of TStringList;
 
 Procedure ListDB;
@@ -418,15 +419,15 @@ var fn,tname,buf,cols,cmd,buf1,v: string;
     col,val: TStringList;
     f: textfile;
 begin
+if MsgForm=nil then Application.CreateForm(TMsgForm, MsgForm);
 for j:=1 to ConnectDatabaseList.Count do begin
   fn:=connectdatabase[j];
   tname:='connected_'+lowercase(stringreplace(ConnectDatabaseList[j-1],' ','',[rfReplaceAll]));
-  colcount:=ConnectDBCols[j].Count;
+  colcount:=ConnectTableCols[j].Count;
   if FileExists(fn) then begin
     cmd:='select * from '+tname+' limit 1';
     dbm.Query(cmd);
     if dbm.RowCount<=0 then begin
-      if MsgForm=nil then Application.CreateForm(TMsgForm, MsgForm);
       MsgForm.Label1.caption:=ExtractFileName(fn)+crlf+'Preparing Database. Please Wait ...';
       msgform.show;
       msgform.Refresh;
@@ -438,13 +439,16 @@ for j:=1 to ConnectDatabaseList.Count do begin
       Reset(f);
       ReadLn(f,cols);
       SplitRec2(cols,';',col);
-      if col.Count<colcount then exit;
+      if col.Count<colcount then begin
+         dbjournal(fn,'Wrong column count '+IntToStr(col.Count)+'/'+IntToStr(colcount));
+         exit;
+      end;
       dbjournal(extractfilename(dbm.database),'CREATE TABLE '+tname);
       cmd:='drop table '+tname+';';
       dbm.Query(cmd);
       cmd:='create table '+tname+' ( ';
       for i:=0 to colcount-1 do begin
-        cmd:=cmd+ConnectDBCols[j][i]+' text,';
+        cmd:=cmd+ConnectTableCols[j][i]+' text,';
       end;
       cmd:=copy(cmd,1,length(cmd)-1);
       cmd:=cmd+');';
@@ -482,13 +486,13 @@ for j:=1 to ConnectDatabaseList.Count do begin
        end;
       CloseFile(f);
       finally
-       if MsgForm<>nil then MsgForm.Close;
        col.Free;
        val.Free;
       end;
     end;
   end;
 end;
+if MsgForm<>nil then MsgForm.Close;
 end;
 
 procedure LoadConnectDBcols;
@@ -497,18 +501,26 @@ var i: integer;
     f:TextFile;
 begin
   for i:=1 to ConnectDatabaseList.Count do begin
-     if ConnectDBCols[i]=nil then  ConnectDBCols[i]:=TStringList.Create;
+     if ConnectTableCols[i]=nil then ConnectTableCols[i]:=TStringList.Create;
+     if ConnectDBCols[i]=nil then ConnectDBCols[i]:=TStringList.Create;
      fn:=connectdatabase[i];
+     if FileExists(fn) then begin
+       AssignFile(f,fn);
+       Reset(f);
+       ReadLn(f,buf);
+       CloseFile(f);
+       SplitRec2(buf,';',ConnectTableCols[i]);
+     end;
      fname:=ChangeFileExt(fn,'.txt');
-     if not FileExists(fname) then
-       fname:=fn;
      if FileExists(fname) then begin
        AssignFile(f,fname);
        Reset(f);
        ReadLn(f,buf);
        CloseFile(f);
        SplitRec2(buf,';',ConnectDBCols[i]);
-     end;
+     end
+     else
+       ConnectDBCols[i].Assign(ConnectTableCols[i]);
   end;
 end;
 
@@ -521,11 +533,11 @@ for i:=1 to NumMoonDBFields do begin
  cmd:=cmd+', moon.'+MoonDBFields[i,1];
 end;
 for j:=1 to ConnectDatabaseList.Count do begin
-  colcount:=ConnectDBCols[j].Count;
+  colcount:=ConnectTableCols[j].Count;
   cdbn:='connected_'+lowercase(stringreplace(ConnectDatabaseList[j-1],' ','',[rfReplaceAll]));
   for i:=0 to colcount-1 do begin
-    if ConnectDBCols[j][i]<>'NAME' then
-      cmd:=cmd+', '+cdbn+'.'+ConnectDBCols[j][i];
+    if ConnectTableCols[j][i]<>'NAME' then
+      cmd:=cmd+', '+cdbn+'.'+ConnectTableCols[j][i];
   end;
 end;
 cmd:=cmd+' from moon';

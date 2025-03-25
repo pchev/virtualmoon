@@ -369,8 +369,10 @@ var i: integer;
 begin
   dbm.free;
   DatabaseList.free;
-  for i:=1 to ConnectDatabaseList.Count do
+  for i:=1 to ConnectDatabaseList.Count do begin
+    ConnectTableCols[i].free;
     ConnectDBCols[i].free;
+  end;
   ConnectDatabaseList.Free;
   tz.Free;
   for i:=0 to GridMonth.RowCount-1 do begin

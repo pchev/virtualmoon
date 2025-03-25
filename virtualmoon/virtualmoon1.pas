@@ -4604,8 +4604,10 @@ begin
     dbimp.Free;
     dbc.Free;
     DatabaseList.Free;
-    for i:=1 to ConnectDatabaseList.Count do
+    for i:=1 to ConnectDatabaseList.Count do begin
       ConnectDBCols[i].free;
+      ConnectTableCols[i].free;
+    end;
     ConnectDatabaseList.Free;
     tz.Free;
     Fplanet.Free;
