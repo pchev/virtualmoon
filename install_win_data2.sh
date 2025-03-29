@@ -62,7 +62,7 @@ echo Install virtualmoon data2 to $destdir
 install -m 755 -d $destdir
 
 InstData Base_Database2 $destdir
-InstData Base_ILCD $destdir
+InstData Base_Database3 $destdir
 
 InstData Base_Airbrush $destdir
 InstData Base_Clementine $destdir
