@@ -82,6 +82,7 @@ InstTexture TextureHistorical $destdir
 InstTexture TextureOverlay $destdir
 InstTexture TextureGeological $destdir
 InstTexture TextureCNSAGeological $destdir
+InstTexture TexturesLRO_WAC_Color_Shade $destdir
 
 InstPicture PictureApolloMapping $destdir
 InstPicture PictureCLA $destdir
