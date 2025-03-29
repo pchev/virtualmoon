@@ -2523,6 +2523,11 @@ object Form1: TForm1
       Caption = 'Encyclopedia'
       OnClick = Encyclopedia1Click
     end
+    object TextureCaption2: TMenuItem
+      Caption = 'Texture Caption'
+      Visible = False
+      OnClick = TextureCaption1Click
+    end
     object OverlayCaption2: TMenuItem
       Caption = 'Overlay Caption'
       Visible = False
@@ -2734,6 +2739,11 @@ object Form1: TForm1
         Caption = '0.2d/seconde'
         OnClick = N02seconde1Click
       end
+    end
+    object TextureCaption1: TMenuItem
+      Caption = 'Texture Caption'
+      Visible = False
+      OnClick = TextureCaption1Click
     end
     object OverlayCaption1: TMenuItem
       Caption = 'Overlay Caption'

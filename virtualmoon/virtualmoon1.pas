@@ -128,6 +128,8 @@ type
     c62: TMenuItem;
     c72: TMenuItem;
     c82: TMenuItem;
+    TextureCaption1: TMenuItem;
+    TextureCaption2: TMenuItem;
     Panel2: TPanel;
     PanelAnchor: TPanel;
     PopupEyepiece: TPopupMenu;
@@ -405,6 +407,7 @@ type
     procedure SpeedButton7Click(Sender: TObject);
     procedure Splitter2TimerTimer(Sender: TObject);
     procedure TerminatorButtonClick(Sender: TObject);
+    procedure TextureCaption1Click(Sender: TObject);
     procedure ToolButton22Click(Sender: TObject);
     procedure ButtonProfileClick(Sender: TObject);
     procedure ToolButtonCalclunClick(Sender: TObject);
@@ -1582,16 +1585,16 @@ begin
      end;
   end;
   // set texture caption
-  if (Tf_moon(Sender).Texture[Tf_moon(Sender).CurrentLevel-1]='USGS Geological 2020')
+  if fileexists(slash(appdir) + slash('Textures') + slash(Tf_moon(Sender).Texture[Tf_moon(Sender).CurrentLevel-1]) + 'caption.png')
   then begin
-     OverlayCaption1.Caption := 'USGS Geological 2020' + ' ' + rsCaption;
-     OverlayCaption2.Caption := OverlayCaption1.Caption;
-     OverlayCaption1.Visible := True;
-     OverlayCaption2.Visible := True;
+     TextureCaption1.Caption := Tf_moon(Sender).Texture[Tf_moon(Sender).CurrentLevel-1] + ' ' + rsCaption;
+     TextureCaption2.Caption := TextureCaption1.Caption;
+     TextureCaption1.Visible := True;
+     TextureCaption2.Visible := True;
   end
-  else if (not showoverlay) then begin
-    OverlayCaption1.Visible := False;
-    OverlayCaption2.Visible := False;
+  else begin
+    TextureCaption1.Visible := False;
+    TextureCaption2.Visible := False;
   end;
 end;
 
@@ -5452,16 +5455,23 @@ begin
    ShowMessage(rsNoPictureFou+crlf+currentname);
 end;
 
+procedure TForm1.TextureCaption1Click(Sender: TObject);
+var
+  dir,ovn: string;
+begin
+  dir := slash(appdir) + slash('Textures') + slash(activemoon.Texture[activemoon.CurrentLevel-1]);
+  ovn := 'caption.png';
+  if fileexists(dir + ovn) then
+    showimg(dir, ovn, True);
+end;
+
 procedure TForm1.OverlayCaption1Click(Sender: TObject);
 var
   dir,ovn: string;
 begin
   chdir(appdir);
   dir := slash('Textures') + slash('Overlay') + slash('caption');
-  if activemoon.Texture[activemoon.CurrentLevel-1]='USGS Geological 2020' then
-    ovn:='USGS Geological 2020.jpg'
-  else
-    ovn:=overlayname;
+  ovn:=overlayname;
   if fileexists(dir + ovn) then
     showimg(dir, ovn, True);
 end;
@@ -6071,16 +6081,23 @@ if mf<>activemoon then begin
   TrackBar6.Position := round(activemoon.SatelliteAltitude);
   TrackBar7.Position := round(activemoon.SatInclination);
   skiprot:=false;
+  if fileexists(slash(appdir) + slash('Textures') + slash(activemoon.Texture[activemoon.CurrentLevel-1]) + 'caption.png')
+  then begin
+     TextureCaption1.Caption := activemoon.Texture[activemoon.CurrentLevel-1] + ' ' + rsCaption;
+     TextureCaption2.Caption := TextureCaption1.Caption;
+     TextureCaption1.Visible := True;
+     TextureCaption2.Visible := True;
+  end
+  else begin
+    TextureCaption1.Visible := False;
+    TextureCaption2.Visible := False;
+  end;
   showoverlay:=not (activemoon.Overlay='');
   overlayname:=activemoon.Overlay;
   overlaytr:=activemoon.OverlayTransparency;
   if (showoverlay and (overlayname<>'') and fileexists(Slash(activemoon.OverlayPath) + slash('caption') + overlayname))
-     or (activemoon.Texture[activemoon.CurrentLevel-1]='USGS Geological 2020')
   then begin
-     if activemoon.Texture[activemoon.CurrentLevel-1]='USGS Geological 2020' then
-       ovn:='USGS Geological 2020'
-     else
-       ovn:=remext(overlayname);
+     ovn:=remext(overlayname);
      OverlayCaption1.Caption := ovn + ' ' + rsCaption;
      OverlayCaption2.Caption := OverlayCaption1.Caption;
      OverlayCaption1.Visible := True;
