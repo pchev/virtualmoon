@@ -2218,7 +2218,7 @@ var
   nom, carte, url, img, remoteurl, txtbuf, buf, buf2, t1: string;
   ok:   boolean;
   dbn, i, j: integer;
-  lkm,wkm,lmi,wmi,lon,lat,x: double;
+  lkm,wkm,lon,lat,x: double;
   function GetField(fn:string):string;
   var k: integer;
   begin
@@ -2546,8 +2546,12 @@ begin
     if (dbc.RowCount>0) and(ConnectDBCols[j].Count=dbc.Results[0].Count) then begin
       for i:=0 to ConnectDBCols[j].Count-1 do begin
         val:=dbc.Results[0].Format[i].AsString;
-        if (dbc.Fields[i]<>'NAME')and(val<>'') then
-          result:=result+bold+ConnectDBCols[j][i]+': '+boldend+val+br;
+        if (dbc.Fields[i]<>'NAME')and(val<>'') then begin
+          if (dbname='IAU 2024')and(dbc.Fields[i]='FeatureID') then
+            result:=result+bold+ConnectDBCols[j][i]+': '+boldend+'<a href="https://planetarynames.wr.usgs.gov/Feature/'+val+'">' + val + '</a>'+br
+          else
+            result:=result+bold+ConnectDBCols[j][i]+': '+boldend+val+br;
+        end;
       end;
     end;
   end;
