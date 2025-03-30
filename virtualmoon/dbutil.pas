@@ -496,9 +496,10 @@ if MsgForm<>nil then MsgForm.Close;
 end;
 
 procedure LoadConnectDBcols;
-var i: integer;
-    fn,fname,buf:string;
+var i,j,p: integer;
+    fn,fname,buf,nb:string;
     f:TextFile;
+    fs:TSearchRec;
 begin
   for i:=1 to ConnectDatabaseList.Count do begin
      if ConnectTableCols[i]=nil then ConnectTableCols[i]:=TStringList.Create;
@@ -510,6 +511,15 @@ begin
        ReadLn(f,buf);
        CloseFile(f);
        SplitRec2(buf,';',ConnectTableCols[i]);
+     end;
+     if (uplanguage<>'EN')and(pos('_EN.',fn)>0) then begin
+       buf:=ExtractFileName(fn);
+       p:=pos('_',buf);
+       nb:=copy(buf,1,p-1);
+       j:=findfirst(Slash(ExtractFilePath(fn))+nb+'_*_'+uplanguage+'.txt', faNormal, fs);
+       if j=0 then
+         fn:=Slash(ExtractFilePath(fn))+fs.name;
+       FindClose(fs);
      end;
      fname:=ChangeFileExt(fn,'.txt');
      if FileExists(fname) then begin
