@@ -78,6 +78,7 @@ Name: {app}\Database\01_Formations_nommées_FR.csv; Type: filesandordirs; Compone
 Name: {app}\Database\01_Named_formations_EN.csv; Type: filesandordirs; Components: ; Tasks: 
 Name: {app}\Database\02_Formations_satellites_FR.csv; Type: filesandordirs; Components: ; Tasks: 
 Name: {app}\Database\02_Satellite_formations_EN.csv; Type: filesandordirs; Components: ; Tasks: 
+Name: {app}\Database\503_IAU 2024_FR.csv; Type: filesandordirs; Components: ; Tasks:
 
 [UninstallDelete]
 Type: files; Name: {app}\vma.url
