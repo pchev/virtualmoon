@@ -415,7 +415,7 @@ end;
 
 Procedure LoadConnectDB(dbm: TLiteDB);
 var fn,tname,buf,cols,cmd,buf1,v: string;
-    i,j,colcount:integer;
+    i,j,n,p,colcount,db_age:integer;
     col,val: TStringList;
     f: textfile;
 begin
@@ -425,9 +425,12 @@ for j:=1 to ConnectDatabaseList.Count do begin
   tname:='connected_'+lowercase(stringreplace(ConnectDatabaseList[j-1],' ','',[rfReplaceAll]));
   colcount:=ConnectTableCols[j].Count;
   if FileExists(fn) then begin
-    cmd:='select * from '+tname+' limit 1';
-    dbm.Query(cmd);
-    if dbm.RowCount<=0 then begin
+    buf:=ExtractFileName(fn);
+    p:=pos('_',buf);
+    n:=StrToIntDef(copy(buf,1,p-1),-1);
+    buf:=dbm.QueryOne('select fdate from file_date where dbn='+inttostr(n)+';');
+    if buf='' then db_age:=0 else db_age:=strtoint(buf);
+    if (db_age<fileage(fn)) then begin
       MsgForm.Label1.caption:=ExtractFileName(fn)+crlf+'Preparing Database. Please Wait ...';
       msgform.show;
       msgform.Refresh;
@@ -483,8 +486,10 @@ for j:=1 to ConnectDatabaseList.Count do begin
       dbm.Query(cmd);
       if dbm.LastError<>0 then begin
          dbjournal(extractfilename(dbm.database),copy(cmd,1,60)+'...  Error: '+dbm.ErrorMessage);
-       end;
+      end;
       CloseFile(f);
+      dbm.Query('delete from file_date where dbn='+inttostr(n)+';');
+      dbm.Query('insert into file_date values ('+inttostr(n)+','+inttostr(fileage(fn))+');');
       finally
        col.Free;
        val.Free;
