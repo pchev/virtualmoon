@@ -45,7 +45,7 @@ object BigImaForm: TBigImaForm
       OnClick = ToolButton3Click
     end
     object Label1: TLabel
-      Left = 195
+      Left = 197
       Height = 21
       Top = 2
       Width = 27
@@ -66,8 +66,8 @@ object BigImaForm: TBigImaForm
     HorzScrollBar.Page = 601
     VertScrollBar.Page = 348
     Align = alClient
-    ClientHeight = 386
-    ClientWidth = 619
+    ClientHeight = 388
+    ClientWidth = 621
     TabOrder = 1
     object Image1: TImage
       Left = 0
@@ -81,7 +81,7 @@ object BigImaForm: TBigImaForm
     Enabled = False
     Interval = 200
     OnTimer = Timer1Timer
-    left = 40
-    top = 49
+    Left = 40
+    Top = 49
   end
 end

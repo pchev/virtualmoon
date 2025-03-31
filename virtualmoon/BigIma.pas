@@ -100,8 +100,8 @@ begin
    image1.Width:=round(x*imageWidth);
    image1.Height:=round(x*imageHeight);
    Caption:=titre+' x'+formatfloat('0.#',Power(2,zoom));
-   ClientWidth:=trunc(minvalue([0.5*Screen.Width,image1.Width]));
-   ClientHeight:=trunc(minvalue([0.5*Screen.Height,image1.Height+toolbar1.height]));
+   ClientWidth:=trunc(maxvalue([minvalue([0.5*Screen.Width,image1.Width+25]),ToolButton3.Left+ToolButton3.Width]));
+   ClientHeight:=trunc(minvalue([0.5*Screen.Height,image1.Height+toolbar1.height+25]));
    formpos(self,self.Left,self.Top);
 end;
 
