@@ -48,6 +48,8 @@ type
     Button9: TSpeedButton;
     CheckBox10: TCheckBox;
     CheckBoxTerminatorLine: TCheckBox;
+    ComboBoxOrigin: TComboBox;
+    ComboBoxCategory: TComboBox;
     ConnectDbList: TCheckListBox;
     DbList: TCheckListBox;
     ColorDialog1: TColorDialog;
@@ -108,6 +110,8 @@ type
     Label62: TLabel;
     Label63: TLabel;
     Label64: TLabel;
+    Label65: TLabel;
+    Label66: TLabel;
     Label8: TLabel;
     LabelImp: TLabel;
     LabelGrid: TLabel;
@@ -209,7 +213,7 @@ type
     Label33: TLabel;
     OverlayPanel: TPanel;
     CheckBox11: TCheckBox;
-    ComboBox5: TComboBox;
+    ComboBoxOverlay: TComboBox;
     Image1: TImage;
     Label30: TLabel;
     Label32: TLabel;
@@ -222,7 +226,9 @@ type
     procedure Button7Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
     procedure ComboBox6Change(Sender: TObject);
+    procedure ComboBoxCategoryChange(Sender: TObject);
     procedure ComboBoxCountryChange(Sender: TObject);
+    procedure ComboBoxOriginChange(Sender: TObject);
     procedure ComboBoxTZChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
@@ -244,7 +250,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure StringGrid2SelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
-    procedure ComboBox5Change(Sender: TObject);
+    procedure ComboBoxOverlayChange(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure StringGrid2ValidateEntry(Sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
     procedure StringGrid3ValidateEntry(Sender: TObject; aCol, aRow: Integer; const OldValue: string; var NewValue: String);
@@ -257,11 +263,17 @@ type
     lockoverlay,locktexture: boolean;
     savelibration : boolean;
     FPrinterDialog : TNotifyEvent;
+    OverlayList, CategoryList, OriginList: TStringList;
+    TranslatedOverlayList: array of array[1..2] of string;
     function MaxTexLevel(tex: string): integer;
     procedure SetTexButton;
     procedure UpdateTzList;
     procedure showtexture;
     procedure FillHistorical;
+    procedure SetOverlayList;
+    function TranslateOverlayName(ovname: string; reverse:boolean=false):string;
+    procedure SetOverlayFile(value: string);
+    function  GetOverlayFile: string;
   public
     newlang: string;
     tzinfo: TCdCTimeZone;
@@ -274,7 +286,8 @@ type
     procedure SetObsCountry(value:string);
     procedure LoadCountry(fn:string);
     procedure Setlang;
-  property onPrinterDialog : TNotifyEvent read FPrinterDialog write FPrinterDialog;
+    property OverlayFile: string read GetOverlayFile write SetOverlayFile;
+    property onPrinterDialog : TNotifyEvent read FPrinterDialog write FPrinterDialog;
   end;
 
 var
@@ -382,6 +395,7 @@ begin
       if BumpRadioGroup.Items.Count>2 then BumpRadioGroup.Items[2]:=rsPhaseWithDyn;
       Button7.Caption:=rsCheckForOpti;
       Button8.Caption:=rsCheckForOpti;
+      SetOverlayList;
 end;
 
 Function GetLangCode(buf:string):string;
@@ -431,13 +445,24 @@ begin
   end;
 end;
 
+function StrCompare(List: TStringList; Index1, Index2: Integer): Integer;
+begin
+  if List[Index1]=List[Index2] then
+    result:=0
+  else if List[Index1]>List[Index2] then
+    result:=1
+  else
+    result:=-1;
+end;
+
 procedure TForm2.FormCreate(Sender: TObject);
-var i,j,p : integer;
-    buf,code,AVLlang : string;
+var i,j,k,p : integer;
+    buf,code,AVLlang,ovname : string;
     fs : TSearchRec;
     ft : TextFile;
     bt : TRadioButton;
     cb : TCheckBox;
+    s: TStringList;
 procedure addbuttons(n:integer;txt:string);
 var toppos,hh:integer;
 begin
@@ -537,14 +562,10 @@ while i=0 do begin
 end;
 findclose(fs);
 for j:=0 to combobox3.Items.Count-1 do if GetLangCode(combobox3.Items[j])=language then combobox3.ItemIndex:=j;
-i:=findfirst(Slash(appdir)+Slash('Textures')+Slash('Overlay')+'*.jpg',0,fs);
-combobox5.clear;
-combobox5.Sorted:=true;
-while i=0 do begin
-  combobox5.Items.Add(remext(fs.name));
-  i:=findnext(fs);
-end;
-findclose(fs);
+OverlayList:=TStringList.Create;
+CategoryList:=TStringList.Create;
+OriginList:=TStringList.Create;
+OverlayList.Sorted:=True;
 Texturefn:=TStringList.Create;
 TextureList:=TStringList.Create;
 i:=findfirst(Slash(appdir)+Slash('Textures')+'*',faDirectory,fs);
@@ -573,6 +594,90 @@ for i:=0 to TextureList.Count-1 do begin
 end;
 savelibration:=librationeffect;
 countrycode:=TStringList.Create;
+end;
+
+procedure TForm2.SetOverlayList;
+var i,k : integer;
+    buf,ovname : string;
+    fs : TSearchRec;
+    ft : TextFile;
+    s: TStringList;
+begin
+  OverlayList.Clear;
+  CategoryList.Clear;
+  OriginList.Clear;
+  SetLength(TranslatedOverlayList,0);
+  if (uplanguage<>'EN') and FileExists(Slash(appdir)+Slash('Textures')+Slash('Overlay')+'overlay_'+uplanguage+'.csv') then begin
+    AssignFile(ft,Slash(appdir)+Slash('Textures')+Slash('Overlay')+'overlay_'+uplanguage+'.csv');
+    reset(ft);
+    s:=TStringList.Create;
+    k:=0;
+    SetLength(TranslatedOverlayList,200);
+    while not eof(ft) do begin
+      readln(ft,buf);
+      SplitRec(buf,';',s);
+      if s.Count=2 then begin
+        TranslatedOverlayList[k,1]:=s[0];
+        TranslatedOverlayList[k,2]:=s[1];
+        inc(k);
+        if k>=Length(TranslatedOverlayList) then
+          SetLength(TranslatedOverlayList,k+200);
+      end;
+    end;
+    SetLength(TranslatedOverlayList,k);
+    CloseFile(ft);
+    s.Free;
+  end;
+  CategoryList.Add(' '+rst_84);
+  OriginList.Add(' '+rst_84);
+  s:=TStringList.Create;
+  i:=findfirst(Slash(appdir)+Slash('Textures')+Slash('Overlay')+'*.jpg',0,fs);
+  while i=0 do begin
+    ovname:=TranslateOverlayName(remext(fs.Name),false);
+    OverlayList.Add(ovname);
+    SplitRec(ovname,'-',s);
+    if s.Count=3 then begin
+      buf:=trim(s[0]);
+      if CategoryList.IndexOf(buf)<0 then
+        CategoryList.Add(buf);
+      buf:=trim(s[2]);
+      if OriginList.IndexOf(buf)<0 then
+        OriginList.Add(buf);
+    end;
+    i:=findnext(fs);
+  end;
+  findclose(fs);
+  s.Free;
+  CategoryList.CustomSort(@StrCompare);
+  OriginList.CustomSort(@StrCompare);
+  ComboBoxCategory.Items.Assign(CategoryList);
+  ComboBoxOrigin.Items.Assign(OriginList);
+  ComboBoxOverlay.Items.Assign(OverlayList);
+  ComboBoxCategory.ItemIndex:=0;
+  ComboBoxOrigin.ItemIndex:=0;
+  ComboBoxOverlay.ItemIndex:=0;
+end;
+
+function TForm2.TranslateOverlayName(ovname: string; reverse:boolean=false):string;
+var i:integer;
+begin
+  result:=ovname;
+  if reverse then begin
+    for i:=0 to Length(TranslatedOverlayList)-1 do begin
+       if TranslatedOverlayList[i,2]=ovname then begin
+         result:=TranslatedOverlayList[i,1];
+         break;
+       end;
+    end;
+  end
+  else begin
+    for i:=0 to Length(TranslatedOverlayList)-1 do begin
+       if TranslatedOverlayList[i,1]=ovname then begin
+         result:=TranslatedOverlayList[i,2];
+         break;
+       end;
+    end;
+  end;
 end;
 
 procedure TForm2.FillHistorical;
@@ -657,6 +762,10 @@ for i:=0 to UserDbList.Count-1 do (UserDbList.Items.Objects[i] as TDBinfo).Free;
 countrycode.Free;
 TextureList.Free;
 Texturefn.Free;
+OverlayList.Free;
+SetLength(TranslatedOverlayList,0);
+CategoryList.Free;
+OriginList.Free;
 ov.Free;
 end;
 
@@ -922,22 +1031,76 @@ if TrackBar3.Position=30 then TrackBar3.PageSize:=6
 TrackBar3.LineSize:=TrackBar3.PageSize;
 end;
 
-{procedure TForm2.ComboBox5Change(Sender: TObject);
+procedure TForm2.ComboBoxCategoryChange(Sender: TObject);
+var i: integer;
+    cat,buf: string;
+    all: boolean;
+    s: TStringList;
 begin
-if fileexists(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg') then begin
-   image1.Picture.LoadFromFile(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg');
-   CheckBox11.Checked:=true;
-end else begin
-   image1.Picture.Assign(nil);
+  if sender<>ComboBoxCategory then exit;
+  all:=ComboBoxCategory.ItemIndex=0;
+  cat:=ComboBoxCategory.Text;
+  s:=TStringList.Create;
+  ComboBoxOverlay.Clear;
+  for i:=0 to OverlayList.Count-1 do begin
+    SplitRec(OverlayList[i],'-',s);
+    if s.Count=3 then begin
+      buf:=trim(s[0]);
+      if all or (buf=cat) then
+        ComboBoxOverlay.Items.Add(OverlayList[i]);
+    end;
+  end;
+  s.Free;
+  ComboBoxOrigin.ItemIndex:=0;
+  ComboBoxOverlay.ItemIndex:=0;
+  ComboBoxOverlayChange(Sender);
 end;
-end; }
-procedure TForm2.ComboBox5Change(Sender: TObject);
-var  j:tjpegimage;
+
+procedure TForm2.ComboBoxOriginChange(Sender: TObject);
+var i: integer;
+    ori,buf: string;
+    all: boolean;
+    s: TStringList;
 begin
-if fileexists(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg') then begin
+  if sender<>ComboBoxOrigin then exit;
+  all:=ComboBoxOrigin.ItemIndex=0;
+  ori:=ComboBoxOrigin.Text;
+  s:=TStringList.Create;
+  ComboBoxOverlay.Clear;
+  for i:=0 to OverlayList.Count-1 do begin
+    SplitRec(OverlayList[i],'-',s);
+    if s.Count=3 then begin
+      buf:=trim(s[2]);
+      if all or (buf=ori) then
+        ComboBoxOverlay.Items.Add(OverlayList[i]);
+    end;
+  end;
+  s.Free;
+  ComboBoxCategory.ItemIndex:=0;
+  ComboBoxOverlay.ItemIndex:=0;
+  ComboBoxOverlayChange(Sender);
+end;
+
+procedure TForm2.SetOverlayFile(value: string);
+begin
+  ComboBoxOverlay.text:=TranslateOverlayName(remext(value));
+  ComboBoxOverlayChange(nil);
+end;
+
+function TForm2.GetOverlayFile: string;
+begin
+  result:=TranslateOverlayName(ComboBoxOverlay.text,true)+'.jpg';
+end;
+
+procedure TForm2.ComboBoxOverlayChange(Sender: TObject);
+var  j:tjpegimage;
+     ovname: string;
+begin
+ovname:=TranslateOverlayName(ComboBoxOverlay.text,true);
+if fileexists(Slash(appdir)+Slash('Textures')+Slash('Overlay')+ovname+'.jpg') then begin
    j:=tjpegimage.create;
    try
-   j.LoadFromFile(Slash(appdir)+Slash('Textures')+Slash('Overlay')+combobox5.text+'.jpg');
+   j.LoadFromFile(Slash(appdir)+Slash('Textures')+Slash('Overlay')+ovname+'.jpg');
    ov.Width:=image1.Width;
    ov.Height:=image1.Height;
    ov.pixelformat:=pf24bit;

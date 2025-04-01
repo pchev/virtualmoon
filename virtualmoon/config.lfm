@@ -990,92 +990,20 @@ object Form2: TForm2
         end
       end
       object OverlayPanel: TPanel
-        Left = 8
-        Height = 464
-        Top = 8
-        Width = 508
+        Left = 0
+        Height = 481
+        Top = 0
+        Width = 529
+        Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 464
-        ClientWidth = 508
+        ClientHeight = 481
+        ClientWidth = 529
         ParentFont = False
         TabOrder = 0
-        object Image1: TImage
-          Left = 19
-          Height = 220
-          Top = 93
-          Width = 440
-          Proportional = True
-          Stretch = True
-        end
-        object Label30: TLabel
-          Left = 19
-          Height = 18
-          Top = 44
-          Width = 54
-          Caption = 'Overlay :'
-          Color = clDefault
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label32: TLabel
-          Left = 19
-          Height = 18
-          Top = 326
-          Width = 86
-          Caption = 'Transparency:'
-          Color = clDefault
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label43: TLabel
-          Left = 156
-          Height = 18
-          Top = 320
-          Width = 5
-          Caption = '-'
-          Color = clDefault
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label44: TLabel
-          Left = 340
-          Height = 18
-          Top = 320
-          Width = 8
-          Caption = '+'
-          Color = clDefault
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object CheckBox11: TCheckBox
-          Left = 19
-          Height = 22
-          Top = 10
-          Width = 195
-          Caption = 'Show overlayyyyyyyyyyyyyy'
-          ParentFont = False
-          TabOrder = 0
-        end
-        object ComboBox5: TComboBox
-          Left = 19
-          Height = 32
-          Top = 64
-          Width = 440
-          ItemHeight = 24
-          OnChange = ComboBox5Change
-          ParentColor = True
-          ParentFont = False
-          Sorted = True
-          TabOrder = 1
-        end
         object TrackBar5: TTrackBar
-          Left = 168
+          Left = 184
           Height = 41
-          Top = 320
+          Top = 360
           Width = 160
           Frequency = 20
           Max = 100
@@ -1086,13 +1014,105 @@ object Form2: TForm2
           ParentFont = False
           TabOrder = 2
         end
+        object Image1: TImage
+          Left = 19
+          Height = 220
+          Top = 136
+          Width = 440
+          Proportional = True
+          Stretch = True
+        end
+        object Label30: TLabel
+          AnchorSideLeft.Control = ComboBoxOverlay
+          AnchorSideBottom.Control = ComboBoxOverlay
+          Left = 19
+          Height = 18
+          Top = 80
+          Width = 54
+          Anchors = [akLeft, akBottom]
+          BorderSpacing.Bottom = 2
+          Caption = 'Overlay :'
+          Color = clDefault
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label32: TLabel
+          AnchorSideTop.Control = TrackBar5
+          Left = 19
+          Height = 18
+          Top = 360
+          Width = 86
+          Caption = 'Transparency:'
+          Color = clDefault
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label43: TLabel
+          AnchorSideTop.Control = TrackBar5
+          AnchorSideRight.Control = TrackBar5
+          Left = 171
+          Height = 18
+          Top = 360
+          Width = 5
+          Anchors = [akTop, akRight]
+          BorderSpacing.Right = 8
+          Caption = '-'
+          Color = clDefault
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label44: TLabel
+          AnchorSideLeft.Control = TrackBar5
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = TrackBar5
+          Left = 352
+          Height = 18
+          Top = 360
+          Width = 8
+          BorderSpacing.Left = 8
+          Caption = '+'
+          Color = clDefault
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object CheckBox11: TCheckBox
+          Left = 19
+          Height = 22
+          Top = 4
+          Width = 195
+          Caption = 'Show overlayyyyyyyyyyyyyy'
+          ParentFont = False
+          TabOrder = 0
+        end
+        object ComboBoxOverlay: TComboBox
+          AnchorSideLeft.Control = Image1
+          AnchorSideTop.Side = asrCenter
+          AnchorSideBottom.Control = Image1
+          Left = 19
+          Height = 32
+          Top = 100
+          Width = 440
+          Anchors = [akLeft, akBottom]
+          BorderSpacing.Bottom = 4
+          ItemHeight = 18
+          OnChange = ComboBoxOverlayChange
+          ParentColor = True
+          ParentFont = False
+          Sorted = True
+          Style = csDropDownList
+          TabOrder = 1
+        end
         object GroupBox2: TGroupBox
-          Left = 21
-          Height = 73
-          Top = 356
+          Left = 19
+          Height = 81
+          Top = 400
           Width = 367
           Caption = 'Grid'
-          ClientHeight = 43
+          ClientHeight = 51
           ClientWidth = 363
           ParentFont = False
           TabOrder = 3
@@ -1156,6 +1176,58 @@ object Form2: TForm2
             ParentFont = False
             TabOrder = 0
           end
+        end
+        object Label65: TLabel
+          AnchorSideLeft.Control = ComboBoxCategory
+          AnchorSideBottom.Control = ComboBoxCategory
+          Left = 19
+          Height = 18
+          Top = 26
+          Width = 56
+          Anchors = [akLeft, akBottom]
+          BorderSpacing.Bottom = 2
+          Caption = 'Category'
+          ParentColor = False
+        end
+        object ComboBoxCategory: TComboBox
+          AnchorSideLeft.Control = Label30
+          AnchorSideBottom.Control = Label30
+          Left = 19
+          Height = 32
+          Top = 46
+          Width = 208
+          Anchors = [akLeft, akBottom]
+          BorderSpacing.Bottom = 2
+          ItemHeight = 18
+          OnChange = ComboBoxCategoryChange
+          Style = csDropDownList
+          TabOrder = 4
+        end
+        object Label66: TLabel
+          AnchorSideLeft.Control = ComboBoxOrigin
+          AnchorSideBottom.Control = ComboBoxOrigin
+          Left = 251
+          Height = 18
+          Top = 26
+          Width = 39
+          Anchors = [akLeft, akBottom]
+          BorderSpacing.Bottom = 2
+          Caption = 'Origin'
+          ParentColor = False
+        end
+        object ComboBoxOrigin: TComboBox
+          AnchorSideTop.Control = ComboBoxCategory
+          AnchorSideRight.Control = ComboBoxOverlay
+          AnchorSideRight.Side = asrBottom
+          Left = 251
+          Height = 32
+          Top = 46
+          Width = 208
+          Anchors = [akTop, akRight]
+          ItemHeight = 18
+          OnChange = ComboBoxOriginChange
+          Style = csDropDownList
+          TabOrder = 5
         end
       end
     end

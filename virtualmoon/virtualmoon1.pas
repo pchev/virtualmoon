@@ -3807,6 +3807,7 @@ end;
 procedure TForm1.OpenConfig(page: integer=-1);
 var
   reload, reloaddb, systemtimechange, redrawbassin: boolean;
+  newoverlay: string;
   i, j: integer;
   p: TPoint;
 begin
@@ -3894,9 +3895,8 @@ begin
     form2.TexturePath := activemoon.TexturePath;
     form2.texturefn.Assign(activemoon.Texture);
     form2.CheckBox15.Checked := LopamDirect;
-    form2.combobox5.Text := remext(overlayname);
     form2.trackbar5.position := round(overlaytr*100);
-    form2.combobox5change(nil);
+    form2.OverlayFile := overlayname;
     form2.checkbox11.Checked := showoverlay;
     form2.checkbox10.Checked := GridButton.Down;
     form2.TrackBar3.Position:=gridspacing;
@@ -3914,12 +3914,13 @@ begin
     if form2.ModalResult = mrOk then
     begin
       screen.cursor := crhourglass;
-      if (form2.combobox5.Text <> remext(overlayname)) or
+      newoverlay:=form2.OverlayFile;
+      if (newoverlay <> overlayname) or
         (form2.trackbar5.position <> round(overlaytr*100)) or
         (form2.TrackBar3.Position<>gridspacing) or
         (form2.checkbox11.Checked <> showoverlay) then
         reload    := True;
-      overlayname := form2.combobox5.Text + '.jpg';
+      overlayname := newoverlay;
       overlaytr  := form2.trackbar5.position/100;
       showoverlay := form2.checkbox11.Checked;
       GridButton.Down:=form2.checkbox10.Checked;
