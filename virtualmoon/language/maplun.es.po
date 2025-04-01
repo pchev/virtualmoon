@@ -10,6 +10,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: u_translation.rsabbreviated
+msgid "Abbreviated"
+msgstr ""
+
 #: u_translation.rsabortslew
 msgid "Abort Slew"
 msgstr ""
@@ -19,6 +23,10 @@ msgstr ""
 msgctxt "u_translation.rsabout"
 msgid "About"
 msgstr "Acerca de"
+
+#: u_translation.rsadditionalin
+msgid "Additional informations"
+msgstr ""
 
 #: u_translation.rsadvanced
 msgid "Advanced"
@@ -71,6 +79,10 @@ msgstr ""
 
 #: u_translation.rscaption
 msgid "Caption"
+msgstr ""
+
+#: u_translation.rscategory
+msgid "Category"
 msgstr ""
 
 #: u_translation.rsccdfield
@@ -199,6 +211,10 @@ msgstr "1"
 
 #: u_translation.rsfrom
 msgid "From"
+msgstr ""
+
+#: u_translation.rsfull
+msgid "Full"
 msgstr ""
 
 #: u_translation.rsfullscreen
@@ -331,6 +347,10 @@ msgstr ""
 
 #: u_translation.rsmin
 msgid "min"
+msgstr ""
+
+#: u_translation.rsminimal
+msgid "Minimal"
 msgstr ""
 
 #: u_translation.rsminute
@@ -672,6 +692,10 @@ msgstr "Altitud de la órbita"
 msgid "Orbit inclination"
 msgstr "Inclinación de la órbita"
 
+#: u_translation.rsorigin
+msgid "Origin"
+msgstr ""
+
 #: u_translation.rspark
 msgid "Park"
 msgstr ""
@@ -999,10 +1023,6 @@ msgstr "°/gundo"
 #: u_translation.rst_139
 msgid "Rotation speed"
 msgstr "Velocidad de rotación"
-
-#: u_translation.rst_14
-msgid "Outline"
-msgstr "Perfil"
 
 #: u_translation.rst_140
 msgid "West View"
@@ -1513,6 +1533,10 @@ msgstr ""
 
 #: u_translation.rswidth
 msgid "Width"
+msgstr ""
+
+#: u_translation.rswindowpositi
+msgid "Window position coupling"
 msgstr ""
 
 #: u_translation.rsyoucandownlo

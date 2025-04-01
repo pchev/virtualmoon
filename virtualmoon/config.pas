@@ -367,6 +367,7 @@ begin
       RadioGroup1.Items[2]:=rsMinimal;
       label28.Caption := rst_124;
       label61.Caption := rst_129;
+      Label5.Caption:=rsAdditionalIn;
       TabSheet7.Caption := rst_129;
       combobox1.items[0] := rst_147;
       combobox1.items[1] := rst_148;
@@ -378,6 +379,8 @@ begin
       Label19.Caption := rst_144;
       TabSheet6.Caption := rst_169;
       CheckBox11.Caption := rst_170;
+      label65.Caption:=rsCategory;
+      label66.Caption:=rsOrigin;
       label30.Caption := rst_171;
       label32.Caption := rst_172;
       Label23.Caption := rst_173;

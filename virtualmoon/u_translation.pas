@@ -390,6 +390,9 @@ rsWindowPositi = 'Window position coupling';
 rsFull = 'Full';
 rsAbbreviated = 'Abbreviated';
 rsMinimal = 'Minimal';
+rsCategory = 'Category';
+rsOrigin = 'Origin';
+rsAdditionalIn = 'Additional informations';
 
 implementation
 

@@ -74,10 +74,6 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: u_translation:rst_14
-msgid "Outline"
-msgstr ""
-
 #: u_translation:rst_15
 msgid "Help"
 msgstr ""
@@ -1488,5 +1484,33 @@ msgstr ""
 
 #: u_translation:rsnewobservati
 msgid "New observation note"
+msgstr ""
+
+#: u_translation:rswindowpositi
+msgid "Window position coupling"
+msgstr ""
+
+#: u_translation:rsfull
+msgid "Full"
+msgstr ""
+
+#: u_translation:rsabbreviated
+msgid "Abbreviated"
+msgstr ""
+
+#: u_translation:rsminimal
+msgid "Minimal"
+msgstr ""
+
+#: u_translation:rscategory
+msgid "Category"
+msgstr ""
+
+#: u_translation:rsorigin
+msgid "Origin"
+msgstr ""
+
+#: u_translation:rsadditionalin
+msgid "Additional informations"
 msgstr ""
 
