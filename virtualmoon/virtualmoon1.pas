@@ -406,6 +406,7 @@ type
     procedure ResizeTimerTimer(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure Splitter2TimerTimer(Sender: TObject);
+    procedure StatusBar1Resize(Sender: TObject);
     procedure TerminatorButtonClick(Sender: TObject);
     procedure TextureCaption1Click(Sender: TObject);
     procedure ToolButton22Click(Sender: TObject);
@@ -2488,7 +2489,7 @@ begin
   if txtbuf>'' then begin
      anchorvisible[5]:=true;
      txt:=txt+ '<a name="origin">  ';
-     txt := txt + t2 + rsm_62 + t2end + br+txtbuf+ b + br; //Origine
+     txt := txt + t2 + rsm_62 + t2end + br+txtbuf+ b ; //Origine
   end;
   txt:=txt+crlf;
 
@@ -2505,7 +2506,7 @@ begin
         else if buf='LICD 2015' then
           anchorvisible[8]:=true;
         // display data with title
-        txt:=txt+'<a name="'+buf+'">  '+ t2 + buf +':'+ t2end + br;
+        txt:=txt+br+'<a name="'+buf+'">  '+ t2 + buf +':'+ t2end + br;
         txt := txt + txtbuf;
       end;
       txt:=txt+crlf;
@@ -4191,6 +4192,13 @@ begin
    SplitSize:=PanelMoon.Width/(PanelMoon.Width+PanelMoon2.Width);
    FormResize(Sender);
  end;
+end;
+
+procedure TForm1.StatusBar1Resize(Sender: TObject);
+begin
+  StatusBar1.Panels[statusFov].Width:= StatusBar1.ClientWidth-StatusBar1.Panels[statusLon].Width
+                                      -StatusBar1.Panels[statusLat].Width-StatusBar1.Panels[statusElev].Width
+                                      -StatusBar1.Panels[statusDate].Width-StatusBar1.Panels[statusOther].Width;
 end;
 
 procedure TForm1.ToolButton12Click(Sender: TObject);

@@ -519,6 +519,7 @@ object Form1: TForm1
     ParentShowHint = False
     SimplePanel = False
     ShowHint = True
+    OnResize = StatusBar1Resize
   end
   object Splitter1: TSplitter
     Left = 488
