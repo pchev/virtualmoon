@@ -14,6 +14,8 @@ object f_photlun: Tf_photlun
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
+  OnKeyUp = FormKeyUp
+  OnMouseLeave = FormMouseLeave
   OnShow = FormShow
   ShowHint = True
   object PageControl1: TPageControl
@@ -43,6 +45,8 @@ object f_photlun: Tf_photlun
         Align = alClient
         ClientHeight = 513
         ClientWidth = 946
+        Color = 5263440
+        ParentColor = False
         TabOrder = 0
         OnResize = ScrollBox1Resize
         object PanelVignette: TPanel

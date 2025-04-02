@@ -58,7 +58,9 @@ type
     Procedure ClearImage;
     procedure SetImage(value:string);
     procedure PlotImage;
+    procedure DetachAsync(Data: PtrInt);
     procedure Image1Paint(Sender: TObject);
+    procedure Image1DblClick(Sender: TObject);
     procedure Image1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X,Y: Integer);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -110,6 +112,7 @@ begin
  Image1.Parent:=PanelImg;
  Image1.Align:=alClient;
  Image1.OnPaint:=@Image1Paint;
+ image1.OnDblClick:=@Image1DblClick;
  Image1.OnMouseDown:=@Image1MouseDown;
  Image1.OnMouseMove:=@Image1MouseMove;
  Image1.OnMouseUp:=@Image1MouseUp;
@@ -149,14 +152,29 @@ begin
 //  Free;
 end;
 
+procedure Tf_img.DetachAsync(Data: PtrInt);
+begin
+  if Assigned(FonDetach) then begin
+    BtnDetach.Visible:=False;
+    PanelTop.Visible:=False;
+    Image1.OnDblClick:=nil;
+    FonDetach(self);
+  end;
+end;
+
 procedure Tf_img.BtnDetachClick(Sender: TObject);
 begin
-  if Assigned(FonDetach) then FonDetach(self);
+  Application.QueueAsyncCall(@DetachAsync,0);
 end;
 
 procedure Tf_img.BtnResetClick(Sender: TObject);
 begin
   SetImage(Fimage);
+end;
+
+procedure Tf_img.Image1DblClick(Sender: TObject);
+begin
+  BtnDetachClick(Sender);
 end;
 
 procedure Tf_img.PlotTimerTimer(Sender: TObject);

@@ -14,7 +14,7 @@ uses
   u_translation,
   BGRABitmap, BGRABitmapTypes, LazUTF8, UniqueInstance, math,
   fu_img, pu_config, u_util, u_constant, LazFileUtils, IniFiles, LCLType,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, Menus;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, Menus, Buttons;
 
 type
 
@@ -60,6 +60,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormMouseLeave(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ImageClose(Sender: TObject);
     procedure ImageFormClose(Sender: TObject);
@@ -77,7 +79,7 @@ type
     imglist: TStringList;
     SelectedObject,pofile: string;
     StartVMA,CanCloseVMA, StartDatlun, CanCloseDatlun: boolean;
-    SortByName, autoflipx, autoflipy: Boolean;
+    SortByName, autoflipx, autoflipy, ShiftKey: Boolean;
     procedure SetLang;
     procedure GetAppDir;
     procedure ReadConfig;
@@ -564,6 +566,7 @@ begin
   img.onClose:=@ImageClose;
   img.onDetach:=@ImageDetach;
   PageControl1.ActivePageIndex:=1;
+  if ShiftKey then ImageDetach(img);
 end;
 
 procedure Tf_photlun.ImageClose(Sender: TObject);
@@ -587,7 +590,20 @@ begin
       if Panel3.Controls[i] is Tf_img then
         Application.QueueAsyncCall(@CloseImgAsync,PtrInt(Panel3.Controls[i]));
     end;
+  end
+  else if (key=VK_SHIFT)and(PageControl1.ActivePageIndex=0) then begin
+     ShiftKey:=true;
   end;
+end;
+
+procedure Tf_photlun.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  ShiftKey:=false;
+end;
+
+procedure Tf_photlun.FormMouseLeave(Sender: TObject);
+begin
+  ShiftKey:=false;
 end;
 
 procedure Tf_photlun.ImgFormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -630,8 +646,6 @@ begin
   f.Caption:=Tf_img(Sender).Info.Caption;
   Tf_img(Sender).Parent:=f;
   Tf_img(Sender).onClose:=@ImageFormClose;
-  Tf_img(Sender).BtnDetach.Visible:=False;
-  Tf_img(Sender).PanelTop.Visible:=False;
   FormPos(f,Mouse.CursorPos.X,Mouse.CursorPos.Y);
   f.ShowOnTop;
   PageControl1.ActivePageIndex:=0;
