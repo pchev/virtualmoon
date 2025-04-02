@@ -798,6 +798,10 @@ msgstr ""
 msgid "Set Time"
 msgstr ""
 
+#: u_translation.rsshadedcolor
+msgid "Shaded Color"
+msgstr ""
+
 #: u_translation.rsshowgrid
 msgid "Show grid"
 msgstr "Εμφάνιση πλέγματος"

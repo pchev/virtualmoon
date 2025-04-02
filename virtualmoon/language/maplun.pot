@@ -1514,3 +1514,7 @@ msgstr ""
 msgid "Additional informations"
 msgstr ""
 
+#: u_translation:rsshadedcolor
+msgid "Shaded Color"
+msgstr ""
+

@@ -393,6 +393,7 @@ rsMinimal = 'Minimal';
 rsCategory = 'Category';
 rsOrigin = 'Origin';
 rsAdditionalIn = 'Additional informations';
+rsShadedColor = 'Shaded Color';
 
 implementation
 

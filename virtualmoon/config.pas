@@ -379,8 +379,8 @@ begin
       Label19.Caption := rst_144;
       TabSheet6.Caption := rst_169;
       CheckBox11.Caption := rst_170;
-      label65.Caption:=rsCategory;
-      label66.Caption:=rsOrigin;
+      label65.Caption:=rsCategory+' :';
+      label66.Caption:=rsOrigin+' :';
       label30.Caption := rst_171;
       label32.Caption := rst_172;
       Label23.Caption := rst_173;
@@ -587,6 +587,7 @@ for i:=0 to TextureList.Count-1 do begin
     else if TextureList[i]='Lopam' then buf:=rsLOPAMPhotogr
     else if TextureList[i]='WAC' then buf:='LRO WAC Mosaic'
     else if TextureList[i]='WAC_LOWSUN' then buf:='LRO WAC '+rsLowSunElevat
+    else if TextureList[i]='WAC_Color_Shade' then buf:='LRO WAC '+rsShadedColor
     else if TextureList[i]=HistoricalDir then begin
       buf:=rsHistorical;
       FillHistorical;
