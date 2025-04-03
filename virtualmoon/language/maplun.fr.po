@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2025-04-02 09:05+0200\n"
+"PO-Revision-Date: 2025-04-03 10:07+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -798,7 +798,7 @@ msgstr "Envoyer l'heure"
 
 #: u_translation.rsshadedcolor
 msgid "Shaded Color"
-msgstr "Nuance de couleur"
+msgstr "Relief en couleur"
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
