@@ -26,16 +26,16 @@ object f_moon: Tf_moon
     OnResize = MoonResize
     object GLSceneViewer1: TGLSceneViewer
       Left = 2
-      Height = 480
+      Height = 484
       Top = 2
-      Width = 480
+      Width = 484
       Camera = GLCamera1
       Buffer.BackgroundColor = clBlack
       Buffer.AmbientColor.Alpha = 1
       Buffer.AmbientColor.Color = {
         0000000000000000000000000000803F
       }
-      FieldOfView = 4.5812201499939
+      FieldOfView = 4.61935567855835
       Align = alClient
       OnMouseDown = GLSceneViewer1MouseDown
       OnMouseMove = GLSceneViewer1MouseMove
@@ -47,27 +47,33 @@ object f_moon: Tf_moon
     end
     object HorScrollBar: TScrollBar
       Left = 2
-      Height = 21
-      Top = 482
+      Height = 17
+      Top = 486
       Width = 501
       Align = alBottom
+      LargeChange = 2000
       Max = 5000
       Min = -5000
-      PageSize = 0
+      PageSize = 2000
+      Position = -1000
+      SmallChange = 100
       TabOrder = 1
       Visible = False
       OnScroll = HorScrollBarScroll
     end
     object VerScrollBar: TScrollBar
-      Left = 482
-      Height = 480
+      Left = 486
+      Height = 484
       Top = 2
-      Width = 21
+      Width = 17
       Align = alRight
       Kind = sbVertical
+      LargeChange = 2000
       Max = 5000
       Min = -5000
-      PageSize = 0
+      PageSize = 2000
+      Position = -1000
+      SmallChange = 100
       TabOrder = 2
       Visible = False
       OnScroll = VerScrollBarScroll

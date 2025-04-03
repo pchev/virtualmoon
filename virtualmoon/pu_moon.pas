@@ -1050,8 +1050,8 @@ end;
 
 procedure Tf_moon.ResetOffset;
 begin
-  HorScrollBar.Position:=0;
-  VerScrollBar.Position:=0;
+  HorScrollBar.Position:=-HorScrollBar.PageSize div 2;
+  VerScrollBar.Position:=-VerScrollBar.PageSize div 2;
   CameraDirectionDummyCube.Direction.SetVector(0,0,1);
   CameraDirectionDummyCube.Up.SetVector(0,1,0);
   OffsetDummyCube.Position.SetPoint(0,0,0);
@@ -1709,14 +1709,14 @@ end;
 
 procedure Tf_moon.HorScrollBarScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
 begin
-  OffsetDummyCube.Position.X:=-ScrollPos/10000;
+  OffsetDummyCube.Position.X:=-(ScrollPos+HorScrollBar.PageSize div 2)/10000;
   RefreshAll;
 end;
 
 procedure Tf_moon.VerScrollBarScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
 begin
-  OffsetDummyCube.Position.Z:=-1.4*ScrollPos/10000;
-  OffsetDummyCube.Position.Y:=-1.4*ScrollPos/10000;
+  OffsetDummyCube.Position.Z:=-1.4*(ScrollPos+VerScrollBar.PageSize div 2)/10000;
+  OffsetDummyCube.Position.Y:=-1.4*(ScrollPos+VerScrollBar.PageSize div 2)/10000;
   RefreshAll;
 end;
 
