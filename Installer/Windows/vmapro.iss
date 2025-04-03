@@ -73,12 +73,14 @@ Name: {commondesktop}\{cm:MyAppName}; Filename: {app}\cclun.exe; Tasks: desktopi
 Filename: {app}\{cm:MyTutorial}; Flags: postinstall shellexec nowait skipifsilent; Description: {cm:MyTutorialMsg}
 
 [InstallDelete]
-Name: {app}\Database\01_Formations_nommÃ©es_FR.csv; Type: filesandordirs; Components: ; Tasks: 
-Name: {app}\Database\01_Formations_nommées_FR.csv; Type: filesandordirs; Components: ; Tasks:
-Name: {app}\Database\01_Named_formations_EN.csv; Type: filesandordirs; Components: ; Tasks: 
-Name: {app}\Database\02_Formations_satellites_FR.csv; Type: filesandordirs; Components: ; Tasks: 
-Name: {app}\Database\02_Satellite_formations_EN.csv; Type: filesandordirs; Components: ; Tasks: 
-Name: {app}\Database\503_IAU 2024_FR.csv; Type: filesandordirs; Components: ; Tasks:
+Name: {app}\Database\01_Formations_nommÃ©es_FR.csv; Type: files; Components: ; Tasks: 
+Name: {app}\Database\01_Formations_nommées_FR.csv; Type: files; Components: ; Tasks:
+Name: {app}\Database\01_Named_formations_EN.csv; Type: files; Components: ; Tasks: 
+Name: {app}\Database\02_Formations_satellites_FR.csv; Type: files; Components: ; Tasks: 
+Name: {app}\Database\02_Satellite_formations_EN.csv; Type: files; Components: ; Tasks: 
+Name: {app}\Database\503_IAU 2024_FR.csv; Type: files; Components: ; Tasks:
+Name: {app}\Textures\Overlay\caption\*; Type: files; Components: ; Tasks:
+Name: {app}\Textures\Overlay\*; Type: files; Components: ; Tasks:
 
 [UninstallDelete]
 Type: files; Name: {app}\vma.url
