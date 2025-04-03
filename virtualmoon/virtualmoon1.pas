@@ -4383,7 +4383,7 @@ end;
 procedure TForm1.SetZoom(z: single);
 begin
 activemoon.Zoom := z;
-if NewWindowButton.Down and LinkWindowButton.Down then begin
+if NewWindowButton.Down and LinkWindowButton.Down and (moon2<>nil) then begin
   if activemoon=moon1 then
     moon2.Zoom := z
   else
@@ -4394,7 +4394,7 @@ end;
 procedure TForm1.MoonZoom(Sender: TObject);
 var z: single;
 begin
-if NewWindowButton.Down and LinkWindowButton.Down then begin
+if NewWindowButton.Down and LinkWindowButton.Down and (moon2<>nil) then begin
   z:=Tf_moon(sender).Zoom;
   if Sender=moon1 then
     moon2.Zoom := z
@@ -4407,7 +4407,7 @@ procedure TForm1.MoonScroll(Sender: TObject);
 var srcmoon,destmoon: Tf_moon;
     i: integer;
 begin
-  if NewWindowButton.Down and LinkWindowButton.Down then begin
+  if NewWindowButton.Down and LinkWindowButton.Down and (moon2<>nil) then begin
     srcmoon:=Tf_moon(sender);
     if Sender=moon1 then
       destmoon:=moon2
@@ -5569,7 +5569,7 @@ begin
     Rotation1.Visible := True;
     LibrationButton.Enabled := False;
     SetRotation(activemoon,True);
-    if NewWindowButton.Down and LinkWindowButton.Down then begin
+    if NewWindowButton.Down and LinkWindowButton.Down  and (moon2<>nil) then begin
      if activemoon=moon1 then
        SetRotation(moon2,True)
      else
@@ -5590,7 +5590,7 @@ begin
     Rotation1.Visible := False;
     LibrationButton.Enabled := True;
     SetRotation(activemoon,False);
-    if NewWindowButton.Down and LinkWindowButton.Down then begin
+    if NewWindowButton.Down and LinkWindowButton.Down and (moon2<>nil) then begin
      if activemoon=moon1 then
        SetRotation(moon2,False)
      else
@@ -5906,7 +5906,7 @@ end;
 procedure TForm1.LinkWindowButtonClick(Sender: TObject);
 var destmoon: TF_moon;
 begin
-if NewWindowButton.Down and LinkWindowButton.Down then begin
+if NewWindowButton.Down and LinkWindowButton.Down and (moon2<>nil) then begin
   if activemoon=moon1 then
     destmoon:=moon2
   else
@@ -5920,7 +5920,7 @@ end;
 procedure TForm1.MoonMoveCamera(Sender: TObject);
 var srcmoon,destmoon: TF_moon;
 begin
-if NewWindowButton.Down and LinkWindowButton.Down then begin
+if NewWindowButton.Down and LinkWindowButton.Down and (moon2<>nil) then begin
   srcmoon:=Tf_moon(sender);
   if srcmoon=moon1 then
     destmoon:=moon2
