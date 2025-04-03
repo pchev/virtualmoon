@@ -38,7 +38,7 @@ uses
   u_translation_database, u_translation, tabsdock, cu_dem, pu_demprofile,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
-  PrintersDlgs, Printers, Controls,
+  PrintersDlgs, Printers, Controls, LazFileUtils,
   Messages, SysUtils, Classes, Dialogs, FileUtil, Types,
   ComCtrls, Menus, Buttons, dynlibs, BigIma, pu_ascomclient, pu_indiclient,
   EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase, LCLType,
@@ -128,6 +128,7 @@ type
     c62: TMenuItem;
     c72: TMenuItem;
     c82: TMenuItem;
+    MenuCheckName: TMenuItem;
     TextureCaption1: TMenuItem;
     TextureCaption2: TMenuItem;
     Panel2: TPanel;
@@ -398,6 +399,7 @@ type
     procedure IncreaseFont1Click(Sender: TObject);
     procedure LinkWindowButtonClick(Sender: TObject);
     procedure ListNotesDblClick(Sender: TObject);
+    procedure MenuCheckNameClick(Sender: TObject);
     procedure OptFeatures1Click(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
@@ -1099,6 +1101,51 @@ AddImagesDir(slash(appdir)+'BestofLROobliques','Best of LRO Oblics','LRO','0');
 AddImagesDir(slash(appdir)+'BestofPelissard','Best of William Pelissard','William Pelissard','0');
 AddImagesDir(slash(appdir)+'Personnages','Characters','Wikipedia','0');
 
+end;
+
+
+
+procedure TForm1.MenuCheckNameClick(Sender: TObject);
+var i,r,p: integer;
+    n,dir,filter: string;
+    imglist: TStringList;
+    f: TSearchRec;
+    err: Textfile;
+begin
+  imglist:=TStringList.Create;
+  for i:=0 to maximgdir-1 do begin
+     dir:=imgdir[i,0];
+     filter:='*';
+     // from Tf_photlun.ListImgDir
+     dir:=slash(dir);
+     filter:=uppercase(filter);
+     r:=FindFirst(dir+'*.*',0,f);
+     while (r=0) do begin
+       if (uppercase(ExtractFileExt(f.Name))='.JPG')
+          and (  ( filter='*' )
+              or (pos(filter,uppercase(f.Name))=1) )
+          then imglist.Add(dir+f.Name);
+       r:=findnext(f);
+     end;
+     FindClose(f);
+  end;
+  imglist.Sort;
+  AssignFile(err,slash(Homedir)+'image_error.txt');
+  rewrite(err);
+  for i:=0 to imglist.count-1 do begin
+    n:=ExtractFileNameOnly(imglist[i]);
+    p:=pos('_',n);
+    if p>0 then
+      n:=copy(n,1,p-1);
+    p:=pos(' ',n);
+    if p>0 then
+      n:=copy(n,1,p-1);
+    dbm.Query('select dbn from moon where name like"'+n+'%"');
+    if dbm.RowCount=0 then
+      writeln(err,imglist[i]);
+  end;
+  closefile(err);
+  imglist.Free;
 end;
 
 procedure TForm1.ReadWindowSize;
@@ -1922,12 +1969,14 @@ testfile:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
   end;
 {$endif}
   privatedir := DefaultPrivateDir;
+  HomeDir := DefaultHomeDir;
 {$ifdef unix}
   appdir     := expandfilename(appdir);
   bindir     := slash(appdir);
   privatedir := expandfilename(PrivateDir);
   configfile := expandfilename(Defaultconfigfile);
   CdCconfig  := ExpandFileName(DefaultCdCconfig);
+  HomeDir    := expandfilename(HomeDir);
 {$endif}
 {$ifdef mswindows}
   buf:='';
@@ -1950,6 +1999,9 @@ testfile:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
   configfile := slash(privatedir) + Defaultconfigfile;
   CdCconfig  := slash(buf) + DefaultCdCconfig;
   bindir:=slash(appdir);
+  SHGetSpecialFolderLocation(0, CSIDL_PERSONAL, PIDL);
+  SHGetPathFromIDList(PIDL, Folder);
+  homedir := trim(WinCPToUTF8(Folder));
 {$endif}
 
   if not directoryexists(privatedir) then

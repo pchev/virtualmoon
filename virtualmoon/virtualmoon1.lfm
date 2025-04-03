@@ -2501,6 +2501,11 @@ object Form1: TForm1
       Caption = 'Cartes du Ciel'
       OnClick = CartesduCiel1Click
     end
+    object MenuCheckName: TMenuItem
+      Caption = 'MenuCheckName'
+      Visible = False
+      OnClick = MenuCheckNameClick
+    end
     object N3: TMenuItem
       Caption = '-'
     end
