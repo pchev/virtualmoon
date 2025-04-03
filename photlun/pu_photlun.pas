@@ -323,6 +323,11 @@ AddImagesDir(slash(appdir)+'Best_of_Peach','Best of Damian Peach','Damian Peach'
 AddImagesDir(slash(appdir)+'BestOfCathala','Best of Cathala','Luc Cathala');
 AddImagesDir(slash(appdir)+'BestOfBrahic','Best of Jean Pierre Brahic','Jean Pierre Brahic');
 AddImagesDir(slash(appdir)+'BestOfViladrich','Best of Christian Viladrich','Christian Viladrich');
+AddImagesDir(slash(appdir)+'BestOfHeully','Philippe Heuly drawing','Philippe Heuly');
+AddImagesDir(slash(appdir)+'Bestofhistorical','Best of Historical','LRO');
+AddImagesDir(slash(appdir)+'BestofLROobliques','Best of LRO Oblics','LRO');
+AddImagesDir(slash(appdir)+'BestofPelissard','Best of William Pelissard','William Pelissard');
+AddImagesDir(slash(appdir)+'Personnages','Characters','Wikipedia');
 end;
 
 Procedure Tf_photlun.ReadParam(first:boolean=true);

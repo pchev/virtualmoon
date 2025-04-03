@@ -1093,6 +1093,12 @@ AddImagesDir(slash(appdir)+'Best_of_Peach','Best of Damian Peach','Damian Peach'
 AddImagesDir(slash(appdir)+'BestOfCathala','Best of Cathala','Luc Cathala','0');
 AddImagesDir(slash(appdir)+'BestOfBrahic','Best of Jean Pierre Brahic','Jean Pierre Brahic','0');
 AddImagesDir(slash(appdir)+'BestOfViladrich','Best of Christian Viladrich','Christian Viladrich','0');
+AddImagesDir(slash(appdir)+'BestOfHeully','Philippe Heuly drawing','Philippe Heuly','0');
+AddImagesDir(slash(appdir)+'Bestofhistorical','Best of Historical','LRO','0');
+AddImagesDir(slash(appdir)+'BestofLROobliques','Best of LRO Oblics','LRO','0');
+AddImagesDir(slash(appdir)+'BestofPelissard','Best of William Pelissard','William Pelissard','0');
+AddImagesDir(slash(appdir)+'Personnages','Characters','Wikipedia','0');
+
 end;
 
 procedure TForm1.ReadWindowSize;

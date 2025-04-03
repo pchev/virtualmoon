@@ -76,3 +76,8 @@ InstPicture PictureLAC_LM $destdir
 InstPicture PictureLopam $destdir
 InstPicture PictureSmart1 $destdir
 InstPicture PictureLunarPits $destdir
+InstPicture PictureBestOfHeully $destdir
+InstPicture PictureBestofhistorical $destdir
+InstPicture PictureBestofLROobliques $destdir
+InstPicture PictureBestofPelissard $destdir
+InstPicture PicturePersonnages $destdir
