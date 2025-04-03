@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 292
   Height = 606
   Top = 120
-  Width = 1558
+  Width = 1116
   HorzScrollBar.Page = 813
   HorzScrollBar.Range = 785
   VertScrollBar.Page = 586
@@ -10,7 +10,7 @@ object Form1: TForm1
   ActiveControl = ControlBar1
   Caption = 'Form1'
   ClientHeight = 606
-  ClientWidth = 1558
+  ClientWidth = 1116
   Color = clWindow
   Constraints.MinHeight = 606
   Constraints.MinWidth = 1035
@@ -27,16 +27,16 @@ object Form1: TForm1
   ParentDoubleBuffered = False
   object PanelMoon2: TPanel
     Left = 0
-    Height = 551
-    Top = 32
+    Height = 523
+    Top = 60
     Width = 200
     Align = alLeft
     TabOrder = 4
   end
   object PanelMoon: TPanel
     Left = 205
-    Height = 551
-    Top = 32
+    Height = 523
+    Top = 60
     Width = 200
     Align = alLeft
     TabOrder = 2
@@ -53,14 +53,14 @@ object Form1: TForm1
   end
   object ControlBar1: TPanel
     Left = 0
-    Height = 32
+    Height = 60
     Top = 0
-    Width = 1558
+    Width = 1116
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
-    ClientHeight = 32
-    ClientWidth = 1558
+    ClientHeight = 60
+    ClientWidth = 1116
     TabOrder = 1
     object TrackBar9: TTrackBar
       Left = 784
@@ -284,9 +284,9 @@ object Form1: TForm1
       TabOrder = 2
     end
     object ToolBar4: TToolBar
-      Left = 870
+      Left = 0
       Height = 30
-      Top = 0
+      Top = 30
       Width = 542
       Align = alNone
       AutoSize = True
@@ -462,7 +462,7 @@ object Form1: TForm1
     object ToolBar5: TToolBar
       AnchorSideRight.Control = ControlBar1
       AnchorSideRight.Side = asrBottom
-      Left = 1497
+      Left = 1055
       Height = 30
       Top = 0
       Width = 61
@@ -496,7 +496,7 @@ object Form1: TForm1
     Left = 0
     Height = 23
     Top = 583
-    Width = 1558
+    Width = 1116
     Panels = <    
       item
         Width = 140
@@ -531,8 +531,8 @@ object Form1: TForm1
   end
   object Splitter2: TSplitter
     Left = 200
-    Height = 551
-    Top = 32
+    Height = 523
+    Top = 60
     Width = 5
     Constraints.MinWidth = 5
     OnMoved = Splitter2Moved
@@ -540,15 +540,15 @@ object Form1: TForm1
   end
   object tabs: TPanel
     Left = 744
-    Height = 549
-    Top = 35
+    Height = 525
+    Top = 59
     Width = 356
-    ClientHeight = 549
+    ClientHeight = 525
     ClientWidth = 356
     TabOrder = 7
     object PageControl1: TPageControl
       Left = 1
-      Height = 547
+      Height = 523
       Top = 1
       Width = 354
       ActivePage = Position
@@ -560,7 +560,7 @@ object Form1: TForm1
       Options = [nboMultiLine]
       object Position: TTabSheet
         Caption = 'Information'
-        ClientHeight = 512
+        ClientHeight = 488
         ClientWidth = 350
         object Panel1: TPanel
           Left = 0
@@ -588,7 +588,7 @@ object Form1: TForm1
         end
         object Desc1: TIpHtmlPanel
           Left = 0
-          Height = 379
+          Height = 355
           Top = 84
           Width = 350
           Align = alClient
@@ -615,7 +615,7 @@ object Form1: TForm1
         object Panel2: TPanel
           Left = 0
           Height = 49
-          Top = 463
+          Top = 439
           Width = 350
           Align = alBottom
           BevelOuter = bvNone
@@ -786,7 +786,7 @@ object Form1: TForm1
       end
       object Notes: TTabSheet
         Caption = 'Notes'
-        ClientHeight = 512
+        ClientHeight = 488
         ClientWidth = 350
         object Panel7: TPanel
           Left = 0
@@ -830,7 +830,7 @@ object Form1: TForm1
         end
         object ListNotes: TStringGrid
           Left = 0
-          Height = 438
+          Height = 414
           Top = 74
           Width = 350
           Align = alClient
@@ -841,7 +841,7 @@ object Form1: TForm1
               MinSize = 200
               MaxSize = 600
               Title.Caption = 'Formation'
-              Width = 200
+              Width = 179
             end          
             item
               MinSize = 100
@@ -864,7 +864,7 @@ object Form1: TForm1
           TabOrder = 0
           OnDblClick = ListNotesDblClick
           ColWidths = (
-            200
+            179
             100
             50
           )
@@ -872,7 +872,7 @@ object Form1: TForm1
       end
       object Ephemerides: TTabSheet
         Caption = 'Ephemerides'
-        ClientHeight = 512
+        ClientHeight = 488
         ClientWidth = 350
         object Panel4: TPanel
           Left = 0
@@ -1398,7 +1398,7 @@ object Form1: TForm1
         end
         object StringGrid1: TStringGrid
           Left = 0
-          Height = 391
+          Height = 367
           Top = 121
           Width = 350
           Align = alClient
@@ -1419,7 +1419,7 @@ object Form1: TForm1
       end
       object Terminateur: TTabSheet
         Caption = 'Terminateur'
-        ClientHeight = 512
+        ClientHeight = 488
         ClientWidth = 350
         object Panel5: TPanel
           Left = 0
@@ -1554,7 +1554,7 @@ object Form1: TForm1
         end
         object ListBox1: TListBox
           Left = 0
-          Height = 349
+          Height = 325
           Top = 163
           Width = 350
           Align = alClient
@@ -1568,7 +1568,7 @@ object Form1: TForm1
       end
       object Outils: TTabSheet
         Caption = 'Outils'
-        ClientHeight = 512
+        ClientHeight = 488
         ClientWidth = 350
         object GroupBox3: TGroupBox
           Left = 8
@@ -2145,7 +2145,7 @@ object Form1: TForm1
       end
       object Reglage: TTabSheet
         Caption = 'Reglage'
-        ClientHeight = 512
+        ClientHeight = 488
         ClientWidth = 350
         object Bevel1: TBevel
           Left = 16
@@ -2381,11 +2381,11 @@ object Form1: TForm1
       end
       object dbtab: TTabSheet
         Caption = 'Database'
-        ClientHeight = 512
+        ClientHeight = 488
         ClientWidth = 350
         object StringGrid2: TStringGrid
           Left = 0
-          Height = 479
+          Height = 455
           Top = 0
           Width = 350
           Align = alClient
@@ -2400,7 +2400,7 @@ object Form1: TForm1
         object Panel6: TPanel
           Left = 0
           Height = 33
-          Top = 479
+          Top = 455
           Width = 350
           Align = alBottom
           ClientHeight = 33

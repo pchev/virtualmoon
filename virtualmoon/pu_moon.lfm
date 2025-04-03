@@ -52,8 +52,8 @@ object f_moon: Tf_moon
       Width = 501
       Align = alBottom
       LargeChange = 2000
-      Max = 5000
-      Min = -5000
+      Max = 6000
+      Min = -6000
       PageSize = 2000
       Position = -1000
       SmallChange = 100
@@ -69,8 +69,8 @@ object f_moon: Tf_moon
       Align = alRight
       Kind = sbVertical
       LargeChange = 2000
-      Max = 5000
-      Min = -5000
+      Max = 6000
+      Min = -6000
       PageSize = 2000
       Position = -1000
       SmallChange = 100

@@ -160,6 +160,8 @@ type
     FOnGetSprite: TNotifyEvent;
     FonMoonActivate: TNotifyEvent;
     FonMoveCamera: TNotifyEvent;
+    FonZoom: TNotifyEvent;
+    FonScroll: TNotifyEvent;
     FTexturePath: String;
     FTexture: TStringList;
     FOverlayPath: String;
@@ -243,6 +245,7 @@ type
     Procedure ClearSlice(level:integer);
     procedure ClearOverlay;
     Procedure SetZoomLevel(zoom:single);
+    Procedure SetZoomInternal(zoom:single);
     procedure SetShowGrid(value:boolean);
     procedure SetShowScale(value:boolean);
     procedure SetShowCCD(value:boolean);
@@ -374,6 +377,8 @@ type
     property onGetLabel : TNotifyEvent read FOnGetLabel write FOnGetLabel;
     property onGetSprite : TNotifyEvent read FonGetSprite write FonGetSprite;
     property onMoveCamera: TNotifyEvent read FonMoveCamera write FonMoveCamera;
+    property onZoom: TNotifyEvent read FonZoom write FonZoom;
+    property onScroll: TNotifyEvent read FonScroll write FonScroll;
   end;
 
 var
@@ -1010,7 +1015,7 @@ if FBumpOk and (value<>FBumpmap) then begin
     else if i>3 then MaxZoom:=8
     else if i>1 then MaxZoom:=4
     else MaxZoom:=2;
-    if GLCamera1.SceneScale>MaxZoom then SetZoomLevel(MaxZoom);
+    if GLCamera1.SceneScale>MaxZoom then SetZoomInternal(MaxZoom);
   end else begin
     if assigned(FOnGetMsg) then FOnGetMsg(self,MsgOther,'');
     LoadSlice(zone);
@@ -1270,6 +1275,12 @@ except
   end;
 end;
 lock_Zoom:=false;
+end;
+
+Procedure Tf_moon.SetZoomInternal(zoom:single);
+begin
+  SetZoomLevel(zoom);
+  if Assigned(FonZoom) then FonZoom(self);
 end;
 
 procedure Tf_moon.SetTexture(lfn:TStringList);
@@ -1711,6 +1722,7 @@ procedure Tf_moon.HorScrollBarScroll(Sender: TObject; ScrollCode: TScrollCode; v
 begin
   OffsetDummyCube.Position.X:=-(ScrollPos+HorScrollBar.PageSize div 2)/10000;
   RefreshAll;
+  if Assigned(FonScroll) then FonScroll(self);
 end;
 
 procedure Tf_moon.VerScrollBarScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
@@ -1718,6 +1730,7 @@ begin
   OffsetDummyCube.Position.Z:=-1.4*(ScrollPos+VerScrollBar.PageSize div 2)/10000;
   OffsetDummyCube.Position.Y:=-1.4*(ScrollPos+VerScrollBar.PageSize div 2)/10000;
   RefreshAll;
+  if Assigned(FonScroll) then FonScroll(self);
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseMove(Sender: TObject; Shift: TShiftState;
@@ -1789,7 +1802,7 @@ begin
    then begin
      zm:=FZoom*(1-(y-lastyzoom)/200);
      lastyzoom:=y;
-     SetZoomLevel(zm);
+     SetZoomInternal(zm);
   end;
 end;
 
@@ -1841,14 +1854,14 @@ procedure Tf_moon.GLSceneViewer1MouseWheelDown(Sender: TObject;
   Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 begin
   if Assigned(FonMoonActivate) then FonMoonActivate(self);
-  SetZoomLevel(GLCamera1.SceneScale/1.1);
+  SetZoomInternal(GLCamera1.SceneScale/1.1);
 end;
 
 procedure Tf_moon.GLSceneViewer1MouseWheelUp(Sender: TObject;
   Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 begin
   if Assigned(FonMoonActivate) then FonMoonActivate(self);
-  SetZoomLevel(GLCamera1.SceneScale*1.1);
+  SetZoomInternal(GLCamera1.SceneScale*1.1);
 end;
 
 procedure Tf_moon.RefreshAll;
@@ -1905,7 +1918,7 @@ begin
    end;
    GLSceneViewer1.Camera:=GLCameraSatellite;
    if FSatModel<>'' then GLFreeFormSatelite.Visible:=true;
-   SetZoomLevel(Fzoom);
+   SetZoomInternal(Fzoom);
  end else begin
    GLSceneViewer1.Camera:=GLCamera1;
    GLFreeFormSatelite.Visible:=false;
@@ -1913,7 +1926,7 @@ begin
      GLLightSource1.Position:=GLCamera1.Position;
      GLLightSource1.SpotDirection.SetVector(GLLightSource1.Position.X,GLLightSource1.Position.Y,GLLightSource1.Position.Z);
    end;
-   SetZoomLevel(Fzoom);
+   SetZoomInternal(Fzoom);
    FShowScale := SaveShowScale;
    SetScale;
  end;
@@ -1922,7 +1935,7 @@ end;
 procedure Tf_moon.SetSatAltitude(value:single);
 begin
   FSatAltitude:=value;
-  SetZoomLevel(Fzoom);
+  SetZoomInternal(Fzoom);
 end;
 
 procedure Tf_moon.SetSatInclination(value:single);
@@ -2035,7 +2048,7 @@ begin
   GLCameraSatellite.Position.z:=-0.01;
   GLCameraSatellite.ResetRotations;
   GLCameraSatellite.Up.SetVector(0,1,0);
-  SetZoomLevel(2);
+  SetZoomInternal(2);
 end;
 
 procedure Tf_moon.SatEast;
@@ -2045,7 +2058,7 @@ begin
   GLCameraSatellite.Position.z:=-0.01;
   GLCameraSatellite.ResetRotations;
   GLCameraSatellite.MoveAroundTarget(0,-(35+(800-FSatAltitude)/40));
-  SetZoomLevel(4);
+  SetZoomInternal(4);
 end;
 
 procedure Tf_moon.SatWest;
@@ -2055,7 +2068,7 @@ begin
   GLCameraSatellite.Position.z:=-0.01;
   GLCameraSatellite.ResetRotations;
   GLCameraSatellite.MoveAroundTarget(0,(35+(800-FSatAltitude)/40));
-  SetZoomLevel(4);
+  SetZoomInternal(4);
 end;
 
 procedure Tf_moon.PerfCadencerProgress(Sender: TObject; const deltaTime,
@@ -2678,7 +2691,7 @@ if FEyepiece<>value then begin
      GLAnnulus1.Position.y := GLCamera1.Position.y;
      GLAnnulus1.BottomInnerRadius:=GLSphereMoon.Radius*FEyepiece*abs(90/GLCamera1.Position.Z);
      GLAnnulus1.Visible:=true;
-     SetZoomLevel(1/FEyepiece);
+     SetZoomInternal(1/FEyepiece);
    end;
    RefreshAll;
 end;

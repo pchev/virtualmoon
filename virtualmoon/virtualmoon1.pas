@@ -601,6 +601,9 @@ type
     procedure SetDate(param: string);
     procedure SetDescText(const Value: string);
     procedure SetZoomBar;
+    procedure SetZoom(z: single);
+    procedure MoonZoom(Sender: TObject);
+    procedure MoonScroll(Sender: TObject);
     procedure GetSkychartInfo;
     procedure SetActiveMoon(mf: Tf_moon);
     procedure MoonActivate(Sender: TObject);
@@ -3543,6 +3546,8 @@ begin
   moon1.onGetMsg:=GetMsg;
   moon1.onGetLabel:=GetLabel;
   moon1.onGetSprite:=GetSprite;
+  moon1.onZoom:=MoonZoom;
+  moon1.onScroll:=MoonScroll;
   moon1.Demlib:=demlib;
   moon1.PopUp:=PopupMenu1;
   moon1.TexturePath:=slash(appdir)+slash('Textures');
@@ -3604,8 +3609,8 @@ begin
   TrackBar1.Height:=22;
   TrackBar9.Height:=22;
   {$endif}
-  TrackBar1.Top:=(ControlBar1.Height-TrackBar1.Height) div 2;
-  TrackBar9.Top:=(ControlBar1.Height-TrackBar9.Height) div 2;
+  TrackBar1.Top:=(ToolBar1.Height-TrackBar1.Height) div 2;
+  TrackBar9.Top:=(ToolBar1.Height-TrackBar9.Height) div 2;
   appname := ParamStr(0);
   if paramcount > 0 then
   begin
@@ -4372,7 +4377,53 @@ end;
 procedure TForm1.ZoomTimerTimer(Sender: TObject);
 begin
 ZoomTimer.Enabled:=false;
-activemoon.Zoom := exp(trackbar1.position/100);
+SetZoom(exp(trackbar1.position/100));
+end;
+
+procedure TForm1.SetZoom(z: single);
+begin
+activemoon.Zoom := z;
+if NewWindowButton.Down and LinkWindowButton.Down then begin
+  if activemoon=moon1 then
+    moon2.Zoom := z
+  else
+    moon1.Zoom := z;
+end;
+end;
+
+procedure TForm1.MoonZoom(Sender: TObject);
+var z: single;
+begin
+if NewWindowButton.Down and LinkWindowButton.Down then begin
+  z:=Tf_moon(sender).Zoom;
+  if Sender=moon1 then
+    moon2.Zoom := z
+  else
+    moon1.Zoom := z;
+end;
+end;
+
+procedure TForm1.MoonScroll(Sender: TObject);
+var srcmoon,destmoon: Tf_moon;
+    i: integer;
+begin
+  if NewWindowButton.Down and LinkWindowButton.Down then begin
+    srcmoon:=Tf_moon(sender);
+    if Sender=moon1 then
+      destmoon:=moon2
+    else
+      destmoon:=moon1;
+    if destmoon.HorScrollBar.Position<>srcmoon.HorScrollBar.Position then begin
+      i:=srcmoon.HorScrollBar.Position;
+      destmoon.HorScrollBar.Position:=i;
+      destmoon.HorScrollBarScroll(destmoon.HorScrollBar,scPosition,i);
+    end;
+    if destmoon.VerScrollBar.Position<>srcmoon.VerScrollBar.Position then begin
+      i:=srcmoon.VerScrollBar.Position;
+      destmoon.VerScrollBar.Position:=i;
+      destmoon.VerScrollBarScroll(destmoon.VerScrollBar,scPosition,i);
+    end;
+  end;
 end;
 
 procedure TForm1.EphTimer1Timer(Sender: TObject);
@@ -4692,7 +4743,7 @@ end;
 
 procedure TForm1.ToolButton9Click(Sender: TObject);
 begin
-  activemoon.Zoom:=1;
+  SetZoom(1);
 end;
 
 procedure TForm1.ComboBox1KeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
@@ -5032,17 +5083,17 @@ end;
 
 procedure TForm1.x21Click(Sender: TObject);
 begin
-  activemoon.zoom:=2;
+  SetZoom(2);
 end;
 
 procedure TForm1.x41Click(Sender: TObject);
 begin
-  activemoon.zoom:=4;
+  SetZoom(4);
 end;
 
 procedure TForm1.x81Click(Sender: TObject);
 begin
-  activemoon.zoom:=8;
+  SetZoom(8);
 end;
 
 procedure TForm1.Button12MouseUp(Sender: TObject; Button: TMouseButton;
@@ -5821,6 +5872,8 @@ if moon2=nil then begin
  moon2.onMoveCamera:=MoonMoveCamera;
  moon1.onMoveCamera:=MoonMoveCamera;
  moon2.onGetMsg:=GetMsg;
+ moon2.onZoom:=MoonZoom;
+ moon2.onScroll:=MoonScroll;
  moon2.Demlib:=demlib;
  moon2.PopUp:=PopupMenu1;
  moon2.Visible:=false;
@@ -5858,6 +5911,7 @@ if NewWindowButton.Down and LinkWindowButton.Down then begin
     destmoon:=moon2
   else
     destmoon:=moon1;
+  destmoon.Zoom:=activemoon.Zoom;
   SetRotation(destmoon,not activemoon.VisibleSideLock);
   MoonMoveCamera(activemoon);
 end;
