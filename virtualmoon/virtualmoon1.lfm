@@ -594,6 +594,7 @@ object Form1: TForm1
           Align = alClient
           BorderWidth = 1
           BorderStyle = bsSingle
+          DataProvider = IpHtmlDataProvider1
           FixedTypeface = 'Courier New'
           DefaultTypeFace = 'Sans'
           DefaultFontSize = 8
@@ -3374,5 +3375,10 @@ object Form1: TForm1
       Caption = 'c102'
       OnClick = ZoomCCDClick
     end
+  end
+  object IpHtmlDataProvider1: TIpHtmlDataProvider
+    OnGetImage = IpHtmlDataProvider1GetImage
+    Left = 904
+    Top = 240
   end
 end

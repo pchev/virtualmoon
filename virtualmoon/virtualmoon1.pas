@@ -37,12 +37,12 @@ uses
 {$endif}
   u_translation_database, u_translation, tabsdock, cu_dem, pu_demprofile,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
-  LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids,
+  LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids, BGRABitmap, BGRABitmapTypes,
   PrintersDlgs, Printers, Controls, LazFileUtils,
   Messages, SysUtils, Classes, Dialogs, FileUtil, Types,
   ComCtrls, Menus, Buttons, dynlibs, BigIma, pu_ascomclient, pu_indiclient,
   EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase, LCLType,
-  Math, CraterList, LResources, IpHtml, UniqueInstance;
+  Math, CraterList, LResources, IpHtml, Ipfilebroker, UniqueInstance;
 
 type
 
@@ -77,6 +77,7 @@ type
     GroupBoxDistance: TGroupBox;
     HelpPopup: TPopupMenu;
     ImageListNight: TImageList;
+    IpHtmlDataProvider1: TIpHtmlDataProvider;
     Label1: TLabel;
     Label17: TLabel;
     Label18: TLabel;
@@ -397,6 +398,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure DecreaseFont1Click(Sender: TObject);
     procedure IncreaseFont1Click(Sender: TObject);
+    procedure IpHtmlDataProvider1GetImage(Sender: TIpHtmlNode; const URL: string; var Picture: TPicture);
     procedure LinkWindowButtonClick(Sender: TObject);
     procedure ListNotesDblClick(Sender: TObject);
     procedure MenuCheckNameClick(Sender: TObject);
@@ -2550,7 +2552,11 @@ begin
   if txtbuf>'' then begin
      anchorvisible[5]:=true;
      txt:=txt+ '<a name="origin">  ';
-     txt := txt + t2 + rsm_62 + t2end + br+txtbuf+ b ; //Origine
+     txt := txt + t2 + rsm_62 + t2end + br;
+     buf2:=slash(appdir)+slash('Personnages')+nom+'_WIKIPEDIA.jpg';
+     if FileExists(buf2) then
+       txt:=txt+ '<img src="' + buf2 + '" alt="' + nom + '" border="0">' + br;
+     txt := txt + txtbuf+ b ; //Origine
   end;
   txt:=txt+crlf;
 
@@ -3095,6 +3101,38 @@ except
   {$endif}
   end;
 end;
+end;
+
+procedure TForm1.IpHtmlDataProvider1GetImage(Sender: TIpHtmlNode; const URL: string; var Picture: TPicture);
+var b: TBGRABitmap;
+    r1: double;
+    w,h: integer;
+const maxsize=300;
+begin
+  if FileExists(URL) then
+  begin
+    if Picture = nil then
+      Picture := TPicture.Create;
+    try
+      b:=TBGRABitmap.Create(URL);
+      r1:=b.Width/b.Height;
+      w:=maxsize;
+      h:=maxsize;
+      if r1>1 then
+        h:=max(1,trunc(w/r1))
+      else
+        w:=max(1,trunc(h*r1));
+      BGRAReplace(b, b.Resample(w,h,rmSimpleStretch));
+      Picture.Assign(b);
+      b.free;
+      // disable transparency
+      Picture.Bitmap.TransparentMode := tmFixed;
+      Picture.Bitmap.TransparentColor := clNone;
+    except
+      Picture.Free;
+      Picture := nil;
+    end;
+  end;
 end;
 
 procedure TForm1.OptFeatures1Click(Sender: TObject);
