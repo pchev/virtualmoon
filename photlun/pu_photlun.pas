@@ -91,7 +91,7 @@ type
     Procedure AddImagesDir(dir,nom,cpy:string);
     Function GetImgCpy(dir,nom:string):string;
     procedure ClearVignette;
-    procedure CreateVignette(fn: string);
+    procedure CreateVignette(n: integer);
     procedure VignetteClick(Sender: TObject);
     procedure CloseImgAsync(Data: PtrInt);
     procedure ImgFormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -101,6 +101,9 @@ type
     procedure ListImgDir(dir: string; filter:string='*');
     procedure SelectObject(nom: string);
     procedure RefreshVignettes;
+    procedure ShowImg(i:integer; img: Tf_img);
+    procedure NextImg(Sender: TObject);
+    procedure PrevImg(Sender: TObject);
     function GetObjectFromPhoto(p:string): string;
     procedure OpenVMA(objname,otherparam:string);
     procedure OpenDatlun(objname,otherparam:string);
@@ -424,13 +427,14 @@ begin
   end;
 end;
 
-procedure Tf_photlun.CreateVignette(fn: string);
+procedure Tf_photlun.CreateVignette(n: integer);
 var v: TVignette;
     bmp: TBGRABitmap;
     r1,r2: double;
     i,w,h: integer;
-    libr,cpy: string;
+    fn,libr,cpy: string;
 begin
+  fn:=imglist[n];
   libr:=noslash(ExtractFilePath(fn));
   for i:=0 to maximgdir-1 do begin
      if noslash(imgdir[i,0])=libr then begin
@@ -440,6 +444,7 @@ begin
      end;
   end;
   v:=TVignette.Create(self);
+  v.Tag:=n;
   v.onClick:=@VignetteClick;
   v.Parent:=PanelVignette;
   v.lbl.Caption:=ExtractFileNameOnly(fn);
@@ -503,7 +508,7 @@ begin
   n:=min(100,imglist.Count-1);
   SelectedObject:=GetObjectFromPhoto(imglist[0]);
   for i:=0 to n do begin
-    CreateVignette(imglist[i]);
+    CreateVignette(i);
   end;
 end;
 
@@ -563,14 +568,56 @@ begin
   inc(imgnum);
   img:=Tf_img.Create(nil);
   img.Name:='f_img'+inttostr(imgnum);
+  img.tag:=TVignette(Sender).tag;
   img.Info.Caption:=TVignette(Sender).Hint;
   img.Parent:=panel3;
   img.Align:=alClient;
   img.image:=TVignette(Sender).imgpath;
   img.onClose:=@ImageClose;
   img.onDetach:=@ImageDetach;
+  img.onNextImg:=@NextImg;
+  img.onPrevImg:=@PrevImg;
   PageControl1.ActivePageIndex:=1;
   if ShiftKey then ImageDetach(img);
+end;
+
+procedure Tf_photlun.NextImg(Sender: TObject);
+var i: integer;
+begin
+  i:=Tf_img(sender).tag;
+  inc(i);
+  if i>=imglist.count then i:=0;
+  ShowImg(i,Tf_img(sender));
+end;
+
+procedure Tf_photlun.PrevImg(Sender: TObject);
+var i: integer;
+begin
+  i:=Tf_img(sender).tag;
+  dec(i);
+  if i<0 then i:=imglist.count-1;
+  ShowImg(i,Tf_img(sender));
+end;
+
+procedure Tf_photlun.ShowImg(i:integer; img: Tf_img);
+var j: integer;
+    fn,libr,cpy,txt: string;
+begin
+  fn:=imglist[i];
+  libr:=noslash(ExtractFilePath(fn));
+  for j:=0 to maximgdir-1 do begin
+     if noslash(imgdir[j,0])=libr then begin
+        libr:=imgdir[j,2];
+        cpy:=imgdir[j,1];
+        break;
+     end;
+  end;
+  txt:=libr+'  '+ExtractFileNameOnly(fn);
+  if cpy<>'' then
+    txt:=txt+', '+cpy;
+  img.Info.Caption:=txt;
+  img.image:=imglist[i];
+  img.tag:=i;
 end;
 
 procedure Tf_photlun.ImageClose(Sender: TObject);

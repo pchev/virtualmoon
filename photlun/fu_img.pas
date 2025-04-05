@@ -27,6 +27,8 @@ type
     ImageListNight: TImageList;
     ImageListDay: TImageList;
     Info: TLabel;
+    ImgNext: TLabel;
+    ImgPrev: TLabel;
     PanelImg: TPanel;
     PanelBot: TPanel;
     PanelTop: TPanel;
@@ -42,6 +44,10 @@ type
     procedure BtnDetachClick(Sender: TObject);
     procedure BtnResetClick(Sender: TObject);
     procedure FrameResize(Sender: TObject);
+    procedure ImgNavMouseEnter(Sender: TObject);
+    procedure ImgNavMouseLeave(Sender: TObject);
+    procedure ImgNextClick(Sender: TObject);
+    procedure ImgPrevClick(Sender: TObject);
     procedure PlotTimerTimer(Sender: TObject);
     procedure BtnFlipHClick(Sender: TObject);
     procedure BtnFlipVClick(Sender: TObject);
@@ -54,7 +60,7 @@ type
     LockTimerPlot,LockMouseWheel,FlipHorz,FlipVert,MouseMoving,firstrot: boolean;
     ImaBmp,ScrBmp: TBGRABitmap;
     Image1: TImgDrawingControl;
-    FonClose, FonDetach: TNotifyEvent;
+    FonClose, FonDetach,FonNextImg,FonPrevImg: TNotifyEvent;
     Procedure ClearImage;
     procedure SetImage(value:string);
     procedure PlotImage;
@@ -74,6 +80,8 @@ type
     property imgHeight: integer read img_Height;
     property onClose: TNotifyEvent read FonClose write FonClose;
     property onDetach: TNotifyEvent read FonDetach write FonDetach;
+    property onNextImg: TNotifyEvent read FonNextImg write FonNextImg;
+    property onPrevImg: TNotifyEvent read FonPrevImg write FonPrevImg;
   end;
 
 implementation
@@ -111,6 +119,13 @@ begin
  Image1:=TImgDrawingControl.Create(self);
  Image1.Parent:=PanelImg;
  Image1.Align:=alClient;
+ image1.SendToBack;
+ ImgNext.Parent:=image1;
+ ImgNext.AnchorSideTop.Control:=image1;
+ ImgNext.AnchorSideRight.Control:=image1;
+ ImgPrev.Parent:=image1;
+ ImgPrev.AnchorSideTop.Control:=image1;
+ ImgPrev.AnchorSideRight.Control:=image1;
  Image1.OnPaint:=@Image1Paint;
  image1.OnDblClick:=@Image1DblClick;
  Image1.OnMouseDown:=@Image1MouseDown;
@@ -146,6 +161,26 @@ begin
   PlotImage;
 end;
 
+procedure Tf_img.ImgNavMouseEnter(Sender: TObject);
+begin
+  TLabel(Sender).Font.Color:=clWhite;
+end;
+
+procedure Tf_img.ImgNavMouseLeave(Sender: TObject);
+begin
+ TLabel(Sender).Font.Color:=clSilver;
+end;
+
+procedure Tf_img.ImgNextClick(Sender: TObject);
+begin
+  if Assigned(FonNextImg) then FonNextImg(self);
+end;
+
+procedure Tf_img.ImgPrevClick(Sender: TObject);
+begin
+  if Assigned(FonPrevImg) then FonPrevImg(self);
+end;
+
 procedure Tf_img.BtnCloseClick(Sender: TObject);
 begin
   if Assigned(FonClose) then FonClose(self);
@@ -157,6 +192,8 @@ begin
   if Assigned(FonDetach) then begin
     BtnDetach.Visible:=False;
     PanelTop.Visible:=False;
+    ImgNext.Visible:=False;
+    ImgPrev.Visible:=False;
     Image1.OnDblClick:=nil;
     FonDetach(self);
   end;

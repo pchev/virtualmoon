@@ -135,7 +135,47 @@ object f_img: Tf_img
     Top = 30
     Width = 396
     Align = alClient
+    ClientHeight = 280
+    ClientWidth = 396
     TabOrder = 2
+    object ImgNext: TLabel
+      AnchorSideTop.Control = PanelImg
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = PanelImg
+      AnchorSideRight.Side = asrBottom
+      Left = 358
+      Height = 88
+      Top = 96
+      Width = 37
+      Anchors = [akTop, akRight]
+      Caption = '>'
+      Font.Color = clSilver
+      Font.Height = -64
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = ImgNextClick
+      OnMouseEnter = ImgNavMouseEnter
+      OnMouseLeave = ImgNavMouseLeave
+    end
+    object ImgPrev: TLabel
+      AnchorSideLeft.Control = PanelImg
+      AnchorSideTop.Control = PanelImg
+      AnchorSideTop.Side = asrCenter
+      Left = 1
+      Height = 88
+      Top = 96
+      Width = 37
+      Caption = '<'
+      Font.Color = clSilver
+      Font.Height = -64
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = ImgPrevClick
+      OnMouseEnter = ImgNavMouseEnter
+      OnMouseLeave = ImgNavMouseLeave
+    end
   end
   object PlotTimer: TTimer
     Enabled = False
