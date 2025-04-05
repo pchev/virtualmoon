@@ -1101,7 +1101,6 @@ AddImagesDir(slash(appdir)+'BestOfHeully','Philippe Heuly drawing','Philippe Heu
 AddImagesDir(slash(appdir)+'Bestofhistorical','Best of Historical','LRO','0');
 AddImagesDir(slash(appdir)+'BestofLROobliques','Best of LRO Oblics','LRO','0');
 AddImagesDir(slash(appdir)+'BestofPelissard','Best of William Pelissard','William Pelissard','0');
-AddImagesDir(slash(appdir)+'Personnages','Characters','Wikipedia','0');
 
 end;
 
@@ -1137,9 +1136,6 @@ begin
   for i:=0 to imglist.count-1 do begin
     n:=ExtractFileNameOnly(imglist[i]);
     p:=pos('_',n);
-    if p>0 then
-      n:=copy(n,1,p-1);
-    p:=pos(' ',n);
     if p>0 then
       n:=copy(n,1,p-1);
     dbm.Query('select dbn from moon where name like"'+n+'%"');
@@ -2279,7 +2275,7 @@ const
   t3    = '<b>';
   t3end = '</b>';
 var
-  nom, carte, url, img, remoteurl, txtbuf, buf, buf2, t1: string;
+  nom, nom2, carte, url, img, remoteurl, txtbuf, buf, buf2, t1: string;
   ok:   boolean;
   dbn, i, j: integer;
   lkm,wkm,lon,lat,x: double;
@@ -2298,6 +2294,46 @@ var
     end
     else
       if result='' then result:=' ';
+  end;
+  function MainName(n:string):string;
+  var r: integer;
+  begin
+     result:=n;
+     // remove possible prefix
+     result:=StringReplace(n,'CATENA ','',[]);
+     if result=n then result:=StringReplace(n,'DORSA ','',[]);
+     if result=n then result:=StringReplace(n,'DORSUM ','',[]);
+     if result=n then result:=StringReplace(n,'LACUS ','',[]);
+     if result=n then result:=StringReplace(n,'MARE ','',[]);
+     if result=n then result:=StringReplace(n,'MONTES ','',[]);
+     if result=n then result:=StringReplace(n,'MONS ','',[]);
+     if result<>n then begin
+       // remove possible mons suffix
+       result:=StringReplace(result,' DELTA','',[]);
+       result:=StringReplace(result,' GAMMA','',[]);
+       exit;
+     end;
+     if result=n then result:=StringReplace(n,'MONT ','',[]);
+     if result=n then result:=StringReplace(n,'PALUS ','',[]);
+     if result=n then result:=StringReplace(n,'PROMONTORIUM ','',[]);
+     if result=n then result:=StringReplace(n,'RIMAE ','',[]);
+     if result=n then result:=StringReplace(n,'RIMA ','',[]);
+     if result=n then result:=StringReplace(n,'RUPES ','',[]);
+     if result=n then result:=StringReplace(n,'SINUS ','',[]);
+     if result=n then result:=StringReplace(n,'VALLIS ','',[]);
+     if result<>n then
+       exit  // ok, prefix removed
+     else begin
+       //remove possible craterlet sufix
+       r   := length(n) - 1;
+       if copy(n, r, 1) = ' ' then
+       begin
+         buf := copy(n, r + 1, 1);
+         if ((buf >= 'a') and (buf <= 'z')) or ((buf >= 'A') and (buf <= 'Z')) then begin
+           result := copy(n, 1, r - 1);
+         end;
+       end;
+     end;
   end;
 begin
   for i:=1 to 8 do anchorvisible[i]:=false;
@@ -2555,7 +2591,13 @@ begin
      txt := txt + t2 + rsm_62 + t2end + br;
      buf2:=slash(appdir)+slash('Personnages')+nom+'_WIKIPEDIA.jpg';
      if FileExists(buf2) then
-       txt:=txt+ '<img src="' + buf2 + '" alt="' + nom + '" border="0">' + br;
+       txt:=txt+ '<img src="' + buf2 + '" alt="' + nom + '" border="0">' + br
+     else begin
+       nom2:=MainName(nom);
+       buf2:=slash(appdir)+slash('Personnages')+nom2+'_WIKIPEDIA.jpg';
+       if FileExists(buf2) then
+         txt:=txt+ '<img src="' + buf2 + '" alt="' + nom + '" border="0">' + br;
+      end;
      txt := txt + txtbuf+ b ; //Origine
   end;
   txt:=txt+crlf;
