@@ -327,7 +327,6 @@ AddImagesDir(slash(appdir)+'BestOfHeully','Philippe Heuly drawing','Philippe Heu
 AddImagesDir(slash(appdir)+'Bestofhistorical','Best of Historical','LRO');
 AddImagesDir(slash(appdir)+'BestofLROobliques','Best of LRO Oblics','LRO');
 AddImagesDir(slash(appdir)+'BestofPelissard','Best of William Pelissard','William Pelissard');
-AddImagesDir(slash(appdir)+'Personnages','Characters','Wikipedia');
 end;
 
 Procedure Tf_photlun.ReadParam(first:boolean=true);
