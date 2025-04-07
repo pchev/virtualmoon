@@ -2591,12 +2591,12 @@ begin
      txt := txt + t2 + rsm_62 + t2end + br;
      buf2:=slash(appdir)+slash('Personnages')+nom+'_WIKIPEDIA.jpg';
      if FileExists(buf2) then
-       txt:=txt+ '<img src="' + buf2 + '" alt="' + nom + '" border="0">' + br
+       txt:=txt+ '<img src="' + buf2 + '" alt="' + nom + ' © Wikipedia' + '" border="0">' + br + br
      else begin
        nom2:=MainName(nom);
        buf2:=slash(appdir)+slash('Personnages')+nom2+'_WIKIPEDIA.jpg';
        if FileExists(buf2) then
-         txt:=txt+ '<img src="' + buf2 + '" alt="' + nom + '" border="0">' + br;
+         txt:=txt+ '<img src="' + buf2 + '" alt="' + nom2 + ' © Wikipedia'  + '" border="0">' + br + br;
       end;
      txt := txt + txtbuf+ b ; //Origine
   end;
