@@ -1518,3 +1518,87 @@ msgstr ""
 msgid "Shaded Color"
 msgstr ""
 
+#: u_translation:rsall2
+msgid "All"
+msgstr ""
+
+#: u_translation:rsnone2
+msgid "None"
+msgstr ""
+
+#: u_translation:rsfeaturetype
+msgid "Feature labels"
+msgstr ""
+
+#: u_translation:rsshowlabelsfo
+msgid "Show label for the following feature type"
+msgstr ""
+
+#: u_translation:rscrater
+msgid "Crater"
+msgstr ""
+
+#: u_translation:rslandingsiten
+msgid "Landing site name"
+msgstr ""
+
+#: u_translation:rscatena
+msgid "Catena"
+msgstr ""
+
+#: u_translation:rsdorsum
+msgid "Dorsum"
+msgstr ""
+
+#: u_translation:rslacus
+msgid "Lacus"
+msgstr ""
+
+#: u_translation:rsmare
+msgid "Mare"
+msgstr ""
+
+#: u_translation:rsmons
+msgid "Mons"
+msgstr ""
+
+#: u_translation:rsoceanus
+msgid "Oceanus"
+msgstr ""
+
+#: u_translation:rspalus
+msgid "Palus"
+msgstr ""
+
+#: u_translation:rsplanita
+msgid "Planita"
+msgstr ""
+
+#: u_translation:rspromontorium
+msgid "Promontorium"
+msgstr ""
+
+#: u_translation:rsalbedofeatur
+msgid "Albedo Feature"
+msgstr ""
+
+#: u_translation:rsrima
+msgid "Rima"
+msgstr ""
+
+#: u_translation:rsrupes
+msgid "Rupes"
+msgstr ""
+
+#: u_translation:rssinus
+msgid "Sinus"
+msgstr ""
+
+#: u_translation:rsvallis
+msgid "Vallis"
+msgstr ""
+
+#: u_translation:rsdome
+msgid "Dome"
+msgstr ""
+

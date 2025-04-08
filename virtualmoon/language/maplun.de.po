@@ -42,6 +42,14 @@ msgstr "Airbrush Relief mit Albedo"
 msgid "Airbursh relief without albedo"
 msgstr "Airbrush Relief ohne Albedo"
 
+#: u_translation.rsalbedofeatur
+msgid "Albedo Feature"
+msgstr ""
+
+#: u_translation.rsall2
+msgid "All"
+msgstr ""
+
 #: u_translation.rsamplificatio
 msgid "Vertical amplification"
 msgstr ""
@@ -87,6 +95,10 @@ msgstr "Beschriftung"
 msgid "Category"
 msgstr ""
 
+#: u_translation.rscatena
+msgid "Catena"
+msgstr ""
+
 #: u_translation.rsccdfield
 msgid "CCD field"
 msgstr "CCD Feld"
@@ -119,6 +131,10 @@ msgstr ""
 msgid "Country"
 msgstr "Land"
 
+#: u_translation.rscrater
+msgid "Crater"
+msgstr ""
+
 #: u_translation.rsdecreasefont
 msgid "Decrease font size"
 msgstr "Verkleinere Schriftgröße"
@@ -137,6 +153,14 @@ msgstr ""
 
 #: u_translation.rsdisconnect
 msgid "Disconnect"
+msgstr ""
+
+#: u_translation.rsdome
+msgid "Dome"
+msgstr ""
+
+#: u_translation.rsdorsum
+msgid "Dorsum"
 msgstr ""
 
 #: u_translation.rsdownload
@@ -193,6 +217,10 @@ msgstr ""
 
 #: u_translation.rsexport
 msgid "Export"
+msgstr ""
+
+#: u_translation.rsfeaturetype
+msgid "Feature labels"
 msgstr ""
 
 #: u_translation.rsfirstusesett
@@ -307,6 +335,14 @@ msgstr ""
 msgid "Labels font"
 msgstr "Schriftart"
 
+#: u_translation.rslacus
+msgid "Lacus"
+msgstr ""
+
+#: u_translation.rslandingsiten
+msgid "Landing site name"
+msgstr ""
+
 #: u_translation.rslanguage
 msgid "English"
 msgstr "Deutsch"
@@ -329,6 +365,10 @@ msgstr ""
 
 #: u_translation.rslunarimpactc
 msgid "Lunar Impact Crater Database:"
+msgstr ""
+
+#: u_translation.rsmare
+msgid "Mare"
 msgstr ""
 
 #: u_translation.rsmax
@@ -359,6 +399,10 @@ msgstr ""
 msgctxt "u_translation.rsminute"
 msgid "'"
 msgstr "'"
+
+#: u_translation.rsmons
+msgid "Mons"
+msgstr ""
 
 #: u_translation.rsm_1
 msgid "from"
@@ -668,6 +712,10 @@ msgstr ""
 msgid "No database selected!"
 msgstr ""
 
+#: u_translation.rsnone2
+msgid "None"
+msgstr ""
+
 #: u_translation.rsnopicturefou
 msgid "No picture found"
 msgstr ""
@@ -684,6 +732,10 @@ msgstr "Keine Textur (Overlay alleine anwenden)"
 msgid "Not IAU approuved"
 msgstr ""
 
+#: u_translation.rsoceanus
+msgid "Oceanus"
+msgstr ""
+
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
 msgstr "Orbitalhöhe"
@@ -694,6 +746,10 @@ msgstr "Orbitalneigung"
 
 #: u_translation.rsorigin
 msgid "Origin"
+msgstr ""
+
+#: u_translation.rspalus
+msgid "Palus"
 msgstr ""
 
 #: u_translation.rspark
@@ -732,6 +788,10 @@ msgstr "Pixelanzahl"
 msgid "Pixel size"
 msgstr "Pixelgröße"
 
+#: u_translation.rsplanita
+msgid "Planita"
+msgstr ""
+
 #: u_translation.rspleaseensure
 msgid "Please ensure that ASCOM telescope drivers are installed properly."
 msgstr ""
@@ -746,6 +806,10 @@ msgstr ""
 
 #: u_translation.rsprofile
 msgid "Profile plot"
+msgstr ""
+
+#: u_translation.rspromontorium
+msgid "Promontorium"
 msgstr ""
 
 #: u_translation.rsquitfull
@@ -768,6 +832,14 @@ msgstr "Bildwiederholungsrate:"
 
 #: u_translation.rsregistredfor
 msgid "Registred formations"
+msgstr ""
+
+#: u_translation.rsrima
+msgid "Rima"
+msgstr ""
+
+#: u_translation.rsrupes
+msgid "Rupes"
 msgstr ""
 
 #: u_translation.rssatellitesfo
@@ -810,6 +882,10 @@ msgstr ""
 msgid "Show labels"
 msgstr "Zeige Beschriftung"
 
+#: u_translation.rsshowlabelsfo
+msgid "Show label for the following feature type"
+msgstr ""
+
 #: u_translation.rsshowscale
 msgid "Show scale"
 msgstr "Zeige Maßstab"
@@ -825,6 +901,10 @@ msgstr ""
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Einfach"
+
+#: u_translation.rssinus
+msgid "Sinus"
+msgstr ""
 
 #: u_translation.rssource
 msgid "Source:"
@@ -1520,6 +1600,10 @@ msgstr ""
 
 #: u_translation.rsusing
 msgid "Using"
+msgstr ""
+
+#: u_translation.rsvallis
+msgid "Vallis"
 msgstr ""
 
 #: u_translation.rsveryhighreso

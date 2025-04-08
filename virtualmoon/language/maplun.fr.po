@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2025-04-03 10:07+0200\n"
+"PO-Revision-Date: 2025-04-08 18:27+0200\n"
 "Project-Id-Version: maplun.fr\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,6 +40,14 @@ msgstr "Relief aérographe avec albédo"
 #: u_translation.rsairburshreli2
 msgid "Airbursh relief without albedo"
 msgstr "Relief aérographe sans albedo"
+
+#: u_translation.rsalbedofeatur
+msgid "Albedo Feature"
+msgstr "Formation d'albédo"
+
+#: u_translation.rsall2
+msgid "All"
+msgstr "Tout"
 
 #: u_translation.rsamplificatio
 msgid "Vertical amplification"
@@ -86,6 +94,10 @@ msgstr "Légende"
 msgid "Category"
 msgstr "Catégorie"
 
+#: u_translation.rscatena
+msgid "Catena"
+msgstr "Chaîne de cratère"
+
 #: u_translation.rsccdfield
 msgid "CCD field"
 msgstr "Champ CCD"
@@ -118,6 +130,10 @@ msgstr "La connexion au serveur INDI a échoué!"
 msgid "Country"
 msgstr "Pays"
 
+#: u_translation.rscrater
+msgid "Crater"
+msgstr "Cratère"
+
 #: u_translation.rsdecreasefont
 msgid "Decrease font size"
 msgstr "Diminuer la taille de la police"
@@ -137,6 +153,14 @@ msgstr "Détache les informations et les outils"
 #: u_translation.rsdisconnect
 msgid "Disconnect"
 msgstr "Déconnecter"
+
+#: u_translation.rsdome
+msgid "Dome"
+msgstr "Dôme"
+
+#: u_translation.rsdorsum
+msgid "Dorsum"
+msgstr "Dorsale marine"
 
 #: u_translation.rsdownload
 msgid "Download"
@@ -193,6 +217,10 @@ msgstr "Profondeur de l'excavation :"
 #: u_translation.rsexport
 msgid "Export"
 msgstr "Exporter"
+
+#: u_translation.rsfeaturetype
+msgid "Feature labels"
+msgstr "Label des formations"
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
@@ -306,6 +334,14 @@ msgstr "Port serveur"
 msgid "Labels font"
 msgstr "Police des labels"
 
+#: u_translation.rslacus
+msgid "Lacus"
+msgstr "Lac"
+
+#: u_translation.rslandingsiten
+msgid "Landing site name"
+msgstr "Formation de site d'alunissage"
+
 #: u_translation.rslanguage
 msgid "English"
 msgstr "Français"
@@ -329,6 +365,10 @@ msgstr "Faible élévation solaire"
 #: u_translation.rslunarimpactc
 msgid "Lunar Impact Crater Database:"
 msgstr "Lunar Impact Crater Database:"
+
+#: u_translation.rsmare
+msgid "Mare"
+msgstr "Mer"
 
 #: u_translation.rsmax
 msgid "max"
@@ -358,6 +398,10 @@ msgstr "Minimal"
 msgctxt "u_translation.rsminute"
 msgid "'"
 msgstr "'"
+
+#: u_translation.rsmons
+msgid "Mons"
+msgstr "Montagne"
 
 #: u_translation.rsm_1
 msgid "from"
@@ -616,11 +660,8 @@ msgid "Westfall Atlas:"
 msgstr "Planche Westfall:"
 
 #: u_translation.rsm_67
-msgid ""
-"Warning! The personal notes have changed. Do you want to save the change?"
-msgstr ""
-"Attention les notes personnelles n'ont pas été enregistrée. Les enregistrer"
-" maintenant?"
+msgid "Warning! The personal notes have changed. Do you want to save the change?"
+msgstr "Attention les notes personnelles n'ont pas été enregistrée. Les enregistrer maintenant?"
 
 #: u_translation.rsm_7
 msgid "Name by Langrenus:"
@@ -670,6 +711,10 @@ msgstr "Nouvelle note d'observation"
 msgid "No database selected!"
 msgstr "Aucune base de donnée sélectionnée!"
 
+#: u_translation.rsnone2
+msgid "None"
+msgstr "Aucun"
+
 #: u_translation.rsnopicturefou
 msgid "No picture found"
 msgstr "Aucune photo trouvée"
@@ -686,6 +731,10 @@ msgstr "Pas de texture ( utilisation d'une couche seule)"
 msgid "Not IAU approuved"
 msgstr "Non approuvé par l'UAI"
 
+#: u_translation.rsoceanus
+msgid "Oceanus"
+msgstr "Océan"
+
 #: u_translation.rsorbitaltitud
 msgid "Orbit altitude"
 msgstr "Altitude de l'orbite"
@@ -697,6 +746,10 @@ msgstr "Inclinaison de l'orbite"
 #: u_translation.rsorigin
 msgid "Origin"
 msgstr "Origine"
+
+#: u_translation.rspalus
+msgid "Palus"
+msgstr "Marais"
 
 #: u_translation.rspark
 msgid "Park"
@@ -734,10 +787,13 @@ msgstr "Nombre de pixels"
 msgid "Pixel size"
 msgstr "Taille des pixels"
 
+#: u_translation.rsplanita
+msgid "Planita"
+msgstr "Plaine"
+
 #: u_translation.rspleaseensure
 msgid "Please ensure that ASCOM telescope drivers are installed properly."
-msgstr ""
-"Veuillez vous assurer que les pilotes ASCOM sont installés correctement."
+msgstr "Veuillez vous assurer que les pilotes ASCOM sont installés correctement."
 
 #: u_translation.rspleasefirstc
 msgid "Please first connect the telescope and select a formation."
@@ -750,6 +806,10 @@ msgstr "Processus de formation :"
 #: u_translation.rsprofile
 msgid "Profile plot"
 msgstr "Tracé de profil"
+
+#: u_translation.rspromontorium
+msgid "Promontorium"
+msgstr "Promontoire"
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
@@ -771,6 +831,14 @@ msgstr "Rafraîchissement"
 #: u_translation.rsregistredfor
 msgid "Registred formations"
 msgstr "Formations enregistrées"
+
+#: u_translation.rsrima
+msgid "Rima"
+msgstr "Rainure"
+
+#: u_translation.rsrupes
+msgid "Rupes"
+msgstr "Escarpement"
 
 #: u_translation.rssatellitesfo
 msgid "Satellites formations"
@@ -812,6 +880,10 @@ msgstr "Affiche les informations et les outils"
 msgid "Show labels"
 msgstr "Afficher les labels"
 
+#: u_translation.rsshowlabelsfo
+msgid "Show label for the following feature type"
+msgstr "Afficher un label pour les types de formations suivantes"
+
 #: u_translation.rsshowscale
 msgid "Show scale"
 msgstr "Afficher l'échelle"
@@ -827,6 +899,10 @@ msgstr "Sidéral "
 #: u_translation.rssimple
 msgid "Simple"
 msgstr "Simple"
+
+#: u_translation.rssinus
+msgid "Sinus"
+msgstr "Golfe"
 
 #: u_translation.rssource
 msgid "Source:"
@@ -1194,14 +1270,8 @@ msgid "Label Color"
 msgstr "Couleur des labels"
 
 #: u_translation.rst_184
-msgid ""
-"Your graphic card do not support to display more than one texture for the"
-" same object. Be sure that hardware acceleration is activated or change the"
-" graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr ""
-"Votre carte graphique ne supporte pas d'afficher plus d'une texture par"
-" objet.Contrôlez que l'accélération matérielle est activée ou changez de"
-" carte graphique. La fonction demandée est GL_ARB_MULTITEXTURE"
+msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
+msgstr "Votre carte graphique ne supporte pas d'afficher plus d'une texture par objet.Contrôlez que l'accélération matérielle est activée ou changez de carte graphique. La fonction demandée est GL_ARB_MULTITEXTURE"
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
@@ -1530,6 +1600,10 @@ msgstr "Unpark"
 msgid "Using"
 msgstr "Utilise"
 
+#: u_translation.rsvallis
+msgid "Vallis"
+msgstr "Vallée"
+
 #: u_translation.rsveryhighreso
 #, object-pascal-format
 msgid "Very high resolution %s texture"
@@ -1549,11 +1623,9 @@ msgstr "Vous pouvez télécharger les options suivantes:"
 
 #: u_translation.rsyourinstalla
 msgid "Your installation is already complete with all the features installed."
-msgstr ""
-"Votre installation est déjà complète avec toutes les options installées."
+msgstr "Votre installation est déjà complète avec toutes les options installées."
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"
 msgstr "Niveau de zoom"
-
 
