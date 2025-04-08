@@ -29,7 +29,7 @@ uses
   LCLIntf,
 {$endif}
   u_translation,
-  Math, u_constant, cu_tz,
+  Math, u_constant, cu_tz, dbutil,
   Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, Buttons, ExtCtrls, Inifiles, Grids, EnhEdits,
   CheckLst, LResources;
@@ -40,6 +40,8 @@ type
 
   TForm2 = class(TForm)
     Button1: TSpeedButton;
+    BtnFeatureAll: TButton;
+    BtnFeatureNone: TButton;
     ButtonDefault: TButton;
     Button4: TSpeedButton;
     Button5: TSpeedButton;
@@ -48,6 +50,7 @@ type
     Button9: TSpeedButton;
     CheckBox10: TCheckBox;
     CheckBoxTerminatorLine: TCheckBox;
+    FeatureListBox: TCheckListBox;
     ComboBoxOrigin: TComboBox;
     ComboBoxCategory: TComboBox;
     ConnectDbList: TCheckListBox;
@@ -112,6 +115,7 @@ type
     Label64: TLabel;
     Label65: TLabel;
     Label66: TLabel;
+    Label67: TLabel;
     Label8: TLabel;
     LabelImp: TLabel;
     LabelGrid: TLabel;
@@ -130,6 +134,7 @@ type
     ScrollBox1: TScrollBox;
     Shape4: TShape;
     Shape5: TShape;
+    TabSheet9: TTabSheet;
     TexturePanel: TPanel;
     BumpRadioGroup: TRadioGroup;
     RadioGroup7: TRadioGroup;
@@ -218,6 +223,8 @@ type
     Label30: TLabel;
     Label32: TLabel;
     TrackBar5: TTrackBar;
+    procedure BtnFeatureAllClick(Sender: TObject);
+    procedure BtnFeatureNoneClick(Sender: TObject);
     procedure BumpRadioGroupClick(Sender: TObject);
     procedure ButtonDefaultClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -271,6 +278,7 @@ type
     procedure showtexture;
     procedure FillHistorical;
     procedure SetOverlayList;
+    procedure SetFeatureList;
     function TranslateOverlayName(ovname: string; reverse:boolean=false):string;
     procedure SetOverlayFile(value: string);
     function  GetOverlayFile: string;
@@ -398,7 +406,12 @@ begin
       if BumpRadioGroup.Items.Count>2 then BumpRadioGroup.Items[2]:=rsPhaseWithDyn;
       Button7.Caption:=rsCheckForOpti;
       Button8.Caption:=rsCheckForOpti;
+      TabSheet9.Caption:=rsFeatureType;
+      Label67.Caption:=rsShowLabelsFo;
+      BtnFeatureAll.Caption:=rsAll2;
+      BtnFeatureNone.Caption:=rsNone2;
       SetOverlayList;
+      SetFeatureList;
 end;
 
 Function GetLangCode(buf:string):string;
@@ -600,6 +613,35 @@ savelibration:=librationeffect;
 countrycode:=TStringList.Create;
 end;
 
+procedure TForm2.SetFeatureList;
+var i,n: integer;
+    buf: string;
+begin
+  // check order in dbutil
+  IAUtype[1, 2]:=rsCrater;
+  IAUtype[2, 2]:=rsCatena;
+  IAUtype[3, 2]:=rsRima;
+  IAUtype[4, 2]:=rsDorsum;
+  IAUtype[5, 2]:=rsRupes;
+  IAUtype[6, 2]:=rsVallis;
+  IAUtype[7, 2]:=rsOceanus;
+  IAUtype[8, 2]:=rsMare;
+  IAUtype[9, 2]:=rsSinus;
+  IAUtype[10, 2]:=rsLacus;
+  IAUtype[11, 2]:=rsPromontorium;
+  IAUtype[12, 2]:=rsPalus;
+  IAUtype[13, 2]:=rsPlanita;
+  IAUtype[14, 2]:=rsMons;
+  IAUtype[15, 2]:=rsDome;
+  IAUtype[16, 2]:=rsAlbedoFeatur;
+  IAUtype[17, 2]:=rsLandingSiteN;
+  FeatureListBox.Clear;
+  for i:=1 to NumIAUtype do begin
+    buf:=IAUtype[i,1]+', '+IAUtype[i,2];
+    n:=FeatureListBox.Items.Add(buf);
+  end;
+end;
+
 procedure TForm2.SetOverlayList;
 var i,k : integer;
     buf,ovname : string;
@@ -707,6 +749,22 @@ if FontDialog1.Execute then begin
    LabelFont.Font:=FontDialog1.Font;
    LabelFont.Font.Color:=clWindowText;
 end;
+end;
+
+procedure TForm2.BtnFeatureAllClick(Sender: TObject);
+var i: integer;
+begin
+  for i:=0 to FeatureListBox.Count-1 do begin
+    FeatureListBox.Checked[i] := true;
+  end;
+end;
+
+procedure TForm2.BtnFeatureNoneClick(Sender: TObject);
+var i: integer;
+begin
+  for i:=0 to FeatureListBox.Count-1 do begin
+    FeatureListBox.Checked[i] := false;
+  end;
 end;
 
 procedure TForm2.BumpRadioGroupClick(Sender: TObject);

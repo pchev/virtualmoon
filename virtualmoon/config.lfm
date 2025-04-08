@@ -345,6 +345,46 @@ object Form2: TForm2
         ParentColor = False
       end
     end
+    object TabSheet9: TTabSheet
+      Caption = 'Feature labels'
+      ClientHeight = 481
+      ClientWidth = 529
+      object FeatureListBox: TCheckListBox
+        Left = 16
+        Height = 416
+        Top = 24
+        Width = 404
+        ItemHeight = 0
+        ParentFont = False
+        TabOrder = 0
+      end
+      object Label67: TLabel
+        Left = 15
+        Height = 18
+        Top = 2
+        Width = 248
+        Caption = 'Show label for the following feature type'
+        ParentColor = False
+      end
+      object BtnFeatureAll: TButton
+        Left = 88
+        Height = 25
+        Top = 448
+        Width = 75
+        Caption = 'All'
+        OnClick = BtnFeatureAllClick
+        TabOrder = 1
+      end
+      object BtnFeatureNone: TButton
+        Left = 224
+        Height = 25
+        Top = 448
+        Width = 75
+        Caption = 'None'
+        OnClick = BtnFeatureNoneClick
+        TabOrder = 2
+      end
+    end
     object TabSheet3: TTabSheet
       Caption = 'Affichage'
       ClientHeight = 481

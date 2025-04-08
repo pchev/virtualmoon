@@ -394,6 +394,27 @@ rsCategory = 'Category';
 rsOrigin = 'Origin';
 rsAdditionalIn = 'Additional informations';
 rsShadedColor = 'Shaded Color';
+rsAll2 = 'All';
+rsNone2 = 'None';
+rsFeatureType = 'Feature labels';
+rsShowLabelsFo = 'Show label for the following feature type';
+rsCrater = 'Crater';
+rsLandingSiteN = 'Landing site name';
+rsCatena = 'Catena';
+rsDorsum = 'Dorsum';
+rsLacus = 'Lacus';
+rsMare = 'Mare';
+rsMons = 'Mons';
+rsOceanus = 'Oceanus';
+rsPalus = 'Palus';
+rsPlanita = 'Planita';
+rsPromontorium = 'Promontorium';
+rsAlbedoFeatur = 'Albedo Feature';
+rsRima = 'Rima';
+rsRupes = 'Rupes';
+rsSinus = 'Sinus';
+rsVallis = 'Vallis';
+rsDome = 'Dome';
 
 implementation
 

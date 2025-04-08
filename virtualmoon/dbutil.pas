@@ -102,15 +102,35 @@ const
     FWIDEKM=37;
     FGENERAL1=41;
     SimplifiedDBN=100;
+    NumIAUtype=17;
 
 var
-    sidelist: string;
+    sidelist, excludetype: string;
     database : array[1..MaxDB] of string;
     usedatabase :array[1..MaxDBN] of boolean;
     connectdatabase : array[1..MaxConnectDBN] of string;
     useconnectdatabase : array[1..MaxConnectDBN] of boolean;
     ConnectTableCols: array[1..MaxConnectDBN] of TStringList;
     ConnectDBCols: array[1..MaxConnectDBN] of TStringList;
+    IAUtype: array[1..NumIAUtype,1..2] of string=(  // see translation in config.
+      ('AA','Crater'),
+      ('CA','Catena'),
+      ('RI','Rima'),
+      ('DO','Dorsum'),
+      ('RU','Rupes'),
+      ('VA','Vallis'),
+      ('OC','Oceanus'),
+      ('ME','Mare'),
+      ('SI','Sinus'),
+      ('LC','Lacus'),
+      ('PR','Promontorium'),
+      ('PA','Palus'),
+      ('PL','Planita'),
+      ('MO','Mons'),
+      ('TH','Dome'),
+      ('AL','Albedo Feature'),
+      ('LF','Landing site name')
+      );
 
 Procedure ListDB;
 Procedure LoadDB(dbm: TLiteDB);

@@ -1383,6 +1383,7 @@ begin
         usedatabase[k]:=ReadBool(section, 'UseUserDB' + IntToStr(i), false );
     end;
     usedatabase[UserDBN]:=true;
+    excludetype := ReadString(section,'excludetype','');
     overlayname := ReadString(section, 'overlayname', 'Colors natural.jpg');
     overlaytr  := ReadFloat(section, 'overlaytr', 0);
     showoverlay := ReadBool(section, 'showoverlay', showoverlay);
@@ -1462,6 +1463,8 @@ begin
         WriteInteger(section, 'UserDBNum' + IntToStr(i), j);
         WriteBool(section, 'UseUserDB' + IntToStr(i), usedatabase[j]);
       end;
+
+      WriteString(section,'excludetype',excludetype);
 
       WriteString(section, 'overlayname', overlayname);
       WriteFloat(section, 'overlaytr', overlaytr);
@@ -1557,7 +1560,7 @@ procedure TForm1.GetLabel(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
     w, wmin, wfact, l1, b1, scale: single;
     miniok,IsLUN,IsUnnamed: boolean;
-    nom, let, dbn, sl, lun:  string;
+    cmd, nom, let, dbn, sl, lun:  string;
     j: integer;
 begin
 // Labels
@@ -1580,13 +1583,16 @@ begin
       wmin := MinValue([650.0, 3 * LabelDensity / ((Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)/(1+3*Tf_moon(Sender).Zoom/90))]);
 
     sl:=sidelist;
-    dbm.Query('select NAME,LONGI_N,LATI_N,WIDE_KM,LENGTH_KM,LUN,DBN from moon' +
+    cmd := 'select NAME,LONGI_N,LATI_N,WIDE_KM,LENGTH_KM,LUN,DBN from moon' +
       ' where DBN in (' + sl + ')' + ' and LONGI_N > ' +
       formatfloat(f2, rad2deg*lmin) + ' and LONGI_N < ' + formatfloat(f2, rad2deg*lmax) +
       ' and LATI_N > ' + formatfloat(f2, rad2deg*bmin) +
       ' and LATI_N < ' + formatfloat(f2, rad2deg*bmax) +
-      ' and (WIDE_KM=0 or WIDE_KM>=' + formatfloat(f2, (wmin * wfact) / 2.5) + ')' +
-      ' LIMIT '+inttostr(2*MaxLabel)+';');
+      ' and (WIDE_KM=0 or WIDE_KM>=' + formatfloat(f2, (wmin * wfact) / 2.5) + ')';
+    if excludetype<>'' then
+      cmd := cmd + ' and IAU_TYPE not in(' + excludetype + ')';
+    cmd := cmd + ' LIMIT '+inttostr(2*MaxLabel)+';';
+    dbm.Query(cmd);
     for j := 0 to dbm.RowCount - 1 do
     begin
       l1 := StrToFloatDef(dbm.Results[j][1],0);
@@ -3620,6 +3626,7 @@ begin
   EyepieceRatio := 1;
   zoom      := 1;
   useDBN    := 9;
+  excludetype:='';
   ForceBumpMapSize:=0;
   NoExtraSlice:=False;
   showoverlay := True;
@@ -3950,7 +3957,7 @@ end;
 procedure TForm1.OpenConfig(page: integer=-1);
 var
   reload, reloaddb, systemtimechange, redrawbassin: boolean;
-  newoverlay: string;
+  newoverlay,buf: string;
   i, j: integer;
   p: TPoint;
 begin
@@ -3979,6 +3986,10 @@ begin
       form2.ConnectDbList.Checked[i]:=useconnectdatabase[i+1];
     end;
     ListUserDB;
+    for i:=0 to form2.FeatureListBox.Count-1 do begin
+      buf:=copy(form2.FeatureListBox.Items[i],1,2);
+      form2.FeatureListBox.Checked[i] := (pos('"'+buf+'"',excludetype)=0);
+    end;
     form2.checkbox1.Checked := phaseeffect;
     form2.checkbox2.Checked := librationeffect;
     form2.CheckBoxTerminatorLine.Checked := showterminatorline;
@@ -4095,7 +4106,8 @@ begin
       labelcenter   := form2.checkbox17.Checked;
       LabelType     := form2.RadioGroup1.ItemIndex;
       activemoon.LabelFont:=form2.FontDialog1.Font;
-      activemoon.Labelcolor:=autolabelcolor;
+      if activemoon.Labelcolor<>autolabelcolor then
+        activemoon.Labelcolor:=autolabelcolor;
       Obslatitude := strtofloat(decisep(form2.Edit1.Text));
       if form2.ComboBox1.ItemIndex = 1 then
         Obslatitude := -Obslatitude;
@@ -4133,6 +4145,14 @@ begin
           reloaddb     := True;
         usedatabase[j] := form2.UserDbList.Checked[i];
       end;
+       excludetype:='';
+      for i:=0 to form2.FeatureListBox.Count-1 do begin
+        if not form2.FeatureListBox.Checked[i] then begin
+          buf:=copy(form2.FeatureListBox.Items[i],1,2);
+          excludetype:=excludetype+',"'+buf+'"';
+        end;
+      end;
+      if excludetype<>'' then Delete(excludetype,1,1);
       InitObservatoire;
       CurrentJD := jd(CurYear, CurrentMonth, CurrentDay, Currenttime - timezone + DT_UT);
       if form2.newlang <> language then
@@ -4268,12 +4288,12 @@ end;
 
 procedure TForm1.ButtonSetOverlayClick(Sender: TObject);
 begin
-  OpenConfig(4);
+  OpenConfig(5);
 end;
 
 procedure TForm1.ButtonSetTextureClick(Sender: TObject);
 begin
-  OpenConfig(3);
+  OpenConfig(4);
 end;
 
 procedure TForm1.ToolButtonHideToolsClick(Sender: TObject);
