@@ -280,9 +280,7 @@ Function Tf_photlun.GetImgCpy(dir,nom:string):string;
 var f:textfile;
 begin
 result:='';
-if uppercase(nom)='LOPAM' then result :='Digitial Lunar Orbiter Photographic Atlas of the Moon / Courtesy Jeff Gillis - Lunar and Planetary Institute (http://www.lpi.usra.edu/research/lunar_orbiter/) '
-else if uppercase(nom)='APOLLO' then result :='Courtesy NASA / http://www.nasa.gov '
-else if fileexists(slash(dir)+'copyright.txt') then begin
+if fileexists(slash(dir)+'copyright.txt') then begin
   filemode:=0;
   assignfile(f,slash(dir)+'copyright.txt');
   reset(f);
@@ -311,7 +309,6 @@ if maximgdir=0 then begin
 end;
 AddImagesDir(slash(appdir)+'Clementine','Clementine','');
 AddImagesDir(slash(appdir)+'Probes','Probes','');
-AddImagesDir(slash(appdir)+'LunaStars','LunaStars','');
 AddImagesDir(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association');
 AddImagesDir(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005');
 AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov');
