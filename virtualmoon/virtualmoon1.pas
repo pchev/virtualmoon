@@ -1577,7 +1577,7 @@ begin
     wfact := 1;
     LabelDensity := maxintvalue([100, LabelDensity]);
 
-    if (Tf_moon(Sender).Zoom >= 30) and (LabelDensity<300) and (Tf_moon(Sender).Zoom >= (Tf_moon(Sender).ZoomMax-5)) then
+    if (Tf_moon(Sender).Zoom >= 30) and (LabelDensity<=600) and (Tf_moon(Sender).Zoom >= (Tf_moon(Sender).ZoomMax-5)) then
       wmin := -1
     else
       wmin := MinValue([650.0, 3 * LabelDensity / ((Tf_moon(Sender).Zoom * Tf_moon(Sender).Zoom)/(1+3*Tf_moon(Sender).Zoom/90))]);
