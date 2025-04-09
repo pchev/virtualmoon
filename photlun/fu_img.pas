@@ -184,7 +184,6 @@ end;
 procedure Tf_img.BtnCloseClick(Sender: TObject);
 begin
   if Assigned(FonClose) then FonClose(self);
-//  Free;
 end;
 
 procedure Tf_img.DetachAsync(Data: PtrInt);

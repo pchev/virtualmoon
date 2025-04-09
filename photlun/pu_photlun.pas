@@ -429,6 +429,10 @@ begin
     else if PanelVignette.Controls[i] is TButton then
       TButton(PanelVignette.Controls[i]).Free;
   end;
+  for i:=Panel3.ControlCount-1 downto 0 do begin
+    if Panel3.Controls[i] is Tf_img then
+      Tf_img(Panel3.Controls[i]).BtnClose.Click;
+  end;
 end;
 
 procedure Tf_photlun.CreateVignette(n: integer);
