@@ -12,6 +12,10 @@ msgstr ""
 "X-Generator: Lokalize 1.4\n"
 "POT-Creation-Date: \n"
 
+#: u_translation.rsabout
+msgid "About"
+msgstr ""
+
 #: u_translation.rsatlundocumen
 msgid "AtLun documentation"
 msgstr "Documentazione di AtLun"
@@ -22,6 +26,10 @@ msgstr "Sfoglia le immagini dell'Atlante"
 
 #: u_translation.rscalclundocum
 msgid "CalcLun documentation"
+msgstr ""
+
+#: u_translation.rscclundocumen
+msgid "CcLun documentation"
 msgstr ""
 
 #: u_translation.rsdatlundocume

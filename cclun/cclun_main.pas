@@ -399,7 +399,6 @@ begin
   Caption  := rstitle;
   u_util.hp := rshelp_prefix;
   Label1.Caption:=rsVirtualLunar+blank+AVLversion;
-//  Label9.Caption:=rsSpecialEditi;
   Label8.Caption:=rsDocumentatio;
   Label7.Caption:=rsTutorial;
   Label10.Caption:=rsQuit;
@@ -418,6 +417,7 @@ begin
   MenuItem5.Caption:=rsNoteLunDocum;
   MenuItem6.Caption:=rsCalcLunDocum;
   MenuItem7.Caption:=rsCcLunDocumen;
+  MenuItem8.Caption:=rsAbout;
 end;
 
 procedure Tf_cclun.FormCreate(Sender: TObject);

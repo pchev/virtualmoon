@@ -1,16 +1,20 @@
-# pch <pch@ap-i.net>, 2022.
+# SPDX-FileCopyrightText: 2022, 2025 pch <pch@ap-i.net>
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-10-01 21:57+0200\n"
+"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
+"PO-Revision-Date: 2025-04-09 12:03+0200\n"
 "Project-Id-Version: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
+
+#: u_translation.rsabout
+msgid "About"
+msgstr "A propos"
 
 #: u_translation.rsatlundocumen
 msgid "AtLun documentation"
@@ -23,6 +27,10 @@ msgstr "Parcourir  les photographies lunaires de l'Atlas"
 #: u_translation.rscalclundocum
 msgid "CalcLun documentation"
 msgstr "Documentation CalcLun"
+
+#: u_translation.rscclundocumen
+msgid "CcLun documentation"
+msgstr "Documentation CcLun"
 
 #: u_translation.rsdatlundocume
 msgid "DatLun documentation"
@@ -103,4 +111,5 @@ msgstr "Atlas Virtuel de la Lune"
 #: u_translation.rsweblundocume
 msgid "WebLun documentation"
 msgstr "Documentation WebLun"
+
 

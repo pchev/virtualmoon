@@ -90,3 +90,11 @@ msgstr ""
 msgid "Lunar calculation"
 msgstr ""
 
+#: u_translation:rscclundocumen
+msgid "CcLun documentation"
+msgstr ""
+
+#: u_translation:rsabout
+msgid "About"
+msgstr ""
+

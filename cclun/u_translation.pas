@@ -35,6 +35,7 @@ rsNoteLunDocum = 'NoteLun documentation';
 rsCalcLunDocum = 'CalcLun documentation';
 rsLunarCalcula = 'Lunar calculation';
 rsCcLunDocumen = 'CcLun documentation';
+rsAbout = 'About';
 
 implementation
 

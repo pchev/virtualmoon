@@ -11,6 +11,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 1.4\n"
 
+#: u_translation.rsabout
+msgid "About"
+msgstr ""
+
 #: u_translation.rsatlundocumen
 msgid "AtLun documentation"
 msgstr ""
@@ -21,6 +25,10 @@ msgstr ""
 
 #: u_translation.rscalclundocum
 msgid "CalcLun documentation"
+msgstr ""
+
+#: u_translation.rscclundocumen
+msgid "CcLun documentation"
 msgstr ""
 
 #: u_translation.rsdatlundocume
