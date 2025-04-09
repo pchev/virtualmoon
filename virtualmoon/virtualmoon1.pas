@@ -3103,7 +3103,9 @@ end;
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   Firstsearch := True;
-  SearchText  := Edit6.Text;
+  SearchText  := trim(Edit6.Text);
+  if SearchText='' then exit;
+  SearchText := StringReplace(SearchText,'*','%',[rfReplaceAll]);
   SearchName(SearchText, True);
 end;
 
