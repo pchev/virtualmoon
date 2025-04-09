@@ -41,6 +41,10 @@ msgstr "op naam"
 msgid "Cancel"
 msgstr "Verwerp"
 
+#: u_translation.rsclose
+msgid "Close"
+msgstr ""
+
 #: u_translation.rscloseallwind
 msgid "Close all window"
 msgstr "Sluit alle schermen"
@@ -117,6 +121,11 @@ msgstr "Instelling bibliotheek"
 msgid "Medium"
 msgstr "Midden"
 
+#: u_translation.rsmoreimages
+#, object-pascal-format
+msgid "%s More images"
+msgstr ""
+
 #: u_translation.rsname
 msgid "Name"
 msgstr "Naam"
@@ -136,6 +145,10 @@ msgstr "Schermnummer"
 #: u_translation.rsok
 msgid "OK"
 msgstr "Ok"
+
+#: u_translation.rsopeninnewwin
+msgid "Open in new window"
+msgstr ""
 
 #: u_translation.rsquit
 msgid "Quit"

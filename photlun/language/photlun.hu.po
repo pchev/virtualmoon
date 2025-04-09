@@ -41,6 +41,10 @@ msgstr "név szerint"
 msgid "Cancel"
 msgstr "Megszakít"
 
+#: u_translation.rsclose
+msgid "Close"
+msgstr ""
+
 #: u_translation.rscloseallwind
 msgid "Close all window"
 msgstr "Mindent bezár"
@@ -117,6 +121,11 @@ msgstr "Könyvtár beállítások"
 msgid "Medium"
 msgstr "Közepes"
 
+#: u_translation.rsmoreimages
+#, object-pascal-format
+msgid "%s More images"
+msgstr ""
+
 #: u_translation.rsname
 msgid "Name"
 msgstr "Név"
@@ -136,6 +145,10 @@ msgstr "Ablakok száma"
 #: u_translation.rsok
 msgid "OK"
 msgstr "Gyí"
+
+#: u_translation.rsopeninnewwin
+msgid "Open in new window"
+msgstr ""
 
 #: u_translation.rsquit
 msgid "Quit"

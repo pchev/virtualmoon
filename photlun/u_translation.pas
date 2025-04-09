@@ -63,6 +63,7 @@ resourcestring
   rsView = 'View';
   rsOpenInNewWin = 'Open in new window';
   rsClose = 'Close';
+  rsMoreImages = '%s More images';
 
 implementation
 

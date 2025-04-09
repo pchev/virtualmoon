@@ -41,6 +41,10 @@ msgstr "per nome"
 msgid "Cancel"
 msgstr "Annulla"
 
+#: u_translation.rsclose
+msgid "Close"
+msgstr ""
+
 #: u_translation.rscloseallwind
 msgid "Close all window"
 msgstr "Chiudi tutte le finestre"
@@ -117,6 +121,11 @@ msgstr "Configurazione della raccolta di immagini"
 msgid "Medium"
 msgstr "Media"
 
+#: u_translation.rsmoreimages
+#, object-pascal-format
+msgid "%s More images"
+msgstr ""
+
 #: u_translation.rsname
 msgid "Name"
 msgstr "Nome"
@@ -136,6 +145,10 @@ msgstr "Numero di finestre"
 #: u_translation.rsok
 msgid "OK"
 msgstr "OK"
+
+#: u_translation.rsopeninnewwin
+msgid "Open in new window"
+msgstr ""
 
 #: u_translation.rsquit
 msgid "Quit"

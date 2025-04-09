@@ -41,6 +41,10 @@ msgstr "κατα όνομα"
 msgid "Cancel"
 msgstr "Άκυρο"
 
+#: u_translation.rsclose
+msgid "Close"
+msgstr ""
+
 #: u_translation.rscloseallwind
 msgid "Close all window"
 msgstr "Κλείσιμο όλων των παραθύρων"
@@ -117,6 +121,11 @@ msgstr "Ορισμός βιβλιοθήκης"
 msgid "Medium"
 msgstr "Μεσαίο"
 
+#: u_translation.rsmoreimages
+#, object-pascal-format
+msgid "%s More images"
+msgstr ""
+
 #: u_translation.rsname
 msgid "Name"
 msgstr "Όνομα"
@@ -136,6 +145,10 @@ msgstr "Αριθμός παραθύρου"
 #: u_translation.rsok
 msgid "OK"
 msgstr "OK"
+
+#: u_translation.rsopeninnewwin
+msgid "Open in new window"
+msgstr ""
 
 #: u_translation.rsquit
 msgid "Quit"

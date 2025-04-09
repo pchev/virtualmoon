@@ -198,3 +198,15 @@ msgstr ""
 msgid "View"
 msgstr ""
 
+#: u_translation:rsopeninnewwin
+msgid "Open in new window"
+msgstr ""
+
+#: u_translation:rsclose
+msgid "Close"
+msgstr ""
+
+#: u_translation:rsmoreimages
+msgid "%s More images"
+msgstr ""
+

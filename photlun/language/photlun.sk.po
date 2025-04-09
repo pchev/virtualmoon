@@ -43,6 +43,10 @@ msgstr "podľa mena"
 msgid "Cancel"
 msgstr "Zrušiť"
 
+#: u_translation.rsclose
+msgid "Close"
+msgstr ""
+
 #: u_translation.rscloseallwind
 msgid "Close all window"
 msgstr "Zavrieť všetky okna"
@@ -119,6 +123,11 @@ msgstr "Nastavenie knižnice"
 msgid "Medium"
 msgstr "Stredná"
 
+#: u_translation.rsmoreimages
+#, object-pascal-format
+msgid "%s More images"
+msgstr ""
+
 #: u_translation.rsname
 msgid "Name"
 msgstr "Meno"
@@ -138,6 +147,10 @@ msgstr "Počet okien"
 #: u_translation.rsok
 msgid "OK"
 msgstr "OK"
+
+#: u_translation.rsopeninnewwin
+msgid "Open in new window"
+msgstr ""
 
 #: u_translation.rsquit
 msgid "Quit"

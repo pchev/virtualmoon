@@ -14,7 +14,7 @@ uses
   u_translation,
   BGRABitmap, BGRABitmapTypes, LazUTF8, UniqueInstance, math,
   fu_img, pu_config, u_util, u_constant, LazFileUtils, IniFiles, LCLType,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, Menus, Buttons;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, Menus, Buttons, StdCtrls;
 
 type
 
@@ -74,7 +74,7 @@ type
     procedure ScrollBox1Resize(Sender: TObject);
     procedure UniqueInstance1OtherInstance(Sender: TObject; ParamCount: Integer; const Parameters: array of String);
   private
-    imgnum, maximgdir: integer;
+    imgnum, maximgdir,startimg,lastimg: integer;
     imgdir : array of array[0..3] of string;
     imglist: TStringList;
     SelectedObject,pofile: string;
@@ -93,6 +93,8 @@ type
     procedure ClearVignette;
     procedure CreateVignette(n: integer);
     procedure VignetteClick(Sender: TObject);
+    procedure CreateMoreButton;
+    procedure MoreVignetteClick(Sender: TObject);
     procedure CloseImgAsync(Data: PtrInt);
     procedure ImgFormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ImgFormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -101,6 +103,7 @@ type
     procedure ListImgDir(dir: string; filter:string='*');
     procedure SelectObject(nom: string);
     procedure RefreshVignettes;
+    procedure RefreshVignettesAsync(Data: PtrInt);
     procedure ShowImg(i:integer; img: Tf_img);
     procedure NextImg(Sender: TObject);
     procedure PrevImg(Sender: TObject);
@@ -394,6 +397,7 @@ procedure Tf_photlun.BiblioClick(Sender: TObject);
 var i: integer;
 begin
   i:=TMenuItem(Sender).tag;
+  startimg:=0;
   imglist.Clear;
   ListImgDir(imgdir[i,0]);
   StatusBar1.Panels[0].Text:=imgdir[i,2];
@@ -405,6 +409,7 @@ end;
 procedure Tf_photlun.AllBiblioClick(Sender: TObject);
 var i: integer;
 begin
+  startimg:=0;
   imglist.Clear;
   for i:=0 to maximgdir-1 do begin
      ListImgDir(imgdir[i,0]);
@@ -420,7 +425,9 @@ var i: integer;
 begin
   for i:=PanelVignette.ControlCount-1 downto 0 do begin
     if PanelVignette.Controls[i] is TVignette then
-      TVignette(PanelVignette.Controls[i]).Free;
+      TVignette(PanelVignette.Controls[i]).Free
+    else if PanelVignette.Controls[i] is TButton then
+      TButton(PanelVignette.Controls[i]).Free;
   end;
 end;
 
@@ -431,6 +438,7 @@ var v: TVignette;
     i,w,h: integer;
     fn,libr,cpy: string;
 begin
+  if (n<0)or(n>(imglist.Count-1)) then exit;
   fn:=imglist[n];
   libr:=noslash(ExtractFilePath(fn));
   for i:=0 to maximgdir-1 do begin
@@ -464,49 +472,79 @@ begin
   bmp.Free;
 end;
 
+procedure Tf_photlun.CreateMoreButton;
+var b: TButton;
+begin
+  b:=TButton.Create(self);
+  b.ParentFont:=false;
+  b.AutoSize:=True;
+  b.Caption:=Format(rsMoreImages, [IntToStr(imglist.Count-1-lastimg)]);
+  b.OnClick:=@MoreVignetteClick;
+  b.Parent:=PanelVignette;
+end;
+
+procedure Tf_photlun.MoreVignetteClick(Sender: TObject);
+begin
+  startimg:=lastimg;
+  Application.QueueAsyncCall(@RefreshVignettesAsync,0);
+end;
+
 procedure Tf_photlun.MenuItem1Click(Sender: TObject);
 var n: String;
 begin
-if InputQuery(rsSearch, rsFormationNam, n) then
-   SelectObject(n);
+  if InputQuery(rsSearch, rsFormationNam, n) then
+     SelectObject(n);
 end;
 
 procedure Tf_photlun.SelectObject(nom: string);
 var i,r: integer;
     nom2,buf: string;
 begin
-SelectedObject:=nom;
-imglist.Clear;
-nom:=trim(nom);
-nom2:='';
-r:=length(nom)-1;
-if copy(nom,r,1)=' ' then begin
-  buf:=copy(nom,r+1,1);
-  if ((buf>='a')and(buf<='z'))or((buf>='A')and(buf<='Z')) then nom2:=copy(nom,1,r-1);
-end;
-for i:=0 to maximgdir-1 do begin
-  ListImgDir(imgdir[i,0],nom);
-end;
-if (imglist.Count=0)and(nom2>'') then begin
-  for i:=0 to maximgdir-1 do begin
-     ListImgDir(imgdir[i,0],nom2);
+  SelectedObject:=nom;
+  startimg:=0;
+  imglist.Clear;
+  nom:=trim(nom);
+  nom2:='';
+  r:=length(nom)-1;
+  if copy(nom,r,1)=' ' then begin
+    buf:=copy(nom,r+1,1);
+    if ((buf>='a')and(buf<='z'))or((buf>='A')and(buf<='Z')) then nom2:=copy(nom,1,r-1);
   end;
-end;
+  for i:=0 to maximgdir-1 do begin
+    ListImgDir(imgdir[i,0],nom);
+  end;
+  if (imglist.Count=0)and(nom2>'') then begin
+    for i:=0 to maximgdir-1 do begin
+       ListImgDir(imgdir[i,0],nom2);
+    end;
+  end;
   StatusBar1.Panels[0].Text:=rsSelection+' : '+nom;
   imglist.Sort;
+  RefreshVignettes;
+end;
+
+procedure Tf_photlun.RefreshVignettesAsync(Data: PtrInt);
+begin
   RefreshVignettes;
 end;
 
 procedure Tf_photlun.RefreshVignettes;
 var i,n: integer;
 begin
+  screen.Cursor:=crHourGlass;
+  Application.ProcessMessages;
   ClearVignette;
   if imglist.count=0 then exit;
-  n:=min(100,imglist.Count-1);
-  SelectedObject:=GetObjectFromPhoto(imglist[0]);
+  if startimg>(imglist.Count-1) then startimg:=0;
+  n:=min(100,imglist.Count-1-startimg);
+  SelectedObject:=GetObjectFromPhoto(imglist[startimg]);
   for i:=0 to n do begin
-    CreateVignette(i);
+    CreateVignette(i+startimg);
   end;
+  lastimg:=n+startimg;
+  if lastimg<(imglist.Count-1) then
+    CreateMoreButton;
+  screen.Cursor:=crDefault;
 end;
 
 procedure Tf_photlun.ListImgDir(dir: string; filter:string='*');

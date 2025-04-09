@@ -44,6 +44,10 @@ msgstr "per nom"
 msgid "Cancel"
 msgstr "Cancel.la"
 
+#: u_translation.rsclose
+msgid "Close"
+msgstr ""
+
 #: u_translation.rscloseallwind
 msgid "Close all window"
 msgstr "Tanca totes les finestres"
@@ -120,6 +124,11 @@ msgstr "Configuració de les biblioteques"
 msgid "Medium"
 msgstr "Mitjana"
 
+#: u_translation.rsmoreimages
+#, object-pascal-format
+msgid "%s More images"
+msgstr ""
+
 #: u_translation.rsname
 msgid "Name"
 msgstr "Nom"
@@ -139,6 +148,10 @@ msgstr "Nombre de finestres"
 #: u_translation.rsok
 msgid "OK"
 msgstr "D'acord"
+
+#: u_translation.rsopeninnewwin
+msgid "Open in new window"
+msgstr ""
 
 #: u_translation.rsquit
 msgid "Quit"
