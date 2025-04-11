@@ -14,6 +14,7 @@ type
   Tf_date = class(TForm)
     btncancel: TButton;
     btnok: TButton;
+    btnNow: TButton;
     DateEdit1: TDateEdit;
     Label1: TLabel;
     Label2: TLabel;
@@ -21,6 +22,7 @@ type
     H: TSpinEdit;
     M: TSpinEdit;
     S: TSpinEdit;
+    procedure btnNowClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -45,6 +47,7 @@ procedure Tf_date.SetLang;
 begin
   btncancel.Caption:=rsCancel;
   btnok.Caption:=rsOK;
+  btnNow.Caption:=rsNow;
 end;
 
 procedure Tf_date.SpeedButton1Click(Sender: TObject);
@@ -57,6 +60,11 @@ begin
   ScaleFormForFontSize(self,96);
   SetLang;
   DateEdit1.DateFormat:=datedisplay;
+end;
+
+procedure Tf_date.btnNowClick(Sender: TObject);
+begin
+  SetDate(now);
 end;
 
 procedure Tf_date.FormShow(Sender: TObject);

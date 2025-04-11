@@ -350,6 +350,10 @@ msgstr ""
 msgid "Note text to search"
 msgstr ""
 
+#: u_translation.rsnow
+msgid "Now"
+msgstr ""
+
 #: u_translation.rsobservatione
 msgid "Observation end"
 msgstr ""

@@ -538,3 +538,7 @@ msgstr ""
 msgid "%s information notes imported from previous version"
 msgstr ""
 
+#: u_translation:rsnow
+msgid "Now"
+msgstr ""
+

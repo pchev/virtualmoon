@@ -147,6 +147,7 @@ rsExportObserv = 'Export observation notes as';
 rsBeforeToCrea = 'Before to create observation notes you need to configure the equipment in use and the location you observe from, so this can be picked in the note.';
 rsYouCanComple = 'You can complete that later using the menu';
 rsInformationN2 = '%s information notes imported from previous version';
+rsNow = 'Now';
 
 implementation
 
