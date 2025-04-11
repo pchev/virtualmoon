@@ -32,14 +32,14 @@ object Form2: TForm2
       ParentFont = False
       object Bevel8: TBevel
         Left = 16
-        Height = 140
+        Height = 132
         Top = 160
         Width = 496
         Shape = bsFrame
       end
       object Bevel7: TBevel
         Left = 16
-        Height = 129
+        Height = 136
         Top = 8
         Width = 496
         Shape = bsFrame
@@ -91,7 +91,7 @@ object Form2: TForm2
       object Label23: TLabel
         Left = 32
         Height = 18
-        Top = 156
+        Top = 168
         Width = 78
         Caption = 'Date / Heure'
         Color = clDefault
@@ -102,7 +102,7 @@ object Form2: TForm2
       object Label34: TLabel
         Left = 32
         Height = 18
-        Top = 267
+        Top = 247
         Width = 79
         Caption = 'Zone horaire'
         Color = clDefault
@@ -113,7 +113,7 @@ object Form2: TForm2
       object Label35: TLabel
         Left = 32
         Height = 18
-        Top = 226
+        Top = 206
         Width = 28
         Caption = 'Pays'
         Color = clDefault
@@ -190,38 +190,29 @@ object Form2: TForm2
         TabOrder = 3
         Text = 'E'
       end
-      object CheckBox16: TCheckBox
-        Left = 32
-        Height = 22
-        Top = 184
-        Width = 243
-        Caption = 'Use Computer Date and Time Zone'
-        ParentFont = False
-        TabOrder = 5
-      end
       object ComboBoxCountry: TComboBox
         Left = 125
         Height = 32
-        Top = 220
+        Top = 200
         Width = 182
         ItemHeight = 18
         OnChange = ComboBoxCountryChange
         ParentColor = True
         ParentFont = False
         Style = csDropDownList
-        TabOrder = 6
+        TabOrder = 5
       end
       object ComboBoxTZ: TComboBox
         Left = 125
         Height = 32
-        Top = 260
+        Top = 240
         Width = 181
         ItemHeight = 18
         OnChange = ComboBoxTZChange
         ParentColor = True
         ParentFont = False
         Style = csDropDownList
-        TabOrder = 7
+        TabOrder = 6
       end
       object RadioGroup7: TRadioGroup
         Left = 21
@@ -246,12 +237,12 @@ object Form2: TForm2
         )
         OnClick = RadioGroup7Click
         ParentFont = False
-        TabOrder = 8
+        TabOrder = 7
       end
       object Button8: TSpeedButton
         Left = 88
         Height = 25
-        Top = 352
+        Top = 368
         Width = 235
         Caption = 'Button8'
         Flat = True
@@ -272,7 +263,7 @@ object Form2: TForm2
         Height = 32
         Top = 97
         Width = 59
-        TabOrder = 9
+        TabOrder = 8
         Text = 'Edit3'
       end
     end

@@ -211,7 +211,6 @@ type
     TabSheet7: TTabSheet;
     Bevel8: TBevel;
     Label23: TLabel;
-    CheckBox16: TCheckBox;
     UserDbList: TCheckListBox;
     Label31: TLabel;
     TrackBar4: TTrackBar;
@@ -391,8 +390,7 @@ begin
       label66.Caption:=rsOrigin+' :';
       label30.Caption := rst_171;
       label32.Caption := rst_172;
-      Label23.Caption := rst_173;
-      CheckBox16.Caption := rst_174;
+      Label23.Caption := rst_21;
       label31.Caption := rst_179;
       label33.Caption := rst_181;
       GroupBox2.Caption:=rsGrid;

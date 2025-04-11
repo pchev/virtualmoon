@@ -671,7 +671,6 @@ type
     searchlist: TStringList;
     ForceBumpMapSize: integer;
     NoExtraSlice,showoverlay: boolean;
-    UseComputerTime: boolean;
     procedure Init;
     procedure LoadOverlay(fn: string; transparent: single);
     procedure GetLabel(Sender: TObject);
@@ -1298,7 +1297,6 @@ begin
     section    := 'default';
     configversion := ReadString(section, 'version', '6.0');
     pofile     := ReadString(section, 'lang_po_file', '');
-    UseComputerTime := ReadBool(section, 'UseComputerTime', UseComputerTime);
     ForceBumpMapSize := ReadInteger(section, 'ForceBumpMapSize', ForceBumpMapSize);
     NoExtraSlice := ReadBool(section, 'NoExtraSlice', false);
     Obslatitude  := ReadFloat(section, 'Obslatitude', Obslatitude);
@@ -1307,14 +1305,7 @@ begin
     ObsCountry  := ReadString(section, 'ObsCountry', ObsCountry);
     ObsTZ := ReadString(section, 'ObsTZ', ObsTZ);
     tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
-    if UseComputerTime then
-      timezone := gettimezone(now)
-    else
-    begin
-      CurrentJD := ReadFloat(section, 'CurrentJD', CurrentJD);
-      dt_ut     := ReadFloat(section, 'dt_ut', dt_ut);
-      timezone := GetJDTimeZone(CurrentJD);
-    end;
+    timezone := gettimezone(now);
     cameraorientation := ReadFloat(section, 'CameraOrientation', CameraOrientation);
     phaseeffect  := ReadBool(section, 'PhaseEffect', phaseeffect);
     wantbump  := ReadBool(section, 'BumpMap', wantbump);
@@ -1480,7 +1471,6 @@ begin
       WriteFloat(section, 'Obsaltitude', ObsAltitude);
       WriteString(section, 'ObsCountry', ObsCountry);
       WriteString(section, 'ObsTZ', ObsTZ);
-      WriteBool(section, 'UseComputerTime', UseComputerTime);
       WriteFloat(section, 'CurrentJD', CurrentJD);
       WriteFloat(section, 'dt_ut', dt_ut);
       WriteBool(section, 'PhaseEffect', phaseeffect);
@@ -3633,7 +3623,6 @@ begin
   ForceBumpMapSize:=0;
   NoExtraSlice:=False;
   showoverlay := True;
-  UseComputerTime := True;
   GetAppDir;
   chdir(appdir);
   skipresize := True;
@@ -3814,10 +3803,7 @@ try
   dbimp.Use(dbm.DataBase);
   dbc:=TLiteDB.Create(self);
   dbc.Use(dbm.DataBase);
-  if UseComputerTime then
-    InitDate
-  else
-    SetJDDate;
+  InitDate;
   form2.tzinfo:=tz;
   form2.LoadCountry(slash(Appdir)+slash('data')+'country.tab');
   moon1.Init;
@@ -3959,7 +3945,7 @@ end;
 
 procedure TForm1.OpenConfig(page: integer=-1);
 var
-  reload, reloaddb, systemtimechange, redrawbassin: boolean;
+  reload, reloaddb, redrawbassin: boolean;
   newoverlay,buf: string;
   i, j: integer;
   p: TPoint;
@@ -4057,7 +4043,6 @@ begin
     form2.checkbox11.Checked := showoverlay;
     form2.checkbox10.Checked := GridButton.Down;
     form2.TrackBar3.Position:=gridspacing;
-    form2.checkbox16.Checked := UseComputerTime;
     form2.FontDialog1.Font:=activemoon.LabelFont;
     form2.LabelFont.Caption:=activemoon.LabelFont.Name;
     form2.LabelFont.Font:=activemoon.LabelFont;
@@ -4118,17 +4103,10 @@ begin
       ObsAltitude := StrToFloat(decisep(form2.Edit3.Text));
       if form2.ComboBox2.ItemIndex = 0 then
         Obslongitude := -Obslongitude;
-      systemtimechange := UseComputerTime <> form2.checkbox16.Checked;
       ObsCountry:=form2.ObsCountry;
       ObsTZ := form2.obstz;
       tz.TimeZoneFile := ZoneDir + StringReplace(ObsTZ, '/', PathDelim, [rfReplaceAll]);
-      UseComputerTime := form2.checkbox16.Checked;
       timezone := gettimezone(now);
-      if systemtimechange then
-      begin
-        InitDate;
-        reload := True;
-      end;
       phaseeffect     := form2.checkbox1.Checked;
       librationeffect := form2.checkbox2.Checked;
       showterminatorline := form2.CheckBoxTerminatorLine.Checked;
