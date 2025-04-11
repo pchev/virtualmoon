@@ -186,13 +186,12 @@ begin
   buf:='';
   SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);
   SHGetPathFromIDList(PIDL, Folder);
-  buf:=systoutf8(Folder);
-  buf:=trim(buf);
+  buf := trim(WinCPToUTF8(Folder));
   buf:=SafeUTF8ToSys(buf);
   if buf='' then begin  // old windows version
      SHGetSpecialFolderLocation(0, CSIDL_APPDATA, PIDL);
      SHGetPathFromIDList(PIDL, Folder);
-     buf:=trim(Folder);
+     buf := trim(WinCPToUTF8(Folder));
   end;
   if buf='' then begin
      MessageDlg('Unable to create '+privatedir,
