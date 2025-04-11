@@ -13,6 +13,9 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
+    <MacroValues Count="1">
+      <Macro3 Name="LCLWidgetType" Value="gtk2"/>
+    </MacroValues>
     <BuildModes>
       <Item Name="Default" Default="True"/>
       <Item Name="win32">
@@ -77,9 +80,10 @@
           </Other>
         </CompilerOptions>
       </Item>
-      <SharedMatrixOptions Count="2">
+      <SharedMatrixOptions Count="3">
         <Item1 ID="099843986923" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="360678233942" Modes="qt" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt5"/>
+        <Item3 ID="841928378434" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
