@@ -3015,8 +3015,10 @@ begin
   end;
   if Firstsearch then
   begin
+    n:=trim(uppercase(n));
+    if AnsiLastChar(n)<>'%' then n:=n+'%';
     dbm.Query('select id,name from moon ' + ' where DBN in (' + sidelist + ')' +
-      ' and NAME like "' + trim(uppercase(n)) + '%"' +
+      ' and NAME like "' + n + '"' +
       ' order by NAME limit 100;');
     searchlist.Clear;
     for i := 0 to dbm.RowCount - 1 do
