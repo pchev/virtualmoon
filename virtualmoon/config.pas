@@ -1265,9 +1265,11 @@ for i:=0 to tzinfo.ZoneTabCnty.Count-1 do begin
      if (obscountry = 'ZZ') then
         buf := TzGMT2UTC(buf);
      j:=ComboBoxTZ.Items.Add(buf);
-     if (tzinfo.ZoneTabZone[i]=obstz) then ComboBoxTZ.ItemIndex:=j;
   end;
 end;
+i:=ComboBoxTZ.Items.IndexOf(obstz);
+if i<0 then i:=0;
+ComboBoxTZ.ItemIndex:=i;
 ObsTZ:=ComboBoxTZ.Text;
 end;
 

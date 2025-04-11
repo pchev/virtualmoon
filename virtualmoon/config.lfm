@@ -126,13 +126,13 @@ object Form2: TForm2
         Height = 32
         Top = 316
         Width = 235
-        ItemHeight = 24
+        ItemHeight = 18
         OnChange = ComboBox3Change
         ParentColor = True
         ParentFont = False
         Sorted = True
+        Style = csDropDownList
         TabOrder = 4
-        Text = 'ComboBox3'
       end
       object Edit1: TEdit
         Left = 32
@@ -169,6 +169,7 @@ object Form2: TForm2
         )
         ParentColor = True
         ParentFont = False
+        Style = csDropDownList
         TabOrder = 1
         Text = 'N'
       end
@@ -185,6 +186,7 @@ object Form2: TForm2
         )
         ParentColor = True
         ParentFont = False
+        Style = csDropDownList
         TabOrder = 3
         Text = 'E'
       end
