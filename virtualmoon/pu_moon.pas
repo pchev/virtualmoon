@@ -201,7 +201,7 @@ type
     FRaCentre, FDeCentre, FDiameter, FPositionAngle: single;
     FOverlayTransparency: single;
     FOverlayTransparencyMethode: integer;
-    Fjd: double;
+    Fjd, FColongitude: double;
     Fdemlib: TdemLibrary;
     FKmPx: double;
     MeasureLastX,MeasureLastY: integer;
@@ -334,6 +334,7 @@ type
     property CurrentName : string read GetCurrentName;
     property CurrentL : single read MarkL;
     property CurrentB : single read MarkB;
+    property Colongitude: double read FColongitude write FColongitude;
     property SunIncl : single read FSunIncl write SetSunIncl;
     property LibrLon : single read FLibrLon write SetLibrLon;
     property LibrLat : single read FLibrLat write SetLibrLat;

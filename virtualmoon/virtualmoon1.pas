@@ -1551,7 +1551,7 @@ end;
 
 procedure TForm1.GetLabel(Sender: TObject);
 var lmin,lmax,bmin,bmax: single;
-    w, wmin, wfact, l1, b1, scale: single;
+    w, wmin, wfact, l1, l2, b1, scale: single;
     miniok,IsLUN,IsUnnamed: boolean;
     cmd, nom, let, dbn, sl, lun:  string;
     j: integer;
@@ -1593,6 +1593,20 @@ begin
       w  := StrToFloatDef(dbm.Results[j][3],0);
       if w <= 0 then
         w := StrToFloatDef(dbm.Results[j][4],0);
+      if Tf_moon(Sender).ShowPhase then begin
+        if l1>0 then
+          l2:=360-l1
+        else
+          l2:=-l1;
+        if Tf_moon(Sender).Colongitude<180 then begin
+          if (l2>(Tf_moon(Sender).Colongitude+2))and(l2<(Tf_moon(Sender).Colongitude+180-2)) then
+             Continue;
+        end
+        else begin
+          if (l2>(Tf_moon(Sender).Colongitude+2))or(l2<(Tf_moon(Sender).Colongitude-180-2)) then
+             Continue;
+        end;
+      end;
       nom := trim(string(dbm.Results[j][0]));
       dbn := trim(string(dbm.Results[j][6]));
       lun := trim(string(dbm.Results[j][5]));
@@ -3429,6 +3443,7 @@ begin
   activemoon.ShowPhase:=phaseeffect;
   activemoon.Phase:=deg2rad*cphase;
   activemoon.SunIncl:=deg2rad*sunlat;
+  activemoon.Colongitude:=colong;
   activemoon.LibrationMark:=ShowLibrationMark and OrientValid;
   activemoon.SetTerminator(showterminatorline and OrientValid,sunlong,sunlat);
   activemoon.RefreshAll;
