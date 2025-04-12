@@ -195,6 +195,7 @@ type
     ToolButton22: TToolButton;
     TerminatorButton: TToolButton;
     ButtonSetTexture: TToolButton;
+    ButtonFilterLabel: TToolButton;
     ToolButton24: TToolButton;
     ButtonSetOverlay: TToolButton;
     ButtonSetDatabase: TToolButton;
@@ -379,6 +380,7 @@ type
     procedure BtnNewInfoClick(Sender: TObject);
     procedure BtnNewObsClick(Sender: TObject);
     procedure Button21Click(Sender: TObject);
+    procedure ButtonFilterLabelClick(Sender: TObject);
     procedure ButtonSetDatabaseClick(Sender: TObject);
     procedure ButtonSetOverlayClick(Sender: TObject);
     procedure ButtonSetTextureClick(Sender: TObject);
@@ -963,6 +965,7 @@ begin
     ButtonSetTexture.hint := rst_3 +' / '+ rst_152;
     ButtonSetOverlay.hint := rst_3 +' / '+ rst_169 ;
     ButtonSetDatabase.hint := rst_3 +' / '+ rst_129;
+    ButtonFilterLabel.hint := rst_3 +' / '+ rsFeatureType;
     ButtonProfile.hint := rsProfile;
     Button21.Caption:=rsDefault;
     TrackBar1.Hint:=rsZoomLevel;
@@ -4265,6 +4268,11 @@ end;
 procedure TForm1.ButtonSetDatabaseClick(Sender: TObject);
 begin
   OpenConfig(1);
+end;
+
+procedure TForm1.ButtonFilterLabelClick(Sender: TObject);
+begin
+  OpenConfig(2);
 end;
 
 procedure TForm1.ButtonSetOverlayClick(Sender: TObject);
