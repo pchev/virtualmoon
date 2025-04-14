@@ -63,5 +63,6 @@ InstData Base_WAC_LOWSUN $destdir
 InstData Base_Change $destdir
 InstData Base_Overlay $destdir
 InstData Base_Historical $destdir
+InstPicture PicturePersonnages $destdir
 InstPicture PictureApollo $destdir
 InstPicture PictureProbes $destdir

@@ -35,3 +35,5 @@ InstPicture PictureBest_of_Peach $destdir
 InstPicture PictureBest_Pic_du_Midi $destdir
 InstPicture PictureBest_of_Brahic $destdir
 InstPicture PictureBest_of_Viladrich $destdir
+InstPicture PictureBestofPelissard $destdir
+InstPicture PictureBestOfHeully $destdir
