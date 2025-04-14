@@ -6074,6 +6074,7 @@ if NewWindowButton.Down and LinkWindowButton.Down and (moon2<>nil) then begin
     destmoon:=moon1;
   destmoon.Zoom:=activemoon.Zoom;
   SetRotation(destmoon,not activemoon.VisibleSideLock);
+  MoonScroll(activemoon);
   MoonMoveCamera(activemoon);
 end;
 end;
