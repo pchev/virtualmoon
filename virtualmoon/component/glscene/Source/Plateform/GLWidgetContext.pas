@@ -74,6 +74,9 @@ QT4, QTWidgets;
 {$IFDEF LCLQT5}
 QT5, QTWidgets;
 {$ENDIF}
+{$IFDEF LCLQT6}
+QT6, QTWidgets;
+{$ENDIF}
 {$IFDEF LCLfpgui}
 {$MESSAGE Warn 'LCLfpgui: Needs to be implemented'}
 {$ENDIF}
