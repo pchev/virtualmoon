@@ -148,7 +148,7 @@ for i:=1 to n do begin
 end;
 end;
 
-procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=true);
+procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=false);
 {$ifdef unix}
 begin
  fpSystem(cmd+' &');
@@ -263,6 +263,7 @@ begin
   CdCconfig  := ExpandFileName(DefaultCdCconfig);
 {$endif}
 {$ifdef mswindows}
+  bindir := slash(appdir);
   buf:='';
   SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);
   SHGetPathFromIDList(PIDL, Folder);

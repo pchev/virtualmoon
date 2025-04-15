@@ -108,7 +108,7 @@ function DTminusUT(year : integer) : double;
 Procedure FormPos(form : Tform; x,y : integer;safe: boolean=true);
 function ExecProcess(cmd: string; output: TStringList; ShowConsole: boolean = False): integer;
 Function Exec(cmd: string; hide: boolean=true): integer;
-procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=true);
+procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=false);
 function decode_mpc_date(s: string; var y,m,d : integer; var hh:double):boolean;
 Function GreekLetter(gr : shortstring) : shortstring;
 function GetId(str:string):integer;
@@ -1487,7 +1487,7 @@ begin
 end;
 {$endif}
 
-procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=true);
+procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=false);
 {$ifdef unix}
 begin
  fpSystem(cmd+' &');
