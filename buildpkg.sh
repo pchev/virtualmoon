@@ -14,6 +14,7 @@ wine_build="Z:\tmp\virtualmoon" # Change to match builddir, Z: is defined in ~/.
 # not enough space on /
 builddir=/home/pch/tmp/virtualmoon
 wine_build="Z:\home\pch\tmp\virtualmoon"
+innosetup="C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
 
 # optionaly build the RPM
 unset buildrpm
