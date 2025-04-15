@@ -112,8 +112,8 @@ const crlf = chr(10)+chr(13);
       HistoricalDir='Historical';
       nOptionalFeature= 9;
       OptionalFeatureCheck: array[1..nOptionalFeature]of string=(
-                      'BestOfCathala/NEUMAYER_LCATHALA 1.jpg',           // picture
-                      'Textures/LOLA_Kaguya_Shade/L4/0.jpg',             // data
+                      'BestOfHeully/ALPHONSUS_PHEULLY.jpg',              // picture V9
+                      'Textures/WAC_Color_Shade/L4/0.jpg',               // data V9
                       'Textures/LOLA_Kaguya_Shade/L5/0.jpg',             // hires
                       'Textures/Change/L6/0.jpg',                        // very hires Chang'e
                       'Textures/Lopam/L6/0.jpg',                         // very hires LOPAM
