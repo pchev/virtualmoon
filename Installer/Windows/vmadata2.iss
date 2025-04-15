@@ -27,9 +27,15 @@ Name: eng; MessagesFile: compiler:Default.isl; InfoBeforeFile: setup_data\readme
 Name: fre; MessagesFile: compiler:Languages\French.isl; InfoBeforeFile: setup_data\lisezmoi.txt
 
 [InstallDelete]
-Name: {app}\Database\6_*.csv; Type: files
-Name: {app}\Database\7_*.csv; Type: files
-Name: {app}\Database\8_*.csv; Type: files
+Name: {app}\ApolloMapping\*.jpg; Type: files
+Name: {app}\CLA\*.jpg; Type: files
+Name: {app}\Clementine\*.jpg; Type: files
+Name: {app}\LAC_LM\*.jpg; Type: files
+Name: {app}\Lopam\*.jpg; Type: files
+Name: {app}\Smart-1\*.jpg; Type: files
+Name: {app}\LunarPits\*.jpg; Type: files
+Name: {app}\Bestofhistorical\*.jpg; Type: files
+Name: {app}\BestofLROobliques\*.jpg; Type: files
 
 [Messages]
 eng.UninstalledAll=%1 was successfully removed from your computer.

@@ -26,6 +26,18 @@ UsedUserAreasWarning=no
 Name: eng; MessagesFile: compiler:Default.isl; InfoBeforeFile: setup_pict\readme.txt
 Name: fre; MessagesFile: compiler:Languages\French.isl; InfoBeforeFile: setup_pict\lisezmoi.txt
 
+[InstallDelete]
+Name: {app}\BestOfAmateurs\*.jpg; Type: files
+Name: {app}\BestOfHiggins\*.jpg; Type: files
+Name: {app}\BestOfLazzarotti\*.jpg; Type: files
+Name: {app}\BestOfCathala\*.jpg; Type: files
+Name: {app}\Best_of_Peach\*.jpg; Type: files
+Name: {app}\Best_Pic_du_Midi\*.jpg; Type: files
+Name: {app}\BestOfBrahic\*.jpg; Type: files
+Name: {app}\BestOfViladrich\*.jpg; Type: files
+Name: {app}\BestofPelissard\*.jpg; Type: files
+Name: {app}\BestOfHeully\*.jpg; Type: files
+
 [Messages]
 eng.UninstalledAll=%1 was successfully removed from your computer.
 fre.UninstalledAll=%1 a été correctement désinstallé de cet ordinateur.
