@@ -352,6 +352,8 @@ if [[ $make_win32_data ]]; then
   mv $builddir/vmapro/Data $builddir/vmapro/Data2
   # exe
   cd $builddir
+  sed -i "/AppVerName/ s/V5/V$version/" vmadata2.iss
+  sed -i "/OutputBaseFilename/ s/-data/-data-$version/" vmadata2.iss
   wine "$innosetup" "$wine_build\vmadata2.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/virtualmoon*.exe $wd/$outdir/
@@ -416,6 +418,8 @@ if [[ $make_win32_picture ]]; then
   if [[ $? -ne 0 ]]; then exit 1;fi
   # exe
   cd $builddir
+  sed -i "/AppVerName/ s/V5/V$version/" vmapicture.iss
+  sed -i "/OutputBaseFilename/ s/-picture/-picture-$version/" vmapicture.iss
   wine "$innosetup" "$wine_build\vmapicture.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/virtualmoon*.exe $wd/$outdir/
