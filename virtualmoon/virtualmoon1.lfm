@@ -638,7 +638,7 @@ object Form1: TForm1
             Height = 32
             Top = 8
             Width = 159
-            OnEditingDone = Edit6EditingDone
+            OnKeyDown = Edit6KeyDown
             ParentColor = True
             TabOrder = 0
           end

@@ -388,7 +388,7 @@ type
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox4Click(Sender: TObject);
     procedure ComboBox6Change(Sender: TObject);
-    procedure Edit6EditingDone(Sender: TObject);
+    procedure Edit6KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FullScreen1Click(Sender: TObject);
     procedure GridButtonClick(Sender: TObject);
     procedure Desc1HotClick(Sender: TObject);
@@ -3027,6 +3027,11 @@ begin
     dbm.Query('select id,name from moon ' + ' where DBN in (' + sidelist + ')' +
       ' and NAME like "' + n + '"' +
       ' order by NAME limit 100;');
+    if dbm.RowCount=0 then begin
+      dbm.Query('select id,name from moonall ' + ' where DBN in (' + sidelist + ')' +
+        ' and FeatureName like "' + n + '"' +
+        ' order by NAME limit 100;');
+    end;
     searchlist.Clear;
     for i := 0 to dbm.RowCount - 1 do
     begin
@@ -3122,10 +3127,9 @@ begin
   SearchName(SearchText, True);
 end;
 
-procedure TForm1.Edit6EditingDone(Sender: TObject);
+procedure TForm1.Edit6KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  ActiveControl:=ComboBox1;
-  Button1Click(Sender);
+  if key=VK_RETURN then Button1Click(Sender);
 end;
 
 procedure TForm1.DecreaseFont1Click(Sender: TObject);
