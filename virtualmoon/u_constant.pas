@@ -33,7 +33,7 @@ uses
 
 const crlf = chr(10)+chr(13);
       cpyr = '©'; //chr($a9)+chr($c2);  // ©
-      AVLversion = '9.0 beta';
+      AVLversion = '9.0';
       version = '9.0a';
       avlcpy = 'Copyright '+cpyr+' 2002-2025 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
