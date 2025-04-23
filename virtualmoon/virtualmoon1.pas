@@ -6059,6 +6059,7 @@ if NewWindowButton.Down then begin
   SetActiveMoon(moon2);
   moon2.RefreshAll;
 end else begin
+  SetActiveMoon(moon1);
   wantbump:=moon1.Bumpmap;
   PanelMoon2.Width:=0;
   Splitter2.Visible:=false;
