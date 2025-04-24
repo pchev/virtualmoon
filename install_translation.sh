@@ -27,6 +27,7 @@ install -m 755 -d $destdir/share
 install -m 755 -d $destdir/share/virtualmoon
 
 # translation
+install -m 755 -d $destdir/share/virtualmoon/Database
 install -m 755 -d $destdir/share/virtualmoon/language
 lg='ca cs de el es hu it lt nl sk'
 for lang in $lg; do

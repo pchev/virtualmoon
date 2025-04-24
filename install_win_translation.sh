@@ -29,6 +29,7 @@ echo Install virtualmoon translation to $destdir
 
 install -m 755 -d $destdir
 install -m 755 -d $destdir/language
+install -m 755 -d $destdir/Database
 
 lg='ca cs de el es hu it lt nl sk'
 for lang in $lg; do
