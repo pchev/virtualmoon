@@ -437,6 +437,8 @@ if [[ $make_win32_translation ]]; then
   if [[ $? -ne 0 ]]; then exit 1;fi
   # exe
   cd $builddir
+  sed -i "/AppVerName/ s/V5/V$version/" vmatranslation.iss
+  sed -i "/OutputBaseFilename/ s/-translation/-translation-$version/" vmatranslation.iss
   wine "$innosetup" "$wine_build\vmatranslation.iss"
   if [[ $? -ne 0 ]]; then exit 1;fi
   mv $builddir/virtualmoon*.exe $wd/$outdir/
