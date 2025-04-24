@@ -42,7 +42,20 @@ for lang in $lg; do
   install -v -m 644 calclun/language/calclun.$lang.po $destdir/language/
 done
 
-InstData Translation_Database $destdir
+install -v -m 644 Database/translation/01_IAU_NAMED_CA.csv $destdir/Database/
+install -v -m 644 Database/translation/01_IAU_NAMED_DE.csv $destdir/Database/
+install -v -m 644 Database/translation/01_IAU_NAMED_ES.csv $destdir/Database/
+install -v -m 644 Database/translation/01_IAU_NAMED_IT.csv $destdir/Database/
+install -v -m 644 Database/translation/02_IAU_SATELLITE_CA.csv $destdir/Database/
+install -v -m 644 Database/translation/02_IAU_SATELLITE_ES.csv $destdir/Database/
+install -v -m 644 Database/translation/02_IAU_SATELLITE_IT.csv $destdir/Database/
+install -v -m 644 Database/translation/glossary_uCA.csv $destdir/Database/
+install -v -m 644 Database/translation/glossary_uDE.csv $destdir/Database/
+install -v -m 644 Database/translation/glossary_uES.csv $destdir/Database/
+install -v -m 644 Database/translation/glossary_uIT.csv $destdir/Database/
+install -v -m 644 Database/translation/glossary_uSK.csv $destdir/Database/
+
+
 InstData Translation_Doc $destdir
 
 
