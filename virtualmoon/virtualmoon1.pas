@@ -4168,6 +4168,9 @@ begin
       end;
       if reloaddb then begin
         LoadDB(dbm);
+        dblox.Use(dbm.DataBase);
+        dbimp.Use(dbm.DataBase);
+        dbc.Use(dbm.DataBase);
         useDBN :=DatabaseList.Count;
         form2.DbList.Items.Assign(DatabaseList);
         redrawbassin:=True;
