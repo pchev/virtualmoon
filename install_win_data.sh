@@ -45,6 +45,10 @@ echo Install virtualmoon data to $destdir
 
 install -m 755 -d $destdir
 install -m 755 -d $destdir/Database
+install -v -m 644 Database/01_IAU_NAMED_EN.csv $destdir/Database/
+install -v -m 644 Database/01_IAU_NAMED_FR.csv $destdir/Database/
+install -v -m 644 Database/02_IAU_SATELLITE_EN.csv $destdir/Database/
+install -v -m 644 Database/02_IAU_SATELLITE_FR.csv $destdir/Database/
 install -v -m 644 Database/glossary_uEN.csv $destdir/Database/
 install -v -m 644 Database/glossary_uFR.csv $destdir/Database/
 install -v -m 644 Database/licence.txt $destdir/Database/
@@ -54,7 +58,6 @@ install -v -m 644 Database/weblun.csv $destdir/Database/
 
 # big data
 InstData Base_Doc $destdir
-InstData Base_Database $destdir
 InstData Base_ConnectedDatabase $destdir
 InstData Base_JPLeph $destdir
 InstData Base_Kernels $destdir
