@@ -1,15 +1,17 @@
 # Patrick Chevalley <pch@ap-i.net>, 2009.
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Antonis Gitsas\n"
-"PO-Revision-Date: 2012-07-13 21:00+0200\n"
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 08:30+0000\n"
+"PO-Revision-Date: 2025-04-25 12:12+0000\n"
+"Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: Greek http://www.macromolecules.eu\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 "Language: el\n"
 
 #: u_translation.rsabbreviated
@@ -21,10 +23,8 @@ msgid "Abort Slew"
 msgstr ""
 
 #: u_translation.rsabout
-#, fuzzy
-msgctxt "u_translation.rsabout"
 msgid "About"
-msgstr "Σχετικά"
+msgstr ""
 
 #: u_translation.rsadditionalin
 msgid "Additional informations"
@@ -396,11 +396,8 @@ msgid "Minimal"
 msgstr ""
 
 #: u_translation.rsminute
-#, fuzzy
-#| msgid "m"
-msgctxt "u_translation.rsminute"
 msgid "'"
-msgstr "'"
+msgstr ""
 
 #: u_translation.rsmons
 msgid "Mons"
@@ -432,7 +429,7 @@ msgstr "Χάρτης Rukl:"
 
 #: u_translation.rsm_15
 msgid "Viscardy page: "
-msgstr "Σελίδα Viscardy:"
+msgstr "Σελίδα Viscardy: "
 
 #: u_translation.rsm_16
 msgid "Hatfield map:"
@@ -459,7 +456,6 @@ msgid "Height:"
 msgstr "Ύψος:"
 
 #: u_translation.rsm_21
-msgctxt "u_translation.rsm_21"
 msgid "m"
 msgstr "'"
 
@@ -584,12 +580,10 @@ msgid "Dead at:"
 msgstr "Θάνατος:"
 
 #: u_translation.rsm_50
-msgctxt "u_translation.rsm_50"
 msgid "Time"
 msgstr "Ώρα"
 
 #: u_translation.rsm_51
-msgctxt "u_translation.rsm_51"
 msgid "Date"
 msgstr "Ημερομηνία"
 
@@ -822,10 +816,8 @@ msgid "Radar dark halo radius :"
 msgstr ""
 
 #: u_translation.rsrefreshrate
-#, fuzzy
-msgctxt "u_translation.rsrefreshrate"
 msgid "Refresh rate"
-msgstr "Ρυθμός ανανέωσης"
+msgstr ""
 
 #: u_translation.rsregistredfor
 msgid "Registred formations"
@@ -852,10 +844,8 @@ msgid "Save profile"
 msgstr ""
 
 #: u_translation.rssecond
-#, fuzzy
-#| msgid "s"
 msgid "\""
-msgstr "\""
+msgstr ""
 
 #: u_translation.rsselect
 msgid "Select"
@@ -946,10 +936,8 @@ msgid "Textures Change photographic High Resolution"
 msgstr "Αλλαγή υφής υψηλής φωτογραφικής ποιότητας"
 
 #: u_translation.rstexturesclem
-#, fuzzy
-msgctxt "u_translation.rstexturesclem"
 msgid "Textures Clementine photographic High Resolution"
-msgstr "Υφή υψηλής ποιότητας φωτογραφικής Κλημεντίνης"
+msgstr ""
 
 #: u_translation.rstextureslopa
 msgid "Textures LOPAM photographic High Resolution"
@@ -1269,14 +1257,13 @@ msgstr "Χρώμα επιφραφής"
 
 #: u_translation.rst_184
 msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr "Η κάρτα γραφικών σας δεν υποστηρίζει την εμφάνιση περισσότερο από μίας υφής για το ίδιο αντικείμενο. Γι' αυτό δεν είναι δυνατή η χρήση αυτής της λειτουργίας σε αυτόν τον υπολογιστή. Βεβαιωθείτε ότι η επιτάχυνση υλικού είναι ενεργοποιημένη ή αλλάξτε κάρτα γραφικών. Η απαιτούμενη λειτουργία είναι η GL_ARB_MULTITEXTURE"
+msgstr "Η κάρτα γραφικών σας δεν υποστηρίζει την εμφάνιση περισσότερο από μίας υφής για το ίδιο αντικείμενο. Γι' αυτό δεν είναι δυνατή η χρήση αυτής της λειτουργίας σε αυτόν τον υπολογιστή. Βεβαιωθείτε ότι η επιτάχυνση υλικού είναι ενεργοποιημένη ή αλλάξτε κάρτα γραφικών. Η απαιτούμενη λειτουργία είναι η GL_ARB_MULTITEXTURE "
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Δείτε εδώ μια λίστα με τις κάρτες γραφικών που υποστηρίζονται"
 
 #: u_translation.rst_19
-msgctxt "u_translation.rst_19"
 msgid "Latitude"
 msgstr "Γεωγραφικό... Πλάτος:"
 
@@ -1377,7 +1364,6 @@ msgid "Sort"
 msgstr "Ταξινόμηση"
 
 #: u_translation.rst_47
-msgctxt "u_translation.rst_47"
 msgid "Name"
 msgstr "Όνομα"
 
@@ -1390,7 +1376,6 @@ msgid "Instrument"
 msgstr "Όργανο"
 
 #: u_translation.rst_5
-msgctxt "u_translation.rst_5"
 msgid "Center"
 msgstr "Κέντρο"
 

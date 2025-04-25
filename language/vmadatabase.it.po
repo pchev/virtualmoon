@@ -3,16 +3,17 @@
 # Patrick Chevalley <pch@ap-i.net>, 2009.
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Giuliano Pinto <giuliano.pinto@tiscalinet.it>\n"
-"PO-Revision-Date: 2012-11-17 14:50+0100\n"
 "Project-Id-Version: vmadatabase.fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 10:04+0000\n"
+"PO-Revision-Date: 2025-04-25 11:21+0000\n"
+"Last-Translator: Giuliano Pinto <Unknown>\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"POT-Creation-Date: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 
 #: u_translation_database.rsb_1
 msgid "Not named"
@@ -108,7 +109,7 @@ msgstr "Ejecta"
 
 #: u_translation_database.rscol_22
 msgid "Probe "
-msgstr "Sonda"
+msgstr "Sonda "
 
 #: u_translation_database.rscol_23
 msgid "Human mission"
@@ -168,7 +169,7 @@ msgstr "Sistema di domi"
 
 #: u_translation_database.warning1
 msgid " Note to translator:"
-msgstr "Nota per i traduttori:"
+msgstr " Nota per i traduttori:"
 
 #: u_translation_database.warning2
 msgid " The following text must be the same as the content of the TYPE column in the database you use for your language."

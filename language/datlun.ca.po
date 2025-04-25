@@ -1,14 +1,16 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Antoni Clavell <antoni@clavell.org>\n"
-"PO-Revision-Date: 2012-11-17 18:15+0100\n"
 "Project-Id-Version: datlun.ca\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 10:04+0000\n"
+"PO-Revision-Date: 2025-04-25 12:13+0000\n"
+"Last-Translator: Antoni Clavell <Unknown>\n"
 "Language-Team: \n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 
 #: u_translation.rsadd
 msgid "Add"
@@ -75,57 +77,44 @@ msgid "is the size of the formation in kilometer. This is used to filter the lab
 msgstr ""
 
 #: u_translation.rsloadcsv01
-msgctxt "u_translation.rsloadcsv01"
 msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."
 msgstr "Aquest programa us permet importar objectes nous a la base de dades de l'Atles Virtual de la Lluna des d'un fitxer CSV. No està previst mesclar-hi camps ni fer-hi càlculs"
 
 #: u_translation.rsloadcsv02
-msgctxt "u_translation.rsloadcsv02"
 msgid "If you need that use first a software like OpenOffice.org Calc or Excel to format your data and save them to a CSV file."
 msgstr "Si us cal, feu servir programari com Open Office.org Calc o bé Excel per donar format a les vostres dades i desar-les en fitxer CSV"
 
 #: u_translation.rsloadcsv03
-msgctxt "u_translation.rsloadcsv03"
 msgid "From this page indicate first the character your file use to separate the different columns ( ; or TAB ) and if a \" surround the text. Then open you CSV data file."
 msgstr "Des d'aquesta pàgina indiqueu primerament el caràcter que usa el vostre fitxer per separar les distintes columnes (; o TAB) i si un \" encercla els textos. Llavors obriu el fitxer de dades CSV."
 
 #: u_translation.rsloadcsv04
-msgctxt "u_translation.rsloadcsv04"
 msgid "If the format is recognised a new tab appear at the top of the page, click this tab to continue."
 msgstr "Si el format ha estat reconegut, una nova pestanya apareix a dalt de la pàgina, feu-hi clic per continuar."
 
 #: u_translation.rsloadcsv05
-msgctxt "u_translation.rsloadcsv05"
 msgid "If you already record this file setting you can use the \"Load Setting\" button to retrieve them."
 msgstr "Si ja haguéssiu desat aquesta configuració de fitxer podeu usar el botó \"Carrega configuració\" per recuperar-la."
 
 #: u_translation.rsloadcsv06
-msgctxt "u_translation.rsloadcsv06"
 msgid "The next step is to give a relation between your file columns and the different database fields. Refer to the main help file for explanation about each database field."
 msgstr "El proper pas és donar una relació entre les columnes del vostre fitxer i els diferents camps de la base de dades. Trobareu a l'ajuda principal explicacions per a cada camp de la base de dades."
 
 #: u_translation.rsloadcsv07
-msgctxt "u_translation.rsloadcsv07"
 msgid "Click one of the value of your file and check the corresponding database field. When ready press the \"<-->\" button."
 msgstr "Feu clic a un dels valors del vostre fitxer i comproveu el corresponent camp en la base de dades. Un cop fet això premeu el botó \"<-->\"."
 
 #: u_translation.rsloadcsv08
-msgctxt "u_translation.rsloadcsv08"
 msgid "It is also possible to give a constant value to a database field. Enter the value at the bottom of the page and press the \"Constant Value\" button."
 msgstr "També és possible donar un valor de constant al camp de la base de dades. Entreu aquest valor al peu de la pàgina i premeu el botó \"Valor de la constant\"."
 
 #: u_translation.rsloadcsv09
-#, fuzzy
-#| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
-msgctxt "u_translation.rsloadcsv09"
 msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
-msgstr "DBN és un identificador del vostre fitxer. Va des de 100 fins a 199 i permet identificar les vostres dades en la base de dades. S'usa des del programa principal per mostrar o no l'etiqueta dels vostres objectes."
+msgstr ""
 
 #: u_translation.rsloadcsv10
-#, fuzzy
-#| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
 msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
-msgstr "Podeu fer una selecció ràpida de tots els vostres objectes usant DBN=100 en la finestra de selecció SQL, i suprimir dades amb el menú Arxiu-Suprimir."
+msgstr ""
 
 #: u_translation.rsloadcsv11
 msgid "It is mandatory to give a value for the field: DBN, NAME, LONGIN and LATIN."

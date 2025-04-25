@@ -1,5 +1,16 @@
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 10:04+0000\n"
+"PO-Revision-Date: 2025-04-25 12:21+0000\n"
+"Last-Translator: Patrick Chevalley <Unknown>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 
 #: u_translation.rsadd
 msgid "Add"
@@ -66,57 +77,44 @@ msgid "is the size of the formation in kilometer. This is used to filter the lab
 msgstr ""
 
 #: u_translation.rsloadcsv01
-msgctxt "u_translation.rsloadcsv01"
 msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."
-msgstr "Este programa le permite importar objetos nuevos a la base de datos Del Atlas Virtual de la Luna desde un archivo CSV. No hay ninguna disposiciÛn para combinar los datos de campo o para hacer cualquier c·lculo"
+msgstr "Este programa le permite importar objetos nuevos a la base de datos Del Atlas Virtual de la Luna desde un archivo CSV. No hay ninguna disposici√≥n para combinar los datos de campo o para hacer cualquier c√°lculo"
 
 #: u_translation.rsloadcsv02
-msgctxt "u_translation.rsloadcsv02"
 msgid "If you need that use first a software like OpenOffice.org Calc or Excel to format your data and save them to a CSV file."
 msgstr "Si usted lo necesita use primero un software como OpenOffice.org Calc o Excel para dar formato a los datos y guardarlos en un archivo CSV"
 
 #: u_translation.rsloadcsv03
-msgctxt "u_translation.rsloadcsv03"
 msgid "From this page indicate first the character your file use to separate the different columns ( ; or TAB ) and if a \" surround the text. Then open you CSV data file."
-msgstr "Desde esta p·gina indique en primer lugar el car·cter de su archivo que utilizar· para separar las distintas columnas (o TAB) y si un sÌmbolo \" rodear· el texto. A continuaciÛn, abra su archivo de datos CSV"
+msgstr "Desde esta p√°gina indique en primer lugar el car√°cter de su archivo que utilizar√° para separar las distintas columnas (o TAB) y si un s√≠mbolo \" rodear√° el texto. A continuaci√≥n, abra su archivo de datos CSV"
 
 #: u_translation.rsloadcsv04
-msgctxt "u_translation.rsloadcsv04"
 msgid "If the format is recognised a new tab appear at the top of the page, click this tab to continue."
-msgstr "Si el formato es reconocido una nueva pestaÒa aparecer· en la parte superior de la p·gina, haga clic en esta pestaÒa para continuar"
+msgstr "Si el formato es reconocido una nueva pesta√±a aparecer√° en la parte superior de la p√°gina, haga clic en esta pesta√±a para continuar"
 
 #: u_translation.rsloadcsv05
-msgctxt "u_translation.rsloadcsv05"
 msgid "If you already record this file setting you can use the \"Load Setting\" button to retrieve them."
-msgstr "Si ya grabÛ este archivo de configuraciÛn, puede utilizar el botÛn \"Cargar configuraciÛn\" para recuperarlo"
+msgstr "Si ya grab√≥ este archivo de configuraci√≥n, puede utilizar el bot√≥n \"Cargar configuraci√≥n\" para recuperarlo"
 
 #: u_translation.rsloadcsv06
-msgctxt "u_translation.rsloadcsv06"
 msgid "The next step is to give a relation between your file columns and the different database fields. Refer to the main help file for explanation about each database field."
-msgstr "El siguiente paso es dar una relaciÛn entre las columnas de su archivo y los diferentes campos de la base de datos. Consulte el archivo de ayuda principal para la explicaciÛn de cada campo de la base de datos"
+msgstr "El siguiente paso es dar una relaci√≥n entre las columnas de su archivo y los diferentes campos de la base de datos. Consulte el archivo de ayuda principal para la explicaci√≥n de cada campo de la base de datos"
 
 #: u_translation.rsloadcsv07
-msgctxt "u_translation.rsloadcsv07"
 msgid "Click one of the value of your file and check the corresponding database field. When ready press the \"<-->\" button."
-msgstr "Haga clic en uno de el valor de su archivo y compruebe el campo correspondiente de la base de datos. Cuando estÈ listo, puse el botÛn \"<-->\"."
+msgstr "Haga clic en uno de el valor de su archivo y compruebe el campo correspondiente de la base de datos. Cuando est√© listo, puse el bot√≥n \"<-->\"."
 
 #: u_translation.rsloadcsv08
-msgctxt "u_translation.rsloadcsv08"
 msgid "It is also possible to give a constant value to a database field. Enter the value at the bottom of the page and press the \"Constant Value\" button."
-msgstr "TambiÈn es posible dar un valor constante a un campo de la base de datos. Introduzca el valor en la parte inferior de la p·gina y pulse el botÛn \"Valor Constante\"."
+msgstr "Tambi√©n es posible dar un valor constante a un campo de la base de datos. Introduzca el valor en la parte inferior de la p√°gina y pulse el bot√≥n \"Valor Constante\"."
 
 #: u_translation.rsloadcsv09
-#, fuzzy
-#| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
-msgctxt "u_translation.rsloadcsv09"
 msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
-msgstr "DBN es un identificador para su archivo. Va desde 10 a 99 y permite identificar sus datos en la base de datos. Se usa desde el programa principal para mostrar o no la etiqueta de los objetos."
+msgstr ""
 
 #: u_translation.rsloadcsv10
-#, fuzzy
-#| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
 msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
-msgstr "TambiÈn puede seleccionar r·pidamente todos los objetos mediante el uso de DBN = 10 en la ventana de selecciÛn de SQL, y eliminar los datos utilizando el men˙ Archivo - Eliminar"
+msgstr ""
 
 #: u_translation.rsloadcsv11
 msgid "It is mandatory to give a value for the field: DBN, NAME, LONGIN and LATIN."
@@ -124,15 +122,15 @@ msgstr "Es obligatorio proporcionar un valor para los campos: DBN, NAME, LONGIN 
 
 #: u_translation.rsloadcsv12
 msgid "When all the required field are defined the next tab appear at the top of the page."
-msgstr "Cuando todos los campos necesarios est·n definidos, la pestaÒa siguiente aparece en la parte superior de la p·gina"
+msgstr "Cuando todos los campos necesarios est√°n definidos, la pesta√±a siguiente aparece en la parte superior de la p√°gina"
 
 #: u_translation.rsloadcsv13
 msgid "Press \"Load Database\" button to load your data to the database."
-msgstr "Pulse el botÛn \"Cargar base de datos\" para cargar sus dados en la base de datos."
+msgstr "Pulse el bot√≥n \"Cargar base de datos\" para cargar sus dados en la base de datos."
 
 #: u_translation.rsloadcsv14
 msgid "The \"Save Setting\" button allow you to save the setting for a later retrieval."
-msgstr "El botÛn  \"Guardar configuraciÛn \" le permite guardar la configuraciÛn para una posterior recuperaciÛn"
+msgstr "El bot√≥n  \"Guardar configuraci√≥n \" le permite guardar la configuraci√≥n para una posterior recuperaci√≥n"
 
 #: u_translation.rsmapallthefie
 msgid "Map all the fields in the same order"
@@ -172,15 +170,15 @@ msgstr "Campo del fichero de entrada"
 
 #: u_translation.rsm_16
 msgid "Do some validation:"
-msgstr "Haga alguna validaciÛn!"
+msgstr "Haga alguna validaci√≥n!"
 
 #: u_translation.rsm_17
 msgid "is checked but no value is defined!"
-msgstr "est· activado pero no hay ning˙n valor definido!"
+msgstr "est√° activado pero no hay ning√∫n valor definido!"
 
 #: u_translation.rsm_18
 msgid "All checked field are defined."
-msgstr "Todos los campos activados est·n definidos."
+msgstr "Todos los campos activados est√°n definidos."
 
 #: u_translation.rsm_19
 msgid "Missing required field"
@@ -192,15 +190,15 @@ msgstr "No hay filas seleccionadas!"
 
 #: u_translation.rsm_20
 msgid "All requiered field are present."
-msgstr "Todos los campos requeridos est·n presentes"
+msgstr "Todos los campos requeridos est√°n presentes"
 
 #: u_translation.rsm_21
 msgid "Start insert process to database"
-msgstr "Empieza el proceso de inserciÛn a la base de datos"
+msgstr "Empieza el proceso de inserci√≥n a la base de datos"
 
 #: u_translation.rsm_22
 msgid "Database update successfully terminated!"
-msgstr "La actualizaciÛn de la base de datos ha terminado con Èxito!"
+msgstr "La actualizaci√≥n de la base de datos ha terminado con √©xito!"
 
 #: u_translation.rsm_23
 msgid "You can now close this window."
@@ -208,11 +206,11 @@ msgstr "Puede cerrar esta ventana ahora"
 
 #: u_translation.rsm_24
 msgid "Database insert failed!"
-msgstr "La inserciÛn en la base de datos ha fallado!"
+msgstr "La inserci√≥n en la base de datos ha fallado!"
 
 #: u_translation.rsm_25
 msgid "Rollback completed."
-msgstr "RestauraciÛn completada."
+msgstr "Restauraci√≥n completada."
 
 #: u_translation.rsm_26
 msgid "Database not modified."
@@ -220,7 +218,7 @@ msgstr "Base de datos no modificada."
 
 #: u_translation.rsm_3
 msgid "Selection:"
-msgstr "SelecciÛn"
+msgstr "Selecci√≥n"
 
 #: u_translation.rsm_4
 msgid "Row:"
@@ -236,7 +234,7 @@ msgstr ""
 
 #: u_translation.rsm_7
 msgid "Are you sure you want to delete all the data corresponding to the current selection from the database?"
-msgstr "Est· seguro de que quiere borrar todos los datos correspondientes a la selecciÛn actual desde la base de datos?"
+msgstr "Est√° seguro de que quiere borrar todos los datos correspondientes a la selecci√≥n actual desde la base de datos?"
 
 #: u_translation.rsm_8
 msgid "Records found"
@@ -272,7 +270,7 @@ msgstr ""
 
 #: u_translation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
-msgstr "TraducciÛn: Juan Carlos Garrido"
+msgstr "Traducci√≥n: Juan Carlos Garrido"
 
 #: u_translation.rst_1
 msgid "File"
@@ -284,11 +282,11 @@ msgstr "Limpiar"
 
 #: u_translation.rst_11
 msgid "Last"
-msgstr "⁄ltimo"
+msgstr "√öltimo"
 
 #: u_translation.rst_12
 msgid "Enter selection and order criteria using SQL syntax."
-msgstr "Introduzca los criterios de selecciÛn y orden usando la sintaxis SQL."
+msgstr "Introduzca los criterios de selecci√≥n y orden usando la sintaxis SQL."
 
 #: u_translation.rst_13
 msgid "All (Default)"
@@ -300,11 +298,11 @@ msgstr "Mantenimiento de bases de datos"
 
 #: u_translation.rst_15
 msgid "Near Side Named Formation"
-msgstr "FormaciÛn nombrada en la Cara Visible"
+msgstr "Formaci√≥n nombrada en la Cara Visible"
 
 #: u_translation.rst_16
 msgid "Near Side Indexed Craters"
-msgstr "Cr·teres indexados en la Cara Visible"
+msgstr "Cr√°teres indexados en la Cara Visible"
 
 #: u_translation.rst_17
 msgid "Input File"
@@ -312,11 +310,11 @@ msgstr "Archivo de entrada"
 
 #: u_translation.rst_18
 msgid "Far Side Named Formation"
-msgstr "FormaciÛn nombrada en la Cara Oculta"
+msgstr "Formaci√≥n nombrada en la Cara Oculta"
 
 #: u_translation.rst_19
 msgid "Far Side Indexed Craters"
-msgstr "Cr·teres indexados en la Cara Oculta"
+msgstr "Cr√°teres indexados en la Cara Oculta"
 
 #: u_translation.rst_2
 msgid "Quit"
@@ -324,7 +322,7 @@ msgstr "Abandonar"
 
 #: u_translation.rst_20
 msgid "Historical Sites"
-msgstr "Sitios histÛricos"
+msgstr "Sitios hist√≥ricos"
 
 #: u_translation.rst_21
 msgid "Predefined Selections"
@@ -364,11 +362,11 @@ msgstr "Mapa de campos de la base de datos"
 
 #: u_translation.rst_3
 msgid "Selection"
-msgstr "SelecciÛn"
+msgstr "Selecci√≥n"
 
 #: u_translation.rst_30
 msgid "You are now ready to load the database"
-msgstr "Ahora est· listo para cargar la base de datos"
+msgstr "Ahora est√° listo para cargar la base de datos"
 
 #: u_translation.rst_31
 msgid "Constant Value"
@@ -380,7 +378,7 @@ msgstr "Cargar base de datos"
 
 #: u_translation.rst_33
 msgid "Export Selection to CSV"
-msgstr "Exportar la selecciÛn a CSV"
+msgstr "Exportar la selecci√≥n a CSV"
 
 #: u_translation.rst_34
 msgid "Import from CSV"
@@ -388,23 +386,23 @@ msgstr "Importar desde CSV"
 
 #: u_translation.rst_35
 msgid "Delete Selection from Database"
-msgstr "Eliminar la selecciÛn de la base de datos"
+msgstr "Eliminar la selecci√≥n de la base de datos"
 
 #: u_translation.rst_36
 msgid "Mark Selection on Map"
-msgstr "Marcar la selecciÛn en el mapa"
+msgstr "Marcar la selecci√≥n en el mapa"
 
 #: u_translation.rst_37
 msgid "Reload a previously saved setting"
-msgstr "Recargar una configuraciÛn previamente guardada"
+msgstr "Recargar una configuraci√≥n previamente guardada"
 
 #: u_translation.rst_38
 msgid "Load Setting"
-msgstr "Cargar configuraciÛn"
+msgstr "Cargar configuraci√≥n"
 
 #: u_translation.rst_39
 msgid "Save all the definition for later retrival"
-msgstr "Guardar todos las definiciones para su posterior recuperaciÛn"
+msgstr "Guardar todos las definiciones para su posterior recuperaci√≥n"
 
 #: u_translation.rst_4
 msgid "Columns"
@@ -412,7 +410,7 @@ msgstr "Columnas"
 
 #: u_translation.rst_40
 msgid "Save Setting"
-msgstr "Guardar configuraciÛn"
+msgstr "Guardar configuraci√≥n"
 
 #: u_translation.rst_41
 msgid "Find in"
@@ -456,11 +454,11 @@ msgstr "Todo"
 
 #: u_translation.rst_50
 msgid "Default Selection"
-msgstr "SelecciÛn por defecto"
+msgstr "Selecci√≥n por defecto"
 
 #: u_translation.rst_51
 msgid "Pyroclastic deposits"
-msgstr "DepÛsitos pirocl·sticos"
+msgstr "Dep√≥sitos pirocl√°sticos"
 
 #: u_translation.rst_52
 msgid "Help"

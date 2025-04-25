@@ -1,15 +1,16 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Huub Scheenen <info@kuuke.nl>\n"
-"PO-Revision-Date: 2010-06-06 18:13+0100\n"
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 08:30+0000\n"
+"PO-Revision-Date: 2025-04-25 12:13+0000\n"
+"Last-Translator: Huub Scheenen <Unknown>\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"POT-Creation-Date: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 
 #: u_translation.rsabbreviated
 msgid "Abbreviated"
@@ -20,10 +21,8 @@ msgid "Abort Slew"
 msgstr ""
 
 #: u_translation.rsabout
-#, fuzzy
-msgctxt "u_translation.rsabout"
 msgid "About"
-msgstr "Over"
+msgstr ""
 
 #: u_translation.rsadditionalin
 msgid "Additional informations"
@@ -395,11 +394,8 @@ msgid "Minimal"
 msgstr ""
 
 #: u_translation.rsminute
-#, fuzzy
-#| msgid "m"
-msgctxt "u_translation.rsminute"
 msgid "'"
-msgstr "'"
+msgstr ""
 
 #: u_translation.rsmons
 msgid "Mons"
@@ -431,7 +427,7 @@ msgstr "Rukl kaart:"
 
 #: u_translation.rsm_15
 msgid "Viscardy page: "
-msgstr "Viscardy bladzijde:"
+msgstr "Viscardy bladzijde: "
 
 #: u_translation.rsm_16
 msgid "Hatfield map:"
@@ -458,7 +454,6 @@ msgid "Height:"
 msgstr "Hoogte:"
 
 #: u_translation.rsm_21
-msgctxt "u_translation.rsm_21"
 msgid "m"
 msgstr "'"
 
@@ -583,12 +578,10 @@ msgid "Dead at:"
 msgstr "Gestorven op:"
 
 #: u_translation.rsm_50
-msgctxt "u_translation.rsm_50"
 msgid "Time"
 msgstr "Tijd"
 
 #: u_translation.rsm_51
-msgctxt "u_translation.rsm_51"
 msgid "Date"
 msgstr "Datum:"
 
@@ -821,10 +814,8 @@ msgid "Radar dark halo radius :"
 msgstr ""
 
 #: u_translation.rsrefreshrate
-#, fuzzy
-msgctxt "u_translation.rsrefreshrate"
 msgid "Refresh rate"
-msgstr "Verversingsgraad"
+msgstr ""
 
 #: u_translation.rsregistredfor
 msgid "Registred formations"
@@ -851,10 +842,8 @@ msgid "Save profile"
 msgstr ""
 
 #: u_translation.rssecond
-#, fuzzy
-#| msgid "s"
 msgid "\""
-msgstr "\""
+msgstr ""
 
 #: u_translation.rsselect
 msgid "Select"
@@ -953,10 +942,8 @@ msgid "Textures LOPAM photographic High Resolution"
 msgstr "Fotografische hoge resolutietexturen LOPAM"
 
 #: u_translation.rstexturesphas
-#, fuzzy
-#| msgid "Textures Phase with dynamic relief using Kaguya data"
 msgid "Textures Phase with dynamic relief using LRO/WAC data"
-msgstr "Texturen fase met dynamishe verlichting Kaguya data"
+msgstr ""
 
 #: u_translation.rstextureswac
 msgid "Textures LRO/WAC photographic High Resolution"
@@ -1015,10 +1002,8 @@ msgid "Eyepieces"
 msgstr "Oculairen"
 
 #: u_translation.rst_11
-#, fuzzy
-#| msgid "Find Next"
 msgid "Next"
-msgstr "Zoek volgende"
+msgstr ""
 
 #: u_translation.rst_110
 msgid "Telescope focal length"
@@ -1241,10 +1226,8 @@ msgid "Show Phase"
 msgstr "Laat fase zien"
 
 #: u_translation.rst_177
-#, fuzzy
-#| msgid "Flip N-S"
 msgid "Rotate N-S"
-msgstr "Verwissel N-Z"
+msgstr ""
 
 #: u_translation.rst_178
 msgid "Flip E-W"
@@ -1272,14 +1255,13 @@ msgstr "Kleur labels"
 
 #: u_translation.rst_184
 msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr "Uw grafische kaart ondersteunt geen weergave voor meer dan één textuur voor hetzelfde object. Zorg ervoor dat hardware-acceleratie is geactiveerd of wijzig de grafische kaart. De vereiste functie is  GL_ARB_MULTITEXTURE"
+msgstr "Uw grafische kaart ondersteunt geen weergave voor meer dan één textuur voor hetzelfde object. Zorg ervoor dat hardware-acceleratie is geactiveerd of wijzig de grafische kaart. De vereiste functie is  GL_ARB_MULTITEXTURE "
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Kijk hier voor een overzicht met ondersteunde grafische kaarten"
 
 #: u_translation.rst_19
-msgctxt "u_translation.rst_19"
 msgid "Latitude"
 msgstr "Breedte"
 
@@ -1380,7 +1362,6 @@ msgid "Sort"
 msgstr "Sorteer"
 
 #: u_translation.rst_47
-msgctxt "u_translation.rst_47"
 msgid "Name"
 msgstr "Naam"
 
@@ -1393,7 +1374,6 @@ msgid "Instrument"
 msgstr "Instrument"
 
 #: u_translation.rst_5
-msgctxt "u_translation.rst_5"
 msgid "Center"
 msgstr "Centreer"
 

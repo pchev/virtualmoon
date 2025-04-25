@@ -1,15 +1,17 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Antoni Clavell <antoni@clavell.org>\n"
-"PO-Revision-Date: 2012-11-17 18:00+0100\n"
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 10:04+0000\n"
+"PO-Revision-Date: 2025-04-25 11:06+0000\n"
+"Last-Translator: Antoni Clavell <Unknown>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: ca\n"
-"Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 1.4\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
+"Language: ca\n"
 
 #: u_translation.rsabout
 msgid "About"
@@ -48,10 +50,8 @@ msgid "Explore the Lunar Atlas maps"
 msgstr "Explora les cartes lunars de l'Atles"
 
 #: u_translation.rshelp_prefix
-#, fuzzy
-#| msgid "UK"
 msgid "EN"
-msgstr "CA"
+msgstr ""
 
 #: u_translation.rslanguage
 msgid "English"
@@ -103,7 +103,7 @@ msgstr "Traducció: A. Clavell"
 
 #: u_translation.rstutorial
 msgid "Tutorial "
-msgstr "Tutorial"
+msgstr "Tutorial "
 
 #: u_translation.rsvirtuallunar
 msgid "Virtual Lunar Atlas"

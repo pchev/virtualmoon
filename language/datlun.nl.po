@@ -1,13 +1,16 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: Huub Scheenen <info@kuuke.nl>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 10:04+0000\n"
+"PO-Revision-Date: 2025-04-25 12:13+0000\n"
+"Last-Translator: Huub Scheenen <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 
 #: u_translation.rsadd
 msgid "Add"
@@ -74,57 +77,44 @@ msgid "is the size of the formation in kilometer. This is used to filter the lab
 msgstr ""
 
 #: u_translation.rsloadcsv01
-msgctxt "u_translation.rsloadcsv01"
 msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."
 msgstr "Dit programma laat u toe om nieuwe objecten te importeren naar de Virtual Moon Atlas database uit een CSV-bestand. Er is geen voorziening om data velden te fuseren of enige berekeningen te doen."
 
 #: u_translation.rsloadcsv02
-msgctxt "u_translation.rsloadcsv02"
 msgid "If you need that use first a software like OpenOffice.org Calc or Excel to format your data and save them to a CSV file."
 msgstr "Als je dat nodig hebt gebruik dan eerst software als OpenOffice.org Calc of Excel om uw gegevens te formatteren en ze dan als een CSV-bestand op te slaan."
 
 #: u_translation.rsloadcsv03
-msgctxt "u_translation.rsloadcsv03"
 msgid "From this page indicate first the character your file use to separate the different columns ( ; or TAB ) and if a \" surround the text. Then open you CSV data file."
 msgstr "Op deze pagina geef eerst het karakter van je bestand aan om de verschillende kolommen te scheiden ( ; or TAB ) of als de tekst tussen \" staat. Open dan je CSV gegevensbestand."
 
 #: u_translation.rsloadcsv04
-msgctxt "u_translation.rsloadcsv04"
 msgid "If the format is recognised a new tab appear at the top of the page, click this tab to continue."
 msgstr "Als de indeling is herkend dan zal een nieuw tabblad verschijnen aan de bovenkant van de pagina, klikt u op dit tabblad om verder te gaan."
 
 #: u_translation.rsloadcsv05
-msgctxt "u_translation.rsloadcsv05"
 msgid "If you already record this file setting you can use the \"Load Setting\" button to retrieve them."
 msgstr "Als je deze bestandsinstelling al hebt opgenomen kan je de \"Laad instelling\" knop gebruiken om te herkriigen."
 
 #: u_translation.rsloadcsv06
-msgctxt "u_translation.rsloadcsv06"
 msgid "The next step is to give a relation between your file columns and the different database fields. Refer to the main help file for explanation about each database field."
 msgstr "De volgende stap is het maken van een relatie tussen kolommen van uw bestand en de verschillende database velden. Verwijs naar de help-bestand voor een uitleg over elk database veld."
 
 #: u_translation.rsloadcsv07
-msgctxt "u_translation.rsloadcsv07"
 msgid "Click one of the value of your file and check the corresponding database field. When ready press the \"<-->\" button."
 msgstr "Klik op een van de waardes van uw bestand en controleer het overeenkomstige database veld. Als u klaar bent drukt u op de  \"<--> \" knop."
 
 #: u_translation.rsloadcsv08
-msgctxt "u_translation.rsloadcsv08"
 msgid "It is also possible to give a constant value to a database field. Enter the value at the bottom of the page and press the \"Constant Value\" button."
 msgstr "Het is ook mogelijk om een constante waarde te geven aan een database veld. Geef de waarde aan de onderkant van de pagina en druk op de  \"constante waarde \" knop."
 
 #: u_translation.rsloadcsv09
-#, fuzzy
-#| msgid "DBN is an identifier for your file. It range from 10 to 99 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
-msgctxt "u_translation.rsloadcsv09"
 msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
-msgstr "DBN is een idientifier voor je bestand. Het bereik ligt tussen 10 en 99 en het staat je toe de data in je database te identificeren. Het wordt gebruikt door het hoofdprogramma om de labels van je objecten te laten zien."
+msgstr ""
 
 #: u_translation.rsloadcsv10
-#, fuzzy
-#| msgid "You can also quickly select all your objects by using DBN=10 in the SQL selection window, and delete the data using the File - Delete menu."
 msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
-msgstr "U kunt ook snel al uw objecten te selecteren met behulp van DBN = 10 in het SQL-venster Selectie en gegevens wisselen met behulp van het File - Delete menu."
+msgstr ""
 
 #: u_translation.rsloadcsv11
 msgid "It is mandatory to give a value for the field: DBN, NAME, LONGIN and LATIN."

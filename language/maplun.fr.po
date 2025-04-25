@@ -1,15 +1,17 @@
 # SPDX-FileCopyrightText: 2018, 2019, 2020, 2022, 2025 pch <pch@ap-i.net>
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Patrick Chevalley <pch@ap-i.net>\n"
-"PO-Revision-Date: 2025-04-08 18:27+0200\n"
 "Project-Id-Version: maplun.fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 08:30+0000\n"
+"PO-Revision-Date: 2025-04-25 08:54+0000\n"
+"Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.5\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 "Language: fr\n"
 
 #: u_translation.rsabbreviated
@@ -21,9 +23,8 @@ msgid "Abort Slew"
 msgstr "Interrompre le goto"
 
 #: u_translation.rsabout
-msgctxt "u_translation.rsabout"
 msgid "About"
-msgstr "A propos "
+msgstr "A propos"
 
 #: u_translation.rsadditionalin
 msgid "Additional informations"
@@ -324,7 +325,7 @@ msgstr "Le serveur INDI est prêt"
 
 #: u_translation.rsindiserverho
 msgid "INDI server host "
-msgstr "Serveur INDI"
+msgstr "Serveur INDI "
 
 #: u_translation.rsindiserverpo
 msgid "INDI server port"
@@ -395,7 +396,6 @@ msgid "Minimal"
 msgstr "Minimal"
 
 #: u_translation.rsminute
-msgctxt "u_translation.rsminute"
 msgid "'"
 msgstr "'"
 
@@ -429,7 +429,7 @@ msgstr "Carte Rukl:"
 
 #: u_translation.rsm_15
 msgid "Viscardy page: "
-msgstr "Page Viscardy:"
+msgstr "Page Viscardy: "
 
 #: u_translation.rsm_16
 msgid "Hatfield map:"
@@ -456,7 +456,6 @@ msgid "Height:"
 msgstr "Hauteur:"
 
 #: u_translation.rsm_21
-msgctxt "u_translation.rsm_21"
 msgid "m"
 msgstr "m"
 
@@ -581,12 +580,10 @@ msgid "Dead at:"
 msgstr "Mort à:"
 
 #: u_translation.rsm_50
-msgctxt "u_translation.rsm_50"
 msgid "Time"
 msgstr "Heure"
 
 #: u_translation.rsm_51
-msgctxt "u_translation.rsm_51"
 msgid "Date"
 msgstr "Date"
 
@@ -819,7 +816,6 @@ msgid "Radar dark halo radius :"
 msgstr "Rayon du halo sombre au radar :"
 
 #: u_translation.rsrefreshrate
-msgctxt "u_translation.rsrefreshrate"
 msgid "Refresh rate"
 msgstr "Rafraîchissement"
 
@@ -889,7 +885,7 @@ msgstr "Face:"
 
 #: u_translation.rssideral
 msgid "Sidereal"
-msgstr "Sidéral "
+msgstr "Sidéral"
 
 #: u_translation.rssimple
 msgid "Simple"
@@ -1113,7 +1109,7 @@ msgstr "OpenGL Info"
 
 #: u_translation.rst_146
 msgid "Positive East"
-msgstr "Positif à l'est "
+msgstr "Positif à l'est"
 
 #: u_translation.rst_147
 msgid "N"
@@ -1133,7 +1129,7 @@ msgstr "Aide"
 
 #: u_translation.rst_150
 msgid "W"
-msgstr "W "
+msgstr "W"
 
 #: u_translation.rst_152
 msgid "Texture"
@@ -1261,14 +1257,13 @@ msgstr "Couleur des labels"
 
 #: u_translation.rst_184
 msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr "Votre carte graphique ne supporte pas d'afficher plus d'une texture par objet.Contrôlez que l'accélération matérielle est activée ou changez de carte graphique. La fonction demandée est GL_ARB_MULTITEXTURE"
+msgstr "Votre carte graphique ne supporte pas d'afficher plus d'une texture par objet.Contrôlez que l'accélération matérielle est activée ou changez de carte graphique. La fonction demandée est GL_ARB_MULTITEXTURE "
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Voir ici une liste de cartes supportées"
 
 #: u_translation.rst_19
-msgctxt "u_translation.rst_19"
 msgid "Latitude"
 msgstr "Latitude"
 
@@ -1369,7 +1364,6 @@ msgid "Sort"
 msgstr "Tri"
 
 #: u_translation.rst_47
-msgctxt "u_translation.rst_47"
 msgid "Name"
 msgstr "Nom"
 
@@ -1382,7 +1376,6 @@ msgid "Instrument"
 msgstr "Instrument"
 
 #: u_translation.rst_5
-msgctxt "u_translation.rst_5"
 msgid "Center"
 msgstr "Centre"
 

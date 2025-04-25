@@ -1,14 +1,16 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Ing. Maroš Horňák <maros.hornak@post.sk>\n"
-"PO-Revision-Date: 2009-12-25 21:15+0100\n"
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 08:30+0000\n"
+"PO-Revision-Date: 2025-04-25 12:12+0000\n"
+"Last-Translator: Ing. Maroš Horňák <Unknown>\n"
 "Language-Team: \n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
-"POT-Creation-Date: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 
@@ -21,10 +23,8 @@ msgid "Abort Slew"
 msgstr ""
 
 #: u_translation.rsabout
-#, fuzzy
-msgctxt "u_translation.rsabout"
 msgid "About"
-msgstr "O"
+msgstr ""
 
 #: u_translation.rsadditionalin
 msgid "Additional informations"
@@ -396,11 +396,8 @@ msgid "Minimal"
 msgstr ""
 
 #: u_translation.rsminute
-#, fuzzy
-#| msgid "m"
-msgctxt "u_translation.rsminute"
 msgid "'"
-msgstr "'"
+msgstr ""
 
 #: u_translation.rsmons
 msgid "Mons"
@@ -432,7 +429,7 @@ msgstr "Ruklová mapa:"
 
 #: u_translation.rsm_15
 msgid "Viscardy page: "
-msgstr "Viscardyov atlas:"
+msgstr "Viscardyov atlas: "
 
 #: u_translation.rsm_16
 msgid "Hatfield map:"
@@ -459,7 +456,6 @@ msgid "Height:"
 msgstr "Výška:"
 
 #: u_translation.rsm_21
-msgctxt "u_translation.rsm_21"
 msgid "m"
 msgstr "'"
 
@@ -584,12 +580,10 @@ msgid "Dead at:"
 msgstr "Zomrel v:"
 
 #: u_translation.rsm_50
-msgctxt "u_translation.rsm_50"
 msgid "Time"
 msgstr "Čas"
 
 #: u_translation.rsm_51
-msgctxt "u_translation.rsm_51"
 msgid "Date"
 msgstr "Dátum"
 
@@ -822,10 +816,8 @@ msgid "Radar dark halo radius :"
 msgstr ""
 
 #: u_translation.rsrefreshrate
-#, fuzzy
-msgctxt "u_translation.rsrefreshrate"
 msgid "Refresh rate"
-msgstr "Obnovovacia frekvencia"
+msgstr ""
 
 #: u_translation.rsregistredfor
 msgid "Registred formations"
@@ -852,10 +844,8 @@ msgid "Save profile"
 msgstr ""
 
 #: u_translation.rssecond
-#, fuzzy
-#| msgid "s"
 msgid "\""
-msgstr "\""
+msgstr ""
 
 #: u_translation.rsselect
 msgid "Select"
@@ -1014,10 +1004,8 @@ msgid "Eyepieces"
 msgstr "Zorné pole"
 
 #: u_translation.rst_11
-#, fuzzy
-#| msgid "Find Next"
 msgid "Next"
-msgstr "Hľadať další"
+msgstr ""
 
 #: u_translation.rst_110
 msgid "Telescope focal length"
@@ -1240,10 +1228,8 @@ msgid "Show Phase"
 msgstr "Ukázať fázu"
 
 #: u_translation.rst_177
-#, fuzzy
-#| msgid "Flip N-S"
 msgid "Rotate N-S"
-msgstr "Prepnúť S-J"
+msgstr ""
 
 #: u_translation.rst_178
 msgid "Flip E-W"
@@ -1278,7 +1264,6 @@ msgid "Look here for a list of supported graphic card"
 msgstr "Pozri si zoznam podporovaných grafických kariet"
 
 #: u_translation.rst_19
-msgctxt "u_translation.rst_19"
 msgid "Latitude"
 msgstr "Latitúda"
 
@@ -1379,7 +1364,6 @@ msgid "Sort"
 msgstr "Triediť"
 
 #: u_translation.rst_47
-msgctxt "u_translation.rst_47"
 msgid "Name"
 msgstr "Meno"
 
@@ -1392,7 +1376,6 @@ msgid "Instrument"
 msgstr "Prístroj"
 
 #: u_translation.rst_5
-msgctxt "u_translation.rst_5"
 msgid "Center"
 msgstr "Centrovať"
 

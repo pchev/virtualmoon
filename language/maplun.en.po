@@ -1,14 +1,16 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: pch\n"
-"PO-Revision-Date: 2012-07-13 21:00+0200\n"
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 08:30+0000\n"
+"PO-Revision-Date: 2025-04-25 12:13+0000\n"
+"Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 "Language: fr\n"
 
 #: u_translation.rsabbreviated
@@ -20,7 +22,6 @@ msgid "Abort Slew"
 msgstr ""
 
 #: u_translation.rsabout
-msgctxt "u_translation.rsabout"
 msgid "About"
 msgstr ""
 
@@ -394,11 +395,8 @@ msgid "Minimal"
 msgstr ""
 
 #: u_translation.rsminute
-#, fuzzy
-#| msgid "m"
-msgctxt "u_translation.rsminute"
 msgid "'"
-msgstr "'"
+msgstr ""
 
 #: u_translation.rsmons
 msgid "Mons"
@@ -457,7 +455,6 @@ msgid "Height:"
 msgstr ""
 
 #: u_translation.rsm_21
-msgctxt "u_translation.rsm_21"
 msgid "m"
 msgstr "m"
 
@@ -582,12 +579,10 @@ msgid "Dead at:"
 msgstr ""
 
 #: u_translation.rsm_50
-msgctxt "u_translation.rsm_50"
 msgid "Time"
 msgstr ""
 
 #: u_translation.rsm_51
-msgctxt "u_translation.rsm_51"
 msgid "Date"
 msgstr ""
 
@@ -820,7 +815,6 @@ msgid "Radar dark halo radius :"
 msgstr ""
 
 #: u_translation.rsrefreshrate
-msgctxt "u_translation.rsrefreshrate"
 msgid "Refresh rate"
 msgstr ""
 
@@ -849,10 +843,8 @@ msgid "Save profile"
 msgstr ""
 
 #: u_translation.rssecond
-#, fuzzy
-#| msgid "s"
 msgid "\""
-msgstr "\""
+msgstr ""
 
 #: u_translation.rsselect
 msgid "Select"
@@ -1271,7 +1263,6 @@ msgid "Look here for a list of supported graphic card"
 msgstr ""
 
 #: u_translation.rst_19
-msgctxt "u_translation.rst_19"
 msgid "Latitude"
 msgstr ""
 
@@ -1372,7 +1363,6 @@ msgid "Sort"
 msgstr ""
 
 #: u_translation.rst_47
-msgctxt "u_translation.rst_47"
 msgid "Name"
 msgstr ""
 
@@ -1385,7 +1375,6 @@ msgid "Instrument"
 msgstr ""
 
 #: u_translation.rst_5
-msgctxt "u_translation.rst_5"
 msgid "Center"
 msgstr ""
 

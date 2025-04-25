@@ -1,15 +1,17 @@
 # pch <pch@ap-i.net>, 2022.
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-09-27 21:31+0200\n"
 "Project-Id-Version: vmadatabase.fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 10:04+0000\n"
+"PO-Revision-Date: 2025-04-25 11:24+0000\n"
+"Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 "Language: fr\n"
 
 #: u_translation_database.rsb_1
@@ -106,7 +108,7 @@ msgstr "Ejecta"
 
 #: u_translation_database.rscol_22
 msgid "Probe "
-msgstr "Sonde"
+msgstr "Sonde "
 
 #: u_translation_database.rscol_23
 msgid "Human mission"

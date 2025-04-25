@@ -1,16 +1,18 @@
 # pch <pch@ap-i.net>, 2022.
 msgid ""
 msgstr ""
-"Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-09-27 18:48+0200\n"
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 10:04+0000\n"
+"PO-Revision-Date: 2025-04-25 11:27+0000\n"
+"Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: fr\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
+"Language: fr\n"
 
 #: u_translation.rsabout
 msgid "About"
@@ -30,7 +32,7 @@ msgstr "Description"
 
 #: u_translation.rsfile
 msgid "File"
-msgstr "Fichier "
+msgstr "Fichier"
 
 #: u_translation.rshelp
 msgid "Help"
@@ -46,7 +48,7 @@ msgstr "Langue"
 
 #: u_translation.rsquit
 msgid "Quit"
-msgstr "Quitter "
+msgstr "Quitter"
 
 #: u_translation.rsrecdate
 msgid "Recording date"

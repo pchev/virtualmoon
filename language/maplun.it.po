@@ -3,16 +3,17 @@
 # Patrick Chevalley <pch@freesurf.ch>, 2009.
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Giuliano Pinto <giuliano.pinto@tiscalinet.it>\n"
-"PO-Revision-Date: 2012-11-17 16:19+0100\n"
 "Project-Id-Version: maplun.fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 08:30+0000\n"
+"PO-Revision-Date: 2025-04-25 12:12+0000\n"
+"Last-Translator: Giuliano Pinto <Unknown>\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"POT-Creation-Date: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 
 #: u_translation.rsabbreviated
 msgid "Abbreviated"
@@ -23,10 +24,8 @@ msgid "Abort Slew"
 msgstr ""
 
 #: u_translation.rsabout
-#, fuzzy
-msgctxt "u_translation.rsabout"
 msgid "About"
-msgstr "Informazioni"
+msgstr ""
 
 #: u_translation.rsadditionalin
 msgid "Additional informations"
@@ -398,7 +397,6 @@ msgid "Minimal"
 msgstr ""
 
 #: u_translation.rsminute
-msgctxt "u_translation.rsminute"
 msgid "'"
 msgstr "'"
 
@@ -432,7 +430,7 @@ msgstr "Carta lunare di Rukl:"
 
 #: u_translation.rsm_15
 msgid "Viscardy page: "
-msgstr "Atlante Viscardy:"
+msgstr "Atlante Viscardy: "
 
 #: u_translation.rsm_16
 msgid "Hatfield map:"
@@ -459,7 +457,6 @@ msgid "Height:"
 msgstr "Altezza:"
 
 #: u_translation.rsm_21
-msgctxt "u_translation.rsm_21"
 msgid "m"
 msgstr "m"
 
@@ -584,12 +581,10 @@ msgid "Dead at:"
 msgstr "Morto a:"
 
 #: u_translation.rsm_50
-msgctxt "u_translation.rsm_50"
 msgid "Time"
 msgstr "Ora"
 
 #: u_translation.rsm_51
-msgctxt "u_translation.rsm_51"
 msgid "Date"
 msgstr "Data"
 
@@ -822,10 +817,8 @@ msgid "Radar dark halo radius :"
 msgstr ""
 
 #: u_translation.rsrefreshrate
-#, fuzzy
-msgctxt "u_translation.rsrefreshrate"
 msgid "Refresh rate"
-msgstr "Freq.za di aggiornamento"
+msgstr ""
 
 #: u_translation.rsregistredfor
 msgid "Registred formations"
@@ -1265,14 +1258,13 @@ msgstr "Colore delle etichette"
 
 #: u_translation.rst_184
 msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr "La scheda grafica non è in grado di mostrare più di una rappresentazione superficiale dello stesso oggetto. Non è quindi possibile usare questa funzione su questo calcolatore. Controllate che sia attivata l'accelerazione hardware oppure cambiate la scheda grafica. La funzione richiesta è GL_ARB_MULTITEXTURE"
+msgstr "La scheda grafica non è in grado di mostrare più di una rappresentazione superficiale dello stesso oggetto. Non è quindi possibile usare questa funzione su questo calcolatore. Controllate che sia attivata l'accelerazione hardware oppure cambiate la scheda grafica. La funzione richiesta è GL_ARB_MULTITEXTURE "
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
 msgstr "Vedere qui un elenco di schede grafiche compatibili"
 
 #: u_translation.rst_19
-msgctxt "u_translation.rst_19"
 msgid "Latitude"
 msgstr "Latitudine"
 
@@ -1373,7 +1365,6 @@ msgid "Sort"
 msgstr "Ordina per:"
 
 #: u_translation.rst_47
-msgctxt "u_translation.rst_47"
 msgid "Name"
 msgstr "Nome"
 
@@ -1386,7 +1377,6 @@ msgid "Instrument"
 msgstr "Strumento"
 
 #: u_translation.rst_5
-msgctxt "u_translation.rst_5"
 msgid "Center"
 msgstr "Centra"
 

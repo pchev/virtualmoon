@@ -1,15 +1,17 @@
 # pch <pch@ap-i.net>, 2020, 2022.
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-08-02 17:42+0200\n"
 "Project-Id-Version: datlun.fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 10:04+0000\n"
+"PO-Revision-Date: 2025-04-25 11:58+0000\n"
+"Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 "Language: fr_CH\n"
 
 #: u_translation.rsadd
@@ -77,49 +79,40 @@ msgid "is the size of the formation in kilometer. This is used to filter the lab
 msgstr "est la taille de la formation en kilomètre. Ceci est utilisé pour filtrer les labels pour les petites formations sur une carte large."
 
 #: u_translation.rsloadcsv01
-msgctxt "u_translation.rsloadcsv01"
 msgid "This program let you to import new objects to the Virtual Moon Atlas database from a CSV file. There is no provision to merge data field or to do any calculation."
 msgstr "Ce programme permet d'importer de nouveaux objets depuis un fichier au format CSV dans la base de donnée de l'Atlas Virtuel de la Lune. Il n'offre pas de possibilité de calcul ou de combinaison de champs."
 
 #: u_translation.rsloadcsv02
-msgctxt "u_translation.rsloadcsv02"
 msgid "If you need that use first a software like OpenOffice.org Calc or Excel to format your data and save them to a CSV file."
 msgstr "En cas de besoin utilisez au préalable un programme comme OpenOffice.org Calc ou Excel pour formater vos données et les enregistrer au format CSV."
 
 #: u_translation.rsloadcsv03
-msgctxt "u_translation.rsloadcsv03"
 msgid "From this page indicate first the character your file use to separate the different columns ( ; or TAB ) and if a \" surround the text. Then open you CSV data file."
 msgstr "Dans cette page indiquez tout d'abord le caractère utilisé pour séparer les colonnes ( ; ou tabulation ) et si les textes sont entourés avec \". Puis ouvrez le fichier contenant vos données."
 
 #: u_translation.rsloadcsv04
-msgctxt "u_translation.rsloadcsv04"
 msgid "If the format is recognised a new tab appear at the top of the page, click this tab to continue."
 msgstr "Si le format est reconnu un nouvel onglet apparaît en haut de la page, cliquez dessus pour passer à la suite."
 
 #: u_translation.rsloadcsv05
-msgctxt "u_translation.rsloadcsv05"
 msgid "If you already record this file setting you can use the \"Load Setting\" button to retrieve them."
-msgstr "Si vous avez déjà enregistré des paramètres pour un fichier vous pouvez utiliser le bouton \"Charger\" pour les retrouver."
+msgstr "Si vous avez déjà enregistré des paramètres pour un fichier vous pouvez utiliser le bouton \\\"Charger\\\" pour les retrouver."
 
 #: u_translation.rsloadcsv06
-msgctxt "u_translation.rsloadcsv06"
 msgid "The next step is to give a relation between your file columns and the different database fields. Refer to the main help file for explanation about each database field."
 msgstr "L'étape suivante est d'indiquer quelles colonnes de votre fichier correspondent au différents champs de la base de donnée. Référez vous a l'aide du programme pour la signification exacte de chaque champ."
 
 #: u_translation.rsloadcsv07
-msgctxt "u_translation.rsloadcsv07"
 msgid "Click one of the value of your file and check the corresponding database field. When ready press the \"<-->\" button."
 msgstr "Cliquez sur une des valeurs de votre fichier pour la marquer puis cochez le champ correspondant de la base de donnée et pressez le bouton \"<-->\"."
 
 #: u_translation.rsloadcsv08
-msgctxt "u_translation.rsloadcsv08"
 msgid "It is also possible to give a constant value to a database field. Enter the value at the bottom of the page and press the \"Constant Value\" button."
 msgstr "Il est aussi possible de donner une valeur constante à un des champs de la base de donnée en entrant cette valeur en bas de la fenêtre et presser le bouton \"Valeur Constante\"."
 
 #: u_translation.rsloadcsv09
-msgctxt "u_translation.rsloadcsv09"
 msgid "DBN is an identifier for your file. It range from 100 to 199 and allow to identify your data in the database. It is use from the main program to display or not the label for your objects."
-msgstr "DBN est un numéro de fichier compris entre 100 et 199 qui permet d'identifier votre fichier dans la base de donnée. C'est grâce a lui que vous pourrez choisir l'affichage de label pour vos objet. "
+msgstr "DBN est un numéro de fichier compris entre 100 et 199 qui permet d'identifier votre fichier dans la base de donnée. C'est grâce a lui que vous pourrez choisir l'affichage de label pour vos objet."
 
 #: u_translation.rsloadcsv10
 msgid "You can also quickly select all your objects by using DBN=100 in the SQL selection window, and delete the data using the File - Delete menu."
@@ -447,7 +440,7 @@ msgstr "et"
 
 #: u_translation.rst_47
 msgid "Assign input field value"
-msgstr "Attribue la valeur du fichier d'entrée "
+msgstr "Attribue la valeur du fichier d'entrée"
 
 #: u_translation.rst_48
 msgid "Select Database"
@@ -483,7 +476,7 @@ msgstr "Dômes lunaires"
 
 #: u_translation.rst_6
 msgid "None"
-msgstr "Aucune"
+msgstr "Aucun"
 
 #: u_translation.rst_7
 msgid "Close"

@@ -1,13 +1,16 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8Last-Translator: pch\n"
-"PO-Revision-Date: 2012-11-17 21:01+0100\n"
 "Project-Id-Version: vmadatabase.fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 10:04+0000\n"
+"PO-Revision-Date: 2025-04-25 11:24+0000\n"
+"Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: Français <kde-i18n-doc@kde.org>\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
 
 #: u_translation_database.rsb_1
 msgid "Not named"
@@ -103,7 +106,7 @@ msgstr "Ejecció"
 
 #: u_translation_database.rscol_22
 msgid "Probe "
-msgstr "Sonda"
+msgstr "Sonda "
 
 #: u_translation_database.rscol_23
 msgid "Human mission"
@@ -163,13 +166,13 @@ msgstr "Sistema de cúpules"
 
 #: u_translation_database.warning1
 msgid " Note to translator:"
-msgstr "Nota al traductor:"
+msgstr " Nota al traductor:"
 
 #: u_translation_database.warning2
 msgid " The following text must be the same as the content of the TYPE column in the database you use for your language."
-msgstr "El txt que segueix cal que sigui el mateix de la columna TIPUS (TYPE) en la base de dades que feu servir per al vostre  idioma"
+msgstr " El txt que segueix cal que sigui el mateix de la columna TIPUS (TYPE) en la base de dades que feu servir per al vostre  idioma"
 
 #: u_translation_database.warning3
 msgid " If you not translate the database keep the English text here!"
-msgstr "Si no traduïu la base de dades mantingueu el text anglès!"
+msgstr " Si no traduïu la base de dades mantingueu el text anglès!"
 

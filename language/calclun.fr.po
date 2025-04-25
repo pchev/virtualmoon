@@ -2,20 +2,22 @@
 # Patrick Chevalley <pchap-i.net>, 2022.
 msgid ""
 msgstr ""
-"Last-Translator: pch <pch@ap-i.net>\n"
-"PO-Revision-Date: 2022-09-27 18:45+0200\n"
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-25 10:03+0000\n"
+"PO-Revision-Date: 2025-04-25 11:59+0000\n"
+"Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Launchpad-Export-Date: 2025-04-25 12:28+0000\n"
+"X-Generator: Launchpad (build e76edd883483c71c468bb038e98836435de44530)\n"
+"Language: fr_FR\n"
 
 #: u_translation.rsabout
 msgid "About"
-msgstr "A propos "
+msgstr "A propos"
 
 #: u_translation.rsalt
 msgid "Alt"
@@ -31,7 +33,7 @@ msgstr "Toujours visible"
 
 #: u_translation.rsapril
 msgid "April"
-msgstr "Avril "
+msgstr "Avril"
 
 #: u_translation.rsaugust
 msgid "August"
@@ -198,12 +200,10 @@ msgid "June"
 msgstr "Juin"
 
 #: u_translation.rslang
-msgctxt "u_translation.rslang"
 msgid "Language"
 msgstr "Langue"
 
 #: u_translation.rslanguage
-msgctxt "u_translation.rslanguage"
 msgid "English"
 msgstr "Français"
 
@@ -329,7 +329,7 @@ msgstr "Prévision"
 
 #: u_translation.rspredictiondu
 msgid "Prediction duration"
-msgstr "Durée de prévision "
+msgstr "Durée de prévision"
 
 #: u_translation.rspredictionfo
 msgid "Prediction for libration, with formation illuminated"
