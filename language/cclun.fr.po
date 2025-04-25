@@ -112,4 +112,3 @@ msgstr "Atlas Virtuel de la Lune"
 msgid "WebLun documentation"
 msgstr "Documentation WebLun"
 
-
