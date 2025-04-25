@@ -557,11 +557,6 @@ msgstr "Azimut del ocaso:"
 msgid "Field:"
 msgstr "Campo:"
 
-#: u_translation.rsm_44
-msgctxt "u_translation.rsm_44"
-msgid "Refresh rate"
-msgstr "Frecuencia de refresco"
-
 #: u_translation.rsm_45
 msgid "Sub-solar latitude:"
 msgstr "Latitud sub-solar:"
@@ -1179,11 +1174,6 @@ msgstr "cada"
 #: u_translation.rst_159
 msgid "seconds"
 msgstr "segundos"
-
-#: u_translation.rst_16
-msgctxt "u_translation.rst_16"
-msgid "About"
-msgstr "Acerca de"
 
 #: u_translation.rst_160
 msgid "Telescope"

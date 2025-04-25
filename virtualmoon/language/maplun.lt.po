@@ -558,11 +558,6 @@ msgstr "Leidimosi azimutas:"
 msgid "Field:"
 msgstr "Laukas:"
 
-#: u_translation.rsm_44
-msgctxt "u_translation.rsm_44"
-msgid "Refresh rate"
-msgstr "Atnaujinimo dažnis"
-
 #: u_translation.rsm_45
 msgid "Sub-solar latitude:"
 msgstr "Subsoliarinė platuma:"
@@ -1180,11 +1175,6 @@ msgstr "kas"
 #: u_translation.rst_159
 msgid "seconds"
 msgstr "sek."
-
-#: u_translation.rst_16
-msgctxt "u_translation.rst_16"
-msgid "About"
-msgstr "Apie"
 
 #: u_translation.rst_160
 msgid "Telescope"

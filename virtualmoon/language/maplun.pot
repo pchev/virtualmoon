@@ -78,10 +78,6 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: u_translation:rst_16
-msgid "About"
-msgstr ""
-
 #: u_translation:rst_17
 msgid "Now"
 msgstr ""
@@ -804,10 +800,6 @@ msgstr ""
 
 #: u_translation:rsm_43
 msgid "Field:"
-msgstr ""
-
-#: u_translation:rsm_44
-msgid "Refresh rate"
 msgstr ""
 
 #: u_translation:rsm_45

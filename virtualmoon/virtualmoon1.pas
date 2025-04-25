@@ -839,7 +839,7 @@ begin
     toolbutton8.Caption := rst_15;
     aide2.Caption := toolbutton8.Caption;
     OptFeatures1.Caption:=rsCheckForOpti;
-    Apropos1.Caption := rst_16;
+    Apropos1.Caption := rsAbout;
     Button5.Caption := rst_17;
     Button4.Caption := rst_113;
     ToolButton7.hint := 'PhotLun';
@@ -3471,7 +3471,7 @@ MsgZoom: begin
           SetZoomBar;
          end;
 MsgPerf: begin
-          Label15.Caption := rsm_44 + blank + value;
+          Label15.Caption := rsRefreshRate + blank + value;
          end;
    else  statusbar1.Panels[statusOther].Text := value;
 end;
@@ -4954,7 +4954,7 @@ begin
   if (pagecontrol1.ActivePage = Reglage) then
   begin
     moon1.ShowFPS:=true;
-    Label15.Caption     := rsm_44 + ' 0 FPS';
+    Label15.Caption     := rsRefreshRate + ' 0 FPS';
   end
   else
   begin

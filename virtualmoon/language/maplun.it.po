@@ -559,11 +559,6 @@ msgstr "Tramonta (Azimuth):"
 msgid "Field:"
 msgstr "Campo:"
 
-#: u_translation.rsm_44
-msgctxt "u_translation.rsm_44"
-msgid "Refresh rate"
-msgstr "Freq.za di aggiornamento"
-
 #: u_translation.rsm_45
 msgid "Sub-solar latitude:"
 msgstr "Latitudine sub-solare:"
@@ -1175,11 +1170,6 @@ msgstr "ogni"
 #: u_translation.rst_159
 msgid "seconds"
 msgstr "secondi"
-
-#: u_translation.rst_16
-msgctxt "u_translation.rst_16"
-msgid "About"
-msgstr "Informazioni"
 
 #: u_translation.rst_160
 msgid "Telescope"

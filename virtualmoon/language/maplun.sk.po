@@ -559,11 +559,6 @@ msgstr "Azimut západu:"
 msgid "Field:"
 msgstr "Pole:"
 
-#: u_translation.rsm_44
-msgctxt "u_translation.rsm_44"
-msgid "Refresh rate"
-msgstr "Obnovovacia frekvencia"
-
 #: u_translation.rsm_45
 msgid "Sub-solar latitude:"
 msgstr "Subsolárna latitúda"
@@ -1179,11 +1174,6 @@ msgstr "každých"
 #: u_translation.rst_159
 msgid "seconds"
 msgstr "sekúnd"
-
-#: u_translation.rst_16
-msgctxt "u_translation.rst_16"
-msgid "About"
-msgstr "O"
 
 #: u_translation.rst_160
 msgid "Telescope"

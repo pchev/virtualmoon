@@ -558,11 +558,6 @@ msgstr "Nyugvás azimut:"
 msgid "Field:"
 msgstr "Látómező:"
 
-#: u_translation.rsm_44
-msgctxt "u_translation.rsm_44"
-msgid "Refresh rate"
-msgstr "Frissítési érték"
-
 #: u_translation.rsm_45
 msgid "Sub-solar latitude:"
 msgstr "Sub-solar latitude:"
@@ -1180,11 +1175,6 @@ msgstr "minden"
 #: u_translation.rst_159
 msgid "seconds"
 msgstr "másodperc"
-
-#: u_translation.rst_16
-msgctxt "u_translation.rst_16"
-msgid "About"
-msgstr "Rólunk"
 
 #: u_translation.rst_160
 msgid "Telescope"
