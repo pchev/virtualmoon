@@ -31,14 +31,14 @@ install -m 755 -d $destdir/share/virtualmoon/Database
 install -m 755 -d $destdir/share/virtualmoon/language
 lg='ca cs de el es hu it lt nl sk'
 for lang in $lg; do
-  install -v -m 644 virtualmoon/language/maplun.$lang.po $destdir/share/virtualmoon/language/
-  install -v -m 644 datlun/language/datlun.$lang.po $destdir/share/virtualmoon/language/
-  install -v -m 644 datlun/language/vmadatabase.$lang.po $destdir/share/virtualmoon/language/
-  install -v -m 644 photlun/language/photlun.$lang.po $destdir/share/virtualmoon/language/
-  install -v -m 644 weblun/language/weblun.$lang.po $destdir/share/virtualmoon/language/
-  install -v -m 644 cclun/language/cclun.$lang.po $destdir/share/virtualmoon/language/
-  install -v -m 644 notelun/language/notelun.$lang.po $destdir/share/virtualmoon/language/
-  install -v -m 644 calclun/language/calclun.$lang.po $destdir/share/virtualmoon/language/
+  install -v -m 644 language/maplun.$lang.po $destdir/share/virtualmoon/language/
+  install -v -m 644 language/datlun.$lang.po $destdir/share/virtualmoon/language/
+  install -v -m 644 language/vmadatabase.$lang.po $destdir/share/virtualmoon/language/
+  install -v -m 644 language/photlun.$lang.po $destdir/share/virtualmoon/language/
+  install -v -m 644 language/weblun.$lang.po $destdir/share/virtualmoon/language/
+  install -v -m 644 language/cclun.$lang.po $destdir/share/virtualmoon/language/
+  install -v -m 644 language/notelun.$lang.po $destdir/share/virtualmoon/language/
+  install -v -m 644 language/calclun.$lang.po $destdir/share/virtualmoon/language/
 done
 
 install -v -m 644 Database/translation/01_IAU_NAMED_CA.csv $destdir/share/virtualmoon/Database/
