@@ -39,7 +39,18 @@ begin
      showmessage('Could not load the OpenGL library '+opengl32+' and '+glu32+crlf+'Please check your OpenGL installation.');
      halt;
   end;
+  try
   Application.CreateForm(TForm1, Form1);
+  except
+    on E: Exception do begin
+      {$ifdef linux}
+      ShowMessage('Program initialization exception: '+E.Message+crlf+'This is expected when using Wayland in some environment.'+crlf+'Select a Xorg session at login then try again.');
+      {$else}
+      ShowMessage('Program initialization exception: '+E.Message);
+      {$endif}
+      halt;
+    end;
+  end;
   if (Form1.param.Count=0) then begin
       Splashversion := AVLversion+blank+compile_time;
       splash := Tsplash.create(application);
