@@ -1326,6 +1326,7 @@ end;
 procedure Tf_moon.FormCreate(Sender: TObject);
 var i: integer;
 begin
+ try
  ScaleFormForFontSize(self,96);
  if Owner is TWinControl then Moon.Parent:=TWinControl(Owner);
  vIgnoreOpenGLErrors:=true;
@@ -1384,6 +1385,17 @@ begin
  curlabel:=0;
  moveok:=false;
  distancestart:=false;
+ except
+   on E: Exception do begin
+     {$ifdef linux}
+     ShowMessage('Program initialization exception: '+E.Message+crlf+'This is expected when using Wayland in some environment.'+crlf+'Select a Xorg session at login then try again.');
+     {$else}
+     ShowMessage('Program initialization exception: '+E.Message);
+     {$endif}
+     halt;
+   end;
+ end;
+ 
 end;
 
 procedure Tf_moon.Init(check:boolean=true);
