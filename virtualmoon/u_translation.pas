@@ -413,6 +413,7 @@ rsRupes = 'Rupes';
 rsSinus = 'Sinus';
 rsVallis = 'Vallis';
 rsDome = 'Dome';
+rsRealTimeUpda = 'Real time update';
 
 implementation
 

@@ -60,6 +60,7 @@ type
     Button21: TSpeedButton;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
+    cbRealTime: TCheckBox;
     CheckBox4: TCheckBox;
     CheckBox6: TCheckBox;
     ComboBox5: TComboBox;
@@ -130,6 +131,7 @@ type
     c72: TMenuItem;
     c82: TMenuItem;
     MenuCheckName: TMenuItem;
+    PanelRealTime: TPanel;
     TextureCaption1: TMenuItem;
     TextureCaption2: TMenuItem;
     Panel2: TPanel;
@@ -179,6 +181,7 @@ type
     StartTimer: TTimer;
     ResizeTimer: TTimer;
     Splitter2Timer: TTimer;
+    RealTimeTimer: TTimer;
     ToolBar3: TToolBar;
     ToolBar4: TToolBar;
     ToolBar5: TToolBar;
@@ -384,6 +387,7 @@ type
     procedure ButtonSetDatabaseClick(Sender: TObject);
     procedure ButtonSetOverlayClick(Sender: TObject);
     procedure ButtonSetTextureClick(Sender: TObject);
+    procedure cbRealTimeClick(Sender: TObject);
     procedure DemProfileClick(Sender: TObject);
     procedure Button3MouseLeave(Sender: TObject);
     procedure CheckBox4Click(Sender: TObject);
@@ -409,6 +413,7 @@ type
     procedure Configuration1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure Button5Click(Sender: TObject);
+    procedure RealTimeTimerTimer(Sender: TObject);
     procedure ResizeTimerTimer(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure Splitter2TimerTimer(Sender: TObject);
@@ -842,6 +847,7 @@ begin
     Apropos1.Caption := rsAbout;
     Button5.Caption := rst_17;
     Button4.Caption := rst_113;
+    cbRealTime.Caption:=rsRealTimeUpda;
     ToolButton7.hint := 'PhotLun';
     Image2.Caption := ToolButton7.hint;
     Label14.Caption := rst_32;
@@ -4305,6 +4311,25 @@ end;
 procedure TForm1.ButtonSetTextureClick(Sender: TObject);
 begin
   OpenConfig(4);
+end;
+
+procedure TForm1.cbRealTimeClick(Sender: TObject);
+begin
+  if cbRealTime.Checked then begin
+    Panel4.Enabled:=false;
+    RealTimeTimerTimer(Sender);
+    RealTimeTimer.Enabled:=true;
+  end
+  else begin
+    Panel4.Enabled:=true;
+    RealTimeTimer.Enabled:=false;
+  end;
+end;
+
+procedure TForm1.RealTimeTimerTimer(Sender: TObject);
+begin
+  initdate;
+  RefreshMoonImage;
 end;
 
 procedure TForm1.ToolButtonHideToolsClick(Sender: TObject);
