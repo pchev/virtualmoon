@@ -67,7 +67,9 @@ notelun/lib/
 notelun/units/
 notelun/notelun
 notelun/notelun.exe
-
+language/launchpad/download/
+language/launchpad/translation/
+language/launchpad/vmapot.tar
 last.build
 # ignore binary
 *.o

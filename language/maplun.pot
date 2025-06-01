@@ -1594,3 +1594,7 @@ msgstr ""
 msgid "Dome"
 msgstr ""
 
+#: u_translation:rsrealtimeupda
+msgid "Real time update"
+msgstr ""
+
