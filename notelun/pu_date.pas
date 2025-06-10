@@ -4,7 +4,7 @@ unit pu_date;
 
 interface
 
-uses u_constant, u_translation, u_util,
+uses u_constant, u_translation, u_util, UScaleDPI,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, EditBtn, Buttons, Spin, StdCtrls;
 
 type
@@ -57,7 +57,7 @@ end;
 
 procedure Tf_date.FormCreate(Sender: TObject);
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleDPI(Self);
   SetLang;
   DateEdit1.DateFormat:=datedisplay;
 end;

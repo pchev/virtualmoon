@@ -8,7 +8,7 @@ uses
 {$ifdef mswindows}
 Windows, ShlObj,
 {$endif}
-  u_constant, u_translation, u_util, passql, passqlite,
+  u_constant, u_translation, u_util, passql, passqlite, UScaleDPI,
   downloaddialog, UniqueInstance, IniFiles, Classes, SysUtils, FileUtil, Forms, Controls,
   LCLVersion, LazUTF8, Graphics, Dialogs, ComCtrls, Menus, Grids, ExtCtrls, StdCtrls;
 
@@ -70,6 +70,7 @@ type
     locktheme: boolean;
     procedure SetLang;
     procedure GetAppDir;
+    procedure ScaleMainForm;
     Procedure ReadParam(first:boolean=true);
     Procedure LoadDB;
     Procedure SortByCol(col:integer);
@@ -135,15 +136,22 @@ begin
   SelectAll;
 end;
 
+procedure Tf_weblun.ScaleMainForm;
+begin
+  UScaleDPI.UseScaling:=true;
+  UScaleDPI.SetScale(Canvas);
+  ScaleDPI(Self);
+end;
+
 procedure Tf_weblun.FormCreate(Sender: TObject);
 var i: integer;
 begin
   compile_time := {$I %DATE%}+' '+{$I %TIME%};
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%};
   Splashversion := AVLversion+blank+compile_time;
-  ScaleFormForFontSize(self,96);
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
+  ScaleMainForm;
   GetAppDir;
   chdir(appdir);
   param:=Tstringlist.Create;

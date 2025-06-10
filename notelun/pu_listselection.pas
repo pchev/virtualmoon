@@ -4,7 +4,7 @@ unit pu_listselection;
 
 interface
 
-uses  u_util,
+uses  u_util, UScaleDPI,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls;
 
 type
@@ -34,7 +34,7 @@ implementation
 
 procedure Tf_listselection.FormCreate(Sender: TObject);
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleDPI(Self);
 end;
 
 end.

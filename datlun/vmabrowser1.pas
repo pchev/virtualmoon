@@ -29,7 +29,7 @@ uses
 {$ifdef mswindows}
 Windows, ShlObj,
 {$endif}
-  u_translation_database, u_translation, FileUtil, LazUTF8,
+  u_translation_database, u_translation, FileUtil, LazUTF8, UScaleDPI,
   u_constant, LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, Grids, Math, passql, passqlite, UniqueInstance, u_util, dbutil, StdCtrls,
   ExtCtrls, IniFiles, ImgList, LResources;
@@ -116,6 +116,7 @@ type
     MouseX, MouseY, HintX, HintY: integer;
     StartVMA,CanCloseVMA, StartPhotlun, CanClosePhotlun, ExpertMode: boolean;
     IDlist: array of integer;
+    procedure ScaleMainForm;
     Procedure SetLang;
     procedure GetAppDir;
     procedure SaveDefault;
@@ -382,11 +383,18 @@ begin
   end;
 end;
 
+procedure Tf_main.ScaleMainForm;
+begin
+  UScaleDPI.UseScaling:=true;
+  UScaleDPI.SetScale(Canvas);
+  ScaleDPI(Self);
+  ScaleImageList(ImageList1);
+end;
+
 procedure Tf_main.FormCreate(Sender: TObject);
 var i: integer;
 begin
-ScaleFormForFontSize(self,96);
-dpiscale:=Scale96ToForm(10000)/10000;
+ScaleMainForm;
 DefaultFormatSettings.DecimalSeparator := '.';
 DefaultFormatSettings.ThousandSeparator:=' ';
 dbm:=TLiteDB.Create(self);

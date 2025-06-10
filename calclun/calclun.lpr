@@ -26,7 +26,6 @@ begin
   *)
 
   RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(Tf_calclun, f_calclun);
 

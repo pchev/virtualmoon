@@ -145,7 +145,6 @@ function GetSelectedCell(grid:TStringGrid; out aCol, aRow: integer): string;
 function TzGMT2UTC(gmttz: string): string;
 function TzUTC2GMT(utctz: string): string;
 function decisep(txt:string):string;
-procedure ScaleFormForFontSize(f: Tform; desdpi:integer);
 function striphtml(html: string): string;
 
 var traceon : boolean;
@@ -2236,26 +2235,6 @@ end;
 function decisep(txt:string):string;
 begin
   result:=trim(StringReplace(txt,',','.',[rfReplaceAll]));
-end;
-
-procedure ScaleFormForFontSize(f: Tform; desdpi:integer);
-{$ifdef lclgtk2}
-var
-  rs: TSize;
-  sc: double;
-const
-  teststr = 'The Lazy Fox Jumps';
-  designlen = 125;
-  designhig = 18;
-{$endif}
-begin
-{$ifdef lclgtk2}
-  rs := f.Canvas.TextExtent(teststr);
-  sc := rs.cx / designlen;
-  sc := max(sc, rs.cy / designhig);
-  if (abs(1 - sc)>0.1)and(sc>0.75)and(sc<5) then
-    f.PixelsPerInch:=round(desdpi / sc);
-{$endif}
 end;
 
 function striphtml(html: string): string;

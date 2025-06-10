@@ -8,7 +8,6 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <Title Value="calclun"/>
-      <Scaled Value="True"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
@@ -132,22 +131,25 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
-    <RequiredPackages Count="5">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="libsql"/>
+        <PackageName Value="BGRABitmapPack"/>
       </Item1>
       <Item2>
-        <PackageName Value="downldialog"/>
+        <PackageName Value="libsql"/>
       </Item2>
       <Item3>
-        <PackageName Value="Printer4Lazarus"/>
+        <PackageName Value="downldialog"/>
       </Item3>
       <Item4>
-        <PackageName Value="TAChartLazarusPkg"/>
+        <PackageName Value="Printer4Lazarus"/>
       </Item4>
       <Item5>
-        <PackageName Value="LCL"/>
+        <PackageName Value="TAChartLazarusPkg"/>
       </Item5>
+      <Item6>
+        <PackageName Value="LCL"/>
+      </Item6>
     </RequiredPackages>
     <Units Count="14">
       <Unit0>

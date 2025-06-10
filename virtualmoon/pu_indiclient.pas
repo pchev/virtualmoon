@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 interface
 
 uses
-  u_translation, indibaseclient, indibasedevice, indiapi, indicom, pu_indigui,
+  u_translation, indibaseclient, indibasedevice, indiapi, indicom, pu_indigui, UScaleDPI,
   LCLIntf, u_util, u_constant, Messages, SysUtils, Classes, Graphics,
   Controls, Forms, Dialogs, StdCtrls, Buttons, inifiles, process, ComCtrls, Menus,
   ExtCtrls, Spin, Arrow;
@@ -786,7 +786,7 @@ end;
 
 procedure Tpop_indi.FormCreate(Sender: TObject);
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleDPI(Self);
   SlewRateList := TStringList.Create;
   ClearStatus;
 end;

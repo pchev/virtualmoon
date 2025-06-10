@@ -29,7 +29,7 @@ uses
   LCLIntf,
 {$endif}
   u_translation,
-  u_constant, cu_tz,
+  u_constant, cu_tz, UScaleDPI,
   SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, Buttons, ExtCtrls,
   LResources, Spin;
@@ -144,7 +144,7 @@ var i,p : integer;
     fs : TSearchRec;
     ft : TextFile;
 begin
-ScaleFormForFontSize(self,96);
+ScaleDPI(Self);
 PageControl1.ActivePageIndex:=0;
 i:=findfirst(slash(appdir)+slash('language')+'calclun.*.po',0,fs);
 while i=0 do begin

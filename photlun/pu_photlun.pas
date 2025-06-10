@@ -12,7 +12,7 @@ uses
     unix,
   {$endif}
   u_translation,
-  BGRABitmap, BGRABitmapTypes, LazUTF8, UniqueInstance, math,
+  BGRABitmap, BGRABitmapTypes, LazUTF8, UniqueInstance, math, UScaleDPI,
   fu_img, pu_config, u_util, u_constant, LazFileUtils, IniFiles, LCLType,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, Menus, Buttons, StdCtrls;
 
@@ -82,6 +82,7 @@ type
     SortByName, autoflipx, autoflipy, ShiftKey: Boolean;
     procedure SetLang;
     procedure GetAppDir;
+    procedure ScaleMainForm;
     procedure ReadConfig;
     procedure SaveConfig;
     Procedure SetBiblioMenu;
@@ -128,11 +129,19 @@ const
 
 { Tf_photlun }
 
+procedure Tf_photlun.ScaleMainForm;
+begin
+  UScaleDPI.UseScaling:=true;
+  UScaleDPI.SetScale(Canvas);
+  ScaleDPI(Self);
+end;
+
 procedure Tf_photlun.FormCreate(Sender: TObject);
 var i: integer;
 begin
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
+  ScaleMainForm;
   GetAppDir;
   chdir(appdir);
   ReadConfig;

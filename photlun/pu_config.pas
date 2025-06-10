@@ -5,7 +5,7 @@ unit pu_config;
 interface
 
 uses
-  u_translation, u_util,
+  u_translation, u_util, UScaleDPI,
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Grids,
   StdCtrls, ExtCtrls;
 
@@ -61,7 +61,7 @@ end;
 
 procedure Tf_config.FormCreate(Sender: TObject);
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleDPI(Self);
   SetLang;
 end;
 

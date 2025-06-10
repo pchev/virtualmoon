@@ -4,7 +4,7 @@ unit pu_search;
 
 interface
 
-uses passql, passqlite, u_translation, u_util,
+uses passql, passqlite, u_translation, u_util, UScaleDPI,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons, ExtCtrls, StdCtrls;
 
 type
@@ -85,7 +85,7 @@ end;
 
 procedure Tf_search.FormCreate(Sender: TObject);
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleDPI(Self);
   SetLang;
 end;
 

@@ -4,7 +4,7 @@ unit pu_features;
 
 interface
 
-uses u_translation, u_constant, u_util, Classes, SysUtils, FileUtil, LResources, Forms,
+uses u_translation, u_constant, u_util, Classes, SysUtils, FileUtil, LResources, Forms, UScaleDPI,
   Buttons, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls;
 
 type
@@ -73,7 +73,7 @@ end;
 
 procedure Tf_features.FormCreate(Sender: TObject);
 begin
-ScaleFormForFontSize(self,96);
+ScaleDPI(Self);
 end;
 
 function Tf_features.CheckOptionalFeature(optlist:Tstrings): boolean;

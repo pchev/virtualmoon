@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses  u_translation,
+uses  u_translation,  UScaleDPI,
   u_constant, LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, mlb2, Grids, {ValEdit,} CheckLst, Math,
   passql, passqlite,u_util, dbutil, ComCtrls, ExtCtrls, IniFiles, LResources;
@@ -306,7 +306,7 @@ end;
 procedure TLoadCSV.FormCreate(Sender: TObject);
 var i: integer;
 begin
-ScaleFormForFontSize(self,96);
+ScaleDPI(Self);
 Mlb:=TMlb2.Create;
 for i:= 1 to NumMoonDBFields do fieldmode[i]:=0;
 end;

@@ -7,7 +7,7 @@
         <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <Scaled Value="True"/>
+      <Title Value="Weblun"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
@@ -67,23 +67,26 @@
         </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="5">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="Printer4Lazarus"/>
+        <PackageName Value="BGRABitmapPack"/>
       </Item1>
       <Item2>
-        <PackageName Value="uniqueinstance_package"/>
+        <PackageName Value="Printer4Lazarus"/>
       </Item2>
       <Item3>
-        <PackageName Value="downldialog"/>
+        <PackageName Value="uniqueinstance_package"/>
       </Item3>
       <Item4>
-        <PackageName Value="libsql"/>
-        <MinVersion Valid="True"/>
+        <PackageName Value="downldialog"/>
       </Item4>
       <Item5>
-        <PackageName Value="LCL"/>
+        <PackageName Value="libsql"/>
+        <MinVersion Valid="True"/>
       </Item5>
+      <Item6>
+        <PackageName Value="LCL"/>
+      </Item6>
     </RequiredPackages>
     <Units Count="5">
       <Unit0>

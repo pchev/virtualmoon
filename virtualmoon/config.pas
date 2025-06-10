@@ -29,7 +29,7 @@ uses
   LCLIntf,
 {$endif}
   u_translation,
-  Math, u_constant, cu_tz, dbutil,
+  Math, u_constant, cu_tz, dbutil, UScaleDPI,
   Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, Buttons, ExtCtrls, Inifiles, Grids, EnhEdits,
   CheckLst, LResources;
@@ -534,7 +534,7 @@ begin
   bt.OnClick:=RadioButtonLvClick;
 end;
 begin
-ScaleFormForFontSize(self,96);
+ScaleDPI(Self);
 ov:=Tbitmap.Create;
 lockoverlay:=false;
 locktexture:=false;

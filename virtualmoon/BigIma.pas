@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses Math, FileUtil,
+uses Math, FileUtil, UScaleDPI,
   LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   ExtCtrls, StdCtrls, Buttons, ComCtrls, ToolWin, LResources;
 
@@ -187,6 +187,7 @@ end;
 
 procedure TBigImaForm.FormCreate(Sender: TObject);
 begin
+ScaleDPI(Self);
 zoom:=0;
 titre:='';
 labeltext:='';

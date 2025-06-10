@@ -27,7 +27,6 @@ uses
 {$endif}
 
 begin
-  Application.Scaled:=True;
   (* // To stdout by default, uncomment to write to file
   {$ifdef USEHEAPTRC}
   DeleteFile('/tmp/vma_heap.trc');

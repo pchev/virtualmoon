@@ -10,7 +10,6 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <Title Value="DatLun"/>
-      <Scaled Value="True"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
         <DpiAware Value="True"/>
@@ -61,19 +60,22 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="uniqueinstance_package"/>
+        <PackageName Value="BGRABitmapPack"/>
       </Item1>
       <Item2>
-        <PackageName Value="Printer4Lazarus"/>
+        <PackageName Value="uniqueinstance_package"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="Printer4Lazarus"/>
       </Item3>
       <Item4>
-        <PackageName Value="libsql"/>
+        <PackageName Value="LCL"/>
       </Item4>
+      <Item5>
+        <PackageName Value="libsql"/>
+      </Item5>
     </RequiredPackages>
     <Units Count="10">
       <Unit0>

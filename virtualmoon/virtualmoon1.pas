@@ -36,7 +36,7 @@ uses
   Gtk2Proc,
 {$endif}
   u_translation_database, u_translation, tabsdock, cu_dem, pu_demprofile,
-  u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon,
+  u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon, UScaleDPI,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids, BGRABitmap, BGRABitmapTypes,
   PrintersDlgs, Printers, Controls, LazFileUtils,
   Messages, SysUtils, Classes, Dialogs, FileUtil, Types,
@@ -566,6 +566,7 @@ type
     {$ifdef windows}
     savetop,saveleft,savewidth,saveheight: integer;
     {$endif}
+    procedure ScaleMainForm;
     procedure returncontrol(sender:TObject);
     procedure OpenDatlun(objname,otherparam:string);
     procedure OpenPhotlun(objname,otherparam:string);
@@ -1502,11 +1503,11 @@ begin
       WriteBool(section, 'Mirror', CheckBox2.Checked);
       WriteBool(section, 'Grid', GridButton.Down);
       WriteFloat(section, 'PoleOrientation', PoleOrientation);
-      WriteInteger(section, 'ToolsWidth', round(ToolsWidth*dpiscale));
+      WriteInteger(section, 'ToolsWidth', ToolsWidth);
       WriteInteger(section, 'Top', Top);
       WriteInteger(section, 'Left', Left);
-      WriteInteger(section, 'Height', round(Height*dpiscale));
-      WriteInteger(section, 'Width', round(Width*dpiscale));
+      WriteInteger(section, 'Height', Height);
+      WriteInteger(section, 'Width', Width);
       WriteBool(section, 'Maximized', (windowstate = wsMaximized));
       WriteString(section, 'LabelFontName', moon1.LabelFont.Name);
       WriteInteger(section, 'LabelFontSize', moon1.LabelFont.Size);
@@ -3584,6 +3585,15 @@ begin
   end;
 end;
 
+procedure TForm1.ScaleMainForm;
+begin
+  UScaleDPI.UseScaling:=True;
+  UScaleDPI.SetScale(Canvas);
+  ScaleDPI(Self);
+  ScaleImageList(ImageListDay);
+  ScaleImageList(ImageListNight);
+end;
+
 procedure TForm1.FormCreate(Sender: TObject);
 var
   i,c: integer;
@@ -3601,10 +3611,9 @@ begin
   compile_time := {$I %DATE%}+' '+{$I %TIME%};
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+buf;
 
-  dpiscale:=Scale96ToForm(10000)/10000;
-  ScaleFormForFontSize(self,96);
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
+  ScaleMainForm;
   PageControl1.ActivePageIndex:=0;
   tabs.Align:=alRight;
   Splitter1.Align:=alRight;

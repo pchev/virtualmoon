@@ -31,7 +31,7 @@ uses
   {$ifdef mswindows}
   Variants, comobj, Windows, ShlObj, ShellAPI,
   {$endif}
-  cu_ascomrest, math, LCLIntf, u_util, u_constant, u_translation,
+  cu_ascomrest, math, LCLIntf, u_util, u_constant, u_translation, UScaleDPI,
   Messages, SysUtils, Classes, Graphics, Controls,
   Forms, Dialogs, LCLVersion,
   StdCtrls, Buttons, inifiles, ComCtrls, Menus, ExtCtrls, Arrow, Spin, SpinEx;
@@ -933,7 +933,7 @@ end;
 
 procedure Tpop_scope.FormCreate(Sender: TObject);
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleDPI(Self);
   CoordLock := False;
   Initialized := False;
   FConnected := False;

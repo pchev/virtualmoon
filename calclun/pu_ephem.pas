@@ -4,7 +4,7 @@ unit pu_ephem;
 
 interface
 
-uses   u_translation, u_constant, u_util, cspice, pas_spice, moon_spice, cu_tz,
+uses   u_translation, u_constant, u_util, cspice, pas_spice, moon_spice, cu_tz, UScaleDPI,
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   ComCtrls, ExtCtrls, StdCtrls, Buttons, EditBtn, Spin;
 
@@ -53,7 +53,7 @@ implementation
 
 procedure Tf_ephem.FormCreate(Sender: TObject);
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleDPI(Self);
   FileNameEdit1.FileName:=slash(Homedir)+'ephem.csv';
 end;
 

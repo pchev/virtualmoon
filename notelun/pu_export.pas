@@ -4,7 +4,7 @@ unit pu_export;
 
 interface
 
-uses  u_constant, u_util, libsql, passql, passqlite, u_translation,
+uses  u_constant, u_util, libsql, passql, passqlite, u_translation, UScaleDPI,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls;
 
 type
@@ -40,7 +40,7 @@ implementation
 
 procedure Tf_export.FormCreate(Sender: TObject);
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleDPI(Self);
   SetLang;
   CheckGroup1.Checked[0]:=true;
   CheckGroup1.Checked[1]:=true;

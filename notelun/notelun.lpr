@@ -16,7 +16,6 @@ uses
 
 begin
   RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(Tf_notelun, f_notelun);
   Application.CreateForm(Tf_search, f_search);

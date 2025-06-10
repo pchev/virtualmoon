@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 interface
 
-uses u_translation, u_util, u_constant, u_projection, cu_dem, Graphics, GLGraphics,
+uses u_translation, UScaleDPI, u_util, u_constant, u_projection, cu_dem, Graphics, GLGraphics,
   GLContext, GLColor, GLObjects, GLMaterial, GLTextureFormat, ExtCtrls,
   GLTexture, GLCadencer, GLViewer, GLCrossPlatform, GLLCLViewer, LResources,
   GLScene, GLMultiMaterialShader, GLBumpShader, GLPhongShader, GLHUDObjects,
@@ -1327,7 +1327,7 @@ procedure Tf_moon.FormCreate(Sender: TObject);
 var i: integer;
 begin
  try
- ScaleFormForFontSize(self,96);
+ ScaleDPI(Self);
  if Owner is TWinControl then Moon.Parent:=TWinControl(Owner);
  vIgnoreOpenGLErrors:=true;
  Ftexture:=TStringList.Create;
@@ -2373,7 +2373,7 @@ begin
   newcircle.SplineMode:=lsmLines;
   newcircle.ShowAxes:=false;
   newcircle.AntiAliased:=true;
-  newcircle.LineWidth:=1.2*dpiscale;
+  newcircle.LineWidth:=DoScaleX(120)/100;
   newcircle.LineColor.AsWinColor:=c;
   newcircle.NodesAspect:=lnaInvisible;
   newcircle.Visible:=true;
@@ -2410,7 +2410,7 @@ begin
   GLLinesTerminator.SplineMode:=lsmCubicSpline;
   GLLinesTerminator.ShowAxes:=false;
   GLLinesTerminator.AntiAliased:=true;
-  GLLinesTerminator.LineWidth:=1.2*dpiscale;
+  GLLinesTerminator.LineWidth:=DoScaleX(120)/100;
   GLLinesTerminator.LineColor.AsWinColor:=terminatorColor;
   GLLinesTerminator.NodesAspect:=lnaInvisible;
   GLLinesTerminator.Visible:=true;
@@ -2469,7 +2469,7 @@ for i:=0 to nl do begin
     newline.SplineMode:=lsmCubicSpline;
     newline.ShowAxes:=false;
     newline.AntiAliased:=true;
-    newline.LineWidth:=1.2*dpiscale;
+    newline.LineWidth:=DoScaleX(120)/100;
     newline.LineColor.AsWinColor:=clWhite;
     newline.NodesAspect:=lnaInvisible;
     newline.Visible:=true;
@@ -2489,7 +2489,7 @@ for i:=1 to nb do begin
     newline.SplineMode:=lsmCubicSpline;
     newline.ShowAxes:=false;
     newline.AntiAliased:=true;
-    newline.LineWidth:=1*dpiscale;
+    newline.LineWidth:=DoScaleX(100)/100;
     newline.LineColor.AsWinColor:=clWhite;
     newline.NodesAspect:=lnaInvisible;
     newline.Visible:=true;
@@ -2766,7 +2766,7 @@ begin
     line.SplineMode:=lsmCubicSpline;
     line.ShowAxes:=false;
     line.AntiAliased:=true;
-    line.LineWidth:=2*dpiscale;
+    line.LineWidth:=DoScaleX(200)/100;
     line.LineColor.AsWinColor:=MarkColor;
     line.NodesAspect:=lnaInvisible;
     line.Visible:=true;
@@ -2827,7 +2827,7 @@ begin
             line.SplineMode:=lsmCubicSpline;
             line.ShowAxes:=false;
             line.AntiAliased:=true;
-            line.LineWidth:=2*dpiscale;
+            line.LineWidth:=DoScaleX(200)/100;
             line.LineColor.AsWinColor:=MarkColor;
             line.LinePattern:=$1111;
             line.NodesAspect:=lnaInvisible;

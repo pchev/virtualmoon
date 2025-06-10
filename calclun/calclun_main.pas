@@ -8,7 +8,7 @@ uses
   {$ifdef mswindows}
     Windows, Registry, ShlObj,
   {$endif}
-  cspice, pas_spice, moon_spice, u_util, u_constant, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles,
+  cspice, pas_spice, moon_spice, u_util, u_constant, TAGraph, TARadialSeries, TASeries, TAFuncSeries, IniFiles, UScaleDPI,
   TAChartUtils, TAIntervalSources, math, u_projection, cu_tz, LazUTF8, config, u_translation, FileUtil, downloaddialog, splashunit,
   passql, passqlite, dbutil, pu_ephem,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, Spin, ComCtrls, Grids, Menus, Buttons,
@@ -288,6 +288,7 @@ type
     StartVMA: boolean;
     procedure SetLang;
     procedure GetAppDir;
+    procedure ScaleMainForm;
     procedure SetKernelsPath;
     procedure CheckUpdate;
     procedure SetObservatory;
@@ -323,10 +324,18 @@ implementation
 
 { Tf_calclun }
 
+procedure Tf_calclun.ScaleMainForm;
+begin
+  UScaleDPI.UseScaling:=true;
+  UScaleDPI.SetScale(Canvas);
+  ScaleDPI(Self);
+  ScaleImageList(ImageListPhase);
+end;
+
 procedure Tf_calclun.FormCreate(Sender: TObject);
 var inifile:Tmeminifile;
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleMainForm;
   DefaultFormatSettings.DateSeparator:='/';
   DefaultFormatSettings.TimeSeparator:=':';
   DefaultFormatSettings.DecimalSeparator:='.';

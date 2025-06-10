@@ -28,7 +28,7 @@ uses
 {$ifdef mswindows}
   Windows,
 {$endif}
-  LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms, FileUtil,
+  LCLIntf, Messages, SysUtils, Classes, Graphics, Controls, Forms, FileUtil, UScaleDPI,
   Buttons, Dialogs, StdCtrls, ComCtrls, ExtCtrls, LResources, IpHtml;
 
 type
@@ -344,7 +344,7 @@ end;
 
 procedure TGloss.FormCreate(Sender: TObject);
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleDPI(Self);
   dbgloss := TMlb2.Create;
 	InitAlphaButtons;
   InitGlossary;

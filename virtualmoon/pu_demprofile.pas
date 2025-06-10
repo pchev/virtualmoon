@@ -4,7 +4,7 @@ unit pu_demprofile;
 
 interface
 
-uses  u_constant, cu_dem, u_translation, u_util, math,
+uses  u_constant, cu_dem, u_translation, u_util, math, UScaleDPI,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, StdCtrls, Buttons, Menus, TAGraph, TASeries, TAChartUtils, TAChartAxisUtils;
 
@@ -62,7 +62,7 @@ implementation
 
 procedure Tf_demprofile.FormCreate(Sender: TObject);
 begin
- ScaleFormForFontSize(self,96);
+ ScaleDPI(Self);
  FScale:=0;
  ButtonReset.Down:=true;
  LabelPos.Caption:='';

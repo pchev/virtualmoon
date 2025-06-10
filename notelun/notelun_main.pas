@@ -8,7 +8,7 @@ uses
   {$ifdef mswindows}
     Windows, ShlObj,
   {$endif}
-  dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup, Printers, cu_print,
+  dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup, Printers, cu_print, UScaleDPI,
   LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, PrintersDlgs, Clipbrd, cu_planet, u_projection, math,
   pu_listselection, pu_export,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs, Types;
@@ -270,6 +270,7 @@ type
     CurrentObsFile,CurrentInfoFile,SortCol: integer;
     procedure SetLang;
     procedure GetAppDir;
+    procedure ScaleMainForm;
     procedure ReadwindowSize;
     procedure ReadConfig;
     procedure WriteConfig;
@@ -326,13 +327,21 @@ implementation
 
 { Tf_notelun }
 
+procedure Tf_notelun.ScaleMainForm;
+begin
+  UScaleDPI.UseScaling:=true;
+  UScaleDPI.SetScale(Canvas);
+  ScaleDPI(Self);
+  ScaleImageList(ImageList1);
+  ScaleImageList(ImageList2);
+end;
+
 
 procedure Tf_notelun.FormCreate(Sender: TObject);
 var inifile:Tmeminifile;
     i: integer;
 begin
-  ScaleFormForFontSize(self,96);
-  dpiscale:=Scale96ToForm(10000)/10000;
+  ScaleMainForm;
   DefaultFormatSettings.DateSeparator:='/';
   DefaultFormatSettings.TimeSeparator:=':';
   DefaultFormatSettings.DecimalSeparator:='.';
@@ -448,8 +457,8 @@ begin
   inif.WriteString(section, 'PrintFixedFont', PrintFixedFont);
   inif.WriteInteger(section,'Top',Top);
   inif.WriteInteger(section,'Left',Left);
-  inif.WriteInteger(section,'Height',round(Height*dpiscale));
-  inif.WriteInteger(section,'Width',round(Width*dpiscale));
+  inif.WriteInteger(section,'Height',round(Height));
+  inif.WriteInteger(section,'Width',round(Width));
   inif.WriteBool(section,'Maximized',(windowstate=wsMaximized));
   inif.UpdateFile;
   inif.Free;

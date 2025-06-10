@@ -4,7 +4,7 @@ unit tabsdock;
 
 interface
 
-uses   u_translation,
+uses   u_translation, UScaleDPI,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs;
 
 type
@@ -13,6 +13,7 @@ type
 
   Tf_tabsdock = class(TForm)
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
+    procedure FormCreate(Sender: TObject);
   private
     FonReturnControl: TNotifyEvent;
   public
@@ -38,6 +39,11 @@ procedure Tf_tabsdock.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
   CanClose:=False;
   if Assigned(FonReturnControl) then FonReturnControl(self);
+end;
+
+procedure Tf_tabsdock.FormCreate(Sender: TObject);
+begin
+  ScaleDPI(Self);
 end;
 
 end.

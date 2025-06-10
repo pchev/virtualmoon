@@ -5,11 +5,10 @@
     <General>
       <SessionStorage Value="InProjectDir"/>
       <Title Value="notelun"/>
-      <Scaled Value="True"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
-        <DpiAware Value="True/PM_V2"/>
+        <DpiAware Value="True"/>
       </XPManifest>
       <Icon Value="0"/>
     </General>
@@ -94,6 +93,9 @@
       <FormatVersion Value="2"/>
     </RunParams>
     <RequiredPackages>
+      <Item>
+        <PackageName Value="BGRABitmapPack"/>
+      </Item>
       <Item>
         <PackageName Value="uniqueinstance_package"/>
       </Item>

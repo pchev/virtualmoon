@@ -31,7 +31,7 @@ uses
   {$ifdef unix}
     unix,baseunix,
   {$endif}
-  u_translation, u_constant, IniFiles, LazUTF8, u_util,
+  u_translation, u_constant, IniFiles, LazUTF8, u_util, UScaleDPI,
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, Menus;
 
@@ -105,6 +105,7 @@ type
     moveform: boolean;
     procedure GetAppDir;
     procedure SetLang;
+    procedure ScaleMainForm;
   public
     { public declarations }
   end; 
@@ -420,9 +421,16 @@ begin
   MenuItem8.Caption:=rsAbout;
 end;
 
+procedure Tf_cclun.ScaleMainForm;
+begin
+  UScaleDPI.UseScaling:=true;
+  UScaleDPI.SetScale(Canvas);
+  ScaleDPI(Self);
+end;
+
 procedure Tf_cclun.FormCreate(Sender: TObject);
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleMainForm;
   moveform:=false;
   GetAppDir;
   SetLang;

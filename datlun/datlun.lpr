@@ -27,7 +27,6 @@ var i : integer;
 {$endif}
 
 begin
-  Application.Scaled:=True;
   Application.Title:='DatLun';
   Application.Initialize;
   compile_time:={$I %DATE%}+' '+{$I %TIME%};

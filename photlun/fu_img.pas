@@ -4,7 +4,7 @@ unit fu_img;
 
 interface
 
-uses  BGRABitmap, BGRABitmapTypes, math, u_translation, Graphics,
+uses  BGRABitmap, BGRABitmapTypes, math, u_translation, Graphics, UScaleDPI,
   Classes, SysUtils, Forms, Controls, ExtCtrls, Buttons, StdCtrls;
 
 type
@@ -94,6 +94,9 @@ constructor Tf_img.Create(aOwner: TComponent);
 var c,i: integer;
 begin
  inherited Create(aOwner);
+ ScaleDPI(Self);
+ ScaleImageList(ImageListDay);
+ ScaleImageList(ImageListNight);
  SetLang;
  FlipHorz:=false;
  FlipVert:=false;

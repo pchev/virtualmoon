@@ -28,7 +28,7 @@ uses
 {$ifdef mswindows}
   LCLIntf,
 {$endif}
-  u_util, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  u_util, Messages, SysUtils, Classes, Graphics, Controls, Forms, UScaleDPI,
   Dialogs, StdCtrls, LResources;
 
 type
@@ -78,7 +78,7 @@ end;
 
 procedure Tf_craterlist.FormCreate(Sender: TObject);
 begin
-ScaleFormForFontSize(self,96);
+ScaleDPI(Self);
 end;
 
 procedure Tf_craterlist.FormKeyUp(Sender: TObject; var Key: Word;

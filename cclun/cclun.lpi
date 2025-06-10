@@ -7,7 +7,7 @@
         <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <Scaled Value="True"/>
+      <Title Value="CClun"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
@@ -80,16 +80,19 @@
         </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="Printer4Lazarus"/>
+        <PackageName Value="BGRABitmapPack"/>
       </Item1>
       <Item2>
-        <PackageName Value="libsql"/>
+        <PackageName Value="Printer4Lazarus"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="libsql"/>
       </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
     </RequiredPackages>
     <Units Count="4">
       <Unit0>

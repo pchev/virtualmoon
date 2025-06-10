@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
 interface
 
-uses u_translation, IniFiles, Registry, u_constant, u_util,
+uses u_translation, IniFiles, Registry, u_constant, u_util, UScaleDPI,
   Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Buttons, LResources;
 
@@ -211,7 +211,7 @@ end;
 
 procedure Tsplash.FormCreate(Sender: TObject);
 begin
-ScaleFormForFontSize(self,96);
+ScaleDPI(Self);
 closing:=false;
 label1.caption:=rstitle;
 end;

@@ -4,7 +4,7 @@ unit notelun_setup;
 
 interface
 
-uses passql, passqlite, u_translation, u_constant, u_util, cu_tz,
+uses passql, passqlite, u_translation, u_constant, u_util, cu_tz, UScaleDPI,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, ComCtrls, Grids, Buttons;
 
 type
@@ -78,7 +78,7 @@ implementation
 procedure TFSetup.FormCreate(Sender: TObject);
 var s: TStringList;
 begin
-  ScaleFormForFontSize(self,96);
+  ScaleDPI(Self);
   SetLang;
   tz:=TCdCTimeZone.Create;
   tz.LoadZoneTab(ZoneDir+'zone.tab');
