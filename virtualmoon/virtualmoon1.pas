@@ -554,7 +554,7 @@ type
     tz: TCdCTimeZone;
     ima: TBigImaForm;
     ToolsWidth,AnchorLinkWidth: integer;
-    isFullScreen: boolean;
+    isFullScreen, Initialized: boolean;
     RestoredBorderStyle : TFormBorderStyle;
     RestoredWindowState : TWindowState;
     lockzoombar,notexture: boolean;
@@ -1157,7 +1157,8 @@ procedure TForm1.ReadWindowSize;
 var
   inif:    TMemIniFile;
   section: string;
-  i: integer;
+  i,t,l,w,h: integer;
+  dt: TRect;
 begin
   inif := Tmeminifile.Create(ConfigFile);
   with inif do
@@ -1166,28 +1167,39 @@ begin
     ToolsWidth:=ReadInteger(section, 'ToolsWidth', ToolsWidth);
     if ToolsWidth<MinToolsWidth then ToolsWidth:=MinToolsWidth;
     tabs.Width:=ToolsWidth;
-    i := ReadInteger(section, 'Top', 40);
-    if (i >= 0) and (i < screen.Height - 100) then
-        Top := i
-    else
-        Top := 0;
-    i := ReadInteger(section, 'Left', 40);
-    if (i >= 0) and (i < screen.Width - 100) then
-      Left := i
-    else
-      Left := 0;
-    if ValueExists(section, 'Height') then
-       i   := ReadInteger(section, 'Height', height)
-    else
-       i := minintvalue([screen.Height - 100,round(0.8*screen.Height)]);
-    if (i >= 200) then
-      Height := i;
-    if ValueExists(section, 'Width') then
-      i:=ReadInteger(section, 'Width', width)
-    else
-      i:= minintvalue([screen.Width - 100, round(1.5*Height)]);
-    if (i >= 200) then
-      Width := i;
+    dt := screen.DesktopRect;
+    t := ReadInteger(section, 'Top', 40);
+    l := ReadInteger(section, 'Left', 40);
+    w := ReadInteger(section, 'Width', -999999);
+    h := ReadInteger(section, 'Height', -999999);
+    if t<dt.Top then t:=dt.Top;
+    if l<dt.Left then l:=dt.Left;
+    if (w < -999990) or (h < -999990) then
+    begin
+      if dt.Width > dt.Height then
+      begin
+        h := round(dt.Height - 100);
+        w := round(h * 4 / 3);
+      end
+      else
+      begin
+        w := round(dt.Width - 100);
+        h := w;
+      end;
+    end;
+    if w > dt.Width then
+    begin
+      l := dt.Left;
+      w := dt.Width - 80;
+    end;
+    if h > dt.Height then
+    begin
+      t := dt.Top;
+      h := dt.Height - 80;
+    end;
+    if (t+h)>dt.Height then t:=dt.Top;
+    if (l+w)>dt.Width then l:=dt.Width-w;
+    SetBounds(l, t, w, h);
     if ReadBool(section, 'Maximized', False) then
       windowstate := wsMaximized;
   end;
@@ -3614,6 +3626,7 @@ begin
   DefaultFormatSettings.ThousandSeparator:=' ';
   ScaleMainForm;
   isFullScreen:=false;
+  Initialized:=false;
   PageControl1.ActivePageIndex:=0;
   tabs.Align:=alRight;
   Splitter1.Align:=alRight;
@@ -3799,6 +3812,7 @@ end;
 
 procedure TForm1.FormShow(Sender: TObject);
 begin
+if Initialized then exit;
 // bug with tupdown size. width must be 13 on form designer
 UpDown1.Width:=14;
 UpDown2.Width:=14;
@@ -3814,6 +3828,7 @@ StartTimer.Enabled:=true;
 pop_scope.ReadConfig(ExtractFilePath(Configfile));
 pop_indi.ReadConfig(ExtractFilePath(Configfile));
 f_demprofile.onClose:=ProfileClose;
+Initialized:=true;
 end;
 
 procedure TForm1.Init;
