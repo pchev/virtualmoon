@@ -554,7 +554,9 @@ type
     tz: TCdCTimeZone;
     ima: TBigImaForm;
     ToolsWidth,AnchorLinkWidth: integer;
-    FullScreen: boolean;
+    isFullScreen: boolean;
+    RestoredBorderStyle : TFormBorderStyle;
+    RestoredWindowState : TWindowState;
     lockzoombar,notexture: boolean;
     texturefiles,texturenone: TStringList;
     SplitSize: single;
@@ -563,9 +565,6 @@ type
     Desctxt,MsgNoDB: string;
     dblox,dbimp,dbc: TLiteDB;
     anchorvisible: array[1..8] of boolean;
-    {$ifdef windows}
-    savetop,saveleft,savewidth,saveheight: integer;
-    {$endif}
     procedure ScaleMainForm;
     procedure returncontrol(sender:TObject);
     procedure OpenDatlun(objname,otherparam:string);
@@ -3614,6 +3613,7 @@ begin
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
   ScaleMainForm;
+  isFullScreen:=false;
   PageControl1.ActivePageIndex:=0;
   tabs.Align:=alRight;
   Splitter1.Align:=alRight;
@@ -4507,7 +4507,7 @@ begin
   end;
   if PanelMoon2.Visible then begin
     dx:=ClientWidth-Splitter2.Width;
-    if not FullScreen then dx:=dx-tabs.Width-Splitter1.Width;
+    if not isFullScreen then dx:=dx-tabs.Width-Splitter1.Width;
     w1:=round(SplitSize*dx);
     w2:=dx-w1;
     PanelMoon.Width:=w1;
@@ -4724,73 +4724,15 @@ begin
     activemoon.CenterMark;
 end;
 
-
-{$ifdef windows}
-procedure TForm1.SetFullScreen;
-var lPrevStyle: LongInt;
-begin
-FullScreen:=not FullScreen;
-if FullScreen then begin
-   savetop:=top;
-   saveleft:=left;
-   savewidth:=width;
-   saveheight:=height;
-   lPrevStyle := GetWindowLong(handle, GWL_STYLE);
-   SetWindowLong(handle, GWL_STYLE, (lPrevStyle And (Not WS_THICKFRAME) And (Not WS_BORDER) And (Not WS_CAPTION) And (Not WS_MINIMIZEBOX) And (Not WS_MAXIMIZEBOX)));
-   SetWindowPos(handle, 0, 0, 0, 0, 0, SWP_FRAMECHANGED Or SWP_NOMOVE Or SWP_NOSIZE Or SWP_NOZORDER);
-   if tabs.Parent=Form1 then tabs.Visible:=false;
-   Splitter1.Visible:=false;
-   ControlBar1.Visible:=false;
-   StatusBar1.Visible:=false;
-   Position1.Visible:=false;
-   Notes1.Visible:=false;
-   Distance1.Visible:=false;
-   FullScreen1.Caption:=rsQuitfull;
-   top:=0;
-   left:=0;
-   skipresize:=true;
-   width:=screen.Width;
-   skipresize:=true;
-   height:=screen.Height;
-   skipresize:=false;
-end else begin
-   lPrevStyle := GetWindowLong(handle, GWL_STYLE);
-   SetWindowLong(handle, GWL_STYLE, (lPrevStyle Or WS_THICKFRAME Or WS_BORDER Or WS_CAPTION Or WS_MINIMIZEBOX Or WS_MAXIMIZEBOX));
-   SetWindowPos(handle, 0, 0, 0, 0, 0, SWP_FRAMECHANGED Or SWP_NOMOVE Or SWP_NOSIZE Or SWP_NOZORDER);
-   ControlBar1.Visible:=true;
-   StatusBar1.Visible:=true;
-   tabs.Visible:=true;
-   Splitter1.Visible:=true;
-   Position1.Visible:=true;
-   Notes1.Visible:=true;
-   Distance1.Visible:=true;
-   FullScreen1.Caption:=rsFullScreen;
-   top:=savetop;
-   left:=saveleft;
-   width:=savewidth;
-   height:=saveheight;
-end;
-end;
-{$endif}
-
-{$ifdef unix}
 procedure TForm1.SetFullScreen;
 begin
-FullScreen:=not FullScreen;
-{$IF DEFINED(LCLgtk) or DEFINED(LCLgtk2)}
   skipresize:=true;
-  SetWindowFullScreen(Form1,FullScreen);
-  if FullScreen then begin
-    if tabs.Parent=Form1 then tabs.Visible:=false;
-    Splitter1.Visible:=false;
-    ControlBar1.Visible:=false;
-    StatusBar1.Visible:=false;
-    Position1.Visible:=false;
-    Notes1.Visible:=false;
-    Distance1.Visible:=false;
-    FullScreen1.Caption:=rsQuitfull;
-  end
-  else begin
+  if isFullscreen then begin
+    // restore normal window
+    WindowState := wsNormal;
+    WindowState := wsFullScreen;
+    WindowState := RestoredWindowState;
+    BorderStyle := RestoredBorderStyle;
     ControlBar1.Visible:=true;
     StatusBar1.Visible:=true;
     tabs.Visible:=true;
@@ -4799,11 +4741,27 @@ FullScreen:=not FullScreen;
     Notes1.Visible:=true;
     Distance1.Visible:=true;
     FullScreen1.Caption:=rsFullScreen;
+  end
+  else begin
+    // set window full screen
+    RestoredBorderStyle := BorderStyle;
+    RestoredWindowState := WindowState;
+    {$IFDEF WINDOWS}
+    BorderStyle := bsNone;
+    {$ENDIF}
+    WindowState := wsFullScreen;
+    if tabs.Parent=Form1 then tabs.Visible:=false;
+    Splitter1.Visible:=false;
+    ControlBar1.Visible:=false;
+    StatusBar1.Visible:=false;
+    Position1.Visible:=false;
+    Notes1.Visible:=false;
+    Distance1.Visible:=false;
+    FullScreen1.Caption:=rsQuitfull;
   end;
+  isFullscreen := not isFullscreen;
   skipresize:=false;
-{$endif}
 end;
-{$endif}
 
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
@@ -5124,7 +5082,7 @@ begin
   else begin
     tabs.Parent:=Form1;
     tabs.Align:=alRight;
-    tabs.Visible:= not FullScreen;
+    tabs.Visible:= not isFullScreen;
     f_tabsdock.Hide;
     ToolButtonDockTools.ImageIndex:=22;
     ToolButtonDockTools.Hint:=rsDetachInform;
