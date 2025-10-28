@@ -395,6 +395,9 @@ procedure Tf_main.FormCreate(Sender: TObject);
 var i: integer;
 begin
 ScaleMainForm;
+{$ifdef mswindows}
+Application.UpdateFormatSettings := False;
+{$endif}
 DefaultFormatSettings.DecimalSeparator := '.';
 DefaultFormatSettings.ThousandSeparator:=' ';
 dbm:=TLiteDB.Create(self);

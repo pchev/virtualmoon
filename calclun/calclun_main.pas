@@ -336,6 +336,9 @@ procedure Tf_calclun.FormCreate(Sender: TObject);
 var inifile:Tmeminifile;
 begin
   ScaleMainForm;
+  {$ifdef mswindows}
+  Application.UpdateFormatSettings := False;
+  {$endif}
   DefaultFormatSettings.DateSeparator:='/';
   DefaultFormatSettings.TimeSeparator:=':';
   DefaultFormatSettings.DecimalSeparator:='.';

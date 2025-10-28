@@ -430,6 +430,10 @@ end;
 
 procedure Tf_cclun.FormCreate(Sender: TObject);
 begin
+  {$ifdef mswindows}
+  Application.UpdateFormatSettings := False;
+  {$endif}
+  DefaultFormatSettings.DecimalSeparator := '.';
   ScaleMainForm;
   moveform:=false;
   GetAppDir;

@@ -3622,6 +3622,9 @@ begin
   compile_time := {$I %DATE%}+' '+{$I %TIME%};
   compile_version := 'Lazarus '+lcl_version+' Free Pascal '+{$I %FPCVERSION%}+' '+{$I %FPCTARGETOS%}+'-'+{$I %FPCTARGETCPU%}+'-'+buf;
 
+  {$ifdef mswindows}
+  Application.UpdateFormatSettings := False;
+  {$endif}
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
   ScaleMainForm;

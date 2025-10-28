@@ -342,6 +342,9 @@ var inifile:Tmeminifile;
     i: integer;
 begin
   ScaleMainForm;
+  {$ifdef mswindows}
+  Application.UpdateFormatSettings := False;
+  {$endif}
   DefaultFormatSettings.DateSeparator:='/';
   DefaultFormatSettings.TimeSeparator:=':';
   DefaultFormatSettings.DecimalSeparator:='.';

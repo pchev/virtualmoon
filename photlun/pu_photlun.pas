@@ -139,6 +139,9 @@ end;
 procedure Tf_photlun.FormCreate(Sender: TObject);
 var i: integer;
 begin
+  {$ifdef mswindows}
+  Application.UpdateFormatSettings := False;
+  {$endif}
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
   ScaleMainForm;
