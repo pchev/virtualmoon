@@ -482,8 +482,8 @@ var toppos,hh:integer;
 begin
   cb:=TCheckBox.Create(self);
   cb.Parent:=GBlvall;
-  toppos:= 2+n*(cb.Height+4);
-  hh:=toppos+cb.Height+40;
+  toppos:= DoScaleY(2+n*(cb.Height+4));
+  hh:=toppos+DoScaleY(cb.Height+40);
   GBlvall.Height:=hh;
   GBlv1.Height:=hh;
   GBlv2.Height:=hh;

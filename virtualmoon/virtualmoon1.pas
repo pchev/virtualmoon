@@ -80,6 +80,7 @@ type
     ImageListNight: TImageList;
     IpHtmlDataProvider1: TIpHtmlDataProvider;
     Label1: TLabel;
+    Label10: TToolButton;
     Label17: TLabel;
     Label18: TLabel;
     Label2: TLabel;
@@ -285,7 +286,6 @@ type
     ToolButton2: TToolButton;
     ToolButton8: TToolButton;
     ToolBar1: TToolBar;
-    Label10: TLabel;
     TrackBar1: TTrackBar;
     ToolButton9: TToolButton;
     ToolButton5: TToolButton;

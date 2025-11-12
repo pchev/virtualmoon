@@ -184,6 +184,7 @@ begin
     with TStringGrid(Control) do
     begin
       DefaultRowHeight:=DoScaleY(DefaultRowHeight);
+      DefaultColWidth:=DoScaleX(DefaultColWidth);
       for n := 0 to ColCount - 1 do
       begin
         ColWidths[n] := DoScaleX(ColWidths[n]);

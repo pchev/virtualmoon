@@ -63,7 +63,7 @@ object Form1: TForm1
     ClientWidth = 1116
     TabOrder = 1
     object TrackBar9: TTrackBar
-      Left = 784
+      Left = 824
       Height = 30
       Top = 2
       Width = 88
@@ -78,13 +78,13 @@ object Form1: TForm1
       Constraints.MaxHeight = 30
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 3
+      TabOrder = 2
     end
     object ToolBar2: TToolBar
       Left = 0
       Height = 30
       Top = 2
-      Width = 291
+      Width = 320
       Align = alNone
       AutoSize = True
       ButtonHeight = 30
@@ -115,18 +115,6 @@ object Form1: TForm1
         Caption = 'Aide'
         OnClick = ToolButton8Click
       end
-      object Label10: TLabel
-        Left = 251
-        Height = 30
-        Top = 0
-        Width = 40
-        AutoSize = False
-        Caption = 'Zoom:'
-        Color = clWindow
-        Layout = tlCenter
-        ParentColor = False
-        Transparent = False
-      end
       object ToolButton15: TToolButton
         Left = 243
         Height = 30
@@ -134,9 +122,31 @@ object Form1: TForm1
         Caption = 'ToolButton15'
         Style = tbsSeparator
       end
+      object Label10: TToolButton
+        Left = 251
+        Top = 0
+        Caption = 'Zoom:'
+      end
+    end
+    object TrackBar1: TTrackBar
+      Left = 320
+      Height = 30
+      Top = 0
+      Width = 112
+      Max = 100
+      Min = 1
+      OnChange = TrackBar1Change
+      PageSize = 10
+      Position = 1
+      ShowSelRange = False
+      TickStyle = tsNone
+      Constraints.MaxHeight = 30
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 5
     end
     object ToolBar1: TToolBar
-      Left = 409
+      Left = 430
       Height = 30
       Top = 2
       Width = 379
@@ -266,23 +276,6 @@ object Form1: TForm1
         Style = tbsCheck
       end
     end
-    object TrackBar1: TTrackBar
-      Left = 296
-      Height = 30
-      Top = 0
-      Width = 112
-      Max = 100
-      Min = 1
-      OnChange = TrackBar1Change
-      PageSize = 10
-      Position = 1
-      ShowSelRange = False
-      TickStyle = tsNone
-      Constraints.MaxHeight = 30
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 2
-    end
     object ToolBar4: TToolBar
       Left = 0
       Height = 30
@@ -298,7 +291,7 @@ object Form1: TForm1
       Images = ImageListDay
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 4
+      TabOrder = 3
       Transparent = True
       Wrapable = False
       object ToolButton10: TToolButton
@@ -484,7 +477,7 @@ object Form1: TForm1
       Images = ImageListDay
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 5
+      TabOrder = 4
       Transparent = True
       object ToolButtonDockTools: TToolButton
         Left = 1
@@ -559,10 +552,10 @@ object Form1: TForm1
       Height = 523
       Top = 1
       Width = 354
-      ActivePage = Position
+      ActivePage = Ephemerides
       Align = alClient
       MultiLine = True
-      TabIndex = 0
+      TabIndex = 2
       TabOrder = 0
       OnChange = PageControl1Change
       Options = [nboMultiLine]
@@ -850,7 +843,7 @@ object Form1: TForm1
               MinSize = 200
               MaxSize = 600
               Title.Caption = 'Formation'
-              Width = 200
+              Width = 179
             end          
             item
               MinSize = 100
@@ -873,7 +866,7 @@ object Form1: TForm1
           TabOrder = 0
           OnDblClick = ListNotesDblClick
           ColWidths = (
-            200
+            179
             100
             50
           )
@@ -964,11 +957,12 @@ object Form1: TForm1
             OnMouseUp = Button3MouseUp
           end
           object NM: TImage
+            AnchorSideTop.Control = prevM
+            AnchorSideTop.Side = asrBottom
             Left = 202
             Height = 24
-            Top = 14
+            Top = 15
             Width = 27
-            AutoSize = True
             OnClick = NMClick
             Picture.Data = {
               0A544A706567496D61676518030000FFD8FFE000104A46494600010101004800
@@ -998,49 +992,60 @@ object Form1: TForm1
               94643CAA847E068A280391F17F8A74E86DA6B7D3D8CF7137DE915BE44AF3476D
               CE4D145007FFD9
             }
+            Proportional = True
+            Stretch = True
           end
           object LabelNM: TLabel
+            AnchorSideTop.Control = NM
+            AnchorSideTop.Side = asrCenter
             Left = 235
             Height = 18
-            Top = 19
+            Top = 18
             Width = 7
             Caption = 'L'
             ParentColor = False
             OnClick = NMClick
           end
           object LabelFQ: TLabel
+            AnchorSideTop.Control = FQ
+            AnchorSideTop.Side = asrCenter
             Left = 235
             Height = 18
-            Top = 43
+            Top = 42
             Width = 7
             Caption = 'L'
             ParentColor = False
             OnClick = FQClick
           end
           object LabelFM: TLabel
+            AnchorSideTop.Control = FM
+            AnchorSideTop.Side = asrCenter
             Left = 235
             Height = 18
-            Top = 67
+            Top = 66
             Width = 7
             Caption = 'L'
             ParentColor = False
             OnClick = FMClick
           end
           object LabelLQ: TLabel
+            AnchorSideTop.Control = LQ
+            AnchorSideTop.Side = asrCenter
             Left = 235
             Height = 18
-            Top = 92
+            Top = 90
             Width = 7
             Caption = 'L'
             ParentColor = False
             OnClick = LQClick
           end
           object FQ: TImage
+            AnchorSideTop.Control = NM
+            AnchorSideTop.Side = asrBottom
             Left = 202
             Height = 24
-            Top = 37
+            Top = 39
             Width = 27
-            AutoSize = True
             OnClick = FQClick
             Picture.Data = {
               0A544A706567496D6167657D030000FFD8FFE000104A46494600010101004800
@@ -1073,13 +1078,16 @@ object Form1: TForm1
               CF0C6B1E12D4BC25F0E6D8DD3EA44FDB75E92331A843F7D2207925B8CB1C1EB5
               F0634E0B1F99A8A2803FFFD9
             }
+            Proportional = True
+            Stretch = True
           end
           object FM: TImage
+            AnchorSideTop.Control = FQ
+            AnchorSideTop.Side = asrBottom
             Left = 202
             Height = 24
-            Top = 60
+            Top = 63
             Width = 27
-            AutoSize = True
             OnClick = FMClick
             Picture.Data = {
               0A544A706567496D616765B1030000FFD8FFE000104A46494600010101004800
@@ -1113,13 +1121,16 @@ object Form1: TForm1
               79E32A00C8901F98668A2803E5EFDAC3F6F91F16B41BAF09782B4C7D2741BA60
               6F353B850B73743AEC007DC52464F3935F18ACEAA00DEDFF007D5145007FFFD9
             }
+            Proportional = True
+            Stretch = True
           end
           object LQ: TImage
+            AnchorSideTop.Control = FM
+            AnchorSideTop.Side = asrBottom
             Left = 202
             Height = 24
-            Top = 84
+            Top = 87
             Width = 27
-            AutoSize = True
             OnClick = LQClick
             Picture.Data = {
               0A544A706567496D61676564030000FFD8FFE000104A46494600010101004800
@@ -1151,13 +1162,17 @@ object Form1: TForm1
               8453C4C64BF6920F36C2F8325C2E0FCC4AE31C7B1A28A00F827C59E34B3BAB69
               AD74C8F73C9C497078CFAED15E7B451401FFD9
             }
+            Proportional = True
+            Stretch = True
           end
           object nextM: TImage
+            AnchorSideTop.Control = LQ
+            AnchorSideTop.Side = asrBottom
             Left = 202
             Height = 14
-            Top = 108
+            Top = 111
             Width = 27
-            AutoSize = True
+            HelpType = htKeyword
             OnClick = nextMClick
             Picture.Data = {
               0A544A706567496D6167650D030000FFD8FFE000104A46494600010102001C00
@@ -1186,13 +1201,15 @@ object Form1: TForm1
               924A99D923AB0055F1FF0084E1F02F8CB56F0FC1E20D1FC549A74C6DCEAFA04B
               24D6370C00DC619248D0BA86CAEF0BB5B692A594AB1E7E8A2803FFD9
             }
+            Proportional = True
+            Stretch = True
           end
           object prevM: TImage
+            AnchorSideTop.Control = Panel4
             Left = 202
             Height = 14
-            Top = 0
+            Top = 1
             Width = 27
-            AutoSize = True
             OnClick = prevMClick
             Picture.Data = {
               0A544A706567496D6167652E030000FFD8FFE000104A46494600010102001C00
@@ -1222,6 +1239,8 @@ object Form1: TForm1
               78DD1802ACAC082A4020820D51AD9F13F8AF5BF1D6BB75ADF88F58D435FD6AE8
               2FDA351D52E9EE6E25DA81577C8E4B361555464F0140E82B1A803FFFD9
             }
+            Proportional = True
+            Stretch = True
           end
           object jour: TLongEdit
             Left = 146
@@ -1413,7 +1432,7 @@ object Form1: TForm1
           Align = alClient
           BorderStyle = bsNone
           ColCount = 2
-          DefaultColWidth = 140
+          DefaultColWidth = 160
           DefaultRowHeight = 18
           FixedColor = clDefault
           FixedCols = 0
@@ -1438,7 +1457,7 @@ object Form1: TForm1
             Left = 8
             Height = 22
             Top = 4
-            Width = 132
+            Width = 128
             Caption = 'Real time update'
             OnClick = cbRealTimeClick
             TabOrder = 0
@@ -1901,7 +1920,7 @@ object Form1: TForm1
             Left = 9
             Height = 22
             Top = 97
-            Width = 66
+            Width = 62
             Caption = 'Miroir'
             OnClick = CheckBox2Click
             TabOrder = 1
@@ -1910,7 +1929,7 @@ object Form1: TForm1
             Left = 9
             Height = 22
             Top = 118
-            Width = 209
+            Width = 205
             Caption = 'Pole celeste toujours en haut.'
             OnClick = CheckBox1Click
             TabOrder = 3
@@ -1944,7 +1963,7 @@ object Form1: TForm1
             Left = 9
             Height = 22
             Top = 139
-            Width = 114
+            Width = 110
             Caption = 'Zenith on top '
             OnClick = CheckBox4Click
             TabOrder = 2
@@ -2020,7 +2039,7 @@ object Form1: TForm1
             Left = 8
             Height = 22
             Top = 90
-            Width = 113
+            Width = 109
             Caption = 'Track position'
             OnClick = CheckBox6Click
             TabOrder = 1
