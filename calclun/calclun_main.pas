@@ -448,8 +448,8 @@ begin
   ChartYear.Title.Text.Add(rsTwilightAndM);
   Panel6.Caption:=rsMoonPhase;
   Panel7.Caption:=rsLibrationExt;
-  GridYear.ColWidths[0]:=120;
-  GridYear.Width:=GridYear.ColWidths[0]+(GridYear.ColCount-1)*GridYear.DefaultColWidth;
+  GridYear.ColWidths[0]:=DoScaleX(120);
+  GridYear.Width:=GridYear.ColWidths[0]+(GridYear.ColCount-1)*DoScaleX(GridYear.DefaultColWidth);
   for i:=1 to 31 do GridYear.Cells[i,0]:=inttostr(i);
   GridYear.Cells[0, 1]:=rsJanuary;
   GridYear.Cells[0, 2]:=rsFebruary;
