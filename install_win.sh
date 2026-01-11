@@ -28,6 +28,7 @@ if [ $OS_TARGET = win32 ]; then
   install -v -m 644 virtualmoon/library/plan404/libplan404.dll  $destdir/
   install -v -m 644 calclun/cspice/libcspice32.dll  $destdir/libcspice32.dll
   unzip -o -d $destdir Installer/Windows/Data/sqlite3.zip
+  unzip -o -d $destdir Installer/Windows/Data/openssl-win32.zip
 fi
 if [ $OS_TARGET = win64 ]; then
   strip -v -o $destdir/atlun.exe virtualmoon/atlun.exe 
@@ -40,6 +41,7 @@ if [ $OS_TARGET = win64 ]; then
   install -v -m 644 virtualmoon/library/plan404/libplan404_x64.dll  $destdir/libplan404.dll
   install -v -m 644 calclun/cspice/libcspice64.dll  $destdir/libcspice64.dll
   unzip -o -d $destdir Installer/Windows/Data/sqlite3_x64.zip
+  unzip -o -d $destdir Installer/Windows/Data/openssl-win64.zip
 fi
 install -v -m 644 Installer/Windows/Data/readme.txt $destdir/
 install -v -m 644 Installer/Windows/Data/lisezmoi.txt $destdir/
