@@ -860,15 +860,15 @@ end;
 procedure Tf_calclun.ComputeYear;
 var
   t1,dt,nm,fq,fm,lq,lunation,jd0,ct1,ct2: double;
-  i,j,k,r: integer;
+  i,j,k,lastk,r,mn,mf,mu,ml: integer;
   year: Word;
-  newmoon: array[0..14] of double;
+  newmoon,fullmoon,firstq,lastq: array[0..14] of double;
   refval: SpiceDouble;
   Pcnfine,Presult: PSpiceCell;
   nfind: SpiceInt;
   et0,et1: SpiceDouble;
   yy,mm,dd: Word;
-  x,y,sx,sy,sz,sr,ra,de,llon,llat : SpiceDouble;
+  x,y,sx,sy,sz,sr,ra,de,llon,llat,phase : SpiceDouble;
   dtr, dts: double;
   obsref: ConstSpiceChar;
   fixref,coord,relate: ConstSpiceChar;
@@ -927,6 +927,9 @@ begin  // ComputeYear
     exit;
   end;
   newmoon[0]:=nm;
+  firstq[0]:=fq;
+  fullmoon[0]:=fm;
+  lastq[0]:=lq;
   r:=1;
   repeat
     dt:=lq+7;
@@ -935,6 +938,9 @@ begin  // ComputeYear
       exit;
     end;
     newmoon[r]:=nm;
+    firstq[r]:=fq;
+    fullmoon[r]:=fm;
+    lastq[r]:=lq;
     GridPhaseList.Cells[0,r]:=FormatDateTime('mm/dd hh:nn:ss',nm+GetTimeZoneD(nm));
     GridPhaseList.Cells[1,r]:=FormatDateTime('mm/dd hh:nn:ss',fq+GetTimeZoneD(fq));
     GridPhaseList.Cells[2,r]:=FormatDateTime('mm/dd hh:nn:ss',fm+GetTimeZoneD(fm));
@@ -950,13 +956,45 @@ begin  // ComputeYear
     if newmoon[i]+SynodicMonth>=dt then break;
     inc(r);
   end;
+  lastk:=0;
+  DecodeDate(lastq[r],yy,mm,dd);
+  if mm=12 then lastk:=23+31-dd
+  else begin
+    DecodeDate(fullmoon[r],yy,mm,dd);
+    if mm=12 then lastk:=15+31-dd
+    else begin
+      DecodeDate(firstq[r],yy,mm,dd);
+      if mm=12 then lastk:=7+31-dd
+      else begin
+        DecodeDate(newmoon[r],yy,mm,dd);
+        if mm=12 then lastk:=0+31-dd
+      end;
+    end;
+  end;
   for i:=1 to 12 do begin
+    mn:=0; mf:=0; mu:=0; ml:=0;
     for j:=1 to 31 do begin
       if j<=MonthDays[IsLeapYear(year)][i] then begin
        dt:=EncodeDate(year,i,j);
-       if newmoon[r]+SynodicMonth<dt then inc(r);
-       k:=trunc(dt-newmoon[r]);
+       if (newmoon[r]-GetTimeZoneD(newmoon[r])+SynodicMonth-1)<dt then inc(r);
+       if trunc(dt)=trunc(newmoon[r]+GetTimeZoneD(newmoon[r])) then begin
+         k:=31
+       end
+       else if trunc(dt)=trunc(firstq[r]+GetTimeZoneD(firstq[r])) then begin
+         k:=7
+       end
+       else if trunc(dt)=trunc(fullmoon[r]+GetTimeZoneD(fullmoon[r])) then begin
+         k:=32
+       end
+       else if trunc(dt)=trunc(lastq[r]+GetTimeZoneD(lastq[r])) then begin
+         k:=23
+       end
+       else
+          k:=lastk+1;
        GridYear.Cells[j,i]:=inttostr(k);
+       if k=31 then k:=0;
+       if k=32 then k:=15;
+       lastk:=k;
       end
       else
        GridYear.Cells[j,i]:=' ';
@@ -1243,6 +1281,8 @@ begin
       end;
       // moon luminosity in 0-255 range
       k:=StrToIntDef(GridYear.Cells[j,i],k);
+      if k=31 then k:=0;
+      if k=32 then k:=15;
       if k<15 then l:=k*17
               else l:=(30-k)*17;
       // check if moon rise and set
@@ -1395,12 +1435,12 @@ with sender as TStringGrid do begin
       Canvas.Brush.Color:=clBlack;
       Canvas.FillRect(aRect);
       i:=StrToIntDef(Cells[aCol,aRow],-1);
-      if i>=0 then begin
+      if (i>=0)and(i<ImageListPhase.Count) then begin
         img := TBitmap.Create;
         ImageListPhase.GetBitmap(i, img);
         Canvas.Draw(aRect.Left,aRect.Top+2,img);
         img.Free;
-      end;
+      end
   end
   else begin
     Canvas.TextOut(aRect.Left+4,aRect.Top+2,Cells[aCol,aRow]);
@@ -2409,6 +2449,8 @@ begin
       end;
       // moon luminosity in 0-255 range
       k:=StrToIntDef(GridYear.Cells[j,i],k);
+      if k=31 then k:=0;
+      if k=32 then k:=15;
       if k<15 then l:=k*17
               else l:=(30-k)*17;
       // check if moon rise and set
