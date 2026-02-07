@@ -29,7 +29,7 @@ install -m 755 -d $destdir/share/virtualmoon
 # translation
 install -m 755 -d $destdir/share/virtualmoon/Database
 install -m 755 -d $destdir/share/virtualmoon/language
-lg='ca cs de el es hu it lt nl sk'
+lg='ca cs de el es hu it lt nl sk zh_CN'
 for lang in $lg; do
   install -v -m 644 language/maplun.$lang.po $destdir/share/virtualmoon/language/
   install -v -m 644 language/datlun.$lang.po $destdir/share/virtualmoon/language/

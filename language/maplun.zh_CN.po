@@ -1,18 +1,20 @@
+# Chinese (Simplified) translation for virtualmoon
+# Copyright (c) 2026 Rosetta Contributors and Canonical Ltd 2026
+# This file is distributed under the same license as the virtualmoon package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: virtualmoon\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2025-06-01 08:39+0000\n"
-"PO-Revision-Date: 2025-04-25 12:12+0000\n"
-"Last-Translator: Ing. Maroš Horňák <Unknown>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2026-02-07 11:58+0000\n"
+"Last-Translator: Patrick Chevalley <Unknown>\n"
+"Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2026-02-07 12:00+0000\n"
 "X-Generator: Launchpad (build 4847db153920c8fbc330ac275b92a72279fa07a2)\n"
-"X-Poedit-Language: Slovak\n"
-"X-Poedit-Country: SLOVAKIA\n"
 
 #: u_translation.rsabbreviated
 msgid "Abbreviated"
@@ -32,15 +34,15 @@ msgstr ""
 
 #: u_translation.rsadvanced
 msgid "Advanced"
-msgstr "Podrobnejšia"
+msgstr ""
 
 #: u_translation.rsairburshreli
 msgid "Airbursh relief with albedo"
-msgstr "Airbrush relief s albedom"
+msgstr ""
 
 #: u_translation.rsairburshreli2
 msgid "Airbursh relief without albedo"
-msgstr "Airbrush relief bez albeda"
+msgstr ""
 
 #: u_translation.rsalbedofeatur
 msgid "Albedo Feature"
@@ -109,11 +111,11 @@ msgstr ""
 
 #: u_translation.rscheckforopti
 msgid "Check for optional features"
-msgstr "Skontrolovať voliteľné možnosti"
+msgstr ""
 
 #: u_translation.rsclementineph
 msgid "Clementine photographic"
-msgstr "Clementine fotografická"
+msgstr ""
 
 #: u_translation.rsconfigure
 msgid "Configure"
@@ -129,7 +131,7 @@ msgstr ""
 
 #: u_translation.rscountry
 msgid "Country"
-msgstr "Krajina"
+msgstr ""
 
 #: u_translation.rscrater
 msgid "Crater"
@@ -141,11 +143,11 @@ msgstr ""
 
 #: u_translation.rsdefault
 msgid "Default"
-msgstr "Predvolený"
+msgstr ""
 
 #: u_translation.rsdegree
 msgid "d"
-msgstr "°"
+msgstr ""
 
 #: u_translation.rsdetachinform
 msgid "Detach information and tools"
@@ -165,11 +167,11 @@ msgstr ""
 
 #: u_translation.rsdownload
 msgid "Download"
-msgstr "Stiahnúť"
+msgstr ""
 
 #: u_translation.rsdownloadurl
 msgid "http://ap-i.net/avl/en/download"
-msgstr "http://ap-i.net/avl/en/download"
+msgstr ""
 
 #: u_translation.rsdoyoureallyw
 msgid "Do you really want to park the mount now?"
@@ -181,7 +183,7 @@ msgstr ""
 
 #: u_translation.rsdynamicrelie
 msgid "Dynamic relief display method"
-msgstr "Metóda zobrazenia dynamického reliefu"
+msgstr ""
 
 #: u_translation.rsejectathicka
 msgid "Ejecta thick at 1 radius :"
@@ -209,7 +211,7 @@ msgstr ""
 
 #: u_translation.rsephemeris
 msgid "Ephemeris:"
-msgstr "Efemeridy:"
+msgstr ""
 
 #: u_translation.rsexcavationde
 msgid "Excavation depth :"
@@ -225,7 +227,7 @@ msgstr ""
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
-msgstr "Najprv použiť nastavenie"
+msgstr ""
 
 #: u_translation.rsflipnsmoveme
 msgid "Flip N/S movement"
@@ -249,7 +251,7 @@ msgstr ""
 
 #: u_translation.rsfullscreen
 msgid "Full screen (Esc)"
-msgstr "Celá obrazovka (Esc)"
+msgstr ""
 
 #: u_translation.rsgeology
 msgid "Geology :"
@@ -261,7 +263,7 @@ msgstr ""
 
 #: u_translation.rsgrid
 msgid "Grid"
-msgstr "Sieť"
+msgstr ""
 
 #: u_translation.rsheight
 msgid "Height"
@@ -269,7 +271,7 @@ msgstr ""
 
 #: u_translation.rshelp_prefix
 msgid "EN"
-msgstr "SK"
+msgstr ""
 
 #: u_translation.rshide
 msgid "Hide"
@@ -333,7 +335,7 @@ msgstr ""
 
 #: u_translation.rslabelsfont
 msgid "Labels font"
-msgstr "Font menoviek"
+msgstr ""
 
 #: u_translation.rslacus
 msgid "Lacus"
@@ -345,11 +347,11 @@ msgstr ""
 
 #: u_translation.rslanguage
 msgid "English"
-msgstr "Slovenský"
+msgstr "简体中文 (Simplified Chinese)"
 
 #: u_translation.rslevel
 msgid "Level:"
-msgstr "Úroveň:"
+msgstr ""
 
 #: u_translation.rslocalzenitho
 msgid "Local zenith on top"
@@ -357,7 +359,7 @@ msgstr ""
 
 #: u_translation.rslopamphotogr
 msgid "LOPAM photographic"
-msgstr "LOPAM fotografická"
+msgstr ""
 
 #: u_translation.rslowsunelevat
 msgid "Low Sun elevation"
@@ -405,283 +407,283 @@ msgstr ""
 
 #: u_translation.rsm_1
 msgid "from"
-msgstr "od"
+msgstr ""
 
 #: u_translation.rsm_10
 msgid "Longitude:"
-msgstr "Longitúda:"
+msgstr ""
 
 #: u_translation.rsm_11
 msgid "Latitude:"
-msgstr "Latitúda:"
+msgstr ""
 
 #: u_translation.rsm_12
 msgid "Quadrant:"
-msgstr "Kvadrant:"
+msgstr ""
 
 #: u_translation.rsm_13
 msgid "Area:"
-msgstr "Oblasť:"
+msgstr ""
 
 #: u_translation.rsm_14
 msgid "Rukl map:"
-msgstr "Ruklová mapa:"
+msgstr ""
 
 #: u_translation.rsm_15
 msgid "Viscardy page: "
-msgstr "Viscardyov atlas: "
+msgstr ""
 
 #: u_translation.rsm_16
 msgid "Hatfield map:"
-msgstr "Hatfieldová mapa:"
+msgstr ""
 
 #: u_translation.rsm_17
 msgid "Dimension:"
-msgstr "Rozmer:"
+msgstr ""
 
 #: u_translation.rsm_18
 msgid "Km"
-msgstr "Km"
+msgstr ""
 
 #: u_translation.rsm_19
 msgid "Mi"
-msgstr "Mi"
+msgstr ""
 
 #: u_translation.rsm_2
 msgid "born in"
-msgstr "narodený v"
+msgstr ""
 
 #: u_translation.rsm_20
 msgid "Height:"
-msgstr "Výška:"
+msgstr ""
 
 #: u_translation.rsm_21
 msgid "m"
-msgstr "'"
+msgstr ""
 
 #: u_translation.rsm_22
 msgid "ft"
-msgstr "ft"
+msgstr ""
 
 #: u_translation.rsm_23
 msgid "Height/Wide ratio:"
-msgstr "Pomer Výška/Šírka:"
+msgstr ""
 
 #: u_translation.rsm_24
 msgid "Interest :"
-msgstr "Zaujimavosť:"
+msgstr ""
 
 #: u_translation.rsm_25
 msgid "Observation period:"
-msgstr "Pozorovacia perióda:"
+msgstr ""
 
 #: u_translation.rsm_26
 msgid "or"
-msgstr "alebo"
+msgstr ""
 
 #: u_translation.rsm_27
 msgid "No formation actually near the terminator"
-msgstr "Žiadne útvary blízko terminátora"
+msgstr ""
 
 #: u_translation.rsm_28
 msgid "Minimal Instrument:"
-msgstr "Minimálny prístroj:"
+msgstr ""
 
 #: u_translation.rsm_29
 msgid "Right Ascension:"
-msgstr "RA:"
+msgstr ""
 
 #: u_translation.rsm_3
 msgid "Born at:"
-msgstr "Narodený v:"
+msgstr ""
 
 #: u_translation.rsm_30
 msgid "Declination:"
-msgstr "Deklinácia:"
+msgstr ""
 
 #: u_translation.rsm_31
 msgid "Distance:"
-msgstr "Vzdialenosť:"
+msgstr ""
 
 #: u_translation.rsm_32
 msgid "Phase:"
-msgstr "Fáza:"
+msgstr ""
 
 #: u_translation.rsm_33
 msgid "Libration in Latitude:"
-msgstr "Librácia v latitúde:"
+msgstr ""
 
 #: u_translation.rsm_34
 msgid "Libration in Longitude:"
-msgstr "Librácia v longitúde:"
+msgstr ""
 
 #: u_translation.rsm_35
 msgid "Illumination:"
-msgstr "Iluminácia:"
+msgstr ""
 
 #: u_translation.rsm_36
 msgid "Apparent diameter:"
-msgstr "Zdanlivý priemer:"
+msgstr ""
 
 #: u_translation.rsm_37
 msgid "Position angle:"
-msgstr "Pozičný uhol:"
+msgstr ""
 
 #: u_translation.rsm_38
 msgid "Rise:"
-msgstr "Východ:"
+msgstr ""
 
 #: u_translation.rsm_39
 msgid "Transit:"
-msgstr "Prechod:"
+msgstr ""
 
 #: u_translation.rsm_4
 msgid "in"
-msgstr "v"
+msgstr ""
 
 #: u_translation.rsm_40
 msgid "Set:"
-msgstr "Západ:"
+msgstr ""
 
 #: u_translation.rsm_41
 msgid "Rise azimuth:"
-msgstr "Azimut východu:"
+msgstr ""
 
 #: u_translation.rsm_42
 msgid "Set azimuth:"
-msgstr "Azimut západu:"
+msgstr ""
 
 #: u_translation.rsm_43
 msgid "Field:"
-msgstr "Pole:"
+msgstr ""
 
 #: u_translation.rsm_45
 msgid "Sub-solar latitude:"
-msgstr "Subsolárna latitúda"
+msgstr ""
 
 #: u_translation.rsm_46
 msgid "Lunation:"
-msgstr "Lunácia:"
+msgstr ""
 
 #: u_translation.rsm_47
 msgid "days"
-msgstr "dni"
+msgstr ""
 
 #: u_translation.rsm_48
 msgid "Colongitude:"
-msgstr "Kolongitúda:"
+msgstr ""
 
 #: u_translation.rsm_49
 msgid "Geological period:"
-msgstr "Geologická perióda:"
+msgstr ""
 
 #: u_translation.rsm_5
 msgid "Dead at:"
-msgstr "Zomrel v:"
+msgstr ""
 
 #: u_translation.rsm_50
 msgid "Time"
-msgstr "Čas"
+msgstr ""
 
 #: u_translation.rsm_51
 msgid "Date"
-msgstr "Dátum"
+msgstr ""
 
 #: u_translation.rsm_52
 msgid "Measure the distance"
-msgstr "Merať vzdialenosť"
+msgstr ""
 
 #: u_translation.rsm_53
 msgid "Standard cursor mode"
-msgstr "Štandardný režim kurzora"
+msgstr ""
 
 #: u_translation.rsm_54
 msgid "Image list"
-msgstr "Zoznam obrázkov"
+msgstr ""
 
 #: u_translation.rsm_55
 msgid "Transit Altitude:"
-msgstr "Prechodová altitúda:"
+msgstr ""
 
 #: u_translation.rsm_56
 msgid "Type:"
-msgstr "Typ:"
+msgstr ""
 
 #: u_translation.rsm_57
 msgid "Size:"
-msgstr "Veľkosť:"
+msgstr ""
 
 #: u_translation.rsm_58
 msgid "Description:"
-msgstr "Popis:"
+msgstr ""
 
 #: u_translation.rsm_59
 msgid "Observation:"
-msgstr "Pozorovanie:"
+msgstr ""
 
 #: u_translation.rsm_6
 msgid "Name Author:"
-msgstr "Meno autora:"
+msgstr ""
 
 #: u_translation.rsm_60
 msgid "Position:"
-msgstr "Pozícia:"
+msgstr ""
 
 #: u_translation.rsm_61
 msgid "Atlas:"
-msgstr "Atlas:"
+msgstr ""
 
 #: u_translation.rsm_62
 msgid "Name Origine:"
-msgstr "Meno pôvodu:"
+msgstr ""
 
 #: u_translation.rsm_63
 msgid "Detailed Name:"
-msgstr "Meno detailne:"
+msgstr ""
 
 #: u_translation.rsm_64
 msgid "Important Facts:"
-msgstr "Dôležité fakty:"
+msgstr ""
 
 #: u_translation.rsm_65
 msgid "Lunar Orbiter:"
-msgstr "Lunar Orbiter:"
+msgstr ""
 
 #: u_translation.rsm_66
 msgid "Westfall Atlas:"
-msgstr "Westfallsky atlas:"
+msgstr ""
 
 #: u_translation.rsm_67
 msgid "Warning! The personal notes have changed. Do you want to save the change?"
-msgstr "Pozor! Osobné poznámky sa zmenili. Chcete ich uložiť?"
+msgstr ""
 
 #: u_translation.rsm_7
 msgid "Name by Langrenus:"
-msgstr "Meno podľa Langrenusa:"
+msgstr ""
 
 #: u_translation.rsm_72
 msgid "Charles Wood article:"
-msgstr "Článok Charlesa Wooda:"
+msgstr ""
 
 #: u_translation.rsm_73
 msgid "Azimuth"
-msgstr "Azimut"
+msgstr ""
 
 #: u_translation.rsm_74
 msgid "Altitude"
-msgstr "Altitúda"
+msgstr ""
 
 #: u_translation.rsm_75
 msgid "From Database:"
-msgstr "Z databázy:"
+msgstr ""
 
 #: u_translation.rsm_8
 msgid "Name by Hevelius:"
-msgstr "Meno podľa Heveliusa:"
+msgstr ""
 
 #: u_translation.rsm_9
 msgid "Name by Riccioli:"
-msgstr "Meno podľa Riccioliho:"
+msgstr ""
 
 #: u_translation.rsnamedformati
 msgid "Named formations"
@@ -757,11 +759,11 @@ msgstr ""
 
 #: u_translation.rsphasewithdyn
 msgid "Phase with dynamic relief"
-msgstr "Fáza s dynamickým reliefom"
+msgstr ""
 
 #: u_translation.rsphasewithout
 msgid "Phase without relief"
-msgstr "Fáza bez reliefu"
+msgstr ""
 
 #: u_translation.rspicturelib
 msgid "Picture Library"
@@ -805,7 +807,7 @@ msgstr ""
 
 #: u_translation.rsquitfull
 msgid "Quit full screen (Esc)"
-msgstr "Skončíť celú obrazovku (Esc)"
+msgstr ""
 
 #: u_translation.rsradarbrighth
 msgid "Radar bright halo radius :"
@@ -865,7 +867,7 @@ msgstr ""
 
 #: u_translation.rsshowgrid
 msgid "Show grid"
-msgstr "Ukázať sieť"
+msgstr ""
 
 #: u_translation.rsshowinformat
 msgid "Show information and tools"
@@ -873,7 +875,7 @@ msgstr ""
 
 #: u_translation.rsshowlabels
 msgid "Show labels"
-msgstr "Ukázať menovky"
+msgstr ""
 
 #: u_translation.rsshowlabelsfo
 msgid "Show label for the following feature type"
@@ -881,7 +883,7 @@ msgstr ""
 
 #: u_translation.rsshowscale
 msgid "Show scale"
-msgstr "Ukázať mierku"
+msgstr ""
 
 #: u_translation.rsside
 msgid "Side:"
@@ -893,7 +895,7 @@ msgstr ""
 
 #: u_translation.rssimple
 msgid "Simple"
-msgstr "Jednoduchá"
+msgstr ""
 
 #: u_translation.rssinus
 msgid "Sinus"
@@ -957,7 +959,7 @@ msgstr ""
 
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
-msgstr "Virtual Moon Atlas"
+msgstr "虚拟月球仪(Virtual Moon Atlas)"
 
 #: u_translation.rsto
 msgid "To"
@@ -965,7 +967,7 @@ msgstr ""
 
 #: u_translation.rstopocentric
 msgid "Topocentric"
-msgstr "Topocentrická"
+msgstr ""
 
 #: u_translation.rstracking
 msgid "Tracking"
@@ -973,171 +975,171 @@ msgstr ""
 
 #: u_translation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
-msgstr "Preklad: Maroš Horňák"
+msgstr "译者：褚书豪"
 
 #: u_translation.rst_1
 msgid "File"
-msgstr "Súbor"
+msgstr "文件"
 
 #: u_translation.rst_10
 msgid "Find"
-msgstr "Hľadať"
+msgstr "查找"
 
 #: u_translation.rst_100
 msgid "Observatory"
-msgstr "Pozorovateľ"
+msgstr ""
 
 #: u_translation.rst_101
 msgid "Display"
-msgstr "Zobrazenie"
+msgstr ""
 
 #: u_translation.rst_102
 msgid "Mark the point of maximum libration"
-msgstr "Označiť bod maximálnej librácie"
+msgstr ""
 
 #: u_translation.rst_103
 msgid "Identification"
-msgstr "Označenie"
+msgstr ""
 
 #: u_translation.rst_104
 msgid "Label density"
-msgstr "Hustota menoviek"
+msgstr ""
 
 #: u_translation.rst_109
 msgid "Eyepieces"
-msgstr "Zorné pole"
+msgstr ""
 
 #: u_translation.rst_11
 msgid "Next"
-msgstr ""
+msgstr "下一个"
 
 #: u_translation.rst_110
 msgid "Telescope focal length"
-msgstr "Ohnisková vzdialenosť ďalekohľadu"
+msgstr ""
 
 #: u_translation.rst_111
 msgid "Eyepiece focal length"
-msgstr "Ohnisková vzdialenosť okuláru"
+msgstr ""
 
 #: u_translation.rst_112
 msgid "Eyepiece apparent field of vision"
-msgstr "Zdanlivé zorné pole okuláru"
+msgstr ""
 
 #: u_translation.rst_113
 msgid "Compute"
-msgstr "Počítať"
+msgstr ""
 
 #: u_translation.rst_114
 msgid "Update"
-msgstr "Aktualizovať"
+msgstr ""
 
 #: u_translation.rst_115
 msgid "Notes"
-msgstr "Poznámky"
+msgstr ""
 
 #: u_translation.rst_116
 msgid "Centre"
-msgstr "Stred"
+msgstr ""
 
 #: u_translation.rst_117
 msgid "none"
-msgstr "žiadny"
+msgstr ""
 
 #: u_translation.rst_118
 msgid "Eyepiece Name"
-msgstr "Názov okuláru"
+msgstr ""
 
 #: u_translation.rst_119
 msgid "Field in minutes"
-msgstr "Pole v minútach"
+msgstr ""
 
 #: u_translation.rst_120
 msgid "Center label on the formation"
-msgstr "Vycentrovať menovku na útvar"
+msgstr ""
 
 #: u_translation.rst_121
 msgid "Short Label"
-msgstr "Krátka menovka"
+msgstr ""
 
 #: u_translation.rst_124
 msgid "Power"
-msgstr "Zväčšenie"
+msgstr ""
 
 #: u_translation.rst_129
 msgid "Database"
-msgstr "Databáza"
+msgstr ""
 
 #: u_translation.rst_130
 msgid "Far Side"
-msgstr "Odvrátena strana"
+msgstr ""
 
 #: u_translation.rst_134
 msgid "Full Globe"
-msgstr "Celý glóbus"
+msgstr ""
 
 #: u_translation.rst_135
 msgid "Orbit the Moon"
-msgstr "Obiehať Mesiac"
+msgstr ""
 
 #: u_translation.rst_136
 msgid "Stop"
-msgstr "Stop"
+msgstr ""
 
 #: u_translation.rst_137
 msgid "Direction"
-msgstr "Smer"
+msgstr ""
 
 #: u_translation.rst_138
 msgid "d/second"
-msgstr "°/sekúnd"
+msgstr ""
 
 #: u_translation.rst_139
 msgid "Rotation speed"
-msgstr "Rýchlosť rotácie"
+msgstr ""
 
 #: u_translation.rst_140
 msgid "West View"
-msgstr "Západný pohľad"
+msgstr ""
 
 #: u_translation.rst_142
 msgid "East View"
-msgstr "Východný pohľad"
+msgstr ""
 
 #: u_translation.rst_144
 msgid "Select Texture"
-msgstr "Vybrať textúru"
+msgstr ""
 
 #: u_translation.rst_145
 msgid "OpenGL Info"
-msgstr "OpenGL Info"
+msgstr ""
 
 #: u_translation.rst_146
 msgid "Positive East"
-msgstr "Východ +"
+msgstr ""
 
 #: u_translation.rst_147
 msgid "N"
-msgstr "S"
+msgstr ""
 
 #: u_translation.rst_148
 msgid "S"
-msgstr "J"
+msgstr ""
 
 #: u_translation.rst_149
 msgid "E"
-msgstr "V"
+msgstr ""
 
 #: u_translation.rst_15
 msgid "Help"
-msgstr "Pomoc"
+msgstr "帮助"
 
 #: u_translation.rst_150
 msgid "W"
-msgstr "Z"
+msgstr ""
 
 #: u_translation.rst_152
 msgid "Texture"
-msgstr "Textúra"
+msgstr ""
 
 #: u_translation.rst_153
 msgid "L"
@@ -1149,87 +1151,87 @@ msgstr ""
 
 #: u_translation.rst_155
 msgid "mm."
-msgstr "mm."
+msgstr ""
 
 #: u_translation.rst_156
 msgid "Track position"
-msgstr "Sledovať pozíciu"
+msgstr ""
 
 #: u_translation.rst_157
 msgid "Correct the Moon motion"
-msgstr "Upraviť pohyb Mesiaca"
+msgstr ""
 
 #: u_translation.rst_158
 msgid "every"
-msgstr "každých"
+msgstr ""
 
 #: u_translation.rst_159
 msgid "seconds"
-msgstr "sekúnd"
+msgstr ""
 
 #: u_translation.rst_160
 msgid "Telescope"
-msgstr "Teleskop"
+msgstr ""
 
 #: u_translation.rst_161
 msgid "Show Menu"
-msgstr "Ukázať menu"
+msgstr ""
 
 #: u_translation.rst_162
 msgid "Goto selected"
-msgstr "Choď na vybrané"
+msgstr ""
 
 #: u_translation.rst_163
 msgid "Sync selected"
-msgstr "Synchr. vybrané"
+msgstr ""
 
 #: u_translation.rst_165
 msgid "Encyclopedia"
-msgstr "Encyklopedia"
+msgstr ""
 
 #: u_translation.rst_166
 msgid "2nd Window"
-msgstr "Druhé okno"
+msgstr ""
 
 #: u_translation.rst_167
 msgid "Snapshot"
-msgstr "Snímka"
+msgstr ""
 
 #: u_translation.rst_169
 msgid "Overlay"
-msgstr "Prekrytie"
+msgstr ""
 
 #: u_translation.rst_17
 msgid "Now"
-msgstr "Teraz"
+msgstr "现在"
 
 #: u_translation.rst_170
 msgid "Show overlay"
-msgstr "Ukázať prekrytie"
+msgstr ""
 
 #: u_translation.rst_171
 msgid "Overlay :"
-msgstr "Prekrytie :"
+msgstr ""
 
 #: u_translation.rst_172
 msgid "Transparency:"
-msgstr "Priehľadnosť:"
+msgstr ""
 
 #: u_translation.rst_173
 msgid "Date / Time"
-msgstr "Dátum / Čas"
+msgstr ""
 
 #: u_translation.rst_174
 msgid "Use Computer Date and Time"
-msgstr "Použiť počítačový dátum a čas"
+msgstr ""
 
 #: u_translation.rst_175
 msgid "Show Libration"
-msgstr "Ukázať libráciu"
+msgstr ""
 
 #: u_translation.rst_176
 msgid "Show Phase"
-msgstr "Ukázať fázu"
+msgstr ""
 
 #: u_translation.rst_177
 msgid "Rotate N-S"
@@ -1237,343 +1239,343 @@ msgstr ""
 
 #: u_translation.rst_178
 msgid "Flip E-W"
-msgstr "Prepnúť V-Z"
+msgstr ""
 
 #: u_translation.rst_179
 msgid "User Database loaded from DATLUN"
-msgstr "Užívateľska databáza načítana z DATLUNU"
+msgstr ""
 
 #: u_translation.rst_18
 msgid "OK"
-msgstr "OK"
+msgstr "确定"
 
 #: u_translation.rst_180
 msgid "Remove Selection Mark"
-msgstr "Zrušiť výberovu značku"
+msgstr ""
 
 #: u_translation.rst_181
 msgid "Mark size"
-msgstr "Veľkosť značky"
+msgstr ""
 
 #: u_translation.rst_183
 msgid "Label Color"
-msgstr "Farba menovky"
+msgstr ""
 
 #: u_translation.rst_184
 msgid "Your graphic card do not support to display more than one texture for the same object. Be sure that hardware acceleration is activated or change the graphic card. The require function is GL_ARB_MULTITEXTURE "
-msgstr "Vaša grafická karta nepodporuje zobrazenie viacerých textúr pre rovnaký objekt. Presvedète sa že mate hardwarovú akceleráciu zapnutú alebo vymeňte grafickú kartu. Je požadovaná funkcia GL_ARB_MULTITEXTURE "
+msgstr ""
 
 #: u_translation.rst_185
 msgid "Look here for a list of supported graphic card"
-msgstr "Pozri si zoznam podporovaných grafických kariet"
+msgstr ""
 
 #: u_translation.rst_19
 msgid "Latitude"
-msgstr "Latitúda"
+msgstr "纬度"
 
 #: u_translation.rst_2
 msgid "Quit"
-msgstr "Koniec"
+msgstr "退出"
 
 #: u_translation.rst_21
 msgid "Time Zone"
-msgstr "Časova zóna"
+msgstr "时区"
 
 #: u_translation.rst_22
 msgid "Show the phase"
-msgstr "Ukázať fázu"
+msgstr "显示月相"
 
 #: u_translation.rst_23
 msgid "Show the libration"
-msgstr "Ukázať libráciu"
+msgstr "显示天平动"
 
 #: u_translation.rst_24
 msgid "Language"
-msgstr "Jazyk"
+msgstr "语言"
 
 #: u_translation.rst_25
 msgid "Picture"
-msgstr "Obrázok"
+msgstr "图片"
 
 #: u_translation.rst_26
 msgid "Geocentric"
-msgstr "Geocentrická pozícia"
+msgstr "地心"
 
 #: u_translation.rst_28
 msgid "Color"
-msgstr "Farba"
+msgstr "颜色"
 
 #: u_translation.rst_29
 msgid "Label"
-msgstr "Menovka"
+msgstr ""
 
 #: u_translation.rst_3
 msgid "Configuration"
-msgstr "Nastavenie"
+msgstr "配置"
 
 #: u_translation.rst_30
 msgid "Close"
-msgstr "Zavrieť"
+msgstr ""
 
 #: u_translation.rst_31
 msgid "Zoom"
-msgstr "Priblíženie"
+msgstr ""
 
 #: u_translation.rst_32
 msgid "Lighting"
-msgstr "Osvetlenie"
+msgstr ""
 
 #: u_translation.rst_33
 msgid "Penumbra"
-msgstr "Polotieň"
+msgstr ""
 
 #: u_translation.rst_34
 msgid "Diffuse"
-msgstr "Difúzia"
+msgstr ""
 
 #: u_translation.rst_35
 msgid "Specular"
-msgstr "Ostrosť"
+msgstr ""
 
 #: u_translation.rst_36
 msgid "Performance"
-msgstr "Výkon"
+msgstr ""
 
 #: u_translation.rst_37
 msgid "Smoothness"
-msgstr "Vyhladenie"
+msgstr ""
 
 #: u_translation.rst_4
 msgid "Zoom:"
-msgstr "Priblíženie:"
+msgstr "缩放"
 
 #: u_translation.rst_42
 msgid "All the formation"
-msgstr "Všetky útvary"
+msgstr ""
 
 #: u_translation.rst_43
 msgid "Pretty interesting"
-msgstr "Pekné"
+msgstr ""
 
 #: u_translation.rst_44
 msgid "Very interesting"
-msgstr "Veľmi zaujímavé"
+msgstr ""
 
 #: u_translation.rst_45
 msgid "Exceptional"
-msgstr "Výnimočné"
+msgstr ""
 
 #: u_translation.rst_46
 msgid "Sort"
-msgstr "Triediť"
+msgstr ""
 
 #: u_translation.rst_47
 msgid "Name"
-msgstr "Meno"
+msgstr ""
 
 #: u_translation.rst_48
 msgid "Interest"
-msgstr "Zaujimavosť"
+msgstr ""
 
 #: u_translation.rst_49
 msgid "Instrument"
-msgstr "Prístroj"
+msgstr ""
 
 #: u_translation.rst_5
 msgid "Center"
-msgstr "Centrovať"
+msgstr "中心"
 
 #: u_translation.rst_51
 msgid "Terminator"
-msgstr "Terminátor"
+msgstr ""
 
 #: u_translation.rst_52
 msgid "Mark"
-msgstr "Značka"
+msgstr ""
 
 #: u_translation.rst_53
 msgid "Show label"
-msgstr "Ukázať menovku"
+msgstr ""
 
 #: u_translation.rst_54
 msgid "Show mark"
-msgstr "Ukázať značku"
+msgstr ""
 
 #: u_translation.rst_55
 msgid "Setup"
-msgstr "Vlastnosti"
+msgstr ""
 
 #: u_translation.rst_56
 msgid "Sky Chart"
-msgstr "Sky Chart"
+msgstr ""
 
 #: u_translation.rst_57
 msgid "General"
-msgstr "Hlavné"
+msgstr ""
 
 #: u_translation.rst_58
 msgid "Images"
-msgstr "Obrázky"
+msgstr ""
 
 #: u_translation.rst_6
 msgid "Information"
-msgstr "Informácie"
+msgstr "信息"
 
 #: u_translation.rst_60
 msgid "Image folders:"
-msgstr "Adresáre s obrázkami:"
+msgstr ""
 
 #: u_translation.rst_62
 msgid "Folder"
-msgstr "Adresár"
+msgstr ""
 
 #: u_translation.rst_63
 msgid "Tools"
-msgstr "Nástroje"
+msgstr ""
 
 #: u_translation.rst_64
 msgid "Rotation"
-msgstr "Rotácia"
+msgstr ""
 
 #: u_translation.rst_65
 msgid "West"
-msgstr "Západ"
+msgstr ""
 
 #: u_translation.rst_66
 msgid "East"
-msgstr "Východ"
+msgstr ""
 
 #: u_translation.rst_67
 msgid "Default Orientation"
-msgstr "Predvolená orientácia"
+msgstr ""
 
 #: u_translation.rst_68
 msgid "Celestial Pole on top"
-msgstr "Hviezdný pól na vrchu"
+msgstr ""
 
 #: u_translation.rst_69
 msgid "Distance"
-msgstr "Vzdialenosť"
+msgstr ""
 
 #: u_translation.rst_7
 msgid "Ephemeris"
-msgstr "Efemerida"
+msgstr "星历"
 
 #: u_translation.rst_70
 msgid "Real Distance"
-msgstr "Reálna vzdialenosť"
+msgstr ""
 
 #: u_translation.rst_71
 msgid "Apparent Distance"
-msgstr "Zdanlivá vzdialenosť"
+msgstr ""
 
 #: u_translation.rst_72
 msgid "North"
-msgstr "Sever"
+msgstr ""
 
 #: u_translation.rst_73
 msgid "South"
-msgstr "Juh"
+msgstr ""
 
 #: u_translation.rst_74
 msgid "Mirror"
-msgstr "Zrkadliť"
+msgstr ""
 
 #: u_translation.rst_75
 msgid "Save Map"
-msgstr "Uložiť mapu"
+msgstr ""
 
 #: u_translation.rst_76
 msgid "Saved Map size"
-msgstr "Uložená veľkosť mapy"
+msgstr ""
 
 #: u_translation.rst_77
 msgid "As on screen"
-msgstr "Ako na obrazovke"
+msgstr ""
 
 #: u_translation.rst_78
 msgid "Save As"
-msgstr "Uložiť ako"
+msgstr ""
 
 #: u_translation.rst_79
 msgid "Print"
-msgstr "Tlačiť"
+msgstr ""
 
 #: u_translation.rst_8
 msgid "Zoom+"
-msgstr "Zoom+"
+msgstr "放大"
 
 #: u_translation.rst_80
 msgid "White background"
-msgstr "Biele pozadie"
+msgstr ""
 
 #: u_translation.rst_81
 msgid "Neighbor"
-msgstr "Sused"
+msgstr ""
 
 #: u_translation.rst_82
 msgid "Print Setup..."
-msgstr "Vlatnosti tlače..."
+msgstr ""
 
 #: u_translation.rst_84
 msgid "Select All"
-msgstr "Vybrať všetko"
+msgstr ""
 
 #: u_translation.rst_85
 msgid "Copy"
-msgstr "Kopírovať"
+msgstr ""
 
 #: u_translation.rst_86
 msgid "Measure"
-msgstr "Merať"
+msgstr ""
 
 #: u_translation.rst_89
 msgid "External display software"
-msgstr "Externý zobrazovací software"
+msgstr ""
 
 #: u_translation.rst_9
 msgid "Zoom-"
-msgstr "Zoom-"
+msgstr "缩小"
 
 #: u_translation.rst_90
 msgid "Printing"
-msgstr "Tlač"
+msgstr ""
 
 #: u_translation.rst_91
 msgid "Printer"
-msgstr "Tlačiareň"
+msgstr ""
 
 #: u_translation.rst_92
 msgid "Left Margin"
-msgstr "Ľavý okraj"
+msgstr ""
 
 #: u_translation.rst_93
 msgid "Millimeters"
-msgstr "Milimetrov"
+msgstr ""
 
 #: u_translation.rst_94
 msgid "Print the ephemeris"
-msgstr "Tlačiť efemeridy"
+msgstr ""
 
 #: u_translation.rst_95
 msgid "Print the information"
-msgstr "Tlačiť popis"
+msgstr ""
 
 #: u_translation.rst_96
 msgid "Print the map"
-msgstr "Tlačiť mapu"
+msgstr ""
 
 #: u_translation.rst_97
 msgid "Information text width"
-msgstr "Šírka textu popisu"
+msgstr ""
 
 #: u_translation.rst_98
 msgid "Glossary"
-msgstr "Slovník"
+msgstr ""
 
 #: u_translation.rst_99
 msgid "Cancel"
-msgstr "Zrušiť"
+msgstr ""
 
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
@@ -1606,13 +1608,13 @@ msgstr ""
 
 #: u_translation.rsyoucandownlo
 msgid "You can download and install the following optional features:"
-msgstr "Môžete stiahnúť a nainštalovať následujúce volitelné doplnky"
+msgstr ""
 
 #: u_translation.rsyourinstalla
 msgid "Your installation is already complete with all the features installed."
-msgstr "Vaša inštalácia je už kompletná zo všetkými doplnkami."
+msgstr ""
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"
-msgstr "Úroveň priblíženia"
+msgstr ""
 

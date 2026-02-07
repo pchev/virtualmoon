@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-01 08:39+0000\n"
-"PO-Revision-Date: 2025-04-25 12:13+0000\n"
-"Last-Translator: Sáfár Péter <Unknown>\n"
+"PO-Revision-Date: 2025-09-24 00:14+0000\n"
+"Last-Translator: Balázs Úr <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2025-06-01 08:48+0000\n"
-"X-Generator: Launchpad (build 30048e740966359d3041f59a477700a1cd51464e)\n"
+"X-Launchpad-Export-Date: 2026-02-07 12:00+0000\n"
+"X-Generator: Launchpad (build 4847db153920c8fbc330ac275b92a72279fa07a2)\n"
 
 #: u_translation.rsadd
 msgid "Add"
@@ -278,11 +278,11 @@ msgstr "Fájl"
 
 #: u_translation.rst_10
 msgid "Clear"
-msgstr "Töröl"
+msgstr "Törlés"
 
 #: u_translation.rst_11
 msgid "Last"
-msgstr "Előző"
+msgstr "Utolsó"
 
 #: u_translation.rst_12
 msgid "Enter selection and order criteria using SQL syntax."
@@ -306,7 +306,7 @@ msgstr "Föld felöli oldal krátereinek listája"
 
 #: u_translation.rst_17
 msgid "Input File"
-msgstr "Input fájl"
+msgstr "Bemeneti fájl"
 
 #: u_translation.rst_18
 msgid "Far Side Named Formation"
@@ -318,7 +318,7 @@ msgstr "Távoli oldal krátereinek a listája"
 
 #: u_translation.rst_2
 msgid "Quit"
-msgstr "Kilép"
+msgstr "Kilépés"
 
 #: u_translation.rst_20
 msgid "Historical Sites"
@@ -450,7 +450,7 @@ msgstr "Haladó mód"
 
 #: u_translation.rst_5
 msgid "All"
-msgstr "Minden"
+msgstr "Összes"
 
 #: u_translation.rst_50
 msgid "Default Selection"
@@ -474,19 +474,19 @@ msgstr "Dómok"
 
 #: u_translation.rst_6
 msgid "None"
-msgstr "Egyik sem"
+msgstr "Nincs"
 
 #: u_translation.rst_7
 msgid "Close"
-msgstr "Bezár"
+msgstr "Bezárás"
 
 #: u_translation.rst_8
 msgid "Ok"
-msgstr "Gyí"
+msgstr "Rendben"
 
 #: u_translation.rst_9
 msgid "Cancel"
-msgstr "Vissza"
+msgstr "Mégse"
 
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
