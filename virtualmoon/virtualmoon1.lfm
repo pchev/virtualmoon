@@ -552,10 +552,10 @@ object Form1: TForm1
       Height = 523
       Top = 1
       Width = 354
-      ActivePage = Ephemerides
+      ActivePage = Position
       Align = alClient
       MultiLine = True
-      TabIndex = 2
+      TabIndex = 0
       TabOrder = 0
       OnChange = PageControl1Change
       Options = [nboMultiLine]
@@ -878,18 +878,18 @@ object Form1: TForm1
         ClientWidth = 350
         object Panel4: TPanel
           Left = 0
-          Height = 121
+          Height = 128
           Top = 0
           Width = 350
           Align = alTop
-          ClientHeight = 121
+          ClientHeight = 128
           ClientWidth = 350
           TabOrder = 0
           TabStop = True
           object Label6: TLabel
             Left = 2
             Height = 18
-            Top = 42
+            Top = 44
             Width = 38
             Caption = 'Heure'
             Color = clWindow
@@ -907,7 +907,7 @@ object Form1: TForm1
           object Button3: TSpeedButton
             Left = 150
             Height = 22
-            Top = 96
+            Top = 104
             Width = 33
             AllowAllUp = True
             Caption = '>>'
@@ -920,7 +920,7 @@ object Form1: TForm1
           object Button6: TSpeedButton
             Left = 105
             Height = 22
-            Top = 96
+            Top = 104
             Width = 33
             AllowAllUp = True
             Caption = '>'
@@ -933,7 +933,7 @@ object Form1: TForm1
           object Button7: TSpeedButton
             Left = 56
             Height = 22
-            Top = 96
+            Top = 104
             Width = 33
             AllowAllUp = True
             Caption = '<'
@@ -946,7 +946,7 @@ object Form1: TForm1
           object Button8: TSpeedButton
             Left = 8
             Height = 22
-            Top = 96
+            Top = 104
             Width = 33
             AllowAllUp = True
             Caption = '<<'
@@ -959,7 +959,7 @@ object Form1: TForm1
           object NM: TImage
             AnchorSideTop.Control = prevM
             AnchorSideTop.Side = asrBottom
-            Left = 202
+            Left = 232
             Height = 24
             Top = 15
             Width = 27
@@ -998,7 +998,7 @@ object Form1: TForm1
           object LabelNM: TLabel
             AnchorSideTop.Control = NM
             AnchorSideTop.Side = asrCenter
-            Left = 235
+            Left = 265
             Height = 18
             Top = 18
             Width = 7
@@ -1009,7 +1009,7 @@ object Form1: TForm1
           object LabelFQ: TLabel
             AnchorSideTop.Control = FQ
             AnchorSideTop.Side = asrCenter
-            Left = 235
+            Left = 265
             Height = 18
             Top = 42
             Width = 7
@@ -1020,7 +1020,7 @@ object Form1: TForm1
           object LabelFM: TLabel
             AnchorSideTop.Control = FM
             AnchorSideTop.Side = asrCenter
-            Left = 235
+            Left = 265
             Height = 18
             Top = 66
             Width = 7
@@ -1031,7 +1031,7 @@ object Form1: TForm1
           object LabelLQ: TLabel
             AnchorSideTop.Control = LQ
             AnchorSideTop.Side = asrCenter
-            Left = 235
+            Left = 265
             Height = 18
             Top = 90
             Width = 7
@@ -1042,7 +1042,7 @@ object Form1: TForm1
           object FQ: TImage
             AnchorSideTop.Control = NM
             AnchorSideTop.Side = asrBottom
-            Left = 202
+            Left = 232
             Height = 24
             Top = 39
             Width = 27
@@ -1084,7 +1084,7 @@ object Form1: TForm1
           object FM: TImage
             AnchorSideTop.Control = FQ
             AnchorSideTop.Side = asrBottom
-            Left = 202
+            Left = 232
             Height = 24
             Top = 63
             Width = 27
@@ -1127,7 +1127,7 @@ object Form1: TForm1
           object LQ: TImage
             AnchorSideTop.Control = FM
             AnchorSideTop.Side = asrBottom
-            Left = 202
+            Left = 232
             Height = 24
             Top = 87
             Width = 27
@@ -1168,7 +1168,7 @@ object Form1: TForm1
           object nextM: TImage
             AnchorSideTop.Control = LQ
             AnchorSideTop.Side = asrBottom
-            Left = 202
+            Left = 232
             Height = 14
             Top = 111
             Width = 27
@@ -1206,7 +1206,7 @@ object Form1: TForm1
           end
           object prevM: TImage
             AnchorSideTop.Control = Panel4
-            Left = 202
+            Left = 232
             Height = 14
             Top = 1
             Width = 27
@@ -1243,11 +1243,11 @@ object Form1: TForm1
             Stretch = True
           end
           object jour: TLongEdit
-            Left = 146
+            Left = 168
             Height = 32
             Hint = '0..31'
             Top = 4
-            Width = 26
+            Width = 36
             ParentColor = True
             ParentShowHint = False
             ShowHint = True
@@ -1256,11 +1256,11 @@ object Form1: TForm1
             MaxValue = 31
           end
           object mois: TLongEdit
-            Left = 103
+            Left = 113
             Height = 32
             Hint = '0..12'
             Top = 4
-            Width = 26
+            Width = 36
             ParentColor = True
             ParentShowHint = False
             ShowHint = True
@@ -1273,7 +1273,7 @@ object Form1: TForm1
             Height = 32
             Hint = '-2999..2999'
             Top = 4
-            Width = 45
+            Width = 53
             ParentColor = True
             ParentShowHint = False
             ShowHint = True
@@ -1283,11 +1283,11 @@ object Form1: TForm1
             MaxValue = 2999
           end
           object seconde: TLongEdit
-            Left = 146
+            Left = 168
             Height = 32
             Hint = '0..59'
-            Top = 36
-            Width = 26
+            Top = 39
+            Width = 36
             ParentColor = True
             ParentShowHint = False
             ShowHint = True
@@ -1296,11 +1296,11 @@ object Form1: TForm1
             MaxValue = 59
           end
           object minute: TLongEdit
-            Left = 103
+            Left = 112
             Height = 32
             Hint = '0..59'
-            Top = 36
-            Width = 26
+            Top = 39
+            Width = 36
             ParentColor = True
             ParentShowHint = False
             ShowHint = True
@@ -1312,8 +1312,8 @@ object Form1: TForm1
             Left = 59
             Height = 32
             Hint = '0..23'
-            Top = 36
-            Width = 26
+            Top = 39
+            Width = 36
             ParentColor = True
             ParentShowHint = False
             ShowHint = True
@@ -1324,7 +1324,7 @@ object Form1: TForm1
           object Button4: TSpeedButton
             Left = 113
             Height = 25
-            Top = 64
+            Top = 74
             Width = 70
             Caption = 'Compute'
             Flat = True
@@ -1332,9 +1332,9 @@ object Form1: TForm1
             OnClick = Button4Click
           end
           object Button5: TSpeedButton
-            Left = 2
+            Left = 0
             Height = 25
-            Top = 64
+            Top = 74
             Width = 78
             Caption = 'Maintenant'
             Flat = True
@@ -1342,7 +1342,7 @@ object Form1: TForm1
             OnClick = Button5Click
           end
           object UpDown1: TUpDown
-            Left = 88
+            Left = 96
             Height = 32
             Top = 4
             Width = 13
@@ -1354,7 +1354,7 @@ object Form1: TForm1
             Thousands = False
           end
           object UpDown2: TUpDown
-            Left = 129
+            Left = 149
             Height = 32
             Top = 4
             Width = 13
@@ -1366,7 +1366,7 @@ object Form1: TForm1
             Wrap = True
           end
           object UpDown3: TUpDown
-            Left = 172
+            Left = 204
             Height = 32
             Top = 4
             Width = 13
@@ -1378,9 +1378,9 @@ object Form1: TForm1
             Wrap = True
           end
           object UpDown4: TUpDown
-            Left = 85
+            Left = 95
             Height = 32
-            Top = 36
+            Top = 39
             Width = 13
             Associate = heure
             Max = 23
@@ -1390,9 +1390,9 @@ object Form1: TForm1
             Wrap = True
           end
           object UpDown5: TUpDown
-            Left = 129
+            Left = 148
             Height = 32
-            Top = 36
+            Top = 39
             Width = 13
             Associate = minute
             Max = 59
@@ -1402,9 +1402,9 @@ object Form1: TForm1
             Wrap = True
           end
           object UpDown6: TUpDown
-            Left = 172
+            Left = 204
             Height = 32
-            Top = 36
+            Top = 39
             Width = 13
             Associate = seconde
             Max = 59
@@ -1416,7 +1416,7 @@ object Form1: TForm1
           object Button10: TSpeedButton
             Left = 84
             Height = 25
-            Top = 64
+            Top = 74
             Width = 26
             Caption = '0h'
             Flat = True
@@ -1426,8 +1426,8 @@ object Form1: TForm1
         end
         object StringGrid1: TStringGrid
           Left = 0
-          Height = 335
-          Top = 153
+          Height = 328
+          Top = 160
           Width = 350
           Align = alClient
           BorderStyle = bsNone
@@ -1447,7 +1447,7 @@ object Form1: TForm1
         object PanelRealTime: TPanel
           Left = 0
           Height = 32
-          Top = 121
+          Top = 128
           Width = 350
           Align = alTop
           ClientHeight = 32
@@ -1498,7 +1498,7 @@ object Form1: TForm1
             Transparent = False
           end
           object Label21: TLabel
-            Left = 170
+            Left = 232
             Height = 18
             Top = 42
             Width = 28
@@ -1529,7 +1529,7 @@ object Form1: TForm1
             Left = 105
             Height = 32
             Top = 36
-            Width = 57
+            Width = 111
             ItemHeight = 24
             ItemIndex = 0
             Items.Strings = (
