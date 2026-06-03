@@ -9,7 +9,7 @@ uses
   Windows, Registry, ShlObj,
 {$endif}
   u_translation, pu_moon, u_constant, u_util, dbutil, u_projection, fmsg, Math, passql, passqlite,
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,  cu_dem,
   ExtCtrls, ComCtrls, StdCtrls, Menus, IpHtml;
 
 type
@@ -142,6 +142,7 @@ type
     searchl,searchb,currentl,currentb,dummy : double;
     minilabel,modesaisie,modeupdate,shortdesc: boolean;
     currentselection, updateid: string;
+    Demlib:TdemLibrary;
     procedure GetAppDir;
     procedure Init;
     procedure GetLabel(Sender: TObject);
@@ -509,7 +510,7 @@ begin
 {$endif}
   privatedir := DefaultPrivateDir;
 {$ifdef unix}
-  homedir    := expandfilename(DefaultHome);
+  homedir    := expandfilename(DefaultHomeDir);
   appdir     := expandfilename(appdir);
   bindir     := slash(appdir);
   privatedir := expandfilename(PrivateDir);
@@ -642,25 +643,31 @@ var i: integer;
 begin
   GetAppDir;
   chdir(appdir);
+  DatabaseList:=TStringList.Create;
+  ConnectDatabaseList:=TStringList.Create;
   texturefiles:=TStringList.Create;
   for i:=0 to 5 do texturefiles.Add('');
-  texturefiles[0]:='Airbrush';
-  texturefiles[1]:='Airbrush';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L3') then
-     texturefiles[2]:='Lopam';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L4') then
-     texturefiles[3]:='Lopam';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L5') then
-     texturefiles[4]:='Lopam';
-  if DirectoryExists(slash(appdir)+slash('Textures')+slash('Lopam')+'L6') then
-     texturefiles[5]:='Lopam';
+  texturefiles[0]:='WAC';
+  texturefiles[1]:='WAC';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L3') then
+     texturefiles[2]:='WAC';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L4') then
+     texturefiles[3]:='WAC';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L5') then
+     texturefiles[4]:='WAC';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L6') then
+     texturefiles[5]:='WAC';
+
+  demlib:=TdemLibrary.Create;
+  demlib.AddPath(slash(Appdir)+slash('data')+slash('dem'));
 
  moon1:=Tf_moon.Create(PanelMoon);
 // moon1.maxzoommultiplier:=3;
  moon1.Moon.Align:=alClient;
  moon1.onMoonClick:=@MoonClickEvent;
+ moon1.Demlib:=demlib;
  moon1.onMoonMove:=@MoonMoveEvent;
- moon1.onMoonMeasure:=@MoonMeasureEvent;
+// moon1.onMoonMeasure:=@MoonMeasureEvent;
 // moon1.onGetMsg:=GetMsg;
  moon1.onGetLabel:=@GetLabel;
  moon1.onGetSprite:=@GetSprite;
@@ -786,20 +793,20 @@ begin
         end;
       end;
       if lun<>nom then nom:=capitalize(nom);
-      Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom);
+      Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*b1,nom,false,false);
      end;
      if Tf_moon(Sender).ShowGrid then begin
         Tf_moon(Sender).GetCenter(lc,bc);
         l1:=floor(rad2deg*lc);
         b1:=floor(rad2deg*bc);
         if l1>=0 then txt:='°E' else txt:='°W';
-        Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*(b1+0.5),formatfloat(f0,abs(l1))+txt);
+        Tf_moon(Sender).AddLabel(deg2rad*l1,deg2rad*(b1+0.5),formatfloat(f0,abs(l1))+txt,false,false);
         if (l1+1)>=0 then txt:='°E' else txt:='°W';
-        Tf_moon(Sender).AddLabel(deg2rad*(l1+1),deg2rad*(b1+0.5),formatfloat(f0,abs(l1+1))+txt);
+        Tf_moon(Sender).AddLabel(deg2rad*(l1+1),deg2rad*(b1+0.5),formatfloat(f0,abs(l1+1))+txt,false,false);
         if b1>=0 then txt:='°N' else txt:='°S';
-        Tf_moon(Sender).AddLabel(deg2rad*(l1+0.5),deg2rad*b1,formatfloat(f0,abs(b1))+txt);
+        Tf_moon(Sender).AddLabel(deg2rad*(l1+0.5),deg2rad*b1,formatfloat(f0,abs(b1))+txt,false,false);
         if (b1+1)>=0 then txt:='°N' else txt:='°S';
-        Tf_moon(Sender).AddLabel(deg2rad*(l1+0.5),deg2rad*(b1+1),formatfloat(f0,abs(b1+1))+txt);
+        Tf_moon(Sender).AddLabel(deg2rad*(l1+0.5),deg2rad*(b1+1),formatfloat(f0,abs(b1+1))+txt,false,false);
      end;
   end;
 end;
@@ -1435,13 +1442,13 @@ end;
 
 procedure Tf_catlun.MenuItem3Click(Sender: TObject);
 begin
-  showlabel:=not showlabel;
+  showlabel:=MenuItem3.Checked;
   moon1.RefreshAll;
 end;
 
 procedure Tf_catlun.MenuItem6Click(Sender: TObject);
 begin
-  moon1.ShowGrid:=not moon1.ShowGrid;
+  moon1.ShowGrid:=MenuItem6.Checked;
 end;
 
 procedure Tf_catlun.Notebook1PageChanged(Sender: TObject);
@@ -1536,7 +1543,7 @@ try
   moon1.VisibleSideLock:=false;
   moon1.CenterAt(0,0);
   moon1.RefreshAll;
-  moon1.ShowGrid:=true;
+  moon1.ShowGrid:=false;
 finally
  screen.cursor := crArrow;
 end;
@@ -1584,15 +1591,14 @@ try
   end;
   dbq:=dbfr;
   moon1.Init;
-  moon1.TextureCompression:=true;
   moon1.texture:=texturefiles;
   moon1.VisibleSideLock:=true;
   moon1.Labelcolor:=clWhite;
   moon1.SetMark(0, 0, '');
   moon1.zoom:=1;
   moon1.GridSpacing:=1;
-  moon1.GLSphereMoon.Slices := 180;
-  moon1.GLSphereMoon.Stacks := 90;
+  moon1.GLSphereMoon.Slices := 1440;
+  moon1.GLSphereMoon.Stacks := 770;
   Visible:=true;
 finally
   screen.cursor := crDefault;

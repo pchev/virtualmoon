@@ -6,6 +6,7 @@ photlun/backup/
 weblun/backup/
 calclun/backup/
 notelun/backup/
+catlun/backup/
 #ignore external data
 BaseData/*.tgz
 BaseData/*.xz
@@ -67,6 +68,8 @@ notelun/lib/
 notelun/units/
 notelun/notelun
 notelun/notelun.exe
+catlun/lib/
+catlun/units/
 language/launchpad/download/
 language/launchpad/translation/
 language/launchpad/vmapot.tar

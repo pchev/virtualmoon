@@ -26,16 +26,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses
-     dynlibs, Classes, Controls, Graphics;
+     dynlibs, Classes, Controls, Graphics, passql, passqlite;
 {
      cu_tz, dynlibs,
      Classes, Controls, FPCanvas, Graphics;}
 
 const crlf = chr(10)+chr(13);
-      cpyr = '(c)'; //chr($a9)+chr($c2);  // ©
-      AVLversion = '5.5 beta';
-      VersionName = 'AtLun';
-      avlcpy = 'Copyright '+cpyr+' 2002-2009 Christian Legrand, Patrick Chevalley';
+      cpyr = '©'; //chr($a9)+chr($c2);  // ©
+      AVLversion = '9.0';
+      version = '9.0a';
+      avlcpy = 'Copyright '+cpyr+' 2002-2025 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
       jd2000 =2451545.0 ;
       jd1950 =2433282.4235;
@@ -43,9 +43,13 @@ const crlf = chr(10)+chr(13);
       km_au = 149597870.691 ;
       clight = 299792.458 ;
       tlight = km_au/clight/3600/24;
-      Rmoon = 1737.53;  // moon radius Km
+      Rmoon = 1737.40;  // moon radius Km
       MeanEarthDistance=384401;
+      meter2feet = 3.28084;
       footpermeter = 0.3048;
+      km2miles = 0.621371;
+      mikm = 1.60934;
+      SynodicMonth = 29.530588;
       kmperdegree=111.1111;
       secday=3600*24;
       eps2000 = 23.439291111;
@@ -60,15 +64,22 @@ const crlf = chr(10)+chr(13);
       DefaultPrtRes = 300;
       LightDist=100;
       cameradist=2000;
-      crRetic = crArrow;
+      crRetic = 5;
       ox=36; oy=36; os=1500; px=0.95467; py=0.95467; //image 1500x1500, lune 1432x1432
       nummessage = 75;
       MaxLabel=500;
+      MaxMeasurePoint=100;
       InitialSprite=1000;
       AbsoluteMaxSprite=5000;
       Label3dSize=1;
       maxfocbase=1900;
       abek = secarc*20.49552;  // aberration constant
+      maxlevel = 6;
+      siderealrate = 15.041067178669; // arcsec/second
+      encryptpwd = 'aehooX4Aekiu7tha;Eiraingienugoo1v.Aexejae3outhah3O';
+
+      nJPL_DE = 9;
+      JPL_DE: array [1..nJPL_DE] of integer = (441, 440, 423, 421, 422, 405, 406, 403, 200);
 
       // Paper size
       PaperNumber=9;
@@ -83,6 +94,7 @@ const crlf = chr(10)+chr(13);
       greekUTF8 : array[1..24] of word =($CEB1,$CEB2,$CEB3,$CEB4,$CEB5,$CEB6,$CEB7,$CEB8,$CEB9,$CEBA,$CEBB,$CEBC,$CEBD,$CEBE,$CEBF,$CF80,$CF81,$CF83,$CF84,$CF85,$CF86,$CF87,$CF88,$CF89);
       blank15='               ';
       blank=' ';
+      b80 ='                                                                                ';
       tab=#09;
       deftxt = '?';
       f0='0';
@@ -93,70 +105,104 @@ const crlf = chr(10)+chr(13);
       f4='0.0000';
       f5='0.00000';
       f6='0.000000';
+      f9='0.000000000';
+      datetimedisplay='yyyy"-"mm"-"dd" "hh":"nn":"ss';
+      datedisplay='yyyy"-"mm"-"dd"';
       dateiso='yyyy"-"mm"-"dd"T"hh":"nn":"ss.zzz';
-      nOptionalFeature= 13;
+      HistoricalDir='Historical';
+      nOptionalFeature= 9;
       OptionalFeatureCheck: array[1..nOptionalFeature]of string=(
-                      'Apollo/ACOSTA_A15.jpg',
-                      'ApolloMapping/ABBOT_A17.jpg',
-                      'BestOfAmateurs/AGRIPPA_WIRTHS.jpg',
-                      'Clementine/ABBOT_CLEM.jpg',
-                      'Kaguya/ALPETRAGIUS_KAGUYA.jpg',
-                      'CLA/ABBOT_D2.jpg',
-                      'LAC_LM/ABENEZRA_LAC96.jpg',
-                      'Lopam/ABBOT.jpg',
-                      'Probes/ALPETRAGIUS_R9.jpg',
-                      'Textures/Airbrush_no_albedo/L1/0.jpg',
-                      'Textures/Clementine/L3/0.jpg',
-                      'Textures/Lopam/L1/0.jpg',
-                      'Textures/Bumpmap/kaguya.txt');
+                      'BestOfHeully/ALPHONSUS_PHEULLY.jpg',              // picture V9
+                      'Textures/WAC_Color_Shade/L4/0.jpg',               // data V9
+                      'Textures/LOLA_Kaguya_Shade/L5/0.jpg',             // hires
+                      'Textures/Change/L6/0.jpg',                        // very hires Chang'e
+                      'Textures/Lopam/L6/0.jpg',                         // very hires LOPAM
+                      'Textures/WAC/L6/0.jpg',                           // LRO WAC
+                      'Textures/LOLA_Kaguya_Shade/L6/0.jpg',             // LOLA - Kaguya
+                      'Textures/WAC_LOWSUN/L6/0.jpg',                    // LRO WAC
+                      'Textures/LAC/L5/0.jpg'                            // LAC
+                      );
 
+      DbSatellite=2;
+      DbImpactBassin=9;
+      // Datlun constant
+      numdb=99;
+      numdbtype = 29;
+      numdbtypepage = 15;
+      // NAMETYPE SUBTYPE PROCESS GEOLOGY AREA TIPS
+      //hidenfields = [5,7,9,10,33,53];
+      hidenfields = [];
 
 {$ifdef linux}
-      DefaultHome='~/';
+      DefaultHomeDir='~/';
       DefaultPrivateDir='~/.virtualmoon';
       Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='../share/virtualmoon';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun';
+      DefaultMaplun='atlun';
       DefaultDatlun='datlun';
+      DefaultWeblun='weblun';
+      DefaultCalclun='calclun';
+      DefaultNotelun='notelun';
       DefaultCdC='skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
+      DefaultVignetteDir='vignette';
 {$endif}
 {$ifdef darwin}
-      DefaultHome='~/';
+      DefaultHomeDir='~/';
       DefaultPrivateDir='~/.virtualmoon';
       Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='/usr/share/virtualmoon';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun.app/Contents/MacOS/photlun';
+      DefaultMaplun='atlun.app/Contents/MacOS/atlun';
       DefaultDatlun='datlun.app/Contents/MacOS/datlun';
+      DefaultWeblun='weblun.app/Contents/MacOS/weblun';
+      DefaultCalclun='calclun.app/Contents/MacOS/calclun';
+      DefaultNotelun='notelun.app/Contents/MacOS/notelun';
       DefaultCdC='skychart.app/Contents/MacOS/skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
+      DefaultVignetteDir='vignette';
 {$endif}
 {$ifdef mswindows}
+      DefaultHomeDir='';
       DefaultPrivateDir='virtualmoon';
       Defaultconfigfile='vma.rc';
       SharedDir='.\';
       DefaultTmpDir='tmp';
       DefaultPhotlun='photlun.exe';
+      DefaultMaplun='atlun.exe';
       DefaultDatlun='datlun.exe';
+      DefaultWeblun='weblun.exe';
+      DefaultCalclun='calclun.exe';
+      DefaultNotelun='notelun.exe';
       DefaultCdC='skychart.exe';
       DefaultCdCconfig='Skychart\skychart.ini';
+      DefaultVignetteDir='vignette';
 {$endif}
 
 type
      double6 = array[1..6] of double;
      Pdouble6 = ^double6;
+     doublearray = array of double;
+     Pdoublearray = ^doublearray;
 
 type
   TDBInfo = class(TObject)
     dbnum: integer;
   end;
 
+  TNoteID = class(TObject)
+    prefix: char;
+    id: int64;
+  end;
+
+
 // external library
 const
 {$ifdef linux}
-      lib404   = 'libplan404.so';
+      lib404   = 'libpasplan404.so.1';
 {$endif}
 {$ifdef darwin}
       lib404   = 'libplan404.dylib';
@@ -184,25 +230,28 @@ var Plan404 : TPlan404;
 
 // pseudo-constant only here
 Var  Splashversion, compile_time, compile_version: string;
-     BinDir, Homedir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir : string;
-     Photlun,DatLun,CdC,PrtName, transmsg : String;
+     //dpiscale: double;
+     BinDir, Homedir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir,vignettedir : string;
+     MapLun,Photlun,DatLun,WebLun,CalcLun,NoteLun,CdC,PrtName, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double;
      ObsTZ,ObsCountry: string;
      ObsTemperature,ObsPressure,ObsRefractionCor,ObsHorizonDepression : Double;
-     TimeZone,DT_UT,ObsRoCosPhi,ObsRoSinPhi,CurrentJD : double;
+     TimeZone,TimeZoneD,DT_UT,ObsRoCosPhi,ObsRoSinPhi,CurrentJD : double;
      CurYear,CurrentMonth,CurrentDay : integer;
      CurrentTime,TimeBias,CurrentST,DT_UT_val,CurrentSunH,CurrentMoonH,CurrentMoonIllum,diam : Double;
      PlanetParalaxe: boolean;
      ForceConfig, Configfile, CdCconfig, language, uplanguage : string;
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;
-     librationeffect, AsMultiTexture : Boolean;
+     librationeffect,showterminatorline, AsMultiTexture : Boolean;
      Firstsearch: boolean;
      DisplayIs32bpp: Boolean;
      ThemePath:string ='data/Themes';
      LinuxDesktop: integer = 0;  // FreeDesktop=0, KDE=1, GNOME=2, Other=3
      Params : TStringList;
      OptionalFeatureName: array[1..nOptionalFeature]of string;
+     de_type, de_year, NumDist: integer;
+     DistStartL,DistStartB,DistEndL,DistEndB: array[0..MaxMeasurePoint] of double;
 {$ifdef darwin}
      OpenFileCMD:string = 'open';   //
 {$else}
@@ -210,8 +259,24 @@ Var  Splashversion, compile_time, compile_version: string;
 {$endif}
      // to move to pu_moon properties:
      labelcenter,showlabel,showmark: boolean;
-     currenteyepiece,marksize: integer;
-     marklabelcolor, markcolor, SpriteColor: Tcolor;
+     currenteyepiece,marksize, CurrentCCD: integer;
+     marklabelcolor, markcolor, SpriteColor, bassinColor, terminatorColor: Tcolor;
+     DarkTheme : boolean;
+     DatabaseList: Tstringlist;
+     ConnectDatabaseList: Tstringlist;
+     UnnamedList: string;
+
+     // Datlun var
+     dbtype : array[1..numdbtype] of string;
+     dbselection: string;
+     dbm,dbnotes: TLiteDB;
+
+     // Notelun
+     DefaultSortCol: integer;
+     DefaultReverseSort,ShowEphemeris: boolean;
+     PrintNoteFont,PrintFixedFont: string;
+
+
 
 // Text formating constant
 const

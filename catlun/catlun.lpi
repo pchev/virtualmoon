@@ -11,10 +11,7 @@
       <Language Value=""/>
       <CharSet Value=""/>
     </VersionInfo>
-    <MacroValues Count="1">
-      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
-    </MacroValues>
-    <BuildModes Count="2">
+    <BuildModes Count="3" Active="GTK2">
       <Item1 Name="default" Default="True"/>
       <Item2 Name="win32">
         <MacroValues Count="1">
@@ -44,12 +41,37 @@
           </Linking>
         </CompilerOptions>
       </Item2>
-      <SharedMatrixOptions Count="1">
+      <Item3 Name="GTK2">
+        <MacroValues Count="1">
+          <Macro2 Name="LCLWidgetType" Value="gtk2"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <UseAnsiStrings Value="False"/>
+            </SyntaxOptions>
+          </Parsing>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2Set"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item3>
+      <SharedMatrixOptions Count="2">
         <Item1 ID="084704158726" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
+        <Item2 ID="593425979080" Modes="GTK2" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SharedMatrixOptions>
-      <SessionMatrixOptions Count="1">
-        <Item1 ID="367878314627" Modes="default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-      </SessionMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -69,33 +91,36 @@
         </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="7">
       <Item1>
-        <PackageName Value="GLScene_RunTime"/>
+        <PackageName Value="BGRABitmapPack"/>
       </Item1>
       <Item2>
-        <PackageName Value="GLScene_DesignTime"/>
+        <PackageName Value="GLScene_RunTime"/>
       </Item2>
       <Item3>
-        <PackageName Value="TurboPowerIPro"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="GLScene_DesignTime"/>
       </Item3>
       <Item4>
-        <PackageName Value="libsql"/>
+        <PackageName Value="TurboPowerIPro"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item4>
       <Item5>
-        <PackageName Value="Printer4Lazarus"/>
+        <PackageName Value="libsql"/>
       </Item5>
       <Item6>
-        <PackageName Value="LCL"/>
+        <PackageName Value="Printer4Lazarus"/>
       </Item6>
+      <Item7>
+        <PackageName Value="LCL"/>
+      </Item7>
     </RequiredPackages>
-    <Units Count="20">
+    <Units Count="22">
       <Unit0>
         <Filename Value="catlun.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="25" Y="10"/>
+        <CursorPos X="29" Y="18"/>
         <UsageCount Value="66"/>
       </Unit0>
       <Unit1>
@@ -104,11 +129,12 @@
         <ComponentName Value="f_catlun"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <CursorPos X="58" Y="7"/>
+        <TopLine Value="1570"/>
+        <CursorPos X="35" Y="1601"/>
         <UsageCount Value="66"/>
         <Bookmarks Count="2">
-          <Item0 Y="1437" ID="1"/>
-          <Item1 X="68" Y="1132" ID="2"/>
+          <Item0 Y="1444" ID="1"/>
+          <Item1 X="68" Y="1139" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -119,18 +145,21 @@
         <ComponentName Value="f_moon"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="1027"/>
-        <CursorPos X="9" Y="1036"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="354"/>
+        <CursorPos X="33" Y="372"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="u_constant.pas"/>
-        <TopLine Value="176"/>
-        <CursorPos X="6" Y="197"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="246"/>
+        <CursorPos X="6" Y="265"/>
         <UsageCount Value="19"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="/appli/lazarus/lcl/include/menu.inc"/>
@@ -157,10 +186,9 @@
       <Unit7>
         <Filename Value="dbutil.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="273"/>
-        <CursorPos X="91" Y="298"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="300"/>
+        <CursorPos X="22" Y="320"/>
         <UsageCount Value="30"/>
         <Loaded Value="True"/>
       </Unit7>
@@ -247,125 +275,143 @@
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit19>
+      <Unit20>
+        <Filename Value="uscaledpi.pas"/>
+        <UnitName Value="UScaleDPI"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="26"/>
+        <CursorPos X="43" Y="36"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="cu_dem.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="133"/>
+        <CursorPos X="64" Y="131"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit21>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="787" Column="33" TopLine="766"/>
+        <Caret Line="512" Column="46" TopLine="494"/>
       </Position1>
       <Position2>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="1421" Column="42" TopLine="1412"/>
+        <Caret Line="663" Column="3" TopLine="646"/>
       </Position2>
       <Position3>
         <Filename Value="catlun_main.pas"/>
+        <Caret Line="789" Column="69" TopLine="771"/>
       </Position3>
       <Position4>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="787" Column="33" TopLine="766"/>
+        <Caret Line="802" Column="107" TopLine="778"/>
       </Position4>
       <Position5>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="794" Column="79" TopLine="766"/>
+        <Caret Line="1587" Column="23" TopLine="1570"/>
       </Position5>
       <Position6>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="791" Column="89" TopLine="766"/>
+        <Caret Line="138" Column="17" TopLine="120"/>
       </Position6>
       <Position7>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="784" Column="44" TopLine="770"/>
+        <Caret Line="659" Column="52" TopLine="632"/>
       </Position7>
       <Position8>
-        <Filename Value="catlun_main.pas"/>
-        <Caret Line="1497" TopLine="1471"/>
+        <Filename Value="dbutil.pas"/>
+        <Caret Line="316" Column="11" TopLine="300"/>
       </Position8>
       <Position9>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="1972" TopLine="1932"/>
+        <Caret Line="645" Column="54" TopLine="632"/>
       </Position9>
       <Position10>
-        <Filename Value="catlun_main.pas"/>
-        <Caret Line="477" Column="17" TopLine="462"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="20" Column="76" TopLine="10"/>
       </Position10>
       <Position11>
-        <Filename Value="catlun_main.pas"/>
-        <Caret Line="657" Column="8" TopLine="635"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="1270" Column="7" TopLine="1240"/>
       </Position11>
       <Position12>
-        <Filename Value="catlun_main.pas"/>
-        <Caret Line="787" Column="58" TopLine="765"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="205" Column="12" TopLine="188"/>
       </Position12>
       <Position13>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="2130" Column="18" TopLine="2106"/>
+        <Caret Line="372" Column="60" TopLine="343"/>
       </Position13>
       <Position14>
-        <Filename Value="catlun_main.pas"/>
-        <Caret Line="794" Column="90" TopLine="772"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="1270" Column="10" TopLine="1240"/>
       </Position14>
       <Position15>
-        <Filename Value="catlun_main.pas"/>
-        <Caret Line="787" Column="58" TopLine="765"/>
+        <Filename Value="pu_moon.pas"/>
+        <Caret Line="204" Column="59" TopLine="188"/>
       </Position15>
       <Position16>
         <Filename Value="pu_moon.pas"/>
-        <Caret Line="274" Column="30" TopLine="253"/>
+        <Caret Line="205" Column="12" TopLine="188"/>
       </Position16>
       <Position17>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="2130" Column="77" TopLine="2124"/>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="667" Column="22" TopLine="642"/>
       </Position17>
       <Position18>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="274" Column="73" TopLine="253"/>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="660" Column="3" TopLine="642"/>
       </Position18>
       <Position19>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="644" Column="27" TopLine="635"/>
+        <Caret Line="671" Column="89" TopLine="642"/>
       </Position19>
       <Position20>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="643" Column="40" TopLine="635"/>
       </Position20>
       <Position21>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="2312" Column="65" TopLine="2299"/>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="145" Column="12" TopLine="127"/>
       </Position21>
       <Position22>
-        <Filename Value="pu_moon.pas"/>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="22" Column="44"/>
       </Position22>
       <Position23>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="521" Column="8" TopLine="500"/>
+        <Caret Line="138" Column="17" TopLine="108"/>
       </Position23>
       <Position24>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="323" Column="51" TopLine="296"/>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="659" Column="27" TopLine="632"/>
       </Position24>
       <Position25>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="36" Column="83"/>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="645" Column="70" TopLine="645"/>
       </Position25>
       <Position26>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="350" Column="17" TopLine="328"/>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1451" Column="37" TopLine="1444"/>
       </Position26>
       <Position27>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="981" Column="39" TopLine="970"/>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="1546" Column="24" TopLine="1515"/>
       </Position27>
       <Position28>
-        <Filename Value="pu_moon.pas"/>
-        <Caret Line="1011" Column="19" TopLine="986"/>
+        <Filename Value="catlun_main.pas"/>
+        <Caret Line="798" Column="33" TopLine="780"/>
       </Position28>
       <Position29>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="1942" Column="26" TopLine="1933"/>
+        <Caret Line="1433" Column="34" TopLine="1420"/>
       </Position29>
       <Position30>
         <Filename Value="catlun_main.pas"/>
-        <Caret Line="7" Column="58"/>
+        <Caret Line="1451" Column="36" TopLine="1420"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

@@ -25,19 +25,33 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {$mode delphi}{$H+}
 interface
 
-uses Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
+uses
   {$ifdef mswindows}
     Windows, ShlObj,
   {$endif}
   {$ifdef unix}
     unix,baseunix,
   {$endif}
+    Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
     Controls, Process, IntfGraphics,FPImage,
-    MaskEdit,Menus,Spin,CheckLst,Buttons, ExtCtrls,
+    MaskEdit,Menus,Spin,CheckLst,Buttons, ExtCtrls, Types,
     Forms,Graphics,StdCtrls,ComCtrls,Dialogs,Grids,PrintersDlgs,Printers;
+
+type
+TGreatCircle = record
+  lat1,lon1,lat2,lon2,radius: double; // input
+  l0,a0,dist,s01,s02: double;         // computed
+end;
+
+TDoublePoint = record
+  X:double;
+  Y:double;
+end;
+
 
 function rmod(x,y:Double):Double;
 Function NormRA(ra : double):double;
+function AngleBetween(angle,intstart,intend: double):boolean;
 Function sgn(x:Double):Double ;
 Function PadZeros(x : string ; l :integer) : string;
 Function mm2pi(l,PrinterResolution : single): integer;
@@ -49,6 +63,7 @@ function SubColor(c1,c2 : Tcolor):Tcolor;
 function roundF(x:double;n:integer):double;
 procedure Splitarg(buf,sep:string; var arg: TStringList);
 procedure SplitRec(buf,sep:string; var arg: TStringList);
+procedure SplitRec2(buf:string; sep:char; var arg: TStringList);
 function ExpandTab(str:string; tabwidth:integer):string;
 function words(str,sep : string; p,n : integer) : string;
 function wordspace(str:string):string;
@@ -80,16 +95,20 @@ Function DEToStr3(de: Double) : string;
 Function Str3ToDE(dms : string) : double;
 Function DEToStr4(de: Double) : string;
 function isodate(a,m,d : integer) : string;
+function DateTime2DateIso(dt: double): string;
+function DateIso2DateTime(dt: string): double;
 function jddate(jd: double) : string;
 function jddatetime(jd: double;fy,fm,fd,fh,fn,fs:boolean) : string;
 function DateTimetoJD(Date: Tdatetime): double;
 Function LONmToStr(l: Double) : string;
 Function LONToStr(l: Double) : string;
+Function LON180ToStr(l: Double) : string;
+Function LatToStr(l: Double) : string;
 function DTminusUT(year : integer) : double;
 Procedure FormPos(form : Tform; x,y : integer;safe: boolean=true);
-Function ExecProcess(cmd: string; output: TStringList): integer;
+function ExecProcess(cmd: string; output: TStringList; ShowConsole: boolean = False): integer;
 Function Exec(cmd: string; hide: boolean=true): integer;
-procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=true);
+procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=false);
 function decode_mpc_date(s: string; var y,m,d : integer; var hh:double):boolean;
 Function GreekLetter(gr : shortstring) : shortstring;
 function GetId(str:string):integer;
@@ -110,17 +129,26 @@ function SafeUTF8ToSys(v:string):string;
 function ExecFork(cmd:string;p1:string='';p2:string='';p3:string='';p4:string='';p5:string=''):integer;
 function CdcSigAction(const action: pointer):boolean;
 {$endif}
-{$ifdef mswindows}
-procedure ScaleForm(form: TForm; scale: single);
-function FindWin98: boolean;
-function ScreenBPP: integer;
-{$endif}
 function remext(fn:string):string;
 Function testfloat(s:string):double;
 function capitalize(txt:string):string;
 Procedure SetImgLum(img:Tbitmap; lum:integer);
+Procedure ShowHelpDoc(helpfile : string; suffix:string; directory: string);
+procedure GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
+procedure PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
+function PolygonArea(N:integer;Points:Array of TDoublePoint): double;
+function PolygonCentroid(N:integer;Points:Array of TDoublePoint;area:double): TDoublePoint;
+function InsidePolygon(N:integer;Points:Array of TDoublePoint;p:TDoublePoint): boolean;
+function CurrentUserName:String;
+function SafeSqlText(txt: string):string;
+function GetSelectedCell(grid:TStringGrid; out aCol, aRow: integer): string;
+function TzGMT2UTC(gmttz: string): string;
+function TzUTC2GMT(utctz: string): string;
+function decisep(txt:string):string;
+function striphtml(html: string): string;
 
 var traceon : boolean;
+    hp: string;
 
 implementation
 
@@ -210,6 +238,16 @@ begin
 result:=rmod(ra+pi2,pi2);
 //if (ar2<ar1)and(ra<=arm) then NormRA:=ra+pi2
 //else NormRA:=ra;
+end;
+
+function AngleBetween(angle,intstart,intend: double):boolean;
+begin
+  // return true is angle is between intstart and intend.
+  // intstart and intend must be normalized 0..2*Pi
+  if intend>intstart then
+    result:=(angle>intstart)and(angle<intend)
+  else
+    result:=(angle>intstart)or(angle<intend);
 end;
 
 Function sgn(x:Double):Double ;
@@ -328,6 +366,21 @@ while pos(sep,buf)<>0 do begin
  end;
 end;
 arg.add(buf);
+end;
+
+// same as SplitRec but single char separator
+procedure SplitRec2(buf:string; sep:char; var arg: TStringList);
+var i,j:integer;
+begin
+arg.clear;
+j:=1;
+for i:=1 to length(buf) do begin
+  if buf[i] = sep then begin
+      arg.add(copy(buf,j,i-j));
+      j:=i+1;
+  end;
+end;
+arg.add(copy(buf,j,99999));
 end;
 
 function ExpandTab(str:string; tabwidth:integer):string;
@@ -876,6 +929,56 @@ begin
 result:=padzeros(inttostr(a),4)+'-'+padzeros(inttostr(m),2)+'-'+padzeros(inttostr(d),2);
 end;
 
+function DateTime2DateIso(dt: double): string;
+begin
+  result:=FormatDateTime(dateiso,dt)
+end;
+
+function DateIso2DateTime(dt: string): double;
+var
+  sy, y, m, d, p: integer;
+  h: double;
+begin
+  Result := 0;
+  sy := 1;
+  h := 0;
+  dt := trim(dt);
+  if length(dt) > 2 then
+  begin
+    if dt[1] = '-' then
+    begin
+      sy := -1;
+      Delete(dt, 1, 1);
+    end;
+    if dt[1] = '+' then
+    begin
+      sy := 1;
+      Delete(dt, 1, 1);
+    end;
+  end;
+  p := pos('-', dt);
+  if p = 0 then
+    exit;
+  y := sy * StrToInt(trim(copy(dt, 1, p - 1)));
+  dt := copy(dt, p + 1, 999);
+  p := pos('-', dt);
+  if p = 0 then
+    exit;
+  m := StrToInt(trim(copy(dt, 1, p - 1)));
+  dt := copy(dt, p + 1, 999);
+  p := pos('T', dt);
+  if p = 0 then
+    p := pos(' ', dt);
+  if p = 0 then
+    d := StrToInt(trim(dt))     // no time part
+  else
+  begin
+    d := StrToInt(trim(copy(dt, 1, p - 1)));
+    h := StrToTime(trim(copy(dt,p+1,99)),':');
+  end;
+  result := EncodeDate(y, m, d) + h;
+end;
+
 function jddatetime(jd: double;fy,fm,fd,fh,fn,fs:boolean) : string;
 var a,m,d : integer;
     h:double;
@@ -935,6 +1038,35 @@ begin
     result := d+ldeg+m+lmin+s+lsec;
 end;
 
+Function LON180ToStr(l: Double) : string;
+var dd,min1,min,sec: Double;
+    d,m,s,ew : string;
+begin
+    if l>=0 then ew:=' E'
+            else ew:=' W';
+    l:=abs(l);
+    dd:=Int(l);
+    min1:=abs(l-dd)*60;
+    if min1>=59.99 then begin
+       dd:=dd+sgn(l);
+       min1:=0.0;
+    end;
+    min:=Int(min1);
+    sec:=(min1-min)*60;
+    if sec>=59.5 then begin
+       min:=min+1;
+       sec:=0.0;
+    end;
+    str(abs(dd):2:0,d);
+    if abs(dd)<10 then d:='0'+trim(d);
+    if l<0 then d:='-'+d;
+    str(min:2:0,m);
+    if abs(min)<10 then m:='0'+trim(m);
+    str(sec:2:0,s);
+    if abs(sec)<9.5 then s:='0'+trim(s);
+    result := d+ldeg+m+lmin+s+lsec+ew;
+end;
+
 Function LONmToStr(l: Double) : string;
 var dd,min: Double;
     d,m : string;
@@ -952,6 +1084,36 @@ begin
     str(min:2:0,m);
     if abs(min)<10 then m:='0'+trim(m);
     result := d+ldeg+m+lmin;
+end;
+
+Function LatToStr(l: Double) : string;
+var dd,min1,min,sec: Double;
+    d,m,s,ns : string;
+begin
+    if l>=0 then ns:=' N'
+            else ns:=' S';
+    l:=abs(l);
+    if l>90 then l:=90;
+    dd:=Int(l);
+    min1:=abs(l-dd)*60;
+    if min1>=59.99 then begin
+       dd:=dd+sgn(l);
+       min1:=0.0;
+    end;
+    min:=Int(min1);
+    sec:=(min1-min)*60;
+    if sec>=59.5 then begin
+       min:=min+1;
+       sec:=0.0;
+    end;
+    str(abs(dd):2:0,d);
+    if abs(dd)<10 then d:='0'+trim(d);
+    if l<0 then d:='-'+d;
+    str(min:2:0,m);
+    if abs(min)<10 then m:='0'+trim(m);
+    str(sec:2:0,s);
+    if abs(sec)<9.5 then s:='0'+trim(s);
+    result := d+ldeg+m+lmin+s+lsec+ns;
 end;
 
 function DTminusUT(year : integer) : double;
@@ -1143,47 +1305,147 @@ with Form do begin
 end;
 end;
 
-Function ExecProcess(cmd: string; output: TStringList): integer;
-const READ_BYTES = 2048;
+procedure SplitCmd(S: string; List: TStringList);
+
+  function GetNextWord: string;
+  const
+    WhiteSpace = [' ', #9, #10, #13];
+    Literals = ['"', ''''];
+  var
+    Wstart, wend: integer;
+    InLiteral: boolean;
+    LastLiteral: char;
+  begin
+    WStart := 1;
+
+    while (WStart <= Length(S)) and (S[WStart] in WhiteSpace) do
+      Inc(WStart);
+
+    WEnd := WStart;
+    InLiteral := False;
+    LastLiteral := #0;
+
+    while (Wend <= Length(S)) and (not (S[Wend] in WhiteSpace) or InLiteral) do
+    begin
+      if S[Wend] in Literals then
+        if InLiteral then
+          InLiteral := not (S[Wend] = LastLiteral)
+        else
+        begin
+          InLiteral := True;
+          LastLiteral := S[Wend];
+        end;
+
+      Inc(wend);
+    end;
+
+    Result := Copy(S, WStart, WEnd - WStart);
+
+    if (Length(Result) > 0) and (Result[1] = Result[Length(Result)]) and
+      // if 1st char = last char and..
+      (Result[1] in Literals) // it's one of the literals, then
+    then
+      Result := Copy(Result, 2, Length(Result) - 2);
+    //delete the 2 (but not others in it)
+
+    while (WEnd <= Length(S)) and (S[Wend] in WhiteSpace) do
+      Inc(Wend);
+
+    Delete(S, 1, WEnd - 1);
+  end;
+
+var
+  W: string;
+begin
+
+  while Length(S) > 0 do
+  begin
+    W := GetNextWord;
+
+    if (W <> '') then
+      List.Add(W);
+  end;
+
+end;
+
+function ExecProcess(cmd: string; output: TStringList; ShowConsole: boolean = False): integer;
+const
+  READ_BYTES = 2048;
 var
   M: TMemoryStream;
   P: TProcess;
-  n: LongInt;
-  BytesRead: LongInt;
+  param: TStringList;
+  n: longint;
+  BytesRead: longint;
 begin
-M := TMemoryStream.Create;
-P := TProcess.Create(nil);
-result:=1;
-try
-  BytesRead := 0;
-  P.CommandLine := cmd;
-  P.Options := [poUsePipes, poStdErrToOutPut, poNoConsole];
-  P.Execute;
-  while P.Running do begin
-    Application.ProcessMessages;
-    if P.Output<>nil then begin
-      M.SetSize(BytesRead + READ_BYTES);
-      n := P.Output.Read((M.Memory + BytesRead)^, READ_BYTES);
-      if n > 0 then inc(BytesRead, n);
+
+  M := TMemoryStream.Create;
+  P := TProcess.Create(nil);
+
+  param := TStringList.Create;
+  Result := 1;
+
+  try
+    BytesRead := 0;
+    SplitCmd(cmd, param);
+    cmd := param[0];
+    param.Delete(0);
+    P.Executable := cmd;
+    P.Parameters := param;
+
+    if ShowConsole then
+    begin
+      P.ShowWindow := swoShowNormal;
+      P.StartupOptions := [suoUseShowWindow];
+    end
+    else
+      P.ShowWindow := swoHIDE;
+
+    P.Options := [poUsePipes, poStdErrToOutPut];
+    P.Execute;
+
+    while P.Running do
+    begin
+      Application.ProcessMessages;
+      if P.Output <> nil then
+      begin
+        M.SetSize(BytesRead + READ_BYTES);
+        n := P.Output.Read((M.Memory + BytesRead)^, READ_BYTES);
+        if n > 0 then
+          Inc(BytesRead, n);
+      end;
     end;
+
+    Result := P.ExitStatus;
+    if (Result <> 127) and (P.Output <> nil) then
+      repeat
+        M.SetSize(BytesRead + READ_BYTES);
+        n := P.Output.Read((M.Memory + BytesRead)^, READ_BYTES);
+
+        if n > 0 then
+          Inc(BytesRead, n);
+
+      until (n <= 0) or (P.Output = nil);
+
+    M.SetSize(BytesRead);
+    output.LoadFromStream(M);
+
+    P.Free;
+    M.Free;
+    param.Free;
+
+  except
+    on E: Exception do
+    begin
+      Result := -1;
+      output.add(E.Message);
+      P.Free;
+      M.Free;
+      param.Free;
+    end;
+
   end;
-  result:=P.ExitStatus;
-  if (result<>127)and(P.Output<>nil) then repeat
-    M.SetSize(BytesRead + READ_BYTES);
-    n := P.Output.Read((M.Memory + BytesRead)^, READ_BYTES);
-    if n > 0
-    then begin
-      Inc(BytesRead, n);
-    end;
-  until (n<=0)or(P.Output=nil);
-  M.SetSize(BytesRead);
-  output.LoadFromStream(M);
-  P.Free;
-  M.Free;
-except
-  P.Free;
-  M.Free;
-end;
+
 end;
 
 Function Exec(cmd: string; hide: boolean=true): integer;
@@ -1224,7 +1486,7 @@ begin
 end;
 {$endif}
 
-procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=true);
+procedure ExecNoWait(cmd: string; title:string=''; hide: boolean=false);
 {$ifdef unix}
 begin
  fpSystem(cmd+' &');
@@ -1557,57 +1819,6 @@ Procedure PrtGrid(Grid:TStringGrid; PrtTitle, PrtText, PrtTextDate:string; orien
   FreeMem(Cols,Grid.ColCount*SizeOf(Integer));
  end;
 
-{$ifdef mswindows}
-function FindWin98: boolean;
-var lpversioninfo: TOSVERSIONINFO;
-begin
-lpversioninfo.dwOSVersionInfoSize:=sizeof(TOSVERSIONINFO);
-if GetVersionEx(lpversioninfo) then begin
-   result:=lpversioninfo.dwMajorVersion<=4;
-end
-else
- result:=false;
-end;
-
-function ScreenBPP: integer;
-var screendc: HDC;
-begin
-screendc:=GetDC(0);
-result:=GetDeviceCaps(screendc,BITSPIXEL);
-ReleaseDC(0,screendc);
-end;
-
-procedure ScaleForm(form: TForm; scale: single);
-var i,j: integer;
-    w: array of integer;
-begin
-if scale<=0 then exit; // must not arise but we don't know what a strange screen can do
-if scale>3 then exit; // >288 dpi! sure?
-if abs(1-scale)<=0.1 then exit; // do not scale for 10%
-with form do begin
-   width := round( width * scale );
-   height := round( height * scale );
-   for i := 0 to ComponentCount-1 do begin
-      if ( Components[i] is TControl ) then with (Components[i] as TControl) do begin
-         width := round( width * scale );
-         height := round( height * scale );
-         top := round( top * scale );
-         left := round( left * scale );
-      end;
-      if ( Components[i] is TStringGrid ) then with (Components[i] as TStringGrid) do begin
-        SetLength(w,ColCount);
-        for j:=0 to ColCount-1 do w[j]:=round( ColWidths[j]*scale );
-        DefaultColWidth:=round( DefaultColWidth*scale );
-        DefaultRowHeight:=round( DefaultRowHeight*scale );
-        for j:=0 to ColCount-1 do begin
-          ColWidths[j]:=w[j];
-        end;
-      end;
-   end;
-end;
-end;
-{$endif}
-
 procedure GetTranslationString(form: TForm; var f: textfile);
 var i,j: integer;
     cname,cprop,ctext : string;
@@ -1803,6 +2014,269 @@ if (lum<>0) then begin
 end;
 end;
 
+Procedure ShowHelpDoc(helpfile : string; suffix:string; directory: string);
+var p: integer;
+    fn,dir,a:string;
+ begin
+dir := slash(appdir)+slash(directory);
+p:=pos('#',helpfile);
+ if p>0 then begin
+    a:=copy(helpfile,p,999);
+    helpfile:=copy(helpfile,1,p-1);
+ end
+ else a:='';
+
+// try nls PDF, no suffix for pdf
+fn:=dir+hp+'_'+helpfile+'_'+suffix+'.pdf';
+if not fileexists(fn) then begin
+   // try nls html
+   fn:=dir+hp+'_'+helpfile+'_'+suffix+'.html';
+   if not fileexists(fn) then begin
+      // try EN PDF
+      fn:=dir+'EN_'+helpfile+'_'+suffix+'.pdf';
+      if not fileexists(fn) then begin
+         // try EN html
+         fn:=dir+'EN_'+helpfile+'_'+suffix+'.html';
+      end;
+    end;
+ end;
+ExecuteFile(fn);
+end;
+
+procedure GreatCircle(lon1,lat1,lon2,lat2,r: double; var c:TGreatCircle);
+// ref: https://en.wikipedia.org/wiki/Great-circle_navigation
+var l01,l12,a1,s12: double;
+begin
+  c.lon1:=lon1;
+  c.lat1:=lat1;
+  c.lon2:=lon2;
+  c.lat2:=lat2;
+  c.radius:=r;
+  l12:=c.lon2-c.lon1;
+  if l12>pi then l12:=l12-pi2;
+  if l12<-pi then l12:=l12+pi2;
+  a1:=ArcTan2(cos(c.lat2)*sin(l12),cos(c.lat1)*sin(c.lat2)-sin(c.lat1)*cos(c.lat2)*cos(l12));
+  s12:=ArcTan2(sqrt((cos(c.lat1)*sin(c.lat2)-sin(c.lat1)*cos(c.lat2)*cos(l12))**2 + (cos(c.lat2)*sin(l12))**2),sin(c.lat1)*sin(c.lat2)+cos(c.lat1)*cos(c.lat2)*cos(l12));
+  c.dist:=s12*c.radius;
+  c.a0:=ArcTan2(sin(a1)*cos(c.lat1),sqrt((cos(a1)**2)+((sin(a1)**2)*(sin(c.lat1)**2))));
+  if cos(a1)=0 then
+    c.s01:=0
+  else
+    c.s01:=ArcTan2(tan(c.lat1),cos(a1));
+  c.s02:=c.s01+s12;
+  l01:=ArcTan2(sin(c.a0)*sin(c.s01),cos(c.s01));
+  c.l0:=c.lon1-l01;
+end;
+
+procedure PointOnCircle(c:TGreatCircle; s: double; out la,lo: double);
+var ll:double;
+begin
+  la:=ArcTan2(cos(c.a0)*sin(s),sqrt((cos(s))**2+((sin(c.a0))**2)*((sin(s))**2)));
+  ll:=ArcTan2(sin(c.a0)*sin(s),cos(s));
+  lo:=ll+c.l0;
+end;
+
+function PolygonArea(N:integer;Points:Array of TDoublePoint): double;
+// https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
+var
+  i,j:integer;
+  area:double;
+begin
+  area:=0;
+  For i:= 0 to N-1 do
+  begin
+    j:=(i + 1) mod N;
+    area := area + Points[i].X * Points[j].Y - Points[j].X * Points[i].Y;
+  end;
+  PolygonArea := area / 2;
+end;
+
+function PolygonCentroid(N:integer;Points:Array of TDoublePoint;area:double): TDoublePoint;
+// https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
+var
+  i,j:integer;
+  C:TDoublePoint;
+  P:double;
+begin
+    C.X := 0;
+    C.Y := 0;
+    For i := 0 to N-1 do
+    begin
+         j:=(i + 1) mod N;
+         P:= Points[i].X * Points[j].Y - Points[j].X * Points[i].Y;
+         C.X := C.X + (Points[i].X + Points[j].X) * P;
+         C.Y := C.Y + (Points[i].Y + Points[j].Y) * P;
+    end;
+    C.X := C.X / (6 * area);
+    C.Y := C.Y / (6 * area);
+    PolygonCentroid := C;
+end;
+
+function InsidePolygon(N:integer;Points:Array of TDoublePoint;p:TDoublePoint): boolean;
+// http://paulbourke.net/geometry/polygonmesh/
+var i,counter: integer;
+    xinters: double;
+    p1,p2: TDoublePoint;
+begin
+  counter:=0;
+  p1:=Points[0];
+  for i:=0 to N-1 do begin
+     p2:=Points[i mod N];
+     if p.Y>min(p1.y,p2.y) then begin
+       if p.Y<=max(p1.Y,p2.y) then begin
+         if p.x<=max(p1.x,p2.x) then begin
+           if p1.y<>p2.y then begin
+             xinters:=(p.y-p1.y)*(p2.x-p1.x)/(p2.y-p1.y)+p1.x;
+             if (p1.x=p2.x) or(p.x<=xinters) then
+                 inc(counter);
+           end;
+         end;
+       end;
+     end;
+     p1:=p2;
+  end;
+  if (counter mod 2)=0 then
+    result:=false
+  else
+    result:=true;
+end;
+
+function CurrentUserName:String;
+{$ifdef mswindows}
+var
+  UserName: array[0..127] of Char;
+  Size:DWord;
+{$endif}
+begin
+{$ifdef mswindows}
+  Size:=SizeOf(UserName);
+  GetUserName(UserName,Size);
+  Result:=UserName;
+{$else}
+  result:=GetEnvironmentVariable('USER');
+{$endif}
+end;
+
+function SafeSqlText(txt: string):string;
+begin
+  result:=StringReplace(trim(txt),'"','""',[rfReplaceAll]);
+end;
+
+function GetSelectedCell(grid:TStringGrid; out aCol, aRow: integer): string;
+var sel:TGridRect;
+begin
+// return cell content after double click
+try
+  sel:=grid.Selection;
+  aCol:=sel.left;
+  aRow:=sel.top;
+  result:=grid.Cells[sel.left,sel.top];
+except
+  result:='';
+end;
+end;
+
+function TzGMT2UTC(gmttz: string): string;
+var
+  buf: string;
+begin
+
+  //  Etc/GMT+5 -> UTC-5
+  if copy(gmttz, 1, 7) = 'Etc/GMT' then
+  begin
+
+    buf := StringReplace(gmttz, 'Etc/GMT', 'UTC', []);
+    if pos('+', buf) > 0 then
+      buf := StringReplace(buf, '+', '-', [])
+    else
+      buf := StringReplace(buf, '-', '+', []);
+    Result := buf;
+
+  end
+  //  GMT+5 -> UTC-5
+  else if copy(gmttz, 1, 3) = 'GMT' then
+  begin
+
+    buf := StringReplace(gmttz, 'GMT', 'UTC', []);
+    if pos('+', buf) > 0 then
+      buf := StringReplace(buf, '+', '-', [])
+    else
+      buf := StringReplace(buf, '-', '+', []);
+    Result := buf;
+
+  end
+  else
+    Result := gmttz;
+
+end;
+
+function TzUTC2GMT(utctz: string): string;
+var
+  buf: string;
+begin
+
+  //  UTC-5 -> Etc/GMT+5
+  if copy(utctz, 1, 3) = 'UTC' then
+  begin
+    buf := StringReplace(utctz, 'UTC', 'Etc/GMT', []);
+
+    if pos('+', buf) > 0 then
+      buf := StringReplace(buf, '+', '-', [])
+    else
+      buf := StringReplace(buf, '-', '+', []);
+
+    Result := buf;
+  end
+  else
+    Result := utctz;
+
+end;
+
+function decisep(txt:string):string;
+begin
+  result:=trim(StringReplace(txt,',','.',[rfReplaceAll]));
+end;
+
+function striphtml(html: string): string;
+var
+  i: integer;
+  c: char;
+  intag: boolean;
+  tag: string;
+begin
+  Result := '';
+  intag := False;
+  tag := '';
+  for i := 1 to length(html) do
+  begin
+    c := html[i];
+    case c of
+      '<':
+      begin
+        intag := True;
+        tag := '';
+      end;
+      '>':
+      begin
+        intag := False;
+        if tag = 'p' then
+          Result := Result + chr(13);
+        if tag = 'br' then
+          Result := Result + chr(13);
+        if tag = 'br/' then
+          Result := Result + chr(13);
+      end;
+      else
+      begin
+        if intag then
+          tag := tag + c
+        else
+          Result := Result + c;
+      end;
+    end;
+  end;
+  Result := StringReplace(Result, '&nbsp;', ' ', [rfReplaceAll]);
+end;
 
 end.
 
