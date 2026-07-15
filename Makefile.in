@@ -63,6 +63,8 @@ install_data5:
 	./install_data5.sh $(PREFIX) 
 install_picture:
 	./install_picture.sh $(PREFIX) 
+install_artemis2:
+	./install_artemis2.sh $(PREFIX) 
 install_translation:
 	./install_translation.sh $(PREFIX) 
 install_win: 
@@ -99,6 +101,8 @@ install_win_data5:
 	./install_win_data5.sh $(PREFIX)
 install_win_picture:
 	./install_win_picture.sh $(PREFIX) 
+install_win_artemis2:
+	./install_win_artemis2.sh $(PREFIX) 
 install_win_translation:
 	./install_win_translation.sh $(PREFIX) 
 uninstall: 
