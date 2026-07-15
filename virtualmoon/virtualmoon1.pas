@@ -1095,6 +1095,7 @@ AddImagesDir(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defen
 AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov','0');
 AddImagesDir(slash(appdir)+'LunarPits','Lunar Pits','Wagner, Robinson, and the LROC Team','0');
 AddImagesDir(slash(appdir)+'Smart-1','Smart-1','European Space Agency (ESA)','0');
+AddImagesDir(slash(appdir)+'Artemis2','Artemis2','Images taken from Artemis2 flyby','0');
 AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','','0');
 AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','','0');
 AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','','0');

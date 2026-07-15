@@ -1287,6 +1287,7 @@ object Form2: TForm2
         Width = 400
         ColCount = 2
         DefaultRowHeight = 22
+        AutoFillColumns = True
         FixedCols = 0
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
         ParentColor = True
