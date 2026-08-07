@@ -7,20 +7,21 @@ object f_catlun: Tf_catlun
   Caption = 'f_catlun'
   ClientHeight = 677
   ClientWidth = 1074
+  DoubleBuffered = False
   Menu = MainMenu1
+  ParentDoubleBuffered = False
+  Position = poScreenCenter
+  LCLVersion = '4.8.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
-  Position = poScreenCenter
   object PanelMoon: TPanel
     Left = 0
     Height = 654
     Top = 0
     Width = 663
     Align = alClient
-    Color = clBlack
-    ParentColor = False
     TabOrder = 0
   end
   object StatusBar1: TStatusBar
@@ -49,615 +50,290 @@ object f_catlun: Tf_catlun
     object Page1: TTabSheet
       Caption = 'Saisie'
       ClientHeight = 619
-      ClientWidth = 407
+      ClientWidth = 405
       object Label1: TLabel
-        Left = 214
+        Left = 184
         Height = 18
-        Top = 11
+        Top = 88
         Width = 63
         Caption = 'Longitude'
         ParentColor = False
       end
       object Label2: TLabel
-        Left = 21
+        Left = 12
         Height = 18
-        Top = 11
+        Top = 85
         Width = 51
         Caption = 'Latitude'
         ParentColor = False
       end
       object Label3: TLabel
-        Left = 21
+        Left = 12
         Height = 18
-        Top = 82
+        Top = 276
         Width = 27
         Caption = 'LUN'
         ParentColor = False
       end
       object Label4: TLabel
-        Left = 21
+        Left = 12
         Height = 18
-        Top = 30
+        Top = 200
         Width = 29
         Caption = 'Type'
         ParentColor = False
       end
       object Label5: TLabel
-        Left = 21
+        Left = 12
         Height = 18
-        Top = 149
+        Top = 343
         Width = 59
         Caption = 'Quadrant'
         ParentColor = False
       end
-      object Label6: TLabel
-        Left = 21
-        Height = 18
-        Top = 173
-        Width = 28
-        Caption = 'Area'
-        ParentColor = False
-      end
-      object Label7: TLabel
-        Left = 21
-        Height = 18
-        Top = 194
-        Width = 27
-        Caption = 'Rukl'
-        ParentColor = False
-      end
-      object Label8: TLabel
-        Left = 175
-        Height = 18
-        Top = 194
-        Width = 35
-        Caption = 'RuklC'
-        ParentColor = False
-      end
       object Label9: TLabel
-        Left = 21
+        Left = 12
         Height = 18
-        Top = 221
+        Top = 399
         Width = 56
         Caption = 'Lunaison'
         ParentColor = False
       end
-      object Label10: TLabel
-        Left = 21
-        Height = 18
-        Top = 269
-        Width = 48
-        Caption = 'General'
-        ParentColor = False
-      end
-      object Label11: TLabel
-        Left = 21
-        Height = 18
-        Top = 293
-        Width = 40
-        Caption = 'Slopes'
-        ParentColor = False
-      end
-      object Label12: TLabel
-        Left = 21
-        Height = 18
-        Top = 317
-        Width = 32
-        Caption = 'Walls'
-        ParentColor = False
-      end
-      object Label13: TLabel
-        Left = 21
-        Height = 18
-        Top = 341
-        Width = 33
-        Caption = 'Floor'
-        ParentColor = False
-      end
-      object Label14: TLabel
-        Left = 21
-        Height = 18
-        Top = 365
-        Width = 48
-        Caption = 'Interest'
-        ParentColor = False
-      end
       object Label15: TLabel
-        Left = 178
+        Left = 167
         Height = 18
-        Top = 501
+        Top = 159
         Width = 21
         Caption = 'Km'
         ParentColor = False
       end
-      object Label16: TLabel
-        Left = 338
-        Height = 18
-        Top = 501
-        Width = 16
-        Caption = 'Mi'
-        ParentColor = False
-      end
       object Label17: TLabel
-        Left = 21
+        Left = 12
         Height = 18
-        Top = 501
+        Top = 159
         Width = 43
         Caption = 'Length'
         ParentColor = False
       end
       object Label18: TLabel
-        Left = 21
+        Left = 219
         Height = 18
-        Top = 525
+        Top = 159
         Width = 37
         Caption = 'Width'
         ParentColor = False
       end
       object Label19: TLabel
-        Left = 178
+        Left = 352
         Height = 18
-        Top = 525
+        Top = 159
         Width = 21
         Caption = 'Km'
         ParentColor = False
       end
-      object Label20: TLabel
-        Left = 338
-        Height = 18
-        Top = 525
-        Width = 16
-        Caption = 'Mi'
-        ParentColor = False
-      end
-      object Label21: TLabel
-        Left = 21
-        Height = 18
-        Top = 389
-        Width = 55
-        Caption = 'Diaminst'
-        ParentColor = False
-      end
-      object Label22: TLabel
-        Left = 21
-        Height = 18
-        Top = 413
-        Width = 53
-        Caption = 'THinstru'
-        ParentColor = False
-      end
-      object Label23: TLabel
-        Left = 21
-        Height = 18
-        Top = 437
-        Width = 52
-        Caption = 'PRinstru'
-        ParentColor = False
-      end
       object Edit1: TEdit
-        Left = 90
+        Left = 80
         Height = 32
-        Top = 494
+        Top = 152
         Width = 78
-        OnChange = Edit1Change
         TabOrder = 0
-        Text = 'Edit1'
       end
       object Edit5: TEdit
-        Left = 108
+        Left = 80
         Height = 32
-        Top = 6
+        Top = 80
         Width = 80
         Color = clSilver
         ReadOnly = True
         TabOrder = 1
-        Text = 'Edit5'
       end
       object Edit6: TEdit
-        Left = 302
+        Left = 264
         Height = 32
-        Top = 6
+        Top = 80
         Width = 80
         Color = clSilver
         ReadOnly = True
         TabOrder = 2
-        Text = 'Edit6'
       end
       object Edit7: TEdit
-        Left = 108
+        Left = 80
         Height = 32
-        Top = 78
+        Top = 272
         Width = 158
         Color = clSilver
         ReadOnly = True
         TabOrder = 3
-        Text = 'Edit7'
-      end
-      object Panel1: TPanel
-        Left = -2
-        Height = 34
-        Top = 550
-        Width = 403
-        BevelOuter = bvNone
-        ClientHeight = 34
-        ClientWidth = 403
-        TabOrder = 4
-        object Button1: TButton
-          Left = 5
-          Height = 25
-          Top = 8
-          Width = 85
-          Caption = 'Générer'
-          OnClick = Button1Click
-          TabOrder = 0
-        end
-        object Button2: TButton
-          Left = 150
-          Height = 25
-          Top = 8
-          Width = 85
-          Caption = 'Enregistrer'
-          OnClick = Button2Click
-          TabOrder = 1
-        end
-        object Button3: TButton
-          Left = 294
-          Height = 25
-          Top = 8
-          Width = 85
-          Caption = 'Nouveau'
-          OnClick = Button3Click
-          TabOrder = 2
-        end
       end
       object ComboBox1: TComboBox
-        Left = 108
+        Left = 80
         Height = 32
-        Top = 30
-        Width = 158
-        ItemHeight = 18
-        OnChange = ComboBox1Change
+        Top = 192
+        Width = 260
+        ItemHeight = 24
         Style = csDropDownList
-        TabOrder = 5
+        TabOrder = 4
+        OnChange = ComboBox1Change
       end
       object Edit8: TEdit
-        Left = 110
+        Left = 80
         Height = 32
-        Top = 142
+        Top = 336
         Width = 158
+        Color = clSilver
+        ReadOnly = True
+        TabOrder = 5
+      end
+      object Edit12: TEdit
+        Left = 80
+        Height = 32
+        Top = 392
+        Width = 40
         Color = clSilver
         ReadOnly = True
         TabOrder = 6
-        Text = 'Edit8'
       end
-      object Edit9: TEdit
-        Left = 109
+      object Edit13: TEdit
+        Left = 168
         Height = 32
-        Top = 166
-        Width = 271
+        Top = 392
+        Width = 213
         Color = clSilver
         ReadOnly = True
         TabOrder = 7
-        Text = 'Edit9'
-      end
-      object Edit10: TEdit
-        Left = 110
-        Height = 32
-        Top = 190
-        Width = 40
-        OnChange = Edit10Change
-        TabOrder = 8
-        Text = 'Edit10'
-      end
-      object Edit11: TEdit
-        Left = 214
-        Height = 32
-        Top = 190
-        Width = 166
-        Color = clSilver
-        ReadOnly = True
-        TabOrder = 9
-        Text = 'Edit11'
-      end
-      object Edit12: TEdit
-        Left = 109
-        Height = 32
-        Top = 214
-        Width = 40
-        Color = clSilver
-        ReadOnly = True
-        TabOrder = 10
-        Text = 'Edit12'
-      end
-      object Edit13: TEdit
-        Left = 167
-        Height = 32
-        Top = 214
-        Width = 213
-        Color = clSilver
-        ReadOnly = True
-        TabOrder = 11
-        Text = 'Edit13'
       end
       object Edit14: TEdit
-        Left = 167
+        Left = 169
         Height = 32
-        Top = 238
+        Top = 432
         Width = 213
         Color = clSilver
         ReadOnly = True
-        TabOrder = 12
-        Text = 'Edit14'
-      end
-      object Edit15: TEdit
-        Left = 110
-        Height = 32
-        Top = 382
-        Width = 80
-        Color = clSilver
-        ReadOnly = True
-        TabOrder = 13
-        Text = 'Edit15'
-      end
-      object ComboBox2: TComboBox
-        Left = 109
-        Height = 32
-        Top = 262
-        Width = 271
-        ItemHeight = 18
-        Style = csDropDownList
-        TabOrder = 14
-      end
-      object ComboBox3: TComboBox
-        Left = 109
-        Height = 32
-        Top = 286
-        Width = 271
-        ItemHeight = 18
-        Style = csDropDownList
-        TabOrder = 15
-      end
-      object ComboBox4: TComboBox
-        Left = 110
-        Height = 32
-        Top = 310
-        Width = 271
-        ItemHeight = 18
-        Style = csDropDownList
-        TabOrder = 16
-      end
-      object ComboBox5: TComboBox
-        Left = 109
-        Height = 32
-        Top = 334
-        Width = 271
-        ItemHeight = 18
-        Style = csDropDownList
-        TabOrder = 17
-      end
-      object ComboBox6: TComboBox
-        Left = 109
-        Height = 32
-        Top = 358
-        Width = 271
-        ItemHeight = 18
-        Style = csDropDownList
-        TabOrder = 18
-      end
-      object Button4: TButton
-        Left = 46
-        Height = 25
-        Top = 462
-        Width = 123
-        Caption = 'Mesure distance'
-        OnClick = Button4Click
-        TabOrder = 19
-      end
-      object Edit2: TEdit
-        Left = 246
-        Height = 32
-        Top = 494
-        Width = 80
-        Color = clSilver
-        ReadOnly = True
-        TabOrder = 20
-        Text = 'Edit2'
+        TabOrder = 8
       end
       object Edit3: TEdit
-        Left = 90
+        Left = 264
         Height = 32
-        Top = 518
+        Top = 152
         Width = 80
-        OnChange = Edit3Change
-        TabOrder = 21
-        Text = 'Edit3'
-      end
-      object Edit4: TEdit
-        Left = 246
-        Height = 32
-        Top = 519
-        Width = 80
-        Color = clSilver
-        ReadOnly = True
-        TabOrder = 22
-        Text = 'Edit4'
+        TabOrder = 9
       end
       object Button5: TButton
-        Left = 214
+        Left = 160
         Height = 25
-        Top = 462
-        Width = 112
+        Top = 120
+        Width = 100
         Caption = 'Width=Length'
+        TabOrder = 10
         OnClick = Button5Click
-        TabOrder = 23
-      end
-      object Edit16: TEdit
-        Left = 109
-        Height = 32
-        Top = 406
-        Width = 271
-        Color = clSilver
-        ReadOnly = True
-        TabOrder = 24
-        Text = 'Edit16'
-      end
-      object Edit17: TEdit
-        Left = 109
-        Height = 32
-        Top = 430
-        Width = 271
-        Color = clSilver
-        ReadOnly = True
-        TabOrder = 25
-        Text = 'Edit17'
-      end
-      object Button6: TButton
-        Left = 291
-        Height = 25
-        Top = 30
-        Width = 91
-        Caption = 'Cratère bol'
-        OnClick = Button6Click
-        TabOrder = 26
       end
       object Edit18: TEdit
         Left = 285
         Height = 32
-        Top = 142
+        Top = 336
         Width = 95
         Color = clSilver
         ReadOnly = True
-        TabOrder = 27
-        Text = 'Edit18'
+        TabOrder = 11
       end
-      object ComboBox7: TComboBox
-        Left = 108
+      object Edit2: TEdit
+        Left = 80
         Height = 32
-        Top = 54
+        Top = 32
         Width = 268
-        ItemHeight = 18
-        Style = csDropDownList
-        TabOrder = 28
+        CharCase = ecUppercase
+        TabOrder = 12
       end
-      object ComboBox8: TComboBox
-        Left = 109
-        Height = 32
-        Top = 110
-        Width = 271
-        ItemHeight = 18
-        Style = csDropDownList
-        TabOrder = 29
-      end
-      object Label24: TLabel
-        Left = 21
+      object Label10: TLabel
+        Left = 12
         Height = 18
-        Top = 59
-        Width = 50
-        Caption = 'Subtype'
-        ParentColor = False
+        Top = 40
+        Width = 64
+        Caption = 'Formation'
       end
-      object Label25: TLabel
-        Left = 21
+      object Label11: TLabel
+        Left = 12
         Height = 18
-        Top = 115
-        Width = 47
-        Caption = 'Process'
-        ParentColor = False
+        Top = 538
+        Width = 64
+        Caption = 'Recherche'
       end
-      object UpDown1: TUpDown
-        Left = 150
+      object Edit4: TEdit
+        Left = 80
         Height = 32
-        Top = 190
-        Width = 17
-        Associate = Edit10
-        Max = 76
-        Min = 0
-        OnClick = UpDown1Click
-        Position = 0
-        TabOrder = 30
+        Top = 532
+        Width = 176
+        CharCase = ecUppercase
+        TabOrder = 13
       end
-    end
-    object Page2: TTabSheet
-      Caption = 'Contrôle'
-      ClientHeight = 619
-      ClientWidth = 407
-      object Desc1: TIpHtmlPanel
-        Left = 0
-        Height = 542
-        Top = 38
-        Width = 407
-        Align = alClient
-        FixedTypeface = 'Courier New'
-        DefaultTypeFace = 'default'
-        DefaultFontSize = 12
-        FlagErrors = False
-        PrintSettings.MarginLeft = 0.5
-        PrintSettings.MarginTop = 0.5
-        PrintSettings.MarginRight = 0.5
-        PrintSettings.MarginBottom = 0.5
-        PrintSettings.Preview.Left = 480
-        PrintSettings.Preview.Top = 300
-        PrintSettings.Preview.Width = 1440
-        PrintSettings.Preview.Height = 900
-        TabOrder = 0
+      object Button6: TButton
+        Left = 285
+        Height = 25
+        Top = 536
+        Width = 84
+        Caption = 'Cherche'
+        TabOrder = 14
+        OnClick = Button6Click
       end
-      object Panel2: TPanel
-        Left = 0
-        Height = 38
-        Top = 0
-        Width = 407
-        Align = alTop
-        ClientHeight = 38
-        ClientWidth = 407
-        TabOrder = 1
-        object Button8: TButton
-          Left = 202
-          Height = 25
-          Top = 8
-          Width = 132
-          Caption = 'Anglais'
-          OnClick = Button8Click
-          TabOrder = 0
-        end
-        object Button7: TButton
-          Left = 43
-          Height = 25
-          Top = 8
-          Width = 139
-          Caption = 'Français'
-          OnClick = Button7Click
-          TabOrder = 1
-        end
+      object Button1: TButton
+        Left = 80
+        Height = 25
+        Top = 232
+        Width = 85
+        Caption = 'Générer'
+        TabOrder = 15
+        OnClick = Button1Click
       end
-      object Panel3: TPanel
+      object Button2: TButton
+        Left = 80
+        Height = 25
+        Top = 472
+        Width = 85
+        Caption = 'Enregistrer'
+        TabOrder = 16
+        OnClick = Button2Click
+      end
+      object Button3: TButton
+        Left = 285
+        Height = 25
+        Top = 568
+        Width = 85
+        Caption = 'Nouveau'
+        TabOrder = 17
+        OnClick = Button3Click
+      end
+      object Label6: TLabel
+        Left = 12
+        Height = 18
+        Top = 122
+        Width = 46
+        Caption = 'Mesure'
+      end
+      object Button4: TSpeedButton
+        Left = 80
+        Height = 25
+        Top = 120
+        Width = 75
+        AllowAllUp = True
+        Caption = 'Length'
+        GroupIndex = 10
+        OnClick = Button4Click
+      end
+      object Button7: TSpeedButton
+        Left = 265
+        Height = 25
+        Top = 120
+        Width = 75
+        AllowAllUp = True
+        Caption = 'Width'
+        GroupIndex = 10
+        OnClick = Button7Click
+      end
+      object Bevel1: TBevel
         Left = 0
-        Height = 39
-        Top = 580
-        Width = 407
-        Align = alBottom
-        ClientHeight = 39
-        ClientWidth = 407
-        TabOrder = 2
-        object Button10: TButton
-          Left = 223
-          Height = 25
-          Top = 8
-          Width = 144
-          Caption = 'Modifier'
-          OnClick = Button10Click
-          TabOrder = 0
-        end
-        object Button9: TButton
-          Left = 23
-          Height = 25
-          Top = 8
-          Width = 142
-          Caption = 'Supprimer'
-          Enabled = False
-          OnClick = Button9Click
-          TabOrder = 1
-          TabStop = False
-        end
+        Height = 2
+        Top = 514
+        Width = 405
       end
     end
   end
@@ -679,14 +355,12 @@ object f_catlun: Tf_catlun
       Caption = 'Fichier'
       object Save1: TMenuItem
         Caption = 'Exporter CSV'
-        OnClick = Save1Click
       end
       object MenuItem4: TMenuItem
         Caption = '-'
       end
       object Load1: TMenuItem
         Caption = 'Importer CSV'
-        OnClick = Load1Click
       end
       object MenuItem5: TMenuItem
         Caption = '-'
@@ -703,11 +377,6 @@ object f_catlun: Tf_catlun
     object MenuItem2: TMenuItem
       Caption = 'Zoom max'
       OnClick = MenuItem2Click
-    end
-    object MenuItem3: TMenuItem
-      AutoCheck = True
-      Caption = 'Labels'
-      OnClick = MenuItem3Click
     end
     object MenuItem6: TMenuItem
       AutoCheck = True

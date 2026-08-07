@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 interface
 
 uses
-     dynlibs, Classes, Controls, Graphics, passql, passqlite;
+     dynlibs, Classes, Controls, Graphics;
 {
      cu_tz, dynlibs,
      Classes, Controls, FPCanvas, Graphics;}
@@ -269,7 +269,6 @@ Var  Splashversion, compile_time, compile_version: string;
      // Datlun var
      dbtype : array[1..numdbtype] of string;
      dbselection: string;
-     dbm,dbnotes: TLiteDB;
 
      // Notelun
      DefaultSortCol: integer;
