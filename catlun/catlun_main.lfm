@@ -337,10 +337,6 @@ object f_catlun: Tf_catlun
       end
     end
   end
-  object PopupMenu1: TPopupMenu
-    Left = 256
-    Top = 128
-  end
   object StartTimer: TTimer
     Enabled = False
     Interval = 100
@@ -353,14 +349,8 @@ object f_catlun: Tf_catlun
     Top = 128
     object Fichier1: TMenuItem
       Caption = 'Fichier'
-      object Save1: TMenuItem
-        Caption = 'Exporter CSV'
-      end
       object MenuItem4: TMenuItem
         Caption = '-'
-      end
-      object Load1: TMenuItem
-        Caption = 'Importer CSV'
       end
       object MenuItem5: TMenuItem
         Caption = '-'
@@ -384,13 +374,8 @@ object f_catlun: Tf_catlun
       OnClick = MenuItem6Click
     end
   end
-  object SelectDirectoryDialog1: TSelectDirectoryDialog
-    Left = 392
-    Top = 128
-  end
-  object OpenDialog1: TOpenDialog
-    Filter = '*.csv|*.csv'
-    Left = 536
+  object PopupMenu1: TPopupMenu
+    Left = 256
     Top = 128
   end
 end
