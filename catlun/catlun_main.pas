@@ -160,17 +160,6 @@ const
     'SI',
     'VA');
 
-  subtype : array[0..2,0..1] of string = (
-  ('Craterlet d''impact primaire','Primary impact craterlet'),
-  ('Craterlet d''impact secondaire','Secondary impact craterlet'),
-  ('Sous-type non défini','Undefined sub-type'));
-
-  geolprocess : array[0..3,0..1] of string = (
-    ('Exogène météoritique','Exogen meteoritical'),
-    ('Endogène volcanique','Endogen volcanic'),
-    ('Endogène tectonique','Endogen tectonic'),
-    ('Processus non défini','Undefined process'));
-
   quadrant : array[0..4,0..1] of string = (
     ('Nord-Est','North-East'),
     ('Nord-Ouest','North-West'),
