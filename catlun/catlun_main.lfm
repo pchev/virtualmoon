@@ -137,24 +137,23 @@ object f_catlun: Tf_catlun
         Top = 152
         Width = 78
         TabOrder = 0
+        OnChange = Edit1Change
       end
       object Edit5: TEdit
         Left = 80
         Height = 32
         Top = 80
         Width = 80
-        Color = clSilver
-        ReadOnly = True
         TabOrder = 1
+        OnChange = Edit5Change
       end
       object Edit6: TEdit
-        Left = 264
+        Left = 265
         Height = 32
         Top = 80
         Width = 80
-        Color = clSilver
-        ReadOnly = True
         TabOrder = 2
+        OnChange = Edit6Change
       end
       object Edit7: TEdit
         Left = 80
@@ -217,6 +216,7 @@ object f_catlun: Tf_catlun
         Top = 152
         Width = 80
         TabOrder = 9
+        OnChange = Edit3Change
       end
       object Button5: TButton
         Left = 160
@@ -367,6 +367,10 @@ object f_catlun: Tf_catlun
     object MenuItem2: TMenuItem
       Caption = 'Zoom max'
       OnClick = MenuItem2Click
+    end
+    object MenuItem3: TMenuItem
+      Caption = 'Centrer'
+      OnClick = MenuItem3Click
     end
     object MenuItem6: TMenuItem
       AutoCheck = True

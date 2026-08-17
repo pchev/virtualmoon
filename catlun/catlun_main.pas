@@ -55,6 +55,7 @@ type
     Fichier1: TMenuItem;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
@@ -73,12 +74,17 @@ type
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure Edit3Change(Sender: TObject);
+    procedure Edit5Change(Sender: TObject);
+    procedure Edit6Change(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
+    procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
     procedure Notebook1PageChanged(Sender: TObject);
     procedure Quit1Click(Sender: TObject);
@@ -110,9 +116,9 @@ var
   f_catlun: Tf_catlun;
 
 const
-  dbn=99;
 
-  formationtype: array[0..19,0..1] of string = (
+  numtype=20;
+  formationtype: array[0..numtype,0..1] of string = (
     ('Chaîne de cratères','Crater chain'),
     ('Plaine murée','Walled plain'),
     ('Cratère','Crater'),
@@ -132,9 +138,10 @@ const
     ('Système de rainures','Rilles network'),
     ('Escarpement','Scarp'),
     ('Golfe','Bay'),
-    ('Vallée','Valley'));
+    ('Vallée','Valley'),
+    ('Autre','Other'));
 
-  formationdescriptor: array[0..19] of string = (
+  formationdescriptor: array[0..numtype] of string = (
     'CA',
     'AA',
     'AA',
@@ -154,7 +161,8 @@ const
     'RI',
     'RU',
     'SI',
-    'VA');
+    'VA',
+    'XX');
 
   quadrant : array[0..4,0..1] of string = (
     ('Nord-Est','North-East'),
@@ -413,7 +421,7 @@ begin
 
  lockmeasure:=false;
  ComboBox1.Clear;
- for i:=0 to 19 do ComboBox1.Items.Add(formationtype[i,0]);
+ for i:=0 to numtype do ComboBox1.Items.Add(formationtype[i,0]);
  ComboBox1.ItemIndex:=2;
 
  u_translation.translate('fr','fr');
@@ -426,6 +434,7 @@ end;
 
 procedure Tf_catlun.Button1Click(Sender: TObject);
 var la,lo: string;
+    lon360: double;
 begin
 // generer
 try
@@ -439,12 +448,14 @@ finally
   lockmeasure:=false;
 end;
 // LUN
-la:=formatfloat('0000',abs(curlat*100));
+la:=formatfloat('##0000',abs(curlat*10000));
 if curlat>=0 then la:=la+'N'
              else la:=la+'S';
-lo:=formatfloat('00000',abs(curlon*100));
-if curlon>=0 then lo:=lo+'E'
-             else lo:=lo+'W';
+if curlon>=0 then
+  lon360:=curlon
+else
+  lon360:=360+curlon;
+lo:=formatfloat('###0000',lon360*10000);
 edit7.Text:=formationdescriptor[ComboBox1.ItemIndex]+la+lo;
 // quadrant
 if curlat>=0 then begin
@@ -747,6 +758,13 @@ begin
   moon1.RefreshAll;
 end;
 
+procedure Tf_catlun.MenuItem3Click(Sender: TObject);
+begin
+  moon1.Zoom:=6;
+  moon1.CenterAt(0,0);
+  moon1.RefreshAll;
+end;
+
 procedure Tf_catlun.MenuItem6Click(Sender: TObject);
 begin
   moon1.ShowGrid:=MenuItem6.Checked;
@@ -815,8 +833,8 @@ try
   dbfr.LoadFromCSVFile(csvfr);
   dben.LoadFromCSVFile(csven);
   Button3Click(nil);
-  moon1.GLSphereMoon.Slices := 1440;
-  moon1.GLSphereMoon.Stacks := 770;
+  moon1.GLSphereMoon.Slices := 180;
+  moon1.GLSphereMoon.Stacks := 90;
   moon1.Init;
   moon1.texture:=texturefiles;
   moon1.VisibleSideLock:=true;
@@ -850,8 +868,8 @@ if Button=mbLeft then begin
   if OnMoon then begin
      curlat:=rad2deg*Lat;
      curlon:=rad2deg*Lon;
-     edit5.Text:=FormatFloat(f5,curlat);
-     edit6.Text:=FormatFloat(f5,curlon);
+     edit5.Text:=FormatFloat(f4,curlat);
+     edit6.Text:=FormatFloat(f4,curlon);
      edit7.Text:='';
      moon1.SetMark(Lon,Lat,' ');
   end;
@@ -859,6 +877,68 @@ end;
 if Button=mbRight then begin
     Button4Click(nil); // mesure distance
 end;
+end;
+
+procedure Tf_catlun.Edit5Change(Sender: TObject);
+var buf: string;
+    p: TPoint;
+begin
+if trim(edit5.text)='' then exit;
+try
+ p:=edit5.CaretPos;
+ buf:=StringReplace(edit5.Text,',','.',[]);
+ curlat:=StrToFloat(buf);
+ if buf<>edit5.Text then begin
+    edit5.Text:=buf;
+    edit5.CaretPos:=p;
+ end;
+except
+ edit5.Text:='';
+end;
+end;
+
+procedure Tf_catlun.Edit6Change(Sender: TObject);
+var buf: string;
+    p: TPoint;
+begin
+if trim(edit6.text)='' then exit;
+try
+ p:=edit6.CaretPos;
+ buf:=StringReplace(edit6.Text,',','.',[]);
+ curlon:=StrToFloat(buf);
+ if buf<>edit6.Text then begin
+    edit6.Text:=buf;
+    edit6.CaretPos:=p;
+ end;
+except
+ edit6.Text:='';
+end;
+end;
+
+procedure Tf_catlun.Edit1Change(Sender: TObject);
+var buf: string;
+    p: TPoint;
+begin
+  if trim(edit1.text)='' then exit;
+  p:=edit1.CaretPos;
+  buf:=StringReplace(edit1.Text,',','.',[]);
+  if buf<>edit1.Text then begin
+     edit1.Text:=buf;
+     edit1.CaretPos:=p;
+  end;
+end;
+
+procedure Tf_catlun.Edit3Change(Sender: TObject);
+var buf: string;
+    p: TPoint;
+begin
+  if trim(edit3.text)='' then exit;
+  p:=edit3.CaretPos;
+  buf:=StringReplace(edit3.Text,',','.',[]);
+  if buf<>edit3.Text then begin
+     edit3.Text:=buf;
+     edit3.CaretPos:=p;
+  end;
 end;
 
 procedure Tf_catlun.MoonMoveEvent(Sender: TObject; X, Y: Integer;

@@ -8,9 +8,10 @@ object f_moon: Tf_moon
   ClientHeight = 525
   ClientWidth = 756
   DoubleBuffered = False
+  ParentDoubleBuffered = False
+  LCLVersion = '4.8.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  ParentDoubleBuffered = False
   object Moon: TPanel
     Left = 202
     Height = 505
