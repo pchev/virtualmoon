@@ -1793,6 +1793,10 @@ begin
           GLCameraSatellite.MoveAroundTarget((y-my)*movespeed,(x-mx)*movespeed);
         end else begin
           movespeed:=0.3/GLCamera1.SceneScale;
+          if Screen2Moon(x,y,lon,lat) then begin
+            lat:=min(abs(lat),80*deg2rad);
+            movespeed:=movespeed/cos(lat);
+          end;
           MoveMoonAround(GLCamera1.TargetObject,(my-y)*movespeed,(mx-x)*movespeed);
           //GLCamera1.MoveAroundTarget((my-y)*movespeed,(mx-x)*movespeed);
         end;
