@@ -2023,21 +2023,33 @@ var
 begin
 testfile:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
 {$ifdef darwin}
+  // External Application Support copy, once seeded, always wins -- see
+  // VMAEnsureExternalAppData / Mantis 2948.
+  buf := VMAExternalAppDataDir;
+  if FileExists(slash(buf)+testfile) then
+    appdir := buf
+  else
+  begin
   appdir := getcurrentdir;
   if (not FileExists(slash(appdir)+testfile)) then
   begin
     // Deployable build: data bundled inside the .app at Contents/Resources/
     buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0)))+'..'+PathDelim+'Resources');
     if FileExists(slash(buf)+testfile) then
-      appdir := buf
+      // Genuine deployed .app: seed the external copy from here so this and
+      // every future launch -- and any separately downloaded add-on data
+      // pack -- live outside the .app, untouched by updating/reinstalling it.
+      appdir := VMAEnsureExternalAppData(buf)
     else
     begin
-      // Dev build: data sitting next to the .app bundle
+      // Dev build: data sitting next to the .app bundle -- not a deployed
+      // install, so nothing is seeded.
       appdir := ExtractFilePath(ParamStr(0));
       i      := pos('.app/', appdir);
       if i > 0 then
         appdir := ExtractFilePath(copy(appdir, 1, i));
     end;
+  end;
   end;
 {$else}
   appdir     := getcurrentdir;

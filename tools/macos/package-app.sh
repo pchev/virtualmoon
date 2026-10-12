@@ -1,7 +1,6 @@
 #!/bin/bash
 # package-app.sh - assemble one self-contained "Virtual Moon Atlas.app" (arm64)
-# holding the whole 8-program suite over a single Contents/Resources data set,
-# then wrap it in a compressed .dmg.
+# holding the whole 8-program suite, then wrap it in a compressed .dmg.
 #
 # Run tools/macos/build-suite.sh first (builds the binaries + helper dylibs).
 #
@@ -10,14 +9,22 @@
 #                          cclun  +  libplan404.dylib libcspice.dylib
 #   Contents/Frameworks/   libssl.3.dylib libcrypto.3.dylib   (calclun / weblun
 #                          Synapse dlopen()s these from ../Frameworks)
-#   Contents/Resources/    Textures data Database Encyclopedia Probes Apollo
-#                          doc Personnages "My Images" language BaseData
+#   Contents/Resources/    language  atlun.icns
+#
+# No Moon texture/database data is bundled -- it lives in
+# ~/Library/Application Support/Virtual Moon Atlas/ instead, so updating or
+# reinstalling the app never touches it (and no add-on data pack ever goes
+# anywhere under /Applications, not even transiently). Get it with
+# tools/macos/get-virtmoon-data.sh, which fetches straight from upstream's
+# SourceForge packages into that location; the app will not run until
+# that's in place.
 #
 # atlun is the main executable; its toolbar / menus reach the others. cclun is
 # an alternate launcher; catlun is the catalog editor. Cross-launch works
 # because every sibling is a bare name in Contents/MacOS/ next to the running
 # binary (11-combined-bundle-macos.patch); each program's GetAppDir probe
-# (ParamStr(0)/../Resources) lands on the shared Contents/Resources/.
+# checks ~/Library/Application Support/Virtual Moon Atlas/ first, falling
+# back to Contents/Resources/ for a dev-build layout with no external data yet.
 #
 # Also emitted: "VMA Menu" (cclun.app), a few-KB wrapper .app whose compiled
 # arm64 stub (vmamenu.c) re-exec()s cclun inside the fat bundle so the hub is
@@ -25,11 +32,6 @@
 #
 # Output (staging tree, libs, .dmg) goes under the build workspace, not the
 # checkout - default ~/vma-build, prompted, or set VMA_BUILD.
-#
-# BASE DATA (the ~250 MB texture / database / kernel set) is not in git. Get it
-# once (see tools/macos/README.md, step 3) into <workspace>/basedata, or point
-# VMA_BASEDATA at the dir that directly contains Textures/ Database/ ... e.g.
-#   VMA_BASEDATA=/path/basedata/share/virtualmoon tools/macos/package-app.sh
 set -euo pipefail
 
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -72,25 +74,13 @@ BINS=(
 PLAN404="$SRC/virtualmoon/library/plan404/libplan404.dylib"
 CSPICE="$SRC/calclun/cspice/libcspice.dylib"
 LANG_DIR="$SRC/language"
-BASEDATA="$SRC/BaseData"
 ICO="$SRC/virtualmoon/atlun.ico"
+GETDATA="$HERE/get-virtmoon-data.sh"
 
 DIST="$WORKDIR/dist"
 LIBS="$DIST/libs"
 SSL="$LIBS/libssl.3.dylib"
 CRYPTO="$LIBS/libcrypto.3.dylib"
-
-# base data: explicit override, else probe the two layouts fetched by step 3
-# (install_data.sh -> basedata/share/..., the .deb -> basedata/usr/share/...)
-if [ -n "${VMA_BASEDATA:-}" ]; then
-  DATA="$VMA_BASEDATA"
-elif [ -e "$WORKDIR/basedata/share/virtualmoon/Textures" ]; then
-  DATA="$WORKDIR/basedata/share/virtualmoon"
-elif [ -e "$WORKDIR/basedata/usr/share/virtualmoon/Textures" ]; then
-  DATA="$WORKDIR/basedata/usr/share/virtualmoon"
-else
-  DATA="$WORKDIR/basedata/share/virtualmoon"   # nonexistent - the check below reports it
-fi
 
 STAGE="$DIST/pkg-stage"
 APP="$STAGE/Virtual Moon Atlas.app"
@@ -107,23 +97,7 @@ for f in "$PLAN404" "$CSPICE"; do
 done
 [ "$miss" = 0 ] || { echo "-> run tools/macos/build-suite.sh first" >&2; exit 1; }
 
-# --- base data present? -------------------------------------------------
-if [ ! -e "$DATA/Textures/WAC_LOWSUN/L1/0.jpg" ]; then
-  cat >&2 <<EOF
-base data not found under:
-  $WORKDIR/basedata   (checked share/virtualmoon and usr/share/virtualmoon)
-
-Get it once - either:
-  A) mkdir -p "$WORKDIR/basedata" && cd "$WORKDIR/basedata"
-     curl -L -o basedata.deb "https://sourceforge.net/projects/virtualmoon/files/1-%20virtualmoon/Version%209.0/virtualmoon-basedata_9.0_all.deb/download"
-     ar x basedata.deb && tar xf data.tar.zst
-  B) brew install wget && bash "$REPO/install_data.sh" "$WORKDIR/basedata"
-Or set VMA_BASEDATA to a dir that directly contains Textures/ Database/ ...
-See tools/macos/README.md step 3.
-EOF
-  exit 1
-fi
-for f in "$LANG_DIR" "$BASEDATA"; do
+for f in "$LANG_DIR"; do
   [ -e "$f" ] || { echo "missing (should be in the checkout): $f" >&2; exit 1; }
 done
 
@@ -197,18 +171,8 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 PLIST
 printf 'APPL????' > "$APP/Contents/PkgInfo"
 
-echo "==> data -> Contents/Resources (copies ~250 MB)"
-for d in Textures Database Encyclopedia data Probes Apollo doc Personnages "My Images"; do
-  [ -e "$DATA/$d" ] && cp -R "$DATA/$d" "$APP/Contents/Resources/"
-done
+echo "==> language -> Contents/Resources"
 cp -R "$LANG_DIR" "$APP/Contents/Resources/language"
-cp -R "$BASEDATA" "$APP/Contents/Resources/BaseData"
-
-# catlun hard-errors ("Missing L1 slices") without Textures/WAC; the base data
-# ships WAC_LOWSUN only. Point WAC at it (see PORT_REPORT sec 7).
-if [ ! -e "$APP/Contents/Resources/Textures/WAC" ] && [ -e "$APP/Contents/Resources/Textures/WAC_LOWSUN" ]; then
-  ln -s WAC_LOWSUN "$APP/Contents/Resources/Textures/WAC"
-fi
 
 echo "==> adhoc sign"
 codesign --force --deep --sign - "$APP" >/dev/null
@@ -245,6 +209,12 @@ codesign --verify --deep "$SIDE" && echo "    sidecar signature OK"
 
 echo "==> drop-to-install layout + README"
 ln -s /Applications "$STAGE/Applications"
+if [ -f "$GETDATA" ]; then
+  cp "$GETDATA" "$STAGE/get-virtmoon-data.sh"
+  chmod +x "$STAGE/get-virtmoon-data.sh"
+else
+  echo "    (get-virtmoon-data.sh not found at $GETDATA -- skipping, not fatal)"
+fi
 cat > "$STAGE/READ ME FIRST.txt" <<'TXT'
 Virtual Moon Atlas - native macOS (Apple Silicon)
 
@@ -253,17 +223,24 @@ notelun, photlun, weblun, cclun and catlun. Open atlun and reach the
 others from its toolbar and menus.
 
 Install:  drag BOTH "Virtual Moon Atlas.app" and "VMA Menu" (cclun.app)
-onto the Applications folder, keeping them together. "VMA Menu" is a small
-wrapper so the launcher/hub also shows up in Spotlight; it needs the main
-app beside it in the same folder.
+onto the Applications folder, keeping them together.
+
+Data:  the Moon texture / database set is NOT bundled inside the app --
+it lives in ~/Library/Application Support/Virtual Moon Atlas/ instead, so
+updating or reinstalling the app never touches it. Get it once: copy
+"get-virtmoon-data.sh" (right here on this disk image) to somewhere like
+~/Downloads and run it --
+  cd ~/Downloads && chmod +x get-virtmoon-data.sh && ./get-virtmoon-data.sh
+It asks which data set you want (there's a menu) and fetches it straight
+from the project's own SourceForge packages. The app will not run until
+this is done once.
 
 First launch:  this build is ad-hoc signed, not notarized, so macOS
 Gatekeeper will refuse the first open. Either:
   * Right-click (Control-click) the app -> Open -> Open, once, OR
   * Terminal:  xattr -dr com.apple.quarantine "/Applications/Virtual Moon Atlas.app"
 
-Requires Apple Silicon and macOS 11 or later. The Moon texture and
-database set is bundled inside the app.
+Requires Apple Silicon and macOS 11 or later.
 TXT
 
 echo "==> build dmg"

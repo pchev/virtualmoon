@@ -671,6 +671,13 @@ var
 {$endif}
 begin
 {$ifdef darwin}
+  // External Application Support copy, once seeded, always wins -- see
+  // VMAEnsureExternalAppData / Mantis 2948.
+  buf := VMAExternalAppDataDir;
+  if directoryexists(slash(buf) + slash('Textures')) then
+    appdir := buf
+  else
+  begin
   appdir := getcurrentdir;
   if (not directoryexists(slash(appdir) + slash('Textures'))) then
   begin
@@ -679,7 +686,10 @@ begin
     // then fall back to the directory that contains the .app bundle.
     buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0))) + '..' + PathDelim + 'Resources');
     if directoryexists(slash(buf) + slash('Textures')) then
-      appdir := buf
+      // Genuine deployed .app: seed the external copy so this and every
+      // future launch, and any separately downloaded add-on data pack,
+      // live outside the .app, untouched by updating/reinstalling it.
+      appdir := VMAEnsureExternalAppData(buf)
     else
     begin
       appdir := ExtractFilePath(ParamStr(0));
@@ -689,6 +699,7 @@ begin
         appdir := ExtractFilePath(copy(appdir, 1, i));
       end;
     end;
+  end;
   end;
 {$else}
   appdir     := getcurrentdir;

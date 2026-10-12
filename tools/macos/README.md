@@ -12,9 +12,10 @@ runs clean with FPC 3.2.2 + Lazarus **4.8** on macOS 27 (M1) — fpcupdeluxe's
 ## 0. Build workspace
 
 Everything that isn't the source checkout - the fpcupdeluxe toolchain (it
-unpacks thousands of files), the extracted base data, and the packaging output
-- goes in one **build workspace**, so it stays out of your home dir and out of
-the git checkout.
+unpacks thousands of files) and the packaging output - goes in one **build
+workspace**, so it stays out of your home dir and out of the git checkout.
+(The Moon texture/database data is separate again - see step 3 - and isn't
+part of this workspace at all.)
 
 Both scripts prompt for it and default to **`~/vma-build`**. To skip the
 prompt, `export VMA_BUILD=~/vma-build` (or any path). Use the same value for
@@ -23,9 +24,12 @@ both scripts.
 ```
 ~/vma-build/
   fpcupdeluxe/    the toolchain (you install this - step 1)
-  basedata/       the downloaded texture/database set (step 3)
   dist/           packaging output, incl. Virtual-Moon-Atlas-arm64.dmg (step 4)
 ```
+
+The Moon texture/database set is not part of this workspace at all -- see
+step 3, it goes straight to `~/Library/Application Support/Virtual Moon
+Atlas/` instead, independent of the `.app` build entirely.
 
 ## 1. Toolchain
 
@@ -52,7 +56,6 @@ essentially every Mac dev machine.
 
 ```
 brew install openssl@3      # REQUIRED - calclun/weblun bundle it for TLS (step 4)
-brew install wget           # optional  - only for the upstream data installer (step 3)
 ```
 
 If `openssl@3` is genuinely unavailable, put a fixed `libssl.3.dylib` /
@@ -88,41 +91,29 @@ Plus `virtualmoon/library/plan404/libplan404.dylib` and
 
 ## 3. Base data
 
-The ~250 MB Moon texture / database / SPICE-kernel set is not in git. Fetch it
-once into `<workspace>/basedata/` - `package-app.sh` then finds it with no
-config (it looks for both `basedata/share/virtualmoon` and
-`basedata/usr/share/virtualmoon`).
+The ~200 MB-to-several-GB Moon texture / database set is **not bundled into
+the `.app` at all**, and `package-app.sh` doesn't need it present to build
+or package -- it goes straight to
+`~/Library/Application Support/Virtual Moon Atlas/` instead, so updating
+or reinstalling the app later never touches it, and no add-on data pack
+ever needs to go anywhere under `/Applications`, not even temporarily.
 
-Source: VMA's Linux **base data** package,
-<https://www.ap-i.net/avl/en/download> ->
-
-```
-https://sourceforge.net/projects/virtualmoon/files/1-%20virtualmoon/Version%209.0/virtualmoon-basedata_9.0_all.deb/download
-```
-
-### Option A - the base-data package (one file, no wget)
+Get it with `tools/macos/get-virtmoon-data.sh` (also copied onto the
+finished `.dmg`, so anyone who just has the built app can fetch data
+without the source checkout at all):
 
 ```
-mkdir -p ~/vma-build/basedata && cd ~/vma-build/basedata
-curl -L -o basedata.deb "https://sourceforge.net/projects/virtualmoon/files/1-%20virtualmoon/Version%209.0/virtualmoon-basedata_9.0_all.deb/download"
-ar x basedata.deb
-tar xf data.tar.zst      # macOS 26 bsdtar reads .zst natively; older: brew install zstd
-rm basedata.deb control.tar.* debian-binary
+tools/macos/get-virtmoon-data.sh
 ```
 
-Leaves `~/vma-build/basedata/usr/share/virtualmoon/...`.
-
-### Option B - the upstream installer (needs `wget`)
-
-```
-brew install wget
-bash install_data.sh ~/vma-build/basedata
-```
-
-Leaves `~/vma-build/basedata/share/virtualmoon/...`.
-
-Either way, `VMA_BASEDATA` can override the location - it must point at the dir
-that directly contains `Textures/`, `Database/`, `Encyclopedia/`, ...
+Run with no arguments, it's interactive -- a menu lets you pick the base
+package alone (~200 MB, enough for a working app) or the fuller data sets
+(real high-res `WAC`, Clementine, picture libraries, several GB). It
+resolves the current file straight from upstream's SourceForge RSS feed
+(so it keeps working if the version number ever changes), verifies the
+download's MD5, and merges into the Application Support folder above
+without ever overwriting anything already there. The app will not run
+until this has been done at least once.
 
 ## 4. Package
 
@@ -162,7 +153,8 @@ local diagnostics, it writes `atlun.log`).
 | file | role |
 |---|---|
 | `build-suite.sh` | toolchain -> eight binaries + libplan404 + libcspice |
-| `package-app.sh` | binaries + base data -> `.app` + `.dmg` (output under the workspace) |
+| `package-app.sh` | binaries -> `.app` + `.dmg` (output under the workspace; no data bundled, see step 3) |
+| `get-virtmoon-data.sh` | fetches the Moon texture/database data straight from upstream's SourceForge packages into `~/Library/Application Support/Virtual Moon Atlas/` - also copied onto the built `.dmg` itself, so it works from just the built app, no checkout needed |
 | `vmamenu.c` | compiled arm64 stub the `VMA Menu` sidecar re-`exec()`s `cclun` with (a script there trips Gatekeeper's "install Rosetta" on Rosetta-less Macs) |
 
 Full rationale for every code change is in `PORT_REPORT.md` (attached to Mantis

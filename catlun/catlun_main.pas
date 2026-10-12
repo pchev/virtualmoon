@@ -231,6 +231,13 @@ var
 {$endif}
 begin
 {$ifdef darwin}
+  // External Application Support copy, once seeded, always wins -- see
+  // VMAEnsureExternalAppData / Mantis 2948.
+  buf := VMAExternalAppDataDir;
+  if directoryexists(slash(buf) + slash('Textures')) then
+    appdir := buf
+  else
+  begin
   appdir := getcurrentdir;
   if (not directoryexists(slash(appdir) + slash('Textures'))) then
   begin
@@ -239,7 +246,10 @@ begin
     // fall back to the directory that contains the .app bundle.
     buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0))) + '..' + PathDelim + 'Resources');
     if directoryexists(slash(buf) + slash('Textures')) then
-      appdir := buf
+      // Genuine deployed .app: seed the external copy so this and every
+      // future launch, and any separately downloaded add-on data pack,
+      // live outside the .app, untouched by updating/reinstalling it.
+      appdir := VMAEnsureExternalAppData(buf)
     else
     begin
       appdir := ExtractFilePath(ParamStr(0));
@@ -249,6 +259,7 @@ begin
         appdir := ExtractFilePath(copy(appdir, 1, i));
       end;
     end;
+  end;
   end;
 {$else}
   appdir     := getcurrentdir;
@@ -396,9 +407,18 @@ begin
   DatabaseList:=TStringList.Create;
   ConnectDatabaseList:=TStringList.Create;
   texturefiles:=TStringList.Create;
-  for i:=0 to 5 do texturefiles.Add('');
-  texturefiles[0]:='WAC';
-  texturefiles[1]:='WAC';
+  // WAC_LOWSUN ships in the base data and always exists; WAC (the
+  // separately distributed high-resolution pack) does not. Guard every
+  // level the same way, L1/L2 included -- it used to assume 'WAC'
+  // unconditionally for L1/L2, which hard-errors ("Missing L1 slices")
+  // without the separate pack, and on macOS also depended on a
+  // Textures/WAC -> WAC_LOWSUN symlink that a seed-copy to external storage
+  // does not preserve as a symlink (see PORT_REPORT.md Group 12 / §7).
+  for i:=0 to 5 do texturefiles.Add('WAC_LOWSUN');
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L1') then
+     texturefiles[0]:='WAC';
+  if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L2') then
+     texturefiles[1]:='WAC';
   if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L3') then
      texturefiles[2]:='WAC';
   if DirectoryExists(slash(appdir)+slash('Textures')+slash('WAC')+'L4') then

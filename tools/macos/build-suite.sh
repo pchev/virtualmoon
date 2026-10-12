@@ -172,8 +172,10 @@ check calclun/cspice/libcspice.dylib
 echo
 if [ "$ok" = 1 ]; then
   echo "    all present."
-  echo "    next: put base data under $WORKDIR/basedata (README step 3), then"
-  echo "          VMA_BUILD=$WORKDIR tools/macos/package-app.sh"
+  echo "    next: VMA_BUILD=$WORKDIR tools/macos/package-app.sh"
+  echo "          (no base data needed for this step -- see README step 3:"
+  echo "          tools/macos/get-virtmoon-data.sh, run after install, fetches"
+  echo "          it straight to ~/Library/Application Support/ instead)"
 else
   echo "    some targets missing - see the lazbuild output above" >&2
   exit 1

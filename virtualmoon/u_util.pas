@@ -32,7 +32,7 @@ uses
   {$ifdef unix}
     unix,baseunix,
   {$endif}
-    Math, SysUtils, Classes, u_constant, LCLType, FileUtil,
+    Math, SysUtils, Classes, u_constant, LCLType, FileUtil, LazFileUtils,
     Controls, Process, IntfGraphics,FPImage,
     MaskEdit,Menus,Spin,CheckLst,Buttons, ExtCtrls, Types,
     Forms,Graphics,StdCtrls,ComCtrls,Dialogs,Grids,PrintersDlgs,Printers;
@@ -57,6 +57,16 @@ Function PadZeros(x : string ; l :integer) : string;
 Function mm2pi(l,PrinterResolution : single): integer;
 Function Slash(nom : string) : string;
 Function NoSlash(nom : string) : string;
+{$ifdef darwin}
+// macOS only: the suite's data (Textures/Database/etc, optionally extended
+// by separately downloaded add-on packs, tens of GB in total) lives outside
+// any .app bundle, in ~/Library/Application Support/, so that installing an
+// update or an add-on pack never touches it -- replacing the .app wholesale
+// is the normal way to update on macOS, unlike Windows/Linux where the
+// install directory persists across an .exe/binary update. See Mantis 2948.
+function VMAExternalAppDataDir: string;
+function VMAEnsureExternalAppData(const SeedDir: string): string;
+{$endif}
 function IsNumber(n : string) : boolean;
 function AddColor(c1,c2 : Tcolor):Tcolor;
 function SubColor(c1,c2 : Tcolor):Tcolor;
@@ -270,6 +280,64 @@ begin
 result:=trim(nom);
 if copy(result,length(nom),1)<>PathDelim then result:=result+PathDelim;
 end;
+
+{$ifdef darwin}
+function VMAExternalAppDataDir: string;
+begin
+  result := Slash(Slash(Slash(Slash(GetEnvironmentVariable('HOME'))
+            +'Library')+'Application Support')+'Virtual Moon Atlas');
+end;
+
+function VMAEnsureExternalAppData(const SeedDir: string): string;
+const
+  SeededMarker = '.vma-seeded';
+var
+  extdir, srcdir, rel: string;
+  f: TFileStream;
+  dirs: TStringList;
+  i: integer;
+begin
+  extdir := VMAExternalAppDataDir;
+  if not FileExistsUTF8(extdir+SeededMarker) then
+  begin
+    ForceDirectoriesUTF8(extdir);
+    // CopyDirTree (below) only ever creates a destination directory as a
+    // side effect of copying a *file* into it -- an empty source directory
+    // (e.g. "My Images", shipped empty for the user's own photos) contains
+    // no files, triggers no copy, and so is silently never created on the
+    // external side. Mirror the full directory skeleton first so every
+    // empty placeholder directory exists too, not just the populated ones.
+    srcdir := Slash(SeedDir);
+    dirs := FindAllDirectories(srcdir, True);
+    try
+      for i := 0 to dirs.Count-1 do
+      begin
+        rel := Slash(dirs[i]);
+        if copy(rel, 1, length(srcdir)) = srcdir then
+          rel := copy(rel, length(srcdir)+1, maxint)
+        else
+          continue;
+        if rel <> '' then
+          ForceDirectoriesUTF8(extdir+rel);
+      end;
+    finally
+      dirs.Free;
+    end;
+    // Flags=[] deliberately omits cffOverwriteFile: CopyDirTree then fills in
+    // whatever is missing and leaves every existing file alone -- the first
+    // run populates an empty directory; a later run (an interrupted previous
+    // seed, or newly bundled files after an app update) only adds what is
+    // not already there, never touching a user/add-on-pack file. Its result
+    // is ignored on purpose: it reports False for every file it *skipped*
+    // because it already existed, which is the normal, successful case here,
+    // not a real error.
+    CopyDirTree(SeedDir, extdir);
+    f := TFileStream.Create(extdir+SeededMarker, fmCreate);
+    f.Free;
+  end;
+  result := extdir;
+end;
+{$endif}
 
 function IsNumber(n : string) : boolean;
 begin
