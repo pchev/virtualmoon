@@ -863,6 +863,22 @@ begin
     Max := X2;
 end;
 
+// EdgesStripPlaneIntersection
+//
+// NOTE: hoisted out of PlaneAABBIntersection (was a nested routine).
+// FPC 3.2.2 AArch64 ICEs (internal error 2014121702) generating the call
+// to this proc when it is nested. It only touches its own parameters and
+// unit-level SegmentPlaneIntersection, so unit scope is behaviourally identical.
+function EdgesStripPlaneIntersection(const pt0, pt1, pt4, pt7: TVector3f;
+  const plane : THmgPlane; var inter : TVector3f): Boolean;
+begin
+  Result := True;
+  if not SegmentPlaneIntersection(pt0, pt1, plane, inter) then
+    if not SegmentPlaneIntersection(pt1, pt4, plane, inter) then
+      if not SegmentPlaneIntersection(pt4, pt7, plane, inter) then
+        Result := False;
+end;
+
 // PlaneAABBIntersection
 //
 function PlaneAABBIntersection(const plane : THmgPlane;const AABB : TAABB) : TAffineVectorList;
@@ -872,15 +888,6 @@ var
   vec, temp : TVector3f;
   box : array [0..1] of TVector3f;
   V: array [0..7] of TVector3f;
-  function EdgesStripPlaneIntersection(const pt0, pt1, pt4, pt7: TVector3f;
-    const plane : THmgPlane; var inter : TVector3f): Boolean;
-  begin
-    Result := True;
-    if not SegmentPlaneIntersection(pt0, pt1, plane, inter) then
-      if not SegmentPlaneIntersection(pt1, pt4, plane, inter) then
-        if not SegmentPlaneIntersection(pt4, pt7, plane, inter) then
-          Result := False;
-  end;
 begin
   box[0] := AABB.min;
   box[1] := AABB.max;

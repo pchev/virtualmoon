@@ -243,7 +243,7 @@
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf2"/>
-        <UseHeaptrc Value="True"/>
+        <UseHeaptrc Value="False"/>
       </Debugging>
       <Options>
         <Win32>
@@ -252,7 +252,9 @@
       </Options>
     </Linking>
     <Other>
-      <CustomOptions Value="-dUseHeapTrc"/>
+      <CustomOptions Value="-dUseCThreads
+-k-ld_classic
+-Flcspice"/>
     </Other>
   </CompilerOptions>
   <Debugging>

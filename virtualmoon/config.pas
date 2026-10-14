@@ -2,6 +2,7 @@ unit config;
 
 {$MODE Delphi}
 {$H+}
+{$ifdef darwin}{$modeswitch objectivec1}{$endif}   // NSBox access in FixCocoaRadioGroup
 {
 Copyright (C) 2003 Patrick Chevalley
 
@@ -304,7 +305,56 @@ implementation
 
 {$R config.lfm}
 
-uses u_util, pu_features;
+uses
+{$ifdef darwin}
+  CocoaAll,          // first: let the app's own units win name resolution
+{$endif}
+  u_util, pu_features;
+
+{$ifdef darwin}
+// Cocoa draws a TRadioGroup as an NSBox, and TCocoaWSCustomGroupBox.CreateHandle
+// gives that box a title unconditionally - it never switches titlePosition to
+// NSNoTitle when the Caption is empty. A caption-less group therefore still pays
+// for the title band, on top of NSBox's default content margins, so lclClientFrame
+// hands back a client area far shorter than the designer-time ClientHeight in the
+// .lfm. TRadioGroup then squashes the radio buttons to fit (ChildSizing.Shrink* =
+// crsScaleChilds) and Cocoa clips them. Measured on 14.x, before -> after:
+//
+//   RadioGroup1 (H=34)     client  7 -> 32   buttons 18px at y=-5 -> y=7
+//   RadioGroup7 (H=42)     client 15 -> 40   buttons 18px at y=-1 -> y=11
+//   BumpRadioGroup (H=88)  client 61 -> 86   3 rows, was fitting by 1px
+//
+// Reclaim the wasted band, stop the scaling, then centre the button block in the
+// space that frees up. The control's own Left/Top/Width/Height are never touched,
+// so no sibling moves and the other widgetsets are unaffected.
+procedure FixCocoaRadioGroup(RG: TRadioGroup);
+var
+  box: NSBox;
+  rows, need, spare, ch: integer;
+begin
+  if not RG.HandleAllocated then exit;
+  box := NSBox(RG.Handle);
+  if RG.Caption = '' then
+    box.setTitlePosition(NSNoTitle);
+  box.setContentViewMargins(NSMakeSize(6, 0));
+  RG.AutoFill := False;                                 // Enlarge* -> crsAnchorAligning
+  RG.ChildSizing.ShrinkHorizontal := crsAnchorAligning; // never rescale the NSButtons
+  RG.ChildSizing.ShrinkVertical := crsAnchorAligning;
+  RG.ReAlign;
+  if (RG.ControlCount > 0) and (RG.Columns > 0) and (RG.Items.Count > 0) then
+  begin
+    ch := RG.Controls[0].Height;
+    rows := (RG.Items.Count + RG.Columns - 1) div RG.Columns;
+    need := rows * ch + (rows - 1) * RG.ChildSizing.VerticalSpacing;
+    spare := RG.ClientHeight - need;
+    if spare > 1 then
+    begin
+      RG.ChildSizing.TopBottomSpacing := spare div 2;
+      RG.ReAlign;
+    end;
+  end;
+end;
+{$endif}
 
 procedure TForm2.Setlang;
 begin
@@ -950,6 +1000,11 @@ begin
   end
   else ComboBox6.Visible:=false;
   SetTexButton;
+{$ifdef darwin}
+  FixCocoaRadioGroup(RadioGroup7);      // General: Topocentric / Geocentric
+  FixCocoaRadioGroup(RadioGroup1);      // Display: Full / Abbreviated / Minimal
+  FixCocoaRadioGroup(BumpRadioGroup);   // Textures
+{$endif}
   BringToFront;
 end;
 

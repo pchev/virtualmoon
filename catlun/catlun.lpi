@@ -458,6 +458,7 @@
     <Version Value="11"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../virtualmoon"/>
       <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
@@ -468,6 +469,7 @@
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf2Set"/>
+        <UseHeaptrc Value="False"/>
       </Debugging>
       <Options>
         <Win32>
@@ -475,6 +477,10 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <CustomOptions Value="-dUseCThreads
+-k-ld_classic"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

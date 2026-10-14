@@ -4,7 +4,7 @@ object f_catlun: Tf_catlun
   Top = 112
   Width = 1074
   ActiveControl = PanelMoon
-  Caption = 'f_catlun'
+  Caption = 'Catalog Tool'
   ClientHeight = 677
   ClientWidth = 1074
   DoubleBuffered = False
@@ -48,7 +48,7 @@ object f_catlun: Tf_catlun
     TabIndex = 0
     TabOrder = 2
     object Page1: TTabSheet
-      Caption = 'Saisie'
+      Caption = 'Entry'
       ClientHeight = 619
       ClientWidth = 405
       object Label1: TLabel
@@ -96,7 +96,7 @@ object f_catlun: Tf_catlun
         Height = 18
         Top = 399
         Width = 56
-        Caption = 'Lunaison'
+        Caption = 'Lunation'
         ParentColor = False
       end
       object Label15: TLabel
@@ -256,7 +256,7 @@ object f_catlun: Tf_catlun
         Height = 18
         Top = 538
         Width = 64
-        Caption = 'Recherche'
+        Caption = 'Search'
       end
       object Edit4: TEdit
         Left = 80
@@ -271,7 +271,7 @@ object f_catlun: Tf_catlun
         Height = 25
         Top = 536
         Width = 84
-        Caption = 'Cherche'
+        Caption = 'Find'
         TabOrder = 14
         OnClick = Button6Click
       end
@@ -280,7 +280,7 @@ object f_catlun: Tf_catlun
         Height = 25
         Top = 232
         Width = 85
-        Caption = 'Générer'
+        Caption = 'Generate'
         TabOrder = 15
         OnClick = Button1Click
       end
@@ -289,7 +289,7 @@ object f_catlun: Tf_catlun
         Height = 25
         Top = 472
         Width = 85
-        Caption = 'Enregistrer'
+        Caption = 'Save'
         TabOrder = 16
         OnClick = Button2Click
       end
@@ -298,7 +298,7 @@ object f_catlun: Tf_catlun
         Height = 25
         Top = 568
         Width = 85
-        Caption = 'Nouveau'
+        Caption = 'New'
         TabOrder = 17
         OnClick = Button3Click
       end
@@ -307,7 +307,7 @@ object f_catlun: Tf_catlun
         Height = 18
         Top = 122
         Width = 46
-        Caption = 'Mesure'
+        Caption = 'Measure'
       end
       object Button4: TSpeedButton
         Left = 80
@@ -348,7 +348,7 @@ object f_catlun: Tf_catlun
     Left = 160
     Top = 128
     object Fichier1: TMenuItem
-      Caption = 'Fichier'
+      Caption = 'File'
       object MenuItem4: TMenuItem
         Caption = '-'
       end
@@ -356,7 +356,7 @@ object f_catlun: Tf_catlun
         Caption = '-'
       end
       object Quit1: TMenuItem
-        Caption = 'Quitter'
+        Caption = 'Quit'
         OnClick = Quit1Click
       end
     end
@@ -369,12 +369,12 @@ object f_catlun: Tf_catlun
       OnClick = MenuItem2Click
     end
     object MenuItem3: TMenuItem
-      Caption = 'Centrer'
+      Caption = 'Center'
       OnClick = MenuItem3Click
     end
     object MenuItem6: TMenuItem
       AutoCheck = True
-      Caption = 'Grille'
+      Caption = 'Grid'
       OnClick = MenuItem6Click
     end
   end

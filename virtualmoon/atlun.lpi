@@ -339,7 +339,8 @@
       <Verbosity>
         <ShowHints Value="False"/>
       </Verbosity>
-      <CustomOptions Value="-dUseCThreads"/>
+      <CustomOptions Value="-dUseCThreads
+-k-ld_classic"/>
     </Other>
   </CompilerOptions>
   <Debugging>

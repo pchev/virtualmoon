@@ -129,7 +129,7 @@
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf2"/>
-        <UseHeaptrc Value="True"/>
+        <UseHeaptrc Value="False"/>
       </Debugging>
       <Options>
         <Win32>
@@ -137,6 +137,10 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <CustomOptions Value="-dUseCThreads
+-k-ld_classic"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

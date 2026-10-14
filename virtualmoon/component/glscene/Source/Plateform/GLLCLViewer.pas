@@ -305,7 +305,13 @@ begin
   // initialize and activate the OpenGL rendering context
   // need to do this only once per window creation as we have a private DC
   FBuffer.Resize(0, 0, Self.Width, Self.Height);
+{$IFDEF Darwin}
+  // Cocoa: the GL context needs the NSView itself. GetDC() here returns a DC
+  // with no control association yet, so hand GLCocoaContext the Handle directly.
+  FOwnDC := Handle;
+{$ELSE}
   FOwnDC := GetDC(Handle);
+{$ENDIF}
   FBuffer.CreateRC(FOwnDC, False);
 end;
 
@@ -314,7 +320,11 @@ begin
   FBuffer.DestroyRC;
   if FOwnDC <> 0 then
   begin
+{$IFNDEF Darwin}
+    // On Cocoa FOwnDC is the NSView Handle, not a real LCL DC - ReleaseDC
+    // would run CheckDC() on it and dereference a bogus vmt. Just drop it.
     ReleaseDC(Handle, FOwnDC);
+{$ENDIF}
     FOwnDC := 0;
   end;
   inherited;
@@ -363,7 +373,9 @@ begin
   FBuffer.DestroyRC;
   if FOwnDC <> 0 then
   begin
+{$IFNDEF Darwin}
     ReleaseDC(Handle, FOwnDC);
+{$ENDIF}
     FOwnDC := 0;
   end;
   inherited;

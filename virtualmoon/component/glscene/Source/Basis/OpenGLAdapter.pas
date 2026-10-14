@@ -28,7 +28,10 @@ interface
 {$I GLScene.inc}
 {$IFDEF DARWIN}
   {$LINKFRAMEWORK OpenGL}
-  {$LINKFRAMEWORK AGL}
+  // AGL.framework (Carbon-era OpenGL) is gone on 64-bit / Apple Silicon macOS.
+  // The Cocoa context path (GLCocoaContext) never uses AGL, and the aglXxx
+  // entry points below are resolved dynamically (nil when absent), so there is
+  // nothing to statically link. Linking -framework AGL here just fails ld.
 {$ENDIF}
 
 uses
@@ -3259,6 +3262,14 @@ function glXGetCurrentDisplay: PDisplay; cdecl; external opengl32;
 {$IFDEF GLS_REGIONS}{$REGION 'OpenGL Extension to the Apple System (AGL) support functions'}
 {$ENDIF}
 {$IFDEF DARWIN}
+// AGL.framework is unavailable on 64-bit / Apple Silicon macOS. These static
+// imports are only used by the retired GLCarbonContext; the live Cocoa path
+// resolves any needed aglXxx pointers dynamically via AGLGetProcAddress.
+// GLS_ENABLE_AGL is intentionally defined nowhere in the tree -- it exists
+// solely as the escape hatch for anyone reviving the Carbon backend on a
+// 32-bit toolchain. Defining it on a modern macOS SDK will fail at link
+// time, because there is no AGL.framework left to resolve libAGL against.
+{$IFDEF GLS_ENABLE_AGL}
 function aglChoosePixelFormat(gdevs: PAGLDevice; ndev: GLint; attribs: PGLint): TAGLPixelFormat; cdecl; external libAGL;
 procedure aglDestroyPixelFormat(pix: TAGLPixelFormat); cdecl; external libAGL;
 
@@ -3266,6 +3277,7 @@ function aglCreateContext(pix: TAGLPixelFormat; share: TAGLContext): TAGLContext
 function aglDestroyContext(ctx: TAGLContext): GLboolean; cdecl; external libAGL;
 function aglSetCurrentContext (ctx: TAGLContext): GLboolean; cdecl; external libAGL;
 function aglSetDrawable (ctx: TAGLContext; draw: TAGLDrawable): GLboolean; cdecl; external libAGL;
+{$ENDIF}
 {$ENDIF}
 {$IFDEF GLS_REGIONS}{$ENDREGION}{$ENDIF}
 {$IFDEF GLS_REGIONS} {$REGION 'OpenGL utility (GLU) functions and procedures'}

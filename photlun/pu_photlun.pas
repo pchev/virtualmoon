@@ -816,15 +816,40 @@ var
 {$endif}
 begin
 {$ifdef darwin}
+  // External Application Support copy, once seeded, always wins -- see
+  // VMAEnsureExternalAppData / Mantis 2948.
+  buf := VMAExternalAppDataDir;
+  if DirectoryExists(slash(buf) + slash('Database')) then
+    appdir := buf
+  else
+  begin
   appdir := getcurrentdir;
   if not DirectoryExists(slash(appdir) + slash('Textures')) then
   begin
-    appdir := ExtractFilePath(ParamStr(0));
-    i      := pos('.app/', appdir);
-    if i > 0 then
+    // Inside a .app bundle the executable is at Contents/MacOS/photlun and the
+    // data set ships in Contents/Resources/.  Probe that location first, then
+    // fall back to the directory that contains the .app bundle.
+    // The probe sentinel is Database/ -- this program's own data directory --
+    // deliberately, even though the guard above tests Textures/: that outer
+    // test is upstream's and is left untouched, and Textures/ is part of the
+    // separately distributed high-resolution pack, so it is not a reliable
+    // marker of a populated Resources/ for the non-GLScene programs.
+    buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0))) + '..' + PathDelim + 'Resources');
+    if DirectoryExists(slash(buf) + slash('Database')) then
+      // Genuine deployed .app: seed the external copy so this and every
+      // future launch, and any separately downloaded add-on data pack,
+      // live outside the .app, untouched by updating/reinstalling it.
+      appdir := VMAEnsureExternalAppData(buf)
+    else
     begin
-      appdir := ExtractFilePath(copy(appdir, 1, i));
+      appdir := ExtractFilePath(ParamStr(0));
+      i      := pos('.app/', appdir);
+      if i > 0 then
+      begin
+        appdir := ExtractFilePath(copy(appdir, 1, i));
+      end;
     end;
+  end;
   end;
 {$else}
   appdir     := getcurrentdir;
@@ -922,6 +947,15 @@ begin
         end;
      end;
   end;
+ {$else}
+  // Combined bundle: the sibling binaries are bare-named in Contents/MacOS/,
+  // beside the one that was launched (appdir points at Contents/Resources/).
+  // Probe for atlun -- the hub every program spawns -- rather than for our own
+  // name: bindir is the running exe's own directory, so probing for ourselves
+  // is always true and would make the fall-back unreachable.
+  bindir := slash(ExtractFilePath(ParamStr(0)));
+  if not FileExists(slash(bindir)+DefaultMaplun) then
+     bindir := slash(appdir);
  {$endif}
   Maplun  := '"'+bindir + DefaultMaplun+'"';
   Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma

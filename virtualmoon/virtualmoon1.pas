@@ -720,6 +720,39 @@ uses LazUTF8,
   config, splashunit, pu_features,
   glossary, fmsg, dbutil, LCLProc;
 
+{$ifdef darwin}
+// macOS-only "Label Density" slider remap.
+// Upstream's TrackBar9 spans LabelDensity 100..1000, but the label-size cull
+// (wmin, ~line 1600) pins at its 650 cap for roughly the top half of that
+// range, so with the slider running the correct way (see FormCreate:
+// Cocoa ignores the .lfm Reversed=True) the left half of the track was dead.
+// Map the slider's full travel onto the band where wmin actually moves,
+// LabelDensity 100..kMacLabelDensityMax, so the whole track is responsive.
+const
+  kMacLabelDensityMax = 500;      // LabelDensity at the far-left (sparse) end
+  kMacLabelDensityOff = 1000000;  // sentinel: slider fully left -> no labels
+
+function MacLabelDensityFromPos(APos, ATrackMin, ATrackMax: integer): integer;
+begin
+  if APos <= ATrackMin then
+    Result := kMacLabelDensityOff   // dragged fully left: the cull suppresses all
+  else
+    Result := round(kMacLabelDensityMax -
+      (APos - ATrackMin) * (kMacLabelDensityMax - ATrackMin) /
+      (ATrackMax - ATrackMin));
+end;
+
+function MacPosFromLabelDensity(ALD, ATrackMin, ATrackMax: integer): integer;
+begin
+  if ALD >= kMacLabelDensityOff then
+    Result := ATrackMin
+  else
+    Result := EnsureRange(ATrackMin + round((kMacLabelDensityMax - ALD) *
+      (ATrackMax - ATrackMin) / (kMacLabelDensityMax - ATrackMin)),
+      ATrackMin, ATrackMax);
+end;
+{$endif}
+
 procedure TForm1.SetEyepieceMenu;
 var
   i: integer;
@@ -1347,7 +1380,11 @@ begin
     AutolabelColor := ReadInteger(section, 'AutolabelColor', AutolabelColor);
     gridspacing := ReadInteger(section, 'GridSpacing', gridspacing);
     LabelDensity := ReadInteger(section, 'LabelDensity', LabelDensity);
+    {$ifdef darwin}
+    TrackBar9.Position:=MacPosFromLabelDensity(LabelDensity, TrackBar9.Min, TrackBar9.Max);
+    {$else}
     TrackBar9.Position:=LabelDensity;
+    {$endif}
     marksize     := ReadInteger(section, 'MarkSize', marksize);
     labelcenter  := ReadBool(section, 'LabelCenter', labelcenter);
     LabelType    := ReadInteger(section, 'LabelType', LabelType);
@@ -1589,6 +1626,11 @@ begin
     wfact := 1;
     LabelDensity := maxintvalue([100, LabelDensity]);
 
+    {$ifdef darwin}
+    if LabelDensity >= kMacLabelDensityOff then
+      wmin := 1.0e30       // slider dragged fully left: larger than any feature
+    else                   // (WIDE_KM is in km) so every label is culled
+    {$endif}
     if (Tf_moon(Sender).Zoom >= 30) and (LabelDensity<=600) and (Tf_moon(Sender).Zoom >= (Tf_moon(Sender).ZoomMax-5)) then
       wmin := -1
     else
@@ -1981,15 +2023,33 @@ var
 begin
 testfile:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
 {$ifdef darwin}
+  // External Application Support copy, once seeded, always wins -- see
+  // VMAEnsureExternalAppData / Mantis 2948.
+  buf := VMAExternalAppDataDir;
+  if FileExists(slash(buf)+testfile) then
+    appdir := buf
+  else
+  begin
   appdir := getcurrentdir;
   if (not FileExists(slash(appdir)+testfile)) then
   begin
-    appdir := ExtractFilePath(ParamStr(0));
-    i      := pos('.app/', appdir);
-    if i > 0 then
+    // Deployable build: data bundled inside the .app at Contents/Resources/
+    buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0)))+'..'+PathDelim+'Resources');
+    if FileExists(slash(buf)+testfile) then
+      // Genuine deployed .app: seed the external copy from here so this and
+      // every future launch -- and any separately downloaded add-on data
+      // pack -- live outside the .app, untouched by updating/reinstalling it.
+      appdir := VMAEnsureExternalAppData(buf)
+    else
     begin
-      appdir := ExtractFilePath(copy(appdir, 1, i));
+      // Dev build: data sitting next to the .app bundle -- not a deployed
+      // install, so nothing is seeded.
+      appdir := ExtractFilePath(ParamStr(0));
+      i      := pos('.app/', appdir);
+      if i > 0 then
+        appdir := ExtractFilePath(copy(appdir, 1, i));
     end;
+  end;
   end;
 {$else}
   appdir     := getcurrentdir;
@@ -2107,6 +2167,15 @@ testfile:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
         end;
      end;
   end;
+  {$else}
+  // Combined bundle: the sibling binaries are bare-named in Contents/MacOS/,
+  // beside the one that was launched (appdir points at Contents/Resources/).
+  // Probe for photlun -- atlun cannot probe for itself -- rather than for our
+  // own name: bindir is the running exe's own directory, so probing for
+  // ourselves is always true and would make the fall-back unreachable.
+  bindir := slash(ExtractFilePath(ParamStr(0)));
+  if not FileExists(slash(bindir)+DefaultPhotlun) then
+     bindir := slash(appdir);
   {$endif}
   Maplun  := '"'+bindir + DefaultMaplun+'"';
   Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma
@@ -3610,6 +3679,9 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   i,c: integer;
   buf:string;
+{$ifdef darwin}
+  lblDensity: TLabel;
+{$endif}
 begin
 //  Satellite model
 //  Label18.Visible:=true;
@@ -3645,6 +3717,36 @@ begin
   ToolButton13.Visible:=false; // fullscreen
   FullScreen1.Visible:=false;
   Selectiondimprimante1.Visible:=false;
+  // Cocoa toolbars auto-size wider than the .lfm's fixed Left positions expect,
+  // so the label-density slider ended up overlapped by (and z-ordered under)
+  // the icon toolbar. Re-flow it to sit right after ToolBar1, with its own
+  // caption (the .lfm never gave it one), and raise both above the toolbars.
+  lblDensity := TLabel.Create(Self);
+  lblDensity.Parent := ControlBar1;
+  lblDensity.Caption := 'Label Density:';
+  lblDensity.AnchorSideLeft.Control := ToolBar1;
+  lblDensity.AnchorSideLeft.Side := asrRight;
+  lblDensity.AnchorSideTop.Control := TrackBar9;
+  lblDensity.AnchorSideTop.Side := asrCenter;
+  lblDensity.Anchors := [akTop, akLeft];
+  lblDensity.BorderSpacing.Left := 10;
+
+  TrackBar9.AnchorSideLeft.Control := lblDensity;
+  TrackBar9.AnchorSideLeft.Side := asrRight;
+  TrackBar9.Anchors := [akTop, akLeft];
+  TrackBar9.BorderSpacing.Left := 4;
+
+  lblDensity.BringToFront;
+  TrackBar9.BringToFront;
+  // LCL's Cocoa TTrackBar ignores Reversed=True (set in the .lfm), so on macOS
+  // the slider ran backwards: dragging right raised LabelDensity, which raises
+  // the wmin label-size threshold, i.e. *fewer* labels. Turn Reversed off here;
+  // MacLabelDensityFromPos / MacPosFromLabelDensity (used by TrackBar9Change and
+  // the two Position:= sites) then map the track so right = denser and the
+  // whole travel is responsive. Don't seed Position here -- that would fire
+  // TrackBar9Change before activemoon exists; the config load / form2 sync
+  // sites set it.
+  TrackBar9.Reversed := False;
 {$endif}
 {$ifdef linux}
   TrackBar1.Top:=-8;
@@ -4142,7 +4244,11 @@ begin
       bassinColor     := form2.Shape4.Brush.Color;
       terminatorColor := form2.Shape5.Brush.Color;
       LabelDensity  := abs(form2.TrackBar2.Position);
+      {$ifdef darwin}
+      TrackBar9.Position:=MacPosFromLabelDensity(LabelDensity, TrackBar9.Min, TrackBar9.Max);
+      {$else}
       TrackBar9.Position:=LabelDensity;
+      {$endif}
       marksize      := form2.TrackBar4.Position;
       showlabel     := form2.checkbox5.Checked;
       showmark      := form2.checkbox6.Checked;
@@ -5151,7 +5257,13 @@ end;
 
 procedure TForm1.TrackBar9Change(Sender: TObject);
 begin
+ {$ifdef darwin}
+ // Cocoa ignores the .lfm's Reversed=True; remap by hand (see FormCreate and
+ // MacLabelDensityFromPos).
+ LabelDensity:=MacLabelDensityFromPos(TrackBar9.Position, TrackBar9.Min, TrackBar9.Max);
+ {$else}
  LabelDensity:=TrackBar9.Position;
+ {$endif}
  activemoon.RefreshAll;
 end;
 

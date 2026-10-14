@@ -38,7 +38,7 @@ uses
   x, xlib, xutil,
 {$ENDIF}
 {$IFDEF Darwin}
-  GLCarbonContext;
+  GLCocoaContext;
 {$ENDIF}
 {$IFDEF BSD}
 {$MESSAGE Warn 'Needs to be implemented'}
@@ -100,10 +100,11 @@ type
 {$ENDIF}
   // MacOS X
 {$IFDEF Darwin}
-  TGLWidgetContext = class(TGLCarbonContext)
+  TGLWidgetContext = class(TGLCocoaContext)
   protected
-     
-   // procedure DoGetHandles(outputDevice: HWND; out XWin: HWND); override;
+
+   // Cocoa resolves its NSView directly from the device context in
+   // TGLCocoaContext.DoCreateContext, so no DoGetHandles override is needed.
   end;
 {$ENDIF}
   // Linux Ubuntu, Kubuntu,...

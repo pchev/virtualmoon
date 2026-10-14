@@ -155,12 +155,15 @@ const crlf = chr(10)+chr(13);
       Defaultconfigfile='~/.virtualmoon/vma.rc';
       SharedDir='/usr/share/virtualmoon';
       DefaultTmpDir='tmp';
-      DefaultPhotlun='photlun.app/Contents/MacOS/photlun';
-      DefaultMaplun='atlun.app/Contents/MacOS/atlun';
-      DefaultDatlun='datlun.app/Contents/MacOS/datlun';
-      DefaultWeblun='weblun.app/Contents/MacOS/weblun';
-      DefaultCalclun='calclun.app/Contents/MacOS/calclun';
-      DefaultNotelun='notelun.app/Contents/MacOS/notelun';
+      // Combined-bundle layout: every suite binary sits in Contents/MacOS/
+      // beside the one the user launched, so the sibling is just its bare
+      // name relative to bindir (which resolves to Contents/MacOS/).
+      DefaultPhotlun='photlun';
+      DefaultMaplun='atlun';
+      DefaultDatlun='datlun';
+      DefaultWeblun='weblun';
+      DefaultCalclun='calclun';
+      DefaultNotelun='notelun';
       DefaultCdC='skychart.app/Contents/MacOS/skychart';
       DefaultCdCconfig='~/.skychart/skychart.ini';
       DefaultVignetteDir='vignette';

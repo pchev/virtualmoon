@@ -108,7 +108,7 @@ interface
 {.$define MULTITHREADOPENGL}
 
 uses
-  SysUtils, OpenGLTokens, GLVectorTypes,
+  SysUtils, Math, OpenGLTokens, GLVectorTypes,
   {$IFDEF MSWINDOWS}
     Windows
   {$ENDIF }
@@ -5210,7 +5210,17 @@ end;
 
 initialization
 
+   // Mask all floating-point exceptions before GLScene starts producing
+   // vectors/matrices. On x86 this is the x87 control word; on every other
+   // architecture (AArch64 here) Set8087CW does not exist, so use the
+   // portable Math-unit equivalent - without it GLScene's first NaN/Inf
+   // raises EInvalidOp out of FORMS.PP at startup.
+{$if defined(CPUI386) or defined(CPUX86_64)}
    Set8087CW($133F);
+{$else}
+   SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide,
+                     exOverflow, exUnderflow, exPrecision]);
+{$endif}
 
 finalization
 

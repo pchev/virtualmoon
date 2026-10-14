@@ -20,7 +20,15 @@ const
     {$endif}
   {$else}
     {$ifdef darwin}
-      libcspice = './libcspice.dylib';
+      // macOS port: link against libcspice.dylib found on the library search
+      // path (-Flcspice, mirroring the Linux build's -Fl./cspice).  FPC does
+      // not auto-emit the link directive for `external libcspice` on Darwin
+      // the way it does on Windows/Linux, so request it explicitly.  The dylib
+      // carries an install name of @executable_path/libcspice.dylib so dyld
+      // loads it from beside the executable (Contents/MacOS/ in the .app, or
+      // next to the calclun binary in a dev layout).
+      libcspice = 'libcspice.dylib';
+      {$linklib cspice}
       {$L getcell.o}
     {$else}
       libcspice = 'libcspicevma.so';
