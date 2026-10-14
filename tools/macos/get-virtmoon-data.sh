@@ -53,6 +53,25 @@
 # before) -- -k is what makes it persist for a future run to find.
 set -euo pipefail
 
+# Cleans up scratch dirs/temp files on any exit -- normal, error, Ctrl-C, or
+# the interactive "q" quit below -- so stopping mid-download or mid-extract
+# never leaves /tmp/vma-fetch.* or /tmp/vma-rss.*.xml behind. (A -k/--keep
+# .deb is already copied to KEEP_DIR before this could ever run, so quitting
+# never loses a kept download.)
+cleanup() {
+  # nullglob: an unmatched /tmp/vma-fetch.* (nothing to clean up) should
+  # just expand to nothing, not make zsh error with "no matches found".
+  setopt local_options nullglob
+  rm -rf /tmp/vma-fetch.* 2>/dev/null
+  rm -f /tmp/vma-rss.*.xml 2>/dev/null
+}
+trap cleanup EXIT INT TERM
+
+# Also sweep on the way in, before this run creates its own temp files --
+# SIGKILL (and a crash) skip the trap above, so a prior run's leftovers
+# would otherwise just sit in /tmp forever.
+cleanup
+
 # Pull -k/--keep (and -k=DIR/--keep=DIR) out of the args before anything
 # else looks at them, so the rest of the script sees the same positional
 # args ($1=package or flag, $2=target dir) it always did.
@@ -147,19 +166,26 @@ PY
 
 fetch_and_merge() {  # <pkg> <target> <feed-file>
   local pkg="$1" target="$2" feed="$3"
-  local prefix url size name md5 scratch datatar src computed_md5
+  local prefix url size name md5 zipname scratch datatar src computed_md5
   local check_dir="${KEEP_DIR:-$PWD}"
+  local use_zip=0
 
   prefix="$(prefix_for "$pkg")"
   if ! resolved="$(resolve_latest "$feed" "$prefix")"; then
-    echo "no package found in the RSS feed matching '$prefix*' -- check tools/get-virtmoon-data.sh's prefix_for()" >&2
+    echo "no package found in the RSS feed matching '$prefix*' -- check tools/macos/get-virtmoon-data.sh's prefix_for()" >&2
     exit 1
   fi
   IFS=$'\t' read -r url size name md5 <<< "$resolved"
+  zipname="${name%.deb}.zip"
 
   scratch="$(mktemp -d /tmp/vma-fetch.XXXXXX)"
 
-  if [ -f "$check_dir/$name" ]; then
+  if [ -f "$check_dir/$zipname" ]; then
+    echo "==> found $zipname in $check_dir -- using it as a pre-unpacked override (no download, no MD5 check)"
+    use_zip=1
+    mkdir -p "$scratch/payload"
+    unzip -q "$check_dir/$zipname" -d "$scratch/payload"
+  elif [ -f "$check_dir/$name" ]; then
     echo "==> found $name already in $check_dir -- using it instead of downloading"
     cp "$check_dir/$name" "$scratch/$name"
   else
@@ -167,34 +193,38 @@ fetch_and_merge() {  # <pkg> <target> <feed-file>
     curl -L -C - -o "$scratch/$name" "$url"
   fi
 
-  if [ -n "$md5" ]; then
-    computed_md5="$(md5 -q "$scratch/$name")"
-    if [ "$computed_md5" != "$md5" ]; then
-      echo "MD5 mismatch for $name: expected $md5, got $computed_md5 -- not extracting" >&2
-      exit 1
+  if [ "$use_zip" = 0 ]; then
+    if [ -n "$md5" ]; then
+      computed_md5="$(md5 -q "$scratch/$name")"
+      if [ "$computed_md5" != "$md5" ]; then
+        echo "MD5 mismatch for $name: expected $md5, got $computed_md5 -- not extracting" >&2
+        exit 1
+      fi
+      echo "    MD5 OK"
     fi
-    echo "    MD5 OK"
+
+    if [ -n "$KEEP_DIR" ] && [ ! -f "$KEEP_DIR/$name" ]; then
+      mkdir -p "$KEEP_DIR"
+      cp "$scratch/$name" "$KEEP_DIR/$name"
+      echo "    kept: $KEEP_DIR/$name"
+    fi
+
+    echo "==> extracting"
+    ( cd "$scratch" && ar x "$name" )
+
+    datatar="$(ls "$scratch"/data.tar.* 2>/dev/null | head -1)"
+    [ -n "$datatar" ] || { echo "no data.tar.* found after ar x -- bad download?" >&2; exit 1; }
+
+    mkdir -p "$scratch/payload"
+    # bsdtar auto-detects gz/xz/bz2/plain; a .tar.zst needs the zstd CLI on
+    # PATH (brew install zstd if this errors with "unable to run program zstd").
+    ( cd "$scratch/payload" && tar xf "$datatar" )
+
+    src="$scratch/payload/usr/share/virtualmoon"
+    [ -d "$src" ] || { echo "expected $src not found in $name" >&2; exit 1; }
+  else
+    src="$scratch/payload"
   fi
-
-  if [ -n "$KEEP_DIR" ] && [ ! -f "$KEEP_DIR/$name" ]; then
-    mkdir -p "$KEEP_DIR"
-    cp "$scratch/$name" "$KEEP_DIR/$name"
-    echo "    kept: $KEEP_DIR/$name"
-  fi
-
-  echo "==> extracting"
-  ( cd "$scratch" && ar x "$name" )
-
-  datatar="$(ls "$scratch"/data.tar.* 2>/dev/null | head -1)"
-  [ -n "$datatar" ] || { echo "no data.tar.* found after ar x -- bad download?" >&2; exit 1; }
-
-  mkdir -p "$scratch/payload"
-  # bsdtar auto-detects gz/xz/bz2/plain; a .tar.zst needs the zstd CLI on
-  # PATH (brew install zstd if this errors with "unable to run program zstd").
-  ( cd "$scratch/payload" && tar xf "$datatar" )
-
-  src="$scratch/payload/usr/share/virtualmoon"
-  [ -d "$src" ] || { echo "expected $src not found in $name" >&2; exit 1; }
 
   echo "==> stripping any symlinks (no symlinks in the data, ever)"
   find "$src" -type l -print -delete
@@ -217,7 +247,7 @@ show_menu() {  # <feed-file>
   local feed="$1"
   local pkg prefix resolved size sz_human total=0
   echo "Which data do you want? Enter one or more numbers, comma-separated"
-  echo "(e.g. 1,3,4)."
+  echo "(e.g. 1,3,4), or q to quit without downloading anything."
   local i=1
   for pkg in "${ALL_PKGS[@]}"; do
     prefix="$(prefix_for "$pkg")"
@@ -308,6 +338,9 @@ case "${1:-}" in
     else
       choice=""
     fi
+    case "$choice" in
+      q|Q) echo "Quitting -- nothing downloaded." >&2; exit 0 ;;
+    esac
     resolve_choices "$choice"
     for PKG in "${PKGS_TO_FETCH[@]}"; do
       fetch_and_merge "$PKG" "$TARGET" "$FEED"
