@@ -145,14 +145,14 @@ build() {  # <lpi> [extra lazbuild args...]
   "$LB" "${LB_COMMON[@]}" "$@" "$lpi"
 }
 
-build virtualmoon/atlun.lpi
-build calclun/calclun.lpi
-build datlun/datlun.lpi
-build notelun/notelun.lpi
-build photlun/photlun.lpi
-build weblun/weblun.lpi
-build cclun/cclun.lpi
-build catlun/catlun.lpi --build-mode=default
+build virtualmoon/atlun.lpi --build-mode=macos
+build calclun/calclun.lpi --build-mode=macos
+build datlun/datlun.lpi --build-mode=macos
+build notelun/notelun.lpi --build-mode=macos
+build photlun/photlun.lpi --build-mode=macos
+build weblun/weblun.lpi --build-mode=macos
+build cclun/cclun.lpi --build-mode=macos
+#build catlun/catlun.lpi --build-mode=macos
 
 # --- report ----------------------------------------------------------------
 echo
@@ -166,7 +166,7 @@ check notelun/notelun
 check photlun/photlun
 check weblun/weblun
 check cclun/cclun
-check catlun/units/aarch64-darwin-cocoa/catlun
+#check catlun/units/aarch64-darwin-cocoa/catlun
 check virtualmoon/library/plan404/libplan404.dylib
 check calclun/cspice/libcspice.dylib
 echo

@@ -79,6 +79,38 @@
           </Other>
         </CompilerOptions>
       </Item>
+      <Item Name="macos">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="notelun"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../virtualmoon"/>
+            <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+              <DebugInfoType Value="dsDwarf3"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CompilerMessages>
+              <IgnoredMessages idx6058="True"/>
+            </CompilerMessages>
+            <CustomOptions Value="-k-ld_classic"/>
+          </Other>
+        </CompilerOptions>
+      </Item>
       <SharedMatrixOptions Count="3">
         <Item1 ID="099843986923" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="360678233942" Modes="qt" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt5"/>
@@ -196,10 +228,18 @@
       <OtherUnitFiles Value="../virtualmoon"/>
       <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <Checks>
+        <IOChecks Value="True"/>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+        <StackChecks Value="True"/>
+      </Checks>
+    </CodeGeneration>
     <Linking>
       <Debugging>
-        <DebugInfoType Value="dsDwarf3"/>
-        <UseHeaptrc Value="False"/>
+        <DebugInfoType Value="dsDwarf2"/>
+        <UseHeaptrc Value="True"/>
       </Debugging>
       <Options>
         <Win32>
@@ -208,7 +248,6 @@
       </Options>
     </Linking>
     <Other>
-      <CustomOptions Value="-k-ld_classic"/>
       <CompilerMessages>
         <IgnoredMessages idx6058="True"/>
       </CompilerMessages>

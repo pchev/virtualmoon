@@ -18,7 +18,10 @@
     <i18n>
       <EnableI18N LFM="False"/>
     </i18n>
-    <BuildModes Count="2">
+    <MacroValues Count="1">
+      <Macro2 Name="LCLWidgetType" Value="gtk2"/>
+    </MacroValues>
+    <BuildModes Count="3">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="win32">
         <MacroValues Count="1">
@@ -47,8 +50,38 @@
           </Linking>
         </CompilerOptions>
       </Item2>
-      <SharedMatrixOptions Count="1">
+      <Item3 Name="macos">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="weblun"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../virtualmoon"/>
+            <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+              <DebugInfoType Value="dsDwarf2"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-k-ld_classic"/>
+          </Other>
+        </CompilerOptions>
+      </Item3>
+      <SharedMatrixOptions Count="2">
         <Item1 ID="977055520714" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
+        <Item2 ID="953466358028" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
@@ -127,7 +160,7 @@
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf2"/>
-        <UseHeaptrc Value="False"/>
+        <UseHeaptrc Value="True"/>
       </Debugging>
       <Options>
         <Win32>
@@ -135,9 +168,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CustomOptions Value="-k-ld_classic"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

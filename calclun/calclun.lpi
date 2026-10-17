@@ -15,7 +15,7 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
-    <BuildModes Count="4">
+    <BuildModes Count="5">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Release">
         <CompilerOptions>
@@ -47,7 +47,8 @@
             </Options>
           </Linking>
           <Other>
-            <CustomOptions Value="-dUseHeapTrc"/>
+            <CustomOptions Value="-dUseCThreads
+-Flcspice"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -119,6 +120,37 @@
           </Other>
         </CompilerOptions>
       </Item4>
+      <Item5 Name="macos">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="calclun"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../virtualmoon"/>
+            <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+              <DebugInfoType Value="dsDwarf2"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dUseCThreads
+-k-ld_classic
+-Flcspice"/>
+          </Other>
+        </CompilerOptions>
+      </Item5>
       <SharedMatrixOptions Count="2">
         <Item1 ID="114807326563" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="427044282431" Modes="win64" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
@@ -243,7 +275,6 @@
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf2"/>
-        <UseHeaptrc Value="False"/>
       </Debugging>
       <Options>
         <Win32>
@@ -253,7 +284,6 @@
     </Linking>
     <Other>
       <CustomOptions Value="-dUseCThreads
--k-ld_classic
 -Flcspice"/>
     </Other>
   </CompilerOptions>

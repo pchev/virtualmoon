@@ -42,6 +42,7 @@
           <Linking>
             <Debugging>
               <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
               <DebugInfoType Value="dsDwarf2Set"/>
               <StripSymbols Value="True"/>
             </Debugging>
@@ -52,6 +53,35 @@
               </Win32>
             </Options>
           </Linking>
+        </CompilerOptions>
+      </Item>
+      <Item Name="macos">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="photlun"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../virtualmoon"/>
+            <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+              <DebugInfoType Value="dsDwarf2Set"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-k-ld_classic"/>
+          </Other>
         </CompilerOptions>
       </Item>
       <SharedMatrixOptions Count="2">
@@ -124,7 +154,6 @@
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf2Set"/>
-        <UseHeaptrc Value="False"/>
       </Debugging>
       <Options>
         <Win32>
@@ -132,9 +161,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CustomOptions Value="-k-ld_classic"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>

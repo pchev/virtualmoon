@@ -5,7 +5,7 @@
 # Run tools/macos/build-suite.sh first (builds the binaries + helper dylibs).
 #
 # Layout:
-#   Contents/MacOS/        atlun catlun calclun datlun notelun photlun weblun
+#   Contents/MacOS/        atlun calclun datlun notelun photlun weblun
 #                          cclun  +  libplan404.dylib libcspice.dylib
 #   Contents/Frameworks/   libssl.3.dylib libcrypto.3.dylib   (calclun / weblun
 #                          Synapse dlopen()s these from ../Frameworks)
@@ -63,7 +63,6 @@ fi
 # prog : binary path relative to $SRC
 BINS=(
   "atlun:virtualmoon/units/aarch64-darwin-cocoa/atlun"
-  "catlun:catlun/units/aarch64-darwin-cocoa/catlun"
   "calclun:calclun/calclun"
   "datlun:datlun/units/aarch64-darwin-cocoa/datlun"
   "notelun:notelun/notelun"
@@ -219,7 +218,7 @@ cat > "$STAGE/READ ME FIRST.txt" <<'TXT'
 Virtual Moon Atlas - native macOS (Apple Silicon)
 
 One app, the whole suite: atlun (3D Moon globe), plus calclun, datlun,
-notelun, photlun, weblun, cclun and catlun. Open atlun and reach the
+notelun, photlun, weblun, cclun. Open atlun and reach the
 others from its toolbar and menus.
 
 Install:  drag BOTH "Virtual Moon Atlas.app" and "VMA Menu" (cclun.app)

@@ -51,6 +51,7 @@ virtualmoon/component/enhedits/lib/
 virtualmoon/component/lib/
 virtualmoon/component/libsql/lib/
 virtualmoon/component/synapse/source/lib/lib/
+virtualmoon/library/plan404/libplan404.dylib
 weblun/units/
 weblun/weblun
 weblun/weblun.exe
@@ -59,6 +60,8 @@ calclun/units/
 calclun/cspice/*.dll
 calclun/cspice/*.so
 calclun/cspice/libcspice.a
+calclun/cspice/libcspice.dylib
+calclun/cspice/libcspicevma.dylib
 calclun/cspice/SpiceZpl.h
 calclun/getcell.o*
 calclun/getcellwin32.o*
@@ -76,3 +79,11 @@ language/launchpad/vmapot.tar
 last.build
 # ignore binary
 *.o
+#ignore mac app
+calclun/calclun.app/
+cclun/cclun.app/
+notelun/notelun.app/
+photlun/photlun.app/
+virtualmoon/component/synapse/lib/
+weblun/weblun.app/
+
