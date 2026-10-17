@@ -15,7 +15,7 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
-    <BuildModes Count="5">
+    <BuildModes Count="6">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Release">
         <CompilerOptions>
@@ -151,6 +151,42 @@
           </Other>
         </CompilerOptions>
       </Item5>
+      <Item6 Name="macos-debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="calclun"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../virtualmoon"/>
+            <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dUseCThreads
+-k-ld_classic
+-Flcspice"/>
+          </Other>
+        </CompilerOptions>
+      </Item6>
       <SharedMatrixOptions Count="2">
         <Item1 ID="114807326563" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="427044282431" Modes="win64" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>

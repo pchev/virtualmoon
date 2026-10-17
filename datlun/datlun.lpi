@@ -19,7 +19,7 @@
     <MacroValues Count="1">
       <Macro2 Name="LCLWidgetType" Value="gtk2"/>
     </MacroValues>
-    <BuildModes Count="3">
+    <BuildModes Count="4">
       <Item1 Name="default" Default="True"/>
       <Item2 Name="win32">
         <MacroValues Count="1">
@@ -90,6 +90,46 @@
           </Other>
         </CompilerOptions>
       </Item3>
+      <Item4 Name="macos-debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <SearchPaths>
+            <OtherUnitFiles Value="..\virtualmoon"/>
+            <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <UseAnsiStrings Value="False"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+            <Optimizations>
+              <OptimizationLevel Value="0"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dUseCThreads
+-k-ld_classic"/>
+          </Other>
+        </CompilerOptions>
+      </Item4>
       <SharedMatrixOptions Count="2">
         <Item1 ID="059195221445" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="990104130666" Modes="default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>

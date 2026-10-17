@@ -21,7 +21,7 @@
     <MacroValues Count="1">
       <Macro2 Name="LCLWidgetType" Value="gtk2"/>
     </MacroValues>
-    <BuildModes Count="3">
+    <BuildModes Count="4">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="win32">
         <MacroValues Count="1">
@@ -79,6 +79,40 @@
           </Other>
         </CompilerOptions>
       </Item3>
+      <Item4 Name="macos-debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="weblun"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../virtualmoon"/>
+            <UnitOutputDirectory Value="units/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-k-ld_classic"/>
+          </Other>
+        </CompilerOptions>
+      </Item4>
       <SharedMatrixOptions Count="2">
         <Item1 ID="977055520714" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="953466358028" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>

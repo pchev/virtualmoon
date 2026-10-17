@@ -51,7 +51,7 @@ virtualmoon/component/enhedits/lib/
 virtualmoon/component/lib/
 virtualmoon/component/libsql/lib/
 virtualmoon/component/synapse/source/lib/lib/
-virtualmoon/library/plan404/libplan404.dylib
+libplan404.dylib
 weblun/units/
 weblun/weblun
 weblun/weblun.exe
@@ -60,8 +60,8 @@ calclun/units/
 calclun/cspice/*.dll
 calclun/cspice/*.so
 calclun/cspice/libcspice.a
-calclun/cspice/libcspice.dylib
-calclun/cspice/libcspicevma.dylib
+libcspice.dylib
+libcspicevma.dylib
 calclun/cspice/SpiceZpl.h
 calclun/getcell.o*
 calclun/getcellwin32.o*
@@ -86,4 +86,4 @@ notelun/notelun.app/
 photlun/photlun.app/
 virtualmoon/component/synapse/lib/
 weblun/weblun.app/
-
+.DS_Store

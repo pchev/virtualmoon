@@ -20,7 +20,7 @@
     <MacroValues Count="1">
       <Macro3 Name="LCLWidgetType" Value="gtk2"/>
     </MacroValues>
-    <BuildModes Count="4">
+    <BuildModes Count="5">
       <Item1 Name="release" Default="True"/>
       <Item2 Name="debug">
         <MacroValues Count="1">
@@ -136,6 +136,41 @@
           </Other>
         </CompilerOptions>
       </Item4>
+      <Item5 Name="macos-debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowHints Value="False"/>
+            </Verbosity>
+            <CustomOptions Value="-dUseCThreads
+-k-ld_classic"/>
+          </Other>
+        </CompilerOptions>
+      </Item5>
       <SharedMatrixOptions Count="3">
         <Item1 ID="844868194224" Modes="win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="791117738627" Modes="debug" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
