@@ -146,9 +146,9 @@ var i,p : integer;
 begin
 ScaleDPI(Self);
 PageControl1.ActivePageIndex:=0;
-i:=findfirst(slash(appdir)+slash('language')+'calclun.*.po',0,fs);
+i:=findfirst(slash(LangDir)+'calclun.*.po',0,fs);
 while i=0 do begin
-  AssignFile(ft,slash(appdir)+slash('language')+fs.name);
+  AssignFile(ft,slash(LangDir)+fs.name);
   reset(ft);
   AVLlang:='';
   while not eof(ft) do begin

@@ -2158,6 +2158,7 @@ testfile:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
     end;
   end;
  {$ifndef darwin}
+  LangDir:=slash(appdir)+'language';
   if not FileExists(slash(bindir)+DefaultPhotlun) then begin
      bindir := slash(ExtractFilePath(ParamStr(0)));
      if not FileExists(slash(bindir)+DefaultPhotlun) then begin
@@ -2174,8 +2175,13 @@ testfile:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
   // own name: bindir is the running exe's own directory, so probing for
   // ourselves is always true and would make the fall-back unreachable.
   bindir := slash(ExtractFilePath(ParamStr(0)));
-  if not FileExists(slash(bindir)+DefaultPhotlun) then
-     bindir := slash(appdir);
+  if not FileExists(slash(bindir)+DefaultPhotlun) then begin
+    bindir := '/Applications/Virtual Moon Atlas.app/Contents/MacOS/';  // default location to debug from IDE
+    if not FileExists(slash(bindir)+DefaultPhotlun) then begin
+      bindir := slash(appdir);
+    end;
+  end;
+  LangDir:=ExpandFileName(slash(bindir)+slash('..')+slash('Resources')+'language');
   {$endif}
   Maplun  := '"'+bindir + DefaultMaplun+'"';
   Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma

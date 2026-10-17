@@ -80,12 +80,12 @@ var pofile: string;
 begin
  if lang='' then lang:=GetDefaultLanguage;
  // translate LCL messages
- TranslateUnitResourceStrings('LCLStrConsts',slash(appdir)+slash('language')+'lclstrconsts.%s.po',lang,lang2);
+ TranslateUnitResourceStrings('LCLStrConsts',slash(LangDir)+'lclstrconsts.%s.po',lang,lang2);
  // translate messages
- pofile:=format(slash(appdir)+slash('language')+'photlun.%s.po',[lang]);
+ pofile:=format(slash(LangDir)+'photlun.%s.po',[lang]);
  if FileExists(pofile) then result:=lang
                        else result:=lang2;
- TranslateUnitResourceStrings('u_translation',slash(appdir)+slash('language')+'photlun.%s.po',lang,lang2);
+ TranslateUnitResourceStrings('u_translation',slash(LangDir)+'photlun.%s.po',lang,lang2);
 end;
 
 end.

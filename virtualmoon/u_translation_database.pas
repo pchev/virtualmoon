@@ -77,10 +77,10 @@ var pofile: string;
 begin
  if lang='' then lang:=GetDefaultLanguage;
  // translate messages
- pofile:=format(slash(appdir)+slash('language')+'vmadatabase.%s.po',[lang]);
+ pofile:=format(slash(LangDir)+'vmadatabase.%s.po',[lang]);
  if FileExists(pofile) then result:=lang
                        else result:=lang2;
- TranslateUnitResourceStrings('u_translation_database',slash(appdir)+slash('language')+'vmadatabase.%s.po',lang,lang2);
+ TranslateUnitResourceStrings('u_translation_database',slash(LangDir)+'vmadatabase.%s.po',lang,lang2);
 end;
 
 end.

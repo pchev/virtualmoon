@@ -596,9 +596,9 @@ if not fileexists('version.developpement') then begin
   checkbox15.Visible:=false;   // direct LOPAM image link
 end;
 PageControl1.ActivePageIndex:=0;
-i:=findfirst(slash(appdir)+slash('language')+'maplun.*.po',0,fs);
+i:=findfirst(slash(LangDir)+'maplun.*.po',0,fs);
 while i=0 do begin
-  AssignFile(ft,slash(appdir)+slash('language')+fs.name);
+  AssignFile(ft,slash(LangDir)+fs.name);
   reset(ft);
   AVLlang:='';
   while not eof(ft) do begin
