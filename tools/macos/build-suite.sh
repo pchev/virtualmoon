@@ -7,6 +7,10 @@
 #   (https://github.com/LongDirtyAnimAlf/fpcupdeluxe), installed into
 #   <workspace>/fpcupdeluxe (see the prompt below). Override the toolchain
 #   paths with FPC= LB= PCP= env vars.
+#   For example to use FPC in /usr/local and Lazarus in home directory:
+#      export FPC=/usr/local/bin/fpc
+#      export LB=$HOME/src/lazarus/lazbuild
+#      export PCP=$HOME/.lazarus
 #
 # Usage:
 #   tools/macos/build-suite.sh                 # prompts for the workspace dir
