@@ -3,10 +3,9 @@ object f_updcatalog: Tf_updcatalog
   Height = 527
   Top = 30
   Width = 870
-  ClientHeight = 497
+  ClientHeight = 527
   ClientWidth = 870
   FormStyle = fsStayOnTop
-  Menu = MainMenu1
   LCLVersion = '4.8.0.0'
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
@@ -20,11 +19,23 @@ object f_updcatalog: Tf_updcatalog
     Width = 870
     Align = alTop
     Caption = 'Select data to install or remove'
+    ClientHeight = 34
+    ClientWidth = 870
     TabOrder = 0
+    object btnConfig: TButton
+      Left = 8
+      Height = 28
+      Top = 1
+      Width = 75
+      AutoSize = True
+      Caption = 'btnConfig'
+      TabOrder = 0
+      OnClick = BtnConfigClick
+    end
   end
   object PageControl1: TPageControl
     Left = 0
-    Height = 368
+    Height = 398
     Top = 34
     Width = 870
     ActivePage = TabSheetBase
@@ -34,11 +45,11 @@ object f_updcatalog: Tf_updcatalog
     TabOrder = 2
     object TabSheetBase: TTabSheet
       Caption = 'Base data'
-      ClientHeight = 368
+      ClientHeight = 398
       ClientWidth = 870
       object GridBase: TStringGrid
         Left = 0
-        Height = 368
+        Height = 398
         Top = 0
         Width = 870
         Align = alClient
@@ -116,7 +127,7 @@ object f_updcatalog: Tf_updcatalog
   object Panel2: TPanel
     Left = 0
     Height = 95
-    Top = 402
+    Top = 432
     Width = 870
     Align = alBottom
     ClientHeight = 95
@@ -209,12 +220,5 @@ object f_updcatalog: Tf_updcatalog
     OnTimer = EndInstallTimerTimer
     Left = 32
     Top = 216
-  end
-  object MainMenu1: TMainMenu
-    Left = 136
-    object MenuItem1: TMenuItem
-      Caption = 'Configure data source'
-      OnClick = MenuItem1Click
-    end
   end
 end

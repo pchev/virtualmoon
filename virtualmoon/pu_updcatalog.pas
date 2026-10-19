@@ -45,12 +45,11 @@ type
   { Tf_updcatalog }
 
   Tf_updcatalog = class(TForm)
+    btnConfig: TButton;
     ButtonClose: TButton;
     ButtonAbort: TButton;
     LabelAction: TLabel;
     LabelProgress: TLabel;
-    MainMenu1: TMainMenu;
-    MenuItem1: TMenuItem;
     PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
@@ -72,7 +71,7 @@ type
     procedure GridButtonClick(Sender: TObject; aCol, aRow: Integer);
     procedure GridGetCellHint(Sender: TObject; ACol, ARow: Integer; var HintText: String);
     procedure GridDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
-    procedure MenuItem1Click(Sender: TObject);
+    procedure BtnConfigClick(Sender: TObject);
   private
     FSaveConfig, FChartRefresh, FActivatePictures: TNotifyEvent;
     InstallInfo: TCatInfo;
@@ -221,7 +220,7 @@ begin
   GridBase.Columns[5].Title.Caption:=rst_6;
   ButtonAbort.Caption:=rsAbort;
   ButtonClose.Caption:=rst_30;
-  MenuItem1.Caption:=rsConfigureThe;
+  BtnConfig.Caption:=rsConfigureThe;
 end;
 
 procedure Tf_updcatalog.FormCreate(Sender: TObject);
@@ -450,7 +449,7 @@ end;
 procedure Tf_updcatalog.InitialData;
 begin
   if GridBase.RowCount<2 then begin
-    MenuItem1Click(self);
+    BtnConfigClick(self);
     LoadCatalogList;
   end;
   if GridBase.RowCount<2 then begin
@@ -557,7 +556,7 @@ begin
   end;
 end;
 
-procedure Tf_updcatalog.MenuItem1Click(Sender: TObject);
+procedure Tf_updcatalog.BtnConfigClick(Sender: TObject);
 var F: TForm;
     L1: Tlabel;
     R: TRadioGroup;
