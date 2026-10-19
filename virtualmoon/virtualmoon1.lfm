@@ -16,6 +16,8 @@ object Form1: TForm1
   Constraints.MinWidth = 1035
   DoubleBuffered = False
   KeyPreview = True
+  ParentDoubleBuffered = False
+  LCLVersion = '4.8.0.0'
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
@@ -24,13 +26,13 @@ object Form1: TForm1
   OnKeyUp = FormKeyUp
   OnResize = FormResize
   OnShow = FormShow
-  ParentDoubleBuffered = False
   object PanelMoon2: TPanel
     Left = 0
     Height = 523
     Top = 60
     Width = 200
     Align = alLeft
+    ParentBackground = False
     TabOrder = 4
   end
   object PanelMoon: TPanel
@@ -39,6 +41,7 @@ object Form1: TForm1
     Top = 60
     Width = 200
     Align = alLeft
+    ParentBackground = False
     TabOrder = 2
   end
   object Memo2: TMemo
@@ -61,6 +64,7 @@ object Form1: TForm1
     BevelOuter = bvNone
     ClientHeight = 60
     ClientWidth = 1116
+    ParentBackground = False
     TabOrder = 1
     object TrackBar9: TTrackBar
       Left = 824
@@ -69,12 +73,12 @@ object Form1: TForm1
       Width = 88
       Max = 1000
       Min = 100
-      OnChange = TrackBar9Change
       PageSize = 100
       Position = 100
       Reversed = True
       ShowSelRange = False
       TickStyle = tsNone
+      OnChange = TrackBar9Change
       Constraints.MaxHeight = 30
       ParentShowHint = False
       ShowHint = True
@@ -135,11 +139,11 @@ object Form1: TForm1
       Width = 112
       Max = 100
       Min = 1
-      OnChange = TrackBar1Change
       PageSize = 10
       Position = 1
       ShowSelRange = False
       TickStyle = tsNone
+      OnChange = TrackBar1Change
       Constraints.MaxHeight = 30
       ParentShowHint = False
       ShowHint = True
@@ -211,40 +215,40 @@ object Form1: TForm1
         Top = 0
         Caption = 'Rotation'
         ImageIndex = 8
-        OnClick = ToolButton3Click
         Style = tbsCheck
+        OnClick = ToolButton3Click
       end
       object PhaseButton: TToolButton
         Left = 164
         Top = 0
         Caption = 'Phase'
         ImageIndex = 7
-        OnClick = PhaseButtonClick
         Style = tbsCheck
+        OnClick = PhaseButtonClick
       end
       object LibrationButton: TToolButton
         Left = 194
         Top = 0
         Caption = 'Libration'
         ImageIndex = 11
-        OnClick = LibrationButtonClick
         Style = tbsCheck
+        OnClick = LibrationButtonClick
       end
       object GridButton: TToolButton
         Left = 229
         Top = 0
         Caption = 'GridButton'
         ImageIndex = 14
-        OnClick = GridButtonClick
         Style = tbsCheck
+        OnClick = GridButtonClick
       end
       object ToolButton14: TToolButton
         Left = 289
         Top = 0
         Caption = 'ToolButton14'
         ImageIndex = 16
-        OnClick = ToolButton14Click
         Style = tbsCheck
+        OnClick = ToolButton14Click
       end
       object ToolButton17: TToolButton
         Left = 224
@@ -272,8 +276,8 @@ object Form1: TForm1
         Top = 0
         Caption = 'Terminator'
         ImageIndex = 31
-        OnClick = TerminatorButtonClick
         Style = tbsCheck
+        OnClick = TerminatorButtonClick
       end
     end
     object ToolBar4: TToolBar
@@ -335,8 +339,8 @@ object Form1: TForm1
         Top = 0
         Caption = 'Window 2'
         ImageIndex = 0
-        OnClick = NewWindowButtonClick
         Style = tbsCheck
+        OnClick = NewWindowButtonClick
       end
       object ToolButton13: TToolButton
         Left = 251
@@ -441,16 +445,16 @@ object Form1: TForm1
         Top = 0
         Caption = 'LinkWindowButton'
         ImageIndex = 33
-        OnClick = LinkWindowButtonClick
         Style = tbsCheck
+        OnClick = LinkWindowButtonClick
       end
       object ButtonProfile: TToolButton
         Left = 542
         Top = 0
         Caption = 'ButtonProfile'
         ImageIndex = 35
-        OnClick = ButtonProfileClick
         Style = tbsCheck
+        OnClick = ButtonProfileClick
       end
       object ButtonFilterLabel: TToolButton
         Left = 504
@@ -536,8 +540,8 @@ object Form1: TForm1
     Top = 60
     Width = 5
     Constraints.MinWidth = 5
-    OnMoved = Splitter2Moved
     Visible = False
+    OnMoved = Splitter2Moved
   end
   object tabs: TPanel
     Left = 744
@@ -546,33 +550,35 @@ object Form1: TForm1
     Width = 356
     ClientHeight = 525
     ClientWidth = 356
+    ParentBackground = False
     TabOrder = 7
     object PageControl1: TPageControl
       Left = 1
       Height = 523
       Top = 1
       Width = 354
-      ActivePage = Position
+      ActivePage = Terminateur
       Align = alClient
       MultiLine = True
-      TabIndex = 0
+      Options = [nboMultiLine]
+      TabIndex = 3
       TabOrder = 0
       OnChange = PageControl1Change
-      Options = [nboMultiLine]
       object Position: TTabSheet
         Caption = 'Information'
         ClientHeight = 488
-        ClientWidth = 350
+        ClientWidth = 348
         object Panel1: TPanel
           Left = 0
           Height = 48
           Top = 0
-          Width = 350
+          Width = 348
           Align = alTop
           BevelOuter = bvNone
           BorderStyle = bsSingle
           ClientHeight = 48
-          ClientWidth = 350
+          ClientWidth = 348
+          ParentBackground = False
           TabOrder = 0
           object ComboBox1: TComboBox
             Left = 8
@@ -580,18 +586,18 @@ object Form1: TForm1
             Top = 8
             Width = 320
             DropDownCount = 15
-            ItemHeight = 24
-            OnKeyDown = ComboBox1KeyDown
-            OnSelect = ComboBox1Select
+            ItemHeight = 30
             ParentColor = True
             TabOrder = 0
+            OnKeyDown = ComboBox1KeyDown
+            OnSelect = ComboBox1Select
           end
         end
         object Desc1: TIpHtmlPanel
           Left = 0
           Height = 355
           Top = 84
-          Width = 350
+          Width = 348
           Align = alClient
           BorderWidth = 1
           BorderStyle = bsSingle
@@ -618,22 +624,23 @@ object Form1: TForm1
           Left = 0
           Height = 49
           Top = 439
-          Width = 350
+          Width = 348
           Align = alBottom
           BevelOuter = bvNone
           BorderWidth = 1
           BorderStyle = bsSingle
           ClientHeight = 49
-          ClientWidth = 350
+          ClientWidth = 348
+          ParentBackground = False
           TabOrder = 2
           object Edit6: TEdit
             Left = 3
             Height = 32
             Top = 8
             Width = 159
-            OnKeyDown = Edit6KeyDown
             ParentColor = True
             TabOrder = 0
+            OnKeyDown = Edit6KeyDown
           end
           object Button1: TSpeedButton
             Left = 172
@@ -660,7 +667,7 @@ object Form1: TForm1
           Left = 0
           Height = 36
           Top = 48
-          Width = 350
+          Width = 348
           Align = alTop
           AutoSize = True
           BevelOuter = bvNone
@@ -668,8 +675,9 @@ object Form1: TForm1
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 6
           ClientHeight = 36
-          ClientWidth = 350
+          ClientWidth = 348
           Font.Color = clBlue
+          ParentBackground = False
           ParentFont = False
           TabOrder = 3
           object AnchorIdent: TLabel
@@ -789,15 +797,16 @@ object Form1: TForm1
       object Notes: TTabSheet
         Caption = 'Notes'
         ClientHeight = 488
-        ClientWidth = 350
+        ClientWidth = 348
         object Panel7: TPanel
           Left = 0
           Height = 74
           Top = 0
-          Width = 350
+          Width = 348
           Align = alTop
           ClientHeight = 74
-          ClientWidth = 350
+          ClientWidth = 348
+          ParentBackground = False
           TabOrder = 1
           object notes_name: TLabel
             Left = 8
@@ -834,7 +843,7 @@ object Form1: TForm1
           Left = 0
           Height = 414
           Top = 74
-          Width = 350
+          Width = 348
           Align = alClient
           AutoFillColumns = True
           ColCount = 3
@@ -843,7 +852,7 @@ object Form1: TForm1
               MinSize = 200
               MaxSize = 600
               Title.Caption = 'Formation'
-              Width = 179
+              Width = 200
             end          
             item
               MinSize = 100
@@ -866,7 +875,7 @@ object Form1: TForm1
           TabOrder = 0
           OnDblClick = ListNotesDblClick
           ColWidths = (
-            179
+            200
             100
             50
           )
@@ -875,15 +884,16 @@ object Form1: TForm1
       object Ephemerides: TTabSheet
         Caption = 'Ephemerides'
         ClientHeight = 488
-        ClientWidth = 350
+        ClientWidth = 348
         object Panel4: TPanel
           Left = 0
           Height = 128
           Top = 0
-          Width = 350
+          Width = 348
           Align = alTop
           ClientHeight = 128
-          ClientWidth = 350
+          ClientWidth = 348
+          ParentBackground = False
           TabOrder = 0
           TabStop = True
           object Label6: TLabel
@@ -963,7 +973,6 @@ object Form1: TForm1
             Height = 24
             Top = 15
             Width = 27
-            OnClick = NMClick
             Picture.Data = {
               0A544A706567496D61676518030000FFD8FFE000104A46494600010101004800
               480000FFDB0043000302020302020303030304030304050805050404050A0707
@@ -994,6 +1003,7 @@ object Form1: TForm1
             }
             Proportional = True
             Stretch = True
+            OnClick = NMClick
           end
           object LabelNM: TLabel
             AnchorSideTop.Control = NM
@@ -1046,7 +1056,6 @@ object Form1: TForm1
             Height = 24
             Top = 39
             Width = 27
-            OnClick = FQClick
             Picture.Data = {
               0A544A706567496D6167657D030000FFD8FFE000104A46494600010101004800
               480000FFDB0043000302020302020303030304030304050805050404050A0707
@@ -1080,6 +1089,7 @@ object Form1: TForm1
             }
             Proportional = True
             Stretch = True
+            OnClick = FQClick
           end
           object FM: TImage
             AnchorSideTop.Control = FQ
@@ -1088,7 +1098,6 @@ object Form1: TForm1
             Height = 24
             Top = 63
             Width = 27
-            OnClick = FMClick
             Picture.Data = {
               0A544A706567496D616765B1030000FFD8FFE000104A46494600010101004800
               480000FFDB0043000302020302020303030304030304050805050404050A0707
@@ -1123,6 +1132,7 @@ object Form1: TForm1
             }
             Proportional = True
             Stretch = True
+            OnClick = FMClick
           end
           object LQ: TImage
             AnchorSideTop.Control = FM
@@ -1131,7 +1141,6 @@ object Form1: TForm1
             Height = 24
             Top = 87
             Width = 27
-            OnClick = LQClick
             Picture.Data = {
               0A544A706567496D61676564030000FFD8FFE000104A46494600010101004800
               480000FFDB0043000302020302020303030304030304050805050404050A0707
@@ -1164,6 +1173,7 @@ object Form1: TForm1
             }
             Proportional = True
             Stretch = True
+            OnClick = LQClick
           end
           object nextM: TImage
             AnchorSideTop.Control = LQ
@@ -1173,7 +1183,6 @@ object Form1: TForm1
             Top = 111
             Width = 27
             HelpType = htKeyword
-            OnClick = nextMClick
             Picture.Data = {
               0A544A706567496D6167650D030000FFD8FFE000104A46494600010102001C00
               1C0000FFDB0043000302020302020303030304030304050805050404050A0707
@@ -1203,6 +1212,7 @@ object Form1: TForm1
             }
             Proportional = True
             Stretch = True
+            OnClick = nextMClick
           end
           object prevM: TImage
             AnchorSideTop.Control = Panel4
@@ -1210,7 +1220,6 @@ object Form1: TForm1
             Height = 14
             Top = 1
             Width = 27
-            OnClick = prevMClick
             Picture.Data = {
               0A544A706567496D6167652E030000FFD8FFE000104A46494600010102001C00
               1C0000FFDB0043000302020302020303030304030304050805050404050A0707
@@ -1241,6 +1250,7 @@ object Form1: TForm1
             }
             Proportional = True
             Stretch = True
+            OnClick = prevMClick
           end
           object jour: TLongEdit
             Left = 168
@@ -1428,7 +1438,7 @@ object Form1: TForm1
           Left = 0
           Height = 328
           Top = 160
-          Width = 350
+          Width = 348
           Align = alClient
           BorderStyle = bsNone
           ColCount = 2
@@ -1448,10 +1458,11 @@ object Form1: TForm1
           Left = 0
           Height = 32
           Top = 128
-          Width = 350
+          Width = 348
           Align = alTop
           ClientHeight = 32
-          ClientWidth = 350
+          ClientWidth = 348
+          ParentBackground = False
           TabOrder = 2
           object cbRealTime: TCheckBox
             Left = 8
@@ -1459,23 +1470,24 @@ object Form1: TForm1
             Top = 4
             Width = 128
             Caption = 'Real time update'
-            OnClick = cbRealTimeClick
             TabOrder = 0
+            OnClick = cbRealTimeClick
           end
         end
       end
       object Terminateur: TTabSheet
         Caption = 'Terminateur'
         ClientHeight = 488
-        ClientWidth = 350
+        ClientWidth = 348
         object Panel5: TPanel
           Left = 0
           Height = 163
           Top = 0
-          Width = 350
+          Width = 348
           Align = alTop
           ClientHeight = 163
-          ClientWidth = 350
+          ClientWidth = 348
+          ParentBackground = False
           TabOrder = 0
           object Label19: TLabel
             Left = 8
@@ -1520,10 +1532,10 @@ object Form1: TForm1
               '3'
               '4'
             )
-            OnChange = ComboBox2Change
             ParentColor = True
             TabOrder = 0
             Text = '1'
+            OnChange = ComboBox2Change
           end
           object ComboBox3: TComboBox
             Left = 105
@@ -1541,10 +1553,10 @@ object Form1: TForm1
               '30'
               '5'
             )
-            OnChange = ComboBox2Change
             ParentColor = True
             TabOrder = 1
             Text = '999'
+            OnChange = ComboBox2Change
           end
           object RadioGroup1: TRadioGroup
             Left = 8
@@ -1561,7 +1573,7 @@ object Form1: TForm1
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 50
+            ClientHeight = 51
             ClientWidth = 251
             Columns = 2
             Items.Strings = (
@@ -1570,8 +1582,9 @@ object Form1: TForm1
               'Instrument'
               'Latitude'
             )
-            OnClick = ComboBox2Change
+            ParentBackground = False
             TabOrder = 2
+            OnClick = ComboBox2Change
           end
           object ToolBar3: TToolBar
             Left = 275
@@ -1603,28 +1616,30 @@ object Form1: TForm1
           Left = 0
           Height = 325
           Top = 163
-          Width = 350
+          Width = 348
           Align = alClient
           ItemHeight = 0
-          OnClick = ListBox1Click
           ParentColor = True
           ScrollWidth = 342
           Sorted = True
           TabOrder = 1
+          TopIndex = -1
+          OnClick = ListBox1Click
         end
       end
       object Outils: TTabSheet
         Caption = 'Outils'
         ClientHeight = 488
-        ClientWidth = 350
+        ClientWidth = 348
         object GroupBox3: TGroupBox
           Left = 8
           Height = 326
           Top = 200
           Width = 304
           Caption = 'Satellisation'
-          ClientHeight = 296
+          ClientHeight = 297
           ClientWidth = 300
+          ParentBackground = False
           TabOrder = 2
           Visible = False
           object Label4: TLabel
@@ -1811,11 +1826,11 @@ object Form1: TForm1
             Height = 32
             Top = 16
             Width = 97
-            ItemHeight = 24
-            OnChange = ComboBox4Change
+            ItemHeight = 30
             ParentColor = True
             TabOrder = 0
             Text = '5 ?/seconde'
+            OnChange = ComboBox4Change
           end
           object TrackBar6: TTrackBar
             Left = 122
@@ -1825,10 +1840,10 @@ object Form1: TForm1
             Frequency = 500
             Max = 2000
             Min = 100
-            OnChange = TrackBar6Change
             PageSize = 100
             Position = 800
             TickStyle = tsNone
+            OnChange = TrackBar6Change
             TabOrder = 1
           end
           object TrackBar7: TTrackBar
@@ -1839,9 +1854,9 @@ object Form1: TForm1
             Frequency = 15
             Max = 90
             Min = -90
-            OnChange = TrackBar7Change
             Position = 0
             TickStyle = tsNone
+            OnChange = TrackBar7Change
             TabOrder = 2
           end
           object ComboBox6: TComboBox
@@ -1856,11 +1871,11 @@ object Form1: TForm1
               'L.E.M.'
               'Apollo'
             )
-            OnChange = ComboBox6Change
             ParentColor = True
             TabOrder = 3
             Text = 'None'
             Visible = False
+            OnChange = ComboBox6Change
           end
           object TrackBar8: TTrackBar
             Left = 122
@@ -1870,9 +1885,9 @@ object Form1: TForm1
             Frequency = 5
             Max = 30
             Min = 4
-            OnChange = TrackBar8Change
             Position = 8
             TickStyle = tsNone
+            OnChange = TrackBar8Change
             TabOrder = 4
             Visible = False
           end
@@ -1885,6 +1900,7 @@ object Form1: TForm1
           BevelInner = bvLowered
           ClientHeight = 165
           ClientWidth = 305
+          ParentBackground = False
           TabOrder = 1
           object Label40: TLabel
             Left = 9
@@ -1922,8 +1938,8 @@ object Form1: TForm1
             Top = 97
             Width = 62
             Caption = 'Miroir'
-            OnClick = CheckBox2Click
             TabOrder = 1
+            OnClick = CheckBox2Click
           end
           object CheckBox1: TCheckBox
             Left = 9
@@ -1931,8 +1947,8 @@ object Form1: TForm1
             Top = 118
             Width = 205
             Caption = 'Pole celeste toujours en haut.'
-            OnClick = CheckBox1Click
             TabOrder = 3
+            OnClick = CheckBox1Click
           end
           object RadioGroup2: TRadioGroup
             Left = 12
@@ -1949,15 +1965,16 @@ object Form1: TForm1
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 12
+            ClientHeight = 13
             ClientWidth = 222
             Columns = 2
             Items.Strings = (
               'nnnnnnnnnnn'
               'sssssssssssssss'
             )
-            OnClick = RadioGroup2Click
+            ParentBackground = False
             TabOrder = 0
+            OnClick = RadioGroup2Click
           end
           object CheckBox4: TCheckBox
             Left = 9
@@ -1965,8 +1982,8 @@ object Form1: TForm1
             Top = 139
             Width = 110
             Caption = 'Zenith on top '
-            OnClick = CheckBox4Click
             TabOrder = 2
+            OnClick = CheckBox4Click
           end
         end
         object PanelTel: TPanel
@@ -1977,6 +1994,7 @@ object Form1: TForm1
           BevelInner = bvLowered
           ClientHeight = 162
           ClientWidth = 304
+          ParentBackground = False
           TabOrder = 0
           object Label41: TLabel
             Left = 7
@@ -1999,11 +2017,11 @@ object Form1: TForm1
               'ASCOM'
               'INDI'
             )
-            OnChange = ComboBox5Change
             ParentColor = True
             Sorted = True
             TabOrder = 0
             Text = 'ASCOM'
+            OnChange = ComboBox5Change
           end
           object Button16: TSpeedButton
             Left = 124
@@ -2041,8 +2059,8 @@ object Form1: TForm1
             Top = 90
             Width = 109
             Caption = 'Track position'
-            OnClick = CheckBox6Click
             TabOrder = 1
+            OnClick = CheckBox6Click
           end
         end
         object GroupBoxDistance: TGroupBox
@@ -2051,8 +2069,9 @@ object Form1: TForm1
           Top = 0
           Width = 305
           Caption = 'Distance'
-          ClientHeight = 170
+          ClientHeight = 171
           ClientWidth = 301
+          ParentBackground = False
           TabOrder = 3
           object Label24: TLabel
             Left = 16
@@ -2193,7 +2212,7 @@ object Form1: TForm1
       object Reglage: TTabSheet
         Caption = 'Reglage'
         ClientHeight = 488
-        ClientWidth = 350
+        ClientWidth = 348
         object Bevel1: TBevel
           Left = 16
           Height = 220
@@ -2278,10 +2297,10 @@ object Form1: TForm1
           Width = 175
           Frequency = 20
           Max = 128
-          OnChange = TrackBar2Change
           PageSize = 5
           Position = 0
           TickStyle = tsNone
+          OnChange = TrackBar2Change
           Constraints.MaxHeight = 30
           TabOrder = 0
         end
@@ -2292,10 +2311,10 @@ object Form1: TForm1
           Width = 175
           Frequency = 43
           Max = 255
-          OnChange = TrackBar3Change
           PageSize = 5
           Position = 0
           TickStyle = tsNone
+          OnChange = TrackBar3Change
           Constraints.MaxHeight = 30
           TabOrder = 1
         end
@@ -2306,10 +2325,10 @@ object Form1: TForm1
           Width = 175
           Frequency = 43
           Max = 255
-          OnChange = TrackBar4Change
           PageSize = 5
           Position = 0
           TickStyle = tsNone
+          OnChange = TrackBar4Change
           Constraints.MaxHeight = 30
           TabOrder = 2
         end
@@ -2320,6 +2339,7 @@ object Form1: TForm1
           Width = 204
           ClientHeight = 130
           ClientWidth = 204
+          ParentBackground = False
           TabOrder = 3
           object Label13: TLabel
             Left = 13
@@ -2378,10 +2398,10 @@ object Form1: TForm1
             Width = 175
             Max = 6
             Min = 1
-            OnChange = TrackBar5Change
             PageSize = 1
             Position = 1
             TickStyle = tsNone
+            OnChange = TrackBar5Change
             TabOrder = 0
           end
         end
@@ -2429,12 +2449,12 @@ object Form1: TForm1
       object dbtab: TTabSheet
         Caption = 'Database'
         ClientHeight = 488
-        ClientWidth = 350
+        ClientWidth = 348
         object StringGrid2: TStringGrid
           Left = 0
           Height = 455
           Top = 0
-          Width = 350
+          Width = 348
           Align = alClient
           ColCount = 2
           DefaultColWidth = 74
@@ -2448,10 +2468,11 @@ object Form1: TForm1
           Left = 0
           Height = 33
           Top = 455
-          Width = 350
+          Width = 348
           Align = alBottom
           ClientHeight = 33
-          ClientWidth = 350
+          ClientWidth = 348
+          ParentBackground = False
           TabOrder = 1
           object Button9: TSpeedButton
             Left = 86
@@ -2500,6 +2521,13 @@ object Form1: TForm1
   object FilePopup: TPopupMenu
     Left = 16
     Top = 64
+    object MenuInstallData: TMenuItem
+      Caption = 'Install data'
+      OnClick = MenuInstallDataClick
+    end
+    object Separator1: TMenuItem
+      Caption = '-'
+    end
     object DataBase1: TMenuItem
       Caption = 'DataBase'
       OnClick = DataBase1Click

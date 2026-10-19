@@ -414,6 +414,27 @@ rsSinus = 'Sinus';
 rsVallis = 'Vallis';
 rsDome = 'Dome';
 rsRealTimeUpda = 'Real time update';
+rsNewVersionAv = 'New version available';
+rsInstalled = 'Installed';
+rsInstall = 'Install';
+rsMissingPrere = 'Missing prerequisites';
+rsInstallNewVe = 'Install new version %s over %s';
+rsUninstall = 'Uninstall';
+rsInstalling = 'Installing';
+rsDelete = 'Delete';
+rsError2 = 'Error';
+rsDownloadFile = 'Download File';
+rsUnzipFile = 'Unzip file';
+rsAbort = 'Abort';
+rsPackage = 'Package';
+rsStatus = 'Status';
+rsSelectDataTo = 'Select data to install or remove';
+rsInstallAddit = 'Install additional packages';
+rsSelectTheDat = 'Select the data source';
+rsInternet = 'Internet';
+rsLocalFiles = 'Local files';
+rsSelectLocalD = 'Select local directory:';
+rsConfigureThe = 'Configure the data source';
 
 implementation
 

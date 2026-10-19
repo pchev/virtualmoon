@@ -33,6 +33,7 @@ uses
 
 const crlf = chr(10)+chr(13);
       cpyr = '©'; //chr($a9)+chr($c2);  // ©
+      Ellipsis = '...';
       AVLversion = '9.1';
       version = '9.1a';
       avlcpy = 'Copyright '+cpyr+' 2002-2026 Christian Legrand, Patrick Chevalley';
@@ -122,6 +123,9 @@ const crlf = chr(10)+chr(13);
                       'Textures/WAC_LOWSUN/L6/0.jpg',                    // LRO WAC
                       'Textures/LAC/L5/0.jpg'                            // LAC
                       );
+      catalog_list = 'data_list.txt';
+      URL_CATALOG_LIST1 = 'https://vega.ap-i.net/pub/vmadata/';  // faster download
+      URL_CATALOG_LIST2 = 'https://sourceforge.net/projects/virtualmoon/files/2-data/';
 
       DbSatellite=2;
       DbImpactBassin=9;
@@ -252,6 +256,7 @@ Var  Splashversion, compile_time, compile_version: string;
      librationeffect,showterminatorline, AsMultiTexture : Boolean;
      Firstsearch: boolean;
      DisplayIs32bpp: Boolean;
+     NeedToInstallData, NeedRestart: boolean;
      ThemePath:string ='data/Themes';
      LinuxDesktop: integer = 0;  // FreeDesktop=0, KDE=1, GNOME=2, Other=3
      Params : TStringList;

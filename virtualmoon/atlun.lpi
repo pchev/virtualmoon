@@ -183,57 +183,60 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
-    <RequiredPackages Count="14">
+    <RequiredPackages Count="15">
       <Item1>
-        <PackageName Value="BGRABitmapPack"/>
+        <PackageName Value="downldialog"/>
       </Item1>
       <Item2>
-        <PackageName Value="TAChartLazarusPkg"/>
+        <PackageName Value="BGRABitmapPack"/>
       </Item2>
       <Item3>
-        <PackageName Value="indiclient"/>
+        <PackageName Value="TAChartLazarusPkg"/>
       </Item3>
       <Item4>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="indiclient"/>
       </Item4>
       <Item5>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="LazControls"/>
       </Item5>
       <Item6>
-        <PackageName Value="GLScene_DesignTime"/>
+        <PackageName Value="laz_synapse"/>
       </Item6>
       <Item7>
-        <PackageName Value="GLScene_RunTime"/>
+        <PackageName Value="GLScene_DesignTime"/>
       </Item7>
       <Item8>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="GLScene_RunTime"/>
       </Item8>
       <Item9>
-        <PackageName Value="uniqueinstance_package"/>
-        <MinVersion Minor="2" Release="1" Valid="True"/>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item9>
       <Item10>
-        <PackageName Value="TurboPowerIPro"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="uniqueinstance_package"/>
+        <MinVersion Minor="2" Release="1" Valid="True"/>
       </Item10>
       <Item11>
-        <PackageName Value="Printer4Lazarus"/>
-        <MinVersion Minor="5" Valid="True"/>
+        <PackageName Value="TurboPowerIPro"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item11>
       <Item12>
-        <PackageName Value="enhedit"/>
-        <MinVersion Valid="True"/>
+        <PackageName Value="Printer4Lazarus"/>
+        <MinVersion Minor="5" Valid="True"/>
       </Item12>
       <Item13>
-        <PackageName Value="libsql"/>
+        <PackageName Value="enhedit"/>
         <MinVersion Valid="True"/>
       </Item13>
       <Item14>
-        <PackageName Value="LCL"/>
+        <PackageName Value="libsql"/>
+        <MinVersion Valid="True"/>
       </Item14>
+      <Item15>
+        <PackageName Value="LCL"/>
+      </Item15>
     </RequiredPackages>
-    <Units Count="26">
+    <Units Count="28">
       <Unit0>
         <Filename Value="atlun.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -378,6 +381,17 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit25>
+      <Unit26>
+        <Filename Value="pu_updcatalog.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="f_updcatalog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="cu_httpdownload.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit27>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -14,8 +14,8 @@ uses
   GLScene_RunTime, CraterList, dbutil, fmsg, glossary, splashunit, SysUtils,
   TurboPowerIPro, lazcontrols, tachartlazaruspkg, u_constant, cu_tz, cu_planet,
   u_projection, u_util, pu_moon, u_translation_database, u_translation,
-  uniqueinstance_package, laz_synapse, pu_features, BigIma, uDE, mlb2,
-  tabsdock, pu_ascomclient, pu_indiclient, cu_ascomrest, cu_dem, pu_demprofile;
+  uniqueinstance_package, laz_synapse, downldialog, pu_features, BigIma, uDE, mlb2,
+  tabsdock, pu_ascomclient, pu_indiclient, cu_ascomrest, cu_dem, pu_demprofile, pu_updcatalog, cu_httpdownload;
 
 {$R *.res}
 
@@ -54,8 +54,9 @@ begin
   Application.CreateForm(Tf_tabsdock, f_tabsdock);
   Application.CreateForm(Tpop_scope, pop_scope);
   Application.CreateForm(Tpop_indi, pop_indi);
-  if (Form1.param.IndexOf('-quit')<0) then begin
   Application.CreateForm(Tf_demprofile, f_demprofile);
+  Application.CreateForm(Tf_updcatalog, f_updcatalog);
+  if (Form1.param.IndexOf('-quit')<0) then begin
       Application.Run;
   end
   else Application.Terminate;
