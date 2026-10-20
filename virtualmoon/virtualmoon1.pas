@@ -1115,37 +1115,37 @@ begin
   begin
     maximgdir := 3;
     setlength(imgdir, maximgdir);
-    imgdir[0, 0] := slash(appdir) + 'Lopam';
+    imgdir[0, 0] := 'Lopam';
     imgdir[0, 2] := 'LOPAM';
     imgdir[0, 1] := '';
-    imgdir[1, 0] := slash(appdir) + 'Apollo';
+    imgdir[1, 0] := 'Apollo';
     imgdir[1, 2] := 'Apollo';
     imgdir[1, 1] := '';
-    imgdir[2, 0] := slash(appdir) + 'My Images';
+    imgdir[2, 0] := 'My Images';
     imgdir[2, 2] := 'My Images';
     imgdir[2, 1] := '';
   end;
-AddImagesDir(slash(appdir)+'Clementine','Clementine','','1');
-AddImagesDir(slash(appdir)+'Probes','Probes','','0');
-AddImagesDir(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association','1');
-AddImagesDir(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005','1');
-AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov','0');
-AddImagesDir(slash(appdir)+'LunarPits','Lunar Pits','Wagner, Robinson, and the LROC Team','0');
-AddImagesDir(slash(appdir)+'Smart-1','Smart-1','European Space Agency (ESA)','0');
-AddImagesDir(slash(appdir)+'Artemis2','Artemis2','Images taken from Artemis2 flyby','0');
-AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','','0');
-AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','','0');
-AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','','0');
-AddImagesDir(slash(appdir)+'Kaguya','Kaguya','provided by JAXA/SELENE','0');
-AddImagesDir(slash(appdir)+'Best_Pic_du_Midi','Best of Pic du Midi Observatory','JL Dauvergne, P. Tosi, E. Rousset, F. Colas, IMCCE, S2P , OMP','0');
-AddImagesDir(slash(appdir)+'Best_of_Peach','Best of Damian Peach','Damian Peach','0');
-AddImagesDir(slash(appdir)+'BestOfCathala','Best of Cathala','Luc Cathala','0');
-AddImagesDir(slash(appdir)+'BestOfBrahic','Best of Jean Pierre Brahic','Jean Pierre Brahic','0');
-AddImagesDir(slash(appdir)+'BestOfViladrich','Best of Christian Viladrich','Christian Viladrich','0');
-AddImagesDir(slash(appdir)+'BestOfHeully','Philippe Heuly drawing','Philippe Heuly','0');
-AddImagesDir(slash(appdir)+'Bestofhistorical','Best of Historical','LRO','0');
-AddImagesDir(slash(appdir)+'BestofLROobliques','Best of LRO Oblics','LRO','0');
-AddImagesDir(slash(appdir)+'BestofPelissard','Best of William Pelissard','William Pelissard','0');
+AddImagesDir('Clementine','Clementine','','1');
+AddImagesDir('Probes','Probes','','0');
+AddImagesDir('CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association','1');
+AddImagesDir('LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005','1');
+AddImagesDir('ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov','0');
+AddImagesDir('LunarPits','Lunar Pits','Wagner, Robinson, and the LROC Team','0');
+AddImagesDir('Smart-1','Smart-1','European Space Agency (ESA)','0');
+AddImagesDir('Artemis2','Artemis2','Images taken from Artemis2 flyby','0');
+AddImagesDir('BestOfAmateurs','Best of Amateurs','','0');
+AddImagesDir('BestOfHiggins','Best of Higgins','','0');
+AddImagesDir('BestOfLazzarotti','Best of Lazzarotti','','0');
+AddImagesDir('Kaguya','Kaguya','provided by JAXA/SELENE','0');
+AddImagesDir('Best_Pic_du_Midi','Best of Pic du Midi Observatory','JL Dauvergne, P. Tosi, E. Rousset, F. Colas, IMCCE, S2P , OMP','0');
+AddImagesDir('Best_of_Peach','Best of Damian Peach','Damian Peach','0');
+AddImagesDir('BestOfCathala','Best of Cathala','Luc Cathala','0');
+AddImagesDir('BestOfBrahic','Best of Jean Pierre Brahic','Jean Pierre Brahic','0');
+AddImagesDir('BestOfViladrich','Best of Christian Viladrich','Christian Viladrich','0');
+AddImagesDir('BestOfHeully','Philippe Heuly drawing','Philippe Heuly','0');
+AddImagesDir('Bestofhistorical','Best of Historical','LRO','0');
+AddImagesDir('BestofLROobliques','Best of LRO Oblics','LRO','0');
+AddImagesDir('BestofPelissard','Best of William Pelissard','William Pelissard','0');
 
 end;
 
@@ -1485,6 +1485,10 @@ if configversion<>version then begin
     udb[5]:=usedatabase[7]; // domes
     udb[6]:=usedatabase[6]; // pyroclast
     for i:=1 to 9 do usedatabase[i]:=udb[i];
+  end;
+  if configversion<'9.2a' then begin
+    for i := 0 to maximgdir-1 do
+      imgdir[i,0]:=ExtractFileName(imgdir[i,0]);
   end;
 end;
 end;
@@ -3030,7 +3034,7 @@ begin
     nom2 := '';
   for i := 0 to maximgdir - 1 do
   begin
-    dir := Slash(imgdir[i, 0]);
+    dir := slash(appdir)+slash('Pictures')+Slash(imgdir[i, 0]);
     r   := findfirst(dir + nom + '.jpg', 0, f);
     findclose(f);
     if r = 0 then

@@ -34,8 +34,8 @@ uses
 const crlf = chr(10)+chr(13);
       cpyr = '©'; //chr($a9)+chr($c2);  // ©
       Ellipsis = '...';
-      AVLversion = '9.1';
-      version = '9.1a';
+      AVLversion = '9.2';
+      version = '9.2a';
       avlcpy = 'Copyright '+cpyr+' 2002-2026 Christian Legrand, Patrick Chevalley';
       vmaurl='http://ap-i.net/avl';
       jd2000 =2451545.0 ;

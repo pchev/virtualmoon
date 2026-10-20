@@ -121,7 +121,7 @@ object Form1: TForm1
       end
       object ToolButton15: TToolButton
         Left = 243
-        Height = 30
+        Height = 8
         Top = 0
         Caption = 'ToolButton15'
         Style = tbsSeparator
@@ -178,7 +178,7 @@ object Form1: TForm1
       end
       object ToolButton11: TToolButton
         Left = 31
-        Height = 30
+        Height = 8
         Top = 0
         Caption = 'ToolButton11'
         Style = tbsSeparator
@@ -252,14 +252,14 @@ object Form1: TForm1
       end
       object ToolButton17: TToolButton
         Left = 224
-        Height = 30
+        Height = 5
         Top = 0
         Caption = 'ToolButton17'
         Style = tbsDivider
       end
       object ToolButton21: TToolButton
         Left = 129
-        Height = 30
+        Height = 5
         Top = 0
         Caption = 'ToolButton21'
         Style = tbsDivider
@@ -351,21 +351,21 @@ object Form1: TForm1
       end
       object ToolButton18: TToolButton
         Left = 1
-        Height = 30
+        Height = 5
         Top = 0
         Caption = 'ToolButton18'
         Style = tbsDivider
       end
       object ToolButton19: TToolButton
         Left = 186
-        Height = 30
+        Height = 5
         Top = 0
         Caption = 'ToolButton19'
         Style = tbsDivider
       end
       object ToolButton20: TToolButton
         Left = 281
-        Height = 30
+        Height = 5
         Top = 0
         Caption = 'ToolButton20'
         Style = tbsDivider
@@ -414,7 +414,7 @@ object Form1: TForm1
       end
       object ToolButton24: TToolButton
         Left = 406
-        Height = 30
+        Height = 8
         Top = 0
         Caption = 'ToolButton24'
         Style = tbsSeparator
@@ -435,7 +435,7 @@ object Form1: TForm1
       end
       object ToolButton27: TToolButton
         Left = 534
-        Height = 30
+        Height = 8
         Top = 0
         Caption = 'ToolButton27'
         Style = tbsSeparator
@@ -1573,8 +1573,8 @@ object Form1: TForm1
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 51
-            ClientWidth = 251
+            ClientHeight = 68
+            ClientWidth = 243
             Columns = 2
             Items.Strings = (
               'Nom'
@@ -1637,8 +1637,8 @@ object Form1: TForm1
           Top = 200
           Width = 304
           Caption = 'Satellisation'
-          ClientHeight = 297
-          ClientWidth = 300
+          ClientHeight = 314
+          ClientWidth = 292
           ParentBackground = False
           TabOrder = 2
           Visible = False
@@ -1965,8 +1965,8 @@ object Form1: TForm1
             ChildSizing.ShrinkVertical = crsScaleChilds
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
-            ClientHeight = 13
-            ClientWidth = 222
+            ClientHeight = 30
+            ClientWidth = 214
             Columns = 2
             Items.Strings = (
               'nnnnnnnnnnn'
@@ -2069,8 +2069,8 @@ object Form1: TForm1
           Top = 0
           Width = 305
           Caption = 'Distance'
-          ClientHeight = 171
-          ClientWidth = 301
+          ClientHeight = 188
+          ClientWidth = 293
           ParentBackground = False
           TabOrder = 3
           object Label24: TLabel

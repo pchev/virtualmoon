@@ -8,16 +8,10 @@ object f_config: Tf_config
   Caption = 'f_config'
   ClientHeight = 317
   ClientWidth = 444
+  LCLVersion = '4.8.0.0'
   OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
-  object Edit1: TEdit
-    Left = 203
-    Height = 32
-    Top = 0
-    Width = 80
-    TabOrder = 0
-  end
   object StringGrid1: TStringGrid
     Left = 0
     Height = 243
@@ -29,7 +23,7 @@ object f_config: Tf_config
     FixedCols = 0
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goEditing, goAlwaysShowEditor, goSmoothScroll]
     RowCount = 11
-    TabOrder = 1
+    TabOrder = 0
     OnSelectCell = StringGrid1SelectCell
   end
   object PanelBottom: TPanel
@@ -40,7 +34,7 @@ object f_config: Tf_config
     Align = alBottom
     ClientHeight = 34
     ClientWidth = 444
-    TabOrder = 2
+    TabOrder = 1
     object Button1: TButton
       Left = 256
       Height = 25
@@ -70,7 +64,7 @@ object f_config: Tf_config
     Align = alTop
     ClientHeight = 40
     ClientWidth = 444
-    TabOrder = 3
+    TabOrder = 2
     object Label1: TLabel
       Left = 13
       Height = 18

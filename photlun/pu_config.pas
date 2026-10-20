@@ -16,7 +16,6 @@ type
   Tf_config = class(TForm)
     Button1: TButton;
     Button2: TButton;
-    Edit1: TEdit;
     Label1: TLabel;
     PanelBottom: TPanel;
     PanelTop: TPanel;

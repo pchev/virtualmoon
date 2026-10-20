@@ -232,7 +232,6 @@ try
 with inif do begin
 section:='default';
 pofile:=ReadString(section,'lang_po_file','');
-section:='photlun';
 section:='images';
 n:=ReadInteger(section,'NumDir',0);
 if n=0 then
@@ -242,6 +241,7 @@ else begin
   setlength(imgdir,0);
   for i:=1 to n do begin
     fd:=noslash(ReadString(section,'dir'+inttostr(i),''));
+    fd:=ExtractFileName(fd);   //without full path since 9.2
     fn:=ReadString(section,'name'+inttostr(i),'');
     cpy:=GetImgCpy(fd,fn);
     AddImagesDir(slash(fd), fn, cpy);
@@ -295,9 +295,9 @@ Function Tf_photlun.GetImgCpy(dir,nom:string):string;
 var f:textfile;
 begin
 result:='';
-if fileexists(slash(dir)+'copyright.txt') then begin
+if fileexists(slash(appdir)+slash('Pictures')+slash(dir)+'copyright.txt') then begin
   filemode:=0;
-  assignfile(f,slash(dir)+'copyright.txt');
+  assignfile(f,slash(appdir)+slash('Pictures')+slash(dir)+'copyright.txt');
   reset(f);
   readln(f,result);
   closefile(f);
@@ -309,39 +309,39 @@ begin
 if maximgdir=0 then begin
    maximgdir:=3;
    setlength(imgdir,maximgdir);
-   imgdir[0,0]:=slash(appdir)+'Lopam';
+   imgdir[0,0]:='Lopam';
    imgdir[0,1]:=GetImgCpy(imgdir[0,0],imgdir[0,2]);
    imgdir[0,2]:='LOPAM';
    imgdir[0,3]:='1';
-   imgdir[1,0]:=slash(appdir)+'Apollo';
+   imgdir[1,0]:='Apollo';
    imgdir[1,1]:=GetImgCpy(imgdir[1,0],imgdir[1,2]);
    imgdir[1,2]:='Apollo';
    imgdir[1,3]:='0';
-   imgdir[2,0]:=slash(appdir)+'My Images';
+   imgdir[2,0]:='My Images';
    imgdir[2,1]:=GetImgCpy(imgdir[2,0],imgdir[2,2]);
    imgdir[2,2]:='My Images';
    imgdir[2,3]:='1';
 end;
-AddImagesDir(slash(appdir)+'Clementine','Clementine','');
-AddImagesDir(slash(appdir)+'Probes','Probes','');
-AddImagesDir(slash(appdir)+'CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association');
-AddImagesDir(slash(appdir)+'LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005');
-AddImagesDir(slash(appdir)+'ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov');
-AddImagesDir(slash(appdir)+'LunarPits','Lunar Pits','Wagner, Robinson, and the LROC Team');
-AddImagesDir(slash(appdir)+'Smart-1','Smart-1','European Space Agency (ESA)');
-AddImagesDir(slash(appdir)+'BestOfAmateurs','Best of Amateurs','');
-AddImagesDir(slash(appdir)+'BestOfHiggins','Best of Higgins','');
-AddImagesDir(slash(appdir)+'BestOfLazzarotti','Best of Lazzarotti','');
-AddImagesDir(slash(appdir)+'Kaguya','Kaguya','provided by JAXA/SELENE');
-AddImagesDir(slash(appdir)+'Best_Pic_du_Midi','Best of Pic du Midi Observatory','JL Dauvergne, P. Tosi, E. Rousset, F. Colas, IMCCE, S2P , OMP');
-AddImagesDir(slash(appdir)+'Best_of_Peach','Best of Damian Peach','Damian Peach');
-AddImagesDir(slash(appdir)+'BestOfCathala','Best of Cathala','Luc Cathala');
-AddImagesDir(slash(appdir)+'BestOfBrahic','Best of Jean Pierre Brahic','Jean Pierre Brahic');
-AddImagesDir(slash(appdir)+'BestOfViladrich','Best of Christian Viladrich','Christian Viladrich');
-AddImagesDir(slash(appdir)+'BestOfHeully','Philippe Heuly drawing','Philippe Heuly');
-AddImagesDir(slash(appdir)+'Bestofhistorical','Best of Historical','LRO');
-AddImagesDir(slash(appdir)+'BestofLROobliques','Best of LRO Oblics','LRO');
-AddImagesDir(slash(appdir)+'BestofPelissard','Best of William Pelissard','William Pelissard');
+AddImagesDir('Clementine','Clementine','');
+AddImagesDir('Probes','Probes','');
+AddImagesDir('CLA','CLA','Consolidated Lunar Atlas Copyright 2003 Lunar and Planetary Institute / Universities Space Research Association');
+AddImagesDir('LAC_LM','LAC_LM','Lunar Chart / Lunar Map. The Defense Mapping Agency 1973, Lunar and Planetary Institute 2005');
+AddImagesDir('ApolloMapping','Apollo Mapping Camera','Courtesy NASA / http://www.nasa.gov');
+AddImagesDir('LunarPits','Lunar Pits','Wagner, Robinson, and the LROC Team');
+AddImagesDir('Smart-1','Smart-1','European Space Agency (ESA)');
+AddImagesDir('BestOfAmateurs','Best of Amateurs','');
+AddImagesDir('BestOfHiggins','Best of Higgins','');
+AddImagesDir('BestOfLazzarotti','Best of Lazzarotti','');
+AddImagesDir('Kaguya','Kaguya','provided by JAXA/SELENE');
+AddImagesDir('Best_Pic_du_Midi','Best of Pic du Midi Observatory','JL Dauvergne, P. Tosi, E. Rousset, F. Colas, IMCCE, S2P , OMP');
+AddImagesDir('Best_of_Peach','Best of Damian Peach','Damian Peach');
+AddImagesDir('BestOfCathala','Best of Cathala','Luc Cathala');
+AddImagesDir('BestOfBrahic','Best of Jean Pierre Brahic','Jean Pierre Brahic');
+AddImagesDir('BestOfViladrich','Best of Christian Viladrich','Christian Viladrich');
+AddImagesDir('BestOfHeully','Philippe Heuly drawing','Philippe Heuly');
+AddImagesDir('Bestofhistorical','Best of Historical','LRO');
+AddImagesDir('BestofLROobliques','Best of LRO Oblics','LRO');
+AddImagesDir('BestofPelissard','Best of William Pelissard','William Pelissard');
 end;
 
 Procedure Tf_photlun.ReadParam(first:boolean=true);
@@ -386,7 +386,7 @@ var i : integer;
 begin
   biblio1.Clear;
   for i:=0 to maximgdir-1 do begin
-    if DirectoryExists(imgdir[i,0]) then begin
+    if DirectoryExists(slash(appdir)+slash('Pictures')+imgdir[i,0]) then begin
       m:=TMenuItem.Create(self);
       m.Caption:=imgdir[i,2];
       m.Tag:=i;
@@ -456,7 +456,7 @@ var v: TVignette;
 begin
   if (n<0)or(n>(imglist.Count-1)) then exit;
   fn:=imglist[n];
-  libr:=noslash(ExtractFilePath(fn));
+  libr:=ExtractFileName(noslash(ExtractFilePath(fn)));
   for i:=0 to maximgdir-1 do begin
      if noslash(imgdir[i,0])=libr then begin
         libr:=imgdir[i,2];
@@ -568,7 +568,7 @@ var f: TSearchRec;
     r: integer;
 begin
 try
-  dir:=slash(dir);
+  dir:=slash(appdir)+slash('Pictures')+slash(dir);
   filter:=uppercase(filter);
   r:=FindFirst(dir+'*.*',0,f);
   while (r=0) do begin
@@ -655,7 +655,7 @@ var j: integer;
     fn,libr,cpy,txt: string;
 begin
   fn:=imglist[i];
-  libr:=noslash(ExtractFilePath(fn));
+  libr:=ExtractFileName(noslash(ExtractFilePath(fn)));
   for j:=0 to maximgdir-1 do begin
      if noslash(imgdir[j,0])=libr then begin
         libr:=imgdir[j,2];
