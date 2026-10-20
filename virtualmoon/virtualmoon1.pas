@@ -38,7 +38,7 @@ uses
   u_translation_database, u_translation, tabsdock, cu_dem, pu_demprofile,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon, UScaleDPI,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids, BGRABitmap, BGRABitmapTypes,
-  PrintersDlgs, Printers, Controls, LazFileUtils, pu_migratedata,
+  PrintersDlgs, Printers, Controls, LazFileUtils,
   Messages, SysUtils, Classes, Dialogs, FileUtil, Types, pu_updcatalog,
   ComCtrls, Menus, Buttons, dynlibs, BigIma, pu_ascomclient, pu_indiclient,
   EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase, LCLType,
