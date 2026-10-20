@@ -885,7 +885,7 @@ begin
 end;
 
 procedure Tf_updcatalog.Uninstall(info: TCatInfo);
-var fn: string;
+var fn,ff: string;
     i,j: integer;
     f: TStringList;
 begin
@@ -895,29 +895,38 @@ try
   PanelDownload.Visible:=true;
   LabelAction.Caption:=rsDelete+blank+Info.catname;
   Application.ProcessMessages;
+  try
   f:=TStringList.Create;
-  f.LoadFromFile(slash(appdir)+slash(info.path)+info.catname+'_files.txt');
-  {$i-}  // ignore missing files or other errors
-  for i:=0 to f.count-1 do begin
-    fn:=f[i];
-    DeleteFile(slash(appdir)+fn);
-    j:=IOResult;
+  ff:=slash(appdir)+slash(info.path)+info.catname+'_files.txt';
+  if FileExists(ff) then begin
+    f.LoadFromFile(ff);
+    {$i-}  // ignore missing files or other errors
+    for i:=0 to f.count-1 do begin
+      fn:=f[i];
+      DeleteFile(slash(appdir)+fn);
+      j:=IOResult;
+    end;
+    {$i+}
   end;
-  {$i+}
   f.Clear;
-  f.LoadFromFile(slash(appdir)+slash(info.path)+info.catname+'_dir.txt');
-  {$i-}  // ignore missing or non empty directories or other errors
-  for i:=f.count-1 downto 0 do begin
-    fn:=f[i];
-    RmDir(slash(appdir)+fn);
-    j:=IOResult;
+  ff:=slash(appdir)+slash(info.path)+info.catname+'_dir.txt';
+  if FileExists(ff) then begin
+    f.LoadFromFile(ff);
+    {$i-}  // ignore missing or non empty directories or other errors
+    for i:=f.count-1 downto 0 do begin
+      fn:=f[i];
+      RmDir(slash(appdir)+fn);
+      j:=IOResult;
+    end;
+   {$i+}
   end;
- {$i+}
   f.Free;
   DeleteFile(slash(appdir)+slash(info.path)+info.catname+'_files.txt');
   DeleteFile(slash(appdir)+slash(info.path)+info.catname+'_dir.txt');
   DeleteFile(slash(appdir)+slash(info.path)+info.catname+'_version.txt');
- if Assigned(FSaveConfig) then FSaveConfig(self);
+  if Assigned(FSaveConfig) then FSaveConfig(self);
+  except // ignore file deletion errors
+  end;
 finally
   LabelAction.Caption:='';
   PanelInfo.Visible:=true;
