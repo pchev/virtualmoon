@@ -15,7 +15,7 @@ uses
   TurboPowerIPro, lazcontrols, tachartlazaruspkg, u_constant, cu_tz, cu_planet,
   u_projection, u_util, pu_moon, u_translation_database, u_translation,
   uniqueinstance_package, laz_synapse, downldialog, pu_features, BigIma, uDE, mlb2,
-  tabsdock, pu_ascomclient, pu_indiclient, cu_ascomrest, cu_dem, pu_demprofile, pu_updcatalog, cu_httpdownload;
+  tabsdock, pu_ascomclient, pu_indiclient, cu_ascomrest, cu_dem, pu_demprofile, pu_updcatalog, cu_httpdownload, pu_migratedata;
 
 {$R *.res}
 

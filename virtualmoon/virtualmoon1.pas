@@ -38,7 +38,7 @@ uses
   u_translation_database, u_translation, tabsdock, cu_dem, pu_demprofile,
   u_constant, u_util, cu_planet, u_projection, cu_tz, pu_moon, UScaleDPI,
   LCLIntf, Forms, StdCtrls, ExtCtrls, Graphics, Grids, BGRABitmap, BGRABitmapTypes,
-  PrintersDlgs, Printers, Controls, LazFileUtils,
+  PrintersDlgs, Printers, Controls, LazFileUtils, pu_migratedata,
   Messages, SysUtils, Classes, Dialogs, FileUtil, Types, pu_updcatalog,
   ComCtrls, Menus, Buttons, dynlibs, BigIma, pu_ascomclient, pu_indiclient,
   EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase, LCLType,
@@ -594,6 +594,7 @@ type
     procedure Readdefault;
     procedure SaveDefault;
     procedure UpdateConfig;
+    procedure CopyOldData;
     procedure UpdTerminateur(range:double=12; sl:string='1,2');
     procedure AddToList(buf: string);
     procedure GetDetail(row: TResultRow; memo: Tmemo);
@@ -1148,8 +1149,6 @@ AddImagesDir('BestofLROobliques','Best of LRO Oblics','LRO','0');
 AddImagesDir('BestofPelissard','Best of William Pelissard','William Pelissard','0');
 
 end;
-
-
 
 procedure TForm1.MenuCheckNameClick(Sender: TObject);
 var i,r,p: integer;
@@ -4018,6 +4017,7 @@ StartTimer.Enabled:=false;
 if NeedToInstallData then begin
   if MessageDlg('Base data download','The base data for the program need to be installed now.',mtConfirmation,mbOKCancel,0)<>mrOK then
     halt;
+  CopyOldData;
   f_updcatalog.Show;
   Application.ProcessMessages;
   f_updcatalog.InitialData;
@@ -4073,6 +4073,35 @@ except
   end;
 end;
 screen.cursor := crDefault;
+end;
+
+procedure TForm1.CopyOldData;
+const
+  {$ifdef linux}
+  oldpath1='/usr/share/virtualmoon';
+  oldpath2='/usr/local/share/virtualmoon';
+  {$endif}
+  {$ifdef windows}
+  oldpath1='\Program Files (x86)';
+  oldpath2='\Program Files';
+  {$endif}
+var source,dest: string;
+    f: Tf_migratedata;
+begin
+{$ifdef darwin}
+  exit;   // no previous Mac version
+{$endif}
+if DirectoryExists(oldpath1) then
+  source:=oldpath1
+else if DirectoryExists(oldpath2) then
+  source:=oldpath2
+else
+  exit;  // no previous standard install
+
+f:=Tf_migratedata.Create(self);
+f.Show;
+f.Migrate(source);
+f.Close;
 end;
 
 procedure TForm1.OpenConfig(page: integer=-1);
