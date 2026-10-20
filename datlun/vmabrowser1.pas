@@ -152,63 +152,79 @@ end;
 
 procedure Tf_main.GetAppDir;
 var
-  buf: string;
-{$ifdef darwin}
-  i:      integer;
-{$endif}
+  testdata,testbin: string;
 {$ifdef mswindows}
+  buf: string;
   PIDL:   PItemIDList;
   Folder: array[0..MAX_PATH] of char;
 {$endif}
 begin
+try
+testdata:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
+testbin:=DefaultMaplun;
 {$ifdef darwin}
-  // External Application Support copy, once seeded, always wins -- see
-  // VMAEnsureExternalAppData / Mantis 2948.
-  buf := VMAExternalAppDataDir;
-  if DirectoryExists(slash(buf) + slash('Database')) then
-    appdir := buf
-  else
-  begin
-  appdir := getcurrentdir;
-  if not DirectoryExists(slash(appdir) + slash('Textures')) then
-  begin
-    // Inside a .app bundle the executable is at Contents/MacOS/datlun and the
-    // data set ships in Contents/Resources/.  Probe that location first, then
-    // fall back to the directory that contains the .app bundle.
-    // The probe sentinel is Database/ -- this program's own data directory --
-    // deliberately, even though the guard above tests Textures/: that outer
-    // test is upstream's and is left untouched, and Textures/ is part of the
-    // separately distributed high-resolution pack, so it is not a reliable
-    // marker of a populated Resources/ for the non-GLScene programs.
-    buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0))) + '..' + PathDelim + 'Resources');
-    if DirectoryExists(slash(buf) + slash('Database')) then
-      // Genuine deployed .app: seed the external copy so this and every
-      // future launch, and any separately downloaded add-on data pack,
-      // live outside the .app, untouched by updating/reinstalling it.
-      appdir := VMAEnsureExternalAppData(buf)
-    else
-    begin
-      appdir := ExtractFilePath(ParamStr(0));
-      i      := pos('.app/', appdir);
-      if i > 0 then
-      begin
-        appdir := ExtractFilePath(copy(appdir, 1, i));
-      end;
+  bindir := slash(ExtractFilePath(ParamStr(0)));
+  if not FileExists(slash(bindir)+testbin) then begin
+    bindir := '/Applications/Virtual Moon Atlas.app/Contents/MacOS/';  // default location to debug from IDE
+    if not FileExists(slash(bindir)+testbin) then begin
+      raise exception.Create('Cannot found the program directory');
     end;
   end;
-  end;
-{$else}
-  appdir     := getcurrentdir;
-{$endif}
-  privatedir := DefaultPrivateDir;
-{$ifdef unix}
-  appdir     := expandfilename(appdir);
-  bindir     := slash(appdir);
-  privatedir := expandfilename(PrivateDir);
+  LangDir:=ExpandFileName(slash(bindir)+slash('..')+slash('Resources')+'language');
+  appdir := VMAExternalAppDataDir;
+  privatedir := expandfilename(DefaultPrivateDir);
+  HomeDir := expandfilename(DefaultHomeDir);
   configfile := expandfilename(Defaultconfigfile);
   CdCconfig  := ExpandFileName(DefaultCdCconfig);
+  // Be sure zoneinfo exists in standard location
+  ZoneDir := slash('') + slash('usr') + slash('share') + slash('zoneinfo');
+  if not (FileExists(slash(ZoneDir) + 'zone.tab')) then
+  begin
+    ZoneDir := slash('') + slash('usr') + slash('lib') + slash('zoneinfo');
+    if not (FileExists(slash(ZoneDir) + 'zone.tab')) then
+    begin
+      if (not FileExists(slash(ZoneDir) + 'zone.tab')) then
+        raise exception.Create('zoneinfo directory not found, install the tzdata package');
+    end;
+  end;
 {$endif}
-{$ifdef mswindows}
+{$ifdef linux}
+  bindir     := slash(expandfilename(getcurrentdir));
+  if not FileExists(slash(bindir)+testbin) then begin
+     bindir := slash(ExtractFilePath(ParamStr(0)));
+     if not FileExists(slash(bindir)+testbin) then begin
+       raise exception.Create('Cannot found the program directory');
+     end;
+  end;
+  LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
+  privatedir := expandfilename(DefaultPrivateDir);
+  HomeDir := expandfilename(DefaultHomeDir);
+  appdir    := slash(PrivateDir)+'data';
+  configfile := expandfilename(Defaultconfigfile);
+  CdCconfig  := ExpandFileName(DefaultCdCconfig);
+  // Be sure zoneinfo exists in standard location
+  ZoneDir := slash('') + slash('usr') + slash('share') + slash('zoneinfo');
+  if not (FileExists(slash(ZoneDir) + 'zone.tab')) then
+  begin
+    ZoneDir := slash('') + slash('usr') + slash('lib') + slash('zoneinfo');
+    if not (FileExists(slash(ZoneDir) + 'zone.tab')) then
+    begin
+      if (not FileExists(slash(ZoneDir) + 'zone.tab')) then
+        raise exception.Create('zoneinfo directory not found, install the tzdata package');
+    end;
+  end;
+{$endif}
+  {$ifdef mswindows}
+  bindir     := slash(expandfilename(getcurrentdir));
+  if not FileExists(slash(bindir)+testbin) then begin
+     bindir := slash(ExtractFilePath(ParamStr(0)));
+     if not FileExists(slash(bindir)+testbin) then begin
+       raise exception.Create('Cannot found the program directory');
+     end;
+  end;
+  bindir:=slash(bindir);
+  LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
+  privatedir := DefaultPrivateDir;
   buf:='';
   SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);
   SHGetPathFromIDList(PIDL, Folder);
@@ -225,8 +241,16 @@ begin
      Halt;
   end;
   privatedir := slash(buf) + privatedir;
+  appdir     := slash(PrivateDir)+'data';
   configfile := slash(privatedir) + Defaultconfigfile;
   CdCconfig  := slash(buf) + DefaultCdCconfig;
+  SHGetSpecialFolderLocation(0, CSIDL_PERSONAL, PIDL);
+  SHGetPathFromIDList(PIDL, Folder);
+  homedir := trim(WinCPToUTF8(Folder));
+  // Be sure zoneinfo exists in vma directory
+  ZoneDir  := slash(bindir) + slash('data') + slash('zoneinfo');
+  if (not FileExists(slash(ZoneDir) + 'zone.tab')) then
+    raise exception.Create('zoneinfo directory not found');
 {$endif}
 
   if not directoryexists(privatedir) then
@@ -235,8 +259,12 @@ begin
     forcedirectories(privatedir);
   if not directoryexists(privatedir) then
   begin
-    privatedir := appdir;
+    raise exception.Create('Cannot create directory '+privatedir);
   end;
+  if not directoryexists(appdir) then
+    CreateDir(appdir);
+  if not directoryexists(appdir) then
+    forcedirectories(appdir);
   Tempdir := slash(privatedir) + DefaultTmpDir;
   if not directoryexists(TempDir) then
     CreateDir(TempDir);
@@ -247,95 +275,25 @@ begin
     CreateDir(DBdir);
   if not directoryexists(DBdir) then
     forcedirectories(DBdir);
-  // Be sur the Database directory exists
-  if (not directoryexists(slash(appdir) + slash('Database'))) then
-  begin
-    // try under the current directory
-    buf := GetCurrentDir;
-    if (directoryexists(slash(buf) + slash('Database'))) then
-      appdir := buf
-    else
-    begin
-      // try under the program directory
-      buf := ExtractFilePath(ParamStr(0));
-      if (directoryexists(slash(buf) + slash('Database'))) then
-        appdir := buf
-      else
-      begin
-        // try share directory under current location
-        buf := ExpandFileName(slash(GetCurrentDir) + SharedDir);
-        if (directoryexists(slash(buf) + slash('Database'))) then
-          appdir := buf
-        else
-        begin
-          // try share directory at the same location as the program
-          buf := ExpandFileName(slash(ExtractFilePath(ParamStr(0))) + SharedDir);
-          if (directoryexists(slash(buf) + slash('Database'))) then
-            appdir := buf
-          else
-          begin
-            MessageDlg('Could not found the application Database directory.' +
-              crlf + 'Please try to reinstall the program at a standard location.',
-              mtError, [mbAbort], 0);
-            Halt;
-          end;
-        end;
-      end;
-    end;
-  end;
-  {$ifndef darwin}
-  LangDir:=slash(appdir)+'language';
-  if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
-     bindir := slash(ExtractFilePath(ParamStr(0)));
-     if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
-        bindir := slash(ExpandFileName(slash(appdir) + slash('..')+slash('..')+'bin'));
-        if not FileExists(slash(bindir)+ExtractFileName(ParamStr(0))) then begin
-           bindir:='';
-        end;
-     end;
-  end;
- {$else}
-  // Combined bundle: the sibling binaries are bare-named in Contents/MacOS/,
-  // beside the one that was launched (appdir points at Contents/Resources/).
-  // Probe for atlun -- the hub every program spawns -- rather than for our own
-  // name: bindir is the running exe's own directory, so probing for ourselves
-  // is always true and would make the fall-back unreachable.
-  bindir := slash(ExtractFilePath(ParamStr(0)));
-  if not FileExists(slash(bindir)+DefaultMaplun) then begin
-    bindir := '/Applications/Virtual Moon Atlas.app/Contents/MacOS/';  // default location to debug from IDE
-    if not FileExists(slash(bindir)+DefaultMaplun) then begin
-      bindir := slash(appdir);
-    end;
-  end;
-  LangDir:=ExpandFileName(slash(bindir)+slash('..')+slash('Resources')+'language');
- {$endif}
+  NeedToInstallData := not FileExists(slash(appdir)+testdata);
   Maplun  := '"'+bindir + DefaultMaplun+'"';
-  Photlun := '"'+bindir + DefaultPhotlun+'"';     // Photlun normally at same location as vma
+  Photlun := '"'+bindir + DefaultPhotlun+'"';
   Datlun  := '"'+bindir + DefaultDatlun+'"';
   Weblun  := '"'+bindir + DefaultWeblun+'"';
-  helpdir  := slash(appdir) + slash('doc');
-  // Be sure zoneinfo exists in standard location or in vma directory
-{  ZoneDir  := slash(appdir) + slash('data') + slash('zoneinfo');
-  buf      := slash('') + slash('usr') + slash('share') + slash('zoneinfo');
-  if (FileExists(slash(buf) + 'zone.tab')) then
-    ZoneDir := slash(buf)
-  else
-  begin
-    buf := slash('') + slash('usr') + slash('lib') + slash('zoneinfo');
-    if (FileExists(slash(buf) + 'zone.tab')) then
-      ZoneDir := slash(buf)
-    else
-    begin
-      if (not FileExists(slash(ZoneDir) + 'zone.tab')) then
-      begin
-        MessageDlg('zoneinfo directory not found!' + crlf +
-          'Please install the tzdata package.' + crlf +
-          'If it is not installed at a standard location create a logical link zoneinfo in skychart data directory.',
-          mtError, [mbAbort], 0);
-        Halt;
-      end;
-    end;
-  end;   }
+  Calclun  := '"'+bindir + DefaultCalclun+'"';
+  NoteLun  := '"'+bindir + DefaultNotelun+'"';
+  helpdir := slash(appdir) + slash('doc');
+  jpldir  := slash(appdir)+slash('data')+'jpleph';
+
+except
+  on E: Exception do begin
+    MessageDlg('Inconsistent program installation!' + crlf +
+      E.Message + crlf +
+      'Please try to reinstall the program at a standard location.' + crlf,
+      mtError, [mbAbort], 0);
+    Halt;
+  end;
+end;
 end;
 
 Procedure Tf_main.SetLang;

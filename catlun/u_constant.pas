@@ -234,7 +234,7 @@ var Plan404 : TPlan404;
 // pseudo-constant only here
 Var  Splashversion, compile_time, compile_version: string;
      //dpiscale: double;
-     BinDir, Homedir, Appdir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir,vignettedir : string;
+     BinDir, Homedir, Appdir, LangDir, PrivateDir, SampleDir, DBdir, TempDir, ZoneDir, HelpDir,CdCdir,jpldir,vignettedir : string;
      MapLun,Photlun,DatLun,WebLun,CalcLun,NoteLun,CdC,PrtName, transmsg : String;
      ObsLatitude,ObsLongitude,ObsAltitude : double;
      ObsTZ,ObsCountry: string;
@@ -247,7 +247,7 @@ Var  Splashversion, compile_time, compile_version: string;
      ldeg,lmin,lsec : string;
      PrinterResolution: integer;
      librationeffect,showterminatorline, AsMultiTexture : Boolean;
-     Firstsearch: boolean;
+     Firstsearch, NeedToInstallData: boolean;
      DisplayIs32bpp: Boolean;
      ThemePath:string ='data/Themes';
      LinuxDesktop: integer = 0;  // FreeDesktop=0, KDE=1, GNOME=2, Other=3
