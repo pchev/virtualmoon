@@ -2023,6 +2023,7 @@ procedure TForm1.GetAppDir;
 var
   testdata,testbin: string;
 {$ifdef mswindows}
+  buf: string;
   PIDL:   PItemIDList;
   Folder: array[0..MAX_PATH] of char;
 {$endif}
@@ -2082,7 +2083,17 @@ testbin:=DefaultPhotlun;
     end;
   end;
 {$endif}
-{$ifdef mswindows}
+  {$ifdef mswindows}
+  bindir     := slash(expandfilename(getcurrentdir));
+  if not FileExists(slash(bindir)+testbin) then begin
+     bindir := slash(ExtractFilePath(ParamStr(0)));
+     if not FileExists(slash(bindir)+testbin) then begin
+       raise exception.Create('Cannot found the program directory');
+     end;
+  end;
+  bindir:=slash(bindir);
+  LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
+  privatedir := DefaultPrivateDir;
   buf:='';
   SHGetSpecialFolderLocation(0, CSIDL_LOCAL_APPDATA, PIDL);
   SHGetPathFromIDList(PIDL, Folder);
@@ -2102,7 +2113,6 @@ testbin:=DefaultPhotlun;
   appdir     := slash(PrivateDir)+'data';
   configfile := slash(privatedir) + Defaultconfigfile;
   CdCconfig  := slash(buf) + DefaultCdCconfig;
-  bindir:=slash(bindir);
   SHGetSpecialFolderLocation(0, CSIDL_PERSONAL, PIDL);
   SHGetPathFromIDList(PIDL, Folder);
   homedir := trim(WinCPToUTF8(Folder));
