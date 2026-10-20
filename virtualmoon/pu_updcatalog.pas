@@ -46,8 +46,19 @@ type
 
   Tf_updcatalog = class(TForm)
     btnConfig: TButton;
+    btnNo1: TButton;
+    btnYes: TButton;
+    btnNo: TButton;
+    btnYes1: TButton;
     ButtonClose: TButton;
     ButtonAbort: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
     LabelAction: TLabel;
     LabelProgress: TLabel;
     PageControl1: TPageControl;
@@ -58,8 +69,12 @@ type
     PanelDownload: TPanel;
     ProgressBar1: TProgressBar;
     ProgressCat: TLabel;
+    TabSheetNewInstall: TTabSheet;
+    TabSheetMigrate: TTabSheet;
     TabSheetBase: TTabSheet;
     EndInstallTimer: TTimer;
+    procedure btnYesClick(Sender: TObject);
+    procedure btnNoClick(Sender: TObject);
     procedure ButtonAbortClick(Sender: TObject);
     procedure ButtonCloseClick(Sender: TObject);
     procedure EndInstallTimerTimer(Sender: TObject);
@@ -72,6 +87,7 @@ type
     procedure GridGetCellHint(Sender: TObject; ACol, ARow: Integer; var HintText: String);
     procedure GridDrawCell(Sender: TObject; aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState);
     procedure BtnConfigClick(Sender: TObject);
+    procedure PageControl1Change(Sender: TObject);
   private
     FSaveConfig, FChartRefresh, FActivatePictures: TNotifyEvent;
     InstallInfo: TCatInfo;
@@ -80,6 +96,7 @@ type
     FRunning,FAbort,FDownloadNow: boolean;
     ProgressIndex,ProgressCount: integer;
     FConfig: string;
+    migration_response: string;
     ProgressMessage: string;
     LocalDataPath: string;
     procedure ClearGrid(g:TStringGrid);
@@ -105,6 +122,8 @@ type
     procedure SaveConfig;
     procedure Abort;
     procedure InitialData;
+    procedure BaseData;
+    procedure Migrate;
     property Running: boolean read FRunning;
     property onSaveConfig: TNotifyEvent read FSaveConfig write FSaveConfig;
     property onChartRefresh: TNotifyEvent read FChartRefresh write FChartRefresh;
@@ -237,6 +256,8 @@ begin
   FDownloadNow:=true;
   GridBase.RowCount:=1;
   LocalDataPath:='';
+  label1.Caption:='';
+  label2.Caption:='';
 end;
 
 procedure Tf_updcatalog.FormShow(Sender: TObject);
@@ -446,24 +467,6 @@ begin
   end;
 end;
 
-procedure Tf_updcatalog.InitialData;
-begin
-  if GridBase.RowCount<2 then begin
-    BtnConfigClick(self);
-    LoadCatalogList;
-  end;
-  if GridBase.RowCount<2 then begin
-    MessageDlg('Error','Cannot install the data now!',mtError,[mbClose],0);
-    exit;
-  end;
-  GridButtonClick(GridBase,colaction,1);
-  while FRunning do begin
-    Application.ProcessMessages;
-    sleep(100);
-  end;
-  SaveConfig;
-end;
-
 procedure Tf_updcatalog.GridButtonClick(Sender: TObject; aCol, aRow: Integer);
 var info: TCatInfo;
 begin
@@ -616,6 +619,24 @@ begin
   F.Free;
 end;
 
+procedure Tf_updcatalog.PageControl1Change(Sender: TObject);
+begin
+  case PageControl1.ActivePageIndex of
+    0: begin  // install data
+         panel1.Visible:=true;
+         panel2.Visible:=true;
+       end;
+    1: begin  // migrate data
+         panel1.Visible:=false;
+         panel2.Visible:=false;
+       end;
+    2: begin  // new base data
+         panel1.Visible:=true;
+         panel2.Visible:=false;
+       end;
+  end;
+end;
+
 procedure Tf_updcatalog.SelectSourceClick(Sender: TObject);
 begin
   if Sender is TRadioGroup then
@@ -640,7 +661,7 @@ begin
     else EndInstallTimer.Enabled:=true;
   end
   else begin
-    if MessageDlg(rsInstall+' '+info.catname+crlf+info.desc,mtConfirmation,mbYesNo,0)=mryes then
+    if (info.catname='Base_Data')or(MessageDlg(rsInstall+' '+info.catname+crlf+info.desc,mtConfirmation,mbYesNo,0)=mryes) then
     begin
       Install(info);
     end
@@ -934,6 +955,216 @@ finally
 end;
 end;
 
+
+procedure Tf_updcatalog.btnYesClick(Sender: TObject);
+begin
+  migration_response:='yes';
+end;
+
+procedure Tf_updcatalog.btnNoClick(Sender: TObject);
+begin
+  migration_response:='no';
+end;
+
+procedure Tf_updcatalog.InitialData;
+begin
+  Migrate;
+  BaseData;
+end;
+
+procedure Tf_updcatalog.BaseData;
+begin
+  PageControl1.ActivePageIndex:=2;
+
+  migration_response:='';
+  while  migration_response='' do begin
+    sleep(100);
+    Application.ProcessMessages;
+  end;
+
+  if migration_response='yes' then begin
+    PageControl1.ActivePageIndex:=0;
+    Application.ProcessMessages;
+    if GridBase.RowCount<2 then begin
+      BtnConfigClick(self);
+      LoadCatalogList;
+    end;
+    if GridBase.RowCount<2 then begin
+      MessageDlg('Error','Cannot install the data now!',mtError,[mbClose],0);
+      exit;
+    end;
+    GridButtonClick(GridBase,colaction,1);
+    while FRunning do begin
+      Application.ProcessMessages;
+      sleep(100);
+    end;
+    SaveConfig;
+  end;
+end;
+
+procedure Tf_updcatalog.Migrate;
+const
+  {$ifdef linux}
+  oldpath1='/usr/share/virtualmoon';
+  oldpath2='/usr/local/share/virtualmoon';
+  {$endif}
+  {$ifdef windows}
+  oldpath1='\Program Files (x86)';
+  oldpath2='\Program Files';
+  {$endif}
+  oldversion='20250615'; // version 9
+  newversion='20261018'; // version 10 for unchanged files
+  max_amateur=9;
+  pict_amateur: array [0..max_amateur] of string = ('BestOfAmateurs','BestOfHiggins','BestOfLazzarotti','Best_Pic_du_Midi','Best_of_Peach','BestOfCathala','BestOfBrahic','BestOfViladrich','BestOfHeully','BestofPelissard');
+  max_probe=9;
+  pict_probe: array [0..max_probe] of string = ('Lopam','Clementine','CLA','LAC_LM','ApolloMapping','LunarPits','Smart-1','Artemis2','Bestofhistorical','BestofLROobliques');
+  max_texture=14;
+  textures: array [0..max_texture] of string = ('Airbrush','Historical','Overlay','WAC_Color_Shade','Airbrush_no_albedo','Clementine','USGS Geological 2020','LAC','CNSA Geological map','Clementine_Negative','Change','Lopam','LOLA_Kaguya_Shade','WAC_LOWSUN','WAC');
+var source,dest: string;
+   i: integer;
+   f: textfile;
+   ok: boolean;
+begin
+ {$ifdef darwin}
+  exit;   // no previous Mac version
+ {$endif}
+
+ if DirectoryExists(oldpath1) then
+   source:=oldpath1
+ else if DirectoryExists(oldpath2) then
+   source:=oldpath2
+ else
+   exit;  // no previous standard install
+
+  try
+  PageControl1.ActivePageIndex:=1;
+  label1.Caption:=source;
+  label2.Caption:=slash(appdir);
+
+  migration_response:='';
+  while  migration_response='' do begin
+    sleep(100);
+    Application.ProcessMessages;
+  end;
+
+  if migration_response='yes' then begin
+    Application.ProcessMessages;
+    // Amateur Pictures
+    dest:=slash(appdir)+'Pictures';
+    ForceDirectories(dest);
+    ok:=false;
+    for i:=0 to max_amateur do begin
+      if DirectoryExists(slash(source)+pict_amateur[i]) then begin
+        label1.Caption:=slash(source)+pict_amateur[i];
+        label2.Caption:=slash(dest)+pict_amateur[i];
+        Application.ProcessMessages;
+        ok:=CopyDirTree(slash(source)+pict_amateur[i],slash(dest)+pict_amateur[i]) or ok;
+      end;
+    end;
+    if ok then begin
+      AssignFile(f,slash(dest)+'Picture1_version.txt');
+      Rewrite(f);
+      WriteLn(f,oldversion);
+      CloseFile(f);
+    end;
+    // Probes Pictures
+    ok:=false;
+    for i:=0 to max_probe do begin
+      if DirectoryExists(slash(source)+pict_probe[i]) then begin
+        label1.Caption:=slash(source)+pict_probe[i];
+        label2.Caption:=slash(dest)+pict_probe[i];
+        Application.ProcessMessages;
+        ok:=CopyDirTree(slash(source)+pict_probe[i],slash(dest)+pict_probe[i]) or ok;
+      end;
+    end;
+    if ok then begin
+      AssignFile(f,slash(dest)+'Picture2_version.txt');
+      Rewrite(f);
+      WriteLn(f,oldversion);
+      CloseFile(f);
+    end;
+    // Textures
+    dest:=slash(appdir)+'Textures';
+    ForceDirectories(dest);
+    for i:=0 to max_texture do begin
+      if DirectoryExists(slash(source)+slash('Textures')+textures[i]) then begin
+        label1.Caption:=slash(source)+slash('Textures')+textures[i];
+        label2.Caption:=slash(dest)+textures[i];
+        Application.ProcessMessages;
+        ok:=CopyDirTree(slash(source)+slash('Textures')+textures[i],slash(dest)+textures[i]) or ok;
+      end;
+    end;
+
+    if FileExists(slash(dest)+slash('WAC')+slash('L4')+'0.jpg') then begin
+      AssignFile(f,slash(dest)+'Textures_version.txt');
+      Rewrite(f);
+      WriteLn(f,oldversion);
+      CloseFile(f);
+    end;
+
+    if FileExists(slash(dest)+slash('LAC')+slash('L1')+'0.jpg') then begin
+      AssignFile(f,slash(dest)+'HiresLac_version.txt');
+      Rewrite(f);
+      WriteLn(f,oldversion);
+      CloseFile(f);
+    end;
+
+    if FileExists(slash(dest)+slash('Lopam')+slash('L5')+'0.jpg') then begin
+      AssignFile(f,slash(dest)+'HiresLopam_version.txt');
+      Rewrite(f);
+      WriteLn(f,newversion);
+      CloseFile(f);
+    end;
+    if FileExists(slash(dest)+slash('Lopam')+slash('L6')+'0.jpg') then begin
+      AssignFile(f,slash(dest)+'VhLopam_version.txt');
+      Rewrite(f);
+      WriteLn(f,newversion);
+      CloseFile(f);
+    end;
+    if FileExists(slash(dest)+slash('Change')+slash('L6')+'0.jpg') then begin
+      AssignFile(f,slash(dest)+'VhChange_version.txt');
+      Rewrite(f);
+      WriteLn(f,newversion);
+      CloseFile(f);
+    end;
+
+    if FileExists(slash(dest)+slash('WAC')+slash('L5')+'0.jpg') then begin
+      AssignFile(f,slash(dest)+'HiresWac_version.txt');
+      Rewrite(f);
+      WriteLn(f,newversion);
+      CloseFile(f);
+    end;
+    if FileExists(slash(dest)+slash('WAC')+slash('L6')+'0.jpg') then begin
+      AssignFile(f,slash(dest)+'VhWac_version.txt');
+      Rewrite(f);
+      WriteLn(f,newversion);
+      CloseFile(f);
+    end;
+    if FileExists(slash(dest)+slash('WAC_LOWSUN')+slash('L6')+'0.jpg') then begin
+      AssignFile(f,slash(dest)+'VhWacLs_version.txt');
+      Rewrite(f);
+      WriteLn(f,newversion);
+      CloseFile(f);
+    end;
+
+    if FileExists(slash(dest)+slash('LOLA_Kaguya_Shade')+slash('L5')+'0.jpg') then begin
+      AssignFile(f,slash(dest)+'HiresLola_version.txt');
+      Rewrite(f);
+      WriteLn(f,newversion);
+      CloseFile(f);
+    end;
+    if FileExists(slash(dest)+slash('LOLA_Kaguya_Shade')+slash('L6')+'0.jpg') then begin
+      AssignFile(f,slash(dest)+'VhLola_version.txt');
+      Rewrite(f);
+      WriteLn(f,newversion);
+      CloseFile(f);
+    end;
+
+   end;
+   finally
+   PageControl1.ActivePageIndex:=0;
+   end;
+end;
 
 end.
 
