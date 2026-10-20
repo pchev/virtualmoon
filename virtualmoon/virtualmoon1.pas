@@ -1501,7 +1501,7 @@ begin
     with inif do
     begin
       if not (ValueExists(section, 'Install_Dir')) then
-        WriteString(section, 'Install_Dir', appdir);
+        WriteString(section, 'Install_Dir', bindir);      //used by windows installer
       WriteString(section, 'lang_po_file', Language);
       WriteString(section, 'version', version);
       WriteBool(section, 'LibrationEffect', librationeffect);
