@@ -644,6 +644,7 @@ testbin:=DefaultMaplun;
     if not FileExists(slash(bindir)+testbin) then begin
       raise exception.Create('Cannot found the program directory');
     end;
+    chdir(bindir);
   end;
   LangDir:=ExpandFileName(slash(bindir)+slash('..')+slash('Resources')+'language');
   appdir := VMAExternalAppDataDir;
@@ -670,6 +671,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
   privatedir := expandfilename(DefaultPrivateDir);
@@ -696,6 +698,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   bindir:=slash(bindir);
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
@@ -890,7 +893,6 @@ begin
       p:=p+' -o LON:'+DEToStr3(x)+'LAT:'+DEToStr3(y)+'TZ:'+FormatFloat(f2,TimeZone);
     end;
   end;
-  chdir(appdir);
   Execnowait(maplun+' '+p);
   StartVMA:=true;
 end;
@@ -907,7 +909,6 @@ begin
     buf:=trim(ObsFormation.text);
     if buf<>'' then p:=p+' -n '+buf;
   end;
-  chdir(appdir);
   Execnowait(photlun+' '+p);
   StartPhotlun:=true;
 end;
@@ -924,7 +925,6 @@ begin
     buf:=trim(ObsFormation.text);
     if buf<>'' then p:=p+' -n '+buf;
   end;
-  chdir(appdir);
   Execnowait(DatLun+' '+p);
   StartDatlun:=true;
 end;
@@ -933,7 +933,6 @@ procedure Tf_notelun.OpenWeblun;
 var p:string;
 begin
   p:='-nn ';
-  chdir(appdir);
   Execnowait(WebLun+' '+p);
   StartWeblun:=true;
 end;

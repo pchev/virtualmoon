@@ -156,7 +156,6 @@ begin
   DefaultFormatSettings.ThousandSeparator:=' ';
   ScaleMainForm;
   GetAppDir;
-  chdir(appdir);
   param:=Tstringlist.Create;
   param.clear;
   if paramcount>0 then begin
@@ -460,7 +459,6 @@ begin
   language:= ReadString(section, 'lang_po_file', language);
 end;
 inifile.Free;
-chdir(appdir);
 language:=u_translation.translate(language,'en');
 uplanguage:=UpperCase(language);
 u_util.hp := rshelp_prefix;
@@ -503,6 +501,7 @@ testbin:=DefaultMaplun;
     if not FileExists(slash(bindir)+testbin) then begin
       raise exception.Create('Cannot found the program directory');
     end;
+    chdir(bindir);
   end;
   LangDir:=ExpandFileName(slash(bindir)+slash('..')+slash('Resources')+'language');
   appdir := VMAExternalAppDataDir;
@@ -529,6 +528,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
   privatedir := expandfilename(DefaultPrivateDir);
@@ -555,6 +555,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   bindir:=slash(bindir);
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
@@ -685,7 +686,7 @@ var i,fage1,fage2,fage,db_age: integer;
     row:TStringList;
     cols: array[1..ncols] of integer;
 begin
-buf:=Slash(DBdir)+'dbmoon8'+uplanguage+'.dbl';
+buf:=Slash(DBdir)+'dbmoon9'+uplanguage+'.dbl';
 dbm.Use(utf8encode(buf));
 webdate:=0;
 WebUpdate;

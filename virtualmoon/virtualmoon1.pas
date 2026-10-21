@@ -835,7 +835,6 @@ begin
     language     := ReadString(section, 'lang_po_file', language);
   end;
   inifile.Free;
-  chdir(appdir);
   language:=u_translation.translate(language,'en');
   uplanguage:=UpperCase(language);
   u_translation_database.translate(language,'en');
@@ -1460,7 +1459,6 @@ begin
       end;
   end;
   inif.Free;
-  chdir(appdir);
   UpdateConfig;
   InitObservatoire;
   InitImages;
@@ -2040,6 +2038,7 @@ testbin:=DefaultPhotlun;
     if not FileExists(slash(bindir)+testbin) then begin
       raise exception.Create('Cannot found the program directory');
     end;
+    chdir(bindir);
   end;
   LangDir:=ExpandFileName(slash(bindir)+slash('..')+slash('Resources')+'language');
   appdir := VMAExternalAppDataDir;
@@ -2066,6 +2065,7 @@ testbin:=DefaultPhotlun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
   privatedir := expandfilename(DefaultPrivateDir);
@@ -2092,6 +2092,7 @@ testbin:=DefaultPhotlun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   bindir:=slash(bindir);
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
@@ -3740,7 +3741,6 @@ begin
   NoExtraSlice:=False;
   showoverlay := True;
   GetAppDir;
-  chdir(appdir);
   skipresize := True;
   skipresize := False;
   skiporient:=false;
@@ -4964,7 +4964,6 @@ procedure TForm1.ShowImg(desc, nom: string; forceinternal: boolean);
 var
   buf, buf1: string;
 begin
-  chdir(appdir);
   buf  := slash(desc) + trim(nom);
   buf1 := '';
   if fileexists(buf) then
@@ -5799,8 +5798,7 @@ procedure TForm1.OverlayCaption1Click(Sender: TObject);
 var
   dir,ovn: string;
 begin
-  chdir(appdir);
-  dir := slash('Textures') + slash('Overlay') + slash('caption');
+  dir := slash(appdir)+slash('Textures') + slash('Overlay') + slash('caption');
   ovn:=overlayname;
   if fileexists(dir + ovn) then
     showimg(dir, ovn, True);
@@ -6237,7 +6235,6 @@ begin
     parm:='-nx ';
     if objname<>'' then parm:=parm+' -n "'+objname+'" ';
     parm:=parm+otherparam;
-    chdir(appdir);
     Execnowait(datlun+' '+parm);
     StartDatlun:=true;
 end;
@@ -6248,7 +6245,6 @@ begin
     param:='-nx ';
     if objname<>'' then param:=param+' -n "'+objname+'" ';
     param:=param+otherparam;
-    chdir(appdir);
     Execnowait(photlun+' '+param);
     StartPhotlun:=true;
 end;
@@ -6261,7 +6257,6 @@ begin
     if id<>0 then param:=param+' -i "'+inttostr(id)+'" ';
     if trim(prefix)<>'' then param:=param+' -p "'+prefix+'" ';
     param:=param+otherparam;
-    chdir(appdir);
     Execnowait(NoteLun+' '+param);
     StartNotelun:=true;
 end;
@@ -6272,7 +6267,6 @@ begin
     if trim(objname)='' then exit;
     param:='-nx ';
     param:=param+' -newi "'+objname+'"';
-    chdir(appdir);
     Execnowait(NoteLun+' '+param);
     StartNotelun:=true;
 end;
@@ -6283,7 +6277,6 @@ begin
     if trim(objname)='' then exit;
     param:='-nx ';
     param:=param+' -newo "'+objname+'"';
-    chdir(appdir);
     Execnowait(NoteLun+' '+param);
     StartNotelun:=true;
 end;
@@ -6292,9 +6285,7 @@ procedure TForm1.OpenWeblun(objname,otherparam:string);
 var param:string;
 begin
     param:='-nx ';
-//    if objname<>'' then param:=param+' -n "'+objname+'" ';
     param:=param+otherparam;
-    chdir(appdir);
     Execnowait(weblun+' '+param);
     StartWeblun:=true;
 end;
@@ -6304,7 +6295,6 @@ var param:string;
 begin
     param:='';
     param:=param+otherparam;
-    chdir(appdir);
     Execnowait(calclun+' '+param);
     StartCalclun:=true;
 end;
@@ -6315,7 +6305,6 @@ begin
     param:='-nx --unique --nosplash ';
 //    if objname<>'' then param:=param+' -n "'+objname+'" ';
     param:=param+otherparam;
-    chdir(appdir);
     Execnowait(CdC+' '+param);
     StartCDC:=true;
 end;

@@ -249,6 +249,7 @@ testbin:=DefaultMaplun;
     if not FileExists(slash(bindir)+testbin) then begin
       raise exception.Create('Cannot found the program directory');
     end;
+    chdir(bindir);
   end;
   LangDir:=ExpandFileName(slash(bindir)+slash('..')+slash('Resources')+'language');
   appdir := VMAExternalAppDataDir;
@@ -275,6 +276,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
   privatedir := expandfilename(DefaultPrivateDir);
@@ -301,6 +303,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   bindir:=slash(bindir);
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
@@ -389,7 +392,6 @@ begin
     language     := ReadString(section, 'lang_po_file', language);
   end;
   inifile.Free;
-  chdir(appdir);
   language:=u_translation.translate(language,'en');
   uplanguage:=UpperCase(language);
   Caption  := rstitle;
@@ -510,37 +512,31 @@ end;
 
 procedure Tf_cclun.BitBtn1Click(Sender: TObject);
 begin
-  chdir(appdir);
   Execnowait(MapLun);
 end;
 
 procedure Tf_cclun.BitBtn2Click(Sender: TObject);
 begin
-  chdir(appdir);
   Execnowait(DatLun);
 end;
 
 procedure Tf_cclun.BitBtn3Click(Sender: TObject);
 begin
-  chdir(appdir);
   Execnowait(PhotLun);
 end;
 
 procedure Tf_cclun.BitBtn4Click(Sender: TObject);
 begin
-  chdir(appdir);
   Execnowait(WebLun);
 end;
 
 procedure Tf_cclun.BitBtn8Click(Sender: TObject);
 begin
-  chdir(appdir);
   Execnowait(CalcLun);
 end;
 
 procedure Tf_cclun.BitBtn9Click(Sender: TObject);
 begin
-chdir(appdir);
 Execnowait(NoteLun);
 end;
 

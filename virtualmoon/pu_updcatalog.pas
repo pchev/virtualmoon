@@ -1009,8 +1009,8 @@ const
   oldpath2='/usr/local/share/virtualmoon';
   {$endif}
   {$ifdef windows}
-  oldpath1='\Program Files (x86)';
-  oldpath2='\Program Files';
+  oldpath1='\Program Files (x86)\VirtualMoon';
+  oldpath2='\Program Files\VirtualMoon';
   {$endif}
   oldversion='20250615'; // version 9
   newversion='20261018'; // version 10 for unchanged files

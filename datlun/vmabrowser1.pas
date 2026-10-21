@@ -169,6 +169,7 @@ testbin:=DefaultMaplun;
     if not FileExists(slash(bindir)+testbin) then begin
       raise exception.Create('Cannot found the program directory');
     end;
+    chdir(bindir);
   end;
   LangDir:=ExpandFileName(slash(bindir)+slash('..')+slash('Resources')+'language');
   appdir := VMAExternalAppDataDir;
@@ -195,6 +196,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
   privatedir := expandfilename(DefaultPrivateDir);
@@ -221,6 +223,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   bindir:=slash(bindir);
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
@@ -309,7 +312,6 @@ begin
   language     := ReadString(section, 'lang_po_file', language);
 end;
 inifile.Free;
-chdir(appdir);
 language:=u_translation.translate(language,'en');
 uplanguage:=UpperCase(language);
 u_translation_database.translate(language,'en');
@@ -400,7 +402,6 @@ DefaultFormatSettings.DecimalSeparator := '.';
 DefaultFormatSettings.ThousandSeparator:=' ';
 dbm:=TLiteDB.Create(self);
 GetAppDir;
-chdir(appdir);
 param:=Tstringlist.Create;
 param.clear;
 if paramcount>0 then begin
@@ -864,7 +865,6 @@ begin
     end;
     if objname<>'' then param:=param+' -n "'+objname+'" ';
     param:=param+otherparam;
-    chdir(appdir);
     Execnowait(maplun+' '+param);
     StartVMA:=true;
 end;
@@ -875,7 +875,6 @@ begin
     param:='-nd ';
     if objname<>'' then param:=param+' -n "'+objname+'" ';
     param:=param+otherparam;
-    chdir(appdir);
     Execnowait(photlun+' '+param);
     StartPhotlun:=true;
 end;
@@ -972,9 +971,7 @@ var f: textfile;
     dbcol,dbrow: integer;            
 begin
 if dbm.RowCount=0 then exit;
-chdir(appdir);
 if savedialog1.Execute then begin
-   chdir(appdir);
    assignfile(f,savedialog1.FileName);
    rewrite(f);
    buf:='';
@@ -997,7 +994,6 @@ if savedialog1.Execute then begin
    end;
    closefile(f);
 end;
-chdir(appdir);
 end;
 
 { petite fonction de test avec resultat dans un fichier

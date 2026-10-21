@@ -585,20 +585,7 @@ begin
   GridTerminator2.Cells[1, 0]:=rsEndTime;
   GridTerminator2.Cells[2, 0]:=rsLibrLon;
   GridTerminator2.Cells[3, 0]:=rsLibrLat;
-{  dbm.Use(Slash(DBdir)+'dbmoon8'+UpperCase(language)+'.dbl');
-  buf:=dbm.QueryOne('select version from dbversion;');
-  if buf>'' then begin
-    EditFormation.Enabled:=true;
-    BtnSearch.Enabled:=true;
-    ComboBoxFormation.Visible:=true;
-    LabelMissingDB.Visible:=false;
-  end
-  else begin
-    EditFormation.Enabled:=false;
-    BtnSearch.Enabled:=false;
-    ComboBoxFormation.Visible:=false;
-    LabelMissingDB.Visible:=true;
-  end;}
+
 end;
 
 procedure Tf_calclun.SetKernelsPath;
@@ -677,6 +664,7 @@ testbin:=DefaultMaplun;
     if not FileExists(slash(bindir)+testbin) then begin
       raise exception.Create('Cannot found the program directory');
     end;
+    chdir(bindir);
   end;
   LangDir:=ExpandFileName(slash(bindir)+slash('..')+slash('Resources')+'language');
   appdir := VMAExternalAppDataDir;
@@ -703,6 +691,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
   privatedir := expandfilename(DefaultPrivateDir);
@@ -729,6 +718,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   bindir:=slash(bindir);
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
@@ -1835,7 +1825,6 @@ var p: string;
 begin
   p:='-nc -d '+dt;
   if nam<>'' then p:=p+' -n "'+nam+'"';
-  chdir(appdir);
   Execnowait(maplun+' '+p);
   StartVMA:=true;
 end;

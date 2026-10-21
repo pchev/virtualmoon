@@ -146,7 +146,6 @@ begin
   DefaultFormatSettings.ThousandSeparator:=' ';
   ScaleMainForm;
   GetAppDir;
-  chdir(appdir);
   ReadConfig;
   language:=u_translation.translate(pofile,'en');
   SelectedObject:='';
@@ -823,6 +822,7 @@ testbin:=DefaultMaplun;
     if not FileExists(slash(bindir)+testbin) then begin
       raise exception.Create('Cannot found the program directory');
     end;
+    chdir(bindir);
   end;
   LangDir:=ExpandFileName(slash(bindir)+slash('..')+slash('Resources')+'language');
   appdir := VMAExternalAppDataDir;
@@ -849,6 +849,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
   privatedir := expandfilename(DefaultPrivateDir);
@@ -875,6 +876,7 @@ testbin:=DefaultMaplun;
      if not FileExists(slash(bindir)+testbin) then begin
        raise exception.Create('Cannot found the program directory');
      end;
+     chdir(bindir);
   end;
   bindir:=slash(bindir);
   LangDir:=expandfilename(slash(bindir)+slash(SharedDir)+'language');
@@ -959,7 +961,6 @@ begin
     end;
     if objname<>'' then parm:=parm+' -n "'+objname+'" ';
     parm:=parm+otherparam;
-    chdir(appdir);
     Execnowait(maplun+' '+parm);
     StartVMA:=true;
 end;
@@ -970,7 +971,6 @@ begin
     parm:='-np ';
     if objname<>'' then parm:=parm+' -n "'+objname+'" ';
     parm:=parm+otherparam;
-    chdir(appdir);
     Execnowait(datlun+' '+parm);
     StartDatlun:=true;
 end;

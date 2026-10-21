@@ -211,19 +211,15 @@ end;
 
 procedure TLoadCSV.FileSelect1Click(Sender: TObject);
 begin
-chdir(appdir);
 OpenDialog1.FileName:=Edit2.Text;
 if OpenDialog1.Execute then Edit2.Text:=OpenDialog1.FileName;
-chdir(appdir);
 end;
 
 
 procedure TLoadCSV.FileSelectClick(Sender: TObject);
 begin
-chdir(appdir);
 OpenDialog1.FileName:=Edit1.Text;
 if OpenDialog1.Execute then Edit1.Text:=OpenDialog1.FileName;
-chdir(appdir);
 end;
 
 procedure TLoadCSV.Edit1Change(Sender: TObject);
@@ -569,9 +565,7 @@ var i:integer;
     inif : TMemIniFile;
     section: string;
 begin
-chdir(appdir);
 if Savedialog1.Execute then begin
-  chdir(appdir);
   inif:=Tmeminifile.create(Savedialog1.FileName);
   with inif do begin
     section:='VMA_CSV_to_DATABASE';
@@ -597,9 +591,7 @@ var i:integer;
     inif : TMemIniFile;
     section: string;
 begin
-chdir(appdir);
 if Opendialog2.Execute then begin
-  chdir(appdir);
   inif:=Tmeminifile.create(Opendialog2.FileName);
   with inif do begin
     section:='VMA_CSV_to_DATABASE';
