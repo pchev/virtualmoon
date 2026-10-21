@@ -4011,6 +4011,7 @@ end;
 procedure TForm1.StartTimerTimer(Sender: TObject);
 var savecaption: string;
     i: integer;
+    testdata: string;
 begin
 StartTimer.Enabled:=false;
 if NeedToInstallData then begin
@@ -4018,10 +4019,20 @@ if NeedToInstallData then begin
   Application.ProcessMessages;
   f_updcatalog.InitialData;
   Application.ProcessMessages;
-  NeedRestart := True;
-  MessageDlg('Program restart','The program will restart now to complete the installation.',mtInformation,[mbOK],0);
-  Close;
-  exit;
+  testdata:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
+  NeedToInstallData := not FileExists(slash(appdir)+testdata);
+  if NeedToInstallData then begin
+    MessageDlg('The program cannot start without installing the required data.' + crlf +
+      'Please try again when you are ready to install them.' + crlf,
+      mtError, [mbAbort], 0);
+    Halt;
+  end
+  else begin
+    NeedRestart := True;
+    MessageDlg('Program restart','The program will restart now to complete the installation.',mtInformation,[mbOK],0);
+    Close;
+    exit;
+  end;
 end;
 screen.cursor := crHourGlass;
 init;

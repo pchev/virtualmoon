@@ -65,9 +65,11 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     GridBase: TStringGrid;
+    PanelMigBtn: TPanel;
     PanelInfo: TPanel;
     PanelDownload: TPanel;
     ProgressBar1: TProgressBar;
+    ProgressBarMigration: TProgressBar;
     ProgressCat: TLabel;
     TabSheetNewInstall: TTabSheet;
     TabSheetMigrate: TTabSheet;
@@ -1038,14 +1040,18 @@ begin
 
   try
   PageControl1.ActivePageIndex:=1;
+  PanelMigBtn.Visible:=true;
   label1.Caption:=source;
   label2.Caption:=slash(appdir);
+  ProgressBarMigration.Max:=max_amateur+max_probe+max_texture*10;
+  ProgressBarMigration.Position:=0;
 
   migration_response:='';
   while  migration_response='' do begin
     sleep(100);
     Application.ProcessMessages;
   end;
+  PanelMigBtn.Visible:=false;
 
   if migration_response='yes' then begin
     Application.ProcessMessages;
@@ -1054,6 +1060,7 @@ begin
     ForceDirectories(dest);
     ok:=false;
     for i:=0 to max_amateur do begin
+      ProgressBarMigration.Position:=ProgressBarMigration.Position+1;
       if DirectoryExists(slash(source)+pict_amateur[i]) then begin
         label1.Caption:=slash(source)+pict_amateur[i];
         label2.Caption:=slash(dest)+pict_amateur[i];
@@ -1070,6 +1077,7 @@ begin
     // Probes Pictures
     ok:=false;
     for i:=0 to max_probe do begin
+      ProgressBarMigration.Position:=ProgressBarMigration.Position+10;
       if DirectoryExists(slash(source)+pict_probe[i]) then begin
         label1.Caption:=slash(source)+pict_probe[i];
         label2.Caption:=slash(dest)+pict_probe[i];
@@ -1087,6 +1095,7 @@ begin
     dest:=slash(appdir)+'Textures';
     ForceDirectories(dest);
     for i:=0 to max_texture do begin
+      ProgressBarMigration.Position:=ProgressBarMigration.Position+1;
       if DirectoryExists(slash(source)+slash('Textures')+textures[i]) then begin
         label1.Caption:=slash(source)+slash('Textures')+textures[i];
         label2.Caption:=slash(dest)+textures[i];
@@ -1094,6 +1103,7 @@ begin
         ok:=CopyDirTree(slash(source)+slash('Textures')+textures[i],slash(dest)+textures[i]) or ok;
       end;
     end;
+    ProgressBarMigration.Position:=ProgressBarMigration.Max;
 
     if FileExists(slash(dest)+slash('WAC')+slash('L4')+'0.jpg') then begin
       AssignFile(f,slash(dest)+'Textures_version.txt');
