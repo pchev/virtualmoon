@@ -357,7 +357,14 @@ begin
   StartDatlun:=false;
   StartWeblun:=false;
   locklist:=false;
+  NeedToInstallData:=false;
   GetAppDir;
+  if NeedToInstallData then begin
+    MessageDlg('The program installation is incomplete.'+crlf
+                 +'Please run CClun or Atlun first.',
+                 mtError, [mbAbort], 0);
+    Halt;
+  end;
   inifile := Tmeminifile.Create(ConfigFile);
   language:= inifile.ReadString('default', 'lang_po_file', '');
   inifile.Free;
@@ -470,6 +477,7 @@ end;
 procedure Tf_notelun.FormDestroy(Sender: TObject);
 var i: integer;
 begin
+  if NeedToInstallData then exit;
   ClearList;
   ClearObsBox(ObsLocation);
   ClearObsBox(ObsObserver);

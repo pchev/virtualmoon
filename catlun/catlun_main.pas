@@ -376,7 +376,14 @@ begin
   {$endif}
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
+  NeedToInstallData:=false;
   GetAppDir;
+  if NeedToInstallData then begin
+    MessageDlg('The program installation is incomplete.'+crlf
+                 +'Please run CClun or Atlun first.',
+                 mtError, [mbAbort], 0);
+    Halt;
+  end;
   DatabaseList:=TStringList.Create;
   ConnectDatabaseList:=TStringList.Create;
   texturefiles:=TStringList.Create;

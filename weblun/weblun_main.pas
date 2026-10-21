@@ -155,7 +155,14 @@ begin
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
   ScaleMainForm;
+  NeedToInstallData:=false;
   GetAppDir;
+  if NeedToInstallData then begin
+    MessageDlg('The program installation is incomplete.'+crlf
+                 +'Please run CClun or Atlun first.',
+                 mtError, [mbAbort], 0);
+    Halt;
+  end;
   param:=Tstringlist.Create;
   param.clear;
   if paramcount>0 then begin
@@ -168,6 +175,7 @@ end;
 
 procedure Tf_weblun.FormDestroy(Sender: TObject);
 begin
+  if NeedToInstallData then exit;
   param.free;
   dbm.free;
 end;

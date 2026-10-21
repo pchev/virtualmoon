@@ -400,8 +400,15 @@ Application.UpdateFormatSettings := False;
 {$endif}
 DefaultFormatSettings.DecimalSeparator := '.';
 DefaultFormatSettings.ThousandSeparator:=' ';
-dbm:=TLiteDB.Create(self);
+NeedToInstallData:=false;
 GetAppDir;
+if NeedToInstallData then begin
+  MessageDlg('The program installation is incomplete.'+crlf
+               +'Please run CClun or Atlun first.',
+               mtError, [mbAbort], 0);
+  Halt;
+end;
+dbm:=TLiteDB.Create(self);
 param:=Tstringlist.Create;
 param.clear;
 if paramcount>0 then begin
@@ -425,6 +432,7 @@ end;
 procedure Tf_main.FormDestroy(Sender: TObject);
 var i: integer;
 begin
+ if NeedToInstallData then exit;
  DatabaseList.Free;
  for i:=1 to ConnectDatabaseList.Count do begin
    ConnectTableCols[i].free;
@@ -917,6 +925,7 @@ end;
 
 procedure Tf_main.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+if NeedToInstallData then exit;
 SaveDefault;
 if CanCloseVMA and StartVMA then OpenVMA('','-quit');
 if CanClosePhotLun and StartPhotlun then OpenPhotLun('','-quit');

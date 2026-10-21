@@ -354,6 +354,15 @@ begin
   FirstChange:=true;
   ForceDateChange:=false;
   LockPredictionTimer:=false;
+  NeedToInstallData:=false;
+  GetAppDir;
+  if NeedToInstallData then begin
+    MessageDlg('The program installation is incomplete.'+crlf
+                 +'Please run CClun or Atlun first.',
+                 mtError, [mbAbort], 0);
+    Halt;
+  end;
+
   dbm:=TLiteDB.Create(self);
   DatabaseList:=Tstringlist.Create;
   ConnectDatabaseList:=Tstringlist.Create;
@@ -364,7 +373,6 @@ begin
   Height := min(1000,screen.Height - 100);
   Width := min(1400,screen.Width - 100);
 
-  GetAppDir;
   inifile := Tmeminifile.Create(ConfigFile);
   language:= inifile.ReadString('default', 'lang_po_file', '');
   inifile.Free;
@@ -379,6 +387,7 @@ end;
 procedure Tf_calclun.FormDestroy(Sender: TObject);
 var i: integer;
 begin
+  if NeedToInstallData then exit;
   dbm.free;
   DatabaseList.free;
   for i:=1 to ConnectDatabaseList.Count do begin

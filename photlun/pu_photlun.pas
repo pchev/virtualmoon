@@ -145,7 +145,14 @@ begin
   DefaultFormatSettings.DecimalSeparator := '.';
   DefaultFormatSettings.ThousandSeparator:=' ';
   ScaleMainForm;
+  NeedToInstallData:=false;
   GetAppDir;
+  if NeedToInstallData then begin
+    MessageDlg('The program installation is incomplete.'+crlf
+                 +'Please run CClun or Atlun first.',
+                 mtError, [mbAbort], 0);
+    Halt;
+  end;
   ReadConfig;
   language:=u_translation.translate(pofile,'en');
   SelectedObject:='';
@@ -170,6 +177,7 @@ end;
 procedure Tf_photlun.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 var i: integer;
 begin
+  if NeedToInstallData then exit;
   SaveConfig;
   if CanCloseVMA and StartVMA then OpenVMA('','-quit');
   if CanCloseDatLun and StartDatLun then OpenDatLun('','-quit');
@@ -191,6 +199,7 @@ end;
 
 procedure Tf_photlun.FormDestroy(Sender: TObject);
 begin
+if NeedToInstallData then exit;
 imglist.Free;
 param.Free;
 end;
