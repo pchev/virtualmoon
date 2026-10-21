@@ -10,8 +10,10 @@ object f_cclun: Tf_cclun
   ClientHeight = 543
   ClientWidth = 751
   Color = 2302755
-  OnCreate = FormCreate
   Position = poScreenCenter
+  LCLVersion = '4.8.0.0'
+  OnCreate = FormCreate
+  OnShow = FormShow
   object PanelCenter: TPanel
     Left = 2
     Height = 428
@@ -22,6 +24,7 @@ object f_cclun: Tf_cclun
     ClientHeight = 428
     ClientWidth = 747
     Color = clBlack
+    ParentBackground = False
     ParentColor = False
     ParentFont = False
     TabOrder = 0
@@ -31,9 +34,6 @@ object f_cclun: Tf_cclun
       Top = 0
       Width = 747
       Align = alClient
-      OnMouseDown = Image1MouseDown
-      OnMouseMove = Image1MouseMove
-      OnMouseUp = Image1MouseUp
       Picture.Data = {
         0A544A706567496D616765C4BE0A00FFD8FFE000104A46494600010101004800
         480000FFFE00134372656174656420776974682047494D50FFDB004300010101
@@ -22043,15 +22043,15 @@ object f_cclun: Tf_cclun
         24DFB0A68766864901AEB9C2C52056200A3352A7001A05AE2BD6F5832CD0CCB3
         2299AC4100C08A0353B8CA3B8ED6AC917FFFD9
       }
+      OnMouseDown = Image1MouseDown
+      OnMouseMove = Image1MouseMove
+      OnMouseUp = Image1MouseUp
     end
     object Image2: TImage
       Left = 221
       Height = 303
       Top = 51
       Width = 303
-      OnMouseDown = Image1MouseDown
-      OnMouseMove = Image1MouseMove
-      OnMouseUp = Image1MouseUp
       Picture.Data = {
         1754506F727461626C654E6574776F726B47726170686963EE47020089504E47
         0D0A1A0A0000000D494844520000012C0000012C0806000000797D8E75000000
@@ -26729,6 +26729,9 @@ object f_cclun: Tf_cclun
       }
       Stretch = True
       Transparent = True
+      OnMouseDown = Image1MouseDown
+      OnMouseMove = Image1MouseMove
+      OnMouseUp = Image1MouseUp
     end
     object BitBtn1: TBitBtn
       Left = 40
@@ -27156,11 +27159,11 @@ object f_cclun: Tf_cclun
       }
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
-      OnClick = BitBtn1Click
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      OnClick = BitBtn1Click
     end
     object Label5: TLabel
       AnchorSideLeft.Control = BitBtn4
@@ -27168,7 +27171,7 @@ object f_cclun: Tf_cclun
       AnchorSideTop.Control = BitBtn4
       AnchorSideTop.Side = asrCenter
       Left = 127
-      Height = 23
+      Height = 22
       Top = 369
       Width = 89
       BorderSpacing.Left = 8
@@ -27189,7 +27192,7 @@ object f_cclun: Tf_cclun
       AnchorSideTop.Control = BitBtn3
       AnchorSideTop.Side = asrCenter
       Left = 127
-      Height = 23
+      Height = 22
       Top = 151
       Width = 90
       BorderSpacing.Left = 8
@@ -27209,7 +27212,7 @@ object f_cclun: Tf_cclun
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = BitBtn2
       Left = 542
-      Height = 23
+      Height = 22
       Top = 42
       Width = 79
       Anchors = [akTop, akRight]
@@ -27750,11 +27753,11 @@ object f_cclun: Tf_cclun
       }
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
-      OnClick = BitBtn4Click
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 2
+      OnClick = BitBtn4Click
     end
     object BitBtn3: TBitBtn
       Left = 40
@@ -28281,11 +28284,11 @@ object f_cclun: Tf_cclun
       }
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
-      OnClick = BitBtn3Click
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 3
+      OnClick = BitBtn3Click
     end
     object BitBtn2: TBitBtn
       Left = 629
@@ -28812,11 +28815,11 @@ object f_cclun: Tf_cclun
       }
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
-      OnClick = BitBtn2Click
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
+      OnClick = BitBtn2Click
     end
     object Label2: TLabel
       AnchorSideLeft.Control = BitBtn1
@@ -28824,7 +28827,7 @@ object f_cclun: Tf_cclun
       AnchorSideTop.Control = BitBtn1
       AnchorSideTop.Side = asrCenter
       Left = 127
-      Height = 23
+      Height = 22
       Top = 42
       Width = 66
       BorderSpacing.Left = 8
@@ -29364,18 +29367,18 @@ object f_cclun: Tf_cclun
       }
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
-      OnClick = BitBtn6Click
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 5
+      OnClick = BitBtn6Click
     end
     object Label7: TLabel
       AnchorSideTop.Control = BitBtn6
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = BitBtn6
       Left = 536
-      Height = 23
+      Height = 22
       Top = 260
       Width = 85
       Anchors = [akTop, akRight]
@@ -29916,11 +29919,11 @@ object f_cclun: Tf_cclun
       }
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
-      OnClick = BitBtn7Click
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 4
+      OnClick = BitBtn7Click
     end
     object Label8: TLabel
       AnchorSideLeft.Side = asrBottom
@@ -29928,7 +29931,7 @@ object f_cclun: Tf_cclun
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = BitBtn7
       Left = 466
-      Height = 23
+      Height = 22
       Top = 369
       Width = 155
       Anchors = [akTop, akRight]
@@ -30002,15 +30005,15 @@ object f_cclun: Tf_cclun
         0000BA0906C00205BB0000B40800B80C08BB0004AD0003A90205B40201AF0502
         AB06039C171096000044000018E5EEF10000
       }
-      OnClick = BitBtn5Click
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 6
+      OnClick = BitBtn5Click
     end
     object Label10: TLabel
       Left = 378
-      Height = 21
+      Height = 20
       Top = 386
       Width = 64
       Caption = 'Quitter'
@@ -30549,11 +30552,11 @@ object f_cclun: Tf_cclun
       }
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
-      OnClick = BitBtn8Click
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 7
+      OnClick = BitBtn8Click
     end
     object Label11: TLabel
       AnchorSideLeft.Side = asrBottom
@@ -30561,7 +30564,7 @@ object f_cclun: Tf_cclun
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = BitBtn2
       Left = 542
-      Height = 23
+      Height = 22
       Top = 151
       Width = 79
       Anchors = [akTop, akRight]
@@ -31101,11 +31104,11 @@ object f_cclun: Tf_cclun
       }
       GlyphShowMode = gsmAlways
       Layout = blGlyphTop
-      OnClick = BitBtn9Click
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 8
+      OnClick = BitBtn9Click
     end
     object Label12: TLabel
       AnchorSideLeft.Control = BitBtn9
@@ -31113,7 +31116,7 @@ object f_cclun: Tf_cclun
       AnchorSideTop.Control = BitBtn9
       AnchorSideTop.Side = asrCenter
       Left = 127
-      Height = 23
+      Height = 22
       Top = 260
       Width = 91
       BorderSpacing.Left = 8
@@ -31139,6 +31142,7 @@ object f_cclun: Tf_cclun
     ClientHeight = 81
     ClientWidth = 747
     Color = clBlack
+    ParentBackground = False
     ParentColor = False
     ParentFont = False
     TabOrder = 1
@@ -31197,6 +31201,7 @@ object f_cclun: Tf_cclun
     ClientHeight = 30
     ClientWidth = 747
     Color = clBlack
+    ParentBackground = False
     ParentColor = False
     ParentFont = False
     TabOrder = 2
@@ -31258,5 +31263,12 @@ object f_cclun: Tf_cclun
       Caption = 'About'
       OnClick = MenuItem8Click
     end
+  end
+  object StartTimer: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = StartTimerTimer
+    Left = 108
+    Top = 11
   end
 end

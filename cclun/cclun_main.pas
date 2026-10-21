@@ -31,7 +31,7 @@ uses
   {$ifdef unix}
     unix,baseunix,
   {$endif}
-  u_translation, u_constant, IniFiles, LazUTF8, u_util, UScaleDPI,
+  u_ccluntranslation, u_constant, IniFiles, LazUTF8, u_util, UScaleDPI, pu_updcatalog,
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, Menus;
 
@@ -75,6 +75,7 @@ type
     PanelBottom: TPanel;
     PanelTop: TPanel;
     PopupMenu1: TPopupMenu;
+    StartTimer: TTimer;
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
@@ -85,6 +86,7 @@ type
     procedure BitBtn8Click(Sender: TObject);
     procedure BitBtn9Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer
@@ -99,6 +101,7 @@ type
     procedure MenuItem6Click(Sender: TObject);
     procedure MenuItem7Click(Sender: TObject);
     procedure MenuItem8Click(Sender: TObject);
+    procedure StartTimerTimer(Sender: TObject);
   private
     { private declarations }
     mousex,mousey: integer;
@@ -392,7 +395,7 @@ begin
     language     := ReadString(section, 'lang_po_file', language);
   end;
   inifile.Free;
-  language:=u_translation.translate(language,'en');
+  language:=u_ccluntranslation.translate(language,'en');
   uplanguage:=UpperCase(language);
   Caption  := rstitle;
   u_util.hp := rshelp_prefix;
@@ -433,8 +436,31 @@ begin
   DefaultFormatSettings.DecimalSeparator := '.';
   ScaleMainForm;
   moveform:=false;
+  NeedToInstallData:=false;
+  NeedRestart:=false;
   GetAppDir;
   SetLang;
+end;
+
+procedure Tf_cclun.FormShow(Sender: TObject);
+begin
+  StartTimer.Enabled:=true;
+end;
+
+procedure Tf_cclun.StartTimerTimer(Sender: TObject);
+begin
+StartTimer.Enabled:=false;
+if NeedToInstallData then begin
+  f_updcatalog:=Tf_updcatalog.Create(self);
+  f_updcatalog.Show;
+  Application.ProcessMessages;
+  f_updcatalog.InitialData;
+  Application.ProcessMessages;
+  f_updcatalog.Close;
+  NeedRestart := True;
+  MessageDlg('Installation done','Atlun will start now to complete the installation.',mtInformation,[mbOK],0);
+  BitBtn1Click(self);
+end;
 end;
 
 procedure Tf_cclun.Image1MouseDown(Sender: TObject; Button: TMouseButton;
