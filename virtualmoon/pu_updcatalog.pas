@@ -252,7 +252,7 @@ begin
   label3.Caption:=rsCopyFilesFro+':';
   label4.Caption:=rsTo+':';
   label9.Caption:=rsNewDataInsta;
-  label6.Caption:=Format(rsTheBaseDataN,[crlf+crlf]);
+  label6.Caption:=Format(rsTheBaseDataN,[crlf+' '+crlf]);
   label7.Caption:=rsDoYouWantToC;
 
 end;
