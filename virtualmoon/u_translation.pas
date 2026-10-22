@@ -447,6 +447,8 @@ rsDoYouWantToC = 'Do you want to continue?';
 rsToDoThatRemo = 'To do that remove the following packages with %s';
 rsToSaveSpaceO = 'To save space on your computer you can now remove the directory';
 rsAndThePictur = 'and the pictures at the same location';
+rsYes = 'Yes';
+rsNo = 'No';
 
 implementation
 

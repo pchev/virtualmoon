@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: maplun.fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 11:12+0000\n"
-"PO-Revision-Date: 2026-10-22 11:55+0000\n"
+"POT-Creation-Date: 2026-10-22 12:39+0000\n"
+"PO-Revision-Date: 2026-10-22 12:49+0000\n"
 "Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2026-10-22 11:56+0000\n"
+"X-Launchpad-Export-Date: 2026-10-22 12:52+0000\n"
 "X-Generator: Launchpad (build 56f1eb70c27d2139772ead22665134d9e7db3f2e)\n"
 "Language: fr\n"
 
@@ -795,6 +795,10 @@ msgstr "Nouvelle note d'observation"
 #: u_translation.rsnewversionav
 msgid "New version available"
 msgstr "Nouvelle version disponible"
+
+#: u_translation.rsno
+msgid "No"
+msgstr "Non"
 
 #: u_translation.rsnodatabasese
 msgid "No database selected!"
@@ -1755,6 +1759,10 @@ msgstr "Largeur"
 #: u_translation.rswindowpositi
 msgid "Window position coupling"
 msgstr "Couplage de la position"
+
+#: u_translation.rsyes
+msgid "Yes"
+msgstr "Oui"
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"

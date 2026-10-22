@@ -251,9 +251,13 @@ begin
   label5.Caption:=Format(rsThePicturesA,[crlf,crlf]);
   label3.Caption:=rsCopyFilesFro+':';
   label4.Caption:=rsTo+':';
+  btnYes.Caption:=rsYes;
+  btnNo.Caption:=rsNo;
   label9.Caption:=rsNewDataInsta;
   label6.Caption:=Format(rsTheBaseDataN,[crlf+' '+crlf]);
   label7.Caption:=rsDoYouWantToC;
+  btnYes1.Caption:=rsYes;
+  btnNo1.Caption:=rsNo;
 
 end;
 

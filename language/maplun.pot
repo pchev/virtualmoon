@@ -1738,3 +1738,11 @@ msgstr ""
 msgid "and the pictures at the same location"
 msgstr ""
 
+#: u_translation:rsyes
+msgid "Yes"
+msgstr ""
+
+#: u_translation:rsno
+msgid "No"
+msgstr ""
+
