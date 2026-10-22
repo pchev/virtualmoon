@@ -467,8 +467,11 @@ begin
       end;
     end
     else begin
-      if FileExists(slash(LocalDataPath)+catalog_list) then begin
-        CopyFile(slash(LocalDataPath)+catalog_list,fn,[cffOverwriteFile]);
+      if FileExists(slash(LocalDataPath)+catalog_list1+'_'+uplanguage+'.txt') then begin
+        CopyFile(slash(LocalDataPath)+catalog_list1+'_'+uplanguage+'.txt',fn,[cffOverwriteFile]);
+      end
+      else if FileExists(slash(LocalDataPath)+catalog_list1+'_EN.txt') then begin
+        CopyFile(slash(LocalDataPath)+catalog_list1+'_EN.txt',fn,[cffOverwriteFile]);
       end;
     end;
   end;
