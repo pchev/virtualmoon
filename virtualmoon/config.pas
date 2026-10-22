@@ -46,8 +46,6 @@ type
     ButtonDefault: TButton;
     Button4: TSpeedButton;
     Button5: TSpeedButton;
-    Button7: TSpeedButton;
-    Button8: TSpeedButton;
     Button9: TSpeedButton;
     CheckBox10: TCheckBox;
     CheckBoxTerminatorLine: TCheckBox;
@@ -230,7 +228,6 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
-    procedure Button7Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
     procedure ComboBox6Change(Sender: TObject);
     procedure ComboBoxCategoryChange(Sender: TObject);
@@ -309,7 +306,7 @@ uses
 {$ifdef darwin}
   CocoaAll,          // first: let the app's own units win name resolution
 {$endif}
-  u_util, pu_features;
+  u_util;
 
 {$ifdef darwin}
 // Cocoa draws a TRadioGroup as an NSBox, and TCocoaWSCustomGroupBox.CreateHandle
@@ -452,8 +449,6 @@ begin
       BumpRadioGroup.Items[0]:=rst_152+blank+rsStandardText;
       BumpRadioGroup.Items[1]:=rsNoTextureToU;
       if BumpRadioGroup.Items.Count>2 then BumpRadioGroup.Items[2]:=rsPhaseWithDyn;
-      Button7.Caption:=rsCheckForOpti;
-      Button8.Caption:=rsCheckForOpti;
       TabSheet9.Caption:=rsFeatureType;
       Label67.Caption:=rsShowLabelsFo;
       BtnFeatureAll.Caption:=rsAll2;
@@ -858,11 +853,6 @@ end;
 procedure TForm2.Button4Click(Sender: TObject);
 begin
   ModalResult:=mrCancel;
-end;
-
-procedure TForm2.Button7Click(Sender: TObject);
-begin
-  f_features.showmodal;
 end;
 
 procedure TForm2.FormDestroy(Sender: TObject);

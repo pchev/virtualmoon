@@ -151,7 +151,6 @@ type
     AnchorPos: TLabel;
     ListNotes: TStringGrid;
     tabs: TPanel;
-    OptFeatures1: TMenuItem;
     PanelTel: TPanel;
     PanelRot: TPanel;
     PanelMoon: TPanel;
@@ -411,7 +410,6 @@ type
     procedure ListNotesDblClick(Sender: TObject);
     procedure MenuCheckNameClick(Sender: TObject);
     procedure MenuInstallDataClick(Sender: TObject);
-    procedure OptFeatures1Click(Sender: TObject);
     procedure Quitter1Click(Sender: TObject);
     procedure Configuration1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -720,7 +718,7 @@ uses LazUTF8,
   {$if lcl_major >= 3}
   IpHtmlTypes,
   {$endif}
-  config, splashunit, pu_features,
+  config, splashunit,
   glossary, fmsg, dbutil, LCLProc;
 
 {$ifdef darwin}
@@ -878,7 +876,6 @@ begin
     Label6.Caption := rsm_50;
     toolbutton8.Caption := rst_15;
     aide2.Caption := toolbutton8.Caption;
-    OptFeatures1.Caption:=rsCheckForOpti;
     Apropos1.Caption := rsAbout;
     Button5.Caption := rst_17;
     Button4.Caption := rst_113;
@@ -1040,7 +1037,6 @@ begin
     MsgNoDB := MsgNoDB + rsNoDatabaseSe + '</div></body></html>';
     // Config
     Form2.Setlang;
-    f_features.SetLang;
     if f_demprofile<>nil then f_demprofile.Setlang;
     f_tabsdock.SetLang;
     AnchorIdent.Caption:=StringReplace(rsIdentity,':','',[]);
@@ -3241,11 +3237,6 @@ begin
       Picture := nil;
     end;
   end;
-end;
-
-procedure TForm1.OptFeatures1Click(Sender: TObject);
-begin
-  f_features.showmodal;
 end;
 
 procedure TForm1.ComboBox1Select(Sender: TObject);

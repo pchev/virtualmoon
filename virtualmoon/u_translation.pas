@@ -265,12 +265,7 @@ rsFirstUseSett = 'First use setting';
 rsTopocentric = 'Topocentric';
 rsShowScale = 'Show scale';
 rsDefault = 'Default';
-rsYourInstalla = 'Your installation is already complete with all the features '
-  +'installed.';
-rsYouCanDownlo =
-  'You can download and install the following optional features:';
 rsDownload = 'Download';
-rsCheckForOpti = 'Check for optional features';
 rsPictureLib = 'Picture Library';
 rsTexturesAirb = 'Textures Airbursh relief without albedo';
 rsTexturesClem = 'Textures Clementine photographic High Resolution';

@@ -14,7 +14,7 @@ uses
   GLScene_RunTime, CraterList, dbutil, fmsg, glossary, splashunit, SysUtils,
   TurboPowerIPro, lazcontrols, tachartlazaruspkg, u_constant, cu_tz, cu_planet,
   u_projection, u_util, pu_moon, u_translation_database, u_translation,
-  uniqueinstance_package, laz_synapse, downldialog, pu_features, BigIma, uDE, mlb2,
+  uniqueinstance_package, laz_synapse, downldialog, BigIma, uDE, mlb2,
   tabsdock, pu_ascomclient, pu_indiclient, cu_ascomrest, cu_dem, pu_demprofile, pu_updcatalog, cu_httpdownload;
 
 {$R *.res}
@@ -50,7 +50,6 @@ begin
   end;
   Application.CreateForm(TForm2, Form2);
   Application.CreateForm(Tf_craterlist, f_craterlist);
-  Application.CreateForm(Tf_features, f_features);
   Application.CreateForm(Tf_tabsdock, f_tabsdock);
   Application.CreateForm(Tpop_scope, pop_scope);
   Application.CreateForm(Tpop_indi, pop_indi);

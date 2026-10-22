@@ -10,6 +10,7 @@ object Form2: TForm2
   ClientWidth = 533
   Color = clWindow
   FormStyle = fsStayOnTop
+  LCLVersion = '4.8.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -21,14 +22,14 @@ object Form2: TForm2
     ActivePage = TabSheet1
     Align = alClient
     MultiLine = True
+    Options = [nboMultiLine]
     ParentFont = False
     TabIndex = 0
     TabOrder = 0
-    Options = [nboMultiLine]
     object TabSheet1: TTabSheet
       Caption = 'General'
       ClientHeight = 481
-      ClientWidth = 529
+      ClientWidth = 527
       ParentFont = False
       object Bevel8: TBevel
         Left = 16
@@ -50,7 +51,6 @@ object Form2: TForm2
         Top = 323
         Width = 53
         Caption = 'Langue :'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -61,7 +61,6 @@ object Form2: TForm2
         Top = 77
         Width = 51
         Caption = 'Latitude'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -72,7 +71,6 @@ object Form2: TForm2
         Top = 77
         Width = 63
         Caption = 'Longitude'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -83,7 +81,6 @@ object Form2: TForm2
         Top = 12
         Width = 80
         Caption = 'Observatoire'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -94,7 +91,6 @@ object Form2: TForm2
         Top = 168
         Width = 78
         Caption = 'Date / Heure'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -105,7 +101,6 @@ object Form2: TForm2
         Top = 247
         Width = 79
         Caption = 'Zone horaire'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -116,7 +111,6 @@ object Form2: TForm2
         Top = 206
         Width = 28
         Caption = 'Pays'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -126,13 +120,13 @@ object Form2: TForm2
         Height = 32
         Top = 316
         Width = 235
-        ItemHeight = 18
-        OnChange = ComboBox3Change
+        ItemHeight = 24
         ParentColor = True
         ParentFont = False
         Sorted = True
         Style = csDropDownList
         TabOrder = 4
+        OnChange = ComboBox3Change
       end
       object Edit1: TEdit
         Left = 32
@@ -195,24 +189,24 @@ object Form2: TForm2
         Height = 32
         Top = 200
         Width = 182
-        ItemHeight = 18
-        OnChange = ComboBoxCountryChange
+        ItemHeight = 24
         ParentColor = True
         ParentFont = False
         Style = csDropDownList
         TabOrder = 5
+        OnChange = ComboBoxCountryChange
       end
       object ComboBoxTZ: TComboBox
         Left = 125
         Height = 32
         Top = 240
         Width = 181
-        ItemHeight = 18
-        OnChange = ComboBoxTZChange
+        ItemHeight = 24
         ParentColor = True
         ParentFont = False
         Style = csDropDownList
         TabOrder = 6
+        OnChange = ComboBoxTZChange
       end
       object RadioGroup7: TRadioGroup
         Left = 21
@@ -228,27 +222,17 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 38
+        ClientHeight = 39
         ClientWidth = 347
         Columns = 2
         Items.Strings = (
           'Topocentricccccccccccc'
           'Geocentriccccccccccccc'
         )
-        OnClick = RadioGroup7Click
+        ParentBackground = False
         ParentFont = False
         TabOrder = 7
-      end
-      object Button8: TSpeedButton
-        Left = 88
-        Height = 25
-        Top = 368
-        Width = 235
-        Caption = 'Button8'
-        Flat = True
-        Transparent = False
-        OnClick = Button7Click
-        ParentFont = False
+        OnClick = RadioGroup7Click
       end
       object Label62: TLabel
         Left = 288
@@ -270,7 +254,7 @@ object Form2: TForm2
     object TabSheet7: TTabSheet
       Caption = 'Database'
       ClientHeight = 481
-      ClientWidth = 529
+      ClientWidth = 527
       ParentFont = False
       object Label31: TLabel
         AnchorSideLeft.Control = UserDbList
@@ -282,7 +266,6 @@ object Form2: TForm2
         Anchors = [akLeft, akBottom]
         BorderSpacing.Bottom = 4
         Caption = 'User Database '
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -296,6 +279,7 @@ object Form2: TForm2
         ParentColor = True
         ParentFont = False
         TabOrder = 0
+        TopIndex = -1
       end
       object Label61: TLabel
         AnchorSideLeft.Control = DbList
@@ -316,6 +300,7 @@ object Form2: TForm2
         Width = 400
         ItemHeight = 0
         TabOrder = 1
+        TopIndex = -1
       end
       object ConnectDbList: TCheckListBox
         Left = 15
@@ -324,6 +309,7 @@ object Form2: TForm2
         Width = 400
         ItemHeight = 0
         TabOrder = 2
+        TopIndex = -1
       end
       object Label5: TLabel
         AnchorSideLeft.Control = ConnectDbList
@@ -341,7 +327,7 @@ object Form2: TForm2
     object TabSheet9: TTabSheet
       Caption = 'Feature labels'
       ClientHeight = 481
-      ClientWidth = 529
+      ClientWidth = 527
       object FeatureListBox: TCheckListBox
         Left = 16
         Height = 416
@@ -350,6 +336,7 @@ object Form2: TForm2
         ItemHeight = 0
         ParentFont = False
         TabOrder = 0
+        TopIndex = -1
       end
       object Label67: TLabel
         Left = 15
@@ -365,8 +352,8 @@ object Form2: TForm2
         Top = 448
         Width = 75
         Caption = 'All'
-        OnClick = BtnFeatureAllClick
         TabOrder = 1
+        OnClick = BtnFeatureAllClick
       end
       object BtnFeatureNone: TButton
         Left = 224
@@ -374,23 +361,24 @@ object Form2: TForm2
         Top = 448
         Width = 75
         Caption = 'None'
-        OnClick = BtnFeatureNoneClick
         TabOrder = 2
+        OnClick = BtnFeatureNoneClick
       end
     end
     object TabSheet3: TTabSheet
       Caption = 'Affichage'
       ClientHeight = 481
-      ClientWidth = 529
+      ClientWidth = 527
       ParentFont = False
       object GroupBox1: TGroupBox
         Left = 0
         Height = 58
         Top = 0
-        Width = 529
+        Width = 527
         Align = alTop
-        ClientHeight = 54
-        ClientWidth = 525
+        ClientHeight = 58
+        ClientWidth = 527
+        ParentBackground = False
         TabOrder = 0
         object CheckBox1: TCheckBox
           Left = 16
@@ -423,11 +411,12 @@ object Form2: TForm2
         Left = 0
         Height = 86
         Top = 58
-        Width = 529
+        Width = 527
         Align = alTop
         Caption = 'Color'
-        ClientHeight = 56
-        ClientWidth = 525
+        ClientHeight = 86
+        ClientWidth = 527
+        ParentBackground = False
         TabOrder = 1
         object Shape1: TShape
           Left = 16
@@ -442,7 +431,6 @@ object Form2: TForm2
           Top = 11
           Width = 82
           Caption = 'Identification'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -460,7 +448,6 @@ object Form2: TForm2
           Top = 11
           Width = 48
           Caption = 'Marque'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -478,7 +465,6 @@ object Form2: TForm2
           Top = 11
           Width = 33
           Caption = 'Label'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -489,7 +475,6 @@ object Form2: TForm2
           Top = 11
           Width = 86
           Caption = 'Impact bassin'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -514,7 +499,6 @@ object Form2: TForm2
           Top = 41
           Width = 69
           Caption = 'Terminator'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -524,10 +508,11 @@ object Form2: TForm2
         Left = 0
         Height = 112
         Top = 144
-        Width = 529
+        Width = 527
         Align = alTop
-        ClientHeight = 108
-        ClientWidth = 525
+        ClientHeight = 112
+        ClientWidth = 527
+        ParentBackground = False
         TabOrder = 2
         object Label33: TLabel
           Left = 16
@@ -535,7 +520,6 @@ object Form2: TForm2
           Top = 52
           Width = 114
           Caption = 'Taille des marques'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -546,7 +530,6 @@ object Form2: TForm2
           Top = 66
           Width = 5
           Caption = '-'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -557,7 +540,6 @@ object Form2: TForm2
           Top = 66
           Width = 8
           Caption = '+'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -599,10 +581,11 @@ object Form2: TForm2
         Left = 0
         Height = 176
         Top = 256
-        Width = 529
+        Width = 527
         Align = alTop
-        ClientHeight = 172
-        ClientWidth = 525
+        ClientHeight = 176
+        ClientWidth = 527
+        ParentBackground = False
         TabOrder = 3
         object TrackBar2: TTrackBar
           Left = 154
@@ -623,7 +606,6 @@ object Form2: TForm2
           Top = 111
           Width = 104
           Caption = 'Densite de labels'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -636,7 +618,6 @@ object Form2: TForm2
           Top = 80
           Width = 61
           Caption = 'LabelFont'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -647,7 +628,6 @@ object Form2: TForm2
           Top = 111
           Width = 5
           Caption = '-'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -658,7 +638,6 @@ object Form2: TForm2
           Top = 111
           Width = 8
           Caption = '+'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -689,8 +668,8 @@ object Form2: TForm2
           Caption = 'Labels font'
           Flat = True
           Transparent = False
-          OnClick = Button5Click
           ParentFont = False
+          OnClick = Button5Click
         end
         object RadioGroup1: TRadioGroup
           AnchorSideTop.Control = CheckBox5
@@ -707,7 +686,7 @@ object Form2: TForm2
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 3
-          ClientHeight = 30
+          ClientHeight = 31
           ClientWidth = 314
           Columns = 3
           Items.Strings = (
@@ -715,6 +694,7 @@ object Form2: TForm2
             'Abbreviated'
             'Minimal'
           )
+          ParentBackground = False
           TabOrder = 3
         end
       end
@@ -722,11 +702,12 @@ object Form2: TForm2
         Left = 0
         Height = 40
         Top = 432
-        Width = 529
+        Width = 527
         Align = alTop
         BevelOuter = bvNone
         ClientHeight = 40
-        ClientWidth = 529
+        ClientWidth = 527
+        ParentBackground = False
         TabOrder = 4
         object ButtonDefault: TButton
           Left = 328
@@ -734,22 +715,22 @@ object Form2: TForm2
           Top = 16
           Width = 75
           Caption = 'Default'
-          OnClick = ButtonDefaultClick
           ParentFont = False
           TabOrder = 0
+          OnClick = ButtonDefaultClick
         end
       end
     end
     object TabSheet4: TTabSheet
       Caption = 'Textures'
       ClientHeight = 481
-      ClientWidth = 529
+      ClientWidth = 527
       ParentFont = False
       object BumpRadioGroup: TRadioGroup
         Left = 0
         Height = 88
         Top = 0
-        Width = 529
+        Width = 527
         Align = alTop
         AutoFill = True
         ChildSizing.LeftRightSpacing = 6
@@ -760,27 +741,29 @@ object Form2: TForm2
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 84
-        ClientWidth = 525
+        ClientHeight = 85
+        ClientWidth = 523
         Items.Strings = (
           'Texture standard'
           'Pas de texture ( utilisation avec une couche) '
           'Phase avec relief dynamique'
         )
-        OnClick = BumpRadioGroupClick
+        ParentBackground = False
         ParentFont = False
         TabOrder = 0
+        OnClick = BumpRadioGroupClick
       end
       object ScrollBox1: TScrollBox
         Left = 0
         Height = 393
         Top = 88
-        Width = 529
+        Width = 527
         HorzScrollBar.Page = 498
         VertScrollBar.Page = 285
         Align = alClient
         ClientHeight = 393
-        ClientWidth = 529
+        ClientWidth = 527
+        ParentBackground = False
         TabOrder = 1
         object TexturePanel: TPanel
           Left = 0
@@ -791,6 +774,7 @@ object Form2: TForm2
           BevelOuter = bvNone
           ClientHeight = 285
           ClientWidth = 498
+          ParentBackground = False
           ParentFont = False
           TabOrder = 0
           object GBlvall: TGroupBox
@@ -798,8 +782,9 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 270
-            ClientHeight = 249
+            ClientHeight = 250
             ClientWidth = 266
+            ParentBackground = False
             ParentFont = False
             TabOrder = 0
             object ComboBox6: TComboBox
@@ -811,14 +796,14 @@ object Form2: TForm2
               Width = 143
               Anchors = [akTop, akRight]
               Constraints.MaxHeight = 28
-              ItemHeight = 18
-              OnChange = ComboBox6Change
+              ItemHeight = 24
               ParentColor = True
               ParentFont = False
               Sorted = True
               Style = csDropDownList
               TabOrder = 0
               Visible = False
+              OnChange = ComboBox6Change
             end
           end
           object Label29: TLabel
@@ -830,7 +815,6 @@ object Form2: TForm2
             Width = 8
             Anchors = [akTop, akRight]
             Caption = '1'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -843,7 +827,6 @@ object Form2: TForm2
             Width = 8
             Anchors = [akTop, akRight]
             Caption = '3'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -856,7 +839,6 @@ object Form2: TForm2
             Width = 8
             Anchors = [akTop, akRight]
             Caption = '8'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -869,7 +851,6 @@ object Form2: TForm2
             Width = 15
             Anchors = [akTop, akRight]
             Caption = '16'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -882,7 +863,6 @@ object Form2: TForm2
             Width = 15
             Anchors = [akTop, akRight]
             Caption = '35'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -895,7 +875,6 @@ object Form2: TForm2
             Width = 15
             Anchors = [akTop, akRight]
             Caption = '65'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -907,6 +886,7 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 38
+            ParentBackground = False
             ParentFont = False
             TabOrder = 1
           end
@@ -917,6 +897,7 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 38
+            ParentBackground = False
             ParentFont = False
             TabOrder = 2
           end
@@ -927,6 +908,7 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 38
+            ParentBackground = False
             ParentFont = False
             TabOrder = 3
           end
@@ -937,6 +919,7 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 38
+            ParentBackground = False
             ParentFont = False
             TabOrder = 4
           end
@@ -947,6 +930,7 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 38
+            ParentBackground = False
             ParentFont = False
             TabOrder = 5
           end
@@ -957,6 +941,7 @@ object Form2: TForm2
             Height = 253
             Top = 32
             Width = 38
+            ParentBackground = False
             ParentFont = False
             TabOrder = 6
           end
@@ -966,7 +951,6 @@ object Form2: TForm2
             Top = 0
             Width = 48
             Caption = 'Label19'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -977,7 +961,6 @@ object Form2: TForm2
             Top = 0
             Width = 67
             Caption = 'Zoom level'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -999,7 +982,7 @@ object Form2: TForm2
     object TabSheet6: TTabSheet
       Caption = 'Overlay'
       ClientHeight = 481
-      ClientWidth = 529
+      ClientWidth = 527
       ParentFont = False
       object Panel2: TPanel
         Left = 14
@@ -1008,6 +991,7 @@ object Form2: TForm2
         Width = 296
         ClientHeight = 122
         ClientWidth = 296
+        ParentBackground = False
         ParentFont = False
         TabOrder = 1
         object Memo1: TMemo
@@ -1026,11 +1010,12 @@ object Form2: TForm2
         Left = 0
         Height = 481
         Top = 0
-        Width = 529
+        Width = 527
         Align = alClient
         BevelOuter = bvNone
         ClientHeight = 481
-        ClientWidth = 529
+        ClientWidth = 527
+        ParentBackground = False
         ParentFont = False
         TabOrder = 0
         object TrackBar5: TTrackBar
@@ -1040,10 +1025,10 @@ object Form2: TForm2
           Width = 160
           Frequency = 20
           Max = 100
-          OnChange = TrackBar5Change
           PageSize = 10
           Position = 1
           TickStyle = tsNone
+          OnChange = TrackBar5Change
           ParentFont = False
           TabOrder = 2
         end
@@ -1065,7 +1050,6 @@ object Form2: TForm2
           Anchors = [akLeft, akBottom]
           BorderSpacing.Bottom = 2
           Caption = 'Overlay :'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -1077,7 +1061,6 @@ object Form2: TForm2
           Top = 360
           Width = 86
           Caption = 'Transparency:'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -1092,7 +1075,6 @@ object Form2: TForm2
           Anchors = [akTop, akRight]
           BorderSpacing.Right = 8
           Caption = '-'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -1107,7 +1089,6 @@ object Form2: TForm2
           Width = 8
           BorderSpacing.Left = 8
           Caption = '+'
-          Color = clDefault
           ParentColor = False
           ParentFont = False
           Transparent = False
@@ -1131,13 +1112,13 @@ object Form2: TForm2
           Width = 440
           Anchors = [akLeft, akBottom]
           BorderSpacing.Bottom = 4
-          ItemHeight = 18
-          OnChange = ComboBoxOverlayChange
+          ItemHeight = 24
           ParentColor = True
           ParentFont = False
           Sorted = True
           Style = csDropDownList
           TabOrder = 1
+          OnChange = ComboBoxOverlayChange
         end
         object GroupBox2: TGroupBox
           Left = 19
@@ -1145,8 +1126,9 @@ object Form2: TForm2
           Top = 400
           Width = 367
           Caption = 'Grid'
-          ClientHeight = 51
+          ClientHeight = 52
           ClientWidth = 363
+          ParentBackground = False
           ParentFont = False
           TabOrder = 3
           object Label45: TLabel
@@ -1155,7 +1137,6 @@ object Form2: TForm2
             Top = 21
             Width = 5
             Caption = '-'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -1166,7 +1147,6 @@ object Form2: TForm2
             Top = 21
             Width = 8
             Caption = '+'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -1179,7 +1159,6 @@ object Form2: TForm2
             Alignment = taCenter
             AutoSize = False
             Caption = 'LabelGrid'
-            Color = clDefault
             ParentColor = False
             ParentFont = False
             Transparent = False
@@ -1193,10 +1172,10 @@ object Form2: TForm2
             LineSize = 5
             Max = 30
             Min = 1
-            OnChange = TrackBar3Change
             PageSize = 5
             Position = 5
             TickStyle = tsNone
+            OnChange = TrackBar3Change
             ParentFont = False
             TabOrder = 1
           end
@@ -1231,10 +1210,10 @@ object Form2: TForm2
           Width = 208
           Anchors = [akLeft, akBottom]
           BorderSpacing.Bottom = 2
-          ItemHeight = 18
-          OnChange = ComboBoxCategoryChange
+          ItemHeight = 24
           Style = csDropDownList
           TabOrder = 4
+          OnChange = ComboBoxCategoryChange
         end
         object Label66: TLabel
           AnchorSideLeft.Control = ComboBoxOrigin
@@ -1257,17 +1236,17 @@ object Form2: TForm2
           Top = 46
           Width = 208
           Anchors = [akTop, akRight]
-          ItemHeight = 18
-          OnChange = ComboBoxOriginChange
+          ItemHeight = 24
           Style = csDropDownList
           TabOrder = 5
+          OnChange = ComboBoxOriginChange
         end
       end
     end
     object TabSheet2: TTabSheet
       Caption = 'Images'
       ClientHeight = 481
-      ClientWidth = 529
+      ClientWidth = 527
       ParentFont = False
       object Label9: TLabel
         Left = 9
@@ -1275,7 +1254,6 @@ object Form2: TForm2
         Top = 26
         Width = 137
         Caption = 'Repertoires d''images :'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1285,9 +1263,9 @@ object Form2: TForm2
         Height = 266
         Top = 42
         Width = 400
+        AutoFillColumns = True
         ColCount = 2
         DefaultRowHeight = 22
-        AutoFillColumns = True
         FixedCols = 0
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
         ParentColor = True
@@ -1297,8 +1275,8 @@ object Form2: TForm2
         TabOrder = 2
         OnSelectCell = StringGrid1SelectCell
         ColWidths = (
-          115
-          250
+          190
+          189
         )
       end
       object CheckBox12: TCheckBox
@@ -1307,9 +1285,9 @@ object Form2: TForm2
         Top = 2
         Width = 130
         Caption = 'Afficheur externe'
-        OnClick = CheckBox12Click
         ParentFont = False
         TabOrder = 0
+        OnClick = CheckBox12Click
       end
       object Edit4: TEdit
         Left = 157
@@ -1330,8 +1308,8 @@ object Form2: TForm2
         Caption = '...'
         Enabled = False
         Flat = True
-        OnClick = Button3Click
         ParentFont = False
+        OnClick = Button3Click
       end
       object CheckBox15: TCheckBox
         Left = 9
@@ -1342,21 +1320,11 @@ object Form2: TForm2
         ParentFont = False
         TabOrder = 3
       end
-      object Button7: TSpeedButton
-        Left = 53
-        Height = 25
-        Top = 316
-        Width = 235
-        Caption = 'Button7'
-        Flat = True
-        OnClick = Button7Click
-        ParentFont = False
-      end
     end
     object TabSheet5: TTabSheet
       Caption = 'Eyepieces'
       ClientHeight = 481
-      ClientWidth = 529
+      ClientWidth = 527
       ParentFont = False
       object Label24: TLabel
         Left = 8
@@ -1364,7 +1332,6 @@ object Form2: TForm2
         Top = 8
         Width = 136
         Caption = 'Telescope focal length'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1375,7 +1342,6 @@ object Form2: TForm2
         Top = 34
         Width = 129
         Caption = 'Eyepiece focal length'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1386,7 +1352,6 @@ object Form2: TForm2
         Top = 61
         Width = 197
         Caption = 'Eyepiece apparent field of vision'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1397,7 +1362,6 @@ object Form2: TForm2
         Top = 95
         Width = 15
         Caption = '=>'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1408,7 +1372,6 @@ object Form2: TForm2
         Top = 95
         Width = 40
         Caption = 'Power'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1507,8 +1470,8 @@ object Form2: TForm2
         Caption = 'Compute'
         Flat = True
         Transparent = False
-        OnClick = Button6Click
         ParentFont = False
+        OnClick = Button6Click
       end
       object Edit10: TEdit
         Left = 126
@@ -1526,7 +1489,6 @@ object Form2: TForm2
         Top = 8
         Width = 33
         Caption = '[mm]'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1537,7 +1499,6 @@ object Form2: TForm2
         Top = 34
         Width = 33
         Caption = '[mm]'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1548,7 +1509,6 @@ object Form2: TForm2
         Top = 61
         Width = 15
         Caption = '[°]'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1559,7 +1519,6 @@ object Form2: TForm2
         Top = 95
         Width = 7
         Caption = 'x'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1570,7 +1529,6 @@ object Form2: TForm2
         Top = 95
         Width = 12
         Caption = '['']'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1579,7 +1537,7 @@ object Form2: TForm2
     object TabSheet8: TTabSheet
       Caption = 'CCD'
       ClientHeight = 481
-      ClientWidth = 529
+      ClientWidth = 527
       ParentFont = False
       object StringGrid3: TStringGrid
         Left = 8
@@ -1626,7 +1584,6 @@ object Form2: TForm2
         Top = 8
         Width = 136
         Caption = 'Telescope focal length'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1637,7 +1594,6 @@ object Form2: TForm2
         Top = 34
         Width = 55
         Caption = 'Pixel size'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1648,7 +1604,6 @@ object Form2: TForm2
         Top = 97
         Width = 15
         Caption = '=>'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1659,7 +1614,6 @@ object Form2: TForm2
         Top = 58
         Width = 67
         Caption = 'Pixel count'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1702,8 +1656,8 @@ object Form2: TForm2
         Caption = 'Compute'
         Flat = True
         Transparent = False
-        OnClick = Button9Click
         ParentFont = False
+        OnClick = Button9Click
       end
       object Edit15: TEdit
         Left = 168
@@ -1721,7 +1675,6 @@ object Form2: TForm2
         Top = 34
         Width = 8
         Caption = 'X'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1732,7 +1685,6 @@ object Form2: TForm2
         Top = 58
         Width = 8
         Caption = 'X'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1743,7 +1695,6 @@ object Form2: TForm2
         Top = 97
         Width = 8
         Caption = 'X'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1784,7 +1735,6 @@ object Form2: TForm2
         Top = 8
         Width = 33
         Caption = '[mm]'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1795,7 +1745,6 @@ object Form2: TForm2
         Top = 34
         Width = 29
         Caption = '[mu]'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1806,7 +1755,6 @@ object Form2: TForm2
         Top = 97
         Width = 12
         Caption = '['']'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1815,7 +1763,7 @@ object Form2: TForm2
     object Impression: TTabSheet
       Caption = 'Impression'
       ClientHeight = 481
-      ClientWidth = 529
+      ClientWidth = 527
       ParentFont = False
       object Bevel6: TBevel
         Left = 8
@@ -1837,7 +1785,6 @@ object Form2: TForm2
         Top = 64
         Width = 43
         Caption = 'Marge '
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1848,7 +1795,6 @@ object Form2: TForm2
         Top = 64
         Width = 69
         Caption = 'millimetres'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1859,7 +1805,6 @@ object Form2: TForm2
         Top = 103
         Width = 192
         Caption = 'Largeur du texte de description'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1877,7 +1822,6 @@ object Form2: TForm2
         Top = 22
         Width = 73
         Caption = 'Imprimante'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1888,7 +1832,6 @@ object Form2: TForm2
         Top = 300
         Width = 183
         Caption = 'Taille des images enregistrees'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1900,7 +1843,6 @@ object Form2: TForm2
         Top = 241
         Width = 164
         Caption = 'Enregistrement des cartes '
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1913,7 +1855,6 @@ object Form2: TForm2
         Alignment = taCenter
         AutoSize = False
         Caption = 'LabelImp'
-        Color = clDefault
         ParentColor = False
         ParentFont = False
         Transparent = False
@@ -1926,9 +1867,9 @@ object Form2: TForm2
         Frequency = 125
         Max = 1200
         Min = 200
-        OnChange = TrackBar1Change
         Position = 700
         TickStyle = tsNone
+        OnChange = TrackBar1Change
         ParentFont = False
         TabOrder = 1
       end
@@ -1971,8 +1912,8 @@ object Form2: TForm2
         Width = 90
         Caption = 'Configuration'
         Flat = True
-        OnClick = Button2Click
         ParentFont = False
+        OnClick = Button2Click
       end
       object CheckBox13: TCheckBox
         Left = 24
@@ -2023,6 +1964,7 @@ object Form2: TForm2
     BevelOuter = bvNone
     ClientHeight = 41
     ClientWidth = 533
+    ParentBackground = False
     ParentFont = False
     TabOrder = 1
     object Button1: TSpeedButton
@@ -2033,8 +1975,8 @@ object Form2: TForm2
       Caption = 'OK'
       Flat = True
       Transparent = False
-      OnClick = Button1Click
       ParentFont = False
+      OnClick = Button1Click
     end
     object Button4: TSpeedButton
       Left = 224
@@ -2044,8 +1986,8 @@ object Form2: TForm2
       Caption = 'Cancel'
       Flat = True
       Transparent = False
-      OnClick = Button4Click
       ParentFont = False
+      OnClick = Button4Click
     end
   end
   object ColorDialog1: TColorDialog

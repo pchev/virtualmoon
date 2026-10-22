@@ -2614,10 +2614,6 @@ object Form1: TForm1
       Visible = False
       OnClick = OverlayCaption1Click
     end
-    object OptFeatures1: TMenuItem
-      Caption = 'Check for optional features'
-      OnClick = OptFeatures1Click
-    end
     object Apropos1: TMenuItem
       Caption = 'A propos'
       OnClick = Apropos1Click
