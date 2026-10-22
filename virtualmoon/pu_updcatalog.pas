@@ -438,17 +438,29 @@ begin
         end;
         dl.ConfirmDownload := False;
         // try availability of faster download
-        dl.URL := URL_CATALOG_LIST1+catalog_list;
+        dl.URL := URL_CATALOG_LIST1+catalog_list1+'_'+uplanguage+'.txt';
         dl.SaveToFile := fn;
         result:=dl.Execute;
         if not result then begin
-          // if not available try with sourceforge
-          LabelProgress.Caption:=dl.ResponseText;
-          dl.URL := URL_CATALOG_LIST2+catalog_list;
+          dl.URL := URL_CATALOG_LIST1+catalog_list1+'_EN.txt';
           dl.SaveToFile := fn;
           result:=dl.Execute;
-          if not result then
+          if not result then begin
+            // if not available try with sourceforge
             LabelProgress.Caption:=dl.ResponseText;
+            dl.URL := URL_CATALOG_LIST2+catalog_list1+'_'+uplanguage+'.txt';
+            dl.SaveToFile := fn;
+            result:=dl.Execute;
+            if not result then begin
+              // if not available try with sourceforge
+              LabelProgress.Caption:=dl.ResponseText;
+              dl.URL := URL_CATALOG_LIST2+catalog_list1+'_EN.txt';
+              dl.SaveToFile := fn;
+              result:=dl.Execute;
+            end;
+            if not result then
+              LabelProgress.Caption:=dl.ResponseText;
+          end;
         end;
       finally
         dl.Free;

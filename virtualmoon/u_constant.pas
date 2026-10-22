@@ -124,6 +124,7 @@ const crlf = chr(10)+chr(13);
                       'Textures/LAC/L5/0.jpg'                            // LAC
                       );
       catalog_list = 'data_list.txt';
+      catalog_list1 = 'data_list';
       URL_CATALOG_LIST1 = 'https://vega.ap-i.net/pub/vmadata/';  // faster download
       URL_CATALOG_LIST2 = 'https://sourceforge.net/projects/virtualmoon/files/2-data/';
 
