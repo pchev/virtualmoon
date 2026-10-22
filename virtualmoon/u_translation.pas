@@ -449,6 +449,7 @@ rsToSaveSpaceO = 'To save space on your computer you can now remove the director
 rsAndThePictur = 'and the pictures at the same location';
 rsYes = 'Yes';
 rsNo = 'No';
+rsContinue = 'Continue';
 
 implementation
 

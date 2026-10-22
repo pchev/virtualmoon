@@ -258,6 +258,7 @@ begin
   label7.Caption:=rsDoYouWantToC;
   btnYes1.Caption:=rsYes;
   btnNo1.Caption:=rsNo;
+  button1.Caption:=rsContinue;
 
 end;
 
