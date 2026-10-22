@@ -161,8 +161,8 @@ object f_updcatalog: Tf_updcatalog
         Left = 36
         Height = 54
         Top = 40
-        Width = 364
-        Caption = 'Data migration'#10#10'Do you want to migrate the data from the previous version?'
+        Width = 608
+        Caption = 'The pictures and textures files installed in a previous version can be copied for use with this version.'#10'This may take time but save you a new download of this data.'#10'Do you want to migrate the data from the previous version?'
       end
       object PanelMigBtn: TPanel
         Left = 0
@@ -183,7 +183,7 @@ object f_updcatalog: Tf_updcatalog
           OnClick = btnYesClick
         end
         object btnNo: TButton
-          Left = 40
+          Left = 36
           Height = 25
           Top = 8
           Width = 75
@@ -200,17 +200,51 @@ object f_updcatalog: Tf_updcatalog
         Smooth = True
         TabOrder = 1
       end
+      object Label8: TLabel
+        Left = 36
+        Height = 18
+        Top = 13
+        Width = 41
+        Caption = 'Label8'
+      end
+      object PanelMigComplete: TPanel
+        Left = 0
+        Height = 168
+        Top = 224
+        Width = 812
+        BevelOuter = bvNone
+        ClientHeight = 168
+        ClientWidth = 812
+        TabOrder = 2
+        object Button1: TButton
+          Left = 36
+          Height = 25
+          Top = 136
+          Width = 112
+          Caption = 'Continue'
+          TabOrder = 0
+          OnClick = btnYesClick
+        end
+        object memomig: TMemo
+          Left = 36
+          Height = 120
+          Top = 8
+          Width = 772
+          ReadOnly = True
+          TabOrder = 1
+        end
+      end
     end
     object TabSheetNewInstall: TTabSheet
       Caption = 'TabSheetNewInstall'
       ClientHeight = 398
       ClientWidth = 870
       object Label6: TLabel
-        Left = 41
-        Height = 90
+        Left = 36
+        Height = 54
         Top = 40
         Width = 621
-        Caption = 'New data installation'#10#10'The base data for the program need to be installed now.'#10#10'You can select the source of the data, from the Internet or from a local folder, using the button on top.'
+        Caption = 'The base data for the program need to be installed now.'#10#10'You can select the source of the data, from the Internet or from a local folder, using the button on top.'
       end
       object btnYes1: TButton
         Left = 176
@@ -222,7 +256,7 @@ object f_updcatalog: Tf_updcatalog
         OnClick = btnYesClick
       end
       object btnNo1: TButton
-        Left = 41
+        Left = 36
         Height = 25
         Top = 224
         Width = 75
@@ -231,11 +265,18 @@ object f_updcatalog: Tf_updcatalog
         OnClick = btnNoClick
       end
       object Label7: TLabel
-        Left = 41
+        Left = 36
         Height = 18
         Top = 187
         Width = 156
         Caption = 'Do you want to continue?'
+      end
+      object Label9: TLabel
+        Left = 36
+        Height = 18
+        Top = 13
+        Width = 129
+        Caption = 'New data installation'
       end
     end
   end
@@ -333,7 +374,7 @@ object f_updcatalog: Tf_updcatalog
     Enabled = False
     Interval = 2000
     OnTimer = EndInstallTimerTimer
-    Left = 40
-    Top = 360
+    Left = 112
+    Top = 472
   end
 end

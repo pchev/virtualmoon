@@ -1,100 +1,100 @@
-#: u_translation:rstranslator
+#: u_ccluntranslation:rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
 msgstr ""
 
-#: u_translation:rslanguage
+#: u_ccluntranslation:rslanguage
 msgid "English"
 msgstr ""
 
-#: u_translation:rstitle
+#: u_ccluntranslation:rstitle
 msgid "Virtual Lunar Atlas Command Center"
 msgstr ""
 
-#: u_translation:rshelp_prefix
+#: u_ccluntranslation:rshelp_prefix
 msgid "EN"
 msgstr ""
 
-#: u_translation:rsvirtuallunar
+#: u_ccluntranslation:rsvirtuallunar
 msgid "Virtual Lunar Atlas"
 msgstr ""
 
-#: u_translation:rsspecialediti
+#: u_ccluntranslation:rsspecialediti
 msgid "Special edition \"10th anniversary\""
 msgstr ""
 
-#: u_translation:rsdocumentatio
+#: u_ccluntranslation:rsdocumentatio
 msgid "Documentation"
 msgstr ""
 
-#: u_translation:rstutorial
+#: u_ccluntranslation:rstutorial
 msgid "Tutorial "
 msgstr ""
 
-#: u_translation:rsquit
+#: u_ccluntranslation:rsquit
 msgid "Quit"
 msgstr ""
 
-#: u_translation:rsexplorethelu
+#: u_ccluntranslation:rsexplorethelu
 msgid "Explore the Lunar Atlas maps"
 msgstr ""
 
-#: u_translation:rssearchinthea
+#: u_ccluntranslation:rssearchinthea
 msgid "Search in the Atlas databases"
 msgstr ""
 
-#: u_translation:rsbrowsetheatl
+#: u_ccluntranslation:rsbrowsetheatl
 msgid "Browse the Atlas pictures"
 msgstr ""
 
-#: u_translation:rstheatlasinte
+#: u_ccluntranslation:rstheatlasinte
 msgid "The Atlas Internet resources"
 msgstr ""
 
-#: u_translation:rsexitthecomma
+#: u_ccluntranslation:rsexitthecomma
 msgid "Exit the Command Center"
 msgstr ""
 
-#: u_translation:rsreadthequick
+#: u_ccluntranslation:rsreadthequick
 msgid "Read the quick guide"
 msgstr ""
 
-#: u_translation:rsreadthefulld
+#: u_ccluntranslation:rsreadthefulld
 msgid "Read the full documentation"
 msgstr ""
 
-#: u_translation:rsatlundocumen
+#: u_ccluntranslation:rsatlundocumen
 msgid "AtLun documentation"
 msgstr ""
 
-#: u_translation:rsdatlundocume
+#: u_ccluntranslation:rsdatlundocume
 msgid "DatLun documentation"
 msgstr ""
 
-#: u_translation:rsphotlundocum
+#: u_ccluntranslation:rsphotlundocum
 msgid "PhotLun documentation"
 msgstr ""
 
-#: u_translation:rsweblundocume
+#: u_ccluntranslation:rsweblundocume
 msgid "WebLun documentation"
 msgstr ""
 
-#: u_translation:rsnotelundocum
+#: u_ccluntranslation:rsnotelundocum
 msgid "NoteLun documentation"
 msgstr ""
 
-#: u_translation:rscalclundocum
+#: u_ccluntranslation:rscalclundocum
 msgid "CalcLun documentation"
 msgstr ""
 
-#: u_translation:rslunarcalcula
+#: u_ccluntranslation:rslunarcalcula
 msgid "Lunar calculation"
 msgstr ""
 
-#: u_translation:rscclundocumen
+#: u_ccluntranslation:rscclundocumen
 msgid "CcLun documentation"
 msgstr ""
 
-#: u_translation:rsabout
+#: u_ccluntranslation:rsabout
 msgid "About"
 msgstr ""
 

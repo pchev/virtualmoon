@@ -430,6 +430,23 @@ rsInternet = 'Internet';
 rsLocalFiles = 'Local files';
 rsSelectLocalD = 'Select local directory:';
 rsConfigureThe = 'Configure the data source';
+rsProgramResta = 'Program restart';
+rsTheProgramWi = 'The program will restart now to complete the installation.';
+rsCopyFile = 'Copy file';
+rsCopyComplete = 'Copy complete';
+rsCopyFileErro = 'Copy file error!';
+rsDownloadErro = 'Download error';
+rsFilesExtract = 'files extracted';
+rsCannotInstal = 'Cannot install the data now';
+rsThePicturesA = 'The pictures and textures files installed in a previous version can be copied for use with this version.%sThis may take some time but save you a new download of this data.%sDo you want to migrate the data from the previous version?';
+rsDataMigratio = 'Data migration';
+rsCopyFilesFro = 'Copy files from';
+rsNewDataInsta = 'New data installation';
+rsTheBaseDataN = 'The base data necessary to run the program need to be installed now.%sYou can select the source of the data, from the Internet or from a local folder, using the button on top.';
+rsDoYouWantToC = 'Do you want to continue?';
+rsToDoThatRemo = 'To do that remove the following packages with %s';
+rsToSaveSpaceO = 'To save space on your computer you can now remove the directory';
+rsAndThePictur = 'and the pictures at the same location';
 
 implementation
 

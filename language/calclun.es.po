@@ -1,0 +1,486 @@
+# Spanish translation for virtualmoon
+# Copyright (c) 2026 Rosetta Contributors and Canonical Ltd 2026
+# This file is distributed under the same license as the virtualmoon package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+msgid ""
+msgstr ""
+"Project-Id-Version: virtualmoon\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2026-10-22 11:12+0000\n"
+"PO-Revision-Date: 2026-05-29 21:39+0000\n"
+"Last-Translator: Alejandro Virgos Muller <Unknown>\n"
+"Language-Team: Spanish <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2026-10-22 11:32+0000\n"
+"X-Generator: Launchpad (build 56f1eb70c27d2139772ead22665134d9e7db3f2e)\n"
+
+#: u_translation.rsabout
+msgid "About"
+msgstr ""
+
+#: u_translation.rsalt
+msgid "Alt"
+msgstr "Alt"
+
+#: u_translation.rsaltitude
+msgid "Altitude"
+msgstr ""
+
+#: u_translation.rsalwaysup
+msgid "Always up"
+msgstr "Siempre arriba"
+
+#: u_translation.rsapril
+msgid "April"
+msgstr "abril"
+
+#: u_translation.rsaugust
+msgid "August"
+msgstr ""
+
+#: u_translation.rsazimut
+msgid "Azimuth"
+msgstr "Acimut"
+
+#: u_translation.rsbyday
+msgid "by day"
+msgstr "Por día"
+
+#: u_translation.rsbymonth
+msgid "by month"
+msgstr "Por mes"
+
+#: u_translation.rsbyyear
+msgid "by year"
+msgstr "Por año"
+
+#: u_translation.rscancel
+msgid "Cancel"
+msgstr ""
+
+#: u_translation.rsclose
+msgid "Close"
+msgstr "Cerrar"
+
+#: u_translation.rscolongitude
+msgid "Colongitude"
+msgstr "Colonguitud"
+
+#: u_translation.rscompute
+msgid "Compute"
+msgstr ""
+
+#: u_translation.rsconfiguratio
+msgid "Configuration"
+msgstr ""
+
+#: u_translation.rsconstraints
+msgid "Constraints"
+msgstr ""
+
+#: u_translation.rscountry
+msgid "Country"
+msgstr "País"
+
+#: u_translation.rsdatabasenotf
+msgid "Database not found! Run AtLun or DatLun to initialize the database."
+msgstr ""
+
+#: u_translation.rsdate
+msgid "Date"
+msgstr "Fecha"
+
+#: u_translation.rsdatetime
+msgid "Date / Time"
+msgstr "Fecha / Hora"
+
+#: u_translation.rsday
+msgid "Day"
+msgstr "Día"
+
+#: u_translation.rsde2000
+msgid "DE 2000"
+msgstr "DE 2000"
+
+#: u_translation.rsdeapparent
+msgid "DE apparent"
+msgstr "DE aparente"
+
+#: u_translation.rsdecember
+msgid "December"
+msgstr ""
+
+#: u_translation.rsdegreeaboveh
+msgid "degree above horizon"
+msgstr ""
+
+#: u_translation.rsdegreebelowh
+msgid "degree below horizon"
+msgstr ""
+
+#: u_translation.rsdiameter
+msgid "Diameter"
+msgstr "Diámetro"
+
+#: u_translation.rsdistance
+msgid "Distance"
+msgstr "Distancia"
+
+#: u_translation.rse
+msgid "E"
+msgstr "E"
+
+#: u_translation.rseast
+msgid "East"
+msgstr "Este"
+
+#: u_translation.rselevation
+msgid "Elevation"
+msgstr "Elevación"
+
+#: u_translation.rsenddate
+msgid "End date"
+msgstr ""
+
+#: u_translation.rsendtime
+msgid "End time"
+msgstr "Hora de finalización"
+
+#: u_translation.rsephemeris
+msgid "Ephemeris"
+msgstr ""
+
+#: u_translation.rsfebruary
+msgid "February"
+msgstr "febrero"
+
+#: u_translation.rsfile
+msgid "File"
+msgstr ""
+
+#: u_translation.rsfirstquarter
+msgid "First quarter"
+msgstr "Cuarto creciente"
+
+#: u_translation.rsformationcoo
+msgid "Formation coordinates"
+msgstr "Coordenadas de la formación"
+
+#: u_translation.rsfullmoon
+msgid "Full Moon"
+msgstr "Luna llena"
+
+#: u_translation.rshelp
+msgid "Help"
+msgstr ""
+
+#: u_translation.rshelp_prefix
+msgid "EN"
+msgstr ""
+
+#: u_translation.rshour
+msgid "Hour"
+msgstr "Hora"
+
+#: u_translation.rsillumination
+msgid "Illumination"
+msgstr "Iluminación"
+
+#: u_translation.rsjanuary
+msgid "January"
+msgstr "enero"
+
+#: u_translation.rsjuly
+msgid "July"
+msgstr ""
+
+#: u_translation.rsjune
+msgid "June"
+msgstr ""
+
+#: u_translation.rslang
+msgid "Language"
+msgstr ""
+
+#: u_translation.rslanguage
+msgid "English"
+msgstr ""
+
+#: u_translation.rslastquarter
+msgid "Last quarter"
+msgstr "Luna menguante"
+
+#: u_translation.rslatitude
+msgid "Latitude"
+msgstr ""
+
+#: u_translation.rslibration
+msgid "Libration"
+msgstr "Libración"
+
+#: u_translation.rslibrationext
+msgid "Libration extrema"
+msgstr ""
+
+#: u_translation.rslibrationlat
+msgid "Libration latitude"
+msgstr "Latitud de libración"
+
+#: u_translation.rslibrationlon
+msgid "Libration longitude"
+msgstr "Loguitud de libración"
+
+#: u_translation.rslibrlat
+msgid "Libr. lat."
+msgstr "Latitude de libración"
+
+#: u_translation.rslibrlon
+msgid "Libr. lon."
+msgstr "Longuitud de libración"
+
+#: u_translation.rslongitude
+msgid "Longitude"
+msgstr ""
+
+#: u_translation.rslunation
+msgid "Lunation"
+msgstr "Lunación"
+
+#: u_translation.rsmarch
+msgid "March"
+msgstr "marzo"
+
+#: u_translation.rsmaximum
+msgid "Maximum"
+msgstr "Máximo"
+
+#: u_translation.rsmay
+msgid "May"
+msgstr ""
+
+#: u_translation.rsminimum
+msgid "Minimum"
+msgstr "Mínimo"
+
+#: u_translation.rsmonth
+msgid "Month"
+msgstr "Mes"
+
+#: u_translation.rsmoon
+msgid "Moon"
+msgstr ""
+
+#: u_translation.rsmoonphase
+msgid "Moon phase"
+msgstr ""
+
+#: u_translation.rsmoonvisiblef
+msgid "Moon visible from the observatory"
+msgstr ""
+
+#: u_translation.rsn
+msgid "N"
+msgstr "N"
+
+#: u_translation.rsneverrise
+msgid "Never rise"
+msgstr ""
+
+#: u_translation.rsnewmoon
+msgid "New Moon"
+msgstr "Luna nueva"
+
+#: u_translation.rsnorth
+msgid "North"
+msgstr "Norte"
+
+#: u_translation.rsnovember
+msgid "November"
+msgstr ""
+
+#: u_translation.rsobservatory
+msgid "Observatory"
+msgstr "Observatorio"
+
+#: u_translation.rsoctober
+msgid "October"
+msgstr ""
+
+#: u_translation.rsok
+msgid "OK"
+msgstr ""
+
+#: u_translation.rsonlynighteve
+msgid "Only night events"
+msgstr ""
+
+#: u_translation.rspa
+msgid "PA"
+msgstr ""
+
+#: u_translation.rsphase
+msgid "Phase"
+msgstr "Fase"
+
+#: u_translation.rsprediction
+msgid "Prediction"
+msgstr ""
+
+#: u_translation.rspredictiondu
+msgid "Prediction duration"
+msgstr ""
+
+#: u_translation.rspredictionfo
+msgid "Prediction for libration, with formation illuminated"
+msgstr ""
+
+#: u_translation.rsra2000
+msgid "RA 2000"
+msgstr "RA 2000"
+
+#: u_translation.rsraapparent
+msgid "RA apparent"
+msgstr "AR aparente"
+
+#: u_translation.rsrise
+msgid "Rise"
+msgstr "Orto"
+
+#: u_translation.rsrisetime
+msgid "Rise time"
+msgstr "Hora de salida"
+
+#: u_translation.rss
+msgid "S"
+msgstr "S"
+
+#: u_translation.rssaveephemeri
+msgid "Save ephemeris to file"
+msgstr ""
+
+#: u_translation.rssearch
+msgid "Search"
+msgstr "Buscar"
+
+#: u_translation.rssearchformat
+msgid "Search formation"
+msgstr "Buscar formación"
+
+#: u_translation.rsselectgraph
+msgid "Select graph"
+msgstr "Seleciona gráfica"
+
+#: u_translation.rsseptember
+msgid "September"
+msgstr ""
+
+#: u_translation.rsset
+msgid "Set"
+msgstr "Puesta"
+
+#: u_translation.rssettime
+msgid "Set time"
+msgstr "Hora de puesta"
+
+#: u_translation.rssetup
+msgid "Setup"
+msgstr "Configuración"
+
+#: u_translation.rssouth
+msgid "South"
+msgstr "Sur"
+
+#: u_translation.rsstartdate
+msgid "Start date"
+msgstr ""
+
+#: u_translation.rsstarttime
+msgid "Start time"
+msgstr "Hora de inicio"
+
+#: u_translation.rssteps
+msgid "Steps"
+msgstr ""
+
+#: u_translation.rssubsolarlati
+msgid "Sub-solar latitude"
+msgstr "Latitud sub-solar"
+
+#: u_translation.rssun
+msgid "Sun"
+msgstr ""
+
+#: u_translation.rssunelevation
+msgid "Sun elevation at start"
+msgstr ""
+
+#: u_translation.rssunelevation2
+msgid "Sun elevation range"
+msgstr ""
+
+#: u_translation.rssunelevation3
+msgid "Sun elevation on a formation"
+msgstr ""
+
+#: u_translation.rssunelevation4
+msgid "Sun elevation at end"
+msgstr ""
+
+#: u_translation.rssunrise
+msgid "Sun rise"
+msgstr "Amanecer"
+
+#: u_translation.rssunset
+msgid "Sun set"
+msgstr "Atardecer"
+
+#: u_translation.rsterminator
+msgid "Terminator"
+msgstr "Terminador"
+
+#: u_translation.rstime
+msgid "Time"
+msgstr ""
+
+#: u_translation.rstimepredicti
+msgid "Prediction for increasing solar elevation"
+msgstr ""
+
+#: u_translation.rstimepredicti2
+msgid "Prediction for decreasing solar elevation"
+msgstr ""
+
+#: u_translation.rstimepredicti3
+msgid "Prediction for colongitude"
+msgstr ""
+
+#: u_translation.rstimezone
+msgid "Time Zone"
+msgstr "Zona horaria"
+
+#: u_translation.rstitle
+msgid "Calclun"
+msgstr ""
+
+#: u_translation.rstoday
+msgid "Today"
+msgstr "Hoy"
+
+#: u_translation.rstwilightandm
+msgid "Twilight and Moon visibility"
+msgstr "Crepúsculo y visibilidad lunar"
+
+#: u_translation.rsw
+msgid "W"
+msgstr "O"
+
+#: u_translation.rswest
+msgid "West"
+msgstr "Oeste"
+
+#: u_translation.rsyear
+msgid "Year"
+msgstr "Año"
+

@@ -1014,20 +1014,8 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: u_translation:rsyourinstalla
-msgid "Your installation is already complete with all the features installed."
-msgstr ""
-
-#: u_translation:rsyoucandownlo
-msgid "You can download and install the following optional features:"
-msgstr ""
-
 #: u_translation:rsdownload
 msgid "Download"
-msgstr ""
-
-#: u_translation:rscheckforopti
-msgid "Check for optional features"
 msgstr ""
 
 #: u_translation:rspicturelib
@@ -1596,5 +1584,157 @@ msgstr ""
 
 #: u_translation:rsrealtimeupda
 msgid "Real time update"
+msgstr ""
+
+#: u_translation:rsnewversionav
+msgid "New version available"
+msgstr ""
+
+#: u_translation:rsinstalled
+msgid "Installed"
+msgstr ""
+
+#: u_translation:rsinstall
+msgid "Install"
+msgstr ""
+
+#: u_translation:rsmissingprere
+msgid "Missing prerequisites"
+msgstr ""
+
+#: u_translation:rsinstallnewve
+msgid "Install new version %s over %s"
+msgstr ""
+
+#: u_translation:rsuninstall
+msgid "Uninstall"
+msgstr ""
+
+#: u_translation:rsinstalling
+msgid "Installing"
+msgstr ""
+
+#: u_translation:rsdelete
+msgid "Delete"
+msgstr ""
+
+#: u_translation:rserror2
+msgid "Error"
+msgstr ""
+
+#: u_translation:rsdownloadfile
+msgid "Download File"
+msgstr ""
+
+#: u_translation:rsunzipfile
+msgid "Unzip file"
+msgstr ""
+
+#: u_translation:rsabort
+msgid "Abort"
+msgstr ""
+
+#: u_translation:rspackage
+msgid "Package"
+msgstr ""
+
+#: u_translation:rsstatus
+msgid "Status"
+msgstr ""
+
+#: u_translation:rsselectdatato
+msgid "Select data to install or remove"
+msgstr ""
+
+#: u_translation:rsinstalladdit
+msgid "Install additional packages"
+msgstr ""
+
+#: u_translation:rsselectthedat
+msgid "Select the data source"
+msgstr ""
+
+#: u_translation:rsinternet
+msgid "Internet"
+msgstr ""
+
+#: u_translation:rslocalfiles
+msgid "Local files"
+msgstr ""
+
+#: u_translation:rsselectlocald
+msgid "Select local directory:"
+msgstr ""
+
+#: u_translation:rsconfigurethe
+msgid "Configure the data source"
+msgstr ""
+
+#: u_translation:rsprogramresta
+msgid "Program restart"
+msgstr ""
+
+#: u_translation:rstheprogramwi
+msgid "The program will restart now to complete the installation."
+msgstr ""
+
+#: u_translation:rscopyfile
+msgid "Copy file"
+msgstr ""
+
+#: u_translation:rscopycomplete
+msgid "Copy complete"
+msgstr ""
+
+#: u_translation:rscopyfileerro
+msgid "Copy file error!"
+msgstr ""
+
+#: u_translation:rsdownloaderro
+msgid "Download error"
+msgstr ""
+
+#: u_translation:rsfilesextract
+msgid "files extracted"
+msgstr ""
+
+#: u_translation:rscannotinstal
+msgid "Cannot install the data now"
+msgstr ""
+
+#: u_translation:rsthepicturesa
+msgid "The pictures and textures files installed in a previous version can be copied for use with this version.%sThis may take some time but save you a new download of this data.%sDo you want to migrate the data from the previous version?"
+msgstr ""
+
+#: u_translation:rsdatamigratio
+msgid "Data migration"
+msgstr ""
+
+#: u_translation:rscopyfilesfro
+msgid "Copy files from"
+msgstr ""
+
+#: u_translation:rsnewdatainsta
+msgid "New data installation"
+msgstr ""
+
+#: u_translation:rsthebasedatan
+msgid "The base data necessary to run the program need to be installed now.%sYou can select the source of the data, from the Internet or from a local folder, using the button on top."
+msgstr ""
+
+#: u_translation:rsdoyouwanttoc
+msgid "Do you want to continue?"
+msgstr ""
+
+#: u_translation:rstodothatremo
+msgid "To do that remove the following packages with %s"
+msgstr ""
+
+#: u_translation:rstosavespaceo
+msgid "To save space on your computer you can now remove the directory"
+msgstr ""
+
+#: u_translation:rsandthepictur
+msgid "and the pictures at the same location"
 msgstr ""
 

@@ -2017,7 +2017,7 @@ end;
 
 procedure TForm1.GetAppDir;
 var
-  testdata,testbin: string;
+  testdata1,testdata2,testbin: string;
 {$ifdef mswindows}
   buf: string;
   PIDL:   PItemIDList;
@@ -2025,7 +2025,8 @@ var
 {$endif}
 begin
 try
-testdata:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
+testdata1:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
+testdata2:=slash('Database')+'01_IAU_NAMED_EN.csv';
 testbin:=DefaultPhotlun;
 {$ifdef darwin}
   bindir := slash(ExtractFilePath(ParamStr(0)));
@@ -2143,7 +2144,7 @@ testbin:=DefaultPhotlun;
     CreateDir(DBdir);
   if not directoryexists(DBdir) then
     forcedirectories(DBdir);
-  NeedToInstallData := not FileExists(slash(appdir)+testdata);
+  NeedToInstallData := (not FileExists(slash(appdir)+testdata1))or(not FileExists(slash(appdir)+testdata2));
   Maplun  := '"'+bindir + DefaultMaplun+'"';
   Photlun := '"'+bindir + DefaultPhotlun+'"';
   Datlun  := '"'+bindir + DefaultDatlun+'"';
@@ -4002,7 +4003,7 @@ end;
 procedure TForm1.StartTimerTimer(Sender: TObject);
 var savecaption: string;
     i: integer;
-    testdata: string;
+    testdata1,testdata2: string;
 begin
 StartTimer.Enabled:=false;
 if NeedToInstallData then begin
@@ -4010,8 +4011,9 @@ if NeedToInstallData then begin
   Application.ProcessMessages;
   f_updcatalog.InitialData;
   Application.ProcessMessages;
-  testdata:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
-  NeedToInstallData := not FileExists(slash(appdir)+testdata);
+  testdata1:=slash('Textures')+slash('WAC_LOWSUN')+slash('L1')+'0.jpg';
+  testdata2:=slash('Database')+'01_IAU_NAMED_EN.csv';
+  NeedToInstallData := (not FileExists(slash(appdir)+testdata1))or(not FileExists(slash(appdir)+testdata2));
   if NeedToInstallData then begin
     MessageDlg('The program cannot start without installing the required data.' + crlf +
       'Please try again when you are ready to install them.' + crlf,
@@ -4020,7 +4022,7 @@ if NeedToInstallData then begin
   end
   else begin
     NeedRestart := True;
-    MessageDlg('Program restart','The program will restart now to complete the installation.',mtInformation,[mbOK],0);
+    MessageDlg(rsProgramResta, rsTheProgramWi, mtInformation, [mbOK], 0);
     Close;
     exit;
   end;

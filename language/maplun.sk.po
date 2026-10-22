@@ -2,20 +2,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-01 08:39+0000\n"
+"POT-Creation-Date: 2026-10-22 11:12+0000\n"
 "PO-Revision-Date: 2025-04-25 12:12+0000\n"
 "Last-Translator: Ing. Maroš Horňák <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2026-02-07 12:00+0000\n"
-"X-Generator: Launchpad (build 4847db153920c8fbc330ac275b92a72279fa07a2)\n"
+"X-Launchpad-Export-Date: 2026-10-22 11:32+0000\n"
+"X-Generator: Launchpad (build 56f1eb70c27d2139772ead22665134d9e7db3f2e)\n"
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 
 #: u_translation.rsabbreviated
 msgid "Abbreviated"
+msgstr ""
+
+#: u_translation.rsabort
+msgid "Abort"
 msgstr ""
 
 #: u_translation.rsabortslew
@@ -54,6 +58,10 @@ msgstr ""
 msgid "Vertical amplification"
 msgstr ""
 
+#: u_translation.rsandthepictur
+msgid "and the pictures at the same location"
+msgstr ""
+
 #: u_translation.rsapparentsize
 msgid "Apparent size :"
 msgstr ""
@@ -87,6 +95,10 @@ msgstr ""
 msgid "Attach information and tools"
 msgstr ""
 
+#: u_translation.rscannotinstal
+msgid "Cannot install the data now"
+msgstr ""
+
 #: u_translation.rscaption
 msgid "Caption"
 msgstr ""
@@ -107,16 +119,16 @@ msgstr ""
 msgid "CCD name"
 msgstr ""
 
-#: u_translation.rscheckforopti
-msgid "Check for optional features"
-msgstr "Skontrolovať voliteľné možnosti"
-
 #: u_translation.rsclementineph
 msgid "Clementine photographic"
 msgstr "Clementine fotografická"
 
 #: u_translation.rsconfigure
 msgid "Configure"
+msgstr ""
+
+#: u_translation.rsconfigurethe
+msgid "Configure the data source"
 msgstr ""
 
 #: u_translation.rsconnect
@@ -127,12 +139,32 @@ msgstr ""
 msgid "Connection to INDI server failed!"
 msgstr ""
 
+#: u_translation.rscopycomplete
+msgid "Copy complete"
+msgstr ""
+
+#: u_translation.rscopyfile
+msgid "Copy file"
+msgstr ""
+
+#: u_translation.rscopyfileerro
+msgid "Copy file error!"
+msgstr ""
+
+#: u_translation.rscopyfilesfro
+msgid "Copy files from"
+msgstr ""
+
 #: u_translation.rscountry
 msgid "Country"
 msgstr "Krajina"
 
 #: u_translation.rscrater
 msgid "Crater"
+msgstr ""
+
+#: u_translation.rsdatamigratio
+msgid "Data migration"
 msgstr ""
 
 #: u_translation.rsdecreasefont
@@ -146,6 +178,10 @@ msgstr "Predvolený"
 #: u_translation.rsdegree
 msgid "d"
 msgstr "°"
+
+#: u_translation.rsdelete
+msgid "Delete"
+msgstr ""
 
 #: u_translation.rsdetachinform
 msgid "Detach information and tools"
@@ -167,12 +203,24 @@ msgstr ""
 msgid "Download"
 msgstr "Stiahnúť"
 
+#: u_translation.rsdownloaderro
+msgid "Download error"
+msgstr ""
+
+#: u_translation.rsdownloadfile
+msgid "Download File"
+msgstr ""
+
 #: u_translation.rsdownloadurl
 msgid "http://ap-i.net/avl/en/download"
 msgstr "http://ap-i.net/avl/en/download"
 
 #: u_translation.rsdoyoureallyw
 msgid "Do you really want to park the mount now?"
+msgstr ""
+
+#: u_translation.rsdoyouwanttoc
+msgid "Do you want to continue?"
 msgstr ""
 
 #: u_translation.rsdriverselect
@@ -211,6 +259,10 @@ msgstr ""
 msgid "Ephemeris:"
 msgstr "Efemeridy:"
 
+#: u_translation.rserror2
+msgid "Error"
+msgstr ""
+
 #: u_translation.rsexcavationde
 msgid "Excavation depth :"
 msgstr ""
@@ -221,6 +273,10 @@ msgstr ""
 
 #: u_translation.rsfeaturetype
 msgid "Feature labels"
+msgstr ""
+
+#: u_translation.rsfilesextract
+msgid "files extracted"
 msgstr ""
 
 #: u_translation.rsfirstusesett
@@ -331,6 +387,31 @@ msgstr ""
 msgid "INDI server port"
 msgstr ""
 
+#: u_translation.rsinstall
+msgid "Install"
+msgstr ""
+
+#: u_translation.rsinstalladdit
+msgid "Install additional packages"
+msgstr ""
+
+#: u_translation.rsinstalled
+msgid "Installed"
+msgstr ""
+
+#: u_translation.rsinstalling
+msgid "Installing"
+msgstr ""
+
+#: u_translation.rsinstallnewve
+#, object-pascal-format
+msgid "Install new version %s over %s"
+msgstr ""
+
+#: u_translation.rsinternet
+msgid "Internet"
+msgstr ""
+
 #: u_translation.rslabelsfont
 msgid "Labels font"
 msgstr "Font menoviek"
@@ -350,6 +431,10 @@ msgstr "Slovenský"
 #: u_translation.rslevel
 msgid "Level:"
 msgstr "Úroveň:"
+
+#: u_translation.rslocalfiles
+msgid "Local files"
+msgstr ""
 
 #: u_translation.rslocalzenitho
 msgid "Local zenith on top"
@@ -397,6 +482,10 @@ msgstr ""
 
 #: u_translation.rsminute
 msgid "'"
+msgstr ""
+
+#: u_translation.rsmissingprere
+msgid "Missing prerequisites"
 msgstr ""
 
 #: u_translation.rsmons
@@ -691,12 +780,20 @@ msgstr ""
 msgid "Name type :"
 msgstr ""
 
+#: u_translation.rsnewdatainsta
+msgid "New data installation"
+msgstr ""
+
 #: u_translation.rsnewinformati
 msgid "New information note"
 msgstr ""
 
 #: u_translation.rsnewobservati
 msgid "New observation note"
+msgstr ""
+
+#: u_translation.rsnewversionav
+msgid "New version available"
 msgstr ""
 
 #: u_translation.rsnodatabasese
@@ -737,6 +834,10 @@ msgstr ""
 
 #: u_translation.rsorigin
 msgid "Origin"
+msgstr ""
+
+#: u_translation.rspackage
+msgid "Package"
 msgstr ""
 
 #: u_translation.rspalus
@@ -799,6 +900,10 @@ msgstr ""
 msgid "Profile plot"
 msgstr ""
 
+#: u_translation.rsprogramresta
+msgid "Program restart"
+msgstr ""
+
 #: u_translation.rspromontorium
 msgid "Promontorium"
 msgstr ""
@@ -853,6 +958,18 @@ msgstr ""
 
 #: u_translation.rsselect
 msgid "Select"
+msgstr ""
+
+#: u_translation.rsselectdatato
+msgid "Select data to install or remove"
+msgstr ""
+
+#: u_translation.rsselectlocald
+msgid "Select local directory:"
+msgstr ""
+
+#: u_translation.rsselectthedat
+msgid "Select the data source"
 msgstr ""
 
 #: u_translation.rssettime
@@ -915,6 +1032,10 @@ msgstr ""
 msgid "Start date"
 msgstr ""
 
+#: u_translation.rsstatus
+msgid "Status"
+msgstr ""
+
 #: u_translation.rssteps
 msgid "Steps"
 msgstr ""
@@ -955,6 +1076,20 @@ msgstr ""
 msgid "Textures LRO/WAC photographic High Resolution"
 msgstr ""
 
+#: u_translation.rsthebasedatan
+#, object-pascal-format
+msgid "The base data necessary to run the program need to be installed now.%sYou can select the source of the data, from the Internet or from a local folder, using the button on top."
+msgstr ""
+
+#: u_translation.rsthepicturesa
+#, object-pascal-format
+msgid "The pictures and textures files installed in a previous version can be copied for use with this version.%sThis may take some time but save you a new download of this data.%sDo you want to migrate the data from the previous version?"
+msgstr ""
+
+#: u_translation.rstheprogramwi
+msgid "The program will restart now to complete the installation."
+msgstr ""
+
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
 msgstr "Virtual Moon Atlas"
@@ -963,9 +1098,18 @@ msgstr "Virtual Moon Atlas"
 msgid "To"
 msgstr ""
 
+#: u_translation.rstodothatremo
+#, object-pascal-format
+msgid "To do that remove the following packages with %s"
+msgstr ""
+
 #: u_translation.rstopocentric
 msgid "Topocentric"
 msgstr "Topocentrická"
+
+#: u_translation.rstosavespaceo
+msgid "To save space on your computer you can now remove the directory"
+msgstr ""
 
 #: u_translation.rstracking
 msgid "Tracking"
@@ -1575,12 +1719,20 @@ msgstr "Slovník"
 msgid "Cancel"
 msgstr "Zrušiť"
 
+#: u_translation.rsuninstall
+msgid "Uninstall"
+msgstr ""
+
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
 msgstr ""
 
 #: u_translation.rsunpark
 msgid "Unpark"
+msgstr ""
+
+#: u_translation.rsunzipfile
+msgid "Unzip file"
 msgstr ""
 
 #: u_translation.rsusing
@@ -1603,14 +1755,6 @@ msgstr ""
 #: u_translation.rswindowpositi
 msgid "Window position coupling"
 msgstr ""
-
-#: u_translation.rsyoucandownlo
-msgid "You can download and install the following optional features:"
-msgstr "Môžete stiahnúť a nainštalovať následujúce volitelné doplnky"
-
-#: u_translation.rsyourinstalla
-msgid "Your installation is already complete with all the features installed."
-msgstr "Vaša inštalácia je už kompletná zo všetkými doplnkami."
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"

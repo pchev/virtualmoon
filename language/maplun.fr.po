@@ -3,20 +3,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: maplun.fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-01 08:39+0000\n"
-"PO-Revision-Date: 2025-06-01 08:46+0000\n"
+"POT-Creation-Date: 2026-10-22 11:12+0000\n"
+"PO-Revision-Date: 2026-10-22 11:28+0000\n"
 "Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2026-02-07 12:00+0000\n"
-"X-Generator: Launchpad (build 4847db153920c8fbc330ac275b92a72279fa07a2)\n"
+"X-Launchpad-Export-Date: 2026-10-22 11:32+0000\n"
+"X-Generator: Launchpad (build 56f1eb70c27d2139772ead22665134d9e7db3f2e)\n"
 "Language: fr\n"
 
 #: u_translation.rsabbreviated
 msgid "Abbreviated"
 msgstr "Abrégé"
+
+#: u_translation.rsabort
+msgid "Abort"
+msgstr "Abandon"
 
 #: u_translation.rsabortslew
 msgid "Abort Slew"
@@ -54,6 +58,10 @@ msgstr "Tout"
 msgid "Vertical amplification"
 msgstr "Amplification verticale"
 
+#: u_translation.rsandthepictur
+msgid "and the pictures at the same location"
+msgstr "et les images au même endroit"
+
 #: u_translation.rsapparentsize
 msgid "Apparent size :"
 msgstr "Taille apparente :"
@@ -87,6 +95,10 @@ msgstr "comme image PNG"
 msgid "Attach information and tools"
 msgstr "Attache les informations et les outils"
 
+#: u_translation.rscannotinstal
+msgid "Cannot install the data now"
+msgstr "Ne peut pas installer les données maintenant"
+
 #: u_translation.rscaption
 msgid "Caption"
 msgstr "Légende"
@@ -107,10 +119,6 @@ msgstr "Champ CCD"
 msgid "CCD name"
 msgstr "Nom du CCD"
 
-#: u_translation.rscheckforopti
-msgid "Check for optional features"
-msgstr "Composants en option"
-
 #: u_translation.rsclementineph
 msgid "Clementine photographic"
 msgstr "Photographique Clementine"
@@ -118,6 +126,10 @@ msgstr "Photographique Clementine"
 #: u_translation.rsconfigure
 msgid "Configure"
 msgstr "Configure"
+
+#: u_translation.rsconfigurethe
+msgid "Configure the data source"
+msgstr "Configure la source de donnée"
 
 #: u_translation.rsconnect
 msgid "Connect"
@@ -127,6 +139,22 @@ msgstr "Connecter"
 msgid "Connection to INDI server failed!"
 msgstr "La connexion au serveur INDI a échoué!"
 
+#: u_translation.rscopycomplete
+msgid "Copy complete"
+msgstr "Copie terminée"
+
+#: u_translation.rscopyfile
+msgid "Copy file"
+msgstr "Copier le fichier"
+
+#: u_translation.rscopyfileerro
+msgid "Copy file error!"
+msgstr "Erreur de copie du fichier!"
+
+#: u_translation.rscopyfilesfro
+msgid "Copy files from"
+msgstr "Copie des fichiers depuis"
+
 #: u_translation.rscountry
 msgid "Country"
 msgstr "Pays"
@@ -134,6 +162,10 @@ msgstr "Pays"
 #: u_translation.rscrater
 msgid "Crater"
 msgstr "Cratère"
+
+#: u_translation.rsdatamigratio
+msgid "Data migration"
+msgstr "Migration des données"
 
 #: u_translation.rsdecreasefont
 msgid "Decrease font size"
@@ -146,6 +178,10 @@ msgstr "par défaut"
 #: u_translation.rsdegree
 msgid "d"
 msgstr "°"
+
+#: u_translation.rsdelete
+msgid "Delete"
+msgstr "Supprimer"
 
 #: u_translation.rsdetachinform
 msgid "Detach information and tools"
@@ -167,6 +203,14 @@ msgstr "Dorsale marine"
 msgid "Download"
 msgstr "Téléchargement"
 
+#: u_translation.rsdownloaderro
+msgid "Download error"
+msgstr "Erreur de téléchargement"
+
+#: u_translation.rsdownloadfile
+msgid "Download File"
+msgstr "Télécharger le fichier"
+
 #: u_translation.rsdownloadurl
 msgid "http://ap-i.net/avl/en/download"
 msgstr "http://ap-i.net/avl/fr/download"
@@ -174,6 +218,10 @@ msgstr "http://ap-i.net/avl/fr/download"
 #: u_translation.rsdoyoureallyw
 msgid "Do you really want to park the mount now?"
 msgstr "Voulez-vous vraiment parquer la monture maintenant?"
+
+#: u_translation.rsdoyouwanttoc
+msgid "Do you want to continue?"
+msgstr "Voulez-vous continuer ?"
 
 #: u_translation.rsdriverselect
 msgid "Driver Selection"
@@ -211,6 +259,10 @@ msgstr "Date de fin"
 msgid "Ephemeris:"
 msgstr "Ephéméride:"
 
+#: u_translation.rserror2
+msgid "Error"
+msgstr "Erreur"
+
 #: u_translation.rsexcavationde
 msgid "Excavation depth :"
 msgstr "Profondeur de l'excavation :"
@@ -222,6 +274,10 @@ msgstr "Exporter"
 #: u_translation.rsfeaturetype
 msgid "Feature labels"
 msgstr "Label des formations"
+
+#: u_translation.rsfilesextract
+msgid "files extracted"
+msgstr "fichiers extrait"
 
 #: u_translation.rsfirstusesett
 msgid "First use setting"
@@ -331,6 +387,31 @@ msgstr "Serveur INDI "
 msgid "INDI server port"
 msgstr "Port serveur"
 
+#: u_translation.rsinstall
+msgid "Install"
+msgstr "Installation"
+
+#: u_translation.rsinstalladdit
+msgid "Install additional packages"
+msgstr "Installer des paquets supplémentaires"
+
+#: u_translation.rsinstalled
+msgid "Installed"
+msgstr "Installé"
+
+#: u_translation.rsinstalling
+msgid "Installing"
+msgstr "Installation en cours"
+
+#: u_translation.rsinstallnewve
+#, object-pascal-format
+msgid "Install new version %s over %s"
+msgstr "Installer la nouvelle version %s en remplacement de %s"
+
+#: u_translation.rsinternet
+msgid "Internet"
+msgstr "Internet"
+
 #: u_translation.rslabelsfont
 msgid "Labels font"
 msgstr "Police des labels"
@@ -350,6 +431,10 @@ msgstr "Français"
 #: u_translation.rslevel
 msgid "Level:"
 msgstr "Niveau:"
+
+#: u_translation.rslocalfiles
+msgid "Local files"
+msgstr "Fichiers locaux"
 
 #: u_translation.rslocalzenitho
 msgid "Local zenith on top"
@@ -398,6 +483,10 @@ msgstr "Minimal"
 #: u_translation.rsminute
 msgid "'"
 msgstr "'"
+
+#: u_translation.rsmissingprere
+msgid "Missing prerequisites"
+msgstr "Prérequis manquants"
 
 #: u_translation.rsmons
 msgid "Mons"
@@ -691,6 +780,10 @@ msgstr "Formations nommées"
 msgid "Name type :"
 msgstr "Type de nom :"
 
+#: u_translation.rsnewdatainsta
+msgid "New data installation"
+msgstr "Installation des nouvelles données"
+
 #: u_translation.rsnewinformati
 msgid "New information note"
 msgstr "Nouvelle note d'information"
@@ -698,6 +791,10 @@ msgstr "Nouvelle note d'information"
 #: u_translation.rsnewobservati
 msgid "New observation note"
 msgstr "Nouvelle note d'observation"
+
+#: u_translation.rsnewversionav
+msgid "New version available"
+msgstr "Nouvelle version disponible"
 
 #: u_translation.rsnodatabasese
 msgid "No database selected!"
@@ -738,6 +835,10 @@ msgstr "Inclinaison de l'orbite"
 #: u_translation.rsorigin
 msgid "Origin"
 msgstr "Origine"
+
+#: u_translation.rspackage
+msgid "Package"
+msgstr "Paquet"
 
 #: u_translation.rspalus
 msgid "Palus"
@@ -799,6 +900,10 @@ msgstr "Processus de formation :"
 msgid "Profile plot"
 msgstr "Tracé de profil"
 
+#: u_translation.rsprogramresta
+msgid "Program restart"
+msgstr "Redémarage du programme"
+
 #: u_translation.rspromontorium
 msgid "Promontorium"
 msgstr "Promontoire"
@@ -854,6 +959,18 @@ msgstr "\""
 #: u_translation.rsselect
 msgid "Select"
 msgstr "Choix"
+
+#: u_translation.rsselectdatato
+msgid "Select data to install or remove"
+msgstr "Choisir les données à installer ou retirer"
+
+#: u_translation.rsselectlocald
+msgid "Select local directory:"
+msgstr "Choisir le répertoire local:"
+
+#: u_translation.rsselectthedat
+msgid "Select the data source"
+msgstr "Choix de la source de donnée"
 
 #: u_translation.rssettime
 msgid "Set Time"
@@ -915,6 +1032,10 @@ msgstr "Départ"
 msgid "Start date"
 msgstr "Date de début"
 
+#: u_translation.rsstatus
+msgid "Status"
+msgstr "État"
+
 #: u_translation.rssteps
 msgid "Steps"
 msgstr "Pas"
@@ -955,6 +1076,20 @@ msgstr "Texture Phase avec relief dynamique utilisant les données de LRO/WAC"
 msgid "Textures LRO/WAC photographic High Resolution"
 msgstr "Texture Photographique LRO/WAC Haute Résolution"
 
+#: u_translation.rsthebasedatan
+#, object-pascal-format
+msgid "The base data necessary to run the program need to be installed now.%sYou can select the source of the data, from the Internet or from a local folder, using the button on top."
+msgstr "Les données de base nécessaires au fonctionnement du programme doivent être installées maintenant.%sVous pouvez sélectionner la source des données, depuis Internet ou depuis un dossier local, à l'aide du bouton situé en haut."
+
+#: u_translation.rsthepicturesa
+#, object-pascal-format
+msgid "The pictures and textures files installed in a previous version can be copied for use with this version.%sThis may take some time but save you a new download of this data.%sDo you want to migrate the data from the previous version?"
+msgstr "Les fichiers d'images et de textures installés dans une version précédente peuvent être copiés pour être utilisés avec cette version.%sCela peut prendre un certain temps, mais vous évitera de télécharger à nouveau ces données.%sVoulez-vous migrer les données de la version précédente ?"
+
+#: u_translation.rstheprogramwi
+msgid "The program will restart now to complete the installation."
+msgstr "Le programme va redémarrer pour terminer l'installation"
+
 #: u_translation.rstitle
 msgid "Virtual Moon Atlas"
 msgstr "Atlas Virtuel de la Lune"
@@ -963,9 +1098,18 @@ msgstr "Atlas Virtuel de la Lune"
 msgid "To"
 msgstr "Vers"
 
+#: u_translation.rstodothatremo
+#, object-pascal-format, fuzzy, badformat
+msgid "To do that remove the following packages with %s"
+msgstr "Pour cela supprimer les paquets suivants avec"
+
 #: u_translation.rstopocentric
 msgid "Topocentric"
 msgstr "Topocentrique"
+
+#: u_translation.rstosavespaceo
+msgid "To save space on your computer you can now remove the directory"
+msgstr "Pour conserver de l'espace sur votre ordinateur vous pouvez supprimer le répertoire"
 
 #: u_translation.rstracking
 msgid "Tracking"
@@ -1575,6 +1719,10 @@ msgstr "Glossaire"
 msgid "Cancel"
 msgstr "Abandon"
 
+#: u_translation.rsuninstall
+msgid "Uninstall"
+msgstr "Désinstaller"
+
 #: u_translation.rsunnamedforma
 msgid "Unnamed Formation"
 msgstr "Formation non nommée"
@@ -1582,6 +1730,10 @@ msgstr "Formation non nommée"
 #: u_translation.rsunpark
 msgid "Unpark"
 msgstr "Unpark"
+
+#: u_translation.rsunzipfile
+msgid "Unzip file"
+msgstr "Décompression de fichier"
 
 #: u_translation.rsusing
 msgid "Using"
@@ -1603,14 +1755,6 @@ msgstr "Largeur"
 #: u_translation.rswindowpositi
 msgid "Window position coupling"
 msgstr "Couplage de la position"
-
-#: u_translation.rsyoucandownlo
-msgid "You can download and install the following optional features:"
-msgstr "Vous pouvez télécharger les options suivantes:"
-
-#: u_translation.rsyourinstalla
-msgid "Your installation is already complete with all the features installed."
-msgstr "Votre installation est déjà complète avec toutes les options installées."
 
 #: u_translation.rszoomlevel
 msgid "Zoom level"

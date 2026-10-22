@@ -3,114 +3,114 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-01 08:36+0000\n"
+"POT-Creation-Date: 2026-10-22 11:12+0000\n"
 "PO-Revision-Date: 2025-04-25 11:06+0000\n"
 "Last-Translator: Patrick Chevalley <Unknown>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2026-02-07 12:00+0000\n"
-"X-Generator: Launchpad (build 4847db153920c8fbc330ac275b92a72279fa07a2)\n"
+"X-Launchpad-Export-Date: 2026-10-22 11:32+0000\n"
+"X-Generator: Launchpad (build 56f1eb70c27d2139772ead22665134d9e7db3f2e)\n"
 "Language: fr\n"
 
-#: u_translation.rsabout
+#: u_ccluntranslation.rsabout
 msgid "About"
 msgstr "A propos"
 
-#: u_translation.rsatlundocumen
+#: u_ccluntranslation.rsatlundocumen
 msgid "AtLun documentation"
 msgstr "Documentation AtLun"
 
-#: u_translation.rsbrowsetheatl
+#: u_ccluntranslation.rsbrowsetheatl
 msgid "Browse the Atlas pictures"
 msgstr "Parcourir  les photographies lunaires de l'Atlas"
 
-#: u_translation.rscalclundocum
+#: u_ccluntranslation.rscalclundocum
 msgid "CalcLun documentation"
 msgstr "Documentation CalcLun"
 
-#: u_translation.rscclundocumen
+#: u_ccluntranslation.rscclundocumen
 msgid "CcLun documentation"
 msgstr "Documentation CcLun"
 
-#: u_translation.rsdatlundocume
+#: u_ccluntranslation.rsdatlundocume
 msgid "DatLun documentation"
 msgstr "Documentation DatLun"
 
-#: u_translation.rsdocumentatio
+#: u_ccluntranslation.rsdocumentatio
 msgid "Documentation"
 msgstr "Documentation"
 
-#: u_translation.rsexitthecomma
+#: u_ccluntranslation.rsexitthecomma
 msgid "Exit the Command Center"
 msgstr "Sortir du Centre de Commande"
 
-#: u_translation.rsexplorethelu
+#: u_ccluntranslation.rsexplorethelu
 msgid "Explore the Lunar Atlas maps"
 msgstr "Explorer les cartes lunaires de l'Atlas"
 
-#: u_translation.rshelp_prefix
+#: u_ccluntranslation.rshelp_prefix
 msgid "EN"
 msgstr "FR"
 
-#: u_translation.rslanguage
+#: u_ccluntranslation.rslanguage
 msgid "English"
 msgstr "Français"
 
-#: u_translation.rslunarcalcula
+#: u_ccluntranslation.rslunarcalcula
 msgid "Lunar calculation"
 msgstr "Calcul lunaires"
 
-#: u_translation.rsnotelundocum
+#: u_ccluntranslation.rsnotelundocum
 msgid "NoteLun documentation"
 msgstr "Documentation NoteLun"
 
-#: u_translation.rsphotlundocum
+#: u_ccluntranslation.rsphotlundocum
 msgid "PhotLun documentation"
 msgstr "Documentation PhotLun"
 
-#: u_translation.rsquit
+#: u_ccluntranslation.rsquit
 msgid "Quit"
 msgstr "Quitter"
 
-#: u_translation.rsreadthefulld
+#: u_ccluntranslation.rsreadthefulld
 msgid "Read the full documentation"
 msgstr "Lire la documentation complète"
 
-#: u_translation.rsreadthequick
+#: u_ccluntranslation.rsreadthequick
 msgid "Read the quick guide"
 msgstr "Lire le guide rapide"
 
-#: u_translation.rssearchinthea
+#: u_ccluntranslation.rssearchinthea
 msgid "Search in the Atlas databases"
 msgstr "Faites des recherches dans les bases de données de l'Atlas"
 
-#: u_translation.rsspecialediti
+#: u_ccluntranslation.rsspecialediti
 msgid "Special edition \"10th anniversary\""
 msgstr "Edition spéciale \"10eme anniversaire\""
 
-#: u_translation.rstheatlasinte
+#: u_ccluntranslation.rstheatlasinte
 msgid "The Atlas Internet resources"
 msgstr "Les ressources Internet de l'Atlas"
 
-#: u_translation.rstitle
+#: u_ccluntranslation.rstitle
 msgid "Virtual Lunar Atlas Command Center"
 msgstr "Centre de Commande de l'Atlas Virtuel de la Lune"
 
-#: u_translation.rstranslator
+#: u_ccluntranslation.rstranslator
 msgid "Translation: P. Chevalley / C. Legrand"
 msgstr "Traduction: P. Chevalley / C. Legrand"
 
-#: u_translation.rstutorial
+#: u_ccluntranslation.rstutorial
 msgid "Tutorial "
 msgstr "Tutoriel "
 
-#: u_translation.rsvirtuallunar
+#: u_ccluntranslation.rsvirtuallunar
 msgid "Virtual Lunar Atlas"
 msgstr "Atlas Virtuel de la Lune"
 
-#: u_translation.rsweblundocume
+#: u_ccluntranslation.rsweblundocume
 msgid "WebLun documentation"
 msgstr "Documentation WebLun"
 

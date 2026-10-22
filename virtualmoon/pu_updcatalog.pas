@@ -50,21 +50,26 @@ type
     btnYes: TButton;
     btnNo: TButton;
     btnYes1: TButton;
+    Button1: TButton;
     ButtonClose: TButton;
     ButtonAbort: TButton;
     Label1: TLabel;
+    memomig: TMemo;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
     LabelAction: TLabel;
     LabelProgress: TLabel;
     PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
     GridBase: TStringGrid;
+    PanelMigComplete: TPanel;
     PanelMigBtn: TPanel;
     PanelInfo: TPanel;
     PanelDownload: TPanel;
@@ -242,6 +247,14 @@ begin
   ButtonAbort.Caption:=rsAbort;
   ButtonClose.Caption:=rst_30;
   BtnConfig.Caption:=rsConfigureThe;
+  Label8.Caption:=rsDataMigratio;
+  label5.Caption:=Format(rsThePicturesA,[crlf,crlf]);
+  label3.Caption:=rsCopyFilesFro+':';
+  label4.Caption:=rsTo+':';
+  label9.Caption:=rsNewDataInsta;
+  label6.Caption:=Format(rsTheBaseDataN,[crlf+crlf]);
+  label7.Caption:=rsDoYouWantToC;
+
 end;
 
 procedure Tf_updcatalog.FormCreate(Sender: TObject);
@@ -253,6 +266,7 @@ begin
   PageControl1.ActivePageIndex:=0;
   PanelInfo.Visible:=true;
   PanelDownload.Visible:=false;
+  PanelMigComplete.Visible:=false;
   FAbort:=false;
   FRunning:=false;
   FDownloadNow:=true;
@@ -260,6 +274,7 @@ begin
   LocalDataPath:='';
   label1.Caption:='';
   label2.Caption:='';
+  memomig.caption:='';
 end;
 
 procedure Tf_updcatalog.FormShow(Sender: TObject);
@@ -621,6 +636,18 @@ begin
   F.Free;
 end;
 
+procedure Tf_updcatalog.SelectSourceClick(Sender: TObject);
+begin
+  if Sender is TRadioGroup then
+  with Sender as TRadioGroup do begin
+    if Parent is TForm then begin
+      with TDirectoryEdit(TForm(Parent).FindChildControl('DirectoryEdit1')) do begin
+        Enabled:=TRadioGroup(Sender).ItemIndex=1;
+      end;
+    end;
+  end;
+end;
+
 procedure Tf_updcatalog.PageControl1Change(Sender: TObject);
 begin
   case PageControl1.ActivePageIndex of
@@ -636,18 +663,6 @@ begin
          panel1.Visible:=true;
          panel2.Visible:=false;
        end;
-  end;
-end;
-
-procedure Tf_updcatalog.SelectSourceClick(Sender: TObject);
-begin
-  if Sender is TRadioGroup then
-  with Sender as TRadioGroup do begin
-    if Parent is TForm then begin
-      with TDirectoryEdit(TForm(Parent).FindChildControl('DirectoryEdit1')) do begin
-        Enabled:=TRadioGroup(Sender).ItemIndex=1;
-      end;
-    end;
   end;
 end;
 
@@ -709,11 +724,11 @@ try
   InstallInfo:=info;
   fn:=slash(TempDir)+'catalog.zip';
   src:=slash(LocalDataPath)+ExtractFileName(info.url);
-  ProgressMessage:='Copy file '+src;
+  ProgressMessage:=rsCopyFile+' :'+src;
   LabelProgress.Caption:=ProgressMessage;
   Application.ProcessMessages;
   CopyFile(src,fn,[cffOverwriteFile]);
-  ProgressMessage:='Copy complete';
+  ProgressMessage:=rsCopyComplete;
   LabelProgress.Caption:=ProgressMessage;
   Application.ProcessMessages;
   if FileExists(fn) then
@@ -722,7 +737,7 @@ try
   end
   else
   begin
-    ShowMessage('Copy file error!');
+    ShowMessage(rsCopyFileErro);
   end;
 finally
   EndInstallTimer.Enabled:=true;
@@ -787,7 +802,7 @@ try
   end
   else
   begin
-    ShowMessage('Download error: '+httpdownload.HttpErr);
+    ShowMessage(rsDownloadErro+': '+httpdownload.HttpErr);
   end;
 finally
   EndInstallTimer.Enabled:=true;
@@ -847,7 +862,7 @@ end;
 procedure Tf_updcatalog.DownloadError;
 begin
 try
- ShowMessage('Download error: '+httpdownload.HttpErr);
+ ShowMessage(rsDownloadErro+': '+httpdownload.HttpErr);
 finally
   EndInstallTimer.Enabled:=true;
 end;
@@ -901,7 +916,7 @@ procedure Tf_updcatalog.ProgressEvent(Sender : TObject; Const Ratio : Double);
 begin
   inc(ProgressCount);
   if (ProgressCount mod 100) = 0 then begin
-    ProgressMessage:=inttostr(ProgressIndex+ProgressCount)+' files extracted...';
+    ProgressMessage:=inttostr(ProgressIndex+ProgressCount)+' '+rsFilesExtract+Ellipsis;
     LabelProgress.Caption:=ProgressMessage;
     Application.ProcessMessages;
   end;
@@ -992,7 +1007,7 @@ begin
       LoadCatalogList;
     end;
     if GridBase.RowCount<2 then begin
-      MessageDlg('Error','Cannot install the data now!',mtError,[mbClose],0);
+      MessageDlg(rsError2, rsCannotInstal+'!', mtError, [mbClose], 0);
       exit;
     end;
     GridButtonClick(GridBase,colaction,1);
@@ -1041,10 +1056,12 @@ begin
   try
   PageControl1.ActivePageIndex:=1;
   PanelMigBtn.Visible:=true;
+  PanelMigComplete.Visible:=false;
   label1.Caption:=source;
   label2.Caption:=slash(appdir);
   ProgressBarMigration.Max:=max_amateur+max_probe+max_texture*10;
   ProgressBarMigration.Position:=0;
+  memomig.caption:='';
 
   migration_response:='';
   while  migration_response='' do begin
@@ -1168,6 +1185,21 @@ begin
       Rewrite(f);
       WriteLn(f,newversion);
       CloseFile(f);
+    end;
+
+    PanelMigComplete.Visible:=true;
+    memomig.Lines.Add(rsToSaveSpaceO+':');
+    memomig.Lines.Add(slash(source)+'Textures');
+    memomig.Lines.Add(rsAndThePictur);
+    {$ifdef linux}
+    memomig.Lines.Add(Format(rsToDoThatRemo,['"sudo apt-get remove"'])+':');
+    memomig.Lines.Add('virtualmoon-basedata virtualmoon-data virtualmoon-picture');
+    memomig.Lines.Add('virtualmoon-artemis2 virtualmoon-hires virtualmoon-vhres-*');
+    {$endif}
+    migration_response:='';
+    while  migration_response='' do begin
+      sleep(100);
+      Application.ProcessMessages;
     end;
 
    end;
