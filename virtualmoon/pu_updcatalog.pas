@@ -1065,9 +1065,9 @@ begin
  {$ifdef darwin}
   exit;   // no previous Mac version
  {$else}
- if DirectoryExists(oldpath1) then
+ if DirectoryExists(slash(oldpath1)+'Textures') then
    source:=oldpath1
- else if DirectoryExists(oldpath2) then
+ else if DirectoryExists(slash(oldpath2)+'Textures') then
    source:=oldpath2
  else
    exit;  // no previous standard install
