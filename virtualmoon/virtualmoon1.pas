@@ -4949,7 +4949,7 @@ begin
     demlib.Free;
     ClearNotesList;
     if NeedRestart then
-      ExecNoWait(ParamStr(0));
+      ExecNoWait('"'+ParamStr(0)+'"');
     if CursorImage1 <> nil then
     begin
       CursorImage1.Free;
