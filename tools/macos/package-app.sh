@@ -14,10 +14,7 @@
 # No Moon texture/database data is bundled -- it lives in
 # ~/Library/Application Support/Virtual Moon Atlas/ instead, so updating or
 # reinstalling the app never touches it (and no add-on data pack ever goes
-# anywhere under /Applications, not even transiently). Get it with
-# tools/macos/get-virtmoon-data.sh, which fetches straight from upstream's
-# SourceForge packages into that location; the app will not run until
-# that's in place.
+# anywhere under /Applications, not even transiently).
 #
 # atlun is the main executable; its toolbar / menus reach the others. cclun is
 # an alternate launcher; catlun is the catalog editor. Cross-launch works
@@ -74,7 +71,6 @@ PLAN404="$SRC/virtualmoon/library/plan404/libplan404.dylib"
 CSPICE="$SRC/calclun/cspice/libcspice.dylib"
 LANG_DIR="$SRC/language"
 ICO="$SRC/virtualmoon/atlun.ico"
-GETDATA="$HERE/get-virtmoon-data.sh"
 
 DIST="$WORKDIR/dist"
 LIBS="$DIST/libs"
@@ -208,12 +204,7 @@ codesign --verify --deep "$SIDE" && echo "    sidecar signature OK"
 
 echo "==> drop-to-install layout + README"
 ln -s /Applications "$STAGE/Applications"
-if [ -f "$GETDATA" ]; then
-  cp "$GETDATA" "$STAGE/get-virtmoon-data.sh"
-  chmod +x "$STAGE/get-virtmoon-data.sh"
-else
-  echo "    (get-virtmoon-data.sh not found at $GETDATA -- skipping, not fatal)"
-fi
+
 cat > "$STAGE/READ ME FIRST.txt" <<'TXT'
 Virtual Moon Atlas - native macOS (Apple Silicon)
 
@@ -224,20 +215,13 @@ others from its toolbar and menus.
 Install:  drag BOTH "Virtual Moon Atlas.app" and "VMA Menu" (cclun.app)
 onto the Applications folder, keeping them together.
 
-Data:  the Moon texture / database set is NOT bundled inside the app --
-it lives in ~/Library/Application Support/Virtual Moon Atlas/ instead, so
-updating or reinstalling the app never touches it. Get it once: copy
-"get-virtmoon-data.sh" (right here on this disk image) to somewhere like
-~/Downloads and run it --
-  cd ~/Downloads && chmod +x get-virtmoon-data.sh && ./get-virtmoon-data.sh
-It asks which data set you want (there's a menu) and fetches it straight
-from the project's own SourceForge packages. The app will not run until
-this is done once.
-
 First launch:  this build is ad-hoc signed, not notarized, so macOS
 Gatekeeper will refuse the first open. Either:
   * Right-click (Control-click) the app -> Open -> Open, once, OR
   * Terminal:  xattr -dr com.apple.quarantine "/Applications/Virtual Moon Atlas.app"
+  
+The first time it run the program ask to install the required base data 
+directly from the Internet or from a local folder you already download the files. 
 
 Requires Apple Silicon and macOS 11 or later.
 TXT

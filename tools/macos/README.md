@@ -61,6 +61,7 @@ brew install openssl@3      # REQUIRED - calclun/weblun bundle it for TLS (step 
 If `openssl@3` is genuinely unavailable, put a fixed `libssl.3.dylib` /
 `libcrypto.3.dylib` pair (see step 4) in `<workspace>/dist/libs/` by hand and
 `package-app.sh` will use those instead.
+For convenience the files are also available in Installer/Macos/data/openssl-mac-arm64.tgz
 
 ## 2. Build the suite
 
@@ -98,22 +99,9 @@ or package -- it goes straight to
 or reinstalling the app later never touches it, and no add-on data pack
 ever needs to go anywhere under `/Applications`, not even temporarily.
 
-Get it with `tools/macos/get-virtmoon-data.sh` (also copied onto the
-finished `.dmg`, so anyone who just has the built app can fetch data
-without the source checkout at all):
-
-```
-tools/macos/get-virtmoon-data.sh
-```
-
-Run with no arguments, it's interactive -- a menu lets you pick the base
-package alone (~200 MB, enough for a working app) or the fuller data sets
-(real high-res `WAC`, Clementine, picture libraries, several GB). It
-resolves the current file straight from upstream's SourceForge RSS feed
-(so it keeps working if the version number ever changes), verifies the
-download's MD5, and merges into the Application Support folder above
-without ever overwriting anything already there. The app will not run
-until this has been done at least once.
+The base data are installed directly from Internet or from a local directory the 
+first time the program run.
+More data can be installed later using the menu File / Install additional packages.
 
 ## 4. Package
 
@@ -154,7 +142,6 @@ local diagnostics, it writes `atlun.log`).
 |---|---|
 | `build-suite.sh` | toolchain -> eight binaries + libplan404 + libcspice |
 | `package-app.sh` | binaries -> `.app` + `.dmg` (output under the workspace; no data bundled, see step 3) |
-| `get-virtmoon-data.sh` | fetches the Moon texture/database data straight from upstream's SourceForge packages into `~/Library/Application Support/Virtual Moon Atlas/` - also copied onto the built `.dmg` itself, so it works from just the built app, no checkout needed |
 | `vmamenu.c` | compiled arm64 stub the `VMA Menu` sidecar re-`exec()`s `cclun` with (a script there trips Gatekeeper's "install Rosetta" on Rosetta-less Macs) |
 
 Full rationale for every code change is in `PORT_REPORT.md` (attached to Mantis
