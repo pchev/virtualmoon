@@ -84,7 +84,7 @@ CRYPTO="$LIBS/libcrypto.3.dylib"
 STAGE="$DIST/pkg-stage"
 APP="$STAGE/Virtual Moon Atlas.app"
 DMG="$DIST/Virtual-Moon-Atlas-arm64.dmg"
-VERSION="9.1"
+VERSION="9.2"
 
 # --- binaries / helper dylibs present? ------------------------------------
 miss=0

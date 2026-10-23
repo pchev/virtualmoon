@@ -5,7 +5,7 @@
 
 Syntaxe="Syntaxe: buildpkg.sh freepascal_path lazarus_path [linux|win|]"
 
-version=9.1
+version=9.2
 
 builddir=/tmp/virtualmoon  # Be sure this is set to a non existent directory, it is removed after the run!
 export WINEPREFIX=~/.wine
