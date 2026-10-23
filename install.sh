@@ -45,19 +45,4 @@ install -v -m 644 Installer/Linux/vmapro/share/pixmaps/notelun.xpm $destdir/shar
 
 # translation
 install -m 755 -d $destdir/share/virtualmoon/language
-install -v -m 644 language/maplun.en.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/maplun.fr.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/datlun.en.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/datlun.fr.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/vmadatabase.en.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/vmadatabase.fr.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/photlun.en.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/photlun.fr.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/weblun.en.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/weblun.fr.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/cclun.en.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/cclun.fr.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/calclun.en.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/calclun.fr.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/notelun.en.po $destdir/share/virtualmoon/language/
-install -v -m 644 language/notelun.fr.po $destdir/share/virtualmoon/language/
+install -v -m 644 language/*.po $destdir/share/virtualmoon/language/
