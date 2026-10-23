@@ -1064,8 +1064,7 @@ var source,dest: string;
 begin
  {$ifdef darwin}
   exit;   // no previous Mac version
- {$endif}
-
+ {$else}
  if DirectoryExists(oldpath1) then
    source:=oldpath1
  else if DirectoryExists(oldpath2) then
@@ -1226,6 +1225,7 @@ begin
    finally
    PageControl1.ActivePageIndex:=0;
    end;
+   {$endif}
 end;
 
 end.
