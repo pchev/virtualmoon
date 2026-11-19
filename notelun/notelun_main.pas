@@ -883,11 +883,11 @@ begin
   p:='-nn -z 3';
   if PageControl1.ActivePageIndex=1 then begin // info note
     buf:=trim(InfoFormation.text);
-    if buf<>'' then p:=p+' -n '+buf;
+    if buf<>'' then p:=p+' -n "'+buf+'"';
   end
   else begin // obs note
     buf:=trim(ObsFormation.text);
-    if buf<>'' then p:=p+' -n '+buf;
+    if buf<>'' then p:=p+' -n "'+buf+'"';
     if Fobsdatestart>0 then begin
       buf:=FormatDateTime(dateiso,Fobsdatestart);
       p:=p+' -d '+buf;
