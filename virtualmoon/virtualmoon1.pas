@@ -41,7 +41,7 @@ uses
   PrintersDlgs, Printers, Controls, LazFileUtils,
   Messages, SysUtils, Classes, Dialogs, FileUtil, Types, pu_updcatalog,
   ComCtrls, Menus, Buttons, dynlibs, BigIma, pu_ascomclient, pu_indiclient,
-  EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase, LCLType,
+  EnhEdits, IniFiles, passql, passqlite, LCLVersion, InterfaceBase, LCLType, LazVersion,
   Math, CraterList, LResources, IpHtml, Ipfilebroker, UniqueInstance;
 
 type

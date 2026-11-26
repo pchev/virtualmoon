@@ -10,7 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  InterfaceBase, LCLVersion, lclplatformdef, // version number
+  InterfaceBase, LCLVersion, lclplatformdef,LazVersion, // version number
   Forms, printer4lazarus, pu_photlun, libsql, fu_img, pu_config, u_constant;
 
 {$R *.res}

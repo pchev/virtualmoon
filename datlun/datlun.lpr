@@ -10,7 +10,7 @@ uses
   {$ifdef mswindows}
   windows,
   {$endif}
-  InterfaceBase, LCLVersion, lclplatformdef, // version number
+  InterfaceBase, LCLVersion, lclplatformdef, LazVersion, // version number
   Forms, printer4lazarus,
   fmsg, libsql, mlb2, vmabrowser1, vmabrowser2, vmabrowser3,
   vmabrowser4, vmabrowser5, u_util, u_constant;

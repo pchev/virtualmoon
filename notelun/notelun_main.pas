@@ -10,7 +10,7 @@ uses
   {$endif}
   dbutil, u_constant, u_util, libsql, cu_tz, passql, passqlite, UniqueInstance, notelun_setup, Printers, cu_print, UScaleDPI,
   LCLVersion, IniFiles, u_translation, pu_search, pu_date, LazUTF8, PrintersDlgs, Clipbrd, cu_planet, u_projection, math,
-  pu_listselection, pu_export,
+  pu_listselection, pu_export, LazVersion,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Grids, ComCtrls, StdCtrls, Buttons, EditBtn, ExtDlgs, Types;
 
 type

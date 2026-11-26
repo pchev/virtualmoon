@@ -9,7 +9,7 @@ uses
 Windows, ShlObj,
 {$endif}
   u_constant, u_translation, u_util, passql, passqlite, UScaleDPI,
-  downloaddialog, UniqueInstance, IniFiles, Classes, SysUtils, FileUtil, Forms, Controls,
+  downloaddialog, UniqueInstance, IniFiles, Classes, SysUtils, FileUtil, Forms, Controls, LazVersion,
   LCLVersion, LazUTF8, Graphics, Dialogs, ComCtrls, Menus, Grids, ExtCtrls, StdCtrls;
 
 const ncols=7;
